@@ -181,6 +181,7 @@
 
 		public static bool IsListCollectionNull(List<T> lstCollection)
 		{
+            string shortName = "SangDD";
 			if (lstCollection == null) return true;
 			return !lstCollection.Any();
 		}
