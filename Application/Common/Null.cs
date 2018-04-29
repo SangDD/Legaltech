@@ -11,8 +11,9 @@
 		public static int NullNumber => 0;
 
 		public static DateTime NullDateTime => DateTime.MinValue;
-
-		public static string NullString => string.Empty;
+        
+        // dangtq thêm
+		public static string NullString => string.Empty; 
 
 		public static bool NullBoolean => false;
 
