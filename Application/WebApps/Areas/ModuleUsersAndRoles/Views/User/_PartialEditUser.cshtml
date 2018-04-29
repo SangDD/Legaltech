@@ -1,0 +1,135 @@
+﻿@using BussinessFacade
+@using ObjectInfo
+@model  UserInfo
+@try
+{
+    int taskTabId = ViewBag.TaskTabId;
+    var lstGroup = GroupBL.GetAllGroups().Where(o => o.UserType == MsMv_Common.CommonStruct.UserType.USER_TYPE_MSMV).OrderBy(t => t.GroupName).ToList();
+    var isCurrentUser = Model.Id == SessionData.CurrentUser.Id;
+
+    <div class="popup-opacity-wrapper"></div>
+    <div class="d-popup" style="overflow: visible">
+        <div class="d-popup-content">
+            <input type="hidden" id="txtUserNameEdit_@taskTabId" value="@Model.UserName" />
+            <input type="hidden" id="txtUserTypeEdit_@taskTabId" value="@Model.UserType" />
+
+            <div class="d-row-full">
+                <div class="d-row-title"><span>Tên đầy đủ</span> <i class="redspan">(*)</i></div>
+                <div class="d-row-content">
+                    <input type="text" id="txtFullNameEdit_@taskTabId" maxlength="250" value="@Model.FullName" />
+                </div>
+            </div>
+
+            <div class="d-row-full">
+                <div class="d-row-title"><span>Email</span> <i class="redspan">(*)</i></div>
+                <div class="d-row-content">
+                    <input type="text" id="txtEmailEdit_@taskTabId" maxlength="250" value="@Model.Email" />
+                </div>
+            </div>
+
+            <div class="d-row-full">
+                <div class="d-row-title"><span>Trạng thái</span> </div>
+                <div class="d-row-content">
+                    <select id="cboStatusEdit_@taskTabId">
+                        @foreach (var item in MemoryDataCommon.AllCodeCollection.Where(t => t.CdType == MsMv_Common.AllCodeCdType.USER_STATUS))
+                        {
+                            if (item.CdVal == Model.Status.ToString())
+                            {
+                                <option selected="selected" value="@item.CdVal">@item.GetDescriptionByLanguage(Session["Language"].ToString())</option>
+                            }
+                            else
+                            {
+                                <option value="@item.CdVal">@item.GetDescriptionByLanguage(Session["Language"].ToString())</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+
+            @if (!isCurrentUser)
+            {
+                <div class="d-row-full">
+                    <div class="d-row-title"><span>Nhóm</span> </div>
+                    <div class="d-row-content">
+                        <select id="cboGroupIdEdit_@(taskTabId)">
+                            @if (lstGroup.Count(o => o.Id == Model.GroupId) > 0)
+                            {
+                                <option selected="selected" value="-1">None</option>
+                            }
+                            else
+                            {
+                                <option value="-1">None</option>
+                            }
+                            @foreach (var item in lstGroup)
+                            {
+                                if (item.Id == Model.GroupId)
+                                {
+                                    <option selected="selected" value="@item.Id">@item.GroupName</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Id">@item.GroupName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+        <div class="d-popup-footer">
+            <input type="button" id="btnDoEditUser" class="btn group-btn-footer-popup text-color-3 bg-color-3" value="Lưu" onclick="return doEditUser('@taskTabId')" />
+        </div>
+    </div>
+
+    <script>
+			if ('@isCurrentUser'.toUpperCase() === 'TRUE') {
+				window.isCurrentUserEditSelf = true;
+			}
+
+			$(function () {
+				$('#cboStatusEdit_@taskTabId').multipleSelect({
+					filter: true,
+					single: true,
+					isdatastring: false,
+					maxHeight: 150
+				});
+
+				if (!window.isCurrentUserEditSelf) {
+					$('#cboGroupIdEdit_@taskTabId').multipleSelect({
+						filter: true,
+						single: true,
+						isdatastring: false,
+						maxHeight: 150
+					});
+
+					window.cboUserTypeEditChanged(@taskTabId);
+				}
+			});
+
+			function collectDataToEditUser(formData) {
+				formData.append('userInfo.Id', '@Model.Id');
+				formData.append('userInfo.FullName', window.fullNameEdit);
+				formData.append('userInfo.Email', window.emailEdit);
+				formData.append('userInfo.UserType', '@Model.UserType');
+				formData.append('userInfo.COM_ID', window.COM_IDEdit);
+				formData.append('userInfo.Status', window.statusEdit);
+				if (window.isCurrentUserEditSelf) {
+					formData.append('userInfo.GroupId', '@Model.GroupId');
+				} else {
+					formData.append('userInfo.GroupId', window.groupIdEdit);
+				}
+			}
+
+			function setPopupTitleEditUser() {
+				var popupTitle = "Sửa thông tin người dùng: " + '@Html.Raw(Model.UserName)';
+				$('#dpop-edit-user-info').find('.popup-title').text(popupTitle);
+			}
+    </script>
+
+}
+catch (Exception)
+{
+    // ignored
+}

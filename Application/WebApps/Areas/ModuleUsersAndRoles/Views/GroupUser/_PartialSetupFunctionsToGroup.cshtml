@@ -1,0 +1,160 @@
+﻿@using ObjectInfo
+@model string
+@try
+{
+    var groupInfo = new GroupUserInfo();
+    if (ViewBag.GroupInfo != null)
+    {
+        groupInfo = ViewBag.GroupInfo;
+    }
+
+    <style>
+        .ul-functions > li * {
+            cursor: pointer;
+            margin-bottom: 1px;
+        }
+
+        .sub-li-funtions input, .ul-functions input {
+            vertical-align: middle;
+        }
+
+        .ul-functions {
+            margin-left: 20px;
+            padding-left: 0;
+        }
+
+        ul.ul-functions ul {
+            padding-left: 30px;
+            border-left: 1px dotted #6f6f6f;
+            margin-left: 6px;
+            padding-bottom: 13px;
+        }
+
+        .sub-li-funtions {
+            border-left: 1px dotted #6f6f6f;
+        }
+
+        ul.ul-functions ul li:last-child {
+            height: 12px;
+        }
+
+        .name-fn-mns {
+            padding-left: 5px;
+            font-family: Roboto-Medium;
+        }
+    </style>
+
+    <div class="popup-opacity-wrapper"></div>
+    <div class="d-popup" style="overflow: visible">
+        <div style="max-height: 400px; overflow-y: auto; line-height: 24px; vertical-align: middle;">
+            @if (!string.IsNullOrEmpty(Model))
+            {
+                <ul id="root-fng">
+                    @Html.Raw(Model)
+                </ul>
+            }
+            else
+            {
+                <div class="nodata-found-on-popup">Không có dữ liệu</div>
+            }
+        </div>
+        @if (!string.IsNullOrEmpty(Model))
+        {
+            <div class="d-popup-footer">
+                <input type="submit" class="text-color-3 bg-color-3 " value="Lưu" onclick="return doSetupFunctionsToGroup()" />
+            </div>
+        }
+    </div>
+
+    <script>
+		var currentGroupId = '@groupInfo.Id';
+
+		function showHideContent(el) {
+			if ($(el).hasClass('collapsed')) {
+				$(el).removeClass('collapsed');
+				$(el).text('-');
+				$(el).parent().find('[data-fninner="TRUE"]').slideDown('fast');
+			} else {
+				$(el).addClass('collapsed');
+				$(el).text('+');
+				$(el).parent().find('[data-fninner="TRUE"]').slideUp('fast');
+			}
+		}
+
+		function checkInMenu(menu) {
+			try {
+				if ($(menu).prop("checked") === false) {
+					$(menu).parent().parent().find('[data-typefunction="TRUE"]').prop("checked", false);
+				} else {
+					$(menu).parent().parent().find('[data-typefunction="TRUE"]').prop("checked", true);
+				}
+			}catch(err){}
+		}
+
+		function checkFollowMenu(el) {
+			$(el).prev().click();
+		}
+
+		function checkInCurrentFunction(elFn) {
+			try {
+				if ($(elFn).prop("checked") === false) {
+					$(elFn).parent().parent().parent().find('[data-typemenu="TRUE"]').prop("checked", false);
+				} else {
+					var numberFnChecked = $(elFn).parent().parent().find('[data-typefunction="TRUE"]:checked').length;
+					var totalFn = $(elFn).parent().parent().find('[data-typefunction="TRUE"]').length;
+					if (numberFnChecked === totalFn) {
+						$(elFn).parent().parent().parent().find('[data-typemenu="TRUE"]').prop("checked", true);
+					}
+				}
+			}catch(err){}
+		}
+
+		function checkFollowCurrentFunction(el) {
+			$(el).prev().click();
+		}
+
+		function doSetupFunctionsToGroup() {
+			var fnIds = collectDataSetupFunctionsToGroup();
+			$.ajax({
+				url: "/quan-tri-he-thong/quan-ly-nhom-quyen/setup-functions-to-group",
+				type: "POST",
+				headers: { "cache-control": "no-cache" },
+				data: {
+					arrFunctionId: fnIds,
+					groupId: currentGroupId
+				},
+				async: false,
+				success: function (data) {
+					if (data != null) {
+						if (onResponse(data)) {
+							if (data["SetupFunctionsToGroupResult"]["isSetupFunctionsToGroupSuccess"]) {
+								showSuccess(data["SetupFunctionsToGroupResult"]["message"]);
+								ClosePopupDialog('dpop-groupuser', true);
+							} else {
+								showError(data["SetupFunctionsToGroupResult"]["message"]);
+							}
+						}
+					}
+				},
+				error: function (e) {
+					console.log(e);
+				}
+			});
+		}
+
+		function collectDataSetupFunctionsToGroup() {
+			var arrItemSetup = [];
+			$('#root-fng').find('[data-typefunction="TRUE"]:checked').each(function () {
+				var functionId = $(this).attr('data-functionid');
+				arrItemSetup.push(functionId);
+			});
+			return arrItemSetup;
+		}
+    </script>
+}
+catch (Exception)
+{
+    // ignored
+}
+
+

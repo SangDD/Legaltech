@@ -1,0 +1,59 @@
+﻿@using ObjectInfo
+@model UserInfo
+
+@try
+{
+    <div>
+        <div class="task-function-items">
+            <ul class="ul-task-functions-item" id="ulTaskFunctionsItem">
+                <li>
+                    <img src="~/Content/icon/add-disable.svg" />
+                </li>
+                <li><img src="~/Content/icon/edit-disable.svg" /></li>
+                <li><img src="~/Content/icon/delete-disable.svg" /></li>
+                <li><img src="~/Content/icon/save-disable.svg" /></li>
+            </ul>
+        </div>
+        <div class="content-task-function">
+            <div class="detail-item-in-list font-size-20 text-color-5 text-font-bold">Chi tiết thông tin người dùng</div>
+            <div class="d-row-3 d-row-3-first-group">
+                <div class="d-row-title"><span>Tên tài khoản</span></div>
+                <div class="d-row-content text-color-5 text-font-bold">
+                    @Model.UserName
+                </div>
+            </div>
+
+            <div class="d-row-3">
+                <div class="d-row-title"><span>Tên đầy đủ</span></div>
+                <div class="d-row-content text-color-5 text-font-bold">
+                    @Model.FullName
+                </div>
+            </div>
+
+            <div class="d-row-3 text-font-bold">
+                <div class="d-row-title"><span>Loại NSD</span></div>
+                <div class="d-row-content text-color-5">
+                    @Model.UserTypeDisplayName
+                </div>
+            </div>
+
+            <div class="d-row-3 d-row-3-first-group">
+                <div class="d-row-title"><span>Trạng thái</span> </div>
+                <div class="d-row-content text-color-5 text-font-bold">
+                    @Model.StatusDisplayName
+                </div>
+            </div>
+
+            <div class="d-row-3">
+                <div class="d-row-title"><span>Nhóm</span> </div>
+                <div class="d-row-content text-color-5 text-font-bold">
+                    @Model.GroupName
+                </div>
+            </div>
+        </div>
+    </div>
+}
+catch (Exception)
+{
+    // ignored
+}

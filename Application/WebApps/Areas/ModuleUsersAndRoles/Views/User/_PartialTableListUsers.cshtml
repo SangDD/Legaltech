@@ -1,0 +1,59 @@
+﻿@using CommonData
+@using ObjectInfo
+@model List<UserInfo>
+@try
+{
+	<div>
+		<table class="table-lst-data" id="tableListUser">
+			<thead>
+			<tr>
+				<th style="width: 4%">STT</th>
+				<th data-sort id="Username" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Tên đăng nhập</th>
+				<th style="width: 12%" data-sort id="FullName" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Họ tên</th>
+				<th style="width: 12%" data-sort id="BranchDisplayName" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Chi nhánh</th>
+				<th style="width: 12%" data-sort id="WareHouseDisplayName" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Kho</th>
+				<th style="width: 12%" data-sort id="DepartmentDisplayName" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Phòng ban</th>
+				<th style="width: 12%" data-sort id="PositionDisplayName" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Chức vụ</th>
+				<th style="width: 12%" data-sort id="LastTimeUpdated">Cập nhật lúc</th>
+				<th style="width: 100px;">Chức năng</th>
+			</tr>
+			</thead>
+			<tbody>
+			@if (Model != null && Model.Count > 0)
+			{
+				foreach (var item in Model)
+				{
+					<tr>
+						<td class="tdcenteralign">@item.Stt</td>
+						<td class="tdleftalign">@item.Username</td>
+						<td class="tdleftalign">@item.FullName</td>
+						<td class="tdleftalign">@item.BranchDisplayName</td>
+						<td class="tdleftalign">@item.WareHouseDisplayName</td>
+						<td class="tdleftalign">@item.DepartmentDisplayName</td>
+						<td class="tdleftalign">@item.PositionDisplayName</td>
+						<td class="tdleftalign">@item.LastTimeUpdated.ToDateTimeStringN0()</td>
+						<td class="tdcenteralign">
+							<a href="javascript:getViewToEditUser(@item.Id, '@item.Username')" class="icon icon-edit" data-title="Sửa"></a>
+							<a href="javascript:doDeleteUser(@item.Id, @item.IsActive().ToString().ToLower())" class="icon icon-delete" data-title="Xóa"></a>
+						</td>
+					</tr>
+				}
+			}
+			else
+			{
+				<tr>
+					<td colspan="9">Không có dữ liệu</td>
+				</tr>
+			}
+			</tbody>
+		</table>
+	</div>
+
+	<div class="d-paging">
+		@Html.Raw(ViewBag.Paging)
+	</div>
+}
+catch (Exception)
+{
+	// ignored
+}
