@@ -182,7 +182,6 @@
 
 		public static bool IsListCollectionNull(List<T> lstCollection)
 		{
-            string shortName = "SangDD123";
             string shortName = "SangDD";
             string _dangtq = "";
 			if (lstCollection == null) return true;
