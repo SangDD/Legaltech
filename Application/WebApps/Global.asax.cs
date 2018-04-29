@@ -38,11 +38,8 @@
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             MvcHandler.DisableMvcResponseHeader = true;
             this.LoadWebAppDataWhenResetPool();
-
-
-
-            AllCodeBL bl = new AllCodeBL();
-            bl.AllCodeGetAll();
+            //
+            AllCodeBL.LoadAllCodeToMemory();
         }
 
         protected virtual void Application_End(object sender, EventArgs e)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using Npgsql;
 
@@ -173,7 +174,7 @@ namespace DataAccess
             else return null;
         }
 
-        DataSet ExecuteDataset(NpgsqlConnection con, CommandType commandType, string query, NpgsqlParameter[] npgsqlParameters)
+        DataSet ExecuteDataset(NpgsqlConnection con, CommandType commandType, string query, NpgsqlParameter[] npgsqlParameters )
         {
             NpgsqlCommand command = new NpgsqlCommand(query, con);
             command.CommandType = commandType;
@@ -190,7 +191,6 @@ namespace DataAccess
                 NpgsqlTransaction t = command.Connection.BeginTransaction();
                 da = new NpgsqlDataAdapter(command);
                 da.Fill(myDS);
-
                 t.Commit();
             }
             catch (Exception ex)
@@ -203,8 +203,10 @@ namespace DataAccess
             }
 
             return myDS;
- 
         }
+
+
+
 
         NpgsqlConnection GetConnection(string connectionString)
         {
@@ -223,5 +225,6 @@ namespace DataAccess
                 //throw ex;
             }
         }
+         
     }
 }
