@@ -15,7 +15,7 @@
 			}
 			catch (Exception ex)
 			{
-                LogInfo.LogException(ex);
+                LogInfo.LogException(ex); 
 			}
 		}
 
