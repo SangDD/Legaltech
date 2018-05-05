@@ -1,0 +1,61 @@
+﻿@using Common.CommonData
+@model List<ObjectInfos.ModuleUsersAndRoles.FunctionInfo>
+@try
+{
+	<div>
+		<table class="table-lst-data" id="tableListUser">
+			<thead>
+				<tr>
+					<th style="width: 4%">STT</th>
+					<th style="width: 15%" data-sort id="FunctionName" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Function Name</th>
+					<th style="width: 15%" data-sort id="DisplayName" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Display Name</th>
+					<th style="width: 10%" data-sort id="FunctionType">Function Type</th>
+					<th data-sort id="HrefGet">Href Get/Post</th>
+					<th style="width: 5%" data-sort id="Position">Position</th>
+					<th style="width: 5%" data-sort id="ParentId">ParentId</th>
+					<th style="width: 5%" data-sort id="Lev">Level</th>
+					<th style="width: 5%" data-sort id="MenuId">MenuId</th>
+					<th style="width: 100px;">Chức năng</th>
+				</tr>
+			</thead>
+			<tbody>
+				@if (Model != null && Model.Count > 0)
+				{
+					foreach (var item in Model)
+					{
+						<tr>
+							<td class="tdcenteralign">@item.Stt</td>
+							<td class="tdleftalign">@item.FunctionName</td>
+							<td class="tdleftalign">@item.DisplayName</td>
+							<td class="tdleftalign">@item.FunctionTypeDisplayName</td>
+							<td class="tdleftalign">HrefGet: @item.HrefGet <br /> HrefPost: @item.HrefPost</td>
+							<td class="tdrightalign">@item.Position</td>
+							<td class="tdrightalign">@item.ParentId</td>
+							<td class="tdrightalign">@item.Lev</td>
+							<td class="tdrightalign">@item.MenuId</td>
+							<td class="tdcenteralign">
+								<a href="javascript:getViewToEditFunction(@item.Id)" class="icon icon-edit" data-title="Sửa"></a>
+								<a href="javascript:doDeleteFunction(@item.Id)" class="icon icon-delete" data-title="Xóa"></a>
+								<a href="javascript:viewAllInnerFunction(@item.Id)" class="icon icon-stack-papers" data-title="Chức năng con"></a>
+							</td>
+						</tr>
+					}
+				}
+				else
+				{
+					<tr>
+						<td colspan="11">Không có dữ liệu</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+
+	<div class="d-paging">
+		@Html.Raw(ViewBag.Paging)
+	</div>
+}
+catch (Exception)
+{
+	// ignored
+}

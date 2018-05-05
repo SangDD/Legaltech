@@ -1,0 +1,110 @@
+﻿@using BussinessFacade.ModuleUsersAndRoles
+@using Common.Extensions
+@model ObjectInfos.ModuleUsersAndRoles.UserInfo
+@try
+{
+	<div class="popup-opacity-wrapper"></div>
+	<div class="d-popup" style="overflow: visible">
+		<div class="d-popup-content grid grid-2cols">
+			<div>
+				<label>Tên đăng nhập </label>
+				<p class="text-font-medium">@Model.Username</p>
+			</div>
+
+			<div>
+				<label>Họ tên </label>
+				<p class="text-font-medium">@Model.FullName</p>
+			</div>
+
+			<div>
+				<label>Ngày sinh <label>Ngày sinh </label> </label>
+				<p class="text-font-medium">@Model.DateOfBirth.ToDateStringN0()</p>
+			</div>
+
+			<div>
+				<label>Giới tính</label>
+				<p class="text-font-medium">@Model.SexDisplayName</p>
+			</div>
+
+			<div>
+				<label>Email </label>
+				<p class="text-font-medium">@Model.Email</p>
+			</div>
+
+			<div>
+				<label>Điện thoại </label>
+				<p class="text-font-medium">@Model.Phone</p>
+			</div>
+			<div>
+				<label>Hãng </label>
+				<p class="text-font-medium">@Model.ProductMarkDisplayName</p>
+			</div>
+			<div>
+				<label>Phòng ban</label>
+				<p class="text-font-medium">@Model.DepartmentDisplayName</p>
+			</div>
+
+			<div>
+				<label>Chức vụ</label>
+				<p class="text-font-medium">@Model.PositionDisplayName</p>
+			</div>
+			<div>
+				<label>Chi nhánh </label>
+				<p class="text-font-medium">@Model.BranchDisplayName</p>
+			</div>
+			<div>
+				<label>Kho </label>
+				<p class="text-font-medium">@Model.WareHouseDisplayName</p>
+			</div>
+			<div>
+				<label>Loại giá sử dụng</label>
+				<p class="text-font-medium">@Model.UnitPriceTypeDisplayName</p>
+			</div>
+			<div>
+				<label>Trạng thái</label>
+				<p class="text-font-medium">@Model.StatusDisplayName</p>
+			</div>
+
+			<div></div>
+
+			<div>
+				<input type="checkbox" disabled="disabled" class="facheck" @(Model.CanViewOtherBranch() ? "checked=\"checked\"" : "") id="chkbViewOtherBranchEdit" />
+				<label for="chkbViewOtherBranchEdit"><i class="far fa-circle"></i>Thấy được các cửa hàng khác</label>
+			</div>
+			<div>
+				<input type="checkbox" disabled="disabled" class="facheck" @(Model.CanSeeProductTypeS() ? "checked=\"checked\"" : "") id="chkbSeeProductTypeSEdit" />
+				<label for="chkbSeeProductTypeSEdit"><i class="far fa-circle"></i>Thấy được xe loại 2</label>
+			</div>
+
+			<div>
+				<input type="checkbox" disabled="disabled" class="facheck" @(Model.CanChangeInstanceWhenOutStock() ? "checked=\"checked\"" : "") id="chkbChangeInstanceWhenOutStockEdit" />
+				<label for="chkbChangeInstanceWhenOutStockEdit"><i class="far fa-circle"></i>Thay đổi thông tin xe sau khi bán</label>
+			</div>
+
+			<div>
+				<label>Nhóm quyền</label>
+				<div class="groups-checkbox">
+					@if (Model.GroupSelectedCollection.Count > 0)
+					{
+						 foreach (var item in GroupUserBL.GetAllGroups().Where(o => Model.GroupSelectedCollection.Contains(o.Id)).ToList())
+						 {
+							 var chkbId = "chkbGroupIdEdit-" + item.Id;
+							 <input type="checkbox" disabled="disabled" checked="checked" class="facheck" id="@chkbId" value="@item.Id"/>
+							 <label for="@chkbId"><i class="far fa-circle"></i>@item.Name</label>
+							 <br/>
+						}
+					}
+					else
+					{
+						<label>Chưa có nhóm quyền</label>
+					}
+
+				</div>
+			</div>
+		</div>
+	</div>
+}
+catch (Exception)
+{
+	// ignored
+}
