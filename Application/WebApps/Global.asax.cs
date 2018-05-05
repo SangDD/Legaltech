@@ -1,11 +1,14 @@
 ﻿namespace WebApps
 {
 	using System;
-	using System.Web;
+    using System.Globalization;
+    using System.Net;
+    using System.Text.RegularExpressions;
+    using System.Threading;
+    using System.Web;
 	using System.Web.Mvc;
 	using System.Web.Optimization;
 	using System.Web.Routing;
-
 	using AppStart;
 
 	using BussinessFacade.ModuleMemoryData;
@@ -70,9 +73,83 @@
         }
 
         protected virtual void Application_BeginRequest(object sender, EventArgs e)
+
         {
             try
             {
+                string culture = "";
+                var httpCookie = Request.Cookies["language"];
+                var queryLanguage = "";
+                bool isAjaxCall = string.Equals("XMLHttpRequest", Context.Request.Headers["x-requested-with"], StringComparison.OrdinalIgnoreCase);
+
+                if (Request.HttpMethod == WebRequestMethods.Http.Get && !isAjaxCall)
+                {
+                    string _reg = @"^(.*)(/EN-GB/)(.*)$";
+                    Match match = Regex.Match(Request.RawUrl.ToUpper(), _reg);
+
+                    if (!match.Success)
+                    {
+                        _reg = @"^(.*)(/VI-VN/)(.*)$";
+                        match = Regex.Match(Request.RawUrl.ToUpper(), _reg);
+                    }
+
+                    if (match.Success && match.Groups.Count == 4)
+                    {
+                        if (Request.QueryString.Count > 0)
+                        {
+                            Context.RewritePath(match.Groups[1].Value + "/" + match.Groups[3].Value + "&lang=" + match.Groups[2].Value.Replace(@"/", ""), false);
+                        }
+                        else
+                        {
+                            Context.RewritePath(match.Groups[1].Value + "/" + match.Groups[3].Value + "?lang=" + match.Groups[2].Value.Replace(@"/", ""), false);
+                        }
+                    }
+                    else
+                    {
+                        if (httpCookie != null)
+                        {
+                            culture = httpCookie.Value;
+                            Response.Redirect("~/" + culture.ToLower() + Request.RawUrl, false);
+                            Context.ApplicationInstance.CompleteRequest();
+                        }
+                        else
+                        {
+                            culture = System.Configuration.ConfigurationManager.AppSettings["DefaultLang"].ToString();
+                            Response.Redirect("~/" + culture.ToLower() + Request.RawUrl, false);
+                            Context.ApplicationInstance.CompleteRequest();
+                        }
+                    }
+                }
+
+                if (!String.IsNullOrEmpty(Request.QueryString["lang"]))
+                {
+                    queryLanguage = Request.QueryString["lang"].ToString().ToUpper();
+                    if (queryLanguage == "EN-GB")
+                    {
+                        culture = "en-GB";
+                    }
+                    else if (queryLanguage == "VI-VN")
+                    {
+                        culture = "vi-VN";
+                    }
+                }
+                else
+                {
+                    if (httpCookie != null)
+                    {
+                        culture = httpCookie.Value;
+                    }
+                    else
+                    {
+                        culture = System.Configuration.ConfigurationManager.AppSettings["DefaultLang"].ToString();
+                    }
+                }
+                var language = new HttpCookie("language");
+                language.Value = culture;
+                language.Expires = DateTime.Now.AddDays(3);
+                Response.Cookies.Add(language);
+                Thread.CurrentThread.CurrentCulture = new CultureInfo(culture);
+                Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
             }
             catch (Exception ex)
             {

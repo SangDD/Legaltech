@@ -1,8 +1,11 @@
-﻿@using Common.CommonData;
-@using WebApps.ExtensionObject;
-@using WebApps.Session
+﻿@using Common.CommonData 
+@using WebApps.ExtensionObject 
+@using WebApps.Session 
+@using WebApps.CommonFunction 
 @{
     Layout = null;
+
+    string _LanguageCode = AppsCommon.GetCurrentLang();
 }
 
 <!DOCTYPE html>
@@ -39,6 +42,16 @@
     <div class="container-wrapper">
         <div class="section-body">
             <div class="main-menu">
+                <div class="lang_contain">
+                        @if (_LanguageCode == LangCode.EN_US.ToString())
+                         {
+                          <a href="/Language?culture=vi-VN&returnUrl=Home" class="lang-vn"></a>
+                         }
+                         else
+                         {
+                          <a href="/Language?culture=en-GB&returnUrl=Home" class="lang-en"></a>
+                         }
+                 </div>
                 <div class="account-info">
                     <a href="javascript:;">@Html.Raw(SessionData.CurrentUser.FullName)</a>
                     <a href="/dang-xuat" style="float: right;">Đăng xuất</a>

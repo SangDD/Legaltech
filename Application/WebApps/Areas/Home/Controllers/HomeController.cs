@@ -2,18 +2,33 @@
 {
 	using System;
 	using System.Web.Mvc;
-
 	using AppStart;
-	using Session;
+    using Common;
+    using Session;
+    using WebApps.CommonFunction;
+    using BussinessFacade.ModuleUsersAndRoles;
 
-	[ValidateAntiForgeryTokenOnAllPosts]
+    [ValidateAntiForgeryTokenOnAllPosts]
+ 
     public class HomeController : Controller
     {
         // GET: Home/Home
 	    [HttpGet][Route("home")]
 	    public ActionResult KnHome()
 	    {
-		    return View("~/Areas/Home/Views/Home/KnHome.cshtml");
+            if (SessionData.CurrentUser == null)
+            {
+                return this.Redirect("/");
+            }
+            var userBL = new UserBL(SessionData.CurrentUser);
+            string language = AppsCommon.GetCurrentLang();
+            string sessionLanguage = SessionData.CurrentUser.Language;
+            if (language != sessionLanguage)
+            {
+                SessionData.CurrentUser.Language = language;
+                SessionData.CurrentUser.HtmlMenu = userBL.GetUserHtmlMenu(language);
+            }
+            return View("~/Areas/Home/Views/Home/KnHome.cshtml");
 	    }
 
 	    [HttpGet][Route("filter-request-not-identity")]
@@ -94,5 +109,44 @@
 		    Session.Abandon();
 		    return View("~/Areas/Home/Views/Home/AccountSessionInvalid.cshtml");
 	    }
+
+        [HttpGet]
+        [Route("Language")]
+        public ActionResult Language(string culture, string returnUrl)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(culture))
+                {
+                    var httpCookie = Request.Cookies["language"];
+                    if (httpCookie != null)
+                    {
+                        var cookie = Response.Cookies["language"];
+                        if (cookie != null)
+                        {
+                            cookie.Value = culture;
+                            Response.SetCookie(cookie);
+                        }
+                        httpCookie.Value = culture;
+                    }
+
+                    if (culture.ToUpper() != "EN-GB" && Request.UrlReferrer.ToString().ToLower().Contains("/en-gb/"))
+                    {
+                        return Redirect(Request.UrlReferrer.ToString().ToLower().Replace("/en-gb/", "/"));
+                    }
+                    else if (culture.ToUpper() != "VI-VN" && Request.UrlReferrer.ToString().ToLower().Contains("/vi-vn/"))
+                    {
+                        return Redirect(Request.UrlReferrer.ToString().ToLower().Replace("/vi-vn/", "/"));
+                    }
+                }
+
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Redirect("/home.html");
+            }
+        }
     }
 }

@@ -138,7 +138,7 @@
 	        return this.SetActionResult(result, KnMessageCode.DeleteUserSuccess);
         }
 
-        public ActionBusinessResult DoLoginAccount(string userName, string password)
+        public ActionBusinessResult DoLoginAccount(string userName, string password ,string language  )
         {
 	        var passwordEncrypt = Encription.EncryptAccountPassword(userName, password);
 	        var result = this.CheckUserLogin(userName, passwordEncrypt);
@@ -146,7 +146,7 @@
 	        if (this.GetActionSuccess())
 	        {
 		        this.LoadAllRolesOfUser();
-		        this.CurrentUserInfo.HtmlMenu = this.GetUserHtmlMenu();
+		        this.CurrentUserInfo.HtmlMenu = this.GetUserHtmlMenu(language);
 		        this.CurrentUserInfo.LoginTime = DateTime.Now;
 		        AccountManagerBL.UpdateDicAccountLogin(this.CurrentUserInfo);
 	        }
@@ -154,10 +154,10 @@
 	        return result;
         }
 
-        public string GetUserHtmlMenu()
+        public string GetUserHtmlMenu(string language)
         {
             this.GetAllFunctionDisplayOnMenu();
-            return this.BuildUserHtmlMenu(this._lstFunctionDisplayInMenu, 0);
+            return this.BuildUserHtmlMenu(this._lstFunctionDisplayInMenu, 0, language);
         }
 
 		public ActionBusinessResult ChangeUserSelfPassword(UserInfo userInfo, string newPassword)
@@ -233,30 +233,36 @@
 	        }
         }
 
-		private string BuildUserHtmlMenu(List<FunctionInfo> lstFunctionDisplayInMenu, int parentFunctionId)
+        private string BuildUserHtmlMenu(List<FunctionInfo> lstFunctionDisplayInMenu, int parentFunctionId, string language )
         {
-	        var userHtmlMenu = string.Empty;
-			try
-			{
-				var lstFunctionOnMenu = lstFunctionDisplayInMenu.Where(o => o.MenuId != 0).ToList();
-				if (lstFunctionOnMenu.Any())
-				{
-					foreach (var menu in MenuBL.GetAllMenu())
-					{
-						var lstFunctionsInGroupMenu = lstFunctionOnMenu.Where(o => o.MenuId == menu.Id).ToList();
-						if (lstFunctionsInGroupMenu.Any())
-						{
-							userHtmlMenu += "<li class='group-menu' onclick='javascript:;'>" + menu.DisplayName
-							                + "<ul class='ul-group-menu collapsed' style='display:none;'>"
-											+ this.BuildFunctionOnMenu(lstFunctionsInGroupMenu, parentFunctionId)
-											+ "</ul></li>";
-						}
-					}
-				}
+            var userHtmlMenu = string.Empty;
+            try
+            {
+                var lstFunctionOnMenu = lstFunctionDisplayInMenu.Where(o => o.MenuId != 0).ToList();
+                if (lstFunctionOnMenu.Any())
+                {
+                    foreach (var menu in MenuBL.GetAllMenu())
+                    {
+                        var lstFunctionsInGroupMenu = lstFunctionOnMenu.Where(o => o.MenuId == menu.Id).ToList();
+                        if (lstFunctionsInGroupMenu.Any())
+                        {
+                            string displayName = menu.DisplayName;
+                            if (language == Language.LangEN)
+                            {
+                                displayName = menu.DisplayName_Eng;
+                            }
+                            userHtmlMenu += "<li class='group-menu' onclick='javascript:;'>" + displayName
+                                                + "<ul class='ul-group-menu collapsed' style='display:none;'>"
+                                                + this.BuildFunctionOnMenu(lstFunctionsInGroupMenu, parentFunctionId, language)
+                                                + "</ul></li>";
 
-				var lstFunctionHaveNoGroup = lstFunctionDisplayInMenu.Where(o => o.MenuId == 0).ToList();
-				userHtmlMenu += this.BuildFunctionOnMenu(lstFunctionHaveNoGroup, parentFunctionId);
-			}
+                        }
+                    }
+                }
+
+                var lstFunctionHaveNoGroup = lstFunctionDisplayInMenu.Where(o => o.MenuId == 0).ToList();
+                userHtmlMenu += this.BuildFunctionOnMenu(lstFunctionHaveNoGroup, parentFunctionId, language);
+            }
             catch (Exception)
             {
                 // Ignore: since handle exception here make no sense
@@ -265,7 +271,7 @@
             return userHtmlMenu;
         }
 
-	    private string BuildFunctionOnMenu(List<FunctionInfo> lstFunctionDisplayInMenu, int parentFunctionId)
+        private string BuildFunctionOnMenu(List<FunctionInfo> lstFunctionDisplayInMenu, int parentFunctionId, string language  )
 	    {
 		    var userHtmlMenu = string.Empty;
 		    foreach (var function in lstFunctionDisplayInMenu.Where(t => t.ParentId.Equals(parentFunctionId)))
@@ -273,22 +279,28 @@
 			    this._userHtmlMenuId++;
 			    var lstSubMenu = this._lstFunctionDisplayInMenu.Where(t => t.ParentId.Equals(function.Id)).ToList();
 			    var countSubMenu = lstSubMenu.Count;
-			    if (countSubMenu == 0)
+                var displayName = function.DisplayName;
+                if (language == Language.LangEN)
+                {
+                    displayName = function.DisplayName_Eng;
+                }
+
+                if (countSubMenu == 0)
 			    {
 				    userHtmlMenu += "<li id='li-menu-" + this._userHtmlMenuId + "' "
 				                    + "data-url='" + function.HrefGet + "' "
 				                    + "data-id='" + this._userHtmlMenuId + "' "
-				                    + " onclick='gotoTask(this)'><span class='menu-text'>" + function.DisplayName
-				                    + "</span></li>";
+				                    + " onclick='gotoTask(this)'><span class='menu-text'>" + displayName
+                                    + "</span></li>";
 			    }
 			    else
 			    {
 				    userHtmlMenu += "<li id='li-menu-" + this._userHtmlMenuId + "' "
 				                    + "data-url='" + function.HrefGet + "' "
 				                    + "data-id='" + this._userHtmlMenuId + "' "
-				                    + " onclick='gotoTask(this)'><span class='menu-text'>" + function.DisplayName
-				                    + "</span><ul class='ul-menu-" + (function.Lev + 1) + "'>"
-				                    + this.BuildUserHtmlMenu(lstSubMenu, function.Id)
+				                    + " onclick='gotoTask(this)'><span class='menu-text'>" + displayName
+                                    + "</span><ul class='ul-menu-" + (function.Lev + 1) + "'>"
+				                    + this.BuildUserHtmlMenu(lstSubMenu, function.Id, language)
 				                    + "</ul>"
 				                    + "</li>";
 			    }
@@ -297,6 +309,18 @@
 		    return userHtmlMenu;
 	    }
 
+        public void GetAccountInfoWhenChangeLanguage(string language)
+        {
+            try
+            {
+                GetUserHtmlMenu(language);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+        }
         private void GetAllFunctionDisplayOnMenu()
         {
             try
@@ -304,7 +328,7 @@
                 this._lstFunctionDisplayInMenu = this.CurrentUserInfo.AllAccountRoles
                     .Where(t => t.FunctionType == (int)CommonEnums.FunctionType.Menu).ToList();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 this._lstFunctionDisplayInMenu = new List<FunctionInfo>();
             }

@@ -115,9 +115,11 @@ body.hide-scroll {
 
 /* ----------------------------------------------     Account Info    -----------------------------------------*/
 .account-info {
-    width: 100%;
+    width: 79%;
+    display: inline-table;
     height: 30px;
-    padding: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 /* --------------------------------------------    MENU    ------------------------------------------------------------ */
@@ -1022,8 +1024,7 @@ select.divNumberRecordOnPage {
         -webkit-transform: rotate(360deg);
     }
 }
-
-/* ICON */
+ 
 .icon {
     outline: none;
     display: inline-block;
@@ -1068,3 +1069,32 @@ select.divNumberRecordOnPage {
         line-height: 23px;
     }
 }
+
+
+.lang_contain {
+    width: 20%;
+    display: inline-block;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    height: 30px;
+}
+
+    .lang_contain .lang-vn, .lang_contain .lang-en {
+        padding: 3px 12px;
+        margin-left: 5px;
+    }
+
+.lang-vn {
+    background: url('../Content/images/Vietnam-24.png') no-repeat;
+}
+
+.lang-en {
+    background: url('../Content/images/United-Kingdom-24.png') no-repeat;
+}
+
+.lang-vn, .lang-en {
+    padding: 3px 12px;
+    margin-left: 5px;
+}
+
+ 

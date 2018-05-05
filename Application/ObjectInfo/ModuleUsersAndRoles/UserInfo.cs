@@ -23,11 +23,11 @@
         public string   Password { get; set; }
         public string   FullName { get; set; }
 		public DateTime DateOfBirth { get; set; }
-
-		/// <summary>
-		/// Lưu trong allcode với cdname='SEX_TYPE'
-		/// </summary>
-		public string   Sex { get; set; }
+      
+        /// <summary>
+        /// Lưu trong allcode với cdname='SEX_TYPE'
+        /// </summary>
+        public string   Sex { get; set; }
 		public string   SexDisplayName { get; set; }
 		public string   Email { get; set; }
 		public string   Phone { get; set; }
@@ -74,7 +74,7 @@
         /// </summary>
         public int      Status { get; set; }
         public string   StatusDisplayName { get; set; }
-
+        public string Language { get; set; }
         public string   CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public string   ModifiedBy { get; set; }

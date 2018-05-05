@@ -2,20 +2,18 @@
 {
 	using System;
 	using System.Web.Mvc;
-
 	using AppStart;
-
 	using BussinessFacade;
 	using BussinessFacade.ModuleUsersAndRoles;
-
 	using Common;
 	using Common.CommonData;
 	using Common.Helpers;
     using RequestFilter;
 
 	using Session;
+    using WebApps.CommonFunction;
 
-	[ValidateAntiForgeryTokenOnAllPosts]
+    [ValidateAntiForgeryTokenOnAllPosts]
 	[RouteArea("Account", AreaPrefix = "")]
 	[Route("{action}")]
 	public class AccountController : Controller
@@ -42,18 +40,18 @@
 			{
 				return Json(new { redirectTo = SessionData.CurrentUser.DefaultHomePage });
 			}
-
-			var result = new ActionBusinessResult();
+            string language = AppsCommon.GetCurrentLang();
+            var result = new ActionBusinessResult();
 			try
-			{
-				var userBL = new UserBL();
-				result = userBL.DoLoginAccount(userName, password);
+            {
+                var userBL = new UserBL();
+				result = userBL.DoLoginAccount(userName, password, language);
 				if (result.IsActionSuccess)
 				{
 					var ipAddress = HttpHelper.GetClientIPAddress(System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]);
 					FileHelper.WriteFileLogin(CommonVariables.KnFileLogin, userName, ipAddress);
-
-					SessionData.CurrentUser = userBL.CurrentUserInfo;
+                    userBL.CurrentUserInfo.Language = language;
+                    SessionData.CurrentUser = userBL.CurrentUserInfo;
 					SessionData.CurrentUser.DefaultHomePage = IdentityRequest.GetDefaultPageForAccountLogged();
 					var urlContinue = SessionData.CurrentUser.DefaultHomePage;
 					if (!string.IsNullOrEmpty(returnUrl)) urlContinue = returnUrl;

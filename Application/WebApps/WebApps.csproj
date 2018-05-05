@@ -162,6 +162,7 @@
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\GroupUserController.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\UserController.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\ModuleUsersAndRolesAreaRegistration.cs" />
+    <Compile Include="CommonFunction\AppsCommon.cs" />
     <Compile Include="ExtensionObject\ControllerExtension.cs" />
     <Compile Include="ExtensionObject\HtmlHelperExtension.cs" />
     <Compile Include="Global.asax.cs">
@@ -172,6 +173,16 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestFilter\IdentityRequest.cs" />
+    <Compile Include="Resources\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Resource.en.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.en.resx</DependentUpon>
+    </Compile>
     <Compile Include="Session\SessionData.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +198,10 @@
     <Content Include="Content\IconNVS\IconNVS.svg" />
     <Content Include="Content\images\login_background.jpg" />
     <Content Include="Content\images\logo.ico" />
+    <Content Include="Content\images\United-Kingdom-16.png" />
+    <Content Include="Content\images\United-Kingdom-24.png" />
+    <Content Include="Content\images\Vietnam-16.png" />
+    <Content Include="Content\images\Vietnam-24.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -247,6 +262,11 @@
     <Content Include="Content\fonts\fontawesome\webfonts\fa-solid-900.ttf" />
     <Content Include="Content\fonts\fontawesome\webfonts\fa-solid-900.woff" />
     <Content Include="Content\fonts\fontawesome\webfonts\fa-solid-900.woff2" />
+    <EmbeddedResource Include="Resources\Resource.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.en.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\common-data-loader.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -564,6 +584,12 @@
       <Project>{ab9dceae-b3d3-4a64-8e27-4b0485c2b9b5}</Project>
       <Name>ObjectInfos</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
