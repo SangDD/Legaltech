@@ -2,11 +2,8 @@
 {
 	using System;
 	using System.Collections.Generic;
-
 	using Common;
-
 	using DataAccess.ModuleUsersAndRoles;
-
 	using ObjectInfos.ModuleUsersAndRoles;
 
 	public class MenuBL

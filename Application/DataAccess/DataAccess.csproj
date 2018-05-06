@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModuleMemoryData\AllCodeDA.cs" />
+    <Compile Include="ModuleTrademark\SysApplicationDA.cs" />
     <Compile Include="ModuleUsersAndRoles\FunctionDA.cs" />
     <Compile Include="ModuleUsersAndRoles\GroupUserDA.cs" />
     <Compile Include="ModuleUsersAndRoles\MenuDA.cs" />
@@ -63,6 +64,7 @@
       <Name>ObjectInfos</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
