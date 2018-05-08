@@ -162,6 +162,10 @@
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\GroupUserController.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\UserController.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\ModuleUsersAndRolesAreaRegistration.cs" />
+    <Compile Include="Areas\Patent\Controllers\PatentRegistrationController.cs" />
+    <Compile Include="Areas\Patent\PatentAreaRegistration.cs" />
+    <Compile Include="Areas\TradeMark\Controllers\TradeMarkRegistrationController.cs" />
+    <Compile Include="Areas\TradeMark\TradeMarkAreaRegistration.cs" />
     <Compile Include="CommonFunction\AppsCommon.cs" />
     <Compile Include="ExtensionObject\ControllerExtension.cs" />
     <Compile Include="ExtensionObject\HtmlHelperExtension.cs" />
@@ -267,6 +271,9 @@
       <LastGenOutput>Resource.en.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Content Include="Areas\TradeMark\Views\web.config" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\DangKyNhanHieu.cshtml" />
+    <Content Include="Areas\Patent\Views\web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\common-data-loader.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -562,6 +569,11 @@
     <Folder Include="Areas\Home\Views\Shared\" />
     <Folder Include="Areas\ModuleUsersAndRoles\Models\" />
     <Folder Include="Areas\ModuleUsersAndRoles\Views\Shared\" />
+    <Folder Include="Areas\Patent\Models\" />
+    <Folder Include="Areas\Patent\Views\PatentRegistration\" />
+    <Folder Include="Areas\Patent\Views\Shared\" />
+    <Folder Include="Areas\TradeMark\Models\" />
+    <Folder Include="Areas\TradeMark\Views\Shared\" />
     <Folder Include="Content\icons\" />
   </ItemGroup>
   <ItemGroup>

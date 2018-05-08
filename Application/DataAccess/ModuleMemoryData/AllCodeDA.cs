@@ -13,11 +13,8 @@
 			var ds = new DataSet();
 			try
 			{
-				ds = OracleHelper.ExecuteDataset(
-					Configuration.connectionString,
-					CommandType.StoredProcedure,
-					"pkg_allcode.proc_AllCode_GetAll",
-					new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+				ds = OracleHelper.ExecuteDataset( Configuration.connectionString, CommandType.StoredProcedure, "pkg_allcode.proc_AllCode_GetAll",
+				new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
 			}
 			catch (Exception ex)
 			{

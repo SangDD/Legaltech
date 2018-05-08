@@ -15,4 +15,7 @@
         /// </summary>
         public static readonly string LangEN = "EN_US";
     }
+
+
+
 }
