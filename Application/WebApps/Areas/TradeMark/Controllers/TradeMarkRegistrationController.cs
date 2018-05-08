@@ -1,13 +1,13 @@
-﻿using System;
-using System.Web.Mvc;
-using WebApps.AppStart;
-using BussinessFacade.ModuleTrademark;
-using ObjectInfos.ModuleTrademark;
-using System.Collections.Generic;
-using WebApps.CommonFunction;
-
-namespace WebApps.Areas.TradeMark.Controllers
+﻿namespace WebApps.Areas.TradeMark.Controllers
 {
+    using System;
+    using System.Web.Mvc;
+    using WebApps.AppStart;
+    using BussinessFacade.ModuleTrademark;
+    using ObjectInfos.ModuleTrademark;
+    using System.Collections.Generic;
+    using WebApps.CommonFunction;
+
     [ValidateAntiForgeryTokenOnAllPosts]
     [RouteArea("TradeMarkRegistration", AreaPrefix = "trade-mark")]
     [Route("{action}")]
