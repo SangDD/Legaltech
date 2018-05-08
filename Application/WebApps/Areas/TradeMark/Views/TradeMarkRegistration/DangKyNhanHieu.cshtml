@@ -1,5 +1,5 @@
 ﻿@using Common.CommonData
-@using ObjectInfos.ModuleTrademark;
+@using ObjectInfos.ModuleTrademark
 @{
     ViewBag.Title = "Đăng ký nhãn hiệu";
     Layout = "~/ViewsShared/_Layout.cshtml";
@@ -8,40 +8,52 @@
     {
         listAppData = (List<SysApplicationInfo>)ViewBag.lstData;
     }
+    int numberApp = 0;
 }
 
-    <input type="hidden" value="LastTimeUpdated" id="colSorted" />
-    <input type="hidden" value="DESC" id="SortType" />
-    <input type="hidden" value="" id="OptionSorting" />
+<input type="hidden" value="LastTimeUpdated" id="colSorted" />
+<input type="hidden" value="DESC" id="SortType" />
+<input type="hidden" value="" id="OptionSorting" />
 
-    <div class="d-popup-container" id="dpop-groupuser"></div>
+<div class="d-popup-container" id="dpop-groupuser"></div>
 
-    <div class="d-nav-container">
-        <ul class="ul-nav">
-            <li><a href="javascript:;">Nhãn hiệu</a></li>
-            <li><a href="/quan-tri-he-thong/quan-ly-nhom-quyen">Danh sách mẫu đơn</a></li>
-        </ul>
-    </div>
+<div class="d-nav-container">
+    <ul class="ul-nav">
+        <li><a href="javascript:;">Nhãn hiệu</a></li>
+        <li><a href="/quan-tri-he-thong/quan-ly-nhom-quyen">Danh sách mẫu đơn</a></li>
+    </ul>
+</div>
 
 
-    <div class="div-search grid-2cols">
-        <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
-            <legend>Danh sách mẫu đơn</legend>
-            @foreach (SysApplicationInfo item in listAppData)
+<div class="div-search ">
+    <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
+        <legend>Danh sách mẫu đơn</legend>
+        @foreach (SysApplicationInfo item in listAppData)
+        {
+            numberApp++;
+            if (numberApp % 2 == 0)
             {
-                <div class="item-search">
-                    <a href="javascript:;">@item.Appname</a>
+                <div class="class_right" >
+                    <a href="javascript:;">(@numberApp.ToString())  @item.Appname</a>
                 </div>
             }
-        </fieldset>
-        @*<div class="item-search">
-                <label class="title-condition">Tên nhóm</label>
-                <input class="control-condition" data-controlcondition="TRUE" type="text" id="txtGroupNameSearch" />
-            </div>
-            <div class="item-search">
-                <input id="btnFindGroupUsers" data-controlcondition="TRUE" type="button" class="btn btn-seach" value="Tìm kiếm" onclick="findGroupUsers(1, 1)" />
-            </div>*@
-    </div>
+            else
+            {
+                <div class="class_left" >
+                    <a href="javascript:;">(@numberApp.ToString())  @item.Appname</a>
+                </div>
+            }
+            
+        }
+    </fieldset>
+    @*<div class="item-search">
+            <label class="title-condition">Tên nhóm</label>
+            <input class="control-condition" data-controlcondition="TRUE" type="text" id="txtGroupNameSearch" />
+        </div>
+        <div class="item-search">
+            <input id="btnFindGroupUsers" data-controlcondition="TRUE" type="button" class="btn btn-seach" value="Tìm kiếm" onclick="findGroupUsers(1, 1)" />
+        </div>*@
+</div>
 
-    <div id="divTableGroupUsers">
-    </div>
+<div id="divTableGroupUsers">
+</div>

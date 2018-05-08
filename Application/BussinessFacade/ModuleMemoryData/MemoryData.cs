@@ -1,8 +1,8 @@
 ﻿namespace BussinessFacade.ModuleMemoryData
 {
 	using System;
-
-	using Common;
+    using BussinessFacade.ModuleTrademark;
+    using Common;
 
 	using ModuleUsersAndRoles;
 
@@ -15,7 +15,9 @@
 				AllCodeBL.LoadAllCodeToMemory();
 				MenuBL.LoadAllMenuToMemory();
 				FunctionBL.LoadFunctionCollectionsToMemory();
-			}
+                SysApplicationBL.SysApplicationAllOnMem();
+
+            }
 			catch (Exception ex)
 			{
 				Logger.LogException(ex);
