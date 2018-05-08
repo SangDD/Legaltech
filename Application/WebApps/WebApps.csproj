@@ -158,6 +158,8 @@
     <Compile Include="Areas\Account\Controllers\AccountController.cs" />
     <Compile Include="Areas\Home\Controllers\HomeController.cs" />
     <Compile Include="Areas\Home\HomeAreaRegistration.cs" />
+    <Compile Include="Areas\ModuleApplication\Controllers\ApplicationController.cs" />
+    <Compile Include="Areas\ModuleApplication\ModuleApplicationAreaRegistration.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\FunctionController.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\GroupUserController.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\UserController.cs" />
@@ -267,6 +269,10 @@
       <LastGenOutput>Resource.en.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Content Include="Areas\ModuleApplication\Views\web.config" />
+    <Content Include="Areas\ModuleApplication\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\ModuleApplication\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\ModuleApplication\Views\Application\Application_Display.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\common-data-loader.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -560,6 +566,7 @@
     <Folder Include="Areas\Account\Views\Shared\" />
     <Folder Include="Areas\Home\Models\" />
     <Folder Include="Areas\Home\Views\Shared\" />
+    <Folder Include="Areas\ModuleApplication\Models\" />
     <Folder Include="Areas\ModuleUsersAndRoles\Models\" />
     <Folder Include="Areas\ModuleUsersAndRoles\Views\Shared\" />
     <Folder Include="Content\icons\" />
@@ -605,7 +612,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53967</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
