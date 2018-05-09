@@ -1,18 +1,33 @@
 ﻿namespace BussinessFacade.ModuleMemoryData
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
-	using Common;
+    using Common;
 
-	using DataAccess.ModuleMemoryData;
+    using DataAccess.ModuleMemoryData;
 
-	using ObjectInfos.ModuleMemoryData;
+    using System.Data;
+    using ObjectInfos;
 
-	public class AllCodeBL
+    public class AllCodeBL
 	{
-		private static readonly object s_lockerAllCode = new object();
+        public List<AllCodeInfo> AllCode_Gets_List()
+        {
+            try
+            {
+                DataSet _ds = AllCodeDA.GetAllInAllCode();
+                return CBO<AllCodeInfo>.FillCollectionFromDataSet(_ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<AllCodeInfo>();
+            }
+        }
+
+        private static readonly object s_lockerAllCode = new object();
 
 		private static List<AllCodeInfo> s_allCodeCollectionInMemory;
 

@@ -5,6 +5,42 @@
 	});
 });
 
+//check session time out 
+function CheckSessionTimeOut() {
+    try {
+        var rBool = false;
+        $.ajax({
+            type: 'POST',
+            url: '/home/CheckSessionTimeOut',
+            dataType: "json",
+            traditional: true,
+            async: false,//Chuyen ve synchonize đồng bộ
+            success: function (data) {
+                if (data != null) {
+                    if (data["Code"] == -1) {
+                        rBool = false;
+                        jAlert("Hệ thống đã hết thời gian kết nối, bạn hãy đăng nhập lại", "Thông báo", function () {
+                            window.location.href = "home";
+                        });
+
+                    }
+                    else {
+                        rBool = true;
+                    }
+                }
+                else {
+                    rBool = false;
+                }
+            }
+        });
+
+        return rBool;
+    } catch (e) {
+        alert(e.toString);
+        return false;
+    }
+}
+
 function onResponse(data) {
 	if(validateResponse(data)) {
 		if (data["result"]["IsActionSuccess"]) {

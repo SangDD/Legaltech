@@ -148,5 +148,39 @@
                 return Redirect("/home.html");
             }
         }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public JsonResult CheckSessionTimeOut()
+        {
+            try
+            {
+                var msg = new MsgReportServerInfo();
+                if (SessionData.CurrentUser == null)
+                {
+                    msg.Code = "-1";
+                    msg.Msg = "Hệ thống đã hết thời gian kết nối, bạn hãy đăng nhập lại.";
+                }
+                else
+                {
+                    msg.Code = "0";
+                }
+                return Json(msg);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                var msg = new MsgReportServerInfo();
+                msg.Code = "-1";
+                msg.Msg = "Không kết nối được tới máy chủ.";
+                return Json(msg);
+            }
+        }
+    }
+
+    public class MsgReportServerInfo
+    {
+        public string Code { get; set; }
+        public string Msg { get; set; }
     }
 }

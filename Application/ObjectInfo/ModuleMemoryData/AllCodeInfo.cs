@@ -1,4 +1,4 @@
-﻿namespace ObjectInfos.ModuleMemoryData
+﻿namespace ObjectInfos
 {
 	public class AllCodeInfo
 	{

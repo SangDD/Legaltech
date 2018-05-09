@@ -30,6 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\Extended dll\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="SendFiles">
+      <HintPath>..\Extended dll\SendFiles.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Transactions" />
@@ -43,6 +49,7 @@
   <ItemGroup>
     <Compile Include="ModuleMemoryData\AllCodeBL.cs" />
     <Compile Include="ModuleMemoryData\MemoryData.cs" />
+    <Compile Include="ModuleTrademark\Application_Header_BL.cs" />
     <Compile Include="ModuleTrademark\SysApplicationBL.cs" />
     <Compile Include="ModuleUsersAndRoles\AccountManagerBL.cs" />
     <Compile Include="ModuleUsersAndRoles\FunctionBL.cs" />

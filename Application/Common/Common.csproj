@@ -38,6 +38,8 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
@@ -47,11 +49,13 @@
   <ItemGroup>
     <Compile Include="CBO.cs" />
     <Compile Include="CommonData\AllCodeCdName.cs" />
+    <Compile Include="CommonData\Common.cs" />
     <Compile Include="CommonData\CommonEnums.cs" />
     <Compile Include="CommonData\CommonStructs.cs" />
     <Compile Include="CommonData\CommonVariables.cs" />
     <Compile Include="CommonData\DateTimeCommonData.cs" />
     <Compile Include="CommonData\SessionStorages.cs" />
+    <Compile Include="CommonFuc.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Converters\Converter.cs" />
     <Compile Include="Extensions\CollectionExtension.cs" />

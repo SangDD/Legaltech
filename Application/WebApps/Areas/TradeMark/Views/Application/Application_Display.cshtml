@@ -1,0 +1,255 @@
+﻿@using Common.CommonData
+@using ObjectInfos;
+@{
+    ViewBag.Title = "Quản lý đơn";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+    //string language = WebApps.CommonFunction.AppsCommon.GetCurrentLang();
+    string language = WebApps.Session.SessionData.CurrentUser.Language;
+    List<SysApplicationInfo> _lst = BussinessFacade.ModuleTrademark.SysApplicationBL.GetSysAppByLanguage(language);
+    var lstApp= new List<SelectListItem> { new SelectListItem { Text = "Tất cả", Value = "ALL" } }.Concat(_lst.Select(x => new SelectListItem { Text = x.Appname, Value = x.Appcode }));
+
+}
+
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        Trademark
+        <span class="red">></span>
+        <a href="/Application/Application_Display">Quản lý đơn</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <input type="hidden" value="ALL|ALL|ALL" name="txtKeyValue" id="txtKeyValue" />
+            <input type="hidden" value="ID" name="txtSortColum" id="txtSortColumn" />
+            <input type="hidden" value="DESC" name="txtSortType" id="txtSortType" />
+            <div class="div-title-content"> THÔNG TIN ĐƠN </div>
+        </div>
+    </div>
+
+    <div class="divCover" id="div-search-simple">
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tên đơn</div>
+            </div>
+            <div>
+                <div>
+                    <input style="width: 250px;" type="text" id="txt_Name" />
+                </div>
+            </div>
+
+            <div class="div-search-title" >
+                <div>Loại đơn </div>
+            </div>
+            <div class="div-search-content" >
+                <div>
+                    @Html.DropDownList("cboAppCode", lstApp, new { @id = "cboAppCode" })
+                </div>
+            </div>
+
+            @*<div class="div-search-title">
+                <div>Ngành nghề KD </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtBusField" />
+                </div>
+            </div>*@
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div class="div-search-btn" style="width:600px;">
+            <input type="button" value="Tìm kiếm" class="btn-default" onclick="Search_Application(1, 1)" />
+            @*<input type="button" value="Kết xuất" class="btn-default" onclick="Export_Application(1)" />*@
+            @*<input id="btnAdd" type="button" class="btn-default" onclick="ShowRegisterIssuer()" value="Thêm mới" style="width:auto" />*@
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div id="divDataApplications" class="divDataTables" style="overflow-x: auto;">
+            @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialTableApplication.cshtml")
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#txt_Name').focus();
+        $("#txt_Name").keypress(function (evt) {
+            var key = evt.which || evt.charCode || evt.keyCode || 0;
+            if (key == 13) {
+                Search_Application(1, 1);
+            }
+        });
+    });
+
+    function jsPaging(page) {
+        Search_Application(page, 0);
+    }
+
+    function Search_Application(p_NumPage, p_type) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            var p_keysearch;
+            if (p_type == 1) {
+                var _name = $("#txt_Name").val().trim();
+                var _AppCode = $("#cboAppCode").val();
+
+                p_keysearch = _name + "|" + _AppCode;
+
+                //Lưu lại keysearch
+                $("#txtKeyValue").val(p_keysearch);
+            } else {
+                p_keysearch = $("#txtKeyValue").val();
+            }
+            var p_column = $("#txtSortColumn").val();
+            var p_type_sort = $("#txtSortType").val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/Application/Search_Application/',
+                data: {
+                    p_keysearch: p_keysearch,
+                    p_CurrentPage: p_NumPage,
+                    p_column: p_column,
+                    p_type_sort: p_type_sort
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divDataApplications").html(data);
+                }
+            });
+        }
+        catch (e) {
+            alert(e);
+        }
+    }
+
+    //function Export_Issuer(p_type) {
+    //    try {
+    //        if (CheckSessionTimeOut() == false) {
+    //            return false;
+    //        }
+    //        var p_keysearch;
+    //        if (p_type == 1) {
+    //            var p_name = $("#txt_Name").val().trim();
+    //            var p_type = $("#cboAppCode").val();
+    //            var p_BusField = $("#txtBusField").val().trim();
+
+    //            p_keysearch = p_name + "|" + p_type + "|" + p_BusField;
+
+    //            //Lưu lại keysearch
+    //            $("#txtKeyValue").val(p_keysearch);
+    //        } else {
+    //            p_keysearch = $("#txtKeyValue").val();
+    //        }
+    //        var p_column = $("#txtSortColumn").val();
+    //        var p_type_sort = $("#txtSortType").val();
+
+    //        $.ajax({
+    //            type: 'POST',
+    //            url: '/Issuers/Export_Issuer/',
+    //            data: {
+    //                p_keysearch: p_keysearch,
+    //            },
+    //            async: true, cache: false, traditional: true,
+    //            beforeSend: function () {
+    //                CreateRollingWaitingIcon(true);
+    //            },
+    //            success: function (data) {
+    //                if (data.success == 0 && data.str_return == "-1") {
+    //                    jError('Có lỗi trong quá trình kết xuất!!', "Lỗi");
+    //                    CreateRollingWaitingIcon(false);
+    //                    return false;
+    //                } else if (data.success == 1) {
+    //                    CreateRollingWaitingIcon(false);
+    //                    jError('Không có dữ liệu để kết xuất!!', "Thông báo");
+    //                    return false;
+    //                }
+    //                else if (data.success == 0) { // thành công
+    //                    jAlert("Kết xuất dữ liệu thành công", "Thông báo", function () {
+    //                        var element = document.createElement('a');
+    //                        element.setAttribute('href', data.str_return);
+    //                        element.setAttribute('download', data.file_name);
+    //                        element.style.display = 'none';
+    //                        document.body.appendChild(element);
+    //                        element.click();
+    //                        document.body.removeChild(element);
+    //                    });
+    //                    CreateRollingWaitingIcon(false);
+    //                }
+    //                else {
+    //                    jError('Có lỗi trong quá trình kết xuất!!', "Lỗi");
+    //                    return false;
+    //                }
+    //            }
+    //        });
+    //    }
+    //    catch (e) {
+    //        alert(e);
+    //    }
+    //}
+
+    //function ShowRegisterIssuer() {
+    //    try {
+    //        if (CheckSessionTimeOut() == false) {
+    //            return false;
+    //        }
+    //        window.location = "/Issuers/Issuers_Register";
+
+    //    } catch (e) {
+    //        alert(e);
+    //    }
+    //}
+
+    //function DeleteIssuer(p_id) {
+    //    try {
+    //        if (CheckSessionTimeOut() == false) {
+    //            return false;
+    //        }
+    //        MessageBoxConfirm("Cảnh Báo", "Bạn chắc chắn muốn xóa TCPH này?", function () {
+    //            $.ajax({
+    //                type: "POST",
+    //                url: "/Issuers/Delete_Issuer",
+    //                data: { p_issuer_id: p_id },
+    //                cache: false,
+    //                traditional: true,
+    //                success: function (data) {
+    //                    if (data == 0) {
+    //                        $('#txt_Name').val('');
+    //                        jAlert("Xóa dữ liệu thành công", "Thông báo", function () {
+    //                            Search_Issuer(1, 1);
+    //                        });
+    //                    }
+    //                    else if (data == 1) {
+    //                        jError('Tồn tại Chứng khoán thuộc TCPH. Không thể xóa!', "Thông báo");
+    //                    }
+    //                    else if (data == -1) {
+    //                        jError('Có lỗi trong quá trình xóa TCPH!', "Thông báo");
+    //                    }
+    //                }
+    //            });
+    //        }, function () {
+    //            return false;
+    //        });
+    //    } catch (e) {
+    //        console.log(e.message);
+    //    }
+    //}
+
+</script>

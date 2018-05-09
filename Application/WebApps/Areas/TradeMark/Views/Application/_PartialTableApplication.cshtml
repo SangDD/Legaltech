@@ -1,0 +1,53 @@
+﻿@using Common.CommonData
+@using Common.Extensions
+@using ObjectInfos;
+@{
+    List<ApplicationHeaderInfo> _list_data = new List<ApplicationHeaderInfo>();
+    if (ViewBag.Obj != null)
+    {
+        _list_data = ViewBag.Obj;
+    }
+}
+
+<div>
+    <table class="table-lst-data" id="tableListGroupUser">
+        <thead>
+            <tr>
+                <th class="class30">STT</th>
+                <th class="class100" data-sort id="Appcode">Mã đơn</th>
+                <th class="class250">Chủ đơn</th>
+                <th class="class100">Ngày gửi đơn</th>
+                <th class="class100">Chức năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="tdcenteralign">@item.STT</td>
+                        <td class="tdleftalign">@item.Appcode</td>
+                        <td class="tdleftalign">@item.Master_Name</td>
+                        <td class="tdleftalign">@item.Send_Date.ToString("dd/MM/yyyy")</td>
+                        <td class="tdcenteralign">
+                            <a href="javascript:getViewApplication(@item.Id, '@item.Appcode')" class="icon icon-info" data-title="Xem chi tiết"></a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5">Không có dữ liệu</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="_ClassPage">
+    <ul>
+        @Html.Raw(ViewBag.Paging)
+    </ul>
+</div>

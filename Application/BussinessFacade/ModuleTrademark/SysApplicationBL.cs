@@ -1,5 +1,6 @@
 ﻿using Common;
 using DataAccess.ModuleTrademark;
+using ObjectInfos;
 using ObjectInfos.ModuleTrademark;
 using System;
 using System.Collections.Generic;

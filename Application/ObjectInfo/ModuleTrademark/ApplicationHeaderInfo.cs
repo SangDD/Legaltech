@@ -1,9 +1,10 @@
 ﻿using System;
 
-namespace ObjectInfos.ModuleTrademark
+namespace ObjectInfos
 {
     public class ApplicationHeaderInfo
     {
+        public decimal STT { get; set; }
         public decimal Id { get; set; }
         public string Appcode { get; set; }
         public string Master_Name { get; set; }

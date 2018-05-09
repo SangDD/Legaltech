@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace ObjectInfos.ModuleTrademark
+namespace ObjectInfos
 {
     public class SysApplicationInfo
     {
