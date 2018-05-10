@@ -191,6 +191,10 @@
     <Compile Include="Session\SessionData.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\CSSWaitingIcon\cube.css" />
+    <Content Include="Content\CSSWaitingIcon\default.css" />
+    <Content Include="Content\CSSWaitingIcon\reload.css" />
+    <Content Include="Content\CSSWaitingIcon\rolling.css" />
     <Content Include="Content\DangTQStyleSheet.css" />
     <Content Include="Content\font.css" />
     <Content Include="Content\fonts\fontawesome\fontawesome-all.min.css" />
@@ -282,8 +286,11 @@
     <Content Include="Areas\TradeMark\Views\_ViewStart.cshtml" />
     <Content Include="Areas\TradeMark\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\TradeMark\Views\Application\Application_Display.cshtml" />
-    <Content Include="Areas\TradeMark\Views\Application\_PartialTableApplication.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\_PartialTableApplication_LuuTam.cshtml" />
     <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\AppSuaDoiDonDangKy.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\DanhSach_DonDaGui.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\_PartialTableApplication_DaGui.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\_PartialPhanLoai.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\DangTQForm.js" />
     <Content Include="Scripts\common-data-loader.js" />

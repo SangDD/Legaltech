@@ -3,6 +3,7 @@ using Common.CommonData;
 using System;
 using System.Configuration;
 using System.Web;
+using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace WebApps.CommonFunction
@@ -55,6 +56,36 @@ namespace WebApps.CommonFunction
     {
         VI_VN,
         EN_US
+    }
+
+    public static class FileAutoVersioningHelper
+    {
+        private readonly static string _version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        public static string GeneratePath(string fileName)
+        {
+            try
+            {
+                return string.Format("{0}?v={1}", fileName, _version);
+            }
+            catch
+            {
+                return string.Format("{0}?v={1}", fileName, DateTime.Now.ToString("dd-MM-yyyy HH"));
+            }
+        }
+    }
+
+    public static class UrlHelperExtensions
+    {
+        public static string Stylesheet(this UrlHelper helper, string fileName)
+        {
+
+            return helper.Content(string.Format("{0}", FileAutoVersioningHelper.GeneratePath(fileName)));
+        }
+
+        public static string Script(this UrlHelper helper, string fileName)
+        {
+            return helper.Content(string.Format("{0}", FileAutoVersioningHelper.GeneratePath(fileName)));
+        }
     }
 
 }

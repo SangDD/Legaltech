@@ -16,7 +16,7 @@
         <img src="~/Content/icons/Body-icon-home.png" /> I
         Trademark
         <span class="red">></span>
-        <a href="/Application/Application_Display">Quản lý đơn</a>
+        <a href="/Application/Application_Display">Quản lý đơn lưu tạm</a>
     </div>
 </div>
 <div class="divCover">
@@ -30,7 +30,7 @@
             <input type="hidden" value="ALL|ALL|ALL" name="txtKeyValue" id="txtKeyValue" />
             <input type="hidden" value="ID" name="txtSortColum" id="txtSortColumn" />
             <input type="hidden" value="DESC" name="txtSortType" id="txtSortType" />
-            <div class="div-title-content"> THÔNG TIN ĐƠN </div>
+            <div class="div-title-content"> THÔNG TIN ĐƠN LƯU TẠM </div>
         </div>
     </div>
 
@@ -38,7 +38,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Tên đơn</div>
+                <div>Chủ đơn</div>
             </div>
             <div>
                 <div>
@@ -76,7 +76,7 @@
 
     <div class="divCover">
         <div id="divDataApplications" class="divDataTables" style="overflow-x: auto;">
-            @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialTableApplication.cshtml")
+            @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialTableApplication_LuuTam.cshtml")
         </div>
     </div>
 </div>
@@ -104,9 +104,12 @@
             var p_keysearch;
             if (p_type == 1) {
                 var _name = $("#txt_Name").val().trim();
+                if (_name ==  "") {
+                    _name = "ALL";
+                }
                 var _AppCode = $("#cboAppCode").val();
 
-                p_keysearch = _name + "|" + _AppCode;
+                p_keysearch = _AppCode + "|"  + '@((int)CommonEnums.App_Status.Luu_tam)' + "|" + _name;
 
                 //Lưu lại keysearch
                 $("#txtKeyValue").val(p_keysearch);
@@ -118,7 +121,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/Application/Search_Application/',
+                url: '/quanly-don/quan-ly-don-luu-tam/search/',
                 data: {
                     p_keysearch: p_keysearch,
                     p_CurrentPage: p_NumPage,

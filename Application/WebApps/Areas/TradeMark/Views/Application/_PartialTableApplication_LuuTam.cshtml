@@ -15,19 +15,21 @@
             <tr>
                 <th class="class30">STT</th>
                 <th class="class100" data-sort id="Appcode">Mã đơn</th>
+                <th class="class200">Loại đơn</th>
                 <th class="class250">Chủ đơn</th>
                 <th class="class100">Ngày gửi đơn</th>
                 <th class="class100">Chức năng</th>
             </tr>
         </thead>
         <tbody>
-            @if (Model != null && Model.Count > 0)
+            @if (_list_data.Count > 0)
             {
-                foreach (var item in Model)
+                foreach (var item in _list_data)
                 {
                     <tr>
                         <td class="tdcenteralign">@item.STT</td>
                         <td class="tdleftalign">@item.Appcode</td>
+                        <td class="tdleftalign">@item.AppName</td>
                         <td class="tdleftalign">@item.Master_Name</td>
                         <td class="tdleftalign">@item.Send_Date.ToString("dd/MM/yyyy")</td>
                         <td class="tdcenteralign">
@@ -39,7 +41,7 @@
             else
             {
                 <tr>
-                    <td colspan="5">Không có dữ liệu</td>
+                    <td colspan="6">Không có dữ liệu</td>
                 </tr>
             }
         </tbody>

@@ -151,6 +151,7 @@
 
         [HttpPost]
         [ValidateInput(false)]
+        [Route("CheckSessionTimeOut")]
         public JsonResult CheckSessionTimeOut()
         {
             try

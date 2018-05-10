@@ -8,33 +8,35 @@
 //check session time out 
 function CheckSessionTimeOut() {
     try {
-        var rBool = false;
-        $.ajax({
-            type: 'POST',
-            url: '/home/CheckSessionTimeOut',
-            dataType: "json",
-            traditional: true,
-            async: false,//Chuyen ve synchonize đồng bộ
-            success: function (data) {
-                if (data != null) {
-                    if (data["Code"] == -1) {
-                        rBool = false;
-                        jAlert("Hệ thống đã hết thời gian kết nối, bạn hãy đăng nhập lại", "Thông báo", function () {
-                            window.location.href = "home";
-                        });
+        return true;
+        // tạm thời rào lại đã
+        //var rBool = false;
+        //$.ajax({
+        //    type: 'POST',
+        //    url: '/home/CheckSessionTimeOut',
+        //    dataType: "json",
+        //    traditional: true,
+        //    async: false,//Chuyen ve synchonize đồng bộ
+        //    success: function (data) {
+        //        if (data != null) {
+        //            if (data["Code"] == -1) {
+        //                rBool = false;
+        //                jAlert("Hệ thống đã hết thời gian kết nối, bạn hãy đăng nhập lại", "Thông báo", function () {
+        //                    window.location.href = "home";
+        //                });
 
-                    }
-                    else {
-                        rBool = true;
-                    }
-                }
-                else {
-                    rBool = false;
-                }
-            }
-        });
+        //            }
+        //            else {
+        //                rBool = true;
+        //            }
+        //        }
+        //        else {
+        //            rBool = false;
+        //        }
+        //    }
+        //});
 
-        return rBool;
+        //return rBool;
     } catch (e) {
         alert(e.toString);
         return false;

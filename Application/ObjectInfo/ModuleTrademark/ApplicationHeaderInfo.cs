@@ -34,5 +34,12 @@ namespace ObjectInfos
         public DateTime Modify_Date { get; set; }
         public string Languague_Code { get; set; }
         public string Remark { get; set; }
+
+        public string Status_Nname { get; set; }
+        public string Status_Formm_Name { get; set; }
+        public string Status_Content_Name { get; set; }
+        public string AppName { get; set; }
+
+
     }
 }
