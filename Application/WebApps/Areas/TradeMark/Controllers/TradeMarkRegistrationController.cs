@@ -36,5 +36,53 @@
                 Logger.LogException(ex); return View("~/Areas/TradeMark/Views/TradeMarkRegistration/DangKyNhanHieu.cshtml");
             }
         }
+
+        [HttpGet]
+        [Route("sua-doi-don-dang-ky/{id}")]
+        public ActionResult TradeMarkChoiseApplication()
+        {
+            try
+            {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+
+                string AppCode = "";
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    AppCode = RouteData.Values["id"].ToString().ToUpper();
+                }
+
+                if (AppCode == TradeMarkAppCode.AppCodeSuaDoiDangKy)
+                {
+                    return AppSuaDoiDonDangKy();
+                }
+                else if (AppCode == TradeMarkAppCode.AppCodeDangKyChuyenDoi)
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return AppSuaDoiDonDangKy();
+        }
+
+
+        //[HttpPost]
+        //[Route("sua-doi-don-dang-ky")]
+        public ActionResult AppSuaDoiDonDangKy()
+        {
+            try
+            {
+                
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/AppSuaDoiDonDangKy.cshtml");
+        }
+
     }
 }

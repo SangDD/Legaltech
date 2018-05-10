@@ -1,10 +1,10 @@
-﻿/** {
+﻿* {
     margin: 0;
     padding: 0;
-    -webkit-box-sizing: border-box;
+    /*-webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}*/
+    box-sizing: border-box;*/
+}
 
 html {
     width: 100%;
@@ -115,7 +115,7 @@ body {
 
 /* ----------------------------------------------     Account Info    -----------------------------------------*/
 .account-info {
-    width: 79%;
+    width: 78%;
     display: inline-table;
     height: 30px;
     padding-top: 5px;
@@ -286,7 +286,7 @@ body {
 .div-search.grid-3cols {
     padding: 10px 20px 20px 20px;
     clear: both;
-    background-color: #edf4ff;
+    background-color: #eaeaea;
 }
 
 .item-search {
@@ -1107,10 +1107,126 @@ select.divNumberRecordOnPage {
     width: 50%;
     display: inline-block;
 }
+ 
 
-.class_right {
+/*Cho man hinh 1024*768*/
+
+@media only screen and (max-width: 1024px)  {
+    .class_right {
+        padding: 3px;
+        float: right;
+        width: 48%;
+        display: inline-block;
+    }
+}
+ 
+
+/*Cho cac man hinh > 1024*/
+@media only screen  (max-width: 1600px) {
+    .class_right {
+        padding: 3px;
+        float: right;
+        width: 49%;
+        display: inline-block;
+    }
+}
+
+@media only screen (max-width: 1366px) {
+    .class_right {
+        padding: 3px;
+        float: right;
+        width: 49%;
+        display: inline-block;
+    }
+}
+
+
+.class_right > a , .class_left > a {
+    color: blue;
+}
+
+
+.class_left_55 {
+    padding: 3px;
+    float: left;
+    width: 55% -6px ;
+    display: inline-block;
+}
+
+.class_right_45 {
     padding: 3px;
     float: right;
-    width: 50%;
+    width: 45% -6px;
     display: inline-block;
+}
+
+
+.class_100 {
+    padding: 3px;
+    float: left;
+    width: 100% -6px;
+    display: inline-block;
+}
+
+
+.class_left_70 {
+    padding: 3px;
+    float: left;
+    width: 70% -6px;
+    display: inline-block;
+}
+
+
+.class_left_70 {
+    padding: 3px;
+    float: left;
+    width: 70% -6px;
+    display: inline-block;
+}
+
+.class_right_30 {
+    padding: 3px;
+    float: left;
+    width: 30% -6px;
+    display: inline-block;
+}
+
+
+.class_right_25{
+    padding: 3px;
+    float: right;
+    width: 25% -6px;
+    display: inline-block;
+}
+
+.class_left_50 {
+    padding: 3px;
+    float: left;
+    width: 50% -6px;
+    display: inline-block;
+}
+
+.class_right_50 {
+    padding: 3px;
+    float: right;
+    width: 50% -6px;
+    display: inline-block;
+}
+
+.div-100  {
+    padding: 10px 20px 20px 20px;
+    clear: both;
+}
+
+.class_text_center{
+    text-align:center ;
+}
+
+.class_text_center_bold {
+    text-align: center;
+    font-weight:bold;
+}
+
+class_text_center_italic{
+    font-style:italic ;
 }

@@ -3,6 +3,7 @@ using Common.CommonData;
 using System;
 using System.Configuration;
 using System.Web;
+using System.Web.Routing;
 
 namespace WebApps.CommonFunction
 {
@@ -48,9 +49,8 @@ namespace WebApps.CommonFunction
             }
         }
     }
-
   
-
+     
     public enum LangCode
     {
         VI_VN,

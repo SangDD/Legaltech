@@ -1,2 +1,10 @@
 ﻿@using WebApps.Session
 @Html.Raw(SessionData.CurrentUser.HtmlMenu)
+
+
+<script>
+    //Bỏ đi khi nào Đáng bỏ phần quản lý đơn ra 
+    $("#mnuTradeMark").click(function () {
+        window.location.href = "/trade-mark/dang-ky-nhan-hieu";
+    });
+</script>
