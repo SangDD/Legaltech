@@ -1104,40 +1104,20 @@ select.divNumberRecordOnPage {
 .class_left {
     padding: 3px;
     float: left;
-    width: 50%;
-    display: inline-block;
+    width: calc( 50% - 6px);
 }
- 
-
 /*Cho man hinh 1024*768*/
-
 @media only screen and (max-width: 1024px)  {
-    .class_right {
-        padding: 3px;
-        float: right;
-        width: 48%;
-        display: inline-block;
-    }
 }
- 
-
-/*Cho cac man hinh > 1024*/
 @media only screen  (max-width: 1600px) {
-    .class_right {
-        padding: 3px;
-        float: right;
-        width: 49%;
-        display: inline-block;
-    }
+}
+@media only screen (max-width: 1366px) {
 }
 
-@media only screen (max-width: 1366px) {
-    .class_right {
-        padding: 3px;
-        float: right;
-        width: 49%;
-        display: inline-block;
-    }
+.class_right {
+    padding: 3px;
+    float: right;
+    width: calc( 50% - 6px);
 }
 
 
@@ -1149,77 +1129,82 @@ select.divNumberRecordOnPage {
 .class_left_55 {
     padding: 3px;
     float: left;
-    width: 55% -6px ;
-    display: inline-block;
+    width: calc(55% -6px);
 }
 
 .class_right_45 {
     padding: 3px;
     float: right;
-    width: 45% -6px;
-    display: inline-block;
+    width: calc(45% -6px);
 }
 
 
-.class_100 {
+.class_full_100 {
     padding: 3px;
     float: left;
-    width: 100% -6px;
-    display: inline-block;
-}
-
-
-.class_left_70 {
-    padding: 3px;
-    float: left;
-    width: 70% -6px;
-    display: inline-block;
+    width: calc(100% -6px);
 }
 
 
 .class_left_70 {
     padding: 3px;
     float: left;
-    width: 70% -6px;
-    display: inline-block;
+    width: calc(70% -6px);
+}
+
+
+.class_left_70 {
+    padding: 3px;
+    float: left;
+    width: calc(70% -6px);
 }
 
 .class_right_30 {
     padding: 3px;
     float: left;
-    width: 30% -6px;
-    display: inline-block;
+    width: calc(30% - 6px);
 }
 
 
-.class_right_25{
+.class_right_25 {
     padding: 3px;
     float: right;
-    width: 25% -6px;
-    display: inline-block;
+    width: calc(25% -6px);
 }
 
 .class_left_50 {
     padding: 3px;
     float: left;
-    width: 50% -6px;
-    display: inline-block;
+    width: calc(50% - 6px);
 }
 
 .class_right_50 {
     padding: 3px;
     float: right;
-    width: 50% -6px;
-    display: inline-block;
+    width: calc(50% - 6px);
 }
 
-.div-100  {
-    padding: 10px 20px 20px 20px;
+.div_full_100 {
+    padding: 0px 20px 0px 20px;
     clear: both;
+    width: calc(100% - 20px );
+    display: inline-flex;
+}
+ 
+
+.class_text_left {
+    text-align: left;
+}
+.classboldunderline{
+    font-weight:bold;
+   text-decoration:underline;
 }
 
-.class_text_center{
-    text-align:center ;
+.class_text_right {
+    text-align: right;
+}
+.class_text_center {
+    text-align: center;
 }
 
 .class_text_center_bold {
@@ -1227,6 +1212,166 @@ select.divNumberRecordOnPage {
     font-weight:bold;
 }
 
-class_text_center_italic{
-    font-style:italic ;
+.class_text_center_italic {
+    font-style: italic;
+    text-align: center;
 }
+
+
+.classborder50FixedHeight {
+    width: calc(50% - 10px);
+    border-color: #000000;
+    height: 140px;
+    border-top: 2px solid;
+    border-right: 2px solid;
+    border-left:2px solid ;
+}
+
+.classborder50 {
+    width: calc(50% - 8px);
+    border: 2px solid #000000;
+}
+
+
+.classborder100On {
+    width: calc(100% - 9px);
+    border-color: #000000;
+    border-top: 2px solid;
+    border-right: 2px solid;
+    border-left: 2px solid;
+}
+ 
+
+.classborder100 {
+    width: calc(100% - 9px);
+    border: 2px solid #000000;
+}
+
+
+.class_left_60 {
+    padding: 3px;
+    float: left;
+    width: calc(60% - 6px);
+}
+
+.class_right_40 {
+    padding: 3px;
+    float: right;
+    width: calc(40% - 6px);
+}
+
+.class_right_60 {
+    padding: 3px;
+    float: right ;
+    width: calc(60% - 6px);
+}
+
+.class_left_40 {
+    padding: 3px;
+    float: left;
+    width: calc(40% - 6px);
+}
+
+
+.class_right_30 {
+    padding: 3px;
+    float: left;
+    width: calc(30% - 6px);
+}
+
+.classborder60Right {
+    width: calc(60% - 9px);
+    border-color: #000000;
+    border-right: 2px solid;
+    border-left: 2px solid;
+}
+.classborder60On {
+    width: calc(60% - 9px);
+    border-color: #000000;
+    border-top: 2px solid;
+    border-right: 2px solid;
+    border-left: 2px solid;
+}
+
+.classborder40 {
+    width: calc(40% - 9px);
+    border: 2px solid #000000;
+}
+
+.classborder30Center {
+    width: calc(30% - 9px);
+    border-color: #000000;
+    border-top: 2px solid;
+    border-right: 2px solid;
+
+}
+
+.classborder30Right {
+    width: calc(30% - 4px);
+    border-color: #000000;
+    border-top: 2px solid;
+    border-right: 2px solid;
+}
+
+
+
+.classborder70Left {
+    width: calc(70% - 10px);
+    border-color: #000000;
+    border-top: 2px solid;
+    border-left: 2px solid;
+    border-right: 2px solid;
+}
+
+.classborder30On {
+    width: calc(30% - 6px);
+    border-color: #000000;
+    border-top: 2px solid;
+    border-right: 2px solid;
+}
+
+.classborder55LeftTop {
+    width: calc(55% - 4px);
+    border-color: #000000;
+    border-top: 2px solid;
+    border-left: 2px solid;
+}
+
+.classborder45On {
+    width: calc(45% - 6px);
+    border-color: #000000;
+    border-top: 2px solid;
+    border-right: 2px solid;
+    border-left: 2px solid;
+}
+
+.classborder60Left {
+    width: calc(60% - 4px);
+    border-color: #000000;
+    border-left: 2px solid;
+    border-bottom: 2px solid
+}
+
+.classborder40Right {
+    width: calc(40% - 9px);
+    border-color: #000000;
+    border-right: 2px solid;
+    border-left: 2px solid;
+    border-bottom: 2px solid
+}
+
+.classborder40Left {
+    width: calc(40% - 9px);
+    border-color: #000000;
+    border-left: 2px solid;
+}
+
+
+.classborder40LeftTopRight {
+    width: calc(40% - 9px);
+    border-color: #000000;
+    border-left: 2px solid;
+    border-top: 2px solid;
+    border-right: 2px solid;
+}
+ 
