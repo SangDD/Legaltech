@@ -1,4 +1,4 @@
-﻿@{ 
+﻿@{
     ViewBag.Title = "Sửa đổi đơn đăng ký";
     Layout = "~/ViewsShared/_Layout.cshtml";
 }
@@ -12,21 +12,167 @@
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
         <legend>Request for amendment of application (Vietnamese)</legend>
-        <div class="div-100">
+        <div class="div_full_100">
             <div class="class_left_50">
-                <strong class="class_text_center">TỜ KHAI</strong>
-                <label class="class_text_center"> SỬA ĐỔI ĐƠN ĐĂNG KÝ</label>
-                <label class="class_text_center">  ĐỐI TƯỢNG SỞ HỮU CÔNG NGHIỆP</label>
-
-                <label>Kính gửi: Cục Sở hữu trí tuệ</label>
-                <label>386 Nguyễn Trãi, Hà Nội</label>
-
-                <label>Chủ đơn dưới đây yêu cầu Cục Sở hữu trí tuệ sửa đổi đơn đăng ký đối tượng sở hữu công nghiệp*</label>
+                <p class="class_text_center_bold">TỜ KHAI</p>
+                <p class="class_text_center"> SỬA ĐỔI ĐƠN ĐĂNG KÝ</p>
+                <p class="class_text_center">  ĐỐI TƯỢNG SỞ HỮU CÔNG NGHIỆP</p>
+                <p>Kính gửi: Cục Sở hữu trí tuệ</p>
+                <p style="padding-left:10%s">386 Nguyễn Trãi, Hà Nội</p>
+                <p>Chủ đơn dưới đây yêu cầu Cục Sở hữu trí tuệ sửa đổi đơn đăng ký đối tượng sở hữu công nghiệp*</p>
             </div>
-            <div class="class_right_50">
-                <strong class="class_text_center">DẤU NHẬN ĐƠN</strong>
+            <div class="class_right_50 classborder50FixedHeight">
+                <p class="class_text_center_bold">DẤU NHẬN ĐƠN</p>
                 <p class="class_text_center_italic">(Dành cho cán bộ nhận đơn)</p>
             </div>
         </div>
+        @* 1 *@
+        <div class="div_full_100">
+            <div class="class_full_100 classborder100On">
+                <p class="class_text_center_bold">CHỦ ĐƠN</p>
+                <p class="class_text_center">(Tổ chức, cá nhân yêu cầu sửa đổi đơn đăng ký đối tượng SHCN)</p>
+                <label>Tên đầy đủ:</label> <input type="text" style="display:inline-block" />
+                <label>Địa chỉ:</label> <input type="text" style="display:inline-block" />
+                <label>Điện thoại</label> <input type="text" style="display:inline-block" />
+            </div>
+        </div>
+        @* 2 *@
+        <div class="div_full_100">
+            <div class="class_full_100 classborder100">
+                <p class="class_text_center_bold">ĐẠI DIỆN CỦA CHỦ </p>
+                <input type="radio" style="display:inline-block" /> <p class="class_text_left">là người đại diện theo pháp luật của chủ đơn</p>
+                <input type="radio" style="display:inline-block" /><p class="class_text_left">là tổ chức dịch vụ đại diện sở hữu công nghiệp được uỷ quyền của chủ đơn</p>
+                <input type="radio" style="display:inline-block" /> <p class="class_text_left">là người khác được uỷ quyền của chủ đơn</p>
+                <label>Tên đầy đủ:</label> <input type="text" style="display:inline-block" />
+                <label>Địa chỉ:</label> <input type="text" style="display:inline-block" />
+                <label>Điện thoại</label> <input type="text" style="display:inline-block" />
+            </div>
+        </div>
+        @* 3 *@
+        <div class="div_full_100 ">
+            <div class="class_left_60 classborder60Left">
+                <p class="class_text_center_bold">ĐƠN YÊU CẦU SỬA ĐỔI</p>
+                <input type="radio" style="display:inline-block" /> <p class="class_text_left">Đơn đăng ký sáng chế</p>
+                <input type="radio" style="display:inline-block" /> <p class="class_text_left">Đơn đăng ký kiểu dáng công nghiệp</p>
+                <input type="radio" style="display:inline-block" /> <p class="class_text_left">Đơn đăng ký thiết kế bố trí mạch tích hợp bán dẫn</p>
+                <input type="radio" style="display:inline-block" /> <p class="class_text_left">Đơn đăng ký nhãn hiệu</p>
+                <input type="radio" style="display:inline-block" /> <p class="class_text_left">Đơn đăng ký chỉ dẫn địa lý </p>
+            </div>
+            <div class="class_right_40 classborder40Right">
+                <p class="class_text_left">Số đơn</p>
+            </div>
+        </div>
+        @* 4 *@
+        <div class="div_full_100">
+            <div class="class_left_40 classborder40Left">
+                <p class="class_text_center_bold">NỘI DUNG YÊU CẦU SỬA ĐỔI </p>
+                <input type="radio" style="display:inline-block" /> <p class="class_text_left">Tên chủ đơn</p>
+                <input type="radio" style="display:inline-block" /> <p class="class_text_left">Địa chỉ của chủ đơn</p>
+                <input type="radio" style="display:inline-block" /> <p class="class_text_left">Nội dung khác</p>
+            </div>
+            <div class="class_right_60 classborder60Right">
+                <p class="class_text_left classboldunderline">Đề nghị sửa lại thành</p>
+            </div>
+        </div>
+        @* 7 *@
+        <div class="div_full_100">
+            <div class="class_full_100 classborder100">
+                <p class="class_text_center_bold">CHỦ ĐƠN/ĐẠI DIỆN CỦA CHỦ ĐƠN KÝ TÊN</p>
+            </div>
+        </div>
+
+
+        <div class="div_full_100">
+            <p>*Chú thích: Trong trang này và các trang sau, chủ đơn/đại diện của chủ đơn đánh dấu "x" vào ô vuông  nếu các thông tin ghi sau các ô vuông là phù hợp. </p>
+        </div>
+
+        @* 5 *@
+        <div class="div_full_100">
+            <div class="class_full_100 classborder100On">
+                <p class="class_text_center_bold">PHÍ, LỆ PHÍ</p>
+            </div>
+        </div>
+
+        <div class="div_full_100">
+            <div class="class_left_40 classborder40LeftTopRight">
+                <p class="class_text_center_bold">Loại phí, lệ phí</p>
+                <input type="radio" style="display:inline-block" /> <p class="class_text_left">Lệ phí yêu cầu sửa đổi đơn (A-5)</p>
+                <input type="radio" style="display:inline-block" /> <p class="class_text_left">Lệ phí công bố đơn sửa đổi (A-6)</p>
+                <input type="radio" style="display:inline-block" /> <p class="class_text_left">Lệ phí công bố đơn sửa đổi từ hình thứ hai trở đi  (mục con của A-6) </p>
+            </div>
+
+            <div class="class_right_30 classborder30Center">
+                <p class="class_text_center_bold">Số đối tượng tính phí</p>
+            </div>
+            <div class="class_right_30 classborder30Right">
+                <p class="class_text_center_bold">Số tiền</p>
+            </div>
+        </div>
+        <div class="div_full_100">
+            <div class="class_left_70 classborder70Left">
+                <p class="class_text_center_bold">Tổng số phí và lệ phí nộp theo đơn là:</p>
+                <p>Số chứng từ (trường hợp nộp qua bưu điện hoặc chuyển khoản):</p>
+            </div>
+
+            <div class="class_right_30 classborder30Right">
+                [total amount]
+            </div>
+        </div>
+        @*6*@
+
+        <div class="div_full_100">
+            <div class="class_left_55 classborder55LeftTop">
+                <p class="class_text_center_bold">CÁC TÀI LIỆU CÓ TRONG ĐƠN:</p>
+                <input type="checkbox" style="display:inline-block" /> <p class="class_text_left">Tờ khai, gồm</p>
+                <input type="checkbox" style="display:inline-block" /> <p class="class_text_left">Tài liệu xác nhận việc sửa đổi hợp pháp, bằng tiếng</p>
+                <input type="checkbox" style="display:inline-block" /> <p class="class_text_left">Bản dịch tiếng Việt, gồm </p>
+                <input type="checkbox" style="display:inline-block" /> <p class="class_text_left">Giấy uỷ quyền bằng tiếng</p>
+
+
+                <input type="checkbox" style="display:inline-block" /> <p class="class_text_left">bản dịch tiếng Việt, gồm </p>
+                <input type="checkbox" style="display:inline-block" /> <p class="class_text_left">bản gốc</p>
+                <input type="checkbox" style="display:inline-block" /> <p class="class_text_left">bản sao </p>
+
+
+                <input type="checkbox" style="display:inline-block" /> <p class="class_text_left">Chứng từ phí, lệ phí </p>
+                <input type="checkbox" style="display:inline-block" /> <p class="class_text_left">Tài liệu khác, cụ thể: </p>
+
+            </div>
+
+            <div class="class_left_45 classborder45On">
+                <p class="class_text_center_bold">KIỂM TRA DANH MỤC TÀI LIỆU</p>
+                <p class="class_text_center_italic">(Dành cho cán bộ nhận đơn)</p>
+
+
+                <input type="checkbox" style="display:inline-block" />
+                <input type="checkbox" style="display:inline-block" />
+                <input type="checkbox" style="display:inline-block" />
+                <input type="checkbox" style="display:inline-block" />
+
+                <input type="checkbox" style="display:inline-block" />
+                <input type="checkbox" style="display:inline-block" />
+                <input type="checkbox" style="display:inline-block" />
+
+                <input type="checkbox" style="display:inline-block" />
+                <input type="checkbox" style="display:inline-block" />
+            </div>
+        </div>
+
+        @* 7 *@
+
+        <div class="div_full_100">
+
+            <div class="class_full_100 classborder100">
+                <p class="class_text_center_bold">CAM KẾT CỦA CHỦ ĐƠN</p>
+                <p class="class_text_left">Tôi cam đoan mọi thông tin trong tờ khai là trung thực, đúng sự thật và hoàn toàn chịu trách nhiệm trước pháp luật.</p>
+
+
+                <p class="class_text_right"> Khai tại:………. [place] ngày……[date] tháng……[month] năm……[year]</p>
+                <p class="class_text_right">Chữ ký, họ tên chủ đơn/đại diện của chủ đơn</p>
+                <p class="class_text_right">(ghi rõ chức vụ và đóng dấu, nếu có)</p>
+
+            </div>
+        </div>
+
     </fieldset>
 </div>

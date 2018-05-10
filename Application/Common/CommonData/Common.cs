@@ -16,10 +16,10 @@ namespace Common
     /// </summary>
     public class TradeMarkAppCode
     {
-        public static string AppCodeSuaDoiDangKy = "TM01SÐÐ";
-        public static string AppCodeYeuCauGiahan = "TM08SĐQT";
-        public static string AppCodeDangKyQuocTeNH = "TM06ĐKQT";
-        public static string AppCodeDangKyChuyenDoi = "TM07ĐKCĐ";
+        public static string AppCodeSuaDoiDangKy = "TM01SDD";
+        public static string AppCodeYeuCauGiahan = "TM08SDQT";
+        public static string AppCodeDangKyQuocTeNH = "TM06DKQT";
+        public static string AppCodeDangKyChuyenDoi = "TM07DKCD";
         public static string AppCodeTraCuuNhanHieu = "TM03YCTCNH";
         public static string AppCodeDangKynhanHieu = "TM04NH";
     }
