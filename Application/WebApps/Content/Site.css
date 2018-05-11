@@ -1185,7 +1185,7 @@ select.divNumberRecordOnPage {
 }
 
 .div_full_100 {
-    padding: 0px 20px 0px 20px;
+    padding: 0px 20px 0px 10px;
     clear: both;
     width: calc(100% - 20px );
     display: inline-flex;
@@ -1206,7 +1206,11 @@ select.divNumberRecordOnPage {
 .class_text_center {
     text-align: center;
 }
-
+.class_header {
+    text-align: right;
+    font-weight: bold;
+    padding:10px;
+}
 .class_text_center_bold {
     text-align: center;
     font-weight:bold;
@@ -1374,4 +1378,112 @@ select.divNumberRecordOnPage {
     border-top: 2px solid;
     border-right: 2px solid;
 }
+
+.class_inline_block {
+    display: inline-block;
+}
+
+
+
+.class_block_phone {
+    display: inline-block;
+    width: calc(30% - 80px);
+}
+
+.class_block_fax {
+    display: inline-block;
+    width: calc(30% - 80px);
+}
+
+
+.class_block_email {
+    display: inline-block;
+    width: calc(30% - 80px);
+}
+
+
+.class_full_div_input {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+
+.numberCircle {
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    behavior: url(PIE.htc);
+    width: 15px !important;
+    height: 16px !important;
+    padding: 1px;
+    border: 2px solid #000;
+    text-align: center;
+    font-weight: bold;
+}
  
+
+.class_padding_buton {
+    padding-bottom: 10px;
+}
+
+.class_block{
+    display:block;
+    padding:2px;
+}
+
+.class_padd_left_10{
+    padding-left:10px;
+}
+
+.class_end{
+    padding-bottom:120px;
+}
+
+/*su dung flex dan trang*/
+
+.class_full_div_input {
+    display: flex;
+}
+
+.class_radio_head{
+    max-width:50px;
+    min-width:20px;
+}
+
+.class_text_end {
+    flex-grow: 1;
+
+    /*flex-shrink:co lại khi kéo màn hình*/
+    /*class co flex-grow:2 thi se gap doi class co flex-grow=1*/ 
+    /*so vs thuoc tinh ben trai*/
+    /*thuoc tinh flex neu div trong class la 100px div 1 nam trong co gia tri 20px
+    thi div neu co thuoc tinh la flex-grow:1 thi gia tri con lai cua div la 80px
+    */
+}
+
+input[type="checkbox"] {
+    height: 12px !important;
+    width: 12px !important;
+}
+
+
+/*tam thoi rem lai hoi kh xem can flex ko?*/
+/*.class_block_title {
+    max-width: 200px;
+}
+
+.class_block_title_control {
+    flex-grow: 1;
+}*/
+
+.class_block_title {
+    display: inline-block;
+    width: 80px;
+}
+
+.class_block_title_control {
+    display: inline-block;
+    width: calc(100% - 80px);
+    float: right;
+}
