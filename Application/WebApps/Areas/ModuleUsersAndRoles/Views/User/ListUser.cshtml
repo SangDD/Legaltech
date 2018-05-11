@@ -1,9 +1,13 @@
 ﻿@using BussinessFacade.ModuleMemoryData
 @using BussinessFacade.ModuleUsersAndRoles
 @using Common.CommonData
+@using ObjectInfos;
 @{
-	ViewBag.Title = "Quản lý người dùng";
-	Layout = "~/ViewsShared/_Layout.cshtml";
+    ViewBag.Title = "Quản lý người dùng";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+    List<AllCodeInfo> _lstType = MemoryData.AllCode_GetBy_CdTypeCdName("SEX_TYPE", "SEX_TYPE");
+    List<AllCodeInfo> _lstStatus = MemoryData.AllCode_GetBy_CdTypeCdName("USER_STATUS", "USER_STATUS");
 }
 @try
 {
@@ -39,67 +43,21 @@
 		</div>
 		
 		<div class="item-search">
-			<label class="title-condition">Hãng</label>
-			<select data-controlcondition="TRUE" id="cboProductMarkCodeSearch">
-				<option value="">None</option>
-				@foreach (var item in CommonCatalogDataBL.GetAllProductMarkInfos())
+			<label class="title-condition">Loại người dùng</label>
+			<select data-controlcondition="TRUE" id="cboUserType">
+				<option value="ALL">None</option>
+				@foreach (var item in _lstType)
 				{
-					<option value="@item.ProductMarkCode">@item.MarkName</option>
+					<option value="@item.CdVal">@item.Content</option>
 				}
 			</select>
 		</div>
-
-		<div class="item-search">
-			<label class="title-condition">Phòng ban</label>
-			<select data-controlcondition="TRUE" id="cboDepartmentSearch">
-				<option value="">None</option>
-				@foreach (var item in CommonCatalogDataBL.GetAllDepartmentInfos())
-				{
-					<option value="@item.DepartmentId">@item.DeptName</option>
-				}
-			</select>
-		</div>
-		<div class="item-search">
-			<label class="title-condition">Chức vụ</label>
-			<select data-controlcondition="TRUE" id="cboPositionSearch">
-				<option value="">None</option>
-				@foreach (var item in CommonCatalogDataBL.GetAllPositionInfos())
-				{
-					<option value="@item.PositionId">@item.Title</option>
-				}
-			</select>
-		</div>
-		<div class="item-search">
-			<label class="title-condition">Chi nhánh</label>
-			<select data-controlcondition="TRUE" id="cboBranchSearch" data-warehouseidref="cboWareHouseSearch" onchange="cboBranchChanged(this)">
-				<option value="">None</option>
-				@foreach (var item in CommonCatalogDataBL.GetAllBranchInfos())
-				{
-					<option value="@item.BranchId">@item.ContactName</option>
-				}
-			</select>
-		</div>
-		<div class="item-search">
-			<label class="title-condition">Kho</label>
-			<select data-controlcondition="TRUE" id="cboWareHouseSearch">
-			</select>
-		</div>
-
-		<div class="item-search">
-			<label class="title-condition">Nhóm quyền trong hệ thống</label>
-			<select data-controlcondition="TRUE" id="cboGroupSearch">
-				<option value="">None</option>
-				@foreach (var item in GroupUserBL.GetAllGroups())
-				{
-					<option value="@item.Id">@item.Name</option>
-				}
-			</select>
-		</div>
+		 
 		<div class="item-search">
 			<label class="title-condition">Trạng thái</label>
 			<select data-controlcondition="TRUE" id="cboStatusSearch">
 				<option selected="selected" value="">None</option>
-				@foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.UserStatus))
+				@foreach (var item in _lstStatus)
 				{
 					<option value="@item.CdVal">@item.Content</option>
 				}
