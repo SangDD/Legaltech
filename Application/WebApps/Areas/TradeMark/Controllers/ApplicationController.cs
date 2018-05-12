@@ -138,7 +138,7 @@ namespace WebApps.Areas.TradeMark.Controllers
         }
 
         [HttpPost]
-        [Route("trademark/quan-ly-don-da-gui/do-phan-loai")]
+        [Route("quan-ly-don-da-gui/do-phan-loai")]
         public ActionResult DoAddAppLawer(App_Lawer_Info p_App_Lawer_Info)
         {
             try

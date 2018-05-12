@@ -1,4 +1,6 @@
-﻿namespace ObjectInfos
+﻿using System;
+
+namespace ObjectInfos
 {
     public class Lawer_Info
     {
@@ -9,6 +11,14 @@
         public string Phone { get; set; }
         public string Fax { get; set; }
         public string Email { get; set; }
+
+         public decimal Status { get; set; }
+
+        public decimal Deleted { get; set; }
+        public string Created_By { get; set; }
+        public DateTime Created_Date { get; set; }
+        public string Modify_By { get; set; }
+        public DateTime Modify_Date { get; set; }
     }
 
 }

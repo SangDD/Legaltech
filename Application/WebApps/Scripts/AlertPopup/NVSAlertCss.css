@@ -1,0 +1,145 @@
+﻿#popup_container {
+    /*font-size: 14px;
+    font-family: "Product Sans",Arial,sans-serif;*/
+
+    min-width: 300px; /* Dialog will be no smaller than this */
+    max-width: 600px; /* Dialog will wrap after this width */
+    background: #FFF;
+    border: solid 2px #398439;
+    color: #2f2f2f;
+    border-radius: 4px;
+}
+
+#popup_title {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.75em;
+    color: #fff;
+    background: #449d44;
+    cursor: default;
+    padding: 5px 12px;
+    margin: 0em;
+    font-family: "Product Sans",Arial,sans-serif;
+    text-transform: uppercase;
+}
+
+#popup_content {
+    background: 10px 10px no-repeat url(/Content/images/info.gif);
+    padding: 1em 1.75em 1em 105px;
+    margin: 0em;
+    min-height: 85px;
+    /*Thêm mới*/
+    /*width: 70%;
+    float: right;*/
+    margin-left: 10px;
+    font-size: 14px;
+    font-family: "Product Sans",Arial,sans-serif;
+}
+
+#popup_message {
+    /*padding-left: 80px;*/
+    font-weight: bold;
+    /*Thêm mới*/
+    margin-top: 15px;
+    padding-left: 10px;
+
+}
+
+#popup_panel {
+    text-align: center;
+    /*margin: 1em 0em 0em 1em;*/
+    /*Thêm mới*/
+    margin-top: 40px;
+}
+
+
+
+/*Thêm mới*/
+/*.cls_popup_image {
+    float: left;
+    width: 20%;
+    padding: 10px;
+}
+
+#img_alert.error {
+    content: url(/Content//icon/error-icon-90.png);
+}*/
+
+/*#img_alert.Alert1 {
+    content: url(/Content//icon/info-icon-90.png);
+}*/
+
+#img_alert {
+    display: none;
+}
+
+#popup_content.error {
+    background-image: url(/Content/icons/error-icon-90.png);
+    background-repeat: no-repeat;
+    margin: 5px;
+}
+
+#popup_content.alert {
+    background-image: url(/Content/icons/info-icon.png);
+    background-repeat: no-repeat;
+    /*background-size: 100px;*/
+    margin: 5px;
+}
+
+#popup_content.confirm {
+    background-image: url(/Content/icons/warning-icon.png);
+    background-repeat: no-repeat;
+    /*background-size: 100px;*/
+    margin: 5px;
+}
+
+#popup_content.prompt {
+    background-image: url(/Content/icons/error-icon.png);
+    background-repeat: no-repeat;
+    /*background-size: 100px;*/
+    margin: 5px;
+}
+
+#popup_content.Alert1 {
+    /*background-image: url(/Content//icon/info-icon.png);*/
+    background-image: url(/Content/icons/info-icon-90.png);
+    background-repeat: no-repeat;
+    /*background-size: 90px;*/
+    margin: 5px;
+}
+
+
+
+#popup_prompt {
+    margin: .5em 0em;
+}
+
+#popup_ok, #popup_cancel {
+    display: inline-block;
+    padding: 4px 11px;
+    line-height: 1.42857143;
+    margin-bottom: 0;
+    /*font-size: 12px;*/
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+    width: 70px;
+    /*Thêm mới*/
+    float: right;
+    margin: 5px 5px 5px 0px;
+}
+
+#popup_ok:hover, #popup_cancel:hover {
+    color: #fff;
+    background-color: #449d44;
+    border-color: #398439;
+}

@@ -99,6 +99,18 @@
         });
     });
 
+    function validateAction() {
+        _Lawer_Id = $('#cboLawer').val();
+        if (_Lawer_Id == null || _Lawer_Id == "0") {
+            jError('Tên luật sư không được để trống!', "Lỗi", function () {
+                $('#cboLawer').multipleSelect('focus');
+            });
+            return false;
+        }
+
+        return true;
+    }
+
     function jsPaging(page) {
         Search_Application(page, 0);
     }
@@ -175,7 +187,7 @@
 
     function CloseViewPhanLoai() {
         try {
-            CloseDivAllStock('dpop-PhanLoai');
+            CloseViewPhanLoai('dpop-PhanLoai', true);
         } catch (e) {
             alert(e);
         }

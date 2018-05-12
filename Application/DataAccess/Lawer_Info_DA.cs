@@ -30,5 +30,20 @@ namespace DataAccess
                 return new DataSet();
             }
         }
+
+        public DataSet Lawer_Info_GetAll()
+        {
+            try
+            {
+               return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_lawer_info.proc_lawer_getall",
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
     }
 }
