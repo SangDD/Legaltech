@@ -6,7 +6,7 @@
     ViewBag.Title = "Quản lý người dùng";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
-    List<AllCodeInfo> _lstType = MemoryData.AllCode_GetBy_CdTypeCdName("SEX_TYPE", "SEX_TYPE");
+    List<AllCodeInfo> _lstType = MemoryData.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE");
     List<AllCodeInfo> _lstStatus = MemoryData.AllCode_GetBy_CdTypeCdName("USER_STATUS", "USER_STATUS");
 }
 @try
