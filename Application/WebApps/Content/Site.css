@@ -1106,13 +1106,7 @@ select.divNumberRecordOnPage {
     float: left;
     width: calc( 50% - 6px);
 }
-/*Cho man hinh 1024*768*/
-@media only screen and (max-width: 1024px)  {
-}
-@media only screen  (max-width: 1600px) {
-}
-@media only screen (max-width: 1366px) {
-}
+
 
 .class_right {
     padding: 3px;
@@ -1121,9 +1115,9 @@ select.divNumberRecordOnPage {
 }
 
 
-.class_right > a , .class_left > a {
-    color: blue;
-}
+    .class_right > a, .class_left > a {
+        color: blue;
+    }
 
 
 .class_left_55 {
@@ -1190,30 +1184,39 @@ select.divNumberRecordOnPage {
     width: calc(100% - 20px );
     display: inline-flex;
 }
- 
+
 
 .class_text_left {
     text-align: left;
 }
-.classboldunderline{
-    font-weight:bold;
-   text-decoration:underline;
+
+.classboldunderline {
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 .class_text_right {
     text-align: right;
 }
+
 .class_text_center {
     text-align: center;
 }
+
 .class_header {
     text-align: right;
     font-weight: bold;
-    padding:10px;
+    padding: 10px;
 }
+
 .class_text_center_bold {
     text-align: center;
-    font-weight:bold;
+    font-weight: bold;
+}
+
+.class_text_left_bold {
+    text-align: left;
+    font-weight: bold;
 }
 
 .class_text_center_italic {
@@ -1228,7 +1231,7 @@ select.divNumberRecordOnPage {
     height: 140px;
     border-top: 2px solid;
     border-right: 2px solid;
-    border-left:2px solid ;
+    border-left: 2px solid;
 }
 
 .classborder50 {
@@ -1244,7 +1247,7 @@ select.divNumberRecordOnPage {
     border-right: 2px solid;
     border-left: 2px solid;
 }
- 
+
 
 .classborder100 {
     width: calc(100% - 9px);
@@ -1266,7 +1269,7 @@ select.divNumberRecordOnPage {
 
 .class_right_60 {
     padding: 3px;
-    float: right ;
+    float: right;
     width: calc(60% - 6px);
 }
 
@@ -1289,6 +1292,7 @@ select.divNumberRecordOnPage {
     border-right: 2px solid;
     border-left: 2px solid;
 }
+
 .classborder60On {
     width: calc(60% - 9px);
     border-color: #000000;
@@ -1307,7 +1311,6 @@ select.divNumberRecordOnPage {
     border-color: #000000;
     border-top: 2px solid;
     border-right: 2px solid;
-
 }
 
 .classborder30Right {
@@ -1409,6 +1412,13 @@ select.divNumberRecordOnPage {
     margin-top: 3px;
 }
 
+.class_full_div_p {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+
 .numberCircle {
     border-radius: 50%;
     -moz-border-radius: 50%;
@@ -1421,23 +1431,23 @@ select.divNumberRecordOnPage {
     text-align: center;
     font-weight: bold;
 }
- 
+
 
 .class_padding_buton {
     padding-bottom: 10px;
 }
 
-.class_block{
-    display:block;
-    padding:2px;
+.class_block {
+    display: block;
+    padding: 2px;
 }
 
-.class_padd_left_10{
-    padding-left:10px;
+.class_padd_left_10 {
+    padding-left: 10px;
 }
 
-.class_end{
-    padding-bottom:120px;
+.class_end {
+    padding-bottom: 120px;
 }
 
 /*su dung flex dan trang*/
@@ -1446,16 +1456,15 @@ select.divNumberRecordOnPage {
     display: flex;
 }
 
-.class_radio_head{
-    max-width:50px;
-    min-width:20px;
+.class_radio_head {
+    max-width: 50px;
+    min-width: 20px;
 }
 
 .class_text_end {
     flex-grow: 1;
-
     /*flex-shrink:co lại khi kéo màn hình*/
-    /*class co flex-grow:2 thi se gap doi class co flex-grow=1*/ 
+    /*class co flex-grow:2 thi se gap doi class co flex-grow=1*/
     /*so vs thuoc tinh ben trai*/
     /*thuoc tinh flex neu div trong class la 100px div 1 nam trong co gia tri 20px
     thi div neu co thuoc tinh la flex-grow:1 thi gia tri con lai cua div la 80px
@@ -1467,16 +1476,6 @@ input[type="checkbox"] {
     width: 12px !important;
 }
 
-
-/*tam thoi rem lai hoi kh xem can flex ko?*/
-/*.class_block_title {
-    max-width: 200px;
-}
-
-.class_block_title_control {
-    flex-grow: 1;
-}*/
-
 .class_block_title {
     display: inline-block;
     width: 80px;
@@ -1487,3 +1486,74 @@ input[type="checkbox"] {
     width: calc(100% - 80px);
     float: right;
 }
+
+
+.class_block_leght {
+    display: inline-block;
+    max-width: 200px;
+}
+
+.class_control_flex_grow {
+    flex-grow: 1;
+}
+
+.class_control_flex {
+    display: flex;
+}
+
+.class_ky_don {
+    float: right;
+    width: 41%;
+    height: 102px;
+    border-top: 1px solid;
+    border-left: 1px solid;
+    padding-bottom: 54px;
+    margin-top: 2px;
+}
+
+.class_dmtl {
+    height: 24px;
+}
+
+.classGuiDon {
+    order: 2;
+    margin-right: 10px;
+}
+
+.classLuuTam {
+    order: 1;
+}
+
+.class_save {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 10px 10px 0px 0px;
+}
+
+.class_sign_height {
+    height: 100px;
+}
+/*Cho man hinh 1024*768*/
+
+.class_khai_don {
+    width: 55%;
+}
+@media only screen and (max-width: 1024px) {
+    .class_khai_don {
+        width: 23%;
+    }
+}
+
+@media only screen (max-width: 1600px) {
+    class_khai_don {
+        width: 55%;
+    }
+}
+
+@media only screen (max-width: 1366px) {
+    class_khai_don {
+        width: 55%;
+    }
+}
+
+ 
