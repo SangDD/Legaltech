@@ -49,24 +49,24 @@
                         <input type="text" placeholder="1_txtDiaChi" id="1_txtDiaChi" />
                     </div>
                 </div>
-
+                 
                 <div class="class_full_div_input">
-                    <div style="width:30%;display:inline-block">
-                        <div class="class_block_title" style="width:77px"><label>Điện thoại:</label> </div>
-                        <div class="class_block_phone">
-                            <input style="width:100px" type="text" placeholder="1_txtDienThoai" id="1_txtDienThoai" />
+                    <div class="class_flex_30_first">
+                        <div class="class_block_title" style="width:80px"><label>Điện thoại:</label> </div>
+                        <div class="class_block_phone class_flex_grow">
+                            <input type="text" placeholder="1_txtDienThoai" id="1_txtDienThoai" />
                         </div>
                     </div>
-                    <div style="width:30%;display:inline-block">
+                    <div class="class_flex_30">
                         <div class="class_block_title"><label>Fax:</label> </div>
-                        <div class="class_block_fax">
-                            <input style="width:100px" type="text" placeholder="1_txtFax" id="1_txtFax" />
+                        <div class="class_block_fax class_flex_grow">
+                            <input   type="text" placeholder="1_txtFax" id="1_txtFax" />
                         </div>
                     </div>
-                    <div style="width: calc(40% - 10px);display:inline-block">
+                    <div class="class_flex_40">
                         <div class="class_block_title"><label>Email:</label></div>
-                        <div class="class_block_email">
-                            <input style="width:187px" type="text" placeholder="1_txtEmail" id="1_txtEmail" />
+                        <div class="class_block_email class_flex_grow">
+                            <input  type="text" placeholder="1_txtEmail" id="1_txtEmail" />
                         </div>
                     </div>
                 </div>
@@ -117,27 +117,31 @@
                 </div>
 
                 <div class="class_full_div_input">
-                    <div style="width:30%;display:inline-block">
-                        <div class="class_block_title" style="width:77px">
+                    <div class="class_flex_30_first">
+                        <div class="class_block_title" style="width:80px">
                             <label>Điện thoại:</label>
                         </div>
-                        <div class="class_block_phone">
-                            <input style="width:100px" type="text" placeholder="2_txtDienThoai" id="2_txtDienThoai" />
+                        <div class="class_block_phone" style="flex-grow:1">
+                            <input type="text" placeholder="2_txtDienThoai" id="2_txtDienThoai" />
                         </div>
                     </div>
-                    <div style="width:30%;display:inline-block">
+
+                    <div class="class_flex_30"  >
                         <div class="class_block_title"><label>Fax:</label> </div>
-                        <div class="class_block_fax">
-                            <input style="width:100px" type="text" placeholder="2_txtFax" id="2_txtFax" />
+                        <div class="class_block_fax" style="flex-grow:1">
+                            <input type="text" placeholder="2_txtFax" id="2_txtFax" />
                         </div>
                     </div>
-                    <div style="width: calc(40% - 10px);display:inline-block">
+
+                    <div class="class_flex_40" style="padding-left:5px">
                         <div class="class_block_title"> <label>Email:</label></div>
-                        <div class="class_block_email">
-                            <input style="width:187px" type="text" placeholder="2_txtEmail" id="2_txtEmail" />
+                        <div class="class_block_email" style="flex-grow:1">
+                            <input type="text" placeholder="2_txtEmail" id="2_txtEmail" />
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
         @* 3 *@
@@ -288,7 +292,7 @@
                     <div class="class_text_left"></div>
                     <div class="class_text_end" style="display:flex">
                         <label style="width:370px">Số chứng từ (trường hợp nộp qua bưu điện hoặc chuyển khoản):</label>
-                        <input style="width:110px" type="text" id="5_txtSoChungTu" placeholder="5_txtSoChungTu" />
+                        <input style="width:30%" type="text" id="5_txtSoChungTu" placeholder="5_txtSoChungTu" />
                     </div>
                 </div>
 
@@ -311,7 +315,7 @@
                     <div class="class_text_end" style="display:flex">
                         <label style="width:86px">Tờ khai, gồm</label>
                         <input style="width:140px" type="text" id="6_txtToKhaiTrang" placeholder="6_txtToKhaiTrang" />
-                        <label style="width:100px;padding-left:5px">trang</label>
+                        <label style="width:12%;padding-left:5px">trang</label>
                     </div>
 
                 </div>
@@ -329,8 +333,8 @@
 
                     <div class="class_text_end" style="display:flex">
                         <label style="width:150px">Bản dịch tiếng Việt, gồm</label>
-                        <input style="width:150px" type="text" id="6_txtBanDichTiengViet" placeholder="6_txtBanDichTiengViet" />
-                        <label style="width:100px;padding-left:5px">trang</label>
+                        <input style="width:35%" type="text" id="6_txtBanDichTiengViet" placeholder="6_txtBanDichTiengViet" />
+                        <label style="width:12%;padding-left:5px">trang</label>
                     </div>
 
                 </div>
@@ -339,7 +343,7 @@
                     <div class="class_radio_head"><input type="checkbox" id="6_rdoGiayUyQuyen" /> </div>
                     <div class="class_text_end" style="display:flex">
                         <label style="width:150px">Giấy uỷ quyền bằng tiếng</label>
-                        <input style="width:140px" type="text" id="6_txtGiayUQTiengViet" placeholder="6_txtGiayUQTiengViet" />
+                        <input style="width:35%" type="text" id="6_txtGiayUQTiengViet" placeholder="6_txtGiayUQTiengViet" />
                     </div>
                 </div>
                 @* noi dung con  *@
@@ -348,8 +352,8 @@
                     <div class="class_radio_head"><input type="checkbox" id="6_rdoBanDichTiengViet" /> </div>
                     <div class="class_text_end" style="display:flex">
                         <label style="width:150px">bản dịch tiếng Việt, gồm</label>
-                        <input style="width:140px" type="text" id="6_txtBDTVGom" placeholder="6_txtBDTVGom" />
-                        <label style="width:60px;padding-left:5px">trang</label>
+                        <input style="width:33%" type="text" id="6_txtBDTVGom" placeholder="6_txtBDTVGom" />
+                        <label style="width:12%;padding-left:5px">trang</label>
                     </div>
 
                 </div>
@@ -374,8 +378,8 @@
                             <div class="class_radio_head"><input type="radio" name="bansao" id="6_rdoBanGocDaNopTheoDonSo" /></div>
                             <div class="class_text_end" style="display:flex">
                                 <label style="width:170px">bản gốc đã nộp theo đơn số</label>
-                                <input style="width:130px" type="text" id="6_txtBangocDNTheoDonSo" placeholder="6_txtBangocDNTheoDonSo" />
-                                <label style="width:40px;padding-left:5px">)</label>
+                                <input style="width:33%" type="text" id="6_txtBangocDNTheoDonSo" placeholder="6_txtBangocDNTheoDonSo" />
+                                <label style="width:10%;padding-left:5px">)</label>
                             </div>
 
                         </div>
@@ -389,7 +393,7 @@
                 <div class="class_full_div_input">
                     <div class="class_radio_head"> <input type="checkbox" id="6_rdoTaiLieuKhacCuThe" /></div>
                     <div class="class_text_end" style="display:flex">
-                        <label style="width:160px">Tài liệu khác, cụ thể:</label>
+                        <label style="width:175px">Tài liệu khác, cụ thể:</label>
                         <input style="flex-grow:1" type="text" id="6_txtTaiLieuKhacCuThe" placeholder="6_txtTaiLieuKhacCuThe" />
                     </div>
                 </div>
