@@ -44,84 +44,23 @@
 				<input type="text" id="txtPhoneEdit" value="@Model.Phone" maxlength="16" onkeypress="return isNumberKey()" onkeyup="return isNumberKey()" />
 			</div>
 			<div>
-				<label>Hãng <i class="redspan">(*)</i></label>
-				<select id="cboProductMarkCodeEdit">
-					@foreach (var item in CommonCatalogDataBL.GetAllProductMarkInfos())
-					{
-						<option @(item.ProductMarkCode == Model.ProductMarkCode ? "selected=\"selected\"" : "") value="@item.ProductMarkCode">@item.MarkName</option>
-					}
-				</select>
-			</div>
-			<div>
-				<label>Phòng ban <i class="redspan">(*)</i></label>
-				<select id="cboDepartmentEdit">
-					@foreach (var item in CommonCatalogDataBL.GetAllDepartmentInfos())
-					{
-						<option @(item.DepartmentId == Model.DepartmentId ? "selected=\"selected\"" : "") value="@item.DepartmentId">@item.DeptName</option>
+				<label>Loại người dùng <i class="redspan">(*)</i></label>
+				<select id="cboTypeEdit">
+					@foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE"))
+                    {
+						<option @(item.CdVal == Model.Type.ToString() ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
 					}
 				</select>
 			</div>
 
 			<div>
-				<label>Chức vụ <i class="redspan">(*)</i></label>
+				<label>Trạng thái <i class="redspan">(*)</i></label>
 				<select id="cboPositionEdit">
-					@foreach (var item in CommonCatalogDataBL.GetAllPositionInfos())
-					{
-						<option @(item.PositionId == Model.PositionId ? "selected=\"selected\"" : "") value="@item.PositionId">@item.Title</option>
-					}
-				</select>
-			</div>
-			<div>
-				<label>Chi nhánh <i class="redspan">(*)</i></label>
-				<select id="cboBranchEdit" data-warehouseidref="cboWareHouseEdit" onchange="cboBranchChanged(this)">
-					@foreach (var item in CommonCatalogDataBL.GetAllBranchInfos())
-					{
-						<option @(item.BranchId == Model.BranchId ? "selected=\"selected\"" : "") value="@item.BranchId">@item.ContactName</option>
-					}
-				</select>
-			</div>
-			<div>
-				<label>Kho <i class="redspan">(*)</i></label>
-				<select id="cboWareHouseEdit">
-					@foreach (var item in CommonCatalogDataBL.GetWarehouseInfosByBranch(Model.BranchId))
-					{
-						<option @(item.WarehouseId == Model.WareHouseId ? "selected=\"selected\"" : "") value="@item.WarehouseId">@item.Name</option>
-					}
-				</select>
-			</div>
-			<div>
-				<label>Loại giá sử dụng</label>
-				<select id="cboUnitPriceTypeEdit">
-					@foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.UnitPriceType))
-					{
-						<option @(item.CdVal == Model.UnitPriceType ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
-					}
-				</select>
-			</div>
-			<div>
-				<label>Trạng thái</label>
-				<select id="cboStatusEdit">
 					@foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.UserStatus))
-					{
+                    {
 						<option @(item.CdVal == Model.Status.ToString() ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
 					}
 				</select>
-			</div>
-
-			<div></div>
-
-			<div>
-				<input type="checkbox" class="facheck" @(Model.CanViewOtherBranch() ? "checked=\"checked\"" : "") id="chkbViewOtherBranchEdit" />
-				<label for="chkbViewOtherBranchEdit"><i class="far fa-circle"></i>Thấy được các cửa hàng khác</label>
-			</div>
-			<div>
-				<input type="checkbox" class="facheck" @(Model.CanSeeProductTypeS() ? "checked=\"checked\"" : "") id="chkbSeeProductTypeSEdit" />
-				<label for="chkbSeeProductTypeSEdit"><i class="far fa-circle"></i>Thấy được xe loại 2</label>
-			</div>
-
-			<div>
-				<input type="checkbox" class="facheck" @(Model.CanChangeInstanceWhenOutStock() ? "checked=\"checked\"" : "") id="chkbChangeInstanceWhenOutStockEdit" />
-				<label for="chkbChangeInstanceWhenOutStockEdit"><i class="far fa-circle"></i>Thay đổi thông tin xe sau khi bán</label>
 			</div>
 
 			<div>

@@ -11,245 +11,231 @@
 }
 @try
 {
-	<input type="hidden" value="LastTimeUpdated" id="colSorted" />
-	<input type="hidden" value="DESC" id="SortType" />
-	<input type="hidden" value="" id="OptionSorting" />
+    <input type="hidden" value="LastTimeUpdated" id="colSorted" />
+    <input type="hidden" value="DESC" id="SortType" />
+    <input type="hidden" value="" id="OptionSorting" />
 
-	<div class="d-popup-container" id="dpop-users"></div>
+    <div class="d-popup-container" id="dpop-users"></div>
 
-	<div class="d-nav-container">
-		<ul class="ul-nav">
-			<li><a href="javascript:;">Quản trị hệ thống</a></li>
-			<li><a href="/quan-tri-he-thong/quan-ly-nguoi-dung">Quản lý người dùng</a></li>
-		</ul>
-	</div>
+    <div class="d-nav-container">
+        <ul class="ul-nav">
+            <li><a href="javascript:;">Quản trị hệ thống</a></li>
+            <li><a href="/quan-tri-he-thong/quan-ly-nguoi-dung">Quản lý người dùng</a></li>
+        </ul>
+    </div>
 
-	<div class="title-section-content">
-		<p class="font-size-15 text-font-medium">Danh sách người dùng</p>
-	</div>
+    <div class="title-section-content">
+        <p class="font-size-15 text-font-medium">Danh sách người dùng</p>
+    </div>
 
-	<div class="action">
-		<input class="btn" type="button" value="Thêm mới người dùng" onclick="getViewToAddNewUser()" />
-	</div>
+    <div class="action">
+        <input class="btn" type="button" value="Thêm mới người dùng" onclick="getViewToAddNewUser()" />
+    </div>
 
-	<div class="div-search grid-3cols">
-		<div class="item-search">
-			<label class="title-condition">Tên đăng nhập</label>
-			<input class="control-condition" data-controlcondition="TRUE" type="text" id="txtUsernameSearch" />
-		</div>
-		<div class="item-search">
-			<label class="title-condition">Họ tên</label>
-			<input class="control-condition" data-controlcondition="TRUE" type="text" id="txtFullNameSearch" />
-		</div>
-		
-		<div class="item-search">
-			<label class="title-condition">Loại người dùng</label>
-			<select data-controlcondition="TRUE" id="cboUserType">
-				<option value="ALL">None</option>
-				@foreach (var item in _lstType)
-				{
-					<option value="@item.CdVal">@item.Content</option>
-				}
-			</select>
-		</div>
-		 
-		<div class="item-search">
-			<label class="title-condition">Trạng thái</label>
-			<select data-controlcondition="TRUE" id="cboStatusSearch">
-				<option selected="selected" value="">None</option>
-				@foreach (var item in _lstStatus)
-				{
-					<option value="@item.CdVal">@item.Content</option>
-				}
-			</select>
-		</div>
+    <div class="div-search grid-3cols">
+        <div class="item-search">
+            <label class="title-condition">Tên đăng nhập</label>
+            <input class="control-condition" data-controlcondition="TRUE" type="text" id="txtUsernameSearch" />
+        </div>
+        <div class="item-search">
+            <label class="title-condition">Họ tên</label>
+            <input class="control-condition" data-controlcondition="TRUE" type="text" id="txtFullNameSearch" />
+        </div>
 
-		<div class="item-search">
-			<input id="btnFindUsers" data-controlcondition="TRUE" type="button" class="btn btn-seach" value="Tìm kiếm" onclick="findUsers(1, 1)" />
-		</div>
-	</div>
+        <div class="item-search">
+            <label class="title-condition">Loại người dùng</label>
+            <select data-controlcondition="TRUE" id="cboUserType">
+                <option value="">None</option>
+                @foreach (var item in _lstType)
+                {
+                    <option value="@item.CdVal">@item.Content</option>
+                }
+            </select>
+        </div>
 
-	<div id="divTableUsers">
-		@Html.Partial("_PartialTableListUsers")
-	</div>
+        <div class="item-search">
+            <label class="title-condition">Trạng thái</label>
+            <select data-controlcondition="TRUE" id="cboStatusSearch">
+                <option selected="selected" value="">None</option>
+                @foreach (var item in _lstStatus)
+                {
+                    <option value="@item.CdVal">@item.Content</option>
+                }
+            </select>
+        </div>
 
-	<script>
-		var _currentKeySearch = '@SessionStorages.SEARCH_USER_KEY_CONDITIONS';
-		var _currentOptionFilter = '@SessionStorages.SEARCH_USER_KEY_OPTIONS';
-		var username = '', fullName = '', department = '', position = '', branch = '', warehouse = '', productMarkCode = '', group = '', status = '';
+        <div class="item-search">
+            <input id="btnFindUsers" data-controlcondition="TRUE" type="button" class="btn btn-seach" value="Tìm kiếm" onclick="findUsers(1, 1)" />
+        </div>
+    </div>
 
-		$(document).ready(function () {
-			initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findUsers);
+    <div id="divTableUsers">
+        @Html.Partial("_PartialTableListUsers")
+    </div>
 
-			$('txtUsernameSearch').focus();
-			$('[data-controlcondition="TRUE"]').on('keypress',
+    <script>
+        var _currentKeySearch = '@SessionStorages.SEARCH_USER_KEY_CONDITIONS';
+        var _currentOptionFilter = '@SessionStorages.SEARCH_USER_KEY_OPTIONS';
+        var username = '', fullName = '', type = '', status = '';
+
+        $(document).ready(function () {
+            initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findUsers);
+
+            $('txtUsernameSearch').focus();
+            $('[data-controlcondition="TRUE"]').on('keypress',
 				function (e) {
-					enterKeyPress(e, 'btnFindUsers');
+				    enterKeyPress(e, 'btnFindUsers');
 				});
-		});
+        });
 
-		function findUsers(_pageNumber, _isSearching) {
-			reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
-			if (isSearching === 1) {
-				username = $("#txtUsernameSearch").val().trim();
-				fullName = $("#txtFullNameSearch").val().trim();
-				department = $("#cboDepartmentSearch").val();
-				position = $("#cboPositionSearch").val();
-				branch = $("#cboBranchSearch").val();
-				warehouse = $("#cboWareHouseSearch").val();
-				productMarkCode = $("#cboProductMarkCodeSearch").val();
-				group = $("#cboGroupSearch").val();
-				status = $("#cboStatusSearch").val();
-			} else {
-				window.arrKeySearch = window.keySearch.split('|');
-				username = arrKeySearch[0];
-				fullName = arrKeySearch[1];
-				department = arrKeySearch[2];
-				position = arrKeySearch[3];
-				branch = arrKeySearch[4];
-				warehouse = arrKeySearch[5];
-				productMarkCode = arrKeySearch[6];
-				group = arrKeySearch[7];
-				status = arrKeySearch[8];
-				$("#txtUsernameSearch").val(username);
-				$("#txtFullNameSearch").val(fullName);
-				$("#cboDepartmentSearch").val(department);
-				$("#cboPositionSearch").val(position);
-				$("#cboBranchSearch").val(branch);
-				$("#cboWareHouseSearch").val(warehouse);
-				$("#cboProductMarkCodeSearch").val(productMarkCode);
-				$("#cboGroupSearch").val(group);
-				$("#cboStatusSearch").val(status);
-			}
+        function findUsers(_pageNumber, _isSearching) {
+            reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
+            if (isSearching === 1) {
+                username = $("#txtUsernameSearch").val().trim();
+                fullName = $("#txtFullNameSearch").val().trim();
+                type = $("#cboUserType").val();
+                status = $("#cboStatusSearch").val();
+            } else {
+                window.arrKeySearch = window.keySearch.split('|');
+                username = arrKeySearch[0];
+                fullName = arrKeySearch[1];
+                type = arrKeySearch[2];
+                status = arrKeySearch[3];
 
-			updateSearchingConditions("divNumberRecordOnPageListUsers", setKeySearch);
+                $("#txtUsernameSearch").val(username);
+                $("#txtFullNameSearch").val(fullName);
+                $("#cboUserType").val(type);
+                $("#cboStatusSearch").val(status);
+            }
 
-			$.ajax({
-				type: "POST",
-				headers: { "cache-control": "no-cache" },
-				url: "/quan-tri-he-thong/quan-ly-nguoi-dung/find-user",
-				data: {
-					keysSearch: keySearch,
-					options: optionFilter
-				},
-				async: false,
-				success: function (data) {
-					if (data != null) {
-						onResponseWhenSearching(data, "divTableUsers", findUsers);
-					}
-				}
-			});
-			return true;
-		}
+            updateSearchingConditions("divNumberRecordOnPageListUsers", setKeySearch);
 
-		function setKeySearch() {
-			window.keySearch = username + "|" + fullName + "|" + department + "|" + position + "|" + branch + "|" + warehouse + "|" + productMarkCode + "|" + group + "|" + status;
-		}
+            $.ajax({
+                type: "POST",
+                headers: { "cache-control": "no-cache" },
+                url: "/quan-tri-he-thong/quan-ly-nguoi-dung/find-user",
+                data: {
+                    keysSearch: keySearch,
+                    options: optionFilter
+                },
+                async: false,
+                success: function (data) {
+                    if (data != null) {
+                        onResponseWhenSearching(data, "divTableUsers", findUsers);
+                    }
+                }
+            });
+            return true;
+        }
 
-		function initOrderBySearching() {
-			window.colSort = 'LastTimeUpdated';
-			window.sortType = 'DESC';
-		}
+        function setKeySearch() {
+            window.keySearch = username + "|" + fullName + "|" + type + "|" + status;
+        }
 
-		function pageListOfUsers(_pagenum) {
-			try {
-				findUsers(_pagenum, 0);
+        function initOrderBySearching() {
+            window.colSort = 'LastTimeUpdated';
+            window.sortType = 'DESC';
+        }
 
-			} catch (e) {
-				console.log(e.message);
-			}
-		}
-	</script>
+        function pageListOfUsers(_pagenum) {
+            try {
+                findUsers(_pagenum, 0);
 
-	@* task function *@
-	<script>
-		function getViewToAddNewUser() {
-			$.ajax({
-				type: "POST",
-				url: "/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-add-user",
-				headers: { "cache-control": "no-cache" },
-				async: false,
-				success: function (data) {
-					if (data != null) {
-						if (validateResponse(data)) {
-							$("#dpop-users").html(data);
-							ShowPopupDialog("dpop-users", "Thêm mới người dùng", 900, 0, "txtUsernameAdd");
-						}
-					}
-					return false;
-				}
-			});
-		}
+            } catch (e) {
+                console.log(e.message);
+            }
+        }
+    </script>
 
-		function getViewToEditUser(userId, username) {
-			$.ajax({
-				type: "POST",
-				url: "/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-edit-user",
-				headers: { "cache-control": "no-cache" },
-				data: { userId : userId },
-				async: false,
-				success: function (data) {
-					if (data != null) {
-						if (validateResponse(data)) {
-							$("#dpop-users").html(data);
-							ShowPopupDialog("dpop-users", "Sửa người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 0, "txtFullNameEdit");
-						}
-					}
-					return false;
-				}
-			});
-		}
+    @* task function *@
+    <script>
+        function getViewToAddNewUser() {
+            $.ajax({
+                type: "POST",
+                url: "/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-add-user",
+                headers: { "cache-control": "no-cache" },
+                async: false,
+                success: function (data) {
+                    if (data != null) {
+                        if (validateResponse(data)) {
+                            $("#dpop-users").html(data);
+                            ShowPopupDialog("dpop-users", "Thêm mới người dùng", 900, 0, "txtUsernameAdd");
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
 
-		function doDeleteUser(userId, canDelete) {
-			if (canDelete > 0) {
-				showError("Không thể xóa người dùng đang hoạt động.");
-				return false;
-			} else {
-				nvsConfirm(null, "Bạn có chắc chắn muốn xóa người dùng này không?", function () {
-					$.ajax({
-						url: "/quan-tri-he-thong/quan-ly-nguoi-dung/do-delete-user",
-						type: "POST",
-						data: { userId : userId },
-						headers: { "cache-control": "no-cache" },
-						async: false,
-						success: function (data) {
-							if (data != null) {
-								if (onResponse(data)) {
-									ClosePopupDialog('dpop-users', true);
-									findUsers(1, 0);
-								}
-							}
-						},
-						error: function (e) {
-							console.log(e);
-						}
-					});
+        function getViewToEditUser(userId, username) {
+            $.ajax({
+                type: "POST",
+                url: "/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-edit-user",
+                headers: { "cache-control": "no-cache" },
+                data: { userId: userId },
+                async: false,
+                success: function (data) {
+                    if (data != null) {
+                        if (validateResponse(data)) {
+                            $("#dpop-users").html(data);
+                            ShowPopupDialog("dpop-users", "Sửa người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 0, "txtFullNameEdit");
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
 
-				});
-			}
-		}
+        function doDeleteUser(userId, canDelete) {
+            if (canDelete > 0) {
+                showError("Không thể xóa người dùng đang hoạt động.");
+                return false;
+            } else {
+                nvsConfirm(null, "Bạn có chắc chắn muốn xóa người dùng này không?", function () {
+                    $.ajax({
+                        url: "/quan-tri-he-thong/quan-ly-nguoi-dung/do-delete-user",
+                        type: "POST",
+                        data: { userId: userId },
+                        headers: { "cache-control": "no-cache" },
+                        async: false,
+                        success: function (data) {
+                            if (data != null) {
+                                if (onResponse(data)) {
+                                    ClosePopupDialog('dpop-users', true);
+                                    findUsers(1, 0);
+                                }
+                            }
+                        },
+                        error: function (e) {
+                            console.log(e);
+                        }
+                    });
 
-		function viewDetailUser(userId, username) {
-			$.ajax({
-				type: "POST",
-				url: "/quan-tri-he-thong/quan-ly-nguoi-dung/view-detail-user",
-				headers: { "cache-control": "no-cache" },
-				async: false,
-				data: { userId : userId },
-				success: function (data) {
-					if (data != null) {
-						if (validateResponse(data)) {
-							$("#dpop-users").html(data);
-							ShowPopupDialog("dpop-users", "Chi tiết người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 0, null);
-						}
-					}
-					return false;
-				}
-			});
-		}
-	</script>
+                });
+            }
+        }
+
+        function viewDetailUser(userId, username) {
+            $.ajax({
+                type: "POST",
+                url: "/quan-tri-he-thong/quan-ly-nguoi-dung/view-detail-user",
+                headers: { "cache-control": "no-cache" },
+                async: false,
+                data: { userId: userId },
+                success: function (data) {
+                    if (data != null) {
+                        if (validateResponse(data)) {
+                            $("#dpop-users").html(data);
+                            ShowPopupDialog("dpop-users", "Chi tiết người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 0, null);
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
+    </script>
 }
 catch (Exception)
 {
-	// ignored
+    // ignored
 }

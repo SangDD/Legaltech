@@ -1,5 +1,4 @@
-﻿@using BussinessFacade.ModuleCommonCatalogData
-@using BussinessFacade.ModuleMemoryData
+﻿@using BussinessFacade.ModuleMemoryData
 @using BussinessFacade.ModuleUsersAndRoles
 @using Common.CommonData
 @try
@@ -51,83 +50,27 @@
 				<label>Điện thoại <i class="redspan">(*)</i></label>
 				<input type="text" id="txtPhoneAdd" maxlength="16" onkeypress="return isNumberKey()" onkeyup="return isNumberKey()" />
 			</div>
+		 
 			<div>
-				<label>Hãng <i class="redspan">(*)</i></label>
-				<select id="cboProductMarkCodeAdd">
-					@foreach (var item in CommonCatalogDataBL.GetAllProductMarkInfos())
+				<label>Loại người dùng</label>
+				<select id="cboTypeAdd">
+					@foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE"))
 					{
-						<option value="@item.ProductMarkCode">@item.MarkName</option>
-					}
-				</select>
-			</div>
-			<div>
-				<label>Phòng ban <i class="redspan">(*)</i></label>
-				<select id="cboDepartmentAdd">
-					@foreach (var item in CommonCatalogDataBL.GetAllDepartmentInfos())
-					{
-						<option value="@item.DepartmentId">@item.DeptName</option>
+						<option value="@item.CdVal">@item.Content</option>
 					}
 				</select>
 			</div>
 
-			<div>
-				<label>Chức vụ <i class="redspan">(*)</i></label>
-				<select id="cboPositionAdd">
-					@foreach (var item in CommonCatalogDataBL.GetAllPositionInfos())
-					{
-						<option value="@item.PositionId">@item.Title</option>
-					}
-				</select>
-			</div>
-			<div>
-				<label>Chi nhánh <i class="redspan">(*)</i></label>
-				<select id="cboBranchAdd" data-warehouseidref="cboWareHouseAdd" onchange="cboBranchChanged(this)">
-					@foreach (var item in CommonCatalogDataBL.GetAllBranchInfos())
-					{
-						<option value="@item.BranchId">@item.ContactName</option>
-					}
-				</select>
-			</div>
-			<div>
-				<label>Kho <i class="redspan">(*)</i></label>
-				<select id="cboWareHouseAdd">
-				</select>
-			</div>
-			<div>
-				<label>Loại giá sử dụng</label>
-				<select id="cboUnitPriceTypeAdd">
-					@foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.UnitPriceType))
-					{
-						<option value="@item.CdVal">@item.Content</option>
-					}
-				</select>
-			</div>
-			<div>
-				<label>Trạng thái</label>
-				<select id="cboStatusAdd">
-					@foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.UserStatus))
-					{
-						<option value="@item.CdVal">@item.Content</option>
-					}
-				</select>
-			</div>
+            <div>
+                <label>Trạng thái</label>
+                <select id="cboStatusAdd">
+                    @foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.UserStatus))
+                    {
+                        <option value="@item.CdVal">@item.Content</option>
+                    }
+                </select>
+            </div>
 			
-			<div></div>
-
-			<div>
-				<input type="checkbox" class="facheck" id="chkbViewOtherBranchAdd" />
-				<label for="chkbViewOtherBranchAdd"><i class="far fa-circle"></i>Thấy được các cửa hàng khác</label>
-			</div>
-			<div>
-				<input type="checkbox" class="facheck" id="chkbSeeProductTypeSAdd" />
-				<label for="chkbSeeProductTypeSAdd"><i class="far fa-circle"></i>Thấy được xe loại 2</label>
-			</div>
-
-			<div>
-				<input type="checkbox" class="facheck" id="chkbChangeInstanceWhenOutStockAdd" />
-				<label for="chkbChangeInstanceWhenOutStockAdd"><i class="far fa-circle"></i>Thay đổi thông tin xe sau khi bán</label>
-			</div>
-
 			<div>
 				<label>Nhóm quyền</label>
 				<div class="groups-checkbox">
@@ -155,16 +98,8 @@
 			sexAdd = '',
 			emailAdd = '',
 			phoneAdd = '',
-			deparmentAdd = '',
-			positionAdd = '',
-			branchAdd = '',
-			wareHouseAdd = '',
-			unitPriceTypeAdd = '',
-			viewOtherBranchAdd = 'false',
-			seeProductTypeSAdd = 'false',
-			changeInstanceWhenOutStockAdd = 'false',
-			productMarkCodeAdd = '',
 			statusAdd = '',
+            typeAdd = '',
 			arrGroupsAdd = '';
 		$(document).ready(function () {
 			$.datetimepicker.setLocale('vi');
@@ -177,43 +112,7 @@
 				validateOnBlur: false,
 				scrollInput: false
 			});
-
-			$('#cboDepartmentAdd').multipleSelect({
-				filter: true,
-				single: true,
-				isdatastring: false,
-				maxHeight: 150,
-				placeholder: "-- Chọn phòng ban --"
-			});
-			$('#cboPositionAdd').multipleSelect({
-				filter: true,
-				single: true,
-				isdatastring: false,
-				maxHeight: 150,
-				placeholder: "-- Chọn chức vụ --"
-			});
-			$('#cboBranchAdd').multipleSelect({
-				filter: true,
-				single: true,
-				isdatastring: false,
-				maxHeight: 150,
-				placeholder: "-- Chọn chi nhánh --"
-			});
-			$('#cboWareHouseAdd').multipleSelect({
-				filter: true,
-				single: true,
-				isdatastring: false,
-				maxHeight: 150,
-				placeholder: "-- Chọn kho --"
-			});
-			$('#cboProductMarkCodeAdd').multipleSelect({
-				filter: true,
-				single: true,
-				isdatastring: false,
-				maxHeight: 150,
-				placeholder: "-- Chọn hãng --"
-			});
-
+			 
 		});
 
 		function doAddNewUser() {
@@ -253,23 +152,7 @@
 			sexAdd = $('#cboSexAdd').val();
 			emailAdd = $('#txtEmailAdd').val().trim();
 			phoneAdd = $('#txtPhoneAdd').val().trim();
-			deparmentAdd = $('#cboDepartmentAdd').val();
-			positionAdd = $('#cboPositionAdd').val();
-			branchAdd = $('#cboBranchAdd').val();
-			wareHouseAdd = $('#cboWareHouseAdd').val();
-			unitPriceTypeAdd = $('#cboUnitPriceTypeAdd').val();
-
-			if ($('#chkbViewOtherBranchAdd').is(':checked')) {
-				viewOtherBranchAdd = 'true';
-			}
-			if ($('#chkbSeeProductTypeSAdd').is(':checked')) {
-				seeProductTypeSAdd = 'true';
-			}
-			if ($('#chkbChangeInstanceWhenOutStockAdd').is(':checked')) {
-				changeInstanceWhenOutStockAdd = 'true';
-			}
-
-			productMarkCodeAdd = $('#cboProductMarkCodeAdd').val();
+			typeAdd = $('#cboTypeAdd').val();
 			statusAdd = $('#cboStatusAdd').val();
 			$('[data-groupuseradd="TRUE"]:checked').each(function () {
 				arrGroupsAdd += $(this).val() + ",";
@@ -336,33 +219,7 @@
 				showError('Điện thoại không được để trống!');
 				return false;
 			}
-			if (productMarkCodeAdd == null || productMarkCodeAdd === "") {
-				$('#cboProductMarkCodeAdd').multipleSelect('focus');
-				showError('Hãng không được để trống!');
-				return false;
-			}
-			if (deparmentAdd == null || deparmentAdd === "") {
-				$('#cboDepartmentAdd').multipleSelect('focus');
-				showError('Phòng ban không được để trống!');
-				return false;
-			}
-			if (positionAdd == null || positionAdd === "") {
-				$('#cboPositionAdd').multipleSelect('focus');
-				showError('Chức vụ không được để trống!');
-				return false;
-			}
-
-			if (branchAdd == null || branchAdd === "") {
-				$('#cboBranchAdd').multipleSelect('focus');
-				showError('Chi nhánh không được để trống!');
-				return false;
-			}
-			if (wareHouseAdd == null || wareHouseAdd === "") {
-				$('#cboWareHouseAdd').multipleSelect('focus');
-				showError('Kho không được để trống!');
-				return false;
-			}
-
+		 
 			return true;
 		}
 
@@ -374,15 +231,7 @@
 			formData.append('userInfo.Sex', sexAdd);
 			formData.append('userInfo.Email', emailAdd);
 			formData.append('userInfo.Phone', phoneAdd);
-			formData.append('userInfo.DepartmentId', deparmentAdd);
-			formData.append('userInfo.PositionId', positionAdd);
-			formData.append('userInfo.BranchId', branchAdd);
-			formData.append('userInfo.WareHouseId', wareHouseAdd);
-			formData.append('userInfo.UnitPriceType', unitPriceTypeAdd);
-			formData.append('userInfo.ViewOtherBranch', viewOtherBranchAdd);
-			formData.append('userInfo.SeeProductTypeS', seeProductTypeSAdd);
-			formData.append('userInfo.ChangeInstanceWhenOutStock', changeInstanceWhenOutStockAdd);
-			formData.append('userInfo.ProductMarkCode', productMarkCodeAdd);
+			formData.append('userInfo.Type', typeAdd);
 			formData.append('userInfo.Status', statusAdd);
 			formData.append('arrGroupId', arrGroupsAdd);
 		}

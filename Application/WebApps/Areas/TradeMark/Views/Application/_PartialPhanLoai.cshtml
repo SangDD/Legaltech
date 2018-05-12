@@ -82,7 +82,17 @@
         }
     }
 
-  
+    function validateAction() {
+        _Lawer_Id = $('#cboLawer').val();
+        if (_Lawer_Id == null || _Lawer_Id == "0") {
+            jError('Tên luật sư không được để trống!', "Lỗi", function () {
+                $('#cboLawer').multipleSelect('focus');
+            });
+            return false;
+        }
+
+        return true;
+    }
 
     function collectObjectData(formData) {
         formData.append('p_App_Lawer_Info.Lawer_Id', _Lawer_Id);
