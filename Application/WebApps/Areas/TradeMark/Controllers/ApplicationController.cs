@@ -38,7 +38,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 ViewBag.Paging = htmlPaging;
                 ViewBag.SumRecord = _total_record;
 
-                return View("~/Areas/TradeMark/Views/Application/Application_Display.cshtml");
+                return View("~/Areas/TradeMark/Views/Application/DanhSach_DonLuuTam.cshtml");
             }
             catch (Exception ex)
             {
