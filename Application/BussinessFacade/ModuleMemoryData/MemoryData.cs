@@ -55,7 +55,7 @@
 			}
 		}
 
-        public static List<AllCodeInfo> AllCode_GetBy_CdTypeCdName(string p_cdtype, string p_cdname)
+        public static List<AllCodeInfo> AllCode_GetBy_CdTypeCdName(string p_cdname, string p_cdtype)
         {
             try
             {

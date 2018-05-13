@@ -143,6 +143,9 @@ namespace WebApps.Areas.TradeMark.Controllers
         {
             try
             {
+                p_App_Lawer_Info.Language_Code = AppsCommon.GetCurrentLang();
+                p_App_Lawer_Info.Created_By = SessionData.CurrentUser.Username;
+                p_App_Lawer_Info.Created_Date = DateTime.Now;
                 App_Lawer_BL _con = new App_Lawer_BL();
                 decimal _ck = _con.App_Lawer_Insert(p_App_Lawer_Info);
                 return Json(new { success = _ck });

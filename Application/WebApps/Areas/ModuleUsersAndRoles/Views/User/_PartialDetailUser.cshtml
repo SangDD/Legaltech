@@ -36,49 +36,12 @@
 				<p class="text-font-medium">@Model.Phone</p>
 			</div>
 			<div>
-				<label>Hãng </label>
-				<p class="text-font-medium">@Model.ProductMarkDisplayName</p>
-			</div>
-			<div>
-				<label>Phòng ban</label>
-				<p class="text-font-medium">@Model.DepartmentDisplayName</p>
-			</div>
-
-			<div>
-				<label>Chức vụ</label>
-				<p class="text-font-medium">@Model.PositionDisplayName</p>
-			</div>
-			<div>
-				<label>Chi nhánh </label>
-				<p class="text-font-medium">@Model.BranchDisplayName</p>
-			</div>
-			<div>
-				<label>Kho </label>
-				<p class="text-font-medium">@Model.WareHouseDisplayName</p>
-			</div>
-			<div>
-				<label>Loại giá sử dụng</label>
-				<p class="text-font-medium">@Model.UnitPriceTypeDisplayName</p>
+				<label>Loại người dùng </label>
+				<p class="text-font-medium">@Model.Type_Name</p>
 			</div>
 			<div>
 				<label>Trạng thái</label>
 				<p class="text-font-medium">@Model.StatusDisplayName</p>
-			</div>
-
-			<div></div>
-
-			<div>
-				<input type="checkbox" disabled="disabled" class="facheck" @(Model.CanViewOtherBranch() ? "checked=\"checked\"" : "") id="chkbViewOtherBranchEdit" />
-				<label for="chkbViewOtherBranchEdit"><i class="far fa-circle"></i>Thấy được các cửa hàng khác</label>
-			</div>
-			<div>
-				<input type="checkbox" disabled="disabled" class="facheck" @(Model.CanSeeProductTypeS() ? "checked=\"checked\"" : "") id="chkbSeeProductTypeSEdit" />
-				<label for="chkbSeeProductTypeSEdit"><i class="far fa-circle"></i>Thấy được xe loại 2</label>
-			</div>
-
-			<div>
-				<input type="checkbox" disabled="disabled" class="facheck" @(Model.CanChangeInstanceWhenOutStock() ? "checked=\"checked\"" : "") id="chkbChangeInstanceWhenOutStockEdit" />
-				<label for="chkbChangeInstanceWhenOutStockEdit"><i class="far fa-circle"></i>Thay đổi thông tin xe sau khi bán</label>
 			</div>
 
 			<div>

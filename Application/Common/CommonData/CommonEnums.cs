@@ -26,6 +26,7 @@
             LuatSuDaConfirm = 3,
             ChoKHConfirm = 4,
             KhacHangDaConfirm = 5,
+            KhacHangDaTuChoi = 51,
             DaGuiLenCuc = 6
         }
     }

@@ -10,11 +10,10 @@
 				<th style="width: 4%">STT</th>
 				<th data-sort id="Username" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Tên đăng nhập</th>
 				<th style="width: 10%" data-sort id="FullName" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Họ tên</th>
-				<th style="width: 10%" data-sort id="ProductMarkDisplayName" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Hãng</th>
-				<th style="width: 10%" data-sort id="BranchDisplayName" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Chi nhánh</th>
-				<th style="width: 10%" data-sort id="WareHouseDisplayName" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Kho</th>
-				<th style="width: 10%" data-sort id="DepartmentDisplayName" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Phòng ban</th>
-				<th style="width: 10%" data-sort id="PositionDisplayName" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Chức vụ</th>
+				<th style="width: 10%" data-sort id="Status" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Trạng thái</th>
+				<th style="width: 10%" data-sort id="Type" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Loại người dùng</th>
+                <th style="width: 10%" data-sort id="Email" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Email</th>
+                <th style="width: 10%" data-sort id="Phone" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Số điện thoại</th>
 				<th style="width: 10%" data-sort id="LastTimeUpdated">Cập nhật lúc</th>
 				<th style="width: 100px;">Chức năng</th>
 			</tr>
@@ -28,11 +27,10 @@
 						<td class="tdcenteralign">@item.Stt</td>
 						<td class="tdleftalign"><a href="javascript:viewDetailUser(@item.Id, '@item.Username')">@item.Username</a></td>
 						<td class="tdleftalign">@item.FullName</td>
-						<td class="tdleftalign">@item.ProductMarkDisplayName</td>
-						<td class="tdleftalign">@item.BranchDisplayName</td>
-						<td class="tdleftalign">@item.WareHouseDisplayName</td>
-						<td class="tdleftalign">@item.DepartmentDisplayName</td>
-						<td class="tdleftalign">@item.PositionDisplayName</td>
+						<td class="tdleftalign">@item.StatusDisplayName</td>
+						<td class="tdleftalign">@item.Type_Name</td>
+                        <td class="tdleftalign">@item.Email</td>
+                        <td class="tdleftalign">@item.Phone</td>
 						<td class="tdleftalign">@item.LastTimeUpdated.ToDateTimeStringN0()</td>
 						<td class="tdcenteralign">
 							<a href="javascript:getViewToEditUser(@item.Id, '@item.Username')" class="icon icon-edit" data-title="Sửa"></a>

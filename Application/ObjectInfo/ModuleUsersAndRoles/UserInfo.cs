@@ -1,13 +1,13 @@
 ﻿namespace ObjectInfos.ModuleUsersAndRoles
 {
-	using System;
-	using System.Collections.Generic;
+    using System;
+    using System.Collections.Generic;
 
-	using Common.Converters;
+    using Common.Converters;
 
-	public class UserInfo
-	{
-		private int _numberDayPasswordOutOfDate;
+    public class UserInfo
+    {
+        private int _numberDayPasswordOutOfDate;
 
         public UserInfo()
         {
@@ -15,83 +15,49 @@
             this.AccountRoleChanged = false;
             this.AllAccountRoles = new List<FunctionInfo>();
         }
-        
-		// main field mapping with database
-        public int      Stt { get; set; }
-        public int      Id { get; set; }
-        public string   Username { get; set; }
-        public string   Password { get; set; }
-        public string   FullName { get; set; }
-		public DateTime DateOfBirth { get; set; }
-      
+
+        // main field mapping with database
+        public int Stt { get; set; }
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string FullName { get; set; }
+        public DateTime DateOfBirth { get; set; }
+
         /// <summary>
         /// Lưu trong allcode với cdname='SEX_TYPE'
         /// </summary>
-        public string   Sex { get; set; }
-		public string   SexDisplayName { get; set; }
-		public string   Email { get; set; }
-		public string   Phone { get; set; }
-		
-		/// <summary>
-		/// Chức vụ
-		/// </summary>
-		public int      PositionId { get; set; }
-		public string   PositionDisplayName { get; set; }
+        public string Sex { get; set; }
+        public string SexDisplayName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
 
-		/// <summary>
-		/// Phòng ban
-		/// </summary>
-		public int      DepartmentId { get; set; }
-		public string   DepartmentDisplayName { get; set; }
+        public int Type { get; set; }
+        public string Type_Name { get; set; }
 
-		/// <summary>
-		/// Chi nhánh
-		/// </summary>
-		public int      BranchId { get; set; }
-		public string   BranchDisplayName { get; set; }
 
-		/// <summary>
-		/// Kho
-		/// </summary>
-		public int      WareHouseId { get; set; }
-		public string   WareHouseDisplayName { get; set; }
+        public int Status { get; set; }
+        public string StatusDisplayName { get; set; }
 
-		/// <summary>
-		/// Loại giá sử dụng lưu trong allcode với cdname='UNIT_PRICE_TYPE'
-		/// </summary>
-		public string   UnitPriceType { get; set; }
-		public string   UnitPriceTypeDisplayName { get; set; }
-
-		public string   ViewOtherBranch { get; set; } // true/false
-		public string   SeeProductTypeS { get; set; } // true/false
-		public string   ChangeInstanceWhenOutStock { get; set; } // true/false
-
-		public string   ProductMarkCode { get; set; }
-		public string   ProductMarkDisplayName { get; set; }
-
-        /// <summary>
-        /// định nghĩa trong allcode với cdname='USER_STATUS'
-        /// </summary>
-        public int      Status { get; set; }
-        public string   StatusDisplayName { get; set; }
         public string Language { get; set; }
-        public string   CreatedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public string   ModifiedBy { get; set; }
-        public DateTime ModifiedDate { get; set; }
-	    public DateTime LastTimeUpdated { get; set; }
-		public int      Deleted { get; set; }
 
-		// additional info
+        public string CreatedBy { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public string ModifiedBy { get; set; }
+        public DateTime ModifiedDate { get; set; }
+        public DateTime LastTimeUpdated { get; set; }
+        public int Deleted { get; set; }
+
+        // additional info
         public DateTime LastTimeUpdatePassword { get; set; }
-		public DateTime LastTimeRecoverPassword { get; set; }
-        public string   HtmlMenu { get; set; }
-		public string   DefaultHomePage { get; set; }
-	    public DateTime LoginTime { get; set; }
-		public bool     AccountRoleChanged { get; set; }
-		public List<FunctionInfo> AllAccountRoles { get; set; }
-        
-		public List<int> GroupSelectedCollection { get; set; }
+        public DateTime LastTimeRecoverPassword { get; set; }
+        public string HtmlMenu { get; set; }
+        public string DefaultHomePage { get; set; }
+        public DateTime LoginTime { get; set; }
+        public bool AccountRoleChanged { get; set; }
+        public List<FunctionInfo> AllAccountRoles { get; set; }
+
+        public List<int> GroupSelectedCollection { get; set; }
 
         public void SetRoleSuperAdmin()
         {
@@ -124,16 +90,16 @@
             this._numberDayPasswordOutOfDate = numberOfDay;
         }
 
-		public string GroupSelectedCollectionToString()
-		{
-			if (this.GroupSelectedCollection == null) return string.Empty;
-			var groupsString = string.Empty;
-			foreach (var group in this.GroupSelectedCollection)
-			{
-				groupsString += group + ",";
-			}
+        public string GroupSelectedCollectionToString()
+        {
+            if (this.GroupSelectedCollection == null) return string.Empty;
+            var groupsString = string.Empty;
+            foreach (var group in this.GroupSelectedCollection)
+            {
+                groupsString += group + ",";
+            }
 
-			groupsString = groupsString.TrimEnd(',');
+            groupsString = groupsString.TrimEnd(',');
 
 			return groupsString;
 		}
