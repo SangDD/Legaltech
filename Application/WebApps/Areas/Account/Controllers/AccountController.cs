@@ -53,7 +53,9 @@
                     userBL.CurrentUserInfo.Language = language;
                     SessionData.CurrentUser = userBL.CurrentUserInfo;
 					SessionData.CurrentUser.DefaultHomePage = IdentityRequest.GetDefaultPageForAccountLogged();
-					var urlContinue = SessionData.CurrentUser.DefaultHomePage;
+                    SessionData.CurrentUser.CurrentDate = CommonFuc.TruncDate();
+
+                    var urlContinue = SessionData.CurrentUser.DefaultHomePage;
 					if (!string.IsNullOrEmpty(returnUrl)) urlContinue = returnUrl;
 
                     return Json(new { result = result.ToJson(), urlContinue });

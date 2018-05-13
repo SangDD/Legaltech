@@ -23,4 +23,11 @@ namespace Common
         public static string AppCodeTraCuuNhanHieu = "TM03YCTCNH";
         public static string AppCodeDangKynhanHieu = "TM04NH";
     }
+
+
+    public class ErrorCode
+    {
+        public static readonly int Error = -33;
+        public static readonly int Success = 0;
+    }
 }

@@ -1,11 +1,9 @@
 ﻿using Common;
 using DataAccess.ModuleTrademark;
 using ObjectInfos;
-using ObjectInfos.ModuleTrademark;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using ZetaCompressionLibrary;
 
 namespace BussinessFacade.ModuleTrademark
 {
@@ -26,5 +24,54 @@ namespace BussinessFacade.ModuleTrademark
                 return new List<ApplicationHeaderInfo>();
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pInfo"></param>
+        /// <returns>TRA RA ID CUA BANG KHI INSERT THANH CONG</returns>
+        public int AppHeaderInsert(ApplicationHeaderInfo pInfo)
+        {
+            try
+            {
+                Application_Header_DA objData = new Application_Header_DA();
+                return objData.AppHeaderInsert(pInfo);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
+        public int AppHeaderUpdate(ApplicationHeaderInfo pInfo)
+        {
+            try
+            {
+                Application_Header_DA objData = new Application_Header_DA();
+                return objData.AppHeaderUpdate(pInfo);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
+
+        public int AppHeaderDeleted(decimal pID, string pLanguage)
+        {
+            try
+            {
+                Application_Header_DA objData = new Application_Header_DA();
+                return objData.AppHeaderDeleted(pID, pLanguage);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
     }
 }

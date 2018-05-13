@@ -54,6 +54,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Rotativa">
+      <HintPath>..\Extended dll\Rotativa.1.6.4\lib\net40\Rotativa.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -299,6 +302,7 @@
     <Content Include="Areas\TradeMark\Views\Application\DanhSach_DonDaGui.cshtml" />
     <Content Include="Areas\TradeMark\Views\Application\_PartialTableApplication_DaGui.cshtml" />
     <Content Include="Areas\TradeMark\Views\Application\_PartialPhanLoai.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\AppSuaDoiDonDangKyPDF.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\AlertPopup\ASSAlert.js" />
     <Content Include="Scripts\AlertPopup\NVSAlertCss.css" />
@@ -590,6 +594,7 @@
     <Content Include="ViewsShared\_LayoutRequestNotIdentity.cshtml" />
     <Content Include="ViewsShared\_PartialAccountInfo.cshtml" />
     <Content Include="ViewsShared\_PartialMainMenu.cshtml" />
+    <Content Include="ViewsShared\_LayoutPDF.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Account\Models\" />

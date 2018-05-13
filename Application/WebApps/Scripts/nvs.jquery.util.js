@@ -266,6 +266,151 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+
+function jsFormatFloatNumber_SoAm(nStr, txtControlId) {
+    var _So_am = false;
+    if (nStr.indexOf('-') != -1) {
+        _So_am = true;
+    }
+    nStr = nStr.replace('-', '');// cat so am di
+
+    var _IndexFloat = nStr.indexOf('.');
+    var _PhanThapPhan = "";
+    var _count_ = 0;
+    var _Alltext = "";
+    _count_ = (nStr.split(".").length - 1);
+    if (_count_ > 1)// nếu có tồn tại 2 dấu . thì cắt dấu toàn bộ từ dấu . thứ 2 đến hết
+    {
+        var Fst = nStr.indexOf('.');
+        var Snd = nStr.indexOf('.', Fst + 1);// vị trí index của thằng . thứ 2
+        nStr = nStr.substring(0, Snd);// xóa hết từ thằng . thứ 2
+    }
+    if (_IndexFloat >= 0)// nếu có dấu . thì mới làm tiếp
+    {
+        _PhanThapPhan = nStr.substring(_IndexFloat, nStr.length);
+        // cắt lấy phần nguyên để format trước
+        nStr = nStr.substring(0, _IndexFloat);
+    }
+    var _Vondieule = "";
+    _Vondieule = nStr;
+    var _tempvondieule = "";
+    var _newtemp = "";
+    var _Regex = new RegExp('^[0-9,.]+$');
+    _Alltext = _Vondieule + _PhanThapPhan;
+    for (var i = 0; i < _Alltext.length; i++) {// cat het nhung ky tu khong phai la so
+        _newtemp += _Alltext[i];
+        if (_Regex.test(_newtemp)) {
+            _tempvondieule = _newtemp;
+        }
+        else {
+            if (_So_am == true) {
+                _tempvondieule = "-" + _tempvondieule.toString();
+            }
+            $("input[id=" + txtControlId + "]").val(_tempvondieule);
+            return;
+        }
+    }
+    if (_Regex.test(_Vondieule))//neu la so thi lay
+    {
+        _Vondieule = nStr;
+
+    }
+    else {
+        _Vondieule = _tempvondieule;
+    }
+    nStr = _Vondieule;
+
+    // cắt toàn bộ số 0 trước trường số
+    nStr = nStr.replace(/[,]/g, '');
+    while (nStr.indexOf(0) == '0' && nStr.length > 1) {
+        nStr = nStr.substring(1);
+    }
+    var ctrl = document.getElementById(txtControlId);
+
+    var before_length = ctrl.value.length; // lấy chiều dài trước khi thay đổi
+    var key_index = doGetCaretPosition(ctrl); // lấy vị trí con trỏ hiện tại
+
+    // 
+    //nStr += '';
+    x = nStr.split(',');
+    x1 = x[0];
+    x2 = x.length > 1 ? ',' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    var result = x1 + x2;
+    _tempvondieule = result + _PhanThapPhan
+    if (_So_am == true) {
+        _tempvondieule = "-" + _tempvondieule.toString();
+    }
+    $("input[id=" + txtControlId + "]").val(_tempvondieule);
+
+    var after_length = document.getElementById(txtControlId).value.length; // lấy thay đổi chiều dài
+    setCaretPosition(ctrl, key_index + (parseInt(after_length) - parseInt(before_length))); // set vị trí con trỏ
+}
+
+
+function jsFormatNumber(nStr, txtControlId) {
+    if (nStr.indexOf('.') != -1)//neu nhap vao dang 1.000.000.000 thi doi thanh 1,000,000,000
+    {
+        // thay tat ca dau '.' bang dau ','         
+        while (nStr.indexOf('.') > -1) {
+            nStr = nStr.replace('.', '');
+        }
+    }
+    var _Vondieule = nStr;
+    var _tempvondieule = "";
+    var _newtemp = "";
+    var _Regex = new RegExp('^[0-9,]+$');
+    //var _RegexChar = new RegExp('[|,}{+&-=!?;/#\"$%^*()<>`~[]\\]+$');     
+    for (var i = 0; i < _Vondieule.length - 1; i++) {// cat het nhung ky tu khong phai la so
+        _newtemp += _Vondieule[i];
+        if (_Regex.test(_newtemp)) {
+            _tempvondieule = _newtemp;
+        }
+        else {
+            $("input[id=" + txtControlId + "]").val(_tempvondieule);
+            return;
+        }
+    }
+    if (_Regex.test(_Vondieule))//neu la so thi lay
+    {
+        _Vondieule = nStr;
+
+    }
+    else {
+        _Vondieule = _tempvondieule;
+    }
+    nStr = _Vondieule;
+
+    // cắt toàn bộ số 0 trước trường số
+    nStr = nStr.replace(/[,]/g, '');
+    while (nStr.indexOf(0) == '0' && nStr.length > 1) {
+        nStr = nStr.substring(1);
+    }
+    var ctrl = document.getElementById(txtControlId);
+
+    var before_length = ctrl.value.length; // lấy chiều dài trước khi thay đổi
+    var key_index = doGetCaretPosition(ctrl); // lấy vị trí con trỏ hiện tại
+
+    // 
+    //nStr += '';
+    x = nStr.split(',');
+    x1 = x[0];
+    x2 = x.length > 1 ? ',' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    var result = x1 + x2;
+    $("input[id=" + txtControlId + "]").val(result);
+
+    var after_length = document.getElementById(txtControlId).value.length; // lấy thay đổi chiều dài
+    setCaretPosition(ctrl, key_index + (parseInt(after_length) - parseInt(before_length))); // set vị trí con trỏ
+}
+
+
 // fomat kiểu number có đấu , ở hàng nghìn và có cả phần thập phân
 function jsFormatFloatNumber(el, lengthNumber, lengthFloat) {
     var nStr = $(el).val();
@@ -336,6 +481,7 @@ function jsFormatFloatNumber(el, lengthNumber, lengthFloat) {
     var after_length = $(el).val().length; // lấy thay đổi chiều dài
     setCaretPosition(el, key_index + (parseInt(after_length) - parseInt(before_length))); // set vị trí con trỏ
 }
+ 
 
 function jsFormatNumberNoFloat(nStr, txtControlId) {
     if (nStr.indexOf(".") !== -1) {

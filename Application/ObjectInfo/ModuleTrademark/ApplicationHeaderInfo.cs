@@ -10,6 +10,9 @@ namespace ObjectInfos
         public string Master_Name { get; set; }
         public string Master_Address { get; set; }
         public string Master_Phone { get; set; }
+        public string Master_Fax { get; set; }
+        public string Master_Email { get; set; }
+
         public string Rep_Master_Type { get; set; }
         public string Rep_Master_Name { get; set; }
         public string Rep_Master_Address { get; set; }

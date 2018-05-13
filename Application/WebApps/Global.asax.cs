@@ -149,6 +149,8 @@
                 language.Expires = DateTime.Now.AddDays(3);
                 Response.Cookies.Add(language);
                 Thread.CurrentThread.CurrentCulture = new CultureInfo(culture);
+                Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator = ".";
+                Thread.CurrentThread.CurrentCulture.NumberFormat.NumberGroupSeparator = ",";
                 Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
             }
             catch (Exception ex)

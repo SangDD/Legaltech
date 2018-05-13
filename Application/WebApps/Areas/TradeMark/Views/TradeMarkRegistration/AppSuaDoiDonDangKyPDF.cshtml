@@ -1,0 +1,482 @@
+﻿@{
+    ViewBag.Title = "Sửa đổi đơn đăng ký";
+    Layout = "~/ViewsShared/_LayoutPDF.cshtml";
+}
+<div class="div-search ">
+        <div class="div_full_100">
+            <div class="class_left_50">
+                <p class="class_text_center_bold">TỜ KHAI</p>
+                <p class="class_text_center"> SỬA ĐỔI ĐƠN ĐĂNG KÝ</p>
+                <p class="class_text_center">  ĐỐI TƯỢNG SỞ HỮU CÔNG NGHIỆP</p>
+                <p>Kính gửi: Cục Sở hữu trí tuệ</p>
+                <p style="padding-left:10%">386 Nguyễn Trãi, Hà Nội</p>
+                <p>Chủ đơn dưới đây yêu cầu Cục Sở hữu trí tuệ sửa đổi đơn đăng ký đối tượng sở hữu công nghiệp*</p>
+            </div>
+            <div class="class_right_50 classborder50FixedHeight">
+                <p class="class_text_center_bold">DẤU NHẬN ĐƠN</p>
+                <p class="class_text_center_italic">(Dành cho cán bộ nhận đơn)</p>
+            </div>
+        </div>
+        @* 1 *@
+        <div class="div_full_100">
+            <div class="class_full_100 classborder100On">
+                <div class="class_block_title numberCircle">  1 </div>
+                <div class="class_block_title_control">
+                    <p class="class_text_center_bold">CHỦ ĐƠN</p>
+                </div>
+                <div class="class_padding_buton"></div>
+                <p class="class_text_center">(Tổ chức, cá nhân yêu cầu sửa đổi đơn đăng ký đối tượng SHCN)</p>
+                <div class="class_full_div_input">
+                    <div class="class_block_title"><label>Tên đầy đủ:</label> </div>
+                    <div class="class_block_title_control">
+                        @*<input type="text" placeholder="1_txtTenDayDu" id="1_txtTenDayDu" />*@
+                        Đỗ Duy Sáng
+                    </div>
+                </div>
+                <div class="class_full_div_input">
+                    <div class="class_block_title"><label>Địa chỉ:</label></div>
+                    <div class="class_block_title_control">
+                        @*<input type="text" placeholder="1_txtDiaChi" id="1_txtDiaChi" />*@
+                        Hà nội
+                    </div>
+                </div>
+
+                <div class="class_full_div_input">
+                    <div class="class_flex_30_first">
+                        <div class="class_block_title" style="width:80px"><label>Điện thoại:</label> </div>
+                        <div class="class_block_phone class_flex_grow">
+                            @*<input type="text" placeholder="1_txtDienThoai" id="1_txtDienThoai" />*@
+                            0976.847.224
+                        </div>
+                    </div>
+                    <div class="class_flex_30">
+                        <div class="class_block_title"><label>Fax:</label> </div>
+                        <div class="class_block_fax class_flex_grow">
+                            @*<input type="text" placeholder="1_txtFax" id="1_txtFax" />*@
+                            0976.847.224
+                        </div>
+                    </div>
+                    <div class="class_flex_40">
+                        <div class="class_block_title"><label>Email:</label></div>
+                        <div class="class_block_email class_flex_grow">
+                            @*<input type="text" placeholder="1_txtEmail" id="1_txtEmail" />*@
+                            doduysang@gmail.com
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        @* 2 *@
+        <div class="div_full_100">
+            <div class="class_full_100 classborder100">
+                <div class="class_block_title numberCircle">2</div>
+                <div class="class_block_title_control ">
+                    <p class="class_text_center_bold ">ĐẠI DIỆN CỦA CHỦ ĐƠN</p>
+                </div>
+                <div class="class_padding_buton"></div>
+
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"> <input type="radio" name="2" placeholder="2_rdoNguoiDaiDienPL" id="2_rdoNguoiDaiDienPL" /></div>
+                    <div class="class_text_end">
+                        <p class="class_text_left">là người đại diện theo pháp luật của chủ đơn</p>
+                    </div>
+                </div>
+
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"><input type="radio" name="2" placeholder="2_rdoToChucDichVuDL" id="2_rdoToChucDichVuDL" /> </div>
+                    <div class="class_text_end">
+                        <p class="class_text_left">là tổ chức dịch vụ đại diện sở hữu công nghiệp được uỷ quyền của chủ đơn</p>
+                    </div>
+                </div>
+
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"><input type="radio" name="2" placeholder="2_rdoNguoiDuocUyQuyen" id="2_rdoNguoiDuocUyQuyen" /></div>
+                    <div class="class_text_end class_padding_buton">
+                        <p class="class_text_left">là người khác được uỷ quyền của chủ đơn</p>
+                    </div>
+                </div>
+                <div class="class_full_div_input">
+                    <div class="class_block_title"> <label>Tên đầy đủ:</label></div>
+                    <div class="class_block_title_control">
+                        <input type="text" placeholder="2_txtTenDayDu" id="2_txtTenDayDu" />
+                    </div>
+                </div>
+
+                <div class="class_full_div_input">
+                    <div class="class_block_title"> <label>Địa chỉ:</label> </div>
+                    <div class="class_block_title_control">
+                        <input type="text" placeholder="2_txtDiaChi" id="2_txtDiaChi" />
+                    </div>
+                </div>
+
+                <div class="class_full_div_input">
+                    <div class="class_flex_30_first">
+                        <div class="class_block_title" style="width:80px">
+                            <label>Điện thoại:</label>
+                        </div>
+                        <div class="class_block_phone" style="flex-grow:1">
+                            <input type="text" placeholder="2_txtDienThoai" id="2_txtDienThoai" />
+                        </div>
+                    </div>
+
+                    <div class="class_flex_30">
+                        <div class="class_block_title"><label>Fax:</label> </div>
+                        <div class="class_block_fax" style="flex-grow:1">
+                            <input type="text" placeholder="2_txtFax" id="2_txtFax" />
+                        </div>
+                    </div>
+
+                    <div class="class_flex_40" style="padding-left:5px">
+                        <div class="class_block_title"> <label>Email:</label></div>
+                        <div class="class_block_email" style="flex-grow:1">
+                            <input type="text" placeholder="2_txtEmail" id="2_txtEmail" />
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        @* 3 *@
+        <div class="div_full_100 ">
+            <div class="class_left_60 classborder60Left">
+                <div class="class_block_title numberCircle">3</div>
+                <div class="class_block_title_control ">
+                    <p class="class_text_center_bold ">ĐƠN YÊU CẦU SỬA ĐỔI</p>
+                </div>
+                <div class="class_padding_buton"></div>
+
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"><input type="radio" name="3" id="3_rdoDangKySangChe" placeholder="3_rdoDangKySangChe" /> </div>
+                    <div class="class_text_end"><p class="class_text_left">Đơn đăng ký sáng chế</p></div>
+                </div>
+
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"><input type="radio" name="3" id="3_rdoKieuDangCN" placeholder="3_rdoKieuDangCN" /> </div>
+                    <div class="class_text_end"><p class="class_text_left">Đơn đăng ký kiểu dáng công nghiệp</p></div>
+                </div>
+
+
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"><input type="radio" name="3" id="3_rdoTichHopBanDan" placeholder="3_rdoTichHopBanDan" /></div>
+                    <div class="class_text_end"><p class="class_text_left">Đơn đăng ký thiết kế bố trí mạch tích hợp bán dẫn</p></div>
+                </div>
+
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"><input type="radio" name="3" id="3_rdoDangKyNhanHieu" placeholder="3_rdoDangKyNhanHieu" /></div>
+                    <div class="class_text_end"><p class="class_text_left">Đơn đăng ký nhãn hiệu</p></div>
+                </div>
+
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"><input type="radio" name="3" id="3_rdoChiDanDaiLy" placeholder="3_rdoChiDanDaiLy" /> </div>
+                    <div class="class_text_end"><p class="class_text_left">Đơn đăng ký chỉ dẫn địa lý</p></div>
+                </div>
+            </div>
+            <div class="class_right_40 classborder40Right">
+                <div class="class_block_title"><label>Số đơn:</label></div>
+                <div class="class_block_title_control">
+                    <input type="text" id="3_txtSoDon" placeholder="3_txtSoDon" />
+                </div>
+            </div>
+        </div>
+        @* 4 *@
+        <div class="div_full_100">
+            <div class="class_left_40 classborder40Left">
+                <div class="class_block_title numberCircle">4</div>
+                <div class="class_block_title_control ">
+                    <p class="class_text_center_bold ">NỘI DUNG YÊU CẦU SỬA ĐỔI</p>
+                </div>
+                <div class="class_padding_buton"></div>
+
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"><input type="radio" name="4" id="4_rdoTenChuDon" placeholder="4_rdoTenChuDon" /> </div>
+                    <div class="class_text_end"><p class="class_text_left">Tên chủ đơn</p></div>
+                </div>
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"><input type="radio" name="4" id="4_rdoDiaChiChuDon" placeholder="4_rdoDiaChiChuDon" /></div>
+                    <div class="class_text_end"><p class="class_text_left">Địa chỉ của chủ đơn</p></div>
+                </div>
+
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"><input type="radio" name="4" id="4_rdoNoiDungKhac" placeholder="4_rdoNoiDungKhac" /></div>
+                    <div class="class_text_end"><p class="class_text_left">Nội dung khác</p></div>
+                </div>
+            </div>
+            <div class="class_right_60 classborder60Right class_control_flex">
+                <div class="class_block_leght classboldunderline"> <label>Đề nghị sửa lại thành: </label> </div>
+                <div class="class_control_flex">
+                    <input type="text" id="4_txtDeNghiSuaLaiThanh" placeholder="4_txtDeNghiSuaLaiThanh" />
+                </div>
+            </div>
+        </div>
+        @* 7 *@
+        <div class="div_full_100 class_sign_height">
+            <div class="class_full_100 classborder100">
+                <div class="class_block_title numberCircle">7</div>
+                <div class="class_block_title_control ">
+                    <p class="class_text_left_bold">CHỦ ĐƠN/ĐẠI DIỆN CỦA CHỦ ĐƠN KÝ TÊN</p>
+                </div>
+                <div class="class_padding_buton"></div>
+            </div>
+        </div>
+        <div class="div_full_100" style="padding: 60px 0px 60px 10px;">
+            <p>*Chú thích: Trong trang này và các trang sau, chủ đơn/đại diện của chủ đơn đánh dấu "x" vào ô vuông  nếu các thông tin ghi sau các ô vuông là phù hợp. </p>
+        </div>
+        @* 5 *@
+        <div class="div_full_100">
+            <div class="class_full_100 classborder100On">
+                <div class="class_block_title numberCircle">5</div>
+                <div class="class_block_title_control "><p class="class_text_center_bold ">PHÍ, LỆ PHÍ</p></div>
+                <div class="class_padding_buton"></div>
+            </div>
+        </div>
+        <div class="div_full_100">
+            <div class="class_left_40 classborder40LeftTopRight">
+                <p class="class_text_center_bold">Loại phí, lệ phí</p>
+
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"> <input type="checkbox" name="5" id="5_rdoLyPhiYeuCau" placeholder="5_rdoLyPhiYeuCau" /></div>
+                    <div class="class_text_end"> <p class="class_text_left">Lệ phí yêu cầu sửa đổi đơn (A-5)</p> </div>
+                </div>
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"><input type="checkbox" name="5" id="5_rdoLyPhiCongBoDon" placeholder="5_rdoLyPhiCongBoDon" /></div>
+                    <div class="class_text_end">
+                        <p class="class_text_left">Lệ phí công bố đơn sửa đổi (A-6)</p>
+                    </div>
+                </div>
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"> <input type="checkbox" name="5" id="5_rdoLyPhiCongBoDonSuaDoi" placeholder="5_rdoLyPhiCongBoDonSuaDoi" /></div>
+                    <div class="class_text_end">
+                        <p class="class_text_left">Lệ phí công bố đơn sửa đổi từ hình thứ hai trở đi  (mục con của A-6)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="class_right_30 classborder30Center">
+                <p class="class_text_center_bold">Số đối tượng tính phí</p>
+                <div class="class_full_div_input">
+                    <input type="text" placeholder="5_txtLePhiYCSD" id="5_txtLePhiYCSD" />
+                </div>
+                <div class="class_full_div_input">
+                    <input type="text" placeholder="5_txtLePhiCBSD" id="5_txtLePhiCBSD" />
+                </div>
+                <div class="class_full_div_input">
+                    <input type="text" placeholder="5_txtLePhiCBD" id="5_txtLePhiCBD" />
+                </div>
+            </div>
+            <div class="class_right_30 classborder30Right">
+                <p class="class_text_center_bold">Số tiền</p>
+
+                <div class="class_full_div_input">
+                    <input type="text" placeholder="5_txtTienLePhiYCSD" id="5_txtTienLePhiYCSD" />
+                </div>
+                <div class="class_full_div_input">
+                    <input type="text" placeholder="5_txtTienLePhiCBSD" id="5_txtTienLePhiCBSD" />
+                </div>
+                <div class="class_full_div_input">
+                    <input type="text" placeholder="5_txtTienLePhiCBD" id="5_txtTienLePhiCBD" />
+                </div>
+            </div>
+        </div>
+        <div class="div_full_100">
+            <div class="class_left_70 classborder70Left">
+                <p class="class_text_left_bold">Tổng số phí và lệ phí nộp theo đơn là:</p>
+                <div class="class_full_div_input">
+                    <div class="class_text_left"></div>
+                    <div class="class_text_end" style="display:flex">
+                        <label style="width:370px">Số chứng từ (trường hợp nộp qua bưu điện hoặc chuyển khoản):</label>
+                        <input style="width:30%" type="text" id="5_txtSoChungTu" placeholder="5_txtSoChungTu" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="class_right_30 classborder30Right">
+                <label>5_lblTotalAmount</label>
+            </div>
+        </div>
+        @*6*@
+
+        <div class="div_full_100">
+            <div class="class_left_55 classborder55LeftTop">
+                <div class="class_block_title numberCircle">6</div>
+                <div class="class_block_title_control "><p class="class_text_center_bold ">CÁC TÀI LIỆU CÓ TRONG ĐƠN</p></div>
+                <div class="class_padding_buton"></div>
+
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"> <input type="checkbox" id="6_rdoToKhai" /></div>
+
+                    <div class="class_text_end" style="display:flex">
+                        <label style="width:86px">Tờ khai, gồm</label>
+                        <input style="width:140px" type="text" id="6_txtToKhaiTrang" placeholder="6_txtToKhaiTrang" />
+                        <label style="width:12%;padding-left:5px">trang</label>
+                    </div>
+
+                </div>
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoTaiLieu" /></div>
+
+                    <div class="class_text_end" style="display:flex">
+                        <label style="width:300px">Tài liệu xác nhận việc sửa đổi hợp pháp, bằng tiếng</label>
+                        <input style="width:60px" type="text" id="6_txtTLXNBangTieng" placeholder="6_txtTLXNBangTieng" />
+                    </div>
+                </div>
+
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoBanDich" /></div>
+
+                    <div class="class_text_end" style="display:flex">
+                        <label style="width:150px">Bản dịch tiếng Việt, gồm</label>
+                        <input style="width:35%" type="text" id="6_txtBanDichTiengViet" placeholder="6_txtBanDichTiengViet" />
+                        <label style="width:12%;padding-left:5px">trang</label>
+                    </div>
+
+                </div>
+
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoGiayUyQuyen" /> </div>
+                    <div class="class_text_end" style="display:flex">
+                        <label style="width:150px">Giấy uỷ quyền bằng tiếng</label>
+                        <input style="width:35%" type="text" id="6_txtGiayUQTiengViet" placeholder="6_txtGiayUQTiengViet" />
+                    </div>
+                </div>
+                @* noi dung con  *@
+
+                <div class="class_full_div_input" style="padding-left: 20px;">
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoBanDichTiengViet" /> </div>
+                    <div class="class_text_end" style="display:flex">
+                        <label style="width:150px">bản dịch tiếng Việt, gồm</label>
+                        <input style="width:33%" type="text" id="6_txtBDTVGom" placeholder="6_txtBDTVGom" />
+                        <label style="width:12%;padding-left:5px">trang</label>
+                    </div>
+
+                </div>
+
+                <div class="class_full_div_input" style="padding-left: 20px;">
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoBanGoc" /></div>
+                    <div class="class_text_end"><p class="class_text_left">bản gốc</p></div>
+                </div>
+
+                <div class="class_full_div_input" style="padding-left: 20px;">
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoBanSao" /></div>
+
+                    <div class="class_text_end">
+                        <p class="class_text_left">bản sao (</p>
+
+                        <div class="class_full_div_input" style="padding-left: 20px;">
+                            <div class="class_radio_head"><input type="radio" name="bansao" id="6_rdoBanGocSeNopSau" /></div>
+                            <div class="class_text_end"><p class="class_text_left">bản gốc sẽ nộp sau</p></div>
+                        </div>
+
+                        <div class="class_full_div_input" style="padding-left: 20px;">
+                            <div class="class_radio_head"><input type="radio" name="bansao" id="6_rdoBanGocDaNopTheoDonSo" /></div>
+                            <div class="class_text_end" style="display:flex">
+                                <label style="width:170px">bản gốc đã nộp theo đơn số</label>
+                                <input style="width:33%" type="text" id="6_txtBangocDNTheoDonSo" placeholder="6_txtBangocDNTheoDonSo" />
+                                <label style="width:10%;padding-left:5px">)</label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                @* noi dung con  *@
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoChungTuPhi" /> </div>
+                    <div class="class_text_end"><p class="class_text_left">Chứng từ phí, lệ phí</p></div>
+                </div>
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"> <input type="checkbox" id="6_rdoTaiLieuKhacCuThe" /></div>
+                    <div class="class_text_end" style="display:flex">
+                        <label style="width:175px">Tài liệu khác, cụ thể:</label>
+                        <input style="flex-grow:1" type="text" id="6_txtTaiLieuKhacCuThe" placeholder="6_txtTaiLieuKhacCuThe" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="class_left_45 classborder45On">
+                <div class="class_full_div_p" style="padding-bottom:0px">
+                    <p class="class_text_center_bold" style="text-align:center">KIỂM TRA DANH MỤC TÀI LIỆU</p>
+                </div>
+                <div class="class_full_div_p" style="padding-bottom:0px">
+                    <p class="class_text_center_italic">(Dành cho cán bộ nhận đơn)</p>
+                </div>
+                <div style="display: flex;">
+                    <div>
+                        <div class="class_full_div_input class_dmtl">
+                            <div class="class_block_radio_check class_padd_left_10"><input type="checkbox" id="6_rdoToKhai" class="class_block" /></div>
+                        </div>
+                        <div class="class_full_div_input class_dmtl">
+                            <div class="class_block_radio_check class_padd_left_10"><input type="checkbox" id="6_rdoTaiLieu" class="class_block" /> </div>
+                        </div>
+                        <div class="class_full_div_input class_dmtl">
+                            <div class="class_block_radio_check class_padd_left_10"><input type="checkbox" id="6_rdoBanDich" class="class_block" /></div>
+                        </div>
+                        <div class="class_full_div_input class_dmtl">
+                            <div class="class_block_radio_check class_padd_left_10"> <input type="checkbox" id="6_rdoGiayUyQuyen" class="class_block" /> </div>
+                        </div>
+                        <div class="class_full_div_input class_dmtl">
+                            <div class="class_block_radio_check class_padd_left_10"> <input type="checkbox" id="6_rdoBanDichTiengViet" class="class_block" /> </div>
+                        </div>
+                        <div class="class_full_div_input class_dmtl">
+                            <div class="class_block_radio_check class_padd_left_10"><input type="checkbox" id="6_rdoBanGoc" class="class_block" /> </div>
+                        </div>
+                        <div class="class_full_div_input class_dmtl">
+                            <div class="class_block_radio_check class_padd_left_10"><input type="checkbox" id="6_rdoBanSao" class="class_block" /></div>
+                        </div>
+                        <div class="class_full_div_input class_dmtl">
+                            @* dựa vào 2 trường bản gốc sẽ nộp sau, hoặc bản gốc đã nộp theo đơn số*@
+                            <div class="class_block_radio_check class_padd_left_10"><input type="checkbox" id="6_rdoBanGocDaNop" class="class_block" /></div>
+                        </div>
+
+                        <div class="class_full_div_input class_dmtl">
+                            <div class="class_block_radio_check class_padd_left_10"><input type="checkbox" id="6_rdoChungTuPhi" class="class_block" /></div>
+                        </div>
+
+                        <div class="class_full_div_input class_dmtl">
+                            <div class="class_block_radio_check class_padd_left_10"><input type="checkbox" id="6_rdoTaiLieuKhacCuThe" class="class_block" /></div>
+                        </div>
+                    </div>
+                    @* Cán bộ nhận đơn *@
+                    <div class="class_control_flex_grow">
+                        <div style="height:132px;"></div>
+                        <div class="class_ky_don">
+                            <div class="class_full_div_p">
+                                <p style="text-align:center">Cán bộ nhận đơn</p>
+                            </div>
+                            <div class="class_full_div_p">
+                                <p class="class_text_center_italic">(ký và ghi rõ họ tên)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @* 7 *@
+        <div class="div_full_100">
+            <div class="class_full_100 classborder100 class_end">
+                <div class="class_block_title numberCircle">7</div>
+                <div class="class_block_title_control ">
+                    <p class="class_text_center_bold ">CAM KẾT CỦA CHỦ ĐƠN</p>
+                </div>
+                <div class="class_padding_buton"></div>
+
+                <div class="class_full_div_input">
+                    <p class="class_text_left">Tôi cam đoan mọi thông tin trong tờ khai là trung thực, đúng sự thật và hoàn toàn chịu trách nhiệm trước pháp luật.</p>
+                </div>
+                <div class="class_control_flex">
+                    <div class="class_khai_don">
+
+                    </div>
+
+                    <div style="flex-grow:1">
+                        <p class="class_text_center"> Khai tại:…………………………. [place] ngày……………………[date] tháng……………[month] năm……………[year]</p>
+                        <p class="class_text_center">Chữ ký, họ tên chủ đơn/đại diện của chủ đơn</p>
+                        <p class="class_text_center_italic">(ghi rõ chức vụ và đóng dấu, nếu có)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</div>
+
+ 

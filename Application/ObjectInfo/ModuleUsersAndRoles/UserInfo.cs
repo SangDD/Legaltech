@@ -152,5 +152,7 @@
 		{
 			return Converter.ToBoolean(this.ChangeInstanceWhenOutStock);
 		}
-	}
+
+        public DateTime CurrentDate { get; set; }
+    }
 }

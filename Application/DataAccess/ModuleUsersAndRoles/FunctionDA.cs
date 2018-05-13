@@ -2,13 +2,10 @@
 {
 	using System;
 	using System.Data;
-
 	using Common;
 	using Common.MessageCode;
 	using Common.SearchingAndFiltering;
-
 	using ObjectInfos.ModuleUsersAndRoles;
-
 	using Oracle.DataAccess.Client;
 
 	public class FunctionDA
