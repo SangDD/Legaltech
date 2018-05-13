@@ -103,22 +103,7 @@
 
 			return groupsString;
 		}
-
-		public bool CanViewOtherBranch()
-		{
-			return Converter.ToBoolean(this.ViewOtherBranch);
-		}
-
-		public bool CanSeeProductTypeS()
-		{
-			return Converter.ToBoolean(this.SeeProductTypeS);
-		}
-
-		public bool CanChangeInstanceWhenOutStock()
-		{
-			return Converter.ToBoolean(this.ChangeInstanceWhenOutStock);
-		}
-
+	 
         public DateTime CurrentDate { get; set; }
     }
 }
