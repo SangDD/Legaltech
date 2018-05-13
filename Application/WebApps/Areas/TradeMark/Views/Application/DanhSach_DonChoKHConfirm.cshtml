@@ -1,7 +1,7 @@
 ﻿@using Common.CommonData
 @using ObjectInfos;
 @{
-    ViewBag.Title = "Quản lý đơn đã gửi";
+    ViewBag.Title = "Quản lý đơn chờ khách hàng confirm";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     //string language = WebApps.CommonFunction.AppsCommon.GetCurrentLang();
@@ -16,7 +16,7 @@
         <img src="~/Content/icons/Body-icon-home.png" /> I
         Trademark
         <span class="red">></span>
-        <a href="/trade-mark-mana/quan-ly-don-da-gui">Quản lý đơn đã gửi</a>
+        <a href="/trade-mark-mana/quan-ly-don-cho-kh-xac-nhan">Quản lý đơn chờ khách hàng xác nhận</a>
     </div>
 </div>
 <div class="divCover">
@@ -30,7 +30,7 @@
             <input type="hidden" value="ALL|ALL|ALL" name="txtKeyValue" id="txtKeyValue" />
             <input type="hidden" value="ID" name="txtSortColum" id="txtSortColumn" />
             <input type="hidden" value="DESC" name="txtSortType" id="txtSortType" />
-            <div class="div-title-content"> THÔNG TIN ĐƠN ĐÃ GỬI</div>
+            <div class="div-title-content"> THÔNG TIN ĐƠN CHỜ KH XÁC NHẬN</div>
         </div>
     </div>
 
@@ -54,15 +54,6 @@
                     @Html.DropDownList("cboAppCode", lstApp, new { @id = "cboAppCode" })
                 </div>
             </div>
-
-            @*<div class="div-search-title">
-                    <div>Ngành nghề KD </div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txtBusField" />
-                    </div>
-                </div>*@
         </div>
     </div>
 
@@ -70,7 +61,6 @@
         <div class="div-search-btn" style="width:600px;">
             <input type="button" value="Tìm kiếm" class="btn-default" onclick="Search_Application(1, 1)" />
             @*<input type="button" value="Kết xuất" class="btn-default" onclick="Export_Application(1)" />*@
-            @*<input id="btnAdd" type="button" class="btn-default" onclick="ShowRegisterIssuer()" value="Thêm mới" style="width:auto" />*@
         </div>
     </div>
 
@@ -80,12 +70,7 @@
         </div>
     </div>
 
-    <div class="d-popup-container" id="dpop-PhanLoai"></div>
-
-    @*<div id="divWrapperPhanLoai" class="divWrapperPopup" style="display: none;">
-        <div class="divPopup" id="divPhanLoaiDon">
-        </div>
-    </div>*@
+    <div class="d-popup-container" id="dpop-Confirm"></div>
 </div>
 
 <script>
@@ -116,7 +101,7 @@
                 }
                 var _AppCode = $("#cboAppCode").val();
 
-                p_keysearch = _AppCode + "|" + '@((int)CommonEnums.App_Status.DaGui_ChoPhanLoai)' + "|" + _name;
+                p_keysearch = _AppCode + "|" + '@((int)CommonEnums.App_Status.ChoKHConfirm)' + "|" + _name;
 
                 //Lưu lại keysearch
                 $("#txtKeyValue").val(p_keysearch);
@@ -128,7 +113,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/trade-mark-mana/quan-ly-don-da-gui/search/',
+                url: '/trade-mark-mana/quan-ly-don-cho-kh-xac-nhan/search/',
                 data: {
                     p_keysearch: p_keysearch,
                     p_CurrentPage: p_NumPage,
@@ -150,14 +135,14 @@
         }
     }
 
-    function getViewPhanLoaiDon(_application_header_id) {
+    function getViewConfirmKhachHang(_application_header_id) {
         if (CheckSessionTimeOut() == false) {
             return false;
         }
 
         $.ajax({
             type: "POST",
-            url: "/trade-mark-mana/quan-ly-don-da-gui/show-phan-loai/",
+            url: "/trade-mark-mana/quan-ly-don-cho-kh-xac-nhan/show-confirm/",
             dataType: "html",
             data: {
                 p_application_header_id: _application_header_id
@@ -165,17 +150,51 @@
             async: false, cache: false, traditional: true,
             success: function (data) {
                 if (data != null) {
-                    $("#dpop-PhanLoai").html(data);
-                    ShowPopupDialog("dpop-PhanLoai", "Phân loại đơn cho luật sư", 600, 0, "txtLawer");
+                    $("#dpop-Confirm").html(data);
+                    ShowPopupDialog("dpop-Confirm", "Phân loại đơn cho luật sư", 600, 0, "txtLawer");
                 }
                 return false;
             }
         });
     }
 
-    function CloseViewPhanLoai() {
+    function doConfirm(_application_header_id) {
+        if (validateAction()) {
+            $.ajax({
+                url: '/trade-mark-mana/quan-ly-don-cho-kh-xac-nhan/do-confirm',
+                type: 'POST',
+                data: {
+                    p_Application_Header_Id: _application_header_id,
+                    p_status: $('#cboConfirm').val(),
+                    p_note: $('#txtNotes').val()
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data.success == "-1") {
+                        jError("Lỗi check lại kết nối tới server");
+                        return false;
+                    }
+                    else {
+                        jAlert('Khách hàng phản hồi thành công!', "THÔNG BÁO", function () {
+                            CloseView_KH_Confirm();
+                            Search_Application(1,1);
+                        });
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        }
+    }
+
+    function CloseView_KH_Confirm() {
         try {
-            ClosePopupDialog('dpop-PhanLoai', true);
+            ClosePopupDialog('dpop-Confirm', true);
         } catch (e) {
             alert(e);
         }

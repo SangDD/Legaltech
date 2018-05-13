@@ -25,6 +25,21 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
+                    
+        public int AppHeader_Update_Status(decimal p_id, decimal p_status, string p_notes, string p_Modify_By, DateTime p_Modify_Date)
+        {
+            try
+            {
+                Application_Header_DA objData = new Application_Header_DA();
+                return objData.AppHeader_Update_Status(p_id, p_status, p_notes, p_Modify_By,p_Modify_Date);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -58,7 +73,6 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
-
         public int AppHeaderDeleted(decimal pID, string pLanguage)
         {
             try
@@ -72,6 +86,5 @@ namespace BussinessFacade.ModuleTrademark
                 return ErrorCode.Error;
             }
         }
-
     }
 }

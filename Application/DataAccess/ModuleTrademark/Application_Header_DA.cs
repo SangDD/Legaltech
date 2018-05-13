@@ -31,6 +31,29 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
+        public int AppHeader_Update_Status(decimal p_id, decimal p_status, string p_notes, string p_Modify_By, DateTime p_Modify_Date)
+        {
+            try
+            {
+                var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
+                OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_header.proc_update_status",
+                    new OracleParameter("p_id", OracleDbType.Decimal, p_id, ParameterDirection.Input),
+                    new OracleParameter("p_status", OracleDbType.Decimal, p_status, ParameterDirection.Input),
+                    new OracleParameter("p_notes", OracleDbType.Varchar2, p_notes, ParameterDirection.Input),
+                    new OracleParameter("p_Modify_By", OracleDbType.Varchar2, p_Modify_By, ParameterDirection.Input),
+                    new OracleParameter("p_Modify_Date", OracleDbType.Date, p_Modify_Date, ParameterDirection.Input),
+                    paramReturn);
+                var result = Convert.ToInt32(paramReturn.Value.ToString());
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -75,8 +98,7 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
-
-        public   int AppHeaderUpdate(ApplicationHeaderInfo pInfo)
+        public int AppHeaderUpdate(ApplicationHeaderInfo pInfo)
         {
             try
             {
@@ -115,9 +137,7 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
-
-
-        public   int AppHeaderDeleted(decimal pID,string pLanguage)
+        public int AppHeaderDeleted(decimal pID, string pLanguage)
         {
             try
             {

@@ -34,6 +34,29 @@
                         <td class="tdleftalign">@item.Send_Date.ToString("dd/MM/yyyy")</td>
                         <td class="tdcenteralign">
                             <a href="javascript:getViewApplication(@item.Id, '@item.Appcode')" class="icon icon-info" data-title="Xem chi tiết"></a>
+                            <a href="javascript:;" onclick="getViewConfirmKhachHang(@item.Id)" class="icon confirm-circle" data-title="KH Confirm đơn"></a>
+
+                            @if (item.Status == (decimal)CommonEnums.App_Status.Luu_tam)
+                            {
+                                <a href="javascript:;" onclick="getViewEdit(@item.Id)" class="icon icon-edit" data-title="Sửa"></a>
+                            }
+                            else if (item.Status == (decimal)CommonEnums.App_Status.DaGui_ChoPhanLoai)
+                            {
+                                <a href="javascript:;" onclick="getViewPhanLoaiDon(@item.Id)" class="icon confirm-circle" data-title="Phân loại cho luật sư"></a>
+                            }
+                            else if (item.Status == (decimal)CommonEnums.App_Status.DaPhanChoLuatSu)
+                            {
+                                // luật sư có thể sửa thông tin và phản gửi lại cho admin
+                            }
+                            else if (item.Status == (decimal)CommonEnums.App_Status.LuatSuDaConfirm)
+                            {
+                                // Admin gửi lại cho KH
+                            }
+                            else if (item.Status == (decimal)CommonEnums.App_Status.ChoKHConfirm)
+                            {
+                                // Khách hàng confirm lại cho admin
+                                <a href="javascript:;" onclick="getViewConfirmKhachHang(item.Id)" class="icon confirm-circle" data-title="KH Confirm đơn"></a>
+                            }
                         </td>
                     </tr>
                 }

@@ -1,7 +1,7 @@
 ﻿@using Common.CommonData
 @using ObjectInfos;
 @{
-    ViewBag.Title = "Quản lý đơn";
+    ViewBag.Title = "Quản lý đơn lưu tạm";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     //string language = WebApps.CommonFunction.AppsCommon.GetCurrentLang();
@@ -16,7 +16,7 @@
         <img src="~/Content/icons/Body-icon-home.png" /> I
         Trademark
         <span class="red">></span>
-        <a href="/Application/Application_Display">Quản lý đơn lưu tạm</a>
+        <a href="/trade-mark-mana/quan-ly-don-luu-tam">Quản lý đơn lưu tạm</a>
     </div>
 </div>
 <div class="divCover">
@@ -76,7 +76,7 @@
 
     <div class="divCover">
         <div id="divDataApplications" class="divDataTables" style="overflow-x: auto;">
-            @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialTableApplication_LuuTam.cshtml")
+            @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialTableApplication.cshtml")
         </div>
     </div>
 </div>
@@ -121,7 +121,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/quanly-don/quan-ly-don-luu-tam/search/',
+                url: '/trade-mark-mana/quan-ly-don-luu-tam/search/',
                 data: {
                     p_keysearch: p_keysearch,
                     p_CurrentPage: p_NumPage,
@@ -142,117 +142,5 @@
             alert(e);
         }
     }
-
-    //function Export_Issuer(p_type) {
-    //    try {
-    //        if (CheckSessionTimeOut() == false) {
-    //            return false;
-    //        }
-    //        var p_keysearch;
-    //        if (p_type == 1) {
-    //            var p_name = $("#txt_Name").val().trim();
-    //            var p_type = $("#cboAppCode").val();
-    //            var p_BusField = $("#txtBusField").val().trim();
-
-    //            p_keysearch = p_name + "|" + p_type + "|" + p_BusField;
-
-    //            //Lưu lại keysearch
-    //            $("#txtKeyValue").val(p_keysearch);
-    //        } else {
-    //            p_keysearch = $("#txtKeyValue").val();
-    //        }
-    //        var p_column = $("#txtSortColumn").val();
-    //        var p_type_sort = $("#txtSortType").val();
-
-    //        $.ajax({
-    //            type: 'POST',
-    //            url: '/Issuers/Export_Issuer/',
-    //            data: {
-    //                p_keysearch: p_keysearch,
-    //            },
-    //            async: true, cache: false, traditional: true,
-    //            beforeSend: function () {
-    //                CreateRollingWaitingIcon(true);
-    //            },
-    //            success: function (data) {
-    //                if (data.success == 0 && data.str_return == "-1") {
-    //                    jError('Có lỗi trong quá trình kết xuất!!', "Lỗi");
-    //                    CreateRollingWaitingIcon(false);
-    //                    return false;
-    //                } else if (data.success == 1) {
-    //                    CreateRollingWaitingIcon(false);
-    //                    jError('Không có dữ liệu để kết xuất!!', "Thông báo");
-    //                    return false;
-    //                }
-    //                else if (data.success == 0) { // thành công
-    //                    jAlert("Kết xuất dữ liệu thành công", "Thông báo", function () {
-    //                        var element = document.createElement('a');
-    //                        element.setAttribute('href', data.str_return);
-    //                        element.setAttribute('download', data.file_name);
-    //                        element.style.display = 'none';
-    //                        document.body.appendChild(element);
-    //                        element.click();
-    //                        document.body.removeChild(element);
-    //                    });
-    //                    CreateRollingWaitingIcon(false);
-    //                }
-    //                else {
-    //                    jError('Có lỗi trong quá trình kết xuất!!', "Lỗi");
-    //                    return false;
-    //                }
-    //            }
-    //        });
-    //    }
-    //    catch (e) {
-    //        alert(e);
-    //    }
-    //}
-
-    //function ShowRegisterIssuer() {
-    //    try {
-    //        if (CheckSessionTimeOut() == false) {
-    //            return false;
-    //        }
-    //        window.location = "/Issuers/Issuers_Register";
-
-    //    } catch (e) {
-    //        alert(e);
-    //    }
-    //}
-
-    //function DeleteIssuer(p_id) {
-    //    try {
-    //        if (CheckSessionTimeOut() == false) {
-    //            return false;
-    //        }
-    //        MessageBoxConfirm("Cảnh Báo", "Bạn chắc chắn muốn xóa TCPH này?", function () {
-    //            $.ajax({
-    //                type: "POST",
-    //                url: "/Issuers/Delete_Issuer",
-    //                data: { p_issuer_id: p_id },
-    //                cache: false,
-    //                traditional: true,
-    //                success: function (data) {
-    //                    if (data == 0) {
-    //                        $('#txt_Name').val('');
-    //                        jAlert("Xóa dữ liệu thành công", "Thông báo", function () {
-    //                            Search_Issuer(1, 1);
-    //                        });
-    //                    }
-    //                    else if (data == 1) {
-    //                        jError('Tồn tại Chứng khoán thuộc TCPH. Không thể xóa!', "Thông báo");
-    //                    }
-    //                    else if (data == -1) {
-    //                        jError('Có lỗi trong quá trình xóa TCPH!', "Thông báo");
-    //                    }
-    //                }
-    //            });
-    //        }, function () {
-    //            return false;
-    //        });
-    //    } catch (e) {
-    //        console.log(e.message);
-    //    }
-    //}
 
 </script>
