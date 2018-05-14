@@ -10,6 +10,7 @@
     using WebApps.Session;
     using Common;
     using ObjectInfos;
+    using System.Web;
 
     [ValidateAntiForgeryTokenOnAllPosts]
     [RouteArea("TradeMarkRegistration", AreaPrefix = "trade-mark")]
@@ -70,8 +71,6 @@
         }
 
 
-        //[HttpPost]
-        //[Route("sua-doi-don-dang-ky")]
         public ActionResult AppSuaDoiDonDangKy()
         {
             try
@@ -83,18 +82,6 @@
                 Logger.LogException(ex);
             }
             return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/AppSuaDoiDonDangKy.cshtml");
-        }
-
-        [Route("ket-xuat-file")]
-        public ActionResult exportdulieu()
-        {
-            //this will generate google home page to in a pdf doc
-            //return new Rotativa.UrlAsPdf("/trade-mark/dang-ky-nhan-hieu/tm01sdd")
-            //{
-            //    FileName = "tesst.pdf",
-            //};
-
-            return new Rotativa.ViewAsPdf("~/Areas/TradeMark/Views/TradeMarkRegistration/AppSuaDoiDonDangKyPDF.cshtml") { FileName = "dangkydon.pdf" };
         }
 
         [HttpPost]
@@ -140,6 +127,29 @@
 
                 return Json(new { status = ErrorCode.Error });
             }
+        }
+
+        [HttpPost]
+        [Route("push-file-to-server")]
+        public ActionResult PushFileToServer(HttpPostedFileBase pfiles,string pLoaiTaiLieuDon)
+        {
+            try
+            {
+                if (pfiles != null)
+                {
+                    //lấy tên của file
+                    var name = pfiles.FileName;
+                    name = System.IO.Path.GetExtension(pfiles.FileName);
+                    var f_part = HttpContext.Server.MapPath("~/Content/") + pfiles.FileName;
+                    pfiles.SaveAs(f_part);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = -1 });
+            }
+            return Json(new { success = 0 });
         }
 
     }
