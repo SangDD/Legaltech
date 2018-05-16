@@ -311,35 +311,33 @@
                 <div class="class_block_title_control "><p class="class_text_center_bold ">CÁC TÀI LIỆU CÓ TRONG ĐƠN</p></div>
                 <div class="class_padding_buton"></div>
 
-                <div class="class_full_div_input">
-                    <div class="class_radio_head"> <input type="checkbox" maxlength="3" id="6_rdoToKhai" /></div>
+                <div class="class_full_div_input ">
+                    <div class="class_radio_head"> <input type="checkbox" maxlength="3" id="6_rdoToKhai" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
                     <div class="class_text_end" style="display:flex">
                         <label style="width:86px">Tờ khai, gồm</label>
                         <input style="width:140px" type="text" id="6_txtToKhaiTrang" maxlength="50" placeholder="6_txtToKhaiTrang" />
                         <label style="width:12%;padding-left:5px">trang</label>
-
                     </div>
-
-
                 </div>
-                <div class="class_full_div_input">
+
+                <div class="class_full_div_input 6_rdoToKhai" style="display:none">
                     <div class="class_radio_head"></div>
                     <div class="class_text_end" style="display:flex">
                         <div class="container">
                             <div class="file-upload btn btn-primary">
                                 <span>Tải file</span>
-                                <input type="file" name="pfile1" id="FileAttachment" class="upload" />
+                                <input type="file" name="pfile_6_rdoToKhai" id="FileAttachment" class="upload fileuploadurl" />
                             </div>
-                            <input type="text" id="fileuploadurl" readonly placeholder="Maximum file size is 2MB">
-                            <input type="button" id="btnFile1" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:75px"  />
+                            <input type="text" id="txt_6_rdoToKhai" readonly placeholder="Maximum file size is 2MB">
+                            <input type="button" id="btnUp_6_rdoToKhai" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
                         </div>
                     </div>
                 </div>
 
- 
 
+                @*'ID của checkbox đẩy vào class của  div full file '*@
                 <div class="class_full_div_input">
-                    <div class="class_radio_head"><input type="checkbox" id="6_rdoTaiLieu" /></div>
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoTaiLieu" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
 
                     <div class="class_text_end" style="display:flex">
                         <label style="width:300px">Tài liệu xác nhận việc sửa đổi hợp pháp, bằng tiếng</label>
@@ -347,43 +345,116 @@
                     </div>
                 </div>
 
-                <div class="class_full_div_input">
-                    <div class="class_radio_head"><input type="checkbox" id="6_rdoBanDich" /></div>
+                <div class="class_full_div_input 6_rdoTaiLieu" style="display:none">
+                    <div class="class_radio_head"></div>
+                    <div class="class_text_end" style="display:flex">
+                        <div class="container">
+                            <div class="file-upload btn btn-primary">
+                                <span>Tải file</span>
+                                <input type="file" name="pfile_6_rdoTaiLieu" id="FileAttachment" class="upload fileuploadurl" />
+                            </div>
+                            <input type="text" id="txt_6_rdoTaiLieu" readonly placeholder="Maximum file size is 2MB">
+                            <input type="button" id="btnUp_6_rdoTaiLieu" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
+                        </div>
+                    </div>
+                </div>
 
+
+
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoBanDich" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
                     <div class="class_text_end" style="display:flex">
                         <label style="width:150px">Bản dịch tiếng Việt, gồm</label>
                         <input style="width:35%" type="text" id="6_txtBanDichTiengViet" maxlength="3" placeholder="6_txtBanDichTiengViet" />
                         <label style="width:12%;padding-left:5px">trang</label>
                     </div>
-
                 </div>
 
+                <div class="class_full_div_input 6_rdoBanDich" style="display:none">
+                    <div class="class_radio_head"></div>
+                    <div class="class_text_end" style="display:flex">
+                        <div class="container">
+                            <div class="file-upload btn btn-primary">
+                                <span>Tải file</span>
+                                <input type="file" name="pfile_6_rdoBanDich" id="FileAttachment" class="upload fileuploadurl" />
+                            </div>
+                            <input type="text" id="txt_6_rdoBanDich" readonly placeholder="Maximum file size is 2MB">
+                            <input type="button" id="btnUp_6_rdoBanDich" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
+                        </div>
+                    </div>
+                </div>
+
+
+
                 <div class="class_full_div_input">
-                    <div class="class_radio_head"><input type="checkbox" id="6_rdoGiayUyQuyen" /> </div>
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoGiayUyQuyen" onchange="return ShowHidenUpLoad(this.id, this.id);" /> </div>
                     <div class="class_text_end" style="display:flex">
                         <label style="width:150px">Giấy uỷ quyền bằng tiếng</label>
                         <input style="width:35%" type="text" id="6_txtGiayUQTiengViet" maxlength="50" placeholder="6_txtGiayUQTiengViet" />
                     </div>
                 </div>
-                @* noi dung con  *@
 
+                <div class="class_full_div_input 6_rdoGiayUyQuyen" style="display:none">
+                    <div class="class_radio_head"></div>
+                    <div class="class_text_end" style="display:flex">
+                        <div class="container">
+                            <div class="file-upload btn btn-primary">
+                                <span>Tải file</span>
+                                <input type="file" name="pfile_6_rdoGiayUyQuyen" id="FileAttachment" class="upload fileuploadurl" />
+                            </div>
+                            <input type="text" id="txt_6_rdoGiayUyQuyen" readonly placeholder="Maximum file size is 2MB">
+                            <input type="button" id="btnUp_6_rdoGiayUyQuyen" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
+                        </div>
+                    </div>
+                </div>
+
+                @* noi dung con  *@
                 <div class="class_full_div_input" style="padding-left: 20px;">
-                    <div class="class_radio_head"><input type="checkbox" id="6_rdoBanDichTiengViet" /> </div>
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoBanDichTiengViet" onchange="return ShowHidenUpLoad(this.id, this.id);" /> </div>
                     <div class="class_text_end" style="display:flex">
                         <label style="width:150px">bản dịch tiếng Việt, gồm</label>
                         <input style="width:33%" type="text" id="6_txtBDTVGom" maxlength="3" placeholder="6_txtBDTVGom" />
                         <label style="width:12%;padding-left:5px">trang</label>
                     </div>
-
                 </div>
 
+                <div class="class_full_div_input 6_rdoBanDichTiengViet" style="display:none">
+                    <div class="class_radio_head"></div>
+                    <div class="class_text_end" style="display:flex">
+                        <div class="container">
+                            <div class="file-upload btn btn-primary">
+                                <span>Tải file</span>
+                                <input type="file" name="pfile_6_rdoBanDichTiengViet" id="FileAttachment" class="upload fileuploadurl" />
+                            </div>
+                            <input type="text" id="txt_6_rdoBanDichTiengViet" readonly placeholder="Maximum file size is 2MB">
+                            <input type="button" id="btnUp_6_rdoBanDichTiengViet" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
+                        </div>
+                    </div>
+                </div>
+
+
                 <div class="class_full_div_input" style="padding-left: 20px;">
-                    <div class="class_radio_head"><input type="checkbox" id="6_rdoBanGoc" /></div>
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoBanGoc" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
                     <div class="class_text_end"><p class="class_text_left">bản gốc</p></div>
                 </div>
 
+                <div class="class_full_div_input 6_rdoBanGoc" style="display:none">
+                    <div class="class_radio_head"></div>
+                    <div class="class_text_end" style="display:flex">
+                        <div class="container">
+                            <div class="file-upload btn btn-primary">
+                                <span>Tải file</span>
+                                <input type="file" name="pfile_6_rdoBanGoc" id="FileAttachment" class="upload fileuploadurl" />
+                            </div>
+                            <input type="text" id="txt_6_rdoBanGoc" readonly placeholder="Maximum file size is 2MB">
+                            <input type="button" id="btnUp_6_rdoBanGoc" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
+                        </div>
+                    </div>
+                </div>
+
+
                 <div class="class_full_div_input" style="padding-left: 20px;">
-                    <div class="class_radio_head"><input type="checkbox" id="6_rdoBanSao" /></div>
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoBanSao" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
 
                     <div class="class_text_end">
                         <p class="class_text_left">bản sao (</p>
@@ -400,20 +471,65 @@
                                 <input style="width:33%" type="text" id="6_txtBangocDNTheoDonSo" maxlength="50" placeholder="6_txtBangocDNTheoDonSo" />
                                 <label style="width:10%;padding-left:5px">)</label>
                             </div>
+                        </div>
+                        @* day file *@
+                        <div class="class_full_div_input 6_rdoBanSao" style="display:none;padding-left: 20px;">
+                            <div class="class_radio_head"></div>
+                            <div class="class_text_end" style="display:flex">
+                                <div class="container">
+                                    <div class="file-upload btn btn-primary">
+                                        <span>Tải file</span>
+                                        <input type="file" name="pfile_6_rdoBanSao" id="FileAttachment" class="upload fileuploadurl" />
+                                    </div>
+                                    <input type="text" id="txt_6_rdoBanSao" readonly placeholder="Maximum file size is 2MB">
+                                    <input type="button" id="btnUp_6_rdoBanSao" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
+                </div>
+
+
+
+                @* noi dung con  *@
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoChungTuPhi" onchange="return ShowHidenUpLoad(this.id, this.id);" /> </div>
+                    <div class="class_text_end"><p class="class_text_left">Chứng từ phí, lệ phí</p></div>
+                </div>
+                <div class="class_full_div_input 6_rdoChungTuPhi" style="display:none">
+                    <div class="class_radio_head"></div>
+                    <div class="class_text_end" style="display:flex">
+                        <div class="container">
+                            <div class="file-upload btn btn-primary">
+                                <span>Tải file</span>
+                                <input type="file" name="pfile_6_rdoChungTuPhi" id="FileAttachment" class="upload fileuploadurl" />
+                            </div>
+                            <input type="text" id="txt_6_rdoChungTuPhi" readonly placeholder="Maximum file size is 2MB">
+                            <input type="button" id="btnUp_6_rdoChungTuPhi" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
                         </div>
                     </div>
                 </div>
-                @* noi dung con  *@
+
                 <div class="class_full_div_input">
-                    <div class="class_radio_head"><input type="checkbox" id="6_rdoChungTuPhi" /> </div>
-                    <div class="class_text_end"><p class="class_text_left">Chứng từ phí, lệ phí</p></div>
-                </div>
-                <div class="class_full_div_input">
-                    <div class="class_radio_head"> <input type="checkbox" id="6_rdoTaiLieuKhacCuThe" /></div>
+                    <div class="class_radio_head"> <input type="checkbox" id="6_rdoTaiLieuKhacCuThe" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
                     <div class="class_text_end" style="display:flex">
                         <label style="width:175px">Tài liệu khác, cụ thể:</label>
                         <input style="flex-grow:1" type="text" id="6_txtTaiLieuKhacCuThe" maxlength="100" placeholder="6_txtTaiLieuKhacCuThe" />
+                    </div>
+                </div>
+                @* tai file *@
+                <div class="class_full_div_input 6_rdoTaiLieuKhacCuThe" style="display:none">
+                    <div class="class_radio_head"></div>
+                    <div class="class_text_end" style="display:flex">
+                        <div class="container">
+                            <div class="file-upload btn btn-primary">
+                                <span>Tải file</span>
+                                <input type="file" name="pfile_6_rdoTaiLieuKhacCuThe" id="FileAttachment" class="upload fileuploadurl" />
+                            </div>
+                            <input type="text" id="txt_6_rdoTaiLieuKhacCuThe" readonly placeholder="Maximum file size is 2MB">
+                            <input type="button" id="btnUp_6_rdoTaiLieuKhacCuThe" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -517,6 +633,20 @@
 
 
 <script>
+
+    function ShowHidenUpLoad(pID, pClass) {
+        try {
+            if ($("#" + pID).is(':checked')) {
+                $('.' + pClass).css('display', 'block');
+                console.log("123" + pClass);
+            } else {
+                $('.' + pClass).css('display', 'none');
+                console.log("456" + pClass);
+            }
+        } catch (e) {
+
+        }
+    }
 
     function funcPushFileToServer(pID) {
         try {
@@ -823,7 +953,7 @@
         overflow: hidden;
         border-radius: 3px !important;
         background: #dddddd;
-        color:#000000 ;
+        color: #000000;
         border: 1px solid #666;
         box-shadow: none !important;
         text-shadow: none;
@@ -843,13 +973,13 @@
             filter: alpha(opacity=0);
         }
 
-    #fileuploadurl {
+    .fileuploadurl {
         display: inline-block;
         vertical-align: middle;
         background: none;
         box-shadow: none;
         padding-left: 0;
-        font-size:0.8em;
+        font-size: 0.8em;
         width: 220px;
         padding-right: 0;
     }
