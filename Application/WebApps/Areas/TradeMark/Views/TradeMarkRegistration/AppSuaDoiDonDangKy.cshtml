@@ -626,7 +626,7 @@
             </div>
         </div>
         <div class="classLuuTam">
-            <a href="/trade-mark/ket-xuat-file">Kết xuất</a>
+            <a href="javascript:;" id="hrfExportData">Kết xuất</a>
         </div>
     </fieldset>
 </div>
@@ -856,39 +856,159 @@
     });
 
 
-    $("#btnLuuTam").click(function () {
+    $("#hrfExportData").click(function () {
         var v_Master_Name = $("#1_txtTenDayDu").val().trim();
+        if (v_Master_Name === "") {
+            $('#1_txtTenDayDu').focus().val('');
+            showError('Tên không được để trống!');
+            return false;
+        }
         var v_Master_Address = $("#1_txtDiaChi").val().trim();
+        if (v_Master_Address === "") {
+            $('#1_txtDiaChi').focus().val('');
+            showError('Địa chỉ không được để trống!');
+            return false;
+        }
         var v_Master_Phone = $("#1_txtDienThoai").val().trim();
         var v_Master_Fax = $("#1_txtFax").val().trim();
         var v_Master_Email = $("#1_txtEmail").val().trim();
+        if (v_Master_Email != "") {
+            if (!IsvalidEmail(v_Master_Email)) {
+                $('#1_txtEmail').focus();
+                showError('Email không đúng định dạng!');
+                return false;
+            }
+        }
+
         var v_RepMasterType = $("input[name='2_DaiDienChuDon']:checked").val();
+        if (v_RepMasterType === "" || v_RepMasterType == undefined) {
+            showError('Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!');
+            return false;
+        }
         var v_Rep_Master_Name = $("#2_txtTenDayDu").val().trim();
+        if (v_Rep_Master_Name === "") {
+            $('#2_txtTenDayDu').focus().val('');
+            showError('Địa chỉ không được để trống!');
+            return false;
+        }
         var v_Rep_Master_Address = $("#2_txtDiaChi").val().trim();
+        if (v_Rep_Master_Address === "") {
+            $('#2_txtDiaChi').focus().val('');
+            showError('Địa chỉ không được để trống!');
+            return false;
+        }
+
         var v_Rep_Master_Phone = $("#2_txtDienThoai").val().trim();
         var v_Rep_Master_Fax = $("#2_txtFax").val().trim();
-        var v_Rep_Master_Email = $("#2_txtEmail").val().trim();
-        var v_DonYCSuaDoi = $("input[name='3_DonYCSuaDoi']:checked").val();
-        var v_SoDon = $("#3_txtSoDon").val().trim();
+
+        var v_RepMasterEmail = $("#2_txtEmail").val().trim();
+        if (v_RepMasterEmail != "") {
+            if (!IsvalidEmail(v_RepMasterEmail)) {
+                $('#2_txtEmail').focus();
+                showError('Email không đúng định dạng!');
+                return false;
+            }
+        }
+
         var v_AppCode = $("#txtAppCode").val();
+        if (v_AppCode === "") {
+            $('#txtAppCode').focus().val('');
+            showError('Chưa chọn loại đơn đăng ký!');
+            return false;
+        }
+
 
         var formData = new FormData();
-        formData.append("Appcode", v_AppCode);
-        formData.append("Master_Name", v_Master_Name);
-        formData.append("Master_Address", v_Master_Name);
-        formData.append("Master_Phone", v_Master_Phone);
-        formData.append("Master_Fax", v_Master_Fax);
-        formData.append("Master_Email", v_Master_Email);
-        formData.append("Rep_Master_Type", v_RepMasterType);
-        formData.append("Rep_Master_Name", v_Rep_Master_Name);
-        formData.append("Rep_Master_Address", v_Rep_Master_Address);
-        formData.append("Rep_Master_Phone", v_Rep_Master_Phone);
-        formData.append("Rep_Master_Fax", v_Rep_Master_Fax);
-        formData.append("Rep_Master_Email", v_Rep_Master_Email);
-        formData.append("Status", 1);
+        //ObjectHeader
+        formData.append("pInfo.Appcode", v_AppCode);
+        formData.append("pInfo.Master_Name", v_Master_Name);
+        formData.append("pInfo.Master_Address", v_Master_Address);
+        formData.append("pInfo.Master_Phone", v_Master_Phone);
+        formData.append("pInfo.Master_Fax", v_Master_Fax);
+        formData.append("pInfo.Master_Email", v_Master_Email);
+        formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+        formData.append("pInfo.Rep_Master_Name", v_Rep_Master_Name);
+        formData.append("pInfo.Rep_Master_Address", v_Rep_Master_Address);
+        formData.append("pInfo.Rep_Master_Phone", v_Rep_Master_Phone);
+        formData.append("pInfo.Rep_Master_Fax", v_Rep_Master_Fax);
+        formData.append("pInfo.Rep_Master_Email", v_RepMasterEmail);
+        formData.append("pInfo.Status", 2);
+        //
+        //OjectFeeFix
+
+        var fee_id1 = $("#5_rdoLyPhiYeuCau").val();
+        var Isuse1 = 0;
+        if ($("#5_rdoLyPhiYeuCau").prop('checked') == true) {
+            Isuse1 = 1;
+        }
+
+
+        var LePhiYCSuaDoi1 = $("#5_txtLePhiYCSD").val().trim().replace(/,/g, "");
+        var TienLePhiYCSD1 = $("#5_txtTienLePhiYCSD").val().trim().replace(/,/g, "");
+
+        formData.append("pFeeFixInfo[0].Fee_Id", fee_id1);
+        formData.append("pFeeFixInfo[0].Isuse", Isuse1);
+        formData.append("pFeeFixInfo[0].Number_Of_Patent", LePhiYCSuaDoi1);
+        formData.append("pFeeFixInfo[0].Amount", TienLePhiYCSD1);
+
+
+        var fee_id2 = $("#5_rdoLyPhiCongBoDon").val();
+        var Isuse2 = 0;
+        if ($("#5_rdoLyPhiCongBoDon").prop('checked') == true) {
+            Isuse2 = 1;
+        }
+
+        var txtLePhiCBSD = $("#5_txtLePhiCBSD").val().trim().replace(/,/g, "");
+        var TienLePhiCBSD = $("#5_txtTienLePhiCBSD").val().trim().replace(/,/g, "");
+
+        formData.append("pFeeFixInfo[1].Fee_Id", fee_id2);
+        formData.append("pFeeFixInfo[1].Isuse", Isuse2);
+        formData.append("pFeeFixInfo[1].Number_Of_Patent", txtLePhiCBSD);
+        formData.append("pFeeFixInfo[1].Amount", TienLePhiCBSD);
+
+        var fee_id3 = $("#5_rdoLyPhiCongBoDonSuaDoi").val();
+        var Isuse3 = 0;
+        if ($("#5_rdoLyPhiCongBoDonSuaDoi").prop('checked') == true) {
+            Isuse3 = 1;
+        }
+        var txtLePhiCBSD3 = $("#5_txtLePhiCBD").val().trim().replace(/,/g, "");
+        var TienLePhiCBSD3 = $("#5_txtTienLePhiCBD").val().trim().replace(/,/g, "");
+
+        formData.append("pFeeFixInfo[2].Fee_Id", fee_id3);
+        formData.append("pFeeFixInfo[2].Isuse", Isuse3);
+        formData.append("pFeeFixInfo[2].Number_Of_Patent", txtLePhiCBSD3);
+        formData.append("pFeeFixInfo[2].Amount", TienLePhiCBSD3);
+
+        //ObjDetail   3 ,4
+        var v_DonYCSuaDoi = $("input[name='3_DonYCSuaDoi']:checked").val();
+        if (v_DonYCSuaDoi === "" || v_DonYCSuaDoi == undefined) {
+            showError('Phải chọn ít nhất 1 giá trị của đơn yêu cầu sửa đổi!');
+            return false;
+        }
+
+        var v_SoDon = $("#3_txtSoDon").val().trim();
+        if (v_SoDon === "") {
+            $('#3_txtSoDon').focus().val('');
+            showError('Số đơn không được để trống!');
+            return false;
+        }
+
+        var NoiDungYCSuaDoi = $("input[name='4_NoiDungSuaDoi']:checked").val();
+        var txtDeNghiSuaLaiThanh = $("#4_txtDeNghiSuaLaiThanh").val().trim();
+        var txtSoChungTu = $("#5_txtSoChungTu").val().trim();
+
+
+        formData.append("pDetailInfo.Appcode", v_AppCode);
+        formData.append("pDetailInfo.Request", v_DonYCSuaDoi);
+        formData.append("pDetailInfo.Correct_Request", NoiDungYCSuaDoi);
+        formData.append("pDetailInfo.Correct_Request_To", txtDeNghiSuaLaiThanh);
+        formData.append("pDetailInfo.Appno", v_SoDon);
+        formData.append("pDetailInfo.Sochungtu_Noptheo", txtSoChungTu);
+
+
 
         $.ajax({
-            url: '/trade-mark/them_moi_don_dang_ky_sua_doi',
+            url: '/trade-mark/ket_xuat_file',
             type: 'POST',
             data: formData,
             processData: false,
@@ -899,12 +1019,14 @@
             async: false,
             headers: { "cache-control": "no-cache" },
             success: function (data) {
-                if (data != null) {
-                    if (onResponse(data)) {
-                        ClosePopupDialog('pop-sua-doi_dk', true);
-                        //tìm kiếm
-                        //window.findFunctions(1, 0);
-                    }
+                if (data != null && data.status >= 0) {
+
+                    jAlert(AddSuccess, ThongBao, function () {
+                    });
+
+                } else {
+                    jAlert(AddFail, ThongBao, function () {
+                    });
                 }
             },
             error: function (e) {
@@ -912,7 +1034,6 @@
             }
         });
     });
-
 
     function SumFee() {
         try {

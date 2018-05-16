@@ -45,6 +45,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GemBox.Document">
+      <HintPath>..\Extended dll\GemBox.Document.dll</HintPath>
+    </Reference>
+    <Reference Include="GemBox.Spreadsheet">
+      <HintPath>..\Extended dll\GemBox.Spreadsheet.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Extended dll\log4net.dll</HintPath>
@@ -54,9 +60,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Rotativa">
-      <HintPath>..\Extended dll\Rotativa.1.6.4\lib\net40\Rotativa.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -305,6 +308,7 @@
     <Content Include="Areas\TradeMark\Views\Application\DanhSach_DonChoKHConfirm.cshtml" />
     <Content Include="Areas\TradeMark\Views\Application\_PartialTableApplication.cshtml" />
     <Content Include="Areas\TradeMark\Views\Application\_PartialKH_Confirm.cshtml" />
+    <Content Include="Content\AppForms\Request_for_amendment_of_application.doc" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\AlertPopup\ASSAlert.js" />
     <Content Include="Scripts\AlertPopup\NVSAlertCss.css" />
