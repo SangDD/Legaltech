@@ -11,6 +11,8 @@
     using Common;
     using ObjectInfos;
     using System.Web;
+    using GemBox.Document;
+    using System.IO;
 
     [ValidateAntiForgeryTokenOnAllPosts]
     [RouteArea("TradeMarkRegistration", AreaPrefix = "trade-mark")]
@@ -119,6 +121,9 @@
                     pReturn = objDetail01BL.AppDetailInsert(pDetailInfo);
                 }
 
+
+
+
                 return Json(new { status = pReturn });
             }
             catch (Exception ex)
@@ -152,5 +157,47 @@
             return Json(new { success = 0 });
         }
 
+
+        [HttpPost]
+        [Route("ket_xuat_file")]
+        public ActionResult ExportData(ApplicationHeaderInfo pInfo, List<AppFeeFixInfo> pFeeFixInfo, AppDetail01Info pDetailInfo)
+        {
+            try
+            {
+                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/Request_for_amendment_of_application.doc");
+                DocumentModel document = DocumentModel.Load(_fileTemp);
+
+                // Fill export_header
+                string   fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/"+ "Dang_ky_sua_doi_nhan_hieu_" + pInfo.Appcode + ".pdf");
+
+                // Fill export_detail  
+
+                pInfo.Status = 254;
+                pInfo.Status_Form = 252;
+                pInfo.Relationship = "11";
+                document.MailMerge.Execute(pInfo);
+                document.Save(fileName, SaveOptions.PdfDefault);
+                //document.Save(fileName);
+
+
+                byte[] fileContents;
+                var options = SaveOptions.PdfDefault;
+                // Save document to DOCX format in byte array.
+                using (var stream = new MemoryStream())
+                {
+                    document.Save(stream, options);
+                    fileContents = stream.ToArray();
+                }
+                  Convert.ToBase64String(fileContents);
+
+                return Json(new { success = 0 });
+
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new { success = 0 });
+            }
+        }
     }
 }

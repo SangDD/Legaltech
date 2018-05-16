@@ -311,35 +311,33 @@
                 <div class="class_block_title_control "><p class="class_text_center_bold ">CÁC TÀI LIỆU CÓ TRONG ĐƠN</p></div>
                 <div class="class_padding_buton"></div>
 
-                <div class="class_full_div_input">
-                    <div class="class_radio_head"> <input type="checkbox" maxlength="3" id="6_rdoToKhai" /></div>
+                <div class="class_full_div_input ">
+                    <div class="class_radio_head"> <input type="checkbox" maxlength="3" id="6_rdoToKhai" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
                     <div class="class_text_end" style="display:flex">
                         <label style="width:86px">Tờ khai, gồm</label>
                         <input style="width:140px" type="text" id="6_txtToKhaiTrang" maxlength="50" placeholder="6_txtToKhaiTrang" />
                         <label style="width:12%;padding-left:5px">trang</label>
-
                     </div>
-
-
                 </div>
-                <div class="class_full_div_input">
+
+                <div class="class_full_div_input 6_rdoToKhai" style="display:none">
                     <div class="class_radio_head"></div>
                     <div class="class_text_end" style="display:flex">
                         <div class="container">
                             <div class="file-upload btn btn-primary">
                                 <span>Tải file</span>
-                                <input type="file" name="pfile1" id="FileAttachment" class="upload" />
+                                <input type="file" name="pfile_6_rdoToKhai" id="FileAttachment" class="upload fileuploadurl" />
                             </div>
-                            <input type="text" id="fileuploadurl" readonly placeholder="Maximum file size is 2MB">
-                            <input type="button" id="btnFile1" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:75px"  />
+                            <input type="text" id="txt_6_rdoToKhai" readonly placeholder="Maximum file size is 2MB">
+                            <input type="button" id="btnUp_6_rdoToKhai" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
                         </div>
                     </div>
                 </div>
 
- 
 
+                @*'ID của checkbox đẩy vào class của  div full file '*@
                 <div class="class_full_div_input">
-                    <div class="class_radio_head"><input type="checkbox" id="6_rdoTaiLieu" /></div>
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoTaiLieu" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
 
                     <div class="class_text_end" style="display:flex">
                         <label style="width:300px">Tài liệu xác nhận việc sửa đổi hợp pháp, bằng tiếng</label>
@@ -347,43 +345,116 @@
                     </div>
                 </div>
 
-                <div class="class_full_div_input">
-                    <div class="class_radio_head"><input type="checkbox" id="6_rdoBanDich" /></div>
+                <div class="class_full_div_input 6_rdoTaiLieu" style="display:none">
+                    <div class="class_radio_head"></div>
+                    <div class="class_text_end" style="display:flex">
+                        <div class="container">
+                            <div class="file-upload btn btn-primary">
+                                <span>Tải file</span>
+                                <input type="file" name="pfile_6_rdoTaiLieu" id="FileAttachment" class="upload fileuploadurl" />
+                            </div>
+                            <input type="text" id="txt_6_rdoTaiLieu" readonly placeholder="Maximum file size is 2MB">
+                            <input type="button" id="btnUp_6_rdoTaiLieu" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
+                        </div>
+                    </div>
+                </div>
 
+
+
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoBanDich" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
                     <div class="class_text_end" style="display:flex">
                         <label style="width:150px">Bản dịch tiếng Việt, gồm</label>
                         <input style="width:35%" type="text" id="6_txtBanDichTiengViet" maxlength="3" placeholder="6_txtBanDichTiengViet" />
                         <label style="width:12%;padding-left:5px">trang</label>
                     </div>
-
                 </div>
 
+                <div class="class_full_div_input 6_rdoBanDich" style="display:none">
+                    <div class="class_radio_head"></div>
+                    <div class="class_text_end" style="display:flex">
+                        <div class="container">
+                            <div class="file-upload btn btn-primary">
+                                <span>Tải file</span>
+                                <input type="file" name="pfile_6_rdoBanDich" id="FileAttachment" class="upload fileuploadurl" />
+                            </div>
+                            <input type="text" id="txt_6_rdoBanDich" readonly placeholder="Maximum file size is 2MB">
+                            <input type="button" id="btnUp_6_rdoBanDich" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
+                        </div>
+                    </div>
+                </div>
+
+
+
                 <div class="class_full_div_input">
-                    <div class="class_radio_head"><input type="checkbox" id="6_rdoGiayUyQuyen" /> </div>
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoGiayUyQuyen" onchange="return ShowHidenUpLoad(this.id, this.id);" /> </div>
                     <div class="class_text_end" style="display:flex">
                         <label style="width:150px">Giấy uỷ quyền bằng tiếng</label>
                         <input style="width:35%" type="text" id="6_txtGiayUQTiengViet" maxlength="50" placeholder="6_txtGiayUQTiengViet" />
                     </div>
                 </div>
-                @* noi dung con  *@
 
+                <div class="class_full_div_input 6_rdoGiayUyQuyen" style="display:none">
+                    <div class="class_radio_head"></div>
+                    <div class="class_text_end" style="display:flex">
+                        <div class="container">
+                            <div class="file-upload btn btn-primary">
+                                <span>Tải file</span>
+                                <input type="file" name="pfile_6_rdoGiayUyQuyen" id="FileAttachment" class="upload fileuploadurl" />
+                            </div>
+                            <input type="text" id="txt_6_rdoGiayUyQuyen" readonly placeholder="Maximum file size is 2MB">
+                            <input type="button" id="btnUp_6_rdoGiayUyQuyen" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
+                        </div>
+                    </div>
+                </div>
+
+                @* noi dung con  *@
                 <div class="class_full_div_input" style="padding-left: 20px;">
-                    <div class="class_radio_head"><input type="checkbox" id="6_rdoBanDichTiengViet" /> </div>
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoBanDichTiengViet" onchange="return ShowHidenUpLoad(this.id, this.id);" /> </div>
                     <div class="class_text_end" style="display:flex">
                         <label style="width:150px">bản dịch tiếng Việt, gồm</label>
                         <input style="width:33%" type="text" id="6_txtBDTVGom" maxlength="3" placeholder="6_txtBDTVGom" />
                         <label style="width:12%;padding-left:5px">trang</label>
                     </div>
-
                 </div>
 
+                <div class="class_full_div_input 6_rdoBanDichTiengViet" style="display:none">
+                    <div class="class_radio_head"></div>
+                    <div class="class_text_end" style="display:flex">
+                        <div class="container">
+                            <div class="file-upload btn btn-primary">
+                                <span>Tải file</span>
+                                <input type="file" name="pfile_6_rdoBanDichTiengViet" id="FileAttachment" class="upload fileuploadurl" />
+                            </div>
+                            <input type="text" id="txt_6_rdoBanDichTiengViet" readonly placeholder="Maximum file size is 2MB">
+                            <input type="button" id="btnUp_6_rdoBanDichTiengViet" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
+                        </div>
+                    </div>
+                </div>
+
+
                 <div class="class_full_div_input" style="padding-left: 20px;">
-                    <div class="class_radio_head"><input type="checkbox" id="6_rdoBanGoc" /></div>
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoBanGoc" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
                     <div class="class_text_end"><p class="class_text_left">bản gốc</p></div>
                 </div>
 
+                <div class="class_full_div_input 6_rdoBanGoc" style="display:none">
+                    <div class="class_radio_head"></div>
+                    <div class="class_text_end" style="display:flex">
+                        <div class="container">
+                            <div class="file-upload btn btn-primary">
+                                <span>Tải file</span>
+                                <input type="file" name="pfile_6_rdoBanGoc" id="FileAttachment" class="upload fileuploadurl" />
+                            </div>
+                            <input type="text" id="txt_6_rdoBanGoc" readonly placeholder="Maximum file size is 2MB">
+                            <input type="button" id="btnUp_6_rdoBanGoc" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
+                        </div>
+                    </div>
+                </div>
+
+
                 <div class="class_full_div_input" style="padding-left: 20px;">
-                    <div class="class_radio_head"><input type="checkbox" id="6_rdoBanSao" /></div>
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoBanSao" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
 
                     <div class="class_text_end">
                         <p class="class_text_left">bản sao (</p>
@@ -400,20 +471,65 @@
                                 <input style="width:33%" type="text" id="6_txtBangocDNTheoDonSo" maxlength="50" placeholder="6_txtBangocDNTheoDonSo" />
                                 <label style="width:10%;padding-left:5px">)</label>
                             </div>
+                        </div>
+                        @* day file *@
+                        <div class="class_full_div_input 6_rdoBanSao" style="display:none;padding-left: 20px;">
+                            <div class="class_radio_head"></div>
+                            <div class="class_text_end" style="display:flex">
+                                <div class="container">
+                                    <div class="file-upload btn btn-primary">
+                                        <span>Tải file</span>
+                                        <input type="file" name="pfile_6_rdoBanSao" id="FileAttachment" class="upload fileuploadurl" />
+                                    </div>
+                                    <input type="text" id="txt_6_rdoBanSao" readonly placeholder="Maximum file size is 2MB">
+                                    <input type="button" id="btnUp_6_rdoBanSao" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
+                </div>
+
+
+
+                @* noi dung con  *@
+                <div class="class_full_div_input">
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoChungTuPhi" onchange="return ShowHidenUpLoad(this.id, this.id);" /> </div>
+                    <div class="class_text_end"><p class="class_text_left">Chứng từ phí, lệ phí</p></div>
+                </div>
+                <div class="class_full_div_input 6_rdoChungTuPhi" style="display:none">
+                    <div class="class_radio_head"></div>
+                    <div class="class_text_end" style="display:flex">
+                        <div class="container">
+                            <div class="file-upload btn btn-primary">
+                                <span>Tải file</span>
+                                <input type="file" name="pfile_6_rdoChungTuPhi" id="FileAttachment" class="upload fileuploadurl" />
+                            </div>
+                            <input type="text" id="txt_6_rdoChungTuPhi" readonly placeholder="Maximum file size is 2MB">
+                            <input type="button" id="btnUp_6_rdoChungTuPhi" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
                         </div>
                     </div>
                 </div>
-                @* noi dung con  *@
+
                 <div class="class_full_div_input">
-                    <div class="class_radio_head"><input type="checkbox" id="6_rdoChungTuPhi" /> </div>
-                    <div class="class_text_end"><p class="class_text_left">Chứng từ phí, lệ phí</p></div>
-                </div>
-                <div class="class_full_div_input">
-                    <div class="class_radio_head"> <input type="checkbox" id="6_rdoTaiLieuKhacCuThe" /></div>
+                    <div class="class_radio_head"> <input type="checkbox" id="6_rdoTaiLieuKhacCuThe" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
                     <div class="class_text_end" style="display:flex">
                         <label style="width:175px">Tài liệu khác, cụ thể:</label>
                         <input style="flex-grow:1" type="text" id="6_txtTaiLieuKhacCuThe" maxlength="100" placeholder="6_txtTaiLieuKhacCuThe" />
+                    </div>
+                </div>
+                @* tai file *@
+                <div class="class_full_div_input 6_rdoTaiLieuKhacCuThe" style="display:none">
+                    <div class="class_radio_head"></div>
+                    <div class="class_text_end" style="display:flex">
+                        <div class="container">
+                            <div class="file-upload btn btn-primary">
+                                <span>Tải file</span>
+                                <input type="file" name="pfile_6_rdoTaiLieuKhacCuThe" id="FileAttachment" class="upload fileuploadurl" />
+                            </div>
+                            <input type="text" id="txt_6_rdoTaiLieuKhacCuThe" readonly placeholder="Maximum file size is 2MB">
+                            <input type="button" id="btnUp_6_rdoTaiLieuKhacCuThe" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -510,13 +626,27 @@
             </div>
         </div>
         <div class="classLuuTam">
-            <a href="/trade-mark/ket-xuat-file">Kết xuất</a>
+            <a href="javascript:;" id="hrfExportData">Kết xuất</a>
         </div>
     </fieldset>
 </div>
 
 
 <script>
+
+    function ShowHidenUpLoad(pID, pClass) {
+        try {
+            if ($("#" + pID).is(':checked')) {
+                $('.' + pClass).css('display', 'block');
+                console.log("123" + pClass);
+            } else {
+                $('.' + pClass).css('display', 'none');
+                console.log("456" + pClass);
+            }
+        } catch (e) {
+
+        }
+    }
 
     function funcPushFileToServer(pID) {
         try {
@@ -726,39 +856,159 @@
     });
 
 
-    $("#btnLuuTam").click(function () {
+    $("#hrfExportData").click(function () {
         var v_Master_Name = $("#1_txtTenDayDu").val().trim();
+        if (v_Master_Name === "") {
+            $('#1_txtTenDayDu').focus().val('');
+            showError('Tên không được để trống!');
+            return false;
+        }
         var v_Master_Address = $("#1_txtDiaChi").val().trim();
+        if (v_Master_Address === "") {
+            $('#1_txtDiaChi').focus().val('');
+            showError('Địa chỉ không được để trống!');
+            return false;
+        }
         var v_Master_Phone = $("#1_txtDienThoai").val().trim();
         var v_Master_Fax = $("#1_txtFax").val().trim();
         var v_Master_Email = $("#1_txtEmail").val().trim();
+        if (v_Master_Email != "") {
+            if (!IsvalidEmail(v_Master_Email)) {
+                $('#1_txtEmail').focus();
+                showError('Email không đúng định dạng!');
+                return false;
+            }
+        }
+
         var v_RepMasterType = $("input[name='2_DaiDienChuDon']:checked").val();
+        if (v_RepMasterType === "" || v_RepMasterType == undefined) {
+            showError('Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!');
+            return false;
+        }
         var v_Rep_Master_Name = $("#2_txtTenDayDu").val().trim();
+        if (v_Rep_Master_Name === "") {
+            $('#2_txtTenDayDu').focus().val('');
+            showError('Địa chỉ không được để trống!');
+            return false;
+        }
         var v_Rep_Master_Address = $("#2_txtDiaChi").val().trim();
+        if (v_Rep_Master_Address === "") {
+            $('#2_txtDiaChi').focus().val('');
+            showError('Địa chỉ không được để trống!');
+            return false;
+        }
+
         var v_Rep_Master_Phone = $("#2_txtDienThoai").val().trim();
         var v_Rep_Master_Fax = $("#2_txtFax").val().trim();
-        var v_Rep_Master_Email = $("#2_txtEmail").val().trim();
-        var v_DonYCSuaDoi = $("input[name='3_DonYCSuaDoi']:checked").val();
-        var v_SoDon = $("#3_txtSoDon").val().trim();
+
+        var v_RepMasterEmail = $("#2_txtEmail").val().trim();
+        if (v_RepMasterEmail != "") {
+            if (!IsvalidEmail(v_RepMasterEmail)) {
+                $('#2_txtEmail').focus();
+                showError('Email không đúng định dạng!');
+                return false;
+            }
+        }
+
         var v_AppCode = $("#txtAppCode").val();
+        if (v_AppCode === "") {
+            $('#txtAppCode').focus().val('');
+            showError('Chưa chọn loại đơn đăng ký!');
+            return false;
+        }
+
 
         var formData = new FormData();
-        formData.append("Appcode", v_AppCode);
-        formData.append("Master_Name", v_Master_Name);
-        formData.append("Master_Address", v_Master_Name);
-        formData.append("Master_Phone", v_Master_Phone);
-        formData.append("Master_Fax", v_Master_Fax);
-        formData.append("Master_Email", v_Master_Email);
-        formData.append("Rep_Master_Type", v_RepMasterType);
-        formData.append("Rep_Master_Name", v_Rep_Master_Name);
-        formData.append("Rep_Master_Address", v_Rep_Master_Address);
-        formData.append("Rep_Master_Phone", v_Rep_Master_Phone);
-        formData.append("Rep_Master_Fax", v_Rep_Master_Fax);
-        formData.append("Rep_Master_Email", v_Rep_Master_Email);
-        formData.append("Status", 1);
+        //ObjectHeader
+        formData.append("pInfo.Appcode", v_AppCode);
+        formData.append("pInfo.Master_Name", v_Master_Name);
+        formData.append("pInfo.Master_Address", v_Master_Address);
+        formData.append("pInfo.Master_Phone", v_Master_Phone);
+        formData.append("pInfo.Master_Fax", v_Master_Fax);
+        formData.append("pInfo.Master_Email", v_Master_Email);
+        formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+        formData.append("pInfo.Rep_Master_Name", v_Rep_Master_Name);
+        formData.append("pInfo.Rep_Master_Address", v_Rep_Master_Address);
+        formData.append("pInfo.Rep_Master_Phone", v_Rep_Master_Phone);
+        formData.append("pInfo.Rep_Master_Fax", v_Rep_Master_Fax);
+        formData.append("pInfo.Rep_Master_Email", v_RepMasterEmail);
+        formData.append("pInfo.Status", 2);
+        //
+        //OjectFeeFix
+
+        var fee_id1 = $("#5_rdoLyPhiYeuCau").val();
+        var Isuse1 = 0;
+        if ($("#5_rdoLyPhiYeuCau").prop('checked') == true) {
+            Isuse1 = 1;
+        }
+
+
+        var LePhiYCSuaDoi1 = $("#5_txtLePhiYCSD").val().trim().replace(/,/g, "");
+        var TienLePhiYCSD1 = $("#5_txtTienLePhiYCSD").val().trim().replace(/,/g, "");
+
+        formData.append("pFeeFixInfo[0].Fee_Id", fee_id1);
+        formData.append("pFeeFixInfo[0].Isuse", Isuse1);
+        formData.append("pFeeFixInfo[0].Number_Of_Patent", LePhiYCSuaDoi1);
+        formData.append("pFeeFixInfo[0].Amount", TienLePhiYCSD1);
+
+
+        var fee_id2 = $("#5_rdoLyPhiCongBoDon").val();
+        var Isuse2 = 0;
+        if ($("#5_rdoLyPhiCongBoDon").prop('checked') == true) {
+            Isuse2 = 1;
+        }
+
+        var txtLePhiCBSD = $("#5_txtLePhiCBSD").val().trim().replace(/,/g, "");
+        var TienLePhiCBSD = $("#5_txtTienLePhiCBSD").val().trim().replace(/,/g, "");
+
+        formData.append("pFeeFixInfo[1].Fee_Id", fee_id2);
+        formData.append("pFeeFixInfo[1].Isuse", Isuse2);
+        formData.append("pFeeFixInfo[1].Number_Of_Patent", txtLePhiCBSD);
+        formData.append("pFeeFixInfo[1].Amount", TienLePhiCBSD);
+
+        var fee_id3 = $("#5_rdoLyPhiCongBoDonSuaDoi").val();
+        var Isuse3 = 0;
+        if ($("#5_rdoLyPhiCongBoDonSuaDoi").prop('checked') == true) {
+            Isuse3 = 1;
+        }
+        var txtLePhiCBSD3 = $("#5_txtLePhiCBD").val().trim().replace(/,/g, "");
+        var TienLePhiCBSD3 = $("#5_txtTienLePhiCBD").val().trim().replace(/,/g, "");
+
+        formData.append("pFeeFixInfo[2].Fee_Id", fee_id3);
+        formData.append("pFeeFixInfo[2].Isuse", Isuse3);
+        formData.append("pFeeFixInfo[2].Number_Of_Patent", txtLePhiCBSD3);
+        formData.append("pFeeFixInfo[2].Amount", TienLePhiCBSD3);
+
+        //ObjDetail   3 ,4
+        var v_DonYCSuaDoi = $("input[name='3_DonYCSuaDoi']:checked").val();
+        if (v_DonYCSuaDoi === "" || v_DonYCSuaDoi == undefined) {
+            showError('Phải chọn ít nhất 1 giá trị của đơn yêu cầu sửa đổi!');
+            return false;
+        }
+
+        var v_SoDon = $("#3_txtSoDon").val().trim();
+        if (v_SoDon === "") {
+            $('#3_txtSoDon').focus().val('');
+            showError('Số đơn không được để trống!');
+            return false;
+        }
+
+        var NoiDungYCSuaDoi = $("input[name='4_NoiDungSuaDoi']:checked").val();
+        var txtDeNghiSuaLaiThanh = $("#4_txtDeNghiSuaLaiThanh").val().trim();
+        var txtSoChungTu = $("#5_txtSoChungTu").val().trim();
+
+
+        formData.append("pDetailInfo.Appcode", v_AppCode);
+        formData.append("pDetailInfo.Request", v_DonYCSuaDoi);
+        formData.append("pDetailInfo.Correct_Request", NoiDungYCSuaDoi);
+        formData.append("pDetailInfo.Correct_Request_To", txtDeNghiSuaLaiThanh);
+        formData.append("pDetailInfo.Appno", v_SoDon);
+        formData.append("pDetailInfo.Sochungtu_Noptheo", txtSoChungTu);
+
+
 
         $.ajax({
-            url: '/trade-mark/them_moi_don_dang_ky_sua_doi',
+            url: '/trade-mark/ket_xuat_file',
             type: 'POST',
             data: formData,
             processData: false,
@@ -769,12 +1019,14 @@
             async: false,
             headers: { "cache-control": "no-cache" },
             success: function (data) {
-                if (data != null) {
-                    if (onResponse(data)) {
-                        ClosePopupDialog('pop-sua-doi_dk', true);
-                        //tìm kiếm
-                        //window.findFunctions(1, 0);
-                    }
+                if (data != null && data.status >= 0) {
+
+                    jAlert(AddSuccess, ThongBao, function () {
+                    });
+
+                } else {
+                    jAlert(AddFail, ThongBao, function () {
+                    });
                 }
             },
             error: function (e) {
@@ -782,7 +1034,6 @@
             }
         });
     });
-
 
     function SumFee() {
         try {
@@ -823,7 +1074,7 @@
         overflow: hidden;
         border-radius: 3px !important;
         background: #dddddd;
-        color:#000000 ;
+        color: #000000;
         border: 1px solid #666;
         box-shadow: none !important;
         text-shadow: none;
@@ -843,13 +1094,13 @@
             filter: alpha(opacity=0);
         }
 
-    #fileuploadurl {
+    .fileuploadurl {
         display: inline-block;
         vertical-align: middle;
         background: none;
         box-shadow: none;
         padding-left: 0;
-        font-size:0.8em;
+        font-size: 0.8em;
         width: 220px;
         padding-right: 0;
     }

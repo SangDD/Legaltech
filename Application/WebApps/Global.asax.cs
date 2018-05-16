@@ -13,6 +13,11 @@
 
     using BussinessFacade.ModuleMemoryData;
 
+	using Common;
+	using Common.CommonData;
+    using GemBox.Document;
+    using GemBox.Spreadsheet;
+    using RequestFilter;
     using Common;
     using Common.CommonData;
 
@@ -45,6 +50,11 @@
 
         protected virtual void Application_Start()
         {
+            //Add key cho gembox 
+            SpreadsheetInfo.SetLicense("ETJW-8TZ7-8IQ6-0LAD"); 
+
+            ComponentInfo.SetLicense("DTFX-2TZ7-8IQ6-VTY3");
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
