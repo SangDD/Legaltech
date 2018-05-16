@@ -1,73 +1,74 @@
-﻿@using BussinessFacade.ModuleUsersAndRoles
-@using Common.Extensions
-@model ObjectInfos.ModuleUsersAndRoles.UserInfo
+﻿@using BussinessFacade.ModuleUsersAndRoles;
+@using Common.Extensions;
+@using ObjectInfos;
+@using BussinessFacade.ModuleMemoryData
+@model ObjectInfos.UserInfo
+@{
+    string _GroupName = "Chưa có nhóm quyền";
+    if (Model.GroupSelectedCollection.Count > 0)
+    {
+        int _groupId = Model.GroupSelectedCollection[0];
+        foreach (GroupUserInfo item in MemoryData.GetAllGroup())
+        {
+            if (item.Id == _groupId)
+            {
+                _GroupName = item.Name;
+                break;
+            }
+        }
+    }
+}
 @try
 {
-	<div class="popup-opacity-wrapper"></div>
-	<div class="d-popup" style="overflow: visible">
-		<div class="d-popup-content grid grid-2cols">
-			<div>
-				<label>Tên đăng nhập </label>
-				<p class="text-font-medium">@Model.Username</p>
-			</div>
+    <div class="popup-opacity-wrapper"></div>
+    <div class="d-popup" style="overflow: visible">
+        <div class="d-popup-content grid grid-2cols">
+            <div>
+                <label>Tên đăng nhập </label>
+                <p class="text-font-medium">@Model.Username</p>
+            </div>
 
-			<div>
-				<label>Họ tên </label>
-				<p class="text-font-medium">@Model.FullName</p>
-			</div>
+            <div>
+                <label>Họ tên </label>
+                <p class="text-font-medium">@Model.FullName</p>
+            </div>
 
-			<div>
-				<label>Ngày sinh <label>Ngày sinh </label> </label>
-				<p class="text-font-medium">@Model.DateOfBirth.ToDateStringN0()</p>
-			</div>
+            <div>
+                <label>Ngày sinh <label>Ngày sinh </label> </label>
+                <p class="text-font-medium">@Model.DateOfBirth.ToDateStringN0()</p>
+            </div>
 
-			<div>
-				<label>Giới tính</label>
-				<p class="text-font-medium">@Model.SexDisplayName</p>
-			</div>
+            <div>
+                <label>Giới tính</label>
+                <p class="text-font-medium">@Model.SexDisplayName</p>
+            </div>
 
-			<div>
-				<label>Email </label>
-				<p class="text-font-medium">@Model.Email</p>
-			</div>
+            <div>
+                <label>Email </label>
+                <p class="text-font-medium">@Model.Email</p>
+            </div>
 
-			<div>
-				<label>Điện thoại </label>
-				<p class="text-font-medium">@Model.Phone</p>
-			</div>
-			<div>
-				<label>Loại người dùng </label>
-				<p class="text-font-medium">@Model.Type_Name</p>
-			</div>
-			<div>
-				<label>Trạng thái</label>
-				<p class="text-font-medium">@Model.StatusDisplayName</p>
-			</div>
+            <div>
+                <label>Điện thoại </label>
+                <p class="text-font-medium">@Model.Phone</p>
+            </div>
+            <div>
+                <label>Loại người dùng </label>
+                <p class="text-font-medium">@Model.Type_Name</p>
+            </div>
+            <div>
+                <label>Trạng thái</label>
+                <p class="text-font-medium">@Model.StatusDisplayName</p>
+            </div>
 
-			<div>
-				<label>Nhóm quyền</label>
-				<div class="groups-checkbox">
-					@if (Model.GroupSelectedCollection.Count > 0)
-					{
-						 foreach (var item in GroupUserBL.GetAllGroups().Where(o => Model.GroupSelectedCollection.Contains(o.Id)).ToList())
-						 {
-							 var chkbId = "chkbGroupIdEdit-" + item.Id;
-							 <input type="checkbox" disabled="disabled" checked="checked" class="facheck" id="@chkbId" value="@item.Id"/>
-							 <label for="@chkbId"><i class="far fa-circle"></i>@item.Name</label>
-							 <br/>
-						}
-					}
-					else
-					{
-						<label>Chưa có nhóm quyền</label>
-					}
-
-				</div>
-			</div>
-		</div>
-	</div>
+            <div>
+                <label>Nhóm quyền</label>
+                <p class="text-font-medium">@_GroupName</p>
+            </div>
+        </div>
+    </div>
 }
 catch (Exception)
 {
-	// ignored
+    // ignored
 }

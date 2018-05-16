@@ -4,7 +4,7 @@
 	using System.Collections.Generic;
 	using Common;
 	using DataAccess.ModuleUsersAndRoles;
-	using ObjectInfos.ModuleUsersAndRoles;
+    using ObjectInfos;
 
 	public class MenuBL
 	{

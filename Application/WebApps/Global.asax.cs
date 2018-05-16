@@ -1,35 +1,41 @@
 ﻿namespace WebApps
 {
-	using System;
+    using System;
     using System.Globalization;
     using System.Net;
     using System.Text.RegularExpressions;
     using System.Threading;
     using System.Web;
-	using System.Web.Mvc;
-	using System.Web.Optimization;
-	using System.Web.Routing;
-	using AppStart;
+    using System.Web.Mvc;
+    using System.Web.Optimization;
+    using System.Web.Routing;
+    using AppStart;
 
-	using BussinessFacade.ModuleMemoryData;
+    using BussinessFacade.ModuleMemoryData;
 
-	using Common;
-	using Common.CommonData;
+    using Common;
+    using Common.CommonData;
 
-	using RequestFilter;
+    using RequestFilter;
+    using ObjectInfos;
 
-	public class MvcApplication : HttpApplication
+    public class MvcApplication : HttpApplication
     {
         internal void LoadWebAppDataWhenResetPool()
         {
             try
             {
-	            Configuration.GetConfigAppSetting();
+                Configuration.GetConfigAppSetting();
                 Logger.Log().Info("Start Application_Start");
                 log4net.Config.XmlConfigurator.Configure();
-	            CommonVariables.AssemblyVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-	            CommonVariables.KnFileLogin = HttpContext.Current.Server.MapPath(@"~/log/LogInApp" + DateTime.Now.ToString("MMyyyy") + ".log");
+                CommonVariables.AssemblyVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                CommonVariables.KnFileLogin = HttpContext.Current.Server.MapPath(@"~/log/LogInApp" + DateTime.Now.ToString("MMyyyy") + ".log");
                 MemoryData.LoadAllMemoryData();
+
+                // thread chuyên load dữ liệu tĩnh khi có sự thay đổi
+                Thread _th1 = new Thread(ThreadReloadWhenChangeData);
+                _th1.IsBackground = true;
+                _th1.Start();
             }
             catch (Exception ex)
             {
@@ -161,19 +167,19 @@
 
         protected void Application_AcquireRequestState(object sender, EventArgs e)
         {
-   //         if (HttpContext.Current.Session == null) return;
+            //         if (HttpContext.Current.Session == null) return;
 
-			//var identityRequest = new IdentityRequest();
-			//identityRequest.Identity(this.Context.Request);
-			//if (!identityRequest.IsRequestIdentity)
-			//{
-			//	this.Response.Redirect(RouteConfig.KnFilterRequestNotIdentity
-			//		+ "?requestMethod=" + identityRequest.RequestMethod
-			//		+ "&isRequestTypeAjax=" + identityRequest.IsRequestTypeAjax
-			//		+ "&urlRedirect=" + identityRequest.ResponeRedirectUrl
-			//		+ "&returnUrl=" + identityRequest.ReturnUrl);
-			//}
-		}
+            //var identityRequest = new IdentityRequest();
+            //identityRequest.Identity(this.Context.Request);
+            //if (!identityRequest.IsRequestIdentity)
+            //{
+            //	this.Response.Redirect(RouteConfig.KnFilterRequestNotIdentity
+            //		+ "?requestMethod=" + identityRequest.RequestMethod
+            //		+ "&isRequestTypeAjax=" + identityRequest.IsRequestTypeAjax
+            //		+ "&urlRedirect=" + identityRequest.ResponeRedirectUrl
+            //		+ "&returnUrl=" + identityRequest.ReturnUrl);
+            //}
+        }
 
         protected void Application_PreSendRequestHeaders()
         {
@@ -186,13 +192,39 @@
                 Logger.Log().Error("Error at Application_PreSendRequestHeaders: " + ex);
             }
         }
+
+        /// <summary>
+        /// thread chuyên load dữ liệu tĩnh khi có sự thay đổi
+        /// </summary>
+        private void ThreadReloadWhenChangeData()
+        {
+            while (true)
+            {
+                try
+                {
+                    CallBack_Info _CallBack_Info = MemoryData.Dequeue_ChangeData();
+                    if (_CallBack_Info != null && _CallBack_Info.Table_Name != null && _CallBack_Info.Table_Name != "")
+                    {
+                        if (_CallBack_Info.Table_Name == Table_Change.GROUP_USER)
+                        {
+                            MemoryData.ReloadGroup();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Thread.Sleep(2000);
+                    Logger.Log().Error(ex.ToString());
+                }
+            }
+        }
     }
 
-	public class MyHttpHandler : MvcHandler
-	{
-		public MyHttpHandler(RequestContext requestContext)
-			: base(requestContext)
-		{
-		}
-	}
+    public class MyHttpHandler : MvcHandler
+    {
+        public MyHttpHandler(RequestContext requestContext)
+            : base(requestContext)
+        {
+        }
+    }
 }

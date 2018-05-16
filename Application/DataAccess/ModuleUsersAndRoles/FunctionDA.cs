@@ -5,86 +5,66 @@
 	using Common;
 	using Common.MessageCode;
 	using Common.SearchingAndFiltering;
-	using ObjectInfos.ModuleUsersAndRoles;
+    using ObjectInfos;
 	using Oracle.DataAccess.Client;
 
 	public class FunctionDA
 	{
 		public static DataSet GetFunctionById(int functionId)
         {
-            var ds = new DataSet();
             try
             {
-	            ds = OracleHelper.ExecuteDataset(
-		            Configuration.connectionString,
-		            CommandType.StoredProcedure,
-		            "pkg_s_function.proc_Function_GetById",
+	           return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_s_function.proc_Function_GetById",
 		            new OracleParameter("p_functionId", OracleDbType.Int32, functionId, ParameterDirection.Input),
 		            new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
+                return new DataSet();
             }
-
-            return ds;
         }
 
         public static DataSet GetAllFunctions()
         {
-            var ds = new DataSet();
             try
             {
-	            ds = OracleHelper.ExecuteDataset(
-		            Configuration.connectionString,
-		            CommandType.StoredProcedure,
-		            "pkg_s_function.proc_Function_GetAll",
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_s_function.proc_Function_GetAll",
 		            new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
+                return new DataSet();
             }
-
-            return ds;
         }
 
 		public static DataSet GetAllFunctionsRequiredLogin()
 		{
-			var ds = new DataSet();
-			try
-			{
-				ds = OracleHelper.ExecuteDataset(
-					Configuration.connectionString,
-					CommandType.StoredProcedure,
-					"pkg_s_function.proc_GetAllFnsRequiredLogin",
-					new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
-			}
-			catch (Exception ex)
-			{
-				Logger.LogException(ex);
-			}
-
-			return ds;
-		}
-
-        public static DataSet GetAllFunctionsNoRequiredLogin()
-        {
-            var ds = new DataSet();
             try
             {
-	            ds = OracleHelper.ExecuteDataset(
-		            Configuration.connectionString,
-		            CommandType.StoredProcedure,
-		            "pkg_s_function.proc_GetAllFnsNoRequiredLogin",
-		            new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_s_function.proc_GetAllFnsRequiredLogin",
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
+                return new DataSet();
             }
+		}
 
-            return ds;
+        public static DataSet GetAllFunctionsNoRequiredLogin()
+        {
+            try
+            {
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_s_function.proc_GetAllFnsNoRequiredLogin",
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
         }
 
         /// <summary>
@@ -119,10 +99,7 @@
                 }
 
 	            var paramTotalRecord = new OracleParameter("p_total_record", OracleDbType.Int32, ParameterDirection.Output);
-	            ds = OracleHelper.ExecuteDataset(
-		            Configuration.connectionString,
-		            CommandType.StoredProcedure,
-		            "pkg_s_function.proc_Function_Find",
+	            ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_s_function.proc_Function_Find",
 		            new OracleParameter("p_functionName", OracleDbType.Varchar2, functionName, ParameterDirection.Input),
 		            new OracleParameter("p_functionType", OracleDbType.Varchar2, functionType, ParameterDirection.Input),
 		            new OracleParameter("p_href", OracleDbType.Varchar2, href, ParameterDirection.Input),
@@ -150,10 +127,7 @@
             try
             {
 	            var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
-	            OracleHelper.ExecuteDataset(
-		            Configuration.connectionString,
-		            CommandType.StoredProcedure,
-		            "pkg_s_function.proc_Function_AddNew",
+	            OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_s_function.proc_Function_AddNew",
 		            new OracleParameter("p_functionName", OracleDbType.Varchar2, functionAdd.FunctionName, ParameterDirection.Input),
 		            new OracleParameter("p_displayName", OracleDbType.Varchar2, functionAdd.DisplayName, ParameterDirection.Input),
 		            new OracleParameter("p_functionType", OracleDbType.Int32, functionAdd.FunctionType, ParameterDirection.Input),
@@ -180,10 +154,7 @@
             try
             {
 	            var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
-	            OracleHelper.ExecuteDataset(
-		            Configuration.connectionString,
-		            CommandType.StoredProcedure,
-		            "pkg_s_function.proc_Function_Edit",
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_s_function.proc_Function_Edit",
 		            new OracleParameter("p_functionId", OracleDbType.Int32, functionEdit.Id, ParameterDirection.Input),
 		            new OracleParameter("p_functionName", OracleDbType.Varchar2, functionEdit.FunctionName, ParameterDirection.Input),
 		            new OracleParameter("p_displayName", OracleDbType.Varchar2, functionEdit.DisplayName, ParameterDirection.Input),
@@ -211,10 +182,7 @@
             try
             {
 	            var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
-	            OracleHelper.ExecuteDataset(
-		            Configuration.connectionString,
-		            CommandType.StoredProcedure,
-		            "pkg_s_function.proc_Function_Delete",
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_s_function.proc_Function_Delete",
 		            new OracleParameter("p_functionId", OracleDbType.Int32, functionId, ParameterDirection.Input),
 		            paramReturn);
 	            var result = Convert.ToInt32(paramReturn.Value.ToString());
@@ -230,22 +198,18 @@
 
 		public static DataSet GetAllInnerFunctions(int functionId)
 		{
-			var ds = new DataSet();
 			try
 			{
-				ds = OracleHelper.ExecuteDataset(
-					Configuration.connectionString,
-					CommandType.StoredProcedure,
-					"pkg_s_function.proc_GetAllInnerFunction",
+              return  OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure,
+                    "pkg_s_function.proc_GetAllInnerFunction",
 					new OracleParameter("p_functionId", OracleDbType.Int32, functionId, ParameterDirection.Input),
 					new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
 			}
 			catch (Exception ex)
 			{
 				Logger.LogException(ex);
+                return new DataSet();
 			}
-
-			return ds;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿namespace ObjectInfos.ModuleUsersAndRoles
+﻿namespace ObjectInfos
 {
     using System;
     using System.Collections.Generic;

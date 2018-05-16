@@ -2,8 +2,7 @@
 {
 	using System;
 	using System.Collections.Generic;
-
-	using ObjectInfos.ModuleUsersAndRoles;
+	using ObjectInfos;
 
 	public class AccountManagerBL : RepositoriesBL
     {

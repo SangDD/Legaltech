@@ -9,7 +9,7 @@
 
 	using Common;
 
-	using ObjectInfos.ModuleUsersAndRoles;
+	using ObjectInfos;
 
 	using WebApps.AppStart;
 	using WebApps.Session;

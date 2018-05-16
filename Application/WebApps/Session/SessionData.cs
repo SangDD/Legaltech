@@ -5,7 +5,7 @@
 
 	using Common;
 
-	using ObjectInfos.ModuleUsersAndRoles;
+	using ObjectInfos;
 
 	public class SessionData
 	{

@@ -1,9 +1,16 @@
-﻿@using BussinessFacade.ModuleCommonCatalogData
+﻿@*@using BussinessFacade.ModuleCommonCatalogData*@
 @using BussinessFacade.ModuleMemoryData
 @using BussinessFacade.ModuleUsersAndRoles
 @using Common.CommonData
 @using Common.Extensions
-@model ObjectInfos.ModuleUsersAndRoles.UserInfo
+@model ObjectInfos.UserInfo
+@{ 
+    int _groupId = 0;
+    if (Model.GroupSelectedCollection.Count > 0)
+    {
+        _groupId = Model.GroupSelectedCollection[0];
+    }
+}
 @try
 {
 	<div class="popup-opacity-wrapper"></div>
@@ -64,17 +71,21 @@
 			</div>
 
 			<div>
-				<label>Nhóm quyền</label>
-				<div class="groups-checkbox">
-					@foreach (var item in GroupUserBL.GetAllGroups())
-					{
-						var chkbId = "chkbGroupIdEdit-" + item.Id;
-						var groupSelected = Model.GroupSelectedCollection.Contains(item.Id) ? "checked=\"checked\"" : "";
-						<input type="checkbox" data-groupuseredit="TRUE" @groupSelected class="facheck" id="@chkbId" value="@item.Id" />
-						<label for="@chkbId"><i class="far fa-circle"></i>@item.Name</label>
-						<br />
-					}
-				</div>
+                <label>Nhóm quyền<i class="redspan">(*)</i></label>
+                <select id="cboGroupUser">
+                    <option value="-1">None</option>
+                    @foreach (var item in MemoryData.GetAllGroup())
+                    {
+                        if (item.Id == _groupId)
+                        {
+                            <option selected="selected" value="@item.Id">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    }
+                </select>
 			</div>
 		</div>
 		<div class="d-popup-footer">
@@ -92,17 +103,9 @@
 			sexEdit = '',
 			emailEdit = '',
 			phoneEdit = '',
-			deparmentEdit = '',
-			positionEdit = '',
-			branchEdit = '',
-			wareHouseEdit = '',
-			unitPriceTypeEdit = '',
-			viewOtherBranchEdit = 'false',
-			seeProductTypeSEdit = 'false',
-			changeInstanceWhenOutStockEdit = 'false',
-			productMarkCodeEdit = '',
+			typeEdit = '',
 			statusEdit = '',
-			arrGroupsEdit = '';
+			GroupIdEdit = '';
 		$(document).ready(function () {
 			$.datetimepicker.setLocale('vi');
 			$('.datetimepicker').datetimepicker({
@@ -116,43 +119,6 @@
 			});
 
 			$('#txtDateOfBirthEdit').datetimepicker({ value: dateOfBirthEdit });
-
-			$('#cboDepartmentEdit').multipleSelect({
-				filter: true,
-				single: true,
-				isdatastring: false,
-				maxHeight: 150,
-				placeholder: "-- Chọn phòng ban --"
-			});
-			$('#cboPositionEdit').multipleSelect({
-				filter: true,
-				single: true,
-				isdatastring: false,
-				maxHeight: 150,
-				placeholder: "-- Chọn chức vụ --"
-			});
-			$('#cboBranchEdit').multipleSelect({
-				filter: true,
-				single: true,
-				isdatastring: false,
-				maxHeight: 150,
-				placeholder: "-- Chọn chi nhánh --"
-			});
-			$('#cboWareHouseEdit').multipleSelect({
-				filter: true,
-				single: true,
-				isdatastring: false,
-				maxHeight: 150,
-				placeholder: "-- Chọn kho --"
-			});
-			$('#cboProductMarkCodeEdit').multipleSelect({
-				filter: true,
-				single: true,
-				isdatastring: false,
-				maxHeight: 150,
-				placeholder: "-- Chọn hãng --"
-			});
-
 		});
 
 		function doEditUser() {
@@ -189,30 +155,9 @@
 			sexEdit = $('#cboSexEdit').val();
 			emailEdit = $('#txtEmailEdit').val().trim();
 			phoneEdit = $('#txtPhoneEdit').val().trim();
-			deparmentEdit = $('#cboDepartmentEdit').val();
-			positionEdit = $('#cboPositionEdit').val();
-			branchEdit = $('#cboBranchEdit').val();
-			wareHouseEdit = $('#cboWareHouseEdit').val();
-			unitPriceTypeEdit = $('#cboUnitPriceTypeEdit').val();
-
-			if ($('#chkbViewOtherBranchEdit').is(':checked')) {
-				viewOtherBranchEdit = 'true';
-			}
-			if ($('#chkbSeeProductTypeSEdit').is(':checked')) {
-				seeProductTypeSEdit = 'true';
-			}
-			if ($('#chkbChangeInstanceWhenOutStockEdit').is(':checked')) {
-				changeInstanceWhenOutStockEdit = 'true';
-			}
-
-			productMarkCodeEdit = $('#cboProductMarkCodeEdit').val();
+			typeEdit = $('#cboTypeAdd').val();
 			statusEdit = $('#cboStatusEdit').val();
-			$('[data-groupuseredit="TRUE"]:checked').each(function () {
-				arrGroupsEdit += $(this).val() + ",";
-			});
-			if (arrGroupsEdit != null && arrGroupsEdit.length > 0) {
-				arrGroupsEdit = arrGroupsEdit.substring(0, arrGroupsEdit.length - 1);
-			}
+			GroupIdEdit = $('#cboGroupUser').val();
 
 			if (fullNameEdit === "") {
 				$('#txtFullNameEdit').focus().val('');
@@ -246,32 +191,11 @@
 				return false;
 			}
 
-			if (productMarkCodeEdit == null || productMarkCodeEdit === "") {
-				$('#cboProductMarkCodeEdit').multipleSelect('focus');
-				showError('Hãng không được để trống!');
-				return false;
+			if (GroupIdEdit == "-1") {
+			    $('#cboGroupUser').focus();
+			    showError('Loại người dùng không được để trống!');
+			    return false;
 			}
-			if (deparmentEdit == null || deparmentEdit === "") {
-				$('#cboDepartmentEdit').multipleSelect('focus');
-				showError('Phòng ban không được để trống!');
-				return false;
-			}
-			if (positionEdit == null || positionEdit === "") {
-				$('#cboPositionEdit').multipleSelect('focus');
-				showError('Chức vụ không được để trống!');
-				return false;
-			}
-			if (branchEdit == null || branchEdit === "") {
-				$('#cboBranchEdit').multipleSelect('focus');
-				showError('Chi nhánh không được để trống!');
-				return false;
-			}
-			if (wareHouseEdit == null || wareHouseEdit === "") {
-				$('#cboWareHouseEdit').multipleSelect('focus');
-				showError('Kho không được để trống!');
-				return false;
-			}
-			
 			return true;
 		}
 
@@ -282,17 +206,9 @@
 			formData.append('userInfo.Sex', sexEdit);
 			formData.append('userInfo.Email', emailEdit);
 			formData.append('userInfo.Phone', phoneEdit);
-			formData.append('userInfo.DepartmentId', deparmentEdit);
-			formData.append('userInfo.PositionId', positionEdit);
-			formData.append('userInfo.BranchId', branchEdit);
-			formData.append('userInfo.WareHouseId', wareHouseEdit);
-			formData.append('userInfo.UnitPriceType', unitPriceTypeEdit);
-			formData.append('userInfo.ViewOtherBranch', viewOtherBranchEdit);
-			formData.append('userInfo.SeeProductTypeS', seeProductTypeSEdit);
-			formData.append('userInfo.ChangeInstanceWhenOutStock', changeInstanceWhenOutStockEdit);
-			formData.append('userInfo.ProductMarkCode', productMarkCodeEdit);
+			formData.append('userInfo.Type', typeEdit);
 			formData.append('userInfo.Status', statusEdit);
-			formData.append('arrGroupId', arrGroupsEdit);
+			formData.append('GroupId', GroupIdEdit);
 		}
 	</script>
 }

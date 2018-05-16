@@ -3,63 +3,63 @@
 @using Common.CommonData
 @try
 {
-	<div class="popup-opacity-wrapper"></div>
-	<div class="d-popup" style="overflow: visible">
-		<div class="d-popup-content grid grid-2cols">
-			<div>
-				<label>Tên đăng nhập <i class="redspan">(*)</i></label>
-				<input type="text" id="txtUsernameAdd" maxlength="64" onkeypress="funikeyNoSpace(this)" onkeyup="funikeyNoSpace(this)" />
-			</div>
+    <div class="popup-opacity-wrapper"></div>
+    <div class="d-popup" style="overflow: visible">
+        <div class="d-popup-content grid grid-2cols">
+            <div>
+                <label>Tên đăng nhập <i class="redspan">(*)</i></label>
+                <input type="text" id="txtUsernameAdd" maxlength="64" onkeypress="funikeyNoSpace(this)" onkeyup="funikeyNoSpace(this)" />
+            </div>
 
-			<div>
-				<label>Họ tên <i class="redspan">(*)</i></label>
-				<input type="text" id="txtFullNameAdd" maxlength="250" />
-			</div>
+            <div>
+                <label>Họ tên <i class="redspan">(*)</i></label>
+                <input type="text" id="txtFullNameAdd" maxlength="250" />
+            </div>
 
-			<div>
-				<label>Mật khẩu <i class="redspan">(*)</i></label>
-				<input type="password" id="txtPasswordAdd" maxlength="64" />
-			</div>
+            <div>
+                <label>Mật khẩu <i class="redspan">(*)</i></label>
+                <input type="password" id="txtPasswordAdd" maxlength="64" />
+            </div>
 
-			<div>
-				<label>Nhập lại mật khẩu <i class="redspan">(*)</i></label>
-				<input type="password" id="txtRePasswordAdd" maxlength="64" />
-			</div>
+            <div>
+                <label>Nhập lại mật khẩu <i class="redspan">(*)</i></label>
+                <input type="password" id="txtRePasswordAdd" maxlength="64" />
+            </div>
 
-			<div>
-				<label>Ngày sinh <label>Ngày sinh </label> <i class="redspan">(*)</i></label>
-				<input type="text" id="txtDateOfBirthAdd" maxlength="250" class="datetimepicker" />
-			</div>
+            <div>
+                <label>Ngày sinh <label>Ngày sinh </label> <i class="redspan">(*)</i></label>
+                <input type="text" id="txtDateOfBirthAdd" maxlength="250" class="datetimepicker" />
+            </div>
 
-			<div>
-				<label>Giới tính</label>
-				<select id="cboSexAdd">
-					@foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.SexType))
-					{
-						<option value="@item.CdVal">@item.Content</option>
-					}
-				</select>
-			</div>
+            <div>
+                <label>Giới tính</label>
+                <select id="cboSexAdd">
+                    @foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.SexType))
+                    {
+                        <option value="@item.CdVal">@item.Content</option>
+                    }
+                </select>
+            </div>
 
-			<div>
-				<label>Email <i class="redspan">(*)</i></label>
-				<input type="text" id="txtEmailAdd" maxlength="250" />
-			</div>
+            <div>
+                <label>Email <i class="redspan">(*)</i></label>
+                <input type="text" id="txtEmailAdd" maxlength="250" />
+            </div>
 
-			<div>
-				<label>Điện thoại <i class="redspan">(*)</i></label>
-				<input type="text" id="txtPhoneAdd" maxlength="16" onkeypress="return isNumberKey()" onkeyup="return isNumberKey()" />
-			</div>
-		 
-			<div>
-				<label>Loại người dùng</label>
-				<select id="cboTypeAdd">
-					@foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE"))
-					{
-						<option value="@item.CdVal">@item.Content</option>
-					}
-				</select>
-			</div>
+            <div>
+                <label>Điện thoại <i class="redspan">(*)</i></label>
+                <input type="text" id="txtPhoneAdd" maxlength="16" onkeypress="return isNumberKey()" onkeyup="return isNumberKey()" />
+            </div>
+
+            <div>
+                <label>Loại người dùng</label>
+                <select id="cboTypeAdd">
+                    @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE"))
+                    {
+                        <option value="@item.CdVal">@item.Content</option>
+                    }
+                </select>
+            </div>
 
             <div>
                 <label>Trạng thái</label>
@@ -70,27 +70,35 @@
                     }
                 </select>
             </div>
-			
-			<div>
-				<label>Nhóm quyền</label>
-				<div class="groups-checkbox">
-					@foreach (var item in GroupUserBL.GetAllGroups())
-					{
-						var chkbId = "chkbGroupIdAdd-" + item.Id;
-						<input type="checkbox" data-groupuseradd="TRUE" class="facheck" id="@chkbId" value="@item.Id" />
-						<label for="@chkbId"><i class="far fa-circle"></i>@item.Name</label>
-						<br />
-					}
-				</div>
-			</div>
-		</div>
-		<div class="d-popup-footer">
-			<input type="submit" class="btn" value="Lưu" onclick="return doAddNewUser()" />
-		</div>
-	</div>
 
-	<script>
-		var usernameAdd = '',
+            <div>
+                <label>Nhóm quyền<i class="redspan">(*)</i></label>
+                <select id="cboGroupUser">
+                    <option value="-1">None</option>
+                    @foreach (var item in MemoryData.GetAllGroup())
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+
+                @*<div class="groups-checkbox">
+                        @foreach (var item in GroupUserBL.GetAllGroups())
+                        {
+                            var chkbId = "chkbGroupIdAdd-" + item.Id;
+                            <input type="checkbox" data-groupuseradd="TRUE" class="facheck" id="@chkbId" value="@item.Id" />
+                            <label for="@chkbId"><i class="far fa-circle"></i>@item.Name</label>
+                            <br />
+                        }
+                    </div>*@
+            </div>
+        </div>
+        <div class="d-popup-footer">
+            <input type="submit" class="btn" value="Lưu" onclick="return doAddNewUser()" />
+        </div>
+    </div>
+
+    <script>
+        var usernameAdd = '',
 			fullNameAdd = '',
 			passwordAdd = '',
 			rePasswordAdd = '',
@@ -100,144 +108,144 @@
 			phoneAdd = '',
 			statusAdd = '',
             typeAdd = '',
-			arrGroupsAdd = '';
-		$(document).ready(function () {
-			$.datetimepicker.setLocale('vi');
-			$('.datetimepicker').datetimepicker({
-				timepicker: false,
-				format: 'd/m/Y',
-				//formatTime: 'H:i',
-				formatDate: 'd/m/Y',
-				mask: '39/19/9999',
-				validateOnBlur: false,
-				scrollInput: false
-			});
-			 
-		});
+			GroupIdAdd = '';
+        $(document).ready(function () {
+            $.datetimepicker.setLocale('vi');
+            $('.datetimepicker').datetimepicker({
+                timepicker: false,
+                format: 'd/m/Y',
+                //formatTime: 'H:i',
+                formatDate: 'd/m/Y',
+                mask: '39/19/9999',
+                validateOnBlur: false,
+                scrollInput: false
+            });
 
-		function doAddNewUser() {
-			if (validateFormAddNewUser()) {
-				var formData = new FormData();
-				collectDataToAddNewUser(formData);
-				$.ajax({
-					url: '/quan-tri-he-thong/quan-ly-nguoi-dung/do-add-user',
-					type: 'POST',
-					data: formData,
-					processData: false,
-					contentType: false,
-					traditional: true,
-					async: false,
-					headers: { "cache-control": "no-cache" },
-					success: function (data) {
-						if (data != null) {
-							if (onResponse(data)) {
-								ClosePopupDialog('dpop-users', true);
-								window.findUsers(1, 0);
-							}
-						}
-					},
-					error: function (e) {
-						console.log(e);
-					}
-				});
-			}
-		}
+        });
 
-		function validateFormAddNewUser() {
-			usernameAdd = $('#txtUsernameAdd').val().trim();
-			fullNameAdd = $('#txtFullNameAdd').val().trim();
-			passwordAdd = $('#txtPasswordAdd').val();
-			rePasswordAdd = $('#txtRePasswordAdd').val();
-			dateOfBirthAdd = $('#txtDateOfBirthAdd').val().trim();
-			sexAdd = $('#cboSexAdd').val();
-			emailAdd = $('#txtEmailAdd').val().trim();
-			phoneAdd = $('#txtPhoneAdd').val().trim();
-			typeAdd = $('#cboTypeAdd').val();
-			statusAdd = $('#cboStatusAdd').val();
-			$('[data-groupuseradd="TRUE"]:checked').each(function () {
-				arrGroupsAdd += $(this).val() + ",";
-			});
-			if (arrGroupsAdd != null && arrGroupsAdd.length > 0) {
-				arrGroupsAdd = arrGroupsAdd.substring(0, arrGroupsAdd.length - 1);
-			}
+        function doAddNewUser() {
+            if (validateFormAddNewUser()) {
+                var formData = new FormData();
+                collectDataToAddNewUser(formData);
+                $.ajax({
+                    url: '/quan-tri-he-thong/quan-ly-nguoi-dung/do-add-user',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    traditional: true,
+                    async: false,
+                    headers: { "cache-control": "no-cache" },
+                    success: function (data) {
+                        if (data != null) {
+                            if (onResponse(data)) {
+                                ClosePopupDialog('dpop-users', true);
+                                window.findUsers(1, 0);
+                            }
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            }
+        }
 
-			if (usernameAdd === "") {
-				$('#txtUsernameAdd').focus().val('');
-				showError('Tên đăng nhập không được để trống!');
-				return false;
-			}
+        function validateFormAddNewUser() {
+            usernameAdd = $('#txtUsernameAdd').val().trim();
+            fullNameAdd = $('#txtFullNameAdd').val().trim();
+            passwordAdd = $('#txtPasswordAdd').val();
+            rePasswordAdd = $('#txtRePasswordAdd').val();
+            dateOfBirthAdd = $('#txtDateOfBirthAdd').val().trim();
+            sexAdd = $('#cboSexAdd').val();
+            emailAdd = $('#txtEmailAdd').val().trim();
+            phoneAdd = $('#txtPhoneAdd').val().trim();
+            typeAdd = $('#cboTypeAdd').val();
+            statusAdd = $('#cboStatusAdd').val();
+            GroupIdAdd = $('#cboGroupUser').val();
+            if (usernameAdd === "") {
+                $('#txtUsernameAdd').focus().val('');
+                showError('Tên đăng nhập không được để trống!');
+                return false;
+            }
 
-			if (fullNameAdd === "") {
-				$('#txtFullNameAdd').focus().val('');
-				showError('Họ tên không được để trống!');
-				return false;
-			}
+            if (fullNameAdd === "") {
+                $('#txtFullNameAdd').focus().val('');
+                showError('Họ tên không được để trống!');
+                return false;
+            }
 
-			if (passwordAdd === "") {
-				$('#txtPasswordAdd').focus().val('');
-				showError('Mật khẩu không được để trống!');
-				return false;
-			}
-			if (rePasswordAdd === "") {
-				$('#txtRePasswordAdd').focus().val('');
-				showError('Xác nhận mật khẩu không được để trống!');
-				return false;
-			}
-			if (passwordAdd.length < 6) {
-				$('#txtPasswordAdd').focus();
-				showError('Mật khẩu phải chứa từ 6 đến 64 ký tự!');
-				return false;
-			} else if (passwordAdd !== rePasswordAdd) {
-				$('#txtRePasswordAdd').focus();
-				showError('Mật khẩu và xác nhận mật khẩu không giống nhau!');
-				$("#txtRePasswordAdd").select();
-				return false;
-			}
+            if (passwordAdd === "") {
+                $('#txtPasswordAdd').focus().val('');
+                showError('Mật khẩu không được để trống!');
+                return false;
+            }
+            if (rePasswordAdd === "") {
+                $('#txtRePasswordAdd').focus().val('');
+                showError('Xác nhận mật khẩu không được để trống!');
+                return false;
+            }
+            if (passwordAdd.length < 6) {
+                $('#txtPasswordAdd').focus();
+                showError('Mật khẩu phải chứa từ 6 đến 64 ký tự!');
+                return false;
+            } else if (passwordAdd !== rePasswordAdd) {
+                $('#txtRePasswordAdd').focus();
+                showError('Mật khẩu và xác nhận mật khẩu không giống nhau!');
+                $("#txtRePasswordAdd").select();
+                return false;
+            }
 
-			if (dateOfBirthAdd === "" || dateOfBirthAdd === window.maskDateTime_N0) {
-				$('#txtDateOfBirthAdd').focus();
-				showError('Ngày sinh không được để trống');
-				return false;
-			} else if (isValidDate_N0(dateOfBirthAdd) === false) {
-				$('#txtDateOfBirthAdd').focus();
-				showError('Ngày sinh không đúng định dạng (dd/mm/yyyy)!');
-				return false;
-			}
+            if (dateOfBirthAdd === "" || dateOfBirthAdd === window.maskDateTime_N0) {
+                $('#txtDateOfBirthAdd').focus();
+                showError('Ngày sinh không được để trống');
+                return false;
+            } else if (isValidDate_N0(dateOfBirthAdd) === false) {
+                $('#txtDateOfBirthAdd').focus();
+                showError('Ngày sinh không đúng định dạng (dd/mm/yyyy)!');
+                return false;
+            }
 
-			if (emailAdd === "") {
-				$('#txtEmailAdd').focus().val('');
-				showError('Email không được để trống!');
-				return false;
-			} else if (!IsvalidEmail(emailAdd)) {
-				$('#txtEmailAdd').focus();
-				showError('Email không đúng định dạng!');
-				return false;
-			}
+            if (emailAdd === "") {
+                $('#txtEmailAdd').focus().val('');
+                showError('Email không được để trống!');
+                return false;
+            } else if (!IsvalidEmail(emailAdd)) {
+                $('#txtEmailAdd').focus();
+                showError('Email không đúng định dạng!');
+                return false;
+            }
 
-			if (phoneAdd === "") {
-				$('#txtPhoneAdd').focus().val('');
-				showError('Điện thoại không được để trống!');
-				return false;
-			}
-		 
-			return true;
-		}
+            if (phoneAdd === "") {
+                $('#txtPhoneAdd').focus().val('');
+                showError('Điện thoại không được để trống!');
+                return false;
+            }
 
-		function collectDataToAddNewUser(formData) {
-			formData.append('userInfo.Username', usernameAdd);
-			formData.append('userInfo.FullName', fullNameAdd);
-			formData.append('userInfo.Password', passwordAdd);
-			formData.append('userInfo.DateOfBirth', dateOfBirthAdd);
-			formData.append('userInfo.Sex', sexAdd);
-			formData.append('userInfo.Email', emailAdd);
-			formData.append('userInfo.Phone', phoneAdd);
-			formData.append('userInfo.Type', typeAdd);
-			formData.append('userInfo.Status', statusAdd);
-			formData.append('arrGroupId', arrGroupsAdd);
-		}
-	</script>
+            if (GroupIdAdd == "-1") {
+                $('#cboGroupUser').focus();
+                showError('Loại người dùng không được để trống!');
+                return false;
+            }
+
+            return true;
+        }
+
+        function collectDataToAddNewUser(formData) {
+            formData.append('userInfo.Username', usernameAdd);
+            formData.append('userInfo.FullName', fullNameAdd);
+            formData.append('userInfo.Password', passwordAdd);
+            formData.append('userInfo.DateOfBirth', dateOfBirthAdd);
+            formData.append('userInfo.Sex', sexAdd);
+            formData.append('userInfo.Email', emailAdd);
+            formData.append('userInfo.Phone', phoneAdd);
+            formData.append('userInfo.Type', typeAdd);
+            formData.append('userInfo.Status', statusAdd);
+            formData.append('GroupId', GroupIdAdd);
+        }
+    </script>
 }
 catch (Exception)
 {
-	// ignored
+    // ignored
 }

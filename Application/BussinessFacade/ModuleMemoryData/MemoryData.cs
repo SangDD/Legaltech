@@ -9,15 +9,23 @@
     using ObjectInfos;
     using System.Collections.Generic;
     using System.Linq;
+    using DataAccess.ModuleUsersAndRoles;
+
+    public class Table_Change
+    {
+        public static string GROUP_USER = "GROUP_USER";
+    }
 
     public class MemoryData
-	{
+    {
+        static MyQueue c_queue_changeData = new MyQueue();
         public static Hashtable c_hs_Allcode = new Hashtable();
+        static List<GroupUserInfo> c_lst_Group = new List<GroupUserInfo>();
 
         public static void LoadAllMemoryData()
-		{
-			try
-			{
+        {
+            try
+            {
                 #region Allcode
                 c_hs_Allcode.Clear();
                 AllCodeBL _AllCodeBL = new AllCodeBL();
@@ -44,16 +52,18 @@
                 AllCodeBL.LoadAllCodeToMemory();
                 #endregion
 
+                ReloadGroup();
+
                 MenuBL.LoadAllMenuToMemory();
-				FunctionBL.LoadFunctionCollectionsToMemory();
+                FunctionBL.LoadFunctionCollectionsToMemory();
                 SysApplicationBL.SysApplicationAllOnMem();
 
             }
-			catch (Exception ex)
-			{
-				Logger.LogException(ex);
-			}
-		}
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+        }
 
         public static List<AllCodeInfo> AllCode_GetBy_CdTypeCdName(string p_cdname, string p_cdtype)
         {
@@ -78,6 +88,53 @@
                 Logger.LogException(ex);
                 return new List<AllCodeInfo>();
             }
+        }
+
+        #region Group
+
+        public static List<GroupUserInfo> GetAllGroup()
+        {
+            var LstData = new List<GroupUserInfo>();
+            try
+            {
+                LstData.AddRange(c_lst_Group);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return LstData;
+        }
+
+        public static void ReloadGroup()
+        {
+            try
+            {
+                var ds = GroupUserDA.GetAllGroups();
+                c_lst_Group = CBO<GroupUserInfo>.FillCollectionFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+        }
+        #endregion
+
+        public static void Enqueue_ChangeData(string p_table_name)
+        {
+            CallBack_Info p_CallBack_Info = new CallBack_Info
+            {
+                Table_Name = p_table_name
+            };
+            c_queue_changeData.Enqueue(p_CallBack_Info);
+        }
+
+        public static CallBack_Info Dequeue_ChangeData()
+        {
+            CallBack_Info _CallBack_Info = (CallBack_Info)c_queue_changeData.Dequeue();
+            if (_CallBack_Info != null)
+                return _CallBack_Info;
+            else return _CallBack_Info;
         }
     }
 }

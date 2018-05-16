@@ -1,21 +1,21 @@
 ﻿namespace BussinessFacade.ModuleUsersAndRoles
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Data;
-	using System.Linq;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
 
-	using Common;
-	using Common.CommonData;
-	using Common.MessageCode;
-	using Common.SearchingAndFiltering;
-	using Common.Ultilities;
+    using Common;
+    using Common.CommonData;
+    using Common.MessageCode;
+    using Common.SearchingAndFiltering;
+    using Common.Ultilities;
 
-	using DataAccess.ModuleUsersAndRoles;
+    using DataAccess.ModuleUsersAndRoles;
 
-	using ObjectInfos.ModuleUsersAndRoles;
+    using ObjectInfos;
 
-	public class UserBL : RepositoriesBL
+    public class UserBL : RepositoriesBL
     {
         private int _userHtmlMenuId;
         private List<FunctionInfo> _lstFunctionDisplayInMenu;
@@ -101,11 +101,11 @@
             return Null<UserInfo>.GetListCollectionNull();
         }
 
-        public ActionBusinessResult AddUser(UserInfo userAdd, string arrGroupId)
+        public ActionBusinessResult AddUser(UserInfo userAdd, string GroupId)
         {
             var passwordEncrypt = Encription.EncryptAccountPassword(userAdd.Username, userAdd.Password);
             userAdd.Password = passwordEncrypt;
-            var result = UserDA.AddUser(userAdd, arrGroupId);
+            var result = UserDA.AddUser(userAdd, GroupId);
             if (result > 0)
             {
                 this.SetActionSuccess(true);
@@ -114,9 +114,9 @@
 	        return this.SetActionResult(result, KnMessageCode.AddUserSuccess);
         }
 
-        public ActionBusinessResult EditUser(UserInfo userEdit, string arrGroupId)
+        public ActionBusinessResult EditUser(UserInfo userEdit, string GroupId)
         {
-            var result = UserDA.EditUser(userEdit, arrGroupId);
+            var result = UserDA.EditUser(userEdit, GroupId);
             if (result > 0)
             {
 	            this.SetActionSuccess(true);
