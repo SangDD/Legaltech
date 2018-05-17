@@ -33,6 +33,7 @@
                         <td class="tdleftalign">@item.Phone</td>
 						<td class="tdleftalign">@item.LastTimeUpdated.ToDateTimeStringN0()</td>
 						<td class="tdcenteralign">
+                            <a href="javascript:viewDetailUser(@item.Id, '@item.Username')" class="icon icon-info" data-title="Xem chi tiết"></a>
 							<a href="javascript:getViewToEditUser(@item.Id, '@item.Username')" class="icon icon-edit" data-title="Sửa"></a>
 							<a href="javascript:doDeleteUser(@item.Id, @item.IsActive().ToString().ToLower())" class="icon icon-delete" data-title="Xóa"></a>
 						</td>
