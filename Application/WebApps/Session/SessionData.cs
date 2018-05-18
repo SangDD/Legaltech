@@ -24,8 +24,6 @@
 			set
 			{
 				HttpContext.Current.Session["UserLogin"] = value;
-
-				// GetAllFunctionsOfCurrentUser(CurrentUser);
 			}
 		}
 

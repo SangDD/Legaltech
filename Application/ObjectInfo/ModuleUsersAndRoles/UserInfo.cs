@@ -1,6 +1,7 @@
 ﻿namespace ObjectInfos
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
 
     using Common.Converters;
@@ -14,6 +15,7 @@
             this._numberDayPasswordOutOfDate = 90; // default 90 days
             this.AccountRoleChanged = false;
             this.AllAccountRoles = new List<FunctionInfo>();
+            this.chashFile = new Hashtable();
         }
 
         // main field mapping with database
@@ -107,5 +109,11 @@
 		}
 	 
         public DateTime CurrentDate { get; set; }
+        /// <summary>
+        /// Lưu danh sách các tài liệu upload trong đơn 
+        /// //1user mà làm 2 đơn giống nhau thì khả năng bị trùng
+        /// 
+        /// </summary>
+        public Hashtable chashFile { get; set; }
     }
 }
