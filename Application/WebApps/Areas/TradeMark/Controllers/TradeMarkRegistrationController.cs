@@ -120,10 +120,7 @@
                     pDetailInfo.App_Header_Id = pAppHeaderID;
                     pReturn = objDetail01BL.AppDetailInsert(pDetailInfo);
                 }
-
-
-
-
+                 
                 return Json(new { status = pReturn });
             }
             catch (Exception ex)
@@ -136,17 +133,17 @@
 
         [HttpPost]
         [Route("push-file-to-server")]
-        public ActionResult PushFileToServer(HttpPostedFileBase pfiles,string pLoaiTaiLieuDon)
+        public ActionResult PushFileToServer(AppDocumentInfo pInfo)
         {
             try
             {
-                if (pfiles != null)
+                if (pInfo.pfiles != null)
                 {
                     //lấy tên của file
-                    var name = pfiles.FileName;
-                    name = System.IO.Path.GetExtension(pfiles.FileName);
-                    var f_part = HttpContext.Server.MapPath("~/Content/") + pfiles.FileName;
-                    pfiles.SaveAs(f_part);
+                    var name = pInfo.pfiles.FileName;
+                    name = System.IO.Path.GetExtension(pInfo.pfiles.FileName);
+                    var f_part = HttpContext.Server.MapPath("~/Content/") + pInfo.pfiles.FileName;
+                    pInfo.pfiles.SaveAs(f_part);
                 }
             }
             catch (Exception ex)

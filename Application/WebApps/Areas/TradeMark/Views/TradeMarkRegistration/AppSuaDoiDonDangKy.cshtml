@@ -306,10 +306,10 @@
                         <div class="container">
                             <div class="file-upload btn btn-primary">
                                 <span>Tải file</span>
-                                <input type="file" name="pfile_6_rdoToKhai" id="FileAttachment" class="upload fileuploadurl" />
+                                <input type="file" name="pfile_6_rdoToKhai" id="pfile_6_rdoToKhai" class="upload fileuploadurl" />
                             </div>
                             <input type="text" id="txt_6_rdoToKhai" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
-                            <input type="button" id="btnUp_6_rdoToKhai" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
+                            <input type="button" id="btnUp_6_rdoToKhai" onclick="return funcPushFileToServer('6_rdoToKhai');" value="Tải file" style="width:60px" />
                         </div>
                     </div>
                 </div>
@@ -317,7 +317,7 @@
 
                 @*'ID của checkbox đẩy vào class của  div full file '*@
                 <div class="class_full_div_input">
-                    <div class="class_radio_head"><input type="checkbox" id="6_rdoTaiLieu"  value="3B6_02" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoTaiLieu" value="3B6_02" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
 
                     <div class="class_text_end" style="display:flex">
                         <label style="width:300px">Tài liệu xác nhận việc sửa đổi hợp pháp, bằng tiếng</label>
@@ -331,7 +331,7 @@
                         <div class="container">
                             <div class="file-upload btn btn-primary">
                                 <span>Tải file</span>
-                                <input type="file" name="pfile_6_rdoTaiLieu" id="FileAttachment" class="upload fileuploadurl" />
+                                <input type="file" name="pfile_6_rdoTaiLieu" id="pfile_6_rdoTaiLieu" class="upload fileuploadurl" />
                             </div>
                             <input type="text" id="txt_6_rdoTaiLieu" readonly class="classMaxfile" placeholder="Maximum file size is 2MB">
                             <input type="button" id="btnUp_6_rdoTaiLieu" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
@@ -356,7 +356,7 @@
                         <div class="container">
                             <div class="file-upload btn btn-primary">
                                 <span>Tải file</span>
-                                <input type="file" name="pfile_6_rdoBanDich" id="FileAttachment" class="upload fileuploadurl" />
+                                <input type="file" name="pfile_6_rdoBanDich" id="pfile_6_rdoBanDich" class="upload fileuploadurl" />
                             </div>
                             <input type="text" id="txt_6_rdoBanDich" readonly class="classMaxfile" placeholder="Maximum file size is 2MB">
                             <input type="button" id="btnUp_6_rdoBanDich" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
@@ -380,7 +380,7 @@
                         <div class="container">
                             <div class="file-upload btn btn-primary">
                                 <span>Tải file</span>
-                                <input type="file" name="pfile_6_rdoGiayUyQuyen" id="FileAttachment" class="upload fileuploadurl" />
+                                <input type="file" name="pfile_6_rdoGiayUyQuyen" id="pfile_6_rdoGiayUyQuyen" class="upload fileuploadurl" />
                             </div>
                             <input type="text" id="txt_6_rdoGiayUyQuyen" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
                             <input type="button" id="btnUp_6_rdoGiayUyQuyen" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
@@ -404,7 +404,7 @@
                         <div class="container">
                             <div class="file-upload btn btn-primary">
                                 <span>Tải file</span>
-                                <input type="file" name="pfile_6_rdoBanDichTiengViet" id="FileAttachment" class="upload fileuploadurl" />
+                                <input type="file" name="pfile_6_rdoBanDichTiengViet" id="pfile_6_rdoBanDichTiengViet" class="upload fileuploadurl" />
                             </div>
                             <input type="text" id="txt_6_rdoBanDichTiengViet" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
                             <input type="button" id="btnUp_6_rdoBanDichTiengViet" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
@@ -424,7 +424,7 @@
                         <div class="container">
                             <div class="file-upload btn btn-primary">
                                 <span>Tải file</span>
-                                <input type="file" name="pfile_6_rdoBanGoc" id="FileAttachment" class="upload fileuploadurl" />
+                                <input type="file" name="pfile_6_rdoBanGoc" id="pfile_6_rdoBanGoc" class="upload fileuploadurl" />
                             </div>
                             <input type="text" id="txt_6_rdoBanGoc" readonly class="classMaxfile" placeholder="Maximum file size is 2MB">
                             <input type="button" id="btnUp_6_rdoBanGoc" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
@@ -434,18 +434,18 @@
 
 
                 <div class="class_full_div_input" style="padding-left: 20px;">
-                    <div class="class_radio_head"><input type="checkbox" id="6_rdoBanSao"  value="3B6_07"  onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoBanSao" value="3B6_07" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
 
                     <div class="class_text_end">
                         <p class="class_text_left">bản sao (</p>
 
                         <div class="class_full_div_input" style="padding-left: 20px;">
-                            <div class="class_radio_head"><input type="radio" name="bansao"  value="3B6_08"  id="6_rdoBanGocSeNopSau" /></div>
+                            <div class="class_radio_head"><input type="radio" name="bansao" value="3B6_08" id="6_rdoBanGocSeNopSau" /></div>
                             <div class="class_text_end"><p class="class_text_left">bản gốc sẽ nộp sau</p></div>
                         </div>
 
                         <div class="class_full_div_input" style="padding-left: 20px;">
-                            <div class="class_radio_head"><input type="radio" name="bansao"  value="3B6_09"  id="6_rdoBanGocDaNopTheoDonSo" /></div>
+                            <div class="class_radio_head"><input type="radio" name="bansao" value="3B6_09" id="6_rdoBanGocDaNopTheoDonSo" /></div>
                             <div class="class_text_end" style="display:flex">
                                 <label style="width:170px">bản gốc đã nộp theo đơn số</label>
                                 <input style="width:33%" type="text" id="6_txtBangocDNTheoDonSo" maxlength="50" placeholder="6_txtBangocDNTheoDonSo" />
@@ -459,7 +459,7 @@
                                 <div class="container">
                                     <div class="file-upload btn btn-primary">
                                         <span>Tải file</span>
-                                        <input type="file" name="pfile_6_rdoBanSao" id="FileAttachment" class="upload fileuploadurl" />
+                                        <input type="file" name="pfile_6_rdoBanSao" id="pfile_6_rdoBanSao" class="upload fileuploadurl" />
                                     </div>
                                     <input type="text" id="txt_6_rdoBanSao" readonly class="classMaxfile" placeholder="Maximum file size is 2MB">
                                     <input type="button" id="btnUp_6_rdoBanSao" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
@@ -474,7 +474,7 @@
 
                 @* noi dung con  *@
                 <div class="class_full_div_input">
-                    <div class="class_radio_head"><input type="checkbox" id="6_rdoChungTuPhi"  value="3B6_10" onchange="return ShowHidenUpLoad(this.id, this.id);" /> </div>
+                    <div class="class_radio_head"><input type="checkbox" id="6_rdoChungTuPhi" value="3B6_10" onchange="return ShowHidenUpLoad(this.id, this.id);" /> </div>
                     <div class="class_text_end"><p class="class_text_left">Chứng từ phí, lệ phí</p></div>
                 </div>
                 <div class="class_full_div_input 6_rdoChungTuPhi" style="display:none">
@@ -483,7 +483,7 @@
                         <div class="container">
                             <div class="file-upload btn btn-primary">
                                 <span>Tải file</span>
-                                <input type="file" name="pfile_6_rdoChungTuPhi" id="FileAttachment" class="upload fileuploadurl" />
+                                <input type="file" name="pfile_6_rdoChungTuPhi" id="pfile_6_rdoChungTuPhi" class="upload fileuploadurl" />
                             </div>
                             <input type="text" id="txt_6_rdoChungTuPhi" readonly class="classMaxfile" placeholder="Maximum file size is 2MB">
                             <input type="button" id="btnUp_6_rdoChungTuPhi" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
@@ -492,7 +492,7 @@
                 </div>
 
                 <div class="class_full_div_input">
-                    <div class="class_radio_head"> <input type="checkbox" id="6_rdoTaiLieuKhacCuThe" value="3B6_11"  onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
+                    <div class="class_radio_head"> <input type="checkbox" id="6_rdoTaiLieuKhacCuThe" value="3B6_11" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
                     <div class="class_text_end" style="display:flex">
                         <label style="width:175px">Tài liệu khác, cụ thể:</label>
                         <input style="flex-grow:1" type="text" id="6_txtTaiLieuKhacCuThe" maxlength="100" placeholder="6_txtTaiLieuKhacCuThe" />
@@ -505,7 +505,7 @@
                         <div class="container">
                             <div class="file-upload btn btn-primary">
                                 <span>Tải file</span>
-                                <input type="file" name="pfile_6_rdoTaiLieuKhacCuThe" id="FileAttachment" class="upload fileuploadurl" />
+                                <input type="file" name="pfile_6_rdoTaiLieuKhacCuThe" id="pfile_6_rdoTaiLieuKhacCuThe" class="upload fileuploadurl" />
                             </div>
                             <input type="text" id="txt_6_rdoTaiLieuKhacCuThe" readonly class="classMaxfile" placeholder="Maximum file size is 2MB">
                             <input type="button" id="btnUp_6_rdoTaiLieuKhacCuThe" onclick="return funcPushFileToServer(this.id);" value="Tải file" style="width:60px" />
@@ -582,25 +582,180 @@
         try {
             if ($("#" + pID).is(':checked')) {
                 $('.' + pClass).css('display', 'block');
-                console.log("123" + pClass);
             } else {
                 $('.' + pClass).css('display', 'none');
-                console.log("456" + pClass);
             }
         } catch (e) {
 
         }
     }
+    //document.getElementById("6_rdoToKhai").onchange = function () {btnUp_6_rdoToKhai
+    //    document.getElementById("txt_6_rdoToKhai").value = this.value;
+    //};
 
     function funcPushFileToServer(pID) {
         try {
             var formdata = new FormData();
+            var Isuse = 0, Note = "";
             //Các tài liệu có trong đơn
-            var file1 = document.getElementsByName("pfile1");
-            if (file1 != undefined) {
-                formdata.append("pfiles", file1[0].files[0]);
+            if ($("#" + pID).prop('checked') == true) {
+                Isuse = 1;
             }
-            formdata.append("pLoaiTaiLieuDon", pID);
+            formdata.append("pInfo.Document_Id", pID);
+            var file = document.getElementsByName("pfile_" + pID);
+            if (file != undefined) {
+                formdata.append("pInfo.pfiles", file[0].files[0]);
+            }
+            //2
+            $.ajax({
+                type: 'POST',
+                url: '/trade-mark/push-file-to-server',
+                data: formdata,
+                enctype: 'multipart/form-data',
+                processData: false, contentType: false, dataType: 'Json',
+                success: function (data) {
+                    if (data.success == 0) {
+
+                    }
+                }
+            });
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+     
+    function funcPushAppDocAttach(pID) {
+        try {
+            var formdata = new FormData();
+            var Isuse = 0, Note = "" ;
+            //Các tài liệu có trong đơn
+            if ($("#6_rdoToKhai").prop('checked') == true) {
+                Isuse = 1;
+            }
+            formData.append("pAppDocumentInfo[0].Isuse", Isuse);
+            formData.append("pAppDocumentInfo[0].Note", $("#6_txtToKhaiTrang").val());
+            var file = document.getElementsByName("pfile_6_rdoToKhai");
+            if (file != undefined) {
+                formdata.append("pAppDocumentInfo[0].pfiles", file[0].files[0]);
+            }
+            //2
+            Isuse = 0, Note = "";
+            //Các tài liệu có trong đơn
+            if ($("#6_rdoTaiLieu").prop('checked') == true) {
+                Isuse = 1;
+            }
+            formData.append("pAppDocumentInfo[1].Isuse", Isuse);
+            formData.append("pAppDocumentInfo[1].Note", $("#6_txtTLXNBangTieng").val());
+            var file = document.getElementsByName("pfile_6_rdoTaiLieu");
+            if (file != undefined) {
+                formdata.append("pAppDocumentInfo[1].pfiles", file[0].files[0]);
+            }
+            //3
+            Isuse = 0, Note = "";
+            //Các tài liệu có trong đơn
+            if ($("#6_rdoBanDich").prop('checked') == true) {
+                Isuse = 1;
+            }
+            formData.append("pAppDocumentInfo[2].Isuse", Isuse);
+            formData.append("pAppDocumentInfo[2].Note", $("#6_txtBanDichTiengViet").val());
+            var file = document.getElementsByName("pfile_6_rdoBanDich");
+            if (file != undefined) {
+                formdata.append("pAppDocumentInfo[2].pfiles", file[0].files[0]);
+            }
+            //4
+            Isuse = 0, Note = "";
+            //Các tài liệu có trong đơn
+            if ($("#6_rdoGiayUyQuyen").prop('checked') == true) {
+                Isuse = 1;
+            }
+            formData.append("pAppDocumentInfo[3].Isuse", Isuse);
+            formData.append("pAppDocumentInfo[3].Note", $("#6_txtGiayUQTiengViet").val());
+            var file = document.getElementsByName("pfile_6_rdoGiayUyQuyen");
+            if (file != undefined) {
+                formdata.append("pAppDocumentInfo[3].pfiles", file[0].files[0]);
+            }
+            //5
+            Isuse = 0, Note = "";
+            //Các tài liệu có trong đơn
+            if ($("#6_rdoBanDichTiengViet").prop('checked') == true) {
+                Isuse = 1;
+            }
+            formData.append("pAppDocumentInfo[4].Isuse", Isuse);
+            formData.append("pAppDocumentInfo[4].Note", $("#6_txtBDTVGom").val());
+            var file = document.getElementsByName("pfile_6_rdoBanDichTiengViet");
+            if (file != undefined) {
+                formdata.append("pAppDocumentInfo[4].pfiles", file[0].files[0]);
+            }
+            //5
+            Isuse = 0, Note = "";
+            //Các tài liệu có trong đơn
+            if ($("#6_rdoBanGoc").prop('checked') == true) {
+                Isuse = 1;
+            }
+            formData.append("pAppDocumentInfo[5].Isuse", Isuse);
+            formData.append("pAppDocumentInfo[5].Note", "");
+            var file = document.getElementsByName("pfile_6_rdoBanGoc");
+            if (file != undefined) {
+                formdata.append("pAppDocumentInfo[5].pfiles", file[0].files[0]);
+            }
+
+            //6
+            Isuse = 0, Note = "";
+            //Các tài liệu có trong đơn
+            if ($("#6_rdoBanSao").prop('checked') == true) {
+                Isuse = 1;
+            }
+            formData.append("pAppDocumentInfo[6].Isuse", Isuse);
+            formData.append("pAppDocumentInfo[6].Note", "");
+            var file = document.getElementsByName("pfile_6_rdoBanSao");
+            if (file != undefined) {
+                formdata.append("pAppDocumentInfo[6].pfiles", file[0].files[0]);
+            }
+
+            //7
+            Isuse = 0, Note = "";
+            //Các tài liệu có trong đơn
+            if ($("#6_rdoBanGocSeNopSau").prop('checked') == true) {
+                Isuse = 1;
+            }
+            formData.append("pAppDocumentInfo[7].Isuse", Isuse);
+            formData.append("pAppDocumentInfo[7].Note", "");
+            formdata.append("pAppDocumentInfo[7].pfiles", null);
+            //8
+            Isuse = 0, Note = "";
+            //Các tài liệu có trong đơn
+            if ($("#6_rdoBanGocDaNopTheoDonSo").prop('checked') == true) {
+                Isuse = 1;
+            }
+            formData.append("pAppDocumentInfo[8].Isuse", Isuse);
+            formData.append("pAppDocumentInfo[8].Note", $("#6_txtBangocDNTheoDonSo").val().trim());
+            formdata.append("pAppDocumentInfo[8].pfiles", null);
+            //9
+            Isuse = 0, Note = "";
+            //Các tài liệu có trong đơn
+            if ($("#6_rdoChungTuPhi").prop('checked') == true) {
+                Isuse = 1;
+            }
+            formData.append("pAppDocumentInfo[9].Isuse", Isuse);
+            formData.append("pAppDocumentInfo[9].Note", "");
+            var file = document.getElementsByName("pfile_6_rdoChungTuPhi");
+            if (file != undefined) {
+                formdata.append("pAppDocumentInfo[9].pfiles", file[0].files[0]);
+            }
+
+            //10
+            Isuse = 0, Note = "";
+            //Các tài liệu có trong đơn
+            if ($("#6_rdoTaiLieuKhacCuThe").prop('checked') == true) {
+                Isuse = 1;
+            }
+            formData.append("pAppDocumentInfo[10].Isuse", Isuse);
+            formData.append("pAppDocumentInfo[10].Note", $("#6_txtTaiLieuKhacCuThe").val.trim());
+            var file = document.getElementsByName("pfile_6_rdoTaiLieuKhacCuThe");
+            if (file != undefined) {
+                formdata.append("pAppDocumentInfo[10].pfiles", file[0].files[0]);
+            }
 
             $.ajax({
                 type: 'POST',
@@ -949,8 +1104,6 @@
         formData.append("pDetailInfo.Appno", v_SoDon);
         formData.append("pDetailInfo.Sochungtu_Noptheo", txtSoChungTu);
 
-
-
         $.ajax({
             url: '/trade-mark/ket_xuat_file',
             type: 'POST',
@@ -1005,9 +1158,6 @@
     }
 
 
-    document.getElementById("FileAttachment").onchange = function () {
-        document.getElementById("fileuploadurl").value = this.value;
-    };
+   
 
 </script>
- 
