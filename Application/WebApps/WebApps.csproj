@@ -170,6 +170,8 @@
     <Compile Include="Areas\ModuleUsersAndRoles\ModuleUsersAndRolesAreaRegistration.cs" />
     <Compile Include="Areas\Patent\Controllers\PatentRegistrationController.cs" />
     <Compile Include="Areas\Patent\PatentAreaRegistration.cs" />
+    <Compile Include="Areas\TimeSheet\Controllers\TimeSheetController.cs" />
+    <Compile Include="Areas\TimeSheet\TimeSheetAreaRegistration.cs" />
     <Compile Include="Areas\TradeMark\Controllers\ApplicationController.cs" />
     <Compile Include="Areas\TradeMark\Controllers\TradeMarkRegistrationController.cs" />
     <Compile Include="Areas\TradeMark\TradeMarkAreaRegistration.cs" />
@@ -309,6 +311,12 @@
     <Content Include="Areas\TradeMark\Views\Application\_PartialTableApplication.cshtml" />
     <Content Include="Areas\TradeMark\Views\Application\_PartialKH_Confirm.cshtml" />
     <Content Include="Content\AppForms\Request_for_amendment_of_application.doc" />
+    <Content Include="Areas\TimeSheet\Views\web.config" />
+    <Content Include="Areas\TimeSheet\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\TimeSheet\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\TimeSheet\Views\TimeSheet\TimeSheetList.cshtml" />
+    <Content Include="Areas\TimeSheet\Views\TimeSheet\_PartialTableTimeSheet.cshtml" />
+    <Content Include="Areas\TimeSheet\Views\TimeSheet\_PartialViewTimeSheet.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\AlertPopup\ASSAlert.js" />
     <Content Include="Scripts\AlertPopup\NVSAlertCss.css" />
@@ -612,6 +620,7 @@
     <Folder Include="Areas\Patent\Models\" />
     <Folder Include="Areas\Patent\Views\PatentRegistration\" />
     <Folder Include="Areas\Patent\Views\Shared\" />
+    <Folder Include="Areas\TimeSheet\Models\" />
     <Folder Include="Areas\TradeMark\Models\" />
   </ItemGroup>
   <ItemGroup>

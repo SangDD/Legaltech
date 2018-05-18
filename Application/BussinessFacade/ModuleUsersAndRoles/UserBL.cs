@@ -217,6 +217,7 @@
         private void CreateUserSuperAdmin()
         {
             this.CurrentUserInfo = new UserInfo();
+            this.CurrentUserInfo.Type = (int)CommonEnums.UserType.Admin;
             this.CurrentUserInfo.SetRoleSuperAdmin();
         }
 

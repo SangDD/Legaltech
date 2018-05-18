@@ -48,6 +48,8 @@
         public DateTime LastTimeUpdated { get; set; }
         public int Deleted { get; set; }
 
+        public decimal Lawer_Id { get; set; }
+
         // additional info
         public DateTime LastTimeUpdatePassword { get; set; }
         public DateTime LastTimeRecoverPassword { get; set; }
