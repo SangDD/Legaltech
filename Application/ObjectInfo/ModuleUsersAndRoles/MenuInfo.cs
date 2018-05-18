@@ -1,4 +1,4 @@
-﻿namespace ObjectInfos.ModuleUsersAndRoles
+﻿namespace ObjectInfos
 {
 	public class MenuInfo
 	{

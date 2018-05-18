@@ -11,7 +11,7 @@
 
 	using Common;
 
-	using ObjectInfos.ModuleUsersAndRoles;
+    using ObjectInfos;
 
 	using Session;
 
@@ -20,7 +20,6 @@
 	[Route("{action}")]
 	public class UserController : Controller
 	{
-		// GET: ModuleUsersAndRoles/User
 		[HttpGet]
 		[Route("quan-ly-nguoi-dung")]
 		public ActionResult ListUser()
@@ -68,14 +67,14 @@
 
 		[HttpPost]
 		[Route("quan-ly-nguoi-dung/do-add-user")]
-		public ActionResult DoAddUser(UserInfo userInfo, string arrGroupId)
+		public ActionResult DoAddUser(UserInfo userInfo, string GroupId)
 		{
 			var result = new ActionBusinessResult();
 			try
 			{
 				var userBL = new UserBL();
 				userInfo.CreatedBy = SessionData.CurrentUser.Username;
-				result = userBL.AddUser(userInfo, arrGroupId);
+				result = userBL.AddUser(userInfo, GroupId);
 			}
 			catch (Exception ex)
 			{
@@ -103,14 +102,14 @@
 		}
 
 		[HttpPost][Route("quan-ly-nguoi-dung/do-edit-user")]
-		public ActionResult DoEditUser(UserInfo userInfo, string arrGroupId)
+		public ActionResult DoEditUser(UserInfo userInfo, string GroupId)
 		{
 			var result = new ActionBusinessResult();
 			try
 			{
 				var userBL = new UserBL();
 				userInfo.ModifiedBy = SessionData.CurrentUser.Username;
-				result = userBL.EditUser(userInfo, arrGroupId);
+				result = userBL.EditUser(userInfo, GroupId);
 			}
 			catch (Exception ex)
 			{

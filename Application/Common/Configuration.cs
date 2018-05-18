@@ -11,7 +11,7 @@
 		{
 			try
 			{
-                connectionString = ConfigurationManager.ConnectionStrings["ConnectionStringDBKuongNgan"].ConnectionString;
+                connectionString = ConfigurationManager.ConnectionStrings["ConnectionStringDB"].ConnectionString;
 			}
 			catch (Exception ex)
 			{

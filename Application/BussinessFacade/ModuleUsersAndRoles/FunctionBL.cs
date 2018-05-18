@@ -10,7 +10,7 @@
 
 	using DataAccess.ModuleUsersAndRoles;
 
-	using ObjectInfos.ModuleUsersAndRoles;
+	using ObjectInfos;
 
 	public class FunctionBL : RepositoriesBL
 	{

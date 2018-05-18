@@ -11,7 +11,7 @@
 
 	using Common;
 
-	using ObjectInfos.ModuleUsersAndRoles;
+	using ObjectInfos;
 
 	[ValidateAntiForgeryTokenOnAllPosts]
 	[RouteArea("ModuleUsersAndRoles", AreaPrefix = "quan-tri-he-thong")]

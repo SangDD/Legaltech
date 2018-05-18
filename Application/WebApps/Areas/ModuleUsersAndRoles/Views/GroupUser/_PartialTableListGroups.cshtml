@@ -1,6 +1,6 @@
 ﻿@using Common.CommonData
 @using Common.Extensions
-@model List<ObjectInfos.ModuleUsersAndRoles.GroupUserInfo>
+@model List<ObjectInfos.GroupUserInfo>
 @try
 {
 	<div>
@@ -9,6 +9,7 @@
 				<tr>
 					<th style="width: 4%">STT</th>
 					<th data-sort id="Name" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Tên nhóm</th>
+                    <th data-sort id="Notes" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Mô tả</th>
 					<th style="width: 15%" data-sort id="LastTimeUpdated">Cập nhật lúc</th>
 					<th style="width: 100px;">Chức năng</th>
 				</tr>
@@ -21,6 +22,7 @@
 						<tr>
 							<td class="tdcenteralign">@item.Stt</td>
 							<td class="tdleftalign">@item.Name</td>
+                            <td class="tdleftalign">@item.Notes</td>
 							<td class="tdleftalign">@item.LastTimeUpdated.ToDateTimeStringN0()</td>
 							<td class="tdcenteralign">
 								<a href="javascript:getViewToEditGroupUser(@item.Id, '@item.Name')" class="icon icon-edit" data-title="Sửa"></a>

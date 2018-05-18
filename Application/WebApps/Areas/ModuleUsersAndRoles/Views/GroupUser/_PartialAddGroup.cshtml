@@ -7,6 +7,12 @@
 				<label>Tên nhóm <i class="redspan">(*)</i></label>
 				<input type="text" id="txtGroupNameAdd" maxlength="250" />
 			</div>
+
+            <div>
+                <label>Mô tả </label>
+                <input type="text" id="txtNotes" maxlength="2000" />
+            </div>
+
 		</div>
 		<div class="d-popup-footer">
 			<input type="submit" class="btn" value="Lưu" onclick="return doAddNewGroupUser()" />
@@ -56,7 +62,8 @@
 		}
 
 		function collectDataToAddNewGroupUser(formData) {
-			formData.append('groupInfo.Name', groupNameAdd);
+		    formData.append('groupInfo.Name', groupNameAdd);
+		    formData.append('groupInfo.Notes', $('#txtNotes').val());
 		}
 	</script>
 }
