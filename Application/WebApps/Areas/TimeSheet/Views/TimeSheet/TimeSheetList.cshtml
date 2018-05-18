@@ -89,6 +89,10 @@
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;">
             <input type="button" value="Tìm kiếm" class="btn-default" onclick="Search_TimeSheet(1, 1)" />
+            @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
+            {
+                <input type="button" value="Khai timesheet" class="btn-default" onclick="getView2Insert()" />
+            }
         </div>
     </div>
 
@@ -99,13 +103,9 @@
     </div>
 
     <div class="d-popup-container" id="dpop-View"></div>
-    @*<div class="d-popup-container" id="dpop-Edit"></div>
-    <div class="d-popup-container" id="dpop-Approve"></div>*@
-
-    @*<div id="divWrapperPhanLoai" class="divWrapperPopup" style="display: none;">
-            <div class="divPopup" id="divPhanLoaiDon">
-            </div>
-        </div>*@
+    <div class="d-popup-container" id="dpop-Edit"></div>
+    <div class="d-popup-container" id="dpop-Approve"></div>
+    <div class="d-popup-container" id="dpop-Insert"></div>
 </div>
 
 <script>
@@ -203,9 +203,28 @@
             async: false, cache: false, traditional: true,
             success: function (data) {
                 if (data != null) {
-                    alert(data);
                     $("#dpop-View").html(data);
                     ShowPopupDialog("dpop-View", "Thông tin timesheet", 700, 0 ,"");
+                }
+                return false;
+            }
+        });
+    }
+
+    function getView2Insert() {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/quan-ly-timesheet/danh-sach-timesheet/show-insert/",
+            dataType: "html",
+            async: false, cache: false, traditional: true,
+            success: function (data) {
+                if (data != null) {
+                    $("#dpop-Insert").html(data);
+                    ShowPopupDialog("dpop-Insert", "Thêm mới thông tin timesheet", 700, 0, "txtName");
                 }
                 return false;
             }
@@ -228,7 +247,7 @@
             success: function (data) {
                 if (data != null) {
                     $("#dpop-Edit").html(data);
-                    ShowPopupDialog("dpop-Edit", "Thông tin timesheet", 600, 0, null);
+                    ShowPopupDialog("dpop-Edit", "Sửa thông tin timesheet", 700, 0, "txtName");
                 }
                 return false;
             }
@@ -251,7 +270,7 @@
             success: function (data) {
                 if (data != null) {
                     $("#dpop-Approve").html(data);
-                    ShowPopupDialog("dpop-Approve", "Thông tin timesheet", 600, 0, "txtLawer");
+                    ShowPopupDialog("dpop-Approve", "Duyệt thông tin timesheet", 700, 0, "txtName");
                 }
                 return false;
             }
@@ -260,7 +279,7 @@
 
     function doDeleteTimeSheet(_id) {
 
-        nvsConfirm(null, "Bạn có chắc chắn muốn timesheet này không?", function () {
+        nvsConfirm(null, "Bạn có chắc chắn muốn xóa timesheet này không?", function () {
             $.ajax({
                 url: "/quan-ly-timesheet/danh-sach-timesheet/do-delete-timesheet",
                 type: "POST",
@@ -311,6 +330,14 @@
     function ClosePopupApprove() {
         try {
             ClosePopupDialog('dpop-Approve', true);
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function ClosePopupInsert() {
+        try {
+            ClosePopupDialog('dpop-Insert', true);
         } catch (e) {
             alert(e);
         }

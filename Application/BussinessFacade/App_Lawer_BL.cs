@@ -10,6 +10,22 @@ namespace BussinessFacade
 {
     public class App_Lawer_BL
     {
+
+        public List<App_Lawer_Info> GetApp_Grant4Lawer(decimal p_lawer_id)
+        {
+            try
+            {
+                App_Lawer_DA _da = new App_Lawer_DA();
+                DataSet _ds = _da.GetApp_Grant4Lawer(p_lawer_id);
+                return CBO<App_Lawer_Info>.FillCollectionFromDataSet(_ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<App_Lawer_Info>();
+            }
+        }
+
         public decimal App_Lawer_Insert(App_Lawer_Info p_obj)
         {
             try

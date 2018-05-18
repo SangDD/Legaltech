@@ -85,7 +85,7 @@ namespace DataAccess
             {
                 var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_timesheet.Proc_Timesheet_Insert",
-                    new OracleParameter("p_name", OracleDbType.Decimal, p_name, ParameterDirection.Input),
+                    new OracleParameter("p_name", OracleDbType.Varchar2, p_name, ParameterDirection.Input),
                     new OracleParameter("p_app_header_id", OracleDbType.Decimal, p_app_header_id, ParameterDirection.Input),
                     new OracleParameter("p_lawer_id", OracleDbType.Decimal, p_lawer_id, ParameterDirection.Input),
                     new OracleParameter("p_time_date", OracleDbType.Date, p_time_date, ParameterDirection.Input),
@@ -113,7 +113,7 @@ namespace DataAccess
                 var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_timesheet.proc_timesheet_update",
                     new OracleParameter("p_id", OracleDbType.Decimal, p_id, ParameterDirection.Input),
-                    new OracleParameter("p_name", OracleDbType.Decimal, p_name, ParameterDirection.Input),
+                    new OracleParameter("p_name", OracleDbType.Varchar2, p_name, ParameterDirection.Input),
                     new OracleParameter("p_time_date", OracleDbType.Date, p_time_date, ParameterDirection.Input),
                     new OracleParameter("p_hours", OracleDbType.Decimal, p_hours, ParameterDirection.Input),
                     new OracleParameter("p_notes", OracleDbType.Varchar2, p_notes, ParameterDirection.Input),

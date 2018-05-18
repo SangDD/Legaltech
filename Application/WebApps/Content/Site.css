@@ -644,6 +644,10 @@ th[data-sort] {
         vertical-align: middle;
     }
 
+.popup-title {
+    font-weight: bold;
+}
+
 .d-popup-content {
     overflow-y: auto;
     max-height: 80vh;
@@ -1356,7 +1360,7 @@ select.divNumberRecordOnPage {
     width: calc(60% - 4px);
     border-color: #000000;
     border-left: 2px solid;
-    border-bottom: 2px solid
+    border-bottom: 2px solid;
 }
 
 .classborder40Right {
@@ -1364,7 +1368,7 @@ select.divNumberRecordOnPage {
     border-color: #000000;
     border-right: 2px solid;
     border-left: 2px solid;
-    border-bottom: 2px solid
+    border-bottom: 2px solid;
 }
 
 .classborder40Left {
@@ -1461,8 +1465,8 @@ select.divNumberRecordOnPage {
     min-width: 20px;
 }
 
-.class_flex_grow{
-    flex-grow:1; 
+.class_flex_grow {
+    flex-grow: 1;
 }
 
 .class_text_end {
@@ -1542,6 +1546,7 @@ input[type="checkbox"] {
 .class_khai_don {
     width: 55%;
 }
+
 @media only screen and (max-width: 1024px) {
     .class_khai_don {
         width: 23%;
@@ -1567,13 +1572,12 @@ input[type="checkbox"] {
 
 .class_flex_30 {
     width: 30%;
-    display: flex ;
-    padding-left:5px ;
+    display: flex;
+    padding-left: 5px;
 }
 
 .class_flex_40 {
     width: 40%;
-    display: flex ;
-    padding-left:5px;
+    display: flex;
+    padding-left: 5px;
 }
- 

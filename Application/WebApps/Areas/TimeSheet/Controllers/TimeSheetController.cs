@@ -29,7 +29,7 @@ namespace WebApps.Areas.TimeSheet.Controllers
                 decimal _total_record = 0;
                 TimeSheet_BL _obj_bl = new TimeSheet_BL();
                 string _keySearch = "ALL" + "|" + ((int)CommonEnums.App_Status.Luu_tam).ToString();
-                if (SessionData.CurrentUser.Type ==(int)CommonEnums.UserType.Admin)
+                if (SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin)
                 {
                     _keySearch = "ALL|ALL|ALL";
                 }
@@ -38,7 +38,7 @@ namespace WebApps.Areas.TimeSheet.Controllers
                     _keySearch = "ALL|ALL|" + SessionData.CurrentUser.Lawer_Id;
                 }
 
-               
+
                 List<Timesheet_Info> _lst = _obj_bl.Timesheet_Search(_keySearch, ref _total_record);
                 string htmlPaging = CommonFuc.Get_HtmlPaging<Timesheet_Info>((int)_total_record, 1, "Timesheet");
 
@@ -116,6 +116,107 @@ namespace WebApps.Areas.TimeSheet.Controllers
             {
                 Logger.LogException(ex);
                 return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialViewTimeSheet.cshtml");
+            }
+        }
+
+        // Insert 
+        [HttpPost]
+        [Route("danh-sach-timesheet/show-insert")]
+        public ActionResult GetView2Insert()
+        {
+            return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialInsertTimeSheet.cshtml", new Timesheet_Info());
+        }
+
+        [HttpPost]
+        [Route("danh-sach-timesheet/do-insert-timeshet")]
+        public ActionResult DoInsertTimeSheet(Timesheet_Info p_Timesheet_Info)
+        {
+            try
+            {
+                TimeSheet_BL _obj_bl = new TimeSheet_BL();
+                p_Timesheet_Info.Created_By = SessionData.CurrentUser.Username;
+                p_Timesheet_Info.Lawer_Id = SessionData.CurrentUser.Lawer_Id;
+                p_Timesheet_Info.Status = (decimal)CommonEnums.TimeSheet_Status.New;
+                decimal _ck = _obj_bl.Timesheet_Insert(p_Timesheet_Info);
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
+        // edit
+        [HttpPost]
+        [Route("danh-sach-timesheet/show-edit")]
+        public ActionResult GetView2Edit(int p_id)
+        {
+            try
+            {
+                TimeSheet_BL _obj_bl = new TimeSheet_BL();
+                Timesheet_Info _Timesheet_Info = _obj_bl.Timesheet_GetBy_Id(p_id);
+                return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialEditTimeSheet.cshtml", _Timesheet_Info);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialEditTimeSheet.cshtml");
+            }
+
+        }
+
+        [HttpPost]
+        [Route("danh-sach-timesheet/do-edit-timeshet")]
+        public ActionResult DoEditTimeSheet(Timesheet_Info p_Timesheet_Info)
+        {
+            try
+            {
+                TimeSheet_BL _obj_bl = new TimeSheet_BL();
+                p_Timesheet_Info.Modify_By = SessionData.CurrentUser.Username;
+                decimal _ck = _obj_bl.Timesheet_Update(p_Timesheet_Info);
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
+        // Approve
+        [HttpPost]
+        [Route("danh-sach-timesheet/show-approve")]
+        public ActionResult GetView2Approve(int p_id)
+        {
+            try
+            {
+                TimeSheet_BL _obj_bl = new TimeSheet_BL();
+                Timesheet_Info _Timesheet_Info = _obj_bl.Timesheet_GetBy_Id(p_id);
+                return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialApproveTimeSheet.cshtml", _Timesheet_Info);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialApproveTimeSheet.cshtml");
+            }
+
+        }
+
+        [HttpPost]
+        [Route("danh-sach-timesheet/do-approve-timeshet")]
+        public ActionResult DoApproveTimeSheet(decimal p_id, int p_status, string p_reject_reason)
+        {
+            try
+            {
+                TimeSheet_BL _obj_bl = new TimeSheet_BL();
+                decimal _ck = _obj_bl.Timesheet_Approve(p_id, p_status, p_reject_reason, SessionData.CurrentUser.Username);
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
             }
         }
     }
