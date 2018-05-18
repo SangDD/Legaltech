@@ -18,6 +18,7 @@ namespace DataAccess.ModuleTrademark
                 decimal[] App_Header_Id = new decimal[numberRecord];
                 string[] DocumentID = new string[numberRecord];
                 decimal[] Isuse = new decimal[numberRecord];
+                decimal[] Status = new decimal[numberRecord];
                 string[] Note = new string[numberRecord];
                 string[] FileName = new string[numberRecord];
                 string[] UrlHardCopy = new string[numberRecord];
@@ -29,6 +30,7 @@ namespace DataAccess.ModuleTrademark
                     DocumentID[i] = pInfo[i].Document_Id;
                     Isuse[i] = pInfo[i].Isuse;
                     Note[i] = pInfo[i].Note;
+                    Status[i] = pInfo[i].Status;
                     FileName[i] = pInfo[i].Filename;
                     UrlHardCopy[i] = pInfo[i].Url_Hardcopy;
                     Document_Filling_Date[i] = pInfo[i].Document_Filing_Date;
@@ -40,6 +42,7 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("P_DOCUMENT_ID", OracleDbType.Varchar2, DocumentID, ParameterDirection.Input),
                     new OracleParameter("P_ISUSE", OracleDbType.Decimal, Isuse, ParameterDirection.Input),
                     new OracleParameter("P_NOTE", OracleDbType.Varchar2, Note, ParameterDirection.Input),
+                    new OracleParameter("P_STATUS", OracleDbType.Decimal, Status, ParameterDirection.Input),
                     new OracleParameter("P_DOCUMENT_FILING_DATE", OracleDbType.Date, Document_Filling_Date, ParameterDirection.Input),
                     new OracleParameter("P_FILENAME", OracleDbType.Varchar2, FileName, ParameterDirection.Input),
                     new OracleParameter("P_URL_HARDCOPY", OracleDbType.Varchar2, UrlHardCopy, ParameterDirection.Input),
