@@ -15,6 +15,9 @@ namespace ObjectInfos
         public DateTime Created_Date { get; set; }
         public string Modify_By { get; set; }
         public DateTime Modify_Date { get; set; }
-    }
 
+        public string GenCode { get; set; }
+        public string App_Code { get; set; }
+        public string App_Name { get; set; }
+    }
 }

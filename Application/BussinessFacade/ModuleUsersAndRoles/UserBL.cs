@@ -218,6 +218,7 @@
         {
             this.CurrentUserInfo = new UserInfo();
             this.CurrentUserInfo.Type = (int)CommonEnums.UserType.Admin;
+            this.CurrentUserInfo.Lawer_Id = 1;
             this.CurrentUserInfo.SetRoleSuperAdmin();
         }
 

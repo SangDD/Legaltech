@@ -10,7 +10,7 @@
 
 <div class="popup-opacity-wrapper"></div>
 <div class="d-popup" style="overflow: visible">
-    <div class="d-popup-content grid grid-2cols">
+    <div class="d-popup-content grid grid-2cols" id="divViewTimeSheet">
         <div>
             <label>Mã đơn </label>
             <p class="text-font-medium">@_Timesheet_Info.App_GenCode</p>
@@ -27,13 +27,13 @@
         </div>
 
         <div>
-            <label>Trạng thái</label>
-            <p class="text-font-medium">@_Timesheet_Info.Status_Name</p>
+            <label>Luật sư</label>
+            <p class="text-font-medium">@_Timesheet_Info.Lawer_Name</p>
         </div>
 
         <div>
-            <label>Luật sư</label>
-            <p class="text-font-medium">@_Timesheet_Info.Lawer_Name</p>
+            <label>Trạng thái</label>
+            <p class="text-font-medium">@_Timesheet_Info.Status_Name</p>
         </div>
 
         <div>
@@ -50,7 +50,25 @@
             <label>Ghi chú</label>
             <p class="text-font-medium">@_Timesheet_Info.Notes</p>
         </div>
+
+        @if (_Timesheet_Info.Status == (int)Common.CommonData.CommonEnums.TimeSheet_Status.Reject)
+        {
+            <div>
+                <label>Lý do từ chối</label>
+                <p class="text-font-medium">@_Timesheet_Info.Reject_Reason</p>
+            </div>
+        }
     </div>
 </div>
 
- 
+<script>
+    $(document).ready(function() {
+        if (@_Timesheet_Info.Status =='@((int)Common.CommonData.CommonEnums.TimeSheet_Status.Reject)' )
+        {
+            $("#divViewTimeSheet").removeClass("grid-2cols");
+            $("#divViewTimeSheet").addClass("grid-3cols");
+        }
+    });
+
+</script>
+

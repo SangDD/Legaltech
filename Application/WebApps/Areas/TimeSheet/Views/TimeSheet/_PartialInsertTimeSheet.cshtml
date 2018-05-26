@@ -1,0 +1,166 @@
+﻿@using ObjectInfos;
+@using BussinessFacade;
+@model Timesheet_Info
+@{
+    App_Lawer_BL _App_Lawer_BL = new App_Lawer_BL();
+    List<App_Lawer_Info> _lstAppLawer = _App_Lawer_BL.GetApp_Grant4Lawer(WebApps.Session.SessionData.CurrentUser.Lawer_Id);
+}
+<script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
+<link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
+<script>
+    $.datetimepicker.setLocale('vi');
+    $(document).ready(function () {
+        $('.datepicker').datetimepicker({
+            format: 'd/m/Y',
+            formatDate: 'd/m/Y',
+            timepicker: false,
+            mask: '39/19/9999',
+            validateOnBlur: true,
+        });
+    });
+</script>
+
+<div class="popup-opacity-wrapper"></div>
+<div class="d-popup" style="overflow: visible">
+    <div class="d-popup-content grid grid-2cols">
+        <div>
+            <label>Mã đơn </label>
+            <select id="cboAppHeader">
+                @foreach (var item in _lstAppLawer)
+                {
+                    <option value="@item.Application_Header_Id">@item.GenCode - @item.App_Name</option>
+                }
+            </select>
+        </div>
+
+        <div>
+            <label>Timesheet name <i class="redspan">(*)</i></label>
+            @Html.TextBoxFor(m => m.Name, new { id = "txtName", @maxlength = "200" })
+        </div>
+
+        <div>
+            <label>Ngày <i class="redspan">(*)</i></label>
+            @Html.TextBoxFor(m => m.Time_Date, "{0:dd/MM/yyyy}", new { id = "txtTime_Date", @Value = Model.Time_Date == DateTime.MinValue ? "" : Model.Time_Date.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker" })
+        </div>
+
+        <div>
+            <label>Giờ <i class="redspan">(*)</i></label>
+            @Html.TextBoxFor(m => m.Hours, new { id = "txtHours", @Value = Model.Hours == 0 ? "" : Model.Hours.ToString("#,##0.##"), onkeyup = "jsFormatNumber(this.value, this.id)" })
+        </div>
+
+        <div>
+            <label>Ghi chú</label>
+            @Html.TextBoxFor(m => m.Notes, new { id = "txtNotes", @maxlength = "2000" })
+        </div>
+    </div>
+
+    <div class="d-popup-footer">
+        <input type="submit" class="btn" value="Lưu" onclick="return doInsertTimeSheet()" />
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $('#cboAppHeader').multipleSelect({
+            filter: true,
+            single: true,
+            isdatastring: false,
+            maxHeight: 150,
+            placeholder: "-- Chọn đơn --"
+        });
+    });
+
+    function doInsertTimeSheet() {
+        if (validateForm()) {
+            nvsConfirm(null, "Bạn có chắc chắn muốn khai timesheet này không?", function () {
+                var formData = new FormData();
+                collectData(formData);
+                $.ajax({
+                    url: '/quan-ly-timesheet/danh-sach-timesheet/do-insert-timeshet',
+                    type: 'POST',
+                    data: formData,
+                    async: true, traditional: true, contentType: false, processData: false,
+                    headers: { "cache-control": "no-cache" },
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            jError("Lỗi check lại kết nối tới server");
+                            return false;
+                        }
+                        else {
+                            jAlert('Khai timesheet thành công!', "THÔNG BÁO", function () {
+                                ClosePopupInsert();
+                                Search_TimeSheet(1, 1);
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(false);
+                        console.log(e);
+                    }
+                });
+            });
+        }
+    }
+
+    function validateForm() {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        var cboAppHeader = $("#cboAppHeader").val();
+        if (cboAppHeader == null) {
+            jError("Đơn khai timesheet không được bỏ trống!", "lỗi", function () {
+                $("#cboAppHeader").val('');
+                $('#cboAppHeader').multipleSelect('focus');
+            });
+            return false;
+        }
+
+        var txtName = $("#txtName").val();
+        if (txtName == "") {
+            jError("Tên đợt time sheet không được bỏ trống!", "lỗi", function () {
+                $("#txtName").val('');
+                $("#txtName").focus();
+            });
+            return false;
+        }
+
+        var txtTime_Date = $("#txtTime_Date").val();
+        if (checkDate("Ngày khai timesheet", "#txtTime_Date", txtTime_Date) == false) {
+            return false;
+        }
+
+        var txtHours = $("#txtHours").val();
+        if (txtHours == "") {
+            jError("Giờ khai timesheet không được bỏ trống!", "lỗi", function () {
+                $("#txtHours").val('');
+                $("#txtHours").focus();
+            });
+            return false;
+        }
+
+        if (txtHours == "0") {
+            jError("Giờ khai timesheet phải lớn hơn 0!", "lỗi", function () {
+                $("#txtHours").val('');
+                $("#txtHours").focus();
+            });
+            return false;
+        }
+
+        return true;
+    }
+
+    function collectData(formData) {
+        formData.append('p_Timesheet_Info.App_Header_Id', $("#cboAppHeader").val());
+        formData.append('p_Timesheet_Info.Name', $("#txtName").val());
+        formData.append('p_Timesheet_Info.Time_Date', $("#txtTime_Date").val());
+        formData.append('p_Timesheet_Info.Hours', $("#txtHours").val());
+        formData.append('p_Timesheet_Info.Notes', $("#txtNotes").val());
+    }
+</script>
