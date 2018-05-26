@@ -65,6 +65,11 @@
                 {
 
                 }
+                else if (AppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
+                {
+                    return AppDangKyNhanHieu();
+                    
+                }
             }
             catch (Exception ex)
             {
@@ -85,6 +90,19 @@
                 Logger.LogException(ex);
             }
             return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/AppSuaDoiDonDangKy.cshtml");
+        }
+
+        public ActionResult AppDangKyNhanHieu()
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartalDangKyNhanHieu.cshtml");
         }
 
         [HttpPost]
