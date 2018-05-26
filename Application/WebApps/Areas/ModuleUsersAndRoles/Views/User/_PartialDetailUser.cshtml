@@ -20,50 +20,107 @@
 }
 @try
 {
-    <div class="popup-opacity-wrapper"></div>
-    <div class="d-popup" style="overflow: visible">
-        <div class="d-popup-content grid grid-2cols">
-            <div>
-                <label>Tên đăng nhập </label>
-                <p class="text-font-medium">@Model.Username</p>
+    <div class="" style="padding:5px 38px">
+        <div class="divCover divCover_popup">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Tên đăng nhập<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.Username, new { @id = "txtUsername" })
+                    </div>
+                </div>
+            </div>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Họ tên<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.FullName, new { @id = "txtFullName" })
+                    </div>
+                </div>
+            </div>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Ngày sinh</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.DateOfBirth, new
+                        {
+                            @id = "DateOfBirth",
+                            @Value = Model.DateOfBirth == DateTime.MinValue ? "" : Model.DateOfBirth.ToString("dd/MM/yyyy")
+                        })
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <label>Họ tên </label>
-                <p class="text-font-medium">@Model.FullName</p>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Giới tính</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.SexDisplayName)
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <label>Ngày sinh <label>Ngày sinh </label> </label>
-                <p class="text-font-medium">@Model.DateOfBirth.ToDateStringN0()</p>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Số điện thoại<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.Phone, new { @maxlength = "50" })
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div>Email </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.Email, new { @maxlength = "50" })
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <label>Giới tính</label>
-                <p class="text-font-medium">@Model.SexDisplayName</p>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Loại người dùng<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.Type_Name)
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div>Trạng thái </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.StatusDisplayName)
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <label>Email </label>
-                <p class="text-font-medium">@Model.Email</p>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Nhóm</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" value="@_GroupName"/>
+                    </div>
+                </div>
             </div>
+        </div>
 
-            <div>
-                <label>Điện thoại </label>
-                <p class="text-font-medium">@Model.Phone</p>
-            </div>
-            <div>
-                <label>Loại người dùng </label>
-                <p class="text-font-medium">@Model.Type_Name</p>
-            </div>
-            <div>
-                <label>Trạng thái</label>
-                <p class="text-font-medium">@Model.StatusDisplayName</p>
-            </div>
-
-            <div>
-                <label>Nhóm quyền</label>
-                <p class="text-font-medium">@_GroupName</p>
+        <div class="form-group">
+            <div class="form-group-bottom">
+                <input type="button" class="btn-default" value="Thoát" onclick="ClosePopUpUser()" style="width: auto;" />
             </div>
         </div>
     </div>

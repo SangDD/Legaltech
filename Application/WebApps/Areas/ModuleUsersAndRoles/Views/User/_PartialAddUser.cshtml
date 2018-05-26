@@ -3,112 +3,160 @@
 @using Common.CommonData
 @try
 {
-    <div class="popup-opacity-wrapper"></div>
-    <div class="d-popup" style="overflow: visible">
-        <div class="d-popup-content grid grid-2cols">
-            <div>
-                <label>Tên đăng nhập <i class="redspan">(*)</i></label>
-                <input type="text" id="txtUsernameAdd" maxlength="64" onkeypress="funikeyNoSpace(this)" onkeyup="funikeyNoSpace(this)" />
+    <div class="" style="padding:5px 38px">
+        <div class="divCover divCover_popup">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Tên đăng nhập<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtUsernameAdd" maxlength="64" onkeypress="funikeyNoSpace(this)" onkeyup="funikeyNoSpace(this)" />
+                    </div>
+                </div>
+            </div>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Họ tên<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtFullNameAdd" maxlength="250" />
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <label>Họ tên <i class="redspan">(*)</i></label>
-                <input type="text" id="txtFullNameAdd" maxlength="250" />
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Mật khẩu<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="password" id="txtPasswordAdd" maxlength="64" style = "height: 37px; width: 200; border: 1px solid #aaa; border-left: none;padding-left: 5px; "/>
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div>Mật khẩu nhắc lại <i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="password" id="txtRePasswordAdd" maxlength="64" style = "height: 37px; border: 1px solid #aaa; border-left: none;padding-left: 5px; "/>
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <label>Mật khẩu <i class="redspan">(*)</i></label>
-                <input type="password" id="txtPasswordAdd" maxlength="64" />
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Ngày sinh</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtDateOfBirthAdd" maxlength="250" class="datetimepicker" />
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <label>Nhập lại mật khẩu <i class="redspan">(*)</i></label>
-                <input type="password" id="txtRePasswordAdd" maxlength="64" />
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Giới tính</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboSexAdd">
+                            @foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.SexType))
+                            {
+                                <option value="@item.CdVal">@item.Content</option>
+                            }
+                        </select>
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <label>Ngày sinh <label>Ngày sinh </label> <i class="redspan">(*)</i></label>
-                <input type="text" id="txtDateOfBirthAdd" maxlength="250" class="datetimepicker" />
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Số điện thoại<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtPhoneAdd" maxlength="16" style="width:200px" />
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div>Email </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtEmailAdd" maxlength="250" />
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <label>Giới tính</label>
-                <select id="cboSexAdd">
-                    @foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.SexType))
-                    {
-                        <option value="@item.CdVal">@item.Content</option>
-                    }
-                </select>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Loại người dùng<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboTypeAdd" style="width:200px">
+                            @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE"))
+                            {
+                                <option value="@item.CdVal">@item.Content</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div>Trạng thái <i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboStatusAdd">
+                            @foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.UserStatus))
+                            {
+                                <option value="@item.CdVal">@item.Content</option>
+                            }
+                        </select>
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <label>Email <i class="redspan">(*)</i></label>
-                <input type="text" id="txtEmailAdd" maxlength="250" />
-            </div>
-
-            <div>
-                <label>Điện thoại <i class="redspan">(*)</i></label>
-                <input type="text" id="txtPhoneAdd" maxlength="16" onkeypress="return isNumberKey()" onkeyup="return isNumberKey()" />
-            </div>
-
-            <div>
-                <label>Loại người dùng</label>
-                <select id="cboTypeAdd">
-                    @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE"))
-                    {
-                        <option value="@item.CdVal">@item.Content</option>
-                    }
-                </select>
-            </div>
-
-            <div>
-                <label>Trạng thái</label>
-                <select id="cboStatusAdd">
-                    @foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.UserStatus))
-                    {
-                        <option value="@item.CdVal">@item.Content</option>
-                    }
-                </select>
-            </div>
-
-            <div>
-                <label>Nhóm quyền<i class="redspan">(*)</i></label>
-                <select id="cboGroupUser">
-                    <option value="-1">None</option>
-                    @foreach (var item in MemoryData.GetAllGroup())
-                    {
-                        <option value="@item.Id">@item.Name</option>
-                    }
-                </select>
-
-                @*<div class="groups-checkbox">
-                        @foreach (var item in GroupUserBL.GetAllGroups())
-                        {
-                            var chkbId = "chkbGroupIdAdd-" + item.Id;
-                            <input type="checkbox" data-groupuseradd="TRUE" class="facheck" id="@chkbId" value="@item.Id" />
-                            <label for="@chkbId"><i class="far fa-circle"></i>@item.Name</label>
-                            <br />
-                        }
-                    </div>*@
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Nhóm <i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboGroupUser">
+                            <option value="-1">None</option>
+                            @foreach (var item in MemoryData.GetAllGroup())
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="d-popup-footer">
-            <input type="submit" class="btn" value="Lưu" onclick="return doAddNewUser()" />
+
+        <div class="form-group">
+            <div class="form-group-bottom">
+                <input type="submit" class="btn-default" value="Lưu" onclick="return doAddNewUser()" />
+            </div>
         </div>
     </div>
 
     <script>
         var usernameAdd = '',
-			fullNameAdd = '',
-			passwordAdd = '',
-			rePasswordAdd = '',
-			dateOfBirthAdd = '',
-			sexAdd = '',
-			emailAdd = '',
-			phoneAdd = '',
-			statusAdd = '',
+            fullNameAdd = '',
+            passwordAdd = '',
+            rePasswordAdd = '',
+            dateOfBirthAdd = '',
+            sexAdd = '',
+            emailAdd = '',
+            phoneAdd = '',
+            statusAdd = '',
             typeAdd = '',
-			GroupIdAdd = '';
+            GroupIdAdd = '';
         $(document).ready(function () {
             $.datetimepicker.setLocale('vi');
             $('.datetimepicker').datetimepicker({
@@ -139,7 +187,7 @@
                     success: function (data) {
                         if (data != null) {
                             if (onResponse(data)) {
-                                ClosePopupDialog('dpop-users', true);
+                                ClosePopUpUser();
                                 window.findUsers(1, 0);
                             }
                         }

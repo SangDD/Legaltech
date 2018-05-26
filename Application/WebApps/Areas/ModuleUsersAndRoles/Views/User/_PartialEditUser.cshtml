@@ -4,7 +4,7 @@
 @using Common.CommonData
 @using Common.Extensions
 @model ObjectInfos.UserInfo
-@{ 
+@{
     int _groupId = 0;
     if (Model.GroupSelectedCollection.Count > 0)
     {
@@ -13,87 +13,150 @@
 }
 @try
 {
-	<div class="popup-opacity-wrapper"></div>
-	<div class="d-popup" style="overflow: visible">
-		<div class="d-popup-content grid grid-2cols">
-			<div>
-				<label>Tên đăng nhập</label>
-				<input type="text" readonly="readonly" id="txtUsernameEdit" maxlength="64" value="@Model.Username" />
-			</div>
+    <style>
+        /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+        .div-search-title > div {
+            width: 120px;
+        }
+    </style>
 
-			<div>
-				<label>Họ tên <i class="redspan">(*)</i></label>
-				<input type="text" id="txtFullNameEdit" maxlength="250" value="@Model.FullName" />
-			</div>
-
-			<div>
-				<label>Ngày sinh <label>Ngày sinh </label> <i class="redspan">(*)</i></label>
-				<input type="text" id="txtDateOfBirthEdit" class="datetimepicker" />
-			</div>
-
-			<div>
-				<label>Giới tính</label>
-				<select id="cboSexEdit">
-					@foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.SexType))
-					{
-						<option @(item.CdVal == Model.Sex ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
-					}
-				</select>
-			</div>
-
-			<div>
-				<label>Email <i class="redspan">(*)</i></label>
-				<input type="text" id="txtEmailEdit" maxlength="250" value="@Model.Email" />
-			</div>
-
-			<div>
-				<label>Điện thoại <i class="redspan">(*)</i></label>
-				<input type="text" id="txtPhoneEdit" value="@Model.Phone" maxlength="16" onkeypress="return isNumberKey()" onkeyup="return isNumberKey()" />
-			</div>
-			<div>
-				<label>Loại người dùng <i class="redspan">(*)</i></label>
-				<select id="cboTypeEdit">
-					@foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE"))
-                    {
-						<option @(item.CdVal == Model.Type.ToString() ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
-					}
-				</select>
-			</div>
-
-			<div>
-				<label>Trạng thái <i class="redspan">(*)</i></label>
-				<select id="cboPositionEdit">
-					@foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.UserStatus))
-                    {
-						<option @(item.CdVal == Model.Status.ToString() ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
-					}
-				</select>
-			</div>
-
-			<div>
-                <label>Nhóm quyền<i class="redspan">(*)</i></label>
-                <select id="cboGroupUser">
-                    <option value="-1">None</option>
-                    @foreach (var item in MemoryData.GetAllGroup())
-                    {
-                        if (item.Id == _groupId)
+    <div class="" style="padding:5px 38px">
+        <div class="divCover divCover_popup">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Tên đăng nhập<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.Username, new { @id = "txtUsernameEdit", maxlength = "64" })
+                    </div>
+                </div>
+            </div>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Họ tên<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.FullName, new { @id = "txtFullNameEdit", maxlength = "250" })
+                    </div>
+                </div>
+            </div>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Ngày sinh</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @*@Html.TextBoxFor(m => m.DateOfBirth.ToString("dd/MM/yyyy"))*@
+                        @Html.TextBoxFor(m => m.DateOfBirth, new
                         {
-                            <option selected="selected" value="@item.Id">@item.Name</option>
-                        }
-                        else
-                        {
-                            <option value="@item.Id">@item.Name</option>
-                        }
-                    }
-                </select>
-			</div>
-		</div>
-		<div class="d-popup-footer">
-			<input type="submit" class="btn" value="Lưu" onclick="return doEditUser()" />
-		</div>
-	</div>
+                            @id = "txtDateOfBirthEdit",
+                            @Value = Model.DateOfBirth == DateTime.MinValue ? "" : Model.DateOfBirth.ToString("dd/MM/yyyy"),
+                            @class= "datetimepicker"
+                        })
+                    </div>
+                </div>
+            </div>
 
-	<script>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Giới tính</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboSexEdit">
+                            @foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.SexType))
+                            {
+                                <option @(item.CdVal == Model.Sex ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Số điện thoại<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.Phone, new { @style = "width:200px;", @id = "txtPhoneEdit", @maxlength = "16", @onkeypress = "isNumberKey()", @onkeyup = "isNumberKey()" })
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div>Email </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.Email, new { @id = "txtEmailEdit", @maxlength = "250" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Loại người dùng<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboTypeEdit" style="width:200px">
+                            @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE"))
+                            {
+                                <option @(item.CdVal == Model.Type.ToString() ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div>Trạng thái </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboStatusEdit">
+                            @foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.UserStatus))
+                            {
+                                <option @(item.CdVal == Model.Status.ToString() ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Nhóm</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboGroupUser">
+                            <option value="-1">None</option>
+                            @foreach (var item in MemoryData.GetAllGroup())
+                            {
+                                if (item.Id == _groupId)
+                                {
+                                    <option selected="selected" value="@item.Id">@item.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+                        </select>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-group-bottom">
+                <input type="submit" class="btn-default" value="Lưu" onclick="return doEditUser()" />
+            </div>
+        </div>
+    </div>
+
+    <script>
 		var userIdEdit = '@Model.Id',
 			usernameEdit = '',
 			fullNameEdit = '',
@@ -137,7 +200,7 @@
 					success: function (data) {
 						if (data != null) {
 							if (onResponse(data)) {
-								ClosePopupDialog('dpop-users', true);
+                                ClosePopUpUser();
 								window.findUsers(1, 0);
 							}
 						}
@@ -210,9 +273,9 @@
 			formData.append('userInfo.Status', statusEdit);
 			formData.append('GroupId', GroupIdEdit);
 		}
-	</script>
+    </script>
 }
 catch (Exception)
 {
-	// ignored
+    // ignored
 }

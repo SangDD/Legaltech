@@ -11,68 +11,124 @@
 }
 @try
 {
-    <input type="hidden" value="LastTimeUpdated" id="colSorted" />
-    <input type="hidden" value="DESC" id="SortType" />
-    <input type="hidden" value="" id="OptionSorting" />
+    <style>
+        /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+        .div-search-title > div {
+            width: 120px;
+        }
+    </style>
 
-    <div class="d-popup-container" id="dpop-users"></div>
-
-    <div class="d-nav-container">
-        <ul class="ul-nav">
-            <li><a href="javascript:;">Quản trị hệ thống</a></li>
-            <li><a href="/quan-tri-he-thong/quan-ly-nguoi-dung">Quản lý người dùng</a></li>
-        </ul>
+    <div class="divCover">
+        <div class="d-nav">
+            <img src="~/Content/icons/Body-icon-home.png" /> I
+            Quản trị hệ thống
+            <span class="red">></span>
+            <a href="/quan-tri-he-thong/quan-ly-nguoi-dung">Quản lý người dùng</a>
+        </div>
     </div>
-
-    <div class="title-section-content">
-        <p class="font-size-15 text-font-medium">Danh sách người dùng</p>
-    </div>
-
-    <div class="action">
-        <input class="btn" type="button" value="Thêm mới người dùng" onclick="getViewToAddNewUser()" />
-    </div>
-
-    <div class="div-search grid-3cols">
-        <div class="item-search">
-            <label class="title-condition">Tên đăng nhập</label>
-            <input class="control-condition" data-controlcondition="TRUE" type="text" id="txtUsernameSearch" />
-        </div>
-        <div class="item-search">
-            <label class="title-condition">Họ tên</label>
-            <input class="control-condition" data-controlcondition="TRUE" type="text" id="txtFullNameSearch" />
-        </div>
-
-        <div class="item-search">
-            <label class="title-condition">Loại người dùng</label>
-            <select data-controlcondition="TRUE" id="cboUserType">
-                <option value="">None</option>
-                @foreach (var item in _lstType)
-                {
-                    <option value="@item.CdVal">@item.Content</option>
-                }
-            </select>
-        </div>
-
-        <div class="item-search">
-            <label class="title-condition">Trạng thái</label>
-            <select data-controlcondition="TRUE" id="cboStatusSearch">
-                <option selected="selected" value="">None</option>
-                @foreach (var item in _lstStatus)
-                {
-                    <option value="@item.CdVal">@item.Content</option>
-                }
-            </select>
-        </div>
-
-        <div class="item-search">
-            <input id="btnFindUsers" data-controlcondition="TRUE" type="button" class="btn btn-seach" value="Tìm kiếm" onclick="findUsers(1, 1)" />
+    <div class="divCover">
+        <div class="classLine">
         </div>
     </div>
 
-    <div id="divTableUsers">
-        @Html.Partial("_PartialTableListUsers")
-    </div>
+    <div class="d-main">
+        <div class="divCover">
+            <div class="classTitle">
+                <input type="hidden" value="LastTimeUpdated" id="colSorted" />
+                <input type="hidden" value="DESC" id="SortType" />
+                <input type="hidden" value="" id="OptionSorting" />
+                <div class="div-title-content"> THÔNG TIN NGƯỜI DÙNG </div>
+            </div>
+        </div>
 
+        <div class="divCover" id="div-search-simple">
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div style="width: 120px">Tên đăng nhập </div>
+                </div>
+                <div>
+                    <div>
+                        <input style="width: 250px;" type="text" id="txtUsernameSearch" data-controlcondition="TRUE" />
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div style="width: 120px">Loại CK</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtFullNameSearch" data-controlcondition="TRUE" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div style="width: 120px">Loại người dùng </div>
+                </div>
+                <div>
+                    <div>
+                        <select data-controlcondition="TRUE" id="cboUserType" style="width: 250px;">
+                            <option value="">None</option>
+                            @foreach (var item in _lstType)
+                            {
+                                <option value="@item.CdVal">@item.Content</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div style="width: 120px">Trạng thái</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select data-controlcondition="TRUE" id="cboStatusSearch">
+                            <option selected="selected" value="">None</option>
+                            @foreach (var item in _lstStatus)
+                            {
+                                <option value="@item.CdVal">@item.Content</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divCover">
+            <div class="div-search-btn" style="width:450px;">
+                <input type="button" value="Tìm kiếm" class="btn-default" onclick="findUsers(1, 1)" />
+                <input type="button" value="Thêm người dùng" class="btn-default" style="width: 125px;" onclick="getViewToAddNewUser()" />
+            </div>
+        </div>
+
+        <div class="divCover">
+            <div id="divTableUsers">
+                @Html.Partial("_PartialTableListUsers")
+            </div>
+        </div>
+
+        <div id="divWrapperViewUser" class="divWrapperPopup" style="display: none;">
+            <div class="divPopup" id="divViewUser">
+            </div>
+        </div>
+
+        <div id="divWrapperEditUser" class="divWrapperPopup" style="display: none;">
+            <div class="divPopup" id="divEditUser">
+            </div>
+        </div>
+
+        <div id="divWrapperAddUser" class="divWrapperPopup" style="display: none;">
+            <div class="divPopup" id="divAddUser">
+            </div>
+        </div>
+
+        <div id="divWrapperPopUpUser" class="divWrapperPopup" style="display: none;">
+            <div class="divPopup" id="divPopUpUser">
+            </div>
+        </div>
+        
+    </div>
+     
     <script>
         var _currentKeySearch = '@SessionStorages.SEARCH_USER_KEY_CONDITIONS';
         var _currentOptionFilter = '@SessionStorages.SEARCH_USER_KEY_OPTIONS';
@@ -149,6 +205,7 @@
 
     @* task function *@
     <script>
+
         function getViewToAddNewUser() {
             $.ajax({
                 type: "POST",
@@ -158,8 +215,11 @@
                 success: function (data) {
                     if (data != null) {
                         if (validateResponse(data)) {
-                            $("#dpop-users").html(data);
-                            ShowPopupDialog("dpop-users", "Thêm mới người dùng", 900, 0, "txtUsernameAdd");
+                            //$("#dpop-users").html(data);
+                            //ShowPopupDialog("dpop-users", "Thêm mới người dùng", 900, 0, "txtUsernameAdd");
+
+                            $("#divPopUpUser").html(data);
+                            ShowPopupDialog_Ipace('divWrapperPopUpUser', "Thêm mới người dùng", 900, 500, "txtUsernameAdd");
                         }
                     }
                     return false;
@@ -177,8 +237,9 @@
                 success: function (data) {
                     if (data != null) {
                         if (validateResponse(data)) {
-                            $("#dpop-users").html(data);
-                            ShowPopupDialog("dpop-users", "Sửa người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 0, "txtFullNameEdit");
+
+                            $("#divPopUpUser").html(data);
+                            ShowPopupDialog_Ipace('divWrapperPopUpUser', "Sửa người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 500, "txtFullNameEdit");
                         }
                     }
                     return false;
@@ -225,14 +286,19 @@
                 success: function (data) {
                     if (data != null) {
                         if (validateResponse(data)) {
-                            $("#dpop-users").html(data);
-                            ShowPopupDialog("dpop-users", "Chi tiết người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 0, null);
+                            $("#divPopUpUser").html(data);
+                            ShowPopupDialog_Ipace('divWrapperPopUpUser', "Chi tiết người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 500);
                         }
                     }
                     return false;
                 }
             });
         }
+
+        function ClosePopUpUser() {
+            CloseDivPopUp('divWrapperPopUpUser');
+        }
+        
     </script>
 }
 catch (Exception)
