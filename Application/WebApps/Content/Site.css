@@ -1173,13 +1173,15 @@ select.divNumberRecordOnPage {
 .class_left_50 {
     padding: 3px;
     float: left;
-    width: calc(50% - 6px);
+    width: calc(50%);
+    display:flex ;
 }
 
 .class_right_50 {
     padding: 3px;
-    float: right;
-    width: calc(50% - 6px);
+    /*float: right;*/
+    flex-grow: 1;
+    display: flex;
 }
 
 .div_full_100 {
@@ -1187,6 +1189,17 @@ select.divNumberRecordOnPage {
     clear: both;
     width: calc(100% - 20px );
     display: inline-flex;
+}
+
+
+.div_full_100_area {
+    padding: 5px 20px 10px 5px;
+    clear: both;
+    width: calc(100% - 20px );
+    display: inline-block;
+    border: 1px solid #FAFAF9;
+    margin-bottom: 5px;
+    background: #FCFCFC;
 }
 
 
@@ -1470,7 +1483,10 @@ select.divNumberRecordOnPage {
 .class_flex_grow {
     flex-grow: 1;
 }
-
+.class_text_end_radio {
+    flex-grow: 1;
+    margin-top: -2px;
+}
 .class_text_end {
     flex-grow: 1;
     /*flex-shrink:co lại khi kéo màn hình*/
