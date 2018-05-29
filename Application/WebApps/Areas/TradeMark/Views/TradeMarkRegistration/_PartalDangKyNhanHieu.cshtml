@@ -19,15 +19,19 @@
 
         <div class="div_full_100_area">
             <div class="class_left_50">
-                <div class="class_radio_head"><input type="radio" name="0_DonDangKy" placeholder="0_DonDangKy" id="0_DonDangKy" /> </div>
-                <div class="class_text_end_radio">
-                    <p class="class_text_left">Đơn này được tách ra từ đơn số</p>
+                @*<div class="class_radio_head">
+                <input type="radio" name="0_DonDangKy" placeholder="0_DonDangKy" id="0_DonDangKy" />
+                </div>*@
+                <div class="class_text_end_radio" style="display: flex;">
+                    <p class="class_text_left class_padding_right_10">Đơn này được tách ra từ đơn số</p>
+                    <input style="width:33%" type="text" id="0_txtDonSo" maxlength="20" placeholder="0_txtDonSo" />
                 </div>
             </div>
             <div class="class_right_50">
-                <div class="class_radio_head"><input type="radio" name="0_DonDangKy" placeholder="0_DonDangKy" id="0_DonDangKy" /> </div>
-                <div class="class_text_end_radio">
-                    <p class="class_text_left">Ngày nộp đơn</p>
+                @*<div class="class_radio_head"><input type="radio" name="0_DonDangKy" placeholder="0_DonDangKy" id="0_DonDangKy" /> </div>*@
+                <div class="class_text_end_radio" style="display: flex;">
+                    <p class="class_text_left  class_padding_right_10">Ngày nộp đơn</p>
+                    <input style="width:33%" class="datetimepicker" type="text" id="0_txtDonSo" maxlength="20" placeholder="0_txtDonSo" />
                 </div>
             </div>
         </div>
@@ -141,13 +145,13 @@
             <div class="class_full_div_input">
                 <div class="class_block_title"><label>Tên đầy đủ:</label> </div>
                 <div class="class_block_title_control">
-                    <input type="text" placeholder="1_txtTenDayDu" maxlength="50" id="1_txtTenDayDu" />
+                    <input type="text" placeholder="2_txtTenDayDu" maxlength="50" id="2_txtTenDayDu" />
                 </div>
             </div>
             <div class="class_full_div_input">
                 <div class="class_block_title"><label>Địa chỉ:</label></div>
                 <div class="class_block_title_control">
-                    <input type="text" placeholder="1_txtDiaChi" maxlength="200" id="1_txtDiaChi" />
+                    <input type="text" placeholder="2_txtDiaChi" maxlength="200" id="2_txtDiaChi" />
                 </div>
             </div>
 
@@ -155,19 +159,19 @@
                 <div class="class_flex_30_first">
                     <div class="class_block_title" style="width:89px"><label>Điện thoại:</label> </div>
                     <div class="class_block_phone class_flex_grow">
-                        <input type="text" placeholder="1_txtDienThoai" maxlength="50" id="1_txtDienThoai" />
+                        <input type="text" placeholder="2_txtDienThoai" maxlength="50" id="2_txtDienThoai" />
                     </div>
                 </div>
                 <div class="class_flex_30">
                     <div class="class_block_title"><label>Fax:</label> </div>
                     <div class="class_block_fax class_flex_grow">
-                        <input type="text" placeholder="1_txtFax" maxlength="50" id="1_txtFax" />
+                        <input type="text" placeholder="2_txtFax" maxlength="50" id="2_txtFax" />
                     </div>
                 </div>
                 <div class="class_flex_40">
                     <div class="class_block_title"><label>Email:</label></div>
                     <div class="class_block_email class_flex_grow">
-                        <input type="text" placeholder="1_txtEmail" maxlength="50" id="1_txtEmail" />
+                        <input type="text" placeholder="2_txtEmail" maxlength="50" id="2_txtEmail" />
                     </div>
                 </div>
             </div>
@@ -224,24 +228,31 @@
         <div class="div_full_100_area">
             <div class="class_full_div_p class_text_center_bold">PHÍ, LỆ PHÍ</div>
             <br />
-
-
             <div class="div_full_100">
                 <div class="class_left_40">
                     <p class="class_text_center_bold">Loại phí, lệ phí</p>
 
                     <div class="class_full_div_input">
-                        <div class="class_radio_head class_height_fee"> <input type="checkbox" name="5" value="5" id="5_rdoLyPhiYeuCau" placeholder="5_rdoLyPhiYeuCau" /></div>
-                        <div class="class_text_end class_height_fee" > <p class="class_text_left">Lệ phí nộp đơn </p> </div>
+                        <div class="class_radio_head class_height_fee"> 
+                        <input type="checkbox" name="5" value="5" id="7_rdoLyPhiYeuCau" placeholder="7_rdoLyPhiYeuCau" />
+                        
+                        </div>
+                        <div class="class_text_end class_height_fee"> <p class="class_text_left">Lệ phí nộp đơn </p> </div>
                     </div>
                     <div class="class_full_div_input">
-                        <div class="class_radio_head class_height_fee"><input type="checkbox" name="5" value="6" id="5_rdoLyPhiCongBoDon" placeholder="5_rdoLyPhiCongBoDon" /></div>
+                        <div class="class_radio_head class_height_fee">
+                        <input type="checkbox" name="5" value="6" id="7_rdoPhiPhanLoaiQT" placeholder="7_rdoPhiPhanLoaiQT" />
+                        
+                        </div>
                         <div class="class_text_end class_height_fee">
                             <p class="class_text_left">Phí phân loại quốc tế về Nhãn hiệu</p>
                         </div>
                     </div>
                     <div class="class_full_div_input">
-                        <div class="class_radio_head "> <input type="checkbox" name="5" value="61" id="5_rdoLyPhiCongBoDonSuaDoi" placeholder="5_rdoLyPhiCongBoDonSuaDoi" /></div>
+                        <div class="class_radio_head "> 
+                        <input type="checkbox" name="5" value="61" id="7_rdoMoiNhom6SP" placeholder="7_rdoMoiNhom6SP" />
+                        
+                        </div>
                         <div class="class_text_end">
                             <p class="class_text_left">Mỗi nhóm có trên 6 sản phẩm/dịch vụ (từ sản phẩm/dịch vụ thứ 7 trở đi)</p>
                         </div>
@@ -249,17 +260,19 @@
 
 
                     <div class="class_full_div_input">
-                        <div class="class_radio_head  class_height_fee"> <input type="checkbox" name="5" value="5" id="5_rdoLyPhiYeuCau" placeholder="5_rdoLyPhiYeuCau" /></div>
+                        <div class="class_radio_head  class_height_fee">
+                        <input type="checkbox" name="5" value="5" id="7_rdoLePhiYCHQUT" placeholder="7_rdoLePhiYCHQUT" />
+                        </div>
                         <div class="class_text_end  class_height_fee"> <p class="class_text_left">Lệ phí  yêu cầu hưởng quyền ưu tiên </p> </div>
                     </div>
                     <div class="class_full_div_input">
-                        <div class="class_radio_head  class_height_fee"><input type="checkbox" name="5" value="6" id="5_rdoLyPhiCongBoDon" placeholder="5_rdoLyPhiCongBoDon" /></div>
+                        <div class="class_radio_head  class_height_fee"><input type="checkbox" name="5" value="6" id="7_rdoLyPhiCongBoDon" placeholder="7_rdoLyPhiCongBoDon" /></div>
                         <div class="class_text_end  class_height_fee">
                             <p class="class_text_left">Lệ phí công bố đơn</p>
                         </div>
                     </div>
                     <div class="class_full_div_input">
-                        <div class="class_radio_head  class_height_fee"> <input type="checkbox" name="5" value="61" id="5_rdoLyPhiCongBoDonSuaDoi" placeholder="5_rdoLyPhiCongBoDonSuaDoi" /></div>
+                        <div class="class_radio_head  class_height_fee"> <input type="checkbox" name="5" value="61" id="7_rdoPhiTraCuuPV" placeholder="7_rdoPhiTraCuuPV" /></div>
                         <div class="class_text_end  ">
                             <p class="class_text_left">
                                 Phí tra cứu phục vụ thẩm định nội dung cho mỗi nhóm hàng hoá, dịch vụ
@@ -269,17 +282,17 @@
 
 
                     <div class="class_full_div_input">
-                        <div class="class_radio_head  class_height_fee"> <input type="checkbox" name="5" value="5" id="5_rdoLyPhiYeuCau" placeholder="5_rdoLyPhiYeuCau" /></div>
+                        <div class="class_radio_head  class_height_fee"> <input type="checkbox" name="5" value="5" id="7_2_rdo_MoiNhomTren6SP" placeholder="7_2_rdo_MoiNhomTren6SP" /></div>
                         <div class="class_text_end"> <p class="class_text_left">Mỗi nhóm có trên 6 sản phẩm/dịch vụ (từ sản phẩm/dịch vụ thứ 7 trở đi)</p> </div>
                     </div>
                     <div class="class_full_div_input">
-                        <div class="class_radio_head  class_height_fee"><input type="checkbox" name="5" value="6" id="5_rdoLyPhiCongBoDon" placeholder="5_rdoLyPhiCongBoDon" /></div>
+                        <div class="class_radio_head  class_height_fee"><input type="checkbox" name="5" value="6" id="7_rdoPhiThamDinhDon" placeholder="7_rdoPhiThamDinhDon" /></div>
                         <div class="class_text_end  class_height_fee">
                             <p class="class_text_left">Phí thẩm định đơn</p>
                         </div>
                     </div>
                     <div class="class_full_div_input">
-                        <div class="class_radio_head  class_height_fee"> <input type="checkbox" name="5" value="61" id="5_rdoLyPhiCongBoDonSuaDoi" placeholder="5_rdoLyPhiCongBoDonSuaDoi" /></div>
+                        <div class="class_radio_head  class_height_fee"> <input type="checkbox" name="5" value="61" id="7_3_rdo_MoiNhomTren6SP" placeholder="7_3_rdo_MoiNhomTren6SP" /></div>
                         <div class="class_text_end ">
                             <p class="class_text_left">
                                 Mỗi nhóm có trên 6 sản phẩm/dịch vụ (từ sản phẩm/dịch vụ thứ 7 trở đi)
@@ -291,65 +304,65 @@
                 <div class="class_right_30 ">
                     <p class="class_text_center_bold">Số đối tượng tính phí</p>
                     <div class="class_full_div_input">
-                        <input type="text" placeholder="5_txtLePhiYCSD" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiYCSD" />
+                        <input type="text" placeholder="7Phi_txtLyPhiYeuCau" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiYCSD" />
                     </div>
                     <div class="class_full_div_input">
-                        <input type="text" placeholder="5_txtLePhiCBSD" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiCBSD" />
+                        <input type="text" placeholder="7Phi_txtPhiPhanLoaiQT" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiCBSD" />
                     </div>
                     <div class="class_full_div_input">
-                        <input type="text" placeholder="5_txtLePhiCBD" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiCBD" />
-                    </div>
-
-                    <div class="class_full_div_input">
-                        <input type="text" placeholder="5_txtLePhiYCSD" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiYCSD" />
-                    </div>
-                    <div class="class_full_div_input">
-                        <input type="text" placeholder="5_txtLePhiCBSD" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiCBSD" />
-                    </div>
-                    <div class="class_full_div_input">
-                        <input type="text" placeholder="5_txtLePhiCBD" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiCBD" />
+                        <input type="text" placeholder="7Phi_txtMoiNhom6SP" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiCBD" />
                     </div>
 
                     <div class="class_full_div_input">
-                        <input type="text" placeholder="5_txtLePhiYCSD" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiYCSD" />
+                        <input type="text" placeholder="7Phi_txtLePhiYCHQUT" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiYCSD" />
                     </div>
                     <div class="class_full_div_input">
-                        <input type="text" placeholder="5_txtLePhiCBSD" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiCBSD" />
+                        <input type="text" placeholder="7Phi_txtLyPhiCongBoDon" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiCBSD" />
                     </div>
                     <div class="class_full_div_input">
-                        <input type="text" placeholder="5_txtLePhiCBD" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiCBD" />
+                        <input type="text" placeholder="7Phi_txtPhiTraCuuPV" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiCBD" />
+                    </div>
+
+                    <div class="class_full_div_input">
+                        <input type="text" placeholder="7Phi_2_txtMoiNhomTren6SP" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiYCSD" />
+                    </div>
+                    <div class="class_full_div_input">
+                        <input type="text" placeholder="7Phi_txtPhiThamDinhDon" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiCBSD" />
+                    </div>
+                    <div class="class_full_div_input">
+                        <input type="text" placeholder="7Phi_3_txtMoiNhomTren6SP" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiCBD" />
                     </div>
                 </div>
                 <div class="class_right_30">
                     <p class="class_text_center_bold">Số tiền</p>
 
                     <div class="class_full_div_input">
-                        <input type="text" placeholder="5_txtTienLePhiYCSD" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiYCSD" />
+                        <input type="text" placeholder="7Tien_txtLyPhiYeuCau" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiYCSD" />
                     </div>
                     <div class="class_full_div_input">
-                        <input type="text" placeholder="5_txtTienLePhiCBSD" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiCBSD" />
+                        <input type="text" placeholder="7Tieni_txtPhiPhanLoaiQT" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiCBSD" />
                     </div>
                     <div class="class_full_div_input">
-                        <input type="text" placeholder="5_txtTienLePhiCBD" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiCBD" />
+                        <input type="text" placeholder="7Tien_txtMoiNhom6SP" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiCBD" />
                     </div>
 
                     <div class="class_full_div_input">
-                        <input type="text" placeholder="5_txtTienLePhiYCSD" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiYCSD" />
+                        <input type="text" placeholder="7Tien_txtLePhiYCHQUT" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiYCSD" />
                     </div>
                     <div class="class_full_div_input">
-                        <input type="text" placeholder="5_txtTienLePhiCBSD" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiCBSD" />
+                        <input type="text" placeholder="7Tien_txtLyPhiCongBoDon" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiCBSD" />
                     </div>
                     <div class="class_full_div_input">
-                        <input type="text" placeholder="5_txtTienLePhiCBD" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiCBD" />
+                        <input type="text" placeholder="7Tien_txtPhiTraCuuPV" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiCBD" />
                     </div>
                     <div class="class_full_div_input">
-                        <input type="text" placeholder="5_txtTienLePhiYCSD" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiYCSD" />
+                        <input type="text" placeholder="7Tien_2_txtMoiNhomTren6SP" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiYCSD" />
                     </div>
                     <div class="class_full_div_input">
-                        <input type="text" placeholder="5_txtTienLePhiCBSD" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiCBSD" />
+                        <input type="text" placeholder="7Tien_txtPhiThamDinhDon" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiCBSD" />
                     </div>
                     <div class="class_full_div_input">
-                        <input type="text" placeholder="5_txtTienLePhiCBD" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiCBD" />
+                        <input type="text" placeholder="7Tien_3_txtMoiNhomTren6SP" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiCBD" />
                     </div>
                 </div>
             </div>
@@ -833,34 +846,217 @@
         <div class="div_full_100_area">
             <div class="class_full_div_p class_text_center_bold">MÔ TẢ TÓM TẮT ĐẶC TÍNH CỦA HÀNG HOÁ/DỊCH VỤ ĐƯỢC CHỨNG NHẬN</div>
             <br />
-            <div class="class_full_div_input">
+            @*<div class="class_full_div_input">
                 <div class="class_radio_head"><input type="radio" name="0_NhanHieu" value="NGDL" placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" /> </div>
-                <div class="class_text_end"  style="display: flex;">
+                <div class="class_text_end" style="display: flex;">
                     <p class="class_text_left">Nguồn gốc địa lý</p>
                     <input style="width:33%" type="text" id="8_txtNguonGocDiaLy" maxlength="3" placeholder="8_txtNguonGocDiaLy" />
                 </div>
-            </div>
+            </div>*@
+
 
             <div class="class_full_div_input">
+                <div class="class_block_title"><label>Nguồn gốc địa lý:</label> </div>
+                <div class="class_block_title_control">
+                    <input type="text" placeholder="8_txtNguonGocDaiLy" id="8_txtNguonGocDaiLy" />
+                </div>
+            </div>
+
+
+            @*<div class="class_full_div_input">
                 <div class="class_radio_head"><input type="radio" name="0_NhanHieu" value="CLCL" placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" /> </div>
                 <div class="class_text_end" style="display: flex;">
                     <p class="class_text_left">Chất lượng</p>
                     <input style="width:33%" type="text" id="8_txtChatLuong" maxlength="3" placeholder="8_txtChatLuong" />
                 </div>
+            </div>*@
+
+            <div class="class_full_div_input">
+                <div class="class_block_title"><label>Chất lượng:</label> </div>
+                <div class="class_block_title_control">
+                    <input type="text" placeholder="8_txtChatLuong" id="8_txtChatLuong" />
+                </div>
             </div>
 
             <div class="class_full_div_input">
+                <div class="class_block_title"><label>Đặc tính khác:</label> </div>
+                <div class="class_block_title_control">
+                    <input type="text" placeholder="8_txtDacTinhKhac" id="8_txtDacTinhKhac" />
+                </div>
+            </div>
+
+            @*<div class="class_full_div_input">
                 <div class="class_radio_head"><input type="radio" name="0_NhanHieu" value="DTKK" placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" /> </div>
-                <div class="class_text_end"  style="display: flex;">
+                <div class="class_text_end" style="display: flex;">
                     <p class="class_text_left">Đặc tính khác</p>
                     <input style="width:33%" type="text" id="8_txtDacTinhKhac" maxlength="3" placeholder="8_txtDacTinhKhac" />
+                </div>
+            </div>*@
+        </div>
+
+
+        @*CHỦ ĐƠN KHÁC*@
+
+        <div class="div_full_100_area">
+            <div class="class_full_div_p class_text_center_bold">CHỦ ĐƠN KHÁC</div>
+            <br />
+            <div class="class_full_div_input">
+                <div class="class_block_title"><label>Tên đầy đủ:</label> </div>
+                <div class="class_block_title_control">
+                    <input type="text" placeholder="9_txtTenDayDu" id="9_txtTenDayDu" />
+                </div>
+            </div>
+
+
+            <div class="class_full_div_input">
+                <div class="class_block_title"><label>Địa chỉ:</label> </div>
+                <div class="class_block_title_control">
+                    <input type="text" placeholder="9_txtDiaChi" id="9_txtDiaChi" />
+                </div>
+            </div>
+            <div class="class_full_div_input">
+                <div class="class_flex_30_first">
+                    <div class="class_block_title" style="width:89px"><label>Điện thoại:</label> </div>
+                    <div class="class_block_phone class_flex_grow">
+                        <input type="text" placeholder="9_txtDienThoai" maxlength="50" id="9_txtDienThoai" />
+                    </div>
+                </div>
+                <div class="class_flex_30">
+                    <div class="class_block_title"><label>Fax:</label> </div>
+                    <div class="class_block_fax class_flex_grow">
+                        <input type="text" placeholder="9_txtFax" maxlength="50" id="9_txtFax" />
+                    </div>
+                </div>
+                <div class="class_flex_40">
+                    <div class="class_block_title"><label>Email:</label></div>
+                    <div class="class_block_email class_flex_grow">
+                        <input type="text" placeholder="9_txtEmail" maxlength="50" id="9_txtEmail" />
+                    </div>
                 </div>
             </div>
         </div>
 
 
-      
 
+        @*CHỦ ĐƠN KHÁC 1*@
+
+        <div class="div_full_100_area">
+            <div class="class_full_div_input">
+                <div class="class_block_title"><label>Tên đầy đủ:</label> </div>
+                <div class="class_block_title_control">
+                    <input type="text" placeholder="10_txtTenDayDu" id="10_txtTenDayDu" />
+                </div>
+            </div>
+
+
+            <div class="class_full_div_input">
+                <div class="class_block_title"><label>Địa chỉ:</label> </div>
+                <div class="class_block_title_control">
+                    <input type="text" placeholder="10_txtDiaChi" id="10_txtDiaChi" />
+                </div>
+            </div>
+            <div class="class_full_div_input">
+                <div class="class_flex_30_first">
+                    <div class="class_block_title" style="width:89px"><label>Điện thoại:</label> </div>
+                    <div class="class_block_phone class_flex_grow">
+                        <input type="text" placeholder="10_txtDienThoai" maxlength="50" id="10_txtDienThoai" />
+                    </div>
+                </div>
+                <div class="class_flex_30">
+                    <div class="class_block_title"><label>Fax:</label> </div>
+                    <div class="class_block_fax class_flex_grow">
+                        <input type="text" placeholder="10_txtFax" maxlength="50" id="10_txtFax" />
+                    </div>
+                </div>
+                <div class="class_flex_40">
+                    <div class="class_block_title"><label>Email:</label></div>
+                    <div class="class_block_email class_flex_grow">
+                        <input type="text" placeholder="10_txtEmail" maxlength="50" id="10_txtEmail" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        @*CHỦ ĐƠN KHÁC 2*@
+
+        <div class="div_full_100_area">
+            <div class="class_full_div_input">
+                <div class="class_block_title"><label>Tên đầy đủ:</label> </div>
+                <div class="class_block_title_control">
+                    <input type="text" placeholder="11_txtTenDayDu" id="11_txtTenDayDu" />
+                </div>
+            </div>
+
+
+            <div class="class_full_div_input">
+                <div class="class_block_title"><label>Địa chỉ:</label> </div>
+                <div class="class_block_title_control">
+                    <input type="text" placeholder="11_txtDiaChi" id="11_txtDiaChi" />
+                </div>
+            </div>
+            <div class="class_full_div_input">
+                <div class="class_flex_30_first">
+                    <div class="class_block_title" style="width:89px"><label>Điện thoại:</label> </div>
+                    <div class="class_block_phone class_flex_grow">
+                        <input type="text" placeholder="11_txtDienThoai" maxlength="50" id="11_txtDienThoai" />
+                    </div>
+                </div>
+                <div class="class_flex_30">
+                    <div class="class_block_title"><label>Fax:</label> </div>
+                    <div class="class_block_fax class_flex_grow">
+                        <input type="text" placeholder="11_txtFax" maxlength="50" id="11_txtFax" />
+                    </div>
+                </div>
+                <div class="class_flex_40">
+                    <div class="class_block_title"><label>Email:</label></div>
+                    <div class="class_block_email class_flex_grow">
+                        <input type="text" placeholder="11_txtEmail" maxlength="50" id="11_txtEmail" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        @*CHỦ ĐƠN KHÁC 3*@
+
+        <div class="div_full_100_area">
+            <div class="class_full_div_input">
+                <div class="class_block_title"><label>Tên đầy đủ:</label> </div>
+                <div class="class_block_title_control">
+                    <input type="text" placeholder="12_txtTenDayDu" id="12_txtTenDayDu" />
+                </div>
+            </div>
+
+
+            <div class="class_full_div_input">
+                <div class="class_block_title"><label>Địa chỉ:</label> </div>
+                <div class="class_block_title_control">
+                    <input type="text" placeholder="12_txtDiaChi" id="12_txtDiaChi" />
+                </div>
+            </div>
+            <div class="class_full_div_input">
+                <div class="class_flex_30_first">
+                    <div class="class_block_title" style="width:89px"><label>Điện thoại:</label> </div>
+                    <div class="class_block_phone class_flex_grow">
+                        <input type="text" placeholder="12_txtDienThoai" maxlength="50" id="12_txtDienThoai" />
+                    </div>
+                </div>
+                <div class="class_flex_30">
+                    <div class="class_block_title"><label>Fax:</label> </div>
+                    <div class="class_block_fax class_flex_grow">
+                        <input type="text" placeholder="12_txtFax" maxlength="50" id="12_txtFax" />
+                    </div>
+                </div>
+                <div class="class_flex_40">
+                    <div class="class_block_title"><label>Email:</label></div>
+                    <div class="class_block_email class_flex_grow">
+                        <input type="text" placeholder="12_txtEmail" maxlength="50" id="12_txtEmail" />
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
         <div class="class_save">
@@ -878,7 +1074,19 @@
 
 
 <script>
+    $(document).ready(function () {
+        $.datetimepicker.setLocale('vi');
+        $('.datetimepicker').datetimepicker({
+            timepicker: false,
+            format: 'd/m/Y',
+            //formatTime: 'H:i',
+            formatDate: 'd/m/Y',
+            mask: '39/19/9999',
+            validateOnBlur: false,
+            scrollInput: false
+        });
 
+    });
     function ShowHidenUpLoad(pID, pClass) {
         try {
             if ($("#" + pID).is(':checked')) {

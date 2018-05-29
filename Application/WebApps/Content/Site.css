@@ -1504,7 +1504,7 @@ input[type="checkbox"] {
 
 .class_block_title {
     display: inline-block;
-    width: 90px;
+    min-width: 120px;
 }
 
 .class_block_title_control {
@@ -1643,4 +1643,8 @@ input[type="checkbox"] {
 
 .class_height_fee {
     height: 24px;
+}
+
+.class_padding_right_10 {
+    padding-right:10px ;
 }
