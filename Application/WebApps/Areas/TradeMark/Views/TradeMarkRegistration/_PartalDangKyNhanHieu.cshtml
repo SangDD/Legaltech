@@ -19,16 +19,12 @@
 
         <div class="div_full_100_area">
             <div class="class_left_50">
-                @*<div class="class_radio_head">
-                <input type="radio" name="0_DonDangKy" placeholder="0_DonDangKy" id="0_DonDangKy" />
-                </div>*@
                 <div class="class_text_end_radio" style="display: flex;">
                     <p class="class_text_left class_padding_right_10">Đơn này được tách ra từ đơn số</p>
                     <input style="width:33%" type="text" id="0_txtDonSo" maxlength="20" placeholder="0_txtDonSo" />
                 </div>
             </div>
             <div class="class_right_50">
-                @*<div class="class_radio_head"><input type="radio" name="0_DonDangKy" placeholder="0_DonDangKy" id="0_DonDangKy" /> </div>*@
                 <div class="class_text_end_radio" style="display: flex;">
                     <p class="class_text_left  class_padding_right_10">Ngày nộp đơn</p>
                     <input style="width:33%" class="datetimepicker" type="text" id="0_txtDonSo" maxlength="20" placeholder="0_txtDonSo" />
@@ -41,9 +37,17 @@
             <br />
 
             <div class="class_full_div_input">
-                <div class="class_block_title"><label>Mẫu nhãn hiệu:</label> </div>
-                <div class="class_block_title_control">
-                    <input type="text" placeholder="txtMauNhanHieu" maxlength="50" id="txtMauNhanHieu" />
+                <div class="class_block_title" style="padding-top:5px; "><label>Mẫu nhãn hiệu:</label> </div>
+                <div class="class_block_title_control" style="display:flex">
+                    <div style="width:100px ;height:100px ">
+                        <img id="imgMauNhanHieu" src="~/Content/icons/80x80.png" height="80px" width="80px">
+                    </div>
+                    <div class="container" style="flex-grow:1;padding-top:50px">
+                        <div class="file-upload btn btn-primary">
+                            <span>Tải file</span>
+                            <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -53,18 +57,28 @@
                     <p class="class_text_left">Nhãn hiệu tập thể</p>
                 </div>
             </div>
+
             <div class="class_full_div_input">
                 <div class="class_radio_head"><input type="radio" name="0_NhanHieu" value="NHLK" placeholder="0_NhanHieuLienKet" id="0_NhanHieuLienKet" /> </div>
                 <div class="class_text_end">
                     <p class="class_text_left">Nhãn hiệu liên kết</p>
                 </div>
             </div>
+
             <div class="class_full_div_input">
                 <div class="class_radio_head"><input type="radio" name="0_NhanHieu" value="NHCN" placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" /> </div>
                 <div class="class_text_end">
                     <p class="class_text_left">Nhãn hiệu chứng nhận</p>
                 </div>
             </div>
+
+            <div class="class_full_div_input">
+                <div class="class_radio_head"><input type="checkbox" name="0_ckbDacTinhHangHoa" value="DTHH" placeholder="0_ckbDacTinhHangHoa" id="0_ckbDacTinhHangHoa" /> </div>
+                <div class="class_text_end">
+                    <p class="class_text_left">Đặc tính hàng hóa</p>
+                </div>
+            </div>
+
 
             <div class="class_full_div_input">
                 <div class="class_block_title"><label>Mầu sắc:</label> </div>
@@ -84,46 +98,13 @@
         <div class="div_full_100_area">
             <div class="class_full_div_p class_text_center_bold">CHỦ ĐƠN</div>
             <br />
-            <div class="class_full_div_input">
-                <div class="class_block_title"><label>Tên đầy đủ:</label> </div>
-                <div class="class_block_title_control">
-                    <input type="text" placeholder="1_txtTenDayDu" maxlength="50" id="1_txtTenDayDu" />
-                </div>
-            </div>
-            <div class="class_full_div_input">
-                <div class="class_block_title"><label>Địa chỉ:</label></div>
-                <div class="class_block_title_control">
-                    <input type="text" placeholder="1_txtDiaChi" maxlength="200" id="1_txtDiaChi" />
-                </div>
-            </div>
-
-            <div class="class_full_div_input">
-                <div class="class_flex_30_first">
-                    <div class="class_block_title" style="width:89px"><label>Điện thoại:</label> </div>
-                    <div class="class_block_phone class_flex_grow">
-                        <input type="text" placeholder="1_txtDienThoai" maxlength="50" id="1_txtDienThoai" />
-                    </div>
-                </div>
-                <div class="class_flex_30">
-                    <div class="class_block_title"><label>Fax:</label> </div>
-                    <div class="class_block_fax class_flex_grow">
-                        <input type="text" placeholder="1_txtFax" maxlength="50" id="1_txtFax" />
-                    </div>
-                </div>
-                <div class="class_flex_40">
-                    <div class="class_block_title"><label>Email:</label></div>
-                    <div class="class_block_email class_flex_grow">
-                        <input type="text" placeholder="1_txtEmail" maxlength="50" id="1_txtEmail" />
-                    </div>
-                </div>
-            </div>
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
         </div>
         @* 2 *@
         <div class="div_full_100_area">
             <div class="class_full_div_p class_text_center_bold">ĐẠI DIỆN CỦA CHỦ ĐƠN</div>
             <br />
             <div class="class_full_div_input">
-
                 <div class="class_radio_head"><input type="radio" name="3_rdoDaiDienChuDon" value="NHTT" placeholder="3_txtNguoiDaiDienPL" id="3_txtNguoiDaiDienPL" /> </div>
                 <div class="class_text_end">
                     <p class="class_text_left">Là người đại diện theo pháp luật của chủ đơn</p>
@@ -141,40 +122,7 @@
                     <p class="class_text_left">Là người khác được uỷ quyền của chủ đơn</p>
                 </div>
             </div>
-
-            <div class="class_full_div_input">
-                <div class="class_block_title"><label>Tên đầy đủ:</label> </div>
-                <div class="class_block_title_control">
-                    <input type="text" placeholder="2_txtTenDayDu" maxlength="50" id="2_txtTenDayDu" />
-                </div>
-            </div>
-            <div class="class_full_div_input">
-                <div class="class_block_title"><label>Địa chỉ:</label></div>
-                <div class="class_block_title_control">
-                    <input type="text" placeholder="2_txtDiaChi" maxlength="200" id="2_txtDiaChi" />
-                </div>
-            </div>
-
-            <div class="class_full_div_input">
-                <div class="class_flex_30_first">
-                    <div class="class_block_title" style="width:89px"><label>Điện thoại:</label> </div>
-                    <div class="class_block_phone class_flex_grow">
-                        <input type="text" placeholder="2_txtDienThoai" maxlength="50" id="2_txtDienThoai" />
-                    </div>
-                </div>
-                <div class="class_flex_30">
-                    <div class="class_block_title"><label>Fax:</label> </div>
-                    <div class="class_block_fax class_flex_grow">
-                        <input type="text" placeholder="2_txtFax" maxlength="50" id="2_txtFax" />
-                    </div>
-                </div>
-                <div class="class_flex_40">
-                    <div class="class_block_title"><label>Email:</label></div>
-                    <div class="class_block_email class_flex_grow">
-                        <input type="text" placeholder="2_txtEmail" maxlength="50" id="2_txtEmail" />
-                    </div>
-                </div>
-            </div>
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "2")
         </div>
         @* 3 *@
         <div class="div_full_100_area">
@@ -223,841 +171,66 @@
             </div>
         </div>
 
-        @* 4 *@
-
-        <div class="div_full_100_area">
-            <div class="class_full_div_p class_text_center_bold">PHÍ, LỆ PHÍ</div>
-            <br />
-            <div class="div_full_100">
-                <div class="class_left_40">
-                    <p class="class_text_center_bold">Loại phí, lệ phí</p>
-
-                    <div class="class_full_div_input">
-                        <div class="class_radio_head class_height_fee"> 
-                        <input type="checkbox" name="5" value="5" id="7_rdoLyPhiYeuCau" placeholder="7_rdoLyPhiYeuCau" />
-                        
-                        </div>
-                        <div class="class_text_end class_height_fee"> <p class="class_text_left">Lệ phí nộp đơn </p> </div>
-                    </div>
-                    <div class="class_full_div_input">
-                        <div class="class_radio_head class_height_fee">
-                        <input type="checkbox" name="5" value="6" id="7_rdoPhiPhanLoaiQT" placeholder="7_rdoPhiPhanLoaiQT" />
-                        
-                        </div>
-                        <div class="class_text_end class_height_fee">
-                            <p class="class_text_left">Phí phân loại quốc tế về Nhãn hiệu</p>
-                        </div>
-                    </div>
-                    <div class="class_full_div_input">
-                        <div class="class_radio_head "> 
-                        <input type="checkbox" name="5" value="61" id="7_rdoMoiNhom6SP" placeholder="7_rdoMoiNhom6SP" />
-                        
-                        </div>
-                        <div class="class_text_end">
-                            <p class="class_text_left">Mỗi nhóm có trên 6 sản phẩm/dịch vụ (từ sản phẩm/dịch vụ thứ 7 trở đi)</p>
-                        </div>
-                    </div>
-
-
-                    <div class="class_full_div_input">
-                        <div class="class_radio_head  class_height_fee">
-                        <input type="checkbox" name="5" value="5" id="7_rdoLePhiYCHQUT" placeholder="7_rdoLePhiYCHQUT" />
-                        </div>
-                        <div class="class_text_end  class_height_fee"> <p class="class_text_left">Lệ phí  yêu cầu hưởng quyền ưu tiên </p> </div>
-                    </div>
-                    <div class="class_full_div_input">
-                        <div class="class_radio_head  class_height_fee"><input type="checkbox" name="5" value="6" id="7_rdoLyPhiCongBoDon" placeholder="7_rdoLyPhiCongBoDon" /></div>
-                        <div class="class_text_end  class_height_fee">
-                            <p class="class_text_left">Lệ phí công bố đơn</p>
-                        </div>
-                    </div>
-                    <div class="class_full_div_input">
-                        <div class="class_radio_head  class_height_fee"> <input type="checkbox" name="5" value="61" id="7_rdoPhiTraCuuPV" placeholder="7_rdoPhiTraCuuPV" /></div>
-                        <div class="class_text_end  ">
-                            <p class="class_text_left">
-                                Phí tra cứu phục vụ thẩm định nội dung cho mỗi nhóm hàng hoá, dịch vụ
-                            </p>
-                        </div>
-                    </div>
-
-
-                    <div class="class_full_div_input">
-                        <div class="class_radio_head  class_height_fee"> <input type="checkbox" name="5" value="5" id="7_2_rdo_MoiNhomTren6SP" placeholder="7_2_rdo_MoiNhomTren6SP" /></div>
-                        <div class="class_text_end"> <p class="class_text_left">Mỗi nhóm có trên 6 sản phẩm/dịch vụ (từ sản phẩm/dịch vụ thứ 7 trở đi)</p> </div>
-                    </div>
-                    <div class="class_full_div_input">
-                        <div class="class_radio_head  class_height_fee"><input type="checkbox" name="5" value="6" id="7_rdoPhiThamDinhDon" placeholder="7_rdoPhiThamDinhDon" /></div>
-                        <div class="class_text_end  class_height_fee">
-                            <p class="class_text_left">Phí thẩm định đơn</p>
-                        </div>
-                    </div>
-                    <div class="class_full_div_input">
-                        <div class="class_radio_head  class_height_fee"> <input type="checkbox" name="5" value="61" id="7_3_rdo_MoiNhomTren6SP" placeholder="7_3_rdo_MoiNhomTren6SP" /></div>
-                        <div class="class_text_end ">
-                            <p class="class_text_left">
-                                Mỗi nhóm có trên 6 sản phẩm/dịch vụ (từ sản phẩm/dịch vụ thứ 7 trở đi)
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="class_right_30 ">
-                    <p class="class_text_center_bold">Số đối tượng tính phí</p>
-                    <div class="class_full_div_input">
-                        <input type="text" placeholder="7Phi_txtLyPhiYeuCau" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiYCSD" />
-                    </div>
-                    <div class="class_full_div_input">
-                        <input type="text" placeholder="7Phi_txtPhiPhanLoaiQT" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiCBSD" />
-                    </div>
-                    <div class="class_full_div_input">
-                        <input type="text" placeholder="7Phi_txtMoiNhom6SP" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiCBD" />
-                    </div>
-
-                    <div class="class_full_div_input">
-                        <input type="text" placeholder="7Phi_txtLePhiYCHQUT" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiYCSD" />
-                    </div>
-                    <div class="class_full_div_input">
-                        <input type="text" placeholder="7Phi_txtLyPhiCongBoDon" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiCBSD" />
-                    </div>
-                    <div class="class_full_div_input">
-                        <input type="text" placeholder="7Phi_txtPhiTraCuuPV" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiCBD" />
-                    </div>
-
-                    <div class="class_full_div_input">
-                        <input type="text" placeholder="7Phi_2_txtMoiNhomTren6SP" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiYCSD" />
-                    </div>
-                    <div class="class_full_div_input">
-                        <input type="text" placeholder="7Phi_txtPhiThamDinhDon" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiCBSD" />
-                    </div>
-                    <div class="class_full_div_input">
-                        <input type="text" placeholder="7Phi_3_txtMoiNhomTren6SP" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtLePhiCBD" />
-                    </div>
-                </div>
-                <div class="class_right_30">
-                    <p class="class_text_center_bold">Số tiền</p>
-
-                    <div class="class_full_div_input">
-                        <input type="text" placeholder="7Tien_txtLyPhiYeuCau" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiYCSD" />
-                    </div>
-                    <div class="class_full_div_input">
-                        <input type="text" placeholder="7Tieni_txtPhiPhanLoaiQT" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiCBSD" />
-                    </div>
-                    <div class="class_full_div_input">
-                        <input type="text" placeholder="7Tien_txtMoiNhom6SP" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiCBD" />
-                    </div>
-
-                    <div class="class_full_div_input">
-                        <input type="text" placeholder="7Tien_txtLePhiYCHQUT" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiYCSD" />
-                    </div>
-                    <div class="class_full_div_input">
-                        <input type="text" placeholder="7Tien_txtLyPhiCongBoDon" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiCBSD" />
-                    </div>
-                    <div class="class_full_div_input">
-                        <input type="text" placeholder="7Tien_txtPhiTraCuuPV" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiCBD" />
-                    </div>
-                    <div class="class_full_div_input">
-                        <input type="text" placeholder="7Tien_2_txtMoiNhomTren6SP" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiYCSD" />
-                    </div>
-                    <div class="class_full_div_input">
-                        <input type="text" placeholder="7Tien_txtPhiThamDinhDon" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiCBSD" />
-                    </div>
-                    <div class="class_full_div_input">
-                        <input type="text" placeholder="7Tien_3_txtMoiNhomTren6SP" maxlength="12" onkeypress="return isNumberKey(event);" onblur=" return SumFee();" onkeyup="jsFormatNumber(this.value, this.id)" id="5_txtTienLePhiCBD" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        @* 6 *@
-
-
-        <div class="div_full_100_area">
-            <div class="class_full_div_p class_text_center_bold">CÁC TÀI LIỆU CÓ TRONG ĐƠN</div>
-            <br />
-
-            <div class="class_full_div_p class_text_left_bold">Tài liệu tối thiểu</div>
-            <br />
-            <div class="class_full_div_input">
-                <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="3B6_01" id="6_rdoToKhai" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-                <div class="class_text_end" style="display:flex">
-                    <label>Tờ khai, gồm </label>
-                    <input style="width:140px" type="text" id="6_txtToKhaiTrang" maxlength="50" placeholder="6_txtToKhaiTrang" />
-                    <label style="padding-left:5px">trang</label>
-                    <input style="width:80px" type="text" id="6_txtToKhaiTrang" maxlength="50" placeholder="6_txtToKhaiTrang" />
-                    <label style="padding-left:5px">bản (có danh mục và phân nhóm hàng hoá, dịch vụ mang nhãn hiệu)</label>
-                </div>
-            </div>
-            <div class="class_full_div_input 6_rdoToKhai" style="display:none">
-                <div class="class_radio_head"></div>
-                <div class="class_text_end" style="display:flex">
-                    <div class="container">
-                        <div class="file-upload btn btn-primary">
-                            <span>Tải file</span>
-                            <input type="file" name="pfile_6_rdoToKhai" id="pfile_6_rdoToKhai" class="upload fileuploadurl" />
-                        </div>
-                        <input type="text" id="txt_6_rdoToKhai" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
-                        <input type="button" id="btnUp_6_rdoToKhai" onclick="return funcPushFileToServer('6_rdoToKhai');" value="Tải file" style="width:60px" />
-                        <i class="fa fa-check" id="i_6_rdoToKhai" style="font-size:15px;color:green ;display:none"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="class_full_div_input ">
-                <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="3B6_01" id="6_rdoToKhai" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-                <div class="class_text_end" style="display:flex">
-                    <label>Mẫu nhãn hiệu, gồm </label>
-                    <input style="width:140px" type="text" id="6_txtToKhaiTrang" maxlength="50" placeholder="6_txtToKhaiTrang" />
-                    <label style="padding-left:5px">mẫu</label>
-                </div>
-            </div>
-
-
-            <div class="class_full_div_input 6_rdoToKhai" style="display:none">
-                <div class="class_radio_head"></div>
-                <div class="class_text_end" style="display:flex">
-                    <div class="container">
-                        <div class="file-upload btn btn-primary">
-                            <span>Tải file</span>
-                            <input type="file" name="pfile_6_rdoToKhai" id="pfile_6_rdoToKhai" class="upload fileuploadurl" />
-                        </div>
-                        <input type="text" id="txt_6_rdoToKhai" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
-                        <input type="button" id="btnUp_6_rdoToKhai" onclick="return funcPushFileToServer('6_rdoToKhai');" value="Tải file" style="width:60px" />
-                        <i class="fa fa-check" id="i_6_rdoToKhai" style="font-size:15px;color:green ;display:none"></i>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="class_full_div_input ">
-                <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="3B6_01" id="6_rdoToKhai" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-                <div class="class_text_end" style="display:flex">
-                    <label>Chứng từ phí, lệ phí</label>
-                </div>
-            </div>
-
-            <div class="class_full_div_input 6_rdoToKhai" style="display:none">
-                <div class="class_radio_head"></div>
-                <div class="class_text_end" style="display:flex">
-                    <div class="container">
-                        <div class="file-upload btn btn-primary">
-                            <span>Tải file</span>
-                            <input type="file" name="pfile_6_rdoToKhai" id="pfile_6_rdoToKhai" class="upload fileuploadurl" />
-                        </div>
-                        <input type="text" id="txt_6_rdoToKhai" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
-                        <input type="button" id="btnUp_6_rdoToKhai" onclick="return funcPushFileToServer('6_rdoToKhai');" value="Tải file" style="width:60px" />
-                        <i class="fa fa-check" id="i_6_rdoToKhai" style="font-size:15px;color:green ;display:none"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="class_full_div_p class_text_left_bold">Tài liệu tối thiểu</div>
-            <br />
-            <div class="class_full_div_input">
-                <div class="class_radio_head"><input type="checkbox" id="6_rdoGiayUyQuyen" value="3B6_04" onchange="return ShowHidenUpLoad(this.id, this.id);" /> </div>
-                <div class="class_text_end" style="display:flex">
-                    <label style="width:150px">Giấy uỷ quyền bằng tiếng</label>
-                    <input style="width:35%" type="text" id="6_txtGiayUQTiengViet" maxlength="50" placeholder="6_txtGiayUQTiengViet" />
-                </div>
-            </div>
-            <div class="class_full_div_input 6_rdoGiayUyQuyen" style="display:none">
-                <div class="class_radio_head"></div>
-                <div class="class_text_end" style="display:flex">
-                    <div class="container">
-                        <div class="file-upload btn btn-primary">
-                            <span>Tải file</span>
-                            <input type="file" name="pfile_6_rdoGiayUyQuyen" id="pfile_6_rdoGiayUyQuyen" class="upload fileuploadurl" />
-                        </div>
-                        <input type="text" id="txt_6_rdoGiayUyQuyen" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
-                        <input type="button" id="btnUp_6_rdoGiayUyQuyen" onclick="return funcPushFileToServer('6_rdoGiayUyQuyen');" value="Tải file" style="width:60px" />
-                        <i class="fa fa-check" id="i_6_rdoGiayUyQuyen" style="font-size:15px;color:green ;display:none"></i>
-                    </div>
-                </div>
-            </div>
-
-            @* noi dung con  *@
-
-
-            <div class="class_full_div_input 6_rdoBanDichTiengViet" style="display:none">
-                <div class="class_radio_head"></div>
-                <div class="class_text_end" style="display:flex">
-                    <div class="container">
-                        <div class="file-upload btn btn-primary">
-                            <span>Tải file</span>
-                            <input type="file" name="pfile_6_rdoBanDichTiengViet" id="pfile_6_rdoBanDichTiengViet" class="upload fileuploadurl" />
-                        </div>
-                        <input type="text" id="txt_6_rdoBanDichTiengViet" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
-                        <input type="button" id="btnUp_6_rdoBanDichTiengViet" onclick="return funcPushFileToServer('6_rdoBanDichTiengViet');" value="Tải file" style="width:60px" />
-                        <i class="fa fa-check" id="i_6_rdoBanDichTiengViet" style="font-size:15px;color:green ;display:none"></i>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="class_full_div_input" style="padding-left: 20px;">
-                <div class="class_radio_head"><input type="checkbox" id="6_rdoBanGoc" value="3B6_06" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-                <div class="class_text_end"><p class="class_text_left">bản gốc</p></div>
-            </div>
-
-            <div class="class_full_div_input 6_rdoBanGoc" style="display:none">
-                <div class="class_radio_head"></div>
-                <div class="class_text_end" style="display:flex">
-                    <div class="container">
-                        <div class="file-upload btn btn-primary">
-                            <span>Tải file</span>
-                            <input type="file" name="pfile_6_rdoBanGoc" id="pfile_6_rdoBanGoc" class="upload fileuploadurl" />
-                        </div>
-                        <input type="text" id="txt_6_rdoBanGoc" readonly class="classMaxfile" placeholder="Maximum file size is 2MB">
-                        <input type="button" id="btnUp_6_rdoBanGoc" onclick="return funcPushFileToServer('6_rdoBanGoc');" value="Tải file" style="width:60px" />
-                        <i class="fa fa-check" id="i_6_rdoBanGoc" style="font-size:15px;color:green ;display:none"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="class_full_div_input" style="padding-left: 20px;">
-                <div class="class_radio_head"><input type="checkbox" id="6_rdoBanSao" value="3B6_07" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-                <div class="class_text_end">
-                    <p class="class_text_left">bản sao (</p>
-                    <div class="class_full_div_input" style="padding-left: 20px;">
-                        <div class="class_radio_head"><input type="radio" name="bansao" value="3B6_08" id="6_rdoBanGocSeNopSau" /></div>
-                        <div class="class_text_end"><p class="class_text_left">bản gốc sẽ nộp sau</p></div>
-                    </div>
-
-                    <div class="class_full_div_input" style="padding-left: 20px;">
-                        <div class="class_radio_head"><input type="radio" name="bansao" value="3B6_09" id="6_rdoBanGocDaNopTheoDonSo" /></div>
-                        <div class="class_text_end" style="display:flex">
-                            <label style="width:170px">bản gốc đã nộp theo đơn số</label>
-                            <input style="width:33%" type="text" id="6_txtBangocDNTheoDonSo" maxlength="50" placeholder="6_txtBangocDNTheoDonSo" />
-                            <label style="width:10%;padding-left:5px">)</label>
-                        </div>
-                    </div>
-                    @* day file *@
-
-                </div>
-            </div>
-
-            <div class="class_full_div_input 6_rdoBanSao" style="display:none;padding-left: 20px;">
-                <div class="class_radio_head"></div>
-                <div class="class_text_end" style="display:flex">
-                    <div class="container">
-                        <div class="file-upload btn btn-primary">
-                            <span>Tải file</span>
-                            <input type="file" name="pfile_6_rdoBanSao" id="pfile_6_rdoBanSao" class="upload fileuploadurl" />
-                        </div>
-                        <input type="text" id="txt_6_rdoBanSao" readonly class="classMaxfile" placeholder="Maximum file size is 2MB">
-                        <input type="button" id="btnUp_6_rdoBanSao" onclick="return funcPushFileToServer('6_rdoBanSao');" value="Tải file" style="width:60px" />
-                        <i class="fa fa-check" id="i_6_rdoBanSao" style="font-size:15px;color:green ;display:none"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="class_full_div_input" style="padding-left: 20px;">
-                <div class="class_radio_head"><input type="checkbox" id="6_rdoBanDichTiengViet" value="3B6_05" onchange="return ShowHidenUpLoad(this.id, this.id);" /> </div>
-                <div class="class_text_end" style="display:flex">
-                    <label style="width:150px">bản dịch tiếng Việt, gồm</label>
-                    <input style="width:33%" type="text" id="6_txtBDTVGom" maxlength="3" placeholder="6_txtBDTVGom" />
-                    <label style="padding-left:5px">trang</label>
-                </div>
-            </div>
-
-
-
-            <div class="class_full_div_input ">
-                <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="3B6_01" id="6_rdoToKhai" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-                <div class="class_text_end" style="display:flex">
-                    <label>Tài liệu xác nhận được phép sử dụng các dấu hiệu đặc biệt (biểu tượng, cờ, huy hiệu, con dấu…), gồm</label>
-                    <input style="width:33%" type="text" id="6_txtBDTVGom" maxlength="3" placeholder="6_txtBDTVGom" />
-                    <label style="padding-left:5px">trang</label>
-                </div>
-
-
-            </div>
-            <div class="class_full_div_input 6_rdoToKhai" style="display:none">
-                <div class="class_radio_head"></div>
-                <div class="class_text_end" style="display:flex">
-                    <div class="container">
-                        <div class="file-upload btn btn-primary">
-                            <span>Tải file</span>
-                            <input type="file" name="pfile_6_rdoToKhai" id="pfile_6_rdoToKhai" class="upload fileuploadurl" />
-                        </div>
-                        <input type="text" id="txt_6_rdoToKhai" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
-                        <input type="button" id="btnUp_6_rdoToKhai" onclick="return funcPushFileToServer('6_rdoToKhai');" value="Tải file" style="width:60px" />
-                        <i class="fa fa-check" id="i_6_rdoToKhai" style="font-size:15px;color:green ;display:none"></i>
-                    </div>
-                </div>
-            </div>
-            @*Tài liệu xác nhận quyền đăng ký nhãn hiệu:*@
-
-
-            <div class="class_full_div_input ">
-                <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="3B6_01" id="6_rdoToKhai" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-                <div class="class_text_end" style="display:flex">
-                    <label>Tài liệu xác nhận quyền đăng ký nhãn hiệu</label>
-                </div>
-            </div>
-            <div class="class_full_div_input 6_rdoToKhai" style="display:none">
-                <div class="class_radio_head"></div>
-                <div class="class_text_end" style="display:flex">
-                    <div class="container">
-                        <div class="file-upload btn btn-primary">
-                            <span>Tải file</span>
-                            <input type="file" name="pfile_6_rdoToKhai" id="pfile_6_rdoToKhai" class="upload fileuploadurl" />
-                        </div>
-                        <input type="text" id="txt_6_rdoToKhai" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
-                        <input type="button" id="btnUp_6_rdoToKhai" onclick="return funcPushFileToServer('6_rdoToKhai');" value="Tải file" style="width:60px" />
-                        <i class="fa fa-check" id="i_6_rdoToKhai" style="font-size:15px;color:green ;display:none"></i>
-                    </div>
-                </div>
-            </div>
-
-            @* Tài liệu xác nhận thụ hưởng quyền đăng ký từ người khác *@
-
-
-            <div class="class_full_div_input ">
-                <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="3B6_01" id="6_rdoToKhai" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-                <div class="class_text_end" style="display:flex">
-                    <label>Tài liệu xác nhận thụ hưởng quyền đăng ký từ người khác</label>
-                </div>
-            </div>
-            <div class="class_full_div_input 6_rdoToKhai" style="display:none">
-                <div class="class_radio_head"></div>
-                <div class="class_text_end" style="display:flex">
-                    <div class="container">
-                        <div class="file-upload btn btn-primary">
-                            <span>Tải file</span>
-                            <input type="file" name="pfile_6_rdoToKhai" id="pfile_6_rdoToKhai" class="upload fileuploadurl" />
-                        </div>
-                        <input type="text" id="txt_6_rdoToKhai" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
-                        <input type="button" id="btnUp_6_rdoToKhai" onclick="return funcPushFileToServer('6_rdoToKhai');" value="Tải file" style="width:60px" />
-                        <i class="fa fa-check" id="i_6_rdoToKhai" style="font-size:15px;color:green ;display:none"></i>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-            <div class="class_full_div_input ">
-                <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="3B6_01" id="6_rdoToKhai" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-                <div class="class_text_end" style="display:flex">
-                    <label>Quy chế sử dụng NH tập thể/chứng nhận, gồm</label>
-                    <input style="width:33%" type="text" id="6_txtBDTVGom" maxlength="3" placeholder="6_txtBDTVGom" />
-                    <label style="padding-left:5px">trang</label>
-                    <input style="width:33%" type="text" id="6_txtBDTVGom" maxlength="3" placeholder="6_txtBDTVGom" />
-                    <label style="padding-left:5px">bản</label>
-                </div>
-            </div>
-            <div class="class_full_div_input 6_rdoToKhai" style="display:none">
-                <div class="class_radio_head"></div>
-                <div class="class_text_end" style="display:flex">
-                    <div class="container">
-                        <div class="file-upload btn btn-primary">
-                            <span>Tải file</span>
-                            <input type="file" name="pfile_6_rdoToKhai" id="pfile_6_rdoToKhai" class="upload fileuploadurl" />
-                        </div>
-                        <input type="text" id="txt_6_rdoToKhai" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
-                        <input type="button" id="btnUp_6_rdoToKhai" onclick="return funcPushFileToServer('6_rdoToKhai');" value="Tải file" style="width:60px" />
-                        <i class="fa fa-check" id="i_6_rdoToKhai" style="font-size:15px;color:green ;display:none"></i>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-            <div class="class_full_div_input ">
-                <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="3B6_01" id="6_rdoToKhai" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-                <div class="class_text_end" style="display:flex">
-                    <label>Tài liệu chứng minh quyền ưu tiên </label>
-                    <input style="width:33%" type="text" id="6_txtBDTVGom" maxlength="3" placeholder="6_txtBDTVGom" />
-                    <label style="padding-left:5px">bản</label>
-                </div>
-            </div>
-            <div class="class_full_div_input 6_rdoToKhai" style="display:none">
-                <div class="class_radio_head"></div>
-                <div class="class_text_end" style="display:flex">
-                    <div class="container">
-                        <div class="file-upload btn btn-primary">
-                            <span>Tải file</span>
-                            <input type="file" name="pfile_6_rdoToKhai" id="pfile_6_rdoToKhai" class="upload fileuploadurl" />
-                        </div>
-                        <input type="text" id="txt_6_rdoToKhai" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
-                        <input type="button" id="btnUp_6_rdoToKhai" onclick="return funcPushFileToServer('6_rdoToKhai');" value="Tải file" style="width:60px" />
-                        <i class="fa fa-check" id="i_6_rdoToKhai" style="font-size:15px;color:green ;display:none"></i>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="class_full_div_input" style="padding-left:20px">
-                <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="3B6_01" id="6_rdoToKhai" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-                <div class="class_text_end" style="display:flex">
-                    <label>Bản sao đơn đầu tiên, gồm</label>
-                    <input style="width:33%" type="text" id="6_txtBDTVGom" maxlength="3" placeholder="6_txtBDTVGom" />
-                    <label style="padding-left:5px">bản</label>
-                </div>
-            </div>
-            <div class="class_full_div_input 6_rdoToKhai" style="display:none">
-                <div class="class_radio_head"></div>
-                <div class="class_text_end" style="display:flex">
-                    <div class="container">
-                        <div class="file-upload btn btn-primary">
-                            <span>Tải file</span>
-                            <input type="file" name="pfile_6_rdoToKhai" id="pfile_6_rdoToKhai" class="upload fileuploadurl" />
-                        </div>
-                        <input type="text" id="txt_6_rdoToKhai" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
-                        <input type="button" id="btnUp_6_rdoToKhai" onclick="return funcPushFileToServer('6_rdoToKhai');" value="Tải file" style="width:60px" />
-                        <i class="fa fa-check" id="i_6_rdoToKhai" style="font-size:15px;color:green ;display:none"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="class_full_div_input" style="padding-left:20px">
-                <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="3B6_01" id="6_rdoToKhai" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-                <div class="class_text_end" style="display:flex">
-                    <label>Bản dịch tiếng Việt, gồm</label>
-                    <input style="width:33%" type="text" id="6_txtBDTVGom" maxlength="3" placeholder="6_txtBDTVGom" />
-                    <label style="padding-left:5px">bản</label>
-                </div>
-            </div>
-            <div class="class_full_div_input 6_rdoToKhai" style="display:none">
-                <div class="class_radio_head"></div>
-                <div class="class_text_end" style="display:flex">
-                    <div class="container">
-                        <div class="file-upload btn btn-primary">
-                            <span>Tải file</span>
-                            <input type="file" name="pfile_6_rdoToKhai" id="pfile_6_rdoToKhai" class="upload fileuploadurl" />
-                        </div>
-                        <input type="text" id="txt_6_rdoToKhai" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
-                        <input type="button" id="btnUp_6_rdoToKhai" onclick="return funcPushFileToServer('6_rdoToKhai');" value="Tải file" style="width:60px" />
-                        <i class="fa fa-check" id="i_6_rdoToKhai" style="font-size:15px;color:green ;display:none"></i>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="class_full_div_input" style="padding-left:20px">
-                <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="3B6_01" id="6_rdoToKhai" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-                <div class="class_text_end" style="display:flex">
-                    <label> Giấy chuyển nhượng quyền ưu tiên </label>
-                </div>
-            </div>
-            <div class="class_full_div_input 6_rdoToKhai" style="display:none">
-                <div class="class_radio_head"></div>
-                <div class="class_text_end" style="display:flex">
-                    <div class="container">
-                        <div class="file-upload btn btn-primary">
-                            <span>Tải file</span>
-                            <input type="file" name="pfile_6_rdoToKhai" id="pfile_6_rdoToKhai" class="upload fileuploadurl" />
-                        </div>
-                        <input type="text" id="txt_6_rdoToKhai" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
-                        <input type="button" id="btnUp_6_rdoToKhai" onclick="return funcPushFileToServer('6_rdoToKhai');" value="Tải file" style="width:60px" />
-                        <i class="fa fa-check" id="i_6_rdoToKhai" style="font-size:15px;color:green ;display:none"></i>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="class_full_div_input ">
-                <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="3B6_01" id="6_rdoToKhai" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-                <div class="class_text_end" style="display:flex">
-                    <label>Bản đồ khu vực địa lý</label>
-                </div>
-            </div>
-            <div class="class_full_div_input 6_rdoToKhai" style="display:none">
-                <div class="class_radio_head"></div>
-                <div class="class_text_end" style="display:flex">
-                    <div class="container">
-                        <div class="file-upload btn btn-primary">
-                            <span>Tải file</span>
-                            <input type="file" name="pfile_6_rdoToKhai" id="pfile_6_rdoToKhai" class="upload fileuploadurl" />
-                        </div>
-                        <input type="text" id="txt_6_rdoToKhai" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
-                        <input type="button" id="btnUp_6_rdoToKhai" onclick="return funcPushFileToServer('6_rdoToKhai');" value="Tải file" style="width:60px" />
-                        <i class="fa fa-check" id="i_6_rdoToKhai" style="font-size:15px;color:green ;display:none"></i>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="class_full_div_input ">
-                <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="3B6_01" id="6_rdoToKhai" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-                <div class="class_text_end" style="display:flex">
-                    <label>Văn bản của UBND tỉnh, thành phố trực thuộc Trung ương cho phép sử dụng địa danh hoặc dấu hiệu khác chỉ nguồn gốc địa lý của đặc sản địa phượng </label>
-                </div>
-            </div>
-            <div class="class_full_div_input 6_rdoToKhai" style="display:none">
-                <div class="class_radio_head"></div>
-                <div class="class_text_end" style="display:flex">
-                    <div class="container">
-                        <div class="file-upload btn btn-primary">
-                            <span>Tải file</span>
-                            <input type="file" name="pfile_6_rdoToKhai" id="pfile_6_rdoToKhai" class="upload fileuploadurl" />
-                        </div>
-                        <input type="text" id="txt_6_rdoToKhai" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
-                        <input type="button" id="btnUp_6_rdoToKhai" onclick="return funcPushFileToServer('6_rdoToKhai');" value="Tải file" style="width:60px" />
-                        <i class="fa fa-check" id="i_6_rdoToKhai" style="font-size:15px;color:green ;display:none"></i>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="class_full_div_input ">
-                <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="3B6_01" id="6_rdoToKhai" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-                <div class="class_text_end" style="display:flex">
-                    <label>Có tài liệu bổ trợ khai tại trang bổ sung</label>
-                </div>
-            </div>
-            <div class="class_full_div_input 6_rdoToKhai" style="display:none">
-                <div class="class_radio_head"></div>
-                <div class="class_text_end" style="display:flex">
-                    <div class="container">
-                        <div class="file-upload btn btn-primary">
-                            <span>Tải file</span>
-                            <input type="file" name="pfile_6_rdoToKhai" id="pfile_6_rdoToKhai" class="upload fileuploadurl" />
-                        </div>
-                        <input type="text" id="txt_6_rdoToKhai" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
-                        <input type="button" id="btnUp_6_rdoToKhai" onclick="return funcPushFileToServer('6_rdoToKhai');" value="Tải file" style="width:60px" />
-                        <i class="fa fa-check" id="i_6_rdoToKhai" style="font-size:15px;color:green ;display:none"></i>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        @* Tài liệu có trong đơn *@
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTLTrongDon.cshtml")
 
         @* End tai lieu dinh kem  *@
 
+        @* Class *@
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHClass.cshtml")
+        @* End Class *@
 
-        <div class="div_full_100_area">
-            <div class="class_full_div_p class_text_center_bold">DANH MỤC VÀ PHÂN NHÓM HÀNG HOÁ, DỊCH VỤ MANG NHÃN HIỆU </div>
-            <br />
-            <div class="class_full_div_input">
-                <div class="class_block_title"><label>Tên đầy đủ:</label> </div>
-                <div class="class_block_title_control">
-                    <select>
-                        <option>class 1</option>
-                        <option>class 2</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-
+        @* Le phi*@
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHPhiLePhi.cshtml")
 
         <div class="div_full_100_area">
             <div class="class_full_div_p class_text_center_bold">MÔ TẢ TÓM TẮT ĐẶC TÍNH CỦA HÀNG HOÁ/DỊCH VỤ ĐƯỢC CHỨNG NHẬN</div>
             <br />
-            @*<div class="class_full_div_input">
-                <div class="class_radio_head"><input type="radio" name="0_NhanHieu" value="NGDL" placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" /> </div>
-                <div class="class_text_end" style="display: flex;">
-                    <p class="class_text_left">Nguồn gốc địa lý</p>
-                    <input style="width:33%" type="text" id="8_txtNguonGocDiaLy" maxlength="3" placeholder="8_txtNguonGocDiaLy" />
-                </div>
-            </div>*@
-
-
             <div class="class_full_div_input">
-                <div class="class_block_title"><label>Nguồn gốc địa lý:</label> </div>
-                <div class="class_block_title_control">
-                    <input type="text" placeholder="8_txtNguonGocDaiLy" id="8_txtNguonGocDaiLy" />
-                </div>
-            </div>
-
-
-            @*<div class="class_full_div_input">
-                <div class="class_radio_head"><input type="radio" name="0_NhanHieu" value="CLCL" placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" /> </div>
+                <div class="class_radio_head"><input type="checkbox" class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" placeholder="8_ckbNguonGocDiaLy" id="8_ckbNguonGocDiaLy" /> </div>
                 <div class="class_text_end" style="display: flex;">
-                    <p class="class_text_left">Chất lượng</p>
-                    <input style="width:33%" type="text" id="8_txtChatLuong" maxlength="3" placeholder="8_txtChatLuong" />
-                </div>
-            </div>*@
-
-            <div class="class_full_div_input">
-                <div class="class_block_title"><label>Chất lượng:</label> </div>
-                <div class="class_block_title_control">
-                    <input type="text" placeholder="8_txtChatLuong" id="8_txtChatLuong" />
+                    <p class="class_text_left" style="width:100px ;">Nguồn gốc địa lý</p>
+                    <input style="width:33%" type="text" id="8_txtNguonGocDiaLy" class="classDacTinhHangHoa" disabled="disabled" maxlength="100" placeholder="8_txtNguonGocDiaLy" />
                 </div>
             </div>
 
             <div class="class_full_div_input">
-                <div class="class_block_title"><label>Đặc tính khác:</label> </div>
-                <div class="class_block_title_control">
-                    <input type="text" placeholder="8_txtDacTinhKhac" id="8_txtDacTinhKhac" />
+                <div class="class_radio_head"><input type="checkbox" name="8_ckbChatLuong" class="classDacTinhHangHoa" disabled="disabled" value="CLCL" placeholder="8_ckbChatLuong" id="8_ckbChatLuong" /> </div>
+                <div class="class_text_end" style="display: flex;">
+                    <p class="class_text_left" style="width:100px ;">Chất lượng</p>
+                    <input style="width:33%" type="text" id="8_txtChatLuong" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" placeholder="8_txtChatLuong" />
                 </div>
             </div>
 
-            @*<div class="class_full_div_input">
-                <div class="class_radio_head"><input type="radio" name="0_NhanHieu" value="DTKK" placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" /> </div>
+            <div class="class_full_div_input">
+                <div class="class_radio_head"><input type="checkbox" name="8_ckbDacTinhKhac" class="classDacTinhHangHoa" disabled="disabled" value="DTKK" placeholder="8_ckbDacTinhKhac" id="8_ckbDacTinhKhac" /> </div>
                 <div class="class_text_end" style="display: flex;">
-                    <p class="class_text_left">Đặc tính khác</p>
-                    <input style="width:33%" type="text" id="8_txtDacTinhKhac" maxlength="3" placeholder="8_txtDacTinhKhac" />
+                    <p class="class_text_left" style="width:100px ;">Đặc tính khác</p>
+                    <input style="width:33%" type="text" id="8_txtDacTinhKhac" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" placeholder="8_txtDacTinhKhac" />
                 </div>
-            </div>*@
+            </div>
         </div>
 
 
+        @*string txtTenDayDu = Model + "_txtTenDayDu";
+        string txtDiaChi = Model + "_txtDiaChi";
+        string txtDienThoai = Model + "_txtDienThoai";
+        string txtFax = Model + "_txtFax";
+        string txtEmail = Model + "_txtEmail";*@
         @*CHỦ ĐƠN KHÁC*@
-
         <div class="div_full_100_area">
             <div class="class_full_div_p class_text_center_bold">CHỦ ĐƠN KHÁC</div>
             <br />
-            <div class="class_full_div_input">
-                <div class="class_block_title"><label>Tên đầy đủ:</label> </div>
-                <div class="class_block_title_control">
-                    <input type="text" placeholder="9_txtTenDayDu" id="9_txtTenDayDu" />
-                </div>
-            </div>
-
-
-            <div class="class_full_div_input">
-                <div class="class_block_title"><label>Địa chỉ:</label> </div>
-                <div class="class_block_title_control">
-                    <input type="text" placeholder="9_txtDiaChi" id="9_txtDiaChi" />
-                </div>
-            </div>
-            <div class="class_full_div_input">
-                <div class="class_flex_30_first">
-                    <div class="class_block_title" style="width:89px"><label>Điện thoại:</label> </div>
-                    <div class="class_block_phone class_flex_grow">
-                        <input type="text" placeholder="9_txtDienThoai" maxlength="50" id="9_txtDienThoai" />
-                    </div>
-                </div>
-                <div class="class_flex_30">
-                    <div class="class_block_title"><label>Fax:</label> </div>
-                    <div class="class_block_fax class_flex_grow">
-                        <input type="text" placeholder="9_txtFax" maxlength="50" id="9_txtFax" />
-                    </div>
-                </div>
-                <div class="class_flex_40">
-                    <div class="class_block_title"><label>Email:</label></div>
-                    <div class="class_block_email class_flex_grow">
-                        <input type="text" placeholder="9_txtEmail" maxlength="50" id="9_txtEmail" />
-                    </div>
-                </div>
-            </div>
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
         </div>
-
-
-
         @*CHỦ ĐƠN KHÁC 1*@
+        @for (int i = 10; i < 13; i++)
+        {
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", i.ToString())
+        }
+        @*TÀI LIỆU KHÁC*@
 
-        <div class="div_full_100_area">
-            <div class="class_full_div_input">
-                <div class="class_block_title"><label>Tên đầy đủ:</label> </div>
-                <div class="class_block_title_control">
-                    <input type="text" placeholder="10_txtTenDayDu" id="10_txtTenDayDu" />
-                </div>
-            </div>
-
-
-            <div class="class_full_div_input">
-                <div class="class_block_title"><label>Địa chỉ:</label> </div>
-                <div class="class_block_title_control">
-                    <input type="text" placeholder="10_txtDiaChi" id="10_txtDiaChi" />
-                </div>
-            </div>
-            <div class="class_full_div_input">
-                <div class="class_flex_30_first">
-                    <div class="class_block_title" style="width:89px"><label>Điện thoại:</label> </div>
-                    <div class="class_block_phone class_flex_grow">
-                        <input type="text" placeholder="10_txtDienThoai" maxlength="50" id="10_txtDienThoai" />
-                    </div>
-                </div>
-                <div class="class_flex_30">
-                    <div class="class_block_title"><label>Fax:</label> </div>
-                    <div class="class_block_fax class_flex_grow">
-                        <input type="text" placeholder="10_txtFax" maxlength="50" id="10_txtFax" />
-                    </div>
-                </div>
-                <div class="class_flex_40">
-                    <div class="class_block_title"><label>Email:</label></div>
-                    <div class="class_block_email class_flex_grow">
-                        <input type="text" placeholder="10_txtEmail" maxlength="50" id="10_txtEmail" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-        @*CHỦ ĐƠN KHÁC 2*@
-
-        <div class="div_full_100_area">
-            <div class="class_full_div_input">
-                <div class="class_block_title"><label>Tên đầy đủ:</label> </div>
-                <div class="class_block_title_control">
-                    <input type="text" placeholder="11_txtTenDayDu" id="11_txtTenDayDu" />
-                </div>
-            </div>
-
-
-            <div class="class_full_div_input">
-                <div class="class_block_title"><label>Địa chỉ:</label> </div>
-                <div class="class_block_title_control">
-                    <input type="text" placeholder="11_txtDiaChi" id="11_txtDiaChi" />
-                </div>
-            </div>
-            <div class="class_full_div_input">
-                <div class="class_flex_30_first">
-                    <div class="class_block_title" style="width:89px"><label>Điện thoại:</label> </div>
-                    <div class="class_block_phone class_flex_grow">
-                        <input type="text" placeholder="11_txtDienThoai" maxlength="50" id="11_txtDienThoai" />
-                    </div>
-                </div>
-                <div class="class_flex_30">
-                    <div class="class_block_title"><label>Fax:</label> </div>
-                    <div class="class_block_fax class_flex_grow">
-                        <input type="text" placeholder="11_txtFax" maxlength="50" id="11_txtFax" />
-                    </div>
-                </div>
-                <div class="class_flex_40">
-                    <div class="class_block_title"><label>Email:</label></div>
-                    <div class="class_block_email class_flex_grow">
-                        <input type="text" placeholder="11_txtEmail" maxlength="50" id="11_txtEmail" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        @*CHỦ ĐƠN KHÁC 3*@
-
-        <div class="div_full_100_area">
-            <div class="class_full_div_input">
-                <div class="class_block_title"><label>Tên đầy đủ:</label> </div>
-                <div class="class_block_title_control">
-                    <input type="text" placeholder="12_txtTenDayDu" id="12_txtTenDayDu" />
-                </div>
-            </div>
-
-
-            <div class="class_full_div_input">
-                <div class="class_block_title"><label>Địa chỉ:</label> </div>
-                <div class="class_block_title_control">
-                    <input type="text" placeholder="12_txtDiaChi" id="12_txtDiaChi" />
-                </div>
-            </div>
-            <div class="class_full_div_input">
-                <div class="class_flex_30_first">
-                    <div class="class_block_title" style="width:89px"><label>Điện thoại:</label> </div>
-                    <div class="class_block_phone class_flex_grow">
-                        <input type="text" placeholder="12_txtDienThoai" maxlength="50" id="12_txtDienThoai" />
-                    </div>
-                </div>
-                <div class="class_flex_30">
-                    <div class="class_block_title"><label>Fax:</label> </div>
-                    <div class="class_block_fax class_flex_grow">
-                        <input type="text" placeholder="12_txtFax" maxlength="50" id="12_txtFax" />
-                    </div>
-                </div>
-                <div class="class_flex_40">
-                    <div class="class_block_title"><label>Email:</label></div>
-                    <div class="class_block_email class_flex_grow">
-                        <input type="text" placeholder="12_txtEmail" maxlength="50" id="12_txtEmail" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac.cshtml", "12")
 
         <div class="class_save">
             <div class="classGuiDon">
@@ -1074,6 +247,23 @@
 
 
 <script>
+
+    $("#0_ckbDacTinhHangHoa").change(function () {
+        if (this.checked) {
+            funcDacTinhHangHoa(true);
+        } else {
+            funcDacTinhHangHoa(false);
+        }
+    });
+
+    function funcDacTinhHangHoa(enable) {
+        if (enable == true) {
+            $(".classDacTinhHangHoa").removeAttr('disabled');
+        } else {
+            $(".classDacTinhHangHoa").attr('disabled', 'disabled');
+        }
+    }
+
     $(document).ready(function () {
         $.datetimepicker.setLocale('vi');
         $('.datetimepicker').datetimepicker({
