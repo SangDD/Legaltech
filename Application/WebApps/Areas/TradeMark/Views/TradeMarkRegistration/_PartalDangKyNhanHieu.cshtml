@@ -28,7 +28,7 @@
             <div class="class_right_50">
                 <div class="class_text_end_radio" style="display: flex;">
                     <p class="class_text_left  class_padding_right_10">Ngày nộp đơn</p>
-                    <input style="width:33%" class="datetimepicker" type="text" id="0_txtDonSo" maxlength="20" placeholder="0_txtDonSo" />
+                    <input style="width:33%" class="datetimepicker" type="text" id="0_txtNgayNopDon" maxlength="10" placeholder="0_txtNgayNopDon" />
                 </div>
             </div>
         </div>
@@ -79,9 +79,9 @@
                     <p class="class_text_left">Đặc tính hàng hóa</p>
                 </div>
             </div>
-
+            @* Tích chọn có sử dụng đơn ưu tiên thì Enable A14 *@
             <div class="class_full_div_input">
-                <div class="class_radio_head"><input type="checkbox" name="0_ckbCoSuDungDonUuTien" value="DTHH" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" /> </div>
+                <div class="class_radio_head"><input type="checkbox" name="0_ckbCoSuDungDonUuTien" value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" /> </div>
                 <div class="class_text_end">
                     <p class="class_text_left">Có sử dụng dơn ưu tiên</p>
                 </div>
@@ -131,24 +131,24 @@
             </div>
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "2")
         </div>
-        @* 3 *@
+        @* 3  A14*@
         <div class="div_full_100_area">
             <div class="class_full_div_p class_text_center_bold">YÊU CẦU HƯỞNG QUYỀN ƯU TIÊN</div>
             <br />
             <div class="class_full_div_input">
-                <div class="class_radio_head"><input type="radio" name="4_YCHuongQuyen" value="NHTT" placeholder="4_ckbNopTaiVietNam" id="4_ckbNopTaiVietNam" /> </div>
+                <div class="class_radio_head"><input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="NTVN" placeholder="4_ckbNopTaiVietNam" id="4_ckbNopTaiVietNam" /> </div>
                 <div class="class_text_end">
                     <p class="class_text_left">Theo đơn (các đơn) đầu tiên nộp tại Việt Nam</p>
                 </div>
             </div>
             <div class="class_full_div_input">
-                <div class="class_radio_head"><input type="radio" name="4_YCHuongQuyen" value="NHTT" placeholder="4_ckbNopTaiParis" id="4_ckbNopTaiParis" /> </div>
+                <div class="class_radio_head"><input type="radio" name="4_YCHuongQuyen"  class="classDacTinhUT"  value="CUPR" placeholder="4_ckbNopTaiParis" id="4_ckbNopTaiParis" /> </div>
                 <div class="class_text_end">
                     <p class="class_text_left">Theo đơn (các đơn) nộp theo Công ước Paris</p>
                 </div>
             </div>
             <div class="class_full_div_input">
-                <div class="class_radio_head"><input type="radio" name="4_YCHuongQuyen" value="NHTT" placeholder="4_ckbThoaThuanKhac" id="4_ckbThoaThuanKhac" /> </div>
+                <div class="class_radio_head"><input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT"  value="TTTK" placeholder="4_ckbThoaThuanKhac" id="4_ckbThoaThuanKhac" /> </div>
                 <div class="class_text_end">
                     <p class="class_text_left">Theo thoả thuận khác</p>
                 </div>
@@ -161,19 +161,19 @@
             <div class="class_full_div_input">
                 <div class="class_block_title"><label>Số đơn:</label> </div>
                 <div class="class_block_title_control">
-                    <input type="text" placeholder="6_txtSoDon" maxlength="50" id="6_txtSoDon" />
+                    <input type="text" placeholder="6_txtSoDon" class="classDacTinhUT"  maxlength="50" id="6_txtSoDon" />
                 </div>
             </div>
             <div class="class_full_div_input">
                 <div class="class_block_title"><label>Ngày nộp đơn:</label> </div>
                 <div class="class_block_title_control">
-                    <input type="text" placeholder="6_txtNgayNopDon" maxlength="50" id="6_txtNgayNopDon" />
+                    <input type="text" placeholder="6_txtNgayNopDon" class="classDacTinhUT"  maxlength="50" id="6_txtNgayNopDon" />
                 </div>
             </div>
             <div class="class_full_div_input">
                 <div class="class_block_title"><label>Nước nộp đơn:</label> </div>
                 <div class="class_block_title_control">
-                    <input type="text" placeholder="6_txtNuocNopDon" maxlength="50" id="6_txtNuocNopDon" />
+                    <input type="text" placeholder="6_txtNuocNopDon" class="classDacTinhUT"  maxlength="50" id="6_txtNuocNopDon" />
                 </div>
             </div>
         </div>
@@ -233,7 +233,7 @@
         @*CHỦ ĐƠN KHÁC 1*@
         @for (int i = 10; i < 13; i++)
         {
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", i.ToString())
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", i.ToString())
         }
         @*TÀI LIỆU KHÁC*@
 
@@ -256,13 +256,22 @@
 <script>
     $("#0_ckbDacTinhHangHoa").change(function ()
     {
-        if (this.checked) { funcDacTinhHangHoa(true); } else { funcDacTinhHangHoa(false); }
+        if (this.checked) { funcEnableDisable('classDacTinhHangHoa', true); } else { funcEnableDisable('classDacTinhHangHoa',false); }
     });
 
-    function funcDacTinhHangHoa(enable) {
-        if (enable == true) { $(".classDacTinhHangHoa").removeAttr('disabled'); } else { $(".classDacTinhHangHoa").attr('disabled', 'disabled'); }
+    function funcEnableDisable(classaction ,enable) {
+        if (enable == true) { $("." + classaction).removeAttr('disabled'); } else { $("." + classaction).attr('disabled', 'disabled'); }
     }
+
+    $("#0_ckbCoSuDungDonUuTien").change(function () {
+        if (this.checked) { funcEnableDisable('classDacTinhUT', true); } else { funcEnableDisable('classDacTinhUT', false); }
+    });
+
+    
+
     $(document).ready(function () {
+        funcEnableDisable('classDacTinhUT', false);
+
         $.datetimepicker.setLocale('vi');
         $('.datetimepicker').datetimepicker({
             timepicker: false,
@@ -303,7 +312,7 @@
             if (funcThongTinChuDonNguoiDaiDien(formData, "2") != true) {
                 return false;
             }
-            var v_RepMasterType = $("input[name='0_NhanHieu']:checked").val();
+            var v_RepMasterType = $("input[name='3_rdoDaiDienChuDon']:checked").val();
             if (v_RepMasterType === "" || v_RepMasterType == undefined) {
                 showError('Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!');
                 return false;
@@ -344,4 +353,19 @@
 
     });
 
+    function funcGetAppDetail(formData, PreID) {
+        try {
+            var v_soDon_0 = $("#0_txtDonSo").val(); 
+            var v_NgayNopDonn_0 = $("#0_txtNgayNopDon").val(); 
+
+            var v_NhanHieu = $("input[name='0_NhanHieu']:checked").val();
+            if (v_NhanHieu === "" || v_NhanHieu == undefined) {
+                showError('Phải chọn ít nhất 1 giá trị cho nhãn hiệu!');
+                return false;
+            }
+
+
+        } catch (e) {
+        }
+    }
 </script>
