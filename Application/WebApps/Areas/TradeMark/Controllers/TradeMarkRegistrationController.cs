@@ -106,6 +106,38 @@
         }
 
         [HttpPost]
+        [Route("dang_ky_nhan_hieu")]
+        public ActionResult AppDonDangKyInsert(ApplicationHeaderInfo pInfo, List<AppFeeFixInfo> pFeeFixInfo, AppDetail01Info pDetailInfo, List<AppDocumentInfo> pAppDocumentInfo)
+        {
+            try
+            {
+                Application_Header_BL objBL = new Application_Header_BL();
+                AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
+                AppDetail01BL objDetail01BL = new AppDetail01BL();
+                AppDocumentBL objDoc = new AppDocumentBL();
+                if (pInfo == null || pDetailInfo == null) return Json(new { status = ErrorCode.Error });
+                string language = AppsCommon.GetCurrentLang();
+                var CreatedBy = SessionData.CurrentUser.Username;
+                var CreatedDate = SessionData.CurrentUser.CurrentDate;
+                int pReturn = ErrorCode.Success;
+                int pAppHeaderID = 0;
+                //
+                pInfo.Languague_Code = language;
+                pInfo.Created_By = CreatedBy;
+                pInfo.Created_Date = CreatedDate;
+                //TRA RA ID CUA BANG KHI INSERT
+                pAppHeaderID = objBL.AppHeaderInsert(pInfo);
+                return Json(new { status = pAppHeaderID });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+
+                return Json(new { status = ErrorCode.Error });
+            }
+        }
+
+        [HttpPost]
         [Route("them_moi_don_dang_ky_sua_doi")]
         public ActionResult AppSuaDoiDonDangKyInsert(ApplicationHeaderInfo pInfo, List<AppFeeFixInfo> pFeeFixInfo, AppDetail01Info pDetailInfo ,List<AppDocumentInfo> pAppDocumentInfo)
         {
