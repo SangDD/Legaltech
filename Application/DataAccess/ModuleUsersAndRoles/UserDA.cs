@@ -138,8 +138,26 @@
                     new OracleParameter("p_Sex", OracleDbType.Varchar2, userAdd.Sex, ParameterDirection.Input),
                     new OracleParameter("p_Email", OracleDbType.Varchar2, userAdd.Email, ParameterDirection.Input),
                     new OracleParameter("p_Phone", OracleDbType.Varchar2, userAdd.Phone, ParameterDirection.Input),
+                    new OracleParameter("p_fax", OracleDbType.Varchar2, userAdd.Fax, ParameterDirection.Input),
                     new OracleParameter("p_Status", OracleDbType.Int32, userAdd.Status, ParameterDirection.Input),
                     new OracleParameter("p_type", OracleDbType.Int32, userAdd.Type, ParameterDirection.Input),
+
+                    //
+                    new OracleParameter("p_country", OracleDbType.Varchar2, userAdd.Fax, ParameterDirection.Input),
+                    new OracleParameter("p_company_name", OracleDbType.NVarchar2, userAdd.Company_Name, ParameterDirection.Input),
+                    new OracleParameter("p_main_business", OracleDbType.Varchar2, userAdd.Main_Business, ParameterDirection.Input),
+                    new OracleParameter("p_title", OracleDbType.Varchar2, userAdd.Title, ParameterDirection.Input),
+                    new OracleParameter("p_copyto", OracleDbType.Varchar2, userAdd.Copyto, ParameterDirection.Input),
+                    new OracleParameter("p_face_link", OracleDbType.Varchar2, userAdd.Face_Link, ParameterDirection.Input),
+                    new OracleParameter("p_linkedin_link", OracleDbType.Varchar2, userAdd.Linkedin_Link, ParameterDirection.Input),
+                    new OracleParameter("p_wechat_link", OracleDbType.Varchar2, userAdd.Wechat_Link, ParameterDirection.Input),
+                    new OracleParameter("p_other_link", OracleDbType.Varchar2, userAdd.Other_Link, ParameterDirection.Input),
+
+                    new OracleParameter("p_reason_select", OracleDbType.Decimal, userAdd.Reason_Select, ParameterDirection.Input),
+                    new OracleParameter("p_request_credit", OracleDbType.Decimal, userAdd.Request_Credit, ParameterDirection.Input),
+                    new OracleParameter("p_other_type", OracleDbType.Decimal, userAdd.Other_Type, ParameterDirection.Input),
+                    new OracleParameter("p_hourly_rate", OracleDbType.Decimal, userAdd.Hourly_Rate, ParameterDirection.Input),
+
                     new OracleParameter("p_GroupId", OracleDbType.Varchar2, GroupId, ParameterDirection.Input),
                     new OracleParameter("p_createdby", OracleDbType.Varchar2, userAdd.CreatedBy, ParameterDirection.Input),
                     paramReturn);
@@ -166,8 +184,26 @@
                     new OracleParameter("p_Sex", OracleDbType.Varchar2, userEdit.Sex, ParameterDirection.Input),
                     new OracleParameter("p_Email", OracleDbType.Varchar2, userEdit.Email, ParameterDirection.Input),
                     new OracleParameter("p_Phone", OracleDbType.Varchar2, userEdit.Phone, ParameterDirection.Input),
+                    new OracleParameter("p_fax", OracleDbType.Varchar2, userEdit.Fax, ParameterDirection.Input),
                     new OracleParameter("p_Status", OracleDbType.Int32, userEdit.Status, ParameterDirection.Input),
                     new OracleParameter("p_type", OracleDbType.Int32, userEdit.Type, ParameterDirection.Input),
+
+                    //
+                    new OracleParameter("p_country", OracleDbType.Varchar2, userEdit.Fax, ParameterDirection.Input),
+                    new OracleParameter("p_company_name", OracleDbType.NVarchar2, userEdit.Company_Name, ParameterDirection.Input),
+                    new OracleParameter("p_main_business", OracleDbType.Varchar2, userEdit.Main_Business, ParameterDirection.Input),
+                    new OracleParameter("p_title", OracleDbType.Varchar2, userEdit.Title, ParameterDirection.Input),
+                    new OracleParameter("p_copyto", OracleDbType.Varchar2, userEdit.Copyto, ParameterDirection.Input),
+                    new OracleParameter("p_face_link", OracleDbType.Varchar2, userEdit.Face_Link, ParameterDirection.Input),
+                    new OracleParameter("p_linkedin_link", OracleDbType.Varchar2, userEdit.Linkedin_Link, ParameterDirection.Input),
+                    new OracleParameter("p_wechat_link", OracleDbType.Varchar2, userEdit.Wechat_Link, ParameterDirection.Input),
+                    new OracleParameter("p_other_link", OracleDbType.Varchar2, userEdit.Other_Link, ParameterDirection.Input),
+
+                    new OracleParameter("p_reason_select", OracleDbType.Decimal, userEdit.Reason_Select, ParameterDirection.Input),
+                    new OracleParameter("p_request_credit", OracleDbType.Decimal, userEdit.Request_Credit, ParameterDirection.Input),
+                    new OracleParameter("p_other_type", OracleDbType.Decimal, userEdit.Other_Type, ParameterDirection.Input),
+                    new OracleParameter("p_hourly_rate", OracleDbType.Decimal, userEdit.Hourly_Rate, ParameterDirection.Input),
+
                     new OracleParameter("p_GroupId", OracleDbType.Varchar2, GroupId, ParameterDirection.Input),
                     new OracleParameter("p_modifiedBy", OracleDbType.Varchar2, userEdit.ModifiedBy, ParameterDirection.Input),
                     paramReturn);
