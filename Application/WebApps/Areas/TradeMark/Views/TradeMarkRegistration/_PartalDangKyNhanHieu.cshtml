@@ -1,4 +1,4 @@
-﻿@using WebApps.CommonFunction 
+﻿@using WebApps.CommonFunction
 @{
     ViewBag.Title = "Đăng ký nhãn hiệu";
     Layout = "~/ViewsShared/_Layout.cshtml";
@@ -9,8 +9,6 @@
         <li><a href="javascript:;"> Request for amendment of application)</a></li>
     </ul>
 </div>
-
-<div class="d-popup-container" id="pop-sua-doi_dk"></div>
 
 <input type="hidden" id="txtAppCode" value='@ViewBag.AppCode' />
 
@@ -37,14 +35,15 @@
             <div class="class_full_div_p class_text_center_bold">NHÃN HIỆU</div>
             <br />
 
+
             <div class="class_full_div_input">
                 <div class="class_block_title" style="padding-top:5px; "><label>Mẫu nhãn hiệu:</label> </div>
                 <div class="class_block_title_control" style="display:flex">
-                    <div style="width:100px ;height:100px ">
-                        <img id="imgMauNhanHieu" src="~/Content/icons/80x80.png" height="80px" width="80px">
+                    <div style="width:180px ;height:180px" id="divLogo">
+                        <img id="imgMauNhanHieu" src="~/Content/icons/logo.jpg" style="width:160px ;height:160px">
                     </div>
                     <div class="container" style="flex-grow:1;padding-top:50px">
-                        <div class="file-upload btn btn-primary">
+                        <div class="file-upload btn btn-primary" style="margin-top:86px">
                             <span>Tải file</span>
                             <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
                         </div>
@@ -136,19 +135,19 @@
             <div class="class_full_div_p class_text_center_bold">YÊU CẦU HƯỞNG QUYỀN ƯU TIÊN</div>
             <br />
             <div class="class_full_div_input">
-                <div class="class_radio_head"><input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="NTVN" placeholder="4_ckbNopTaiVietNam" id="4_ckbNopTaiVietNam" /> </div>
+                <div class="class_radio_head"><input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="1" placeholder="4_ckbNopTaiVietNam" id="4_ckbNopTaiVietNam" /> </div>
                 <div class="class_text_end">
                     <p class="class_text_left">Theo đơn (các đơn) đầu tiên nộp tại Việt Nam</p>
                 </div>
             </div>
             <div class="class_full_div_input">
-                <div class="class_radio_head"><input type="radio" name="4_YCHuongQuyen"  class="classDacTinhUT"  value="CUPR" placeholder="4_ckbNopTaiParis" id="4_ckbNopTaiParis" /> </div>
+                <div class="class_radio_head"><input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="2" placeholder="4_ckbNopTaiParis" id="4_ckbNopTaiParis" /> </div>
                 <div class="class_text_end">
                     <p class="class_text_left">Theo đơn (các đơn) nộp theo Công ước Paris</p>
                 </div>
             </div>
             <div class="class_full_div_input">
-                <div class="class_radio_head"><input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT"  value="TTTK" placeholder="4_ckbThoaThuanKhac" id="4_ckbThoaThuanKhac" /> </div>
+                <div class="class_radio_head"><input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="3" placeholder="4_ckbThoaThuanKhac" id="4_ckbThoaThuanKhac" /> </div>
                 <div class="class_text_end">
                     <p class="class_text_left">Theo thoả thuận khác</p>
                 </div>
@@ -161,19 +160,19 @@
             <div class="class_full_div_input">
                 <div class="class_block_title"><label>Số đơn:</label> </div>
                 <div class="class_block_title_control">
-                    <input type="text" placeholder="6_txtSoDon" class="classDacTinhUT"  maxlength="50" id="6_txtSoDon" />
+                    <input type="text" placeholder="6_txtSoDon" class="classDacTinhUT" maxlength="50" id="6_txtSoDon" />
                 </div>
             </div>
             <div class="class_full_div_input">
                 <div class="class_block_title"><label>Ngày nộp đơn:</label> </div>
                 <div class="class_block_title_control">
-                    <input type="text" placeholder="6_txtNgayNopDon" class="classDacTinhUT"  maxlength="50" id="6_txtNgayNopDon" />
+                    <input type="text" placeholder="6_txtNgayNopDon" class="classDacTinhUT datetimepicker" style="width:200px" maxlength="10" id="6_txtNgayNopDon" />
                 </div>
             </div>
             <div class="class_full_div_input">
                 <div class="class_block_title"><label>Nước nộp đơn:</label> </div>
                 <div class="class_block_title_control">
-                    <input type="text" placeholder="6_txtNuocNopDon" class="classDacTinhUT"  maxlength="50" id="6_txtNuocNopDon" />
+                    <input type="text" placeholder="6_txtNuocNopDon" class="classDacTinhUT" maxlength="50" id="6_txtNuocNopDon" />
                 </div>
             </div>
         </div>
@@ -216,15 +215,7 @@
                     <input style="width:33%" type="text" id="8_txtDacTinhKhac" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" placeholder="8_txtDacTinhKhac" />
                 </div>
             </div>
-        </div>
-
-
-        @*string txtTenDayDu = Model + "_txtTenDayDu";
-        string txtDiaChi = Model + "_txtDiaChi";
-        string txtDienThoai = Model + "_txtDienThoai";
-        string txtFax = Model + "_txtFax";
-        string txtEmail = Model + "_txtEmail";*@
-        @*CHỦ ĐƠN KHÁC*@
+        </div> 
         <div class="div_full_100_area">
             <div class="class_full_div_p class_text_center_bold">CHỦ ĐƠN KHÁC</div>
             <br />
@@ -246,20 +237,16 @@
                 <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn" />
             </div>
         </div>
-        <div class="classLuuTam">
-            <a href="javascript:;" id="hrfExportData">Kết xuất</a>
-        </div>
     </fieldset>
 </div>
 
 
 <script>
-    $("#0_ckbDacTinhHangHoa").change(function ()
-    {
-        if (this.checked) { funcEnableDisable('classDacTinhHangHoa', true); } else { funcEnableDisable('classDacTinhHangHoa',false); }
+    $("#0_ckbDacTinhHangHoa").change(function () {
+        if (this.checked) { funcEnableDisable('classDacTinhHangHoa', true); } else { funcEnableDisable('classDacTinhHangHoa', false); }
     });
 
-    function funcEnableDisable(classaction ,enable) {
+    function funcEnableDisable(classaction, enable) {
         if (enable == true) { $("." + classaction).removeAttr('disabled'); } else { $("." + classaction).attr('disabled', 'disabled'); }
     }
 
@@ -267,7 +254,20 @@
         if (this.checked) { funcEnableDisable('classDacTinhUT', true); } else { funcEnableDisable('classDacTinhUT', false); }
     });
 
-    
+    document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {
+        filePreview(this,'imgMauNhanHieu');
+    };
+
+
+    function funcUpLoadMauNhanHieu(pFile) {
+        try {
+            var file = document.getElementsByName(pFile);
+            if (file != undefined) {
+                formdata.append("pInfo.pfiles", file[0].files[0]);
+            }
+        } catch (e) {
+        }
+    }
 
     $(document).ready(function () {
         funcEnableDisable('classDacTinhUT', false);
@@ -297,7 +297,7 @@
     $("#btnGuiDon").click(function () {
 
         try {
-            //Thông tin chủ đơn 
+            //Thông tin chủ đơn
             var formData = new FormData();
             if (funcThongTinChuDonNguoiDaiDien(formData, "1") != true) {
                 return false;
@@ -308,6 +308,7 @@
                 showError('Chưa chọn loại đơn đăng ký!');
                 return false;
             }
+
             formData.append("pInfo.Appcode", v_AppCode);
             if (funcThongTinChuDonNguoiDaiDien(formData, "2") != true) {
                 return false;
@@ -319,7 +320,12 @@
             }
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
 
+            //Lấy thông tin detail
 
+            var reponse = funcGetAppDetail(formData);
+            if (reponse == false) {
+                return false;
+            }
 
             $.ajax({
                 url: '/trade-mark/dang_ky_nhan_hieu',
@@ -353,19 +359,137 @@
 
     });
 
-    function funcGetAppDetail(formData, PreID) {
+    function funcGetAppDetail(formdata) {
         try {
-            var v_soDon_0 = $("#0_txtDonSo").val(); 
-            var v_NgayNopDonn_0 = $("#0_txtNgayNopDon").val(); 
-
+            var v_soDon_0 = $("#0_txtDonSo").val();
+            if (v_soDon_0 === "" || v_soDon_0 == undefined) {
+                showError('Số đơn không được để trống');
+                $("#0_txtDonSo").focus();
+                return false;
+            }
+            formdata.append("pDetail.Appno", v_soDon_0);
+            var v_NgayNopDonn_0 = $("#0_txtNgayNopDon").val();
+            if (v_NgayNopDonn_0 === "" || v_NgayNopDonn_0 == undefined) {
+                showError('Phải chọn ít nhất 1 giá trị cho nhãn hiệu!');
+                $("#0_txtNgayNopDon").focus();
+                return false;
+            }
+            formdata.append("pDetail.Duadate", v_NgayNopDonn_0);
             var v_NhanHieu = $("input[name='0_NhanHieu']:checked").val();
             if (v_NhanHieu === "" || v_NhanHieu == undefined) {
                 showError('Phải chọn ít nhất 1 giá trị cho nhãn hiệu!');
                 return false;
             }
 
+            var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
+            if (fileLogo != undefined || fileLogo != null) {
+                formdata.append("pDetail.pfileLogo", fileLogo[0].files[0]);
+            } else {
+                showError('Mẫu nhãn hiệu không được để trống');
+                $("#pfile_6_rdoMauNhanHieu").focus();
+            }
+
+            var v_DacTinh = 0;
+            if ($("#0_ckbDacTinhHangHoa").prop('checked') == true) {
+                v_DacTinh = 1;
+            }
+            formdata.append("pDetail.Dactichhanghoa", v_DacTinh);
+
+
+            var v_CoSDQuyenUT = 0;
+            if ($("#0_ckbCoSuDungDonUuTien").prop('checked') == true) {
+                v_CoSDQuyenUT = 1;
+            }
+            formdata.append("pDetail.Used_Special", v_CoSDQuyenUT);
+
+            var v_QuyenUuTien = 0;
+            if (v_CoSDQuyenUT == 1) {
+                v_QuyenUuTien = $("input[name='4_YCHuongQuyen']:checked").val();
+                if (v_QuyenUuTien == undefined || v_QuyenUuTien == null || v_QuyenUuTien == 0) {
+                    showError('Yêu cầu hưởng quyền ưu tiên phải chọn ít nhất 1 giá trị');
+                    return false;
+                }
+
+                var v_Sodon_Ut = $("#6_txtSoDon").val();
+                if (v_Sodon_Ut === "" || v_Sodon_Ut == undefined) {
+                    showError('Số đơn ưu tiên không được để trống');
+                    $("#6_txtSoDon").focus();
+                    return false;
+                }
+                formdata.append("pDetail.Sodon_Ut", v_Sodon_Ut);
+
+                var v_Ngaynopdon_Ut = $("#6_txtNgayNopDon").val();
+                if (v_Ngaynopdon_Ut === "" || v_Ngaynopdon_Ut == undefined) {
+                    showError('Ngày nộp đơn ưu tiên không được để trống');
+                    $("#6_txtNgayNopDon").focus();
+                    return false;
+                }
+                formdata.append("pDetail.Ngaynopdon_Ut", v_Ngaynopdon_Ut);
+
+
+                var v_Nuocnopdon_Ut = $("#6_txtNuocNopDon").val();
+                if (v_Nuocnopdon_Ut === "" || v_Nuocnopdon_Ut == undefined) {
+                    showError('Nước nộp đơn ưu tiên không được để trống');
+                    $("#6_txtNuocNopDon").focus();
+                    return false;
+                }
+                formdata.append("pDetail.Nuocnopdon_Ut", v_Nuocnopdon_Ut);
+            }
+
+            formdata.append("pDetail.Huongquyenuutien", v_QuyenUuTien);
+
+            var v_MauSac_0 = $("#0_MauSac").val();
+            formdata.append("pDetail.Color", v_MauSac_0);
+
+            var v_MoTa_0 = $("#0_MoTa").val();
+            formdata.append("pDetail.Description", v_MoTa_0);
+
+            //Lay thong tin Chu don khac 1
+            var reponse = funcThongTinChuDonNguoiDaiDien(formdata, "9");
+            if (reponse == false) {
+                return false;
+            }
+            //Lấy thông tin chu don khac 2,,3,4
+            reponse = funcThongTinChuDonKhac(formdata, "10");
+            if (reponse == false) {
+                return false;
+            }
+            reponse = funcThongTinChuDonKhac(formdata, "11");
+            if (reponse == false) {
+                return false;
+            }
+            reponse = funcThongTinChuDonKhac(formdata, "12");
+            if (reponse == false) {
+                return false;
+            }
+
+            var v_NguonGocDL = $("#8_txtNguonGocDiaLy").val();
+            if (v_NguonGocDL === "" || v_NguonGocDL == undefined) {
+                showError('Nguồn gốc địa lý không được để trống');
+                $("#8_txtNguonGocDiaLy").focus();
+                return false;
+            }
+            formdata.append("pDetail.Nguongocdialy", v_NguonGocDL);
+
+            var v_ChatLuong = $("#8_txtChatLuong").val();
+            if (v_ChatLuong === "" || v_ChatLuong == undefined) {
+                showError('Chất lượng không được để trống');
+                $("#8_txtChatLuong").focus();
+                return false;
+            }
+            formdata.append("pDetail.Chatluong", v_ChatLuong);
+
+            var v_Dactinhkhac = $("#8_txtDacTinhKhac").val();
+            if (v_Dactinhkhac === "" || v_Dactinhkhac == undefined) {
+                showError('Đặc tính khác không được để trống');
+                $("#8_txtDacTinhKhac").focus();
+                return false;
+            }
+            formdata.append("pDetail.Dactinhkhac", v_Dactinhkhac);
 
         } catch (e) {
+            showError('Có lỗi xảy ra kiểm tra kết nối internet');
+            return false;
         }
     }
 </script>

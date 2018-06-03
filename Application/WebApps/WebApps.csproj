@@ -176,6 +176,7 @@
     <Compile Include="Areas\TradeMark\Controllers\ApplicationController.cs" />
     <Compile Include="Areas\TradeMark\Controllers\TradeMarkRegistrationController.cs" />
     <Compile Include="Areas\TradeMark\TradeMarkAreaRegistration.cs" />
+    <Compile Include="CommonFunction\AppLoadHelpers.cs" />
     <Compile Include="CommonFunction\AppsCommon.cs" />
     <Compile Include="ExtensionObject\ControllerExtension.cs" />
     <Compile Include="ExtensionObject\HtmlHelperExtension.cs" />
@@ -200,6 +201,7 @@
     <Compile Include="Session\SessionData.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Archive\NoteArchive.txt" />
     <Content Include="Content\CssFormPoup\StyleFormPopup.css" />
     <Content Include="Content\CSSWaitingIcon\cube.css" />
     <Content Include="Content\CSSWaitingIcon\default.css" />
@@ -227,6 +229,7 @@
     <Content Include="Content\icons\info-icon-90.png" />
     <Content Include="Content\icons\info-icon.png" />
     <Content Include="Content\icons\line.png" />
+    <Content Include="Content\icons\logo.jpg" />
     <Content Include="Content\icons\question-icon-90.png" />
     <Content Include="Content\icons\pdf.png" />
     <Content Include="Content\icons\searchoff.png" />
@@ -333,6 +336,9 @@
     <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\_Partial04NHChuDonKhac.cshtml" />
     <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\_Partial04NHChuDonKhacTop.cshtml" />
     <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\_Partial04NHTaiLieuKhac.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\_PartialViewPOA.cshtml" />
+    <Content Include="Content\POA\VNmese translation POA %28Blank%29.doc" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\_PartialTaiLieuTrongDon.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\AlertPopup\ASSAlert.js" />
     <Content Include="Scripts\AlertPopup\NVSAlertCss.css" />
@@ -641,6 +647,9 @@
     <Folder Include="Areas\Patent\Views\Shared\" />
     <Folder Include="Areas\TimeSheet\Models\" />
     <Folder Include="Areas\TradeMark\Models\" />
+    <Folder Include="Content\Archive\Document\" />
+    <Folder Include="Content\Archive\FileAttact\" />
+    <Folder Include="Content\Archive\Logo\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

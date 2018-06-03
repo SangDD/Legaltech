@@ -23,3 +23,19 @@
 	});
 	$(cboBranchRef).multipleSelect("refresh");
 }
+
+
+//Xem truoC ANH HOAC FILE DINH KEM 
+function filePreview(pfile, pIdImg) {
+    try {
+        if (pfile.files && pfile.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#" + pIdImg).attr("src", e.target.result);
+            }
+            reader.readAsDataURL(pfile.files[0]);
+        }
+    } catch (e) {
+
+    }
+}
