@@ -10,7 +10,6 @@
     }
     int numberApp = 0;
 }
-
 <input type="hidden" value="LastTimeUpdated" id="colSorted" />
 <input type="hidden" value="DESC" id="SortType" />
 <input type="hidden" value="" id="OptionSorting" />
@@ -31,17 +30,17 @@
             numberApp++;
             if (numberApp % 2 == 0)
             {
-                <div class="class_right" >
+                <div class="class_right">
                     <a href="/trade-mark/sua-doi-don-dang-ky/@item.Appcode.ToLower()">(@numberApp.ToString())  @item.Appname</a>
                 </div>
             }
             else
             {
-                <div class="class_left" >
+                <div class="class_left">
                     <a href="/trade-mark/sua-doi-don-dang-ky/@item.Appcode.ToLower()">(@numberApp.ToString())  @item.Appname</a>
                 </div>
             }
-            
+
         }
     </fieldset>
 </div>
@@ -49,7 +48,7 @@
 <div id="divTableGroupUsers">
 </div>
 
-<script> 
+<script>
     $(document).ready(function () {
         //alert($(window).width());
     });

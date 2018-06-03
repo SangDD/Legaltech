@@ -107,32 +107,86 @@
 
         [HttpPost]
         [Route("dang_ky_nhan_hieu")]
-        public ActionResult AppDonDangKyInsert(ApplicationHeaderInfo pInfo, List<AppFeeFixInfo> pFeeFixInfo, AppDetail01Info pDetailInfo, List<AppDocumentInfo> pAppDocumentInfo)
+        public ActionResult AppDonDangKyInsert(ApplicationHeaderInfo pInfo, AppDetail04NHInfo pDetail, List<AppDocumentInfo> pAppDocumentInfo , List<AppFeeFixInfo> pFeeFixInfo)
         {
             try
             {
                 Application_Header_BL objBL = new Application_Header_BL();
                 AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
-                AppDetail01BL objDetail01BL = new AppDetail01BL();
+                AppDetail04NHBL objDetail = new AppDetail04NHBL();
                 AppDocumentBL objDoc = new AppDocumentBL();
-                if (pInfo == null || pDetailInfo == null) return Json(new { status = ErrorCode.Error });
+                if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
                 string language = AppsCommon.GetCurrentLang();
                 var CreatedBy = SessionData.CurrentUser.Username;
                 var CreatedDate = SessionData.CurrentUser.CurrentDate;
                 int pReturn = ErrorCode.Success;
                 int pAppHeaderID = 0;
-                //
-                pInfo.Languague_Code = language;
-                pInfo.Created_By = CreatedBy;
-                pInfo.Created_Date = CreatedDate;
-                //TRA RA ID CUA BANG KHI INSERT
-                pAppHeaderID = objBL.AppHeaderInsert(pInfo);
+                using (var scope = new TransactionScope())
+                {
+                    //
+                    pInfo.Languague_Code = language;
+                    pInfo.Created_By = CreatedBy;
+                    pInfo.Created_Date = CreatedDate;
+                    //TRA RA ID CUA BANG KHI INSERT
+                    pAppHeaderID = objBL.AppHeaderInsert(pInfo);
+                    if (pAppHeaderID >= 0)
+                    {
+                        pDetail.Appcode = pInfo.Appcode;
+                        pDetail.Language_Code = language;
+                        pDetail.App_Header_Id = pAppHeaderID;
+                        if (pDetail.pfileLogo != null)
+                        {
+                            pDetail.Logourl = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
+                        }
+                        pReturn = objDetail.App_Detail_04NH_Insert(pDetail);
+                    }
+                    else
+                    {
+                        Transaction.Current.Rollback();
+                    }
+                    if (pReturn >= 0 && pAppDocumentInfo != null)
+                    {
+                       
+                        if (pAppDocumentInfo.Count > 0)
+                        {
+                            foreach (var info in pAppDocumentInfo)
+                            {
+                                if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
+                                {
+                                    HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
+                                    info.Filename = pfiles.FileName;
+                                    info.Url_Hardcopy = "~/Content/Archive/" + AppUpload.Document + pfiles.FileName;
+                                    info.Status = 0;
+                                }
+                                info.App_Header_Id = pAppHeaderID;
+                                info.Document_Filing_Date = CommonFuc.CurrentDate();
+                                info.Language_Code = language;
+                            }
+                            pReturn = objDoc.AppDocumentInsertBath(pAppDocumentInfo, pAppHeaderID);
+                            if (pReturn < 0)
+                            {
+                                Transaction.Current.Rollback();
+                            }
+                            else
+                            {
+                                scope.Complete();
+                            }
+                        }
+                        else
+                        {
+                            scope.Complete();
+                        }
+                    }
+                    else
+                    {
+                        Transaction.Current.Rollback();
+                    }
+                }
                 return Json(new { status = pAppHeaderID });
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-
                 return Json(new { status = ErrorCode.Error });
             }
         }
@@ -226,7 +280,6 @@
                 return Json(new { status = ErrorCode.Error });
             }
         }
-
         [HttpPost]
         [Route("push-file-to-server")]
         public ActionResult PushFileToServer(AppDocumentInfo pInfo)
@@ -235,11 +288,7 @@
             {
                 if (pInfo.pfiles != null)
                 {
-                    //lấy tên của file
-                    var name = pInfo.pfiles.FileName;
-                    name = System.IO.Path.GetExtension(pInfo.pfiles.FileName);
-                    var f_part = HttpContext.Server.MapPath("~/Content/") + pInfo.pfiles.FileName;
-                    pInfo.pfiles.SaveAs(f_part);
+                    var url = AppLoadHelpers.PushFileToServer(pInfo.pfiles, AppUpload.Document);
                     SessionData.CurrentUser.chashFile[pInfo.keyFileUpload] = pInfo.pfiles;
                 }
             }

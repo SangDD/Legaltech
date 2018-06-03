@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 
 namespace ObjectInfos
 {
@@ -12,10 +13,14 @@ namespace ObjectInfos
         public string Appno { get; set; }
         public DateTime Duadate { get; set; }
         public string Logourl { get; set; }
-        public string Dactichhanghoa { get; set; }
+        public HttpPostedFileBase pfileLogo { get; set; }
+         
+        public int Dactichhanghoa { get; set; }
         public string Color { get; set; }
+
         public string Description { get; set; }
-        public string Huongquyenuutien { get; set; }
+        public int Huongquyenuutien { get; set; }
+
         public int Used_Special { get; set; }
         public string Sodon_Ut { get; set; }
         public DateTime Ngaynopdon_Ut { get; set; }
@@ -23,11 +28,14 @@ namespace ObjectInfos
         public string Nguongocdialy { get; set; }
         public string Chatluong { get; set; }
         public string Dactinhkhac { get; set; }
+
+
         public string Cdk_Name_1 { get; set; }
         public string Cdk_Address_1 { get; set; }
         public string Cdk_Phone_1 { get; set; }
         public string Cdk_Fax_1 { get; set; }
         public string Cdk_Email_1 { get; set; }
+
         public string Cdk_Name_2 { get; set; }
         public string Cdk_Address_2 { get; set; }
         public string Cdk_Phone_2 { get; set; }

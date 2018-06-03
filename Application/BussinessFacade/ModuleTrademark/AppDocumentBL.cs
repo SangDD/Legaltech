@@ -22,12 +22,12 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
-        public int AppDocumentDelByID(decimal pID)
+        public int AppDocumentDelByID(decimal pID, string pLanguage, decimal pAppHeaderID, decimal pDocumentID)
         {
             try
             {
                 AppDocumentDA objData = new AppDocumentDA();
-                return objData.AppDocumentDeletedByID(pID);
+                return objData.AppDocumentDeletedByID(pID, pLanguage, pAppHeaderID, pDocumentID);
             }
             catch (Exception ex)
             {

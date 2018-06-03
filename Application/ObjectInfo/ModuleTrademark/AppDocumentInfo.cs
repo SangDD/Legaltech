@@ -16,8 +16,12 @@ namespace ObjectInfos.ModuleTrademark
         public string Filename { get; set; }
         public string Url_Hardcopy { get; set; }
         public HttpPostedFileBase pfiles { get; set; }
-
         public string keyFileUpload { get; set; }
+        public string CHAR01 { get; set; }
+        public string CHAR02 { get; set; }
+        public string CHAR03 { get; set; }
+        public string CHAR04 { get; set; }
+        public string CHAR05 { get; set; }
 
     }
 }
