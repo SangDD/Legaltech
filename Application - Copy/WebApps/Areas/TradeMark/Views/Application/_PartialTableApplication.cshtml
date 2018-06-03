@@ -1,0 +1,78 @@
+﻿@using Common.CommonData
+@using Common.Extensions
+@using ObjectInfos;
+@{
+    List<ApplicationHeaderInfo> _list_data = new List<ApplicationHeaderInfo>();
+    if (ViewBag.Obj != null)
+    {
+        _list_data = ViewBag.Obj;
+    }
+}
+
+<div>
+    <table class="table-lst-data" id="tableListGroupUser">
+        <thead>
+            <tr>
+                <th class="class30">STT</th>
+                <th class="class100" data-sort id="Appcode">Mã đơn</th>
+                <th class="class200">Loại đơn</th>
+                <th class="class250">Chủ đơn</th>
+                <th class="class100">Ngày gửi đơn</th>
+                <th class="class100">Chức năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (_list_data.Count > 0)
+            {
+                foreach (var item in _list_data)
+                {
+                    <tr>
+                        <td class="tdcenteralign">@item.STT</td>
+                        <td class="tdleftalign">@item.Appcode</td>
+                        <td class="tdleftalign">@item.AppName</td>
+                        <td class="tdleftalign">@item.Master_Name</td>
+                        <td class="tdleftalign">@item.Send_Date.ToString("dd/MM/yyyy")</td>
+                        <td class="tdcenteralign">
+                            <a href="javascript:getViewApplication(@item.Id, '@item.Appcode')" class="icon icon-info" data-title="Xem chi tiết"></a>
+                            <a href="javascript:;" onclick="getViewConfirmKhachHang(@item.Id)" class="icon confirm-circle" data-title="KH Confirm đơn"></a>
+
+                            @if (item.Status == (decimal)CommonEnums.App_Status.Luu_tam)
+                            {
+                                <a href="javascript:;" onclick="getViewEdit(@item.Id)" class="icon icon-edit" data-title="Sửa"></a>
+                            }
+                            else if (item.Status == (decimal)CommonEnums.App_Status.DaGui_ChoPhanLoai)
+                            {
+                                <a href="javascript:;" onclick="getViewPhanLoaiDon(@item.Id)" class="icon confirm-circle" data-title="Phân loại cho luật sư"></a>
+                            }
+                            else if (item.Status == (decimal)CommonEnums.App_Status.DaPhanChoLuatSu)
+                            {
+                                // luật sư có thể sửa thông tin và phản gửi lại cho admin
+                            }
+                            else if (item.Status == (decimal)CommonEnums.App_Status.LuatSuDaConfirm)
+                            {
+                                // Admin gửi lại cho KH
+                            }
+                            else if (item.Status == (decimal)CommonEnums.App_Status.ChoKHConfirm)
+                            {
+                                // Khách hàng confirm lại cho admin
+                                <a href="javascript:;" onclick="getViewConfirmKhachHang(item.Id)" class="icon confirm-circle" data-title="KH Confirm đơn"></a>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6">Không có dữ liệu</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="_ClassPage">
+    <ul>
+        @Html.Raw(ViewBag.Paging)
+    </ul>
+</div>

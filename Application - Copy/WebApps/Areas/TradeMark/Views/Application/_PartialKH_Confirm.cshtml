@@ -1,0 +1,59 @@
+﻿@using ObjectInfos;
+@using BussinessFacade.ModuleMemoryData
+@{
+    decimal _application_header_id = -1;
+    if (ViewBag.Application_Header_Id != null)
+    {
+        _application_header_id = ViewBag.Application_Header_Id;
+    }
+}
+
+<div class="popup-opacity-wrapper"></div>
+<div class="d-popup" style="overflow: visible">
+    <div class="d-popup-content grid">
+        <div>
+            <label>Confirm <i class="redspan">(*)</i></label>
+            <select id="cboConfirm">
+                @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("CUSTOMER", "CONFIRM"))
+                {
+                    <option value="@item.CdVal">@item.Content</option>
+                }
+            </select>
+        </div>
+
+        <div>
+            <label>Ghi chú</label>
+            <input type="text" id="txtNotes" maxlength="2000" />
+        </div>
+    </div>
+    <div class="d-popup-footer">
+        <input type="submit" class="btn" value="Phản hồi" onclick="return doConfirm(@_application_header_id)" />
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+
+        $('#cboConfirm').multipleSelect({
+            filter: true,
+            single: true,
+            isdatastring: false,
+            maxHeight: 150,
+            placeholder: "-- Khách hàng phản hồi --"
+        });
+
+    });
+
+    function validateAction() {
+        var _Status = $('#cboConfirm').val();
+        if (_Status == null || _Status == "0") {
+            jError('Action Confirm không được để trống!', "Lỗi", function () {
+                $('#cboConfirm').multipleSelect('focus');
+            });
+            return false;
+        }
+
+        return true;
+    }
+ 
+</script>

@@ -1,0 +1,134 @@
+﻿@using ObjectInfos;
+@model Timesheet_Info
+
+<div class="popup-opacity-wrapper"></div>
+<div class="d-popup" style="overflow: visible">
+    <div class="d-popup-content grid grid-2cols">
+        <div>
+            <label>Mã đơn </label>
+            @Html.TextBoxFor(m => m.App_GenCode, new { id = "txtApp_GenCode", @readonly = "readonly" })
+        </div>
+
+        <div>
+            <label>Loại đơn</label>
+            @Html.TextBoxFor(m => m.App_Name, new { id = "txtApp_Name", @readonly = "readonly" })
+        </div>
+
+        <div>
+            <label>Luật sư</label>
+            @Html.TextBoxFor(m => m.Lawer_Name, new { id = "txtLawer_Name", @readonly = "readonly" })
+        </div>
+
+        <div>
+            <label>Timesheet name </label>
+            @Html.TextBoxFor(m => m.Name, new { id = "txtName", @maxlength = "200", @readonly = "readonly" })
+        </div>
+
+        <div>
+            <label>Trạng thái</label>
+            @Html.TextBoxFor(m => m.Status_Name, new { id = "txtStatus_Name", @readonly = "readonly" })
+        </div>
+
+        <div>
+            <label>Ngày</label>
+            @Html.TextBoxFor(m => m.Time_Date, "{0:dd/MM/yyyy}", new { id = "txtTime_Date", @Value = Model.Time_Date == DateTime.MinValue ? "" : Model.Time_Date.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker", @readonly = "readonly" })
+        </div>
+
+        <div>
+            <label>Giờ <i class="redspan">(*)</i></label>
+            @Html.TextBoxFor(m => m.Hours, new { id = "txtHours", @Value = Model.Hours == 0 ? "" : Model.Hours.ToString("#,##0.##"), onkeyup = "jsFormatNumber(this.value, this.id)", @readonly = "readonly" })
+        </div>
+
+        <div>
+            <label>Ghi chú</label>
+            @Html.TextBoxFor(m => m.Notes, new { id = "txtNotes", @maxlength = "2000", @readonly = "readonly" })
+        </div>
+
+        <div>
+            <label>Lý do từ chối</label>
+            @Html.TextBoxFor(m => m.Reject_Reason, new { id = "txtReject_Reason", @maxlength = "2000" })
+        </div>
+    </div>
+
+    <div class="d-popup-footer">
+        <input type="submit" class="btn" value="Duyệt" onclick="return doApproveTimeSheet()" />
+        <input type="submit" class="btn" value="Từ chối" onclick="return doRejectTimeSheet()" />
+    </div>
+</div>
+
+<script>
+   
+    function doRejectTimeSheet() {
+        nvsConfirm(null, "Bạn có chắc chắn muốn Từ chối timesheet này không?", function () {
+            var formData = new FormData();
+            collectData(formData, 2);
+            $.ajax({
+                url: '/quan-ly-timesheet/danh-sach-timesheet/do-approve-timeshet',
+                type: 'POST',
+                data: formData,
+                async: true, traditional: true, contentType: false, processData: false,
+                headers: { "cache-control": "no-cache" },
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data.success == "-1") {
+                        jError("Lỗi check lại kết nối tới server");
+                        return false;
+                    }
+                    else {
+                        jAlert('Từ chối timesheet thành công!', "THÔNG BÁO", function () {
+                            ClosePopupApprove();
+                            Search_TimeSheet(1,1);
+                        });
+                    }
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
+            });
+        });
+    }
+
+    function doApproveTimeSheet() {
+        nvsConfirm(null, "Bạn có chắc chắn muốn Duyệt timesheet này không?", function () {
+            var formData = new FormData();
+            collectData(formData, 1);
+            $.ajax({
+                url: '/quan-ly-timesheet/danh-sach-timesheet/do-approve-timeshet',
+                type: 'POST',
+                data: formData,
+                async: true, traditional: true, contentType: false, processData: false,
+                headers: { "cache-control": "no-cache" },
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data.success == "-1") {
+                        jError("Lỗi check lại kết nối tới server");
+                        return false;
+                    }
+                    else {
+                        jAlert('Duyệt timesheet thành công!', "THÔNG BÁO", function () {
+                            ClosePopupApprove();
+                            Search_TimeSheet(1,1);
+                        });
+                    }
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
+            });
+        });
+    }
+
+    function collectData(formData, p_type) {
+        formData.append('p_id', @Model.Id);
+        formData.append('p_status', p_type);
+        formData.append('p_reject_reason',  $("#txtReject_Reason").val());
+    }
+</script>

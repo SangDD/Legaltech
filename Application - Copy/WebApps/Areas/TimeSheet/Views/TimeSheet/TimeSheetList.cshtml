@@ -1,0 +1,346 @@
+﻿@using Common.CommonData
+@using ObjectInfos;
+@using BussinessFacade;
+@using BussinessFacade.ModuleMemoryData
+@{
+    ViewBag.Title = "Quản lý timesheet";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+    string language = WebApps.Session.SessionData.CurrentUser.Language;
+    List<SysApplicationInfo> _lst = BussinessFacade.ModuleTrademark.SysApplicationBL.GetSysAppByLanguage(language);
+    var lstApp = new List<SelectListItem> { new SelectListItem { Text = "Tất cả", Value = "ALL" } }.Concat(_lst.Select(x => new SelectListItem { Text = x.Appname, Value = x.Appcode }));
+
+    Lawer_Info_BL _Lawer_Info_BL = new Lawer_Info_BL();
+    List<Lawer_Info> _lstLawer = _Lawer_Info_BL.Lawer_Info_GetAll();
+
+    decimal _UserType = WebApps.Session.SessionData.CurrentUser.Type;
+}
+
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        Quản trị hệ thống
+        <span class="red">></span>
+        <a href="/quan-ly-timesheet/danh-sach-timesheet">Quản lý timesheet</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <input type="hidden" value="ALL|ALL|ALL" name="txtKeyValue" id="txtKeyValue" />
+            <input type="hidden" value="ID" name="txtSortColum" id="txtSortColumn" />
+            <input type="hidden" value="DESC" name="txtSortType" id="txtSortType" />
+            <div class="div-title-content"> THÔNG TIN TIMESHEET</div>
+        </div>
+    </div>
+
+    <div class="divCover" id="div-search-simple">
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Loại đơn</div>
+            </div>
+            <div>
+                <div>
+                    @Html.DropDownList("cboAppCode", lstApp, new { @id = "cboAppCode", @style = "width:200px" })
+                </div>
+            </div>
+
+            @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin)
+            {
+                <div class="div-search-title">
+                    <div>Luật sư </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboLawer" style="width:200px">
+                            <option value="ALL">Tất cả</option>
+                            @foreach (var item in _lstLawer)
+                            {
+                                <option value="@item.Lawer_Id">@item.Lawer_Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            }
+
+            <div class="div-search-title">
+                <div>Trạng thái </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboStatus">
+                        <option value="ALL">Tất cả</option>
+                        @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("TIMESHEET", "STATUS"))
+                        {
+                            <option value="@item.CdVal">@item.Content</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div class="div-search-btn" style="width:600px;">
+            <input type="button" value="Tìm kiếm" class="btn-default" onclick="Search_TimeSheet(1, 1)" />
+            @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
+            {
+                <input type="button" value="Khai timesheet" class="btn-default" onclick="getView2Insert()" />
+            }
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div id="divDataTimeSheet" class="divDataTables" style="overflow-x: auto;">
+            @Html.Partial("~/Areas/TimeSheet/Views/TimeSheet/_PartialTableTimeSheet.cshtml")
+        </div>
+    </div>
+
+    <div class="d-popup-container" id="dpop-View"></div>
+    <div class="d-popup-container" id="dpop-Edit"></div>
+    <div class="d-popup-container" id="dpop-Approve"></div>
+    <div class="d-popup-container" id="dpop-Insert"></div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $('#cboLawer').multipleSelect({
+            filter: true,
+            single: true,
+            isdatastring: false,
+            maxHeight: 150,
+            placeholder: "-- Chọn luật sư --"
+        });
+
+        $('#cboAppCode').focus();
+        $("#cboAppCode").keypress(function (evt) {
+            var key = evt.which || evt.charCode || evt.keyCode || 0;
+            if (key == 13) {
+                Search_TimeSheet(1, 1);
+            }
+        });
+    });
+
+    function jsPaging(page) {
+        Search_TimeSheet(page, 0);
+    }
+
+    function Search_TimeSheet(p_NumPage, p_type) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            var p_keysearch;
+            if (p_type == 1) {
+                var _AppCode = $("#cboAppCode").val();
+
+                var _Lawer = "ALL";
+                if (@_UserType == '@((int)CommonEnums.UserType.Admin)') {
+                    _Lawer = $("#cboLawer").val();
+                    if (_Lawer == null) {
+                        _Lawer = "ALL";
+                    }
+                } else {
+                    _Lawer = WebApps.Session.SessionData.CurrentUser.Lawer_Id;
+                }
+
+                var _Status = $("#cboStatus").val();
+                p_keysearch = _AppCode  + "|" + _Status+ "|" + _Lawer;
+
+                //Lưu lại keysearch
+                $("#txtKeyValue").val(p_keysearch);
+
+            } else {
+                p_keysearch = $("#txtKeyValue").val();
+            }
+            var p_column = $("#txtSortColumn").val();
+            var p_type_sort = $("#txtSortType").val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/quan-ly-timesheet/danh-sach-timesheet/search/',
+                data: {
+                    p_keysearch: p_keysearch,
+                    p_CurrentPage: p_NumPage,
+                    p_column: p_column,
+                    p_type_sort: p_type_sort
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divDataTimeSheet").html(data);
+                }
+            });
+        }
+        catch (e) {
+            alert(e);
+        }
+    }
+
+    function getViewTimeSheet(_id) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/quan-ly-timesheet/danh-sach-timesheet/show-view/",
+            dataType: "html",
+            data: {
+                p_id: _id
+            },
+            async: false, cache: false, traditional: true,
+            success: function (data) {
+                if (data != null) {
+                    $("#dpop-View").html(data);
+                    ShowPopupDialog("dpop-View", "Thông tin timesheet", 700, 0 ,"");
+                }
+                return false;
+            }
+        });
+    }
+
+    function getView2Insert() {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/quan-ly-timesheet/danh-sach-timesheet/show-insert/",
+            dataType: "html",
+            async: false, cache: false, traditional: true,
+            success: function (data) {
+                if (data != null) {
+                    $("#dpop-Insert").html(data);
+                    ShowPopupDialog("dpop-Insert", "Thêm mới thông tin timesheet", 700, 0, "txtName");
+                }
+                return false;
+            }
+        });
+    }
+
+    function getView2Edit(_id) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/quan-ly-timesheet/danh-sach-timesheet/show-edit/",
+            dataType: "html",
+            data: {
+                p_id: _id
+            },
+            async: false, cache: false, traditional: true,
+            success: function (data) {
+                if (data != null) {
+                    $("#dpop-Edit").html(data);
+                    ShowPopupDialog("dpop-Edit", "Sửa thông tin timesheet", 700, 0, "txtName");
+                }
+                return false;
+            }
+        });
+    }
+
+    function getView2Approve(_id) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/quan-ly-timesheet/danh-sach-timesheet/show-approve/",
+            dataType: "html",
+            data: {
+                p_id: _id
+            },
+            async: false, cache: false, traditional: true,
+            success: function (data) {
+                if (data != null) {
+                    $("#dpop-Approve").html(data);
+                    ShowPopupDialog("dpop-Approve", "Duyệt thông tin timesheet", 700, 0, "txtName");
+                }
+                return false;
+            }
+        });
+    }
+
+    function doDeleteTimeSheet(_id) {
+
+        nvsConfirm(null, "Bạn có chắc chắn muốn xóa timesheet này không?", function () {
+            $.ajax({
+                url: "/quan-ly-timesheet/danh-sach-timesheet/do-delete-timesheet",
+                type: "POST",
+                data: { 
+                    p_id: _id 
+                },
+                headers: { "cache-control": "no-cache" },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data.success == "-1") {
+                        jError("Lỗi check lại kết nối tới server");
+                        return false;
+                    }
+                    else {
+                        jAlert('Xóa timesheet thành công!', "THÔNG BÁO", function () {
+                            Search_TimeSheet(1,1);
+                        });
+                    }
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
+            });
+        });
+    }
+
+    function ClosePopupView() {
+        try {
+            ClosePopupDialog('dpop-View', true);
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function ClosePopupEdit() {
+        try {
+            ClosePopupDialog('dpop-Edit', true);
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function ClosePopupApprove() {
+        try {
+            ClosePopupDialog('dpop-Approve', true);
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function ClosePopupInsert() {
+        try {
+            ClosePopupDialog('dpop-Insert', true);
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+</script>

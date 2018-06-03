@@ -240,7 +240,6 @@
                 return Json(new { status = ErrorCode.Error });
             }
         }
-
         [HttpPost]
         [Route("push-file-to-server")]
         public ActionResult PushFileToServer(AppDocumentInfo pInfo)
