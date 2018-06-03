@@ -21,7 +21,7 @@
             <img src="~/Content/icons/Body-icon-home.png" /> I
             Quản trị hệ thống
             <span class="red">></span>
-            <a href="/quan-tri-he-thong/quan-ly-san-pham-dich-vu">Quản lý sản phẩm dịch vụ</a>
+            <a href="/quan-ly-thong-tin/quan-ly-san-pham-dich-vu">Quản lý sản phẩm dịch vụ</a>
         </div>
     </div>
     <div class="divCover">
@@ -43,7 +43,7 @@
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div style="width: 120px">Mã hàng </div>
+                    <div style="width: 120px">Mã hàng hóa</div>
                 </div>
                 <div>
                     <div>
@@ -74,13 +74,13 @@
 
         <div class="divCover">
             <div class="div-search-btn" style="width:450px;">
-                <input type="button" value="Tìm kiếm" class="btn-default" onclick="findUsers(1, 1)" />
-                <input type="button" value="Thêm người dùng" class="btn-default" style="width: 125px;" onclick="getViewToAddNewUser()" />
+                <input type="button" value="Tìm kiếm" class="btn-default" onclick="findObjects(1, 1)" />
+                <input type="button" value="Thêm người dùng" class="btn-default" style="width: 125px;" onclick="getViewToAddNewObject()" />
             </div>
         </div>
 
         <div class="divCover">
-            <div id="divTableData">
+            <div id="divTableObjects">
                 @Html.Partial("_PartialAppClassData")
             </div>
         </div>
@@ -90,64 +90,62 @@
             </div>
         </div>
 
-        <div id="divWrapperEditObj" class="divWrapperPopup" style="display: none;">
+        <div id="divWrapperEditUser" class="divWrapperPopup" style="display: none;">
             <div class="divPopup" id="divEditUser">
             </div>
         </div>
 
-        <div id="divWrapperAddObj" class="divWrapperPopup" style="display: none;">
+        <div id="divWrapperAddUser" class="divWrapperPopup" style="display: none;">
             <div class="divPopup" id="divAddUser">
             </div>
         </div>
 
-        <div id="divWrapperPopUpObj" class="divWrapperPopup" style="display: none;">
-            <div class="divPopup" id="divPopUpUser">
+        <div id="divWrapperPopUpObject" class="divWrapperPopup" style="display: none;">
+            <div class="divPopup" id="divPopUpObject">
             </div>
         </div>
 
     </div>
 
     <script>
-        var _currentKeySearch = '@SessionStorages.SEARCH_USER_KEY_CONDITIONS';
-        var _currentOptionFilter = '@SessionStorages.SEARCH_USER_KEY_OPTIONS';
-        var username = '', fullName = '', type = '', status = '';
+        var _currentKeySearch = '@SessionStorages.SEARCH_CLASS_KEY_CONDITIONS';
+        var _currentOptionFilter = '@SessionStorages.SEARCH_CLASS_KEY_OPTIONS';
+        var _code = '', _name_vi = '', _name_en = '', _name_vi = '';
 
         $(document).ready(function () {
-            initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findUsers);
+            initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findObjects);
 
-            $('txtUsernameSearch').focus();
+            $('txt_code').focus();
             $('[data-controlcondition="TRUE"]').on('keypress',
 				function (e) {
-				    enterKeyPress(e, 'btnFindUsers');
+				    enterKeyPress(e, 'btnfindObjects');
 				});
         });
 
-        function findUsers(_pageNumber, _isSearching) {
+        function findObjects(_pageNumber, _isSearching) {
             reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
             if (isSearching === 1) {
-                username = $("#txtUsernameSearch").val().trim();
-                fullName = $("#txtFullNameSearch").val().trim();
-                type = $("#cboUserType").val();
-                status = $("#cboStatusSearch").val();
+                _code = $("#txt_code").val().trim();
+                _name_vi = $("#txt_name_vi").val().trim();
+                _name_en = $("#txt_name_en").val().trim();
+              
             } else {
                 window.arrKeySearch = window.keySearch.split('|');
-                username = arrKeySearch[0];
-                fullName = arrKeySearch[1];
-                type = arrKeySearch[2];
-                status = arrKeySearch[3];
+                _code = arrKeySearch[0];
+                _name_vi = arrKeySearch[1];
+                _name_en = arrKeySearch[2];
 
-                $("#txtUsernameSearch").val(username);
-                $("#txtFullNameSearch").val(fullName);
-                $("#cboUserType").val(type);
-                $("#cboStatusSearch").val(status);
+                $("#txt_code").val(_code);
+                $("#txt_name_vi").val(_name_vi);
+                $("#txt_name_en").val(_name_en);
             }
 
-            updateSearchingConditions("divNumberRecordOnPageListUsers", setKeySearch);
+            updateSearchingConditions("divNumberRecordOnPageListObjects", setKeySearch);
 
             $.ajax({
                 type: "POST",
                 headers: { "cache-control": "no-cache" },
-                url: "/quan-tri-he-thong/quan-ly-nguoi-dung/find-user",
+                url: "/quan-ly-thong-tin/hang-hoa-dich-vu-dich-vi/find-class",
                 data: {
                     keysSearch: keySearch,
                     options: optionFilter
@@ -155,7 +153,7 @@
                 async: false,
                 success: function (data) {
                     if (data != null) {
-                        onResponseWhenSearching(data, "divTableData", findUsers);
+                        onResponseWhenSearching(data, "divTableObjects", findObjects);
                     }
                 }
             });
@@ -163,7 +161,7 @@
         }
 
         function setKeySearch() {
-            window.keySearch = username + "|" + fullName + "|" + type + "|" + status;
+            window.keySearch = _code + "|" + _name_vi + "|" + _name_en;
         }
 
         function initOrderBySearching() {
@@ -171,9 +169,9 @@
             window.sortType = 'DESC';
         }
 
-        function pageListOfUsers(_pagenum) {
+        function pageListOfObjects(_pagenum) {
             try {
-                findUsers(_pagenum, 0);
+                findObjects(_pagenum, 0);
 
             } catch (e) {
                 console.log(e.message);
@@ -184,20 +182,17 @@
     @* task function *@
     <script>
 
-        function getViewToAddNewUser() {
+        function getViewToAddNewObject() {
             $.ajax({
                 type: "POST",
-                url: "/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-add-user",
+                url: "/hang-hoa-dich-vu-dich-vu/get-view-to-add-class",
                 headers: { "cache-control": "no-cache" },
                 async: false,
                 success: function (data) {
                     if (data != null) {
                         if (validateResponse(data)) {
-                            //$("#dpop-users").html(data);
-                            //ShowPopupDialog("dpop-users", "Thêm mới người dùng", 900, 0, "txtUsernameAdd");
-
-                            $("#divPopUpUser").html(data);
-                            ShowPopupDialog_Ipace('divWrapperPopUpObj', "Thêm mới người dùng", 900, 500, "txtUsernameAdd");
+                            $("#divPopUpObject").html(data);
+                            ShowPopupDialog_Ipace('divWrapperPopUpObject', "Thêm mới người dùng", 900, 500, "txtUsernameAdd");
                         }
                     }
                     return false;
@@ -208,7 +203,7 @@
         function getViewToEditUser(userId, username) {
             $.ajax({
                 type: "POST",
-                url: "/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-edit-user",
+                url: "/quan-ly-thong-tin/hang-hoa-dich-vu/get-view-to-edit-user",
                 headers: { "cache-control": "no-cache" },
                 data: { userId: userId },
                 async: false,
@@ -216,8 +211,8 @@
                     if (data != null) {
                         if (validateResponse(data)) {
 
-                            $("#divPopUpUser").html(data);
-                            ShowPopupDialog_Ipace('divWrapperPopUpObj', "Sửa người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 500, "txtFullNameEdit");
+                            $("#divPopUpObject").html(data);
+                            ShowPopupDialog_Ipace('divWrapperPopUpObject', "Sửa hàng hóa dịch vụ: <span class='data-in-title-popup'>" + username + "</span>", 900, 500, "txtFullNameEdit");
                         }
                     }
                     return false;
@@ -232,7 +227,7 @@
             } else {
                 nvsConfirm(null, "Bạn có chắc chắn muốn xóa người dùng này không?", function () {
                     $.ajax({
-                        url: "/quan-tri-he-thong/quan-ly-nguoi-dung/do-delete-user",
+                        url: "/quan-ly-thong-tin/hang-hoa-dich-vu/do-delete-user",
                         type: "POST",
                         data: { userId: userId },
                         headers: { "cache-control": "no-cache" },
@@ -241,7 +236,7 @@
                             if (data != null) {
                                 if (onResponse(data)) {
                                     ClosePopupDialog('dpop-users', true);
-                                    findUsers(1, 0);
+                                    findObjects(1, 0);
                                 }
                             }
                         },
@@ -254,18 +249,18 @@
             }
         }
 
-        function viewDetailUser(userId, username) {
+        function viewDetailobject(userId, username) {
             $.ajax({
                 type: "POST",
-                url: "/quan-tri-he-thong/quan-ly-nguoi-dung/view-detail-user",
+                url: "/quan-ly-thong-tin/hang-hoa-dich-vu/view-detail-class",
                 headers: { "cache-control": "no-cache" },
                 async: false,
                 data: { userId: userId },
                 success: function (data) {
                     if (data != null) {
                         if (validateResponse(data)) {
-                            $("#divPopUpUser").html(data);
-                            ShowPopupDialog_Ipace('divWrapperPopUpObj', "Chi tiết người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 500);
+                            $("#divPopUpObject").html(data);
+                            ShowPopupDialog_Ipace('divWrapperPopUpObject', "Chi tiết người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 500);
                         }
                     }
                     return false;
@@ -274,7 +269,7 @@
         }
 
         function ClosePopUpUser() {
-            CloseDivPopUp('divWrapperPopUpObj');
+            CloseDivPopUp('divWrapperPopUpObject');
         }
 
     </script>

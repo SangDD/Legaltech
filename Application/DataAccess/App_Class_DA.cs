@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.SearchingAndFiltering;
 using Oracle.DataAccess.Client;
 using System;
 using System.Collections.Generic;
@@ -27,16 +28,16 @@ namespace DataAccess
             }
         }
 
-        public DataSet SearchAppClass(string P_KEY_SEARCH, string P_FROM, string P_TO, string P_SORT_TYPE, ref decimal P_TOTAL_RECORD)
+        public DataSet SearchAppClass(string keysSearch, OptionFilter options, ref int totalRecord)
         {
             try
             {
                 OracleParameter paramReturn = new OracleParameter("P_TOTAL_RECORD", OracleDbType.Decimal, ParameterDirection.Output);
                 return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_CLASS.PROC_APP_CLASS_SEARCH",
-                 new OracleParameter("P_KEY_SEARCH", OracleDbType.Varchar2, P_KEY_SEARCH, ParameterDirection.Input),
-                 new OracleParameter("P_FROM", OracleDbType.Varchar2, P_FROM, ParameterDirection.Input),
-                 new OracleParameter("P_TO", OracleDbType.Varchar2, P_TO, ParameterDirection.Input),
-                 new OracleParameter("P_SORT_TYPE", OracleDbType.Varchar2, P_SORT_TYPE, ParameterDirection.Input),
+                 new OracleParameter("P_KEY_SEARCH", OracleDbType.Varchar2, keysSearch, ParameterDirection.Input),
+                 new OracleParameter("P_FROM", OracleDbType.Varchar2, options.StartAt.ToString(), ParameterDirection.Input),
+                 new OracleParameter("P_TO", OracleDbType.Varchar2, options.EndAt.ToString(), ParameterDirection.Input),
+                 new OracleParameter("P_SORT_TYPE", OracleDbType.Varchar2, options.OrderBy, ParameterDirection.Input),
                  paramReturn,
                  new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output));
             }

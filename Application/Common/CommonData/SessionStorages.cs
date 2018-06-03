@@ -10,5 +10,8 @@
 
         public const string SEARCH_USER_KEY_CONDITIONS = "ss_searchUserKeyConditions";
         public const string SEARCH_USER_KEY_OPTIONS = "ss_searchUserKeyOptions";
+
+        public const string SEARCH_CLASS_KEY_CONDITIONS = "ss_searchClassKeyConditions";
+        public const string SEARCH_CLASS_KEY_OPTIONS = "ss_searchClassKeyOptions";
     }
 }

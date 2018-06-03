@@ -1,19 +1,17 @@
 ﻿@using Common.CommonData
 @using Common.Extensions
-@model List<ObjectInfos.UserInfo>
+@using ObjectInfos
+@model List<App_Class_Info>
 @try
 {
     <div>
-        <table class="table-lst-data" id="tableListUser">
+        <table class="table-lst-data" id="tableListObject">
             <thead>
                 <tr>
                     <th style="width: 4%">STT</th>
-                    <th data-sort id="Username" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Tên đăng nhập</th>
-                    <th style="width: 17%" data-sort id="FullName" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Họ tên</th>
-                    <th style="width: 10%" data-sort id="Status" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Trạng thái</th>
-                    <th style="width: 10%" data-sort id="Type" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Loại người dùng</th>
-                    <th style="width: 15%" data-sort id="Email" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Email</th>
-                    <th style="width: 10%" data-sort id="Phone" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Số điện thoại</th>
+                    <th data-sort id="CODE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Mã hàng hóa</th>
+                    <th style="width: 25%" data-sort id="NAME_VI" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Tên tiếng Việt</th>
+                    <th style="width: 25%" data-sort id="NAME_EN" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Tên tiếng Anh</th>
                     <th style="width: 15%" data-sort id="LastTimeUpdated">Cập nhật lúc</th>
                     <th style="width: 100px;">Chức năng</th>
                 </tr>
@@ -25,17 +23,15 @@
                     {
                         <tr>
                             <td class="tdcenteralign">@item.Stt</td>
-                            <td class="tdleftalign"><a href="javascript:viewDetailUser(@item.Id, '@item.Username')">@item.Username</a></td>
-                            <td class="tdleftalign">@item.FullName</td>
-                            <td class="tdleftalign">@item.StatusDisplayName</td>
-                            <td class="tdleftalign">@item.Type_Name</td>
-                            <td class="tdleftalign">@item.Email</td>
-                            <td class="tdleftalign">@item.Phone</td>
-                            <td class="tdleftalign">@item.LastTimeUpdated.ToDateTimeStringN0()</td>
+                            <td class="tdleftalign"><a href="javascript:viewDetailObject(@item.Id, '@item.Code')">@item.Code</a></td>
+                            <td class="tdleftalign">@item.Code</td>
+                            <td class="tdleftalign">@item.Name_En</td>
+                            <td class="tdleftalign">@item.Name_Cn</td>
+                            <td class="tdleftalign">@item.Modififed_Date.ToDateTimeStringN0()</td>
                             <td class="tdcenteralign">
-                                <a href="javascript:viewDetailUser(@item.Id, '@item.Username')" class="icon icon-info" data-title="Xem chi tiết"></a>
-                                <a href="javascript:getViewToEditUser(@item.Id, '@item.Username')" class="icon icon-edit" data-title="Sửa"></a>
-                                <a href="javascript:doDeleteUser(@item.Id, @item.IsActive().ToString().ToLower())" class="icon icon-delete" data-title="Xóa"></a>
+                                <a href="javascript:viewDetailObject(@item.Id, '@item.Code')" class="icon icon-info" data-title="Xem chi tiết"></a>
+                                <a href="javascript:getViewToObject(@item.Id, '@item.Id')" class="icon icon-edit" data-title="Sửa"></a>
+                                <a href="javascript:doDeleteObject(@item.Id)" class="icon icon-delete" data-title="Xóa"></a>
                             </td>
                         </tr>
                     }

@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace ObjectInfos
 {
-   public class App_Class_Info
+   public class App_Class_Info: Base_Info
     {
+
+        public decimal Stt { get; set; }
+
         public decimal Id { get; set; }
 
         public string Code { get; set; }

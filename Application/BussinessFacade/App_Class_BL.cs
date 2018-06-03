@@ -12,18 +12,18 @@ namespace BussinessFacade
 {
   public  class App_Class_BL: RepositoriesBL
     {
-        public List<App_Class_Info> AppClassGetByID(decimal P_ID)
+        public App_Class_Info AppClassGetByID(decimal P_ID)
         {
             try
             {
                 App_Class_DA _da = new App_Class_DA();
                 DataSet _ds = _da.AppClassGetByID(P_ID);
-                return CBO<App_Class_Info>.FillCollectionFromDataSet(_ds);
+                return CBO<App_Class_Info>.FillObjectFromDataSet(_ds);
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return new List<App_Class_Info>();
+                return new App_Class_Info();
             }
         }
 
@@ -32,16 +32,12 @@ namespace BussinessFacade
         {
             try
             {
-                // App_Class_DA _da = new App_Class_DA();
-                ////DataSet _ds = _da.SearchAppClass(P_KEY_SEARCH, P_FROM, P_TO, P_SORT_TYPE, ref P_TOTAL_RECORD);
-                ////return CBO<App_Class_Info>.FillCollectionFromDataSet(_ds);
-
-                //var optionFilter = new OptionFilter(OPTIONS);
-                //var totalRecordFindResult = 0;
-                //var ds = _da.SearchAppClass(P_KEY_SEARCH, optionFilter, ref totalRecordFindResult);
-                //this.SetupPagingHtml(optionFilter, totalRecordFindResult, "pageListOfUsers", "divNumberRecordOnPageListUsers");
-                //return CBO<UserInfo>.FillCollectionFromDataSet(ds);
-                return new List<App_Class_Info>();
+                App_Class_DA _da = new App_Class_DA();
+                var optionFilter = new OptionFilter(OPTIONS);
+                var totalRecordFindResult = 0;
+                var ds = _da.SearchAppClass(P_KEY_SEARCH, optionFilter, ref totalRecordFindResult);
+                this.SetupPagingHtml(optionFilter, totalRecordFindResult, "pageListOfObjects", "divNumberRecordOnPageListObjects");
+                return CBO<App_Class_Info>.FillCollectionFromDataSet(ds);
             }
             catch (Exception ex)
             {
@@ -50,12 +46,12 @@ namespace BussinessFacade
             }
         }
 
-        public decimal App_Class_Insert(App_Class_Info p_ObjInffo, string p_username, DateTime p_date)
+        public decimal App_Class_Insert(App_Class_Info p_ObjInffo)
         {
             try
             {
                 App_Class_DA _da = new App_Class_DA();
-                return _da.App_Class_Insert(p_ObjInffo.Code, p_ObjInffo.Name_Vi, p_ObjInffo.Name_En, p_ObjInffo.Name_Cn, p_username, p_date);
+                return _da.App_Class_Insert(p_ObjInffo.Code, p_ObjInffo.Name_Vi, p_ObjInffo.Name_En, p_ObjInffo.Name_Cn, p_ObjInffo.Created_By, p_ObjInffo.Created_Date);
             }
             catch (Exception ex)
             {
@@ -64,12 +60,12 @@ namespace BussinessFacade
             }
         }
 
-        public decimal App_Class_Update(App_Class_Info p_ObjInffo, string p_username, DateTime p_date)
+        public decimal App_Class_Update(App_Class_Info p_ObjInffo)
         {
             try
             {
                 App_Class_DA _da = new App_Class_DA();
-                return _da.App_Class_Update(p_ObjInffo.Id, p_ObjInffo.Code, p_ObjInffo.Name_Vi, p_ObjInffo.Name_En, p_ObjInffo.Name_Cn, p_username, p_date);
+                return _da.App_Class_Update(p_ObjInffo.Id, p_ObjInffo.Code, p_ObjInffo.Name_Vi, p_ObjInffo.Name_En, p_ObjInffo.Name_Cn, p_ObjInffo.Modified_By, p_ObjInffo.Modififed_Date);
             }
             catch (Exception ex)
             {
