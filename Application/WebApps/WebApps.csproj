@@ -163,6 +163,8 @@
     <Compile Include="AppStart\Startup.Auth.cs" />
     <Compile Include="Areas\Account\AccountAreaRegistration.cs" />
     <Compile Include="Areas\Account\Controllers\AccountController.cs" />
+    <Compile Include="Areas\AppClass\AppClassAreaRegistration.cs" />
+    <Compile Include="Areas\AppClass\Controllers\AppClassController.cs" />
     <Compile Include="Areas\Home\Controllers\HomeController.cs" />
     <Compile Include="Areas\Home\HomeAreaRegistration.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\FunctionController.cs" />
@@ -333,6 +335,13 @@
     <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\_Partial04NHChuDonKhac.cshtml" />
     <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\_Partial04NHChuDonKhacTop.cshtml" />
     <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\_Partial04NHTaiLieuKhac.cshtml" />
+    <Content Include="Areas\AppClass\Views\web.config" />
+    <Content Include="Areas\AppClass\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\AppClass\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\AppClass\Views\AppClass\AppClassList.cshtml" />
+    <Content Include="Areas\AppClass\Views\AppClass\_PartialAppClassAdd.cshtml" />
+    <Content Include="Areas\AppClass\Views\AppClass\_PartialAppClassEdit.cshtml" />
+    <Content Include="Areas\AppClass\Views\AppClass\_PartialAppClassData.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\AlertPopup\ASSAlert.js" />
     <Content Include="Scripts\AlertPopup\NVSAlertCss.css" />
