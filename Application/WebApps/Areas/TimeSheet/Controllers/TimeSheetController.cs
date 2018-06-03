@@ -35,7 +35,7 @@ namespace WebApps.Areas.TimeSheet.Controllers
                 }
                 else
                 {
-                    _keySearch = "ALL|ALL|" + SessionData.CurrentUser.Lawer_Id;
+                    _keySearch = "ALL|ALL|" + SessionData.CurrentUser.Id;
                 }
 
 
@@ -135,7 +135,7 @@ namespace WebApps.Areas.TimeSheet.Controllers
             {
                 TimeSheet_BL _obj_bl = new TimeSheet_BL();
                 p_Timesheet_Info.Created_By = SessionData.CurrentUser.Username;
-                p_Timesheet_Info.Lawer_Id = SessionData.CurrentUser.Lawer_Id;
+                p_Timesheet_Info.Lawer_Id = SessionData.CurrentUser.Id;
                 p_Timesheet_Info.Status = (decimal)CommonEnums.TimeSheet_Status.New;
                 decimal _ck = _obj_bl.Timesheet_Insert(p_Timesheet_Info);
                 return Json(new { success = _ck });

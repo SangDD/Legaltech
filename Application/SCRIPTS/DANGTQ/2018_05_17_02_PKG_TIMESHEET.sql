@@ -1,5 +1,5 @@
 -- Start of DDL Script for Package Body LEGALTECH.PKG_TIMESHEET
--- Generated 19-May-2018 0:58:25 from LEGALTECH@LOCALHOST
+-- Generated 3-Jun-2018 22:10:51 from LEGALTECH@LOCALHOST
 
 CREATE OR REPLACE 
 PACKAGE pkg_timesheet
@@ -93,15 +93,14 @@ PROCEDURE proc_timesheet_getall
 IS
 BEGIN
     OPEN p_cursor FOR
-    SELECT t.*, ac.content AS status_name, ah.APPCODE App_Code,sa.appname App_Name,ah.gencode AS app_gencode, l.LAWER_NAME
+    SELECT t.*, ac.content AS status_name, ah.APPCODE App_Code,sa.appname App_Name,ah.gencode AS app_gencode, l.fullname LAWER_NAME
     FROM timesheet t
     JOIN application_header ah ON ah.id = t.app_header_id AND ah.deleted = 0
     JOIN sys_application sa ON ah.appcode = sa.appcode  AND ah.LANGUAGUE_CODE = sa.LANGUAGECODE
-    JOIN lawer_info l ON l.LAWER_ID = t.LAWER_ID
+    LEFT JOIN s_users l ON l.id = t.LAWER_ID
     LEFT JOIN allcode ac ON ac.cdval = t.status AND ac.cdname = 'TIMESHEET' AND ac.cdtype ='STATUS'
     ORDER BY t.app_header_id, t.id DESC;
 END;
-
 
 PROCEDURE proc_timesheet_getbyid
 (
@@ -110,11 +109,11 @@ PROCEDURE proc_timesheet_getbyid
 )
 IS
 BEGIN
-    OPEN p_cursor FOR SELECT t.*, ac.content AS status_name, ah.APPCODE App_Code,sa.appname App_Name,ah.gencode AS app_gencode, l.LAWER_NAME
+    OPEN p_cursor FOR SELECT t.*, ac.content AS status_name, ah.APPCODE App_Code,sa.appname App_Name,ah.gencode AS app_gencode, l.fullname LAWER_NAME
     FROM timesheet t
     JOIN application_header ah ON ah.id = t.app_header_id AND ah.deleted = 0
     JOIN sys_application sa ON ah.appcode = sa.appcode  AND ah.LANGUAGUE_CODE = sa.LANGUAGECODE
-    JOIN lawer_info l ON l.LAWER_ID = t.LAWER_ID
+    LEFT JOIN s_users l ON l.id = t.LAWER_ID
     LEFT JOIN allcode ac ON ac.cdval = t.status AND ac.cdname = 'TIMESHEET' AND ac.cdtype ='STATUS'
     WHERE t.id = p_id
     ORDER BY t.app_header_id, t.id DESC;
@@ -127,10 +126,10 @@ PROCEDURE proc_timesheet_getby_lawer
 )
 IS
 BEGIN
-    OPEN P_CURSOR FOR SELECT t.*, ac.content AS status_name, ah.APPCODE, l.LAWER_NAME
+    OPEN P_CURSOR FOR SELECT t.*, ac.content AS status_name, ah.APPCODE, l.fullname LAWER_NAME
     FROM timesheet t
     JOIN application_header ah ON ah.id = t.app_header_id AND ah.deleted = 0
-    JOIN lawer_info l ON l.lawer_id = t.lawer_id
+    LEFT JOIN s_users l ON l.id = t.LAWER_ID
     LEFT JOIN allcode ac ON ac.cdval = t.status AND ac.cdname = 'TIMESHEET' AND ac.cdtype ='STATUS'
     WHERE t.lawer_id = p_lawer_id
     ORDER BY t.app_header_id, t.id DESC;
@@ -173,7 +172,6 @@ WHEN OTHERS THEN
     p_return := -1;
     RAISE;
 END;
-
 
 PROCEDURE proc_timesheet_update
 (
@@ -307,15 +305,15 @@ BEGIN
 
     IF V_LAWER <> 'ALL' THEN
         --V_CONDITION :=  V_CONDITION || ' AND UPPER(L.LAWER_ID) LIKE ''%' || UPPER(V_LAWER) || '%'' ';
-        V_CONDITION :=  V_CONDITION || ' AND UPPER(L.LAWER_ID) = ' || V_LAWER;
+        V_CONDITION :=  V_CONDITION || ' AND UPPER(L.ID) = ' || V_LAWER;
     END IF;
 
 
-    V_SQL := 'SELECT t.*, ac.content AS status_name, ah.APPCODE App_Code,sa.appname App_Name,ah.gencode AS app_gencode, l.LAWER_NAME
+    V_SQL := 'SELECT t.*, ac.content AS status_name, ah.APPCODE App_Code,sa.appname App_Name,ah.gencode AS app_gencode, l.fullname LAWER_NAME
         FROM timesheet t
         JOIN application_header ah ON ah.id = t.app_header_id AND ah.deleted = 0
         JOIN sys_application sa ON ah.appcode = sa.appcode  AND ah.LANGUAGUE_CODE = sa.LANGUAGECODE
-        JOIN lawer_info l ON l.LAWER_ID = t.LAWER_ID
+        LEFT JOIN s_users l ON l.id = t.LAWER_ID
         LEFT JOIN allcode ac ON ac.cdval = t.status AND ac.cdname = ''TIMESHEET'' AND ac.cdtype =''STATUS''
         WHERE 1 = 1 ';
 

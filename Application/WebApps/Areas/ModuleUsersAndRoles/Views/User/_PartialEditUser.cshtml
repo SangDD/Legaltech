@@ -16,7 +16,7 @@
     <style>
         /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
         .div-search-title > div {
-            width: 120px;
+            width: 145px;
         }
     </style>
 
@@ -28,44 +28,42 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        @Html.TextBoxFor(m => m.Username, new { @id = "txtUsernameEdit", maxlength = "64" })
+                        @Html.TextBoxFor(m => m.Username, new { @id = "txtUsername", maxlength = "64", @style = "width:200px;", })
                     </div>
                 </div>
-            </div>
-            <div class="div-search-ad">
+
                 <div class="div-search-title">
                     <div>Họ tên<i class="redspan">(*)</i></div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        @Html.TextBoxFor(m => m.FullName, new { @id = "txtFullNameEdit", maxlength = "250" })
-                    </div>
-                </div>
-            </div>
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div>Ngày sinh</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        @*@Html.TextBoxFor(m => m.DateOfBirth.ToString("dd/MM/yyyy"))*@
-                        @Html.TextBoxFor(m => m.DateOfBirth, new
-                        {
-                            @id = "txtDateOfBirthEdit",
-                            @Value = Model.DateOfBirth == DateTime.MinValue ? "" : Model.DateOfBirth.ToString("dd/MM/yyyy"),
-                            @class= "datetimepicker"
-                        })
+                        @Html.TextBoxFor(m => m.FullName, new { @id = "txtFullName", maxlength = "250" })
                     </div>
                 </div>
             </div>
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div>Giới tính</div>
+                    <div>Ngày sinh</div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <select id="cboSexEdit">
+                        @Html.TextBoxFor(m => m.DateOfBirth, new
+                        {
+                            @id = "txtDateOfBirth",
+                            @Value = Model.DateOfBirth == DateTime.MinValue ? "" : Model.DateOfBirth.ToString("dd/MM/yyyy"),
+                            @class= "datetimepicker",
+                            @style="width:200px;"
+                        })
+                    </div>
+                </div>
+
+                <div class="div-search-title">
+                    <div>Giới tính<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboSex">
                             @foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.SexType))
                             {
                                 <option @(item.CdVal == Model.Sex ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
@@ -81,15 +79,88 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        @Html.TextBoxFor(m => m.Phone, new { @style = "width:200px;", @id = "txtPhoneEdit", @maxlength = "16", @onkeypress = "isNumberKey()", @onkeyup = "isNumberKey()" })
+                        @Html.TextBoxFor(m => m.Phone, new { @style = "width:200px;", @id = "txtPhone", @maxlength = "16", @onkeypress = "isNumberKey()", @onkeyup = "isNumberKey()" })
                     </div>
                 </div>
+
                 <div class="div-search-title">
-                    <div>Email </div>
+                    <div>Fax </div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        @Html.TextBoxFor(m => m.Email, new { @id = "txtEmailEdit", @maxlength = "250" })
+                        @Html.TextBoxFor(m => m.Fax, new { @maxlength = "50", @id = "txtfax" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Email<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.Email, new { @id = "txtEmail", @maxlength = "250", @style = "width:200px;" })
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div>Face </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.Face_Link, new { @id = "txtface_link", @maxlength = "200" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Linkedin</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.Linkedin_Link, new { @id = "txtlinkedin", @maxlength = "200", @style = "width: 200px" })
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div>Wechat</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.Wechat_Link, new { @id = "txtwechat_link", @maxlength = "200" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Other link</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.Other_Link, new { @id = "txtOther_Link", @maxlength = "200" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Quốc tịch <i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboCountry">
+                            @foreach (var item in MemoryData.c_lst_Country)
+                            {
+                                if (item.Country_Id.ToString() == Model.Country)
+                                {
+                                    <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Country_Id">@item.Name</option>
+                                }
+                            }
+                        </select>
                     </div>
                 </div>
             </div>
@@ -100,12 +171,13 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <select id="cboTypeEdit" style="width:200px">
+                        @*<select id="cboType" style="width:200px">
                             @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE"))
                             {
                                 <option @(item.CdVal == Model.Type.ToString() ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
                             }
-                        </select>
+                        </select>*@
+                        @Html.TextBoxFor(m => m.Type_Name, new { @style = "width: 200px", @disabled = "disabled" })
                     </div>
                 </div>
                 <div class="div-search-title">
@@ -113,7 +185,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <select id="cboStatusEdit">
+                        <select id="cboStatus">
                             @foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.UserStatus))
                             {
                                 <option @(item.CdVal == Model.Status.ToString() ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
@@ -122,6 +194,107 @@
                     </div>
                 </div>
             </div>
+
+
+            @if (Model.Type == Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Customer))
+            {
+                <div class="div-search-ad" id="clsCustomer">
+                    <div class="div-search-title">
+                        <div>Tên công ty <i class="redspan">(*)</i></div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            @Html.TextBoxFor(m => m.Company_Name, new { @id = "txtcompany_name", @maxlength = "500", @style = "width: 200px" })
+                        </div>
+                    </div>
+
+                    <div class="div-search-title">
+                        <div>Ngành ngề chính  <i class="redspan">(*)</i></div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            @Html.TextBoxFor(m => m.Main_Business, new { @id = "txtmain_business", @maxlength = "500" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="div-search-ad" id="clsCustomer1">
+                    <div class="div-search-title">
+                        <div>Người quản lý</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            @Html.TextBoxFor(m => m.Copyto, new { @id = "txtcopyto", @maxlength = "200", @style = "width: 200px" })
+                        </div>
+                    </div>
+
+                    <div class="div-search-title">
+                        <div>Chức vụ </div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            @Html.TextBoxFor(m => m.Title, new { @id = "txttitle", @maxlength = "500" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="div-search-ad" id="clsCustomer2">
+                    <div class="div-search-title">
+                        <div>Lý do dùng </div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <select id="cboReasonSelect" style = "width: 200px">
+                                @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "REASON_SELECT"))
+                                {
+                                    <option @(item.CdVal == Model.Reason_Select.ToString() ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="div-search-title">
+                        <div>Chính sách giá đặc biệt </div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <select id="cboRequestCredit">
+                                @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "REQUEST_CREDIT"))
+                                {
+                                    <option @(item.CdVal == Model.Request_Credit.ToString() ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (Model.Type == Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Lawer))
+            {
+                <div class="div-search-ad" id="clsLawer">
+                    <div class="div-search-title">
+                        <div>Loại luật sư <i class="redspan">(*)</i></div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <select id="cboLawerType" style="width:200px">
+                                @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "LAWER_TYPE"))
+                                {
+                                    <option @(item.CdVal == Model.Other_Type.ToString() ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="div-search-title">
+                        <div>Số tiền / 1 giờ <i class="redspan">(*)</i></div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            @Html.TextBoxFor(m => m.Hourly_Rate, new { @id = "txthourly_rate", @Value = Model.Hourly_Rate == 0 ? "" : Model.Hourly_Rate.ToString("#,##0.##"), @onkeyup = "jsFormatNumber(this.value, this.id)" })
+                        </div>
+                    </div>
+                </div>
+            }
 
             <div class="div-search-ad">
                 <div class="div-search-title">
@@ -151,24 +324,23 @@
 
         <div class="form-group">
             <div class="form-group-bottom">
-                <input type="submit" class="btn-default" value="Lưu" onclick="return doEditUser()" />
+                <input type="submit" class="btn-default" value="Lưu" onclick="return doUser()" />
             </div>
         </div>
     </div>
 
     <script>
-		var userIdEdit = '@Model.Id',
-			usernameEdit = '',
-			fullNameEdit = '',
-			passwordEdit = '',
-			rePasswordEdit = '',
-			dateOfBirthEdit = '@Model.DateOfBirth.ToDateStringN0()',
-			sexEdit = '',
-			emailEdit = '',
-			phoneEdit = '',
-			typeEdit = '',
-			statusEdit = '',
-			GroupIdEdit = '';
+		var userId = '@Model.Id',
+			username = '',
+			fullName = '',
+			password = '',
+			rePassword = '',
+			dateOfBirth = '@Model.DateOfBirth.ToDateStringN0()',
+			sex = '',
+			email = '',
+			phone = '',
+			status = '',
+			GroupId = '';
 		$(document).ready(function () {
 			$.datetimepicker.setLocale('vi');
 			$('.datetimepicker').datetimepicker({
@@ -181,23 +353,27 @@
 				scrollInput: false
 			});
 
-			$('#txtDateOfBirthEdit').datetimepicker({ value: dateOfBirthEdit });
+			$('#txtDateOfBirth').datetimepicker({ value: dateOfBirth });
 		});
 
-		function doEditUser() {
-			if (validateFormEditUser()) {
+		function doUser() {
+			if (validateFormUser()) {
 				var formData = new FormData();
-				collectDataToEditUser(formData);
+				collectDataToUser(formData);
 				$.ajax({
-					url: '/quan-tri-he-thong/quan-ly-nguoi-dung/do-edit-user',
+                    url: '/quan-tri-he-thong/quan-ly-nguoi-dung/do-edit-user',
 					type: 'POST',
 					data: formData,
 					processData: false,
 					contentType: false,
 					traditional: true,
-					async: false,
-					headers: { "cache-control": "no-cache" },
-					success: function (data) {
+					async: true,
+                    headers: { "cache-control": "no-cache" },
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
 						if (data != null) {
 							if (onResponse(data)) {
                                 ClosePopUpUser();
@@ -212,66 +388,146 @@
 			}
 		}
 
-		function validateFormEditUser() {
-			fullNameEdit = $('#txtFullNameEdit').val().trim();
-			dateOfBirthEdit = $('#txtDateOfBirthEdit').val().trim();
-			sexEdit = $('#cboSexEdit').val();
-			emailEdit = $('#txtEmailEdit').val().trim();
-			phoneEdit = $('#txtPhoneEdit').val().trim();
-			typeEdit = $('#cboTypeAdd').val();
-			statusEdit = $('#cboStatusEdit').val();
-			GroupIdEdit = $('#cboGroupUser').val();
+		function validateFormUser() {
+			fullName = $('#txtFullName').val().trim();
+			dateOfBirth = $('#txtDateOfBirth').val().trim();
+			sex = $('#cboSex').val();
+			email = $('#txtEmail').val().trim();
+			phone = $('#txtPhone').val().trim();
+			//type = $('#cboType').val();
+			status = $('#cboStatus').val();
+			GroupId = $('#cboGroupUser').val();
 
-			if (fullNameEdit === "") {
-				$('#txtFullNameEdit').focus().val('');
+			if (fullName === "") {
+				$('#txtFullName').focus().val('');
 				showError('Họ tên không được để trống!');
 				return false;
 			}
 
-			if (dateOfBirthEdit === "" || dateOfBirthEdit === window.maskDateTime_N0) {
-				$('#txtDateOfBirthEdit').focus();
+			if (dateOfBirth === "" || dateOfBirth === window.maskDateTime_N0) {
+				$('#txtDateOfBirth').focus();
 				showError('Ngày sinh không được để trống');
 				return false;
-			} else if (isValidDate_N0(dateOfBirthEdit) === false) {
-				$('#txtDateOfBirthEdit').focus();
+			} else if (isValidDate_N0(dateOfBirth) === false) {
+				$('#txtDateOfBirth').focus();
 				showError('Ngày sinh không đúng định dạng (dd/mm/yyyy)!');
 				return false;
-			}
+            }
 
-			if (emailEdit === "") {
-				$('#txtEmailEdit').focus().val('');
-				showError('Email không được để trống!');
-				return false;
-			} else if (!IsvalidEmail(emailEdit)) {
-				$('#txtEmailEdit').focus();
-				showError('Email không đúng định dạng!');
-				return false;
-			}
+            if (phone === "") {
+                jError("Điện thoại không được để trống!", "lỗi", function () {
+                    $('#txtPhone').val('');
+                    $('#txtPhone').focus();
+                });
+                return false;
+            }
 
-			if (phoneEdit === "") {
-				$('#txtPhoneEdit').focus().val('');
-				showError('Điện thoại không được để trống!');
-				return false;
-			}
+            if (email === "") {
+                jError("Email không được để trống!", "lỗi", function () {
+                    $('#txtEmail').focus();
+                });
+                return false;
+            } else if (!IsvalidEmail(email)) {
+                jError("Email không đúng định dạng!", "lỗi", function () {
+                    $('#txtEmail').focus();
+                });
+                return false;
+            }
 
-			if (GroupIdEdit == "-1") {
-			    $('#cboGroupUser').focus();
-			    showError('Loại người dùng không được để trống!');
-			    return false;
-			}
-			return true;
-		}
+            var _cboCountry = $("#cboCountry").val();
+            if (_cboCountry == null) {
+                jError("Quốc tịch không được bỏ trống!", "lỗi", function () {
+                    $('#cboCountry').multipleSelect('focus');
+                });
+                return false;
+            }
 
-		function collectDataToEditUser(formData) {
-			formData.append('userInfo.Id', userIdEdit);
-			formData.append('userInfo.FullName', fullNameEdit);
-			formData.append('userInfo.DateOfBirth', dateOfBirthEdit);
-			formData.append('userInfo.Sex', sexEdit);
-			formData.append('userInfo.Email', emailEdit);
-			formData.append('userInfo.Phone', phoneEdit);
-			formData.append('userInfo.Type', typeEdit);
-			formData.append('userInfo.Status', statusEdit);
-			formData.append('GroupId', GroupIdEdit);
+            if (@Model.Type == '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Customer)') {
+                var _txtcompany_name = $("#txtcompany_name").val();
+                if (_txtcompany_name == null || _txtcompany_name == "") {
+                    jError("Tên công ty khách hàng không được bỏ trống!", "lỗi", function () {
+                        $('#_txtcompany_name').focus();
+                    });
+                    return false;
+                }
+
+                var _txtmain_business = $("#txtmain_business").val();
+                if (txtmain_business == null || txtmain_business == "") {
+                    jError("Ngành ngề chín không được bỏ trống!", "lỗi", function () {
+                        $('#txtmain_business').focus();
+                    });
+                    return false;
+                }
+
+            } else if (@Model.Type == '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Lawer)') {
+                var _cboLawerType =  $("#cboLawerType").val();
+                if (_cboLawerType == null) {
+                    jError("Loại luật sư không được bỏ trống!", "lỗi", function () {
+                        $('#cboLawerType').focus();
+                    });
+                    return false;
+                }
+
+                var _txthourly_rate = $("#txthourly_rate").val();
+                if (_txthourly_rate == null || _txthourly_rate == "") {
+                    jError("Số tiền / 1 giờ không được bỏ trống!", "lỗi", function () {
+                        $('#txthourly_rate').focus();
+                    });
+                    return false;
+                }
+
+                if (_txthourly_rate == "0") {
+                    jError("Số tiền / 1 giờ phải lớn hơn 0!", "lỗi", function () {
+                        $("#txthourly_rate").val('');
+                        $("#txthourly_rate").focus();
+                    });
+                    return false;
+                }
+            }
+
+            if (GroupId == "-1") {
+                jError("Loại người dùng không được để trống!", "lỗi", function () {
+                    $("#cboGroupUser").focus();
+                });
+                return false;
+            }
+
+            return true;
+        }
+
+		function collectDataToUser(formData) {
+			formData.append('userInfo.Id', userId);
+			formData.append('userInfo.FullName', fullName);
+			formData.append('userInfo.DateOfBirth', dateOfBirth);
+			formData.append('userInfo.Sex', sex);
+			formData.append('userInfo.Email', email);
+            formData.append('userInfo.Phone', phone);
+            formData.append('userInfo.Fax', $("#txtFaxAdd").val());
+            formData.append('userInfo.Type', @Model.Type);
+            formData.append('userInfo.Status', status);
+
+            formData.append('userInfo.Country', $("#cboCountry").val());
+            formData.append('userInfo.Face_Link', $("#txtface_link").val());
+            formData.append('userInfo.Linkedin_Link', $("#txtlinkedin").val());
+            formData.append('userInfo.Wechat_Link', $("#txtwechat_link").val());
+            formData.append('userInfo.Other_Link', $("#txtOther_Link").val());
+
+            if (@Model.Type == '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Customer)') {
+
+                formData.append('userInfo.Company_Name', $("#txtcompany_name").val());
+                formData.append('userInfo.Main_Business', $("#txtmain_business").val());
+                formData.append('userInfo.Title', $("#txttitle").val());
+                formData.append('userInfo.Copyto', $("#txtcopyto").val());
+
+                formData.append('userInfo.Reason_Select', $("#cboReasonSelect").val());
+                formData.append('userInfo.Request_Credit', $("#cboRequestCredit").val());
+            }
+            else if (@Model.Type == '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Lawer)') {
+                formData.append('userInfo.Other_Type', $("#cboLawerType").val());
+                formData.append('userInfo.Hourly_Rate', $("#txthourly_rate").val().replace(/,/g, ""));
+            }
+
+			formData.append('GroupId', GroupId);
 		}
     </script>
 }

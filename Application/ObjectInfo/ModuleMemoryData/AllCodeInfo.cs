@@ -9,6 +9,12 @@
         public int LstOdr { get; set; }
     }
 
+    public class Country_Info
+    {
+        public decimal Country_Id { get; set; }
+        public string Name { get; set; } 
+    }
+
     public class CallBack_Info
     {
         public CallBack_Info()

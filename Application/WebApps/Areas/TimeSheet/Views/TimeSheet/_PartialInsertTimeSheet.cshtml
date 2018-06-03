@@ -3,7 +3,7 @@
 @model Timesheet_Info
 @{
     App_Lawer_BL _App_Lawer_BL = new App_Lawer_BL();
-    List<App_Lawer_Info> _lstAppLawer = _App_Lawer_BL.GetApp_Grant4Lawer(WebApps.Session.SessionData.CurrentUser.Lawer_Id);
+    List<App_Lawer_Info> _lstAppLawer = _App_Lawer_BL.GetApp_Grant4Lawer(WebApps.Session.SessionData.CurrentUser.Id);
 }
 <script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
 <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />

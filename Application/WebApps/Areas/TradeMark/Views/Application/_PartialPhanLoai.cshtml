@@ -8,7 +8,7 @@
     }
 
     Lawer_Info_BL _Lawer_Info_BL = new Lawer_Info_BL();
-    List<Lawer_Info> _lstLawer = _Lawer_Info_BL.Lawer_Info_GetAll();
+    List<UserInfo> _lstLawer = _Lawer_Info_BL.Lawer_Info_GetAll();
 }
 
 <div class="popup-opacity-wrapper"></div>
@@ -19,7 +19,7 @@
             <select id="cboLawer">
                 @foreach (var item in _lstLawer)
                 {
-                    <option value="@item.Lawer_Id">@item.Lawer_Name</option>
+                    <option value="@item.Id">@item.FullName</option>
                 }
             </select>
         </div>

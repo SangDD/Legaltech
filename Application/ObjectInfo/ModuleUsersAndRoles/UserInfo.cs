@@ -52,6 +52,30 @@
 
         public decimal Lawer_Id { get; set; }
 
+
+        public string Fax { get; set; }
+        public string Country { get; set; }
+        public string Country_Name { get; set; }
+        public string Company_Name { get; set; }
+        public string Main_Business { get; set; }
+        public string Title { get; set; }
+        public string Copyto { get; set; }
+        public string Face_Link { get; set; }
+        public string Linkedin_Link { get; set; }
+        public string Wechat_Link { get; set; }
+        public string Other_Link { get; set; }
+        public decimal Reason_Select { get; set; }
+        public string Reason_Select_Name { get; set; }
+
+        public decimal Request_Credit { get; set; }
+        public string Request_Credit_Name { get; set; }
+
+
+        public decimal Other_Type { get; set; }
+        public string Lawer_Type_Name { get; set; }
+
+        public decimal Hourly_Rate { get; set; }
+
         // additional info
         public DateTime LastTimeUpdatePassword { get; set; }
         public DateTime LastTimeRecoverPassword { get; set; }
