@@ -1,346 +1,5 @@
--- Start of DDL Script for Package Body LEGALTECH.PKG_S_GROUPS
--- Generated 18-May-2018 0:35:35 from LEGALTECH@LOCALHOST
-
-CREATE OR REPLACE 
-PACKAGE pkg_s_groups
-  IS TYPE tcursor IS REF Cursor;
-
-PROCEDURE proc_GroupUser_GetById
-(
-    p_groupId NUMBER,
-    p_cursor OUT tcursor
-);
-
-PROCEDURE proc_GroupUser_GetAll
-(
-    p_cursor OUT tcursor
-);
-
-PROCEDURE proc_GroupUser_Find
-(
-    p_groupName IN VARCHAR2,
-
-    p_orderBy IN VARCHAR2,
-    p_startAt IN NUMBER,
-    p_endAt IN NUMBER,
-    p_totalRecord OUT NUMBER,
-    p_cursor OUT tcursor
-);
-
-PROCEDURE proc_GroupUser_AddNew
-(
-    p_groupName IN s_groups.name % type,
-    p_notes IN VARCHAR2,
-    p_createdby IN s_groups.createdby % type,
-
-    p_return OUT NUMBER
-);
-
-PROCEDURE proc_GroupUser_Edit
-(
-    p_groupId IN s_groups.id % type,
-    p_groupName IN s_groups.name % type,
-    p_notes IN VARCHAR2,
-    p_modifiedBy IN s_groups.modifiedby % type,
-
-    p_return OUT NUMBER
-);
-
-PROCEDURE proc_GroupUser_Delete
-(
-    p_groupId IN s_groups.id % type,
-    p_modifiedBy IN s_groups.modifiedby % type,
-
-    p_return OUT NUMBER
-);
-
--- function and group
-PROCEDURE proc_SetupFunctionToGroup
-(
-    p_groupId IN NUMBER,
-    p_functionId IN NUMBER,
-    p_return OUT NUMBER
-);
-
-PROCEDURE proc_DeleteFunctionFromGroup
-(
-    p_groupId IN NUMBER,
-    p_return OUT NUMBER
-);
-
-PROCEDURE proc_GetAllFunctionInGroup
-(
-    p_groupId IN NUMBER,
-    p_cursor OUT tcursor
-);
-
-
-END;
-/
-
-
-CREATE OR REPLACE 
-PACKAGE BODY pkg_s_groups
-IS
-
-PROCEDURE proc_GroupUser_GetById
-(
-    p_groupId NUMBER,
-    p_cursor OUT tcursor
-)
-IS
-BEGIN
-    OPEN p_cursor FOR
-    SELECT a.* FROM s_groups a WHERE a.id = p_groupId AND a.deleted=0;
-
-    EXCEPTION
-    WHEN OTHERS THEN
-    RAISE;
-END;
-
-PROCEDURE proc_GroupUser_GetAll
-(
-    p_cursor OUT tcursor
-)
-IS
-BEGIN
-    OPEN p_cursor FOR
-    SELECT a.* FROM s_groups a WHERE a.deleted=0 ORDER BY NLSSORT(UPPER(a.name), 'NLS_SORT=BINARY_AI') ASC;
-
-    EXCEPTION
-    WHEN OTHERS THEN
-    RAISE;
-END;
-
-PROCEDURE proc_GroupUser_Find
-(
-    p_groupName IN VARCHAR2,
-
-    p_orderBy IN VARCHAR2,
-    p_startAt IN NUMBER,
-    p_endAt IN NUMBER,
-    p_totalRecord OUT NUMBER,
-    p_cursor OUT tcursor
-)
-IS
-    V_SQL VARCHAR2(16000) DEFAULT '';
-    V_SQL_COUNT_TOTAL VARCHAR2(16000) DEFAULT '';
-    V_CONDITION VARCHAR2(8000) DEFAULT '';
-    V_ORDERBY VARCHAR(500) DEFAULT '';
-BEGIN
-    V_CONDITION:= V_CONDITION || ' AND a.deleted=0 ';
-
-    IF(LENGTH(p_groupName) > 0) THEN
-        V_CONDITION:= V_CONDITION || ' AND UPPER(a.Name) LIKE UPPER(''%' || p_groupName || '%'')';
-    END IF;
-
-    IF (LENGTH(p_orderby) > 0)  THEN
-        V_ORDERBY := ' ORDER BY ' || p_orderby;
-    ELSE
-        V_ORDERBY := ' ORDER BY LastTimeUpdated DESC ';
-    END IF;
-
-    V_SQL:=
-    'SELECT a.*, NVL(b.NumberUsersInGroup, 0) AS NumberUsersInGroup, NVL(a.modifiedDate, a.createdDate) AS LastTimeUpdated
-     FROM s_groups a
-     LEFT JOIN (
-         SELECT SUM(userId) AS NumberUsersInGroup, groupId FROM s_group_user GROUP BY groupId
-     ) b
-     ON a.id = b.groupId
-     WHERE 1=1 ' || V_CONDITION || V_ORDERBY;
-
-    V_SQL_COUNT_TOTAL:= 'SELECT COUNT(*) FROM s_groups a WHERE 1=1 ' || V_CONDITION;
-
-    EXECUTE IMMEDIATE V_SQL_COUNT_TOTAL INTO p_totalRecord ;
-    IF p_totalRecord IS NULL THEN
-        p_totalRecord := 0;
-    END IF;
-
-    IF p_endAt <> 0 THEN
-        V_SQL := 'SELECT * FROM ( SELECT ROWNUM AS STT, a.* FROM  ( ' || V_SQL   ||' ) a ) where STT >= '|| p_startAt ||' and STT <= ' || p_endAt;
-    ELSE
-        V_SQL := 'SELECT ROWNUM STT, a.* FROM  ( ' || V_SQL  || ') a ' ;
-    END IF;
-
-    OPEN p_cursor FOR V_SQL;
-
-    EXCEPTION
-    WHEN OTHERS THEN
-    raise_application_error(-20005, V_SQL_COUNT_TOTAL);
-    --RAISE;
-END;
-
-PROCEDURE proc_GroupUser_AddNew
-(
-    p_groupName IN s_groups.name % type,
-    p_notes IN VARCHAR2,
-    p_createdby IN s_groups.createdby % type,
-
-    p_return OUT NUMBER
-)
-IS
-    V_EXISTED NUMBER DEFAULT 0;
-BEGIN
-    SELECT COUNT(*) INTO V_EXISTED FROM s_groups a WHERE UPPER(a.name) = UPPER(p_groupName) AND a.deleted = 0;
-
-    IF(V_EXISTED = 0) THEN
-        INSERT INTO s_groups a (a.id, a.name, a.createdBy, a.createddate, a.deleted,a.notes)
-        VALUES (seq_s_groups.nextval, p_groupName, p_createdby, SYSDATE, 0,p_notes);
-        COMMIT;
-        p_return:= 1100;
-    ELSE
-        p_return:= -1102;
-    END IF;
-
-EXCEPTION
-WHEN OTHERS THEN
-    p_return:= -1101;
-RAISE;
-END;
-
-PROCEDURE proc_GroupUser_Edit
-(
-    p_groupId IN s_groups.id % type,
-    p_groupName IN s_groups.name % type,
-    p_notes IN VARCHAR2,
-    p_modifiedBy IN s_groups.modifiedby % type,
-
-    p_return OUT NUMBER
-)
-IS
-    V_EXISTED NUMBER DEFAULT 0;
-BEGIN
-    SELECT COUNT(*) INTO V_EXISTED FROM s_groups a WHERE a.id = p_groupId AND a.deleted = 0;
-
-    IF(V_EXISTED = 1) THEN
-        SELECT COUNT(*) INTO V_EXISTED FROM s_groups a WHERE UPPER(a.name) = UPPER(p_groupName) AND a.id <> p_groupId AND a.deleted = 0;
-
-        IF(V_EXISTED = 0) THEN
-            UPDATE s_groups
-            SET name = p_groupName, notes = p_notes,
-                modifiedby = p_modifiedBy, modifiedDate = SYSDATE
-            WHERE deleted=0 AND id=p_groupId;
-
-            COMMIT;
-            p_return:= 1103;
-        ELSE
-            p_return:= -1105;
-        END IF;
-    ELSE
-        p_return:= -1106;
-    END IF;
-
-    EXCEPTION
-    WHEN OTHERS THEN
-        p_return:= -1104;
-    RAISE;
-END;
-
-PROCEDURE proc_GroupUser_Delete
-(
-    p_groupId IN s_groups.id % type,
-    p_modifiedBy IN s_groups.modifiedby % type,
-
-    p_return OUT NUMBER
-)
-IS
-    V_EXISTED NUMBER DEFAULT 0;
-BEGIN
-
-    SELECT COUNT(*) INTO V_EXISTED FROM s_groups a WHERE a.id = p_groupId AND a.deleted = 0;
-
-    IF(V_EXISTED = 1) THEN
-        SELECT COUNT(*) INTO V_EXISTED FROM s_group_user a WHERE a.groupId = p_groupId;
-
-        IF(V_EXISTED = 0) THEN
-            UPDATE s_groups SET deleted=1 WHERE id = p_groupId;
-            DELETE FROM s_group_user WHERE groupId = p_groupId;
-            DELETE FROM s_group_function WHERE groupId = p_groupId;
-
-            COMMIT;
-            p_return:= 1107;
-        ELSE
-            p_return:= -1109;
-        END IF;
-    ELSE
-        p_return:= -1110;
-    END IF;
-
-    EXCEPTION
-    WHEN OTHERS THEN
-        p_return:= -1108;
-    RAISE;
-END;
-
-
--- function and group
-PROCEDURE proc_SetupFunctionToGroup
-(
-    p_groupId IN NUMBER,
-    p_functionId IN NUMBER,
-    p_return OUT NUMBER
-)
-IS
-BEGIN
-    p_return:=-1;
-    INSERT INTO s_group_function a (a.groupId, a.functionId) VALUES (p_groupId, p_functionId);
-    -- no commit since use insert batch
-    p_return:=1;
-    EXCEPTION
-    WHEN OTHERS THEN
-        p_return:=-1;
-    RAISE;
-END;
-
-
-PROCEDURE proc_DeleteFunctionFromGroup
-(
-    p_groupId IN NUMBER,
-    p_return OUT NUMBER
-)
-IS
-BEGIN
-    p_return:=-1;
-    DELETE FROM s_group_function a WHERE a.groupId = p_groupId;
-    -- no commit this proc this next step after proc_DeleteFunctionFromGroup executed success
-    p_return:= 1;
-    EXCEPTION
-    WHEN OTHERS THEN
-        p_return:=-1;
-    RAISE;
-END;
-
-
-PROCEDURE proc_GetAllFunctionInGroup
-(
-    p_groupId IN NUMBER,
-    p_cursor OUT tcursor
-)
-IS
-BEGIN
-    OPEN p_cursor FOR
-    SELECT fn.*, DECODE(gf.functionId, null, 0, 1) AS FunctionAddedToGroup
-    FROM s_functions fn
-    LEFT JOIN s_group_function gf
-    ON fn.id = gf.functionId AND gf.groupId = p_groupId
-    WHERE fn.functiontype = pkg_common.FN_MENU
-    ORDER BY fn.position;
-
-    EXCEPTION
-    WHEN OTHERS THEN
-    RAISE;
-END;
-
-
-
-END;
-/
-
-
--- End of DDL Script for Package Body LEGALTECH.PKG_S_GROUPS
-
 -- Start of DDL Script for Package Body LEGALTECH.PKG_S_USERS
--- Generated 18-May-2018 0:35:35 from LEGALTECH@LOCALHOST
+-- Generated 3-Jun-2018 22:11:07 from LEGALTECH@LOCALHOST
 
 CREATE OR REPLACE 
 PACKAGE pkg_s_users
@@ -398,8 +57,24 @@ PROCEDURE proc_User_AddNew
     p_Sex IN s_users.Sex % type,
     p_Email IN s_users.Email % type,
     p_Phone IN s_users.Phone % type,
+    p_fax IN VARCHAR2,
     p_Status In s_users.Status % type,
     p_type IN s_users.type % type,
+
+    p_country IN s_users.country % TYPE,
+    p_company_name IN s_users.company_name % TYPE,
+    p_main_business IN s_users.main_business % TYPE,
+    p_title IN s_users.title % TYPE,
+    p_copyto IN s_users.copyto % TYPE,
+    p_face_link IN s_users.face_link % TYPE,
+    p_linkedin_link IN s_users.linkedin_link % TYPE,
+    p_wechat_link IN s_users.wechat_link % TYPE,
+    p_other_link IN s_users.other_link % TYPE,
+    p_reason_select IN s_users.reason_select % TYPE,
+    p_request_credit IN s_users.request_credit % TYPE,
+    p_other_type IN s_users.other_type % TYPE,
+    p_hourly_rate IN s_users.hourly_rate % TYPE,
+
     p_GroupId IN VARCHAR2,
     p_createdby IN s_users.createdby % type,
     p_return OUT NUMBER
@@ -413,8 +88,24 @@ PROCEDURE proc_User_Edit
     p_Sex IN s_users.Sex % type,
     p_Email IN s_users.Email % type,
     p_Phone IN s_users.Phone % type,
+    p_fax IN VARCHAR2,
     p_Status In s_users.Status % type,
     p_type IN s_users.type % type,
+
+    p_country IN s_users.country % TYPE,
+    p_company_name IN s_users.company_name % TYPE,
+    p_main_business IN s_users.main_business % TYPE,
+    p_title IN s_users.title % TYPE,
+    p_copyto IN s_users.copyto % TYPE,
+    p_face_link IN s_users.face_link % TYPE,
+    p_linkedin_link IN s_users.linkedin_link % TYPE,
+    p_wechat_link IN s_users.wechat_link % TYPE,
+    p_other_link IN s_users.other_link % TYPE,
+    p_reason_select IN s_users.reason_select % TYPE,
+    p_request_credit IN s_users.request_credit % TYPE,
+    p_other_type IN s_users.other_type % TYPE,
+    p_hourly_rate IN s_users.hourly_rate % TYPE,
+
     p_GroupId IN VARCHAR2,
     p_modifiedBy IN s_users.modifiedby % type,
     p_return OUT NUMBER
@@ -468,7 +159,7 @@ IS
 BEGIN
     p_return:= 0;
     SELECT COUNT(*) INTO p_return FROM s_users
-    WHERE username = p_username AND password = p_password AND status=pkg_common.USER_STATUS_ACTIVE AND deleted = 0;
+    WHERE username = p_username AND password = p_password AND status = pkg_common.USER_STATUS_ACTIVE AND deleted = 0;
 
     IF(p_return <> 1) THEN
         SELECT COUNT(*) INTO p_return FROM s_users
@@ -498,16 +189,10 @@ PROCEDURE proc_User_GetById
 IS
 BEGIN
     OPEN p_cursor FOR
-    SELECT a.*, t1.content AS SexDisplayName, t2.content AS StatusDisplayName, t3.content AS Type_Name,
-        NVL(a.modifiedDate, a.createdDate) AS LastTimeUpdated
-    FROM s_users a
-    LEFT JOIN allcode t1 ON TO_CHAR(a.sex) = t1.cdval AND t1.cdname='SEX_TYPE'
-    LEFT JOIN allcode t2 ON TO_CHAR(a.status) = t2.cdval AND t2.cdname='USER_STATUS'
-    LEFT JOIN allcode t3 ON TO_CHAR(a.type) = t3.cdval AND t3.cdname = 'USER' AND t3.cdtype = 'USER_TYPE'
-    WHERE a.id = p_userId AND a.deleted=0;
+    SELECT * FROM view_users a WHERE a.id = p_userId;
 
-    EXCEPTION
-    WHEN OTHERS THEN
+EXCEPTION
+WHEN OTHERS THEN
     RAISE;
 END;
 
@@ -519,16 +204,10 @@ PROCEDURE proc_User_GetByUsername
 IS
 BEGIN
     OPEN p_cursor FOR
-    SELECT a.*, t1.content AS SexDisplayName, t2.content AS StatusDisplayName, t3.content AS Type_Name,
-    NVL(a.modifiedDate, a.createdDate) AS LastTimeUpdated
-    FROM s_users a
-    LEFT JOIN allcode t1 ON TO_CHAR(a.sex) = t1.cdval AND t1.cdname='SEX_TYPE'
-    LEFT JOIN allcode t2 ON TO_CHAR(a.status) = t2.cdval AND t2.cdname='USER_STATUS'
-    LEFT JOIN allcode t3 ON TO_CHAR(a.type) = t3.cdval AND t3.cdname = 'USER' AND t3.cdtype = 'USER_TYPE'
-    WHERE a.username = p_username AND a.deleted=0;
+    SELECT * FROM view_users a WHERE a.username = p_username;
 
-    EXCEPTION
-    WHEN OTHERS THEN
+EXCEPTION
+WHEN OTHERS THEN
     RAISE;
 END;
 
@@ -539,13 +218,7 @@ PROCEDURE proc_User_GetAll
 IS
 BEGIN
     OPEN p_cursor FOR
-     SELECT a.*, t1.content AS SexDisplayName, t2.content AS StatusDisplayName, t3.content AS Type_Name,
-        NVL(a.modifiedDate, a.createdDate) AS LastTimeUpdated
-    FROM s_users a
-    LEFT JOIN allcode t1 ON TO_CHAR(a.sex) = t1.cdval AND t1.cdname='SEX_TYPE'
-    LEFT JOIN allcode t2 ON TO_CHAR(a.status) = t2.cdval AND t2.cdname='USER_STATUS'
-    LEFT JOIN allcode t3 ON TO_CHAR(a.type) = t3.cdval AND t3.cdname = 'USER' AND t3.cdtype = 'USER_TYPE'
-    WHERE  a.deleted=0;
+    SELECT * FROM view_users a ORDER BY username;
 
     EXCEPTION
     WHEN OTHERS THEN
@@ -611,17 +284,9 @@ BEGIN
         V_ORDERBY := ' ORDER BY LastTimeUpdated DESC ';
     END IF;
 
-    V_SQL:=
-    'SELECT a.*, t1.content AS SexDisplayName, t2.content AS StatusDisplayName,
-        t3.content AS Type_Name,
-        NVL(a.modifiedDate, a.createdDate) AS LastTimeUpdated
-    FROM s_users a
-    LEFT JOIN allcode t1 ON TO_CHAR(a.sex) = t1.cdval AND t1.cdname=''SEX_TYPE''
-    LEFT JOIN allcode t2 ON TO_CHAR(a.status) = t2.cdval AND t2.cdname=''USER_STATUS''
-    LEFT JOIN allcode t3 ON TO_CHAR(a.type) = t3.cdval AND t3.cdname = ''USER'' AND t3.cdtype = ''USER_TYPE''
-    WHERE 1=1 ' || V_CONDITION || V_ORDERBY;
+    V_SQL := 'SELECT * from view_users a WHERE 1=1 ' || V_CONDITION || V_ORDERBY;
 
-    V_SQL_COUNT_TOTAL:= 'SELECT COUNT(*) FROM s_users a WHERE 1=1 ' || V_CONDITION;
+    V_SQL_COUNT_TOTAL:= 'SELECT COUNT(*) FROM s_users a WHERE 1 = 1 ' || V_CONDITION;
 
     EXECUTE IMMEDIATE V_SQL_COUNT_TOTAL INTO p_totalRecord ;
     IF p_totalRecord IS NULL THEN
@@ -768,8 +433,24 @@ PROCEDURE proc_User_AddNew
     p_Sex IN s_users.Sex % type,
     p_Email IN s_users.Email % type,
     p_Phone IN s_users.Phone % type,
+    p_fax IN VARCHAR2,
     p_Status In s_users.Status % type,
     p_type IN s_users.type % type,
+
+    p_country IN s_users.country % TYPE,
+    p_company_name IN s_users.company_name % TYPE,
+    p_main_business IN s_users.main_business % TYPE,
+    p_title IN s_users.title % TYPE,
+    p_copyto IN s_users.copyto % TYPE,
+    p_face_link IN s_users.face_link % TYPE,
+    p_linkedin_link IN s_users.linkedin_link % TYPE,
+    p_wechat_link IN s_users.wechat_link % TYPE,
+    p_other_link IN s_users.other_link % TYPE,
+    p_reason_select IN s_users.reason_select % TYPE,
+    p_request_credit IN s_users.request_credit % TYPE,
+    p_other_type IN s_users.other_type % TYPE,
+    p_hourly_rate IN s_users.hourly_rate % TYPE,
+
     p_GroupId IN VARCHAR2,
     p_createdby IN s_users.createdby % type,
     p_return OUT NUMBER
@@ -786,12 +467,17 @@ BEGIN
         INSERT INTO s_users a
         (
             a.id, a.Username, a.Password, a.FullName, a.DateOfBirth, a.Sex, a.Email, a.Phone,
-            a.TYPE, a.Status, a.createdBy, a.createddate, a.deleted
+            a.TYPE, a.Status, a.createdBy, a.createddate, a.deleted,
+            fax, country, company_name, main_business, title, copyto, face_link, linkedin_link, wechat_link, other_link,
+            reason_select, request_credit, other_type, hourly_rate
+
         )
         VALUES
         (
             V_USERID, p_username, p_password, p_fullName, p_DateOfBirth, p_Sex, p_Email, p_Phone,
-            p_type, p_Status, p_createdby ,SYSDATE, 0
+            p_type, p_Status, p_createdby ,SYSDATE, 0,
+            p_fax, p_country, p_company_name, p_main_business, p_title, p_copyto, p_face_link, p_linkedin_link, p_wechat_link, p_other_link,
+            p_reason_select, p_request_credit, p_other_type, p_hourly_rate
         );
 
         IF(LENGTH(p_GroupId) > 0) THEN
@@ -819,8 +505,24 @@ PROCEDURE proc_User_Edit
     p_Sex IN s_users.Sex % type,
     p_Email IN s_users.Email % type,
     p_Phone IN s_users.Phone % type,
+    p_fax IN VARCHAR2,
     p_Status In s_users.Status % type,
     p_type IN s_users.type % type,
+
+    p_country IN s_users.country % TYPE,
+    p_company_name IN s_users.company_name % TYPE,
+    p_main_business IN s_users.main_business % TYPE,
+    p_title IN s_users.title % TYPE,
+    p_copyto IN s_users.copyto % TYPE,
+    p_face_link IN s_users.face_link % TYPE,
+    p_linkedin_link IN s_users.linkedin_link % TYPE,
+    p_wechat_link IN s_users.wechat_link % TYPE,
+    p_other_link IN s_users.other_link % TYPE,
+    p_reason_select IN s_users.reason_select % TYPE,
+    p_request_credit IN s_users.request_credit % TYPE,
+    p_other_type IN s_users.other_type % TYPE,
+    p_hourly_rate IN s_users.hourly_rate % TYPE,
+
     p_GroupId IN VARCHAR2,
     p_modifiedBy IN s_users.modifiedby % type,
     p_return OUT NUMBER
@@ -832,10 +534,36 @@ BEGIN
     WHERE a.id = p_userId AND a.deleted = 0;
 
     IF(V_EXISTED = 1) THEN
+
         UPDATE s_users SET
-        FullName = p_fullName, DateOfBirth = p_DateOfBirth, Sex = p_Sex, Email = p_Email, Phone = p_Phone,
-        TYPE = p_type, Status = p_Status, ModifiedBy = p_modifiedBy
+            FullName = p_fullName, DateOfBirth = p_DateOfBirth, Sex = p_Sex,
+            Email = p_Email, Phone = p_Phone,
+            TYPE = p_type, Status = p_Status,
+            country = p_country,
+            face_link = p_face_link,
+            linkedin_link = p_linkedin_link,
+            wechat_link = p_wechat_link,
+            other_link = p_other_link,
+
+            MODIFIEDDATE = SYSDATE,
+            ModifiedBy = p_modifiedBy
         WHERE id = p_userId;
+
+        IF p_type = pkg_common.USER_TYPE_LAWER THEN
+            UPDATE s_users SET
+                other_type = p_other_type,
+                hourly_rate = p_hourly_rate
+            WHERE id = p_userId;
+        ELSIF p_type = pkg_common.USER_TYPE_CUSTOMER THEN
+            UPDATE s_users SET
+                company_name = p_company_name,
+                main_business = p_main_business,
+                title = p_title, copyto = p_copyto,
+                reason_select = p_reason_select,
+                request_credit = p_request_credit
+            WHERE id = p_userId;
+        END IF;
+
 
         DELETE FROM s_group_user WHERE userId = p_userId;
         IF(LENGTH(p_GroupId) > 0) THEN

@@ -21,6 +21,7 @@
         static MyQueue c_queue_changeData = new MyQueue();
         public static Hashtable c_hs_Allcode = new Hashtable();
         static List<GroupUserInfo> c_lst_Group = new List<GroupUserInfo>();
+        public static List<Country_Info> c_lst_Country = new List<Country_Info>();
 
         public static void LoadAllMemoryData()
         {
@@ -37,8 +38,10 @@
                     {
                         if (c_hs_Allcode.ContainsKey(item.CdName + "|" + item.CdType) == false)
                         {
-                            List<AllCodeInfo> _lst = new List<AllCodeInfo>();
-                            _lst.Add(item);
+                            List<AllCodeInfo> _lst = new List<AllCodeInfo>
+                            {
+                                item
+                            };
                             c_hs_Allcode[item.CdName + "|" + item.CdType] = _lst;
                         }
                         else
@@ -53,6 +56,8 @@
                 #endregion
 
                 ReloadGroup();
+
+                ReloadCountry();
 
                 MenuBL.LoadAllMenuToMemory();
                 FunctionBL.LoadFunctionCollectionsToMemory();
@@ -119,6 +124,21 @@
             }
         }
         #endregion
+
+        // Country
+        public static void ReloadCountry()
+        {
+            try
+            {
+                AllCodeBL allCodeBL = new AllCodeBL();
+                c_lst_Country = allCodeBL.Country_GetAll();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+        }
+
 
         public static void Enqueue_ChangeData(string p_table_name)
         {

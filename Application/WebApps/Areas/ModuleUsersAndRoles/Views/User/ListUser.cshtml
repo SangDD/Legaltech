@@ -126,9 +126,9 @@
             <div class="divPopup" id="divPopUpUser">
             </div>
         </div>
-        
+
     </div>
-     
+
     <script>
         var _currentKeySearch = '@SessionStorages.SEARCH_USER_KEY_CONDITIONS';
         var _currentOptionFilter = '@SessionStorages.SEARCH_USER_KEY_OPTIONS';
@@ -174,8 +174,12 @@
                     keysSearch: keySearch,
                     options: optionFilter
                 },
-                async: false,
+                async: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
                 success: function (data) {
+                    CreateRollingWaitingIcon(false);
                     if (data != null) {
                         onResponseWhenSearching(data, "divTableUsers", findUsers);
                     }
@@ -219,7 +223,7 @@
                             //ShowPopupDialog("dpop-users", "Thêm mới người dùng", 900, 0, "txtUsernameAdd");
 
                             $("#divPopUpUser").html(data);
-                            ShowPopupDialog_Ipace('divWrapperPopUpUser', "Thêm mới người dùng", 900, 500, "txtUsernameAdd");
+                            ShowPopupDialog_Ipace('divWrapperPopUpUser', "Thêm mới người dùng", 900, 900, "txtUsernameAdd");
                         }
                     }
                     return false;
@@ -239,7 +243,7 @@
                         if (validateResponse(data)) {
 
                             $("#divPopUpUser").html(data);
-                            ShowPopupDialog_Ipace('divWrapperPopUpUser', "Sửa người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 500, "txtFullNameEdit");
+                            ShowPopupDialog_Ipace('divWrapperPopUpUser', "Sửa người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 900, "txtFullNameEdit");
                         }
                     }
                     return false;
@@ -287,7 +291,7 @@
                     if (data != null) {
                         if (validateResponse(data)) {
                             $("#divPopUpUser").html(data);
-                            ShowPopupDialog_Ipace('divWrapperPopUpUser', "Chi tiết người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 500);
+                            ShowPopupDialog_Ipace('divWrapperPopUpUser', "Chi tiết người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 900);
                         }
                     }
                     return false;
@@ -298,7 +302,7 @@
         function ClosePopUpUser() {
             CloseDivPopUp('divWrapperPopUpUser');
         }
-        
+
     </script>
 }
 catch (Exception)

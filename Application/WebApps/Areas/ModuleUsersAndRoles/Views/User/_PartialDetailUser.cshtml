@@ -20,6 +20,13 @@
 }
 @try
 {
+    <style>
+        /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+        .div-search-title > div {
+            width: 145px;
+        }
+    </style>
+
     <div class="" style="padding:5px 38px">
         <div class="divCover divCover_popup">
             <div class="div-search-ad">
@@ -28,17 +35,16 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        @Html.TextBoxFor(m => m.Username, new { @id = "txtUsername" })
+                        @Html.TextBoxFor(m => m.Username, new { @id = "txtUsername", @disabled = "disabled", @style = "width: 200px" })
                     </div>
                 </div>
-            </div>
-            <div class="div-search-ad">
+
                 <div class="div-search-title">
                     <div>Họ tên<i class="redspan">(*)</i></div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        @Html.TextBoxFor(m => m.FullName, new { @id = "txtFullName" })
+                        @Html.TextBoxFor(m => m.FullName, new { @id = "txtFullName", @disabled = "disabled" })
                     </div>
                 </div>
             </div>
@@ -51,19 +57,18 @@
                         @Html.TextBoxFor(m => m.DateOfBirth, new
                         {
                             @id = "DateOfBirth",
-                            @Value = Model.DateOfBirth == DateTime.MinValue ? "" : Model.DateOfBirth.ToString("dd/MM/yyyy")
+                            @Value = Model.DateOfBirth == DateTime.MinValue ? "" : Model.DateOfBirth.ToString("dd/MM/yyyy"), @disabled = "disabled", @style = "width: 200px"
                         })
                     </div>
                 </div>
-            </div>
 
-            <div class="div-search-ad">
+
                 <div class="div-search-title">
                     <div>Giới tính</div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        @Html.TextBoxFor(m => m.SexDisplayName)
+                        @Html.TextBoxFor(m => m.SexDisplayName, new { @disabled = "disabled" })
                     </div>
                 </div>
             </div>
@@ -74,15 +79,65 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        @Html.TextBoxFor(m => m.Phone, new { @maxlength = "50" })
+                        @Html.TextBoxFor(m => m.Phone, new { @style = "width: 200px", @disabled = "disabled" })
                     </div>
                 </div>
+
                 <div class="div-search-title">
-                    <div>Email </div>
+                    <div>Fax </div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        @Html.TextBoxFor(m => m.Email, new { @maxlength = "50" })
+                        @Html.TextBoxFor(m => m.Fax, new { @disabled = "disabled" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Email<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.Email, new { @maxlength = "200", @style = "width: 200px", @disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div>Face </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.Face_Link, new { @maxlength = "200", @disabled = "disabled" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Linkedin</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.Linkedin_Link, new { @maxlength = "200", @style = "width: 200px", @disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div>Wechat</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.Wechat_Link, new { @maxlength = "200", @disabled = "disabled" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Other link</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.Other_Link, new { @id = "txtOther_Link", @maxlength = "200", @disabled = "disabled" })
                     </div>
                 </div>
             </div>
@@ -93,7 +148,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        @Html.TextBoxFor(m => m.Type_Name)
+                        @Html.TextBoxFor(m => m.Type_Name, new { @style = "width: 200px", @disabled = "disabled" })
                     </div>
                 </div>
                 <div class="div-search-title">
@@ -101,10 +156,95 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        @Html.TextBoxFor(m => m.StatusDisplayName)
+                        @Html.TextBoxFor(m => m.StatusDisplayName, new { @disabled = "disabled" })
                     </div>
                 </div>
             </div>
+
+            @if (Model.Type == Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Customer))
+            {
+                <div class="div-search-ad" id="clsCustomer">
+                    <div class="div-search-title">
+                        <div>Tên công ty <i class="redspan">(*)</i></div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            @Html.TextBoxFor(m => m.Company_Name, new { @maxlength = "500", @style = "width: 200px", @disabled = "disabled" })
+                        </div>
+                    </div>
+
+                    <div class="div-search-title">
+                        <div>Ngành ngề chính  <i class="redspan">(*)</i></div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            @Html.TextBoxFor(m => m.Main_Business, new { @maxlength = "500", @disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="div-search-ad" id="clsCustomer1">
+                    <div class="div-search-title">
+                        <div>Người quản lý</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            @Html.TextBoxFor(m => m.Copyto, new { @maxlength = "200", @style = "width: 200px", @disabled = "disabled" })
+                        </div>
+                    </div>
+
+                    <div class="div-search-title">
+                        <div>Chức vụ </div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            @Html.TextBoxFor(m => m.Title, new { @maxlength = "500", @disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="div-search-ad" id="clsCustomer2">
+                    <div class="div-search-title">
+                        <div>Lý do dùng </div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            @Html.TextBoxFor(m => m.Reason_Select, new { @style = "width: 200px", @disabled = "disabled" })
+                        </div>
+                    </div>
+
+                    <div class="div-search-title">
+                        <div>Chính sách giá đặc biệt </div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            @Html.TextBoxFor(m => m.Request_Credit)
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (Model.Type == Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Lawer))
+            {
+                <div class="div-search-ad" id="clsLawer">
+                    <div class="div-search-title">
+                        <div>Loại luật sư <i class="redspan">(*)</i></div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            @Html.TextBoxFor(m => m.Lawer_Type_Name, new { @style = "width: 200px", @disabled = "disabled" })
+                        </div>
+                    </div>
+
+                    <div class="div-search-title">
+                        <div>Số tiền / 1 giờ <i class="redspan">(*)</i></div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            @Html.TextBoxFor(m => m.Hourly_Rate, new { @disabled = "disabled", @Value = Model.Hourly_Rate == 0 ? "" : Model.Hourly_Rate.ToString("#,##0.##") })
+                        </div>
+                    </div>
+                </div>
+            }
 
             <div class="div-search-ad">
                 <div class="div-search-title">
@@ -112,7 +252,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" value="@_GroupName"/>
+                        <input type="text" value="@_GroupName" disabled="disabled" />
                     </div>
                 </div>
             </div>
@@ -125,7 +265,8 @@
         </div>
     </div>
 }
-catch (Exception)
+catch (Exception ex)
 {
     // ignored
+    Common.Logger.Log().Error(ex);
 }
