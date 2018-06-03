@@ -1,7 +1,285 @@
-﻿
+﻿@using BussinessFacade.ModuleMemoryData
+@using BussinessFacade.ModuleUsersAndRoles
+@using Common.CommonData
+@using ObjectInfos;
 @{
-    ViewBag.Title = "AppClassList";
+    ViewBag.Title = "Quản lý hàng hóa dịch vụ";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
 }
+@try
+{
+    <style>
+        /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+        .div-search-title > div {
+            width: 120px;
+        }
+    </style>
 
-<h2>AppClassList</h2>
+    <div class="divCover">
+        <div class="d-nav">
+            <img src="~/Content/icons/Body-icon-home.png" /> I
+            Quản trị hệ thống
+            <span class="red">></span>
+            <a href="/quan-tri-he-thong/quan-ly-san-pham-dich-vu">Quản lý sản phẩm dịch vụ</a>
+        </div>
+    </div>
+    <div class="divCover">
+        <div class="classLine">
+        </div>
+    </div>
 
+    <div class="d-main">
+        <div class="divCover">
+            <div class="classTitle">
+                <input type="hidden" value="LastTimeUpdated" id="colSorted" />
+                <input type="hidden" value="DESC" id="SortType" />
+                <input type="hidden" value="" id="OptionSorting" />
+                <div class="div-title-content"> THÔNG TIN HÀNG HÓA DỊCH VỤ </div>
+            </div>
+        </div>
+
+        <div class="divCover" id="div-search-simple">
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div style="width: 120px">Mã hàng </div>
+                </div>
+                <div>
+                    <div>
+                        <input style="width: 250px;" type="text" id="txt_code" data-controlcondition="TRUE" />
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div style="width: 120px">Tên tiếng Việt</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txt_name_vi" data-controlcondition="TRUE" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div style="width: 120px">Tên tiếng Anh </div>
+                </div>
+                <div>
+                    <div>
+                        <input type="text" id="txt_name_en" data-controlcondition="TRUE" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divCover">
+            <div class="div-search-btn" style="width:450px;">
+                <input type="button" value="Tìm kiếm" class="btn-default" onclick="findUsers(1, 1)" />
+                <input type="button" value="Thêm người dùng" class="btn-default" style="width: 125px;" onclick="getViewToAddNewUser()" />
+            </div>
+        </div>
+
+        <div class="divCover">
+            <div id="divTableData">
+                @Html.Partial("_PartialAppClassData")
+            </div>
+        </div>
+
+        <div id="divWrapperViewUser" class="divWrapperPopup" style="display: none;">
+            <div class="divPopup" id="divViewUser">
+            </div>
+        </div>
+
+        <div id="divWrapperEditObj" class="divWrapperPopup" style="display: none;">
+            <div class="divPopup" id="divEditUser">
+            </div>
+        </div>
+
+        <div id="divWrapperAddObj" class="divWrapperPopup" style="display: none;">
+            <div class="divPopup" id="divAddUser">
+            </div>
+        </div>
+
+        <div id="divWrapperPopUpObj" class="divWrapperPopup" style="display: none;">
+            <div class="divPopup" id="divPopUpUser">
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        var _currentKeySearch = '@SessionStorages.SEARCH_USER_KEY_CONDITIONS';
+        var _currentOptionFilter = '@SessionStorages.SEARCH_USER_KEY_OPTIONS';
+        var username = '', fullName = '', type = '', status = '';
+
+        $(document).ready(function () {
+            initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findUsers);
+
+            $('txtUsernameSearch').focus();
+            $('[data-controlcondition="TRUE"]').on('keypress',
+				function (e) {
+				    enterKeyPress(e, 'btnFindUsers');
+				});
+        });
+
+        function findUsers(_pageNumber, _isSearching) {
+            reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
+            if (isSearching === 1) {
+                username = $("#txtUsernameSearch").val().trim();
+                fullName = $("#txtFullNameSearch").val().trim();
+                type = $("#cboUserType").val();
+                status = $("#cboStatusSearch").val();
+            } else {
+                window.arrKeySearch = window.keySearch.split('|');
+                username = arrKeySearch[0];
+                fullName = arrKeySearch[1];
+                type = arrKeySearch[2];
+                status = arrKeySearch[3];
+
+                $("#txtUsernameSearch").val(username);
+                $("#txtFullNameSearch").val(fullName);
+                $("#cboUserType").val(type);
+                $("#cboStatusSearch").val(status);
+            }
+
+            updateSearchingConditions("divNumberRecordOnPageListUsers", setKeySearch);
+
+            $.ajax({
+                type: "POST",
+                headers: { "cache-control": "no-cache" },
+                url: "/quan-tri-he-thong/quan-ly-nguoi-dung/find-user",
+                data: {
+                    keysSearch: keySearch,
+                    options: optionFilter
+                },
+                async: false,
+                success: function (data) {
+                    if (data != null) {
+                        onResponseWhenSearching(data, "divTableData", findUsers);
+                    }
+                }
+            });
+            return true;
+        }
+
+        function setKeySearch() {
+            window.keySearch = username + "|" + fullName + "|" + type + "|" + status;
+        }
+
+        function initOrderBySearching() {
+            window.colSort = 'LastTimeUpdated';
+            window.sortType = 'DESC';
+        }
+
+        function pageListOfUsers(_pagenum) {
+            try {
+                findUsers(_pagenum, 0);
+
+            } catch (e) {
+                console.log(e.message);
+            }
+        }
+    </script>
+
+    @* task function *@
+    <script>
+
+        function getViewToAddNewUser() {
+            $.ajax({
+                type: "POST",
+                url: "/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-add-user",
+                headers: { "cache-control": "no-cache" },
+                async: false,
+                success: function (data) {
+                    if (data != null) {
+                        if (validateResponse(data)) {
+                            //$("#dpop-users").html(data);
+                            //ShowPopupDialog("dpop-users", "Thêm mới người dùng", 900, 0, "txtUsernameAdd");
+
+                            $("#divPopUpUser").html(data);
+                            ShowPopupDialog_Ipace('divWrapperPopUpObj', "Thêm mới người dùng", 900, 500, "txtUsernameAdd");
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
+
+        function getViewToEditUser(userId, username) {
+            $.ajax({
+                type: "POST",
+                url: "/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-edit-user",
+                headers: { "cache-control": "no-cache" },
+                data: { userId: userId },
+                async: false,
+                success: function (data) {
+                    if (data != null) {
+                        if (validateResponse(data)) {
+
+                            $("#divPopUpUser").html(data);
+                            ShowPopupDialog_Ipace('divWrapperPopUpObj', "Sửa người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 500, "txtFullNameEdit");
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
+
+        function doDeleteUser(userId, canDelete) {
+            if (canDelete > 0) {
+                showError("Không thể xóa người dùng đang hoạt động.");
+                return false;
+            } else {
+                nvsConfirm(null, "Bạn có chắc chắn muốn xóa người dùng này không?", function () {
+                    $.ajax({
+                        url: "/quan-tri-he-thong/quan-ly-nguoi-dung/do-delete-user",
+                        type: "POST",
+                        data: { userId: userId },
+                        headers: { "cache-control": "no-cache" },
+                        async: false,
+                        success: function (data) {
+                            if (data != null) {
+                                if (onResponse(data)) {
+                                    ClosePopupDialog('dpop-users', true);
+                                    findUsers(1, 0);
+                                }
+                            }
+                        },
+                        error: function (e) {
+                            console.log(e);
+                        }
+                    });
+
+                });
+            }
+        }
+
+        function viewDetailUser(userId, username) {
+            $.ajax({
+                type: "POST",
+                url: "/quan-tri-he-thong/quan-ly-nguoi-dung/view-detail-user",
+                headers: { "cache-control": "no-cache" },
+                async: false,
+                data: { userId: userId },
+                success: function (data) {
+                    if (data != null) {
+                        if (validateResponse(data)) {
+                            $("#divPopUpUser").html(data);
+                            ShowPopupDialog_Ipace('divWrapperPopUpObj', "Chi tiết người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 500);
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
+
+        function ClosePopUpUser() {
+            CloseDivPopUp('divWrapperPopUpObj');
+        }
+
+    </script>
+}
+catch (Exception)
+{
+    // ignored
+}

@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.SearchingAndFiltering;
 using DataAccess;
 using ObjectInfos;
 using System;
@@ -9,7 +10,7 @@ using ZetaCompressionLibrary;
 
 namespace BussinessFacade
 {
-  public  class App_Class_BL
+  public  class App_Class_BL: RepositoriesBL
     {
         public List<App_Class_Info> AppClassGetByID(decimal P_ID)
         {
@@ -27,13 +28,20 @@ namespace BussinessFacade
         }
 
 
-        public List<App_Class_Info> SearchAppClass(string P_KEY_SEARCH, string P_FROM, string P_TO, string P_SORT_TYPE, ref decimal P_TOTAL_RECORD)
+        public List<App_Class_Info> SearchAppClass(string P_KEY_SEARCH = "",  string OPTIONS = "")
         {
             try
             {
-                App_Class_DA _da = new App_Class_DA();
-                DataSet _ds = _da.SearchAppClass(P_KEY_SEARCH, P_FROM, P_TO, P_SORT_TYPE, ref P_TOTAL_RECORD);
-                return CBO<App_Class_Info>.FillCollectionFromDataSet(_ds);
+                // App_Class_DA _da = new App_Class_DA();
+                ////DataSet _ds = _da.SearchAppClass(P_KEY_SEARCH, P_FROM, P_TO, P_SORT_TYPE, ref P_TOTAL_RECORD);
+                ////return CBO<App_Class_Info>.FillCollectionFromDataSet(_ds);
+
+                //var optionFilter = new OptionFilter(OPTIONS);
+                //var totalRecordFindResult = 0;
+                //var ds = _da.SearchAppClass(P_KEY_SEARCH, optionFilter, ref totalRecordFindResult);
+                //this.SetupPagingHtml(optionFilter, totalRecordFindResult, "pageListOfUsers", "divNumberRecordOnPageListUsers");
+                //return CBO<UserInfo>.FillCollectionFromDataSet(ds);
+                return new List<App_Class_Info>();
             }
             catch (Exception ex)
             {
