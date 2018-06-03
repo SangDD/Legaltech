@@ -2,6 +2,13 @@
 
 namespace ObjectInfos
 {
+    public class AppClassInfo
+    {
+        public string Code { get; set; }
+        public string Name_Vi { get; set; }
+        public string Name_En { get; set; }
+    }
+
     public class ApplicationHeaderInfo
     {
         public decimal STT { get; set; }
