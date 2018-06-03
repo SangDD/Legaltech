@@ -156,4 +156,22 @@ namespace DataAccess.ModuleTrademark
             }
         }
     }
+
+
+    public class AppClassInfo_DA
+    {
+        public DataSet AppClassGetOnMemory()
+        {
+            try
+            {
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_CLASS.PROC_APP_CLASS_GET_MEMORY",
+                    new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+    }
 }

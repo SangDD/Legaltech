@@ -87,4 +87,23 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
     }
+
+    public class AppClassInfoBL
+    {
+        public static List<AppClassInfo> AppClassGetOnMem()
+        {
+            try
+            {
+                AppClassInfo_DA objData = new AppClassInfo_DA();
+                DataSet _ds = objData.AppClassGetOnMemory();
+                return CBO<AppClassInfo>.FillCollectionFromDataSet(_ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<AppClassInfo>();
+            }
+        }
+
+    }
 }

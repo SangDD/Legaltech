@@ -240,6 +240,7 @@
     </fieldset>
 </div>
 
+@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialPreview.cshtml")
 
 <script>
     $("#0_ckbDacTinhHangHoa").change(function () {
@@ -344,10 +345,8 @@
                 headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.status >= 0) {
-
                         jAlert(AddSuccess, ThongBao, function () {
                         });
-
                     } else {
                         jError(AddFail, ThongBao, function () {
                         });
