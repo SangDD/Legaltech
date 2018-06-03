@@ -121,26 +121,66 @@
                 var CreatedDate = SessionData.CurrentUser.CurrentDate;
                 int pReturn = ErrorCode.Success;
                 int pAppHeaderID = 0;
-                //
-                pInfo.Languague_Code = language;
-                pInfo.Created_By = CreatedBy;
-                pInfo.Created_Date = CreatedDate;
-                //TRA RA ID CUA BANG KHI INSERT
-                pAppHeaderID = objBL.AppHeaderInsert(pInfo);
-                if (pAppHeaderID >= 0)
+                using (var scope = new TransactionScope())
                 {
-                    pDetail.Appcode = pInfo.Appcode;
-                    pDetail.Language_Code = language;
-                    pDetail.App_Header_Id = pAppHeaderID;
-                    if (pDetail.pfileLogo != null)
+                    //
+                    pInfo.Languague_Code = language;
+                    pInfo.Created_By = CreatedBy;
+                    pInfo.Created_Date = CreatedDate;
+                    //TRA RA ID CUA BANG KHI INSERT
+                    pAppHeaderID = objBL.AppHeaderInsert(pInfo);
+                    if (pAppHeaderID >= 0)
                     {
-                        pDetail.Logourl = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
+                        pDetail.Appcode = pInfo.Appcode;
+                        pDetail.Language_Code = language;
+                        pDetail.App_Header_Id = pAppHeaderID;
+                        if (pDetail.pfileLogo != null)
+                        {
+                            pDetail.Logourl = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
+                        }
+                        pReturn = objDetail.App_Detail_04NH_Insert(pDetail);
                     }
-                    pReturn = objDetail.App_Detail_04NH_Insert(pDetail);
-                }
-                else
-                {
-                    Transaction.Current.Rollback();
+                    else
+                    {
+                        Transaction.Current.Rollback();
+                    }
+                    if (pReturn >= 0 && pAppDocumentInfo != null)
+                    {
+                       
+                        if (pAppDocumentInfo.Count > 0)
+                        {
+                            foreach (var info in pAppDocumentInfo)
+                            {
+                                if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
+                                {
+                                    HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
+                                    info.Filename = pfiles.FileName;
+                                    info.Url_Hardcopy = "~/Content/Archive/" + AppUpload.Document + pfiles.FileName;
+                                    info.Status = 0;
+                                }
+                                info.App_Header_Id = pAppHeaderID;
+                                info.Document_Filing_Date = CommonFuc.CurrentDate();
+                                info.Language_Code = language;
+                            }
+                            pReturn = objDoc.AppDocumentInsertBath(pAppDocumentInfo, pAppHeaderID);
+                            if (pReturn < 0)
+                            {
+                                Transaction.Current.Rollback();
+                            }
+                            else
+                            {
+                                scope.Complete();
+                            }
+                        }
+                        else
+                        {
+                            scope.Complete();
+                        }
+                    }
+                    else
+                    {
+                        Transaction.Current.Rollback();
+                    }
                 }
                 return Json(new { status = pAppHeaderID });
             }

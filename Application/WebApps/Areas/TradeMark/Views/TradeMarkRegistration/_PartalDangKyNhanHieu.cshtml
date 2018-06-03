@@ -215,7 +215,7 @@
                     <input style="width:33%" type="text" id="8_txtDacTinhKhac" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" placeholder="8_txtDacTinhKhac" />
                 </div>
             </div>
-        </div> 
+        </div>
         <div class="div_full_100_area">
             <div class="class_full_div_p class_text_center_bold">CHỦ ĐƠN KHÁC</div>
             <br />
@@ -255,7 +255,7 @@
     });
 
     document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {
-        filePreview(this,'imgMauNhanHieu');
+        filePreview(this, 'imgMauNhanHieu');
     };
 
 
@@ -271,7 +271,6 @@
 
     $(document).ready(function () {
         funcEnableDisable('classDacTinhUT', false);
-
         $.datetimepicker.setLocale('vi');
         $('.datetimepicker').datetimepicker({
             timepicker: false,
@@ -323,6 +322,11 @@
             //Lấy thông tin detail
 
             var reponse = funcGetAppDetail(formData);
+            if (reponse == false) {
+                return false;
+            }
+            //Lấy thông tin file có trong đơn 
+            reponse  = funGetThongTinFile(formData);
             if (reponse == false) {
                 return false;
             }
@@ -491,5 +495,104 @@
             showError('Có lỗi xảy ra kiểm tra kết nối internet');
             return false;
         }
+    }
+
+    function funGetThongTinFile(formData) {
+        try {
+            var Isuse = 0, Note = "" , reponse =false;
+            //Các tài liệu có trong đơn
+            reponse = funcGetCheckValueAndText(formData, "6_rdoToKhai", "0");
+            formData.append("pAppDocumentInfo[0].CHAR01", $("#6_txtToKhaiTrang").val());
+            formData.append("pAppDocumentInfo[0].CHAR02", $("#6_txtToKhaiBan").val());
+            //
+            //Các tài liệu có trong đơn
+            reponse = funcGetCheckValueAndText(formData, "6_rdoMauNhanHieuTD", "1");
+            formData.append("pAppDocumentInfo[1].CHAR01", $("#6_txtMauNhanHieuTD").val());
+            // 
+            //Các tài liệu có trong đơn
+            reponse = funcGetCheckValueAndText(formData, "6_rdoChungTuPhiLP", "2");
+            //
+            //Các tài liệu có trong đơn 3
+            reponse = funcGetCheckValueAndText(formData, "6_rdoGiayUyQuyen", "3");
+            formData.append("pAppDocumentInfo[3].CHAR01", $("#6_txtGiayUQTiengViet").val());
+
+            // 4 6_rdoBanGoc
+            reponse = funcGetCheckValueAndText(formData, "6_rdoBanGoc", "4");
+
+            // 5 6_rdoBanSao
+            reponse = funcGetCheckValueAndText(formData, "6_rdoBanSao", "5");
+
+            // 6 6_rdoBanGocSeNopSau
+            reponse = funcGetCheckValueAndText(formData, "6_rdoBanGocSeNopSau", "6");
+
+            // 7 6_rdoBanGocDaNopTheoDonSo
+            reponse = funcGetCheckValueAndText(formData, "6_rdoBanGocDaNopTheoDonSo", "7");
+            formData.append("pAppDocumentInfo[7].CHAR01", $("#6_txtBangocDNTheoDonSo").val());
+            // 8 6_rdoBanDichTiengViet
+            reponse = funcGetCheckValueAndText(formData, "6_rdoBanDichTiengViet", "8");
+            formData.append("pAppDocumentInfo[8].CHAR01", $("#6_txtBDTV_UQ").val());
+
+            // 9 6_rdoTLXNDPSD
+            reponse = funcGetCheckValueAndText(formData, "6_rdoTLXNDPSD", "9");
+            formData.append("pAppDocumentInfo[9].CHAR01", $("#6_TLXNDPSD").val());
+
+            // 
+            // 10 6_rdoTLDKNH
+            reponse = funcGetCheckValueAndText(formData, "6_rdoTLDKNH", "10");
+
+            // 11 6_rdoTLThuHuongNK
+            reponse = funcGetCheckValueAndText(formData, "6_rdoTLThuHuongNK", "11");
+
+
+            // 12 6_rdoQuyCheSDNH
+            reponse = funcGetCheckValueAndText(formData, "6_rdoQuyCheSDNH", "12");
+            formData.append("pAppDocumentInfo[12].CHAR01", $("#6_txtQuyCheSDNHTrang").val());
+            formData.append("pAppDocumentInfo[12].CHAR02", $("#6_txtQuyCheSDNHBan").val());
+
+            // 13 6_rdoTLCMQUT
+            reponse = funcGetCheckValueAndText(formData, "6_rdoTLCMQUT", "13");
+            formData.append("pAppDocumentInfo[13].CHAR01", $("#6_txtTLCMQUT").val());
+            
+            // 13 6_rdoBSDDT----------
+            reponse = funcGetCheckValueAndText(formData, "6_rdoBSDDT", "14");
+          
+            // 15 6_rdoBDTVGom
+            reponse = funcGetCheckValueAndText(formData, "6_rdoBDTVGom", "15");
+            formData.append("pAppDocumentInfo[14].CHAR01", $("#6_txtBDTVGom").val());
+            
+            // 16 6_rdoGiayChuyenNhungUT
+            reponse = funcGetCheckValueAndText(formData, "6_rdoGiayChuyenNhungUT", "16");
+            // 17 6_rdoGiayChuyenNhungUT
+            reponse = funcGetCheckValueAndText(formData, "6_rdoBanDoKVDL", "17");
+            // 18 6_rdoGiayChuyenNhungUT
+            reponse = funcGetCheckValueAndText(formData, "6_rdoVBuyBanTinh", "18");
+            // 19 6_rdoGiayChuyenNhungUT
+            reponse = funcGetCheckValueAndText(formData, "6_rdoTLKhaiTTBS", "19");
+            // 20 6_rdoGiayChuyenNhungUT
+            reponse = funcGetCheckValueAndText(formData, "6_rdoPOA", "20");
+            // 21 6_rdoGiayChuyenNhungUT
+            reponse = funcGetCheckValueAndText(formData, "6_rdoTLK", "21");
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+
+    function funcGetCheckValueAndText(formData,pID,pItem ) {
+        try {
+            var Isuse = 0, Note = "";
+            //Các tài liệu có trong đơn
+            if ($("#" + pID).prop('checked') == true) {
+                Isuse = 1;
+            }
+            formData.append("pAppDocumentInfo[" + pItem + "].keyFileUpload", pID);
+            formData.append("pAppDocumentInfo[" + pItem + "].Document_Id", $("#" + pID).val());
+            formData.append("pAppDocumentInfo[" + pItem + "].Isuse", Isuse);
+            return true;
+        } catch (e) {
+            return false;
+        }
+
     }
 </script>
