@@ -1,74 +1,123 @@
 ﻿@using ObjectInfos;
 @using BussinessFacade;
-@{
-    Timesheet_Info _Timesheet_Info = new Timesheet_Info();
-    if (ViewBag.Timesheet_Info != null)
-    {
-        _Timesheet_Info = ViewBag.Timesheet_Info;
+@model Timesheet_Info
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
     }
-}
+</style>
 
-<div class="popup-opacity-wrapper"></div>
-<div class="d-popup" style="overflow: visible">
-    <div class="d-popup-content grid grid-2cols" id="divViewTimeSheet">
-        <div>
-            <label>Mã đơn </label>
-            <p class="text-font-medium">@_Timesheet_Info.App_GenCode</p>
+<div class="" style="padding:5px 38px">
+    <div class="divCover divCover_popup">
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Mã đơn<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.App_Code, new { @id = "txtApp_Code", @disabled = "disabled" })
+                </div>
+            </div>
         </div>
 
-        <div>
-            <label>Loại đơn</label>
-            <p class="text-font-medium">@_Timesheet_Info.App_Name</p>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Loại đơn</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.App_Name, new { @id = "txtApp_Name", @disabled = "disabled" })
+                </div>
+            </div>
         </div>
 
-        <div>
-            <label>Timesheet name</label>
-            <p class="text-font-medium">@_Timesheet_Info.Name</p>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Timesheet name</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Name, new { @id = "txtName", @disabled = "disabled", @style = "width: 200px" })
+                </div>
+            </div>
+
+
+            <div class="div-search-title">
+                <div>Luật sư</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Lawer_Name, new { @disabled = "disabled" })
+                </div>
+            </div>
         </div>
 
-        <div>
-            <label>Luật sư</label>
-            <p class="text-font-medium">@_Timesheet_Info.Lawer_Name</p>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Trạng thái</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Status_Name, new { @disabled = "disabled" })
+                </div>
+            </div>
         </div>
 
-        <div>
-            <label>Trạng thái</label>
-            <p class="text-font-medium">@_Timesheet_Info.Status_Name</p>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Ngày</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Time_Date, new
+                    {
+                        @id = "DateOfBirth",
+                        @Value = Model.Time_Date == DateTime.MinValue ? "" : Model.Time_Date.ToString("dd/MM/yyyy"), @disabled = "disabled", @style = "width: 200px"
+                    })
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div>Giờ </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Hours, new { @disabled = "disabled" })
+                </div>
+            </div>
         </div>
 
-        <div>
-            <label>Ngày</label>
-            <p class="text-font-medium">@_Timesheet_Info.Time_Date.ToString("dd/MM/yyyy")</p>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Ghi chú</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Notes, new { @disabled = "disabled" })
+                </div>
+            </div>
         </div>
 
-        <div>
-            <label>Giờ</label>
-            <p class="text-font-medium">@_Timesheet_Info.Hours</p>
-        </div>
-
-        <div>
-            <label>Ghi chú</label>
-            <p class="text-font-medium">@_Timesheet_Info.Notes</p>
-        </div>
-
-        @if (_Timesheet_Info.Status == (int)Common.CommonData.CommonEnums.TimeSheet_Status.Reject)
+        @if (Model.Status == (int)Common.CommonData.CommonEnums.TimeSheet_Status.Reject)
         {
-            <div>
-                <label>Lý do từ chối</label>
-                <p class="text-font-medium">@_Timesheet_Info.Reject_Reason</p>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Lý do từ chối</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.Reject_Reason, new { @id = "txtReject_Reason", @disabled = "disabled" })
+                    </div>
+                </div>
             </div>
         }
+
+    </div>
+
+    <div class="form-group">
+        <div class="form-group-bottom">
+            <input type="button" class="btn-default" value="Thoát" onclick="ClosePopUpTimeSheet()" style="width: auto;" />
+        </div>
     </div>
 </div>
-
-<script>
-    $(document).ready(function() {
-        if (@_Timesheet_Info.Status =='@((int)Common.CommonData.CommonEnums.TimeSheet_Status.Reject)' )
-        {
-            $("#divViewTimeSheet").removeClass("grid-2cols");
-            $("#divViewTimeSheet").addClass("grid-3cols");
-        }
-    });
-
-</script>
-

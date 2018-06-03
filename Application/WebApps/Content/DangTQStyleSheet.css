@@ -664,7 +664,10 @@ huygo {
     }
 
 
-
+.div-search-ad input[type=text]:read-only, select:disabled, input[type=text]:disabled {
+    border: 1px solid #aaa;
+    background: #e4e0d8;
+}
 
 .div-search-ad input[type="text"], .div-search-ad select, .div-search-ad input[type="number"], .div-search-ad a, .div-search-ad textarea {
     margin-left: 0px;

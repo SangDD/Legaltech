@@ -102,10 +102,10 @@
         </div>
     </div>
 
-    <div class="d-popup-container" id="dpop-View"></div>
-    <div class="d-popup-container" id="dpop-Edit"></div>
-    <div class="d-popup-container" id="dpop-Approve"></div>
-    <div class="d-popup-container" id="dpop-Insert"></div>
+    <div id="divWrapperPopUpTimeSheet" class="divWrapperPopup" style="display: none;">
+        <div class="divPopup" id="divPopUpTimeSheet">
+        </div>
+    </div>
 </div>
 
 <script>
@@ -196,15 +196,14 @@
         $.ajax({
             type: "POST",
             url: "/quan-ly-timesheet/danh-sach-timesheet/show-view/",
-            dataType: "html",
             data: {
                 p_id: _id
             },
             async: false, cache: false, traditional: true,
             success: function (data) {
                 if (data != null) {
-                    $("#dpop-View").html(data);
-                    ShowPopupDialog("dpop-View", "Thông tin timesheet", 700, 0 ,"");
+                    $("#divPopUpTimeSheet").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPopUpTimeSheet', "Thông tin timesheet", 700, 500);
                 }
                 return false;
             }
@@ -223,8 +222,8 @@
             async: false, cache: false, traditional: true,
             success: function (data) {
                 if (data != null) {
-                    $("#dpop-Insert").html(data);
-                    ShowPopupDialog("dpop-Insert", "Thêm mới thông tin timesheet", 700, 0, "txtName");
+                    $("#divPopUpTimeSheet").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPopUpTimeSheet', "Thêm mới thông tin timesheet", 700, 500,"txtName");
                 }
                 return false;
             }
@@ -246,8 +245,8 @@
             async: false, cache: false, traditional: true,
             success: function (data) {
                 if (data != null) {
-                    $("#dpop-Edit").html(data);
-                    ShowPopupDialog("dpop-Edit", "Sửa thông tin timesheet", 700, 0, "txtName");
+                    $("#divPopUpTimeSheet").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPopUpTimeSheet', "Sửa thông tin timesheet", 700, 500, "txtName");
                 }
                 return false;
             }
@@ -269,8 +268,11 @@
             async: false, cache: false, traditional: true,
             success: function (data) {
                 if (data != null) {
-                    $("#dpop-Approve").html(data);
-                    ShowPopupDialog("dpop-Approve", "Duyệt thông tin timesheet", 700, 0, "txtName");
+                    $("#divPopUpTimeSheet").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPopUpTimeSheet', "Duyệt thông tin timesheet", 700, 500, "txtName");
+
+                    //$("#dpop-Approve").html(data);
+                    //ShowPopupDialog("dpop-Approve", "Duyệt thông tin timesheet", 700, 0, "txtName");
                 }
                 return false;
             }
@@ -283,8 +285,8 @@
             $.ajax({
                 url: "/quan-ly-timesheet/danh-sach-timesheet/do-delete-timesheet",
                 type: "POST",
-                data: { 
-                    p_id: _id 
+                data: {
+                    p_id: _id
                 },
                 headers: { "cache-control": "no-cache" },
                 async: true, cache: false, traditional: true,
@@ -311,36 +313,8 @@
         });
     }
 
-    function ClosePopupView() {
-        try {
-            ClosePopupDialog('dpop-View', true);
-        } catch (e) {
-            alert(e);
-        }
-    }
-
-    function ClosePopupEdit() {
-        try {
-            ClosePopupDialog('dpop-Edit', true);
-        } catch (e) {
-            alert(e);
-        }
-    }
-
-    function ClosePopupApprove() {
-        try {
-            ClosePopupDialog('dpop-Approve', true);
-        } catch (e) {
-            alert(e);
-        }
-    }
-
-    function ClosePopupInsert() {
-        try {
-            ClosePopupDialog('dpop-Insert', true);
-        } catch (e) {
-            alert(e);
-        }
+    function ClosePopUpTimeSheet() {
+        CloseDivPopUp('divWrapperPopUpTimeSheet');
     }
 
 </script>

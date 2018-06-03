@@ -399,19 +399,22 @@
 			GroupId = $('#cboGroupUser').val();
 
 			if (fullName === "") {
-				$('#txtFullName').focus().val('');
-				showError('Họ tên không được để trống!');
-				return false;
+                jError("Họ tên không được để trống!", "lỗi", function () {
+                    $('#txtFullName').focus();
+                });
+                return false;
 			}
 
 			if (dateOfBirth === "" || dateOfBirth === window.maskDateTime_N0) {
-				$('#txtDateOfBirth').focus();
-				showError('Ngày sinh không được để trống');
-				return false;
+                jError("Ngày sinh không được để trống", "lỗi", function () {
+                    $('#txtDateOfBirth').focus();
+                });
+                return false;
 			} else if (isValidDate_N0(dateOfBirth) === false) {
-				$('#txtDateOfBirth').focus();
-				showError('Ngày sinh không đúng định dạng (dd/mm/yyyy)!');
-				return false;
+                jError("Ngày sinh không đúng định dạng (dd/mm/yyyy)!", "lỗi", function () {
+                    $('#txtDateOfBirth').focus();
+                });
+                return false;
             }
 
             if (phone === "") {
