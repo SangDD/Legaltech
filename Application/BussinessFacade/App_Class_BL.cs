@@ -65,7 +65,7 @@ namespace BussinessFacade
             try
             {
                 App_Class_DA _da = new App_Class_DA();
-                return _da.App_Class_Update(p_ObjInffo.Id, p_ObjInffo.Code, p_ObjInffo.Name_Vi, p_ObjInffo.Name_En, p_ObjInffo.Name_Cn, p_ObjInffo.Modified_By, p_ObjInffo.Modififed_Date);
+                return _da.App_Class_Update(p_ObjInffo.Id, p_ObjInffo.Code, p_ObjInffo.Name_Vi, p_ObjInffo.Name_En, p_ObjInffo.Name_Cn, p_ObjInffo.Modified_By, p_ObjInffo.Modified_Date);
             }
             catch (Exception ex)
             {

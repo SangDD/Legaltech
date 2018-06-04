@@ -29,5 +29,25 @@
 		{
 			return value == 1;
 		}
+
+        /// <summary>
+        /// Hungtd: key search nào null thì đẩy bằng all
+        /// </summary>
+        /// <param name="_keysearch"></param>
+        /// <returns></returns>
+        public static string ToFillKeySearch(this string _keysearch)
+        {
+            string _returnKeysearch = "";
+            string[] _listkey = _keysearch.Split('|');
+            foreach (string item in _listkey)
+            {
+                if (string.IsNullOrEmpty(item))
+                    _returnKeysearch += "ALL" + "|";
+                else
+                    _returnKeysearch += item + "|";
+            }
+            _returnKeysearch.Trim('|');
+            return _returnKeysearch;
+        }
 	}
 }

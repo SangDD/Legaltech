@@ -17,7 +17,7 @@ namespace ObjectInfos
 
         public string Modified_By { set; get; }
 
-        public DateTime Modififed_Date { set; get; }
+        public DateTime Modified_Date { set; get; }
 
     }
 }

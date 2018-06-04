@@ -468,45 +468,53 @@
             statusAdd = $('#cboStatusAdd').val();
             GroupIdAdd = $('#cboGroupUser').val();
             if (usernameAdd === "") {
-                $('#txtUsernameAdd').focus().val('');
-                showError('Tên đăng nhập không được để trống!');
+                jError("Tên đăng nhập không được để trống!", "lỗi", function () {
+                    $('#txtUsernameAdd').focus();
+                });
                 return false;
             }
 
             if (fullNameAdd === "") {
-                $('#txtFullNameAdd').focus().val('');
-                showError('Họ tên không được để trống!');
+                jError("Họ tên không được để trống!", "lỗi", function () {
+                    $('#txtFullNameAdd').focus();
+                });
                 return false;
             }
 
             if (passwordAdd === "") {
-                $('#txtPasswordAdd').focus().val('');
-                showError('Mật khẩu không được để trống!');
+                jError("Nật khẩu không được để trống!", "lỗi", function () {
+                    $('#txtPasswordAdd').focus();
+                });
                 return false;
             }
             if (rePasswordAdd === "") {
-                $('#txtRePasswordAdd').focus().val('');
-                showError('Xác nhận mật khẩu không được để trống!');
+                jError("Xác nhận mật khẩu không được để trống!", "lỗi", function () {
+                    $('#txtRePasswordAdd').focus();
+                });
                 return false;
             }
             if (passwordAdd.length < 6) {
-                $('#txtPasswordAdd').focus();
-                showError('Mật khẩu phải chứa từ 6 đến 64 ký tự!');
+                jError("Mật khẩu phải chứa từ 6 đến 64 ký tự!", "lỗi", function () {
+                    $('#txtRePasswordAdd').focus();
+                });
                 return false;
             } else if (passwordAdd !== rePasswordAdd) {
-                $('#txtRePasswordAdd').focus();
-                showError('Mật khẩu và xác nhận mật khẩu không giống nhau!');
-                $("#txtRePasswordAdd").select();
+                jError("Mật khẩu và xác nhận mật khẩu không giống nhau!", "lỗi", function () {
+                    $('#txtRePasswordAdd').focus();
+                    $("#txtRePasswordAdd").select();
+                });
                 return false;
             }
 
             if (dateOfBirthAdd === "" || dateOfBirthAdd === window.maskDateTime_N0) {
-                $('#txtDateOfBirthAdd').focus();
-                showError('Ngày sinh không được để trống');
+                jError("Ngày sinh không được để trống", "lỗi", function () {
+                    $('#txtDateOfBirthAdd').focus();
+                });
                 return false;
             } else if (isValidDate_N0(dateOfBirthAdd) === false) {
-                $('#txtDateOfBirthAdd').focus();
-                showError('Ngày sinh không đúng định dạng (dd/mm/yyyy)!');
+                jError("Ngày sinh không đúng định dạng (dd/mm/yyyy)!", "lỗi", function () {
+                    $('#txtDateOfBirthAdd').focus();
+                });
                 return false;
             }
 

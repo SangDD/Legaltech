@@ -32,7 +32,7 @@
     <div class="d-main">
         <div class="divCover">
             <div class="classTitle">
-                <input type="hidden" value="LastTimeUpdated" id="colSorted" />
+                <input type="hidden" value="MODIFIED_DATE" id="colSorted" />
                 <input type="hidden" value="DESC" id="SortType" />
                 <input type="hidden" value="" id="OptionSorting" />
                 <div class="div-title-content"> THÔNG TIN HÀNG HÓA DỊCH VỤ </div>
@@ -147,7 +147,7 @@
                 $.ajax({
                     type: "POST",
                     headers: { "cache-control": "no-cache" },
-                    url: "/quan-ly-thong-tin/hang-hoa-dich-vu-dich-vi/find-class",
+                    url: "/quan-ly-thong-tin/hang-hoa-dich-vu/find-class",
                     data: {
                         keysSearch: keySearch,
                         options: optionFilter
@@ -201,7 +201,7 @@
                         if (data != null) {
                             if (validateResponse(data)) {
                                 $("#divPopUpObject").html(data);
-                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Thêm mới người dùng", 900, 500, "txtUsernameAdd");
+                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Thêm mới hàng hóa/dịch vụ", 900, 500, "txtAddClassCode");
                             }
                         }
                         return false;
@@ -213,20 +213,20 @@
            
         }
 
-        function getViewToEditUser(userId, username) {
+        function getViewToEditObject(p_id, p_display_value) {
             try {
                 $.ajax({
                     type: "POST",
                     url: "/quan-ly-thong-tin/hang-hoa-dich-vu/view-edit",
                     headers: { "cache-control": "no-cache" },
-                    data: { userId: userId },
+                    data: { p_id: p_id },
                     async: false,
                     success: function (data) {
                         if (data != null) {
                             if (validateResponse(data)) {
 
                                 $("#divPopUpObject").html(data);
-                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Sửa hàng hóa dịch vụ: <span class='data-in-title-popup'>" + username + "</span>", 900, 500, "txtFullNameEdit");
+                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Sửa hàng hóa dịch vụ: <span class='data-in-title-popup'>" + p_display_value + "</span>", 900, 500, "txtFullNameEdit");
                             }
                         }
                         return false;
@@ -238,25 +238,26 @@
            
         }
 
-        function doDeleteUser(userId, canDelete) {
+        function doDeleteObject(p_id) {
             try {
-                if (canDelete > 0) {
-                    showError("Không thể xóa người dùng đang hoạt động.");
-                    return false;
-                } else {
-                    nvsConfirm(null, "Bạn có chắc chắn muốn xóa người dùng này không?", function () {
+               
+                    nvsConfirm(null, "Bạn có chắc chắn muốn xóa hàng hóa/dịch vụ này không?", function () {
                         $.ajax({
-                            url: "/quan-ly-thong-tin/hang-hoa-dich-vu/do-delete-user",
+                            url: "/quan-ly-thong-tin/hang-hoa-dich-vu/do-delete-class",
                             type: "POST",
-                            data: { userId: userId },
+                            data: { p_id: p_id },
                             headers: { "cache-control": "no-cache" },
                             async: false,
                             success: function (data) {
-                                if (data != null) {
-                                    if (onResponse(data)) {
-                                        ClosePopupDialog('dpop-users', true);
-                                        findObjects(1, 0);
-                                    }
+                                //if (data != null) {
+                                //    if (onResponse(data)) {
+                                //        ClosePopupDialog('dpop-users', true);
+                                //        findObjects(1, 0);
+                                //    }
+                                //}
+                                if (data.result >= 0) {
+                                    showSuccess("Xóa dữ liệu thành công!");
+                                    window.findObjects(1, 0);
                                 }
                             },
                             error: function (e) {
@@ -265,26 +266,26 @@
                         });
 
                     });
-                }
+                
             } catch (e) {
                 alert(e.toString());
             }
            
         }
 
-        function viewDetailobject(userId, username) {
+        function viewDetailObject(p_id, p_display_value) {
             try {
                 $.ajax({
                     type: "POST",
                     url: "/quan-ly-thong-tin/hang-hoa-dich-vu/view-detail-class",
                     headers: { "cache-control": "no-cache" },
                     async: false,
-                    data: { userId: userId },
+                    data: { p_id: p_id },
                     success: function (data) {
                         if (data != null) {
                             if (validateResponse(data)) {
                                 $("#divPopUpObject").html(data);
-                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Chi tiết người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 500);
+                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Chi hàng hóa/dịch vụ: <span class='data-in-title-popup'>" + p_display_value + "</span>", 900, 500);
                             }
                         }
                         return false;
@@ -303,11 +304,32 @@
 
         function doAddNewObject() {
             try {
-                if (validateFormAddNewObjects()) {
+                   var txtAddClassCode = $('#txtAddClassCode');
+                   var txtClassAddNameVi = $('#txtClassAddNameVi');
+                   var txtClassAddNameEn = $('#txtClassAddNameEn');
+                    if (txtAddClassCode.val().trim() == "") {
+                        txtAddClassCode.focus().val('');
+                        showError('Mã hàng hóa/dịch vụ không được để trống!');
+                        return false;
+                    }
+
+                    if (txtClassAddNameVi.val().trim() == "") {
+                        txtClassAddNameVi.focus().val('');
+                        showError('Tên tiếng việt không được để trống!');
+                        return false;
+                    }
+
+                    if (txtClassAddNameEn.val().trim() == "") {
+                        txtClassAddNameEn.focus().val('');
+                        showError('Tên tiếng anh không được để trống!');
+                        return false;
+                    }
                     var formData = new FormData();
-                    collectDataToAddNewObject(formData);
+                    formData.append('_AppClassInfo.Code', Add_code);
+                    formData.append('_AppClassInfo.Name_Vi', Add_name_vi);
+                    formData.append('_AppClassInfo.Name_En', Add_name_en);
                     $.ajax({
-                        url: 'quan-ly-thong-tin/hang-hoa-dich-vu/do-add-class',
+                        url: '/quan-ly-thong-tin/hang-hoa-dich-vu/do-add-class',
                         type: 'POST',
                         data: formData,
                         processData: false,
@@ -316,58 +338,78 @@
                         async: false,
                         headers: { "cache-control": "no-cache" },
                         success: function (data) {
-                            if (data != null) {
-                                if (onResponse(data)) {
+                            CreateRollingWaitingIcon(false);
+                            if (data.result >= 0) {
+                                showSuccess("Thêm mới dữ liệu thành công!");
                                     ClosePopUpObject();
-                                    window.findUsers(1, 0);
-                                }
+                                    window.findObjects(1, 0);
                             }
                         },
                         error: function (e) {
                             console.log(e);
                         }
                     });
-                }
             } catch (e) {
-
+                alert(e.toString());
             }
-      
-    }
-
-    function validateFormAddNewObjects() {
-        txtAddClassCode = $('#txtAddClassCode');
-        txtClassAddNameVi = $('#txtClassAddNameVi');
-        txtClassAddNameEn = $('#txtClassAddNameEn');
-        if (txtAddClassCode.val().trim() == "")
-        {
-            txtAddClassCode.focus().val('');
-            showError('Mã hàng hóa/dịch vụ không được để trống!');
-            return false;
         }
 
-        if (txtClassAddNameVi.val().trim() == "")
-        {
-            txtClassAddNameVi.focus().val('');
-            showError('Tên tiếng việt không được để trống!');
-            return false;
+        function doEditObject() {
+            try {
+                var txtid = $('#txt_id');
+                var  txtClassCode = $('#txtEditClassCode');
+                var  txtClassNameVi = $('#txtEditClassNameVi');
+                var txtClassNameEn = $('#txtEditClassNameEn');
+                if (txtClassCode.val().trim() == "") {
+                    txtClassCode.focus().val('');
+                    showError('Mã hàng hóa/dịch vụ không được để trống!');
+                    return false;
+                }
+
+                if (txtClassNameVi.val().trim() == "") {
+                    txtClassNameVi.focus().val('');
+                    showError('Tên tiếng việt không được để trống!');
+                    return false;
+                }
+
+                if (txtClassNameEn.val().trim() == "") {
+                    txtClassNameEn.focus().val('');
+                    showError('Tên tiếng anh không được để trống!');
+                    return false;
+                }
+                var formData = new FormData();
+                formData.append('_AppClassInfo.Id', txtid.val());
+                formData.append('_AppClassInfo.Code', txtClassCode.val());
+                formData.append('_AppClassInfo.Name_Vi', txtClassNameVi.val());
+                formData.append('_AppClassInfo.Name_En', txtClassNameEn.val());
+                $.ajax({
+                    url: '/quan-ly-thong-tin/hang-hoa-dich-vu/do-edit-class',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    traditional: true,
+                    async: false,
+                    headers: { "cache-control": "no-cache" },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.result >= 0) {
+                            showSuccess("Cập nhật dữ liệu thành công!");
+                            ClosePopUpObject();
+                            window.findObjects(1, 0);
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            } catch (e) {
+                alert(e.toString());
+            }
         }
 
-        if (txtClassAddNameEn.val().trim() == "")
-        {
-            txtClassAddNameEn.focus().val('');
-            showError('Tên tiếng anh không được để trống!');
-            return false;
-        }
-
-
-        return true;
-    }
-
-    function collectDataToAddNewObject(formData) {
-        formData.append('_AppClassInfo.Code', usernameAdd);
-        formData.append('_AppClassInfo.Name_Vi', fullNameAdd);
-        formData.append('_AppClassInfo.Name_En', passwordAdd);
-    }
+  
+ 
 
     </script>
 }

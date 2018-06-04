@@ -109,13 +109,13 @@ namespace WebApps.Areas.TimeSheet.Controllers
             {
                 TimeSheet_BL _obj_bl = new TimeSheet_BL();
                 Timesheet_Info _Timesheet_Info = _obj_bl.Timesheet_GetBy_Id(p_id);
-                ViewBag.Timesheet_Info = _Timesheet_Info;
-                return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialViewTimeSheet.cshtml");
+                //ViewBag.Timesheet_Info = _Timesheet_Info;
+                return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialViewTimeSheet.cshtml", _Timesheet_Info);
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialViewTimeSheet.cshtml");
+                return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialViewTimeSheet.cshtml", new Timesheet_Info());
             }
         }
 

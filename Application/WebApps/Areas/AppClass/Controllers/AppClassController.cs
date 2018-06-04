@@ -15,23 +15,24 @@ namespace WebApps.Areas.AppClass.Controllers
     public class AppClassController : Controller
     {
         // GET: AppClass/AppClass
-     
-       [Route("hang-hoa-dich-vu/danh-sach-hang-hoa")]
+
+        [Route("hang-hoa-dich-vu/danh-sach-hang-hoa")]
         public ActionResult AppClassList()
         {
+            List<App_Class_Info> lstObj = new List<App_Class_Info>();
             try
             {
                 var ObjBL = new App_Class_BL();
-               var lstObj = ObjBL.SearchAppClass();
+                lstObj = ObjBL.SearchAppClass();
                 ViewBag.Paging = ObjBL.GetPagingHtml();
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
             }
-            return View();
-        }
+            return PartialView("/Areas/AppClass/Views/AppClass/AppClassList.cshtml", lstObj);
 
+        }
         [HttpPost]
         [Route("hang-hoa-dich-vu/find-class")]
         public ActionResult FindOject(string keysSearch, string options)
@@ -78,7 +79,7 @@ namespace WebApps.Areas.AppClass.Controllers
         }
 
         [HttpPost]
-        [Route("hang-hoa-dich-vu/get-view-to-edit-class")]
+        [Route("hang-hoa-dich-vu/view-edit")]
         public ActionResult GetViewToEditClass(decimal p_id)
         {
             var _appclassinfo = new App_Class_Info();
@@ -91,19 +92,19 @@ namespace WebApps.Areas.AppClass.Controllers
             {
                 Logger.LogException(ex);
             }
-            return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/_PartialEditUser.cshtml", _appclassinfo);
+            return PartialView("~/Areas/AppClass/Views/AppClass/_PartialAppClassEdit.cshtml", _appclassinfo);
         }
 
         [HttpPost]
         [Route("hang-hoa-dich-vu/do-edit-class")]
-        public ActionResult DoEditUser(App_Class_Info _AppClassInfo)
+        public ActionResult DoEditObject(App_Class_Info _AppClassInfo)
         {
             decimal _result = 0;
             try
             {
                 var _App_Class_BL = new App_Class_BL();
                 _AppClassInfo.Modified_By = SessionData.CurrentUser.Username;
-                _AppClassInfo.Modififed_Date = DateTime.Now;
+                _AppClassInfo.Modified_Date = DateTime.Now;
                 _result = _App_Class_BL.App_Class_Update(_AppClassInfo);
             }
             catch (Exception ex)
@@ -137,7 +138,6 @@ namespace WebApps.Areas.AppClass.Controllers
         [Route("hang-hoa-dich-vu/view-detail-class")]
         public ActionResult ViewDetailClass(decimal p_id)
         {
-            decimal _result = 0;
             var _App_Class_BL = new App_Class_BL();
             App_Class_Info _appclassinfo = new App_Class_Info();
             try

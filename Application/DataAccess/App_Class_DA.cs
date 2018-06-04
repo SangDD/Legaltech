@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Converters;
 using Common.SearchingAndFiltering;
 using Oracle.DataAccess.Client;
 using System;
@@ -32,14 +33,18 @@ namespace DataAccess
         {
             try
             {
+                DataSet _Ds = new DataSet();
                 OracleParameter paramReturn = new OracleParameter("P_TOTAL_RECORD", OracleDbType.Decimal, ParameterDirection.Output);
-                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_CLASS.PROC_APP_CLASS_SEARCH",
-                 new OracleParameter("P_KEY_SEARCH", OracleDbType.Varchar2, keysSearch, ParameterDirection.Input),
+                _Ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_CLASS.PROC_APP_CLASS_SEARCH",
+                 new OracleParameter("P_KEY_SEARCH", OracleDbType.Varchar2, keysSearch.ToFillKeySearch(), ParameterDirection.Input),
                  new OracleParameter("P_FROM", OracleDbType.Varchar2, options.StartAt.ToString(), ParameterDirection.Input),
                  new OracleParameter("P_TO", OracleDbType.Varchar2, options.EndAt.ToString(), ParameterDirection.Input),
                  new OracleParameter("P_SORT_TYPE", OracleDbType.Varchar2, options.OrderBy, ParameterDirection.Input),
                  paramReturn,
-                 new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output));
+                 
+                new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output));
+                totalRecord = Convert.ToInt32(paramReturn.Value.ToString());
+                return _Ds;
             }
             catch (Exception ex)
             {
@@ -47,6 +52,8 @@ namespace DataAccess
                 return new DataSet();
             }
         }
+
+      
 
 
         public decimal App_Class_Insert(string P_CODE, string P_NAME_VI, string P_NAME_EN, string P_NAME_CN,
