@@ -12,7 +12,7 @@
     <style>
         /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
         .div-search-title > div {
-            width: 120px;
+            width: 150px;
         }
     </style>
 
@@ -123,41 +123,49 @@
         });
 
         function findObjects(_pageNumber, _isSearching) {
-            reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
-            if (isSearching === 1) {
-                _code = $("#txt_code").val().trim();
-                _name_vi = $("#txt_name_vi").val().trim();
-                _name_en = $("#txt_name_en").val().trim();
-              
-            } else {
-                window.arrKeySearch = window.keySearch.split('|');
-                _code = arrKeySearch[0];
-                _name_vi = arrKeySearch[1];
-                _name_en = arrKeySearch[2];
+            try {
 
-                $("#txt_code").val(_code);
-                $("#txt_name_vi").val(_name_vi);
-                $("#txt_name_en").val(_name_en);
+                reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
+                if (isSearching === 1) {
+                    _code = $("#txt_code").val().trim();
+                    _name_vi = $("#txt_name_vi").val().trim();
+                    _name_en = $("#txt_name_en").val().trim();
+
+                } else {
+                    window.arrKeySearch = window.keySearch.split('|');
+                    _code = arrKeySearch[0];
+                    _name_vi = arrKeySearch[1];
+                    _name_en = arrKeySearch[2];
+
+                    $("#txt_code").val(_code);
+                    $("#txt_name_vi").val(_name_vi);
+                    $("#txt_name_en").val(_name_en);
+                }
+
+                updateSearchingConditions("divNumberRecordOnPageListObjects", setKeySearch);
+
+                $.ajax({
+                    type: "POST",
+                    headers: { "cache-control": "no-cache" },
+                    url: "/quan-ly-thong-tin/hang-hoa-dich-vu-dich-vi/find-class",
+                    data: {
+                        keysSearch: keySearch,
+                        options: optionFilter
+                    },
+                    async: false,
+                    success: function (data) {
+                        if (data != null) {
+                            onResponseWhenSearching(data, "divTableObjects", findObjects);
+                        }
+                    }
+                });
+                return true;
+            } catch (e) {
+                alert(e.toString());
+                return false;
             }
 
-            updateSearchingConditions("divNumberRecordOnPageListObjects", setKeySearch);
 
-            $.ajax({
-                type: "POST",
-                headers: { "cache-control": "no-cache" },
-                url: "/quan-ly-thong-tin/hang-hoa-dich-vu-dich-vi/find-class",
-                data: {
-                    keysSearch: keySearch,
-                    options: optionFilter
-                },
-                async: false,
-                success: function (data) {
-                    if (data != null) {
-                        onResponseWhenSearching(data, "divTableObjects", findObjects);
-                    }
-                }
-            });
-            return true;
         }
 
         function setKeySearch() {
@@ -183,60 +191,135 @@
     <script>
 
         function getViewToAddNewObject() {
-            $.ajax({
-                type: "POST",
-                url: "/hang-hoa-dich-vu-dich-vu/get-view-to-add-class",
-                headers: { "cache-control": "no-cache" },
-                async: false,
-                success: function (data) {
-                    if (data != null) {
-                        if (validateResponse(data)) {
-                            $("#divPopUpObject").html(data);
-                            ShowPopupDialog_Ipace('divWrapperPopUpObject', "Thêm mới người dùng", 900, 500, "txtUsernameAdd");
+            try {
+                $.ajax({
+                    type: "POST",
+                    url: "/quan-ly-thong-tin/hang-hoa-dich-vu/add-new",
+                    headers: { "cache-control": "no-cache" },
+                    async: false,
+                    success: function (data) {
+                        if (data != null) {
+                            if (validateResponse(data)) {
+                                $("#divPopUpObject").html(data);
+                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Thêm mới người dùng", 900, 500, "txtUsernameAdd");
+                            }
                         }
+                        return false;
                     }
-                    return false;
-                }
-            });
+                });
+            } catch (e) {
+                alert(e.toString());
+            }
+           
         }
 
         function getViewToEditUser(userId, username) {
-            $.ajax({
-                type: "POST",
-                url: "/quan-ly-thong-tin/hang-hoa-dich-vu/get-view-to-edit-user",
-                headers: { "cache-control": "no-cache" },
-                data: { userId: userId },
-                async: false,
-                success: function (data) {
-                    if (data != null) {
-                        if (validateResponse(data)) {
+            try {
+                $.ajax({
+                    type: "POST",
+                    url: "/quan-ly-thong-tin/hang-hoa-dich-vu/view-edit",
+                    headers: { "cache-control": "no-cache" },
+                    data: { userId: userId },
+                    async: false,
+                    success: function (data) {
+                        if (data != null) {
+                            if (validateResponse(data)) {
 
-                            $("#divPopUpObject").html(data);
-                            ShowPopupDialog_Ipace('divWrapperPopUpObject', "Sửa hàng hóa dịch vụ: <span class='data-in-title-popup'>" + username + "</span>", 900, 500, "txtFullNameEdit");
+                                $("#divPopUpObject").html(data);
+                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Sửa hàng hóa dịch vụ: <span class='data-in-title-popup'>" + username + "</span>", 900, 500, "txtFullNameEdit");
+                            }
                         }
+                        return false;
                     }
-                    return false;
-                }
-            });
+                });
+            } catch (e) {
+                alert(e.toString());
+            }
+           
         }
 
         function doDeleteUser(userId, canDelete) {
-            if (canDelete > 0) {
-                showError("Không thể xóa người dùng đang hoạt động.");
-                return false;
-            } else {
-                nvsConfirm(null, "Bạn có chắc chắn muốn xóa người dùng này không?", function () {
+            try {
+                if (canDelete > 0) {
+                    showError("Không thể xóa người dùng đang hoạt động.");
+                    return false;
+                } else {
+                    nvsConfirm(null, "Bạn có chắc chắn muốn xóa người dùng này không?", function () {
+                        $.ajax({
+                            url: "/quan-ly-thong-tin/hang-hoa-dich-vu/do-delete-user",
+                            type: "POST",
+                            data: { userId: userId },
+                            headers: { "cache-control": "no-cache" },
+                            async: false,
+                            success: function (data) {
+                                if (data != null) {
+                                    if (onResponse(data)) {
+                                        ClosePopupDialog('dpop-users', true);
+                                        findObjects(1, 0);
+                                    }
+                                }
+                            },
+                            error: function (e) {
+                                console.log(e);
+                            }
+                        });
+
+                    });
+                }
+            } catch (e) {
+                alert(e.toString());
+            }
+           
+        }
+
+        function viewDetailobject(userId, username) {
+            try {
+                $.ajax({
+                    type: "POST",
+                    url: "/quan-ly-thong-tin/hang-hoa-dich-vu/view-detail-class",
+                    headers: { "cache-control": "no-cache" },
+                    async: false,
+                    data: { userId: userId },
+                    success: function (data) {
+                        if (data != null) {
+                            if (validateResponse(data)) {
+                                $("#divPopUpObject").html(data);
+                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Chi tiết người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 500);
+                            }
+                        }
+                        return false;
+                    }
+                });
+            } catch (e) {
+                alert(e.toString());
+            }
+            
+        }
+
+        function ClosePopUpObject() {
+            CloseDivPopUp('divWrapperPopUpObject');
+        }
+
+
+        function doAddNewObject() {
+            try {
+                if (validateFormAddNewObjects()) {
+                    var formData = new FormData();
+                    collectDataToAddNewObject(formData);
                     $.ajax({
-                        url: "/quan-ly-thong-tin/hang-hoa-dich-vu/do-delete-user",
-                        type: "POST",
-                        data: { userId: userId },
-                        headers: { "cache-control": "no-cache" },
+                        url: 'quan-ly-thong-tin/hang-hoa-dich-vu/do-add-class',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        traditional: true,
                         async: false,
+                        headers: { "cache-control": "no-cache" },
                         success: function (data) {
                             if (data != null) {
                                 if (onResponse(data)) {
-                                    ClosePopupDialog('dpop-users', true);
-                                    findObjects(1, 0);
+                                    ClosePopUpObject();
+                                    window.findUsers(1, 0);
                                 }
                             }
                         },
@@ -244,33 +327,47 @@
                             console.log(e);
                         }
                     });
-
-                });
-            }
-        }
-
-        function viewDetailobject(userId, username) {
-            $.ajax({
-                type: "POST",
-                url: "/quan-ly-thong-tin/hang-hoa-dich-vu/view-detail-class",
-                headers: { "cache-control": "no-cache" },
-                async: false,
-                data: { userId: userId },
-                success: function (data) {
-                    if (data != null) {
-                        if (validateResponse(data)) {
-                            $("#divPopUpObject").html(data);
-                            ShowPopupDialog_Ipace('divWrapperPopUpObject', "Chi tiết người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 500);
-                        }
-                    }
-                    return false;
                 }
-            });
+            } catch (e) {
+
+            }
+      
+    }
+
+    function validateFormAddNewObjects() {
+        txtAddClassCode = $('#txtAddClassCode');
+        txtClassAddNameVi = $('#txtClassAddNameVi');
+        txtClassAddNameEn = $('#txtClassAddNameEn');
+        if (txtAddClassCode.val().trim() == "")
+        {
+            txtAddClassCode.focus().val('');
+            showError('Mã hàng hóa/dịch vụ không được để trống!');
+            return false;
         }
 
-        function ClosePopUpUser() {
-            CloseDivPopUp('divWrapperPopUpObject');
+        if (txtClassAddNameVi.val().trim() == "")
+        {
+            txtClassAddNameVi.focus().val('');
+            showError('Tên tiếng việt không được để trống!');
+            return false;
         }
+
+        if (txtClassAddNameEn.val().trim() == "")
+        {
+            txtClassAddNameEn.focus().val('');
+            showError('Tên tiếng anh không được để trống!');
+            return false;
+        }
+
+
+        return true;
+    }
+
+    function collectDataToAddNewObject(formData) {
+        formData.append('_AppClassInfo.Code', usernameAdd);
+        formData.append('_AppClassInfo.Name_Vi', fullNameAdd);
+        formData.append('_AppClassInfo.Name_En', passwordAdd);
+    }
 
     </script>
 }

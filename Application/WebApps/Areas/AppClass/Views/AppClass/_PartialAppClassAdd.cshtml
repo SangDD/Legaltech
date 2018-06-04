@@ -35,91 +35,33 @@
                 </div>
             </div>
 
-        <div class="form-group">
-            <div class="form-group-bottom">
-                <input type="submit" class="btn-default" value="Lưu" onclick="return doAddNewUser()" />
+            <div class="form-group">
+                <div class="form-group-bottom">
+                    <input type="submit" class="btn-default" value="Lưu" onclick="return doAddNewUser()" />
+                </div>
             </div>
         </div>
     </div>
 
-    <script>
-        var code = '',
-            name_vi = '',
-            name_en = '';
-        //$(document).ready(function () {
-        //    $.datetimepicker.setLocale('vi');
-        //    $('.datetimepicker').datetimepicker({
-        //        timepicker: false,
-        //        format: 'd/m/Y',
-        //        //formatTime: 'H:i',
-        //        formatDate: 'd/m/Y',
-        //        mask: '39/19/9999',
-        //        validateOnBlur: false,
-        //        scrollInput: false
-        //    });
+        <script>
+            var code = '',
+                name_vi = '',
+                name_en = '';
+            //$(document).ready(function () {
+            //    $.datetimepicker.setLocale('vi');
+            //    $('.datetimepicker').datetimepicker({
+            //        timepicker: false,
+            //        format: 'd/m/Y',
+            //        //formatTime: 'H:i',
+            //        formatDate: 'd/m/Y',
+            //        mask: '39/19/9999',
+            //        validateOnBlur: false,
+            //        scrollInput: false
+            //    });
 
-        //});
+            //});
 
-        function doAddNewObject() {
-            if (validateFormAddNewUser()) {
-                var formData = new FormData();
-                collectDataToAddNewObject(formData);
-                $.ajax({
-                    url: 'quan-ly-thong-tin/hang-hoa-dich-vu/do-add-class',
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    traditional: true,
-                    async: false,
-                    headers: { "cache-control": "no-cache" },
-                    success: function (data) {
-                        if (data != null) {
-                            if (onResponse(data)) {
-                                ClosePopUpUser();
-                                window.findUsers(1, 0);
-                            }
-                        }
-                    },
-                    error: function (e) {
-                        console.log(e);
-                    }
-                });
-            }
-        }
-
-        function validateFormAddNewUser() {
-            txtAddClassCode = $('#txtAddClassCode');
-            txtClassAddNameVi = $('#txtClassAddNameVi');
-            txtClassAddNameEn = $('#txtClassAddNameEn');
-            if (txtAddClassCode.val().trim() == "") {
-                txtAddClassCode.focus().val('');
-                showError('Mã hàng hóa/dịch vụ không được để trống!');
-                return false;
-            }
-
-            if (txtClassAddNameVi.val().trim() == "") {
-                txtClassAddNameVi.focus().val('');
-                showError('Tên tiếng việt không được để trống!');
-                return false;
-            }
-
-            if (txtClassAddNameEn.val().trim() == "") {
-                txtClassAddNameEn.focus().val('');
-                showError('Tên tiếng anh không được để trống!');
-                return false;
-            }
-
-
-            return true;
-        }
-
-        function collectDataToAddNewObject(formData) {
-            formData.append('_AppClassInfo.Code', usernameAdd);
-            formData.append('_AppClassInfo.Name_Vi', fullNameAdd);
-            formData.append('_AppClassInfo.Name_En', passwordAdd);
-        }
-    </script>
+        </script>
 }
 catch (Exception)
 {

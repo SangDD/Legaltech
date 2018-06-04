@@ -51,8 +51,8 @@ namespace WebApps.Areas.AppClass.Controllers
         }
 
         [HttpPost]
-        [Route("hang-hoa-dich-vu/get-view-to-add-class")]
-        public ActionResult GetViewToAddUser()
+        [Route("hang-hoa-dich-vu/add-new")]
+        public ActionResult AddNew()
         {
             return PartialView("~/Areas/AppClass/Views/AppClass/_PartialAppClassAdd.cshtml");
         }
