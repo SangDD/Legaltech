@@ -5,7 +5,7 @@
         <div class="class_flex_40">
             <div class="class_block_title"><label>Hàng hóa:</label></div>
             <div class="class_block_title_control">
-                <input type="text" placeholder="Gõ tên sản phẩm" id="txtTenSanPham" />
+                <input type="text" placeholder="Gõ tên sản phẩm" id="txtTenHangHoa" />
             </div>
         </div>
         <div class="class_flex_grow">
@@ -13,10 +13,10 @@
             <div class="class_block_title_control" style="width: calc(100% - 250px);float:none">
                 <select id="cboClassInfo">
 
-                    <option value="Cafe|1000054">Cafe|1000054</option>
-                    <option value="Mi Tom|1000056">Mi Tom|1000056</option>
-                    <option value="Mi An Lien|1000058">Mi An Lien|1000058</option>
-                    <option value="Mi Chinh|1000059">Mi Chinh|1000059</option>
+                    <option value="1000054">Cafe|1000054</option>
+                    <option value="1000056">Mi Tom|1000056</option>
+                    <option value="1000058">Mi An Lien|1000058</option>
+                    <option value="1000059">Mi Chinh|1000059</option>
                 </select>
             </div>
             <div style="display:inline-flex">
@@ -57,31 +57,37 @@
 
 <script>
     function funIncreNumberRow(table_id) {
-        $(table_id).find('tbody').find("tr").each(function () {
-            var _index = $(this);
-            $(this).find("td:first").text(_index[0].rowIndex);
-        });
+        try {
+            $(table_id).find('tbody').find("tr").each(function () {
+                var _index = $(this);
+                $(this).find("td:first").text(_index[0].rowIndex);
+            });
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     function funcAddDataRow() {
-        var arraydata = $("#cboClassInfo").val().split('|');
-        var className = arraydata[0];
-        var classCode = arraydata[1];
-        // CHeck message data
-        funcAddMessDataRow(className, classCode, $("#cboClassInfo"), 0);
+        try {
+            var classCode = $("#cboClassInfo").val();
+            var className = $("#txtTenHangHoa").val();  
 
-        $("#txtTenSanPham").val("");
-        $("#cboClassInfo").val("");
-        $("#txtTenSanPham").focus();
+            funcAddMessDataRow(className, classCode, $("#cboClassInfo"), 0);
+            $("#txtTenHangHoa").val("");
+            $("#cboClassInfo").val("");
+            $("#txtTenHangHoa").focus();
 
+        } catch (e) {
+            console.log(e);
+        }
     }
 
-    function funcAddMessDataRow(str_tag, str_des, element, type) {
+    function funcAddMessDataRow(textInput, classCode, element, type) {
 
         try {
-            str_tag = str_tag.trim();
-            str_des = str_des.trim();
-            var _html = "<tr><td></td><td class=\"TdLeft HasSort\">" + str_tag + "</td><td  class=\"TdLeft\">" + str_des + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + str_tag + "|" + str_des + "\" /></td><td><a href=\"javascript:;\" onclick=\"funcRemoveMessDataRow('" + str_tag + "', '" + str_des + "', this, " + type + ");\">Xóa</a></td></tr>";
+            textInput = textInput.trim();
+            classCode = classCode.trim();
+            var _html = "<tr><td></td><td class=\"TdLeft HasSort\">" + textInput + "</td><td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td><a href=\"javascript:;\" onclick=\"funcRemoveMessDataRow(this);\">Xóa</a></td></tr>";
             $("#tblClassInfo").find("tbody").append(_html);
             funcReSortTable("#tblClassInfo", 'asc');
         } catch (e) {
@@ -90,10 +96,8 @@
     }
 
     //Xoa item
-    function funcRemoveMessDataRow(str_tag, str_des, element, type) {
+    function funcRemoveMessDataRow( element ) {
         try {
-            str_tag = str_tag.trim();
-            str_des = str_des.trim();
             var _row = $(element).parent().parent();
             $(_row).remove();
             funcReSortTable("#tblClassInfo", 'asc');
@@ -131,6 +135,7 @@
             return arr_mesadata;
         }
         catch (e) {
+            console.log(e);
         }
     }
 </script>
