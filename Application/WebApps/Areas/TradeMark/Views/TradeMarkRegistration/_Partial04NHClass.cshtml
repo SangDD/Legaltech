@@ -70,7 +70,17 @@
     function funcAddDataRow() {
         try {
             var classCode = $("#cboClassInfo").val();
-            var className = $("#txtTenHangHoa").val();  
+            var className = $("#txtTenHangHoa").val();
+            if (className == "" || className == undefined) {
+                showError('Chưa nhập tên hàng hóa!');
+                return false;
+            }
+
+            if (classCode == "" || classCode == undefined) {
+                showError('Mã hàng hóa không đúng, Kiểm tra lại mã hàng hóa!');
+                return false;
+            }
+
 
             funcAddMessDataRow(className, classCode, $("#cboClassInfo"), 0);
             $("#txtTenHangHoa").val("");
@@ -96,7 +106,7 @@
     }
 
     //Xoa item
-    function funcRemoveMessDataRow( element ) {
+    function funcRemoveMessDataRow(element) {
         try {
             var _row = $(element).parent().parent();
             $(_row).remove();
@@ -123,19 +133,21 @@
         }
     }
 
-    //Lay thong tin trong bang 
-    function funcGetDataClassInfo() {
+    //Lay thong tin trong bang
+    function funcGetDataClassInfo(formData) {
         try {
-            var arr_mesadata = [];
+            var item = 0;
             $("#tblClassInfo").find("tbody").find(".DataAdd").each(function () {
-                var str_data = "";
-                str_data = $(this).val();
-                arr_mesadata.push(str_data);
+                var  str_data = $(this).val().split('|');
+                formData.append("pAppClassInfo[" + item + "].Textinput", str_data[0]);
+                formData.append("pAppClassInfo[" + item + "].Code", str_data[1]);
+                item++;
             });
-            return arr_mesadata;
+            return true;
         }
         catch (e) {
             console.log(e);
+            return false;
         }
     }
 </script>

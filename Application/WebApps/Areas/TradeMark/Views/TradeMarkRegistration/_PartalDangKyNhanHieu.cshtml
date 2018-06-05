@@ -331,6 +331,10 @@
             if (reponse == false) {
                 return false;
             }
+            reponse = funcGetDataClassInfo(formData);
+            if (reponse == false) {
+                return false;
+            }
 
             $.ajax({
                 url: '/trade-mark/dang_ky_nhan_hieu',
