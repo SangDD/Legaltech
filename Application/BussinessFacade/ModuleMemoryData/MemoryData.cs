@@ -23,7 +23,7 @@
         static List<GroupUserInfo> c_lst_Group = new List<GroupUserInfo>();
         public static List<Country_Info> c_lst_Country = new List<Country_Info>();
 
-        static List<AppClassInfo> clstAppClass = new List<AppClassInfo>();
+        public static List<AppClassInfo> clstAppClass = new List<AppClassInfo>();
 
         public static void LoadAllMemoryData()
         {

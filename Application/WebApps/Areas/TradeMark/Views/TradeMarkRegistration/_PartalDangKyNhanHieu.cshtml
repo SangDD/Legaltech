@@ -242,6 +242,13 @@
 
 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialPreview.cshtml")
 
+
+<div id="divWrapperPreview" class="divWrapperPreview" style="display: none;">
+    <div class="dpop-preview" id="dpop-preview">
+    </div>
+</div>
+
+
 <script>
     $("#0_ckbDacTinhHangHoa").change(function () {
         if (this.checked) { funcEnableDisable('classDacTinhHangHoa', true); } else { funcEnableDisable('classDacTinhHangHoa', false); }
@@ -326,8 +333,8 @@
             if (reponse == false) {
                 return false;
             }
-            //Lấy thông tin file có trong đơn 
-            reponse  = funGetThongTinFile(formData);
+            //Lấy thông tin file có trong đơn
+            reponse = funGetThongTinFile(formData);
             if (reponse == false) {
                 return false;
             }
@@ -502,7 +509,7 @@
 
     function funGetThongTinFile(formData) {
         try {
-            var Isuse = 0, Note = "" , reponse =false;
+            var Isuse = 0, Note = "", reponse = false;
             //Các tài liệu có trong đơn
             reponse = funcGetCheckValueAndText(formData, "6_rdoToKhai", "0");
             formData.append("pAppDocumentInfo[0].CHAR01", $("#6_txtToKhaiTrang").val());
@@ -511,7 +518,7 @@
             //Các tài liệu có trong đơn
             reponse = funcGetCheckValueAndText(formData, "6_rdoMauNhanHieuTD", "1");
             formData.append("pAppDocumentInfo[1].CHAR01", $("#6_txtMauNhanHieuTD").val());
-            // 
+            //
             //Các tài liệu có trong đơn
             reponse = funcGetCheckValueAndText(formData, "6_rdoChungTuPhiLP", "2");
             //
@@ -539,7 +546,7 @@
             reponse = funcGetCheckValueAndText(formData, "6_rdoTLXNDPSD", "9");
             formData.append("pAppDocumentInfo[9].CHAR01", $("#6_TLXNDPSD").val());
 
-            // 
+            //
             // 10 6_rdoTLDKNH
             reponse = funcGetCheckValueAndText(formData, "6_rdoTLDKNH", "10");
 
@@ -555,14 +562,14 @@
             // 13 6_rdoTLCMQUT
             reponse = funcGetCheckValueAndText(formData, "6_rdoTLCMQUT", "13");
             formData.append("pAppDocumentInfo[13].CHAR01", $("#6_txtTLCMQUT").val());
-            
+
             // 13 6_rdoBSDDT----------
             reponse = funcGetCheckValueAndText(formData, "6_rdoBSDDT", "14");
-          
+
             // 15 6_rdoBDTVGom
             reponse = funcGetCheckValueAndText(formData, "6_rdoBDTVGom", "15");
             formData.append("pAppDocumentInfo[14].CHAR01", $("#6_txtBDTVGom").val());
-            
+
             // 16 6_rdoGiayChuyenNhungUT
             reponse = funcGetCheckValueAndText(formData, "6_rdoGiayChuyenNhungUT", "16");
             // 17 6_rdoGiayChuyenNhungUT
@@ -582,7 +589,7 @@
     }
 
 
-    function funcGetCheckValueAndText(formData,pID,pItem ) {
+    function funcGetCheckValueAndText(formData, pID, pItem) {
         try {
             var Isuse = 0, Note = "";
             //Các tài liệu có trong đơn
@@ -597,5 +604,22 @@
             return false;
         }
 
+    }
+
+
+    function funcPreViewApplication() {
+        $.ajax({
+            type: "POST",
+            url: "/trade-mark/Pre-View",
+            headers: { "cache-control": "no-cache" },
+            async: false,
+            success: function (data) {
+                if (data != null) {
+                    $("#dpop-preview").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPreview', "Xem thông tin đơn", 900, 900, "");
+                }
+                return false;
+            }
+        });
     }
 </script>

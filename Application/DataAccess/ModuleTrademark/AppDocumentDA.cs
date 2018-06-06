@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using Common;
+using ObjectInfos;
 using ObjectInfos.ModuleTrademark;
 using Oracle.DataAccess.Client;
 
@@ -128,5 +129,8 @@ namespace DataAccess.ModuleTrademark
                 return ErrorCode.Error;
             }
         }
+
+
+         
     }
 }

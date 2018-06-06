@@ -8,12 +8,12 @@ namespace BussinessFacade.ModuleTrademark
 {
     public class AppClassDetailBL
     {
-        public int AppClassDetailInsertBatch(List<AppClassDetailInfo> pInfo, decimal pAppHeaderid)
+        public int AppClassDetailInsertBatch(List<AppClassDetailInfo> pInfo, decimal pAppHeaderid,string pLanguage)
         {
             try
             {
                 var objData = new AppClassDetail_DA();
-                return objData.AppClassDetailInsertBatch(pInfo, pAppHeaderid);
+                return objData.AppClassDetailInsertBatch(pInfo, pAppHeaderid, pLanguage);
             }
             catch (Exception ex)
             {
@@ -23,12 +23,12 @@ namespace BussinessFacade.ModuleTrademark
         }
 
 
-        public int AppClassDetailDeleted(decimal pAppHeaderID)
+        public int AppClassDetailDeleted(decimal pAppHeaderID,string pLanguage)
         {
             try
             {
                 var objData = new AppClassDetail_DA();
-                return objData.AppClassDetailDeleted(pAppHeaderID);
+                return objData.AppClassDetailDeleted(pAppHeaderID, pLanguage);
             }
             catch (Exception ex)
             {

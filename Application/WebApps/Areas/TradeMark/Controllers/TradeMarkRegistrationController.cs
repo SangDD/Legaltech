@@ -143,7 +143,7 @@
                         //Thêm thông tin class
                         if (pReturn >= 0)
                         {
-                            pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID);
+                            pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID, language);
                         }
                     }
                     else
@@ -309,6 +309,27 @@
 
 
         [HttpPost]
+        [Route("push-file-other-to-server")]
+        public ActionResult PushFileOtherToServer(AppDocumentInfo pInfo)
+        {
+            try
+            {
+                if (pInfo.pfiles != null)
+                {
+                    var url = AppLoadHelpers.PushFileToServer(pInfo.pfiles, AppUpload.Document);
+                    SessionData.CurrentUser.chashFile[pInfo.keyFileUpload] = pInfo.pfiles;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = -1 });
+            }
+            return Json(new { success = 0 });
+        }
+
+
+        [HttpPost]
         [Route("ket_xuat_file")]
         public ActionResult ExportData(ApplicationHeaderInfo pInfo, List<AppFeeFixInfo> pFeeFixInfo, AppDetail01Info pDetailInfo)
         {
@@ -349,5 +370,22 @@
                 return Json(new { success = 0 });
             }
         }
+
+
+        [HttpPost]
+        [Route("Pre-View")]
+        public ActionResult PreViewApplication()
+        {
+            try
+            {
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+            }
+        }
+
     }
 }

@@ -12,5 +12,7 @@ namespace ObjectInfos
         public string Textinput { get; set; }
         public string Code { get; set; }
         public decimal App_Header_Id { get; set; }
+
+        public string Languague_Code { get; set; }
     }
 }
