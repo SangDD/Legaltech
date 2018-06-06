@@ -17,6 +17,9 @@ namespace ObjectInfos
         public DateTime Duedate { get; set; }
         public decimal Display { get; set; }
         public string ConfirmApp { get; set; }
-        
+
+        public string URL { get; set; }
+
+
     }
 }

@@ -30,21 +30,16 @@
         @foreach (SysApplicationInfo item in listAppData)
         {
             numberApp++;
-            string _url = item.URL;
-            if (string.IsNullOrEmpty(_url))
-            {
-                _url = "/trade-mark/sua-doi-don-dang-ky/" + item.Appcode.ToLower();
-            }
             if (numberApp % 2 == 0)
             {
                 <div class="class_right">
-                    <a href="@_url">(@numberApp.ToString())  @item.Appname</a>
+                    <a href="/trade-mark/sua-doi-don-dang-ky/@item.Appcode.ToLower()">(@numberApp.ToString())  @item.Appname</a>
                 </div>
             }
             else
             {
                 <div class="class_left">
-                    <a  href="@_url">(@numberApp.ToString())  @item.Appname</a>
+                    <a href="/trade-mark/sua-doi-don-dang-ky/@item.Appcode.ToLower()">(@numberApp.ToString())  @item.Appname</a>
                 </div>
             }
 
