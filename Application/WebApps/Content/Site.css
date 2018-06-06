@@ -1457,6 +1457,7 @@ select.divNumberRecordOnPage {
     -webkit-border-radius: 50%;
     behavior: url(PIE.htc);
     width: 15px !important;
+    min-width: 15px !important;
     height: 16px !important;
     padding: 1px;
     border: 2px solid #000;
@@ -1660,4 +1661,8 @@ input[type="checkbox"] {
 
 .class_padding_right_10 {
     padding-right:10px ;
+}
+
+.class_title_width_numer {
+   margin-top:-20px;
 }

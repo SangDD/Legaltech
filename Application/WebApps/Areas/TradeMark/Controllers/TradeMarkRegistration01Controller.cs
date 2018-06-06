@@ -6,9 +6,9 @@
 
 //namespace WebApps.Areas.TradeMark.Controllers
 //{
-//    public class TradeMarkRegistration2BController : Controller
+//    public class TradeMarkRegistration01Controller : Controller
 //    {
-//        // GET: TradeMark/TrademMarkRegistration2B
+//        // GET: TradeMark/TrademMarkRegistration01
 //        public ActionResult Index()
 //        {
 //            return View();
@@ -36,7 +36,7 @@ namespace WebApps.Areas.TradeMark.Controllers
     [ValidateAntiForgeryTokenOnAllPosts]
     [RouteArea("TradeMarkRegistration", AreaPrefix = "trade-mark-01")]
     [Route("{action}")]
-    public class TradeMarkRegistration2BController : Controller
+    public class TradeMarkRegistration01Controller : Controller
     {
         // GET: TradeMark/TradeMarkRegistration
 
@@ -52,11 +52,11 @@ namespace WebApps.Areas.TradeMark.Controllers
                 }
                 string language = AppsCommon.GetCurrentLang();
                 ViewBag.lstData = SysApplicationBL.GetSysAppByLanguage(language);
-                return View("~/Areas/TradeMark/Views/TradeMarkRegistration2B/DangKyNhanHieu.cshtml");
+                return View("~/Areas/TradeMark/Views/TradeMarkRegistration01/DangKyNhanHieu.cshtml");
             }
             catch (Exception ex)
             {
-                Logger.LogException(ex); return View("~/Areas/TradeMark/Views/TradeMarkRegistration2B/DangKyNhanHieu.cshtml");
+                Logger.LogException(ex); return View("~/Areas/TradeMark/Views/TradeMarkRegistration01/DangKyNhanHieu.cshtml");
             }
         }
 
@@ -83,7 +83,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 {
 
                 }
-                else if (AppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
+                else if (AppCode == TradeMarkAppCode.AppCodeDangKynhanHieuQuocTeNguonGocVietNam)
                 {
                     return AppDangKyNhanHieu();
 
@@ -107,7 +107,7 @@ namespace WebApps.Areas.TradeMark.Controllers
             {
                 Logger.LogException(ex);
             }
-            return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration2B/AppSuaDoiDonDangKy.cshtml");
+            return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/AppSuaDoiDonDangKy.cshtml");
         }
 
         public ActionResult AppDangKyNhanHieu()
@@ -120,7 +120,7 @@ namespace WebApps.Areas.TradeMark.Controllers
             {
                 Logger.LogException(ex);
             }
-            return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration2B/_PartalDangKyNhanHieu.cshtml");
+            return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartalDangKyNhanHieu.cshtml");
         }
 
         [HttpPost]
