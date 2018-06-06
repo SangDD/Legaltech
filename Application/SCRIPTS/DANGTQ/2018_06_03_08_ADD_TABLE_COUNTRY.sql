@@ -2,7 +2,8 @@ CREATE TABLE Country
 (
     Country_id                     NUMBER,
     name                           NVARCHAR2(200)
-)/
+)
+/
 
 INSERT INTO Country 
 VALUES(198,'South Africa');
