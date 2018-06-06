@@ -107,13 +107,14 @@
 
         [HttpPost]
         [Route("dang_ky_nhan_hieu")]
-        public ActionResult AppDonDangKyInsert(ApplicationHeaderInfo pInfo, AppDetail04NHInfo pDetail, List<AppDocumentInfo> pAppDocumentInfo , List<AppFeeFixInfo> pFeeFixInfo)
+        public ActionResult AppDonDangKyInsert(ApplicationHeaderInfo pInfo, AppDetail04NHInfo pDetail, List<AppDocumentInfo> pAppDocumentInfo, List<AppClassDetailInfo> pAppClassInfo ,List<AppFeeFixInfo> pFeeFixInfo)
         {
             try
             {
                 Application_Header_BL objBL = new Application_Header_BL();
                 AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
                 AppDetail04NHBL objDetail = new AppDetail04NHBL();
+                AppClassDetailBL objClassDetail = new AppClassDetailBL();
                 AppDocumentBL objDoc = new AppDocumentBL();
                 if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
                 string language = AppsCommon.GetCurrentLang();
@@ -139,6 +140,11 @@
                             pDetail.Logourl = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
                         }
                         pReturn = objDetail.App_Detail_04NH_Insert(pDetail);
+                        //Thêm thông tin class
+                        if (pReturn >= 0)
+                        {
+                            pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID);
+                        }
                     }
                     else
                     {
@@ -181,6 +187,7 @@
                     {
                         Transaction.Current.Rollback();
                     }
+
                 }
                 return Json(new { status = pAppHeaderID });
             }
