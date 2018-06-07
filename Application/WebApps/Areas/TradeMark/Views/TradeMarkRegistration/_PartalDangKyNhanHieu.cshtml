@@ -241,12 +241,10 @@
 </div>
 
 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialPreview.cshtml")
-
-
-<div id="divWrapperPreview" class="divWrapperPreview" style="display: none;">
-    <div class="dpop-preview" id="dpop-preview">
+    <div id="divWrapperPreview" class="divWrapperPreview" style="display:none"  >
+        <div class="dpop-preview" id="dpop-preview">
+        </div>
     </div>
-</div>
 
 
 <script>
@@ -608,6 +606,11 @@
 
 
     function funcPreViewApplication() {
+        if ($('#divWrapperPreview').css('display') == 'block') {
+            $('#divWrapperPreview').css('display', 'none');
+            return;
+        }
+
         $.ajax({
             type: "POST",
             url: "/trade-mark/Pre-View",
@@ -617,6 +620,7 @@
                 if (data != null) {
                     $("#dpop-preview").html(data);
                     ShowPopupDialog_Ipace('divWrapperPreview', "Xem thông tin đơn", 900, 900, "");
+                    $("#divWrapperPreview").css('margin-top', '-760px');
                 }
                 return false;
             }
