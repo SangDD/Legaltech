@@ -1,23 +1,127 @@
 ﻿<div class="div_full_100_area">
-    <div class="class_full_div_p class_text_center_bold">CÁC TÀI LIỆU KHÁC</div>
+    <div class="class_full_div_p class_text_center_bold">
+        <label>  CÁC TÀI LIỆU KHÁC</label>
+    </div>
     <br />
-    <div class="class_full_div_input">
-        <div class="class_block_title">
-        </div>
-        <div class="class_block_title_control">
-            <div class="class_left_30">
-                <input type="text" placeholder="Nhập tên tài liệu đính kèm" id="txtTaiLieuKhac">
+    <div id="divDocumentOther">
+        <div class="grid-container">
+            <div class="grid-item"> </div>
+            <div class="grid-item">
+                <input type="text" maxlength="250" placeholder="Nhập tên tài liệu đính kèm" id="txtTaiLieuKhac1">
             </div>
-            <div class="container class_right_70">
+            <div class="grid-item">
                 <div class="file-upload btn btn-primary">
                     <span>Chọn file</span>
-                    <input type="file" name="pfile_tailieukhac" id="pfile_6_rdoToKhai" class="upload fileuploadurl" />
+                    <input type="file" name="pfileName1" id="pfileName1" class="upload fileuploadurl clssListUpload" />
                 </div>
-                <input type="text" id="txt_6_rdoToKhai" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
-                <input type="button" id="btnUp_6_rdoToKhai" onclick="return funcPushFileToServer('6_rdoToKhai');" value="Tải file" style="width:60px" />
-                <input type="button" id="btnAdd" value="Thêm" style="width:46px" />
-                <i class="fa fa-check" id="i_6_rdoToKhai" style="font-size:15px;color:green ;display:none"></i>
+                <input type="text" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
+                <input type="button" onclick="return funcPushFileDocumentOther('pfileName1');" value="Tải file" style="width:60px" />
+                <i class="fa fa-check" id="ipushData1" style="font-size:15px;color:green ;display:none"></i>
+                <input type="button" id="btnAddDocumentOther" value="Thêm" style="width:60px; " class="btn" />
             </div>
         </div>
     </div>
 </div>
+@* danh dau so tt sinh id  *@
+<input type="hidden" id="increNo" value="1"/>
+
+<style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: 120px 24% 33%;
+        padding: 1px;
+    }
+
+    .grid-item {
+        background-color: rgba(255, 255, 255, 0.8);
+        text-align: center;
+    }
+</style>
+
+<script>
+    $("#btnAddDocumentOther").click(function () {
+        try {
+            funcAddDocumentNew();
+        } catch (e) {
+        }
+    });
+
+    function funcAddDocumentNew() {
+        try {
+            var e = $("#increNo").val()/1;
+                e++;
+            var pfileName = "pfileName" + e.toString();
+            var txtDocument = "txtTaiLieuKhac" + e.toString();
+            var i_documentPush = "ipushData" + e.toString();
+            var divDocumnetNo = "divDocumnetNo" + e;
+            var btnXoa = "btnXoa" + e;
+            var t = '<div class="grid-container" id="' + divDocumnetNo + '"> <div class="grid-item"> </div> <div class="grid-item"> <input type="text" ' +
+                'placeholder = "Nhập tên tài liệu đính kèm"  maxlength="250"  id = "' + txtDocument + '" > </div > ';
+
+             t += '<div class="grid-item"> <div class="file-upload btn btn-primary"   <span>Chọn file</span> ' +
+                '<input type = "file" name = "' + pfileName + '" id = "' + pfileName + '" class="upload fileuploadurl clssListUpload" /> </div > ' +
+                '<input type="text"   class="classMaxfile" readonly placeholder="Maximum file size is 2MB">' +
+                ' <input type="button"  onclick="return funcPushFileDocumentOther(\'' + pfileName + '\');" value="Tải file" style="width:60px" />' +
+                '<i class="fa fa-check" id="' + i_documentPush + '" style="font-size:15px;color:green ;display:none"></i>  <input type="button" id="' + btnXoa + '" value="Xóa" style="width:60px;  background: crimson;" class="btn" onclick="return funcRemoveDocument(\'' + divDocumnetNo+'\')" /> </div> </div>';
+            $("#divDocumentOther").append(t);
+            $("#increNo").val(e);
+            return t;
+        } catch (e) {
+
+        }
+    }
+
+    function funcRemoveDocument(pTag){
+        try {
+            var divFileUpload = document.getElementById(pTag);
+            $(divFileUpload).remove();
+        } catch (e) {
+        }
+    }
+
+
+      @*document.getElementById("pfile_"+"@AfterID").onchange = function () {
+        document.getElementById("txt_"+"@AfterID").value = this.value;
+    };*@
+
+
+    function funcPushFileDocumentOther(pID)
+    {
+        try
+        {
+            var formdata = new FormData();
+            var Isuse = 0, Note = "";
+            //Các tài liệu có trong đơn
+            if ($("#" + pID).prop('checked') == true) {
+                Isuse = 1;
+            }
+            formdata.append("pInfo.keyFileUpload", pID);
+            var file = document.getElementsByName("pfile_" + pID);
+            if (file != undefined) {
+                formdata.append("pInfo.pfiles", file[0].files[0]);
+            }
+
+
+            //2
+            $.ajax({
+                type: 'POST',
+                url: '/trade-mark/push-file-other-to-server',
+                data: formdata,
+                enctype: 'multipart/form-data',
+                processData: false, contentType: false, dataType: 'Json',
+                success: function (data) {
+                    if (data.success == 0) {
+                        $("#i_" + pID).css("display", "inline-block");
+                    } else {
+                        jError(pushfileError, ThongBao, function () {
+                        });
+                    }
+                }
+            });
+
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+</script>

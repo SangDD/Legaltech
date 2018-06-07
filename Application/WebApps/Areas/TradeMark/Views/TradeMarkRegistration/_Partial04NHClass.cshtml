@@ -1,4 +1,10 @@
-﻿<div class="div_full_100_area">
+﻿@using BussinessFacade.ModuleMemoryData
+@using WebApps.CommonFunction
+@{
+    var listClassInfo = MemoryData.clstAppClass;
+    string _LanguageCode = AppsCommon.GetCurrentLang();
+}
+<div class="div_full_100_area">
     <div class="class_full_div_p class_text_center_bold">DANH MỤC VÀ PHÂN NHÓM HÀNG HOÁ, DỊCH VỤ MANG NHÃN HIỆU </div>
     <br />
     <div class="class_full_div_input">
@@ -12,11 +18,15 @@
             <div class="class_block_title"><label>Tên đầy đủ:</label> </div>
             <div class="class_block_title_control" style="width: calc(100% - 250px);float:none">
                 <select id="cboClassInfo">
-
-                    <option value="1000054">Cafe|1000054</option>
-                    <option value="1000056">Mi Tom|1000056</option>
-                    <option value="1000058">Mi An Lien|1000058</option>
-                    <option value="1000059">Mi Chinh|1000059</option>
+                    @foreach (var item in listClassInfo)
+                    {
+                        string Content = item.Name_Vi;
+                        if (_LanguageCode == LangCode.EN_US.ToString())
+                        {
+                            Content = item.Name_En;
+                        }
+                        <option value="@item.Code">@Content</option>
+                    }
                 </select>
             </div>
             <div style="display:inline-flex">
@@ -138,7 +148,7 @@
         try {
             var item = 0;
             $("#tblClassInfo").find("tbody").find(".DataAdd").each(function () {
-                var  str_data = $(this).val().split('|');
+                var str_data = $(this).val().split('|');
                 formData.append("pAppClassInfo[" + item + "].Textinput", str_data[0]);
                 formData.append("pAppClassInfo[" + item + "].Code", str_data[1]);
                 item++;
