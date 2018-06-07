@@ -16,6 +16,7 @@
             this.AccountRoleChanged = false;
             this.AllAccountRoles = new List<FunctionInfo>();
             this.chashFile = new Hashtable();
+            this.chashFileOther = new Hashtable();
         }
 
         // main field mapping with database
@@ -139,5 +140,7 @@
         /// 
         /// </summary>
         public Hashtable chashFile { get; set; }
+
+        public Hashtable chashFileOther { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using DataAccess.ModuleTrademark;
 using System;
 using System.Collections.Generic;
 using ObjectInfos.ModuleTrademark;
+using ObjectInfos;
 
 namespace BussinessFacade.ModuleTrademark
 {
@@ -41,7 +42,35 @@ namespace BussinessFacade.ModuleTrademark
             try
             {
                 AppDocumentDA objData = new AppDocumentDA();
-                return objData.AppHeaderDeletedByApp(pAppHeaderID, pLanguage);
+                return objData.AppDocumentDeletedByApp(pAppHeaderID, pLanguage);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
+
+        public int AppDocumentOtherInsertBatch(List<AppDocumentOthersInfo> pInfo)
+        {
+            try
+            {
+                AppDocumentDA objData = new AppDocumentDA();
+                return objData.AppDocumentOtherInsertBatch(pInfo);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+        public int AppDocumentOtherDeletedByApp(decimal pAppHeaderID, string pLanguage)
+        {
+            try
+            {
+                AppDocumentDA objData = new AppDocumentDA();
+                return objData.AppDocumentOtherDeletedByApp(pAppHeaderID, pLanguage);
             }
             catch (Exception ex)
             {

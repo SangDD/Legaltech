@@ -51,6 +51,8 @@
                 if (SessionData.CurrentUser == null)
                     return Redirect("/");
 
+                SessionData.CurrentUser.chashFile.Clear();
+                SessionData.CurrentUser.chashFileOther.Clear();
                 string AppCode = "";
                 if (RouteData.Values.ContainsKey("id"))
                 {
@@ -107,7 +109,8 @@
 
         [HttpPost]
         [Route("dang_ky_nhan_hieu")]
-        public ActionResult AppDonDangKyInsert(ApplicationHeaderInfo pInfo, AppDetail04NHInfo pDetail, List<AppDocumentInfo> pAppDocumentInfo, List<AppClassDetailInfo> pAppClassInfo ,List<AppFeeFixInfo> pFeeFixInfo)
+        public ActionResult AppDonDangKyInsert(ApplicationHeaderInfo pInfo, AppDetail04NHInfo pDetail, List<AppDocumentInfo> pAppDocumentInfo,
+            List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo, List<AppFeeFixInfo> pFeeFixInfo)
         {
             try
             {
@@ -146,13 +149,9 @@
                             pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID, language);
                         }
                     }
-                    else
-                    {
-                        Transaction.Current.Rollback();
-                    }
+                    //Tai lieu dinh kem 
                     if (pReturn >= 0 && pAppDocumentInfo != null)
                     {
-                       
                         if (pAppDocumentInfo.Count > 0)
                         {
                             foreach (var info in pAppDocumentInfo)
@@ -169,25 +168,37 @@
                                 info.Language_Code = language;
                             }
                             pReturn = objDoc.AppDocumentInsertBath(pAppDocumentInfo, pAppHeaderID);
-                            if (pReturn < 0)
-                            {
-                                Transaction.Current.Rollback();
-                            }
-                            else
-                            {
-                                scope.Complete();
-                            }
-                        }
-                        else
-                        {
-                            scope.Complete();
+
                         }
                     }
-                    else
+                    //tai lieu khac 
+                    if (pReturn >= 0 && pAppDocOtherInfo != null)
+                    {
+                        if (pAppDocOtherInfo.Count > 0)
+                        {
+                            foreach (var info in pAppDocOtherInfo)
+                            {
+                                if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
+                                {
+                                    HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                    info.Filename = pfiles.FileName;
+                                    info.Filename = "~/Content/Archive/" + AppUpload.Document + pfiles.FileName;
+                                }
+                                info.App_Header_Id = pAppHeaderID;
+                                info.Language_Code = language;
+                            }
+                            pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocOtherInfo);
+                        }
+                    }
+                    //end
+                    if (pReturn < 0)
                     {
                         Transaction.Current.Rollback();
                     }
-
+                    else
+                    {
+                        scope.Complete();
+                    }
                 }
                 return Json(new { status = pAppHeaderID });
             }
@@ -310,14 +321,14 @@
 
         [HttpPost]
         [Route("push-file-other-to-server")]
-        public ActionResult PushFileOtherToServer(AppDocumentInfo pInfo)
+        public ActionResult PushFileOtherToServer(AppDocumentInfo pInfo) //AppDocumentInfo de lay thong tin add vao hash thoi
         {
             try
             {
                 if (pInfo.pfiles != null)
                 {
                     var url = AppLoadHelpers.PushFileToServer(pInfo.pfiles, AppUpload.Document);
-                    SessionData.CurrentUser.chashFile[pInfo.keyFileUpload] = pInfo.pfiles;
+                    SessionData.CurrentUser.chashFileOther[pInfo.keyFileUpload] = pInfo.pfiles;
                 }
             }
             catch (Exception ex)

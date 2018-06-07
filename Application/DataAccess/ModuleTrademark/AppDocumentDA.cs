@@ -111,7 +111,7 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
-        public int AppHeaderDeletedByApp(decimal pAppHeaderID, string pLanguage)
+        public int AppDocumentDeletedByApp(decimal pAppHeaderID, string pLanguage)
         {
             try
             {
@@ -130,7 +130,71 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
+        public int AppDocumentOtherInsertBatch(List<AppDocumentOthersInfo> pInfo)
+        {
+            try
+            {
+                int numberRecord = pInfo.Count;
+                string[] Language = new string[numberRecord];
+                decimal[] App_Header_Id = new decimal[numberRecord];
+                string[] DocumentName = new string[numberRecord];
+                string[] FileName = new string[numberRecord];
+                for (int i = 0; i < pInfo.Count; i++)
+                {
+                    Language[i] = pInfo[i].Language_Code;
+                    App_Header_Id[i] = pInfo[i].App_Header_Id;
+                    DocumentName[i] = pInfo[i].Documentname;
+                    FileName[i] = pInfo[i].Filename;
+                }
+                var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
+                OracleHelper.ExcuteBatchNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_DOC_OTHERS.PROC_APP_DOC_OTHER_INSERT", numberRecord,
+                    new OracleParameter("P_APP_HEADER_ID", OracleDbType.Decimal, App_Header_Id, ParameterDirection.Input),
+                    new OracleParameter("P_DOCUMENTNAME", OracleDbType.Varchar2, DocumentName, ParameterDirection.Input),
+                    new OracleParameter("P_FILENAME", OracleDbType.Varchar2, FileName, ParameterDirection.Input),
+                    new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, Language, ParameterDirection.Input),
+                    paramReturn);
+                var result = ErrorCode.Error;
+                Oracle.DataAccess.Types.OracleDecimal[] _ArrReturn = (Oracle.DataAccess.Types.OracleDecimal[])paramReturn.Value;
+                foreach (Oracle.DataAccess.Types.OracleDecimal _item in _ArrReturn)
+                {
+                    if (Convert.ToInt32(_item.ToString()) < 0)
+                    {
+                        result = Convert.ToInt32(_item.ToString());
+                        break;
+                    }
+                    else
+                    {
+                        result = ErrorCode.Success;
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
 
-         
+        public int AppDocumentOtherDeletedByApp(decimal pAppHeaderID, string pLanguage)
+        {
+            try
+            {
+                var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
+                OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_DOC_OTHERS.PROC_APP_DOC_OTHER_DEL_BY_APP",
+                    new OracleParameter("P_APP_HEADER_ID", OracleDbType.Decimal, pAppHeaderID, ParameterDirection.Input),
+                    new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
+                    paramReturn);
+                var result = Convert.ToInt32(paramReturn.Value.ToString());
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
+
     }
 }
