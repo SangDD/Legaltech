@@ -264,7 +264,6 @@
         filePreview(this, 'imgMauNhanHieu');
     };
 
-
     function funcUpLoadMauNhanHieu(pFile) {
         try {
             var file = document.getElementsByName(pFile);
@@ -337,6 +336,11 @@
                 return false;
             }
             reponse = funcGetDataClassInfo(formData);
+            if (reponse == false) {
+                return false;
+            }
+            //lay tai lieu khac 
+            reponse = funcGetTenTaiLieuKhac(formData);
             if (reponse == false) {
                 return false;
             }
@@ -626,4 +630,24 @@
             }
         });
     }
+
+    //$("#btnLuuTam").click(function (formData) {
+    //    funcGetTenTaiLieuKhac();
+    //});
+
+    function funcGetTenTaiLieuKhac(formData) {
+        try {
+            var item = 0;
+            $(".clssListUpload").each(function () {
+                formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", this.id);
+                formData.append("pAppDocOtherInfo[" + item + "].Documentname",$("#"+ this.id).val());
+                item++;
+            });
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+
 </script>
