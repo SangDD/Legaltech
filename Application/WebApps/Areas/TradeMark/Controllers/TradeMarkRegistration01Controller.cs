@@ -161,7 +161,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                         //Thêm thông tin class
                         if (pReturn >= 0)
                         {
-                            pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID);
+                         //   pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID);
                         }
                     }
                     else
