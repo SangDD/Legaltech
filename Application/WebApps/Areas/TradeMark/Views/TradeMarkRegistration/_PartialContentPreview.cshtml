@@ -2,6 +2,11 @@
 
     string src = "/Content/Export/Dang_ky_sua_doi_nhan_hieu_TM01SDD.pdf";
 }
+@*<script src="~/Scripts/outSourcesLib/pdfobject.min.js"></script>*@
+  @*PDFObject.embed("@src", "#dpop-preview");*@
+@*<script>
+    PDFObject.embed("@src", "#dpop-preview");
+</script>*@
+@*<embed src="@src" style="height:20rem;">*@
 
- 
-<embed id="pdfobject" class="pdfobject" src="@src" type="application/pdf" style="overflow: auto; width: 100%; height: 100%;" internalinstanceid="10">
+<embed   src="@src" type="application/pdf" style="overflow: auto; width: 100%; height: 900px;" >
