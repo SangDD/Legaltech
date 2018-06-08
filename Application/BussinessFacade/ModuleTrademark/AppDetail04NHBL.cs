@@ -2,6 +2,7 @@
 using DataAccess.ModuleTrademark;
 using ObjectInfos;
 using System;
+using System.Data;
 
 namespace BussinessFacade.ModuleTrademark
 {
@@ -47,6 +48,21 @@ namespace BussinessFacade.ModuleTrademark
             {
                 Logger.LogException(ex);
                 return ErrorCode.Error;
+            }
+        }
+
+        public DataSet AppTM04NHGetByID(decimal pAppHeaderId, string pLanguage, int pStatus)
+        {
+            try
+            {
+                var objData = new AppDetail04NH_DA();
+                return objData.AppTM04NHGetByID(pAppHeaderId, pLanguage, pStatus);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+                     
             }
         }
     }

@@ -1,32 +1,60 @@
 ﻿@using WebApps.CommonFunction
+@using ObjectInfos.ModuleTrademark
+@using ObjectInfos
 @{
     ViewBag.Title = "Đăng ký nhãn hiệu";
     Layout = "~/ViewsShared/_Layout.cshtml";
+
+   
+    var objAppHeaderInfo = new AppDetail04NHInfo();
+    var lstDocumentInfo = new List<AppDocumentInfo>();
+    var lstDocOther = new List<AppDocumentOthersInfo>();
+    var lstClassDetailInfo = new List<AppClassDetailInfo>();
+    var lstFeeInfo = new List<AppFeeFixInfo>();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        objAppHeaderInfo = (AppDetail04NHInfo)ViewBag.objAppHeaderInfo;
+    }
+    if (ViewBag.lstDocumentInfo != null)
+    {
+        lstDocumentInfo = (List<AppDocumentInfo>)ViewBag.lstDocumentInfo;
+    }
+    if (ViewBag.lstDocOther != null)
+    {
+        lstDocOther = (List<AppDocumentOthersInfo>)ViewBag.lstDocOther;
+    }
+    if (ViewBag.lstClassDetailInfo != null)
+    {
+        lstClassDetailInfo = (List<AppClassDetailInfo>)ViewBag.lstClassDetailInfo;
+    }
+    if (ViewBag.lstFeeInfo != null)
+    {
+        lstFeeInfo = (List<AppFeeFixInfo>)ViewBag.lstFeeInfo;
+    }
 }
 <div class="d-nav-container">
     <ul class="ul-nav">
         <li><a href="javascript:;">TradeMark</a></li>
-        <li><a href="javascript:;"> Request for amendment of application)</a></li>
+        <li><a href="javascript:;"> Sửa đơn đăng ký nhãn hiệu</a></li>
     </ul>
 </div>
 
-<input type="hidden" id="txtAppCode" value='@ViewBag.AppCode' />
+<input type="hidden" id="txtAppCode" value='@objAppHeaderInfo.Appcode' />
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
-        <legend>Đăng ký nhãn hiệu</legend>
-
+        <legend>Sửa thông tin đăng ký</legend>
         <div class="div_full_100_area">
             <div class="class_left_50">
                 <div class="class_text_end_radio" style="display: flex;">
                     <p class="class_text_left class_padding_right_10">Đơn này được tách ra từ đơn số</p>
-                    <input style="width:33%" type="text" id="0_txtDonSo" maxlength="20" placeholder="0_txtDonSo" />
+                    <input style="width:33%" type="text" id="0_txtDonSo" value="@objAppHeaderInfo.Appno"  maxlength="20" placeholder="0_txtDonSo" />
                 </div>
             </div>
             <div class="class_right_50">
                 <div class="class_text_end_radio" style="display: flex;">
                     <p class="class_text_left  class_padding_right_10">Ngày nộp đơn</p>
-                    <input style="width:33%" class="datetimepicker" type="text" id="0_txtNgayNopDon" maxlength="10" placeholder="0_txtNgayNopDon" />
+                    <input style="width:33%" class="datetimepicker" type="text" value="@objAppHeaderInfo.Duadate.ToString("dd/MM/yyyy")" id="0_txtNgayNopDon" maxlength="10" placeholder="0_txtNgayNopDon" />
                 </div>
             </div>
         </div>
@@ -34,8 +62,6 @@
         <div class="div_full_100_area">
             <div class="class_full_div_p class_text_center_bold">NHÃN HIỆU</div>
             <br />
-
-
             <div class="class_full_div_input">
                 <div class="class_block_title" style="padding-top:5px; "><label>Mẫu nhãn hiệu:</label> </div>
                 <div class="class_block_title_control" style="display:flex">
@@ -239,12 +265,11 @@
         </div>
     </fieldset>
 </div>
-
 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialPreview.cshtml")
-    <div id="divWrapperPreview" class="divWrapperPreview" style="display:none"  >
-        <div class="dpop-preview" id="dpop-preview">
-        </div>
+<div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
+    <div class="dpop-preview" id="dpop-preview">
     </div>
+</div>
 
 
 <script>
@@ -321,7 +346,7 @@
                 return false;
             }
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-            //trang thai 
+            //trang thai
             formData.append("pInfo.Status", 2);
             //Lấy thông tin detail
             var reponse = funcGetAppDetail(formData);
@@ -337,7 +362,7 @@
             if (reponse == false) {
                 return false;
             }
-            //lay tai lieu khac 
+            //lay tai lieu khac
             reponse = funcGetTenTaiLieuKhac(formData);
             if (reponse == false) {
                 return false;
@@ -582,6 +607,7 @@
         }
     }
 
+
     function funcGetCheckValueAndText(formData, pID, pItem) {
         try {
             var Isuse = 0, Note = "";
@@ -598,6 +624,7 @@
         }
 
     }
+
 
     function funcPreViewApplication() {
         if ($('#divWrapperPreview').css('display') == 'block') {
@@ -644,7 +671,7 @@
                 return false;
             }
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-            //trang thai 
+            //trang thai
             formData.append("pInfo.Status", 1);
             //Lấy thông tin detail
 
@@ -661,7 +688,7 @@
             if (reponse == false) {
                 return false;
             }
-            //lay tai lieu khac 
+            //lay tai lieu khac
             reponse = funcGetTenTaiLieuKhac(formData);
             if (reponse == false) {
                 return false;
@@ -695,7 +722,7 @@
             var item = 0;
             $(".clssListUpload").each(function () {
                 formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", this.id);
-                formData.append("pAppDocOtherInfo[" + item + "].Documentname",$("#"+ this.id).val());
+                formData.append("pAppDocOtherInfo[" + item + "].Documentname", $("#" + this.id).val());
                 item++;
             });
             return true;
