@@ -3,7 +3,7 @@
 
 CREATE TABLE app_document_others
     (id                             NUMBER,
-    app_header_id                  VARCHAR2(20 CHAR),
+    app_header_id                  NUMBER,
     documentname                   VARCHAR2(250 CHAR),
     filename                       VARCHAR2(250 CHAR),
     deleted                        NUMBER(1,0) DEFAULT 0)
