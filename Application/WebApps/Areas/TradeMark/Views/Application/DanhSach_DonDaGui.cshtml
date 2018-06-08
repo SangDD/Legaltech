@@ -33,9 +33,7 @@
             <div class="div-title-content"> THÔNG TIN ĐƠN ĐÃ GỬI</div>
         </div>
     </div>
-
     <div class="divCover" id="div-search-simple">
-
         <div class="div-search-ad">
             <div class="div-search-title">
                 <div>Chủ đơn</div>
@@ -45,7 +43,6 @@
                     <input style="width: 250px;" type="text" id="txt_Name" />
                 </div>
             </div>
-
             <div class="div-search-title">
                 <div>Loại đơn </div>
             </div>
@@ -54,23 +51,12 @@
                     @Html.DropDownList("cboAppCode", lstApp, new { @id = "cboAppCode" })
                 </div>
             </div>
-
-            @*<div class="div-search-title">
-                    <div>Ngành nghề KD </div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txtBusField" />
-                    </div>
-                </div>*@
         </div>
     </div>
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;">
             <input type="button" value="Tìm kiếm" class="btn-default" onclick="Search_Application(1, 1)" />
-            @*<input type="button" value="Kết xuất" class="btn-default" onclick="Export_Application(1)" />*@
-            @*<input id="btnAdd" type="button" class="btn-default" onclick="ShowRegisterIssuer()" value="Thêm mới" style="width:auto" />*@
         </div>
     </div>
 
@@ -79,13 +65,7 @@
             @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialTableApplication.cshtml")
         </div>
     </div>
-
     <div class="d-popup-container" id="dpop-PhanLoai"></div>
-
-    @*<div id="divWrapperPhanLoai" class="divWrapperPopup" style="display: none;">
-        <div class="divPopup" id="divPhanLoaiDon">
-        </div>
-    </div>*@
 </div>
 
 <script>

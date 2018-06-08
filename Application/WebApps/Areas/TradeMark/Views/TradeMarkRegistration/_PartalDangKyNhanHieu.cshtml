@@ -299,7 +299,6 @@
     }
 
     $("#btnGuiDon").click(function () {
-
         try {
             //Thông tin chủ đơn
             var formData = new FormData();
@@ -312,7 +311,6 @@
                 showError('Chưa chọn loại đơn đăng ký!');
                 return false;
             }
-
             formData.append("pInfo.Appcode", v_AppCode);
             if (funcThongTinChuDonNguoiDaiDien(formData, "2") != true) {
                 return false;
@@ -323,9 +321,9 @@
                 return false;
             }
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-
+            //trang thai 
+            formData.append("pInfo.Status", 2);
             //Lấy thông tin detail
-
             var reponse = funcGetAppDetail(formData);
             if (reponse == false) {
                 return false;
@@ -344,18 +342,12 @@
             if (reponse == false) {
                 return false;
             }
-
             $.ajax({
                 url: '/trade-mark/dang_ky_nhan_hieu',
                 type: 'POST',
                 data: formData,
-                processData: false,
-                contentType: false,
-                traditional: true,
-                dataType: "json",
-                enctype: 'multipart/form-data',
-                async: false,
-                headers: { "cache-control": "no-cache" },
+                processData: false, contentType: false, traditional: true, dataType: "json",
+                enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.status >= 0) {
                         jAlert(AddSuccess, ThongBao, function () {
@@ -631,9 +623,74 @@
         });
     }
 
-    //$("#btnLuuTam").click(function (formData) {
-    //    funcGetTenTaiLieuKhac();
-    //});
+    $("#btnLuuTam").click(function (formData) {
+        try {
+            //Thông tin chủ đơn
+            var formData = new FormData();
+            if (funcThongTinChuDonNguoiDaiDien(formData, "1") != true) {
+                return false;
+            }
+            var v_AppCode = $("#txtAppCode").val();
+            if (v_AppCode === "") {
+                $('#txtAppCode').focus().val('');
+                showError('Chưa chọn loại đơn đăng ký!');
+                return false;
+            }
+            formData.append("pInfo.Appcode", v_AppCode);
+            if (funcThongTinChuDonNguoiDaiDien(formData, "2") != true) {
+                return false;
+            }
+            var v_RepMasterType = $("input[name='3_rdoDaiDienChuDon']:checked").val();
+            if (v_RepMasterType === "" || v_RepMasterType == undefined) {
+                showError('Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!');
+                return false;
+            }
+            formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+            //trang thai 
+            formData.append("pInfo.Status", 1);
+            //Lấy thông tin detail
+
+            var reponse = funcGetAppDetail(formData);
+            if (reponse == false) {
+                return false;
+            }
+            //Lấy thông tin file có trong đơn
+            reponse = funGetThongTinFile(formData);
+            if (reponse == false) {
+                return false;
+            }
+            reponse = funcGetDataClassInfo(formData);
+            if (reponse == false) {
+                return false;
+            }
+            //lay tai lieu khac 
+            reponse = funcGetTenTaiLieuKhac(formData);
+            if (reponse == false) {
+                return false;
+            }
+            $.ajax({
+                url: '/trade-mark/dang_ky_nhan_hieu',
+                type: 'POST',
+                data: formData,
+                processData: false, contentType: false, traditional: true, dataType: "json",
+                enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                success: function (data) {
+                    if (data != null && data.status >= 0) {
+                        jAlert(AddSuccess, ThongBao, function () {
+                        });
+                    } else {
+                        jError(AddFail, ThongBao, function () {
+                        });
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+
+        } catch (e) {
+        }
+    });
 
     function funcGetTenTaiLieuKhac(formData) {
         try {
