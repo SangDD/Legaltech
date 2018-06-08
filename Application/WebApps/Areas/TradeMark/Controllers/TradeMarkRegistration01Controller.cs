@@ -32,6 +32,7 @@ namespace WebApps.Areas.TradeMark.Controllers
     using GemBox.Document;
     using System.IO;
     using System.Transactions;
+    using BussinessFacade;
 
     [ValidateAntiForgeryTokenOnAllPosts]
     [RouteArea("TradeMarkRegistration", AreaPrefix = "trade-mark-01")]
@@ -114,7 +115,9 @@ namespace WebApps.Areas.TradeMark.Controllers
         {
             try
             {
-
+              App_Class_BL _ObjBL = new App_Class_BL();
+                List<App_Class_Info> _List = _ObjBL.AppClassGetAll();
+                ViewBag.ListAppClass = _List;
             }
             catch (Exception ex)
             {

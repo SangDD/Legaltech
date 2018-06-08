@@ -1,7 +1,14 @@
-﻿@{
+﻿@using ObjectInfos
+@{
     ViewBag.Title = "Tờ khai";
     Layout = "~/ViewsShared/_Layout.cshtml";
+    List<App_Class_Info> _list = new List<App_Class_Info>();
+    if (ViewBag.ListAppClass != null)
+    {
+        _list = ViewBag.ListAppClass;
+    }
 }
+
 <div class="d-nav-container">
     <ul class="ul-nav">
         <li><a href="javascript:;">TradeMark</a></li>
@@ -89,13 +96,25 @@
             <div class="class_full_div_input">
                 <div class="class_block_title">Nhóm hàng hóa dịch vụ </div>
                 <div class="class_block_title_control ">
-                    <select id="1_selectNhomHangHoaDichVu" placeholder="1_selectNhomHangHoaDichVu">
-                        <option value="0">
-                            Chọn nhóm
-                        </option>
-                    </select>
+                    <input type="text" id="Nvs001txt_search_app_code" placeholder="Tìm kiếm sản phẩm/dịch vụ" />
                 </div>
-            </div>
+              
+
+
+                    <div class="class_block_title_control ">
+                        <select id="1_selectNhomHangHoaDichVu" placeholder="1_selectNhomHangHoaDichVu" style="width;200px">
+                            @foreach (var item in _list)
+                            {
+                                <option value="@item.Code">
+                                    @(item.Code + "-" + item.Name_Vi)
+                                </option>
+                            }
+                            <option value="0">
+                                Chọn nhóm
+                            </option>
+                        </select>
+                    </div>
+                </div>
 
                 <div class="class_full_div_input">
                     <div class="class_block_title">Chủ đơn/Chủ GCN (tên, địa chỉ) </div>
@@ -136,20 +155,7 @@
             <div class="class_full_div_p class_text_center_bold">6.CÁC TÀI LIỆU CÓ TRONG ĐƠN</div>
              @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTaiLieuTrongDon.cshtml")
         </div>
- 
-
-
-
-   
-           
-    
-   
   
-       
-    
-
-        
-
             <div class="class_save">
                 <div class="classGuiDon">
                     <input type="button" value="Gửi đơn" id="btnGuiDon" class="btn" />
@@ -163,8 +169,26 @@
 </fieldset>
 </div>
 
+<script src="~/Scripts/ScriptsLoadClassInfo.js"></script>
+
 
 <script>
+
+  
+   
+
+    $(document).ready(function () {
+
+        $('#1_selectNhomHangHoaDichVu').multipleSelect({
+            filter: true,
+            single: true,
+            isdatastring: false,
+            maxHeight: 150,
+            width:200,
+            placeholder: "-- Tìm kiếm hàng hóa/dịch vụ --"
+        });
+
+    });
 
     function ShowHidenUpLoad(pID, pClass) {
         try {

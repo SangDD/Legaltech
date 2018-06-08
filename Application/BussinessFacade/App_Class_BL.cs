@@ -28,6 +28,26 @@ namespace BussinessFacade
         }
 
 
+        public List<App_Class_Info>  AppClassGetAll()
+        {
+            try
+            {
+              
+                App_Class_DA _da = new App_Class_DA();
+                var optionFilter = new OptionFilter();
+                optionFilter.EndAt = 0;
+                optionFilter.StartAt = 0;
+                var totalRecordFindResult = 0;
+                var ds = _da.SearchAppClass("", optionFilter, ref totalRecordFindResult);
+                return CBO<App_Class_Info>.FillCollectionFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<App_Class_Info>();
+            }
+        }
+
         public List<App_Class_Info> SearchAppClass(string P_KEY_SEARCH = "",  string OPTIONS = "")
         {
             try
