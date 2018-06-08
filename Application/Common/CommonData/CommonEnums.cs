@@ -20,14 +20,14 @@
 
         public enum App_Status
         {
-            Luu_tam = 0,
-            DaGui_ChoPhanLoai = 1,
-            DaPhanChoLuatSu = 2,
-            LuatSuDaConfirm = 3,
-            ChoKHConfirm = 4,
-            KhacHangDaConfirm = 5,
-            KhacHangDaTuChoi = 51,
-            DaGuiLenCuc = 6
+            Luu_tam = 1,
+            DaGui_ChoPhanLoai = 2,
+            DaPhanChoLuatSu = 3,
+            LuatSuDaConfirm = 4,
+            ChoKHConfirm = 5,
+            KhacHangDaConfirm = 6,
+            KhacHangDaTuChoi = 61,
+            DaGuiLenCuc = 7
         }
 
         public enum UserType

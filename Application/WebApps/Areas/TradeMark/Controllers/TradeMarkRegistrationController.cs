@@ -43,7 +43,7 @@
         }
 
         [HttpGet]
-        [Route("sua-doi-don-dang-ky/{id}")]
+        [Route("request-for-trade-mark/{id}")]
         public ActionResult TradeMarkChoiseApplication()
         {
             try
