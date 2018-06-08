@@ -6,6 +6,7 @@ using Common;
 using ObjectInfos;
 using WebApps.AppStart;
 using WebApps.Session;
+using BussinessFacade.ModuleMemoryData;
 
 namespace WebApps.Areas.AppClass.Controllers
 {
@@ -149,6 +150,28 @@ namespace WebApps.Areas.AppClass.Controllers
                 Logger.LogException(ex);
             }
             return PartialView("~/Areas/AppClass/Views/AppClass/_PartialDetailAppClass.cshtml", _appclassinfo);
+        }
+
+        [HttpPost]
+        [Route("hang-hoa-dich-vu/combobox-search")]
+        public ActionResult combobox(string p_search)
+        {
+            List<AppClassInfo> _listRel = new List<AppClassInfo>() ;
+            p_search = p_search.ToUpper();
+            try
+            {
+                 _listRel = MemoryData.clstAppClass.FindAll(x=>x.KeySearch.Contains(p_search));
+                if (_listRel.Count > 100)
+                {
+                    // nhiều hơn 100 thằng thì cắt
+                    _listRel.RemoveRange(10, _listRel.Count - 100);  
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return PartialView("~/Areas/TradeMark/Views/Shared/_PartialShowAppInfoSearch.cshtml", _listRel);
         }
     }
 }

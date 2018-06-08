@@ -95,25 +95,20 @@
 
             <div class="class_full_div_input">
                 <div class="class_block_title">Nhóm hàng hóa dịch vụ </div>
+
+                @* phải có textbox  Nvs001txt_search_app_code và div NVS002_DivShowSearchAppCode*@
                 <div class="class_block_title_control ">
-                    <input type="text" id="Nvs001txt_search_app_code" placeholder="Tìm kiếm sản phẩm/dịch vụ" />
+                    <input type="text" id="Nvs001txt_search_app_code" placeholder="Tìm kiếm hàng hóa/dịch vụ" />
                 </div>
               
-
-
-                    <div class="class_block_title_control ">
-                        <select id="1_selectNhomHangHoaDichVu" placeholder="1_selectNhomHangHoaDichVu" style="width;200px">
-                            @foreach (var item in _list)
-                            {
-                                <option value="@item.Code">
-                                    @(item.Code + "-" + item.Name_Vi)
-                                </option>
-                            }
-                            <option value="0">
-                                Chọn nhóm
-                            </option>
+                  <div class="class_block_title_control" id="NVS002_DivShowSearchAppCode">
+                        <select>
+                            <option>Tìm kiếm hàng hóa/dịch vụ</option>
                         </select>
-                    </div>
+                  </div>
+                @*đến đây*@
+
+
                 </div>
 
                 <div class="class_full_div_input">

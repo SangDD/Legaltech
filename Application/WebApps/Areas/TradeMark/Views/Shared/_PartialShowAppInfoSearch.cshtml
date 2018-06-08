@@ -1,0 +1,21 @@
+﻿@using ObjectInfos
+@model List<AppClassInfo>
+@{
+  <select id="NVSCBO001_AppClassSearch">
+      @foreach (var item in Model)
+      {
+          <option value="@item.Code">
+              @item.DisplayValue
+          </option>
+      }
+  </select>
+  <script>
+      $('#NVSCBO001_AppClassSearch').multipleSelect({
+          filter: true,
+          noMatchesFound: "Không tìm thấy dữ liệu",
+          single: true,
+          isdatastring: false,
+          placeholder: 'Tìm kiếm dữ liệu hàng hóa'
+      });
+  </script>
+}

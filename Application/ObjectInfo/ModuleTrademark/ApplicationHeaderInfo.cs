@@ -7,6 +7,10 @@ namespace ObjectInfos
         public string Code { get; set; }
         public string Name_Vi { get; set; }
         public string Name_En { get; set; }
+
+        public string KeySearch { get; set; }
+
+        public string DisplayValue { get; set; }
     }
 
     public class ApplicationHeaderInfo
