@@ -401,5 +401,112 @@
             }
         }
 
+
+        #region Sua don luu tam
+        /// <summary>
+        /// ID:ID của app_header_id 
+        /// ID2: là appcode 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("request-for-trade-mark-edit/{id}/{id1}/{id2}")]
+        public ActionResult TradeMarkForEdit()
+        {
+            decimal App_Header_Id = 0;
+            string AppCode = "";
+             int Status = 0;
+            try
+            {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+                SessionData.CurrentUser.chashFile.Clear();
+                SessionData.CurrentUser.chashFileOther.Clear();
+               
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    App_Header_Id  = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
+                }
+                if (RouteData.Values.ContainsKey("id1"))
+                {
+                    Status = CommonFuc.ConvertToInt(RouteData.Values["id1"]);
+                }
+                if (RouteData.Values.ContainsKey("id2"))
+                {
+                    AppCode = RouteData.Values["id2"].ToString().ToUpper();
+                }
+               
+                if (AppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
+                {
+                    return TradeMarkSuaDon(App_Header_Id,AppCode, Status);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return TradeMarkSuaDon(App_Header_Id, AppCode, Status);
+        }
+
+
+        [HttpGet]
+        [Route("request-for-trade-mark-view/{id}/{id1}/{id2}")]
+        public ActionResult TradeMarkForView()
+        {
+            int Status = 0;
+            decimal App_Header_Id = 0;
+            string AppCode = "";
+            try
+            {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+                SessionData.CurrentUser.chashFile.Clear();
+                SessionData.CurrentUser.chashFileOther.Clear();
+               
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    App_Header_Id = CommonFuc.ConvertToInt(RouteData.Values["id"]);
+                }
+                if (RouteData.Values.ContainsKey("id2"))
+                {
+                    AppCode = RouteData.Values["id2"].ToString().ToUpper();
+                }
+                if (AppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
+                {
+                    return TradeMarkSuaDon(App_Header_Id, AppCode, Status);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return TradeMarkSuaDon(App_Header_Id, AppCode, Status);
+        }
+
+
+        public ActionResult TradeMarkSuaDon(decimal pAppHeaderId, string pAppCode,int pStatus)
+        {
+            if (pAppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
+            {
+                var objBL = new AppDetail04NHBL();
+                string language = AppsCommon.GetCurrentLang();
+                var ds04NH = objBL.AppTM04NHGetByID(pAppHeaderId, language, pStatus);
+                if (ds04NH != null && ds04NH.Tables.Count==5)
+                {
+                    ViewBag.objAppHeaderInfo = CBO<AppDetail04NHInfo>.FillObjectFromDataTable(ds04NH.Tables[0]);
+                    ViewBag.lstDocumentInfo = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds04NH.Tables[1]);
+                    ViewBag.lstDocOther = CBO<AppDocumentOthersInfo>.FillCollectionFromDataTable(ds04NH.Tables[2]);
+                    ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds04NH.Tables[3]);
+                    ViewBag.lstFeeInfo = CBO<AppFeeFixInfo>.FillCollectionFromDataTable(ds04NH.Tables[4]);
+                }
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_Edit_PartialDangKyNhanHieu.cshtml");
+            }
+            else
+            {
+                //
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_Edit_PartialDangKyNhanHieu.cshtml");
+            }
+        }
+        #endregion 
+
     }
 }

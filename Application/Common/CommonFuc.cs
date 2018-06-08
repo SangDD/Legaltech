@@ -912,6 +912,49 @@ namespace Common
             }
         }
         #endregion
- 
+
+
+        public static decimal ConvertToDecimal(object pInput)
+        {
+            try
+            {
+                if (pInput == null) return -1;
+                return Convert.ToDecimal(pInput);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
+        public static Int32 ConvertToInt(object pInput)
+        {
+            try
+            {
+                if (pInput == null) return -1;
+                return Convert.ToInt32(pInput);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
+        public static string ConvertToString(object pInput)
+        {
+            try
+            {
+                if (pInput == null) return "";
+                return Convert.ToString(pInput);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return "";
+            }
+        }
+
     }
 }
