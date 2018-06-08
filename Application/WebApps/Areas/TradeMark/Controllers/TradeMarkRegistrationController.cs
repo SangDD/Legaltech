@@ -70,7 +70,10 @@
                 else if (AppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
                 {
                     return AppDangKyNhanHieu();
-                    
+                }
+                else if (AppCode == TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD)
+                {
+                    return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial_TM_3B_PLB_01_SDD.cshtml");
                 }
             }
             catch (Exception ex)
