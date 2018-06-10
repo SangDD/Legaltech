@@ -25,25 +25,7 @@ CREATE TABLE app_detail_plb01_sdd
     request_to_type                NUMBER,
     request_to_content             VARCHAR2(500 CHAR),
     language_code                  VARCHAR2(5 CHAR))
-  PCTFREE     10
-  INITRANS    1
-  MAXTRANS    255
-  TABLESPACE  users
-  STORAGE   (
-    INITIAL     65536
-    NEXT        1048576
-    MINEXTENTS  1
-    MAXEXTENTS  2147483645
-  )
-  NOCACHE
-  MONITORING
-  NOPARALLEL
-  LOGGING
 /
-
-
-
-
 
 -- Comments for APP_DETAIL_PLB01_SDD
 
@@ -62,6 +44,9 @@ COMMENT ON COLUMN app_detail_plb01_sdd.request_to_type IS 'LOAI NOI DUNG SUA DOI
 -- Start of DDL Script for Package Body LEGALTECH.PKG_APP_DETAIL_PLB01_SDD
 -- Generated 10-Jun-2018 23:25:16 from LEGALTECH@LOCALHOST
 
+-- Start of DDL Script for Package Body LEGALTECH.PKG_APP_DETAIL_PLB01_SDD
+-- Generated 10-Jun-2018 23:49:26 from LEGALTECH@LOCALHOST
+
 CREATE OR REPLACE 
 PACKAGE pkg_app_detail_plb01_sdd
   IS TYPE tcursor IS ref CURSOR;
@@ -69,8 +54,11 @@ PACKAGE pkg_app_detail_plb01_sdd
 PROCEDURE Proc_GetById
 (
     p_id IN app_detail_plb01_sdd.id % TYPE,
+    p_app_header_id IN app_detail_plb01_sdd.app_header_id % TYPE,
     p_language_code IN app_detail_plb01_sdd.language_code % TYPE,
-    p_cursor OUT tcursor
+    p_cursor OUT tcursor,
+    p_cursor_doc OUT tcursor,
+    p_cursor_fee OUT tcursor
 );
 
 PROCEDURE Proc_Plb01_Sdd_Insert
@@ -118,8 +106,11 @@ IS
 PROCEDURE Proc_GetById
 (
     p_id IN app_detail_plb01_sdd.id % TYPE,
+    p_app_header_id IN app_detail_plb01_sdd.app_header_id % TYPE,
     p_language_code IN app_detail_plb01_sdd.language_code % TYPE,
-    p_cursor OUT tcursor
+    p_cursor OUT tcursor,
+    p_cursor_doc OUT tcursor,
+    p_cursor_fee OUT tcursor
 )
 IS
 BEGIN
@@ -127,6 +118,13 @@ BEGIN
     OPEN p_cursor FOR
     SELECT d.*,ah.* FROM APP_DETAIL_PLB01_SDD d
     JOIN APPLICATION_HEADER ah ON ah.id = d.app_header_id AND ah.LANGUAGUE_CODE = d.language_code AND ah.deleted = 0;
+
+    --LAY DANH SACH CAC TAI LIEU DINH KEM
+    OPEN p_cursor_doc FOR
+    SELECT * FROM APP_DOCUMENT A  WHERE app_header_id = p_app_header_id AND  language_code = p_language_code ;
+
+    OPEN p_cursor_fee FOR
+    SELECT * FROM APP_FEE_FIX  WHERE app_header_id= p_app_header_id ;
 
 EXCEPTION
 WHEN OTHERS THEN
@@ -231,6 +229,9 @@ END  ;
 
 END;
 /
+
+
+-- End of DDL Script for Package Body LEGALTECH.PKG_APP_DETAIL_PLB01_SDD
 
 
 -- End of DDL Script for Package Body LEGALTECH.PKG_APP_DETAIL_PLB01_SDD

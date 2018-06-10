@@ -52,12 +52,12 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
-        public DataSet GetByID(decimal p_id, string pLanguage)
+        public DataSet GetByID(decimal p_id, decimal p_app_header_id, string p_language_code)
         {
             try
             {
                 var objData = new App_Detail_PLB01_SDD_DA();
-                return objData.GetByID(p_id, pLanguage);
+                return objData.GetByID(p_id, p_app_header_id, p_language_code);
             }
             catch (Exception ex)
             {
