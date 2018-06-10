@@ -1,4 +1,5 @@
 ﻿@using WebApps.CommonFunction
+@using BussinessFacade.ModuleMemoryData 
 @{
     ViewBag.Title = "Đăng ký nhãn hiệu";
     Layout = "~/ViewsShared/_Layout.cshtml";
@@ -172,7 +173,13 @@
             <div class="class_full_div_input">
                 <div class="class_block_title"><label>Nước nộp đơn:</label> </div>
                 <div class="class_block_title_control">
-                    <input type="text" placeholder="6_txtNuocNopDon" class="classDacTinhUT" maxlength="50" id="6_txtNuocNopDon" />
+                    @*<input type="text" placeholder="6_txtNuocNopDon" class="classDacTinhUT" maxlength="50" id="6_txtNuocNopDon" />*@
+                    <select id="6_txtNuocNopDon" class="classDacTinhUT">
+                        @foreach (var item in MemoryData.c_lst_Country)
+                        {
+                            <option value="@item.Country_Id">@item.Name</option>
+                        }
+                    </select>
                 </div>
             </div>
         </div>
@@ -230,6 +237,10 @@
 
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac.cshtml", "12")
 
+        @* CAM KẾT CHỦ ĐƠN  *@
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewNgayThangNam.cshtml")
+         
+
         <div class="class_save">
             <div class="classGuiDon">
                 <input type="button" value="Gửi đơn" id="btnGuiDon" class="btn" />
@@ -248,6 +259,17 @@
 
 
 <script>
+    $('#6_txtNuocNopDon').multipleSelect({
+        filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        isdatastring: false,
+        placeholder: 'Tìm kiếm quốc gia'
+    });
+
+    $("#6_txtNuocNopDon").multipleSelect("disable");
+
+
     $("#0_ckbDacTinhHangHoa").change(function () {
         if (this.checked) { funcEnableDisable('classDacTinhHangHoa', true); } else { funcEnableDisable('classDacTinhHangHoa', false); }
     });
@@ -257,7 +279,14 @@
     }
 
     $("#0_ckbCoSuDungDonUuTien").change(function () {
-        if (this.checked) { funcEnableDisable('classDacTinhUT', true); } else { funcEnableDisable('classDacTinhUT', false); }
+        if (this.checked) {
+            funcEnableDisable('classDacTinhUT', true);
+          
+            $("#6_txtNuocNopDon").multipleSelect("enable")
+        } else {
+            funcEnableDisable('classDacTinhUT', false);
+            $("#6_txtNuocNopDon").multipleSelect("disable")
+        }
     });
 
     document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {

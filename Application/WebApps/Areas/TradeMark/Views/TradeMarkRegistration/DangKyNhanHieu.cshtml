@@ -30,7 +30,7 @@
         @foreach (SysApplicationInfo item in listAppData)
         {
             numberApp++;
-            string _url = item.URL;
+            string _url =  "/trade-mark/request-for-trade-mark/" + item.Appcode.ToLower();
             if (string.IsNullOrEmpty(_url))
             {
                 _url = "/trade-mark/request-for-trade-mark/" + item.Appcode.ToLower();

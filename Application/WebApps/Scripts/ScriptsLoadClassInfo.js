@@ -43,7 +43,8 @@ function SearchAppCodeOnKeyUp(_textboxid, _divid)
 function NVSFunc001ShowComboxSearch(_textboxid, _divid)
 {
     try {
-        if (Nvs001txt_search_app_code.value == "")
+        var inputValue = $("#" + _textboxid).val();
+        if (inputValue == "")
             return;
         $.ajax({
             type: "POST",

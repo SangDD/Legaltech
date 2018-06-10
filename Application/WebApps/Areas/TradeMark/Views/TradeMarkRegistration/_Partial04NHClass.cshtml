@@ -1,9 +1,10 @@
 ﻿@using BussinessFacade.ModuleMemoryData
 @using WebApps.CommonFunction
 @{
-    var listClassInfo = MemoryData.clstAppClass;
+    //var listClassInfo = MemoryData.clstAppClass;
     string _LanguageCode = AppsCommon.GetCurrentLang();
 }
+<script src="~/Scripts/ScriptsLoadClassInfo.js"></script>
 
 
 <div class="div_full_100_area">
@@ -13,22 +14,14 @@
         <div class="class_flex_40">
             <div class="class_block_title"><label>Hàng hóa:</label></div>
             <div class="class_block_title_control">
-                <input type="text" placeholder="Gõ tên sản phẩm" id="txtTenHangHoa" />
+                <input type="text" id="txtTenHangHoa" placeholder="Tìm kiếm hàng hóa/dịch vụ" onkeyup="SearchAppCodeOnKeyUp('txtTenHangHoa', 'NVS002_DivShowSearchAppCode')" />
             </div>
         </div>
         <div class="class_flex_grow">
             <div class="class_block_title"><label>Tên đầy đủ:</label> </div>
-            <div class="class_block_title_control" style="width: calc(100% - 250px);float:none">
-                <select id="cboClassInfo">
-                    @foreach (var item in listClassInfo)
-                    {
-                        string Content = item.Name_Vi;
-                        if (_LanguageCode == LangCode.EN_US.ToString())
-                        {
-                            Content = item.Name_En;
-                        }
-                        <option value="@item.Code">@Content</option>
-                    }
+            <div class="class_block_title_control" style="width: calc(100% - 250px);float:none" id="NVS002_DivShowSearchAppCode">
+                <select id="NVSCBO001_AppClassSearch">
+                    <option>Tìm kiếm hàng hóa/dịch vụ</option>
                 </select>
             </div>
             <div style="display:inline-flex">
@@ -36,6 +29,7 @@
             </div>
         </div>
     </div>
+
 
     <div class="class_full_div_input">
         <div class="_table_display" id="divHangHoaThem" style="width: 100%">
@@ -81,7 +75,7 @@
 
     function funcAddDataRow() {
         try {
-            var classCode = $("#cboClassInfo").val();
+            var classCode = $("#NVSCBO001_AppClassSearch").val();
             var className = $("#txtTenHangHoa").val();
             if (className == "" || className == undefined) {
                 showError('Chưa nhập tên hàng hóa!');
@@ -94,9 +88,9 @@
             }
 
 
-            funcAddMessDataRow(className, classCode, $("#cboClassInfo"), 0);
+            funcAddMessDataRow(className, classCode, $("#NVSCBO001_AppClassSearch"), 0);
             $("#txtTenHangHoa").val("");
-            $("#cboClassInfo").val("");
+            $("#NVSCBO001_AppClassSearch").val("");
             $("#txtTenHangHoa").focus();
 
         } catch (e) {
