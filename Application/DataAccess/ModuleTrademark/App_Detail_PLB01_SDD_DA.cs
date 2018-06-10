@@ -87,7 +87,7 @@ namespace DataAccess
                 DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_detail_plb01_sdd.Proc_GetById",
                     new OracleParameter("p_id", OracleDbType.Decimal, p_id, ParameterDirection.Input),
                     new OracleParameter("p_app_header_id", OracleDbType.Decimal, p_app_header_id, ParameterDirection.Input),
-                    new OracleParameter("p_language_code", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
+                    new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
                     new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
                 return _ds;
             }
