@@ -506,6 +506,30 @@
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_Edit_PartialDangKyNhanHieu.cshtml");
             }
         }
+
+
+        [HttpPost]
+        [Route("request-for-trade-mark-del")]
+        public ActionResult TradeMarkForDel(decimal pAppHeaderID , string pAppCode)
+        {
+             
+            try
+            {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+                SessionData.CurrentUser.chashFile.Clear();
+                SessionData.CurrentUser.chashFileOther.Clear();
+                var objBL = new Application_Header_BL(); 
+                string language = AppsCommon.GetCurrentLang();
+                var response = objBL.AppHeaderDeleted(pAppHeaderID, language);
+                return Json(new { status = response });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { status = ErrorCode.Error });
+            }
+        }
         #endregion 
 
     }

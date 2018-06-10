@@ -380,6 +380,7 @@
                 success: function (data) {
                     if (data != null && data.status >= 0) {
                         jAlert(AddSuccess, ThongBao, function () {
+                            window.location.reload();
                         });
                     } else {
                         jError(AddFail, ThongBao, function () {

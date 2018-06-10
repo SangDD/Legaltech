@@ -54,23 +54,12 @@
                     @Html.DropDownList("cboAppCode", lstApp, new { @id = "cboAppCode" })
                 </div>
             </div>
-
-            @*<div class="div-search-title">
-                <div>Ngành nghề KD </div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txtBusField" />
-                </div>
-            </div>*@
         </div>
     </div>
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;">
             <input type="button" value="Tìm kiếm" class="btn-default" onclick="Search_Application(1, 1)" />
-            @*<input type="button" value="Kết xuất" class="btn-default" onclick="Export_Application(1)" />*@
-            @*<input id="btnAdd" type="button" class="btn-default" onclick="ShowRegisterIssuer()" value="Thêm mới" style="width:auto" />*@
         </div>
     </div>
 
@@ -140,6 +129,35 @@
         }
         catch (e) {
             alert(e);
+        }
+    }
+
+    //Xóa đơn lưu tạm 
+    function funcDelAppDoc(jID, jAppCode) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            nvsConfirm(null, "Bạn có chắc chắn muốn xóa nhóm quyền này không?", function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '/trade-mark/request-for-trade-mark-del/',
+                    data: {
+                        pAppHeaderID: jID,
+                        pAppCode: jAppCode,
+                    },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                        window.location.href = "/trade-mark-mana/quan-ly-don-luu-tam";
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                    }
+                });
+            });
+        } catch (e) {
+            console.log(e);
         }
     }
 
