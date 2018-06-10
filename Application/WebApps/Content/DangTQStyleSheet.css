@@ -82,6 +82,10 @@ a {
     display: none;
 }
 
+.img_hiden {
+    display: none;
+}
+
 .clsshidden {
     visibility: hidden;
 }
@@ -732,37 +736,40 @@ huygo {
 
 .div-checkbox {
     /*width: 100%;*/
-    margin-left: 0px;
-    height: 20px;
-    padding: 10px 0px;
+    /*margin-left: 0px;*/
+    /*padding: 10px 0px;*/
+    height: 35px;
     border: 1px solid #aaa;
 }
 
 
     .div-checkbox > input[type="checkbox"] {
-        margin: 8px;
+        /*margin: 8px;*/
+        margin-top: 10px;
+        margin-left: 5px;
     }
 
     .div-checkbox > label {
-        margin-top: 6px;
+        margin-top: 8px;
+        margin-left: 5px;
     }
 
 .div-radio {
     /*width: 100%;*/
-    margin-left: 0px;
-    height: 20px;
-    padding: 10px 0px;
+    /*margin-left: 0px;*/
+    /*padding: 10px 0px;*/
+    height: 35px;
     border: 1px solid #aaa;
 }
 
     .div-radio > input[type="radio"] {
-        margin: 5px;
+        margin-top: 10px;
+        margin-left: 5px;
     }
 
     .div-radio > label {
-        /*margin-top: 6px;*/
-        margin-top: 3px;
-        margin-left: 3px;
+        margin-top: 8px;
+        margin-left: 5px;
     }
 
 .i-search-ad {
