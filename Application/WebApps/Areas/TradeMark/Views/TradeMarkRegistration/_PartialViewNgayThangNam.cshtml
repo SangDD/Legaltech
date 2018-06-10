@@ -1,0 +1,109 @@
+﻿
+<div class="div_full_100_area">
+    <div class="class_full_div_p class_text_center_bold">CAM KẾT CỦA CHỦ ĐƠN</div>
+    <div style="text-align: center;">
+        <i style="text-align: center;">Tôi cam đoan mọi thông tin trong tờ khai trên đây là trung thực, đúng sự thật và hoàn toàn chịu trách nhiệm trước pháp luật.</i>
+    </div>
+    <br />
+    <div class="class_full_div_input">
+        <div class="class_block_title"><label>Khai tại:</label> </div>
+        <div class="class_block_title_control">
+            <input type="text" style="margin-left: 1px;" placeholder="txtKhaiTai" maxlength="200" id="txtKhaiTai" />
+        </div>
+    </div>
+    <div class="class_full_div_input">
+        <div class="grid-container">
+            <div class="grid-item">
+                <div class="class_block_title" style="text-align: left;"><label>Ngày khai:</label> </div>
+                <div class="class_block_title_control">
+                    <select id="cboNgayKhai"  class="classNgayThangNam">
+                        @for (int i = 1; i < 32; i++)
+                        {
+                            if (i.ToString() == DateTime.Now.ToString("MM"))
+                            {
+                        <option selected="selected" value="@i.ToString().PadLeft(2, '0')">@i.ToString().PadLeft(2, '0')</option>
+                            }
+                            else
+                            {
+                                <option value="@i.ToString().PadLeft(2,'0')">@i.ToString().PadLeft(2, '0')</option>
+                            }
+
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid-item">
+                <div class="class_block_title"><label>Tháng:</label> </div>
+                <div class="class_block_title_control">
+                    <select id="cboThangKhai"  class="classNgayThangNam">
+                        @for (int i = 1; i < 13; i++)
+                        {
+                            if (i.ToString() == DateTime.Now.ToString("MM"))
+                            {
+                        <option selected="selected" value="@i.ToString().PadLeft(2,'0')">@i.ToString().PadLeft(2,'0')</option>
+                            }
+                            else
+                            {
+                                <option value="@i.ToString().PadLeft(2,'0')">@i.ToString().PadLeft(2,'0')</option>
+                            }
+
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid-item">
+                <div class="class_block_title"><label>Năm:</label> </div>
+                <div class="class_block_title_control">
+                    <select id="cboNamKhai" class="classNgayThangNam">
+                        @for (int i = 2005; i < 2051; i++)
+                        {
+                            if (i.ToString() == DateTime.Now.ToString("yyyy"))
+                            {
+                        <option selected="selected" value="@i.ToString()">@i.ToString()</option>
+                            }
+                            else
+                            {
+                        <option value="@i.ToString()">@i.ToString()</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto auto auto;
+    }
+
+    .grid-item {
+        background-color: rgba(255, 255, 255, 0.8);
+        text-align: center;
+    }
+
+    .classNgayThangNam{
+        min-width:120px;
+    }
+</style>
+
+<script>
+    function funcGetCamKetChuDon(formData) {
+        try {
+            var address = $("#txtKhaiTai").val();
+            formData.append("pInfo.Address", address);
+            var dateno = $("#cboNgayKhai").val();
+            formData.append("pInfo.DateNo", dateno);
+            var months = $("#cboThangKhai").val();
+            formData.append("pInfo.Months", months);
+            var years = $("#cboNamKhai").val();
+            formData.append("pInfo.Years", years);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+</script>
