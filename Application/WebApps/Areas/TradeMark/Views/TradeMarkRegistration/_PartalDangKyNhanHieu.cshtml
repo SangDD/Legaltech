@@ -1,5 +1,5 @@
 ﻿@using WebApps.CommonFunction
-@using BussinessFacade.ModuleMemoryData 
+@using BussinessFacade.ModuleMemoryData
 @{
     ViewBag.Title = "Đăng ký nhãn hiệu";
     Layout = "~/ViewsShared/_Layout.cshtml";
@@ -10,33 +10,41 @@
         <li><a href="javascript:;"> Request for amendment of application)</a></li>
     </ul>
 </div>
-
 <input type="hidden" id="txtAppCode" value='@ViewBag.AppCode' />
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
-        <legend>Đăng ký nhãn hiệu</legend>
-
+        <legend>ĐĂNG KÝ NHÃN HIỆU</legend>
         <div class="div_full_100_area">
-            <div class="class_left_50">
-                <div class="class_text_end_radio" style="display: flex;">
-                    <p class="class_text_left class_padding_right_10">Đơn này được tách ra từ đơn số</p>
-                    <input style="width:33%" type="text" id="0_txtDonSo" maxlength="20" placeholder="0_txtDonSo" />
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Đơn này được tách ra từ đơn số </div>
                 </div>
-            </div>
-            <div class="class_right_50">
-                <div class="class_text_end_radio" style="display: flex;">
-                    <p class="class_text_left  class_padding_right_10">Ngày nộp đơn</p>
-                    <input style="width:33%" class="datetimepicker" type="text" id="0_txtNgayNopDon" maxlength="10" placeholder="0_txtNgayNopDon" />
+                <div class="div-search-content">
+                    <input type="text" id="0_txtDonSo" maxlength="20" placeholder="0_txtDonSo" />
+                </div>
+                <div class="div-search-title">
+                    <div>Ngày nộp đơn </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input class="datetimepicker" type="text" id="0_txtNgayNopDon" maxlength="10" placeholder="0_txtNgayNopDon" />
+                    </div>
                 </div>
             </div>
         </div>
+
+        @* 1 *@
+        <div class="div_full_100_area">
+            <div class="class_full_div_p class_text_center_bold">CHỦ ĐƠN</div>
+            <br />
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
+        </div>
+
         @* Nhan hieu *@
         <div class="div_full_100_area">
             <div class="class_full_div_p class_text_center_bold">NHÃN HIỆU</div>
             <br />
-
-
             <div class="class_full_div_input">
                 <div class="class_block_title" style="padding-top:5px; "><label>Mẫu nhãn hiệu:</label> </div>
                 <div class="class_block_title_control" style="display:flex">
@@ -83,30 +91,32 @@
             <div class="class_full_div_input">
                 <div class="class_radio_head"><input type="checkbox" name="0_ckbCoSuDungDonUuTien" value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" /> </div>
                 <div class="class_text_end">
-                    <p class="class_text_left">Có sử dụng dơn ưu tiên</p>
+                    <p class="class_text_left">Có sử dụng đơn ưu tiên</p>
                 </div>
             </div>
-
-            <div class="class_full_div_input">
-                <div class="class_block_title"><label>Mầu sắc:</label> </div>
-                <div class="class_block_title_control">
-                    <input type="text" placeholder="0_MauSac" maxlength="50" id="0_MauSac" />
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Mầu sắc:</div>
+                </div>
+                <div class="div-search-content">
+                    <div><input type="text" placeholder="0_MauSac" maxlength="50" id="0_MauSac" /></div>
                 </div>
             </div>
-
-            <div class="class_full_div_input">
-                <div class="class_block_title"><label>Mô tả:</label> </div>
-                <div class="class_block_title_control">
-                    <input type="text" placeholder="0_MoTa" maxlength="50" id="0_MoTa" />
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Mô tả:</div>
+                </div>
+                <div class="div-search-content">
+                    <div> <input type="text" placeholder="0_MoTa" maxlength="250" id="0_MoTa" /></div>
                 </div>
             </div>
         </div>
-        @* 1 *@
-        <div class="div_full_100_area">
-            <div class="class_full_div_p class_text_center_bold">CHỦ ĐƠN</div>
-            <br />
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
-        </div>
+
+
+        @* Class *@
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHClass.cshtml")
+        @* End Class *@
+
         @* 2 *@
         <div class="div_full_100_area">
             <div class="class_full_div_p class_text_center_bold">ĐẠI DIỆN CỦA CHỦ ĐƠN</div>
@@ -158,71 +168,98 @@
         <div class="div_full_100_area">
             <div class="class_full_div_p class_text_center_bold">CHỈ DẪN VỀ ĐƠN (CÁC ĐƠN) LÀ CĂN CỨ ĐỂ XÁC ĐỊNH NGÀY ƯU TIÊN</div>
             <br />
-            <div class="class_full_div_input">
-                <div class="class_block_title"><label>Số đơn:</label> </div>
-                <div class="class_block_title_control">
-                    <input type="text" placeholder="6_txtSoDon" class="classDacTinhUT" maxlength="50" id="6_txtSoDon" />
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Số đơn:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" placeholder="6_txtSoDon" class="classDacTinhUT" maxlength="50" id="6_txtSoDon" />
+                    </div>
                 </div>
             </div>
-            <div class="class_full_div_input">
-                <div class="class_block_title"><label>Ngày nộp đơn:</label> </div>
-                <div class="class_block_title_control">
-                    <input type="text" placeholder="6_txtNgayNopDon" class="classDacTinhUT datetimepicker" style="width:200px" maxlength="10" id="6_txtNgayNopDon" />
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Ngày nộp đơn:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" placeholder="6_txtNgayNopDon" class="classDacTinhUT datetimepicker" style="width:200px" maxlength="10" id="6_txtNgayNopDon" />
+                    </div>
                 </div>
             </div>
-            <div class="class_full_div_input">
-                <div class="class_block_title"><label>Nước nộp đơn:</label> </div>
-                <div class="class_block_title_control">
-                    @*<input type="text" placeholder="6_txtNuocNopDon" class="classDacTinhUT" maxlength="50" id="6_txtNuocNopDon" />*@
-                    <select id="6_txtNuocNopDon" class="classDacTinhUT">
-                        @foreach (var item in MemoryData.c_lst_Country)
-                        {
-                            <option value="@item.Country_Id">@item.Name</option>
-                        }
-                    </select>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Nước nộp đơn:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="6_txtNuocNopDon" class="classDacTinhUT">
+                            @foreach (var item in MemoryData.c_lst_Country)
+                            {
+                                <option value="@item.Country_Id">@item.Name</option>
+                            }
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
 
         @* Tài liệu có trong đơn *@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTLTrongDon.cshtml")
-
         @* End tai lieu dinh kem  *@
 
-        @* Class *@
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHClass.cshtml")
-        @* End Class *@
 
-        @* Le phi*@
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHPhiLePhi.cshtml")
 
         <div class="div_full_100_area">
             <div class="class_full_div_p class_text_center_bold">MÔ TẢ TÓM TẮT ĐẶC TÍNH CỦA HÀNG HOÁ/DỊCH VỤ ĐƯỢC CHỨNG NHẬN</div>
             <br />
-            <div class="class_full_div_input">
-                <div class="class_radio_head"><input type="checkbox" class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" placeholder="8_ckbNguonGocDiaLy" id="8_ckbNguonGocDiaLy" /> </div>
-                <div class="class_text_end" style="display: flex;">
-                    <p class="class_text_left" style="width:100px ;">Nguồn gốc địa lý</p>
-                    <input style="width:33%" type="text" id="8_txtNguonGocDiaLy" class="classDacTinhHangHoa" disabled="disabled" maxlength="100" placeholder="8_txtNguonGocDiaLy" />
+            @*<div class="class_full_div_input">
+            <div class="class_radio_head"><input type="checkbox" class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" placeholder="8_ckbNguonGocDiaLy" id="8_ckbNguonGocDiaLy" /> </div>
+            <div class="class_text_end" style="display: flex;">
+                <p class="class_text_left" style="width:100px ;">Nguồn gốc địa lý</p>
+                <input style="width:33%" type="text" id="8_txtNguonGocDiaLy" class="classDacTinhHangHoa" disabled="disabled" maxlength="100" placeholder="8_txtNguonGocDiaLy" />
+            </div>
+        </div>*@
+
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div class="class_radio_head"><input type="checkbox" class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" placeholder="8_ckbNguonGocDiaLy" id="8_ckbNguonGocDiaLy" /> </div>
+                    <div>Nguồn gốc địa lý:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input   type="text" id="8_txtNguonGocDiaLy" class="classDacTinhHangHoa" disabled="disabled" maxlength="100" placeholder="8_txtNguonGocDiaLy" />
+                    </div>
                 </div>
             </div>
 
-            <div class="class_full_div_input">
-                <div class="class_radio_head"><input type="checkbox" name="8_ckbChatLuong" class="classDacTinhHangHoa" disabled="disabled" value="CLCL" placeholder="8_ckbChatLuong" id="8_ckbChatLuong" /> </div>
-                <div class="class_text_end" style="display: flex;">
-                    <p class="class_text_left" style="width:100px ;">Chất lượng</p>
-                    <input style="width:33%" type="text" id="8_txtChatLuong" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" placeholder="8_txtChatLuong" />
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div class="class_radio_head"><input type="checkbox" name="8_ckbChatLuong" class="classDacTinhHangHoa" disabled="disabled" value="CLCL" placeholder="8_ckbChatLuong" id="8_ckbChatLuong" /> </div>
+                    <div>Chất lượng:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input  type="text" id="8_txtChatLuong" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" placeholder="8_txtChatLuong" />
+                    </div>
                 </div>
             </div>
 
-            <div class="class_full_div_input">
-                <div class="class_radio_head"><input type="checkbox" name="8_ckbDacTinhKhac" class="classDacTinhHangHoa" disabled="disabled" value="DTKK" placeholder="8_ckbDacTinhKhac" id="8_ckbDacTinhKhac" /> </div>
-                <div class="class_text_end" style="display: flex;">
-                    <p class="class_text_left" style="width:100px ;">Đặc tính khác</p>
-                    <input style="width:33%" type="text" id="8_txtDacTinhKhac" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" placeholder="8_txtDacTinhKhac" />
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div class="class_radio_head"><input type="checkbox" name="8_ckbDacTinhKhac" class="classDacTinhHangHoa" disabled="disabled" value="DTKK" placeholder="8_ckbDacTinhKhac" id="8_ckbDacTinhKhac" /> </div>
+                    <div>Đặc tính khác:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input  type="text" id="8_txtDacTinhKhac" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" placeholder="8_txtDacTinhKhac" />
+                    </div>
                 </div>
             </div>
         </div>
+
         <div class="div_full_100_area">
             <div class="class_full_div_p class_text_center_bold">CHỦ ĐƠN KHÁC</div>
             <br />
@@ -239,7 +276,6 @@
 
         @* CAM KẾT CHỦ ĐƠN  *@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewNgayThangNam.cshtml")
-         
 
         <div class="class_save">
             <div class="classGuiDon">
@@ -252,10 +288,10 @@
 </div>
 
 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialPreview.cshtml")
-    <div id="divWrapperPreview" class="divWrapperPreview" style="display:none"  >
-        <div class="dpop-preview" id="dpop-preview">
-        </div>
+<div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
+    <div class="dpop-preview" id="dpop-preview">
     </div>
+</div>
 
 
 <script>
@@ -281,7 +317,7 @@
     $("#0_ckbCoSuDungDonUuTien").change(function () {
         if (this.checked) {
             funcEnableDisable('classDacTinhUT', true);
-          
+
             $("#6_txtNuocNopDon").multipleSelect("enable")
         } else {
             funcEnableDisable('classDacTinhUT', false);
@@ -350,7 +386,7 @@
                 return false;
             }
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-            //trang thai 
+            //trang thai
             formData.append("pInfo.Status", 2);
             //Lấy thông tin detail
             var reponse = funcGetAppDetail(formData);
@@ -366,7 +402,7 @@
             if (reponse == false) {
                 return false;
             }
-            //lay tai lieu khac 
+            //lay tai lieu khac
             reponse = funcGetTenTaiLieuKhac(formData);
             if (reponse == false) {
                 return false;
@@ -674,7 +710,7 @@
                 return false;
             }
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-            //trang thai 
+            //trang thai
             formData.append("pInfo.Status", 1);
             //Lấy thông tin detail
 
@@ -691,7 +727,7 @@
             if (reponse == false) {
                 return false;
             }
-            //lay tai lieu khac 
+            //lay tai lieu khac
             reponse = funcGetTenTaiLieuKhac(formData);
             if (reponse == false) {
                 return false;
@@ -725,7 +761,7 @@
             var item = 0;
             $(".clssListUpload").each(function () {
                 formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", this.id);
-                formData.append("pAppDocOtherInfo[" + item + "].Documentname",$("#"+ this.id).val());
+                formData.append("pAppDocOtherInfo[" + item + "].Documentname", $("#" + this.id).val());
                 item++;
             });
             return true;
