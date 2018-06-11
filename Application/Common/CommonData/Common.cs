@@ -23,8 +23,6 @@ namespace Common
         public static string AppCodeDangKyChuyenDoi = "TM07DKCD";
         public static string AppCodeTraCuuNhanHieu = "TM03YCTCNH";
         public static string AppCodeDangKynhanHieu = "TM04NH";
-        public static string AppCodeDangKynhanHieuQuocTeNguonGocVietNam = "PLC06DKQT";
-
         public static string AppCode_TM_3B_PLB_01_SDD = "TM_PLB01SDD";
     }
 
