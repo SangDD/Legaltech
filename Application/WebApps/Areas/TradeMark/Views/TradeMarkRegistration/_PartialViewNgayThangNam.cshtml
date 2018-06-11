@@ -5,23 +5,34 @@
         <i style="text-align: center;">Tôi cam đoan mọi thông tin trong tờ khai trên đây là trung thực, đúng sự thật và hoàn toàn chịu trách nhiệm trước pháp luật.</i>
     </div>
     <br />
-    <div class="class_full_div_input">
-        <div class="class_block_title"><label>Khai tại:</label> </div>
-        <div class="class_block_title_control">
-            <input type="text" style="margin-left: 1px;" placeholder="txtKhaiTai" maxlength="200" id="txtKhaiTai" />
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Khai tại:</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" style="margin-left: 1px;" placeholder="txtKhaiTai" maxlength="200" id="txtKhaiTai" />
+            </div>
         </div>
     </div>
+
+
     <div class="class_full_div_input">
-        <div class="grid-container">
-            <div class="grid-item">
-                <div class="class_block_title" style="text-align: left;"><label>Ngày khai:</label> </div>
-                <div class="class_block_title_control">
-                    <select id="cboNgayKhai"  class="classNgayThangNam">
+        <div class="div-search-ad">
+
+
+            <div class="div-search-title">
+                <div>Ngày khai:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboNgayKhai" class="classNgayThangNam">
                         @for (int i = 1; i < 32; i++)
                         {
                             if (i.ToString() == DateTime.Now.ToString("MM"))
                             {
-                        <option selected="selected" value="@i.ToString().PadLeft(2, '0')">@i.ToString().PadLeft(2, '0')</option>
+                                <option selected="selected" value="@i.ToString().PadLeft(2, '0')">@i.ToString().PadLeft(2, '0')</option>
                             }
                             else
                             {
@@ -33,19 +44,21 @@
                 </div>
             </div>
 
-            <div class="grid-item">
-                <div class="class_block_title"><label>Tháng:</label> </div>
-                <div class="class_block_title_control">
-                    <select id="cboThangKhai"  class="classNgayThangNam">
+            <div class="div-search-title">
+                <div>Tháng:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboThangKhai" class="classNgayThangNam">
                         @for (int i = 1; i < 13; i++)
                         {
                             if (i.ToString() == DateTime.Now.ToString("MM"))
                             {
-                        <option selected="selected" value="@i.ToString().PadLeft(2,'0')">@i.ToString().PadLeft(2,'0')</option>
+                                <option selected="selected" value="@i.ToString().PadLeft(2,'0')">@i.ToString().PadLeft(2, '0')</option>
                             }
                             else
                             {
-                                <option value="@i.ToString().PadLeft(2,'0')">@i.ToString().PadLeft(2,'0')</option>
+                                <option value="@i.ToString().PadLeft(2,'0')">@i.ToString().PadLeft(2, '0')</option>
                             }
 
                         }
@@ -53,24 +66,27 @@
                 </div>
             </div>
 
-            <div class="grid-item">
-                <div class="class_block_title"><label>Năm:</label> </div>
-                <div class="class_block_title_control">
+            <div class="div-search-title">
+                <div>Năm:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
                     <select id="cboNamKhai" class="classNgayThangNam">
                         @for (int i = 2005; i < 2051; i++)
                         {
                             if (i.ToString() == DateTime.Now.ToString("yyyy"))
                             {
-                        <option selected="selected" value="@i.ToString()">@i.ToString()</option>
+                                <option selected="selected" value="@i.ToString()">@i.ToString()</option>
                             }
                             else
                             {
-                        <option value="@i.ToString()">@i.ToString()</option>
+                                <option value="@i.ToString()">@i.ToString()</option>
                             }
                         }
                     </select>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
@@ -86,8 +102,8 @@
         text-align: center;
     }
 
-    .classNgayThangNam{
-        min-width:120px;
+    .classNgayThangNam {
+        min-width: 120px;
     }
 </style>
 

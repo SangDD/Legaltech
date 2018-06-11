@@ -10,27 +10,38 @@
 <div class="div_full_100_area">
     <div class="class_full_div_p class_text_center_bold">DANH MỤC VÀ PHÂN NHÓM HÀNG HOÁ, DỊCH VỤ MANG NHÃN HIỆU </div>
     <br />
+
+
     <div class="class_full_div_input">
-        <div class="class_flex_40">
-            <div class="class_block_title"><label>Hàng hóa:</label></div>
-            <div class="class_block_title_control">
-                <input type="text" id="txtTenHangHoa" placeholder="Tìm kiếm hàng hóa/dịch vụ" onkeyup="SearchAppCodeOnKeyUp('txtTenHangHoa', 'NVS002_DivShowSearchAppCode')" />
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Hàng hóa:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtTenHangHoa" placeholder="Tìm kiếm hàng hóa/dịch vụ" onkeyup="SearchAppCodeOnKeyUp('txtTenHangHoa', 'NVS002_DivShowSearchAppCode')" />
+                </div>
             </div>
         </div>
-        <div class="class_flex_grow">
-            <div class="class_block_title"><label>Tên đầy đủ:</label> </div>
-            <div class="class_block_title_control" style="width: calc(100% - 250px);float:none" id="NVS002_DivShowSearchAppCode">
-                <select id="NVSCBO001_AppClassSearch">
-                    <option>Tìm kiếm hàng hóa/dịch vụ</option>
-                </select>
+
+        <div class="div-search-ad" style="margin-top: 0px;">
+            <div class="div-search-title">
+                <div>Tên đầy đủ:</div>
             </div>
-            <div style="display:inline-flex">
-                <input type="button" value="Thêm" class="btn" onclick="return funcAddDataRow();" style="width:75px;" />
+            <div class="div-search-content">
+                <div id="NVS002_DivShowSearchAppCode">
+                    <select id="NVSCBO001_AppClassSearch">
+                        <option>Tìm kiếm hàng hóa/dịch vụ</option>
+                    </select>
+                    <div style="display:inline-flex">
+                        <input type="button" value="Thêm" class="btn" onclick="return funcAddDataRow();" style="width:75px;height:37px" />
+                    </div>
+                </div>
+               
             </div>
         </div>
     </div>
-
-
+     
     <div class="class_full_div_input">
         <div class="_table_display" id="divHangHoaThem" style="width: 100%">
             <h4 class="h4_title">Hàng hóa đã thêm</h4>
