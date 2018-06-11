@@ -3,7 +3,7 @@
         <label>  CÁC TÀI LIỆU KHÁC</label>
     </div>
     <br />
-    <div id="divDocumentOther">
+    @*<div id="divDocumentOther">
         <div class="grid-container">
             <div class="grid-item"> </div>
             <div class="grid-item">
@@ -12,20 +12,47 @@
             <div class="grid-item">
                 <div class="file-upload btn btn-primary">
                     <span>Chọn file</span>
-                    <input type="file" onchange ="return funcChoiseFile('pfileName1', 'txtMaxfile1');" name="pfileName1" id="pfileName1" class="upload fileuploadurl" />
+                    <input type="file" onchange="return funcChoiseFile('pfileName1', 'txtMaxfile1');" name="pfileName1" id="pfileName1" class="upload fileuploadurl" />
                 </div>
-                <input type="text"  class="classMaxfile" id="txtMaxfile1" readonly placeholder="Maximum file size is 2MB">
+                <input type="text" class="classMaxfile" id="txtMaxfile1" readonly placeholder="Maximum file size is 2MB">
                 <input type="button" id="btnTaiFile1" onclick="return funcPushFileDocumentOther('pfileName1','btnTaiFile1','txtTaiLieuKhac1');" value="Tải file" style="width:60px" />
                 <i class="fa fa-check" id="i_pfileName1" style="font-size:15px; color:green ;display:none"></i>
                 <input type="button" id="btnAddDocumentOther" value="Thêm" style="width:60px; " class="btn" />
             </div>
         </div>
+    </div>*@
+
+
+    <div id="divDocumentOther">
+        <div class="div-search-ad">
+            <div class="div-search-title"> <div>Tên tài liệu:</div> </div>
+            <div class="div-search-content">
+                <div> <input type="text" class="clssListUpload" maxlength="200" placeholder="Nhập tên tài liệu đính kèm" id="txtTaiLieuKhac1"> </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <div class="file-upload btn btn-primary">
+                        <span>Chọn file</span>
+                        <input type="file" onchange="return funcChoiseFile('pfileName1', 'txtMaxfile1');" name="pfileName1" id="pfileName1" class="upload fileuploadurl" />
+                    </div>
+                    <input type="text" class="classMaxfile" id="txtMaxfile1" readonly placeholder="Maximum file size is 2MB">
+                    <input type="button" id="btnTaiFile1" onclick="return funcPushFileDocumentOther('pfileName1','btnTaiFile1','txtTaiLieuKhac1');" value="Tải file" style="width:60px" class="class_37" />
+                    <i class="fa fa-check" id="i_pfileName1" style="font-size:15px; color:green ;display:none"></i>
+                    <input type="button" id="btnAddDocumentOther" value="Thêm" style="width:60px;" class="btn class_37" />
+                </div>
+            </div>
+        </div>
     </div>
+
 </div>
+
 @* danh dau so tt sinh id  *@
 <input type="hidden" id="increNo" value="1"/>
 
 <style>
+    .class_37{
+        height:37px !important;
+    }
     .grid-container {
         display: grid;
         grid-template-columns: 120px 14% 33%;
@@ -56,14 +83,34 @@
             var divDocumnetNo = "divDocumnetNo" + e;
             var btnXoa = "btnXoa" + e;
             var btnTaiFile = "btnTaiFile" + e;
-            
-            var t = '<div class="grid-container" id="' + divDocumnetNo + '"> <div class="grid-item"> </div> <div class="grid-item"> <input type="text" ' +
-                'placeholder = "Nhập tên tài liệu đính kèm" class="clssListUpload" maxlength="250"  id = "' + txtDocument + '" > </div > ';
-                t += '<div class="grid-item"> <div class="file-upload btn btn-primary"   <span>Chọn file</span> ' +
-                 '<input type = "file" onchange ="return funcChoiseFile(\'' + pfileName + '\', \'' + txtMaxfile + '\');" name = "' + pfileName + '" id = "' + pfileName + '" class="upload fileuploadurl" /> </div > ' +
-                 '<input type="text" id="' + txtMaxfile + '"  class="classMaxfile" readonly placeholder="Maximum file size is 2MB">' +
-                    ' <input type="button" id="' + btnTaiFile + '" onclick="return funcPushFileDocumentOther(\'' + pfileName + '\', \'' + btnTaiFile + '\', \'' + txtDocument + '\');" value="Tải file" style="width:60px" />' +
-                    '<i class="fa fa-check" id="i_' + pfileName + '" style="font-size:15px; color:green ;display:none"></i>  <input type="button" id="' + btnXoa + '" value="Xóa" style="width:60px;  background: crimson;" class="btn" onclick="return funcRemoveDocument(\'' + divDocumnetNo+'\')" /> </div> </div>';
+
+            var t = '<div class="div-search-ad" id="' + divDocumnetNo + '"><div class="div-search-title"> <div>Tên tài liệu:</div> </div>  <div class="div-search-content"> <div> <input type="text" class="clssListUpload" maxlength="200" placeholder="Nhập tên tài liệu đính kèm"  id = "' + txtDocument + '" > </div> </div>';
+            t += '<div class="div-search-content"> <div> <div class="file-upload btn btn-primary"> <span>Chọn file</span>' +
+                ' <input type="file" onchange="return funcChoiseFile(\'' + pfileName + '\', \'' + txtMaxfile + '\');" name = "' + pfileName + '" id = "' + pfileName + '" class="upload fileuploadurl" /> </div>' +
+                '<input type="text" class="classMaxfile" id="' + txtMaxfile + '" readonly placeholder="Maximum file size is 2MB">' +
+                '<input type="button" id="btnTaiFile1" onclick="return ffuncPushFileDocumentOther(\'' + pfileName + '\', \'' + btnTaiFile + '\', \'' + txtDocument + '\');"  value="Tải file" style="width:60px" class="class_37" />' +
+                '<i class="fa fa-check" id="i_' + pfileName + '" style="font-size:15px; color:green ;display:none"></i> <input type="button" id="' + btnXoa + '"  value="Xóa" style="width:60px;background: crimson;" class="btn class_37" onclick="return funcRemoveDocument(\'' + divDocumnetNo + '\')" /> </div></div></div>';
+
+
+            //var t = '<div class="grid-container" id="' + divDocumnetNo + '"> <div class="grid-item"> </div> <div class="grid-item"> <input type="text" ' +
+            //    'placeholder = "Nhập tên tài liệu đính kèm" class="clssListUpload" maxlength="250"  id = "' + txtDocument + '" > </div > ';
+
+
+            //    t += '<div class="grid-item"> <div class="file-upload btn btn-primary"   <span>Chọn file</span> ' +
+            //        '<input type = "file" onchange ="return funcChoiseFile(\'' + pfileName + '\', \'' + txtMaxfile + '\');" name = "' + pfileName + '" id = "' + pfileName + '" class="upload fileuploadurl" /> </div > ' +
+            //        '<input type="text" id="' + txtMaxfile + '"  class="classMaxfile" readonly placeholder="Maximum file size is 2MB">' +
+
+
+
+            //        ' <input type="button" id="' + btnTaiFile + '" onclick="return funcPushFileDocumentOther(\'' + pfileName + '\', \'' + btnTaiFile + '\', \'' + txtDocument + '\');" value="Tải file" style="width:60px" />' +
+
+
+
+
+            //    '<i class="fa fa-check" id="i_' + pfileName + '" style="font-size:15px; color:green ;display:none"></i>  <input type="button" id="' + btnXoa + '" value="Xóa" style="width:60px;  background: crimson;" class="btn" onclick="return funcRemoveDocument(\'' + divDocumnetNo + '\')" /> </div> </div>';
+
+
+
             $("#divDocumentOther").append(t);
             $("#increNo").val(e);
             return t;
@@ -115,8 +162,6 @@
                     }
                 }
             });
-
-
         } catch (e) {
             console.log(e);
         }
