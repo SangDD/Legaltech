@@ -1,34 +1,188 @@
-﻿@model string
+﻿@*@model string
+    @{
+        string AfterID = "";
+        if (Model != null)
+        {
+            AfterID = Model;
+        }
+        string pfile = "pfile_" + AfterID;
+        string txtMaxFile = "txt_" + AfterID;
+        string btnTaiFile = "btnUp_" + AfterID;
+        string ifafaCheck = "i_" + AfterID;
+    }
+
+    <div class="class_full_div_input @AfterID" style="display:none">
+        <div class="class_radio_head"></div>
+        <div class="class_text_end" style="display:flex">
+            <div class="container">
+                <div class="file-upload btn btn-primary">
+                    <span>Chọn file</span>
+                    <input type="file" name="@pfile" id="@pfile" class="upload fileuploadurl" />
+                </div>
+                <input type="text" id="@txtMaxFile" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
+                <input type="button" id="@btnTaiFile" onclick="return funcPushFileToServer('@AfterID');" value="Tải file" style="width:60px" />
+                <i class="fa fa-check" id="@ifafaCheck" style="font-size:15px;color:green ;display:none"></i>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.getElementById("pfile_"+"@AfterID").onchange = function () {
+            document.getElementById("txt_"+"@AfterID").value = this.value;
+        };
+        function funcPushFileToServer(pID) {
+            try {
+                var formdata = new FormData();
+                var Isuse = 0, Note = "";
+                //Các tài liệu có trong đơn
+                if ($("#" + pID).prop('checked') == true) {
+                    Isuse = 1;
+                }
+                formdata.append("pInfo.keyFileUpload", pID);
+                var file = document.getElementsByName("pfile_" + pID);
+                if (file != undefined) {
+                    formdata.append("pInfo.pfiles", file[0].files[0]);
+                }
+                //2
+                $.ajax({
+                    type: 'POST',
+                    url: '/trade-mark/push-file-to-server',
+                    data: formdata,
+                    enctype: 'multipart/form-data',
+                    processData: false, contentType: false, dataType: 'Json',
+                    success: function (data) {
+                        if (data.success == 0) {
+                            $("#i_" + pID).css("display", "inline-block");
+                        } else {
+                            jError(pushfileError, ThongBao, function () {
+                            });
+                        }
+                    }
+                });
+            } catch (e) {
+                console.log(e);
+            }
+        }
+    </script>*@
+
+
+@model string
 @{
     string AfterID = "";
+    string Level = "0";
     if (Model != null)
     {
-        AfterID = Model;
+        string _val = Model;
+        string[] _arr = _val.Split('|');
+
+        AfterID = _arr[0];
+
+        if (_arr.Length > 1)
+        {
+            Level = _arr[1];
+        }
     }
     string pfile = "pfile_" + AfterID;
     string txtMaxFile = "txt_" + AfterID;
     string btnTaiFile = "btnUp_" + AfterID;
     string ifafaCheck = "i_" + AfterID;
+    string div_Img = "div_img_" + AfterID;
+    string div_Up = "div_up_" + AfterID;
+
+    string _image_id = "ImgDelFile_" + AfterID;
+    string _span_Id = "spanResultfile_" + AfterID;
+    string btnShowChoseFile = "btnShow" + AfterID;
 }
 
-<div class="class_full_div_input @AfterID" style="display:none">
-    <div class="class_radio_head"></div>
-    <div class="class_text_end" style="display:flex">
-        <div class="container">
-            <div class="file-upload btn btn-primary">
-                <span>Chọn file</span>
-                <input type="file" name="@pfile" id="@pfile" class="upload fileuploadurl" />
+<div class="div-search-ad clssDisplaynone @AfterID" id="@div_Up" data-level="@Level">
+    <div class="div-search-content">
+        <div class="div-checkbox">
+            <input type="button" value="Chọn file" class="btn" onclick="return Click_Upload_File('@AfterID')" style="margin:2px;" />
+            <div>
+                <input type="file" id="@pfile" style="display:none" onchange="FuncChooseResultFile('@AfterID')" />
             </div>
-            <input type="text" id="@txtMaxFile" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
-            <input type="button" id="@btnTaiFile" onclick="return funcPushFileToServer('@AfterID');" value="Tải file" style="width:60px" />
+        </div>
+    </div>
+
+    <div class="div-search-title">
+        <div>Tên file:</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" placeholder="Tên file Maximum file size is 2MB" id="@txtMaxFile" style="width:561px" />
+        </div>
+    </div>
+
+    <div class="div-search-content clssDisplaynone" id="@div_Img">
+        <div class="div-checkbox">
+            <img onclick="RemoveFile('@AfterID')" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" id="@_image_id" />
+        </div>
+    </div>
+
+    <div class="div-search-content">
+        <div class="div-checkbox" style="width:70px ">
+            <input type="button" value="Tải file" class="btn" style="margin:2px;" id="@btnTaiFile" onclick="return funcPushFileToServer('@AfterID');" />
             <i class="fa fa-check" id="@ifafaCheck" style="font-size:15px;color:green ;display:none"></i>
         </div>
     </div>
 </div>
+<style>
+
+    .div-search-ad{
+        /*display:inline-block ;*/
+    }
+    </style> 
 <script>
-    document.getElementById("pfile_"+"@AfterID").onchange = function () {
-        document.getElementById("txt_"+"@AfterID").value = this.value;
-    };
+
+    function FuncChooseResultFile(p_AfterID) {
+        try {
+
+            var _textFile = $("#txt_" + p_AfterID);
+            var _txt = document.getElementById("txt_" + p_AfterID);
+
+            // lay du lieu file
+            var pfile = $("#pfile_" + p_AfterID);
+
+            if (pfile.val() == "") {
+                _textFile.val("");
+
+                $("#div_img_" + p_AfterID).addClass("clssDisplaynone");
+
+                _txt.style.width = "561px";
+            }
+            else {
+                var _Filename = pfile[0].files[0].name.toString();
+                _textFile.val(_Filename);
+
+                $("#div_img_" + p_AfterID).removeClass("clssDisplaynone");
+
+                _txt.style.width = "536px";
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+
+    function Click_Upload_File(p_AfterID) {
+        var _idfile = "pfile_" + p_AfterID;
+        document.getElementById(_idfile).click();
+    }
+
+    function RemoveFile(p_AfterID) {
+        $("#div_img_" + p_AfterID).addClass("clssDisplaynone");
+
+        $("#pfile_" + p_AfterID).val('');
+
+        var _textFile =$("#txt_" +p_AfterID);
+        _textFile.val("");
+
+        var _txt = document.getElementById("txt_" + p_AfterID);
+        _txt.style.width = "561px";
+    }
+
+
     function funcPushFileToServer(pID) {
         try {
             var formdata = new FormData();

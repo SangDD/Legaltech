@@ -28,16 +28,15 @@
             <div class="div-search-title">
                 <div>Tên đầy đủ:</div>
             </div>
-            <div class="div-search-content">
-                <div id="NVS002_DivShowSearchAppCode">
+            <div class="div-search-content" style="display:inline-block;width: 56%;">
+                <div id="NVS002_DivShowSearchAppCode" style="width:60%;display:inline-block">
                     <select id="NVSCBO001_AppClassSearch">
                         <option>Tìm kiếm hàng hóa/dịch vụ</option>
                     </select>
-                    <div style="display:inline-flex">
-                        <input type="button" value="Thêm" class="btn" onclick="return funcAddDataRow();" style="width:75px;height:37px" />
-                    </div>
                 </div>
-               
+            </div>
+            <div style="display:inline-block;width:100px">
+                <input type="button" value="Thêm" class="btn" onclick="return funcAddDataRow();" style="width:75px;height:30px" />
             </div>
         </div>
     </div>
@@ -73,6 +72,14 @@
 </style>
 
 <script>
+      $('#NVSCBO001_AppClassSearch').multipleSelect({
+          filter: true,
+          noMatchesFound: "Không tìm thấy dữ liệu",
+          single: true,
+          isdatastring: false,
+          placeholder: 'Tìm kiếm dữ liệu hàng hóa'
+    });
+
     function funIncreNumberRow(table_id) {
         try {
             $(table_id).find('tbody').find("tr").each(function () {
