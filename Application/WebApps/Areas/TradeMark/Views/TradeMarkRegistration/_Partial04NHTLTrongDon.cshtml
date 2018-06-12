@@ -4,8 +4,9 @@
 
     <div class="class_full_div_p class_text_left_bold">Tài liệu tối thiểu</div>
     <br />
-    <div class="class_full_div_input">
-        <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="04NH_D_01" id="6_rdoToKhai" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
+    @*<div class="class_full_div_input">
+        <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="04NH_D_01" id="6_rdoToKhai" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+        </div>
         <div class="class_text_end" style="display:flex">
             <label>Tờ khai, gồm </label>
             <input style="width:140px" type="text" id="6_txtToKhaiTrang" maxlength="50" placeholder="6_txtToKhaiTrang" />
@@ -13,8 +14,33 @@
             <input style="width:80px" type="text" id="6_txtToKhaiBan" maxlength="50" placeholder="6_txtToKhaiBan" />
             <label style="padding-left:5px">bản (có danh mục và phân nhóm hàng hoá, dịch vụ mang nhãn hiệu)</label>
         </div>
-    </div>
+    </div>*@
 
+    <div class="div-search-ad">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:382px">
+                <input type="checkbox" maxlength="3" value="04NH_D_01" id="6_rdoToKhai" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Tờ khai, gồm</label>
+                <input style="width:100px;" type="hidden" id="6_txtToKhaiTrang" maxlength="50" placeholder="...." />
+                <label>......</label>
+            </div>
+        </div>
+        <div class="div-search-title">
+            <div>trang:</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input style="width:80px" type="text" id="6_txtToKhaiBan" maxlength="50" value="03" id="6_txtToKhaiBan" />
+            </div>
+        </div>
+        <div class="div-search-title">
+            <div>bản (có danh mục và phân nhóm hàng hoá, dịch vụ mang nhãn hiệu)</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+            </div>
+        </div>
+    </div>
 
 
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoToKhai")
