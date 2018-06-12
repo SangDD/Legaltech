@@ -1,22 +1,4 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Web;
-//using System.Web.Mvc;
-
-//namespace WebApps.Areas.TradeMark.Controllers
-//{
-//    public class TradeMarkRegistration01Controller : Controller
-//    {
-//        // GET: TradeMark/TrademMarkRegistration01
-//        public ActionResult Index()
-//        {
-//            return View();
-//        }
-//    }
-//}
-
-namespace WebApps.Areas.TradeMark.Controllers
+﻿namespace WebApps.Areas.TradeMark.Controllers
 {
     using System;
     using System.Web.Mvc;
@@ -84,7 +66,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 {
 
                 }
-                else if (AppCode == TradeMarkAppCode.AppCodeDangKynhanHieuQuocTeNguonGocVietNam)
+                else if (AppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
                 {
                     return AppDangKyNhanHieu();
 
