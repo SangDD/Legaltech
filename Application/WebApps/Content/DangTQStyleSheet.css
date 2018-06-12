@@ -73,7 +73,6 @@ a {
     }
 
 .classLine {
-
     background-image: url(../../Content/icons/line.png);
     height: 5px;
 }
@@ -663,9 +662,11 @@ huygo {
 }
 
     .div-search-ad > div:last-child input[type="text"], .div-search-ad > div:last-child select,
-    .div-search-ad > div:last-child a, .div-search-ad > div:last-child textarea, .div-search-ad > div:last-child input[type="number"] {
+    .div-search-ad > div:last-child a, .div-search-ad > div:last-child textarea, .div-search-ad > div:last-child input[type="number"] 
+ {
         width: 100%;
     }
+ 
 
 
 .div-search-ad input[type=text]:read-only, select:disabled, input[type=text]:disabled {
@@ -673,10 +674,14 @@ huygo {
     background: #e4e0d8;
 }
 
-.div-search-ad input[type="text"], .div-search-ad select, .div-search-ad input[type="number"], .div-search-ad a, .div-search-ad textarea {
+.div-search-ad input[type="text"], .div-search-ad select, .div-search-ad input[type="number"], .div-search-ad a, .div-search-ad textarea  {
     margin-left: 0px;
     height: 37px;
     border-left: none;
+}
+
+.borderleft4control {
+    border-left: solid 1px #aaa !important;
 }
 
 
@@ -802,37 +807,38 @@ huygo {
 
 /* hết style cho search advanced*/
 
- 
+
 /*Tooltip*/
 .tooltip {
     position: relative;
     display: inline-block;
 }
 
-.tooltip .tooltip_price {
-    visibility: hidden;
-    min-width: 300px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 10px;
-    position: absolute;
-    z-index: 1;
-    top: -15px;
-    left: 110%;
-    text-align: justify;
-} 
-.tooltip .tooltip_price::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: 100%;
-    margin-top: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent black transparent transparent;
-}
+    .tooltip .tooltip_price {
+        visibility: hidden;
+        min-width: 300px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 10px;
+        position: absolute;
+        z-index: 1;
+        top: -15px;
+        left: 110%;
+        text-align: justify;
+    }
+
+        .tooltip .tooltip_price::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            margin-top: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent black transparent transparent;
+        }
 
 
 /*Extend*/
@@ -965,6 +971,7 @@ huygo {
     color: red;
     font-style: italic;
 }
+
 .bluespan {
     color: blue;
     font-style: italic;
