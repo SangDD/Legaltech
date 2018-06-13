@@ -1,6 +1,6 @@
 ﻿
 <div class="div_full_100_area">
-    <div class="class_full_div_p class_text_center_bold">CAM KẾT CỦA CHỦ ĐƠN</div>
+    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CAM KẾT CỦA CHỦ ĐƠN")
     <div style="text-align: center;">
         <i style="text-align: center;">Tôi cam đoan mọi thông tin trong tờ khai trên đây là trung thực, đúng sự thật và hoàn toàn chịu trách nhiệm trước pháp luật.</i>
     </div>
@@ -30,7 +30,7 @@
                     <select id="cboNgayKhai" class="classNgayThangNam">
                         @for (int i = 1; i < 32; i++)
                         {
-                            if (i.ToString() == DateTime.Now.ToString("MM"))
+                            if (i.ToString().PadLeft(2, '0') == DateTime.Now.ToString("dd"))
                             {
                                 <option selected="selected" value="@i.ToString().PadLeft(2, '0')">@i.ToString().PadLeft(2, '0')</option>
                             }
@@ -52,7 +52,7 @@
                     <select id="cboThangKhai" class="classNgayThangNam">
                         @for (int i = 1; i < 13; i++)
                         {
-                            if (i.ToString() == DateTime.Now.ToString("MM"))
+                            if (i.ToString().PadLeft(2, '0') == DateTime.Now.ToString("MM"))
                             {
                                 <option selected="selected" value="@i.ToString().PadLeft(2,'0')">@i.ToString().PadLeft(2, '0')</option>
                             }
@@ -118,8 +118,11 @@
             formData.append("pInfo.Months", months);
             var years = $("#cboNamKhai").val();
             formData.append("pInfo.Years", years);
+            return true;
         } catch (e) {
             console.log(e);
+            return false;
+
         }
     }
 </script>

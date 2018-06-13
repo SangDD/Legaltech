@@ -36,15 +36,15 @@
 
         @* 1 *@
         <div class="div_full_100_area">
-            <div class="class_full_div_p class_text_center_bold">CHỦ ĐƠN</div>
-            <br />
+           
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN")
+
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
         </div>
 
         @* Nhan hieu *@
         <div class="div_full_100_area">
-            <div class="class_full_div_p class_text_center_bold">NHÃN HIỆU</div>
-            <br />
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "NHÃN HIỆU")
             <div class="class_full_div_input">
                 <div class="class_block_title" style="padding-top:5px; "><label>Mẫu nhãn hiệu:</label> </div>
                 <div class="class_block_title_control" style="display:flex">
@@ -132,8 +132,8 @@
 
         @* 2 *@
         <div class="div_full_100_area">
-            <div class="class_full_div_p class_text_center_bold">ĐẠI DIỆN CỦA CHỦ ĐƠN</div>
-            <br />
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "ĐẠI DIỆN CỦA CHỦ ĐƠN")
+
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
@@ -164,8 +164,8 @@
         </div>
         @* 3  A14*@
         <div class="div_full_100_area">
-            <div class="class_full_div_p class_text_center_bold">YÊU CẦU HƯỞNG QUYỀN ƯU TIÊN</div>
-            <br />
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "YÊU CẦU HƯỞNG QUYỀN ƯU TIÊN")
+
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
@@ -192,122 +192,180 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="div_full_100_area">
-            <div class="class_full_div_p class_text_center_bold">CHỈ DẪN VỀ ĐƠN (CÁC ĐƠN) LÀ CĂN CỨ ĐỂ XÁC ĐỊNH NGÀY ƯU TIÊN</div>
-            <br />
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div>Số đơn:</div>
-                </div>
+
+            @* TÀI LIEU ƯU TIEN *@
+            <div class="div-search-ad" style="display:inline-flex;">
                 <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="6_txtSoDon" class="classDacTinhUT" maxlength="50" id="6_txtSoDon" />
+                    <div class="div-checkbox" style="width:422px">
+                        <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_14" id="6_rdoTLCMQUT" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                        <label>Tài liệu chứng minh quyền ưu tiên</label>
                     </div>
                 </div>
-            </div>
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div>Ngày nộp đơn:</div>
-                </div>
                 <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="6_txtNgayNopDon" class="classDacTinhUT datetimepicker" style="width:200px" maxlength="10" id="6_txtNgayNopDon" />
+                    <input type="text" id="6_txtTLCMQUT" class="classDacTinhUT" maxlength="3" placeholder="6_txtTLCMQUT" />
+                </div>
+                <div class="div-search-title" style="width:412px">
+                    <div>bản</div>
+                </div>
+            </div>
+            <div class="div-search-ad" style="display:inline-flex;    margin-left: 40px;">
+                <div class="div-search-content">
+                    <div class="div-checkbox" style="width:382px">
+                        <input type="checkbox" maxlength="3" class="classDacTinhUT" value="04NH_D_15" id="6_rdoBSDDT" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                        <label>Bản sao đơn đầu tiên, gồm</label>
                     </div>
                 </div>
-            </div>
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div>Nước nộp đơn:</div>
-                </div>
                 <div class="div-search-content">
-                    <div>
-                        <select id="6_txtNuocNopDon" class="classDacTinhUT">
-                            @foreach (var item in MemoryData.c_lst_Country)
-                            {
-                                <option value="@item.Country_Id">@item.Name</option>
-                            }
-                        </select>
-                    </div>
+                    <input type="text" id="6_txtBSDDT" class="classDacTinhUT" maxlength="3" placeholder="6_txtBSDDT" />
                 </div>
-            </div>
-        </div>
-
-        @* Tài liệu có trong đơn *@
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTLTrongDon.cshtml")
-        @* End tai lieu dinh kem  *@
-
-
-
-        <div class="div_full_100_area">
-            <div class="class_full_div_p class_text_center_bold">MÔ TẢ TÓM TẮT ĐẶC TÍNH CỦA HÀNG HOÁ/DỊCH VỤ ĐƯỢC CHỨNG NHẬN</div>
-            <br />
-
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div class="class_radio_head"><input type="checkbox" class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" placeholder="8_ckbNguonGocDiaLy" id="8_ckbNguonGocDiaLy" /> </div>
-                    <div>Nguồn gốc địa lý:</div>
+                <div class="div-search-title" style="width:412px">
+                    <div>bản</div>
                 </div>
-                <div class="div-search-content">
-                    <div>
-                        <input   type="text" id="8_txtNguonGocDiaLy" class="classDacTinhHangHoa" disabled="disabled" maxlength="100" placeholder="8_txtNguonGocDiaLy" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div class="class_radio_head"><input type="checkbox" name="8_ckbChatLuong" class="classDacTinhHangHoa" disabled="disabled" value="CLCL" placeholder="8_ckbChatLuong" id="8_ckbChatLuong" /> </div>
-                    <div>Chất lượng:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input  type="text" id="8_txtChatLuong" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" placeholder="8_txtChatLuong" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div class="class_radio_head"><input type="checkbox" name="8_ckbDacTinhKhac" class="classDacTinhHangHoa" disabled="disabled" value="DTKK" placeholder="8_ckbDacTinhKhac" id="8_ckbDacTinhKhac" /> </div>
-                    <div>Đặc tính khác:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input  type="text" id="8_txtDacTinhKhac" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" placeholder="8_txtDacTinhKhac" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="div_full_100_area">
-            <div class="class_full_div_p class_text_center_bold">CHỦ ĐƠN KHÁC</div>
-            <br />
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
-        </div>
-        @*CHỦ ĐƠN KHÁC 1*@
-        @for (int i = 10; i < 13; i++)
-        {
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", i.ToString())
-        }
-        @*TÀI LIỆU KHÁC*@
-
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac.cshtml", "12")
-
-        @* CAM KẾT CHỦ ĐƠN  *@
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewNgayThangNam.cshtml")
-
-        <div class="class_save">
-            <div class="classGuiDon">
-                <input type="button" value="Gửi đơn" id="btnGuiDon" class="btn class_37" />
-            </div> <div class="classLuuTam">
-                <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn class_37" />
-            </div>
-        </div>
-    </fieldset>
+            </div> <div style="margin-left:40px">
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBSDDT")
 </div>
+    <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:382px">
+                <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_16" id="6_rdoBDTVGom" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Bản dịch tiếng Việt, gồm</label>
+            </div>
+        </div>
+        <div class="div-search-content">
+            <input type="text" id="6_txtBDTVGom" class="classDacTinhUT" maxlength="3" placeholder="6_txtBDTVGom" />
+        </div>
+        <div class="div-search-title" style="width:412px">
+            <div>bản</div>
+        </div>
+    </div>
+    <div style="margin-left:40px">
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBDTVGom")
+    </div>
+    <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:382px">
+                <input type="checkbox" maxlength="3" value="04NH_D_17" class="classDacTinhUT" id="6_rdoGiayChuyenNhungUT" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label> Giấy chuyển nhượng quyền ưu tiên </label>
+            </div>
+        </div>
+    </div> <div style="margin-left:40px">
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoGiayChuyenNhungUT")
+</div>
+    </div>
+    @* HET TAI LIEU  UU TIEN *@
 
+    <div class="div_full_100_area">
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỈ DẪN VỀ ĐƠN (CÁC ĐƠN) LÀ CĂN CỨ ĐỂ XÁC ĐỊNH NGÀY ƯU TIÊN")
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Số đơn:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="6_txtSoDon" class="classDacTinhUT" maxlength="50" id="6_txtSoDon" />
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Ngày nộp đơn:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="6_txtNgayNopDon" class="classDacTinhUT datetimepicker" style="width:200px" maxlength="10" id="6_txtNgayNopDon" />
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Nước nộp đơn:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="6_txtNuocNopDon" class="classDacTinhUT">
+                        @foreach (var item in MemoryData.c_lst_Country)
+                        {
+                            <option value="@item.Country_Id">@item.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* Tài liệu có trong đơn *@
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTLTrongDon.cshtml")
+    @* End tai lieu dinh kem  *@
+
+
+
+    <div class="div_full_100_area">
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "MÔ TẢ TÓM TẮT ĐẶC TÍNH CỦA HÀNG HOÁ/DỊCH VỤ ĐƯỢC CHỨNG NHẬN")
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div class="class_radio_head"><input type="checkbox" class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" placeholder="8_ckbNguonGocDiaLy" id="8_ckbNguonGocDiaLy" /> </div>
+                <div>Nguồn gốc địa lý:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="8_txtNguonGocDiaLy" class="classDacTinhHangHoa" disabled="disabled" maxlength="100" placeholder="8_txtNguonGocDiaLy" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div class="class_radio_head"><input type="checkbox" name="8_ckbChatLuong" class="classDacTinhHangHoa" disabled="disabled" value="CLCL" placeholder="8_ckbChatLuong" id="8_ckbChatLuong" /> </div>
+                <div>Chất lượng:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="8_txtChatLuong" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" placeholder="8_txtChatLuong" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div class="class_radio_head"><input type="checkbox" name="8_ckbDacTinhKhac" class="classDacTinhHangHoa" disabled="disabled" value="DTKK" placeholder="8_ckbDacTinhKhac" id="8_ckbDacTinhKhac" /> </div>
+                <div>Đặc tính khác:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="8_txtDacTinhKhac" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" placeholder="8_txtDacTinhKhac" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="div_full_100_area">
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN KHÁC")
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
+    </div>
+    @*CHỦ ĐƠN KHÁC 1*@
+    @for (int i = 10; i < 13; i++)
+    {
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", i.ToString())
+    }
+    @*TÀI LIỆU KHÁC*@
+
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac.cshtml", "12")
+
+    @* CAM KẾT CHỦ ĐƠN  *@
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewNgayThangNam.cshtml")
+
+    <div class="class_save">
+        <div class="classGuiDon">
+            <input type="button" value="Gửi đơn" id="btnGuiDon" class="btn class_37" />
+        </div> <div class="classLuuTam">
+            <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn class_37" />
+        </div>
+    </div>
+</fieldset>
+</div>
+<input type="hidden" id="txtDateTime" value="@DateTime.Now.ToString("dd/MM/yyyy")"/>
 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialPreview.cshtml")
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
@@ -432,6 +490,11 @@
             if (reponse == false) {
                 return false;
             }
+            //
+            reponse = funcGetCamKetChuDon(formData);
+            if (reponse == false) {
+                return false;
+            }
             $.ajax({
                 url: '/trade-mark/dang_ky_nhan_hieu',
                 type: 'POST',
@@ -470,6 +533,14 @@
             var v_NgayNopDonn_0 = $("#0_txtNgayNopDon").val();
             if (v_NgayNopDonn_0 === "" || v_NgayNopDonn_0 == undefined) {
                 showError('Phải chọn ít nhất 1 giá trị cho nhãn hiệu!');
+                $("#0_txtNgayNopDon").focus();
+                return false;
+            }
+            /// return true if strDate1 <= strDate2
+            //function compareDate_N0(strDate1, strDate2) {
+            var timenow = $("#txtDateTime").val();
+            if (compareDate_N0(v_NgayNopDonn_0, timenow) == false) {
+                showError('Ngày nộp đơn lớn hơn ngày hiện tại!');
                 $("#0_txtNgayNopDon").focus();
                 return false;
             }

@@ -1,26 +1,23 @@
 ﻿<div class="div_full_100_area">
-    <div class="class_full_div_p class_text_center_bold">
-        <label>  CÁC TÀI LIỆU KHÁC</label>
-    </div>
-    <br />
+    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CÁC TÀI LIỆU KHÁC")
     @*<div id="divDocumentOther">
-        <div class="grid-container">
-            <div class="grid-item"> </div>
-            <div class="grid-item">
-                <input type="text" class="clssListUpload" maxlength="250" placeholder="Nhập tên tài liệu đính kèm" id="txtTaiLieuKhac1">
-            </div>
-            <div class="grid-item">
-                <div class="file-upload btn btn-primary">
-                    <span>Chọn file</span>
-                    <input type="file" onchange="return funcChoiseFile('pfileName1', 'txtMaxfile1');" name="pfileName1" id="pfileName1" class="upload fileuploadurl" />
+            <div class="grid-container">
+                <div class="grid-item"> </div>
+                <div class="grid-item">
+                    <input type="text" class="clssListUpload" maxlength="250" placeholder="Nhập tên tài liệu đính kèm" id="txtTaiLieuKhac1">
                 </div>
-                <input type="text" class="classMaxfile" id="txtMaxfile1" readonly placeholder="Maximum file size is 2MB">
-                <input type="button" id="btnTaiFile1" onclick="return funcPushFileDocumentOther('pfileName1','btnTaiFile1','txtTaiLieuKhac1');" value="Tải file" style="width:60px" />
-                <i class="fa fa-check" id="i_pfileName1" style="font-size:15px; color:green ;display:none"></i>
-                <input type="button" id="btnAddDocumentOther" value="Thêm" style="width:60px; " class="btn" />
+                <div class="grid-item">
+                    <div class="file-upload btn btn-primary">
+                        <span>Chọn file</span>
+                        <input type="file" onchange="return funcChoiseFile('pfileName1', 'txtMaxfile1');" name="pfileName1" id="pfileName1" class="upload fileuploadurl" />
+                    </div>
+                    <input type="text" class="classMaxfile" id="txtMaxfile1" readonly placeholder="Maximum file size is 2MB">
+                    <input type="button" id="btnTaiFile1" onclick="return funcPushFileDocumentOther('pfileName1','btnTaiFile1','txtTaiLieuKhac1');" value="Tải file" style="width:60px" />
+                    <i class="fa fa-check" id="i_pfileName1" style="font-size:15px; color:green ;display:none"></i>
+                    <input type="button" id="btnAddDocumentOther" value="Thêm" style="width:60px; " class="btn" />
+                </div>
             </div>
-        </div>
-    </div>*@
+        </div>*@
 
 
     <div id="divDocumentOther">
