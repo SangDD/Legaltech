@@ -213,7 +213,7 @@
             </div>
         </div>
  
-          @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+          @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "_1")
         
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
@@ -222,7 +222,7 @@
             </div>
         </div>
 
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "_2")
 
        
         <div class="divCover cls_form_title">
@@ -337,6 +337,15 @@
                 return false;
             }
             
+            var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
+            if (fileLogo != undefined && fileLogo != null && fileLogo[0].files[0] != undefined) {
+                formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
+            } else {
+                showError('Mẫu nhãn hiệu không được để trống');
+                $("#pfile_6_rdoMauNhanHieu").focus();
+                return false;
+            }
+
 
             var _01_rad_DonDkOrGiayDK = $("input[name='_01_rad_DonDkOrGiayDK']:checked").val();
             if (_01_rad_DonDkOrGiayDK === "" || _01_rad_DonDkOrGiayDK == undefined) {
@@ -352,15 +361,14 @@
                 return false;
             }
             var _1_txtNgayNopDon = $("#_1_txtNgayNopDon");
-            alert(_1_txtNgayNopDon.val());
-            if (_1_txtNgayNopDon.val() == "")
+            if (_1_txtNgayNopDon.val() == "" || _1_txtNgayNopDon.val() == "__/__/____")
             {
                 showError('Ngày nộp đơn không được phép để trống!');
                 _1_txtNgayNopDon.focus();
                 return false;
             }
             var NVSCBO001_AppClassSearch = $("#NVSCBO001_AppClassSearch");
-            if (NVSCBO001_AppClassSearch.val().trim() == "") {
+            if (NVSCBO001_AppClassSearch.val() == "" || NVSCBO001_AppClassSearch.val() == undefined) {
                 showError('Chưa chọn nhóm hàng hóa dịch vụ!');
                 $("#Nvs001txt_search_app_code").focus();
                 return false;
@@ -369,31 +377,33 @@
             if (funcThongTinChuDonNguoiDaiDien(formData, "_1") != true) {
                 return false;
             }
+            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+            if (v_RepMasterType == "" || v_RepMasterType == undefined) {
+                showError('Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!');
+                $("#_2_rdoNguoiDaiDienPL").focus();
+                return false;
+            }
             if (funcThongTinChuDonNguoiDaiDien(formData, "_2") != true) {
                 return false;
             }
              
             formData.append("pInfo.Appcode", v_AppCode);
-            if (funcThongTinChuDonNguoiDaiDien(formData, "2") != true) {
+            if (funcThongTinChuDonNguoiDaiDien(formData, "_2") != true) {
                 return false;
             }
-            var v_RepMasterType = $("input[name='_2_rdoDaiDienChuDon']:checked").val();
-            if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                showError('Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!');
-                return false;
-            }
+           
      
 
             // danh sach quoc gia
-            var _listNational = $("#_4_cboNational01").val() + "|" + $("#_4_cboNational02").val() + "|" + $("#_4_cboNational03").val() + "|" + $("#_4_cboNational04").val()
-                + "|" + $("#_4_cboNational05").val() + "|" + $("#_4_cboNational06").val() + "|" + $("#_4_cboNational07").val() + "|" + $("#_4_cboNational08").val();
-            _listNational = _listNational.trim("|");
-            if (_listNational.trim() == "")
+            var _listNational = $("#_4_cboNational01").val() + "," + $("#_4_cboNational02").val() + "," + $("#_4_cboNational03").val() + "," + $("#_4_cboNational04").val()
+                + "," + $("#_4_cboNational05").val() + "," + $("#_4_cboNational06").val() + "," + $("#_4_cboNational07").val() + "," + $("#_4_cboNational08").val();
+            _listNational = _listNational.replace(/null/g, '');
+            if (_listNational.replace(/,/g, '') == "")
             {
                   showError('Phải chọn ít nhất 1 nước chỉ định đăng ký nhãn hiệu!');
                   return false;
             }
-            var _arrayNational = _listNational.split("|");
+            var _arrayNational = _listNational.split(",");
             if (CheckArrDuplicate(_arrayNational) == true)
             {
                 showError('Có ít nhất 2 lựa chọn mã nước trùng nhau, vui lòng kiểm tra lại!');
@@ -453,6 +463,7 @@
             });
 
         } catch (e) {
+            alert(e.toString());
         }
 
     });

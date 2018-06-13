@@ -1557,17 +1557,18 @@ input[type="checkbox"] {
 }
 
 .classGuiDon {
-    order: 2;
+    order: 1;
     margin-right: 10px;
 }
 
 .classLuuTam {
-    order: 1;
+    order: 2;
 }
 
 .class_save {
     display: flex;
-    flex-direction: row-reverse;
+    /*flex-direction: row-reverse;*/
+    flex-direction: row;
     padding: 10px 10px 0px 0px;
 }
 
