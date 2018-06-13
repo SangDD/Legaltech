@@ -155,6 +155,7 @@
 
                     new OracleParameter("p_reason_select", OracleDbType.Decimal, userAdd.Reason_Select, ParameterDirection.Input),
                     new OracleParameter("p_request_credit", OracleDbType.Decimal, userAdd.Request_Credit, ParameterDirection.Input),
+                    new OracleParameter("p_customer_code", OracleDbType.Decimal, userAdd.Customer_Code, ParameterDirection.Input),
                     new OracleParameter("p_other_type", OracleDbType.Decimal, userAdd.Other_Type, ParameterDirection.Input),
                     new OracleParameter("p_hourly_rate", OracleDbType.Decimal, userAdd.Hourly_Rate, ParameterDirection.Input),
 
@@ -201,6 +202,7 @@
 
                     new OracleParameter("p_reason_select", OracleDbType.Decimal, userEdit.Reason_Select, ParameterDirection.Input),
                     new OracleParameter("p_request_credit", OracleDbType.Decimal, userEdit.Request_Credit, ParameterDirection.Input),
+                    new OracleParameter("p_customer_code", OracleDbType.Decimal, userEdit.Customer_Code, ParameterDirection.Input),
                     new OracleParameter("p_other_type", OracleDbType.Decimal, userEdit.Other_Type, ParameterDirection.Input),
                     new OracleParameter("p_hourly_rate", OracleDbType.Decimal, userEdit.Hourly_Rate, ParameterDirection.Input),
 

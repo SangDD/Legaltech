@@ -37,12 +37,12 @@
                     AppCode = RouteData.Values["id"].ToString().ToUpper();
                 }
                 ViewBag.AppCode = AppCode;
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial_TM_3B_PLB_01_SDD.cshtml");
+                return PartialView("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_TM_3B_PLB_01_SDD.cshtml");
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial_TM_3B_PLB_01_SDD.cshtml");
+                return PartialView("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_TM_3B_PLB_01_SDD.cshtml");
             }
         }
 
