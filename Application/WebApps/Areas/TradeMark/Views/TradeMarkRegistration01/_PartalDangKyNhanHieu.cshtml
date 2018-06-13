@@ -213,7 +213,7 @@
             </div>
         </div>
  
-          @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThonTinChuDon.cshtml", "1")
+          @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
         
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
@@ -352,6 +352,7 @@
                 return false;
             }
             var _1_txtNgayNopDon = $("#_1_txtNgayNopDon");
+            alert(_1_txtNgayNopDon.val());
             if (_1_txtNgayNopDon.val() == "")
             {
                 showError('Ngày nộp đơn không được phép để trống!');
