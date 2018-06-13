@@ -70,6 +70,7 @@
 
         public decimal Request_Credit { get; set; }
         public string Request_Credit_Name { get; set; }
+        public decimal Customer_Code { get; set; }
 
 
         public decimal Other_Type { get; set; }
