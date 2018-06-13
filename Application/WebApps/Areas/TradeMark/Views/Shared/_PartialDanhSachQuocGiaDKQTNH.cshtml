@@ -2,71 +2,51 @@
 <div class="div-search-ad">
     <div class="div-search-content">
         <div style="width:320px">
-            <select id="4_cboNational01" class="borderleft4control">
+            <select id="_4_cboNational01" class="borderleft4control">
+                <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
-                    if (item.Country_Id == Common.Common.Country_VietNam_Id)
-                    {
-                        <option selected="selected" value="@item.Country_Id">@item.Name</option>
-                    }
-                    else
-                    {
+                     
                         <option value="@item.Country_Id">@item.Name</option>
-                    }
                 }
             </select>
         </div>
     </div>
     <div class="div-search-content">
         <div style="width:320px">
-            <select id="4_cboNational01">
-               @foreach (var item in MemoryData.c_lst_Country)
-               {
-                   if (item.Country_Id == Common.Common.Country_VietNam_Id)
-                   {
-                    <option selected="selected" value="@item.Country_Id">@item.Name</option>
-                   }
-                   else
-                   {
+            <select id="_4_cboNational02">
+               <option value="">Chọn quốc gia</option>             
+                @foreach (var item in MemoryData.c_lst_Country)
+                {
+
                     <option value="@item.Country_Id">@item.Name</option>
-                   }
-               }
+                }
             </select>
         </div>
     </div>
 
     <div class="div-search-content">
         <div style="width:320px">
-            <select id="4_cboNational01">
-               @foreach (var item in MemoryData.c_lst_Country)
-               {
-                   if (item.Country_Id == Common.Common.Country_VietNam_Id)
-                   {
-                    <option selected="selected" value="@item.Country_Id">@item.Name</option>
-                   }
-                   else
-                   {
+            <select id="_4_cboNational03">
+                <option value="">Chọn quốc gia</option>
+                @foreach (var item in MemoryData.c_lst_Country)
+                {
+
                     <option value="@item.Country_Id">@item.Name</option>
-                   }
-               }
+                }
             </select>
         </div>
     </div>
 
     <div class="div-search-content">
         <div>
-            <select id="4_cboNational01">
-               @foreach (var item in MemoryData.c_lst_Country)
-               {
-                   if (item.Country_Id == Common.Common.Country_VietNam_Id)
-                   {
-                    <option selected="selected" value="@item.Country_Id">@item.Name</option>
-                   }
-                   else
-                   {
+            <select id="_4_cboNational04">
+                <option value="">Chọn quốc gia</option>
+                @foreach (var item in MemoryData.c_lst_Country)
+                {
+
                     <option value="@item.Country_Id">@item.Name</option>
-                   }
-               }
+                }
             </select>
         </div>
     </div>
@@ -74,52 +54,37 @@
  <div class="div-search-ad">
     <div class="div-search-content">
         <div style="width:320px">
-            <select id="4_cboNational01" class="borderleft4control">
+            <select id="_4_cboNational05" class="borderleft4control">
+                <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
-                    if (item.Country_Id == Common.Common.Country_VietNam_Id)
-                    {
-                        <option selected="selected" value="@item.Country_Id">@item.Name</option>
-                    }
-                    else
-                    {
-                        <option value="@item.Country_Id">@item.Name</option>
-                    }
+
+                    <option value="@item.Country_Id">@item.Name</option>
                 }
             </select>
         </div>
     </div>
     <div class="div-search-content">
         <div style="width:320px">
-            <select id="4_cboNational01">
-               @foreach (var item in MemoryData.c_lst_Country)
-               {
-                   if (item.Country_Id == Common.Common.Country_VietNam_Id)
-                   {
-                    <option selected="selected" value="@item.Country_Id">@item.Name</option>
-                   }
-                   else
-                   {
+            <select id="_4_cboNational06">
+                <option value="">Chọn quốc gia</option>
+                @foreach (var item in MemoryData.c_lst_Country)
+                {
+
                     <option value="@item.Country_Id">@item.Name</option>
-                   }
-               }
+                }
             </select>
         </div>
     </div>
 
     <div class="div-search-content">
         <div style="width:320px">
-            <select id="4_cboNational01">
+            <select id="_4_cboNational07">
+                <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
-                    if (item.Country_Id == Common.Common.Country_VietNam_Id)
-                    {
-                        <option selected="selected" value="@item.Country_Id">@item.Name</option>
-                    }
-                    else
-                    {
-                        <option value="@item.Country_Id">@item.Name</option>
-                    }
+
+                    <option value="@item.Country_Id">@item.Name</option>
                 }
             </select>
         </div>
@@ -127,19 +92,73 @@
 
     <div class="div-search-content">
         <div>
-            <select id="4_cboNational01">
+            <select id="_4_cboNational08">
+                <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
-                    if (item.Country_Id == Common.Common.Country_VietNam_Id)
-                    {
-                        <option selected="selected" value="@item.Country_Id">@item.Name</option>
-                    }
-                    else
-                    {
-                        <option value="@item.Country_Id">@item.Name</option>
-                    }
+
+                    <option value="@item.Country_Id">@item.Name</option>
                 }
             </select>
         </div>
     </div>
 </div>
+
+<script>
+    $('#_4_cboNational01').multipleSelect({
+        filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        isdatastring: false,
+        placeholder: 'Tìm kiếm quốc gia'
+    });
+    $('#_4_cboNational02').multipleSelect({
+        filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        isdatastring: false,
+        placeholder: 'Tìm kiếm quốc gia'
+    });
+    $('#_4_cboNational03').multipleSelect({
+        filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        isdatastring: false,
+        placeholder: 'Tìm kiếm quốc gia'
+    });
+    $('#_4_cboNational04').multipleSelect({
+        filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        isdatastring: false,
+        placeholder: 'Tìm kiếm quốc gia'
+    });
+    $('#_4_cboNational05').multipleSelect({
+        filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        isdatastring: false,
+        placeholder: 'Tìm kiếm quốc gia'
+    });
+    $('#_4_cboNational06').multipleSelect({
+        filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        isdatastring: false,
+        placeholder: 'Tìm kiếm quốc gia'
+    });
+    $('#_4_cboNational07').multipleSelect({
+        filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        isdatastring: false,
+        placeholder: 'Tìm kiếm quốc gia'
+    });
+    $('#_4_cboNational08').multipleSelect({
+        filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        isdatastring: false,
+        placeholder: 'Tìm kiếm quốc gia'
+    });
+</script>

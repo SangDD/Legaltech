@@ -1,7 +1,11 @@
-﻿ 
- 
-
-
+﻿ @model string
+@{
+    string txtTenDayDu = Model + "_txtTenDayDu";
+    string txtDiaChi = Model + "_txtDiaChi";
+    string txtDienThoai = Model + "_txtDienThoai";
+    string txtFax = Model + "_txtFax";
+    string txtEmail = Model + "_txtEmail";
+}
 
 <div class="div-search-ad">
     <div class="div-search-title">
@@ -9,7 +13,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="1_txtTenDayDu" maxlength="50" id="1_txtTenDayDu" />
+            <input type="text" placeholder="@txtTenDayDu" maxlength="50" id="@txtTenDayDu" />
         </div>
     </div>
 </div>
@@ -21,7 +25,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="1_txtDiaChi" maxlength="200" id="1_txtDiaChi" />
+            <input type="text" placeholder="@txtDiaChi" maxlength="200" id="@txtDiaChi" />
         </div>
     </div>
 </div>
@@ -32,7 +36,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="1_txtDienThoai" maxlength="50" id="1_txtDienThoai" />
+            <input type="text" placeholder="@txtDienThoai" maxlength="50" id="@txtDienThoai" />
         </div>
     </div>
 
@@ -41,7 +45,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="1_txtFax" maxlength="50" id="1_txtFax" />
+            <input type="text" placeholder="@txtFax" maxlength="50" id="@txtFax" />
         </div>
     </div>
     <div class="div-search-title">
@@ -49,12 +53,13 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="1_txtEmail" maxlength="50" id="1_txtEmail" />
+            <input type="text" placeholder="@txtEmail" maxlength="50" id="@txtEmail" />
         </div>
     </div>
 </div>
 
 
+ 
  
  
    
