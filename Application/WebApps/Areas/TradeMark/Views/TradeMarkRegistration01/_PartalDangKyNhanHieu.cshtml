@@ -322,32 +322,38 @@
         }
     }
 
+    // khai báo luôn các biến controll toàn cục để dùng cho tiện
+    var formData = new FormData();
+    var v_AppCode = $("#txtAppCode").val();
+    var _1_txtSoDon = $("#_1_txtSoDon");
+    var v_thanhviennghidinh = $("input[name='rad_thanhviennghidinhthu']:checked").val();
+    var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
+    var _01_rad_DonDkOrGiayDK = $("input[name='_01_rad_DonDkOrGiayDK']:checked").val();
+    var NVSCBO001_AppClassSearch = $("#NVSCBO001_AppClassSearch");
+
+
+
+    //
+
+
     $("#btnGuiDon").click(function () {
         try {
             //Thông tin chủ đơn
-            var formData = new FormData();
-            var v_AppCode = $("#txtAppCode").val();
-            var _1_txtSoDon = $("#_1_txtSoDon");
-
-
-            var v_thanhviennghidinh = $("input[name='rad_thanhviennghidinhthu']:checked").val();
+ 
             if (v_thanhviennghidinh === "" || v_thanhviennghidinh == undefined) {
                 showError('Phải chọn ít nhất 1 giá trị loại thành viên!');
                 $("#_01_rdnghidinh_madrid").focus();
                 return false;
             }
-            
-            var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
+           
             if (fileLogo != undefined && fileLogo != null && fileLogo[0].files[0] != undefined) {
-                formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
+              //  formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
             } else {
                 showError('Mẫu nhãn hiệu không được để trống');
                 $("#pfile_6_rdoMauNhanHieu").focus();
                 return false;
             }
-
-
-            var _01_rad_DonDkOrGiayDK = $("input[name='_01_rad_DonDkOrGiayDK']:checked").val();
+         
             if (_01_rad_DonDkOrGiayDK === "" || _01_rad_DonDkOrGiayDK == undefined) {
                 showError('Phải chọn ít nhất 1 loại giấy đăng kỹ nhãn hiệu cơ sở!');
                 $("#_01_rad_DonDK").focus();
@@ -367,7 +373,7 @@
                 _1_txtNgayNopDon.focus();
                 return false;
             }
-            var NVSCBO001_AppClassSearch = $("#NVSCBO001_AppClassSearch");
+           
             if (NVSCBO001_AppClassSearch.val() == "" || NVSCBO001_AppClassSearch.val() == undefined) {
                 showError('Chưa chọn nhóm hàng hóa dịch vụ!');
                 $("#Nvs001txt_search_app_code").focus();
@@ -404,6 +410,7 @@
                   return false;
             }
             var _arrayNational = _listNational.split(",");
+            _arrayNational = RepushArray(_arrayNational);
             if (CheckArrDuplicate(_arrayNational) == true)
             {
                 showError('Có ít nhất 2 lựa chọn mã nước trùng nhau, vui lòng kiểm tra lại!');
@@ -424,6 +431,16 @@
 
             //Lấy thông tin detail
             var reponse = funcGetAppDetail(formData);
+            if (reponse == false) {
+                return false;
+            }
+            // thông tin chủ đơn
+            reponse = funcThongTinChuDonNguoiDaiDien(formData, "_1")
+            if (reponse == false) {
+                return false;
+            }
+            // thông tin người đại diện
+            reponse = funcThongTinChuDonNguoiDaiDien(formData, "_2")
             if (reponse == false) {
                 return false;
             }
@@ -467,6 +484,32 @@
         }
 
     });
+
+    // lấy thông tin chi tiết đơn
+    function funcGetAppDetail(formData)
+    {
+        try {
+            var v_thanhviennghidinh = $("input[name='rad_thanhviennghidinhthu']:checked").val();
+            formdata.append("pDetail.THANHVIEN_ND_TC", v_thanhviennghidinh);
+
+            if (fileLogo != undefined && fileLogo != null && fileLogo[0].files[0] != undefined) {
+                  formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
+            } else {
+                showError('Mẫu nhãn hiệu không được để trống');
+                $("#pfile_6_rdoMauNhanHieu").focus();
+                return false;
+            }
+            var v_don_giaydknhcs = $("input[name='_01_rad_DonDkOrGiayDK']:checked").val();
+            formdata.append("pDetail.DON_GIAY_DKNHCS", v_don_giaydknhcs);
+            formdata.append("pDetail.REF_APPNO", _1_txtSoDon.val());
+            formdata.append("pDetail.NGAYNOPDON", _1_txtNgayNopDon.val());
+            formdata.append("pDetail.APPCLASS_ID", NVSCBO001_AppClassSearch.val());
+            // lấy thông tin chủ đơn
+
+        } catch (e) {
+            alert(e.toString());
+        }
+    }
     
     //Lấy thông tin chủ đơn add vào formData
     function funcThongTinChuDonNguoiDaiDien(formData, PreID) {
@@ -520,6 +563,106 @@
         }
     }
 
+
+    function funGetThongTinFile(formData) {
+        try {
+            var Isuse = 0, Note = "", reponse = false;
+            //Các tài liệu có trong đơn
+            reponse = funcGetCheckValueAndText(formData, "_6_rdoToKhai", "0");
+            formData.append("pAppDocumentInfo[0].CHAR01", $("#_6_txtToKhaiTrang").val());
+            formData.append("pAppDocumentInfo[0].CHAR02", $("#_6_txtToKhaiBan").val());
+            //
+            reponse = funcGetCheckValueAndText(formData, "_6_rdoMauDKVPQuocTe", "1");
+            formData.append("pAppDocumentInfo[1].CHAR01", $("#_6_txtMauDKVPQuocTe").val());
+            formData.append("pAppDocumentInfo[1].CHAR02", $("#_6_cboNgonNguMauDangKy").val());
+            formData.append("pAppDocumentInfo[1].CHAR03", $("#_6_txtnumberpage").val());
+            formData.append("pAppDocumentInfo[1].CHAR04", $("#_6_txtnumberCopy").val());
+            //
+            reponse = funcGetCheckValueAndText(formData, "_6_rdoMauNhanHieu", "2");
+            formData.append("pAppDocumentInfo[2].CHAR01", $("#_6_txtSoLuongMauNH").val());
+
+
+            //
+            reponse = funcGetCheckValueAndText(formData, "_6_rdoBanSaoToKhai", "3");
+
+            reponse = funcGetCheckValueAndText(formData, "_6_rdoBanSaoGiayChungNhanDKNHCS", "4");
+
+            reponse = funcGetCheckValueAndText(formData, "_6_rdoBanCamketSDNDBaoHo", "5");
+
+            reponse = funcGetCheckValueAndText(formData, "_6_rdoGiayUyQuyenBangTieng", "6");
+            formData.append("pAppDocumentInfo[6].CHAR01", $("#_6_cboNgonNguGiayUyQuyen").val());
+
+            reponse = funcGetCheckValueAndText(formData, "_6_rdoBanDichTiengViet", "7");
+            formData.append("pAppDocumentInfo[7].CHAR01", $("#_6_txtSoLuongBanDichTiengViet").val());
+
+            formData.append("pAppDocumentInfo[8].CHAR01", $("#_6_rdoBanGoc").val());
+
+            reponse = funcGetCheckValueAndText(formData, "6_rdoBanDichTiengViet", "8");
+            formData.append("pAppDocumentInfo[8].CHAR01", $("#6_txtBDTV_UQ").val());
+
+            reponse = funcGetCheckValueAndText(formData, "6_rdoTLXNDPSD", "9");
+            formData.append("pAppDocumentInfo[9].CHAR01", $("#6_TLXNDPSD").val());
+
+            //
+            // 10 6_rdoTLDKNH
+            reponse = funcGetCheckValueAndText(formData, "6_rdoTLDKNH", "10");
+
+            // 11 6_rdoTLThuHuongNK
+            reponse = funcGetCheckValueAndText(formData, "6_rdoTLThuHuongNK", "11");
+
+
+            // 12 6_rdoQuyCheSDNH
+            reponse = funcGetCheckValueAndText(formData, "6_rdoQuyCheSDNH", "12");
+            formData.append("pAppDocumentInfo[12].CHAR01", $("#6_txtQuyCheSDNHTrang").val());
+            formData.append("pAppDocumentInfo[12].CHAR02", $("#6_txtQuyCheSDNHBan").val());
+
+            // 13 6_rdoTLCMQUT
+            reponse = funcGetCheckValueAndText(formData, "6_rdoTLCMQUT", "13");
+            formData.append("pAppDocumentInfo[13].CHAR01", $("#6_txtTLCMQUT").val());
+
+            // 13 6_rdoBSDDT----------
+            reponse = funcGetCheckValueAndText(formData, "6_rdoBSDDT", "14");
+
+            // 15 6_rdoBDTVGom
+            reponse = funcGetCheckValueAndText(formData, "6_rdoBDTVGom", "15");
+            formData.append("pAppDocumentInfo[14].CHAR01", $("#6_txtBDTVGom").val());
+
+            // 16 6_rdoGiayChuyenNhungUT
+            reponse = funcGetCheckValueAndText(formData, "6_rdoGiayChuyenNhungUT", "16");
+            // 17 6_rdoGiayChuyenNhungUT
+            reponse = funcGetCheckValueAndText(formData, "6_rdoBanDoKVDL", "17");
+            // 18 6_rdoGiayChuyenNhungUT
+            reponse = funcGetCheckValueAndText(formData, "6_rdoVBuyBanTinh", "18");
+            // 19 6_rdoGiayChuyenNhungUT
+            reponse = funcGetCheckValueAndText(formData, "6_rdoTLKhaiTTBS", "19");
+            // 20 6_rdoGiayChuyenNhungUT
+            reponse = funcGetCheckValueAndText(formData, "6_rdoPOA", "20");
+            // 21 6_rdoGiayChuyenNhungUT
+            reponse = funcGetCheckValueAndText(formData, "6_rdoTLK", "21");
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+
+    function funcGetCheckValueAndText(formData, pID, pItem) {
+        try {
+            var Isuse = 0, Note = "";
+            //Các tài liệu có trong đơn
+            if ($("#" + pID).prop('checked') == true) {
+                Isuse = 1;
+            }
+            formData.append("pAppDocumentInfo[" + pItem + "].keyFileUpload", pID);
+            formData.append("pAppDocumentInfo[" + pItem + "].Document_Id", $("#" + pID).val());
+            formData.append("pAppDocumentInfo[" + pItem + "].Isuse", Isuse);
+            return true;
+        } catch (e) {
+            return false;
+        }
+
+    }
+
     //kiểm tra xem trong mảng có thằng nào trùng nhau không
     function CheckArrDuplicate(values) {
         var valueArr = values.map(function (item) { return item });
@@ -527,6 +670,20 @@
             return valueArr.indexOf(item) != idx
         });
         return isDuplicate;
+    }
+
+    /// xóa những bản ghi trống
+    function RepushArray(_array)
+    {
+       var index = _array.length - 1;
+        while (index >= 0) {
+            if (_array[index] === '') {
+                _array.splice(index, 1);
+            }
+            index -= 1;
+        }
+        return _array;
+
     }
 
 </script>
