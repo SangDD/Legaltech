@@ -10,7 +10,7 @@ namespace BussinessFacade.ModuleTrademark
     public class App_Detail_PLB01_SDD_BL
     {
 
-        public int Insert(App_Detail_PLB01_SDD_Info pInfo)
+        public decimal Insert(App_Detail_PLB01_SDD_Info pInfo)
         {
             try
             {

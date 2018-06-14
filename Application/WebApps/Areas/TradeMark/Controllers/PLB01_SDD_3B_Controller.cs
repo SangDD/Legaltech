@@ -61,7 +61,7 @@
                 string language = AppsCommon.GetCurrentLang();
                 var CreatedBy = SessionData.CurrentUser.Username;
                 var CreatedDate = SessionData.CurrentUser.CurrentDate;
-                int pReturn = ErrorCode.Success;
+                decimal pReturn = ErrorCode.Success;
                 int pAppHeaderID = 0;
 
                 using (var scope = new TransactionScope())
@@ -70,6 +70,8 @@
                     pInfo.Languague_Code = language;
                     pInfo.Created_By = CreatedBy;
                     pInfo.Created_Date = CreatedDate;
+                    pInfo.Send_Date = DateTime.Now;
+
                     //TRA RA ID CUA BANG KHI INSERT
                     pAppHeaderID = objBL.AppHeaderInsert(pInfo);
 
@@ -135,6 +137,25 @@
                 {
                     var url = AppLoadHelpers.PushFileToServer(pInfo.pfiles, AppUpload.Document);
                     SessionData.CurrentUser.chashFile[pInfo.keyFileUpload] = pInfo.pfiles;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = -1 });
+            }
+            return Json(new { success = 0 });
+        }
+
+        [HttpPost]
+        [Route("delete-file")]
+        public ActionResult DeleteFile(string keyFileUpload)
+        {
+            try
+            {
+                if (SessionData.CurrentUser.chashFile.ContainsKey(keyFileUpload))
+                {
+                    SessionData.CurrentUser.chashFile.Remove(keyFileUpload);
                 }
             }
             catch (Exception ex)

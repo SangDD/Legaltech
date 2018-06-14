@@ -1,4 +1,4 @@
-﻿ 
+﻿
 @model string
 @{
     string txtTenDayDu = Model + "_txtTenDayDu";
@@ -14,7 +14,7 @@
             <label>Là người đại diện theo pháp luật của chủ đơn</label>
         </div>
     </div>
-  
+
 </div>
 
 <div class="div-search-ad">
@@ -25,8 +25,8 @@
         </div>
     </div>
 </div>
- 
- <div class="div-search-ad">
+
+<div class="div-search-ad">
     <div class="div-search-content">
         <div class="div-radio">
             <input type="radio" name="_2_DaiDienChuDon" value="NDUQ" placeholder="_2_rdoNguoiDuocUyQuyen" id="_2_rdoNguoiDuocUyQuyen" />
@@ -43,11 +43,10 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="@txtTenDayDu" maxlength="50" id="@txtTenDayDu"/>
+            <input type="text" placeholder="@txtTenDayDu" maxlength="50" id="@txtTenDayDu" />
         </div>
     </div>
 </div>
-
 
 <div class="div-search-ad">
     <div class="div-search-title">
@@ -66,7 +65,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="@txtDienThoai" maxlength="50" id="@txtDienThoai"  style="width: 250px;"/>
+            <input type="text" placeholder="@txtDienThoai" maxlength="50" id="@txtDienThoai" style="width: 250px;" />
         </div>
     </div>
 
@@ -88,4 +87,42 @@
     </div>
 </div>
 
- 
+<script>
+    //Lấy thông tin chủ đơn add vào formData
+    function funcThongTinDaiDienChuDon(formData, PreID) {
+        try {
+            var txtTenDayDu = $("#" + PreID + "_txtTenDayDu").val();
+            if (txtTenDayDu === "") {
+                $("#" + PreID + "_txtTenDayDu").focus().val('');
+                showError('Tên không được để trống!');
+                return false;
+            }
+            var txtDiaChi = $("#" + PreID + "_txtDiaChi").val();
+            if (txtDiaChi === "") {
+                $("#" + PreID + "_txtDiaChi").focus().val('');
+                showError('Địa chỉ không được để trống!');
+                return false;
+            }
+            var txtDienThoai = $("#" + PreID + "_txtDienThoai").val();
+            var txtFax = $("#" + PreID + "_txtFax").val();
+            var txtEmail = $("#" + PreID + "_txtEmail").val();
+            if (txtEmail != "") {
+                if (!IsvalidEmail(txtEmail)) {
+                    $("#" + PreID + "_txtEmail").focus();
+                    showError('Email không đúng định dạng!');
+                    return false;
+                }
+            }
+
+            formData.append("pInfo.Rep_Master_Name", txtTenDayDu);
+            formData.append("pInfo.Rep_Master_Address", txtDiaChi);
+            formData.append("pInfo.Rep_Master_Phone", txtDienThoai);
+            formData.append("pInfo.Rep_Master_Fax", txtFax);
+            formData.append("pInfo.Rep_Master_Email", txtEmail);
+
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+</script>
