@@ -22,6 +22,8 @@ namespace DataAccess
                     new OracleParameter("p_app_no_change", OracleDbType.Varchar2, pInfo.App_No_Change, ParameterDirection.Input),
                     new OracleParameter("p_request_to_type", OracleDbType.Decimal, pInfo.Request_To_Type, ParameterDirection.Input),
                     new OracleParameter("p_request_to_content", OracleDbType.Varchar2, pInfo.Request_To_Content, ParameterDirection.Input),
+                    new OracleParameter("p_number_pic", OracleDbType.Varchar2, pInfo.Number_Pic, ParameterDirection.Input),
+                    new OracleParameter("p_number_page", OracleDbType.Varchar2, pInfo.Number_Page, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;
@@ -48,6 +50,8 @@ namespace DataAccess
                     new OracleParameter("p_app_no_change", OracleDbType.Varchar2, pInfo.App_No_Change, ParameterDirection.Input),
                     new OracleParameter("p_request_to_type", OracleDbType.Decimal, pInfo.Request_To_Type, ParameterDirection.Input),
                     new OracleParameter("p_request_to_content", OracleDbType.Varchar2, pInfo.Request_To_Content, ParameterDirection.Input),
+                    new OracleParameter("p_number_pic", OracleDbType.Varchar2, pInfo.Number_Pic, ParameterDirection.Input),
+                    new OracleParameter("p_number_page", OracleDbType.Varchar2, pInfo.Number_Page, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;

@@ -1,22 +1,11 @@
-﻿<div class="div_full_100_area">
-    <div class="class_full_div_p class_text_center_bold">CÁC TÀI LIỆU CÓ TRONG ĐƠN</div>
-    <br />
-
+﻿@{
+    string href = "/Content/POA/VNmese translation POA (Blank).doc";
+}
+<div class="div_full_100_area">
+    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CÁC TÀI LIỆU CÓ TRONG ĐƠN")
     <div class="class_full_div_p class_text_left_bold">Tài liệu tối thiểu</div>
     <br />
-    @*<div class="class_full_div_input">
-        <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="04NH_D_01" id="6_rdoToKhai" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-        </div>
-        <div class="class_text_end" style="display:flex">
-            <label>Tờ khai, gồm </label>
-            <input style="width:140px" type="text" id="6_txtToKhaiTrang" maxlength="50" placeholder="6_txtToKhaiTrang" />
-            <label style="padding-left:5px">trang</label>
-            <input style="width:80px" type="text" id="6_txtToKhaiBan" maxlength="50" placeholder="6_txtToKhaiBan" />
-            <label style="padding-left:5px">bản (có danh mục và phân nhóm hàng hoá, dịch vụ mang nhãn hiệu)</label>
-        </div>
-    </div>*@
-
-    <div class="div-search-ad">
+    <div class="div-search-ad" style="display:inherit">
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
                 <input type="checkbox" maxlength="3" value="04NH_D_01" id="6_rdoToKhai" onchange="return ShowHidenUpLoad(this.id, this.id);" />
@@ -30,7 +19,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input style="width:80px" type="text" id="6_txtToKhaiBan" maxlength="50" value="03" id="6_txtToKhaiBan" />
+                <input style="width:80px" type="text" id="6_txtToKhaiBan" maxlength="50" value="03" placeholder="6_txtToKhaiBan" />
             </div>
         </div>
         <div class="div-search-title">
@@ -45,173 +34,239 @@
 
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoToKhai")
 
-    <div class="class_full_div_input ">
-        <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="04NH_D_02" id="6_rdoMauNhanHieuTD" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-        <div class="class_text_end" style="display:flex">
-            <label>Mẫu nhãn hiệu, gồm </label>
-            <input style="width:140px" type="text" id="6_txtMauNhanHieuTD" maxlength="50" placeholder="6_txtMauNhanHieuTD" />
-            <label style="padding-left:5px">mẫu</label>
+    <div class="div-search-ad" style="display:inline-flex;">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:382px">
+                <input type="checkbox" maxlength="3" value="04NH_D_02" id="6_rdoMauNhanHieuTD" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Mẫu nhãn hiệu, gồm</label>
+            </div>
+        </div>
+        <div class="div-search-content">
+            <div> <input style="width:160px" type="text" id="6_txtMauNhanHieuTD" maxlength="50" placeholder="6_txtMauNhanHieuTD" /></div>
+        </div>
+        <div class="div-search-title" style="width:412px">
+            <div>mẫu</div>
         </div>
     </div>
+
+
+
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoMauNhanHieuTD")
-    <div class="class_full_div_input ">
-        <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="04NH_D_03" id="6_rdoChungTuPhiLP" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-        <div class="class_text_end" style="display:flex">
-            <label>Chứng từ phí, lệ phí</label>
+
+ 
+    <div class="div-search-ad" style="display:inline-flex;">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:382px">
+                <input type="checkbox" maxlength="3" value="04NH_D_03" id="6_rdoChungTuPhiLP" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Chứng từ phí, lệ phí</label>
+            </div>
         </div>
     </div>
+
+
+
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoChungTuPhiLP")
     <div class="class_full_div_p class_text_left_bold">Tài liệu tối thiểu</div>
     <br />
-    <div class="class_full_div_input">
-        <div class="class_radio_head"><input type="checkbox" id="6_rdoGiayUyQuyen" value="04NH_D_04" onchange="return ShowHidenUpLoad(this.id, this.id);" /> </div>
-        <div class="class_text_end" style="display:flex">
-            <label style="width:150px">Giấy uỷ quyền bằng tiếng</label>
-            <input style="width:35%" type="text" id="6_txtGiayUQTiengViet" maxlength="50" placeholder="6_txtGiayUQTiengViet" />
+
+    <div class="div-search-ad" style="display:inline-flex;">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:550px">
+                <input type="checkbox" id="6_rdoGiayUyQuyen" value="04NH_D_04" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Giấy uỷ quyền bằng tiếng</label> <a style="margin-top: -3px; border: none;padding-left: 20px;color: blue;" href="@href">Tải mẫu về <i class="fas fa-download" style="color: blue; font-size: 20px;"></i> </a>
+                <label style="font-style:italic;color:red">&nbsp;(Khách hàng điền đủ thông tin lên và tải lên)</label>
+
+            </div>
+        </div>
+        <div class="div-search-content">
+            <input style="width:160px" type="text" id="6_txtGiayUQTiengViet" maxlength="50" placeholder="6_txtGiayUQTiengViet" />
+        </div>
+
+    </div>
+ 
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoGiayUyQuyen")
+ 
+
+    <div class="div-search-ad" style="display:inline-flex;margin-left: 40px;">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:342px">
+                <input type="checkbox" id="6_rdoBanGoc" value="04NH_D_05" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>bản gốc</label>
+            </div>
         </div>
     </div>
-    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoGiayUyQuyen")
 
-    <div class="class_full_div_input" style="padding-left: 20px;">
-        <div class="class_radio_head"><input type="checkbox" id="6_rdoBanGoc" value="04NH_D_05" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-        <div class="class_text_end"><p class="class_text_left">bản gốc</p></div>
-    </div>
+
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBanGoc")
 
-    <div class="class_full_div_input" style="padding-left: 20px;">
-        <div class="class_radio_head"><input type="checkbox" id="6_rdoBanSao" value="04NH_D_06" /></div>
-        <div class="class_text_end">
-            <p class="class_text_left">bản sao (</p>
-            <div class="class_full_div_input" style="padding-left: 20px;">
-                <div class="class_radio_head"><input type="radio" name="bansao" value="04NH_D_07" id="6_rdoBanGocSeNopSau" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-                <div class="class_text_end"><p class="class_text_left">bản gốc sẽ nộp sau</p></div>
+    <div class="div-search-ad" style="display:inline-flex;margin-left: 40px;">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:342px">
+                <input type="checkbox" id="6_rdoBanSao" value="04NH_D_06" />
+                <label>bản sao</label>
             </div>
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBanGocSeNopSau")
-            <div class="class_full_div_input" style="padding-left: 20px;">
-                <div class="class_radio_head"><input type="radio" name="bansao" value="04NH_D_08" id="6_rdoBanGocDaNopTheoDonSo" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-                <div class="class_text_end" style="display:flex">
-                    <label style="width:170px">bản gốc đã nộp theo đơn số</label>
-                    <input style="width:33%" type="text" id="6_txtBangocDNTheoDonSo" maxlength="50" placeholder="6_txtBangocDNTheoDonSo" />
-                    <label style="width:10%;padding-left:5px">)</label>
-                </div>
-            </div>
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBanGocDaNopTheoDonSo")
         </div>
     </div>
-    <div class="class_full_div_input" style="padding-left: 20px;">
-        <div class="class_radio_head"><input type="checkbox" id="6_rdoBanDichTiengViet" value="04NH_D_09" onchange="return ShowHidenUpLoad(this.id, this.id);" /> </div>
-        <div class="class_text_end" style="display:flex">
-            <label style="width:150px">bản dịch tiếng Việt, gồm</label>
-            <input style="width:33%" type="text" id="6_txtBDTV_UQ" maxlength="3" placeholder="6_txtBDTV_UQ" />
-            <label style="padding-left:5px">trang</label>
+
+    <div class="div-search-ad" style="display:inline-flex;margin-left:80px">
+        <div class="div-search-content">
+            <div class="div-radio" style="width:302px">
+                <input type="radio" name="bansao" value="04NH_D_07" id="6_rdoBanGocSeNopSau" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>bản gốc sẽ nộp sau</label>
+            </div>
         </div>
     </div>
+
+
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBanGocSeNopSau")
+
+    <div class="div-search-ad" style="display:inline-flex;margin-left: 80px;">
+        <div class="div-search-content">
+            <div class="div-radio" style="width:302px">
+                <input type="radio" name="bansao" value="04NH_D_08" id="6_rdoBanGocDaNopTheoDonSo" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>bản gốc đã nộp theo đơn số</label>
+            </div>
+        </div>
+        <div class="div-search-content">
+            <input type="text" id="6_txtBangocDNTheoDonSo" style="width:160px" maxlength="50" placeholder="6_txtBangocDNTheoDonSo" />
+        </div>
+    </div>
+
+
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBanGocDaNopTheoDonSo")
+
+    <div class="div-search-ad" style="display:inline-flex;margin-left: 40px;">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:342px">
+                <input type="checkbox" id="6_rdoBanDichTiengViet" value="04NH_D_09" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>bản dịch tiếng Việt, gồm</label>
+            </div>
+        </div>
+        <div class="div-search-content">
+            <input type="text" id="6_txtBDTV_UQ" maxlength="3" placeholder="6_txtBDTV_UQ" />
+        </div>
+        <div class="div-search-title" style="width:412px">
+            <div>trang</div>
+        </div>
+    </div>
+
 
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBanDichTiengViet")
 
-    <div class="class_full_div_input ">
-        <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="04NH_D_10" id="6_rdoTLXNDPSD" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-        <div class="class_text_end" style="display:flex">
-            <label>Tài liệu xác nhận được phép sử dụng các dấu hiệu đặc biệt (biểu tượng, cờ, huy hiệu, con dấu…), gồm</label>
-            <input style="width:33%" type="text" id="6_TLXNDPSD" maxlength="3" placeholder="6_TLXNDPSD" />
-            <label style="padding-left:5px">trang</label>
+    <div class="div-search-ad" style="display:inline-flex;">
+        <div class="div-search-content">
+            <div class="div-checkbox">
+                <input type="checkbox" maxlength="3" value="04NH_D_10" id="6_rdoTLXNDPSD" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Tài liệu xác nhận được phép sử dụng các dấu hiệu đặc biệt (biểu tượng, cờ, huy hiệu, con dấu…), gồm</label>
+            </div>
+        </div>
+        <div class="div-search-content">
+            <input type="text" id="6_TLXNDPSD" maxlength="3" placeholder="6_TLXNDPSD" />
+        </div>
+        <div class="div-search-title" style="width:190px">
+            <div>trang</div>
         </div>
     </div>
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoTLXNDPSD")
-    <div class="class_full_div_input ">
-        <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="04NH_D_11" id="6_rdoTLDKNH" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-        <div class="class_text_end" style="display:flex">
-            <label>Tài liệu xác nhận quyền đăng ký nhãn hiệu</label>
+    <div class="div-search-ad" style="display:inline-flex;">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:382px">
+                <input type="checkbox" maxlength="3" value="04NH_D_11" id="6_rdoTLDKNH" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Tài liệu xác nhận quyền đăng ký nhãn hiệu</label>
+            </div>
         </div>
     </div>
+
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoTLDKNH")
-    @* Tài liệu xác nhận thụ hưởng quyền đăng ký từ người khác *@
-    <div class="class_full_div_input ">
-        <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="04NH_D_12" id="6_rdoTLThuHuongNK" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-        <div class="class_text_end" style="display:flex">
-            <label>Tài liệu xác nhận thụ hưởng quyền đăng ký từ người khác</label>
+
+    <div class="div-search-ad" style="display:inline-flex;">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:382px">
+                <input type="checkbox" maxlength="3" value="04NH_D_12" id="6_rdoTLThuHuongNK" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Tài liệu xác nhận thụ hưởng quyền đăng ký từ người khác</label>
+            </div>
         </div>
     </div>
+
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoTLThuHuongNK")
-    <div class="class_full_div_input ">
-        <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="04NH_D_13" id="6_rdoQuyCheSDNH" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-        <div class="class_text_end" style="display:flex">
-            <label>Quy chế sử dụng NH tập thể/chứng nhận, gồm</label>
-            <input style="width:33%" type="text" id="6_txtQuyCheSDNHTrang" maxlength="3" placeholder="6_txtQuyCheSDNHTrang" />
-            <label style="padding-left:5px">trang</label>
-            <input style="width:33%" type="text" id="6_txtQuyCheSDNHBan" maxlength="3" placeholder="6_txtQuyCheSDNHBan" />
-            <label style="padding-left:5px">bản</label>
+    <div class="div-search-ad" style="display:inherit">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:382px">
+                <input type="checkbox" maxlength="3" value="04NH_D_13" id="6_rdoQuyCheSDNH" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Quy chế sử dụng NH tập thể/chứng nhận, gồm</label>
+
+            </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="6_txtQuyCheSDNHTrang" style="width:160px" maxlength="3" placeholder="6_txtQuyCheSDNHTrang" />
+            </div>
+        </div>
+        <div class="div-search-title" style="width:70px">
+            <div>trang </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="6_txtQuyCheSDNHBan" maxlength="3" placeholder="6_txtQuyCheSDNHBan" />
+            </div>
+        </div>
+        <div class="div-search-title" style="width:165px">
+            <div>bản</div>
         </div>
     </div>
+
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoQuyCheSDNH")
-    <div class="class_full_div_input ">
-        <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="04NH_D_14" id="6_rdoTLCMQUT" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-        <div class="class_text_end" style="display:flex">
-            <label>Tài liệu chứng minh quyền ưu tiên </label>
-            <input style="width:33%" type="text" id="6_txtTLCMQUT" maxlength="3" placeholder="6_txtTLCMQUT" />
-            <label style="padding-left:5px">bản</label>
+
+  
+    <div class="div-search-ad" style="display:inline-flex;">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:382px">
+                <input type="checkbox" maxlength="3" value="04NH_D_18" id="6_rdoBanDoKVDL" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Bản đồ khu vực địa lý</label>
+            </div>
         </div>
     </div>
 
-    <div class="class_full_div_input" style="padding-left:20px">
-        <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="04NH_D_15" id="6_rdoBSDDT" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-        <div class="class_text_end" style="display:flex">
-            <label>Bản sao đơn đầu tiên, gồm</label>
-            <input style="width:33%" type="text" id="6_txtBSDDT" maxlength="3" placeholder="6_txtBSDDT" />
-            <label style="padding-left:5px">bản</label>
-        </div>
-    </div>
-    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBSDDT")
-
-    <div class="class_full_div_input" style="padding-left:20px">
-        <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="04NH_D_16" id="6_rdoBDTVGom" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-        <div class="class_text_end" style="display:flex">
-            <label>Bản dịch tiếng Việt, gồm</label>
-            <input style="width:33%" type="text" id="6_txtBDTVGom" maxlength="3" placeholder="6_txtBDTVGom" />
-            <label style="padding-left:5px">bản</label>
-        </div>
-    </div>
-    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBDTVGom")
-    <div class="class_full_div_input" style="padding-left:20px">
-        <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="04NH_D_17" id="6_rdoGiayChuyenNhungUT" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-        <div class="class_text_end" style="display:flex">
-            <label> Giấy chuyển nhượng quyền ưu tiên </label>
-        </div>
-    </div>
-    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoGiayChuyenNhungUT")
-
-    <div class="class_full_div_input ">
-        <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="04NH_D_18" id="6_rdoBanDoKVDL" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-        <div class="class_text_end" style="display:flex">
-            <label>Bản đồ khu vực địa lý</label>
-        </div>
-    </div>
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBanDoKVDL")
-
-    <div class="class_full_div_input ">
-        <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="04NH_D_19" id="6_rdoVBuyBanTinh" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-        <div class="class_text_end" style="display:flex">
-            <label>Văn bản của UBND tỉnh, thành phố trực thuộc Trung ương cho phép sử dụng địa danh hoặc dấu hiệu khác chỉ nguồn gốc địa lý của đặc sản địa phượng </label>
+ 
+    <div class="div-search-ad" style="display:inline-flex;">
+        <div class="div-search-content">
+            <div class="div-checkbox">
+                <input type="checkbox" maxlength="3" value="04NH_D_19" id="6_rdoVBuyBanTinh" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Văn bản của UBND tỉnh, thành phố trực thuộc Trung ương cho phép sử dụng địa danh hoặc dấu hiệu khác chỉ nguồn gốc địa lý của đặc sản địa phượng </label>
+            </div>
         </div>
     </div>
+
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoVBuyBanTinh")
 
-    <div class="class_full_div_input ">
-        <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="04NH_D_20" id="6_rdoTLKhaiTTBS" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-        <div class="class_text_end" style="display:flex">
-            <label>Có tài liệu bổ trợ khai tại trang bổ sung</label>
+    
+    <div class="div-search-ad" style="display:inline-flex;">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:382px">
+                <input type="checkbox" maxlength="3" value="04NH_D_20" id="6_rdoTLKhaiTTBS" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Có tài liệu bổ trợ khai tại trang bổ sung</label>
+            </div>
         </div>
     </div>
-
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoTLKhaiTTBS")
 
     @* Tài liệu POA *@
-    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewPOA.cshtml", "/Content/POA/VNmese translation POA (Blank).doc")
+    @*@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewPOA.cshtml", "/Content/POA/VNmese translation POA (Blank).doc")*@
     @* Click checkbox ở đay thì partialview moi enable lên  *@
-    <div class="class_full_div_input ">
-        <div class="class_radio_head"> <input type="checkbox" maxlength="3" value="04NH_D_22" id="6_rdoTLK" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
-        <div class="class_text_end" style="display:flex">
-            <label>Tài liệu khác</label>
+    @*<div class="class_full_div_input ">
+            <div class="class_radio_head">
+            <input type="checkbox" maxlength="3" value="04NH_D_22" id="6_rdoTLK" onchange="return ShowHidenUpLoad(this.id, this.id);" /></div>
+            <div class="class_text_end" style="display:flex">
+                <label>Tài liệu khác</label>
+            </div>
+        </div>*@
+    <div class="div-search-ad" style="display:inline-flex;">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:382px">
+                <input type="checkbox" maxlength="3" value="04NH_D_22" id="6_rdoTLK" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Tài liệu khác</label>
+            </div>
         </div>
     </div>
 </div>
