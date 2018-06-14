@@ -581,8 +581,6 @@
             reponse = funcGetCheckValueAndText(formData, "_6_rdoMauNhanHieu", "2");
             formData.append("pAppDocumentInfo[2].CHAR01", $("#_6_txtSoLuongMauNH").val());
 
-
-            //
             reponse = funcGetCheckValueAndText(formData, "_6_rdoBanSaoToKhai", "3");
 
             reponse = funcGetCheckValueAndText(formData, "_6_rdoBanSaoGiayChungNhanDKNHCS", "4");
@@ -595,50 +593,17 @@
             reponse = funcGetCheckValueAndText(formData, "_6_rdoBanDichTiengViet", "7");
             formData.append("pAppDocumentInfo[7].CHAR01", $("#_6_txtSoLuongBanDichTiengViet").val());
 
-            formData.append("pAppDocumentInfo[8].CHAR01", $("#_6_rdoBanGoc").val());
+   
 
-            reponse = funcGetCheckValueAndText(formData, "6_rdoBanDichTiengViet", "8");
-            formData.append("pAppDocumentInfo[8].CHAR01", $("#6_txtBDTV_UQ").val());
+            reponse = funcGetCheckValueAndText(formData, "_6_rdoBanGoc", "8");
 
-            reponse = funcGetCheckValueAndText(formData, "6_rdoTLXNDPSD", "9");
-            formData.append("pAppDocumentInfo[9].CHAR01", $("#6_TLXNDPSD").val());
-
-            //
-            // 10 6_rdoTLDKNH
-            reponse = funcGetCheckValueAndText(formData, "6_rdoTLDKNH", "10");
+            reponse = funcGetCheckValueAndText(formData, "_6_rdoBanSao", "9");
+           
+            reponse = funcGetCheckValueAndText(formData, "_6_rdoBanGocSeNopSau", "10");
 
             // 11 6_rdoTLThuHuongNK
-            reponse = funcGetCheckValueAndText(formData, "6_rdoTLThuHuongNK", "11");
-
-
-            // 12 6_rdoQuyCheSDNH
-            reponse = funcGetCheckValueAndText(formData, "6_rdoQuyCheSDNH", "12");
-            formData.append("pAppDocumentInfo[12].CHAR01", $("#6_txtQuyCheSDNHTrang").val());
-            formData.append("pAppDocumentInfo[12].CHAR02", $("#6_txtQuyCheSDNHBan").val());
-
-            // 13 6_rdoTLCMQUT
-            reponse = funcGetCheckValueAndText(formData, "6_rdoTLCMQUT", "13");
-            formData.append("pAppDocumentInfo[13].CHAR01", $("#6_txtTLCMQUT").val());
-
-            // 13 6_rdoBSDDT----------
-            reponse = funcGetCheckValueAndText(formData, "6_rdoBSDDT", "14");
-
-            // 15 6_rdoBDTVGom
-            reponse = funcGetCheckValueAndText(formData, "6_rdoBDTVGom", "15");
-            formData.append("pAppDocumentInfo[14].CHAR01", $("#6_txtBDTVGom").val());
-
-            // 16 6_rdoGiayChuyenNhungUT
-            reponse = funcGetCheckValueAndText(formData, "6_rdoGiayChuyenNhungUT", "16");
-            // 17 6_rdoGiayChuyenNhungUT
-            reponse = funcGetCheckValueAndText(formData, "6_rdoBanDoKVDL", "17");
-            // 18 6_rdoGiayChuyenNhungUT
-            reponse = funcGetCheckValueAndText(formData, "6_rdoVBuyBanTinh", "18");
-            // 19 6_rdoGiayChuyenNhungUT
-            reponse = funcGetCheckValueAndText(formData, "6_rdoTLKhaiTTBS", "19");
-            // 20 6_rdoGiayChuyenNhungUT
-            reponse = funcGetCheckValueAndText(formData, "6_rdoPOA", "20");
-            // 21 6_rdoGiayChuyenNhungUT
-            reponse = funcGetCheckValueAndText(formData, "6_rdoTLK", "21");
+            reponse = funcGetCheckValueAndText(formData, "_6_rdoBanGocDaNopTheoDonSo", "11");
+            formData.append("pAppDocumentInfo[11].CHAR01", $("#_6_txtbanGocNopTheoDonSo").val());
 
         } catch (e) {
             console.log(e);
