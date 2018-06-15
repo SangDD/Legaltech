@@ -357,7 +357,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="tiếng" id="6_txt_Doc_TLXacNhan_Tieng" style="width:329px" disabled="disabled"/>
+                    <input type="text" placeholder="tiếng" id="6_txt_Doc_TLXacNhan_Tieng" style="width:329px" disabled="disabled" />
                 </div>
             </div>
         </div>
@@ -377,7 +377,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="số trang" id="6_txt_Doc_BDichTv_Trang" style="width:329px" disabled="disabled"/>
+                    <input type="text" placeholder="số trang" id="6_txt_Doc_BDichTv_Trang" style="width:329px" disabled="disabled" />
                 </div>
             </div>
         </div>
@@ -397,7 +397,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="tiếng" id="6_txt_Doc_POA_Tieng" style="width:329px" disabled="disabled"/>
+                    <input type="text" placeholder="tiếng" id="6_txt_Doc_POA_Tieng" style="width:329px" disabled="disabled" />
                 </div>
             </div>
         </div>
@@ -416,7 +416,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="số hình" id="6_txt_Doc_BanDichPOA_Trang" style="width:329px" disabled="disabled"/>
+                    <input type="text" placeholder="số hình" id="6_txt_Doc_BanDichPOA_Trang" style="width:329px" disabled="disabled" />
                 </div>
             </div>
         </div>
@@ -469,7 +469,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Số đơn" id="6_txt_Doc_BanGocPOA_ByApp" style="width:329px" disabled="disabled"/>
+                    <input type="text" placeholder="Số đơn" id="6_txt_Doc_BanGocPOA_ByApp" style="width:329px" disabled="disabled" />
                 </div>
             </div>
         </div>
@@ -500,7 +500,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Tên tài liệu" id="6_txt_Doc_Other" style="width:329px" disabled="disabled"/>
+                    <input type="text" placeholder="Tên tài liệu" id="6_txt_Doc_Other" style="width:329px" disabled="disabled" />
                 </div>
             </div>
         </div>
@@ -553,7 +553,7 @@
         }
     }
 
-    function ShowHidenUpLoad(pID, pClass,pTxt) {
+    function ShowHidenUpLoad(pID, pClass, pTxt) {
         try {
             if ($("#" + pID).is(':checked')) {
                 $("#div_up_" + pClass).removeClass("clssDisplaynone");
@@ -594,12 +594,12 @@
 
             // đại diện chủ đơn
             formData.append("pInfo.Appcode", v_AppCode);
-            if (funcThongTinChuDon(formData, "2") != true) {
+            if (funcThongTinDaiDienChuDon(formData, "2") != true) {
                 return false;
             }
-            var v_RepMasterType = $("input[name='2_rdoDaiDienChuDon']:checked").val();
+            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                showError('Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!');
+                jError("Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!");
                 return false;
             }
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
@@ -622,7 +622,7 @@
             }
 
             $.ajax({
-                url: '/trade-mark/register_PLB_01_SDD',
+                url: '/trade-mark-3b/register_PLB_01_SDD',
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -647,18 +647,18 @@
             });
 
         } catch (e) {
+            console.log(e);
         }
-
     });
 
-    function funcGetAppDetail(formdata) {
+    function funcGetAppDetail(formData) {
         try {
             var _YeuCauSuaDoi = $("input[name='3_rdoYeuCauSuaDoi']:checked").val();
             if (_YeuCauSuaDoi === "" || _YeuCauSuaDoi == undefined) {
                 showError('Phải chọn ít nhất 1 giá trị đơn yêu cầu sửa đổi!');
                 return false;
             }
-            formData.append("pDetail.Request_Change_Type", _YeuCauSuaDoi);
+            formData.append("pDetail.Request_Change_Type", parseInt(_YeuCauSuaDoi));
 
             var _soHinh = 0;
             var _soTrang = 0;
@@ -683,8 +683,8 @@
                     }
                 }
             }
-            formData.append("pDetail.Number_Pic", _soHinh);
-            formData.append("pDetail.Number_Page", _soTrang);
+            formData.append("pDetail.Number_Pic", parseInt(_soHinh));
+            formData.append("pDetail.Number_Page", parseInt(_soTrang));
 
             // số đơn
             var _3_SoDon = $("#3_SoDon").val();
@@ -694,7 +694,7 @@
                 });
                 return false;
             }
-            formData.append("pDetail.App_No_Change", _YeuCauSuaDoi);
+            formData.append("pDetail.App_No_Change", _3_SoDon);
 
             // Nội dung yêu cầu sửa đổi
             var _Request_To_Type = $("input[name='4_rdoNoiDungYeuCauSuaDoi']:checked").val();
@@ -702,7 +702,7 @@
                 jError("Phải chọn ít nhất 1 giá trị nội dung yêu cầu sửa đổi !");
                 return false;
             }
-            formData.append("pDetail.Request_To_Type", _Request_To_Type);
+            formData.append("pDetail.Request_To_Type", parseInt(_Request_To_Type));
 
             // đề nghị sửa thành
             var _4_DeNghiSuaThanh = $("#4_DeNghiSuaThanh").val();
@@ -714,6 +714,7 @@
             }
             formData.append("pDetail.Request_To_Content", _4_DeNghiSuaThanh);
         } catch (e) {
+            console.log(e);
             showError('Có lỗi xảy ra kiểm tra kết nối internet');
             return false;
         }

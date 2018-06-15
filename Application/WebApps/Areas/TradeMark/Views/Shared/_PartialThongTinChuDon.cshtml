@@ -58,6 +58,60 @@
     </div>
 </div>
 
+<script>
+    //Lấy thông tin chủ đơn add vào formData 
+    function funcThongTinChuDon(formData, PreID) {
+        try {
+            var txtTenDayDu = $("#" + PreID + "_txtTenDayDu").val();
+            if (txtTenDayDu === "") {
+                $("#" + PreID + "_txtTenDayDu").focus().val('');
+                showError('Tên không được để trống!');
+                return false;
+            }
+            var txtDiaChi = $("#" + PreID + "_txtDiaChi").val();
+            if (txtDiaChi === "") {
+                $("#" + PreID + "_txtDiaChi").focus().val('');
+                showError('Địa chỉ không được để trống!');
+                return false;
+            }
+            var txtDienThoai = $("#" + PreID + "_txtDienThoai").val();
+            var txtFax = $("#" + PreID + "_txtFax").val();
+            var txtEmail = $("#" + PreID + "_txtEmail").val();
+            if (txtEmail != "") {
+                if (!IsvalidEmail(txtEmail)) {
+                    $("#" + PreID + "_txtEmail").focus();
+                    showError('Email không đúng định dạng!');
+                    return false;
+                }
+            }
+            //Chủ đơn
+            if (PreID == "1") {
+                formData.append("pInfo.Master_Name", txtTenDayDu);
+                formData.append("pInfo.Master_Address", txtDiaChi);
+                formData.append("pInfo.Master_Phone", txtDienThoai);
+                formData.append("pInfo.Master_Fax", txtFax);
+                formData.append("pInfo.Master_Email", txtEmail);
+            } else if (PreID == "2") { //Người đại diện
+                formData.append("pInfo.Rep_Master_Name", txtTenDayDu);
+                formData.append("pInfo.Rep_Master_Address", txtDiaChi);
+                formData.append("pInfo.Rep_Master_Phone", txtDienThoai);
+                formData.append("pInfo.Rep_Master_Fax", txtFax);
+                formData.append("pInfo.Rep_Master_Email", txtEmail);
+                //Detail
+            } else if (PreID == "9") {
+                formData.append("pDetail.Cdk_Name_1", txtTenDayDu);
+                formData.append("pDetail.Cdk_Address_1", txtDiaChi);
+                formData.append("pDetail.Cdk_Phone_1", txtDienThoai);
+                formData.append("pDetail.Cdk_Fax_1", txtFax);
+                formData.append("pDetail.Cdk_Email_1", txtEmail);
+            }
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+</script>
+
 
  
  
