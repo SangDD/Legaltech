@@ -63,7 +63,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" value="NHTT" placeholder="0_NhanHieuTapThe" id="0_NhanHieuTapThe" />
+                        <input type="radio" name="0_NhanHieu" value="NHTT"  placeholder="0_NhanHieuTapThe" id="0_NhanHieuTapThe" />
                         <label>Nhãn hiệu tập thể</label>
                     </div>
                 </div>
@@ -169,7 +169,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="1" placeholder="4_ckbNopTaiVietNam" id="4_ckbNopTaiVietNam" />
+                        <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="NTVN" placeholder="4_ckbNopTaiVietNam" id="4_ckbNopTaiVietNam" />
                         <label>Theo đơn (các đơn) đầu tiên nộp tại Việt Nam</label>
                     </div>
                 </div>
@@ -178,7 +178,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="2" placeholder="4_ckbNopTaiParis" id="4_ckbNopTaiParis" />
+                        <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="CUPR" placeholder="4_ckbNopTaiParis" id="4_ckbNopTaiParis" />
                         <label>Theo đơn (các đơn) nộp theo Công ước Paris</label>
                     </div>
                 </div>
@@ -187,7 +187,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="3" placeholder="4_ckbThoaThuanKhac" id="4_ckbThoaThuanKhac" />
+                        <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="TTTK" placeholder="4_ckbThoaThuanKhac" id="4_ckbThoaThuanKhac" />
                         <label>Theo thoả thuận khác</label>
                     </div>
                 </div>
@@ -545,12 +545,15 @@
                 return false;
             }
             formdata.append("pDetail.Duadate", v_NgayNopDonn_0);
+
             var v_NhanHieu = $("input[name='0_NhanHieu']:checked").val();
             if (v_NhanHieu === "" || v_NhanHieu == undefined) {
                 showError('Phải chọn ít nhất 1 giá trị cho nhãn hiệu!');
                 return false;
             }
+            formdata.append("pDetail.LoaiNhanHieu", v_NhanHieu);
 
+               
             var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
             if (fileLogo != undefined || fileLogo != null) {
                 formdata.append("pDetail.pfileLogo", fileLogo[0].files[0]);
@@ -573,7 +576,8 @@
             formdata.append("pDetail.Used_Special", v_CoSDQuyenUT);
 
             var v_QuyenUuTien = 0;
-            if (v_CoSDQuyenUT == 1) {
+            if (v_CoSDQuyenUT == 1)
+            {
                 v_QuyenUuTien = $("input[name='4_YCHuongQuyen']:checked").val();
                 if (v_QuyenUuTien == undefined || v_QuyenUuTien == null || v_QuyenUuTien == 0) {
                     showError('Yêu cầu hưởng quyền ưu tiên phải chọn ít nhất 1 giá trị');

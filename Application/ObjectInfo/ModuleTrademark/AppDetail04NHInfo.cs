@@ -19,7 +19,7 @@ namespace ObjectInfos
         public string Color { get; set; }
 
         public string Description { get; set; }
-        public int Huongquyenuutien { get; set; }
+        public string Huongquyenuutien { get; set; }
 
         public int Used_Special { get; set; }
         public string Sodon_Ut { get; set; }
@@ -51,5 +51,8 @@ namespace ObjectInfos
         public string Cdk_Fax_4 { get; set; }
         public string Cdk_Email_4 { get; set; }
 
+        public string LoaiNhanHieu { get; set; }
+        public string DaiDienChuDon { get; set; }
+        public string YCHuongQuyenUT { get; set; }
     }
 }

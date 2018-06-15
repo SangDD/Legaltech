@@ -51,6 +51,8 @@ namespace DataAccess.ModuleTrademark
                 new OracleParameter("p_cdk_fax_4", OracleDbType.Varchar2, pInfo.Cdk_Fax_4, ParameterDirection.Input),
                 new OracleParameter("p_cdk_email_4", OracleDbType.Varchar2, pInfo.Cdk_Email_4, ParameterDirection.Input),
                 new OracleParameter("p_used_special", OracleDbType.Decimal, pInfo.Used_Special, ParameterDirection.Input),
+
+                new OracleParameter("P_LOAINHANHIEU", OracleDbType.Varchar2, pInfo.LoaiNhanHieu, ParameterDirection.Input),
                 paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;
@@ -107,6 +109,7 @@ namespace DataAccess.ModuleTrademark
                 new OracleParameter("p_cdk_fax_4", OracleDbType.Varchar2, pInfo.Cdk_Fax_4, ParameterDirection.Input),
                 new OracleParameter("p_cdk_email_4", OracleDbType.Varchar2, pInfo.Cdk_Email_4, ParameterDirection.Input),
                 new OracleParameter("p_used_special", OracleDbType.Decimal, pInfo.Used_Special, ParameterDirection.Input),
+                new OracleParameter("P_LOAINHANHIEU", OracleDbType.Varchar2, pInfo.LoaiNhanHieu, ParameterDirection.Input),
                 paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;

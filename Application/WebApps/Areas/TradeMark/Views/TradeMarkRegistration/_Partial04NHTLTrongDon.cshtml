@@ -3,9 +3,10 @@
 }
 <div class="div_full_100_area">
     @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CÁC TÀI LIỆU CÓ TRONG ĐƠN")
-    <div class="class_full_div_p class_text_left_bold">Tài liệu tối thiểu</div>
+    <div class="class_full_div_p class_text_left_bold clssDisplaynone">Tài liệu tối thiểu</div>
     <br />
-    <div class="div-search-ad" style="display:inherit">
+    @* An di theo yc cua khach hang *@
+    <div class="div-search-ad" style="display:none">
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
                 <input type="checkbox" maxlength="3" value="04NH_D_01" id="6_rdoToKhai" onchange="return ShowHidenUpLoad(this.id, this.id);" />
@@ -30,11 +31,8 @@
             </div>
         </div>
     </div>
-
-
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoToKhai")
-
-    <div class="div-search-ad" style="display:inline-flex;">
+    <div class="div-search-ad" style="display:none;">
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
                 <input type="checkbox" maxlength="3" value="04NH_D_02" id="6_rdoMauNhanHieuTD" onchange="return ShowHidenUpLoad(this.id, this.id);" />
@@ -42,19 +40,16 @@
             </div>
         </div>
         <div class="div-search-content">
-            <div> <input style="width:160px" type="text" id="6_txtMauNhanHieuTD" maxlength="50" placeholder="6_txtMauNhanHieuTD" /></div>
+            <div> <input style="width:160px" type="text" id="6_txtMauNhanHieuTD" value="9" maxlength="50" placeholder="6_txtMauNhanHieuTD" /></div>
         </div>
         <div class="div-search-title" style="width:412px">
             <div>mẫu</div>
         </div>
     </div>
 
-
-
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoMauNhanHieuTD")
 
- 
-    <div class="div-search-ad" style="display:inline-flex;">
+    <div class="div-search-ad" style="display:none;">
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
                 <input type="checkbox" maxlength="3" value="04NH_D_03" id="6_rdoChungTuPhiLP" onchange="return ShowHidenUpLoad(this.id, this.id);" />
@@ -62,11 +57,10 @@
             </div>
         </div>
     </div>
-
-
-
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoChungTuPhiLP")
-    <div class="class_full_div_p class_text_left_bold">Tài liệu tối thiểu</div>
+    @* An di theo yc cua khach hang *@
+
+    <div class="class_full_div_p class_text_left_bold">Tài liệu khác</div>
     <br />
 
     <div class="div-search-ad" style="display:inline-flex;">
@@ -83,9 +77,9 @@
         </div>
 
     </div>
- 
+
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoGiayUyQuyen")
- 
+
 
     <div class="div-search-ad" style="display:inline-flex;margin-left: 40px;">
         <div class="div-search-content">
@@ -124,7 +118,7 @@
         <div class="div-search-content">
             <div class="div-radio" style="width:302px">
                 <input type="radio" name="bansao" value="04NH_D_08" id="6_rdoBanGocDaNopTheoDonSo" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                <label>bản gốc đã nộp theo đơn số</label>
+                <label>bản gốc đã nộp theo đơn số <a href="javascript:;" st class="icon icon-info" data-title="Nếu Người nộp đơn không nhớ số đơn gốc thì có thể để trống, Luật sư sẽ điền thay sau"></a></label>
             </div>
         </div>
         <div class="div-search-content">
@@ -217,7 +211,7 @@
 
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoQuyCheSDNH")
 
-  
+
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
@@ -228,7 +222,7 @@
     </div>
 
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBanDoKVDL")
- 
+
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
             <div class="div-checkbox">
@@ -240,7 +234,7 @@
 
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoVBuyBanTinh")
 
-    
+
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
