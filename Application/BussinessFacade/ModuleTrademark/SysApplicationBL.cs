@@ -4,6 +4,7 @@ using ObjectInfos;
 using ObjectInfos.ModuleTrademark;
 using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace BussinessFacade.ModuleTrademark
 {
@@ -43,7 +44,22 @@ namespace BussinessFacade.ModuleTrademark
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return new List<SysApplicationInfo>(); 
+                return new List<SysApplicationInfo>();
+            }
+        }
+
+        public List<SysAppFixChargeInfo> Sys_App_Fix_Charge_GetAll()
+        {
+            try
+            {
+                SysApplicationDA _da = new SysApplicationDA();
+                DataSet ds = _da.Sys_App_Fix_Charge_GetAll();
+                return CBO<SysAppFixChargeInfo>.FillCollectionFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<SysAppFixChargeInfo>();
             }
         }
 

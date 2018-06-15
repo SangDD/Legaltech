@@ -25,6 +25,11 @@
 
         public static List<AppClassInfo> clstAppClass = new List<AppClassInfo>();
 
+        /// <summary>
+        /// thông tin fee tĩnh theo đơn, key: appcode_ID(Fee)
+        /// </summary>
+        public static Dictionary<string, SysAppFixChargeInfo> c_dic_FeeByApp_Fix = new Dictionary<string, SysAppFixChargeInfo>();
+
         public static void LoadAllMemoryData()
         {
             try
@@ -67,6 +72,14 @@
                 //Load lên mem
                 clstAppClass = AppClassInfoBL.AppClassGetOnMem();
 
+                // dangtq thêm thông tin fee tĩnh theo đơn
+                c_dic_FeeByApp_Fix = new Dictionary<string, SysAppFixChargeInfo>();
+                SysApplicationBL _SysApplicationBL = new SysApplicationBL();
+                List<SysAppFixChargeInfo> _lst1 = _SysApplicationBL.Sys_App_Fix_Charge_GetAll();
+                foreach (SysAppFixChargeInfo item in _lst1)
+                {
+                    c_dic_FeeByApp_Fix[item.Appcode + "_" + item.Fee_Id.ToString()] = item;
+                }
             }
             catch (Exception ex)
             {

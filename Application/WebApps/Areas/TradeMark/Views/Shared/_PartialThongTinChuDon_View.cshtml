@@ -1,0 +1,64 @@
+﻿@using ObjectInfos
+@{
+    ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.ApplicationHeaderInfo != null)
+    {
+        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.ApplicationHeaderInfo;
+    }
+}
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div> Tên đầy đủ:</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" maxlength="200" value="@_AppHeaderInfo.Master_Name" disabled="disabled"/>
+        </div>
+    </div>
+</div>
+
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div> Địa chỉ: </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" maxlength="200" value="@_AppHeaderInfo.Master_Address" disabled="disabled"/>
+        </div>
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div> Điện thoại: </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" maxlength="50" style="width: 250px;" value="@_AppHeaderInfo.Master_Phone" disabled="disabled"/> 
+        </div>
+    </div>
+
+    <div class="div-search-title">
+        <div> Fax: </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" maxlength="50" value="@_AppHeaderInfo.Master_Fax" disabled="disabled"/>
+        </div>
+    </div>
+    <div class="div-search-title">
+        <div>Email:  </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" maxlength="50" value="@_AppHeaderInfo.Master_Email" disabled="disabled"/>
+        </div>
+    </div>
+</div>
+
+
+
+
+

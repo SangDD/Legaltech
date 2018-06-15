@@ -1,0 +1,108 @@
+﻿@using ObjectInfos
+@{
+    ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.ApplicationHeaderInfo != null)
+    {
+        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.ApplicationHeaderInfo;
+    }
+}
+
+<div class="div-search-ad">
+    <div class="div-search-content">
+        <div class="div-radio">
+            @if (_AppHeaderInfo.Rep_Master_Type == "DDPL")
+            {
+                <input type="radio" name="_2_DaiDienChuDon" value="DDPL" placeholder="_2_rdoNguoiDaiDienPL" id="_2_rdoNguoiDaiDienPL" disabled="disabled" checked="checked"/>
+            }
+            else
+            {
+                <input type="radio" name="_2_DaiDienChuDon" value="DDPL" placeholder="_2_rdoNguoiDaiDienPL" id="_2_rdoNguoiDaiDienPL" disabled="disabled" />
+            }
+            <label>Là người đại diện theo pháp luật của chủ đơn</label>
+        </div>
+    </div>
+
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-content">
+        <div class="div-radio">
+            @if (_AppHeaderInfo.Rep_Master_Type == "DVDL")
+            {
+            <input type="radio" name="_2_DaiDienChuDon" value="DVDL" placeholder="_2_rdoToChucDichVuDL" id="_2_rdoToChucDichVuDL" disabled="disabled" checked="checked" />
+            }
+            else
+            {
+                <input type="radio" name="_2_DaiDienChuDon" value="DVDL" placeholder="_2_rdoToChucDichVuDL" id="_2_rdoToChucDichVuDL" disabled="disabled" />
+            }
+            <label>Là tổ chức dịch vụ đại diện sở hữu công nghiệp được uỷ quyền của chủ đơn </label>
+        </div>
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-content">
+        <div class="div-radio">
+            @if (_AppHeaderInfo.Rep_Master_Type == "NDUQ")
+            {
+            <input type="radio" name="_2_DaiDienChuDon" value="NDUQ" placeholder="_2_rdoNguoiDuocUyQuyen" id="_2_rdoNguoiDuocUyQuyen" disabled="disabled" checked="checked" />
+            }
+            else
+            {
+                <input type="radio" name="_2_DaiDienChuDon" value="NDUQ" placeholder="_2_rdoNguoiDuocUyQuyen" id="_2_rdoNguoiDuocUyQuyen" disabled="disabled" />
+            }
+            
+            <label>Là người khác được uỷ quyền của chủ đơn </label>
+        </div>
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div> Tên đầy đủ:</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" value="@_AppHeaderInfo.Rep_Master_Name" maxlength="200" disabled="disabled"/>
+        </div>
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div> Địa chỉ: </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text"  value="@_AppHeaderInfo.Rep_Master_Address" maxlength="200" disabled="disabled"/>
+        </div>
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div> Điện thoại: </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" p value="@_AppHeaderInfo.Rep_Master_Phone" style="width: 250px;" maxlength="50" disabled="disabled"/>
+        </div>
+    </div>
+
+    <div class="div-search-title">
+        <div> Fax: </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text"  value="@_AppHeaderInfo.Rep_Master_Fax" maxlength="50" disabled="disabled"/>
+        </div>
+    </div>
+    <div class="div-search-title">
+        <div>Email:  </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text"  value="@_AppHeaderInfo.Rep_Master_Email" maxlength="50" disabled="disabled"/>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,29 @@
 ﻿@using WebApps.CommonFunction;
 @using BussinessFacade.ModuleMemoryData
+@using ObjectInfos
+@using ObjectInfos.ModuleTrademark
 @{
     ViewBag.Title = "Đăng ký nhãn hiệu";
     Layout = "~/ViewsShared/_Layout.cshtml";
+
+
+    ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.AppHeaderInfo != null)
+    {
+        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.AppHeaderInfo;
+    }
+
+    App_Detail_PLB01_SDD_Info _App_Detail = new App_Detail_PLB01_SDD_Info();
+    if (ViewBag.App_Detail != null)
+    {
+        _App_Detail = (App_Detail_PLB01_SDD_Info)ViewBag.App_Detail;
+    }
+
+    List<AppDocumentInfo> Lst_AppDoc = new List<AppDocumentInfo>();
+    if (ViewBag.Lst_AppDoc != null)
+    {
+        Lst_AppDoc = (List<AppDocumentInfo>)ViewBag.Lst_AppDoc;
+    }
 }
 
 <style>
@@ -28,7 +49,7 @@
     </ul>
 </div>
 
-<input type="hidden" id="txtAppCode" value='@ViewBag.AppCode' />
+<input type="hidden" id="txtAppCode" value='@_AppHeaderInfo.Appcode' />
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
@@ -41,7 +62,7 @@
                 CHỦ ĐƠN
             </div>
         </div>
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon_View.cshtml")
 
         @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
         <div class="divCover cls_form_title">
@@ -50,19 +71,10 @@
                 ĐẠI DIỆN CỦA CHỦ ĐƠN
             </div>
         </div>
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon_View.cshtml")
         @* end 2 *@
 
         @* 3 - ĐƠN YÊU CẦU SỬA ĐỔI *@
-        @*<div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-checkbox">
-                        <input type="checkbox" onchange="Change_AutoAcc()" id="IsAutoAcc">
-                        <label>Tự động sinh mã </label>
-                    </div>
-                </div>
-            </div>*@
-
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
@@ -73,14 +85,28 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio" style="width:382px">
-                    <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdDonSangChe" value="1" onchange="return ShowHiden_SoHinhSoTrang()">
+                    @if (_App_Detail.Request_Change_Type == 1)
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdDonSangChe" value="1" disabled="disabled" checked="checked" />
+                    }
+                    else
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdDonSangChe" value="1" disabled="disabled" />
+                    }
                     <label>Đơn đăng ký sáng chế</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
-                    <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdKieuDangCongNghiep" value="2" onchange="return ShowHiden_SoHinhSoTrang()">
+                    @if (_App_Detail.Request_Change_Type == 2)
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdKieuDangCongNghiep" value="2" disabled="disabled" checked="checked" />
+                    }
+                    else
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdKieuDangCongNghiep" value="2" disabled="disabled" />
+                    }
                     <label>Đơn đăng ký kiểu dáng công nghiệp</label>
                 </div>
             </div>
@@ -109,14 +135,28 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio" style="width:382px">
-                    <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdMachTichHop" value="3" onchange="return ShowHiden_SoHinhSoTrang()">
+                    @if (_App_Detail.Request_Change_Type == 3)
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdMachTichHop" value="3" disabled="disabled" checked="checked" />
+                    }
+                    else
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdMachTichHop" value="3" disabled="disabled" />
+                    }
                     <label>Đơn đăng ký thiết kế bố trí mạch tích hợp bán dẫn</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
-                    <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdDKNhanHieu" value="4" onchange="return ShowHiden_SoHinhSoTrang()">
+                    @if (_App_Detail.Request_Change_Type == 4)
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdDKNhanHieu" value="4" disabled="disabled" checked="checked" />
+                    }
+                    else
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdDKNhanHieu" value="4" disabled="disabled" />
+                    }
                     <label>Đơn đăng ký nhãn hiệu</label>
                 </div>
             </div>
@@ -125,7 +165,14 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio">
-                    <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdChiDanDiaLy" value="5" onchange="return ShowHiden_SoHinhSoTrang()">
+                    @if (_App_Detail.Request_Change_Type == 5)
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdChiDanDiaLy" value="5" disabled="disabled" checked="checked" />
+                    }
+                    else
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdChiDanDiaLy" value="5" disabled="disabled" />
+                    }
                     <label>Đơn đăng ký chỉ dẫn địa lý </label>
                 </div>
             </div>
@@ -137,7 +184,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="3_SoDon" id="3_SoDon"/>
+                    <input type="text" placeholder="3_SoDon" id="3_SoDon" value="@_App_Detail.App_No_Change" disabled="disabled"/>
                 </div>
             </div>
         </div>
@@ -155,14 +202,28 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio" style="width:382px">
-                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1">
+                    @if (_App_Detail.Request_To_Type == 1)
+                    {
+                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1" disabled="disabled" checked="checked" />
+                    }
+                    else
+                    {
+                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1" disabled="disabled" checked="checked" />
+                    }
                     <label>Tên chủ đơn</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
-                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2">
+                    @if (_App_Detail.Request_To_Type == 2)
+                    {
+                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2" disabled="disabled" checked="checked" />
+                    }
+                    else
+                    {
+                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2" disabled="disabled" />
+                    }
                     <label>Địa chỉ của chủ đơn</label>
                 </div>
             </div>
@@ -171,7 +232,14 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio" style="width:382px">
-                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3">
+                    @if (_App_Detail.Request_To_Type == 3)
+                    {
+                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3" disabled="disabled" checked="checked" />
+                    }
+                    else
+                    {
+                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3" disabled="disabled" />
+                    }
                     <label>Nội dung khác </label>
                 </div>
             </div>
@@ -181,7 +249,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="4_DeNghiSuaThanh" id="4_DeNghiSuaThanh" />
+                    <input type="text" placeholder="4_DeNghiSuaThanh" id="4_DeNghiSuaThanh" disabled="disabled" value="@_App_Detail.Request_To_Content" />
                 </div>
             </div>
         </div>
@@ -328,7 +396,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Số trang" id="6_txt_Doc_ToKhai_SoTrang" style="width:329px"/>
+                    <input type="text" placeholder="Số trang" id="6_txt_Doc_ToKhai_SoTrang" style="width:329px" />
                 </div>
             </div>
         </div>
