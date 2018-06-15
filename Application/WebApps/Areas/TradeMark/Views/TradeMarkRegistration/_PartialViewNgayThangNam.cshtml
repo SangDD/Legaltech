@@ -1,4 +1,16 @@
-﻿
+﻿@using ObjectInfos
+@{
+    var objAppHeaderInfo = new AppDetail04NHInfo();
+    string KhaiTai = "", Ngay = "", Thang = "", Nam = "";
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        objAppHeaderInfo = (AppDetail04NHInfo)ViewBag.objAppHeaderInfo;
+        KhaiTai = objAppHeaderInfo.Address;
+        Ngay = objAppHeaderInfo.DateNo;
+        Thang = objAppHeaderInfo.Months;
+        Nam = objAppHeaderInfo.Years;
+    }
+}
 <div class="div_full_100_area">
     @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CAM KẾT CỦA CHỦ ĐƠN")
     <div style="text-align: center;">
@@ -12,7 +24,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" style="margin-left: 1px;" placeholder="txtKhaiTai" maxlength="200" id="txtKhaiTai" />
+                <input type="text" style="margin-left: 1px;" value="@KhaiTai" placeholder="txtKhaiTai" maxlength="200" id="txtKhaiTai" />
             </div>
         </div>
     </div>
@@ -30,13 +42,27 @@
                     <select id="cboNgayKhai" class="classNgayThangNam">
                         @for (int i = 1; i < 32; i++)
                         {
-                            if (i.ToString().PadLeft(2, '0') == DateTime.Now.ToString("dd"))
-                            {
-                                <option selected="selected" value="@i.ToString().PadLeft(2, '0')">@i.ToString().PadLeft(2, '0')</option>
+                                if (!string.IsNullOrEmpty(Ngay))
+                                {
+                                    if (i.ToString().PadLeft(2, '0') == Ngay)
+                                    {
+                                    <option selected="selected" value="@i.ToString().PadLeft(2, '0')">@i.ToString().PadLeft(2, '0')</option>
+                                }
+                                else
+                                {
+                                    <option value="@i.ToString().PadLeft(2, '0')">@i.ToString().PadLeft(2, '0')</option>
+                                }
                             }
                             else
                             {
-                                <option value="@i.ToString().PadLeft(2,'0')">@i.ToString().PadLeft(2, '0')</option>
+                                if (i.ToString().PadLeft(2, '0') == DateTime.Now.ToString("dd"))
+                                {
+                                    <option selected="selected" value="@i.ToString().PadLeft(2, '0')">@i.ToString().PadLeft(2, '0')</option>
+                                }
+                                else
+                                {
+                                    <option value="@i.ToString().PadLeft(2, '0')">@i.ToString().PadLeft(2, '0')</option>
+                                }
                             }
 
                         }
@@ -52,15 +78,28 @@
                     <select id="cboThangKhai" class="classNgayThangNam">
                         @for (int i = 1; i < 13; i++)
                         {
-                            if (i.ToString().PadLeft(2, '0') == DateTime.Now.ToString("MM"))
-                            {
-                                <option selected="selected" value="@i.ToString().PadLeft(2,'0')">@i.ToString().PadLeft(2, '0')</option>
+                                if (!string.IsNullOrEmpty(Thang))
+                                {
+                                    if (i.ToString().PadLeft(2, '0') == Thang)
+                                    {
+                                    <option selected="selected" value="@i.ToString().PadLeft(2, '0')">@i.ToString().PadLeft(2, '0')</option>
+                                }
+                                else
+                                {
+                                    <option value="@i.ToString().PadLeft(2, '0')">@i.ToString().PadLeft(2, '0')</option>
+                                }
                             }
                             else
                             {
-                                <option value="@i.ToString().PadLeft(2,'0')">@i.ToString().PadLeft(2, '0')</option>
+                                if (i.ToString().PadLeft(2, '0') == DateTime.Now.ToString("MM"))
+                                {
+                                    <option selected="selected" value="@i.ToString().PadLeft(2, '0')">@i.ToString().PadLeft(2, '0')</option>
+                                }
+                                else
+                                {
+                                    <option value="@i.ToString().PadLeft(2, '0')">@i.ToString().PadLeft(2, '0')</option>
+                                }
                             }
-
                         }
                     </select>
                 </div>
@@ -74,13 +113,27 @@
                     <select id="cboNamKhai" class="classNgayThangNam">
                         @for (int i = 2005; i < 2051; i++)
                         {
-                            if (i.ToString() == DateTime.Now.ToString("yyyy"))
+                            if (!string.IsNullOrEmpty(Nam))
                             {
-                                <option selected="selected" value="@i.ToString()">@i.ToString()</option>
+                                if (i.ToString() == Nam)
+                                {
+                                    <option selected="selected" value="@i.ToString()">@i.ToString()</option>
+                                }
+                                else
+                                {
+                                    <option value="@i.ToString()">@i.ToString()</option>
+                                }
                             }
                             else
                             {
-                                <option value="@i.ToString()">@i.ToString()</option>
+                                if (i.ToString() == DateTime.Now.ToString("yyyy"))
+                                {
+                                    <option selected="selected" value="@i.ToString()">@i.ToString()</option>
+                                }
+                                else
+                                {
+                                    <option value="@i.ToString()">@i.ToString()</option>
+                                }
                             }
                         }
                     </select>

@@ -1,5 +1,6 @@
 ﻿@using System
 @using System.Data
+@using ObjectInfos
 @model string
 @{
     string txtTenDayDu = Model + "_txtTenDayDu";
@@ -7,7 +8,43 @@
     string txtDienThoai = Model + "_txtDienThoai";
     string txtFax = Model + "_txtFax";
     string txtEmail = Model + "_txtEmail";
-
+    var objAppHeaderInfo = new AppDetail04NHInfo();
+    string Name = "", Address = "", Phone = "", Fax = "", Email = "";
+    if (Model == "10")
+    {
+        if (ViewBag.objAppHeaderInfo != null)
+        {
+            objAppHeaderInfo = (AppDetail04NHInfo)ViewBag.objAppHeaderInfo;
+            Name = objAppHeaderInfo.Cdk_Name_2;
+            Address = objAppHeaderInfo.Cdk_Address_2;
+            Phone = objAppHeaderInfo.Cdk_Phone_2;
+            Fax = objAppHeaderInfo.Cdk_Fax_2;
+            Email = objAppHeaderInfo.Cdk_Email_2;
+        }
+    }else if (Model == "11")
+    {
+        if (ViewBag.objAppHeaderInfo != null)
+        {
+            objAppHeaderInfo = (AppDetail04NHInfo)ViewBag.objAppHeaderInfo;
+            Name = objAppHeaderInfo.Cdk_Name_3;
+            Address = objAppHeaderInfo.Cdk_Address_3;
+            Phone = objAppHeaderInfo.Cdk_Phone_3;
+            Fax = objAppHeaderInfo.Cdk_Fax_3;
+            Email = objAppHeaderInfo.Cdk_Email_3;
+        }
+    }
+    else if (Model == "12")
+    {
+        if (ViewBag.objAppHeaderInfo != null)
+        {
+            objAppHeaderInfo = (AppDetail04NHInfo)ViewBag.objAppHeaderInfo;
+            Name = objAppHeaderInfo.Cdk_Name_4;
+            Address = objAppHeaderInfo.Cdk_Address_4;
+            Phone = objAppHeaderInfo.Cdk_Phone_4;
+            Fax = objAppHeaderInfo.Cdk_Fax_4;
+            Email = objAppHeaderInfo.Cdk_Email_4;
+        }
+    }
 }
 <div class="div_full_100_area">
     <div class="div-search-ad">
@@ -16,7 +53,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="@txtTenDayDu" id="@txtTenDayDu" />
+                <input type="text" placeholder="@txtTenDayDu" value="@Name" id="@txtTenDayDu" />
             </div>
         </div>
     </div>
@@ -26,7 +63,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="@txtDiaChi" id="@txtDiaChi" />
+                <input type="text" placeholder="@txtDiaChi" value="@Address" i id="@txtDiaChi" />
             </div>
         </div>
     </div>
@@ -36,7 +73,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="@txtDienThoai" maxlength="50" id="@txtDienThoai" style="width:251px" />
+                <input type="text" placeholder="@txtDienThoai" value="@Phone" i maxlength="50" id="@txtDienThoai" style="width:251px" />
             </div>
         </div>
 
@@ -45,7 +82,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="@txtFax" maxlength="50" id="@txtFax" style="width:251px" />
+                <input type="text" placeholder="@txtFax" value="@Fax" i maxlength="50" id="@txtFax" style="width:251px" />
             </div>
         </div>
         <div class="div-search-title">
@@ -53,63 +90,63 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="@txtEmail" maxlength="50" id="@txtEmail" />
+                <input type="text" placeholder="@txtEmail" maxlength="50" value="@Email" i id="@txtEmail" />
             </div>
         </div>
     </div>
 </div>
 
 
-    <script>
-        //Lấy thông tin chủ đơn add vào formData
-        function funcThongTinChuDonKhac(formData, PreID) {
-            try {
-                var txtTenDayDu = $("#" + PreID + "_txtTenDayDu").val();
-                if (txtTenDayDu === "") {
-                    $("#" + PreID + "_txtTenDayDu").focus().val('');
-                    showError('Tên không được để trống!');
-                    return false;
-                }
-                var txtDiaChi = $("#" + PreID + "_txtDiaChi").val();
-                if (txtDiaChi === "") {
-                    $("#" + PreID + "_txtDiaChi").focus().val('');
-                    showError('Địa chỉ không được để trống!');
-                    return false;
-                }
-                var txtDienThoai = $("#" + PreID + "_txtDienThoai").val();
-                var txtFax = $("#" + PreID + "_txtFax").val();
-                var txtEmail = $("#" + PreID + "_txtEmail").val();
-                if (txtEmail != "") {
-                    if (!IsvalidEmail(txtEmail)) {
-                        $("#" + PreID + "_txtEmail").focus();
-                        showError('Email không đúng định dạng!');
-                        return false;
-                    }
-                }
-                //Chủ đơn
-                if (PreID == "10") {
-                    formData.append("pDetail.Cdk_Name_2", txtTenDayDu);
-                    formData.append("pDetail.Cdk_Address_2", txtDiaChi);
-                    formData.append("pDetail.Cdk_Phone_2", txtDienThoai);
-                    formData.append("pDetail.Cdk_Fax_2", txtFax);
-                    formData.append("pDetail.Cdk_Email_2", txtEmail);
-                } else if (PreID == "11") {
-                    formData.append("pDetail.Cdk_Name_3", txtTenDayDu);
-                    formData.append("pDetail.Cdk_Address_3", txtDiaChi);
-                    formData.append("pDetail.Cdk_Phone_3", txtDienThoai);
-                    formData.append("pDetail.Cdk_Fax_3", txtFax);
-                    formData.append("pDetail.Cdk_Email_3", txtEmail);
-                }
-                else if (PreID == "12") {
-                    formData.append("pDetail.Cdk_Name_4", txtTenDayDu);
-                    formData.append("pDetail.Cdk_Address_4", txtDiaChi);
-                    formData.append("pDetail.Cdk_Phone_4", txtDienThoai);
-                    formData.append("pDetail.Cdk_Fax_4", txtFax);
-                    formData.append("pDetail.Cdk_Email_4", txtEmail);
-                }
-                return true;
-            } catch (e) {
+<script>
+    //Lấy thông tin chủ đơn add vào formData
+    function funcThongTinChuDonKhac(formData, PreID) {
+        try {
+            var txtTenDayDu = $("#" + PreID + "_txtTenDayDu").val();
+            if (txtTenDayDu === "") {
+                $("#" + PreID + "_txtTenDayDu").focus().val('');
+                showError('Tên không được để trống!');
                 return false;
             }
+            var txtDiaChi = $("#" + PreID + "_txtDiaChi").val();
+            if (txtDiaChi === "") {
+                $("#" + PreID + "_txtDiaChi").focus().val('');
+                showError('Địa chỉ không được để trống!');
+                return false;
+            }
+            var txtDienThoai = $("#" + PreID + "_txtDienThoai").val();
+            var txtFax = $("#" + PreID + "_txtFax").val();
+            var txtEmail = $("#" + PreID + "_txtEmail").val();
+            if (txtEmail != "") {
+                if (!IsvalidEmail(txtEmail)) {
+                    $("#" + PreID + "_txtEmail").focus();
+                    showError('Email không đúng định dạng!');
+                    return false;
+                }
+            }
+            //Chủ đơn
+            if (PreID == "10") {
+                formData.append("pDetail.Cdk_Name_2", txtTenDayDu);
+                formData.append("pDetail.Cdk_Address_2", txtDiaChi);
+                formData.append("pDetail.Cdk_Phone_2", txtDienThoai);
+                formData.append("pDetail.Cdk_Fax_2", txtFax);
+                formData.append("pDetail.Cdk_Email_2", txtEmail);
+            } else if (PreID == "11") {
+                formData.append("pDetail.Cdk_Name_3", txtTenDayDu);
+                formData.append("pDetail.Cdk_Address_3", txtDiaChi);
+                formData.append("pDetail.Cdk_Phone_3", txtDienThoai);
+                formData.append("pDetail.Cdk_Fax_3", txtFax);
+                formData.append("pDetail.Cdk_Email_3", txtEmail);
+            }
+            else if (PreID == "12") {
+                formData.append("pDetail.Cdk_Name_4", txtTenDayDu);
+                formData.append("pDetail.Cdk_Address_4", txtDiaChi);
+                formData.append("pDetail.Cdk_Phone_4", txtDienThoai);
+                formData.append("pDetail.Cdk_Fax_4", txtFax);
+                formData.append("pDetail.Cdk_Email_4", txtEmail);
+            }
+            return true;
+        } catch (e) {
+            return false;
         }
-    </script>
+    }
+</script>

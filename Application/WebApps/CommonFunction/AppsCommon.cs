@@ -93,7 +93,7 @@ namespace WebApps.CommonFunction
     {
         public static string DaiDienPL = "DDPL";
         public static string DaiDienSH = "DDSH";
-        public static string DaiDienUyQuyen = "UQUQ";
+        public static string DaiDienUyQuyen = "DDUQ";
     }
 
        

@@ -1,5 +1,4 @@
-﻿@using System
-@using System.Data
+﻿@using ObjectInfos
 @model string
 @{
     string txtTenDayDu = Model + "_txtTenDayDu";
@@ -7,6 +6,45 @@
     string txtDienThoai = Model + "_txtDienThoai";
     string txtFax = Model + "_txtFax";
     string txtEmail = Model + "_txtEmail";
+
+    var objAppHeaderInfo = new AppDetail04NHInfo();
+    string Name = "", Address = "", Phone = "", Fax = "", Email = "";
+    if (Model == "1")
+    {
+        if (ViewBag.objAppHeaderInfo != null)
+        {
+            objAppHeaderInfo = (AppDetail04NHInfo)ViewBag.objAppHeaderInfo;
+            Name = objAppHeaderInfo.Master_Name;
+            Address = objAppHeaderInfo.Master_Address;
+            Phone = objAppHeaderInfo.Master_Phone;
+            Fax = objAppHeaderInfo.Master_Fax;
+            Email = objAppHeaderInfo.Master_Email;
+        }
+    }
+    else if (Model == "2")
+    {
+        if (ViewBag.objAppHeaderInfo != null)
+        {
+            objAppHeaderInfo = (AppDetail04NHInfo)ViewBag.objAppHeaderInfo;
+            Name = objAppHeaderInfo.Rep_Master_Name;
+            Address = objAppHeaderInfo.Rep_Master_Address;
+            Phone = objAppHeaderInfo.Rep_Master_Phone;
+            Fax = objAppHeaderInfo.Rep_Master_Fax;
+            Email = objAppHeaderInfo.Rep_Master_Email;
+        }
+    }
+    else if (Model == "9")
+    {
+        if (ViewBag.objAppHeaderInfo != null)
+        {
+            objAppHeaderInfo = (AppDetail04NHInfo)ViewBag.objAppHeaderInfo;
+            Name = objAppHeaderInfo.Cdk_Name_1;
+            Address = objAppHeaderInfo.Cdk_Address_1;
+            Phone = objAppHeaderInfo.Cdk_Phone_1;
+            Fax = objAppHeaderInfo.Cdk_Fax_1;
+            Email = objAppHeaderInfo.Cdk_Email_1;
+        }
+    }
 }
 <div class="div-search-ad">
     <div class="div-search-title">
@@ -14,7 +52,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="@txtTenDayDu" id="@txtTenDayDu" />
+            <input type="text" placeholder="@txtTenDayDu" value="@Name" id="@txtTenDayDu" />
         </div>
     </div>
 </div>
@@ -26,18 +64,18 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="@txtDiaChi" id="@txtDiaChi" />
+            <input type="text" placeholder="@txtDiaChi" value="@Address" id="@txtDiaChi" />
         </div>
     </div>
 </div>
- 
+
 <div class="div-search-ad">
     <div class="div-search-title">
         <div>Điện thoại:</div>
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="@txtDienThoai" maxlength="50" id="@txtDienThoai" style="width:251px" />
+            <input type="text" placeholder="@txtDienThoai" value="@Phone" maxlength="50" id="@txtDienThoai" style="width:251px" />
         </div>
     </div>
 
@@ -46,7 +84,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="@txtFax" maxlength="50" id="@txtFax" style="width:251px" />
+            <input type="text" placeholder="@txtFax" maxlength="50" value="@Fax" id="@txtFax" style="width:251px" />
         </div>
     </div>
 
@@ -55,13 +93,13 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="@txtEmail" maxlength="50" id="@txtEmail" />
+            <input type="text" placeholder="@txtEmail" value="@Email" maxlength="50" id="@txtEmail" />
         </div>
     </div>
 </div>
 
 <script>
-    //Lấy thông tin chủ đơn add vào formData 
+    //Lấy thông tin chủ đơn add vào formData
     function funcThongTinChuDonNguoiDaiDien(formData, PreID) {
         try {
             var txtTenDayDu = $("#" + PreID + "_txtTenDayDu").val();
@@ -99,8 +137,8 @@
                 formData.append("pInfo.Rep_Master_Phone", txtDienThoai);
                 formData.append("pInfo.Rep_Master_Fax", txtFax);
                 formData.append("pInfo.Rep_Master_Email", txtEmail);
-            //Detail
-            } else if(PreID == "9") {
+                //Detail
+            } else if (PreID == "9") {
                 formData.append("pDetail.Cdk_Name_1", txtTenDayDu);
                 formData.append("pDetail.Cdk_Address_1", txtDiaChi);
                 formData.append("pDetail.Cdk_Phone_1", txtDienThoai);
