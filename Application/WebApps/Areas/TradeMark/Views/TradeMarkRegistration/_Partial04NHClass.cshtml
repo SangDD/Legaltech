@@ -40,7 +40,7 @@
             </div>
         </div>
     </div>
-     
+
     <div class="class_full_div_input">
         <div class="_table_display" id="divHangHoaThem" style="width: 100%">
             <h4 class="h4_title">Hàng hóa đã thêm</h4>
@@ -72,12 +72,12 @@
 </style>
 
 <script>
-      $('#NVSCBO001_AppClassSearch').multipleSelect({
-          filter: true,
-          noMatchesFound: "Không tìm thấy dữ liệu",
-          single: true,
-          isdatastring: false,
-          placeholder: 'Tìm kiếm dữ liệu hàng hóa'
+    $('#NVSCBO001_AppClassSearch').multipleSelect({
+        filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        isdatastring: false,
+        placeholder: 'Tìm kiếm dữ liệu hàng hóa'
     });
 
     function funIncreNumberRow(table_id) {
@@ -93,6 +93,7 @@
 
     function funcAddDataRow() {
         try {
+
             var classCode = $("#NVSCBO001_AppClassSearch").val();
             var className = $("#txtTenHangHoa").val();
             if (className == "" || className == undefined) {
@@ -116,25 +117,136 @@
         }
     }
 
-    function funcAddMessDataRow(textInput, classCode, element, type) {
+    // mảng lưu xem mỗi nhóm hàng hóa có bao nhiêu thằng
+    var _ArrGroupAppClass = [];    // = [{ name: 1, value: 'a' }, { name: 2, value: 'b' }, { name: 3, value: 'c' }];
 
+
+    // 2018.06.15 Hungtd sửa
+    function funcAddMessDataRow(textInput, classCode, element, type) {
         try {
+
+            // lấy ra nhóm hàng hóa
+            var _checkExits = 0;
+            var _groupcode = classCode.substr(0, 2);
+            var _countItem = 0;
+            _ArrGroupAppClass.forEach(function (element) {
+                if (element.name == _groupcode) {
+                    _checkExits = 1;
+                    element.value = element.value + 1;
+                    return;
+                }
+            });
+            if (_checkExits == 0) {
+                // nếu chưa có thì add vào
+                var _newitem = { name: _groupcode, value: 1 };
+                _ArrGroupAppClass.push(_newitem);
+            }
+            // xóa hết các dòng tổng cộng
+            _ArrGroupAppClass.forEach(function (element) {
+                $("#_rowappclassinfo" + element.name).remove();
+            });
+
+
             textInput = textInput.trim();
             classCode = classCode.trim();
-            var _html = "<tr><td></td><td class=\"TdLeft HasSort\">" + textInput + "</td><td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td><a href=\"javascript:;\" onclick=\"funcRemoveMessDataRow(this);\">Xóa</a></td></tr>";
+            var _html = "<tr><td></td><td class=\"TdLeft HasSort\">" + textInput + "</td><td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td><a href=\"javascript:;\" onclick=\"funcRemoveMessDataRow(this, " + classCode + ");\">Xóa</a></td></tr>";
             $("#tblClassInfo").find("tbody").append(_html);
             funcReSortTable("#tblClassInfo", 'asc');
+            // add total row
+            AddTotalRows();
         } catch (e) {
             console.log(e);
         }
     }
 
-    //Xoa item
-    function funcRemoveMessDataRow(element) {
+    function AddTotalRows() {
         try {
+            // đẩy các dòng tổng xuống cuối table
+            var _countindex = 0
+            _ArrGroupAppClass.forEach(function (element) {
+                if (_countindex == 0) {
+                    _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='2' rowspan='" + _ArrGroupAppClass.length + "' class=\"tdRightAlign textbold\">Tổng cộng</td><td colspan='2' class=\"TdLeft textbold\"> " + element.name + ":" + element.value + "</td> </tr>";
+                }
+                else {
+                    _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='2' class=\"TdLeft textbold\"> " + element.name + ":" + element.value + "</td> </tr>";
+
+                }
+                $("#tblClassInfo").find("tbody").append(_html);
+                _countindex++;
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    //function funcAddMessDataRow(textInput, classCode, element, type) {
+    //    try {
+    //        textInput = textInput.trim();
+    //        classCode = classCode.trim();
+    //        var _html = "<tr><td></td><td class=\"TdLeft HasSort\">" + textInput + "</td><td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td><a href=\"javascript:;\" onclick=\"funcRemoveMessDataRow(this);\">Xóa</a></td></tr>";
+    //        $("#tblClassInfo").find("tbody").append(_html);
+    //        funcReSortTable("#tblClassInfo", 'asc');
+    //    } catch (e) {
+    //        console.log(e);
+    //    }
+    //}
+
+    //Xoa item
+    //function funcRemoveMessDataRow(element) {
+    //    try {
+    //        var _row = $(element).parent().parent();
+    //        $(_row).remove();
+    //        funcReSortTable("#tblClassInfo", 'asc');
+    //    } catch (e) {
+    //        console.log(e);
+    //    }
+    //}
+
+    function funcRemoveMessDataRow(element, _classcode) {
+        try {
+            // xóa hết các dòng tổng cộng
+            _ArrGroupAppClass.forEach(function (element) {
+                $("#_rowappclassinfo" + element.name).remove();
+            });
+            //_ArrGroupAppClass.forEach(function (element) {
+            //    if (element.name == _classcode.toString().substr(0, 2))
+            //    {
+            //        if (element.value == 1) {
+            //            // nếu hết rồi thì xóa luôn phần tử này trong mảng
+            //            _ArrGroupAppClass.splice(element);
+            //        }
+            //        else {
+            //            element.value = element.value - 1;
+            //        }
+            //        return;
+            //    }
+            //});
+
+            var index = _ArrGroupAppClass.length - 1;
+            while (index >= 0) {
+                var _appclassinfo = _ArrGroupAppClass[index];
+                if (_appclassinfo.name == _classcode.toString().substr(0, 2)) {
+                    _ArrGroupAppClass.splice(index, 1);
+                    if (_appclassinfo.value == 1) {
+                        // nếu hết rồi thì xóa luôn phần tử này trong mảng
+                    }
+                    else {
+                        _appclassinfo.value = _appclassinfo.value - 1;
+                        _ArrGroupAppClass.push(_appclassinfo);
+                    }
+                    break;
+
+                }
+
+                index -= 1;
+            }
+
             var _row = $(element).parent().parent();
             $(_row).remove();
             funcReSortTable("#tblClassInfo", 'asc');
+            // add total row
+            AddTotalRows();
+
         } catch (e) {
             console.log(e);
         }

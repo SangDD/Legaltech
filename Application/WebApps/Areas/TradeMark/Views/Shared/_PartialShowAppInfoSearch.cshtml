@@ -4,7 +4,7 @@
   <select id="NVSCBO001_AppClassSearch">
       @foreach (var item in Model)
       {
-          <option value="@item.Code">
+          <option meta-data="@item.Code" value="@item.Code">
               @item.DisplayValue
           </option>
       }
