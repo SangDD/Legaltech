@@ -330,7 +330,7 @@
     var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
     var _01_rad_DonDkOrGiayDK = $("input[name='_01_rad_DonDkOrGiayDK']:checked").val();
     var NVSCBO001_AppClassSearch = $("#NVSCBO001_AppClassSearch");
-
+    var Nvs001txt_search_app_code = $("#Nvs001txt_search_app_code");
 
 
     //
@@ -449,15 +449,11 @@
             if (reponse == false) {
                 return false;
             }
-            reponse = funcGetDataClassInfo(formData);
-            if (reponse == false) {
-                return false;
-            }
+
+            formData.append("pAppClassInfo[" + item + "].Textinput", Nvs001txt_search_app_code.val());
+            formData.append("pAppClassInfo[" + item + "].Id", NVSCBO001_AppClassSearch.val());
             //lay tai lieu khac
-            reponse = funcGetTenTaiLieuKhac(formData);
-            if (reponse == false) {
-                return false;
-            }
+            
             $.ajax({
                 url: '/trade-mark/dang_ky_nhan_hieu',
                 type: 'POST',

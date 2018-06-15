@@ -31,7 +31,7 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("P_TEXTINPUT", OracleDbType.Varchar2, TextInput, ParameterDirection.Input),
                     new OracleParameter("P_CODE", OracleDbType.Varchar2, Code, ParameterDirection.Input),
                     new OracleParameter("P_APP_HEADER_ID", OracleDbType.Decimal, App_Header_Id, ParameterDirection.Input),
-                     new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, Language, ParameterDirection.Input),
+                    new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, Language, ParameterDirection.Input),
                     paramReturn);
 
                 var result = ErrorCode.Error;
