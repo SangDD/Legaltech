@@ -473,14 +473,38 @@
                 }
                 if (AppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
                 {
-                    return TradeMarkSuaDon(App_Header_Id, AppCode, Status);
+                    return TradeMarkView(App_Header_Id, AppCode, Status);
                 }
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
             }
-            return TradeMarkSuaDon(App_Header_Id, AppCode, Status);
+            return TradeMarkView(App_Header_Id, AppCode, Status);
+        }
+
+
+        public ActionResult TradeMarkView(decimal pAppHeaderId, string pAppCode, int pStatus)
+        {
+            if (pAppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
+            {
+                var objBL = new AppDetail04NHBL();
+                string language = AppsCommon.GetCurrentLang();
+                var ds04NH = objBL.AppTM04NHGetByID(pAppHeaderId, language, pStatus);
+                if (ds04NH != null && ds04NH.Tables.Count == 5)
+                {
+                    ViewBag.objAppHeaderInfo = CBO<AppDetail04NHInfo>.FillObjectFromDataTable(ds04NH.Tables[0]);
+                    ViewBag.lstDocumentInfo = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds04NH.Tables[1]);
+                    ViewBag.lstDocOther = CBO<AppDocumentOthersInfo>.FillCollectionFromDataTable(ds04NH.Tables[2]);
+                    ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds04NH.Tables[3]);
+                    ViewBag.lstFeeInfo = CBO<AppFeeFixInfo>.FillCollectionFromDataTable(ds04NH.Tables[4]);
+                }
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialDangKyNhanHieu.cshtml");
+            }
+            else
+            {
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialDangKyNhanHieu.cshtml");
+            }
         }
 
         public ActionResult TradeMarkSuaDon(decimal pAppHeaderId, string pAppCode,int pStatus)
