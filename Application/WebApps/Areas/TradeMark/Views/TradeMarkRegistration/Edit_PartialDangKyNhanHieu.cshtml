@@ -100,6 +100,8 @@
     </ul>
 </div>
 <input type="hidden" id="txtAppCode" value='@ViewBag.AppCode' />
+<input type="hidden" id="txtAppHeaderID" value="@objAppHeaderInfo.Id" />
+
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
@@ -460,9 +462,8 @@
 
         <div class="class_save">
             <div class="classGuiDon">
-                <input type="button" value="Gửi đơn" id="btnGuiDon" class="btn class_37" />
+                <input type="button" value="Lưu" style="width:70px" id="btnGuiDon" class="btn class_37" />
             </div> <div class="classLuuTam">
-                <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn class_37" />
             </div>
         </div>
     </fieldset>
@@ -562,6 +563,15 @@
                 return false;
             }
             formData.append("pInfo.Appcode", v_AppCode);
+
+            var v_AppHeaderID = $("#txtAppHeaderID").val();
+            if (v_AppHeaderID === "") {
+                $('#txtAppHeaderID').focus().val('');
+                showError('Không lấy được ID bản ghi!');
+                return false;
+            }
+            formData.append("pInfo.Id", v_AppHeaderID);
+           
             if (funcThongTinChuDonNguoiDaiDien(formData, "2") != true) {
                 return false;
             }

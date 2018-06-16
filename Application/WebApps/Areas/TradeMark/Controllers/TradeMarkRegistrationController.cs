@@ -576,24 +576,24 @@
                 {
                     //
                     pInfo.Languague_Code = language;
-                    pInfo.Created_By = CreatedBy;
-                    pInfo.Created_Date = CreatedDate;
+                    pInfo.Modify_By = CreatedBy;
+                    pInfo.Modify_Date = CreatedDate;
                     //TRA RA ID CUA BANG KHI INSERT
-                    pAppHeaderID = objBL.AppHeaderInsert(pInfo);
+                    pAppHeaderID = objBL.AppHeaderUpdate(pInfo);
                     if (pAppHeaderID >= 0)
                     {
                         pDetail.Appcode = pInfo.Appcode;
                         pDetail.Language_Code = language;
-                        pDetail.App_Header_Id = pAppHeaderID;
+                        pDetail.App_Header_Id = pInfo.Id;
                         if (pDetail.pfileLogo != null)
                         {
                             pDetail.Logourl = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
                         }
-                        pReturn = objDetail.App_Detail_04NH_Insert(pDetail);
+                        pReturn = objDetail.App_Detail_04NH_Update(pDetail);
                         //Thêm thông tin class
                         if (pReturn >= 0)
                         {
-                            pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID, language);
+                            pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pInfo.Id, language);
                         }
                     }
                     //Tai lieu dinh kem 
@@ -610,12 +610,11 @@
                                     info.Url_Hardcopy = "~/Content/Archive/" + AppUpload.Document + pfiles.FileName;
                                     info.Status = 0;
                                 }
-                                info.App_Header_Id = pAppHeaderID;
+                                info.App_Header_Id = pInfo.Id;
                                 info.Document_Filing_Date = CommonFuc.CurrentDate();
                                 info.Language_Code = language;
                             }
-                            pReturn = objDoc.AppDocumentInsertBath(pAppDocumentInfo, pAppHeaderID);
-
+                            pReturn = objDoc.AppDocumentInsertBath(pAppDocumentInfo, pInfo.Id);
                         }
                     }
                     //tai lieu khac 
@@ -631,7 +630,7 @@
                                     info.Filename = pfiles.FileName;
                                     info.Filename = "~/Content/Archive/" + AppUpload.Document + pfiles.FileName;
                                 }
-                                info.App_Header_Id = pAppHeaderID;
+                                info.App_Header_Id = pInfo.Id; 
                                 info.Language_Code = language;
                             }
                             pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocOtherInfo);
