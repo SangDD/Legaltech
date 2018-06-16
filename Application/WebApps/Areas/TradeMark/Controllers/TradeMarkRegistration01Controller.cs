@@ -15,6 +15,7 @@
     using System.IO;
     using System.Transactions;
     using BussinessFacade;
+    using System.Web.Script.Serialization;
 
     [ValidateAntiForgeryTokenOnAllPosts]
     [RouteArea("TradeMarkRegistration", AreaPrefix = "trade-mark-01")]
@@ -351,6 +352,11 @@
 
                 return Json(new { success = 0 });
             }
+        }
+
+        public string getJson(List<AppClassDetailInfo> publicationTable)
+        { 
+            return (new JavaScriptSerializer()).Serialize(publicationTable);
         }
     }
 }
