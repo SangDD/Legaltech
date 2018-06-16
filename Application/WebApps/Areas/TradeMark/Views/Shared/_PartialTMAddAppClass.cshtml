@@ -52,6 +52,7 @@
                         <th data-sort id="Username">Hàng hóa</th>
                         <th style="width: 17%" data-sort>Mã hàng hóa</th>
                         <th style="width: 100px;"></th>
+                        <th class="clssDisplaynone"></th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -83,9 +84,16 @@
 
     function funIncreNumberRow(table_id) {
         try {
+            var _countindex = 0;
             $(table_id).find('tbody').find("tr").each(function () {
                 var _index = $(this);
-                $(this).find("td:first").text(_index[0].rowIndex);
+                var _class = "";
+                _class = $(this).find("td:first").attr('class');
+                if (_class == undefined || _class.indexOf("textbold") < 0)
+                {
+                    _countindex = _countindex + 1;
+                    $(this).find("td:first").text(_countindex);
+                }
             });
         } catch (e) {
             console.log(e);
@@ -142,19 +150,16 @@
                 var _newitem = { name: _groupcode, value: 1 };
                 _ArrGroupAppClass.push(_newitem);
             }
-            // xóa hết các dòng tổng cộng
-            _ArrGroupAppClass.forEach(function (element) {
-                $("#_rowappclassinfo" + element.name).remove();
-            });
-
+            funRemoveAllTotalRows();
 
             textInput = textInput.trim();
             classCode = classCode.trim();
-            var _html = "<tr><td></td><td class=\"TdLeft HasSort\">" + textInput + "</td><td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td><a href=\"javascript:;\" onclick=\"funcRemoveMessDataRow(this, " + classCode + ");\">Xóa</a></td></tr>";
+            var _html = "<tr><td></td><td class=\"TdLeft\">" + textInput + "</td><td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td><a href=\"javascript:;\" onclick=\"funcRemoveMessDataRow(this, " + classCode + ");\">Xóa</a></td><td class=\"HasSort clssDisplaynone\">" + classCode + "</td></tr>";
             $("#tblClassInfo").find("tbody").append(_html);
+            AddTotalRows();
             funcReSortTable("#tblClassInfo", 'asc');
             // add total row
-            AddTotalRows();
+          
         } catch (e) {
             console.log(e);
         }
@@ -163,29 +168,38 @@
     function AddTotalRows() {
         try {
             // đẩy các dòng tổng xuống cuối table
-            var _countindex = 0
+            var _html = "";
             _ArrGroupAppClass.forEach(function (element) {
-                if (_countindex == 0) {
-                    _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='2' rowspan='" + _ArrGroupAppClass.length + "' class=\"tdRightAlign textbold\">Tổng cộng</td><td colspan='2' class=\"TdLeft textbold\"> " + element.name + ":" + element.value + "</td> </tr>";
-                }
-                else {
-                    _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='2' class=\"TdLeft textbold\"> " + element.name + ":" + element.value + "</td> </tr>";
-
-                }
+                _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='2' class=\"tdRightAlign textbold\">Tổng SP</td><td colspan='2' class=\"TdLeft textbold\"> " +  element.value + "</td> <td class=\"HasSort clssDisplaynone\"> " + element.name + "999 </td> </tr>";
                 $("#tblClassInfo").find("tbody").append(_html);
-                _countindex++;
             });
+
+            // tổng số nhóm
+
+            _html = "<tr id='_rowappclassinfo0'><td colspan='2' class=\"tdRightAlign textbold\">Tổng số nhóm</td><td colspan='2' class=\"TdLeft textbold\"> " + _ArrGroupAppClass.length + "</td> <td class=\"HasSort clssDisplaynone\">  99999 </td></tr>";
+            $("#tblClassInfo").find("tbody").append(_html);
         } catch (e) {
             console.log(e);
         }
     }
  
-    function funcRemoveMessDataRow(element, _classcode) {
+    function funRemoveAllTotalRows()
+    {
         try {
             // xóa hết các dòng tổng cộng
+            $("#_rowappclassinfo0").remove();
             _ArrGroupAppClass.forEach(function (element) {
                 $("#_rowappclassinfo" + element.name).remove();
             });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    function funcRemoveMessDataRow(element, _classcode) {
+        try {
+            funRemoveAllTotalRows();
+            
             var index = _ArrGroupAppClass.length - 1;
             while (index >= 0) {
                 var _appclassinfo = _ArrGroupAppClass[index];
@@ -207,9 +221,10 @@
 
             var _row = $(element).parent().parent();
             $(_row).remove();
-            funcReSortTable("#tblClassInfo", 'asc');
             // add total row
             AddTotalRows();
+            funcReSortTable("#tblClassInfo", 'asc');
+          
 
         } catch (e) {
             console.log(e);
