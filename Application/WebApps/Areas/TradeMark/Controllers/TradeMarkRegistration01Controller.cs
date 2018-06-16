@@ -23,28 +23,28 @@
     {
         // GET: TradeMark/TradeMarkRegistration
 
-        [HttpGet]
-        [Route("dang-ky-nhan-hieu")]
-        public ActionResult DangKyNhanHieu()
-        {
-            try
-            {
-                if (SessionData.CurrentUser == null)
-                {
-                    return this.Redirect("/");
-                }
-                string language = AppsCommon.GetCurrentLang();
-                ViewBag.lstData = SysApplicationBL.GetSysAppByLanguage(language);
-                return View("~/Areas/TradeMark/Views/TradeMarkRegistration01/DangKyNhanHieu.cshtml");
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex); return View("~/Areas/TradeMark/Views/TradeMarkRegistration01/DangKyNhanHieu.cshtml");
-            }
-        }
+        //[HttpGet]
+        //[Route("dang-ky-nhan-hieu")]
+        //public ActionResult DangKyNhanHieu()
+        //{
+        //    try
+        //    {
+        //        if (SessionData.CurrentUser == null)
+        //        {
+        //            return this.Redirect("/");
+        //        }
+        //        string language = AppsCommon.GetCurrentLang();
+        //        ViewBag.lstData = SysApplicationBL.GetSysAppByLanguage(language);
+        //        return View("~/Areas/TradeMark/Views/TradeMarkRegistration01/DangKyNhanHieu.cshtml");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.LogException(ex); return View("~/Areas/TradeMark/Views/TradeMarkRegistration01/DangKyNhanHieu.cshtml");
+        //    }
+        //}
 
         [HttpGet]
-        [Route("dang-ky-nhan-hieu/{id}")]
+        [Route("request-for-trade-mark/{id}")]
         public ActionResult TradeMarkChoiseApplication()
         {
             try

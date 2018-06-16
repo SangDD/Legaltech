@@ -79,5 +79,20 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
+
+        public int AppDocOtherByID(decimal pID, string pLanguage)
+        {
+            try
+            {
+                AppDocumentDA objData = new AppDocumentDA();
+                return objData.AppDocOtherByID(pID, pLanguage);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
     }
 }
