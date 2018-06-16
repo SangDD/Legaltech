@@ -153,7 +153,7 @@
             </div>
         </div>
 
-        <div class="div-search-ad">
+        @*<div class="div-search-ad">
             <div class="div-search-title">
                 <div>Chủ đơn</div>
             </div>
@@ -171,10 +171,10 @@
                     <input type="text" id="_1_txtDiaChiChuDon" placeholder="_1_txtDiaChiChuDon" maxlength="10" />
                 </div>
             </div>
-        </div>
+        </div>*@
 
 
-        <div class="div-search-ad">
+        @*<div class="div-search-ad">
             <div class="div-search-title">
                 <div style="width:150px">Nhóm hàng hóa dịch vụ</div>
             </div>
@@ -191,9 +191,12 @@
                     </select>
                 </div>
             </div>
-        </div>
+        </div>*@
 
-        <div class="div-search-ad">
+
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml")
+
+        @*<div class="div-search-ad">
             <div class="div-search-title">
                 <div style="width:250px"> Chủ đơn/Chủ GCN (tên, địa chỉ)</div>
             </div>
@@ -202,7 +205,7 @@
                     <input type="text" id="_1_txtTenChuDon" placeholder="_1_txtTenChuDon" maxlength="200" />
                 </div>
             </div>
-        </div>
+        </div>*@
 
  
 
@@ -398,8 +401,6 @@
                 return false;
             }
            
-     
-
             // danh sach quoc gia
             var _listNational = $("#_4_cboNational01").val() + "," + $("#_4_cboNational02").val() + "," + $("#_4_cboNational03").val() + "," + $("#_4_cboNational04").val()
                 + "," + $("#_4_cboNational05").val() + "," + $("#_4_cboNational06").val() + "," + $("#_4_cboNational07").val() + "," + $("#_4_cboNational08").val();
@@ -450,9 +451,11 @@
                 return false;
             }
 
-            formData.append("pAppClassInfo[" + item + "].Textinput", Nvs001txt_search_app_code.val());
-            formData.append("pAppClassInfo[" + item + "].Id", NVSCBO001_AppClassSearch.val());
-            //lay tai lieu khac
+            reponse = funcGetDataClassInfo(formData);
+            if (reponse == false) {
+                return false;
+            }
+
             
             $.ajax({
                 url: '/trade-mark/dang_ky_nhan_hieu',
@@ -499,7 +502,8 @@
             formdata.append("pDetail.DON_GIAY_DKNHCS", v_don_giaydknhcs);
             formdata.append("pDetail.REF_APPNO", _1_txtSoDon.val());
             formdata.append("pDetail.NGAYNOPDON", _1_txtNgayNopDon.val());
-            formdata.append("pDetail.APPCLASS_ID", NVSCBO001_AppClassSearch.val());
+
+       
             // lấy thông tin chủ đơn
 
         } catch (e) {
@@ -644,7 +648,24 @@
             index -= 1;
         }
         return _array;
+    }
 
+    //Lay thong tin trong bang
+    function funcGetDataClassInfo(formData) {
+        try {
+            var item = 0;
+            $("#tblClassInfo").find("tbody").find(".DataAdd").each(function () {
+                var str_data = $(this).val().split('|');
+                formData.append("pAppClassInfo[" + item + "].Textinput", str_data[0]);
+                formData.append("pAppClassInfo[" + item + "].Code", str_data[1]);
+                item++;
+            });
+            return true;
+        }
+        catch (e) {
+            console.log(e);
+            return false;
+        }
     }
 
 </script>
