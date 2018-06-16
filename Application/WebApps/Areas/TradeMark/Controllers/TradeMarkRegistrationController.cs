@@ -203,6 +203,7 @@
                         scope.Complete();
                     }
                 }
+                
                 return Json(new { status = pAppHeaderID });
             }
             catch (Exception ex)
@@ -402,7 +403,6 @@
             }
         }
 
-
         #region Sua don luu tam
         /// <summary>
         /// ID:ID của app_header_id 
@@ -448,7 +448,6 @@
             return TradeMarkSuaDon(App_Header_Id, AppCode, Status);
         }
 
-
         [HttpGet]
         [Route("request-for-trade-mark-view/{id}/{id1}/{id2}")]
         public ActionResult TradeMarkForView()
@@ -482,7 +481,6 @@
             }
             return TradeMarkView(App_Header_Id, AppCode, Status);
         }
-
 
         public ActionResult TradeMarkView(decimal pAppHeaderId, string pAppCode, int pStatus)
         {
@@ -554,8 +552,6 @@
             }
         }
         #endregion
-
-
 
 
         [HttpPost]
@@ -641,6 +637,17 @@
                             pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocOtherInfo);
                         }
                     }
+                    //Xóa các tài liệu đi khi sửa bản ghi 
+                    if (pReturn >= 0 && !string.IsNullOrEmpty(pDetail.ListFileAttachOtherDel))
+                    {
+                        var arrIdFileAttack = pDetail.ListFileAttachOtherDel.Split(',');
+                        foreach (var item in arrIdFileAttack)
+                        {
+                            decimal pID = CommonFuc.ConvertToDecimal(item);
+                            pReturn = objDoc.AppDocOtherByID(pID, language);
+                        }
+                    }
+
                     //end
                     if (pReturn < 0)
                     {
@@ -657,6 +664,19 @@
             {
                 Logger.LogException(ex);
                 return Json(new { status = ErrorCode.Error });
+            }
+        }
+
+
+        public void CaculatorFee(List<AppClassDetailInfo> pAppClassInfo)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
             }
         }
     }

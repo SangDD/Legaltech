@@ -1,5 +1,45 @@
-﻿<div class="div_full_100_area">
+﻿@using ObjectInfos.ModuleTrademark
+@using ObjectInfos
+@{
+    var lstDocOther = new List<AppDocumentOthersInfo>();
+    if (ViewBag.lstDocOther != null)
+    {
+        lstDocOther = (List<AppDocumentOthersInfo>)ViewBag.lstDocOther;
+    }
+   string listIDFileAtt = "";
+}
+<style>
+    .classDocOtherE{
+        text-align:left ;
+        padding:3px; 
+        color:blue ;
+    }
+</style>
+<div class="div_full_100_area">
     @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CÁC TÀI LIỆU KHÁC")
+    @{
+        if (lstDocOther.Count > 0)
+        {
+            int No = 0;
+            string FileName = "";
+
+            <div>
+                @foreach (var item in lstDocOther)
+                {
+                    listIDFileAtt = listIDFileAtt + item.Id.ToString() + ",";
+                    No++;
+                    FileName = No.ToString() + ". " + item.Documentname;
+                    <div id="@item.Id" class="classDocOtherE"> <a style="color:blue" href="@item.Filename">@FileName</a> <img onclick="funcRemoveFileAttachOther('@item.Id')" src="/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px"> </div>
+                }
+            </div>
+
+        }
+    }
+    @* Sử dụng khi Sửa bản ghi thôi *@
+    <input type="hidden" class="ListIDAttach_E" id="ListIDAttach_E" value="@listIDFileAtt" />
+    <input type="hidden" id="ListIDAttach_R" value="" />
+    @* End sửa *@
+
     <div id="divDocumentOther">
         <div class="div-search-ad">
             <div class="div-search-title"> <div>Tên tài liệu:</div> </div>
@@ -24,12 +64,13 @@
 </div>
 
 @* danh dau so tt sinh id  *@
-<input type="hidden" id="increNo" value="1"/>
+<input type="hidden" id="increNo" value="1" />
 
 <style>
-    .class_37{
-        height:30px !important;
+    .class_37 {
+        height: 30px !important;
     }
+
     .grid-container {
         display: grid;
         grid-template-columns: 120px 14% 33%;
@@ -52,8 +93,8 @@
 
     function funcAddDocumentNew() {
         try {
-            var e = $("#increNo").val()/1;
-                e++;
+            var e = $("#increNo").val() / 1;
+            e++;
             var pfileName = "pfileName" + e.toString();
             var txtDocument = "txtTaiLieuKhac" + e.toString();
             var txtMaxfile = "txtMaxfile" + e.toString();
@@ -67,27 +108,6 @@
                 '<input type="text" class="classMaxfile" id="' + txtMaxfile + '" readonly placeholder="Maximum file size is 2MB">' +
                 '<input type="button" id="btnTaiFile1" onclick="return funcPushFileDocumentOther(\'' + pfileName + '\', \'' + btnTaiFile + '\', \'' + txtDocument + '\');"  value="Tải file" style="width:60px" class="class_37" />' +
                 '<i class="fa fa-check" id="i_' + pfileName + '" style="font-size:15px; color:green ;display:none"></i> <input type="button" id="' + btnXoa + '"  value="Xóa" style="width:60px;background: crimson;" class="btn class_37" onclick="return funcRemoveDocument(\'' + divDocumnetNo + '\')" /> </div></div></div>';
-
-
-            //var t = '<div class="grid-container" id="' + divDocumnetNo + '"> <div class="grid-item"> </div> <div class="grid-item"> <input type="text" ' +
-            //    'placeholder = "Nhập tên tài liệu đính kèm" class="clssListUpload" maxlength="250"  id = "' + txtDocument + '" > </div > ';
-
-
-            //    t += '<div class="grid-item"> <div class="file-upload btn btn-primary"   <span>Chọn file</span> ' +
-            //        '<input type = "file" onchange ="return funcChoiseFile(\'' + pfileName + '\', \'' + txtMaxfile + '\');" name = "' + pfileName + '" id = "' + pfileName + '" class="upload fileuploadurl" /> </div > ' +
-            //        '<input type="text" id="' + txtMaxfile + '"  class="classMaxfile" readonly placeholder="Maximum file size is 2MB">' +
-
-
-
-            //        ' <input type="button" id="' + btnTaiFile + '" onclick="return funcPushFileDocumentOther(\'' + pfileName + '\', \'' + btnTaiFile + '\', \'' + txtDocument + '\');" value="Tải file" style="width:60px" />' +
-
-
-
-
-            //    '<i class="fa fa-check" id="i_' + pfileName + '" style="font-size:15px; color:green ;display:none"></i>  <input type="button" id="' + btnXoa + '" value="Xóa" style="width:60px;  background: crimson;" class="btn" onclick="return funcRemoveDocument(\'' + divDocumnetNo + '\')" /> </div> </div>';
-
-
-
             $("#divDocumentOther").append(t);
             $("#increNo").val(e);
             return t;
@@ -96,7 +116,7 @@
         }
     }
 
-    function funcRemoveDocument(pTag){
+    function funcRemoveDocument(pTag) {
         try {
             var divFileUpload = document.getElementById(pTag);
             $(divFileUpload).remove();
@@ -108,16 +128,14 @@
         $("#" + ptxtId).val(obj.val());
     }
 
-    function funcPushFileDocumentOther(pID,ptagBtn,ptagKey)
-    {
-        try
-        {
+    function funcPushFileDocumentOther(pID, ptagBtn, ptagKey) {
+        try {
             var formdata = new FormData();
             var Isuse = 0, Note = "";
             //Các tài liệu có trong đơn
             if ($("#" + pID).prop('checked') == true) {
                 Isuse = 1;
-            } 
+            }
             formdata.append("pInfo.keyFileUpload", ptagKey);
             var file = document.getElementsByName(pID);
             if (file != undefined) {
@@ -139,6 +157,24 @@
                     }
                 }
             });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+    var lstRemove = "";
+    //Sử dụng khi thực hiện sửa bản ghi 
+    function funcRemoveFileAttachOther(pFileID) {
+        try {
+            var arrlistID = $("#ListIDAttach_E").val();
+            var newid = pFileID + ",";
+            if (arrlistID.indexOf(newid) != -1) {
+                arrlistID = arrlistID.replace(newid, "");
+                lstRemove = lstRemove + pFileID + ",";
+            }
+            $("#ListIDAttach_E").val(arrlistID);
+            $("#" + pFileID).remove();
+            $("#ListIDAttach_R").val(lstRemove);
+
         } catch (e) {
             console.log(e);
         }

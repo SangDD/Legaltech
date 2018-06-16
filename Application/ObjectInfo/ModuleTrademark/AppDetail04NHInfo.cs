@@ -50,9 +50,7 @@ namespace ObjectInfos
         public string Cdk_Phone_4 { get; set; }
         public string Cdk_Fax_4 { get; set; }
         public string Cdk_Email_4 { get; set; }
-
         public string LoaiNhanHieu { get; set; }
-        public string DaiDienChuDon { get; set; }
-        public string YCHuongQuyenUT { get; set; }
+        public string ListFileAttachOtherDel { get; set; }
     }
 }

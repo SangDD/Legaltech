@@ -1,9 +1,14 @@
-﻿ 
-@using BussinessFacade.ModuleMemoryData
+﻿
 @using WebApps.CommonFunction
+@using ObjectInfos
 @{
     //var listClassInfo = MemoryData.clstAppClass;
     string _LanguageCode = AppsCommon.GetCurrentLang();
+    var lstClassDetailInfo = new List<AppClassDetailInfo>();
+    if (ViewBag.lstClassDetailInfo != null)
+    {
+        lstClassDetailInfo = (List<AppClassDetailInfo>)ViewBag.lstClassDetailInfo;
+    }
 }
 <script src="~/Scripts/ScriptsLoadClassInfo.js"></script>
 
@@ -55,7 +60,13 @@
                         <th class="clssDisplaynone"></th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                    @*//Với TH sửa đơn*@
+                    @if (lstClassDetailInfo.Count > 0)
+                    {
+
+                    }
+                </tbody>
             </table>
         </div>
     </div>
@@ -89,8 +100,7 @@
                 var _index = $(this);
                 var _class = "";
                 _class = $(this).find("td:first").attr('class');
-                if (_class == undefined || _class.indexOf("textbold") < 0)
-                {
+                if (_class == undefined || _class.indexOf("textbold") < 0) {
                     _countindex = _countindex + 1;
                     $(this).find("td:first").text(_countindex);
                 }
@@ -159,7 +169,7 @@
             AddTotalRows();
             funcReSortTable("#tblClassInfo", 'asc');
             // add total row
-          
+
         } catch (e) {
             console.log(e);
         }
@@ -170,7 +180,7 @@
             // đẩy các dòng tổng xuống cuối table
             var _html = "";
             _ArrGroupAppClass.forEach(function (element) {
-                _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='2' class=\"tdRightAlign textbold\">Tổng SP</td><td colspan='2' class=\"TdLeft textbold\"> " +  element.value + "</td> <td class=\"HasSort clssDisplaynone\"> " + element.name + "999 </td> </tr>";
+                _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='2' class=\"tdRightAlign textbold\">Tổng SP</td><td colspan='2' class=\"TdLeft textbold\"> " + element.value + "</td> <td class=\"HasSort clssDisplaynone\"> " + element.name + "999 </td> </tr>";
                 $("#tblClassInfo").find("tbody").append(_html);
             });
 
@@ -182,9 +192,8 @@
             console.log(e);
         }
     }
- 
-    function funRemoveAllTotalRows()
-    {
+
+    function funRemoveAllTotalRows() {
         try {
             // xóa hết các dòng tổng cộng
             $("#_rowappclassinfo0").remove();
@@ -199,7 +208,7 @@
     function funcRemoveMessDataRow(element, _classcode) {
         try {
             funRemoveAllTotalRows();
-            
+
             var index = _ArrGroupAppClass.length - 1;
             while (index >= 0) {
                 var _appclassinfo = _ArrGroupAppClass[index];
@@ -224,7 +233,7 @@
             // add total row
             AddTotalRows();
             funcReSortTable("#tblClassInfo", 'asc');
-          
+
 
         } catch (e) {
             console.log(e);
