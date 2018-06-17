@@ -7,6 +7,11 @@
     {
         _list = ViewBag.ListAppClass;
     }
+    List<AppDetail04NHInfo> _List04nhdetail = new List<AppDetail04NHInfo>();
+    if (ViewBag.ListAppDetail04NHInfo != null)
+    {
+        _List04nhdetail = ViewBag.ListAppDetail04NHInfo;
+    }
 }
 <script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
 <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
@@ -139,7 +144,15 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="_1_txtSoDon" placeholder="_1_txtSoDon" maxlength="100" />
+                    @*<input type="text" id="cbo_04nh_data" placeholder="cbo_04nh_data" maxlength="100" />*@
+                    <select id="cbo_04nh_data">
+                        @foreach (var item in _List04nhdetail)
+                        {
+                            <option value="@item.Id">
+                                @item.Appno
+                            </option>
+                        }
+                    </select>
                 </div>
             </div>
 
@@ -236,7 +249,7 @@
         </div>
 
            
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDanhSachQuocGiaDKQTNH.cshtml")
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDanhSachQuocGiaDKQTNH.cshtml", "_4")
 
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
@@ -298,6 +311,15 @@
             placeholder: "-- Tìm kiếm hàng hóa/dịch vụ --"
         });
 
+        $('#cbo_04nh_data').multipleSelect({
+            filter: true,
+            noMatchesFound: "Không tìm thấy dữ liệu",
+            single: true,
+            isdatastring: false,
+            width:200,
+            placeholder: 'Tìm kiếm số đơn'
+        });
+
     });
 
     document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {
@@ -308,7 +330,7 @@
         try {
             var file = document.getElementsByName(pFile);
             if (file != undefined) {
-                formdata.append("pInfo.pfiles", file[0].files[0]);
+                formData.append("pInfo.pfiles", file[0].files[0]);
             }
         } catch (e) {
         }
@@ -326,14 +348,7 @@
     }
 
     // khai báo luôn các biến controll toàn cục để dùng cho tiện
-    var formData = new FormData();
-    var v_AppCode = $("#txtAppCode").val();
-    var _1_txtSoDon = $("#_1_txtSoDon");
-    var v_thanhviennghidinh = $("input[name='rad_thanhviennghidinhthu']:checked").val();
-    var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
-    var _01_rad_DonDkOrGiayDK = $("input[name='_01_rad_DonDkOrGiayDK']:checked").val();
-    var NVSCBO001_AppClassSearch = $("#NVSCBO001_AppClassSearch");
-    var Nvs001txt_search_app_code = $("#Nvs001txt_search_app_code");
+
 
 
     //
@@ -341,6 +356,15 @@
 
     $("#btnGuiDon").click(function () {
         try {
+
+            var formData = new FormData();
+            var v_AppCode = $("#txtAppCode").val();
+            var cbo_04nh_data = $("#cbo_04nh_data");
+            var v_thanhviennghidinh = $("input[name='rad_thanhviennghidinhthu']:checked").val();
+            var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
+            var _01_rad_DonDkOrGiayDK = $("input[name='_01_rad_DonDkOrGiayDK']:checked").val();
+            var NVSCBO001_AppClassSearch = $("#NVSCBO001_AppClassSearch");
+            var Nvs001txt_search_app_code = $("#Nvs001txt_search_app_code");
             //Thông tin chủ đơn
  
             if (v_thanhviennghidinh === "" || v_thanhviennghidinh == undefined) {
@@ -363,10 +387,10 @@
                 return false;
             }                  
             
-            if (_1_txtSoDon.val().trim() == "")
+            if (cbo_04nh_data.val() == "" || cbo_04nh_data.val() == null )
             {
                 showError('Chưa chọn số đơn!');
-                _1_txtSoDon.focus();
+                $("#cbo_04nh_data").multipleSelect("focus");   
                 return false;
             }
             var _1_txtNgayNopDon = $("#_1_txtNgayNopDon");
@@ -377,12 +401,17 @@
                 return false;
             }
            
-            if (NVSCBO001_AppClassSearch.val() == "" || NVSCBO001_AppClassSearch.val() == undefined) {
+            //if (NVSCBO001_AppClassSearch.val() == "" || NVSCBO001_AppClassSearch.val() == undefined) {
+            //    showError('Chưa chọn nhóm hàng hóa dịch vụ!');
+            //    $("#Nvs001txt_search_app_code").focus();
+            //    return false;
+            //}
+            if (_ArrGroupAppClass.length == 0)
+            {
                 showError('Chưa chọn nhóm hàng hóa dịch vụ!');
-                $("#Nvs001txt_search_app_code").focus();
-                return false;
+                $("#txtTenHangHoa").focus();
+                  return false;
             }
-
             if (funcThongTinChuDonNguoiDaiDien(formData, "_1") != true) {
                 return false;
             }
@@ -407,7 +436,8 @@
             _listNational = _listNational.replace(/null/g, '');
             if (_listNational.replace(/,/g, '') == "")
             {
-                  showError('Phải chọn ít nhất 1 nước chỉ định đăng ký nhãn hiệu!');
+                showError('Phải chọn ít nhất 1 nước chỉ định đăng ký nhãn hiệu!');
+                $("#_4_cboNational01").multipleSelect("focus");   
                   return false;
             }
             var _arrayNational = _listNational.split(",");
@@ -419,7 +449,7 @@
                 return false;
             }
             var _5_txtLePhiDangKy = $("#_5_txtLePhiDangKy");
-            if (_5_txtLePhiDangKy.trim() == "") {
+            if (_5_txtLePhiDangKy.val().trim() == "") {
                 showError('Lệ phí đăng ký không được để trống!');
                 _5_txtLePhiDangKy.focus();
                 return false;
@@ -458,7 +488,7 @@
 
             
             $.ajax({
-                url: '/trade-mark/dang_ky_nhan_hieu',
+                url: '/trade-mark-01/dang_ky_nhan_hieu',
                 type: 'POST',
                 data: formData,
                 processData: false, contentType: false, traditional: true, dataType: "json",
@@ -488,8 +518,8 @@
     function funcGetAppDetail(formData)
     {
         try {
-            var v_thanhviennghidinh = $("input[name='rad_thanhviennghidinhthu']:checked").val();
-            formdata.append("pDetail.THANHVIEN_ND_TC", v_thanhviennghidinh);
+            var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
+            formData.append("pDetail.THANHVIEN_ND_TC", $("input[name='rad_thanhviennghidinhthu']:checked").val());
 
             if (fileLogo != undefined && fileLogo != null && fileLogo[0].files[0] != undefined) {
                   formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
@@ -499,10 +529,20 @@
                 return false;
             }
             var v_don_giaydknhcs = $("input[name='_01_rad_DonDkOrGiayDK']:checked").val();
-            formdata.append("pDetail.DON_GIAY_DKNHCS", v_don_giaydknhcs);
-            formdata.append("pDetail.REF_APPNO", _1_txtSoDon.val());
-            formdata.append("pDetail.NGAYNOPDON", _1_txtNgayNopDon.val());
+            formData.append("pDetail.DON_GIAY_DKNHCS", v_don_giaydknhcs);
+            formData.append("pDetail.REF_APPNO", $("#cbo_04nh_data").val());
+            formData.append("pDetail.NGAYNOPDON", $("#_1_txtNgayNopDon").val());
 
+            formData.append("pDetail.COUNTRY_ID01", $("#_4_cboNational01").val());
+            formData.append("pDetail.COUNTRY_ID02", $("#_4_cboNational02").val());
+            formData.append("pDetail.COUNTRY_ID03", $("#_4_cboNational03").val());
+            formData.append("pDetail.COUNTRY_ID04", $("#_4_cboNational04").val());
+            formData.append("pDetail.COUNTRY_ID05", $("#_4_cboNational05").val());
+            formData.append("pDetail.COUNTRY_ID06", $("#_4_cboNational06").val());
+            formData.append("pDetail.COUNTRY_ID07", $("#_4_cboNational07").val());
+            formData.append("pDetail.COUNTRY_ID08", $("#_4_cboNational08").val());
+            formData.append("pDetail.LEPHI", $("#_5_txtLePhiDangKy").val());
+            
        
             // lấy thông tin chủ đơn
 

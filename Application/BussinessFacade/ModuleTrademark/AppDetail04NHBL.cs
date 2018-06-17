@@ -2,6 +2,7 @@
 using DataAccess.ModuleTrademark;
 using ObjectInfos;
 using System;
+using System.Collections.Generic;
 using System.Data;
 
 namespace BussinessFacade.ModuleTrademark
@@ -62,8 +63,25 @@ namespace BussinessFacade.ModuleTrademark
             {
                 Logger.LogException(ex);
                 return new DataSet();
-                     
+
             }
         }
+
+        public List<AppDetail04NHInfo> AppTM04NHSearchByStatus(int p_status)
+        {
+            try
+            {
+                AppDetail04NH_DA objData = new AppDetail04NH_DA();
+                DataSet ds = objData.AppTM04NHSearchByStatus(p_status);
+                return CBO<AppDetail04NHInfo>.FillCollectionFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<AppDetail04NHInfo>();
+            }
+        }
+
+
     }
 }

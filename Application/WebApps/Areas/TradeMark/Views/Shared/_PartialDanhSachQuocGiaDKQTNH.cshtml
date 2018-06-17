@@ -1,8 +1,20 @@
 ﻿@using BussinessFacade.ModuleMemoryData
+@model string
+@{
+    string _national01 = Model + "_cboNational01";
+    string _national02 = Model + "_cboNational02";
+    string _national03 = Model + "_cboNational03";
+    string _national04 = Model + "_cboNational04";
+    string _national05 = Model + "_cboNational05";
+    string _national06 = Model + "_cboNational06";
+    string _national07 = Model + "_cboNational07";
+    string _national08 = Model + "_cboNational08";
+
+ }
 <div class="div-search-ad">
     <div class="div-search-content">
         <div style="width:320px">
-            <select id="_4_cboNational01" class="borderleft4control">
+            <select id="@_national01" class="borderleft4control">
                 <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
@@ -14,7 +26,7 @@
     </div>
     <div class="div-search-content">
         <div style="width:320px">
-            <select id="_4_cboNational02">
+            <select id="@_national02">
                <option value="">Chọn quốc gia</option>             
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
@@ -27,7 +39,7 @@
 
     <div class="div-search-content">
         <div style="width:320px">
-            <select id="_4_cboNational03">
+            <select id="@_national03">
                 <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
@@ -40,7 +52,7 @@
 
     <div class="div-search-content">
         <div>
-            <select id="_4_cboNational04">
+            <select id="@_national04">
                 <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
@@ -54,7 +66,7 @@
  <div class="div-search-ad">
     <div class="div-search-content">
         <div style="width:320px">
-            <select id="_4_cboNational05" class="borderleft4control">
+            <select id="@_national05" class="borderleft4control">
                 <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
@@ -66,7 +78,7 @@
     </div>
     <div class="div-search-content">
         <div style="width:320px">
-            <select id="_4_cboNational06">
+            <select id="@_national06">
                 <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
@@ -79,7 +91,7 @@
 
     <div class="div-search-content">
         <div style="width:320px">
-            <select id="_4_cboNational07">
+            <select id="@_national07">
                 <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
@@ -92,7 +104,7 @@
 
     <div class="div-search-content">
         <div>
-            <select id="_4_cboNational08">
+            <select id="@_national08">
                 <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
@@ -105,49 +117,49 @@
 </div>
 
 <script>
-    $('#_4_cboNational01').multipleSelect({
+    $('#' + '@_national01').multipleSelect({
         filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
         single: true,
         placeholder: 'Tìm kiếm quốc gia'
     });
-    $('#_4_cboNational02').multipleSelect({
+    $('#' + '@_national02').multipleSelect({
         filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
         single: true,
         placeholder: 'Tìm kiếm quốc gia'
     });
-    $('#_4_cboNational03').multipleSelect({
+    $('#' + '@_national03').multipleSelect({
         filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
         single: true,
         placeholder: 'Tìm kiếm quốc gia'
     });
-    $('#_4_cboNational04').multipleSelect({
+    $('#' + '@_national04').multipleSelect({
         filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
         single: true,
         placeholder: 'Tìm kiếm quốc gia'
     });
-    $('#_4_cboNational05').multipleSelect({
+    $('#' + '@_national05').multipleSelect({
         filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
         single: true,
         placeholder: 'Tìm kiếm quốc gia'
     });
-    $('#_4_cboNational06').multipleSelect({
+    $('#' + '@_national06').multipleSelect({
         filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
         single: true,
         placeholder: 'Tìm kiếm quốc gia'
     });
-    $('#_4_cboNational07').multipleSelect({
+    $('#' + '@_national07').multipleSelect({
         filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
         single: true,
         placeholder: 'Tìm kiếm quốc gia'
     });
-    $('#_4_cboNational08').multipleSelect({
+    $('#' + '@_national08').multipleSelect({
         filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
         single: true,

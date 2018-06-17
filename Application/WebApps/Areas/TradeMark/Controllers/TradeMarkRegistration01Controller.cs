@@ -22,28 +22,7 @@
     [Route("{action}")]
     public class TradeMarkRegistration01Controller : Controller
     {
-        // GET: TradeMark/TradeMarkRegistration
-
-        //[HttpGet]
-        //[Route("dang-ky-nhan-hieu")]
-        //public ActionResult DangKyNhanHieu()
-        //{
-        //    try
-        //    {
-        //        if (SessionData.CurrentUser == null)
-        //        {
-        //            return this.Redirect("/");
-        //        }
-        //        string language = AppsCommon.GetCurrentLang();
-        //        ViewBag.lstData = SysApplicationBL.GetSysAppByLanguage(language);
-        //        return View("~/Areas/TradeMark/Views/TradeMarkRegistration01/DangKyNhanHieu.cshtml");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Logger.LogException(ex); return View("~/Areas/TradeMark/Views/TradeMarkRegistration01/DangKyNhanHieu.cshtml");
-        //    }
-        //}
-
+ 
         [HttpGet]
         [Route("request-for-trade-mark/{id}")]
         public ActionResult TradeMarkChoiseApplication()
@@ -98,9 +77,15 @@
         {
             try
             {
-              App_Class_BL _ObjBL = new App_Class_BL();
+                App_Class_BL _ObjBL = new App_Class_BL();
                 List<App_Class_Info> _List = _ObjBL.AppClassGetAll();
                 ViewBag.ListAppClass = _List;
+                AppDetail04NHBL _AppDetail04NHBL = new AppDetail04NHBL();
+                List<AppDetail04NHInfo> _list04nh = new List<AppDetail04NHInfo>();
+                // truyền vào trạng thái nào? để tạm thời = 1 cho có dữ liệu
+                _list04nh = _AppDetail04NHBL.AppTM04NHSearchByStatus(1);
+                ViewBag.ListAppDetail04NHInfo = _list04nh;
+
             }
             catch (Exception ex)
             {
@@ -109,15 +94,17 @@
             return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartalDangKyNhanHieu.cshtml");
         }
 
+
+
         [HttpPost]
         [Route("dang_ky_nhan_hieu")]
-        public ActionResult AppDonDangKyInsert(ApplicationHeaderInfo pInfo, AppDetail04NHInfo pDetail, List<AppDocumentInfo> pAppDocumentInfo, List<AppClassDetailInfo> pAppClassInfo, List<AppFeeFixInfo> pFeeFixInfo)
+        public ActionResult AppDonDangKyInsert(ApplicationHeaderInfo pInfo, App_Detail_TM06DKQT_Info pDetail, List<AppDocumentInfo> pAppDocumentInfo,
+         List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo)
         {
             try
             {
                 Application_Header_BL objBL = new Application_Header_BL();
-                AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
-                AppDetail04NHBL objDetail = new AppDetail04NHBL();
+                AppDetail06DKQT_BL objDetailBL = new AppDetail06DKQT_BL();
                 AppClassDetailBL objClassDetail = new AppClassDetailBL();
                 AppDocumentBL objDoc = new AppDocumentBL();
                 if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
@@ -137,26 +124,22 @@
                     if (pAppHeaderID >= 0)
                     {
                         pDetail.Appcode = pInfo.Appcode;
-                        pDetail.Language_Code = language;
-                        pDetail.App_Header_Id = pAppHeaderID;
+                        pDetail.LANGUAGE_CODE = language;
+                        pDetail.APP_HEADER_ID = pAppHeaderID;
                         if (pDetail.pfileLogo != null)
                         {
-                            pDetail.Logourl = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
+                            pDetail.LOGOURL = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
                         }
-                        pReturn = objDetail.App_Detail_04NH_Insert(pDetail);
+                        pReturn = objDetailBL.App_Detail_06TMDKQT_Insert(pDetail);
                         //Thêm thông tin class
                         if (pReturn >= 0)
                         {
-                         //   pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID);
+                            pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID, language);
                         }
                     }
-                    else
-                    {
-                        Transaction.Current.Rollback();
-                    }
+                    //Tai lieu dinh kem 
                     if (pReturn >= 0 && pAppDocumentInfo != null)
                     {
-
                         if (pAppDocumentInfo.Count > 0)
                         {
                             foreach (var info in pAppDocumentInfo)
@@ -173,26 +156,39 @@
                                 info.Language_Code = language;
                             }
                             pReturn = objDoc.AppDocumentInsertBath(pAppDocumentInfo, pAppHeaderID);
-                            if (pReturn < 0)
-                            {
-                                Transaction.Current.Rollback();
-                            }
-                            else
-                            {
-                                scope.Complete();
-                            }
-                        }
-                        else
-                        {
-                            scope.Complete();
+
                         }
                     }
-                    else
+                    //tai lieu khac 
+                    if (pReturn >= 0 && pAppDocOtherInfo != null)
+                    {
+                        if (pAppDocOtherInfo.Count > 0)
+                        {
+                            foreach (var info in pAppDocOtherInfo)
+                            {
+                                if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
+                                {
+                                    HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                    info.Filename = pfiles.FileName;
+                                    info.Filename = "~/Content/Archive/" + AppUpload.Document + pfiles.FileName;
+                                }
+                                info.App_Header_Id = pAppHeaderID;
+                                info.Language_Code = language;
+                            }
+                            pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocOtherInfo);
+                        }
+                    }
+                    //end
+                    if (pReturn < 0)
                     {
                         Transaction.Current.Rollback();
                     }
-
+                    else
+                    {
+                        scope.Complete();
+                    }
                 }
+
                 return Json(new { status = pAppHeaderID });
             }
             catch (Exception ex)
@@ -202,114 +198,9 @@
             }
         }
 
-        [HttpPost]
-        [Route("them_moi_don_dang_ky_sua_doi")]
-        public ActionResult AppSuaDoiDonDangKyInsert(ApplicationHeaderInfo pInfo, List<AppFeeFixInfo> pFeeFixInfo, AppDetail01Info pDetailInfo, List<AppDocumentInfo> pAppDocumentInfo)
-        {
-            try
-            {
-                Application_Header_BL objBL = new Application_Header_BL();
-                AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
-                AppDetail01BL objDetail01BL = new AppDetail01BL();
-                AppDocumentBL objDoc = new AppDocumentBL();
-                if (pInfo == null || pDetailInfo == null) return Json(new { status = ErrorCode.Error });
-                string language = AppsCommon.GetCurrentLang();
-                var CreatedBy = SessionData.CurrentUser.Username;
-                var CreatedDate = SessionData.CurrentUser.CurrentDate;
-                int pReturn = ErrorCode.Success;
-                int pAppHeaderID = 0;
-                //
-                using (var scope = new TransactionScope())
-                {
-                    pInfo.Languague_Code = language;
-                    pInfo.Created_By = CreatedBy;
-                    pInfo.Created_Date = CreatedDate;
 
-                    //TRA RA ID CUA BANG KHI INSERT
-                    pAppHeaderID = objBL.AppHeaderInsert(pInfo);
-                    //Gán lại khi lấy dl 
-                    if (pAppHeaderID >= 0)
-                    {
-                        pReturn = objFeeFixBL.AppFeeFixInsertBath(pFeeFixInfo, pAppHeaderID);
-                    }
-                    else
-                    {
-                        Transaction.Current.Rollback();
-                    }
-                    if (pReturn >= 0)
-                    {
-                        pDetailInfo.Language_Code = language;
-                        pDetailInfo.App_Header_Id = pAppHeaderID;
-                        pReturn = objDetail01BL.AppDetailInsert(pDetailInfo);
-                    }
-                    else
-                    {
-                        Transaction.Current.Rollback();
-                    }
-                    if (pReturn >= 0 && pAppDocumentInfo != null)
-                    {
-                        if (pAppDocumentInfo.Count > 0)
-                        {
-                            foreach (var info in pAppDocumentInfo)
-                            {
-                                if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
-                                {
-                                    HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
-                                    info.Filename = pfiles.FileName;
-                                    info.Url_Hardcopy = "~/Content/DataWareHouse" + pfiles.FileName;
-                                    info.Status = 0;
-                                }
-                                info.Document_Filing_Date = CommonFuc.CurrentDate();
-                                info.Language_Code = language;
-                            }
-                            pReturn = objDoc.AppDocumentInsertBath(pAppDocumentInfo, pAppHeaderID);
-                            if (pReturn < 0)
-                            {
-                                Transaction.Current.Rollback();
-                            }
-                            else
-                            {
-                                scope.Complete();
-                            }
-                        }
-                        else
-                        {
-                            scope.Complete();
-                        }
-                    }
-                    else
-                    {
-                        Transaction.Current.Rollback();
-                    }
-                }
-                return Json(new { status = pReturn });
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
 
-                return Json(new { status = ErrorCode.Error });
-            }
-        }
-        [HttpPost]
-        [Route("push-file-to-server")]
-        public ActionResult PushFileToServer(AppDocumentInfo pInfo)
-        {
-            try
-            {
-                if (pInfo.pfiles != null)
-                {
-                    var url = AppLoadHelpers.PushFileToServer(pInfo.pfiles, AppUpload.Document);
-                    SessionData.CurrentUser.chashFile[pInfo.keyFileUpload] = pInfo.pfiles;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return Json(new { success = -1 });
-            }
-            return Json(new { success = 0 });
-        }
+
 
 
         [HttpPost]
