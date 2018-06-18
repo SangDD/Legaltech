@@ -3,6 +3,7 @@ using DataAccess;
 using ObjectInfos;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +37,21 @@ namespace BussinessFacade
             {
                 Logger.LogException(ex);
                 return ErrorCode.Error;
+            }
+        }
+
+        public DataSet AppTM06DKQTGetByID(decimal pAppHeaderId, string pLanguage, int pStatus)
+        {
+            try
+            {
+                var objData = new App_Detail_TM06DKQT_DA();
+                return objData.AppTM06DKQTGetByID(pAppHeaderId, pLanguage, pStatus);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+
             }
         }
     }

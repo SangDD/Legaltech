@@ -23,63 +23,83 @@
     public class TradeMarkRegistration01Controller : Controller
     {
  
+       
+
+        /// <summary>
+        /// ID:ID của app_header_id 
+        /// ID2: là appcode 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        [Route("request-for-trade-mark/{id}")]
-        public ActionResult TradeMarkChoiseApplication()
+        [Route("request-for-trade-mark-edit/{id}/{id1}/{id2}")]
+        public ActionResult TradeMarkForEdit()
         {
+            decimal App_Header_Id = 0;
+            string AppCode = "";
+            int Status = 0;
             try
             {
                 if (SessionData.CurrentUser == null)
                     return Redirect("/");
+                SessionData.CurrentUser.chashFile.Clear();
+                SessionData.CurrentUser.chashFileOther.Clear();
 
-                string AppCode = "";
                 if (RouteData.Values.ContainsKey("id"))
                 {
-                    AppCode = RouteData.Values["id"].ToString().ToUpper();
+                    App_Header_Id = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
                 }
-                ViewBag.AppCode = AppCode;
-                if (AppCode == TradeMarkAppCode.AppCodeSuaDoiDangKy)
+                if (RouteData.Values.ContainsKey("id1"))
                 {
-                    return AppSuaDoiDonDangKy();
+                    Status = CommonFuc.ConvertToInt(RouteData.Values["id1"]);
                 }
-                else if (AppCode == TradeMarkAppCode.AppCodeDangKyChuyenDoi)
+                if (RouteData.Values.ContainsKey("id2"))
                 {
+                    AppCode = RouteData.Values["id2"].ToString().ToUpper();
+                }
 
-                }
-                else if (AppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
+                if (AppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
                 {
-                    return AppDangKyNhanHieu();
-
+                    return TradeMarkSuaDon(App_Header_Id, AppCode, Status);
                 }
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
             }
-            return AppSuaDoiDonDangKy();
+            return TradeMarkSuaDon(App_Header_Id, AppCode, Status);
         }
 
-
-        public ActionResult AppSuaDoiDonDangKy()
+        public ActionResult TradeMarkSuaDon(decimal pAppHeaderId, string pAppCode, int pStatus)
         {
-            try
+            if (pAppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
             {
-
+                var objBL = new AppDetail06DKQT_BL();
+                string language = AppsCommon.GetCurrentLang();
+                var ds06Dkqt = objBL.AppTM06DKQTGetByID(pAppHeaderId, language, pStatus);
+                if (ds06Dkqt != null && ds06Dkqt.Tables.Count == 5)
+                {
+                    ViewBag.objAppHeaderInfo = CBO<AppDetail04NHInfo>.FillObjectFromDataTable(ds06Dkqt.Tables[0]);
+                    ViewBag.lstDocumentInfo = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[1]);
+                    ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[2]);
+                }
+                AppDetail04NHBL _AppDetail04NHBL = new AppDetail04NHBL();
+                List<AppDetail04NHInfo> _list04nh = new List<AppDetail04NHInfo>();
+                // truyền vào trạng thái nào? để tạm thời = 1 cho có dữ liệu
+                _list04nh = _AppDetail04NHBL.AppTM04NHSearchByStatus(1);
+                ViewBag.ListAppDetail04NHInfo = _list04nh;
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialEditDangKyNhanHieu.cshtml");
             }
-            catch (Exception ex)
+            else
             {
-                Logger.LogException(ex);
+                //
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialEditDangKyNhanHieu.cshtml");
             }
-            return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/AppSuaDoiDonDangKy.cshtml");
         }
 
         public ActionResult AppDangKyNhanHieu()
         {
             try
-            {
-                App_Class_BL _ObjBL = new App_Class_BL();
-                List<App_Class_Info> _List = _ObjBL.AppClassGetAll();
-                ViewBag.ListAppClass = _List;
+            { 
                 AppDetail04NHBL _AppDetail04NHBL = new AppDetail04NHBL();
                 List<AppDetail04NHInfo> _list04nh = new List<AppDetail04NHInfo>();
                 // truyền vào trạng thái nào? để tạm thời = 1 cho có dữ liệu
@@ -245,9 +265,6 @@
             }
         }
 
-        public string getJson(List<AppClassDetailInfo> publicationTable)
-        { 
-            return (new JavaScriptSerializer()).Serialize(publicationTable);
-        }
+        
     }
 }

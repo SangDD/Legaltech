@@ -1,5 +1,6 @@
 ﻿@using BussinessFacade.ModuleMemoryData
 @model string
+@using ObjectInfos;
 @{
     string _national01 = Model + "_cboNational01";
     string _national02 = Model + "_cboNational02";
@@ -9,7 +10,11 @@
     string _national06 = Model + "_cboNational06";
     string _national07 = Model + "_cboNational07";
     string _national08 = Model + "_cboNational08";
-
+    var objAppHeaderInfo = new App_Detail_TM06DKQT_Info();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        objAppHeaderInfo = (App_Detail_TM06DKQT_Info)ViewBag.objAppHeaderInfo;
+    }
  }
 <div class="div-search-ad">
     <div class="div-search-content">
@@ -18,8 +23,15 @@
                 <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
-                     
+                    if (objAppHeaderInfo.COUNTRY_ID01 == item.Country_Id.ToString())
+                    {
+                        <option selected value="@item.Country_Id">@item.Name</option>
+                    }
+                    else
+                    {
                         <option value="@item.Country_Id">@item.Name</option>
+                    }
+
                 }
             </select>
         </div>
@@ -31,7 +43,14 @@
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
 
-                    <option value="@item.Country_Id">@item.Name</option>
+                    if (objAppHeaderInfo.COUNTRY_ID02 == item.Country_Id.ToString())
+                    {
+                        <option selected value="@item.Country_Id">@item.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Country_Id">@item.Name</option>
+                    }
                 }
             </select>
         </div>
@@ -44,7 +63,14 @@
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
 
-                    <option value="@item.Country_Id">@item.Name</option>
+                    if (objAppHeaderInfo.COUNTRY_ID03 == item.Country_Id.ToString())
+                    {
+                        <option selected value="@item.Country_Id">@item.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Country_Id">@item.Name</option>
+                    }
                 }
             </select>
         </div>
@@ -56,8 +82,14 @@
                 <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
-
-                    <option value="@item.Country_Id">@item.Name</option>
+                    if (objAppHeaderInfo.COUNTRY_ID04 == item.Country_Id.ToString())
+                    {
+                        <option selected value="@item.Country_Id">@item.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Country_Id">@item.Name</option>
+                    }
                 }
             </select>
         </div>
@@ -70,8 +102,14 @@
                 <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
-
-                    <option value="@item.Country_Id">@item.Name</option>
+                    if (objAppHeaderInfo.COUNTRY_ID05 == item.Country_Id.ToString())
+                    {
+                        <option selected value="@item.Country_Id">@item.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Country_Id">@item.Name</option>
+                    }
                 }
             </select>
         </div>
@@ -82,8 +120,14 @@
                 <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
-
-                    <option value="@item.Country_Id">@item.Name</option>
+                    if (objAppHeaderInfo.COUNTRY_ID06 == item.Country_Id.ToString())
+                    {
+                        <option selected value="@item.Country_Id">@item.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Country_Id">@item.Name</option>
+                    }
                 }
             </select>
         </div>
@@ -95,8 +139,14 @@
                 <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
-
-                    <option value="@item.Country_Id">@item.Name</option>
+                    if (objAppHeaderInfo.COUNTRY_ID07 == item.Country_Id.ToString())
+                    {
+                        <option selected value="@item.Country_Id">@item.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Country_Id">@item.Name</option>
+                    }
                 }
             </select>
         </div>
@@ -108,8 +158,14 @@
                 <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
-
-                    <option value="@item.Country_Id">@item.Name</option>
+                    if (objAppHeaderInfo.COUNTRY_ID08 == item.Country_Id.ToString())
+                    {
+                        <option selected value="@item.Country_Id">@item.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Country_Id">@item.Name</option>
+                    }
                 }
             </select>
         </div>
