@@ -42,3 +42,43 @@ VALUES(103,'VI_VN','TỜ KHAI \n ĐĂNG KÝ NHÃN HIỆU  ','TM04NH','Request fo
 
 COMMIT ;
 
+/
+
+ALTER TABLE SYS_APP_FIX_CHARGE 
+ ADD (
+  CHAR02 VARCHAR2 (50 CHAR),
+  CHAR03 VARCHAR2 (50 CHAR),
+  DESCRIPTION VARCHAR2 (200 CHAR)
+ )
+/
+/
+commit ;
+
+/
+
+delete  sys_app_fix_charge where  appcode ='TM04NH';
+/
+
+INSERT INTO sys_app_fix_charge 
+VALUES(200,'TM04NH',200,150000,'1',NULL,NULL,'Lệ phí nộp đơn');
+INSERT INTO sys_app_fix_charge 
+VALUES(201,'TM04NH',201,200000,NULL,NULL,NULL,'Phí phân loại quốc tế về Nhãn hiệu');
+INSERT INTO sys_app_fix_charge 
+VALUES(202,'TM04NH',2011,22000,'6',NULL,NULL,'Mỗi nhóm có trên 6 sản phẩm/dịch vụ (từ sản phẩm/dịch vụ thứ 7 trở đi)');
+INSERT INTO sys_app_fix_charge 
+VALUES(203,'TM04NH',203,600000,NULL,NULL,NULL,'Lệ phí  yêu cầu hưởng quyền ưu tiên                                                    ');
+INSERT INTO sys_app_fix_charge 
+VALUES(204,'TM04NH',204,120000,NULL,NULL,NULL,'Lệ phí công bố đơn');
+INSERT INTO sys_app_fix_charge 
+VALUES(205,'TM04NH',205,360000,NULL,NULL,NULL,'Phí tra cứu phục vụ thẩm định nội dung cho mỗi nhóm hàng hoá, dịch vụ  ');
+INSERT INTO sys_app_fix_charge 
+VALUES(206,'TM04NH',2051,30000,'6',NULL,NULL,'Mỗi nhóm có trên 6 sản phẩm/dịch vụ (từ sản phẩm/dịch vụ thứ 7 trở đi)');
+INSERT INTO sys_app_fix_charge 
+VALUES(207,'TM04NH',207,550000,'1',NULL,NULL,'Phí thẩm định đơn');
+INSERT INTO sys_app_fix_charge 
+VALUES(208,'TM04NH',2071,120000,'6',NULL,NULL,'Mỗi nhóm có trên 6 sản phẩm/dịch vụ (từ sản phẩm/dịch vụ thứ 7 trở đi)');
+/
+
+commit ;
+/
+

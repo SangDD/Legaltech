@@ -14,6 +14,7 @@
     using GemBox.Document;
     using System.IO;
     using System.Transactions;
+    using BussinessFacade.ModuleMemoryData;
 
     [ValidateAntiForgeryTokenOnAllPosts]
     [RouteArea("TradeMarkRegistration", AreaPrefix = "trade-mark")]
@@ -671,6 +672,13 @@
         {
             try
             {
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(TradeMarkAppCode.AppCodeDangKynhanHieu))
+                {
+                    var lstSysAppFee = MemoryData.c_dic_FeeByApp_Fix[TradeMarkAppCode.AppCodeDangKynhanHieu];
+
+
+
+                }
 
             }
             catch (Exception ex)
