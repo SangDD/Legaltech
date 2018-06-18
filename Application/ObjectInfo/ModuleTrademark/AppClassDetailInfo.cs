@@ -14,5 +14,10 @@ namespace ObjectInfos
         public decimal App_Header_Id { get; set; }
 
         public string Languague_Code { get; set; }
+
+        public string TongSoNhom { get; set; }
+
+        public string TongSanPham { get; set; }
+
     }
 }

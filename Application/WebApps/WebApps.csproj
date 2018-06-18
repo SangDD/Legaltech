@@ -36,14 +36,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="GemBox.Document">
       <HintPath>..\Extended dll\GemBox.Document.dll</HintPath>
@@ -394,15 +386,24 @@
     <Content Include="Areas\TradeMark\Views\Shared\_PartialThongTinDaiDienChuDon_View.cshtml" />
     <Content Include="Areas\TradeMark\Views\Shared\_PartialTMAddAppClass.cshtml" />
     <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\View_PartialDangKyNhanHieu.cshtml" />
+<<<<<<< HEAD
  
     <Content Include="Areas\TradeMark\Views\Shared\_Partial04NHSearch.cshtml" />
     <Content Include="Areas\TradeMark\Views\TradeMarkRegistration01\_PartalEditDangKyNhanHieu.cshtml" />
  
+=======
+    <Content Include="Areas\TradeMark\Views\Shared\_Partial04NHSearch.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration01\_PartalEditDangKyNhanHieu.cshtml" />
+>>>>>>> ecff8b3fd25b79805d83e934616322c4447c779c
     <Content Include="Areas\TradeMark\Views\PLB01_SDD_3B\_Partial_Document_View.cshtml" />
     <Content Include="Areas\TradeMark\Views\PLB01_SDD_3B\_Partial_Document.cshtml" />
     <Content Include="Areas\TradeMark\Views\PLB01_SDD_3B\_PartialCamKetChuDon_View.cshtml" />
     <Content Include="Areas\TradeMark\Views\PLB01_SDD_3B\_PartialCamKetChuDon_Edit.cshtml" />
+<<<<<<< HEAD
  
+=======
+    <Content Include="Areas\TradeMark\Views\PLB01_SDD_3B\_Partial_TM_3B_PLB_01_SDD_Edit.cshtml" />
+>>>>>>> ecff8b3fd25b79805d83e934616322c4447c779c
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\AlertPopup\ASSAlert.js" />
     <Content Include="Scripts\AlertPopup\NVSAlertCss.css" />
