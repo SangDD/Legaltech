@@ -1,18 +1,28 @@
 ﻿
 @using WebApps.CommonFunction
 @using ObjectInfos
+@using System.Web.Script.Serialization;
 @{
-    //var listClassInfo = MemoryData.clstAppClass;
-    string _LanguageCode = AppsCommon.GetCurrentLang();
-    var lstClassDetailInfo = new List<AppClassDetailInfo>();
-    if (ViewBag.lstClassDetailInfo != null)
-    {
-        lstClassDetailInfo = (List<AppClassDetailInfo>)ViewBag.lstClassDetailInfo;
+        //var listClassInfo = MemoryData.clstAppClass;
+        string _LanguageCode = AppsCommon.GetCurrentLang();
+        var lstClassDetailInfo = new List<AppClassDetailInfo>();
+        if (ViewBag.lstClassDetailInfo != null)
+        {
+            lstClassDetailInfo = (List<AppClassDetailInfo>)ViewBag.lstClassDetailInfo;
+        }
     }
-}
 <script src="~/Scripts/ScriptsLoadClassInfo.js"></script>
 
-
+<script>
+    var _EditArryAppClass = new Array();
+</script>
+@foreach (var item in lstClassDetailInfo)
+{
+    <script>
+        var _appinfo = { name: '@Html.Raw(item.Textinput)', value: '@Html.Raw(@item.Code)' }
+        _EditArryAppClass.push(_appinfo)
+    </script>
+}
 <div class="div_full_100_area">
     <div class="class_full_div_p class_text_center_bold">DANH MỤC VÀ PHÂN NHÓM HÀNG HOÁ, DỊCH VỤ MANG NHÃN HIỆU </div>
     <br />
@@ -61,11 +71,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @*//Với TH sửa đơn*@
-                    @if (lstClassDetailInfo.Count > 0)
-                    {
-
-                    }
                 </tbody>
             </table>
         </div>
@@ -85,6 +90,12 @@
 </style>
 
 <script>
+    $(document).ready(function () {
+      // đẩy vào table
+        _EditArryAppClass.forEach(function (element) {
+            funcAddMessDataRow(element.name, element.value, 0);
+        });
+    })
     $('#NVSCBO001_AppClassSearch').multipleSelect({
         filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
@@ -110,6 +121,7 @@
         }
     }
 
+ 
     function funcAddDataRow() {
         try {
 
@@ -126,7 +138,7 @@
             }
 
 
-            funcAddMessDataRow(className, classCode, $("#NVSCBO001_AppClassSearch"), 0);
+            funcAddMessDataRow(className, classCode, 0);
             $("#txtTenHangHoa").val("");
             $("#NVSCBO001_AppClassSearch").val("");
             $("#txtTenHangHoa").focus();
@@ -141,7 +153,7 @@
 
 
     // 2018.06.15 Hungtd sửa
-    function funcAddMessDataRow(textInput, classCode, element, type) {
+    function funcAddMessDataRow(textInput, classCode, type) {
         try {
 
             // lấy ra nhóm hàng hóa
@@ -164,7 +176,7 @@
 
             textInput = textInput.trim();
             classCode = classCode.trim();
-            var _html = "<tr><td></td><td class=\"TdLeft\">" + textInput + "</td><td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td><a href=\"javascript:;\" onclick=\"funcRemoveMessDataRow(this, " + classCode + ");\">Xóa</a></td><td class=\"HasSort clssDisplaynone\">" + classCode + "</td></tr>";
+            var _html = "<tr><td></td><td class=\"TdLeft\">" + textInput + "</td><td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td><a href=\"javascript:;\" onclick=\"funcRemoveMessDataRow(this, '" + classCode + "');\">Xóa</a></td><td class=\"HasSort clssDisplaynone\">" + classCode.substr(0,5) + "</td></tr>";
             $("#tblClassInfo").find("tbody").append(_html);
             AddTotalRows();
             funcReSortTable("#tblClassInfo", 'asc');
