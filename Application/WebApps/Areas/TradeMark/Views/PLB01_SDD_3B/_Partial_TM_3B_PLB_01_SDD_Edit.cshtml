@@ -7,9 +7,9 @@
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
-    if (ViewBag.ApplicationHeaderInfo != null)
+    if (ViewBag.objAppHeaderInfo != null)
     {
-        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.ApplicationHeaderInfo;
+        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
     }
 
     App_Detail_PLB01_SDD_Info _App_Detail = new App_Detail_PLB01_SDD_Info();
@@ -99,14 +99,28 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio" style="width:382px">
-                    <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdDonSangChe" value="1" onchange="return ShowHiden_SoHinhSoTrang()">
+                    @if (_App_Detail.Request_Change_Type == 1)
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdDonSangChe" value="1" checked="checked" onchange="return ShowHiden_SoHinhSoTrang()" />
+                    }
+                    else
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdDonSangChe" value="1" onchange="return ShowHiden_SoHinhSoTrang()" />
+                    }
                     <label>Đơn đăng ký sáng chế</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
-                    <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdKieuDangCongNghiep" value="2" onchange="return ShowHiden_SoHinhSoTrang()">
+                    @if (_App_Detail.Request_Change_Type == 2)
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdKieuDangCongNghiep" value="2" checked="checked" onchange="return ShowHiden_SoHinhSoTrang()" />
+                    }
+                    else
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdKieuDangCongNghiep" value="2" onchange="return ShowHiden_SoHinhSoTrang()" />
+                    }
                     <label>Đơn đăng ký kiểu dáng công nghiệp</label>
                 </div>
             </div>
@@ -118,7 +132,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Số hình" id="txt_SoHinh" style="width:250px" />
+                    <input type="text" placeholder="Số hình" id="txt_SoHinh" style="width:250px" value="@_App_Detail.Number_Pic" />
                 </div>
             </div>
 
@@ -127,7 +141,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Số trang" id="txt_SoTrang" />
+                    <input type="text" placeholder="Số trang" id="txt_SoTrang" value="@_App_Detail.Number_Page" />
                 </div>
             </div>
         </div>
@@ -135,14 +149,28 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio" style="width:382px">
-                    <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdMachTichHop" value="3" onchange="return ShowHiden_SoHinhSoTrang()">
+                    @if (_App_Detail.Request_Change_Type == 3)
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdMachTichHop" value="3" onchange="return ShowHiden_SoHinhSoTrang()" checked="checked" />
+                    }
+                    else
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdMachTichHop" value="3" onchange="return ShowHiden_SoHinhSoTrang()" />
+                    }
                     <label>Đơn đăng ký thiết kế bố trí mạch tích hợp bán dẫn</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
-                    <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdDKNhanHieu" value="4" onchange="return ShowHiden_SoHinhSoTrang()">
+                    @if (_App_Detail.Request_Change_Type == 4)
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdDKNhanHieu" value="4" onchange="return ShowHiden_SoHinhSoTrang()" checked="checked" />
+                    }
+                    else
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdDKNhanHieu" value="4" onchange="return ShowHiden_SoHinhSoTrang()" />
+                    }
                     <label>Đơn đăng ký nhãn hiệu</label>
                 </div>
             </div>
@@ -151,7 +179,14 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio">
-                    <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdChiDanDiaLy" value="5" onchange="return ShowHiden_SoHinhSoTrang()">
+                    @if (_App_Detail.Request_Change_Type == 5)
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdChiDanDiaLy" value="5" onchange="return ShowHiden_SoHinhSoTrang()" checked="checked" />
+                    }
+                    else
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdChiDanDiaLy" value="5" onchange="return ShowHiden_SoHinhSoTrang()" />
+                    }
                     <label>Đơn đăng ký chỉ dẫn địa lý </label>
                 </div>
             </div>
@@ -163,7 +198,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="3_SoDon" id="3_SoDon" />
+                    <input type="text" placeholder="3_SoDon" id="3_SoDon" value="@_App_Detail.App_No_Change" />
                 </div>
             </div>
         </div>
@@ -181,14 +216,30 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio" style="width:382px">
-                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1">
+                    @*<input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1">*@
+                    @if (_App_Detail.Request_To_Type == 1)
+                    {
+                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1" checked="checked" />
+                    }
+                    else
+                    {
+                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1" checked="checked" />
+                    }
                     <label>Tên chủ đơn</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
-                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2">
+                    @*<input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2">*@
+                    @if (_App_Detail.Request_To_Type == 2)
+                    {
+                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2" checked="checked" />
+                    }
+                    else
+                    {
+                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2" />
+                    }
                     <label>Địa chỉ của chủ đơn</label>
                 </div>
             </div>
@@ -197,7 +248,15 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio" style="width:382px">
-                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3">
+                    @*<input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3">*@
+                    @if (_App_Detail.Request_To_Type == 3)
+                    {
+                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3" checked="checked" />
+                    }
+                    else
+                    {
+                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3" />
+                    }
                     <label>Nội dung khác </label>
                 </div>
             </div>
@@ -207,7 +266,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="4_DeNghiSuaThanh" id="4_DeNghiSuaThanh" />
+                    <input type="text" placeholder="4_DeNghiSuaThanh" id="4_DeNghiSuaThanh" value="@_App_Detail.Request_To_Content" />
                 </div>
             </div>
         </div>
@@ -217,119 +276,119 @@
 
         @* 5 *@
         @*<div class="divCover cls_form_title">
-                <img src="~/Content/icons/info.png" />
-                <div class="cls_form_header">
-                    PHÍ, LỆ PHÍ
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                PHÍ, LỆ PHÍ
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-checkbox" style="width:382px">
+                    <input type="checkbox" name="5_ckbPhiThamDinh" id="5_ckbPhiThamDinh">
+                    <label>Phí thẩm định yêu cầu sửa đổi đơn </label>
                 </div>
             </div>
 
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-checkbox" style="width:382px">
-                        <input type="checkbox" name="5_ckbPhiThamDinh" id="5_ckbPhiThamDinh">
-                        <label>Phí thẩm định yêu cầu sửa đổi đơn </label>
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Số đối tượng tính:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="Số đơn" id="5_txt_PhiThamDinh_DoiTuong" />
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Số tiền:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="160.000 x [số đơn]" id="5_txt_PhiThamDinh_SoTien" />
-                    </div>
+            <div class="div-search-title">
+                <div>Số đối tượng tính:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Số đơn" id="5_txt_PhiThamDinh_DoiTuong" />
                 </div>
             </div>
 
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-checkbox" style="width:382px">
-                        <input type="checkbox" name="5_ckbPhiCongBo" id="5_ckbPhiCongBo">
-                        <label>Phí công bố đơn sửa đổi </label>
-                    </div>
+            <div class="div-search-title">
+                <div>Số tiền:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="160.000 x [số đơn]" id="5_txt_PhiThamDinh_SoTien" />
                 </div>
+            </div>
+        </div>
 
-                <div class="div-search-title">
-                    <div>Số đối tượng tính:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="Số đơn" id="5_txt_PhiCongBo_DoiTuong" />
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Số tiền:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="160.000 x [số đơn]" id="5_txt_PhiCongBo_SoTien" />
-                    </div>
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-checkbox" style="width:382px">
+                    <input type="checkbox" name="5_ckbPhiCongBo" id="5_ckbPhiCongBo">
+                    <label>Phí công bố đơn sửa đổi </label>
                 </div>
             </div>
 
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-checkbox" style="width:382px">
-                        &emsp;&emsp;&emsp;<input type="checkbox" name="5_ckbPhiCongBo_Hinh" id="5_ckbPhiCongBo_Hinh">
-                        <label>Đơn có trên 1 hình (từ hình thứ hai trở đi) </label>
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Số đối tượng tính:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="Số hình" id="5_txt_PhiCongBo_DoiTuong_Hinh" />
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Số tiền:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="60.000 x [số hình]" id="5_txt_PhiCongBo_Hinh_SoTien" />
-                    </div>
+            <div class="div-search-title">
+                <div>Số đối tượng tính:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Số đơn" id="5_txt_PhiCongBo_DoiTuong" />
                 </div>
             </div>
 
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-checkbox" style="width:382px">
-                        &emsp;&emsp;&emsp;<input type="checkbox" name="5_ckbPhiCongBo_Trang" id="5_ckbPhiCongBo_Trang">
-                        <label>Đơn có trên 1 hình (từ hình thứ hai trở đi) </label>
-                    </div>
+            <div class="div-search-title">
+                <div>Số tiền:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="160.000 x [số đơn]" id="5_txt_PhiCongBo_SoTien" />
                 </div>
+            </div>
+        </div>
 
-                <div class="div-search-title">
-                    <div>Số đối tượng tính:</div>
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-checkbox" style="width:382px">
+                    &emsp;&emsp;&emsp;<input type="checkbox" name="5_ckbPhiCongBo_Hinh" id="5_ckbPhiCongBo_Hinh">
+                    <label>Đơn có trên 1 hình (từ hình thứ hai trở đi) </label>
                 </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="Số trang" id="5_txt_PhiCongBo_DoiTuong_Trang" />
-                    </div>
-                </div>
+            </div>
 
-                <div class="div-search-title">
-                    <div>Số tiền:</div>
+            <div class="div-search-title">
+                <div>Số đối tượng tính:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Số hình" id="5_txt_PhiCongBo_DoiTuong_Hinh" />
                 </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="10.000 x [số trang]" id="5_txt_PhiCongBo_Trang_SoTien" />
-                    </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Số tiền:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="60.000 x [số hình]" id="5_txt_PhiCongBo_Hinh_SoTien" />
                 </div>
-            </div>*@
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-checkbox" style="width:382px">
+                    &emsp;&emsp;&emsp;<input type="checkbox" name="5_ckbPhiCongBo_Trang" id="5_ckbPhiCongBo_Trang">
+                    <label>Đơn có trên 1 hình (từ hình thứ hai trở đi) </label>
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Số đối tượng tính:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Số trang" id="5_txt_PhiCongBo_DoiTuong_Trang" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Số tiền:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="10.000 x [số trang]" id="5_txt_PhiCongBo_Trang_SoTien" />
+                </div>
+            </div>
+        </div>*@
         @* END 5 *@
 
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
@@ -341,95 +400,102 @@
         </div>
 
         @* 1. Tờ khai *@
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width:382px">
-                    <input type="checkbox" name="ckb_6_Doc_ToKhai" id="ckb_6_Doc_ToKhai" value="01_SDD_01" checked="checked">
-                    <label>Tờ khai, gồm</label>
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>Số trang:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @*style="width:329px"*@
-                    <input type="text" placeholder="Số trang" id="txt_6_Doc_ToKhai_SoTrang" />
-                </div>
-            </div>
-        </div>
-        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialTaiLieuTrongDon_3B.cshtml", "ckb_6_Doc_ToKhai")
+        @{
+            string _doc_id = "01_SDD_01";
+            string _id = _doc_id + "|6_Doc_ToKhai|0|Tờ khai, gồm|Số trang|0";
+            string _value = dic_appDoc[_doc_id].Isuse.ToString() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
+            string _model = _id + ";" + _value;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model)
+        }
 
         @* 2. Tài liệu xác nhận *@
         @{
             string _doc_id2 = "01_SDD_02";
-            string _model2 = _doc_id2 + "|6_Doc_TLXacNhan|0|Tài liệu xác nhận việc sửa đổi hợp pháp, bằng tiếng|tiếng|1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model2)
+            string _id2 = _doc_id2 + "|6_Doc_TLXacNhan|0|Tài liệu xác nhận việc sửa đổi hợp pháp, bằng tiếng|tiếng|1";
+            string _value2 = dic_appDoc[_doc_id2].Isuse.ToString() + "|" + dic_appDoc[_doc_id2].CHAR01 + "|" + dic_appDoc[_doc_id2].Url_Hardcopy;
+            string _model2 = _id2 + ";" + _value2;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model2)
         }
 
         @* 3. Bản dịch tiếng Việt *@
         @{
             string _doc_id3 = "01_SDD_03";
-            string _model3 = _doc_id3 + "|6_Doc_BDichTv|0|Bản dịch tiếng Việt, gồm|Số trang|1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model3)
+            string _id3 = _doc_id3 + "|6_Doc_BDichTv|0|Bản dịch tiếng Việt, gồm|Số trang|1";
+            string _value3 = dic_appDoc[_doc_id3].Isuse.ToString() + " | " + dic_appDoc[_doc_id3].CHAR01 + "|" + dic_appDoc[_doc_id3].Url_Hardcopy;
+            string _model3 = _id3 + ";" + _value3;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model3)
         }
 
         @* 4. Giấy uỷ quyền bằng tiếng *@
         @{
             string _doc_id4 = "01_SDD_04";
-            string _model4 = _doc_id4 + "|6_Doc_POA|0|Giấy uỷ quyền bằng tiếng|Tiếng|1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)
+            string _id4 = _doc_id4 + "|6_Doc_POA|0|Giấy uỷ quyền bằng tiếng|Tiếng|1";
+            string _value4 = dic_appDoc[_doc_id4].Isuse.ToString() + "|" + dic_appDoc[_doc_id4].CHAR01 + "|" + dic_appDoc[_doc_id4].Url_Hardcopy;
+            string _model4 = _id4 + ";" + _value4;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model4)
         }
 
         @* 4.1  Bản dịch tiếng Việt, gồm *@
         @{
             string _doc_id5 = "01_SDD_05";
-            string _model5 = _doc_id5 + "|6_Doc_BanDichPOA|1|Bản dịch tiếng Việt, gồm|Số trang|1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model5)
+            string _id5 = _doc_id5 + "|6_Doc_BanDichPOA|1|Bản dịch tiếng Việt, gồm|Số trang|1";
+            string _value5 = dic_appDoc[_doc_id5].Isuse.ToString() + "|" + dic_appDoc[_doc_id5].CHAR01 + "|" + dic_appDoc[_doc_id5].Url_Hardcopy;
+            string _model5 = _id5 + ";" + _value5;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model5)
         }
 
         @* 4.2 Bản gốc *@
         @{
             string _doc_id6 = "01_SDD_06";
-            string _model6 = _doc_id6 + "|6_Doc_BanGocPOA|1|Bản gốc||1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model6)
+            string _id6 = _doc_id6 + "|6_Doc_BanGocPOA|1|Bản gốc||1";
+            string _value6 = dic_appDoc[_doc_id6].Isuse.ToString() + "|" + dic_appDoc[_doc_id6].CHAR01 + "|" + dic_appDoc[_doc_id6].Url_Hardcopy;
+            string _model6 = _id6 + ";" + _value6;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model6)
         }
 
         @* 4.3 Bản sao *@
         @{
             string _doc_id7 = "01_SDD_07";
-            string _model7 = _doc_id7 + "|6_Doc_BanSaoPOA|1|Bản sao||0";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model7)
+            string _id7 = _doc_id7 + "|6_Doc_BanSaoPOA|1|Bản sao||0";
+            string _value7 = dic_appDoc[_doc_id7].Isuse.ToString() + "|" + dic_appDoc[_doc_id7].CHAR01 + "|" + dic_appDoc[_doc_id7].Url_Hardcopy;
+            string _model7 = _id7 + ";" + _value7;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model7)
         }
-
 
         @* 4.3.1 Bản sao  > Bản gốc sẽ nộp sau *@
         @{
             string _doc_id8 = "01_SDD_08";
-            string _model8 = _doc_id8 + "|6_Doc_BanGocPOA_Later|2|Bản gốc sẽ nộp sau||1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model8)
+            string _id8 = _doc_id8 + "|6_Doc_BanGocPOA_Later|2|Bản gốc sẽ nộp sau||1";
+            string _value8 = dic_appDoc[_doc_id8].Isuse.ToString() + "|" + dic_appDoc[_doc_id8].CHAR01 + "|" + dic_appDoc[_doc_id8].Url_Hardcopy;
+            string _model8 = _id8 + ";" + _value8;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model8)
         }
 
         @* 4.3.2 Bản sao  > Bản gốc đã nộp theo đơn *@
         @{
             string _doc_id9 = "01_SDD_09";
-            string _model9 = _doc_id9 + "|6_Doc_BanGocPOA_ByApp|2|Bản gốc đã nộp theo đơn số|Số đơn|0";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model9)
+            string _id9 = _doc_id9 + "|6_Doc_BanGocPOA_ByApp|2|Bản gốc đã nộp theo đơn số|Số đơn|0";
+            string _value9 = dic_appDoc[_doc_id9].Isuse.ToString() + "|" + dic_appDoc[_doc_id9].CHAR01 + "|" + dic_appDoc[_doc_id9].Url_Hardcopy;
+            string _model9 = _id9 + ";" + _value9;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model9)
         }
 
         @* 5. Bản sao chứng từ nộp phí *@
         @{
             string _doc_id10 = "01_SDD_10";
-            string _model10 = _doc_id10 + "|6_Doc_BanSaoChungTu|0|Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ)||1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model10)
+            string _id10 = _doc_id10 + "|6_Doc_BanSaoChungTu|0|Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ)||1";
+            string _value10 = dic_appDoc[_doc_id10].Isuse.ToString() + "|" + dic_appDoc[_doc_id10].CHAR01 + "|" + dic_appDoc[_doc_id10].Url_Hardcopy;
+            string _model10 = _id10 + ";" + _value10;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model10)
         }
 
         @* 6. Khác *@
         @{
             string _doc_id11 = "01_SDD_11";
-            string _model11 = _doc_id11 + "|6_Doc_Other|0|Tài liệu khác, cụ thể|Tên tài liệu|1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model11)
+            string _id11 = _doc_id11 + "|6_Doc_Other|0|Tài liệu khác, cụ thể|Tên tài liệu|1";
+            string _value11 = dic_appDoc[_doc_id11].Isuse.ToString() + "|" + dic_appDoc[_doc_id11].CHAR01 + "|" + dic_appDoc[_doc_id11].Url_Hardcopy;
+            string _model11 = _id11 + ";" + _value11;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model11)
         }
 
 
@@ -461,6 +527,8 @@
             validateOnBlur: false,
             scrollInput: false
         });
+
+        ShowHiden_SoHinhSoTrang();
     });
 
     function ShowHiden_SoHinhSoTrang() {

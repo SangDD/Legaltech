@@ -8,9 +8,9 @@
 
 
     ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
-    if (ViewBag.ApplicationHeaderInfo != null)
+    if (ViewBag.objAppHeaderInfo != null)
     {
-        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.ApplicationHeaderInfo;
+        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
     }
 
     App_Detail_PLB01_SDD_Info _App_Detail = new App_Detail_PLB01_SDD_Info();
@@ -412,11 +412,6 @@
         });
 
         ShowHiden_SoHinhSoTrang();
-
-        @*if (@_App_Detail.Request_Change_Type == 1 || @_App_Detail.Request_Change_Type == 2)
-        {
-
-        }*@
     });
 
     function ShowHiden_SoHinhSoTrang() {
