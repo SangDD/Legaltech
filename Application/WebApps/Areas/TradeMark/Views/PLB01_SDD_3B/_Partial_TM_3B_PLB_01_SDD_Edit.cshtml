@@ -1,0 +1,733 @@
+﻿@using WebApps.CommonFunction;
+@using BussinessFacade.ModuleMemoryData
+@using ObjectInfos
+@using ObjectInfos.ModuleTrademark
+@{
+    ViewBag.Title = "Edit Request for amendment of application";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+    ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.ApplicationHeaderInfo != null)
+    {
+        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.ApplicationHeaderInfo;
+    }
+
+    App_Detail_PLB01_SDD_Info _App_Detail = new App_Detail_PLB01_SDD_Info();
+    if (ViewBag.App_Detail != null)
+    {
+        _App_Detail = (App_Detail_PLB01_SDD_Info)ViewBag.App_Detail;
+    }
+
+    List<AppDocumentInfo> Lst_AppDoc = new List<AppDocumentInfo>();
+    if (ViewBag.Lst_AppDoc != null)
+    {
+        Lst_AppDoc = (List<AppDocumentInfo>)ViewBag.Lst_AppDoc;
+    }
+
+    List<AppFeeFixInfo> Lst_AppFee = new List<AppFeeFixInfo>();
+    if (ViewBag.Lst_AppFee != null)
+    {
+        Lst_AppFee = (List<AppFeeFixInfo>)ViewBag.Lst_AppFee;
+    }
+
+    Dictionary<string, AppDocumentInfo> dic_appDoc = new Dictionary<string, AppDocumentInfo>();
+    foreach (AppDocumentInfo item in Lst_AppDoc)
+    {
+        dic_appDoc[item.Document_Id] = item;
+    }
+}
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+
+    .div-title-col-2 {
+        height: 35px;
+        border: 1px solid #aaa;
+    }
+
+        .div-title-col-2 > div {
+            margin: 9px 5px 0px 7px;
+        }
+</style>
+
+<div class="d-nav-container">
+    <ul class="ul-nav">
+        <li><a href="javascript:;">TradeMark</a></li>
+        <li><a href="javascript:;">  Request for amendment of application</a></li>
+    </ul>
+</div>
+
+<input type="hidden" id="txtAppCode" value='@ViewBag.AppCode' />
+
+<div class="div-search ">
+    <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
+        <legend> SỬA ĐỔI ĐƠN ĐĂNG KÝ ĐỐI TƯỢNG SỞ HỮU CÔNG NGHIỆP </legend>
+
+        @* Cam kết của chủ đơn *@
+        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml")
+
+        @* 1 - CHỦ ĐƠN*@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                CHỦ ĐƠN
+            </div>
+        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+
+        @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                ĐẠI DIỆN CỦA CHỦ ĐƠN
+            </div>
+        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
+        @* end 2 *@
+
+        @* 3 - ĐƠN YÊU CẦU SỬA ĐỔI *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                ĐƠN YÊU CẦU SỬA ĐỔI
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio" style="width:382px">
+                    <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdDonSangChe" value="1" onchange="return ShowHiden_SoHinhSoTrang()">
+                    <label>Đơn đăng ký sáng chế</label>
+                </div>
+            </div>
+
+            <div class="div-search-content">
+                <div class="div-radio">
+                    <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdKieuDangCongNghiep" value="2" onchange="return ShowHiden_SoHinhSoTrang()">
+                    <label>Đơn đăng ký kiểu dáng công nghiệp</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad clssDisplaynone" id="divSoHinhSoTrang">
+            <div class="div-search-title">
+                <div>Số hình:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Số hình" id="txt_SoHinh" style="width:250px" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Số trang:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Số trang" id="txt_SoTrang" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio" style="width:382px">
+                    <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdMachTichHop" value="3" onchange="return ShowHiden_SoHinhSoTrang()">
+                    <label>Đơn đăng ký thiết kế bố trí mạch tích hợp bán dẫn</label>
+                </div>
+            </div>
+
+            <div class="div-search-content">
+                <div class="div-radio">
+                    <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdDKNhanHieu" value="4" onchange="return ShowHiden_SoHinhSoTrang()">
+                    <label>Đơn đăng ký nhãn hiệu</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio">
+                    <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdChiDanDiaLy" value="5" onchange="return ShowHiden_SoHinhSoTrang()">
+                    <label>Đơn đăng ký chỉ dẫn địa lý </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Số đơn:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="3_SoDon" id="3_SoDon" />
+                </div>
+            </div>
+        </div>
+
+        @* end 3 *@
+
+        @* 4 - NỘI DUNG YÊU CẦU SỬA ĐỔI *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                NỘI DUNG YÊU CẦU SỬA ĐỔI
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio" style="width:382px">
+                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1">
+                    <label>Tên chủ đơn</label>
+                </div>
+            </div>
+
+            <div class="div-search-content">
+                <div class="div-radio">
+                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2">
+                    <label>Địa chỉ của chủ đơn</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio" style="width:382px">
+                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3">
+                    <label>Nội dung khác </label>
+                </div>
+            </div>
+
+            <div class="div-search-title" style="margin-left: 0px !important;">
+                <div>Đề nghị sửa thành:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="4_DeNghiSuaThanh" id="4_DeNghiSuaThanh" />
+                </div>
+            </div>
+        </div>
+
+        @* end 4 *@
+
+
+        @* 5 *@
+        @*<div class="divCover cls_form_title">
+                <img src="~/Content/icons/info.png" />
+                <div class="cls_form_header">
+                    PHÍ, LỆ PHÍ
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-checkbox" style="width:382px">
+                        <input type="checkbox" name="5_ckbPhiThamDinh" id="5_ckbPhiThamDinh">
+                        <label>Phí thẩm định yêu cầu sửa đổi đơn </label>
+                    </div>
+                </div>
+
+                <div class="div-search-title">
+                    <div>Số đối tượng tính:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" placeholder="Số đơn" id="5_txt_PhiThamDinh_DoiTuong" />
+                    </div>
+                </div>
+
+                <div class="div-search-title">
+                    <div>Số tiền:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" placeholder="160.000 x [số đơn]" id="5_txt_PhiThamDinh_SoTien" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-checkbox" style="width:382px">
+                        <input type="checkbox" name="5_ckbPhiCongBo" id="5_ckbPhiCongBo">
+                        <label>Phí công bố đơn sửa đổi </label>
+                    </div>
+                </div>
+
+                <div class="div-search-title">
+                    <div>Số đối tượng tính:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" placeholder="Số đơn" id="5_txt_PhiCongBo_DoiTuong" />
+                    </div>
+                </div>
+
+                <div class="div-search-title">
+                    <div>Số tiền:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" placeholder="160.000 x [số đơn]" id="5_txt_PhiCongBo_SoTien" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-checkbox" style="width:382px">
+                        &emsp;&emsp;&emsp;<input type="checkbox" name="5_ckbPhiCongBo_Hinh" id="5_ckbPhiCongBo_Hinh">
+                        <label>Đơn có trên 1 hình (từ hình thứ hai trở đi) </label>
+                    </div>
+                </div>
+
+                <div class="div-search-title">
+                    <div>Số đối tượng tính:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" placeholder="Số hình" id="5_txt_PhiCongBo_DoiTuong_Hinh" />
+                    </div>
+                </div>
+
+                <div class="div-search-title">
+                    <div>Số tiền:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" placeholder="60.000 x [số hình]" id="5_txt_PhiCongBo_Hinh_SoTien" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-checkbox" style="width:382px">
+                        &emsp;&emsp;&emsp;<input type="checkbox" name="5_ckbPhiCongBo_Trang" id="5_ckbPhiCongBo_Trang">
+                        <label>Đơn có trên 1 hình (từ hình thứ hai trở đi) </label>
+                    </div>
+                </div>
+
+                <div class="div-search-title">
+                    <div>Số đối tượng tính:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" placeholder="Số trang" id="5_txt_PhiCongBo_DoiTuong_Trang" />
+                    </div>
+                </div>
+
+                <div class="div-search-title">
+                    <div>Số tiền:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" placeholder="10.000 x [số trang]" id="5_txt_PhiCongBo_Trang_SoTien" />
+                    </div>
+                </div>
+            </div>*@
+        @* END 5 *@
+
+        @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                CÁC TÀI LIỆU CÓ TRONG ĐƠN
+            </div>
+        </div>
+
+        @* 1. Tờ khai *@
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-checkbox" style="width:382px">
+                    <input type="checkbox" name="ckb_6_Doc_ToKhai" id="ckb_6_Doc_ToKhai" value="01_SDD_01" checked="checked">
+                    <label>Tờ khai, gồm</label>
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Số trang:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @*style="width:329px"*@
+                    <input type="text" placeholder="Số trang" id="txt_6_Doc_ToKhai_SoTrang" />
+                </div>
+            </div>
+        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialTaiLieuTrongDon_3B.cshtml", "ckb_6_Doc_ToKhai")
+
+        @* 2. Tài liệu xác nhận *@
+        @{
+            string _doc_id2 = "01_SDD_02";
+            string _model2 = _doc_id2 + "|6_Doc_TLXacNhan|0|Tài liệu xác nhận việc sửa đổi hợp pháp, bằng tiếng|tiếng|1";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model2)
+        }
+
+        @* 3. Bản dịch tiếng Việt *@
+        @{
+            string _doc_id3 = "01_SDD_03";
+            string _model3 = _doc_id3 + "|6_Doc_BDichTv|0|Bản dịch tiếng Việt, gồm|Số trang|1";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model3)
+        }
+
+        @* 4. Giấy uỷ quyền bằng tiếng *@
+        @{
+            string _doc_id4 = "01_SDD_04";
+            string _model4 = _doc_id4 + "|6_Doc_POA|0|Giấy uỷ quyền bằng tiếng|Tiếng|1";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)
+        }
+
+        @* 4.1  Bản dịch tiếng Việt, gồm *@
+        @{
+            string _doc_id5 = "01_SDD_05";
+            string _model5 = _doc_id5 + "|6_Doc_BanDichPOA|1|Bản dịch tiếng Việt, gồm|Số trang|1";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model5)
+        }
+
+        @* 4.2 Bản gốc *@
+        @{
+            string _doc_id6 = "01_SDD_06";
+            string _model6 = _doc_id6 + "|6_Doc_BanGocPOA|1|Bản gốc||1";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model6)
+        }
+
+        @* 4.3 Bản sao *@
+        @{
+            string _doc_id7 = "01_SDD_07";
+            string _model7 = _doc_id7 + "|6_Doc_BanSaoPOA|1|Bản sao||0";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model7)
+        }
+
+
+        @* 4.3.1 Bản sao  > Bản gốc sẽ nộp sau *@
+        @{
+            string _doc_id8 = "01_SDD_08";
+            string _model8 = _doc_id8 + "|6_Doc_BanGocPOA_Later|2|Bản gốc sẽ nộp sau||1";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model8)
+        }
+
+        @* 4.3.2 Bản sao  > Bản gốc đã nộp theo đơn *@
+        @{
+            string _doc_id9 = "01_SDD_09";
+            string _model9 = _doc_id9 + "|6_Doc_BanGocPOA_ByApp|2|Bản gốc đã nộp theo đơn số|Số đơn|0";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model9)
+        }
+
+        @* 5. Bản sao chứng từ nộp phí *@
+        @{
+            string _doc_id10 = "01_SDD_10";
+            string _model10 = _doc_id10 + "|6_Doc_BanSaoChungTu|0|Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ)||1";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model10)
+        }
+
+        @* 6. Khác *@
+        @{
+            string _doc_id11 = "01_SDD_11";
+            string _model11 = _doc_id11 + "|6_Doc_Other|0|Tài liệu khác, cụ thể|Tên tài liệu|1";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model11)
+        }
+
+
+        <div class="class_save">
+            <div class="classGuiDon">
+                <input type="button" value="Gửi đơn" id="btnGuiDon" class="btn" />
+            </div> <div class="classLuuTam">
+                <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn" />
+            </div>
+        </div>
+    </fieldset>
+</div>
+
+@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialPreview.cshtml")
+<div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
+    <div class="dpop-preview" id="dpop-preview">
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $.datetimepicker.setLocale('vi');
+        $('.datetimepicker').datetimepicker({
+            timepicker: false,
+            format: 'd/m/Y',
+            formatDate: 'd/m/Y',
+            mask: '39/19/9999',
+            validateOnBlur: false,
+            scrollInput: false
+        });
+    });
+
+    function ShowHiden_SoHinhSoTrang() {
+        try {
+            if ($("#3_rdDonSangChe").is(':checked') || $("#3_rdKieuDangCongNghiep ").is(':checked')) {
+                $("#divSoHinhSoTrang").removeClass("clssDisplaynone");
+                $("#txt_SoHinh").focus();
+            }
+            else {
+                $("#divSoHinhSoTrang").addClass("clssDisplaynone");
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function ShowHidenUpLoad(pID, pClass, pTxt) {
+        try {
+            if ($("#" + pID).is(':checked')) {
+                $("#div_up_" + pClass).removeClass("clssDisplaynone");
+
+                // ẩn text
+                if (pTxt != "") {
+                    $("#" + pTxt).removeAttr("disabled");
+                }
+            }
+            else {
+                $("#div_up_" + pClass).addClass("clssDisplaynone");
+
+                // ẩn text
+                if (pTxt != "") {
+                    $("#" + pTxt).prop('disabled', true);
+                }
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+
+    $("#btnGuiDon").click(function () {
+        try {
+
+            //Thông tin chủ đơn
+            var formData = new FormData();
+            if (funcThongTinChuDon(formData, "1") != true) {
+                return false;
+            }
+            var v_AppCode = $("#txtAppCode").val();
+            if (v_AppCode === "") {
+                $('#txtAppCode').focus().val('');
+                showError('Chưa chọn loại đơn đăng ký!');
+                return false;
+            }
+
+            // đại diện chủ đơn
+            formData.append("pInfo.Appcode", v_AppCode);
+            if (funcThongTinDaiDienChuDon(formData, "2") != true) {
+                return false;
+            }
+            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+            if (v_RepMasterType === "" || v_RepMasterType == undefined) {
+                jError("Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!");
+                return false;
+            }
+            formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+
+            //Lấy thông tin detail
+            var reponse = funcGetAppDetail(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            //Lấy thông tin tài liệu có trong đơn
+            reponse = funGetDocumentFile(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            reponse = funcGetCamKetChuDon(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            $.ajax({
+                url: '/trade-mark-3b/register_PLB_01_SDD',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                traditional: true,
+                dataType: "json",
+                enctype: 'multipart/form-data',
+                async: false,
+                headers: { "cache-control": "no-cache" },
+                success: function (data) {
+                    if (data != null && data.status >= 0) {
+                        jAlert(AddSuccess, ThongBao, function () {
+                        });
+                    } else {
+                        jError(AddFail, ThongBao, function () {
+                        });
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+
+        } catch (e) {
+            console.log(e);
+        }
+    });
+
+    function funcGetAppDetail(formData) {
+        try {
+            var _YeuCauSuaDoi = $("input[name='3_rdoYeuCauSuaDoi']:checked").val();
+            if (_YeuCauSuaDoi === "" || _YeuCauSuaDoi == undefined) {
+                showError('Phải chọn ít nhất 1 giá trị đơn yêu cầu sửa đổi!');
+                return false;
+            }
+            formData.append("pDetail.Request_Change_Type", parseInt(_YeuCauSuaDoi));
+
+            var _soHinh = 0;
+            var _soTrang = 0;
+            if ($("#3_rdDonSangChe").is(':checked') || $("#3_rdKieuDangCongNghiep ").is(':checked')) {
+                _soHinh = $("#txt_SoHinh").val();
+                _soTrang = $("#txt_SoTrang").val();
+
+                if (_soHinh == "" || _soTrang == "") {
+
+                    if (_soHinh == "") {
+                        jError("Số hình không được để trống!", "lỗi", function () {
+                            $("#txt_SoHinh").focus()
+                        });
+                        return false;
+                    }
+
+                    if (_soTrang == "") {
+                        jError("Số trang không được để trống!", "lỗi", function () {
+                            $("#txt_SoTrang").focus()
+                        });
+                        return false;
+                    }
+                }
+            }
+            formData.append("pDetail.Number_Pic", parseInt(_soHinh));
+            formData.append("pDetail.Number_Page", parseInt(_soTrang));
+
+            // số đơn
+            var _3_SoDon = $("#3_SoDon").val();
+            if (_3_SoDon === "" || _3_SoDon == undefined) {
+                jError("Số đơn không được để trống!", "lỗi", function () {
+                    $("#3_SoDon").focus()
+                });
+                return false;
+            }
+            formData.append("pDetail.App_No_Change", _3_SoDon);
+
+            // Nội dung yêu cầu sửa đổi
+            var _Request_To_Type = $("input[name='4_rdoNoiDungYeuCauSuaDoi']:checked").val();
+            if (_Request_To_Type === "" || _Request_To_Type == undefined) {
+                jError("Phải chọn ít nhất 1 giá trị nội dung yêu cầu sửa đổi !");
+                return false;
+            }
+            formData.append("pDetail.Request_To_Type", parseInt(_Request_To_Type));
+
+            // đề nghị sửa thành
+            var _4_DeNghiSuaThanh = $("#4_DeNghiSuaThanh").val();
+            if (_4_DeNghiSuaThanh === "" || _4_DeNghiSuaThanh == undefined) {
+                jError("Đề nghị sửa thành không được để trống!", "lỗi", function () {
+                    $("#4_DeNghiSuaThanh").focus()
+                });
+                return false;
+            }
+            formData.append("pDetail.Request_To_Content", _4_DeNghiSuaThanh);
+        } catch (e) {
+            console.log(e);
+            showError('Có lỗi xảy ra kiểm tra kết nối internet');
+            return false;
+        }
+    }
+
+    function funGetDocumentFile(formData) {
+        try {
+            var Isuse = 0, Note = "", reponse = false;
+
+            // 1. Tờ khai
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_ToKhai", "0");
+            formData.append("pAppDocumentInfo[0].CHAR01", $("#txt_6_Doc_ToKhai_SoTrang").val());
+
+            // 2. Tài liệu xác nhận
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_TLXacNhan", "1");
+            formData.append("pAppDocumentInfo[1].CHAR01", $("#txt_6_Doc_TLXacNhan").val());
+
+            // 3. Bản dịch tiếng Việt
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BDichTv", "2");
+            formData.append("pAppDocumentInfo[2].CHAR01", $("#txt_6_Doc_BDichTv").val());
+
+            // 4. Giấy uỷ quyền bằng tiếng
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_POA", "3");
+            formData.append("pAppDocumentInfo[3].CHAR01", $("#txt_6_Doc_POA").val());
+
+            // 4.1 Bản dịch tiếng Việt, gồm
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanDichPOA", "4");
+            formData.append("pAppDocumentInfo[4].CHAR01", $("#txt_6_Doc_BanDichPOA").val());
+
+            // 4.2 Bản gốc
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanGocPOA", "5");
+
+            // 4.3 Bản sao
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanSaoPOA", "6");
+
+            // 4.3.1  Bản gốc sẽ nộp sau
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanGocPOA_Later", "7");
+
+            // 4.3.2  Bản gốc đã nộp theo đơn số
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanGocPOA_ByApp", "8");
+            formData.append("pAppDocumentInfo[8].CHAR01", $("#txt_6_Doc_BanGocPOA_ByApp").val());
+
+            // 5. Bản sao chứng từ nộp phí, lệ phí
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanSaoChungTu", "9");
+
+            // 6.Tài liệu khác, cụ thể:
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_Other", "10");
+            formData.append("pAppDocumentInfo[10].CHAR01", $("#txt_6_Doc_Other").val());
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    function funcGetCheckValueAndText(formData, pID, pItem) {
+        try {
+            var Isuse = 0, Note = "";
+            //Các tài liệu có trong đơn
+            if ($("#" + pID).prop('checked') == true) {
+                Isuse = 1;
+            }
+            formData.append("pAppDocumentInfo[" + pItem + "].keyFileUpload", pID);
+            formData.append("pAppDocumentInfo[" + pItem + "].Document_Id", $("#" + pID).val());
+            formData.append("pAppDocumentInfo[" + pItem + "].Isuse", Isuse);
+            return true;
+        } catch (e) {
+            return false;
+        }
+
+    }
+
+    function funcPreViewApplication() {
+        if ($('#divWrapperPreview').css('display') == 'block') {
+            $('#divWrapperPreview').css('display', 'none');
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/trade-mark/Pre-View",
+            headers: { "cache-control": "no-cache" },
+            async: false,
+            success: function (data) {
+                if (data != null) {
+                    $("#dpop-preview").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPreview', "Xem thông tin đơn", 900, 900, "");
+                    $("#divWrapperPreview").css('margin-top', '-760px');
+                }
+                return false;
+            }
+        });
+    }
+</script>
