@@ -3,14 +3,14 @@
 @using ObjectInfos
 @using ObjectInfos.ModuleTrademark
 @{
-    ViewBag.Title = "Đăng ký nhãn hiệu";
+    ViewBag.Title = "View Request for amendment of application";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
 
     ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
-    if (ViewBag.AppHeaderInfo != null)
+    if (ViewBag.ApplicationHeaderInfo != null)
     {
-        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.AppHeaderInfo;
+        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.ApplicationHeaderInfo;
     }
 
     App_Detail_PLB01_SDD_Info _App_Detail = new App_Detail_PLB01_SDD_Info();
@@ -23,6 +23,18 @@
     if (ViewBag.Lst_AppDoc != null)
     {
         Lst_AppDoc = (List<AppDocumentInfo>)ViewBag.Lst_AppDoc;
+    }
+
+    List<AppFeeFixInfo> Lst_AppFee = new List<AppFeeFixInfo>();
+    if (ViewBag.Lst_AppFee != null)
+    {
+        Lst_AppFee = (List<AppFeeFixInfo>)ViewBag.Lst_AppFee;
+    }
+
+    Dictionary<string, AppDocumentInfo> dic_appDoc = new Dictionary<string, AppDocumentInfo>();
+    foreach (AppDocumentInfo item in Lst_AppDoc)
+    {
+        dic_appDoc[item.Document_Id] = item;
     }
 }
 
@@ -54,6 +66,12 @@
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
         <legend> SỬA ĐỔI ĐƠN ĐĂNG KÝ ĐỐI TƯỢNG SỞ HỮU CÔNG NGHIỆP </legend>
+
+        @* Cam kết của chủ đơn *@
+        @{
+            string _camket = _AppHeaderInfo.Address + "|" + _AppHeaderInfo.DateNo + "|" + _AppHeaderInfo.Months + "|" + _AppHeaderInfo.Years;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon_View.cshtml", _camket)
+        }
 
         @* 1 - CHỦ ĐƠN*@
         <div class="divCover cls_form_title">
@@ -114,11 +132,11 @@
 
         <div class="div-search-ad clssDisplaynone" id="divSoHinhSoTrang">
             <div class="div-search-title">
-                <div>Số đơn:</div>
+                <div>Số hình:</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Số hình" id="txt_SoHinh" style="width:250px" />
+                    <input type="text" placeholder="Số hình" id="txt_SoHinh" style="width:250px" value="@_App_Detail.Number_Pic" disabled="disabled" />
                 </div>
             </div>
 
@@ -127,7 +145,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Số trang" id="txt_SoTrang" />
+                    <input type="text" placeholder="Số trang" id="txt_SoTrang" value="@_App_Detail.Number_Page" disabled="disabled" />
                 </div>
             </div>
         </div>
@@ -184,7 +202,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="3_SoDon" id="3_SoDon" value="@_App_Detail.App_No_Change" disabled="disabled"/>
+                    <input type="text" placeholder="3_SoDon" id="3_SoDon" value="@_App_Detail.App_No_Change" disabled="disabled" />
                 </div>
             </div>
         </div>
@@ -256,124 +274,6 @@
 
         @* end 4 *@
 
-
-        @* 5 *@
-        @*<div class="divCover cls_form_title">
-                <img src="~/Content/icons/info.png" />
-                <div class="cls_form_header">
-                    PHÍ, LỆ PHÍ
-                </div>
-            </div>
-
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-checkbox" style="width:382px">
-                        <input type="checkbox" name="5_ckbPhiThamDinh" id="5_ckbPhiThamDinh">
-                        <label>Phí thẩm định yêu cầu sửa đổi đơn </label>
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Số đối tượng tính:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="Số đơn" id="5_txt_PhiThamDinh_DoiTuong" />
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Số tiền:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="160.000 x [số đơn]" id="5_txt_PhiThamDinh_SoTien" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-checkbox" style="width:382px">
-                        <input type="checkbox" name="5_ckbPhiCongBo" id="5_ckbPhiCongBo">
-                        <label>Phí công bố đơn sửa đổi </label>
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Số đối tượng tính:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="Số đơn" id="5_txt_PhiCongBo_DoiTuong" />
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Số tiền:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="160.000 x [số đơn]" id="5_txt_PhiCongBo_SoTien" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-checkbox" style="width:382px">
-                        &emsp;&emsp;&emsp;<input type="checkbox" name="5_ckbPhiCongBo_Hinh" id="5_ckbPhiCongBo_Hinh">
-                        <label>Đơn có trên 1 hình (từ hình thứ hai trở đi) </label>
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Số đối tượng tính:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="Số hình" id="5_txt_PhiCongBo_DoiTuong_Hinh" />
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Số tiền:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="60.000 x [số hình]" id="5_txt_PhiCongBo_Hinh_SoTien" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-checkbox" style="width:382px">
-                        &emsp;&emsp;&emsp;<input type="checkbox" name="5_ckbPhiCongBo_Trang" id="5_ckbPhiCongBo_Trang">
-                        <label>Đơn có trên 1 hình (từ hình thứ hai trở đi) </label>
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Số đối tượng tính:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="Số trang" id="5_txt_PhiCongBo_DoiTuong_Trang" />
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Số tiền:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="10.000 x [số trang]" id="5_txt_PhiCongBo_Trang_SoTien" />
-                    </div>
-                </div>
-            </div>*@
-        @* END 5 *@
-
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
@@ -383,190 +283,104 @@
         </div>
 
         @* 1. Tờ khai *@
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width:382px">
-                    <input type="checkbox" name="6_ckb_Doc_ToKhai" id="6_ckb_Doc_ToKhai" value="01_SDD_01" checked="checked">
-                    <label>Tờ khai, gồm</label>
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>Số trang:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="Số trang" id="6_txt_Doc_ToKhai_SoTrang" style="width:329px" />
-                </div>
-            </div>
-        </div>
-        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialTaiLieuTrongDon_3B.cshtml", "6_ckb_Doc_ToKhai")
+        @{
+            string _doc_id = "01_SDD_01";
+            string _id = _doc_id + "|6_Doc_ToKhai|0|Tờ khai, gồm|Số trang";
+            string _value = dic_appDoc[_doc_id].Isuse.ToString() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
+            string _model = _id + ";" + _value;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model)
+        }
 
         @* 2. Tài liệu xác nhận *@
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width:382px">
-                    <input type="checkbox" name="6_ckb_Doc_TLXacNhan" id="6_ckb_Doc_TLXacNhan" value="01_SDD_02" onchange="return ShowHidenUpLoad(this.id,this.id, '6_txt_Doc_TLXacNhan_Tieng')">
-                    <label>Tài liệu xác nhận việc sửa đổi hợp pháp, bằng tiếng</label>&ensp;
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>tiếng:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="tiếng" id="6_txt_Doc_TLXacNhan_Tieng" style="width:329px" disabled="disabled" />
-                </div>
-            </div>
-        </div>
-        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialTaiLieuTrongDon_3B.cshtml", "6_ckb_Doc_TLXacNhan")
+        @{
+            string _doc_id2 = "01_SDD_02";
+            string _id2 = _doc_id2 + "|6_Doc_TLXacNhan|0|Tài liệu xác nhận việc sửa đổi hợp pháp, bằng tiếng|tiếng";
+            string _value2 = dic_appDoc[_doc_id2].Isuse.ToString() + "|" + dic_appDoc[_doc_id2].CHAR01 + "|" + dic_appDoc[_doc_id2].Url_Hardcopy;
+            string _model2 = _id2 + ";" + _value2;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model2)
+        }
 
         @* 3. Bản dịch tiếng Việt *@
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width:382px">
-                    <input type="checkbox" name="6_ckb_Doc_BDichTv" id="6_ckb_Doc_BDichTv" value="01_SDD_03" onchange="return ShowHidenUpLoad(this.id,this.id,'6_txt_Doc_BDichTv_Trang')">
-                    <label>Bản dịch tiếng Việt, gồm </label>&ensp;
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>Số trang:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="số trang" id="6_txt_Doc_BDichTv_Trang" style="width:329px" disabled="disabled" />
-                </div>
-            </div>
-        </div>
-        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialTaiLieuTrongDon_3B.cshtml", "6_ckb_Doc_BDichTv")
+        @{
+            string _doc_id3 = "01_SDD_03";
+            string _id3 = _doc_id3 + "|6_Doc_BDichTv|0|Bản dịch tiếng Việt, gồm|Số trang";
+            string _value3 = dic_appDoc[_doc_id3].Isuse.ToString() + " | " + dic_appDoc[_doc_id3].CHAR01 + "|" + dic_appDoc[_doc_id3].Url_Hardcopy;
+            string _model3 = _id3 + ";" + _value3;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model3)
+        }
 
         @* 4. Giấy uỷ quyền bằng tiếng *@
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width:382px">
-                    <input type="checkbox" name="6_ckb_Doc_POA" id="6_ckb_Doc_POA" value="01_SDD_04" onchange="return ShowHidenUpLoad(this.id,this.id,'6_txt_Doc_POA_Tieng')">
-                    <label>Giấy uỷ quyền bằng tiếng </label>
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>Tiếng:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="tiếng" id="6_txt_Doc_POA_Tieng" style="width:329px" disabled="disabled" />
-                </div>
-            </div>
-        </div>
+        @{
+            string _doc_id4 = "01_SDD_04";
+            string _id4 = _doc_id4 + "|6_Doc_POA|0|Giấy uỷ quyền bằng tiếng|Tiếng";
+            string _value4 = dic_appDoc[_doc_id4].Isuse.ToString() + "|" + dic_appDoc[_doc_id4].CHAR01 + "|" + dic_appDoc[_doc_id4].Url_Hardcopy;
+            string _model4 = _id4 + ";" + _value4;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model4)
+        }
 
         @* 4.1  Bản dịch tiếng Việt, gồm *@
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width:382px">
-                    &emsp;&emsp;&emsp;<input type="checkbox" name="6_ckb_Doc_BanDichPOA" id="6_ckb_Doc_BanDichPOA" value="01_SDD_05" onchange="return ShowHidenUpLoad(this.id,this.id,'6_txt_Doc_BanDichPOA_Trang')">
-                    <label>Bản dịch tiếng Việt, gồm  </label>
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>Số trang:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="số hình" id="6_txt_Doc_BanDichPOA_Trang" style="width:329px" disabled="disabled" />
-                </div>
-            </div>
-        </div>
-        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialTaiLieuTrongDon_3B.cshtml", "6_ckb_Doc_BanDichPOA|1")
+        @{
+            string _doc_id5 = "01_SDD_05";
+            string _id5 = _doc_id5 + "|6_Doc_BanDichPOA|1|Bản dịch tiếng Việt, gồm|Số trang";
+            string _value5 = dic_appDoc[_doc_id5].Isuse.ToString() + "|" + dic_appDoc[_doc_id5].CHAR01 + "|" + dic_appDoc[_doc_id5].Url_Hardcopy;
+            string _model5 = _id5 + ";" + _value5;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model5)
+        }
 
         @* 4.2 Bản gốc *@
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width: 850px;">
-                    &emsp;&emsp;&emsp;<input type="checkbox" name="6_ckb_Doc_BanGocPOA" id="6_ckb_Doc_BanGocPOA" value="01_SDD_06" onchange="return ShowHidenUpLoad(this.id,this.id,'')">
-                    <label>Bản gốc </label>
-                </div>
-            </div>
-        </div>
-        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialTaiLieuTrongDon_3B.cshtml", "6_ckb_Doc_BanGocPOA")
+        @{
+            string _doc_id6 = "01_SDD_06";
+            string _id6 = _doc_id6 + "|6_Doc_BanGocPOA|1|Bản gốc|";
+            string _value6 = dic_appDoc[_doc_id6].Isuse.ToString() + "|" + dic_appDoc[_doc_id6].CHAR01 + "|" + dic_appDoc[_doc_id6].Url_Hardcopy;
+            string _model6 = _id6 + ";" + _value6;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model6)
+        }
 
         @* 4.3 Bản sao *@
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width:850px">
-                    &emsp;&emsp;&emsp;<input type="checkbox" name="6_ckb_Doc_BanSaoPOA" id="6_ckb_Doc_BanSaoPOA" value="01_SDD_07">
-                    <label>Bản sao</label>
-                </div>
-            </div>
-        </div>
+        @{
+            string _doc_id7 = "01_SDD_07";
+            string _id7 = _doc_id7 + "|6_Doc_BanSaoPOA|1|Bản sao|";
+            string _value7 = dic_appDoc[_doc_id7].Isuse.ToString() + "|" + dic_appDoc[_doc_id7].CHAR01 + "|" + dic_appDoc[_doc_id7].Url_Hardcopy;
+            string _model7 = _id7 + ";" + _value7;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model7)
+        }
 
         @* 4.3.1 Bản sao  > Bản gốc sẽ nộp sau *@
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width:850px">
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<input type="checkbox" name="6_ckb_Doc_BanGocPOA_Later" id="6_ckb_Doc_BanGocPOA_Later" value="01_SDD_08" onchange="return ShowHidenUpLoad(this.id,this.id,'')">
-                    <label>Bản gốc sẽ nộp sau</label>
-                </div>
-            </div>
-        </div>
-        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialTaiLieuTrongDon_3B.cshtml", "6_ckb_Doc_BanGocPOA_Later")
+        @{
+            string _doc_id8 = "01_SDD_08";
+            string _id8 = _doc_id8 + "|6_Doc_BanGocPOA_Later|2|Bản gốc sẽ nộp sau|";
+            string _value8 = dic_appDoc[_doc_id8].Isuse.ToString() + "|" + dic_appDoc[_doc_id8].CHAR01 + "|" + dic_appDoc[_doc_id8].Url_Hardcopy;
+            string _model8 = _id8 + ";" + _value8;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model8)
+        }
 
         @* 4.3.2 Bản sao  > Bản gốc đã nộp theo đơn *@
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width:381px">
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<input type="checkbox" name="6_ckb_Doc_BanGocPOA_ByApp" id="6_ckb_Doc_BanGocPOA_ByApp" value="01_SDD_09" onchange="return ShowHidenUpLoad(this.id,this.id,'6_txt_Doc_BanGocPOA_ByApp')">
-                    <label>Bản gốc đã nộp theo đơn số</label>
-                </div>
-            </div>
-
-
-            <div class="div-search-title">
-                <div>Số đơn:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="Số đơn" id="6_txt_Doc_BanGocPOA_ByApp" style="width:329px" disabled="disabled" />
-                </div>
-            </div>
-        </div>
-        @*@Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialTaiLieuTrongDon_3B.cshtml", "6_ckb_Doc_BanGocPOA_ByApp")*@
+        @{
+            string _doc_id9 = "01_SDD_09";
+            string _id9 = _doc_id9 + "|6_Doc_BanGocPOA_ByApp|2|Bản gốc đã nộp theo đơn số|Số đơn";
+            string _value9 = dic_appDoc[_doc_id9].Isuse.ToString() + "|" + dic_appDoc[_doc_id9].CHAR01 + "|" + dic_appDoc[_doc_id9].Url_Hardcopy;
+            string _model9 = _id9 + ";" + _value9;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model9)
+        }
 
         @* 5. Bản sao chứng từ nộp phí *@
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width:850px">
-                    <input type="checkbox" name="6_ckb_Doc_BanSaoChungTu" id="6_ckb_Doc_BanSaoChungTu" onchange="return ShowHidenUpLoad(this.id,this.id,'')" value="01_SDD_10">
-                    <label>Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ)</label>&ensp;
-                </div>
-            </div>
-        </div>
-        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialTaiLieuTrongDon_3B.cshtml", "6_ckb_Doc_BanSaoChungTu")
+        @{
+            string _doc_id10 = "01_SDD_10";
+            string _id10 = _doc_id10 + "|6_Doc_BanSaoChungTu|0|Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ)|";
+            string _value10 = dic_appDoc[_doc_id10].Isuse.ToString() + "|" + dic_appDoc[_doc_id10].CHAR01 + "|" + dic_appDoc[_doc_id10].Url_Hardcopy;
+            string _model10 = _id10 + ";" + _value10;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model10)
+        }
 
         @* 6. Khác *@
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width:381px">
-                    <input type="checkbox" name="6_ckb_Doc_Other" id="6_ckb_Doc_Other" onchange="return ShowHidenUpLoad(this.id,this.id,'6_txt_Doc_Other')" value="01_SDD_11">
-                    <label>Tài liệu khác, cụ thể: </label>&ensp;
-                </div>
-            </div>
+        @{
+            string _doc_id11 = "01_SDD_11";
+            string _id11 = _doc_id11 + "|6_Doc_Other|0|Tài liệu khác, cụ thể|Tên tài liệu";
+            string _value11 = dic_appDoc[_doc_id11].Isuse.ToString() + "|" + dic_appDoc[_doc_id11].CHAR01 + "|" + dic_appDoc[_doc_id11].Url_Hardcopy;
+            string _model11 = _id11 + ";" + _value11;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model11)
+        }
 
-            <div class="div-search-title">
-                <div>Tên tài liệu:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="Tên tài liệu" id="6_txt_Doc_Other" style="width:329px" disabled="disabled" />
-                </div>
-            </div>
-        </div>
-        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialTaiLieuTrongDon_3B.cshtml", "6_ckb_Doc_Other")
-
-        @* Cam kết của chủ đơn *@
-        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml", "6_ckb_Doc_Other")
 
         <div class="class_save">
             <div class="classGuiDon">
@@ -596,6 +410,13 @@
             validateOnBlur: false,
             scrollInput: false
         });
+
+        ShowHiden_SoHinhSoTrang();
+
+        @*if (@_App_Detail.Request_Change_Type == 1 || @_App_Detail.Request_Change_Type == 2)
+        {
+
+        }*@
     });
 
     function ShowHiden_SoHinhSoTrang() {
@@ -633,215 +454,6 @@
         } catch (e) {
             alert(e);
         }
-    }
-
-
-    $("#btnGuiDon").click(function () {
-        try {
-
-            //Thông tin chủ đơn
-            var formData = new FormData();
-            if (funcThongTinChuDon(formData, "1") != true) {
-                return false;
-            }
-            var v_AppCode = $("#txtAppCode").val();
-            if (v_AppCode === "") {
-                $('#txtAppCode').focus().val('');
-                showError('Chưa chọn loại đơn đăng ký!');
-                return false;
-            }
-
-            // đại diện chủ đơn
-            formData.append("pInfo.Appcode", v_AppCode);
-            if (funcThongTinDaiDienChuDon(formData, "2") != true) {
-                return false;
-            }
-            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-            if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                jError("Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!");
-                return false;
-            }
-            formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-
-            //Lấy thông tin detail
-            var reponse = funcGetAppDetail(formData);
-            if (reponse == false) {
-                return false;
-            }
-
-            //Lấy thông tin tài liệu có trong đơn
-            reponse = funGetDocumentFile(formData);
-            if (reponse == false) {
-                return false;
-            }
-
-            reponse = funcGetCamKetChuDon(formData);
-            if (reponse == false) {
-                return false;
-            }
-
-            $.ajax({
-                url: '/trade-mark-3b/register_PLB_01_SDD',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                traditional: true,
-                dataType: "json",
-                enctype: 'multipart/form-data',
-                async: false,
-                headers: { "cache-control": "no-cache" },
-                success: function (data) {
-                    if (data != null && data.status >= 0) {
-                        jAlert(AddSuccess, ThongBao, function () {
-                        });
-                    } else {
-                        jError(AddFail, ThongBao, function () {
-                        });
-                    }
-                },
-                error: function (e) {
-                    console.log(e);
-                }
-            });
-
-        } catch (e) {
-            console.log(e);
-        }
-    });
-
-    function funcGetAppDetail(formData) {
-        try {
-            var _YeuCauSuaDoi = $("input[name='3_rdoYeuCauSuaDoi']:checked").val();
-            if (_YeuCauSuaDoi === "" || _YeuCauSuaDoi == undefined) {
-                showError('Phải chọn ít nhất 1 giá trị đơn yêu cầu sửa đổi!');
-                return false;
-            }
-            formData.append("pDetail.Request_Change_Type", parseInt(_YeuCauSuaDoi));
-
-            var _soHinh = 0;
-            var _soTrang = 0;
-            if ($("#3_rdDonSangChe").is(':checked') || $("#3_rdKieuDangCongNghiep ").is(':checked')) {
-                _soHinh = $("#txt_SoHinh").val();
-                _soTrang = $("#txt_SoTrang").val();
-
-                if (_soHinh == "" || _soTrang == "") {
-
-                    if (_soHinh == "") {
-                        jError("Số hình không được để trống!", "lỗi", function () {
-                            $("#txt_SoHinh").focus()
-                        });
-                        return false;
-                    }
-
-                    if (_soTrang == "") {
-                        jError("Số trang không được để trống!", "lỗi", function () {
-                            $("#txt_SoTrang").focus()
-                        });
-                        return false;
-                    }
-                }
-            }
-            formData.append("pDetail.Number_Pic", parseInt(_soHinh));
-            formData.append("pDetail.Number_Page", parseInt(_soTrang));
-
-            // số đơn
-            var _3_SoDon = $("#3_SoDon").val();
-            if (_3_SoDon === "" || _3_SoDon == undefined) {
-                jError("Số đơn không được để trống!", "lỗi", function () {
-                    $("#3_SoDon").focus()
-                });
-                return false;
-            }
-            formData.append("pDetail.App_No_Change", _3_SoDon);
-
-            // Nội dung yêu cầu sửa đổi
-            var _Request_To_Type = $("input[name='4_rdoNoiDungYeuCauSuaDoi']:checked").val();
-            if (_Request_To_Type === "" || _Request_To_Type == undefined) {
-                jError("Phải chọn ít nhất 1 giá trị nội dung yêu cầu sửa đổi !");
-                return false;
-            }
-            formData.append("pDetail.Request_To_Type", parseInt(_Request_To_Type));
-
-            // đề nghị sửa thành
-            var _4_DeNghiSuaThanh = $("#4_DeNghiSuaThanh").val();
-            if (_4_DeNghiSuaThanh === "" || _4_DeNghiSuaThanh == undefined) {
-                jError("Đề nghị sửa thành không được để trống!", "lỗi", function () {
-                    $("#4_DeNghiSuaThanh").focus()
-                });
-                return false;
-            }
-            formData.append("pDetail.Request_To_Content", _4_DeNghiSuaThanh);
-        } catch (e) {
-            console.log(e);
-            showError('Có lỗi xảy ra kiểm tra kết nối internet');
-            return false;
-        }
-    }
-
-    function funGetDocumentFile(formData) {
-        try {
-            var Isuse = 0, Note = "", reponse = false;
-
-            // 1. Tờ khai
-            reponse = funcGetCheckValueAndText(formData, "6_ckb_Doc_ToKhai", "0");
-            formData.append("pAppDocumentInfo[0].CHAR01", $("#6_txt_Doc_ToKhai_SoTrang").val());
-
-            // 2. Tài liệu xác nhận
-            reponse = funcGetCheckValueAndText(formData, "6_ckb_Doc_TLXacNhan", "1");
-            formData.append("pAppDocumentInfo[1].CHAR01", $("#6_txt_Doc_TLXacNhan_Tieng").val());
-
-            // 3. Bản dịch tiếng Việt
-            reponse = funcGetCheckValueAndText(formData, "6_ckb_Doc_BDichTv", "2");
-            formData.append("pAppDocumentInfo[2].CHAR01", $("#6_txt_Doc_BDichTv_Trang").val());
-
-            // 4. Giấy uỷ quyền bằng tiếng
-            reponse = funcGetCheckValueAndText(formData, "6_ckb_Doc_POA", "3");
-            formData.append("pAppDocumentInfo[3].CHAR01", $("#6_txt_Doc_POA_Tieng").val());
-
-            // 4.1 Bản dịch tiếng Việt, gồm
-            reponse = funcGetCheckValueAndText(formData, "6_ckb_Doc_BanDichPOA", "4");
-            formData.append("pAppDocumentInfo[4].CHAR01", $("#6_txt_Doc_BanDichPOA_Trang").val());
-
-            // 4.2 Bản gốc
-            reponse = funcGetCheckValueAndText(formData, "6_ckb_Doc_BanGocPOA", "5");
-
-            // 4.3 Bản sao
-            reponse = funcGetCheckValueAndText(formData, "6_ckb_Doc_BanSaoPOA", "6");
-
-            // 4.3.1  Bản gốc sẽ nộp sau
-            reponse = funcGetCheckValueAndText(formData, "6_ckb_Doc_BanGocPOA_Later", "7");
-
-            // 4.3.2  Bản gốc đã nộp theo đơn số
-            reponse = funcGetCheckValueAndText(formData, "6_ckb_Doc_BanGocPOA_ByApp", "8");
-            formData.append("pAppDocumentInfo[8].CHAR01", $("#6_txt_Doc_BanGocPOA_ByApp").val());
-
-            // 5. Bản sao chứng từ nộp phí, lệ phí
-            reponse = funcGetCheckValueAndText(formData, "6_ckb_Doc_BanSaoChungTu", "9");
-
-            // 6.Tài liệu khác, cụ thể:
-            reponse = funcGetCheckValueAndText(formData, "6_ckb_Doc_Other", "10");
-            formData.append("pAppDocumentInfo[10].CHAR01", $("#6_txt_Doc_Other").val());
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    function funcGetCheckValueAndText(formData, pID, pItem) {
-        try {
-            var Isuse = 0, Note = "";
-            //Các tài liệu có trong đơn
-            if ($("#" + pID).prop('checked') == true) {
-                Isuse = 1;
-            }
-            formData.append("pAppDocumentInfo[" + pItem + "].keyFileUpload", pID);
-            formData.append("pAppDocumentInfo[" + pItem + "].Document_Id", $("#" + pID).val());
-            formData.append("pAppDocumentInfo[" + pItem + "].Isuse", Isuse);
-            return true;
-        } catch (e) {
-            return false;
-        }
-
     }
 
     function funcPreViewApplication() {

@@ -84,15 +84,17 @@ namespace DataAccess
             }
         }
 
-        public DataSet GetByID(decimal p_id, decimal p_app_header_id, string p_language_code)
+        public DataSet GetByID(decimal p_app_header_id, string p_language_code)
         {
             try
             {
                 DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_detail_plb01_sdd.Proc_GetById",
-                    new OracleParameter("p_id", OracleDbType.Decimal, p_id, ParameterDirection.Input),
                     new OracleParameter("p_app_header_id", OracleDbType.Decimal, p_app_header_id, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
-                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursorHeader", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_doc", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_fee", OracleDbType.RefCursor, ParameterDirection.Output));
                 return _ds;
             }
             catch (Exception ex)

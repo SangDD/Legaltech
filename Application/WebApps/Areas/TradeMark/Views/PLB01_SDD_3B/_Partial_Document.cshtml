@@ -1,0 +1,67 @@
+﻿@model string
+@{
+    string[] arr = Model.Split(';');
+
+    // định nghĩa id
+    string _ID = arr[0];
+    string[] arr_id = _ID.Split('|');
+
+    string Document_Id = arr_id[0];
+    string divCheckbox = "divCheckbox_" + Document_Id;
+
+    string _Id = arr_id[1];
+    string Id_Checkbox = "ckb_" + _Id;
+    string LevelTextbox = arr_id[2];
+
+    string Lable = arr_id[3];
+
+    string Lable2 = arr_id[4];
+    string Id_textbox = "txt_" + _Id;
+
+    string IsUpload = arr_id[5];
+}
+
+<div class="div-search-ad">
+    <div class="div-search-content">
+        <div class="div-checkbox" id="@divCheckbox" style="width:382px">
+            @if (LevelTextbox == "1")
+            {
+                @Html.Raw("&emsp;&emsp;&emsp;")
+            }
+            else if (LevelTextbox == "2")
+            {
+                @Html.Raw("&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;")
+            }
+            <input type="checkbox" name="@Id_Checkbox" id="@Id_Checkbox" value="@Document_Id" onchange="return ShowHidenUpLoad(this.id,this.id, '@Id_textbox')">
+            <label>@Lable</label>
+        </div>
+    </div>
+
+    @if (Lable2 != "")
+    {
+        <div class="div-search-title">
+            <div>@Lable2:</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                @*style="width:329px"*@
+                <input type="text" placeholder="@Lable2" id="@Id_textbox" disabled="disabled" />
+            </div>
+        </div>
+    }
+
+</div>
+@if (IsUpload == "1")
+{
+    @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialTaiLieuTrongDon_3B.cshtml", @Id_Checkbox)
+}
+
+<script>
+    $(document).ready(function() {
+        if ('@Lable2' == "") {
+            var _divCheckbox = document.getElementById('@divCheckbox');
+            //_divCheckbox.style.width = "850px";
+            _divCheckbox.style.width = null;
+        }
+    });
+</script>

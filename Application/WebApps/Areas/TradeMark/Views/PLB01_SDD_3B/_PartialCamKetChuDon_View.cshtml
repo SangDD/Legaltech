@@ -1,4 +1,13 @@
-﻿<div class="divCover cls_form_title">
+﻿@model string
+@{
+    string[] arr = Model.Split('|');
+    string Address = arr[0];
+    string DateNo = arr[1];
+    string Months = arr[2];
+    string Years = arr[3];
+}
+
+<div class="divCover cls_form_title">
     <img src="~/Content/icons/info.png" />
     <div class="cls_form_header">
         CAM KẾT CỦA CHỦ ĐƠN
@@ -11,7 +20,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" style="margin-left: 1px;width:250px" maxlength="200" id="txtKhaiTai" />
+            <input type="text" style="margin-left: 1px;width:250px" maxlength="200" id="txtKhaiTai" disabled="disabled" value="@Address" />
         </div>
     </div>
 
@@ -20,10 +29,10 @@
     </div>
     <div class="div-search-content">
         <div>
-            <select id="cboNgayKhai" class="classNgayThangNam" style="width:50px">
+            <select id="cboNgayKhai" class="classNgayThangNam" style="width:50px" disabled="disabled">
                 @for (int i = 1; i < 32; i++)
                 {
-                    if (i.ToString().PadLeft(2, '0') == DateTime.Now.ToString("dd"))
+                    if (i.ToString().PadLeft(2, '0') == DateNo)
                     {
                         <option selected="selected" value="@i.ToString().PadLeft(2, '0')">@i.ToString().PadLeft(2, '0')</option>
                     }
@@ -42,10 +51,10 @@
     </div>
     <div class="div-search-content">
         <div>
-            <select id="cboThangKhai" class="classNgayThangNam" style="width:50px">
+            <select id="cboThangKhai" class="classNgayThangNam" style="width:50px" disabled="disabled">
                 @for (int i = 1; i < 13; i++)
                 {
-                    if (i.ToString().PadLeft(2, '0') == DateTime.Now.ToString("MM"))
+                    if (i.ToString().PadLeft(2, '0') == Months)
                     {
                         <option selected="selected" value="@i.ToString().PadLeft(2,'0')">@i.ToString().PadLeft(2, '0')</option>
                     }
@@ -64,10 +73,10 @@
     </div>
     <div class="div-search-content">
         <div>
-            <select id="cboNamKhai" class="classNgayThangNam">
+            <select id="cboNamKhai" class="classNgayThangNam" disabled="disabled">
                 @for (int i = 2005; i < 2051; i++)
                 {
-                    if (i.ToString() == DateTime.Now.ToString("yyyy"))
+                    if (i.ToString() == Years)
                     {
                         <option selected="selected" value="@i.ToString()">@i.ToString()</option>
                     }
@@ -80,22 +89,3 @@
         </div>
     </div>
 </div>
-
-<script>
-
-    function funcGetCamKetChuDon(formData) {
-        try {
-            var address = $("#txtKhaiTai").val();
-            formData.append("pInfo.Address", address);
-            var dateno = $("#cboNgayKhai").val();
-            formData.append("pInfo.DateNo", dateno);
-            var months = $("#cboThangKhai").val();
-            formData.append("pInfo.Months", months);
-            var years = $("#cboNamKhai").val();
-            formData.append("pInfo.Years", years);
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-</script>

@@ -88,7 +88,7 @@
         {
             try
             {
-                
+
             }
             catch (Exception ex)
             {
@@ -203,7 +203,7 @@
                         scope.Complete();
                     }
                 }
-                
+
                 return Json(new { status = pAppHeaderID });
             }
             catch (Exception ex)
@@ -216,7 +216,7 @@
         [HttpPost]
         [Route("them_moi_don_dang_ky_sua_doi")]
         public ActionResult AppSuaDoiDonDangKyInsert(ApplicationHeaderInfo pInfo, List<AppFeeFixInfo> pFeeFixInfo,
-                        AppDetail01Info pDetailInfo ,List<AppDocumentInfo> pAppDocumentInfo)
+                        AppDetail01Info pDetailInfo, List<AppDocumentInfo> pAppDocumentInfo)
         {
             try
             {
@@ -355,7 +355,7 @@
                 DocumentModel document = DocumentModel.Load(_fileTemp);
 
                 // Fill export_header
-                string   fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/"+ "Dang_ky_sua_doi_nhan_hieu_" + pInfo.Appcode + ".pdf");
+                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Dang_ky_sua_doi_nhan_hieu_" + pInfo.Appcode + ".pdf");
 
                 // Fill export_detail  
 
@@ -375,7 +375,7 @@
                     document.Save(stream, options);
                     fileContents = stream.ToArray();
                 }
-                  Convert.ToBase64String(fileContents);
+                Convert.ToBase64String(fileContents);
 
                 return Json(new { success = 0 });
 
@@ -415,17 +415,17 @@
         {
             decimal App_Header_Id = 0;
             string AppCode = "";
-             int Status = 0;
+            int Status = 0;
             try
             {
                 if (SessionData.CurrentUser == null)
                     return Redirect("/");
                 SessionData.CurrentUser.chashFile.Clear();
                 SessionData.CurrentUser.chashFileOther.Clear();
-               
+
                 if (RouteData.Values.ContainsKey("id"))
                 {
-                    App_Header_Id  = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
+                    App_Header_Id = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
                 }
                 if (RouteData.Values.ContainsKey("id1"))
                 {
@@ -435,10 +435,10 @@
                 {
                     AppCode = RouteData.Values["id2"].ToString().ToUpper();
                 }
-               
+
                 if (AppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
                 {
-                    return TradeMarkSuaDon(App_Header_Id,AppCode, Status);
+                    return TradeMarkSuaDon(App_Header_Id, AppCode, Status);
                 }
             }
             catch (Exception ex)
@@ -461,7 +461,7 @@
                     return Redirect("/");
                 SessionData.CurrentUser.chashFile.Clear();
                 SessionData.CurrentUser.chashFileOther.Clear();
-               
+
                 if (RouteData.Values.ContainsKey("id"))
                 {
                     App_Header_Id = CommonFuc.ConvertToInt(RouteData.Values["id"]);
@@ -470,10 +470,7 @@
                 {
                     AppCode = RouteData.Values["id2"].ToString().ToUpper();
                 }
-                if (AppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
-                {
-                    return TradeMarkView(App_Header_Id, AppCode, Status);
-                }
+                return TradeMarkView(App_Header_Id, AppCode, Status);
             }
             catch (Exception ex)
             {
@@ -499,20 +496,35 @@
                 }
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialDangKyNhanHieu.cshtml");
             }
+            else if (pAppCode == TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD)
+            {
+                App_Detail_PLB01_SDD_BL objBL = new App_Detail_PLB01_SDD_BL();
+                string language = AppsCommon.GetCurrentLang();
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                App_Detail_PLB01_SDD_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
+                ViewBag.App_Detail = app_Detail;
+                ViewBag.Lst_AppDoc = appDocumentInfos;
+                ViewBag.Lst_AppFee = appFeeFixInfos;
+                ViewBag.ApplicationHeaderInfo = applicationHeaderInfo;
+
+                return PartialView("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_TM_3B_PLB_01_SDD_View.cshtml");
+            }
             else
             {
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialDangKyNhanHieu.cshtml");
             }
         }
 
-        public ActionResult TradeMarkSuaDon(decimal pAppHeaderId, string pAppCode,int pStatus)
+        public ActionResult TradeMarkSuaDon(decimal pAppHeaderId, string pAppCode, int pStatus)
         {
             if (pAppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
             {
                 var objBL = new AppDetail04NHBL();
                 string language = AppsCommon.GetCurrentLang();
                 var ds04NH = objBL.AppTM04NHGetByID(pAppHeaderId, language, pStatus);
-                if (ds04NH != null && ds04NH.Tables.Count==5)
+                if (ds04NH != null && ds04NH.Tables.Count == 5)
                 {
                     ViewBag.objAppHeaderInfo = CBO<AppDetail04NHInfo>.FillObjectFromDataTable(ds04NH.Tables[0]);
                     ViewBag.lstDocumentInfo = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds04NH.Tables[1]);
@@ -531,16 +543,16 @@
 
         [HttpPost]
         [Route("request-for-trade-mark-del")]
-        public ActionResult TradeMarkForDel(decimal pAppHeaderID , string pAppCode)
+        public ActionResult TradeMarkForDel(decimal pAppHeaderID, string pAppCode)
         {
-             
+
             try
             {
                 if (SessionData.CurrentUser == null)
                     return Redirect("/");
                 SessionData.CurrentUser.chashFile.Clear();
                 SessionData.CurrentUser.chashFileOther.Clear();
-                var objBL = new Application_Header_BL(); 
+                var objBL = new Application_Header_BL();
                 string language = AppsCommon.GetCurrentLang();
                 var response = objBL.AppHeaderDeleted(pAppHeaderID, language);
                 return Json(new { status = response });
@@ -630,7 +642,7 @@
                                     info.Filename = pfiles.FileName;
                                     info.Filename = "~/Content/Archive/" + AppUpload.Document + pfiles.FileName;
                                 }
-                                info.App_Header_Id = pInfo.Id; 
+                                info.App_Header_Id = pInfo.Id;
                                 info.Language_Code = language;
                             }
                             pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocOtherInfo);
