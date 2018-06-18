@@ -192,13 +192,13 @@
             // đẩy các dòng tổng xuống cuối table
             var _html = "";
             _ArrGroupAppClass.forEach(function (element) {
-                _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='2' class=\"tdRightAlign textbold\">Tổng SP</td><td colspan='2' class=\"TdLeft textbold\"> " + element.value + "</td> <td class=\"HasSort clssDisplaynone\"> " + element.name + "999 </td> </tr>";
+                _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='2' class=\"tdRightAlign textbold\">Tổng SP</td><td colspan='2' class=\"TdLeft textbold\"> " + element.value + "</td>   <input  type=\"hidden\" class=\"txtTongSanPham\" value=\"" + element.value +"\"/> <td class=\"HasSort clssDisplaynone\"> " + element.name + "999 </td> </tr>";
                 $("#tblClassInfo").find("tbody").append(_html);
             });
 
             // tổng số nhóm
 
-            _html = "<tr id='_rowappclassinfo0'><td colspan='2' class=\"tdRightAlign textbold\">Tổng số nhóm</td><td colspan='2' class=\"TdLeft textbold\"> " + _ArrGroupAppClass.length + "</td> <td class=\"HasSort clssDisplaynone\">  99999 </td></tr>";
+            _html = "<tr id='_rowappclassinfo0'><td colspan='2' class=\"tdRightAlign textbold\">Tổng số nhóm</td><td colspan='2' class=\"TdLeft textbold\"> " + _ArrGroupAppClass.length + "</td>  <input  type=\"hidden\" id=\"txtTongSoNhom\" value=\"" + _ArrGroupAppClass.length  +"\"/> <td class=\"HasSort clssDisplaynone\">  99999 </td></tr>";
             $("#tblClassInfo").find("tbody").append(_html);
         } catch (e) {
             console.log(e);
@@ -273,10 +273,21 @@
     function funcGetDataClassInfo(formData) {
         try {
             var item = 0;
+            
+            var tongSP = "";
+            $("#tblClassInfo").find("tbody").find(".txtTongSanPham").each(function () {
+                tongSP = tongSP + $(this).val() + "|";
+            });
+
+            var tongSoNhom = $("#txtTongSoNhom").val();
             $("#tblClassInfo").find("tbody").find(".DataAdd").each(function () {
                 var str_data = $(this).val().split('|');
                 formData.append("pAppClassInfo[" + item + "].Textinput", str_data[0]);
                 formData.append("pAppClassInfo[" + item + "].Code", str_data[1]);
+                //Tổng số nhóm để tính xem có bao nhiêu nhóm phục vụ tính phí
+                formData.append("pAppClassInfo[" + item + "].TongSoNhom", tongSoNhom); 
+                //Số sản phẩm để tính phần dư chênh lệch
+                formData.append("pAppClassInfo[" + item + "].TongSanPham", tongSP); 
                 item++;
             });
             return true;

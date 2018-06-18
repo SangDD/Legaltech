@@ -71,14 +71,14 @@
 
         public ActionResult TradeMarkSuaDon(decimal pAppHeaderId, string pAppCode, int pStatus)
         {
-            if (pAppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
+            if (pAppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
             {
                 var objBL = new AppDetail06DKQT_BL();
                 string language = AppsCommon.GetCurrentLang();
                 var ds06Dkqt = objBL.AppTM06DKQTGetByID(pAppHeaderId, language, pStatus);
-                if (ds06Dkqt != null && ds06Dkqt.Tables.Count == 5)
+                if (ds06Dkqt != null && ds06Dkqt.Tables.Count == 3)
                 {
-                    ViewBag.objAppHeaderInfo = CBO<AppDetail04NHInfo>.FillObjectFromDataTable(ds06Dkqt.Tables[0]);
+                    ViewBag.objAppHeaderInfo = CBO<App_Detail_TM06DKQT_Info>.FillObjectFromDataTable(ds06Dkqt.Tables[0]);
                     ViewBag.lstDocumentInfo = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[1]);
                     ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[2]);
                 }
@@ -87,15 +87,47 @@
                 // truyền vào trạng thái nào? để tạm thời = 1 cho có dữ liệu
                 _list04nh = _AppDetail04NHBL.AppTM04NHSearchByStatus(1);
                 ViewBag.ListAppDetail04NHInfo = _list04nh;
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialEditDangKyNhanHieu.cshtml");
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartalEditDangKyNhanHieu.cshtml");
             }
             else
             {
                 //
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialEditDangKyNhanHieu.cshtml");
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartalEditDangKyNhanHieu.cshtml");
             }
         }
 
+
+
+        [HttpGet]
+        [Route("request-for-trade-mark/{id}")]
+        public ActionResult TradeMarkChoiseApplication()
+        {
+            try
+            {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+
+                SessionData.CurrentUser.chashFile.Clear();
+                SessionData.CurrentUser.chashFileOther.Clear();
+                string AppCode = "";
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    AppCode = RouteData.Values["id"].ToString().ToUpper();
+                }
+                ViewBag.AppCode = AppCode;
+                if (AppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
+                {
+                    return AppDangKyNhanHieu();
+                }
+              
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return AppDangKyNhanHieu();
+            
+        }
         public ActionResult AppDangKyNhanHieu()
         {
             try
@@ -119,7 +151,7 @@
         [HttpPost]
         [Route("dang_ky_nhan_hieu")]
         public ActionResult AppDonDangKyInsert(ApplicationHeaderInfo pInfo, App_Detail_TM06DKQT_Info pDetail, List<AppDocumentInfo> pAppDocumentInfo,
-         List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo)
+         List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo, List<AppFeeFixInfo> pFeeFixInfo)
         {
             try
             {
@@ -127,6 +159,7 @@
                 AppDetail06DKQT_BL objDetailBL = new AppDetail06DKQT_BL();
                 AppClassDetailBL objClassDetail = new AppClassDetailBL();
                 AppDocumentBL objDoc = new AppDocumentBL();
+                AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
                 if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
                 string language = AppsCommon.GetCurrentLang();
                 var CreatedBy = SessionData.CurrentUser.Username;
@@ -141,7 +174,16 @@
                     pInfo.Created_Date = CreatedDate;
                     //TRA RA ID CUA BANG KHI INSERT
                     pAppHeaderID = objBL.AppHeaderInsert(pInfo);
+                    //Gán lại khi lấy dl 
                     if (pAppHeaderID >= 0)
+                    {
+                        pReturn = objFeeFixBL.AppFeeFixInsertBath(pFeeFixInfo, pAppHeaderID);
+                    }
+                    else
+                    {
+                        Transaction.Current.Rollback();
+                    }
+                    if (pReturn >= 0)
                     {
                         pDetail.Appcode = pInfo.Appcode;
                         pDetail.LANGUAGE_CODE = language;

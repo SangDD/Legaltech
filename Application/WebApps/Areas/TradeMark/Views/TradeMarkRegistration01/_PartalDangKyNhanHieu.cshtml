@@ -12,6 +12,9 @@
     {
         _List04nhdetail = ViewBag.ListAppDetail04NHInfo;
     }
+    string _appcode = ViewBag.AppCode;
+
+    SysAppFixChargeInfo _Appfixcharge =  BussinessFacade.ModuleMemoryData.MemoryData.c_dic_FeeByApp_Fix[_appcode];
 }
 <script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
 <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
@@ -457,7 +460,10 @@
                 _5_txtLePhiDangKy.focus();
                 return false;
             }
-
+            formData.append("pFeeFixInfo[0].Fee_Id", '@_Appfixcharge.Fee_Id.ToString()');
+            formData.append("pFeeFixInfo[0].Isuse", "1");
+            formData.append("pFeeFixInfo[0].Number_Of_Patent", 0);
+            formData.append("pFeeFixInfo[0].Amount", _5_txtLePhiDangKy.val());
 
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
             formData.append("pInfo.Send_Date", _1_txtNgayNopDon.val());
@@ -620,6 +626,10 @@
                 return false;
             }
 
+            formData.append("pFeeFixInfo[0].Fee_Id", "0");
+            formData.append("pFeeFixInfo[0].Isuse", "1");
+            formData.append("pFeeFixInfo[0].Number_Of_Patent", 0);
+            formData.append("pFeeFixInfo[0].Amount", _5_txtLePhiDangKy.val());
 
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
             formData.append("pInfo.Send_Date", _1_txtNgayNopDon.val());

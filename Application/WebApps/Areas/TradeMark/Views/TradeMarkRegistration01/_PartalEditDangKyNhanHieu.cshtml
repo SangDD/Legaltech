@@ -53,7 +53,7 @@
     {
         _01_rad_DonDK = "checked='checked'";
     }
-    else if (objAppHeaderInfo.THANHVIEN_ND_TC == "GIAYDK")
+    else if (objAppHeaderInfo.DON_GIAY_DKNHCS == "GIAYDK")
     {
         _01_rad_GiayDK = "checked='checked'";
     }
@@ -61,7 +61,6 @@
 
 }
 
-}
 <script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
 <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
 <script>
@@ -183,7 +182,7 @@
                     <select id="cbo_04nh_data">
                         @foreach (var item in _List04nhdetail)
                         {
-                            if (item.Appno == objAppHeaderInfo.REF_APPNO)
+                            if (item.App_Header_Id.ToString() == objAppHeaderInfo.REF_APPNO)
                             {
                             <option selected="selected" value="@item.Id">
                                 @item.Appno
