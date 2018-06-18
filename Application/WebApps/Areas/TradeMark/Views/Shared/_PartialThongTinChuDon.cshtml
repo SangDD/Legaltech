@@ -1,10 +1,17 @@
 ﻿ @model string
+ @using ObjectInfos;
 @{
     string txtTenDayDu = Model + "_txtTenDayDu";
     string txtDiaChi = Model + "_txtDiaChi";
     string txtDienThoai = Model + "_txtDienThoai";
     string txtFax = Model + "_txtFax";
     string txtEmail = Model + "_txtEmail";
+
+    var objAppHeaderInfo = new App_Detail_TM06DKQT_Info();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        objAppHeaderInfo = (App_Detail_TM06DKQT_Info)ViewBag.objAppHeaderInfo;
+    }
 }
 
 <div class="div-search-ad">
@@ -13,7 +20,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="@txtTenDayDu" maxlength="200" id="@txtTenDayDu"/>
+            <input value="@objAppHeaderInfo.Master_Name" type="text"  placeholder="@txtTenDayDu" maxlength="200" id="@txtTenDayDu"/>
         </div>
     </div>
 </div>
@@ -25,7 +32,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="@txtDiaChi" maxlength="200" id="@txtDiaChi" />
+            <input  value="@objAppHeaderInfo.Master_Address"  type="text" placeholder="@txtDiaChi" maxlength="200" id="@txtDiaChi" />
         </div>
     </div>
 </div>
@@ -36,7 +43,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="@txtDienThoai" maxlength="50" id="@txtDienThoai"  style="width: 250px;"/>
+            <input type="text"  value="@objAppHeaderInfo.Master_Phone"  placeholder="@txtDienThoai" maxlength="50" id="@txtDienThoai"  style="width: 250px;"/>
         </div>
     </div>
 
@@ -45,7 +52,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="@txtFax" maxlength="50" id="@txtFax" />
+            <input  value="@objAppHeaderInfo.Master_Fax"  type="text" placeholder="@txtFax" maxlength="50" id="@txtFax" />
         </div>
     </div>
     <div class="div-search-title">
@@ -53,7 +60,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="@txtEmail" maxlength="50" id="@txtEmail" />
+            <input  value="@objAppHeaderInfo.Master_Email"  type="text"  placeholder="@txtEmail" maxlength="50" id="@txtEmail" />
         </div>
     </div>
 </div>

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace ModuleTrademark
+namespace ObjectInfos
 {
     public class App_Detail_TM06DKQT_Info : ApplicationHeaderInfo
     {
@@ -16,7 +16,7 @@ namespace ModuleTrademark
         public string APPNO { get; set; }
         public DateTime NGAYNOPDON { get; set; }
         public string LOGOURL { get; set; }
-        public HttpPostedFileBase pfilelogo { get; set; }
+        public HttpPostedFileBase pfileLogo { get; set; }
 
         public string THANHVIEN_ND_TC { get; set; }
 

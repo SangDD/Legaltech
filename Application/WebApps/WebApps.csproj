@@ -179,6 +179,7 @@
     <Compile Include="Areas\TradeMark\Controllers\TradeMarkRegistration01Controller.cs" />
     <Compile Include="Areas\TradeMark\Controllers\PLB01_SDD_3B_Controller.cs" />
     <Compile Include="Areas\TradeMark\Controllers\TradeMarkRegistrationController.cs" />
+    <Compile Include="Areas\TradeMark\Controllers\TradeMarkShareDataController.cs" />
     <Compile Include="Areas\TradeMark\TradeMarkAreaRegistration.cs" />
     <Compile Include="CommonFunction\AppLoadHelpers.cs" />
     <Compile Include="CommonFunction\AppsCommon.cs" />
@@ -393,6 +394,10 @@
     <Content Include="Areas\TradeMark\Views\Shared\_PartialThongTinDaiDienChuDon_View.cshtml" />
     <Content Include="Areas\TradeMark\Views\Shared\_PartialTMAddAppClass.cshtml" />
     <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\View_PartialDangKyNhanHieu.cshtml" />
+<<<<<<< HEAD
+    <Content Include="Areas\TradeMark\Views\Shared\_Partial04NHSearch.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration01\_PartalEditDangKyNhanHieu.cshtml" />
+=======
     <Content Include="Areas\TradeMark\Views\PLB01_SDD_3B\_Partial_Document_View.cshtml" />
     <Content Include="Areas\TradeMark\Views\PLB01_SDD_3B\_Partial_Document.cshtml" />
     <Content Include="Areas\TradeMark\Views\PLB01_SDD_3B\_PartialCamKetChuDon_View.cshtml" />
@@ -707,6 +712,7 @@
     <Folder Include="Areas\Patent\Views\Shared\" />
     <Folder Include="Areas\TimeSheet\Models\" />
     <Folder Include="Areas\TradeMark\Models\" />
+    <Folder Include="Areas\TradeMark\Views\TradeMarkShareData\" />
     <Folder Include="Content\Archive\Document\" />
     <Folder Include="Content\Archive\FileAttact\" />
     <Folder Include="Content\Archive\Logo\" />
