@@ -84,7 +84,6 @@
             return AppSuaDoiDonDangKy();
         }
 
-
         public ActionResult AppSuaDoiDonDangKy()
         {
             try
@@ -586,11 +585,10 @@
         }
         #endregion
 
-
         [HttpPost]
         [Route("dang-ky-nhan-hieu-sua-doi")]
         public ActionResult AppDonDangKyEditAppro(ApplicationHeaderInfo pInfo, AppDetail04NHInfo pDetail, List<AppDocumentInfo> pAppDocumentInfo,
-            List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo, List<AppFeeFixInfo> pFeeFixInfo)
+            List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo, List<AppFeeFixInfo> pFeeFixInfo,string listIDDocRemove)
         {
             try
             {
@@ -650,6 +648,15 @@
                             pReturn = objDoc.AppDocumentInsertBath(pAppDocumentInfo, pInfo.Id);
                         }
                     }
+                    if (!string.IsNullOrEmpty(listIDDocRemove))
+                    {
+                        string[] arrayIDDoc = listIDDocRemove.Split('|');
+                        for (int i = 0; i < arrayIDDoc.Length; i++)
+                        {
+                            decimal idDOc = CommonFuc.ConvertToDecimal(arrayIDDoc[i]);
+                            pReturn = objDoc.AppDocumentDelByID(idDOc, language, pInfo.Id);
+                        }
+                    }
                     //tai lieu khac 
                     if (pReturn >= 0 && pAppDocOtherInfo != null)
                     {
@@ -669,6 +676,7 @@
                             pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocOtherInfo);
                         }
                     }
+
                     //Xóa các tài liệu đi khi sửa bản ghi 
                     if (pReturn >= 0 && !string.IsNullOrEmpty(pDetail.ListFileAttachOtherDel))
                     {
@@ -698,7 +706,6 @@
                 return Json(new { status = ErrorCode.Error });
             }
         }
-
 
         public int CaculatorFee(List<AppClassDetailInfo> pAppClassInfo,string NumberAppNo, decimal pAppHeaderId )
         {
