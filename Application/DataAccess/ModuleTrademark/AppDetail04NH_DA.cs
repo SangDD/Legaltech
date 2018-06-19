@@ -81,7 +81,7 @@ namespace DataAccess.ModuleTrademark
                 new OracleParameter("p_dactichhanghoa", OracleDbType.Decimal, pInfo.Dactichhanghoa, ParameterDirection.Input),
                 new OracleParameter("p_color", OracleDbType.Varchar2, pInfo.Color, ParameterDirection.Input),
                 new OracleParameter("p_description", OracleDbType.Varchar2, pInfo.Description, ParameterDirection.Input),
-                new OracleParameter("p_huongquyenuutien", OracleDbType.Decimal, pInfo.Huongquyenuutien, ParameterDirection.Input),
+                new OracleParameter("p_huongquyenuutien", OracleDbType.Varchar2, pInfo.Huongquyenuutien, ParameterDirection.Input),
                 new OracleParameter("p_sodon_ut", OracleDbType.Varchar2, pInfo.Sodon_Ut, ParameterDirection.Input),
                 new OracleParameter("p_ngaynopdon_ut", OracleDbType.Date, pInfo.Ngaynopdon_Ut, ParameterDirection.Input),
                 new OracleParameter("p_nuocnopdon_ut", OracleDbType.Varchar2, pInfo.Nuocnopdon_Ut, ParameterDirection.Input),

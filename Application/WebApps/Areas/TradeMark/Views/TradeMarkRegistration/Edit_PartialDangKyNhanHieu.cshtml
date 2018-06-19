@@ -92,6 +92,38 @@
 
         urlMauNhanHieu = objAppHeaderInfo.Logourl.Replace("~", "");
     }
+    AppDocumentInfo ObjInfo04NH_D_14 = new AppDocumentInfo();
+    AppDocumentInfo ObjInfo04NH_D_15 = new AppDocumentInfo();
+    AppDocumentInfo ObjInfo04NH_D_16 = new AppDocumentInfo();
+    AppDocumentInfo ObjInfo04NH_D_17 = new AppDocumentInfo();
+
+    foreach (var item in lstDocumentInfo)
+    {
+        if (item.Document_Id == "04NH_D_14")
+        {
+            ObjInfo04NH_D_14 = item;
+            ObjInfo04NH_D_14.styleCheck = "checked= 'checked'";
+        }
+        else  if (item.Document_Id == "04NH_D_15")
+        {
+            ObjInfo04NH_D_15 = item;
+            ObjInfo04NH_D_15.styleCheck = "checked= 'checked'";
+        }
+
+        //04NH_D_16
+        else if (item.Document_Id == "04NH_D_16")
+        {
+            ObjInfo04NH_D_16 = item;
+            ObjInfo04NH_D_16.styleCheck = "checked= 'checked'";
+        }
+
+        //04NH_D_17
+        else if (item.Document_Id == "04NH_D_17")
+        {
+            ObjInfo04NH_D_17 = item;
+            ObjInfo04NH_D_17.styleCheck = "checked= 'checked'";
+        }
+    }
 }
 <div class="d-nav-container">
     <ul class="ul-nav">
@@ -99,9 +131,10 @@
         <li><a href="javascript:;"> Request for amendment of application)</a></li>
     </ul>
 </div>
-<input type="hidden" id="txtAppCode" value='@ViewBag.AppCode' />
-<input type="hidden" id="txtAppHeaderID" value="@objAppHeaderInfo.Id" />
-
+<input type="hidden" id="txtAppCode" value='@objAppHeaderInfo.Appcode' />
+<input type="hidden" id="txtAppHeaderID" value="@objAppHeaderInfo.App_Header_Id" />
+@* Luuw cac Id cua cac file dinh kem xoa di xu ly khi thuc hien nut luu *@
+<input type="hidden" id="txtDocumentInAppRemove" value="" />
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
@@ -274,7 +307,7 @@
                         <select id="6_txtNuocNopDon" class="classDacTinhUT">
                             @foreach (var item in MemoryData.c_lst_Country)
                             {
-                                if (item.Name == objAppHeaderInfo.Nuocnopdon_Ut)
+                                if (item.Country_Id.ToString() == objAppHeaderInfo.Nuocnopdon_Ut)
                                 {
                                     <option selected="selected" value="@item.Country_Id">@item.Name</option>
                                 }
@@ -316,12 +349,12 @@
             <div class="div-search-ad" style="display:inline-flex;">
                 <div class="div-search-content">
                     <div class="div-checkbox" style="width:422px">
-                        <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_14" id="6_rdoTLCMQUT" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                        <input type="checkbox" class="classDacTinhUT" maxlength="3" @ObjInfo04NH_D_14.styleCheck value="04NH_D_14" id="6_rdoTLCMQUT" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                         <label>Tài liệu chứng minh quyền ưu tiên</label>
                     </div>
                 </div>
                 <div class="div-search-content">
-                    <input type="text" id="6_txtTLCMQUT" class="classDacTinhUT" maxlength="3" placeholder="6_txtTLCMQUT" />
+                    <input type="text" id="6_txtTLCMQUT" class="classDacTinhUT" value="@ObjInfo04NH_D_14.CHAR01" maxlength="3" placeholder="6_txtTLCMQUT" />
                 </div>
                 <div class="div-search-title" style="width:412px">
                     <div>bản</div>
@@ -330,46 +363,61 @@
             <div class="div-search-ad" style="display:inline-flex;    margin-left: 40px;">
                 <div class="div-search-content">
                     <div class="div-checkbox" style="width:382px">
-                        <input type="checkbox" maxlength="3" class="classDacTinhUT" value="04NH_D_15" id="6_rdoBSDDT" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                        <input type="checkbox" maxlength="3" class="classDacTinhUT" @ObjInfo04NH_D_15.styleCheck value="04NH_D_15" id="6_rdoBSDDT" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                         <label>Bản sao đơn đầu tiên, gồm</label>
                     </div>
                 </div>
                 <div class="div-search-content">
-                    <input type="text" id="6_txtBSDDT" class="classDacTinhUT" maxlength="3" placeholder="6_txtBSDDT" />
+                    <input type="text" id="6_txtBSDDT" class="classDacTinhUT"  value="@ObjInfo04NH_D_15.CHAR01"  maxlength="3" placeholder="6_txtBSDDT" />
                 </div>
                 <div class="div-search-title" style="width:412px">
                     <div>bản</div>
                 </div>
-            </div> <div style="margin-left:40px">
+            </div> 
+            <div style="margin-left:40px">
+
+                @* File dinh kem lay tu db khi sua*@
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialFileDinhKemEdit.cshtml", ObjInfo04NH_D_15)
+                @* end file dinh kem *@
+
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoBSDDT")
             </div>
             <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
                 <div class="div-search-content">
                     <div class="div-checkbox" style="width:382px">
-                        <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_16" id="6_rdoBDTVGom" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                        <input type="checkbox" class="classDacTinhUT"  @ObjInfo04NH_D_16.styleCheck  maxlength="3" value="04NH_D_16" id="6_rdoBDTVGom" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                         <label>Bản dịch tiếng Việt, gồm</label>
                     </div>
                 </div>
                 <div class="div-search-content">
-                    <input type="text" id="6_txtBDTVGom" class="classDacTinhUT" maxlength="3" placeholder="6_txtBDTVGom" />
+                    <input type="text" id="6_txtBDTVGom" class="classDacTinhUT"   value="@ObjInfo04NH_D_16.CHAR01"  maxlength="3" placeholder="6_txtBDTVGom" />
                 </div>
                 <div class="div-search-title" style="width:412px">
                     <div>bản</div>
                 </div>
             </div>
             <div style="margin-left:40px">
+                @* File dinh kem lay tu db khi sua*@
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialFileDinhKemEdit.cshtml", ObjInfo04NH_D_16)
+                @* end file dinh kem *@
+
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoBDTVGom")
             </div>
             <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
                 <div class="div-search-content">
                     <div class="div-checkbox" style="width:382px">
-                        <input type="checkbox" maxlength="3" value="04NH_D_17" class="classDacTinhUT" id="6_rdoGiayChuyenNhungUT" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                        <input type="checkbox" maxlength="3" value="04NH_D_17" @ObjInfo04NH_D_17.styleCheck   class="classDacTinhUT" id="6_rdoGiayChuyenNhungUT" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                         <label> Giấy chuyển nhượng quyền ưu tiên </label>
                     </div>
                 </div>
             </div> <div style="margin-left:40px">
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoGiayChuyenNhungUT")
-            </div>
+       @* File dinh kem lay tu db khi sua*@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialFileDinhKemEdit.cshtml", ObjInfo04NH_D_17)
+         @* end file dinh kem *@
+
+
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoGiayChuyenNhungUT")
+</div>
         </div>
         @* Tài liệu có trong đơn *@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTLTrongDonEdit.cshtml")
@@ -481,6 +529,8 @@
 </style>
 
 <script>
+
+
     $('#6_txtNuocNopDon').multipleSelect({
         filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
@@ -503,7 +553,6 @@
     $("#0_ckbCoSuDungDonUuTien").change(function () {
         if (this.checked) {
             funcEnableDisable('classDacTinhUT', true);
-
             $("#6_txtNuocNopDon").multipleSelect("enable")
         } else {
             funcEnableDisable('classDacTinhUT', false);
@@ -526,7 +575,26 @@
     }
 
     $(document).ready(function () {
-        funcEnableDisable('classDacTinhUT', false);
+         
+        if ($("#6_rdoGiayChuyenNhungUT").is(':checked')) {
+            ShowHidenUpLoad("6_rdoGiayChuyenNhungUT", "6_rdoGiayChuyenNhungUT");
+        }
+        if ($("#6_rdoBDTVGom").is(':checked')) {
+            ShowHidenUpLoad("6_rdoBDTVGom", "6_rdoBDTVGom");
+        }
+        if ($("#6_rdoBSDDT").is(':checked')) {
+            ShowHidenUpLoad("6_rdoBSDDT", "6_rdoBSDDT");
+        }
+
+        if ($("#0_ckbCoSuDungDonUuTien").is(':checked')) {
+            console.log('vao dya');
+            funcEnableDisable('classDacTinhUT', true);
+            $("#6_txtNuocNopDon").multipleSelect("enable")
+        }
+        if ($("#0_ckbDacTinhHangHoa").is(':checked')) {
+            funcEnableDisable('classDacTinhHangHoa', true);
+        }
+
         $.datetimepicker.setLocale('vi');
         $('.datetimepicker').datetimepicker({
             timepicker: false,
@@ -571,7 +639,7 @@
                 return false;
             }
             formData.append("pInfo.Id", v_AppHeaderID);
-           
+
             if (funcThongTinChuDonNguoiDaiDien(formData, "2") != true) {
                 return false;
             }
@@ -608,18 +676,18 @@
                 return false;
             }
             $.ajax({
-                url: '/trade-mark/dang_ky_nhan_hieu',
+                url: '/trade-mark/dang-ky-nhan-hieu-sua-doi',
                 type: 'POST',
                 data: formData,
                 processData: false, contentType: false, traditional: true, dataType: "json",
                 enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.status >= 0) {
-                        jAlert(AddSuccess, ThongBao, function () {
+                        jAlert(EditSuccess, ThongBao, function () {
                             window.location.reload();
                         });
                     } else {
-                        jError(AddFail, ThongBao, function () {
+                        jError(EditFail, ThongBao, function () {
                         });
                     }
                 },
@@ -648,6 +716,7 @@
                 $("#0_txtNgayNopDon").focus();
                 return false;
             }
+
             /// return true if strDate1 <= strDate2
             //function compareDate_N0(strDate1, strDate2) {
             var timenow = $("#txtDateTime").val();
@@ -729,10 +798,10 @@
             var v_MoTa_0 = $("#0_MoTa").val();
             formdata.append("pDetail.Description", v_MoTa_0);
 
-            //Sửa 
+            //Sửa
             var vTaiLieuKhacRemove = $("#ListIDAttach_R").val();
             formdata.append("pDetail.ListFileAttachOtherDel", vTaiLieuKhacRemove);
-            
+
 
             //Lay thong tin Chu don khac 1
             var reponse = funcThongTinChuDonNguoiDaiDien(formdata, "9");
@@ -859,6 +928,10 @@
             // 21 6_rdoGiayChuyenNhungUT
             reponse = funcGetCheckValueAndText(formData, "6_rdoTLK", "21");
 
+            //Danh sach cac tai lieu xoa di khi sua
+            formData.append("listIDDocRemove", $("#txtDocumentInAppRemove").val());
+
+
         } catch (e) {
             console.log(e);
         }
@@ -881,8 +954,7 @@
 
     }
 
-    function funcPreViewApplication()
-    {
+    function funcPreViewApplication() {
         if ($('#divWrapperPreview').css('display') == 'block') {
             $('#divWrapperPreview').css('display', 'none');
             return;
@@ -950,7 +1022,7 @@
                 return false;
             }
             $.ajax({
-                url: '/trade-mark/dang_ky_nhan_hieu',
+                url: '/trade-mark/dang-ky-nhan-hieu-sua-doi',
                 type: 'POST',
                 data: formData,
                 processData: false, contentType: false, traditional: true, dataType: "json",
