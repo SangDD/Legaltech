@@ -513,7 +513,7 @@
                 ViewBag.App_Detail = app_Detail;
                 ViewBag.Lst_AppDoc = appDocumentInfos;
                 ViewBag.Lst_AppFee = appFeeFixInfos;
-                ViewBag.ApplicationHeaderInfo = applicationHeaderInfo;
+                ViewBag.objAppHeaderInfo = applicationHeaderInfo;
 
                 return PartialView("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_TM_3B_PLB_01_SDD_View.cshtml");
             }
@@ -539,6 +539,21 @@
                     ViewBag.lstFeeInfo = CBO<AppFeeFixInfo>.FillCollectionFromDataTable(ds04NH.Tables[4]);
                 }
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialDangKyNhanHieu.cshtml");
+            }
+            else if (pAppCode == TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD)
+            {
+                App_Detail_PLB01_SDD_BL objBL = new App_Detail_PLB01_SDD_BL();
+                string language = AppsCommon.GetCurrentLang();
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                App_Detail_PLB01_SDD_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
+                ViewBag.App_Detail = app_Detail;
+                ViewBag.Lst_AppDoc = appDocumentInfos;
+                ViewBag.Lst_AppFee = appFeeFixInfos;
+                ViewBag.objAppHeaderInfo = applicationHeaderInfo;
+
+                return PartialView("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_TM_3B_PLB_01_SDD_Edit.cshtml");
             }
             else
             {
