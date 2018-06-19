@@ -6,6 +6,10 @@
     {
         ObjDocInfo = (AppDocumentInfo)Model;
     }
+    if (ObjDocInfo.styleCheck == null)
+    {
+        ObjDocInfo.styleCheck = "";
+    }
 }
 <style>
     .classDocOtherE {
@@ -14,7 +18,8 @@
         color: blue;
     }
 </style>
-
+@if (ObjDocInfo.styleCheck.Contains("checked"))
+{
 <div class="div-search-ad " style="display:inline-flex;" id="@ObjDocInfo.Id">
     <div class="div-search-content">
         <div class="div-checkbox" style="width:550px">
@@ -24,13 +29,11 @@
     <div class="div-search-content">
         <div class="div-checkbox" style="width: 160px">
             <img onclick="RemoveFileEdit('@ObjDocInfo.Id')" class="@ObjDocInfo.Id" src="~/Content/icons/delete_file.png" style="margin: 9px 5px 5px 9px;" />
-
-            @*<img onclick="UndoFileEdit('@ObjDocInfo.Id')" class="@ObjDocInfo.Id" src="~/Content/icons/delete_.png" style="margin: 9px 5px 5px 9px;" />*@
             <i class="fa fa-undo"  onclick="UndoFileEdit('@ObjDocInfo.Id')"  style="margin: 9px 5px 5px 9px; color:green;font-weight:bold"  placeholder="undo" aria-hidden="true"></i>
         </div>
     </div>
 </div>
-
+}
 <script>
     function RemoveFileEdit(pID) {
         try {

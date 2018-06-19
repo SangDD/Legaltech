@@ -84,7 +84,6 @@
             return AppSuaDoiDonDangKy();
         }
 
-
         public ActionResult AppSuaDoiDonDangKy()
         {
             try
@@ -158,19 +157,23 @@
                     {
                         if (pAppDocumentInfo.Count > 0)
                         {
+                            var listDocumentInsert = new List<AppDocumentInfo>();
                             foreach (var info in pAppDocumentInfo)
                             {
                                 if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                                 {
                                     HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                     info.Filename = pfiles.FileName;
-                                    info.Url_Hardcopy = "~/Content/Archive/" + AppUpload.Document + pfiles.FileName;
+                                    info.Url_Hardcopy = "/Content/Archive/" + AppUpload.Document + pfiles.FileName;
                                     info.Status = 0;
+                                    info.App_Header_Id = pAppHeaderID;
+                                    info.Document_Filing_Date = CommonFuc.CurrentDate();
+                                    info.Language_Code = language;
+                                    listDocumentInsert.Add(info);
                                 }
-                                info.App_Header_Id = pAppHeaderID;
-                                info.Document_Filing_Date = CommonFuc.CurrentDate();
-                                info.Language_Code = language;
+                               
                             }
+                            if(listDocumentInsert.Count>0)
                             pReturn = objDoc.AppDocumentInsertBath(pAppDocumentInfo, pAppHeaderID);
 
                         }
@@ -180,18 +183,24 @@
                     {
                         if (pAppDocOtherInfo.Count > 0)
                         {
+                            int check = 0;
                             foreach (var info in pAppDocOtherInfo)
                             {
                                 if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
                                 {
                                     HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
                                     info.Filename = pfiles.FileName;
-                                    info.Filename = "~/Content/Archive/" + AppUpload.Document + pfiles.FileName;
+                                    info.Filename = "/Content/Archive/" + AppUpload.Document + pfiles.FileName;
+                                    check = 1;
+
                                 }
                                 info.App_Header_Id = pAppHeaderID;
                                 info.Language_Code = language;
                             }
-                            pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocOtherInfo);
+                            if (check == 1)
+                            {
+                                pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocOtherInfo);
+                            }
                         }
                     }
                     //Tính phí 
@@ -274,7 +283,7 @@
                                 {
                                     HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                     info.Filename = pfiles.FileName;
-                                    info.Url_Hardcopy = "~/Content/DataWareHouse" + pfiles.FileName;
+                                    info.Url_Hardcopy = "/Content/DataWareHouse" + pfiles.FileName;
                                     info.Status = 0;
                                 }
                                 info.Document_Filing_Date = CommonFuc.CurrentDate();
@@ -586,11 +595,10 @@
         }
         #endregion
 
-
         [HttpPost]
         [Route("dang-ky-nhan-hieu-sua-doi")]
         public ActionResult AppDonDangKyEditAppro(ApplicationHeaderInfo pInfo, AppDetail04NHInfo pDetail, List<AppDocumentInfo> pAppDocumentInfo,
-            List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo, List<AppFeeFixInfo> pFeeFixInfo)
+            List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo, List<AppFeeFixInfo> pFeeFixInfo,string listIDDocRemove)
         {
             try
             {
@@ -626,6 +634,10 @@
                         //Thêm thông tin class
                         if (pReturn >= 0)
                         {
+
+                            //Xoa cac class cu di 
+                            pReturn = objClassDetail.AppClassDetailDeleted(pInfo.Id, language);
+
                             pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pInfo.Id, language);
                         }
                     }
@@ -634,20 +646,34 @@
                     {
                         if (pAppDocumentInfo.Count > 0)
                         {
+                            var listDocumentInsert = new List<AppDocumentInfo>();
                             foreach (var info in pAppDocumentInfo)
                             {
                                 if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                                 {
                                     HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                     info.Filename = pfiles.FileName;
-                                    info.Url_Hardcopy = "~/Content/Archive/" + AppUpload.Document + pfiles.FileName;
+                                    info.Url_Hardcopy = "/Content/Archive/" + AppUpload.Document + pfiles.FileName;
                                     info.Status = 0;
+                                    info.App_Header_Id = pInfo.Id;
+                                    info.Document_Filing_Date = CommonFuc.CurrentDate();
+                                    info.Language_Code = language;
+                                    listDocumentInsert.Add(info);
                                 }
-                                info.App_Header_Id = pInfo.Id;
-                                info.Document_Filing_Date = CommonFuc.CurrentDate();
-                                info.Language_Code = language;
                             }
-                            pReturn = objDoc.AppDocumentInsertBath(pAppDocumentInfo, pInfo.Id);
+                            if (listDocumentInsert.Count > 0)
+                            {
+                                pReturn = objDoc.AppDocumentInsertBath(listDocumentInsert, pInfo.Id);
+                            }
+                        }
+                    }
+                    if (!string.IsNullOrEmpty(listIDDocRemove))
+                    {
+                        string[] arrayIDDoc = listIDDocRemove.Split('|');
+                        for (int i = 0; i < arrayIDDoc.Length; i++)
+                        {
+                            decimal idDOc = CommonFuc.ConvertToDecimal(arrayIDDoc[i]);
+                            pReturn = objDoc.AppDocumentDelByID(idDOc, language, pInfo.Id);
                         }
                     }
                     //tai lieu khac 
@@ -655,20 +681,27 @@
                     {
                         if (pAppDocOtherInfo.Count > 0)
                         {
+                            int check = 0;
                             foreach (var info in pAppDocOtherInfo)
                             {
                                 if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
                                 {
                                     HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
                                     info.Filename = pfiles.FileName;
-                                    info.Filename = "~/Content/Archive/" + AppUpload.Document + pfiles.FileName;
+                                    info.Filename = "/Content/Archive/" + AppUpload.Document + pfiles.FileName;
+                                    check = 1;
                                 }
                                 info.App_Header_Id = pInfo.Id;
                                 info.Language_Code = language;
+                               
                             }
-                            pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocOtherInfo);
+                            if (check == 1)
+                            {
+                                pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocOtherInfo);
+                            }
                         }
                     }
+
                     //Xóa các tài liệu đi khi sửa bản ghi 
                     if (pReturn >= 0 && !string.IsNullOrEmpty(pDetail.ListFileAttachOtherDel))
                     {
@@ -698,7 +731,6 @@
                 return Json(new { status = ErrorCode.Error });
             }
         }
-
 
         public int CaculatorFee(List<AppClassDetailInfo> pAppClassInfo,string NumberAppNo, decimal pAppHeaderId )
         {

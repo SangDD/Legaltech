@@ -89,7 +89,7 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
-        public int AppDocumentDeletedByID(decimal pID,string pLanguage,decimal pAppHeaderID ,decimal pDocumentID )
+        public int AppDocumentDeletedByID(decimal pID,string pLanguage,decimal pAppHeaderID )
         {
             try
             {
@@ -98,7 +98,6 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("P_ID", OracleDbType.Decimal, pID, ParameterDirection.Input),
                      new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
                     new OracleParameter("P_APP_HEADER_ID", OracleDbType.Decimal, pAppHeaderID, ParameterDirection.Input),
-                    new OracleParameter("P_DOCUMENT_ID", OracleDbType.Decimal, pDocumentID, ParameterDirection.Input),
 
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
@@ -212,6 +211,22 @@ namespace DataAccess.ModuleTrademark
             {
                 Logger.LogException(ex);
                 return ErrorCode.Error;
+            }
+        }
+
+        public DataSet AppDocument_Getby_AppHeader(decimal p_app_header_id, string p_language_code)
+        {
+            try
+            {
+               return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_DOC_OTHERS.Proc_GetBy_App_Header",
+                    new OracleParameter("p_app_header_id", OracleDbType.Decimal, p_app_header_id, ParameterDirection.Input),
+                    new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
+                    new OracleParameter("p_cursor_doc", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
             }
         }
 

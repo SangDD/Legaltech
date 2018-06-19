@@ -1,4 +1,4 @@
-﻿@using ObjectInfos.ModuleTrademark
+﻿ @using ObjectInfos.ModuleTrademark
 @using ObjectInfos
 @{
     string href = "/Content/POA/VNmese translation POA (Blank).doc";
@@ -26,14 +26,7 @@
 
 
     AppDocumentInfo ObjInfo04NH_D_13 = new AppDocumentInfo();
-    AppDocumentInfo ObjInfo04NH_D_14 = new AppDocumentInfo();
-    AppDocumentInfo ObjInfo04NH_D_15 = new AppDocumentInfo();
-
-
-    AppDocumentInfo ObjInfo04NH_D_16 = new AppDocumentInfo();
-    AppDocumentInfo ObjInfo04NH_D_17 = new AppDocumentInfo();
     AppDocumentInfo ObjInfo04NH_D_18 = new AppDocumentInfo();
-
     AppDocumentInfo ObjInfo04NH_D_19 = new AppDocumentInfo();
     AppDocumentInfo ObjInfo04NH_D_20 = new AppDocumentInfo();
     AppDocumentInfo ObjInfo04NH_D_22 = new AppDocumentInfo();
@@ -110,34 +103,7 @@
 
 
         //04NH_D_14
-        else if (item.Document_Id == "04NH_D_14")
-        {
-            ObjInfo04NH_D_14 = item;
-            ObjInfo04NH_D_14.styleCheck = "checked= 'checked'";
-        }
-
-        //04NH_D_15
-        else if (item.Document_Id == "04NH_D_15")
-        {
-            ObjInfo04NH_D_15 = item;
-            ObjInfo04NH_D_15.styleCheck = "checked= 'checked'";
-        }
-
-        //04NH_D_16
-        else if (item.Document_Id == "04NH_D_16")
-        {
-            ObjInfo04NH_D_16 = item;
-            ObjInfo04NH_D_16.styleCheck = "checked= 'checked'";
-        }
-
-        //04NH_D_17
-        else if (item.Document_Id == "04NH_D_17")
-        {
-            ObjInfo04NH_D_17 = item;
-            ObjInfo04NH_D_17.styleCheck = "checked= 'checked'";
-        }
-
-
+        
         //04NH_D_18
         else if (item.Document_Id == "04NH_D_18")
         {
@@ -170,13 +136,49 @@
 
 <script>
     $(document).ready(function () {
+
         if ($("#6_rdoGiayUyQuyen").is(':checked')) {
             ShowHidenUpLoad("6_rdoGiayUyQuyen", "6_rdoGiayUyQuyen");
         }
+        if ($("#6_rdoBanGoc").is(':checked')) {
+            ShowHidenUpLoad("6_rdoBanGoc", "6_rdoBanGoc");
+        }
+        if ($("#6_rdoBanGocSeNopSau").is(':checked')) {
+            ShowHidenUpLoad("6_rdoBanGocSeNopSau", "6_rdoBanGocSeNopSau");
+        }
+
+        if ($("#6_rdoBanGocDaNopTheoDonSo").is(':checked')) {
+            ShowHidenUpLoad("6_rdoBanGocDaNopTheoDonSo", "6_rdoBanGocDaNopTheoDonSo");
+        }
+
+        if ($("#6_rdoBanDichTiengViet").is(':checked')) {
+            ShowHidenUpLoad("6_rdoBanDichTiengViet", "6_rdoBanDichTiengViet");
+        }
+        if ($("#6_rdoTLXNDPSD").is(':checked')) {
+            ShowHidenUpLoad("6_rdoTLXNDPSD", "6_rdoTLXNDPSD");
+        }
+        
+        if ($("#6_rdoTLDKNH").is(':checked')) {
+            ShowHidenUpLoad("6_rdoTLDKNH", "6_rdoTLDKNH");
+        }
+        if ($("#6_rdoTLThuHuongNK").is(':checked')) {
+            ShowHidenUpLoad("6_rdoTLThuHuongNK", "6_rdoTLThuHuongNK");
+        }
+        if ($("#6_rdoQuyCheSDNH").is(':checked')) {
+            ShowHidenUpLoad("6_rdoQuyCheSDNH", "6_rdoQuyCheSDNH");
+        }
+        if ($("#6_rdoBanDoKVDL").is(':checked')) {
+            ShowHidenUpLoad("6_rdoBanDoKVDL", "6_rdoBanDoKVDL");
+        }
+        if ($("#6_rdoVBuyBanTinh").is(':checked')) {
+            ShowHidenUpLoad("6_rdoVBuyBanTinh", "6_rdoVBuyBanTinh");
+        }
+        if ($("#6_rdoTLKhaiTTBS").is(':checked')) {
+            ShowHidenUpLoad("6_rdoTLKhaiTTBS", "6_rdoTLKhaiTTBS");
+        }
     });
 </script>
-@* Luuw cac Id cua cac file dinh kem xoa di xu ly khi thuc hien nut luu *@
-<input type="hidden" id="txtDocumentInAppRemove" value=""/>
+
 
 
 <div class="div_full_100_area">
