@@ -92,6 +92,38 @@
 
         urlMauNhanHieu = objAppHeaderInfo.Logourl.Replace("~", "");
     }
+    AppDocumentInfo ObjInfo04NH_D_14 = new AppDocumentInfo();
+    AppDocumentInfo ObjInfo04NH_D_15 = new AppDocumentInfo();
+    AppDocumentInfo ObjInfo04NH_D_16 = new AppDocumentInfo();
+    AppDocumentInfo ObjInfo04NH_D_17 = new AppDocumentInfo();
+
+    foreach (var item in lstDocumentInfo)
+    {
+        if (item.Document_Id == "04NH_D_14")
+        {
+            ObjInfo04NH_D_14 = item;
+            ObjInfo04NH_D_14.styleCheck = "checked= 'checked'";
+        }
+        else  if (item.Document_Id == "04NH_D_15")
+        {
+            ObjInfo04NH_D_15 = item;
+            ObjInfo04NH_D_15.styleCheck = "checked= 'checked'";
+        }
+
+        //04NH_D_16
+        else if (item.Document_Id == "04NH_D_16")
+        {
+            ObjInfo04NH_D_16 = item;
+            ObjInfo04NH_D_16.styleCheck = "checked= 'checked'";
+        }
+
+        //04NH_D_17
+        else if (item.Document_Id == "04NH_D_17")
+        {
+            ObjInfo04NH_D_17 = item;
+            ObjInfo04NH_D_17.styleCheck = "checked= 'checked'";
+        }
+    }
 }
 <div class="d-nav-container">
     <ul class="ul-nav">
@@ -99,7 +131,10 @@
         <li><a href="javascript:;"> Request for amendment of application)</a></li>
     </ul>
 </div>
-<input type="hidden" id="txtAppCode" value='@ViewBag.AppCode' />
+<input type="hidden" id="txtAppCode" value='@objAppHeaderInfo.Appcode' />
+<input type="hidden" id="txtAppHeaderID" value="@objAppHeaderInfo.App_Header_Id" />
+@* Luuw cac Id cua cac file dinh kem xoa di xu ly khi thuc hien nut luu *@
+<input type="hidden" id="txtDocumentInAppRemove" value="" />
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
@@ -176,26 +211,6 @@
             </div>
 
             <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-checkbox">
-                        <input type="checkbox" name="0_ckbDacTinhHangHoa" @styleDacTinhHangHoa value="DTHH" placeholder="0_ckbDacTinhHangHoa" id="0_ckbDacTinhHangHoa" />
-                        <label>Đặc tính hàng hóa</label>
-                    </div>
-                </div>
-            </div>
-
-            @* Tích chọn có sử dụng đơn ưu tiên thì Enable A14 *@
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-checkbox">
-                        <input type="checkbox" name="0_ckbCoSuDungDonUuTien" @styleSuDungDonUT value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" />
-                        <label>Có sử dụng đơn ưu tiên</label>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="div-search-ad">
                 <div class="div-search-title">
                     <div>Mầu sắc:</div>
                 </div>
@@ -215,9 +230,7 @@
 
 
         @* Class *@
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHClass.cshtml")
-
-
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml")
         @* End Class *@
 
         @* 2 *@
@@ -258,91 +271,12 @@
 
             <div class="div-search-ad">
                 <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" @styleYCHQUT value="NTVN" placeholder="4_ckbNopTaiVietNam" id="4_ckbNopTaiVietNam" />
-                        <label>Theo đơn (các đơn) đầu tiên nộp tại Việt Nam</label>
+                    <div class="div-checkbox">
+                        <input type="checkbox" name="0_ckbCoSuDungDonUuTien" @styleSuDungDonUT value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" />
+                        <label>Có sử dụng đơn ưu tiên</label>
                     </div>
                 </div>
             </div>
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" @styleCongUocPR value="CUPR" placeholder="4_ckbNopTaiParis" id="4_ckbNopTaiParis" />
-                        <label>Theo đơn (các đơn) nộp theo Công ước Paris</label>
-                    </div>
-                </div>
-            </div>
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" @styleTTK value="NTVN" placeholder="4_ckbThoaThuanKhac" id="4_ckbThoaThuanKhac" />
-                        <label>Theo thoả thuận khác</label>
-                    </div>
-                </div>
-            </div>
-            @* TÀI LIEU ƯU TIEN *@
-            <div class="div-search-ad" style="display:inline-flex;">
-                <div class="div-search-content">
-                    <div class="div-checkbox" style="width:422px">
-                        <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_14" id="6_rdoTLCMQUT" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                        <label>Tài liệu chứng minh quyền ưu tiên</label>
-                    </div>
-                </div>
-                <div class="div-search-content">
-                    <input type="text" id="6_txtTLCMQUT" class="classDacTinhUT" maxlength="3" placeholder="6_txtTLCMQUT" />
-                </div>
-                <div class="div-search-title" style="width:412px">
-                    <div>bản</div>
-                </div>
-            </div>
-            <div class="div-search-ad" style="display:inline-flex;    margin-left: 40px;">
-                <div class="div-search-content">
-                    <div class="div-checkbox" style="width:382px">
-                        <input type="checkbox" maxlength="3" class="classDacTinhUT" value="04NH_D_15" id="6_rdoBSDDT" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                        <label>Bản sao đơn đầu tiên, gồm</label>
-                    </div>
-                </div>
-                <div class="div-search-content">
-                    <input type="text" id="6_txtBSDDT" class="classDacTinhUT" maxlength="3" placeholder="6_txtBSDDT" />
-                </div>
-                <div class="div-search-title" style="width:412px">
-                    <div>bản</div>
-                </div>
-            </div> <div style="margin-left:40px">
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBSDDT")
-            </div>
-            <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
-                <div class="div-search-content">
-                    <div class="div-checkbox" style="width:382px">
-                        <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_16" id="6_rdoBDTVGom" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                        <label>Bản dịch tiếng Việt, gồm</label>
-                    </div>
-                </div>
-                <div class="div-search-content">
-                    <input type="text" id="6_txtBDTVGom" class="classDacTinhUT" maxlength="3" placeholder="6_txtBDTVGom" />
-                </div>
-                <div class="div-search-title" style="width:412px">
-                    <div>bản</div>
-                </div>
-            </div>
-            <div style="margin-left:40px">
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBDTVGom")
-            </div>
-            <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
-                <div class="div-search-content">
-                    <div class="div-checkbox" style="width:382px">
-                        <input type="checkbox" maxlength="3" value="04NH_D_17" class="classDacTinhUT" id="6_rdoGiayChuyenNhungUT" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                        <label> Giấy chuyển nhượng quyền ưu tiên </label>
-                    </div>
-                </div>
-            </div> <div style="margin-left:40px">
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoGiayChuyenNhungUT")
-            </div>
-        </div>
-        @* HET TAI LIEU  UU TIEN *@
-
-        <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỈ DẪN VỀ ĐƠN (CÁC ĐƠN) LÀ CĂN CỨ ĐỂ XÁC ĐỊNH NGÀY ƯU TIÊN")
 
             <div class="div-search-ad">
                 <div class="div-search-title">
@@ -373,7 +307,7 @@
                         <select id="6_txtNuocNopDon" class="classDacTinhUT">
                             @foreach (var item in MemoryData.c_lst_Country)
                             {
-                                if (item.Name == objAppHeaderInfo.Nuocnopdon_Ut)
+                                if (item.Country_Id.ToString() == objAppHeaderInfo.Nuocnopdon_Ut)
                                 {
                                     <option selected="selected" value="@item.Country_Id">@item.Name</option>
                                 }
@@ -386,10 +320,107 @@
                     </div>
                 </div>
             </div>
-        </div>
 
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-radio">
+                        <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" @styleYCHQUT value="NTVN" placeholder="4_ckbNopTaiVietNam" id="4_ckbNopTaiVietNam" />
+                        <label>Theo đơn (các đơn) đầu tiên nộp tại Việt Nam</label>
+                    </div>
+                </div>
+            </div>
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-radio">
+                        <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" @styleCongUocPR value="CUPR" placeholder="4_ckbNopTaiParis" id="4_ckbNopTaiParis" />
+                        <label>Theo đơn (các đơn) nộp theo Công ước Paris</label>
+                    </div>
+                </div>
+            </div>
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-radio">
+                        <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" @styleTTK value="NTVN" placeholder="4_ckbThoaThuanKhac" id="4_ckbThoaThuanKhac" />
+                        <label>Theo thoả thuận khác</label>
+                    </div>
+                </div>
+            </div>
+            @* TÀI LIEU ƯU TIEN *@
+            <div class="div-search-ad" style="display:inline-flex;">
+                <div class="div-search-content">
+                    <div class="div-checkbox" style="width:422px">
+                        <input type="checkbox" class="classDacTinhUT" maxlength="3" @ObjInfo04NH_D_14.styleCheck value="04NH_D_14" id="6_rdoTLCMQUT" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                        <label>Tài liệu chứng minh quyền ưu tiên</label>
+                    </div>
+                </div>
+                <div class="div-search-content">
+                    <input type="text" id="6_txtTLCMQUT" class="classDacTinhUT" value="@ObjInfo04NH_D_14.CHAR01" maxlength="3" placeholder="6_txtTLCMQUT" />
+                </div>
+                <div class="div-search-title" style="width:412px">
+                    <div>bản</div>
+                </div>
+            </div>
+            <div class="div-search-ad" style="display:inline-flex;    margin-left: 40px;">
+                <div class="div-search-content">
+                    <div class="div-checkbox" style="width:382px">
+                        <input type="checkbox" maxlength="3" class="classDacTinhUT" @ObjInfo04NH_D_15.styleCheck value="04NH_D_15" id="6_rdoBSDDT" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                        <label>Bản sao đơn đầu tiên, gồm</label>
+                    </div>
+                </div>
+                <div class="div-search-content">
+                    <input type="text" id="6_txtBSDDT" class="classDacTinhUT"  value="@ObjInfo04NH_D_15.CHAR01"  maxlength="3" placeholder="6_txtBSDDT" />
+                </div>
+                <div class="div-search-title" style="width:412px">
+                    <div>bản</div>
+                </div>
+            </div> 
+            <div style="margin-left:40px">
+
+                @* File dinh kem lay tu db khi sua*@
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialFileDinhKemEdit.cshtml", ObjInfo04NH_D_15)
+                @* end file dinh kem *@
+
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoBSDDT")
+            </div>
+            <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
+                <div class="div-search-content">
+                    <div class="div-checkbox" style="width:382px">
+                        <input type="checkbox" class="classDacTinhUT"  @ObjInfo04NH_D_16.styleCheck  maxlength="3" value="04NH_D_16" id="6_rdoBDTVGom" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                        <label>Bản dịch tiếng Việt, gồm</label>
+                    </div>
+                </div>
+                <div class="div-search-content">
+                    <input type="text" id="6_txtBDTVGom" class="classDacTinhUT"   value="@ObjInfo04NH_D_16.CHAR01"  maxlength="3" placeholder="6_txtBDTVGom" />
+                </div>
+                <div class="div-search-title" style="width:412px">
+                    <div>bản</div>
+                </div>
+            </div>
+            <div style="margin-left:40px">
+                @* File dinh kem lay tu db khi sua*@
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialFileDinhKemEdit.cshtml", ObjInfo04NH_D_16)
+                @* end file dinh kem *@
+
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoBDTVGom")
+            </div>
+            <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
+                <div class="div-search-content">
+                    <div class="div-checkbox" style="width:382px">
+                        <input type="checkbox" maxlength="3" value="04NH_D_17" @ObjInfo04NH_D_17.styleCheck   class="classDacTinhUT" id="6_rdoGiayChuyenNhungUT" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                        <label> Giấy chuyển nhượng quyền ưu tiên </label>
+                    </div>
+                </div>
+            </div> <div style="margin-left:40px">
+       @* File dinh kem lay tu db khi sua*@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialFileDinhKemEdit.cshtml", ObjInfo04NH_D_17)
+         @* end file dinh kem *@
+
+
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoGiayChuyenNhungUT")
+</div>
+        </div>
         @* Tài liệu có trong đơn *@
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTLTrongDon.cshtml")
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTLTrongDonEdit.cshtml")
         @* End tai lieu dinh kem  *@
 
         <div class="div_full_100_area">
@@ -413,6 +444,16 @@
                     styleNguonGocDiaLy = "checked='checked'";
                 }
             }
+
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-checkbox">
+                        <input type="checkbox" name="0_ckbDacTinhHangHoa" @styleDacTinhHangHoa value="DTHH" placeholder="0_ckbDacTinhHangHoa" id="0_ckbDacTinhHangHoa" />
+                        <label>Đặc tính hàng hóa</label>
+                    </div>
+                </div>
+            </div>
+
             <div class="div-search-ad">
                 <div class="div-search-title">
                     <div class="class_radio_head"><input type="checkbox" @styleNguonGocDL class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" placeholder="8_ckbNguonGocDiaLy" id="8_ckbNguonGocDiaLy" /> </div>
@@ -469,9 +510,8 @@
 
         <div class="class_save">
             <div class="classGuiDon">
-                <input type="button" value="Gửi đơn" id="btnGuiDon" class="btn class_37" />
+                <input type="button" value="Lưu" style="width:70px" id="btnGuiDon" class="btn class_37" />
             </div> <div class="classLuuTam">
-                <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn class_37" />
             </div>
         </div>
     </fieldset>
@@ -489,6 +529,8 @@
 </style>
 
 <script>
+
+
     $('#6_txtNuocNopDon').multipleSelect({
         filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
@@ -511,7 +553,6 @@
     $("#0_ckbCoSuDungDonUuTien").change(function () {
         if (this.checked) {
             funcEnableDisable('classDacTinhUT', true);
-
             $("#6_txtNuocNopDon").multipleSelect("enable")
         } else {
             funcEnableDisable('classDacTinhUT', false);
@@ -534,7 +575,26 @@
     }
 
     $(document).ready(function () {
-        funcEnableDisable('classDacTinhUT', false);
+         
+        if ($("#6_rdoGiayChuyenNhungUT").is(':checked')) {
+            ShowHidenUpLoad("6_rdoGiayChuyenNhungUT", "6_rdoGiayChuyenNhungUT");
+        }
+        if ($("#6_rdoBDTVGom").is(':checked')) {
+            ShowHidenUpLoad("6_rdoBDTVGom", "6_rdoBDTVGom");
+        }
+        if ($("#6_rdoBSDDT").is(':checked')) {
+            ShowHidenUpLoad("6_rdoBSDDT", "6_rdoBSDDT");
+        }
+
+        if ($("#0_ckbCoSuDungDonUuTien").is(':checked')) {
+            console.log('vao dya');
+            funcEnableDisable('classDacTinhUT', true);
+            $("#6_txtNuocNopDon").multipleSelect("enable")
+        }
+        if ($("#0_ckbDacTinhHangHoa").is(':checked')) {
+            funcEnableDisable('classDacTinhHangHoa', true);
+        }
+
         $.datetimepicker.setLocale('vi');
         $('.datetimepicker').datetimepicker({
             timepicker: false,
@@ -557,330 +617,11 @@
         }
     }
 
-    $("#btnGuiDon").click(function () {
-        try {
-            //Thông tin chủ đơn
-            var formData = new FormData();
-            if (funcThongTinChuDonNguoiDaiDien(formData, "1") != true) {
-                return false;
-            }
-            var v_AppCode = $("#txtAppCode").val();
-            if (v_AppCode === "") {
-                $('#txtAppCode').focus().val('');
-                showError('Chưa chọn loại đơn đăng ký!');
-                return false;
-            }
-            formData.append("pInfo.Appcode", v_AppCode);
-            if (funcThongTinChuDonNguoiDaiDien(formData, "2") != true) {
-                return false;
-            }
-            var v_RepMasterType = $("input[name='3_rdoDaiDienChuDon']:checked").val();
-            if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                showError('Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!');
-                return false;
-            }
-            formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-            //trang thai
-            formData.append("pInfo.Status", 2);
-            //Lấy thông tin detail
-            var reponse = funcGetAppDetail(formData);
-            if (reponse == false) {
-                return false;
-            }
-            //Lấy thông tin file có trong đơn
-            reponse = funGetThongTinFile(formData);
-            if (reponse == false) {
-                return false;
-            }
-            reponse = funcGetDataClassInfo(formData);
-            if (reponse == false) {
-                return false;
-            }
-            //lay tai lieu khac
-            reponse = funcGetTenTaiLieuKhac(formData);
-            if (reponse == false) {
-                return false;
-            }
-            //
-            reponse = funcGetCamKetChuDon(formData);
-            if (reponse == false) {
-                return false;
-            }
-            $.ajax({
-                url: '/trade-mark/dang_ky_nhan_hieu',
-                type: 'POST',
-                data: formData,
-                processData: false, contentType: false, traditional: true, dataType: "json",
-                enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
-                success: function (data) {
-                    if (data != null && data.status >= 0) {
-                        jAlert(AddSuccess, ThongBao, function () {
-                            window.location.reload();
-                        });
-                    } else {
-                        jError(AddFail, ThongBao, function () {
-                        });
-                    }
-                },
-                error: function (e) {
-                    console.log(e);
-                }
-            });
-
-        } catch (e) {
-        }
-
-    });
-
-    function funcGetAppDetail(formdata) {
-        try {
-            var v_soDon_0 = $("#0_txtDonSo").val();
-            if (v_soDon_0 === "" || v_soDon_0 == undefined) {
-                showError('Số đơn không được để trống');
-                $("#0_txtDonSo").focus();
-                return false;
-            }
-            formdata.append("pDetail.Appno", v_soDon_0);
-            var v_NgayNopDonn_0 = $("#0_txtNgayNopDon").val();
-            if (v_NgayNopDonn_0 === "" || v_NgayNopDonn_0 == undefined) {
-                showError('Phải chọn ít nhất 1 giá trị cho nhãn hiệu!');
-                $("#0_txtNgayNopDon").focus();
-                return false;
-            }
-            /// return true if strDate1 <= strDate2
-            //function compareDate_N0(strDate1, strDate2) {
-            var timenow = $("#txtDateTime").val();
-            if (compareDate_N0(v_NgayNopDonn_0, timenow) == false) {
-                showError('Ngày nộp đơn lớn hơn ngày hiện tại!');
-                $("#0_txtNgayNopDon").focus();
-                return false;
-            }
-            formdata.append("pDetail.Duadate", v_NgayNopDonn_0);
-
-            var v_NhanHieu = $("input[name='0_NhanHieu']:checked").val();
-            if (v_NhanHieu === "" || v_NhanHieu == undefined) {
-                showError('Phải chọn ít nhất 1 giá trị cho nhãn hiệu!');
-                return false;
-            }
-            formdata.append("pDetail.LoaiNhanHieu", v_NhanHieu);
-
-
-            var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
-            if (fileLogo != undefined || fileLogo != null) {
-                formdata.append("pDetail.pfileLogo", fileLogo[0].files[0]);
-            } else {
-                showError('Mẫu nhãn hiệu không được để trống');
-                $("#pfile_6_rdoMauNhanHieu").focus();
-            }
-
-            var v_DacTinh = 0;
-            if ($("#0_ckbDacTinhHangHoa").prop('checked') == true) {
-                v_DacTinh = 1;
-            }
-            formdata.append("pDetail.Dactichhanghoa", v_DacTinh);
-
-
-            var v_CoSDQuyenUT = 0;
-            if ($("#0_ckbCoSuDungDonUuTien").prop('checked') == true) {
-                v_CoSDQuyenUT = 1;
-            }
-            formdata.append("pDetail.Used_Special", v_CoSDQuyenUT);
-
-            var v_QuyenUuTien = 0;
-            if (v_CoSDQuyenUT == 1) {
-                v_QuyenUuTien = $("input[name='4_YCHuongQuyen']:checked").val();
-                if (v_QuyenUuTien == undefined || v_QuyenUuTien == null || v_QuyenUuTien == 0) {
-                    showError('Yêu cầu hưởng quyền ưu tiên phải chọn ít nhất 1 giá trị');
-                    return false;
-                }
-
-                var v_Sodon_Ut = $("#6_txtSoDon").val();
-                if (v_Sodon_Ut === "" || v_Sodon_Ut == undefined) {
-                    showError('Số đơn ưu tiên không được để trống');
-                    $("#6_txtSoDon").focus();
-                    return false;
-                }
-                formdata.append("pDetail.Sodon_Ut", v_Sodon_Ut);
-
-                var v_Ngaynopdon_Ut = $("#6_txtNgayNopDon").val();
-                if (v_Ngaynopdon_Ut === "" || v_Ngaynopdon_Ut == undefined) {
-                    showError('Ngày nộp đơn ưu tiên không được để trống');
-                    $("#6_txtNgayNopDon").focus();
-                    return false;
-                }
-                formdata.append("pDetail.Ngaynopdon_Ut", v_Ngaynopdon_Ut);
-
-
-                var v_Nuocnopdon_Ut = $("#6_txtNuocNopDon").val();
-                if (v_Nuocnopdon_Ut === "" || v_Nuocnopdon_Ut == undefined) {
-                    showError('Nước nộp đơn ưu tiên không được để trống');
-                    $("#6_txtNuocNopDon").focus();
-                    return false;
-                }
-                formdata.append("pDetail.Nuocnopdon_Ut", v_Nuocnopdon_Ut);
-            }
-
-            formdata.append("pDetail.Huongquyenuutien", v_QuyenUuTien);
-
-            var v_MauSac_0 = $("#0_MauSac").val();
-            formdata.append("pDetail.Color", v_MauSac_0);
-
-            var v_MoTa_0 = $("#0_MoTa").val();
-            formdata.append("pDetail.Description", v_MoTa_0);
-
-            //Lay thong tin Chu don khac 1
-            var reponse = funcThongTinChuDonNguoiDaiDien(formdata, "9");
-            if (reponse == false) {
-                return false;
-            }
-            //Lấy thông tin chu don khac 2,,3,4
-            reponse = funcThongTinChuDonKhac(formdata, "10");
-            if (reponse == false) {
-                return false;
-            }
-            reponse = funcThongTinChuDonKhac(formdata, "11");
-            if (reponse == false) {
-                return false;
-            }
-            reponse = funcThongTinChuDonKhac(formdata, "12");
-            if (reponse == false) {
-                return false;
-            }
-
-            var v_NguonGocDL = $("#8_txtNguonGocDiaLy").val();
-            if (v_NguonGocDL === "" || v_NguonGocDL == undefined) {
-                showError('Nguồn gốc địa lý không được để trống');
-                $("#8_txtNguonGocDiaLy").focus();
-                return false;
-            }
-            formdata.append("pDetail.Nguongocdialy", v_NguonGocDL);
-
-            var v_ChatLuong = $("#8_txtChatLuong").val();
-            if (v_ChatLuong === "" || v_ChatLuong == undefined) {
-                showError('Chất lượng không được để trống');
-                $("#8_txtChatLuong").focus();
-                return false;
-            }
-            formdata.append("pDetail.Chatluong", v_ChatLuong);
-
-            var v_Dactinhkhac = $("#8_txtDacTinhKhac").val();
-            if (v_Dactinhkhac === "" || v_Dactinhkhac == undefined) {
-                showError('Đặc tính khác không được để trống');
-                $("#8_txtDacTinhKhac").focus();
-                return false;
-            }
-            formdata.append("pDetail.Dactinhkhac", v_Dactinhkhac);
-
-        } catch (e) {
-            showError('Có lỗi xảy ra kiểm tra kết nối internet');
-            return false;
-        }
-    }
-
-    function funGetThongTinFile(formData) {
-        try {
-            var Isuse = 0, Note = "", reponse = false;
-            //Các tài liệu có trong đơn
-            reponse = funcGetCheckValueAndText(formData, "6_rdoToKhai", "0");
-            formData.append("pAppDocumentInfo[0].CHAR01", $("#6_txtToKhaiTrang").val());
-            formData.append("pAppDocumentInfo[0].CHAR02", $("#6_txtToKhaiBan").val());
-            //
-            //Các tài liệu có trong đơn
-            reponse = funcGetCheckValueAndText(formData, "6_rdoMauNhanHieuTD", "1");
-            formData.append("pAppDocumentInfo[1].CHAR01", $("#6_txtMauNhanHieuTD").val());
-            //
-            //Các tài liệu có trong đơn
-            reponse = funcGetCheckValueAndText(formData, "6_rdoChungTuPhiLP", "2");
-            //
-            //Các tài liệu có trong đơn 3
-            reponse = funcGetCheckValueAndText(formData, "6_rdoGiayUyQuyen", "3");
-            formData.append("pAppDocumentInfo[3].CHAR01", $("#6_txtGiayUQTiengViet").val());
-
-            // 4 6_rdoBanGoc
-            reponse = funcGetCheckValueAndText(formData, "6_rdoBanGoc", "4");
-
-            // 5 6_rdoBanSao
-            reponse = funcGetCheckValueAndText(formData, "6_rdoBanSao", "5");
-
-            // 6 6_rdoBanGocSeNopSau
-            reponse = funcGetCheckValueAndText(formData, "6_rdoBanGocSeNopSau", "6");
-
-            // 7 6_rdoBanGocDaNopTheoDonSo
-            reponse = funcGetCheckValueAndText(formData, "6_rdoBanGocDaNopTheoDonSo", "7");
-            formData.append("pAppDocumentInfo[7].CHAR01", $("#6_txtBangocDNTheoDonSo").val());
-            // 8 6_rdoBanDichTiengViet
-            reponse = funcGetCheckValueAndText(formData, "6_rdoBanDichTiengViet", "8");
-            formData.append("pAppDocumentInfo[8].CHAR01", $("#6_txtBDTV_UQ").val());
-
-            // 9 6_rdoTLXNDPSD
-            reponse = funcGetCheckValueAndText(formData, "6_rdoTLXNDPSD", "9");
-            formData.append("pAppDocumentInfo[9].CHAR01", $("#6_TLXNDPSD").val());
-
-            //
-            // 10 6_rdoTLDKNH
-            reponse = funcGetCheckValueAndText(formData, "6_rdoTLDKNH", "10");
-
-            // 11 6_rdoTLThuHuongNK
-            reponse = funcGetCheckValueAndText(formData, "6_rdoTLThuHuongNK", "11");
-
-
-            // 12 6_rdoQuyCheSDNH
-            reponse = funcGetCheckValueAndText(formData, "6_rdoQuyCheSDNH", "12");
-            formData.append("pAppDocumentInfo[12].CHAR01", $("#6_txtQuyCheSDNHTrang").val());
-            formData.append("pAppDocumentInfo[12].CHAR02", $("#6_txtQuyCheSDNHBan").val());
-
-            // 13 6_rdoTLCMQUT
-            reponse = funcGetCheckValueAndText(formData, "6_rdoTLCMQUT", "13");
-            formData.append("pAppDocumentInfo[13].CHAR01", $("#6_txtTLCMQUT").val());
-
-            // 13 6_rdoBSDDT----------
-            reponse = funcGetCheckValueAndText(formData, "6_rdoBSDDT", "14");
-
-            // 15 6_rdoBDTVGom
-            reponse = funcGetCheckValueAndText(formData, "6_rdoBDTVGom", "15");
-            formData.append("pAppDocumentInfo[14].CHAR01", $("#6_txtBDTVGom").val());
-
-            // 16 6_rdoGiayChuyenNhungUT
-            reponse = funcGetCheckValueAndText(formData, "6_rdoGiayChuyenNhungUT", "16");
-            // 17 6_rdoGiayChuyenNhungUT
-            reponse = funcGetCheckValueAndText(formData, "6_rdoBanDoKVDL", "17");
-            // 18 6_rdoGiayChuyenNhungUT
-            reponse = funcGetCheckValueAndText(formData, "6_rdoVBuyBanTinh", "18");
-            // 19 6_rdoGiayChuyenNhungUT
-            reponse = funcGetCheckValueAndText(formData, "6_rdoTLKhaiTTBS", "19");
-            // 20 6_rdoGiayChuyenNhungUT
-            reponse = funcGetCheckValueAndText(formData, "6_rdoPOA", "20");
-            // 21 6_rdoGiayChuyenNhungUT
-            reponse = funcGetCheckValueAndText(formData, "6_rdoTLK", "21");
-
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    function funcGetCheckValueAndText(formData, pID, pItem) {
-        try {
-            var Isuse = 0, Note = "";
-            //Các tài liệu có trong đơn
-            if ($("#" + pID).prop('checked') == true) {
-                Isuse = 1;
-            }
-            formData.append("pAppDocumentInfo[" + pItem + "].keyFileUpload", pID);
-            formData.append("pAppDocumentInfo[" + pItem + "].Document_Id", $("#" + pID).val());
-            formData.append("pAppDocumentInfo[" + pItem + "].Isuse", Isuse);
-            return true;
-        } catch (e) {
-            return false;
-        }
-
-    }
-
     function funcPreViewApplication() {
         if ($('#divWrapperPreview').css('display') == 'block') {
             $('#divWrapperPreview').css('display', 'none');
             return;
         }
-
         $.ajax({
             type: "POST",
             url: "/trade-mark/Pre-View",
@@ -896,89 +637,6 @@
             }
         });
     }
-
-    $("#btnLuuTam").click(function (formData) {
-        try {
-            //Thông tin chủ đơn
-            var formData = new FormData();
-            if (funcThongTinChuDonNguoiDaiDien(formData, "1") != true) {
-                return false;
-            }
-            var v_AppCode = $("#txtAppCode").val();
-            if (v_AppCode === "") {
-                $('#txtAppCode').focus().val('');
-                showError('Chưa chọn loại đơn đăng ký!');
-                return false;
-            }
-            formData.append("pInfo.Appcode", v_AppCode);
-            if (funcThongTinChuDonNguoiDaiDien(formData, "2") != true) {
-                return false;
-            }
-            var v_RepMasterType = $("input[name='3_rdoDaiDienChuDon']:checked").val();
-            if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                showError('Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!');
-                return false;
-            }
-            formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-            //trang thai
-            formData.append("pInfo.Status", 1);
-            //Lấy thông tin detail
-
-            var reponse = funcGetAppDetail(formData);
-            if (reponse == false) {
-                return false;
-            }
-            //Lấy thông tin file có trong đơn
-            reponse = funGetThongTinFile(formData);
-            if (reponse == false) {
-                return false;
-            }
-            reponse = funcGetDataClassInfo(formData);
-            if (reponse == false) {
-                return false;
-            }
-            //lay tai lieu khac
-            reponse = funcGetTenTaiLieuKhac(formData);
-            if (reponse == false) {
-                return false;
-            }
-            $.ajax({
-                url: '/trade-mark/dang_ky_nhan_hieu',
-                type: 'POST',
-                data: formData,
-                processData: false, contentType: false, traditional: true, dataType: "json",
-                enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
-                success: function (data) {
-                    if (data != null && data.status >= 0) {
-                        jAlert(AddSuccess, ThongBao, function () {
-                        });
-                    } else {
-                        jError(AddFail, ThongBao, function () {
-                        });
-                    }
-                },
-                error: function (e) {
-                    console.log(e);
-                }
-            });
-
-        } catch (e) {
-        }
-    });
-
-    function funcGetTenTaiLieuKhac(formData) {
-        try {
-            var item = 0;
-            $(".clssListUpload").each(function () {
-                formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", this.id);
-                formData.append("pAppDocOtherInfo[" + item + "].Documentname", $("#" + this.id).val());
-                item++;
-            });
-            return true;
-        } catch (e) {
-            return false;
-        }
-    }
-
+    
 
 </script>
