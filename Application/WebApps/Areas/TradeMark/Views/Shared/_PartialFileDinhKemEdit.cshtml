@@ -1,0 +1,61 @@
+﻿@using ObjectInfos.ModuleTrademark
+@model AppDocumentInfo
+@{
+    var ObjDocInfo = new AppDocumentInfo();
+    if (Model != null)
+    {
+        ObjDocInfo = (AppDocumentInfo)Model;
+    }
+}
+<style>
+    .classDocOtherE {
+        text-align: left;
+        padding: 3px;
+        color: blue;
+    }
+</style>
+
+<div class="div-search-ad " style="display:inline-flex;" id="@ObjDocInfo.Id">
+    <div class="div-search-content">
+        <div class="div-checkbox" style="width:550px">
+            <div id="" class="classDocOtherE @ObjDocInfo.Id"> <a style="color:blue;border:none" href="@ObjDocInfo.Url_Hardcopy">@ObjDocInfo.Filename</a></div>
+        </div>
+    </div>
+    <div class="div-search-content">
+        <div class="div-checkbox" style="width: 160px">
+            <img onclick="RemoveFileEdit('@ObjDocInfo.Id')" class="@ObjDocInfo.Id" src="~/Content/icons/delete_file.png" style="margin: 9px 5px 5px 9px;" />
+
+            @*<img onclick="UndoFileEdit('@ObjDocInfo.Id')" class="@ObjDocInfo.Id" src="~/Content/icons/delete_.png" style="margin: 9px 5px 5px 9px;" />*@
+            <i class="fa fa-undo"  onclick="UndoFileEdit('@ObjDocInfo.Id')"  style="margin: 9px 5px 5px 9px; color:green;font-weight:bold"  placeholder="undo" aria-hidden="true"></i>
+        </div>
+    </div>
+</div>
+
+<script>
+    function RemoveFileEdit(pID) {
+        try {
+            $("." + pID).css('display', 'none');
+            //_Partial04NHTLTrongDonEdit  txtDocumentInAppRemove
+            var lstID = $("#txtDocumentInAppRemove").val();
+            lstID = lstID + pID + "|";
+            $("#txtDocumentInAppRemove").val(lstID);
+        } catch (e) {
+        }
+    }
+
+    //undo lai 
+    function UndoFileEdit(pID) {
+        try {
+            $("." + pID).css('display', 'block');
+
+            var arrlistID = $("#txtDocumentInAppRemove").val();
+            var pIDUndo = pID + "|";
+            if (arrlistID.indexOf(pIDUndo) != -1) {
+                arrlistID = arrlistID.replace(pIDUndo, "");
+            }
+            $("#txtDocumentInAppRemove").val(arrlistID);
+        } catch (e) {
+        }
+    }
+
+</script> 

@@ -23,5 +23,7 @@ namespace ObjectInfos.ModuleTrademark
         public string CHAR04 { get; set; }
         public string CHAR05 { get; set; }
 
+        public string styleCheck { get; set; }
+
     }
 }
