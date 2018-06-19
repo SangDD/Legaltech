@@ -34,9 +34,6 @@
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
         <legend> SỬA ĐỔI ĐƠN ĐĂNG KÝ ĐỐI TƯỢNG SỞ HỮU CÔNG NGHIỆP </legend>
 
-        @* Cam kết của chủ đơn *@
-        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml")
-
         @* 1 - CHỦ ĐƠN*@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
@@ -400,6 +397,8 @@
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model11)
         }
 
+        @* Cam kết của chủ đơn *@
+        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml")
 
         <div class="class_save">
             <div class="classGuiDon">

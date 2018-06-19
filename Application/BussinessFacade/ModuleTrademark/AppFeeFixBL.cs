@@ -36,5 +36,18 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
+        public int AppFeeFixDelete(decimal p_app_header_id, string p_language_code)
+        {
+            try
+            {
+                AppFeeFixDA objData = new AppFeeFixDA();
+                return objData.AppFeeFixDelete(p_app_header_id, p_language_code);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
     }
 }

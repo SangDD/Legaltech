@@ -66,9 +66,6 @@
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
         <legend> SỬA ĐỔI ĐƠN ĐĂNG KÝ ĐỐI TƯỢNG SỞ HỮU CÔNG NGHIỆP </legend>
 
-        @* Cam kết của chủ đơn *@
-        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml")
-
         @* 1 - CHỦ ĐƠN*@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
@@ -270,126 +267,7 @@
                 </div>
             </div>
         </div>
-
         @* end 4 *@
-
-
-        @* 5 *@
-        @*<div class="divCover cls_form_title">
-            <img src="~/Content/icons/info.png" />
-            <div class="cls_form_header">
-                PHÍ, LỆ PHÍ
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width:382px">
-                    <input type="checkbox" name="5_ckbPhiThamDinh" id="5_ckbPhiThamDinh">
-                    <label>Phí thẩm định yêu cầu sửa đổi đơn </label>
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>Số đối tượng tính:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="Số đơn" id="5_txt_PhiThamDinh_DoiTuong" />
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>Số tiền:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="160.000 x [số đơn]" id="5_txt_PhiThamDinh_SoTien" />
-                </div>
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width:382px">
-                    <input type="checkbox" name="5_ckbPhiCongBo" id="5_ckbPhiCongBo">
-                    <label>Phí công bố đơn sửa đổi </label>
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>Số đối tượng tính:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="Số đơn" id="5_txt_PhiCongBo_DoiTuong" />
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>Số tiền:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="160.000 x [số đơn]" id="5_txt_PhiCongBo_SoTien" />
-                </div>
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width:382px">
-                    &emsp;&emsp;&emsp;<input type="checkbox" name="5_ckbPhiCongBo_Hinh" id="5_ckbPhiCongBo_Hinh">
-                    <label>Đơn có trên 1 hình (từ hình thứ hai trở đi) </label>
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>Số đối tượng tính:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="Số hình" id="5_txt_PhiCongBo_DoiTuong_Hinh" />
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>Số tiền:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="60.000 x [số hình]" id="5_txt_PhiCongBo_Hinh_SoTien" />
-                </div>
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width:382px">
-                    &emsp;&emsp;&emsp;<input type="checkbox" name="5_ckbPhiCongBo_Trang" id="5_ckbPhiCongBo_Trang">
-                    <label>Đơn có trên 1 hình (từ hình thứ hai trở đi) </label>
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>Số đối tượng tính:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="Số trang" id="5_txt_PhiCongBo_DoiTuong_Trang" />
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>Số tiền:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="10.000 x [số trang]" id="5_txt_PhiCongBo_Trang_SoTien" />
-                </div>
-            </div>
-        </div>*@
-        @* END 5 *@
 
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
         <div class="divCover cls_form_title">
@@ -498,12 +376,16 @@
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model11)
         }
 
+        @* Cam kết của chủ đơn *@
+        @{
+            string _camket = _AppHeaderInfo.Address + "|" + _AppHeaderInfo.DateNo + "|" + _AppHeaderInfo.Months + "|" + _AppHeaderInfo.Years;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon_Edit.cshtml", _camket)
+        }
+
 
         <div class="class_save">
             <div class="classGuiDon">
-                <input type="button" value="Gửi đơn" id="btnGuiDon" class="btn" />
-            </div> <div class="classLuuTam">
-                <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn" />
+                <input type="button" value="Sửa đơn" id="btnSuaDon" class="btn" />
             </div>
         </div>
     </fieldset>
@@ -530,6 +412,8 @@
 
         ShowHiden_SoHinhSoTrang();
     });
+
+
 
     function ShowHiden_SoHinhSoTrang() {
         try {
@@ -569,7 +453,7 @@
     }
 
 
-    $("#btnGuiDon").click(function () {
+    $("#btnSuaDon").click(function () {
         try {
 
             //Thông tin chủ đơn
@@ -583,9 +467,10 @@
                 showError('Chưa chọn loại đơn đăng ký!');
                 return false;
             }
+            formData.append("pInfo.Id", @_AppHeaderInfo.Id);
 
             // đại diện chủ đơn
-            formData.append("pInfo.Appcode", v_AppCode);
+            formData.append("pInfo.Appcode", @_AppHeaderInfo.Appcode);
             if (funcThongTinDaiDienChuDon(formData, "2") != true) {
                 return false;
             }
@@ -614,7 +499,7 @@
             }
 
             $.ajax({
-                url: '/trade-mark-3b/register_PLB_01_SDD',
+                url: '/trade-mark-3b/Edit_PLB_01_SDD',
                 type: 'POST',
                 data: formData,
                 processData: false,

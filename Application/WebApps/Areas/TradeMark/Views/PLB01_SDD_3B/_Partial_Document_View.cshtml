@@ -9,14 +9,16 @@
     string Document_Id = arr_id[0];
     string divCheckbox = "divCheckbox_" + Document_Id;
 
-    string _Id = arr_id[1];
-    string Id_Checkbox = "ckb_" + _Id;
+    string Id = arr_id[1];
+    string Id_Checkbox = "ckb_" + Id;
     string LevelTextbox = arr_id[2];
 
     string Lable = arr_id[3];
 
     string Lable2 = arr_id[4];
-    string Id_textbox = "txt_" + _Id;
+    string Id_textbox = "txt_" + Id;
+    string IsUpload = arr_id[5];
+    string div_ImgDownload = "div_ImgDownload_" + Id;
 
 
     // giá trị tài liệu
@@ -29,7 +31,7 @@
 
 <div class="div-search-ad">
     <div class="div-search-content">
-        <div class="div-checkbox" id="@divCheckbox" style="width:382px">
+        <div class="div-checkbox" id="@divCheckbox" style="width:354px">
             @if (LevelTextbox == "1")
             {
                 @Html.Raw("&emsp;&emsp;&emsp;")
@@ -51,6 +53,17 @@
         </div>
     </div>
 
+    @if (Url != "")
+    {
+        <div class="div-search-content" id="@div_ImgDownload">
+            <div class="div-checkbox">
+                <a style="border: none;" href="@Url">
+                    <i class="fas fa-download" style="color:blue;font-size:16px;margin-top:7px; margin-right:5px;"></i>
+                </a>
+            </div>
+        </div>
+    }
+
     @if (Lable2 != "")
     {
         <div class="div-search-title">
@@ -64,26 +77,15 @@
     }
 </div>
 
-@if (Url != "")
-{
-    <div class="div-search-ad">
-        <div class="div-search-title">
-            <div>Tên file:</div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                @*style="width:329px"*@
-                <input type="text" placeholder="Tên file Maximum file size is 2MB" readonly="readonly" value="@Url" />
-            </div>
-        </div>
-    </div>
-}
-
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
+        var _divCheckbox = document.getElementById('@divCheckbox');
+
+        if ('@Url' == "") {
+            _divCheckbox.style.width = "382px";
+        }
+
         if ('@Lable2' == "") {
-            var _divCheckbox = document.getElementById('@divCheckbox');
-            //_divCheckbox.style.width = "850px";
             _divCheckbox.style.width = null;
         }
     });

@@ -83,5 +83,22 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
+        public int AppFeeFixDelete (decimal p_app_header_id, string p_language_code)
+        {
+            try
+            {
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_FEE_FIX.Proc_DeleteBy_Header",
+                    new OracleParameter("p_app_header_id", OracleDbType.Decimal, p_app_header_id, ParameterDirection.Input),
+                    new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input));
+                return ErrorCode.Success;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
+
     }
 }
