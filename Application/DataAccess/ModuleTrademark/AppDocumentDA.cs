@@ -218,7 +218,7 @@ namespace DataAccess.ModuleTrademark
         {
             try
             {
-               return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_DOC_OTHERS.PROC_APP_DOC_OTHER_DEL_BY_ID",
+               return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_DOC_OTHERS.Proc_GetBy_App_Header",
                     new OracleParameter("p_app_header_id", OracleDbType.Decimal, p_app_header_id, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
                     new OracleParameter("p_cursor_doc", OracleDbType.RefCursor, ParameterDirection.Output));
