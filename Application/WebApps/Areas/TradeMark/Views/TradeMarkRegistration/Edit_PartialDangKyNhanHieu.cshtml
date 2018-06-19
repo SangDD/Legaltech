@@ -341,7 +341,7 @@
                     <div>bản</div>
                 </div>
             </div> <div style="margin-left:40px">
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBSDDT")
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoBSDDT")
             </div>
             <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
                 <div class="div-search-content">
@@ -358,7 +358,7 @@
                 </div>
             </div>
             <div style="margin-left:40px">
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBDTVGom")
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoBDTVGom")
             </div>
             <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
                 <div class="div-search-content">
@@ -368,11 +368,11 @@
                     </div>
                 </div>
             </div> <div style="margin-left:40px">
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoGiayChuyenNhungUT")
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoGiayChuyenNhungUT")
             </div>
         </div>
         @* Tài liệu có trong đơn *@
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTLTrongDon.cshtml")
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTLTrongDonEdit.cshtml")
         @* End tai lieu dinh kem  *@
 
         <div class="div_full_100_area">
@@ -752,31 +752,31 @@
             if (reponse == false) {
                 return false;
             }
+            if ($("#0_ckbDacTinhHangHoa").prop('checked') == true) {
+                var v_NguonGocDL = $("#8_txtNguonGocDiaLy").val();
+                if (v_NguonGocDL === "" || v_NguonGocDL == undefined) {
+                    showError('Nguồn gốc địa lý không được để trống');
+                    $("#8_txtNguonGocDiaLy").focus();
+                    return false;
+                }
+                formdata.append("pDetail.Nguongocdialy", v_NguonGocDL);
 
-            var v_NguonGocDL = $("#8_txtNguonGocDiaLy").val();
-            if (v_NguonGocDL === "" || v_NguonGocDL == undefined) {
-                showError('Nguồn gốc địa lý không được để trống');
-                $("#8_txtNguonGocDiaLy").focus();
-                return false;
+                var v_ChatLuong = $("#8_txtChatLuong").val();
+                if (v_ChatLuong === "" || v_ChatLuong == undefined) {
+                    showError('Chất lượng không được để trống');
+                    $("#8_txtChatLuong").focus();
+                    return false;
+                }
+                formdata.append("pDetail.Chatluong", v_ChatLuong);
+
+                var v_Dactinhkhac = $("#8_txtDacTinhKhac").val();
+                if (v_Dactinhkhac === "" || v_Dactinhkhac == undefined) {
+                    showError('Đặc tính khác không được để trống');
+                    $("#8_txtDacTinhKhac").focus();
+                    return false;
+                }
+                formdata.append("pDetail.Dactinhkhac", v_Dactinhkhac);
             }
-            formdata.append("pDetail.Nguongocdialy", v_NguonGocDL);
-
-            var v_ChatLuong = $("#8_txtChatLuong").val();
-            if (v_ChatLuong === "" || v_ChatLuong == undefined) {
-                showError('Chất lượng không được để trống');
-                $("#8_txtChatLuong").focus();
-                return false;
-            }
-            formdata.append("pDetail.Chatluong", v_ChatLuong);
-
-            var v_Dactinhkhac = $("#8_txtDacTinhKhac").val();
-            if (v_Dactinhkhac === "" || v_Dactinhkhac == undefined) {
-                showError('Đặc tính khác không được để trống');
-                $("#8_txtDacTinhKhac").focus();
-                return false;
-            }
-            formdata.append("pDetail.Dactinhkhac", v_Dactinhkhac);
-
         } catch (e) {
             showError('Có lỗi xảy ra kiểm tra kết nối internet');
             return false;

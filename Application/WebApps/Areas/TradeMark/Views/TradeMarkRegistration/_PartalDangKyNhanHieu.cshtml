@@ -625,31 +625,29 @@
             if (reponse == false) {
                 return false;
             }
-
-            var v_NguonGocDL = $("#8_txtNguonGocDiaLy").val();
-            if (v_NguonGocDL === "" || v_NguonGocDL == undefined) {
-                showError('Nguồn gốc địa lý không được để trống');
-                $("#8_txtNguonGocDiaLy").focus();
-                return false;
+            if ($("#0_ckbDacTinhHangHoa").prop('checked') == true) {
+                var v_NguonGocDL = $("#8_txtNguonGocDiaLy").val();
+                if (v_NguonGocDL === "" || v_NguonGocDL == undefined) {
+                    showError('Nguồn gốc địa lý không được để trống');
+                    $("#8_txtNguonGocDiaLy").focus();
+                    return false;
+                }
+                formdata.append("pDetail.Nguongocdialy", v_NguonGocDL);
+                var v_ChatLuong = $("#8_txtChatLuong").val();
+                if (v_ChatLuong === "" || v_ChatLuong == undefined) {
+                    showError('Chất lượng không được để trống');
+                    $("#8_txtChatLuong").focus();
+                    return false;
+                }
+                formdata.append("pDetail.Chatluong", v_ChatLuong);
+                var v_Dactinhkhac = $("#8_txtDacTinhKhac").val();
+                if (v_Dactinhkhac === "" || v_Dactinhkhac == undefined) {
+                    showError('Đặc tính khác không được để trống');
+                    $("#8_txtDacTinhKhac").focus();
+                    return false;
+                }
+                formdata.append("pDetail.Dactinhkhac", v_Dactinhkhac);
             }
-            formdata.append("pDetail.Nguongocdialy", v_NguonGocDL);
-
-            var v_ChatLuong = $("#8_txtChatLuong").val();
-            if (v_ChatLuong === "" || v_ChatLuong == undefined) {
-                showError('Chất lượng không được để trống');
-                $("#8_txtChatLuong").focus();
-                return false;
-            }
-            formdata.append("pDetail.Chatluong", v_ChatLuong);
-
-            var v_Dactinhkhac = $("#8_txtDacTinhKhac").val();
-            if (v_Dactinhkhac === "" || v_Dactinhkhac == undefined) {
-                showError('Đặc tính khác không được để trống');
-                $("#8_txtDacTinhKhac").focus();
-                return false;
-            }
-            formdata.append("pDetail.Dactinhkhac", v_Dactinhkhac);
-
         } catch (e) {
             showError('Có lỗi xảy ra kiểm tra kết nối internet');
             return false;
