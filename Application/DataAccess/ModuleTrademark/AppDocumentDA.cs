@@ -89,7 +89,7 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
-        public int AppDocumentDeletedByID(decimal pID,string pLanguage,decimal pAppHeaderID ,decimal pDocumentID )
+        public int AppDocumentDeletedByID(decimal pID,string pLanguage,decimal pAppHeaderID )
         {
             try
             {
@@ -98,7 +98,6 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("P_ID", OracleDbType.Decimal, pID, ParameterDirection.Input),
                      new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
                     new OracleParameter("P_APP_HEADER_ID", OracleDbType.Decimal, pAppHeaderID, ParameterDirection.Input),
-                    new OracleParameter("P_DOCUMENT_ID", OracleDbType.Decimal, pDocumentID, ParameterDirection.Input),
 
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
