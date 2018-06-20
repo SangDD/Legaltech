@@ -116,8 +116,8 @@ namespace DataAccess.ModuleTrademark
             {
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
                 OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_DOCUMENT.PROC_APP_DOCUMENT_DEL_BY_APP",
-                    new OracleParameter("P_LANGUAGE", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
-                    new OracleParameter("P_APP_HEADER_ID", OracleDbType.Decimal, pAppHeaderID, ParameterDirection.Input),
+                    new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
+                    new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Decimal, pAppHeaderID, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;
@@ -218,7 +218,7 @@ namespace DataAccess.ModuleTrademark
         {
             try
             {
-               return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_DOC_OTHERS.Proc_GetBy_App_Header",
+               return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_document.Proc_GetBy_App_Header",
                     new OracleParameter("p_app_header_id", OracleDbType.Decimal, p_app_header_id, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
                     new OracleParameter("p_cursor_doc", OracleDbType.RefCursor, ParameterDirection.Output));

@@ -22,7 +22,7 @@
     // giá trị tài liệu
     string _Value = arr[1];
     string[] arr_value = _Value.Split('|');
-    string Isuse = arr_value[0];
+    string Isuse = arr_value[0].Trim();
     string Char01 = arr_value[1];
     string Url = arr_value[2];
 
@@ -43,6 +43,18 @@
                 @Html.Raw("&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;")
             }
 
+            @if (Url != "")
+            {
+                <div class="div-checkbox" id="@div_ImgDownload" style="border: none;">
+                    <a style="border: none;" href="@Url">
+                        <i class="fas fa-download" style="color:blue;font-size:16px;margin-top:7px; margin-right:5px;"></i>
+                    </a>
+                </div>
+                <div class="div-checkbox" id="@div_ImgRemove" style="border: none;">
+                    <img onclick="RemoveFile_Edit('@Lable2', '@Id','@Document_Id')" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" />
+                </div>
+            }
+
             @if (Isuse == "1")
             {
                 <input type="checkbox" name="@Id_Checkbox" id="@Id_Checkbox" value="@Document_Id" checked="checked" onchange="return ShowHidenUpLoad(this.id,this.id, '@Id_textbox')">
@@ -54,10 +66,10 @@
             <label>@Lable</label>
         </div>
     </div>
-    @if (Url != "")
+    @*@if (Url != "")
     {
-        <div class="div-search-content" id="@div_ImgDownload">
-            <div class="div-checkbox">
+        <div class="div-search-content">
+            <div class="div-checkbox" id="@div_ImgDownload">
                 <a style="border: none;" href="@Url">
                     <i class="fas fa-download" style="color:blue;font-size:16px;margin-top:7px; margin-right:5px;"></i>
                 </a>
@@ -66,7 +78,7 @@
                 <img onclick="RemoveFile_Edit('@Lable2', '@Id','@Document_Id')" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" />
             </div>
         </div>
-    }
+    }*@
 
     @if (Lable2 != "")
     {
@@ -97,30 +109,36 @@
     $(document).ready(function () {
         var _divCheckbox = document.getElementById('@divCheckbox');
 
-        if ('@Url' == "") {
-            _divCheckbox.style.width = "382px";
-        }
-        else {
-            $("#" + '@Id_Checkbox').attr("disabled", true);
-        }
-
         if ('@Lable2' == "") {
             _divCheckbox.style.width = null;
         }
+        else {
+            if ('@Url' == "") {
+                _divCheckbox.style.width = "450px";
+            }
+            else {
+                $("#" + '@Id_Checkbox').attr("disabled", true);
+                _divCheckbox.style.width = "450px";
+            }
+        }
+
     });
 
     function RemoveFile_Edit(p_Lable2, p_Id, p_Document_Id) {
         try {
             if (p_Lable2 != "") {
                 var _divCheckbox = document.getElementById("divCheckbox_" + p_Document_Id);
-                _divCheckbox.style.width = "382px";
+                _divCheckbox.style.width = "450px";
             }
 
             $("#ckb_" + p_Id).removeAttr("disabled");
             $("#div_ImgDownload_" + p_Id).addClass("clssDisplaynone");
             $("#div_ImgRemove_" + p_Id).addClass("clssDisplaynone");
+
+            ShowHidenUpLoad("ckb_" + p_Id, "ckb_" + p_Id, '@Id_textbox')
+
         } catch (e) {
             alert(e);
         }
-    }    
+    }
 </script>

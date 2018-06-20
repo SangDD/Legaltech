@@ -252,7 +252,6 @@
                 var CreatedDate = SessionData.CurrentUser.CurrentDate;
                 decimal pReturn = ErrorCode.Success;
 
-
                 using (var scope = new TransactionScope())
                 {
                     //
@@ -260,7 +259,6 @@
                     pInfo.Created_By = CreatedBy;
                     pInfo.Created_Date = CreatedDate;
                     pInfo.Send_Date = DateTime.Now;
-                    pInfo.Status = (decimal)CommonEnums.App_Status.DaGui_ChoPhanLoai;
 
                     //TRA RA ID CUA BANG KHI INSERT
                     int _re = objBL.AppHeaderUpdate(pInfo);
@@ -387,17 +385,17 @@
                     {
                         if (pAppDocumentInfo.Count > 0)
                         {
-                            // xóa đi trước
+                            // Get ra để map sau đó xóa đi để insert vào sau
                             AppDocumentBL _AppDocumentBL = new AppDocumentBL();
-                            _AppDocumentBL.AppDocumentDelByApp(pDetail.App_Header_Id, language);
-
-                            // insert vào sau
                             List<AppDocumentInfo> Lst_AppDoc = _AppDocumentBL.AppDocument_Getby_AppHeader(pDetail.App_Header_Id, language);
                             Dictionary<string, AppDocumentInfo> dic_appDoc = new Dictionary<string, AppDocumentInfo>();
                             foreach (AppDocumentInfo item in Lst_AppDoc)
                             {
                                 dic_appDoc[item.Document_Id] = item;
                             }
+
+                            // xóa đi trước
+                            _AppDocumentBL.AppDocumentDelByApp(pDetail.App_Header_Id, language);
 
                             foreach (var info in pAppDocumentInfo)
                             {
@@ -447,25 +445,25 @@
             }
         }
 
-        //[HttpPost]
-        //[Route("push-file-to-server")]
-        //public ActionResult PushFileToServer(AppDocumentInfo pInfo)
-        //{
-        //    try
-        //    {
-        //        if (pInfo.pfiles != null)
-        //        {
-        //            var url = AppLoadHelpers.PushFileToServer(pInfo.pfiles, AppUpload.Document);
-        //            SessionData.CurrentUser.chashFile[pInfo.keyFileUpload] = pInfo.pfiles;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Logger.LogException(ex);
-        //        return Json(new { success = -1 });
-        //    }
-        //    return Json(new { success = 0 });
-        //}
+        [HttpPost]
+        [Route("push-file-to-server")]
+        public ActionResult PushFileToServer(AppDocumentInfo pInfo)
+        {
+            try
+            {
+                if (pInfo.pfiles != null)
+                {
+                    var url = AppLoadHelpers.PushFileToServer(pInfo.pfiles, AppUpload.Document);
+                    SessionData.CurrentUser.chashFile[pInfo.keyFileUpload] = pInfo.pfiles;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = -1 });
+            }
+            return Json(new { success = 0 });
+        }
 
         [HttpPost]
         [Route("delete-file")]
