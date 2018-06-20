@@ -479,13 +479,21 @@
 
                 if (RouteData.Values.ContainsKey("id"))
                 {
-                    App_Header_Id = CommonFuc.ConvertToInt(RouteData.Values["id"]);
+                    App_Header_Id = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
+                }
+                if (RouteData.Values.ContainsKey("id1"))
+                {
+                    Status = CommonFuc.ConvertToInt(RouteData.Values["id1"]);
                 }
                 if (RouteData.Values.ContainsKey("id2"))
                 {
                     AppCode = RouteData.Values["id2"].ToString().ToUpper();
                 }
-                return TradeMarkView(App_Header_Id, AppCode, Status);
+
+                if (AppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
+                {
+                    return TradeMarkView(App_Header_Id, AppCode, Status);
+                }
             }
             catch (Exception ex)
             {
