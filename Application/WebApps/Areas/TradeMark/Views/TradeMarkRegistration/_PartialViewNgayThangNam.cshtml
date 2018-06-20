@@ -10,6 +10,13 @@
         Thang = objAppHeaderInfo.Months;
         Nam = objAppHeaderInfo.Years;
     }
+
+    //Dùng cho khi view chi tiết đơn  ViewBag.disableView đc truyền từ form view tổng
+    string disableView = "";
+    if (!string.IsNullOrEmpty(ViewBag.disableView))
+    {
+        disableView = ViewBag.disableView;
+    }
 }
 <div class="div_full_100_area">
     @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CAM KẾT CỦA CHỦ ĐƠN")
@@ -24,7 +31,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" style="margin-left: 1px;" value="@KhaiTai" placeholder="txtKhaiTai" maxlength="200" id="txtKhaiTai" />
+                <input type="text" @disableView style="margin-left: 1px;" value="@KhaiTai" placeholder="txtKhaiTai" maxlength="200" id="txtKhaiTai" />
             </div>
         </div>
     </div>
@@ -39,7 +46,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <select id="cboNgayKhai" class="classNgayThangNam">
+                    <select id="cboNgayKhai"  @disableView class="classNgayThangNam">
                         @for (int i = 1; i < 32; i++)
                         {
                                 if (!string.IsNullOrEmpty(Ngay))
@@ -75,7 +82,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <select id="cboThangKhai" class="classNgayThangNam">
+                    <select id="cboThangKhai" @disableView  class="classNgayThangNam">
                         @for (int i = 1; i < 13; i++)
                         {
                                 if (!string.IsNullOrEmpty(Thang))
@@ -110,7 +117,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <select id="cboNamKhai" class="classNgayThangNam">
+                    <select id="cboNamKhai" @disableView  class="classNgayThangNam">
                         @for (int i = 2005; i < 2051; i++)
                         {
                             if (!string.IsNullOrEmpty(Nam))
