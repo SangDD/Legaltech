@@ -29,7 +29,7 @@
                     listIDFileAtt = listIDFileAtt + item.Id.ToString() + ",";
                     No++;
                     FileName = No.ToString() + ". " + item.Documentname;
-                    <div id="@item.Id" class="classDocOtherE"> <a style="color:blue" href="@item.Filename">@FileName</a>   </div>
+                    <div id="@item.Id" class="classDocOtherE"> <a style="color:blue" href="@item.Filename">@FileName</a> </div>
                 }
             </div>
 
@@ -39,8 +39,6 @@
     <input type="hidden" class="ListIDAttach_E" id="ListIDAttach_E" value="@listIDFileAtt" />
     <input type="hidden" id="ListIDAttach_R" value="" />
     @* End sửa *@
- 
-
 </div>
 
 @* danh dau so tt sinh id  *@

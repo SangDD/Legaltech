@@ -145,7 +145,7 @@
 
             textInput = textInput.trim();
             classCode = classCode.trim();
-            var _html = "<tr><td></td><td class=\"TdLeft\">" + textInput + "</td><td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td></td><td class=\"HasSort clssDisplaynone\">" + classCode.substr(0,5) + "</td></tr>";
+            var _html = "<tr><td></td><td class=\"TdLeft\">" + textInput + "</td><td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td><a href=\"javascript:;\" onclick=\"funcRemoveMessDataRow(this, '" + classCode + "');\">Xóa</a></td><td class=\"HasSort clssDisplaynone\">" + classCode.substr(0,5) + "</td></tr>";
             $("#tblClassInfo").find("tbody").append(_html);
             AddTotalRows();
             funcReSortTable("#tblClassInfo", 'asc');

@@ -45,14 +45,6 @@
             Email = objAppHeaderInfo.Cdk_Email_4;
         }
     }
-
-
-    //Hiển thị ở màn hình view  ViewBag.disableView truyền từ ViewView_PartialDangKyNhanHieu sang
-    string disableView = "";
-    if (!string.IsNullOrEmpty(ViewBag.disableView))
-    {
-        disableView = ViewBag.disableView;
-    }
 }
 <div class="div_full_100_area">
     <div class="div-search-ad">
@@ -61,7 +53,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" @disableView placeholder="@txtTenDayDu" value="@Name" id="@txtTenDayDu" />
+                <input type="text" placeholder="@txtTenDayDu" value="@Name" id="@txtTenDayDu" />
             </div>
         </div>
     </div>
@@ -71,7 +63,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" @disableView  placeholder="@txtDiaChi" value="@Address" i id="@txtDiaChi" />
+                <input type="text" placeholder="@txtDiaChi" value="@Address" i id="@txtDiaChi" />
             </div>
         </div>
     </div>
@@ -81,7 +73,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text"  @disableView placeholder="@txtDienThoai" value="@Phone" i maxlength="50" id="@txtDienThoai" style="width:251px" />
+                <input type="text" placeholder="@txtDienThoai" value="@Phone" i maxlength="50" id="@txtDienThoai" style="width:251px" />
             </div>
         </div>
 
@@ -90,7 +82,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text"  @disableView placeholder="@txtFax" value="@Fax" i maxlength="50" id="@txtFax" style="width:251px" />
+                <input type="text" placeholder="@txtFax" value="@Fax" i maxlength="50" id="@txtFax" style="width:251px" />
             </div>
         </div>
         <div class="div-search-title">
@@ -98,7 +90,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" @disableView  placeholder="@txtEmail" maxlength="50" value="@Email" i id="@txtEmail" />
+                <input type="text" placeholder="@txtEmail" maxlength="50" value="@Email" i id="@txtEmail" />
             </div>
         </div>
     </div>
