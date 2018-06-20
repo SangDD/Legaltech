@@ -14,7 +14,8 @@
     }
     string _appcode = ViewBag.AppCode;
 
-    SysAppFixChargeInfo _Appfixcharge =  BussinessFacade.ModuleMemoryData.MemoryData.c_dic_FeeByApp_Fix[_appcode];
+    //SysAppFixChargeInfo _Appfixcharge =  BussinessFacade.ModuleMemoryData.MemoryData.c_dic_FeeByApp_Fix[_appcode];
+    SysAppFixChargeInfo _Appfixcharge = new SysAppFixChargeInfo();
 }
 <script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
 <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
@@ -163,10 +164,10 @@
             <div class="div-search-content">
                 <div>
                     @*<input type="text" id="cbo_04nh_data" placeholder="cbo_04nh_data" maxlength="100" />*@
-                    <select id="cbo_04nh_data">
+                    <select id="cbo_04nh_data" onchange="chooseApp2a($(this).val())">
                         @foreach (var item in _List04nhdetail)
                         {
-                            <option value="@item.Id">
+                            <option value="@item.App_Header_Id">
                                 @item.Appno
                             </option>
                         }
@@ -224,7 +225,7 @@
             </div>
         </div>*@
 
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml")
+           
       
 
         @*<div class="div-search-ad">
@@ -246,8 +247,10 @@
                 2.CHỦ ĐƠN
             </div>
         </div>
- 
-          @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "_1")
+            
+        <div id="div_chudon2a">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "_1")
+        </div>
         
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
@@ -255,62 +258,67 @@
                 3.ĐẠI DIỆN CỦA CHỦ ĐƠN
             </div>
         </div>
-
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "_2")
-
-       
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/info.png" />
-            <div class="cls_form_header">
-                4.TÊN VÀ MÃ NƯỚC CHỈ ĐỊNH ĐĂNG KÝ QUỐC TẾ NHÃN HIỆU
-            </div>
+        <div id="div_daidienchudon2a">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "_2")
         </div>
 
-           
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDanhSachQuocGiaDKQTNH.cshtml", "_4")
-
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/info.png" />
-            <div class="cls_form_header">
-                5.PHÍ, LỆ PHÍ
-            </div>
+        <div id="div_appclass_2a">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml")
         </div>
+        
 
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div style="width:450px"> Phí dịch vụ làm thủ tục đăng ký quốc tế nhãn hiệu đã nộp kèm theo: </div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="_5_txtLePhiDangKy" maxlength="20" id="_5_txtLePhiDangKy" onkeypress="return isNumberKey(event);" onkeyup="jsFormatNumber(this.value, this.id)"  value="2000000" />
+            <div class="divCover cls_form_title">
+                <img src="~/Content/icons/info.png" />
+                <div class="cls_form_header">
+                    4.TÊN VÀ MÃ NƯỚC CHỈ ĐỊNH ĐĂNG KÝ QUỐC TẾ NHÃN HIỆU
                 </div>
             </div>
-        </div>
 
-     
 
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/info.png" />
-            <div class="cls_form_header">
-                6.CÁC TÀI LIỆU CÓ TRONG ĐƠN
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDanhSachQuocGiaDKQTNH.cshtml", "_4")
+
+            <div class="divCover cls_form_title">
+                <img src="~/Content/icons/info.png" />
+                <div class="cls_form_header">
+                    5.PHÍ, LỆ PHÍ
+                </div>
             </div>
-        </div>
+
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div style="width:450px"> Phí dịch vụ làm thủ tục đăng ký quốc tế nhãn hiệu đã nộp kèm theo: </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" placeholder="_5_txtLePhiDangKy" maxlength="20" id="_5_txtLePhiDangKy" onkeypress="return isNumberKey(event);" onkeyup="jsFormatNumber(this.value, this.id)" value="2000000" />
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="divCover cls_form_title">
+                <img src="~/Content/icons/info.png" />
+                <div class="cls_form_header">
+                    6.CÁC TÀI LIỆU CÓ TRONG ĐƠN
+                </div>
+            </div>
 
 
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTaiLieuTrongDon.cshtml")
 
-        <div class="class_save">
-            <div class="classGuiDon">
-                <input type="button" value="Gửi đơn" id="btnGuiDon" class="btn" />
-            </div> <div class="classLuuTam">
-                <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn" />
+            <div class="class_save">
+                <div class="classGuiDon">
+                    <input type="button" value="Gửi đơn" id="btnGuiDon" class="btn" />
+                </div> <div class="classLuuTam">
+                    <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn" />
+                </div>
             </div>
-        </div>
-        <div class="classLuuTam">
-            <a href="javascript:;" id="hrfExportData">Kết xuất</a>
-        </div>
-    </fieldset>
+            <div class="classLuuTam">
+                <a href="javascript:;" id="hrfExportData">Kết xuất</a>
+            </div>
+</fieldset>
 </div>
 
 
@@ -883,5 +891,40 @@
             return false;
         }
     }
+
+    // lấy thông tin đơn 2a fill vào các trường 
+    function chooseApp2a(_id)
+    {
+        try {
+            var imgMauNhanHieu = $("#imgMauNhanHieu");
+            var _1_txtNgayNopDon = $("#_1_txtNgayNopDon");
+            var div_chudon2a = $("#div_chudon2a");
+            var div_daidienchudon2a = $("#div_daidienchudon2a");
+            var div_appclass_2a = $("#div_appclass_2a");
+            $.ajax({
+                url: '/trade-mark-share-data/get-tm04nh-info',
+                type: 'POST',
+                data: { pAppHeaderId: _id },
+               // processData: false, contentType: false, traditional: true, dataType: "json",
+              //  enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                success: function (data) {
+                    if (data != null && data.success >= 0) {
+                        imgMauNhanHieu.attr("src", data.LogoURL);
+                        _1_txtNgayNopDon.val(data.NgayNopDon);
+                        div_chudon2a.html(data.ViewChuDon);
+                        div_daidienchudon2a.html(data.ViewDaiDienChuDon);
+                        div_appclass_2a.html(data.ViewAppClass);
+                    }  
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+
+        } catch (e) {
+            alert(e.toString());
+        }
+    }
+
 
 </script>

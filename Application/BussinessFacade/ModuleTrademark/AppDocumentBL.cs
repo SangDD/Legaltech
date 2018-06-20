@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using ObjectInfos.ModuleTrademark;
 using ObjectInfos;
+using System.Data;
 
 namespace BussinessFacade.ModuleTrademark
 {
@@ -51,7 +52,6 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
-
         public int AppDocumentOtherInsertBatch(List<AppDocumentOthersInfo> pInfo)
         {
             try
@@ -65,6 +65,7 @@ namespace BussinessFacade.ModuleTrademark
                 return ErrorCode.Error;
             }
         }
+
         public int AppDocumentOtherDeletedByApp(decimal pAppHeaderID, string pLanguage)
         {
             try
@@ -79,7 +80,6 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
-
         public int AppDocOtherByID(decimal pID, string pLanguage)
         {
             try
@@ -91,6 +91,21 @@ namespace BussinessFacade.ModuleTrademark
             {
                 Logger.LogException(ex);
                 return ErrorCode.Error;
+            }
+        }
+
+        public List<AppDocumentInfo> AppDocument_Getby_AppHeader(decimal p_app_header_id, string p_language_code)
+        {
+            try
+            {
+                AppDocumentDA objData = new AppDocumentDA();
+                DataSet ds = objData.AppDocument_Getby_AppHeader(p_app_header_id, p_language_code);
+                return CBO<AppDocumentInfo>.FillCollectionFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<AppDocumentInfo>();
             }
         }
 
