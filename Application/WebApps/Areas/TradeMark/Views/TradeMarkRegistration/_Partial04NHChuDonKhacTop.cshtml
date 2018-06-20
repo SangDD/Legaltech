@@ -45,6 +45,12 @@
             Email = objAppHeaderInfo.Cdk_Email_1;
         }
     }
+    //Dùng cho khi view chi tiết đơn  ViewBag.disableView đc truyền từ form view tổng
+    string disableView = "";
+    if (!string.IsNullOrEmpty(ViewBag.disableView))
+    {
+        disableView = ViewBag.disableView;
+    }
 }
 <div class="div-search-ad">
     <div class="div-search-title">
@@ -52,7 +58,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="@txtTenDayDu" value="@Name" id="@txtTenDayDu" />
+            <input type="text" @disableView placeholder="@txtTenDayDu" value="@Name" id="@txtTenDayDu" />
         </div>
     </div>
 </div>
@@ -64,7 +70,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="@txtDiaChi" value="@Address" id="@txtDiaChi" />
+            <input type="text"  @disableView placeholder="@txtDiaChi" value="@Address" id="@txtDiaChi" />
         </div>
     </div>
 </div>
@@ -75,7 +81,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="@txtDienThoai" value="@Phone" maxlength="50" id="@txtDienThoai" style="width:251px" />
+            <input type="text" @disableView  placeholder="@txtDienThoai" value="@Phone" maxlength="50" id="@txtDienThoai" style="width:251px" />
         </div>
     </div>
 
@@ -84,7 +90,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="@txtFax" maxlength="50" value="@Fax" id="@txtFax" style="width:251px" />
+            <input type="text" @disableView  placeholder="@txtFax" maxlength="50" value="@Fax" id="@txtFax" style="width:251px" />
         </div>
     </div>
 
@@ -93,7 +99,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="@txtEmail" value="@Email" maxlength="50" id="@txtEmail" />
+            <input type="text" @disableView  placeholder="@txtEmail" value="@Email" maxlength="50" id="@txtEmail" />
         </div>
     </div>
 </div>

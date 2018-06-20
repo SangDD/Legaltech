@@ -12,6 +12,7 @@ namespace ObjectInfos
         public string Language_Code { get; set; }
         public string Appno { get; set; }
         public DateTime Duadate { get; set; }
+        public string LogourlOrg { get; set; }
         public string Logourl { get; set; }
         public HttpPostedFileBase pfileLogo { get; set; }
          

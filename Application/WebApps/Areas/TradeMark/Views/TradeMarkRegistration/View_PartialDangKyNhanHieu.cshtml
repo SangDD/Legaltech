@@ -507,21 +507,17 @@
     .div-search-content .ms-ul > ul {
         margin-left: 0px;
     }
+    .section-body{
+        overflow-y:hidden ;
+    }
 </style>
 
 <script>
-
-
-    $('#6_txtNuocNopDon').multipleSelect({
-        filter: true,
-        noMatchesFound: "Không tìm thấy dữ liệu",
-        single: true,
-        isdatastring: false,
-        placeholder: 'Tìm kiếm quốc gia'
+    $("#btnBack").click(function () {
+        window.location.href = "/trade-mark-mana/quan-ly-don-luu-tam";
     });
 
     $("#6_txtNuocNopDon").multipleSelect("disable");
-
 
     $("#0_ckbDacTinhHangHoa").change(function () {
         if (this.checked) { funcEnableDisable('classDacTinhHangHoa', true); } else { funcEnableDisable('classDacTinhHangHoa', false); }
@@ -529,18 +525,7 @@
 
     function funcEnableDisable(classaction, enable) {
         if (enable == true) { $("." + classaction).removeAttr('disabled'); } else { $("." + classaction).attr('disabled', 'disabled'); }
-    }
-
-
-    function funcUpLoadMauNhanHieu(pFile) {
-        try {
-            var file = document.getElementsByName(pFile);
-            if (file != undefined) {
-                formdata.append("pInfo.pfiles", file[0].files[0]);
-            }
-        } catch (e) {
-        }
-    }
+    } 
 
     $(document).ready(function () {
         funcEnableDisable('classDisable', false);
@@ -558,17 +543,7 @@
         if ($("#0_ckbcosudungdonuutien").is(':checked')) {
             $("#6_txtnuocnopdon").multipleselect("enable")
         }
-
-
-        $.datetimepicker.setLocale('vi');
-        $('.datetimepicker').datetimepicker({
-            timepicker: false,
-            format: 'd/m/Y',
-            formatDate: 'd/m/Y',
-            mask: '39/19/9999',
-            validateOnBlur: false,
-            scrollInput: false
-        });
+         
     });
 
     function ShowHidenUpLoad(pID, pClass) {
@@ -602,6 +577,5 @@
             }
         });
     }
-
 
 </script>

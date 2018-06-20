@@ -212,6 +212,7 @@
                     if (pReturn < 0)
                     {
                         Transaction.Current.Rollback();
+                        return Json(new { status = pReturn });
                     }
                     else
                     {
@@ -638,9 +639,15 @@
                         {
                             pDetail.Logourl = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
                         }
+                        else
+                        {
+                            pDetail.Logourl = pDetail.LogourlOrg;
+                        }
+
+
                         pReturn = objDetail.App_Detail_04NH_Update(pDetail);
                         //Thêm thông tin class
-                        if (pReturn >= 0)
+                        if (pReturn >= 0 && pAppClassInfo!=null)
                         {
 
                             //Xoa cac class cu di 
@@ -724,7 +731,9 @@
                     //end
                     if (pReturn < 0)
                     {
+                        
                         Transaction.Current.Rollback();
+                        return Json(new { status = pReturn });
                     }
                     else
                     {

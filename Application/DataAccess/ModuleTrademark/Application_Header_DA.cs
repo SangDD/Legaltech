@@ -103,8 +103,9 @@ namespace DataAccess.ModuleTrademark
             try
             {
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
-                OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_HEADER.PROC_APP_HEADER_INSERT",
+                OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_HEADER.PROC_APP_HEADER_UPDATE",
                     new OracleParameter("P_ID", OracleDbType.Decimal, pInfo.Id, ParameterDirection.Input),
+                     new OracleParameter("P_APPCODE", OracleDbType.Varchar2, pInfo.Appcode, ParameterDirection.Input),
                     new OracleParameter("P_MASTER_NAME", OracleDbType.Varchar2, pInfo.Master_Name, ParameterDirection.Input),
                     new OracleParameter("P_MASTER_ADDRESS", OracleDbType.Varchar2, pInfo.Master_Address, ParameterDirection.Input),
                     new OracleParameter("P_MASTER_PHONE", OracleDbType.Varchar2, pInfo.Master_Phone, ParameterDirection.Input),
@@ -118,8 +119,8 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("P_REP_MASTER_EMAIL", OracleDbType.Varchar2, pInfo.Rep_Master_Email, ParameterDirection.Input),
                     new OracleParameter("P_SEND_DATE", OracleDbType.Date, pInfo.Send_Date, ParameterDirection.Input),
                     new OracleParameter("P_STATUS", OracleDbType.Int32, pInfo.Status, ParameterDirection.Input),
-                    new OracleParameter("P_CREATED_BY", OracleDbType.Varchar2, pInfo.Created_By, ParameterDirection.Input),
-                    new OracleParameter("P_CREATED_DATE", OracleDbType.Date, pInfo.Created_Date, ParameterDirection.Input),
+                    new OracleParameter("P_MODIFY_BY", OracleDbType.Varchar2, pInfo.Created_By, ParameterDirection.Input),
+                    new OracleParameter("P_MODIFY_DATE", OracleDbType.Date, pInfo.Created_Date, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGUE_CODE", OracleDbType.Varchar2, pInfo.Languague_Code, ParameterDirection.Input),
                     new OracleParameter("P_ADDRESS", OracleDbType.Varchar2, pInfo.Address, ParameterDirection.Input),
                     new OracleParameter("P_DATENO", OracleDbType.Varchar2, pInfo.DateNo, ParameterDirection.Input),
