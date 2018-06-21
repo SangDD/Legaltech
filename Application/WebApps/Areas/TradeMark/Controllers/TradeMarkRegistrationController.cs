@@ -363,26 +363,39 @@
 
         [HttpPost]
         [Route("ket_xuat_file")]
-        public ActionResult ExportData(ApplicationHeaderInfo pInfo, List<AppFeeFixInfo> pFeeFixInfo, AppDetail01Info pDetailInfo)
+        public ActionResult ExportData(ApplicationHeaderInfo pInfo, AppDetail04NHInfo pDetail, List<AppDocumentInfo> pAppDocumentInfo,
+            List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo)
         {
             try
             {
-                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/Request_for_amendment_of_application.doc");
+                AppInfoExport appInfo = new AppInfoExport();
+
+                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/TM04NH_Request_for_trademark_registration_vi_exp.doc");
                 DocumentModel document = DocumentModel.Load(_fileTemp);
-
                 // Fill export_header
-                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Dang_ky_sua_doi_nhan_hieu_" + pInfo.Appcode + ".pdf");
-
+                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + pInfo.Appcode + ".pdf");
                 // Fill export_detail  
+                appInfo.Status = 254;
+                appInfo.Status_Form = 252;
+                appInfo.Relationship = "11";
+                appInfo= CreateInstance.CopyAppHeaderInfo(  appInfo, pInfo);
+                appInfo= CreateInstance.CopyAppDetailInfo( appInfo, pDetail);
+                //document.MailMerge.FieldMerging += (sender, e) =>
+                //{
+                //    if (e.IsValueFound)
+                //    {
+                //        //if (e.FieldName == "Text")
+                //        //    ((Run)e.Inline).Text = e.Value.ToString();
+                //        if (e.FieldName == "BarCode_URL")
+                //            e.Inline = new Picture(e.Document, e.Value.ToString());
+                //        if (e.FieldName == "BarCode_URL1")
+                //            e.Inline = new Picture(e.Document, e.Value.ToString());
 
-                pInfo.Status = 254;
-                pInfo.Status_Form = 252;
-                pInfo.Relationship = "11";
-                document.MailMerge.Execute(pInfo);
+                //    }
+                //};
+
+                document.MailMerge.Execute(appInfo);
                 document.Save(fileName, SaveOptions.PdfDefault);
-                //document.Save(fileName);
-
-
                 byte[] fileContents;
                 var options = SaveOptions.PdfDefault;
                 // Save document to DOCX format in byte array.
@@ -392,24 +405,25 @@
                     fileContents = stream.ToArray();
                 }
                 Convert.ToBase64String(fileContents);
-
                 return Json(new { success = 0 });
 
             }
             catch (Exception ex)
             {
-
+                Logger.LogException(ex);
                 return Json(new { success = 0 });
             }
         }
 
 
-        [HttpPost]
+        //[HttpPost]
         [Route("Pre-View")]
         public ActionResult PreViewApplication()
         {
             try
             {
+                string tm04Nh = "TM04NH";
+                ViewBag.FileName = "/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + tm04Nh+".pdf";
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
             }
             catch (Exception ex)
