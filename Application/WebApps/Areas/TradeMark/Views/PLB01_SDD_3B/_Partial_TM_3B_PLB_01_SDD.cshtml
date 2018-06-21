@@ -34,30 +34,22 @@
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
         <legend> SỬA ĐỔI ĐƠN ĐĂNG KÝ ĐỐI TƯỢNG SỞ HỮU CÔNG NGHIỆP </legend>
 
-        @* 1 - CHỦ ĐƠN*@
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/info.png" />
-            <div class="cls_form_header">
-                CHỦ ĐƠN
-            </div>
-        </div>
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
-
-        @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/info.png" />
-            <div class="cls_form_header">
-                ĐẠI DIỆN CỦA CHỦ ĐƠN
-            </div>
-        </div>
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
-        @* end 2 *@
-
         @* 3 - ĐƠN YÊU CẦU SỬA ĐỔI *@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
                 ĐƠN YÊU CẦU SỬA ĐỔI
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Số đơn:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="3_SoDon" id="3_SoDon" />
+                </div>
             </div>
         </div>
 
@@ -121,18 +113,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Số đơn:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="3_SoDon" id="3_SoDon" />
-                </div>
-            </div>
-        </div>
-
         @* end 3 *@
 
         @* 4 - NỘI DUNG YÊU CẦU SỬA ĐỔI *@
@@ -178,6 +158,26 @@
         </div>
 
         @* end 4 *@
+
+        @* 1 - CHỦ ĐƠN*@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                CHỦ ĐƠN
+            </div>
+        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+
+        @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                ĐẠI DIỆN CỦA CHỦ ĐƠN
+            </div>
+        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
+        @* end 2 *@
+
 
 
         @* 5 *@
@@ -320,7 +320,7 @@
             <div class="div-search-content">
                 <div>
                     @*style="width:329px"*@
-                    <input type="text" placeholder="Số trang" id="txt_6_Doc_ToKhai_SoTrang" />
+                    <input type="text" placeholder="Số trang" id="txt_6_Doc_ToKhai" />
                 </div>
             </div>
         </div>
@@ -467,7 +467,6 @@
         }
     }
 
-
     $("#btnGuiDon").click(function () {
         try {
 
@@ -476,6 +475,8 @@
             if (funcThongTinChuDon(formData, "1") != true) {
                 return false;
             }
+
+            formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai)');
             var v_AppCode = $("#txtAppCode").val();
             if (v_AppCode === "") {
                 $('#txtAppCode').focus().val('');
@@ -521,9 +522,13 @@
                 traditional: true,
                 dataType: "json",
                 enctype: 'multipart/form-data',
-                async: false,
+                async: true,
                 headers: { "cache-control": "no-cache" },
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
                 success: function (data) {
+                    CreateRollingWaitingIcon(false);
                     if (data != null && data.status >= 0) {
                         jAlert(AddSuccess, ThongBao, function () {
                         });
@@ -533,11 +538,93 @@
                     }
                 },
                 error: function (e) {
+                    CreateRollingWaitingIcon(false);
                     console.log(e);
                 }
             });
 
         } catch (e) {
+            CreateRollingWaitingIcon(false);
+            console.log(e);
+        }
+    });
+
+    $("#btnLuuTam").click(function () {
+        try {
+
+            //Thông tin chủ đơn
+            var formData = new FormData();
+            if (funcThongTinChuDon(formData, "1") != true) {
+                return false;
+            }
+            formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.Luu_tam)');
+
+            var v_AppCode = $("#txtAppCode").val();
+            if (v_AppCode === "") {
+                $('#txtAppCode').focus().val('');
+                showError('Chưa chọn loại đơn đăng ký!');
+                return false;
+            }
+
+            // đại diện chủ đơn
+            formData.append("pInfo.Appcode", v_AppCode);
+            if (funcThongTinDaiDienChuDon(formData, "2") != true) {
+                return false;
+            }
+            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+            if (v_RepMasterType === "" || v_RepMasterType == undefined) {
+                jError("Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!");
+                return false;
+            }
+            formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+
+            //Lấy thông tin detail
+            var reponse = funcGetAppDetail(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            //Lấy thông tin tài liệu có trong đơn
+            reponse = funGetDocumentFile(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            reponse = funcGetCamKetChuDon(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            $.ajax({
+                url: '/trade-mark-3b/register_PLB_01_SDD',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                traditional: true,
+                dataType: "json",
+                enctype: 'multipart/form-data',
+                async: true,
+                headers: { "cache-control": "no-cache" },
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data != null && data.status >= 0) {
+                        jAlert("Lưu tạm đơn thành công");
+                    } else {
+                        jError("Lưu tạm đơn không thành công");
+                    }
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
+            });
+
+        } catch (e) {
+            CreateRollingWaitingIcon(false);
             console.log(e);
         }
     });
@@ -617,7 +704,7 @@
 
             // 1. Tờ khai
             reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_ToKhai", "0");
-            formData.append("pAppDocumentInfo[0].CHAR01", $("#txt_6_Doc_ToKhai_SoTrang").val());
+            formData.append("pAppDocumentInfo[0].CHAR01", $("#txt_6_Doc_ToKhai").val());
 
             // 2. Tài liệu xác nhận
             reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_TLXacNhan", "1");

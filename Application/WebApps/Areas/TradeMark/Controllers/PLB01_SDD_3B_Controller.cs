@@ -73,7 +73,7 @@
                     pInfo.Created_By = CreatedBy;
                     pInfo.Created_Date = CreatedDate;
                     pInfo.Send_Date = DateTime.Now;
-                    pInfo.Status = (decimal)CommonEnums.App_Status.DaGui_ChoPhanLoai;
+                    //pInfo.Status = (decimal)CommonEnums.App_Status.DaGui_ChoPhanLoai;
 
                     //TRA RA ID CUA BANG KHI INSERT
                     pAppHeaderID = objBL.AppHeaderInsert(pInfo);
@@ -202,7 +202,7 @@
                                 {
                                     HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                     info.Filename = pfiles.FileName;
-                                    info.Url_Hardcopy = "~/Content/Archive/" + AppUpload.Document + pfiles.FileName;
+                                    info.Url_Hardcopy = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
                                     info.Status = 0;
                                 }
                                 info.App_Header_Id = pAppHeaderID;
@@ -403,7 +403,7 @@
                                 {
                                     HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                     info.Filename = pfiles.FileName;
-                                    info.Url_Hardcopy = "~/Content/Archive/" + AppUpload.Document + pfiles.FileName;
+                                    info.Url_Hardcopy = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
                                     info.Status = 0;
                                 }
                                 else
