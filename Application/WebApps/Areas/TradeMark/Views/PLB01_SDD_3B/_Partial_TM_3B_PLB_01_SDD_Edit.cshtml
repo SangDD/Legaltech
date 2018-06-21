@@ -95,7 +95,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-content">
-                <div class="div-radio" style="width:382px">
+                <div class="div-radio" style="width:450px">
                     @if (_App_Detail.Request_Change_Type == 1)
                     {
                         <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdDonSangChe" value="1" checked="checked" onchange="return ShowHiden_SoHinhSoTrang()" />
@@ -129,7 +129,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Số hình" id="txt_SoHinh" style="width:250px" value="@_App_Detail.Number_Pic" />
+                    <input type="text" placeholder="Số hình" id="txt_SoHinh" style="width:318px" value="@_App_Detail.Number_Pic" />
                 </div>
             </div>
 
@@ -145,7 +145,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-content">
-                <div class="div-radio" style="width:382px">
+                <div class="div-radio" style="width:450px">
                     @if (_App_Detail.Request_Change_Type == 3)
                     {
                         <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdMachTichHop" value="3" onchange="return ShowHiden_SoHinhSoTrang()" checked="checked" />
@@ -212,7 +212,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-content">
-                <div class="div-radio" style="width:382px">
+                <div class="div-radio" style="width:450px">
                     @*<input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1">*@
                     @if (_App_Detail.Request_To_Type == 1)
                     {
@@ -244,7 +244,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-content">
-                <div class="div-radio" style="width:382px">
+                <div class="div-radio" style="width:450px">
                     @*<input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3">*@
                     @if (_App_Detail.Request_To_Type == 3)
                     {
@@ -289,7 +289,7 @@
         @* 2. Tài liệu xác nhận *@
         @{
             string _doc_id2 = "01_SDD_02";
-            string _id2 = _doc_id2 + "|6_Doc_TLXacNhan|0|Tài liệu xác nhận việc sửa đổi hợp pháp, bằng tiếng|tiếng|1";
+            string _id2 = _doc_id2 + "|6_Doc_TLXacNhan|0|Tài liệu xác nhận việc sửa đổi hợp pháp, bằng tiếng|Tiếng|1";
             string _value2 = dic_appDoc[_doc_id2].Isuse.ToString() + "|" + dic_appDoc[_doc_id2].CHAR01 + "|" + dic_appDoc[_doc_id2].Url_Hardcopy;
             string _model2 = _id2 + ";" + _value2;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model2)
@@ -461,16 +461,11 @@
             if (funcThongTinChuDon(formData, "1") != true) {
                 return false;
             }
-            var v_AppCode = $("#txtAppCode").val();
-            if (v_AppCode === "") {
-                $('#txtAppCode').focus().val('');
-                showError('Chưa chọn loại đơn đăng ký!');
-                return false;
-            }
             formData.append("pInfo.Id", @_AppHeaderInfo.Id);
+            formData.append("pInfo.Status", @_AppHeaderInfo.Status);
 
             // đại diện chủ đơn
-            formData.append("pInfo.Appcode", @_AppHeaderInfo.Appcode);
+            formData.append("pInfo.Appcode", '@_AppHeaderInfo.Appcode');
             if (funcThongTinDaiDienChuDon(formData, "2") != true) {
                 return false;
             }
@@ -511,10 +506,10 @@
                 headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.status >= 0) {
-                        jAlert(AddSuccess, ThongBao, function () {
+                        jAlert(EditSuccess, ThongBao, function () {
                         });
                     } else {
-                        jError(AddFail, ThongBao, function () {
+                        jError(EditFail, ThongBao, function () {
                         });
                     }
                 },

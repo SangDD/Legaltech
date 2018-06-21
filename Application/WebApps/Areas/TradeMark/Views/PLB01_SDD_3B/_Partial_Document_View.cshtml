@@ -41,6 +41,17 @@
                 @Html.Raw("&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;")
             }
 
+            @if (Url != "")
+            {
+                <div class="div-search-content" id="@div_ImgDownload" >
+                    <div class="div-checkbox" style="border: none;">
+                        <a style="border: none;" href="@Url">
+                            <i class="fas fa-download" style="color:blue;font-size:16px;margin-top:7px; margin-right:5px;"></i>
+                        </a>
+                    </div>
+                </div>
+            }
+
             @if (Isuse == "1")
             {
                 <input type="checkbox" name="@Id_Checkbox" id="@Id_Checkbox" value="@Document_Id" disabled="disabled" checked="checked">
@@ -53,7 +64,7 @@
         </div>
     </div>
 
-    @if (Url != "")
+    @*@if (Url != "")
     {
         <div class="div-search-content" id="@div_ImgDownload">
             <div class="div-checkbox">
@@ -62,7 +73,7 @@
                 </a>
             </div>
         </div>
-    }
+    }*@
 
     @if (Lable2 != "")
     {
@@ -81,12 +92,28 @@
     $(document).ready(function () {
         var _divCheckbox = document.getElementById('@divCheckbox');
 
-        if ('@Url' == "") {
+        @*if ('@Url' == "") {
             _divCheckbox.style.width = "382px";
-        }
+        }*@
 
         if ('@Lable2' == "") {
             _divCheckbox.style.width = null;
+            @*if ('@Url' == "") {
+                _divCheckbox.style.width = null;
+            }
+            else {
+                _divCheckbox.style.width = "1000px";
+            }*@
+        }
+        else {
+            _divCheckbox.style.width = "450px";
+
+            @*if ('@Url' == "") {
+                _divCheckbox.style.width = "450px";
+            }
+            else {
+                _divCheckbox.style.width = "450px";
+            }*@
         }
     });
 </script>
