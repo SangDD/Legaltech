@@ -3,6 +3,7 @@ using DataAccess.ModuleTrademark;
 using ObjectInfos.ModuleTrademark;
 using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace BussinessFacade.ModuleTrademark
 {
@@ -47,6 +48,21 @@ namespace BussinessFacade.ModuleTrademark
             {
                 Logger.LogException(ex);
                 return ErrorCode.Error;
+            }
+        }
+
+
+        public DataSet AppFeeFixGetByAppHeader(decimal p_app_header_id)
+        {
+            try
+            {
+                AppFeeFixDA objData = new AppFeeFixDA();
+                return objData.AppFeeFixGetByAppHeaderId(p_app_header_id);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
             }
         }
     }

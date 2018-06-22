@@ -15,6 +15,7 @@
     using System.IO;
     using System.Transactions;
     using BussinessFacade.ModuleMemoryData;
+    using System.Data;
 
     [ValidateAntiForgeryTokenOnAllPosts]
     [RouteArea("TradeMarkRegistration", AreaPrefix = "trade-mark")]
@@ -395,7 +396,6 @@
                         appInfo.strListClass += item.Textinput + " - " + item.Code + ";";
                     }
                     appInfo.strListClass = "Tổng số nhóm:" + appInfo.strTongSonhom + "; Tổng số sản phẩm: " + appInfo.strTongSoSP + " ; Danh sách nhóm: " + appInfo.strListClass;
-
                 }
                 if (lstDocOther != null)
                 {
@@ -404,6 +404,15 @@
                         appInfo.strDanhSachFileDinhKem += item.Documentname + " ; ";
                     }
                 }
+                //Hiển thị phí 
+                if (pInfo.Id != 0)
+                {
+                    AppFeeFixBL appFeeFixBL = new AppFeeFixBL();
+                    DataSet dsFeefix = appFeeFixBL.AppFeeFixGetByAppHeader(pInfo.Id);
+                    List<AppFeeFixInfo> lst = CBO<AppFeeFixInfo>.FillCollectionFromDataSet(dsFeefix);
+
+                }
+                //End
 
                 //Kết xuất ảnh
                 document.MailMerge.FieldMerging += (sender, e) =>
