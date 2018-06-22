@@ -210,7 +210,7 @@
                                 {
                                     HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                     info.Filename = pfiles.FileName;
-                                    info.Url_Hardcopy = "~/Content/Archive/" + AppUpload.Document + pfiles.FileName;
+                                    info.Url_Hardcopy = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
                                     info.Status = 0;
                                 }
                                 info.App_Header_Id = pAppHeaderID;
@@ -232,7 +232,7 @@
                                 {
                                     HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
                                     info.Filename = pfiles.FileName;
-                                    info.Filename = "~/Content/Archive/" + AppUpload.Document + pfiles.FileName;
+                                    info.Filename = "/Content/Archive/" + AppUpload.Document +"/" + pfiles.FileName;
                                 }
                                 info.App_Header_Id = pAppHeaderID;
                                 info.Language_Code = language;

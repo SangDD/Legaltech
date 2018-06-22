@@ -2,7 +2,10 @@
 
 namespace ObjectInfos.ModuleTrademark
 {
-    public class SysAppDocumentInfo
+    public interface ISysAppDocumentInfo
+    {
+    }
+    public class SysAppDocumentInfo:ISysAppDocumentInfo
     {
         public decimal Id { get; set; }
         public string Appcode { get; set; }

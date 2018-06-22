@@ -1,4 +1,5 @@
 ﻿using System;
+using ObjectInfos.ModuleTrademark;
 
 namespace ObjectInfos
 {
@@ -57,12 +58,13 @@ namespace ObjectInfos
         public string Months { get; set; }
         public string Years { get; set; }
     }
-
+ 
 
     public class AppInfoExport : AppDetail04NHInfo
     {
-
-       
+        //Tai lieu dinh kem
+        public decimal Document_Id { get; set; }
+        public decimal Lstord { get; set; }
     }
 
     public class CreateInstance
@@ -148,6 +150,11 @@ namespace ObjectInfos
 
             return pAppExportInfo;
 
+        }
+
+        public static AppInfoExport CopySysDocumentInfo(AppInfoExport pAppExportInfo, SysAppDocumentInfo pAppInfo)
+        {
+            return pAppExportInfo;
         }
     }
 

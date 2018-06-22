@@ -164,7 +164,7 @@
                                 {
                                     HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                     info.Filename = pfiles.FileName;
-                                    info.Url_Hardcopy = "/Content/Archive/" + AppUpload.Document + pfiles.FileName;
+                                    info.Url_Hardcopy = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
                                     info.Status = 0;
                                     info.App_Header_Id = pAppHeaderID;
                                     info.Document_Filing_Date = CommonFuc.CurrentDate();
@@ -190,7 +190,7 @@
                                 {
                                     HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
                                     info.Filename = pfiles.FileName;
-                                    info.Filename = "/Content/Archive/" + AppUpload.Document + pfiles.FileName;
+                                    info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
                                     check = 1;
 
                                 }
@@ -682,7 +682,7 @@
                                 {
                                     HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                     info.Filename = pfiles.FileName;
-                                    info.Url_Hardcopy = "/Content/Archive/" + AppUpload.Document + pfiles.FileName;
+                                    info.Url_Hardcopy = "/Content/Archive/" + AppUpload.Document + "/"+ pfiles.FileName;
                                     info.Status = 0;
                                     info.App_Header_Id = pInfo.Id;
                                     info.Document_Filing_Date = CommonFuc.CurrentDate();
@@ -717,7 +717,7 @@
                                 {
                                     HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
                                     info.Filename = pfiles.FileName;
-                                    info.Filename = "/Content/Archive/" + AppUpload.Document + pfiles.FileName;
+                                    info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
                                     check = 1;
                                 }
                                 info.App_Header_Id = pInfo.Id;
