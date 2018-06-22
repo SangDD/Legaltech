@@ -98,7 +98,21 @@ namespace DataAccess.ModuleTrademark
                 return ErrorCode.Error;
             }
         }
-
+        public DataSet AppFeeFixGetByAppHeaderId(decimal p_app_header_id )
+        {
+            try
+            {
+             return   OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_FEE_FIX.PROC_GET_FEE_FIX_BYHEADERID",
+                   new OracleParameter("p_app_header_id", OracleDbType.Decimal, p_app_header_id, ParameterDirection.Input),
+                    new OracleParameter("p_cusor", OracleDbType.RefCursor, ParameterDirection.Output));
+                 
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
 
     }
 }

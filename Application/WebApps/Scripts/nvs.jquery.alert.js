@@ -252,23 +252,3 @@ function showError(_msg, _title, _options) {
 	}, _options);
 }
 
-
-function funcPreViewApplication() {
-    var preturn = funGetDataTM04NH(3,"/trade-mark/ket_xuat_file");
-    if (preturn == true || preturn==undefined) {
-        OpenPreview("/trade-mark/Pre-View");
-    }
-}
-
-
-function OpenPreview(url) {
-    try {
-        w = 1100; //độ rộng form popup 
-        h = 600;//chiều cao 
-        var left = (screen.width - w) / 2;
-        var top = (screen.height - h) / 4;  // for 25% - devide by 4  |  for 33% - devide by 3
-        var targetWin = window.open(url, 'Xem thông tin đơn', 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
-
-    } catch (e) {
-    }
-}
