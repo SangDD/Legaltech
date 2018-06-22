@@ -53,6 +53,9 @@ namespace ObjectInfos
         public string Status_Formm_Name { get; set; }
         public string Status_Content_Name { get; set; }
         public string AppName { get; set; }
+        /// <summary>
+        /// Khai tai dau day
+        /// </summary>
         public string Address { get; set; }
         public string DateNo { get; set; }
         public string Months { get; set; }
@@ -65,6 +68,17 @@ namespace ObjectInfos
         //Tai lieu dinh kem
         public decimal Document_Id { get; set; }
         public decimal Lstord { get; set; }
+
+        //dành cho Classinfo
+        public string Textinput { get; set; }
+        public string Code { get; set; }
+        public string strTongSonhom { get; set; }
+        public string strTongSoSP { get; set; }
+        public string strListClass { get; set; }
+
+        //tài liệu khác 
+
+        public string strDanhSachFileDinhKem { get; set; }
     }
 
     public class CreateInstance

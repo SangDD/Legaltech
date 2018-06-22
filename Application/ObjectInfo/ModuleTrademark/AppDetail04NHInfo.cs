@@ -10,8 +10,17 @@ namespace ObjectInfos
         //public string Appcode { get; set; }
         public string Request { get; set; }
         public string Language_Code { get; set; }
+        /// <summary>
+        /// So don 
+        /// </summary>
         public string Appno { get; set; }
+        /// <summary>
+        /// Ngay nop don
+        /// </summary>
         public DateTime Duadate { get; set; }
+
+        public string DuadateExp { get; set; }
+
         public string LogourlOrg { get; set; }
         public string Logourl { get; set; }
         public HttpPostedFileBase pfileLogo { get; set; }
@@ -24,7 +33,9 @@ namespace ObjectInfos
 
         public int Used_Special { get; set; }
         public string Sodon_Ut { get; set; }
+        //Ngay nop don uu tien 
         public DateTime Ngaynopdon_Ut { get; set; }
+        public string Ngaynopdon_UtExp { get; set; }
         public string Nuocnopdon_Ut { get; set; }
         public string Nguongocdialy { get; set; }
         public string Chatluong { get; set; }

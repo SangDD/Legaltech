@@ -979,27 +979,7 @@
 
     }
 
-    function funcPreViewApplication() {
-        if ($('#divWrapperPreview').css('display') == 'block') {
-            $('#divWrapperPreview').css('display', 'none');
-            return;
-        }
-
-        $.ajax({
-            type: "POST",
-            url: "/trade-mark/Pre-View",
-            headers: { "cache-control": "no-cache" },
-            async: false,
-            success: function (data) {
-                if (data != null) {
-                    $("#dpop-preview").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPreview', "Xem thông tin đơn", 900, 900, "");
-                    $("#divWrapperPreview").css('margin-top', '-760px');
-                }
-                return false;
-            }
-        });
-    }
+   
 
 
     function funcGetTenTaiLieuKhac(formData) {

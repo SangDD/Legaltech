@@ -22,7 +22,7 @@
     public class TradeMarkRegistrationController : Controller
     {
         // GET: TradeMark/TradeMarkRegistration
-
+       public static List<AppDocumentOthersInfo> lstDocOther = new List<AppDocumentOthersInfo>();
         [HttpGet]
         [Route("dang-ky-nhan-hieu")]
         public ActionResult DangKyNhanHieu()
@@ -380,19 +380,43 @@
                 appInfo.Relationship = "11";
                 appInfo= CreateInstance.CopyAppHeaderInfo(  appInfo, pInfo);
                 appInfo= CreateInstance.CopyAppDetailInfo( appInfo, pDetail);
-                //document.MailMerge.FieldMerging += (sender, e) =>
-                //{
-                //    if (e.IsValueFound)
-                //    {
-                //        //if (e.FieldName == "Text")
-                //        //    ((Run)e.Inline).Text = e.Value.ToString();
-                //        if (e.FieldName == "BarCode_URL")
-                //            e.Inline = new Picture(e.Document, e.Value.ToString());
-                //        if (e.FieldName == "BarCode_URL1")
-                //            e.Inline = new Picture(e.Document, e.Value.ToString());
+                appInfo.DuadateExp = appInfo.Duadate.ToString("dd/MM/yyyy");
+                appInfo.Ngaynopdon_UtExp = appInfo.Ngaynopdon_Ut.ToString("dd/MM/yyyy");
+                if (string.IsNullOrEmpty(appInfo.Logourl))
+                {
+                    appInfo.Logourl = pDetail.LogourlOrg;
+                }
+                if (pAppClassInfo != null)
+                {
+                    foreach (var item in pAppClassInfo)
+                    {
+                        appInfo.strTongSonhom = item.TongSoNhom;
+                        appInfo.strTongSoSP = item.TongSanPham;
+                        appInfo.strListClass += item.Textinput + " - " + item.Code + ";";
+                    }
+                    appInfo.strListClass = "Tổng số nhóm:" + appInfo.strTongSonhom + "; Tổng số sản phẩm: " + appInfo.strTongSoSP + " ; Danh sách nhóm: " + appInfo.strListClass;
 
-                //    }
-                //};
+                }
+                if (lstDocOther != null)
+                {
+                    foreach (var item in lstDocOther)
+                    {
+                        appInfo.strDanhSachFileDinhKem += item.Documentname + " ; ";
+                    }
+                }
+
+                //Kết xuất ảnh
+                document.MailMerge.FieldMerging += (sender, e) =>
+                {
+                    if (e.IsValueFound)
+                    {
+                        if (e.FieldName == "Logourl")
+                            e.Inline = new Picture(e.Document, e.Value.ToString());
+                       
+                    }
+                };
+                document.MailMerge.Execute(new { Logourl = Server.MapPath(appInfo.Logourl) });
+               //Kết xuất ảnh
 
                 document.MailMerge.Execute(appInfo);
                 document.Save(fileName, SaveOptions.PdfDefault);
@@ -516,7 +540,7 @@
             }
             return TradeMarkView(App_Header_Id, AppCode, Status);
         }
-
+        
         public ActionResult TradeMarkView(decimal pAppHeaderId, string pAppCode, int pStatus)
         {
             if (pAppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
@@ -567,6 +591,7 @@
                     ViewBag.objAppHeaderInfo = CBO<AppDetail04NHInfo>.FillObjectFromDataTable(ds04NH.Tables[0]);
                     ViewBag.lstDocumentInfo = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds04NH.Tables[1]);
                     ViewBag.lstDocOther = CBO<AppDocumentOthersInfo>.FillCollectionFromDataTable(ds04NH.Tables[2]);
+                    lstDocOther = ViewBag.lstDocOther;
                     ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds04NH.Tables[3]);
                     ViewBag.lstFeeInfo = CBO<AppFeeFixInfo>.FillCollectionFromDataTable(ds04NH.Tables[4]);
                 }
