@@ -45,7 +45,7 @@ namespace WebApps.Areas.TradeMark.Controllers
 
         [HttpPost]
         [Route("get-tm04nh-info")]
-        public ActionResult TM04NHGetInfo(decimal pAppHeaderId)
+        public ActionResult TM04NHGetInfo(decimal pAppHeaderId, string p_idchudon, string p_iddaidienchudon, string p_idappclass)
         {
             try
             {
@@ -62,8 +62,9 @@ namespace WebApps.Areas.TradeMark.Controllers
                 string _viewChuDon = "";
                 string _viewDaiDienChuDon = "";
                 string _viewAppClass = "";
-                _viewChuDon = RenderPartialToString("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", null);
-                _viewDaiDienChuDon = RenderPartialToString("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", null);
+                ViewBag.ShowFromOtherApp = 1;
+                _viewChuDon = RenderPartialToString("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", p_idchudon);
+                _viewDaiDienChuDon = RenderPartialToString("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", p_iddaidienchudon);
                 _viewAppClass = RenderPartialToString("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml", null);
                 return Json(new { success = 0, NgayNopDon = _AppDetail04NHInfo.Ngaynopdon_Ut.ToDateStringN0(),
                     LogoURL = _AppDetail04NHInfo.pfileLogo,

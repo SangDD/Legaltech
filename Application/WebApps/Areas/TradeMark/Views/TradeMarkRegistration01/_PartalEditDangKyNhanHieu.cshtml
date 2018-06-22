@@ -281,8 +281,8 @@
         @* 1. Tờ khai *@
         @{
             string _doc_id = "C06DKQT_D_01";
-            string _id = _doc_id + "|_6_rdoToKhai|0|Tờ khai, gồm|Số trang|0";
-            string _value = dic_appDoc[_doc_id].Isuse.ToString() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
+            string _id = _doc_id + "|6_Doc_ToKhai|0|Tờ khai, gồm|Số trang|0";
+            string _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
             string _model = _id + ";" + _value;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model)
         }

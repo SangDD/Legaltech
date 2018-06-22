@@ -1,65 +1,107 @@
 ﻿@model string
 @{
-    string AfterID = "";
-    if (Model != null)
+    string[] arr = Model.Split(';');
+
+    // định nghĩa id
+    string _Doc_Id = arr[0];
+    string[] arr_id = _Doc_Id.Split('|');
+
+    string Document_Id = arr_id[0];
+    string divCheckbox = "divCheckbox_" + Document_Id;
+
+    string Id = arr_id[1];
+    string Id_Checkbox = "ckb_" + Id;
+    string LevelTextbox = arr_id[2];
+
+    string Lable = arr_id[3];
+    string Lable2 = "";
+    string Id_textbox = "";
+    if(arr_id.Length > 5)
     {
-        AfterID = Model;
+        Lable2 = arr_id[4];
+        Id_textbox = "txt_" + Id;
     }
-    string pfile = "pfile_" + AfterID;
-    string txtMaxFile = "txt_" + AfterID;
-    string btnTaiFile = "btnUp_" + AfterID;
-    string ifafaCheck = "i_" + AfterID;
+
+
+    string IsUpload = arr_id[arr_id.Length-1];
+
+    string Label3 = "";
+    string Id_textbox2 = "";
+    if(arr_id.Length > 6)
+    {
+        Label3 = arr_id[5];
+        Id_textbox2 = "txt_" + Id + "_1";
+    }
+
+
+    string hrefPOA = "/Content/POA/VNmese translation POA (Blank).doc";
 }
 
-<div class="class_full_div_input @AfterID" style="display:none">
-    <div class="class_radio_head"></div>
-    <div class="class_text_end" style="display:flex">
-        <div class="container">
-            <div class="file-upload btn btn-primary">
-                <span>Chọn file</span>
-                <input type="file" name="@pfile" id="@pfile" class="upload fileuploadurl" />
-            </div>
-            <input type="text" id="@txtMaxFile" class="classMaxfile" readonly placeholder="Maximum file size is 2MB">
-            <input type="button" id="@btnTaiFile" onclick="return funcPushFileToServer('@AfterID');" value="Tải file" style="width:60px" />
-            <i class="fa fa-check" id="@ifafaCheck" style="font-size:15px;color:green ;display:none"></i>
+<div class="div-search-ad">
+    <div class="div-search-content">
+        <div class="div-checkbox" id="@divCheckbox" style="width:382px">
+            @if (LevelTextbox == "1")
+            {
+                @Html.Raw("&emsp;&emsp;&emsp;")
+            }
+            else if (LevelTextbox == "2")
+            {
+                @Html.Raw("&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;")
+            }
+            <input type="checkbox" name="@Id_Checkbox" id="@Id_Checkbox" value="@Document_Id" onchange="return ShowHidenUpLoad(this.id,this.id, '@Id_textbox')">
+
+            @if (Id == "6_Doc_BanGocPOA_ByApp")
+            {
+                <label>@Lable <a href="javascript:;" st class="icon icon-info" style="border:none" data-title="Nếu Người nộp đơn không nhớ số đơn gốc thì có thể để trống, Luật sư sẽ điền thay sau"></a></label>
+            }
+            else
+            {
+                <label>@Lable</label>
+            }
+
+            @if (Id == "6_Doc_POA")
+            {
+                <a style="margin-top: -3px; border: none;padding-left: 20px;color: blue;" href="@hrefPOA">Tải mẫu về <i class="fas fa-download" style="color: blue; font-size: 20px;"></i> </a>
+            }
         </div>
     </div>
-</div>
-<script>
-    document.getElementById("pfile_"+"@AfterID").onchange = function () {
-        document.getElementById("txt_"+"@AfterID").value = this.value;
-    };
-    function funcPushFileToServer(pID) {
-        try {
-            var formdata = new FormData();
-            var Isuse = 0, Note = "";
-            //Các tài liệu có trong đơn
-            if ($("#" + pID).prop('checked') == true) {
-                Isuse = 1;
-            }
-            formdata.append("pInfo.keyFileUpload", pID);
-            var file = document.getElementsByName("pfile_" + pID);
-            if (file != undefined) {
-                formdata.append("pInfo.pfiles", file[0].files[0]);
-            }
-            //2
-            $.ajax({
-                type: 'POST',
-                url: '/trade-mark/push-file-to-server',
-                data: formdata,
-                enctype: 'multipart/form-data',
-                processData: false, contentType: false, dataType: 'Json',
-                success: function (data) {
-                    if (data.success == 0) {
-                        $("#i_" + pID).css("display", "inline-block");
-                    } else {
-                        jError(pushfileError, ThongBao, function () {
-                        });
-                    }
-                }
-            });
-        } catch (e) {
-            console.log(e);
-        }
+
+    @if (Lable2 != "")
+    {
+        <div class="div-search-title">
+            <div>@Lable2:</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                @*style="width:329px"*@
+                <input type="text" placeholder="@Lable2" id="@Id_textbox" disabled="disabled" />
+            </div>
+        </div>
     }
+    @if (Label3 != "")
+    {
+        <div class="div-search-title">
+            <div>@Label3:</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" placeholder="@Label3" id="@Id_textbox2" disabled="disabled" />
+            </div>
+        </div>
+    }
+
+</div>
+@if (IsUpload == "1")
+{
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PatialTaiLieuTrongDonUpload.cshtml", @Id_Checkbox)
+}
+
+<script>
+    $(document).ready(function() {
+        if ('@Lable2' == "") {
+            var _divCheckbox = document.getElementById('@divCheckbox');
+            //_divCheckbox.style.width = "850px";
+            _divCheckbox.style.width = null;
+        }
+    });
 </script>

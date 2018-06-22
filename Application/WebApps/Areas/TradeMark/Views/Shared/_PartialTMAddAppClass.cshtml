@@ -3,26 +3,35 @@
 @using ObjectInfos
 @using System.Web.Script.Serialization;
 @{
-        //var listClassInfo = MemoryData.clstAppClass;
-        string _LanguageCode = AppsCommon.GetCurrentLang();
-        var lstClassDetailInfo = new List<AppClassDetailInfo>();
-        if (ViewBag.lstClassDetailInfo != null)
-        {
-            lstClassDetailInfo = (List<AppClassDetailInfo>)ViewBag.lstClassDetailInfo;
-        }
+    //var listClassInfo = MemoryData.clstAppClass;
+    string _LanguageCode = AppsCommon.GetCurrentLang();
+    var lstClassDetailInfo = new List<AppClassDetailInfo>();
+    if (ViewBag.lstClassDetailInfo != null)
+    {
+        lstClassDetailInfo = (List<AppClassDetailInfo>)ViewBag.lstClassDetailInfo;
+    }
+    int _ShowFromOtherApp = 0;
+    if (ViewBag.ShowFromOtherApp != null)
+    {
+        _ShowFromOtherApp = ViewBag.ShowFromOtherApp;
+    }
     }
 <script src="~/Scripts/ScriptsLoadClassInfo.js"></script>
 
 <script>
+    // mảng lưu xem mỗi nhóm hàng hóa có bao nhiêu thằng
+    var _ArrGroupAppClass = [];    // = [{ name: 1, value: 'a' }, { name: 2, value: 'b' }, { name: 3, value: 'c' }];
     var _EditArryAppClass = new Array();
 </script>
-@foreach (var item in lstClassDetailInfo)
-{
+ 
+ 
+ @foreach (var item in lstClassDetailInfo)
+    {
     <script>
-        var _appinfo = { name: '@Html.Raw(item.Textinput)', value: '@Html.Raw(@item.Code)' }
-        _EditArryAppClass.push(_appinfo)
+            var _appinfo = { name: '@Html.Raw(item.Textinput)', value: '@Html.Raw(@item.Code)' }
+            _EditArryAppClass.push(_appinfo)
     </script>
-}
+    }
 <div class="div_full_100_area">
     <div class="class_full_div_p class_text_center_bold">DANH MỤC VÀ PHÂN NHÓM HÀNG HOÁ, DỊCH VỤ MANG NHÃN HIỆU </div>
     <br />
@@ -148,8 +157,7 @@
         }
     }
 
-    // mảng lưu xem mỗi nhóm hàng hóa có bao nhiêu thằng
-    var _ArrGroupAppClass = [];    // = [{ name: 1, value: 'a' }, { name: 2, value: 'b' }, { name: 3, value: 'c' }];
+  
 
 
     // 2018.06.15 Hungtd sửa
