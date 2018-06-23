@@ -262,51 +262,139 @@
 
 
 
-
-
-
         [HttpPost]
-        [Route("ket_xuat_file")]
-        public ActionResult ExportData(ApplicationHeaderInfo pInfo, List<AppFeeFixInfo> pFeeFixInfo, AppDetail01Info pDetailInfo)
+        [Route("sua-don-dang-ky")]
+        public ActionResult Edit_TM06DKQT(ApplicationHeaderInfo pInfo, App_Detail_TM06DKQT_Info pDetail,
+            List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo, List<AppClassDetailInfo> pAppClassInfo)
         {
             try
             {
-                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/Request_for_amendment_of_application.doc");
-                DocumentModel document = DocumentModel.Load(_fileTemp);
+                Application_Header_BL objBL = new Application_Header_BL();
+                AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
+                AppDetail06DKQT_BL objDetail = new AppDetail06DKQT_BL();
+                AppDocumentBL objDoc = new AppDocumentBL();
+                AppClassDetailBL objClassDetail = new AppClassDetailBL();
+                if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
+                string language = AppsCommon.GetCurrentLang();
+                var CreatedBy = SessionData.CurrentUser.Username;
+                var CreatedDate = SessionData.CurrentUser.CurrentDate;
+                decimal pReturn = ErrorCode.Success;
 
-                // Fill export_header
-                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Dang_ky_sua_doi_nhan_hieu_" + pInfo.Appcode + ".pdf");
-
-                // Fill export_detail  
-
-                pInfo.Status = 254;
-                pInfo.Status_Form = 252;
-                pInfo.Relationship = "11";
-                document.MailMerge.Execute(pInfo);
-                document.Save(fileName, SaveOptions.PdfDefault);
-                //document.Save(fileName);
-
-
-                byte[] fileContents;
-                var options = SaveOptions.PdfDefault;
-                // Save document to DOCX format in byte array.
-                using (var stream = new MemoryStream())
+                using (var scope = new TransactionScope())
                 {
-                    document.Save(stream, options);
-                    fileContents = stream.ToArray();
+                    //
+                    pInfo.Languague_Code = language;
+                    pInfo.Created_By = CreatedBy;
+                    pInfo.Created_Date = CreatedDate;
+                    pInfo.Send_Date = DateTime.Now;
+
+                    //TRA RA ID CUA BANG KHI INSERT
+                    int _re = objBL.AppHeaderUpdate(pInfo);
+
+                    // detail
+                    if (_re >= 0)
+                    {
+                        pDetail.Appcode = pInfo.Appcode;
+                        pDetail.LANGUAGE_CODE = language;
+                        pDetail.APP_HEADER_ID = pInfo.Id;
+                        pReturn = objDetail.App_Detail_06TMDKQT_Update(pDetail);
+                    }
+
+                    #region Phí cố định
+
+                    // xóa đi
+                    AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
+                    _AppFeeFixBL.AppFeeFixDelete(pDetail.APP_HEADER_ID, language);
+
+                    // insert lại fee
+
+                    pReturn = objFeeFixBL.AppFeeFixInsertBath(pFeeFixInfo, pDetail.APP_HEADER_ID);
+                    if (pReturn < 0)
+                    {
+                        Transaction.Current.Rollback();
+                        return Json(new { status = -1 });
+                    }
+                    #endregion
+
+                    #region Tai lieu dinh kem 
+                    if (pReturn >= 0 && pAppDocumentInfo != null)
+                    {
+                        if (pAppDocumentInfo.Count > 0)
+                        {
+                            // Get ra để map sau đó xóa đi để insert vào sau
+                            AppDocumentBL _AppDocumentBL = new AppDocumentBL();
+                            List<AppDocumentInfo> Lst_AppDoc = _AppDocumentBL.AppDocument_Getby_AppHeader(pDetail.APP_HEADER_ID, language);
+                            Dictionary<string, AppDocumentInfo> dic_appDoc = new Dictionary<string, AppDocumentInfo>();
+                            foreach (AppDocumentInfo item in Lst_AppDoc)
+                            {
+                                dic_appDoc[item.Document_Id] = item;
+                            }
+
+                            // xóa đi trước
+                            _AppDocumentBL.AppDocumentDelByApp(pDetail.APP_HEADER_ID, language);
+
+                            foreach (var info in pAppDocumentInfo)
+                            {
+                                if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
+                                {
+                                    HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
+                                    info.Filename = pfiles.FileName;
+                                    info.Url_Hardcopy = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
+                                    info.Status = 0;
+                                }
+                                else
+                                {
+                                    if (dic_appDoc.ContainsKey(info.Document_Id))
+                                    {
+                                        info.Filename = dic_appDoc[info.Document_Id].Filename;
+                                        info.Url_Hardcopy = dic_appDoc[info.Document_Id].Url_Hardcopy;
+                                        info.Status = dic_appDoc[info.Document_Id].Status;
+                                    }
+                                }
+
+                                info.App_Header_Id = pInfo.Id;
+                                info.Document_Filing_Date = CommonFuc.CurrentDate();
+                                info.Language_Code = language;
+                            }
+                            pReturn = objDoc.AppDocumentInsertBath(pAppDocumentInfo, pInfo.Id);
+
+                        }
+                    }
+                    #endregion
+
+                    #region  Thêm thông tin class
+                    if (pReturn >= 0 && pAppClassInfo != null)
+                    {
+
+                        //Xoa cac class cu di 
+                        pReturn = objClassDetail.AppClassDetailDeleted(pInfo.Id, language);
+
+                        pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pInfo.Id, language);
+                    }
+
+                    //end
+                    #endregion
+                    if (pReturn < 0)
+                    {
+                        Transaction.Current.Rollback();
+                        return Json(new { status = -1 });
+                    }
+                    else
+                    {
+                        scope.Complete();
+                    }
                 }
-                Convert.ToBase64String(fileContents);
-
-                return Json(new { success = 0 });
-
+                return Json(new { status = pInfo.Id });
             }
             catch (Exception ex)
             {
-
-                return Json(new { success = 0 });
+                Logger.LogException(ex);
+                return Json(new { status = ErrorCode.Error });
             }
         }
 
-        
+
+
+
     }
 }

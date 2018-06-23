@@ -15,8 +15,8 @@
     }
     string _appcode = ViewBag.AppCode;
 
-    //SysAppFixChargeInfo _Appfixcharge =  BussinessFacade.ModuleMemoryData.MemoryData.c_dic_FeeByApp_Fix[_appcode];
-    SysAppFixChargeInfo _Appfixcharge = new SysAppFixChargeInfo();
+    //SysAppFixChargeInfo _Appfixcharge = BussinessFacade.ModuleMemoryData.MemoryData.c_dic_FeeByApp_Fix[_appcode];
+    //SysAppFixChargeInfo _Appfixcharge = new SysAppFixChargeInfo();
 }
 <script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
 <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
@@ -60,7 +60,7 @@
 
 <div class="d-popup-container" id="pop-sua-doi_dk"></div>
 
-<input type="hidden" id="txtAppCode" value='@ViewBag.AppCode' />
+<input type="hidden" id="txtAppCode" value='@Common.TradeMarkAppCode.AppCodeDangKyQuocTeNH' />
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
@@ -256,7 +256,7 @@
         @* 1. Tài tờ khai *@
         @{
             string _doc_id1 = "C06DKQT_D_01";
-            string _model1 = _doc_id1 + "|6_Doc_ToKhaiGom|0|Tờ khai, gồm|Số trang|Số bản|0";
+            string _model1 = _doc_id1 + "|6_Doc_ToKhai|0|Tờ khai, gồm|Số trang|Số bản|0";
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialTaiLieuTrongDon.cshtml", _model1)
         }
         @* 2. mẫu đăng ký của văn phòng quốc tế *@
@@ -271,13 +271,13 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-checkbox" style="width:300px">
-                    <input type="checkbox" id="_6_rdoMauDKVPQuocTe" value="C06DKQT_D_02" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                    <input type="checkbox" id="ckb_6_MauDKVPQuocTe" value="C06DKQT_D_02" onchange="return ShowHidenUpLoad(this.id, this.id, 'txt_6_MauDKVPQuocTe');" />
                     Mẫu đăng ký của Văn phòng quốc tế, form số:
                 </div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="_6_txtMauDKVPQuocTe" maxlength="50" placeholder="_6_txtMauDKVPQuocTe" />
+                    <input type="text" id="txt_6_MauDKVPQuocTe" maxlength="50" placeholder="txt_6_MauDKVPQuocTe" disabled/>
                 </div>
             </div>
             <div class="div-search-title">
@@ -285,7 +285,7 @@
             </div>
             <div class="div-search-content">
                 <div style="width:150px">
-                    <input type="text" id="_6_txtNgonNguMauDangKy" maxlength="50" />
+                    <input type="text" id="txt_6_MauDKVPQuocTe_1" maxlength="50" placeholder="txt_6_MauDKVPQuocTe_1" disabled/>
                 </div>
             </div>
 
@@ -294,7 +294,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="_6_txtnumberpage" maxlength=" 50" placeholder="_6_txtnumberpage" onkeypress="return isNumberKey(event);" onkeyup="jsFormatNumber(this.value, this.id)" />
+                    <input type="text" id="txt_6_MauDKVPQuocTe_2" maxlength=" 50" placeholder="txt_6_MauDKVPQuocTe_2" onkeypress="return isNumberKey(event);" onkeyup="jsFormatNumber(this.value, this.id)" disabled/>
                 </div>
             </div>
 
@@ -303,7 +303,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="_6_txtnumberCopy" maxlength="50" placeholder="_6_txtnumberCopy" onkeypress="return isNumberKey(event);" onkeyup="jsFormatNumber(this.value, this.id)" />
+                    <input type="text" id="txt_6_MauDKVPQuocTe_3" maxlength="50" placeholder="txt_6_MauDKVPQuocTe_3" onkeypress="return isNumberKey(event);" onkeyup="jsFormatNumber(this.value, this.id)" disabled/>
                 </div>
             </div>
 
@@ -414,16 +414,13 @@
 
 
 
-    <div class="class_save">
-        <div class="classGuiDon">
-            <input type="button" value="Gửi đơn" id="btnGuiDon" class="btn" />
-        </div> <div class="classLuuTam">
-            <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn" />
+        <div class="class_save">
+            <div class="classGuiDon">
+                <input type="button" value="Gửi đơn" id="btnGuiDon" class="btn" />
+            </div> <div class="classLuuTam">
+                <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn" />
+            </div>
         </div>
-    </div>
-    <div class="classLuuTam">
-        <a href="javascript:;" id="hrfExportData">Kết xuất</a>
-    </div>
 </fieldset>
 </div>
 
@@ -472,6 +469,8 @@
                 if (pTxt != "") {
                     $("#" + pTxt).removeAttr("disabled");
                     $("#" + pTxt + "_1").removeAttr("disabled");
+                    $("#" + pTxt + "_2").removeAttr("disabled");
+                    $("#" + pTxt + "_3").removeAttr("disabled");
                 }
             }
             else {
@@ -481,6 +480,8 @@
                 if (pTxt != "") {
                     $("#" + pTxt).prop('disabled', true);
                     $("#" + pTxt + "_1").prop('disabled', true);
+                    $("#" + pTxt + "_2").prop('disabled', true);
+                    $("#" + pTxt + "_3").prop('disabled', true);
                 }
             }
         } catch (e) {
@@ -583,7 +584,7 @@
                 _5_txtLePhiDangKy.focus();
                 return false;
             }
-            formData.append("pFeeFixInfo[0].Fee_Id", '@_Appfixcharge.Fee_Id.ToString()');
+            formData.append("pFeeFixInfo[0].Fee_Id", '0');
             formData.append("pFeeFixInfo[0].Isuse", "1");
             formData.append("pFeeFixInfo[0].Number_Of_Patent", 0);
             formData.append("pFeeFixInfo[0].Amount", _5_txtLePhiDangKy.val());
@@ -805,6 +806,11 @@
                 return false;
             }
 
+            reponse = funcGetCamKetChuDon(formData);
+            if (reponse == false) {
+                return false;
+            }
+
 
             $.ajax({
                 url: '/trade-mark-01/dang_ky_nhan_hieu',
@@ -927,15 +933,15 @@
         try {
             var Isuse = 0, Note = "", reponse = false;
             //1 tờ khai
-            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_ToKhaiGom", "0");
-            formData.append("pAppDocumentInfo[0].CHAR01", $("#txt_6_Doc_ToKhaiGom").val());
-            formData.append("pAppDocumentInfo[0].CHAR02", $("#txt_6_Doc_ToKhaiGom_1").val());
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_ToKhai", "0");
+            formData.append("pAppDocumentInfo[0].CHAR01", $("#txt_6_Doc_ToKhai").val());
+            formData.append("pAppDocumentInfo[0].CHAR02", $("#txt_6_Doc_ToKhai_1").val());
             //v2 mau đăng ký văn phòng quốc tế
-            reponse = funcGetCheckValueAndText(formData, "_6_rdoMauDKVPQuocTe", "1");
-            formData.append("pAppDocumentInfo[1].CHAR01", $("#_6_txtMauDKVPQuocTe").val());
-            formData.append("pAppDocumentInfo[1].CHAR02", $("#_6_txtNgonNguMauDangKy").val());
-            formData.append("pAppDocumentInfo[1].CHAR03", $("#_6_txtnumberpage").val());
-            formData.append("pAppDocumentInfo[1].CHAR04", $("#_6_txtnumberCopy").val());
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_MauDKVPQuocTe", "1");
+            formData.append("pAppDocumentInfo[1].CHAR01", $("#txt_6_MauDKVPQuocTe").val());
+            formData.append("pAppDocumentInfo[1].CHAR02", $("#txt_6_MauDKVPQuocTe_1").val());
+            formData.append("pAppDocumentInfo[1].CHAR03", $("#txt_6_MauDKVPQuocTe_2").val());
+            formData.append("pAppDocumentInfo[1].CHAR04", $("#txt_6_MauDKVPQuocTe_3").val());
 
             // 3  mẫu nhãn hiệu
 
@@ -957,7 +963,7 @@
 
             // 8 bản dịch tiếng việt
             reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanDichTiengViet", "7");
-            formData.append("pAppDocumentInfo[7].CHAR01", $("#txt_ckb_6_Doc_BanDichTiengViet").val());
+            formData.append("pAppDocumentInfo[7].CHAR01", $("#txt_6_Doc_BanDichTiengViet").val());
             
             // 9 bản gốc
             reponse = funcGetCheckValueAndText(formData, "ckb_6_DocBanGoc", "8");
@@ -1040,7 +1046,7 @@
             return false;
         }
     }
-
+ 
     // lấy thông tin đơn 2a fill vào các trường
     function chooseApp2a(_id)
     {
@@ -1074,6 +1080,22 @@
 
         } catch (e) {
             alert(e.toString());
+        }
+    }
+
+
+    function funcGetCamKetChuDon(formData) {
+        try {
+            var address = $("#txtKhaiTai").val();
+            formData.append("pInfo.Address", address);
+            var dateno = $("#cboNgayKhai").val();
+            formData.append("pInfo.DateNo", dateno);
+            var months = $("#cboThangKhai").val();
+            formData.append("pInfo.Months", months);
+            var years = $("#cboNamKhai").val();
+            formData.append("pInfo.Years", years);
+        } catch (e) {
+            console.log(e);
         }
     }
 
