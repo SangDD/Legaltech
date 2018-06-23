@@ -79,6 +79,30 @@ namespace ObjectInfos
         //tài liệu khác 
 
         public string strDanhSachFileDinhKem { get; set; }
+        //Phí
+
+        public decimal TM04NH_200 { get; set; }
+        public decimal TM04NH_201 { get; set; }
+        public decimal TM04NH_2011 { get; set; }
+        public decimal TM04NH_203 { get; set; }
+        public decimal TM04NH_204 { get; set; }
+        public decimal TM04NH_205 { get; set; }
+        public decimal TM04NH_2051 { get; set; }
+        public decimal TM04NH_207 { get; set; }
+        public decimal TM04NH_2071 { get; set; }
+
+        public decimal TM04NH_200_Val { get; set; }
+        public decimal TM04NH_201_Val { get; set; }
+        public decimal TM04NH_2011_Val { get; set; }
+        public decimal TM04NH_203_Val { get; set; }
+        public decimal TM04NH_204_Val { get; set; }
+        public decimal TM04NH_205_Val { get; set; }
+        public decimal TM04NH_2051_Val { get; set; }
+        public decimal TM04NH_207_Val { get; set; }
+        public decimal TM04NH_2071_Val { get; set; }
+
+        public decimal TM04NH_TOTAL { get; set; }
+
     }
 
     public class CreateInstance
