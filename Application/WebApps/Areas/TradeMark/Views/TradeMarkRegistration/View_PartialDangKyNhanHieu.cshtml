@@ -128,6 +128,23 @@
     ViewBag.disableView = disableView;
 }
 
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+
+    /*.div-title-col-2 {
+        height: 35px;
+        border: 1px solid #aaa;
+    }
+
+        .div-title-col-2 > div {
+            margin: 9px 5px 0px 7px;
+        }*/
+</style>
+
 <div class="d-nav-container">
     <ul class="ul-nav">
         <li><a href="javascript:;">TradeMark</a></li>
@@ -144,7 +161,7 @@
         <div class="div_full_100_area">
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div>Đơn này được tách ra từ đơn số </div>
+                    <div style="width: 200px;">Đơn này được tách ra từ đơn số </div>
                 </div>
                 <div class="div-search-content">
                     <input type="text" id="0_txtDonSo" @disableView value="@objAppHeaderInfo.Appno" maxlength="20" placeholder="0_txtDonSo" />
@@ -507,8 +524,9 @@
     .div-search-content .ms-ul > ul {
         margin-left: 0px;
     }
-    .section-body{
-        overflow-y:hidden ;
+
+    .section-body {
+        overflow-y: hidden;
     }
 </style>
 
@@ -525,7 +543,7 @@
 
     function funcEnableDisable(classaction, enable) {
         if (enable == true) { $("." + classaction).removeAttr('disabled'); } else { $("." + classaction).attr('disabled', 'disabled'); }
-    } 
+    }
 
     $(document).ready(function () {
         funcEnableDisable('classDisable', false);
@@ -543,7 +561,7 @@
         if ($("#0_ckbcosudungdonuutien").is(':checked')) {
             $("#6_txtnuocnopdon").multipleselect("enable")
         }
-         
+
     });
 
     function ShowHidenUpLoad(pID, pClass) {
@@ -556,6 +574,6 @@
         } catch (e) {
         }
     }
-     
+
 
 </script>
