@@ -21,7 +21,7 @@
 
  <script>
 
-     function funGetDataTM04NH(ptype, url) {
+     function funGetDataTM04NHPreview(ptype, url) {
          try {
              //Thông tin chủ đơn
              var formData = new FormData();
@@ -98,7 +98,7 @@
      }
 
      function funcPreViewApplication() {
-         var preturn = funGetDataTM04NH(3, "/trade-mark/ket_xuat_file");
+         var preturn = funGetDataTM04NHPreview(3, "/trade-mark/ket_xuat_file");
          if (preturn == true || preturn == undefined) {
              OpenPreview("/trade-mark/Pre-View");
          }

@@ -135,6 +135,7 @@
                     pInfo.Languague_Code = language;
                     pInfo.Created_By = CreatedBy;
                     pInfo.Created_Date = CreatedDate;
+                    pInfo.Send_Date = CreatedDate;
                     //TRA RA ID CUA BANG KHI INSERT
                     pAppHeaderID = objBL.AppHeaderInsert(pInfo);
                     if (pAppHeaderID >= 0)
