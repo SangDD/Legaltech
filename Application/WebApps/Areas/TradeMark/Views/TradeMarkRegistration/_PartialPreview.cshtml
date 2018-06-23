@@ -1,7 +1,7 @@
 ﻿<div id="toolbox">
     <ul>
         <li class="toTop" style=""><a href="#top" title="Lên đầu trang"><i style=" font-size: 27px; color: green;" class="fa fa-home"></i></a></li>
-        <li class="email"><a href="javascript:;"     title="Xem trước"><i class="fa fa-eye" target="_blank"  onclick="return funcPreViewApplication();" style=" font-size: 27px; color: green;"></i></a></li>
+        <li class="email"><a href="javascript:;" title="Xem trước"><i class="fa fa-eye" target="_blank" onclick="return funcPreViewApplication();" style=" font-size: 27px; color: green;"></i></a></li>
     </ul>
 </div>
 
@@ -19,7 +19,7 @@
 </style>
 
 
- <script>
+<script>
 
      function funGetDataTM04NHPreview(ptype, url) {
          try {
@@ -90,30 +90,30 @@
                  }
              });
 
-             return true;
-         } catch (e) {
+            return true;
+        } catch (e) {
 
-         }
+        }
 
-     }
+    }
 
      function funcPreViewApplication() {
-         var preturn = funGetDataTM04NHPreview(3, "/trade-mark/ket_xuat_file");
+         var preturn = funGetDataTM04NH(3, "/trade-mark/ket_xuat_file");
          if (preturn == true || preturn == undefined) {
              OpenPreview("/trade-mark/Pre-View");
          }
      }
 
 
-     function OpenPreview(url) {
-         try {
-             w = 1100; //độ rộng form popup 
-             h = 600;//chiều cao 
-             var left = (screen.width - w) / 2;
-             var top = (screen.height - h) / 4;  // for 25% - devide by 4  |  for 33% - devide by 3
-             var targetWin = window.open(url, 'Xem thông tin đơn', 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+    function OpenPreview(url) {
+        try {
+            w = 1100; //độ rộng form popup
+            h = 600;//chiều cao
+            var left = (screen.width - w) / 2;
+            var top = (screen.height - h) / 4;  // for 25% - devide by 4  |  for 33% - devide by 3
+            var targetWin = window.open(url, 'Xem thông tin đơn', 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
 
-         } catch (e) {
-         }
-     }
- </script>
+        } catch (e) {
+        }
+    }
+</script>

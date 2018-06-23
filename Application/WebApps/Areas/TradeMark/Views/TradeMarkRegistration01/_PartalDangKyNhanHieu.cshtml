@@ -1,4 +1,5 @@
 ﻿@using ObjectInfos
+@using BussinessFacade.ModuleMemoryData
 @{
     ViewBag.Title = "Tờ khai";
     Layout = "~/ViewsShared/_Layout.cshtml";
@@ -185,60 +186,6 @@
             </div>
         </div>
 
-        @*<div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Chủ đơn</div>
-            </div>
-            <div class="div-search-content">
-                <div style="width:250px">
-                    <input type="text" id="_1_txtChuDon" placeholder="_1_txtChuDon" maxlength="100" />
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>Địa chỉ chủ đơn</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="_1_txtDiaChiChuDon" placeholder="_1_txtDiaChiChuDon" maxlength="10" />
-                </div>
-            </div>
-        </div>*@
-
-
-        @*<div class="div-search-ad">
-            <div class="div-search-title">
-                <div style="width:150px">Nhóm hàng hóa dịch vụ</div>
-            </div>
-            <div class="div-search-content">
-                <div style="width:150px">
-                    <input type="text" id="Nvs001txt_search_app_code" placeholder="Tìm kiếm hàng hóa/dịch vụ" onkeyup="SearchAppCodeOnKeyUp('Nvs001txt_search_app_code', 'NVS002_DivShowSearchAppCode')" />
-                </div>
-            </div>
-         
-            <div class="div-search-content">
-                <div  id="NVS002_DivShowSearchAppCode">
-                    <select id="NVSCBO001_AppClassSearch" style="width:100%">
-                        <option>Tìm kiếm hàng hóa/dịch vụ</option>
-                    </select>
-                </div>
-            </div>
-        </div>*@
-
-           
-      
-
-        @*<div class="div-search-ad">
-            <div class="div-search-title">
-                <div style="width:250px"> Chủ đơn/Chủ GCN (tên, địa chỉ)</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="_1_txtTenChuDon" placeholder="_1_txtTenChuDon" maxlength="200" />
-                </div>
-            </div>
-        </div>*@
-
  
 
         <div class="divCover cls_form_title">
@@ -304,30 +251,183 @@
                     6.CÁC TÀI LIỆU CÓ TRONG ĐƠN
                 </div>
             </div>
+         @*phải ẩn đi ở form thêm mới do luật sư tự nhập*@
 
-
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTaiLieuTrongDon.cshtml")
-
-            <div class="class_save">
-                <div class="classGuiDon">
-                    <input type="button" value="Gửi đơn" id="btnGuiDon" class="btn" />
-                </div> <div class="classLuuTam">
-                    <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn" />
+        @* 1. Tài tờ khai *@
+        @{
+            string _doc_id1 = "C06DKQT_D_01";
+            string _model1 = _doc_id1 + "|6_Doc_ToKhaiGom|0|Tờ khai, gồm|Số trang|Số bản|0";
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialTaiLieuTrongDon.cshtml", _model1)
+        }
+        @* 2. mẫu đăng ký của văn phòng quốc tế *@
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div>
+                    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTaiLieuTrongDonFileInput.cshtml", "_6_rdoToKhai")
                 </div>
             </div>
-            <div class="classLuuTam">
-                <a href="javascript:;" id="hrfExportData">Kết xuất</a>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-checkbox" style="width:300px">
+                    <input type="checkbox" id="_6_rdoMauDKVPQuocTe" value="C06DKQT_D_02" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                    Mẫu đăng ký của Văn phòng quốc tế, form số:
+                </div>
             </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="_6_txtMauDKVPQuocTe" maxlength="50" placeholder="_6_txtMauDKVPQuocTe" />
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div>làm bằng tiếng </div>
+            </div>
+            <div class="div-search-content">
+                <div style="width:150px">
+                    <input type="text" id="_6_txtNgonNguMauDangKy" maxlength="50" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>số trang:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="_6_txtnumberpage" maxlength=" 50" placeholder="_6_txtnumberpage" onkeypress="return isNumberKey(event);" onkeyup="jsFormatNumber(this.value, this.id)" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>số bản:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="_6_txtnumberCopy" maxlength="50" placeholder="_6_txtnumberCopy" onkeypress="return isNumberKey(event);" onkeyup="jsFormatNumber(this.value, this.id)" />
+                </div>
+            </div>
+
+        </div>
+
+        @*3 mẫu đăng ký nhãn hiệu*@ 
+        @{
+            string _doc_id3 = "C06DKQT_D_03";
+            string _model3 = _doc_id3 + "|6_Doc_MauNhanHieu|0|Mẫu nhãn hiệu|Số mẫu|0";
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialTaiLieuTrongDon.cshtml", _model3)
+        }
+
+
+        @*Ẩn đến đây*@
+
+
+        @*4bản sao tờ khai *@
+        @{
+            string _doc_id4 = "C06DKQT_D_04";
+            string _model4 = _doc_id4 + "|6_Doc_BanSaoToKhai|0|Bản sao Tờ khai yêu cầu cấp GCN đăng ký nhãn hiệu cơ sở|1";
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialTaiLieuTrongDon.cshtml", _model4)
+        }
+
+        @*5 bản sao giay chung nhan dk nhan hieu co so *@
+        @{
+            string _doc_id5 = "C06DKQT_D_05";
+            string _model5 = _doc_id5 + "|6_Doc_BanSaoGiayDKNHCS|0| Bản sao Giấy chứng nhận đăng ký nhãn hiệu cơ sở|1";
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialTaiLieuTrongDon.cshtml", _model5)
+        }
+
+        @*6 bản cam kết sẽ sử dụng NH *@
+        @{
+            string _doc_id6 = "C06DKQT_D_06";
+            string _model6 = _doc_id6 + "|6_Doc_CamKetSuDungNH|0|Bản cam kết sẽ sử dụng NH tại nước yêu cầu đăng ký bảo hộ (nếu chỉ định vào các quốc gia Ireland, Singapore, Vương quốc Anh và Hoa Kỳ|1";
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialTaiLieuTrongDon.cshtml", _model6)
+        }
+
+        @*7 giay quy quyen bang tieng *@
+        @{
+            string _doc_id7 = "C06DKQT_D_07";
+            string _model7 = _doc_id7 + "|6_Doc_GiayUyQuyenBangTieng|0|Giấy ủy quyền|Bằng tiếng|0";
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialTaiLieuTrongDon.cshtml", _model7)
+        }
+        @*Bản dịch tiếng việt*@
+
+        @*ẩn từ đây*@
+        @{
+            string _doc_id8 = "C06DKQT_D_08";
+            string _model8 = _doc_id8 + "|6_Doc_BanDichTiengViet|1|Bản dịch tiếng Việt|số trang|0";
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialTaiLieuTrongDon.cshtml", _model8)
+        }
+
+        @*ẩn đến đây*@
+
+        @*9 bản gốc*@
+
+        @{
+            string _doc_id9 = "C06DKQT_D_09";
+            string _model9 = _doc_id9 + "|6_DocBanGoc|1|Bản gốc|0";
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialTaiLieuTrongDon.cshtml", _model9)
+        }
+
+        @*10 bản sao*@
+
+        @{
+            string _doc_id10 = "C06DKQT_D_010";
+            string _model10 = _doc_id10 + "|6_Doc_Sao|1|Bản sao|0";
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialTaiLieuTrongDon.cshtml", _model10)
+        }
+
+        @*11 bản sao nộp sau*@
+
+        @{
+            string _doc_id11 = "C06DKQT_D_011";
+            string _model11 = _doc_id11 + "|6_Doc_BanGocSeNopSau|2|Bản gốc sẽ nộp sau|0";
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialTaiLieuTrongDon.cshtml", _model11)
+        }
+
+        @*12 bản gốc đã nộp theo số *@
+
+        @{
+            string _doc_id12 = "C06DKQT_D_012";
+            string _model12 = _doc_id12 + "|6_Doc_BanGocDaNopTheoDonSo|2|Bản gốc đã nộp theo đơn|Số đơn|0";
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialTaiLieuTrongDon.cshtml", _model12)
+        }
+
+        @*13 chứng từ lệ phí *@
+
+        @{
+            string _doc_id13 = "C06DKQT_D_013";
+            string _model13 = _doc_id13 + "|6_Doc_ChungTuLePhi|0|chứng từ lệ phí|1";
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialTaiLieuTrongDon.cshtml", _model13)
+        }
+
+        @*14 tài liệu bổ sung *@
+
+        @{
+            string _doc_id14 = "C06DKQT_D_014";
+            string _model14 = _doc_id14 + "|6_Doc_TaiLieuBoSung|0|Tài liệu bổ sung|Nhập tài liệu|0";
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialTaiLieuTrongDon.cshtml", _model14)
+        }
+
+        @* Cam kết của chủ đơn *@
+
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialCamketChuDon.cshtml")
+
+
+
+
+
+    <div class="class_save">
+        <div class="classGuiDon">
+            <input type="button" value="Gửi đơn" id="btnGuiDon" class="btn" />
+        </div> <div class="classLuuTam">
+            <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn" />
+        </div>
+    </div>
+    <div class="classLuuTam">
+        <a href="javascript:;" id="hrfExportData">Kết xuất</a>
+    </div>
 </fieldset>
 </div>
 
-
-
-
 <script>
-
-
-  
     $(document).ready(function () {
         $('#NVSCBO001_AppClassSearch').multipleSelect({
             filter: true,
@@ -362,14 +462,29 @@
         }
     }
 
-    function ShowHidenUpLoad(pID, pClass) {
+
+    function ShowHidenUpLoad(pID, pClass, pTxt) {
         try {
             if ($("#" + pID).is(':checked')) {
-                $('.' + pClass).css('display', 'block');
-            } else {
-                $('.' + pClass).css('display', 'none');
+                $("#div_up_" + pClass).removeClass("clssDisplaynone");
+
+                // ẩn text
+                if (pTxt != "") {
+                    $("#" + pTxt).removeAttr("disabled");
+                    $("#" + pTxt + "_1").removeAttr("disabled");
+                }
+            }
+            else {
+                $("#div_up_" + pClass).addClass("clssDisplaynone");
+
+                // ẩn text
+                if (pTxt != "") {
+                    $("#" + pTxt).prop('disabled', true);
+                    $("#" + pTxt + "_1").prop('disabled', true);
+                }
             }
         } catch (e) {
+            alert(e);
         }
     }
 
@@ -423,7 +538,7 @@
             //    $("#Nvs001txt_search_app_code").focus();
             //    return false;
             //}
-            if (_ArrGroupAppClass.length == 0) {
+            if (_ArrGroupAppClass.length == 0 && _EditArryAppClass.length == 0) {
                 showError('Chưa chọn nhóm hàng hóa dịch vụ!');
                 $("#txtTenHangHoa").focus();
                 return false;
@@ -504,6 +619,10 @@
                 return false;
             }
 
+            reponse = funcGetCamKetChuDon(formData);
+            if (reponse == false) {
+                return false;
+            }
 
             $.ajax({
                 url: '/trade-mark-01/dang_ky_nhan_hieu',
@@ -532,6 +651,22 @@
 
     });
 
+    function funcGetCamKetChuDon(formData) {
+        try {
+            var address = $("#txtKhaiTai").val();
+            formData.append("pInfo.Address", address);
+            var dateno = $("#cboNgayKhai").val();
+            formData.append("pInfo.DateNo", dateno);
+            var months = $("#cboThangKhai").val();
+            formData.append("pInfo.Months", months);
+            var years = $("#cboNamKhai").val();
+            formData.append("pInfo.Years", years);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+
 
     $("#btnGuiDon").click(function () {
         try {
@@ -545,13 +680,13 @@
             var NVSCBO001_AppClassSearch = $("#NVSCBO001_AppClassSearch");
             var Nvs001txt_search_app_code = $("#Nvs001txt_search_app_code");
             //Thông tin chủ đơn
- 
+
             if (v_thanhviennghidinh === "" || v_thanhviennghidinh == undefined) {
                 showError('Phải chọn ít nhất 1 giá trị loại thành viên!');
                 $("#_01_rdnghidinh_madrid").focus();
                 return false;
             }
-           
+
             if (fileLogo != undefined && fileLogo != null && fileLogo[0].files[0] != undefined) {
               //  formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
             } else {
@@ -559,17 +694,17 @@
                 $("#pfile_6_rdoMauNhanHieu").focus();
                 return false;
             }
-         
+
             if (_01_rad_DonDkOrGiayDK === "" || _01_rad_DonDkOrGiayDK == undefined) {
                 showError('Phải chọn ít nhất 1 loại giấy đăng kỹ nhãn hiệu cơ sở!');
                 $("#_01_rad_DonDK").focus();
                 return false;
-            }                  
-            
+            }
+
             if (cbo_04nh_data.val() == "" || cbo_04nh_data.val() == null )
             {
                 showError('Chưa chọn số đơn!');
-                $("#cbo_04nh_data").multipleSelect("focus");   
+                $("#cbo_04nh_data").multipleSelect("focus");
                 return false;
             }
             var _1_txtNgayNopDon = $("#_1_txtNgayNopDon");
@@ -579,7 +714,7 @@
                 _1_txtNgayNopDon.focus();
                 return false;
             }
-           
+
             //if (NVSCBO001_AppClassSearch.val() == "" || NVSCBO001_AppClassSearch.val() == undefined) {
             //    showError('Chưa chọn nhóm hàng hóa dịch vụ!');
             //    $("#Nvs001txt_search_app_code").focus();
@@ -603,12 +738,12 @@
             if (funcThongTinChuDonNguoiDaiDien(formData, "_2") != true) {
                 return false;
             }
-             
+
             formData.append("pInfo.Appcode", v_AppCode);
             if (funcThongTinChuDonNguoiDaiDien(formData, "_2") != true) {
                 return false;
             }
-           
+
             // danh sach quoc gia
             var _listNational = $("#_4_cboNational01").val() + "," + $("#_4_cboNational02").val() + "," + $("#_4_cboNational03").val() + "," + $("#_4_cboNational04").val()
                 + "," + $("#_4_cboNational05").val() + "," + $("#_4_cboNational06").val() + "," + $("#_4_cboNational07").val() + "," + $("#_4_cboNational08").val();
@@ -616,7 +751,7 @@
             if (_listNational.replace(/,/g, '') == "")
             {
                 showError('Phải chọn ít nhất 1 nước chỉ định đăng ký nhãn hiệu!');
-                $("#_4_cboNational01").multipleSelect("focus");   
+                $("#_4_cboNational01").multipleSelect("focus");
                   return false;
             }
             var _arrayNational = _listNational.split(",");
@@ -670,7 +805,7 @@
                 return false;
             }
 
-            
+
             $.ajax({
                 url: '/trade-mark-01/dang_ky_nhan_hieu',
                 type: 'POST',
@@ -726,15 +861,15 @@
             formData.append("pDetail.COUNTRY_ID07", $("#_4_cboNational07").val());
             formData.append("pDetail.COUNTRY_ID08", $("#_4_cboNational08").val());
             formData.append("pDetail.LEPHI", $("#_5_txtLePhiDangKy").val());
-            
-       
+
+
             // lấy thông tin chủ đơn
 
         } catch (e) {
             alert(e.toString());
         }
     }
-    
+
     //Lấy thông tin chủ đơn add vào formData
     function funcThongTinChuDonNguoiDaiDien(formData, PreID) {
         try {
@@ -791,43 +926,57 @@
     function funGetThongTinFile(formData) {
         try {
             var Isuse = 0, Note = "", reponse = false;
-            //Các tài liệu có trong đơn
-            reponse = funcGetCheckValueAndText(formData, "_6_rdoToKhai", "0");
-            formData.append("pAppDocumentInfo[0].CHAR01", $("#_6_txtToKhaiTrang").val());
-            formData.append("pAppDocumentInfo[0].CHAR02", $("#_6_txtToKhaiBan").val());
-            //
+            //1 tờ khai
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_ToKhaiGom", "0");
+            formData.append("pAppDocumentInfo[0].CHAR01", $("#txt_6_Doc_ToKhaiGom").val());
+            formData.append("pAppDocumentInfo[0].CHAR02", $("#txt_6_Doc_ToKhaiGom_1").val());
+            //v2 mau đăng ký văn phòng quốc tế
             reponse = funcGetCheckValueAndText(formData, "_6_rdoMauDKVPQuocTe", "1");
             formData.append("pAppDocumentInfo[1].CHAR01", $("#_6_txtMauDKVPQuocTe").val());
-            formData.append("pAppDocumentInfo[1].CHAR02", $("#_6_cboNgonNguMauDangKy").val());
+            formData.append("pAppDocumentInfo[1].CHAR02", $("#_6_txtNgonNguMauDangKy").val());
             formData.append("pAppDocumentInfo[1].CHAR03", $("#_6_txtnumberpage").val());
             formData.append("pAppDocumentInfo[1].CHAR04", $("#_6_txtnumberCopy").val());
-            //
-            reponse = funcGetCheckValueAndText(formData, "_6_rdoMauNhanHieu", "2");
-            formData.append("pAppDocumentInfo[2].CHAR01", $("#_6_txtSoLuongMauNH").val());
 
-            reponse = funcGetCheckValueAndText(formData, "_6_rdoBanSaoToKhai", "3");
+            // 3  mẫu nhãn hiệu
 
-            reponse = funcGetCheckValueAndText(formData, "_6_rdoBanSaoGiayChungNhanDKNHCS", "4");
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_MauNhanHieu", "2");
+            formData.append("pAppDocumentInfo[2].CHAR01", $("#txt6_Doc_MauNhanHieu").val());
 
-            reponse = funcGetCheckValueAndText(formData, "_6_rdoBanCamketSDNDBaoHo", "5");
+            //4 bản sao tờ khai
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanSaoToKhai", "3");
 
-            reponse = funcGetCheckValueAndText(formData, "_6_rdoGiayUyQuyenBangTieng", "6");
-            formData.append("pAppDocumentInfo[6].CHAR01", $("#_6_cboNgonNguGiayUyQuyen").val());
+            //5 bản sao giấy ck dăng ký nh cs
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanSaoGiayDKNHCS", "4");
 
-            reponse = funcGetCheckValueAndText(formData, "_6_rdoBanDichTiengViet", "7");
-            formData.append("pAppDocumentInfo[7].CHAR01", $("#_6_txtSoLuongBanDichTiengViet").val());
+            // bản cam kết sẽ sử dụng NH  
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_CamKetSuDungNH", "5");
 
-   
+            //7 giay quy quyen bang tieng
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_GiayUyQuyenBangTieng", "6");
+            formData.append("pAppDocumentInfo[6].CHAR01", $("#txt_6_Doc_GiayUyQuyenBangTieng").val());
 
-            reponse = funcGetCheckValueAndText(formData, "_6_rdoBanGoc", "8");
+            // 8 bản dịch tiếng việt
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanDichTiengViet", "7");
+            formData.append("pAppDocumentInfo[7].CHAR01", $("#txt_ckb_6_Doc_BanDichTiengViet").val());
+            
+            // 9 bản gốc
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_DocBanGoc", "8");
 
-            reponse = funcGetCheckValueAndText(formData, "_6_rdoBanSao", "9");
-           
-            reponse = funcGetCheckValueAndText(formData, "_6_rdoBanGocSeNopSau", "10");
+            // 10 bản sao
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_Sao", "9");
 
-            // 11 6_rdoTLThuHuongNK
-            reponse = funcGetCheckValueAndText(formData, "_6_rdoBanGocDaNopTheoDonSo", "11");
-            formData.append("pAppDocumentInfo[11].CHAR01", $("#_6_txtbanGocNopTheoDonSo").val());
+            // 11 bản sao nộp sau
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanGocSeNopSau", "10");
+
+            // 12   bản gốc đã nộp theo số 
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanGocDaNopTheoDonSo", "11");
+            formData.append("pAppDocumentInfo[11].CHAR01", $("#txt_6_Doc_BanGocDaNopTheoDonSo").val());
+
+            // 13  chứng từ lệ phí
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_ChungTuLePhi", "12");
+
+            // 14  tài liệu bổ sung
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_TaiLieuBoSung", "13");
 
         } catch (e) {
             console.log(e);
@@ -892,7 +1041,7 @@
         }
     }
 
-    // lấy thông tin đơn 2a fill vào các trường 
+    // lấy thông tin đơn 2a fill vào các trường
     function chooseApp2a(_id)
     {
         try {
@@ -902,9 +1051,11 @@
             var div_daidienchudon2a = $("#div_daidienchudon2a");
             var div_appclass_2a = $("#div_appclass_2a");
             $.ajax({
+                //string p_idthongtinchudong, string p_iddaidienchudon, string p_idappclass)
+
                 url: '/trade-mark-share-data/get-tm04nh-info',
                 type: 'POST',
-                data: { pAppHeaderId: _id },
+                data: { pAppHeaderId: _id, p_idchudon: "_1", p_iddaidienchudon: "_2", p_idappclass: "" },
                // processData: false, contentType: false, traditional: true, dataType: "json",
               //  enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                 success: function (data) {
@@ -914,7 +1065,7 @@
                         div_chudon2a.html(data.ViewChuDon);
                         div_daidienchudon2a.html(data.ViewDaiDienChuDon);
                         div_appclass_2a.html(data.ViewAppClass);
-                    }  
+                    }
                 },
                 error: function (e) {
                     console.log(e);
