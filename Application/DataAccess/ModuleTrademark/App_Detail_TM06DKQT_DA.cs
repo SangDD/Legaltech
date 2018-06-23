@@ -49,13 +49,13 @@ namespace DataAccess
             try
             {
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
-                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_DETAIL_TM06DKQT.PROC_TM06DKQT_INSERT",
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_DETAIL_TM06DKQT.PROC_TM06DKQT_UPDATE",
                 new OracleParameter("P_ID", OracleDbType.Decimal, pInfo.Id, ParameterDirection.Input),
                 new OracleParameter("P_APPCODE", OracleDbType.Varchar2, pInfo.Appcode, ParameterDirection.Input),
-                new OracleParameter("P_APP_HEADER_ID", OracleDbType.Varchar2, pInfo.APP_HEADER_ID, ParameterDirection.Input),
+                new OracleParameter("P_APP_HEADER_ID", OracleDbType.Decimal, pInfo.APP_HEADER_ID, ParameterDirection.Input),
                 new OracleParameter("P_LANGUAGE", OracleDbType.Varchar2, pInfo.LANGUAGE_CODE, ParameterDirection.Input),
                 new OracleParameter("P_APPNO", OracleDbType.Varchar2, pInfo.APPNO, ParameterDirection.Input),
-                new OracleParameter("P_THANHVIEN_ND_TC", OracleDbType.Date, pInfo.THANHVIEN_ND_TC, ParameterDirection.Input),
+                new OracleParameter("P_THANHVIEN_ND_TC", OracleDbType.Varchar2, pInfo.THANHVIEN_ND_TC, ParameterDirection.Input),
                 new OracleParameter("P_LOGOURL", OracleDbType.Varchar2, pInfo.LOGOURL, ParameterDirection.Input),
                 new OracleParameter("P_DON_GIAY_DKNHCS", OracleDbType.Varchar2, pInfo.DON_GIAY_DKNHCS, ParameterDirection.Input),
                 new OracleParameter("P_REF_APPNO", OracleDbType.Varchar2, pInfo.REF_APPNO, ParameterDirection.Input),             
