@@ -946,7 +946,7 @@
             // 3  mẫu nhãn hiệu
 
             reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_MauNhanHieu", "2");
-            formData.append("pAppDocumentInfo[2].CHAR01", $("#txt6_Doc_MauNhanHieu").val());
+            formData.append("pAppDocumentInfo[2].CHAR01", $("#txt_6_Doc_MauNhanHieu").val());
 
             //4 bản sao tờ khai
             reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanSaoToKhai", "3");
@@ -983,6 +983,7 @@
 
             // 14  tài liệu bổ sung
             reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_TaiLieuBoSung", "13");
+            formData.append("pAppDocumentInfo[13].CHAR01", $("#txt_6_Doc_TaiLieuBoSung").val());
 
         } catch (e) {
             console.log(e);
