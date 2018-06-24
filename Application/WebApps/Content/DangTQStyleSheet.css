@@ -1,5 +1,7 @@
 ﻿/*-----2017.07.06 Hungtd------*/
-
+body {
+    font-family: arial;
+}
 .hide-scroll {
     overflow: hidden;
 }
@@ -726,13 +728,12 @@ huygo {
     width: 100%;
 }
 
-    /*.div-search-content .ms-ul > ul {
-        margin-left: -36px;
-    }*/
-
-
 .div-search-content .div-multil-select, div-search-content .div-multil-select select {
     min-width: 250px;
+}
+
+.div-search-content > div > textarea {
+   font-family:Arial ;
 }
 
 .div-multil-select .ms-ul {

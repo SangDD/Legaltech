@@ -131,15 +131,6 @@
     .div-search-title > div {
         width: 120px;
     }
-
-    /*.div-title-col-2 {
-        height: 35px;
-        border: 1px solid #aaa;
-    }
-
-        .div-title-col-2 > div {
-            margin: 9px 5px 0px 7px;
-        }*/
 </style>
 
 <div class="d-nav-container">
@@ -184,69 +175,103 @@
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
         </div>
 
+        <div class="div_full_100_area">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN KHÁC")
+
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
+        </div>
+        @*CHỦ ĐƠN KHÁC 1*@
+        @for (int i = 10; i < 13; i++)
+        {
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", i.ToString())
+        }
+
         @* Nhan hieu *@
         <div class="div_full_100_area">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "NHÃN HIỆU")
             <div class="class_full_div_input">
-                <div class="class_block_title" style="padding-top:5px; "><label>Mẫu nhãn hiệu:</label> </div>
-                <div class="class_block_title_control" style="display:flex">
-                    <div style="width:180px ;height:180px" id="divLogo">
-                        <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
-                    </div>
-                    <div class="container" style="flex-grow:1;padding-top:50px">
-                        <img onclick="funcRemoveTradeMarkImg('imgMauNhanHieu')" src="~/Content/icons/delete_file.png" style="margin: 0px 21px -44px 4px;" />
-                        <div class="file-upload btn btn-primary" style="margin-top:86px">
-                            <span>Tải file</span>
-                            <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
+
+                <div class="class_left_40">
+                    <div class="class_block_title" style="padding-top:5px; "><label>Mẫu nhãn hiệu:</label> </div>
+                    <div class="class_block_title_control" style="display:flex">
+                        <div style="width:165px ;height:165px" id="divLogo">
+                            <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
+                        </div>
+                        <div class="container" style="flex-grow:1;padding-top:50px">
+                            <img onclick="funcRemoveTradeMarkImg('imgMauNhanHieu')" src="~/Content/icons/delete_file.png" style="margin: 0px 21px -44px 4px;" />
+                            <div class="file-upload btn btn-primary" style="margin-top:95px">
+                                <span>Tải file</span>
+                                <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" value="NHTT" @styleNhanHieu placeholder="0_NhanHieuTapThe" id="0_NhanHieuTapThe" />
-                        <label>Nhãn hiệu tập thể</label>
+                <div class="class_right_60" style="display:block">
+                    @* Thêm mục đích sau này Admin đặt tên theo qui tắc phục vụ tìm kiếm *@
+                    <div class="div-search-ad">
+                        <div class="div-search-title">
+                            <div>Tên nhãn hiệu:</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <input type="text" placeholder="Tên Nhãn hiệu" value="@objAppHeaderInfo.CodeLogo" maxlength="20" id="0_txtTenNhanHieu" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="div-search-ad">
+                        <div class="div-search-title">
+                            <div>Mầu sắc:</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div><input type="text" placeholder="0_MauSac" value="@objAppHeaderInfo.Color" maxlength="50" id="0_MauSac" /></div>
+                        </div>
+                    </div>
+
+                    <div class="div-search-ad">
+                        <div class="div-search-title" style="height: 126px;">
+                            <div>Mô tả:</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <textarea id="0_MoTa" maxlength="2000" rows="5" cols="10" placeholder="Mô tả" style="">@objAppHeaderInfo.Description</textarea>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-            </div>
+                </div>
 
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" value="NHLK" @styleLienKet placeholder="0_NhanHieuLienKet" id="0_NhanHieuLienKet" />
-                        <label>Nhãn hiệu liên kết</label>
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="radio" name="0_NhanHieu" value="NHTT" @styleNhanHieu placeholder="0_NhanHieuTapThe" id="0_NhanHieuTapThe" />
+                            <label>Nhãn hiệu tập thể</label>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" value="NHCN" @styleNhanHieuCN placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" />
-                        <label>Nhãn hiệu chứng nhận</label>
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="radio" name="0_NhanHieu" value="NHLK" @styleLienKet placeholder="0_NhanHieuLienKet" id="0_NhanHieuLienKet" />
+                            <label>Nhãn hiệu liên kết</label>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div>Mầu sắc:</div>
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="radio" name="0_NhanHieu" value="NHCN" @styleNhanHieuCN placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" />
+                            <label>Nhãn hiệu chứng nhận</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="div-search-content">
-                    <div><input type="text" placeholder="0_MauSac" value="@objAppHeaderInfo.Color" maxlength="50" id="0_MauSac" /></div>
-                </div>
+
+                
             </div>
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div>Mô tả:</div>
-                </div>
-                <div class="div-search-content">
-                    <div> <input type="text" placeholder="0_MoTa" value="@objAppHeaderInfo.Description" maxlength="200" id="0_MoTa" /></div>
-                </div>
-            </div>
-        </div>
 
 
         @* Class *@
@@ -473,22 +498,21 @@
                     </div>
                 </div>
             </div>
-
+             
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div class="class_radio_head"><input type="checkbox" @styleNguonGocDL class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" placeholder="8_ckbNguonGocDiaLy" id="8_ckbNguonGocDiaLy" /> </div>
+                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;"   @styleNguonGocDL class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" placeholder="8_ckbNguonGocDiaLy" id="8_ckbNguonGocDiaLy" />
                     <div>Nguồn gốc địa lý:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" id="8_txtNguonGocDiaLy" value="@objAppHeaderInfo.Nguongocdialy" class="classDacTinhHangHoa" disabled="disabled" maxlength="100" placeholder="8_txtNguonGocDiaLy" />
+                        <input type="text" id="8_txtNguonGocDiaLy" class="classDacTinhHangHoa" value="@objAppHeaderInfo.Nguongocdialy" disabled="disabled" maxlength="100" placeholder="Nguồn gốc địa lý" />
                     </div>
                 </div>
             </div>
-
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div class="class_radio_head"><input type="checkbox" @styleChatluong name="8_ckbChatLuong" class="classDacTinhHangHoa" disabled="disabled" value="CLCL" placeholder="8_ckbChatLuong" id="8_ckbChatLuong" /> </div>
+                    <input  style="float: left;margin: 8px 0px 5px 5px;"   type="checkbox" @styleChatluong name="8_ckbChatLuong" class="classDacTinhHangHoa" disabled="disabled" value="CLCL" placeholder="8_ckbChatLuong" id="8_ckbChatLuong" />  
                     <div>Chất lượng:</div>
                 </div>
                 <div class="div-search-content">
@@ -497,10 +521,9 @@
                     </div>
                 </div>
             </div>
-
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div class="class_radio_head"><input type="checkbox" @styleNguonGocDiaLy name="8_ckbDacTinhKhac" class="classDacTinhHangHoa" disabled="disabled" value="DTKK" placeholder="8_ckbDacTinhKhac" id="8_ckbDacTinhKhac" /> </div>
+                    <input type="checkbox"  style="float: left;margin: 8px 0px 5px 5px;"  @styleNguonGocDiaLy name="8_ckbDacTinhKhac" class="classDacTinhHangHoa" disabled="disabled" value="DTKK" placeholder="8_ckbDacTinhKhac" id="8_ckbDacTinhKhac" /> 
                     <div>Đặc tính khác:</div>
                 </div>
                 <div class="div-search-content">
@@ -511,18 +534,7 @@
             </div>
         </div>
 
-        <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN KHÁC")
-
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
-        </div>
-        @*CHỦ ĐƠN KHÁC 1*@
-        @for (int i = 10; i < 13; i++)
-        {
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", i.ToString())
-        }
         @*TÀI LIỆU KHÁC*@
-
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac.cshtml", "12")
 
         @* CAM KẾT CHỦ ĐƠN  *@

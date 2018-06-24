@@ -252,3 +252,11 @@ function showError(_msg, _title, _options) {
 	}, _options);
 }
 
+function funcShowOrHidden(ptag) {
+
+    if ($("#" + ptag).is(":hidden") == true) {
+        $("#" + ptag).removeAttr("hidden");
+    } else {
+        $("#" + ptag).attr("hidden", "hidden");
+    }
+}
