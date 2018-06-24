@@ -752,8 +752,10 @@
     }
 
 
-    function funcGetAppDetail(formdata) {
+    function funcGetAppDetail(formdata ,pEditOrNew) {
         try {
+            if (pEditOrNew == undefined) pEditOrNew = 2;
+
             var v_soDon_0 = $("#0_txtDonSo").val();
             if (v_soDon_0 === "" || v_soDon_0 == undefined) {
                 showError('Số đơn không được để trống');
@@ -762,7 +764,7 @@
             }
             formdata.append("pDetail.Appno", v_soDon_0);
             var v_NgayNopDonn_0 = $("#0_txtNgayNopDon").val();
-            if (v_NgayNopDonn_0 === "" || v_NgayNopDonn_0 == undefined) {
+            if (v_NgayNopDonn_0 === "" || v_NgayNopDonn_0 == undefined && ( pEditOrNew== 2) ) {
                 showError('Phải chọn ít nhất 1 giá trị cho nhãn hiệu!');
                 $("#0_txtNgayNopDon").focus();
                 return false;
@@ -779,7 +781,7 @@
             formdata.append("pDetail.Duadate", v_NgayNopDonn_0);
 
             var v_NhanHieu = $("input[name='0_NhanHieu']:checked").val();
-            if (v_NhanHieu === "" || v_NhanHieu == undefined) {
+            if (v_NhanHieu === "" || v_NhanHieu == undefined && (pEditOrNew == 2)) {
                 showError('Phải chọn ít nhất 1 giá trị cho nhãn hiệu!');
                 return false;
             }
@@ -810,13 +812,13 @@
             var v_QuyenUuTien = 0;
             if (v_CoSDQuyenUT == 1) {
                 v_QuyenUuTien = $("input[name='4_YCHuongQuyen']:checked").val();
-                if (v_QuyenUuTien == undefined || v_QuyenUuTien == null || v_QuyenUuTien == 0) {
+                if (v_QuyenUuTien == undefined || v_QuyenUuTien == null || v_QuyenUuTien == 0 && (pEditOrNew == 2)) {
                     showError('Yêu cầu hưởng quyền ưu tiên phải chọn ít nhất 1 giá trị');
                     return false;
                 }
 
                 var v_Sodon_Ut = $("#6_txtSoDon").val();
-                if (v_Sodon_Ut === "" || v_Sodon_Ut == undefined) {
+                if (v_Sodon_Ut === "" || v_Sodon_Ut == undefined && (pEditOrNew == 2)) {
                     showError('Số đơn ưu tiên không được để trống');
                     $("#6_txtSoDon").focus();
                     return false;
@@ -824,7 +826,7 @@
                 formdata.append("pDetail.Sodon_Ut", v_Sodon_Ut);
 
                 var v_Ngaynopdon_Ut = $("#6_txtNgayNopDon").val();
-                if (v_Ngaynopdon_Ut === "" || v_Ngaynopdon_Ut == undefined) {
+                if (v_Ngaynopdon_Ut === "" || v_Ngaynopdon_Ut == undefined && (pEditOrNew == 2)) {
                     showError('Ngày nộp đơn ưu tiên không được để trống');
                     $("#6_txtNgayNopDon").focus();
                     return false;
@@ -833,7 +835,7 @@
 
 
                 var v_Nuocnopdon_Ut = $("#6_txtNuocNopDon").val();
-                if (v_Nuocnopdon_Ut === "" || v_Nuocnopdon_Ut == undefined) {
+                if (v_Nuocnopdon_Ut === "" || v_Nuocnopdon_Ut == undefined && (pEditOrNew == 2)) {
                     showError('Nước nộp đơn ưu tiên không được để trống');
                     $("#6_txtNuocNopDon").focus();
                     return false;
@@ -875,28 +877,35 @@
             if (reponse == false) {
                 return false;
             }
-            if ($("#0_ckbDacTinhHangHoa").prop('checked') == true) {
+            if ($("#0_ckbDacTinhHangHoa").prop('checked') == true)
+            {
                 var v_NguonGocDL = $("#8_txtNguonGocDiaLy").val();
-                if (v_NguonGocDL === "" || v_NguonGocDL == undefined) {
-                    showError('Nguồn gốc địa lý không được để trống');
-                    $("#8_txtNguonGocDiaLy").focus();
-                    return false;
+                if ($("#8_ckbNguonGocDiaLy").prop('checked') == true) {
+                    if (v_NguonGocDL === "" || v_NguonGocDL == undefined && (pEditOrNew == 2)) {
+                        showError('Nguồn gốc địa lý không được để trống');
+                        $("#8_txtNguonGocDiaLy").focus();
+                        return false;
+                    }
                 }
                 formdata.append("pDetail.Nguongocdialy", v_NguonGocDL);
 
                 var v_ChatLuong = $("#8_txtChatLuong").val();
-                if (v_ChatLuong === "" || v_ChatLuong == undefined) {
-                    showError('Chất lượng không được để trống');
-                    $("#8_txtChatLuong").focus();
-                    return false;
+                if ($("#8_ckbChatLuong").prop('checked') == true) {
+                    if (v_ChatLuong === "" || v_ChatLuong == undefined && (pEditOrNew == 2)) {
+                        showError('Chất lượng không được để trống');
+                        $("#8_txtChatLuong").focus();
+                        return false;
+                    }
                 }
                 formdata.append("pDetail.Chatluong", v_ChatLuong);
 
                 var v_Dactinhkhac = $("#8_txtDacTinhKhac").val();
-                if (v_Dactinhkhac === "" || v_Dactinhkhac == undefined) {
-                    showError('Đặc tính khác không được để trống');
-                    $("#8_txtDacTinhKhac").focus();
-                    return false;
+                if ($("#8_ckbDacTinhKhac").prop('checked') == true) {
+                    if (v_Dactinhkhac === "" || v_Dactinhkhac == undefined && (pEditOrNew == 2)) {
+                        showError('Đặc tính khác không được để trống');
+                        $("#8_txtDacTinhKhac").focus();
+                        return false;
+                    } 
                 }
                 formdata.append("pDetail.Dactinhkhac", v_Dactinhkhac);
             }

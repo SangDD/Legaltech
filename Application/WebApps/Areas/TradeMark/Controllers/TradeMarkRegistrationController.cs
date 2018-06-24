@@ -463,6 +463,10 @@
                     }
 
                 }
+                else
+                {
+                    //CaculatorFee
+                }
                 //End
 
                 //Kết xuất ảnh

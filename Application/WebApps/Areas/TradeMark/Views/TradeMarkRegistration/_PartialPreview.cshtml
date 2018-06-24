@@ -25,7 +25,7 @@
          try {
              //Thông tin chủ đơn
              var formData = new FormData();
-             if (funcThongTinChuDonNguoiDaiDien(formData, "1") != true) {
+             if (funcThongTinChuDonNguoiDaiDien(formData, "1",View) != true) {
                  return false;
              }
              var v_AppCode = $("#txtAppCode").val();
@@ -45,7 +45,7 @@
              formData.append("pInfo.Id", v_AppHeaderID);
 
 
-             if (funcThongTinChuDonNguoiDaiDien(formData, "2") != true) {
+             if (funcThongTinChuDonNguoiDaiDien(formData, "2", View) != true) {
                  return false;
              }
              var v_RepMasterType = $("input[name='3_rdoDaiDienChuDon']:checked").val();
