@@ -25,7 +25,7 @@
          try {
              //Thông tin chủ đơn
              var formData = new FormData();
-             if (funcThongTinChuDonNguoiDaiDien(formData, "1") != true) {
+             if (funcThongTinChuDonNguoiDaiDien(formData, "1",View) != true) {
                  return false;
              }
              var v_AppCode = $("#txtAppCode").val();
@@ -35,7 +35,17 @@
                  return false;
              }
              formData.append("pInfo.Appcode", v_AppCode);
-             if (funcThongTinChuDonNguoiDaiDien(formData, "2") != true) {
+
+             var v_AppHeaderID = $("#txtAppHeaderID").val();
+             if (v_AppHeaderID === "") {
+                 $('#txtAppHeaderID').focus().val('');
+                 showError('Không lấy được ID bản ghi!');
+                 return false;
+             }
+             formData.append("pInfo.Id", v_AppHeaderID);
+
+
+             if (funcThongTinChuDonNguoiDaiDien(formData, "2", View) != true) {
                  return false;
              }
              var v_RepMasterType = $("input[name='3_rdoDaiDienChuDon']:checked").val();
@@ -98,7 +108,7 @@
     }
 
      function funcPreViewApplication() {
-         var preturn = funGetDataTM04NH(3, "/trade-mark/ket_xuat_file");
+         var preturn = funGetDataTM04NHPreview(3, "/trade-mark/ket_xuat_file");
          if (preturn == true || preturn == undefined) {
              OpenPreview("/trade-mark/Pre-View");
          }

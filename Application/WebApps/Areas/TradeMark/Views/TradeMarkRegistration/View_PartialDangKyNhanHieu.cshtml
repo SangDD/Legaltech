@@ -184,6 +184,17 @@
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
         </div>
 
+        <div class="div_full_100_area">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN KHÁC")
+
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
+        </div>
+        @*CHỦ ĐƠN KHÁC 1*@
+        @for (int i = 10; i < 13; i++)
+        {
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", i.ToString())
+        }
+
         @* Nhan hieu *@
         <div class="div_full_100_area">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "NHÃN HIỆU")
@@ -378,8 +389,8 @@
                     <input type="text" id="6_txtBSDDT" disabled="disabled" class="classDisable" value="@ObjInfo04NH_D_15.CHAR01" maxlength="3" placeholder="6_txtBSDDT" style="width:173px" />
                 </div>
                 @*<div class="div-search-title" style="width:412px">
-                        <div>bản</div>
-                    </div>*@
+                    <div>bản</div>
+                </div>*@
             </div>
             <div style="margin-left:40px">
                 @* File dinh kem lay tu db khi sua*@
@@ -397,8 +408,8 @@
                     <input type="text" id="6_txtBDTVGom" disabled="disabled" class="classDisable" value="@ObjInfo04NH_D_16.CHAR01" maxlength="3" placeholder="6_txtBDTVGom" style="width:173px" />
                 </div>
                 @*<div class="div-search-title" style="width:412px">
-                        <div>bản</div>
-                    </div>*@
+                    <div>bản</div>
+                </div>*@
             </div>
             <div style="margin-left:40px">
                 @* File dinh kem lay tu db khi sua*@
@@ -489,16 +500,7 @@
             </div>
         </div>
 
-        <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN KHÁC")
 
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
-        </div>
-        @*CHỦ ĐƠN KHÁC 1*@
-        @for (int i = 10; i < 13; i++)
-        {
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", i.ToString())
-        }
         @*TÀI LIỆU KHÁC*@
 
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHTaiLieuKhac.cshtml", "12")

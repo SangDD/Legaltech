@@ -81,7 +81,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" @disableView  placeholder="Điện thoại" value="@Phone" maxlength="50" id="@txtDienThoai" style="width:251px" />
+            <input type="text" @disableView  placeholder="Điện thoại" value="@Phone" maxlength="50" id="@txtDienThoai" style="width:120px" />
         </div>
     </div>
 
@@ -90,7 +90,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" @disableView  placeholder="Fax" maxlength="50" value="@Fax" id="@txtFax" style="width:251px" />
+            <input type="text" @disableView  placeholder="Fax" maxlength="50" value="@Fax" id="@txtFax" style="width:120px" />
         </div>
     </div>
 
@@ -106,16 +106,21 @@
 
 <script>
     //Lấy thông tin chủ đơn add vào formData
-    function funcThongTinChuDonNguoiDaiDien(formData, PreID) {
+    //pAction 1:AddNew, 2:Sửa, 3:Xem trước thì ko cần check 
+    function funcThongTinChuDonNguoiDaiDien(formData, PreID, pEditOrNew) {
         try {
+            //Không truyền vào thì mặc định là tạo mới bắt buộc validate 
+            //New khai báo ở  nvs.variables.js.cshtml
+            if (pEditOrNew == undefined) pEditOrNew = New;
+
             var txtTenDayDu = $("#" + PreID + "_txtTenDayDu").val();
-            if (txtTenDayDu === "") {
+            if (txtTenDayDu === "" && (pEditOrNew == New || pEditOrNew== Edit) ) {
                 $("#" + PreID + "_txtTenDayDu").focus().val('');
                 showError('Tên không được để trống!');
                 return false;
             }
             var txtDiaChi = $("#" + PreID + "_txtDiaChi").val();
-            if (txtDiaChi === "") {
+            if (txtDiaChi === "" && (pEditOrNew == New || pEditOrNew == Edit) ) {
                 $("#" + PreID + "_txtDiaChi").focus().val('');
                 showError('Địa chỉ không được để trống!');
                 return false;
@@ -123,7 +128,7 @@
             var txtDienThoai = $("#" + PreID + "_txtDienThoai").val();
             var txtFax = $("#" + PreID + "_txtFax").val();
             var txtEmail = $("#" + PreID + "_txtEmail").val();
-            if (txtEmail != "") {
+            if (txtEmail != "" && (pEditOrNew == New || pEditOrNew == Edit) ) {
                 if (!IsvalidEmail(txtEmail)) {
                     $("#" + PreID + "_txtEmail").focus();
                     showError('Email không đúng định dạng!');

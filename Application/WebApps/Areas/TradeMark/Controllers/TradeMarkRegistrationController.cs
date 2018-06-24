@@ -412,6 +412,60 @@
                     DataSet dsFeefix = appFeeFixBL.AppFeeFixGetByAppHeader(pInfo.Id);
                     List<AppFeeFixInfo> lst = CBO<AppFeeFixInfo>.FillCollectionFromDataSet(dsFeefix);
 
+                    foreach (var item in lst)
+                    {
+                        if (item.Fee_Id == 200)
+                        {
+                            appInfo.TM04NH_200 = item.Number_Of_Patent;
+                            appInfo.TM04NH_200_Val = item.Amount;
+                        }
+                        else if(item.Fee_Id == 201)
+                        {
+                            appInfo.TM04NH_201 = item.Number_Of_Patent;
+                            appInfo.TM04NH_201_Val = item.Amount;
+                        }
+                        else if (item.Fee_Id == 2011)
+                        {
+                            appInfo.TM04NH_2011 = item.Number_Of_Patent;
+                            appInfo.TM04NH_2011_Val = item.Amount;
+                        }
+                        else if (item.Fee_Id == 203)
+                        {
+                            appInfo.TM04NH_203 = item.Number_Of_Patent;
+                            appInfo.TM04NH_203_Val = item.Amount;
+                        }
+                        else if (item.Fee_Id == 204)
+                        {
+                            appInfo.TM04NH_204 = item.Number_Of_Patent;
+                            appInfo.TM04NH_204_Val = item.Amount;
+                        }
+                        else if (item.Fee_Id == 205)
+                        {
+                            appInfo.TM04NH_205 = item.Number_Of_Patent;
+                            appInfo.TM04NH_205_Val = item.Amount;
+                        }
+                        else if (item.Fee_Id == 2051)
+                        {
+                            appInfo.TM04NH_2051 = item.Number_Of_Patent;
+                            appInfo.TM04NH_2051_Val = item.Amount;
+                        }
+                        else if (item.Fee_Id == 207)
+                        {
+                            appInfo.TM04NH_207 = item.Number_Of_Patent;
+                            appInfo.TM04NH_207_Val = item.Amount;
+                        }
+                        else if (item.Fee_Id == 2071)
+                        {
+                            appInfo.TM04NH_2071 = item.Number_Of_Patent;
+                            appInfo.TM04NH_2071_Val = item.Amount;
+                        }
+                        appInfo.TM04NH_TOTAL = appInfo.TM04NH_TOTAL + item.Amount;
+                    }
+
+                }
+                else
+                {
+                    //CaculatorFee
                 }
                 //End
 

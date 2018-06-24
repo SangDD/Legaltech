@@ -23,6 +23,7 @@ namespace ObjectInfos
 
         public string LogourlOrg { get; set; }
         public string Logourl { get; set; }
+        public string CodeLogo { get; set; }
         public HttpPostedFileBase pfileLogo { get; set; }
          
         public int Dactichhanghoa { get; set; }
