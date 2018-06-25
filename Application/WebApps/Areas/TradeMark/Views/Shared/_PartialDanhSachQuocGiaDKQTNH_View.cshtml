@@ -1,0 +1,67 @@
+﻿@using BussinessFacade.ModuleMemoryData
+@model string
+@using ObjectInfos;
+@{
+    string _national01 = Model + "_cboNational01";
+    string _national02 = Model + "_cboNational02";
+    string _national03 = Model + "_cboNational03";
+    string _national04 = Model + "_cboNational04";
+    string _national05 = Model + "_cboNational05";
+    string _national06 = Model + "_cboNational06";
+    string _national07 = Model + "_cboNational07";
+    string _national08 = Model + "_cboNational08";
+    var objAppHeaderInfo = new App_Detail_TM06DKQT_Info();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        objAppHeaderInfo = (App_Detail_TM06DKQT_Info)ViewBag.objAppHeaderInfo;
+    }
+ }
+<div class="div-search-ad">
+    <div class="div-search-content">
+        <div style="width:320px">
+            <input type="text"  value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID01)?"":objAppHeaderInfo.COUNTRY_ID01)" disabled/>
+        </div>
+    </div>
+    <div class="div-search-content">
+        <div style="width:320px">
+            <input type="text" value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID02)?"":objAppHeaderInfo.COUNTRY_ID02)"  disabled />
+        </div>
+    </div>
+
+    <div class="div-search-content">
+        <div style="width:320px">
+            <input type="text" value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID03)?"":objAppHeaderInfo.COUNTRY_ID03)" disabled />
+        </div>
+    </div>
+
+    <div class="div-search-content">
+        <div>
+            <input type="text" value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID04)?"":objAppHeaderInfo.COUNTRY_ID04)" disabled />
+        </div>
+    </div>
+</div>
+ <div class="div-search-ad">
+    <div class="div-search-content">
+        <div style="width:320px">
+            <input type="text" value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID05)?"":objAppHeaderInfo.COUNTRY_ID05)" disabled />
+        </div>
+    </div>
+    <div class="div-search-content">
+        <div style="width:320px">
+            <input type="text" value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID06)?"":objAppHeaderInfo.COUNTRY_ID06)" disabled />
+        </div>
+    </div>
+
+    <div class="div-search-content">
+        <div style="width:320px">
+            <input type="text" value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID07)?"":objAppHeaderInfo.COUNTRY_ID07)" disabled />
+        </div>
+    </div>
+
+    <div class="div-search-content">
+        <div>
+            <input type="text" value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID08)?"":objAppHeaderInfo.COUNTRY_ID08)" disabled />
+        </div>
+    </div>
+</div>
+ 

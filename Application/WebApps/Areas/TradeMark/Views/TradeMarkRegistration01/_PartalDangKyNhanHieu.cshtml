@@ -853,14 +853,14 @@
             formData.append("pDetail.REF_APPNO", $("#cbo_04nh_data").val());
             formData.append("pDetail.NGAYNOPDON", $("#_1_txtNgayNopDon").val());
 
-            formData.append("pDetail.COUNTRY_ID01", $("#_4_cboNational01").val());
-            formData.append("pDetail.COUNTRY_ID02", $("#_4_cboNational02").val());
-            formData.append("pDetail.COUNTRY_ID03", $("#_4_cboNational03").val());
-            formData.append("pDetail.COUNTRY_ID04", $("#_4_cboNational04").val());
-            formData.append("pDetail.COUNTRY_ID05", $("#_4_cboNational05").val());
-            formData.append("pDetail.COUNTRY_ID06", $("#_4_cboNational06").val());
-            formData.append("pDetail.COUNTRY_ID07", $("#_4_cboNational07").val());
-            formData.append("pDetail.COUNTRY_ID08", $("#_4_cboNational08").val());
+            formData.append("pDetail.COUNTRY_ID01", $("#_4_cboNational01").val() == null || $("#_4_cboNational01").val() == "-1" ? "" : $("#_4_cboNational01").val());
+            formData.append("pDetail.COUNTRY_ID02", $("#_4_cboNational02").val() == null || $("#_4_cboNational02").val() == "-1" ? "" : $("#_4_cboNational02").val());
+            formData.append("pDetail.COUNTRY_ID03", $("#_4_cboNational03").val() == null || $("#_4_cboNational03").val() == "-1" ? "" : $("#_4_cboNational03").val());
+            formData.append("pDetail.COUNTRY_ID04", $("#_4_cboNational04").val() == null || $("#_4_cboNational04").val() == "-1" ? "" : $("#_4_cboNational04").val());
+            formData.append("pDetail.COUNTRY_ID05", $("#_4_cboNational05").val() == null || $("#_4_cboNational05").val() == "-1" ? "" : $("#_4_cboNational05").val());
+            formData.append("pDetail.COUNTRY_ID06", $("#_4_cboNational06").val() == null || $("#_4_cboNational06").val() == "-1" ? "" : $("#_4_cboNational06").val());
+            formData.append("pDetail.COUNTRY_ID07", $("#_4_cboNational07").val() == null || $("#_4_cboNational07").val() == "-1" ? "" : $("#_4_cboNational07").val());
+            formData.append("pDetail.COUNTRY_ID08", $("#_4_cboNational08").val() == null || $("#_4_cboNational08").val() == "-1" ? "" : $("#_4_cboNational08").val());
             formData.append("pDetail.LEPHI", $("#_5_txtLePhiDangKy").val());
 
 

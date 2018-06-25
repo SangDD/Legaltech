@@ -82,17 +82,43 @@
                     ViewBag.Lst_AppDoc = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[1]);
                     ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[2]);
                 }
+                if (ds06Dkqt.Tables[0] == null || ds06Dkqt.Tables[0].Rows.Count == 0)
+                {
+                    return Redirect("/trade-mark/request-for-trade-mark-view/" + pAppHeaderId.ToString() + "/" + pStatus.ToString()  + "/" + TradeMarkAppCode.AppCodeDangKyQuocTeNH);
+                }
                 AppDetail04NHBL _AppDetail04NHBL = new AppDetail04NHBL();
                 List<AppDetail04NHInfo> _list04nh = new List<AppDetail04NHInfo>();
                 // truyền vào trạng thái nào? để tạm thời = 1 cho có dữ liệu
                 _list04nh = _AppDetail04NHBL.AppTM04NHSearchByStatus(1);
                 ViewBag.ListAppDetail04NHInfo = _list04nh;
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartalEditDangKyNhanHieu.cshtml");
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialEditDangKyNhanHieu.cshtml");
             }
             else
             {
                 //
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartalEditDangKyNhanHieu.cshtml");
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialEditDangKyNhanHieu.cshtml");
+            }
+        }
+
+        public ActionResult TradeMarkViewDon(decimal pAppHeaderId, string pAppCode, int pStatus)
+        {
+            if (pAppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
+            {
+                var objBL = new AppDetail06DKQT_BL();
+                string language = AppsCommon.GetCurrentLang();
+                var ds06Dkqt = objBL.AppTM06DKQTGetByID(pAppHeaderId, language, pStatus);
+                if (ds06Dkqt != null && ds06Dkqt.Tables.Count == 3)
+                {
+                    ViewBag.objAppHeaderInfo = CBO<App_Detail_TM06DKQT_Info>.FillObjectFromDataTable(ds06Dkqt.Tables[0]);
+                    ViewBag.Lst_AppDoc = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[1]);
+                    ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[2]);
+                }
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartalViewDangKyNhanHieu.cshtml");
+            }
+            else
+            {
+                //
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartalViewDangKyNhanHieu.cshtml");
             }
         }
 
@@ -269,11 +295,15 @@
         {
             try
             {
+                pDetail.Id = pInfo.Id;
+                pDetail.APP_HEADER_ID = pInfo.Id;
+                pDetail.LANGUAGE_CODE = pInfo.Languague_Code;
                 Application_Header_BL objBL = new Application_Header_BL();
                 AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
                 AppDetail06DKQT_BL objDetail = new AppDetail06DKQT_BL();
                 AppDocumentBL objDoc = new AppDocumentBL();
                 AppClassDetailBL objClassDetail = new AppClassDetailBL();
+                
                 if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
                 string language = AppsCommon.GetCurrentLang();
                 var CreatedBy = SessionData.CurrentUser.Username;
