@@ -78,7 +78,7 @@ namespace ObjectInfos
 
         public decimal TAILIEUBOSUNG { get; set; }
 
-
+        public decimal PAGE_REMAIN { get; set; }
 
 
 
