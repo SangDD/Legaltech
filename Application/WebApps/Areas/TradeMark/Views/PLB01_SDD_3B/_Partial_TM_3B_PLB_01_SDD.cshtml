@@ -444,28 +444,6 @@
         }
     }
 
-    function ShowHidenUpLoad(pID, pClass, pTxt) {
-        try {
-            if ($("#" + pID).is(':checked')) {
-                $("#div_up_" + pClass).removeClass("clssDisplaynone");
-
-                // ẩn text
-                if (pTxt != "") {
-                    $("#" + pTxt).removeAttr("disabled");
-                }
-            }
-            else {
-                $("#div_up_" + pClass).addClass("clssDisplaynone");
-
-                // ẩn text
-                if (pTxt != "") {
-                    $("#" + pTxt).prop('disabled', true);
-                }
-            }
-        } catch (e) {
-            alert(e);
-        }
-    }
 
     $("#btnGuiDon").click(function () {
         try {
