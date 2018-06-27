@@ -251,42 +251,6 @@ namespace ObjectInfos
             return pAppExportInfo;
         }
 
-        public static AppTM06DKQTInfoExport CopyAppDetailInfo(AppTM06DKQTInfoExport pAppExportInfo, App_Detail_TM06DKQT_Info pAppInfo)
-        {
-            pAppExportInfo.THANHVIEN_ND_TC = pAppInfo.THANHVIEN_ND_TC;
-            pAppExportInfo.DON_GIAY_DKNHCS = pAppInfo.DON_GIAY_DKNHCS;
-            pAppExportInfo.REF_APPNO = pAppInfo.REF_APPNO;
-            pAppExportInfo.REF_APPNO = pAppInfo.REF_APPNO;
-            pAppExportInfo.REF_APPNO_TEXT = pAppInfo.REF_APPNO;
-            pAppExportInfo.COUNTRY_ID01_TEXT = pAppInfo.COUNTRY_ID01_TEXT;
-            pAppExportInfo.COUNTRY_ID02_TEXT = pAppInfo.COUNTRY_ID02_TEXT;
-            pAppExportInfo.COUNTRY_ID03_TEXT = pAppInfo.COUNTRY_ID03_TEXT;
-            pAppExportInfo.COUNTRY_ID04_TEXT = pAppInfo.COUNTRY_ID04_TEXT;
-            pAppExportInfo.COUNTRY_ID05_TEXT = pAppInfo.COUNTRY_ID05_TEXT;
-            pAppExportInfo.COUNTRY_ID06_TEXT = pAppInfo.COUNTRY_ID06_TEXT;
-            pAppExportInfo.COUNTRY_ID07_TEXT = pAppInfo.COUNTRY_ID07_TEXT;
-            pAppExportInfo.COUNTRY_ID08_TEXT = pAppInfo.COUNTRY_ID08_TEXT;
-
-            pAppExportInfo.COUNTRY_ID01_CODE = pAppInfo.COUNTRY_ID01_CODE;
-
-            pAppExportInfo.LEPHI = pAppInfo.LEPHI;
-            pAppExportInfo.PAGE_REMAIN = pAppInfo.PAGE_REMAIN;
-            pAppExportInfo.strNgayNopDon= pAppInfo.NGAYNOPDON.ToTimeStringN0();
-            //pAppExportInfo.TOKHAI_SOTRANG = pAppInfo.TOKHAI_SOTRANG;
-            //pAppExportInfo.TOKHAI_SOBAN = pAppInfo.TOKHAI_SOBAN;
-            //pAppExportInfo.MAUDK_VPQT_SO = pAppInfo.MAUDK_VPQT_SO;
-            //pAppExportInfo.MAUDK_VPQT_NGONNGU = pAppInfo.MAUDK_VPQT_NGONNGU;
-            //pAppExportInfo.MAUDK_VPQT_SOTRANG = pAppInfo.MAUDK_VPQT_SOTRANG;
-            //pAppExportInfo. = pAppInfo.;
-            //pAppExportInfo. = pAppInfo.;
-            //pAppExportInfo. = pAppInfo.;
-            //pAppExportInfo. = pAppInfo.;
-
-
-            return pAppExportInfo;
-
-        }
-
         public static AppTM06DKQTInfoExport CopySysDocumentInfo(AppTM06DKQTInfoExport pAppExportInfo, SysAppDocumentInfo pAppInfo)
         {
             return pAppExportInfo;
