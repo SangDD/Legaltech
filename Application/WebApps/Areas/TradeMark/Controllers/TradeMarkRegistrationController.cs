@@ -16,6 +16,7 @@
     using System.Transactions;
     using BussinessFacade.ModuleMemoryData;
     using System.Data;
+    using BussinessFacade;
 
     [ValidateAntiForgeryTokenOnAllPosts]
     [RouteArea("TradeMarkRegistration", AreaPrefix = "trade-mark")]
@@ -636,6 +637,19 @@
                 ViewBag.objAppHeaderInfo = applicationHeaderInfo;
 
                 return PartialView("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_TM_3B_PLB_01_SDD_View.cshtml");
+            }
+            else if (pAppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
+            {
+                var objBL = new AppDetail06DKQT_BL();
+                string language = AppsCommon.GetCurrentLang();
+                var ds06Dkqt = objBL.AppTM06DKQTGetByID(pAppHeaderId, language, pStatus);
+                if (ds06Dkqt != null && ds06Dkqt.Tables.Count == 3)
+                {
+                    ViewBag.objAppHeaderInfo = CBO<App_Detail_TM06DKQT_Info>.FillObjectFromDataTable(ds06Dkqt.Tables[0]);
+                    ViewBag.Lst_AppDoc = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[1]);
+                    ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[2]);
+                }
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartalViewDangKyNhanHieu.cshtml");
             }
             else
             {

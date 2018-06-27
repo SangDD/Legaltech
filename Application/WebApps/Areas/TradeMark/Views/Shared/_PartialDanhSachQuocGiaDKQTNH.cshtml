@@ -20,7 +20,6 @@
     <div class="div-search-content">
         <div style="width:320px">
             <select id="@_national01" class="borderleft4control">
-                <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
                     if (objAppHeaderInfo.COUNTRY_ID01 == item.Country_Id.ToString())
@@ -39,7 +38,6 @@
     <div class="div-search-content">
         <div style="width:320px">
             <select id="@_national02">
-               <option value="">Chọn quốc gia</option>             
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
 
@@ -59,7 +57,6 @@
     <div class="div-search-content">
         <div style="width:320px">
             <select id="@_national03">
-                <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
 
@@ -79,7 +76,6 @@
     <div class="div-search-content">
         <div>
             <select id="@_national04">
-                <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
                     if (objAppHeaderInfo.COUNTRY_ID04 == item.Country_Id.ToString())
@@ -99,7 +95,6 @@
     <div class="div-search-content">
         <div style="width:320px">
             <select id="@_national05" class="borderleft4control">
-                <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
                     if (objAppHeaderInfo.COUNTRY_ID05 == item.Country_Id.ToString())
@@ -117,7 +112,6 @@
     <div class="div-search-content">
         <div style="width:320px">
             <select id="@_national06">
-                <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
                     if (objAppHeaderInfo.COUNTRY_ID06 == item.Country_Id.ToString())
@@ -136,7 +130,6 @@
     <div class="div-search-content">
         <div style="width:320px">
             <select id="@_national07">
-                <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
                     if (objAppHeaderInfo.COUNTRY_ID07 == item.Country_Id.ToString())
@@ -155,7 +148,6 @@
     <div class="div-search-content">
         <div>
             <select id="@_national08">
-                <option value="">Chọn quốc gia</option>
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
                     if (objAppHeaderInfo.COUNTRY_ID08 == item.Country_Id.ToString())
@@ -174,49 +166,49 @@
 
 <script>
     $('#' + '@_national01').multipleSelect({
-        filter: true,
+      //  filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
         single: true,
         placeholder: 'Tìm kiếm quốc gia'
     });
     $('#' + '@_national02').multipleSelect({
-        filter: true,
+      //  filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
         single: true,
         placeholder: 'Tìm kiếm quốc gia'
     });
     $('#' + '@_national03').multipleSelect({
-        filter: true,
+       // filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
         single: true,
         placeholder: 'Tìm kiếm quốc gia'
     });
     $('#' + '@_national04').multipleSelect({
-        filter: true,
+     //   filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
         single: true,
         placeholder: 'Tìm kiếm quốc gia'
     });
     $('#' + '@_national05').multipleSelect({
-        filter: true,
+      //  filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
         single: true,
         placeholder: 'Tìm kiếm quốc gia'
     });
     $('#' + '@_national06').multipleSelect({
-        filter: true,
+       // filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
         single: true,
         placeholder: 'Tìm kiếm quốc gia'
     });
     $('#' + '@_national07').multipleSelect({
-        filter: true,
+      //  filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
         single: true,
         placeholder: 'Tìm kiếm quốc gia'
     });
     $('#' + '@_national08').multipleSelect({
-        filter: true,
+      //  filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
         single: true,
         placeholder: 'Tìm kiếm quốc gia'

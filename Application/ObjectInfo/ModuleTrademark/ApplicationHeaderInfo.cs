@@ -1,5 +1,6 @@
 ﻿using System;
 using ObjectInfos.ModuleTrademark;
+using Common.Extensions;
 
 namespace ObjectInfos
 {
@@ -189,12 +190,71 @@ namespace ObjectInfos
             return pAppExportInfo;
 
         }
-
+      
         public static AppInfoExport CopySysDocumentInfo(AppInfoExport pAppExportInfo, SysAppDocumentInfo pAppInfo)
         {
             return pAppExportInfo;
         }
     }
 
+    public class AppTM06DKQTInfoExport : App_Detail_TM06DKQT_Info
+    {
+        //Tai lieu dinh kem
+        public decimal Document_Id { get; set; }
+        public decimal Lstord { get; set; }
+
+        //dành cho Classinfo
+        public string Textinput { get; set; }
+        public string Code { get; set; }
+        public string strTongSonhom { get; set; }
+        public string strTongSoSP { get; set; }
+        public string strListClass { get; set; }
+        //tài liệu khác 
+
+        public string strDanhSachFileDinhKem { get; set; }
+
+        public string strNgayNopDon { get; set; }
+
+        //Phí
+
+    }
+
+    public class CreateInstanceTM06DKQT
+    {
+        public static AppTM06DKQTInfoExport CopyAppHeaderInfo(AppTM06DKQTInfoExport pAppExportInfo, ApplicationHeaderInfo pAppInfo)
+        {
+            pAppExportInfo.STT = pAppInfo.STT;
+            pAppExportInfo.Id = pAppInfo.Id;
+            pAppExportInfo.Appcode = pAppInfo.Appcode;
+            pAppExportInfo.Master_Name = pAppInfo.Master_Name;
+            pAppExportInfo.Master_Address = pAppInfo.Master_Address;
+            pAppExportInfo.Master_Phone = pAppInfo.Master_Phone;
+            pAppExportInfo.Master_Fax = pAppInfo.Master_Fax;
+            pAppExportInfo.Master_Email = pAppInfo.Master_Email;
+            pAppExportInfo.Rep_Master_Type = pAppInfo.Rep_Master_Type;
+            pAppExportInfo.Rep_Master_Name = pAppInfo.Rep_Master_Name;
+            pAppExportInfo.Rep_Master_Address = pAppInfo.Rep_Master_Address;
+            pAppExportInfo.Rep_Master_Phone = pAppInfo.Rep_Master_Phone;
+            pAppExportInfo.Rep_Master_Fax = pAppInfo.Rep_Master_Fax;
+            pAppExportInfo.Rep_Master_Email = pAppInfo.Rep_Master_Email;
+            pAppExportInfo.Relationship = pAppInfo.Relationship;
+            pAppExportInfo.Send_Date = pAppInfo.Send_Date;
+            pAppExportInfo.Status = pAppInfo.Status;
+            pAppExportInfo.Status_Form = pAppInfo.Status_Form;
+            pAppExportInfo.Status_Content = pAppInfo.Status_Content;
+            pAppExportInfo.Remark = pAppInfo.Remark;
+            pAppExportInfo.AppName = pAppInfo.AppName;
+            pAppExportInfo.Address = pAppInfo.Address;
+            pAppExportInfo.DateNo = pAppInfo.DateNo;
+            pAppExportInfo.Months = pAppInfo.Months;
+            pAppExportInfo.Years = pAppInfo.Years;
+            return pAppExportInfo;
+        }
+
+        public static AppTM06DKQTInfoExport CopySysDocumentInfo(AppTM06DKQTInfoExport pAppExportInfo, SysAppDocumentInfo pAppInfo)
+        {
+            return pAppExportInfo;
+        }
+    }
 
 }

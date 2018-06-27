@@ -484,28 +484,141 @@
             return Json(new { success = 0 });
         }
 
+
         [HttpPost]
         [Route("ket_xuat_file")]
-        public ActionResult ExportData(ApplicationHeaderInfo pInfo, List<AppFeeFixInfo> pFeeFixInfo, AppDetail01Info pDetailInfo)
+        public ActionResult ExportData_View(decimal pAppHeaderId, string p_appCode)
         {
             try
             {
-                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/Request_for_amendment_of_application.doc");
+                string language = AppsCommon.GetCurrentLang();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                App_Detail_PLB01_SDD_Info app_Detail = new App_Detail_PLB01_SDD_Info();
+                List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+
+                if (p_appCode == TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD)
+                {
+                    App_Detail_PLB01_SDD_BL objBL = new App_Detail_PLB01_SDD_BL();
+                    app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
+                }
+
+                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/B01_Request_for_amendment_of_application_vi.doc");
                 DocumentModel document = DocumentModel.Load(_fileTemp);
 
                 // Fill export_header
-                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Dang_ky_sua_doi_nhan_hieu_" + pInfo.Appcode + ".pdf");
+                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_Request_for_amendment_of_application_vi_" + p_appCode + ".pdf");
 
-                // Fill export_detail  
+                #region Tài liệu có trong đơn
 
-                pInfo.Status = 254;
-                pInfo.Status_Form = 252;
-                pInfo.Relationship = "11";
-                document.MailMerge.Execute(pInfo);
+                if (p_appCode == TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD)
+                {
+                    foreach (AppDocumentInfo item in appDocumentInfos)
+                    {
+                        if (item.Document_Id == "01_SDD_01")
+                        {
+                            app_Detail.Doc_Id_1 = item.CHAR01;
+                            app_Detail.Doc_Id_1_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "01_SDD_02")
+                        {
+                            app_Detail.Doc_Id_2 = item.CHAR01;
+                            app_Detail.Doc_Id_2_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "01_SDD_03")
+                        {
+                            app_Detail.Doc_Id_3 = item.CHAR01;
+                            app_Detail.Doc_Id_3_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "01_SDD_04")
+                        {
+                            app_Detail.Doc_Id_4 = item.CHAR01;
+                            app_Detail.Doc_Id_4_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "01_SDD_05")
+                        {
+                            app_Detail.Doc_Id_5 = item.CHAR01;
+                            app_Detail.Doc_Id_5_Check = item.Isuse;
+                        }
+
+                        else if (item.Document_Id == "01_SDD_06")
+                        {
+                            app_Detail.Doc_Id_6_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "01_SDD_07")
+                        {
+                            app_Detail.Doc_Id_7_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "01_SDD_08")
+                        {
+                            app_Detail.Doc_Id_8_Check = item.Isuse;
+                        }
+
+                        else if (item.Document_Id == "01_SDD_09")
+                        {
+                            app_Detail.Doc_Id_9 = item.CHAR01;
+                            app_Detail.Doc_Id_9_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "01_SDD_10")
+                        {
+                            app_Detail.Doc_Id_10_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "01_SDD_11")
+                        {
+                            app_Detail.Doc_Id_11 = item.CHAR01;
+                            app_Detail.Doc_Id_11_Check = item.Isuse;
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region Fee
+                if (appFeeFixInfos.Count > 0)
+                {
+                    if (p_appCode == TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD)
+                    {
+                        foreach (var item in appFeeFixInfos)
+                        {
+                            if (item.Fee_Id == 1)
+                            {
+                                app_Detail.Fee_Id_1 = item.Number_Of_Patent;
+                                app_Detail.Fee_Id_1_Check = item.Isuse;
+                                app_Detail.Fee_Id_1_Val = item.Amount.ToString("#,##0.##");
+                            }
+                            else if (item.Fee_Id == 2)
+                            {
+                                app_Detail.Fee_Id_2 = item.Number_Of_Patent;
+                                app_Detail.Fee_Id_2_Check = item.Isuse;
+                                app_Detail.Fee_Id_2_Val = item.Amount.ToString("#,##0.##");
+                            }
+                            else if (item.Fee_Id == 21)
+                            {
+                                app_Detail.Fee_Id_21 = item.Number_Of_Patent;
+                                app_Detail.Fee_Id_21_Check = item.Isuse;
+                                app_Detail.Fee_Id_21_Val = item.Amount.ToString("#,##0.##");
+                            }
+                            else if (item.Fee_Id == 22)
+                            {
+                                app_Detail.Fee_Id_22 = item.Number_Of_Patent;
+                                app_Detail.Fee_Id_22_Check = item.Isuse;
+                                app_Detail.Fee_Id_22_Val = item.Amount.ToString("#,##0.##");
+                            }
+
+                            app_Detail.Total_Fee = app_Detail.Total_Fee + item.Amount;
+                            app_Detail.Total_Fee_Str = app_Detail.Total_Fee.ToString("#,##0.##");
+                        }
+                    }
+
+                }
+                #endregion
+
+                if (p_appCode == TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD)
+                {
+                    document.MailMerge.Execute(app_Detail);
+                }
+
                 document.Save(fileName, SaveOptions.PdfDefault);
-                //document.Save(fileName);
-
-
                 byte[] fileContents;
                 var options = SaveOptions.PdfDefault;
                 // Save document to DOCX format in byte array.
@@ -515,29 +628,12 @@
                     fileContents = stream.ToArray();
                 }
                 Convert.ToBase64String(fileContents);
-
                 return Json(new { success = 0 });
-
-            }
-            catch (Exception ex)
-            {
-
-                return Json(new { success = 0 });
-            }
-        }
-
-        [HttpPost]
-        [Route("Pre-View")]
-        public ActionResult PreViewApplication()
-        {
-            try
-            {
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+                return Json(new { success = 0 });
             }
         }
     }
