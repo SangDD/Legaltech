@@ -190,7 +190,7 @@ namespace ObjectInfos
             return pAppExportInfo;
 
         }
-
+      
         public static AppInfoExport CopySysDocumentInfo(AppInfoExport pAppExportInfo, SysAppDocumentInfo pAppInfo)
         {
             return pAppExportInfo;

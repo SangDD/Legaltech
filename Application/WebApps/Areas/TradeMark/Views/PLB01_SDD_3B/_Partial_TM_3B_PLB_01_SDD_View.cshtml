@@ -392,7 +392,7 @@
     </fieldset>
 </div>
 
-@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialPreview.cshtml")
+@Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialPreview.cshtml")
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
     </div>
@@ -450,26 +450,5 @@
             alert(e);
         }
     }
-
-    function funcPreViewApplication() {
-        if ($('#divWrapperPreview').css('display') == 'block') {
-            $('#divWrapperPreview').css('display', 'none');
-            return;
-        }
-
-        $.ajax({
-            type: "POST",
-            url: "/trade-mark/Pre-View",
-            headers: { "cache-control": "no-cache" },
-            async: false,
-            success: function (data) {
-                if (data != null) {
-                    $("#dpop-preview").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPreview', "Xem thông tin đơn", 900, 900, "");
-                    $("#divWrapperPreview").css('margin-top', '-760px');
-                }
-                return false;
-            }
-        });
-    }
+     
 </script>
