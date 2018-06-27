@@ -441,12 +441,19 @@
 
             <div class="class_save">
                 <div class="classGuiDon">
-                    <input type="button" value="Gửi đơn" id="btnGuiDon" class="btn" />
+                    <input type="button" value="Gửi đơn" id="btnGuiDon" class="btn class_37" />
                 </div> <div class="classLuuTam">
-                    <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn" />
+                    <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn class_37" />
                 </div>
             </div>
 </fieldset>
+</div>
+
+<input type="hidden" id="txtDateTime" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialPreview.cshtml")
+<div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
+    <div class="dpop-preview" id="dpop-preview">
+    </div>
 </div>
 
 <script>
@@ -516,7 +523,7 @@
 
     $("#btnLuuTam").click(function () {
         try {
-
+          
             var formData = new FormData();
             var v_AppCode = $("#txtAppCode").val();
             var cbo_04nh_data = $("#cbo_04nh_data");
@@ -876,6 +883,9 @@
             var v_don_giaydknhcs = $("input[name='_01_rad_DonDkOrGiayDK']:checked").val();
             formData.append("pDetail.DON_GIAY_DKNHCS", v_don_giaydknhcs);
             formData.append("pDetail.REF_APPNO", $("#cbo_04nh_data").val());
+
+            formData.append("pDetail.REF_APPNO_TEXT", $('#cbo_04nh_data option:selected').text());
+
             formData.append("pDetail.NGAYNOPDON", $("#_1_txtNgayNopDon").val());
 
             formData.append("pDetail.COUNTRY_ID01", $("#_4_cboNational01").val() == null || $("#_4_cboNational01").val() == "-1" ? "" : $("#_4_cboNational01").val());
@@ -886,6 +896,20 @@
             formData.append("pDetail.COUNTRY_ID06", $("#_4_cboNational06").val() == null || $("#_4_cboNational06").val() == "-1" ? "" : $("#_4_cboNational06").val());
             formData.append("pDetail.COUNTRY_ID07", $("#_4_cboNational07").val() == null || $("#_4_cboNational07").val() == "-1" ? "" : $("#_4_cboNational07").val());
             formData.append("pDetail.COUNTRY_ID08", $("#_4_cboNational08").val() == null || $("#_4_cboNational08").val() == "-1" ? "" : $("#_4_cboNational08").val());
+
+            formData.append("pDetail.COUNTRY_ID01_TEXT", $('#_4_cboNational01 option:selected').text());
+            formData.append("pDetail.COUNTRY_ID02_TEXT", $('#_4_cboNational02 option:selected').text());
+            formData.append("pDetail.COUNTRY_ID03_TEXT", $('#_4_cboNational03 option:selected').text());
+            formData.append("pDetail.COUNTRY_ID04_TEXT", $('#_4_cboNational04 option:selected').text());
+            formData.append("pDetail.COUNTRY_ID05_TEXT", $('#_4_cboNational05 option:selected').text());
+            formData.append("pDetail.COUNTRY_ID06_TEXT", $('#_4_cboNational06 option:selected').text());
+            formData.append("pDetail.COUNTRY_ID07_TEXT", $('#_4_cboNational07 option:selected').text());
+            formData.append("pDetail.COUNTRY_ID08_TEXT", $('#_4_cboNational08 option:selected').text());
+            
+
+          
+
+
             formData.append("pDetail.LEPHI", $("#_5_txtLePhiDangKy").val());
             formData.append("pDetail.PAGE_REMAIN", $("#_8_txtPageRemain").val());
             

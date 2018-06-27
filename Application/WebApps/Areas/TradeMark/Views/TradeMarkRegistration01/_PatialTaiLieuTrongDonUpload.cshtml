@@ -107,7 +107,7 @@
             var keyFileUpload = p_AfterID;
             $.ajax({
                 type: 'POST',
-                url: '/trade-mark-3b/delete-file',
+                url: '/trade-mark-share-data/delete-file',
                 data: {
                     keyFileUpload: keyFileUpload
                 },
@@ -116,12 +116,9 @@
                     if (data.success == 0) {
                         $("#div_img_" + p_AfterID).addClass("clssDisplaynone");
                         $("#divcheckFile_" + p_AfterID).addClass("clssDisplaynone");
-
                         $("#pfile_" + p_AfterID).val('');
-
                         var _textFile = $("#txt_" + p_AfterID);
                         _textFile.val("");
-
                         var _txt = document.getElementById("txt_" + p_AfterID);
                         _txt.style.width = "561px";
                     }
@@ -185,7 +182,7 @@
             //2
             $.ajax({
                 type: 'POST',
-                url: '/trade-mark-3b/push-file-to-server',
+                url: '/trade-mark-share-data/push-file-to-server',
                 data: formdata,
                 enctype: 'multipart/form-data',
                 processData: false, contentType: false, dataType: 'Json',
