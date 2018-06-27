@@ -495,11 +495,11 @@
                 ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
                 App_Detail_PLB01_SDD_Info app_Detail = new App_Detail_PLB01_SDD_Info();
                 List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
 
                 if (p_appCode == TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD)
                 {
                     App_Detail_PLB01_SDD_BL objBL = new App_Detail_PLB01_SDD_BL();
-                    List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
                     app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
                 }
 
@@ -509,36 +509,108 @@
                 // Fill export_header
                 string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_Request_for_amendment_of_application_vi_" + p_appCode + ".pdf");
 
-                //Hiển thị phí 
+                #region Tài liệu có trong đơn
+
+                if (p_appCode == TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD)
+                {
+                    foreach (AppDocumentInfo item in appDocumentInfos)
+                    {
+                        if (item.Document_Id == "01_SDD_01")
+                        {
+                            app_Detail.Doc_Id_1 = item.CHAR01;
+                            app_Detail.Doc_Id_1_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "01_SDD_02")
+                        {
+                            app_Detail.Doc_Id_2 = item.CHAR01;
+                            app_Detail.Doc_Id_2_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "01_SDD_03")
+                        {
+                            app_Detail.Doc_Id_3 = item.CHAR01;
+                            app_Detail.Doc_Id_3_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "01_SDD_04")
+                        {
+                            app_Detail.Doc_Id_4 = item.CHAR01;
+                            app_Detail.Doc_Id_4_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "01_SDD_05")
+                        {
+                            app_Detail.Doc_Id_5 = item.CHAR01;
+                            app_Detail.Doc_Id_5_Check = item.Isuse;
+                        }
+
+                        else if (item.Document_Id == "01_SDD_06")
+                        {
+                            app_Detail.Doc_Id_6_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "01_SDD_07")
+                        {
+                            app_Detail.Doc_Id_7_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "01_SDD_08")
+                        {
+                            app_Detail.Doc_Id_8_Check = item.Isuse;
+                        }
+
+                        else if (item.Document_Id == "01_SDD_09")
+                        {
+                            app_Detail.Doc_Id_9 = item.CHAR01;
+                            app_Detail.Doc_Id_9_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "01_SDD_10")
+                        {
+                            app_Detail.Doc_Id_10_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "01_SDD_11")
+                        {
+                            app_Detail.Doc_Id_11 = item.CHAR01;
+                            app_Detail.Doc_Id_11_Check = item.Isuse;
+                        }
+                    }
+                }
+
+                #endregion
+
                 #region Fee
                 if (appFeeFixInfos.Count > 0)
                 {
-                    foreach (var item in appFeeFixInfos)
+                    if (p_appCode == TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD)
                     {
-                        if (item.Fee_Id == 1)
+                        foreach (var item in appFeeFixInfos)
                         {
-                            app_Detail.Fee_Id_1 = item.Number_Of_Patent;
-                            app_Detail.Fee_Id_1_Val = item.Amount;
-                        }
-                        else if (item.Fee_Id == 2)
-                        {
-                            app_Detail.Fee_Id_2 = item.Number_Of_Patent;
-                            app_Detail.Fee_Id_2_Val = item.Amount;
-                        }
-                        else if (item.Fee_Id == 21)
-                        {
-                            app_Detail.Fee_Id_21 = item.Number_Of_Patent;
-                            app_Detail.Fee_Id_21_Val = item.Amount;
-                        }
-                        else if (item.Fee_Id == 22)
-                        {
-                            app_Detail.Fee_Id_22 = item.Number_Of_Patent;
-                            app_Detail.Fee_Id_22_Val = item.Amount;
-                        }
+                            if (item.Fee_Id == 1)
+                            {
+                                app_Detail.Fee_Id_1 = item.Number_Of_Patent;
+                                app_Detail.Fee_Id_1_Check = item.Isuse;
+                                app_Detail.Fee_Id_1_Val = item.Amount.ToString("#,##0.##");
+                            }
+                            else if (item.Fee_Id == 2)
+                            {
+                                app_Detail.Fee_Id_2 = item.Number_Of_Patent;
+                                app_Detail.Fee_Id_2_Check = item.Isuse;
+                                app_Detail.Fee_Id_2_Val = item.Amount.ToString("#,##0.##");
+                            }
+                            else if (item.Fee_Id == 21)
+                            {
+                                app_Detail.Fee_Id_21 = item.Number_Of_Patent;
+                                app_Detail.Fee_Id_21_Check = item.Isuse;
+                                app_Detail.Fee_Id_21_Val = item.Amount.ToString("#,##0.##");
+                            }
+                            else if (item.Fee_Id == 22)
+                            {
+                                app_Detail.Fee_Id_22 = item.Number_Of_Patent;
+                                app_Detail.Fee_Id_22_Check = item.Isuse;
+                                app_Detail.Fee_Id_22_Val = item.Amount.ToString("#,##0.##");
+                            }
 
-                        app_Detail.Total_Fee = app_Detail.Total_Fee + item.Amount;
+                            app_Detail.Total_Fee = app_Detail.Total_Fee + item.Amount;
+                            app_Detail.Total_Fee_Str = app_Detail.Total_Fee.ToString("#,##0.##");
+                        }
                     }
-                } 
+
+                }
                 #endregion
 
                 if (p_appCode == TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD)
