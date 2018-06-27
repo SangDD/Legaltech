@@ -484,28 +484,69 @@
             return Json(new { success = 0 });
         }
 
+
         [HttpPost]
         [Route("ket_xuat_file")]
-        public ActionResult ExportData(ApplicationHeaderInfo pInfo, List<AppFeeFixInfo> pFeeFixInfo, AppDetail01Info pDetailInfo)
+        public ActionResult ExportData_View(decimal pAppHeaderId, string p_appCode)
         {
             try
             {
-                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/Request_for_amendment_of_application.doc");
+                string language = AppsCommon.GetCurrentLang();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                App_Detail_PLB01_SDD_Info app_Detail = new App_Detail_PLB01_SDD_Info();
+                List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
+
+                if (p_appCode == TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD)
+                {
+                    App_Detail_PLB01_SDD_BL objBL = new App_Detail_PLB01_SDD_BL();
+                    List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                    app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
+                }
+
+                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/B01_Request_for_amendment_of_application_vi.doc");
                 DocumentModel document = DocumentModel.Load(_fileTemp);
 
                 // Fill export_header
-                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Dang_ky_sua_doi_nhan_hieu_" + pInfo.Appcode + ".pdf");
+                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_Request_for_amendment_of_application_vi_" + p_appCode + ".pdf");
 
-                // Fill export_detail  
+                //Hiển thị phí 
+                #region Fee
+                if (appFeeFixInfos.Count > 0)
+                {
+                    foreach (var item in appFeeFixInfos)
+                    {
+                        if (item.Fee_Id == 1)
+                        {
+                            app_Detail.Fee_Id_1 = item.Number_Of_Patent;
+                            app_Detail.Fee_Id_1_Val = item.Amount;
+                        }
+                        else if (item.Fee_Id == 2)
+                        {
+                            app_Detail.Fee_Id_2 = item.Number_Of_Patent;
+                            app_Detail.Fee_Id_2_Val = item.Amount;
+                        }
+                        else if (item.Fee_Id == 21)
+                        {
+                            app_Detail.Fee_Id_21 = item.Number_Of_Patent;
+                            app_Detail.Fee_Id_21_Val = item.Amount;
+                        }
+                        else if (item.Fee_Id == 22)
+                        {
+                            app_Detail.Fee_Id_22 = item.Number_Of_Patent;
+                            app_Detail.Fee_Id_22_Val = item.Amount;
+                        }
 
-                pInfo.Status = 254;
-                pInfo.Status_Form = 252;
-                pInfo.Relationship = "11";
-                document.MailMerge.Execute(pInfo);
+                        app_Detail.Total_Fee = app_Detail.Total_Fee + item.Amount;
+                    }
+                } 
+                #endregion
+
+                if (p_appCode == TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD)
+                {
+                    document.MailMerge.Execute(app_Detail);
+                }
+
                 document.Save(fileName, SaveOptions.PdfDefault);
-                //document.Save(fileName);
-
-
                 byte[] fileContents;
                 var options = SaveOptions.PdfDefault;
                 // Save document to DOCX format in byte array.
@@ -515,29 +556,12 @@
                     fileContents = stream.ToArray();
                 }
                 Convert.ToBase64String(fileContents);
-
                 return Json(new { success = 0 });
-
-            }
-            catch (Exception ex)
-            {
-
-                return Json(new { success = 0 });
-            }
-        }
-
-        [HttpPost]
-        [Route("Pre-View")]
-        public ActionResult PreViewApplication()
-        {
-            try
-            {
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+                return Json(new { success = 0 });
             }
         }
     }

@@ -17,5 +17,20 @@ namespace ObjectInfos
         public string Request_To_Content { get; set; }
         public int Number_Pic { get; set; }
         public int Number_Page { get; set; }
+
+        public decimal Fee_Id_1 { get; set; }
+        public decimal Fee_Id_1_Val { get; set; }
+
+        public decimal Fee_Id_2 { get; set; }
+        public decimal Fee_Id_2_Val { get; set; }
+
+        public decimal Fee_Id_21 { get; set; }
+        public decimal Fee_Id_21_Val { get; set; }
+
+        public decimal Fee_Id_22 { get; set; }
+        public decimal Fee_Id_22_Val { get; set; }
+
+        public decimal Total_Fee { get; set; }
+
     }
 }
