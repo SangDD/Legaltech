@@ -42,6 +42,25 @@ namespace WebApps.Areas.TradeMark.Controllers
             return Json(new { success = 0 });
         }
 
+        [HttpPost]
+        [Route("delete-file")]
+        public ActionResult DeleteFile(string keyFileUpload)
+        {
+            try
+            {
+                if (SessionData.CurrentUser.chashFile.ContainsKey(keyFileUpload))
+                {
+                    SessionData.CurrentUser.chashFile.Remove(keyFileUpload);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = -1 });
+            }
+            return Json(new { success = 0 });
+        }
+
 
         [HttpPost]
         [Route("get-tm04nh-info")]

@@ -698,7 +698,12 @@
 
     </fieldset>
 </div>
-
+<input type="hidden" id="txtDateTime" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialPreview.cshtml")
+<div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
+    <div class="dpop-preview" id="dpop-preview">
+    </div>
+</div>
 
 
 
@@ -789,7 +794,7 @@
             }
 
             if (fileLogo != undefined && fileLogo != null && fileLogo[0].files[0] != undefined ) {
-                //  formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
+                   formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
             } else if($("#imgMauNhanHieu").attr("src") == "" ||  $("#imgMauNhanHieu").attr("src") == undefined) {
                 showError('Mẫu nhãn hiệu không được để trống');
                 $("#pfile_6_rdoMauNhanHieu").focus();
@@ -954,7 +959,7 @@
             }
 
             if (fileLogo != undefined && fileLogo != null && fileLogo[0].files[0] != undefined ) {
-                //  formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
+                  formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
             } else if($("#imgMauNhanHieu").attr("src") == "" ||  $("#imgMauNhanHieu").attr("src") == undefined) {
                 showError('Mẫu nhãn hiệu không được để trống');
                 $("#pfile_6_rdoMauNhanHieu").focus();
@@ -1274,16 +1279,20 @@
             var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
             formData.append("pDetail.THANHVIEN_ND_TC", $("input[name='rad_thanhviennghidinhthu']:checked").val());
             if (fileLogo != undefined && fileLogo != null && fileLogo[0].files[0] != undefined ) {
-                //  formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
+                  formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
             } else if($("#imgMauNhanHieu").attr("src") == "" ||  $("#imgMauNhanHieu").attr("src") == undefined) {
                 showError('Mẫu nhãn hiệu không được để trống');
                 $("#pfile_6_rdoMauNhanHieu").focus();
                 return false;
             }
+          
+            formData.append("pDetail.LOGOURL", "@objAppHeaderInfo.LOGOURL");
+           
             var v_don_giaydknhcs = $("input[name='_01_rad_DonDkOrGiayDK']:checked").val();
             formData.append("pDetail.Id", v_don_giaydknhcs);
             formData.append("pDetail.DON_GIAY_DKNHCS", v_don_giaydknhcs);
             formData.append("pDetail.REF_APPNO", $("#cbo_04nh_data").val());
+            formData.append("pDetail.REF_APPNO_TEXT", $('#cbo_04nh_data option:selected').text());
             formData.append("pDetail.NGAYNOPDON", $("#_1_txtNgayNopDon").val());
             formData.append("pDetail.COUNTRY_ID01",  $("#_4_cboNational01").val() == null || $("#_4_cboNational01").val() == "-1" ? "": $("#_4_cboNational01").val());
             formData.append("pDetail.COUNTRY_ID02", $("#_4_cboNational02").val() == null || $("#_4_cboNational02").val() == "-1" ? "": $("#_4_cboNational02").val());
@@ -1293,6 +1302,18 @@
             formData.append("pDetail.COUNTRY_ID06", $("#_4_cboNational06").val() == null || $("#_4_cboNational06").val() == "-1" ? "": $("#_4_cboNational06").val());
             formData.append("pDetail.COUNTRY_ID07", $("#_4_cboNational07").val() == null || $("#_4_cboNational07").val() == "-1" ? "": $("#_4_cboNational07").val());
             formData.append("pDetail.COUNTRY_ID08", $("#_4_cboNational08").val() == null || $("#_4_cboNational08").val() == "-1" ? "": $("#_4_cboNational08").val());
+
+
+            formData.append("pDetail.COUNTRY_ID01_TEXT", $('#_4_cboNational01 option:selected').text());
+            formData.append("pDetail.COUNTRY_ID02_TEXT", $('#_4_cboNational02 option:selected').text());
+            formData.append("pDetail.COUNTRY_ID03_TEXT", $('#_4_cboNational03 option:selected').text());
+            formData.append("pDetail.COUNTRY_ID04_TEXT", $('#_4_cboNational04 option:selected').text());
+            formData.append("pDetail.COUNTRY_ID05_TEXT", $('#_4_cboNational05 option:selected').text());
+            formData.append("pDetail.COUNTRY_ID06_TEXT", $('#_4_cboNational06 option:selected').text());
+            formData.append("pDetail.COUNTRY_ID07_TEXT", $('#_4_cboNational07 option:selected').text());
+            formData.append("pDetail.COUNTRY_ID08_TEXT", $('#_4_cboNational08 option:selected').text());
+
+
             formData.append("pDetail.LEPHI", $("#_5_txtLePhiDangKy").val());
 
             formData.append("pDetail.PAGE_REMAIN", $("#_8_txtPageRemain").val());

@@ -1,5 +1,6 @@
 ﻿using System;
 using ObjectInfos.ModuleTrademark;
+using Common.Extensions;
 
 namespace ObjectInfos
 {
@@ -196,5 +197,100 @@ namespace ObjectInfos
         }
     }
 
+    public class AppTM06DKQTInfoExport : App_Detail_TM06DKQT_Info
+    {
+        //Tai lieu dinh kem
+        public decimal Document_Id { get; set; }
+        public decimal Lstord { get; set; }
+
+        //dành cho Classinfo
+        public string Textinput { get; set; }
+        public string Code { get; set; }
+        public string strTongSonhom { get; set; }
+        public string strTongSoSP { get; set; }
+        public string strListClass { get; set; }
+        //tài liệu khác 
+
+        public string strDanhSachFileDinhKem { get; set; }
+
+        public string strNgayNopDon { get; set; }
+
+        //Phí
+
+    }
+
+    public class CreateInstanceTM06DKQT
+    {
+        public static AppTM06DKQTInfoExport CopyAppHeaderInfo(AppTM06DKQTInfoExport pAppExportInfo, ApplicationHeaderInfo pAppInfo)
+        {
+            pAppExportInfo.STT = pAppInfo.STT;
+            pAppExportInfo.Id = pAppInfo.Id;
+            pAppExportInfo.Appcode = pAppInfo.Appcode;
+            pAppExportInfo.Master_Name = pAppInfo.Master_Name;
+            pAppExportInfo.Master_Address = pAppInfo.Master_Address;
+            pAppExportInfo.Master_Phone = pAppInfo.Master_Phone;
+            pAppExportInfo.Master_Fax = pAppInfo.Master_Fax;
+            pAppExportInfo.Master_Email = pAppInfo.Master_Email;
+            pAppExportInfo.Rep_Master_Type = pAppInfo.Rep_Master_Type;
+            pAppExportInfo.Rep_Master_Name = pAppInfo.Rep_Master_Name;
+            pAppExportInfo.Rep_Master_Address = pAppInfo.Rep_Master_Address;
+            pAppExportInfo.Rep_Master_Phone = pAppInfo.Rep_Master_Phone;
+            pAppExportInfo.Rep_Master_Fax = pAppInfo.Rep_Master_Fax;
+            pAppExportInfo.Rep_Master_Email = pAppInfo.Rep_Master_Email;
+            pAppExportInfo.Relationship = pAppInfo.Relationship;
+            pAppExportInfo.Send_Date = pAppInfo.Send_Date;
+            pAppExportInfo.Status = pAppInfo.Status;
+            pAppExportInfo.Status_Form = pAppInfo.Status_Form;
+            pAppExportInfo.Status_Content = pAppInfo.Status_Content;
+            pAppExportInfo.Remark = pAppInfo.Remark;
+            pAppExportInfo.AppName = pAppInfo.AppName;
+            pAppExportInfo.Address = pAppInfo.Address;
+            pAppExportInfo.DateNo = pAppInfo.DateNo;
+            pAppExportInfo.Months = pAppInfo.Months;
+            pAppExportInfo.Years = pAppInfo.Years;
+            return pAppExportInfo;
+        }
+
+        public static AppTM06DKQTInfoExport CopyAppDetailInfo(AppTM06DKQTInfoExport pAppExportInfo, App_Detail_TM06DKQT_Info pAppInfo)
+        {
+            pAppExportInfo.THANHVIEN_ND_TC = pAppInfo.THANHVIEN_ND_TC;
+            pAppExportInfo.DON_GIAY_DKNHCS = pAppInfo.DON_GIAY_DKNHCS;
+            pAppExportInfo.REF_APPNO = pAppInfo.REF_APPNO;
+            pAppExportInfo.REF_APPNO = pAppInfo.REF_APPNO;
+            pAppExportInfo.REF_APPNO_TEXT = pAppInfo.REF_APPNO;
+            pAppExportInfo.COUNTRY_ID01_TEXT = pAppInfo.COUNTRY_ID01_TEXT;
+            pAppExportInfo.COUNTRY_ID02_TEXT = pAppInfo.COUNTRY_ID02_TEXT;
+            pAppExportInfo.COUNTRY_ID03_TEXT = pAppInfo.COUNTRY_ID03_TEXT;
+            pAppExportInfo.COUNTRY_ID04_TEXT = pAppInfo.COUNTRY_ID04_TEXT;
+            pAppExportInfo.COUNTRY_ID05_TEXT = pAppInfo.COUNTRY_ID05_TEXT;
+            pAppExportInfo.COUNTRY_ID06_TEXT = pAppInfo.COUNTRY_ID06_TEXT;
+            pAppExportInfo.COUNTRY_ID07_TEXT = pAppInfo.COUNTRY_ID07_TEXT;
+            pAppExportInfo.COUNTRY_ID08_TEXT = pAppInfo.COUNTRY_ID08_TEXT;
+
+            pAppExportInfo.COUNTRY_ID01_CODE = pAppInfo.COUNTRY_ID01_CODE;
+
+            pAppExportInfo.LEPHI = pAppInfo.LEPHI;
+            pAppExportInfo.PAGE_REMAIN = pAppInfo.PAGE_REMAIN;
+            pAppExportInfo.strNgayNopDon= pAppInfo.NGAYNOPDON.ToTimeStringN0();
+            //pAppExportInfo.TOKHAI_SOTRANG = pAppInfo.TOKHAI_SOTRANG;
+            //pAppExportInfo.TOKHAI_SOBAN = pAppInfo.TOKHAI_SOBAN;
+            //pAppExportInfo.MAUDK_VPQT_SO = pAppInfo.MAUDK_VPQT_SO;
+            //pAppExportInfo.MAUDK_VPQT_NGONNGU = pAppInfo.MAUDK_VPQT_NGONNGU;
+            //pAppExportInfo.MAUDK_VPQT_SOTRANG = pAppInfo.MAUDK_VPQT_SOTRANG;
+            //pAppExportInfo. = pAppInfo.;
+            //pAppExportInfo. = pAppInfo.;
+            //pAppExportInfo. = pAppInfo.;
+            //pAppExportInfo. = pAppInfo.;
+
+
+            return pAppExportInfo;
+
+        }
+
+        public static AppTM06DKQTInfoExport CopySysDocumentInfo(AppTM06DKQTInfoExport pAppExportInfo, SysAppDocumentInfo pAppInfo)
+        {
+            return pAppExportInfo;
+        }
+    }
 
 }
