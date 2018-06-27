@@ -149,7 +149,7 @@
                         }
                         pReturn = objDetail.App_Detail_04NH_Insert(pDetail);
                         //Thêm thông tin class
-                        if (pReturn >= 0)
+                        if (pReturn >= 0 && pAppClassInfo !=null)
                         {
                             pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID, language);
                         }

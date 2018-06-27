@@ -53,6 +53,12 @@ namespace DataAccess.ModuleTrademark
                 new OracleParameter("p_used_special", OracleDbType.Decimal, pInfo.Used_Special, ParameterDirection.Input),
 
                 new OracleParameter("P_LOAINHANHIEU", OracleDbType.Varchar2, pInfo.LoaiNhanHieu, ParameterDirection.Input),
+                new OracleParameter("P_CODELOGO", OracleDbType.Varchar2, pInfo.CodeLogo, ParameterDirection.Input),
+                new OracleParameter("P_SODON_UT2", OracleDbType.Varchar2, pInfo.Sodon_Ut2, ParameterDirection.Input),
+                new OracleParameter("P_NGAYNOPDON_UT2", OracleDbType.Date, pInfo.Ngaynopdon_Ut2, ParameterDirection.Input),
+                new OracleParameter("P_NUOCNOPDON_UT2", OracleDbType.Varchar2, pInfo.Nuocnopdon_Ut2, ParameterDirection.Input),
+                new OracleParameter("P_HUONGQUYENUUTIEN2", OracleDbType.Varchar2, pInfo.Huongquyenuutien2, ParameterDirection.Input),
+
                 paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;
@@ -110,6 +116,11 @@ namespace DataAccess.ModuleTrademark
                 new OracleParameter("p_cdk_email_4", OracleDbType.Varchar2, pInfo.Cdk_Email_4, ParameterDirection.Input),
                 new OracleParameter("p_used_special", OracleDbType.Decimal, pInfo.Used_Special, ParameterDirection.Input),
                 new OracleParameter("P_LOAINHANHIEU", OracleDbType.Varchar2, pInfo.LoaiNhanHieu, ParameterDirection.Input),
+                new OracleParameter("P_CODELOGO", OracleDbType.Varchar2, pInfo.CodeLogo, ParameterDirection.Input),
+                new OracleParameter("P_SODON_UT2", OracleDbType.Varchar2, pInfo.Sodon_Ut2, ParameterDirection.Input),
+                new OracleParameter("P_NGAYNOPDON_UT2", OracleDbType.Date, pInfo.Ngaynopdon_Ut2, ParameterDirection.Input),
+                new OracleParameter("P_NUOCNOPDON_UT2", OracleDbType.Varchar2, pInfo.Nuocnopdon_Ut2, ParameterDirection.Input),
+                new OracleParameter("P_HUONGQUYENUUTIEN2", OracleDbType.Varchar2, pInfo.Huongquyenuutien2, ParameterDirection.Input),
                 paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;
