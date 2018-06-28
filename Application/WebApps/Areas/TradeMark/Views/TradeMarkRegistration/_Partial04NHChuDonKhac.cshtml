@@ -8,6 +8,7 @@
     string txtDienThoai = Model + "_txtDienThoai";
     string txtFax = Model + "_txtFax";
     string txtEmail = Model + "_txtEmail";
+    string txtYCCapPho = Model + "_txtYCCapPho";
     var objAppHeaderInfo = new AppDetail04NHInfo();
     string Name = "", Address = "", Phone = "", Fax = "", Email = "";
     if (Model == "10")
@@ -69,7 +70,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" @disableView  placeholder="Địa chỉ" value="@Address" i id="@txtDiaChi" />
+                <input type="text" @disableView placeholder="Địa chỉ" value="@Address" i id="@txtDiaChi" />
             </div>
         </div>
     </div>
@@ -79,7 +80,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" @disableView  placeholder="Điện thoại" value="@Phone" i maxlength="50" id="@txtDienThoai" style="width:120px" />
+                <input type="text" @disableView placeholder="Điện thoại" value="@Phone" i maxlength="50" id="@txtDienThoai" style="width:120px" />
             </div>
         </div>
 
@@ -88,7 +89,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" @disableView  placeholder="Fax" value="@Fax" i maxlength="50" id="@txtFax" style="width:120px" />
+                <input type="text" @disableView placeholder="Fax" value="@Fax" i maxlength="50" id="@txtFax" style="width:120px" />
             </div>
         </div>
         <div class="div-search-title">
@@ -96,11 +97,22 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" @disableView  placeholder="Email" maxlength="50" value="@Email" i id="@txtEmail" />
+                <input type="text" @disableView placeholder="Email" maxlength="50" value="@Email" i id="@txtEmail" />
             </div>
         </div>
     </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-content">
+            <div class="div-checkbox">
+                <input type="checkbox" name="@txtYCCapPho" value="N" placeholder="@txtYCCapPho" id="@txtYCCapPho" />
+                <label>Có yêu cầu cấp Phó bản Giấy chứng nhận đăng ký nhãn hiệu</label>
+            </div>
+        </div>
+    </div>
+
 </div>
+
 
 
 <script>
@@ -129,6 +141,11 @@
                     return false;
                 }
             }
+            var ycCapPho = "N";
+            if ($("#" + PreID + "_txtYCCapPho").prop('checked') == true) {
+                ycCapPho = "Y";
+            }
+
             //Chủ đơn
             if (PreID == "10") {
                 formData.append("pDetail.Cdk_Name_2", txtTenDayDu);
@@ -136,12 +153,14 @@
                 formData.append("pDetail.Cdk_Phone_2", txtDienThoai);
                 formData.append("pDetail.Cdk_Fax_2", txtFax);
                 formData.append("pDetail.Cdk_Email_2", txtEmail);
+                formData.append("pDetail.YCCapPho2", ycCapPho);
             } else if (PreID == "11") {
                 formData.append("pDetail.Cdk_Name_3", txtTenDayDu);
                 formData.append("pDetail.Cdk_Address_3", txtDiaChi);
                 formData.append("pDetail.Cdk_Phone_3", txtDienThoai);
                 formData.append("pDetail.Cdk_Fax_3", txtFax);
                 formData.append("pDetail.Cdk_Email_3", txtEmail);
+                formData.append("pDetail.YCCapPho3", ycCapPho);
             }
             else if (PreID == "12") {
                 formData.append("pDetail.Cdk_Name_4", txtTenDayDu);
@@ -149,6 +168,7 @@
                 formData.append("pDetail.Cdk_Phone_4", txtDienThoai);
                 formData.append("pDetail.Cdk_Fax_4", txtFax);
                 formData.append("pDetail.Cdk_Email_4", txtEmail);
+                formData.append("pDetail.YCCapPho4", ycCapPho);
             }
             return true;
         } catch (e) {
