@@ -574,6 +574,7 @@
             int Status = 0;
             decimal App_Header_Id = 0;
             string AppCode = "";
+            ViewBag.Isdisable = 1;
             try
             {
                 if (SessionData.CurrentUser == null)
