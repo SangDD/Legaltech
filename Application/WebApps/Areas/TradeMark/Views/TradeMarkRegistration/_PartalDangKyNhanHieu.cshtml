@@ -46,19 +46,16 @@
 
         @* 1 *@
         <div class="div_full_100_area">
-
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN")
-
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
         </div>
-
         <div class="div_full_100_area">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN KHÁC")
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
             <a href="javascript:;" onclick="return funcShowOrHidden('divHienChuDonKhac');" style="text-decoration:underline; color: blue;float: right;padding-top: 5px;">Thêm chủ đơn</a>
         </div>
         @*CHỦ ĐƠN KHÁC 1*@
-        <div   hidden="hidden" id="divHienChuDonKhac">
+        <div hidden="hidden" id="divHienChuDonKhac">
             @for (int i = 10; i < 13; i++)
             {
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", i.ToString())
@@ -68,7 +65,6 @@
         <div class="div_full_100_area">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "NHÃN HIỆU")
             <div class="class_full_div_input">
-
                 <div class="class_left_40">
                     <div class="class_block_title" style="padding-top:5px; ">
                         <label>Mẫu nhãn hiệu:</label>
@@ -114,8 +110,7 @@
                         </div>
                         <div class="div-search-content">
                             <div>
-                                @*<input type="text" placeholder="Mô tả" maxlength="250" id="0_MoTa" />*@
-                                <textarea id="0_MoTa" maxlength="2000" rows="5" cols="10"  placeholder="Mô tả" style="height:102px"></textarea>
+                                <textarea id="0_MoTa" maxlength="2000" rows="5" cols="10" placeholder="Mô tả" style="height:102px"></textarea>
                             </div>
                         </div>
                     </div>
@@ -149,6 +144,56 @@
             </div>
 
         </div>
+        @* End tai lieu dinh kem  *@
+        <div class="div_full_100_area"  style="display:none"  id="divNhanHieuChungNhan" >
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "MÔ TẢ TÓM TẮT ĐẶC TÍNH CỦA HÀNG HOÁ/DỊCH VỤ ĐƯỢC CHỨNG NHẬN")
+
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-checkbox">
+                        <input type="checkbox" name="0_ckbDacTinhHangHoa" value="DTHH" placeholder="0_ckbDacTinhHangHoa" id="0_ckbDacTinhHangHoa" />
+                        <label>Đặc tính hàng hóa</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" placeholder="8_ckbNguonGocDiaLy" id="8_ckbNguonGocDiaLy" />
+                    <div>Nguồn gốc địa lý:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="8_txtNguonGocDiaLy" class="classDacTinhHangHoa" disabled="disabled" maxlength="100" placeholder="Nguồn gốc địa lý" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" name="8_ckbChatLuong" class="classDacTinhHangHoa" disabled="disabled" value="CLCL" placeholder="8_ckbChatLuong" id="8_ckbChatLuong" />
+                    <div>Chất lượng:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="8_txtChatLuong" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" placeholder="Chất lượng" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" name="8_ckbDacTinhKhac" class="classDacTinhHangHoa" disabled="disabled" value="DTKK" placeholder="8_ckbDacTinhKhac" id="8_ckbDacTinhKhac" />
+                    <div>Đặc tính khác:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="8_txtDacTinhKhac" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" placeholder="Đặc tính khác" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
         @* Class *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml")
         @* End Class *@
@@ -321,72 +366,20 @@
             <div style="margin-left:40px">
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoGiayChuyenNhungUT")
             </div>
-
             <a href="javascript:;" onclick="return funcShowOrHidden('divDonUuTienSo2');" style="text-decoration:underline; color: blue;float: right;padding-top: 5px;">Thêm đơn</a>
         </div>
         @* div Don số 2 default fixed có 2 đơn *@
-        <div id="divDonUuTienSo2">
-
+        <div id="divDonUuTienSo2" hidden="hidden">
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHDonUTSo2.cshtml")
         </div>
-
         @* Tài liệu có trong đơn *@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTLTrongDon.cshtml")
-        @* End tai lieu dinh kem  *@
-        <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "MÔ TẢ TÓM TẮT ĐẶC TÍNH CỦA HÀNG HOÁ/DỊCH VỤ ĐƯỢC CHỨNG NHẬN")
-
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-checkbox">
-                        <input type="checkbox" name="0_ckbDacTinhHangHoa" value="DTHH" placeholder="0_ckbDacTinhHangHoa" id="0_ckbDacTinhHangHoa" />
-                        <label>Đặc tính hàng hóa</label>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" placeholder="8_ckbNguonGocDiaLy" id="8_ckbNguonGocDiaLy" />
-                    <div>Nguồn gốc địa lý:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="8_txtNguonGocDiaLy" class="classDacTinhHangHoa" disabled="disabled" maxlength="100" placeholder="Nguồn gốc địa lý" />
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;"  name="8_ckbChatLuong" class="classDacTinhHangHoa" disabled="disabled" value="CLCL" placeholder="8_ckbChatLuong" id="8_ckbChatLuong" />
-                    <div>Chất lượng:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="8_txtChatLuong" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" placeholder="Chất lượng" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" name="8_ckbDacTinhKhac" class="classDacTinhHangHoa" disabled="disabled" value="DTKK" placeholder="8_ckbDacTinhKhac" id="8_ckbDacTinhKhac" />
-                    <div>Đặc tính khác:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="8_txtDacTinhKhac" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" placeholder="Đặc tính khác" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
 
         @*TÀI LIỆU KHÁC*@
-
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac.cshtml", "12")
+
+
+
 
         @* CAM KẾT CHỦ ĐƠN  *@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewNgayThangNam.cshtml")
@@ -414,6 +407,16 @@
 </style>
 
 <script>
+
+    $("input[name='0_NhanHieu'").change(function () {
+        var v_NhanHieu = $("input[name='0_NhanHieu']:checked").val();
+        if (v_NhanHieu == "NHCN") {
+            $("#divNhanHieuChungNhan").css('display','block')
+        } else {
+            $("#divNhanHieuChungNhan").css('display', 'none');
+        }
+    });
+
     $('#6_txtNuocNopDon').multipleSelect({
         filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
@@ -487,7 +490,7 @@
         funGetDataTM04NHGuiLuuTam(2, url);
     });
 
-    function funcGetAppDetail(formdata) {
+    function funcGetAppDetail(formdata, pEditOrNew) {
         try {
             if (pEditOrNew == undefined) pEditOrNew = 1;
 
@@ -544,7 +547,9 @@
             formdata.append("pDetail.Used_Special", v_CoSDQuyenUT);
 
             var v_QuyenUuTien = 0;
-            if (v_CoSDQuyenUT == 1) {
+            var v_QuyenUuTien2 = 0;
+            if (v_CoSDQuyenUT == 1)
+            {
                 v_QuyenUuTien = $("input[name='4_YCHuongQuyen']:checked").val();
                 if (v_QuyenUuTien == undefined || v_QuyenUuTien == null || v_QuyenUuTien == 0 && (pEditOrNew == 1)) {
                     showError('Yêu cầu hưởng quyền ưu tiên phải chọn ít nhất 1 giá trị');
@@ -575,9 +580,44 @@
                     return false;
                 }
                 formdata.append("pDetail.Nuocnopdon_Ut", v_Nuocnopdon_Ut);
+                //Lấy thông tin đơn số 2
+
+                v_QuyenUuTien2 = $("input[name='4_YCHuongQuyen2']:checked").val();
+                if (v_QuyenUuTien2 == undefined || v_QuyenUuTien2 == null || v_QuyenUuTien2 == 0 && (pEditOrNew == 1)) {
+                    showError('Yêu cầu hưởng quyền ưu tiên phải chọn ít nhất 1 giá trị');
+                    return false;
+                }
+
+                var v_Sodon_Ut2 = $("#6_txtSoDon2").val();
+                if (v_Sodon_Ut2 == "" || v_Sodon_Ut2 == undefined && (pEditOrNew == 1)) {
+                    showError('Số đơn ưu tiên không được để trống');
+                    $("#6_txtSoDon").focus();
+                    return false;
+                }
+                formdata.append("pDetail.Sodon_Ut2", v_Sodon_Ut2);
+
+                var v_Ngaynopdon_Ut2 = $("#6_txtNgayNopDon2").val();
+                if (v_Ngaynopdon_Ut2 === "" || v_Ngaynopdon_Ut2 == undefined && (pEditOrNew == 1)) {
+                    showError('Ngày nộp đơn ưu tiên không được để trống');
+                    $("#6_txtNgayNopDon").focus();
+                    return false;
+                }
+                formdata.append("pDetail.Ngaynopdon_Ut2", v_Ngaynopdon_Ut2);
+
+
+                var v_Nuocnopdon_Ut2 = $("#6_txtNuocNopDon2").val();
+                if (v_Nuocnopdon_Ut2 === "" || v_Nuocnopdon_Ut2 == undefined && (pEditOrNew == 1)) {
+                    showError('Nước nộp đơn ưu tiên không được để trống');
+                    $("#6_txtNuocNopDon").focus();
+                    return false;
+                }
+                formdata.append("pDetail.Nuocnopdon_Ut2", v_Nuocnopdon_Ut2);
+
+
             }
 
             formdata.append("pDetail.Huongquyenuutien", v_QuyenUuTien);
+            formdata.append("pDetail.Huongquyenuutien2", v_QuyenUuTien2);
 
             var v_MauSac_0 = $("#0_MauSac").val();
             formdata.append("pDetail.Color", v_MauSac_0);
@@ -700,15 +740,18 @@
 
             // 13 6_rdoBSDDT----------
             reponse = funcGetCheckValueAndText(formData, "6_rdoBSDDT", "14");
+            formData.append("pAppDocumentInfo[14].CHAR01", $("#6_txtBSDDT").val());
 
             // 15 6_rdoBDTVGom
             reponse = funcGetCheckValueAndText(formData, "6_rdoBDTVGom", "15");
-            formData.append("pAppDocumentInfo[14].CHAR01", $("#6_txtBDTVGom").val());
+            formData.append("pAppDocumentInfo[15].CHAR01", $("#6_txtBDTVGom").val());
 
             // 16 6_rdoGiayChuyenNhungUT
             reponse = funcGetCheckValueAndText(formData, "6_rdoGiayChuyenNhungUT", "16");
             // 17 6_rdoGiayChuyenNhungUT
             reponse = funcGetCheckValueAndText(formData, "6_rdoBanDoKVDL", "17");
+
+
             // 18 6_rdoGiayChuyenNhungUT
             reponse = funcGetCheckValueAndText(formData, "6_rdoVBuyBanTinh", "18");
             // 19 6_rdoGiayChuyenNhungUT
@@ -717,6 +760,22 @@
             reponse = funcGetCheckValueAndText(formData, "6_rdoPOA", "20");
             // 21 6_rdoGiayChuyenNhungUT
             reponse = funcGetCheckValueAndText(formData, "6_rdoTLK", "21");
+
+            // 22 6_rdoBSDDT----------
+
+            reponse = funcGetCheckValueAndText(formData, "6_rdoTLCMQUT_2", "22");
+            formData.append("pAppDocumentInfo[22].CHAR01", $("#6_txtTLCMQUT_2").val());
+
+
+            reponse = funcGetCheckValueAndText(formData, "6_rdoBSDDT_2", "23");
+            formData.append("pAppDocumentInfo[23].CHAR01", $("#6_txtBSDDT_2").val());
+            
+            // 23 6_rdoBDTVGom
+            reponse = funcGetCheckValueAndText(formData, "6_rdoBDTVGom_2", "24");
+            formData.append("pAppDocumentInfo[24].CHAR01", $("#6_txtBDTVGom_2").val());
+
+            // 24 6_rdoGiayChuyenNhungUT
+            reponse = funcGetCheckValueAndText(formData, "6_rdoGiayChuyenNhungUT_2", "25");
 
         } catch (e) {
             console.log(e);
@@ -789,7 +848,7 @@
             //trang thai
             formData.append("pInfo.Status", ptype);
             //Lấy thông tin detail
-            var reponse = funcGetAppDetail(formData);
+            var reponse = funcGetAppDetail(formData, New);
             if (reponse == false) {
                 return false;
             }

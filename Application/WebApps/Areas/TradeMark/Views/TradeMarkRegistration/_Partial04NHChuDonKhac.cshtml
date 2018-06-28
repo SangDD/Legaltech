@@ -108,17 +108,17 @@
     function funcThongTinChuDonKhac(formData, PreID) {
         try {
             var txtTenDayDu = $("#" + PreID + "_txtTenDayDu").val();
-            if (txtTenDayDu === "") {
-                $("#" + PreID + "_txtTenDayDu").focus().val('');
-                showError('Tên không được để trống!');
-                return false;
-            }
+            //if (txtTenDayDu === "") {
+            //    $("#" + PreID + "_txtTenDayDu").focus().val('');
+            //    showError('Tên không được để trống!');
+            //    return false;
+            //}
             var txtDiaChi = $("#" + PreID + "_txtDiaChi").val();
-            if (txtDiaChi === "") {
-                $("#" + PreID + "_txtDiaChi").focus().val('');
-                showError('Địa chỉ không được để trống!');
-                return false;
-            }
+            //if (txtDiaChi === "") {
+            //    $("#" + PreID + "_txtDiaChi").focus().val('');
+            //    showError('Địa chỉ không được để trống!');
+            //    return false;
+            //}
             var txtDienThoai = $("#" + PreID + "_txtDienThoai").val();
             var txtFax = $("#" + PreID + "_txtFax").val();
             var txtEmail = $("#" + PreID + "_txtEmail").val();

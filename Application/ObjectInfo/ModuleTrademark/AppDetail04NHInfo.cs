@@ -65,5 +65,12 @@ namespace ObjectInfos
         public string Cdk_Email_4 { get; set; }
         public string LoaiNhanHieu { get; set; }
         public string ListFileAttachOtherDel { get; set; }
+
+        public string Sodon_Ut2 { get; set; }
+        //Ngay nop don uu tien 
+        public DateTime Ngaynopdon_Ut2 { get; set; }
+        public string Ngaynopdon_UtExp2 { get; set; }
+        public string Nuocnopdon_Ut2 { get; set; }
+        public string Huongquyenuutien2 { get; set; }
     }
 }
