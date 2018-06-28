@@ -179,12 +179,13 @@ namespace DataAccess.ModuleTrademark
         }
 
 
-        public DataSet AppTM04NHSearchByStatus(int p_status)
+        public DataSet AppTM04NHSearchByStatus(int p_status, string p_languagecode)
         {
             try
             {
                 DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_DETAIL_04NH.PROC_APP_04NH_SEARCH",
                     new OracleParameter("P_STATUS", OracleDbType.Decimal, p_status, ParameterDirection.Input),
+                     new OracleParameter("P_LANGUAGECODE", OracleDbType.Varchar2, p_languagecode, ParameterDirection.Input),
                     new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output)
                     );
                 return _ds;

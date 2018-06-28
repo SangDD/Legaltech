@@ -15,53 +15,257 @@
     {
         objAppHeaderInfo = (App_Detail_TM06DKQT_Info)ViewBag.objAppHeaderInfo;
     }
- }
+}
 <div class="div-search-ad">
     <div class="div-search-content">
         <div style="width:320px">
-            <input type="text"  value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID01)?"":objAppHeaderInfo.COUNTRY_ID01)" disabled/>
+            <input type="text" value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID01_TEXT)?"":objAppHeaderInfo.COUNTRY_ID01_TEXT)" disabled />
         </div>
     </div>
     <div class="div-search-content">
         <div style="width:320px">
-            <input type="text" value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID02)?"":objAppHeaderInfo.COUNTRY_ID02)"  disabled />
+            <input type="text" value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID02_TEXT)?"":objAppHeaderInfo.COUNTRY_ID02_TEXT)" disabled />
         </div>
     </div>
 
     <div class="div-search-content">
         <div style="width:320px">
-            <input type="text" value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID03)?"":objAppHeaderInfo.COUNTRY_ID03)" disabled />
-        </div>
-    </div>
-
-    <div class="div-search-content">
-        <div>
-            <input type="text" value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID04)?"":objAppHeaderInfo.COUNTRY_ID04)" disabled />
-        </div>
-    </div>
-</div>
- <div class="div-search-ad">
-    <div class="div-search-content">
-        <div style="width:320px">
-            <input type="text" value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID05)?"":objAppHeaderInfo.COUNTRY_ID05)" disabled />
-        </div>
-    </div>
-    <div class="div-search-content">
-        <div style="width:320px">
-            <input type="text" value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID06)?"":objAppHeaderInfo.COUNTRY_ID06)" disabled />
-        </div>
-    </div>
-
-    <div class="div-search-content">
-        <div style="width:320px">
-            <input type="text" value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID07)?"":objAppHeaderInfo.COUNTRY_ID07)" disabled />
+            <input type="text" value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID03_TEXT)?"":objAppHeaderInfo.COUNTRY_ID03_TEXT)" disabled />
         </div>
     </div>
 
     <div class="div-search-content">
         <div>
-            <input type="text" value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID08)?"":objAppHeaderInfo.COUNTRY_ID08)" disabled />
+            <input type="text" value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID04_TEXT)?"":objAppHeaderInfo.COUNTRY_ID04_TEXT)" disabled />
         </div>
     </div>
 </div>
- 
+<div class="div-search-ad">
+    <div class="div-search-content">
+        <div style="width:320px">
+            <input type="text" value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID05_TEXT)?"":objAppHeaderInfo.COUNTRY_ID05_TEXT)" disabled />
+        </div>
+    </div>
+    <div class="div-search-content">
+        <div style="width:320px">
+            <input type="text" value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID06_TEXT)?"":objAppHeaderInfo.COUNTRY_ID06_TEXT)" disabled />
+        </div>
+    </div>
+
+    <div class="div-search-content">
+        <div style="width:320px">
+            <input type="text" value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID07_TEXT)?"":objAppHeaderInfo.COUNTRY_ID07_TEXT)" disabled />
+        </div>
+    </div>
+
+    <div class="div-search-content">
+        <div>
+            <input type="text" value="@(string.IsNullOrEmpty(objAppHeaderInfo.COUNTRY_ID08_TEXT)?"":objAppHeaderInfo.COUNTRY_ID08_TEXT)" disabled />
+        </div>
+    </div>
+</div>
+
+<div style="display:none">
+
+
+
+    <div class="div-search-ad">
+        <div class="div-search-content">
+            <div style="width:320px">
+                <select id="@_national01" class="borderleft4control">
+                    @foreach (var item in MemoryData.c_lst_Country)
+                    {
+                        if (objAppHeaderInfo.COUNTRY_ID01 == item.Country_Id.ToString())
+                        {
+                            <option selected value="@item.Country_Id">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Country_Id">@item.Name</option>
+                        }
+
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="div-search-content">
+            <div style="width:320px">
+                <select id="@_national02">
+                    @foreach (var item in MemoryData.c_lst_Country)
+                    {
+
+                        if (objAppHeaderInfo.COUNTRY_ID02 == item.Country_Id.ToString())
+                        {
+                            <option selected value="@item.Country_Id">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Country_Id">@item.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="div-search-content">
+            <div style="width:320px">
+                <select id="@_national03">
+                    @foreach (var item in MemoryData.c_lst_Country)
+                    {
+
+                        if (objAppHeaderInfo.COUNTRY_ID03 == item.Country_Id.ToString())
+                        {
+                            <option selected value="@item.Country_Id">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Country_Id">@item.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="div-search-content">
+            <div>
+                <select id="@_national04">
+                    @foreach (var item in MemoryData.c_lst_Country)
+                    {
+                        if (objAppHeaderInfo.COUNTRY_ID04 == item.Country_Id.ToString())
+                        {
+                            <option selected value="@item.Country_Id">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Country_Id">@item.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="div-search-ad">
+        <div class="div-search-content">
+            <div style="width:320px">
+                <select id="@_national05" class="borderleft4control">
+                    @foreach (var item in MemoryData.c_lst_Country)
+                    {
+                        if (objAppHeaderInfo.COUNTRY_ID05 == item.Country_Id.ToString())
+                        {
+                            <option selected value="@item.Country_Id">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Country_Id">@item.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="div-search-content">
+            <div style="width:320px">
+                <select id="@_national06">
+                    @foreach (var item in MemoryData.c_lst_Country)
+                    {
+                        if (objAppHeaderInfo.COUNTRY_ID06 == item.Country_Id.ToString())
+                        {
+                            <option selected value="@item.Country_Id">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Country_Id">@item.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="div-search-content">
+            <div style="width:320px">
+                <select id="@_national07">
+                    @foreach (var item in MemoryData.c_lst_Country)
+                    {
+                        if (objAppHeaderInfo.COUNTRY_ID07 == item.Country_Id.ToString())
+                        {
+                            <option selected value="@item.Country_Id">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Country_Id">@item.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="div-search-content">
+            <div>
+                <select id="@_national08">
+                    @foreach (var item in MemoryData.c_lst_Country)
+                    {
+                        if (objAppHeaderInfo.COUNTRY_ID08 == item.Country_Id.ToString())
+                        {
+                            <option selected value="@item.Country_Id">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Country_Id">@item.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $('#' + '@_national01').multipleSelect({
+      //  filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        placeholder: 'Tìm kiếm quốc gia'
+    });
+    $('#' + '@_national02').multipleSelect({
+      //  filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        placeholder: 'Tìm kiếm quốc gia'
+    });
+    $('#' + '@_national03').multipleSelect({
+       // filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        placeholder: 'Tìm kiếm quốc gia'
+    });
+    $('#' + '@_national04').multipleSelect({
+     //   filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        placeholder: 'Tìm kiếm quốc gia'
+    });
+    $('#' + '@_national05').multipleSelect({
+      //  filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        placeholder: 'Tìm kiếm quốc gia'
+    });
+    $('#' + '@_national06').multipleSelect({
+       // filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        placeholder: 'Tìm kiếm quốc gia'
+    });
+    $('#' + '@_national07').multipleSelect({
+      //  filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        placeholder: 'Tìm kiếm quốc gia'
+    });
+    $('#' + '@_national08').multipleSelect({
+      //  filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        placeholder: 'Tìm kiếm quốc gia'
+    });
+</script>

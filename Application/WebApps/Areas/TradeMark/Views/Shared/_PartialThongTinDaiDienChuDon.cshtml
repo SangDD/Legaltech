@@ -25,11 +25,17 @@
     {
         styleDaiDienUQ = "checked='checked'";
     }
+    string _disable = "";
+    int _Isdisable = 0;
+    if (ViewBag.Isdisable == 1)
+    {
+        _disable = "disabled";
+    }
 }
 <div class="div-search-ad">
     <div class="div-search-content">
         <div class="div-radio">
-            <input @styleDaiDienChuDon  type="radio" name="_2_DaiDienChuDon" value="DDPL" placeholder="_2_rdoNguoiDaiDienPL" id="_2_rdoNguoiDaiDienPL" />
+            <input @styleDaiDienChuDon  type="radio" name="_2_DaiDienChuDon" value="DDPL" placeholder="_2_rdoNguoiDaiDienPL" id="_2_rdoNguoiDaiDienPL" @_disable/>
             <label>Là người đại diện theo pháp luật của chủ đơn</label>
         </div>
     </div>
@@ -39,7 +45,7 @@
 <div class="div-search-ad">
     <div class="div-search-content">
         <div class="div-radio">
-            <input @styleDaiDienSH type="radio" name="_2_DaiDienChuDon" value="DVDL" placeholder="_2_rdoToChucDichVuDL" id="_2_rdoToChucDichVuDL" />
+            <input @styleDaiDienSH type="radio" name="_2_DaiDienChuDon" value="DVDL" placeholder="_2_rdoToChucDichVuDL" id="_2_rdoToChucDichVuDL"  @_disable/>
             <label>Là tổ chức dịch vụ đại diện sở hữu công nghiệp được uỷ quyền của chủ đơn </label>
         </div>
     </div>
@@ -48,7 +54,7 @@
 <div class="div-search-ad">
     <div class="div-search-content">
         <div class="div-radio">
-            <input @styleDaiDienUQ type="radio" name="_2_DaiDienChuDon" value="NDUQ" placeholder="_2_rdoNguoiDuocUyQuyen" id="_2_rdoNguoiDuocUyQuyen" />
+            <input @styleDaiDienUQ type="radio" name="_2_DaiDienChuDon" value="NDUQ" placeholder="_2_rdoNguoiDuocUyQuyen" id="_2_rdoNguoiDuocUyQuyen" @_disable />
             <label>Là người khác được uỷ quyền của chủ đơn </label>
         </div>
     </div>
@@ -62,7 +68,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input value="@objAppHeaderInfo.Rep_Master_Name" type="text" placeholder="@txtTenDayDu" maxlength="50" id="@txtTenDayDu" />
+            <input value="@objAppHeaderInfo.Rep_Master_Name" type="text" placeholder="@txtTenDayDu" maxlength="50" id="@txtTenDayDu"  @_disable/>
         </div>
     </div>
 </div>
@@ -73,7 +79,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input value="@objAppHeaderInfo.Rep_Master_Address" type="text" placeholder="@txtDiaChi" maxlength="200" id="@txtDiaChi" />
+            <input value="@objAppHeaderInfo.Rep_Master_Address" type="text" placeholder="@txtDiaChi" maxlength="200" id="@txtDiaChi"  @_disable/>
         </div>
     </div>
 </div>
@@ -84,7 +90,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text"  value="@objAppHeaderInfo.Rep_Master_Phone" placeholder="@txtDienThoai" maxlength="50" id="@txtDienThoai" style="width: 250px;" />
+            <input type="text"  value="@objAppHeaderInfo.Rep_Master_Phone" placeholder="@txtDienThoai" maxlength="50" id="@txtDienThoai" style="width: 250px;"  @_disable/>
         </div>
     </div>
 
@@ -93,7 +99,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" value="@objAppHeaderInfo.Rep_Master_Fax"  placeholder="@txtFax" maxlength="50" id="@txtFax" />
+            <input type="text" value="@objAppHeaderInfo.Rep_Master_Fax"  placeholder="@txtFax" maxlength="50" id="@txtFax"  @_disable/>
         </div>
     </div>
     <div class="div-search-title">
@@ -101,7 +107,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" value="@objAppHeaderInfo.Rep_Master_Email"  placeholder="@txtEmail" maxlength="50" id="@txtEmail" />
+            <input type="text" value="@objAppHeaderInfo.Rep_Master_Email"  placeholder="@txtEmail" maxlength="50" id="@txtEmail"  @_disable/>
         </div>
     </div>
 </div>
