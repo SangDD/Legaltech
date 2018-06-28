@@ -67,12 +67,12 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
-        public List<AppDetail04NHInfo> AppTM04NHSearchByStatus(int p_status)
+        public List<AppDetail04NHInfo> AppTM04NHSearchByStatus(int p_status, string p_languagecode)
         {
             try
             {
                 AppDetail04NH_DA objData = new AppDetail04NH_DA();
-                DataSet ds = objData.AppTM04NHSearchByStatus(p_status);
+                DataSet ds = objData.AppTM04NHSearchByStatus(p_status, p_languagecode);
                 return CBO<AppDetail04NHInfo>.FillCollectionFromDataSet(ds);
             }
             catch (Exception ex)

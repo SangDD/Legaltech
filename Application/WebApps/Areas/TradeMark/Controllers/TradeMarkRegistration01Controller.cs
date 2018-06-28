@@ -91,7 +91,7 @@
                 AppDetail04NHBL _AppDetail04NHBL = new AppDetail04NHBL();
                 List<AppDetail04NHInfo> _list04nh = new List<AppDetail04NHInfo>();
                 // truyền vào trạng thái nào? để tạm thời = 1 cho có dữ liệu
-                _list04nh = _AppDetail04NHBL.AppTM04NHSearchByStatus(1);
+                _list04nh = _AppDetail04NHBL.AppTM04NHSearchByStatus(1, language);
                 ViewBag.ListAppDetail04NHInfo = _list04nh;
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialEditDangKyNhanHieu.cshtml");
             }
@@ -163,7 +163,7 @@
                 AppDetail04NHBL _AppDetail04NHBL = new AppDetail04NHBL();
                 List<AppDetail04NHInfo> _list04nh = new List<AppDetail04NHInfo>();
                 // truyền vào trạng thái nào? để tạm thời = 1 cho có dữ liệu
-                _list04nh = _AppDetail04NHBL.AppTM04NHSearchByStatus(1);
+                _list04nh = _AppDetail04NHBL.AppTM04NHSearchByStatus(1,  AppsCommon.GetCurrentLang());
                 ViewBag.ListAppDetail04NHInfo = _list04nh;
 
             }
@@ -468,9 +468,14 @@
                 foreach (var item in pAppDocumentInfo)
                 {
 
-                } 
+                }
+                // đẩy file lên server
+                if (pDetail.pfileLogo != null)
+                {
+                    pDetail.LOGOURL = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
+                }
 
-                if(!string.IsNullOrEmpty(pDetail.LOGOURL))
+                if (!string.IsNullOrEmpty(pDetail.LOGOURL))
                 {
                     //Kết xuất ảnh
                     document.MailMerge.FieldMerging += (sender, e) =>
@@ -605,7 +610,7 @@
             try
             {
                 
-                ViewBag.FileName = "/Content/Export/" + "Request_for_trademark_registration_vi_exp_TM06DKQT.pdf";
+                ViewBag.FileName = "/Content/Export/" + "TM06DKQT_Request_for_international_trademark_registration_vi_exp_TM06DKQT.pdf";
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialContentPreview.cshtml");
             }
             catch (Exception ex)
