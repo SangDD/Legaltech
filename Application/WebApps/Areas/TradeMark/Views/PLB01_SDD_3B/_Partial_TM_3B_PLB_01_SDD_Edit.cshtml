@@ -60,7 +60,7 @@
     </ul>
 </div>
 
-<input type="hidden" id="txtAppCode" value='@ViewBag.AppCode' />
+<input type="hidden" id="txtAppCode" value='@_AppHeaderInfo.Appcode' />
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
@@ -633,27 +633,5 @@
             return false;
         }
 
-    }
-
-    function funcPreViewApplication() {
-        if ($('#divWrapperPreview').css('display') == 'block') {
-            $('#divWrapperPreview').css('display', 'none');
-            return;
-        }
-
-        $.ajax({
-            type: "POST",
-            url: "/trade-mark/Pre-View",
-            headers: { "cache-control": "no-cache" },
-            async: false,
-            success: function (data) {
-                if (data != null) {
-                    $("#dpop-preview").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPreview', "Xem thông tin đơn", 900, 900, "");
-                    $("#divWrapperPreview").css('margin-top', '-760px');
-                }
-                return false;
-            }
-        });
     }
 </script>
