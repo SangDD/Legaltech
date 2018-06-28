@@ -636,5 +636,20 @@
                 return Json(new { success = 0 });
             }
         }
+
+        [Route("Pre-View")]
+        public ActionResult PreViewApplication(string p_appCode)
+        {
+            try
+            {
+                ViewBag.FileName = "/Content/Export/" + "B01_Request_for_amendment_of_application_vi_" + TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD + ".pdf";
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+            }
+        }
     }
 }

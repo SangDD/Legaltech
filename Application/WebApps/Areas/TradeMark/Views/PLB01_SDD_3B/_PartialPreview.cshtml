@@ -1,4 +1,13 @@
-﻿<div id="toolbox">
+﻿@using ObjectInfos;
+@{
+    ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    }
+}
+
+<div id="toolbox">
     <ul>
         <li class="toTop" style=""><a href="#top" title="Lên đầu trang"><i style=" font-size: 27px; color: green;" class="fa fa-home"></i></a></li>
         <li class="email"><a href="javascript:;" title="Xem trước"><i class="fa fa-eye" target="_blank" onclick="return funcPreViewApplication();" style=" font-size: 27px; color: green;"></i></a></li>
@@ -21,104 +30,77 @@
 
 <script>
 
-    function funGetData_Preview_3BPL01(ptype, url) {
-         try {
-             //Thông tin chủ đơn
-             var formData = new FormData();
-             if (funcThongTinDaiDienChuDon_View(formData, "1") != true) {
-                 return false;
-             }
-             var v_AppCode = $("#txtAppCode").val();
-             if (v_AppCode === "") {
-                 $('#txtAppCode').focus().val('');
-                 showError('Chưa chọn loại đơn đăng ký!');
-                 return false;
-             }
-             formData.append("pInfo.Appcode", v_AppCode);
+    function funGetData_Preview_3BPL01(url) {
+        try {
 
-             var v_AppHeaderID = $("#txtAppHeaderID").val();
-             if (v_AppHeaderID === "") {
-                 $('#txtAppHeaderID').focus().val('');
-                 showError('Không lấy được ID bản ghi!');
-                 return false;
-             }
-             formData.append("pInfo.Id", v_AppHeaderID);
+            @*//Thông tin chủ đơn
+            var formData = new FormData();
+            if (funcThongTinChuDon_View(formData, "1") != true) {
+                return false;
+            }
 
+            if (funcThongTinDaiDienChuDon_View(formData, "2") != true) {
+                return false;
+            }
 
-             if (funcThongTinChuDonNguoiDaiDien(formData, "2", View) != true) {
-                 return false;
-             }
-             var v_RepMasterType = $("input[name='3_rdoDaiDienChuDon']:checked").val();
-             if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                 showError('Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!');
-                 return false;
-             }
-             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-             //trang thai
-             formData.append("pInfo.Status", ptype);
-             //Lấy thông tin detail
-             var reponse = funcGetAppDetail(formData);
-             if (reponse == false) {
-                 return false;
-             }
-             //Lấy thông tin file có trong đơn
-             reponse = funGetThongTinFile(formData);
-             if (reponse == false) {
-                 return false;
-             }
-             reponse = funcGetDataClassInfo(formData);
-             if (reponse == false) {
-                 return false;
-             }
-             //lay tai lieu khac
-             reponse = funcGetTenTaiLieuKhac(formData);
-             if (reponse == false) {
-                 return false;
-             }
-             //
-             reponse = funcGetCamKetChuDon(formData);
-             if (reponse == false) {
-                 return false;
-             }
-             $.ajax({
-                 url: url,
-                 type: 'POST',
-                 data: formData,
-                 processData: false,
-                 contentType: false,
-                 traditional: true,
-                 dataType: "json",
-                 enctype: 'multipart/form-data',
-                 async: false,
-                 headers: {
-                     "cache-control": "no-cache"
-                 },
-                 success: function (data) {
-                     if (data != null && data.status >= 0) {
-                         return true;
-                     } else {
-                          
-                         return false;
-                     }
-                 },
-                 error: function (e) {
-                     console.log(e);
-                 }
-             });
+            //trang thai
+            formData.append("pInfo.Status", '@_AppHeaderInfo.Status');
+
+            //Lấy thông tin detail
+            var reponse = funcGetAppDetail(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            //Lấy thông tin file có trong đơn
+            reponse = funGetThongTinFile(formData);
+            if (reponse == false) {
+                return false;
+            }
+            
+            //
+            reponse = funcGetCamKetChuDon(formData);
+            if (reponse == false) {
+                return false;
+            }*@
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    pAppHeaderId: '@_AppHeaderInfo.Id',
+                    p_appCode : '@_AppHeaderInfo.Appcode'
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data != null && data.status >= 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
+            });
 
             return true;
         } catch (e) {
-
+            CreateRollingWaitingIcon(false);
         }
-
     }
 
-     function funcPreViewApplication() {
-         var preturn = funGetData_Preview_3BPL01(3, "/trade-mark-3b/ket_xuat_file");
-         if (preturn == true || preturn == undefined) {
-             OpenPreview("/trade-mark/Pre-View");
-         }
-     }
+    function funcPreViewApplication() {
+        var preturn = funGetData_Preview_3BPL01("/trade-mark-3b/ket_xuat_file");
+        if (preturn == true || preturn == undefined) {
+            OpenPreview("/trade-mark-3b/Pre-View");
+        }
+    }
 
 
     function OpenPreview(url) {
