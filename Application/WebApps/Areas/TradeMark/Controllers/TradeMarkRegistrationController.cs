@@ -155,12 +155,15 @@
                             pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID, language);
                         }
                     }
+                    else
+                    {
+                        return Json(new { status = pAppHeaderID });
+                    }
                     //Tai lieu dinh kem 
                     if (pReturn >= 0 && pAppDocumentInfo != null)
                     {
                         if (pAppDocumentInfo.Count > 0)
                         {
-                            var listDocumentInsert = new List<AppDocumentInfo>();
                             foreach (var info in pAppDocumentInfo)
                             {
                                 if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
@@ -168,15 +171,14 @@
                                     HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                     info.Filename = pfiles.FileName;
                                     info.Url_Hardcopy = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
-                                    info.Status = 0;
-                                    info.App_Header_Id = pAppHeaderID;
-                                    info.Document_Filing_Date = CommonFuc.CurrentDate();
-                                    info.Language_Code = language;
-                                    listDocumentInsert.Add(info);
+                                    
+                                  
                                 }
-                               
+                                info.Status = 0;
+                                info.App_Header_Id = pAppHeaderID;
+                                info.Language_Code = language;
+                                info.Document_Filing_Date = CommonFuc.CurrentDate();
                             }
-                            if(listDocumentInsert.Count>0)
                             pReturn = objDoc.AppDocumentInsertBath(pAppDocumentInfo, pAppHeaderID);
 
                         }
@@ -223,7 +225,7 @@
                     }
                 }
 
-                return Json(new { status = pAppHeaderID });
+                return Json(new { status = pReturn });
             }
             catch (Exception ex)
             {
@@ -774,6 +776,10 @@
                             pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pInfo.Id, language);
                         }
                     }
+                    else
+                    {
+                        return Json(new { status = pAppHeaderID });
+                    }
                     //Tai lieu dinh kem 
                     if (pReturn >= 0 && pAppDocumentInfo != null)
                     {
@@ -786,17 +792,17 @@
                                 {
                                     HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                     info.Filename = pfiles.FileName;
-                                    info.Url_Hardcopy = "/Content/Archive/" + AppUpload.Document + "/"+ pfiles.FileName;
+                                    info.Url_Hardcopy = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
                                     info.Status = 0;
-                                    info.App_Header_Id = pInfo.Id;
-                                    info.Document_Filing_Date = CommonFuc.CurrentDate();
-                                    info.Language_Code = language;
-                                    listDocumentInsert.Add(info);
+                                    in
                                 }
+                                fo.App_Header_Id = pInfo.Id;
+                                info.Document_Filing_Date = CommonFuc.CurrentDate();
+                                info.Language_Code = language;
                             }
-                            if (listDocumentInsert.Count > 0)
+                            if (pAppDocumentInfo.Count > 0)
                             {
-                                pReturn = objDoc.AppDocumentInsertBath(listDocumentInsert, pInfo.Id);
+                                pReturn = objDoc.AppDocumentInsertBath(pAppDocumentInfo, pInfo.Id);
                             }
                         }
                     }
@@ -858,7 +864,7 @@
                         scope.Complete();
                     }
                 }
-                return Json(new { status = pAppHeaderID });
+                return Json(new { status = pReturn });
             }
             catch (Exception ex)
             {
@@ -1036,6 +1042,46 @@
                 Logger.LogException(ex);
                 return -3;
             }
+        }
+
+
+        [HttpPost]
+        [Route("delete-file")]
+        public ActionResult DeleteFile(string keyFileUpload)
+        {
+            try
+            {
+                if (SessionData.CurrentUser.chashFile.ContainsKey(keyFileUpload))
+                {
+                    SessionData.CurrentUser.chashFile.Remove(keyFileUpload);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = -1 });
+            }
+            return Json(new { success = 0 });
+        }
+
+
+        [HttpPost]
+        [Route("delete-file-other")]
+        public ActionResult DeleteFileOther(string keyFileUpload)
+        {
+            try
+            {
+                if (SessionData.CurrentUser.chashFileOther.ContainsKey(keyFileUpload))
+                {
+                    SessionData.CurrentUser.chashFileOther.Remove(keyFileUpload);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = -1 });
+            }
+            return Json(new { success = 0 });
         }
     }
 }

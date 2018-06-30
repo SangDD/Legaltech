@@ -4,9 +4,9 @@ using System.Web;
 namespace ObjectInfos
 {
 
-    public class App_Detail_PLB01_SDD_Info : ApplicationHeaderInfo
+    public class App_Detail_PLB02_CGD_Info : ApplicationHeaderInfo
     {
-        public static void CopyAppHeaderInfo(ref App_Detail_PLB01_SDD_Info p_appDetail, ApplicationHeaderInfo pAppInfo)
+        public static void CopyAppHeaderInfo(ref App_Detail_PLB02_CGD_Info p_appDetail, ApplicationHeaderInfo pAppInfo)
         {
             p_appDetail.STT = pAppInfo.STT;
             p_appDetail.Detail_Id = pAppInfo.Id;
@@ -35,22 +35,22 @@ namespace ObjectInfos
             p_appDetail.Years = pAppInfo.Years;
         }
 
-        public App_Detail_PLB01_SDD_Info()
+        public App_Detail_PLB02_CGD_Info()
         {
 
         }
 
-        public App_Detail_PLB01_SDD_Info(App_Detail_PLB01_SDD_Info p_app_detail, ApplicationHeaderInfo p_app_header)
+        public App_Detail_PLB02_CGD_Info(App_Detail_PLB02_CGD_Info p_app_detail, ApplicationHeaderInfo p_app_header)
         {
             this.Language_Code = p_app_detail.Language_Code;
             this.App_Header_Id = p_app_detail.App_Header_Id;
             this.Appcode = p_app_detail.Appcode;
-            this.Request_Change_Type = p_app_detail.Request_Change_Type;
-            this.App_No_Change = p_app_detail.App_No_Change;
-            this.Request_To_Type = p_app_detail.Request_To_Type;
-            this.Request_To_Content = p_app_detail.Request_To_Content;
-            this.Number_Pic = p_app_detail.Number_Pic;
-            this.Number_Page = p_app_detail.Number_Page;
+            this.Master_Type = p_app_detail.Master_Type;
+            this.Second_Name = p_app_detail.Second_Name;
+            this.Second_Address = p_app_detail.Second_Address;
+            this.Second_Phone = p_app_detail.Second_Phone;
+            this.Second_Fax = p_app_detail.Second_Fax;
+            this.Second_Email = p_app_detail.Second_Email;
 
 
             this.STT = p_app_header.STT;
@@ -81,16 +81,21 @@ namespace ObjectInfos
         }
 
         public decimal Detail_Id { get; set; }
-        public string Language_Code { get; set; }
-
         public decimal App_Header_Id { get; set; }
+        //public string AppCode { get; set; }
         //public string Appcode { get; set; }
-        public int Request_Change_Type { get; set; }
-        public string App_No_Change { get; set; }
-        public int Request_To_Type { get; set; }
-        public string Request_To_Content { get; set; }
-        public int Number_Pic { get; set; }
-        public int Number_Page { get; set; }
+
+        public decimal Master_Type { get; set; }
+        public string Second_Name { get; set; }
+        public string Second_Address { get; set; }
+        public string Second_Phone { get; set; }
+        public string Second_Fax { get; set; }
+        public string Second_Email { get; set; }
+        public decimal Transfer_Type { get; set; }
+        public string Transfer_Appno { get; set; }
+        public string Customer_Code { get; set; }
+
+        public string Language_Code { get; set; }
 
         public decimal Fee_Id_1 { get; set; }
         public decimal Fee_Id_1_Check { get; set; }

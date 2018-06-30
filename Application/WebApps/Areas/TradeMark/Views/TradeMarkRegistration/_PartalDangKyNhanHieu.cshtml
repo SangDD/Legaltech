@@ -93,7 +93,7 @@
                         </div>
                         <div class="div-search-content">
                             <div>
-                                <input type="text" placeholder="Tên Nhãn hiệu" maxlength="50" id="0_txtTenNhanHieu" />
+                                <input type="text" placeholder="Tên Nhãn hiệu" maxlength="18" id="0_txtTenNhanHieu" />
                             </div>
                         </div>
                     </div>
@@ -433,8 +433,13 @@
         if (this.checked) { funcEnableDisable('classDacTinhHangHoa', true); } else { funcEnableDisable('classDacTinhHangHoa', false); }
     });
 
-    $("#6_rdoTLK").change(function () {
-        if (this.checked) { funcEnableDisable('ClassOtherDisable', true); } else { funcEnableDisable('ClassOtherDisable', false); }
+    $("#6_rdoTLK").change(function ()
+    {
+        if ($("#6_rdoTLK").is(":checked") == true) {
+            $("#divContainerDocOther").css('display', 'block')
+        } else {
+            $("#divContainerDocOther").css('display', 'none');
+        }
     });
     
     function funcEnableDisable(classaction, enable) {
@@ -530,7 +535,6 @@
             }
             formdata.append("pDetail.LoaiNhanHieu", v_NhanHieu);
 
-
             var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
             if (fileLogo != undefined || fileLogo != null ) {
                 formdata.append("pDetail.pfileLogo", fileLogo[0].files[0]);
@@ -586,44 +590,50 @@
                     return false;
                 }
                 formdata.append("pDetail.Nuocnopdon_Ut", v_Nuocnopdon_Ut);
+
                 //Lấy thông tin đơn số 2
+                //Nếu có hiển thị lên thì mới check 
+                if ($("#divDonUuTienSo2").is(":hidden") == false)
+                {
+                    v_QuyenUuTien2 = $("input[name='4_YCHuongQuyen2']:checked").val();
+                    if (v_QuyenUuTien2 == undefined || v_QuyenUuTien2 == null || v_QuyenUuTien2 == 0 && (pEditOrNew == 1)) {
+                        showError('Yêu cầu hưởng quyền ưu tiên phải chọn ít nhất 1 giá trị');
+                        return false;
+                    }
 
-                v_QuyenUuTien2 = $("input[name='4_YCHuongQuyen2']:checked").val();
-                if (v_QuyenUuTien2 == undefined || v_QuyenUuTien2 == null || v_QuyenUuTien2 == 0 && (pEditOrNew == 1)) {
-                    showError('Yêu cầu hưởng quyền ưu tiên phải chọn ít nhất 1 giá trị');
-                    return false;
-                }
+                    var v_Sodon_Ut2 = $("#6_txtSoDon2").val();
+                    if (v_Sodon_Ut2 == "" || v_Sodon_Ut2 == undefined && (pEditOrNew == 1)) {
+                        showError('Số đơn ưu tiên không được để trống');
+                        $("#6_txtSoDon").focus();
+                        return false;
+                    }
+                    formdata.append("pDetail.Sodon_Ut2", v_Sodon_Ut2);
 
-                var v_Sodon_Ut2 = $("#6_txtSoDon2").val();
-                if (v_Sodon_Ut2 == "" || v_Sodon_Ut2 == undefined && (pEditOrNew == 1)) {
-                    showError('Số đơn ưu tiên không được để trống');
-                    $("#6_txtSoDon").focus();
-                    return false;
-                }
-                formdata.append("pDetail.Sodon_Ut2", v_Sodon_Ut2);
-
-                var v_Ngaynopdon_Ut2 = $("#6_txtNgayNopDon2").val();
-                if (v_Ngaynopdon_Ut2 === "" || v_Ngaynopdon_Ut2 == undefined && (pEditOrNew == 1)) {
-                    showError('Ngày nộp đơn ưu tiên không được để trống');
-                    $("#6_txtNgayNopDon").focus();
-                    return false;
-                }
-                formdata.append("pDetail.Ngaynopdon_Ut2", v_Ngaynopdon_Ut2);
-
-
-                var v_Nuocnopdon_Ut2 = $("#6_txtNuocNopDon2").val();
-                if (v_Nuocnopdon_Ut2 === "" || v_Nuocnopdon_Ut2 == undefined && (pEditOrNew == 1)) {
-                    showError('Nước nộp đơn ưu tiên không được để trống');
-                    $("#6_txtNuocNopDon").focus();
-                    return false;
-                }
-                formdata.append("pDetail.Nuocnopdon_Ut2", v_Nuocnopdon_Ut2);
+                    var v_Ngaynopdon_Ut2 = $("#6_txtNgayNopDon2").val();
+                    if (v_Ngaynopdon_Ut2 === "" || v_Ngaynopdon_Ut2 == undefined && (pEditOrNew == 1)) {
+                        showError('Ngày nộp đơn ưu tiên không được để trống');
+                        $("#6_txtNgayNopDon").focus();
+                        return false;
+                    }
+                    formdata.append("pDetail.Ngaynopdon_Ut2", v_Ngaynopdon_Ut2);
 
 
+                    var v_Nuocnopdon_Ut2 = $("#6_txtNuocNopDon2").val();
+                    if (v_Nuocnopdon_Ut2 === "" || v_Nuocnopdon_Ut2 == undefined && (pEditOrNew == 1)) {
+                        showError('Nước nộp đơn ưu tiên không được để trống');
+                        $("#6_txtNuocNopDon").focus();
+                        return false;
+                    }
+                    formdata.append("pDetail.Nuocnopdon_Ut2", v_Nuocnopdon_Ut2);
+                } 
             }
 
             formdata.append("pDetail.Huongquyenuutien", v_QuyenUuTien);
             formdata.append("pDetail.Huongquyenuutien2", v_QuyenUuTien2);
+
+
+            var codeNhanHieu = $("#0_txtTenNhanHieu").val(); 
+            formdata.append("pDetail.CodeLogo", codeNhanHieu);
 
             var v_MauSac_0 = $("#0_MauSac").val();
             formdata.append("pDetail.Color", v_MauSac_0);
@@ -762,8 +772,8 @@
             reponse = funcGetCheckValueAndText(formData, "6_rdoVBuyBanTinh", "18");
             // 19 6_rdoGiayChuyenNhungUT
             reponse = funcGetCheckValueAndText(formData, "6_rdoTLKhaiTTBS", "19");
-            // 20 6_rdoGiayChuyenNhungUT
-            reponse = funcGetCheckValueAndText(formData, "6_rdoPOA", "20");
+
+
             // 21 6_rdoGiayChuyenNhungUT
             reponse = funcGetCheckValueAndText(formData, "6_rdoTLK", "21");
 
