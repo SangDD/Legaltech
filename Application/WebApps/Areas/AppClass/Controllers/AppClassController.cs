@@ -7,6 +7,7 @@ using ObjectInfos;
 using WebApps.AppStart;
 using WebApps.Session;
 using BussinessFacade.ModuleMemoryData;
+using System.Collections;
 
 namespace WebApps.Areas.AppClass.Controllers
 {
@@ -154,10 +155,12 @@ namespace WebApps.Areas.AppClass.Controllers
 
         [HttpPost]
         [Route("hang-hoa-dich-vu/combobox-search")]
-        public ActionResult combobox(string p_search)
+        public ActionResult combobox(string p_search, string p_groupcode)
         {
             List<AppClassInfo> _listRel = new List<AppClassInfo>() ;
+            Hashtable _HsGroup = new Hashtable();
             p_search = p_search.ToUpper();
+            string _KeyGroup = "";
             try
             {
                  _listRel = MemoryData.clstAppClass.FindAll(x=>x.KeySearch.Contains(p_search));
@@ -165,6 +168,45 @@ namespace WebApps.Areas.AppClass.Controllers
                 {
                     // nhiều hơn 100 thằng thì cắt
                     _listRel.RemoveRange(10, _listRel.Count - 100);  
+                }
+                foreach (var item in _listRel)
+                {
+                    _KeyGroup = item.Code.Substring(0,2);
+                    _HsGroup[_KeyGroup] = _KeyGroup;
+                }
+                ViewBag.HsGroup = _HsGroup;
+                if(!string.IsNullOrEmpty(p_groupcode))
+                {
+                    // tìm theo mã nhóm
+                    _listRel = MemoryData.clstAppClass.FindAll(x => x.GroupCode.Contains(p_search));
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return PartialView("~/Areas/TradeMark/Views/Shared/_PartialShowAppInfoSearch_New.cshtml", _listRel);
+        }
+
+        [HttpPost]
+        [Route("hang-hoa-dich-vu/combobox-search-by-group")]
+        public ActionResult comboboxSearchBygroup(string p_search, string p_groupcode)
+        {
+            List<AppClassInfo> _listRel = new List<AppClassInfo>();
+            Hashtable _HsGroup = new Hashtable();
+            p_search = p_search.ToUpper();
+            try
+            {
+                _listRel = MemoryData.clstAppClass.FindAll(x => x.KeySearch.Contains(p_search));
+                if (_listRel.Count > 100)
+                {
+                    // nhiều hơn 100 thằng thì cắt
+                    _listRel.RemoveRange(10, _listRel.Count - 100);
+                }
+                if (!string.IsNullOrEmpty(p_groupcode))
+                {
+                    // tìm theo mã nhóm
+                    _listRel = _listRel.FindAll(x => x.GroupCode.Contains(p_groupcode));
                 }
             }
             catch (Exception ex)

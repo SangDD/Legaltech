@@ -97,7 +97,6 @@ namespace WebApps.Areas.TradeMark.Controllers
                 Logger.LogException(ex);
                 return Json(new { success = -1 });
             }
-            return Json(new { success = 0 });
         }
 
         /// <summary>

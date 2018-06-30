@@ -1,0 +1,55 @@
+﻿@using ObjectInfos
+@model List<AppClassInfo>
+@using System.Collections;
+@{
+    Hashtable _HsGroup = new Hashtable();
+    if (ViewBag.HsGroup != null)
+    {
+        _HsGroup = ViewBag.HsGroup;
+    }
+
+
+    <div class="div-search-title">
+        <div>Tên đầy đủ:</div>
+    </div>
+    <div class="div-search-content" style="display:inline-block;width: 280px;">
+        <div id="DivContent_NVSCBO001_AppClassSearch" style="width:99%;display:inline-block">
+            <select id="NVSCBO001_AppClassSearch">
+                @foreach (var item in Model)
+                {
+                    <option meta-data="@item.Code" value="@item.Code">
+                        @item.DisplayValue
+                    </option>
+                }
+            </select>
+
+        </div>
+    </div>
+
+    <div class="div-search-title">
+        <div>Mã nhóm</div>
+    </div>
+    <div class="div-search-content" style="display:inline-block;width: 180px;">
+        <div id="" style="width:99%;display:inline-block">
+            <select id="NVSCBOAppSearchByGroup01" onchange="NVSFunc001ShowComboxSearchByGroup('txtTenHangHoa', 'DivContent_NVSCBO001_AppClassSearch', 'NVSCBOAppSearchByGroup01')">
+                <option>Chọn mã nhóm</option>
+                @foreach (string item in _HsGroup.Keys)
+                {
+                    <option value="@item">
+                        @item
+                    </option>
+                }
+            </select>
+
+        </div>
+    </div>
+    <script>
+        $('#NVSCBO001_AppClassSearch').multipleSelect({
+            filter: true,
+            noMatchesFound: "Không tìm thấy dữ liệu",
+            single: true,
+            isdatastring: false,
+            placeholder: 'Tìm kiếm dữ liệu hàng hóa'
+        });
+    </script>
+}

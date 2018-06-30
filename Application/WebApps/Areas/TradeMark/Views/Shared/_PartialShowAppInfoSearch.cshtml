@@ -1,14 +1,16 @@
 ﻿@using ObjectInfos
 @model List<AppClassInfo>
+@using System.Collections;
 @{
-  <select id="NVSCBO001_AppClassSearch">
-      @foreach (var item in Model)
-      {
-          <option meta-data="@item.Code" value="@item.Code">
-              @item.DisplayValue
-          </option>
-      }
-  </select>
+       <select id="NVSCBO001_AppClassSearch">
+           @foreach (var item in Model)
+           {
+               <option meta-data="@item.Code" value="@item.Code">
+                   @item.DisplayValue
+               </option>
+           }
+       </select>
+  
   <script>
       $('#NVSCBO001_AppClassSearch').multipleSelect({
           filter: true,

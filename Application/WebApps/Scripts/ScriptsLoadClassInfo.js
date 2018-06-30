@@ -66,3 +66,32 @@ function NVSFunc001ShowComboxSearch(_textboxid, _divid)
     }
 }
 
+
+function NVSFunc001ShowComboxSearchByGroup(_textboxid, _divid, _cboGroupid) {
+    try {
+        var inputValue = $("#" + _textboxid).val();
+        if (inputValue == "")
+            return;
+        var cboGroupValue = $("#" + _cboGroupid).val();
+        if (cboGroupValue == "")
+            return;
+        $.ajax({
+            type: "POST",
+            url: "/quan-ly-thong-tin/hang-hoa-dich-vu/combobox-search-by-group",
+            headers: { "cache-control": "no-cache" },
+            data: { p_search: $("#" + _textboxid).val(), p_groupcode: cboGroupValue },
+            async: false,
+            success: function (data) {
+                if (data != null) {
+                    if (validateResponse(data)) {
+                        $("#" + _divid).html(data);
+                    }
+                }
+                return false;
+            }
+        });
+    } catch (e) {
+        alert(e.toString())
+    }
+}
+

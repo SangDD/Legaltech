@@ -12,6 +12,8 @@ namespace ObjectInfos
 
         public string KeySearch { get; set; }
 
+        public string GroupCode { get; set; }
+
         public string DisplayValue { get; set; }
     }
 
