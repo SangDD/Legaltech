@@ -52,7 +52,7 @@
         <div class="div_full_100_area">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN KHÁC")
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
-            <a href="javascript:;" onclick="return funcShowOrHidden('divHienChuDonKhac');" style="text-decoration:underline; color: blue;float: right;padding-top: 5px;">Thêm chủ đơn</a>
+            
         </div>
         @*CHỦ ĐƠN KHÁC 1*@
         <div hidden="hidden" id="divHienChuDonKhac">
@@ -60,6 +60,10 @@
             {
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", i.ToString())
             }
+        </div>
+        @* Thêm chủ đơn *@
+        <div  class="div_full_100_area">
+            <a href="javascript:;" onclick="return funcShowOrHidden('divHienChuDonKhac');" style="text-decoration:underline; color: blue;float: right;">Thêm chủ đơn</a>
         </div>
         @* Nhan hieu *@
         <div class="div_full_100_area">
@@ -145,7 +149,7 @@
 
         </div>
         @* End tai lieu dinh kem  *@
-        <div class="div_full_100_area"  style="display:none"  id="divNhanHieuChungNhan" >
+        <div class="div_full_100_area" style="display:none" id="divNhanHieuChungNhan">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "MÔ TẢ TÓM TẮT ĐẶC TÍNH CỦA HÀNG HOÁ/DỊCH VỤ ĐƯỢC CHỨNG NHẬN")
 
             <div class="div-search-ad">
@@ -378,9 +382,6 @@
         @*TÀI LIỆU KHÁC*@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac.cshtml", "12")
 
-
-
-
         @* CAM KẾT CHỦ ĐƠN  *@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewNgayThangNam.cshtml")
 
@@ -432,6 +433,10 @@
         if (this.checked) { funcEnableDisable('classDacTinhHangHoa', true); } else { funcEnableDisable('classDacTinhHangHoa', false); }
     });
 
+    $("#6_rdoTLK").change(function () {
+        if (this.checked) { funcEnableDisable('ClassOtherDisable', true); } else { funcEnableDisable('ClassOtherDisable', false); }
+    });
+    
     function funcEnableDisable(classaction, enable) {
         if (enable == true) { $("." + classaction).removeAttr('disabled'); } else { $("." + classaction).attr('disabled', 'disabled'); }
     }
@@ -463,6 +468,7 @@
 
     $(document).ready(function () {
         funcEnableDisable('classDacTinhUT', false);
+        funcEnableDisable('ClassOtherDisable', false);
         $.datetimepicker.setLocale('vi');
         $('.datetimepicker').datetimepicker({
             timepicker: false,

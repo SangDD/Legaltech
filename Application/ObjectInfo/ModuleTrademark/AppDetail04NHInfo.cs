@@ -72,5 +72,10 @@ namespace ObjectInfos
         public string Ngaynopdon_UtExp2 { get; set; }
         public string Nuocnopdon_Ut2 { get; set; }
         public string Huongquyenuutien2 { get; set; }
+
+        public string YCCapPho1 { get; set; }
+        public string YCCapPho2 { get; set; }
+        public string YCCapPho3 { get; set; }
+        public string YCCapPho4 { get; set; }
     }
 }

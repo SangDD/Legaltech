@@ -60,11 +60,11 @@
     </ul>
 </div>
 
-<input type="hidden" id="txtAppCode" value='@ViewBag.AppCode' />
+<input type="hidden" id="txtAppCode" value='@_AppHeaderInfo.Appcode' />
 
 <div class="div-search ">
-    <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
-        <legend> SỬA ĐỔI ĐƠN ĐĂNG KÝ ĐỐI TƯỢNG SỞ HỮU CÔNG NGHIỆP </legend>
+    <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
+        <legend style="font-weight:600"> SỬA ĐỔI ĐƠN ĐĂNG KÝ ĐỐI TƯỢNG SỞ HỮU CÔNG NGHIỆP </legend>
 
         @* 3 - ĐƠN YÊU CẦU SỬA ĐỔI *@
         <div class="divCover cls_form_title">
@@ -393,7 +393,7 @@
     </fieldset>
 </div>
 
-@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialPreview.cshtml")
+@Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialPreview_IU.cshtml")
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
     </div>
@@ -633,27 +633,5 @@
             return false;
         }
 
-    }
-
-    function funcPreViewApplication() {
-        if ($('#divWrapperPreview').css('display') == 'block') {
-            $('#divWrapperPreview').css('display', 'none');
-            return;
-        }
-
-        $.ajax({
-            type: "POST",
-            url: "/trade-mark/Pre-View",
-            headers: { "cache-control": "no-cache" },
-            async: false,
-            success: function (data) {
-                if (data != null) {
-                    $("#dpop-preview").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPreview', "Xem thông tin đơn", 900, 900, "");
-                    $("#divWrapperPreview").css('margin-top', '-760px');
-                }
-                return false;
-            }
-        });
     }
 </script>

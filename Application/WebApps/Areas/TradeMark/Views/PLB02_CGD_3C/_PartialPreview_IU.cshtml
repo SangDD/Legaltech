@@ -29,22 +29,23 @@
 
 
 <script>
-
-    function funGetData_Preview_3BPL01(url) {
+    function funGetData_Preview_3CPL02(url) {
         try {
 
-            @*//Thông tin chủ đơn
             var formData = new FormData();
-            if (funcThongTinChuDon_View(formData, "1") != true) {
+            formData.append("pInfo.Appcode", $("#txtAppCode").val());
+
+            //Thông tin chủ đơn
+            if (funcThongTinChuDon_Exp(formData, "1") != true) {
                 return false;
             }
 
-            if (funcThongTinDaiDienChuDon_View(formData, "2") != true) {
+            if (funcThongTinDaiDienChuDon_Exp(formData, "2") != true) {
                 return false;
             }
 
-            //trang thai
-            formData.append("pInfo.Status", '@_AppHeaderInfo.Status');
+            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+            formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
 
             //Lấy thông tin detail
             var reponse = funcGetAppDetail(formData);
@@ -53,25 +54,24 @@
             }
 
             //Lấy thông tin file có trong đơn
-            reponse = funGetThongTinFile(formData);
+            reponse = funGetDocumentFile(formData);
             if (reponse == false) {
                 return false;
             }
-            
+
             //
             reponse = funcGetCamKetChuDon(formData);
             if (reponse == false) {
                 return false;
-            }*@
+            }
 
             $.ajax({
                 url: url,
                 type: 'POST',
-                data: {
-                    pAppHeaderId: '@_AppHeaderInfo.Id',
-                    p_appCode : '@_AppHeaderInfo.Appcode'
-                },
-                async: true, cache: false, traditional: true,
+                data: formData,
+                async: true,
+                processData: false, contentType: false, traditional: true, dataType: "json",
+                enctype: 'multipart/form-data', headers: { "cache-control": "no-cache" },
                 beforeSend: function () {
                     CreateRollingWaitingIcon(true);
                 },
@@ -96,9 +96,9 @@
     }
 
     function funcPreViewApplication() {
-        var preturn = funGetData_Preview_3BPL01("/trade-mark-3b/ket_xuat_file");
+        var preturn = funGetData_Preview_3CPL02("/trade-mark-3c/ket_xuat_fileIU");
         if (preturn == true || preturn == undefined) {
-            OpenPreview("/trade-mark-3b/Pre-View");
+            OpenPreview("/trade-mark-3c/Pre-View");
         }
     }
 

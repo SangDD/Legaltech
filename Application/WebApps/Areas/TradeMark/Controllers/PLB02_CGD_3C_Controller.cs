@@ -18,9 +18,9 @@
     using BussinessFacade.ModuleMemoryData;
 
     [ValidateAntiForgeryTokenOnAllPosts]
-    [RouteArea("TradeMarkRegistration", AreaPrefix = "trade-mark-3b")]
+    [RouteArea("TradeMarkRegistration", AreaPrefix = "trade-mark-3c")]
     [Route("{action}")]
-    public class PLB01_SDD_3B_Controller : Controller
+    public class PLB02_CGD_3C_Controller : Controller
     {
         [HttpGet]
         [Route("register/{id}")]
@@ -39,17 +39,17 @@
                     AppCode = RouteData.Values["id"].ToString().ToUpper();
                 }
                 ViewBag.AppCode = AppCode;
-                return PartialView("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_TM_3B_PLB_01_SDD.cshtml");
+                return PartialView("~/Areas/TradeMark/Views/PLB02_CGD_3C/_Partial_TM_3C_PLB_02_SDD.cshtml");
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return PartialView("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_TM_3B_PLB_01_SDD.cshtml");
+                return PartialView("~/Areas/TradeMark/Views/PLB02_CGD_3C/_Partial_TM_3C_PLB_02_SDD.cshtml");
             }
         }
 
         [HttpPost]
-        [Route("register_PLB_01_SDD")]
+        [Route("register_PLB_02_CGD")]
         public ActionResult Register_PLB_01_SDD(ApplicationHeaderInfo pInfo, App_Detail_PLB01_SDD_Info pDetail,
             List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo)
         {
@@ -234,9 +234,8 @@
             }
         }
 
-
         [HttpPost]
-        [Route("Edit_PLB_01_SDD")]
+        [Route("Edit_PLB_02_CGD")]
         public ActionResult Edit_PLB_01_SDD(ApplicationHeaderInfo pInfo, App_Detail_PLB01_SDD_Info pDetail,
             List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo)
         {
@@ -446,46 +445,6 @@
         }
 
         [HttpPost]
-        [Route("push-file-to-server")]
-        public ActionResult PushFileToServer(AppDocumentInfo pInfo)
-        {
-            try
-            {
-                if (pInfo.pfiles != null)
-                {
-                    var url = AppLoadHelpers.PushFileToServer(pInfo.pfiles, AppUpload.Document);
-                    SessionData.CurrentUser.chashFile[pInfo.keyFileUpload] = pInfo.pfiles;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return Json(new { success = -1 });
-            }
-            return Json(new { success = 0 });
-        }
-
-        [HttpPost]
-        [Route("delete-file")]
-        public ActionResult DeleteFile(string keyFileUpload)
-        {
-            try
-            {
-                if (SessionData.CurrentUser.chashFile.ContainsKey(keyFileUpload))
-                {
-                    SessionData.CurrentUser.chashFile.Remove(keyFileUpload);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return Json(new { success = -1 });
-            }
-            return Json(new { success = 0 });
-        }
-
-
-        [HttpPost]
         [Route("ket_xuat_file")]
         public ActionResult ExportData_View(decimal pAppHeaderId, string p_appCode)
         {
@@ -500,11 +459,11 @@
                 App_Detail_PLB01_SDD_BL objBL = new App_Detail_PLB01_SDD_BL();
                 app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
 
-                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/B01_Request_for_amendment_of_application_vi.doc");
+                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/B02_VI.doc");
                 DocumentModel document = DocumentModel.Load(_fileTemp);
 
                 // Fill export_header
-                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_Request_for_amendment_of_application_vi_" + p_appCode + ".pdf");
+                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_VI_" + p_appCode + ".pdf");
 
                 #region Tài liệu có trong đơn
 
@@ -631,11 +590,11 @@
             try
             {
                 string language = AppsCommon.GetCurrentLang();
-                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/B01_Request_for_amendment_of_application_vi.doc");
+                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/B02_VI.doc");
                 DocumentModel document = DocumentModel.Load(_fileTemp);
 
                 // Fill export_header
-                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_Request_for_amendment_of_application_vi_" + TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD + ".pdf");
+                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_VI_" + TradeMarkAppCode.AppCode_TM_3C_PLB_02_CGD + ".pdf");
 
                 // copy Header
                 App_Detail_PLB01_SDD_Info.CopyAppHeaderInfo(ref pDetail, pInfo);
@@ -839,7 +798,7 @@
         {
             try
             {
-                ViewBag.FileName = "/Content/Export/" + "B01_Request_for_amendment_of_application_vi_" + TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD + ".pdf";
+                ViewBag.FileName = "/Content/Export/" + "B02_VI_" + TradeMarkAppCode.AppCode_TM_3C_PLB_02_CGD + ".pdf";
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
             }
             catch (Exception ex)
