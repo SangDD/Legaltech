@@ -21,13 +21,15 @@ namespace DataAccess
 
                     new OracleParameter("p_master_type", OracleDbType.Decimal, pInfo.Master_Type, ParameterDirection.Input),
                     new OracleParameter("p_second_name", OracleDbType.Varchar2, pInfo.Second_Name, ParameterDirection.Input),
-                    new OracleParameter("p_second_address", OracleDbType.Decimal, pInfo.Second_Address, ParameterDirection.Input),
+                    new OracleParameter("p_second_address", OracleDbType.Varchar2, pInfo.Second_Address, ParameterDirection.Input),
                     new OracleParameter("p_second_phone", OracleDbType.Varchar2, pInfo.Second_Phone, ParameterDirection.Input),
-                    new OracleParameter("p_second_fax", OracleDbType.Decimal, pInfo.Second_Fax, ParameterDirection.Input),
-                    new OracleParameter("p_second_email", OracleDbType.Decimal, pInfo.Second_Email, ParameterDirection.Input),
+                    new OracleParameter("p_second_fax", OracleDbType.Varchar2, pInfo.Second_Fax, ParameterDirection.Input),
+                    new OracleParameter("p_second_email", OracleDbType.Varchar2, pInfo.Second_Email, ParameterDirection.Input),
+
+                    new OracleParameter("p_customer_code", OracleDbType.Varchar2, pInfo.Customer_Code, ParameterDirection.Input),
 
                     new OracleParameter("p_transfer_type", OracleDbType.Decimal, pInfo.Transfer_Type, ParameterDirection.Input),
-                    new OracleParameter("p_transfer_appno", OracleDbType.Decimal, pInfo.Transfer_Appno, ParameterDirection.Input),
+                    new OracleParameter("p_transfer_appno", OracleDbType.Varchar2, pInfo.Transfer_Appno, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToDecimal(paramReturn.Value.ToString());
                 return result;
@@ -52,13 +54,14 @@ namespace DataAccess
 
                     new OracleParameter("p_master_type", OracleDbType.Decimal, pInfo.Master_Type, ParameterDirection.Input),
                     new OracleParameter("p_second_name", OracleDbType.Varchar2, pInfo.Second_Name, ParameterDirection.Input),
-                    new OracleParameter("p_second_address", OracleDbType.Decimal, pInfo.Second_Address, ParameterDirection.Input),
+                    new OracleParameter("p_second_address", OracleDbType.Varchar2, pInfo.Second_Address, ParameterDirection.Input),
                     new OracleParameter("p_second_phone", OracleDbType.Varchar2, pInfo.Second_Phone, ParameterDirection.Input),
-                    new OracleParameter("p_second_fax", OracleDbType.Decimal, pInfo.Second_Fax, ParameterDirection.Input),
-                    new OracleParameter("p_second_email", OracleDbType.Decimal, pInfo.Second_Email, ParameterDirection.Input),
+                    new OracleParameter("p_second_fax", OracleDbType.Varchar2, pInfo.Second_Fax, ParameterDirection.Input),
+                    new OracleParameter("p_second_email", OracleDbType.Varchar2, pInfo.Second_Email, ParameterDirection.Input),
+                    new OracleParameter("p_customer_code", OracleDbType.Varchar2, pInfo.Customer_Code, ParameterDirection.Input),
 
                     new OracleParameter("p_transfer_type", OracleDbType.Decimal, pInfo.Transfer_Type, ParameterDirection.Input),
-                    new OracleParameter("p_transfer_appno", OracleDbType.Decimal, pInfo.Transfer_Appno, ParameterDirection.Input),
+                    new OracleParameter("p_transfer_appno", OracleDbType.Varchar2, pInfo.Transfer_Appno, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;

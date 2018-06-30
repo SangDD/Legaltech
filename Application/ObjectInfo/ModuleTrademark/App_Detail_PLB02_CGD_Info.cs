@@ -44,7 +44,7 @@ namespace ObjectInfos
         {
             this.Language_Code = p_app_detail.Language_Code;
             this.App_Header_Id = p_app_detail.App_Header_Id;
-            this.AppCode = p_app_detail.Appcode;
+            this.Appcode = p_app_detail.Appcode;
             this.Master_Type = p_app_detail.Master_Type;
             this.Second_Name = p_app_detail.Second_Name;
             this.Second_Address = p_app_detail.Second_Address;
@@ -82,7 +82,9 @@ namespace ObjectInfos
 
         public decimal Detail_Id { get; set; }
         public decimal App_Header_Id { get; set; }
-        public string AppCode { get; set; }
+        //public string AppCode { get; set; }
+        //public string Appcode { get; set; }
+
         public decimal Master_Type { get; set; }
         public string Second_Name { get; set; }
         public string Second_Address { get; set; }
@@ -91,6 +93,8 @@ namespace ObjectInfos
         public string Second_Email { get; set; }
         public decimal Transfer_Type { get; set; }
         public string Transfer_Appno { get; set; }
+        public string Customer_Code { get; set; }
+
         public string Language_Code { get; set; }
 
         public decimal Fee_Id_1 { get; set; }

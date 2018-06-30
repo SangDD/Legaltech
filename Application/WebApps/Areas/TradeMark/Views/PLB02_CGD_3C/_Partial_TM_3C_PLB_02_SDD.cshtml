@@ -49,7 +49,7 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio" style="width:382px">
-                    <input type="radio" name="1_rdoChuDon" value="1">
+                    <input type="radio" name="1_rdoChuDon" value="1" id="rb_1_ChuDonChuyenNhuong">
                     <label>là bên chuyển nhượng</label>
                 </div>
             </div>
@@ -71,7 +71,7 @@
         </div>
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
 
-        <div class="div-search-ad clssDisplaynone" id="divSoHinhSoTrang">
+        <div class="div-search-ad">
             <div class="div-search-title">
                 <div>Mã đại diện:</div>
             </div>
@@ -159,7 +159,7 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-checkbox">
-                    <input type="checkbox" name="ckb_6_Doc_ToKhai" id="ckb_6_Doc_ToKhai" value="02_CGD_01" checked="checked">
+                    <input type="checkbox" name="ckb_6_Doc_02_CGD_01" id="ckb_6_Doc_02_CGD_01" value="02_CGD_01" checked="checked">
                     <label>Tờ khai, gồm 2 trang x2 bản</label>
                 </div>
             </div>
@@ -183,7 +183,7 @@
         @* 4. Bản dịch tiếng Việt, gồm *@
         @{
             string _doc_id4 = "02_CGD_04";
-            string _model4 = _doc_id4 + "|6_Doc_BDichTv|0|Bản dịch tiếng Việt, gồm|Số trang|1";
+            string _model4 = _doc_id4 + "|6_Doc_02_CGD_04|0|Bản dịch tiếng Việt, gồm|Số trang|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)
         }
 
@@ -268,60 +268,60 @@
 
 <script>
     $(document).ready(function () {
-        $.datetimepicker.setLocale('vi');
-        $('.datetimepicker').datetimepicker({
-            timepicker: false,
-            format: 'd/m/Y',
-            formatDate: 'd/m/Y',
-            mask: '39/19/9999',
-            validateOnBlur: false,
-            scrollInput: false
-        });
+        //$.datetimepicker.setLocale('vi');
+        //$('.datetimepicker').datetimepicker({
+        //    timepicker: false,
+        //    format: 'd/m/Y',
+        //    formatDate: 'd/m/Y',
+        //    mask: '39/19/9999',
+        //    validateOnBlur: false,
+        //    scrollInput: false
+        //});
     });
-
-    function ShowHiden_SoHinhSoTrang() {
-        try {
-            if ($("#3_rdDonSangChe").is(':checked') || $("#3_rdKieuDangCongNghiep ").is(':checked')) {
-                $("#divSoHinhSoTrang").removeClass("clssDisplaynone");
-                $("#txt_SoHinh").focus();
-            }
-            else {
-                $("#divSoHinhSoTrang").addClass("clssDisplaynone");
-            }
-        } catch (e) {
-            alert(e);
-        }
-    }
 
 
     $("#btnGuiDon").click(function () {
         try {
 
-            //Thông tin chủ đơn
             var formData = new FormData();
-            if (funcThongTinChuDon(formData, "1") != true) {
-                return false;
-            }
-
             formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai)');
+
             var v_AppCode = $("#txtAppCode").val();
             if (v_AppCode === "") {
                 $('#txtAppCode').focus().val('');
                 showError('Chưa chọn loại đơn đăng ký!');
                 return false;
             }
+            formData.append("pInfo.Appcode", v_AppCode);
+
+            //Thông tin chủ đơn
+            if (funcThongTinChuDon(formData, "1") != true) {
+                return false;
+            }
+            var Master_Type = $("input[name='1_rdoChuDon']:checked").val();
+            if (Master_Type === "" || Master_Type == undefined) {
+                jError("Phải chọn ít nhất 1 giá trị chủ đơn!", "lỗi", function () {
+                    $("#rb_1_ChuDonChuyenNhuong").focus()
+                });
+                return false;
+            }
+            formData.append("pDetail.Master_Type", Master_Type);
+
 
             // đại diện chủ đơn
-            formData.append("pInfo.Appcode", v_AppCode);
             if (funcThongTinDaiDienChuDon(formData, "2") != true) {
                 return false;
             }
+
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                jError("Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!");
+                jError("Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!", "lỗi", function () {
+                    $("#_2_rdoNguoiDaiDienPL").focus()
+                });
                 return false;
             }
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+
 
             //Lấy thông tin detail
             var reponse = funcGetAppDetail(formData);
@@ -340,22 +340,29 @@
                 return false;
             }
 
+            // Display the values
+            for (var value of formData.values()) {
+                console.log(value);
+            }
+
+            // Display the values
+            for (var key of formData.keys()) {
+                console.log(key);
+            }
+
             $.ajax({
                 url: '/trade-mark-3c/register_PLB_02_CGD',
                 type: 'POST',
                 data: formData,
-                processData: false,
-                contentType: false,
-                traditional: true,
+                processData: false, contentType: false, traditional: true, async: false,
                 dataType: "json",
                 enctype: 'multipart/form-data',
-                async: true,
                 headers: { "cache-control": "no-cache" },
-                beforeSend: function () {
-                    CreateRollingWaitingIcon(true);
-                },
+                //beforeSend: function () {
+                //    CreateRollingWaitingIcon(true);
+                //},
                 success: function (data) {
-                    CreateRollingWaitingIcon(false);
+                    //CreateRollingWaitingIcon(false);
                     if (data != null && data.status >= 0) {
                         jAlert(AddSuccess, ThongBao, function () {
                         });
@@ -365,13 +372,13 @@
                     }
                 },
                 error: function (e) {
-                    CreateRollingWaitingIcon(false);
+                    //CreateRollingWaitingIcon(false);
                     console.log(e);
                 }
             });
 
         } catch (e) {
-            CreateRollingWaitingIcon(false);
+            //CreateRollingWaitingIcon(false);
             console.log(e);
         }
     });
@@ -379,11 +386,7 @@
     $("#btnLuuTam").click(function () {
         try {
 
-            //Thông tin chủ đơn
             var formData = new FormData();
-            if (funcThongTinChuDon(formData, "1") != true) {
-                return false;
-            }
             formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.Luu_tam)');
 
             var v_AppCode = $("#txtAppCode").val();
@@ -392,18 +395,37 @@
                 showError('Chưa chọn loại đơn đăng ký!');
                 return false;
             }
+            formData.append("pInfo.AppCode", v_AppCode);
+
+            //Thông tin chủ đơn
+            if (funcThongTinChuDon(formData, "1") != true) {
+                return false;
+            }
+            var Master_Type = $("input[name='1_rdoChuDon']:checked").val();
+            if (Master_Type === "" || Master_Type == undefined) {
+                jError("Phải chọn ít nhất 1 giá trị chủ đơn!", "lỗi", function () {
+                    $("#rb_1_ChuDonChuyenNhuong").focus()
+                });
+                return false;
+            }
+            formData.append("pDetail.Master_Type", v_RepMasterType);
+
 
             // đại diện chủ đơn
-            formData.append("pInfo.Appcode", v_AppCode);
             if (funcThongTinDaiDienChuDon(formData, "2") != true) {
                 return false;
             }
+
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                jError("Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!");
+                jError("Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!", "lỗi", function () {
+                    $("#_2_rdoNguoiDaiDienPL").focus()
+                });
                 return false;
             }
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+
+           
 
             //Lấy thông tin detail
             var reponse = funcGetAppDetail(formData);
@@ -458,66 +480,33 @@
 
     function funcGetAppDetail(formData) {
         try {
-            var _YeuCauSuaDoi = $("input[name='3_rdoYeuCauSuaDoi']:checked").val();
-            if (_YeuCauSuaDoi === "" || _YeuCauSuaDoi == undefined) {
-                showError('Phải chọn ít nhất 1 giá trị đơn yêu cầu sửa đổi!');
+
+            // BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN)
+            if (funcThongTinChuDon(formData, "3") != true) {
                 return false;
             }
-            formData.append("pDetail.Request_Change_Type", parseInt(_YeuCauSuaDoi));
 
-            var _soHinh = 0;
-            var _soTrang = 0;
-            if ($("#3_rdDonSangChe").is(':checked') || $("#3_rdKieuDangCongNghiep ").is(':checked')) {
-                _soHinh = $("#txt_SoHinh").val();
-                _soTrang = $("#txt_SoTrang").val();
+            var txt_MaDaiDien = $("#txt_MaDaiDien").val();
+            formData.append("pDetail.Customer_Code", txt_MaDaiDien);
 
-                if (_soHinh == "" || _soTrang == "") {
-
-                    if (_soHinh == "") {
-                        jError("Số hình không được để trống!", "lỗi", function () {
-                            $("#txt_SoHinh").focus()
-                        });
-                        return false;
-                    }
-
-                    if (_soTrang == "") {
-                        jError("Số trang không được để trống!", "lỗi", function () {
-                            $("#txt_SoTrang").focus()
-                        });
-                        return false;
-                    }
-                }
+            var _DonDuocChuyenNhuong = $("input[name='4_rdoDonDuocChuyenNhuong']:checked").val();
+            if (_DonDuocChuyenNhuong === "" || _DonDuocChuyenNhuong == undefined) {
+                jError("Phải chọn ít nhất 1 giá trị đơn yêu cầu chuyển nhượng!", "lỗi", function () {
+                    $("#4_rdDK_SC").focus()
+                });
+                return false;
             }
-            formData.append("pDetail.Number_Pic", parseInt(_soHinh));
-            formData.append("pDetail.Number_Page", parseInt(_soTrang));
+            formData.append("pDetail.Transfer_Type", parseInt(_DonDuocChuyenNhuong));
 
             // số đơn
-            var _3_SoDon = $("#3_SoDon").val();
-            if (_3_SoDon === "" || _3_SoDon == undefined) {
+            var _4_txt_SoDon = $("#4_txt_SoDon").val();
+            if (_4_txt_SoDon === "" || _4_txt_SoDon == undefined) {
                 jError("Số đơn không được để trống!", "lỗi", function () {
-                    $("#3_SoDon").focus()
+                    $("#4_txt_SoDon").focus()
                 });
                 return false;
             }
-            formData.append("pDetail.App_No_Change", _3_SoDon);
-
-            // Nội dung yêu cầu sửa đổi
-            var _Request_To_Type = $("input[name='4_rdoNoiDungYeuCauSuaDoi']:checked").val();
-            if (_Request_To_Type === "" || _Request_To_Type == undefined) {
-                jError("Phải chọn ít nhất 1 giá trị nội dung yêu cầu sửa đổi !");
-                return false;
-            }
-            formData.append("pDetail.Request_To_Type", parseInt(_Request_To_Type));
-
-            // đề nghị sửa thành
-            var _4_DeNghiSuaThanh = $("#4_DeNghiSuaThanh").val();
-            if (_4_DeNghiSuaThanh === "" || _4_DeNghiSuaThanh == undefined) {
-                jError("Đề nghị sửa thành không được để trống!", "lỗi", function () {
-                    $("#4_DeNghiSuaThanh").focus()
-                });
-                return false;
-            }
-            formData.append("pDetail.Request_To_Content", _4_DeNghiSuaThanh);
+            formData.append("pDetail.Transfer_Appno", _4_txt_SoDon);
         } catch (e) {
             console.log(e);
             showError('Có lỗi xảy ra kiểm tra kết nối internet');
@@ -530,45 +519,45 @@
             var Isuse = 0, Note = "", reponse = false;
 
             // 1. Tờ khai
-            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_ToKhai", "0"); 
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_02_CGD_01", "0");
 
             // 2. Tài liệu xác nhận
             reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_02_CGD_02", "1");
             formData.append("pAppDocumentInfo[1].CHAR01", $("#txt_6_Doc_02_CGD_02").val());
 
-            // 3 Văn bản đồng ý 
-            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_02_CGD_03", "2"); 
+            // 3 Văn bản đồng ý
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_02_CGD_03", "2");
 
-            // 4
-            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BDichTv", "2"); 
-            formData.append("pAppDocumentInfo[3].CHAR01", $("#txt_6_Doc_02_CGD_02").val());
+            // 4 Bản dịch tiếng Việt, gồm
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_02_CGD_04", "3");
+            formData.append("pAppDocumentInfo[3].CHAR01", $("#txt_6_Doc_02_CGD_04").val());
 
             // 5 -> 5.0 Giấy uỷ quyền bằng tiếng
-            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_POA", "3");
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_POA", "4");
             formData.append("pAppDocumentInfo[4].CHAR01", $("#txt_6_Doc_POA").val());
 
             // 6 -> 5.1 Bản dịch tiếng Việt, gồm
-            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanDichPOA", "4");
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanDichPOA", "5");
             formData.append("pAppDocumentInfo[5].CHAR01", $("#txt_6_Doc_BanDichPOA").val());
 
             // 7 -> 5.2 Bản gốc
-            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanGocPOA", "5");
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanGocPOA", "6");
 
             // 8 -> 5.3 Bản sao
-            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanSaoPOA", "6");
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanSaoPOA", "7");
 
             // 9 -> 5.3.1  Bản gốc sẽ nộp sau
-            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanGocPOA_Later", "7");
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanGocPOA_Later", "8");
 
             // 10 -> 5.3.2  Bản gốc đã nộp theo đơn số
-            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanGocPOA_ByApp", "8");
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanGocPOA_ByApp", "9");
             formData.append("pAppDocumentInfo[9].CHAR01", $("#txt_6_Doc_BanGocPOA_ByApp").val());
 
             // 11 Bản sao chứng từ nộp phí, lệ phí
-            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanSaoChungTu", "9");
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanSaoChungTu", "10");
 
             // 12 Tài liệu khác, cụ thể:
-            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_Other", "10");
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_Other", "11");
             formData.append("pAppDocumentInfo[11].CHAR01", $("#txt_6_Doc_Other").val());
         } catch (e) {
             console.log(e);
@@ -590,27 +579,5 @@
             return false;
         }
 
-    }
-
-    function funcPreViewApplication() {
-        if ($('#divWrapperPreview').css('display') == 'block') {
-            $('#divWrapperPreview').css('display', 'none');
-            return;
-        }
-
-        $.ajax({
-            type: "POST",
-            url: "/trade-mark/Pre-View",
-            headers: { "cache-control": "no-cache" },
-            async: false,
-            success: function (data) {
-                if (data != null) {
-                    $("#dpop-preview").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPreview', "Xem thông tin đơn", 900, 900, "");
-                    $("#divWrapperPreview").css('margin-top', '-760px');
-                }
-                return false;
-            }
-        });
     }
 </script>
