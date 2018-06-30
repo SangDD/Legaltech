@@ -469,7 +469,9 @@
             }
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                jError("Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!");
+                jError("Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!", "lỗi", function () {
+                    $("#_2_rdoNguoiDaiDienPL").focus()
+                });
                 return false;
             }
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
@@ -551,8 +553,9 @@
             }
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                jError("Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!");
-                return false;
+                jError("Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!", "lỗi", function () {
+                    $("#_2_rdoNguoiDaiDienPL").focus()
+                });
             }
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
 
@@ -611,7 +614,9 @@
         try {
             var _YeuCauSuaDoi = $("input[name='3_rdoYeuCauSuaDoi']:checked").val();
             if (_YeuCauSuaDoi === "" || _YeuCauSuaDoi == undefined) {
-                showError('Phải chọn ít nhất 1 giá trị đơn yêu cầu sửa đổi!');
+                jError("Phải chọn ít nhất 1 giá trị đơn yêu cầu sửa đổi!", "lỗi", function () {
+                    $("#3_rdDonSangChe").focus()
+                });
                 return false;
             }
             formData.append("pDetail.Request_Change_Type", parseInt(_YeuCauSuaDoi));
@@ -655,7 +660,9 @@
             // Nội dung yêu cầu sửa đổi
             var _Request_To_Type = $("input[name='4_rdoNoiDungYeuCauSuaDoi']:checked").val();
             if (_Request_To_Type === "" || _Request_To_Type == undefined) {
-                jError("Phải chọn ít nhất 1 giá trị nội dung yêu cầu sửa đổi !");
+                jError("Phải chọn ít nhất 1 giá trị nội dung yêu cầu sửa đổi !", "lỗi", function () {
+                    $("#4_rdTenChuDon").focus()
+                });
                 return false;
             }
             formData.append("pDetail.Request_To_Type", parseInt(_Request_To_Type));
@@ -739,27 +746,5 @@
             return false;
         }
 
-    }
-
-    function funcPreViewApplication() {
-        if ($('#divWrapperPreview').css('display') == 'block') {
-            $('#divWrapperPreview').css('display', 'none');
-            return;
-        }
-
-        $.ajax({
-            type: "POST",
-            url: "/trade-mark/Pre-View",
-            headers: { "cache-control": "no-cache" },
-            async: false,
-            success: function (data) {
-                if (data != null) {
-                    $("#dpop-preview").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPreview', "Xem thông tin đơn", 900, 900, "");
-                    $("#divWrapperPreview").css('margin-top', '-760px');
-                }
-                return false;
-            }
-        });
     }
 </script>

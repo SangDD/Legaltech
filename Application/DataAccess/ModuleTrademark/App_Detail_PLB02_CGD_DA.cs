@@ -6,24 +6,30 @@ using System;
 using System.Data;
 namespace DataAccess
 {
-    public class App_Detail_PLB01_SDD_DA
+    public class App_Detail_PLB02_CGD_DA
     {
 
-        public decimal Insert(App_Detail_PLB01_SDD_Info pInfo)
+        public decimal Insert(App_Detail_PLB02_CGD_Info pInfo)
         {
             try
             {
                 OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
-                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_detail_plb01_sdd.Proc_Plb01_Sdd_Insert",
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_detail_plb02_cgd.Proc_Insert",
                     new OracleParameter("p_app_header_id", OracleDbType.Decimal, pInfo.App_Header_Id, ParameterDirection.Input),
                     new OracleParameter("p_appcode", OracleDbType.Varchar2, pInfo.Appcode, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, pInfo.Language_Code, ParameterDirection.Input),
-                    new OracleParameter("p_request_change_type", OracleDbType.Decimal, pInfo.Request_Change_Type, ParameterDirection.Input),
-                    new OracleParameter("p_app_no_change", OracleDbType.Varchar2, pInfo.App_No_Change, ParameterDirection.Input),
-                    new OracleParameter("p_request_to_type", OracleDbType.Decimal, pInfo.Request_To_Type, ParameterDirection.Input),
-                    new OracleParameter("p_request_to_content", OracleDbType.Varchar2, pInfo.Request_To_Content, ParameterDirection.Input),
-                    new OracleParameter("p_number_pic", OracleDbType.Decimal, pInfo.Number_Pic, ParameterDirection.Input),
-                    new OracleParameter("p_number_page", OracleDbType.Decimal, pInfo.Number_Page, ParameterDirection.Input),
+
+                    new OracleParameter("p_master_type", OracleDbType.Decimal, pInfo.Master_Type, ParameterDirection.Input),
+                    new OracleParameter("p_second_name", OracleDbType.Varchar2, pInfo.Second_Name, ParameterDirection.Input),
+                    new OracleParameter("p_second_address", OracleDbType.Varchar2, pInfo.Second_Address, ParameterDirection.Input),
+                    new OracleParameter("p_second_phone", OracleDbType.Varchar2, pInfo.Second_Phone, ParameterDirection.Input),
+                    new OracleParameter("p_second_fax", OracleDbType.Varchar2, pInfo.Second_Fax, ParameterDirection.Input),
+                    new OracleParameter("p_second_email", OracleDbType.Varchar2, pInfo.Second_Email, ParameterDirection.Input),
+
+                    new OracleParameter("p_customer_code", OracleDbType.Varchar2, pInfo.Customer_Code, ParameterDirection.Input),
+
+                    new OracleParameter("p_transfer_type", OracleDbType.Decimal, pInfo.Transfer_Type, ParameterDirection.Input),
+                    new OracleParameter("p_transfer_appno", OracleDbType.Varchar2, pInfo.Transfer_Appno, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToDecimal(paramReturn.Value.ToString());
                 return result;
@@ -36,22 +42,26 @@ namespace DataAccess
         }
 
 
-        public int UpDate(App_Detail_PLB01_SDD_Info pInfo)
+        public int UpDate(App_Detail_PLB02_CGD_Info pInfo)
         {
             try
             {
                 var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
-                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_detail_plb01_sdd.Proc_Plb01_Sdd_Update",
-                    new OracleParameter("p_id", OracleDbType.Decimal, pInfo.Detail_Id, ParameterDirection.Input),
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_detail_plb02_cgd.Proc_Update",
                     new OracleParameter("p_app_header_id", OracleDbType.Decimal, pInfo.App_Header_Id, ParameterDirection.Input),
                     new OracleParameter("p_appcode", OracleDbType.Varchar2, pInfo.Appcode, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, pInfo.Language_Code, ParameterDirection.Input),
-                    new OracleParameter("p_request_change_type", OracleDbType.Decimal, pInfo.Request_Change_Type, ParameterDirection.Input),
-                    new OracleParameter("p_app_no_change", OracleDbType.Varchar2, pInfo.App_No_Change, ParameterDirection.Input),
-                    new OracleParameter("p_request_to_type", OracleDbType.Decimal, pInfo.Request_To_Type, ParameterDirection.Input),
-                    new OracleParameter("p_request_to_content", OracleDbType.Varchar2, pInfo.Request_To_Content, ParameterDirection.Input),
-                    new OracleParameter("p_number_pic", OracleDbType.Varchar2, pInfo.Number_Pic, ParameterDirection.Input),
-                    new OracleParameter("p_number_page", OracleDbType.Varchar2, pInfo.Number_Page, ParameterDirection.Input),
+
+                    new OracleParameter("p_master_type", OracleDbType.Decimal, pInfo.Master_Type, ParameterDirection.Input),
+                    new OracleParameter("p_second_name", OracleDbType.Varchar2, pInfo.Second_Name, ParameterDirection.Input),
+                    new OracleParameter("p_second_address", OracleDbType.Varchar2, pInfo.Second_Address, ParameterDirection.Input),
+                    new OracleParameter("p_second_phone", OracleDbType.Varchar2, pInfo.Second_Phone, ParameterDirection.Input),
+                    new OracleParameter("p_second_fax", OracleDbType.Varchar2, pInfo.Second_Fax, ParameterDirection.Input),
+                    new OracleParameter("p_second_email", OracleDbType.Varchar2, pInfo.Second_Email, ParameterDirection.Input),
+                    new OracleParameter("p_customer_code", OracleDbType.Varchar2, pInfo.Customer_Code, ParameterDirection.Input),
+
+                    new OracleParameter("p_transfer_type", OracleDbType.Decimal, pInfo.Transfer_Type, ParameterDirection.Input),
+                    new OracleParameter("p_transfer_appno", OracleDbType.Varchar2, pInfo.Transfer_Appno, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;
@@ -68,7 +78,7 @@ namespace DataAccess
             try
             {
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
-                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_detail_plb01_sdd.Proc_Plb01_Sdd_Delete",
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_detail_plb02_cgd.Proc_Delete",
                     new OracleParameter("p_app_header_id", OracleDbType.Decimal, pAppHeaderID, ParameterDirection.Input),
                     new OracleParameter("p_appcode", OracleDbType.Varchar2, pAppCode, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
@@ -88,7 +98,7 @@ namespace DataAccess
         {
             try
             {
-                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_detail_plb01_sdd.Proc_GetById",
+                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_detail_plb02_cgd.Proc_GetById",
                     new OracleParameter("p_app_header_id", OracleDbType.Decimal, p_app_header_id, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
                     new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output),
