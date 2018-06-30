@@ -17,22 +17,21 @@
     string pfile = "pfile_" + AfterID;
     string txtMaxFile = "txt_" + AfterID;
     string btnTaiFile = "btnUp_" + AfterID;
-    string ifafaCheck = "i_" + AfterID;
     string div_Img = "div_img_" + AfterID;
     string div_Up = "div_up_" + AfterID;
-
-    string _image_id = "ImgDelFile_" + AfterID;
-    string _span_Id = "spanResultfile_" + AfterID;
-    string btnShowChoseFile = "btnShow" + AfterID;
+    string div_RemoveImg = "div_img_remove_" + AfterID;
 }
 
-<div class="div-search-ad clssDisplaynone @AfterID"   id="@div_Up" data-level="@Level">
+<div class="div-search-ad clssDisplaynone @AfterID" id="@div_Up" data-level="@Level">
     <div class="div-search-content">
         <div class="div-checkbox">
             <input type="button" value="Chọn file" class="btn" onclick="return Click_Upload_File('@AfterID')" style="margin:2px;" />
             <div>
                 <input type="file" id="@pfile" name="@pfile" style="display:none" onchange="FuncChooseResultFile('@AfterID')" />
             </div>
+
+            <div class="div-checkbox clssDisplaynone" id="@div_RemoveImg"><img onclick="RemoveFile('@AfterID')" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" /> </div>
+
         </div>
     </div>
 
@@ -41,20 +40,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="Tên file Maximum file size is 2MB" id="@txtMaxFile" style="width:561px" />
-        </div>
-    </div>
-
-    <div class="div-search-content clssDisplaynone" id="@div_Img">
-        <div class="div-checkbox">
-            <img onclick="RemoveFile('@AfterID')" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" id="@_image_id" />
-        </div>
-    </div>
-
-    <div class="div-search-content">
-        <div class="div-checkbox" style="width:70px ">
-            <input type="button" value="Tải file" class="btn" style="margin:2px;" id="@btnTaiFile" onclick="return funcPushFileToServer('@AfterID');" />
-            <i class="fa fa-check" id="@ifafaCheck" style="font-size:15px;color:green ;display:none"></i>
+            <input type="text" placeholder="Tên file Maximum file size is 2MB" id="@txtMaxFile" style="width:561px;" readonly="readonly" />
         </div>
     </div>
 </div>
@@ -72,23 +58,22 @@
             if (pfile.val() == "") {
                 _textFile.val("");
 
-                $("#div_img_" + p_AfterID).addClass("clssDisplaynone");
-
+                $("#div_img_remove_" + p_AfterID).addClass("clssDisplaynone");
                 _txt.style.width = "561px";
             }
             else {
                 var _Filename = pfile[0].files[0].name.toString();
                 _textFile.val(_Filename);
-
-                $("#div_img_" + p_AfterID).removeClass("clssDisplaynone");
-
+                $("#div_img_remove_" + p_AfterID).removeClass("clssDisplaynone");
                 _txt.style.width = "536px";
+                //Tải file lên server
+                funcPushFileToServer(p_AfterID);
+
             }
         } catch (e) {
             alert(e);
         }
     }
-
 
     function Click_Upload_File(p_AfterID) {
         var _idfile = "pfile_" + p_AfterID;
@@ -96,17 +81,34 @@
     }
 
     function RemoveFile(p_AfterID) {
-        $("#div_img_" + p_AfterID).addClass("clssDisplaynone");
 
-        $("#pfile_" + p_AfterID).val('');
+        var keyFileUpload = p_AfterID;
+        try {
+            var keyFileUpload = p_AfterID;
+            $.ajax({
+                type: 'POST',
+                url: '/trade-mark/delete-file',
+                data: {
+                    keyFileUpload: keyFileUpload
+                },
+                async: true, cache: false, traditional: true,
+                success: function (data) {
+                    if (data.success == 0) {
+                        $("#div_img_remove_" + p_AfterID).addClass("clssDisplaynone");
+                        $("#divcheckFile_" + p_AfterID).addClass("clssDisplaynone");
 
-        var _textFile =$("#txt_" +p_AfterID);
-        _textFile.val("");
+                        $("#pfile_" + p_AfterID).val('');
 
-        var _txt = document.getElementById("txt_" + p_AfterID);
-        _txt.style.width = "561px";
+                        var _textFile = $("#txt_" + p_AfterID);
+                        _textFile.val("");
+                    }
+                }
+            });
+
+        } catch (e) {
+
+        }
     }
-
 
     function funcPushFileToServer(pID) {
         try {

@@ -103,7 +103,8 @@
         document.getElementById(_idfile).click();
     }
 
-    function RemoveFile(p_AfterID) {
+    function RemoveFile(p_AfterID)
+    {
         try {
             var keyFileUpload = p_AfterID;
             $.ajax({
@@ -114,7 +115,8 @@
                 },
                 async: true, cache: false, traditional: true,
                 success: function (data) {
-                    if (data.success == 0) {
+                    if (data.success == 0)
+                    {
                         $("#div_img_remove_" + p_AfterID).addClass("clssDisplaynone");
                         $("#divcheckFile_" + p_AfterID).addClass("clssDisplaynone");
 
