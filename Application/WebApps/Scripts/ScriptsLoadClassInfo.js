@@ -73,8 +73,7 @@ function NVSFunc001ShowComboxSearchByGroup(_textboxid, _divid, _cboGroupid) {
         if (inputValue == "")
             return;
         var cboGroupValue = $("#" + _cboGroupid).val();
-        if (cboGroupValue == "")
-            return;
+        
         $.ajax({
             type: "POST",
             url: "/quan-ly-thong-tin/hang-hoa-dich-vu/combobox-search-by-group",
