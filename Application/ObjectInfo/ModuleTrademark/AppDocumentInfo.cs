@@ -25,5 +25,7 @@ namespace ObjectInfos.ModuleTrademark
 
         public string styleCheck { get; set; }
 
+        public string divUpLoadFile { get; set; }
+
     }
 }

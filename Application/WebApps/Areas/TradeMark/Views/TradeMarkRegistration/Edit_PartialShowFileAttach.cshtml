@@ -29,36 +29,9 @@
         </div>
         <div class="div-search-content">
             <div class="div-checkbox" style="width: 160px">
-                <img onclick="RemoveFileEdit('@ObjDocInfo.Id')" class="@ObjDocInfo.Id" src="~/Content/icons/delete_file.png" style="margin: 9px 5px 5px 9px;" />
-                <i class="fa fa-undo" onclick="UndoFileEdit('@ObjDocInfo.Id')" style="margin: 9px 5px 5px 9px; color:green;font-weight:bold" placeholder="undo" aria-hidden="true"></i>
+                <img onclick="RemoveFileEdit('@ObjDocInfo.Id','@ObjDocInfo.divUpLoadFile')" class="@ObjDocInfo.Id" src="~/Content/icons/delete_file.png" style="margin: 9px 5px 5px 9px;" />
+                <i class="fa fa-undo" onclick="UndoFileEdit('@ObjDocInfo.Id','@ObjDocInfo.divUpLoadFile')" style="margin: 9px 5px 5px 9px; color:green;font-weight:bold" placeholder="undo" aria-hidden="true"></i>
             </div>
         </div>
     </div>
 }
-<script>
-    function RemoveFileEdit(pID) {
-        try {
-            $("." + pID).css('display', 'none');
-            var lstID = $("#txtDocumentInAppRemove").val();
-            lstID = lstID + pID + "|";
-            $("#txtDocumentInAppRemove").val(lstID);
-        } catch (e) {
-        }
-    }
-
-    //undo lai
-    function UndoFileEdit(pID) {
-        try {
-            $("." + pID).css('display', 'block');
-
-            var arrlistID = $("#txtDocumentInAppRemove").val();
-            var pIDUndo = pID + "|";
-            if (arrlistID.indexOf(pIDUndo) != -1) {
-                arrlistID = arrlistID.replace(pIDUndo, "");
-            }
-            $("#txtDocumentInAppRemove").val(arrlistID);
-        } catch (e) {
-        }
-    }
-
-</script> 
