@@ -70,12 +70,12 @@
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
             <div class="div-checkbox" style="width:422px">
-                <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_14_2" id="6_rdoTLCMQUT_2" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_14_2" id="6_rdoTLCMQUT_2" name="6_rdoTLCMQUT_2"  onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>Tài liệu chứng minh quyền ưu tiên</label>
             </div>
         </div>
         <div class="div-search-content">
-            <input type="text" id="6_txtTLCMQUT_2" class="classDacTinhUT" maxlength="3" placeholder="Số bản" />
+            <input type="text" id="6_txtTLCMQUT_2" disabled="disabled"  maxlength="3" placeholder="Số bản" />
         </div>
         <div class="div-search-title" style="width:412px">
             <div>bản</div>
@@ -84,12 +84,12 @@
     <div class="div-search-ad" style="display:inline-flex;    margin-left: 40px;">
         <div class="div-search-content">
             <div class="div-checkbox" style="width:185px">
-                <input type="checkbox" maxlength="3" class="classDacTinhUT" value="04NH_D_15_2" id="6_rdoBSDDT_2" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <input type="checkbox" maxlength="3" class="classDacTinhUT" value="04NH_D_15_2" id="6_rdoBSDDT_2" name="6_rdoBSDDT_2" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>Bản sao đơn đầu tiên, gồm</label>
             </div>
         </div>
         <div class="div-search-content">
-            <input type="text" id="6_txtBSDDT_2" class="classDacTinhUT" maxlength="3" placeholder="Số bản" />
+            <input type="text" id="6_txtBSDDT_2"  disabled="disabled" maxlength="3" placeholder="Số bản" />
         </div>
         <div class="div-search-title" style="width:493px">
             <div>bản</div>
@@ -101,12 +101,12 @@
     <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
         <div class="div-search-content">
             <div class="div-checkbox">
-                <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_16_2" id="6_rdoBDTVGom_2" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_16_2" id="6_rdoBDTVGom_2" name="6_rdoBDTVGom_2" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>Bản dịch tiếng Việt, gồm</label>
             </div>
         </div>
         <div class="div-search-content">
-            <input type="text" id="6_txtBDTVGom_2" class="classDacTinhUT" maxlength="3" placeholder="Số bản" />
+            <input type="text" id="6_txtBDTVGom_2"  disabled="disabled" maxlength="3" placeholder="Số bản" />
         </div>
         <div class="div-search-title" style="width:510px">
             <div>bản</div>
@@ -128,3 +128,18 @@
     </div>
 
 </div>
+
+
+<script>
+    $("input[name='6_rdoTLCMQUT_2'").change(function () {
+        funcAddRemoveDisabled("6_rdoTLCMQUT_2", "6_txtTLCMQUT_2");
+    });
+
+    $("input[name='6_rdoBSDDT_2'").change(function () {
+        funcAddRemoveDisabled("6_rdoBSDDT_2", "6_txtBSDDT_2");
+    });
+
+    $("input[name='6_rdoBDTVGom_2'").change(function () {
+        funcAddRemoveDisabled("6_rdoBDTVGom_2", "6_txtBDTVGom_2");
+    });
+</script>

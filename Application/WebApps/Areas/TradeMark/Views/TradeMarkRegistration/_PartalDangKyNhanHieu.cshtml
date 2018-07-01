@@ -52,7 +52,7 @@
         <div class="div_full_100_area">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN KHÁC")
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
-            
+
         </div>
         @*CHỦ ĐƠN KHÁC 1*@
         <div hidden="hidden" id="divHienChuDonKhac">
@@ -62,7 +62,7 @@
             }
         </div>
         @* Thêm chủ đơn *@
-        <div  class="div_full_100_area">
+        <div class="div_full_100_area">
             <a href="javascript:;" onclick="return funcShowOrHidden('divHienChuDonKhac');" style="text-decoration:underline; color: blue;float: right;">Thêm chủ đơn</a>
         </div>
         @* Nhan hieu *@
@@ -314,12 +314,12 @@
             <div class="div-search-ad" style="display:inline-flex;">
                 <div class="div-search-content">
                     <div class="div-checkbox" style="width:422px">
-                        <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_14" id="6_rdoTLCMQUT" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                        <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_14" id="6_rdoTLCMQUT" name="NameTLUT04NH_D_14"  onchange="return ShowHidenUpLoad(this.id, this.id);" />
                         <label>Tài liệu chứng minh quyền ưu tiên</label>
                     </div>
                 </div>
                 <div class="div-search-content">
-                    <input type="text" id="6_txtTLCMQUT" class="classDacTinhUT" maxlength="3" placeholder="Số bản" />
+                    <input type="text" id="6_txtTLCMQUT"  disabled="disabled" maxlength="3" placeholder="Số bản" />
                 </div>
                 <div class="div-search-title" style="width:412px">
                     <div>bản</div>
@@ -328,12 +328,12 @@
             <div class="div-search-ad" style="display:inline-flex;    margin-left: 40px;">
                 <div class="div-search-content">
                     <div class="div-checkbox" style="width:185px">
-                        <input type="checkbox" maxlength="3" class="classDacTinhUT" value="04NH_D_15" id="6_rdoBSDDT" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                        <input type="checkbox" maxlength="3" class="classDacTinhUT" value="04NH_D_15" id="6_rdoBSDDT"  name="NameTLUT04NH_D_15" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                         <label>Bản sao đơn đầu tiên, gồm</label>
                     </div>
                 </div>
                 <div class="div-search-content">
-                    <input type="text" id="6_txtBSDDT" class="classDacTinhUT" maxlength="3" placeholder="Số bản" />
+                    <input type="text" id="6_txtBSDDT"   disabled="disabled" maxlength="3" placeholder="Số bản" />
                 </div>
                 <div class="div-search-title" style="width:493px">
                     <div>bản</div>
@@ -345,12 +345,12 @@
             <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
                 <div class="div-search-content">
                     <div class="div-checkbox">
-                        <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_16" id="6_rdoBDTVGom" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                        <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_16" id="6_rdoBDTVGom" name="NameTLUT04NH_D_16" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                         <label>Bản dịch tiếng Việt, gồm</label>
                     </div>
                 </div>
                 <div class="div-search-content">
-                    <input type="text" id="6_txtBDTVGom" class="classDacTinhUT" maxlength="3" placeholder="Số bản" />
+                    <input type="text" id="6_txtBDTVGom"  disabled="disabled" maxlength="3" placeholder="Số bản" />
                 </div>
                 <div class="div-search-title" style="width:510px">
                     <div>bản</div>
@@ -408,11 +408,39 @@
 </style>
 
 <script>
+     //disable enable 
+    $("input[name='NameTLUT04NH_D_14'").change(function ()
+    {
+        funcAddRemoveDisabled("6_rdoTLCMQUT","6_txtTLCMQUT");
+    });
+
+    $("input[name='NameTLUT04NH_D_15'").change(function () {
+        funcAddRemoveDisabled("6_rdoBSDDT", "6_txtBSDDT");
+    });
+
+    $("input[name='NameTLUT04NH_D_16'").change(function () {
+        funcAddRemoveDisabled("6_rdoBDTVGom", "6_txtBDTVGom");
+    });
+
+
+    function funcAddRemoveDisabled(pIDControl,ptxtDisable) {
+        try {
+            if ($("#" + pIDControl).is(':checked')) {
+                $("#" + ptxtDisable).removeAttr('disabled');
+            } else {
+                $("#" + ptxtDisable).attr('disabled', 'disabled');
+            }
+        } catch (e) {
+
+        }
+    }
+
+
 
     $("input[name='0_NhanHieu'").change(function () {
         var v_NhanHieu = $("input[name='0_NhanHieu']:checked").val();
         if (v_NhanHieu == "NHCN") {
-            $("#divNhanHieuChungNhan").css('display','block')
+            $("#divNhanHieuChungNhan").css('display', 'block')
         } else {
             $("#divNhanHieuChungNhan").css('display', 'none');
         }
@@ -433,15 +461,14 @@
         if (this.checked) { funcEnableDisable('classDacTinhHangHoa', true); } else { funcEnableDisable('classDacTinhHangHoa', false); }
     });
 
-    $("#6_rdoTLK").change(function ()
-    {
+    $("#6_rdoTLK").change(function () {
         if ($("#6_rdoTLK").is(":checked") == true) {
             $("#divContainerDocOther").css('display', 'block')
         } else {
             $("#divContainerDocOther").css('display', 'none');
         }
     });
-    
+
     function funcEnableDisable(classaction, enable) {
         if (enable == true) { $("." + classaction).removeAttr('disabled'); } else { $("." + classaction).attr('disabled', 'disabled'); }
     }
@@ -536,7 +563,7 @@
             formdata.append("pDetail.LoaiNhanHieu", v_NhanHieu);
 
             var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
-            if (fileLogo != undefined || fileLogo != null ) {
+            if (fileLogo != undefined || fileLogo != null) {
                 formdata.append("pDetail.pfileLogo", fileLogo[0].files[0]);
             } else {
                 showError('Mẫu nhãn hiệu không được để trống');
@@ -558,8 +585,7 @@
 
             var v_QuyenUuTien = 0;
             var v_QuyenUuTien2 = 0;
-            if (v_CoSDQuyenUT == 1)
-            {
+            if (v_CoSDQuyenUT == 1) {
                 v_QuyenUuTien = $("input[name='4_YCHuongQuyen']:checked").val();
                 if (v_QuyenUuTien == undefined || v_QuyenUuTien == null || v_QuyenUuTien == 0 && (pEditOrNew == 1)) {
                     showError('Yêu cầu hưởng quyền ưu tiên phải chọn ít nhất 1 giá trị');
@@ -592,9 +618,8 @@
                 formdata.append("pDetail.Nuocnopdon_Ut", v_Nuocnopdon_Ut);
 
                 //Lấy thông tin đơn số 2
-                //Nếu có hiển thị lên thì mới check 
-                if ($("#divDonUuTienSo2").is(":hidden") == false)
-                {
+                //Nếu có hiển thị lên thì mới check
+                if ($("#divDonUuTienSo2").is(":hidden") == false) {
                     v_QuyenUuTien2 = $("input[name='4_YCHuongQuyen2']:checked").val();
                     if (v_QuyenUuTien2 == undefined || v_QuyenUuTien2 == null || v_QuyenUuTien2 == 0 && (pEditOrNew == 1)) {
                         showError('Yêu cầu hưởng quyền ưu tiên phải chọn ít nhất 1 giá trị');
@@ -625,14 +650,14 @@
                         return false;
                     }
                     formdata.append("pDetail.Nuocnopdon_Ut2", v_Nuocnopdon_Ut2);
-                } 
+                }
             }
 
             formdata.append("pDetail.Huongquyenuutien", v_QuyenUuTien);
             formdata.append("pDetail.Huongquyenuutien2", v_QuyenUuTien2);
 
 
-            var codeNhanHieu = $("#0_txtTenNhanHieu").val(); 
+            var codeNhanHieu = $("#0_txtTenNhanHieu").val();
             formdata.append("pDetail.CodeLogo", codeNhanHieu);
 
             var v_MauSac_0 = $("#0_MauSac").val();
@@ -785,7 +810,7 @@
 
             reponse = funcGetCheckValueAndText(formData, "6_rdoBSDDT_2", "23");
             formData.append("pAppDocumentInfo[23].CHAR01", $("#6_txtBSDDT_2").val());
-            
+
             // 23 6_rdoBDTVGom
             reponse = funcGetCheckValueAndText(formData, "6_rdoBDTVGom_2", "24");
             formData.append("pAppDocumentInfo[24].CHAR01", $("#6_txtBDTVGom_2").val());

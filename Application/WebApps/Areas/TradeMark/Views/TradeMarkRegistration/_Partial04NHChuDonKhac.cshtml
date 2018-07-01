@@ -10,7 +10,8 @@
     string txtEmail = Model + "_txtEmail";
     string txtYCCapPho = Model + "_txtYCCapPho";
     var objAppHeaderInfo = new AppDetail04NHInfo();
-    string Name = "", Address = "", Phone = "", Fax = "", Email = "";
+    string Name = "", Address = "", Phone = "", Fax = "", Email = "" ,YCCapPho ="";
+    string styleYCCP = "";
     if (Model == "10")
     {
         if (ViewBag.objAppHeaderInfo != null)
@@ -21,6 +22,7 @@
             Phone = objAppHeaderInfo.Cdk_Phone_2;
             Fax = objAppHeaderInfo.Cdk_Fax_2;
             Email = objAppHeaderInfo.Cdk_Email_2;
+            YCCapPho = objAppHeaderInfo.YCCapPho2;
         }
     }else if (Model == "11")
     {
@@ -32,6 +34,7 @@
             Phone = objAppHeaderInfo.Cdk_Phone_3;
             Fax = objAppHeaderInfo.Cdk_Fax_3;
             Email = objAppHeaderInfo.Cdk_Email_3;
+            YCCapPho = objAppHeaderInfo.YCCapPho3;
         }
     }
     else if (Model == "12")
@@ -44,6 +47,7 @@
             Phone = objAppHeaderInfo.Cdk_Phone_4;
             Fax = objAppHeaderInfo.Cdk_Fax_4;
             Email = objAppHeaderInfo.Cdk_Email_4;
+            YCCapPho = objAppHeaderInfo.YCCapPho4;
         }
     }
     //Dùng cho khi view chi tiết đơn  ViewBag.disableView đc truyền từ form view tổng
@@ -51,6 +55,10 @@
     if (!string.IsNullOrEmpty(ViewBag.disableView))
     {
         disableView = ViewBag.disableView;
+    }
+    if (YCCapPho == "Y")
+    {
+        styleYCCP = "checked='checked'";
     }
 }
 <div class="div_full_100_area">
@@ -105,7 +113,7 @@
     <div class="div-search-ad">
         <div class="div-search-content">
             <div class="div-checkbox">
-                <input type="checkbox" name="@txtYCCapPho" value="N" placeholder="@txtYCCapPho" id="@txtYCCapPho" />
+                <input type="checkbox"  @styleYCCP  name="@txtYCCapPho" value="@YCCapPho" placeholder="@txtYCCapPho" id="@txtYCCapPho" />
                 <label>Có yêu cầu cấp Phó bản Giấy chứng nhận đăng ký nhãn hiệu</label>
             </div>
         </div>

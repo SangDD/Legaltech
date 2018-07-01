@@ -763,8 +763,6 @@
                         {
                             pDetail.Logourl = pDetail.LogourlOrg;
                         }
-
-
                         pReturn = objDetail.App_Detail_04NH_Update(pDetail);
                         //Thêm thông tin class
                         if (pReturn >= 0 && pAppClassInfo!=null)
@@ -793,10 +791,9 @@
                                     HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                     info.Filename = pfiles.FileName;
                                     info.Url_Hardcopy = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
-                                    info.Status = 0;
-                                    in
                                 }
-                                fo.App_Header_Id = pInfo.Id;
+                                info.Status = 0;
+                                info.App_Header_Id = pInfo.Id;
                                 info.Document_Filing_Date = CommonFuc.CurrentDate();
                                 info.Language_Code = language;
                             }

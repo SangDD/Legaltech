@@ -33,39 +33,39 @@
 
     foreach (var item in lstDocumentInfo)
     {
-        if (item.Document_Id == "04NH_D_04")
+        if (item.Document_Id == "04NH_D_04" && item.Isuse == 1)
         {
             objDocumentInfoPOA = item;
             objDocumentInfoPOA.styleCheck = "checked= 'checked'";
         }
         //Ban goocs
-        else if(item.Document_Id == "04NH_D_05")
+        else if(item.Document_Id == "04NH_D_05" && item.Isuse == 1)
         {
             ObjInfo04NH_D_5 = item;
             ObjInfo04NH_D_5.styleCheck = "checked= 'checked'";
         }
         //ban sao
-        else if (item.Document_Id == "04NH_D_06")
+        else if (item.Document_Id == "04NH_D_06" && item.Isuse == 1)
         {
             ObjInfo04NH_D_6 = item;
             ObjInfo04NH_D_6.styleCheck = "checked= 'checked'";
         }
         //04NH_D_07
-        else if (item.Document_Id == "04NH_D_07")
+        else if (item.Document_Id == "04NH_D_07" && item.Isuse == 1)
         {
             ObjInfo04NH_D_7 = item;
             ObjInfo04NH_D_7.styleCheck = "checked= 'checked'";
         }
 
         //04NH_D_08
-        else if (item.Document_Id == "04NH_D_08")
+        else if (item.Document_Id == "04NH_D_08" && item.Isuse == 1)
         {
             ObjInfo04NH_D_8 = item;
             ObjInfo04NH_D_8.styleCheck = "checked= 'checked'";
         }
 
         //04NH_D_09
-        else if (item.Document_Id == "04NH_D_09")
+        else if (item.Document_Id == "04NH_D_09" && item.Isuse == 1)
         {
             ObjInfo04NH_D_9 = item;
             ObjInfo04NH_D_9.styleCheck = "checked= 'checked'";
@@ -73,14 +73,14 @@
 
 
         //04NH_D_10
-        else if (item.Document_Id == "04NH_D_10")
+        else if (item.Document_Id == "04NH_D_10" && item.Isuse == 1)
         {
             ObjInfo04NH_D_10 = item;
             ObjInfo04NH_D_10.styleCheck = "checked= 'checked'";
         }
 
         //04NH_D_11
-        else if (item.Document_Id == "04NH_D_11")
+        else if (item.Document_Id == "04NH_D_11" && item.Isuse == 1)
         {
             ObjInfo04NH_D_11 = item;
             ObjInfo04NH_D_11.styleCheck = "checked= 'checked'";
@@ -88,14 +88,14 @@
 
 
         //04NH_D_12
-        else if (item.Document_Id == "04NH_D_12")
+        else if (item.Document_Id == "04NH_D_12" && item.Isuse == 1)
         {
             ObjInfo04NH_D_12 = item;
             ObjInfo04NH_D_12.styleCheck = "checked= 'checked'";
         }
 
         //04NH_D_13
-        else if (item.Document_Id == "04NH_D_13")
+        else if (item.Document_Id == "04NH_D_13" && item.Isuse == 1)
         {
             ObjInfo04NH_D_13 = item;
             ObjInfo04NH_D_13.styleCheck = "checked= 'checked'";
@@ -103,30 +103,30 @@
 
 
         //04NH_D_14
-        
+
         //04NH_D_18
-        else if (item.Document_Id == "04NH_D_18")
+        else if (item.Document_Id == "04NH_D_18" && item.Isuse == 1)
         {
             ObjInfo04NH_D_18 = item;
             ObjInfo04NH_D_18.styleCheck = "checked= 'checked'";
         }
 
         //04NH_D_19
-        else if (item.Document_Id == "04NH_D_19")
+        else if (item.Document_Id == "04NH_D_19" && item.Isuse == 1)
         {
             ObjInfo04NH_D_19 = item;
             ObjInfo04NH_D_19.styleCheck = "checked= 'checked'";
         }
 
         //04NH_D_20
-        else if (item.Document_Id == "04NH_D_20")
+        else if (item.Document_Id == "04NH_D_20" && item.Isuse == 1)
         {
             ObjInfo04NH_D_20 = item;
             ObjInfo04NH_D_20.styleCheck = "checked= 'checked'";
         }
 
         //04NH_D_22
-        else if (item.Document_Id == "04NH_D_20")
+        else if (item.Document_Id == "04NH_D_22" && item.Isuse == 1)
         {
             ObjInfo04NH_D_22 = item;
             ObjInfo04NH_D_22.styleCheck = "checked= 'checked'";
@@ -211,7 +211,7 @@
             </div>
         </div>
     </div>
-    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoToKhai")
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoToKhai")
     <div class="div-search-ad" style="display:none;">
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
@@ -227,7 +227,7 @@
         </div>
     </div>
 
-    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoMauNhanHieuTD")
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoMauNhanHieuTD")
 
     <div class="div-search-ad" style="display:none;">
         <div class="div-search-content">
@@ -237,7 +237,7 @@
             </div>
         </div>
     </div>
-    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoChungTuPhiLP")
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoChungTuPhiLP")
     @* An di theo yc cua khach hang *@
 
     <div class="class_full_div_p class_text_left_bold">Tài liệu khác</div>
@@ -245,7 +245,7 @@
 
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
-            <div class="div-checkbox" style="width:550px">
+            <div class="div-checkbox" style="width:600px">
                 <input type="checkbox" id="6_rdoGiayUyQuyen" @objDocumentInfoPOA.styleCheck value="04NH_D_04" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>Giấy uỷ quyền bằng tiếng</label> <a target="_blank" style="margin-top: -3px; border: none;padding-left: 20px;color: blue;" href="@href">Tải mẫu về <i class="fas fa-download" style="color: blue; font-size: 20px;"></i> </a>
                 <label style="font-style:italic;color:red">&nbsp;(Khách hàng điền đủ thông tin lên và tải lên)</label>
@@ -256,9 +256,9 @@
         </div>
     </div>
     @* File dinh kem lay tu db khi sua*@
-    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialFileDinhKemEdit.cshtml", objDocumentInfoPOA)
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", objDocumentInfoPOA)
     @* end file dinh kem *@
-    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoGiayUyQuyen")
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoGiayUyQuyen")
 
     <div class="div-search-ad" style="display:inline-flex;margin-left: 40px;">
         <div class="div-search-content">
@@ -270,9 +270,9 @@
     </div>
 
     @* File dinh kem lay tu db khi sua*@
-    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialFileDinhKemEdit.cshtml", ObjInfo04NH_D_5)
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_5)
     @* end file dinh kem *@
-    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoBanGoc")
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoBanGoc")
 
     <div class="div-search-ad" style="display:inline-flex;margin-left: 40px;">
         <div class="div-search-content">
@@ -293,9 +293,9 @@
     </div>
 
     @* File dinh kem lay tu db khi sua*@
-    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialFileDinhKemEdit.cshtml", ObjInfo04NH_D_7)
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_7)
     @* end file dinh kem *@
-    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoBanGocSeNopSau")
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoBanGocSeNopSau")
 
     <div class="div-search-ad" style="display:inline-flex;margin-left: 80px;">
         <div class="div-search-content">
@@ -309,10 +309,10 @@
         </div>
     </div>
     @* File dinh kem lay tu db khi sua*@
-    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialFileDinhKemEdit.cshtml", ObjInfo04NH_D_8)
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_8)
     @* end file dinh kem *@
 
-    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoBanGocDaNopTheoDonSo")
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoBanGocDaNopTheoDonSo")
 
     <div class="div-search-ad" style="display:inline-flex;margin-left: 40px;">
         <div class="div-search-content">
@@ -330,10 +330,10 @@
     </div>
 
     @* File dinh kem lay tu db khi sua*@
-    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialFileDinhKemEdit.cshtml", ObjInfo04NH_D_9)
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_9)
     @* end file dinh kem *@
 
-    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoBanDichTiengViet")
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoBanDichTiengViet")
 
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
@@ -350,9 +350,9 @@
         </div>
     </div>
     @* File dinh kem lay tu db khi sua*@
-    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialFileDinhKemEdit.cshtml", ObjInfo04NH_D_10)
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_10)
     @* end file dinh kem *@
-    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoTLXNDPSD")
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoTLXNDPSD")
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
@@ -362,9 +362,9 @@
         </div>
     </div>
     @* File dinh kem lay tu db khi sua*@
-    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialFileDinhKemEdit.cshtml", ObjInfo04NH_D_11)
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_11)
     @* end file dinh kem *@
-    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoTLDKNH")
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoTLDKNH")
 
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
@@ -375,9 +375,9 @@
         </div>
     </div>
     @* File dinh kem lay tu db khi sua*@
-    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialFileDinhKemEdit.cshtml", ObjInfo04NH_D_12)
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_12)
     @* end file dinh kem *@
-    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoTLThuHuongNK")
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoTLThuHuongNK")
     <div class="div-search-ad" style="display:inherit">
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
@@ -404,9 +404,9 @@
         </div>
     </div>
     @* File dinh kem lay tu db khi sua*@
-    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialFileDinhKemEdit.cshtml", ObjInfo04NH_D_13)
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_13)
     @* end file dinh kem *@
-    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoQuyCheSDNH")
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoQuyCheSDNH")
 
 
     <div class="div-search-ad" style="display:inline-flex;">
@@ -418,9 +418,9 @@
         </div>
     </div>
     @* File dinh kem lay tu db khi sua*@
-    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialFileDinhKemEdit.cshtml", ObjInfo04NH_D_18)
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_18)
     @* end file dinh kem *@
-    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoBanDoKVDL")
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoBanDoKVDL")
 
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
@@ -431,9 +431,9 @@
         </div>
     </div>
     @* File dinh kem lay tu db khi sua*@
-    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialFileDinhKemEdit.cshtml", ObjInfo04NH_D_19)
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_19)
     @* end file dinh kem *@
-    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoVBuyBanTinh")
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoVBuyBanTinh")
 
 
     <div class="div-search-ad" style="display:inline-flex;">
@@ -445,9 +445,9 @@
         </div>
     </div>
     @* File dinh kem lay tu db khi sua*@
-    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialFileDinhKemEdit.cshtml", ObjInfo04NH_D_20)
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_20)
     @* end file dinh kem *@
-    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDonEdit.cshtml", "6_rdoTLKhaiTTBS")
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoTLKhaiTTBS")
 
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
