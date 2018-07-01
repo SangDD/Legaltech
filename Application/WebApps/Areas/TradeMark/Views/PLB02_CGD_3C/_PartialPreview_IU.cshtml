@@ -39,7 +39,10 @@
             if (funcThongTinChuDon_Exp(formData, "1") != true) {
                 return false;
             }
+            var Master_Type = $("input[name='1_rdoChuDon']:checked").val();
+            formData.append("pDetail.Master_Type", Master_Type);
 
+            // đại diện chủ đơn
             if (funcThongTinDaiDienChuDon_Exp(formData, "2") != true) {
                 return false;
             }

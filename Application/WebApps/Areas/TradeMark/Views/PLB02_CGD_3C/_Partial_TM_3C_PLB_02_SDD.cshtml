@@ -84,14 +84,13 @@
         @* end 2 *@
 
         @* 3 - BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN) *@
-
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
                 BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN)
             </div>
         </div>
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialSecondMaster.cshtml", "3")
+        @Html.Partial("~/Areas/TradeMark/Views/PLB02_CGD_3C/_PartialSecondMaster.cshtml", "3")
         @* end 3 *@
 
         @* 4 - ĐƠN ĐƯỢC CHUYỂN NHƯỢNG *@
@@ -176,7 +175,7 @@
         @* 3. Văn bản đồng ý của những chủ đơn khác (trường hợp nhiều người cùng có quyền nộp đơn) *@
         @{
             string _doc_id3 = "02_CGD_03";
-            string _model3 = _doc_id3 + "|6_Doc_02_CGD_03|0|Văn bản đồng ý của những chủ đơn khác (trường hợp nhiều người cùng có quyền nộp đơn)||0";
+            string _model3 = _doc_id3 + "|6_Doc_02_CGD_03|0|Văn bản đồng ý của những chủ đơn khác (trường hợp nhiều người cùng có quyền nộp đơn)||1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model3)
         }
 

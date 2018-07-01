@@ -1,11 +1,10 @@
 ﻿@using ObjectInfos
 @{
-    ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
-    if (ViewBag.objAppHeaderInfo != null)
+    App_Detail_PLB02_CGD_Info _App_Detail = new App_Detail_PLB02_CGD_Info();
+    if (ViewBag.App_Detail != null)
     {
-        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+        _App_Detail = (App_Detail_PLB02_CGD_Info)ViewBag.App_Detail;
     }
-
 }
 
 <div class="div-search-ad">
@@ -14,7 +13,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" maxlength="200" value="@_AppHeaderInfo.Master_Name" disabled="disabled" id="1_txtTenDayDu"/>
+            <input type="text" maxlength="200" value="@_App_Detail.Second_Name" disabled="disabled" id="1_txtTenDayDu"/>
         </div>
     </div>
 </div>
@@ -26,7 +25,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" maxlength="200" value="@_AppHeaderInfo.Master_Address" disabled="disabled" id="1_txtDiaChi"/>
+            <input type="text" maxlength="200" value="@_App_Detail.Second_Address" disabled="disabled" id="1_txtDiaChi"/>
         </div>
     </div>
 </div>
@@ -37,7 +36,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" maxlength="50" style="width: 250px;" value="@_AppHeaderInfo.Master_Phone" disabled="disabled" id="1_txtDienThoai"/>
+            <input type="text" maxlength="50" style="width: 250px;" value="@_App_Detail.Second_Phone" disabled="disabled" id="1_txtDienThoai"/>
         </div>
     </div>
 
@@ -46,7 +45,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" maxlength="50" value="@_AppHeaderInfo.Master_Fax" disabled="disabled" id="1_txtFax"/>
+            <input type="text" maxlength="50" value="@_App_Detail.Second_Fax" disabled="disabled" id="1_txtFax"/>
         </div>
     </div>
     <div class="div-search-title">
@@ -54,13 +53,13 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" maxlength="50" value="@_AppHeaderInfo.Master_Email" disabled="disabled" id="1_txtEmail"/>
+            <input type="text" maxlength="50" value="@_App_Detail.Second_Email" disabled="disabled" id="1_txtEmail"/>
         </div>
     </div>
 </div>
 
 <script>
-    function funcThongTinChuDon_View(formData, PreID) {
+    function funcGetSecondMaster_View(formData, PreID) {
         try {
             var txtTenDayDu = $("#1_txtTenDayDu").val();
             var txtDiaChi = $("#1_txtDiaChi").val();
@@ -68,11 +67,11 @@
             var txtFax = $("#1_txtFax").val();
             var txtEmail = $("#1_txtEmail").val();
 
-            formData.append("pInfo.Master_Name", txtTenDayDu);
-            formData.append("pInfo.Master_Address", txtDiaChi);
-            formData.append("pInfo.Master_Phone", txtDienThoai);
-            formData.append("pInfo.Master_Fax", txtFax);
-            formData.append("pInfo.Master_Email", txtEmail);
+            formData.append("pDetail.Second_Name", txtTenDayDu);
+            formData.append("pDetail.Second_Address", txtDiaChi);
+            formData.append("pDetail.Second_Phone", txtDienThoai);
+            formData.append("pDetail.Second_Fax", txtFax);
+            formData.append("pDetail.Second_Email", txtEmail);
 
             return true;
         } catch (e) {

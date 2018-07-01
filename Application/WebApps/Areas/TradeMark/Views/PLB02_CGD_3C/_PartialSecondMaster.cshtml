@@ -98,29 +98,13 @@
                     return false;
                 }
             }
-            //Chủ đơn
-            if (PreID == "1") {
-                formData.append("pInfo.Master_Name", txtTenDayDu);
-                formData.append("pInfo.Master_Address", txtDiaChi);
-                formData.append("pInfo.Master_Phone", txtDienThoai);
-                formData.append("pInfo.Master_Fax", txtFax);
-                formData.append("pInfo.Master_Email", txtEmail);
-            } else if (PreID == "2") { //Người đại diện
-                formData.append("pInfo.Rep_Master_Name", txtTenDayDu);
-                formData.append("pInfo.Rep_Master_Address", txtDiaChi);
-                formData.append("pInfo.Rep_Master_Phone", txtDienThoai);
-                formData.append("pInfo.Rep_Master_Fax", txtFax);
-                formData.append("pInfo.Rep_Master_Email", txtEmail);
-                //Detail
-            }
-            // BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN)
-            else if (PreID == "3") {
-                formData.append("pDetail.Second_Name", txtTenDayDu);
-                formData.append("pDetail.Second_Address", txtDiaChi);
-                formData.append("pDetail.Second_Phone", txtDienThoai);
-                formData.append("pDetail.Second_Fax", txtFax);
-                formData.append("pDetail.Second_Email", txtEmail);
-            }
+
+            formData.append("pDetail.Second_Name", txtTenDayDu);
+            formData.append("pDetail.Second_Address", txtDiaChi);
+            formData.append("pDetail.Second_Phone", txtDienThoai);
+            formData.append("pDetail.Second_Fax", txtFax);
+            formData.append("pDetail.Second_Email", txtEmail);
+
             return true;
         } catch (e) {
             return false;
@@ -128,7 +112,7 @@
     }
 
 
-    function funcThongTinChuDon_Exp(formData, PreID) {
+    function funcGetSecondMaster_Exp(formData, PreID) {
         try {
             var txtTenDayDu = $("#" + PreID + "_txtTenDayDu").val();
             var txtDiaChi = $("#" + PreID + "_txtDiaChi").val();
@@ -136,27 +120,12 @@
             var txtFax = $("#" + PreID + "_txtFax").val();
             var txtEmail = $("#" + PreID + "_txtEmail").val();
 
-            //Chủ đơn
-            if (PreID == "1") {
-                formData.append("pInfo.Master_Name", txtTenDayDu);
-                formData.append("pInfo.Master_Address", txtDiaChi);
-                formData.append("pInfo.Master_Phone", txtDienThoai);
-                formData.append("pInfo.Master_Fax", txtFax);
-                formData.append("pInfo.Master_Email", txtEmail);
-            } else if (PreID == "2") { //Người đại diện
-                formData.append("pInfo.Rep_Master_Name", txtTenDayDu);
-                formData.append("pInfo.Rep_Master_Address", txtDiaChi);
-                formData.append("pInfo.Rep_Master_Phone", txtDienThoai);
-                formData.append("pInfo.Rep_Master_Fax", txtFax);
-                formData.append("pInfo.Rep_Master_Email", txtEmail);
-                //Detail
-            } else if (PreID == "9") {
-                formData.append("pDetail.Cdk_Name_1", txtTenDayDu);
-                formData.append("pDetail.Cdk_Address_1", txtDiaChi);
-                formData.append("pDetail.Cdk_Phone_1", txtDienThoai);
-                formData.append("pDetail.Cdk_Fax_1", txtFax);
-                formData.append("pDetail.Cdk_Email_1", txtEmail);
-            }
+            formData.append("pDetail.Second_Name", txtTenDayDu);
+            formData.append("pDetail.Second_Address", txtDiaChi);
+            formData.append("pDetail.Second_Phone", txtDienThoai);
+            formData.append("pDetail.Second_Fax", txtFax);
+            formData.append("pDetail.Second_Email", txtEmail);
+
             return true;
         } catch (e) {
             return false;

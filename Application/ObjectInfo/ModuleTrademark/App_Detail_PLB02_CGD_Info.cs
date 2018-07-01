@@ -104,15 +104,7 @@ namespace ObjectInfos
         public decimal Fee_Id_2 { get; set; }
         public decimal Fee_Id_2_Check { get; set; }
         public string Fee_Id_2_Val { get; set; }
-
-        public decimal Fee_Id_21 { get; set; }
-        public decimal Fee_Id_21_Check { get; set; }
-        public string Fee_Id_21_Val { get; set; }
-
-        public decimal Fee_Id_22 { get; set; }
-        public decimal Fee_Id_22_Check { get; set; }
-        public string Fee_Id_22_Val { get; set; }
-
+ 
         public decimal Total_Fee { get; set; }
         public string Total_Fee_Str { get; set; }
 
@@ -131,16 +123,25 @@ namespace ObjectInfos
 
         public string Doc_Id_5 { get; set; }
         public decimal Doc_Id_5_Check { get; set; }
+
+        public string Doc_Id_6 { get; set; }
         public decimal Doc_Id_6_Check { get; set; }
+
+        public string Doc_Id_7 { get; set; }
         public decimal Doc_Id_7_Check { get; set; }
+
+        public string Doc_Id_8 { get; set; }
         public decimal Doc_Id_8_Check { get; set; }
 
         public string Doc_Id_9 { get; set; }
         public decimal Doc_Id_9_Check { get; set; }
+
+        public string Doc_Id_10 { get; set; }
         public decimal Doc_Id_10_Check { get; set; }
 
         public string Doc_Id_11 { get; set; }
         public decimal Doc_Id_11_Check { get; set; }
-
+        public string Doc_Id_12 { get; set; }
+        public decimal Doc_Id_12_Check { get; set; }
     }
 }

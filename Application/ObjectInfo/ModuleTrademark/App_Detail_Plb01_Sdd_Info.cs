@@ -136,6 +136,5 @@ namespace ObjectInfos
 
         public string Doc_Id_11 { get; set; }
         public decimal Doc_Id_11_Check { get; set; }
-
     }
 }

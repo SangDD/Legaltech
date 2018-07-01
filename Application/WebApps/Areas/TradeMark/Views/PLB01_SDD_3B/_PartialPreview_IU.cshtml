@@ -41,13 +41,14 @@
                 return false;
             }
 
+            // đại diện chủ đơn
             if (funcThongTinDaiDienChuDon_Exp(formData, "2") != true) {
                 return false;
             }
 
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-
+            
             //Lấy thông tin detail
             var reponse = funcGetAppDetail(formData);
             if (reponse == false) {
