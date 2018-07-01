@@ -13,10 +13,10 @@
         _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
     }
 
-    App_Detail_PLB01_SDD_Info _App_Detail = new App_Detail_PLB01_SDD_Info();
+    App_Detail_PLB02_CGD_Info _App_Detail = new App_Detail_PLB02_CGD_Info();
     if (ViewBag.App_Detail != null)
     {
-        _App_Detail = (App_Detail_PLB01_SDD_Info)ViewBag.App_Detail;
+        _App_Detail = (App_Detail_PLB02_CGD_Info)ViewBag.App_Detail;
     }
 
     List<AppDocumentInfo> Lst_AppDoc = new List<AppDocumentInfo>();
@@ -78,6 +78,36 @@
             </div>
         </div>
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon_View.cshtml")
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio" style="width:382px">
+                    @if (_App_Detail.Master_Type == 1)
+                    {
+                        <input type="radio" name="1_rdoChuDon" value="1" id="rb_1_ChuDonChuyenNhuong" disabled="disabled" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="1_rdoChuDon" value="1" id="rb_1_ChuDonChuyenNhuong" disabled="disabled">
+                    }
+
+                    <label>là bên chuyển nhượng</label>
+                </div>
+            </div>
+
+            <div class="div-search-content">
+                <div class="div-radio">
+                    @if (_App_Detail.Master_Type == 1)
+                    {
+                        <input type="radio" name="1_rdoChuDon" value="2" disabled="disabled" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="1_rdoChuDon" value="2" disabled="disabled">
+                    }
+                    <label>là bên nhận chuyển nhượng</label>
+                </div>
+            </div>
+        </div>
 
         @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
         <div class="divCover cls_form_title">
@@ -89,7 +119,15 @@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon_View.cshtml")
         @* end 2 *@
 
-        @* 3 - ĐƠN YÊU CẦU SỬA ĐỔI *@
+        @* 3 - BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN) *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN)
+            </div>
+        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon_View.cshtml", "3")
+
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
