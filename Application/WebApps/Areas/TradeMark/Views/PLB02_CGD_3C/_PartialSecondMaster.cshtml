@@ -72,8 +72,9 @@
 </div>
 
 <script>
+
     //Lấy thông tin chủ đơn add vào formData
-    function funcThongTinChuDon(formData, PreID) {
+    function funcGetSecondMaster(formData, PreID) {
         try {
             var txtTenDayDu = $("#" + PreID + "_txtTenDayDu").val();
             if (txtTenDayDu === "") {
@@ -119,13 +120,6 @@
                 formData.append("pDetail.Second_Phone", txtDienThoai);
                 formData.append("pDetail.Second_Fax", txtFax);
                 formData.append("pDetail.Second_Email", txtEmail);
-            }
-            else if (PreID == "9") {
-                formData.append("pDetail.Cdk_Name_1", txtTenDayDu);
-                formData.append("pDetail.Cdk_Address_1", txtDiaChi);
-                formData.append("pDetail.Cdk_Phone_1", txtDienThoai);
-                formData.append("pDetail.Cdk_Fax_1", txtFax);
-                formData.append("pDetail.Cdk_Email_1", txtEmail);
             }
             return true;
         } catch (e) {

@@ -91,7 +91,7 @@
                 BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN)
             </div>
         </div>
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "3")
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialSecondMaster.cshtml", "3")
         @* end 3 *@
 
         @* 4 - ĐƠN ĐƯỢC CHUYỂN NHƯỢNG *@
@@ -482,7 +482,7 @@
         try {
 
             // BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN)
-            if (funcThongTinChuDon(formData, "3") != true) {
+            if (funcGetSecondMaster(formData, "3") != true) {
                 return false;
             }
 
