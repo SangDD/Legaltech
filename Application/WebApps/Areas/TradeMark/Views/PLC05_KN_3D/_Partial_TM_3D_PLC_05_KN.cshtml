@@ -1,0 +1,634 @@
+﻿@using WebApps.CommonFunction;
+@using BussinessFacade.ModuleMemoryData
+@{
+    ViewBag.Title = "Request for appleal";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+}
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+
+    .div-title-col-2 {
+        height: 35px;
+        border: 1px solid #aaa;
+    }
+
+        .div-title-col-2 > div {
+            margin: 9px 5px 0px 7px;
+        }
+</style>
+
+<div class="d-nav-container">
+    <ul class="ul-nav">
+        <li><a href="javascript:;">TradeMark</a></li>
+        <li><a href="javascript:;">  Request for amendment of application</a></li>
+    </ul>
+</div>
+
+<input type="hidden" id="txtAppCode" value='@ViewBag.AppCode' />
+
+<div class="div-search ">
+    <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
+        <legend style="font-weight:600">
+            TỜ KHAI KHIẾU NẠI
+        </legend>
+
+        @* 4 - Đối tượng khiếu nại *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                ĐỐI TƯỢNG KHIẾU NẠI
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Số lần khiếu nại</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboAppealTimes">
+                        <option value="1" selected="selected">Khiếu nại lần 1</option>
+                        <option value="2">Khiếu nại lần 2</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-checkbox" style="width:450px">
+                    <input type="checkbox" name="3_rdoAppeal_Object" id="3_rdAppeal_Object_1" value="1">
+                    <label>Quyết định/thông báo</label>
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Số quyết định</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Số quyết định" id="3_txt_appeal_number" maxlength="100" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Ngày</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Ngày quyết định" id="3_txt_appeal_date" maxlength="100" />
+                </div>
+            </div>
+
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-checkbox" style="width:450px">
+                    <input type="checkbox" name="3_rdoAppeal_Object" id="4_rdDK_SC" value="2">
+                    <label>Liên quan đến Đơn đăng ký đối tượng sở hữu công nghiệp</label>
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div>Số đơn</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Số đơn" id="3_txt_appeal_appno" maxlength="100" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-checkbox" style="width:450px">
+                    <input type="checkbox" name="3_rdoAppeal_Object" id="4_rdDK_MBD" value="3">
+                    <label>Liên quan đến Văn bằng bảo hộ đối tượng sở hữu công nghiệp </label>
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div>Số bằng</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Số bằng" id="3_txt_appeal_degree" maxlength="100" />
+                </div>
+            </div>
+        </div>
+        @* end 3 *@
+
+        @* 1 - CHỦ ĐƠN*@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                CHỦ ĐƠN
+            </div>
+        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+
+        @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                ĐẠI DIỆN CỦA CHỦ ĐƠN
+            </div>
+        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Mã đại diện:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Mã đại diện" id="txt_MaDaiDien" />
+                </div>
+            </div>
+        </div>
+        @* end 2 *@
+
+        @* 5 *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                PHÍ, LỆ PHÍ
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-checkbox" style="width:450px">
+                    <input type="checkbox" name="5_ckb_PhiTraCuu" id="5_ckb_PhiTraCuu" checked="checked">
+                    <label>Phí tra cứu thông tin phục vụ việc giải quyết khiếu nại </label>
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Số đối tượng tính:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Số đơn" id="5_txt_PhiTraCuu" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Số tiền:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Số tiền" id="5_txt_PhiThamDinh_SoTien" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-checkbox" style="width:450px">
+                    <input type="checkbox" name="5_ckb_PhiThamDinh" id="5_ckb_PhiThamDinh" checked="checked">
+                    <label>Phí thẩm định để giải quyết khiếu nại </label>
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Số đối tượng tính:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Số đối tượng tính" id="5_txt_PhiThamDinh" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Số tiền:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Số tiền" id="5_txt_PhiCongBo_SoTien" />
+                </div>
+            </div>
+        </div>
+        @* END 5 *@
+
+        @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                CÁC TÀI LIỆU CÓ TRONG ĐƠN
+            </div>
+        </div>
+
+        @* 1. Tờ khai *@
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-checkbox" style="width:450px">
+                    <input type="checkbox" name="ckb_6_Doc_C05_KN_01" id="ckb_6_Doc_02_CGD_01" value="02_CGD_01" checked="checked">
+                    <label>Tờ khai, gồm ... trang x3 bản</label>
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Số trang:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Số trang" id="txt_6_Doc_ToKhai" />
+                </div>
+            </div>
+        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialTaiLieuTrongDon_3B.cshtml", "ckb_6_Doc_ToKhai")
+
+        @* 2. Văn bản giải trình lý do khiếu nại, gồm......trang  02 bản *@
+        @{
+            string _doc_id2 = "C05_KN_02";
+            string _model2 = _doc_id2 + "|6_Doc_C05_KN_02|0|Văn bản giải trình lý do khiếu nại, gồm......trang  02 bản|Số trang|1";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model2)
+        }
+
+        @* 3. Bản sao quyết định/thông báo bị khiếu nại (nếu có)  *@
+        @{
+            string _doc_id3 = "C05_KN_03";
+            string _model3 = _doc_id3 + "|6_Doc_C05_KN_03|0|Bản sao quyết định/thông báo bị khiếu nại (nếu có)||1";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model3)
+        }
+
+        @* 4. Bản sao quyết định giải quyết khiếu nại lần đầu (đối với khiếu nại lần  hai) *@
+        @{
+            string _doc_id4 = "C05_KN_04";
+            string _model4 = _doc_id4 + "|6_Doc_C05_KN_04|0|Bản sao quyết định giải quyết khiếu nại lần đầu (đối với khiếu nại lần  hai)|Số trang|1";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)
+        }
+
+        @* 5.. POA Giấy uỷ quyền bằng tiếng *@
+        @{
+            string _doc_id50 = "C05_KN_05";
+            string _model50 = _doc_id50 + "|6_Doc_POA|0|Giấy uỷ quyền bằng tiếng|Tiếng|1";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model50)
+        }
+
+        @* 6 -> 5.1  Bản dịch tiếng Việt, gồm *@
+        @{
+            string _doc_id51 = "C05_KN_06";
+            string _model51 = _doc_id51 + "|6_Doc_BanDichPOA|1|Bản dịch tiếng Việt, gồm|Số trang|1";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model51)
+        }
+
+        @* 7 -> 5.2 Bản gốc *@
+        @{
+            string _doc_id6 = "C05_KN_07";
+            string _model6 = _doc_id6 + "|6_Doc_BanGocPOA|1|Bản gốc||1";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model6)
+        }
+
+        @* 8 -> 5.3 Bản sao *@
+        @{
+            string _doc_id7 = "C05_KN_08";
+            string _model7 = _doc_id7 + "|6_Doc_BanSaoPOA|1|Bản sao||0";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model7)
+        }
+
+
+        @* 9 -> 5.3.1 Bản sao  > Bản gốc sẽ nộp sau *@
+        @{
+            string _doc_id8 = "C05_KN_09";
+            string _model8 = _doc_id8 + "|6_Doc_BanGocPOA_Later|2|Bản gốc sẽ nộp sau||1";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model8)
+        }
+
+        @* 10 -> 5.3.2 Bản sao  > Bản gốc đã nộp theo đơn *@
+        @{
+            string _doc_id9 = "C05_KN_10";
+            string _model9 = _doc_id9 + "|6_Doc_BanGocPOA_ByApp|2|Bản gốc đã nộp theo đơn số|Số đơn|0";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model9)
+        }
+
+        @* END POA *@
+
+        @* 11. Bản sao chứng từ nộp phí *@
+        @{
+            string _doc_id10 = "C05_KN_11";
+            string _model10 = _doc_id10 + "|6_Doc_BanSaoChungTu|0|Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ)||1";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model10)
+        }
+
+        @* 12. Khác *@
+        @{
+            string _doc_id11 = "C05_KN_12";
+            string _model11 = _doc_id11 + "|6_Doc_Other|0|Tài liệu khác, cụ thể|Tên tài liệu|1";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model11)
+        }
+
+        @* Cam kết của chủ đơn *@
+        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml")
+
+        <div class="class_save">
+            <div class="classGuiDon">
+                <input type="button" value="Gửi đơn" id="btnGuiDon" class="btn" />
+            </div> <div class="classLuuTam">
+                <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn" />
+            </div>
+        </div>
+    </fieldset>
+</div>
+
+@Html.Partial("~/Areas/TradeMark/Views/PLB02_CGD_3C/_PartialPreview_IU.cshtml")
+<div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
+    <div class="dpop-preview" id="dpop-preview">
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $.datetimepicker.setLocale('vi');
+        $('.datetimepicker').datetimepicker({
+            timepicker: false,
+            format: 'd/m/Y',
+            formatDate: 'd/m/Y',
+            mask: '39/19/9999',
+            validateOnBlur: false,
+            scrollInput: false
+        });
+    });
+
+
+    $("#btnGuiDon").click(function () {
+        try {
+
+            var formData = new FormData();
+            formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai)');
+
+            var v_AppCode = $("#txtAppCode").val();
+            if (v_AppCode === "") {
+                $('#txtAppCode').focus().val('');
+                showError('Chưa chọn loại đơn đăng ký!');
+                return false;
+            }
+            formData.append("pInfo.Appcode", v_AppCode);
+
+            //Thông tin chủ đơn
+            if (funcThongTinChuDon(formData, "1") != true) {
+                return false;
+            }
+
+            // đại diện chủ đơn
+            if (funcThongTinDaiDienChuDon(formData, "2") != true) {
+                return false;
+            }
+
+            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+            if (v_RepMasterType === "" || v_RepMasterType == undefined) {
+                jError("Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!", "lỗi", function () {
+                    $("#_2_rdoNguoiDaiDienPL").focus()
+                });
+                return false;
+            }
+            formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+
+
+            //Lấy thông tin detail
+            var reponse = funcGetAppDetail(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            //Lấy thông tin tài liệu có trong đơn
+            reponse = funGetDocumentFile(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            reponse = funcGetCamKetChuDon(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            // Display the values
+            for (var value of formData.values()) {
+                console.log(value);
+            }
+
+            // Display the values
+            for (var key of formData.keys()) {
+                console.log(key);
+            }
+
+            $.ajax({
+                url: '/trade-mark-3c/register_PLB_02_CGD',
+                type: 'POST',
+                data: formData,
+                processData: false, contentType: false, traditional: true, async: false,
+                dataType: "json",
+                enctype: 'multipart/form-data',
+                headers: { "cache-control": "no-cache" },
+                success: function (data) {
+                    if (data != null && data.status >= 0) {
+                        jAlert(AddSuccess, ThongBao, function () {
+                        });
+                    } else {
+                        jError(AddFail, ThongBao, function () {
+                        });
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+
+        } catch (e) {
+            console.log(e);
+        }
+    });
+
+    $("#btnLuuTam").click(function () {
+        try {
+
+            var formData = new FormData();
+            formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.Luu_tam)');
+
+            var v_AppCode = $("#txtAppCode").val();
+            if (v_AppCode === "") {
+                $('#txtAppCode').focus().val('');
+                showError('Chưa chọn loại đơn đăng ký!');
+                return false;
+            }
+            formData.append("pInfo.AppCode", v_AppCode);
+
+            //Thông tin chủ đơn
+            if (funcThongTinChuDon(formData, "1") != true) {
+                return false;
+            }
+           
+            // đại diện chủ đơn
+            if (funcThongTinDaiDienChuDon(formData, "2") != true) {
+                return false;
+            }
+
+            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+            if (v_RepMasterType === "" || v_RepMasterType == undefined) {
+                jError("Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!", "lỗi", function () {
+                    $("#_2_rdoNguoiDaiDienPL").focus()
+                });
+                return false;
+            }
+            formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+
+
+            //Lấy thông tin detail
+            var reponse = funcGetAppDetail(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            //Lấy thông tin tài liệu có trong đơn
+            reponse = funGetDocumentFile(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            reponse = funcGetCamKetChuDon(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            $.ajax({
+                url: '/trade-mark-3c/register_PLB_02_CGD',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                traditional: true,
+                dataType: "json",
+                enctype: 'multipart/form-data',
+                async: true,
+                headers: { "cache-control": "no-cache" },
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data != null && data.status >= 0) {
+                        jAlert("Lưu tạm đơn thành công");
+                    } else {
+                        jError("Lưu tạm đơn không thành công");
+                    }
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
+            });
+
+        } catch (e) {
+            CreateRollingWaitingIcon(false);
+            console.log(e);
+        }
+    });
+
+    function funcGetAppDetail(formData) {
+        try {
+
+            // BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN)
+            if (funcGetSecondMaster(formData, "3") != true) {
+                return false;
+            }
+
+            var txt_MaDaiDien = $("#txt_MaDaiDien").val();
+            formData.append("pDetail.Customer_Code", txt_MaDaiDien);
+
+            var _DonDuocChuyenNhuong = $("input[name='4_rdoDonDuocChuyenNhuong']:checked").val();
+            if (_DonDuocChuyenNhuong === "" || _DonDuocChuyenNhuong == undefined) {
+                jError("Phải chọn ít nhất 1 giá trị đơn yêu cầu chuyển nhượng!", "lỗi", function () {
+                    $("#4_rdDK_SC").focus()
+                });
+                return false;
+            }
+            formData.append("pDetail.Transfer_Type", parseInt(_DonDuocChuyenNhuong));
+
+            // số đơn
+            var _4_txt_SoDon = $("#4_txt_SoDon").val();
+            if (_4_txt_SoDon === "" || _4_txt_SoDon == undefined) {
+                jError("Số đơn không được để trống!", "lỗi", function () {
+                    $("#4_txt_SoDon").focus()
+                });
+                return false;
+            }
+            formData.append("pDetail.Transfer_Appno", _4_txt_SoDon);
+        } catch (e) {
+            console.log(e);
+            showError('Có lỗi xảy ra kiểm tra kết nối internet');
+            return false;
+        }
+    }
+
+    function funGetDocumentFile(formData) {
+        try {
+            var Isuse = 0, Note = "", reponse = false;
+
+            // 1. Tờ khai
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_C05_KN_01", "0");
+            formData.append("pAppDocumentInfo[0].CHAR01", $("#txt_6_Doc_ToKhai").val());
+
+            // 2. Tài liệu xác nhận
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_C05_KN_02", "1");
+            formData.append("pAppDocumentInfo[1].CHAR01", $("#txt_6_Doc_C05_KN_02").val());
+
+            // 3 Văn bản đồng ý
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_C05_KN_03", "2");
+
+            // 4 Bản dịch tiếng Việt, gồm
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_C05_KN_04", "3");
+
+            // 5 -> 5.0 Giấy uỷ quyền bằng tiếng
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_POA", "4");
+            formData.append("pAppDocumentInfo[4].CHAR01", $("#txt_6_Doc_POA").val());
+
+            // 6 -> 5.1 Bản dịch tiếng Việt, gồm
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanDichPOA", "5");
+            formData.append("pAppDocumentInfo[5].CHAR01", $("#txt_6_Doc_BanDichPOA").val());
+
+            // 7 -> 5.2 Bản gốc
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanGocPOA", "6");
+
+            // 8 -> 5.3 Bản sao
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanSaoPOA", "7");
+
+            // 9 -> 5.3.1  Bản gốc sẽ nộp sau
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanGocPOA_Later", "8");
+
+            // 10 -> 5.3.2  Bản gốc đã nộp theo đơn số
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanGocPOA_ByApp", "9");
+            formData.append("pAppDocumentInfo[9].CHAR01", $("#txt_6_Doc_BanGocPOA_ByApp").val());
+
+            // 11 Bản sao chứng từ nộp phí, lệ phí
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanSaoChungTu", "10");
+
+            // 12 Tài liệu khác, cụ thể:
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_Other", "11");
+            formData.append("pAppDocumentInfo[11].CHAR01", $("#txt_6_Doc_Other").val());
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    function funcGetCheckValueAndText(formData, pID, pItem) {
+        try {
+            var Isuse = 0, Note = "";
+            //Các tài liệu có trong đơn
+            if ($("#" + pID).prop('checked') == true) {
+                Isuse = 1;
+            }
+            formData.append("pAppDocumentInfo[" + pItem + "].keyFileUpload", pID);
+            formData.append("pAppDocumentInfo[" + pItem + "].Document_Id", $("#" + pID).val());
+            formData.append("pAppDocumentInfo[" + pItem + "].Isuse", Isuse);
+            return true;
+        } catch (e) {
+            return false;
+        }
+
+    }
+</script>

@@ -4,9 +4,9 @@ using System.Web;
 namespace ObjectInfos
 {
 
-    public class App_Detail_PLB02_CGD_Info : ApplicationHeaderInfo
+    public class App_Detail_PLC05_KN_Info : ApplicationHeaderInfo
     {
-        public static void CopyAppHeaderInfo(ref App_Detail_PLB02_CGD_Info p_appDetail, ApplicationHeaderInfo pAppInfo)
+        public static void CopyAppHeaderInfo(ref App_Detail_PLC05_KN_Info p_appDetail, ApplicationHeaderInfo pAppInfo)
         {
             p_appDetail.STT = pAppInfo.STT;
             p_appDetail.Detail_Id = pAppInfo.Id;
@@ -35,23 +35,24 @@ namespace ObjectInfos
             p_appDetail.Years = pAppInfo.Years;
         }
 
-        public App_Detail_PLB02_CGD_Info()
+        public App_Detail_PLC05_KN_Info()
         {
 
         }
 
-        public App_Detail_PLB02_CGD_Info(App_Detail_PLB02_CGD_Info p_app_detail, ApplicationHeaderInfo p_app_header)
+        public App_Detail_PLC05_KN_Info(App_Detail_PLC05_KN_Info p_app_detail, ApplicationHeaderInfo p_app_header)
         {
             this.Language_Code = p_app_detail.Language_Code;
             this.App_Header_Id = p_app_detail.App_Header_Id;
             this.Appcode = p_app_detail.Appcode;
-            this.Master_Type = p_app_detail.Master_Type;
-            this.Second_Name = p_app_detail.Second_Name;
-            this.Second_Address = p_app_detail.Second_Address;
-            this.Second_Phone = p_app_detail.Second_Phone;
-            this.Second_Fax = p_app_detail.Second_Fax;
-            this.Second_Email = p_app_detail.Second_Email;
             this.Customer_Code = p_app_detail.Customer_Code;
+
+            this.Times = p_app_detail.Times;
+            this.Appeal_Type = p_app_detail.Appeal_Type;
+            this.Appeal_Number = p_app_detail.Appeal_Number;
+            this.Appeal_Date = p_app_detail.Appeal_Date;
+            this.Appeal_Appno = p_app_detail.Appeal_Appno;
+            this.Appeal_Degree = p_app_detail.Appeal_Degree;
 
 
             this.STT = p_app_header.STT;
@@ -83,20 +84,15 @@ namespace ObjectInfos
 
         public decimal Detail_Id { get; set; }
         public decimal App_Header_Id { get; set; }
-        //public string AppCode { get; set; }
-        //public string Appcode { get; set; }
-
-        public decimal Master_Type { get; set; }
-        public string Second_Name { get; set; }
-        public string Second_Address { get; set; }
-        public string Second_Phone { get; set; }
-        public string Second_Fax { get; set; }
-        public string Second_Email { get; set; }
-        public decimal Transfer_Type { get; set; }
-        public string Transfer_Appno { get; set; }
+        public string Language_Code { get; set; }
+        public decimal Times { get; set; }
+        public decimal Appeal_Type { get; set; }
+        public string Appeal_Number { get; set; }
+        public DateTime Appeal_Date { get; set; }
+        public string Appeal_Appno { get; set; }
+        public string Appeal_Degree { get; set; }
         public string Customer_Code { get; set; }
 
-        public string Language_Code { get; set; }
 
         public decimal Fee_Id_1 { get; set; }
         public decimal Fee_Id_1_Check { get; set; }
