@@ -30,7 +30,7 @@
 
 <script>
 
-    function funGetData_Preview_3CPL02(url) {
+    function funGetData_Preview(url) {
         try {
             $.ajax({
                 url: url,
@@ -64,9 +64,9 @@
     }
 
     function funcPreViewApplication() {
-        var preturn = funGetData_Preview_3CPL02("/trade-mark-3c/ket_xuat_file");
+        var preturn = funGetData_Preview("/trade-mark-3d/ket_xuat_file");
         if (preturn == true || preturn == undefined) {
-            OpenPreview("/trade-mark-3c/Pre-View");
+            OpenPreview("/trade-mark-3d/Pre-View");
         }
     }
 

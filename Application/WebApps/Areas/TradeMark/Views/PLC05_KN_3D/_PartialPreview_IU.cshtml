@@ -29,7 +29,7 @@
 
 
 <script>
-    function funGetData_Preview_3CPL02(url) {
+    function funGetData_Preview(url) {
         try {
 
             var formData = new FormData();
@@ -39,8 +39,6 @@
             if (funcThongTinChuDon_Exp(formData, "1") != true) {
                 return false;
             }
-            var Master_Type = $("input[name='1_rdoChuDon']:checked").val();
-            formData.append("pDetail.Master_Type", Master_Type);
 
             // đại diện chủ đơn
             if (funcThongTinDaiDienChuDon_Exp(formData, "2") != true) {
@@ -99,9 +97,9 @@
     }
 
     function funcPreViewApplication() {
-        var preturn = funGetData_Preview_3CPL02("/trade-mark-3c/ket_xuat_fileIU");
+        var preturn = funGetData_Preview("/trade-mark-3d/ket_xuat_fileIU");
         if (preturn == true || preturn == undefined) {
-            OpenPreview("/trade-mark-3c/Pre-View");
+            OpenPreview("/trade-mark-3d/Pre-View");
         }
     }
 
