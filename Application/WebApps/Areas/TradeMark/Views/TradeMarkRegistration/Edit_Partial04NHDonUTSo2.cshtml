@@ -16,22 +16,30 @@
     AppDocumentInfo ObjInfo04NH_D_15_2 = new AppDocumentInfo();
     AppDocumentInfo ObjInfo04NH_D_16_2 = new AppDocumentInfo();
     AppDocumentInfo ObjInfo04NH_D_17_2 = new AppDocumentInfo();
+    string styletext14_2 = "disabled='disabled'";
+    string styletext15_2 = "disabled='disabled'";
+    string styletext16_2 = "disabled='disabled'";
+
     foreach (var item in lstDocumentInfo)
     {
         if (item.Document_Id == "04NH_D_14_2" && item.Isuse == 1)
         {
             ObjInfo04NH_D_14_2 = item;
             ObjInfo04NH_D_14_2.styleCheck = "checked= 'checked'";
+            styletext14_2 = "";
+
         }
         else if (item.Document_Id == "04NH_D_15_2" && item.Isuse == 1)
         {
             ObjInfo04NH_D_15_2 = item;
             ObjInfo04NH_D_15_2.styleCheck = "checked= 'checked'";
+            styletext15_2 = "";
         }
         else if (item.Document_Id == "04NH_D_16_2" && item.Isuse == 1)
         {
             ObjInfo04NH_D_16_2 = item;
             ObjInfo04NH_D_16_2.styleCheck = "checked= 'checked'";
+            styletext16_2 = "";
         }
         else if (item.Document_Id == "04NH_D_17_2" && item.Isuse == 1)
         {
@@ -53,6 +61,7 @@
     {
         styleTTK2 = "checked='checked'";
     }
+    string styleDisplay = "clssDisplaynone";
 }
 <div class="div_full_100_area">
     <div class="div-search-ad">
@@ -131,12 +140,12 @@
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
             <div class="div-checkbox" style="width:422px">
-                <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_14_2"  @ObjInfo04NH_D_14_2.styleCheck  id="6_rdoTLCMQUT_2" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_14_2" @ObjInfo04NH_D_14_2.styleCheck  id="6_rdoTLCMQUT_2" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>Tài liệu chứng minh quyền ưu tiên</label>
             </div>
         </div>
         <div class="div-search-content">
-            <input type="text" id="6_txtTLCMQUT_2" disabled="disabled" maxlength="3" placeholder="Số bản" />
+            <input type="text" id="6_txtTLCMQUT_2"  @styletext14_2  value="@ObjInfo04NH_D_14_2.CHAR01" maxlength="3" placeholder="Số bản" />
         </div>
         <div class="div-search-title" style="width:412px">
             <div>bản</div>
@@ -150,56 +159,70 @@
             </div>
         </div>
         <div class="div-search-content">
-            <input type="text" id="6_txtBSDDT_2"  disabled="disabled" maxlength="3" placeholder="Số bản" />
+            <input type="text" id="6_txtBSDDT_2"   @styletext15_2 value="@ObjInfo04NH_D_15_2.CHAR01"   maxlength="3" placeholder="Số bản" />
         </div>
         <div class="div-search-title" style="width:493px">
             <div>bản</div>
         </div>
     </div>
     <div style="margin-left:40px">
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBSDDT_2")
+        @* File dinh kem lay tu db khi sua*@
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_15_2)
+        @* end file dinh kem *@
+        @if (string.IsNullOrEmpty(ObjInfo04NH_D_15_2.Filename))
+        {
+            styleDisplay = "clssDisplayBlock";
+        }
+        <div id="Pre_6_rdoBSDDT_2" class="@styleDisplay">
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoBSDDT_2")
+        </div>
     </div>
-    <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
-        <div class="div-search-content">
-            <div class="div-checkbox">
-                <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_16_2" id="6_rdoBDTVGom_2"  @ObjInfo04NH_D_16_2.styleCheck  onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                <label>Bản dịch tiếng Việt, gồm</label>
+        <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
+            <div class="div-search-content">
+                <div class="div-checkbox">
+                    <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_16_2" id="6_rdoBDTVGom_2" @ObjInfo04NH_D_16_2.styleCheck onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                    <label>Bản dịch tiếng Việt, gồm</label>
+                </div>
+            </div>
+            <div class="div-search-content">
+                <input type="text" id="6_txtBDTVGom_2"   @styletext16_2 value="@ObjInfo04NH_D_16_2.CHAR01"    maxlength="3" placeholder="Số bản" />
+            </div>
+            <div class="div-search-title" style="width:510px">
+                <div>bản</div>
             </div>
         </div>
-        <div class="div-search-content">
-            <input type="text" id="6_txtBDTVGom_2"   disabled="disabled" maxlength="3" placeholder="Số bản" />
-        </div>
-        <div class="div-search-title" style="width:510px">
-            <div>bản</div>
-        </div>
-    </div>
-    <div style="margin-left:40px">
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBDTVGom_2")
-    </div>
-    <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
-        <div class="div-search-content">
-            <div class="div-checkbox" style="width:382px">
-                <input type="checkbox" maxlength="3" value="04NH_D_17_2" class="classDacTinhUT"  @ObjInfo04NH_D_17_2.styleCheck  id="6_rdoGiayChuyenNhungUT_2" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                <label> Giấy chuyển nhượng quyền ưu tiên </label>
+        <div style="margin-left:40px">
+            @* File dinh kem lay tu db khi sua*@
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_16_2)
+            @* end file dinh kem *@
+            @if (string.IsNullOrEmpty(ObjInfo04NH_D_16_2.Filename))
+            {
+                styleDisplay = "clssDisplayBlock";
+            }
+            <div id="Pre_6_rdoBDTVGom_2" class="@styleDisplay">
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoBDTVGom_2")
             </div>
         </div>
-    </div>
-    <div style="margin-left:40px">
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoGiayChuyenNhungUT_2")
-    </div>
+            <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
+                <div class="div-search-content">
+                    <div class="div-checkbox" style="width:382px">
+                        <input type="checkbox" maxlength="3" value="04NH_D_17_2" class="classDacTinhUT" @ObjInfo04NH_D_17_2.styleCheck id="6_rdoGiayChuyenNhungUT_2" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                        <label> Giấy chuyển nhượng quyền ưu tiên </label>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-left:40px">
+                @* File dinh kem lay tu db khi sua*@
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_17_2)
+                @* end file dinh kem *@
+                @if (string.IsNullOrEmpty(ObjInfo04NH_D_17_2.Filename))
+                {
+                    styleDisplay = "clssDisplayBlock";
+                }
+                <div id="Pre_6_rdoGiayChuyenNhungUT_2" class="@styleDisplay">
+                    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoGiayChuyenNhungUT_2")
+                </div>
+            </div>
+            </div>
 
-</div>
-
-<script>
-    $("input[id='6_rdoTLCMQUT_2'").change(function () {
-        funcAddRemoveDisabled("6_rdoTLCMQUT_2", "6_txtTLCMQUT_2");
-    });
-
-    $("input[id='6_rdoBSDDT_2'").change(function () {
-        funcAddRemoveDisabled("6_rdoBSDDT_2", "6_txtBSDDT_2");
-    });
-
-    $("input[id='6_rdoBDTVGom_2'").change(function () {
-        funcAddRemoveDisabled("6_rdoBDTVGom_2", "6_txtBDTVGom_2");
-    });
-</script>
+ 

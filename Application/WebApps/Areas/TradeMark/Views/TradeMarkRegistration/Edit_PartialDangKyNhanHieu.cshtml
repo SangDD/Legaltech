@@ -624,6 +624,18 @@
         }
     });
 
+    $("input[id='6_rdoTLCMQUT_2'").change(function () {
+        funcAddRemoveDisabled("6_rdoTLCMQUT_2", "6_txtTLCMQUT_2");
+    });
+
+    $("input[id='6_rdoBSDDT_2'").change(function () {
+        funcAddRemoveDisabled("6_rdoBSDDT_2", "6_txtBSDDT_2");
+    });
+
+    $("input[id='6_rdoBDTVGom_2'").change(function () {
+        funcAddRemoveDisabled("6_rdoBDTVGom_2", "6_txtBDTVGom_2");
+    });
+
 
 
     function funcRemoveTradeMarkImg(ptag) {
@@ -1107,24 +1119,22 @@
             reponse = funcGetCheckValueAndText(formData, "6_rdoVBuyBanTinh", "18");
             // 19 6_rdoGiayChuyenNhungUT
             reponse = funcGetCheckValueAndText(formData, "6_rdoTLKhaiTTBS", "19");
-            // 20 6_rdoGiayChuyenNhungUT
-            //reponse = funcGetCheckValueAndText(formData, "6_rdoPOA", "20");
-            // 21 6_rdoGiayChuyenNhungUT
-            reponse = funcGetCheckValueAndText(formData, "6_rdoTLK", "21");
+             
+            reponse = funcGetCheckValueAndText(formData, "6_rdoTLK", "20");
 
-            reponse = funcGetCheckValueAndText(formData, "6_rdoTLCMQUT_2", "22");
-            formData.append("pAppDocumentInfo[22].CHAR01", $("#6_txtTLCMQUT_2").val());
+            reponse = funcGetCheckValueAndText(formData, "6_rdoTLCMQUT_2", "21");
+            formData.append("pAppDocumentInfo[21].CHAR01", $("#6_txtTLCMQUT_2").val());
 
 
-            reponse = funcGetCheckValueAndText(formData, "6_rdoBSDDT_2", "23");
-            formData.append("pAppDocumentInfo[23].CHAR01", $("#6_txtBSDDT_2").val());
+            reponse = funcGetCheckValueAndText(formData, "6_rdoBSDDT_2", "22");
+            formData.append("pAppDocumentInfo[22].CHAR01", $("#6_txtBSDDT_2").val());
 
             // 23 6_rdoBDTVGom
-            reponse = funcGetCheckValueAndText(formData, "6_rdoBDTVGom_2", "24");
-            formData.append("pAppDocumentInfo[24].CHAR01", $("#6_txtBDTVGom_2").val());
+            reponse = funcGetCheckValueAndText(formData, "6_rdoBDTVGom_2", "23");
+            formData.append("pAppDocumentInfo[23].CHAR01", $("#6_txtBDTVGom_2").val());
 
             // 24 6_rdoGiayChuyenNhungUT
-            reponse = funcGetCheckValueAndText(formData, "6_rdoGiayChuyenNhungUT_2", "25");
+            reponse = funcGetCheckValueAndText(formData, "6_rdoGiayChuyenNhungUT_2", "24");
 
 
             //Danh sach cac tai lieu xoa di khi sua
