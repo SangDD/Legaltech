@@ -5,6 +5,11 @@ namespace ObjectInfos.ModuleTrademark
 {
     public class AppDocumentInfo
     {
+        public AppDocumentInfo()
+        {
+            this.CHAR01 = "";
+            this.CHAR02 = "";
+        }
         public decimal Id { get; set; }
         public string Language_Code { get; set; }
         public decimal App_Header_Id { get; set; }

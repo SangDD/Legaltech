@@ -45,7 +45,7 @@
 
     //
 
-    string styleNhanHieu = "", styleLienKet = "", styleNhanHieuCN = "";
+    string styleNhanHieu = "", styleLienKet = "", styleNhanHieuCN = "", styleShowHidenNHCN = "style='display: none'";
     if (objAppHeaderInfo.LoaiNhanHieu == "NHTT")
     {
         styleNhanHieu = "checked='checked'";
@@ -57,6 +57,7 @@
     else if (objAppHeaderInfo.LoaiNhanHieu == "NHCN")
     {
         styleNhanHieuCN = "checked='checked'";
+        styleShowHidenNHCN = "style = 'display: block'";
     }
 
     string styleDaiDienChuDon = "", styleDaiDienSH = "", styleDaiDienUQ = "";
@@ -292,7 +293,7 @@
             </div>
         </div>
 
-        <div class="div_full_100_area" style="display:none" id="divNhanHieuChungNhan">
+        <div class="div_full_100_area" @styleShowHidenNHCN id="divNhanHieuChungNhan">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "MÔ TẢ TÓM TẮT ĐẶC TÍNH CỦA HÀNG HOÁ/DỊCH VỤ ĐƯỢC CHỨNG NHẬN")
             @{
                 string styleNguonGocDL = "";
@@ -507,9 +508,12 @@
                 @* File dinh kem lay tu db khi sua*@
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_15)
                 @* end file dinh kem *@
-                @if (string.IsNullOrEmpty(ObjInfo04NH_D_15.Filename))
-                {
-                    styleDisplay = "clssDisplayBlock";
+                @{
+                    styleDisplay = "clssDisplaynone";
+                    if (string.IsNullOrEmpty(ObjInfo04NH_D_15.Filename))
+                    {
+                        styleDisplay = "clssDisplayBlock";
+                    }
                 }
                 <div id="Pre_6_rdoBSDDT" class="@styleDisplay">
                     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoBSDDT")
@@ -534,9 +538,12 @@
                 @* File dinh kem lay tu db khi sua*@
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_16)
                 @* end file dinh kem *@
-                @if (string.IsNullOrEmpty(ObjInfo04NH_D_15.Filename))
-                {
-                    styleDisplay = "clssDisplayBlock";
+                @{
+                    styleDisplay = "clssDisplaynone";
+                    if (string.IsNullOrEmpty(ObjInfo04NH_D_16.Filename))
+                    {
+                        styleDisplay = "clssDisplayBlock";
+                    }
                 }
                 <div id="Pre_6_rdoBDTVGom" class="@styleDisplay">
                     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoBDTVGom")
@@ -550,18 +557,19 @@
                     </div>
                 </div>
             </div> <div style="margin-left:40px">
-                @* File dinh kem lay tu db khi sua*@
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_17)
-                @* end file dinh kem *@
-
-                @if (string.IsNullOrEmpty(ObjInfo04NH_D_15.Filename))
-                {
-                    styleDisplay = "clssDisplayBlock";
-                }
-                <div id="Pre_6_rdoGiayChuyenNhungUT" class="@styleDisplay">
-                    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoGiayChuyenNhungUT")
-                </div>
-            </div>
+    @* File dinh kem lay tu db khi sua*@
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_17)
+    @{
+        styleDisplay = "clssDisplaynone";
+        if (string.IsNullOrEmpty(ObjInfo04NH_D_17.Filename))
+        {
+            styleDisplay = "clssDisplayBlock";
+        }
+    }
+    <div id="Pre_6_rdoGiayChuyenNhungUT" class="@styleDisplay">
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoGiayChuyenNhungUT")
+    </div>
+</div>
             <a href="javascript:;" onclick="return funcShowOrHidden('divDonUuTienSo2');" style="text-decoration:underline; color: blue;float: right;padding-top: 5px;">Thêm đơn</a>
         </div>
         @* div Don số 2 default fixed có 2 đơn *@
@@ -710,6 +718,15 @@
         if ($("#6_rdoBSDDT").is(':checked')) {
             ShowHidenUpLoad("6_rdoBSDDT", "6_rdoBSDDT");
         }
+
+
+        if ($("#6_rdoTLK").is(":checked") == true) {
+            $("#divContainerDocOther").css('display', 'block')
+        } else {
+            $("#divContainerDocOther").css('display', 'none');
+        }
+
+
         //ham 1
         if ($("#0_ckbCoSuDungDonUuTien").is(':checked')) {
             funcEnableDisable('classDacTinhUT', true);
@@ -742,6 +759,23 @@
             } else {
                 $('.' + pClass).css('display', 'none');
             }
+        } catch (e) {
+        }
+    }
+
+    function ShowHidenUpLoadRadioClick(pID, pClass) {
+        try {
+            if ($("#" + pID).is(':checked')) {
+                if (pID == "6_rdoBanGocDaNopTheoDonSo") {
+                    $('.6_rdoBanGocDaNopTheoDonSo').css('display', 'block');
+                    $('.6_rdoBanGocSeNopSau').css('display', 'none');
+                }
+                if (pID == "6_rdoBanGocSeNopSau") {
+                    $('.6_rdoBanGocSeNopSau').css('display', 'block');
+                    $('.6_rdoBanGocDaNopTheoDonSo').css('display', 'none');
+                }
+                
+            } 
         } catch (e) {
         }
     }
@@ -1047,6 +1081,15 @@
         }
     }
 
+    $("#6_rdoTLK").change(function () {
+        if ($("#6_rdoTLK").is(":checked") == true) {
+            $("#divContainerDocOther").css('display', 'block')
+        } else {
+            $("#divContainerDocOther").css('display', 'none');
+        }
+    });
+
+
     function funGetThongTinFile(formData) {
         try {
             var Isuse = 0, Note = "", reponse = false;
@@ -1190,6 +1233,9 @@
             $("#txtDocumentInAppRemove").val(lstID);
             $("#Pre_" + pdivUp).removeClass("clssDisplaynone");
             $("#Pre_" + pdivUp).addClass("clssDisplayBlock");
+            //Cho ddown UT2
+            $("#div_up_" + pdivUp).removeClass("clssDisplaynone");
+            $("#div_up_" + pdivUp).addClass("clssDisplayBlock");
 
         } catch (e) {
         }

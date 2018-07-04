@@ -78,12 +78,9 @@ namespace ObjectInfos
         public string strTongSonhom { get; set; }
         public string strTongSoSP { get; set; }
         public string strListClass { get; set; }
-
         //tài liệu khác 
-
         public string strDanhSachFileDinhKem { get; set; }
         //Phí
-
         public decimal TM04NH_200 { get; set; }
         public decimal TM04NH_201 { get; set; }
         public decimal TM04NH_2011 { get; set; }
@@ -93,7 +90,6 @@ namespace ObjectInfos
         public decimal TM04NH_2051 { get; set; }
         public decimal TM04NH_207 { get; set; }
         public decimal TM04NH_2071 { get; set; }
-
         public decimal TM04NH_200_Val { get; set; }
         public decimal TM04NH_201_Val { get; set; }
         public decimal TM04NH_2011_Val { get; set; }
@@ -103,8 +99,65 @@ namespace ObjectInfos
         public decimal TM04NH_2051_Val { get; set; }
         public decimal TM04NH_207_Val { get; set; }
         public decimal TM04NH_2071_Val { get; set; }
-
         public decimal TM04NH_TOTAL { get; set; }
+
+        //Tài liệu đính kèm 
+        //POA
+        public decimal TM_04NH_D_04_ISU { get; set; }
+        public string TM_04NH_D_04_CHAR01 { get; set; }
+
+        //bản gốc
+        public decimal TM_04NH_D_05_ISU { get; set; }
+        //bản sao
+        public decimal TM_04NH_D_06_ISU { get; set; }
+
+        //bản gốc nop sau
+        public decimal TM_04NH_D_07_ISU { get; set; }
+        //bản sao
+        public decimal TM_04NH_D_08_ISU { get; set; }
+        public string TM_04NH_D_08_CHAR01 { get; set; }
+
+        //Ban dich tieng viet 
+        public decimal TM_04NH_D_09_ISU { get; set; }
+        public string TM_04NH_D_09_CHAR01 { get; set; }
+
+
+        //Tài liệu xác nhận được
+        public decimal TM_04NH_D_10_ISU { get; set; }
+        public string TM_04NH_D_10_CHAR01 { get; set; }
+
+        //Tài liệu xác nhận quyền đăng ký nhãn hiệu
+        public decimal TM_04NH_D_11_ISU { get; set; }
+        //Tài liệu xác nhận thụ hưởng quyền đăng ký từ người khác
+        public decimal TM_04NH_D_12_ISU { get; set; }
+
+        //Quy chế sử dụng NH tập thể/chứng nhận, gồm
+        public decimal TM_04NH_D_13_ISU { get; set; }
+        public string TM_04NH_D_13_CHAR01 { get; set; }
+        public string TM_04NH_D_13_CHAR02 { get; set; }
+
+
+        public decimal TM_04NH_D_14_ISU { get; set; }
+        public string TM_04NH_D_14_CHAR01 { get; set; }
+
+        public decimal TM_04NH_D_15_ISU { get; set; }
+        public string TM_04NH_D_15_CHAR01 { get; set; }
+        public decimal TM_04NH_D_16_ISU { get; set; }
+        public string TM_04NH_D_16_CHAR01 { get; set; }
+        public decimal TM_04NH_D_17_ISU { get; set; }
+
+
+        //Bản đồ khu vực địa lý
+        public decimal TM_04NH_D_18_ISU { get; set; }
+
+        //Văn bản của UBND tỉnh
+        public decimal TM_04NH_D_19_ISU { get; set; }
+
+        //Có tài liệu bổ trợ 
+        public decimal TM_04NH_D_20_ISU { get; set; }
+
+        //Tài liệu khác
+        public decimal TM_04NH_D_22_ISU { get; set; }
 
     }
 
@@ -188,6 +241,12 @@ namespace ObjectInfos
             pAppExportInfo.Cdk_Phone_4 = pAppInfo.Cdk_Phone_4;
             pAppExportInfo.Cdk_Fax_4 = pAppInfo.Cdk_Fax_4;
             pAppExportInfo.Cdk_Email_4 = pAppInfo.Cdk_Email_4;
+
+
+            pAppExportInfo.YCCapPho1 = pAppInfo.YCCapPho1;
+            pAppExportInfo.YCCapPho2 = pAppInfo.YCCapPho2;
+            pAppExportInfo.YCCapPho3 = pAppInfo.YCCapPho3;
+            pAppExportInfo.YCCapPho4 = pAppInfo.YCCapPho4;
 
             return pAppExportInfo;
 
