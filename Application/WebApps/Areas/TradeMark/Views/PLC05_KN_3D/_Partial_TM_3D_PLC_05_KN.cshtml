@@ -2,7 +2,7 @@
 @using WebApps.CommonFunction;
 @using BussinessFacade.ModuleMemoryData
 @{
-    ViewBag.Title = "Request for appleal";
+    ViewBag.Title = "THÊM ĐƠN KHIẾU NẠI";
     Layout = "~/ViewsShared/_Layout.cshtml";
 }
 
@@ -114,7 +114,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Số đơn" id="3_txt_appeal_appno" maxlength="100" />
+                    <input type="text" placeholder="Số đơn" id="3_txt_appeal_appno" maxlength="100" disabled="disabled"/>
                 </div>
             </div>
         </div>
@@ -131,7 +131,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Số bằng" id="3_txt_appeal_degree" maxlength="100" />
+                    <input type="text" placeholder="Số bằng" id="3_txt_appeal_degree" maxlength="100" disabled="disabled"/>
                 </div>
             </div>
         </div>
@@ -179,62 +179,17 @@
                 </div>
             </div>
 
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-checkbox" style="width:450px">
-                        <input type="checkbox" name="5_ckb_PhiTraCuu" id="5_ckb_PhiTraCuu" checked="checked">
-                        <label>Phí tra cứu thông tin phục vụ việc giải quyết khiếu nại </label>
-                    </div>
-                </div>
+            @* 2. Phí tra cứu thông tin phục vụ việc giải quyết khiếu nại *@
+            string _fee_id1 = "PhiTraCuu";
+            string _modelFee1 = _fee_id1 + "|Phí tra cứu thông tin phục vụ việc giải quyết khiếu nại";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Fee.cshtml", _modelFee1)
 
-                <div class="div-search-title">
-                    <div>Số đối tượng tính:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="Số đơn" id="5_txt_PhiTraCuu" />
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Số tiền:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="Số tiền" id="5_txt_PhiTraCuu_SoTien" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-checkbox" style="width:450px">
-                        <input type="checkbox" name="5_ckb_PhiThamDinh" id="5_ckb_PhiThamDinh" checked="checked">
-                        <label>Phí thẩm định để giải quyết khiếu nại </label>
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Số đối tượng tính:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="Số đối tượng tính" id="5_txt_PhiThamDinh" />
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Số tiền:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="Số tiền" id="5_txt_PhiThamDinh_SoTien" />
-                    </div>
-                </div>
-            </div>
+            @* 2. Phí thẩm định để giải quyết khiếu nại *@
+            string _fee_id2 = "PhiThamDinh";
+            string _modelFee2 = _fee_id2 + "|Phí thẩm định để giải quyết khiếu nại";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Fee.cshtml", _modelFee2)
         }
-
-        @* END 5 *@
+        @* END Fee *@
 
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
         <div class="divCover cls_form_title">
@@ -434,7 +389,7 @@
             if (reponse == false) {
                 return false;
             }
-            
+
             //Lấy thông tin tài liệu có trong đơn
             reponse = funGetDocumentFile(formData);
             if (reponse == false) {
@@ -519,6 +474,12 @@
 
             //Lấy thông tin detail
             var reponse = funcGetAppDetail(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            // get thông tin fee
+            var reponse = funcGet_Fee(formData);
             if (reponse == false) {
                 return false;
             }
@@ -647,29 +608,29 @@
             if (@WebApps.Session.SessionData.CurrentUser.Type == '@((int)CommonEnums.UserType.Admin)' ||
                 @WebApps.Session.SessionData.CurrentUser.Type == '@((int)CommonEnums.UserType.Lawer)') {
 
-                if ($('#5_ckb_PhiTraCuu').is(":checked") == false && $('#5_ckb_PhiThamDinh').is(":checked") == false) {
+                if ($('#ckb_PhiTraCuu').is(":checked") == false && $('#ckb_PhiThamDinh').is(":checked") == false) {
                     jError("Fee không được để trống!", "lỗi", function () {
-                        $("#5_ckb_PhiTraCuu").focus()
+                        $("#ckb_PhiTraCuu").focus()
                     });
                     return false;
                 }
 
                 // Phí tra cứu thông tin phục vụ việc giải quyết khiếu nại
                 formData.append("pFeeFixInfo[0].Fee_Id", 1);
-                if ($('#5_ckb_PhiTraCuu').is(":checked") == true) {
+                if ($('#ckb_PhiTraCuu').is(":checked") == true) {
 
-                    var _PhiTraCuu = $("#5_txt_PhiTraCuu").val();
-                    var _PhiTraCuu_SoTien = $("#5_txt_PhiTraCuu_SoTien").val();
+                    var _PhiTraCuu = $("#txt_PhiTraCuu").val();
+                    var _PhiTraCuu_SoTien = $("#txt_PhiTraCuu_SoTien").val();
 
                     if (_PhiTraCuu == "") {
                         jError("Số đối tượng tính phí không được để trống!", "lỗi", function () {
-                            $("#5_txt_PhiTraCuu").focus()
+                            $("#txt_PhiTraCuu").focus()
                         });
                         return false;
                     }
                     if (_PhiTraCuu_SoTien == "") {
                         jError("Số tiền không được để trống!", "lỗi", function () {
-                            $("#5_txt_PhiTraCuu_SoTien").focus()
+                            $("#txt_PhiTraCuu_SoTien").focus()
                         });
                         return false;
                     }
@@ -685,20 +646,20 @@
 
                 // Phí thẩm định để giải quyết khiếu nại
                 formData.append("pFeeFixInfo[1].Fee_Id", 2);
-                if ($('#5_ckb_PhiThamDinh').is(":checked") == true) {
+                if ($('#ckb_PhiThamDinh').is(":checked") == true) {
 
-                    var _PhiThamDinh = $("#5_txt_PhiThamDinh").val();
-                    var _PhiThamDinh_SoTien = $("#5_txt_PhiThamDinh_SoTien").val();
+                    var _PhiThamDinh = $("#txt_PhiThamDinh").val();
+                    var _PhiThamDinh_SoTien = $("#txt_PhiThamDinh_SoTien").val();
 
                     if (_PhiThamDinh == "") {
                         jError("Số đối tượng tính phí không được để trống!", "lỗi", function () {
-                            $("#5_txt_PhiThamDinh").focus()
+                            $("#txt_PhiThamDinh").focus()
                         });
                         return false;
                     }
                     if (_PhiThamDinh_SoTien == "") {
                         jError("Số tiền không được để trống!", "lỗi", function () {
-                            $("#5_txt_PhiThamDinh_SoTien").focus()
+                            $("#txt_PhiThamDinh_SoTien").focus()
                         });
                         return false;
                     }
