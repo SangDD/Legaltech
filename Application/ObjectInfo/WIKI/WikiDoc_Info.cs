@@ -8,6 +8,8 @@ namespace ObjectInfos
 {
   public  class WikiDoc_Info
     {
+        public decimal STT { set; get; }
+
         public decimal ID { set; get; }
 
         public string TITLE { set; get; }
