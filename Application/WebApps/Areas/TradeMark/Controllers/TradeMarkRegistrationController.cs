@@ -656,6 +656,21 @@
 
                 return PartialView("~/Areas/TradeMark/Views/PLB02_CGD_3C/_Partial_TM_3C_PLB_02_SDD_View.cshtml");
             }
+            else if (pAppCode == TradeMarkAppCode.AppCode_TM_3D_PLC_05_KN)
+            {
+                App_Detail_PLC05_KN_BL objBL = new App_Detail_PLC05_KN_BL();
+                string language = AppsCommon.GetCurrentLang();
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                App_Detail_PLC05_KN_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
+                ViewBag.App_Detail = app_Detail;
+                ViewBag.Lst_AppDoc = appDocumentInfos;
+                ViewBag.Lst_AppFee = appFeeFixInfos;
+                ViewBag.objAppHeaderInfo = applicationHeaderInfo;
+
+                return PartialView("~/Areas/TradeMark/Views/PLC05_KN_3D/_Partial_TM_3D_PLC_05_KN_View.cshtml");
+            }
             else if (pAppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
             {
                 var objBL = new AppDetail06DKQT_BL();
@@ -723,6 +738,22 @@
 
                 return PartialView("~/Areas/TradeMark/Views/PLB02_CGD_3C/_Partial_TM_3C_PLB_02_SDD_Edit.cshtml");
             }
+            else if (pAppCode == TradeMarkAppCode.AppCode_TM_3D_PLC_05_KN)
+            {
+                App_Detail_PLC05_KN_BL objBL = new App_Detail_PLC05_KN_BL();
+                string language = AppsCommon.GetCurrentLang();
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                App_Detail_PLC05_KN_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
+                ViewBag.App_Detail = app_Detail;
+                ViewBag.Lst_AppDoc = appDocumentInfos;
+                ViewBag.Lst_AppFee = appFeeFixInfos;
+                ViewBag.objAppHeaderInfo = applicationHeaderInfo;
+
+                return PartialView("~/Areas/TradeMark/Views/PLC05_KN_3D/_Partial_TM_3D_PLC_05_KN_Edit.cshtml");
+            }
+
             else
             {
                 //
