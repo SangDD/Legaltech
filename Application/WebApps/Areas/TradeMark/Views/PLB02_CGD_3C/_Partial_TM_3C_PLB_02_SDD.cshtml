@@ -486,6 +486,12 @@
             }
 
             var txt_MaDaiDien = $("#txt_MaDaiDien").val();
+            if (txt_MaDaiDien == "") {
+                jError("Mã đại diện không được để trống!", "lỗi", function () {
+                    $("#txt_MaDaiDien").focus()
+                });
+                return false;
+            }
             formData.append("pDetail.Customer_Code", txt_MaDaiDien);
 
             var _DonDuocChuyenNhuong = $("input[name='4_rdoDonDuocChuyenNhuong']:checked").val();
