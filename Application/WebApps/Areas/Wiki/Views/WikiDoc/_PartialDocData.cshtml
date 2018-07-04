@@ -1,0 +1,55 @@
+﻿@using Common.CommonData
+@using Common.Extensions
+@using ObjectInfos
+@model List<WikiDoc_Info>
+@try
+{
+    <div>
+        <table class="table-lst-data" id="tableListObject">
+            <thead>
+                <tr>
+                    <th style="width: 4%">STT</th>
+                    <th data-sort  style="width: 10%" id="LANGUAGE_CODE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Ngôn ngữ</th>
+                    <th style="width: 25%" data-sort id="TITLE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Tiêu đề</th>
+                    <th style="width: 25%" data-sort id="CREATED_BY" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Người tạo</th>
+                    <th style="width: 15%" data-sort id="MODIFIED_DATE">Cập nhật lúc</th>
+                    <th style="width: 15%" data-sort id="VIEW_NUMBER" data-sortoption="@((int)CommonEnums.OrderOptions.Number)">Số lượt xem</th>
+                    <th style="width: 100px;">Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="tdcenteralign">@item.STT</td>
+                            <td class="tdleftalign"><a href="javascript:viewDetailObject(@item.ID, '@item.TITLE')">@item.LANGUAGE_CODE</a></td>
+                            <td class="tdleftalign">@item.TITLE</td>
+                            <td class="tdleftalign">@item.CREATED_BY</td>
+                            <td class="tdleftalign">@item.MODIFIED_DATE.ToDateTimeStringN0()</td>
+                            <td class="tdcenteralign">
+                                <a href="javascript:viewDetailObject(@item.ID, '@item.TITLE')" class="icon icon-info" data-title="Xem chi tiết"></a>
+                                <a href="javascript:getViewToEditObject(@item.ID, '@item.TITLE')" class="icon icon-edit" data-title="Sửa"></a>
+                                <a href="javascript:doDeleteObject(@item.ID, 1)" class="icon icon-delete" data-title="Xóa"></a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="9">Không có dữ liệu</td>
+                    </tr>}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-paging">
+        @Html.Raw(ViewBag.Paging)
+    </div>
+}
+catch (Exception)
+{
+    // ignored
+}

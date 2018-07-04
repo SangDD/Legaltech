@@ -1,0 +1,146 @@
+﻿@using Common.CommonData
+@{
+    ViewBag.Title = "Quản lý bài viết";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+}
+@try
+{
+    <style>
+        /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+        .div-search-title > div {
+            width: 150px;
+        }
+    </style>
+    <script>
+        var _isSimpleEditorToolBar = 1;// set cho ckfinder có cấu hình xoạn thảo đơn giản
+
+    </script>
+    <script src="~/Content/ckeditor/ckeditor.js"></script>
+    <div class="divCover">
+        <div class="d-nav">
+            <img src="~/Content/icons/Body-icon-home.png" /> I
+            Wiki
+            <span class="red">></span>
+            <a href="/wiki-doc/list">Quản lý bài viết</a>
+        </div>
+    </div>
+    <div class="divCover">
+        <div class="classLine">
+        </div>
+    </div>
+
+    <div class="d-main">
+        <div class="divCover">
+            <div class="classTitle">
+                <input type="hidden" value="MODIFIED_DATE" id="colSorted" />
+                <input type="hidden" value="DESC" id="SortType" />
+                <input type="hidden" value="" id="OptionSorting" />
+                <div class="div-title-content"> THÔNG TIN BÀI VIẾT </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tiêu đề<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtAddClassCode" maxlength="200" onkeypress="funikeyNoSpace(this)" onkeyup="funikeyNoSpace(this)" />
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tiêu đề cha </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="CboAddWikiCataParent">
+                        <option value="">
+                            Chọn danh mục
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tiêu đề con<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="CboAddWikiCataChild">
+                        <option value="">
+                            Chọn danh mục
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>File đính kèm 1</div>
+            </div>
+            <div class="div-search-content">
+                <div style="">
+                    <input type="file" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>File đính kèm 2</div>
+            </div>
+            <div class="div-search-content">
+                <div >
+                    <input type="file" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>File đính kèm 3</div>
+            </div>
+            <div class="div-search-content">
+                <div >
+                    <input type="file" />
+                </div>
+            </div>
+        </div>
+
+
+        <div class="">
+            <div>Nội dung<i class="redspan">(*)</i></div>
+            <textarea type="text" id="txtAddContent"></textarea>
+        </div>
+
+
+    </div>
+
+        <div class="form-group">
+            <div class="form-group-bottom">
+                <input type="submit" class="btn-default" value="Lưu" onclick="return doAddNewObject()" />
+            </div>
+        </div>
+
+
+
+        <script>
+
+            var txtContent = CKEDITOR.replace("txtAddContent",
+         {
+             height: 500
+
+         });
+
+        </script>
+}
+catch (Exception)
+{
+    // ignored
+}
