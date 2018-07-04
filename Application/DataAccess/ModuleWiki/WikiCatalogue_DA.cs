@@ -14,12 +14,12 @@ namespace DataAccess
 {
    public class WikiCatalogue_DA
     {
-        public DataSet WikiCatalogue_GetAll(decimal P_ID)
+        public DataSet WikiCatalogue_GetAll()
         {
             try
             {
                 return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_WIKI_CATALOUGE.PROC_WIKI_CATALOGUES_GETALL",
-                    new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output));
+                 new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output));
             }
             catch (Exception ex)
             {

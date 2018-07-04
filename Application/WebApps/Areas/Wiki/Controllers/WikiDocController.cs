@@ -60,7 +60,9 @@ namespace WebApps.Areas.Wiki.Controllers
         {
             try
             {
-               
+                var _WikiCataBL = new WikiCatalogue_BL ();
+                List<WikiCatalogues_Info> lstOjects = _WikiCataBL.WikiCatalogueGetAll();
+                ViewBag.ListCata = lstOjects;
             }
             catch (Exception ex)
             {
