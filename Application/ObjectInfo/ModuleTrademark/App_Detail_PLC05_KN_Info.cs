@@ -93,6 +93,21 @@ namespace ObjectInfos
         public string Appeal_Degree { get; set; }
         public string Customer_Code { get; set; }
 
+        string _Str_Appeal_Date;
+        public string Str_Appeal_Date
+        {
+            get
+            {
+                if (Appeal_Date.Date == DateTime.MinValue.Date)
+                    return "";
+                else return Appeal_Date.ToString("dd/MM/yyyy");
+            }
+            set
+            {
+                _Str_Appeal_Date = value;
+            }
+        }
+
 
         public decimal Fee_Id_1 { get; set; }
         public decimal Fee_Id_1_Check { get; set; }
@@ -101,7 +116,7 @@ namespace ObjectInfos
         public decimal Fee_Id_2 { get; set; }
         public decimal Fee_Id_2_Check { get; set; }
         public string Fee_Id_2_Val { get; set; }
- 
+
         public decimal Total_Fee { get; set; }
         public string Total_Fee_Str { get; set; }
 

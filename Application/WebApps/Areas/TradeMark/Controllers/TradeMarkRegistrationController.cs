@@ -735,7 +735,7 @@
                 ViewBag.App_Detail = app_Detail;
                 ViewBag.Lst_AppDoc = appDocumentInfos;
                 ViewBag.Lst_AppFee = appFeeFixInfos;
-                ViewBag.objAppHeaderInfo = applicationHeaderInfo;
+                ViewBag.objAppHeaderInfo = applicationHeaderInfo; 
 
                 return PartialView("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_TM_3B_PLB_01_SDD_View.cshtml");
             }
