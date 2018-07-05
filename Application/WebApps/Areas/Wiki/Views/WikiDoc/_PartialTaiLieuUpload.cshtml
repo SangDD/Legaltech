@@ -17,6 +17,7 @@
 }
 
 <div class="div-search-ad @AfterID" id="@div_Up" data-level="@Level">
+    <input type="hidden" value="@AfterID" id="@AfterID" />
     <div class="div-search-title">
         <div>@Title</div>
     </div>
@@ -174,7 +175,7 @@
             //2
             $.ajax({
                 type: 'POST',
-                url: '/trade-mark-share-data/push-file-to-server',
+                url: '/wiki-manage/wiki-doc/push-file-to-server',
                 data: formdata,
                 enctype: 'multipart/form-data',
                 processData: false, contentType: false, dataType: 'Json',

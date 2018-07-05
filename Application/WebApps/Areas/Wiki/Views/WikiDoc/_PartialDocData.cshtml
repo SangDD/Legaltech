@@ -28,6 +28,7 @@
                             <td class="tdleftalign">@item.TITLE</td>
                             <td class="tdleftalign">@item.CREATED_BY</td>
                             <td class="tdleftalign">@item.MODIFIED_DATE.ToDateTimeStringN0()</td>
+                            <td class="tdRightAlign">@item.VIEW_NUMBER.ToNumberString()</td>
                             <td class="tdcenteralign">
                                 <a href="javascript:viewDetailObject(@item.ID, '@item.TITLE')" class="icon icon-info" data-title="Xem chi tiết"></a>
                                 <a href="javascript:getViewToEditObject(@item.ID, '@item.TITLE')" class="icon icon-edit" data-title="Sửa"></a>

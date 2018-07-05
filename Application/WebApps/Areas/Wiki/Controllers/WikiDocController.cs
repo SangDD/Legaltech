@@ -8,6 +8,8 @@ using BussinessFacade;
 using ObjectInfos;
 using WebApps.Session;
 using Common;
+using ObjectInfos.ModuleTrademark;
+
 namespace WebApps.Areas.Wiki.Controllers
 {
 
@@ -63,6 +65,7 @@ namespace WebApps.Areas.Wiki.Controllers
                 var _WikiCataBL = new WikiCatalogue_BL ();
                 List<WikiCatalogues_Info> lstOjects = _WikiCataBL.WikiCatalogueGetAll();
                 ViewBag.ListCata = lstOjects;
+
             }
             catch (Exception ex)
             {
@@ -73,23 +76,53 @@ namespace WebApps.Areas.Wiki.Controllers
         }
 
         [HttpPost]
-        [Route("wiki-doc/do-add-doc")]
-        public ActionResult DoAddAppClass(App_Class_Info _AppClassInfo)
+        [Route("wiki-doc/add-doc")]
+        public ActionResult DoAddDoc(WikiDoc_Info _objectInfo, List<AppDocumentInfo> pAppDocumentInfo)
         {
-            decimal _rel = 0;
+            decimal pReturn = 0;
             try
             {
-                var _App_Class_BL = new App_Class_BL();
-                _AppClassInfo.Created_By = SessionData.CurrentUser.Username;
-                _AppClassInfo.Created_Date = DateTime.Now;
-                _rel = _App_Class_BL.App_Class_Insert(_AppClassInfo);
+                var _WikiDoc_BL = new WikiDoc_BL();
+                _objectInfo.CREATED_BY = SessionData.CurrentUser.Username;
+                _objectInfo.CREATED_DATE = DateTime.Now;
+                if (pAppDocumentInfo != null)
+                {
+                    if (pAppDocumentInfo.Count > 0)
+                    {
+                        int _count = 0;
+                        foreach (var info in pAppDocumentInfo)
+                        {
+                            if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
+                            {
+                                HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
+                                info.Filename = pfiles.FileName;
+                                info.Url_Hardcopy = "/Content/Archive/" + AppUpload.Wiki + "/" + pfiles.FileName;
+                                if (_count == 0)
+                                {
+                                    _objectInfo.FILE_URL01 = info.Url_Hardcopy;
+                                }
+                                if (_count == 1)
+                                {
+                                    _objectInfo.FILE_URL02 = info.Url_Hardcopy;
+                                }
+                                if (_count == 2)
+                                {
+                                    _objectInfo.FILE_URL03 = info.Url_Hardcopy;
+                                }
+                                _count = _count + 1;
+                            }
+                        }
+                    }
+                }
+                pReturn = _WikiDoc_BL.WikiDoc_Insert(_objectInfo);
+              
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
             }
 
-            return Json(new { result = _rel});
+            return Json(new { status = pReturn });
         }
 
         [HttpPost]
@@ -163,6 +196,51 @@ namespace WebApps.Areas.Wiki.Controllers
                 Logger.LogException(ex);
             }
             return PartialView("~/Areas/AppClass/Views/AppClass/_PartialDetailAppClass.cshtml", _appclassinfo);
+        }
+
+
+
+        [HttpPost]
+        [Route("wiki-doc/search-catalogue-child")]
+        public ActionResult SearchChildCatalogue(string p_parentid)
+        {
+            var _App_Class_BL = new App_Class_BL();
+            App_Class_Info _appclassinfo = new App_Class_Info();
+            List<WikiCatalogues_Info> lstOjects = new List<WikiCatalogues_Info>();
+            try
+            {
+                var _WikiCataBL = new WikiCatalogue_BL();
+                 lstOjects = _WikiCataBL.WikiCatalogueGetAll();
+                if (!string.IsNullOrEmpty(p_parentid))
+                {
+                    lstOjects = lstOjects.FindAll(m => m.PARENT_ID.ToString().Equals(p_parentid));
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return PartialView("~/Areas/Wiki/Views/Shared/_PartialCatalogue.cshtml", lstOjects);
+        }
+
+        [HttpPost]
+        [Route("wiki-doc/push-file-to-server")]
+        public ActionResult PushFileToServer(AppDocumentInfo pInfo)
+        {
+            try
+            {
+                if (pInfo.pfiles != null)
+                {
+                    var url = AppLoadHelpers.PushFileToServer(pInfo.pfiles, AppUpload.Wiki);
+                    SessionData.CurrentUser.chashFile[pInfo.keyFileUpload] = pInfo.pfiles;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = -1 });
+            }
+            return Json(new { success = 0 });
         }
 
     }
