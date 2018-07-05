@@ -288,64 +288,64 @@
 
                 foreach (AppDocumentInfo item in appDocumentInfos)
                 {
-                    if (item.Document_Id == "02_CGD_01")
+                    if (item.Document_Id == "C05_KN_01")
                     {
                         app_Detail.Doc_Id_1 = item.CHAR01;
                         app_Detail.Doc_Id_1_Check = item.Isuse;
                     }
-                    else if (item.Document_Id == "02_CGD_02")
+                    else if (item.Document_Id == "C05_KN_02")
                     {
                         app_Detail.Doc_Id_2 = item.CHAR01;
                         app_Detail.Doc_Id_2_Check = item.Isuse;
                     }
-                    else if (item.Document_Id == "02_CGD_03")
+                    else if (item.Document_Id == "C05_KN_03")
                     {
                         app_Detail.Doc_Id_3 = item.CHAR01;
                         app_Detail.Doc_Id_3_Check = item.Isuse;
                     }
-                    else if (item.Document_Id == "02_CGD_04")
+                    else if (item.Document_Id == "C05_KN_04")
                     {
                         app_Detail.Doc_Id_4 = item.CHAR01;
                         app_Detail.Doc_Id_4_Check = item.Isuse;
                     }
-                    else if (item.Document_Id == "02_CGD_05")
+                    else if (item.Document_Id == "C05_KN_05")
                     {
                         app_Detail.Doc_Id_5 = item.CHAR01;
                         app_Detail.Doc_Id_5_Check = item.Isuse;
                     }
 
-                    else if (item.Document_Id == "02_CGD_06")
+                    else if (item.Document_Id == "C05_KN_06")
                     {
                         app_Detail.Doc_Id_6 = item.CHAR01;
                         app_Detail.Doc_Id_6_Check = item.Isuse;
                     }
-                    else if (item.Document_Id == "02_CGD_07")
+                    else if (item.Document_Id == "C05_KN_07")
                     {
                         app_Detail.Doc_Id_7 = item.CHAR01;
                         app_Detail.Doc_Id_7_Check = item.Isuse;
                     }
-                    else if (item.Document_Id == "02_CGD_08")
+                    else if (item.Document_Id == "C05_KN_08")
                     {
                         app_Detail.Doc_Id_8 = item.CHAR01;
                         app_Detail.Doc_Id_8_Check = item.Isuse;
                     }
 
-                    else if (item.Document_Id == "02_CGD_09")
+                    else if (item.Document_Id == "C05_KN_09")
                     {
                         app_Detail.Doc_Id_9 = item.CHAR01;
                         app_Detail.Doc_Id_9_Check = item.Isuse;
                     }
-                    else if (item.Document_Id == "02_CGD_010")
+                    else if (item.Document_Id == "C05_KN_10")
                     {
                         app_Detail.Doc_Id_10 = item.CHAR01;
                         app_Detail.Doc_Id_10_Check = item.Isuse;
                     }
-                    else if (item.Document_Id == "02_CGD_11")
+                    else if (item.Document_Id == "C05_KN_11")
                     {
                         app_Detail.Doc_Id_11 = item.CHAR01;
                         app_Detail.Doc_Id_11_Check = item.Isuse;
                     }
-                    else if (item.Document_Id == "02_CGD_12")
+                    else if (item.Document_Id == "C05_KN_12")
                     {
                         app_Detail.Doc_Id_12 = item.CHAR01;
                         app_Detail.Doc_Id_12_Check = item.Isuse;
