@@ -340,6 +340,9 @@
                 // Fill export_header
                 string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_VI_" + p_appCode + ".pdf");
 
+                // copy Header
+                App_Detail_PLB02_CGD_Info.CopyAppHeaderInfo(ref app_Detail, applicationHeaderInfo);
+
                 #region Tài liệu có trong đơn
 
                 foreach (AppDocumentInfo item in appDocumentInfos)

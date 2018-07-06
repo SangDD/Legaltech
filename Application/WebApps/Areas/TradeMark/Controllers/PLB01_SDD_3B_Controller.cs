@@ -506,6 +506,9 @@
                 // Fill export_header
                 string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_Request_for_amendment_of_application_vi_" + p_appCode + ".pdf");
 
+                // copy Header
+                App_Detail_PLB01_SDD_Info.CopyAppHeaderInfo(ref app_Detail, applicationHeaderInfo);
+
                 #region Tài liệu có trong đơn
 
                 foreach (AppDocumentInfo item in appDocumentInfos)

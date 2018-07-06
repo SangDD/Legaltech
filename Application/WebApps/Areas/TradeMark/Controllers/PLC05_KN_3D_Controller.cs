@@ -284,6 +284,8 @@
                 // Fill export_header
                 string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C05_VI_" + p_appCode + ".pdf");
 
+                App_Detail_PLC05_KN_Info.CopyAppHeaderInfo(ref app_Detail, applicationHeaderInfo);
+
                 #region Tài liệu có trong đơn
 
                 foreach (AppDocumentInfo item in appDocumentInfos)
@@ -531,7 +533,7 @@
         {
             try
             {
-                ViewBag.FileName = "/Content/Export/" + "B02_VI_" + TradeMarkAppCode.AppCode_TM_3D_PLC_05_KN + ".pdf";
+                ViewBag.FileName = "/Content/Export/" + "C05_VI_" + TradeMarkAppCode.AppCode_TM_3D_PLC_05_KN + ".pdf";
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
             }
             catch (Exception ex)
