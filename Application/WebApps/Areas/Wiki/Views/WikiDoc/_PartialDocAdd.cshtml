@@ -228,6 +228,70 @@
 
         });
 
+
+
+        $("#btnGuiDon").click(function () {
+            try {
+                var reponse = false;
+                var formData = new FormData();
+                var txtTitle = $("#txtTitle");
+                var CboAddWikiCataParent = $("#CboAddWikiCataParent");
+                var CboAddWikiCataChild = $("#CboAddWikiCataChild");
+
+                if (txtTitle.val().trim() == "") {
+                    showError('Tiêu đề không được để trống!');
+                    txtTitle.focus();
+                    return false;
+                }
+
+                if (CboAddWikiCataChild.val() == "" || CboAddWikiCataChild.val() == null) {
+                    showError('Danh mục bài viết không được để trống!');
+                    $("#CboAddWikiCataChild").multipleSelect("focus");
+                    return false;
+                }
+                var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
+                if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
+                    showError('Nội dung bài viết không được để trống!!');
+                    txtAddContent.focus();
+                    txtAddContent.setData('');
+                    return false;
+                }
+                formData.append("_objectInfo.TITLE", txtTitle.val().trim());
+                formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
+                formData.append("_objectInfo.CONTENT", _contentVal);
+                formData.append("_objectInfo.STATUS", "2");
+                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_01", "0");
+                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_02", "1");
+                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_03", "2");
+                $.ajax({
+                    url: '/wiki-manage/wiki-doc/add-doc',
+                    type: 'POST',
+                    data: formData,
+                    processData: false, contentType: false, traditional: true, dataType: "json",
+                    enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                    success: function (data) {
+                        if (data != null && data.status >= 0) {
+                            jAlert(AddSuccess, ThongBao, function () {
+                                window.location.reload();
+                            });
+                        } else {
+                            jError(AddFail, ThongBao, function () {
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+
+            } catch (e) {
+                alert(e.toString());
+                return false;
+            }
+
+        });
+
+
         function funcGetCheckValueAndText(formData, pID, pItem) {
             try {
                 //Các tài liệụ đính kèm
