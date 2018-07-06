@@ -30,8 +30,8 @@
                             <td class="tdleftalign">@item.MODIFIED_DATE.ToDateTimeStringN0()</td>
                             <td class="tdRightAlign">@item.VIEW_NUMBER.ToNumberString()</td>
                             <td class="tdcenteralign">
-                                <a href="javascript:viewDetailObject(@item.ID, '@item.TITLE')" class="icon icon-info" data-title="Xem chi tiết"></a>
-                                <a href="javascript:getViewToEditObject(@item.ID, '@item.TITLE')" class="icon icon-edit" data-title="Sửa"></a>
+                                <a href="/wiki-manage/wiki-doc/view-edit/@item.ID" class="icon icon-info" data-title="Xem chi tiết"></a>
+                                <a href="/wiki-manage/wiki-doc/doc-edit/@item.ID" class="icon icon-edit" data-title="Sửa"></a>
                                 <a href="javascript:doDeleteObject(@item.ID, 1)" class="icon icon-delete" data-title="Xóa"></a>
                             </td>
                         </tr>

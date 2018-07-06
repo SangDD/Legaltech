@@ -23,6 +23,8 @@ namespace WebApps.Areas.Wiki.Controllers
         [Route("wiki-doc/list")]
         public ActionResult WikiDocList()
         {
+            if (SessionData.CurrentUser == null)
+                return Redirect("/");
             List<WikiDoc_Info> lstObj = new List<WikiDoc_Info>();
             try
             {
@@ -62,6 +64,8 @@ namespace WebApps.Areas.Wiki.Controllers
         {
             try
             {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
                 var _WikiCataBL = new WikiCatalogue_BL ();
                 List<WikiCatalogues_Info> lstOjects = _WikiCataBL.WikiCatalogueGetAll();
                 ViewBag.ListCata = lstOjects;
@@ -89,7 +93,7 @@ namespace WebApps.Areas.Wiki.Controllers
                 {
                     if (pAppDocumentInfo.Count > 0)
                     {
-                        int _count = 0;
+                        
                         foreach (var info in pAppDocumentInfo)
                         {
                             if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
@@ -97,19 +101,20 @@ namespace WebApps.Areas.Wiki.Controllers
                                 HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                 info.Filename = pfiles.FileName;
                                 info.Url_Hardcopy = "/Content/Archive/" + AppUpload.Wiki + "/" + pfiles.FileName;
-                                if (_count == 0)
+                                if (info.keyFileUpload == "WIKIADD_FILE_01")
                                 {
                                     _objectInfo.FILE_URL01 = info.Url_Hardcopy;
                                 }
-                                if (_count == 1)
+                                if (info.keyFileUpload == "WIKIADD_FILE_02")
                                 {
                                     _objectInfo.FILE_URL02 = info.Url_Hardcopy;
                                 }
-                                if (_count == 2)
+                                if (info.keyFileUpload == "WIKIADD_FILE_03")
                                 {
                                     _objectInfo.FILE_URL03 = info.Url_Hardcopy;
                                 }
-                                _count = _count + 1;
+                                // lấy xong thì xóa
+                                SessionData.CurrentUser.chashFile.Remove(info.keyFileUpload);
                             }
                         }
                     }
@@ -125,41 +130,83 @@ namespace WebApps.Areas.Wiki.Controllers
             return Json(new { status = pReturn });
         }
 
-        [HttpPost]
-        [Route("wiki-doc/view-edit")]
-        public ActionResult GetViewToEditClass(decimal p_id)
+   
+        [Route("wiki-doc/doc-edit/{id}/")]
+        public ActionResult ViewEdit()
         {
-            var _appclassinfo = new App_Class_Info();
-            var _App_Class_BL = new App_Class_BL();
+            if (SessionData.CurrentUser == null)
+                return Redirect("/");
+            var _WikiDoc_BL = new WikiDoc_BL();
+            WikiDoc_Info _ObjInfo = new WikiDoc_Info();
+            decimal _docid = 0;
+            if (RouteData.Values.ContainsKey("id"))
+            {
+                _docid = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
+            }
             try
             {
-                _appclassinfo = _App_Class_BL.AppClassGetByID(p_id);
+                _ObjInfo = _WikiDoc_BL.WikiDoc_GetById(_docid);
+                var _WikiCataBL = new WikiCatalogue_BL();
+                List<WikiCatalogues_Info> lstOjects = _WikiCataBL.WikiCatalogueGetAll();
+                ViewBag.ListCata = lstOjects;
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
             }
-            return PartialView("~/Areas/Wiki/Views/WikiDoc/_PartialDocEdit.cshtml", _appclassinfo);
+ 
+            return PartialView("~/Areas/Wiki/Views/WikiDoc/_PartialDocEdit.cshtml", _ObjInfo);
         }
 
         [HttpPost]
-        [Route("wiki-doc/do-edit-doc")]
-        public ActionResult DoEditObject(App_Class_Info _AppClassInfo)
+        [ValidateInput(false)]
+        [Route("wiki-doc/save-edit-doc")]
+        public ActionResult DoEditDoc(WikiDoc_Info _objectInfo, List<AppDocumentInfo> pAppDocumentInfo)
         {
-            decimal _result = 0;
+            decimal pReturn = 0;
             try
             {
-                var _App_Class_BL = new App_Class_BL();
-                _AppClassInfo.Modified_By = SessionData.CurrentUser.Username;
-                _AppClassInfo.Modified_Date = DateTime.Now;
-                _result = _App_Class_BL.App_Class_Update(_AppClassInfo);
+                var _WikiDoc_BL = new WikiDoc_BL();
+                _objectInfo.MODIFIED_BY = SessionData.CurrentUser.Username;
+                _objectInfo.MODIFIED_DATE = DateTime.Now;
+                if (pAppDocumentInfo != null)
+                {
+                    if (pAppDocumentInfo.Count > 0)
+                    {                      
+                        foreach (var info in pAppDocumentInfo)
+                        {
+                            if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
+                            {
+                                HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
+                                info.Filename = pfiles.FileName;
+                                info.Url_Hardcopy = "/Content/Archive/" + AppUpload.Wiki + "/" + pfiles.FileName;
+                                if (info.keyFileUpload == "WIKIADD_FILE_01")
+                                {
+                                    _objectInfo.FILE_URL01 = info.Url_Hardcopy;
+                                }
+                                if (info.keyFileUpload == "WIKIADD_FILE_02")
+                                {
+                                    _objectInfo.FILE_URL02 = info.Url_Hardcopy;
+                                }
+                                if (info.keyFileUpload == "WIKIADD_FILE_03")
+                                {
+                                    _objectInfo.FILE_URL03 = info.Url_Hardcopy;
+                                }
+                                // lấy xong thì xóa
+                                SessionData.CurrentUser.chashFile.Remove(info.keyFileUpload);
+                            }
+                        }
+                    }
+                }
+                pReturn = _WikiDoc_BL.WikiDoc_Update(_objectInfo);
+
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
             }
 
-            return Json(new { result = _result });
+            return Json(new { status = pReturn });
         }
 
         [HttpPost]
