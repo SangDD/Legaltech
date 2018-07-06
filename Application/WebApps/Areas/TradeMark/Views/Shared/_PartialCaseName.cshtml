@@ -1,0 +1,83 @@
+﻿@model string
+@using ObjectInfos;
+@{
+    string txtCase_Name = Model + "_txtCase_Name";
+    string txtClient_Reference = Model + "_txtClient_Reference";
+
+
+    var objAppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        objAppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    }
+    string _disable = "";
+    int _Isdisable = 0;
+    if (ViewBag.Isdisable == 1)
+    {
+        _disable = "disabled";
+    }
+}
+
+<div class="divCover cls_form_title">
+    <img src="~/Content/icons/info.png" />
+    <div class="cls_form_header">
+        QUẢN LÝ VỤ VIỆC
+    </div>
+</div>
+
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div> Case name:</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input value="@objAppHeaderInfo.Case_Name" type="text" placeholder="Case name" maxlength="200" id="@txtCase_Name" @_disable />
+        </div>
+    </div>
+</div>
+
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div> Client Reference: </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input value="@objAppHeaderInfo.Client_Reference" type="text" placeholder="Client Reference" maxlength="200" id="@txtClient_Reference" @_disable />
+        </div>
+    </div>
+</div>
+
+<script>
+    //Lấy thông tin chủ đơn add vào formData
+    function funcThongTinCaseName(formData, PreID) {
+        try {
+            var txtCase_Name = $("#" + PreID + "_txtCase_Name").val();
+            if (txtCase_Name === "") {
+                $("#" + PreID + "_txtCase_Name").focus().val('');
+                showError('Case Name không được để trống!');
+                return false;
+            }
+            var txtClient_Reference = $("#" + PreID + "_txtClient_Reference").val();
+            if (txtClient_Reference === "") {
+                $("#" + PreID + "_txtClient_Reference").focus().val('');
+                showError('Client Reference không được để trống!');
+                return false;
+            }
+
+            //Chủ đơn
+            formData.append("pInfo.Case_Name", txtCase_Name);
+            formData.append("pInfo.Client_Reference", txtClient_Reference);
+
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+</script>
+
+
+
+
+

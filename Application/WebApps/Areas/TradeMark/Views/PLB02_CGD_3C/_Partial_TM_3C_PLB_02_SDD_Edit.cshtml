@@ -69,6 +69,9 @@
             ĐĂNG KÝ ĐỐI TƯỢNG SỞ HỮU CÔNG NGHIỆP
         </legend>
 
+        @* Case name *@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
+
         @* 1 - CHỦ ĐƠN*@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
@@ -372,6 +375,12 @@
             var formData = new FormData();
             formData.append("pInfo.Id", @_AppHeaderInfo.Id);
             formData.append("pInfo.Status", @_AppHeaderInfo.Status);
+
+            var reponse = funcThongTinCaseName(formData, "0");
+            if (reponse == false) {
+                return false;
+            }
+
             if (funcThongTinChuDon(formData, "1") != true) {
                 return false;
             }
@@ -399,7 +408,7 @@
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
 
             //Lấy thông tin detail
-            var reponse = funcGetAppDetail(formData);
+            reponse = funcGetAppDetail(formData);
             if (reponse == false) {
                 return false;
             }

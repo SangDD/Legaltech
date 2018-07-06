@@ -66,6 +66,9 @@
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
         <legend style="font-weight:600"> SỬA ĐỔI ĐƠN ĐĂNG KÝ ĐỐI TƯỢNG SỞ HỮU CÔNG NGHIỆP </legend>
 
+        @* Case name *@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
+
         @* 3 - ĐƠN YÊU CẦU SỬA ĐỔI *@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
@@ -436,6 +439,11 @@
 
             //Thông tin chủ đơn
             var formData = new FormData();
+            var reponse = funcThongTinCaseName(formData, "0");
+            if (reponse == false) {
+                return false;
+            }
+
             if (funcThongTinChuDon(formData, "1") != true) {
                 return false;
             }
@@ -456,7 +464,7 @@
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
 
             //Lấy thông tin detail
-            var reponse = funcGetAppDetail(formData);
+            reponse = funcGetAppDetail(formData);
             if (reponse == false) {
                 return false;
             }

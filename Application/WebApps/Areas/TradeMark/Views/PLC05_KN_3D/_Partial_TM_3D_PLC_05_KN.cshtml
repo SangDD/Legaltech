@@ -52,6 +52,9 @@
             TỜ KHAI KHIẾU NẠI
         </legend>
 
+        @* Case name *@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
+
         @* 4 - Đối tượng khiếu nại *@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
@@ -114,7 +117,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Số đơn" id="3_txt_appeal_appno" maxlength="100" disabled="disabled"/>
+                    <input type="text" placeholder="Số đơn" id="3_txt_appeal_appno" maxlength="100" disabled="disabled" />
                 </div>
             </div>
         </div>
@@ -131,7 +134,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Số bằng" id="3_txt_appeal_degree" maxlength="100" disabled="disabled"/>
+                    <input type="text" placeholder="Số bằng" id="3_txt_appeal_degree" maxlength="100" disabled="disabled" />
                 </div>
             </div>
         </div>
@@ -349,6 +352,10 @@
 
             var formData = new FormData();
             formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai)');
+            var reponse = funcThongTinCaseName(formData, "0");
+            if (reponse == false) {
+                return false;
+            }
 
             var v_AppCode = $("#txtAppCode").val();
             if (v_AppCode === "") {
@@ -443,6 +450,10 @@
 
             var formData = new FormData();
             formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.Luu_tam)');
+            var reponse = funcThongTinCaseName(formData, "0");
+            if (reponse == false) {
+                return false;
+            }
 
             var v_AppCode = $("#txtAppCode").val();
             if (v_AppCode === "") {
@@ -479,7 +490,7 @@
             }
 
             // get thông tin fee
-            var reponse = funcGet_Fee(formData);
+            reponse = funcGet_Fee(formData);
             if (reponse == false) {
                 return false;
             }
