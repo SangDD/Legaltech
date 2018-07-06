@@ -63,8 +63,12 @@ namespace ObjectInfos
         public string DateNo { get; set; }
         public string Months { get; set; }
         public string Years { get; set; }
+
+        public string Client_Reference { get; set; }
+        public string Case_Name { get; set; }
+
     }
- 
+
 
     public class AppInfoExport : AppDetail04NHInfo
     {
