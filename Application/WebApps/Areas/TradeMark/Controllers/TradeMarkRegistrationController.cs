@@ -211,7 +211,8 @@
                     //Tính phí 
                     if (pReturn >= 0 && pAppClassInfo != null)
                     {
-                        pReturn = CaculatorFee(pAppClassInfo, pDetail.Sodon_Ut, pAppHeaderID);
+                        var listfeeCaculator = new List<AppFeeFixInfo>();
+                        pReturn = CaculatorFee(pAppClassInfo, pDetail.Sodon_Ut, pAppHeaderID,  listfeeCaculator);
                     }
                     //end
                     if (pReturn < 0)
@@ -414,65 +415,119 @@
                     }
                 }
                 #region  Hiển thị phí trong don
-                if (pInfo.Id != 0)
+                //if (pInfo.Id != 0)
+                //{
+                //    AppFeeFixBL appFeeFixBL = new AppFeeFixBL();
+                //    DataSet dsFeefix = appFeeFixBL.AppFeeFixGetByAppHeader(pInfo.Id);
+                //    List<AppFeeFixInfo> lst = CBO<AppFeeFixInfo>.FillCollectionFromDataSet(dsFeefix);
+                //    foreach (var item in lst)
+                //    {
+                //        if (item.Fee_Id == 200)
+                //        {
+                //            appInfo.TM04NH_200 = item.Number_Of_Patent;
+                //            appInfo.TM04NH_200_Val = item.Amount;
+                //        }
+                //        else if (item.Fee_Id == 201)
+                //        {
+                //            appInfo.TM04NH_201 = item.Number_Of_Patent;
+                //            appInfo.TM04NH_201_Val = item.Amount;
+                //        }
+                //        else if (item.Fee_Id == 2011)
+                //        {
+                //            appInfo.TM04NH_2011 = item.Number_Of_Patent;
+                //            appInfo.TM04NH_2011_Val = item.Amount;
+                //        }
+                //        else if (item.Fee_Id == 203)
+                //        {
+                //            appInfo.TM04NH_203 = item.Number_Of_Patent;
+                //            appInfo.TM04NH_203_Val = item.Amount;
+                //        }
+                //        else if (item.Fee_Id == 204)
+                //        {
+                //            appInfo.TM04NH_204 = item.Number_Of_Patent;
+                //            appInfo.TM04NH_204_Val = item.Amount;
+                //        }
+                //        else if (item.Fee_Id == 205)
+                //        {
+                //            appInfo.TM04NH_205 = item.Number_Of_Patent;
+                //            appInfo.TM04NH_205_Val = item.Amount;
+                //        }
+                //        else if (item.Fee_Id == 2051)
+                //        {
+                //            appInfo.TM04NH_2051 = item.Number_Of_Patent;
+                //            appInfo.TM04NH_2051_Val = item.Amount;
+                //        }
+                //        else if (item.Fee_Id == 207)
+                //        {
+                //            appInfo.TM04NH_207 = item.Number_Of_Patent;
+                //            appInfo.TM04NH_207_Val = item.Amount;
+                //        }
+                //        else if (item.Fee_Id == 2071)
+                //        {
+                //            appInfo.TM04NH_2071 = item.Number_Of_Patent;
+                //            appInfo.TM04NH_2071_Val = item.Amount;
+                //        }
+                //        appInfo.TM04NH_TOTAL = appInfo.TM04NH_TOTAL + item.Amount;
+                //    }
+                //}
+                //else
+                //{ }
+                var listfeeCaculator = new List<AppFeeFixInfo>();
+                int pPreview = 1;
+                string DonUT = pDetail.Sodon_Ut;
+                if (!string.IsNullOrEmpty(pDetail.Sodon_Ut2))
                 {
-                    AppFeeFixBL appFeeFixBL = new AppFeeFixBL();
-                    DataSet dsFeefix = appFeeFixBL.AppFeeFixGetByAppHeader(pInfo.Id);
-                    List<AppFeeFixInfo> lst = CBO<AppFeeFixInfo>.FillCollectionFromDataSet(dsFeefix);
-                    foreach (var item in lst)
-                    {
-                        if (item.Fee_Id == 200)
-                        {
-                            appInfo.TM04NH_200 = item.Number_Of_Patent;
-                            appInfo.TM04NH_200_Val = item.Amount;
-                        }
-                        else if (item.Fee_Id == 201)
-                        {
-                            appInfo.TM04NH_201 = item.Number_Of_Patent;
-                            appInfo.TM04NH_201_Val = item.Amount;
-                        }
-                        else if (item.Fee_Id == 2011)
-                        {
-                            appInfo.TM04NH_2011 = item.Number_Of_Patent;
-                            appInfo.TM04NH_2011_Val = item.Amount;
-                        }
-                        else if (item.Fee_Id == 203)
-                        {
-                            appInfo.TM04NH_203 = item.Number_Of_Patent;
-                            appInfo.TM04NH_203_Val = item.Amount;
-                        }
-                        else if (item.Fee_Id == 204)
-                        {
-                            appInfo.TM04NH_204 = item.Number_Of_Patent;
-                            appInfo.TM04NH_204_Val = item.Amount;
-                        }
-                        else if (item.Fee_Id == 205)
-                        {
-                            appInfo.TM04NH_205 = item.Number_Of_Patent;
-                            appInfo.TM04NH_205_Val = item.Amount;
-                        }
-                        else if (item.Fee_Id == 2051)
-                        {
-                            appInfo.TM04NH_2051 = item.Number_Of_Patent;
-                            appInfo.TM04NH_2051_Val = item.Amount;
-                        }
-                        else if (item.Fee_Id == 207)
-                        {
-                            appInfo.TM04NH_207 = item.Number_Of_Patent;
-                            appInfo.TM04NH_207_Val = item.Amount;
-                        }
-                        else if (item.Fee_Id == 2071)
-                        {
-                            appInfo.TM04NH_2071 = item.Number_Of_Patent;
-                            appInfo.TM04NH_2071_Val = item.Amount;
-                        }
-                        appInfo.TM04NH_TOTAL = appInfo.TM04NH_TOTAL + item.Amount;
-                    }
+                    DonUT = DonUT + "," + pDetail.Sodon_Ut2;
                 }
-                else
+                int preturn = CaculatorFee(pAppClassInfo, DonUT, 0,  listfeeCaculator, pPreview);
+                foreach (var item in listfeeCaculator)
                 {
-                    // CaculatorFee(List < AppClassDetailInfo > pAppClassInfo, string NumberAppNo, decimal pAppHeaderId)
-
+                    if (item.Fee_Id == 200)
+                    {
+                        appInfo.TM04NH_200 = item.Number_Of_Patent;
+                        appInfo.TM04NH_200_Val = item.Amount;
+                    }
+                    else if (item.Fee_Id == 201)
+                    {
+                        appInfo.TM04NH_201 = item.Number_Of_Patent;
+                        appInfo.TM04NH_201_Val = item.Amount;
+                    }
+                    else if (item.Fee_Id == 2011)
+                    {
+                        appInfo.TM04NH_2011 = item.Number_Of_Patent;
+                        appInfo.TM04NH_2011_Val = item.Amount;
+                    }
+                    else if (item.Fee_Id == 203)
+                    {
+                        appInfo.TM04NH_203 = item.Number_Of_Patent;
+                        appInfo.TM04NH_203_Val = item.Amount;
+                    }
+                    else if (item.Fee_Id == 204)
+                    {
+                        appInfo.TM04NH_204 = item.Number_Of_Patent;
+                        appInfo.TM04NH_204_Val = item.Amount;
+                    }
+                    else if (item.Fee_Id == 205)
+                    {
+                        appInfo.TM04NH_205 = item.Number_Of_Patent;
+                        appInfo.TM04NH_205_Val = item.Amount;
+                    }
+                    else if (item.Fee_Id == 2051)
+                    {
+                        appInfo.TM04NH_2051 = item.Number_Of_Patent;
+                        appInfo.TM04NH_2051_Val = item.Amount;
+                    }
+                    else if (item.Fee_Id == 207)
+                    {
+                        appInfo.TM04NH_207 = item.Number_Of_Patent;
+                        appInfo.TM04NH_207_Val = item.Amount;
+                    }
+                    else if (item.Fee_Id == 2071)
+                    {
+                        appInfo.TM04NH_2071 = item.Number_Of_Patent;
+                        appInfo.TM04NH_2071_Val = item.Amount;
+                    }
+                    appInfo.TM04NH_TOTAL = appInfo.TM04NH_TOTAL + item.Amount;
                 }
                 #endregion
 
@@ -1045,7 +1100,7 @@
             }
         }
 
-        public int CaculatorFee(List<AppClassDetailInfo> pAppClassInfo, string NumberAppNo, decimal pAppHeaderId)
+        public int CaculatorFee(List<AppClassDetailInfo> pAppClassInfo, string NumberAppNo, decimal pAppHeaderId , List<AppFeeFixInfo> _lstFeeFix, int pPrviewOrInsert =0)
         {
             try
             {
@@ -1079,8 +1134,7 @@
                 AppFeeFixInfo _AppFeeFixInfo = new AppFeeFixInfo();
 
                 #region Phí Nộp hồ sơ
-                List<AppFeeFixInfo> _lstFeeFix = new List<AppFeeFixInfo>();
-
+                //_lstFeeFix = new List<AppFeeFixInfo>();
                 //1.Phí nộp hồ sơ 
                 _AppFeeFixInfo = new AppFeeFixInfo();
                 _AppFeeFixInfo.Fee_Id = 200;
@@ -1203,9 +1257,14 @@
                 else
                     _AppFeeFixInfo.Amount = 120000 * _AppFeeFixInfo.Number_Of_Patent;
                 _lstFeeFix.Add(_AppFeeFixInfo);
-
+                //Xem trước privew thì ko làm gì cả chỉ tính đẩy vào list thôi 
+                if (pPrviewOrInsert != 0)
+                {
+                    return 0;
+                }
                 AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
                 return _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, pAppHeaderId);
+                
                 #endregion
 
             }
