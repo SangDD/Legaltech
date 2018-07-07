@@ -5,7 +5,11 @@
 @{
     ViewBag.Title = "Quản lý bài viết";
     Layout = "~/ViewsShared/_Layout.cshtml";
-
+    List<WikiCatalogues_Info> _listcata = new List<WikiCatalogues_Info>();
+    if (ViewBag.ListCata != null)
+    {
+        _listcata = ViewBag.ListCata;
+    }
 }
 @try
 {
@@ -13,6 +17,14 @@
         /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
         .div-search-title > div {
             width: 150px;
+        }
+        .ms-parent
+        {
+            margin:0px 3px;
+        }
+        .ms-choice
+        {
+            height:30px; 
         }
     </style>
 
@@ -46,9 +58,20 @@
                     <div style="width: 120px">Danh mục bài viết</div>
                 </div>
                 <div>
-                    <div>
+                    <div style="width:200px">
                        <select id="cboSearchWikiCatalogue">
-                           <option value="ALL">Chọn danh mục</option>
+                           <option value="ALL">
+                               Tất cả
+                           </option>
+                           @foreach (WikiCatalogues_Info item in _listcata)
+                           {
+                               if (item.CATA_LEVEL == 1)
+                               {
+                                   <option value="@item.ID">
+                                       @item.NAME
+                                   </option>
+                               }
+                           }
                        </select>
                     </div>
                 </div>
@@ -102,36 +125,39 @@
     <script>
         var _currentKeySearch = '@SessionStorages.SEARCH_CLASS_KEY_CONDITIONS';
         var _currentOptionFilter = '@SessionStorages.SEARCH_CLASS_KEY_OPTIONS';
-        var _code = '', _name_vi = '', _name_en = '', _name_vi = '';
+        var _status = '', _catalogue = '', _titleHashtag = '';
 
         $(document).ready(function () {
             initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findObjects);
 
-            $('txt_code').focus();
+            $('txtSearchTitleHashtag').focus();
             $('[data-controlcondition="TRUE"]').on('keypress',
 				function (e) {
 				    enterKeyPress(e, 'btnfindObjects');
 				});
         });
 
+
+      
+
+
         function findObjects(_pageNumber, _isSearching) {
             try {
 
                 reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
                 if (isSearching === 1) {
-                    _code = $("#txt_code").val().trim();
-                    _name_vi = $("#txt_name_vi").val().trim();
-                    _name_en = $("#txt_name_en").val().trim();
+                    _status = "1";
+                    _catalogue = $("#cboSearchWikiCatalogue").val();
+                    _titleHashtag = $("#txtSearchTitleHashtag").val().trim();
 
                 } else {
                     window.arrKeySearch = window.keySearch.split('|');
-                    _code = arrKeySearch[0];
-                    _name_vi = arrKeySearch[1];
-                    _name_en = arrKeySearch[2];
-
-                    $("#txt_code").val(_code);
-                    $("#txt_name_vi").val(_name_vi);
-                    $("#txt_name_en").val(_name_en);
+                    _status = arrKeySearch[0];
+                    _catalogue = arrKeySearch[1];
+                    _titleHashtag = arrKeySearch[2];
+ 
+                    $("#cboSearchWikiCatalogue option[value=" + _catalogue + "]").attr("selected", "selected");
+                    $("#txtSearchTitleHashtag").val(_titleHashtag);
                 }
 
                 updateSearchingConditions("divNumberRecordOnPageListObjects", setKeySearch);
@@ -161,7 +187,7 @@
         }
 
         function setKeySearch() {
-            window.keySearch = _code + "|" + _name_vi + "|" + _name_en;
+            window.keySearch = _status + "|" +  _catalogue + "|" + _titleHashtag;
         }
 
         function initOrderBySearching() {
@@ -177,6 +203,14 @@
                 console.log(e.message);
             }
         }
+
+        $('#cboSearchWikiCatalogue').multipleSelect({
+            filter: true,
+            noMatchesFound: "Không tìm thấy dữ liệu",
+            single: true,
+            isdatastring: false,
+            placeholder: 'Tìm kiếm danh mục tin'
+        });
     </script>
 
     @* task function *@

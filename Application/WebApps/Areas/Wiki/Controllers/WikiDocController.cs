@@ -9,6 +9,7 @@ using ObjectInfos;
 using WebApps.Session;
 using Common;
 using ObjectInfos.ModuleTrademark;
+using WebApps.CommonFunction;
 
 namespace WebApps.Areas.Wiki.Controllers
 {
@@ -28,9 +29,12 @@ namespace WebApps.Areas.Wiki.Controllers
             List<WikiDoc_Info> lstObj = new List<WikiDoc_Info>();
             try
             {
+                var _WikiCataBL = new WikiCatalogue_BL();
                 var ObjBL = new WikiDoc_BL();
                 lstObj = ObjBL.WikiDoc_Search();
                 ViewBag.Paging = ObjBL.GetPagingHtml();
+                List<WikiCatalogues_Info> lstOjects = _WikiCataBL.WikiCatalogueGetAll();
+                ViewBag.ListCata = lstOjects;
             }
             catch (Exception ex)
             {
@@ -44,18 +48,18 @@ namespace WebApps.Areas.Wiki.Controllers
         [Route("wiki-doc/find-doc")]
         public ActionResult FindOject(string keysSearch, string options)
         {
-            var lstOjects = new List<App_Class_Info>();
+            var lstOjects = new List<WikiDoc_Info>();
             try
             {
-                var _App_Class_BL = new App_Class_BL();
-                 lstOjects = _App_Class_BL.SearchAppClass(keysSearch, options);
-                ViewBag.Paging = _App_Class_BL.GetPagingHtml();
+                var _WikiDoc_BL = new WikiDoc_BL();
+                 lstOjects = _WikiDoc_BL.WikiDoc_Search(keysSearch, options);
+                ViewBag.Paging = _WikiDoc_BL.GetPagingHtml();
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
             }
-            return PartialView("~/Areas/AppClass/Views/AppClass/_PartialAppClassData.cshtml", lstOjects);
+            return PartialView("~/Areas/Wiki/Views/WikiDoc/_PartialDocData.cshtml", lstOjects);
         }
 
        
@@ -81,6 +85,7 @@ namespace WebApps.Areas.Wiki.Controllers
 
         [HttpPost]
         [Route("wiki-doc/add-doc")]
+        [ValidateInput(false)]
         public ActionResult DoAddDoc(WikiDoc_Info _objectInfo, List<AppDocumentInfo> pAppDocumentInfo)
         {
             decimal pReturn = 0;
@@ -89,6 +94,7 @@ namespace WebApps.Areas.Wiki.Controllers
                 var _WikiDoc_BL = new WikiDoc_BL();
                 _objectInfo.CREATED_BY = SessionData.CurrentUser.Username;
                 _objectInfo.CREATED_DATE = DateTime.Now;
+                _objectInfo.LANGUAGE_CODE= AppsCommon.GetCurrentLang();
                 if (pAppDocumentInfo != null)
                 {
                     if (pAppDocumentInfo.Count > 0)
