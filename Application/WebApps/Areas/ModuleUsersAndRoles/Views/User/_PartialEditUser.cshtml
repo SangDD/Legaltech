@@ -172,11 +172,11 @@
                 <div class="div-search-content">
                     <div>
                         @*<select id="cboType" style="width:200px">
-                            @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE"))
-                            {
-                                <option @(item.CdVal == Model.Type.ToString() ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
-                            }
-                        </select>*@
+                        @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE"))
+                        {
+                            <option @(item.CdVal == Model.Type.ToString() ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
+                        }
+                    </select>*@
                         @Html.TextBoxFor(m => m.Type_Name, new { @style = "width: 200px", @disabled = "disabled" })
                     </div>
                 </div>
@@ -238,13 +238,69 @@
                     </div>
                 </div>
 
+                <div class="div-search-ad" id="clsCustomer1">
+                    <div class="div-search-title">
+                        <div>Mã đại diện</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            @Html.TextBoxFor(m => m.Customer_Code, new { @id = "txtCustomer_Code", @maxlength = "200", @style = "width: 200px" })
+                        </div>
+                    </div>
+
+                    <div class="div-search-title">
+                        <div>Contact_Person </div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <select id="cboContact_Person">
+                                @if (Model.Contact_Person == "Mr")
+                                {
+                                    <option value="Mr" selected="selected">Mr</option>
+                                }
+                                else
+                                {
+                                    <option value="Mr">Mr</option>
+                                }
+
+                                @if (Model.Contact_Person == "Mrs")
+                                {
+                                    <option value="Mrs" selected="selected">Mrs</option>
+                                }
+                                else
+                                {
+                                    <option value="Mrs">Mrs</option>
+                                }
+
+                                @if (Model.Contact_Person == "Ms")
+                                {
+                                    <option value="Ms" selected="selected">Ms</option>
+                                }
+                                else
+                                {
+                                    <option value="Ms">Ms</option>
+                                }
+
+                                @if (Model.Contact_Person == "Miss")
+                                {
+                                    <option value="Miss" selected="selected">Miss</option>
+                                }
+                                else
+                                {
+                                    <option value="Miss">Miss</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="div-search-ad" id="clsCustomer2">
                     <div class="div-search-title">
                         <div>Lý do dùng </div>
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <select id="cboReasonSelect" style = "width: 200px">
+                            <select id="cboReasonSelect" style="width: 200px">
                                 @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "REASON_SELECT"))
                                 {
                                     <option @(item.CdVal == Model.Reason_Select.ToString() ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
@@ -524,6 +580,10 @@
 
                 formData.append('userInfo.Reason_Select', $("#cboReasonSelect").val());
                 formData.append('userInfo.Request_Credit', $("#cboRequestCredit").val());
+
+                formData.append('userInfo.Customer_Code', $("#txtCustomer_Code").val());
+                formData.append('userInfo.Contact_Person', $("#cboContact_Person").val());
+
             }
             else if (@Model.Type == '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Lawer)') {
                 formData.append('userInfo.Other_Type', $("#cboLawerType").val());

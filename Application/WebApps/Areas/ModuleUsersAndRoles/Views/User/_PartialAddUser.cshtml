@@ -39,7 +39,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="password" id="txtPasswordAdd" maxlength="64" style="height: 37px; width: 200px; border: 1px solid #aaa; border-left: none;padding-left: 5px; " />
+                        <input type="password" id="txtPasswordAdd" maxlength="64" style="height: 30px; width: 200px; border: 1px solid #aaa; border-left: none;padding-left: 5px; " />
                     </div>
                 </div>
                 <div class="div-search-title">
@@ -47,7 +47,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="password" id="txtRePasswordAdd" maxlength="64" style="height: 37px; border: 1px solid #aaa; border-left: none;padding-left: 5px; " />
+                        <input type="password" id="txtRePasswordAdd" maxlength="64" style="height: 30px; border: 1px solid #aaa; border-left: none;padding-left: 5px; " />
                     </div>
                 </div>
             </div>
@@ -241,6 +241,31 @@
                 </div>
             </div>
 
+            <div class="div-search-ad clssDisplaynone" id="clsCustomer3">
+                <div class="div-search-title">
+                    <div>Mã đại diện</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtCustomer_Code" maxlength="200" style="width: 200px" />
+                    </div>
+                </div>
+
+                <div class="div-search-title">
+                    <div>Contact Person </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboContact_Person">
+                            <option value="Mr">Mr</option>
+                            <option value="Mr">Mrs</option>
+                            <option value="Mr">Ms</option>
+                            <option value="Mr">Miss</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
             <div class="div-search-ad clssDisplaynone" id="clsCustomer2">
                 <div class="div-search-title">
                     <div>Lý do dùng </div>
@@ -385,6 +410,8 @@
 
             formData.append('userInfo.Reason_Select', $("#cboReasonSelect").val());
             formData.append('userInfo.Request_Credit', $("#cboRequestCredit").val());
+            formData.append('userInfo.Customer_Code', $("#txtCustomer_Code").val());
+            formData.append('userInfo.Contact_Person', $("#cboContact_Person").val());
 
             formData.append('userInfo.Other_Type', $("#cboLawerType").val());
             formData.append('userInfo.Hourly_Rate', $("#txthourly_rate").val().replace(/,/g, ""));
@@ -401,6 +428,7 @@
                     $("#clsCustomer").removeClass("clssDisplaynone");
                     $("#clsCustomer1").removeClass("clssDisplaynone");
                     $("#clsCustomer2").removeClass("clssDisplaynone");
+                    $("#clsCustomer3").removeClass("clssDisplaynone");
 
                     $("#clsLawer").addClass("clssDisplaynone");
 
@@ -408,12 +436,14 @@
                     $("#clsCustomer").addClass("clssDisplaynone");
                     $("#clsCustomer1").addClass("clssDisplaynone");
                     $("#clsCustomer2").addClass("clssDisplaynone");
+                    $("#clsCustomer3").addClass("clssDisplaynone");
 
                     $("#clsLawer").removeClass("clssDisplaynone");
                 } else {
                     $("#clsCustomer").addClass("clssDisplaynone");
                     $("#clsCustomer1").addClass("clssDisplaynone");
                     $("#clsCustomer2").addClass("clssDisplaynone");
+                    $("#clsCustomer3").addClass("clssDisplaynone");
 
                     $("#clsLawer").addClass("clssDisplaynone");
                 }
@@ -568,7 +598,7 @@
                         $('#txtmain_business').focus();
                     });
                     return false;
-                } 
+                }
 
             } else if (typeAdd == '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Lawer)') {
                 var _cboLawerType =  $("#cboLawerType").val();
@@ -606,7 +636,7 @@
             return true;
         }
 
-        
+
     </script>
 }
 catch (Exception)
