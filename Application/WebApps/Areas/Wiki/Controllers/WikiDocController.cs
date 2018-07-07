@@ -31,7 +31,7 @@ namespace WebApps.Areas.Wiki.Controllers
             {
                 var _WikiCataBL = new WikiCatalogue_BL();
                 var ObjBL = new WikiDoc_BL();
-                lstObj = ObjBL.WikiDoc_Search();
+                lstObj = ObjBL.WikiDoc_Search("1||");
                 ViewBag.Paging = ObjBL.GetPagingHtml();
                 List<WikiCatalogues_Info> lstOjects = _WikiCataBL.WikiCatalogueGetAll();
                 ViewBag.ListCata = lstOjects;
@@ -44,7 +44,53 @@ namespace WebApps.Areas.Wiki.Controllers
 
         }
 
-         [HttpPost]
+
+        [Route("wiki-doc/pending-list")]
+        public ActionResult WikiDocListPending()
+        {
+            if (SessionData.CurrentUser == null)
+                return Redirect("/");
+            List<WikiDoc_Info> lstObj = new List<WikiDoc_Info>();
+            try
+            {
+                var _WikiCataBL = new WikiCatalogue_BL();
+                var ObjBL = new WikiDoc_BL();
+                lstObj = ObjBL.WikiDoc_Search("2,4||");
+                ViewBag.Paging = ObjBL.GetPagingHtml();
+                List<WikiCatalogues_Info> lstOjects = _WikiCataBL.WikiCatalogueGetAll();
+                ViewBag.ListCata = lstOjects;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return PartialView("/Areas/Wiki/Views/WikiDoc/DocListPending.cshtml", lstObj);
+        }
+
+        [Route("wiki-doc/approved-list")]
+        public ActionResult WikiDocListApproved()
+        {
+            if (SessionData.CurrentUser == null)
+                return Redirect("/");
+            List<WikiDoc_Info> lstObj = new List<WikiDoc_Info>();
+            try
+            {
+                var _WikiCataBL = new WikiCatalogue_BL();
+                var ObjBL = new WikiDoc_BL();
+                lstObj = ObjBL.WikiDoc_Search("3||");
+                ViewBag.Paging = ObjBL.GetPagingHtml();
+                List<WikiCatalogues_Info> lstOjects = _WikiCataBL.WikiCatalogueGetAll();
+                ViewBag.ListCata = lstOjects;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return PartialView("/Areas/Wiki/Views/WikiDoc/DocListApproved.cshtml", lstObj);
+        }
+
+
+        [HttpPost]
         [Route("wiki-doc/find-doc")]
         public ActionResult FindOject(string keysSearch, string options)
         {
@@ -62,7 +108,44 @@ namespace WebApps.Areas.Wiki.Controllers
             return PartialView("~/Areas/Wiki/Views/WikiDoc/_PartialDocData.cshtml", lstOjects);
         }
 
-       
+        [HttpPost]
+        [Route("wiki-doc/find-doc-peding")]
+        public ActionResult FindOjectTemp(string keysSearch, string options)
+        {
+            var lstOjects = new List<WikiDoc_Info>();
+            try
+            {
+                var _WikiDoc_BL = new WikiDoc_BL();
+                lstOjects = _WikiDoc_BL.WikiDoc_Search(keysSearch, options);
+                ViewBag.Paging = _WikiDoc_BL.GetPagingHtml();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return PartialView("~/Areas/Wiki/Views/WikiDoc/_PartialDocDataPending.cshtml", lstOjects);
+        }
+
+
+        [HttpPost]
+        [Route("wiki-doc/find-doc-approved")]
+        public ActionResult FindOjectApproved(string keysSearch, string options)
+        {
+            var lstOjects = new List<WikiDoc_Info>();
+            try
+            {
+                var _WikiDoc_BL = new WikiDoc_BL();
+                lstOjects = _WikiDoc_BL.WikiDoc_Search(keysSearch, options);
+                ViewBag.Paging = _WikiDoc_BL.GetPagingHtml();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return PartialView("~/Areas/Wiki/Views/WikiDoc/_PartialDocDataApproved.cshtml", lstOjects);
+        }
+
+
         [Route("wiki-doc/add")]
         public ActionResult WikiDocAdd()
         {
@@ -217,14 +300,14 @@ namespace WebApps.Areas.Wiki.Controllers
 
         [HttpPost]
         [Route("wiki-doc/do-delete-doc")]
-        public ActionResult DoDeleteUser(int p_id)
+        public ActionResult DoDeleteDoc(int p_id)
         {
             decimal _result = 0;
-            var _App_Class_BL = new App_Class_BL();
+            var _WikiDoc_BL = new WikiDoc_BL();
             try
             {
                 var modifiedBy = SessionData.CurrentUser.Username;
-                _result = _App_Class_BL.App_Class_Delete(p_id, modifiedBy, DateTime.Now);
+                _result = _WikiDoc_BL.WikiDoc_Delete(p_id);
             }
             catch (Exception ex)
             {
@@ -233,25 +316,7 @@ namespace WebApps.Areas.Wiki.Controllers
 
             return Json(new { result = _result });
         }
-
-        [HttpPost]
-        [Route("wiki-doc/view-detail-doc")]
-        public ActionResult ViewDetailClass(decimal p_id)
-        {
-            var _App_Class_BL = new App_Class_BL();
-            App_Class_Info _appclassinfo = new App_Class_Info();
-            try
-            {
-                _appclassinfo = _App_Class_BL.AppClassGetByID(p_id);
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-            }
-            return PartialView("~/Areas/AppClass/Views/AppClass/_PartialDetailAppClass.cshtml", _appclassinfo);
-        }
-
-
+ 
 
         [HttpPost]
         [Route("wiki-doc/search-catalogue-child")]

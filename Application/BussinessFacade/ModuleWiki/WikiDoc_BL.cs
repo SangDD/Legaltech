@@ -34,7 +34,7 @@ namespace BussinessFacade
                 WikiDoc_DA _da = new WikiDoc_DA();
                 return _da.WikiDoc_Update(p_ObjInffo.ID, p_ObjInffo.TITLE, p_ObjInffo.CONTENT, p_ObjInffo.LANGUAGE_CODE, p_ObjInffo.MODIFIED_BY,
                     p_ObjInffo.MODIFIED_DATE, p_ObjInffo.HASHTAG, p_ObjInffo.FILE_URL01, p_ObjInffo.FILE_URL02, p_ObjInffo.FILE_URL03,
-                    p_ObjInffo.CATA_ID, p_ObjInffo.STATUS);
+                    p_ObjInffo.CATA_ID, p_ObjInffo.STATUS, p_ObjInffo.REFUSE_REASON);
             }
             catch (Exception ex)
             {

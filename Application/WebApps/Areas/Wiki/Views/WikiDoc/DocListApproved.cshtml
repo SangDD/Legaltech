@@ -3,7 +3,7 @@
 @using Common.CommonData
 @using ObjectInfos;
 @{
-    ViewBag.Title = "Danh sách bài viết lưu tạm";
+    ViewBag.Title = "Danh sách bài viết đã đăng";
     Layout = "~/ViewsShared/_Layout.cshtml";
     List<WikiCatalogues_Info> _listcata = new List<WikiCatalogues_Info>();
     if (ViewBag.ListCata != null)
@@ -33,7 +33,7 @@
             <img src="~/Content/icons/Body-icon-home.png" /> I
            Wiki
             <span class="red">></span>
-            <a href="/wiki-doc/list">Bài viết lưu tạm</a>
+            <a href="/wiki-doc/list">Danh sách bài viết đã đăng</a>
         </div>
     </div>
     <div class="divCover">
@@ -89,22 +89,22 @@
         <div class="divCover">
             <div class="div-search-btn" style="width:450px;">
                 <input type="button" value="Tìm kiếm" class="btn-default" onclick="findObjects(1, 1)" />
-             <a href="/vi-vn/wiki-manage/wiki-doc/add"><input type="button" value="Thêm bài viết" class="btn-default" style="width: 125px;" /></a>  
             </div>
         </div>
 
         <div class="divCover">
             <div id="divTableObjects">
-                @Html.Partial("/Areas/Wiki/Views/WikiDoc/_PartialDocData.cshtml")
+                @Html.Partial("/Areas/Wiki/Views/WikiDoc/_PartialDocDataApproved.cshtml")
             </div>
         </div>
  
+
     </div>
 
     <script>
-        var _currentKeySearch = '/Areas/Wiki/Views/WikiDoc/DocList.cshtml';
-        var _currentOptionFilter = '/Areas/Wiki/Views/WikiDoc/DocList.cshtml_OptionFilter';
-        var _status = '1', _catalogue = '', _titleHashtag = '';
+        var _currentKeySearch = '/Areas/Wiki/Views/WikiDoc/DocListApproved.cshtml';
+        var _currentOptionFilter = '/Areas/Wiki/Views/WikiDoc/DocListApproved.cshtml_OptionFilter';
+        var _status = '3', _catalogue = '', _titleHashtag = '';
 
         $(document).ready(function () {
              initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findObjects);
@@ -117,15 +117,12 @@
         });
 
 
-
-
-
         function findObjects(_pageNumber, _isSearching) {
             try {
 
                 reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
                 if (isSearching === 1) {
-                    _status = "1";
+                    _status = "3";
                     _catalogue = $("#cboSearchWikiCatalogue").val();
                     _titleHashtag = $("#txtSearchTitleHashtag").val().trim();
 
@@ -144,7 +141,7 @@
                 $.ajax({
                     type: "POST",
                     headers: { "cache-control": "no-cache" },
-                    url: "/wiki-manage/wiki-doc/find-doc-temp",
+                    url: "/wiki-manage/wiki-doc/find-doc-approved",
                     data: {
                         keysSearch: keySearch,
                         options: optionFilter
@@ -194,11 +191,12 @@
 
     @* task function *@
     <script>
-       
+ 
+ 
         function doDeleteObject(p_id) {
             try {
                
-                    nvsConfirm(null, "Bạn có chắc chắn muốn xóa bài viết này không?", function () {
+                    nvsConfirm(null, "Bạn có chắc chắn muốn xóa hàng hóa/dịch vụ này không?", function () {
                         $.ajax({
                             url: "/wiki-manage/wiki-doc/do-delete-doc",
                             type: "POST",
@@ -229,8 +227,8 @@
             }
            
         }
-
-
+ 
+     
     </script>
 }
 catch (Exception)

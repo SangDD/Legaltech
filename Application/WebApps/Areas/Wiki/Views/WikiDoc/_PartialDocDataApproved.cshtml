@@ -13,6 +13,7 @@
                     <th style="width: 25%" data-sort id="TITLE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Tiêu đề</th>
                     <th style="width: 25%" data-sort id="CREATED_BY" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Người tạo</th>
                     <th style="width: 15%" data-sort id="MODIFIED_DATE">Cập nhật lúc</th>
+                    <th style="width: 15%" data-sort id="VIEW_NUMBER" data-sortoption="@((int)CommonEnums.OrderOptions.Number)">Số lượt xem</th>
                     <th style="width: 100px;">Chức năng</th>
                 </tr>
             </thead>
@@ -27,6 +28,7 @@
                             <td class="tdleftalign">@item.TITLE</td>
                             <td class="tdleftalign">@item.CREATED_BY</td>
                             <td class="tdleftalign">@item.MODIFIED_DATE.ToDateTimeStringN0()</td>
+                            <td class="tdRightAlign">@item.VIEW_NUMBER.ToNumberString()</td>
                             <td class="tdcenteralign">
                                 <a href="/wiki-manage/wiki-doc/view-edit/@item.ID" class="icon icon-info" data-title="Xem chi tiết"></a>
                                 <a href="/wiki-manage/wiki-doc/doc-edit/@item.ID" class="icon icon-edit" data-title="Sửa"></a>
