@@ -161,6 +161,24 @@ namespace DataAccess.ModuleTrademark
                 return ErrorCode.Error;
             }
         }
+
+        public DataSet GetMasterByAppNo(string p_appNo,string p_user_name, string p_languague_code)
+        {
+            try
+            {
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_header.proc_getByAppNo",
+                    new OracleParameter("p_appNo", OracleDbType.Varchar2, p_appNo, ParameterDirection.Input),
+                    new OracleParameter("p_user_name", OracleDbType.Varchar2, p_user_name, ParameterDirection.Input),
+                    new OracleParameter("p_languague_code", OracleDbType.Varchar2, p_languague_code, ParameterDirection.Input),
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
     }
 
 

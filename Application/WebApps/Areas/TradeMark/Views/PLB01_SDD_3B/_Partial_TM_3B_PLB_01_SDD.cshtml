@@ -51,7 +51,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="3_SoDon" id="3_SoDon" />
+                    <input type="text" placeholder="Số đơn" id="3_SoDon" onblur="onChangeAppNo()" />
                 </div>
             </div>
         </div>
@@ -169,7 +169,10 @@
                 CHỦ ĐƠN
             </div>
         </div>
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+
+        <div id="div_PartialThongTinChuDon">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+        </div>
 
         @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
         <div class="divCover cls_form_title">
@@ -178,7 +181,9 @@
                 ĐẠI DIỆN CỦA CHỦ ĐƠN
             </div>
         </div>
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
+        <div id="div_PartialThongTinDaiDienChuDon">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
+        </div>
         @* end 2 *@
 
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
@@ -303,16 +308,45 @@
 
 <script>
     $(document).ready(function () {
-        $.datetimepicker.setLocale('vi');
-        $('.datetimepicker').datetimepicker({
-            timepicker: false,
-            format: 'd/m/Y',
-            formatDate: 'd/m/Y',
-            mask: '39/19/9999',
-            validateOnBlur: false,
-            scrollInput: false
-        });
+        //$.datetimepicker.setLocale('vi');
+        //$('.datetimepicker').datetimepicker({
+        //    timepicker: false,
+        //    format: 'd/m/Y',
+        //    formatDate: 'd/m/Y',
+        //    mask: '39/19/9999',
+        //    validateOnBlur: false,
+        //    scrollInput: false
+        //});
+        $("#0_txtCase_Name").focus();
     });
+
+    function onChangeAppNo() {
+        try {
+            var _AppNo = $("#3_SoDon").val();
+            if (_AppNo != "") {
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/trade-mark-3b/getMasterByAppNo/',
+                    data: {
+                        p_appNo: _AppNo,
+                    },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+
+                        $("#div_PartialThongTinChuDon").html(data.PartialThongTinChuDon);
+                        $("#div_PartialThongTinDaiDienChuDon").html(data.PartialThongTinDaiDienChuDon);
+                    }
+                });
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
 
     function ShowHiden_SoHinhSoTrang() {
         try {
