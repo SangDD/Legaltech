@@ -7,7 +7,7 @@
     string txtFax = Model + "_txtFax";
     string txtEmail = Model + "_txtEmail";
     string txtYCCapPho = Model + "_txtYCCapPho";
-
+    int pUseCusinfo = Common.CommonFuc.ConvertToInt(Model);
     var objAppHeaderInfo = new AppDetail04NHInfo();
     string Name = "", Address = "", Phone = "", Fax = "", Email = "", YCCapPho = ""; ;
     if (Model == "1")
@@ -69,6 +69,22 @@
             <input type="text" @disableView placeholder="Tên đầy đủ" value="@Name" id="@txtTenDayDu" />
         </div>
     </div>
+
+    @* Khách hàng cũ lấy lại các thông tin  *@
+    @if (pUseCusinfo == 1)
+    {
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDonReuse.cshtml", pUseCusinfo)
+    }
+    else if (pUseCusinfo == 2)
+    {
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDonReuse.cshtml", pUseCusinfo)
+    }
+    else if (pUseCusinfo == 9)
+    {
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDonKhacReuse.cshtml", pUseCusinfo)
+    }
+
+    @*  *@
 </div>
 
 

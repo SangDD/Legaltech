@@ -222,6 +222,7 @@
                     }
                     else
                     {
+                        MemoryData.Enqueue_ChangeData(Table_Change.APPHEADER);
                         scope.Complete();
                     }
                 }
@@ -1088,6 +1089,8 @@
                     }
                     else
                     {
+                        //Lấy lại thông tin kế thừa đưa lên memory
+                        MemoryData.Enqueue_ChangeData(Table_Change.APPHEADER);
                         scope.Complete();
                     }
                 }

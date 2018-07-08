@@ -7,23 +7,7 @@
     {
         _HsGroup = ViewBag.HsGroup;
     }
-    <div class="div-search-title">
-        <div>Mã nhóm</div>
-    </div>
-    <div class="div-search-content" style="display:inline-block;width: 180px;">
-        <div id="" style="width:99%;display:inline-block">
-            <select id="NVSCBOAppSearchByGroup01" onchange="NVSFunc001ShowComboxSearchByGroup('txtTenHangHoa', 'DivContent_NVSCBO001_AppClassSearch', 'NVSCBOAppSearchByGroup01')">
-                <option value="">Chọn mã nhóm</option>
-                @foreach (string item in _HsGroup.Keys)
-                {
-                    <option value="@item">
-                        @item
-                    </option>
-                }
-            </select>
 
-        </div>
-    </div>
 
     <div class="div-search-title">
         <div>Tên đầy đủ:</div>
@@ -40,6 +24,28 @@
             </select>
         </div>
     </div>
+
+
+    <div class="div-search-title">
+        <div>Mã nhóm</div>
+    </div>
+
+
+    <div class="div-search-content" style="display:inline-block;width: 180px;">
+        <div id="" style="width:99%;display:inline-block">
+            <select id="NVSCBOAppSearchByGroup01" onchange="NVSFunc001ShowComboxSearchByGroup('txtTenHangHoa', 'DivContent_NVSCBO001_AppClassSearch', 'NVSCBOAppSearchByGroup01')">
+                <option value="">Chọn mã nhóm</option>
+                @foreach (string item in _HsGroup.Keys)
+                {
+                    <option value="@item">
+                        @item
+                    </option>
+                }
+            </select>
+
+        </div>
+    </div>
+
     <script>
         $('#NVSCBO001_AppClassSearch').multipleSelect({
             filter: true,

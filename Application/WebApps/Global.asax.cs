@@ -212,6 +212,10 @@
                         {
                             MemoryData.ReloadGroup();
                         }
+                        else if (_CallBack_Info.Table_Name == Table_Change.APPHEADER)
+                        {
+                            MemoryData.GetCacheCustomerInfo();
+                        }
                     }
                     Thread.Sleep(1000);
                 }
