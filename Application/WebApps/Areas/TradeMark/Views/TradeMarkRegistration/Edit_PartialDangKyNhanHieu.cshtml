@@ -847,6 +847,12 @@
         try {
             //Thông tin chủ đơn
             var formData = new FormData();
+
+            var reponse = funcThongTinCaseName(formData, "0");
+            if (reponse == false) {
+                return false;
+            }
+
             if (funcThongTinChuDonNguoiDaiDien(formData, "1") != true) {
                 return false;
             }
@@ -865,6 +871,9 @@
                 return false;
             }
             formData.append("pInfo.Id", v_AppHeaderID);
+
+
+           
 
             if (funcThongTinChuDonNguoiDaiDien(formData, "2") != true) {
                 return false;
