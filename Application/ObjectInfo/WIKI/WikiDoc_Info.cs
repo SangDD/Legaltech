@@ -41,5 +41,7 @@ namespace ObjectInfos
         public DateTime CREATED_DATE { set; get; }
 
         public DateTime MODIFIED_DATE { set; get; }
+
+        public string REFUSE_REASON { set; get; }
     }
 }

@@ -3,6 +3,11 @@
 @{
     ViewBag.Title = "Quản lý bài viết";
     Layout = "~/ViewsShared/_Layout.cshtml";
+    List<WikiCatalogues_Info> _listcata = new List<WikiCatalogues_Info>();
+    if (ViewBag.ListCata != null)
+    {
+        _listcata = ViewBag.ListCata;
+    }
 }
 @try
 {
@@ -62,7 +67,7 @@
                         <option value="">
                             Chọn danh mục
                         </option>
-                        @foreach (WikiCatalogues_Info item in ViewBag.ListCata)
+                        @foreach (WikiCatalogues_Info item in _listcata)
                         {
                             if (item.CATA_LEVEL == 0)
                             {
@@ -82,7 +87,7 @@
             <div class="div-search-content">
                 <div id="divWikiChildCatalogue">
                     <select id="CboAddWikiCataChild">
-                        @foreach (WikiCatalogues_Info item in ViewBag.ListCata)
+                        @foreach (WikiCatalogues_Info item in _listcata)
                         {
                             if (item.CATA_LEVEL == 1)
                             {
@@ -209,7 +214,7 @@
                     success: function (data) {
                         if (data != null && data.status >= 0) {
                             jAlert(AddSuccess, ThongBao, function () {
-                                window.location.reload();
+                               window.location.reload();
                             });
                         } else {
                             jError(AddFail, ThongBao, function () {

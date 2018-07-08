@@ -171,6 +171,10 @@
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
         <legend>ĐĂNG KÝ NHÃN HIỆU</legend>
+        @* Case name *@
+        <div class="div_full_100_area">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName_View.cshtml", "0")
+        </div>
         <div class="div_full_100_area">
             <div class="div-search-ad">
                 <div class="div-search-title">
@@ -184,7 +188,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input class="datetimepicker" @disableView  value="@objAppHeaderInfo.Duadate.ToString("dd/MM/yyyy")" type="text" id="0_txtNgayNopDon" maxlength="10" placeholder="0_txtNgayNopDon" />
+                        <input class="datetimepicker" @disableView value="@objAppHeaderInfo.Duadate.ToString("dd/MM/yyyy")" type="text" id="0_txtNgayNopDon" maxlength="10" placeholder="0_txtNgayNopDon" />
                     </div>
                 </div>
             </div>
@@ -290,7 +294,7 @@
             </div>
         </div>
 
-        <div class="div_full_100_area"  @styleShowHidenNHCN id="divNhanHieuChungNhan">
+        <div class="div_full_100_area" @styleShowHidenNHCN id="divNhanHieuChungNhan">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "MÔ TẢ TÓM TẮT ĐẶC TÍNH CỦA HÀNG HOÁ/DỊCH VỤ ĐƯỢC CHỨNG NHẬN")
             @{
                 string styleNguonGocDL = "";
@@ -475,7 +479,7 @@
             <div class="div-search-ad" style="display:inline-flex;">
                 <div class="div-search-content">
                     <div class="div-checkbox" style="width:422px">
-                        <input type="checkbox" class="classDacTinhUT" maxlength="3" @disableView @ObjInfo04NH_D_14.styleCheck value="04NH_D_14" id="6_rdoTLCMQUT"  />
+                        <input type="checkbox" class="classDacTinhUT" maxlength="3" @disableView @ObjInfo04NH_D_14.styleCheck value="04NH_D_14" id="6_rdoTLCMQUT" />
                         <label>Tài liệu chứng minh quyền ưu tiên</label>
                     </div>
                 </div>
@@ -489,7 +493,7 @@
             <div class="div-search-ad" style="display:inline-flex;    margin-left: 40px;">
                 <div class="div-search-content">
                     <div class="div-checkbox" style="width:382px">
-                        <input type="checkbox" maxlength="3" class="classDacTinhUT" @disableView @ObjInfo04NH_D_15.styleCheck value="04NH_D_15" id="6_rdoBSDDT"  />
+                        <input type="checkbox" maxlength="3" class="classDacTinhUT" @disableView @ObjInfo04NH_D_15.styleCheck value="04NH_D_15" id="6_rdoBSDDT" />
                         <label>Bản sao đơn đầu tiên, gồm</label>
                     </div>
                 </div>
@@ -509,7 +513,7 @@
             <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
                 <div class="div-search-content">
                     <div class="div-checkbox" style="width:382px">
-                        <input type="checkbox" class="classDacTinhUT" @disableView @ObjInfo04NH_D_16.styleCheck maxlength="3" value="04NH_D_16" id="6_rdoBDTVGom"   />
+                        <input type="checkbox" class="classDacTinhUT" @disableView @ObjInfo04NH_D_16.styleCheck maxlength="3" value="04NH_D_16" id="6_rdoBDTVGom" />
                         <label>Bản dịch tiếng Việt, gồm</label>
                     </div>
                 </div>
@@ -527,7 +531,7 @@
             <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
                 <div class="div-search-content">
                     <div class="div-checkbox" style="width:382px">
-                        <input type="checkbox" maxlength="3" value="04NH_D_17" @disableView @ObjInfo04NH_D_17.styleCheck class="classDacTinhUT" id="6_rdoGiayChuyenNhungUT"  />
+                        <input type="checkbox" maxlength="3" value="04NH_D_17" @disableView @ObjInfo04NH_D_17.styleCheck class="classDacTinhUT" id="6_rdoGiayChuyenNhungUT" />
                         <label> Giấy chuyển nhượng quyền ưu tiên </label>
                     </div>
                 </div>
@@ -699,7 +703,7 @@
         if ($("#0_ckbDacTinhHangHoa").is(':checked')) {
             funcEnableDisable('classDacTinhHangHoa', true);
         }
- 
+
     });
 
     function ShowHidenUpLoad(pID, pClass) {
@@ -723,7 +727,7 @@
 
     });
 
-   
+
     function funcGetCheckValueAndText(formData, pID, pItem) {
         try {
             var Isuse = 0, Note = "";
@@ -740,7 +744,7 @@
         }
 
     }
-     
+
 
     function funcGetTenTaiLieuKhac(formData) {
         try {
@@ -786,4 +790,3 @@
         overflow-y: hidden;
     }
 </style>
- 

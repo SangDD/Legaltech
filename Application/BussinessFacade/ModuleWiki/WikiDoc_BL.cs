@@ -34,7 +34,21 @@ namespace BussinessFacade
                 WikiDoc_DA _da = new WikiDoc_DA();
                 return _da.WikiDoc_Update(p_ObjInffo.ID, p_ObjInffo.TITLE, p_ObjInffo.CONTENT, p_ObjInffo.LANGUAGE_CODE, p_ObjInffo.MODIFIED_BY,
                     p_ObjInffo.MODIFIED_DATE, p_ObjInffo.HASHTAG, p_ObjInffo.FILE_URL01, p_ObjInffo.FILE_URL02, p_ObjInffo.FILE_URL03,
-                    p_ObjInffo.CATA_ID, p_ObjInffo.STATUS);
+                    p_ObjInffo.CATA_ID, p_ObjInffo.STATUS, p_ObjInffo.REFUSE_REASON);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
+        public decimal WikiDoc_Update_HashTag(decimal p_id, string p_hashtag)
+        {
+            try
+            {
+                WikiDoc_DA _da = new WikiDoc_DA();
+                return _da.WikiDoc_Update_HashTag(p_id, p_hashtag);
             }
             catch (Exception ex)
             {

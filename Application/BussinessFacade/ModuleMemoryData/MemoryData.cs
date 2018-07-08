@@ -14,10 +14,17 @@
     public class Table_Change
     {
         public static string GROUP_USER = "GROUP_USER";
+        public static string APPHEADER = "APPHEADER";
     }
 
     public class MemoryData
     {
+        /// <summary>
+        /// lưu toàn bộ thông tin  khách hàng cache trên mem,  
+        /// khi nào thêm đơn mới thì call hàm Enqueue_ChangeData truyền vào   APPHEADER = "APPHEADER";
+        /// </summary>
+        public static List<CustomerInfo> lstCacheCustomer = new List<CustomerInfo>();
+
         static MyQueue c_queue_changeData = new MyQueue();
         public static Hashtable c_hs_Allcode = new Hashtable();
         static List<GroupUserInfo> c_lst_Group = new List<GroupUserInfo>();
@@ -61,17 +68,13 @@
 
                 AllCodeBL.LoadAllCodeToMemory();
                 #endregion
-
                 ReloadGroup();
-
                 ReloadCountry();
-
                 MenuBL.LoadAllMenuToMemory();
                 FunctionBL.LoadFunctionCollectionsToMemory();
                 SysApplicationBL.SysApplicationAllOnMem();
                 //Load lên mem
                 clstAppClass = AppClassInfoBL.AppClassGetOnMem();
-
                 // dangtq thêm thông tin fee tĩnh theo đơn
                 c_dic_FeeByApp_Fix = new Dictionary<string, SysAppFixChargeInfo>();
                 SysApplicationBL _SysApplicationBL = new SysApplicationBL();
@@ -80,6 +83,8 @@
                 {
                     c_dic_FeeByApp_Fix[item.Appcode + "_" + item.Fee_Id.ToString()] = item;
                 }
+                //lấy toàn bộ thông tin đơn lên mem, đang đọc toàn bộ cả anh cả việt.
+                MemoryData.GetCacheCustomerInfo();
             }
             catch (Exception ex)
             {
@@ -173,5 +178,19 @@
                 return _CallBack_Info;
             else return _CallBack_Info;
         }
+
+        public static void GetCacheCustomerInfo()
+        {
+            try
+            {
+                var objAppHeaderBL = new Application_Header_BL();
+                lstCacheCustomer = objAppHeaderBL.LayThongTinKhachHang("", "", "");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+        }
+
     }
 }

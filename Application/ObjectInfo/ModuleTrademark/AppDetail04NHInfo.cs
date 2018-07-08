@@ -78,4 +78,46 @@ namespace ObjectInfos
         public string YCCapPho3 { get; set; }
         public string YCCapPho4 { get; set; }
     }
+
+
+    public class CustomerInfo 
+    {
+
+        public string Master_Name { get; set; }
+        public string Master_Address { get; set; }
+        public string Master_Phone { get; set; }
+        public string Master_Fax { get; set; }
+        public string Master_Email { get; set; }
+
+        public string Rep_Master_Type { get; set; }
+        public string Rep_Master_Name { get; set; }
+        public string Rep_Master_Address { get; set; }
+        public string Rep_Master_Phone { get; set; }
+        public string Rep_Master_Fax { get; set; }
+        public string Rep_Master_Email { get; set; }
+
+        public string Appno { get; set; }
+
+        public string Cdk_Name_1 { get; set; }
+        public string Cdk_Address_1 { get; set; }
+        public string Cdk_Phone_1 { get; set; }
+        public string Cdk_Fax_1 { get; set; }
+        public string Cdk_Email_1 { get; set; }
+        public string Cdk_Name_2 { get; set; }
+        public string Cdk_Address_2 { get; set; }
+        public string Cdk_Phone_2 { get; set; }
+        public string Cdk_Fax_2 { get; set; }
+        public string Cdk_Email_2 { get; set; }
+        public string Cdk_Name_3 { get; set; }
+        public string Cdk_Address_3 { get; set; }
+        public string Cdk_Phone_3 { get; set; }
+        public string Cdk_Fax_3 { get; set; }
+        public string Cdk_Email_3 { get; set; }
+        public string Cdk_Name_4 { get; set; }
+        public string Cdk_Address_4 { get; set; }
+        public string Cdk_Phone_4 { get; set; }
+        public string Cdk_Fax_4 { get; set; }
+        public string Cdk_Email_4 { get; set; }
+         
+    }
 }

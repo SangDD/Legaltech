@@ -1,0 +1,43 @@
+﻿@using BussinessFacade.ModuleMemoryData
+@model int
+<script>
+   
+
+    function funcGetDaiDienReuse() {
+        try {
+
+            var displayVal = $('#cboDaiDienChuDonCu').val();
+            var arrVal = displayVal.split('|');
+            if (arrVal.length === 5) {
+                $("#2_txtTenDayDu").val(arrVal[0]);
+                $("#2_txtDiaChi").val(arrVal[1]);
+                $("#2_txtDienThoai").val(arrVal[2]);
+                $("#2_txtFax").val(arrVal[3]);
+                $("#2_txtEmail").val(arrVal[4]);
+            }
+        } catch (e) {
+
+        }
+    }
+</script>
+@if (Model == 2)
+{
+
+
+    <div class="div-search-title">
+        <div>Chủ đơn đã đk:</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <select id="cboDaiDienChuDonCu" onchange="return funcGetDaiDienReuse();">
+                <option value="ALL">-- Khách hàng -- </option>
+                @foreach (var item in MemoryData.lstCacheCustomer)
+                {
+                    string displayVal = item.Master_Name + "|" + item.Master_Address + "|" + item.Master_Phone + "|" + item.Master_Fax + "|" + item.Rep_Master_Email;
+                    string displayName = item.Master_Name + " Phone: " + item.Master_Phone + " Fax: " + item.Master_Fax + " Email: " + item.Rep_Master_Email;
+                    <option value="@displayVal">@displayName</option>
+                }
+            </select>
+        </div>
+    </div>
+}
