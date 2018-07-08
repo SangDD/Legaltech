@@ -20,7 +20,7 @@
         }
     </style>
     <script>
-        var _isSimpleEditorToolBar = 1;// set cho ckfinder có cấu hình xoạn thảo đơn giản
+        var _isSimpleEditorToolBar = 0;// set cho ckfinder có cấu hình xoạn thảo đơn giản
 
     </script>
     <script src="~/Content/ckeditor/ckeditor.js"></script>
@@ -178,6 +178,8 @@
             </div>
         </div>*@
 
+        <input type="text" id="txthashtag" style="display:none" />
+        <div type="text" id="divhashtag" style="display:none"></div>
 
     </div>
     if (Model.STATUS == 1)
@@ -300,9 +302,7 @@
                     enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                     success: function (data) {
                         if (data != null && data.status >= 0) {
-                            jAlert(EditSuccess, ThongBao, function () {
-                                window.location.reload();
-                            });
+                            doUpdateHashTag(data.HashTag);
                         } else {
                             jError(AddFail, ThongBao, function () {
                             });
@@ -371,10 +371,9 @@
                     processData: false, contentType: false, traditional: true, dataType: "json",
                     enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                     success: function (data) {
-                        if (data != null && data.status >= 0) {
-                            jAlert(EditSuccess, ThongBao, function () {
-                                window.location.reload();
-                            });
+                        if (data != null && data.status >= 0)
+                        {
+                            doUpdateHashTag(data.HashTag);
                         } else {
                             jError(AddFail, ThongBao, function () {
                             });
@@ -391,7 +390,6 @@
             }
 
         });
-
 
         $("#btnDangTin").click(function () {
             try {
@@ -442,10 +440,9 @@
                     processData: false, contentType: false, traditional: true, dataType: "json",
                     enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                     success: function (data) {
-                        if (data != null && data.status >= 0) {
-                            jAlert(EditSuccess, ThongBao, function () {
-                                window.location.reload();
-                            });
+                        if (data != null && data.status >= 0)
+                        {
+                            doUpdateHashTag(data.HashTag);
                         } else {
                             jError(AddFail, ThongBao, function () {
                             });
@@ -462,8 +459,6 @@
             }
 
         });
-
-
 
         $("#btnTuChoi").click(function () {
             try {
@@ -534,6 +529,36 @@
             }
 
         });
+
+        function doUpdateHashTag(v_data) {
+            try {
+                var txtDocID = $("#txtDocID");
+                var _hashtag = $("#divhashtag").html(v_data).html();
+                $.ajax({
+                    url: "/wiki-manage/wiki-doc/save-edit-hashtag-doc",
+                    type: "POST",
+                    // p_id, string p_hashtag
+                    data: { p_id: txtDocID.val(), p_hashtag: _hashtag },
+                    headers: { "cache-control": "no-cache" },
+                    async: false,
+                    success: function (data) {
+                        if (data.status >= 0) {
+                            jAlert(EditSuccess, ThongBao, function () {
+                                window.location.reload();
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+
+            } catch (e) {
+                alert(e.toString());
+            }
+        }
+           
+        
 
         function funcGetCheckValueAndText(formData, pID, pItem) {
             try {

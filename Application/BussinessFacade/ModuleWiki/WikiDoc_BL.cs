@@ -43,6 +43,20 @@ namespace BussinessFacade
             }
         }
 
+        public decimal WikiDoc_Update_HashTag(decimal p_id, string p_hashtag)
+        {
+            try
+            {
+                WikiDoc_DA _da = new WikiDoc_DA();
+                return _da.WikiDoc_Update_HashTag(p_id, p_hashtag);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
         public decimal WikiDoc_Delete(decimal P_ID)
         {
             try

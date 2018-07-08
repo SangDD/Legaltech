@@ -24,7 +24,7 @@
                     {
                         <tr>
                             <td class="tdcenteralign">@item.STT</td>
-                            <td class="tdleftalign"><a href="javascript:viewDetailObject(@item.ID, '@item.TITLE')">@item.LANGUAGE_CODE</a></td>
+                            <td class="tdleftalign">@item.LANGUAGE_CODE</td>
                             <td class="tdleftalign">@item.TITLE</td>
                             <td class="tdleftalign">@item.CREATED_BY</td>
                             <td class="tdleftalign">@item.MODIFIED_DATE.ToDateTimeStringN0()</td>
@@ -39,7 +39,7 @@
                                 }
                             </td>
                             <td class="tdcenteralign">
-                                <a href="/wiki-manage/wiki-doc/view-edit/@item.ID" class="icon icon-info" data-title="Xem chi tiết"></a>
+                                <a href="/wiki-manage/wiki-doc/doc-view/@item.ID" class="icon icon-info" data-title="Xem chi tiết"></a>
                                 <a href="/wiki-manage/wiki-doc/doc-edit/@item.ID" class="icon icon-edit" data-title="Sửa"></a>
                                 <a href="javascript:doDeleteObject(@item.ID, 1)" class="icon icon-delete" data-title="Xóa"></a>
                             </td>

@@ -10,6 +10,8 @@ using WebApps.Session;
 using Common;
 using ObjectInfos.ModuleTrademark;
 using WebApps.CommonFunction;
+using System.Text;
+using System.IO;
 
 namespace WebApps.Areas.Wiki.Controllers
 {
@@ -171,6 +173,7 @@ namespace WebApps.Areas.Wiki.Controllers
         [ValidateInput(false)]
         public ActionResult DoAddDoc(WikiDoc_Info _objectInfo, List<AppDocumentInfo> pAppDocumentInfo)
         {
+            
             decimal pReturn = 0;
             try
             {
@@ -178,6 +181,63 @@ namespace WebApps.Areas.Wiki.Controllers
                 _objectInfo.CREATED_BY = SessionData.CurrentUser.Username;
                 _objectInfo.CREATED_DATE = DateTime.Now;
                 _objectInfo.LANGUAGE_CODE= AppsCommon.GetCurrentLang();
+                #region thao tác với hashtag
+                try
+                {
+                    StringBuilder _StrContent = new StringBuilder();
+                    int _isHashtag = 0;
+                    string strtemp = "";
+                    string strListHashtag = "";
+                    foreach (char item in _objectInfo.CONTENT)
+                    {
+                        if (item == '#')
+                        {
+                            //  bắt đầu 1 ht
+                            _isHashtag = 1;
+                            _StrContent.Append("<nvshashtag>" + item);
+                        }
+                        else if (item == ' ' || "!@#$%^&*()<>?/'{}|][".Contains(item))
+                        {
+                            // chuỗi rỗng có thể là kết thúc 1 ht
+                            if (_isHashtag == 1)
+                            {
+                                // kết thúc 1 ht
+                                // thêm đóng thẻ
+                                _StrContent.Append("</nvshashtag>" + item);
+                                // lưu lại chuỗi ht vừa rồi
+                                strListHashtag = strListHashtag + " " + strtemp;
+                            }
+                            else
+                            {
+                                // nếu không phải kết thúc ht thì thêm bình thường
+                                _StrContent.Append(item);
+                            }
+                            _isHashtag = 0;
+                        }
+                        else
+                        {
+                            // chuỗi bất kỳ khác # và rỗng
+                            _StrContent.Append(item);
+                            if (_isHashtag == 1)
+                            {
+                                // nếu đang trong chuỗi ht thì append thằng char này vào làm 1 chuỗi ht
+                                strtemp += item;
+                            }
+                            else
+                            {
+                                strtemp = "";
+                            }
+                        }
+                    }
+                    _objectInfo.CONTENT = _StrContent.ToString().Replace("<nvshashtag>#</nvshashtag>", "#");
+                    _objectInfo.HASHTAG = strListHashtag.Trim();
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogException(ex);
+                }
+               
+                #endregion
                 if (pAppDocumentInfo != null)
                 {
                     if (pAppDocumentInfo.Count > 0)
@@ -238,6 +298,9 @@ namespace WebApps.Areas.Wiki.Controllers
                 var _WikiCataBL = new WikiCatalogue_BL();
                 List<WikiCatalogues_Info> lstOjects = _WikiCataBL.WikiCatalogueGetAll();
                 ViewBag.ListCata = lstOjects;
+
+                // bỏ hết hashtag nvshashtag đi
+                _ObjInfo.CONTENT = _ObjInfo.CONTENT.Replace("<nvshashtag>" , "").Replace("</nvshashtag>", "");
             }
             catch (Exception ex)
             {
@@ -253,6 +316,7 @@ namespace WebApps.Areas.Wiki.Controllers
         public ActionResult DoEditDoc(WikiDoc_Info _objectInfo, List<AppDocumentInfo> pAppDocumentInfo)
         {
             decimal pReturn = 0;
+            string strListHashtag = "";
             try
             {
                 var _WikiDoc_BL = new WikiDoc_BL();
@@ -287,6 +351,70 @@ namespace WebApps.Areas.Wiki.Controllers
                         }
                     }
                 }
+                #region thao tác với hashtag
+                try
+                {
+                    StringBuilder _StrContent = new StringBuilder();
+                    int _isHashtag = 0;
+                    string strtemp = "";
+                  
+                    int v_length = _objectInfo.CONTENT.Length;
+                    int v_count = 0;
+                    foreach (char item in _objectInfo.CONTENT)
+                    {
+                        if (item == '#')
+                        {
+                            //  bắt đầu 1 ht
+                            _isHashtag = 1;
+                            _StrContent.Append("<nvshashtag>" + item);
+                        }
+                        else if (item == ' ' || "<>'".Contains(item) || 
+                            (item == '&' && v_count < v_length - 3 && _objectInfo.CONTENT[v_count + 1] == 'n' 
+                            && _objectInfo.CONTENT[v_count + 2] == 'b')
+                            && _objectInfo.CONTENT[v_count + 3] == 's'
+                            && _objectInfo.CONTENT[v_count + 4] == 'p')
+                        {
+                            
+                            // có thể là kết thúc 1 ht
+                            if (_isHashtag == 1)
+                            {
+                                // kết thúc 1 ht
+                                // thêm đóng thẻ
+                                _StrContent.Append( "</nvshashtag>" + item );
+                                // lưu lại chuỗi ht vừa rồi
+                                strListHashtag = strListHashtag + " " + strtemp;
+                            }
+                            else
+                            {
+                                // nếu không phải kết thúc ht thì thêm bình thường
+                                _StrContent.Append(item);
+                            }
+                            _isHashtag = 0;
+                        }
+                        else
+                        {
+                            // chuỗi bất kỳ khác # và rỗng
+                            _StrContent.Append(item);
+                            if (_isHashtag == 1)
+                            {
+                                // nếu đang trong chuỗi ht thì append thằng char này vào làm 1 chuỗi ht
+                                strtemp += item;
+                            }
+                            else
+                            {
+                                strtemp = "";
+                            }
+                        }
+                        v_count++;
+                    }
+                    _objectInfo.CONTENT = _StrContent.ToString().Replace("<nvshashtag>#</nvshashtag>", "#");
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogException(ex);
+                }
+
+                #endregion
                 pReturn = _WikiDoc_BL.WikiDoc_Update(_objectInfo);
 
             }
@@ -295,7 +423,25 @@ namespace WebApps.Areas.Wiki.Controllers
                 Logger.LogException(ex);
             }
 
-            return Json(new { status = pReturn });
+            return Json(new { status = pReturn, HashTag = strListHashtag.Trim() });
+        }
+
+
+        [HttpPost]
+        [Route("wiki-doc/save-edit-hashtag-doc")]
+        public ActionResult DoEditHashTagDoc(decimal p_id, string p_hashtag)
+        {
+            decimal pReturn = 0;
+            try
+            {
+                var _WikiDoc_BL = new WikiDoc_BL();
+                pReturn = _WikiDoc_BL.WikiDoc_Update_HashTag(p_id, p_hashtag);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return Json(new { status = pReturn});
         }
 
         [HttpPost]
@@ -341,6 +487,31 @@ namespace WebApps.Areas.Wiki.Controllers
             return PartialView("~/Areas/Wiki/Views/Shared/_PartialCatalogue.cshtml", lstOjects);
         }
 
+
+        [Route("wiki-doc/doc-view/{id}/")]
+        public ActionResult ViewDoc()
+        {
+            if (SessionData.CurrentUser == null)
+                return Redirect("/");
+            var _WikiDoc_BL = new WikiDoc_BL();
+            WikiDoc_Info _ObjInfo = new WikiDoc_Info();
+            decimal _docid = 0;
+            if (RouteData.Values.ContainsKey("id"))
+            {
+                _docid = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
+            }
+            try
+            {
+                _ObjInfo = _WikiDoc_BL.WikiDoc_GetById(_docid);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            return PartialView("~/Areas/Wiki/Views/WikiDoc/_PartialDocView.cshtml", _ObjInfo);
+        }
+
         [HttpPost]
         [Route("wiki-doc/push-file-to-server")]
         public ActionResult PushFileToServer(AppDocumentInfo pInfo)
@@ -360,6 +531,7 @@ namespace WebApps.Areas.Wiki.Controllers
             }
             return Json(new { success = 0 });
         }
+ 
 
     }
 }

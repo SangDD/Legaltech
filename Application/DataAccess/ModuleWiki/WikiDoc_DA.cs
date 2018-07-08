@@ -132,5 +132,23 @@ namespace DataAccess
                 return new DataSet();
             }
         }
+
+        public decimal WikiDoc_Update_HashTag(decimal P_ID, string P_HASHTAG)
+        {
+            try
+            {
+                OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_WIKI_DOCS.PROC_WIKI_DOCS_UPDATE_HASHTAG",
+                    new OracleParameter("P_ID", OracleDbType.Decimal, P_ID, ParameterDirection.Input),
+                    new OracleParameter("P_HASHTAG", OracleDbType.Varchar2, P_HASHTAG, ParameterDirection.Input),
+                    paramReturn);
+                return Convert.ToDecimal(paramReturn.Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
     }
 }

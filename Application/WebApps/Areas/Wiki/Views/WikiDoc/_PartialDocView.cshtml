@@ -1,0 +1,112 @@
+﻿@using Common.CommonData
+@using ObjectInfos;
+@using Common;
+@{
+    ViewBag.Title = "Chi tiết bài viết";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+}
+@model WikiDoc_Info
+@try
+{
+    <style>
+        /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+        .div-search-title > div {
+            width: 150px;
+        }
+    </style>
+
+    <div class="divCover">
+        <div class="d-nav">
+            <img src="~/Content/icons/Body-icon-home.png" /> I
+            Wiki
+            <span class="red">></span>
+            <a href="/wiki-doc/list">Quản lý bài viết</a>
+            <span class="red">></span>
+            <a href="#">Chi tiết bài viết</a>
+        </div>
+    </div>
+    <div class="divCover">
+        <div class="classLine">
+        </div>
+    </div>
+
+    <div class="d-main">
+        <div class="divCover">
+            <div class="classTitle">
+                <input type="hidden" value="MODIFIED_DATE" id="colSorted" />
+                <input type="hidden" value="DESC" id="SortType" />
+                <input type="hidden" value="" id="OptionSorting" />
+                <input type="hidden" value="@Model.ID" id="txtDocID" />
+                <div class="div-title-content"> THÔNG TIN BÀI VIẾT </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tiêu đề</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtTitle" maxlength="500" value="@Model.TITLE" disabled />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Danh mục </div>
+            </div>
+            <div class="div-search-content">
+                <div id="divWikiChildCatalogue">
+                    <input type="text" value="@Model.CATA_NAME" disabled /> 
+                </div>
+            </div>
+        </div>
+
+
+        @if (!string.IsNullOrEmpty(Model.FILE_URL01))
+        {
+            <div class="div-checkbox" id="div_ImgDownload_WIKIADD_FILE_01" style="border: none;">
+                <a style="border: none;" href="@Model.FILE_URL01" target="_blank">
+                    <i class="fas fa-download" style="color:blue;font-size:16px;margin-top:7px; margin-right:5px;"></i>
+                    <span>@Model.FILE_URL01.GetFilename()</span>
+
+                </a>
+            </div>
+
+        }
+        @if (!string.IsNullOrEmpty(Model.FILE_URL02))
+        {
+            <div class="div-checkbox" id="div_ImgDownload_WIKIADD_FILE_02" style="border: none;">
+                <a style="border: none;" href="@Model.FILE_URL02" target="_blank">
+                    <i class="fas fa-download" style="color:blue;font-size:16px;margin-top:7px; margin-right:5px;"></i>
+                    <span>@Model.FILE_URL02.GetFilename()</span>
+
+                </a>
+            </div>
+
+        }
+        @if (!string.IsNullOrEmpty(Model.FILE_URL03))
+        {
+            <div class="div-checkbox" id="div_ImgDownload_WIKIADD_FILE_03" style="border: none;">
+                <a style="border: none;" href="@Model.FILE_URL03" target="_blank">
+                    <i class="fas fa-download" style="color:blue;font-size:16px;margin-top:7px; margin-right:5px;"></i>
+                    <span>@Model.FILE_URL03.GetFilename()</span>
+
+                </a>
+            </div>
+
+        }
+        <div style="margin-top:15px">
+            <div>Nội dung</div>
+            @Html.Raw(Model.CONTENT)
+        </div>
+    </div>
+
+
+}
+catch (Exception)
+{
+    // ignored
+}
