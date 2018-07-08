@@ -72,9 +72,11 @@
                 <input type="text" @disableView placeholder="Tên đầy đủ" value="@Name" id="@txtTenDayDu" />
             </div>
         </div>
-        @* Khách hàng cũ lấy lại các thông tin  *@
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDonKhacReuse.cshtml", pUseCusinfo)
-
+        @if (!disableView.Contains("disabled"))
+        {
+            @* Khách hàng cũ lấy lại các thông tin  *@
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDonKhacReuse.cshtml", pUseCusinfo)
+        }
     </div>
     <div class="div-search-ad">
         <div class="div-search-title">

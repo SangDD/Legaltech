@@ -24,7 +24,10 @@
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
-        <legend>ĐĂNG KÝ NHÃN HIỆU</legend>
+        @* Case name *@
+        <div class="div_full_100_area">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
+        </div>
         <div class="div_full_100_area">
             <div class="div-search-ad">
                 <div class="div-search-title">
@@ -314,12 +317,12 @@
             <div class="div-search-ad" style="display:inline-flex;">
                 <div class="div-search-content">
                     <div class="div-checkbox" style="width:422px">
-                        <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_14" id="6_rdoTLCMQUT" name="NameTLUT04NH_D_14"  onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                        <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_14" id="6_rdoTLCMQUT" name="NameTLUT04NH_D_14" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                         <label>Tài liệu chứng minh quyền ưu tiên</label>
                     </div>
                 </div>
                 <div class="div-search-content">
-                    <input type="text" id="6_txtTLCMQUT"  disabled="disabled" maxlength="3" placeholder="Số bản" />
+                    <input type="text" id="6_txtTLCMQUT" disabled="disabled" maxlength="3" placeholder="Số bản" />
                 </div>
                 <div class="div-search-title" style="width:412px">
                     <div>bản</div>
@@ -328,12 +331,12 @@
             <div class="div-search-ad" style="display:inline-flex;    margin-left: 40px;">
                 <div class="div-search-content">
                     <div class="div-checkbox" style="width:185px">
-                        <input type="checkbox" maxlength="3" class="classDacTinhUT" value="04NH_D_15" id="6_rdoBSDDT"  name="NameTLUT04NH_D_15" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                        <input type="checkbox" maxlength="3" class="classDacTinhUT" value="04NH_D_15" id="6_rdoBSDDT" name="NameTLUT04NH_D_15" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                         <label>Bản sao đơn đầu tiên, gồm</label>
                     </div>
                 </div>
                 <div class="div-search-content">
-                    <input type="text" id="6_txtBSDDT"   disabled="disabled" maxlength="3" placeholder="Số bản" />
+                    <input type="text" id="6_txtBSDDT" disabled="disabled" maxlength="3" placeholder="Số bản" />
                 </div>
                 <div class="div-search-title" style="width:493px">
                     <div>bản</div>
@@ -350,7 +353,7 @@
                     </div>
                 </div>
                 <div class="div-search-content">
-                    <input type="text" id="6_txtBDTVGom"  disabled="disabled" maxlength="3" placeholder="Số bản" />
+                    <input type="text" id="6_txtBDTVGom" disabled="disabled" maxlength="3" placeholder="Số bản" />
                 </div>
                 <div class="div-search-title" style="width:510px">
                     <div>bản</div>
@@ -396,7 +399,7 @@
     </fieldset>
 </div>
 <input type="hidden" id="txtDateTime" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
-@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialPreview.cshtml")
+@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialPreview.cshtml")
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
     </div>
@@ -405,8 +408,9 @@
     .div-search-content .ms-ul > ul {
         margin-left: 0px;
     }
-    .ms-drop{
-        width:100% !important ;
+
+    .ms-drop {
+        width: 100% !important;
     }
 </style>
 
@@ -459,12 +463,11 @@
         isdatastring: false, width: '100%',
         placeholder: 'Tìm kiếm khách hàng'
     });
-    
 
-     //disable enable 
-    $("input[name='NameTLUT04NH_D_14'").change(function ()
-    {
-        funcAddRemoveDisabled("6_rdoTLCMQUT","6_txtTLCMQUT");
+
+    //disable enable
+    $("input[name='NameTLUT04NH_D_14'").change(function () {
+        funcAddRemoveDisabled("6_rdoTLCMQUT", "6_txtTLCMQUT");
     });
 
     $("input[name='NameTLUT04NH_D_15'").change(function () {
@@ -476,7 +479,7 @@
     });
 
 
-    function funcAddRemoveDisabled(pIDControl,ptxtDisable) {
+    function funcAddRemoveDisabled(pIDControl, ptxtDisable) {
         try {
             if ($("#" + pIDControl).is(':checked')) {
                 $("#" + ptxtDisable).removeAttr('disabled');

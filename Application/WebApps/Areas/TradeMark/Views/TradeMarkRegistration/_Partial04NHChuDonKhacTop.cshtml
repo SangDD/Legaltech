@@ -71,19 +71,22 @@
     </div>
 
     @* Khách hàng cũ lấy lại các thông tin  *@
-    @if (pUseCusinfo == 1)
+    @* TH xem chi tiết ko hiển thị *@
+    @if (!disableView.Contains("disabled"))
     {
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDonReuse.cshtml", pUseCusinfo)
+        if (pUseCusinfo == 1)
+        {
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDonReuse.cshtml", pUseCusinfo)
+        }
+        else if (pUseCusinfo == 2)
+        {
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDonReuse.cshtml", pUseCusinfo)
+        }
+        else if (pUseCusinfo == 9)
+        {
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDonKhacReuse.cshtml", pUseCusinfo)
+        }
     }
-    else if (pUseCusinfo == 2)
-    {
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDonReuse.cshtml", pUseCusinfo)
-    }
-    else if (pUseCusinfo == 9)
-    {
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDonKhacReuse.cshtml", pUseCusinfo)
-    }
-
     @*  *@
 </div>
 
