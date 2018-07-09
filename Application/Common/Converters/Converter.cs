@@ -46,7 +46,7 @@
                 else
                     _returnKeysearch += item + "|";
             }
-            _returnKeysearch.Trim('|');
+            _returnKeysearch =_returnKeysearch.Trim('|');
             return _returnKeysearch;
         }
 	}

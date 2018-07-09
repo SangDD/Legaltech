@@ -65,6 +65,12 @@
         </div>
 
 
+        <div style="margin-top:15px">
+           
+            @Html.Raw(Model.CONTENT)
+        </div>
+
+
         @if (!string.IsNullOrEmpty(Model.FILE_URL01))
         {
             <div class="div-checkbox" id="div_ImgDownload_WIKIADD_FILE_01" style="border: none;">
@@ -98,10 +104,6 @@
             </div>
 
         }
-        <div style="margin-top:15px">
-            <div>Nội dung</div>
-            @Html.Raw(Model.CONTENT)
-        </div>
     </div>
 
 

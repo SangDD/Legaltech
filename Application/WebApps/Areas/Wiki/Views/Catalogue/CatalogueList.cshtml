@@ -3,9 +3,13 @@
 @using Common.CommonData
 @using ObjectInfos;
 @{
-    ViewBag.Title = "Quản lý hàng hóa dịch vụ";
+    ViewBag.Title = "Quản lý danh mục tin";
     Layout = "~/ViewsShared/_Layout.cshtml";
-
+    List<WikiCatalogues_Info> _listcata = new List<WikiCatalogues_Info>();
+    if (ViewBag.ListCata != null)
+    {
+        _listcata = ViewBag.ListCata;
+    }
 }
 @try
 {
@@ -19,9 +23,9 @@
     <div class="divCover">
         <div class="d-nav">
             <img src="~/Content/icons/Body-icon-home.png" /> I
-            Quản trị hệ thống
+            WIKI
             <span class="red">></span>
-            <a href="/quan-ly-thong-tin/hang-hoa-dich-vu/danh-sach-hang-hoa">Quản lý sản phẩm dịch vụ</a>
+            <a href="/wiki-manage/wiki-doc/catalogue">Quản lý danh mục tin</a>
         </div>
     </div>
     <div class="divCover">
@@ -35,7 +39,7 @@
                 <input type="hidden" value="MODIFIED_DATE" id="colSorted" />
                 <input type="hidden" value="DESC" id="SortType" />
                 <input type="hidden" value="" id="OptionSorting" />
-                <div class="div-title-content"> THÔNG TIN HÀNG HÓA DỊCH VỤ </div>
+                <div class="div-title-content"> THÔNG TIN DANH MỤC TIN </div>
             </div>
         </div>
 
@@ -43,63 +47,52 @@
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div style="width: 120px">Mã hàng hóa</div>
+                    <div style="width: 120px">Tên danh mục</div>
                 </div>
                 <div>
                     <div>
-                        <input style="width: 250px;" type="text" id="txt_code" data-controlcondition="TRUE" />
+                        <input style="width: 250px;" type="text" id="txt_listname" data-controlcondition="TRUE" />
                     </div>
                 </div>
+               
                 <div class="div-search-title">
-                    <div style="width: 120px">Tên tiếng Việt</div>
+                    <div style="width: 120px">Danh mục cha</div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" id="txt_name_vi" data-controlcondition="TRUE" />
+                        <select id="CboListWikiCataParent">
+                            <option value="ALL">
+                                Chọn danh mục
+                            </option>
+                            @foreach (WikiCatalogues_Info item in _listcata)
+                            {
+                                if (item.CATA_LEVEL == 0)
+                                {
+                                    <option value="@item.ID">
+                                        @item.NAME
+                                    </option>
+                                }
+                            }
+                        </select>
                     </div>
                 </div>
             </div>
-
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div style="width: 120px">Tên tiếng Anh </div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txt_name_en" data-controlcondition="TRUE" />
-                    </div>
-                </div>
-            </div>
+            
         </div>
 
         <div class="divCover">
             <div class="div-search-btn" style="width:450px;">
                 <input type="button" value="Tìm kiếm" class="btn-default" onclick="findObjects(1, 1)" />
-                <input type="button" value="Thêm hàng hóa" class="btn-default" style="width: 125px;" onclick="getViewToAddNewObject()" />
+                <input type="button" value="Thêm danh mục tin" class="btn-default" style="width: 155px;" onclick="getViewToAddNewObject()" />
             </div>
         </div>
-
         <div class="divCover">
             <div id="divTableObjects">
-                @Html.Partial("_PartialAppClassData")
+
+                @Html.Partial("_PartialCatalogueData")
             </div>
         </div>
-
-        <div id="divWrapperViewUser" class="divWrapperPopup" style="display: none;">
-            <div class="divPopup" id="divViewUser">
-            </div>
-        </div>
-
-        <div id="divWrapperEditUser" class="divWrapperPopup" style="display: none;">
-            <div class="divPopup" id="divEditUser">
-            </div>
-        </div>
-
-        <div id="divWrapperAddUser" class="divWrapperPopup" style="display: none;">
-            <div class="divPopup" id="divAddUser">
-            </div>
-        </div>
-
+ 
         <div id="divWrapperPopUpObject" class="divWrapperPopup" style="display: none;">
             <div class="divPopup" id="divPopUpObject">
             </div>
@@ -108,14 +101,13 @@
     </div>
 
     <script>
-        var _currentKeySearch = '@SessionStorages.SEARCH_CLASS_KEY_CONDITIONS';
-        var _currentOptionFilter = '@SessionStorages.SEARCH_CLASS_KEY_OPTIONS';
-        var _code = '', _name_vi = '', _name_en = '', _name_vi = '';
+        var _currentKeySearch = '/Areas/Wiki/Views/Catalogue/CatalogueList.cshtml_keysearch';
+        var _currentOptionFilter =  '/Areas/Wiki/Views/Catalogue/CatalogueList.cshtml_finter';
+        var _name = '', _parent_id = '';
 
         $(document).ready(function () {
             initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findObjects);
-
-            $('txt_code').focus();
+            $('txt_listname').focus();
             $('[data-controlcondition="TRUE"]').on('keypress',
 				function (e) {
 				    enterKeyPress(e, 'btnfindObjects');
@@ -127,19 +119,14 @@
 
                 reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
                 if (isSearching === 1) {
-                    _code = $("#txt_code").val().trim();
-                    _name_vi = $("#txt_name_vi").val().trim();
-                    _name_en = $("#txt_name_en").val().trim();
-
+                    _name = $("#txt_listname").val().trim();
+                    _parent_id = $("#CboListWikiCataParent").val().trim();
                 } else {
                     window.arrKeySearch = window.keySearch.split('|');
-                    _code = arrKeySearch[0];
-                    _name_vi = arrKeySearch[1];
-                    _name_en = arrKeySearch[2];
-
-                    $("#txt_code").val(_code);
-                    $("#txt_name_vi").val(_name_vi);
-                    $("#txt_name_en").val(_name_en);
+                    _name = arrKeySearch[0];
+                    _parent_id = arrKeySearch[1];
+                    $("#txt_listname").val(_name)
+                    $("#CboListWikiCataParent option[value=" + _parent_id + "]").attr("selected", "selected");
                 }
 
                 updateSearchingConditions("divNumberRecordOnPageListObjects", setKeySearch);
@@ -147,7 +134,7 @@
                 $.ajax({
                     type: "POST",
                     headers: { "cache-control": "no-cache" },
-                    url: "/quan-ly-thong-tin/hang-hoa-dich-vu/find-class",
+                    url: "/wiki-manage/wiki-doc/find-catalogue",
                     data: {
                         keysSearch: keySearch,
                         options: optionFilter
@@ -169,7 +156,7 @@
         }
 
         function setKeySearch() {
-            window.keySearch = _code + "|" + _name_vi + "|" + _name_en;
+            window.keySearch = _name + "|" + _parent_id;
         }
 
         function initOrderBySearching() {
@@ -194,14 +181,14 @@
             try {
                 $.ajax({
                     type: "POST",
-                    url: "/quan-ly-thong-tin/hang-hoa-dich-vu/add-new",
+                    url: "/wiki-manage/wiki-doc/add-new-catalogue",
                     headers: { "cache-control": "no-cache" },
                     async: false,
                     success: function (data) {
                         if (data != null) {
                             if (validateResponse(data)) {
                                 $("#divPopUpObject").html(data);
-                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Thêm mới hàng hóa/dịch vụ", 900, 500, "txtAddClassCode");
+                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Thêm mới danh mục tin", 900, 500, "txtAddName");
                             }
                         }
                         return false;
@@ -217,16 +204,15 @@
             try {
                 $.ajax({
                     type: "POST",
-                    url: "/quan-ly-thong-tin/hang-hoa-dich-vu/view-edit",
+                    url: "/wiki-manage/wiki-doc/view-edit",
                     headers: { "cache-control": "no-cache" },
                     data: { p_id: p_id },
                     async: false,
                     success: function (data) {
                         if (data != null) {
                             if (validateResponse(data)) {
-
                                 $("#divPopUpObject").html(data);
-                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Sửa hàng hóa dịch vụ: <span class='data-in-title-popup'>" + p_display_value + "</span>", 900, 500, "txtFullNameEdit");
+                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Sửa danh mục tin: <span class='data-in-title-popup'>" + p_display_value + "</span>", 900, 500, "txtFullNameEdit");
                             }
                         }
                         return false;
@@ -239,25 +225,28 @@
         }
 
         function doDeleteObject(p_id) {
-            try {
+            try { 
                
-                    nvsConfirm(null, "Bạn có chắc chắn muốn xóa hàng hóa/dịch vụ này không?", function () {
+                    nvsConfirm(null, "Bạn có chắc chắn muốn xóa danh mục tin này không?", function () {
                         $.ajax({
-                            url: "/quan-ly-thong-tin/hang-hoa-dich-vu/do-delete-class",
+                            url: "/wiki-manage/wiki-doc/do-delete-catalogue",
                             type: "POST",
                             data: { p_id: p_id },
                             headers: { "cache-control": "no-cache" },
                             async: false,
                             success: function (data) {
-                                //if (data != null) {
-                                //    if (onResponse(data)) {
-                                //        ClosePopupDialog('dpop-users', true);
-                                //        findObjects(1, 0);
-                                //    }
-                                //}
                                 if (data.result >= 0) {
                                     showSuccess("Xóa dữ liệu thành công!");
                                     window.findObjects(1, 0);
+                                }
+                                else if(data.result  == -2)
+                                {
+                                    showError("Danh mục đã có bài viết hoặc có danh mục con, không thể xóa!");
+                                    window.findObjects(1, 0);
+                                }
+                                else
+                                {
+                                    showError("Có lỗi xảy ra trong quá trình cập nhật dữ liệu!");
                                 }
                             },
                             error: function (e) {
@@ -277,7 +266,7 @@
             try {
                 $.ajax({
                     type: "POST",
-                    url: "/quan-ly-thong-tin/hang-hoa-dich-vu/view-detail-class",
+                    url: "/wiki-manage/wiki-doc/view-detail-catalogue",
                     headers: { "cache-control": "no-cache" },
                     async: false,
                     data: { p_id: p_id },
@@ -285,7 +274,7 @@
                         if (data != null) {
                             if (validateResponse(data)) {
                                 $("#divPopUpObject").html(data);
-                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Chi tiết hàng hóa/dịch vụ: <span class='data-in-title-popup'>" + p_display_value + "</span>", 900, 500);
+                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Chi tiết danh mục tin: <span class='data-in-title-popup'>" + p_display_value + "</span>", 900, 500);
                             }
                         }
                         return false;
@@ -304,32 +293,28 @@
 
         function doAddNewObject() {
             try {
-                   var txtAddClassCode = $('#txtAddClassCode');
-                   var txtClassAddNameVi = $('#txtClassAddNameVi');
-                   var txtClassAddNameEn = $('#txtClassAddNameEn');
-                    if (txtAddClassCode.val().trim() == "") {
-                        txtAddClassCode.focus().val('');
-                        showError('Mã hàng hóa/dịch vụ không được để trống!');
+                var txtAddName = $('#txtAddName');
+                var txtAddNameEng = $('#txtAddNameEng');
+                var CboAddWikiCataParent = $('#CboAddWikiCataParent');
+                if (txtAddName.val().trim() == "") {
+                    txtAddName.focus().val('');
+                        showError('Tên danh mục không được để trống!');
                         return false;
                     }
 
-                    if (txtClassAddNameVi.val().trim() == "") {
-                        txtClassAddNameVi.focus().val('');
-                        showError('Tên tiếng việt không được để trống!');
+                if (txtAddNameEng.val().trim() == "") {
+                    txtAddNameEng.focus().val('');
+                        showError('Tên Tiếng Anh không được để trống!');
                         return false;
                     }
 
-                    if (txtClassAddNameEn.val().trim() == "") {
-                        txtClassAddNameEn.focus().val('');
-                        showError('Tên tiếng anh không được để trống!');
-                        return false;
-                    }
+                   
                     var formData = new FormData();
-                    formData.append('_AppClassInfo.Code', Add_code);
-                    formData.append('_AppClassInfo.Name_Vi', Add_name_vi);
-                    formData.append('_AppClassInfo.Name_En', Add_name_en);
+                    formData.append('_ObjectInfo.NAME', txtAddName.val());
+                    formData.append('_ObjectInfo.NAME_ENG', txtAddNameEng.val());
+                    formData.append('_ObjectInfo.PARENT_ID', CboAddWikiCataParent.val());
                     $.ajax({
-                        url: '/quan-ly-thong-tin/hang-hoa-dich-vu/do-add-class',
+                        url: '/wiki-manage/wiki-doc/do-add-catalogue',
                         type: 'POST',
                         data: formData,
                         processData: false,
@@ -356,34 +341,36 @@
 
         function doEditObject() {
             try {
-                var txtid = $('#txt_id');
-                var  txtClassCode = $('#txtEditClassCode');
-                var  txtClassNameVi = $('#txtEditClassNameVi');
-                var txtClassNameEn = $('#txtEditClassNameEn');
-                if (txtClassCode.val().trim() == "") {
-                    txtClassCode.focus().val('');
-                    showError('Mã hàng hóa/dịch vụ không được để trống!');
+                var txtid = $('#txtID');
+                var txtAddName = $('#txtEditName');
+                var txtAddNameEng = $('#txtEditNameEng');
+                var CboAddWikiCataParent = $('#CboEditWikiCataParent');
+                var txtCHILD_NUM = $('#txtCHILD_NUM');
+                if (txtAddName.val().trim() == "") {
+                    txtAddName.focus().val('');
+                    showError('Tên danh mục không được để trống!');
+                    return false;
+                }
+                if (txtAddNameEng.val().trim() == "") {
+                    txtAddNameEng.focus().val('');
+                    showError('Tên Tiếng Anh không được để trống!');
+                    return false;
+                }
+                if (CboAddWikiCataParent.val() != "0" && txtCHILD_NUM.val() / 1 > 0)
+                {
+                    CboAddWikiCataParent.focus();
+                    showError('Danh mục hiện tại đã được thêm làm danh mục cha!');
                     return false;
                 }
 
-                if (txtClassNameVi.val().trim() == "") {
-                    txtClassNameVi.focus().val('');
-                    showError('Tên tiếng việt không được để trống!');
-                    return false;
-                }
 
-                if (txtClassNameEn.val().trim() == "") {
-                    txtClassNameEn.focus().val('');
-                    showError('Tên tiếng anh không được để trống!');
-                    return false;
-                }
                 var formData = new FormData();
-                formData.append('_AppClassInfo.Id', txtid.val());
-                formData.append('_AppClassInfo.Code', txtClassCode.val());
-                formData.append('_AppClassInfo.Name_Vi', txtClassNameVi.val());
-                formData.append('_AppClassInfo.Name_En', txtClassNameEn.val());
+                formData.append('_ObjectInfo.ID', txtid.val());
+                formData.append('_ObjectInfo.NAME', txtAddName.val());
+                formData.append('_ObjectInfo.NAME_ENG', txtAddNameEng.val());
+                formData.append('_ObjectInfo.PARENT_ID', CboAddWikiCataParent.val());
                 $.ajax({
-                    url: '/quan-ly-thong-tin/hang-hoa-dich-vu/do-edit-class',
+                    url: '/wiki-manage/wiki-doc/do-edit-catalogue',
                     type: 'POST',
                     data: formData,
                     processData: false,

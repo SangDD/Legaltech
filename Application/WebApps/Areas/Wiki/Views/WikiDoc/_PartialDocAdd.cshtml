@@ -115,6 +115,8 @@
             <textarea type="text" id="txtAddContent"></textarea>
         </div>
 
+        <input type="text" id="txthashtag" style="display:none" />
+        <div type="text" id="divhashtag" style="display:none"></div>
 
     </div>
 
@@ -213,9 +215,7 @@
                     enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                     success: function (data) {
                         if (data != null && data.status >= 0) {
-                            jAlert(AddSuccess, ThongBao, function () {
-                               window.location.reload();
-                            });
+                            doUpdateHashTag(data.HashTag, data.status);
                         } else {
                             jError(AddFail, ThongBao, function () {
                             });
@@ -276,9 +276,7 @@
                     enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                     success: function (data) {
                         if (data != null && data.status >= 0) {
-                            jAlert(AddSuccess, ThongBao, function () {
-                                window.location.reload();
-                            });
+                            doUpdateHashTag(data.HashTag, data.status);
                         } else {
                             jError(AddFail, ThongBao, function () {
                             });
@@ -295,6 +293,35 @@
             }
 
         });
+
+
+        function doUpdateHashTag( v_data, _docid) {
+            try {
+               
+                var _hashtag = $("#divhashtag").html(v_data).html();
+                $.ajax({
+                    url: "/wiki-manage/wiki-doc/save-edit-hashtag-doc",
+                    type: "POST",
+                    // p_id, string p_hashtag
+                    data: { p_id: _docid, p_hashtag: _hashtag },
+                    headers: { "cache-control": "no-cache" },
+                    async: false,
+                    success: function (data) {
+                        if (data.status >= 0) {
+                            jAlert(AddSuccess, ThongBao, function () {
+                                window.location.reload();
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+
+            } catch (e) {
+                alert(e.toString());
+            }
+        }
 
 
         function funcGetCheckValueAndText(formData, pID, pItem) {

@@ -52,22 +52,59 @@
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN")
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
         </div>
+
+
+        @* Thong tin chu don   *@
+
         <div class="div_full_100_area">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN KHÁC")
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
+            <div id="divAddNewChuDon01" hidden="hidden">
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
+            </div>
+        </div>
 
+        <div class="div_full_100_area" style="display:none" id="divHiddenChuDon01">
+            <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon01','divHiddenChuDon01','01');" style="text-decoration:underline; color: blue;float: right;">Ẩn</a>
         </div>
+
         @*CHỦ ĐƠN KHÁC 1*@
-        <div hidden="hidden" id="divHienChuDonKhac">
-            @for (int i = 10; i < 13; i++)
-            {
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", i.ToString())
-            }
+        <div id="divAddNewChuDon02" hidden="hidden">
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "10")
         </div>
-        @* Thêm chủ đơn *@
-        <div class="div_full_100_area">
-            <a href="javascript:;" onclick="return funcShowOrHidden('divHienChuDonKhac');" style="text-decoration:underline; color: blue;float: right;">Thêm chủ đơn</a>
+
+        <div class="div_full_100_area" style="display:none" id="divHiddenChuDon02">
+            <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon02','divHiddenChuDon02','02');" style="text-decoration:underline; color: blue;float: right;">Ẩn</a>
         </div>
+        <div id="divAddNewChuDon03" hidden="hidden">
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "11")
+        </div>
+
+        <div class="div_full_100_area" style="display:none" id="divHiddenChuDon03">
+            <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon03','divHiddenChuDon03','03');" style="text-decoration:underline; color: blue;float: right;">Ẩn</a>
+        </div>
+
+        <div id="divAddNewChuDon04" hidden="hidden">
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "12")
+        </div>
+
+        <div class="div_full_100_area" style="display:none" id="divHiddenChuDon04">
+            <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon04','divHiddenChuDon04','04');" style="text-decoration:underline; color: blue;float: right;">Ẩn</a>
+        </div>
+
+        <div class="div_full_100_area" id="divThemChuDon01">
+            <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon01','divHiddenChuDon01');" style="text-decoration:underline; color: blue;float: right;">Thêm chủ đơn</a>
+        </div>
+        <div class="div_full_100_area" style="display:none" id="divThemChuDon02">
+            <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon02','divHiddenChuDon02');" style="text-decoration:underline; color: blue;float: right;">Thêm chủ đơn</a>
+        </div>
+        <div class="div_full_100_area" style="display:none" id="divThemChuDon03">
+            <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon03','divHiddenChuDon03');" style="text-decoration:underline; color: blue;float: right;">Thêm chủ đơn</a>
+        </div>
+        <div class="div_full_100_area" style="display:none" id="divThemChuDon04">
+            <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon04','divHiddenChuDon04');" style="text-decoration:underline; color: blue;float: right;">Thêm chủ đơn</a>
+        </div>
+        @* End thong tin chu don *@
+
         @* Nhan hieu *@
         <div class="div_full_100_area">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "NHÃN HIỆU")

@@ -11,7 +11,6 @@ using Common;
 using ObjectInfos.ModuleTrademark;
 using WebApps.CommonFunction;
 using System.Text;
-using System.IO;
 
 namespace WebApps.Areas.Wiki.Controllers
 {
@@ -173,7 +172,7 @@ namespace WebApps.Areas.Wiki.Controllers
         [ValidateInput(false)]
         public ActionResult DoAddDoc(WikiDoc_Info _objectInfo, List<AppDocumentInfo> pAppDocumentInfo)
         {
-            
+            string strListHashtag = "";
             decimal pReturn = 0;
             try
             {
@@ -181,63 +180,7 @@ namespace WebApps.Areas.Wiki.Controllers
                 _objectInfo.CREATED_BY = SessionData.CurrentUser.Username;
                 _objectInfo.CREATED_DATE = DateTime.Now;
                 _objectInfo.LANGUAGE_CODE= AppsCommon.GetCurrentLang();
-                #region thao tác với hashtag
-                try
-                {
-                    StringBuilder _StrContent = new StringBuilder();
-                    int _isHashtag = 0;
-                    string strtemp = "";
-                    string strListHashtag = "";
-                    foreach (char item in _objectInfo.CONTENT)
-                    {
-                        if (item == '#')
-                        {
-                            //  bắt đầu 1 ht
-                            _isHashtag = 1;
-                            _StrContent.Append("<nvshashtag>" + item);
-                        }
-                        else if (item == ' ' || "!@#$%^&*()<>?/'{}|][".Contains(item))
-                        {
-                            // chuỗi rỗng có thể là kết thúc 1 ht
-                            if (_isHashtag == 1)
-                            {
-                                // kết thúc 1 ht
-                                // thêm đóng thẻ
-                                _StrContent.Append("</nvshashtag>" + item);
-                                // lưu lại chuỗi ht vừa rồi
-                                strListHashtag = strListHashtag + " " + strtemp;
-                            }
-                            else
-                            {
-                                // nếu không phải kết thúc ht thì thêm bình thường
-                                _StrContent.Append(item);
-                            }
-                            _isHashtag = 0;
-                        }
-                        else
-                        {
-                            // chuỗi bất kỳ khác # và rỗng
-                            _StrContent.Append(item);
-                            if (_isHashtag == 1)
-                            {
-                                // nếu đang trong chuỗi ht thì append thằng char này vào làm 1 chuỗi ht
-                                strtemp += item;
-                            }
-                            else
-                            {
-                                strtemp = "";
-                            }
-                        }
-                    }
-                    _objectInfo.CONTENT = _StrContent.ToString().Replace("<nvshashtag>#</nvshashtag>", "#");
-                    _objectInfo.HASHTAG = strListHashtag.Trim();
-                }
-                catch (Exception ex)
-                {
-                    Logger.LogException(ex);
-                }
-               
-                #endregion
+                _objectInfo.CONTENT = SetHashtagStyle(_objectInfo.CONTENT, ref strListHashtag);
                 if (pAppDocumentInfo != null)
                 {
                     if (pAppDocumentInfo.Count > 0)
@@ -276,7 +219,7 @@ namespace WebApps.Areas.Wiki.Controllers
                 Logger.LogException(ex);
             }
 
-            return Json(new { status = pReturn });
+            return Json(new { status = pReturn, HashTag = strListHashtag.Trim() });
         }
 
    
@@ -351,70 +294,7 @@ namespace WebApps.Areas.Wiki.Controllers
                         }
                     }
                 }
-                #region thao tác với hashtag
-                try
-                {
-                    StringBuilder _StrContent = new StringBuilder();
-                    int _isHashtag = 0;
-                    string strtemp = "";
-                  
-                    int v_length = _objectInfo.CONTENT.Length;
-                    int v_count = 0;
-                    foreach (char item in _objectInfo.CONTENT)
-                    {
-                        if (item == '#')
-                        {
-                            //  bắt đầu 1 ht
-                            _isHashtag = 1;
-                            _StrContent.Append("<nvshashtag>" + item);
-                        }
-                        else if (item == ' ' || "<>'".Contains(item) || 
-                            (item == '&' && v_count < v_length - 3 && _objectInfo.CONTENT[v_count + 1] == 'n' 
-                            && _objectInfo.CONTENT[v_count + 2] == 'b')
-                            && _objectInfo.CONTENT[v_count + 3] == 's'
-                            && _objectInfo.CONTENT[v_count + 4] == 'p')
-                        {
-                            
-                            // có thể là kết thúc 1 ht
-                            if (_isHashtag == 1)
-                            {
-                                // kết thúc 1 ht
-                                // thêm đóng thẻ
-                                _StrContent.Append( "</nvshashtag>" + item );
-                                // lưu lại chuỗi ht vừa rồi
-                                strListHashtag = strListHashtag + " " + strtemp;
-                            }
-                            else
-                            {
-                                // nếu không phải kết thúc ht thì thêm bình thường
-                                _StrContent.Append(item);
-                            }
-                            _isHashtag = 0;
-                        }
-                        else
-                        {
-                            // chuỗi bất kỳ khác # và rỗng
-                            _StrContent.Append(item);
-                            if (_isHashtag == 1)
-                            {
-                                // nếu đang trong chuỗi ht thì append thằng char này vào làm 1 chuỗi ht
-                                strtemp += item;
-                            }
-                            else
-                            {
-                                strtemp = "";
-                            }
-                        }
-                        v_count++;
-                    }
-                    _objectInfo.CONTENT = _StrContent.ToString().Replace("<nvshashtag>#</nvshashtag>", "#");
-                }
-                catch (Exception ex)
-                {
-                    Logger.LogException(ex);
-                }
-
-                #endregion
+                _objectInfo.CONTENT = SetHashtagStyle(_objectInfo.CONTENT, ref strListHashtag);
                 pReturn = _WikiDoc_BL.WikiDoc_Update(_objectInfo);
 
             }
@@ -530,6 +410,76 @@ namespace WebApps.Areas.Wiki.Controllers
                 return Json(new { success = -1 });
             }
             return Json(new { success = 0 });
+        }
+
+        private string SetHashtagStyle(string p_content, ref string p_listhashtag)
+        {
+
+            string strListHashtag = "";
+                try
+                {
+                    StringBuilder _StrContent = new StringBuilder();
+                    int _isHashtag = 0;
+                    string strtemp = "";
+
+                    int v_length = p_content.Length;
+                    int v_count = 0;
+                    foreach (char item in p_content)
+                    {
+                        if (item == '#')
+                        {
+                            //  bắt đầu 1 ht
+                            _isHashtag = 1;
+                            _StrContent.Append("<nvshashtag>" + item);
+                        }
+                        else if (item == ' ' || "<>'".Contains(item) ||
+                            (item == '&' && v_count < v_length - 3 && p_content[v_count + 1] == 'n'
+                            && p_content[v_count + 2] == 'b')
+                            && p_content[v_count + 3] == 's'
+                            && p_content[v_count + 4] == 'p')
+                        {
+
+                            // có thể là kết thúc 1 ht
+                            if (_isHashtag == 1)
+                            {
+                                // kết thúc 1 ht
+                                // thêm đóng thẻ
+                                _StrContent.Append("</nvshashtag>" + item);
+                                // lưu lại chuỗi ht vừa rồi
+                                strListHashtag = strListHashtag + " " + strtemp;
+                            }
+                            else
+                            {
+                                // nếu không phải kết thúc ht thì thêm bình thường
+                                _StrContent.Append(item);
+                            }
+                            _isHashtag = 0;
+                        }
+                        else
+                        {
+                            // chuỗi bất kỳ khác # và rỗng
+                            _StrContent.Append(item);
+                            if (_isHashtag == 1)
+                            {
+                                // nếu đang trong chuỗi ht thì append thằng char này vào làm 1 chuỗi ht
+                                strtemp += item;
+                            }
+                            else
+                            {
+                                strtemp = "";
+                            }
+                        }
+                        v_count++;
+                    }
+                p_listhashtag = strListHashtag;
+                return _StrContent.ToString().Replace("<nvshashtag>#</nvshashtag>", "#");
+             
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return p_content;
+            }
         }
  
 

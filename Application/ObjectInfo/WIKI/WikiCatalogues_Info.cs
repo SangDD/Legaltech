@@ -20,5 +20,17 @@ namespace ObjectInfos
 
         public decimal PARENT_ID { set; get; }
 
+        public decimal CHILD_NUM { set; get; }
+
+        public string PARENT_NAME { set; get; }
+
+        public string CREATED_BY { set; get; }
+
+        public string MODIFIED_BY { set; get; }
+
+        public DateTime CREATED_DATE { set; get; }
+
+        public DateTime MODIFIED_DATE { set; get; }
+
     }
 }
