@@ -1,0 +1,70 @@
+﻿@using Common.CommonData
+@using ObjectInfos;
+@try
+{
+    List<WikiCatalogues_Info> _listcata = new List<WikiCatalogues_Info>();
+    if (ViewBag.ListCata != null)
+    {
+        _listcata = ViewBag.ListCata;
+    }
+
+    <div class="" style="padding:5px 38px">
+        <div class="divCover divCover_popup">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Tên danh mục<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtAddName" maxlength="200" />
+                    </div>
+                </div>
+            </div>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Tên Tiếng Anh<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtAddNameEng" maxlength="200" />
+                    </div>
+                </div>
+            </div>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Danh mục cha</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="CboAddWikiCataParent">
+                            <option value="0">
+                                Chọn danh mục
+                            </option>
+                            @foreach (WikiCatalogues_Info item in _listcata)
+                            {
+                                if (item.CATA_LEVEL == 0)
+                                {
+                                    <option value="@item.ID">
+                                        @item.NAME
+                                    </option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-group-bottom">
+                    <input type="submit" class="btn-default" value="Lưu" onclick="return doAddNewObject()" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+      
+}
+catch (Exception)
+{
+    // ignored
+}
