@@ -200,22 +200,31 @@
 
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
         </div>
-
-        <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN KHÁC")
-
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
-        </div>
         @*CHỦ ĐƠN KHÁC 1*@
-        <div @styleChuDonKhac id="divHienChuDonKhac">
-            @for (int i = 10; i < 13; i++)
-            {
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", i.ToString())
-            }
-        </div>
-        <div class="div_full_100_area">
-            <a href="javascript:;" onclick="return funcShowOrHidden('divHienChuDonKhac');" style="text-decoration:underline; color: blue;float: right;">Thêm chủ đơn</a>
-        </div>
+        @if (!string.IsNullOrEmpty(objAppHeaderInfo.Cdk_Name_1))
+        {
+
+            <div class="div_full_100_area">
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN KHÁC")
+
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
+            </div>
+
+            <div @styleChuDonKhac id="divHienChuDonKhac">
+                @if (!string.IsNullOrEmpty(objAppHeaderInfo.Cdk_Name_2))
+                {
+                    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "10")
+                }
+                else if (!string.IsNullOrEmpty(objAppHeaderInfo.Cdk_Name_3))
+                {
+                    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "11")
+                }
+                else if (!string.IsNullOrEmpty(objAppHeaderInfo.Cdk_Name_4))
+                {
+                    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "12")
+                }
+            </div>
+        }
 
         @* Nhan hieu *@
         <div class="div_full_100_area">
