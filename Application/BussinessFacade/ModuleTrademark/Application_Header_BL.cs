@@ -102,7 +102,6 @@ namespace BussinessFacade.ModuleTrademark
                 return new List<CustomerInfo>();
             }
         }
-        }
 
         public ApplicationHeaderInfo GetMasterByAppNo(string p_appNo, string p_user_name, string p_languague_code)
         {
