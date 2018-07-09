@@ -10,6 +10,21 @@
     var lstApp = new List<SelectListItem> { new SelectListItem { Text = "Tất cả", Value = "ALL" } }.Concat(_lst.Select(x => new SelectListItem { Text = x.Appname, Value = x.Appcode }));
 
 }
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+
+    .div-title-col-2 {
+        height: 35px;
+        border: 1px solid #aaa;
+    }
+
+        .div-title-col-2 > div {
+            margin: 9px 5px 0px 7px;
+        }
+</style>
 
 <div class="divCover">
     <div class="d-nav">
@@ -49,6 +64,27 @@
             <div class="div-search-content">
                 <div>
                     @Html.DropDownList("cboAppCode", lstApp, new { @id = "cboAppCode" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divCover" id="div-search-simple">
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Trạng thái đơn</div>
+            </div>
+            <div>
+                <div>
+                    <input type="text" style="width: 250px;" id="txt_2" />
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div>Người xử lý </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txt_1" />
                 </div>
             </div>
         </div>

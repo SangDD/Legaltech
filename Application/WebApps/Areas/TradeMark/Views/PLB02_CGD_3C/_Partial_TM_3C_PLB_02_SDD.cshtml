@@ -40,62 +40,6 @@
         @* Case name *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
 
-        @* 1 - CHỦ ĐƠN*@
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/info.png" />
-            <div class="cls_form_header">
-                CHỦ ĐƠN
-            </div>
-        </div>
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
-
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-radio" style="width:382px">
-                    <input type="radio" name="1_rdoChuDon" value="1" id="rb_1_ChuDonChuyenNhuong">
-                    <label>là bên chuyển nhượng</label>
-                </div>
-            </div>
-
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio" name="1_rdoChuDon" value="2">
-                    <label>là bên nhận chuyển nhượng</label>
-                </div>
-            </div>
-        </div>
-
-        @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/info.png" />
-            <div class="cls_form_header">
-                ĐẠI DIỆN CỦA CHỦ ĐƠN
-            </div>
-        </div>
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Mã đại diện:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="Mã đại diện" id="txt_MaDaiDien" />
-                </div>
-            </div>
-        </div>
-        @* end 2 *@
-
-        @* 3 - BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN) *@
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/info.png" />
-            <div class="cls_form_header">
-                BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN)
-            </div>
-        </div>
-        @Html.Partial("~/Areas/TradeMark/Views/PLB02_CGD_3C/_PartialSecondMaster.cshtml", "3")
-        @* end 3 *@
-
         @* 4 - ĐƠN ĐƯỢC CHUYỂN NHƯỢNG *@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
@@ -142,12 +86,75 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Số đơn" id="4_txt_SoDon" />
+                    <input type="text" placeholder="Số đơn" id="4_txt_SoDon" onblur="onChangeAppNo()" />
                 </div>
             </div>
         </div>
 
         @* end 4 *@
+
+        @* 1 - CHỦ ĐƠN*@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                CHỦ ĐƠN
+            </div>
+        </div>
+        <div id="div_PartialThongTinChuDon">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio" style="width:382px">
+                    <input type="radio" name="1_rdoChuDon" value="1" id="rb_1_ChuDonChuyenNhuong">
+                    <label>là bên chuyển nhượng</label>
+                </div>
+            </div>
+
+            <div class="div-search-content">
+                <div class="div-radio">
+                    <input type="radio" name="1_rdoChuDon" value="2">
+                    <label>là bên nhận chuyển nhượng</label>
+                </div>
+            </div>
+        </div>
+
+        @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                ĐẠI DIỆN CỦA CHỦ ĐƠN
+            </div>
+        </div>
+
+        <div id="div_PartialThongTinDaiDienChuDon">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Mã đại diện:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Mã đại diện" id="txt_MaDaiDien" />
+                </div>
+            </div>
+        </div>
+        @* end 2 *@
+
+        @* 3 - BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN) *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN)
+            </div>
+        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/PLB02_CGD_3C/_PartialSecondMaster.cshtml", "3")
+        @* end 3 *@
+
+
 
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
         <div class="divCover cls_form_title">
@@ -279,7 +286,36 @@
         //    validateOnBlur: false,
         //    scrollInput: false
         //});
+        $("#0_txtCase_Name").focus();
     });
+
+    function onChangeAppNo() {
+        try {
+            var _AppNo = $("#4_txt_SoDon").val();
+            if (_AppNo != "") {
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/trade-mark-3b/getMasterByAppNo/',
+                    data: {
+                        p_appNo: _AppNo,
+                    },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+
+                        $("#div_PartialThongTinChuDon").html(data.PartialThongTinChuDon);
+                        $("#div_PartialThongTinDaiDienChuDon").html(data.PartialThongTinDaiDienChuDon);
+                    }
+                });
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
 
 
     $("#btnGuiDon").click(function () {
@@ -435,7 +471,7 @@
             }
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
 
-           
+
 
             //Lấy thông tin detail
             reponse = funcGetAppDetail(formData);

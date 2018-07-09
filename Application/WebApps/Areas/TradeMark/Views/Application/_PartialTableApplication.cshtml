@@ -34,22 +34,17 @@
                         <td class="tdleftalign">@item.Send_Date.ToString("dd/MM/yyyy")</td>
                         <td class="tdcenteralign">
                             <a href="/trade-mark/request-for-trade-mark-view/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-info" data-title="Xem chi tiết"></a>
-                            <a href="javascript:;" onclick="getViewConfirmKhachHang(@item.Id)" class="icon confirm-circle" data-title="KH Confirm đơn"></a>
+                            <a href="/trade-mark/request-for-trade-mark-edit/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-edit" data-title="Sửa"></a>
+
+                            <a href="javascript:;" onclick="getViewConfirmKhachHang(@item.Id)" class="icon icon-info" data-title="KH Confirm đơn"></a>
+                            <a href="javascript:;" onclick="getViewPhanLoaiDon(@item.Id)" class="icon icon-info" data-title="Phân loại cho luật sư"></a>
+
                             @if (item.Status == (decimal)CommonEnums.App_Status.Luu_tam)
                             {
-                                if (item.Appcode == Common.TradeMarkAppCode.AppCodeDangKyQuocTeNH)
-                                {
-                                    <a href="/trade-mark-01/request-for-trade-mark-edit/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-edit" data-title="Sửa"></a>
-                                }
-                                else
-                                {
-                                    <a href="/trade-mark/request-for-trade-mark-edit/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-edit" data-title="Sửa"></a>
-                                }
                                 <a href="javascript:;" onclick="return funcDelAppDoc('@item.Id','@item.Appcode')" class="icon icon-delete" data-title="Xóa"></a>
                             }
                             else if (item.Status == (decimal)CommonEnums.App_Status.DaGui_ChoPhanLoai)
                             {
-                                <a href="javascript:;" onclick="getViewPhanLoaiDon(@item.Id)" class="icon confirm-circle" data-title="Phân loại cho luật sư"></a>
                             }
                             else if (item.Status == (decimal)CommonEnums.App_Status.DaPhanChoLuatSu)
                             {

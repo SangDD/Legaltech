@@ -117,7 +117,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Số đơn" id="3_txt_appeal_appno" maxlength="100" disabled="disabled" />
+                    <input type="text" placeholder="Số đơn" id="3_txt_appeal_appno" maxlength="100" disabled="disabled" onblur="onChangeAppNo()" />
                 </div>
             </div>
         </div>
@@ -147,7 +147,9 @@
                 CHỦ ĐƠN
             </div>
         </div>
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+        <div id="div_PartialThongTinChuDon">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+        </div>
 
         @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
         <div class="divCover cls_form_title">
@@ -156,7 +158,9 @@
                 ĐẠI DIỆN CỦA CHỦ ĐƠN
             </div>
         </div>
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
+        <div id="div_PartialThongTinDaiDienChuDon">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
+        </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
@@ -326,8 +330,37 @@
     $(document).ready(function () {
         $("#3_txt_appeal_number").prop('disabled', true);
         $("#3_txt_appeal_date").prop('disabled', true);
-        $("#3_rdAppeal_Object_1").focus();
+        //$("#3_rdAppeal_Object_1").focus();
+        $("#0_txtCase_Name").focus();
     });
+
+    function onChangeAppNo() {
+        try {
+            var _AppNo = $("#3_txt_appeal_appno").val();
+            if (_AppNo != "") {
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/trade-mark-3b/getMasterByAppNo/',
+                    data: {
+                        p_appNo: _AppNo,
+                    },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+
+                        $("#div_PartialThongTinChuDon").html(data.PartialThongTinChuDon);
+                        $("#div_PartialThongTinDaiDienChuDon").html(data.PartialThongTinDaiDienChuDon);
+                    }
+                });
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
 
     function OnChangeAppealObject() {
         try {
@@ -335,11 +368,44 @@
                 $("#3_txt_appeal_number").removeAttr("disabled");
                 $("#3_txt_appeal_date").removeAttr("disabled");
                 $("#3_txt_appeal_number").focus();
+
+                // 2
+                $("#3_txt_appeal_appno").val('');
+                $("#3_txt_appeal_appno").prop('disabled', true);
+
+                // 3
+                $("#3_txt_appeal_degree").val('');
+                $("#3_txt_appeal_degree").prop('disabled', true);
+            }
+            else if ($("#3_rdAppeal_Object_2").is(':checked')) {
+                $("#3_txt_appeal_appno").removeAttr("disabled");
+                $("#3_txt_appeal_appno").focus();
+
+                // 1
+                $("#3_txt_appeal_number").val('');
+                $("#3_txt_appeal_number").prop('disabled', true);
+
+                $("#3_txt_appeal_date").val('');
+                $("#3_txt_appeal_date").prop('disabled', true);
+
+                // 3
+                $("#3_txt_appeal_degree").val('');
+                $("#3_txt_appeal_degree").prop('disabled', true);
             }
             else {
+                $("#3_txt_appeal_degree").removeAttr("disabled");
+                $("#3_txt_appeal_degree").focus();
+
+                // 1
+                $("#3_txt_appeal_number").val('');
                 $("#3_txt_appeal_number").prop('disabled', true);
-                $("#3_txt_appeal_date").prop('disabled', true);
+
                 $("#3_txt_appeal_date").val('');
+                $("#3_txt_appeal_date").prop('disabled', true);
+
+                // 2
+                $("#3_txt_appeal_appno").val('');
+                $("#3_txt_appeal_appno").prop('disabled', true);
             }
         } catch (e) {
             alert(e);

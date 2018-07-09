@@ -53,7 +53,6 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -161,6 +160,42 @@ namespace DataAccess.ModuleTrademark
                 return ErrorCode.Error;
             }
         }
+
+
+        public DataSet LayThongTinKhachHang(string pUser,string pLanguage,string pAppCode)
+        {
+            try
+            {
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_GET_CUSTOMER_INFO.PROC_THONG_TIN_CHU_DON_NDD",
+                    new OracleParameter("P_USER", OracleDbType.Varchar2, pUser, ParameterDirection.Input),
+                    new OracleParameter("P_LANGUAGE", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
+                    new OracleParameter("P_APPCODE", OracleDbType.Varchar2, pAppCode, ParameterDirection.Input),
+                    new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
+        public DataSet GetMasterByAppNo(string p_appNo,string p_user_name, string p_languague_code)
+        {
+            try
+            {
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_header.proc_getByAppNo",
+                    new OracleParameter("p_appNo", OracleDbType.Varchar2, p_appNo, ParameterDirection.Input),
+                    new OracleParameter("p_user_name", OracleDbType.Varchar2, p_user_name, ParameterDirection.Input),
+                    new OracleParameter("p_languague_code", OracleDbType.Varchar2, p_languague_code, ParameterDirection.Input),
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
     }
 
 

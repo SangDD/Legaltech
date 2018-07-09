@@ -393,8 +393,58 @@
 
 <script>
     $(document).ready(function () {
-
+        $("#0_txtCase_Name").focus();
     });
+
+    function OnChangeAppealObject() {
+        try {
+            if ($("#3_rdAppeal_Object_1").is(':checked')) {
+                $("#3_txt_appeal_number").removeAttr("disabled");
+                $("#3_txt_appeal_date").removeAttr("disabled");
+                $("#3_txt_appeal_number").focus();
+
+                // 2
+                $("#3_txt_appeal_appno").val('');
+                $("#3_txt_appeal_appno").prop('disabled', true);
+
+                // 3
+                $("#3_txt_appeal_degree").val('');
+                $("#3_txt_appeal_degree").prop('disabled', true);
+            }
+            else if ($("#3_rdAppeal_Object_2").is(':checked')) {
+                $("#3_txt_appeal_appno").removeAttr("disabled");
+                $("#3_txt_appeal_appno").focus();
+
+                // 1
+                $("#3_txt_appeal_number").val('');
+                $("#3_txt_appeal_number").prop('disabled', true);
+
+                $("#3_txt_appeal_date").val('');
+                $("#3_txt_appeal_date").prop('disabled', true);
+
+                // 3
+                $("#3_txt_appeal_degree").val('');
+                $("#3_txt_appeal_degree").prop('disabled', true);
+            }
+            else {
+                $("#3_txt_appeal_degree").removeAttr("disabled");
+                $("#3_txt_appeal_degree").focus();
+
+                // 1
+                $("#3_txt_appeal_number").val('');
+                $("#3_txt_appeal_number").prop('disabled', true);
+
+                $("#3_txt_appeal_date").val('');
+                $("#3_txt_appeal_date").prop('disabled', true);
+
+                // 2
+                $("#3_txt_appeal_appno").val('');
+                $("#3_txt_appeal_appno").prop('disabled', true);
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
 
 
     $("#btnSuaDon").click(function () {

@@ -25,13 +25,13 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
-                    
+
         public int AppHeader_Update_Status(decimal p_id, decimal p_status, string p_notes, string p_Modify_By, DateTime p_Modify_Date)
         {
             try
             {
                 Application_Header_DA objData = new Application_Header_DA();
-                return objData.AppHeader_Update_Status(p_id, p_status, p_notes, p_Modify_By,p_Modify_Date);
+                return objData.AppHeader_Update_Status(p_id, p_status, p_notes, p_Modify_By, p_Modify_Date);
             }
             catch (Exception ex)
             {
@@ -86,6 +86,42 @@ namespace BussinessFacade.ModuleTrademark
                 return ErrorCode.Error;
             }
         }
+
+        public List<CustomerInfo> LayThongTinKhachHang(string pUser, string pLanguage, string pAppCode)
+        {
+            try
+            {
+                Application_Header_DA objData = new Application_Header_DA();
+                DataSet dsCustInfo = objData.LayThongTinKhachHang(pUser, pLanguage, pAppCode);
+                return CBO<CustomerInfo>.FillCollectionFromDataSet(dsCustInfo);
+
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<CustomerInfo>();
+            }
+        }
+
+        public ApplicationHeaderInfo GetMasterByAppNo(string p_appNo, string p_user_name, string p_languague_code)
+        {
+            try
+            {
+                Application_Header_DA _da = new Application_Header_DA();
+                DataSet _ds = _da.GetMasterByAppNo(p_appNo, p_user_name, p_languague_code);
+                if (_ds != null && _ds.Tables.Count > 0 && _ds.Tables[0].Rows.Count > 0)
+                {
+                    return CBO<ApplicationHeaderInfo>.FillObjectFromDataSet(_ds);
+                }
+                else return null;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return null;
+            }
+        }
+
     }
 
     public class AppClassInfoBL

@@ -72,76 +72,6 @@
         @* Case name *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
 
-        @* 1 - CHỦ ĐƠN*@
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/info.png" />
-            <div class="cls_form_header">
-                CHỦ ĐƠN
-            </div>
-        </div>
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
-
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-radio" style="width:382px">
-                    @if (_App_Detail.Master_Type == 1)
-                    {
-                        <input type="radio" name="1_rdoChuDon" value="1" id="rb_1_ChuDonChuyenNhuong" checked="checked">
-                    }
-                    else
-                    {
-                        <input type="radio" name="1_rdoChuDon" value="1" id="rb_1_ChuDonChuyenNhuong">
-                    }
-                    <label>là bên chuyển nhượng</label>
-                </div>
-            </div>
-
-            <div class="div-search-content">
-                <div class="div-radio">
-                    @if (_App_Detail.Master_Type == 2)
-                    {
-                        <input type="radio" name="1_rdoChuDon" value="2" checked="checked">
-                    }
-                    else
-                    {
-                        <input type="radio" name="1_rdoChuDon" value="2">
-                    }
-                    <label>là bên nhận chuyển nhượng</label>
-                </div>
-            </div>
-        </div>
-
-        @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/info.png" />
-            <div class="cls_form_header">
-                ĐẠI DIỆN CỦA CHỦ ĐƠN
-            </div>
-        </div>
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Mã đại diện:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="Mã đại diện" id="txt_MaDaiDien" value="@_App_Detail.Customer_Code" />
-                </div>
-            </div>
-        </div>
-
-        @* end 2 *@
-
-        @* 3 - BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN) *@
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/info.png" />
-            <div class="cls_form_header">
-                BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN)
-            </div>
-        </div>
-        @Html.Partial("~/Areas/TradeMark/Views/PLB02_CGD_3C/_PartialSecondMaster.cshtml", "3")
-
-
         @* 4 - ĐƠN ĐƯỢC CHUYỂN NHƯỢNG *@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
@@ -221,6 +151,76 @@
                 </div>
             </div>
         </div>
+
+        @* 1 - CHỦ ĐƠN*@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                CHỦ ĐƠN
+            </div>
+        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio" style="width:382px">
+                    @if (_App_Detail.Master_Type == 1)
+                    {
+                        <input type="radio" name="1_rdoChuDon" value="1" id="rb_1_ChuDonChuyenNhuong" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="1_rdoChuDon" value="1" id="rb_1_ChuDonChuyenNhuong">
+                    }
+                    <label>là bên chuyển nhượng</label>
+                </div>
+            </div>
+
+            <div class="div-search-content">
+                <div class="div-radio">
+                    @if (_App_Detail.Master_Type == 2)
+                    {
+                        <input type="radio" name="1_rdoChuDon" value="2" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="1_rdoChuDon" value="2">
+                    }
+                    <label>là bên nhận chuyển nhượng</label>
+                </div>
+            </div>
+        </div>
+
+        @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                ĐẠI DIỆN CỦA CHỦ ĐƠN
+            </div>
+        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Mã đại diện:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Mã đại diện" id="txt_MaDaiDien" value="@_App_Detail.Customer_Code" />
+                </div>
+            </div>
+        </div>
+
+        @* end 2 *@
+
+        @* 3 - BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN) *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN)
+            </div>
+        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/PLB02_CGD_3C/_PartialSecondMaster.cshtml", "3")
+
 
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
         <div class="divCover cls_form_title">

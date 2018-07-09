@@ -24,7 +24,10 @@
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
-        <legend>ĐĂNG KÝ NHÃN HIỆU</legend>
+        @* Case name *@
+        <div class="div_full_100_area">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
+        </div>
         <div class="div_full_100_area">
             <div class="div-search-ad">
                 <div class="div-search-title">
@@ -49,22 +52,59 @@
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN")
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
         </div>
+
+
+        @* Thong tin chu don   *@
+
         <div class="div_full_100_area">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN KHÁC")
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
+            <div id="divAddNewChuDon01" hidden="hidden">
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
+            </div>
+        </div>
 
+        <div class="div_full_100_area" style="display:none" id="divHiddenChuDon01">
+            <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon01','divHiddenChuDon01','01');" style="text-decoration:underline; color: blue;float: right;">Ẩn</a>
         </div>
+
         @*CHỦ ĐƠN KHÁC 1*@
-        <div hidden="hidden" id="divHienChuDonKhac">
-            @for (int i = 10; i < 13; i++)
-            {
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", i.ToString())
-            }
+        <div id="divAddNewChuDon02" hidden="hidden">
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "10")
         </div>
-        @* Thêm chủ đơn *@
-        <div class="div_full_100_area">
-            <a href="javascript:;" onclick="return funcShowOrHidden('divHienChuDonKhac');" style="text-decoration:underline; color: blue;float: right;">Thêm chủ đơn</a>
+
+        <div class="div_full_100_area" style="display:none" id="divHiddenChuDon02">
+            <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon02','divHiddenChuDon02','02');" style="text-decoration:underline; color: blue;float: right;">Ẩn</a>
         </div>
+        <div id="divAddNewChuDon03" hidden="hidden">
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "11")
+        </div>
+
+        <div class="div_full_100_area" style="display:none" id="divHiddenChuDon03">
+            <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon03','divHiddenChuDon03','03');" style="text-decoration:underline; color: blue;float: right;">Ẩn</a>
+        </div>
+
+        <div id="divAddNewChuDon04" hidden="hidden">
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "12")
+        </div>
+
+        <div class="div_full_100_area" style="display:none" id="divHiddenChuDon04">
+            <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon04','divHiddenChuDon04','04');" style="text-decoration:underline; color: blue;float: right;">Ẩn</a>
+        </div>
+
+        <div class="div_full_100_area" id="divThemChuDon01">
+            <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon01','divHiddenChuDon01');" style="text-decoration:underline; color: blue;float: right;">Thêm chủ đơn</a>
+        </div>
+        <div class="div_full_100_area" style="display:none" id="divThemChuDon02">
+            <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon02','divHiddenChuDon02');" style="text-decoration:underline; color: blue;float: right;">Thêm chủ đơn</a>
+        </div>
+        <div class="div_full_100_area" style="display:none" id="divThemChuDon03">
+            <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon03','divHiddenChuDon03');" style="text-decoration:underline; color: blue;float: right;">Thêm chủ đơn</a>
+        </div>
+        <div class="div_full_100_area" style="display:none" id="divThemChuDon04">
+            <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon04','divHiddenChuDon04');" style="text-decoration:underline; color: blue;float: right;">Thêm chủ đơn</a>
+        </div>
+        @* End thong tin chu don *@
+
         @* Nhan hieu *@
         <div class="div_full_100_area">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "NHÃN HIỆU")
@@ -314,12 +354,12 @@
             <div class="div-search-ad" style="display:inline-flex;">
                 <div class="div-search-content">
                     <div class="div-checkbox" style="width:422px">
-                        <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_14" id="6_rdoTLCMQUT" name="NameTLUT04NH_D_14"  onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                        <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_14" id="6_rdoTLCMQUT" name="NameTLUT04NH_D_14" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                         <label>Tài liệu chứng minh quyền ưu tiên</label>
                     </div>
                 </div>
                 <div class="div-search-content">
-                    <input type="text" id="6_txtTLCMQUT"  disabled="disabled" maxlength="3" placeholder="Số bản" />
+                    <input type="text" id="6_txtTLCMQUT" disabled="disabled" maxlength="3" placeholder="Số bản" />
                 </div>
                 <div class="div-search-title" style="width:412px">
                     <div>bản</div>
@@ -328,12 +368,12 @@
             <div class="div-search-ad" style="display:inline-flex;    margin-left: 40px;">
                 <div class="div-search-content">
                     <div class="div-checkbox" style="width:185px">
-                        <input type="checkbox" maxlength="3" class="classDacTinhUT" value="04NH_D_15" id="6_rdoBSDDT"  name="NameTLUT04NH_D_15" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                        <input type="checkbox" maxlength="3" class="classDacTinhUT" value="04NH_D_15" id="6_rdoBSDDT" name="NameTLUT04NH_D_15" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                         <label>Bản sao đơn đầu tiên, gồm</label>
                     </div>
                 </div>
                 <div class="div-search-content">
-                    <input type="text" id="6_txtBSDDT"   disabled="disabled" maxlength="3" placeholder="Số bản" />
+                    <input type="text" id="6_txtBSDDT" disabled="disabled" maxlength="3" placeholder="Số bản" />
                 </div>
                 <div class="div-search-title" style="width:493px">
                     <div>bản</div>
@@ -350,7 +390,7 @@
                     </div>
                 </div>
                 <div class="div-search-content">
-                    <input type="text" id="6_txtBDTVGom"  disabled="disabled" maxlength="3" placeholder="Số bản" />
+                    <input type="text" id="6_txtBDTVGom" disabled="disabled" maxlength="3" placeholder="Số bản" />
                 </div>
                 <div class="div-search-title" style="width:510px">
                     <div>bản</div>
@@ -396,7 +436,7 @@
     </fieldset>
 </div>
 <input type="hidden" id="txtDateTime" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
-@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialPreview.cshtml")
+@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialPreview.cshtml")
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
     </div>
@@ -405,13 +445,66 @@
     .div-search-content .ms-ul > ul {
         margin-left: 0px;
     }
+
+    .ms-drop {
+        width: 100% !important;
+    }
 </style>
 
 <script>
-     //disable enable 
-    $("input[name='NameTLUT04NH_D_14'").change(function ()
-    {
-        funcAddRemoveDisabled("6_rdoTLCMQUT","6_txtTLCMQUT");
+    $('#cboKhachHangCu').multipleSelect({
+        filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        isdatastring: false,
+        width: '100%',
+        placeholder: 'Tìm kiếm khách hàng'
+    });
+
+    $('#cboDaiDienChuDonCu').multipleSelect({
+        filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        isdatastring: false,
+        width: '100%',
+        placeholder: 'Tìm kiếm khách hàng'
+    });
+
+    $('#9_cboDaiDienChuDonCu').multipleSelect({
+        filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        isdatastring: false,
+        width: '100%',
+        placeholder: 'Tìm kiếm khách hàng'
+    });
+    $('#10_cboDaiDienChuDonCu').multipleSelect({
+        filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        isdatastring: false,
+        width: '100%',
+        placeholder: 'Tìm kiếm khách hàng'
+    });
+    $('#11_cboDaiDienChuDonCu').multipleSelect({
+        filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        isdatastring: false, width: '100%',
+        placeholder: 'Tìm kiếm khách hàng'
+    });
+    $('#12_cboDaiDienChuDonCu').multipleSelect({
+        filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        isdatastring: false, width: '100%',
+        placeholder: 'Tìm kiếm khách hàng'
+    });
+
+
+    //disable enable
+    $("input[name='NameTLUT04NH_D_14'").change(function () {
+        funcAddRemoveDisabled("6_rdoTLCMQUT", "6_txtTLCMQUT");
     });
 
     $("input[name='NameTLUT04NH_D_15'").change(function () {
@@ -423,7 +516,7 @@
     });
 
 
-    function funcAddRemoveDisabled(pIDControl,ptxtDisable) {
+    function funcAddRemoveDisabled(pIDControl, ptxtDisable) {
         try {
             if ($("#" + pIDControl).is(':checked')) {
                 $("#" + ptxtDisable).removeAttr('disabled');
@@ -867,6 +960,12 @@
         try {
             //Thông tin chủ đơn
             var formData = new FormData();
+
+            var reponse = funcThongTinCaseName(formData, "0");
+            if (reponse == false) {
+                return false;
+            }
+
             if (funcThongTinChuDonNguoiDaiDien(formData, "1", New) != true) {
                 return false;
             }

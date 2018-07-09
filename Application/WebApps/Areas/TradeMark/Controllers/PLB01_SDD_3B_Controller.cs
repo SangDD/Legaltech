@@ -851,5 +851,28 @@
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
             }
         }
+
+        [HttpPost]
+        [Route("getMasterByAppNo")]
+        public ActionResult getMasterByAppNo(string p_appNo)
+        {
+            try
+            {
+                Application_Header_BL _bl = new Application_Header_BL();
+                ApplicationHeaderInfo objAppHeaderInfo = _bl.GetMasterByAppNo(p_appNo, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
+                ViewBag.objAppHeaderInfo = objAppHeaderInfo;
+
+                var PartialThongTinChuDon = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml");
+                var PartialThongTinDaiDienChuDon = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml");
+                
+                var json = Json(new { PartialThongTinChuDon, PartialThongTinDaiDienChuDon });
+                return json;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml");
+            }
+        }
     }
 }
