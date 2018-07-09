@@ -20,7 +20,7 @@ namespace WebApps.Areas.TradeMark.Controllers
     {
         #region Quản lý đơn lưu tạm
         [HttpGet]
-        [Route("quan-ly-don-luu-tam")]
+        [Route("quan-ly-don")]
         public ActionResult Application_Display()
         {
             try
@@ -30,7 +30,7 @@ namespace WebApps.Areas.TradeMark.Controllers
 
                 decimal _total_record = 0;
                 Application_Header_BL _obj_bl = new Application_Header_BL();
-                string _keySearch = "ALL" + "|" + ((int)CommonEnums.App_Status.Luu_tam).ToString();
+                string _keySearch = "ALL|ALL";
                 List<ApplicationHeaderInfo> _lst = _obj_bl.ApplicationHeader_Search(_keySearch, ref _total_record);
                 string htmlPaging = CommonFuc.Get_HtmlPaging<ApplicationHeaderInfo>((int)_total_record, 1, "Đơn");
 
@@ -38,7 +38,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 ViewBag.Paging = htmlPaging;
                 ViewBag.SumRecord = _total_record;
 
-                return View("~/Areas/TradeMark/Views/Application/DanhSach_DonLuuTam.cshtml");
+                return View("~/Areas/TradeMark/Views/Application/DanhSach_Don.cshtml");
             }
             catch (Exception ex)
             {
@@ -48,7 +48,7 @@ namespace WebApps.Areas.TradeMark.Controllers
         }
 
         [HttpPost]
-        [Route("quan-ly-don-luu-tam/search")]
+        [Route("quan-ly-don/search")]
         public ActionResult Search_Application(string p_keysearch, int p_CurrentPage, string p_column, string p_type_sort)
         {
             try
@@ -71,6 +71,63 @@ namespace WebApps.Areas.TradeMark.Controllers
             {
                 Logger.LogException(ex);
                 return PartialView("~/Areas/TradeMark/Views/Application/_PartialTableApplication.cshtml");
+            }
+        }
+
+        [HttpPost]
+        [Route("quan-ly-don/show-phan-loai")]
+        public ActionResult GetViewToPhanLoai(decimal p_application_header_id)
+        {
+            ViewBag.Application_Header_Id = p_application_header_id;
+            return PartialView("~/Areas/TradeMark/Views/Application/_PartialPhanLoai.cshtml");
+        }
+
+        [HttpPost]
+        [Route("quan-ly-don/do-phan-loai")]
+        public ActionResult DoAddAppLawer(App_Lawer_Info p_App_Lawer_Info)
+        {
+            try
+            {
+                p_App_Lawer_Info.Language_Code = AppsCommon.GetCurrentLang();
+                p_App_Lawer_Info.Created_By = SessionData.CurrentUser.Username;
+                p_App_Lawer_Info.Created_Date = DateTime.Now;
+                App_Lawer_BL _con = new App_Lawer_BL();
+                decimal _ck = _con.App_Lawer_Insert(p_App_Lawer_Info);
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
+        [HttpPost]
+        [Route("quan-ly-don/show-kh-confirm")]
+        public ActionResult GetViewToKHConfirm(decimal p_application_header_id)
+        {
+            ViewBag.Application_Header_Id = p_application_header_id;
+            return PartialView("~/Areas/TradeMark/Views/Application/_PartialKH_Confirm.cshtml");
+        }
+
+        [HttpPost]
+        [Route("quan-ly-don/do-kh-confirm")]
+        public ActionResult DoKH_Confirm(decimal p_Application_Header_Id, decimal p_status, string p_note)
+        {
+            try
+            {
+                Application_Header_BL _obj_bl = new Application_Header_BL();
+                decimal _status = (decimal)CommonEnums.App_Status.KhacHangDaConfirm;
+                if (p_status == 0)
+                    _status = (decimal)CommonEnums.App_Status.KhacHangDaTuChoi;
+
+                int _ck = _obj_bl.AppHeader_Update_Status(p_Application_Header_Id, _status, p_note, SessionData.CurrentUser.Username, DateTime.Now);
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
             }
         }
         #endregion
@@ -128,34 +185,6 @@ namespace WebApps.Areas.TradeMark.Controllers
             {
                 Logger.LogException(ex);
                 return PartialView("~/Areas/TradeMark/Views/Application/_PartialTableApplication.cshtml");
-            }
-        }
-
-        [HttpPost]
-        [Route("quan-ly-don-da-gui/show-phan-loai")]
-        public ActionResult GetViewToPhanLoai(decimal p_application_header_id)
-        {
-            ViewBag.Application_Header_Id = p_application_header_id;
-            return PartialView("~/Areas/TradeMark/Views/Application/_PartialPhanLoai.cshtml");
-        } 
-
-        [HttpPost]
-        [Route("quan-ly-don-da-gui/do-phan-loai")]
-        public ActionResult DoAddAppLawer(App_Lawer_Info p_App_Lawer_Info)
-        {
-            try
-            {
-                p_App_Lawer_Info.Language_Code = AppsCommon.GetCurrentLang();
-                p_App_Lawer_Info.Created_By = SessionData.CurrentUser.Username;
-                p_App_Lawer_Info.Created_Date = DateTime.Now;
-                App_Lawer_BL _con = new App_Lawer_BL();
-                decimal _ck = _con.App_Lawer_Insert(p_App_Lawer_Info);
-                return Json(new { success = _ck });
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return Json(new { success = "-1" });
             }
         }
 
@@ -275,34 +304,7 @@ namespace WebApps.Areas.TradeMark.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("quan-ly-don-cho-kh-xac-nhan/show-confirm")]
-        public ActionResult GetViewToKHConfirm(decimal p_application_header_id)
-        {
-            ViewBag.Application_Header_Id = p_application_header_id;
-            return PartialView("~/Areas/TradeMark/Views/Application/_PartialKH_Confirm.cshtml");
-        }
-
-        [HttpPost]
-        [Route("quan-ly-don-cho-kh-xac-nhan/do-confirm")]
-        public ActionResult DoKH_Confirm(decimal p_Application_Header_Id, decimal p_status, string p_note)
-        {
-            try
-            {
-                Application_Header_BL _obj_bl = new Application_Header_BL();
-                decimal _status = (decimal)CommonEnums.App_Status.KhacHangDaConfirm;
-                if (p_status == 0)
-                    _status = (decimal)CommonEnums.App_Status.KhacHangDaTuChoi;
-
-                int _ck = _obj_bl.AppHeader_Update_Status(p_Application_Header_Id, _status, p_note, SessionData.CurrentUser.Username, DateTime.Now);
-                return Json(new { success = _ck });
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return Json(new { success = "-1" });
-            }
-        } 
+        
         #endregion
     }
 }

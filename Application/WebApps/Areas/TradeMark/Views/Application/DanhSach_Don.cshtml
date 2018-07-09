@@ -1,0 +1,325 @@
+﻿@using Common.CommonData
+@using ObjectInfos;
+@using BussinessFacade.ModuleMemoryData
+@{
+    ViewBag.Title = "Quản lý đơn lưu tạm";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+    //string language = WebApps.CommonFunction.AppsCommon.GetCurrentLang();
+    string language = WebApps.Session.SessionData.CurrentUser.Language;
+    List<SysApplicationInfo> _lst = BussinessFacade.ModuleTrademark.SysApplicationBL.GetSysAppByLanguage(language);
+    var lstApp = new List<SelectListItem> { new SelectListItem { Text = "Tất cả", Value = "ALL" } }.Concat(_lst.Select(x => new SelectListItem { Text = x.Appname, Value = x.Appcode }));
+
+    List<AllCodeInfo> _lstStatus = MemoryData.AllCode_GetBy_CdTypeCdName("APP", "STATUS");
+    var lstStatus = new List<SelectListItem> { new SelectListItem { Text = "Tất cả", Value = "ALL" } }.Concat(_lstStatus.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal }));
+}
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+
+    .div-title-col-2 {
+        height: 35px;
+        border: 1px solid #aaa;
+    }
+
+        .div-title-col-2 > div {
+            margin: 9px 5px 0px 7px;
+        }
+</style>
+
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        Trademark
+        <span class="red">></span>
+        <a href="/trade-mark-mana/quan-ly-don-luu-tam">Quản lý đơn lưu tạm</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <input type="hidden" value="ALL|ALL|ALL" name="txtKeyValue" id="txtKeyValue" />
+            <input type="hidden" value="ID" name="txtSortColum" id="txtSortColumn" />
+            <input type="hidden" value="DESC" name="txtSortType" id="txtSortType" />
+            <div class="div-title-content"> THÔNG TIN ĐƠN LƯU TẠM </div>
+        </div>
+    </div>
+
+    <div class="divCover" id="div-search-simple">
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Case code</div>
+            </div>
+            <div>
+                <div>
+                    <input style="width: 250px;" type="text" id="txtCaseCode" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Case name</div>
+            </div>
+            <div>
+                <div>
+                    <input style="width: 250px;" type="text" id="txtCaseName" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Loại đơn </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.DropDownList("cboAppCode", lstApp, new { @id = "cboAppCode" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divCover" id="div-search-simple">
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Trạng thái đơn</div>
+            </div>
+            <div>
+                <div>
+                    @Html.DropDownList("cboStatus", lstStatus, new { @id = "cboStatus", @style = "width: 250px;" })
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div>Người xử lý </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtLawer" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div class="div-search-btn" style="width:600px;">
+            <input type="button" value="Tìm kiếm" class="btn-default" onclick="Search_Application(1, 1)" />
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div id="divDataApplications" class="divDataTables" style="overflow-x: auto;">
+            @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialTableApplication.cshtml")
+        </div>
+    </div>
+
+    <div class="d-popup-container" id="dpop-PhanLoai"></div>
+    <div class="d-popup-container" id="dpop-Confirm"></div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#txtCaseCode').focus();
+        $("#txtCaseCode").keypress(function (evt) {
+            var key = evt.which || evt.charCode || evt.keyCode || 0;
+            if (key == 13) {
+                Search_Application(1, 1);
+            }
+        });
+    });
+
+    function jsPaging(page) {
+        Search_Application(page, 0);
+    }
+
+    function Search_Application(p_NumPage, p_type) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            var p_keysearch;
+            if (p_type == 1) {
+                var _Casecode = $("#txtCaseCode").val().trim();
+                if (_Casecode ==  "") {
+                    _Casecode = "ALL";
+                }
+
+                var _Casename = $("#txtCaseName").val().trim();
+                if (_Casename == "") {
+                    _Casename = "ALL";
+                }
+                var _AppCode = $("#cboAppCode").val();
+                var _Status = $("#cboStatus").val();
+
+                p_keysearch = _AppCode + "|" + _Status + "|" + _Casecode + "|" + _Casename;
+
+                //Lưu lại keysearch
+                $("#txtKeyValue").val(p_keysearch);
+            } else {
+                p_keysearch = $("#txtKeyValue").val();
+            }
+            var p_column = $("#txtSortColumn").val();
+            var p_type_sort = $("#txtSortType").val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/trade-mark-mana/quan-ly-don/search/',
+                data: {
+                    p_keysearch: p_keysearch,
+                    p_CurrentPage: p_NumPage,
+                    p_column: p_column,
+                    p_type_sort: p_type_sort
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divDataApplications").html(data);
+                }
+            });
+        }
+        catch (e) {
+            alert(e);
+        }
+    }
+
+    //Xóa đơn lưu tạm
+    function funcDelAppDoc(jID, jAppCode) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            nvsConfirm(null, "Bạn có chắc chắn muốn xóa nhóm quyền này không?", function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '/trade-mark/request-for-trade-mark-del/',
+                    data: {
+                        pAppHeaderID: jID,
+                        pAppCode: jAppCode,
+                    },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                        window.location.href = "/trade-mark-mana/quan-ly-don-luu-tam";
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                    }
+                });
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    function getViewPhanLoaiDon(_application_header_id) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/trade-mark-mana/quan-ly-don/show-phan-loai/",
+            dataType: "html",
+            data: {
+                p_application_header_id: _application_header_id
+            },
+            async: false, cache: false, traditional: true,
+            success: function (data) {
+                if (data != null) {
+                    $("#dpop-PhanLoai").html(data);
+                    ShowPopupDialog("dpop-PhanLoai", "Phân loại đơn cho luật sư", 600, 0, "txtLawer");
+                }
+                return false;
+            }
+        });
+    }
+
+    function getViewConfirmKhachHang(_application_header_id) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/trade-mark-mana/quan-ly-don/show-kh-confirm/",
+            dataType: "html",
+            data: {
+                p_application_header_id: _application_header_id
+            },
+            async: false, cache: false, traditional: true,
+            success: function (data) {
+                if (data != null) {
+                    $("#dpop-Confirm").html(data);
+                    ShowPopupDialog("dpop-Confirm", "Phân loại đơn cho luật sư", 600, 0, "txtLawer");
+                }
+                return false;
+            }
+        });
+    }
+
+    function doConfirm(_application_header_id) {
+        if (validateAction()) {
+            $.ajax({
+                url: '/trade-mark-mana/quan-ly-don/do-kh-confirm',
+                type: 'POST',
+                data: {
+                    p_Application_Header_Id: _application_header_id,
+                    p_status: $('#cboConfirm').val(),
+                    p_note: $('#txtNotes').val()
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data.success == "-1") {
+                        jError("Lỗi check lại kết nối tới server");
+                        return false;
+                    }
+                    else {
+                        jAlert('Khách hàng phản hồi thành công!', "THÔNG BÁO", function () {
+                            CloseView_KH_Confirm();
+                            Search_Application(1, 1);
+                        });
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        }
+    }
+
+    function CloseView_KH_Confirm() {
+        try {
+            ClosePopupDialog('dpop-Confirm', true);
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function CloseViewPhanLoai() {
+        try {
+            ClosePopupDialog('dpop-PhanLoai', true);
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function CloseViewConfirm() {
+        try {
+            ClosePopupDialog('dpop-Confirm', true);
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+</script>

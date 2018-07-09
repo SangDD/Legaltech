@@ -52,7 +52,7 @@ namespace ObjectInfos
         public DateTime Modify_Date { get; set; }
         public string Languague_Code { get; set; }
         public string Remark { get; set; }
-        public string Status_Nname { get; set; }
+        public string Status_Name { get; set; }
         public string Status_Formm_Name { get; set; }
         public string Status_Content_Name { get; set; }
         public string AppName { get; set; }
@@ -66,7 +66,10 @@ namespace ObjectInfos
 
         public string Client_Reference { get; set; }
         public string Case_Name { get; set; }
+        public string Gencode { get; set; }
 
+
+        public string Customer_Name { get; set; }
     }
 
 

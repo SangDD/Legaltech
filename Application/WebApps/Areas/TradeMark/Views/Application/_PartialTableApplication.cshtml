@@ -14,11 +14,13 @@
         <thead>
             <tr>
                 <th class="class30">STT</th>
-                <th class="class100" data-sort id="Appcode">Mã đơn</th>
-                <th class="class200">Loại đơn</th>
-                <th class="class250">Chủ đơn</th>
-                <th class="class100">Ngày gửi đơn</th>
-                <th class="class100">Chức năng</th>
+                <th class="class200" data-sort id="Appcode">Case code</th>
+                <th class="class250">Case name</th>
+                <th class="class150">Loại đơn</th>
+                <th class="class250">Khách hàng</th>
+                <th class="class100">Thời gian chờ</th>
+                <th class="class250">Trạng thái</th>
+                <th class="class150">Chức năng</th>
             </tr>
         </thead>
         <tbody>
@@ -28,16 +30,16 @@
                 {
                     <tr>
                         <td class="tdcenteralign">@item.STT</td>
+                        <td class="tdleftalign">@item.Gencode</td>
+                        <td class="tdleftalign">@item.Case_Name</td>
                         <td class="tdleftalign">@item.Appcode</td>
-                        <td class="tdleftalign">@item.AppName</td>
+                        <td class="tdleftalign">@item.Customer_Name</td>
                         <td class="tdleftalign">@item.Master_Name</td>
-                        <td class="tdleftalign">@item.Send_Date.ToString("dd/MM/yyyy")</td>
+                        <td class="tdleftalign">@item.Status_Name</td>
+
                         <td class="tdcenteralign">
                             <a href="/trade-mark/request-for-trade-mark-view/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-info" data-title="Xem chi tiết"></a>
                             <a href="/trade-mark/request-for-trade-mark-edit/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-edit" data-title="Sửa"></a>
-
-                            <a href="javascript:;" onclick="getViewConfirmKhachHang(@item.Id)" class="icon icon-info" data-title="KH Confirm đơn"></a>
-                            <a href="javascript:;" onclick="getViewPhanLoaiDon(@item.Id)" class="icon icon-info" data-title="Phân loại cho luật sư"></a>
 
                             @if (item.Status == (decimal)CommonEnums.App_Status.Luu_tam)
                             {
@@ -45,6 +47,7 @@
                             }
                             else if (item.Status == (decimal)CommonEnums.App_Status.DaGui_ChoPhanLoai)
                             {
+                                <a href="javascript:;" onclick="getViewPhanLoaiDon(@item.Id)" class="icon icon-info" data-title="Phân loại cho luật sư"></a>
                             }
                             else if (item.Status == (decimal)CommonEnums.App_Status.DaPhanChoLuatSu)
                             {
