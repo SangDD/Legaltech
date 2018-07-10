@@ -28,6 +28,7 @@
                 SessionData.CurrentUser.Language = language;
                 SessionData.CurrentUser.HtmlMenu = userBL.GetUserHtmlMenu(language);
             }
+            ViewBag.LanguageCode = language;
             return View("~/Areas/Home/Views/Home/KnHome.cshtml");
 	    }
 

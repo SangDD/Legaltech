@@ -1,5 +1,11 @@
 ﻿@{
     Layout = "~/ViewsShared/_Layout.cshtml";
+    string _languagecode = "/vi-vn/";
+    if(ViewBag.LanguageCode != null)
+    {
+        _languagecode = ViewBag.LanguageCode;
+    }
 }
 
 <p>Common baybe</p> 
+<a href="/wiki")">Wiki content</a>
