@@ -19,14 +19,21 @@
     <div class="divCover divCover_popup">
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Khách hàng Confirm<i class="redspan">(*)</i></div>
+                <div>Luật sư confirm<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <select id="cboConfirm">
+                    <select id="cboConfirm" disabled="disabled">
                         @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("CUSTOMER", "CONFIRM"))
                         {
-                            <option value="@item.CdVal">@item.Content</option>
+                            if (item.CdVal == ((int)Common.CommonData.CommonEnums.Action_Type.Accept).ToString())
+                            {
+                                <option selected="selected" value="@item.CdVal">@item.Content</option>
+                            }
+                            else
+                            {
+                                <option value="@item.CdVal">@item.Content</option>
+                            }
                         }
                     </select>
                 </div>
@@ -48,7 +55,7 @@
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Phân loại" onclick="return doConfirm(@_application_header_id)" />
+            <input type="submit" class="btn-default" value="Phân loại" onclick="return do_Lawer_Confirm(@_application_header_id)" />
         </div>
     </div>
 </div>
@@ -56,13 +63,13 @@
 <script>
     $(document).ready(function () {
 
-        $('#cboConfirm').multipleSelect({
-            filter: true,
-            single: true,
-            isdatastring: false,
-            maxHeight: 150,
-            placeholder: "-- Khách hàng phản hồi --"
-        });
+        //$('#cboConfirm').multipleSelect({
+        //    filter: true,
+        //    single: true,
+        //    isdatastring: false,
+        //    maxHeight: 150,
+        //    placeholder: "-- Luật sư phản hồi --"
+        //});
 
     });
 

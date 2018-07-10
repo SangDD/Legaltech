@@ -50,5 +50,11 @@
             Approve = 1,
             Reject = 2
         }
+
+        public enum Action_Type
+        {
+            Accept = 1,
+            Reject = 2
+        }
     }
 }
