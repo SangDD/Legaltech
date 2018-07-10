@@ -1,0 +1,88 @@
+﻿@using Common.CommonData 
+@using WebApps.ExtensionObject 
+@using WebApps.Session 
+@using WebApps.CommonFunction 
+@{
+    Layout = null;
+
+    string _LanguageCode = AppsCommon.GetCurrentLang();
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    @* https://css-tricks.com/probably-use-initial-scale1/ *@
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <meta name="__RequestVerificationToken" content="@Html.AntiForgeryTokenValue()" />
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <script src=@($"/Scripts/jquery-1.10.2.min.js?v={CommonVariables.AssemblyVersion}")></script>
+    <script src=@($"/Scripts/jquery-ui-1.10.2.min.js?v={CommonVariables.AssemblyVersion}")></script>
+    <script src=@($"/Scripts/jquery.unobtrusive-ajax.min.js?v={CommonVariables.AssemblyVersion}")></script>
+    <style>
+        .section-body{
+         font-size: 15px;
+         width: 100%;
+         padding: 0;
+         min-height: 100vh;
+         display:block;
+        }
+        .main-content
+        {
+            display:block;
+            max-width: 1280px;
+            margin-right: auto;
+            margin-left: auto;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+       
+    </style>
+</head>
+<body>
+    <div class="hidden">
+        @Html.Partial("~/ViewsShared/nvs.variables.js.cshtml")
+    </div>
+    <div class="container-wrapper">
+        <div class="section-body">
+            <div class="main-content">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <div class="section-bottom">
+    </div>
+</body>
+
+</html>
+<script>
+    $(document).ready(function () {
+        $('[data-menu="item-main-menu"]').on("click", function ()
+        {
+            var ulSide = $(this).next();
+
+            $(this).parent().siblings().removeClass('main-menu-active');
+            $(this).parent().siblings().find('> ul').slideUp('fast').addClass('collapsed');
+            if ($(ulSide).hasClass('collapsed')) {
+                $(this).next().removeClass('collapsed').slideDown('fast');
+                $(this).parent().addClass('main-menu-active');
+            } else {
+                $(this).parent().removeClass('main-menu-active');
+                $(ulSide).addClass('collapsed').removeClass('main-menu-active').slideUp('fast');
+            }
+        });
+
+        var currentPath = window.location.pathname;
+        var currentTask = $('#divMns').find('[data-url="' + currentPath + '"]');
+        $(currentTask).parent().removeClass('collapsed').slideDown('fast');
+        $(currentTask).parent().parent().addClass('main-menu-active');
+        $(currentTask).addClass('task-menu-active');
+    });
+
+    function gotoTask(el) {
+        var url = $(el).attr("data-url");
+        window.location.href = url;
+    }
+</script>

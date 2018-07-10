@@ -158,6 +158,7 @@
     <Compile Include="Areas\AppClass\AppClassAreaRegistration.cs" />
     <Compile Include="Areas\AppClass\Controllers\AppClassController.cs" />
     <Compile Include="Areas\Home\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Home\Controllers\WikiController.cs" />
     <Compile Include="Areas\Home\HomeAreaRegistration.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\FunctionController.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\GroupUserController.cs" />
@@ -1266,6 +1267,9 @@
     <Content Include="Areas\TradeMark\Views\Shared\_PartialThongTinChuDonReuse.cshtml" />
     <Content Include="Areas\TradeMark\Views\Shared\_PartialThongTinDaiDienChuDonReuse.cshtml" />
     <Content Include="Areas\TradeMark\Views\Shared\_PartialThongTinDaiDienChuDonKhacReuse.cshtml" />
+    <Content Include="Areas\Home\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Home\Views\Wiki\List.cshtml" />
     <Content Include="Areas\TradeMark\Views\Application\_PartialLawer_Confirm.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\AlertPopup\ASSAlert.js" />
@@ -1563,12 +1567,12 @@
     <Content Include="ViewsShared\_LayoutRequestNotIdentity.cshtml" />
     <Content Include="ViewsShared\_PartialAccountInfo.cshtml" />
     <Content Include="ViewsShared\_PartialMainMenu.cshtml" />
+    <Content Include="ViewsShared\_LayoutPortal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Account\Models\" />
     <Folder Include="Areas\Account\Views\Shared\" />
     <Folder Include="Areas\Home\Models\" />
-    <Folder Include="Areas\Home\Views\Shared\" />
     <Folder Include="Areas\ModuleUsersAndRoles\Models\" />
     <Folder Include="Areas\ModuleUsersAndRoles\Views\Shared\" />
     <Folder Include="Areas\Patent\Models\" />

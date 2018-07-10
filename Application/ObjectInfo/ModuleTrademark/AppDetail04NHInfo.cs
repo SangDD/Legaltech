@@ -38,6 +38,7 @@ namespace ObjectInfos
         public DateTime Ngaynopdon_Ut { get; set; }
         public string Ngaynopdon_UtExp { get; set; }
         public string Nuocnopdon_Ut { get; set; }
+        public string Nuocnopdon_Ut_Display { get; set; }
         public string Nguongocdialy { get; set; }
         public string Chatluong { get; set; }
         public string Dactinhkhac { get; set; }

@@ -217,7 +217,7 @@ namespace ObjectInfos
             pAppExportInfo.Sodon_Ut = pAppInfo.Sodon_Ut;
             pAppExportInfo.Ngaynopdon_Ut = pAppInfo.Ngaynopdon_Ut;
             pAppExportInfo.Nuocnopdon_Ut = pAppInfo.Nuocnopdon_Ut;
-
+           
             pAppExportInfo.Nguongocdialy = pAppInfo.Nguongocdialy;
             pAppExportInfo.Chatluong = pAppInfo.Chatluong;
             pAppExportInfo.Dactinhkhac = pAppInfo.Dactinhkhac;
