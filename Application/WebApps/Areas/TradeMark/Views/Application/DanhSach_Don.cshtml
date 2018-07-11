@@ -117,8 +117,13 @@
         </div>
     </div>
 
-    <div class="d-popup-container" id="dpop-PhanLoai"></div>
-    <div class="d-popup-container" id="dpop-Confirm"></div>
+    @*<div class="d-popup-container" id="dpop-PhanLoai"></div>
+    <div class="d-popup-container" id="dpop-Confirm"></div>*@
+
+    <div id="divWrapperPopUpApp" class="divWrapperPopup" style="display: none;">
+        <div class="divPopup" id="divPopUpApp">
+        </div>
+    </div>
 </div>
 
 <script>
@@ -233,8 +238,8 @@
             async: false, cache: false, traditional: true,
             success: function (data) {
                 if (data != null) {
-                    $("#dpop-PhanLoai").html(data);
-                    ShowPopupDialog("dpop-PhanLoai", "Phân loại đơn cho luật sư", 600, 0, "txtLawer");
+                    $("#divPopUpApp").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPopUpApp', "Phân loại đơn cho luật sư", 700, 500, "cboLawer");
                 }
                 return false;
             }
@@ -256,8 +261,8 @@
             async: false, cache: false, traditional: true,
             success: function (data) {
                 if (data != null) {
-                    $("#dpop-Confirm").html(data);
-                    ShowPopupDialog("dpop-Confirm", "Phân loại đơn cho luật sư", 600, 0, "txtLawer");
+                    $("#divPopUpApp").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPopUpApp', "Khách hàng phản hồi", 700, 500, "cboConfirm");
                 }
                 return false;
             }
@@ -286,7 +291,7 @@
                     }
                     else {
                         jAlert('Khách hàng phản hồi thành công!', "THÔNG BÁO", function () {
-                            CloseView_KH_Confirm();
+                            CloseDivPopUp('divWrapperPopUpApp');
                             Search_Application(1, 1);
                         });
                     }
@@ -298,28 +303,62 @@
         }
     }
 
-    function CloseView_KH_Confirm() {
-        try {
-            ClosePopupDialog('dpop-Confirm', true);
-        } catch (e) {
-            alert(e);
+    function getViewLuatSuConfirm(_application_header_id) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
         }
+
+        $.ajax({
+            type: "POST",
+            url: "/trade-mark-mana/quan-ly-don/show-lw-confirm/",
+            dataType: "html",
+            data: {
+                p_application_header_id: _application_header_id
+            },
+            async: false, cache: false, traditional: true,
+            success: function (data) {
+                if (data != null) {
+                    $("#divPopUpApp").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPopUpApp', "Luật sư xác nhận đơn", 700, 500, "cboConfirm");
+                }
+                return false;
+            }
+        });
     }
 
-    function CloseViewPhanLoai() {
-        try {
-            ClosePopupDialog('dpop-PhanLoai', true);
-        } catch (e) {
-            alert(e);
+    function do_Lawer_Confirm(_application_header_id) {
+        if (validateAction()) {
+            $.ajax({
+                url: '/trade-mark-mana/quan-ly-don/do-lw-confirm',
+                type: 'POST',
+                data: {
+                    p_Application_Header_Id: _application_header_id,
+                    p_status: $('#cboConfirm').val(),
+                    p_note: $('#txtNotes').val()
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data.success == "-1") {
+                        jError("Lỗi check lại kết nối tới server");
+                        return false;
+                    }
+                    else {
+                        jAlert('Luật sư phản hồi thành công!', "THÔNG BÁO", function () {
+                            CloseDivPopUp('divWrapperPopUpApp');
+                            Search_Application(1, 1);
+                        });
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
         }
     }
-
-    function CloseViewConfirm() {
-        try {
-            ClosePopupDialog('dpop-Confirm', true);
-        } catch (e) {
-            alert(e);
-        }
-    }
+ 
 
 </script>

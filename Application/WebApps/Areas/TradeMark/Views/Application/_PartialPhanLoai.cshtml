@@ -11,26 +11,48 @@
     List<UserInfo> _lstLawer = _Lawer_Info_BL.Lawer_Info_GetAll();
 }
 
-<div class="popup-opacity-wrapper"></div>
-<div class="d-popup" style="overflow: visible">
-    <div class="d-popup-content grid">
-        <div>
-            <label>Chọn luật sư <i class="redspan">(*)</i></label>
-            <select id="cboLawer">
-                @foreach (var item in _lstLawer)
-                {
-                    <option value="@item.Id">@item.FullName</option>
-                }
-            </select>
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+</style>
+
+<div class="" style="padding:5px 38px">
+    <div class="divCover divCover_popup">
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Chọn luật sư<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboLawer">
+                        @foreach (var item in _lstLawer)
+                        {
+                            <option value="@item.Id">@item.FullName</option>
+                        }
+                    </select>
+                </div>
+            </div>
         </div>
 
-        <div>
-            <label>Ghi chú</label>
-            <input type="text" id="txtNotes" maxlength="2000" />
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Ghi chú </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtNotes" maxlength="2000" />
+                </div>
+            </div>
         </div>
+ 
     </div>
-    <div class="d-popup-footer">
-        <input type="submit" class="btn" value="Lưu" onclick="return doPhanLoai()" />
+
+    <div class="form-group">
+        <div class="form-group-bottom">
+            <input type="submit" class="btn-default" value="Phân loại" onclick="return doPhanLoai()" />
+        </div>
     </div>
 </div>
 

@@ -52,6 +52,7 @@
                             else if (item.Status == (decimal)CommonEnums.App_Status.DaPhanChoLuatSu)
                             {
                                 // luật sư có thể sửa thông tin và phản gửi lại cho admin
+                                <a href="javascript:;" onclick="getViewLuatSuConfirm('@item.Id')" class="icon icon-confirm-circle" data-title="Luật sư Confirm đơn"></a>
                             }
                             else if (item.Status == (decimal)CommonEnums.App_Status.LuatSuDaConfirm)
                             {
@@ -60,7 +61,7 @@
                             else if (item.Status == (decimal)CommonEnums.App_Status.ChoKHConfirm)
                             {
                                 // Khách hàng confirm lại cho admin
-                                <a href="javascript:;" onclick="getViewConfirmKhachHang(item.Id)" class="icon confirm-circle" data-title="KH Confirm đơn"></a>
+                                <a href="javascript:;" onclick="getViewConfirmKhachHang('@item.Id')" class="icon icon-confirm-circle" data-title="KH Confirm đơn"></a>
                             }
                         </td>
                     </tr>
