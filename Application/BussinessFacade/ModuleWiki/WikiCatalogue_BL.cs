@@ -102,6 +102,21 @@ namespace BussinessFacade
             }
         }
 
+        public List<WikiCatalogues_Info> Portal_CataGetAll()
+        {
+            try
+            {
+                WikiCatalogue_DA _da = new WikiCatalogue_DA();
+                var ds = _da.Portal_CataGetAll();
+                return CBO<WikiCatalogues_Info>.FillCollectionFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<WikiCatalogues_Info>();
+            }
+        }
+
 
     }
 }
