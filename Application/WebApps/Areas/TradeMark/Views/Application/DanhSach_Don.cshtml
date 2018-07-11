@@ -34,7 +34,7 @@
         <img src="~/Content/icons/Body-icon-home.png" /> I
         Trademark
         <span class="red">></span>
-        <a href="/trade-mark-mana/quan-ly-don-luu-tam">Quản lý đơn lưu tạm</a>
+        <a href="/trade-mark-mana/quan-ly-don">Quản lý đơn</a>
     </div>
 </div>
 <div class="divCover">
@@ -211,7 +211,7 @@
                     async: true, cache: false, traditional: true,
                     beforeSend: function () {
                         CreateRollingWaitingIcon(true);
-                        window.location.href = "/trade-mark-mana/quan-ly-don-luu-tam";
+                        window.location.href = "/trade-mark-mana/quan-ly-don";
                     },
                     success: function (data) {
                         CreateRollingWaitingIcon(false);

@@ -376,11 +376,30 @@
             try
             {
                 AppInfoExport appInfo = new AppInfoExport();
-
+                string actionView = pInfo.ActionView;
+                if (actionView == "V")
+                {
+                    if (pInfo.Appcode == TradeMarkAppCode.AppCodeDangKynhanHieu)
+                    {
+                        var objBL = new AppDetail04NHBL();
+                        string language = AppsCommon.GetCurrentLang();
+                        var ds04NH = objBL.AppTM04NHGetByID(pInfo.Id, language,(int)pInfo.Status);
+                        if (ds04NH != null && ds04NH.Tables.Count == 5)
+                        {
+                            pDetail = CBO<AppDetail04NHInfo>.FillObjectFromDataTable(ds04NH.Tables[0]);
+                            pInfo = (ApplicationHeaderInfo)pDetail;
+                            pAppDocumentInfo = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds04NH.Tables[1]);
+                            pAppDocOtherInfo = CBO<AppDocumentOthersInfo>.FillCollectionFromDataTable(ds04NH.Tables[2]);
+                            pAppClassInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds04NH.Tables[3]);
+                            ViewBag.lstFeeInfo = CBO<AppFeeFixInfo>.FillCollectionFromDataTable(ds04NH.Tables[4]);
+                        }
+                    }
+                }
                 string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/TM04NH_Request_for_trademark_registration_vi_exp.doc");
                 DocumentModel document = DocumentModel.Load(_fileTemp);
                 // Fill export_header
-                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + pInfo.Appcode + ".pdf");
+                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + pInfo.Appcode  + DateTime.Now.ToString("ddMMyyyyHHmm") + ".pdf");
+                SessionData.CurrentUser.FilePreview = "/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + pInfo.Appcode + DateTime.Now.ToString("ddMMyyyyHHmm") + ".pdf";
                 // Fill export_detail  
                 appInfo.Status = 254;
                 appInfo.Status_Form = 252;
@@ -424,13 +443,20 @@
                 }
                 #region  Hiển thị phí trong don
                 var listfeeCaculator = new List<AppFeeFixInfo>();
-                int pPreview = 1;
-                string DonUT = pDetail.Sodon_Ut;
-                if (!string.IsNullOrEmpty(pDetail.Sodon_Ut2))
+                if (actionView == "V")
                 {
-                    DonUT = DonUT + "," + pDetail.Sodon_Ut2;
+                    listfeeCaculator = ViewBag.lstFeeInfo;
                 }
-                int preturn = CaculatorFee(pAppClassInfo, DonUT, 0,  listfeeCaculator, pPreview);
+                else
+                {
+                    int pPreview = 1;
+                    string DonUT = pDetail.Sodon_Ut;
+                    if (!string.IsNullOrEmpty(pDetail.Sodon_Ut2))
+                    {
+                        DonUT = DonUT + "," + pDetail.Sodon_Ut2;
+                    }
+                    int preturn = CaculatorFee(pAppClassInfo, DonUT, 0, listfeeCaculator, pPreview);
+                }
                 foreach (var item in listfeeCaculator)
                 {
                     if (item.Fee_Id == 200)
@@ -617,8 +643,8 @@
         {
             try
             {
-                string tm04Nh = "TM04NH";
-                ViewBag.FileName = "/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + tm04Nh + ".pdf";
+                //string tm04Nh = "TM04NH";
+                ViewBag.FileName= SessionData.CurrentUser.FilePreview ; // = "/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + tm04Nh + ".pdf";
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
             }
             catch (Exception ex)
@@ -1057,6 +1083,10 @@
         {
             try
             {
+                if (NumberAppNo == null)
+                {
+                    NumberAppNo = "";
+                }
                 string _keyFee = "";
                 int TongSoNhom = 1;
                 int SoDongTinhQua = 0;

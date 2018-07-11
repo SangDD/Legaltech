@@ -45,7 +45,7 @@
 
     //
 
-    string styleNhanHieu = "", styleLienKet = "", styleNhanHieuCN = "", styleShowHidenNHCN = "style='display: none'";
+    string styleNhanHieu = "", styleLienKet = "", styleNhanHieuCN = "", styleShowHidenNHCN = "display: none";
     if (objAppHeaderInfo.LoaiNhanHieu == "NHTT")
     {
         styleNhanHieu = "checked='checked'";
@@ -57,7 +57,7 @@
     else if (objAppHeaderInfo.LoaiNhanHieu == "NHCN")
     {
         styleNhanHieuCN = "checked='checked'";
-        styleShowHidenNHCN = "style = 'display: block'";
+        styleShowHidenNHCN = "display: block";
     }
 
     string styleDaiDienChuDon = "", styleDaiDienSH = "", styleDaiDienUQ = "";
@@ -146,7 +146,7 @@
     string disableView = @"disabled=disabled";
     ViewBag.disableView = disableView;
 }
-}
+
 
 <style>
     /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
@@ -162,12 +162,13 @@
     </ul>
 </div>
 <input type="hidden" id="txtAppCode" value='@objAppHeaderInfo.Appcode' />
+<input type="hidden" id="txtStatusView" value='@objAppHeaderInfo.Status' />
 <input type="hidden" id="txtAppHeaderID" value="@objAppHeaderInfo.App_Header_Id" />
 @* Luuw cac Id cua cac file dinh kem xoa di xu ly khi thuc hien nut luu *@
 <input type="hidden" id="txtDocumentInAppRemove" value="" />
 
 <input type="hidden" id="txtLogoOld" value="@urlMauNhanHieu" />
-
+<input type="hidden" id="ActionView" value="V" />
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
         <legend>ĐĂNG KÝ NHÃN HIỆU</legend>
@@ -302,73 +303,73 @@
                 </div>
             </div>
         </div>
+        <div style="@styleShowHidenNHCN">
+            <div class="div_full_100_area" id="divNhanHieuChungNhan">
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "MÔ TẢ TÓM TẮT ĐẶC TÍNH CỦA HÀNG HOÁ/DỊCH VỤ ĐƯỢC CHỨNG NHẬN")
+                @{
+                    string styleNguonGocDL = "";
+                    if (!string.IsNullOrEmpty(objAppHeaderInfo.Nguongocdialy))
+                    {
+                        styleNguonGocDL = "checked='checked'";
+                    }
 
-        <div class="div_full_100_area" @styleShowHidenNHCN id="divNhanHieuChungNhan">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "MÔ TẢ TÓM TẮT ĐẶC TÍNH CỦA HÀNG HOÁ/DỊCH VỤ ĐƯỢC CHỨNG NHẬN")
-            @{
-                string styleNguonGocDL = "";
-                if (!string.IsNullOrEmpty(objAppHeaderInfo.Nguongocdialy))
-                {
-                    styleNguonGocDL = "checked='checked'";
+                    string styleChatluong = "";
+                    if (!string.IsNullOrEmpty(objAppHeaderInfo.Chatluong))
+                    {
+                        styleChatluong = "checked='checked'";
+                    }
+
+                    string styleNguonGocDiaLy = "";
+                    if (!string.IsNullOrEmpty(objAppHeaderInfo.Nguongocdialy))
+                    {
+                        styleNguonGocDiaLy = "checked='checked'";
+                    }
                 }
 
-                string styleChatluong = "";
-                if (!string.IsNullOrEmpty(objAppHeaderInfo.Chatluong))
-                {
-                    styleChatluong = "checked='checked'";
-                }
-
-                string styleNguonGocDiaLy = "";
-                if (!string.IsNullOrEmpty(objAppHeaderInfo.Nguongocdialy))
-                {
-                    styleNguonGocDiaLy = "checked='checked'";
-                }
-            }
-
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-checkbox">
-                        <input type="checkbox" name="0_ckbDacTinhHangHoa" @disableView @styleDacTinhHangHoa value="DTHH" placeholder="0_ckbDacTinhHangHoa" id="0_ckbDacTinhHangHoa" />
-                        <label>Đặc tính hàng hóa</label>
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-checkbox">
+                            <input type="checkbox" name="0_ckbDacTinhHangHoa" @disableView @styleDacTinhHangHoa value="DTHH" placeholder="0_ckbDacTinhHangHoa" id="0_ckbDacTinhHangHoa" />
+                            <label>Đặc tính hàng hóa</label>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" @disableView @styleNguonGocDL class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" placeholder="8_ckbNguonGocDiaLy" id="8_ckbNguonGocDiaLy" />
-                    <div>Nguồn gốc địa lý:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="8_txtNguonGocDiaLy" class="classDacTinhHangHoa" @disableView value="@objAppHeaderInfo.Nguongocdialy" disabled="disabled" maxlength="100" placeholder="Nguồn gốc địa lý" />
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" @disableView @styleNguonGocDL class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" placeholder="8_ckbNguonGocDiaLy" id="8_ckbNguonGocDiaLy" />
+                        <div>Nguồn gốc địa lý:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="8_txtNguonGocDiaLy" class="classDacTinhHangHoa" @disableView value="@objAppHeaderInfo.Nguongocdialy" disabled="disabled" maxlength="100" placeholder="Nguồn gốc địa lý" />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <input style="float: left;margin: 8px 0px 5px 5px;" type="checkbox" @styleChatluong @disableView name="8_ckbChatLuong" class="classDacTinhHangHoa" disabled="disabled" value="CLCL" placeholder="8_ckbChatLuong" id="8_ckbChatLuong" />
-                    <div>Chất lượng:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="8_txtChatLuong" maxlength="100" @disableView value="@objAppHeaderInfo.Chatluong" class="classDacTinhHangHoa" disabled="disabled" placeholder="8_txtChatLuong" />
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <input style="float: left;margin: 8px 0px 5px 5px;" type="checkbox" @styleChatluong @disableView name="8_ckbChatLuong" class="classDacTinhHangHoa" disabled="disabled" value="CLCL" placeholder="8_ckbChatLuong" id="8_ckbChatLuong" />
+                        <div>Chất lượng:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="8_txtChatLuong" maxlength="100" @disableView value="@objAppHeaderInfo.Chatluong" class="classDacTinhHangHoa" disabled="disabled" placeholder="8_txtChatLuong" />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" @disableView @styleNguonGocDiaLy name="8_ckbDacTinhKhac" class="classDacTinhHangHoa" disabled="disabled" value="DTKK" placeholder="8_ckbDacTinhKhac" id="8_ckbDacTinhKhac" />
-                    <div>Đặc tính khác:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="8_txtDacTinhKhac" maxlength="100" @disableView class="classDacTinhHangHoa" value="@objAppHeaderInfo.Nguongocdialy" disabled="disabled" placeholder="8_txtDacTinhKhac" />
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" @disableView @styleNguonGocDiaLy name="8_ckbDacTinhKhac" class="classDacTinhHangHoa" disabled="disabled" value="DTKK" placeholder="8_ckbDacTinhKhac" id="8_ckbDacTinhKhac" />
+                        <div>Đặc tính khác:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="8_txtDacTinhKhac" maxlength="100" @disableView class="classDacTinhHangHoa" value="@objAppHeaderInfo.Nguongocdialy" disabled="disabled" placeholder="8_txtDacTinhKhac" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
 
         @* Class *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClassView.cshtml")
@@ -561,7 +562,7 @@
         @* End tai lieu dinh kem  *@
 
         @*TÀI LIỆU KHÁC*@
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac.cshtml", "12")
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHTaiLieuKhac.cshtml", "12")
 
         @* CAM KẾT CHỦ ĐƠN  *@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewNgayThangNam.cshtml")
@@ -588,7 +589,7 @@
 
 <script>
     $("#btnBack").click(function () {
-        window.location.href = "/trade-mark-mana/quan-ly-don-luu-tam";
+        window.location.href = "/trade-mark-mana/quan-ly-don";
     });
 
     //disable enable
@@ -661,9 +662,9 @@
         }
     });
 
-    document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {
-        filePreview(this, 'imgMauNhanHieu');
-    };
+    //document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {
+    //    filePreview(this, 'imgMauNhanHieu');
+    //};
 
     function funcUpLoadMauNhanHieu(pFile) {
         try {
@@ -785,9 +786,8 @@
             $("#txtDocumentInAppRemove").val(arrlistID);
         } catch (e) {
         }
-    }
-
-
+    } 
+    
 </script>
 
 <style>

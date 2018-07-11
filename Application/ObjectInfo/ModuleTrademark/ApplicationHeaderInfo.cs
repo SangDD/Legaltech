@@ -70,6 +70,10 @@ namespace ObjectInfos
 
 
         public string Customer_Name { get; set; }
+        /// <summary>
+        /// Phân biệt là xem hay sửa xóa
+        /// </summary>
+        public string ActionView { get; set; }
     }
 
 

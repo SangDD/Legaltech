@@ -6,7 +6,12 @@
     {
         lstDocOther = (List<AppDocumentOthersInfo>)ViewBag.lstDocOther;
     }
-   string listIDFileAtt = "";
+    string listIDFileAtt = "";
+    string styleTLK = "display:none";
+    if (lstDocOther.Count > 0)
+    {
+        styleTLK = "display:block";
+    }
 }
 <style>
     .classDocOtherE{
@@ -14,11 +19,11 @@
         padding:3px; 
         color:blue ;
     }
-    #divContainerDocOther{
+    /*#divContainerDocOther{
         display:none ;
-    }
+    }*/
 </style>
-<div class="div_full_100_area" id="divContainerDocOther" >
+<div class="div_full_100_area" id="divContainerDocOther"  style="@styleTLK">
     @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CÁC TÀI LIỆU KHÁC")
     @{
         if (lstDocOther.Count > 0)

@@ -436,11 +436,14 @@
     </fieldset>
 </div>
 <input type="hidden" id="txtDateTime" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+<input type="hidden" id="ActionView" value="N" />
 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialPreview.cshtml")
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
     </div>
 </div>
+
+
 <style>
     .div-search-content .ms-ul > ul {
         margin-left: 0px;

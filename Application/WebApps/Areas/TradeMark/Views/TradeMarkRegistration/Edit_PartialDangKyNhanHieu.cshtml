@@ -663,6 +663,7 @@
     </fieldset>
 </div>
 <input type="hidden" id="txtDateTime" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+<input type="hidden" id="ActionView" value="N" />
 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialPreview.cshtml")
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
@@ -981,7 +982,7 @@
                     if (data != null && data.status >= 0) {
                         jAlert(EditSuccess, ThongBao, function () {
                             if (pStatus == 1)
-                                window.location.href = "/trade-mark-mana/quan-ly-don-luu-tam";
+                                window.location.href = "/trade-mark-mana/quan-ly-don";
                             else {
                                 window.location.href = "/trade-mark-mana/quan-ly-don-da-gui";
                             }

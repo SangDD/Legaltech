@@ -151,27 +151,27 @@
             if (pEditOrNew == undefined) pEditOrNew = New;
 
             var txtTenDayDu = $("#" + PreID + "_txtTenDayDu").val();
-            if (txtTenDayDu === "" && (pEditOrNew == New || pEditOrNew == Edit)) {
-                $("#" + PreID + "_txtTenDayDu").focus().val('');
-                showError('Tên không được để trống!');
-                return false;
-            }
+            //if (txtTenDayDu === "" && (pEditOrNew == New || pEditOrNew == Edit)) {
+            //    $("#" + PreID + "_txtTenDayDu").focus().val('');
+            //    showError('Tên không được để trống!');
+            //    return false;
+            //}
             var txtDiaChi = $("#" + PreID + "_txtDiaChi").val();
-            if (txtDiaChi === "" && (pEditOrNew == New || pEditOrNew == Edit)) {
-                $("#" + PreID + "_txtDiaChi").focus().val('');
-                showError('Địa chỉ không được để trống!');
-                return false;
-            }
+            //if (txtDiaChi === "" && (pEditOrNew == New || pEditOrNew == Edit)) {
+            //    $("#" + PreID + "_txtDiaChi").focus().val('');
+            //    showError('Địa chỉ không được để trống!');
+            //    return false;
+            //}
             var txtDienThoai = $("#" + PreID + "_txtDienThoai").val();
             var txtFax = $("#" + PreID + "_txtFax").val();
             var txtEmail = $("#" + PreID + "_txtEmail").val();
-            if (txtEmail != "" && (pEditOrNew == New || pEditOrNew == Edit)) {
-                if (!IsvalidEmail(txtEmail)) {
-                    $("#" + PreID + "_txtEmail").focus();
-                    showError('Email không đúng định dạng!');
-                    return false;
-                }
-            }
+            //if (txtEmail != "" && (pEditOrNew == New || pEditOrNew == Edit)) {
+            //    if (!IsvalidEmail(txtEmail)) {
+            //        $("#" + PreID + "_txtEmail").focus();
+            //        showError('Email không đúng định dạng!');
+            //        return false;
+            //    }
+            //}
             //Chủ đơn
             if (PreID == "1") {
                 formData.append("pInfo.Master_Name", txtTenDayDu);
