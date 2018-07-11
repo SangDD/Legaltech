@@ -150,5 +150,24 @@ namespace DataAccess
                 return -1;
             }
         }
+
+
+        public DataSet WikiDoc_GetBy_CataID(decimal p_cata_id)
+        {
+            try
+            {
+                DataSet _Ds = new DataSet();
+                _Ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_WIKI_DOCS.PROC_WIKI_DOC_SEARCH",
+                new OracleParameter("P_CATA_ID", OracleDbType.Decimal, p_cata_id, ParameterDirection.Input),
+                new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output));
+                return _Ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
     }
 }

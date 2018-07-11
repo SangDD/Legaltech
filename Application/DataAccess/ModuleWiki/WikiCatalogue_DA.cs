@@ -135,5 +135,21 @@ namespace DataAccess
             }
         }
 
+        public DataSet Portal_CataGetAll()
+        {
+            try
+            {
+                DataSet _Ds = new DataSet();
+                _Ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_WIKI_PORTAL.PROC_GET_CATALOGUE",
+                  new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output));
+                return _Ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
     }
 }
