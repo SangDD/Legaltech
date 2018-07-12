@@ -10,6 +10,7 @@ namespace WebApps
         public static string FileAttact = "FileAttact";
         public static string Document = "Document";
         public static string Wiki = "Wiki";
+        public static string App = "App";
     }
 
     public class   AppLoadHelpers

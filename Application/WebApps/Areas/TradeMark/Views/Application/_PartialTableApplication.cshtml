@@ -18,7 +18,7 @@
                 <th class="class250">Case name</th>
                 <th class="class150">Loại đơn</th>
                 <th class="class250">Khách hàng</th>
-                <th class="class100">Thời gian chờ</th>
+                <th class="class100">Thời gian chờ (ngày)</th>
                 <th class="class250">Trạng thái</th>
                 <th class="class150">Chức năng</th>
             </tr>
@@ -34,7 +34,7 @@
                         <td class="tdleftalign">@item.Case_Name</td>
                         <td class="tdleftalign">@item.Appcode</td>
                         <td class="tdleftalign">@item.Customer_Name</td>
-                        <td class="tdleftalign">@item.Master_Name</td>
+                        <td class="tdcenteralign">@item.Date_Wait</td>
                         <td class="tdleftalign">@item.Status_Name</td>
 
                         <td class="tdcenteralign">
@@ -45,9 +45,9 @@
                             {
                                 <a href="javascript:;" onclick="return funcDelAppDoc('@item.Id','@item.Appcode')" class="icon icon-delete" data-title="Xóa"></a>
                             }
-                            else if (item.Status == (decimal)CommonEnums.App_Status.DaGui_ChoPhanLoai)
+                            else if (item.Status == (decimal)CommonEnums.App_Status.DaGui_ChoPhanLoai || item.Status == (decimal)CommonEnums.App_Status.KhacHangDaTuChoi)
                             {
-                                <a href="javascript:;" onclick="getViewPhanLoaiDon(@item.Id)" class="icon icon-info" data-title="Phân loại cho luật sư"></a>
+                                <a href="javascript:;" onclick="getViewPhanLoaiDon(@item.Id)" class="icon icon-queen" data-title="Phân loại cho luật sư"></a>
                             }
                             else if (item.Status == (decimal)CommonEnums.App_Status.DaPhanChoLuatSu)
                             {
@@ -57,12 +57,19 @@
                             else if (item.Status == (decimal)CommonEnums.App_Status.LuatSuDaConfirm)
                             {
                                 // Admin gửi lại cho KH
+                                <a href="javascript:;" onclick="do_Admin_Gui_KH(@item.Id)" class="icon icon-queen" data-title="Gửi xác nhận đơn cho khách hàng"></a>
                             }
                             else if (item.Status == (decimal)CommonEnums.App_Status.ChoKHConfirm)
                             {
                                 // Khách hàng confirm lại cho admin
                                 <a href="javascript:;" onclick="getViewConfirmKhachHang('@item.Id')" class="icon icon-confirm-circle" data-title="KH Confirm đơn"></a>
                             }
+                            else if (item.Status == (decimal)CommonEnums.App_Status.KhacHangDaConfirm)
+                            {
+                                // Khách hàng đã confirm lại cho admin -> admin gửi lên cục
+                                <a href="javascript:;" onclick="getViewFiling('@item.Id')" class="icon icon-confirm-circle" data-title="Nộp đơn"></a>
+                            }
+                            
                         </td>
                     </tr>
                 }

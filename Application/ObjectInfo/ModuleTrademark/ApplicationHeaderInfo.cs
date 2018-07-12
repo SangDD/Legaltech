@@ -1,6 +1,7 @@
 ﻿using System;
 using ObjectInfos.ModuleTrademark;
 using Common.Extensions;
+using System.Web;
 
 namespace ObjectInfos
 {
@@ -68,8 +69,13 @@ namespace ObjectInfos
         public string Case_Name { get; set; }
         public string Gencode { get; set; }
 
+        public DateTime Status_Date { get; set; }
+        public int Date_Wait { get; set; }
 
         public string Customer_Name { get; set; }
+        public HttpPostedFileBase File_Copy_Filing { get; set; }
+        public string Note { get; set; }
+
     }
 
 

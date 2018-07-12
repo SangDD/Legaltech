@@ -862,8 +862,8 @@
                 ApplicationHeaderInfo objAppHeaderInfo = _bl.GetMasterByAppNo(p_appNo, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
                 ViewBag.objAppHeaderInfo = objAppHeaderInfo;
 
-                var PartialThongTinChuDon = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml");
-                var PartialThongTinDaiDienChuDon = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml");
+                var PartialThongTinChuDon = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1");
+                var PartialThongTinDaiDienChuDon = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2");
                 
                 var json = Json(new { PartialThongTinChuDon, PartialThongTinDaiDienChuDon });
                 return json;

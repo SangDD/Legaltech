@@ -46,7 +46,7 @@
                 </div>
             </div>
         </div>
- 
+
     </div>
 
     <div class="form-group">
@@ -75,31 +75,33 @@
         if (validateAction()) {
             var formData = new FormData();
             collectObjectData(formData);
-            $.ajax({
-                url: '/trade-mark-mana/quan-ly-don/do-phan-loai',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                traditional: true,
-                async: false,
-                headers: { "cache-control": "no-cache" },
-                success: function (data) {
-                    if (data.success == "-1") {
-                        //jError("Lỗi check lại kết nối tới server", "Lỗi");
-                        jError("Lỗi check lại kết nối tới server");
-                        return false;
+            nvsConfirm(null, "Bạn có chắc chắn muốn phân đơn này cho luật sư hay không?", function () {
+                $.ajax({
+                    url: '/trade-mark-mana/quan-ly-don/do-phan-loai',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    traditional: true,
+                    async: false,
+                    headers: { "cache-control": "no-cache" },
+                    success: function (data) {
+                        if (data.success == "-1") {
+                            //jError("Lỗi check lại kết nối tới server", "Lỗi");
+                            jError("Lỗi check lại kết nối tới server");
+                            return false;
+                        }
+                        else {
+                            jAlert('Phân loại đơn cho luật sư mới thành công!', "THÔNG BÁO", function () {
+                                CloseDivPopUp('divWrapperPopUpApp');
+                                Search_Application(1,1);
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
                     }
-                    else {
-                        jAlert('Phân loại đơn cho luật sư mới thành công!', "THÔNG BÁO", function () {
-                            CloseViewPhanLoai();
-                            Search_Application(1,1);
-                        });
-                    }
-                },
-                error: function (e) {
-                    console.log(e);
-                }
+                });
             });
         }
     }

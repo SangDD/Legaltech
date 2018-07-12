@@ -48,7 +48,7 @@
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Phân loại" onclick="return doConfirm(@_application_header_id)" />
+            <input type="submit" class="btn-default" value="Phân loại" onclick="return do_KH_Confirm(@_application_header_id)" />
         </div>
     </div>
 </div>
@@ -56,19 +56,19 @@
 <script>
     $(document).ready(function () {
 
-        $('#cboConfirm').multipleSelect({
-            filter: true,
-            single: true,
-            isdatastring: false,
-            maxHeight: 150,
-            placeholder: "-- Khách hàng phản hồi --"
-        });
+        //$('#cboConfirm').multipleSelect({
+        //    filter: true,
+        //    single: true,
+        //    isdatastring: false,
+        //    maxHeight: 150,
+        //    placeholder: "-- Khách hàng phản hồi --"
+        //});
 
     });
 
     function validateAction() {
         var _Status = $('#cboConfirm').val();
-        if (_Status == null || _Status == "0") {
+        if (_Status == null ) {
             jError('Action Confirm không được để trống!', "Lỗi", function () {
                 $('#cboConfirm').multipleSelect('focus');
             });
