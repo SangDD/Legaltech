@@ -15,6 +15,11 @@
     decimal _new_parentid = 0, _old_parentid = 0;
     int _countrow = 1;
     StringBuilder _Slidebar = new StringBuilder();
+    WikiDoc_Info _DocdetailInfo = new WikiDoc_Info();
+    if (ViewBag.DocdetailInfo != null)
+    {
+        _DocdetailInfo = ViewBag.DocdetailInfo;
+    }
 }
  
 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
@@ -48,7 +53,7 @@
                     // cấp 2
 
                     _Slidebar.Append("<li class='list-group-item'>");
-                    _Slidebar.Append("<a class=''>");
+                    _Slidebar.Append("<a class='' href='/wiki-view/doc-list/"+item.ID+"/0'  >");
                     _Slidebar.Append(item.NAME);
                     _Slidebar.Append("</a>");
                     _Slidebar.Append("</li>");
@@ -71,6 +76,62 @@
         <input type="text" placeholder="Tìm kiếm theo tiêu đề hoặc hashtag" style="width:100%"/>
     </div>
     <div id="div_wiki_datacontent" class="mdc-card mdc-card--stroked">
-        @Html.Partial("/Areas/Home/Views/Wiki/_PartialDocDetail.cshtml")
+        @if (ViewBag.DocdetailInfo != null)
+        {
+         
+              @Html.Partial("/Areas/Home/Views/Wiki/_PartialDocViewDetail.cshtml")
+        
+        }
+        else if (ViewBag.ListCatalogue != null)
+        {
+            
+                @Html.Partial("/Areas/Home/Views/Wiki/_PartialListDocByCata.cshtml")
+            
+        }
+      
     </div>
 </div>
+<script>
+
+    //function GetDocByCataid(_cataid) {
+    //    try {
+    //        $.ajax({
+    //            type: "POST",
+    //            url: "/wiki-view/GetDocByCataid/",
+    //            headers: { "cache-control": "no-cache" },
+    //            async: false,
+    //            data: { p_id: _cataid },
+    //            success: function (data) {
+    //                if (data != null) {
+    //                        $("#div_wiki_datacontent").html(data);
+    //                }
+    //                return false;
+    //            }
+    //        });
+    //    } catch (e) {
+    //        alert(e.toString());
+    //    }
+    //}
+
+    //function GetDocDetail(_Docid) {
+    //    try {
+    //        $.ajax({
+    //            type: "POST",
+    //            url: "/wiki-view/GetDocDetail/",
+    //            headers: { "cache-control": "no-cache" },
+    //            async: false,
+    //            data: { p_id: _Docid },
+    //            success: function (data) {
+    //                if (data != null) {
+    //                    $("#div_wiki_datacontent").html(data);
+    //                    document.getElementById("content").innerHTML = "/vi-vn/wiki-view/doc-list/0/12";
+    //                    window.history.pushState({ "html": "/vi-vn/wiki-view/doc-list/0/12", "pageTitle": "Chi tiết tin" }, "", urlPath);
+    //                }
+    //                return false;
+    //            }
+    //        });
+    //    } catch (e) {
+    //        alert(e.toString());
+    //    }
+    //}
+</script>

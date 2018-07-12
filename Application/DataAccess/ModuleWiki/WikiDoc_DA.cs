@@ -157,8 +157,25 @@ namespace DataAccess
             try
             {
                 DataSet _Ds = new DataSet();
-                _Ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_WIKI_DOCS.PROC_WIKI_DOC_SEARCH",
+                _Ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_WIKI_PORTAL.PROC_GET_DOC_BY_CATA_ID",
                 new OracleParameter("P_CATA_ID", OracleDbType.Decimal, p_cata_id, ParameterDirection.Input),
+                new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output));
+                return _Ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
+        public DataSet PortalWikiDoc_GetById(decimal P_ID)
+        {
+            try
+            {
+                DataSet _Ds = new DataSet();
+                _Ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_WIKI_DOCS.PROC_PORTAL_WIKI_DOCS_GETBYID",
+                new OracleParameter("P_ID", OracleDbType.Decimal, P_ID, ParameterDirection.Input),
                 new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output));
                 return _Ds;
             }

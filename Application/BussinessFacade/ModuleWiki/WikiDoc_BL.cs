@@ -118,5 +118,20 @@ namespace BussinessFacade
                 return new List<WikiDoc_Info>();
             }
         }
+
+        public WikiDoc_Info PortalWikiDoc_GetById(decimal P_ID)
+        {
+            try
+            {
+                WikiDoc_DA _da = new WikiDoc_DA();
+                var ds = _da.PortalWikiDoc_GetById(P_ID);
+                return CBO<WikiDoc_Info>.FillObjectFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new WikiDoc_Info();
+            }
+        }
     }
 }
