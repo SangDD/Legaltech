@@ -45,7 +45,7 @@
 
     //
 
-    string styleNhanHieu = "", styleLienKet = "", styleNhanHieuCN = "", styleShowHidenNHCN = "style='display: none'";
+    string styleNhanHieu = "", styleLienKet = "", styleNhanHieuCN = "", styleShowHidenNHCN = "style=display:none";
     if (objAppHeaderInfo.LoaiNhanHieu == "NHTT")
     {
         styleNhanHieu = "checked='checked'";
@@ -57,7 +57,7 @@
     else if (objAppHeaderInfo.LoaiNhanHieu == "NHCN")
     {
         styleNhanHieuCN = "checked='checked'";
-        styleShowHidenNHCN = "style = 'display: block'";
+        styleShowHidenNHCN = "style =display:block";
     }
 
     string styleDaiDienChuDon = "", styleDaiDienSH = "", styleDaiDienUQ = "";
@@ -135,7 +135,7 @@
         styleDonUtSo2 = "";
     }
 
-    string styleChuDonKhac = "hidden='hidden'";
+    string styleChuDonKhac = "hidden=hidden";
     if (!string.IsNullOrEmpty(objAppHeaderInfo.Cdk_Name_2) || !string.IsNullOrEmpty(objAppHeaderInfo.Cdk_Name_3) || !string.IsNullOrEmpty(objAppHeaderInfo.Cdk_Name_4))
     {
         styleChuDonKhac = "";
@@ -197,33 +197,42 @@
 
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
         </div>
-
-        @*@if (!string.IsNullOrEmpty(objAppHeaderInfo.Cdk_Name_1))
-        {*@
         @{
             string displayChuDon1 = "hidden='hidden'", displayChuDon2 = "hidden='hidden'", displayChuDon3 = "hidden='hidden'", displayChuDon4 = "hidden='hidden'";
             string styleChuDon1 = "display:none", styleChuDon2 = "display:none", styleChuDon3 = "display:none", styleChuDon4 = "display:none";
+            int numberDisplay1 = 0, numberDisplay2 = 0, numberDisplay3 = 0, numberDisplay4 = 0 ,totalDisplay=0;
+            string strDisplay = "display:none";
+
             if (!string.IsNullOrEmpty(objAppHeaderInfo.Cdk_Name_1))
             {
                 displayChuDon1 = "";
                 styleChuDon1 = "display:block";
+                numberDisplay1 = 1;
             }
             if (!string.IsNullOrEmpty(objAppHeaderInfo.Cdk_Name_2))
             {
                 displayChuDon2 = "";
                 styleChuDon2 = "display:block";
+                numberDisplay2 = 2;
             }
             if (!string.IsNullOrEmpty(objAppHeaderInfo.Cdk_Name_3))
             {
                 displayChuDon3 = "";
                 styleChuDon3 = "display:block";
+                numberDisplay3 = 3;
             }
             if (!string.IsNullOrEmpty(objAppHeaderInfo.Cdk_Name_4))
             {
                 displayChuDon4 = "";
                 styleChuDon4 = "display:block";
-
+                numberDisplay4 = 4;
             }
+            totalDisplay = numberDisplay1 + numberDisplay2 + numberDisplay3 + numberDisplay4;
+            if (totalDisplay < 5)
+            {
+                strDisplay = "display:block";
+            }
+
             <div class="div_full_100_area">
                 @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN KHÁC")
                 <div id="divAddNewChuDon01" @displayChuDon1>
@@ -235,15 +244,13 @@
                 <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon01','divHiddenChuDon01','01');" style="text-decoration:underline; color: blue;float: right;">Ẩn</a>
             </div>
 
-            <div @styleChuDonKhac id="divHienChuDonKhac">
-
+            <div  id="divHienChuDonKhac">
                 <div id="divAddNewChuDon02" @displayChuDon2>
                     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "10")
                 </div>
                 <div class="div_full_100_area" style="@styleChuDon2" id="divHiddenChuDon02">
                     <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon02','divHiddenChuDon02','02');" style="text-decoration:underline; color: blue;float: right;">Ẩn</a>
                 </div>
-
                 <div id="divAddNewChuDon03" @displayChuDon3>
                     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "11")
                 </div>
@@ -254,14 +261,15 @@
                 <div id="divAddNewChuDon04" @displayChuDon4>
                     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "12")
                 </div>
+
                 <div class="div_full_100_area" style="@styleChuDon4" id="divHiddenChuDon04">
                     <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon04','divHiddenChuDon04','04');" style="text-decoration:underline; color: blue;float: right;">Ẩn</a>
                 </div>
 
-
                 <div class="div_full_100_area" id="divThemChuDon01">
                     <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon01','divHiddenChuDon01');" style="text-decoration:underline; color: blue;float: right;">Thêm chủ đơn</a>
                 </div>
+
                 <div class="div_full_100_area" style="display:none" id="divThemChuDon02">
                     <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon02','divHiddenChuDon02');" style="text-decoration:underline; color: blue;float: right;">Thêm chủ đơn</a>
                 </div>

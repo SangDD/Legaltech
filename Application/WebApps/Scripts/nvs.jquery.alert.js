@@ -289,7 +289,9 @@ function funcHidden(ptag, ptgHiden, pAddNew) {
     }
 }
 
-function funcShowOrHiddenCD(ptag, ptgShow) {
+function funcShowOrHiddenCD(ptag, ptgShow)
+{
+    $(".ms-drop").css('width', '100%');
 
     $("#" + ptag).removeAttr("hidden");
     $("#" + ptgShow).css('display', 'block');
@@ -354,8 +356,5 @@ function funcShowOrHiddenCD(ptag, ptgShow) {
         else if ($("#divAddNewChuDon03").is(":hidden") == true) {
             $("#divThemChuDon03").css('display', 'block');
         }
-
-
-
     }
 }
