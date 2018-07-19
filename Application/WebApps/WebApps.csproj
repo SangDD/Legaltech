@@ -1129,7 +1129,7 @@
     <Content Include="Content\fonts\fontawesome\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\ckfinder\App_LocalResources\config.ascx.resx" />
     <EmbeddedResource Include="Resources\Resource.en.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.en.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -1270,7 +1270,6 @@
     <Content Include="Areas\Home\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Home\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Home\Views\Wiki\List.cshtml" />
-
     <Content Include="Areas\Home\Views\Wiki\_PartialDocDetail.cshtml" />
     <Content Include="Areas\Home\Views\Wiki\_PartialListDocData.cshtml" />
     <Content Include="Areas\TradeMark\Views\Application\_PartialLawer_Confirm.cshtml" />
@@ -1618,7 +1617,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Resource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

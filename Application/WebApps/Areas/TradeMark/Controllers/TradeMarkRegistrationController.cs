@@ -31,6 +31,7 @@
         {
             try
             {
+                
                 if (SessionData.CurrentUser == null)
                 {
                     return this.Redirect("/");
