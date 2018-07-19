@@ -53,6 +53,31 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
+        public int AppHeader_Filing_Status(decimal p_id, decimal p_status,DateTime p_filing_date, string p_url_copy, string p_notes, string p_Modify_By, DateTime p_Modify_Date)
+        {
+            try
+            {
+                var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
+                OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_header.proc_update_filing",
+                    new OracleParameter("p_id", OracleDbType.Decimal, p_id, ParameterDirection.Input),
+                    new OracleParameter("p_status", OracleDbType.Decimal, p_status, ParameterDirection.Input),
+                    new OracleParameter("p_filing_date", OracleDbType.Date, p_filing_date, ParameterDirection.Input),
+                    new OracleParameter("p_url_copy", OracleDbType.Varchar2, p_url_copy, ParameterDirection.Input),
+                    new OracleParameter("p_notes", OracleDbType.Varchar2, p_notes, ParameterDirection.Input),
+                    new OracleParameter("p_Modify_By", OracleDbType.Varchar2, p_Modify_By, ParameterDirection.Input),
+                    new OracleParameter("p_Modify_Date", OracleDbType.Date, p_Modify_Date, ParameterDirection.Input),
+                    paramReturn);
+                var result = Convert.ToInt32(paramReturn.Value.ToString());
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
+
         /// <summary>
         /// 
         /// </summary>

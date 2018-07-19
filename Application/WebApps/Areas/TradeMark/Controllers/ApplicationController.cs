@@ -10,6 +10,7 @@ using Common;
 using ObjectInfos;
 using Common.CommonData;
 using BussinessFacade;
+using System.Web;
 
 namespace WebApps.Areas.TradeMark.Controllers
 {
@@ -157,6 +158,54 @@ namespace WebApps.Areas.TradeMark.Controllers
                 return Json(new { success = "-1" });
             }
         }
+
+        [HttpPost]
+        [Route("quan-ly-don/do-admin-confirm-2-customer")]
+        public ActionResult do_admin_confirm_2_customer(decimal p_Application_Header_Id)
+        {
+            try
+            {
+                Application_Header_BL _obj_bl = new Application_Header_BL();
+                decimal _status = (decimal)CommonEnums.App_Status.ChoKHConfirm;
+
+                int _ck = _obj_bl.AppHeader_Update_Status(p_Application_Header_Id, _status, "", SessionData.CurrentUser.Username, DateTime.Now);
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
+        [HttpPost]
+        [Route("quan-ly-don/show-filing")]
+        public ActionResult Show_Filing(decimal p_application_header_id)
+        {
+            ViewBag.Application_Header_Id = p_application_header_id;
+            return PartialView("~/Areas/TradeMark/Views/Application/_Partial_Filing.cshtml");
+        }
+
+        [HttpPost]
+        [Route("quan-ly-don/do-filing")]
+        public ActionResult do_Filing(ApplicationHeaderInfo pInfo)
+        {
+            try
+            {
+                Application_Header_BL _obj_bl = new Application_Header_BL();
+                decimal _status = (decimal)CommonEnums.App_Status.DaGuiLenCuc;
+                var url = AppLoadHelpers.PushFileToServer(pInfo.File_Copy_Filing, AppUpload.App);
+                //DateTime _filing_date = Common.Helpers.DateTimeHelper.ConvertToDate(p_filing_date);
+                int _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Id, _status, pInfo.Filing_Date, url, pInfo.Note, SessionData.CurrentUser.Username, DateTime.Now);
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
         #endregion
     }
 }

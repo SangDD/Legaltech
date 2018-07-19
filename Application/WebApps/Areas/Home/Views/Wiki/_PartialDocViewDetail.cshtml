@@ -27,6 +27,21 @@
     <div>
         <div class="snippet-content">
             @Html.Raw(_DocdetailInfo.CONTENT)
+           
         </div>
+    
     </div>
+    @if (!string.IsNullOrEmpty(_DocdetailInfo.FILE_URL01))
+    {
+        <span class="badge"><a href="@_DocdetailInfo.FILE_URL01">DOWNLOAD</a></span>
+    }
+    
+    @if (!string.IsNullOrEmpty(_DocdetailInfo.FILE_URL02))
+    {
+        <span class="badge"><a href="@_DocdetailInfo.FILE_URL02">DOWNLOAD</a></span>
+    }
+    @if (!string.IsNullOrEmpty(_DocdetailInfo.FILE_URL03))
+    {
+        <span class="badge"><a href="@_DocdetailInfo.FILE_URL03">DOWNLOAD</a></span>
+    }
 </div>

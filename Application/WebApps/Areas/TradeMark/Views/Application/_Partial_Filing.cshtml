@@ -1,0 +1,191 @@
+﻿@using ObjectInfos;
+@using BussinessFacade.ModuleMemoryData
+@{
+    decimal _application_header_id = -1;
+    if (ViewBag.Application_Header_Id != null)
+    {
+        _application_header_id = ViewBag.Application_Header_Id;
+    }
+}
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 250px;
+    }
+</style>
+
+<script>
+    $.datetimepicker.setLocale('vi');
+    $(document).ready(function () {
+        $('.datepicker').datetimepicker({
+            format: 'd/m/Y',
+            formatDate: 'd/m/Y',
+            timepicker: false,
+            mask: '39/19/9999',
+            validateOnBlur: true,
+        });
+    });
+</script>
+
+<div class="" style="padding:5px 38px">
+    <div class="divCover divCover_popup">
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Ngày nộp đơn<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Ngày nộp đơn" id="txt_filing_date" maxlength="100" class="datepicker" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Ghi chú </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtNotes" maxlength="2000" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <input type="button" id="btnChooseFile" value="Chọn file" class="btn" onclick="return Click_Upload_File()" style="margin-left:4px;height:29px;" />
+                <input type="file" id="file_attach" style="display:none" onchange="FuncChooseResultFile()" />
+
+                <div class="div-checkbox clssDisplaynone" id="div_RemoveImg">
+                    <img onclick="RemoveFile()" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" />
+                </div>
+            </div>
+            @*<div class="div-search-content">
+                <div>
+                    <input type="button" value="Chọn file" class="btn" onclick="return Click_Upload_File()" style="margin:2px;" />
+                    <input type="file" id="file_attach" style="display:none" onchange="FuncChooseResultFile()" />
+
+                    <div class="div-checkbox clssDisplaynone" id="div_RemoveImg">
+                        <img onclick="RemoveFile()" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" />
+                    </div>
+                </div>
+            </div>*@
+
+            <div class="div-search-title">
+                <div id="div_filename" style="width: 168px;">Tên file<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Tên file Maximum file size is 2MB" id="txtMaxFile" readonly="readonly" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <div class="form-group-bottom">
+            <input type="submit" class="btn-default" value="Nộp loại" onclick="return do_Filing(@_application_header_id)" />
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+    });
+
+    function Click_Upload_File(p_AfterID) {
+        var _idfile = "file_attach";
+        document.getElementById(_idfile).click();
+    }
+
+    function FuncChooseResultFile() {
+        try {
+
+            var _textFile = $("#txtMaxFile");
+            var _txt = document.getElementById("txtMaxFile");
+            var div_filename = document.getElementById("div_filename");
+
+            // lay du lieu file
+            var pfile = $("#file_attach");
+
+            if (pfile.val() == "") {
+                _textFile.val("");
+
+                $("#div_RemoveImg").addClass("clssDisplaynone");
+                div_filename.width = "168px";
+                //_txt.style.width = "561px";
+            }
+            else {
+                var _Filename = pfile[0].files[0].name.toString();
+                _textFile.val(_Filename);
+
+                $("#div_RemoveImg").removeClass("clssDisplaynone");
+                div_filename.width = "143px";
+                //_txt.style.width = "536px";
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function RemoveFile(p_AfterID) {
+        try {
+
+            $("#file_attach").val('');
+            $("#div_RemoveImg").addClass("clssDisplaynone");
+            var _textFile = $("#txtMaxFile");
+            _textFile.val("");
+
+        } catch (e) {
+            alert(e.toString());
+        }
+    }
+
+    function validateAction() {
+        // check validate ngày
+        var _filing_date = $("#txt_filing_date").val();
+        if (checkDate("Ngày nộp đơn", "#txt_filing_date", _filing_date) == false) {
+            return false;
+        }
+
+        var pfile = $("#file_attach");//lay du lieu file
+        if (pfile.val() != "") {
+            var _CheckFile = true;
+            var _Len = pfile[0].files[0].name.toString()
+            if (_Len.length > 200) {
+                _CheckFile = false;
+                jError("Tên file không được quá 200 ký tự", "Lỗi", function () {
+                    $(pfile).focus();
+
+                });
+                return false;
+            }
+
+            var _file = pfile[0].files[0];
+            var _size = _file.size / 1024 / 1024;
+
+            if (validateFileName(_file.name) == false) {
+                _CheckFile = false;
+                jError("Không tải file có tên file được lưu là unicode Tiếng việt có dấu ! ", "Lỗi", function () {
+                    $(pfile).focus();
+                });
+                return false;
+            }
+            if (_CheckFile == false) {
+                return false;
+            }
+        }
+        else {
+            jError("File copy không được để trống", "Lỗi", function () {
+                $("#btnChooseFile").focus();
+            });
+            return false;
+        }
+
+        return true;
+    }
+
+</script>
