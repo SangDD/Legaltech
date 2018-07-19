@@ -20,7 +20,15 @@
     {
         _DocdetailInfo = ViewBag.DocdetailInfo;
     }
+    string _displayDivDetail = "";
+    string _displayDivListDoc = "";
 }
+<style>
+    .d-paging
+    {
+        border:none;
+    }
+</style>
  
 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
     <div class="sidebar">
@@ -70,28 +78,123 @@
     </div>
    
 </div>
-
+<input type="hidden" value="TITLE" id="colSorted" />
+<input type="hidden" value="ASC" id="SortType" />
+<input type="hidden" value="" id="OptionSorting" />
 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
     <div class="breadcrumb">
-        <input type="text" placeholder="Tìm kiếm theo tiêu đề hoặc hashtag" style="width:100%"/>
+        <input type="text" id="_txtwikidocsearch" placeholder="Tìm kiếm theo tiêu đề hoặc hashtag" style=" width: calc(100% - 100px);"/>
+        <input type="button"  value="Tìm kiếm" style="width: 83px;" onclick="findObjects(1, 1)" id="btnfindObjects"/>
     </div>
-    <div id="div_wiki_datacontent" class="mdc-card mdc-card--stroked">
-        @if (ViewBag.DocdetailInfo != null)
+    @{ 
+        if(ViewBag.DocdetailInfo != null)
         {
-         
-              @Html.Partial("/Areas/Home/Views/Wiki/_PartialDocViewDetail.cshtml")
-        
+            _displayDivListDoc = "display:none";
         }
-        else if (ViewBag.ListCatalogue != null)
+         else
         {
-            
-                @Html.Partial("/Areas/Home/Views/Wiki/_PartialListDocByCata.cshtml")
-            
+            _displayDivDetail = "display:none";
         }
-      
+    }
+    
+    <div id="div_wiki_datacontent_Detail" class="mdc-card mdc-card--stroked" style="@_displayDivDetail">
+         @Html.Partial("/Areas/Home/Views/Wiki/_PartialDocViewDetail.cshtml")
+    </div>
+    <div id="div_wiki_datacontent" class="mdc-card mdc-card--stroked"  style="@_displayDivListDoc">
+         @Html.Partial("/Areas/Home/Views/Wiki/_PartialListDocByCata.cshtml")
     </div>
 </div>
 <script>
+    var _currentKeySearch = '/Areas/Home/Views/Wiki/List_currentKeySearch';
+    var _currentOptionFilter = '/Areas/Home/Views/Wiki/List_currentOptionFilter';
+    var _status = '3', _catalogue = 'ALL', _titleHashtag = '';
+    if ($("#txtwikicataid").val() != "0") {
+        _catalogue = $("#txtwikicataid").val();
+    }
+
+    $(document).ready(function () {
+        initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch);
+        $('_txtwikidocsearch').focus();
+      
+    });
+
+    function findObjects(_pageNumber, _isSearching) {
+        try {
+            reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
+            //if (isSearching === 1) {
+            //    _status = "3";
+            //    _catalogue = "ALL";
+            //    _titleHashtag = $("#_txtwikidocsearch").val().trim();
+
+            //} else {
+            //    window.arrKeySearch = window.keySearch.split('|');
+            //    _status = arrKeySearch[0];
+            //    if ($("#txtwikicataid").val() == "0")
+            //    {
+            //        _catalogue = arrKeySearch[1];
+            //    }
+            //    else
+            //    {
+            //        _catalogue = $("#txtwikicataid").val();
+            //    }
+            //    _titleHashtag = arrKeySearch[2];
+            //    $("#_txtwikidocsearch").val(_titleHashtag);
+            //}
+            _status = "3";
+
+            if ($("#txtwikicataid").val() == "0") {
+                _catalogue = "ALL";
+            }
+            else {
+                _catalogue = $("#txtwikicataid").val();
+            }
+            _titleHashtag = $("#_txtwikidocsearch").val().trim();
+          
+            updateSearchingConditions("divNumberRecordOnPageListObjects", setKeySearch);
+            $.ajax({
+                type: "POST",
+                headers: { "cache-control": "no-cache" },
+                url: "/wiki-view/WikiDocSearch/",
+                data: {
+                    keysSearch: keySearch,
+                    options: optionFilter
+                },
+                async: false,
+                success: function (data) {
+                    if (data != null) {
+                        $("#div_wiki_datacontent_Detail").attr("style", "display:none");
+                        $("#div_wiki_datacontent").removeAttr("style");
+                        onResponseWhenSearching(data, "div_wiki_datacontent", findObjects);
+                    }
+                }
+            });
+            return true;
+        } catch (e) {
+            alert(e.toString());
+            return false;
+        }
+
+
+    }
+
+    function setKeySearch() {
+        window.keySearch = _status + "|" + _catalogue + "|" + _titleHashtag;
+    }
+
+    function initOrderBySearching() {
+        window.colSort = 'MODIFIED_DATE';
+        window.sortType = 'DESC';
+    }
+
+    function pageListOfObjects(_pagenum) {
+        try {
+            findObjects(_pagenum, 0);
+
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+
 
     //function GetDocByCataid(_cataid) {
     //    try {
@@ -134,4 +237,5 @@
     //        alert(e.toString());
     //    }
     //}
+ 
 </script>

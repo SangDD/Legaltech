@@ -133,5 +133,23 @@ namespace BussinessFacade
                 return new WikiDoc_Info();
             }
         }
+
+        public List<WikiDoc_Info> PortalWikiDoc_Search(string P_KEY_SEARCH = "", string OPTIONS = "")
+        {
+            try
+            {
+                WikiDoc_DA _da = new WikiDoc_DA();
+                var optionFilter = new OptionFilter(OPTIONS);
+                var totalRecordFindResult = 0;
+                var ds = _da.PortalWikiDoc_Search(P_KEY_SEARCH, optionFilter, ref totalRecordFindResult);
+                this.SetupPagingHtml(optionFilter, totalRecordFindResult, "pageListOfObjects", "divNumberRecordOnPageListObjects");
+                return CBO<WikiDoc_Info>.FillCollectionFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<WikiDoc_Info>();
+            }
+        }
     }
 }

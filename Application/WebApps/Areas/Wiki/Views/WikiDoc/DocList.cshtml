@@ -117,9 +117,6 @@
         });
 
 
-
-
-
         function findObjects(_pageNumber, _isSearching) {
             try {
 
@@ -144,7 +141,7 @@
                 $.ajax({
                     type: "POST",
                     headers: { "cache-control": "no-cache" },
-                    url: "/wiki-manage/wiki-doc/find-doc-temp",
+                    url: "/wiki-manage/wiki-doc/find-doc",
                     data: {
                         keysSearch: keySearch,
                         options: optionFilter
@@ -190,10 +187,7 @@
             isdatastring: false,
             placeholder: 'Tìm kiếm danh mục tin'
         });
-    </script>
-
-    @* task function *@
-    <script>
+     
        
         function doDeleteObject(p_id) {
             try {
