@@ -8,7 +8,7 @@
         _languagecode = ViewBag.LanguageCode;
     }
     List<WikiCatalogues_Info> _Listcatalogue = new List<WikiCatalogues_Info>();
-    if(ViewBag.ListCatalogue != null)
+    if (ViewBag.ListCatalogue != null)
     {
         _Listcatalogue = ViewBag.ListCatalogue;
     }
@@ -23,85 +23,82 @@
     string _displayDivDetail = "";
     string _displayDivListDoc = "";
 }
-<style>
-    .d-paging
-    {
-        border:none;
-    }
-</style>
- 
+<link href="~/Content/social-likes/social-likes_classic.css" rel="stylesheet" />
+<script src="~/Content/social-likes/social-likes.min.js"></script>
+
+
 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
     <div class="sidebar">
-         
 
-            @foreach (WikiCatalogues_Info item in _Listcatalogue)
+
+        @foreach (WikiCatalogues_Info item in _Listcatalogue)
+        {
+            if (item.CATA_LEVEL == 0)
             {
-                if (item.CATA_LEVEL == 0)
+
+                // cấp 1
+                _new_parentid = item.ID;
+
+                if (_new_parentid != _old_parentid && _old_parentid != 0)
                 {
-
-                    // cấp 1
-                    _new_parentid = item.ID;
-
-                    if (_new_parentid != _old_parentid && _old_parentid != 0)
-                    {
-                        // nếu thay đổi danh mục cha
-                        _Slidebar.Append("</ul>");
-                    }
-                    _Slidebar.Append("<h4> "+ item.NAME+ "</h4>");
-                    if (_new_parentid != _old_parentid)
-                    {
-                        _old_parentid = _new_parentid;
-                        // nếu là 1 danh mục cha mới
-                        _Slidebar.Append("<ul class='list-group'>");
-
-                    }
+                    // nếu thay đổi danh mục cha
+                    _Slidebar.Append("</ul>");
                 }
-                else
+                _Slidebar.Append("<h4> " + item.NAME + "</h4>");
+                if (_new_parentid != _old_parentid)
                 {
-                    // cấp 2
+                    _old_parentid = _new_parentid;
+                    // nếu là 1 danh mục cha mới
+                    _Slidebar.Append("<ul class='list-group'>");
 
-                    _Slidebar.Append("<li class='list-group-item'>");
-                    _Slidebar.Append("<a class='' href='/wiki-view/doc-list/"+item.ID+"/0'  >");
-                    _Slidebar.Append(item.NAME);
-                    _Slidebar.Append("</a>");
-                    _Slidebar.Append("</li>");
-                    if(_countrow == _Listcatalogue.Count)
-                    {
-                        // nếu là thằng cuối cùng thì đóng thẻ ul
-                        _Slidebar.Append("</ul>");
-                    }
                 }
-
-                _countrow++;
             }
+            else
+            {
+                // cấp 2
+
+                _Slidebar.Append("<li class='list-group-item'>");
+                _Slidebar.Append("<a class='' href='/wiki-view/doc-list/" + item.ID + "/0'  >");
+                _Slidebar.Append(item.NAME);
+                _Slidebar.Append("</a>");
+                _Slidebar.Append("</li>");
+                if (_countrow == _Listcatalogue.Count)
+                {
+                    // nếu là thằng cuối cùng thì đóng thẻ ul
+                    _Slidebar.Append("</ul>");
+                }
+            }
+
+            _countrow++;
+        }
         @Html.Raw(_Slidebar.ToString())
     </div>
-   
+
 </div>
 <input type="hidden" value="TITLE" id="colSorted" />
 <input type="hidden" value="ASC" id="SortType" />
 <input type="hidden" value="" id="OptionSorting" />
 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
     <div class="breadcrumb">
-        <input type="text" id="_txtwikidocsearch" placeholder="Tìm kiếm theo tiêu đề hoặc hashtag" style=" width: calc(100% - 100px);"/>
-        <input type="button"  value="Tìm kiếm" style="width: 83px;" onclick="findObjects(1, 1)" id="btnfindObjects"/>
+        <input type="text" id="_txtwikidocsearch" placeholder="Tìm kiếm theo tiêu đề hoặc hashtag" style=" width: calc(100% - 100px);" />
+        <input type="button" value="Tìm kiếm" style="width: 83px;" onclick="findObjects(1, 1)" id="btnfindObjects" />
     </div>
-    @{ 
-        if(ViewBag.DocdetailInfo != null)
+    @{
+        if (ViewBag.DocdetailInfo != null)
         {
             _displayDivListDoc = "display:none";
         }
-         else
+        else
         {
             _displayDivDetail = "display:none";
         }
     }
-    
+
     <div id="div_wiki_datacontent_Detail" class="mdc-card mdc-card--stroked" style="@_displayDivDetail">
-         @Html.Partial("/Areas/Home/Views/Wiki/_PartialDocViewDetail.cshtml")
+        @Html.Partial("/Areas/Home/Views/Wiki/_PartialDocViewDetail.cshtml")
     </div>
-    <div id="div_wiki_datacontent" class="mdc-card mdc-card--stroked"  style="@_displayDivListDoc">
-         @Html.Partial("/Areas/Home/Views/Wiki/_PartialListDocByCata.cshtml")
+    <div id="div_wiki_datacontent" class="mdc-card mdc-card--stroked" style="@_displayDivListDoc">
+        @Html.Partial("/Areas/Home/Views/Wiki/_PartialListDocByCata.cshtml")
     </div>
 </div>
 <script>
@@ -115,7 +112,7 @@
     $(document).ready(function () {
         initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch);
         $('_txtwikidocsearch').focus();
-      
+
     });
 
     function findObjects(_pageNumber, _isSearching) {
@@ -149,7 +146,7 @@
                 _catalogue = $("#txtwikicataid").val();
             }
             _titleHashtag = $("#_txtwikidocsearch").val().trim();
-          
+
             updateSearchingConditions("divNumberRecordOnPageListObjects", setKeySearch);
             $.ajax({
                 type: "POST",
@@ -195,6 +192,7 @@
         }
     }
 
+   
 
     //function GetDocByCataid(_cataid) {
     //    try {
@@ -237,5 +235,32 @@
     //        alert(e.toString());
     //    }
     //}
- 
+
+
+    function ExportDocToFile(_Docid) {
+        try {
+            $.ajax({
+                type: "POST",
+                url: "/wiki-view/ExportDocToFile/",
+                headers: { "cache-control": "no-cache" },
+                async: false,
+                data: { p_id: _Docid },
+                success: function (data) {
+                    if (data.result >= 0) {
+                        var element = document.createElement('a');
+                        element.setAttribute('href', data.FileDownload);
+                        element.setAttribute('download', data.FileSaveName);
+                        element.style.display = 'none';
+                        document.body.appendChild(element);
+                        element.click();
+                        document.body.removeChild(element);
+                    }
+                    return false;
+                }
+            });
+        } catch (e) {
+            alert(e.toString());
+        }
+    }
+
 </script>
