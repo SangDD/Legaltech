@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using BussinessFacade;
 using ObjectInfos;
 using WebApps.AppStart;
+using GemBox.Document;
+using System.IO;
 
 namespace WebApps.Areas.Home.Controllers
 {
@@ -54,9 +56,21 @@ namespace WebApps.Areas.Home.Controllers
                 }
                 else
                 {
-                    List<WikiDoc_Info> lstOjects = _WikiBL.PortalWikiDoc_Search("-1|-1|-1");
+                    // lấy thằng đầu tiên
+                    WikiCatalogues_Info _firstCata = new WikiCatalogues_Info();
+                    foreach (var item in _ListCata)
+                    {
+                        if(item.PARENT_ID != 0)
+                        {
+                            _firstCata = item;
+                            break;
+                        }
+                    }
+
+                    _ListDocSearch = _WikiBL.PortalWikiDoc_Search("3|"+ _firstCata.ID.ToString() + "|ALL");
                     ViewBag.Paging = _WikiBL.GetPagingHtml();
                     ViewBag.ListDocSearch = _ListDocSearch;
+                    ViewBag.CatalogueInfo = _firstCata;
                 }
                 WikiDoc_Info _DocInfo = new WikiDoc_Info();
                 if (_Docid > 0)
@@ -145,5 +159,35 @@ namespace WebApps.Areas.Home.Controllers
             return PartialView("/Areas/Home/Views/Wiki/_PartialDocViewDetail.cshtml");
         }
 
+        [HttpPost]
+        [Route("ExportDocToFile")]
+        public ActionResult ExportDocToFile(decimal p_id)
+        {
+            string _filedownload = "";
+            string _fileSaveName = "";
+            try
+            {
+                WikiDoc_BL _WikiBL = new WikiDoc_BL();
+                WikiDoc_Info _DocInfo = new WikiDoc_Info();
+                // lấy chi tiết tin
+                _DocInfo = _WikiBL.PortalWikiDoc_GetById(p_id);
+                //lưu file html trc
+                
+                string fullFileName = Request.MapPath("/Content/ExportDocFile/" + "1.html");
+                StreamWriter streamWriter =
+                    new StreamWriter(new FileStream(fullFileName, FileMode.Create, FileAccess.Write));
+                streamWriter.Write(_DocInfo.CONTENT);
+                streamWriter.Close();
+                _filedownload =  "/Content/ExportDocFile/" + _DocInfo.ID + ".pdf" ;
+                DocumentModel.Load(Server.MapPath("/Content/ExportDocFile/1.html")).Save(Server.MapPath(_filedownload));
+                _fileSaveName = _DocInfo.ID.ToString() + ".pdf";
+
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return Json(new { result = "1", FileDownload = _filedownload, FileSaveName= _fileSaveName });
+        }
     }
 }

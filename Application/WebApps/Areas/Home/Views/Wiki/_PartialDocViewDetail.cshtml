@@ -2,46 +2,139 @@
 
 @{
     WikiDoc_Info _DocdetailInfo = new WikiDoc_Info();
-    if(ViewBag.DocdetailInfo != null)
+    if (ViewBag.DocdetailInfo != null)
     {
         _DocdetailInfo = ViewBag.DocdetailInfo;
     }
 }
 
- <h1>
-     @_DocdetailInfo.TITLE
- </h1>
-<div class="mdc-card__actions">
+<h1>
+    @_DocdetailInfo.TITLE
+</h1>
+  <style>
+    .d-paging {
+        border: none;
+    }
 
-</div>
+    #div_wiki_datacontent_Detail {
+        padding: 0px 0px 20px 0px;
+    }
+
+    .Box-Share,
+    .clsBtnBack {
+        position: absolute;
+        background-repeat: no-repeat;
+        height: 39px;
+        width: 39px;
+        -webkit-transition: 1s;
+        -moz-transition: 1s;
+        -ms-transition: 1s;
+        -o-transition: 1s;
+        transition: 1s;
+        left: 28px;
+    }
+
+    .clsBtnBack {
+        background-image: url(/Content/images/Tro_ve.png);
+        left: 0;
+    }
+
+        .clsBtnBack:hover {
+            background-image: url(/Content/images/Tro_ve_hover.png);
+        }
+
+    .Box-Share {
+        right: 0;
+        height: auto;
+        width: 28px;
+    }
+
+        .Box-Share > div:last-of-type {
+            margin-top: 2px;
+            display: none;
+        }
+
+        .Box-Share ul li {
+            height: 31px;
+        }
+
+    .clsBtnShare {
+        margin-top: 10px;
+        cursor: pointer;
+        background: url(/Content/images/share.png) no-repeat;
+        width: 28px;
+        height: 35px;
+        float: right;
+    }
+
+    .social-likes {
+        position: absolute;
+        top: 45px;
+        z-index: 9;
+        background-color: #fff;
+    }
+
+</style>
+
 
 
 <div class="mdc-card__actions">
     <div class="mdc-card__action-buttons" style="min-height: 36px">
-        <span data-react-social-share-button="" data-pdf="/clause/confidentiality.pdf"><span><div class="mdc-menu-anchor"><button class="mdc-button"><i class="mdc-button__icon icon icon-share-alt" aria-hidden="true"></i>Share</button><div class="mdc-menu mdc-menu--open-from-top-left" role="menuitem" style="left: 0px; top: 0px; transform: scale(0, 0);"><ul class="mdc-list mdc-menu__items" role="menu" style="transform: scale(1, 1);"><li class="mdc-list-item" role="menuitem" data-share="email"><i class="icon icon-envelope-o"></i>Email</li><li class="mdc-list-item" role="menuitem" data-share="facebook"><i class="icon icon-facebook-square"></i>Facebook</li><li class="mdc-list-item" role="menuitem" data-share="linkedin"><i class="icon icon-linkedin-square"></i>Linkedin</li><li class="mdc-list-item" role="menuitem" data-share="twitter"><i class="icon icon-twitter-square"></i>Twitter</li><li class="mdc-list-item" role="menuitem" data-share="google"><i class="icon icon-google-plus-square"></i>Google+</li><li class="mdc-list-item" role="menuitem" data-share="reddit"><i class="icon icon-reddit-square"></i>Reddit</li><li class="mdc-list-item" role="menuitem" rel="auth" data-share="print" href="/clause/confidentiality.pdf"><i class="icon icon-print"></i>Print</li></ul></div></div></span></span>
-        <span data-react-social-cite-button=""><span><button class="mdc-button"><i class="mdc-button__icon icon icon-quote-left"></i>Cite Term</button><aside class="mdc-dialog" aria-hidden="true"><div class="mdc-dialog__surface"><header class="mdc-dialog__header"><h2 class="mdc-dialog__header__title">Links for citation</h2></header><section class="mdc-dialog__body"><div class="popover-cite"><h6>Link</h6><span class="popover-cite-link"><input readonly="" class="form-control" rows="1" value="https://www.lawinsider.com/clause/confidentiality"></span><hr><h6>Embed (HTML)</h6><span class="popover-cite-link"><input readonly="" class="form-control" rows="1" value="<a href=&quot;https://www.lawinsider.com/clause/confidentiality&quot;>Confidentiality Sample Clauses</a>"></span></div></section><footer class="mdc-dialog__footer"><button class="mdc-button mdc-button--compact mdc-dialog__footer__button mdc-dialog__footer__button__cancel">Done</button></footer></div><div class="mdc-dialog__backdrop"></div></aside></span></span>
-        <span data-react-social-download-button="" data-type="clause" data-pdf="/clause/confidentiality.pdf" data-docx="/clause/confidentiality.docx" data-drive="/clause/confidentiality.drive"><span><div class="mdc-menu-anchor"><button class="mdc-button"><i class="mdc-button__icon icon icon-download"></i>Download</button><div class="mdc-menu mdc-menu--open-from-top-left" role="menuitem" style="left: 0px; top: 0px; transform: scale(0, 0);"><ul class="mdc-list mdc-menu__items" role="menu" style="transform: scale(1, 1);"><li class="mdc-list-item" role="menuitem" event-category="Export" event-action="clause" event-label="pdf" href="/clause/confidentiality.pdf" rel="auth"><i class="icon icon-file-pdf-black"></i> PDF</li><li class="mdc-list-item" role="menuitem" event-category="Export" event-action="clause" event-label="docx" href="/clause/confidentiality.docx" rel="auth"><i class="icon icon-file-word-black"></i> DOC</li><li class="mdc-list-item" role="menuitem" event-category="Export" event-action="clause" event-label="drive" href="/clause/confidentiality.drive" rel="auth"><i class="icon icon-file-drive-black"></i> Google Docs</li></ul></div></div></span></span>
+        @*<div class="mdc-menu-anchor">
+            <button class="mdc-button"  onclick="return funcLikeShareSocial(this);">
+                <i class="mdc-button__icon icon icon-share-alt" aria-hidden="true"></i>Share
+            </button>
+        </div>*@
+ 
+        <div class="Box-Share">
+            <div class="clsBtnShare" onclick="return funcLikeShareSocial(this);"></div>
+            <div class="social-likes">
+                <div class="facebook" title="Share link on Facebook">
+                </div>
+                <div class="twitter" title="Share link on Twitter">
+                </div>
+                <div class="plusone" title="Share link on Google+">
+                </div>
+            </div>
+        </div>
+      <btn class="mdc-button" style="margin-left:41px;  "> Share</btn> 
+        <div class="mdc-menu-anchor">
+            <button class="mdc-button" onclick="ExportDocToFile(@_DocdetailInfo.ID)">
+                <i class="mdc-button__icon icon icon-download">
+                </i>Download
+            </button>
+        </div>
     </div>
 </div>
 <div>
     <div>
         <div class="snippet-content">
             @Html.Raw(_DocdetailInfo.CONTENT)
-           
+
         </div>
-    
+
     </div>
     @if (!string.IsNullOrEmpty(_DocdetailInfo.FILE_URL01))
     {
-        <span class="badge"><a href="@_DocdetailInfo.FILE_URL01">DOWNLOAD</a></span>
+        <span class="badge"><a target="_blank" href="@_DocdetailInfo.FILE_URL01">DOWNLOAD</a></span>
     }
-    
+
     @if (!string.IsNullOrEmpty(_DocdetailInfo.FILE_URL02))
     {
-        <span class="badge"><a href="@_DocdetailInfo.FILE_URL02">DOWNLOAD</a></span>
+        <span class="badge"><a  target="_blank" href="@_DocdetailInfo.FILE_URL02">DOWNLOAD</a></span>
     }
     @if (!string.IsNullOrEmpty(_DocdetailInfo.FILE_URL03))
     {
-        <span class="badge"><a href="@_DocdetailInfo.FILE_URL03">DOWNLOAD</a></span>
+        <span class="badge"><a  target="_blank" href="@_DocdetailInfo.FILE_URL03">DOWNLOAD</a></span>
     }
 </div>
+
+<script>
+    function funcLikeShareSocial(a) {
+        "display: block;" == $(a).siblings("div").attr("style") ? ($(a).siblings("div").fadeOut(),
+          $(a).attr("style", 'background: url("/Content/images/share.png") no-repeat')) :
+        (
+        $(a).siblings("div").fadeIn(), $(a).attr("style", 'background: url("/Content/images/share_active.png") no-repeat')
+        )
+    }
+</script>
