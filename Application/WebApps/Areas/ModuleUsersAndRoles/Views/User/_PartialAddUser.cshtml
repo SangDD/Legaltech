@@ -54,6 +54,18 @@
 
             <div class="div-search-ad">
                 <div class="div-search-title">
+                    <div>Địa chỉ<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtAddress" maxlength="200" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
                     <div>Ngày sinh <i class="redspan">(*)</i></div>
                 </div>
                 <div class="div-search-content">
@@ -388,6 +400,7 @@
         function collectDataToAddNewUser(formData) {
             formData.append('userInfo.Username', usernameAdd);
             formData.append('userInfo.FullName', fullNameAdd);
+            formData.append('userInfo.Address', $("#txtAddress").val());
             formData.append('userInfo.Password', passwordAdd);
             formData.append('userInfo.DateOfBirth', dateOfBirthAdd);
             formData.append('userInfo.Sex', sexAdd);
@@ -532,6 +545,14 @@
                 jError("Mật khẩu và xác nhận mật khẩu không giống nhau!", "lỗi", function () {
                     $('#txtRePasswordAdd').focus();
                     $("#txtRePasswordAdd").select();
+                });
+                return false;
+            }
+
+            if ($("#txtAddress").val() === "") {
+                jError("Địa chỉ không được để trống!", "lỗi", function () {
+                    $('#txtAddress').val('');
+                    $('#txtAddress').focus();
                 });
                 return false;
             }

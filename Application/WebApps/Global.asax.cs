@@ -24,6 +24,16 @@
             try
             {
                 Configuration.GetConfigAppSetting();
+                EmailHelper.EmailOriginal = new EmailInfo()
+                {
+                    Host = CommonFuc.GetConfig("EMailHost"),
+                    Port = Convert.ToInt32(CommonFuc.GetConfig("EmailPost")),
+                    EMailFrom = CommonFuc.GetConfig("EMailFrom"),
+                    PassWord = CommonFuc.GetConfig("EMailPass"),
+                    DisplayName = CommonFuc.GetConfig("DisplayName"),
+                    IsSsl = CommonFuc.GetConfig("SSL") == "Y"
+                };
+
                 Logger.Log().Info("Start Application_Start");
                 log4net.Config.XmlConfigurator.Configure();
                 CommonVariables.AssemblyVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();

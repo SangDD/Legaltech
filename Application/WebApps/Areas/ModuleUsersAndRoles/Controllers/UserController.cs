@@ -90,7 +90,8 @@
 			var userInfo = new UserInfo();
 			try
 			{
-				userInfo = UserBL.GetUserById(userId);
+                UserBL _UserBL = new UserBL();
+                userInfo = _UserBL.GetUserById(userId);
 				userInfo.GroupSelectedCollection = UserBL.GetUserSelfGroups(userId);
 			}
 			catch (Exception ex)
@@ -143,7 +144,8 @@
 			var userInfo = new UserInfo();
 			try
 			{
-				userInfo = UserBL.GetUserById(userId);
+                UserBL _UserBL = new UserBL();
+                userInfo = _UserBL.GetUserById(userId);
 				userInfo.GroupSelectedCollection = UserBL.GetUserSelfGroups(userId);
 			}
 			catch (Exception ex)

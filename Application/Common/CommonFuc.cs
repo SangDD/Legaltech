@@ -20,6 +20,19 @@ namespace Common
         public const string strDate = "dd/MM/yyyy";
         private static readonly Random rand = new Random();
 
+        public static string GetConfig(string configKey)
+        {
+            try
+            {
+                return System.Configuration.ConfigurationManager.AppSettings[configKey];
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return "";
+            }
+        }
+
         public static String FormatNumber(decimal pStr)
         {
             try
