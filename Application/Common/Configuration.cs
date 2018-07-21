@@ -12,7 +12,7 @@
 			try
 			{
                 connectionString = ConfigurationManager.ConnectionStrings["ConnectionStringDB"].ConnectionString;
-			}
+            }
 			catch (Exception ex)
 			{
 				Logger.LogException(ex);

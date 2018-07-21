@@ -44,6 +44,17 @@
 
             <div class="div-search-ad">
                 <div class="div-search-title">
+                    <div>Địa chỉ<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.Address, new { @id = "txtAddress", maxlength = "200" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
                     <div>Ngày sinh</div>
                 </div>
                 <div class="div-search-content">
@@ -459,7 +470,15 @@
                     $('#txtFullName').focus();
                 });
                 return false;
-			}
+            }
+
+            if ($("#txtAddress").val() === "") {
+                jError("Địa chỉ không được để trống!", "lỗi", function () {
+                    $('#txtAddress').val('');
+                    $('#txtAddress').focus();
+                });
+                return false;
+            }
 
 			if (dateOfBirth === "" || dateOfBirth === window.maskDateTime_N0) {
                 jError("Ngày sinh không được để trống", "lỗi", function () {
@@ -556,7 +575,8 @@
 
 		function collectDataToUser(formData) {
 			formData.append('userInfo.Id', userId);
-			formData.append('userInfo.FullName', fullName);
+            formData.append('userInfo.FullName', fullName);
+            formData.append('userInfo.Address', $("#txtAddress").val());
 			formData.append('userInfo.DateOfBirth', dateOfBirth);
 			formData.append('userInfo.Sex', sex);
 			formData.append('userInfo.Email', email);

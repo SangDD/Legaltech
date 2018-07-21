@@ -11,6 +11,9 @@ using ObjectInfos;
 using Common.CommonData;
 using BussinessFacade;
 using System.Web;
+using GemBox.Document;
+using BussinessFacade.ModuleUsersAndRoles;
+using System.IO;
 
 namespace WebApps.Areas.TradeMark.Controllers
 {
@@ -194,9 +197,75 @@ namespace WebApps.Areas.TradeMark.Controllers
             {
                 Application_Header_BL _obj_bl = new Application_Header_BL();
                 decimal _status = (decimal)CommonEnums.App_Status.DaGuiLenCuc;
-                var url = AppLoadHelpers.PushFileToServer(pInfo.File_Copy_Filing, AppUpload.App);
+                var url_File_Copy_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Copy_Filing, AppUpload.App);
                 //DateTime _filing_date = Common.Helpers.DateTimeHelper.ConvertToDate(p_filing_date);
-                int _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Id, _status, pInfo.Filing_Date, url, pInfo.Note, SessionData.CurrentUser.Username, DateTime.Now);
+                int _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Id, _status, pInfo.Filing_Date, url_File_Copy_Filing, pInfo.Note, SessionData.CurrentUser.Username, DateTime.Now);
+
+                // nếu thành công thì gửi email cho khách hàng
+                if (_ck != -1)
+                {
+                    // lấy thông tin đơn
+                    Application_Header_BL _Application_Header_BL = new Application_Header_BL();
+                    ApplicationHeaderInfo _ApplicationHeaderInfo = _Application_Header_BL.GetApplicationHeader_ById(pInfo.Id, AppsCommon.GetCurrentLang());
+
+                    string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/Report/Filing_advice.doc");
+                    DocumentModel document = DocumentModel.Load(_fileTemp);
+
+                    // Fill export_header
+                    string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Filing_advice_" + pInfo.Id.ToString() + ".pdf");
+                    document.MailMerge.FieldMerging += (sender, e) =>
+                    {
+                        if (e.IsValueFound)
+                        {
+                            if (e.FieldName == "Text")
+                                ((Run)e.Inline).Text = e.Value.ToString();
+                        }
+                    };
+
+                    document.MailMerge.Execute(new { DateNo = DateTime.Now.ToString("dd-MM-yyyy") });
+                    document.MailMerge.Execute(new { CaseName = _ApplicationHeaderInfo.Case_Name });
+                    document.MailMerge.Execute(new { Client_Reference = _ApplicationHeaderInfo.Client_Reference });
+                    document.MailMerge.Execute(new { Gencode = _ApplicationHeaderInfo.Gencode });
+                    document.MailMerge.Execute(new { Master_Name = _ApplicationHeaderInfo.Master_Name });
+                    document.MailMerge.Execute(new { App_No = _ApplicationHeaderInfo.App_No });
+                    document.MailMerge.Execute(new { Str_Filing_Date = _ApplicationHeaderInfo.Str_Filing_Date });
+
+                    // lấy thông tin người dùng
+                    UserBL _UserBL = new UserBL();
+                    UserInfo userInfo = _UserBL.GetUserByUsername(_ApplicationHeaderInfo.Created_By);
+                    if (userInfo != null)
+                    {
+                        document.MailMerge.Execute(new { Contact_Person = userInfo.Contact_Person });
+                        document.MailMerge.Execute(new { Address = userInfo.Address });
+                        document.MailMerge.Execute(new { FullName = userInfo.FullName });
+                    }
+                    else
+                    {
+                        document.MailMerge.Execute(new { Contact_Person = "" });
+                        document.MailMerge.Execute(new { Address = "" });
+                        document.MailMerge.Execute(new { FullName = "" });
+                    }
+
+                    document.Save(fileName, SaveOptions.PdfDefault);
+                    byte[] fileContents;
+                    var options = SaveOptions.PdfDefault;
+                    // Save document to DOCX format in byte array.
+                    using (var stream = new MemoryStream())
+                    {
+                        document.Save(stream, options);
+                        fileContents = stream.ToArray();
+                    }
+                    Convert.ToBase64String(fileContents);
+
+                    string _emailTo = userInfo.Email;
+                    string _emailCC = userInfo.Copyto;
+                    List<string> _LstAttachment = new List<string>();
+                    _LstAttachment.Add(fileName);
+                    _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(url_File_Copy_Filing));
+
+                    EmailHelper.SendMail(_emailTo, _emailCC, "Filing advice", "Filing advice", _LstAttachment);
+                }
+
                 return Json(new { success = _ck });
             }
             catch (Exception ex)

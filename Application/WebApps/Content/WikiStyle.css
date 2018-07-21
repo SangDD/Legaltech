@@ -1545,7 +1545,7 @@ a.label:hover {
     vertical-align: middle;
     white-space: nowrap;
     text-align: center;
-    background-color: #777;
+    /*background-color: #777;*/
     border-radius: 10px
 }
 
@@ -12424,3 +12424,68 @@ nvshashtag
 {
     color:aqua !important;
 }
+
+
+/* Pagging */
+select.divNumberRecordOnPage {
+    width: 60px;
+    height: auto;
+    padding: 2px 0;
+    margin-left: 10px;
+}
+
+.d-paging {
+    border: 1px solid #B0BECF;
+    border-top: none;
+    padding: 10px 5px;
+    overflow: hidden;
+    background-color: #ffffff;
+}
+
+    .d-paging .d-paging-left {
+        float: left;
+        text-align: left;
+        line-height: 23px;
+    }
+
+.paging-page-number {
+    text-align: center;
+    width: auto;
+    float: right;
+}
+
+    .paging-page-number a {
+        display: inline-block;
+        height: 27px;
+        min-width: 27px;
+        line-height: 27px;
+        text-align: center;
+        background-color: #ffffff;
+        color: #6a6a6c;
+        vertical-align: middle;
+        padding: 0 5px;
+    }
+
+    .paging-page-number > a:first-child {
+        margin-right: 5px;
+    }
+
+    .paging-page-number > a:last-child {
+        margin-left: 5px;
+        margin-right: 20px;
+    }
+
+    .paging-page-number > .a-active {
+        background-color: #0055A8;
+        color: #ffffff;
+    }
+
+    .paging-page-number > a.active:not(.dot) {
+        background-color: #0055A8;
+        color: #fff;
+    }
+
+    .paging-page-number > a:hover:not(.dot) {
+        background-color: #8c8c8c;
+        color: #fff;
+    }

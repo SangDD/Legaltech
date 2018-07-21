@@ -221,6 +221,22 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
+        public DataSet GetApplicationHeader_ById(decimal p_Id, string p_languague_code)
+        {
+            try
+            {
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_header.proc_getById",
+                    new OracleParameter("p_Id", OracleDbType.Decimal, p_Id, ParameterDirection.Input),
+                    new OracleParameter("p_languague_code", OracleDbType.Varchar2, p_languague_code, ParameterDirection.Input),
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
     }
 
 

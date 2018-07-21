@@ -41,11 +41,60 @@ namespace ObjectInfos
         public decimal Status_Form { get; set; }
         public decimal Status_Content { get; set; }
         public DateTime Filing_Date { get; set; }
+
+        public string Str_Filing_Date
+        {
+            get
+            {
+                return Filing_Date.ToString("dd-MM-yyyy");
+            }
+        }
+
         public DateTime Accept_Date { get; set; }
+        public string Str_Accept_Date
+        {
+            get
+            {
+                return Accept_Date.ToString("dd-MM-yyyy");
+            }
+        }
+
         public DateTime Public_Date { get; set; }
+        public string Str_Public_Date
+        {
+            get
+            {
+                return Public_Date.ToString("dd-MM-yyyy");
+            }
+        }
+
         public DateTime Accept_Content_Date { get; set; }
+        public string Str_Accept_Content_Date
+        {
+            get
+            {
+                return Accept_Content_Date.ToString("dd-MM-yyyy");
+            }
+        }
+
         public DateTime Grant_Date { get; set; }
+        public string Str_Grant_Date
+        {
+            get
+            {
+                return Grant_Date.ToString("dd-MM-yyyy");
+            }
+        }
+
         public DateTime Grant_Public_Date { get; set; }
+        public string Str_Grant_Public_Date
+        {
+            get
+            {
+                return Grant_Public_Date.ToString("dd-MM-yyyy");
+            }
+        }
+
         public decimal Deleted { get; set; }
         public string Created_By { get; set; }
         public DateTime Created_Date { get; set; }
@@ -57,6 +106,7 @@ namespace ObjectInfos
         public string Status_Formm_Name { get; set; }
         public string Status_Content_Name { get; set; }
         public string AppName { get; set; }
+
         /// <summary>
         /// Khai tai dau day
         /// </summary>
@@ -79,7 +129,8 @@ namespace ObjectInfos
         public string ActionView { get; set; }
         public HttpPostedFileBase File_Copy_Filing { get; set; }
         public string Note { get; set; }
-
+        public string App_No { get; set; }
+        public string App_Degree { get; set; }
     }
 
 
