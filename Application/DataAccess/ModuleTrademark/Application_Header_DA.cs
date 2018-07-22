@@ -53,7 +53,7 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
-        public int AppHeader_Filing_Status(decimal p_id, decimal p_status,DateTime p_filing_date, string p_url_copy, string p_notes, string p_Modify_By, DateTime p_Modify_Date)
+        public int AppHeader_Filing_Status(decimal p_id, decimal p_status, string p_app_no, DateTime p_filing_date, string p_url_copy, string p_notes, string p_Modify_By, DateTime p_Modify_Date)
         {
             try
             {
@@ -61,6 +61,7 @@ namespace DataAccess.ModuleTrademark
                 OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_header.proc_update_filing",
                     new OracleParameter("p_id", OracleDbType.Decimal, p_id, ParameterDirection.Input),
                     new OracleParameter("p_status", OracleDbType.Decimal, p_status, ParameterDirection.Input),
+                    new OracleParameter("p_app_no", OracleDbType.Varchar2, p_app_no, ParameterDirection.Input),
                     new OracleParameter("p_filing_date", OracleDbType.Date, p_filing_date, ParameterDirection.Input),
                     new OracleParameter("p_url_copy", OracleDbType.Varchar2, p_url_copy, ParameterDirection.Input),
                     new OracleParameter("p_notes", OracleDbType.Varchar2, p_notes, ParameterDirection.Input),

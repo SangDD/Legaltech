@@ -43,6 +43,17 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
+                <div>Số đơn<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" maxlength="100" placeholder="Số đơn" id="txt_App_No"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
                 <div>Ghi chú </div>
             </div>
             <div class="div-search-content">
@@ -86,7 +97,7 @@
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Nộp loại" onclick="return do_Filing(@_application_header_id)" />
+            <input type="submit" class="btn-default" value="Nộp đơn" onclick="return do_Filing(@_application_header_id)" />
         </div>
     </div>
 </div>
@@ -148,6 +159,14 @@
         // check validate ngày
         var _filing_date = $("#txt_filing_date").val();
         if (checkDate("Ngày nộp đơn", "#txt_filing_date", _filing_date) == false) {
+            return false;
+        }
+
+        var _App_No = $("#txt_App_No").val();
+        if (_App_No == null || _App_No == "") {
+            jError("Số đơn không được để trống", "Lỗi", function () {
+                $("#txt_App_No").focus();
+            });
             return false;
         }
 

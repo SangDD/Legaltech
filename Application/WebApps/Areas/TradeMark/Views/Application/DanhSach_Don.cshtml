@@ -2,7 +2,7 @@
 @using ObjectInfos;
 @using BussinessFacade.ModuleMemoryData
 @{
-    ViewBag.Title = "Quản lý đơn lưu tạm";
+    ViewBag.Title = "Quản lý đơn";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     //string language = WebApps.CommonFunction.AppsCommon.GetCurrentLang();
@@ -438,13 +438,14 @@
                 formdata.append("pInfo.Id", parseInt(_application_header_id));
                 formdata.append("pInfo.Filing_Date", $('#txt_filing_date').val());
                 formdata.append("pInfo.Note", $('#txtNotes').val());
+                formdata.append("pInfo.App_No", $('#txt_App_No').val());
 
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/do-filing',
                     type: 'POST',
                     data: formdata,
                     enctype: 'multipart/form-data',
-                    async: false, cache: false, traditional: true, contentType: false,
+                    async: true, cache: false, traditional: true, contentType: false,
                     processData: false,
                     beforeSend: function () {
                         CreateRollingWaitingIcon(true);

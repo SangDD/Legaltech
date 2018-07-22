@@ -199,7 +199,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 decimal _status = (decimal)CommonEnums.App_Status.DaGuiLenCuc;
                 var url_File_Copy_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Copy_Filing, AppUpload.App);
                 //DateTime _filing_date = Common.Helpers.DateTimeHelper.ConvertToDate(p_filing_date);
-                int _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Id, _status, pInfo.Filing_Date, url_File_Copy_Filing, pInfo.Note, SessionData.CurrentUser.Username, DateTime.Now);
+                int _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Id, _status, pInfo.App_No, pInfo.Filing_Date, url_File_Copy_Filing, pInfo.Note, SessionData.CurrentUser.Username, DateTime.Now);
 
                 // nếu thành công thì gửi email cho khách hàng
                 if (_ck != -1)
@@ -223,7 +223,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                     };
 
                     document.MailMerge.Execute(new { DateNo = DateTime.Now.ToString("dd-MM-yyyy") });
-                    document.MailMerge.Execute(new { CaseName = _ApplicationHeaderInfo.Case_Name });
+                    document.MailMerge.Execute(new { Case_Name = _ApplicationHeaderInfo.Case_Name });
                     document.MailMerge.Execute(new { Client_Reference = _ApplicationHeaderInfo.Client_Reference });
                     document.MailMerge.Execute(new { Gencode = _ApplicationHeaderInfo.Gencode });
                     document.MailMerge.Execute(new { Master_Name = _ApplicationHeaderInfo.Master_Name });
