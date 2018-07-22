@@ -223,17 +223,23 @@ namespace WebApps.Areas.Wiki.Controllers
         }
 
    
-        [Route("wiki-doc/doc-edit/{id}/")]
+        [Route("wiki-doc/doc-edit/{id}/{id1}")]
         public ActionResult ViewEdit()
         {
             if (SessionData.CurrentUser == null)
                 return Redirect("/");
             var _WikiDoc_BL = new WikiDoc_BL();
             WikiDoc_Info _ObjInfo = new WikiDoc_Info();
+        
             decimal _docid = 0;
             if (RouteData.Values.ContainsKey("id"))
             {
                 _docid = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
+            }
+            int _crrstatus = 0;
+            if (RouteData.Values.ContainsKey("id1"))
+            {
+                _crrstatus = CommonFuc.ConvertToInt(RouteData.Values["id1"]);
             }
             try
             {
@@ -249,7 +255,7 @@ namespace WebApps.Areas.Wiki.Controllers
             {
                 Logger.LogException(ex);
             }
- 
+            ViewBag.CurrStatus = _crrstatus;
             return PartialView("~/Areas/Wiki/Views/WikiDoc/_PartialDocEdit.cshtml", _ObjInfo);
         }
 
@@ -368,7 +374,7 @@ namespace WebApps.Areas.Wiki.Controllers
         }
 
 
-        [Route("wiki-doc/doc-view/{id}/")]
+        [Route("wiki-doc/doc-view/{id}/{id1}")]
         public ActionResult ViewDoc()
         {
             if (SessionData.CurrentUser == null)
@@ -389,6 +395,12 @@ namespace WebApps.Areas.Wiki.Controllers
                 Logger.LogException(ex);
             }
 
+            int _crrstatus = 0;
+            if (RouteData.Values.ContainsKey("id1"))
+            {
+                _crrstatus = CommonFuc.ConvertToInt(RouteData.Values["id1"]);
+            }
+            ViewBag.CurrStatus = _crrstatus;
             return PartialView("~/Areas/Wiki/Views/WikiDoc/_PartialDocView.cshtml", _ObjInfo);
         }
 

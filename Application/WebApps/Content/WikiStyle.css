@@ -1549,6 +1549,12 @@ a.label:hover {
     border-radius: 10px
 }
 
+.badge > a
+{
+        color: #337ab7;
+}
+
+
 .badge:empty {
     display: none
 }
@@ -12488,4 +12494,8 @@ select.divNumberRecordOnPage {
     .paging-page-number > a:hover:not(.dot) {
         background-color: #8c8c8c;
         color: #fff;
+    }
+
+    .list-group-item > a{
+            color: #337ab7;
     }

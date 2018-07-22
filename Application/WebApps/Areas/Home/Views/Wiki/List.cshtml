@@ -1,5 +1,7 @@
 ﻿@using ObjectInfos
 @using System.Text;
+@using Common.CommonData;
+@using WebApps.CommonFunction;
 @{
     Layout = "~/ViewsShared/_LayoutPortal.cshtml";
     string _languagecode = "/vi-vn/";
@@ -44,7 +46,7 @@
                     // nếu thay đổi danh mục cha
                     _Slidebar.Append("</ul>");
                 }
-                _Slidebar.Append("<h4> " + item.NAME + "</h4>");
+                _Slidebar.Append("<h4> " + (AppsCommon.GetCurrentLang() == Language.LangVI?item.NAME:item.NAME_ENG) + "</h4>");
                 if (_new_parentid != _old_parentid)
                 {
                     _old_parentid = _new_parentid;
@@ -59,7 +61,7 @@
 
                 _Slidebar.Append("<li class='list-group-item'>");
                 _Slidebar.Append("<a class='' href='/wiki-view/doc-list/" + item.ID + "/0'  >");
-                _Slidebar.Append(item.NAME);
+                _Slidebar.Append(AppsCommon.GetCurrentLang() == Language.LangVI ? item.NAME : item.NAME_ENG);
                 _Slidebar.Append("</a>");
                 _Slidebar.Append("</li>");
                 if (_countrow == _Listcatalogue.Count)
@@ -80,8 +82,8 @@
 <input type="hidden" value="" id="OptionSorting" />
 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
     <div class="breadcrumb">
-        <input type="text" id="_txtwikidocsearch" placeholder="Tìm kiếm theo tiêu đề hoặc hashtag" style=" width: calc(100% - 100px);" />
-        <input type="button" value="Tìm kiếm" style="width: 83px;" onclick="findObjects(1, 1)" id="btnfindObjects" />
+        <input type="text" id="_txtwikidocsearch" placeholder="@WebApps.Resources.Resource.WikiSearchPlaceholder" style=" width: calc(100% - 100px);" />
+        <input type="button" value="@WebApps.Resources.Resource.WikiSearchButton" style="width: 83px;" onclick="findObjects(1, 1)" id="btnfindObjects" />
     </div>
     @{
         if (ViewBag.DocdetailInfo != null)

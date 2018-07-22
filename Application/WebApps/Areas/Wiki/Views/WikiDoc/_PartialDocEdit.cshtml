@@ -9,6 +9,8 @@
     {
         _listcata = ViewBag.ListCata;
     }
+    int _currStatus = 0;
+     
 }
 @model WikiDoc_Info
 @try
@@ -46,6 +48,8 @@
                 <input type="hidden" value="DESC" id="SortType" />
                 <input type="hidden" value="" id="OptionSorting" />
                 <input type="hidden"  value="@Model.ID" id="txtDocID"/>
+                <input type="hidden" id="txtcurrstatus"   value="@ViewBag.CurrStatus" />
+                <input type="hidden" id="txtlanguagecode" value="@Model.LANGUAGE_CODE" />
                 <div class="div-title-content"> THÔNG TIN BÀI VIẾT </div>
             </div>
         </div>
@@ -192,406 +196,442 @@
             </div>
         </div>
     }
-    else
+    else if (Model.STATUS == 3)
     {
         <div class="class_save">
             <div class="classGuiDon">
-                <input type="button" value="Đăng tin" id="btnDangTin" class="btn" />
-            </div>
-            <div class="classGuiDon">
-                <input type="button" value="Từ chối" id="btnTuChoi" class="btn" />
+                <input type="button" value="Lưu" id="btnDangTin" class="btn" />
             </div>
         </div>
-    }
+            
+      }
+            else
+            {
+            <div class="class_save">
+                <div class="classGuiDon">
+                    <input type="button" value="Đăng tin" id="btnDangTin" class="btn" />
+                </div>
+                <div class="classGuiDon">
+                    <input type="button" value="Từ chối" id="btnTuChoi" class="btn" />
+                </div>
+            </div>
+            }
 
 
 
 
-    <script>
+            <script>
 
-        var txtAddContent = CKEDITOR.replace("txtAddContent",
-     {
-        height: 500
+                var txtAddContent = CKEDITOR.replace("txtAddContent",
+             {
+                 height: 500
 
-     });
+             });
 
-        $('#CboAddWikiCataChild').multipleSelect({
-            filter: true,
-            noMatchesFound: "Không tìm thấy dữ liệu",
-            single: true,
-            isdatastring: false,
-            placeholder: 'Tìm kiếm danh mục tin'
-        });
+                $('#CboAddWikiCataChild').multipleSelect({
+                    filter: true,
+                    noMatchesFound: "Không tìm thấy dữ liệu",
+                    single: true,
+                    isdatastring: false,
+                    placeholder: 'Tìm kiếm danh mục tin'
+                });
 
-        function FuncSearchChildCatalogue(_cboId, _divid) {
-            try {
-                var inputValue = $("#" + _cboId).val();
-                if (inputValue == "")
-                    return;
-                $.ajax({
-                    type: "POST",
-                    url: "/wiki-manage/wiki-doc/search-catalogue-child",
-                    headers: { "cache-control": "no-cache" },
-                    data: { p_parentid: $("#" + _cboId).val() },
-                    async: false,
-                    success: function (data) {
-                        if (data != null) {
-                            if (validateResponse(data)) {
-                                $("#" + _divid).html(data);
+                function FuncSearchChildCatalogue(_cboId, _divid) {
+                    try {
+                        var inputValue = $("#" + _cboId).val();
+                        if (inputValue == "")
+                            return;
+                        $.ajax({
+                            type: "POST",
+                            url: "/wiki-manage/wiki-doc/search-catalogue-child",
+                            headers: { "cache-control": "no-cache" },
+                            data: { p_parentid: $("#" + _cboId).val() },
+                            async: false,
+                            success: function (data) {
+                                if (data != null) {
+                                    if (validateResponse(data)) {
+                                        $("#" + _divid).html(data);
+                                    }
+                                }
+                                return false;
                             }
+                        });
+                    } catch (e) {
+                        alert(e.toString())
+                    }
+                }
+
+
+
+
+                $("#btnLuuTam").click(function () {
+                    try {
+                        var txtDocID = $("#txtDocID");
+                        var reponse = false;
+                        var formData = new FormData();
+                        var txtTitle = $("#txtTitle");
+                        var CboAddWikiCataParent = $("#CboAddWikiCataParent");
+                        var CboAddWikiCataChild = $("#CboAddWikiCataChild");
+
+                        if (txtTitle.val().trim() == "") {
+                            showError('Tiêu đề không được để trống!');
+                            txtTitle.focus();
+                            return false;
                         }
+
+                        if (CboAddWikiCataChild.val() == "" || CboAddWikiCataChild.val() == null) {
+                            showError('Danh mục bài viết không được để trống!');
+                            $("#CboAddWikiCataChild").multipleSelect("focus");
+                            return false;
+                        }
+                        var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
+                        if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
+                            showError('Nội dung bài viết không được để trống!!');
+                            txtAddContent.focus();
+                            txtAddContent.setData('');
+                            return false;
+                        }
+
+                        formData.append("_objectInfo.ID", txtDocID.val());
+                        formData.append("_objectInfo.TITLE", txtTitle.val().trim());
+                        formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
+                        formData.append("_objectInfo.CONTENT", _contentVal);
+                        formData.append("_objectInfo.STATUS", "1");
+                        var txt_WIKIADD_OLD_FILE_01 = $("#txt_WIKIADD_OLD_FILE_01");
+                        var txt_WIKIADD_OLD_FILE_02 = $("#txt_WIKIADD_OLD_FILE_02");
+                        var txt_WIKIADD_OLD_FILE_03 = $("#txt_WIKIADD_OLD_FILE_03");
+
+                        formData.append("_objectInfo.FILE_URL01", txt_WIKIADD_OLD_FILE_01.val());
+                        formData.append("_objectInfo.FILE_URL02", txt_WIKIADD_OLD_FILE_02.val());
+                        formData.append("_objectInfo.FILE_URL03", txt_WIKIADD_OLD_FILE_03.val());
+                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_01", "0");
+                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_02", "1");
+                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_03", "2");
+                        formData.append("_objectInfo.OLD_STATUS", $("#txtcurrstatus").val());
+                        formData.append("_objectInfo.LANGUAGE_CODE", $("#txtlanguagecode").val());
+                        $.ajax({
+                            url: '/wiki-manage/wiki-doc/save-edit-doc',
+                            type: 'POST',
+                            data: formData,
+                            processData: false, contentType: false, traditional: true, dataType: "json",
+                            enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                            success: function (data) {
+                                if (data != null && data.status >= 0) {
+                                    doUpdateHashTag(data.HashTag);
+
+                                } else {
+                                    jError(AddFail, ThongBao, function () {
+                                    });
+                                }
+                            },
+                            error: function (e) {
+                                console.log(e);
+                            }
+                        });
+
+                    } catch (e) {
+                        alert(e.toString());
                         return false;
                     }
+
                 });
-            } catch (e) {
-                alert(e.toString())
-            }
-        }
 
 
 
+                $("#btnGuiDon").click(function () {
+                    try {
+                        var txtDocID = $("#txtDocID");
+                        var reponse = false;
+                        var formData = new FormData();
+                        var txtTitle = $("#txtTitle");
+                        var CboAddWikiCataParent = $("#CboAddWikiCataParent");
+                        var CboAddWikiCataChild = $("#CboAddWikiCataChild");
 
-        $("#btnLuuTam").click(function () {
-            try {
-                var txtDocID = $("#txtDocID");
-                var reponse = false;
-                var formData = new FormData();
-                var txtTitle = $("#txtTitle");
-                var CboAddWikiCataParent = $("#CboAddWikiCataParent");
-                var CboAddWikiCataChild = $("#CboAddWikiCataChild");
-
-                if (txtTitle.val().trim() == "") {
-                    showError('Tiêu đề không được để trống!');
-                    txtTitle.focus();
-                    return false;
-                }
-
-                if (CboAddWikiCataChild.val() == "" || CboAddWikiCataChild.val() == null) {
-                    showError('Danh mục bài viết không được để trống!');
-                    $("#CboAddWikiCataChild").multipleSelect("focus");
-                    return false;
-                }
-                var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
-                if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
-                    showError('Nội dung bài viết không được để trống!!');
-                    txtAddContent.focus();
-                    txtAddContent.setData('');
-                    return false;
-                }
-             
-                formData.append("_objectInfo.ID", txtDocID.val());
-                formData.append("_objectInfo.TITLE", txtTitle.val().trim());
-                formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
-                formData.append("_objectInfo.CONTENT", _contentVal);
-                formData.append("_objectInfo.STATUS", "1");
-                var txt_WIKIADD_OLD_FILE_01 = $("#txt_WIKIADD_OLD_FILE_01");
-                var txt_WIKIADD_OLD_FILE_02 = $("#txt_WIKIADD_OLD_FILE_02");
-                var txt_WIKIADD_OLD_FILE_03 = $("#txt_WIKIADD_OLD_FILE_03");
-          
-                formData.append("_objectInfo.FILE_URL01", txt_WIKIADD_OLD_FILE_01.val());
-                formData.append("_objectInfo.FILE_URL02", txt_WIKIADD_OLD_FILE_02.val());
-                formData.append("_objectInfo.FILE_URL03", txt_WIKIADD_OLD_FILE_03.val());
-                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_01", "0");
-                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_02", "1");
-                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_03", "2");
-                $.ajax({
-                    url: '/wiki-manage/wiki-doc/save-edit-doc',
-                    type: 'POST',
-                    data: formData,
-                    processData: false, contentType: false, traditional: true, dataType: "json",
-                    enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
-                    success: function (data) {
-                        if (data != null && data.status >= 0) {
-                            doUpdateHashTag(data.HashTag);
-                        } else {
-                            jError(AddFail, ThongBao, function () {
-                            });
+                        if (txtTitle.val().trim() == "") {
+                            showError('Tiêu đề không được để trống!');
+                            txtTitle.focus();
+                            return false;
                         }
-                    },
-                    error: function (e) {
-                        console.log(e);
-                    }
-                });
 
-            } catch (e) {
-                alert(e.toString());
-                return false;
-            }
-
-        });
-
-
-
-        $("#btnGuiDon").click(function () {
-            try {
-                var txtDocID = $("#txtDocID");
-                var reponse = false;
-                var formData = new FormData();
-                var txtTitle = $("#txtTitle");
-                var CboAddWikiCataParent = $("#CboAddWikiCataParent");
-                var CboAddWikiCataChild = $("#CboAddWikiCataChild");
-
-                if (txtTitle.val().trim() == "") {
-                    showError('Tiêu đề không được để trống!');
-                    txtTitle.focus();
-                    return false;
-                }
-
-                if (CboAddWikiCataChild.val() == "" || CboAddWikiCataChild.val() == null) {
-                    showError('Danh mục bài viết không được để trống!');
-                    $("#CboAddWikiCataChild").multipleSelect("focus");
-                    return false;
-                }
-                var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
-                if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
-                    showError('Nội dung bài viết không được để trống!!');
-                    txtAddContent.focus();
-                    txtAddContent.setData('');
-                    return false;
-                }
-                formData.append("_objectInfo.ID", txtDocID.val());
-                formData.append("_objectInfo.TITLE", txtTitle.val().trim());
-                formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
-                formData.append("_objectInfo.CONTENT", _contentVal);
-                var txt_WIKIADD_OLD_FILE_01 = $("#txt_WIKIADD_OLD_FILE_01");
-                var txt_WIKIADD_OLD_FILE_02 = $("#txt_WIKIADD_OLD_FILE_02");
-                var txt_WIKIADD_OLD_FILE_03 = $("#txt_WIKIADD_OLD_FILE_03");
-
-                formData.append("_objectInfo.FILE_URL01", txt_WIKIADD_OLD_FILE_01.val());
-                formData.append("_objectInfo.FILE_URL02", txt_WIKIADD_OLD_FILE_02.val());
-                formData.append("_objectInfo.FILE_URL03", txt_WIKIADD_OLD_FILE_03.val());
-                formData.append("_objectInfo.STATUS", "2");
-                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_01", "0");
-                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_02", "1");
-                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_03", "2");
-                $.ajax({
-                    url: '/wiki-manage/wiki-doc/save-edit-doc',
-                    type: 'POST',
-                    data: formData,
-                    processData: false, contentType: false, traditional: true, dataType: "json",
-                    enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
-                    success: function (data) {
-                        if (data != null && data.status >= 0)
-                        {
-                            doUpdateHashTag(data.HashTag);
-                        } else {
-                            jError(AddFail, ThongBao, function () {
-                            });
+                        if (CboAddWikiCataChild.val() == "" || CboAddWikiCataChild.val() == null) {
+                            showError('Danh mục bài viết không được để trống!');
+                            $("#CboAddWikiCataChild").multipleSelect("focus");
+                            return false;
                         }
-                    },
-                    error: function (e) {
-                        console.log(e);
-                    }
-                });
-
-            } catch (e) {
-                alert(e.toString());
-                return false;
-            }
-
-        });
-
-        $("#btnDangTin").click(function () {
-            try {
-                var txtDocID = $("#txtDocID");
-                var reponse = false;
-                var formData = new FormData();
-                var txtTitle = $("#txtTitle");
-                var CboAddWikiCataParent = $("#CboAddWikiCataParent");
-                var CboAddWikiCataChild = $("#CboAddWikiCataChild");
-
-                if (txtTitle.val().trim() == "") {
-                    showError('Tiêu đề không được để trống!');
-                    txtTitle.focus();
-                    return false;
-                }
-
-                if (CboAddWikiCataChild.val() == "" || CboAddWikiCataChild.val() == null) {
-                    showError('Danh mục bài viết không được để trống!');
-                    $("#CboAddWikiCataChild").multipleSelect("focus");
-                    return false;
-                }
-                var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
-                if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
-                    showError('Nội dung bài viết không được để trống!!');
-                    txtAddContent.focus();
-                    txtAddContent.setData('');
-                    return false;
-                }
-                formData.append("_objectInfo.ID", txtDocID.val());
-                formData.append("_objectInfo.TITLE", txtTitle.val().trim());
-                formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
-                formData.append("_objectInfo.CONTENT", _contentVal);
-                var txt_WIKIADD_OLD_FILE_01 = $("#txt_WIKIADD_OLD_FILE_01");
-                var txt_WIKIADD_OLD_FILE_02 = $("#txt_WIKIADD_OLD_FILE_02");
-                var txt_WIKIADD_OLD_FILE_03 = $("#txt_WIKIADD_OLD_FILE_03");
-
-                formData.append("_objectInfo.FILE_URL01", txt_WIKIADD_OLD_FILE_01.val());
-                formData.append("_objectInfo.FILE_URL02", txt_WIKIADD_OLD_FILE_02.val());
-                formData.append("_objectInfo.FILE_URL03", txt_WIKIADD_OLD_FILE_03.val());
-                formData.append("_objectInfo.STATUS", "3");
-                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_01", "0");
-                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_02", "1");
-                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_03", "2");
-                $.ajax({
-                    url: '/wiki-manage/wiki-doc/save-edit-doc',
-                    type: 'POST',
-                    data: formData,
-                    processData: false, contentType: false, traditional: true, dataType: "json",
-                    enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
-                    success: function (data) {
-                        if (data != null && data.status >= 0)
-                        {
-                            doUpdateHashTag(data.HashTag);
-                        } else {
-                            jError(AddFail, ThongBao, function () {
-                            });
+                        var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
+                        if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
+                            showError('Nội dung bài viết không được để trống!!');
+                            txtAddContent.focus();
+                            txtAddContent.setData('');
+                            return false;
                         }
-                    },
-                    error: function (e) {
-                        console.log(e);
+                        formData.append("_objectInfo.ID", txtDocID.val());
+                        formData.append("_objectInfo.TITLE", txtTitle.val().trim());
+                        formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
+                        formData.append("_objectInfo.CONTENT", _contentVal);
+                        var txt_WIKIADD_OLD_FILE_01 = $("#txt_WIKIADD_OLD_FILE_01");
+                        var txt_WIKIADD_OLD_FILE_02 = $("#txt_WIKIADD_OLD_FILE_02");
+                        var txt_WIKIADD_OLD_FILE_03 = $("#txt_WIKIADD_OLD_FILE_03");
+
+                        formData.append("_objectInfo.FILE_URL01", txt_WIKIADD_OLD_FILE_01.val());
+                        formData.append("_objectInfo.FILE_URL02", txt_WIKIADD_OLD_FILE_02.val());
+                        formData.append("_objectInfo.FILE_URL03", txt_WIKIADD_OLD_FILE_03.val());
+                        formData.append("_objectInfo.STATUS", "2");
+                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_01", "0");
+                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_02", "1");
+                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_03", "2");
+                        formData.append("_objectInfo.OLD_STATUS", $("#txtcurrstatus").val());
+                        formData.append("_objectInfo.LANGUAGE_CODE", $("#txtlanguagecode").val());
+                        $.ajax({
+                            url: '/wiki-manage/wiki-doc/save-edit-doc',
+                            type: 'POST',
+                            data: formData,
+                            processData: false, contentType: false, traditional: true, dataType: "json",
+                            enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                            success: function (data) {
+                                if (data != null && data.status >= 0) {
+                                    doUpdateHashTag(data.HashTag);
+
+                                } else {
+                                    jError(AddFail, ThongBao, function () {
+                                    });
+                                }
+                            },
+                            error: function (e) {
+                                console.log(e);
+                            }
+                        });
+
+                    } catch (e) {
+                        alert(e.toString());
+                        return false;
                     }
+
                 });
 
-            } catch (e) {
-                alert(e.toString());
-                return false;
-            }
+                $("#btnDangTin").click(function () {
+                    try {
+                        var txtDocID = $("#txtDocID");
+                        var reponse = false;
+                        var formData = new FormData();
+                        var txtTitle = $("#txtTitle");
+                        var CboAddWikiCataParent = $("#CboAddWikiCataParent");
+                        var CboAddWikiCataChild = $("#CboAddWikiCataChild");
 
-        });
-
-        $("#btnTuChoi").click(function () {
-            try {
-                var txtDocID = $("#txtDocID");
-                var reponse = false;
-                var formData = new FormData();
-                var txtTitle = $("#txtTitle");
-                var CboAddWikiCataParent = $("#CboAddWikiCataParent");
-                var CboAddWikiCataChild = $("#CboAddWikiCataChild");
-
-                if (txtTitle.val().trim() == "") {
-                    showError('Tiêu đề không được để trống!');
-                    txtTitle.focus();
-                    return false;
-                }
-
-                if (CboAddWikiCataChild.val() == "" || CboAddWikiCataChild.val() == null) {
-                    showError('Danh mục bài viết không được để trống!');
-                    $("#CboAddWikiCataChild").multipleSelect("focus");
-                    return false;
-                }
-                var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
-                if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
-                    showError('Nội dung bài viết không được để trống!!');
-                    txtAddContent.focus();
-                    txtAddContent.setData('');
-                    return false;
-                }
-                formData.append("_objectInfo.ID", txtDocID.val());
-                formData.append("_objectInfo.TITLE", txtTitle.val().trim());
-                formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
-                formData.append("_objectInfo.CONTENT", _contentVal);
-                var txt_WIKIADD_OLD_FILE_01 = $("#txt_WIKIADD_OLD_FILE_01");
-                var txt_WIKIADD_OLD_FILE_02 = $("#txt_WIKIADD_OLD_FILE_02");
-                var txt_WIKIADD_OLD_FILE_03 = $("#txt_WIKIADD_OLD_FILE_03");
-
-                formData.append("_objectInfo.FILE_URL01", txt_WIKIADD_OLD_FILE_01.val());
-                formData.append("_objectInfo.FILE_URL02", txt_WIKIADD_OLD_FILE_02.val());
-                formData.append("_objectInfo.FILE_URL03", txt_WIKIADD_OLD_FILE_03.val());
-                formData.append("_objectInfo.STATUS", "4");
-                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_01", "0");
-                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_02", "1");
-                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_03", "2");
-                $.ajax({
-                    url: '/wiki-manage/wiki-doc/save-edit-doc',
-                    type: 'POST',
-                    data: formData,
-                    processData: false, contentType: false, traditional: true, dataType: "json",
-                    enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
-                    success: function (data) {
-                        if (data != null && data.status >= 0) {
-                            jAlert(EditSuccess, ThongBao, function () {
-                                window.location.reload();
-                            });
-                        } else {
-                            jError(AddFail, ThongBao, function () {
-                            });
+                        if (txtTitle.val().trim() == "") {
+                            showError('Tiêu đề không được để trống!');
+                            txtTitle.focus();
+                            return false;
                         }
-                    },
-                    error: function (e) {
-                        console.log(e);
-                    }
-                });
 
-            } catch (e) {
-                alert(e.toString());
-                return false;
-            }
-
-        });
-
-        function doUpdateHashTag(v_data) {
-            try {
-                var txtDocID = $("#txtDocID");
-                var _hashtag = $("#divhashtag").html(v_data).html();
-                $.ajax({
-                    url: "/wiki-manage/wiki-doc/save-edit-hashtag-doc",
-                    type: "POST",
-                    // p_id, string p_hashtag
-                    data: { p_id: txtDocID.val(), p_hashtag: _hashtag },
-                    headers: { "cache-control": "no-cache" },
-                    async: false,
-                    success: function (data) {
-                        if (data.status >= 0) {
-                            jAlert(EditSuccess, ThongBao, function () {
-                                window.location.reload();
-                            });
+                        if (CboAddWikiCataChild.val() == "" || CboAddWikiCataChild.val() == null) {
+                            showError('Danh mục bài viết không được để trống!');
+                            $("#CboAddWikiCataChild").multipleSelect("focus");
+                            return false;
                         }
-                    },
-                    error: function (e) {
-                        console.log(e);
+                        var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
+                        if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
+                            showError('Nội dung bài viết không được để trống!!');
+                            txtAddContent.focus();
+                            txtAddContent.setData('');
+                            return false;
+                        }
+                        formData.append("_objectInfo.ID", txtDocID.val());
+                        formData.append("_objectInfo.TITLE", txtTitle.val().trim());
+                        formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
+                        formData.append("_objectInfo.CONTENT", _contentVal);
+                        var txt_WIKIADD_OLD_FILE_01 = $("#txt_WIKIADD_OLD_FILE_01");
+                        var txt_WIKIADD_OLD_FILE_02 = $("#txt_WIKIADD_OLD_FILE_02");
+                        var txt_WIKIADD_OLD_FILE_03 = $("#txt_WIKIADD_OLD_FILE_03");
+
+                        formData.append("_objectInfo.FILE_URL01", txt_WIKIADD_OLD_FILE_01.val());
+                        formData.append("_objectInfo.FILE_URL02", txt_WIKIADD_OLD_FILE_02.val());
+                        formData.append("_objectInfo.FILE_URL03", txt_WIKIADD_OLD_FILE_03.val());
+                        formData.append("_objectInfo.STATUS", "3");
+                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_01", "0");
+                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_02", "1");
+                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_03", "2");
+                        formData.append("_objectInfo.OLD_STATUS", $("#txtcurrstatus").val());
+                        formData.append("_objectInfo.LANGUAGE_CODE", $("#txtlanguagecode").val());
+                        $.ajax({
+                            url: '/wiki-manage/wiki-doc/save-edit-doc',
+                            type: 'POST',
+                            data: formData,
+                            processData: false, contentType: false, traditional: true, dataType: "json",
+                            enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                            success: function (data) {
+                                if (data != null && data.status >= 0) {
+                                    doUpdateHashTag(data.HashTag);
+
+                                } else {
+                                    jError(AddFail, ThongBao, function () {
+                                    });
+                                }
+                            },
+                            error: function (e) {
+                                console.log(e);
+                            }
+                        });
+
+                    } catch (e) {
+                        alert(e.toString());
+                        return false;
                     }
+
                 });
 
-            } catch (e) {
-                alert(e.toString());
+                $("#btnTuChoi").click(function () {
+                    try {
+                        var txtDocID = $("#txtDocID");
+                        var reponse = false;
+                        var formData = new FormData();
+                        var txtTitle = $("#txtTitle");
+                        var CboAddWikiCataParent = $("#CboAddWikiCataParent");
+                        var CboAddWikiCataChild = $("#CboAddWikiCataChild");
+
+                        if (txtTitle.val().trim() == "") {
+                            showError('Tiêu đề không được để trống!');
+                            txtTitle.focus();
+                            return false;
+                        }
+
+                        if (CboAddWikiCataChild.val() == "" || CboAddWikiCataChild.val() == null) {
+                            showError('Danh mục bài viết không được để trống!');
+                            $("#CboAddWikiCataChild").multipleSelect("focus");
+                            return false;
+                        }
+                        var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
+                        if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
+                            showError('Nội dung bài viết không được để trống!!');
+                            txtAddContent.focus();
+                            txtAddContent.setData('');
+                            return false;
+                        }
+                        formData.append("_objectInfo.ID", txtDocID.val());
+                        formData.append("_objectInfo.TITLE", txtTitle.val().trim());
+                        formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
+                        formData.append("_objectInfo.CONTENT", _contentVal);
+                        var txt_WIKIADD_OLD_FILE_01 = $("#txt_WIKIADD_OLD_FILE_01");
+                        var txt_WIKIADD_OLD_FILE_02 = $("#txt_WIKIADD_OLD_FILE_02");
+                        var txt_WIKIADD_OLD_FILE_03 = $("#txt_WIKIADD_OLD_FILE_03");
+
+                        formData.append("_objectInfo.FILE_URL01", txt_WIKIADD_OLD_FILE_01.val());
+                        formData.append("_objectInfo.FILE_URL02", txt_WIKIADD_OLD_FILE_02.val());
+                        formData.append("_objectInfo.FILE_URL03", txt_WIKIADD_OLD_FILE_03.val());
+                        formData.append("_objectInfo.STATUS", "4");
+                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_01", "0");
+                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_02", "1");
+                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_03", "2");
+                        formData.append("_objectInfo.OLD_STATUS", $("#txtcurrstatus").val());
+                        formData.append("_objectInfo.LANGUAGE_CODE", $("#txtlanguagecode").val());
+                        $.ajax({
+                            url: '/wiki-manage/wiki-doc/save-edit-doc',
+                            type: 'POST',
+                            data: formData,
+                            processData: false, contentType: false, traditional: true, dataType: "json",
+                            enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                            success: function (data) {
+                                if (data != null && data.status >= 0) {
+                                    jAlert(EditSuccess, ThongBao, function () {
+                                        if ($("#txtcurrstatus").val() == "1") {
+                                            // lưu tạm
+                                            location.href = "/wiki-manage/wiki-doc/list"
+                                        }
+                                        else if ($("#txtcurrstatus").val() == "2" || $("#txtcurrstatus").val() == "4") {
+                                            location.href = "/wiki-manage/wiki-doc/pending-list"
+                                        }
+                                        else if ($("#txtcurrstatus").val() == "3") {
+                                            location.href = "/wiki-manage/wiki-doc/approved-list"
+                                        }
+                                    });
+                                } else {
+                                    jError(AddFail, ThongBao, function () {
+                                    });
+                                }
+                            },
+                            error: function (e) {
+                                console.log(e);
+                            }
+                        });
+
+                    } catch (e) {
+                        alert(e.toString());
+                        return false;
+                    }
+
+                });
+
+                function doUpdateHashTag(v_data) {
+                    try {
+                        var txtDocID = $("#txtDocID");
+                        var _hashtag = $("#divhashtag").html(v_data).html();
+                        $.ajax({
+                            url: "/wiki-manage/wiki-doc/save-edit-hashtag-doc",
+                            type: "POST",
+                            // p_id, string p_hashtag
+                            data: { p_id: txtDocID.val(), p_hashtag: _hashtag },
+                            headers: { "cache-control": "no-cache" },
+                            async: false,
+                            success: function (data) {
+                                if (data.status >= 0) {
+                                    jAlert(EditSuccess, ThongBao, function () {
+                                        if ($("#txtcurrstatus").val() == "1") {
+                                            // lưu tạm
+                                            location.href = "/wiki-manage/wiki-doc/list"
+                                        }
+                                        else if ($("#txtcurrstatus").val() == "2" || $("#txtcurrstatus").val() == "4") {
+                                            location.href = "/wiki-manage/wiki-doc/pending-list"
+                                        }
+                                        else if ($("#txtcurrstatus").val() == "3") {
+                                            location.href = "/wiki-manage/wiki-doc/approved-list"
+                                        }
+                                    });
+                                }
+                            },
+                            error: function (e) {
+                                console.log(e);
+                            }
+                        });
+
+                    } catch (e) {
+                        alert(e.toString());
+                    }
+                }
+
+
+
+                function funcGetCheckValueAndText(formData, pID, pItem) {
+                    try {
+                        //Các tài liệụ đính kèm
+
+                        formData.append("pAppDocumentInfo[" + pItem + "].keyFileUpload", pID);
+                        formData.append("pAppDocumentInfo[" + pItem + "].Document_Id", $("#" + pID).val());
+                        formData.append("pAppDocumentInfo[" + pItem + "].Isuse", "1");
+                        return true;
+                    } catch (e) {
+                        return false;
+                    }
+
+                }
+
+                function RemoveFile_Edit(p_Id) {
+                    try {
+
+                        $("#div_ImgDownload_" + p_Id).addClass("clssDisplaynone");
+                        $("#div_ImgRemove_" + p_Id).addClass("clssDisplaynone");
+                        $("#txt_" + p_Id).val("");
+
+
+                    } catch (e) {
+                        alert(e);
+                    }
+                }
+
+
+
+            </script>
             }
-        }
-           
-        
-
-        function funcGetCheckValueAndText(formData, pID, pItem) {
-            try {
-                //Các tài liệụ đính kèm
-
-                formData.append("pAppDocumentInfo[" + pItem + "].keyFileUpload", pID);
-                formData.append("pAppDocumentInfo[" + pItem + "].Document_Id", $("#" + pID).val());
-                formData.append("pAppDocumentInfo[" + pItem + "].Isuse", "1");
-                return true;
-            } catch (e) {
-                return false;
+            catch (Exception)
+            {
+            // ignored
             }
-
-        }
-
-        function RemoveFile_Edit(p_Id) {
-            try {
-
-                $("#div_ImgDownload_" + p_Id).addClass("clssDisplaynone");
-                $("#div_ImgRemove_" + p_Id).addClass("clssDisplaynone");
-                $("#txt_" + p_Id).val("");
-
-
-            } catch (e) {
-                alert(e);
-            }
-        }
-
-
-
-    </script>
-}
-catch (Exception)
-{
-    // ignored
-}

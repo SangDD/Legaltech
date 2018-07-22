@@ -4,7 +4,17 @@
 @{
     ViewBag.Title = "Chi tiết bài viết";
     Layout = "~/ViewsShared/_Layout.cshtml";
-
+    string _strHref = "";
+    if (ViewBag.CurrStatus == 1) {
+        // lưu tạm
+        _strHref = "/wiki-manage/wiki-doc/list";
+    }
+    else if (ViewBag.CurrStatus == 2 || ViewBag.CurrStatus == 4) {
+        _strHref = "/wiki-manage/wiki-doc/pending-list";
+    }
+    else if (ViewBag.CurrStatus == 3) {
+        _strHref = "/wiki-manage/wiki-doc/approved-list";
+    }
 }
 @model WikiDoc_Info
 @try
@@ -24,6 +34,7 @@
             <a href="/wiki-doc/list">Quản lý bài viết</a>
             <span class="red">></span>
             <a href="#">Chi tiết bài viết</a>
+           
         </div>
     </div>
     <div class="divCover">
@@ -39,7 +50,9 @@
                 <input type="hidden" value="" id="OptionSorting" />
                 <input type="hidden" value="@Model.ID" id="txtDocID" />
                 <div class="div-title-content"> THÔNG TIN BÀI VIẾT </div>
+                <a style="float:right" href="@_strHref"><input type="button" name="name" value="Trở lại" class="btn" /> </a>
             </div>
+          
         </div>
 
         <div class="div-search-ad">

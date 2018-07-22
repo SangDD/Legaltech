@@ -30,6 +30,8 @@ namespace ObjectInfos
 
         public decimal STATUS { set; get; }
 
+        public decimal OLD_STATUS { set; get; }
+
         public decimal CATA_ID { set; get; }
 
         public string CATA_NAME { set; get; }

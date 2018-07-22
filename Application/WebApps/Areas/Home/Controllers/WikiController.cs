@@ -9,6 +9,7 @@ using ObjectInfos;
 using WebApps.AppStart;
 using GemBox.Document;
 using System.IO;
+using WebApps.CommonFunction;
 
 namespace WebApps.Areas.Home.Controllers
 {
@@ -46,7 +47,7 @@ namespace WebApps.Areas.Home.Controllers
                     //  _ListDocSearch = _WikiBL.WikiDoc_GetBy_CataID(_Cataid);
                     //ViewBag.ListDocSearch = _ListDocSearch;
                   
-                    _ListDocSearch = _WikiBL.PortalWikiDoc_Search("3|" + _Cataid.ToString() + "|ALL");
+                    _ListDocSearch = _WikiBL.PortalWikiDoc_Search("3|" + _Cataid.ToString() + "|ALL|" + AppsCommon.GetCurrentLang());
                     ViewBag.Paging = _WikiBL.GetPagingHtml();
                     ViewBag.ListDocSearch = _ListDocSearch;
                     WikiCatalogue_BL _Catabl = new WikiCatalogue_BL();
@@ -67,7 +68,7 @@ namespace WebApps.Areas.Home.Controllers
                         }
                     }
 
-                    _ListDocSearch = _WikiBL.PortalWikiDoc_Search("3|"+ _firstCata.ID.ToString() + "|ALL");
+                    _ListDocSearch = _WikiBL.PortalWikiDoc_Search("3|"+ _firstCata.ID.ToString() +"|ALL|" + AppsCommon.GetCurrentLang());
                     ViewBag.Paging = _WikiBL.GetPagingHtml();
                     ViewBag.ListDocSearch = _ListDocSearch;
                     ViewBag.CatalogueInfo = _firstCata;
@@ -122,7 +123,7 @@ namespace WebApps.Areas.Home.Controllers
             try
             {
                 var _WikiDoc_BL = new WikiDoc_BL();
-                lstOjects = _WikiDoc_BL.PortalWikiDoc_Search(keysSearch, options);
+                lstOjects = _WikiDoc_BL.PortalWikiDoc_Search(keysSearch + AppsCommon.GetCurrentLang(), options);
                 ViewBag.Paging = _WikiDoc_BL.GetPagingHtml();
                 if (keysSearch.Split('|').Length >2 && keysSearch.Split('|')[1] != "ALL" && keysSearch.Split('|')[1] != "")
                 {

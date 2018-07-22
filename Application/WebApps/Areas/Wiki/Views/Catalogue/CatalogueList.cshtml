@@ -310,6 +310,12 @@
                     formData.append('_ObjectInfo.NAME', txtAddName.val());
                     formData.append('_ObjectInfo.NAME_ENG', txtAddNameEng.val());
                     formData.append('_ObjectInfo.PARENT_ID', CboAddWikiCataParent.val());
+                    if (CboAddWikiCataParent.val() != "0") {
+                        formData.append('_ObjectInfo.CATA_LEVEL', "1");
+                    }
+                    else {
+                        formData.append('_ObjectInfo.CATA_LEVEL', "0");
+                    }
                     $.ajax({
                         url: '/wiki-manage/wiki-doc/do-add-catalogue',
                         type: 'POST',
@@ -366,6 +372,12 @@
                 formData.append('_ObjectInfo.NAME', txtAddName.val());
                 formData.append('_ObjectInfo.NAME_ENG', txtAddNameEng.val());
                 formData.append('_ObjectInfo.PARENT_ID', CboAddWikiCataParent.val());
+                if (CboAddWikiCataParent.val() != "0") {
+                    formData.append('_ObjectInfo.CATA_LEVEL', "1");
+                }
+                else {
+                    formData.append('_ObjectInfo.CATA_LEVEL', "0");
+                }
                 $.ajax({
                     url: '/wiki-manage/wiki-doc/do-edit-catalogue',
                     type: 'POST',
