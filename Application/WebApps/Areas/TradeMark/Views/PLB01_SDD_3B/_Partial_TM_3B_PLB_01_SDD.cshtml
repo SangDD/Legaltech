@@ -433,6 +433,7 @@
                     CreateRollingWaitingIcon(false);
                     if (data != null && data.status >= 0) {
                         jAlert(AddSuccess, ThongBao, function () {
+                            window.location = "/trade-mark-mana/quan-ly-don";
                         });
                     } else {
                         jError(AddFail, ThongBao, function () {
@@ -520,7 +521,9 @@
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
                     if (data != null && data.status >= 0) {
-                        jAlert("Lưu tạm đơn thành công");
+                        jAlert('Lưu tạm đơn thành công!', "THÔNG BÁO", function () {
+                            window.location = "/trade-mark-mana/quan-ly-don";
+                        });
                     } else {
                         jError("Lưu tạm đơn không thành công");
                     }

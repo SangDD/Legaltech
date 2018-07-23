@@ -63,7 +63,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 string p_from = CommonFuc.Get_From_To_Page(p_CurrentPage, ref p_to);
 
                 Application_Header_BL _obj_bl = new Application_Header_BL();
-                List<ApplicationHeaderInfo> _lst = _obj_bl.ApplicationHeader_Search(p_keysearch, ref _total_record);
+                List<ApplicationHeaderInfo> _lst = _obj_bl.ApplicationHeader_Search(p_keysearch, ref _total_record, p_from,p_to);
                 string htmlPaging = CommonFuc.Get_HtmlPaging<ApplicationHeaderInfo>((int)_total_record, 1, "Đơn");
 
                 ViewBag.Paging = htmlPaging;
