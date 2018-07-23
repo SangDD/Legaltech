@@ -514,6 +514,7 @@
                 success: function (data) {
                     if (data != null && data.status >= 0) {
                         jAlert(EditSuccess, ThongBao, function () {
+                            window.location = "/trade-mark-mana/quan-ly-don";
                         });
                     } else {
                         jError(EditFail, ThongBao, function () {
