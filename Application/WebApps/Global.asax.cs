@@ -23,6 +23,7 @@
         {
             try
             {
+                log4net.Config.XmlConfigurator.Configure();
                 Configuration.GetConfigAppSetting();
                 EmailHelper.EmailOriginal = new EmailInfo()
                 {
@@ -33,9 +34,7 @@
                     DisplayName = CommonFuc.GetConfig("DisplayName"),
                     IsSsl = CommonFuc.GetConfig("SSL") == "Y"
                 };
-
                 Logger.Log().Info("Start Application_Start");
-                log4net.Config.XmlConfigurator.Configure();
                 CommonVariables.AssemblyVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
                 CommonVariables.KnFileLogin = HttpContext.Current.Server.MapPath(@"~/log/LogInApp" + DateTime.Now.ToString("MMyyyy") + ".log");
                 MemoryData.LoadAllMemoryData();

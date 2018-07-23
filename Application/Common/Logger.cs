@@ -6,9 +6,9 @@
 
 	public static class Logger
 	{
-		private static readonly ILog s_log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
-		public static ILog Log()
+		//private static readonly ILog s_log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog s_log = LogManager.GetLogger("LogError");
+        public static ILog Log()
 		{
 			return s_log;
 		}
