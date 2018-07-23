@@ -518,7 +518,14 @@
                             e.Inline = new Picture(e.Document, e.Value.ToString());
                     }
                 };
-                document.MailMerge.Execute(new { Logourl = Server.MapPath(appInfo.Logourl) });
+                if (!string.IsNullOrEmpty(appInfo.Logourl))
+                {
+                    document.MailMerge.Execute(new { Logourl = Server.MapPath(appInfo.Logourl) });
+                }
+                else
+                {
+                    document.MailMerge.Execute(new { Logourl = Server.MapPath("/Content/icons/logo.jpg") });
+                }
                 //Kết xuất ảnh
 
                 #region Tài liệu trong đơn 
