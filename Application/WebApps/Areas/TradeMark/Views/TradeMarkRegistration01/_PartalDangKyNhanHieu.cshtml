@@ -14,6 +14,7 @@
         _List04nhdetail = ViewBag.ListAppDetail04NHInfo;
     }
     string _appcode = ViewBag.AppCode;
+    ViewBag.Isdisable = 1;
 
     //SysAppFixChargeInfo _Appfixcharge = BussinessFacade.ModuleMemoryData.MemoryData.c_dic_FeeByApp_Fix[_appcode];
     //SysAppFixChargeInfo _Appfixcharge = new SysAppFixChargeInfo();
@@ -77,14 +78,14 @@
             <div class="div-search-content">
                 <div class="div-radio" style="width:400px">
                     <input type="radio" name="rad_thanhviennghidinhthu" value="TVND" id="_01_rdnghidinh_madrid" placeholder="_01_rdnghidinh_madrid" />
-                    <label>chỉ là Thành viên Nghị định thư Madrid</label> 
+                    <label>Chỉ là Thành viên Nghị định thư Madrid</label> 
                 </div>
             </div>
         
             <div class="div-search-content">
                 <div class="div-radio">
                     <input type="radio" name="rad_thanhviennghidinhthu" value="TVND_TU" id="_01_rdnghidinh_thoa_uoc_madrid" placeholder="_01_rdnghidinh_thoa_uoc_madrid" />
-                    <label>vừa là Thành viên Thoả ước Madrid, vừa là Thành viên Nghị định thư Madrid </label>
+                    <label>Vừa là Thành viên Thoả ước Madrid, vừa là Thành viên Nghị định thư Madrid </label>
                 </div>
             </div>
         </div>
@@ -97,94 +98,72 @@
             </div>
         </div>
 
-        @*<div class="div-search-ad">
-            <div class="div-search-content">
-                <div style="width:180px ;height:180px" id="divLogo">
-                    <img id="imgMauNhanHieu" src="~/Content/icons/logo.jpg" style="width:160px ;height:160px">
-                    <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
-                </div>
-            </div>
-        </div>*@
-
         <div class="class_full_div_input">
-            <div class="class_block_title" style="padding-top:5px; "><label>Mẫu nhãn hiệu:</label> </div>
-            <div class="class_block_title_control" style="display:flex">
-                <div style="width:180px ;height:180px" id="divLogo">
-                    <img id="imgMauNhanHieu" src="~/Content/icons/logo.jpg" style="width:160px ;height:160px">
-                </div>
-                <div class="container" style="flex-grow:1;padding-top:50px">
-                    <div class="file-upload btn btn-primary" style="margin-top:86px">
-                        <span>Tải file</span>
-                        <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-        @*<div class="div_full_100_area">
-            <div class="class_full_div_p class_text_center_bold"></div>
-            <div class="class_full_div_input">
+            <div class="class_left_40">
                 <div class="class_block_title" style="padding-top:5px; "><label>Mẫu nhãn hiệu:</label> </div>
                 <div class="class_block_title_control" style="display:flex">
                     <div style="width:180px ;height:180px" id="divLogo">
                         <img id="imgMauNhanHieu" src="~/Content/icons/logo.jpg" style="width:160px ;height:160px">
                     </div>
-                    <div class="container" style="flex-grow:1;padding-top:50px">
+                    <div class="container" style="display:none">
                         <div class="file-upload btn btn-primary" style="margin-top:86px">
                             <span>Tải file</span>
                             <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
                         </div>
                     </div>
                 </div>
-            </div>*@
-
-
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-radio" style="width:400px">
-                    <input type="radio" name="_01_rad_DonDkOrGiayDK" value="DONDK" id="_01_rad_DonDK" placeholder=" rad_DonDK" />
-                    <label>Đơn đăng ký nhãn hiệu cơ sở </label>
-                </div>
             </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio" name="_01_rad_DonDkOrGiayDK" value="GIAYDK" id="_01_rad_GiayDK" placeholder="01_rad_GiayDK" />
-                    <label>Giấy chứng nhận đăng ký nhãn hiệu cơ sở </label>
+
+            <div class="class_right_60">
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="radio" name="_01_rad_DonDkOrGiayDK" value="DONDK" id="_01_rad_DonDK" placeholder=" rad_DonDK" />
+                            <label>Đơn đăng ký nhãn hiệu cơ sở </label>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="div-search-ad">
+                    
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="radio" name="_01_rad_DonDkOrGiayDK" value="GIAYDK" id="_01_rad_GiayDK" placeholder="01_rad_GiayDK" />
+                            <label>Giấy chứng nhận đăng ký nhãn hiệu cơ sở </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <div>Số đơn/Số GCN</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            @*<input type="text" id="cbo_04nh_data" placeholder="cbo_04nh_data" maxlength="100" />*@
+                            <select id="cbo_04nh_data" onchange="chooseApp2a($(this).val())">
+                                @foreach (var item in _List04nhdetail)
+                                {
+                                    <option value="@item.App_Header_Id">
+                                        @item.Appno
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="div-search-title">
+                        <div style="width:200px">Ngày nộp đơn/Ngày cấp CGN</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" class="" id="_1_txtNgayNopDon" placeholder="_1_txtNgayNopDon" maxlength="10" readonly />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Số đơn/Số GCN</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @*<input type="text" id="cbo_04nh_data" placeholder="cbo_04nh_data" maxlength="100" />*@
-                    <select id="cbo_04nh_data" onchange="chooseApp2a($(this).val())">
-                        @foreach (var item in _List04nhdetail)
-                        {
-                            <option value="@item.App_Header_Id">
-                                @item.Appno
-                            </option>
-                        }
-                    </select>
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div  style="width:350px">Ngày nộp đơn/Ngày cấp CGN</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" class="datepicker" id="_1_txtNgayNopDon" placeholder="_1_txtNgayNopDon" maxlength="10" />
-                </div>
-            </div>
-        </div>
 
  
 
@@ -210,7 +189,7 @@
         </div>
 
         <div id="div_appclass_2a">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml")
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialTMAddAppClass.cshtml")
         </div>
         
 
@@ -224,15 +203,15 @@
 
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDanhSachQuocGiaDKQTNH.cshtml", "_4")
 
-            <div class="divCover cls_form_title">
+            @*<div class="divCover cls_form_title">
                 <img src="~/Content/icons/info.png" />
                 <div class="cls_form_header">
                     5.PHÍ, LỆ PHÍ
                 </div>
-            </div>
+            </div>*@
 
 
-            <div class="div-search-ad">
+            <div class="div-search-ad" style="display:none">
                 <div class="div-search-title">
                     <div style="width:450px"> Phí dịch vụ làm thủ tục đăng ký quốc tế nhãn hiệu đã nộp kèm theo: </div>
                 </div>
@@ -248,7 +227,7 @@
             <div class="divCover cls_form_title">
                 <img src="~/Content/icons/info.png" />
                 <div class="cls_form_header">
-                    6.CÁC TÀI LIỆU CÓ TRONG ĐƠN
+                    5.CÁC TÀI LIỆU CÓ TRONG ĐƠN
                 </div>
             </div>
 
