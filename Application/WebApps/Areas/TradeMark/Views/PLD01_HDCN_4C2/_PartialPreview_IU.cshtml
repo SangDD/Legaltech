@@ -29,7 +29,7 @@
 
 
 <script>
-    function funGetData_Preview_3CPL02(url) {
+    function funGetData_Preview(url) {
         try {
 
             var formData = new FormData();
@@ -99,9 +99,9 @@
     }
 
     function funcPreViewApplication() {
-        var preturn = funGetData_Preview_3CPL02("/trade-mark-3c/ket_xuat_fileIU");
+        var preturn = funGetData_Preview("/trade-mark-4c2/ket_xuat_fileIU");
         if (preturn == true || preturn == undefined) {
-            OpenPreview("/trade-mark-3c/Pre-View");
+            OpenPreview("/trade-mark-4c2/Pre-View");
         }
     }
 
