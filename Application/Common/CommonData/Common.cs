@@ -26,6 +26,8 @@ namespace Common
         public static string AppCode_TM_3B_PLB_01_SDD = "TM_PLB01SDD";
         public static string AppCode_TM_3C_PLB_02_CGD = "TM_PLB02CGD";
         public static string AppCode_TM_3D_PLC_05_KN = "TM_PLC05KN";
+
+        public static string AppCode_TM_4C2_PLD_01_HDCN = "TM_PLD01HDCN";
     }
 
 
