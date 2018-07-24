@@ -2,10 +2,21 @@
 @using WebApps.ExtensionObject 
 @using WebApps.Session 
 @using WebApps.CommonFunction 
+@using ObjectInfos;
 @{
     Layout = null;
 
     string _LanguageCode = AppsCommon.GetCurrentLang();
+
+    UserInfo   _currUser = new UserInfo();
+    if (SessionData.CurrentUser != null)
+    {
+
+        _currUser = (UserInfo)SessionData.CurrentUser;
+
+        SessionData.CurrentUser.cListWarningMsg = new List<WarningMessageInfo>();
+
+    }
 }
 
 <!DOCTYPE html>
@@ -87,6 +98,59 @@
     </div>
     <div class="section-bottom">
     </div>
+
+    @if (SessionData.CurrentUser != null)
+    {
+
+        if (SessionData.CurrentUser.cListWarningMsg.Count > 0)
+        {
+            string _Divwarning_contentstyle = "";
+            string _Divwarning_tyle = "";
+            string imgdown = "display: block";
+            string imgup = "display: none";
+
+            _currUser = (UserInfo)SessionData.CurrentUser;
+            if (_currUser.IsDisplayWarning == false)
+            {
+                _Divwarning_contentstyle = "display: none; transition:visibility 0s linear 0.5s,opacity 0.5s linear;";
+                _Divwarning_tyle = "border-bottom: 3px solid #FFF; width: 110px";
+                imgdown = "display: none";
+                imgup = "display: block";
+            }
+        <div id="warning" onmouseover="FuncOnmouseOver()" onmouseout="FunOnmoseUout()" style="@_Divwarning_tyle">
+            <label><a href="/ModuleCustomers/WarningMessage/WarningMessageList" style="color: white">CẢNH BÁO  </a></label>
+            <a id="imgshowhide" href="javascript:;" onclick="return HideWarning()">
+                <img id="imgdown" src="~/Content/images/down.png" style="@imgdown" title="Ẩn cảnh báo" />
+                <img id="imgup" src="~/Content/images/up.png" style="@imgup" title="Hiện cảnh báo" />
+            </a>
+            <div style="clear: both; height: 0"></div>
+
+            <div id="warning_content" style="@_Divwarning_contentstyle">
+                @*@if (Common.W_ > 0)
+                {
+                    <div>
+                        <a href="/ModuleCustomers/WarningMessage/WarningMessageList/5">
+                            <span>Hợp đồng chưa duyệt</span>
+                            <span>@Administrator.Common.W_Contract_NoAprove</span>
+                        </a>
+                    </div>
+                }
+                @if (Administrator.Common.W_Contract_Active > 0)
+                {
+                    <div>
+                        <a href="/ModuleCustomers/WarningMessage/WarningMessageList/1">
+                            <span>Hợp đồng đến ngày hiệu lực</span>
+                            <span>@Administrator.Common.W_Contract_Active</span>
+                        </a>
+                    </div>
+                }*@
+
+            </div>
+        </div>
+        }
+    }
+
+
     <script src=@($"/Scripts/nvs.jquery.validate.data.js?v={CommonVariables.AssemblyVersion}")></script>
     <script src=@($"/Scripts/nvs.jquery.util.js?v={CommonVariables.AssemblyVersion}")></script>
     <script src=@($"/Scripts/nvs.jquery.alert.js?v={CommonVariables.AssemblyVersion}")></script>

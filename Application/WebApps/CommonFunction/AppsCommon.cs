@@ -11,6 +11,30 @@ namespace WebApps.CommonFunction
 {
     public class AppsCommon
     {
+
+        #region HungTD: các biến lưu số lượng cảnh báo của phần quản lý đơn
+
+        /// <summary>
+        /// lưu tạm
+        /// </summary>
+        public static int W_Temp = 0;
+
+        /// <summary>
+        /// bị từ chối
+        /// </summary>
+        public static int W_Refuse = 0;
+
+        /// <summary>
+        /// Chờ xử lý
+        /// </summary>
+        public static int W_Waiting = 0;
+
+        
+
+
+        #endregion
+
+
         public static string GetCurrentLang()
         {
             try

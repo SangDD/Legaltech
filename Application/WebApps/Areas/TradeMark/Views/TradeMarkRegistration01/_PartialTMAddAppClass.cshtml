@@ -1,0 +1,280 @@
+﻿
+@using WebApps.CommonFunction
+@using ObjectInfos
+@using System.Web.Script.Serialization;
+@{
+    //var listClassInfo = MemoryData.clstAppClass;
+    string _LanguageCode = AppsCommon.GetCurrentLang();
+    var lstClassDetailInfo = new List<AppClassDetailInfo>();
+    if (ViewBag.lstClassDetailInfo != null)
+    {
+        lstClassDetailInfo = (List<AppClassDetailInfo>)ViewBag.lstClassDetailInfo;
+    }
+    int _ShowFromOtherApp = 0;
+    if (ViewBag.ShowFromOtherApp != null)
+    {
+        _ShowFromOtherApp = ViewBag.ShowFromOtherApp;
+    }
+
+    }
+<script src="~/Scripts/ScriptsLoadClassInfo.js"></script>
+
+<script>
+    // mảng lưu xem mỗi nhóm hàng hóa có bao nhiêu thằng
+    var _ArrGroupAppClass = [];    // = [{ name: 1, value: 'a' }, { name: 2, value: 'b' }, { name: 3, value: 'c' }];
+    var _EditArryAppClass = new Array();
+</script>
+ 
+ 
+ @foreach (var item in lstClassDetailInfo)
+    {
+    <script>
+            var _appinfo = { name: '@Html.Raw(item.Textinput)', value: '@Html.Raw(@item.Code)' }
+            _EditArryAppClass.push(_appinfo)
+    </script>
+    }
+<div class="div_full_100_area" style="border:solid 1px #ccc; width: calc(100% - 28px ); margin: 10px 0px 0px 0px">
+    <div class="class_full_div_p class_text_center_bold">DANH MỤC VÀ PHÂN NHÓM HÀNG HOÁ, DỊCH VỤ MANG NHÃN HIỆU </div>
+    <br />
+
+
+    <div class="class_full_div_input">
+        <div class="_table_display" id="divHangHoaThem" style="width: 100%">
+            <h4 class="h4_title">Hàng hóa đã thêm</h4>
+            <table class="table-lst-data" id="tblClassInfo">
+                <thead>
+                    <tr>
+                        <th style="width: 4%">STT</th>
+                        <th data-sort id="Username">Hàng hóa</th>
+                        <th style="width: 17%" data-sort>Mã hàng hóa</th>
+                        <th style='display:none'></th>
+                        <th class="clssDisplaynone"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    .h4_title {
+        border-bottom: 2px solid #ff6229;
+        color: #ff6229;
+        font-family: 'Segoe UI', Arial;
+        font-weight: normal;
+        font-size: 14px;
+        font-style: italic;
+        margin: 0px 10px 10px 0px;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+      // đẩy vào table
+        _EditArryAppClass.forEach(function (element) {
+            funcAddMessDataRow(element.name, element.value, 0);
+        });
+    })
+    $('#NVSCBO001_AppClassSearch').multipleSelect({
+        filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        isdatastring: false,
+        placeholder: 'Tìm kiếm dữ liệu hàng hóa'
+    });
+
+    function funIncreNumberRow(table_id) {
+        try {
+            var _countindex = 0;
+            $(table_id).find('tbody').find("tr").each(function () {
+                var _index = $(this);
+                var _class = "";
+                _class = $(this).find("td:first").attr('class');
+                if (_class == undefined || _class.indexOf("textbold") < 0) {
+                    _countindex = _countindex + 1;
+                    $(this).find("td:first").text(_countindex);
+                }
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+ 
+    function funcAddDataRow() {
+        try {
+
+            var classCode = $("#NVSCBO001_AppClassSearch").val();
+            var className = $("#txtTenHangHoa").val();
+            if (className == "" || className == undefined) {
+                showError('Chưa nhập tên hàng hóa!');
+                return false;
+            }
+
+            if (classCode == "" || classCode == undefined) {
+                showError('Mã hàng hóa không đúng, Kiểm tra lại mã hàng hóa!');
+                return false;
+            }
+
+
+            funcAddMessDataRow(className, classCode, 0);
+            $("#txtTenHangHoa").val("");
+            $("#NVSCBO001_AppClassSearch").val("");
+            $("#txtTenHangHoa").focus();
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+  
+
+
+    // 2018.06.15 Hungtd sửa
+    function funcAddMessDataRow(textInput, classCode, type) {
+        try {
+
+            // lấy ra nhóm hàng hóa
+            var _checkExits = 0;
+            var _groupcode = classCode.substr(0, 2);
+            var _countItem = 0;
+            _ArrGroupAppClass.forEach(function (element) {
+                if (element.name == _groupcode) {
+                    _checkExits = 1;
+                    element.value = element.value + 1;
+                    return;
+                }
+            });
+            if (_checkExits == 0) {
+                // nếu chưa có thì add vào
+                var _newitem = { name: _groupcode, value: 1 };
+                _ArrGroupAppClass.push(_newitem);
+            }
+            funRemoveAllTotalRows();
+
+            textInput = textInput.trim();
+            classCode = classCode.trim();
+            var _html = "<tr><td></td><td class=\"TdLeft\">" + textInput + "</td><td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td style='display:none'><a href=\"javascript:;\" onclick=\"funcRemoveMessDataRow(this, '" + classCode + "');\">Xóa</a></td><td class=\"HasSort clssDisplaynone\">" + classCode.substr(0,5) + "</td></tr>";
+            $("#tblClassInfo").find("tbody").append(_html);
+            AddTotalRows();
+            funcReSortTable("#tblClassInfo", 'asc');
+            // add total row
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    function AddTotalRows() {
+        try {
+            // đẩy các dòng tổng xuống cuối table
+            var _html = "";
+            _ArrGroupAppClass.forEach(function (element) {
+                _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='2' class=\"tdRightAlign textbold\">Tổng SP</td><td colspan='2' class=\"TdLeft textbold\"> " + element.value + "</td>   <input  type=\"hidden\" class=\"txtTongSanPham\" value=\"" + element.value +"\"/> <td class=\"HasSort clssDisplaynone\"> " + element.name + "999 </td> </tr>";
+                $("#tblClassInfo").find("tbody").append(_html);
+            });
+
+            // tổng số nhóm
+
+            _html = "<tr id='_rowappclassinfo0'><td colspan='2' class=\"tdRightAlign textbold\">Tổng số nhóm</td><td colspan='2' class=\"TdLeft textbold\"> " + _ArrGroupAppClass.length + "</td>  <input  type=\"hidden\" id=\"txtTongSoNhom\" value=\"" + _ArrGroupAppClass.length  +"\"/> <td class=\"HasSort clssDisplaynone\">  99999 </td></tr>";
+            $("#tblClassInfo").find("tbody").append(_html);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    function funRemoveAllTotalRows() {
+        try {
+            // xóa hết các dòng tổng cộng
+            $("#_rowappclassinfo0").remove();
+            _ArrGroupAppClass.forEach(function (element) {
+                $("#_rowappclassinfo" + element.name).remove();
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    function funcRemoveMessDataRow(element, _classcode) {
+        try {
+            funRemoveAllTotalRows();
+
+            var index = _ArrGroupAppClass.length - 1;
+            while (index >= 0) {
+                var _appclassinfo = _ArrGroupAppClass[index];
+                if (_appclassinfo.name == _classcode.toString().substr(0, 2)) {
+                    _ArrGroupAppClass.splice(index, 1);
+                    if (_appclassinfo.value == 1) {
+                        // nếu hết rồi thì xóa luôn phần tử này trong mảng
+                    }
+                    else {
+                        _appclassinfo.value = _appclassinfo.value - 1;
+                        _ArrGroupAppClass.push(_appclassinfo);
+                    }
+                    break;
+
+                }
+
+                index -= 1;
+            }
+
+            var _row = $(element).parent().parent();
+            $(_row).remove();
+            // add total row
+            AddTotalRows();
+            funcReSortTable("#tblClassInfo", 'asc');
+
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    //Sort lai
+    function funcReSortTable(table_id, type) {
+        try {
+            var asc = type === 'asc', tbody = $(table_id).find('tbody');
+            tbody.find('tr').sort(function (a, b) {
+                if (asc) {
+                    return $('.HasSort', a).text() - $('.HasSort', b).text();
+                } else {
+                    return $('.HasSort', b).text() - $('.HasSort', a).text();
+                }
+            }).appendTo(tbody);
+            funIncreNumberRow(table_id);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    //Lay thong tin trong bang
+    function funcGetDataClassInfo(formData) {
+        try {
+            var item = 0;
+            
+            var tongSP = "";
+            $("#tblClassInfo").find("tbody").find(".txtTongSanPham").each(function () {
+                tongSP = tongSP + $(this).val() + "|";
+            });
+
+            var tongSoNhom = $("#txtTongSoNhom").val();
+            $("#tblClassInfo").find("tbody").find(".DataAdd").each(function () {
+                var str_data = $(this).val().split('|');
+                formData.append("pAppClassInfo[" + item + "].Textinput", str_data[0]);
+                formData.append("pAppClassInfo[" + item + "].Code", str_data[1]);
+                //Tổng số nhóm để tính xem có bao nhiêu nhóm phục vụ tính phí
+                formData.append("pAppClassInfo[" + item + "].TongSoNhom", tongSoNhom); 
+                //Số sản phẩm để tính phần dư chênh lệch
+                formData.append("pAppClassInfo[" + item + "].TongSanPham", tongSP); 
+                item++;
+            });
+            return true;
+        }
+        catch (e) {
+            console.log(e);
+            return false;
+        }
+    }
+</script>

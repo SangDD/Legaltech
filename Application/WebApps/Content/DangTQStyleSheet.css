@@ -984,4 +984,85 @@ nvshashtag
 {
     color:aqua;
 }
- 
+ /*======================================style phần cảnh báo================================================*/
+#warning {
+    background: #ff8c00;
+    bottom: 0;
+    box-shadow: -2px -2px 5px 0 #444;
+    height: auto;
+    line-height: 30px;
+    padding: 0 0 0px 0;
+    position: fixed;
+    right: 0;
+    width: 250px;
+    z-index: 1000;
+    -webkit-box-shadow: -2px -2px 5px 0 #444;
+}
+
+    #warning > label {
+        color: #FFF;
+        font-weight: 700;
+        padding: 10px 0 10px 10px;
+        text-shadow: 1px 0px 1px rgba(150, 150, 150, 1);
+    }
+
+    #warning > a {
+        float: right;
+        margin: 5px 10px 0 0;
+    }
+
+        #warning > a > img {
+            opacity: 0.7;
+            height: 18px;
+            width: 18px;
+        }
+
+        #warning > a:hover > img {
+            opacity: 1;
+        }
+
+    #warning > div {
+        display: block;
+        height: auto;
+    }
+
+        #warning > div > div {
+            background: #FFF;
+            border-bottom: 1px solid #ccc;
+            height: 30px;
+            width: 100%;
+        }
+
+            #warning > div > div:last-child {
+                border-bottom: none;
+            }
+
+            #warning > div > div:hover {
+                background: #ccc;
+            }
+
+            #warning > div > div > a {
+                background: #ccc;
+                height: 35px;
+                width: 100%;
+            }
+
+            #warning > div > div a:hover {
+                cursor: pointer;
+            }
+
+            #warning > div > div > a > span:first-child {
+                color: #333;
+                float: left;
+                margin-left: 15px;
+            }
+
+            #warning > div > div > a > span:last-child {
+                color: #d31717;
+                float: right;
+                font-size: 16px;
+                font-weight: 600;
+                margin-right: 15px;
+            }
+
+/*======================================end style phần cảnh báo================================================*/
