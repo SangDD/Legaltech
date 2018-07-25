@@ -1,0 +1,398 @@
+﻿@using WebApps.CommonFunction;
+@using BussinessFacade.ModuleMemoryData
+@using ObjectInfos
+@using ObjectInfos.ModuleTrademark
+@{
+    ViewBag.Title = "Xem chi tiết Đơn đăng ký chuyển nhượng";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+
+    ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    }
+
+    App_Detail_PLD01_HDCN_Info _App_Detail = new App_Detail_PLD01_HDCN_Info();
+    if (ViewBag.App_Detail != null)
+    {
+        _App_Detail = (App_Detail_PLD01_HDCN_Info)ViewBag.App_Detail;
+    }
+
+    List<AppDocumentInfo> Lst_AppDoc = new List<AppDocumentInfo>();
+    if (ViewBag.Lst_AppDoc != null)
+    {
+        Lst_AppDoc = (List<AppDocumentInfo>)ViewBag.Lst_AppDoc;
+    }
+
+    List<AppFeeFixInfo> Lst_AppFee = new List<AppFeeFixInfo>();
+    if (ViewBag.Lst_AppFee != null)
+    {
+        Lst_AppFee = (List<AppFeeFixInfo>)ViewBag.Lst_AppFee;
+    }
+
+    Dictionary<string, AppDocumentInfo> dic_appDoc = new Dictionary<string, AppDocumentInfo>();
+    foreach (AppDocumentInfo item in Lst_AppDoc)
+    {
+        dic_appDoc[item.Document_Id] = item;
+    }
+}
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+
+    .div-title-col-2 {
+        height: 35px;
+        border: 1px solid #aaa;
+    }
+
+        .div-title-col-2 > div {
+            margin: 9px 5px 0px 7px;
+        }
+</style>
+
+<div class="d-nav-container">
+    <ul class="ul-nav">
+        <li><a href="javascript:;">TradeMark</a></li>
+        <li><a href="javascript:;">  Đơn đăng ký chuyển nhượng</a></li>
+    </ul>
+</div>
+
+<input type="hidden" id="txtAppCode" value='@_AppHeaderInfo.Appcode' />
+
+<div class="div-search ">
+    <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
+        <legend style="font-weight:600">
+            ĐƠN ĐĂNG KÝ CHUYỂN NHƯỢNG
+        </legend>
+
+        @* Case name *@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName_View.cshtml", "0")
+
+        @* 4 - ĐỐI TƯỢNG CỦA HỢP ĐỒNG *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                ĐỐI TƯỢNG CỦA HỢP ĐỒNG
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio" style="width:382px">
+
+                    @if (_App_Detail.Object_Contract_Type == 1)
+                    {
+                        <input type="radio" name="4_rdoDoiTuongHopDong" id="4_rdDT_1" value="1" disabled="disabled" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="4_rdoDoiTuongHopDong" id="4_rdDT_1" value="1" disabled="disabled">
+                    }
+                    <label>Bằng độc quyền sáng chế</label>
+                </div>
+            </div>
+
+            <div class="div-search-content">
+                <div class="div-radio">
+                    @if (_App_Detail.Object_Contract_Type == 2)
+                    {
+                        <input type="radio" name="4_rdoDoiTuongHopDong" id="4_rdDT_2" value="2" disabled="disabled" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="4_rdoDoiTuongHopDong" id="4_rdDT_2" value="2" disabled="disabled">
+                    }
+                    <label>Bằng độc quyền giải pháp hữu ích</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio" style="width:382px">
+                    @if (_App_Detail.Object_Contract_Type == 3)
+                    {
+                        <input type="radio" name="4_rdoDoiTuongHopDong" id="4_rdDT_3" value="3" disabled="disabled" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="4_rdoDoiTuongHopDong" id="4_rdDT_3" value="3" disabled="disabled">
+                    }
+                    <label>Giấy CN đăng ký thiết kế bố trí mạch tích hợp bán dẫn</label>
+                </div>
+            </div>
+
+            <div class="div-search-content">
+                <div class="div-radio">
+                    @if (_App_Detail.Object_Contract_Type == 4)
+                    {
+                        <input type="radio" name="4_rdoDoiTuongHopDong" id="4_rdDT_4" value="4" disabled="disabled" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="4_rdoDoiTuongHopDong" id="4_rdDT_4" value="4" disabled="disabled">
+                    }
+                    <label>Bằng độc quyền kiểu dáng công nghiệp</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio">
+                    @if (_App_Detail.Object_Contract_Type == 5)
+                    {
+                        <input type="radio" name="4_rdoDoiTuongHopDong" id="4_rdDT_5" value="5" disabled="disabled" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="4_rdoDoiTuongHopDong" id="4_rdDT_5" value="5" disabled="disabled">
+                    }
+                    <label>Giấy chứng nhận đăng ký nhãn hiệu</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Số văn bằng bảo hộ:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Số văn bằng bảo hộ" id="4_txt_VanBangBaoHo" value="@_App_Detail.Object_Contract_No" disabled="disabled" />
+                </div>
+            </div>
+        </div>
+
+        @* 1 - CHỦ ĐƠN*@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                CHỦ ĐƠN
+            </div>
+        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon_View.cshtml")
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio" style="width:382px">
+                    @if (_App_Detail.Master_Type == 1)
+                    {
+                        <input type="radio" name="1_rdoChuDon" value="1" id="rb_1_ChuDonChuyenNhuong" disabled="disabled" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="1_rdoChuDon" value="1" id="rb_1_ChuDonChuyenNhuong" disabled="disabled">
+                    }
+
+                    <label>là bên chuyển nhượng</label>
+                </div>
+            </div>
+
+            <div class="div-search-content">
+                <div class="div-radio">
+                    @if (_App_Detail.Master_Type == 2)
+                    {
+                        <input type="radio" name="1_rdoChuDon" value="2" disabled="disabled" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="1_rdoChuDon" value="2" disabled="disabled">
+                    }
+                    <label>là bên nhận chuyển nhượng</label>
+                </div>
+            </div>
+        </div>
+
+        @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                ĐẠI DIỆN CỦA CHỦ ĐƠN
+            </div>
+        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon_View.cshtml")
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Mã đại diện:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Mã đại diện" id="txt_MaDaiDien" value="@_App_Detail.Customer_Code" disabled="disabled" />
+                </div>
+            </div>
+        </div>
+        @* end 2 *@
+
+        @* 3 - BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN) *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN)
+            </div>
+        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/PLD01_HDCN_4C2/_PartialSecondMaster_View.cshtml", "3")
+
+
+        @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                CÁC TÀI LIỆU CÓ TRONG ĐƠN
+            </div>
+        </div>
+
+        @* 1. Tờ khai *@
+        @{
+            string _doc_id1 = "PLD01_HDCB_01";
+            string _model1 = _doc_id1 + "|6_Doc_PLD01_HDCB_01|0|gồm 2 trang x2 bản||0" + ";" + dic_appDoc[_doc_id1].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id1].CHAR01 + "|" + dic_appDoc[_doc_id1].Url_Hardcopy;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model1)
+        }
+
+        @* 2. Hợp đồng chuyển nhượng, bằng tiếng *@
+        @{
+            string _doc_id2 = "PLD01_HDCB_02";
+            string _model2 = _doc_id2 + "|6_Doc_PLD01_HDCB_02|0|Hợp đồng chuyển nhượng, bằng tiếng|Tiếng|0" + ";" + dic_appDoc[_doc_id2].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id2].CHAR01 + "|" + dic_appDoc[_doc_id2].Url_Hardcopy;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model2)
+        }
+
+        @* 3. 2.1 Bản gốc *@
+        @{
+            string _doc_id3 = "PLD01_HDCB_03";
+            string _model3 = _doc_id3 + "|6_Doc_PLD01_HDCB_03|1|Bản gốc||1" + ";" + dic_appDoc[_doc_id3].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id3].CHAR01 + "|" + dic_appDoc[_doc_id3].Url_Hardcopy;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model3)
+        }
+
+        @* 4. 2.2 bản sao *@
+        @{
+            string _doc_id4 = "PLD01_HDCB_04";
+            string _model4 = _doc_id4 + "|6_Doc_PLD01_HDCB_04|1|Bản sao||1" + ";" + dic_appDoc[_doc_id4].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id4].CHAR01 + "|" + dic_appDoc[_doc_id4].Url_Hardcopy;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model4)
+        }
+
+        @* 5. Bản dịch hợp đồng ra tiếng Việt, gồm *@
+        @{
+            string _doc_id5 = "PLD01_HDCB_05";
+            string _model5 = _doc_id5 + "|6_Doc_PLD01_HDCB_05|0|Bản dịch hợp đồng ra tiếng Việt, gồm|Số trang|1" + ";" + dic_appDoc[_doc_id5].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id5].CHAR01 + "|" + dic_appDoc[_doc_id5].Url_Hardcopy;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model5)
+        }
+
+        @* 6. Văn bản đồng ý của các đồng chủ sở hữu (trong trường hợp đối tượng sở hữu công nghiệp thuộc sở hữu chung),  gồm *@
+        @{
+            string _doc_id6 = "PLD01_HDCB_06";
+            string _model6 = _doc_id6 + "|6_Doc_PLD01_HDCB_06|0|Văn bản đồng ý của các đồng chủ sở hữu (trong trường hợp đối tượng sở hữu công nghiệp thuộc sở hữu chung),  gồm|Số trang|1|750" + ";" + dic_appDoc[_doc_id6].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id6].CHAR01 + "|" + dic_appDoc[_doc_id6].Url_Hardcopy;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model6)
+        }
+
+        @* 7. Quy chế sử dụng nhãn hiệu tập thể, quy chế sử dụng nhãn hiệu chứng nhận của Bên nhận chuyển nhượng *@
+        @{
+            string _doc_id7 = "PLD01_HDCB_07";
+            string _model7 = _doc_id7 + "|6_Doc_PLD01_HDCB_07|0|Quy chế sử dụng nhãn hiệu tập thể, quy chế sử dụng nhãn hiệu chứng nhận của Bên nhận chuyển nhượng||0" + ";" + dic_appDoc[_doc_id7].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id7].CHAR01 + "|" + dic_appDoc[_doc_id7].Url_Hardcopy;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model7)
+        }
+
+        @* 8. Tài liệu chứng minh quyền nộp đơn của bên nhận chuyển nhượng đối với nhãn hiệu chứng nhận, nhãn hiệu tập thể *@
+        @{
+            string _doc_id8 = "PLD01_HDCB_08";
+            string _model8 = _doc_id8 + "|6_Doc_PLD01_HDCB_08|0|Tài liệu chứng minh quyền nộp đơn của bên nhận chuyển nhượng đối với nhãn hiệu chứng nhận, nhãn hiệu tập thể||0" + ";" + dic_appDoc[_doc_id8].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id8].CHAR01 + "|" + dic_appDoc[_doc_id8].Url_Hardcopy;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model8)
+        }
+
+        @* 9. Bản gốc văn bằng bảo hộ *@
+        @{
+            string _doc_id9 = "PLD01_HDCB_09";
+            string _model9 = _doc_id9 + "|6_Doc_PLD01_HDCB_09|0|Bản gốc văn bằng bảo hộ||0" + ";" + dic_appDoc[_doc_id9].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id9].CHAR01 + "|" + dic_appDoc[_doc_id9].Url_Hardcopy;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model9)
+        }
+
+        @* 10 Quy chế sử dụng nhãn hiệu tập thể, quy chế sử dụng nhãn hiệu chứng nhận của Bên nhận chuyển nhượng *@
+        @{
+            string _doc_id10 = "PLD01_HDCB_10";
+            string _model10 = _doc_id10 + "|6_Doc_PLD01_HDCB_10|0|Bản gốc đã nộp theo đơn số|Số đơn gốc|1" + ";" + dic_appDoc[_doc_id10].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id10].CHAR01 + "|" + dic_appDoc[_doc_id10].Url_Hardcopy;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model10)
+        }
+
+        @* 11.. POA Giấy uỷ quyền bằng tiếng *@
+        @{
+            string _doc_id11 = "PLD01_HDCB_11";
+            string _model11 = _doc_id11 + "|6_Doc_POA|0|Giấy uỷ quyền bằng tiếng|Tiếng|1" + ";" + dic_appDoc[_doc_id11].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id11].CHAR01 + "|" + dic_appDoc[_doc_id11].Url_Hardcopy;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model11)
+        }
+
+        @* 12 -> 11.1  Bản dịch tiếng Việt, gồm *@
+        @{
+            string _doc_id12 = "PLD01_HDCB_12";
+            string _model12 = _doc_id12 + "|6_Doc_BanDichPOA|1|Bản dịch tiếng Việt, gồm|Số trang|1" + ";" + dic_appDoc[_doc_id12].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id12].CHAR01 + "|" + dic_appDoc[_doc_id12].Url_Hardcopy;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model12)
+        }
+
+        @* 13 -> 11.2 Bản gốc *@
+        @{
+            string _doc_id13 = "PLD01_HDCB_13";
+            string _model13 = _doc_id13 + "|6_Doc_BanGocPOA|1|Bản gốc||1" + ";" + dic_appDoc[_doc_id13].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id13].CHAR01 + "|" + dic_appDoc[_doc_id13].Url_Hardcopy;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model13)
+        }
+
+        @* 14 -> 11.3 Bản sao *@
+        @{
+            string _doc_id14 = "PLD01_HDCB_14";
+            string _model14 = _doc_id14 + "|6_Doc_BanSaoPOA|1|Bản sao||0" + ";" + dic_appDoc[_doc_id14].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id14].CHAR01 + "|" + dic_appDoc[_doc_id14].Url_Hardcopy;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model14)
+        }
+
+
+        @* 15 -> 11.3.1 Bản sao  > Bản gốc sẽ nộp sau *@
+        @{
+            string _doc_id15 = "PLD01_HDCB_15";
+            string _model15 = _doc_id15 + "|6_Doc_BanGocPOA_Later|2|Bản gốc sẽ nộp sau||1" + ";" + dic_appDoc[_doc_id15].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id15].CHAR01 + "|" + dic_appDoc[_doc_id15].Url_Hardcopy;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model15)
+        }
+
+        @* 16 -> 11.3.2 Bản sao  > Bản gốc đã nộp theo đơn *@
+        @{
+            string _doc_id16 = "PLD01_HDCB_16";
+            string _model16 = _doc_id16 + "|6_Doc_BanGocPOA_ByApp|2|Bản gốc đã nộp theo đơn số|Số đơn|0" + ";" + dic_appDoc[_doc_id16].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id16].CHAR01 + "|" + dic_appDoc[_doc_id16].Url_Hardcopy;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model16)
+        }
+
+        @* END POA *@
+
+        @* 17. Bản sao chứng từ nộp phí *@
+        @{
+            string _doc_id17 = "PLD01_HDCB_17";
+            string _model17 = _doc_id17 + "|6_Doc_PLD01_HDCB_17|0|Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ)||1" + ";" + dic_appDoc[_doc_id17].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id17].CHAR01 + "|" + dic_appDoc[_doc_id17].Url_Hardcopy;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model17)
+        }
+
+        @* 18. Khác *@
+        @{
+            string _doc_id18 = "PLD01_HDCB_18";
+            string _model18 = _doc_id18 + "|6_Doc_PLD01_HDCB_18|0|Tài liệu khác, cụ thể|Tên tài liệu|1" + ";" + dic_appDoc[_doc_id18].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id18].CHAR01 + "|" + dic_appDoc[_doc_id18].Url_Hardcopy;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model18)
+        }
+
+        @* Cam kết của chủ đơn *@
+        @{
+            string _camket = _AppHeaderInfo.Address + "|" + _AppHeaderInfo.DateNo + "|" + _AppHeaderInfo.Months + "|" + _AppHeaderInfo.Years;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon_View.cshtml", _camket)
+        }
+    </fieldset>
+</div>
+
+@Html.Partial("~/Areas/TradeMark/Views/PLD01_HDCN_4C2/_PartialPreview.cshtml");
+<div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
+    <div class="dpop-preview" id="dpop-preview">
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+    });
+
+</script>

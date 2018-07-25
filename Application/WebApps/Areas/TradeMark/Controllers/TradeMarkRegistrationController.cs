@@ -809,7 +809,23 @@
 
                 return PartialView("~/Areas/TradeMark/Views/PLC05_KN_3D/_Partial_TM_3D_PLC_05_KN_View.cshtml");
             }
-            if (pAppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
+ 
+            else if (pAppCode == TradeMarkAppCode.AppCode_TM_4C2_PLD_01_HDCN)
+            {
+                App_Detail_PLD01_HDCN_BL objBL = new App_Detail_PLD01_HDCN_BL();
+                string language = AppsCommon.GetCurrentLang();
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                App_Detail_PLD01_HDCN_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
+                ViewBag.App_Detail = app_Detail;
+                ViewBag.Lst_AppDoc = appDocumentInfos;
+                ViewBag.Lst_AppFee = appFeeFixInfos;
+                ViewBag.objAppHeaderInfo = applicationHeaderInfo;
+
+                return PartialView("~/Areas/TradeMark/Views/PLD01_HDCN_4C2/_Partial_TM_4C2_PLD_01_HDCN_View.cshtml");
+            }
+            else if (pAppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH) 
             {
                 var objBL = new AppDetail06DKQT_BL();
                 string language = AppsCommon.GetCurrentLang();
@@ -891,6 +907,7 @@
 
                 return PartialView("~/Areas/TradeMark/Views/PLC05_KN_3D/_Partial_TM_3D_PLC_05_KN_Edit.cshtml");
             }
+ 
             else if (pAppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
             {
                 var objBL = new AppDetail06DKQT_BL();
@@ -912,6 +929,22 @@
                 _list04nh = _AppDetail04NHBL.AppTM04NHSearchByStatus(7, language);
                 ViewBag.ListAppDetail04NHInfo = _list04nh;
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialEditDangKyNhanHieu.cshtml");
+            }
+            else if (pAppCode == TradeMarkAppCode.AppCode_TM_4C2_PLD_01_HDCN)
+            {
+                App_Detail_PLD01_HDCN_BL objBL = new App_Detail_PLD01_HDCN_BL();
+                string language = AppsCommon.GetCurrentLang();
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                App_Detail_PLD01_HDCN_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
+                ViewBag.App_Detail = app_Detail;
+                ViewBag.Lst_AppDoc = appDocumentInfos;
+                ViewBag.Lst_AppFee = appFeeFixInfos;
+                ViewBag.objAppHeaderInfo = applicationHeaderInfo;
+
+                return PartialView("~/Areas/TradeMark/Views/PLD01_HDCN_4C2/_Partial_TM_4C2_PLD_01_HDCN_Edit.cshtml");
+ 
             }
             else
             {
@@ -1326,5 +1359,41 @@
             }
             return Json(new { success = 0 });
         }
+        [Route("GetNameSuggest")]
+        public ActionResult GetNameSuggest(string pName)
+        {
+            try
+            {
+                List<CustomerSuggestInfo> lstContain = new List<CustomerSuggestInfo>();
+                int check = 0;
+                CustomerSuggestInfo pInfo;
+                foreach (var item in MemoryData.lstCacheCustomer)
+                {
+                    if (item.Master_Name.Contains(pName))
+                    {
+                        pInfo = new CustomerSuggestInfo();
+                        check = 1;
+                        pInfo.label = item.Master_Name + " Phone: " + item.Master_Phone + " Fax: " + item.Master_Fax + " Email: " + item.Rep_Master_Email;
+                        pInfo.value = item.Master_Name + "|" + item.Master_Address + "|" + item.Master_Phone + "|" + item.Master_Fax + "|" + item.Rep_Master_Email;
+                        lstContain.Add(pInfo);
+                    }
+                }
+                if (check == 1)
+                {
+                    return Json(new { lst = lstContain });
+                }
+                else
+                {
+                    return Json(new { lst = MemoryData.lstCacheCustomer });
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Logger.LogException(ex);
+                return Json(new { lst = MemoryData.lstCacheCustomer });
+            }
+        }
+
     }
 }

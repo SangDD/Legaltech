@@ -293,6 +293,7 @@
                     <div class="class_block_title_control" style="display:flex">
                         <div style="width:165px ;height:165px" id="divLogo">
                             <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
+                            <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu"  hidden="hidden">
                         </div>
                         <div class="container" style="flex-grow:1;padding-top:50px">
                             <img onclick="funcRemoveTradeMarkImg('imgMauNhanHieu')" src="~/Content/icons/delete_file.png" style="margin: 0px 21px -44px 4px;" />
@@ -804,7 +805,30 @@
     });
 
     document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {
-        filePreview(this, 'imgMauNhanHieu');
+        var preturn = fileNhanHieu(this, 'imgMauNhanHieu');
+        //kiểm tra ảnh có đúng kích cỡ hay không?
+        if (this.files[0].type.indexOf("image") != -1) {
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#imgMauNhanHieuTeplace").attr("src", e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+            var img = $("#imgMauNhanHieuTeplace");
+            var iheight = img[0].height;
+            var iwidth = img[0].width;
+            if (iheight != 302 || iwidth != 302) {
+                nvsConfirm(null, "Ảnh tải lên không đúng cỡ quy định (8x8 hoac 302x302 px) bạn có muốn tiếp tục hay không?", function () {
+                    return true;
+                }, function () {
+                    //Callback 
+                    $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
+                });
+
+            } else {
+                return true;
+            }
+        }
     };
 
     function funcUpLoadMauNhanHieu(pFile) {
@@ -988,12 +1012,9 @@
                 enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.status >= 0) {
-                        jAlert(EditSuccess, ThongBao, function () {
-                            if (pStatus == 1)
-                                window.location.href = "/trade-mark-mana/quan-ly-don";
-                            else {
-                                window.location.href = "/trade-mark-mana/quan-ly-don-da-gui";
-                            }
+                        jAlert(EditSuccess, ThongBao, function ()
+                        {
+                            window.location = "/trade-mark-mana/quan-ly-don";
                         });
                     } else {
                         jError(EditFail, ThongBao, function () {

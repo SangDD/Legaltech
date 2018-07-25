@@ -80,7 +80,17 @@ namespace ObjectInfos
         public string YCCapPho4 { get; set; }
     }
 
+    public class CustomerSuggestInfo
+    {
+        public string label { get; set; }
+        public string value { get; set; }
 
+        public CustomerSuggestInfo()
+        {
+            value = "";
+            label = "";
+        }
+    }
     public class CustomerInfo 
     {
 

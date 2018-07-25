@@ -19,6 +19,11 @@
     string Id_textbox = "txt_" + Id;
 
     string IsUpload = arr_id[5];
+    string _width = "";
+    if (arr_id.Length >= 7)
+    {
+        _width = arr_id[6] + "px";
+    }
 
     string hrefPOA = "/Content/POA/VNmese translation POA (Blank).doc";
 }
@@ -72,11 +77,16 @@
 }
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         if ('@Lable2' == "") {
             var _divCheckbox = document.getElementById('@divCheckbox');
             //_divCheckbox.style.width = "850px";
             _divCheckbox.style.width = null;
+        }
+
+        if ('@_width' != "") {
+            var _divCheckbox = document.getElementById('@divCheckbox');
+            _divCheckbox.style.width = '@_width';
         }
     });
 
