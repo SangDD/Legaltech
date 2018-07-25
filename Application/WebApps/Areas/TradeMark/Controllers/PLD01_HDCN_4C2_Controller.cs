@@ -490,6 +490,37 @@
                         app_Detail.Doc_Id_12 = item.CHAR01;
                         app_Detail.Doc_Id_12_Check = item.Isuse;
                     }
+
+                    else if (item.Document_Id == "PLD01_HDCB_13")
+                    {
+                        app_Detail.Doc_Id_13 = item.CHAR01;
+                        app_Detail.Doc_Id_13_Check = item.Isuse;
+                    }
+                    else if (item.Document_Id == "PLD01_HDCB_14")
+                    {
+                        app_Detail.Doc_Id_14 = item.CHAR01;
+                        app_Detail.Doc_Id_14_Check = item.Isuse;
+                    }
+                    else if (item.Document_Id == "PLD01_HDCB_15")
+                    {
+                        app_Detail.Doc_Id_15 = item.CHAR01;
+                        app_Detail.Doc_Id_15_Check = item.Isuse;
+                    }
+                    else if (item.Document_Id == "PLD01_HDCB_16")
+                    {
+                        app_Detail.Doc_Id_16 = item.CHAR01;
+                        app_Detail.Doc_Id_16_Check = item.Isuse;
+                    }
+                    else if (item.Document_Id == "PLD01_HDCB_17")
+                    {
+                        app_Detail.Doc_Id_17 = item.CHAR01;
+                        app_Detail.Doc_Id_17_Check = item.Isuse;
+                    }
+                    else if (item.Document_Id == "PLD01_HDCB_18")
+                    {
+                        app_Detail.Doc_Id_18 = item.CHAR01;
+                        app_Detail.Doc_Id_18_Check = item.Isuse;
+                    }
                 }
 
                 #endregion
@@ -641,6 +672,36 @@
                         {
                             pDetail.Doc_Id_12 = item.CHAR01;
                             pDetail.Doc_Id_12_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "PLD01_HDCB_13")
+                        {
+                            pDetail.Doc_Id_13 = item.CHAR01;
+                            pDetail.Doc_Id_13_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "PLD01_HDCB_14")
+                        {
+                            pDetail.Doc_Id_14 = item.CHAR01;
+                            pDetail.Doc_Id_14_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "PLD01_HDCB_15")
+                        {
+                            pDetail.Doc_Id_15 = item.CHAR01;
+                            pDetail.Doc_Id_15_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "PLD01_HDCB_16")
+                        {
+                            pDetail.Doc_Id_16 = item.CHAR01;
+                            pDetail.Doc_Id_16_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "PLD01_HDCB_17")
+                        {
+                            pDetail.Doc_Id_17 = item.CHAR01;
+                            pDetail.Doc_Id_17_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "PLD01_HDCB_18")
+                        {
+                            pDetail.Doc_Id_18 = item.CHAR01;
+                            pDetail.Doc_Id_18_Check = item.Isuse;
                         }
                     }
                 }

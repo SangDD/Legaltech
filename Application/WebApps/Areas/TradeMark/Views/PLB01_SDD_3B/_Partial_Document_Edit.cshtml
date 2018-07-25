@@ -18,6 +18,11 @@
     string Lable2 = arr_id[4];
     string Id_textbox = "txt_" + Id;
     string IsUpload = arr_id[5];
+    string _width = "";
+    if (arr_id.Length >= 7)
+    {
+        _width = arr_id[6] + "px";
+    }
 
     // giá trị tài liệu
     string _Value = arr[1];
@@ -71,7 +76,7 @@
             <label>@Lable</label>
         </div>
     </div>
-   
+
     @if (Lable2 != "")
     {
         <div class="div-search-title">
@@ -112,6 +117,11 @@
                 $("#" + '@Id_Checkbox').attr("disabled", true);
                 _divCheckbox.style.width = "450px";
             }
+        }
+
+        if ('@_width' != "") {
+            var _divCheckbox = document.getElementById('@divCheckbox');
+            _divCheckbox.style.width = '@_width';
         }
 
     });

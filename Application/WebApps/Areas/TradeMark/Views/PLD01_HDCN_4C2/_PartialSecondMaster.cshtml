@@ -7,11 +7,12 @@
     string txtFax = Model + "_txtFax";
     string txtEmail = Model + "_txtEmail";
 
-    var objAppHeaderInfo = new ApplicationHeaderInfo();
-    if (ViewBag.objAppHeaderInfo != null)
+    App_Detail_PLD01_HDCN_Info _App_Detail = new App_Detail_PLD01_HDCN_Info();
+    if (ViewBag.App_Detail != null)
     {
-        objAppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+        _App_Detail = (App_Detail_PLD01_HDCN_Info)ViewBag.App_Detail;
     }
+
     string _disable = "";
     int _Isdisable = 0;
     if (ViewBag.Isdisable == 1)
@@ -26,7 +27,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input value="@objAppHeaderInfo.Master_Name" type="text" placeholder="Tên đầy đủ" maxlength="200" id="@txtTenDayDu" @_disable />
+            <input value="@_App_Detail.Second_Name" type="text" placeholder="Tên đầy đủ" maxlength="200" id="@txtTenDayDu" @_disable />
         </div>
     </div>
 </div>
@@ -38,7 +39,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input value="@objAppHeaderInfo.Master_Address" type="text" placeholder="Địa chỉ" maxlength="200" id="@txtDiaChi" @_disable />
+            <input value="@_App_Detail.Second_Address" type="text" placeholder="Địa chỉ" maxlength="200" id="@txtDiaChi" @_disable />
         </div>
     </div>
 </div>
@@ -49,7 +50,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" value="@objAppHeaderInfo.Master_Phone" placeholder="Điện thoại" maxlength="50" id="@txtDienThoai" style="width: 250px;" @_disable />
+            <input type="text" value="@_App_Detail.Second_Phone" placeholder="Điện thoại" maxlength="50" id="@txtDienThoai" style="width: 250px;" @_disable />
         </div>
     </div>
 
@@ -58,7 +59,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input value="@objAppHeaderInfo.Master_Fax" type="text" placeholder="Fax" maxlength="50" id="@txtFax" @_disable />
+            <input value="@_App_Detail.Second_Fax" type="text" placeholder="Fax" maxlength="50" id="@txtFax" @_disable />
         </div>
     </div>
     <div class="div-search-title">
@@ -66,7 +67,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input value="@objAppHeaderInfo.Master_Email" type="text" placeholder="Email" maxlength="50" id="@txtEmail" @_disable />
+            <input value="@_App_Detail.Second_Email" type="text" placeholder="Email" maxlength="50" id="@txtEmail" @_disable />
         </div>
     </div>
 </div>

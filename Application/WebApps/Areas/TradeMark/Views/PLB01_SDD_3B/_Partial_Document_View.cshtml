@@ -19,6 +19,11 @@
     string Id_textbox = "txt_" + Id;
     string IsUpload = arr_id[5];
     string div_ImgDownload = "div_ImgDownload_" + Id;
+    string _width = "";
+    if (arr_id.Length >= 7)
+    {
+        _width = arr_id[6] + "px";
+    }
 
 
     // giá trị tài liệu
@@ -103,6 +108,10 @@
             else {
                 _divCheckbox.style.width = "450px";
             }*@
+        }
+        if ('@_width' != "") {
+            var _divCheckbox = document.getElementById('@divCheckbox');
+            _divCheckbox.style.width = '@_width';
         }
     });
 </script>

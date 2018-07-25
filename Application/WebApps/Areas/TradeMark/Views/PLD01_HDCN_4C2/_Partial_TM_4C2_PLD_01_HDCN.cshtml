@@ -1,7 +1,7 @@
 ﻿@using WebApps.CommonFunction;
 @using BussinessFacade.ModuleMemoryData
 @{
-    ViewBag.Title = "Request for amendment of application";
+    ViewBag.Title = "Đơn đăng ký chuyển nhượng";
     Layout = "~/ViewsShared/_Layout.cshtml";
 }
 
@@ -24,7 +24,7 @@
 <div class="d-nav-container">
     <ul class="ul-nav">
         <li><a href="javascript:;">TradeMark</a></li>
-        <li><a href="javascript:;">  Request for amendment of application</a></li>
+        <li><a href="javascript:;">  Đơn đăng ký chuyển nhượng</a></li>
     </ul>
 </div>
 
@@ -33,8 +33,7 @@
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
         <legend style="font-weight:600">
-            YÊU CẦU GHI NHẬN CHUYỂN NHƯỢNG ĐƠN
-            ĐĂNG KÝ ĐỐI TƯỢNG SỞ HỮU CÔNG NGHIỆP
+            ĐƠN ĐĂNG KÝ CHUYỂN NHƯỢNG
         </legend>
 
         @* Case name *@
@@ -182,7 +181,6 @@
                 </div>
             </div>
         </div>
-        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialTaiLieuTrongDon_3B.cshtml", "ckb_6_Doc_ToKhai")
 
         @* 2. Hợp đồng chuyển nhượng, bằng tiếng *@
         @{
@@ -243,7 +241,7 @@
         @* 10 Quy chế sử dụng nhãn hiệu tập thể, quy chế sử dụng nhãn hiệu chứng nhận của Bên nhận chuyển nhượng *@
         @{
             string _doc_id10 = "PLD01_HDCB_10";
-            string _model10 = _doc_id10 + "|6_Doc_PLD01_HDCB_06|0|bản gốc đã nộp theo đơn số|Số đơn gốc|1";
+            string _model10 = _doc_id10 + "|6_Doc_PLD01_HDCB_10|0|Bản gốc đã nộp theo đơn số|Số đơn gốc|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model10)
         }
         
@@ -295,14 +293,14 @@
         @* 17. Bản sao chứng từ nộp phí *@
         @{
             string _doc_id17 = "PLD01_HDCB_17";
-            string _model17 = _doc_id17 + "|6_Doc_BanSaoChungTu|0|Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ)||1";
+            string _model17 = _doc_id17 + "|6_Doc_PLD01_HDCB_17|0|Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ)||1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model17)
         }
 
         @* 18. Khác *@
         @{
             string _doc_id18 = "PLD01_HDCB_18";
-            string _model18 = _doc_id18 + "|6_Doc_Other|0|Tài liệu khác, cụ thể|Tên tài liệu|1";
+            string _model18 = _doc_id18 + "|6_Doc_PLD01_HDCB_18|0|Tài liệu khác, cụ thể|Tên tài liệu|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model18)
         }
 
@@ -319,7 +317,7 @@
     </fieldset>
 </div>
 
-@Html.Partial("~/Areas/TradeMark/Views/PLB02_CGD_3C/_PartialPreview_IU.cshtml")
+@Html.Partial("~/Areas/TradeMark/Views/PLD01_HDCN_4C2/_PartialPreview_IU.cshtml")
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
     </div>
@@ -514,8 +512,6 @@
             }
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
 
-
-
             //Lấy thông tin detail
             reponse = funcGetAppDetail(formData);
             if (reponse == false) {
@@ -587,7 +583,7 @@
             formData.append("pDetail.Customer_Code", txt_MaDaiDien);
 
             var _Object_Contract_Type = $("input[name='4_rdoDoiTuongHopDong']:checked").val();
-            if (_Object_Contract_Type === "" || _DonDuocChuyenNhuong == undefined) {
+            if (_Object_Contract_Type === "" || _Object_Contract_Type == undefined) {
                 jError("Phải chọn ít nhất 1 giá trị đơn yêu cầu chuyển nhượng!", "lỗi", function () {
                     $("#4_rdDT_1").focus()
                 });
@@ -673,11 +669,11 @@
             // -----------------> END POA
 
             // 11 Bản sao chứng từ nộp phí, lệ phí
-            reponse = funcGetCheckValueAndText(formData, "ckb_PLD01_HDCB_17", "16");
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_PLD01_HDCB_17", "16");
 
             // 12 Tài liệu khác, cụ thể:
-            reponse = funcGetCheckValueAndText(formData, "ckb_PLD01_HDCB_18", "17");
-            formData.append("pAppDocumentInfo[17].CHAR01", $("#txt_PLD01_HDCB_18").val());
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_PLD01_HDCB_18", "17");
+            formData.append("pAppDocumentInfo[17].CHAR01", $("#txt_6_Doc_PLD01_HDCB_18").val());
         } catch (e) {
             console.log(e);
         }
