@@ -32,75 +32,75 @@
         /// ID2: là appcode 
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
-        [Route("request-for-trade-mark-edit/{id}/{id1}/{id2}")]
-        public ActionResult TradeMarkForEdit()
-        {
-            decimal App_Header_Id = 0;
-            string AppCode = "";
-            int Status = 0;
-            try
-            {
-                if (SessionData.CurrentUser == null)
-                    return Redirect("/");
-                SessionData.CurrentUser.chashFile.Clear();
-                SessionData.CurrentUser.chashFileOther.Clear();
+        //[HttpGet]
+        //[Route("request-for-trade-mark-edit/{id}/{id1}/{id2}")]
+        //public ActionResult TradeMarkForEdit()
+        //{
+        //    decimal App_Header_Id = 0;
+        //    string AppCode = "";
+        //    int Status = 0;
+        //    try
+        //    {
+        //        if (SessionData.CurrentUser == null)
+        //            return Redirect("/");
+        //        SessionData.CurrentUser.chashFile.Clear();
+        //        SessionData.CurrentUser.chashFileOther.Clear();
 
-                if (RouteData.Values.ContainsKey("id"))
-                {
-                    App_Header_Id = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
-                }
-                if (RouteData.Values.ContainsKey("id1"))
-                {
-                    Status = CommonFuc.ConvertToInt(RouteData.Values["id1"]);
-                }
-                if (RouteData.Values.ContainsKey("id2"))
-                {
-                    AppCode = RouteData.Values["id2"].ToString().ToUpper();
-                }
+        //        if (RouteData.Values.ContainsKey("id"))
+        //        {
+        //            App_Header_Id = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
+        //        }
+        //        if (RouteData.Values.ContainsKey("id1"))
+        //        {
+        //            Status = CommonFuc.ConvertToInt(RouteData.Values["id1"]);
+        //        }
+        //        if (RouteData.Values.ContainsKey("id2"))
+        //        {
+        //            AppCode = RouteData.Values["id2"].ToString().ToUpper();
+        //        }
 
-                if (AppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
-                {
-                    return TradeMarkSuaDon(App_Header_Id, AppCode, Status);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-            }
-            return TradeMarkSuaDon(App_Header_Id, AppCode, Status);
-        }
+        //        if (AppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
+        //        {
+        //            return TradeMarkSuaDon(App_Header_Id, AppCode, Status);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.LogException(ex);
+        //    }
+        //    return TradeMarkSuaDon(App_Header_Id, AppCode, Status);
+        //}
 
-        public ActionResult TradeMarkSuaDon(decimal pAppHeaderId, string pAppCode, int pStatus)
-        {
-            if (pAppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
-            {
-                var objBL = new AppDetail06DKQT_BL();
-                string language = AppsCommon.GetCurrentLang();
-                var ds06Dkqt = objBL.AppTM06DKQTGetByID(pAppHeaderId, language, pStatus);
-                if (ds06Dkqt != null && ds06Dkqt.Tables.Count == 3)
-                {
-                    ViewBag.objAppHeaderInfo = CBO<App_Detail_TM06DKQT_Info>.FillObjectFromDataTable(ds06Dkqt.Tables[0]);
-                    ViewBag.Lst_AppDoc = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[1]);
-                    ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[2]);
-                }
-                if (ds06Dkqt.Tables[0] == null || ds06Dkqt.Tables[0].Rows.Count == 0)
-                {
-                    return Redirect("/trade-mark/request-for-trade-mark-view/" + pAppHeaderId.ToString() + "/" + pStatus.ToString()  + "/" + TradeMarkAppCode.AppCodeDangKyQuocTeNH);
-                }
-                AppDetail04NHBL _AppDetail04NHBL = new AppDetail04NHBL();
-                List<AppDetail04NHInfo> _list04nh = new List<AppDetail04NHInfo>();
-                // truyền vào trạng thái nào? để tạm thời = 1 cho có dữ liệu
-                _list04nh = _AppDetail04NHBL.AppTM04NHSearchByStatus(1, language);
-                ViewBag.ListAppDetail04NHInfo = _list04nh;
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialEditDangKyNhanHieu.cshtml");
-            }
-            else
-            {
-                //
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialEditDangKyNhanHieu.cshtml");
-            }
-        }
+        //public ActionResult TradeMarkSuaDon(decimal pAppHeaderId, string pAppCode, int pStatus)
+        //{
+        //    if (pAppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
+        //    {
+        //        var objBL = new AppDetail06DKQT_BL();
+        //        string language = AppsCommon.GetCurrentLang();
+        //        var ds06Dkqt = objBL.AppTM06DKQTGetByID(pAppHeaderId, language, pStatus);
+        //        if (ds06Dkqt != null && ds06Dkqt.Tables.Count == 3)
+        //        {
+        //            ViewBag.objAppHeaderInfo = CBO<App_Detail_TM06DKQT_Info>.FillObjectFromDataTable(ds06Dkqt.Tables[0]);
+        //            ViewBag.Lst_AppDoc = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[1]);
+        //            ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[2]);
+        //        }
+        //        if (ds06Dkqt.Tables[0] == null || ds06Dkqt.Tables[0].Rows.Count == 0)
+        //        {
+        //            return Redirect("/trade-mark/request-for-trade-mark-view/" + pAppHeaderId.ToString() + "/" + pStatus.ToString()  + "/" + TradeMarkAppCode.AppCodeDangKyQuocTeNH);
+        //        }
+        //        AppDetail04NHBL _AppDetail04NHBL = new AppDetail04NHBL();
+        //        List<AppDetail04NHInfo> _list04nh = new List<AppDetail04NHInfo>();
+        //        // truyền vào trạng thái nào? để tạm thời = 1 cho có dữ liệu
+        //        _list04nh = _AppDetail04NHBL.AppTM04NHSearchByStatus(1, language);
+        //        ViewBag.ListAppDetail04NHInfo = _list04nh;
+        //        return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialEditDangKyNhanHieu.cshtml");
+        //    }
+        //    else
+        //    {
+        //        //
+        //        return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialEditDangKyNhanHieu.cshtml");
+        //    }
+        //}
 
         public ActionResult TradeMarkViewDon(decimal pAppHeaderId, string pAppCode, int pStatus)
         {
@@ -162,8 +162,8 @@
             { 
                 AppDetail04NHBL _AppDetail04NHBL = new AppDetail04NHBL();
                 List<AppDetail04NHInfo> _list04nh = new List<AppDetail04NHInfo>();
-                // truyền vào trạng thái nào? để tạm thời = 1 cho có dữ liệu
-                _list04nh = _AppDetail04NHBL.AppTM04NHSearchByStatus(1,  AppsCommon.GetCurrentLang());
+                // truyền vào trạng thái nào? để tạm thời = 7 là đã gửi lên cục
+                _list04nh = _AppDetail04NHBL.AppTM04NHSearchByStatus(7,  AppsCommon.GetCurrentLang());
                 ViewBag.ListAppDetail04NHInfo = _list04nh;
 
             }

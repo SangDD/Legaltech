@@ -70,7 +70,7 @@ namespace WebApps.Areas.TradeMark.Controllers
             {
                 var objBL = new AppDetail04NHBL();
                 string language = AppsCommon.GetCurrentLang();
-                var ds04NH = objBL.AppTM04NHGetByID(pAppHeaderId, language, 1);// tạm thời truyền vào trạng thái = 1
+                var ds04NH = objBL.AppTM04NHGetByID(pAppHeaderId, language, 7);// tạm thời truyền vào trạng thái = 7
                 var _AppDetail04NHInfo = new AppDetail04NHInfo();
                 if (ds04NH != null && ds04NH.Tables.Count == 5)
                 {
@@ -87,7 +87,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 _viewDaiDienChuDon = RenderPartialToString("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", p_iddaidienchudon);
                 _viewAppClass = RenderPartialToString("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialTMAddAppClass.cshtml", null);
                 return Json(new { success = 0, NgayNopDon = _AppDetail04NHInfo.Ngaynopdon_Ut.ToDateStringN0(),
-                    LogoURL = _AppDetail04NHInfo.pfileLogo,
+                    LogoURL = _AppDetail04NHInfo.Logourl,
                     ViewChuDon = _viewChuDon, ViewDaiDienChuDon = _viewDaiDienChuDon,
                     ViewAppClass = _viewAppClass
                 });

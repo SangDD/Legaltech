@@ -46,7 +46,7 @@
         </div>
     </div>
 
-    <div class="div-search-content clssDisplaynone" id="@div_Img">
+    @*<div class="div-search-content clssDisplaynone" id="@div_Img">
         <div class="div-checkbox">
             <img onclick="RemoveFile('@AfterID')" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" />
         </div>
@@ -62,10 +62,12 @@
         <div class="div-checkbox" style="width:70px ">
             <input type="button" value="Tải file" class="btn" style="margin:2px;" id="@btnTaiFile" onclick="return funcPushFileToServer('@AfterID');" />
         </div>
-    </div>
+    </div>*@
 </div>
 
 <script>
+
+  
 
     function FuncChooseResultFile(p_AfterID) {
         try {
@@ -79,17 +81,17 @@
             if (pfile.val() == "") {
                 _textFile.val("");
 
-                $("#div_img_" + p_AfterID).addClass("clssDisplaynone");
-
-                _txt.style.width = "561px";
+                $("#div_img_remove_" + p_AfterID).addClass("clssDisplaynone");
+                //_txt.style.width = "561px";
             }
             else {
                 var _Filename = pfile[0].files[0].name.toString();
                 _textFile.val(_Filename);
 
-                $("#div_img_" + p_AfterID).removeClass("clssDisplaynone");
+                $("#div_img_remove_" + p_AfterID).removeClass("clssDisplaynone");
+                //_txt.style.width = "536px";
 
-                _txt.style.width = "536px";
+                funcPushFileToServer(p_AfterID);
             }
         } catch (e) {
             alert(e);
@@ -102,34 +104,7 @@
         document.getElementById(_idfile).click();
     }
 
-    function RemoveFile(p_AfterID) {
-        try {
-            var keyFileUpload = p_AfterID;
-            $.ajax({
-                type: 'POST',
-                url: '/trade-mark-share-data/delete-file',
-                data: {
-                    keyFileUpload: keyFileUpload
-                },
-                async: true, cache: false, traditional: true,
-                success: function (data) {
-                    if (data.success == 0) {
-                        $("#div_img_" + p_AfterID).addClass("clssDisplaynone");
-                        $("#divcheckFile_" + p_AfterID).addClass("clssDisplaynone");
-                        $("#pfile_" + p_AfterID).val('');
-                        var _textFile = $("#txt_" + p_AfterID);
-                        _textFile.val("");
-                        var _txt = document.getElementById("txt_" + p_AfterID);
-                        _txt.style.width = "561px";
-                    }
-                }
-            });
-
-        } catch (e) {
-
-        }
-
-    }
+   
 
 
     function funcPushFileToServer(pID) {

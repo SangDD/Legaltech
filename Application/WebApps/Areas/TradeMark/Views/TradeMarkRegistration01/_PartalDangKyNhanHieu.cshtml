@@ -519,13 +519,13 @@
                 return false;
             }
 
-            if (fileLogo != undefined && fileLogo != null && fileLogo[0].files[0] != undefined) {
-                //  formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
-            } else {
-                showError('Mẫu nhãn hiệu không được để trống');
-                $("#pfile_6_rdoMauNhanHieu").focus();
-                return false;
-            }
+            //if (fileLogo != undefined && fileLogo != null && fileLogo[0].files[0] != undefined) {
+            //    //  formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
+            //} else {
+            //    showError('Mẫu nhãn hiệu không được để trống');
+            //    $("#pfile_6_rdoMauNhanHieu").focus();
+            //    return false;
+            //}
 
             if (_01_rad_DonDkOrGiayDK === "" || _01_rad_DonDkOrGiayDK == undefined) {
                 showError('Phải chọn ít nhất 1 loại giấy đăng kỹ nhãn hiệu cơ sở!');
@@ -640,7 +640,7 @@
                 success: function (data) {
                     if (data != null && data.status >= 0) {
                         jAlert(AddSuccess, ThongBao, function () {
-                            window.location.reload();
+                            window.location = "/trade-mark-mana/quan-ly-don";
                         });
                     } else {
                         jError(AddFail, ThongBao, function () {
@@ -694,13 +694,13 @@
                 return false;
             }
 
-            if (fileLogo != undefined && fileLogo != null && fileLogo[0].files[0] != undefined) {
-              //  formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
-            } else {
-                showError('Mẫu nhãn hiệu không được để trống');
-                $("#pfile_6_rdoMauNhanHieu").focus();
-                return false;
-            }
+            //if (fileLogo != undefined && fileLogo != null && fileLogo[0].files[0] != undefined) {
+            //  //  formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
+            //} else {
+            //    showError('Mẫu nhãn hiệu không được để trống');
+            //    $("#pfile_6_rdoMauNhanHieu").focus();
+            //    return false;
+            //}
 
             if (_01_rad_DonDkOrGiayDK === "" || _01_rad_DonDkOrGiayDK == undefined) {
                 showError('Phải chọn ít nhất 1 loại giấy đăng kỹ nhãn hiệu cơ sở!');
@@ -827,7 +827,7 @@
                 success: function (data) {
                     if (data != null && data.status >= 0) {
                         jAlert(AddSuccess, ThongBao, function () {
-                            window.location.reload();
+                            window.location = "/trade-mark-mana/quan-ly-don";
                         });
                     } else {
                         jError(AddFail, ThongBao, function () {
@@ -853,13 +853,14 @@
             var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
             formData.append("pDetail.THANHVIEN_ND_TC", $("input[name='rad_thanhviennghidinhthu']:checked").val());
 
-            if (fileLogo != undefined && fileLogo != null && fileLogo[0].files[0] != undefined) {
-                  formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
-            } else {
-                showError('Mẫu nhãn hiệu không được để trống');
-                $("#pfile_6_rdoMauNhanHieu").focus();
-                return false;
-            }
+            //if (fileLogo != undefined && fileLogo != null && fileLogo[0].files[0] != undefined) {
+            //      formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
+            //} else {
+            //    showError('Mẫu nhãn hiệu không được để trống');
+            //    $("#pfile_6_rdoMauNhanHieu").focus();
+            //    return false;
+            //}
+            formData.append("pDetail.LOGOURL", $("#imgMauNhanHieu").attr("src"));
             var v_don_giaydknhcs = $("input[name='_01_rad_DonDkOrGiayDK']:checked").val();
             formData.append("pDetail.DON_GIAY_DKNHCS", v_don_giaydknhcs);
             formData.append("pDetail.REF_APPNO", $("#cbo_04nh_data").val());
@@ -1145,13 +1146,13 @@
                 return false;
             }
 
-            if (fileLogo != undefined && fileLogo != null && fileLogo[0].files[0] != undefined) {
-                //  formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
-            } else if ($("#imgMauNhanHieu").attr("src") == "" || $("#imgMauNhanHieu").attr("src") == undefined) {
-                showError('Mẫu nhãn hiệu không được để trống');
-                $("#pfile_6_rdoMauNhanHieu").focus();
-                return false;
-            }
+            //if (fileLogo != undefined && fileLogo != null && fileLogo[0].files[0] != undefined) {
+            //    //  formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
+            //} else if ($("#imgMauNhanHieu").attr("src") == "" || $("#imgMauNhanHieu").attr("src") == undefined) {
+            //    showError('Mẫu nhãn hiệu không được để trống');
+            //    $("#pfile_6_rdoMauNhanHieu").focus();
+            //    return false;
+       //     }
 
             if (_01_rad_DonDkOrGiayDK === "" || _01_rad_DonDkOrGiayDK == undefined) {
                 showError('Phải chọn ít nhất 1 loại giấy đăng kỹ nhãn hiệu cơ sở!');
@@ -1306,4 +1307,37 @@
         } catch (e) {
         }
     }
+    
+
+    //function FuncChooseResultFile(p_AfterID) {
+    //    try {
+
+    //        var _textFile = $("#txt_" + p_AfterID);
+    //        var _txt = document.getElementById("txt_" + p_AfterID);
+
+    //        // lay du lieu file
+    //        var pfile = $("#pfile_" + p_AfterID);
+
+    //        if (pfile.val() == "") {
+    //            _textFile.val("");
+
+    //            $("#div_img_remove_" + p_AfterID).addClass("clssDisplaynone");
+    //            //_txt.style.width = "561px";
+    //        }
+    //        else {
+    //            var _Filename = pfile[0].files[0].name.toString();
+    //            _textFile.val(_Filename);
+
+    //            $("#div_img_remove_" + p_AfterID).removeClass("clssDisplaynone");
+    //            //_txt.style.width = "536px";
+
+    //            funcPushFileToServer(p_AfterID);
+    //        }
+    //    } catch (e) {
+    //        alert(e);
+    //    }
+    //}
+
+
+
 </script>

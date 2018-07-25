@@ -809,7 +809,7 @@
 
                 return PartialView("~/Areas/TradeMark/Views/PLC05_KN_3D/_Partial_TM_3D_PLC_05_KN_View.cshtml");
             }
-            else if (pAppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
+            if (pAppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
             {
                 var objBL = new AppDetail06DKQT_BL();
                 string language = AppsCommon.GetCurrentLang();
@@ -891,7 +891,28 @@
 
                 return PartialView("~/Areas/TradeMark/Views/PLC05_KN_3D/_Partial_TM_3D_PLC_05_KN_Edit.cshtml");
             }
-
+            else if (pAppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
+            {
+                var objBL = new AppDetail06DKQT_BL();
+                string language = AppsCommon.GetCurrentLang();
+                var ds06Dkqt = objBL.AppTM06DKQTGetByID(pAppHeaderId, language, pStatus);
+                if (ds06Dkqt != null && ds06Dkqt.Tables.Count == 3)
+                {
+                    ViewBag.objAppHeaderInfo = CBO<App_Detail_TM06DKQT_Info>.FillObjectFromDataTable(ds06Dkqt.Tables[0]);
+                    ViewBag.Lst_AppDoc = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[1]);
+                    ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[2]);
+                }
+                if (ds06Dkqt.Tables[0] == null || ds06Dkqt.Tables[0].Rows.Count == 0)
+                {
+                    return Redirect("/trade-mark/request-for-trade-mark-view/" + pAppHeaderId.ToString() + "/" + pStatus.ToString() + "/" + TradeMarkAppCode.AppCodeDangKyQuocTeNH);
+                }
+                AppDetail04NHBL _AppDetail04NHBL = new AppDetail04NHBL();
+                List<AppDetail04NHInfo> _list04nh = new List<AppDetail04NHInfo>();
+                // truyền vào trạng thái nào? để tạm thời = 7 là đã gửi lên cục
+                _list04nh = _AppDetail04NHBL.AppTM04NHSearchByStatus(7, language);
+                ViewBag.ListAppDetail04NHInfo = _list04nh;
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialEditDangKyNhanHieu.cshtml");
+            }
             else
             {
                 //

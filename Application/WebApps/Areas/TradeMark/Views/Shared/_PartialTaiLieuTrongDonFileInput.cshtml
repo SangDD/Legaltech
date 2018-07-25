@@ -46,7 +46,7 @@
         </div>
     </div>
 
-    <div class="div-search-content clssDisplaynone" id="@div_Img">
+    @*<div class="div-search-content clssDisplaynone" id="@div_Img">
         <div class="div-checkbox">
             <img onclick="RemoveFile('@AfterID')" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" id="@_image_id" />
         </div>
@@ -57,7 +57,7 @@
             <input type="button" value="Tải file" class="btn" style="margin:2px;" id="@btnTaiFile" onclick="return funcPushFileToServer('@AfterID');" />
             <i class="fa fa-check" id="@ifafaCheck" style="font-size:15px;color:green ;display:none"></i>
         </div>
-    </div>
+    </div>*@
 </div>
 <script>
 
@@ -73,17 +73,17 @@
             if (pfile.val() == "") {
                 _textFile.val("");
 
-                $("#div_img_" + p_AfterID).addClass("clssDisplaynone");
-
-                _txt.style.width = "561px";
+                $("#div_img_remove_" + p_AfterID).addClass("clssDisplaynone");
+                //_txt.style.width = "561px";
             }
             else {
                 var _Filename = pfile[0].files[0].name.toString();
                 _textFile.val(_Filename);
 
-                $("#div_img_" + p_AfterID).removeClass("clssDisplaynone");
+                $("#div_img_remove_" + p_AfterID).removeClass("clssDisplaynone");
+                //_txt.style.width = "536px";
 
-                _txt.style.width = "536px";
+                funcPushFileToServer(p_AfterID);
             }
         } catch (e) {
             alert(e);
@@ -96,18 +96,6 @@
         document.getElementById(_idfile).click();
     }
 
-    function RemoveFile(p_AfterID) {
-        $("#div_img_" + p_AfterID).addClass("clssDisplaynone");
-
-        $("#pfile_" + p_AfterID).val('');
-
-        var _textFile =$("#txt_" +p_AfterID);
-        _textFile.val("");
-
-        var _txt = document.getElementById("txt_" + p_AfterID);
-        _txt.style.width = "561px";
-    }
-
 
     function funcPushFileToServer(pID) {
         try {
@@ -118,10 +106,44 @@
                 Isuse = 1;
             }
             formdata.append("pInfo.keyFileUpload", pID);
-            var file = document.getElementsByName("pfile_" + pID);
-            if (file != undefined) {
-                formdata.append("pInfo.pfiles", file[0].files[0]);
+
+            // lay du lieu file
+            var _idfile = "pfile_" + pID;
+            var pfile = $("#" + _idfile);
+            if (pfile.val() != "") {
+                var _CheckFile = true;
+                var _Len = pfile[0].files[0].name.toString()
+                if (_Len.length > 200) {
+                    _CheckFile = false;
+                    jError("Tên file không được quá 200 ký tự", "Lỗi", function () {
+                        $(pfile).focus();
+
+                    });
+                    return false;
+                }
+
+                var _file = pfile[0].files[0];
+                var _size = _file.size / 1024 / 1024;
+
+                if (validateFileName(_file.name) == false) {
+                    _CheckFile = false;
+                    jError("Không tải file có tên file được lưu là unicode Tiếng việt có dấu ! ", "Lỗi", function () {
+                        $(pfile).focus();
+                    });
+                    return false;
+                }
+                if (_CheckFile == false) {
+                    return false;
+                }
+
+                //formData.append("file", _file);
+                formdata.append("pInfo.pfiles", _file);
             }
+            else {
+                jError("Không có file để tải lên!", "lỗi");
+                return;
+            }
+
             //2
             $.ajax({
                 type: 'POST',
@@ -132,9 +154,11 @@
                 success: function (data) {
                     if (data.success == 0) {
                         $("#i_" + pID).css("display", "inline-block");
+
+                        $("#divcheckFile_" + pID).removeClass("clssDisplaynone");
                     } else {
-                        jError(pushfileError, ThongBao, function () {
-                        });
+                        $("#divcheckFile_" + pID).addClass("clssDisplaynone");
+                        jError(pushfileError);
                     }
                 }
             });
