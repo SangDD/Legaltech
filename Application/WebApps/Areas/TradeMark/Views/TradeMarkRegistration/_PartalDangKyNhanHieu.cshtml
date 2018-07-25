@@ -116,6 +116,7 @@
                     <div class="class_block_title_control" style="display:flex">
                         <div style="width:165px ;height:165px" id="divLogo">
                             <img id="imgMauNhanHieu" src="~/Content/icons/logo.jpg" style="width:160px ;height:160px">
+                            <img id="imgMauNhanHieuTeplace" src="~/Content/icons/logo.jpg" hidden="hidden">
                         </div>
                         <div class="container" style="flex-grow:1;padding-top:50px">
                             <div class="file-upload btn btn-primary" style="margin-top:95px">
@@ -160,6 +161,7 @@
                     </div>
                 </div>
             </div>
+            <i style="color:red;font-weight:bold;margin-left:120px">(Bắt buộc tải ảnh đúng cỡ quy định 8x8)</i>
 
             <div class="div-search-ad">
                 <div class="div-search-content">
@@ -581,7 +583,31 @@
     });
 
     document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {
-        filePreview(this, 'imgMauNhanHieu');
+        var preturn = fileNhanHieu(this, 'imgMauNhanHieu');
+
+        //kiểm tra ảnh có đúng kích cỡ hay không?
+        if (this.files[0].type.indexOf("image") != -1) {
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#imgMauNhanHieuTeplace").attr("src", e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+            var img = $("#imgMauNhanHieuTeplace");
+            var iheight = img[0].height;
+            var iwidth = img[0].width;
+            if (iheight != 302 || iwidth != 302) {
+                nvsConfirm(null, "Ảnh tải lên không đúng cỡ quy định bạn có muốn tiếp tục hay không?", function () {
+                    return true;
+                }, function () {
+                    //Callback 
+                    $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
+                });
+
+            } else {
+                return true;
+            }
+        }
     };
 
     function funcUpLoadMauNhanHieu(pFile) {
@@ -1023,6 +1049,7 @@
                 success: function (data) {
                     if (data != null && data.status >= 0) {
                         jAlert(AddSuccess, ThongBao, function () {
+                            window.location = "/trade-mark-mana/quan-ly-don";
                         });
                         return true;
                     } else {
