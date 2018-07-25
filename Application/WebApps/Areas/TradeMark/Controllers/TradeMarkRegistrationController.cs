@@ -1334,5 +1334,41 @@
             }
             return Json(new { success = 0 });
         }
+        [Route("GetNameSuggest")]
+        public ActionResult GetNameSuggest(string pName)
+        {
+            try
+            {
+                List<CustomerSuggestInfo> lstContain = new List<CustomerSuggestInfo>();
+                int check = 0;
+                CustomerSuggestInfo pInfo;
+                foreach (var item in MemoryData.lstCacheCustomer)
+                {
+                    if (item.Master_Name.Contains(pName))
+                    {
+                        pInfo = new CustomerSuggestInfo();
+                        check = 1;
+                        pInfo.label = item.Master_Name + " Phone: " + item.Master_Phone + " Fax: " + item.Master_Fax + " Email: " + item.Rep_Master_Email;
+                        pInfo.value = item.Master_Name + "|" + item.Master_Address + "|" + item.Master_Phone + "|" + item.Master_Fax + "|" + item.Rep_Master_Email;
+                        lstContain.Add(pInfo);
+                    }
+                }
+                if (check == 1)
+                {
+                    return Json(new { lst = lstContain });
+                }
+                else
+                {
+                    return Json(new { lst = MemoryData.lstCacheCustomer });
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Logger.LogException(ex);
+                return Json(new { lst = MemoryData.lstCacheCustomer });
+            }
+        }
+
     }
 }
