@@ -238,6 +238,23 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
+        public DataSet GetWarningData(string p_user_type)
+        {
+            try
+            {
+                OracleParameter paramReturn = new OracleParameter("p_total_record", OracleDbType.Decimal, ParameterDirection.Output);
+                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_HEADER.PROC_GET_WARING_DATA",
+                    new OracleParameter("P_USER_TYPE", OracleDbType.Varchar2, p_user_type, ParameterDirection.Input),
+                    new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output));
+                return _ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
     }
 
 
