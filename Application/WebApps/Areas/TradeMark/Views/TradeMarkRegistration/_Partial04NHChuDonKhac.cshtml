@@ -69,14 +69,13 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" @disableView placeholder="@WebApps.Resources.Resource.lblTenDayDu" value="@Name" id="@txtTenDayDu" />
+                <input type="text" @disableView placeholder="@WebApps.Resources.Resource.lblTenDayDu" value="@Name"  id="@txtTenDayDu" />
             </div>
         </div>
-        @if (!disableView.Contains("disabled"))
+        @*@if (!disableView.Contains("disabled"))
         {
-            @* Khách hàng cũ lấy lại các thông tin  *@
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDonKhacReuse.cshtml", pUseCusinfo)
-        }
+        }*@
     </div>
     <div class="div-search-ad">
         <div class="div-search-title">

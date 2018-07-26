@@ -157,6 +157,20 @@ namespace BussinessFacade.ModuleTrademark
         }
 
 
+        public DataSet GetWarningData(string p_usertype)
+        {
+            try
+            {
+                Application_Header_DA _da = new Application_Header_DA();
+                return _da.GetWarningData(p_usertype);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
     }
 
     public class AppClassInfoBL

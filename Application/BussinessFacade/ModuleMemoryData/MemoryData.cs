@@ -23,8 +23,11 @@
         /// lưu toàn bộ thông tin  khách hàng cache trên mem,  
         /// khi nào thêm đơn mới thì call hàm Enqueue_ChangeData truyền vào   APPHEADER = "APPHEADER";
         /// </summary>
-        public static List<CustomerInfo> lstCacheCustomer = new List<CustomerInfo>();
-
+        public static List<CustomerSuggestInfo> lstCacheCustomer = new List<CustomerSuggestInfo>();
+        public static List<CustomerSuggestInfo> lstCacheCustomer1 = new List<CustomerSuggestInfo>();
+        public static List<CustomerSuggestInfo> lstCacheCustomer2 = new List<CustomerSuggestInfo>();
+        public static List<CustomerSuggestInfo> lstCacheCustomer3 = new List<CustomerSuggestInfo>();
+        public static List<CustomerSuggestInfo> lstCacheCustomer4 = new List<CustomerSuggestInfo>();
         static MyQueue c_queue_changeData = new MyQueue();
         public static Hashtable c_hs_Allcode = new Hashtable();
         static List<GroupUserInfo> c_lst_Group = new List<GroupUserInfo>();
@@ -183,8 +186,49 @@
         {
             try
             {
+                CustomerSuggestInfo pInfo; CustomerSuggestInfo pInfo1; CustomerSuggestInfo pInfo2; CustomerSuggestInfo pInfo3;
+                CustomerSuggestInfo pInfo4;
                 var objAppHeaderBL = new Application_Header_BL();
-                lstCacheCustomer = objAppHeaderBL.LayThongTinKhachHang("", "", "");
+                var list = objAppHeaderBL.LayThongTinKhachHang("", "", "");
+                foreach (var item in list)
+                {
+                    pInfo = new CustomerSuggestInfo();
+                    pInfo1 = new CustomerSuggestInfo();
+
+                    pInfo.label = item.Master_Name + " Phone: " + item.Master_Phone + " Fax: " + item.Master_Fax + " Email: " + item.Rep_Master_Email;
+                    pInfo.value = item.Master_Name + "|" + item.Master_Address + "|" + item.Master_Phone + "|" + item.Master_Fax + "|" + item.Rep_Master_Email;
+                    pInfo.name = item.Master_Name;
+
+
+                    pInfo1.label = item.Cdk_Name_1 + " Phone: " + item.Cdk_Phone_1 + " Fax: " + item.Cdk_Fax_1 + " Email: " + item.Cdk_Email_1;
+                    pInfo1.value = item.Cdk_Name_1 + "|" + item.Cdk_Address_1 + "|" + item.Cdk_Phone_1 + "|" + item.Cdk_Fax_1 + "|" + item.Cdk_Email_1;
+                    pInfo1.name = item.Cdk_Name_1;
+
+                    pInfo2 = new CustomerSuggestInfo();
+                    pInfo2.label = item.Cdk_Name_2 + " Phone: " + item.Cdk_Phone_2 + " Fax: " + item.Cdk_Fax_2 + " Email: " + item.Cdk_Email_2;
+                    pInfo2.value = item.Cdk_Name_2 + "|" + item.Cdk_Address_2 + "|" + item.Cdk_Phone_2 + "|" + item.Cdk_Fax_2 + "|" + item.Cdk_Email_2;
+                    pInfo2.name = item.Cdk_Name_2;
+
+                    pInfo3 = new CustomerSuggestInfo();
+                    pInfo3.label = item.Cdk_Name_3 + " Phone: " + item.Cdk_Phone_3 + " Fax: " + item.Cdk_Fax_3 + " Email: " + item.Cdk_Email_3;
+                    pInfo3.value = item.Cdk_Name_3 + "|" + item.Cdk_Address_3 + "|" + item.Cdk_Phone_3 + "|" + item.Cdk_Fax_3 + "|" + item.Cdk_Email_3;
+                    pInfo3.name = item.Cdk_Name_3;
+
+                    pInfo4 = new CustomerSuggestInfo();
+                    pInfo4.label = item.Cdk_Name_4 + " Phone: " + item.Cdk_Phone_4 + " Fax: " + item.Cdk_Fax_4 + " Email: " + item.Cdk_Email_4;
+                    pInfo4.value = item.Cdk_Name_4 + "|" + item.Cdk_Address_4 + "|" + item.Cdk_Phone_4 + "|" + item.Cdk_Fax_4 + "|" + item.Cdk_Email_4;
+                    pInfo4.name = item.Cdk_Name_4;
+
+                    lstCacheCustomer.Add(pInfo);
+                    if (!string.IsNullOrEmpty(item.Cdk_Name_1))
+                        lstCacheCustomer1.Add(pInfo1);
+                    if (!string.IsNullOrEmpty(item.Cdk_Name_2))
+                        lstCacheCustomer2.Add(pInfo2);
+                    if (!string.IsNullOrEmpty(item.Cdk_Name_3))
+                        lstCacheCustomer3.Add(pInfo3);
+                    if (!string.IsNullOrEmpty(item.Cdk_Name_4))
+                        lstCacheCustomer4.Add(pInfo4);
+                }
             }
             catch (Exception ex)
             {
