@@ -238,6 +238,24 @@
         </div>
         @Html.Partial("~/Areas/TradeMark/Views/PLD01_HDCN_4C2/_PartialSecondMaster_View.cshtml", "3")
 
+        @{
+            <div class="divCover cls_form_title">
+                <img src="~/Content/icons/info.png" />
+                <div class="cls_form_header">
+                    PHÍ, LỆ PHÍ
+                </div>
+            </div>
+
+            @* 2. Phí tra cứu thông tin phục vụ việc giải quyết khiếu nại *@
+            string _fee_id1 = "PhiThamDinh|Phí thẩm định đơn (TH chuyển nhượng nhãn hiệu tập thể, nhãn hiệu chứng nhận)|0";
+            string _fee_value1 = Lst_AppFee[2].Isuse.ToString() + "|" + Lst_AppFee[2].Number_Of_Patent.ToString() + "|" + Lst_AppFee[2].Amount.ToString("#,##0.##");
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Fee_View.cshtml", _fee_id1 + ";" + _fee_value1)
+
+            @* 2. Phí thẩm định để giải quyết khiếu nại *@
+            string _fee_id2 = "PhiCapGiayChungNhan|Lệ phí cấp Giấy chứng nhận đăng ký nhãn hiệu (TH chuyển nhượng một phần danh mục hàng hóa/dịch vụ mang nhãn hiệu)|0";
+            string _fee_value2 = Lst_AppFee[3].Isuse.ToString() + "|" + Lst_AppFee[3].Number_Of_Patent.ToString() + "|" + Lst_AppFee[3].Amount.ToString("#,##0.##");
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Fee_View.cshtml", _fee_id2 + ";" + _fee_value2)
+        }
 
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
         <div class="divCover cls_form_title">

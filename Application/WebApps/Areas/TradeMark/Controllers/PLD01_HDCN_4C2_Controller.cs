@@ -104,7 +104,7 @@
                     if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                         _AppFeeFixInfo1.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo1.Number_Of_Patent;
                     else
-                        _AppFeeFixInfo1.Amount = 160000 * _AppFeeFixInfo1.Number_Of_Patent;
+                        _AppFeeFixInfo1.Amount = 230000 * _AppFeeFixInfo1.Number_Of_Patent;
                     _lstFeeFix.Add(_AppFeeFixInfo1);
                     #endregion
 
@@ -119,8 +119,60 @@
                     if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                         _AppFeeFixInfo2.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo2.Number_Of_Patent;
                     else
-                        _AppFeeFixInfo2.Amount = 160000 * _AppFeeFixInfo2.Number_Of_Patent;
+                        _AppFeeFixInfo2.Amount = 180000 * _AppFeeFixInfo2.Number_Of_Patent;
                     _lstFeeFix.Add(_AppFeeFixInfo2);
+                    #endregion
+
+                    #region Phí thẩm định đơn 
+                    AppFeeFixInfo _AppFeeFixInfo3 = new AppFeeFixInfo();
+                    _AppFeeFixInfo3.Fee_Id = 3;
+                    _AppFeeFixInfo3.Isuse = pFeeFixInfo[0].Isuse;
+                    _AppFeeFixInfo3.App_Header_Id = pInfo.Id;
+                    if (_AppFeeFixInfo3.Isuse == 1)
+                    {
+                        _AppFeeFixInfo3.Number_Of_Patent = 1;
+                    }
+                    else
+                    {
+                        _AppFeeFixInfo3.Number_Of_Patent = 0;
+                    }
+
+                    _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo3.Fee_Id.ToString();
+                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                    {
+                        _AppFeeFixInfo3.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo3.Number_Of_Patent;
+                    }
+                    else
+                    {
+                        _AppFeeFixInfo3.Amount = 180000 * _AppFeeFixInfo3.Number_Of_Patent;
+                    }
+                    _lstFeeFix.Add(_AppFeeFixInfo3);
+                    #endregion
+
+                    #region Lệ phí cấp Giấy chứng nhận đăng ký nhãn hiệu
+                    AppFeeFixInfo _AppFeeFixInfo4 = new AppFeeFixInfo();
+                    _AppFeeFixInfo4.Fee_Id = 4;
+                    _AppFeeFixInfo4.Isuse = pFeeFixInfo[1].Isuse;
+                    _AppFeeFixInfo4.App_Header_Id = pInfo.Id;
+                    if (_AppFeeFixInfo4.Isuse == 1)
+                    {
+                        _AppFeeFixInfo4.Number_Of_Patent = 1;
+                    }
+                    else
+                    {
+                        _AppFeeFixInfo4.Number_Of_Patent = 0;
+                    }
+
+                    _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo4.Fee_Id.ToString();
+                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                    {
+                        _AppFeeFixInfo4.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo4.Number_Of_Patent;
+                    }
+                    else
+                    {
+                        _AppFeeFixInfo4.Amount = 120000 * _AppFeeFixInfo4.Number_Of_Patent;
+                    }
+                    _lstFeeFix.Add(_AppFeeFixInfo4);
                     #endregion
 
                     #region Phí đăng bạ quyết định ghi nhận chuyển nhượng quyền SHCN
@@ -134,7 +186,7 @@
                     if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                         _AppFeeFixInfo5.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo5.Number_Of_Patent;
                     else
-                        _AppFeeFixInfo5.Amount = 160000 * _AppFeeFixInfo5.Number_Of_Patent;
+                        _AppFeeFixInfo5.Amount = 120000 * _AppFeeFixInfo5.Number_Of_Patent;
                     _lstFeeFix.Add(_AppFeeFixInfo5);
                     #endregion
 
@@ -149,7 +201,7 @@
                     if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                         _AppFeeFixInfo6.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo6.Number_Of_Patent;
                     else
-                        _AppFeeFixInfo6.Amount = 160000 * _AppFeeFixInfo6.Number_Of_Patent;
+                        _AppFeeFixInfo6.Amount = 120000 * _AppFeeFixInfo6.Number_Of_Patent;
                     _lstFeeFix.Add(_AppFeeFixInfo6);
                     #endregion
 
@@ -256,7 +308,7 @@
                     if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                         _AppFeeFixInfo1.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo1.Number_Of_Patent;
                     else
-                        _AppFeeFixInfo1.Amount = 160000 * _AppFeeFixInfo1.Number_Of_Patent;
+                        _AppFeeFixInfo1.Amount = 230000 * _AppFeeFixInfo1.Number_Of_Patent;
                     _lstFeeFix.Add(_AppFeeFixInfo1);
                     #endregion
 
@@ -271,8 +323,60 @@
                     if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                         _AppFeeFixInfo2.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo2.Number_Of_Patent;
                     else
-                        _AppFeeFixInfo2.Amount = 160000 * _AppFeeFixInfo2.Number_Of_Patent;
+                        _AppFeeFixInfo2.Amount = 180000 * _AppFeeFixInfo2.Number_Of_Patent;
                     _lstFeeFix.Add(_AppFeeFixInfo2);
+                    #endregion
+
+                    #region Phí thẩm định đơn 
+                    AppFeeFixInfo _AppFeeFixInfo3 = new AppFeeFixInfo();
+                    _AppFeeFixInfo3.Fee_Id = 3;
+                    _AppFeeFixInfo3.Isuse = pFeeFixInfo[0].Isuse;
+                    if (_AppFeeFixInfo3.Isuse == 1)
+                    {
+                        _AppFeeFixInfo3.Number_Of_Patent = 1;
+                    }
+                    else
+                    {
+                        _AppFeeFixInfo3.Number_Of_Patent = 0;
+                    }
+                    _AppFeeFixInfo3.App_Header_Id = pInfo.Id;
+
+                    _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo3.Fee_Id.ToString();
+                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                    {
+                        _AppFeeFixInfo3.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo3.Number_Of_Patent;
+                    }
+                    else
+                    {
+                        _AppFeeFixInfo3.Amount = 180000 * _AppFeeFixInfo3.Number_Of_Patent;
+                    }
+                    _lstFeeFix.Add(_AppFeeFixInfo3);
+                    #endregion
+
+                    #region Lệ phí cấp Giấy chứng nhận đăng ký nhãn hiệu
+                    AppFeeFixInfo _AppFeeFixInfo4 = new AppFeeFixInfo();
+                    _AppFeeFixInfo4.Fee_Id = 4;
+                    _AppFeeFixInfo4.Isuse = pFeeFixInfo[1].Isuse;
+                    _AppFeeFixInfo4.App_Header_Id = pInfo.Id;
+                    if (_AppFeeFixInfo4.Isuse == 1)
+                    {
+                        _AppFeeFixInfo4.Number_Of_Patent = 1;
+                    }
+                    else
+                    {
+                        _AppFeeFixInfo4.Number_Of_Patent = 0;
+                    }
+
+                    _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo4.Fee_Id.ToString();
+                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                    {
+                        _AppFeeFixInfo4.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo4.Number_Of_Patent;
+                    }
+                    else
+                    {
+                        _AppFeeFixInfo4.Amount = 120000 * _AppFeeFixInfo4.Number_Of_Patent;
+                    }
+                    _lstFeeFix.Add(_AppFeeFixInfo4);
                     #endregion
 
                     #region Phí đăng bạ quyết định ghi nhận chuyển nhượng quyền SHCN
@@ -286,7 +390,7 @@
                     if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                         _AppFeeFixInfo5.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo5.Number_Of_Patent;
                     else
-                        _AppFeeFixInfo5.Amount = 160000 * _AppFeeFixInfo5.Number_Of_Patent;
+                        _AppFeeFixInfo5.Amount = 120000 * _AppFeeFixInfo5.Number_Of_Patent;
                     _lstFeeFix.Add(_AppFeeFixInfo5);
                     #endregion
 
@@ -301,7 +405,7 @@
                     if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                         _AppFeeFixInfo6.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo6.Number_Of_Patent;
                     else
-                        _AppFeeFixInfo6.Amount = 160000 * _AppFeeFixInfo6.Number_Of_Patent;
+                        _AppFeeFixInfo6.Amount = 120000 * _AppFeeFixInfo6.Number_Of_Patent;
                     _lstFeeFix.Add(_AppFeeFixInfo6);
                     #endregion
 
@@ -719,7 +823,7 @@
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                     _AppFeeFixInfo1.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo1.Number_Of_Patent;
                 else
-                    _AppFeeFixInfo1.Amount = 160000 * _AppFeeFixInfo1.Number_Of_Patent;
+                    _AppFeeFixInfo1.Amount = 230000 * _AppFeeFixInfo1.Number_Of_Patent;
 
                 pDetail.Fee_Id_1 = _AppFeeFixInfo1.Number_Of_Patent;
                 pDetail.Fee_Id_1_Check = _AppFeeFixInfo1.Isuse;
@@ -737,14 +841,71 @@
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                     _AppFeeFixInfo2.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo2.Number_Of_Patent;
                 else
-                    _AppFeeFixInfo2.Amount = 160000 * _AppFeeFixInfo2.Number_Of_Patent;
+                    _AppFeeFixInfo2.Amount = 180000 * _AppFeeFixInfo2.Number_Of_Patent;
 
                 pDetail.Fee_Id_2 = _AppFeeFixInfo2.Number_Of_Patent;
                 pDetail.Fee_Id_2_Check = _AppFeeFixInfo2.Isuse;
                 pDetail.Fee_Id_2_Val = _AppFeeFixInfo2.Amount.ToString("#,##0.##");
                 pDetail.Total_Fee = pDetail.Total_Fee + _AppFeeFixInfo2.Amount;
 
-                pDetail.Total_Fee_Str = pDetail.Total_Fee.ToString("#,##0.##");
+                #endregion
+
+                #region Phí thẩm định đơn 
+                AppFeeFixInfo _AppFeeFixInfo3 = new AppFeeFixInfo();
+                _AppFeeFixInfo3.Fee_Id = 3;
+                _AppFeeFixInfo3.Isuse = pFeeFixInfo[0].Isuse;
+                if (_AppFeeFixInfo3.Isuse == 1)
+                {
+                    _AppFeeFixInfo3.Number_Of_Patent = 1;
+                }
+                else
+                {
+                    _AppFeeFixInfo3.Number_Of_Patent = 0;
+                }
+
+                _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo3.Fee_Id.ToString();
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                {
+                    _AppFeeFixInfo3.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo3.Number_Of_Patent;
+                }
+                else
+                {
+                    _AppFeeFixInfo3.Amount = 180000 * _AppFeeFixInfo3.Number_Of_Patent;
+                }
+
+                pDetail.Fee_Id_3 = _AppFeeFixInfo3.Number_Of_Patent;
+                pDetail.Fee_Id_3_Check = _AppFeeFixInfo3.Isuse;
+                pDetail.Fee_Id_3_Val = _AppFeeFixInfo3.Amount.ToString("#,##0.##");
+                pDetail.Total_Fee = pDetail.Total_Fee + _AppFeeFixInfo3.Amount;
+                #endregion
+
+                #region Lệ phí cấp Giấy chứng nhận đăng ký nhãn hiệu
+                AppFeeFixInfo _AppFeeFixInfo4 = new AppFeeFixInfo();
+                _AppFeeFixInfo4.Fee_Id = 4;
+                _AppFeeFixInfo4.Isuse = pFeeFixInfo[1].Isuse;
+                _AppFeeFixInfo4.App_Header_Id = pInfo.Id;
+                if (_AppFeeFixInfo4.Isuse == 1)
+                {
+                    _AppFeeFixInfo4.Number_Of_Patent = 1;
+                }
+                else
+                {
+                    _AppFeeFixInfo4.Number_Of_Patent = 0;
+                }
+
+                _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo4.Fee_Id.ToString();
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                {
+                    _AppFeeFixInfo4.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo4.Number_Of_Patent;
+                }
+                else
+                {
+                    _AppFeeFixInfo4.Amount = 120000 * _AppFeeFixInfo4.Number_Of_Patent;
+                }
+                pDetail.Fee_Id_4 = _AppFeeFixInfo4.Number_Of_Patent;
+                pDetail.Fee_Id_4_Check = _AppFeeFixInfo4.Isuse;
+                pDetail.Fee_Id_4_Val = _AppFeeFixInfo4.Amount.ToString("#,##0.##");
+                pDetail.Total_Fee = pDetail.Total_Fee + _AppFeeFixInfo4.Amount;
                 #endregion
 
                 #region Phí đăng bạ quyết định ghi nhận chuyển nhượng quyền SHCN
@@ -756,14 +917,13 @@
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                     _AppFeeFixInfo5.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo5.Number_Of_Patent;
                 else
-                    _AppFeeFixInfo5.Amount = 160000 * _AppFeeFixInfo5.Number_Of_Patent;
+                    _AppFeeFixInfo5.Amount = 120000 * _AppFeeFixInfo5.Number_Of_Patent;
 
                 pDetail.Fee_Id_2 = _AppFeeFixInfo5.Number_Of_Patent;
                 pDetail.Fee_Id_2_Check = _AppFeeFixInfo5.Isuse;
                 pDetail.Fee_Id_2_Val = _AppFeeFixInfo5.Amount.ToString("#,##0.##");
                 pDetail.Total_Fee = pDetail.Total_Fee + _AppFeeFixInfo5.Amount;
 
-                pDetail.Total_Fee_Str = pDetail.Total_Fee.ToString("#,##0.##");
                 #endregion
 
                 #region Phí tra cứu nhãn hiệu liên kết phục vụ việc thẩm định hồ sơ đăng ký hợp đồng chuyển nhượng 
@@ -775,15 +935,16 @@
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                     _AppFeeFixInfo6.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo6.Number_Of_Patent;
                 else
-                    _AppFeeFixInfo6.Amount = 160000 * _AppFeeFixInfo6.Number_Of_Patent;
+                    _AppFeeFixInfo6.Amount = 120000 * _AppFeeFixInfo6.Number_Of_Patent;
 
                 pDetail.Fee_Id_2 = _AppFeeFixInfo6.Number_Of_Patent;
                 pDetail.Fee_Id_2_Check = _AppFeeFixInfo6.Isuse;
                 pDetail.Fee_Id_2_Val = _AppFeeFixInfo6.Amount.ToString("#,##0.##");
                 pDetail.Total_Fee = pDetail.Total_Fee + _AppFeeFixInfo6.Amount;
 
-                pDetail.Total_Fee_Str = pDetail.Total_Fee.ToString("#,##0.##");
                 #endregion
+
+                pDetail.Total_Fee_Str = pDetail.Total_Fee.ToString("#,##0.##");
 
                 #endregion
 

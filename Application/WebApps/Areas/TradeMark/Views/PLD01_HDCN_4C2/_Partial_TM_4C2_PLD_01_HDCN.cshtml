@@ -1,4 +1,5 @@
-﻿@using WebApps.CommonFunction;
+﻿@using Common.CommonData
+@using WebApps.CommonFunction;
 @using BussinessFacade.ModuleMemoryData
 @{
     ViewBag.Title = "Đơn đăng ký chuyển nhượng";
@@ -162,7 +163,25 @@
         @Html.Partial("~/Areas/TradeMark/Views/PLD01_HDCN_4C2/_PartialSecondMaster.cshtml", "3")
         @* end 3 *@
 
+        @* 5 *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                PHÍ, LỆ PHÍ
+            </div>
+        </div>
+        @{
 
+            @* 2. Phí tra cứu thông tin phục vụ việc giải quyết khiếu nại *@
+            string _fee_id1 = "PhiThamDinh";
+            string _modelFee1 = _fee_id1 + "|Phí thẩm định đơn (TH chuyển nhượng nhãn hiệu tập thể, nhãn hiệu chứng nhận)|0";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Fee.cshtml", _modelFee1)
+
+            @* 2. Phí thẩm định để giải quyết khiếu nại *@
+            string _fee_id2 = "PhiCapGiayChungNhan";
+            string _modelFee2 = _fee_id2 + "|Lệ phí cấp Giấy chứng nhận đăng ký nhãn hiệu (TH chuyển nhượng một phần danh mục hàng hóa/dịch vụ mang nhãn hiệu)|0";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Fee.cshtml", _modelFee2)
+        }
 
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
         <div class="divCover cls_form_title">
@@ -244,7 +263,7 @@
             string _model10 = _doc_id10 + "|6_Doc_PLD01_HDCB_10|0|Bản gốc đã nộp theo đơn số|Số đơn gốc|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model10)
         }
-        
+
         @* 11.. POA Giấy uỷ quyền bằng tiếng *@
         @{
             string _doc_id50 = "PLD01_HDCB_11";
@@ -407,6 +426,12 @@
 
             //Lấy thông tin detail
             reponse = funcGetAppDetail(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            // get thông tin fee
+            var reponse = funcGet_Fee(formData);
             if (reponse == false) {
                 return false;
             }
@@ -614,11 +639,11 @@
             // 1. Tờ khai
             reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_PLD01_HDCB_01", "0");
 
-            // 2. 
+            // 2.
             reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_PLD01_HDCB_02", "1");
             formData.append("pAppDocumentInfo[1].CHAR01", $("#txt_6_Doc_PLD01_HDCB_02").val());
 
-            // 3 
+            // 3
             reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_PLD01_HDCB_03", "2");
 
             // 4
@@ -694,5 +719,49 @@
             return false;
         }
 
+    }
+
+    function funcGet_Fee(formData) {
+        try {
+
+            if (@WebApps.Session.SessionData.CurrentUser.Type == '@((int)CommonEnums.UserType.Admin)' ||
+                @WebApps.Session.SessionData.CurrentUser.Type == '@((int)CommonEnums.UserType.Lawer)') {
+
+                //if ($('#ckb_PhiCapGiayChungNhan').is(":checked") == false && $('#ckb_PhiThamDinh').is(":checked") == false) {
+                //    jError("Fee không được để trống!", "lỗi", function () {
+                //        $("#ckb_PhiCapGiayChungNhan").focus()
+                //    });
+                //    return false;
+                //}
+
+                // Phí thẩm định để giải quyết khiếu nại
+                formData.append("pFeeFixInfo[0].Fee_Id", 4);
+                if ($('#ckb_PhiThamDinh').is(":checked") == true) {
+                    formData.append("pFeeFixInfo[0].Isuse", 1);
+                    formData.append("pFeeFixInfo[0].Number_Of_Patent", 1);
+                    formData.append("pFeeFixInfo[0].Amount", 0);
+                } else {
+                    formData.append("pFeeFixInfo[0].Isuse", 0);
+                    formData.append("pFeeFixInfo[0].Number_Of_Patent", 0);
+                    formData.append("pFeeFixInfo[0].Amount", 0);
+                }
+
+                // Phí tra cứu thông tin phục vụ việc giải quyết khiếu nại
+                formData.append("pFeeFixInfo[1].Fee_Id", 3);
+                if ($('#ckb_PhiCapGiayChungNhan').is(":checked") == true) {
+                    formData.append("pFeeFixInfo[1].Isuse", 1);
+                    formData.append("pFeeFixInfo[1].Number_Of_Patent", 1);
+                    formData.append("pFeeFixInfo[1].Amount", 0);
+                } else {
+                    formData.append("pFeeFixInfo[1].Isuse", 0);
+                    formData.append("pFeeFixInfo[1].Number_Of_Patent", 0);
+                    formData.append("pFeeFixInfo[1].Amount", 0);
+                }
+            }
+        } catch (e) {
+            console.log(e);
+            showError('Có lỗi xảy ra kiểm tra kết nối internet');
+            return false;
+        }
     }
 </script>

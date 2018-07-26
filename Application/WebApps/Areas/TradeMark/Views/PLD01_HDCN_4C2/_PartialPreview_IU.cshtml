@@ -56,6 +56,12 @@
                 return false;
             }
 
+            // get thông tin fee
+            var reponse = funcGet_Fee(formData);
+            if (reponse == false) {
+                return false;
+            }
+
             //Lấy thông tin file có trong đơn
             reponse = funGetDocumentFile(formData);
             if (reponse == false) {
