@@ -1,12 +1,13 @@
 ﻿namespace WebApps.Areas.Home.Controllers
 {
-	using System;
-	using System.Web.Mvc;
-	using AppStart;
+    using System;
+    using System.Web.Mvc;
+    using AppStart;
     using Common;
     using Session;
     using WebApps.CommonFunction;
     using BussinessFacade.ModuleUsersAndRoles;
+    using ObjectInfos;
 
     [ValidateAntiForgeryTokenOnAllPosts]
  
@@ -176,6 +177,33 @@
                 msg.Code = "-1";
                 msg.Msg = "Không kết nối được tới máy chủ.";
                 return Json(msg);
+            }
+        }
+        /// <summary>
+        /// HunGTD: set ẩn hiện thằng warning message
+        /// </summary>
+        /// <param name="p_isplay"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("SetDisplayWarning")]
+        public ActionResult SetDisplayWarning(bool p_isplay)
+        {
+            try
+            {
+                if (SessionData.CurrentUser == null)
+                {
+                    return null;
+                }
+                UserInfo _CurrUser = new UserInfo();
+                _CurrUser = (UserInfo)SessionData.CurrentUser;
+                _CurrUser.IsDisplayWarning = p_isplay;
+                SessionData.CurrentUser = _CurrUser;
+                return Json(new { sucsess = true });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return null;
             }
         }
     }

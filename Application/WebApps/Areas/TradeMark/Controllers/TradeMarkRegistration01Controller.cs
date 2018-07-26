@@ -194,6 +194,14 @@
                 var CreatedDate = SessionData.CurrentUser.CurrentDate;
                 int pReturn = ErrorCode.Success;
                 int pAppHeaderID = 0;
+                foreach (AppFeeFixInfo item in pFeeFixInfo)
+                {
+                    if(item.Amount == 0)
+                    {
+                        // fix là 2 củ
+                        item.Amount = 2000000;
+                    }
+                }
                 using (var scope = new TransactionScope())
                 {
                     //
@@ -311,7 +319,14 @@
                 var CreatedBy = SessionData.CurrentUser.Username;
                 var CreatedDate = SessionData.CurrentUser.CurrentDate;
                 decimal pReturn = ErrorCode.Success;
-
+                foreach (AppFeeFixInfo item in pFeeFixInfo)
+                {
+                    if (item.Amount == 0)
+                    {
+                        // fix là 2 củ
+                        item.Amount = 2000000;
+                    }
+                }
                 using (var scope = new TransactionScope())
                 {
                     //
