@@ -72,7 +72,7 @@
 
     @* Khách hàng cũ lấy lại các thông tin  *@
     @* TH xem chi tiết ko hiển thị *@
-    @if (!disableView.Contains("disabled"))
+    @*@if (!disableView.Contains("disabled"))
     {
         if (pUseCusinfo == 1)
         {
@@ -86,7 +86,7 @@
         {
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDonKhacReuse.cshtml", pUseCusinfo)
         }
-    }
+    }*@
     @*  *@
 </div>
 
@@ -206,70 +206,6 @@
     }
 
     
-    @*$(document).ready(function ()
-    {
-        var Name = $("#@txtTenDayDu").val();
-
-        $.ajax({
-            url: '/trade-mark/GetNameSuggest/',
-            type: 'POST',
-            data: {
-                pName: Name
-            },
-            sync: true, cache: false, traditional: true,
-            success: function (data) {
-                var lts = data.lst;
-                $('#@txtTenDayDu').autocomplete({
-                    autoFocus: true,
-                    source: function (request, response) {
-                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
-                        response($.grep(lts, function (item) {
-                            return matcher.test(item.value);
-                        }));
-                    },
-                    select: function (event, ui) {
-                        event.preventDefault();
-                        AddFav(ui.item.value);
-                    },
-                    focus: function (event, ui) {
-                        var arrResult = $(".ui-menu-item");
-                        for (var i = 0; i < arrResult.length; i++) {
-                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                            if (label == ui.item.value) {
-                                $(".clsLiActive").removeClass("clsLiActive")
-                                $(arrResult[i]).addClass("clsLiActive");
-                                break;
-                            }
-                        }
-                        event.preventDefault();
-                    },
-                    open: function (event, ui) {
-                        $("ul").scrollTop(0);
-                        event.preventDefault();
-                    },
-                });
-
-            }
-        });
-
-        $.ui.autocomplete.prototype._renderItem = function (ul, item) {
-            var re = new RegExp("" + this.term.toUpperCase());
-            var t = item.label.replace(re, "<span class='clsCheck'>" +
-                this.term.toUpperCase() +
-                "</span>");
-
-            return $("<li></li>")
-                .data("item.autocomplete", item)
-                .append("<a>" + t + "</a>")
-                .appendTo(ul);
-        };
-    });
-
-    $("#@txtTenDayDu").keypress(function (evt) {
-        var key = evt.which || evt.charCode || evt.keyCode || 0;
-        if (key == 13) {
-            evt.preventDefault();
-        }
-    });*@
+   
 
 </script>

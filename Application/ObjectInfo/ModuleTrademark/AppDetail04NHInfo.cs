@@ -84,15 +84,52 @@ namespace ObjectInfos
     {
         public string label { get; set; }
         public string value { get; set; }
-
+        public string name { get; set; }
         public CustomerSuggestInfo()
         {
             value = "";
             label = "";
-        }
+            name = "";
+ 
+        } 
     }
-    public class CustomerInfo 
+    public class CustomerInfo
     {
+        public CustomerInfo()
+        {
+            Master_Name = "";
+            Master_Address = "";
+            Master_Phone = "";
+            Master_Fax = "";
+            Master_Email = "";
+            Rep_Master_Type = "";
+            Rep_Master_Name = "";
+            Rep_Master_Address = "";
+            Rep_Master_Phone = "";
+            Rep_Master_Fax = "";
+            Rep_Master_Email = "";
+
+            Cdk_Name_1 = "";
+            Cdk_Address_1 = "";
+            Cdk_Phone_1 = "";
+            Cdk_Fax_1 = "";
+            Cdk_Email_1 = "";
+            Cdk_Name_2 = "";
+            Cdk_Address_2 = "";
+            Cdk_Phone_2 = "";
+            Cdk_Fax_2 = "";
+            Cdk_Email_2 = "";
+            Cdk_Name_3 = "";
+            Cdk_Address_3 = "";
+            Cdk_Phone_3 = "";
+            Cdk_Fax_3 = "";
+            Cdk_Email_3 = "";
+            Cdk_Name_4 = "";
+            Cdk_Address_4 = "";
+            Cdk_Phone_4 = "";
+            Cdk_Fax_4 = "";
+            Cdk_Email_4 = "";
+        }
 
         public string Master_Name { get; set; }
         public string Master_Address { get; set; }

@@ -828,6 +828,8 @@
             } else {
                 return true;
             }
+        } else {
+            nvsAlert("Thông báo","File tải lên không phải là file ảnh?", "");
         }
     };
 
@@ -897,8 +899,329 @@
             validateOnBlur: false,
             scrollInput: false
         });
+
+        //Search suggestion 
+        var Name = $("#1_txtTenDayDu").val();
+        $.ajax({
+            url: '/trade-mark/GetNameSuggest/',
+            type: 'POST',
+            data: {
+                pName: Name
+            },
+            sync: true, cache: false, traditional: true,
+            success: function (data) {
+                var lts = data.lst;
+                $('#1_txtTenDayDu').autocomplete({
+                    autoFocus: true,
+                    source: function (request, response) {
+                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+                        response($.grep(lts, function (item) {
+                            return matcher.test(item.value);
+                        }));
+                    },
+                    select: function (event, ui) {
+                        $("#1_txtTenDayDu").val("");
+                        event.preventDefault();
+                        var arrVal = ui.item.value.split('|');
+                        if (arrVal.length === 5) {
+                            $("#1_txtTenDayDu").val(arrVal[0]);
+                            $("#1_txtDiaChi").val(arrVal[1]);
+                            $("#1_txtDienThoai").val(arrVal[2]);
+                            $("#1_txtFax").val(arrVal[3]);
+                            $("#1_txtEmail").val(arrVal[4]);
+                        }
+
+                    },
+                    focus: function (event, ui) {
+                        var arrResult = $(".ui-menu-item");
+                        for (var i = 0; i < arrResult.length; i++) {
+                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                            if (label == ui.item.value) {
+                                $(".clsLiActive").removeClass("clsLiActive")
+                                $(arrResult[i]).addClass("clsLiActive");
+                                break;
+                            }
+                        }
+                        event.preventDefault();
+                    },
+                    open: function (event, ui) {
+                        $("ul").scrollTop(0);
+                        event.preventDefault();
+                    },
+                });
+
+            }
+        });
+
+        //Start 9
+        var txtTenDayDu_9 = $("#9_txtTenDayDu").val();
+        $.ajax({
+            url: '/trade-mark/GetNameSuggestKhac/',
+            type: 'POST',
+            data: {
+                pName: txtTenDayDu_9, pNumber: 1
+            },
+            sync: true, cache: false, traditional: true,
+            success: function (data) {
+                var lts = data.lst;
+                $('#9_txtTenDayDu').autocomplete({
+                    autoFocus: true,
+                    source: function (request, response) {
+                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+                        response($.grep(lts, function (item) {
+                            return matcher.test(item.value);
+                        }));
+                    },
+                    select: function (event, ui) {
+                        $("#9_txtTenDayDu").val("");
+                        event.preventDefault();
+                        funcChuDonKhacReuse9(ui.item.value);
+                    },
+                    focus: function (event, ui) {
+                        var arrResult = $(".ui-menu-item");
+                        for (var i = 0; i < arrResult.length; i++) {
+                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                            if (label == ui.item.value) {
+                                $(".clsLiActive").removeClass("clsLiActive")
+                                $(arrResult[i]).addClass("clsLiActive");
+                                break;
+                            }
+                        }
+                        event.preventDefault();
+                    },
+                    open: function (event, ui) {
+                        $("ul").scrollTop(0);
+                        event.preventDefault();
+                    },
+                });
+
+            }
+        });
+        //End 9
+
+
+        //Start 10
+        var txtTenDayDu_10 = $("#10_txtTenDayDu").val();
+        $.ajax({
+            url: '/trade-mark/GetNameSuggestKhac/',
+            type: 'POST',
+            data: {
+                pName: txtTenDayDu_10, pNumber: 2
+            },
+            sync: true, cache: false, traditional: true,
+            success: function (data) {
+                var lts = data.lst;
+                $('#10_txtTenDayDu').autocomplete({
+                    autoFocus: true,
+                    source: function (request, response) {
+                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+                        response($.grep(lts, function (item) {
+                            return matcher.test(item.value);
+                        }));
+                    },
+                    select: function (event, ui) {
+                        $("#10_txtTenDayDu").val("");
+                        event.preventDefault();
+                        funcChuDonKhacReuse10(ui.item.value);
+                    },
+                    focus: function (event, ui) {
+                        var arrResult = $(".ui-menu-item");
+                        for (var i = 0; i < arrResult.length; i++) {
+                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                            if (label == ui.item.value) {
+                                $(".clsLiActive").removeClass("clsLiActive")
+                                $(arrResult[i]).addClass("clsLiActive");
+                                break;
+                            }
+                        }
+                        event.preventDefault();
+                    },
+                    open: function (event, ui) {
+                        $("ul").scrollTop(0);
+                        event.preventDefault();
+                    },
+                });
+
+            }
+        });
+        //End 10
+
+
+        //Start 11
+        var txtTenDayDu_11 = $("#11_txtTenDayDu").val();
+        $.ajax({
+            url: '/trade-mark/GetNameSuggestKhac/',
+            type: 'POST',
+            data: {
+                pName: txtTenDayDu_11, pNumber: 3
+            },
+            sync: true, cache: false, traditional: true,
+            success: function (data) {
+                var lts = data.lst;
+                $('#11_txtTenDayDu').autocomplete({
+                    autoFocus: true,
+                    source: function (request, response) {
+                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+                        response($.grep(lts, function (item) {
+                            return matcher.test(item.value);
+                        }));
+                    },
+                    select: function (event, ui) {
+                        $("#11_txtTenDayDu").val("");
+                        event.preventDefault();
+                        funcChuDonKhacReuse11(ui.item.value);
+                    },
+                    focus: function (event, ui) {
+                        var arrResult = $(".ui-menu-item");
+                        for (var i = 0; i < arrResult.length; i++) {
+                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                            if (label == ui.item.value) {
+                                $(".clsLiActive").removeClass("clsLiActive")
+                                $(arrResult[i]).addClass("clsLiActive");
+                                break;
+                            }
+                        }
+                        event.preventDefault();
+                    },
+                    open: function (event, ui) {
+                        $("ul").scrollTop(0);
+                        event.preventDefault();
+                    },
+                });
+
+            }
+        });
+        //End 11
+
+        //Start 12
+        var txtTenDayDu_12 = $("#12_txtTenDayDu").val();
+        $.ajax({
+            url: '/trade-mark/GetNameSuggestKhac/',
+            type: 'POST',
+            data: {
+                pName: txtTenDayDu_11, pNumber: 4
+            },
+            sync: true, cache: false, traditional: true,
+            success: function (data) {
+                var lts = data.lst;
+                $('#12_txtTenDayDu').autocomplete({
+                    autoFocus: true,
+                    source: function (request, response) {
+                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+                        response($.grep(lts, function (item) {
+                            return matcher.test(item.value);
+                        }));
+                    },
+                    select: function (event, ui) {
+                        $("#12_txtTenDayDu").val("");
+                        event.preventDefault();
+                        funcChuDonKhacReuse12(ui.item.value);
+                    },
+                    focus: function (event, ui) {
+                        var arrResult = $(".ui-menu-item");
+                        for (var i = 0; i < arrResult.length; i++) {
+                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                            if (label == ui.item.value) {
+                                $(".clsLiActive").removeClass("clsLiActive")
+                                $(arrResult[i]).addClass("clsLiActive");
+                                break;
+                            }
+                        }
+                        event.preventDefault();
+                    },
+                    open: function (event, ui) {
+                        $("ul").scrollTop(0);
+                        event.preventDefault();
+                    },
+                });
+
+            }
+        });
+        //End 12
     });
 
+
+
+
+    function funcChuDonKhacReuse9(displayVal) {
+        try {
+            var txtNguoiDaidien = "9_txtTenDayDu";
+            var txtDiaChi = "9_txtDiaChi";
+            var txtDienThoai = "9_txtDienThoai";
+            var txtFax = "9_txtFax";
+            var txtEmail = "9_txtEmail";
+            var arrVal = displayVal.split('|');
+            if (arrVal.length === 5) {
+                $("#" + txtNguoiDaidien).val(arrVal[0]);
+                $("#" + txtDiaChi).val(arrVal[1]);
+                $("#" + txtDienThoai).val(arrVal[2]);
+                $("#" + txtFax).val(arrVal[3]);
+                $("#" + txtEmail).val(arrVal[4]);
+            }
+        } catch (e) {
+
+        }
+    }
+
+    function funcChuDonKhacReuse10(displayVal) {
+        try {
+            var txtNguoiDaidien = "10_txtTenDayDu";
+            var txtDiaChi = "10_txtDiaChi";
+            var txtDienThoai = "10_txtDienThoai";
+            var txtFax = "10_txtFax";
+            var txtEmail = "10_txtEmail";
+            var arrVal = displayVal.split('|');
+            if (arrVal.length === 5) {
+                $("#" + txtNguoiDaidien).val(arrVal[0]);
+                $("#" + txtDiaChi).val(arrVal[1]);
+                $("#" + txtDienThoai).val(arrVal[2]);
+                $("#" + txtFax).val(arrVal[3]);
+                $("#" + txtEmail).val(arrVal[4]);
+            }
+        } catch (e) {
+
+        }
+    }
+
+    function funcChuDonKhacReuse11(displayVal) {
+        try {
+            var txtNguoiDaidien = "11_txtTenDayDu";
+            var txtDiaChi = "11_txtDiaChi";
+            var txtDienThoai = "11_txtDienThoai";
+            var txtFax = "11_txtFax";
+            var txtEmail = "11_txtEmail";
+            var arrVal = displayVal.split('|');
+            if (arrVal.length === 5) {
+                $("#" + txtNguoiDaidien).val(arrVal[0]);
+                $("#" + txtDiaChi).val(arrVal[1]);
+                $("#" + txtDienThoai).val(arrVal[2]);
+                $("#" + txtFax).val(arrVal[3]);
+                $("#" + txtEmail).val(arrVal[4]);
+            }
+        } catch (e) {
+
+        }
+    }
+
+    function funcChuDonKhacReuse12(displayVal) {
+        try {
+            var txtNguoiDaidien = "12_txtTenDayDu";
+            var txtDiaChi = "12_txtDiaChi";
+            var txtDienThoai = "12_txtDienThoai";
+            var txtFax = "12_txtFax";
+            var txtEmail = "12_txtEmail";
+            var arrVal = displayVal.split('|');
+            if (arrVal.length === 5) {
+                $("#" + txtNguoiDaidien).val(arrVal[0]);
+                $("#" + txtDiaChi).val(arrVal[1]);
+                $("#" + txtDienThoai).val(arrVal[2]);
+                $("#" + txtFax).val(arrVal[3]);
+                $("#" + txtEmail).val(arrVal[4]);
+            }
+        } catch (e) {
+
+        }
+    }
     function ShowHidenUpLoad(pID, pClass) {
         try {
             if ($("#" + pID).is(':checked')) {
@@ -1012,12 +1335,12 @@
                 enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.status >= 0) {
-                        jAlert(EditSuccess, ThongBao, function ()
+                        nvsAlert(EditSuccess, ThongBao, function ()
                         {
                             window.location = "/trade-mark-mana/quan-ly-don";
                         });
                     } else {
-                        jError(EditFail, ThongBao, function () {
+                        nvsError(EditFail, ThongBao, function () {
                         });
                     }
                 },

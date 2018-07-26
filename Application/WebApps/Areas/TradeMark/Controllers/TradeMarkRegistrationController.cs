@@ -1366,16 +1366,13 @@
             {
                 List<CustomerSuggestInfo> lstContain = new List<CustomerSuggestInfo>();
                 int check = 0;
-                CustomerSuggestInfo pInfo;
                 foreach (var item in MemoryData.lstCacheCustomer)
                 {
-                    if (item.Master_Name.Contains(pName))
+                    if (string.IsNullOrEmpty(item.name)) continue;
+                    if (item.name.Contains(pName))
                     {
-                        pInfo = new CustomerSuggestInfo();
                         check = 1;
-                        pInfo.label = item.Master_Name + " Phone: " + item.Master_Phone + " Fax: " + item.Master_Fax + " Email: " + item.Rep_Master_Email;
-                        pInfo.value = item.Master_Name + "|" + item.Master_Address + "|" + item.Master_Phone + "|" + item.Master_Fax + "|" + item.Rep_Master_Email;
-                        lstContain.Add(pInfo);
+                        lstContain.Add(item);
                     }
                 }
                 if (check == 1)
@@ -1395,5 +1392,92 @@
             }
         }
 
+        [Route("GetNameSuggestKhac")]
+        public ActionResult GetNameSuggestKhac(string pName, int pNumber)
+        {
+            try
+            {
+                List<CustomerSuggestInfo> lstContain = new List<CustomerSuggestInfo>();
+                int check = 0;
+                if (pNumber == 1)
+                {
+                    foreach (var item in MemoryData.lstCacheCustomer1)
+                    {
+                        if (string.IsNullOrEmpty(item.name)) continue;
+                        if (item.name.Contains(pName))
+                        {
+                            check = 1;
+                            lstContain.Add(item);
+                        }
+                    }
+                }
+                else if (pNumber == 2)
+                {
+                    foreach (var item in MemoryData.lstCacheCustomer2)
+                    {
+                        if (string.IsNullOrEmpty(item.name)) continue;
+                        if (item.name.Contains(pName))
+                        {
+                            check = 1;
+                            lstContain.Add(item);
+                        }
+                    }
+                }
+                else if (pNumber == 3)
+                {
+                    foreach (var item in MemoryData.lstCacheCustomer3)
+                    {
+                        if (string.IsNullOrEmpty(item.name)) continue;
+                        if (item.name.Contains(pName))
+                        {
+                            check = 1;
+                            lstContain.Add(item);
+                        }
+                    }
+                }
+                else if (pNumber == 4)
+                {
+                    foreach (var item in MemoryData.lstCacheCustomer4)
+                    {
+                        if (string.IsNullOrEmpty(item.name)) continue;
+                        if (item.name.Contains(pName))
+                        {
+                            check = 1;
+                            lstContain.Add(item);
+                        }
+                    }
+                }
+                if (check == 1)
+                {
+                    return Json(new { lst = lstContain });
+                }
+                else
+                {
+                    if (pNumber == 1)
+                        return Json(new { lst = MemoryData.lstCacheCustomer1 });
+                    else if (pNumber == 2)
+                        return Json(new { lst = MemoryData.lstCacheCustomer2 });
+                    else if (pNumber == 3)
+                        return Json(new { lst = MemoryData.lstCacheCustomer3 });
+                    else if (pNumber == 4)
+                        return Json(new { lst = MemoryData.lstCacheCustomer4 });
+                    else return Json(new { lst = MemoryData.lstCacheCustomer });
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Logger.LogException(ex);
+                if (pNumber == 1)
+                    return Json(new { lst = MemoryData.lstCacheCustomer1 });
+                else if (pNumber == 2)
+                    return Json(new { lst = MemoryData.lstCacheCustomer2 });
+                else if (pNumber == 3)
+                    return Json(new { lst = MemoryData.lstCacheCustomer3 });
+                else if (pNumber == 4)
+                    return Json(new { lst = MemoryData.lstCacheCustomer4 });
+                else return Json(new { lst = MemoryData.lstCacheCustomer });
+            }
+        }
     }
 }
