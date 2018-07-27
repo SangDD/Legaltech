@@ -998,6 +998,8 @@
             {
                 ViewBag.FileName = "/Content/Export/" + "D01_VI_" + TradeMarkAppCode.AppCode_TM_4C2_PLD_01_HDCN + ".pdf";
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+
+                //ViewBag.FileName = "/Content/Export/" + "D01_VI_" + TradeMarkAppCode.AppCode_TM_4C2_PLD_01_HDCN + ".docx";
                 //return PartialView("~/Areas/TradeMark/Views/Shared/_PartialContentPreview_docx.cshtml");
             }
             catch (Exception ex)
