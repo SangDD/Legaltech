@@ -275,7 +275,7 @@
         @* 2. Hợp đồng chuyển nhượng, bằng tiếng *@
         @{
             string _doc_id2 = "PLD01_HDCB_02";
-            string _model2 = _doc_id2 + "|6_Doc_PLD01_HDCB_02|0|Hợp đồng chuyển nhượng, bằng tiếng|Tiếng|0" + ";" + dic_appDoc[_doc_id2].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id2].CHAR01 + "|" + dic_appDoc[_doc_id2].Url_Hardcopy;
+            string _model2 = _doc_id2 + "|6_Doc_PLD01_HDCB_02|0|Hợp đồng chuyển nhượng, bằng tiếng|Tiếng|0||Số trang" + ";" + dic_appDoc[_doc_id2].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id2].CHAR01 + "|" + dic_appDoc[_doc_id2].Url_Hardcopy + "|" + dic_appDoc[_doc_id2].CHAR02;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model2)
         }
 

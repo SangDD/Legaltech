@@ -25,6 +25,13 @@
         _width = arr_id[6] + "px";
     }
 
+    string Lable3 = "";
+    string Id_textbox2 = "txt_" + Id + "_2";
+    if (arr_id.Length >= 8)
+    {
+        Lable3 = arr_id[7];
+    }
+
     string hrefPOA = "/Content/POA/VNmese translation POA (Blank).doc";
 }
 
@@ -70,6 +77,17 @@
         </div>
     }
 
+    @if (Lable3 != "")
+    {
+        <div class="div-search-title">
+            <div>@Lable3:</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" placeholder="@Lable3" id="@Id_textbox2" />
+            </div>
+        </div>
+    }
 </div>
 @if (IsUpload == "1")
 {

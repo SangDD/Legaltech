@@ -540,6 +540,7 @@
                     else if (item.Document_Id == "PLD01_HDCB_02")
                     {
                         app_Detail.Doc_Id_2 = item.CHAR01;
+                        app_Detail.Doc_Id_21 = item.CHAR02;
                         app_Detail.Doc_Id_2_Check = item.Isuse;
                     }
                     else if (item.Document_Id == "PLD01_HDCB_03")
@@ -727,6 +728,7 @@
                         else if (item.Document_Id == "PLD01_HDCB_02")
                         {
                             pDetail.Doc_Id_2 = item.CHAR01;
+                            pDetail.Doc_Id_21 = item.CHAR02;
                             pDetail.Doc_Id_2_Check = item.Isuse;
                         }
                         else if (item.Document_Id == "PLD01_HDCB_03")

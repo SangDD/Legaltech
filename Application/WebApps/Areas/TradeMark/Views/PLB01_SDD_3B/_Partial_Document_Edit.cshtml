@@ -24,12 +24,25 @@
         _width = arr_id[6] + "px";
     }
 
+    string Lable3 = "";
+    string Id_textbox2 = "txt_" + Id + "_2";
+    if (arr_id.Length >= 8)
+    {
+        Lable3 = arr_id[7];
+    }
+
     // giá trị tài liệu
     string _Value = arr[1];
     string[] arr_value = _Value.Split('|');
     string Isuse = arr_value[0].Trim();
     string Char01 = arr_value[1];
     string Url = arr_value[2];
+    string Char02 = "";
+    if (arr_value.Length >= 4)
+    {
+        Char02 = arr_value[3];
+    }
+
 
     string div_ImgDownload = "div_ImgDownload_" + Id;
     string div_ImgRemove = "div_ImgRemove_" + Id;
@@ -91,6 +104,25 @@
                 else
                 {
                     <input type="text" placeholder="@Lable2" id="@Id_textbox" value="@Char01" disabled="disabled" />
+                }
+            </div>
+        </div>
+    }
+
+    @if (Lable3 != "")
+    {
+        <div class="div-search-title">
+            <div>@Lable3:</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                @if (Isuse == "1")
+                {
+                    <input type="text" placeholder="@Lable3" id="@Id_textbox2" value="@Char02" />
+                }
+                else
+                {
+                    <input type="text" placeholder="@Lable3" id="@Id_textbox2" value="@Char02" disabled="disabled" />
                 }
             </div>
         </div>

@@ -131,6 +131,8 @@ namespace ObjectInfos
         public decimal Doc_Id_1_Check { get; set; }
 
         public string Doc_Id_2 { get; set; }
+        public string Doc_Id_21 { get; set; }
+
         public decimal Doc_Id_2_Check { get; set; }
 
         public string Doc_Id_3 { get; set; }
