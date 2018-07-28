@@ -658,24 +658,9 @@
                 #endregion
 
                 document.MailMerge.Execute(app_Detail);
-                //document.Save(fileName, SaveOptions.PdfDefault);
                 document.Save(fileName_docx, SaveOptions.DocxDefault);
+                //document.Save(fileName, SaveOptions.PdfDefault);
 
-                byte[] fileContents;
-                using (var stream = new MemoryStream())
-                {
-                    document.Save(stream, SaveOptions.DocxDefault);
-                    fileContents = stream.ToArray();
-                }
-
-                //// Save document to DOCX format in byte array.
-                //using (var stream = new MemoryStream())
-                //{
-                //    document.Save(stream, SaveOptions.PdfDefault);
-                //    fileContents = stream.ToArray();
-                //}
-
-                Convert.ToBase64String(fileContents);
                 return Json(new { success = 0 });
             }
             catch (Exception ex)
@@ -943,21 +928,6 @@
                 //document.Save(fileName, SaveOptions.PdfDefault);
                 document.Save(fileName_docx, SaveOptions.DocxDefault);
 
-                byte[] fileContents;
-                using (var stream = new MemoryStream())
-                {
-                    document.Save(stream, SaveOptions.DocxDefault);
-                    fileContents = stream.ToArray();
-                }
-
-                //// Save document to DOCX format in byte array.
-                //using (var stream = new MemoryStream())
-                //{
-                //    document.Save(stream, SaveOptions.PdfDefault);
-                //    fileContents = stream.ToArray();
-                //}
-
-                Convert.ToBase64String(fileContents);
                 return Json(new { success = 0 });
             }
             catch (Exception ex)

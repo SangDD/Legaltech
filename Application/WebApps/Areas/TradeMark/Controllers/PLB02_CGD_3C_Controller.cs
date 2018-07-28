@@ -339,6 +339,7 @@
 
                 // Fill export_header
                 string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_VI_" + p_appCode + ".docx");
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_VI_" + p_appCode + ".pdf");
 
                 // copy Header
                 App_Detail_PLB02_CGD_Info.CopyAppHeaderInfo(ref app_Detail, applicationHeaderInfo);
@@ -459,15 +460,7 @@
 
                 document.MailMerge.Execute(app_Detail);
                 document.Save(fileName, SaveOptions.DocxDefault);
-                byte[] fileContents;
-                var options = SaveOptions.PdfDefault;
-                // Save document to DOCX format in byte array.
-                using (var stream = new MemoryStream())
-                {
-                    document.Save(stream, options);
-                    fileContents = stream.ToArray();
-                }
-                Convert.ToBase64String(fileContents);
+                document.Save(fileName_pdf, SaveOptions.PdfDefault);
                 return Json(new { success = 0 });
             }
             catch (Exception ex)
@@ -490,6 +483,7 @@
 
                 // Fill export_header
                 string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_VI_" + TradeMarkAppCode.AppCode_TM_3C_PLB_02_CGD + ".docx");
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_VI_" + TradeMarkAppCode.AppCode_TM_3C_PLB_02_CGD + ".pdf");
 
                 // copy Header
                 App_Detail_PLB02_CGD_Info.CopyAppHeaderInfo(ref pDetail, pInfo);
@@ -606,15 +600,8 @@
 
                 document.MailMerge.Execute(pDetail);
                 document.Save(fileName, SaveOptions.DocxDefault);
-                byte[] fileContents;
-                var options = SaveOptions.PdfDefault;
-                // Save document to DOCX format in byte array.
-                using (var stream = new MemoryStream())
-                {
-                    document.Save(stream, options);
-                    fileContents = stream.ToArray();
-                }
-                Convert.ToBase64String(fileContents);
+                document.Save(fileName_pdf, SaveOptions.PdfDefault);
+
                 return Json(new { success = 0 });
             }
             catch (Exception ex)
@@ -629,11 +616,11 @@
         {
             try
             {
-                //ViewBag.FileName = "/Content/Export/" + "B02_VI_" + TradeMarkAppCode.AppCode_TM_3C_PLB_02_CGD + ".pdf";
-                //return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+                ViewBag.FileName = "/Content/Export/" + "B02_VI_" + TradeMarkAppCode.AppCode_TM_3C_PLB_02_CGD + ".pdf";
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
 
-                ViewBag.FileName = "/Content/Export/" + "B02_VI_" + TradeMarkAppCode.AppCode_TM_3C_PLB_02_CGD + ".docx";
-                return PartialView("~/Areas/TradeMark/Views/Shared/_PartialContentPreview_docx.cshtml");
+                //ViewBag.FileName = "/Content/Export/" + "B02_VI_" + TradeMarkAppCode.AppCode_TM_3C_PLB_02_CGD + ".docx";
+                //return PartialView("~/Areas/TradeMark/Views/Shared/_PartialContentPreview_docx.cshtml");
             }
             catch (Exception ex)
             {
