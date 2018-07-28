@@ -500,11 +500,11 @@
                 App_Detail_PLB01_SDD_BL objBL = new App_Detail_PLB01_SDD_BL();
                 app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
 
-                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/B01_Request_for_amendment_of_application_vi.doc");
+                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/B01_VI.docx");
                 DocumentModel document = DocumentModel.Load(_fileTemp);
 
                 // Fill export_header
-                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_Request_for_amendment_of_application_vi_" + p_appCode + ".pdf");
+                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VI_" + p_appCode + ".docx");
 
                 // copy Header
                 App_Detail_PLB01_SDD_Info.CopyAppHeaderInfo(ref app_Detail, applicationHeaderInfo);
@@ -607,7 +607,7 @@
                 #endregion
 
                 document.MailMerge.Execute(app_Detail);
-                document.Save(fileName, SaveOptions.PdfDefault);
+                document.Save(fileName, SaveOptions.DocxDefault);
                 byte[] fileContents;
                 var options = SaveOptions.PdfDefault;
                 // Save document to DOCX format in byte array.
@@ -634,11 +634,11 @@
             try
             {
                 string language = AppsCommon.GetCurrentLang();
-                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/B01_Request_for_amendment_of_application_vi.doc");
+                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/B01_VI.docx");
                 DocumentModel document = DocumentModel.Load(_fileTemp);
 
                 // Fill export_header
-                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_Request_for_amendment_of_application_vi_" + TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD + ".pdf");
+                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VI_" + TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD + ".docx");
 
                 // copy Header
                 App_Detail_PLB01_SDD_Info.CopyAppHeaderInfo(ref pDetail, pInfo);
@@ -818,7 +818,7 @@
                 #endregion
 
                 document.MailMerge.Execute(pDetail);
-                document.Save(fileName, SaveOptions.PdfDefault);
+                document.Save(fileName, SaveOptions.DocxDefault);
                 byte[] fileContents;
                 var options = SaveOptions.PdfDefault;
                 // Save document to DOCX format in byte array.
@@ -842,8 +842,11 @@
         {
             try
             {
-                ViewBag.FileName = "/Content/Export/" + "B01_Request_for_amendment_of_application_vi_" + TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD + ".pdf";
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+                //ViewBag.FileName = "/Content/Export/" + "B01_Request_for_amendment_of_application_vi_" + TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD + ".pdf";
+                //return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+
+                ViewBag.FileName = "/Content/Export/" + "B01_VI_" + TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD + ".docx";
+                return PartialView("~/Areas/TradeMark/Views/Shared/_PartialContentPreview_docx.cshtml");
             }
             catch (Exception ex)
             {

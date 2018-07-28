@@ -334,11 +334,11 @@
                 App_Detail_Plb02_CGD_BL objBL = new App_Detail_Plb02_CGD_BL();
                 app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
 
-                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/B02_VI.doc");
+                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/B02_VI.docx");
                 DocumentModel document = DocumentModel.Load(_fileTemp);
 
                 // Fill export_header
-                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_VI_" + p_appCode + ".pdf");
+                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_VI_" + p_appCode + ".docx");
 
                 // copy Header
                 App_Detail_PLB02_CGD_Info.CopyAppHeaderInfo(ref app_Detail, applicationHeaderInfo);
@@ -458,7 +458,7 @@
                 #endregion
 
                 document.MailMerge.Execute(app_Detail);
-                document.Save(fileName, SaveOptions.PdfDefault);
+                document.Save(fileName, SaveOptions.DocxDefault);
                 byte[] fileContents;
                 var options = SaveOptions.PdfDefault;
                 // Save document to DOCX format in byte array.
@@ -485,11 +485,11 @@
             try
             {
                 string language = AppsCommon.GetCurrentLang();
-                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/B02_VI.doc");
+                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/B02_VI.docx");
                 DocumentModel document = DocumentModel.Load(_fileTemp);
 
                 // Fill export_header
-                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_VI_" + TradeMarkAppCode.AppCode_TM_3C_PLB_02_CGD + ".pdf");
+                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_VI_" + TradeMarkAppCode.AppCode_TM_3C_PLB_02_CGD + ".docx");
 
                 // copy Header
                 App_Detail_PLB02_CGD_Info.CopyAppHeaderInfo(ref pDetail, pInfo);
@@ -605,7 +605,7 @@
                 #endregion
 
                 document.MailMerge.Execute(pDetail);
-                document.Save(fileName, SaveOptions.PdfDefault);
+                document.Save(fileName, SaveOptions.DocxDefault);
                 byte[] fileContents;
                 var options = SaveOptions.PdfDefault;
                 // Save document to DOCX format in byte array.
@@ -629,8 +629,11 @@
         {
             try
             {
-                ViewBag.FileName = "/Content/Export/" + "B02_VI_" + TradeMarkAppCode.AppCode_TM_3C_PLB_02_CGD + ".pdf";
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+                //ViewBag.FileName = "/Content/Export/" + "B02_VI_" + TradeMarkAppCode.AppCode_TM_3C_PLB_02_CGD + ".pdf";
+                //return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+
+                ViewBag.FileName = "/Content/Export/" + "B02_VI_" + TradeMarkAppCode.AppCode_TM_3C_PLB_02_CGD + ".docx";
+                return PartialView("~/Areas/TradeMark/Views/Shared/_PartialContentPreview_docx.cshtml");
             }
             catch (Exception ex)
             {

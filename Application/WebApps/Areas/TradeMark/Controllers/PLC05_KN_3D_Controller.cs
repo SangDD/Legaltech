@@ -278,7 +278,7 @@
                 App_Detail_PLC05_KN_BL objBL = new App_Detail_PLC05_KN_BL();
                 app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
 
-                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/C05_VI.doc");
+                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/C05_VI.docx");
                 DocumentModel document = DocumentModel.Load(_fileTemp);
 
                 // Fill export_header
@@ -381,7 +381,7 @@
                 #endregion
 
                 document.MailMerge.Execute(app_Detail);
-                //document.Save(fileName, SaveOptions.PdfDefault);
+                document.Save(fileName, SaveOptions.PdfDefault);
                 document.Save(fileName_docx, SaveOptions.DocxDefault);
 
                 byte[] fileContents;
@@ -391,12 +391,12 @@
                     fileContents = stream.ToArray();
                 }
 
-                //// Save document to DOCX format in byte array.
-                //using (var stream = new MemoryStream())
-                //{
-                //    document.Save(stream, SaveOptions.PdfDefault);
-                //    fileContents = stream.ToArray();
-                //}
+                // Save document to DOCX format in byte array.
+                using (var stream = new MemoryStream())
+                {
+                    document.Save(stream, SaveOptions.PdfDefault);
+                    fileContents = stream.ToArray();
+                }
                 Convert.ToBase64String(fileContents);
                 return Json(new { success = 0 });
             }
@@ -415,7 +415,7 @@
             try
             {
                 string language = AppsCommon.GetCurrentLang();
-                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/C05_VI.doc");
+                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/C05_VI.docx");
                 DocumentModel document = DocumentModel.Load(_fileTemp);
 
                 // Fill export_header
