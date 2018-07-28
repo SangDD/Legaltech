@@ -508,27 +508,6 @@
                 // copy Header
                 App_Detail_PLD01_HDCN_Info.CopyAppHeaderInfo(ref app_Detail, applicationHeaderInfo);
 
-                document.MailMerge.FieldMerging += (sender, e) =>
-                {
-                    if (e.IsValueFound)
-                    {
-                        if (e.FieldName == "Customer_Code")
-                            e.Inline = new TextBox(e.Document, Layout.Floating(
-                                new HorizontalPosition(HorizontalPositionType.Absolute, HorizontalPositionAnchor.Margin),
-                                new VerticalPosition(VerticalPositionType.Absolute, VerticalPositionAnchor.Margin),
-                                new Size(4, 3.5, LengthUnit.Centimeter)),
-                                new Paragraph(document));
-                    }
-                };
-                document.MailMerge.Execute(new { Customer_Code = app_Detail.Customer_Code });
-
-                var textBox = new TextBox(document,
-                    Layout.Floating(
-                        new HorizontalPosition(HorizontalPositionType.Right, HorizontalPositionAnchor.Margin),
-                        new VerticalPosition(VerticalPositionType.Bottom, VerticalPositionAnchor.Margin),
-                        new Size(4, 3.5, LengthUnit.Centimeter)),
-                    new Paragraph(document, app_Detail.Customer_Code));
-
                 #region Tài liệu có trong đơn
 
                 foreach (AppDocumentInfo item in appDocumentInfos)
@@ -679,23 +658,22 @@
                 #endregion
 
                 document.MailMerge.Execute(app_Detail);
-                document.Save(fileName, SaveOptions.PdfDefault);
+                //document.Save(fileName, SaveOptions.PdfDefault);
                 document.Save(fileName_docx, SaveOptions.DocxDefault);
 
                 byte[] fileContents;
-                var options = SaveOptions.PdfDefault;
-                // Save document to DOCX format in byte array.
-                using (var stream = new MemoryStream())
-                {
-                    document.Save(stream, options);
-                    fileContents = stream.ToArray();
-                }
-
                 using (var stream = new MemoryStream())
                 {
                     document.Save(stream, SaveOptions.DocxDefault);
                     fileContents = stream.ToArray();
                 }
+
+                //// Save document to DOCX format in byte array.
+                //using (var stream = new MemoryStream())
+                //{
+                //    document.Save(stream, SaveOptions.PdfDefault);
+                //    fileContents = stream.ToArray();
+                //}
 
                 Convert.ToBase64String(fileContents);
                 return Json(new { success = 0 });
@@ -962,24 +940,22 @@
                 #endregion
 
                 document.MailMerge.Execute(pDetail);
-                document.Save(fileName, SaveOptions.PdfDefault);
+                //document.Save(fileName, SaveOptions.PdfDefault);
                 document.Save(fileName_docx, SaveOptions.DocxDefault);
 
                 byte[] fileContents;
-                var options = SaveOptions.PdfDefault;
-                // Save document to PDF format in byte array.
-                using (var stream = new MemoryStream())
-                {
-                    document.Save(stream, options);
-                    fileContents = stream.ToArray();
-                }
-
-                // Save document to DOCX format in byte array.
                 using (var stream = new MemoryStream())
                 {
                     document.Save(stream, SaveOptions.DocxDefault);
                     fileContents = stream.ToArray();
                 }
+
+                //// Save document to DOCX format in byte array.
+                //using (var stream = new MemoryStream())
+                //{
+                //    document.Save(stream, SaveOptions.PdfDefault);
+                //    fileContents = stream.ToArray();
+                //}
 
                 Convert.ToBase64String(fileContents);
                 return Json(new { success = 0 });
@@ -996,11 +972,11 @@
         {
             try
             {
-                ViewBag.FileName = "/Content/Export/" + "D01_VI_" + TradeMarkAppCode.AppCode_TM_4C2_PLD_01_HDCN + ".pdf";
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+                //ViewBag.FileName = "/Content/Export/" + "D01_VI_" + TradeMarkAppCode.AppCode_TM_4C2_PLD_01_HDCN + ".pdf";
+                //return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
 
-                //ViewBag.FileName = "/Content/Export/" + "D01_VI_" + TradeMarkAppCode.AppCode_TM_4C2_PLD_01_HDCN + ".docx";
-                //return PartialView("~/Areas/TradeMark/Views/Shared/_PartialContentPreview_docx.cshtml");
+                ViewBag.FileName = "/Content/Export/" + "D01_VI_" + TradeMarkAppCode.AppCode_TM_4C2_PLD_01_HDCN + ".docx";
+                return PartialView("~/Areas/TradeMark/Views/Shared/_PartialContentPreview_docx.cshtml");
             }
             catch (Exception ex)
             {

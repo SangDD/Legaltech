@@ -1,9 +1,13 @@
 ﻿@{
-    string src = "";
-    if (ViewBag.FileName != null) {
-        src = ViewBag.FileName;
+    string src = Common.Configuration.Host + @"\Content\Export\D01_VI_TM_PLD01HDCN.docx";
+    if (ViewBag.FileName != null)
+    {
+        src = Common.Configuration.Host + ViewBag.FileName;
     }
-
 }
 
-<embed   src="@src" type="application/vnd.openxmlformats-officedocument.wordprocessingml.document" style="overflow: auto; width: 100%; height: 900px;" >
+@*<embed   src="@src" type="application/vnd.openxmlformats-officedocument.wordprocessingml.document" style="overflow: auto; width: 100%; height: 900px;" >*@
+@*<iframe src="http://docs.google.com/gview?url=http://pathlaw.net\Content\Export\D01_VI_TM_PLD01HDCN.docx&embedded=true" style="overflow: auto; width: 100%; height: 900px;"></iframe>*@
+<iframe src="http://docs.google.com/gview?url=@src&embedded=true" style="overflow: auto; width: 100%; height: 900px;"></iframe>
+
+

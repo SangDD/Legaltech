@@ -283,6 +283,7 @@
 
                 // Fill export_header
                 string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C05_VI_" + p_appCode + ".pdf");
+                string fileName_docx = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C05_VI_" + p_appCode + ".docx");
 
                 App_Detail_PLC05_KN_Info.CopyAppHeaderInfo(ref app_Detail, applicationHeaderInfo);
 
@@ -380,15 +381,22 @@
                 #endregion
 
                 document.MailMerge.Execute(app_Detail);
-                document.Save(fileName, SaveOptions.PdfDefault);
+                //document.Save(fileName, SaveOptions.PdfDefault);
+                document.Save(fileName_docx, SaveOptions.DocxDefault);
+
                 byte[] fileContents;
-                var options = SaveOptions.PdfDefault;
-                // Save document to DOCX format in byte array.
                 using (var stream = new MemoryStream())
                 {
-                    document.Save(stream, options);
+                    document.Save(stream, SaveOptions.DocxDefault);
                     fileContents = stream.ToArray();
                 }
+
+                //// Save document to DOCX format in byte array.
+                //using (var stream = new MemoryStream())
+                //{
+                //    document.Save(stream, SaveOptions.PdfDefault);
+                //    fileContents = stream.ToArray();
+                //}
                 Convert.ToBase64String(fileContents);
                 return Json(new { success = 0 });
             }
@@ -412,7 +420,7 @@
 
                 // Fill export_header
                 string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C05_VI_" + TradeMarkAppCode.AppCode_TM_3D_PLC_05_KN + ".pdf");
-
+                string fileName_docx = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C05_VI_" + TradeMarkAppCode.AppCode_TM_3D_PLC_05_KN + ".docx");
                 // copy Header
                 App_Detail_PLC05_KN_Info.CopyAppHeaderInfo(ref pDetail, pInfo);
 
@@ -509,15 +517,23 @@
                 #endregion
 
                 document.MailMerge.Execute(pDetail);
-                document.Save(fileName, SaveOptions.PdfDefault);
+                //document.Save(fileName, SaveOptions.PdfDefault);
+                document.Save(fileName_docx, SaveOptions.DocxDefault);
+
                 byte[] fileContents;
-                var options = SaveOptions.PdfDefault;
-                // Save document to DOCX format in byte array.
                 using (var stream = new MemoryStream())
                 {
-                    document.Save(stream, options);
+                    document.Save(stream, SaveOptions.DocxDefault);
                     fileContents = stream.ToArray();
                 }
+
+                //// Save document to DOCX format in byte array.
+                //using (var stream = new MemoryStream())
+                //{
+                //    document.Save(stream, SaveOptions.PdfDefault);
+                //    fileContents = stream.ToArray();
+                //}
+
                 Convert.ToBase64String(fileContents);
                 return Json(new { success = 0 });
             }
@@ -533,8 +549,11 @@
         {
             try
             {
-                ViewBag.FileName = "/Content/Export/" + "C05_VI_" + TradeMarkAppCode.AppCode_TM_3D_PLC_05_KN + ".pdf";
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+                //ViewBag.FileName = "/Content/Export/" + "C05_VI_" + TradeMarkAppCode.AppCode_TM_3D_PLC_05_KN + ".pdf";
+                //return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+
+                ViewBag.FileName = "/Content/Export/" + "C05_VI_" + TradeMarkAppCode.AppCode_TM_3D_PLC_05_KN + ".docx";
+                return PartialView("~/Areas/TradeMark/Views/Shared/_PartialContentPreview_docx.cshtml");
             }
             catch (Exception ex)
             {
