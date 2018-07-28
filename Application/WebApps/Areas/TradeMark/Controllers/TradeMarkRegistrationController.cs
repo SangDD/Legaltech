@@ -396,7 +396,7 @@
                         }
                     }
                 }
-                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/TM04NH_Request_for_trademark_registration_vi_exp.doc");
+                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/TM04Nh_vi.doc");
                 DocumentModel document = DocumentModel.Load(_fileTemp);
                 // Fill export_header
                 string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + pInfo.Appcode  + DateTime.Now.ToString("ddMMyyyyHHmm") + ".docx");
