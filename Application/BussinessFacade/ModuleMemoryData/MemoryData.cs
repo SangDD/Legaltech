@@ -186,6 +186,11 @@
         {
             try
             {
+                lstCacheCustomer.Clear();
+                lstCacheCustomer1.Clear();
+                lstCacheCustomer2.Clear();
+                lstCacheCustomer3.Clear();
+                lstCacheCustomer4.Clear();
                 CustomerSuggestInfo pInfo; CustomerSuggestInfo pInfo1; CustomerSuggestInfo pInfo2; CustomerSuggestInfo pInfo3;
                 CustomerSuggestInfo pInfo4;
                 var objAppHeaderBL = new Application_Header_BL();

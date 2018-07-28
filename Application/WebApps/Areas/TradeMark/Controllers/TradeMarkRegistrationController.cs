@@ -399,8 +399,8 @@
                 string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/TM04NH_Request_for_trademark_registration_vi_exp.doc");
                 DocumentModel document = DocumentModel.Load(_fileTemp);
                 // Fill export_header
-                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + pInfo.Appcode  + DateTime.Now.ToString("ddMMyyyyHHmm") + ".pdf");
-                SessionData.CurrentUser.FilePreview = "/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + pInfo.Appcode + DateTime.Now.ToString("ddMMyyyyHHmm") + ".pdf";
+                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + pInfo.Appcode  + DateTime.Now.ToString("ddMMyyyyHHmm") + ".docx");
+                SessionData.CurrentUser.FilePreview = "/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + pInfo.Appcode + DateTime.Now.ToString("ddMMyyyyHHmm") + ".docx";
                 // Fill export_detail  
                 appInfo.Status = 254;
                 appInfo.Status_Form = 252;
@@ -624,7 +624,7 @@
                 #endregion
 
                 document.MailMerge.Execute(appInfo);
-                document.Save(fileName, SaveOptions.PdfDefault);
+                document.Save(fileName, SaveOptions.DocxDefault);
                 byte[] fileContents;
                 var options = SaveOptions.PdfDefault;
                 // Save document to DOCX format in byte array.
@@ -653,12 +653,12 @@
             {
                 //string tm04Nh = "TM04NH";
                 ViewBag.FileName= SessionData.CurrentUser.FilePreview ; // = "/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + tm04Nh + ".pdf";
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+                return PartialView("~/Areas/TradeMark/Views/Shared/_PartialContentPreview_docx.cshtml");
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+                return PartialView("~/Areas/TradeMark/Views/Shared/_PartialContentPreview_docx.cshtml");
             }
         }
 
