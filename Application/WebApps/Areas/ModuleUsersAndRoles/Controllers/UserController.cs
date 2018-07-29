@@ -10,7 +10,7 @@
 	using BussinessFacade.ModuleUsersAndRoles;
 
 	using Common;
-
+    using Common.Ultilities;
     using ObjectInfos;
 
 	using Session;
@@ -155,5 +155,30 @@
 
 			return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/_PartialDetailUser.cshtml", userInfo);
 		}
-	}
+
+        [HttpPost]
+        [Route("quan-ly-nguoi-dung/get-view-to-reset-pass")]
+        public ActionResult GetViewToResetPass(string p_user_name)
+        {
+            ViewBag.User_Name = p_user_name;
+            return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/_PartialResetPass.cshtml");
+        }
+
+        [HttpPost]
+        [Route("quan-ly-nguoi-dung/do-reset-pass")]
+        public ActionResult DoResetPass(string p_user_name, string p_password, string p_re_password)
+        {
+            try
+            {
+                var userBL = new UserBL();
+                int re = userBL.DoResetPass(p_user_name, Encription.EncryptAccountPassword(p_user_name, p_password), p_re_password, SessionData.CurrentUser.Username);
+                return Json(new { success = re });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = -1 });
+            }
+        }
+    }
 }

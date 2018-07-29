@@ -3,7 +3,7 @@
 @model Timesheet_Info
 @{
     App_Lawer_BL _App_Lawer_BL = new App_Lawer_BL();
-    List<App_Lawer_Info> _lstAppLawer = _App_Lawer_BL.GetApp_Grant4Lawer(WebApps.Session.SessionData.CurrentUser.Id);
+    List<App_Lawer_Info> _lstAppLawer = _App_Lawer_BL.GetApp_Grant4Lawer(WebApps.Session.SessionData.CurrentUser.Id, WebApps.Session.SessionData.CurrentUser.Type, WebApps.CommonFunction.AppsCommon.GetCurrentLang());
 }
 <script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
 <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
@@ -39,7 +39,7 @@
                     <select id="cboAppHeader">
                         @foreach (var item in _lstAppLawer)
                         {
-                            <option value="@item.Application_Header_Id">@item.GenCode - @item.App_Name</option>
+                            <option value="@item.Application_Header_Id">@item.GenCode - @item.Client_Reference</option>
                         }
                     </select>
                 </div>

@@ -316,5 +316,28 @@
                 return new DataSet();
             }
         }
+
+        public int DoResetPass(string p_user_name, string p_password, string p_re_password, string p_modifiedBy)
+        {
+
+            try
+            {
+                var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_s_users.proc_user_reset_pass",
+                    new OracleParameter("p_user_name", OracleDbType.Varchar2, p_user_name, ParameterDirection.Input),
+                    new OracleParameter("p_password", OracleDbType.Varchar2, p_password, ParameterDirection.Input),
+                    new OracleParameter("p_re_password", OracleDbType.Varchar2, p_re_password, ParameterDirection.Input),
+                    new OracleParameter("p_modifiedBy", OracleDbType.Varchar2, p_modifiedBy, ParameterDirection.Input),
+                    paramReturn);
+                var result = Convert.ToInt32(paramReturn.Value.ToString());
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            return KnMessageCode.DeleteUserFail.GetCode();
+        }
     }
 }

@@ -89,7 +89,7 @@
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;">
             <input type="button" value="Tìm kiếm" class="btn-default" onclick="Search_TimeSheet(1, 1)" />
-            @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
+            @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin)
             {
                 <input type="button" value="Khai timesheet" class="btn-default" onclick="getView2Insert()" />
             }

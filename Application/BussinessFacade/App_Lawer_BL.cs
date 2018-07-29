@@ -11,12 +11,12 @@ namespace BussinessFacade
     public class App_Lawer_BL
     {
 
-        public List<App_Lawer_Info> GetApp_Grant4Lawer(decimal p_lawer_id)
+        public List<App_Lawer_Info> GetApp_Grant4Lawer(decimal p_lawer_id, decimal p_user_type, string p_language_code)
         {
             try
             {
                 App_Lawer_DA _da = new App_Lawer_DA();
-                DataSet _ds = _da.GetApp_Grant4Lawer(p_lawer_id);
+                DataSet _ds = _da.GetApp_Grant4Lawer(p_lawer_id, p_user_type, p_language_code);
                 return CBO<App_Lawer_Info>.FillCollectionFromDataSet(_ds);
             }
             catch (Exception ex)

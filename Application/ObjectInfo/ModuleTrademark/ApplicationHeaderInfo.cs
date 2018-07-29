@@ -131,6 +131,9 @@ namespace ObjectInfos
         public string Note { get; set; }
         public string App_No { get; set; }
         public string App_Degree { get; set; }
+
+        // Người xử lý gần nhất
+        public string User_Processing { get; set; }
     }
 
 

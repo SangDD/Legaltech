@@ -20,6 +20,9 @@ namespace ObjectInfos
         public decimal Lawer_Id { get; set; }
         public string Lawer_Name { get; set; }
 
+        public string Client_Reference { get; set; }
+        public string Case_Name { get; set; }
+
         public DateTime Time_Date { get; set; }
         public decimal Hours { get; set; }
         public string Notes { get; set; }

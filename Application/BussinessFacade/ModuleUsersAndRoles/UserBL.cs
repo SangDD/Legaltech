@@ -152,6 +152,21 @@
             return this.SetActionResult(result, KnMessageCode.DeleteUserSuccess);
         }
 
+        public int DoResetPass(string p_user_name, string p_password, string p_re_password, string p_modifiedBy)
+        {
+            try
+            {
+                UserDA _UserDA = new UserDA();
+                return _UserDA.DoResetPass(p_user_name, p_password, p_re_password, p_modifiedBy);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
+
         public ActionBusinessResult DoLoginAccount(string userName, string password, string language)
         {
             var passwordEncrypt = Encription.EncryptAccountPassword(userName, password);

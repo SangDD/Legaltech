@@ -148,8 +148,8 @@ namespace DataAccess.ModuleTrademark
 
                     new OracleParameter("P_SEND_DATE", OracleDbType.Date, pInfo.Send_Date, ParameterDirection.Input),
                     new OracleParameter("P_STATUS", OracleDbType.Int32, pInfo.Status, ParameterDirection.Input),
-                    new OracleParameter("P_MODIFY_BY", OracleDbType.Varchar2, pInfo.Created_By, ParameterDirection.Input),
-                    new OracleParameter("P_MODIFY_DATE", OracleDbType.Date, pInfo.Created_Date, ParameterDirection.Input),
+                    new OracleParameter("P_MODIFY_BY", OracleDbType.Varchar2, pInfo.Modify_By, ParameterDirection.Input),
+                    new OracleParameter("P_MODIFY_DATE", OracleDbType.Date, pInfo.Modify_Date, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGUE_CODE", OracleDbType.Varchar2, pInfo.Languague_Code, ParameterDirection.Input),
                     new OracleParameter("P_ADDRESS", OracleDbType.Varchar2, pInfo.Address, ParameterDirection.Input),
                     new OracleParameter("P_DATENO", OracleDbType.Varchar2, pInfo.DateNo, ParameterDirection.Input),

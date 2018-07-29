@@ -18,7 +18,7 @@
                 <th class="class150" data-sort id="Appcode">Ghi chú</th>
 
                 <th class="class150" data-sort id="Appcode">Mã đơn</th>
-                <th class="class100" data-sort id="Appcode">Tên đơn</th>
+                <th class="class100" data-sort id="Appcode">Tên vụ việc</th>
                 <th class="class150">Luật sư</th>
                 <th class="class100">Ngày</th>
                 <th class="class50">Số giờ</th>
@@ -36,7 +36,7 @@
                         <td class="tdleftalign">@item.Name</td>
                         <td class="tdleftalign">@item.Notes</td>
                         <td class="tdleftalign">@item.App_GenCode</td>
-                        <td class="tdleftalign">@item.App_Name</td>
+                        <td class="tdleftalign">@item.Client_Reference</td>
                         <td class="tdleftalign">@item.Lawer_Name</td>
                         <td class="tdleftalign">@item.Time_Date.ToString("dd/MM/yyyy")</td>
                         <td class="tdleftalign">@item.Hours</td>
@@ -50,6 +50,7 @@
                                 if (item.Status == (decimal)CommonEnums.TimeSheet_Status.New)
                                 {
                                     <a href="javascript:;" onclick="getView2Approve(@item.Id)" class="icon icon-confirm-circle" data-title="Duyệt"></a>
+                                    @*<a href="javascript:;" onclick="getView2Edit(@item.Id)" class="icon icon-edit" data-title="Sửa"></a>*@
                                 }
                             }
                             else if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
@@ -58,9 +59,9 @@
                                 <a href="javascript:;" onclick="getView2Edit(@item.Id)" class="icon icon-edit" data-title="Sửa"></a>
 
                                 @*if (item.Status != (decimal)CommonEnums.TimeSheet_Status.Approve)
-                                {
-                                    <a href="javascript:;" onclick="getView2Edit(@item.Id)" class="icon icon-edit" data-title="Sửa"></a>
-                                }*@
+            {
+                <a href="javascript:;" onclick="getView2Edit(@item.Id)" class="icon icon-edit" data-title="Sửa"></a>
+            }*@
                             }
                         </td>
                     </tr>

@@ -231,6 +231,8 @@
             });
         }
 
+
+
         function getViewToEditUser(userId, username) {
             $.ajax({
                 type: "POST",
@@ -292,6 +294,25 @@
                         if (validateResponse(data)) {
                             $("#divPopUpUser").html(data);
                             ShowPopupDialog_Ipace('divWrapperPopUpUser', "Chi tiết người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 900);
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
+
+        function getViewToResetPass(Username) {
+            $.ajax({
+                type: "POST",
+                url: "/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-reset-pass",
+                data: { p_user_name: Username },
+                headers: { "cache-control": "no-cache" },
+                async: false,
+                success: function (data) {
+                    if (data != null) {
+                        if (validateResponse(data)) {
+                            $("#divPopUpUser").html(data);
+                            ShowPopupDialog_Ipace('divWrapperPopUpUser', "Thêm mới người dùng", 500, 1200, "txtPassword");
                         }
                     }
                     return false;

@@ -56,12 +56,12 @@ namespace BussinessFacade
         }
 
         public List<Timesheet_Info> Timesheet_Search(string p_key_search, ref decimal p_total_record,
-            string p_from = "1", string p_to = "10", string p_sort_type = "ALL")
+            string p_from = "1", string p_to = "10", string p_column = "ALL", string p_sort_type = "ALL")
         {
             try
             {
                 TimeSheet_DA _da = new TimeSheet_DA();
-                DataSet _ds = _da.Timesheet_Search(p_key_search, p_from, p_to, p_sort_type, ref p_total_record);
+                DataSet _ds = _da.Timesheet_Search(p_key_search, p_from, p_to, p_column, p_sort_type, ref p_total_record);
                 return CBO<Timesheet_Info>.FillCollectionFromDataSet(_ds);
             }
             catch (Exception ex)
