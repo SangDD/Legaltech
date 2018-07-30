@@ -157,6 +157,8 @@
     <Compile Include="Areas\Account\Controllers\AccountController.cs" />
     <Compile Include="Areas\AppClass\AppClassAreaRegistration.cs" />
     <Compile Include="Areas\AppClass\Controllers\AppClassController.cs" />
+    <Compile Include="Areas\DaiDienSHCN\Controllers\DDSHCNController.cs" />
+    <Compile Include="Areas\DaiDienSHCN\DaiDienSHCNAreaRegistration.cs" />
     <Compile Include="Areas\Home\Controllers\HomeController.cs" />
     <Compile Include="Areas\Home\Controllers\WikiController.cs" />
     <Compile Include="Areas\Home\HomeAreaRegistration.cs" />
@@ -1290,6 +1292,12 @@
     <Content Include="Areas\TradeMark\Views\Shared\_PartialContentPreview_docx.cshtml" />
     <Content Include="Content\AppForms\TM04Nh_vi.doc" />
     <Content Include="Areas\ModuleUsersAndRoles\Views\User\_PartialResetPass.cshtml" />
+    <Content Include="Areas\DaiDienSHCN\Views\web.config" />
+    <Content Include="Areas\DaiDienSHCN\Views\DDSHCN\_PartialDaiDienSHCNInsert.cshtml" />
+    <Content Include="Areas\DaiDienSHCN\Views\DDSHCN\DDSHCNList.cshtml" />
+    <Content Include="Areas\DaiDienSHCN\Views\DDSHCN\_PartialTableDDSHCN.cshtml" />
+    <Content Include="Areas\DaiDienSHCN\Views\DDSHCN\_PartialDaiDienSHCNUpdate.cshtml" />
+    <Content Include="Areas\DaiDienSHCN\Views\DDSHCN\_PartialDaiDienSHCNDetail.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <Content Include="Areas\Home\Views\Wiki\_PartialListDocByCata.cshtml" />
@@ -1596,6 +1604,8 @@
   <ItemGroup>
     <Folder Include="Areas\Account\Models\" />
     <Folder Include="Areas\Account\Views\Shared\" />
+    <Folder Include="Areas\DaiDienSHCN\Models\" />
+    <Folder Include="Areas\DaiDienSHCN\Views\Shared\" />
     <Folder Include="Areas\Home\Models\" />
     <Folder Include="Areas\ModuleUsersAndRoles\Models\" />
     <Folder Include="Areas\ModuleUsersAndRoles\Views\Shared\" />
