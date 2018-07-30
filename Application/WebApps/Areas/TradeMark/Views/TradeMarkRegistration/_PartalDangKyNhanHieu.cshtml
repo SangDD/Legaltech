@@ -161,7 +161,7 @@
                     </div>
                 </div>
             </div>
-            <i style="color:red;font-weight:bold;margin-left:120px">(Bắt buộc tải ảnh đúng cỡ quy định 8x8)</i>
+            <i style="color:red;font-weight:bold;margin-left:120px">(Ảnh có kích cỡ từ 2x2 đến 8x8)</i>
 
             <div class="div-search-ad">
                 <div class="div-search-content">
@@ -274,6 +274,19 @@
                 </div>
             </div>
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "2")
+            @* Đại diện shcn ký *@
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Đại diện SHCN:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text"  placeholder="Đại diện SHCN" value="" id="txtDaiDienSHCN" />
+                    </div>
+                </div>
+            </div>
+            @*  *@
+
         </div>
         @* 3  A14*@
         <div class="div_full_100_area">
@@ -457,6 +470,8 @@
 </style>
 
 <script>
+
+
     $('#cboKhachHangCu').multipleSelect({
         filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
@@ -483,6 +498,7 @@
         width: '100%',
         placeholder: 'Tìm kiếm khách hàng'
     });
+
     $('#10_cboDaiDienChuDonCu').multipleSelect({
         filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
@@ -491,6 +507,7 @@
         width: '100%',
         placeholder: 'Tìm kiếm khách hàng'
     });
+
     $('#11_cboDaiDienChuDonCu').multipleSelect({
         filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
@@ -498,6 +515,7 @@
         isdatastring: false, width: '100%',
         placeholder: 'Tìm kiếm khách hàng'
     });
+
     $('#12_cboDaiDienChuDonCu').multipleSelect({
         filter: true,
         noMatchesFound: "Không tìm thấy dữ liệu",
@@ -505,8 +523,7 @@
         isdatastring: false, width: '100%',
         placeholder: 'Tìm kiếm khách hàng'
     });
-
-
+     
     //disable enable
     $("input[name='NameTLUT04NH_D_14'").change(function () {
         funcAddRemoveDisabled("6_rdoTLCMQUT", "6_txtTLCMQUT");
@@ -519,8 +536,7 @@
     $("input[name='NameTLUT04NH_D_16'").change(function () {
         funcAddRemoveDisabled("6_rdoBDTVGom", "6_txtBDTVGom");
     });
-
-
+     
     function funcAddRemoveDisabled(pIDControl, ptxtDisable) {
         try {
             if ($("#" + pIDControl).is(':checked')) {
@@ -532,9 +548,7 @@
 
         }
     }
-
-
-
+     
     $("input[name='0_NhanHieu'").change(function () {
         var v_NhanHieu = $("input[name='0_NhanHieu']:checked").val();
         if (v_NhanHieu == "NHCN") {
@@ -596,7 +610,8 @@
             var img = $("#imgMauNhanHieuTeplace");
             var iheight = img[0].height;
             var iwidth = img[0].width;
-            if (iheight != 302 || iwidth != 302) {
+            //2x2 75x75 px
+            if ((iheight != iwidth) || (   iheight >= 302  || iheight <= 75)) {
                 nvsConfirm(null, "Ảnh tải lên không đúng cỡ quy định bạn có muốn tiếp tục hay không?", function () {
                     return true;
                 }, function () {
@@ -739,7 +754,6 @@
         });
         //End 9
 
-
         //Start 10
         var txtTenDayDu_10 = $("#10_txtTenDayDu").val();
         $.ajax({
@@ -785,7 +799,6 @@
             }
         });
         //End 10
-
 
         //Start 11
         var txtTenDayDu_11 = $("#11_txtTenDayDu").val();
@@ -878,6 +891,51 @@
             }
         });
         //End 12
+
+        var txtTenDayDu_02 = $("#2_txtTenDayDu").val();
+        $.ajax({
+            url: '/trade-mark/GetNameSuggestKhac/',
+            type: 'POST',
+            data: {
+                pName: txtTenDayDu_02, pNumber: 5
+            },
+            sync: true, cache: false, traditional: true,
+            success: function (data) {
+                var lts = data.lst;
+                $('#2_txtTenDayDu').autocomplete({
+                    autoFocus: true,
+                    source: function (request, response) {
+                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+                        response($.grep(lts, function (item) {
+                            return matcher.test(item.value);
+                        }));
+                    },
+                    select: function (event, ui) {
+                        $("#2_txtTenDayDu").val("");
+                        event.preventDefault();
+                        funcChuDonKhacReuse02(ui.item.value);
+                    },
+                    focus: function (event, ui) {
+                        var arrResult = $(".ui-menu-item");
+                        for (var i = 0; i < arrResult.length; i++) {
+                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                            if (label == ui.item.value) {
+                                $(".clsLiActive").removeClass("clsLiActive")
+                                $(arrResult[i]).addClass("clsLiActive");
+                                break;
+                            }
+                        }
+                        event.preventDefault();
+                    },
+                    open: function (event, ui) {
+                        $("ul").scrollTop(0);
+                        event.preventDefault();
+                    },
+                });
+
+            }
+        });
+        
     });
 
 
@@ -961,6 +1019,27 @@
         }
     }
 
+    //ĐẠI DIỆN CỦA CHỦ ĐƠN
+    function funcChuDonKhacReuse02(displayVal) {
+        try {
+            var txtNguoiDaidien = "2_txtTenDayDu";
+            var txtDiaChi = "2_txtDiaChi";
+            var txtDienThoai = "2_txtDienThoai";
+            var txtFax = "2_txtFax";
+            var txtEmail = "2_txtEmail";
+            var arrVal = displayVal.split('|');
+            if (arrVal.length === 5) {
+                $("#" + txtNguoiDaidien).val(arrVal[0]);
+                $("#" + txtDiaChi).val(arrVal[1]);
+                $("#" + txtDienThoai).val(arrVal[2]);
+                $("#" + txtFax).val(arrVal[3]);
+                $("#" + txtEmail).val(arrVal[4]);
+            }
+        } catch (e) {
+
+        }
+    }
+    
     function ShowHidenUpLoad(pID, pClass) {
         try {
             if ($("#" + pID).is(':checked')) {
@@ -1340,6 +1419,14 @@
                 showError('Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!');
                 return false;
             }
+            var daidienSH = $("#txtDaiDienSHCN").val();
+            if (daidienSH === "") {
+                $('#txtDaiDienSHCN').focus().val('');
+                showError('Chưa chọn chủ đại đại diện sở hữu.');
+                return false;
+            }
+            formData.append("pInfo.DDSHCN", daidienSH);
+
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
             //trang thai
             formData.append("pInfo.Status", ptype);
@@ -1393,8 +1480,22 @@
         } catch (e) {
 
         }
-
     }
-     
-     
+
+    $("input[name='3_rdoDaiDienChuDon'").change(function () {
+        var v_DDSHCN = $("input[name='3_rdoDaiDienChuDon']:checked").val();
+        if (v_DDSHCN == "DDPL") {
+            $("#2_txtTenDayDu").val($("#1_txtTenDayDu").val());
+            $("#2_txtDiaChi").val($("#1_txtDiaChi").val());
+            $("#2_txtDienThoai").val($("#1_txtDienThoai").val());
+            $("#2_txtFax").val($("#1_txtFax").val());
+            $("#2_txtEmail").val($("#1_txtEmail").val());
+        } else {
+            $("#2_txtTenDayDu").val("");
+            $("#2_txtDiaChi").val("");
+            $("#2_txtDienThoai").val("");
+            $("#2_txtFax").val("");
+            $("#2_txtEmail").val("");
+        }
+    });
 </script>

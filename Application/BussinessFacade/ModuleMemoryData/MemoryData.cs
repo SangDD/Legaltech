@@ -28,6 +28,8 @@
         public static List<CustomerSuggestInfo> lstCacheCustomer2 = new List<CustomerSuggestInfo>();
         public static List<CustomerSuggestInfo> lstCacheCustomer3 = new List<CustomerSuggestInfo>();
         public static List<CustomerSuggestInfo> lstCacheCustomer4 = new List<CustomerSuggestInfo>();
+
+        public static List<CustomerSuggestInfo> lstCacheRefCustomer = new List<CustomerSuggestInfo>();
         static MyQueue c_queue_changeData = new MyQueue();
         public static Hashtable c_hs_Allcode = new Hashtable();
         static List<GroupUserInfo> c_lst_Group = new List<GroupUserInfo>();
@@ -193,6 +195,7 @@
                 lstCacheCustomer4.Clear();
                 CustomerSuggestInfo pInfo; CustomerSuggestInfo pInfo1; CustomerSuggestInfo pInfo2; CustomerSuggestInfo pInfo3;
                 CustomerSuggestInfo pInfo4;
+                CustomerSuggestInfo pInfo5;
                 var objAppHeaderBL = new Application_Header_BL();
                 var list = objAppHeaderBL.LayThongTinKhachHang("", "", "");
                 foreach (var item in list)
@@ -224,6 +227,12 @@
                     pInfo4.value = item.Cdk_Name_4 + "|" + item.Cdk_Address_4 + "|" + item.Cdk_Phone_4 + "|" + item.Cdk_Fax_4 + "|" + item.Cdk_Email_4;
                     pInfo4.name = item.Cdk_Name_4;
 
+
+                    pInfo5 = new CustomerSuggestInfo();
+                    pInfo5.label = item.Rep_Master_Name + " Phone: " + item.Rep_Master_Phone + " Fax: " + item.Rep_Master_Fax + " Email: " + item.Rep_Master_Email;
+                    pInfo5.value = item.Rep_Master_Name + "|" + item.Rep_Master_Address + "|" + item.Rep_Master_Phone + "|" + item.Rep_Master_Fax + "|" + item.Rep_Master_Email;
+                    pInfo5.name = item.Rep_Master_Name;
+
                     lstCacheCustomer.Add(pInfo);
                     if (!string.IsNullOrEmpty(item.Cdk_Name_1))
                         lstCacheCustomer1.Add(pInfo1);
@@ -233,6 +242,8 @@
                         lstCacheCustomer3.Add(pInfo3);
                     if (!string.IsNullOrEmpty(item.Cdk_Name_4))
                         lstCacheCustomer4.Add(pInfo4);
+                    if (!string.IsNullOrEmpty(item.Rep_Master_Name))
+                        lstCacheRefCustomer.Add(pInfo5);
                 }
             }
             catch (Exception ex)

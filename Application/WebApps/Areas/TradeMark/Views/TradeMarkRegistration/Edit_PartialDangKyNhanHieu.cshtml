@@ -468,6 +468,20 @@
                 </div>
             </div>
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "2")
+
+            @* Đại diện shcn ký *@
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Đại diện SHCN:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" placeholder="Đại diện SHCN" value="@objAppHeaderInfo.DDSHCN" id="txtDaiDienSHCN" />
+                    </div>
+                </div>
+            </div>
+            @*  *@
+
         </div>
         @* 3  A14*@
         <div class="div_full_100_area">
@@ -817,8 +831,9 @@
             var img = $("#imgMauNhanHieuTeplace");
             var iheight = img[0].height;
             var iwidth = img[0].width;
-            if (iheight != 302 || iwidth != 302) {
-                nvsConfirm(null, "Ảnh tải lên không đúng cỡ quy định (8x8 hoac 302x302 px) bạn có muốn tiếp tục hay không?", function () {
+
+            if ((iheight != iwidth) || (iheight >= 302 || iheight <= 75)) {
+                nvsConfirm(null, "Ảnh tải lên không đúng cỡ quy định bạn có muốn tiếp tục hay không?", function () {
                     return true;
                 }, function () {
                     //Callback 
@@ -1138,6 +1153,50 @@
             }
         });
         //End 12
+        var txtTenDayDu_02 = $("#2_txtTenDayDu").val();
+        $.ajax({
+            url: '/trade-mark/GetNameSuggestKhac/',
+            type: 'POST',
+            data: {
+                pName: txtTenDayDu_02, pNumber: 5
+            },
+            sync: true, cache: false, traditional: true,
+            success: function (data) {
+                var lts = data.lst;
+                $('#2_txtTenDayDu').autocomplete({
+                    autoFocus: true,
+                    source: function (request, response) {
+                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+                        response($.grep(lts, function (item) {
+                            return matcher.test(item.value);
+                        }));
+                    },
+                    select: function (event, ui) {
+                        $("#2_txtTenDayDu").val("");
+                        event.preventDefault();
+                        funcChuDonKhacReuse02(ui.item.value);
+                    },
+                    focus: function (event, ui) {
+                        var arrResult = $(".ui-menu-item");
+                        for (var i = 0; i < arrResult.length; i++) {
+                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                            if (label == ui.item.value) {
+                                $(".clsLiActive").removeClass("clsLiActive")
+                                $(arrResult[i]).addClass("clsLiActive");
+                                break;
+                            }
+                        }
+                        event.preventDefault();
+                    },
+                    open: function (event, ui) {
+                        $("ul").scrollTop(0);
+                        event.preventDefault();
+                    },
+                });
+
+            }
+        });
+
     });
 
 
@@ -1222,6 +1281,29 @@
 
         }
     }
+
+    //ĐẠI DIỆN CỦA CHỦ ĐƠN
+    function funcChuDonKhacReuse02(displayVal) {
+        try {
+            var txtNguoiDaidien = "2_txtTenDayDu";
+            var txtDiaChi = "2_txtDiaChi";
+            var txtDienThoai = "2_txtDienThoai";
+            var txtFax = "2_txtFax";
+            var txtEmail = "2_txtEmail";
+            var arrVal = displayVal.split('|');
+            if (arrVal.length === 5) {
+                $("#" + txtNguoiDaidien).val(arrVal[0]);
+                $("#" + txtDiaChi).val(arrVal[1]);
+                $("#" + txtDienThoai).val(arrVal[2]);
+                $("#" + txtFax).val(arrVal[3]);
+                $("#" + txtEmail).val(arrVal[4]);
+            }
+        } catch (e) {
+
+        }
+    }
+
+
     function ShowHidenUpLoad(pID, pClass) {
         try {
             if ($("#" + pID).is(':checked')) {

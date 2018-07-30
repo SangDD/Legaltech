@@ -1447,6 +1447,18 @@
                         }
                     }
                 }
+                else if (pNumber == 5)
+                {
+                    foreach (var item in MemoryData.lstCacheRefCustomer)
+                    {
+                        if (string.IsNullOrEmpty(item.name)) continue;
+                        if (item.name.Contains(pName))
+                        {
+                            check = 1;
+                            lstContain.Add(item);
+                        }
+                    }
+                }
                 if (check == 1)
                 {
                     return Json(new { lst = lstContain });
@@ -1461,6 +1473,8 @@
                         return Json(new { lst = MemoryData.lstCacheCustomer3 });
                     else if (pNumber == 4)
                         return Json(new { lst = MemoryData.lstCacheCustomer4 });
+                    else if (pNumber == 5)
+                        return Json(new { lst = MemoryData.lstCacheRefCustomer });
                     else return Json(new { lst = MemoryData.lstCacheCustomer });
                 }
             }

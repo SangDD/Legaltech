@@ -132,6 +132,7 @@ namespace ObjectInfos
         public string App_No { get; set; }
         public string App_Degree { get; set; }
 
+        public string DDSHCN { get; set; }
         // Người xử lý gần nhất
         public string User_Processing { get; set; }
     }
