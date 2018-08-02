@@ -12,12 +12,12 @@ namespace BussinessFacade
 {
     public class AppDDSHCN_BL
     {
-        public List<AppDDSHCNInfo> AppDDSHCNGetAll()
+        public List<AppDDSHCNInfo> AppDDSHCNGetAll(string pName, string pPhone, int pStart, int pEnd, ref decimal pTotalRecord)
         {
             try
             {
                 AppDDSHCN_DA _da = new AppDDSHCN_DA();
-                DataSet _ds = _da.AppDDSHCNGetAll();
+                DataSet _ds = _da.AppDDSHCNGetAll(  pName,   pPhone,   pStart,   pEnd, ref pTotalRecord);
                 return CBO<AppDDSHCNInfo>.FillCollectionFromDataSet(_ds);
             }
             catch (Exception ex)

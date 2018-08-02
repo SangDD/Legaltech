@@ -8,12 +8,21 @@ namespace DataAccess
 {
     public class AppDDSHCN_DA
     {
-        public DataSet AppDDSHCNGetAll()
+        public DataSet AppDDSHCNGetAll(string pName, string pPhone, int pStart, int pEnd, ref decimal pTotalRecord)
         {
             try
             {
-                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_DDSHCN.PROC_APPDDSHCN_GETALL",
-                new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+                var paramReturn = new OracleParameter("P_RECORD", OracleDbType.Int32, ParameterDirection.Output);
+                DataSet ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_DDSHCN.PROC_APPDDSHCN_GETALL",
+                  new OracleParameter("P_NAME", OracleDbType.Varchar2, pName, ParameterDirection.Input),
+                  new OracleParameter("P_PHONE", OracleDbType.Varchar2, pPhone, ParameterDirection.Input),
+                  new OracleParameter("P_START", OracleDbType.Int32, pStart, ParameterDirection.Input),
+                  new OracleParameter("P_END", OracleDbType.Int32, pEnd, ParameterDirection.Input),
+                  new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output),
+                  paramReturn
+                  );
+                pTotalRecord = Convert.ToDecimal(paramReturn.Value.ToString());
+                return ds;
             }
             catch (Exception ex)
             {
@@ -30,8 +39,8 @@ namespace DataAccess
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_DDSHCN.PROC_APP_DDSHCN_INSERT",
                     new OracleParameter("P_NAME_VI", OracleDbType.Varchar2, pInfo.Name_Vi, ParameterDirection.Input),
                     new OracleParameter("P_ADDRESS_VI", OracleDbType.Varchar2, pInfo.Address_Vi, ParameterDirection.Input),
-                    new OracleParameter("P_NAME_EN", OracleDbType.Varchar2, pInfo.Address_En, ParameterDirection.Input),
-                    new OracleParameter("P_ADDRESS_EN", OracleDbType.Varchar2, pInfo.Address_En, ParameterDirection.Input),
+                    new OracleParameter("P_NAME_EN", OracleDbType.Varchar2, pInfo.Name_En, ParameterDirection.Input),
+                    new OracleParameter("P_ADDRESS_EN", OracleDbType.Varchar2, pInfo.Address_Vi, ParameterDirection.Input),
                     new OracleParameter("P_PHONE", OracleDbType.Varchar2, pInfo.Phone, ParameterDirection.Input),
                     new OracleParameter("P_FAX", OracleDbType.Varchar2, pInfo.Fax, ParameterDirection.Input),
                     new OracleParameter("P_EMAIL", OracleDbType.Varchar2, pInfo.Email, ParameterDirection.Input),
@@ -57,8 +66,8 @@ namespace DataAccess
                     new OracleParameter("P_ID", OracleDbType.Decimal, pInfo.Id, ParameterDirection.Input),
                     new OracleParameter("P_NAME_VI", OracleDbType.Varchar2, pInfo.Name_Vi, ParameterDirection.Input),
                     new OracleParameter("P_ADDRESS_VI", OracleDbType.Varchar2, pInfo.Address_Vi, ParameterDirection.Input),
-                    new OracleParameter("P_NAME_EN", OracleDbType.Varchar2, pInfo.Address_En, ParameterDirection.Input),
-                    new OracleParameter("P_ADDRESS_EN", OracleDbType.Varchar2, pInfo.Address_En, ParameterDirection.Input),
+                    new OracleParameter("P_NAME_EN", OracleDbType.Varchar2, pInfo.Name_En, ParameterDirection.Input),
+                    new OracleParameter("P_ADDRESS_EN", OracleDbType.Varchar2, pInfo.Address_Vi, ParameterDirection.Input),
                     new OracleParameter("P_PHONE", OracleDbType.Varchar2, pInfo.Phone, ParameterDirection.Input),
                     new OracleParameter("P_FAX", OracleDbType.Varchar2, pInfo.Fax, ParameterDirection.Input),
                     new OracleParameter("P_EMAIL", OracleDbType.Varchar2, pInfo.Email, ParameterDirection.Input),

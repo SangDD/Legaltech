@@ -1,123 +1,90 @@
 ﻿@using ObjectInfos;
 @using BussinessFacade;
-@model Timesheet_Info
-
+@model AppDDSHCNInfo
+@{
+}
 <style>
-    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
     .div-search-title > div {
         width: 120px;
     }
 </style>
 
+
+<input type="hidden" id="txtID" value="@Model.Id" />
+
 <div class="" style="padding:5px 38px">
+
     <div class="divCover divCover_popup">
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Mã đơn<i class="redspan">(*)</i></div>
+                <div>Tên tiếng việt</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.App_Code, new { @id = "txtApp_Code", @disabled = "disabled" })
+                    @Html.TextBoxFor(m => m.Name_Vi, new { id = "txtName_Vi", @maxlength = "200" , @disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tên tiếng anh</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Name_Vi, new { id = "txtName_En", @maxlength = "200", @disabled = "disabled" })
                 </div>
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Loại đơn</div>
+                <div>Phone </div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.App_Name, new { @id = "txtApp_Name", @disabled = "disabled" })
+                    @Html.TextBoxFor(m => m.Name_Vi, new { id = "txtPhone", @maxlength = "50", @disabled = "disabled" })
                 </div>
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Timesheet name</div>
+                <div>Fax</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Name, new { @id = "txtName", @disabled = "disabled", @style = "width: 200px" })
-                </div>
-            </div>
-
-
-            <div class="div-search-title">
-                <div>Luật sư</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.TextBoxFor(m => m.Lawer_Name, new { @disabled = "disabled" })
+                    @Html.TextBoxFor(m => m.Fax, new { id = "txtFax", @maxlength = "50", @disabled = "disabled" })
                 </div>
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Trạng thái</div>
+                <div>Email</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Status_Name, new { @disabled = "disabled" })
+                    @Html.TextBoxFor(m => m.Email, new { id = "txtEmail", @maxlength = "150", @disabled = "disabled" })
                 </div>
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Ngày</div>
+                <div>Địa chỉ</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Time_Date, new
-                    {
-                        @id = "DateOfBirth",
-                        @Value = Model.Time_Date == DateTime.MinValue ? "" : Model.Time_Date.ToString("dd/MM/yyyy"), @disabled = "disabled", @style = "width: 200px"
-                    })
-                </div>
-            </div>
-            <div class="div-search-title">
-                <div>Giờ </div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.TextBoxFor(m => m.Hours, new { @disabled = "disabled" })
+                    @Html.TextBoxFor(m => m.Address_Vi, new { id = "txtAddress_Vi", @Value = Model.Address_Vi, @disabled = "disabled" })
                 </div>
             </div>
         </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Ghi chú</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.TextBoxFor(m => m.Notes, new { @disabled = "disabled" })
-                </div>
-            </div>
-        </div>
-
-        @if (Model.Status == (int)Common.CommonData.CommonEnums.TimeSheet_Status.Reject)
-        {
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div>Lý do từ chối</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.TextBoxFor(m => m.Reject_Reason, new { @id = "txtReject_Reason", @disabled = "disabled" })
-                    </div>
-                </div>
-            </div>
-        }
-
     </div>
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="button" class="btn-default" value="Thoát" onclick="ClosePopUpTimeSheet()" style="width: auto;" />
+            <input type="submit" class="btn-default" value="Thoát" onclick="return ClosePopUpDDSHCN()" />
         </div>
     </div>
 </div>
+ 
