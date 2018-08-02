@@ -8,6 +8,7 @@ namespace ObjectInfos
 {
     public class AppDDSHCNInfo
     {
+        public decimal STT { get; set; }
         public decimal Id { get; set; }
         public string Name_Vi { get; set; }
         public string Address_Vi { get; set; }

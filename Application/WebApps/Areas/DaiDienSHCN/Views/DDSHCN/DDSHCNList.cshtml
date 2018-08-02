@@ -1,8 +1,213 @@
-﻿
+﻿@using Common.CommonData
+@using ObjectInfos;
+@using BussinessFacade;
+@using BussinessFacade.ModuleMemoryData
 @{
-    ViewBag.Title = "DDSHCNList";
+    ViewBag.Title = "Quản lý Đại diện SHCN";
     Layout = "~/ViewsShared/_Layout.cshtml";
 }
 
-<h2>DDSHCNList</h2>
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        Quản trị hệ thống
+        <span class="red">></span>
+        <a href="/quan-ly-timesheet/danh-sach-timesheet">Quản lý Đại diện SHCN</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
 
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <input type="hidden" value="ALL|ALL|ALL" name="txtKeyValue" id="txtKeyValue" />
+            <input type="hidden" value="ID" name="txtSortColum" id="txtSortColumn" />
+            <input type="hidden" value="DESC" name="txtSortType" id="txtSortType" />
+            <div class="div-title-content"> THÔNG TIN DDSHCN</div>
+        </div>
+    </div>
+    <div class="divCover" id="div-search-simple">
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Chủ sở hữu</div>
+            </div>
+            <div>
+                <div>
+                    <input type="text" id="txtChuSoHuu" style="width:500px"/>
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div>Điện thoại</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtPhoneSearch" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div class="div-search-btn" style="width:600px;">
+            <input type="button" value="Tìm kiếm" class="btn-default" onclick="SearchDDSHCN(1, 1)" />
+            <input type="button" value="Thêm mới" class="btn-default" onclick="getView2Insert()" />
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div id="divDataDDSHCN" class="divDataTables" style="overflow-x: auto;">
+            @Html.Partial("~/Areas/DaiDienSHCN/Views/DDSHCN/_PartialTableDDSHCN.cshtml")
+        </div>
+    </div>
+
+    <div id="divWrapperPopUpDDSHCN" class="divWrapperPopup" style="display: none;">
+        <div class="divPopup" id="divPopUpDDSHCN">
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function funcGetView2Edit(_id) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/dai-dien-so-huu-cn/danh-sach-ddsh/show-update",
+            dataType: "html",
+            data: {
+                pID: _id
+            },
+            async: false, cache: false, traditional: true,
+            success: function (data) {
+                if (data != null) {
+                    $("#divPopUpDDSHCN").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPopUpDDSHCN', "Sửa thông tin ĐDSHCN", 700, 500, "txtName_Vi");
+                }
+                return false;
+            }
+        });
+    }
+
+
+    function getView2Insert()
+    {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/dai-dien-so-huu-cn/danh-sach-ddsh/show-insert",
+            dataType: "html",
+            async: false, cache: false, traditional: true,
+            success: function (data) {
+                if (data != null) {
+                    $("#divPopUpDDSHCN").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPopUpDDSHCN', "Thêm mới DDSHCN", 700, 500, "txtName_Vi");
+                }
+                return false;
+            }
+        });
+    }
+
+    function ClosePopUpDDSHCN() {
+        CloseDivPopUp('divWrapperPopUpDDSHCN');
+    }
+    function SearchDDSHCN(pPage, pType) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            var csh = $("#txtChuSoHuu").val();
+            var phone = $("#txtPhoneSearch").val();
+            var p_keysearch = csh + "|" + phone;
+            $.ajax({
+                type: 'POST',
+                url: '/dai-dien-so-huu-cn/danh-sach-ddsh/search',
+                data: {
+                    p_keysearch: p_keysearch,
+                    p_CurrentPage: pPage,
+                    p_column: "",
+                    p_type_sort: ""
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divDataDDSHCN").html(data);
+                }
+            });
+
+        } catch (e) {
+
+        }
+    }
+
+    function funcDeleteDDSHCN(pID) {
+
+        nvsConfirm(null, "Bạn có chắc chắn muốn xóa DDSHCN này không?", function () {
+            $.ajax({
+                url: "/dai-dien-so-huu-cn/danh-sach-ddsh/execute-deleted",
+                type: "POST",
+                data: {
+                    pId: pID
+                },
+                headers: { "cache-control": "no-cache" },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data.success == "-1") {
+                        jError("Lỗi check lại kết nối tới server");
+                        return false;
+                    }
+                    else {
+                        jAlert('Xóa DDSHCN thành công!', "THÔNG BÁO", function () {
+                            SearchDDSHCN(1, 1);
+                        });
+                    }
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
+            });
+        });
+    }
+
+    function jsPaging(page) {
+        SearchDDSHCN(page, 0);
+    }
+
+
+    function funcDetail(pID) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/dai-dien-so-huu-cn/danh-sach-ddsh/show-detail",
+            data: {
+                pID: pID
+            },
+            async: false, cache: false, traditional: true,
+            success: function (data) {
+                if (data != null) {
+                    $("#divPopUpDDSHCN").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPopUpDDSHCN', "Thông tin DDSHCN", 700, 500);
+                }
+                return false;
+            }
+        });
+    }
+</script>
