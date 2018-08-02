@@ -1495,5 +1495,43 @@
                 else return Json(new { lst = MemoryData.lstCacheCustomer });
             }
         }
+
+        [Route("GetNameSuggestAppClass")]
+        public ActionResult GetNameSuggestAppClass(string pName)
+        {
+            try
+            {
+                List<AppClassInfo> lstContain = new List<AppClassInfo>();
+                if (string.IsNullOrEmpty(pName))
+                {
+                    return Json(new { lst = MemoryData.clstAppClass });
+                }
+                int check = 0;
+                foreach (var item in MemoryData.clstAppClass)
+                {
+                    if (string.IsNullOrEmpty(item.Name_Vi)) continue;
+                    if (item.Name_Vi.Contains(pName))
+                    {
+                        check = 1;
+                        lstContain.Add(item);
+                    }
+                }
+                if (check == 1)
+                {
+                    return Json(new { lst = lstContain });
+                }
+                else
+                {
+                    return Json(new { lst = MemoryData.clstAppClass });
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { lst = MemoryData.clstAppClass });
+            }
+        }
+            
+            
     }
 }
