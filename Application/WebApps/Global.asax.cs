@@ -225,6 +225,10 @@
                         {
                             MemoryData.GetCacheCustomerInfo();
                         }
+                        else if (_CallBack_Info.Table_Name == Table_Change.APP_DDSHCN)
+                        {
+                            MemoryData.GetCacheDDSHCN();
+                        }
                     }
                     Thread.Sleep(1000);
                 }

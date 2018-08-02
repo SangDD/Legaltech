@@ -951,7 +951,7 @@
                         var arrResult = $(".ui-menu-item");
                         for (var i = 0; i < arrResult.length; i++) {
                             var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                            if (label == ui.item.value) {
+                            if (label == ui.item.name) {
                                 $(".clsLiActive").removeClass("clsLiActive")
                                 $(arrResult[i]).addClass("clsLiActive");
                                 break;
@@ -996,7 +996,7 @@
                         var arrResult = $(".ui-menu-item");
                         for (var i = 0; i < arrResult.length; i++) {
                             var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                            if (label == ui.item.value) {
+                            if (label == ui.item.name) {
                                 $(".clsLiActive").removeClass("clsLiActive")
                                 $(arrResult[i]).addClass("clsLiActive");
                                 break;
@@ -1043,7 +1043,7 @@
                         var arrResult = $(".ui-menu-item");
                         for (var i = 0; i < arrResult.length; i++) {
                             var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                            if (label == ui.item.value) {
+                            if (label == ui.item.name) {
                                 $(".clsLiActive").removeClass("clsLiActive")
                                 $(arrResult[i]).addClass("clsLiActive");
                                 break;
@@ -1090,7 +1090,7 @@
                         var arrResult = $(".ui-menu-item");
                         for (var i = 0; i < arrResult.length; i++) {
                             var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                            if (label == ui.item.value) {
+                            if (label == ui.item.name) {
                                 $(".clsLiActive").removeClass("clsLiActive")
                                 $(arrResult[i]).addClass("clsLiActive");
                                 break;
@@ -1136,7 +1136,7 @@
                         var arrResult = $(".ui-menu-item");
                         for (var i = 0; i < arrResult.length; i++) {
                             var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                            if (label == ui.item.value) {
+                            if (label == ui.item.name) {
                                 $(".clsLiActive").removeClass("clsLiActive")
                                 $(arrResult[i]).addClass("clsLiActive");
                                 break;
@@ -1180,7 +1180,7 @@
                         var arrResult = $(".ui-menu-item");
                         for (var i = 0; i < arrResult.length; i++) {
                             var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                            if (label == ui.item.value) {
+                            if (label == ui.item.name) {
                                 $(".clsLiActive").removeClass("clsLiActive")
                                 $(arrResult[i]).addClass("clsLiActive");
                                 break;
@@ -1297,6 +1297,7 @@
                 $("#" + txtDienThoai).val(arrVal[2]);
                 $("#" + txtFax).val(arrVal[3]);
                 $("#" + txtEmail).val(arrVal[4]);
+                $("#txtDaiDienSHCN").val(arrVal[0]);
             }
         } catch (e) {
 
@@ -1816,5 +1817,21 @@
         }
     }
 
+    $("input[name='3_rdoDaiDienChuDon'").change(function () {
+        var v_DDSHCN = $("input[name='3_rdoDaiDienChuDon']:checked").val();
+        if (v_DDSHCN == "DDPL") {
+            $("#2_txtTenDayDu").val($("#1_txtTenDayDu").val());
+            $("#2_txtDiaChi").val($("#1_txtDiaChi").val());
+            $("#2_txtDienThoai").val($("#1_txtDienThoai").val());
+            $("#2_txtFax").val($("#1_txtFax").val());
+            $("#2_txtEmail").val($("#1_txtEmail").val());
+        } else {
+            $("#2_txtTenDayDu").val("");
+            $("#2_txtDiaChi").val("");
+            $("#2_txtDienThoai").val("");
+            $("#2_txtFax").val("");
+            $("#2_txtEmail").val("");
+        }
+    });
 
 </script>

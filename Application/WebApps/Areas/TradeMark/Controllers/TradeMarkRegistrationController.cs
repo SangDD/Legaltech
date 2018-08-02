@@ -1449,7 +1449,7 @@
                 }
                 else if (pNumber == 5)
                 {
-                    foreach (var item in MemoryData.lstCacheRefCustomer)
+                    foreach (var item in MemoryData.lstChuDDSHCN)
                     {
                         if (string.IsNullOrEmpty(item.name)) continue;
                         if (item.name.Contains(pName))
@@ -1474,7 +1474,7 @@
                     else if (pNumber == 4)
                         return Json(new { lst = MemoryData.lstCacheCustomer4 });
                     else if (pNumber == 5)
-                        return Json(new { lst = MemoryData.lstCacheRefCustomer });
+                        return Json(new { lst = MemoryData.lstChuDDSHCN });
                     else return Json(new { lst = MemoryData.lstCacheCustomer });
                 }
             }
@@ -1490,6 +1490,8 @@
                     return Json(new { lst = MemoryData.lstCacheCustomer3 });
                 else if (pNumber == 4)
                     return Json(new { lst = MemoryData.lstCacheCustomer4 });
+                else if (pNumber == 5)
+                    return Json(new { lst = MemoryData.lstChuDDSHCN });
                 else return Json(new { lst = MemoryData.lstCacheCustomer });
             }
         }
