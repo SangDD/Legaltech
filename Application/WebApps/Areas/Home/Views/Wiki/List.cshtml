@@ -82,8 +82,8 @@
 <input type="hidden" value="" id="OptionSorting" />
 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
     <div class="breadcrumb">
-        <input type="text" id="_txtwikidocsearch" placeholder="@WebApps.Resources.Resource.WikiSearchPlaceholder" style=" width: calc(100% - 100px);" />
-        <input type="button" value="@WebApps.Resources.Resource.WikiSearchButton" style="width: 83px;" onclick="findObjects(1, 1)" id="btnfindObjects" />
+        <input type="text" id="_txtwikidocsearch" placeholder="@WebApps.Resources.Resource.WikiSearchPlaceholder" style=" width: calc(100% - 88px);" />
+        <input type="button"   value="@WebApps.Resources.Resource.WikiSearchButton" style="width: 83px;" onclick="findObjects(1, 1)" id="btnfindObjects" />
     </div>
     @{
         if (ViewBag.DocdetailInfo != null)
@@ -106,7 +106,7 @@
 <script>
     var _currentKeySearch = '/Areas/Home/Views/Wiki/List_currentKeySearch';
     var _currentOptionFilter = '/Areas/Home/Views/Wiki/List_currentOptionFilter';
-    var _status = '3', _catalogue = 'ALL', _titleHashtag = '';
+    var _status = '3', _catalogue = 'ALL', _titleHashtag = 'ALL';
     if ($("#txtwikicataid").val() != "0") {
         _catalogue = $("#txtwikicataid").val();
     }
@@ -148,7 +148,10 @@
                 _catalogue = $("#txtwikicataid").val();
             }
             _titleHashtag = $("#_txtwikidocsearch").val().trim();
-
+            if (_titleHashtag.trim() == "")
+            {
+                _titleHashtag = "ALL";
+            }
             updateSearchingConditions("divNumberRecordOnPageListObjects", setKeySearch);
             $.ajax({
                 type: "POST",
