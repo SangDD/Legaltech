@@ -6,7 +6,19 @@
     {
         _DocdetailInfo = ViewBag.DocdetailInfo;
     }
-}
+    string _styleVoting = "";
+    try
+    {
+        _styleVoting = "width:" + Math.Round((_DocdetailInfo.RATING / (_DocdetailInfo.NUMBER_VOTED * 5) * 100), 2) + "%";
+    }
+    catch (Exception)
+    {
+
+        _styleVoting = "width:0%";
+    }
+
+
+            }
 <script src="~/Scripts/WikiScript.js"></script>
 <h1>
     @_DocdetailInfo.TITLE
@@ -16,7 +28,7 @@
         border: none;
     }
 
-    #div_wiki_datacontent_Detail {
+#div_wiki_datacontent_Detail {
         padding: 0px 0px 20px 0px;
     }
 
@@ -36,7 +48,7 @@
 
     .clsBtnBack {
         background-image: url(/Content/images/Tro_ve.png);
-        left: 0;
+    left: 0;
     }
 
         .clsBtnBack:hover {
@@ -159,25 +171,47 @@
     }
 </div>
 <div class="div_ratingcontent">
-    @*<div class="kk-star-ratings disabled bottom-right rgt" data-id="6624">
-        <div class="kksr-stars kksr-star gray">
-            <div class="kksr-fuel kksr-star orange" style="width: 90.33%;"></div>
-            <a href="#1" data-wpel-link="internal">  </a>
-            <a href="#2" data-wpel-link="internal"></a>
-            <a href="#3" data-wpel-link="internal"></a>
-            <a href="#4" data-wpel-link="internal"></a><a href="#5" data-wpel-link="internal"></a>
+    <div class="kk-star-ratings disabled bottom-right rgt" data-id="6624">
+            <div class="kksr-stars kksr-star gray">
+                <div id="div_ratingcontent_percent" class="kksr-fuel kksr-star yellow" style="@_styleVoting"></div>
+                <a href="javascript:;" id="voting_i01" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('01')" onmouseout="StarOnMouseOut('01')" onclick="WikiDocVoting(1)"></a>
+                <a href="javascript:;" id="voting_i02" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('02')"  onmouseout="StarOnMouseOut('02')"  onclick="WikiDocVoting(2)"></a>
+                <a href="javascript:;" id="voting_i03" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('03')"  onmouseout="StarOnMouseOut('03')"  onclick="WikiDocVoting(3)"></a>
+                <a href="javascript:;" id="voting_i04" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('04')"  onmouseout="StarOnMouseOut('04')"  onclick="WikiDocVoting(4)"></a>
+                <a href="javascript:;" id="voting_i05" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('05')"  onmouseout="StarOnMouseOut('05')"  onclick="WikiDocVoting(5)"></a>
+            </div>
+            <div class="kksr-legend">
+                <div itemprop="aggregateRating"  >
+                    <span id="ratingValue"  >@_DocdetailInfo.RATING</span> 
+                    <span id="ratingCount"  >@_DocdetailInfo.NUMBER_VOTED</span> votes 
+                    <meta  content="1"><div itemprop="itemReviewed"  >
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="kksr-legend">
+
+    @*<div class="kk-star-ratings  bottom-right rgt" data-id="6624">
+        <div class="kksr-stars kksr-star gray">
+            <div class="kksr-fuel kksr-star yellow" style="width: 88px;">
+            </div> <a href="#1" data-wpel-link="internal" class="" style="display: block;">
+            </a><a href="#2" data-wpel-link="internal" class="" style="display: block;">
+            </a>
+            <a href="#3" data-wpel-link="internal" class="" style="display: block;"></a>
+            <a href="#4" data-wpel-link="internal" class="" style="display: block;"></a>
+            <a href="#5" data-wpel-link="internal"></a>
+        </div><div class="kksr-legend">
             <div itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating">
-            
-                <span itemprop="ratingValue">3.7</span> <span itemprop="ratingCount">3</span> votes<meta itemprop="bestRating" content="5">
-                <meta itemprop="worstRating" content="1"><div itemprop="itemReviewed" itemscope="" itemtype="http://schema.org/CreativeWork">
+
+                <span itemprop="ratingValue">3.7</span> <span itemprop="ratingCount">3</span>
+                votes<meta itemprop="bestRating" content="5"><meta itemprop="worstRating" content="1">
+                <div itemprop="itemReviewed" itemscope="" itemtype="http://schema.org/CreativeWork">
+
                 </div>
             </div>
         </div>
     </div>*@
 
-    <div class="kk-star-ratings  bottom-right rgt" data-id="6624"><div class="kksr-stars kksr-star gray"><div class="kksr-fuel kksr-star yellow" style="width: 88px;"></div> <a href="#1" data-wpel-link="internal" class="" style="display: block;"></a><a href="#2" data-wpel-link="internal" class="" style="display: block;"></a><a href="#3" data-wpel-link="internal" class="" style="display: block;"></a><a href="#4" data-wpel-link="internal" class="" style="display: block;"></a><a href="#5" data-wpel-link="internal"></a></div><div class="kksr-legend"><div itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating"><div itemprop="name" class="kksr-title">Hướng dẫn cách viết bài đánh giá sản phẩm Affiliate để đạt hiệu quả chuyển đổi cao nhất</div><span itemprop="ratingValue">3.7</span> <span itemprop="ratingCount">3</span> votes<meta itemprop="bestRating" content="5"><meta itemprop="worstRating" content="1"><div itemprop="itemReviewed" itemscope="" itemtype="http://schema.org/CreativeWork"></div></div></div></div>
+
 </div>
 
 <script>
@@ -187,5 +221,54 @@
         (
         $(a).siblings("div").fadeIn(), $(a).attr("style", 'background: url("/Content/images/share_active.png") no-repeat')
         )
+    }
+
+    function StarOnMouseOver(_id)
+    {
+        try {
+            for (var i = 0; i <= _id; i++) {
+                $("#voting_i0" + i).addClass("orange");
+            }
+
+        } catch (e) {
+
+        }
+    }
+
+    function StarOnMouseOut(_id) {
+        try {
+            for (var i = 0; i <= _id; i++) {
+                $("#voting_i0" + i).removeClass("orange");
+            }
+        } catch (e) {
+
+        }
+    }
+
+    function WikiDocVoting(_Point) {
+        try {
+            $.ajax({
+                url: "/wiki-view/WikiDocVoting",
+                type: "POST",
+                data: { p_id: '@_DocdetailInfo.ID', p_point: _Point },
+                headers: { "cache-control": "no-cache" },
+                async: false,
+                success: function (data) {
+                    if (data != null) {
+                        $("#div_ratingcontent_percent").removeAttr("style");
+                        $("#div_ratingcontent_percent").attr("style", "width:" + data.Rating + "%;");
+                        $("#ratingValue").text(data.Rating);
+                        $("#ratingCount").text(data.TotalVoted);
+                        
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        } catch (e) {
+            alert(e.toString());
+        }
+
     }
 </script>
