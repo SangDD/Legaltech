@@ -45,5 +45,15 @@ namespace ObjectInfos
         public DateTime MODIFIED_DATE { set; get; }
 
         public string REFUSE_REASON { set; get; }
+
+        public decimal RATING { set; get; }
+
+        public string USER_VOTED { set; get; }
+
+        public decimal NUMBER_VOTED { set; get; }
+
+
+
+
     }
 }

@@ -7,11 +7,11 @@
         _DocdetailInfo = ViewBag.DocdetailInfo;
     }
 }
-
+<script src="~/Scripts/WikiScript.js"></script>
 <h1>
     @_DocdetailInfo.TITLE
 </h1>
-  <style>
+<style>
     .d-paging {
         border: none;
     }
@@ -59,13 +59,23 @@
         }
 
     .clsBtnShare {
-        margin-top: 10px;
+        margin-top: 15px;
         cursor: pointer;
         background: url(/Content/images/share.png) no-repeat;
         width: 28px;
         height: 35px;
         float: right;
     }
+
+    .clsBtnDownload {
+        margin-top: 15px;
+        cursor: pointer;
+        background: url(/Content/images/download.png) no-repeat;
+        width: 28px;
+        height: 35px;
+        float: right;
+    }
+
 
     .social-likes {
         position: absolute;
@@ -74,6 +84,12 @@
         background-color: #fff;
     }
 
+    .downloadwiki {
+        position: absolute;
+        top: 45px;
+        z-index: 9;
+        background-color: #fff;
+    }
 </style>
 
 
@@ -81,13 +97,16 @@
 <div class="mdc-card__actions">
     <div class="mdc-card__action-buttons" style="min-height: 36px">
         @*<div class="mdc-menu-anchor">
-            <button class="mdc-button"  onclick="return funcLikeShareSocial(this);">
-                <i class="mdc-button__icon icon icon-share-alt" aria-hidden="true"></i>Share
-            </button>
-        </div>*@
- 
+                <button class="mdc-button"  onclick="return funcLikeShareSocial(this);">
+                    <i class="mdc-button__icon icon icon-share-alt" aria-hidden="true"></i>Share
+                </button>
+            </div>*@
+
         <div class="Box-Share">
-            <div class="clsBtnShare" onclick="return funcLikeShareSocial(this);"></div>
+
+            <div class="clsBtnShare" onclick="return funcLikeShareSocial(this)">
+                <div style=" color: #0d4a86;font-weight:bold; margin-left:40px"> SHARE</div>
+            </div>
             <div class="social-likes">
                 <div class="facebook" title="Share link on Facebook">
                 </div>
@@ -97,13 +116,24 @@
                 </div>
             </div>
         </div>
-      <btn class="mdc-button" style="margin-left:41px;  "> Share</btn> 
-        <div class="mdc-menu-anchor">
-            <button class="mdc-button" onclick="ExportDocToFile(@_DocdetailInfo.ID)">
-                <i class="mdc-button__icon icon icon-download">
-                </i>Download
-            </button>
+
+        <div class="Box-Share" style="margin-left:120px">
+
+            <div class="clsBtnDownload" onclick="ExportDocToFile(@_DocdetailInfo.ID)">
+                <div style=" color: #0d4a86;font-weight:bold; margin-left:32px"> DOWNLOAD</div>
+            </div>
+            <div class="socialdownloadwiki">
+
+            </div>
         </div>
+        @*<btn class="mdc-button" style="margin-left:41px;  "> Share</btn>*@
+        @*<div class="mdc-menu-anchor" style="margin-left:50px">
+                <button class="mdc-button" onclick="ExportDocToFile(@_DocdetailInfo.ID)">
+                    <i class="mdc-button__icon icon icon-download">
+                    </i>Download
+                </button>
+            </div>*@
+        @*<div style=" color: #0d4a86;font-weight:bold; margin-left:130px" onclick="ExportDocToFile(@_DocdetailInfo.ID)"> DOWNLOAD</div>*@
     </div>
 </div>
 <div>
@@ -121,12 +151,33 @@
 
     @if (!string.IsNullOrEmpty(_DocdetailInfo.FILE_URL02))
     {
-        <span class="badge"><a  target="_blank" href="@_DocdetailInfo.FILE_URL02">DOWNLOAD</a></span>
+        <span class="badge"><a target="_blank" href="@_DocdetailInfo.FILE_URL02">DOWNLOAD</a></span>
     }
     @if (!string.IsNullOrEmpty(_DocdetailInfo.FILE_URL03))
     {
-        <span class="badge"><a  target="_blank" href="@_DocdetailInfo.FILE_URL03">DOWNLOAD</a></span>
+        <span class="badge"><a target="_blank" href="@_DocdetailInfo.FILE_URL03">DOWNLOAD</a></span>
     }
+</div>
+<div class="div_ratingcontent">
+    @*<div class="kk-star-ratings disabled bottom-right rgt" data-id="6624">
+        <div class="kksr-stars kksr-star gray">
+            <div class="kksr-fuel kksr-star orange" style="width: 90.33%;"></div>
+            <a href="#1" data-wpel-link="internal">  </a>
+            <a href="#2" data-wpel-link="internal"></a>
+            <a href="#3" data-wpel-link="internal"></a>
+            <a href="#4" data-wpel-link="internal"></a><a href="#5" data-wpel-link="internal"></a>
+        </div>
+        <div class="kksr-legend">
+            <div itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating">
+            
+                <span itemprop="ratingValue">3.7</span> <span itemprop="ratingCount">3</span> votes<meta itemprop="bestRating" content="5">
+                <meta itemprop="worstRating" content="1"><div itemprop="itemReviewed" itemscope="" itemtype="http://schema.org/CreativeWork">
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+    <div class="kk-star-ratings  bottom-right rgt" data-id="6624"><div class="kksr-stars kksr-star gray"><div class="kksr-fuel kksr-star yellow" style="width: 88px;"></div> <a href="#1" data-wpel-link="internal" class="" style="display: block;"></a><a href="#2" data-wpel-link="internal" class="" style="display: block;"></a><a href="#3" data-wpel-link="internal" class="" style="display: block;"></a><a href="#4" data-wpel-link="internal" class="" style="display: block;"></a><a href="#5" data-wpel-link="internal"></a></div><div class="kksr-legend"><div itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating"><div itemprop="name" class="kksr-title">Hướng dẫn cách viết bài đánh giá sản phẩm Affiliate để đạt hiệu quả chuyển đổi cao nhất</div><span itemprop="ratingValue">3.7</span> <span itemprop="ratingCount">3</span> votes<meta itemprop="bestRating" content="5"><meta itemprop="worstRating" content="1"><div itemprop="itemReviewed" itemscope="" itemtype="http://schema.org/CreativeWork"></div></div></div></div>
 </div>
 
 <script>
