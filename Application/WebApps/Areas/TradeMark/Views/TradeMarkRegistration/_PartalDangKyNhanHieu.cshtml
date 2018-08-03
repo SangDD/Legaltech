@@ -9,6 +9,8 @@
     .div-search-title > div {
         width: 110px;
     }
+
+   
 </style>
 <div class="d-nav-container">
     <ul class="ul-nav">
@@ -56,14 +58,14 @@
 
         @* Thong tin chu don   *@
 
-        <div class="div_full_100_area">
+        <div class="div_full_100_area" style="display:none" id="divChungDonKhac001">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblChuDonKhac.ToUpper())
             <div id="divAddNewChuDon01" hidden="hidden">
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
             </div>
         </div>
 
-        <div class="div_full_100_area" style="display:none" id="divHiddenChuDon01">
+        <div class="div_full_100_area classChuDonKhac" style="display:none" id="divHiddenChuDon01"  >
             <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon01','divHiddenChuDon01','01');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblAn</a>
         </div>
 
@@ -72,14 +74,14 @@
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "10")
         </div>
 
-        <div class="div_full_100_area" style="display:none" id="divHiddenChuDon02">
+        <div class="div_full_100_area classChuDonKhac" style="display:none" id="divHiddenChuDon02">
             <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon02','divHiddenChuDon02','02');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblAn</a>
         </div>
         <div id="divAddNewChuDon03" hidden="hidden">
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "11")
         </div>
 
-        <div class="div_full_100_area" style="display:none" id="divHiddenChuDon03">
+        <div class="div_full_100_area classChuDonKhac" style="display:none" id="divHiddenChuDon03">
             <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon03','divHiddenChuDon03','03');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblAn</a>
         </div>
 
@@ -87,12 +89,14 @@
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "12")
         </div>
 
-        <div class="div_full_100_area" style="display:none" id="divHiddenChuDon04">
+        <div class="div_full_100_area classChuDonKhac" style="display:none" id="divHiddenChuDon04">
             <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon04','divHiddenChuDon04','04');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblAn</a>
         </div>
 
         <div class="div_full_100_area" id="divThemChuDon01">
-            <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon01','divHiddenChuDon01');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblThemChuDon</a>
+
+            <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon01','divHiddenChuDon01');" style="text-decoration:underline; color: blue; ">@WebApps.Resources.Resource.lblChuDonKhac</a>
+
         </div>
         <div class="div_full_100_area" style="display:none" id="divThemChuDon02">
             <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon02','divHiddenChuDon02');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblThemChuDon</a>
@@ -650,9 +654,10 @@
             validateOnBlur: false,
             scrollInput: false
         });
-
+        //var inp = document.getElementById("1_txtTenDayDu");
+         //var currentFocus;
         //Search suggestion 
-        var Name = $("#1_txtTenDayDu").val();
+         var Name = $("#1_txtTenDayDu").val();
         $.ajax({
             url: '/trade-mark/GetNameSuggest/',
             type: 'POST',
@@ -661,11 +666,12 @@
             },
             sync: true, cache: false, traditional: true,
             success: function (data) {
+
                 var lts = data.lst;
                 $('#1_txtTenDayDu').autocomplete({
                     autoFocus: true,
                     source: function (request, response)
-                    {
+                    { 
                         var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
                         response($.grep(lts, function (item) {
                             return matcher.test(item.value);
@@ -690,7 +696,7 @@
                         var arrResult = $(".ui-menu-item");
                         for (var i = 0; i < arrResult.length; i++) {
                             var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                            if (label == ui.item.value) {
+                            if (label == ui.item.name) {
                                 $(".clsLiActive").removeClass("clsLiActive")
                                 $(arrResult[i]).addClass("clsLiActive");
                                 break;
@@ -704,10 +710,9 @@
                         event.preventDefault();
                     },
                 });
-
             }
         });
-
+         
         //Start 9
         var txtTenDayDu_9 = $("#9_txtTenDayDu").val();
         $.ajax({
@@ -736,7 +741,7 @@
                         var arrResult = $(".ui-menu-item");
                         for (var i = 0; i < arrResult.length; i++) {
                             var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                            if (label == ui.item.value) {
+                            if (label == ui.item.name) {
                                 $(".clsLiActive").removeClass("clsLiActive")
                                 $(arrResult[i]).addClass("clsLiActive");
                                 break;
@@ -782,7 +787,7 @@
                         var arrResult = $(".ui-menu-item");
                         for (var i = 0; i < arrResult.length; i++) {
                             var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                            if (label == ui.item.value) {
+                            if (label == ui.item.name) {
                                 $(".clsLiActive").removeClass("clsLiActive")
                                 $(arrResult[i]).addClass("clsLiActive");
                                 break;
@@ -828,7 +833,7 @@
                         var arrResult = $(".ui-menu-item");
                         for (var i = 0; i < arrResult.length; i++) {
                             var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                            if (label == ui.item.value) {
+                            if (label == ui.item.name) {
                                 $(".clsLiActive").removeClass("clsLiActive")
                                 $(arrResult[i]).addClass("clsLiActive");
                                 break;
@@ -874,7 +879,7 @@
                         var arrResult = $(".ui-menu-item");
                         for (var i = 0; i < arrResult.length; i++) {
                             var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                            if (label == ui.item.value) {
+                            if (label == ui.item.name) {
                                 $(".clsLiActive").removeClass("clsLiActive")
                                 $(arrResult[i]).addClass("clsLiActive");
                                 break;
@@ -919,7 +924,7 @@
                         var arrResult = $(".ui-menu-item");
                         for (var i = 0; i < arrResult.length; i++) {
                             var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                            if (label == ui.item.value) {
+                            if (label == ui.item.name) {
                                 $(".clsLiActive").removeClass("clsLiActive")
                                 $(arrResult[i]).addClass("clsLiActive");
                                 break;
@@ -934,10 +939,65 @@
                 });
 
             }
+        }); 
+
+
+
+        //Search suggestion 
+        var Name = $("#txtTenHangHoa").val();
+        $.ajax({
+            url: '/trade-mark/GetNameSuggestAppClass',
+            type: 'POST',
+            data: {
+                pName: Name
+            },
+            sync: true, cache: false, traditional: true,
+            success: function (data) {
+
+                var lts = data.lst;
+                $('#txtTenHangHoa').autocomplete({
+                    autoFocus: true,
+                    source: function (request, response) {
+                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+                        response($.grep(lts, function (item) {
+                            return matcher.test(item.Name_Vi);
+                        }));
+                    },
+                    select: function (event, ui) {
+                        $("#txtTenHangHoa").val("");
+                        event.preventDefault();
+                        //var arrVal = ui.item.value.split('|');
+                        //if (arrVal.length === 5) {
+                        //    $("#1_txtTenDayDu").val(arrVal[0]);
+                        //    $("#1_txtDiaChi").val(arrVal[1]);
+                        //    $("#1_txtDienThoai").val(arrVal[2]);
+                        //    $("#1_txtFax").val(arrVal[3]);
+                        //    $("#1_txtEmail").val(arrVal[4]);
+                        //}
+                    },
+                    focus: function (event, ui) {
+                        var arrResult = $(".ui-menu-item");
+                        for (var i = 0; i < arrResult.length; i++) {
+                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                            if (label == ui.item.Name_Vi) {
+                                $(".clsLiActive").removeClass("clsLiActive")
+                                $(arrResult[i]).addClass("clsLiActive");
+                                break;
+                            }
+                        }
+                        event.preventDefault();
+                    },
+                    open: function (event, ui) {
+                        $("ul").scrollTop(0);
+                        event.preventDefault();
+                    },
+                });
+            }
         });
-        
+        //txtTenHangHoa
     });
 
+     
 
     function funcChuDonKhacReuse9(displayVal) {
         try {
@@ -1034,6 +1094,8 @@
                 $("#" + txtDienThoai).val(arrVal[2]);
                 $("#" + txtFax).val(arrVal[3]);
                 $("#" + txtEmail).val(arrVal[4]);
+                $("#txtDaiDienSHCN").val(arrVal[0]);
+                
             }
         } catch (e) {
 

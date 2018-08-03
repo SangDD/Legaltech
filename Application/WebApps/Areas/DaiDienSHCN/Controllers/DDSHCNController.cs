@@ -7,7 +7,7 @@ using ObjectInfos;
 using WebApps.Session;
 using BussinessFacade;
 using Common.CommonData;
-
+using BussinessFacade.ModuleMemoryData;
 
 namespace WebApps.Areas.DaiDienSHCN.Controllers
 {
@@ -123,6 +123,10 @@ namespace WebApps.Areas.DaiDienSHCN.Controllers
                 pInfo.Createddate = CommonFuc.CurrentDate();
                 AppDDSHCN_BL _obj_bl = new AppDDSHCN_BL();
                 decimal presonse = _obj_bl.AppDDSHCNInsert(pInfo);
+                if (presonse >= 0)
+                {
+                    MemoryData.Enqueue_ChangeData(Table_Change.APP_DDSHCN);
+                }
                 return Json(new { success = presonse });
             }
             catch (Exception ex)
@@ -143,6 +147,10 @@ namespace WebApps.Areas.DaiDienSHCN.Controllers
                 pInfo.Modifieddate = CommonFuc.CurrentDate();
                 AppDDSHCN_BL _obj_bl = new AppDDSHCN_BL();
                 decimal presonse = _obj_bl.AppDDSHCNUpdate(pInfo);
+                if (presonse >= 0)
+                {
+                    MemoryData.Enqueue_ChangeData(Table_Change.APP_DDSHCN);
+                }
                 return Json(new { success = presonse });
             }
             catch (Exception ex)
@@ -160,6 +168,10 @@ namespace WebApps.Areas.DaiDienSHCN.Controllers
             {
                 AppDDSHCN_BL _obj_bl = new AppDDSHCN_BL();
                 decimal presonse = _obj_bl.AppDDSHCNDeleted(pId, SessionData.CurrentUser.Username, CommonFuc.CurrentDate());
+                if (presonse >= 0)
+                {
+                    MemoryData.Enqueue_ChangeData(Table_Change.APP_DDSHCN);
+                }
                 return Json(new { success = presonse });
             }
             catch (Exception ex)
