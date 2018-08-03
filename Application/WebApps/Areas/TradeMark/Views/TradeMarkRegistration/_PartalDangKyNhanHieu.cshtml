@@ -940,63 +940,62 @@
 
             }
         }); 
-
-
-
-        //Search suggestion 
-        var Name = $("#txtTenHangHoa").val();
-        $.ajax({
-            url: '/trade-mark/GetNameSuggestAppClass',
-            type: 'POST',
-            data: {
-                pName: Name
-            },
-            sync: true, cache: false, traditional: true,
-            success: function (data) {
-
-                var lts = data.lst;
-                $('#txtTenHangHoa').autocomplete({
-                    autoFocus: true,
-                    source: function (request, response) {
-                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
-                        response($.grep(lts, function (item) {
-                            return matcher.test(item.Name_Vi);
-                        }));
-                    },
-                    select: function (event, ui) {
-                        $("#txtTenHangHoa").val("");
-                        event.preventDefault();
-                        //var arrVal = ui.item.value.split('|');
-                        //if (arrVal.length === 5) {
-                        //    $("#1_txtTenDayDu").val(arrVal[0]);
-                        //    $("#1_txtDiaChi").val(arrVal[1]);
-                        //    $("#1_txtDienThoai").val(arrVal[2]);
-                        //    $("#1_txtFax").val(arrVal[3]);
-                        //    $("#1_txtEmail").val(arrVal[4]);
-                        //}
-                    },
-                    focus: function (event, ui) {
-                        var arrResult = $(".ui-menu-item");
-                        for (var i = 0; i < arrResult.length; i++) {
-                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                            if (label == ui.item.Name_Vi) {
-                                $(".clsLiActive").removeClass("clsLiActive")
-                                $(arrResult[i]).addClass("clsLiActive");
-                                break;
-                            }
-                        }
-                        event.preventDefault();
-                    },
-                    open: function (event, ui) {
-                        $("ul").scrollTop(0);
-                        event.preventDefault();
-                    },
-                });
-            }
-        });
-        //txtTenHangHoa
+         
     });
 
+    $("#txtTenHangHoa").keypress(function (event) {
+        if (event.which == 13) {
+            event.preventDefault();
+            //Search suggestion 
+            var Name = $("#txtTenHangHoa").val();
+            if (Name.length < 3) {
+                return;
+            }
+            $.ajax({
+                url: '/trade-mark/GetNameSuggestAppClass',
+                type: 'POST',
+                data: {
+                    pName: Name
+                },
+                sync: true, cache: false, traditional: true,
+                success: function (data) {
+                    var lts = data.lst;
+                    $('#txtTenHangHoa').autocomplete({
+                        autoFocus: true,
+                        source: function (request, response) {
+                            var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+                            response($.grep(lts, function (item) {
+                                return matcher.test(item.name);
+                            }));
+                        },
+                        select: function (event, ui) {
+                            var textinput = $("#txtTenHangHoa").val();
+                            event.preventDefault();
+                            funcAddDataRowSuggest(textinput, ui.item.value);
+                            $("#txtTenHangHoa").val("");
+                        },
+                        focus: function (event, ui) {
+                            var arrResult = $(".ui-menu-item");
+                            for (var i = 0; i < arrResult.length; i++) {
+                                var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                                if (label == ui.item.name) {
+                                    $(".clsLiActive").removeClass("clsLiActive")
+                                    $(arrResult[i]).addClass("clsLiActive");
+                                    break;
+                                }
+                            }
+                            event.preventDefault();
+                        },
+                        open: function (event, ui) {
+                            $("ul").scrollTop(0);
+                            event.preventDefault();
+                        },
+                    });
+                }
+            });
+        }
+    });
+    
      
 
     function funcChuDonKhacReuse9(displayVal) {

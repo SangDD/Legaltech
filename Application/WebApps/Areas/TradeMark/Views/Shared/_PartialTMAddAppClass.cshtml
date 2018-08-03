@@ -42,7 +42,8 @@
         <div class="div-search-ad">  
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txtTenHangHoa" placeholder="Tìm kiếm hàng hóa/dịch vụ" onkeyup="SearchAppCodeOnKeyUp('txtTenHangHoa', 'NVS002_DivShowSearchAppCode')" style="    border-left: 1px solid #ccc;"/>
+                    @*<input type="text" id="txtTenHangHoa" placeholder="Tìm kiếm hàng hóa/dịch vụ" onkeyup="SearchAppCodeOnKeyUp('txtTenHangHoa', 'NVS002_DivShowSearchAppCode')" style="    border-left: 1px solid #ccc;"/>*@
+                    <input type="text" id="txtTenHangHoa" placeholder="Tìm kiếm hàng hóa/dịch vụ"  style="border-left: 1px solid #ccc;"/>
                 </div>
             </div>
         </div>
@@ -171,7 +172,31 @@
         }
     }
 
-  
+    function funcAddDataRowSuggest(ptextInput,pclassCode) {
+        try {
+
+            var classCode = pclassCode;
+            var className = ptextInput;
+            if (className == "" || className == undefined) {
+                showError('Chưa nhập tên hàng hóa!');
+                return false;
+            }
+
+            if (classCode == "" || classCode == undefined) {
+                showError('Mã hàng hóa không đúng, Kiểm tra lại mã hàng hóa!');
+                return false;
+            }
+
+
+            funcAddMessDataRow(className, classCode, 0);
+            $("#txtTenHangHoa").val("");
+            $("#NVSCBO001_AppClassSearch").val("");
+            $("#txtTenHangHoa").focus();
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
 
     // 2018.06.15 Hungtd sửa

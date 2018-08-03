@@ -37,7 +37,7 @@
         public static List<Country_Info> c_lst_Country = new List<Country_Info>();
 
         public static List<AppClassInfo> clstAppClass = new List<AppClassInfo>();
-
+        public static List<CustomerSuggestInfo> clstAppClassSuggest = new List<CustomerSuggestInfo>();
         /// <summary>
         /// Danh sách chủ đại diện sở hữu công nghiệp
         /// </summary>
@@ -93,6 +93,16 @@
                 foreach (SysAppFixChargeInfo item in _lst1)
                 {
                     c_dic_FeeByApp_Fix[item.Appcode + "_" + item.Fee_Id.ToString()] = item;
+                }
+                //lấy  
+                
+                foreach (var item in clstAppClass)
+                {
+                    CustomerSuggestInfo pinfo = new CustomerSuggestInfo();
+                    pinfo.label = item.Name_Vi;
+                    pinfo.name = item.Name_Vi;
+                    pinfo.value = item.Code ;
+                    clstAppClassSuggest.Add(pinfo);
                 }
                 //lấy toàn bộ thông tin đơn lên mem, đang đọc toàn bộ cả anh cả việt.
                 GetCacheCustomerInfo();
