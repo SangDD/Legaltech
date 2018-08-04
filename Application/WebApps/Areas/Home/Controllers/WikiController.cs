@@ -10,6 +10,7 @@ using WebApps.AppStart;
 using GemBox.Document;
 using System.IO;
 using WebApps.CommonFunction;
+using WebApps.Session;
 
 namespace WebApps.Areas.Home.Controllers
 {
@@ -123,7 +124,7 @@ namespace WebApps.Areas.Home.Controllers
             try
             {
                 var _WikiDoc_BL = new WikiDoc_BL();
-                lstOjects = _WikiDoc_BL.PortalWikiDoc_Search(keysSearch + AppsCommon.GetCurrentLang(), options);
+                lstOjects = _WikiDoc_BL.PortalWikiDoc_Search(keysSearch + "|" + AppsCommon.GetCurrentLang(), options);
                 ViewBag.Paging = _WikiDoc_BL.GetPagingHtml();
                 if (keysSearch.Split('|').Length >2 && keysSearch.Split('|')[1] != "ALL" && keysSearch.Split('|')[1] != "")
                 {
@@ -189,6 +190,25 @@ namespace WebApps.Areas.Home.Controllers
                 Logger.LogException(ex);
             }
             return Json(new { result = "1", FileDownload = _filedownload, FileSaveName= _fileSaveName });
+        }
+
+        [HttpPost]
+        [Route("WikiDocVoting")]
+        public ActionResult WikiDocVoting(decimal p_id, decimal p_point)
+        {
+            try
+            {
+                WikiDoc_BL _WikiBL = new WikiDoc_BL();
+                WikiDoc_Info _DocInfo = new WikiDoc_Info();
+                // lấy chi tiết tin
+                _DocInfo = _WikiBL.WikiVoting(p_id, SessionData.CurrentUser.Id.ToString(), p_point);
+                return Json(new { success = 0, TotalVoted = _DocInfo.NUMBER_VOTED, Rating = Math.Round((_DocInfo.RATING /( _DocInfo.NUMBER_VOTED * 5)  * 100),2)});
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return null;
+            }
         }
     }
 }

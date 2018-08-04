@@ -164,6 +164,8 @@
     <Compile Include="Areas\Account\Controllers\AccountController.cs" />
     <Compile Include="Areas\AppClass\AppClassAreaRegistration.cs" />
     <Compile Include="Areas\AppClass\Controllers\AppClassController.cs" />
+    <Compile Include="Areas\DaiDienSHCN\Controllers\DDSHCNController.cs" />
+    <Compile Include="Areas\DaiDienSHCN\DaiDienSHCNAreaRegistration.cs" />
     <Compile Include="Areas\Home\Controllers\HomeController.cs" />
     <Compile Include="Areas\Home\Controllers\WikiController.cs" />
     <Compile Include="Areas\Home\HomeAreaRegistration.cs" />
@@ -1095,8 +1097,11 @@
     <Content Include="Content\icons\warning-icon-90.png" />
     <Content Include="Content\icons\warning-icon.png" />
     <Content Include="Content\images\down.png" />
+    <Content Include="Content\images\download.png" />
+    <Content Include="Content\images\gray.png" />
     <Content Include="Content\images\login_background.jpg" />
     <Content Include="Content\images\logo.ico" />
+    <Content Include="Content\images\orange.png" />
     <Content Include="Content\images\share.png" />
     <Content Include="Content\images\share_active.png" />
     <Content Include="Content\images\share_face.png" />
@@ -1107,6 +1112,7 @@
     <Content Include="Content\images\up.png" />
     <Content Include="Content\images\Vietnam-16.png" />
     <Content Include="Content\images\Vietnam-24.png" />
+    <Content Include="Content\images\yellow.png" />
     <Content Include="Content\social-likes\social-likes.min.js" />
     <Content Include="Content\social-likes\social-likes_classic.css" />
     <Content Include="Content\WikiStyle.css" />
@@ -1896,6 +1902,12 @@
     <Content Include="Areas\TradeMark\Views\Shared\_PartialContentPreview_docx.cshtml" />
     <Content Include="Content\AppForms\TM04Nh_vi.doc" />
     <Content Include="Areas\ModuleUsersAndRoles\Views\User\_PartialResetPass.cshtml" />
+    <Content Include="Areas\DaiDienSHCN\Views\web.config" />
+    <Content Include="Areas\DaiDienSHCN\Views\DDSHCN\_PartialDaiDienSHCNInsert.cshtml" />
+    <Content Include="Areas\DaiDienSHCN\Views\DDSHCN\DDSHCNList.cshtml" />
+    <Content Include="Areas\DaiDienSHCN\Views\DDSHCN\_PartialTableDDSHCN.cshtml" />
+    <Content Include="Areas\DaiDienSHCN\Views\DDSHCN\_PartialDaiDienSHCNUpdate.cshtml" />
+    <Content Include="Areas\DaiDienSHCN\Views\DDSHCN\_PartialDaiDienSHCNDetail.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <Content Include="Areas\Home\Views\Wiki\_PartialListDocByCata.cshtml" />
@@ -2169,6 +2181,7 @@
     <Content Include="Scripts\outSourcesLib\SweetAlert\sweetalert2.js" />
     <Content Include="Scripts\outSourcesLib\SweetAlert\sweetalert2.min.js" />
     <Content Include="Scripts\ScriptsLoadClassInfo.js" />
+    <Content Include="Scripts\WikiScript.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -2202,6 +2215,8 @@
   <ItemGroup>
     <Folder Include="Areas\Account\Models\" />
     <Folder Include="Areas\Account\Views\Shared\" />
+    <Folder Include="Areas\DaiDienSHCN\Models\" />
+    <Folder Include="Areas\DaiDienSHCN\Views\Shared\" />
     <Folder Include="Areas\Home\Models\" />
     <Folder Include="Areas\ModuleUsersAndRoles\Models\" />
     <Folder Include="Areas\ModuleUsersAndRoles\Views\Shared\" />

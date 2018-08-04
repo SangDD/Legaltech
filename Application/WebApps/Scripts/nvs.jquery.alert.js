@@ -260,10 +260,28 @@ function funcShowOrHidden(ptag) {
     }
 }
 
-function funcHidden(ptag, ptgHiden, pAddNew) {
+function funcHidden(ptag, ptgHiden, pAddNew)
+{
     $("#" + ptag).attr("hidden", "hidden");
     $("#" + ptgHiden).css('display', 'none');
-    if (pAddNew == "01") {
+
+    //An hien chu don khac 
+    var allElems = document.getElementsByClassName('classChuDonKhac');
+    var count = 0;
+    for (var i = 0; i < allElems.length; i++)
+    {
+        var thisElem = allElems[i];
+        if (thisElem.style.display == 'block') {
+            count++;
+        }
+    }
+    if (count == 0)
+    {
+        $("#divChungDonKhac001").css('display', 'none');
+    }
+
+    if (pAddNew == "01")
+    {
         $("#divThemChuDon01").css('display', 'block');
         $("#divThemChuDon02").css('display', 'none');
         $("#divThemChuDon03").css('display', 'none');
@@ -297,6 +315,8 @@ function funcShowOrHiddenCD(ptag, ptgShow)
     $("#" + ptgShow).css('display', 'block');
     var check = "00";
     if (ptgShow == "divHiddenChuDon01") {
+        
+        $("#divChungDonKhac001").css('display', 'block');
         $("#divThemChuDon01").css('display', 'none');
         $("#divThemChuDon03").css('display', 'none');
         $("#divThemChuDon04").css('display', 'none');

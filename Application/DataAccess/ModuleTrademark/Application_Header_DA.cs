@@ -113,7 +113,8 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("P_YEARS", OracleDbType.Varchar2, pInfo.Years, ParameterDirection.Input),
                     new OracleParameter("p_client_reference", OracleDbType.Varchar2, pInfo.Client_Reference, ParameterDirection.Input),
                     new OracleParameter("p_case_name", OracleDbType.Varchar2, pInfo.Case_Name, ParameterDirection.Input),
-
+                    new OracleParameter("P_DDSHCN", OracleDbType.Varchar2, pInfo.DDSHCN, ParameterDirection.Input),
+                    
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;
@@ -157,6 +158,7 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("P_YEARS", OracleDbType.Varchar2, pInfo.Years, ParameterDirection.Input),
                     new OracleParameter("p_client_reference", OracleDbType.Varchar2, pInfo.Client_Reference, ParameterDirection.Input),
                     new OracleParameter("p_case_name", OracleDbType.Varchar2, pInfo.Case_Name, ParameterDirection.Input),
+                    new OracleParameter("P_DDSHCN", OracleDbType.Varchar2, pInfo.DDSHCN, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;

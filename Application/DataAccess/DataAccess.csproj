@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppDDSHCN_DA.cs" />
     <Compile Include="App_Class_DA.cs" />
     <Compile Include="App_Lawer_DA.cs" />
     <Compile Include="ModuleMemoryData\AllCodeDA.cs" />
@@ -80,9 +81,6 @@
       <Project>{ab9dceae-b3d3-4a64-8e27-4b0485c2b9b5}</Project>
       <Name>ObjectInfos</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

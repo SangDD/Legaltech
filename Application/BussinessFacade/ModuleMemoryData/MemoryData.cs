@@ -15,6 +15,7 @@
     {
         public static string GROUP_USER = "GROUP_USER";
         public static string APPHEADER = "APPHEADER";
+        public static string APP_DDSHCN = "APP_DDSHCN";
     }
 
     public class MemoryData
@@ -28,12 +29,19 @@
         public static List<CustomerSuggestInfo> lstCacheCustomer2 = new List<CustomerSuggestInfo>();
         public static List<CustomerSuggestInfo> lstCacheCustomer3 = new List<CustomerSuggestInfo>();
         public static List<CustomerSuggestInfo> lstCacheCustomer4 = new List<CustomerSuggestInfo>();
+
+        public static List<CustomerSuggestInfo> lstCacheRefCustomer = new List<CustomerSuggestInfo>();
         static MyQueue c_queue_changeData = new MyQueue();
         public static Hashtable c_hs_Allcode = new Hashtable();
         static List<GroupUserInfo> c_lst_Group = new List<GroupUserInfo>();
         public static List<Country_Info> c_lst_Country = new List<Country_Info>();
 
         public static List<AppClassInfo> clstAppClass = new List<AppClassInfo>();
+        public static List<CustomerSuggestInfo> clstAppClassSuggest = new List<CustomerSuggestInfo>();
+        /// <summary>
+        /// Danh sách chủ đại diện sở hữu công nghiệp
+        /// </summary>
+        public static List<CustomerSuggestInfo> lstChuDDSHCN = new List<CustomerSuggestInfo>();
 
         /// <summary>
         /// thông tin fee tĩnh theo đơn, key: appcode_ID(Fee)
@@ -87,8 +95,20 @@
                 {
                     c_dic_FeeByApp_Fix[item.Appcode + "_" + item.Fee_Id.ToString()] = item;
                 }
+                //lấy  
+                
+                foreach (var item in clstAppClass)
+                {
+                    CustomerSuggestInfo pinfo = new CustomerSuggestInfo();
+                    pinfo.label = item.Name_Vi;
+                    pinfo.name = item.Name_Vi;
+                    pinfo.value = item.Code ;
+                    clstAppClassSuggest.Add(pinfo);
+                }
                 //lấy toàn bộ thông tin đơn lên mem, đang đọc toàn bộ cả anh cả việt.
-                MemoryData.GetCacheCustomerInfo();
+                GetCacheCustomerInfo();
+
+                GetCacheDDSHCN();
             }
             catch (Exception ex)
             {
@@ -194,6 +214,7 @@
                 lstCacheCustomer4.Clear();
                 CustomerSuggestInfo pInfo; CustomerSuggestInfo pInfo1; CustomerSuggestInfo pInfo2; CustomerSuggestInfo pInfo3;
                 CustomerSuggestInfo pInfo4;
+                CustomerSuggestInfo pInfo5;
                 var objAppHeaderBL = new Application_Header_BL();
                 var list = objAppHeaderBL.LayThongTinKhachHang("", "", "");
                 foreach (var item in list)
@@ -203,27 +224,33 @@
 
                     pInfo.label = item.Master_Name + " Phone: " + item.Master_Phone + " Fax: " + item.Master_Fax + " Email: " + item.Rep_Master_Email;
                     pInfo.value = item.Master_Name + "|" + item.Master_Address + "|" + item.Master_Phone + "|" + item.Master_Fax + "|" + item.Rep_Master_Email;
-                    pInfo.name = item.Master_Name;
+                    pInfo.name = item.Master_Name + " Phone: " + item.Master_Phone + " Fax: " + item.Master_Fax + " Email: " + item.Rep_Master_Email;
 
 
                     pInfo1.label = item.Cdk_Name_1 + " Phone: " + item.Cdk_Phone_1 + " Fax: " + item.Cdk_Fax_1 + " Email: " + item.Cdk_Email_1;
                     pInfo1.value = item.Cdk_Name_1 + "|" + item.Cdk_Address_1 + "|" + item.Cdk_Phone_1 + "|" + item.Cdk_Fax_1 + "|" + item.Cdk_Email_1;
-                    pInfo1.name = item.Cdk_Name_1;
+                    pInfo1.name = item.Cdk_Name_1 + " Phone: " + item.Cdk_Phone_1 + " Fax: " + item.Cdk_Fax_1 + " Email: " + item.Cdk_Email_1;
 
                     pInfo2 = new CustomerSuggestInfo();
                     pInfo2.label = item.Cdk_Name_2 + " Phone: " + item.Cdk_Phone_2 + " Fax: " + item.Cdk_Fax_2 + " Email: " + item.Cdk_Email_2;
                     pInfo2.value = item.Cdk_Name_2 + "|" + item.Cdk_Address_2 + "|" + item.Cdk_Phone_2 + "|" + item.Cdk_Fax_2 + "|" + item.Cdk_Email_2;
-                    pInfo2.name = item.Cdk_Name_2;
+                    pInfo2.name = item.Cdk_Name_2 + " Phone: " + item.Cdk_Phone_2 + " Fax: " + item.Cdk_Fax_2 + " Email: " + item.Cdk_Email_2;
 
                     pInfo3 = new CustomerSuggestInfo();
                     pInfo3.label = item.Cdk_Name_3 + " Phone: " + item.Cdk_Phone_3 + " Fax: " + item.Cdk_Fax_3 + " Email: " + item.Cdk_Email_3;
                     pInfo3.value = item.Cdk_Name_3 + "|" + item.Cdk_Address_3 + "|" + item.Cdk_Phone_3 + "|" + item.Cdk_Fax_3 + "|" + item.Cdk_Email_3;
-                    pInfo3.name = item.Cdk_Name_3;
+                    pInfo3.name = item.Cdk_Name_3 + " Phone: " + item.Cdk_Phone_3 + " Fax: " + item.Cdk_Fax_3 + " Email: " + item.Cdk_Email_3;
 
                     pInfo4 = new CustomerSuggestInfo();
                     pInfo4.label = item.Cdk_Name_4 + " Phone: " + item.Cdk_Phone_4 + " Fax: " + item.Cdk_Fax_4 + " Email: " + item.Cdk_Email_4;
                     pInfo4.value = item.Cdk_Name_4 + "|" + item.Cdk_Address_4 + "|" + item.Cdk_Phone_4 + "|" + item.Cdk_Fax_4 + "|" + item.Cdk_Email_4;
                     pInfo4.name = item.Cdk_Name_4;
+
+
+                    pInfo5 = new CustomerSuggestInfo();
+                    pInfo5.label = item.Rep_Master_Name + " Phone: " + item.Rep_Master_Phone + " Fax: " + item.Rep_Master_Fax + " Email: " + item.Rep_Master_Email;
+                    pInfo5.value = item.Rep_Master_Name + "|" + item.Rep_Master_Address + "|" + item.Rep_Master_Phone + "|" + item.Rep_Master_Fax + "|" + item.Rep_Master_Email;
+                    pInfo5.name = item.Rep_Master_Name + " Phone: " + item.Rep_Master_Phone + " Fax: " + item.Rep_Master_Fax + " Email: " + item.Rep_Master_Email;
 
                     lstCacheCustomer.Add(pInfo);
                     if (!string.IsNullOrEmpty(item.Cdk_Name_1))
@@ -234,6 +261,8 @@
                         lstCacheCustomer3.Add(pInfo3);
                     if (!string.IsNullOrEmpty(item.Cdk_Name_4))
                         lstCacheCustomer4.Add(pInfo4);
+                    if (!string.IsNullOrEmpty(item.Rep_Master_Name))
+                        lstCacheRefCustomer.Add(pInfo5);
                 }
             }
             catch (Exception ex)
@@ -242,5 +271,29 @@
             }
         }
 
+
+        public static void GetCacheDDSHCN()
+        {
+            try
+            {
+                lstChuDDSHCN.Clear();
+                AppDDSHCN_BL _obj_bl = new AppDDSHCN_BL();
+                decimal _total_record = 0;
+                CustomerSuggestInfo pInfo;
+                List<AppDDSHCNInfo> _lst = _obj_bl.AppDDSHCNGetAll("", "", 0, 0, ref _total_record);
+                foreach (var item in _lst)
+                {
+                    pInfo = new CustomerSuggestInfo();
+                    pInfo.label = item.Name_Vi + ", " + item.Address_Vi;
+                    pInfo.value = item.Name_Vi + "|" + item.Address_Vi + "|" + item.Phone + "|" + item.Fax + "|" + item.Email;
+                    pInfo.name = item.Name_Vi + ", " + item.Address_Vi;
+                    lstChuDDSHCN.Add(pInfo);
+                }
+            }
+            catch (Exception ex)
+            {
+             Logger.LogException(ex);
+            }
+        }
     }
 }
