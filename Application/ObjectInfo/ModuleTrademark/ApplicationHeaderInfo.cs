@@ -42,6 +42,14 @@ namespace ObjectInfos
         public decimal Status_Content { get; set; }
         public DateTime Filing_Date { get; set; }
 
+        public string Str_Send_Date
+        {
+            get
+            {
+                return Send_Date.ToString("dd-MM-yyyy");
+            }
+        }
+
         public string Str_Filing_Date
         {
             get

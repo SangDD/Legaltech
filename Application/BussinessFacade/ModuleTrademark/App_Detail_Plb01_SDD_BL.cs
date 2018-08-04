@@ -54,7 +54,7 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
-        public App_Detail_PLB01_SDD_Info GetByID(decimal p_app_header_id, string p_language_code, 
+        public App_Detail_PLB01_SDD_Info GetByID(decimal p_app_header_id, string p_language_code,
             ref ApplicationHeaderInfo applicationHeaderInfo,
             ref List<AppDocumentInfo> appDocumentInfos, ref List<AppFeeFixInfo> appFeeFixInfos)
         {
@@ -76,6 +76,20 @@ namespace BussinessFacade.ModuleTrademark
             {
                 Logger.LogException(ex);
                 return new App_Detail_PLB01_SDD_Info();
+            }
+        }
+
+        public DataSet GetByID_DS(decimal p_app_header_id, string p_language_code)
+        {
+            try
+            {
+                var objData = new App_Detail_PLB01_SDD_DA();
+                return objData.GetByID(p_app_header_id, p_language_code);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return null;
             }
         }
     }

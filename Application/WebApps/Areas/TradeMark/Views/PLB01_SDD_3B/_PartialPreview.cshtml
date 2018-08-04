@@ -1,4 +1,5 @@
 ﻿@using ObjectInfos;
+@using Common.CommonData;
 @{
     ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
     if (ViewBag.objAppHeaderInfo != null)
@@ -30,40 +31,20 @@
 
 <script>
 
+    function Accept() {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            var _link = "/CrytalReport_MVC/Report_Viewer.aspx?RPTNAME="  + '@_AppHeaderInfo.Appcode' + "&" +'@Report_Enums.gc_FilterAppHeaderId' + "=" + '@_AppHeaderInfo.Id';
+            location.href = _link;
+        } catch (e) {
+            alert(e.toString());
+        }
+    }
+
     function funGetData_Preview_3BPL01(url) {
         try {
-
-            @*//Thông tin chủ đơn
-            var formData = new FormData();
-            if (funcThongTinChuDon_View(formData, "1") != true) {
-                return false;
-            }
-
-            if (funcThongTinDaiDienChuDon_View(formData, "2") != true) {
-                return false;
-            }
-
-            //trang thai
-            formData.append("pInfo.Status", '@_AppHeaderInfo.Status');
-
-            //Lấy thông tin detail
-            var reponse = funcGetAppDetail(formData);
-            if (reponse == false) {
-                return false;
-            }
-
-            //Lấy thông tin file có trong đơn
-            reponse = funGetThongTinFile(formData);
-            if (reponse == false) {
-                return false;
-            }
-            
-            //
-            reponse = funcGetCamKetChuDon(formData);
-            if (reponse == false) {
-                return false;
-            }*@
-
             $.ajax({
                 url: url,
                 type: 'POST',
@@ -100,6 +81,8 @@
         if (preturn == true || preturn == undefined) {
             OpenPreview("/trade-mark-3b/Pre-View");
         }
+
+        //Accept();
     }
 
 

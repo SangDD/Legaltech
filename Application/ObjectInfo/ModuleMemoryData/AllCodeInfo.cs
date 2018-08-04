@@ -32,4 +32,23 @@
 
         public string Message { get; set; }
     }
+
+    public class Reports_Info
+    {
+        public string Rpt_File_Name { get; set; }
+        
+        public string Stored_Name { get; set; }
+        
+        public string Rpt_Name { get; set; }
+        
+        public decimal Type { get; set; }
+
+        public decimal Sort_By { get; set; }
+
+        public string Searchcmdsql { get; set; }
+
+        public decimal NUMBER_CURSOR { get; set; }
+
+        public decimal SEARCH_BY_USER_TYPE { get; set; }
+    }
 }

@@ -16,6 +16,10 @@
     using System.Transactions;
     using Common.CommonData;
     using BussinessFacade.ModuleMemoryData;
+    using System.Data;
+    using CrystalDecisions.CrystalReports.Engine;
+    using CrystalDecisions.Shared;
+    using System.Linq;
 
     [ValidateAntiForgeryTokenOnAllPosts]
     [RouteArea("TradeMarkRegistration", AreaPrefix = "trade-mark-3b")]
@@ -484,10 +488,173 @@
             return Json(new { success = 0 });
         }
 
-
         [HttpPost]
         [Route("ket_xuat_file")]
         public ActionResult ExportData_View(decimal pAppHeaderId, string p_appCode)
+        {
+            try
+            {
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VI_" + p_appCode + ".pdf");
+                string language = AppsCommon.GetCurrentLang();
+
+                List<App_Detail_PLB01_SDD_Info> _lst = new List<App_Detail_PLB01_SDD_Info>();
+                App_Detail_PLB01_SDD_BL objBL = new App_Detail_PLB01_SDD_BL();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                App_Detail_PLB01_SDD_Info app_Detail = new App_Detail_PLB01_SDD_Info();
+                List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+
+                DataSet _ds = objBL.GetByID_DS(pAppHeaderId, language);
+                if (_ds != null && _ds.Tables.Count == 4)
+                {
+                    applicationHeaderInfo = CBO<ApplicationHeaderInfo>.FillObjectFromDataTable(_ds.Tables[1]);
+                    appDocumentInfos = CBO<AppDocumentInfo>.FillCollectionFromDataTable(_ds.Tables[2]);
+                    appFeeFixInfos = CBO<AppFeeFixInfo>.FillCollectionFromDataTable(_ds.Tables[3]);
+                }
+
+                app_Detail = CBO<App_Detail_PLB01_SDD_Info>.FillObjectFromDataSet(_ds);
+                // copy Header
+                App_Detail_PLB01_SDD_Info.CopyAppHeaderInfo(ref app_Detail, applicationHeaderInfo);
+
+                #region Tài liệu có trong đơn
+
+                foreach (AppDocumentInfo item in appDocumentInfos)
+                {
+                    if (item.Document_Id == "01_SDD_01")
+                    {
+                        app_Detail.Doc_Id_1 = item.CHAR01;
+                        app_Detail.Doc_Id_1_Check = item.Isuse;
+                    }
+                    else if (item.Document_Id == "01_SDD_02")
+                    {
+                        app_Detail.Doc_Id_2 = item.CHAR01;
+                        app_Detail.Doc_Id_2_Check = item.Isuse;
+                    }
+                    else if (item.Document_Id == "01_SDD_03")
+                    {
+                        app_Detail.Doc_Id_3 = item.CHAR01;
+                        app_Detail.Doc_Id_3_Check = item.Isuse;
+                    }
+                    else if (item.Document_Id == "01_SDD_04")
+                    {
+                        app_Detail.Doc_Id_4 = item.CHAR01;
+                        app_Detail.Doc_Id_4_Check = item.Isuse;
+                    }
+                    else if (item.Document_Id == "01_SDD_05")
+                    {
+                        app_Detail.Doc_Id_5 = item.CHAR01;
+                        app_Detail.Doc_Id_5_Check = item.Isuse;
+                    }
+
+                    else if (item.Document_Id == "01_SDD_06")
+                    {
+                        app_Detail.Doc_Id_6_Check = item.Isuse;
+                    }
+                    else if (item.Document_Id == "01_SDD_07")
+                    {
+                        app_Detail.Doc_Id_7_Check = item.Isuse;
+                    }
+                    else if (item.Document_Id == "01_SDD_08")
+                    {
+                        app_Detail.Doc_Id_8_Check = item.Isuse;
+                    }
+
+                    else if (item.Document_Id == "01_SDD_09")
+                    {
+                        app_Detail.Doc_Id_9 = item.CHAR01;
+                        app_Detail.Doc_Id_9_Check = item.Isuse;
+                    }
+                    else if (item.Document_Id == "01_SDD_10")
+                    {
+                        app_Detail.Doc_Id_10_Check = item.Isuse;
+                    }
+                    else if (item.Document_Id == "01_SDD_11")
+                    {
+                        app_Detail.Doc_Id_11 = item.CHAR01;
+                        app_Detail.Doc_Id_11_Check = item.Isuse;
+                    }
+                }
+
+                #endregion
+
+                #region Fee
+                if (appFeeFixInfos.Count > 0)
+                {
+                    foreach (var item in appFeeFixInfos)
+                    {
+                        if (item.Fee_Id == 1)
+                        {
+                            app_Detail.Fee_Id_1 = item.Number_Of_Patent;
+                            app_Detail.Fee_Id_1_Check = item.Isuse;
+                            app_Detail.Fee_Id_1_Val = item.Amount.ToString("#,##0.##");
+                        }
+                        else if (item.Fee_Id == 2)
+                        {
+                            app_Detail.Fee_Id_2 = item.Number_Of_Patent;
+                            app_Detail.Fee_Id_2_Check = item.Isuse;
+                            app_Detail.Fee_Id_2_Val = item.Amount.ToString("#,##0.##");
+                        }
+                        else if (item.Fee_Id == 21)
+                        {
+                            app_Detail.Fee_Id_21 = item.Number_Of_Patent;
+                            app_Detail.Fee_Id_21_Check = item.Isuse;
+                            app_Detail.Fee_Id_21_Val = item.Amount.ToString("#,##0.##");
+                        }
+                        else if (item.Fee_Id == 22)
+                        {
+                            app_Detail.Fee_Id_22 = item.Number_Of_Patent;
+                            app_Detail.Fee_Id_22_Check = item.Isuse;
+                            app_Detail.Fee_Id_22_Val = item.Amount.ToString("#,##0.##");
+                        }
+
+                        app_Detail.Total_Fee = app_Detail.Total_Fee + item.Amount;
+                        app_Detail.Total_Fee_Str = app_Detail.Total_Fee.ToString("#,##0.##");
+                    }
+                }
+                #endregion
+
+                _lst.Add(app_Detail);
+                DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLB01_SDD_Info>(_lst,false);
+                //string _strCml = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD + DateTime.Now.ToString("ddMMyyyy") + ".xml"); 
+                //_ds_all.WriteXml(_strCml, XmlWriteMode.WriteSchema);
+
+                CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_PLB01SDD.rpt"));
+
+                if (_ds_all != null)
+                {
+                    oRpt.SetDataSource(_ds_all);
+                }
+                //Puth_Data2_Fomulator(ref oRpt, appFeeFixInfos, appDocumentInfos);
+                oRpt.Refresh();
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+                System.IO.Stream oStream1 = oRpt.ExportToStream(ExportFormatType.WordForWindows);
+                byte[] byteArray1 = new byte[oStream1.Length];
+                oStream1.Read(byteArray1, 0, Convert.ToInt32(oStream1.Length - 1));
+                System.IO.File.WriteAllBytes(@"E:\Working\Legaltech\Application\WebApps\Content\Export\B01_VI_TM_PLB01SDD.doc", byteArray1.ToArray()); // Requires System.Linq
+
+
+                System.IO.Stream oStream = oRpt.ExportToStream(ExportFormatType.PortableDocFormat);
+                byte[] byteArray = new byte[oStream.Length];
+                oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
+                System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq
+           
+                return Json(new { success = 0 });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = 0 });
+            }
+        }
+
+        [HttpPost]
+        [Route("ket_xuat_file_old")]
+        public ActionResult ExportData_View_Old(decimal pAppHeaderId, string p_appCode)
         {
             try
             {
@@ -610,7 +777,7 @@
                 document.MailMerge.Execute(app_Detail);
                 document.Save(fileName, SaveOptions.DocxDefault);
                 document.Save(fileName_pdf, SaveOptions.PdfDefault);
-            
+
                 return Json(new { success = 0 });
             }
             catch (Exception ex)
@@ -855,7 +1022,7 @@
 
                 var PartialThongTinChuDon = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1");
                 var PartialThongTinDaiDienChuDon = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2");
-                
+
                 var json = Json(new { PartialThongTinChuDon, PartialThongTinDaiDienChuDon });
                 return json;
             }
@@ -863,6 +1030,79 @@
             {
                 Logger.LogException(ex);
                 return PartialView("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml");
+            }
+        }
+
+        /// <summary>
+        /// Truyền các tham số Formular vào báo cáo
+        /// </summary>
+        void Puth_Data2_Fomulator(ref ReportDocument oRpt, List<AppFeeFixInfo> appFeeFixInfos, List<AppDocumentInfo> appDocumentInfos)
+        {
+            try
+            {
+                Dictionary<string, AppDocumentInfo> dic_appDoc = new Dictionary<string, AppDocumentInfo>();
+                foreach (AppDocumentInfo item in appDocumentInfos)
+                {
+                    dic_appDoc[item.Document_Id] = item;
+                }
+
+                #region Truyền các tham số Formular vào báo cáo
+                // 
+                FormulaFieldDefinitions crFFieldDefinitions = oRpt.DataDefinition.FormulaFields;
+                FormulaFieldDefinition crFFieldDefinition;
+                string strFormulaName;
+
+                for (int i = 0; i < crFFieldDefinitions.Count; i++)
+                {
+                    crFFieldDefinition = crFFieldDefinitions[i];
+                    strFormulaName = crFFieldDefinition.Name.ToUpper();
+
+                    #region Fee
+                    if (strFormulaName == "F_DOC_1_ISUSE")
+                    {
+                        crFFieldDefinition.Text = "'" + dic_appDoc["01_SDD_01"].Isuse.ToString() + "'"; ;
+                    }
+                    else if (strFormulaName == "F_DOC_2_ISUSE")
+                    {
+                        if (dic_appDoc["01_SDD_02"].Isuse == 1)
+                        {
+                            crFFieldDefinition.Text = "a";
+                        }
+                        else
+                            crFFieldDefinition.Text = "b";
+                    }
+                    else if (strFormulaName == "F_DOC_2_CHAR")
+                    {
+                        crFFieldDefinition.Text = "'" + dic_appDoc["01_SDD_02"].CHAR01.ToString() + "'";
+                    }
+                    else if (strFormulaName == "F_DOC_3_CHAR")
+                    {
+                        crFFieldDefinition.Text = "'" + dic_appDoc["01_SDD_03"].CHAR01.ToString() + "'" +  " trang";
+                    }
+                    else if (strFormulaName == "F_DOC_4_CHAR")
+                    {
+                        crFFieldDefinition.Text = "'" + dic_appDoc["01_SDD_04"].CHAR01.ToString() + "'";
+                    }
+                    else if (strFormulaName == "F_DOC_5_CHAR")
+                    {
+                        crFFieldDefinition.Text = "'" + dic_appDoc["01_SDD_05"].CHAR01.ToString() + "'" + " trang";
+                    }
+                    else if (strFormulaName == "F_DOC_9_CHAR")
+                    {
+                        crFFieldDefinition.Text = "'" + dic_appDoc["01_SDD_09"].CHAR01.ToString() + "'" + " trang";
+                    }
+
+                    #endregion
+
+                    #region TL trong đơn
+
+                    #endregion
+                }
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
             }
         }
     }

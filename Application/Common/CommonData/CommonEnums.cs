@@ -34,7 +34,7 @@
         {
             Admin = 1,
             Lawer = 2,
-            Customer = 3 
+            Customer = 3
         }
 
         public enum UserStatus
@@ -56,5 +56,12 @@
             Accept = 1,
             Reject = 2
         }
+    }
+
+    public class Report_Enums
+    {
+        public const string gc_FilterAppHeaderId = "APP_HEADER_ID";
+        public const string gc_RPT_NAME = "RPTNAME";
+        public const string gc_TITLE_NAME = "TITLENAME";
     }
 }

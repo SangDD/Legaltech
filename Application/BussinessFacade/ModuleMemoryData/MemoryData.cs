@@ -39,6 +39,7 @@
         /// thông tin fee tĩnh theo đơn, key: appcode_ID(Fee)
         /// </summary>
         public static Dictionary<string, SysAppFixChargeInfo> c_dic_FeeByApp_Fix = new Dictionary<string, SysAppFixChargeInfo>();
+        public static Dictionary<string, Reports_Info> c_dic_report = new Dictionary<string, Reports_Info>();
 
         public static void LoadAllMemoryData()
         {

@@ -8,6 +8,10 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using BussinessFacade.ModuleTrademark;
 using System.Data;
+using System.Collections;
+using System.Reflection;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace WebApps.CommonFunction
 {
@@ -189,6 +193,248 @@ namespace WebApps.CommonFunction
         public static string DaiDienUyQuyen = "DDUQ";
     }
 
-       
 
+    public class ConvertData
+    {
+
+        #region Định dạng datetime
+
+        public const string strDate = "dd/MM/yyyy";
+        public const string strDate_Time = "dd/MM/yyyy HH:mm";
+
+        public static string ConvertDate2String(DateTime p_date)
+        {
+            try
+            {
+                return p_date.ToString(strDate);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return "";
+            }
+        }
+
+        public static DateTime ConvertString2Date(string str)
+        {
+            System.Globalization.CultureInfo provider = System.Globalization.CultureInfo.CurrentCulture;
+            try
+            {
+                return DateTime.ParseExact(str, strDate, provider); // strDate 
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return DateTime.MinValue;
+            }
+        }
+
+        public static DateTime Convert_String_2DateTime(string p_str_datetime)
+        {
+            try
+            {
+                string[] _arr_au_date = p_str_datetime.Trim().Split('-');
+                string[] _arr_time = _arr_au_date[0].Split(':');
+                DateTime _dt_au = ConvertData.ConvertString2Date(_arr_au_date[1].Trim());
+                DateTime _dt = new DateTime(_dt_au.Year, _dt_au.Month, _dt_au.Day, Convert.ToInt16(_arr_time[0]), Convert.ToInt16(_arr_time[1]), 0);
+                return _dt;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return DateTime.MinValue;
+            }
+        }
+
+        public static DateTime ConvertString2Date_dd_MM_yyyy(string str)
+        {
+            System.Globalization.CultureInfo provider = System.Globalization.CultureInfo.CurrentCulture;
+            try
+            {
+                return DateTime.ParseExact(str, "dd-MM-yyyy", provider); // strDate 
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return DateTime.MinValue;
+            }
+        }
+
+        /// <summary>
+        /// Convert string to datetime format dd/MM/yyyy HH:mm
+        /// </summary>
+        /// <param name="str">ví dụ 17/01/2015 09:10</param>
+        /// <returns></returns>
+        public static DateTime ConvertString2DateWithTime(string str)
+        {
+            System.Globalization.CultureInfo provider = System.Globalization.CultureInfo.CurrentCulture;
+            try
+            {
+                return DateTime.ParseExact(str, strDate_Time, provider);
+            }
+            catch
+            {
+                return DateTime.MinValue;
+            }
+        }
+
+
+        public const string strDate_1 = "yyyy/MM/dd";
+        public static string ConvertDate2String_yyyyMMdd(DateTime p_date)
+        {
+            try
+            {
+                return p_date.ToString(strDate_1);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return "";
+            }
+        }
+        #endregion
+         
+        #region Convert DataTable
+
+        public static void ConvertArrayListToDataTable(ArrayList arrayList, ref DataTable p_dt)
+        {
+            //DataTable dt = new DataTable();
+
+            if (arrayList.Count != 0)
+            {
+                ConvertObjectToDataTableSchema(arrayList[0], ref p_dt);
+                FillData(arrayList, p_dt);
+            }
+
+            //return p_dt;
+        }
+
+        public static void ConvertObjectToDataTableSchema(Object o, ref DataTable dt)
+        {
+            //DataTable dt = new DataTable();
+            PropertyInfo[] properties = o.GetType().GetProperties();
+
+            foreach (PropertyInfo property in properties)
+            {
+                DataColumn dc = new DataColumn(property.Name);
+                dc.DataType = property.PropertyType; dt.Columns.Add(dc);
+            }
+            //return dt;
+        }
+
+        private static void FillData(ArrayList arrayList, DataTable dt)
+        {
+            foreach (Object o in arrayList)
+            {
+                DataRow dr = dt.NewRow();
+                PropertyInfo[] properties = o.GetType().GetProperties();
+
+                foreach (PropertyInfo property in properties)
+                {
+                    dr[property.Name] = property.GetValue(o, null);
+                }
+                dt.Rows.Add(dr);
+            }
+        }
+
+        public static DataTable ConvertToDatatable<T>(IList<T> data, bool p_isAdd_STT = true)
+        {
+            try
+            {
+                PropertyDescriptorCollection props = TypeDescriptor.GetProperties(typeof(T));
+                DataTable table = new DataTable();
+                for (int i = 0; i < props.Count; i++)
+                {
+                    PropertyDescriptor prop = props[i];
+                    table.Columns.Add(prop.Name, prop.PropertyType);
+                }
+
+                int SoThuTu = 0;
+                object[] values;
+                if (p_isAdd_STT == true)
+                {
+                    table.Columns.Add("STT");
+                    values = new object[props.Count + 1];
+                }
+                else
+                    values = new object[props.Count];
+
+                foreach (T item in data)
+                {
+                    SoThuTu++;
+                    for (int i = 0; i < values.Length - 1; i++)
+                    {
+                        values[i] = props[i].GetValue(item);
+                    }
+
+                    if (p_isAdd_STT == true)
+                    {
+                        values[values.Length - 1] = SoThuTu.ToString();
+                    }
+
+                    table.Rows.Add(values);
+                }
+                return table;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataTable();
+            }
+
+        }
+
+        public static DataSet ConvertToDataSet<T>(IList<T> data, bool p_isAdd_STT = true)
+        {
+            try
+            {
+                PropertyDescriptorCollection props = TypeDescriptor.GetProperties(typeof(T));
+                DataTable table = new DataTable();
+                for (int i = 0; i < props.Count; i++)
+                {
+                    PropertyDescriptor prop = props[i];
+                    table.Columns.Add(prop.Name, prop.PropertyType);
+                }
+
+                int SoThuTu = 0;
+                object[] values;
+                if (p_isAdd_STT == true)
+                {
+                    table.Columns.Add("STT");
+                    values = new object[props.Count + 1];
+                }
+                else
+                {
+                    values = new object[props.Count];
+                }
+
+                foreach (T item in data)
+                {
+                    SoThuTu++;
+                    for (int i = 0; i < values.Length - 1; i++)
+                    {
+                        values[i] = props[i].GetValue(item);
+                    }
+
+                    if (p_isAdd_STT == true)
+                    {
+                        values[values.Length - 1] = SoThuTu.ToString();
+                    }
+
+                    table.Rows.Add(values);
+                }
+
+                DataSet _ds = new DataSet();
+                _ds.Tables.Add(table);
+                return _ds;
+            }
+            catch (Exception)
+            {
+                return new DataSet();
+            }
+
+        }
+
+        #endregion
+    }
 }
