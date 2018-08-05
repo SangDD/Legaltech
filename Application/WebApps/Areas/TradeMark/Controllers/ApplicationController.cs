@@ -24,7 +24,7 @@ namespace WebApps.Areas.TradeMark.Controllers
     {
         #region Quản lý đơn lưu tạm
         [HttpGet]
-        [Route("quan-ly-don")]
+        [Route("quan-ly-don/{id}")]
         public ActionResult Application_Display()
         {
             try
@@ -34,7 +34,14 @@ namespace WebApps.Areas.TradeMark.Controllers
 
                 decimal _total_record = 0;
                 Application_Header_BL _obj_bl = new Application_Header_BL();
-                string _keySearch = "ALL|ALL";
+                //hungtd them trang thai 
+                string _status = "ALL";
+                if(RouteData.Values["id"] != null && RouteData.Values["id"].ToString() != "0")
+                {
+                    _status = RouteData.Values["id"].ToString();
+                }
+                ViewBag.Status = _status;
+                string _keySearch = "ALL|" + _status;
                 List<ApplicationHeaderInfo> _lst = _obj_bl.ApplicationHeader_Search(_keySearch, ref _total_record);
                 string htmlPaging = CommonFuc.Get_HtmlPaging<ApplicationHeaderInfo>((int)_total_record, 1, "Đơn");
 
@@ -64,7 +71,7 @@ namespace WebApps.Areas.TradeMark.Controllers
 
                 Application_Header_BL _obj_bl = new Application_Header_BL();
                 List<ApplicationHeaderInfo> _lst = _obj_bl.ApplicationHeader_Search(p_keysearch, ref _total_record, p_from,p_to);
-                string htmlPaging = CommonFuc.Get_HtmlPaging<ApplicationHeaderInfo>((int)_total_record, 1, "Đơn");
+                string htmlPaging = CommonFuc.Get_HtmlPaging<ApplicationHeaderInfo>((int)_total_record, p_CurrentPage, "Đơn");
 
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;

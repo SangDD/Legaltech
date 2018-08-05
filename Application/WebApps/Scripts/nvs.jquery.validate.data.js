@@ -43,6 +43,38 @@ function CheckSessionTimeOut() {
     }
 }
 
+function CheckSessionTimeOutPortal() {
+    try {
+        var rBool = false;
+        $.ajax({
+            type: 'POST',
+            url: '/wiki-view/CheckSessionTimeOutPortal',
+            dataType: "json",
+            traditional: true,
+            async: false,//Chuyen ve synchonize đồng bộ
+            success: function (data) {
+                if (data != null) {
+                    if (data["Code"] == -1) {
+                        rBool = false;
+                        alert(data["Msg"]);
+                        window.location.href = "/";
+                    }
+                    else {
+                        rBool = true;
+                    }
+                }
+                else {
+                    rBool = false;
+                }
+            }
+        });
+
+        return rBool;
+    } catch (e) {
+        alert(e.toString);
+        return false;
+    }
+}
 function onResponse(data) {
 	if(validateResponse(data)) {
 		if (data["result"]["IsActionSuccess"]) {

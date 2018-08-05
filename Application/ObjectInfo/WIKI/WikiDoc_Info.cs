@@ -48,7 +48,9 @@ namespace ObjectInfos
 
         public decimal RATING { set; get; }
 
-        public string USER_VOTED { set; get; }
+        string _uservote = "";
+
+        public string USER_VOTED { set { _uservote = value; } get { return _uservote; } }
 
         public decimal NUMBER_VOTED { set; get; }
 

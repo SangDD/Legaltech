@@ -1,5 +1,5 @@
 ﻿@using ObjectInfos;
-
+@using WebApps.Session 
 @{
     WikiDoc_Info _DocdetailInfo = new WikiDoc_Info();
     if (ViewBag.DocdetailInfo != null)
@@ -16,9 +16,22 @@
 
         _styleVoting = "width:0%";
     }
+    string userid = "ABCXYX";
+    if (SessionData.CurrentUser != null)
+    {
+        userid = "|" + SessionData.CurrentUser.Id.ToString() + "|";
+    }
+    decimal _rating = 0;
+    try
+    {
+        _rating =Math.Round(_DocdetailInfo.RATING / (_DocdetailInfo.NUMBER_VOTED * 5), 2);
+    }
+    catch (Exception)
+    {
 
-
-            }
+        _rating = 0;
+    }
+}
 <script src="~/Scripts/WikiScript.js"></script>
 <h1>
     @_DocdetailInfo.TITLE
@@ -88,6 +101,15 @@
         float: right;
     }
 
+    .clsBtnCopy {
+        margin-top: 15px;
+        cursor: pointer;
+        background: url(/Content/images/copy.png) no-repeat;
+        width: 28px;
+        height: 35px;
+        float: right;
+    }
+
 
     .social-likes {
         position: absolute;
@@ -128,90 +150,81 @@
                 </div>
             </div>
         </div>
+        @if (SessionData.CurrentUser != null)
+        {
+            <div class="Box-Share" style="margin-left:120px">
 
-        <div class="Box-Share" style="margin-left:120px">
-
-            <div class="clsBtnDownload" onclick="ExportDocToFile(@_DocdetailInfo.ID)">
-                <div style=" color: #0d4a86;font-weight:bold; margin-left:32px"> DOWNLOAD</div>
+                <div class="clsBtnDownload" onclick="ExportDocToFile(@_DocdetailInfo.ID)">
+                    <div style=" color: #0d4a86;font-weight:bold; margin-left:32px"> DOWNLOAD</div>
+                </div>
+                <div class="socialdownloadwiki"></div>
             </div>
-            <div class="socialdownloadwiki">
-
+       
+            <div class="Box-Share" style="margin-left:270px">
+                <div class="clsBtnCopy click-copy" onclick="funcSetSelect()">
+                    <div style=" color: #0d4a86;font-weight:bold; margin-left:32px"> COPY</div>
+                </div>
+                <div class="socialdownloadwiki"></div>
             </div>
-        </div>
-        @*<btn class="mdc-button" style="margin-left:41px;  "> Share</btn>*@
-        @*<div class="mdc-menu-anchor" style="margin-left:50px">
-                <button class="mdc-button" onclick="ExportDocToFile(@_DocdetailInfo.ID)">
-                    <i class="mdc-button__icon icon icon-download">
-                    </i>Download
-                </button>
-            </div>*@
-        @*<div style=" color: #0d4a86;font-weight:bold; margin-left:130px" onclick="ExportDocToFile(@_DocdetailInfo.ID)"> DOWNLOAD</div>*@
-    </div>
+        }
+     
+           </div>
 </div>
 <div>
     <div>
-        <div class="snippet-content">
+        <div id="div_wikidoc_content" class="snippet-content">
             @Html.Raw(_DocdetailInfo.CONTENT)
-
         </div>
 
     </div>
     @if (!string.IsNullOrEmpty(_DocdetailInfo.FILE_URL01))
     {
-        <span class="badge"><a target="_blank" href="@_DocdetailInfo.FILE_URL01">DOWNLOAD</a></span>
+        <span class="badge"><a target="_blank" href="@_DocdetailInfo.FILE_URL01">Sample 1</a></span>
     }
 
     @if (!string.IsNullOrEmpty(_DocdetailInfo.FILE_URL02))
     {
-        <span class="badge"><a target="_blank" href="@_DocdetailInfo.FILE_URL02">DOWNLOAD</a></span>
+        <span class="badge"><a target="_blank" href="@_DocdetailInfo.FILE_URL02">Sample 2</a></span>
     }
     @if (!string.IsNullOrEmpty(_DocdetailInfo.FILE_URL03))
     {
-        <span class="badge"><a target="_blank" href="@_DocdetailInfo.FILE_URL03">DOWNLOAD</a></span>
+        <span class="badge"><a target="_blank" href="@_DocdetailInfo.FILE_URL03">Sample 3</a></span>
     }
 </div>
 <div class="div_ratingcontent">
-    <div class="kk-star-ratings disabled bottom-right rgt" data-id="6624">
+    <div class="kk-star-ratings disabled bottom-right rgt" >
+        @if (SessionData.CurrentUser != null &&  _DocdetailInfo.USER_VOTED.Contains(userid) == false)
+        {
             <div class="kksr-stars kksr-star gray">
                 <div id="div_ratingcontent_percent" class="kksr-fuel kksr-star yellow" style="@_styleVoting"></div>
                 <a href="javascript:;" id="voting_i01" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('01')" onmouseout="StarOnMouseOut('01')" onclick="WikiDocVoting(1)"></a>
-                <a href="javascript:;" id="voting_i02" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('02')"  onmouseout="StarOnMouseOut('02')"  onclick="WikiDocVoting(2)"></a>
-                <a href="javascript:;" id="voting_i03" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('03')"  onmouseout="StarOnMouseOut('03')"  onclick="WikiDocVoting(3)"></a>
-                <a href="javascript:;" id="voting_i04" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('04')"  onmouseout="StarOnMouseOut('04')"  onclick="WikiDocVoting(4)"></a>
-                <a href="javascript:;" id="voting_i05" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('05')"  onmouseout="StarOnMouseOut('05')"  onclick="WikiDocVoting(5)"></a>
+                <a href="javascript:;" id="voting_i02" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('02')" onmouseout="StarOnMouseOut('02')" onclick="WikiDocVoting(2)"></a>
+                <a href="javascript:;" id="voting_i03" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('03')" onmouseout="StarOnMouseOut('03')" onclick="WikiDocVoting(3)"></a>
+                <a href="javascript:;" id="voting_i04" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('04')" onmouseout="StarOnMouseOut('04')" onclick="WikiDocVoting(4)"></a>
+                <a href="javascript:;" id="voting_i05" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('05')" onmouseout="StarOnMouseOut('05')" onclick="WikiDocVoting(5)"></a>
             </div>
+        }
+        else
+        {
+            <div class="kksr-stars kksr-star gray">
+                <div id="div_ratingcontent_percent" class="kksr-fuel kksr-star yellow" style="@_styleVoting"></div>
+                <a href="javascript:;" style="cursor:auto"></a>
+                <a href="javascript:;" style="cursor:auto"></a>
+                <a href="javascript:;" style="cursor:auto"></a>
+                <a href="javascript:;" style="cursor:auto"></a>
+                <a href="javascript:;" style="cursor:auto"></a>
+            </div>
+        }
+        
             <div class="kksr-legend">
-                <div itemprop="aggregateRating"  >
-                    <span id="ratingValue"  >@_DocdetailInfo.RATING</span> 
-                    <span id="ratingCount"  >@_DocdetailInfo.NUMBER_VOTED</span> votes 
-                    <meta  content="1"><div itemprop="itemReviewed"  >
+                <div itemprop="aggregateRating">
+                    <span id="ratingValue">@_rating</span>
+                    <span id="ratingCount">@_DocdetailInfo.NUMBER_VOTED</span> votes
+                    <meta content="1"><div itemprop="itemReviewed">
                     </div>
                 </div>
             </div>
-        </div>
-
-    @*<div class="kk-star-ratings  bottom-right rgt" data-id="6624">
-        <div class="kksr-stars kksr-star gray">
-            <div class="kksr-fuel kksr-star yellow" style="width: 88px;">
-            </div> <a href="#1" data-wpel-link="internal" class="" style="display: block;">
-            </a><a href="#2" data-wpel-link="internal" class="" style="display: block;">
-            </a>
-            <a href="#3" data-wpel-link="internal" class="" style="display: block;"></a>
-            <a href="#4" data-wpel-link="internal" class="" style="display: block;"></a>
-            <a href="#5" data-wpel-link="internal"></a>
-        </div><div class="kksr-legend">
-            <div itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating">
-
-                <span itemprop="ratingValue">3.7</span> <span itemprop="ratingCount">3</span>
-                votes<meta itemprop="bestRating" content="5"><meta itemprop="worstRating" content="1">
-                <div itemprop="itemReviewed" itemscope="" itemtype="http://schema.org/CreativeWork">
-
-                </div>
-            </div>
-        </div>
-    </div>*@
-
-
+</div>
 </div>
 
 <script>
@@ -256,9 +269,15 @@
                 success: function (data) {
                     if (data != null) {
                         $("#div_ratingcontent_percent").removeAttr("style");
-                        $("#div_ratingcontent_percent").attr("style", "width:" + data.Rating + "%;");
+                        $("#div_ratingcontent_percent").attr("style", "width:" + data.WidthDiv + "%;");
                         $("#ratingValue").text(data.Rating);
                         $("#ratingCount").text(data.TotalVoted);
+                        
+                        for (var i = 0; i <= 4; i++) {
+                            $("#voting_i0" + i).removeAttr("onmouseover");
+                            $("#voting_i0" + i).removeAttr("StarOnMouseOut");
+                            $("#voting_i0" + i).removeAttr("onclick");
+                        }
                         
                     }
                 },
@@ -271,4 +290,50 @@
         }
 
     }
+    function CopyToClipboard(containerid) {
+        if (document.selection) {
+            var range = document.body.createTextRange();
+            range.moveToElementText(document.getElementById(containerid));
+            range.select().createTextRange();
+            document.execCommand("copy");
+
+        } else if (window.getSelection) {
+            var range = document.createRange();
+            range.selectNode(document.getElementById(containerid));
+            window.getSelection().addRange(range);
+            document.execCommand("copy");
+           // alert("text copied")
+        }
+    }
+
+    function selectText(node) {
+        node = document.getElementById(node);
+
+        if (document.body.createTextRange) {
+            const range = document.body.createTextRange();
+            range.moveToElementText(node);
+            range.select();
+        } else if (window.getSelection) {
+            const selection = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(node);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        } else {
+            console.warn("Could not select text in node: Unsupported browser.");
+        }
+    }
+    function funcSetSelect()
+    {
+        try {
+            // clickable.addEventListener('click', () => selectText('div_wikidoc_content'));
+            selectText('div_wikidoc_content');
+            document.execCommand("copy");
+        } catch (e) {
+
+        }
+
+    }
+   // const clickable = document.querySelector('.click-copy');
+   // clickable.addEventListener('click', () => selectText('div_wikidoc_content'));
 </script>
