@@ -12,6 +12,11 @@
 
     List<AllCodeInfo> _lstStatus = MemoryData.AllCode_GetBy_CdTypeCdName("APP", "STATUS");
     var lstStatus = new List<SelectListItem> { new SelectListItem { Text = "Tất cả", Value = "ALL" } }.Concat(_lstStatus.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal }));
+    string _status = "";
+    if(ViewBag.Status != null)
+    {
+        _status = ViewBag.Status;
+    }
 }
 <style>
     /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
@@ -92,7 +97,28 @@
             </div>
             <div>
                 <div>
-                    @Html.DropDownList("cboStatus", lstStatus, new { @id = "cboStatus", @style = "width: 250px;" })
+                    @*@Html.DropDownList("cboStatus", lstStatus, new { @id = "cboStatus", @style = "width: 250px;" })*@
+                    <select id="cboStatus" style="width: 250px;">
+                        <option value="ALL">
+                            Tất cả
+                        </option>
+                        @foreach (var item in _lstStatus)
+                        {
+                            if (item.CdVal == _status)
+                            {
+                                <option value="@item.CdVal" selected="selected">
+                                    @item.Content
+                                </option>
+                            }
+                            else
+                            {
+                                <option value="@item.CdVal">
+                                    @item.Content
+                                </option>
+                            }
+
+                        }
+                    </select>
                 </div>
             </div>
             <div class="div-search-title">

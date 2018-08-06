@@ -10,6 +10,7 @@ using WebApps.AppStart;
 using GemBox.Document;
 using System.IO;
 using WebApps.CommonFunction;
+using WebApps.Session;
 
 namespace WebApps.Areas.Home.Controllers
 {
@@ -19,6 +20,41 @@ namespace WebApps.Areas.Home.Controllers
     public class WikiController : Controller
     {
         // GET: Home/Wiki
+
+        /// <summary>
+        /// Sangdd 
+        /// Hàm check time out Session
+        /// </summary>
+        /// <returns></returns>
+        ///   
+        [Route("CheckSessionTimeOutPortal")]
+        [HttpPost]
+        [ValidateInput(false)]
+        public JsonResult CheckSessionTimeOutPortal()
+        {
+            try
+            {
+                var msg = new MsgReportServerInfo();
+                if (SessionData.CurrentUser == null)
+                {
+                    msg.Code = "-1";
+                    msg.Msg = "Hệ thống đã hết thời gian kết nối, bạn hãy đăng nhập lại .";
+                }
+                else
+                {
+                    msg.Code = "0";
+                }
+                return Json(msg);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                var msg = new MsgReportServerInfo();
+                msg.Code = "-1";
+                msg.Msg = "Không kết nối được tới máy chủ.";
+                return Json(msg);
+            }
+        }
 
         [HttpGet]
         [Route("doc-list/{id}/{id1}")]
@@ -189,6 +225,25 @@ namespace WebApps.Areas.Home.Controllers
                 Logger.LogException(ex);
             }
             return Json(new { result = "1", FileDownload = _filedownload, FileSaveName= _fileSaveName });
+        }
+
+        [HttpPost]
+        [Route("WikiDocVoting")]
+        public ActionResult WikiDocVoting(decimal p_id, decimal p_point)
+        {
+            try
+            {
+                WikiDoc_BL _WikiBL = new WikiDoc_BL();
+                WikiDoc_Info _DocInfo = new WikiDoc_Info();
+                // lấy chi tiết tin
+                _DocInfo = _WikiBL.WikiVoting(p_id, SessionData.CurrentUser.Id.ToString(), p_point);
+                return Json(new { success = 0, TotalVoted = _DocInfo.NUMBER_VOTED, WidthDiv = Math.Round((_DocInfo.RATING / (_DocInfo.NUMBER_VOTED * 5) * 100), 2),  Rating = Math.Round((_DocInfo.RATING /( _DocInfo.NUMBER_VOTED * 5) ),2)});
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return null;
+            }
         }
     }
 }

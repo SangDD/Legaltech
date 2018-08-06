@@ -210,5 +210,24 @@ namespace DataAccess
             }
         }
 
+        public DataSet WikiVoting(decimal P_DOCID, string P_USERID, decimal P_POINT)
+        {
+            try
+            {
+                DataSet _Ds = new DataSet();
+                _Ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_WIKI_PORTAL.PROC_VOTING",
+                new OracleParameter("P_DOCID", OracleDbType.Decimal, P_DOCID, ParameterDirection.Input),
+                new OracleParameter("P_USERID", OracleDbType.Varchar2, P_USERID, ParameterDirection.Input),
+                new OracleParameter("P_POINT", OracleDbType.Decimal, P_POINT, ParameterDirection.Input),
+                new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output));
+                return _Ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
     }
 }

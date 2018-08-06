@@ -244,6 +244,9 @@
 
     function ExportDocToFile(_Docid) {
         try {
+            if (CheckSessionTimeOutPortal() == false) {
+                return false;
+            }
             $.ajax({
                 type: "POST",
                 url: "/wiki-view/ExportDocToFile/",

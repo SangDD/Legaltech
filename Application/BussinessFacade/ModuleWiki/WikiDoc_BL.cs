@@ -151,5 +151,20 @@ namespace BussinessFacade
                 return new List<WikiDoc_Info>();
             }
         }
+
+        public WikiDoc_Info WikiVoting(decimal P_DOCID, string P_USERID, decimal P_POINT)
+        {
+            try
+            {
+                WikiDoc_DA _da = new WikiDoc_DA();
+                var ds = _da.WikiVoting(P_DOCID, P_USERID, P_POINT);
+                return CBO<WikiDoc_Info>.FillObjectFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new WikiDoc_Info();
+            }
+        }
     }
 }
