@@ -49,7 +49,7 @@
         </div>
      
 
-        <div class="div-search-ad" style="margin-top: 10px;" >
+        @*<div class="div-search-ad" style="margin-top: 10px;" >
             <div id="NVS002_DivShowSearchAppCode">
                 <div class="div-search-title">
                     <div>Tên đầy đủ:</div>
@@ -77,7 +77,7 @@
                 <div style="display:inline-block;width:100px">
                     <input type="button" value="Thêm" class="btn" onclick="return funcAddDataRow();" style="width:75px;height:30px" />
                 </div>
-            </div>
+            </div>*@
 
     <div class="class_full_div_input">
         <div class="_table_display" id="divHangHoaThem" style="width: 100%">
@@ -112,21 +112,21 @@
 </style>
 
 <script>
-    $(document).ready(function () {
-      // đẩy vào table
-        _EditArryAppClass.forEach(function (element) {
-            funcAddMessDataRow(element.name, element.value, 0);
-        });
+    //$(document).ready(function () {
+    //  // đẩy vào table
+    //    _EditArryAppClass.forEach(function (element) {
+    //        funcAddMessDataRow(element.name, element.value, 0);
+    //    });
        
-    })
+    //})
 
-    $('#NVSCBO001_AppClassSearch').multipleSelect({
-        filter: true,
-        noMatchesFound: "Không tìm thấy dữ liệu",
-        single: true,
-        isdatastring: false,
-        placeholder: 'Tìm kiếm dữ liệu hàng hóa'
-    });
+    //$('#NVSCBO001_AppClassSearch').multipleSelect({
+    //    filter: true,
+    //    noMatchesFound: "Không tìm thấy dữ liệu",
+    //    single: true,
+    //    isdatastring: false,
+    //    placeholder: 'Tìm kiếm dữ liệu hàng hóa'
+    //});
 
     function funIncreNumberRow(table_id) {
         try {

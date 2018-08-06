@@ -1369,7 +1369,7 @@
                 foreach (var item in MemoryData.lstCacheCustomer)
                 {
                     if (string.IsNullOrEmpty(item.name)) continue;
-                    if (item.name.Contains(pName))
+                    if (item.name.ToLower().Contains(pName.ToLower()))
                     {
                         check = 1;
                         lstContain.Add(item);
@@ -1404,7 +1404,7 @@
                     foreach (var item in MemoryData.lstCacheCustomer1)
                     {
                         if (string.IsNullOrEmpty(item.name)) continue;
-                        if (item.name.Contains(pName))
+                        if (item.name.ToLower().Contains(pName.ToLower()))
                         {
                             check = 1;
                             lstContain.Add(item);
@@ -1416,7 +1416,7 @@
                     foreach (var item in MemoryData.lstCacheCustomer2)
                     {
                         if (string.IsNullOrEmpty(item.name)) continue;
-                        if (item.name.Contains(pName))
+                        if (item.name.ToLower().Contains(pName.ToLower()))
                         {
                             check = 1;
                             lstContain.Add(item);
@@ -1428,7 +1428,7 @@
                     foreach (var item in MemoryData.lstCacheCustomer3)
                     {
                         if (string.IsNullOrEmpty(item.name)) continue;
-                        if (item.name.Contains(pName))
+                        if (item.name.ToLower().Contains(pName.ToLower()))
                         {
                             check = 1;
                             lstContain.Add(item);
@@ -1440,7 +1440,7 @@
                     foreach (var item in MemoryData.lstCacheCustomer4)
                     {
                         if (string.IsNullOrEmpty(item.name)) continue;
-                        if (item.name.Contains(pName))
+                        if (item.name.ToLower().Contains(pName.ToLower()))
                         {
                             check = 1;
                             lstContain.Add(item);
@@ -1452,7 +1452,7 @@
                     foreach (var item in MemoryData.lstChuDDSHCN)
                     {
                         if (string.IsNullOrEmpty(item.name)) continue;
-                        if (item.name.Contains(pName))
+                        if (item.name.ToLower().Contains(pName.ToLower()))
                         {
                             check = 1;
                             lstContain.Add(item);
@@ -1507,7 +1507,7 @@
                 foreach (var item in MemoryData.clstAppClassSuggest)
                 {
                     if (string.IsNullOrEmpty(item.name)) continue;
-                    if (item.name.Contains(pName))
+                    if (item.name.ToLower().Contains(pName.ToLower()))
                     {
                         ++check;
                         lstContain.Add(item);
