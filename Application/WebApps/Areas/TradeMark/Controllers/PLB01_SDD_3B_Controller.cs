@@ -495,6 +495,8 @@
             try
             {
                 string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VI_" + p_appCode + ".pdf");
+                string fileName_doc = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VI_" + p_appCode + ".doc");
+
                 string language = AppsCommon.GetCurrentLang();
 
                 List<App_Detail_PLB01_SDD_Info> _lst = new List<App_Detail_PLB01_SDD_Info>();
@@ -504,15 +506,7 @@
                 List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
                 List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
 
-                DataSet _ds = objBL.GetByID_DS(pAppHeaderId, language);
-                if (_ds != null && _ds.Tables.Count == 4)
-                {
-                    applicationHeaderInfo = CBO<ApplicationHeaderInfo>.FillObjectFromDataTable(_ds.Tables[1]);
-                    appDocumentInfos = CBO<AppDocumentInfo>.FillCollectionFromDataTable(_ds.Tables[2]);
-                    appFeeFixInfos = CBO<AppFeeFixInfo>.FillCollectionFromDataTable(_ds.Tables[3]);
-                }
-
-                app_Detail = CBO<App_Detail_PLB01_SDD_Info>.FillObjectFromDataSet(_ds);
+                app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
                 // copy Header
                 App_Detail_PLB01_SDD_Info.CopyAppHeaderInfo(ref app_Detail, applicationHeaderInfo);
 
@@ -532,7 +526,7 @@
                     }
                     else if (item.Document_Id == "01_SDD_03")
                     {
-                        app_Detail.Doc_Id_3 = item.CHAR01;
+                        app_Detail.Doc_Id_3 = item.CHAR01 + " trang";
                         app_Detail.Doc_Id_3_Check = item.Isuse;
                     }
                     else if (item.Document_Id == "01_SDD_04")
@@ -542,7 +536,7 @@
                     }
                     else if (item.Document_Id == "01_SDD_05")
                     {
-                        app_Detail.Doc_Id_5 = item.CHAR01;
+                        app_Detail.Doc_Id_5 = item.CHAR01 + " trang";
                         app_Detail.Doc_Id_5_Check = item.Isuse;
                     }
 
@@ -614,7 +608,7 @@
                 #endregion
 
                 _lst.Add(app_Detail);
-                DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLB01_SDD_Info>(_lst,false);
+                DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLB01_SDD_Info>(_lst, false);
                 //string _strCml = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD + DateTime.Now.ToString("ddMMyyyy") + ".xml"); 
                 //_ds_all.WriteXml(_strCml, XmlWriteMode.WriteSchema);
 
@@ -623,6 +617,7 @@
 
                 if (_ds_all != null)
                 {
+                    _ds_all.Tables[0].TableName = "Table";
                     oRpt.SetDataSource(_ds_all);
                 }
                 //Puth_Data2_Fomulator(ref oRpt, appFeeFixInfos, appDocumentInfos);
@@ -632,17 +627,17 @@
                 Response.ClearContent();
                 Response.ClearHeaders();
 
-                System.IO.Stream oStream1 = oRpt.ExportToStream(ExportFormatType.WordForWindows);
-                byte[] byteArray1 = new byte[oStream1.Length];
-                oStream1.Read(byteArray1, 0, Convert.ToInt32(oStream1.Length - 1));
-                System.IO.File.WriteAllBytes(@"E:\Working\Legaltech\Application\WebApps\Content\Export\B01_VI_TM_PLB01SDD.doc", byteArray1.ToArray()); // Requires System.Linq
-
 
                 System.IO.Stream oStream = oRpt.ExportToStream(ExportFormatType.PortableDocFormat);
                 byte[] byteArray = new byte[oStream.Length];
                 oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
                 System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq
-           
+
+                //System.IO.Stream oStream_doc = oRpt.ExportToStream(ExportFormatType.WordForWindows);
+                //byte[] byteArray_doc= new byte[oStream_doc.Length];
+                //oStream_doc.Read(byteArray_doc, 0, Convert.ToInt32(oStream_doc.Length - 1));
+                //System.IO.File.WriteAllBytes(fileName_doc, byteArray_doc.ToArray()); // Requires System.Linq
+
                 return Json(new { success = 0 });
             }
             catch (Exception ex)
@@ -799,7 +794,7 @@
                 DocumentModel document = DocumentModel.Load(_fileTemp);
 
                 // Fill export_header
-                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VI_" + TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD + ".docx");
+                string fileName_doc = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VI_" + TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD + ".docx");
                 string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VI_" + TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD + ".pdf");
 
                 // copy Header
@@ -979,10 +974,29 @@
                 #endregion
                 #endregion
 
-                document.MailMerge.Execute(pDetail);
-                document.Save(fileName, SaveOptions.DocxDefault);
-                document.Save(fileName_pdf, SaveOptions.PdfDefault);
+                List<App_Detail_PLB01_SDD_Info> _lst = new List<App_Detail_PLB01_SDD_Info>();
 
+                _lst.Add(pDetail);
+                DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLB01_SDD_Info>(_lst, false);
+
+                CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_PLB01SDD.rpt"));
+
+                if (_ds_all != null)
+                {
+                    _ds_all.Tables[0].TableName = "Table";
+                    oRpt.SetDataSource(_ds_all);
+                }
+                oRpt.Refresh();
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+                System.IO.Stream oStream = oRpt.ExportToStream(ExportFormatType.PortableDocFormat);
+                byte[] byteArray = new byte[oStream.Length];
+                oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
+                System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq
                 return Json(new { success = 0 });
             }
             catch (Exception ex)
@@ -1061,35 +1075,6 @@
                     if (strFormulaName == "F_DOC_1_ISUSE")
                     {
                         crFFieldDefinition.Text = "'" + dic_appDoc["01_SDD_01"].Isuse.ToString() + "'"; ;
-                    }
-                    else if (strFormulaName == "F_DOC_2_ISUSE")
-                    {
-                        if (dic_appDoc["01_SDD_02"].Isuse == 1)
-                        {
-                            crFFieldDefinition.Text = "a";
-                        }
-                        else
-                            crFFieldDefinition.Text = "b";
-                    }
-                    else if (strFormulaName == "F_DOC_2_CHAR")
-                    {
-                        crFFieldDefinition.Text = "'" + dic_appDoc["01_SDD_02"].CHAR01.ToString() + "'";
-                    }
-                    else if (strFormulaName == "F_DOC_3_CHAR")
-                    {
-                        crFFieldDefinition.Text = "'" + dic_appDoc["01_SDD_03"].CHAR01.ToString() + "'" +  " trang";
-                    }
-                    else if (strFormulaName == "F_DOC_4_CHAR")
-                    {
-                        crFFieldDefinition.Text = "'" + dic_appDoc["01_SDD_04"].CHAR01.ToString() + "'";
-                    }
-                    else if (strFormulaName == "F_DOC_5_CHAR")
-                    {
-                        crFFieldDefinition.Text = "'" + dic_appDoc["01_SDD_05"].CHAR01.ToString() + "'" + " trang";
-                    }
-                    else if (strFormulaName == "F_DOC_9_CHAR")
-                    {
-                        crFFieldDefinition.Text = "'" + dic_appDoc["01_SDD_09"].CHAR01.ToString() + "'" + " trang";
                     }
 
                     #endregion
