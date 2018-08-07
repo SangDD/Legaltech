@@ -16,6 +16,8 @@
     using System.Transactions;
     using Common.CommonData;
     using BussinessFacade.ModuleMemoryData;
+    using System.Data;
+    using System.Linq;
 
     [ValidateAntiForgeryTokenOnAllPosts]
     [RouteArea("TradeMarkRegistration", AreaPrefix = "trade-mark-3c")]
@@ -334,36 +336,12 @@
                 App_Detail_Plb02_CGD_BL objBL = new App_Detail_Plb02_CGD_BL();
                 app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
 
-                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/B02_VI.docx");
-                DocumentModel document = DocumentModel.Load(_fileTemp);
-
                 // Fill export_header
-                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_VI_" + p_appCode + ".docx");
+                string fileName_doc = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_VI_" + p_appCode + ".docx");
                 string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_VI_" + p_appCode + ".pdf");
 
                 // copy Header
                 App_Detail_PLB02_CGD_Info.CopyAppHeaderInfo(ref app_Detail, applicationHeaderInfo);
-
-                document.MailMerge.FieldMerging += (sender, e) =>
-                {
-                    if (e.IsValueFound)
-                    {
-                        if (e.FieldName == "Customer_Code")
-                            e.Inline = new TextBox(e.Document, Layout.Floating(
-                                new HorizontalPosition(HorizontalPositionType.Absolute, HorizontalPositionAnchor.Margin),
-                                new VerticalPosition(VerticalPositionType.Absolute, VerticalPositionAnchor.Margin),
-                                new Size(4, 3.5, LengthUnit.Centimeter)),
-                                new Paragraph(document));
-                    }
-                };
-                document.MailMerge.Execute(new { Customer_Code = app_Detail.Customer_Code });
-
-                var textBox = new TextBox(document,
-                    Layout.Floating(
-                        new HorizontalPosition(HorizontalPositionType.Right, HorizontalPositionAnchor.Margin),
-                        new VerticalPosition(VerticalPositionType.Bottom, VerticalPositionAnchor.Margin),
-                        new Size(4, 3.5, LengthUnit.Centimeter)),
-                    new Paragraph(document, app_Detail.Customer_Code));
 
                 #region Tài liệu có trong đơn
 
@@ -386,8 +364,11 @@
                     }
                     else if (item.Document_Id == "02_CGD_04")
                     {
-                        app_Detail.Doc_Id_4 = item.CHAR01;
                         app_Detail.Doc_Id_4_Check = item.Isuse;
+                        if (item.Isuse == 1)
+                            app_Detail.Doc_Id_4 = item.CHAR01 + " trang";
+                        else
+                            app_Detail.Doc_Id_4 = item.CHAR01;
                     }
                     else if (item.Document_Id == "02_CGD_05")
                     {
@@ -397,8 +378,11 @@
 
                     else if (item.Document_Id == "02_CGD_06")
                     {
-                        app_Detail.Doc_Id_6 = item.CHAR01;
                         app_Detail.Doc_Id_6_Check = item.Isuse;
+                        if (item.Isuse == 1)
+                            app_Detail.Doc_Id_6 = item.CHAR01 + " trang";
+                        else
+                            app_Detail.Doc_Id_6 = item.CHAR01;
                     }
                     else if (item.Document_Id == "02_CGD_07")
                     {
@@ -458,9 +442,32 @@
                 }
                 #endregion
 
-                document.MailMerge.Execute(app_Detail);
-                document.Save(fileName, SaveOptions.DocxDefault);
-                document.Save(fileName_pdf, SaveOptions.PdfDefault);
+                List<App_Detail_PLB02_CGD_Info> _lst = new List<App_Detail_PLB02_CGD_Info>();
+                _lst.Add(app_Detail);
+
+                DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLB02_CGD_Info>(_lst, false);
+                //string _strCml = System.Web.HttpContext.Current.Server.MapPath("/Content/XML/" + TradeMarkAppCode.AppCode_TM_3C_PLB_02_CGD + ".xml");
+                //_ds_all.WriteXml(_strCml, System.Data.XmlWriteMode.WriteSchema);
+
+                CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_PLB02_CGD.rpt"));
+
+                if (_ds_all != null)
+                {
+                    _ds_all.Tables[0].TableName = "Table_3c";
+                    oRpt.SetDataSource(_ds_all);
+                }
+                oRpt.Refresh();
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+                System.IO.Stream oStream = oRpt.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                byte[] byteArray = new byte[oStream.Length];
+                oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
+                System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq
+
                 return Json(new { success = 0 });
             }
             catch (Exception ex)
@@ -511,8 +518,11 @@
                         }
                         else if (item.Document_Id == "02_CGD_04")
                         {
-                            pDetail.Doc_Id_4 = item.CHAR01;
                             pDetail.Doc_Id_4_Check = item.Isuse;
+                            if (item.Isuse == 1)
+                                pDetail.Doc_Id_4 = item.CHAR01 + " trang";
+                            else
+                                pDetail.Doc_Id_4 = item.CHAR01;
                         }
                         else if (item.Document_Id == "02_CGD_05")
                         {
@@ -523,6 +533,10 @@
                         else if (item.Document_Id == "02_CGD_06")
                         {
                             pDetail.Doc_Id_6_Check = item.Isuse;
+                            if (item.Isuse == 1)
+                                pDetail.Doc_Id_6 = item.CHAR01 + " trang";
+                            else
+                                pDetail.Doc_Id_6 = item.CHAR01;
                         }
                         else if (item.Document_Id == "02_CGD_07")
                         {
@@ -598,9 +612,28 @@
 
                 #endregion
 
-                document.MailMerge.Execute(pDetail);
-                document.Save(fileName, SaveOptions.DocxDefault);
-                document.Save(fileName_pdf, SaveOptions.PdfDefault);
+                List<App_Detail_PLB02_CGD_Info> _lst = new List<App_Detail_PLB02_CGD_Info>();
+                _lst.Add(pDetail);
+
+                DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLB02_CGD_Info>(_lst, false);
+                CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_PLB02_CGD.rpt"));
+
+                if (_ds_all != null)
+                {
+                    _ds_all.Tables[0].TableName = "Table_3c";
+                    oRpt.SetDataSource(_ds_all);
+                }
+                oRpt.Refresh();
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+                System.IO.Stream oStream = oRpt.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                byte[] byteArray = new byte[oStream.Length];
+                oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
+                System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq
 
                 return Json(new { success = 0 });
             }
@@ -618,9 +651,6 @@
             {
                 ViewBag.FileName = "/Content/Export/" + "B02_VI_" + TradeMarkAppCode.AppCode_TM_3C_PLB_02_CGD + ".pdf";
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
-
-                //ViewBag.FileName = "/Content/Export/" + "B02_VI_" + TradeMarkAppCode.AppCode_TM_3C_PLB_02_CGD + ".docx";
-                //return PartialView("~/Areas/TradeMark/Views/Shared/_PartialContentPreview_docx.cshtml");
             }
             catch (Exception ex)
             {

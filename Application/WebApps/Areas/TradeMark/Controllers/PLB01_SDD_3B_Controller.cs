@@ -526,8 +526,11 @@
                     }
                     else if (item.Document_Id == "01_SDD_03")
                     {
-                        app_Detail.Doc_Id_3 = item.CHAR01 + " trang";
                         app_Detail.Doc_Id_3_Check = item.Isuse;
+                        if (item.Isuse == 1)
+                            app_Detail.Doc_Id_3 = item.CHAR01 + " trang";
+                        else
+                            app_Detail.Doc_Id_3 = item.CHAR01;
                     }
                     else if (item.Document_Id == "01_SDD_04")
                     {
@@ -536,8 +539,11 @@
                     }
                     else if (item.Document_Id == "01_SDD_05")
                     {
-                        app_Detail.Doc_Id_5 = item.CHAR01 + " trang";
                         app_Detail.Doc_Id_5_Check = item.Isuse;
+                        if (item.Isuse == 1)
+                            app_Detail.Doc_Id_5 = item.CHAR01 + " trang";
+                        else
+                            app_Detail.Doc_Id_5 = item.CHAR01;
                     }
 
                     else if (item.Document_Id == "01_SDD_06")
@@ -818,8 +824,11 @@
                         }
                         else if (item.Document_Id == "01_SDD_03")
                         {
-                            pDetail.Doc_Id_3 = item.CHAR01;
                             pDetail.Doc_Id_3_Check = item.Isuse;
+                            if (item.Isuse == 1)
+                                pDetail.Doc_Id_3 = item.CHAR01 + " trang";
+                            else
+                                pDetail.Doc_Id_3 = item.CHAR01;
                         }
                         else if (item.Document_Id == "01_SDD_04")
                         {
@@ -828,8 +837,11 @@
                         }
                         else if (item.Document_Id == "01_SDD_05")
                         {
-                            pDetail.Doc_Id_5 = item.CHAR01;
                             pDetail.Doc_Id_5_Check = item.Isuse;
+                            if (item.Isuse == 1)
+                                pDetail.Doc_Id_5 = item.CHAR01 + " trang";
+                            else
+                                pDetail.Doc_Id_5 = item.CHAR01;
                         }
 
                         else if (item.Document_Id == "01_SDD_06")
@@ -1013,9 +1025,6 @@
             {
                 ViewBag.FileName = "/Content/Export/" + "B01_VI_" + TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD + ".pdf";
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
-
-                //ViewBag.FileName = "/Content/Export/" + "B01_VI_" + TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD + ".docx";
-                //return PartialView("~/Areas/TradeMark/Views/Shared/_PartialContentPreview_docx.cshtml");
             }
             catch (Exception ex)
             {
