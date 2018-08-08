@@ -16,6 +16,8 @@
     using System.Transactions;
     using Common.CommonData;
     using BussinessFacade.ModuleMemoryData;
+    using System.Data;
+    using System.Linq;
 
     [ValidateAntiForgeryTokenOnAllPosts]
     [RouteArea("TradeMarkRegistration", AreaPrefix = "trade-mark-3d")]
@@ -293,12 +295,12 @@
                 {
                     if (item.Document_Id == "C05_KN_01")
                     {
-                        app_Detail.Doc_Id_1 = item.CHAR01;
+                        app_Detail.Doc_Id_1 = item.CHAR01 + " trang 03 bản";
                         app_Detail.Doc_Id_1_Check = item.Isuse;
                     }
                     else if (item.Document_Id == "C05_KN_02")
                     {
-                        app_Detail.Doc_Id_2 = item.CHAR01;
+                        app_Detail.Doc_Id_2 = item.CHAR01 + " trang 02 bản";
                         app_Detail.Doc_Id_2_Check = item.Isuse;
                     }
                     else if (item.Document_Id == "C05_KN_03")
@@ -319,7 +321,7 @@
 
                     else if (item.Document_Id == "C05_KN_06")
                     {
-                        app_Detail.Doc_Id_6 = item.CHAR01;
+                        app_Detail.Doc_Id_6 = item.CHAR01 + " trang";
                         app_Detail.Doc_Id_6_Check = item.Isuse;
                     }
                     else if (item.Document_Id == "C05_KN_07")
@@ -380,10 +382,32 @@
                 }
                 #endregion
 
-                document.MailMerge.Execute(app_Detail);
-                document.Save(fileName_pdf, SaveOptions.PdfDefault);
-                document.Save(fileName_docx, SaveOptions.DocxDefault);
- 
+                List<App_Detail_PLC05_KN_Info> _lst = new List<App_Detail_PLC05_KN_Info>();
+                _lst.Add(app_Detail);
+
+                DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLC05_KN_Info>(_lst, false);
+                //string _strCml = System.Web.HttpContext.Current.Server.MapPath("/Content/XML/" + TradeMarkAppCode.AppCode_TM_3D_PLC_05_KN + ".xml");
+                //_ds_all.WriteXml(_strCml, System.Data.XmlWriteMode.WriteSchema);
+
+                CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_PLC05_KN.rpt"));
+
+                if (_ds_all != null)
+                {
+                    _ds_all.Tables[0].TableName = "Table";
+                    oRpt.SetDataSource(_ds_all);
+                }
+                oRpt.Refresh();
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+                System.IO.Stream oStream = oRpt.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                byte[] byteArray = new byte[oStream.Length];
+                oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
+                System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq
+
                 return Json(new { success = 0 });
             }
             catch (Exception ex)
@@ -418,12 +442,12 @@
                     {
                         if (item.Document_Id == "02_CGD_01")
                         {
-                            pDetail.Doc_Id_1 = item.CHAR01;
+                            pDetail.Doc_Id_1 = item.CHAR01 + " trang 03 bản";
                             pDetail.Doc_Id_1_Check = item.Isuse;
                         }
                         else if (item.Document_Id == "02_CGD_02")
                         {
-                            pDetail.Doc_Id_2 = item.CHAR01;
+                            pDetail.Doc_Id_2 = item.CHAR01 + " trang 02 bản";
                             pDetail.Doc_Id_2_Check = item.Isuse;
                         }
                         else if (item.Document_Id == "02_CGD_03")
@@ -444,7 +468,7 @@
 
                         else if (item.Document_Id == "02_CGD_06")
                         {
-                            pDetail.Doc_Id_6 = item.CHAR01;
+                            pDetail.Doc_Id_6 = item.CHAR01 + " trang";
                             pDetail.Doc_Id_6_Check = item.Isuse;
                         }
                         else if (item.Document_Id == "02_CGD_07")
@@ -502,10 +526,30 @@
 
                 #endregion
 
-                document.MailMerge.Execute(pDetail);
-                document.Save(fileName_docx, SaveOptions.DocxDefault);
-                document.Save(fileName_pdf, SaveOptions.PdfDefault);
- 
+                List<App_Detail_PLC05_KN_Info> _lst = new List<App_Detail_PLC05_KN_Info>();
+                _lst.Add(pDetail);
+
+                DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLC05_KN_Info>(_lst, false);
+                 
+                CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_PLC05_KN.rpt"));
+
+                if (_ds_all != null)
+                {
+                    _ds_all.Tables[0].TableName = "Table_3d";
+                    oRpt.SetDataSource(_ds_all);
+                }
+                oRpt.Refresh();
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+                System.IO.Stream oStream = oRpt.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                byte[] byteArray = new byte[oStream.Length];
+                oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
+                System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq
+
                 return Json(new { success = 0 });
             }
             catch (Exception ex)
@@ -520,11 +564,11 @@
         {
             try
             {
-                //ViewBag.FileName = "/Content/Export/" + "C05_VI_" + TradeMarkAppCode.AppCode_TM_3D_PLC_05_KN + ".pdf";
-                //return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+                ViewBag.FileName = "/Content/Export/" + "C05_VI_" + TradeMarkAppCode.AppCode_TM_3D_PLC_05_KN + ".pdf";
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
 
-                ViewBag.FileName = "/Content/Export/" + "C05_VI_" + TradeMarkAppCode.AppCode_TM_3D_PLC_05_KN + ".docx";
-                return PartialView("~/Areas/TradeMark/Views/Shared/_PartialContentPreview_docx.cshtml");
+                //ViewBag.FileName = "/Content/Export/" + "C05_VI_" + TradeMarkAppCode.AppCode_TM_3D_PLC_05_KN + ".docx";
+                //return PartialView("~/Areas/TradeMark/Views/Shared/_PartialContentPreview_docx.cshtml");
             }
             catch (Exception ex)
             {
