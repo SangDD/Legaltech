@@ -16,6 +16,8 @@
     using System.Transactions;
     using Common.CommonData;
     using BussinessFacade.ModuleMemoryData;
+    using System.Data;
+    using System.Linq;
 
     [ValidateAntiForgeryTokenOnAllPosts]
     [RouteArea("TradeMarkRegistration", AreaPrefix = "trade-mark-4c2")]
@@ -502,7 +504,7 @@
                 DocumentModel document = DocumentModel.Load(_fileTemp);
 
                 // Fill export_header
-                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "D01_VI_" + p_appCode + ".pdf");
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "D01_VI_" + p_appCode + ".pdf");
                 string fileName_docx = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "D01_VI_" + p_appCode + ".docx");
 
                 // copy Header
@@ -657,9 +659,31 @@
                 }
                 #endregion
 
-                document.MailMerge.Execute(app_Detail);
-                document.Save(fileName_docx, SaveOptions.DocxDefault);
-                //document.Save(fileName, SaveOptions.PdfDefault);
+                List<App_Detail_PLD01_HDCN_Info> _lst = new List<App_Detail_PLD01_HDCN_Info>();
+                _lst.Add(app_Detail);
+
+                DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLD01_HDCN_Info>(_lst, false);
+                _ds_all.Tables[0].TableName = "Table_4c2";
+                //string _strCml = System.Web.HttpContext.Current.Server.MapPath("/Content/XML/" + TradeMarkAppCode.AppCode_TM_4C2_PLD_01_HDCN + ".xml");
+                //_ds_all.WriteXml(_strCml, System.Data.XmlWriteMode.WriteSchema);
+
+                CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_PLD01_HDCN.rpt"));
+
+                if (_ds_all != null)
+                {
+                    oRpt.SetDataSource(_ds_all);
+                }
+                oRpt.Refresh();
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+                System.IO.Stream oStream = oRpt.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                byte[] byteArray = new byte[oStream.Length];
+                oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
+                System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq
 
                 return Json(new { success = 0 });
             }
@@ -682,7 +706,7 @@
                 DocumentModel document = DocumentModel.Load(_fileTemp);
 
                 // Fill export_header
-                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "D01_VI_" + TradeMarkAppCode.AppCode_TM_4C2_PLD_01_HDCN + ".pdf");
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "D01_VI_" + TradeMarkAppCode.AppCode_TM_4C2_PLD_01_HDCN + ".pdf");
                 string fileName_docx = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "D01_VI_" + TradeMarkAppCode.AppCode_TM_4C2_PLD_01_HDCN + ".docx");
 
                 // copy Header
@@ -924,9 +948,29 @@
 
                 #endregion
 
-                document.MailMerge.Execute(pDetail);
-                //document.Save(fileName, SaveOptions.PdfDefault);
-                document.Save(fileName_docx, SaveOptions.DocxDefault);
+                List<App_Detail_PLD01_HDCN_Info> _lst = new List<App_Detail_PLD01_HDCN_Info>();
+                _lst.Add(pDetail);
+
+                DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLD01_HDCN_Info>(_lst, false);
+                _ds_all.Tables[0].TableName = "Table_4c2";
+
+                CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_PLD01_HDCN.rpt"));
+
+                if (_ds_all != null)
+                {
+                    oRpt.SetDataSource(_ds_all);
+                }
+                oRpt.Refresh();
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+                System.IO.Stream oStream = oRpt.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                byte[] byteArray = new byte[oStream.Length];
+                oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
+                System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq
 
                 return Json(new { success = 0 });
             }
@@ -942,11 +986,8 @@
         {
             try
             {
-                //ViewBag.FileName = "/Content/Export/" + "D01_VI_" + TradeMarkAppCode.AppCode_TM_4C2_PLD_01_HDCN + ".pdf";
-                //return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
-
-                ViewBag.FileName = "/Content/Export/" + "D01_VI_" + TradeMarkAppCode.AppCode_TM_4C2_PLD_01_HDCN + ".docx";
-                return PartialView("~/Areas/TradeMark/Views/Shared/_PartialContentPreview_docx.cshtml");
+                ViewBag.FileName = "/Content/Export/" + "D01_VI_" + TradeMarkAppCode.AppCode_TM_4C2_PLD_01_HDCN + ".pdf";
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
             }
             catch (Exception ex)
             {
