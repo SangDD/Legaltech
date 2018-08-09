@@ -210,7 +210,7 @@
                                 }
                             </select>*@
                            <input type="text" id="cbo_04nh_data" placeholder="cbo_04nh_data" readonly  value="@objAppHeaderInfo.REF_APPNO" style="display:none"/>
-                            <input type="text" id="" placeholder="cbo_04nh_data" readonly value="@objAppHeaderInfo.REF_APPNO_TEXT" />
+                            <input type="text" id="cbo_04nh_data_text" placeholder="cbo_04nh_data" readonly value="@objAppHeaderInfo.REF_APPNO_TEXT" />
 
                         </div>
                     </div>
@@ -1311,7 +1311,7 @@
             formData.append("pDetail.Id", v_don_giaydknhcs);
             formData.append("pDetail.DON_GIAY_DKNHCS", v_don_giaydknhcs);
             formData.append("pDetail.REF_APPNO", $("#cbo_04nh_data").val());
-            formData.append("pDetail.REF_APPNO_TEXT", $('#cbo_04nh_data option:selected').text());
+            formData.append("pDetail.REF_APPNO_TEXT", $('#cbo_04nh_data_text').val());
             formData.append("pDetail.NGAYNOPDON", $("#_1_txtNgayNopDon").val());
             formData.append("pDetail.COUNTRY_ID01",  $("#_4_cboNational01").val() == null || $("#_4_cboNational01").val() == "-1" ? "": $("#_4_cboNational01").val());
             formData.append("pDetail.COUNTRY_ID02", $("#_4_cboNational02").val() == null || $("#_4_cboNational02").val() == "-1" ? "": $("#_4_cboNational02").val());
