@@ -18,7 +18,8 @@
     using System.Web.Script.Serialization;
     using System.Data;
     using Common.Extensions;
-
+    using CrystalDecisions.Shared;
+    using System.Linq;
     [ValidateAntiForgeryTokenOnAllPosts]
     [RouteArea("TradeMarkRegistration", AreaPrefix = "trade-mark-01")]
     [Route("{action}")]
@@ -445,18 +446,190 @@
 
 
 
-        [HttpPost]
+        //[HttpPost]
+        //[Route("ket_xuat_file")]
+        //public ActionResult ExportData(ApplicationHeaderInfo pInfo, AppTM06DKQTInfoExport pDetail, List<AppDocumentInfo> pAppDocumentInfo,
+        //      List<AppClassDetailInfo> pAppClassInfo)
+        //{
+        //    try
+        //    {
+           
+        //      //  AppTM06DKQTInfoExport pDetail= new AppTM06DKQTInfoExport();
+
+        //        string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/TM06DKQT_Request for_international_trademark_registration_vi_exp.doc");
+        //        DocumentModel document = DocumentModel.Load(_fileTemp);
+        //        // Fill export_header
+        //        string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "TM06DKQT_Request_for_international_trademark_registration_vi_exp_" + pInfo.Appcode + ".pdf");
+        //        // Fill export_detail  
+        //        pDetail.Status = 254;
+        //        pDetail.Status_Form = 252;
+        //        pDetail.Relationship = "11";
+        //        pDetail.strNgayNopDon = pDetail.NGAYNOPDON.ToDateStringN0();
+        //        pDetail.REF_APPNO_TEXT = pDetail.REF_APPNO_TEXT.Trim();
+        //        pDetail = CreateInstanceTM06DKQT.CopyAppHeaderInfo(pDetail, pInfo);
+                
+        //        if (pAppClassInfo != null)
+        //        {
+        //            foreach (var item in pAppClassInfo)
+        //            {
+        //                pDetail.strTongSonhom = item.TongSoNhom;
+        //                pDetail.strTongSoSP = item.TongSanPham;
+        //                pDetail.strListClass += item.Textinput + " - " + item.Code + ";";
+        //            }
+        //            pDetail.strListClass = "Tổng số nhóm:" + pDetail.strTongSonhom + "; Tổng số sản phẩm: " + pDetail.strTongSoSP + " ; Danh sách nhóm: " + pDetail.strListClass;
+        //        }
+
+        //        //Hiển thị tài liệu trong đơn
+
+        //        foreach (var item in pAppDocumentInfo)
+        //        {
+
+        //        }
+        //        // đẩy file lên server
+        //        if (pDetail.pfileLogo != null)
+        //        {
+        //            pDetail.LOGOURL = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
+        //        }
+
+        //        if (!string.IsNullOrEmpty(pDetail.LOGOURL))
+        //        {
+        //            //Kết xuất ảnh
+        //            document.MailMerge.FieldMerging += (sender, e) =>
+        //            {
+        //                if (e.IsValueFound)
+        //                {
+        //                    if (e.FieldName == "Logourl")
+        //                        e.Inline = new Picture(e.Document, e.Value.ToString());
+
+        //                }
+        //            };
+        //            document.MailMerge.Execute(new { Logourl = Server.MapPath(pDetail.LOGOURL) });
+        //            //Kết xuất ảnh
+        //        }
+
+        //        #region hiển thị tài liệu đính kèm
+
+        //        foreach (AppDocumentInfo item in pAppDocumentInfo)
+        //        {
+        //            if (item.Document_Id == "C06DKQT_D_01")
+        //            {
+        //                pDetail.TOKHAI_USED = item.Isuse.ToString();
+        //                pDetail.TOKHAI_SOTRANG = item.CHAR01;
+        //                pDetail.TOKHAI_SOBAN = item.CHAR02;
+        //                continue;
+        //            }
+        //            if (item.Document_Id == "C06DKQT_D_02")
+        //            {
+        //                pDetail.MAUDK_VPQT_USED = item.Isuse.ToString();
+        //                pDetail.MAUDK_VPQT_SO = item.CHAR01;
+        //                pDetail.MAUDK_VPQT_NGONNGU = item.CHAR02;
+        //                pDetail.MAUDK_VPQT_SOTRANG = item.CHAR03;
+        //                pDetail.MAUDK_VPQT_SOBAN = item.CHAR04;
+        //                continue;
+        //            }
+        //            if (item.Document_Id == "C06DKQT_D_03")
+        //            {
+        //                pDetail.MAUNDH_USED = item.Isuse.ToString();
+        //                pDetail.MAUNDH_SOMAU = item.CHAR01;
+        //                continue;
+        //            }
+        //            if (item.Document_Id == "C06DKQT_D_04")
+        //            {
+        //                pDetail.BANSAO_TOKHAI_USED = item.Isuse.ToString();
+        //                continue;
+        //            }
+        //            if (item.Document_Id == "C06DKQT_D_05")
+        //            {
+        //                pDetail.BANSAO_GIAYDK_NHCS_USED = item.Isuse.ToString();
+        //                continue;
+        //            }
+        //            if (item.Document_Id == "C06DKQT_D_06")
+        //            {
+        //                pDetail.BAN_CK_SD_NGANHANG_USED = item.Isuse.ToString();
+        //                continue;
+        //            }
+        //            if (item.Document_Id == "C06DKQT_D_07")
+        //            {
+        //                pDetail.GIAY_UQ_USED = item.Isuse.ToString();
+        //                pDetail.GIAY_UQ_NGONNGU = item.CHAR01;
+        //                continue;
+        //            }
+        //            if (item.Document_Id == "C06DKQT_D_08")
+        //            {
+        //                pDetail.GIAY_UQ_BANDICH_USED = item.Isuse.ToString();
+        //                pDetail.GIAY_UQ_BANDICH_SOTRANG = item.CHAR01;
+        //                continue;
+        //            }
+        //            if (item.Document_Id == "C06DKQT_D_09")
+        //            {
+        //                pDetail.GIAY_UQ_BANDICH_BANGOC_USED = item.Isuse.ToString();
+        //                continue;
+        //            }
+        //            if (item.Document_Id == "C06DKQT_D_010")
+        //            {
+        //                pDetail.GIAY_UQ_BANDICH_BANSAO_USED = item.Isuse.ToString();
+        //                continue;
+        //            }
+        //            if (item.Document_Id == "C06DKQT_D_011")
+        //            {
+        //                pDetail.GIAY_UQ_BANGOCNOPSAU_USED = item.Isuse.ToString();
+        //                continue;
+        //            }
+        //            if (item.Document_Id == "C06DKQT_D_012")
+        //            {
+        //                pDetail.GIAY_UQ_BANGOCNOP_THEOSO_USED = item.Isuse.ToString();
+        //                pDetail.GIAY_UQ_BANGOCNOP_THEOSO = item.CHAR01;
+        //                continue;
+        //            }
+        //            if (item.Document_Id == "C06DKQT_D_013")
+        //            {
+        //                pDetail.CHUNGTU_LEPHI_USED = item.Isuse.ToString();
+        //                continue;
+        //            }
+        //            if (item.Document_Id == "C06DKQT_D_014")
+        //            {
+        //                pDetail.TAILIEUBOSUNG_USED = item.Isuse.ToString();
+        //                pDetail.TAILIEUBOSUNG = item.CHAR01;
+        //                continue;
+        //            }
+        //        }
+
+        //        #endregion
+
+
+        //        document.MailMerge.Execute(pDetail);
+        //        document.Save(fileName, SaveOptions.PdfDefault);
+        //        byte[] fileContents;
+        //        var options = SaveOptions.PdfDefault;
+        //        // Save document to DOCX format in byte array.
+        //        using (var stream = new MemoryStream())
+        //        {
+        //            document.Save(stream, options);
+        //            fileContents = stream.ToArray();
+        //        }
+        //        Convert.ToBase64String(fileContents);
+        //        return Json(new { success = 0 });
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.LogException(ex);
+        //        return Json(new { success = 0 });
+        //    }
+        //}
+
+        //[HttpPost]
         [Route("ket_xuat_file")]
-        public ActionResult ExportData(ApplicationHeaderInfo pInfo, AppTM06DKQTInfoExport pDetail, List<AppDocumentInfo> pAppDocumentInfo,
-              List<AppClassDetailInfo> pAppClassInfo)
+        public ActionResult ExportDataNew(ApplicationHeaderInfo pInfo, AppTM06DKQTInfoExport pDetail, List<AppDocumentInfo> pAppDocumentInfo,
+            List<AppClassDetailInfo> pAppClassInfo)
         {
             try
             {
-           
-              //  AppTM06DKQTInfoExport pDetail= new AppTM06DKQTInfoExport();
+
+                //  AppTM06DKQTInfoExport pDetail= new AppTM06DKQTInfoExport();
 
                 string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/TM06DKQT_Request for_international_trademark_registration_vi_exp.doc");
-                DocumentModel document = DocumentModel.Load(_fileTemp);
+              
                 // Fill export_header
                 string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "TM06DKQT_Request_for_international_trademark_registration_vi_exp_" + pInfo.Appcode + ".pdf");
                 // Fill export_detail  
@@ -466,7 +639,7 @@
                 pDetail.strNgayNopDon = pDetail.NGAYNOPDON.ToDateStringN0();
                 pDetail.REF_APPNO_TEXT = pDetail.REF_APPNO_TEXT.Trim();
                 pDetail = CreateInstanceTM06DKQT.CopyAppHeaderInfo(pDetail, pInfo);
-                
+
                 if (pAppClassInfo != null)
                 {
                     foreach (var item in pAppClassInfo)
@@ -492,17 +665,7 @@
 
                 if (!string.IsNullOrEmpty(pDetail.LOGOURL))
                 {
-                    //Kết xuất ảnh
-                    document.MailMerge.FieldMerging += (sender, e) =>
-                    {
-                        if (e.IsValueFound)
-                        {
-                            if (e.FieldName == "Logourl")
-                                e.Inline = new Picture(e.Document, e.Value.ToString());
-
-                        }
-                    };
-                    document.MailMerge.Execute(new { Logourl = Server.MapPath(pDetail.LOGOURL) });
+                  
                     //Kết xuất ảnh
                 }
 
@@ -593,20 +756,37 @@
                     }
                 }
 
+
+
                 #endregion
 
+                List<AppTM06DKQTInfoExport> _lst = new List<AppTM06DKQTInfoExport>();
 
-                document.MailMerge.Execute(pDetail);
-                document.Save(fileName, SaveOptions.PdfDefault);
-                byte[] fileContents;
-                var options = SaveOptions.PdfDefault;
-                // Save document to DOCX format in byte array.
-                using (var stream = new MemoryStream())
+                _lst.Add(pDetail);
+                DataSet _ds_all = ConvertData.ConvertToDataSet<AppTM06DKQTInfoExport>(_lst, false);
+
+                CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_06DKQT.rpt"));
+                _ds_all.WriteXmlSchema(@"C:\Users\user\Desktop\LEGALTECH\XMLFILE\TM06DKQT.xml");
+
+
+                if (_ds_all != null)
                 {
-                    document.Save(stream, options);
-                    fileContents = stream.ToArray();
+                    _ds_all.Tables[0].TableName = "Table";
+                    oRpt.SetDataSource(_ds_all);
                 }
-                Convert.ToBase64String(fileContents);
+                oRpt.Refresh();
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+                System.IO.Stream oStream = oRpt.ExportToStream(ExportFormatType.PortableDocFormat);
+                byte[] byteArray = new byte[oStream.Length];
+                oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
+                System.IO.File.WriteAllBytes(fileName, byteArray.ToArray()); // Requires System.Linq
+
+
                 return Json(new { success = 0 });
 
             }
@@ -616,6 +796,7 @@
                 return Json(new { success = 0 });
             }
         }
+
 
 
         //[HttpPost]

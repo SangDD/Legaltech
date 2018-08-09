@@ -24,7 +24,7 @@ namespace WebApps.Areas.TradeMark.Controllers
     {
         #region Quản lý đơn lưu tạm
         [HttpGet]
-        [Route("quan-ly-don/{id}")]
+        [Route("quan-ly-don")]
         public ActionResult Application_Display()
         {
             try
@@ -36,10 +36,10 @@ namespace WebApps.Areas.TradeMark.Controllers
                 Application_Header_BL _obj_bl = new Application_Header_BL();
                 //hungtd them trang thai 
                 string _status = "ALL";
-                if(RouteData.Values["id"] != null && RouteData.Values["id"].ToString() != "0")
-                {
-                    _status = RouteData.Values["id"].ToString();
-                }
+                //if(RouteData.Values["id"] != null && RouteData.Values["id"].ToString() != "0")
+                //{
+                //    _status = RouteData.Values["id"].ToString();
+                //}
                 ViewBag.Status = _status;
                 string _keySearch = "ALL|" + _status;
                 List<ApplicationHeaderInfo> _lst = _obj_bl.ApplicationHeader_Search(_keySearch, ref _total_record);
