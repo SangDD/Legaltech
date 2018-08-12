@@ -4,6 +4,7 @@ namespace ObjectInfos
 {
     public class SysAppFixChargeInfo
     {
+        public int STT { get; set; }
         public decimal Id { get; set; }
         public string Appcode { get; set; }
         public decimal Fee_Id { get; set; }

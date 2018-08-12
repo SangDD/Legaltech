@@ -62,6 +62,34 @@ namespace BussinessFacade.ModuleTrademark
                 return new List<SysAppFixChargeInfo>();
             }
         }
+        public SysAppFixChargeInfo  SysAppFixChargeById(decimal pID, string pAppCode)
+        {
+            try
+            {
+                var _da = new SysApplicationDA();
+                DataSet ds = _da.SysAppFeeFixGetById(pID,pAppCode);
+               return CBO<SysAppFixChargeInfo>.FillObjectFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new SysAppFixChargeInfo();
+            }
+        }
 
+        public decimal SysAppFixChargeUpdate(decimal pID, string pAppCode, decimal pAmount, string pChar01, string pDescription)
+        {
+            try
+            {
+                var _da = new SysApplicationDA();
+                var preturn = _da.SysAppFeeFixUpdate(pID, pAppCode, pAmount, pChar01, pDescription);
+                return preturn;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -3;
+            }
+        }
     }
 }
