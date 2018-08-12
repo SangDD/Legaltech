@@ -521,7 +521,7 @@
                     }
                     else if (item.Document_Id == "PLD01_HDCB_02")
                     {
-                        app_Detail.Doc_Id_2 = item.CHAR01;
+                        app_Detail.Doc_Id_2 = item.CHAR01 + " gồm " + item.CHAR02 + " trang";
                         app_Detail.Doc_Id_21 = item.CHAR02;
                         app_Detail.Doc_Id_2_Check = item.Isuse;
                     }
@@ -537,13 +537,13 @@
                     }
                     else if (item.Document_Id == "PLD01_HDCB_05")
                     {
-                        app_Detail.Doc_Id_5 = item.CHAR01;
+                        app_Detail.Doc_Id_5 = item.CHAR01 + " trang";
                         app_Detail.Doc_Id_5_Check = item.Isuse;
                     }
 
                     else if (item.Document_Id == "PLD01_HDCB_06")
                     {
-                        app_Detail.Doc_Id_6 = item.CHAR01;
+                        app_Detail.Doc_Id_6 = item.CHAR01 + " trang";
                         app_Detail.Doc_Id_6_Check = item.Isuse;
                     }
                     else if (item.Document_Id == "PLD01_HDCB_07")
@@ -562,7 +562,7 @@
                         app_Detail.Doc_Id_9 = item.CHAR01;
                         app_Detail.Doc_Id_9_Check = item.Isuse;
                     }
-                    else if (item.Document_Id == "PLD01_HDCB_010")
+                    else if (item.Document_Id == "PLD01_HDCB_10")
                     {
                         app_Detail.Doc_Id_10 = item.CHAR01;
                         app_Detail.Doc_Id_10_Check = item.Isuse;
@@ -574,7 +574,7 @@
                     }
                     else if (item.Document_Id == "PLD01_HDCB_12")
                     {
-                        app_Detail.Doc_Id_12 = item.CHAR01;
+                        app_Detail.Doc_Id_12 = item.CHAR01 + " trang";
                         app_Detail.Doc_Id_12_Check = item.Isuse;
                     }
 
@@ -725,7 +725,7 @@
                         }
                         else if (item.Document_Id == "PLD01_HDCB_02")
                         {
-                            pDetail.Doc_Id_2 = item.CHAR01;
+                            pDetail.Doc_Id_2 = item.CHAR01 + " gồm " + item.CHAR02 + " trang";
                             pDetail.Doc_Id_21 = item.CHAR02;
                             pDetail.Doc_Id_2_Check = item.Isuse;
                         }
@@ -741,20 +741,23 @@
                         }
                         else if (item.Document_Id == "PLD01_HDCB_05")
                         {
-                            pDetail.Doc_Id_5 = item.CHAR01;
+                            pDetail.Doc_Id_5 = item.CHAR01 + " trang";
                             pDetail.Doc_Id_5_Check = item.Isuse;
                         }
 
                         else if (item.Document_Id == "PLD01_HDCB_06")
                         {
+                            pDetail.Doc_Id_6 = item.CHAR01 + " trang";
                             pDetail.Doc_Id_6_Check = item.Isuse;
                         }
                         else if (item.Document_Id == "PLD01_HDCB_07")
                         {
+                            pDetail.Doc_Id_7 = item.CHAR01;
                             pDetail.Doc_Id_7_Check = item.Isuse;
                         }
                         else if (item.Document_Id == "PLD01_HDCB_08")
                         {
+                            pDetail.Doc_Id_8 = item.CHAR01;
                             pDetail.Doc_Id_8_Check = item.Isuse;
                         }
 
@@ -763,7 +766,7 @@
                             pDetail.Doc_Id_9 = item.CHAR01;
                             pDetail.Doc_Id_9_Check = item.Isuse;
                         }
-                        else if (item.Document_Id == "PLD01_HDCB_010")
+                        else if (item.Document_Id == "PLD01_HDCB_10")
                         {
                             pDetail.Doc_Id_10_Check = item.Isuse;
                         }
@@ -774,7 +777,7 @@
                         }
                         else if (item.Document_Id == "PLD01_HDCB_12")
                         {
-                            pDetail.Doc_Id_12 = item.CHAR01;
+                            pDetail.Doc_Id_12 = item.CHAR01 + " trang";
                             pDetail.Doc_Id_12_Check = item.Isuse;
                         }
                         else if (item.Document_Id == "PLD01_HDCB_13")
