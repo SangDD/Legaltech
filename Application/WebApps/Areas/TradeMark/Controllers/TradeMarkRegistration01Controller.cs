@@ -759,20 +759,23 @@
 
 
                 #endregion
-
+                pDetail.LEPHI = 2000000;
                 List<AppTM06DKQTInfoExport> _lst = new List<AppTM06DKQTInfoExport>();
-
+                pDetail.LOGOURL = Server.MapPath(pDetail.LOGOURL);
                 _lst.Add(pDetail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<AppTM06DKQTInfoExport>(_lst, false);
 
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
                 oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_06DKQT.rpt"));
-                _ds_all.WriteXmlSchema(@"C:\Users\user\Desktop\LEGALTECH\XMLFILE\TM06DKQT.xml");
+             //   _ds_all.WriteXmlSchema(@"C:\Users\user\Desktop\LEGALTECH\XMLFILE\TM06DKQT.xml");
 
-
+                CrystalDecisions.CrystalReports.Engine.PictureObject _pic01;
+                _pic01 = (CrystalDecisions.CrystalReports.Engine.PictureObject)oRpt.ReportDefinition.Sections[0].ReportObjects["Picture1"];
+                _pic01.Width = 400;
+                _pic01.Height = 400;
                 if (_ds_all != null)
                 {
-                    _ds_all.Tables[0].TableName = "Table";
+                    _ds_all.Tables[0].TableName = "Table1";
                     oRpt.SetDataSource(_ds_all);
                 }
                 oRpt.Refresh();
