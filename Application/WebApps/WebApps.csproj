@@ -229,16 +229,16 @@
       <DependentUpon>TM_PLB01SDD.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Report\TM_PLD01_HDCN.cs">
-      <DependentUpon>TM_PLD01_HDCN.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Report\TM_PLC05_KN1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TM_PLC05_KN.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Report\TM_PLD01_HDCN1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TM_PLD01_HDCN.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="RequestFilter\IdentityRequest.cs" />
@@ -1784,6 +1784,10 @@
     <EmbeddedResource Include="Report\TM_PLC05_KN.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TM_PLC05_KN1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\TM_PLD01_HDCN.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TM_PLD01_HDCN1.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
