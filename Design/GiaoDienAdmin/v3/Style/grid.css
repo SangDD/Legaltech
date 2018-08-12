@@ -1,0 +1,244 @@
+@charset "UTF-8";
+/* CSS Document */
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    /* background-color: #2196F3; */
+    padding: 2px;
+}
+.grid-item-abc {
+  	
+    background-color: rgba(0, 0, 0, 0.2);
+    /* border: 1px solid rgba(0, 0, 0, 0.3); */
+    border-bottom: 1px solid #555;
+    border-right: 1px solid #555;
+    padding: 2px;
+}
+
+/* Mua Bán */
+
+.grid-28 {
+    display: grid;
+    grid-template-columns: 20% auto;
+}
+.grid-37 {
+    display: grid;
+    grid-template-columns: 30% 68%;
+}
+.grid-item-37 {
+    padding-left: 10px !important;
+    padding-top: 13px;
+    font-weight: 300;
+    font-size: 12px;
+    color: #b1b1b1;
+}
+.grid-item-371 {
+    padding-left: 10px !important;
+    padding-top: 8px;
+    font-weight: 300;
+    font-size: 12px;
+    color: #b1b1b1;
+}
+.grid-4 {
+    display: grid;
+    grid-template-columns: 20% 30% 20% 30%;
+    padding: 2px;
+}
+.grid-item-4 {
+    padding-top: 5px;
+    line-height: 33px;
+}
+.grid-66 {
+    display: grid;
+    grid-template-columns: 20% 13% 15% 13% 15% auto;
+    padding: 2px;
+}
+.grid-5-TK {
+    display: grid;
+    grid-template-columns: 13% 23% 19% 19% auto;
+    padding: 2px;
+}
+.grid-item-title-TK {
+    padding: 2px;
+    height: 16px;
+    font-weight: 400;
+    font-size: 10px;
+	text-align: center;
+    color: #000;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid #555;
+    border-right: 1px solid #555;
+}
+.grid-item-TK {
+    padding: 2px;
+    height: 20px;
+    font-weight: 400;
+    font-size: 12px;
+    color: #000;
+    border-bottom: 1px solid #555;
+    border-right: 1px solid #555;
+}
+.box_NoiDung-TK {
+    width: 98%;
+    padding-top: 2px;
+    margin-bottom: 0px;
+    margin-top: 7px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 1px;
+    background: rgba(241, 240, 240, 0.8);
+}
+.grid-5 {
+    display: grid;
+    grid-template-columns: 8% 26% 20% 20% 26%;
+    padding: 2px;
+}
+
+.grid-item-5 {
+    padding: 2px;
+	padding-top: 6px;
+    font-weight: 400;
+    font-size: 13px;
+    color: #fff;
+}
+.grid-item-51 {
+    padding: 2px;
+    padding-top: 8px;
+    font-weight: 400;
+    font-size: 11px;
+    color: #666;
+}
+.grid-6 {
+    display: grid;
+    grid-template-columns: 13% 26% 22% 26% auto;
+    padding: 2px;
+}
+.grid-333 {
+    display: grid;
+    grid-template-columns: 33% auto 33%;
+    padding: 2px;
+}
+.grid-item-333 {
+    padding: 2px;
+    font-weight: 400;
+    font-size: 18px;
+    color: #fff;
+}
+.grid-item-title {
+    padding: 2px;
+	height: 16px;
+    font-weight: 300;
+    font-size: 12px;
+    color: #b1b1b1;
+}
+.grid-46 {
+    display: grid;
+    grid-template-columns: 40% 60%;
+}
+.grid-item-46 {
+    padding: 2px;
+    font-weight: 300;
+    font-size: 18px;
+    color: #fff;
+}
+.grid-46-TK {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    background: #000;
+	line-height: 25px;
+}
+.grid-item-46-TK {
+    padding: 2px;
+    font-weight: 300;
+    font-size: 12px;
+    color: #f7b205;
+}
+.left {
+    text-align: left;
+	padding-left: 4px;
+}
+.right {
+    text-align: right;
+	padding-right: 4px;
+}
+.center {
+    text-align: center;
+}
+/* Footer */
+.grid-container-footer {
+    display: grid;
+    grid-template-columns: auto 17% 17% 17% 17% 17% auto;
+    padding: 0px;
+    height: 35px;
+    font-size: 10px;
+    font-weight: 500;
+    color: #fff;
+    line-height: 30px;
+}
+	.icon-footer {
+        height: 35px;
+	}
+	.menu-footer {
+		font-size: 22px;
+		color: #ccc;
+		margin: 5px;
+		text-shadow: 0 0 0 transparent, 0.5px 0.5px 0px #000;
+	}
+	.menu-footer:hover {
+		color: #E6D10B;
+		cursor: pointer;
+	}
+
+/* Lệnh */
+.grid-container6 {
+    display: grid;
+    grid-template-columns: 12% 10% 25% 20% 10% auto;
+    padding: 0px;
+    height: 35px;
+    font-size: 10px;
+    font-weight: 500;
+    color: #000;
+    line-height: 30px;
+    /* padding-top: 1px; */
+}
+.grid-container61 {
+    display: grid;
+    grid-template-columns: 12% 10% 25% 20% 10% auto;
+    padding: 0px;
+    height: 22px;
+    font-size: 10px;
+    font-weight: 500;
+    color: #000;
+    line-height: 17px;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+.grid-item {
+  	
+    background-color: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid #555;
+    border-right: 1px solid #555;
+    padding: 2px;
+}
+.box_grid-MuaBanCK {
+    width: 98%;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid 1px #7c7c7c;
+}
+.Text_13-Number {
+    font-weight: 400;
+    padding: 3px;
+    font-size: 13px;
+    color: #fff;
+    text-align: right;
+}
+.Text_grid-MaCK {
+    font-weight: 400;
+    padding-left: 3px;
+    font-size: 15px;
+	text-align: left;
+}

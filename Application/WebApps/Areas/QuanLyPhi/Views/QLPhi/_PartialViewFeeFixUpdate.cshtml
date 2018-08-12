@@ -16,11 +16,22 @@
     <div class="divCover divCover_popup">
         <div class="div-search-ad">
             <div class="div-search-title">
+                <div>Mã đơn<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Appcode, new { id = "txtAppCode" , @readonly = "readonly" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
                 <div>Lệ phí<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Amount.ToString("#,##0"), new { id = "txtAmountEdit" })
+                    @Html.TextBoxFor(m => m.Amount, new { id = "txtAmountEdit" })
                 </div>
             </div>
         </div>
