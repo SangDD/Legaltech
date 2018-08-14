@@ -1,0 +1,27 @@
+﻿/*Created:SangDD
+/*Date :2018.02.06 
+/*Pupose:Luu danh sach cac file + cong viec theo ngày sửa:
+
+Date : 2018 -JUL - 02
+------Thêm bảng ------------
+APP_DETAIL_04NH ,
+
+/
+
+Ngâm cứu 
+/ Đọc file pdf preview 
+https://pdfobject.com/
+ 
+https://pdfobject.com/
+You could consider using PDFObject by Philip Hutchison.
+
+Alternatively, if you're looking for a non-Javascript solution, you could use markup like this:
+
+<object data="myfile.pdf" type="application/pdf" width="100%" height="100%">
+  <p>Alternative text - include a link <a href="myfile.pdf">to the PDF!</a></p>
+</object>
+
+//
+Thuần html preview 
+
+<embed id="pdfobject" class="pdfobject" src="" type="application/pdf" style="overflow: auto; width: 100%; height: 100%;" internalinstanceid="10">

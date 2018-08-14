@@ -1,0 +1,66 @@
+﻿@using Common.CommonData
+@using WebApps.ExtensionObject
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1"  />
+	<meta charset="utf-8" />
+	<meta name="__RequestVerificationToken" content="@Html.AntiForgeryTokenValue()" />
+	<title>@ViewBag.Title</title>
+	<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <script src=@($"/Scripts/jquery-1.10.2.min.js?v={CommonVariables.AssemblyVersion}")></script>
+    <script src=@($"/Scripts/jquery-ui-1.10.2.min.js?v={CommonVariables.AssemblyVersion}")></script>
+    <script src=@($"/Scripts/jquery.unobtrusive-ajax.min.js?v={CommonVariables.AssemblyVersion}")></script>
+
+    <link href=@($"/Scripts/outSourcesLib/notify/animate.min.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
+    <link href=@($"/Scripts/outSourcesLib/notify/notify.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
+
+    <link href=@($"/Scripts/outSourcesLib/SweetAlert/sweetalert2.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
+
+    <link href=@($"/Scripts/outSourcesLib/multipleSelect/multiple-select.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
+
+    <link href=@($"/Scripts/outSourcesLib/DragTable/jquery.dataTables.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
+    <link href=@($"/Scripts/outSourcesLib/DragTable/dataTables.fixedColumns.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
+
+    <link href=@($"/Content/font.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
+    <link href=@($"/Content/Site.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
+    <link href=@($"/Content/IconNVS/IconNVS.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
+    <link href=@($"/Content/fonts/glyphicons/glyphicons.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
+    <link href=@($"/Content/fonts/fontawesome/fontawesome-all.min.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
+
+    <link href=@($"/Scripts/outSourcesLib/datetimepickerMaster/jquery.datetimepicker.min.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
+
+</head>
+
+<body>
+	<div class="hidden">
+		@Html.Partial("~/ViewsShared/nvs.variables.js.cshtml")
+	</div>
+	<div class="main-content">
+		@RenderBody()
+	</div>
+
+    <script src=@($"/Scripts/nvs.jquery.validate.data.js?v={CommonVariables.AssemblyVersion}")></script>
+    <script src=@($"/Scripts/nvs.jquery.util.js?v={CommonVariables.AssemblyVersion}")></script>
+    <script src=@($"/Scripts/nvs.jquery.alert.js?v={CommonVariables.AssemblyVersion}")></script>
+    <script src=@($"/Scripts/nvs.jquery.filter.search.js?v={CommonVariables.AssemblyVersion}")></script>
+    @*  *@
+    <script src=@($"/Scripts/outSourcesLib/notify/bootstrap-notify.min.js?v={CommonVariables.AssemblyVersion}")></script>
+    @*  *@
+    <script src=@($"/Scripts/outSourcesLib/SweetAlert/es6-promise.auto.min.js?v={CommonVariables.AssemblyVersion}")></script>
+    <script src=@($"/Scripts/outSourcesLib/SweetAlert/sweetalert2.min.js?v={CommonVariables.AssemblyVersion}")></script>
+    @*  *@
+    <script src=@($"/Scripts/outSourcesLib/multipleSelect/jquery.multiple.select_new.js?v={CommonVariables.AssemblyVersion}")></script>
+    @*  *@
+    <script src=@($"/Scripts/outSourcesLib/DragTable/dragtables.min.js?v={CommonVariables.AssemblyVersion}")></script>
+    <script src=@($"/Scripts/outSourcesLib/DragTable/jquery.dataTables.min.js?v={CommonVariables.AssemblyVersion}")></script>
+    <script src=@($"/Scripts/outSourcesLib/DragTable/dataTables.fixedColumns.min.js?v={CommonVariables.AssemblyVersion}")></script>
+    @*  *@
+    <script src=@($"/Scripts/outSourcesLib/datetimepickerMaster/jquery.datetimepicker.full.min.js?v={CommonVariables.AssemblyVersion}")></script> 
+</body>
+</html>

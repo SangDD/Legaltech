@@ -1,0 +1,86 @@
+﻿@using ObjectInfos
+@{
+    ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    }
+
+}
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div> Tên đầy đủ:</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" maxlength="200" value="@_AppHeaderInfo.Master_Name" disabled="disabled" id="1_txtTenDayDu"/>
+        </div>
+    </div>
+</div>
+
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div> Địa chỉ: </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" maxlength="200" value="@_AppHeaderInfo.Master_Address" disabled="disabled" id="1_txtDiaChi"/>
+        </div>
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div> Điện thoại: </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" maxlength="50" style="width: 250px;" value="@_AppHeaderInfo.Master_Phone" disabled="disabled" id="1_txtDienThoai"/>
+        </div>
+    </div>
+
+    <div class="div-search-title">
+        <div> Fax: </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" maxlength="50" value="@_AppHeaderInfo.Master_Fax" disabled="disabled" id="1_txtFax"/>
+        </div>
+    </div>
+    <div class="div-search-title">
+        <div>Email:  </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" maxlength="50" value="@_AppHeaderInfo.Master_Email" disabled="disabled" id="1_txtEmail"/>
+        </div>
+    </div>
+</div>
+
+<script>
+    function funcThongTinChuDon_View(formData, PreID) {
+        try {
+            var txtTenDayDu = $("#1_txtTenDayDu").val();
+            var txtDiaChi = $("#1_txtDiaChi").val();
+            var txtDienThoai = $("#1_txtDienThoai").val();
+            var txtFax = $("#1_txtFax").val();
+            var txtEmail = $("#1_txtEmail").val();
+
+            formData.append("pInfo.Master_Name", txtTenDayDu);
+            formData.append("pInfo.Master_Address", txtDiaChi);
+            formData.append("pInfo.Master_Phone", txtDienThoai);
+            formData.append("pInfo.Master_Fax", txtFax);
+            formData.append("pInfo.Master_Email", txtEmail);
+
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+</script>
+
+
+
+

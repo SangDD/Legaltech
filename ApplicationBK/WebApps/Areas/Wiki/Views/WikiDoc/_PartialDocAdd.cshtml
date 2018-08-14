@@ -1,0 +1,346 @@
+﻿@using Common.CommonData
+@using ObjectInfos;
+@{
+    ViewBag.Title = "Quản lý bài viết";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+    List<WikiCatalogues_Info> _listcata = new List<WikiCatalogues_Info>();
+    if (ViewBag.ListCata != null)
+    {
+        _listcata = ViewBag.ListCata;
+    }
+}
+@try
+{
+    <style>
+        /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+        .div-search-title > div {
+            width: 150px;
+        }
+    </style>
+    <script>
+        var _isSimpleEditorToolBar = 1;// set cho ckfinder có cấu hình xoạn thảo đơn giản
+
+    </script>
+    <script src="~/Content/ckeditor/ckeditor.js"></script>
+    <div class="divCover">
+        <div class="d-nav">
+            <img src="~/Content/icons/Body-icon-home.png" /> I
+            Wiki
+            <span class="red">></span>
+            <a href="/wiki-doc/list">Quản lý bài viết</a>
+            <span class="red">></span>
+            <a href="/wiki-doc/add">Thêm mới bài viết</a>
+        </div>
+    </div>
+    <div class="divCover">
+        <div class="classLine">
+        </div>
+    </div>
+
+    <div class="d-main">
+        <div class="divCover">
+            <div class="classTitle">
+                <input type="hidden" value="MODIFIED_DATE" id="colSorted" />
+                <input type="hidden" value="DESC" id="SortType" />
+                <input type="hidden" value="" id="OptionSorting" />
+                <div class="div-title-content"> THÔNG TIN BÀI VIẾT </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tiêu đề<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtTitle" maxlength="500"  />
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Danh mục cha </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="CboAddWikiCataParent" onchange="FuncSearchChildCatalogue('CboAddWikiCataParent', 'divWikiChildCatalogue')">
+                        <option value="">
+                            Chọn danh mục
+                        </option>
+                        @foreach (WikiCatalogues_Info item in _listcata)
+                        {
+                            if (item.CATA_LEVEL == 0)
+                            {
+                                <option value="@item.ID">
+                                    @item.NAME
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Danh mục con<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div id="divWikiChildCatalogue">
+                    <select id="CboAddWikiCataChild">
+                        @foreach (WikiCatalogues_Info item in _listcata)
+                        {
+                            if (item.CATA_LEVEL == 1)
+                            {
+                                <option value="@item.ID">
+                                    @item.NAME
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+        @Html.Partial("/Areas/Wiki/Views/WikiDoc/_PartialTaiLieuUpload.cshtml", new string[] { "WIKIADD_FILE_01", "File đính kèm 1" })
+
+        @Html.Partial("/Areas/Wiki/Views/WikiDoc/_PartialTaiLieuUpload.cshtml", new string[] { "WIKIADD_FILE_02", "File đính kèm 2" })
+
+        @Html.Partial("/Areas/Wiki/Views/WikiDoc/_PartialTaiLieuUpload.cshtml", new string[] { "WIKIADD_FILE_03", "File đính kèm 3" })
+
+
+
+        <div style="margin-top:15px">
+            <div>Nội dung<i class="redspan">(*)</i></div>
+            <textarea type="text" id="txtAddContent"></textarea>
+        </div>
+
+        <input type="text" id="txthashtag" style="display:none" />
+        <div type="text" id="divhashtag" style="display:none"></div>
+
+    </div>
+
+    <div class="class_save">
+        <div class="classGuiDon">
+            <input type="button" value="Gửi bài" id="btnGuiDon" class="btn" />
+        </div> <div class="classLuuTam">
+            <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn" />
+        </div>
+    </div>
+
+
+
+    <script>
+
+        var txtAddContent = CKEDITOR.replace("txtAddContent",
+     {
+         height: 500
+
+     });
+
+        $('#CboAddWikiCataChild').multipleSelect({
+            filter: true,
+            noMatchesFound: "Không tìm thấy dữ liệu",
+            single: true,
+            isdatastring: false,
+            placeholder: 'Tìm kiếm danh mục tin'
+        });
+
+        function FuncSearchChildCatalogue(_cboId, _divid) {
+            try {
+                var inputValue = $("#" + _cboId).val();
+                if (inputValue == "")
+                    return;
+                $.ajax({
+                    type: "POST",
+                    url: "/wiki-manage/wiki-doc/search-catalogue-child",
+                    headers: { "cache-control": "no-cache" },
+                    data: { p_parentid: $("#" + _cboId).val() },
+                    async: false,
+                    success: function (data) {
+                        if (data != null) {
+                            if (validateResponse(data)) {
+                                $("#" + _divid).html(data);
+                            }
+                        }
+                        return false;
+                    }
+                });
+            } catch (e) {
+                alert(e.toString())
+            }
+        }
+
+       
+
+
+        $("#btnLuuTam").click(function () {
+            try {
+                var reponse = false;
+                var formData = new FormData();
+                var txtTitle = $("#txtTitle");
+                var CboAddWikiCataParent = $("#CboAddWikiCataParent");
+                var CboAddWikiCataChild = $("#CboAddWikiCataChild");
+               
+                if (txtTitle.val().trim() == "") {
+                    showError('Tiêu đề không được để trống!');
+                    txtTitle.focus();
+                    return false;
+                }
+
+                if (CboAddWikiCataChild.val() == "" || CboAddWikiCataChild.val() == null) {
+                    showError('Danh mục bài viết không được để trống!');
+                    $("#CboAddWikiCataChild").multipleSelect("focus");
+                    return false;
+                }
+                var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
+                if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
+                    showError('Nội dung bài viết không được để trống!!');  
+                    txtAddContent.focus();
+                    txtAddContent.setData('');
+                    return false;
+                }
+                formData.append("_objectInfo.TITLE", txtTitle.val().trim());
+                formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
+                formData.append("_objectInfo.CONTENT", _contentVal);
+                formData.append("_objectInfo.STATUS", "1");
+                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_01", "0");
+                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_02", "1");
+                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_03", "2");
+                $.ajax({
+                    url: '/wiki-manage/wiki-doc/add-doc',
+                    type: 'POST',
+                    data: formData,
+                    processData: false, contentType: false, traditional: true, dataType: "json",
+                    enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                    success: function (data) {
+                        if (data != null && data.status >= 0) {
+                            doUpdateHashTag(data.HashTag, data.status);
+                        } else {
+                            jError(AddFail, ThongBao, function () {
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+
+            } catch (e) {
+                alert(e.toString());
+                return false;
+            }
+
+        });
+
+
+
+        $("#btnGuiDon").click(function () {
+            try {
+                var reponse = false;
+                var formData = new FormData();
+                var txtTitle = $("#txtTitle");
+                var CboAddWikiCataParent = $("#CboAddWikiCataParent");
+                var CboAddWikiCataChild = $("#CboAddWikiCataChild");
+
+                if (txtTitle.val().trim() == "") {
+                    showError('Tiêu đề không được để trống!');
+                    txtTitle.focus();
+                    return false;
+                }
+
+                if (CboAddWikiCataChild.val() == "" || CboAddWikiCataChild.val() == null) {
+                    showError('Danh mục bài viết không được để trống!');
+                    $("#CboAddWikiCataChild").multipleSelect("focus");
+                    return false;
+                }
+                var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
+                if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
+                    showError('Nội dung bài viết không được để trống!!');
+                    txtAddContent.focus();
+                    txtAddContent.setData('');
+                    return false;
+                }
+                formData.append("_objectInfo.TITLE", txtTitle.val().trim());
+                formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
+                formData.append("_objectInfo.CONTENT", _contentVal);
+                formData.append("_objectInfo.STATUS", "2");
+                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_01", "0");
+                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_02", "1");
+                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_03", "2");
+                $.ajax({
+                    url: '/wiki-manage/wiki-doc/add-doc',
+                    type: 'POST',
+                    data: formData,
+                    processData: false, contentType: false, traditional: true, dataType: "json",
+                    enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                    success: function (data) {
+                        if (data != null && data.status >= 0) {
+                            doUpdateHashTag(data.HashTag, data.status);
+                        } else {
+                            jError(AddFail, ThongBao, function () {
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+
+            } catch (e) {
+                alert(e.toString());
+                return false;
+            }
+
+        });
+
+
+        function doUpdateHashTag( v_data, _docid) {
+            try {
+               
+                var _hashtag = $("#divhashtag").html(v_data).html();
+                $.ajax({
+                    url: "/wiki-manage/wiki-doc/save-edit-hashtag-doc",
+                    type: "POST",
+                    // p_id, string p_hashtag
+                    data: { p_id: _docid, p_hashtag: _hashtag },
+                    headers: { "cache-control": "no-cache" },
+                    async: false,
+                    success: function (data) {
+                        if (data.status >= 0) {
+                            jAlert(AddSuccess, ThongBao, function () {
+                                window.location.reload();
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+
+            } catch (e) {
+                alert(e.toString());
+            }
+        }
+
+
+        function funcGetCheckValueAndText(formData, pID, pItem) {
+            try {
+                //Các tài liệụ đính kèm
+
+                formData.append("pAppDocumentInfo[" + pItem + "].keyFileUpload", pID);
+                formData.append("pAppDocumentInfo[" + pItem + "].Document_Id", $("#" + pID).val());
+                formData.append("pAppDocumentInfo[" + pItem + "].Isuse", "1");
+                return true;
+            } catch (e) {
+                return false;
+            }
+
+        }
+
+    </script>
+}
+catch (Exception)
+{
+    // ignored
+}

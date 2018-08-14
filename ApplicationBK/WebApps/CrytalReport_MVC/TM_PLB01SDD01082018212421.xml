@@ -1,0 +1,376 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Table" msprop:REFCursorName="REFCursor">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="DETAIL_ID" msprop:OraDbType="107" type="xs:decimal" minOccurs="0" />
+                <xs:element name="APP_HEADER_ID" msprop:OraDbType="107" type="xs:decimal" minOccurs="0" />
+                <xs:element name="APPCODE" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="REQUEST_CHANGE_TYPE" msprop:OraDbType="107" type="xs:decimal" minOccurs="0" />
+                <xs:element name="APP_NO_CHANGE" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="REQUEST_TO_TYPE" msprop:OraDbType="107" type="xs:decimal" minOccurs="0" />
+                <xs:element name="REQUEST_TO_CONTENT" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="LANGUAGE_CODE" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="NUMBER_PIC" msprop:OraDbType="107" type="xs:decimal" minOccurs="0" />
+                <xs:element name="NUMBER_PAGE" msprop:OraDbType="107" type="xs:decimal" minOccurs="0" />
+                <xs:element name="ID" msprop:OraDbType="107" type="xs:decimal" minOccurs="0" />
+                <xs:element name="APPCODE1" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="MASTER_NAME" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="MASTER_ADDRESS" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="MASTER_PHONE" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="REP_MASTER_TYPE" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="REP_MASTER_NAME" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="REP_MASTER_ADDRESS" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="REP_MASTER_PHONE" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="REP_MASTER_FAX" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="REP_MASTER_EMAIL" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="SEND_DATE" msprop:OraDbType="106" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="STATUS" msprop:OraDbType="111" type="xs:short" minOccurs="0" />
+                <xs:element name="STATUS_FORM" msprop:OraDbType="111" type="xs:short" minOccurs="0" />
+                <xs:element name="STATUS_CONTENT" msprop:OraDbType="111" type="xs:short" minOccurs="0" />
+                <xs:element name="FILING_DATE" msprop:OraDbType="106" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="ACCEPT_DATE" msprop:OraDbType="106" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="PUBLIC_DATE" msprop:OraDbType="106" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="ACCEPT_CONTENT_DATE" msprop:OraDbType="106" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="GRANT_DATE" msprop:OraDbType="106" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="GRANT_PUBLIC_DATE" msprop:OraDbType="106" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="DELETED" msprop:OraDbType="111" type="xs:short" minOccurs="0" />
+                <xs:element name="CREATED_BY" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="CREATED_DATE" msprop:OraDbType="106" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="MODIFY_BY" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="MODIFY_DATE" msprop:OraDbType="106" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="LANGUAGUE_CODE" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="REMARK" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="MASTER_FAX" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="MASTER_EMAIL" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="NOTES" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="GENCODE" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="ADDRESS" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="DATENO" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="MONTHS" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="YEARS" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="CLIENT_REFERENCE" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="CASE_NAME" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="APP_NO" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="APP_DEGREE" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="STATUS_DATE" msprop:OraDbType="106" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="URL_COPY_FILING" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="USER_PROCESSING" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="DDSHCN" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Table1" msprop:REFCursorName="REFCursor1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ID" msprop:OraDbType="107" type="xs:decimal" minOccurs="0" />
+                <xs:element name="APPCODE" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="MASTER_NAME" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="MASTER_ADDRESS" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="MASTER_PHONE" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="REP_MASTER_TYPE" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="REP_MASTER_NAME" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="REP_MASTER_ADDRESS" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="REP_MASTER_PHONE" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="REP_MASTER_FAX" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="REP_MASTER_EMAIL" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="SEND_DATE" msprop:OraDbType="106" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="STATUS" msprop:OraDbType="111" type="xs:short" minOccurs="0" />
+                <xs:element name="STATUS_FORM" msprop:OraDbType="111" type="xs:short" minOccurs="0" />
+                <xs:element name="STATUS_CONTENT" msprop:OraDbType="111" type="xs:short" minOccurs="0" />
+                <xs:element name="FILING_DATE" msprop:OraDbType="106" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="ACCEPT_DATE" msprop:OraDbType="106" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="PUBLIC_DATE" msprop:OraDbType="106" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="ACCEPT_CONTENT_DATE" msprop:OraDbType="106" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="GRANT_DATE" msprop:OraDbType="106" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="GRANT_PUBLIC_DATE" msprop:OraDbType="106" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="DELETED" msprop:OraDbType="111" type="xs:short" minOccurs="0" />
+                <xs:element name="CREATED_BY" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="CREATED_DATE" msprop:OraDbType="106" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="MODIFY_BY" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="MODIFY_DATE" msprop:OraDbType="106" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="LANGUAGUE_CODE" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="REMARK" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="MASTER_FAX" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="MASTER_EMAIL" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="NOTES" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="GENCODE" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="ADDRESS" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="DATENO" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="MONTHS" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="YEARS" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="STATUS_NAME" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="STATUS_FORMM_NAME" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="STATUS_CONTENT_NAME" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="APPNAME" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="CLIENT_REFERENCE" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="CASE_NAME" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="APP_NO" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="APP_DEGREE" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="CUSTOMER_NAME" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="DATE_WAIT" msprop:OraDbType="107" type="xs:decimal" minOccurs="0" />
+                <xs:element name="STATUS_DATE" msprop:OraDbType="106" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="USER_PROCESSING" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="DDSHCN" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Table2" msprop:REFCursorName="REFCursor2">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ID" msprop:OraDbType="107" type="xs:decimal" minOccurs="0" />
+                <xs:element name="LANGUAGE_CODE" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="APP_HEADER_ID" msprop:OraDbType="107" type="xs:decimal" minOccurs="0" />
+                <xs:element name="DOCUMENT_ID" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="ISUSE" msprop:OraDbType="107" type="xs:decimal" minOccurs="0" />
+                <xs:element name="NOTE" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="STATUS" msprop:OraDbType="107" type="xs:decimal" minOccurs="0" />
+                <xs:element name="DOCUMENT_FILING_DATE" msprop:OraDbType="106" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="FILENAME" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="URL_HARDCOPY" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="CHAR01" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="CHAR02" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="CHAR03" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="CHAR04" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+                <xs:element name="CHAR05" msprop:OraDbType="126" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Table3" msprop:REFCursorName="REFCursor3">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ID" msprop:OraDbType="107" type="xs:decimal" minOccurs="0" />
+                <xs:element name="APP_HEADER_ID" msprop:OraDbType="107" type="xs:decimal" minOccurs="0" />
+                <xs:element name="FEE_ID" msprop:OraDbType="107" type="xs:decimal" minOccurs="0" />
+                <xs:element name="ISUSE" msprop:OraDbType="111" type="xs:short" minOccurs="0" />
+                <xs:element name="NUMBER_OF_PATENT" msprop:OraDbType="107" type="xs:decimal" minOccurs="0" />
+                <xs:element name="AMOUNT" msprop:OraDbType="107" type="xs:decimal" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <Table>
+    <DETAIL_ID>1</DETAIL_ID>
+    <APP_HEADER_ID>362</APP_HEADER_ID>
+    <APPCODE>TM_PLB01SDD</APPCODE>
+    <REQUEST_CHANGE_TYPE>1</REQUEST_CHANGE_TYPE>
+    <APP_NO_CHANGE>A1B2C3</APP_NO_CHANGE>
+    <REQUEST_TO_TYPE>1</REQUEST_TO_TYPE>
+    <REQUEST_TO_CONTENT>Tống quang đáng</REQUEST_TO_CONTENT>
+    <LANGUAGE_CODE>VI_VN</LANGUAGE_CODE>
+    <NUMBER_PIC>3</NUMBER_PIC>
+    <NUMBER_PAGE>4</NUMBER_PAGE>
+    <ID>362</ID>
+    <APPCODE1>TM_PLB01SDD</APPCODE1>
+    <MASTER_NAME>Tống quang đáng</MASTER_NAME>
+    <MASTER_ADDRESS>282 Kim giang</MASTER_ADDRESS>
+    <MASTER_PHONE>0982772961</MASTER_PHONE>
+    <REP_MASTER_TYPE>DDPL</REP_MASTER_TYPE>
+    <REP_MASTER_NAME>Tống Minh Hà</REP_MASTER_NAME>
+    <REP_MASTER_ADDRESS>282 Kim giang</REP_MASTER_ADDRESS>
+    <REP_MASTER_PHONE>0982772961</REP_MASTER_PHONE>
+    <REP_MASTER_FAX>0982772961</REP_MASTER_FAX>
+    <REP_MASTER_EMAIL>dangtq72@gmail.com</REP_MASTER_EMAIL>
+    <SEND_DATE>2018-07-23T21:40:58+07:00</SEND_DATE>
+    <STATUS>7</STATUS>
+    <FILING_DATE>2018-07-04T00:00:00+07:00</FILING_DATE>
+    <DELETED>0</DELETED>
+    <CREATED_BY>lawer01</CREATED_BY>
+    <CREATED_DATE>2018-07-23T00:00:00+07:00</CREATED_DATE>
+    <MODIFY_BY>SuperAdmin</MODIFY_BY>
+    <MODIFY_DATE>2018-07-24T21:46:55+07:00</MODIFY_DATE>
+    <LANGUAGUE_CODE>VI_VN</LANGUAGUE_CODE>
+    <MASTER_FAX>0982772961</MASTER_FAX>
+    <MASTER_EMAIL>dangtq72@gmail.com</MASTER_EMAIL>
+    <GENCODE>TM_PLB01SDD2018072387</GENCODE>
+    <ADDRESS>Hà Nội</ADDRESS>
+    <DATENO>23</DATENO>
+    <MONTHS>07</MONTHS>
+    <YEARS>2018</YEARS>
+    <CLIENT_REFERENCE>CR3B_20180723</CLIENT_REFERENCE>
+    <CASE_NAME>CS3B_20180723</CASE_NAME>
+    <APP_NO>A1B2C3</APP_NO>
+    <STATUS_DATE>2018-07-24T21:46:55+07:00</STATUS_DATE>
+    <URL_COPY_FILING>/Content/Archive/App/BM_Trong_0003.jpg</URL_COPY_FILING>
+    <USER_PROCESSING>SuperAdmin</USER_PROCESSING>
+  </Table>
+  <Table1>
+    <ID>362</ID>
+    <APPCODE>TM_PLB01SDD</APPCODE>
+    <MASTER_NAME>Tống quang đáng</MASTER_NAME>
+    <MASTER_ADDRESS>282 Kim giang</MASTER_ADDRESS>
+    <MASTER_PHONE>0982772961</MASTER_PHONE>
+    <REP_MASTER_TYPE>DDPL</REP_MASTER_TYPE>
+    <REP_MASTER_NAME>Tống Minh Hà</REP_MASTER_NAME>
+    <REP_MASTER_ADDRESS>282 Kim giang</REP_MASTER_ADDRESS>
+    <REP_MASTER_PHONE>0982772961</REP_MASTER_PHONE>
+    <REP_MASTER_FAX>0982772961</REP_MASTER_FAX>
+    <REP_MASTER_EMAIL>dangtq72@gmail.com</REP_MASTER_EMAIL>
+    <SEND_DATE>2018-07-23T21:40:58+07:00</SEND_DATE>
+    <STATUS>7</STATUS>
+    <FILING_DATE>2018-07-04T00:00:00+07:00</FILING_DATE>
+    <DELETED>0</DELETED>
+    <CREATED_BY>lawer01</CREATED_BY>
+    <CREATED_DATE>2018-07-23T00:00:00+07:00</CREATED_DATE>
+    <MODIFY_BY>SuperAdmin</MODIFY_BY>
+    <MODIFY_DATE>2018-07-24T21:46:55+07:00</MODIFY_DATE>
+    <LANGUAGUE_CODE>VI_VN</LANGUAGUE_CODE>
+    <MASTER_FAX>0982772961</MASTER_FAX>
+    <MASTER_EMAIL>dangtq72@gmail.com</MASTER_EMAIL>
+    <GENCODE>TM_PLB01SDD2018072387</GENCODE>
+    <ADDRESS>Hà Nội</ADDRESS>
+    <DATENO>23</DATENO>
+    <MONTHS>07</MONTHS>
+    <YEARS>2018</YEARS>
+    <STATUS_NAME>Ðã gửi lên cục</STATUS_NAME>
+    <APPNAME>3b - B01. Request for amendment of application (Vietnamese)</APPNAME>
+    <CLIENT_REFERENCE>CR3B_20180723</CLIENT_REFERENCE>
+    <CASE_NAME>CS3B_20180723</CASE_NAME>
+    <APP_NO>A1B2C3</APP_NO>
+    <CUSTOMER_NAME>Lê Tuyến</CUSTOMER_NAME>
+    <DATE_WAIT>8</DATE_WAIT>
+    <STATUS_DATE>2018-07-24T21:46:55+07:00</STATUS_DATE>
+    <USER_PROCESSING>SuperAdmin</USER_PROCESSING>
+  </Table1>
+  <Table2>
+    <ID>1261</ID>
+    <LANGUAGE_CODE>VI_VN</LANGUAGE_CODE>
+    <APP_HEADER_ID>362</APP_HEADER_ID>
+    <DOCUMENT_ID>01_SDD_01</DOCUMENT_ID>
+    <ISUSE>1</ISUSE>
+    <STATUS>0</STATUS>
+    <DOCUMENT_FILING_DATE>2018-07-23T00:00:00+07:00</DOCUMENT_FILING_DATE>
+    <CHAR01>2</CHAR01>
+  </Table2>
+  <Table2>
+    <ID>1262</ID>
+    <LANGUAGE_CODE>VI_VN</LANGUAGE_CODE>
+    <APP_HEADER_ID>362</APP_HEADER_ID>
+    <DOCUMENT_ID>01_SDD_02</DOCUMENT_ID>
+    <ISUSE>1</ISUSE>
+    <STATUS>0</STATUS>
+    <DOCUMENT_FILING_DATE>2018-07-23T00:00:00+07:00</DOCUMENT_FILING_DATE>
+    <CHAR01>việt</CHAR01>
+  </Table2>
+  <Table2>
+    <ID>1263</ID>
+    <LANGUAGE_CODE>VI_VN</LANGUAGE_CODE>
+    <APP_HEADER_ID>362</APP_HEADER_ID>
+    <DOCUMENT_ID>01_SDD_03</DOCUMENT_ID>
+    <ISUSE>1</ISUSE>
+    <STATUS>0</STATUS>
+    <DOCUMENT_FILING_DATE>2018-07-23T00:00:00+07:00</DOCUMENT_FILING_DATE>
+    <CHAR01>2</CHAR01>
+  </Table2>
+  <Table2>
+    <ID>1264</ID>
+    <LANGUAGE_CODE>VI_VN</LANGUAGE_CODE>
+    <APP_HEADER_ID>362</APP_HEADER_ID>
+    <DOCUMENT_ID>01_SDD_04</DOCUMENT_ID>
+    <ISUSE>0</ISUSE>
+    <STATUS>0</STATUS>
+    <DOCUMENT_FILING_DATE>2018-07-23T00:00:00+07:00</DOCUMENT_FILING_DATE>
+  </Table2>
+  <Table2>
+    <ID>1265</ID>
+    <LANGUAGE_CODE>VI_VN</LANGUAGE_CODE>
+    <APP_HEADER_ID>362</APP_HEADER_ID>
+    <DOCUMENT_ID>01_SDD_05</DOCUMENT_ID>
+    <ISUSE>0</ISUSE>
+    <STATUS>0</STATUS>
+    <DOCUMENT_FILING_DATE>2018-07-23T00:00:00+07:00</DOCUMENT_FILING_DATE>
+  </Table2>
+  <Table2>
+    <ID>1266</ID>
+    <LANGUAGE_CODE>VI_VN</LANGUAGE_CODE>
+    <APP_HEADER_ID>362</APP_HEADER_ID>
+    <DOCUMENT_ID>01_SDD_06</DOCUMENT_ID>
+    <ISUSE>0</ISUSE>
+    <STATUS>0</STATUS>
+    <DOCUMENT_FILING_DATE>2018-07-23T00:00:00+07:00</DOCUMENT_FILING_DATE>
+  </Table2>
+  <Table2>
+    <ID>1267</ID>
+    <LANGUAGE_CODE>VI_VN</LANGUAGE_CODE>
+    <APP_HEADER_ID>362</APP_HEADER_ID>
+    <DOCUMENT_ID>01_SDD_07</DOCUMENT_ID>
+    <ISUSE>0</ISUSE>
+    <STATUS>0</STATUS>
+    <DOCUMENT_FILING_DATE>2018-07-23T00:00:00+07:00</DOCUMENT_FILING_DATE>
+  </Table2>
+  <Table2>
+    <ID>1268</ID>
+    <LANGUAGE_CODE>VI_VN</LANGUAGE_CODE>
+    <APP_HEADER_ID>362</APP_HEADER_ID>
+    <DOCUMENT_ID>01_SDD_08</DOCUMENT_ID>
+    <ISUSE>0</ISUSE>
+    <STATUS>0</STATUS>
+    <DOCUMENT_FILING_DATE>2018-07-23T00:00:00+07:00</DOCUMENT_FILING_DATE>
+  </Table2>
+  <Table2>
+    <ID>1269</ID>
+    <LANGUAGE_CODE>VI_VN</LANGUAGE_CODE>
+    <APP_HEADER_ID>362</APP_HEADER_ID>
+    <DOCUMENT_ID>01_SDD_09</DOCUMENT_ID>
+    <ISUSE>0</ISUSE>
+    <STATUS>0</STATUS>
+    <DOCUMENT_FILING_DATE>2018-07-23T00:00:00+07:00</DOCUMENT_FILING_DATE>
+  </Table2>
+  <Table2>
+    <ID>1270</ID>
+    <LANGUAGE_CODE>VI_VN</LANGUAGE_CODE>
+    <APP_HEADER_ID>362</APP_HEADER_ID>
+    <DOCUMENT_ID>01_SDD_10</DOCUMENT_ID>
+    <ISUSE>0</ISUSE>
+    <STATUS>0</STATUS>
+    <DOCUMENT_FILING_DATE>2018-07-23T00:00:00+07:00</DOCUMENT_FILING_DATE>
+  </Table2>
+  <Table2>
+    <ID>1271</ID>
+    <LANGUAGE_CODE>VI_VN</LANGUAGE_CODE>
+    <APP_HEADER_ID>362</APP_HEADER_ID>
+    <DOCUMENT_ID>01_SDD_11</DOCUMENT_ID>
+    <ISUSE>0</ISUSE>
+    <STATUS>0</STATUS>
+    <DOCUMENT_FILING_DATE>2018-07-23T00:00:00+07:00</DOCUMENT_FILING_DATE>
+  </Table2>
+  <Table3>
+    <ID>330</ID>
+    <APP_HEADER_ID>362</APP_HEADER_ID>
+    <FEE_ID>1</FEE_ID>
+    <ISUSE>1</ISUSE>
+    <NUMBER_OF_PATENT>1</NUMBER_OF_PATENT>
+    <AMOUNT>160000</AMOUNT>
+  </Table3>
+  <Table3>
+    <ID>331</ID>
+    <APP_HEADER_ID>362</APP_HEADER_ID>
+    <FEE_ID>2</FEE_ID>
+    <ISUSE>1</ISUSE>
+    <NUMBER_OF_PATENT>1</NUMBER_OF_PATENT>
+    <AMOUNT>120000</AMOUNT>
+  </Table3>
+  <Table3>
+    <ID>332</ID>
+    <APP_HEADER_ID>362</APP_HEADER_ID>
+    <FEE_ID>21</FEE_ID>
+    <ISUSE>1</ISUSE>
+    <NUMBER_OF_PATENT>2</NUMBER_OF_PATENT>
+    <AMOUNT>120000</AMOUNT>
+  </Table3>
+  <Table3>
+    <ID>333</ID>
+    <APP_HEADER_ID>362</APP_HEADER_ID>
+    <FEE_ID>22</FEE_ID>
+    <ISUSE>0</ISUSE>
+    <NUMBER_OF_PATENT>0</NUMBER_OF_PATENT>
+    <AMOUNT>0</AMOUNT>
+  </Table3>
+</NewDataSet>

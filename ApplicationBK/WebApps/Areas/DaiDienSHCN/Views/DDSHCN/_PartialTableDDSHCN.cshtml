@@ -1,0 +1,59 @@
+﻿@using ObjectInfos;
+@{
+    List<AppDDSHCNInfo> _list_data = new List<AppDDSHCNInfo>();
+    if (ViewBag.Obj != null)
+    {
+        _list_data = ViewBag.Obj;
+    }
+}
+
+<div>
+    <table class="table-lst-data" id="tableListGroupUser">
+        <thead>
+            <tr>
+                <th class="class30">STT</th>
+                <th class="class150" data-sort id="Appcode">Tên tiếng việt</th>
+                <th class="class150" data-sort id="Appcode">Tên tiếng anh</th>
+                <th class="class150" data-sort id="Appcode">Địa chỉ</th>
+                <th class="class100" data-sort id="Appcode">Điện thoại</th>
+                <th class="class150">Fax</th>
+                <th class="class100">Email</th>
+                <th class="class100">Chức năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (_list_data.Count > 0)
+            {
+                foreach (var item in _list_data)
+                {
+                    <tr>
+                        <td class="tdcenteralign">@item.STT</td>
+                        <td class="tdleftalign">@item.Name_Vi</td>
+                        <td class="tdleftalign">@item.Name_En</td>
+                        <td class="tdleftalign">@item.Address_Vi</td>
+                        <td class="tdleftalign">@item.Phone</td>
+                        <td class="tdleftalign">@item.Fax</td>
+                        <td class="tdleftalign">@item.Email</td>
+                        <td class="tdcenteralign">
+                            <a href="javascript:funcDetail(@item.Id)" class="icon icon-info" data-title="Xem chi tiết"></a>
+                            <a href="javascript:;" onclick="funcDeleteDDSHCN(@item.Id)" class="icon icon-delete" data-title="Xóa"></a>
+                            <a href="javascript:;" onclick="funcGetView2Edit(@item.Id)" class="icon icon-edit" data-title="Sửa"></a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="10">Không có dữ liệu</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="_ClassPage">
+    <ul>
+        @Html.Raw(ViewBag.Paging)
+    </ul>
+</div>

@@ -1,0 +1,146 @@
+﻿ @model string
+@{
+    string AfterID = "";
+    string Level = "0";
+    if (Model != null)
+    {
+        string _val = Model;
+        string[] _arr = _val.Split('|');
+
+        AfterID = _arr[0];
+
+        if (_arr.Length > 1)
+        {
+            Level = _arr[1];
+        }
+    }
+    string pfile = "pfile_" + AfterID;
+    string txtMaxFile = "txt_" + AfterID;
+    string btnTaiFile = "btnUp_" + AfterID;
+    string div_Img = "div_img_" + AfterID;
+    string div_Up = "div_up_" + AfterID;
+    string div_RemoveImg = "div_img_remove_" + AfterID;
+}
+
+<div class="div-search-ad clssDisplaynone @AfterID" id="@div_Up" data-level="@Level">
+    <div class="div-search-content">
+        <div class="div-checkbox">
+            <input type="button" value="Chọn file" class="btn" onclick="return Click_Upload_File('@AfterID')" style="margin:2px;" />
+            <div>
+                <input type="file" id="@pfile" name="@pfile" style="display:none" onchange="FuncChooseResultFile('@AfterID')" />
+            </div>
+
+            <div class="div-checkbox clssDisplaynone" id="@div_RemoveImg"><img onclick="RemoveFile('@AfterID')" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" /> </div>
+
+        </div>
+    </div>
+
+    <div class="div-search-title">
+        <div>Tên file:</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" placeholder="Tên file Maximum file size is 2MB" id="@txtMaxFile" style="width:561px;" readonly="readonly" />
+        </div>
+    </div>
+</div>
+<script>
+
+    function FuncChooseResultFile(p_AfterID) {
+        try {
+
+            var _textFile = $("#txt_" + p_AfterID);
+            var _txt = document.getElementById("txt_" + p_AfterID);
+
+            // lay du lieu file
+            var pfile = $("#pfile_" + p_AfterID);
+
+            if (pfile.val() == "") {
+                _textFile.val("");
+
+                $("#div_img_remove_" + p_AfterID).addClass("clssDisplaynone");
+                _txt.style.width = "561px";
+            }
+            else {
+                var _Filename = pfile[0].files[0].name.toString();
+                _textFile.val(_Filename);
+                $("#div_img_remove_" + p_AfterID).removeClass("clssDisplaynone");
+                _txt.style.width = "536px";
+                //Tải file lên server
+                funcPushFileToServer(p_AfterID);
+
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function Click_Upload_File(p_AfterID) {
+        var _idfile = "pfile_" + p_AfterID;
+        document.getElementById(_idfile).click();
+    }
+
+    function RemoveFile(p_AfterID) {
+
+        var keyFileUpload = p_AfterID;
+        try {
+            var keyFileUpload = p_AfterID;
+            $.ajax({
+                type: 'POST',
+                url: '/trade-mark/delete-file',
+                data: {
+                    keyFileUpload: keyFileUpload
+                },
+                async: true, cache: false, traditional: true,
+                success: function (data) {
+                    if (data.success == 0) {
+                        $("#div_img_remove_" + p_AfterID).addClass("clssDisplaynone");
+                        $("#divcheckFile_" + p_AfterID).addClass("clssDisplaynone");
+
+                        $("#pfile_" + p_AfterID).val('');
+
+                        var _textFile = $("#txt_" + p_AfterID);
+                        _textFile.val("");
+                    }
+                }
+            });
+
+        } catch (e) {
+
+        }
+    }
+
+    function funcPushFileToServer(pID) {
+        try {
+            var formdata = new FormData();
+            var Isuse = 0, Note = "";
+            //Các tài liệu có trong đơn
+            if ($("#" + pID).prop('checked') == true) {
+                Isuse = 1;
+            }
+            formdata.append("pInfo.keyFileUpload", pID);
+            var file = document.getElementsByName("pfile_" + pID);
+            if (file != undefined) {
+                formdata.append("pInfo.pfiles", file[0].files[0]);
+            }
+            //2
+            $.ajax({
+                type: 'POST',
+                url: '/trade-mark/push-file-to-server',
+                data: formdata,
+                enctype: 'multipart/form-data',
+                processData: false, contentType: false, dataType: 'Json',
+                success: function (data) {
+                    if (data.success == 0) {
+                        $("#i_" + pID).css("display", "inline-block");
+                    } else {
+                        jError(pushfileError, ThongBao, function () {
+                        });
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+</script>

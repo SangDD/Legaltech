@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{180A816D-CC6B-43A0-B7F7-7380D2C33941}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BussinessFacade</RootNamespace>
+    <AssemblyName>BussinessFacade</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\Extended dll\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="SendFiles">
+      <HintPath>..\Extended dll\SendFiles.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppDDSHCN_BL.cs" />
+    <Compile Include="App_Class_BL.cs" />
+    <Compile Include="App_Lawer_BL.cs" />
+    <Compile Include="ModuleTrademark\AppClassDetailBL.cs" />
+    <Compile Include="ModuleTrademark\AppDetail06DKQT_BL.cs" />
+    <Compile Include="ModuleTrademark\App_Detail_PLD01_HDCN_BL.cs" />
+    <Compile Include="ModuleTrademark\App_Detail_PLC05_KN_BL.cs" />
+    <Compile Include="ModuleTrademark\App_Detail_Plb02_CGD_BL.cs" />
+    <Compile Include="ModuleTrademark\App_Detail_Plb01_SDD_BL.cs" />
+    <Compile Include="ModuleTrademark\AppDetail04NHBL.cs" />
+    <Compile Include="ModuleWiki\WikiCatalogue_BL.cs" />
+    <Compile Include="ModuleWiki\WikiDoc_BL.cs" />
+    <Compile Include="TimeSheet_BL.cs" />
+    <Compile Include="Lawer_Info_BL.cs" />
+    <Compile Include="ModuleMemoryData\AllCodeBL.cs" />
+    <Compile Include="ModuleMemoryData\MemoryData.cs" />
+    <Compile Include="ModuleTrademark\AppDetail01BL.cs" />
+    <Compile Include="ModuleTrademark\AppDocumentBL.cs" />
+    <Compile Include="ModuleTrademark\AppFeeFixBL.cs" />
+    <Compile Include="ModuleTrademark\Application_Header_BL.cs" />
+    <Compile Include="ModuleTrademark\SysApplicationBL.cs" />
+    <Compile Include="ModuleUsersAndRoles\AccountManagerBL.cs" />
+    <Compile Include="ModuleUsersAndRoles\FunctionBL.cs" />
+    <Compile Include="ModuleUsersAndRoles\GroupUserBL.cs" />
+    <Compile Include="ModuleUsersAndRoles\MenuBL.cs" />
+    <Compile Include="ModuleUsersAndRoles\UserBL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoriesBL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{b943bc17-702e-42be-a2cd-81443d77cfa9}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{17de37ff-4590-43ec-b46a-ada478302fa8}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ObjectInfo\ObjectInfos.csproj">
+      <Project>{ab9dceae-b3d3-4a64-8e27-4b0485c2b9b5}</Project>
+      <Name>ObjectInfos</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
