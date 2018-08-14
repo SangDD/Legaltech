@@ -1,0 +1,152 @@
+﻿@using ObjectInfos;
+@using BussinessFacade;
+@model AppDDSHCNInfo
+@{
+}
+<style>
+    .div-search-title > div {
+        width: 120px;
+    }
+</style>
+
+
+<input type="hidden" id="txtID" value="@Model.Id" />
+
+<div class="" style="padding:5px 38px">
+
+    <div class="divCover divCover_popup">
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tên tiếng việt<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Name_Vi, new { id = "txtName_Vi_Edit", @maxlength = "200" })
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tên tiếng anh<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Name_En, new { id = "txtName_En_Edit", @maxlength = "200" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Phone</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Phone, new { id = "txtPhone_Edit", @maxlength = "50" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Fax</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Fax, new { id = "txtFax_Edit", @maxlength = "50" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Email</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Email, new { id = "txtEmail_Edit", @maxlength = "150" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Địa chỉ <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Address_Vi, new { id = "txtAddress_Vi_Edit", @Value = Model.Address_Vi })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="form-group-bottom">
+            <input type="submit" class="btn-default" value="Lưu" onclick="return funcUpdateTimeSheet()" />
+        </div>
+    </div>
+</div>
+
+<script>
+    function funcUpdateTimeSheet() {
+        var formData = new FormData();
+        var name = $("#txtName_Vi_Edit").val();
+        if (name == "") {
+            jError("Tên DDSHCN không được bỏ trống!", "Thông báo", function () {
+                $("#txtName_Vi_Edit").val('');
+                $("#txtName_Vi_Edit").focus();
+            });
+            return false;
+        }
+        var address = $("#txtAddress_Vi_Edit").val();
+        if (address == "") {
+            jError("Địa chỉ không được bỏ trống!", "Thông báo", function () {
+                $("#txtAddress_Vi_Edit").val('');
+                $("#txtAddress_Vi_Edit").focus();
+            });
+            return false;
+        }
+        getDataUpDDSHCNEdit(formData);
+        $.ajax({
+            url: '/dai-dien-so-huu-cn/danh-sach-ddsh/execute-update',
+            type: 'POST',
+            data: formData,
+            async: true, traditional: true, contentType: false, processData: false,
+            headers: { "cache-control": "no-cache" },
+            beforeSend: function () {
+                CreateRollingWaitingIcon(true);
+            },
+            success: function (data) {
+                CreateRollingWaitingIcon(false);
+                if (data.success == "-1") {
+                    jError("Lỗi check lại kết nối tới server");
+                    return false;
+                }
+                else {
+                    jAlert('Sửa DDSHCN thành công!', "THÔNG BÁO", function () {
+                        ClosePopUpDDSHCN();
+                        SearchDDSHCN(1, 1);
+                    });
+                }
+            },
+            error: function (e) {
+                CreateRollingWaitingIcon(false);
+                console.log(e);
+            }
+        });
+
+    }
+
+
+    function getDataUpDDSHCNEdit(formData) {
+        formData.append('pInfo.Id', $("#txtID").val());
+        formData.append('pInfo.Name_Vi', $("#txtName_Vi_Edit").val().trim());
+        formData.append('pInfo.Name_En', $("#txtName_En_Edit").val().trim());
+        formData.append('pInfo.Address_Vi', $("#txtAddress_Vi_Edit").val().trim());
+        formData.append('pInfo.Phone', $("#txtPhone_Edit").val().trim());
+        formData.append('pInfo.Fax', $("#txtFax_Edit").val().trim());
+        formData.append('pInfo.Email', $("#txtEmail_Edit").val().trim());
+        formData.append('pInfo.Address_En', $("#txtAddress_Vi_Edit").val().trim());
+    }
+</script>

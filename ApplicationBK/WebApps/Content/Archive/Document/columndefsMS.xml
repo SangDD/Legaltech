@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited by Rob Feng (Quest Software). XML for Oracle -->
+<PlanDefs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="W:\Common Components\Documentation\ExplainPlan Schema\PlanDefs.xsd">
+  <TreeView_SubView_Hint>
+    <SubView category="1" hint="Operator only" />
+    <SubView category="2" hint="Operator with Predicates" />
+    <SubView category="3" hint="Operator with Statistics" />
+  </TreeView_SubView_Hint>
+  <Columns font="tahoma" fontsize="8" color="clNavy">
+    <Column id="1" show="0" shown="0" type="s" name="Object Owner" line="1" tag="ObjectOwner_h" inline_name="0" fontstyle="B" color="clNavy"/>
+    <Column id="2" show="0" shown="0" type="s" name="Object Name" tag="ObjectName_h"/>
+    <Column id="3" show="0" shown="0" type="s" name="ID" attr="id"/>
+    <Column id="4" show="0" shown="0" type="s" name="Parent ID" attr="pid"/>
+    <Column id="5" show="0" shown="0" type="s" name="Position" attr="position"/>
+    <Column id="6" show="0" shown="0" type="s" name="Part Start" attr="partition_start"/>
+    <Column id="7" show="0" shown="0" type="s" name="Part Stop" attr="partition_stop"/>
+    <Column id="10" show="1" shown="1" type="s" name="Operation" sample="TABLE ACCESS" line="1" attr="operation" inline_name="0" fontstyle="B" color="clNavy">
+      <TreeView_SubView>
+        <SubView category="1" visible="MustVisible" />
+        <SubView category="2" visible="MustVisible" />
+        <SubView category="3" visible="MustVisible" />
+      </TreeView_SubView>
+    </Column>
+    <Column id="20" show="1" shown="1" type="s" name="Option" sample="FULL" line="1" attr="option" inline_name="0" fontstyle="B" color="clNavy">
+      <TreeView_SubView>
+        <SubView category="1" visible="MustVisible" />
+        <SubView category="2" visible="MustVisible" />
+        <SubView category="3" visible="MustVisible" />
+      </TreeView_SubView>
+    </Column>
+    <Column id="21" show="1" shown="1" type="s" name="Object Type" sample="UNIQUE" line="1" attr="object_type" inline_name="0" fontstyle="B" color="clNavy">
+      <TreeView_SubView>
+        <SubView category="2" visible="MustVisible" />
+      </TreeView_SubView>
+    </Column>
+    <Column id="23" show="1" shown="1" type="s" name="Other Tag" sample="SERIAL_FROM_REMOTE" line="1" attr="other_tag" inline_name="0" color="clNavy"/>
+    <Column id="24" show="1" shown="1" type="s" name="Simulated" sample="(Simulated)" line="1" tag="Simulated_h" inline_name="0" fontstyle="B" color="clRed"/>
+    <Column id="25" show="1" shown="1" type="q" name="Object" sample="SYS.TABLE1" line="1" inline_name="0" color="clNavy">
+      <query left="tag:ObjectOwner_h" oper="gt" right="const:" type="c">
+        <val type="s" tag="ObjectOwner_h"/>
+        <val type="s" const="."/>
+        <val type="s" tag="ObjectName_h"/>
+        <val type="s" const=" "/>
+        <val type="s" tag="alias_h"/>
+      </query>
+      <query oper="else" type="c">
+        <val type="s" tag="ObjectName_h"/>
+        <val type="s" const=" "/>
+        <val type="s" tag="alias_h"/>
+      </query>
+      <TreeView_SubView>
+        <SubView category="1" visible="MustVisible" />
+        <SubView category="2" visible="MustVisible" />
+        <SubView category="3" visible="MustVisible" />
+      </TreeView_SubView>
+    </Column>
+    <Column id="26" show="1" shown="1" type="s" name="error_h" attr="error_h" inline_name="0" fontstyle="B" color="clRed">
+      <TreeView_SubView>
+        <SubView category="1" visible="MustVisible" />
+        <SubView category="2" visible="MustVisible" />
+        <SubView category="3" visible="MustVisible" />
+      </TreeView_SubView>
+    </Column>
+    <Column id="27" show="1" shown="1" type="s" name="Tablespace" sample="On ABC Tablespace" line="1" tag="TempSpace_h" inline_name="0" color="clNavy"/>
+    <Column id="30" show="1" shown="1" type="q" name="Optimizer" sample="CHOOSE" line="1" inline_name="0" color="clNavy">
+      <query left="attr:optimizer" oper="eq" right="const:ANALYZED" type="s">[Analyzed]</query>
+      <query oper="else" type="c">
+        <val type="s" attr="optimizer"/>
+      </query>
+    </Column>
+    <Column id="35" show="1" shown="1" type="s" name="Remote" sample="UNIX1.CORP.COM" line="1" attr="object_node" inline_name="0" color="$0080FF"/>
+    <Column id="40" show="1" shown="1" type="q" name="Partition #" line="8" inline_name="1" color="clBlack">
+      <query left="attr:partition_id" oper="gt" right="const:" type="c">
+        <val type="f" attr="partition_id" format="%.0n"/>
+      </query>
+    </Column>
+    <Column id="50" show="1" shown="1" type="q" name="Partition Info" line="8" inline_name="0" color="clBlack">
+      <query left="attr:partition_start" oper="gt" right="const:" type="q">
+        <query left="attr:partition_start" oper="eq" right="const:KEY" type="c">
+          <val type="s" const="Partitions determined by Key Values"/>
+        </query>
+        <query left="attr:partition_start" oper="eq" right="const:ROW LOCATION" type="c">
+          <val type="s" const="Partition access computed by row location"/>
+        </query>
+        <query left="attr:partition_start" oper="eq" right="const:INVALID" type="c">
+          <val type="s" const=">Partition(s) are empty"/>
+        </query>
+        <query left="attr:partition_start" oper="eq" right="attr:partition_stop" type="c">
+          <val type="s" const="Partitions accessed #"/>
+          <val type="s" attr="partition_start"/>
+        </query>
+        <query oper="else" type="c">
+          <val type="s" const="Partitions accessed #"/>
+          <val type="s" attr="partition_start"/>
+          <val type="s" const=" - #"/>
+          <val type="s" attr="partition_stop"/>
+        </query>
+      </query>
+    </Column>
+    <Column id="60" show="1" shown="1" type="s" name="Filter Text" sample="GROUP BY a.column1" line="6" tag="filter_h" inline_name="0" color="clTeal"/>
+    <Column id="70" show="1" shown="1" type="s" name="Join Text" sample="CONTACT to CUSTOMER" line="1" tag="join_h" inline_name="0" color="clBlue"/>
+    <Column id="90" show="3" shown="1" type="f" name="Cost" line="7" sample="1639" attr="cost" color="clMaroon" format="%.0n">
+      <TreeView_SubView>
+        <SubView category="3" visible="FollowMain" />
+      </TreeView_SubView>
+    </Column>
+    <Column id="100" show="3" shown="1" type="f" name="Bytes" line="7" sample="138435" attr="bytes" color="clMaroon" format="%.0n">
+      <TreeView_SubView>
+        <SubView category="3" visible="FollowMain" />
+      </TreeView_SubView>
+    </Column>
+    <Column id="110" show="3" shown="1" type="f" name="Cardinality" line="7" attr="cardinality" color="clMaroon" format="%.0n">
+      <TreeView_SubView>
+        <SubView category="3" visible="FollowMain" />
+      </TreeView_SubView>
+    </Column>
+    <Column id="120" show="3" shown="1" type="s" name="Distribution" sample="QC (RANDOM)" line="7" tag="Distribution_h">
+      <TreeView_SubView>
+        <SubView category="3" visible="FollowMain" />
+      </TreeView_SubView>
+    </Column>
+    <Column id="172" show="3" shown="1" type="s" name="Access Predicates" sample='"EMPLOYEE"."EMP_ID"="DEPARTMENT"."EMP_ID"' line="3" tag="AccessPredicates_h" inline_name="custom" color="$0080FF">
+      <TreeView_SubView>
+        <SubView category="2" visible="MustVisible" />
+      </TreeView_SubView>
+      <CustomInlineName type="q">
+        <query left="attr:option" oper="cw" right="const:STORAGE" type="c">
+          <val type="s" const="Storage"/>
+        </query>
+        <query oper="else" type="c">
+          <val type="s" const="Access"/>
+        </query>
+      </CustomInlineName>
+    </Column>
+    <Column id="173" show="3" shown="1" type="s" name="Filter Predicates" sample='"EMPLOYEE"."EMP_DEPT"=&apos;ACC&apos; OR "EMPLOYEE"."EMP_DEPT"=&apos;COM&apos;' line="4" tag="FilterPredicates_h" inline_name="custom" color="$0080FF">
+      <TreeView_SubView>
+        <SubView category="2" visible="MustVisible" />
+      </TreeView_SubView>
+      <CustomInlineName type="c">
+        <val type="s" const="Filter"/>
+      </CustomInlineName>
+    </Column>
+    <Column id="175" show="3" shown="1" type="s" name="Projection" sample='"EMPLOYEE"."EMP_ID"[NUMBER,22]' line="5" tag="Projection_h" inline_name="1" color="$0080FF" />
+    <Column id="180" show="3" shown="1" type="s" name="Other" sample='SELECT /*+ ORDERED NO_EXPAND USE_NL(A2) INDEX(A2 "PK_CUSTOMERS") */ ' line="2" tag="Other_h" inline_name="0" color="$0080FF" />
+    <Column id="190" show="0" shown="0" type="s" name="Search Columns" attr="search_columns"/>
+    <Column id="191" show="3" shown="1" type="f" name="cr" line="7" attr="cr" color="clMaroon" format="%.2n">
+      <TreeView_SubView>
+        <SubView category="3" visible="FollowMain" />
+      </TreeView_SubView>
+    </Column>
+    <Column id="192" show="3" shown="1" type="f" name="r" line="7" attr="r" color="clMaroon" format="%.2n">
+      <TreeView_SubView>
+        <SubView category="3" visible="FollowMain" />
+      </TreeView_SubView>
+    </Column>
+    <Column id="193" show="3" shown="1" type="f" name="w" line="7" attr="w" color="clMaroon" format="%.2n">
+      <TreeView_SubView>
+        <SubView category="3" visible="FollowMain" />
+      </TreeView_SubView>
+    </Column>
+    <Column id="195" show="1" shown="1" type="s" name="Advice Line" line="2" tag="AdviceLine_h" inline_name="0" color="$008080FF"/>
+    <Column id="197" show="1" shown="1" type="f" name="CPU Cost" sample="22150913" line="7" attr="cpu_cost" inline_name="1" color="clBlack" format="%.0n">
+      <TreeView_SubView>
+        <SubView category="3" visible="FollowMain" />
+      </TreeView_SubView>
+    </Column>
+    <Column id="199" show="1" shown="1" type="f" name="IO Cost" sample="1623" line="7" attr="io_cost" inline_name="1" color="clBlack" format="%.0n">
+      <TreeView_SubView>
+        <SubView category="3" visible="FollowMain" />
+      </TreeView_SubView>
+    </Column>
+    <Column id="200" show="3" shown="1" type="f" name="Act Rows" line="7" attr="act_rows" inline_name="1" color="clMaroon" format="%.0n">
+      <TreeView_SubView>
+        <SubView category="3" visible="FollowMain" />
+      </TreeView_SubView>
+    </Column>
+    <Column id="202" show="1" shown="1" type="n" name="Table Rows" line="7" attr="actual_rows" inline_name="1" color="clBlack">
+      <TreeView_SubView>
+        <SubView category="3" visible="FollowMain" />
+      </TreeView_SubView>
+    </Column>
+    <Column id="204" show="1" shown="1" type="n" name="BGets" line="7" attr="last_cr_buffer_gets" inline_name="1" color="clBlack">
+      <TreeView_SubView>
+        <SubView category="3" visible="FollowMain" />
+      </TreeView_SubView>
+    </Column>
+    <Column id="206" show="1" shown="1" type="n" name="DReads" line="7" attr="last_disk_reads" inline_name="1" color="clBlack">
+      <TreeView_SubView>
+        <SubView category="3" visible="FollowMain" />
+      </TreeView_SubView>
+    </Column>
+    <Column id="210" show="0" shown="0" type="f" name="Est Rows" line="7" attr="est_rows" format="%.0n">
+      <TreeView_SubView>
+        <SubView category="3" visible="FollowMain" />
+      </TreeView_SubView>
+    </Column>
+    <Column id="215" show="0" shown="0" type="q" name="rows">
+      <query left="attr:act_rows" oper="gt" right="const:" type="c">
+        <val type="f" attr="act_rows"/>
+      </query>
+      <query left="attr:cardinality" oper="gt" right="const:" type="c">
+        <val type="f" attr="cardinality"/>
+      </query>
+      <query oper="else" type="c">
+        <val type="f" attr="est_rows"/>
+      </query>
+    </Column>
+    <Column id="220" show="3" shown="1" type="dt" name="Time" line="7" attr="time" inline_name="1" color="clBlack" format="hh:nn:ss" sample="00:01:28">
+      <TreeView_SubView>
+        <SubView category="3" visible="FollowMain" />
+      </TreeView_SubView>
+    </Column>
+    <Column id="225" show="3" shown="0" type="f" name="Temp Space" line="7" sample="4096" attr="temp_space" inline_name="1" color="clBlack" format="%.0n">
+      <TreeView_SubView>
+        <SubView category="3" visible="FollowMain" />
+      </TreeView_SubView>
+    </Column>
+    <Column id="230" show="0" shown="0" type="q" name="GraphicText1" fontsize="10" fontstyle="B" color="clBlack">
+      <query left="attr:option" oper="gt" right="const:" type="c">
+        <val type="s" attr="operation"/>
+        <val type="s" const=" : "/>
+        <val type="s" attr="option"/>
+      </query>
+      <query oper="else" type="c">
+        <val type="s" attr="operation"/>
+      </query>
+    </Column>
+    <Column id="240" show="0" shown="0" type="q" name="GraphicText2">
+      <query left="tag:ObjectOwner_h" oper="gt" right="const:" type="c">
+        <val type="s" tag="ObjectOwner_h"/>
+        <val type="s" const="."/>
+        <val type="s" tag="ObjectName_h"/>
+      </query>
+      <query oper="else" type="c">
+        <val type="s" tag="ObjectName_h"/>
+      </query>
+    </Column>
+    <Column id="250" show="0" shown="0" type="c" name="GraphicHint" color="clBlack">
+      <val type="s" const="^\TAC^\^\FS=B^\"/>
+      <val type="s" attr="operation"/>
+      <query left="attr:option" oper="gt" right="const:" type="c">
+        <val type="s" const=" : "/>
+        <val type="s" attr="option"/>
+      </query>
+      <val type="s" const="^\TAL^\^\FS=^\^\NL^\^\PL^\^\NL^\"/>
+      <query left="tag:ObjectName_h" oper="gt" right="const:" type="q">
+        <query left="tag:ObjectOwner_h" oper="gt" right="const:" type="c">
+          <val type="s" const="^\NL^\^\FS=B^\"/>
+          <val type="s" const="Object: "/>
+          <val type="s" const="^\TAR^\^\FS=^\"/>
+          <val type="s" tag="ObjectOwner_h"/>
+          <val type="s" const="."/>
+          <val type="s" tag="ObjectName_h"/>
+          <val type="s" const="^\TAL^\"/>
+        </query>
+        <query oper="else" type="c">
+          <val type="s" const="^\NL^\^\FS=B^\"/>
+          <val type="s" const="Object: "/>
+          <val type="s" const="^\TAR^\^\FS=^\"/>
+          <val type="s" tag="ObjectName_h"/>
+          <val type="s" const="^\TAL^\"/>
+        </query>
+      </query>
+      <query left="attr:cost" oper="gt" right="const:" type="c">
+        <val type="s" const="^\NL^\^\FS=B^\"/>
+        <val type="s" const="Cost: "/>
+        <val type="s" const="^\TAR^\^\FS=^\"/>
+        <val type="f" attr="cost" format="%.0n"/>
+        <val type="s" const="^\TAL^\"/>
+      </query>
+      <query left="attr:cpu_cost" oper="gt" right="const:" type="c">
+        <val type="s" const="^\NL^\^\FS=B^\"/>
+        <val type="s" const="CPU Cost: "/>
+        <val type="s" const="^\TAR^\^\FS=^\"/>
+        <val type="f" attr="cpu_cost" format="%.0n"/>
+        <val type="s" const="^\TAL^\"/>
+      </query>
+      <query left="attr:io_cost" oper="gt" right="const:" type="c">
+        <val type="s" const="^\NL^\^\FS=B^\"/>
+        <val type="s" const="IO Cost: "/>
+        <val type="s" const="^\TAR^\^\FS=^\"/>
+        <val type="f" attr="io_cost" format="%.0n"/>
+        <val type="s" const="^\TAL^\"/>
+      </query>
+      <query left="attr:act_rows" oper="gt" right="const:" type="c">
+        <val type="s" const="^\NL^\^\FS=B^\"/>
+        <val type="s" const="Actual Rows: "/>
+        <val type="s" const="^\TAR^\^\FS=^\"/>
+        <val type="f" attr="act_rows" format="%.0n"/>
+        <val type="s" const="^\TAL^\"/>
+      </query>
+      <query left="attr:actual_rows" oper="gt" right="const:" type="c">
+        <val type="s" const="^\NL^\^\FS=B^\"/>
+        <val type="s" const="Table Rows: "/>
+        <val type="s" const="^\TAR^\^\FS=^\"/>
+        <val type="f" attr="actual_rows" format="%.0n"/>
+        <val type="s" const="^\TAL^\"/>
+      </query>
+      <query left="attr:time" oper="gt" right="const:" type="c">
+        <val type="s" const="^\NL^\^\FS=B^\"/>
+        <val type="s" const="Time: "/>
+        <val type="s" const="^\TAR^\^\FS=^\"/>
+        <val type="s" attr="time"/>
+        <val type="s" const="^\TAL^\"/>
+      </query>
+      <query left="attr:last_cr_buffer_gets" oper="gt" right="const:" type="c">
+        <val type="s" const="^\NL^\^\FS=B^\"/>
+        <val type="s" const="Buffer Gets: "/>
+        <val type="s" const="^\TAR^\^\FS=^\"/>
+        <val type="f" attr="last_cr_buffer_gets" format="%.0n"/>
+        <val type="s" const="^\TAL^\"/>
+      </query>
+      <query left="attr:last_disk_reads" oper="gt" right="const:" type="c">
+        <val type="s" const="^\NL^\^\FS=B^\"/>
+        <val type="s" const="Disk Reads: "/>
+        <val type="s" const="^\TAR^\^\FS=^\"/>
+        <val type="f" attr="last_disk_reads" format="%.0n"/>
+        <val type="s" const="^\TAL^\"/>
+      </query>
+      <query left="attr:cardinality" oper="gt" right="const:" type="c">
+        <val type="s" const="^\NL^\^\FS=B^\"/>
+        <val type="s" const="Cardinality: "/>
+        <val type="s" const="^\TAR^\^\FS=^\"/>
+        <val type="f" attr="cardinality" format="%.0n"/>
+        <val type="s" const="^\TAL^\"/>
+      </query>
+      <query left="tag:Distribution_h" oper="gt" right="const:" type="c">
+        <val type="s" const="^\NL^\^\FS=B^\"/>
+        <val type="s" const="Distriution: "/>
+        <val type="s" const="^\TAR^\^\FS=^\"/>
+        <val type="f" tag="Distribution_h" format="%.0n"/>
+        <val type="s" const="^\TAL^\"/>
+      </query>
+      <query left="attr:temp_space" oper="gt" right="const:" type="c">
+        <val type="s" const="^\NL^\^\FS=B^\"/>
+        <val type="s" const="Temp Space: "/>
+        <val type="s" const="^\TAR^\^\FS=^\"/>
+        <val type="s" attr="temp_space"/>
+        <val type="s" const="^\TAL^\"/>
+      </query>
+      <query left="tag:filter_h" oper="gt" right="const:" type="c">
+        <val type="s" const="^\NL^\^\NL^\^\FS=B^\"/>
+        <val type="s" const="Filter: "/>
+        <val type="s" const="^\NL^\^\FS=^\"/>
+        <val type="s" tag="filter_h"/>
+        <val type="s" const="^\TAL^\"/>
+      </query>
+      <query left="tag:AccessPredicates_h" oper="gt" right="const:" type="c">
+        <val type="s" const="^\NL^\^\NL^\^\FS=B^\"/>
+        <val type="s" const="Access Predicates: "/>
+        <val type="s" const="^\NL^\^\FS=^\"/>
+        <val type="s" tag="AccessPredicates_h"/>
+        <val type="s" const="^\TAL^\"/>
+      </query>
+      <query left="tag:FilterPredicates_h" oper="gt" right="const:" type="c">
+        <val type="s" const="^\NL^\^\NL^\^\FS=B^\"/>
+        <val type="s" const="Filter Predicates: "/>
+        <val type="s" const="^\NL^\^\FS=^\"/>
+        <val type="s" tag="FilterPredicates_h"/>
+        <val type="s" const="^\TAL^\"/>
+      </query>
+      <query left="tag:Projection_h" oper="gt" right="const:" type="c">
+        <val type="s" const="^\NL^\^\NL^\^\FS=B^\"/>
+        <val type="s" const="Projection: "/>
+        <val type="s" const="^\NL^\^\FS=^\"/>
+        <val type="s" tag="Projection_h"/>
+        <val type="s" const="^\TAL^\"/>
+      </query>
+    </Column>
+    <Column id="260" show="0" shown="0" type="s" name="object_id" attr="o_id"/>
+    <Column id="275" show="3" shown="0" type="s" name="Object Alias" tag="ObjectAlias_h" line="8" inline_name="1" color="clGray"/>
+    <Column id="276" show="3" shown="0" type="s" name="Query Block Name" tag="QBlockName_h" line="8" inline_name="1" color="clGray"/>
+    <Column id="277" show="3" shown="0" type="s" name="Other XML" tag="OtherXML_h" line="9" inline_name="1" color="clGray"/>
+  </Columns>
+</PlanDefs>

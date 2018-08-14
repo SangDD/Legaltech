@@ -1,0 +1,34 @@
+﻿@using ObjectInfos.ModuleTrademark
+@model AppDocumentInfo
+@{
+    var ObjDocInfo = new AppDocumentInfo();
+    if (Model != null)
+    {
+        ObjDocInfo = (AppDocumentInfo)Model;
+    }
+    if (ObjDocInfo.styleCheck == null)
+    {
+        ObjDocInfo.styleCheck = "";
+    }
+}
+<style>
+    .classDocOtherE {
+        text-align: left;
+        padding: 3px;
+        color: blue;
+    }
+</style>
+@if (ObjDocInfo.styleCheck.Contains("checked"))
+{
+<div class="div-search-ad " style="display:inline-flex;" id="@ObjDocInfo.Id">
+    <div class="div-search-content">
+        <div class="div-checkbox" style="width:550px">
+            <div id="" class="classDocOtherE @ObjDocInfo.Id"> <a style="color:blue;border:none" href="@ObjDocInfo.Url_Hardcopy">@ObjDocInfo.Filename</a></div>
+        </div>
+    </div>
+    @*<div class="div-search-content">
+        <div class="div-checkbox" style="width: 160px">
+        </div>
+    </div>*@
+</div>
+} 

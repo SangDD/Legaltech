@@ -1,0 +1,63 @@
+﻿@using ObjectInfos.ModuleTrademark
+@using ObjectInfos
+@{
+    var lstDocOther = new List<AppDocumentOthersInfo>();
+    if (ViewBag.lstDocOther != null)
+    {
+        lstDocOther = (List<AppDocumentOthersInfo>)ViewBag.lstDocOther;
+    }
+   string listIDFileAtt = "";
+}
+<style>
+    .classDocOtherE{
+        text-align:left ;
+        padding:3px; 
+        color:blue ;
+    }
+</style>
+<div class="div_full_100_area">
+    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CÁC TÀI LIỆU KHÁC")
+    @{
+        if (lstDocOther.Count > 0)
+        {
+            int No = 0;
+            string FileName = "";
+
+            <div>
+                @foreach (var item in lstDocOther)
+                {
+                    listIDFileAtt = listIDFileAtt + item.Id.ToString() + ",";
+                    No++;
+                    FileName = No.ToString() + ". " + item.Documentname;
+                    <div id="@item.Id" class="classDocOtherE"> <a style="color:blue" href="@item.Filename">@FileName</a> </div>
+                }
+            </div>
+
+        }
+    }
+    @* Sử dụng khi Sửa bản ghi thôi *@
+    <input type="hidden" class="ListIDAttach_E" id="ListIDAttach_E" value="@listIDFileAtt" />
+    <input type="hidden" id="ListIDAttach_R" value="" />
+    @* End sửa *@
+</div>
+
+@* danh dau so tt sinh id  *@
+<input type="hidden" id="increNo" value="1" />
+
+<style>
+    .class_37 {
+        height: 30px !important;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: 120px 14% 33%;
+        padding: 1px;
+    }
+
+    .grid-item {
+        background-color: rgba(255, 255, 255, 0.8);
+        text-align: center;
+    }
+</style>
+ 
