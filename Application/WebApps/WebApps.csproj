@@ -172,8 +172,6 @@
     <Compile Include="Areas\ModuleUsersAndRoles\ModuleUsersAndRolesAreaRegistration.cs" />
     <Compile Include="Areas\Patent\Controllers\PatentRegistrationController.cs" />
     <Compile Include="Areas\Patent\PatentAreaRegistration.cs" />
-    <Compile Include="Areas\QuanLyPhi\Controllers\QLPhiController.cs" />
-    <Compile Include="Areas\QuanLyPhi\QuanLyPhiAreaRegistration.cs" />
     <Compile Include="Areas\TimeSheet\Controllers\TimeSheetController.cs" />
     <Compile Include="Areas\TimeSheet\TimeSheetAreaRegistration.cs" />
     <Compile Include="Areas\TradeMark\Controllers\ApplicationController.cs" />
@@ -207,12 +205,6 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Report\TM_04NH.cs">
-      <DependentUpon>TM_04NH.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Report\TM_06DKQT1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -231,16 +223,15 @@
       <DependentUpon>TM_PLB01SDD.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Report\TM_PLD01_HDCN.cs">
+      <DependentUpon>TM_PLD01_HDCN.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Report\TM_PLC05_KN1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TM_PLC05_KN.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Report\TM_PLD01_HDCN1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TM_PLD01_HDCN.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="RequestFilter\IdentityRequest.cs" />
@@ -1767,10 +1758,6 @@
     <Content Include="Content\fonts\fontawesome\webfonts\fa-solid-900.woff" />
     <Content Include="Content\fonts\fontawesome\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\ckfinder\App_LocalResources\config.ascx.resx" />
-    <EmbeddedResource Include="Report\TM_04NH.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>TM_04NH.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Report\TM_06DKQT.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TM_06DKQT1.cs</LastGenOutput>
@@ -1786,10 +1773,6 @@
     <EmbeddedResource Include="Report\TM_PLC05_KN.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TM_PLC05_KN1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Report\TM_PLD01_HDCN.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>TM_PLD01_HDCN1.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1948,10 +1931,6 @@
     <Content Include="Areas\DaiDienSHCN\Views\DDSHCN\_PartialTableDDSHCN.cshtml" />
     <Content Include="Areas\DaiDienSHCN\Views\DDSHCN\_PartialDaiDienSHCNUpdate.cshtml" />
     <Content Include="Areas\DaiDienSHCN\Views\DDSHCN\_PartialDaiDienSHCNDetail.cshtml" />
-    <Content Include="Areas\QuanLyPhi\Views\QLPhi\GetListDSPhi.cshtml" />
-    <Content Include="Areas\QuanLyPhi\Views\QLPhi\_PartialTableDanhSachPhi.cshtml" />
-    <Content Include="Areas\QuanLyPhi\Views\QLPhi\_PartialViewFeeFixUpdate.cshtml" />
-    <Content Include="Areas\QuanLyPhi\Views\web.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <Content Include="Areas\Home\Views\Wiki\_PartialListDocByCata.cshtml" />
@@ -2267,8 +2246,6 @@
     <Folder Include="Areas\Patent\Models\" />
     <Folder Include="Areas\Patent\Views\PatentRegistration\" />
     <Folder Include="Areas\Patent\Views\Shared\" />
-    <Folder Include="Areas\QuanLyPhi\Models\" />
-    <Folder Include="Areas\QuanLyPhi\Views\Shared\" />
     <Folder Include="Areas\TimeSheet\Models\" />
     <Folder Include="Areas\TradeMark\Models\" />
     <Folder Include="Content\Archive\Document\" />
