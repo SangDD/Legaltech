@@ -1,0 +1,141 @@
+﻿@model string
+@{
+    string[] arr = Model.Split(';');
+
+    // định nghĩa id
+    string _ID = arr[0];
+    string[] arr_id = _ID.Split('|');
+
+    string Document_Id = arr_id[0];
+    string divCheckbox = "divCheckbox_" + Document_Id;
+
+    string Id = arr_id[1];
+    string Id_Checkbox = "ckb_" + Id;
+    string LevelTextbox = arr_id[2];
+
+    string Lable = arr_id[3];
+
+    string Lable2 = arr_id[4];
+    string Id_textbox = "txt_" + Id;
+    string IsUpload = arr_id[5];
+    string div_ImgDownload = "div_ImgDownload_" + Id;
+    string _width = "";
+    if (arr_id.Length >= 7)
+    {
+        _width = arr_id[6] + "px";
+    }
+
+    string Lable3 = "";
+    string Id_textbox2 = "txt_" + Id + "_2";
+    if (arr_id.Length >= 8)
+    {
+        Lable3 = arr_id[7];
+    }
+
+
+    // giá trị tài liệu
+    string _Value = arr[1];
+    string[] arr_value = _Value.Split('|');
+    string Isuse = arr_value[0].Trim();
+    string Char01 = arr_value[1];
+    string Url = arr_value[2];
+    string Char02 = "";
+    if (arr_value.Length >= 4)
+    {
+        Char02 = arr_value[3];
+    }
+}
+
+<div class="div-search-ad">
+    <div class="div-search-content">
+        <div class="div-checkbox" id="@divCheckbox" style="width:354px">
+            @if (LevelTextbox == "1")
+            {
+                @Html.Raw("&emsp;&emsp;&emsp;")
+            }
+            else if (LevelTextbox == "2")
+            {
+                @Html.Raw("&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;")
+            }
+
+            @if (Url != "")
+            {
+                <div class="div-search-content" id="@div_ImgDownload">
+                    <div class="div-checkbox" style="border: none;">
+                        <a style="border: none;" href="@Url" target="_blank">
+                            <i class="fas fa-download" style="color:blue;font-size:16px;margin-top:7px; margin-right:5px;"></i>
+                        </a>
+                    </div>
+                </div>
+            }
+
+            @if (Isuse == "1")
+            {
+                <input type="checkbox" name="@Id_Checkbox" id="@Id_Checkbox" value="@Document_Id" disabled="disabled" checked="checked">
+            }
+            else
+            {
+                <input type="checkbox" name="@Id_Checkbox" id="@Id_Checkbox" value="@Document_Id" disabled="disabled">
+            }
+            <label>@Lable</label>
+        </div>
+    </div>
+
+    @if (Lable2 != "")
+    {
+        <div class="div-search-title">
+            <div>@Lable2:</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" placeholder="@Lable2" id="@Id_textbox" disabled="disabled" value="@Char01" />
+            </div>
+        </div>
+    }
+
+    @if (Lable3 != "")
+    {
+        <div class="div-search-title">
+            <div>@Lable3:</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" placeholder="@Lable3" id="@Id_textbox2" value="@Char02" disabled="disabled" />
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    $(document).ready(function () {
+        var _divCheckbox = document.getElementById('@divCheckbox');
+
+        @*if ('@Url' == "") {
+            _divCheckbox.style.width = "382px";
+        }*@
+
+        if ('@Lable2' == "") {
+            _divCheckbox.style.width = null;
+            @*if ('@Url' == "") {
+                _divCheckbox.style.width = null;
+            }
+            else {
+                _divCheckbox.style.width = "1000px";
+            }*@
+        }
+        else {
+            _divCheckbox.style.width = "450px";
+
+            @*if ('@Url' == "") {
+                _divCheckbox.style.width = "450px";
+            }
+            else {
+                _divCheckbox.style.width = "450px";
+            }*@
+        }
+        if ('@_width' != "") {
+            var _divCheckbox = document.getElementById('@divCheckbox');
+            _divCheckbox.style.width = '@_width';
+        }
+    });
+</script>

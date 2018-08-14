@@ -1,0 +1,419 @@
+﻿@using BussinessFacade.ModuleMemoryData
+@using BussinessFacade.ModuleUsersAndRoles
+@using Common.CommonData
+@using ObjectInfos;
+@{
+    ViewBag.Title = "Quản lý hàng hóa dịch vụ";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+}
+@try
+{
+    <style>
+        /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+        .div-search-title > div {
+            width: 150px;
+        }
+    </style>
+
+    <div class="divCover">
+        <div class="d-nav">
+            <img src="~/Content/icons/Body-icon-home.png" /> I
+            Quản trị hệ thống
+            <span class="red">></span>
+            <a href="/quan-ly-thong-tin/hang-hoa-dich-vu/danh-sach-hang-hoa">Quản lý sản phẩm dịch vụ</a>
+        </div>
+    </div>
+    <div class="divCover">
+        <div class="classLine">
+        </div>
+    </div>
+
+    <div class="d-main">
+        <div class="divCover">
+            <div class="classTitle">
+                <input type="hidden" value="MODIFIED_DATE" id="colSorted" />
+                <input type="hidden" value="DESC" id="SortType" />
+                <input type="hidden" value="" id="OptionSorting" />
+                <div class="div-title-content"> THÔNG TIN HÀNG HÓA DỊCH VỤ </div>
+            </div>
+        </div>
+
+        <div class="divCover" id="div-search-simple">
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div style="width: 120px">Mã hàng hóa</div>
+                </div>
+                <div>
+                    <div>
+                        <input style="width: 250px;" type="text" id="txt_code" data-controlcondition="TRUE" />
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div style="width: 120px">Tên tiếng Việt</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txt_name_vi" data-controlcondition="TRUE" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div style="width: 120px">Tên tiếng Anh </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txt_name_en" data-controlcondition="TRUE" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divCover">
+            <div class="div-search-btn" style="width:450px;">
+                <input type="button" value="Tìm kiếm" class="btn-default" onclick="findObjects(1, 1)" />
+                <input type="button" value="Thêm hàng hóa" class="btn-default" style="width: 125px;" onclick="getViewToAddNewObject()" />
+            </div>
+        </div>
+
+        <div class="divCover">
+            <div id="divTableObjects">
+                @Html.Partial("_PartialAppClassData")
+            </div>
+        </div>
+
+        <div id="divWrapperViewUser" class="divWrapperPopup" style="display: none;">
+            <div class="divPopup" id="divViewUser">
+            </div>
+        </div>
+
+        <div id="divWrapperEditUser" class="divWrapperPopup" style="display: none;">
+            <div class="divPopup" id="divEditUser">
+            </div>
+        </div>
+
+        <div id="divWrapperAddUser" class="divWrapperPopup" style="display: none;">
+            <div class="divPopup" id="divAddUser">
+            </div>
+        </div>
+
+        <div id="divWrapperPopUpObject" class="divWrapperPopup" style="display: none;">
+            <div class="divPopup" id="divPopUpObject">
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        var _currentKeySearch = '@SessionStorages.SEARCH_CLASS_KEY_CONDITIONS';
+        var _currentOptionFilter = '@SessionStorages.SEARCH_CLASS_KEY_OPTIONS';
+        var _code = '', _name_vi = '', _name_en = '', _name_vi = '';
+
+        $(document).ready(function () {
+            initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findObjects);
+
+            $('txt_code').focus();
+            $('[data-controlcondition="TRUE"]').on('keypress',
+				function (e) {
+				    enterKeyPress(e, 'btnfindObjects');
+				});
+        });
+
+        function findObjects(_pageNumber, _isSearching) {
+            try {
+
+                reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
+                if (isSearching === 1) {
+                    _code = $("#txt_code").val().trim();
+                    _name_vi = $("#txt_name_vi").val().trim();
+                    _name_en = $("#txt_name_en").val().trim();
+
+                } else {
+                    window.arrKeySearch = window.keySearch.split('|');
+                    _code = arrKeySearch[0];
+                    _name_vi = arrKeySearch[1];
+                    _name_en = arrKeySearch[2];
+
+                    $("#txt_code").val(_code);
+                    $("#txt_name_vi").val(_name_vi);
+                    $("#txt_name_en").val(_name_en);
+                }
+
+                updateSearchingConditions("divNumberRecordOnPageListObjects", setKeySearch);
+
+                $.ajax({
+                    type: "POST",
+                    headers: { "cache-control": "no-cache" },
+                    url: "/quan-ly-thong-tin/hang-hoa-dich-vu/find-class",
+                    data: {
+                        keysSearch: keySearch,
+                        options: optionFilter
+                    },
+                    async: false,
+                    success: function (data) {
+                        if (data != null) {
+                            onResponseWhenSearching(data, "divTableObjects", findObjects);
+                        }
+                    }
+                });
+                return true;
+            } catch (e) {
+                alert(e.toString());
+                return false;
+            }
+
+
+        }
+
+        function setKeySearch() {
+            window.keySearch = _code + "|" + _name_vi + "|" + _name_en;
+        }
+
+        function initOrderBySearching() {
+            window.colSort = 'MODIFIED_DATE';
+            window.sortType = 'DESC';
+        }
+
+        function pageListOfObjects(_pagenum) {
+            try {
+                findObjects(_pagenum, 0);
+
+            } catch (e) {
+                console.log(e.message);
+            }
+        }
+    </script>
+
+    @* task function *@
+    <script>
+
+        function getViewToAddNewObject() {
+            try {
+                $.ajax({
+                    type: "POST",
+                    url: "/quan-ly-thong-tin/hang-hoa-dich-vu/add-new",
+                    headers: { "cache-control": "no-cache" },
+                    async: false,
+                    success: function (data) {
+                        if (data != null) {
+                            if (validateResponse(data)) {
+                                $("#divPopUpObject").html(data);
+                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Thêm mới hàng hóa/dịch vụ", 900, 500, "txtAddClassCode");
+                            }
+                        }
+                        return false;
+                    }
+                });
+            } catch (e) {
+                alert(e.toString());
+            }
+           
+        }
+
+        function getViewToEditObject(p_id, p_display_value) {
+            try {
+                $.ajax({
+                    type: "POST",
+                    url: "/quan-ly-thong-tin/hang-hoa-dich-vu/view-edit",
+                    headers: { "cache-control": "no-cache" },
+                    data: { p_id: p_id },
+                    async: false,
+                    success: function (data) {
+                        if (data != null) {
+                            if (validateResponse(data)) {
+
+                                $("#divPopUpObject").html(data);
+                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Sửa hàng hóa dịch vụ: <span class='data-in-title-popup'>" + p_display_value + "</span>", 900, 500, "txtFullNameEdit");
+                            }
+                        }
+                        return false;
+                    }
+                });
+            } catch (e) {
+                alert(e.toString());
+            }
+           
+        }
+
+        function doDeleteObject(p_id) {
+            try {
+               
+                    nvsConfirm(null, "Bạn có chắc chắn muốn xóa hàng hóa/dịch vụ này không?", function () {
+                        $.ajax({
+                            url: "/quan-ly-thong-tin/hang-hoa-dich-vu/do-delete-class",
+                            type: "POST",
+                            data: { p_id: p_id },
+                            headers: { "cache-control": "no-cache" },
+                            async: false,
+                            success: function (data) {
+                                //if (data != null) {
+                                //    if (onResponse(data)) {
+                                //        ClosePopupDialog('dpop-users', true);
+                                //        findObjects(1, 0);
+                                //    }
+                                //}
+                                if (data.result >= 0) {
+                                    showSuccess("Xóa dữ liệu thành công!");
+                                    window.findObjects(1, 0);
+                                }
+                            },
+                            error: function (e) {
+                                console.log(e);
+                            }
+                        });
+
+                    });
+                
+            } catch (e) {
+                alert(e.toString());
+            }
+           
+        }
+
+        function viewDetailObject(p_id, p_display_value) {
+            try {
+                $.ajax({
+                    type: "POST",
+                    url: "/quan-ly-thong-tin/hang-hoa-dich-vu/view-detail-class",
+                    headers: { "cache-control": "no-cache" },
+                    async: false,
+                    data: { p_id: p_id },
+                    success: function (data) {
+                        if (data != null) {
+                            if (validateResponse(data)) {
+                                $("#divPopUpObject").html(data);
+                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Chi tiết hàng hóa/dịch vụ: <span class='data-in-title-popup'>" + p_display_value + "</span>", 900, 500);
+                            }
+                        }
+                        return false;
+                    }
+                });
+            } catch (e) {
+                alert(e.toString());
+            }
+            
+        }
+
+        function ClosePopUpObject() {
+            CloseDivPopUp('divWrapperPopUpObject');
+        }
+
+
+        function doAddNewObject() {
+            try {
+                   var txtAddClassCode = $('#txtAddClassCode');
+                   var txtClassAddNameVi = $('#txtClassAddNameVi');
+                   var txtClassAddNameEn = $('#txtClassAddNameEn');
+                    if (txtAddClassCode.val().trim() == "") {
+                        txtAddClassCode.focus().val('');
+                        showError('Mã hàng hóa/dịch vụ không được để trống!');
+                        return false;
+                    }
+
+                    if (txtClassAddNameVi.val().trim() == "") {
+                        txtClassAddNameVi.focus().val('');
+                        showError('Tên tiếng việt không được để trống!');
+                        return false;
+                    }
+
+                    if (txtClassAddNameEn.val().trim() == "") {
+                        txtClassAddNameEn.focus().val('');
+                        showError('Tên tiếng anh không được để trống!');
+                        return false;
+                    }
+                    var formData = new FormData();
+                    formData.append('_AppClassInfo.Code', Add_code);
+                    formData.append('_AppClassInfo.Name_Vi', Add_name_vi);
+                    formData.append('_AppClassInfo.Name_En', Add_name_en);
+                    $.ajax({
+                        url: '/quan-ly-thong-tin/hang-hoa-dich-vu/do-add-class',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        traditional: true,
+                        async: false,
+                        headers: { "cache-control": "no-cache" },
+                        success: function (data) {
+                            CreateRollingWaitingIcon(false);
+                            if (data.result >= 0) {
+                                showSuccess("Thêm mới dữ liệu thành công!");
+                                    ClosePopUpObject();
+                                    window.findObjects(1, 0);
+                            }
+                        },
+                        error: function (e) {
+                            console.log(e);
+                        }
+                    });
+            } catch (e) {
+                alert(e.toString());
+            }
+        }
+
+        function doEditObject() {
+            try {
+                var txtid = $('#txt_id');
+                var  txtClassCode = $('#txtEditClassCode');
+                var  txtClassNameVi = $('#txtEditClassNameVi');
+                var txtClassNameEn = $('#txtEditClassNameEn');
+                if (txtClassCode.val().trim() == "") {
+                    txtClassCode.focus().val('');
+                    showError('Mã hàng hóa/dịch vụ không được để trống!');
+                    return false;
+                }
+
+                if (txtClassNameVi.val().trim() == "") {
+                    txtClassNameVi.focus().val('');
+                    showError('Tên tiếng việt không được để trống!');
+                    return false;
+                }
+
+                if (txtClassNameEn.val().trim() == "") {
+                    txtClassNameEn.focus().val('');
+                    showError('Tên tiếng anh không được để trống!');
+                    return false;
+                }
+                var formData = new FormData();
+                formData.append('_AppClassInfo.Id', txtid.val());
+                formData.append('_AppClassInfo.Code', txtClassCode.val());
+                formData.append('_AppClassInfo.Name_Vi', txtClassNameVi.val());
+                formData.append('_AppClassInfo.Name_En', txtClassNameEn.val());
+                $.ajax({
+                    url: '/quan-ly-thong-tin/hang-hoa-dich-vu/do-edit-class',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    traditional: true,
+                    async: false,
+                    headers: { "cache-control": "no-cache" },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.result >= 0) {
+                            showSuccess("Cập nhật dữ liệu thành công!");
+                            ClosePopUpObject();
+                            window.findObjects(1, 0);
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            } catch (e) {
+                alert(e.toString());
+            }
+        }
+
+  
+ 
+
+    </script>
+}
+catch (Exception)
+{
+    // ignored
+}

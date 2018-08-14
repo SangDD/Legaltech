@@ -1,0 +1,206 @@
+﻿@using BussinessFacade.ModuleMemoryData
+@using ObjectInfos.ModuleTrademark
+@using ObjectInfos
+@{
+    var lstDocumentInfo = new List<AppDocumentInfo>();
+    if (ViewBag.lstDocOther != null)
+    {
+        lstDocumentInfo = (List<AppDocumentInfo>)ViewBag.lstDocumentInfo;
+    }
+    var objAppHeaderInfo = new AppDetail04NHInfo();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        objAppHeaderInfo = (AppDetail04NHInfo)ViewBag.objAppHeaderInfo;
+    }
+    AppDocumentInfo ObjInfo04NH_D_14_2 = new AppDocumentInfo();
+    AppDocumentInfo ObjInfo04NH_D_15_2 = new AppDocumentInfo();
+    AppDocumentInfo ObjInfo04NH_D_16_2 = new AppDocumentInfo();
+    AppDocumentInfo ObjInfo04NH_D_17_2 = new AppDocumentInfo();
+    string styletext14_2 = "disabled='disabled'";
+    string styletext15_2 = "disabled='disabled'";
+    string styletext16_2 = "disabled='disabled'";
+
+    foreach (var item in lstDocumentInfo)
+    {
+        if (item.Document_Id == "04NH_D_14_2" && item.Isuse == 1)
+        {
+            ObjInfo04NH_D_14_2 = item;
+            ObjInfo04NH_D_14_2.styleCheck = "checked= 'checked'";
+            styletext14_2 = "";
+
+        }
+        else if (item.Document_Id == "04NH_D_15_2" && item.Isuse == 1)
+        {
+            ObjInfo04NH_D_15_2 = item;
+            ObjInfo04NH_D_15_2.styleCheck = "checked= 'checked'";
+            styletext15_2 = "";
+        }
+        else if (item.Document_Id == "04NH_D_16_2" && item.Isuse == 1)
+        {
+            ObjInfo04NH_D_16_2 = item;
+            ObjInfo04NH_D_16_2.styleCheck = "checked= 'checked'";
+            styletext16_2 = "";
+        }
+        else if (item.Document_Id == "04NH_D_17_2" && item.Isuse == 1)
+        {
+            ObjInfo04NH_D_17_2 = item;
+            ObjInfo04NH_D_17_2.styleCheck = "checked= 'checked'";
+        }
+    }
+
+    string styleYCHQUT2 = "", styleCongUocPR2 = "", styleTTK2 = ""; // Huongquyenuutien2
+    if (objAppHeaderInfo.Huongquyenuutien2 == "NTVN")
+    {
+        styleYCHQUT2 = "checked='checked'";
+    }
+    else if (objAppHeaderInfo.Huongquyenuutien2 == "CUPR")
+    {
+        styleCongUocPR2 = "checked='checked'";
+    }
+    else if (objAppHeaderInfo.Huongquyenuutien2 == "TTTK")
+    {
+        styleTTK2 = "checked='checked'";
+    }
+    string styleDisplay = "clssDisplaynone";
+    string disableView = "disabled='disabled'";
+}
+<div class="div_full_100_area">
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Số đơn:</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" @disableView placeholder="Số đơn" value="@objAppHeaderInfo.Sodon_Ut2" class="classDacTinhUT" maxlength="50" id="6_txtSoDon2" />
+            </div>
+        </div>
+    </div>
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Ngày nộp đơn:</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" @disableView placeholder="Ngày nộp đơn" value="@objAppHeaderInfo.Ngaynopdon_Ut2.ToString("dd/MM/yyyy")" class="classDacTinhUT datetimepicker" style="width:200px" maxlength="10" id="6_txtNgayNopDon2" />
+            </div>
+        </div>
+    </div>
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Nước nộp đơn:</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <select id="6_txtNuocNopDon2" @disableView class="classDacTinhUT">
+                    @foreach (var item in MemoryData.c_lst_Country)
+                    {
+                        if (item.Country_Id.ToString() == objAppHeaderInfo.Nuocnopdon_Ut)
+                        {
+                            <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Country_Id">@item.Name</option>
+                        }
+                    }
+
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-content">
+            <div class="div-radio">
+                <input type="radio" name="4_YCHuongQuyen2" @disableView class="classDacTinhUT" @styleYCHQUT2 value="NTVN" placeholder="4_ckbNopTaiVietNam" id="4_ckbNopTaiVietNam2" />
+                <label>Theo đơn (các đơn) đầu tiên nộp tại Việt Nam</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-content">
+            <div class="div-radio">
+                <input type="radio" name="4_YCHuongQuyen2" @disableView class="classDacTinhUT" @styleCongUocPR2 value="CUPR" placeholder="4_ckbNopTaiParis" id="4_ckbNopTaiParis2" />
+                <label>Theo đơn (các đơn) nộp theo Công ước Paris</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-content">
+            <div class="div-radio">
+                <input type="radio" name="4_YCHuongQuyen2" @disableView class="classDacTinhUT" @styleTTK2 value="TTTK" placeholder="4_ckbThoaThuanKhac" id="4_ckbThoaThuanKhac2" />
+                <label>Theo thoả thuận khác</label>
+            </div>
+        </div>
+    </div>
+
+
+    @* TÀI LIEU ƯU TIEN *@
+    <div class="div-search-ad" style="display:inline-flex;">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:422px">
+                <input type="checkbox" class="classDacTinhUT" @disableView maxlength="3" value="04NH_D_14_2" @ObjInfo04NH_D_14_2.styleCheck id="6_rdoTLCMQUT_2" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Tài liệu chứng minh quyền ưu tiên</label>
+            </div>
+        </div>
+        <div class="div-search-content">
+            <input type="text" id="6_txtTLCMQUT_2" @styletext14_2 @disableView value="@ObjInfo04NH_D_14_2.CHAR01" maxlength="3" placeholder="Số bản" />
+        </div>
+        <div class="div-search-title" style="width:412px">
+            <div>bản</div>
+        </div>
+    </div>
+    <div class="div-search-ad" style="display:inline-flex;    margin-left: 40px;">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:185px">
+                <input type="checkbox" maxlength="3" @disableView class="classDacTinhUT" value="04NH_D_15_2" id="6_rdoBSDDT_2" @ObjInfo04NH_D_15_2.styleCheck onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Bản sao đơn đầu tiên, gồm</label>
+            </div>
+        </div>
+        <div class="div-search-content">
+            <input type="text" id="6_txtBSDDT_2" @disableView @styletext15_2 value="@ObjInfo04NH_D_15_2.CHAR01" maxlength="3" placeholder="Số bản" />
+        </div>
+        <div class="div-search-title" style="width:493px">
+            <div>bản</div>
+        </div>
+    </div>
+    <div style="margin-left:40px">
+        @* File dinh kem lay tu db khi sua*@
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialShowFileAttach.cshtml", ObjInfo04NH_D_15_2)
+    </div>
+    <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
+        <div class="div-search-content">
+            <div class="div-checkbox">
+                <input type="checkbox" @disableView class="classDacTinhUT" maxlength="3" value="04NH_D_16_2" id="6_rdoBDTVGom_2" @ObjInfo04NH_D_16_2.styleCheck onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Bản dịch tiếng Việt, gồm</label>
+            </div>
+        </div>
+        <div class="div-search-content">
+            <input type="text" id="6_txtBDTVGom_2" @disableView @styletext16_2 value="@ObjInfo04NH_D_16_2.CHAR01" maxlength="3" placeholder="Số bản" />
+        </div>
+        <div class="div-search-title" style="width:510px">
+            <div>bản</div>
+        </div>
+    </div>
+    <div style="margin-left:40px">
+        @* File dinh kem lay tu db khi sua*@
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialShowFileAttach.cshtml", ObjInfo04NH_D_16_2)
+
+    </div>
+    <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:382px">
+                <input type="checkbox" maxlength="3" @disableView value="04NH_D_17_2" @disableView class="classDacTinhUT" @ObjInfo04NH_D_17_2.styleCheck id="6_rdoGiayChuyenNhungUT_2" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label> Giấy chuyển nhượng quyền ưu tiên </label>
+            </div>
+        </div>
+    </div>
+    <div style="margin-left:40px">
+        @* File dinh kem lay tu db khi sua*@
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialShowFileAttach.cshtml", ObjInfo04NH_D_17_2)
+
+    </div>
+</div>
+

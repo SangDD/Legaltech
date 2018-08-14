@@ -207,6 +207,12 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\TM_04NH.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TM_04NH.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Report\TM_06DKQT1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -226,12 +232,14 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Report\TM_PLC05_KN1.cs">
+ 
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TM_PLC05_KN.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Report\TM_PLD01_HDCN2.cs">
+ 
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TM_PLD01_HDCN.rpt</DependentUpon>
@@ -1202,6 +1210,10 @@
     <Content Include="Content\fonts\fontawesome\webfonts\fa-solid-900.woff" />
     <Content Include="Content\fonts\fontawesome\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\ckfinder\App_LocalResources\config.ascx.resx" />
+    <EmbeddedResource Include="Report\TM_04NH.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TM_04NH.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\TM_06DKQT.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TM_06DKQT1.cs</LastGenOutput>

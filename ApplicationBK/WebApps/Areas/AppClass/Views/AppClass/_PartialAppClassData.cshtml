@@ -1,0 +1,54 @@
+﻿@using Common.CommonData
+@using Common.Extensions
+@using ObjectInfos
+@model List<App_Class_Info>
+@try
+{
+    <div>
+        <table class="table-lst-data" id="tableListObject">
+            <thead>
+                <tr>
+                    <th style="width: 4%">STT</th>
+                    <th data-sort id="CODE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Mã hàng hóa</th>
+                    <th style="width: 25%" data-sort id="NAME_VI" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Tên tiếng Việt</th>
+                    <th style="width: 25%" data-sort id="NAME_EN" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Tên tiếng Anh</th>
+                    <th style="width: 15%" data-sort id="MODIFIED_DATE">Cập nhật lúc</th>
+                    <th style="width: 100px;">Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="tdcenteralign">@item.Stt</td>
+                            <td class="tdleftalign"><a href="javascript:viewDetailObject(@item.Id, '@item.Code')">@item.Code</a></td>
+                            <td class="tdleftalign">@item.Name_Vi</td>
+                            <td class="tdleftalign">@item.Name_En</td>
+                            <td class="tdleftalign">@item.Modified_Date.ToDateTimeStringN0()</td>
+                            <td class="tdcenteralign">
+                                <a href="javascript:viewDetailObject(@item.Id, '@item.Code')" class="icon icon-info" data-title="Xem chi tiết"></a>
+                                <a href="javascript:getViewToEditObject(@item.Id, '@item.Code')" class="icon icon-edit" data-title="Sửa"></a>
+                                <a href="javascript:doDeleteObject(@item.Id, 1)" class="icon icon-delete" data-title="Xóa"></a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="9">Không có dữ liệu</td>
+                    </tr>}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-paging">
+        @Html.Raw(ViewBag.Paging)
+    </div>
+}
+catch (Exception)
+{
+    // ignored
+}

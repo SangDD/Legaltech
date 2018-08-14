@@ -1,0 +1,126 @@
+﻿@using ObjectInfos;
+@using BussinessFacade;
+@{
+    decimal _application_header_id = -1;
+    if (ViewBag.Application_Header_Id != null)
+    {
+        _application_header_id = ViewBag.Application_Header_Id;
+    }
+
+    Lawer_Info_BL _Lawer_Info_BL = new Lawer_Info_BL();
+    List<UserInfo> _lstLawer = _Lawer_Info_BL.Lawer_Info_GetAll();
+}
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+</style>
+
+<div class="" style="padding:5px 38px">
+    <div class="divCover divCover_popup">
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Chọn luật sư<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboLawer">
+                        @foreach (var item in _lstLawer)
+                        {
+                            <option value="@item.Id">@item.FullName</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Ghi chú </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtNotes" maxlength="2000" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <div class="form-group-bottom">
+            <input type="submit" class="btn-default" value="Phân loại" onclick="return doPhanLoai()" />
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+
+        $('#cboLawer').multipleSelect({
+            filter: true,
+            single: true,
+            isdatastring: false,
+            maxHeight: 150,
+            placeholder: "-- Chọn luật sư --"
+        });
+
+    });
+
+    var _Lawer_Id;
+
+    function doPhanLoai() {
+        if (validateAction()) {
+            var formData = new FormData();
+            collectObjectData(formData);
+            nvsConfirm(null, "Bạn có chắc chắn muốn phân đơn này cho luật sư hay không?", function () {
+                $.ajax({
+                    url: '/trade-mark-mana/quan-ly-don/do-phan-loai',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    traditional: true,
+                    async: false,
+                    headers: { "cache-control": "no-cache" },
+                    success: function (data) {
+                        if (data.success == "-1") {
+                            //jError("Lỗi check lại kết nối tới server", "Lỗi");
+                            jError("Lỗi check lại kết nối tới server");
+                            return false;
+                        }
+                        else {
+                            jAlert('Phân loại đơn cho luật sư mới thành công!', "THÔNG BÁO", function () {
+                                CloseDivPopUp('divWrapperPopUpApp');
+                                Search_Application(1,1);
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            });
+        }
+    }
+
+    function validateAction() {
+        _Lawer_Id = $('#cboLawer').val();
+        if (_Lawer_Id == null || _Lawer_Id == "0") {
+            jError('Tên luật sư không được để trống!', "Lỗi", function () {
+                $('#cboLawer').multipleSelect('focus');
+            });
+            return false;
+        }
+
+        return true;
+    }
+
+    function collectObjectData(formData) {
+        formData.append('p_App_Lawer_Info.Lawer_Id', _Lawer_Id);
+        formData.append('p_App_Lawer_Info.Application_Header_Id', @_application_header_id);
+        formData.append('p_App_Lawer_Info.Notes', $('#txtNotes').val());
+    }
+</script>

@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="btnGuiDon" xml:space="preserve">
+    <value>Gửi đơn (Eng)</value>
+  </data>
+  <data name="btnLuuTam" xml:space="preserve">
+    <value>Lưu tạm (Eng)</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>Stock</value>
+  </data>
+  <data name="lblAn" xml:space="preserve">
+    <value>Ẩn (Eng)</value>
+  </data>
+  <data name="lblBan" xml:space="preserve">
+    <value>bản (Eng)</value>
+  </data>
+  <data name="lblBanDichTiengVietGom" xml:space="preserve">
+    <value>Bản dịch tiếng Việt, gồm (Eng)</value>
+  </data>
+  <data name="lblbanSaoDauTienGom" xml:space="preserve">
+    <value>Bản sao đơn đầu tiên, gồm (Eng)</value>
+  </data>
+  <data name="lblChatLuong" xml:space="preserve">
+    <value>Chất lượng (Eng)</value>
+  </data>
+  <data name="lblChuDon" xml:space="preserve">
+    <value>Chủ đơn (Eng)</value>
+  </data>
+  <data name="lblChuDonKhac" xml:space="preserve">
+    <value>Chủ đơn khác (Eng)</value>
+  </data>
+  <data name="lblCoSuDungDonUT" xml:space="preserve">
+    <value>Có sử dụng đơn ưu tiên (Eng)</value>
+  </data>
+  <data name="lblCoYeuCauCapPho" xml:space="preserve">
+    <value>Có yêu cầu cấp Phó bản Giấy chứng nhận đăng ký nhãn hiệu (Eng)</value>
+  </data>
+  <data name="lblDacTinhHanghoa" xml:space="preserve">
+    <value>Đặc tính hàng hóa (Eng)</value>
+  </data>
+  <data name="lblDacTinhKhac" xml:space="preserve">
+    <value>Đặc tính khác (Eng)</value>
+  </data>
+  <data name="lblDaiDienChuDon" xml:space="preserve">
+    <value>ĐẠI DIỆN CỦA CHỦ ĐƠN (Eng)</value>
+  </data>
+  <data name="lblDiaChi" xml:space="preserve">
+    <value>Địa chỉ (Eng)</value>
+  </data>
+  <data name="lblDienThoai" xml:space="preserve">
+    <value>Điện thoại (Eng)</value>
+  </data>
+  <data name="lblDonTachRaTuDonSo" xml:space="preserve">
+    <value>Đơn này được tách ra từ đơn số (Eng)</value>
+  </data>
+  <data name="lblGiayChuyenNhuongQuyenUT" xml:space="preserve">
+    <value>Giấy chuyển nhượng quyền ưu tiên (Eng)</value>
+  </data>
+  <data name="lblLaNguoiDaiDienTheoPL" xml:space="preserve">
+    <value>Là người đại diện theo pháp luật của chủ đơn (Eng)</value>
+  </data>
+  <data name="lblLaNguoiKhacDuocUyQuyen" xml:space="preserve">
+    <value>Là người khác được uỷ quyền của chủ đơn (Eng)</value>
+  </data>
+  <data name="lblLaToChucDichVuDaiDienSoHuu" xml:space="preserve">
+    <value>Là tổ chức dịch vụ đại diện sở hữu công nghiệp được uỷ quyền của chủ đơn (Eng)</value>
+  </data>
+  <data name="lblLePhiCBDon" xml:space="preserve">
+    <value>Lệ phí công bố đơn (Eng)</value>
+  </data>
+  <data name="lblLePhiNopDon" xml:space="preserve">
+    <value>Lệ phí nộp đơn (Eng)</value>
+  </data>
+  <data name="lblLePhiYeuCauHuongQuyenUuTien" xml:space="preserve">
+    <value>Lệ phí  yêu cầu hưởng quyền ưu tiên (Eng)</value>
+  </data>
+  <data name="lblLoaiPhiLePhi" xml:space="preserve">
+    <value>Loại phí, lệ phí (Eng)</value>
+  </data>
+  <data name="lblMauNhanHieu" xml:space="preserve">
+    <value>Mẫu nhãn hiệu (Eng)</value>
+  </data>
+  <data name="lblMauSac" xml:space="preserve">
+    <value>Mầu sắc (Eng)</value>
+  </data>
+  <data name="lblMoiNhom6SanPham" xml:space="preserve">
+    <value>Mỗi nhóm có trên 6 sản phẩm/dịch vụ (từ sản phẩm/dịch vụ thứ 7 trở đi) (Eng)</value>
+  </data>
+  <data name="lblMoTa" xml:space="preserve">
+    <value>Mô tả (Eng)</value>
+  </data>
+  <data name="lblMoTaDacTinhCuaHangHoa" xml:space="preserve">
+    <value>MÔ TẢ TÓM TẮT ĐẶC TÍNH CỦA HÀNG HOÁ/DỊCH VỤ ĐƯỢC CHỨNG NHẬN (Eng)</value>
+  </data>
+  <data name="lblNgayNopDon" xml:space="preserve">
+    <value>Ngày nộp đơn  (Eng)</value>
+  </data>
+  <data name="lblNguonGocDiaLy" xml:space="preserve">
+    <value>Nguồn gốc địa lý (Eng)</value>
+  </data>
+  <data name="lblNhanHieu" xml:space="preserve">
+    <value>Nhãn hiệu (Eng)</value>
+  </data>
+  <data name="lblNhanHieuChungNhan" xml:space="preserve">
+    <value>Nhãn hiệu chứng nhận (Eng)</value>
+  </data>
+  <data name="lblNhanHieuLienKet" xml:space="preserve">
+    <value>Nhãn hiệu liên kết (Eng)</value>
+  </data>
+  <data name="lblNhanHieuTapThe" xml:space="preserve">
+    <value>Nhãn hiệu tập thể (Eng)</value>
+  </data>
+  <data name="lblNuocNopDon" xml:space="preserve">
+    <value>Nước nộp đơn (Eng)</value>
+  </data>
+  <data name="lblPhiLePhi" xml:space="preserve">
+    <value>PHÍ, LỆ PHÍ (Eng)</value>
+  </data>
+  <data name="lblPhiLoaiQTNH" xml:space="preserve">
+    <value>Phí phân loại quốc tế về Nhãn hiệu (Eng)</value>
+  </data>
+  <data name="lblPhiThamDinhDon" xml:space="preserve">
+    <value>Phí thẩm định đơn (Eng)</value>
+  </data>
+  <data name="lblPhiTraCuuPhuVuThamDinh" xml:space="preserve">
+    <value>Phí tra cứu phục vụ thẩm định nội dung cho mỗi nhóm hàng hoá, dịch vụ (Eng)</value>
+  </data>
+  <data name="lblSoBan" xml:space="preserve">
+    <value>Số bản (Eng)</value>
+  </data>
+  <data name="lblSoDoiTuongTinhPhi" xml:space="preserve">
+    <value>Số đối tượng tính phí (Eng)</value>
+  </data>
+  <data name="lblSoDon" xml:space="preserve">
+    <value>Số đơn (Eng)</value>
+  </data>
+  <data name="lblSoTien" xml:space="preserve">
+    <value>Số tiền (Eng)</value>
+  </data>
+  <data name="lblTaiFile" xml:space="preserve">
+    <value>Tải file (Eng)</value>
+  </data>
+  <data name="lblTaiLieuChungMinhQuyenUuTien" xml:space="preserve">
+    <value>Tài liệu chứng minh quyền ưu tiên (Eng)</value>
+  </data>
+  <data name="lblTenDayDu" xml:space="preserve">
+    <value>Tên đầy đủ (Eng)</value>
+  </data>
+  <data name="lblTenNhanHieu" xml:space="preserve">
+    <value>Tên nhãn hiệu (Eng)</value>
+  </data>
+  <data name="lblThemChuDon" xml:space="preserve">
+    <value>Thêm chủ đơn (Eng)</value>
+  </data>
+  <data name="lblThemDon" xml:space="preserve">
+    <value>Thêm đơn (Eng)</value>
+  </data>
+  <data name="lblTheoDonNopCongUocPR" xml:space="preserve">
+    <value>Theo đơn (các đơn) nộp theo Công ước Paris (Eng)</value>
+  </data>
+  <data name="lblTheoDonNopTaiVN" xml:space="preserve">
+    <value>Theo đơn (các đơn) đầu tiên nộp tại Việt Nam (Eng)</value>
+  </data>
+  <data name="lblTheoThoaThuanKhac" xml:space="preserve">
+    <value>Theo thoả thuận khác (Eng)</value>
+  </data>
+  <data name="lblYeuCauHuongQuyenUT" xml:space="preserve">
+    <value>YÊU CẦU HƯỞNG QUYỀN ƯU TIÊN (Eng)</value>
+  </data>
+  <data name="QuanLyVuViec" xml:space="preserve">
+    <value>QUẢN LÝ VỤ VIỆC (ENG)</value>
+  </data>
+  <data name="TM04NH_QuanLyVuViec" xml:space="preserve">
+    <value>Quản lý vụ việc (Eng)</value>
+  </data>
+  <data name="WikiSearchButton" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="WikiSearchPlaceholder" xml:space="preserve">
+    <value>Search by title or hashtag</value>
+  </data>
+</root>

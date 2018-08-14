@@ -1,0 +1,203 @@
+﻿@using Common.CommonData
+@using ObjectInfos;
+@{
+    ViewBag.Title = "Quản lý đơn chờ khách hàng confirm";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+    //string language = WebApps.CommonFunction.AppsCommon.GetCurrentLang();
+    string language = WebApps.Session.SessionData.CurrentUser.Language;
+    List<SysApplicationInfo> _lst = BussinessFacade.ModuleTrademark.SysApplicationBL.GetSysAppByLanguage(language);
+    var lstApp = new List<SelectListItem> { new SelectListItem { Text = "Tất cả", Value = "ALL" } }.Concat(_lst.Select(x => new SelectListItem { Text = x.Appname, Value = x.Appcode }));
+
+}
+
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        Trademark
+        <span class="red">></span>
+        <a href="/trade-mark-mana/quan-ly-don-cho-kh-xac-nhan">Quản lý đơn chờ khách hàng xác nhận</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <input type="hidden" value="ALL|ALL|ALL" name="txtKeyValue" id="txtKeyValue" />
+            <input type="hidden" value="ID" name="txtSortColum" id="txtSortColumn" />
+            <input type="hidden" value="DESC" name="txtSortType" id="txtSortType" />
+            <div class="div-title-content"> THÔNG TIN ĐƠN CHỜ KH XÁC NHẬN</div>
+        </div>
+    </div>
+
+    <div class="divCover" id="div-search-simple">
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Chủ đơn</div>
+            </div>
+            <div>
+                <div>
+                    <input style="width: 250px;" type="text" id="txt_Name" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Loại đơn </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.DropDownList("cboAppCode", lstApp, new { @id = "cboAppCode" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div class="div-search-btn" style="width:600px;">
+            <input type="button" value="Tìm kiếm" class="btn-default" onclick="Search_Application(1, 1)" />
+            @*<input type="button" value="Kết xuất" class="btn-default" onclick="Export_Application(1)" />*@
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div id="divDataApplications" class="divDataTables" style="overflow-x: auto;">
+            @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialTableApplication.cshtml")
+        </div>
+    </div>
+
+    <div class="d-popup-container" id="dpop-Confirm"></div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#txt_Name').focus();
+        $("#txt_Name").keypress(function (evt) {
+            var key = evt.which || evt.charCode || evt.keyCode || 0;
+            if (key == 13) {
+                Search_Application(1, 1);
+            }
+        });
+    });
+
+    function jsPaging(page) {
+        Search_Application(page, 0);
+    }
+
+    function Search_Application(p_NumPage, p_type) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            var p_keysearch;
+            if (p_type == 1) {
+                var _name = $("#txt_Name").val().trim();
+                if (_name == "") {
+                    _name = "ALL";
+                }
+                var _AppCode = $("#cboAppCode").val();
+
+                p_keysearch = _AppCode + "|" + '@((int)CommonEnums.App_Status.ChoKHConfirm)' + "|" + _name;
+
+                //Lưu lại keysearch
+                $("#txtKeyValue").val(p_keysearch);
+            } else {
+                p_keysearch = $("#txtKeyValue").val();
+            }
+            var p_column = $("#txtSortColumn").val();
+            var p_type_sort = $("#txtSortType").val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/trade-mark-mana/quan-ly-don-cho-kh-xac-nhan/search/',
+                data: {
+                    p_keysearch: p_keysearch,
+                    p_CurrentPage: p_NumPage,
+                    p_column: p_column,
+                    p_type_sort: p_type_sort
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divDataApplications").html(data);
+                }
+            });
+        }
+        catch (e) {
+            alert(e);
+        }
+    }
+
+    function getViewConfirmKhachHang(_application_header_id) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/trade-mark-mana/quan-ly-don-cho-kh-xac-nhan/show-confirm/",
+            dataType: "html",
+            data: {
+                p_application_header_id: _application_header_id
+            },
+            async: false, cache: false, traditional: true,
+            success: function (data) {
+                if (data != null) {
+                    $("#dpop-Confirm").html(data);
+                    ShowPopupDialog("dpop-Confirm", "Phân loại đơn cho luật sư", 600, 0, "txtLawer");
+                }
+                return false;
+            }
+        });
+    }
+
+    function doConfirm(_application_header_id) {
+        if (validateAction()) {
+            $.ajax({
+                url: '/trade-mark-mana/quan-ly-don-cho-kh-xac-nhan/do-confirm',
+                type: 'POST',
+                data: {
+                    p_Application_Header_Id: _application_header_id,
+                    p_status: $('#cboConfirm').val(),
+                    p_note: $('#txtNotes').val()
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data.success == "-1") {
+                        jError("Lỗi check lại kết nối tới server");
+                        return false;
+                    }
+                    else {
+                        jAlert('Khách hàng phản hồi thành công!', "THÔNG BÁO", function () {
+                            CloseView_KH_Confirm();
+                            Search_Application(1,1);
+                        });
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        }
+    }
+
+    function CloseView_KH_Confirm() {
+        try {
+            ClosePopupDialog('dpop-Confirm', true);
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+</script>

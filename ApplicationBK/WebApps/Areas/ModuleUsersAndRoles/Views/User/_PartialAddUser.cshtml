@@ -1,0 +1,666 @@
+﻿@using BussinessFacade.ModuleMemoryData
+@using BussinessFacade.ModuleUsersAndRoles
+@using Common.CommonData
+@try
+{
+    <style>
+        /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+        .div-search-title > div {
+            width: 145px;
+        }
+    </style>
+
+    <div class="" style="padding:5px 38px">
+        <div class="divCover divCover_popup">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Tên đăng nhập<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtUsernameAdd" maxlength="64" onkeypress="funikeyNoSpace(this)" onkeyup="funikeyNoSpace(this)" />
+                    </div>
+                </div>
+            </div>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Họ tên<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtFullNameAdd" maxlength="250" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Mật khẩu<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="password" id="txtPasswordAdd" maxlength="64" style="height: 30px; width: 200px; border: 1px solid #aaa; border-left: none;padding-left: 5px; " />
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div>Mật khẩu nhắc lại <i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="password" id="txtRePasswordAdd" maxlength="64" style="height: 30px; border: 1px solid #aaa; border-left: none;padding-left: 5px; " />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Địa chỉ<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtAddress" maxlength="200" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Ngày sinh <i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtDateOfBirthAdd" maxlength="250" class="datetimepicker" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Giới tính</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboSexAdd">
+                            @foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.SexType))
+                            {
+                                <option value="@item.CdVal">@item.Content</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Số điện thoại<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtPhoneAdd" maxlength="16" style="width:200px" />
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div>Fax</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtFaxAdd" maxlength="50" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Email<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtEmailAdd" maxlength="200" style="width:200px" />
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div>Face </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtface_link" maxlength="200" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Linkedin</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtlinkedin" maxlength="200" style="width:200px" />
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div>Wechat</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtwechat_link" maxlength="200" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Other link</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtOther_Link" maxlength="200" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Quốc tịch <i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboCountry">
+                            @foreach (var item in MemoryData.c_lst_Country)
+                            {
+                                if (item.Country_Id == Common.Common.Country_VietNam_Id)
+                                {
+                                    <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Country_Id">@item.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Loại người dùng<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboTypeAdd" style="width:200px" onchange="Choose_UserType()">
+                            @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE"))
+                            {
+                                <option value="@item.CdVal">@item.Content</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div>Trạng thái <i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboStatusAdd">
+                            @foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.UserStatus))
+                            {
+                                <option value="@item.CdVal">@item.Content</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            @*khách hàng*@
+            <div class="div-search-ad clssDisplaynone" id="clsCustomer">
+                <div class="div-search-title">
+                    <div>Tên công ty <i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtcompany_name" maxlength="500" style="width: 200px" />
+                    </div>
+                </div>
+
+                <div class="div-search-title">
+                    <div>Ngành ngề chính  <i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtmain_business" maxlength="500" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad clssDisplaynone" id="clsCustomer1">
+                <div class="div-search-title">
+                    <div>Người quản lý</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtcopyto" maxlength="200" style="width: 200px" />
+                    </div>
+                </div>
+
+                <div class="div-search-title">
+                    <div>Chức vụ </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txttitle" maxlength="500" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad clssDisplaynone" id="clsCustomer3">
+                <div class="div-search-title">
+                    <div>Mã đại diện</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtCustomer_Code" maxlength="200" style="width: 200px" />
+                    </div>
+                </div>
+
+                <div class="div-search-title">
+                    <div>Contact Person </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboContact_Person">
+                            <option value="Mr">Mr</option>
+                            <option value="Mr">Mrs</option>
+                            <option value="Mr">Ms</option>
+                            <option value="Mr">Miss</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad clssDisplaynone" id="clsCustomer2">
+                <div class="div-search-title">
+                    <div>Lý do dùng </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboReasonSelect" style="width:200px">
+                            <option value="0">None</option>
+                            @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "REASON_SELECT"))
+                            {
+                                <option value="@item.CdVal">@item.Content</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="div-search-title">
+                    <div>Chính sách giá đặc biệt </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboRequestCredit">
+                            <option value="0">None</option>
+                            @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "REQUEST_CREDIT"))
+                            {
+                                <option value="@item.CdVal">@item.Content</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            @*luật sư*@
+            <div class="div-search-ad clssDisplaynone" id="clsLawer">
+                <div class="div-search-title">
+                    <div>Loại luật sư <i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboLawerType" style="width:200px">
+                            @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "LAWER_TYPE"))
+                            {
+                                <option value="@item.CdVal">@item.Content</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="div-search-title">
+                    <div>Số tiền / 1 giờ <i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txthourly_rate" onkeyup="jsFormatNumber(this.value, this.id)" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Nhóm <i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboGroupUser">
+                            <option value="-1">None</option>
+                            @foreach (var item in MemoryData.GetAllGroup())
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-group-bottom">
+                <input type="submit" class="btn-default" value="Lưu" onclick="return doAddNewUser()" />
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var usernameAdd = '',
+            fullNameAdd = '',
+            passwordAdd = '',
+            rePasswordAdd = '',
+            dateOfBirthAdd = '',
+            sexAdd = '',
+            emailAdd = '',
+            phoneAdd = '',
+            statusAdd = '',
+            typeAdd = '',
+            GroupIdAdd = '';
+        $(document).ready(function () {
+            $.datetimepicker.setLocale('vi');
+            $('.datetimepicker').datetimepicker({
+                timepicker: false,
+                format: 'd/m/Y',
+                //formatTime: 'H:i',
+                formatDate: 'd/m/Y',
+                mask: '39/19/9999',
+                validateOnBlur: false,
+                scrollInput: false
+            });
+
+            Choose_UserType();
+
+            $('#cboCountry').multipleSelect({
+                filter: true,
+                single: true,
+                isdatastring: false,
+                maxHeight: 150,
+                placeholder: "-- Chọn quốc tịch --"
+            });
+        });
+
+        function collectDataToAddNewUser(formData) {
+            formData.append('userInfo.Username', usernameAdd);
+            formData.append('userInfo.FullName', fullNameAdd);
+            formData.append('userInfo.Address', $("#txtAddress").val());
+            formData.append('userInfo.Password', passwordAdd);
+            formData.append('userInfo.DateOfBirth', dateOfBirthAdd);
+            formData.append('userInfo.Sex', sexAdd);
+            formData.append('userInfo.Email', emailAdd);
+            formData.append('userInfo.Phone', phoneAdd);
+            formData.append('userInfo.Fax', $("#txtFaxAdd").val());
+            formData.append('userInfo.Type', typeAdd);
+            formData.append('userInfo.Status', statusAdd);
+
+            formData.append('userInfo.Country', $("#cboCountry").val());
+            formData.append('userInfo.Company_Name', $("#txtcompany_name").val());
+            formData.append('userInfo.Main_Business', $("#txtmain_business").val());
+            formData.append('userInfo.Title', $("#txttitle").val());
+            formData.append('userInfo.Copyto', $("#txtcopyto").val());
+
+            formData.append('userInfo.Face_Link', $("#txtface_link").val());
+            formData.append('userInfo.Linkedin_Link', $("#txtlinkedin").val());
+            formData.append('userInfo.Wechat_Link', $("#txtwechat_link").val());
+            formData.append('userInfo.Other_Link', $("#txtOther_Link").val());
+
+            formData.append('userInfo.Reason_Select', $("#cboReasonSelect").val());
+            formData.append('userInfo.Request_Credit', $("#cboRequestCredit").val());
+            formData.append('userInfo.Customer_Code', $("#txtCustomer_Code").val());
+            formData.append('userInfo.Contact_Person', $("#cboContact_Person").val());
+
+            formData.append('userInfo.Other_Type', $("#cboLawerType").val());
+            formData.append('userInfo.Hourly_Rate', $("#txthourly_rate").val().replace(/,/g, ""));
+
+            formData.append('GroupId', GroupIdAdd);
+        }
+
+         function Choose_UserType() {
+            try {
+                typeAdd = $('#cboTypeAdd').val();
+
+                if (typeAdd == '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Customer)') {
+
+                    $("#clsCustomer").removeClass("clssDisplaynone");
+                    $("#clsCustomer1").removeClass("clssDisplaynone");
+                    $("#clsCustomer2").removeClass("clssDisplaynone");
+                    $("#clsCustomer3").removeClass("clssDisplaynone");
+
+                    $("#clsLawer").addClass("clssDisplaynone");
+
+                } else if (typeAdd == '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Lawer)') {
+                    $("#clsCustomer").addClass("clssDisplaynone");
+                    $("#clsCustomer1").addClass("clssDisplaynone");
+                    $("#clsCustomer2").addClass("clssDisplaynone");
+                    $("#clsCustomer3").addClass("clssDisplaynone");
+
+                    $("#clsLawer").removeClass("clssDisplaynone");
+                } else {
+                    $("#clsCustomer").addClass("clssDisplaynone");
+                    $("#clsCustomer1").addClass("clssDisplaynone");
+                    $("#clsCustomer2").addClass("clssDisplaynone");
+                    $("#clsCustomer3").addClass("clssDisplaynone");
+
+                    $("#clsLawer").addClass("clssDisplaynone");
+                }
+            } catch (e) {
+                alert(e);
+            }
+        }
+
+
+        function doAddNewUser() {
+            if (validateFormAddNewUser()) {
+                var formData = new FormData();
+                collectDataToAddNewUser(formData);
+                $.ajax({
+                    url: '/quan-tri-he-thong/quan-ly-nguoi-dung/do-add-user',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    traditional: true,
+                    async: true,
+                    headers: { "cache-control": "no-cache" },
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        if (data != null) {
+                            CreateRollingWaitingIcon(false);
+                            if (onResponse(data)) {
+                                ClosePopUpUser();
+                                window.findUsers(1, 0);
+                            }
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            }
+        }
+
+        function validateFormAddNewUser() {
+            usernameAdd = $('#txtUsernameAdd').val().trim();
+            fullNameAdd = $('#txtFullNameAdd').val().trim();
+            passwordAdd = $('#txtPasswordAdd').val();
+            rePasswordAdd = $('#txtRePasswordAdd').val();
+            dateOfBirthAdd = $('#txtDateOfBirthAdd').val().trim();
+            sexAdd = $('#cboSexAdd').val();
+            emailAdd = $('#txtEmailAdd').val().trim();
+            phoneAdd = $('#txtPhoneAdd').val().trim();
+            typeAdd = $('#cboTypeAdd').val();
+            statusAdd = $('#cboStatusAdd').val();
+            GroupIdAdd = $('#cboGroupUser').val();
+            if (usernameAdd === "") {
+                jError("Tên đăng nhập không được để trống!", "lỗi", function () {
+                    $('#txtUsernameAdd').focus();
+                });
+                return false;
+            }
+
+            if (fullNameAdd === "") {
+                jError("Họ tên không được để trống!", "lỗi", function () {
+                    $('#txtFullNameAdd').focus();
+                });
+                return false;
+            }
+
+            if (passwordAdd === "") {
+                jError("Nật khẩu không được để trống!", "lỗi", function () {
+                    $('#txtPasswordAdd').focus();
+                });
+                return false;
+            }
+            if (rePasswordAdd === "") {
+                jError("Xác nhận mật khẩu không được để trống!", "lỗi", function () {
+                    $('#txtRePasswordAdd').focus();
+                });
+                return false;
+            }
+            if (passwordAdd.length < 6) {
+                jError("Mật khẩu phải chứa từ 6 đến 64 ký tự!", "lỗi", function () {
+                    $('#txtRePasswordAdd').focus();
+                });
+                return false;
+            } else if (passwordAdd !== rePasswordAdd) {
+                jError("Mật khẩu và xác nhận mật khẩu không giống nhau!", "lỗi", function () {
+                    $('#txtRePasswordAdd').focus();
+                    $("#txtRePasswordAdd").select();
+                });
+                return false;
+            }
+
+            if ($("#txtAddress").val() === "") {
+                jError("Địa chỉ không được để trống!", "lỗi", function () {
+                    $('#txtAddress').val('');
+                    $('#txtAddress').focus();
+                });
+                return false;
+            }
+
+            if (dateOfBirthAdd === "" || dateOfBirthAdd === window.maskDateTime_N0) {
+                jError("Ngày sinh không được để trống", "lỗi", function () {
+                    $('#txtDateOfBirthAdd').focus();
+                });
+                return false;
+            } else if (isValidDate_N0(dateOfBirthAdd) === false) {
+                jError("Ngày sinh không đúng định dạng (dd/mm/yyyy)!", "lỗi", function () {
+                    $('#txtDateOfBirthAdd').focus();
+                });
+                return false;
+            }
+
+            if (phoneAdd === "") {
+                jError("Điện thoại không được để trống!", "lỗi", function () {
+                    $('#txtPhoneAdd').val('');
+                    $('#txtPhoneAdd').focus();
+                });
+                return false;
+            }
+
+            if (emailAdd === "") {
+                jError("Email không được để trống!", "lỗi", function () {
+                    $('#txtEmailAdd').focus();
+                });
+                return false;
+            } else if (!IsvalidEmail(emailAdd)) {
+                jError("Email không đúng định dạng!", "lỗi", function () {
+                    $('#txtEmailAdd').focus();
+                });
+                return false;
+            }
+
+            var _cboCountry =  $("#cboCountry").val();
+            if (_cboCountry == null) {
+                jError("Quốc tịch không được bỏ trống!", "lỗi", function () {
+                    $('#cboCountry').multipleSelect('focus');
+                });
+                return false;
+            }
+
+            if (statusAdd == null) {
+                jError("Trạng thái không được bỏ trống!", "lỗi", function () {
+                    $('#cboStatusAdd').focus();
+                });
+                return false;
+            }
+
+            if (typeAdd == '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Customer)') {
+                var _txtcompany_name = $("#txtcompany_name").val();
+                if (_txtcompany_name == null || _txtcompany_name == "") {
+                    jError("Tên công ty khách hàng không được bỏ trống!", "lỗi", function () {
+                        $('#_txtcompany_name').focus();
+                    });
+                    return false;
+                }
+
+                var _txtmain_business = $("#txtmain_business").val();
+                if (txtmain_business == null || txtmain_business == "") {
+                    jError("Ngành ngề chín không được bỏ trống!", "lỗi", function () {
+                        $('#txtmain_business').focus();
+                    });
+                    return false;
+                }
+
+            } else if (typeAdd == '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Lawer)') {
+                var _cboLawerType =  $("#cboLawerType").val();
+                if (_cboLawerType == null) {
+                    jError("Loại luật sư không được bỏ trống!", "lỗi", function () {
+                        $('#cboLawerType').focus();
+                    });
+                    return false;
+                }
+
+                var _txthourly_rate = $("#txthourly_rate").val();
+                if (_txthourly_rate == null || _txthourly_rate == "") {
+                    jError("Số tiền / 1 giờ không được bỏ trống!", "lỗi", function () {
+                        $('#txthourly_rate').focus();
+                    });
+                    return false;
+                }
+
+                if (_txthourly_rate == "0") {
+                    jError("Số tiền / 1 giờ phải lớn hơn 0!", "lỗi", function () {
+                        $("#txthourly_rate").val('');
+                        $("#txthourly_rate").focus();
+                    });
+                    return false;
+                }
+            }
+
+            if (GroupIdAdd == "-1") {
+                jError("Loại người dùng không được để trống!", "lỗi", function () {
+                    $("#cboGroupUser").focus();
+                });
+                return false;
+            }
+
+            return true;
+        }
+
+
+    </script>
+}
+catch (Exception)
+{
+    // ignored
+}

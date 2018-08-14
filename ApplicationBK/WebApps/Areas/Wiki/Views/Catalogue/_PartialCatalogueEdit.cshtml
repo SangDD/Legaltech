@@ -1,0 +1,82 @@
+﻿@using Common.CommonData
+@using ObjectInfos;
+@model WikiCatalogues_Info 
+@try
+{
+    List<WikiCatalogues_Info> _listcata = new List<WikiCatalogues_Info>();
+    if (ViewBag.ListCata != null)
+    {
+        _listcata = ViewBag.ListCata;
+    }
+
+    <div class="" style="padding:5px 38px">
+        <div class="divCover divCover_popup">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Tên danh mục<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtEditName" maxlength="200" value="@Model.NAME" />
+                        <input type="hidden" id="txtID"   value="@Model.ID" />
+                        <input type="hidden" id="txtCHILD_NUM" value="@Model.CHILD_NUM" />
+                    </div>
+                </div>
+            </div>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Tên Tiếng Anh<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtEditNameEng" maxlength="200" value="@Model.NAME_ENG" />
+                    </div>
+                </div>
+            </div>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Danh mục cha</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="CboEditWikiCataParent">
+                            <option value="0">
+                                Chọn danh mục
+                            </option>
+                            @foreach (WikiCatalogues_Info item in _listcata)
+                            {
+                                if (item.CATA_LEVEL == 0)
+                                {
+                                    if (Model.PARENT_ID == item.ID)
+                                    {
+                                        <option value="@item.ID" selected="selected">
+                                            @item.NAME
+                                        </option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.ID">
+                                            @item.NAME
+                                        </option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-group-bottom">
+                    <input type="submit" class="btn-default" value="Lưu" onclick="return doEditObject()" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+catch (Exception)
+{
+    // ignored
+}

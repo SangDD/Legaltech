@@ -1,0 +1,198 @@
+﻿@using Common.CommonData
+@{
+	ViewBag.Title = "Quản lý nhóm quyền";
+	Layout = "~/ViewsShared/_Layout.cshtml";
+}
+@try
+{
+	<input type="hidden" value="LastTimeUpdated" id="colSorted" />
+	<input type="hidden" value="DESC" id="SortType" />
+	<input type="hidden" value="" id="OptionSorting" />
+
+	<div class="d-popup-container" id="dpop-groupuser"></div>
+
+	<div class="d-nav-container">
+		<ul class="ul-nav">
+			<li><a href="javascript:;">Quản trị hệ thống</a></li>
+			<li><a href="/quan-tri-he-thong/quan-ly-nhom-quyen">Quản lý nhóm quyền</a></li>
+		</ul>
+	</div>
+
+	<div class="title-section-content">
+		<p class="font-size-15 text-font-medium">Danh sách nhóm quyền</p>
+	</div>
+
+	<div class="action">
+		<input class="btn" type="button" value="Thêm mới nhóm quyền" onclick="getViewToAddNewGroupUser()" />
+	</div>
+
+	<div class="div-search grid-3cols">
+		<div class="item-search">
+			<label class="title-condition">Tên nhóm</label>
+			<input class="control-condition" data-controlcondition="TRUE" type="text" id="txtGroupNameSearch"/>
+		</div>
+		<div class="item-search">
+			<input id="btnFindGroupUsers" data-controlcondition="TRUE" type="button" class="btn btn-seach" value="Tìm kiếm" onclick="findGroupUsers(1, 1)" />
+		</div>
+	</div>
+ 
+	<div id="divTableGroupUsers">
+		@Html.Partial("_PartialTableListGroups")
+	</div>
+
+	<script>
+		var _currentKeySearch = '@SessionStorages.SEARCH_GROUPUSER_KEY_CONDITIONS';
+		var _currentOptionFilter = '@SessionStorages.SEARCH_GROUPUSER_KEY_OPTIONS';
+		var groupName = '';
+
+		$(document).ready(function () {
+			initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findGroupUsers);
+
+			$('txtGroupNameSearch').focus();
+			$('[data-controlcondition="TRUE"]').on('keypress',
+				function (e) {
+					enterKeyPress(e, 'btnFindGroupUsers');
+				});
+		});
+
+		function findGroupUsers(_pageNumber, _isSearching) {
+			reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
+			if (isSearching === 1) {
+				groupName = $("#txtGroupNameSearch").val().trim();
+			} else {
+				window.arrKeySearch = window.keySearch.split('|');
+				groupName = arrKeySearch[0];
+				$("#txtGroupNameSearch").val(groupName);
+			}
+
+			updateSearchingConditions("divNumberRecordOnPageListGroups", setKeySearch);
+
+			$.ajax({
+				type: "POST",
+				headers: { "cache-control": "no-cache" },
+				url: "/quan-tri-he-thong/quan-ly-nhom-quyen/find-group",
+				data: {
+					keysSearch: keySearch,
+					options: optionFilter
+				},
+				async: false,
+				success: function (data) {
+					if (data != null) {
+						onResponseWhenSearching(data, "divTableGroupUsers", findGroupUsers);
+					}
+				}
+			});
+			return true;
+		}
+
+		function setKeySearch() {
+			window.keySearch = groupName + "|";
+		}
+
+		function initOrderBySearching() {
+			window.colSort = 'LastTimeUpdated';
+			window.sortType = 'DESC';
+		}
+
+		function pageListOfGroups(_pagenum) {
+			try {
+				findGroupUsers(_pagenum, 0);
+
+			} catch (e) {
+				console.log(e.message);
+			}
+		}
+	</script>
+
+	@* task function *@
+	<script>
+		function getViewToAddNewGroupUser() {
+			$.ajax({
+				type: "POST",
+				url: "/quan-tri-he-thong/quan-ly-nhom-quyen/get-view-to-add-group",
+				headers: { "cache-control": "no-cache" },
+				async: false,
+				success: function (data) {
+					if (data != null) {
+						if (validateResponse(data)) {
+							$("#dpop-groupuser").html(data);
+							ShowPopupDialog("dpop-groupuser", "Thêm mới nhóm quyền", 600, 0, "txtGroupNameAdd");
+						}
+					}
+					return false;
+				}
+			});
+		}
+
+		function getViewToEditGroupUser(groupId, groupName) {
+			$.ajax({
+				type: "POST",
+				url: "/quan-tri-he-thong/quan-ly-nhom-quyen/get-view-to-edit-group",
+				headers: { "cache-control": "no-cache" },
+				data: { groupId : groupId },
+				async: false,
+				success: function (data) {
+					if (data != null) {
+						if (validateResponse(data)) {
+							$("#dpop-groupuser").html(data);
+							ShowPopupDialog("dpop-groupuser", "Sửa nhóm quyền: <span class='data-in-title-popup'>" + groupName + "</span>", 600, 0, "txtGroupNameEdit");
+						}
+					}
+					return false;
+				}
+			});
+		}
+
+		function doDeleteGroupUser(groupId, numberUserInGroup) {
+			if (numberUserInGroup > 0) {
+				showError("Không thể xóa nhóm quyền đang tồn tại người dùng.");
+				return false;
+			} else {
+				nvsConfirm(null, "Bạn có chắc chắn muốn xóa nhóm quyền này không?", function () {
+					$.ajax({
+						url: "/quan-tri-he-thong/quan-ly-nhom-quyen/do-delete-group",
+						type: "POST",
+						data: { groupId : groupId },
+						headers: { "cache-control": "no-cache" },
+						async: false,
+						success: function (data) {
+							if (data != null) {
+								if (onResponse(data)) {
+									ClosePopupDialog('dpop-groupuser', true);
+									window.findGroupUsers(1, 0);
+								}
+							}
+						},
+						error: function (e) {
+							console.log(e);
+						}
+					});
+
+				});
+			}
+		}
+
+		function setupFunctionsToGroup(groupId, groupName) {
+			$.ajax({
+				type: "POST",
+				url: "/quan-tri-he-thong/quan-ly-nhom-quyen/get-functions-in-group",
+				headers: { "cache-control": "no-cache" },
+				data: { groupId : groupId },
+				async: false,
+				success: function (data) {
+					if (data != null) {
+						if (validateResponse(data)) {
+							$("#dpop-groupuser").html(data);
+							ShowPopupDialog("dpop-groupuser", "Phân quyền cho nhóm: <span class='data-in-title-popup'>" + groupName + "</span>", 600, 0, "");
+						}
+					}
+					return false;
+				}
+			});
+		}
+	</script>
+}
+catch (Exception)
+{
+	// ignored
+}
