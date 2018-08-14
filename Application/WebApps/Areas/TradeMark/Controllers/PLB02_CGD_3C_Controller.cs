@@ -365,10 +365,7 @@
                     else if (item.Document_Id == "02_CGD_04")
                     {
                         app_Detail.Doc_Id_4_Check = item.Isuse;
-                        if (item.Isuse == 1)
-                            app_Detail.Doc_Id_4 = item.CHAR01 + " trang";
-                        else
-                            app_Detail.Doc_Id_4 = item.CHAR01;
+                        app_Detail.Doc_Id_4 = item.CHAR01;
                     }
                     else if (item.Document_Id == "02_CGD_05")
                     {
@@ -379,10 +376,7 @@
                     else if (item.Document_Id == "02_CGD_06")
                     {
                         app_Detail.Doc_Id_6_Check = item.Isuse;
-                        if (item.Isuse == 1)
-                            app_Detail.Doc_Id_6 = item.CHAR01 + " trang";
-                        else
-                            app_Detail.Doc_Id_6 = item.CHAR01;
+                        app_Detail.Doc_Id_6 = item.CHAR01;
                     }
                     else if (item.Document_Id == "02_CGD_07")
                     {
@@ -519,10 +513,7 @@
                         else if (item.Document_Id == "02_CGD_04")
                         {
                             pDetail.Doc_Id_4_Check = item.Isuse;
-                            if (item.Isuse == 1)
-                                pDetail.Doc_Id_4 = item.CHAR01 + " trang";
-                            else
-                                pDetail.Doc_Id_4 = item.CHAR01;
+                            pDetail.Doc_Id_4 = item.CHAR01;
                         }
                         else if (item.Document_Id == "02_CGD_05")
                         {
@@ -533,10 +524,7 @@
                         else if (item.Document_Id == "02_CGD_06")
                         {
                             pDetail.Doc_Id_6_Check = item.Isuse;
-                            if (item.Isuse == 1)
-                                pDetail.Doc_Id_6 = item.CHAR01 + " trang";
-                            else
-                                pDetail.Doc_Id_6 = item.CHAR01;
+                            pDetail.Doc_Id_6 = item.CHAR01;
                         }
                         else if (item.Document_Id == "02_CGD_07")
                         {

@@ -295,12 +295,12 @@
                 {
                     if (item.Document_Id == "C05_KN_01")
                     {
-                        app_Detail.Doc_Id_1 = item.CHAR01 + " trang 03 bản";
+                        app_Detail.Doc_Id_1 = item.CHAR01;
                         app_Detail.Doc_Id_1_Check = item.Isuse;
                     }
                     else if (item.Document_Id == "C05_KN_02")
                     {
-                        app_Detail.Doc_Id_2 = item.CHAR01 + " trang 02 bản";
+                        app_Detail.Doc_Id_2 = item.CHAR01;
                         app_Detail.Doc_Id_2_Check = item.Isuse;
                     }
                     else if (item.Document_Id == "C05_KN_03")
@@ -321,7 +321,7 @@
 
                     else if (item.Document_Id == "C05_KN_06")
                     {
-                        app_Detail.Doc_Id_6 = item.CHAR01 + " trang";
+                        app_Detail.Doc_Id_6 = item.CHAR01;
                         app_Detail.Doc_Id_6_Check = item.Isuse;
                     }
                     else if (item.Document_Id == "C05_KN_07")
@@ -442,12 +442,12 @@
                     {
                         if (item.Document_Id == "02_CGD_01")
                         {
-                            pDetail.Doc_Id_1 = item.CHAR01 + " trang 03 bản";
+                            pDetail.Doc_Id_1 = item.CHAR01;
                             pDetail.Doc_Id_1_Check = item.Isuse;
                         }
                         else if (item.Document_Id == "02_CGD_02")
                         {
-                            pDetail.Doc_Id_2 = item.CHAR01 + " trang 02 bản";
+                            pDetail.Doc_Id_2 = item.CHAR01;
                             pDetail.Doc_Id_2_Check = item.Isuse;
                         }
                         else if (item.Document_Id == "02_CGD_03")
@@ -468,7 +468,7 @@
 
                         else if (item.Document_Id == "02_CGD_06")
                         {
-                            pDetail.Doc_Id_6 = item.CHAR01 + " trang";
+                            pDetail.Doc_Id_6 = item.CHAR01;
                             pDetail.Doc_Id_6_Check = item.Isuse;
                         }
                         else if (item.Document_Id == "02_CGD_07")
