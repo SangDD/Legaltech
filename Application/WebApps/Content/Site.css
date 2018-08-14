@@ -156,8 +156,9 @@ body {
 
 .group-menu {
     list-style-type: none;
-    background-color: #ebeaea;
-    color: #0055A8;
+    background-color: #526880;
+    border-bottom: 1px solid #847f7f;
+    color: #ccc;
     font-family: Roboto-Bold;
     cursor: pointer;
     display: table;
@@ -172,14 +173,20 @@ body {
     }
 
     .group-menu:hover {
-        color: #ffffff;
-        background-color: #0055A8;
+        /*color: #ffffff;
+        background-color: #0055A8;*/
+        color: #7ed3f7;
+        background-color: #844424;
+        border-color: #000000;
+        border-left: 2px solid #7ed3f7;
     }
 
     .group-menu > span {
         display: inline-block;
         width: 100%;
         padding: 12px 10px 12px 10px;
+
+
     }
 
     .group-menu:last-child ul {
@@ -188,8 +195,12 @@ body {
 
 
 .main-menu-active {
-    color: #ffffff;
-    background-color: #0055A8;
+    /*color: #ffffff;
+    background-color: #0055A8;*/
+    color: #7ed3f7;
+    background-color: #844424;
+    border-color: #000000;
+    border-left: 2px solid #7ed3f7;
 }
 
 .task-menu-active {

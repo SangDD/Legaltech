@@ -172,6 +172,8 @@
     <Compile Include="Areas\ModuleUsersAndRoles\ModuleUsersAndRolesAreaRegistration.cs" />
     <Compile Include="Areas\Patent\Controllers\PatentRegistrationController.cs" />
     <Compile Include="Areas\Patent\PatentAreaRegistration.cs" />
+    <Compile Include="Areas\QuanLyPhi\Controllers\QLPhiController.cs" />
+    <Compile Include="Areas\QuanLyPhi\QuanLyPhiAreaRegistration.cs" />
     <Compile Include="Areas\TimeSheet\Controllers\TimeSheetController.cs" />
     <Compile Include="Areas\TimeSheet\TimeSheetAreaRegistration.cs" />
     <Compile Include="Areas\TradeMark\Controllers\ApplicationController.cs" />
@@ -230,14 +232,15 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Report\TM_PLC05_KN1.cs">
- 
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TM_PLC05_KN.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Report\TM_PLD01_HDCN1.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Report\TM_PLD01_HDCN2.cs">
- 
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TM_PLD01_HDCN.rpt</DependentUpon>
@@ -1076,6 +1079,10 @@
     <Content Include="Content\ComboCheckList\jquery.multiple.select_new.js" />
     <Content Include="Content\ComboCheckList\multiple-select.css" />
     <Content Include="Content\ComboCheckList\multiple-select.png" />
+    <Content Include="Content\cssfooter\bootstrap.css" />
+    <Content Include="Content\cssfooter\default.css" />
+    <Content Include="Content\cssfooter\font-awesome.css" />
+    <Content Include="Content\cssfooter\theme.css" />
     <Content Include="Content\CssFormPoup\StyleFormPopup.css" />
     <Content Include="Content\CSSWaitingIcon\cube.css" />
     <Content Include="Content\CSSWaitingIcon\default.css" />
@@ -1086,6 +1093,7 @@
     <Content Include="Content\Datetimepicker_master\jquery.datetimepicker.full.min.js" />
     <Content Include="Content\Datetimepicker_master\jquery.datetimepicker.min.css" />
     <Content Include="Content\font.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\fontawesome\font-awesome.min.css" />
     <Content Include="Content\fonts\fontawesome\fontawesome-all.min.css" />
     <Content Include="Content\fonts\fontawesome\webfonts\fa-brands-400.svg" />
@@ -1384,6 +1392,15 @@
     <Content Include="Areas\DaiDienSHCN\Views\DDSHCN\_PartialTableDDSHCN.cshtml" />
     <Content Include="Areas\DaiDienSHCN\Views\DDSHCN\_PartialDaiDienSHCNUpdate.cshtml" />
     <Content Include="Areas\DaiDienSHCN\Views\DDSHCN\_PartialDaiDienSHCNDetail.cshtml" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Areas\QuanLyPhi\Views\QLPhi\GetListDSPhi.cshtml" />
+    <Content Include="Areas\QuanLyPhi\Views\QLPhi\_PartialTableDanhSachPhi.cshtml" />
+    <Content Include="Areas\QuanLyPhi\Views\QLPhi\_PartialViewFeeFixUpdate.cshtml" />
+    <Content Include="Areas\QuanLyPhi\Views\web.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <Content Include="Areas\Home\Views\Wiki\_PartialListDocByCata.cshtml" />
@@ -1687,6 +1704,7 @@
     <Content Include="ViewsShared\_PartialAccountInfo.cshtml" />
     <Content Include="ViewsShared\_PartialMainMenu.cshtml" />
     <Content Include="ViewsShared\_LayoutPortal.cshtml" />
+    <Content Include="ViewsShared\_PartialFooter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Account\Models\" />
@@ -1699,6 +1717,8 @@
     <Folder Include="Areas\Patent\Models\" />
     <Folder Include="Areas\Patent\Views\PatentRegistration\" />
     <Folder Include="Areas\Patent\Views\Shared\" />
+    <Folder Include="Areas\QuanLyPhi\Models\" />
+    <Folder Include="Areas\QuanLyPhi\Views\Shared\" />
     <Folder Include="Areas\TimeSheet\Models\" />
     <Folder Include="Areas\TradeMark\Models\" />
     <Folder Include="Content\Archive\Document\" />
