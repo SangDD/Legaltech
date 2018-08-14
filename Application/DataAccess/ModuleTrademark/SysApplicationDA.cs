@@ -57,12 +57,12 @@ namespace DataAccess.ModuleTrademark
             try
             {
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
-                decimal preturn = OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SYS_APPLICATION.PROC_SYS_APP_FIX_GET_BY_ID",
+                decimal preturn = OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SYS_APPLICATION.PROC_SYS_APP_FIX_UPDATE",
                    new OracleParameter("P_ID", OracleDbType.Decimal, pID, ParameterDirection.Input),
                    new OracleParameter("P_APPCODE", OracleDbType.Varchar2, pAppCode, ParameterDirection.Input),
-                   new OracleParameter("P_AMOUNT", OracleDbType.Varchar2, pAppCode, ParameterDirection.Input),
-                   new OracleParameter("P_CHAR01", OracleDbType.Varchar2, pAppCode, ParameterDirection.Input),
-                   new OracleParameter("P_DESCRIPTION", OracleDbType.Varchar2, pAppCode, ParameterDirection.Input),
+                   new OracleParameter("P_AMOUNT", OracleDbType.Varchar2, pAmount, ParameterDirection.Input),
+                   new OracleParameter("P_CHAR01", OracleDbType.Varchar2, pChar01, ParameterDirection.Input),
+                   new OracleParameter("P_DESCRIPTION", OracleDbType.Varchar2, pDescription, ParameterDirection.Input),
                     paramReturn);
 
                 return preturn;

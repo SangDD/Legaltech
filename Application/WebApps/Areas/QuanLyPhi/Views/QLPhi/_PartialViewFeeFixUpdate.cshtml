@@ -10,17 +10,17 @@
 
 
 <input type="hidden" id="txtID" value="@Model.Id" />
-
+<input type="hidden" id="txtAppCode" value="@Model.Appcode" />
 <div class="" style="padding:5px 38px">
 
     <div class="divCover divCover_popup">
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Mã đơn<i class="redspan">(*)</i></div>
+                <div>Mẫu đơn<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Appcode, new { id = "txtAppCode" , @readonly = "readonly" })
+                    <input type="text" value="@Html.Raw(Model.Title)" readonly="readonly" />
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Amount, new { id = "txtAmountEdit" })
+                    @Html.TextBoxFor(m => m.Amount, new { id = "txtAmountEdit", @maxlength = "20", onkeypress = "return isNumberKey(event);" , onkeyup = "jsFormatNumber(this.value, this.id)" })
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Char01, new { id = "txtChar01Edit", @maxlength = "200" })
+                    @Html.TextBoxFor(m => m.Char01, new { id = "txtChar01Edit", @maxlength = "20", onkeypress = "return isNumberKey(event);", onkeyup = "jsFormatNumber(this.value, this.id)" })
                 </div>
             </div>
         </div>
@@ -52,7 +52,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Description, new { id = "txtDescriptionEdit", @Value = Model.Description })
+                    @Html.TextBoxFor(m => m.Description, new { id = "txtDescriptionEdit", @maxlength = "200",  @Value = Model.Description })
                 </div>
             </div>
         </div>
@@ -66,53 +66,7 @@
 </div>
 
 <script>
-    function funcUpdateFeeFix()
-    {
-        var formData = new FormData();
-        var amount = $("#txtAmountEdit").val();
-        if (isNaN(amount)) {
-            jError("Lệ phí nhập vào phải là kiểu số!", "Thông báo", function () {
-                $("#txtAmountEdit").focus();
-            });
-            return false;
-        }
-         
-        getDataUpDDSHCNEdit(formData);
-        $.ajax({
-            url: '/quan-ly-phi/danh-sach-phi/execute-update',
-            type: 'POST',
-            data: formData,
-            async: true, traditional: true, contentType: false, processData: false,
-            headers: { "cache-control": "no-cache" },
-            beforeSend: function () {
-                CreateRollingWaitingIcon(true);
-            },
-            success: function (data) {
-                CreateRollingWaitingIcon(false);
-                if (data.success == "-1") {
-                    jError("Lỗi check lại kết nối tới server");
-                    return false;
-                }
-                else {
-                    jAlert('Sửa dữ liệu phí thành công!', "THÔNG BÁO", function () {
-                        ClosePopUpDDSHCN();
-                        SearchDDSHCN(1, 1);
-                    });
-                }
-            },
-            error: function (e) {
-                CreateRollingWaitingIcon(false);
-                console.log(e);
-            }
-        });
-
-    }
-
-
-    function getDataUpDDSHCNEdit(formData) {
-        formData.append('pInfo.Id', $("#txtID").val());
-        formData.append('pInfo.Amount', $("#txtAmountEdit").val().trim());
-        formData.append('pInfo.Char01', $("#txtChar01Edit").val().trim());
-        formData.append('pInfo.Description', $("#txtDescriptionEdit").val().trim());
-    }
+    $(document).ready(function () {
+        $("#txtAmountEdit").focus();
+    });
 </script>

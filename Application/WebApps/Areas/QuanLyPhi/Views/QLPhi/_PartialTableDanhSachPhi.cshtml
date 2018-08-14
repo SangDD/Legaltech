@@ -13,8 +13,8 @@
             <tr>
                 <th class="class30">STT</th>
                 <th class="class150" data-sort id="Appcode">Đơn</th>
-                <th class="class100" data-sort id="Appcode">Phí</th>
-                <th class="class100">Số lượng</th>
+                <th class="class50" data-sort id="Appcode">Phí</th>
+                <th class="class50">Số lượng</th>
                 <th class="class150" data-sort id="Appcode">Mô tả</th>
                 <th class="class100">Chức năng</th>
             </tr>
@@ -27,7 +27,7 @@
                     ++stt;
                     <tr>
                         <td class="tdcenteralign">@stt</td>
-                        <td class="tdcenteralign">@item.Appcode</td>
+                        <td class="tdleftalign">@item.Title</td>
                         <td class="tdrightalign">@item.Amount.ToString("#,##0")</td>
                         <td class="tdrightalign">@item.Char01</td>
                         <td class="tdleftalign">@item.Description</td>
