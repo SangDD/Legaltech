@@ -1112,6 +1112,24 @@
         }
     }
 
+
+    function ShowHidenUpLoadRadioClick(pID, pClass) {
+        try {
+            if ($("#" + pID).is(':checked')) {
+                if (pID == "6_rdoBanGocDaNopTheoDonSo") {
+                    $('.6_rdoBanGocDaNopTheoDonSo').css('display', 'block');
+                    $('.6_rdoBanGocSeNopSau').css('display', 'none');
+                }
+                if (pID == "6_rdoBanGocSeNopSau") {
+                    $('.6_rdoBanGocSeNopSau').css('display', 'block');
+                    $('.6_rdoBanGocDaNopTheoDonSo').css('display', 'none');
+                }
+
+            }
+        } catch (e) {
+        }
+    }
+
     $("#btnGuiDon").click(function () {
         var url = "/trade-mark/dang_ky_nhan_hieu";
         funGetDataTM04NHGuiLuuTam(2, url);

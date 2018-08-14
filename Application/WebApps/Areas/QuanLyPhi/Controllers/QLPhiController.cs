@@ -37,27 +37,29 @@ namespace WebApps.Areas.QuanLyPhi.Controllers
 
         [HttpPost]
         [Route("danh-sach-phi/search")]
-        public ActionResult SearchDSPhi(string p_keysearch, int p_CurrentPage, string p_column, string p_type_sort)
+        public ActionResult SearchDSPhi(string pAppCode)
         {
             try
             {
-                string pTenDaidien = "";
-                string pPhone = "";
-                if (p_keysearch.Contains("|"))
-                {
-                    var array = p_keysearch.Split('|');
-                    pTenDaidien = array[0];
-                    pPhone = array[1];
-                }
-                decimal _total_record = 0;
-                string p_to = "";
-                string p_from = CommonFuc.Get_From_To_Page(p_CurrentPage, ref p_to);
+                var lstFeeResultSearch = new List<SysAppFixChargeInfo>();
+
                 var sysApplication = new SysApplicationBL();
                 List<SysAppFixChargeInfo> lstFee = sysApplication.Sys_App_Fix_Charge_GetAll();
-                string htmlPaging = CommonFuc.Get_HtmlPaging<SysAppFixChargeInfo>((int)_total_record, 1, "Record");
-                ViewBag.Paging = htmlPaging;
-                ViewBag.Obj = lstFee;
-                ViewBag.SumRecord = _total_record;
+                if (pAppCode != "ALL")
+                {
+                    foreach (var item in lstFee)
+                    {
+                        if (item.Appcode.ToUpper() == pAppCode.ToUpper())
+                        {
+                            lstFeeResultSearch.Add(item);
+                        }
+                    }
+                }
+                else
+                {
+                    lstFeeResultSearch = lstFee;
+                }
+                ViewBag.listData = lstFeeResultSearch;
                 return PartialView("~/Areas/QuanLyPhi/Views/QLPhi/_PartialTableDanhSachPhi.cshtml");
             }
             catch (Exception ex)
@@ -84,14 +86,8 @@ namespace WebApps.Areas.QuanLyPhi.Controllers
             try
             {
                 if (pInfo == null) return Json(new { success = -3 });
-                //pInfo.Modifiedby = SessionData.CurrentUser.Username;
-                //pInfo.Modifieddate = CommonFuc.CurrentDate();
                 var sysApplication = new SysApplicationBL();
                 decimal presonse = sysApplication.SysAppFixChargeUpdate(pInfo.Id,pInfo.Appcode,pInfo.Amount,pInfo.Char01,pInfo.Description);
-                //if (presonse >= 0)
-                //{
-                //    MemoryData.Enqueue_ChangeData(Table_Change.APP_DDSHCN);
-                //}
                 return Json(new { success = presonse });
             }
             catch (Exception ex)
