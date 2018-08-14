@@ -521,7 +521,7 @@
                     }
                     else if (item.Document_Id == "PLD01_HDCB_02")
                     {
-                        app_Detail.Doc_Id_2 = item.CHAR01 + " gồm " + item.CHAR02 + " trang";
+                        app_Detail.Doc_Id_2 = item.CHAR01;
                         app_Detail.Doc_Id_21 = item.CHAR02;
                         app_Detail.Doc_Id_2_Check = item.Isuse;
                     }
@@ -537,13 +537,13 @@
                     }
                     else if (item.Document_Id == "PLD01_HDCB_05")
                     {
-                        app_Detail.Doc_Id_5 = item.CHAR01 + " trang";
+                        app_Detail.Doc_Id_5 = item.CHAR01;
                         app_Detail.Doc_Id_5_Check = item.Isuse;
                     }
 
                     else if (item.Document_Id == "PLD01_HDCB_06")
                     {
-                        app_Detail.Doc_Id_6 = item.CHAR01 + " trang";
+                        app_Detail.Doc_Id_6 = item.CHAR01;
                         app_Detail.Doc_Id_6_Check = item.Isuse;
                     }
                     else if (item.Document_Id == "PLD01_HDCB_07")
@@ -574,7 +574,7 @@
                     }
                     else if (item.Document_Id == "PLD01_HDCB_12")
                     {
-                        app_Detail.Doc_Id_12 = item.CHAR01 + " trang";
+                        app_Detail.Doc_Id_12 = item.CHAR01;
                         app_Detail.Doc_Id_12_Check = item.Isuse;
                     }
 
@@ -663,7 +663,7 @@
                 _lst.Add(app_Detail);
 
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLD01_HDCN_Info>(_lst, false);
-                _ds_all.Tables[0].TableName = "Table_4c2";
+                _ds_all.Tables[0].TableName = "Table_4c2"; 
                 //string _strCml = System.Web.HttpContext.Current.Server.MapPath("/Content/XML/" + TradeMarkAppCode.AppCode_TM_4C2_PLD_01_HDCN + ".xml");
                 //_ds_all.WriteXml(_strCml, System.Data.XmlWriteMode.WriteSchema);
 
@@ -725,7 +725,7 @@
                         }
                         else if (item.Document_Id == "PLD01_HDCB_02")
                         {
-                            pDetail.Doc_Id_2 = item.CHAR01 + " gồm " + item.CHAR02 + " trang";
+                            pDetail.Doc_Id_2 = item.CHAR01;
                             pDetail.Doc_Id_21 = item.CHAR02;
                             pDetail.Doc_Id_2_Check = item.Isuse;
                         }
@@ -741,13 +741,13 @@
                         }
                         else if (item.Document_Id == "PLD01_HDCB_05")
                         {
-                            pDetail.Doc_Id_5 = item.CHAR01 + " trang";
+                            pDetail.Doc_Id_5 = item.CHAR01;
                             pDetail.Doc_Id_5_Check = item.Isuse;
                         }
 
                         else if (item.Document_Id == "PLD01_HDCB_06")
                         {
-                            pDetail.Doc_Id_6 = item.CHAR01 + " trang";
+                            pDetail.Doc_Id_6 = item.CHAR01;
                             pDetail.Doc_Id_6_Check = item.Isuse;
                         }
                         else if (item.Document_Id == "PLD01_HDCB_07")
@@ -777,7 +777,7 @@
                         }
                         else if (item.Document_Id == "PLD01_HDCB_12")
                         {
-                            pDetail.Doc_Id_12 = item.CHAR01 + " trang";
+                            pDetail.Doc_Id_12 = item.CHAR01;
                             pDetail.Doc_Id_12_Check = item.Isuse;
                         }
                         else if (item.Document_Id == "PLD01_HDCB_13")
