@@ -771,8 +771,8 @@
 
                 CrystalDecisions.CrystalReports.Engine.PictureObject _pic01;
                 _pic01 = (CrystalDecisions.CrystalReports.Engine.PictureObject)oRpt.ReportDefinition.Sections[0].ReportObjects["Picture1"];
-                _pic01.Width = 400;
-                _pic01.Height = 400;
+                _pic01.Width = 100;
+                _pic01.Height = 100;
                 if (_ds_all != null)
                 {
                     _ds_all.Tables[0].TableName = "Table1";
