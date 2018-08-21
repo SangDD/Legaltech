@@ -19,6 +19,8 @@
     using BussinessFacade;
     using CrystalDecisions.Shared;
     using System.Linq;
+    using System.Drawing;
+
     [ValidateAntiForgeryTokenOnAllPosts]
     [RouteArea("TradeMarkRegistration", AreaPrefix = "trade-mark")]
     [Route("{action}")]
@@ -902,6 +904,43 @@
                 _pic01 = (CrystalDecisions.CrystalReports.Engine.PictureObject)oRpt.ReportDefinition.Sections[0].ReportObjects["Picture1"];
                 _pic01.Width = 100;
                 _pic01.Height = 100;
+
+                System.IO.FileInfo file = new System.IO.FileInfo(appInfo.Logourl);
+                Bitmap img = new Bitmap(appInfo.Logourl);
+                try
+                {
+                    double _Const = 6.666666666666;
+                    int _left = 0, _top = 0, _marginleft = 225, _margintop = 4215;
+                    int _h = 600;
+                    double _d1 = (_h - img.Width) / 2;
+                    _d1 = _Const * _d1;
+                    _left = _marginleft + Convert.ToInt32(_d1);
+                    if(_left < 0)
+                    {
+                        _left = _marginleft;
+                    }
+                    _pic01.Left = _left;
+                    // top
+
+                    _d1 = (_h - img.Height) / 2;
+                    _d1 = _Const * _d1;
+                    _top = _margintop + Convert.ToInt32(_d1);
+                    if (_top < 0)
+                    {
+                        _top = _margintop;
+                    }
+                    _pic01.Top = _top;
+
+                }
+                catch (Exception)
+                {
+ 
+                }
+                finally
+                {
+                    img.Dispose();
+                }
+
                 if (_ds_all != null)
                 {
                     _ds_all.Tables[0].TableName = "Table";
