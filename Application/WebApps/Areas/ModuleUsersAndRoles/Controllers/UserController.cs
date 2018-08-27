@@ -10,6 +10,7 @@
 	using BussinessFacade.ModuleUsersAndRoles;
 
 	using Common;
+    using Common.CommonData;
     using Common.Ultilities;
     using ObjectInfos;
 
@@ -39,9 +40,49 @@
 			return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/ListUser.cshtml", lstUsers);
 		}
 
-		[HttpPost]
+        [HttpGet]
+        [Route("quan-ly-luat-su")]
+        public ActionResult ListLawer()
+        {
+            var lstUsers = new List<UserInfo>();
+            try
+            {
+                var userBL = new UserBL();
+                lstUsers = userBL.FindUser();
+                ViewBag.Paging = userBL.GetPagingHtml();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/ListLawer.cshtml", lstUsers);
+        }
+
+
+        [HttpGet]
+        [Route("quan-ly-khach-hang")]
+        public ActionResult ListCustomer()
+        {
+            var lstUsers = new List<UserInfo>();
+            try
+            {
+                var userBL = new UserBL();
+                lstUsers = userBL.FindUser();
+                ViewBag.Paging = userBL.GetPagingHtml();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/ListCustomer.cshtml", lstUsers);
+        }
+
+
+        [HttpPost]
 		[Route("quan-ly-nguoi-dung/find-user")]
-		public ActionResult FindUser(string keysSearch, string options)
+		public ActionResult FindUser(string keysSearch, string options, string p_type)
 		{
 			var lstUsers = new List<UserInfo>();
 			try
@@ -55,8 +96,20 @@
 				Logger.LogException(ex);
 			}
 
-			return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/_PartialTableListUsers.cshtml", lstUsers);
-		}
+            if (p_type == "ALL")
+            {
+                return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/_PartialTableListUsers.cshtml", lstUsers);
+            }
+            else if (p_type == ((int)(int)CommonEnums.UserType.Lawer).ToString())
+            {
+                return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/_PartialTableListLawer.cshtml", lstUsers);
+            }
+            else if (p_type == ((int)(int)CommonEnums.UserType.Customer).ToString())
+            {
+                return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/_PartialTableListCustomer.cshtml", lstUsers);
+            }
+            else return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/_PartialTableListUsers.cshtml", new List<UserInfo>());
+        }
 
 		[HttpPost]
 		[Route("quan-ly-nguoi-dung/get-view-to-add-user")]

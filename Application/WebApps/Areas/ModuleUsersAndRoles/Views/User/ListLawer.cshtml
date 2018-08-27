@@ -3,7 +3,7 @@
 @using Common.CommonData
 @using ObjectInfos;
 @{
-    ViewBag.Title = "Quản lý người dùng";
+    ViewBag.Title = "Quản lý luật sư";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     List<AllCodeInfo> _lstType = MemoryData.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE");
@@ -23,7 +23,7 @@
             <img src="~/Content/icons/Body-icon-home.png" /> I
             Quản trị hệ thống
             <span class="red">></span>
-            <a href="/quan-tri-he-thong/quan-ly-nguoi-dung">Quản lý người dùng</a>
+            <a href="/quan-tri-he-thong/quan-ly-luat-su">Quản lý luật sư</a>
         </div>
     </div>
     <div class="divCover">
@@ -37,7 +37,7 @@
                 <input type="hidden" value="LastTimeUpdated" id="colSorted" />
                 <input type="hidden" value="DESC" id="SortType" />
                 <input type="hidden" value="" id="OptionSorting" />
-                <div class="div-title-content"> THÔNG TIN NGƯỜI DÙNG </div>
+                <div class="div-title-content"> THÔNG TIN LUẬT SƯ </div>
             </div>
         </div>
 
@@ -45,38 +45,14 @@
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div style="width: 120px">Tên đăng nhập </div>
-                </div>
-                <div>
-                    <div>
-                        <input style="width: 250px;" type="text" id="txtUsernameSearch" data-controlcondition="TRUE" />
-                    </div>
-                </div>
-                <div class="div-search-title">
-                    <div style="width: 120px">Loại CK</div>
+                    <div style="width: 120px">Tên luật sư</div>
                 </div>
                 <div class="div-search-content">
                     <div>
                         <input type="text" id="txtFullNameSearch" data-controlcondition="TRUE" />
                     </div>
                 </div>
-            </div>
 
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div style="width: 120px">Loại người dùng </div>
-                </div>
-                <div>
-                    <div>
-                        <select data-controlcondition="TRUE" id="cboUserType" style="width: 250px;">
-                            <option value="">None</option>
-                            @foreach (var item in _lstType)
-                            {
-                                <option value="@item.CdVal">@item.Content</option>
-                            }
-                        </select>
-                    </div>
-                </div>
                 <div class="div-search-title">
                     <div style="width: 120px">Trạng thái</div>
                 </div>
@@ -103,7 +79,7 @@
 
         <div class="divCover">
             <div id="divTableUsers">
-                @Html.Partial("_PartialTableListUsers")
+                @Html.Partial("_PartialTableListLawer")
             </div>
         </div>
 
@@ -137,30 +113,29 @@
         $(document).ready(function () {
             initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findUsers);
 
-            $('txtUsernameSearch').focus();
+            $('txtFullNameSearch').focus();
             $('[data-controlcondition="TRUE"]').on('keypress',
 				function (e) {
 				    enterKeyPress(e, 'btnFindUsers');
-				});
+                });
+
+            findUsers(1, 0)
         });
 
         function findUsers(_pageNumber, _isSearching) {
             reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
-            if (isSearching === 1) {
-                username = $("#txtUsernameSearch").val().trim();
+            type = '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Lawer)';
+            username = "";
+            if (isSearching == 1) {
                 fullName = $("#txtFullNameSearch").val().trim();
-                type = $("#cboUserType").val();
                 status = $("#cboStatusSearch").val();
             } else {
                 window.arrKeySearch = window.keySearch.split('|');
-                username = arrKeySearch[0];
                 fullName = arrKeySearch[1];
                 type = arrKeySearch[2];
                 status = arrKeySearch[3];
 
-                $("#txtUsernameSearch").val(username);
                 $("#txtFullNameSearch").val(fullName);
-                $("#cboUserType").val(type);
                 $("#cboStatusSearch").val(status);
             }
 
@@ -173,7 +148,7 @@
                 data: {
                     keysSearch: keySearch,
                     options: optionFilter,
-                    p_type: 'ALL'
+                    p_type: type
                 },
                 async: true,
                 beforeSend: function () {
