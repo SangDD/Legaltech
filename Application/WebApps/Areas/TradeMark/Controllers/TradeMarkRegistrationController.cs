@@ -19,6 +19,8 @@
     using BussinessFacade;
     using CrystalDecisions.Shared;
     using System.Linq;
+    using System.Drawing;
+
     [ValidateAntiForgeryTokenOnAllPosts]
     [RouteArea("TradeMarkRegistration", AreaPrefix = "trade-mark")]
     [Route("{action}")]
@@ -682,10 +684,11 @@
                         }
                     }
                 }
-                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/TM04Nh_vi.doc");
+                //   string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/TM04Nh_vi.doc");
                 // Fill export_header
-                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + pInfo.Appcode + DateTime.Now.ToString("ddMMyyyyHHmm") + ".docx");
-                SessionData.CurrentUser.FilePreview = "/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + pInfo.Appcode + DateTime.Now.ToString("ddMMyyyyHHmm") + ".docx";
+                string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
+                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + pInfo.Appcode + _datetimenow + ".pdf");
+                SessionData.CurrentUser.FilePreview = "/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + pInfo.Appcode + _datetimenow + ".pdf";
                 // Fill export_detail  
                 appInfo.Status = 254;
                 appInfo.Status_Form = 252;
@@ -702,6 +705,7 @@
                 {
                     appInfo.Logourl = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
                 }
+                
                 foreach (var item in MemoryData.c_lst_Country)
                 {
                     if (item.Country_Id.ToString() == appInfo.Nuocnopdon_Ut)
@@ -888,18 +892,55 @@
                     }
                 }
                 #endregion
-                appInfo.Logourl = Server.MapPath(pDetail.Logourl);
+                appInfo.Logourl = Server.MapPath(appInfo.Logourl);
                 List<AppInfoExport> _lst = new List<AppInfoExport>();
                 _lst.Add(appInfo);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<AppInfoExport>(_lst, false);
-                _ds_all.WriteXmlSchema(@"C:\Users\Administrator\Desktop\LEGALTECH\TM04NH.xml");
+             //   _ds_all.WriteXmlSchema(@"C:\Users\Administrator\Desktop\LEGALTECH\TM04NH.xml");
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
                 oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NH.rpt"));
 
                 CrystalDecisions.CrystalReports.Engine.PictureObject _pic01;
                 _pic01 = (CrystalDecisions.CrystalReports.Engine.PictureObject)oRpt.ReportDefinition.Sections[0].ReportObjects["Picture1"];
-                _pic01.Width = 400;
-                _pic01.Height = 400;
+                _pic01.Width = 100;
+                _pic01.Height = 100;
+
+                System.IO.FileInfo file = new System.IO.FileInfo(appInfo.Logourl);
+                Bitmap img = new Bitmap(appInfo.Logourl);
+                try
+                {
+                    double _Const = 6.666666666666;
+                    int _left = 0, _top = 0, _marginleft = 225, _margintop = 4215;
+                    int _h = 600;
+                    double _d1 = (_h - img.Width) / 2;
+                    _d1 = _Const * _d1;
+                    _left = _marginleft + Convert.ToInt32(_d1);
+                    if(_left < 0)
+                    {
+                        _left = _marginleft;
+                    }
+                    _pic01.Left = _left;
+                    // top
+
+                    _d1 = (_h - img.Height) / 2;
+                    _d1 = _Const * _d1;
+                    _top = _margintop + Convert.ToInt32(_d1);
+                    if (_top < 0)
+                    {
+                        _top = _margintop;
+                    }
+                    _pic01.Top = _top;
+
+                }
+                catch (Exception)
+                {
+ 
+                }
+                finally
+                {
+                    img.Dispose();
+                }
+
                 if (_ds_all != null)
                 {
                     _ds_all.Tables[0].TableName = "Table";
@@ -937,12 +978,13 @@
             {
                 //string tm04Nh = "TM04NH";
                 ViewBag.FileName= SessionData.CurrentUser.FilePreview ; // = "/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + tm04Nh + ".pdf";
-                return PartialView("~/Areas/TradeMark/Views/Shared/_PartialContentPreview_docx.cshtml");
+                                                                        //return PartialView("~/Areas/TradeMark/Views/Shared/_PartialContentPreview_docx.cshtml");
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return PartialView("~/Areas/TradeMark/Views/Shared/_PartialContentPreview_docx.cshtml");
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
             }
         }
 

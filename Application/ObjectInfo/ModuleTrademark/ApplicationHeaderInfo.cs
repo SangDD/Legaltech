@@ -239,6 +239,28 @@ namespace ObjectInfos
         //Tài liệu khác
         public decimal TM_04NH_D_22_ISU { get; set; }
 
+        #region add thêm 1 số cột tùy biến để sau này cần thì thêm vào đây
+        public string Extent_fld01 { get; set; }
+
+        public string Extent_fld02 { get; set; }
+
+        public string Extent_fld03 { get; set; }
+
+        public string Extent_fld04 { get; set; }
+
+        public string Extent_fld05 { get; set; }
+
+        public string Extent_fld06 { get; set; }
+
+        public string Extent_fld07 { get; set; }
+
+        public string Extent_fld08 { get; set; }
+
+        public string Extent_fld09 { get; set; }
+
+        public string Extent_fld10 { get; set; }
+        #endregion
+
     }
 
     public class CreateInstance

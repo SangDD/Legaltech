@@ -11,7 +11,6 @@
 				<th data-sort id="Username" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Tên đăng nhập</th>
 				<th style="width: 17%" data-sort id="FullName" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Họ tên</th>
 				<th style="width: 10%" data-sort id="Status" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Trạng thái</th>
-				<th style="width: 10%" data-sort id="Type" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Loại người dùng</th>
                 <th style="width: 15%" data-sort id="Email" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Email</th>
                 <th style="width: 10%" data-sort id="Phone" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Số điện thoại</th>
 				<th style="width: 15%" data-sort id="LastTimeUpdated">Cập nhật lúc</th>
@@ -28,15 +27,15 @@
 						<td class="tdleftalign"><a href="javascript:viewDetailUser(@item.Id, '@item.Username')">@item.Username</a></td>
 						<td class="tdleftalign">@item.FullName</td>
 						<td class="tdleftalign">@item.StatusDisplayName</td>
-						<td class="tdleftalign">@item.Type_Name</td>
                         <td class="tdleftalign">@item.Email</td>
                         <td class="tdleftalign">@item.Phone</td>
 						<td class="tdleftalign">@item.LastTimeUpdated.ToDateTimeStringN0()</td>
                         <td class="tdcenteralign">
                             <a href="javascript:viewDetailUser(@item.Id, '@item.Username')" class="icon icon-info" data-title="Xem chi tiết"></a>
+                            <a href="javascript:getViewToEditUser(@item.Id, '@item.Username')" class="icon icon-edit" data-title="Sửa"></a>
+
                             @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin)
                             {
-                                <a href="javascript:getViewToEditUser(@item.Id, '@item.Username')" class="icon icon-edit" data-title="Sửa"></a>
                                 <a href="javascript:doDeleteUser(@item.Id, @item.IsActive().ToString().ToLower())" class="icon icon-delete" data-title="Xóa"></a>
                                 <a href="javascript:getViewToResetPass('@item.Username')" class="icon icon-reset" data-title="Reset mật khẩu"></a>
                             }
@@ -47,7 +46,7 @@
 			else
 			{
 				<tr>
-					<td colspan="9">Không có dữ liệu</td>
+					<td colspan="8">Không có dữ liệu</td>
 				</tr>
 			}
 			</tbody>
