@@ -1,8 +1,0 @@
---SELECT * FROM odmast WHERE afacctno =  'BIDB500002' AND txdate = '06-jul-2018';
---SELECT * FROM odmast WHERE afacctno =  'BIDB500002000084' AND txdate = '06-jul-2018';
---SELECT * FROM STSCHD a WHERE a.ORGORDERID IN (SELECT ORDERID  FROM odmast WHERE afacctno =  'BIDB500002' AND txdate = '06-jul-2018');
-----SELECT * FROM STSCHD a WHERE a.ORGORDERID IN (SELECT ORDERID  FROM odmast WHERE afacctno =  'BIDB500002000084' AND txdate = '06-jul-2018');
- 
-SELECT * FROM feetran a WHERE a.REFTRANID IN IN (253088, 253149);
-
-

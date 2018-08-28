@@ -1,4 +1,0 @@
-﻿DELETE FROM sys_app_fix_charge WHERE id = 4;
-INSERT INTO sys_app_fix_charge (ID,APPCODE,FEE_ID,AMOUNT,CHAR01) 
-VALUES(4,'TM06DKQT',4,NULL,NULL);
-COMMIT;
