@@ -1,0 +1,224 @@
+﻿@using ObjectInfos;
+@using BussinessFacade;
+@using BussinessFacade.ModuleMemoryData
+@model Docking_Info
+
+@{
+    List<AllCodeInfo> _lstDockingType = MemoryData.AllCode_GetBy_CdTypeCdName("DOCKING", "DOCKING_TYPE");
+    var lstDockingType = _lstDockingType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
+
+
+    List<AllCodeInfo> _lstStatus = MemoryData.AllCode_GetBy_CdTypeCdName("DOCKING", "STATUS");
+    var lstStatus = _lstStatus.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
+
+    List<AllCodeInfo> _lstDocumentType = MemoryData.AllCode_GetBy_CdTypeCdName("DOCKING", "DOCUMENT_TYPE");
+    var lstDocumentType = _lstDocumentType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
+}
+<script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
+<link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
+<script>
+    $.datetimepicker.setLocale('vi');
+    $(document).ready(function () {
+        $('.datepicker').datetimepicker({
+            format: 'd/m/Y',
+            formatDate: 'd/m/Y',
+            timepicker: false,
+            mask: '39/19/9999',
+            validateOnBlur: true,
+        });
+    });
+</script>
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+</style>
+
+
+<div class="" style="padding:5px 38px">
+    <div class="divCover divCover_popup">
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Mã đơn<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Ap_Case_Code, new { id = "txtAp_Case_Code", @maxlength = "50", @style = "width: 250px;" })
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>>In/Out book <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.DropDownList("DockingType", lstDockingType, new { @id = "cboDockingType" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tên tài liệu<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Document_Name, new { id = "txtDocument_Name", @maxlength = "200" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Loại tài liệu<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.DropDownList("DocumentType", lstDocumentType, new { @id = "cboDocumentType", @style = "width: 250px;" })
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>>Trạng thái <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.DropDownList("Status", lstStatus, new { @id = "cboStatus" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Deadline <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Deadline, "{0:dd/MM/yyyy}", new { id = "txtDeadline", @Value = Model.Deadline == DateTime.MinValue ? "" : Model.Deadline.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>In/Out Date <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.In_Out_Date, "{0:dd/MM/yyyy}", new { id = "txtIn_Out_Date", @Value = Model.In_Out_Date == DateTime.MinValue ? "" : Model.In_Out_Date.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Ghi chú</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Notes, new { id = "txtNotes", @maxlength = "2000" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="form-group-bottom">
+            <input type="submit" class="btn-default" value="Lưu" onclick="return doInsertTimeSheet()" />
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+         
+    });
+
+    function doInsertTimeSheet() {
+        if (validateForm()) {
+            nvsConfirm(null, "Bạn có chắc chắn muốn thêm tài liệu này không?", function () {
+                var formData = new FormData();
+                collectData(formData);
+                $.ajax({
+                    url: '/quan-ly-docking/danh-sach-docking/do-insert-docking',
+                    type: 'POST',
+                    data: formData,
+                    async: true, traditional: true, contentType: false, processData: false,
+                    headers: { "cache-control": "no-cache" },
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            jError("Lỗi check lại kết nối tới server");
+                            return false;
+                        }
+                        else {
+                            jAlert('Thêm tài liệu thành công!', "THÔNG BÁO", function () {
+                                ClosePopUpDocking();
+                                Search_Docking(1, 1);
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(false);
+                        console.log(e);
+                    }
+                });
+            });
+        }
+    }
+
+    function validateForm() {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        var Ap_Case_Code = $("#Ap_Case_Code").val();
+        if (Ap_Case_Code == null) {
+            jError("Case code không được bỏ trống!", "lỗi", function () {
+                $("#Ap_Case_Code").val('');
+                $('#Ap_Case_Code').focus();
+            });
+            return false;
+        }
+
+        var txtDocument_Name = $("#txtDocument_Name").val();
+        if (txtDocument_Name == "") {
+            jError("Tên tài liệu không được bỏ trống!", "lỗi", function () {
+                $("#txtDocument_Name").val('');
+                $("#txtDocument_Name").focus();
+            });
+            return false;
+        }
+
+        var txtDeadline = $("#txtDeadline").val();
+        if (checkDate("Deadline", "#txtDeadline", txtDeadline) == false) {
+            return false;
+        }
+
+        var txtIn_Out_Date = $("#txtIn_Out_Date").val();
+        if (checkDate("Ngày khai In/Out book", "#txtIn_Out_Date", txtIn_Out_Date) == false) {
+            return false;
+        }
+        
+        return true;
+    }
+
+    function collectData(formData) {
+        formData.append('p_Docking_Info.Ap_Case_Code', $("#txtAp_Case_Code").val());
+        formData.append('p_Docking_Info.Document_Name', $("#txtDocument_Name").val());
+        formData.append('p_Docking_Info.Docking_Type', $("#cboDockingType").val());
+        formData.append('p_Docking_Info.Document_Type', $("#cboDocument_Type").val());
+        formData.append('p_Docking_Info.Status', $("#cboStatus").val());
+
+        formData.append('p_Docking_Info.In_Out_Date', $("#txtIn_Out_Date").val());
+        formData.append('p_Docking_Info.Time_Date', $("#txtDeadline").val());
+        formData.append('p_Docking_Info.Notes', $("#txtNotes").val());
+    }
+</script>
