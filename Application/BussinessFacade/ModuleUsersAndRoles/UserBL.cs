@@ -264,11 +264,59 @@
             }
         }
 
+        //private string BuildUserHtmlMenu(List<FunctionInfo> lstFunctionDisplayInMenu, int parentFunctionId, string language)
+        //{
+        //    var userHtmlMenu = string.Empty;
+        //    try
+        //    {
+        //        var lstFunctionOnMenu = lstFunctionDisplayInMenu.Where(o => o.MenuId != 0).ToList();
+        //        if (lstFunctionOnMenu.Any())
+        //        {
+        //            foreach (var menu in MenuBL.GetAllMenu())
+        //            {
+        //                var lstFunctionsInGroupMenu = lstFunctionOnMenu.Where(o => o.MenuId == menu.Id).ToList();
+        //                if (lstFunctionsInGroupMenu.Any())
+        //                {
+        //                    string displayName = menu.DisplayName;
+        //                    if (language == Language.LangEN)
+        //                    {
+        //                        displayName = menu.DisplayName_Eng;
+        //                    }
+        //                    userHtmlMenu += "<li class='group-menu' onclick='javascript:;'>" + displayName
+        //                                        + "<ul class='ul-group-menu collapsed' style='display:none;'>"
+        //                                        + this.BuildFunctionOnMenu(lstFunctionsInGroupMenu, parentFunctionId, language)
+        //                                        + "</ul></li>";
+
+        //                }
+        //            }
+        //        }
+
+        //        var lstFunctionHaveNoGroup = lstFunctionDisplayInMenu.Where(o => o.MenuId == 0).ToList();
+        //        userHtmlMenu += this.BuildFunctionOnMenu(lstFunctionHaveNoGroup, parentFunctionId, language);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        // Ignore: since handle exception here make no sense
+        //    }
+
+        //    return userHtmlMenu;
+        //}
+
+        /// <summary>
+        /// BuildUserHtmlMenu, 2018.08.30 HungTD: load danh muc wiki
+        /// </summary>
+        /// <param name="lstFunctionDisplayInMenu"></param>
+        /// <param name="parentFunctionId"></param>
+        /// <param name="language"></param>
+        /// <returns></returns>
         private string BuildUserHtmlMenu(List<FunctionInfo> lstFunctionDisplayInMenu, int parentFunctionId, string language)
         {
             var userHtmlMenu = string.Empty;
             try
             {
+
+                #region Load menu khai báo ở function và menu 
+
                 var lstFunctionOnMenu = lstFunctionDisplayInMenu.Where(o => o.MenuId != 0).ToList();
                 if (lstFunctionOnMenu.Any())
                 {
@@ -293,6 +341,55 @@
 
                 var lstFunctionHaveNoGroup = lstFunctionDisplayInMenu.Where(o => o.MenuId == 0).ToList();
                 userHtmlMenu += this.BuildFunctionOnMenu(lstFunctionHaveNoGroup, parentFunctionId, language);
+
+
+                #endregion
+
+                #region Load menu wiki
+
+                userHtmlMenu += "<a href='/wiki-manage/wiki-doc/list/1'> <li class='group-menu' onclick='javascript:;'>" + "  <span data-menu='item-main-menu'><i class='far fa-comment'></i> Quản lý wiki </span>  "
+                                            + " <ul class='ul-group-menu collapsed' style='display:none;'></ul></li> </a> ";
+
+
+                WikiCatalogue_BL _CatalogueBL = new WikiCatalogue_BL();
+                List<WikiCatalogues_Info> _ListCata = new List<WikiCatalogues_Info>();
+                _ListCata = _CatalogueBL.Portal_CataGetAll();
+             //   List<WikiCatalogues_Info> _ListCataLv1 = new List<WikiCatalogues_Info>();
+               // _ListCataLv1 =  _ListCata.FindAll(m => m.CATA_LEVEL == 0);
+                userHtmlMenu += "<li class='group-menu' onclick='javascript:;'>" + "<span data-menu='item-main-menu'><i class='far fa-comment'></i> Thư viện dữ liệu </span>"
+                                               + "<ul class='ul-group-menu collapsed' style='display:none;'>";
+                foreach (var item in _ListCata)
+                {
+
+
+                    userHtmlMenu += "<li id='li-menu-" + this._userHtmlMenuId + "' "
+                            + "data-url='" + "/wiki-manage/wiki-doc/list-by-catalogue/" + item.ID + "' "
+                            + "data-id='" + this._userHtmlMenuId + "' "
+                            + " onclick='gotoTask(this)'><span class='menu-text'>" + item.NAME
+                            + "</span></li>";
+
+                    //foreach (var item2 in _ListCata.FindAll(m => m.PARENT_ID == item.PARENT_ID))
+                    //{
+                    //    userHtmlMenu += "<li id='li-menu-" + this._userHtmlMenuId + "' "
+                    //           + "data-url='" + "hef" + "' "
+                    //           + "data-id='" + this._userHtmlMenuId + "' "
+                    //           + " onclick='gotoTask(this)'><span class='menu-text'>" + item2.NAME
+                    //           + "</span></li>";
+                    //}
+
+
+                  
+
+
+               
+
+                           
+                
+                }
+                userHtmlMenu += "</ul></li>";
+
+                #endregion
+
             }
             catch (Exception)
             {
