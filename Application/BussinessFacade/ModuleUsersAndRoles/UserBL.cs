@@ -360,25 +360,20 @@
                                                + "<ul class='ul-group-menu collapsed' style='display:none;'>";
                 foreach (var item in _ListCata)
                 {
+                    string _wikistyle = "", _wikihref = "", _javafunc = "";
+                    if(item.CATA_LEVEL == 1)
+                    {
+                        _wikistyle = "style='margin-left:10px;'";
+                        _wikihref  =  "/wiki-manage/wiki-doc/list-by-catalogue/" + item.ID;
+                        _wikihref = "data-url='" + _wikihref + "' ";
+                        _javafunc = " onclick='gotoTask(this)'>";
+                    }
 
-
-                    userHtmlMenu += "<li id='li-menu-" + this._userHtmlMenuId + "' "
-                            + "data-url='" + "/wiki-manage/wiki-doc/list-by-catalogue/" + item.ID + "' "
+                    userHtmlMenu += "<li id='li-menu-" + this._userHtmlMenuId + "' " + _wikistyle
+                            + _wikihref
                             + "data-id='" + this._userHtmlMenuId + "' "
-                            + " onclick='gotoTask(this)'><span class='menu-text'>" + item.NAME
+                             + _javafunc + "<span class='menu-text'>" + item.NAME 
                             + "</span></li>";
-
-                    //foreach (var item2 in _ListCata.FindAll(m => m.PARENT_ID == item.PARENT_ID))
-                    //{
-                    //    userHtmlMenu += "<li id='li-menu-" + this._userHtmlMenuId + "' "
-                    //           + "data-url='" + "hef" + "' "
-                    //           + "data-id='" + this._userHtmlMenuId + "' "
-                    //           + " onclick='gotoTask(this)'><span class='menu-text'>" + item2.NAME
-                    //           + "</span></li>";
-                    //}
-
-
-                  
 
 
                
