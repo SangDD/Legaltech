@@ -67,7 +67,7 @@ namespace WebApps.Areas.TimeSheet.Controllers
                 string p_from = CommonFuc.Get_From_To_Page(p_CurrentPage, ref p_to);
 
                 TimeSheet_BL _obj_bl = new TimeSheet_BL();
-                List<Timesheet_Info> _lst = _obj_bl.Timesheet_Search(p_keysearch, ref _total_record);
+                List<Timesheet_Info> _lst = _obj_bl.Timesheet_Search(p_keysearch, ref _total_record, p_from, p_to);
                 string htmlPaging = CommonFuc.Get_HtmlPaging<Timesheet_Info>((int)_total_record, 1, "Timesheet");
 
                 ViewBag.Paging = htmlPaging;

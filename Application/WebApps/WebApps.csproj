@@ -163,6 +163,8 @@
     <Compile Include="Areas\AppClass\Controllers\AppClassController.cs" />
     <Compile Include="Areas\DaiDienSHCN\Controllers\DDSHCNController.cs" />
     <Compile Include="Areas\DaiDienSHCN\DaiDienSHCNAreaRegistration.cs" />
+    <Compile Include="Areas\DockingManager\Controllers\DockingController.cs" />
+    <Compile Include="Areas\DockingManager\DockingManagerAreaRegistration.cs" />
     <Compile Include="Areas\Home\Controllers\HomeController.cs" />
     <Compile Include="Areas\Home\Controllers\WikiController.cs" />
     <Compile Include="Areas\Home\HomeAreaRegistration.cs" />
@@ -1389,8 +1391,19 @@
     <Content Include="Areas\QuanLyPhi\Views\QLPhi\_PartialTableDanhSachPhi.cshtml" />
     <Content Include="Areas\QuanLyPhi\Views\QLPhi\_PartialViewFeeFixUpdate.cshtml" />
     <Content Include="Areas\QuanLyPhi\Views\web.config" />
+ 
     <Content Include="Areas\Wiki\Views\WikiDoc\ListDicAllStatus.cshtml" />
     <Content Include="Areas\Wiki\Views\WikiDoc\WikiListByCatalogue.cshtml" />
+ 
+    <Content Include="Areas\DockingManager\Views\web.config" />
+    <Content Include="Areas\DockingManager\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\DockingManager\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\DockingManager\Views\Docking\Docking_Display.cshtml" />
+    <Content Include="Areas\DockingManager\Views\Docking\_PartialTableDocking.cshtml" />
+    <Content Include="Areas\DockingManager\Views\Docking\_PartialInsert.cshtml" />
+    <Content Include="Areas\DockingManager\Views\Docking\_PartialView.cshtml" />
+    <Content Include="Areas\DockingManager\Views\Docking\_PartialEdit.cshtml" />
+ 
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <Content Include="Areas\Home\Views\Wiki\_PartialListDocByCata.cshtml" />
@@ -1701,6 +1714,7 @@
     <Folder Include="Areas\Account\Views\Shared\" />
     <Folder Include="Areas\DaiDienSHCN\Models\" />
     <Folder Include="Areas\DaiDienSHCN\Views\Shared\" />
+    <Folder Include="Areas\DockingManager\Models\" />
     <Folder Include="Areas\Home\Models\" />
     <Folder Include="Areas\ModuleUsersAndRoles\Models\" />
     <Folder Include="Areas\ModuleUsersAndRoles\Views\Shared\" />
