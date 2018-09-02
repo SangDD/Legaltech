@@ -62,7 +62,7 @@
             <input type="hidden" value="MODIFIED_DATE" id="colSorted" />
             <input type="hidden" value="DESC" id="SortType" />
             <input type="hidden" value="" id="OptionSorting" />
-           <table>
+           <table style="margin:10px 0px">
                <tr>
                    <td>
                        <a style="@_hef01" href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_luutam">1. Danh sách bài viết lưu tạm</a> 
@@ -155,7 +155,6 @@
 
         function findObjects(_pageNumber, _isSearching) {
             try {
-
                 reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
                 if (isSearching === 1) {
                     _status = '@_CurrentStatus';

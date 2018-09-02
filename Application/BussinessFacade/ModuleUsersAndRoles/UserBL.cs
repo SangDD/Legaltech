@@ -354,9 +354,14 @@
                 WikiCatalogue_BL _CatalogueBL = new WikiCatalogue_BL();
                 List<WikiCatalogues_Info> _ListCata = new List<WikiCatalogues_Info>();
                 _ListCata = _CatalogueBL.Portal_CataGetAll();
-             //   List<WikiCatalogues_Info> _ListCataLv1 = new List<WikiCatalogues_Info>();
-               // _ListCataLv1 =  _ListCata.FindAll(m => m.CATA_LEVEL == 0);
-                userHtmlMenu += "<li class='group-menu' onclick='javascript:;'>" + "<span data-menu='item-main-menu'><i class='far fa-comment'></i> Thư viện dữ liệu </span>"
+                string _menuName = "Thư viện dữ liệu";
+                if (language == Language.LangEN)
+                {
+                    _menuName = "Wiki data";
+                }
+
+
+                userHtmlMenu += "<li class='group-menu' onclick='javascript:;'>" + "<span data-menu='item-main-menu'><i class='far fa-comment'></i> "+ _menuName + " </span>"
                                                + "<ul class='ul-group-menu collapsed' style='display:none;'>";
                 foreach (var item in _ListCata)
                 {
@@ -372,13 +377,8 @@
                     userHtmlMenu += "<li id='li-menu-" + this._userHtmlMenuId + "' " + _wikistyle
                             + _wikihref
                             + "data-id='" + this._userHtmlMenuId + "' "
-                             + _javafunc + "<span class='menu-text'>" + item.NAME 
+                             + _javafunc + "<span class='menu-text'>" + (language == Language.LangEN?item.NAME_ENG:item.NAME) 
                             + "</span></li>";
-
-
-               
-
-                           
                 
                 }
                 userHtmlMenu += "</ul></li>";

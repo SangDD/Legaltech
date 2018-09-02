@@ -16,10 +16,11 @@
         _ObjectInfo = ViewBag.CataInfo;
     }
     string _CataName = _ObjectInfo.NAME;
-    if (WebApps.CommonFunction.AppsCommon.GetCurrentLang().ToUpper().Contains ("EN"))
+    if (WebApps.CommonFunction.AppsCommon.GetCurrentLang() == Language.LangEN)
     {
         _CataName = _ObjectInfo.NAME_ENG;
     }
+     
 }
 @try
 {
