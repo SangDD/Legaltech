@@ -11,6 +11,7 @@ using Common;
 using ObjectInfos.ModuleTrademark;
 using WebApps.CommonFunction;
 using System.Text;
+using Common.CommonData;
 
 namespace WebApps.Areas.Wiki.Controllers
 {
@@ -22,17 +23,46 @@ namespace WebApps.Areas.Wiki.Controllers
     public class WikiDocController : Controller
     {
 
-        [Route("wiki-doc/list")]
-        public ActionResult WikiDocList()
+        //[Route("wiki-doc/list")]
+        //public ActionResult WikiDocList()
+        //{
+        //    if (SessionData.CurrentUser == null)
+        //        return Redirect("/");
+        //    List<WikiDoc_Info> lstObj = new List<WikiDoc_Info>();
+        //    try
+        //    {
+        //        var _WikiCataBL = new WikiCatalogue_BL();
+        //        var ObjBL = new WikiDoc_BL();
+        //        lstObj = ObjBL.WikiDoc_Search("1||");
+        //        ViewBag.Paging = ObjBL.GetPagingHtml();
+        //        List<WikiCatalogues_Info> lstOjects = _WikiCataBL.WikiCatalogueGetAll();
+        //        ViewBag.ListCata = lstOjects;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.LogException(ex);
+        //    }
+        //    return PartialView("/Areas/Wiki/Views/WikiDoc/DocList.cshtml", lstObj);
+
+        //}
+
+        [Route("wiki-doc/list/{id}")]
+        public ActionResult WikiDocListAllStatus()
         {
             if (SessionData.CurrentUser == null)
                 return Redirect("/");
             List<WikiDoc_Info> lstObj = new List<WikiDoc_Info>();
+            int _Status = 0;
+            if (RouteData.Values.ContainsKey("id"))
+            {
+                _Status = Convert.ToInt32(RouteData.Values["id"]);
+                ViewBag.CurrStatus = _Status;
+            }
             try
             {
                 var _WikiCataBL = new WikiCatalogue_BL();
                 var ObjBL = new WikiDoc_BL();
-                lstObj = ObjBL.WikiDoc_Search("1||");
+                lstObj = ObjBL.WikiDoc_Search(_Status .ToString() + "||");
                 ViewBag.Paging = ObjBL.GetPagingHtml();
                 List<WikiCatalogues_Info> lstOjects = _WikiCataBL.WikiCatalogueGetAll();
                 ViewBag.ListCata = lstOjects;
@@ -41,9 +71,42 @@ namespace WebApps.Areas.Wiki.Controllers
             {
                 Logger.LogException(ex);
             }
-            return PartialView("/Areas/Wiki/Views/WikiDoc/DocList.cshtml", lstObj);
+            return PartialView("/Areas/Wiki/Views/WikiDoc/ListDicAllStatus.cshtml", lstObj);
 
         }
+
+        [Route("wiki-doc/list-by-catalogue/{id}")]
+        public ActionResult WikiDocListByCatalogue()
+        {
+            if (SessionData.CurrentUser == null)
+                return Redirect("/");
+            List<WikiDoc_Info> lstObj = new List<WikiDoc_Info>();
+            decimal _Cataid = 0;
+            if (RouteData.Values.ContainsKey("id"))
+            {
+                _Cataid = Convert.ToInt32(RouteData.Values["id"]);
+                var _ObjectInfo = new WikiCatalogues_Info();
+                var _WikiCatalogue_BL = new WikiCatalogue_BL();
+                _ObjectInfo = _WikiCatalogue_BL.WikiCatalogue_GetByID(_Cataid);
+                ViewBag.CataInfo = _ObjectInfo;
+            }
+            try
+            {
+                var _WikiCataBL = new WikiCatalogue_BL();
+                var ObjBL = new WikiDoc_BL();
+                lstObj = ObjBL.WikiDoc_Search(CommonWiki.Stt_daduyet.ToString() +  "|" + _Cataid.ToString() +   "|");
+                ViewBag.Paging = ObjBL.GetPagingHtml();
+                List<WikiCatalogues_Info> lstOjects = _WikiCataBL.WikiCatalogueGetAll();
+                ViewBag.ListCata = lstOjects;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return PartialView("/Areas/Wiki/Views/WikiDoc/WikiListByCatalogue.cshtml", lstObj);
+
+        }
+
 
 
         [Route("wiki-doc/pending-list")]
@@ -147,11 +210,20 @@ namespace WebApps.Areas.Wiki.Controllers
         }
 
 
-        [Route("wiki-doc/add")]
+        [Route("wiki-doc/add/{id}")]
         public ActionResult WikiDocAdd()
         {
             try
             {
+                decimal _Cataid = 0;
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    _Cataid = Convert.ToInt32(RouteData.Values["id"]);
+                    var _ObjectInfo = new WikiCatalogues_Info();
+                    var _WikiCatalogue_BL = new WikiCatalogue_BL();
+                    _ObjectInfo = _WikiCatalogue_BL.WikiCatalogue_GetByID(_Cataid);
+                    ViewBag.CataInfo = _ObjectInfo;
+                }
                 if (SessionData.CurrentUser == null)
                     return Redirect("/");
                 var _WikiCataBL = new WikiCatalogue_BL ();
@@ -250,6 +322,11 @@ namespace WebApps.Areas.Wiki.Controllers
 
                 // bỏ hết hashtag nvshashtag đi
                 _ObjInfo.CONTENT = _ObjInfo.CONTENT.Replace("<nvshashtag>" , "").Replace("</nvshashtag>", "");
+           
+                var _ObjectInfo = new WikiCatalogues_Info();
+                var _WikiCatalogue_BL = new WikiCatalogue_BL();
+                _ObjectInfo = _WikiCatalogue_BL.WikiCatalogue_GetByID(_ObjInfo.CATA_ID);
+                ViewBag.CataInfo = _ObjectInfo;
             }
             catch (Exception ex)
             {

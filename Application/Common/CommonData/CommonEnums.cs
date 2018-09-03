@@ -64,4 +64,12 @@
         public const string gc_RPT_NAME = "RPTNAME";
         public const string gc_TITLE_NAME = "TITLENAME";
     }
+
+    public class CommonWiki 
+    {
+        public const int Stt_luutam = 1;
+        public const int Stt_guibai = 2;
+        public const int Stt_daduyet = 3;
+        public const int Stt_tuchoi = 4;
+    }
 }

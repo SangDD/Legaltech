@@ -8,6 +8,12 @@
     {
         _listcata = ViewBag.ListCata;
     }
+    var _CataInfo = new WikiCatalogues_Info();
+    if (ViewBag.CataInfo != null)
+    {
+        _CataInfo = ViewBag.CataInfo;
+    }
+    string _backhref = "/wiki-manage/wiki-doc/list-by-catalogue/" + _CataInfo.ID;
 }
 @try
 {
@@ -59,44 +65,19 @@
         </div>
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Danh mục cha </div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <select id="CboAddWikiCataParent" onchange="FuncSearchChildCatalogue('CboAddWikiCataParent', 'divWikiChildCatalogue')">
-                        <option value="">
-                            Chọn danh mục
-                        </option>
-                        @foreach (WikiCatalogues_Info item in _listcata)
-                        {
-                            if (item.CATA_LEVEL == 0)
-                            {
-                                <option value="@item.ID">
-                                    @item.NAME
-                                </option>
-                            }
-                        }
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Danh mục con<i class="redspan">(*)</i></div>
+                <div>Danh mục  </div>
             </div>
             <div class="div-search-content">
                 <div id="divWikiChildCatalogue">
-                    <select id="CboAddWikiCataChild">
-                        @foreach (WikiCatalogues_Info item in _listcata)
-                        {
-                            if (item.CATA_LEVEL == 1)
-                            {
-                                <option value="@item.ID">
-                                    @item.NAME
-                                </option>
-                            }
-                        }
-                    </select>
+                    <input type="hidden" id="CboAddWikiCataChild"  value="@_CataInfo.ID" />
+                    @if (WebApps.CommonFunction.AppsCommon.GetCurrentLang().ToUpper().Contains("VN"))
+                    {
+                        <input type="text" readonly value="@_CataInfo.NAME_ENG" />
+                    }
+                    else
+                    {
+                        <input type="text" readonly value="@_CataInfo.NAME" />
+                    }
                 </div>
             </div>
         </div>
@@ -138,38 +119,32 @@
 
      });
 
-        $('#CboAddWikiCataChild').multipleSelect({
-            filter: true,
-            noMatchesFound: "Không tìm thấy dữ liệu",
-            single: true,
-            isdatastring: false,
-            placeholder: 'Tìm kiếm danh mục tin'
-        });
+     
 
-        function FuncSearchChildCatalogue(_cboId, _divid) {
-            try {
-                var inputValue = $("#" + _cboId).val();
-                if (inputValue == "")
-                    return;
-                $.ajax({
-                    type: "POST",
-                    url: "/wiki-manage/wiki-doc/search-catalogue-child",
-                    headers: { "cache-control": "no-cache" },
-                    data: { p_parentid: $("#" + _cboId).val() },
-                    async: false,
-                    success: function (data) {
-                        if (data != null) {
-                            if (validateResponse(data)) {
-                                $("#" + _divid).html(data);
-                            }
-                        }
-                        return false;
-                    }
-                });
-            } catch (e) {
-                alert(e.toString())
-            }
-        }
+        //function FuncSearchChildCatalogue(_cboId, _divid) {
+        //    try {
+        //        var inputValue = $("#" + _cboId).val();
+        //        if (inputValue == "")
+        //            return;
+        //        $.ajax({
+        //            type: "POST",
+        //            url: "/wiki-manage/wiki-doc/search-catalogue-child",
+        //            headers: { "cache-control": "no-cache" },
+        //            data: { p_parentid: $("#" + _cboId).val() },
+        //            async: false,
+        //            success: function (data) {
+        //                if (data != null) {
+        //                    if (validateResponse(data)) {
+        //                        $("#" + _divid).html(data);
+        //                    }
+        //                }
+        //                return false;
+        //            }
+        //        });
+        //    } catch (e) {
+        //        alert(e.toString())
+        //    }
+        //}
 
        
 
@@ -203,7 +178,7 @@
                 formData.append("_objectInfo.TITLE", txtTitle.val().trim());
                 formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
                 formData.append("_objectInfo.CONTENT", _contentVal);
-                formData.append("_objectInfo.STATUS", "1");
+                formData.append("_objectInfo.STATUS", '@CommonWiki.Stt_luutam');
                 ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_01", "0");
                 ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_02", "1");
                 ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_03", "2");
@@ -309,7 +284,7 @@
                     success: function (data) {
                         if (data.status >= 0) {
                             jAlert(AddSuccess, ThongBao, function () {
-                                window.location.reload();
+                                location.href = '@_backhref';
                             });
                         }
                     },

@@ -1,6 +1,7 @@
 ﻿@using Common.CommonData
 @using ObjectInfos;
 @using Common;
+@model WikiDoc_Info
 @{
     ViewBag.Title = "Sửa bài viết";
     Layout = "~/ViewsShared/_Layout.cshtml";
@@ -9,10 +10,19 @@
     {
         _listcata = ViewBag.ListCata;
     }
-    int _currStatus = 0;
-     
+
+    var _CataInfo = new WikiCatalogues_Info();
+    if (ViewBag.CataInfo != null)
+    {
+        _CataInfo = ViewBag.CataInfo;
+    }
+    string   _backhref = "/wiki-manage/wiki-doc/list/" + Model.STATUS;
+    if(Model.STATUS == CommonWiki.Stt_daduyet)
+    {
+        _backhref = "/wiki-manage/wiki-doc/list-by-catalogue/" + Model.CATA_ID; ;
+    }
 }
-@model WikiDoc_Info
+
 @try
 {
     <style>
@@ -64,56 +74,22 @@
                 </div>
             </div>
         </div>
+  
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Danh mục cha 1232 </div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <select id="CboAddWikiCataParent" onchange="FuncSearchChildCatalogue('CboAddWikiCataParent', 'divWikiChildCatalogue')">
-                        <option value="">
-                            Chọn danh mục
-                        </option>
-                        @foreach (WikiCatalogues_Info item in _listcata)
-                        {
-                            if (item.CATA_LEVEL == 0)
-                            {
-                                <option value="@item.ID">
-                                    @item.NAME
-                                </option>
-                            }
-                        }
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Danh mục con<i class="redspan">(*)</i></div>
+                <div>Danh mục </div>
             </div>
             <div class="div-search-content">
                 <div id="divWikiChildCatalogue">
-                    <select id="CboAddWikiCataChild">
-                        @foreach (WikiCatalogues_Info item in _listcata)
-                        {
-                            if (item.CATA_LEVEL == 1)
-                            {
-                                if (Model.CATA_ID == item.ID)
-                                {
-                                    <option value="@item.ID" selected="selected">
-                                        @item.NAME
-                                    </option>
-                                }
-                                else
-                                {
-                                    <option value="@item.ID">
-                                        @item.NAME
-                                    </option>
-                                }
-
-                            }
-                        }
-                    </select>
+                    <input type="hidden" id="CboAddWikiCataChild" value="@_CataInfo.ID" />
+                    @if (WebApps.CommonFunction.AppsCommon.GetCurrentLang().ToUpper().Contains("VN"))
+                    {
+                        <input type="text" readonly value="@_CataInfo.NAME_ENG" />
+                    }
+                    else
+                    {
+                        <input type="text" readonly value="@_CataInfo.NAME" />
+                    }
                 </div>
             </div>
         </div>
@@ -228,13 +204,7 @@
 
              });
 
-                $('#CboAddWikiCataChild').multipleSelect({
-                    filter: true,
-                    noMatchesFound: "Không tìm thấy dữ liệu",
-                    single: true,
-                    isdatastring: false,
-                    placeholder: 'Tìm kiếm danh mục tin'
-                });
+
 
                 function FuncSearchChildCatalogue(_cboId, _divid) {
                     try {
@@ -533,16 +503,7 @@
                             success: function (data) {
                                 if (data != null && data.status >= 0) {
                                     jAlert(EditSuccess, ThongBao, function () {
-                                        if ($("#txtcurrstatus").val() == "1") {
-                                            // lưu tạm
-                                            location.href = "/wiki-manage/wiki-doc/list"
-                                        }
-                                        else if ($("#txtcurrstatus").val() == "2" || $("#txtcurrstatus").val() == "4") {
-                                            location.href = "/wiki-manage/wiki-doc/pending-list"
-                                        }
-                                        else if ($("#txtcurrstatus").val() == "3") {
-                                            location.href = "/wiki-manage/wiki-doc/approved-list"
-                                        }
+                                        location.href = '@_backhref';
                                     });
                                 } else {
                                     jError(AddFail, ThongBao, function () {
@@ -575,16 +536,7 @@
                             success: function (data) {
                                 if (data.status >= 0) {
                                     jAlert(EditSuccess, ThongBao, function () {
-                                        if ($("#txtcurrstatus").val() == "1") {
-                                            // lưu tạm
-                                            location.href = "/wiki-manage/wiki-doc/list"
-                                        }
-                                        else if ($("#txtcurrstatus").val() == "2" || $("#txtcurrstatus").val() == "4") {
-                                            location.href = "/wiki-manage/wiki-doc/pending-list"
-                                        }
-                                        else if ($("#txtcurrstatus").val() == "3") {
-                                            location.href = "/wiki-manage/wiki-doc/approved-list"
-                                        }
+                                        location.href = '@_backhref';
                                     });
                                 }
                             },
