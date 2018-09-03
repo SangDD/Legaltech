@@ -161,6 +161,8 @@
     <Compile Include="Areas\Account\Controllers\AccountController.cs" />
     <Compile Include="Areas\AppClass\AppClassAreaRegistration.cs" />
     <Compile Include="Areas\AppClass\Controllers\AppClassController.cs" />
+    <Compile Include="Areas\Articles\ArticlesAreaRegistration.cs" />
+    <Compile Include="Areas\Articles\Controllers\ArticlesNewsController.cs" />
     <Compile Include="Areas\DaiDienSHCN\Controllers\DDSHCNController.cs" />
     <Compile Include="Areas\DaiDienSHCN\DaiDienSHCNAreaRegistration.cs" />
     <Compile Include="Areas\DockingManager\Controllers\DockingController.cs" />
@@ -256,6 +258,7 @@
     <Compile Include="Session\SessionData.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Articles\Views\web.config" />
     <Content Include="Content\Archive\NoteArchive.txt" />
     <Content Include="Content\ckeditor\build-config.js" />
     <Content Include="Content\ckeditor\ckeditor.js" />
@@ -1704,6 +1707,9 @@
   <ItemGroup>
     <Folder Include="Areas\Account\Models\" />
     <Folder Include="Areas\Account\Views\Shared\" />
+    <Folder Include="Areas\Articles\Models\" />
+    <Folder Include="Areas\Articles\Views\ArticlesNews\" />
+    <Folder Include="Areas\Articles\Views\Shared\" />
     <Folder Include="Areas\DaiDienSHCN\Models\" />
     <Folder Include="Areas\DaiDienSHCN\Views\Shared\" />
     <Folder Include="Areas\DockingManager\Models\" />
