@@ -51,7 +51,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Ap_Case_Code, new { id = "txtAp_Case_Code", @maxlength = "50", @style = "width: 200px;" })
+                    @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @maxlength = "50", @style = "width: 200px;" })
                 </div>
             </div>
 
@@ -217,11 +217,11 @@
             return false;
         }
 
-        var Ap_Case_Code = $("#txtAp_Case_Code").val();
-        if (Ap_Case_Code == null) {
+        var App_Case_Code = $("#txtApp_Case_Code").val();
+        if (App_Case_Code == null) {
             jError("Case code không được bỏ trống!", "lỗi", function () {
-                $("#txtAp_Case_Code").val('');
-                $('#txtAp_Case_Code').focus();
+                $("#txtApp_Case_Code").val('');
+                $('#txtApp_Case_Code').focus();
             });
             return false;
         }
@@ -343,7 +343,7 @@
 
     function collectData(formData) {
         try {
-            formData.append('p_Docking_Info.Ap_Case_Code', $("#txtAp_Case_Code").val());
+            formData.append('p_Docking_Info.App_Case_Code', $("#txtApp_Case_Code").val());
             formData.append('p_Docking_Info.Document_Name', $("#Document_Name").val());
             formData.append('p_Docking_Info.Docking_Type', $("#Docking_Type").val());
             formData.append('p_Docking_Info.Place_Submit', $("#Place_Submit").val());

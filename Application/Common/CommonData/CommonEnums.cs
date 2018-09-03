@@ -62,6 +62,13 @@
             In_Book = 1,
             Out_Book = 2
         }
+
+        public enum Docking_Status
+        {
+            Wait_Original = 1,
+            Wait_Translate = 2,
+            Completed = 3
+        }
     }
 
     public class Report_Enums

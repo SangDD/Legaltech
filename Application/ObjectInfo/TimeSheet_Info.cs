@@ -15,7 +15,7 @@ namespace ObjectInfos
         public string App_Code { get; set; }
         public string App_Name { get; set; }
 
-        public string App_GenCode { get; set; }
+        public string App_Case_Code { get; set; }
 
         public decimal Lawer_Id { get; set; }
         public string Lawer_Name { get; set; }

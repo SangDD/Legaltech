@@ -10,6 +10,7 @@ using ObjectInfos;
 using BussinessFacade;
 using Common;
 using WebApps.CommonFunction;
+using Common.CommonData;
 
 namespace WebApps.Areas.DockingManager.Controllers
 {
@@ -127,7 +128,7 @@ namespace WebApps.Areas.DockingManager.Controllers
                 p_Docking_Info.Created_Date = DateTime.Now;
                 p_Docking_Info.Language_Code = AppsCommon.GetCurrentLang();
 
-                
+
                 if (p_Docking_Info.File_Upload != null)
                 {
                     var url_File_Upload = AppLoadHelpers.PushFileToServer(p_Docking_Info.File_Upload, AppUpload.Document);
@@ -193,6 +194,43 @@ namespace WebApps.Areas.DockingManager.Controllers
             {
                 Logger.LogException(ex);
                 return Json(new { success = "-1" });
+            }
+        }
+
+        [HttpPost]
+        [Route("danh-sach-docking/show-change-status")]
+        public ActionResult GetView2UpdateStatus(int p_id)
+        {
+            try
+            {
+                Docking_BL _obj_bl = new Docking_BL();
+                Docking_Info _Docking_Info = _obj_bl.Docking_GetBy_Id(p_id);
+                return PartialView("~/Areas/DockingManager/Views/Docking/_PartialChangeStatus.cshtml", _Docking_Info);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialApproveTimeSheet.cshtml");
+            }
+
+        }
+
+        [HttpPost]
+        [Route("danh-sach-docking/do-change-status")]
+        public ActionResult DoUpdateStatus(int p_id)
+        {
+            try
+            {
+                Docking_BL _obj_bl = new Docking_BL();
+                var modifiedBy = SessionData.CurrentUser.Username;
+                decimal _status = (decimal)CommonEnums.Docking_Status.Completed;
+                decimal _result = _obj_bl.Docking_Update_Status(p_id, AppsCommon.GetCurrentLang(), _status, SessionData.CurrentUser.Username, DateTime.Now);
+                return Json(new { success = _result });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = -1 });
             }
         }
     }

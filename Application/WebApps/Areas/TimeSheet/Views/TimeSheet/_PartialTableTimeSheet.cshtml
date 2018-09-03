@@ -35,7 +35,7 @@
                         <td class="tdcenteralign">@item.STT</td>
                         <td class="tdleftalign">@item.Name</td>
                         <td class="tdleftalign">@item.Notes</td>
-                        <td class="tdleftalign">@item.App_GenCode</td>
+                        <td class="tdleftalign">@item.App_Case_Code</td>
                         <td class="tdleftalign">@item.Client_Reference</td>
                         <td class="tdleftalign">@item.Lawer_Name</td>
                         <td class="tdleftalign">@item.Time_Date.ToString("dd/MM/yyyy")</td>
@@ -59,9 +59,9 @@
                                 <a href="javascript:;" onclick="getView2Edit(@item.Id)" class="icon icon-edit" data-title="Sửa"></a>
 
                                 @*if (item.Status != (decimal)CommonEnums.TimeSheet_Status.Approve)
-            {
-                <a href="javascript:;" onclick="getView2Edit(@item.Id)" class="icon icon-edit" data-title="Sửa"></a>
-            }*@
+                                {
+                                    <a href="javascript:;" onclick="getView2Edit(@item.Id)" class="icon icon-edit" data-title="Sửa"></a>
+                                }*@
                             }
                         </td>
                     </tr>
