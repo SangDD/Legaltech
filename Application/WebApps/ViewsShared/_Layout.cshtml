@@ -238,6 +238,12 @@
         $(currentTask).parent().removeClass('collapsed').slideDown('fast');
         $(currentTask).parent().parent().addClass('main-menu-active');
         $(currentTask).addClass('task-menu-active');
+        // Hungtd: sửa đối với các menu có dung đường dẫn url nhưng khác tham số cuối(status) thì vẫn focus active 
+        currentPath = currentPath.substr(0, currentPath.length - 1);
+        currentTask = $('#divMns').find('[data-link="' + currentPath + '"]');
+        $(currentTask).parent().removeClass('collapsed').slideDown('fast');
+        $(currentTask).parent().parent().addClass('main-menu-active');
+        $(currentTask).addClass('task-menu-active');
     });
 
     function gotoTask(el) {

@@ -19,6 +19,10 @@ namespace WebApps.Areas.Wiki.Controllers
         [Route("wiki-doc/catalogue-list")]
         public ActionResult CatalogueList()
         {
+            if (SessionData.CurrentUser == null)
+            {
+               return Redirect("/dang-xuat");
+            }
             List<WikiCatalogues_Info> lstObj = new List<WikiCatalogues_Info>();
             try
             {
@@ -57,6 +61,7 @@ namespace WebApps.Areas.Wiki.Controllers
         [Route("wiki-doc/add-new-catalogue")]
         public ActionResult AddNew()
         {
+           
             var ObjBL = new WikiCatalogue_BL();
             List<WikiCatalogues_Info> lstOjects = ObjBL.WikiCatalogueGetAll();
             ViewBag.ListCata = lstOjects;

@@ -346,37 +346,73 @@
                 #endregion
 
                 #region Load menu wiki
+                int _lastmenuid = _userHtmlMenuId;
+                string _wikistyle = "", _wikihref = "", _javafunc = "", _wikilink = "";
+                string _menuName = "Quản lý Wiki";
+                string _urlLang = "/vi-vn";
+              
+                if (language == Language.LangEN)
+                {
+                    _menuName = "Wiki manage";
+                    _urlLang = "/en-gb";
+                }
+              
+                _javafunc = " onclick='gotoTask(this)'>";
 
-                userHtmlMenu += "<a href='/wiki-manage/wiki-doc/list/1'> <li class='group-menu' onclick='javascript:;'>" + "  <span data-menu='item-main-menu'><i class='far fa-comment'></i> Quản lý wiki </span>  "
-                                            + " <ul class='ul-group-menu collapsed' style='display:none;'></ul></li> </a> ";
+                userHtmlMenu += " <li  class='group-menu' onclick='javascript:;' >" + "  <span data-menu='item-main-menu'><i class='far fa-comment'></i> " + _menuName + " </span>  "
+                                            + " <ul class='ul-group-menu collapsed' style='display:none;'>";
+                _lastmenuid++;
+                _wikihref = _urlLang + "/wiki-manage/wiki-doc/list/1";
+                _wikilink = _urlLang + "/wiki-manage/wiki-doc/list/";
+                _wikilink = "data-link='" + _wikilink + "' ";
+                _wikihref = "data-url='" + _wikihref + "' ";
+                // quản lý bài viết
+                userHtmlMenu += "<li id='li-menu-" + _lastmenuid  + "' " 
+                           + _wikihref 
+                           + _wikilink  
+                           + "data-id='" + _lastmenuid + "' "
+                            + _javafunc + "<span class='menu-text'>" + (language == Language.LangEN ? "Wiki manage by status" : "Quản lý bài viết")
+                           + "</span></li>";
+                // quản lý danh mục chủ đề
+                _lastmenuid++;
+                _wikihref = _urlLang + "/wiki-manage/wiki-doc/catalogue-list";
+                _wikihref = "data-url='" + _wikihref + "' ";
+                userHtmlMenu += "<li id='li-menu-" + _lastmenuid  + "' "
+                          + _wikihref
+                          + "data-id='" + _lastmenuid + "' "
+                           + _javafunc + "<span class='menu-text'>" + (language == Language.LangEN ? "Catalogue manage" : "Quản lý chủ đề")
+                          + "</span></li>";
 
+                userHtmlMenu += "  </ul></li>  ";
 
+             
                 WikiCatalogue_BL _CatalogueBL = new WikiCatalogue_BL();
                 List<WikiCatalogues_Info> _ListCata = new List<WikiCatalogues_Info>();
                 _ListCata = _CatalogueBL.Portal_CataGetAll();
-                string _menuName = "Thư viện dữ liệu";
+
+                _menuName = "Thư viện dữ liệu";
                 if (language == Language.LangEN)
                 {
                     _menuName = "Wiki data";
+                    _urlLang = "/en-gb";
                 }
-
-
                 userHtmlMenu += "<li class='group-menu' onclick='javascript:;'>" + "<span data-menu='item-main-menu'><i class='far fa-comment'></i> "+ _menuName + " </span>"
                                                + "<ul class='ul-group-menu collapsed' style='display:none;'>";
                 foreach (var item in _ListCata)
                 {
-                    string _wikistyle = "", _wikihref = "", _javafunc = "";
+                    _lastmenuid++;
+                    _wikistyle = ""; _wikihref = ""; _javafunc = "";
                     if(item.CATA_LEVEL == 1)
                     {
                         _wikistyle = "style='margin-left:10px;'";
-                        _wikihref  =  "/wiki-manage/wiki-doc/list-by-catalogue/" + item.ID;
+                        _wikihref  = _urlLang + "/wiki-manage/wiki-doc/list-by-catalogue/" + item.ID;
                         _wikihref = "data-url='" + _wikihref + "' ";
                         _javafunc = " onclick='gotoTask(this)'>";
                     }
 
-                    userHtmlMenu += "<li id='li-menu-" + this._userHtmlMenuId + "' " + _wikistyle
+                    userHtmlMenu += "<li id='li-menu-" + _lastmenuid + "' " + _wikistyle
                             + _wikihref
-                            + "data-id='" + this._userHtmlMenuId + "' "
+                            + "data-id='" + _lastmenuid + "' "
                              + _javafunc + "<span class='menu-text'>" + (language == Language.LangEN?item.NAME_ENG:item.NAME) 
                             + "</span></li>";
                 
