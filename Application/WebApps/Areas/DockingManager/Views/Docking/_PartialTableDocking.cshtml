@@ -14,10 +14,11 @@
         <thead>
             <tr>
                 <th class="class30">STT</th>
+                <th class="class100">In/Out book</th>
                 <th class="class150">Case code</th>
                 <th class="class150">Mã tài liệu</th>
                 <th class="class200">Tên tài liệu</th>
-                <th class="class150">Loại tài liệu</th>
+                <th class="class100">Loại tài liệu</th>
                 <th class="class150">Tình trạng</th>
                 <th class="class100">Thời hạn</th>
                 <th class="class100">Chức năng</th>
@@ -30,12 +31,13 @@
                 {
             <tr>
                 <td class="tdcenteralign">@item.STT</td>
+                <td class="tdleftalign">@item.Docking_Type_Name</td>
                 <td class="tdleftalign">@item.Ap_Case_Code</td>
                 <td class="tdleftalign">@item.Case_Code</td>
                 <td class="tdleftalign">@item.Document_Name</td>
                 <td class="tdleftalign">@item.Document_Type_Name</td>
                 <td class="tdleftalign">@item.Status_Name</td>
-                <td class="tdleftalign">@item.Deadline.ToString("dd/MM/yyyy")</td>
+                <td class="tdcenteralign">@item.Deadline.ToString("dd/MM/yyyy")</td>
 
                 <td class="tdcenteralign">
                     <a href="javascript:getViewDocking(@item.Docking_Id)" class="icon icon-info" data-title="Xem chi tiết"></a>
@@ -48,7 +50,7 @@
             else
             {
                 <tr>
-                    <td colspan="8">Không có dữ liệu</td>
+                    <td colspan="9">Không có dữ liệu</td>
                 </tr>
             }
         </tbody>

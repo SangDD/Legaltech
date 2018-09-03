@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace ObjectInfos
 {
@@ -12,8 +13,12 @@ namespace ObjectInfos
         public decimal Docking_Id { get; set; }
         public string Case_Code { get; set; }
         public string Ap_Case_Code { get; set; }
+
         public decimal Docking_Type { get; set; }
         public string Docking_Type_Name { get; set; }
+
+        public decimal Place_Submit { get; set; }
+        public string Place_Submit_Name { get; set; }
 
         public string Document_Name { get; set; }
 
@@ -33,6 +38,10 @@ namespace ObjectInfos
         public DateTime Modify_Date { get; set; }
         public string Language_Code { get; set; }
         public string Url { get; set; }
+        public string FileName { get; set; }
+
         public string Notes { get; set; }
+
+        public HttpPostedFileBase File_Upload { get; set; }
     }
 }

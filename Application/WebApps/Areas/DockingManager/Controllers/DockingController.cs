@@ -121,9 +121,20 @@ namespace WebApps.Areas.DockingManager.Controllers
         {
             try
             {
+
                 Docking_BL _obj_bl = new Docking_BL();
                 p_Docking_Info.Created_By = SessionData.CurrentUser.Username;
                 p_Docking_Info.Created_Date = DateTime.Now;
+                p_Docking_Info.Language_Code = AppsCommon.GetCurrentLang();
+
+                
+                if (p_Docking_Info.File_Upload != null)
+                {
+                    var url_File_Upload = AppLoadHelpers.PushFileToServer(p_Docking_Info.File_Upload, AppUpload.Document);
+                    p_Docking_Info.FileName = p_Docking_Info.File_Upload.FileName;
+                    p_Docking_Info.Url = url_File_Upload;
+                }
+
                 decimal _ck = _obj_bl.Docking_Insert(p_Docking_Info);
                 return Json(new { success = _ck });
             }
@@ -161,6 +172,19 @@ namespace WebApps.Areas.DockingManager.Controllers
                 Docking_BL _obj_bl = new Docking_BL();
                 p_Docking_Info.Modify_By = SessionData.CurrentUser.Username;
                 p_Docking_Info.Modify_Date = DateTime.Now;
+                p_Docking_Info.Language_Code = AppsCommon.GetCurrentLang();
+
+                if (p_Docking_Info.File_Upload != null)
+                {
+                    var url_File_Upload = AppLoadHelpers.PushFileToServer(p_Docking_Info.File_Upload, AppUpload.Document);
+                    p_Docking_Info.FileName = p_Docking_Info.File_Upload.FileName;
+                    p_Docking_Info.Url = url_File_Upload;
+                }
+                else
+                {
+                    p_Docking_Info.FileName = "NA";
+                    p_Docking_Info.Url = "NA";
+                }
 
                 decimal _ck = _obj_bl.Docking_Update(p_Docking_Info);
                 return Json(new { success = _ck });

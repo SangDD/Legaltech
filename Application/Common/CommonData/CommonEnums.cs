@@ -56,6 +56,12 @@
             Accept = 1,
             Reject = 2
         }
+
+        public enum Docking_Type_Enum
+        {
+            In_Book = 1,
+            Out_Book = 2
+        }
     }
 
     public class Report_Enums

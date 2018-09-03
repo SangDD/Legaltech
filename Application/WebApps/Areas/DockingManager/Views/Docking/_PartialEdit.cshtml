@@ -1,9 +1,29 @@
 ﻿@using ObjectInfos;
 @using BussinessFacade;
-@model Timesheet_Info
+@using BussinessFacade.ModuleMemoryData
+@using System.Xml
+@model Docking_Info
+
 @{
-    App_Lawer_BL _App_Lawer_BL = new App_Lawer_BL();
-    List<App_Lawer_Info> _lstAppLawer = _App_Lawer_BL.GetApp_Grant4Lawer(WebApps.Session.SessionData.CurrentUser.Id, WebApps.Session.SessionData.CurrentUser.Type, WebApps.CommonFunction.AppsCommon.GetCurrentLang());
+    List<AllCodeInfo> _lstDockingType = MemoryData.AllCode_GetBy_CdTypeCdName("DOCKING", "DOCKING_TYPE");
+    var lstDockingType = _lstDockingType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
+
+
+    List<AllCodeInfo> _lstStatus = MemoryData.AllCode_GetBy_CdTypeCdName("DOCKING", "STATUS");
+    var lstStatus = _lstStatus.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
+
+    List<AllCodeInfo> _lstDocumentType = MemoryData.AllCode_GetBy_CdTypeCdName("DOCKING", "DOCUMENT_TYPE");
+    var lstDocumentType = _lstDocumentType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
+
+    List<AllCodeInfo> _lstPlace = MemoryData.AllCode_GetBy_CdTypeCdName("DOCKING", "PLACE_SUBMIT");
+    var lstPlace = _lstDocumentType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
+
+    Model.In_Out_Date = DateTime.Now;
+    string _in_out = "In Date";
+    if (Model.Docking_Type == Convert.ToInt16(Common.CommonData.CommonEnums.Docking_Type_Enum.Out_Book))
+    {
+        _in_out = "Out Date";
+    }
 }
 <script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
 <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
@@ -36,41 +56,80 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <select id="cboAppHeader">
-                        @foreach (var item in _lstAppLawer)
-                        {
-                            <option value="@item.Application_Header_Id">@item.GenCode - @item.Client_Reference</option>
-                        }
-                    </select>
+                    @Html.TextBoxFor(m => m.Ap_Case_Code, new { id = "txtAp_Case_Code", @maxlength = "50", @style = "width: 200px;", @disabled = "disabled" })
                 </div>
             </div>
-        </div>
-        <div class="div-search-ad">
+
             <div class="div-search-title">
-                <div>Timesheet name <i class="redspan">(*)</i></div>
+                <div>In/Out book <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Name, new { id = "txtName", @maxlength = "200" })
+                    @Html.DropDownList("Docking_Type", lstDockingType, new { @id = "Docking_Type", onchange = "Choose_DockingType()", @disabled = "disabled" })
                 </div>
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Ngày <i class="redspan">(*)</i></div>
+                <div>Tên tài liệu<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Time_Date, "{0:dd/MM/yyyy}", new { id = "txtTime_Date", @Value = Model.Time_Date == DateTime.MinValue ? "" : Model.Time_Date.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker" })
+                    @Html.TextBoxFor(m => m.Document_Name, new { id = "Document_Name", @maxlength = "200" })
                 </div>
             </div>
+        </div>
+
+        <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Giờ  <i class="redspan">(*)</i></div>
+                <div>Loại tài liệu<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Hours, new { id = "txtHours", @Value = Model.Hours == 0 ? "" : Model.Hours.ToString("#,##0.##"), onkeyup = "jsFormatNumber(this.value, this.id)" })
+                    @Html.DropDownList("Document_Type", lstDocumentType, new { @id = "Document_Type", @style = "width: 200px;" })
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Trạng thái <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.DropDownList("Status", lstStatus, new { @id = "Status" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@_in_out <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.In_Out_Date, "{0:dd/MM/yyyy}", new { id = "txtIn_Out_Date", @Value = Model.In_Out_Date == DateTime.MinValue ? "" : Model.In_Out_Date.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad clssDisplaynone" id="clsPlace">
+            <div class="div-search-title">
+                <div>Nơi nộp <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.DropDownList("Place_Submit", lstPlace, new { @id = "Place_Submit" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Deadline <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Deadline, "{0:dd/MM/yyyy}", new { id = "txtDeadline", @Value = Model.Deadline == DateTime.MinValue ? "" : Model.Deadline.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker" })
                 </div>
             </div>
         </div>
@@ -85,11 +144,32 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Lưu" onclick="return doInsertTimeSheet()" />
+        @if (@Model.Url != null && @Model.Url != "")
+        {
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>File đính kèm</div>
+                </div>
+                <div class="div-search-content">
+                    <div class="div-checkbox">
+                        <div class="div-search-content" id="div_ImgDownload">
+                            <div class="div-checkbox" style="border: none;">
+                                <a style="border: none;" href="@Model.Url" target="_blank">
+                                    <i class="fas fa-download" style="color:blue;font-size:16px;margin-top:7px; margin-right:5px;"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <label>@Model.FileName</label>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="form-group">
+            <div class="form-group-bottom">
+                <input type="submit" class="btn-default" value="Sửa" onclick="return doEditDocking()" />
+            </div>
         </div>
     </div>
 </div>
@@ -97,23 +177,16 @@
 <script>
 
     $(document).ready(function () {
-
-        $('#cboAppHeader').multipleSelect({
-            filter: true,
-            single: true,
-            isdatastring: false,
-            maxHeight: 150,
-            placeholder: "-- Chọn đơn --"
-        });
+        Choose_DockingType();
     });
 
-    function doInsertTimeSheet() {
+    function doEditDocking() {
         if (validateForm()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn khai timesheet này không?", function () {
+            nvsConfirm(null, "Bạn có chắc chắn muốn sửa tài liệu này không?", function () {
                 var formData = new FormData();
                 collectData(formData);
                 $.ajax({
-                    url: '/quan-ly-timesheet/danh-sach-timesheet/do-insert-timeshet',
+                    url: '/quan-ly-docking/danh-sach-docking/do-edit-docking',
                     type: 'POST',
                     data: formData,
                     async: true, traditional: true, contentType: false, processData: false,
@@ -128,9 +201,9 @@
                             return false;
                         }
                         else {
-                            jAlert('Khai timesheet thành công!', "THÔNG BÁO", function () {
-                                ClosePopUpTimeSheet();
-                                Search_TimeSheet(1, 1);
+                            jAlert('Sửa tài liệu thành công!', "THÔNG BÁO", function () {
+                                ClosePopUpDocking();
+                                Search_Docking(1, 1);
                             });
                         }
                     },
@@ -148,54 +221,101 @@
             return false;
         }
 
-        var cboAppHeader = $("#cboAppHeader").val();
-        if (cboAppHeader == null) {
-            jError("Đơn khai timesheet không được bỏ trống!", "lỗi", function () {
-                $("#cboAppHeader").val('');
-                $('#cboAppHeader').multipleSelect('focus');
+        var Ap_Case_Code = $("#txtAp_Case_Code").val();
+        if (Ap_Case_Code == null) {
+            jError("Case code không được bỏ trống!", "lỗi", function () {
+                $("#txtAp_Case_Code").val('');
+                $('#txtAp_Case_Code').focus();
             });
             return false;
         }
 
-        var txtName = $("#txtName").val();
-        if (txtName == "") {
-            jError("Tên đợt time sheet không được bỏ trống!", "lỗi", function () {
-                $("#txtName").val('');
-                $("#txtName").focus();
+        var _txtDocument_Name = $("#Document_Name").val();
+        if (_txtDocument_Name == "") {
+            jError("Tên tài liệu không được bỏ trống!", "lỗi", function () {
+                $("#Document_Name").val('');
+                $("#Document_Name").focus();
             });
             return false;
         }
 
-        var txtTime_Date = $("#txtTime_Date").val();
-        if (checkDate("Ngày khai timesheet", "#txtTime_Date", txtTime_Date) == false) {
+        var txtDeadline = $("#txtDeadline").val();
+        if (checkDate("Deadline", "#txtDeadline", txtDeadline) == false) {
             return false;
         }
 
-        var txtHours = $("#txtHours").val();
-        if (txtHours == "") {
-            jError("Giờ khai timesheet không được bỏ trống!", "lỗi", function () {
-                $("#txtHours").val('');
-                $("#txtHours").focus();
-            });
+        var txtIn_Out_Date = $("#txtIn_Out_Date").val();
+        if (checkDate("Ngày khai In/Out book", "#txtIn_Out_Date", txtIn_Out_Date) == false) {
             return false;
         }
 
-        if (txtHours == "0") {
-            jError("Giờ khai timesheet phải lớn hơn 0!", "lỗi", function () {
-                $("#txtHours").val('');
-                $("#txtHours").focus();
-            });
-            return false;
-        }
+        // file
+        //var pfile = $("#file_attach");//lay du lieu file
+        //if (pfile.val() != "") {
+        //    var _CheckFile = true;
+        //    var _Len = pfile[0].files[0].name.toString()
+        //    if (_Len.length > 200) {
+        //        _CheckFile = false;
+        //        jError("Tên file không được quá 200 ký tự", "Lỗi", function () {
+        //            $(pfile).focus();
+
+        //        });
+        //        return false;
+        //    }
+
+        //    var _file = pfile[0].files[0];
+        //    var _size = _file.size / 1024 / 1024;
+
+        //    if (validateFileName(_file.name) == false) {
+        //        _CheckFile = false;
+        //        jError("Không tải file có tên file được lưu là unicode Tiếng việt có dấu ! ", "Lỗi", function () {
+        //            $(pfile).focus();
+        //        });
+        //        return false;
+        //    }
+        //    if (_CheckFile == false) {
+        //        return false;
+        //    }
+        //}
 
         return true;
     }
 
+    function Choose_DockingType() {
+        try {
+           var _Docking_Type = $('#Docking_Type').val();
+            if (_Docking_Type == '@Convert.ToInt16(Common.CommonData.CommonEnums.Docking_Type_Enum.Out_Book)') {
+                $("#clsPlace").removeClass("clssDisplaynone");
+            }
+            else {
+                $("#clsPlace").addClass("clssDisplaynone");
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
     function collectData(formData) {
-        formData.append('p_Timesheet_Info.App_Header_Id', $("#cboAppHeader").val());
-        formData.append('p_Timesheet_Info.Name', $("#txtName").val());
-        formData.append('p_Timesheet_Info.Time_Date', $("#txtTime_Date").val());
-        formData.append('p_Timesheet_Info.Hours', $("#txtHours").val());
-        formData.append('p_Timesheet_Info.Notes', $("#txtNotes").val());
+        try {
+            formData.append('p_Docking_Info.Docking_Id', @Model.Docking_Id);
+            formData.append('p_Docking_Info.Document_Name', $("#Document_Name").val());
+            formData.append('p_Docking_Info.Docking_Type', $("#Docking_Type").val());
+            formData.append('p_Docking_Info.Place_Submit', $("#Place_Submit").val());
+            formData.append('p_Docking_Info.Document_Type', $("#Document_Type").val());
+            formData.append('p_Docking_Info.Status', $("#Status").val());
+
+            formData.append('p_Docking_Info.In_Out_Date', $("#txtIn_Out_Date").val());
+            formData.append('p_Docking_Info.Deadline', $("#txtDeadline").val());
+            formData.append('p_Docking_Info.Notes', $("#txtNotes").val());
+
+
+        } catch (e) {
+            alert(e.toString());
+        }
+        }
+
+
+    function doExitDocking() {
+        ClosePopUpDocking();
     }
 </script>

@@ -93,7 +93,7 @@ namespace BussinessFacade
                 Docking_DA _da = new Docking_DA();
                 return _da.Docking_Insert(p_Docking_Info.Ap_Case_Code, p_Docking_Info.Docking_Type, p_Docking_Info.Document_Name, p_Docking_Info.Document_Type, p_Docking_Info.Status,
                     p_Docking_Info.Deadline, p_Docking_Info.Isshowcustomer, p_Docking_Info.In_Out_Date, p_Docking_Info.Created_By, 
-                    p_Docking_Info.Created_Date, p_Docking_Info.Language_Code, p_Docking_Info.Url, p_Docking_Info.Notes);
+                    p_Docking_Info.Created_Date, p_Docking_Info.Language_Code, p_Docking_Info.Url, p_Docking_Info.Notes, p_Docking_Info.Place_Submit, p_Docking_Info.FileName);
             }
             catch (Exception ex)
             {
@@ -109,7 +109,7 @@ namespace BussinessFacade
                 Docking_DA _da = new Docking_DA();
                 return _da.Docking_Update(p_Docking_Info.Docking_Id, p_Docking_Info.Docking_Type, p_Docking_Info.Document_Name, p_Docking_Info.Document_Type, p_Docking_Info.Status,
                     p_Docking_Info.Deadline, p_Docking_Info.Isshowcustomer, p_Docking_Info.In_Out_Date, p_Docking_Info.Modify_By, p_Docking_Info.Modify_Date, 
-                    p_Docking_Info.Language_Code, p_Docking_Info.Url, p_Docking_Info.Notes);
+                    p_Docking_Info.Language_Code, p_Docking_Info.Url, p_Docking_Info.Notes, p_Docking_Info.Place_Submit, p_Docking_Info.FileName);
             }
             catch (Exception ex)
             {
