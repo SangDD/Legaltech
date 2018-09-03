@@ -34,6 +34,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\Extended dll\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,6 +51,7 @@
     <Compile Include="Docking_Info.cs" />
     <Compile Include="Lawer_Info_Info.cs" />
     <Compile Include="App_Lawer_Info.cs" />
+    <Compile Include="ModuleArticles\NewsInfo.cs" />
     <Compile Include="ModuleMemoryData\AllCodeInfo.cs" />
     <Compile Include="ModuleTrademark\AppClassDetailInfo.cs" />
     <Compile Include="ModuleTrademark\AppDetail01Info.cs" />
