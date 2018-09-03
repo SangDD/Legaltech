@@ -76,7 +76,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Loại tài liệu </div>
+                <div style="width: 120px">Loại tài liệu </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -85,7 +85,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Trạng thái </div>
+                <div style="width: 120px">Trạng thái </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -97,7 +97,7 @@
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;">
-            <input type="button" value="Tìm kiếm" class="btn-default" onclick="Search_TimeSheet(1, 1)" />
+            <input type="button" value="Tìm kiếm" class="btn-default" onclick="Search_Docking(1, 1)" />
             @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin)
             {
                 <input type="button" value="Thêm tài liệu" class="btn-default" onclick="getView2Insert()" />
@@ -225,7 +225,7 @@
             success: function (data) {
                 if (data != null) {
                     $("#divPopUpDocking").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpDocking', "Thêm mới thông tin tài liệu", 700, 500,"txtName");
+                    ShowPopupDialog_Ipace('divWrapperPopUpDocking', "Thêm mới thông tin tài liệu", 750, 800,"txtAp_Case_Code");
                 }
                 return false;
             }
@@ -315,5 +315,5 @@
     function ClosePopUpDocking() {
         CloseDivPopUp('divWrapperPopUpDocking');
     }
-
+    
 </script>
