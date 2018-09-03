@@ -13,6 +13,7 @@
 
     List<AllCodeInfo> _lstDocumentType = MemoryData.AllCode_GetBy_CdTypeCdName("DOCKING", "DOCUMENT_TYPE");
     var lstDocumentType = _lstDocumentType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
+    Model.In_Out_Date = DateTime.Now;
 }
 <script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
 <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
@@ -45,16 +46,16 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Ap_Case_Code, new { id = "txtAp_Case_Code", @maxlength = "50", @style = "width: 250px;" })
+                    @Html.TextBoxFor(m => m.Ap_Case_Code, new { id = "txtAp_Case_Code", @maxlength = "50", @style = "width: 200px;" })
                 </div>
             </div>
 
             <div class="div-search-title">
-                <div>>In/Out book <i class="redspan">(*)</i></div>
+                <div>In/Out book <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.DropDownList("DockingType", lstDockingType, new { @id = "cboDockingType" })
+                    @Html.DropDownList("DockingType", lstDockingType, new { @id = "DockingType" })
                 </div>
             </div>
         </div>
@@ -65,7 +66,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Document_Name, new { id = "txtDocument_Name", @maxlength = "200" })
+                    @Html.TextBoxFor(m => m.Document_Name, new { id = "Document_Name", @maxlength = "200" })
                 </div>
             </div>
         </div>
@@ -76,27 +77,16 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.DropDownList("DocumentType", lstDocumentType, new { @id = "cboDocumentType", @style = "width: 250px;" })
+                    @Html.DropDownList("DocumentType", lstDocumentType, new { @id = "DocumentType", @style = "width: 200px;" })
                 </div>
             </div>
 
             <div class="div-search-title">
-                <div>>Trạng thái <i class="redspan">(*)</i></div>
+                <div>Trạng thái <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.DropDownList("Status", lstStatus, new { @id = "cboStatus" })
-                </div>
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Deadline <i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.TextBoxFor(m => m.Deadline, "{0:dd/MM/yyyy}", new { id = "txtDeadline", @Value = Model.Deadline == DateTime.MinValue ? "" : Model.Deadline.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker" })
+                    @Html.DropDownList("Status", lstStatus, new { @id = "Status" })
                 </div>
             </div>
         </div>
@@ -108,6 +98,17 @@
             <div class="div-search-content">
                 <div>
                     @Html.TextBoxFor(m => m.In_Out_Date, "{0:dd/MM/yyyy}", new { id = "txtIn_Out_Date", @Value = Model.In_Out_Date == DateTime.MinValue ? "" : Model.In_Out_Date.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Deadline <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Deadline, "{0:dd/MM/yyyy}", new { id = "txtDeadline", @Value = Model.Deadline == DateTime.MinValue ? "" : Model.Deadline.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker" })
                 </div>
             </div>
         </div>
@@ -179,20 +180,20 @@
             return false;
         }
 
-        var Ap_Case_Code = $("#Ap_Case_Code").val();
+        var Ap_Case_Code = $("#txtAp_Case_Code").val();
         if (Ap_Case_Code == null) {
             jError("Case code không được bỏ trống!", "lỗi", function () {
-                $("#Ap_Case_Code").val('');
-                $('#Ap_Case_Code').focus();
+                $("#txtAp_Case_Code").val('');
+                $('#txtAp_Case_Code').focus();
             });
             return false;
         }
 
-        var txtDocument_Name = $("#txtDocument_Name").val();
-        if (txtDocument_Name == "") {
+        var _txtDocument_Name = $("#Document_Name").val();
+        if (_txtDocument_Name == "") {
             jError("Tên tài liệu không được bỏ trống!", "lỗi", function () {
-                $("#txtDocument_Name").val('');
-                $("#txtDocument_Name").focus();
+                $("#Document_Name").val('');
+                $("#Document_Name").focus();
             });
             return false;
         }
@@ -206,19 +207,20 @@
         if (checkDate("Ngày khai In/Out book", "#txtIn_Out_Date", txtIn_Out_Date) == false) {
             return false;
         }
-        
+
         return true;
     }
-
+   
+   
     function collectData(formData) {
         formData.append('p_Docking_Info.Ap_Case_Code', $("#txtAp_Case_Code").val());
-        formData.append('p_Docking_Info.Document_Name', $("#txtDocument_Name").val());
-        formData.append('p_Docking_Info.Docking_Type', $("#cboDockingType").val());
-        formData.append('p_Docking_Info.Document_Type', $("#cboDocument_Type").val());
-        formData.append('p_Docking_Info.Status', $("#cboStatus").val());
+        formData.append('p_Docking_Info.Document_Name', $("#Document_Name").val());
+        formData.append('p_Docking_Info.Docking_Type', $("#DockingType").val());
+        formData.append('p_Docking_Info.Document_Type', $("#Document_Type").val());
+        formData.append('p_Docking_Info.Status', $("#Status").val());
 
         formData.append('p_Docking_Info.In_Out_Date', $("#txtIn_Out_Date").val());
-        formData.append('p_Docking_Info.Time_Date', $("#txtDeadline").val());
+        formData.append('p_Docking_Info.Deadline', $("#txtDeadline").val());
         formData.append('p_Docking_Info.Notes', $("#txtNotes").val());
     }
 </script>
