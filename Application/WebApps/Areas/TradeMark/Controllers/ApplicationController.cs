@@ -232,7 +232,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                     document.MailMerge.Execute(new { DateNo = DateTime.Now.ToString("dd-MM-yyyy") });
                     document.MailMerge.Execute(new { Case_Name = _ApplicationHeaderInfo.Case_Name });
                     document.MailMerge.Execute(new { Client_Reference = _ApplicationHeaderInfo.Client_Reference });
-                    document.MailMerge.Execute(new { Gencode = _ApplicationHeaderInfo.Gencode });
+                    document.MailMerge.Execute(new { Case_Code = _ApplicationHeaderInfo.Case_Code });
                     document.MailMerge.Execute(new { Master_Name = _ApplicationHeaderInfo.Master_Name });
                     document.MailMerge.Execute(new { App_No = _ApplicationHeaderInfo.App_No });
                     document.MailMerge.Execute(new { Str_Filing_Date = _ApplicationHeaderInfo.Str_Filing_Date });

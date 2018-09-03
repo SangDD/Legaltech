@@ -16,7 +16,7 @@
                 <th class="class30">STT</th>
                 <th class="class100">In/Out book</th>
                 <th class="class150">Case code</th>
-                <th class="class150">Mã tài liệu</th>
+                @*<th class="class150">Mã tài liệu</th>*@
                 <th class="class200">Tên tài liệu</th>
                 <th class="class100">Loại tài liệu</th>
                 <th class="class150">Tình trạng</th>
@@ -29,22 +29,27 @@
             {
                 foreach (var item in _list_data)
                 {
-            <tr>
-                <td class="tdcenteralign">@item.STT</td>
-                <td class="tdleftalign">@item.Docking_Type_Name</td>
-                <td class="tdleftalign">@item.Ap_Case_Code</td>
-                <td class="tdleftalign">@item.Case_Code</td>
-                <td class="tdleftalign">@item.Document_Name</td>
-                <td class="tdleftalign">@item.Document_Type_Name</td>
-                <td class="tdleftalign">@item.Status_Name</td>
-                <td class="tdcenteralign">@item.Deadline.ToString("dd/MM/yyyy")</td>
+                    <tr>
+                        <td class="tdcenteralign">@item.STT</td>
+                        <td class="tdleftalign">@item.Docking_Type_Name</td>
+                        <td class="tdleftalign">@item.App_Case_Code</td>
+                        @*<td class="tdleftalign">@item.Case_Code</td>*@
+                        <td class="tdleftalign">@item.Document_Name</td>
+                        <td class="tdleftalign">@item.Document_Type_Name</td>
+                        <td class="tdleftalign">@item.Status_Name</td>
+                        <td class="tdcenteralign">@item.Deadline.ToString("dd/MM/yyyy")</td>
 
-                <td class="tdcenteralign">
-                    <a href="javascript:getViewDocking(@item.Docking_Id)" class="icon icon-info" data-title="Xem chi tiết"></a>
-                    <a href="javascript:;" onclick="getView2Edit(@item.Docking_Id)" class="icon icon-edit" data-title="Sửa"></a>
-                    <a href="javascript:;" onclick="doDeleteDocking(@item.Docking_Id)" class="icon icon-delete" data-title="Xóa"></a>
-                </td>
-            </tr>
+                        <td class="tdcenteralign">
+                            <a href="javascript:getViewDocking(@item.Docking_Id)" class="icon icon-info" data-title="Xem chi tiết"></a>
+                            <a href="javascript:;" onclick="getView2Edit(@item.Docking_Id)" class="icon icon-edit" data-title="Sửa"></a>
+                            <a href="javascript:;" onclick="doDeleteDocking(@item.Docking_Id)" class="icon icon-delete" data-title="Xóa"></a>
+
+                            @if (item.Status != Convert.ToDecimal(Common.CommonData.CommonEnums.Docking_Status.Completed))
+                            {
+                                <a href="javascript:;" onclick="getView2ChangeStatus(@item.Docking_Id)" class="icon icon-confirm-circle" data-title="Complete document"></a>
+                            }
+                        </td>
+                    </tr>
                 }
             }
             else

@@ -125,7 +125,7 @@ namespace ObjectInfos
 
         public string Client_Reference { get; set; }
         public string Case_Name { get; set; }
-        public string Gencode { get; set; }
+        public string Case_Code { get; set; }
 
         public DateTime Status_Date { get; set; }
         public int Date_Wait { get; set; }

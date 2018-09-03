@@ -225,7 +225,7 @@
             success: function (data) {
                 if (data != null) {
                     $("#divPopUpDocking").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpDocking', "Thêm mới thông tin tài liệu", 750, 800,"txtAp_Case_Code");
+                    ShowPopupDialog_Ipace('divWrapperPopUpDocking', "Thêm mới thông tin tài liệu", 750, 800,"txtApp_Case_Code");
                 }
                 return false;
             }
@@ -248,7 +248,7 @@
             success: function (data) {
                 if (data != null) {
                     $("#divPopUpDocking").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpDocking', "Sửa thông tin tài liệu", 750, 800, "txtName");
+                    ShowPopupDialog_Ipace('divWrapperPopUpDocking', "Sửa thông tin tài liệu", 750, 800, "txtApp_Case_Code");
                 }
                 return false;
             }
@@ -309,6 +309,29 @@
                     console.log(e);
                 }
             });
+        });
+    }
+
+    function getView2ChangeStatus(_id) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/quan-ly-docking/danh-sach-docking/show-change-status/",
+            dataType: "html",
+            data: {
+                p_id: _id
+            },
+            async: false, cache: false, traditional: true,
+            success: function (data) {
+                if (data != null) {
+                    $("#divPopUpDocking").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPopUpDocking', "Sửa thông tin tài liệu", 750, 800, "txtApp_Case_Code");
+                }
+                return false;
+            }
         });
     }
 

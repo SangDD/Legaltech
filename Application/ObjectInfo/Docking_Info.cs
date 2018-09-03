@@ -12,7 +12,7 @@ namespace ObjectInfos
         public decimal STT { get; set; }
         public decimal Docking_Id { get; set; }
         public string Case_Code { get; set; }
-        public string Ap_Case_Code { get; set; }
+        public string App_Case_Code { get; set; }
 
         public decimal Docking_Type { get; set; }
         public string Docking_Type_Name { get; set; }

@@ -86,7 +86,7 @@ namespace DataAccess
             }
         }
 
-        public decimal Docking_Insert(string p_ap_case_code, decimal p_docking_type, string p_document_name, decimal p_document_type, decimal p_status, 
+        public decimal Docking_Insert(string p_app_case_code, decimal p_docking_type, string p_document_name, decimal p_document_type, decimal p_status, 
             DateTime p_deadline, decimal p_isshowcustomer, DateTime p_in_out_date, string p_created_by, DateTime p_created_date, string p_language_code, 
             string p_url,string p_notes, decimal p_place_submit, string p_filename)
         {
@@ -94,7 +94,7 @@ namespace DataAccess
             {
                 var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "Pkg_Docking.Proc_Docking_Insert",
-                    new OracleParameter("p_ap_case_code", OracleDbType.Varchar2, p_ap_case_code, ParameterDirection.Input),
+                    new OracleParameter("p_app_case_code", OracleDbType.Varchar2, p_app_case_code, ParameterDirection.Input),
                     new OracleParameter("p_docking_type", OracleDbType.Decimal, p_docking_type, ParameterDirection.Input),
                     new OracleParameter("p_document_name", OracleDbType.Varchar2, p_document_name, ParameterDirection.Input),
                     new OracleParameter("p_document_type", OracleDbType.Decimal, p_document_type, ParameterDirection.Input),

@@ -65,7 +65,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.DropDownList("Docking_Type", lstDockingType, new { @id = "Docking_Type", onchange = "Choose_DockingType()", @disabled = "disabled" })
+                    @Html.DropDownList("DockingType", lstDockingType, new { @id = "DockingType", onchange = "Choose_DockingType()", @disabled = "disabled" })
                 </div>
             </div>
         </div>
@@ -76,7 +76,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Document_Name, new { id = "Document_Name", @maxlength = "200" })
+                    @Html.TextBoxFor(m => m.Document_Name, new { id = "Document_Name", @maxlength = "200", @disabled = "disabled" })
                 </div>
             </div>
         </div>
@@ -87,7 +87,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.DropDownList("Document_Type", lstDocumentType, new { @id = "Document_Type", @style = "width: 200px;" })
+                    @Html.DropDownList("DocumentType", lstDocumentType, new { @id = "DocumentType", @style = "width: 200px;", @disabled = "disabled" })
                 </div>
             </div>
 
@@ -96,7 +96,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.DropDownList("Status", lstStatus, new { @id = "Status" })
+                    @Html.DropDownList("Status", lstStatus, new { @id = "Status", @disabled = "disabled" })
                 </div>
             </div>
         </div>
@@ -107,7 +107,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.In_Out_Date, "{0:dd/MM/yyyy}", new { id = "txtIn_Out_Date", @Value = Model.In_Out_Date == DateTime.MinValue ? "" : Model.In_Out_Date.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker" })
+                    @Html.TextBoxFor(m => m.In_Out_Date, "{0:dd/MM/yyyy}", new { id = "txtIn_Out_Date", @Value = Model.In_Out_Date == DateTime.MinValue ? "" : Model.In_Out_Date.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker", @disabled = "disabled" })
                 </div>
             </div>
         </div>
@@ -118,7 +118,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.DropDownList("Place_Submit", lstPlace, new { @id = "Place_Submit" })
+                    @Html.DropDownList("Place_Submit", lstPlace, new { @id = "Place_Submit", @disabled = "disabled" })
                 </div>
             </div>
         </div>
@@ -129,7 +129,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Deadline, "{0:dd/MM/yyyy}", new { id = "txtDeadline", @Value = Model.Deadline == DateTime.MinValue ? "" : Model.Deadline.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker" })
+                    @Html.TextBoxFor(m => m.Deadline, "{0:dd/MM/yyyy}", new { id = "txtDeadline", @Value = Model.Deadline == DateTime.MinValue ? "" : Model.Deadline.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker", @disabled = "disabled" })
                 </div>
             </div>
         </div>
@@ -140,7 +140,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Notes, new { id = "txtNotes", @maxlength = "2000" })
+                    @Html.TextBoxFor(m => m.Notes, new { id = "txtNotes", @maxlength = "2000", @disabled = "disabled" })
                 </div>
             </div>
         </div>
@@ -168,7 +168,7 @@
 
         <div class="form-group">
             <div class="form-group-bottom">
-                <input type="submit" class="btn-default" value="Sửa" onclick="return doEditDocking()" />
+                <input type="submit" class="btn-default" value="Hoàn thành tài liệu" onclick="return doChangeStatusDocking()" />
             </div>
         </div>
     </div>
@@ -180,17 +180,17 @@
         Choose_DockingType();
     });
 
-    function doEditDocking() {
-        if (validateForm()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn sửa tài liệu này không?", function () {
-                var formData = new FormData();
-                collectData(formData);
+    function doChangeStatusDocking() {
+        try {
+            nvsConfirm(null, "Bạn có chắc chắn muốn hoàn thành tài liệu này không?", function () {
                 $.ajax({
-                    url: '/quan-ly-docking/danh-sach-docking/do-edit-docking',
-                    type: 'POST',
-                    data: formData,
-                    async: true, traditional: true, contentType: false, processData: false,
+                    url: "/quan-ly-docking/danh-sach-docking/do-change-status",
+                    type: "POST",
+                    data: {
+                        p_id: @Model.Docking_Id
+                    },
                     headers: { "cache-control": "no-cache" },
+                    async: true, cache: false, traditional: true,
                     beforeSend: function () {
                         CreateRollingWaitingIcon(true);
                     },
@@ -201,7 +201,7 @@
                             return false;
                         }
                         else {
-                            jAlert('Sửa tài liệu thành công!', "THÔNG BÁO", function () {
+                            jAlert('Cập nhật tài liệu thành công!', "THÔNG BÁO", function () {
                                 ClosePopUpDocking();
                                 Search_Docking(1, 1);
                             });
@@ -213,109 +213,13 @@
                     }
                 });
             });
-        }
-    }
-
-    function validateForm() {
-        if (CheckSessionTimeOut() == false) {
-            return false;
-        }
-
-        var App_Case_Code = $("#txtApp_Case_Code").val();
-        if (App_Case_Code == null) {
-            jError("Case code không được bỏ trống!", "lỗi", function () {
-                $("#txtApp_Case_Code").val('');
-                $('#txtApp_Case_Code').focus();
-            });
-            return false;
-        }
-
-        var _txtDocument_Name = $("#Document_Name").val();
-        if (_txtDocument_Name == "") {
-            jError("Tên tài liệu không được bỏ trống!", "lỗi", function () {
-                $("#Document_Name").val('');
-                $("#Document_Name").focus();
-            });
-            return false;
-        }
-
-        var txtDeadline = $("#txtDeadline").val();
-        if (checkDate("Deadline", "#txtDeadline", txtDeadline) == false) {
-            return false;
-        }
-
-        var txtIn_Out_Date = $("#txtIn_Out_Date").val();
-        if (checkDate("Ngày khai In/Out book", "#txtIn_Out_Date", txtIn_Out_Date) == false) {
-            return false;
-        }
-
-        // file
-        //var pfile = $("#file_attach");//lay du lieu file
-        //if (pfile.val() != "") {
-        //    var _CheckFile = true;
-        //    var _Len = pfile[0].files[0].name.toString()
-        //    if (_Len.length > 200) {
-        //        _CheckFile = false;
-        //        jError("Tên file không được quá 200 ký tự", "Lỗi", function () {
-        //            $(pfile).focus();
-
-        //        });
-        //        return false;
-        //    }
-
-        //    var _file = pfile[0].files[0];
-        //    var _size = _file.size / 1024 / 1024;
-
-        //    if (validateFileName(_file.name) == false) {
-        //        _CheckFile = false;
-        //        jError("Không tải file có tên file được lưu là unicode Tiếng việt có dấu ! ", "Lỗi", function () {
-        //            $(pfile).focus();
-        //        });
-        //        return false;
-        //    }
-        //    if (_CheckFile == false) {
-        //        return false;
-        //    }
-        //}
-
-        return true;
-    }
-
-    function Choose_DockingType() {
-        try {
-           var _Docking_Type = $('#Docking_Type').val();
-            if (_Docking_Type == '@Convert.ToInt16(Common.CommonData.CommonEnums.Docking_Type_Enum.Out_Book)') {
-                $("#clsPlace").removeClass("clssDisplaynone");
-            }
-            else {
-                $("#clsPlace").addClass("clssDisplaynone");
-            }
         } catch (e) {
             alert(e);
         }
     }
 
-    function collectData(formData) {
-        try {
-            formData.append('p_Docking_Info.Docking_Id', @Model.Docking_Id);
-            formData.append('p_Docking_Info.Document_Name', $("#Document_Name").val());
-            formData.append('p_Docking_Info.Docking_Type', $("#Docking_Type").val());
-            formData.append('p_Docking_Info.Place_Submit', $("#Place_Submit").val());
-            formData.append('p_Docking_Info.Document_Type', $("#Document_Type").val());
-            formData.append('p_Docking_Info.Status', $("#Status").val());
-
-            formData.append('p_Docking_Info.In_Out_Date', $("#txtIn_Out_Date").val());
-            formData.append('p_Docking_Info.Deadline', $("#txtDeadline").val());
-            formData.append('p_Docking_Info.Notes', $("#txtNotes").val());
-
-
-        } catch (e) {
-            alert(e.toString());
-        }
-        }
-
-
     function doExitDocking() {
         ClosePopUpDocking();
     }
+
 </script>
