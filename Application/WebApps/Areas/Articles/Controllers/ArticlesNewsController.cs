@@ -23,7 +23,7 @@ namespace WebApps.Areas.Articles.Controllers
             {
                 return View();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 Logger.LogException(ex);
                 return View();
