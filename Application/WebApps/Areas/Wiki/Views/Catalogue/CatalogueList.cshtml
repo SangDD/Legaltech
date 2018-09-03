@@ -3,7 +3,7 @@
 @using Common.CommonData
 @using ObjectInfos;
 @{
-    ViewBag.Title = "Quản lý danh mục tin";
+    ViewBag.Title = "Quản lý chủ đề";
     Layout = "~/ViewsShared/_Layout.cshtml";
     List<WikiCatalogues_Info> _listcata = new List<WikiCatalogues_Info>();
     if (ViewBag.ListCata != null)
@@ -25,7 +25,7 @@
             <img src="~/Content/icons/Body-icon-home.png" /> I
             WIKI
             <span class="red">></span>
-            <a href="/wiki-manage/wiki-doc/catalogue">Quản lý danh mục tin</a>
+            <a href="/wiki-manage/wiki-doc/catalogue">Quản lý chủ đề</a>
         </div>
     </div>
     <div class="divCover">
@@ -39,42 +39,17 @@
                 <input type="hidden" value="MODIFIED_DATE" id="colSorted" />
                 <input type="hidden" value="DESC" id="SortType" />
                 <input type="hidden" value="" id="OptionSorting" />
-                <div class="div-title-content"> THÔNG TIN DANH MỤC TIN </div>
+                <div class="div-title-content"> THÔNG TIN CHỦ ĐỀ </div>
             </div>
         </div>
 
-        <div class="divCover">
-            <table>
-                <tr>
-                    <td>
-                        <a href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_luutam">1. Danh sách bài viết lưu tạm</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_guibai">  2. Danh sách bài viết chờ xử lý</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a  href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_tuchoi">  3. Danh sách bài biết bị từ chối</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a style="text-decoration:underline"  href="/wiki-manage/wiki-doc/catalogue-list">  4. Danh mục bài viết</a>
-                    </td>
-                </tr>
-            </table>
-
-
-        </div>
+     
 
         <div class="divCover" id="div-search-simple">
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div style="width: 120px">Tên danh mục</div>
+                    <div style="width: 120px">Tên chủ đề</div>
                 </div>
                 <div>
                     <div>
@@ -83,13 +58,13 @@
                 </div>
                
                 <div class="div-search-title">
-                    <div style="width: 120px">Danh mục cha</div>
+                    <div style="width: 120px">Chủ đề cha</div>
                 </div>
                 <div class="div-search-content">
                     <div>
                         <select id="CboListWikiCataParent">
                             <option value="ALL">
-                                Chọn danh mục
+                                Chọn chủ đề
                             </option>
                             @foreach (WikiCatalogues_Info item in _listcata)
                             {
@@ -110,7 +85,7 @@
         <div class="divCover">
             <div class="div-search-btn" style="width:450px;">
                 <input type="button" value="Tìm kiếm" class="btn-default" onclick="findObjects(1, 1)" />
-                <input type="button" value="Thêm danh mục tin" class="btn-default" style="width: 155px;" onclick="getViewToAddNewObject()" />
+                <input type="button" value="Thêm chủ đề" class="btn-default" style="width: 155px;" onclick="getViewToAddNewObject()" />
             </div>
         </div>
         <div class="divCover">
@@ -215,7 +190,7 @@
                         if (data != null) {
                             if (validateResponse(data)) {
                                 $("#divPopUpObject").html(data);
-                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Thêm mới danh mục tin", 900, 500, "txtAddName");
+                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Thêm mới chủ đề", 900, 500, "txtAddName");
                             }
                         }
                         return false;
@@ -239,7 +214,7 @@
                         if (data != null) {
                             if (validateResponse(data)) {
                                 $("#divPopUpObject").html(data);
-                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Sửa danh mục tin: <span class='data-in-title-popup'>" + p_display_value + "</span>", 900, 500, "txtFullNameEdit");
+                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Sửa chủ đề tin: <span class='data-in-title-popup'>" + p_display_value + "</span>", 900, 500, "txtFullNameEdit");
                             }
                         }
                         return false;
@@ -254,7 +229,7 @@
         function doDeleteObject(p_id) {
             try { 
                
-                    nvsConfirm(null, "Bạn có chắc chắn muốn xóa danh mục tin này không?", function () {
+                    nvsConfirm(null, "Bạn có chắc chắn muốn xóa chủ đề này không?", function () {
                         $.ajax({
                             url: "/wiki-manage/wiki-doc/do-delete-catalogue",
                             type: "POST",
@@ -268,7 +243,7 @@
                                 }
                                 else if(data.result  == -2)
                                 {
-                                    showError("Danh mục đã có bài viết hoặc có danh mục con, không thể xóa!");
+                                    showError("Chủ đề đã có bài viết hoặc có chủ đề con, không thể xóa!");
                                     window.findObjects(1, 0);
                                 }
                                 else
@@ -298,7 +273,7 @@
                         if (data != null) {
                             if (validateResponse(data)) {
                                 $("#divPopUpObject").html(data);
-                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Chi tiết danh mục tin: <span class='data-in-title-popup'>" + p_display_value + "</span>", 900, 500);
+                                ShowPopupDialog_Ipace('divWrapperPopUpObject', "Chi tiết chủ đề: <span class='data-in-title-popup'>" + p_display_value + "</span>", 900, 500);
                             }
                         }
                         return false;
@@ -322,7 +297,7 @@
                 var CboAddWikiCataParent = $('#CboAddWikiCataParent');
                 if (txtAddName.val().trim() == "") {
                     txtAddName.focus().val('');
-                        showError('Tên danh mục không được để trống!');
+                        showError('Tên chủ đề không được để trống!');
                         return false;
                     }
 
@@ -378,7 +353,7 @@
                 var txtCHILD_NUM = $('#txtCHILD_NUM');
                 if (txtAddName.val().trim() == "") {
                     txtAddName.focus().val('');
-                    showError('Tên danh mục không được để trống!');
+                    showError('Tên chủ đề không được để trống!');
                     return false;
                 }
                 if (txtAddNameEng.val().trim() == "") {
@@ -389,7 +364,7 @@
                 if (CboAddWikiCataParent.val() != "0" && txtCHILD_NUM.val() / 1 > 0)
                 {
                     CboAddWikiCataParent.focus();
-                    showError('Danh mục hiện tại đã được thêm làm danh mục cha!');
+                    showError('Chủ đề hiện tại đã được thêm làm chủ đề cha!');
                     return false;
                 }
 

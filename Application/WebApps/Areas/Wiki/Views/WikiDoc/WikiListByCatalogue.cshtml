@@ -92,12 +92,12 @@
     </div>
 
     <script>
-        var _currentKeySearch = '/Areas/Wiki/Views/WikiDoc/DocList.cshtml';
-        var _currentOptionFilter = '/Areas/Wiki/Views/WikiDoc/DocList.cshtml_OptionFilter';
+        var _currentKeySearch = '/Areas/Wiki/Views/WikiDoc/DocList.cshtml' + '@_ObjectInfo.ID';
+        var _currentOptionFilter = '/Areas/Wiki/Views/WikiDoc/DocList.cshtml_OptionFilter' + '@_ObjectInfo.ID';
         var _status = '@CommonWiki.Stt_daduyet', _catalogue = '@_ObjectInfo.ID', _titleHashtag = '';
 
         $(document).ready(function () {
-          //   initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findObjects);
+              initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findObjects);
 
             $('txtSearchTitleHashtag').focus();
             $('[data-controlcondition="TRUE"]').on('keypress',
@@ -110,7 +110,7 @@
         function findObjects(_pageNumber, _isSearching) {
             try {
 
-                reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
+                 reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
                 if (isSearching === 1) {
                     _status = '@CommonWiki.Stt_daduyet';
                     _catalogue = '@_ObjectInfo.ID';
