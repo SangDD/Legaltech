@@ -133,12 +133,12 @@
     </div>
 
     <script>
-        var _currentKeySearch = '/Areas/Wiki/Views/WikiDoc/DocList.cshtml' + '@_CurrentStatus';
-        var _currentOptionFilter = '/Areas/Wiki/Views/WikiDoc/DocList.cshtml_OptionFilter' + '@_CurrentStatus';
+        var _currentKeySearch = '/Areas/Wiki/Views/WikiDoc/DocListBystatus.cshtml' + '@_CurrentStatus';
+        var _currentOptionFilter = '/Areas/Wiki/Views/WikiDoc/DocListBystatus.cshtml_OptionFilter' + '@_CurrentStatus';
         var _status = '@_CurrentStatus', _catalogue = '', _titleHashtag = '';
 
         $(document).ready(function () {
-          //   initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findObjects);
+              initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findObjects);
 
             $('txtSearchTitleHashtag').focus();
             $('[data-controlcondition="TRUE"]').on('keypress',
@@ -150,7 +150,7 @@
 
         function findObjects(_pageNumber, _isSearching) {
             try {
-             //   reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
+                reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
                 if (isSearching === 1) {
                     _status = '@_CurrentStatus';
                     _catalogue = $("#cboSearchWikiCatalogue").val();
@@ -215,7 +215,7 @@
             noMatchesFound: "Không tìm thấy dữ liệu",
             single: true,
             isdatastring: false,
-            placeholder: 'Tìm kiếm danh mục tin'
+            placeholder: 'Tìm kiếm chủ đề'
         });
 
 
