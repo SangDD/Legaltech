@@ -132,7 +132,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 if (p_status == 0)
                     _status = (decimal)CommonEnums.App_Status.KhacHangDaTuChoi;
 
-                int _ck = _obj_bl.AppHeader_Update_Status(p_Application_Header_Id, _status, p_note, SessionData.CurrentUser.Username, DateTime.Now);
+                int _ck = _obj_bl.AppHeader_Update_Status(p_Application_Header_Id, _status, p_note, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
                 return Json(new { success = _ck });
             }
             catch (Exception ex)
@@ -159,7 +159,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 Application_Header_BL _obj_bl = new Application_Header_BL();
                 decimal _status = (decimal)CommonEnums.App_Status.LuatSuDaConfirm;
 
-                int _ck = _obj_bl.AppHeader_Update_Status(p_Application_Header_Id, _status, p_note, SessionData.CurrentUser.Username, DateTime.Now);
+                int _ck = _obj_bl.AppHeader_Update_Status(p_Application_Header_Id, _status, p_note, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
                 return Json(new { success = _ck });
             }
             catch (Exception ex)
@@ -178,14 +178,14 @@ namespace WebApps.Areas.TradeMark.Controllers
                 Application_Header_BL _obj_bl = new Application_Header_BL();
                 decimal _status = (decimal)CommonEnums.App_Status.ChoKHConfirm;
 
-                int _ck = _obj_bl.AppHeader_Update_Status(p_Application_Header_Id, _status, "", SessionData.CurrentUser.Username, DateTime.Now);
+                int _ck = _obj_bl.AppHeader_Update_Status(p_Application_Header_Id, _status, "", SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
                 return Json(new { success = _ck });
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
                 return Json(new { success = "-1" });
-            }
+            } 
         }
 
         [HttpPost]
@@ -206,7 +206,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 decimal _status = (decimal)CommonEnums.App_Status.DaGuiLenCuc;
                 var url_File_Copy_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Copy_Filing, AppUpload.App);
                 //DateTime _filing_date = Common.Helpers.DateTimeHelper.ConvertToDate(p_filing_date);
-                int _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Id, _status, pInfo.App_No, pInfo.Filing_Date, url_File_Copy_Filing, pInfo.Note, SessionData.CurrentUser.Username, DateTime.Now);
+                int _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Id, _status, pInfo.App_No, pInfo.Filing_Date, url_File_Copy_Filing, pInfo.Note, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
 
                 // nếu thành công thì gửi email cho khách hàng
                 if (_ck != -1)
