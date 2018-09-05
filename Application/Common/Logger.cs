@@ -17,6 +17,11 @@
 		{
 			s_log.Error(ex.ToString());
 		}
- 
+
+        public static void LogInfo(string _mess)
+        {
+            s_log.Error(_mess);
+        }
+
     }
 }

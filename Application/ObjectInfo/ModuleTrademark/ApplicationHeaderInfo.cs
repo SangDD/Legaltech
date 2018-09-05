@@ -292,6 +292,7 @@ namespace ObjectInfos
             pAppExportInfo.DateNo = pAppInfo.DateNo;
             pAppExportInfo.Months = pAppInfo.Months;
             pAppExportInfo.Years = pAppInfo.Years;
+            pAppExportInfo.DDSHCN = pAppInfo.DDSHCN;
             return pAppExportInfo;
         }
 
@@ -349,6 +350,7 @@ namespace ObjectInfos
             pAppExportInfo.YCCapPho2 = pAppInfo.YCCapPho2;
             pAppExportInfo.YCCapPho3 = pAppInfo.YCCapPho3;
             pAppExportInfo.YCCapPho4 = pAppInfo.YCCapPho4;
+            pAppExportInfo.CodeLogo = pAppInfo.CodeLogo;
 
             return pAppExportInfo;
 

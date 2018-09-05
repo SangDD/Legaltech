@@ -35,13 +35,25 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Web, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\NewDLL\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\NewDLL\CrystalDecisions.ReportSource.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\NewDLL\CrystalDecisions.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Web, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\NewDLL\CrystalDecisions.Web.dll</HintPath>
+    </Reference>
     <Reference Include="GemBox.Document">
       <HintPath>..\Extended dll\GemBox.Document.dll</HintPath>
     </Reference>
@@ -217,7 +229,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TM_04NH.rpt</DependentUpon>
       <SubType>Component</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Report\TM_06DKQT1.cs">
       <AutoGen>True</AutoGen>
@@ -1207,11 +1218,10 @@
     <Content Include="Content\fonts\fontawesome\webfonts\fa-solid-900.woff" />
     <Content Include="Content\fonts\fontawesome\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\ckfinder\App_LocalResources\config.ascx.resx" />
-    <Content Include="Report\TM_04NH.rpt">
+    <EmbeddedResource Include="Report\TM_04NH.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TM_04NH.cs</LastGenOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\TM_06DKQT.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TM_06DKQT1.cs</LastGenOutput>
@@ -1403,6 +1413,7 @@
     <Content Include="Areas\DockingManager\Views\Docking\_PartialView.cshtml" />
     <Content Include="Areas\DockingManager\Views\Docking\_PartialEdit.cshtml" />
     <Content Include="Areas\DockingManager\Views\Docking\_PartialChangeStatus.cshtml" />
+    <Content Include="Areas\Home\Views\Home\LegalHome.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <Content Include="Areas\Home\Views\Wiki\_PartialListDocByCata.cshtml" />
