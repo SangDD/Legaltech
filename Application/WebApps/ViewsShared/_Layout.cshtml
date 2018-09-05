@@ -253,53 +253,41 @@
 
     //window.onload = HiddenDivWarning;
     var _isShow; // nếu cái này = 1 thì ko cần ẩn đi nữa  
-    document.onreadystatechange = function () {
-        if (document.readyState === 'complete') {
-            _isShow = setTimeout(function () {
-                //$("#warning").attr("style", "opacity:0; visibility: hidden; transition:visibility 0s linear 0.5s,opacity 0.5s linear;");
-                $("#warning_content").attr("style", "display: none; transition:visibility 0s linear 0.5s,opacity 0.5s linear;");
-                $("#warning").attr("style", "border-bottom: 3px solid #FFF; width: 110px");
-                //$("#imgshowhide").attr("style", "margin: 8px 10px 0 0");
-                document.getElementById("imgdown").style.display = "none";
-                document.getElementById("imgup").style.display = "block";
-            }, 5000);
-        }
-    }
 
-    function FuncOnmouseOver() {
-        clearTimeout(_isShow);
-    }
-    function FunOnmoseUout() {
-        _isShow = setTimeout(function () {
-            //$("#warning").attr("style", "opacity:0; visibility: hidden; transition:visibility 0s linear 0.5s,opacity 0.5s linear;");
-            $("#warning_content").attr("style", "display: none; transition:visibility 0s linear 0.5s,opacity 0.5s linear;");
-            $("#warning").attr("style", "border-bottom: 3px solid #FFF; width: 110px");
-            //$("#imgshowhide").attr("style", "margin: 8px 10px 0 0");
-            document.getElementById("imgdown").style.display = "none";
-            document.getElementById("imgup").style.display = "block";
-        }, 5000);
-    }
-    function HideWarning() {
-        var _warningart = $("#warning_content").css("display");
+    //function FuncOnmouseOver() {
+    //    clearTimeout(_isShow);
+    //}
+    //function FunOnmoseUout() {
+    //    _isShow = setTimeout(function () {
+    //        //$("#warning").attr("style", "opacity:0; visibility: hidden; transition:visibility 0s linear 0.5s,opacity 0.5s linear;");
+    //        $("#warning_content").attr("style", "display: none; transition:visibility 0s linear 0.5s,opacity 0.5s linear;");
+    //        $("#warning").attr("style", "border-bottom: 3px solid #FFF; width: 110px");
+    //        //$("#imgshowhide").attr("style", "margin: 8px 10px 0 0");
+    //        document.getElementById("imgdown").style.display = "none";
+    //        document.getElementById("imgup").style.display = "block";
+    //    }, 5000);
+    //}
+    //function HideWarning() {
+    //    var _warningart = $("#warning_content").css("display");
 
-        if (_warningart == "block") {
-            $("#warning_content").attr("style", "display: none");
-            $("#warning").attr("style", "border-bottom: 3px solid #FFF; width: 110px");
-            //$("#imgshowhide").attr("style", "margin: 8px 10px 0 0");
-            document.getElementById("imgdown").style.display = "none";
-            document.getElementById("imgup").style.display = "block";
-        }
-        else {
-            $("#warning_content").attr("style", "display: block");
-            $("#warning").attr("style", "border-bottom: none; ; width: 250px");
-            $("#imgshowhide").attr("style", "margin: 5px 10px 0 0");
-            document.getElementById("imgdown").style.display = "block";
-            document.getElementById("imgup").style.display = "none";
-        }
-        if (_isdisplay == "True") {
-            SetDisplayWarning();
-        }
-    }
+    //    if (_warningart == "block") {
+    //        $("#warning_content").attr("style", "display: none");
+    //        $("#warning").attr("style", "border-bottom: 3px solid #FFF; width: 110px");
+    //        //$("#imgshowhide").attr("style", "margin: 8px 10px 0 0");
+    //        document.getElementById("imgdown").style.display = "none";
+    //        document.getElementById("imgup").style.display = "block";
+    //    }
+    //    else {
+    //        $("#warning_content").attr("style", "display: block");
+    //        $("#warning").attr("style", "border-bottom: none; ; width: 250px");
+    //        $("#imgshowhide").attr("style", "margin: 5px 10px 0 0");
+    //        document.getElementById("imgdown").style.display = "block";
+    //        document.getElementById("imgup").style.display = "none";
+    //    }
+    //    if (_isdisplay == "True") {
+    //        SetDisplayWarning();
+    //    }
+    //}
 
     //Set ẩn hiện warning
     function SetDisplayWarning() {

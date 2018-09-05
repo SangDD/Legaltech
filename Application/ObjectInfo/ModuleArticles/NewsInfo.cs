@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
-namespace ObjectInfos.ModuleArticles
+namespace ObjectInfos
 {
     public class NewsInfo
     {
@@ -26,7 +22,7 @@ namespace ObjectInfos.ModuleArticles
         public DateTime Createddate { get; set; }
         public string Modifiedby { get; set; }
         public DateTime Modifieddate { get; set; }
-        public decimal Publictime { get; set; }
+        public DateTime Publictime { get; set; }
         public string Publicby { get; set; }
         public string Unpublicby { get; set; }
         public DateTime Unpublicdate { get; set; }
