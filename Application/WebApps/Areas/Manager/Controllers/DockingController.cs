@@ -12,14 +12,13 @@ using Common;
 using WebApps.CommonFunction;
 using Common.CommonData;
 
-namespace WebApps.Areas.DockingManager.Controllers
+namespace WebApps.Areas.Manager.Controllers
 {
     [ValidateAntiForgeryTokenOnAllPosts]
-    [RouteArea("Docking", AreaPrefix = "quan-ly-docking")]
+    [RouteArea("Manager", AreaPrefix = "quan-ly-docking")]
     [Route("{action}")]
     public class DockingController : Controller
     {
-
         [HttpGet]
         [Route("danh-sach-docking")]
         public ActionResult Docking_Display()
@@ -33,13 +32,13 @@ namespace WebApps.Areas.DockingManager.Controllers
                 Docking_BL _obj_bl = new Docking_BL();
                 string _keySearch = "ALL" + "|" + "ALL" + "|" + "ALL" + "|" + "ALL" + "|" + "ALL";
                 List<Docking_Info> _lst = _obj_bl.Docking_Search(_keySearch, ref _total_record);
-                string htmlPaging = CommonFuc.Get_HtmlPaging<ApplicationHeaderInfo>((int)_total_record, 1, "Tài liệu");
+                string htmlPaging = CommonFuc.Get_HtmlPaging<Docking_Info>((int)_total_record, 1, "Tài liệu");
 
                 ViewBag.Obj = _lst;
                 ViewBag.Paging = htmlPaging;
                 ViewBag.SumRecord = _total_record;
 
-                return View("~/Areas/DockingManager/Views/Docking/Docking_Display.cshtml");
+                return View("~/Areas/Manager/Views/Docking/Docking_Display.cshtml");
             }
             catch (Exception ex)
             {
@@ -64,12 +63,12 @@ namespace WebApps.Areas.DockingManager.Controllers
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;
                 ViewBag.SumRecord = _total_record;
-                return PartialView("~/Areas/DockingManager/Views/Docking/_PartialTableDocking.cshtml");
+                return PartialView("~/Areas/Manager/Views/Docking/_PartialTableDocking.cshtml");
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return PartialView("~/Areas/DockingManager/Views/Docking/_PartialTableDocking.cshtml");
+                return PartialView("~/Areas/Manager/Views/Docking/_PartialTableDocking.cshtml");
             }
         }
 
@@ -99,12 +98,12 @@ namespace WebApps.Areas.DockingManager.Controllers
             {
                 Docking_BL _obj_bl = new Docking_BL();
                 Docking_Info _Docking_Info = _obj_bl.Docking_GetBy_Id(p_id);
-                return PartialView("~/Areas/DockingManager/Views/Docking/_PartialView.cshtml", _Docking_Info);
+                return PartialView("~/Areas/Manager/Views/Docking/_PartialView.cshtml", _Docking_Info);
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return PartialView("~/Areas/DockingManager/Views/Docking/_PartialView.cshtml", new Docking_Info());
+                return PartialView("~/Areas/Manager/Views/Docking/_PartialView.cshtml", new Docking_Info());
             }
         }
 
@@ -113,7 +112,7 @@ namespace WebApps.Areas.DockingManager.Controllers
         [Route("danh-sach-docking/show-insert")]
         public ActionResult GetView2Insert()
         {
-            return PartialView("~/Areas/DockingManager/Views/Docking/_PartialInsert.cshtml", new Docking_Info());
+            return PartialView("~/Areas/Manager/Views/Docking/_PartialInsert.cshtml", new Docking_Info());
         }
 
         [HttpPost]
@@ -155,12 +154,12 @@ namespace WebApps.Areas.DockingManager.Controllers
             {
                 Docking_BL _obj_bl = new Docking_BL();
                 Docking_Info _Docking_Info = _obj_bl.Docking_GetBy_Id(p_id);
-                return PartialView("~/Areas/DockingManager/Views/Docking/_PartialEdit.cshtml", _Docking_Info);
+                return PartialView("~/Areas/Manager/Views/Docking/_PartialEdit.cshtml", _Docking_Info);
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return PartialView("~/Areas/DockingManager/Views/Docking/_PartialEdit.cshtml");
+                return PartialView("~/Areas/Manager/Views/Docking/_PartialEdit.cshtml");
             }
         }
 
@@ -205,12 +204,12 @@ namespace WebApps.Areas.DockingManager.Controllers
             {
                 Docking_BL _obj_bl = new Docking_BL();
                 Docking_Info _Docking_Info = _obj_bl.Docking_GetBy_Id(p_id);
-                return PartialView("~/Areas/DockingManager/Views/Docking/_PartialChangeStatus.cshtml", _Docking_Info);
+                return PartialView("~/Areas/Manager/Views/Docking/_PartialChangeStatus.cshtml", _Docking_Info);
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialApproveTimeSheet.cshtml");
+                return PartialView("~/Areas/Manager/Views/Docking/_PartialChangeStatus.cshtml");
             }
 
         }

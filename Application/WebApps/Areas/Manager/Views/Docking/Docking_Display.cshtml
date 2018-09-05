@@ -20,6 +20,14 @@
     var lstDocumentType = new List<SelectListItem> { new SelectListItem { Text = "Tất cả", Value = "ALL" } }.Concat(_lstDocumentType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal }));
 }
 
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+</style>
+
+
 <div class="divCover">
     <div class="d-nav">
         <img src="~/Content/icons/Body-icon-home.png" /> I
@@ -46,6 +54,15 @@
     <div class="divCover" id="div-search-simple">
 
         <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Case code</div>
+            </div>
+            <div>
+                <div>
+                    <input style="width: 250px;" type="text" id="txtAppCaseCode" data-controlcondition="TRUE" />
+                </div>
+            </div>
+
             <div class="div-search-title">
                 <div>Mã tài liệu</div>
             </div>
@@ -107,7 +124,7 @@
 
     <div class="divCover">
         <div id="divDataDocking" class="divDataTables" style="overflow-x: auto;">
-            @Html.Partial("~/Areas/DockingManager/Views/Docking/_PartialTableDocking.cshtml")
+            @Html.Partial("~/Areas/Manager/Views/Docking/_PartialTableDocking.cshtml")
         </div>
     </div>
 
@@ -153,7 +170,7 @@
                 var _Status = $("#cboStatus").val();
                 var _DockingType = $("#cboDockingType").val();
                 var _DocumentType = $("#cboDocumentType").val();
-                 
+
 
                 p_keysearch = _txtCaseCode + "|" + txtDocument_Name + "|" + _Status + "|" + _DockingType + "|" + _DocumentType;
 
@@ -225,7 +242,7 @@
             success: function (data) {
                 if (data != null) {
                     $("#divPopUpDocking").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpDocking', "Thêm mới thông tin tài liệu", 750, 800,"txtApp_Case_Code");
+                    ShowPopupDialog_Ipace('divWrapperPopUpDocking', "Thêm mới thông tin tài liệu", 750, 800, "txtApp_Case_Code");
                 }
                 return false;
             }
@@ -300,7 +317,7 @@
                     }
                     else {
                         jAlert('Xóa tài liệu thành công!', "THÔNG BÁO", function () {
-                            Search_Docking(1,1);
+                            Search_Docking(1, 1);
                         });
                     }
                 },

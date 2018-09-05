@@ -36,13 +36,15 @@
                 <div>Mã đơn</div>
             </div>
             <div class="div-search-content">
-                <select id="cboMauDon" style="width:500px">
-                    <option value="ALL">-- Tất cả --</option>
-                    @foreach (var item in DanhSachDon)
-                    {
-                        <option value="@item.Appcode">@item.Appname</option>
-                    }
-                </select>
+                <div>
+                    <select id="cboMauDon">
+                        <option value="ALL">-- Tất cả --</option>
+                        @foreach (var item in DanhSachDon)
+                        {
+                            <option value="@item.Appcode">@item.Appname</option>
+                        }
+                    </select>
+                </div>
             </div>
         </div>
     </div>

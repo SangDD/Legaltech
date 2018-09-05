@@ -1,22 +1,22 @@
 ﻿using System.Web.Mvc;
 
-namespace WebApps.Areas.DockingManager
+namespace WebApps.Areas.Manager
 {
-    public class DockingManagerAreaRegistration : AreaRegistration 
+    public class ManagerAreaRegistration : AreaRegistration 
     {
         public override string AreaName 
         {
             get 
             {
-                return "DockingManager";
+                return "Manager";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
-                "DockingManager_default",
-                "DockingManager/{controller}/{action}/{id}",
+                "Manager_default",
+                "Manager/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
         }

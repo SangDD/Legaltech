@@ -1,0 +1,321 @@
+﻿@using ObjectInfos;
+@using BussinessFacade;
+@using BussinessFacade.ModuleMemoryData
+@using System.Xml
+@model Docking_Info
+
+@{
+    List<AllCodeInfo> _lstDockingType = MemoryData.AllCode_GetBy_CdTypeCdName("DOCKING", "DOCKING_TYPE");
+    var lstDockingType = _lstDockingType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
+
+
+    List<AllCodeInfo> _lstStatus = MemoryData.AllCode_GetBy_CdTypeCdName("DOCKING", "STATUS");
+    var lstStatus = _lstStatus.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
+
+    List<AllCodeInfo> _lstDocumentType = MemoryData.AllCode_GetBy_CdTypeCdName("DOCKING", "DOCUMENT_TYPE");
+    var lstDocumentType = _lstDocumentType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
+
+    List<AllCodeInfo> _lstPlace = MemoryData.AllCode_GetBy_CdTypeCdName("DOCKING", "PLACE_SUBMIT");
+    var lstPlace = _lstDocumentType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
+
+    Model.In_Out_Date = DateTime.Now;
+    string _in_out = "In Date";
+    if (Model.Docking_Type == Convert.ToInt16(Common.CommonData.CommonEnums.Docking_Type_Enum.Out_Book))
+    {
+        _in_out = "Out Date";
+    }
+}
+<script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
+<link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
+<script>
+    $.datetimepicker.setLocale('vi');
+    $(document).ready(function () {
+        $('.datepicker').datetimepicker({
+            format: 'd/m/Y',
+            formatDate: 'd/m/Y',
+            timepicker: false,
+            mask: '39/19/9999',
+            validateOnBlur: true,
+        });
+    });
+</script>
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+</style>
+
+
+<div class="" style="padding:5px 38px">
+    <div class="divCover divCover_popup">
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Mã đơn<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @maxlength = "50", @style = "width: 200px;", @disabled = "disabled" })
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>In/Out book <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.DropDownList("Docking_Type", lstDockingType, new { @id = "Docking_Type", onchange = "Choose_DockingType()", @disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tên tài liệu<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Document_Name, new { id = "Document_Name", @maxlength = "200" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Loại tài liệu<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.DropDownList("Document_Type", lstDocumentType, new { @id = "Document_Type", @style = "width: 200px;" })
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Trạng thái <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.DropDownList("Status", lstStatus, new { @id = "Status" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@_in_out <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.In_Out_Date, "{0:dd/MM/yyyy}", new { id = "txtIn_Out_Date", @Value = Model.In_Out_Date == DateTime.MinValue ? "" : Model.In_Out_Date.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad clssDisplaynone" id="clsPlace">
+            <div class="div-search-title">
+                <div>Nơi nộp <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.DropDownList("Place_Submit", lstPlace, new { @id = "Place_Submit" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Deadline <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Deadline, "{0:dd/MM/yyyy}", new { id = "txtDeadline", @Value = Model.Deadline == DateTime.MinValue ? "" : Model.Deadline.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Ghi chú</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Notes, new { id = "txtNotes", @maxlength = "2000" })
+                </div>
+            </div>
+        </div>
+
+        @if (@Model.Url != null && @Model.Url != "")
+        {
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>File đính kèm</div>
+                </div>
+                <div class="div-search-content">
+                    <div class="div-checkbox">
+                        <div class="div-search-content" id="div_ImgDownload">
+                            <div class="div-checkbox" style="border: none;">
+                                <a style="border: none;" href="@Model.Url" target="_blank">
+                                    <i class="fas fa-download" style="color:blue;font-size:16px;margin-top:7px; margin-right:5px;"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <label>@Model.FileName</label>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="form-group">
+            <div class="form-group-bottom">
+                <input type="submit" class="btn-default" value="Sửa" onclick="return doEditDocking()" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        Choose_DockingType();
+    });
+
+    function doEditDocking() {
+        if (validateForm()) {
+            nvsConfirm(null, "Bạn có chắc chắn muốn sửa tài liệu này không?", function () {
+                var formData = new FormData();
+                collectData(formData);
+                $.ajax({
+                    url: '/quan-ly-docking/danh-sach-docking/do-edit-docking',
+                    type: 'POST',
+                    data: formData,
+                    async: true, traditional: true, contentType: false, processData: false,
+                    headers: { "cache-control": "no-cache" },
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            jError("Lỗi check lại kết nối tới server");
+                            return false;
+                        }
+                        else {
+                            jAlert('Sửa tài liệu thành công!', "THÔNG BÁO", function () {
+                                ClosePopUpDocking();
+                                Search_Docking(1, 1);
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(false);
+                        console.log(e);
+                    }
+                });
+            });
+        }
+    }
+
+    function validateForm() {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        var App_Case_Code = $("#txtApp_Case_Code").val();
+        if (App_Case_Code == null) {
+            jError("Case code không được bỏ trống!", "lỗi", function () {
+                $("#txtApp_Case_Code").val('');
+                $('#txtApp_Case_Code').focus();
+            });
+            return false;
+        }
+
+        var _txtDocument_Name = $("#Document_Name").val();
+        if (_txtDocument_Name == "") {
+            jError("Tên tài liệu không được bỏ trống!", "lỗi", function () {
+                $("#Document_Name").val('');
+                $("#Document_Name").focus();
+            });
+            return false;
+        }
+
+        var txtDeadline = $("#txtDeadline").val();
+        if (checkDate("Deadline", "#txtDeadline", txtDeadline) == false) {
+            return false;
+        }
+
+        var txtIn_Out_Date = $("#txtIn_Out_Date").val();
+        if (checkDate("Ngày khai In/Out book", "#txtIn_Out_Date", txtIn_Out_Date) == false) {
+            return false;
+        }
+
+        // file
+        //var pfile = $("#file_attach");//lay du lieu file
+        //if (pfile.val() != "") {
+        //    var _CheckFile = true;
+        //    var _Len = pfile[0].files[0].name.toString()
+        //    if (_Len.length > 200) {
+        //        _CheckFile = false;
+        //        jError("Tên file không được quá 200 ký tự", "Lỗi", function () {
+        //            $(pfile).focus();
+
+        //        });
+        //        return false;
+        //    }
+
+        //    var _file = pfile[0].files[0];
+        //    var _size = _file.size / 1024 / 1024;
+
+        //    if (validateFileName(_file.name) == false) {
+        //        _CheckFile = false;
+        //        jError("Không tải file có tên file được lưu là unicode Tiếng việt có dấu ! ", "Lỗi", function () {
+        //            $(pfile).focus();
+        //        });
+        //        return false;
+        //    }
+        //    if (_CheckFile == false) {
+        //        return false;
+        //    }
+        //}
+
+        return true;
+    }
+
+    function Choose_DockingType() {
+        try {
+           var _Docking_Type = $('#Docking_Type').val();
+            if (_Docking_Type == '@Convert.ToInt16(Common.CommonData.CommonEnums.Docking_Type_Enum.Out_Book)') {
+                $("#clsPlace").removeClass("clssDisplaynone");
+            }
+            else {
+                $("#clsPlace").addClass("clssDisplaynone");
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function collectData(formData) {
+        try {
+            formData.append('p_Docking_Info.Docking_Id', @Model.Docking_Id);
+            formData.append('p_Docking_Info.Document_Name', $("#Document_Name").val());
+            formData.append('p_Docking_Info.Docking_Type', $("#Docking_Type").val());
+            formData.append('p_Docking_Info.Place_Submit', $("#Place_Submit").val());
+            formData.append('p_Docking_Info.Document_Type', $("#Document_Type").val());
+            formData.append('p_Docking_Info.Status', $("#Status").val());
+
+            formData.append('p_Docking_Info.In_Out_Date', $("#txtIn_Out_Date").val());
+            formData.append('p_Docking_Info.Deadline', $("#txtDeadline").val());
+            formData.append('p_Docking_Info.Notes', $("#txtNotes").val());
+
+
+        } catch (e) {
+            alert(e.toString());
+        }
+        }
+
+
+    function doExitDocking() {
+        ClosePopUpDocking();
+    }
+</script>

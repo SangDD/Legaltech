@@ -69,6 +69,12 @@
             Wait_Translate = 2,
             Completed = 3
         }
+
+        public enum Billing_Status
+        {
+            New_Wait_Approve = 1,
+            Approved = 2
+        }
     }
 
     public class Report_Enums

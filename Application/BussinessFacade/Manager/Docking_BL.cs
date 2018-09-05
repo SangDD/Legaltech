@@ -72,12 +72,12 @@ namespace BussinessFacade
             }
         }
 
-        public int Docking_Update_Delete(decimal p_docking_id, string p_language_code, string p_modify_by, DateTime p_modify_date)
+        public int Docking_Update_Delete(decimal p_billing_id, string p_language_code, string p_modify_by, DateTime p_modify_date)
         {
             try
             {
                 Docking_DA _da = new Docking_DA();
-                return _da.Docking_Update_Delete(p_docking_id, p_language_code, p_modify_by, p_modify_date);
+                return _da.Docking_Update_Delete(p_billing_id, p_language_code, p_modify_by, p_modify_date);
             }
             catch (Exception ex) 
             {
