@@ -768,9 +768,13 @@
                 DataSet _ds_all = ConvertData.ConvertToDataSet<AppTM06DKQTInfoExport>(_lst, false);
 
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
-                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_06DKQT.rpt"));
-             //   _ds_all.WriteXmlSchema(@"C:\Users\user\Desktop\LEGALTECH\XMLFILE\TM06DKQT.xml");
-
+                Logger.LogInfo("b1: load");
+                Logger.LogInfo("b2: file:" + Server.MapPath("~/Report/") + "TM_06DKQT.rpt");
+                  oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_06DKQT.rpt"), OpenReportMethod.OpenReportByTempCopy);
+            //    oRpt.Load(@"C:\inetpub\wwwroot\Report\TM_06DKQT.rpt", OpenReportMethod);
+            
+                //   _ds_all.WriteXmlSchema(@"C:\Users\user\Desktop\LEGALTECH\XMLFILE\TM06DKQT.xml");
+                Logger.LogInfo("b3: ");
                 CrystalDecisions.CrystalReports.Engine.PictureObject _pic01;
                 _pic01 = (CrystalDecisions.CrystalReports.Engine.PictureObject)oRpt.ReportDefinition.Sections[0].ReportObjects["Picture1"];
                 _pic01.Width = 100;

@@ -30,7 +30,7 @@
                 SessionData.CurrentUser.HtmlMenu = userBL.GetUserHtmlMenu(language);
             }
             ViewBag.LanguageCode = language;
-            return View("~/Areas/Home/Views/Home/KnHome.cshtml");
+            return View("~/Areas/Home/Views/Home/LegalHome.cshtml");
 	    }
 
 	    [HttpGet][Route("filter-request-not-identity")]
