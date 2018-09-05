@@ -906,10 +906,10 @@
                 _pic01.Height = 100;
 
                 System.IO.FileInfo file = new System.IO.FileInfo(appInfo.Logourl);
-               
+                Bitmap img = new Bitmap(appInfo.Logourl);
                 try
                 {
-                    Bitmap img = new Bitmap(appInfo.Logourl);
+                  
                     double _Const = 6.666666666666;
                     int _left = 0, _top = 0, _marginleft = 225, _margintop = 4215;
                     int _h = 600;
@@ -939,7 +939,7 @@
                 }
                 finally
                 {
-                  //  img.Dispose();
+                   img.Dispose();
                 }
 
                 if (_ds_all != null)
