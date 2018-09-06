@@ -2,7 +2,7 @@
 @using BussinessFacade;
 @using BussinessFacade.ModuleMemoryData
 @using System.Xml
-@model Docking_Info
+@model Billing_Header_Info
 
 @{
     List<AllCodeInfo> _lstDockingType = MemoryData.AllCode_GetBy_CdTypeCdName("DOCKING", "DOCKING_TYPE");
@@ -18,7 +18,8 @@
     List<AllCodeInfo> _lstPlace = MemoryData.AllCode_GetBy_CdTypeCdName("DOCKING", "PLACE_SUBMIT");
     var lstPlace = _lstDocumentType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
 
-    Model.In_Out_Date = DateTime.Now;
+    Model.Billing_Date = DateTime.Now;
+    Model.Deadline = DateTime.Now.AddDays(30);
 }
 <script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
 <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
@@ -45,126 +46,84 @@
 
 <div class="" style="padding:5px 38px">
     <div class="divCover divCover_popup">
+
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Mã đơn<i class="redspan">(*)</i></div>
+                <div>Số bill<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @maxlength = "50", @style = "width: 200px;" })
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>In/Out book <i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.DropDownList("Docking_Type", lstDockingType, new { @id = "Docking_Type", onchange = "Choose_DockingType()" })
+                    @Html.TextBoxFor(m => m.Case_Code, new { id = "txtCaseCode", @maxlength = "50", @disabled = "disabled" })
                 </div>
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Tên tài liệu<i class="redspan">(*)</i></div>
+                <div>Case code<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Document_Name, new { id = "Document_Name", @maxlength = "200" })
+                    @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @maxlength = "50", @onblur = "onChangeApp_Case_Code()" })
                 </div>
             </div>
+        </div>
+
+        <div id="divInfoApp" style="margin-top: 10px;">
+            @Html.Partial("~/Areas/Manager/Views/Billing/_Partial_AppInfo.cshtml")
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Loại tài liệu<i class="redspan">(*)</i></div>
+                <div>Ngày yêu cầu <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.DropDownList("Document_Type", lstDocumentType, new { @id = "Document_Type", @style = "width: 200px;" })
+                    @Html.TextBoxFor(m => m.Billing_Date, "{0:dd/MM/yyyy}",
+                        new {
+                            id = "txtBilling_Date",
+                            @Value = Model.Billing_Date == DateTime.MinValue ? "" : Model.Billing_Date.ToString("dd/MM/yyyy"),
+                            @placeholder = "dd/mm/yyyy",
+                            @class = "datepicker",
+                            @style = "width: 150px",
+                            @onblur = "onChangeBilling_Date()"
+                        })
                 </div>
             </div>
 
             <div class="div-search-title">
-                <div>Trạng thái <i class="redspan">(*)</i></div>
+                <div>Hạn thanh toán</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.DropDownList("Status", lstStatus, new { @id = "Status" })
+                    @Html.TextBoxFor(m => m.Deadline, "{0:dd/MM/yyyy}",
+                       new {
+                           @id = "txtDeadline",
+                           @Value = Model.Deadline == DateTime.MinValue ? "" : Model.Deadline.ToString("dd/MM/yyyy"),
+                           @placeholder = "dd/mm/yyyy",
+                           @class = "datepicker",
+                           @disabled = "disabled"
+                       })
                 </div>
             </div>
         </div>
 
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>In/Out Date <i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.TextBoxFor(m => m.In_Out_Date, "{0:dd/MM/yyyy}", new { id = "txtIn_Out_Date", @Value = Model.In_Out_Date == DateTime.MinValue ? "" : Model.In_Out_Date.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker" })
-                </div>
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info_2.png" />
+            <div class="cls_form_header">
+                Chi tiết
             </div>
         </div>
 
-        <div class="div-search-ad clssDisplaynone" id="clsPlace">
-            <div class="div-search-title">
-                <div>Nơi nộp <i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.DropDownList("Place_Submit", lstPlace, new { @id = "Place_Submit" })
-                </div>
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Deadline <i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.TextBoxFor(m => m.Deadline, "{0:dd/MM/yyyy}", new { id = "txtDeadline", @Value = Model.Deadline == DateTime.MinValue ? "" : Model.Deadline.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker" })
-                </div>
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Ghi chú</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.TextBoxFor(m => m.Notes, new { id = "txtNotes", @maxlength = "2000" })
-                </div>
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <input type="button" id="btnChooseFile" value="Chọn file" class="btn" onclick="return Click_Upload_File()" style="height:29px;" />
-                <input type="file" id="file_attach" style="display:none" onchange="FuncChooseResultFile()" />
-
-                <div class="div-checkbox clssDisplaynone" id="div_RemoveImg">
-                    <img onclick="RemoveFile()" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" />
-                </div>
-            </div>
-
-            <div class="div-search-title clssDisplaynone">
-                <div id="div_filename" style="width: 168px;">Tên file<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="Tên file Maximum file size is 2MB" id="txtMaxFile" readonly="readonly" style="margin-left: 5px;"/>
-                </div>
-            </div>
+        <div id="divDataBilling" class="divDataTables" style="overflow-x: auto;">
+            @Html.Partial("~/Areas/Manager/Views/Billing/_PartialDetail_Insert_Billing.cshtml")
         </div>
 
     </div>
-
+ 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Lưu" onclick="return doInsertDocking()" />
+            <input type="submit" class="btn-default" value="Lưu" onclick="return doInsertBilling()" />
         </div>
     </div>
 </div>
@@ -176,13 +135,48 @@
          
     });
 
-    function doInsertDocking() {
+    function onChangeApp_Case_Code() {
+        try {
+            var _App_Case_Code = $("#txtApp_Case_Code").val();
+            if (_App_Case_Code != "") {
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/quan-ly-billing/danh-sach-billing/GetAppByCaseCode',
+                    data: {
+                        p_case_code: _App_Case_Code,
+                    },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        $("#divInfoApp").html(data);
+                    }
+                });
+            }
+        } catch (e) {
+            CreateRollingWaitingIcon(true);
+            alert(e);
+        }
+    }
+
+    function onChangeBilling_Date() {
+        try {
+
+        } catch (e) {
+            alert(e.toString());
+        }
+    }
+
+    function doInsertBilling() {
         if (validateForm()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn thêm tài liệu này không?", function () {
+            nvsConfirm(null, "Bạn có chắc chắn muốn thêm billing này không?", function () {
                 var formData = new FormData();
                 collectData(formData);
                 $.ajax({
-                    url: '/quan-ly-docking/danh-sach-docking/do-insert-docking',
+                    url: '/quan-ly-billing/danh-sach-billing/do-insert-billing',
                     type: 'POST',
                     data: formData,
                     async: true, traditional: true, contentType: false, processData: false,
@@ -197,9 +191,9 @@
                             return false;
                         }
                         else {
-                            jAlert('Thêm tài liệu thành công!', "THÔNG BÁO", function () {
-                                ClosePopUpDocking();
-                                Search_Docking(1, 1);
+                            jAlert('Thêm billing thành công!', "THÔNG BÁO", function () {
+                                ClosePopUpBilling();
+                                Search_Billing(1, 1);
                             });
                         }
                     },
@@ -226,120 +220,14 @@
             return false;
         }
 
-        var _txtDocument_Name = $("#Document_Name").val();
-        if (_txtDocument_Name == "") {
-            jError("Tên tài liệu không được bỏ trống!", "lỗi", function () {
-                $("#Document_Name").val('');
-                $("#Document_Name").focus();
-            });
+        var txtBilling_Date = $("#txtBilling_Date").val();
+        if (checkDate("Billing", "#txtBilling_Date", txtBilling_Date) == false) {
             return false;
         }
-
-        var txtDeadline = $("#txtDeadline").val();
-        if (checkDate("Deadline", "#txtDeadline", txtDeadline) == false) {
-            return false;
-        }
-
-        var txtIn_Out_Date = $("#txtIn_Out_Date").val();
-        if (checkDate("Ngày khai In/Out book", "#txtIn_Out_Date", txtIn_Out_Date) == false) {
-            return false;
-        }
-
-        // file 
-        var pfile = $("#file_attach");//lay du lieu file
-        if (pfile.val() != "") {
-            var _CheckFile = true;
-            var _Len = pfile[0].files[0].name.toString()
-            if (_Len.length > 200) {
-                _CheckFile = false;
-                jError("Tên file không được quá 200 ký tự", "Lỗi", function () {
-                    $(pfile).focus();
-
-                });
-                return false;
-            }
-
-            var _file = pfile[0].files[0];
-            var _size = _file.size / 1024 / 1024;
-
-            if (validateFileName(_file.name) == false) {
-                _CheckFile = false;
-                jError("Không tải file có tên file được lưu là unicode Tiếng việt có dấu ! ", "Lỗi", function () {
-                    $(pfile).focus();
-                });
-                return false;
-            }
-            if (_CheckFile == false) {
-                return false;
-            }
-        }
+      
 
         return true;
     }
-
-    function Choose_DockingType() {
-        try {
-           var _Docking_Type = $('#Docking_Type').val();
-            if (_Docking_Type == '@Convert.ToInt16(Common.CommonData.CommonEnums.Docking_Type_Enum.Out_Book)') {
-                $("#clsPlace").removeClass("clssDisplaynone");
-            }
-            else {
-                $("#clsPlace").addClass("clssDisplaynone");
-            }
-        } catch (e) {
-            alert(e.toString());
-        }
-    }
-
-    // file
-    function Click_Upload_File(p_AfterID) {
-        var _idfile = "file_attach";
-        document.getElementById(_idfile).click();
-    }
-
-    function FuncChooseResultFile() {
-        try {
-
-            var _textFile = $("#txtMaxFile");
-            var _txt = document.getElementById("txtMaxFile");
-            var div_filename = document.getElementById("div_filename");
-
-            // lay du lieu file
-            var pfile = $("#file_attach");
-
-            if (pfile.val() == "") {
-                _textFile.val("");
-
-                $("#div_RemoveImg").addClass("clssDisplaynone");
-                div_filename.width = "168px";
-                //_txt.style.width = "561px";
-            }
-            else {
-                var _Filename = pfile[0].files[0].name.toString();
-                _textFile.val(_Filename);
-
-                $("#div_RemoveImg").removeClass("clssDisplaynone");
-                div_filename.width = "143px";
-                //_txt.style.width = "536px";
-            }
-        } catch (e) {
-            alert(e);
-        }
-    }
-
-    function RemoveFile(p_AfterID) {
-        try {
-
-            $("#file_attach").val('');
-            $("#div_RemoveImg").addClass("clssDisplaynone");
-            var _textFile = $("#txtMaxFile");
-            _textFile.val("");
-
-        } catch (e) {
-            alert(e.toString());
-        }
-    }
-   
 
     function collectData(formData) {
         try {

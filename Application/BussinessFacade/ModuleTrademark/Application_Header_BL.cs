@@ -137,6 +137,26 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
+        public ApplicationHeaderInfo GetApp_By_Case_Code(string p_case_code, string p_user_name, string p_language_code)
+        {
+            try
+            {
+                Application_Header_DA _da = new Application_Header_DA();
+                DataSet _ds = _da.GetApp_By_Case_Code(p_case_code, p_user_name, p_language_code);
+                if (_ds != null && _ds.Tables.Count > 0 && _ds.Tables[0].Rows.Count > 0)
+                {
+                    return CBO<ApplicationHeaderInfo>.FillObjectFromDataSet(_ds);
+                }
+                else return null;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return null;
+            }
+        }
+
+
         public ApplicationHeaderInfo GetApplicationHeader_ById(decimal p_Id, string p_languague_code)
         {
             try

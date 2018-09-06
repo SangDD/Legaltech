@@ -58,6 +58,20 @@ namespace BussinessFacade
             }
         }
 
+        public string Billing_GenCaseCode()
+        {
+            try
+            {
+                Billing_DA _da = new Billing_DA();
+                return _da.Billing_GenCaseCode();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return "";
+            }
+        }
+
         public int Billing_Update_Status(decimal p_docking_id, string p_language_code, decimal p_status, string p_modify_by, DateTime p_modify_date)
         {
             try
@@ -86,14 +100,14 @@ namespace BussinessFacade
             }
         }
 
-        public decimal Billing_Insert(Docking_Info p_Docking_Info)
+        public decimal Billing_Insert(Billing_Header_Info p_obj)
         {
             try 
             {
                 Billing_DA _da = new Billing_DA();
-                return _da.Billing_Insert(p_Docking_Info.App_Case_Code, p_Docking_Info.Docking_Type, p_Docking_Info.Document_Name, p_Docking_Info.Document_Type, p_Docking_Info.Status,
-                    p_Docking_Info.Deadline, p_Docking_Info.Isshowcustomer, p_Docking_Info.In_Out_Date, p_Docking_Info.Created_By, 
-                    p_Docking_Info.Created_Date, p_Docking_Info.Language_Code, p_Docking_Info.Url, p_Docking_Info.Notes, p_Docking_Info.Place_Submit, p_Docking_Info.FileName);
+                return _da.Billing_Insert(p_obj.App_Case_Code, p_obj.Billing_Type, p_obj.App_Case_Code, p_obj.Billing_Date, p_obj.Deadline,
+                    p_obj.Request_By, p_obj.Approve_By, p_obj.Status, p_obj.Total_Pre_Tex, p_obj.Tex_Fee, p_obj.Total_Vnd,
+                    p_obj.Currency, p_obj.Currency_Rate, p_obj.Total_Foeign, p_obj.Created_By, p_obj.Created_Date, p_obj.Language_Code);
             }
             catch (Exception ex)
             {
@@ -102,14 +116,13 @@ namespace BussinessFacade
             }
         }
 
-        public decimal Billing_Update(Docking_Info p_Docking_Info)
+        public decimal Billing_Update(Billing_Header_Info p_obj)
         {
             try
             {
                 Billing_DA _da = new Billing_DA();
-                return _da.Billing_Update(p_Docking_Info.Docking_Id, p_Docking_Info.Docking_Type, p_Docking_Info.Document_Name, p_Docking_Info.Document_Type, p_Docking_Info.Status,
-                    p_Docking_Info.Deadline, p_Docking_Info.Isshowcustomer, p_Docking_Info.In_Out_Date, p_Docking_Info.Modify_By, p_Docking_Info.Modify_Date, 
-                    p_Docking_Info.Language_Code, p_Docking_Info.Url, p_Docking_Info.Notes, p_Docking_Info.Place_Submit, p_Docking_Info.FileName);
+                return _da.Billing_Update(p_obj.Billing_Id, p_obj.Billing_Date, p_obj.Deadline, p_obj.Total_Pre_Tex, p_obj.Tex_Fee, p_obj.Total_Vnd, 
+                    p_obj.Currency, p_obj.Currency_Rate, p_obj.Total_Foeign, p_obj.Modify_By, p_obj.Modify_Date, p_obj.Language_Code);
             }
             catch (Exception ex)
             {

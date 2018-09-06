@@ -1,0 +1,69 @@
+﻿@using ObjectInfos;
+@{ 
+    ApplicationHeaderInfo _ApplicationHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        _ApplicationHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    }
+
+}
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div>Case name</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" style="width: 150px;" id="txtCaseName" disabled="disabled" value="@_ApplicationHeaderInfo.Case_Name"/>
+        </div>
+    </div>
+
+    <div class="div-search-title">
+        <div>Client Reference</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" id="txtClient_Reference" disabled="disabled" value="@_ApplicationHeaderInfo.Client_Reference"/>
+        </div>
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div>Tên khách hàng</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" style="width: 150px;" id="txtCustomerName" disabled="disabled" value="@_ApplicationHeaderInfo.Master_Name"/>
+        </div>
+    </div>
+
+    <div class="div-search-title">
+        <div>Địa chỉ</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" id="txtAddress" disabled="disabled" value="@_ApplicationHeaderInfo.Master_Address"/>
+        </div>
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div>Người liên lạc</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" style="width: 150px;" id="txtContact" disabled="disabled" value="@_ApplicationHeaderInfo.Rep_Master_Name"/>
+        </div>
+    </div>
+
+    <div class="div-search-title">
+        <div>Luật sư xử lý</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" id="txtLawer" disabled="disabled" value="@_ApplicationHeaderInfo.Lawer_Name"/>
+        </div>
+    </div>
+</div>

@@ -15,5 +15,7 @@ namespace ObjectInfos
         public decimal Nation_Fee { get; set; }
         public decimal Represent_Fee { get; set; }
         public decimal Service_Fee { get; set; }
+        public decimal Total_Fee { get; set; }
+
     }
 }

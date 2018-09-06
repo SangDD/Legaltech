@@ -2,7 +2,7 @@
 @using Common.Extensions
 @using ObjectInfos;
 @{
-    List<Docking_Info> _list_data = new List<Docking_Info>();
+    List<Billing_Header_Info> _list_data = new List<Billing_Header_Info>();
     if (ViewBag.Obj != null)
     {
         _list_data = ViewBag.Obj;
@@ -14,13 +14,14 @@
         <thead>
             <tr>
                 <th class="class30">STT</th>
-                <th class="class100">In/Out book</th>
+                <th class="class150">Số bill</th>
                 <th class="class150">Case code</th>
-                @*<th class="class150">Mã tài liệu</th>*@
-                <th class="class200">Tên tài liệu</th>
-                <th class="class100">Loại tài liệu</th>
-                <th class="class150">Tình trạng</th>
-                <th class="class100">Thời hạn</th>
+                <th class="class100">Ngày tháng</th>
+                <th class="class100">Hạn thanh toán</th>
+
+                <th class="class100">Số ngày trễ</th>
+                <th class="class150">Số tiền</th>
+                <th class="class150">Trạng thái thanh toán</th>
                 <th class="class100">Chức năng</th>
             </tr>
         </thead>
@@ -29,27 +30,28 @@
             {
                 foreach (var item in _list_data)
                 {
-                    <tr>
-                        <td class="tdcenteralign">@item.STT</td>
-                        <td class="tdleftalign">@item.Docking_Type_Name</td>
-                        <td class="tdleftalign">@item.App_Case_Code</td>
-                        @*<td class="tdleftalign">@item.Case_Code</td>*@
-                        <td class="tdleftalign">@item.Document_Name</td>
-                        <td class="tdleftalign">@item.Document_Type_Name</td>
-                        <td class="tdleftalign">@item.Status_Name</td>
-                        <td class="tdcenteralign">@item.Deadline.ToString("dd/MM/yyyy")</td>
+            <tr>
+                <td class="tdcenteralign">@item.STT</td>
+                <td class="tdleftalign">@item.Case_Code</td>
+                <td class="tdleftalign">@item.App_Case_Code</td>
+                <td class="tdcenteralign">@item.Billing_Date.ToString("dd/MM/yyyy")</td>
+                <td class="tdcenteralign">@item.Deadline.ToString("dd/MM/yyyy")</td>
+                <td class="tdcenteralign">@item.SoNgayTre</td>
+                <td class="tdrightalign">@item.Total_Vnd.ToString("#,##0.##")</td>
 
-                        <td class="tdcenteralign">
-                            <a href="javascript:getViewDocking(@item.Docking_Id)" class="icon icon-info" data-title="Xem chi tiết"></a>
-                            <a href="javascript:;" onclick="getView2Edit(@item.Docking_Id)" class="icon icon-edit" data-title="Sửa"></a>
-                            <a href="javascript:;" onclick="doDeleteDocking(@item.Docking_Id)" class="icon icon-delete" data-title="Xóa"></a>
+                <td class="tdleftalign">@item.Pay_Status_Name</td>
 
-                            @if (item.Status != Convert.ToDecimal(Common.CommonData.CommonEnums.Docking_Status.Completed))
-                            {
-                                <a href="javascript:;" onclick="getView2ChangeStatus(@item.Docking_Id)" class="icon icon-confirm-circle" data-title="Complete document"></a>
-                            }
-                        </td>
-                    </tr>
+
+                <td class="tdcenteralign">
+                    <a href="javascript:getViewDocking(@item.Billing_Id)" class="icon icon-info" data-title="Xem chi tiết"></a>
+                    <a href="javascript:;" onclick="getView2Edit(@item.Billing_Id)" class="icon icon-edit" data-title="Sửa"></a>
+                    <a href="javascript:;" onclick="doDeleteDocking(@item.Billing_Id)" class="icon icon-delete" data-title="Xóa"></a>
+                    @if (item.Status != Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Status.Approved))
+                    {
+                        <a href="javascript:;" onclick="getView2Approve(@item.Billing_Id)" class="icon icon-confirm-circle" data-title="Approve"></a>
+                    }
+                </td>
+            </tr>
                 }
             }
             else

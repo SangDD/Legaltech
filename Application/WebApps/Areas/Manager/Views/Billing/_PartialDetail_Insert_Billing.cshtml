@@ -1,0 +1,51 @@
+﻿@using Common.CommonData
+@using Common.Extensions
+@using ObjectInfos;
+@{
+    List<Billing_Detail_Info> _list_data = new List<Billing_Detail_Info>();
+    if (ViewBag.Obj != null)
+    {
+        _list_data = ViewBag.Obj;
+    }
+}
+
+<div>
+    <table class="table-lst-data" id="tableListGroupUser">
+        <thead>
+            <tr>
+                <th class="class250">Mô tả công việc</th>
+                <th class="class150">Lệ phí quốc gia</th>
+                <th class="class150">Phí đại diện</th>
+                <th class="class150">Phí dịch vụ</th>
+                <th class="class150">Tổng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (_list_data.Count > 0)
+            {
+                foreach (var item in _list_data)
+                {
+                    <tr>
+                        <td class="tdleftalign">@item.Biling_Detail_Name</td>
+                        <td class="tdrightalign">@item.Nation_Fee.ToString("#,##0.##")</td>
+                        <td class="tdrightalign">@item.Represent_Fee.ToString("#,##0.##")</td>
+                        <td class="tdrightalign">@item.Service_Fee.ToString("#,##0.##")</td>
+                        <td class="tdrightalign">@item.Total_Fee.ToString("#,##0.##")</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="9">Không có dữ liệu</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@*<div class="_ClassPage">
+        <ul>
+            @Html.Raw(ViewBag.Paging)
+        </ul>
+    </div>*@

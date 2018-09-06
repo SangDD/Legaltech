@@ -38,7 +38,7 @@ namespace DataAccess
         {
             try
             {
-                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_billing.proc_billing_GetAll",
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_billing.proc_billing_getall",
                 new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
             }
             catch (Exception ex)
@@ -63,8 +63,24 @@ namespace DataAccess
             }
         }
 
+        public string Billing_GenCaseCode()
+        {
+            try
+            {
+                var paramReturn = new OracleParameter("p_return", OracleDbType.Varchar2, ParameterDirection.Output);
+                paramReturn.Size = 50;
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_billing.proc_get_casecode", paramReturn);
+                return paramReturn.Value.ToString();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return "";
+            }
+        }
 
-        public int Billing_Update_Status(decimal p_billing_id,string p_language_code, decimal p_status,string p_modify_by, DateTime p_modify_date)
+
+        public int Billing_Update_Status(decimal p_billing_id, string p_language_code, decimal p_status, string p_modify_by, DateTime p_modify_date)
         {
             try
             {
@@ -86,32 +102,35 @@ namespace DataAccess
             }
         }
 
-        public decimal Billing_Insert(string p_app_case_code, decimal p_docking_type, string p_document_name, decimal p_document_type, decimal p_status, 
-            DateTime p_deadline, decimal p_isshowcustomer, DateTime p_in_out_date, string p_created_by, DateTime p_created_date, string p_language_code, 
-            string p_url,string p_notes, decimal p_place_submit, string p_filename)
+        public decimal Billing_Insert(string p_case_code, decimal p_billing_type, string p_app_case_code, DateTime p_billing_date, DateTime p_deadline,
+            string p_request_by, string p_approve_by, decimal p_status, decimal p_total_pre_tex, decimal p_tex_fee, decimal p_total_vnd,
+            string p_currency, decimal p_currency_rate, decimal p_total_foeign, string p_created_by, DateTime p_created_date, string p_language_code)
         {
             try
             {
                 var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
-                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_billing.Proc_billing_Insert",
-                    new OracleParameter("p_app_case_code", OracleDbType.Varchar2, p_app_case_code, ParameterDirection.Input),
-                    new OracleParameter("p_docking_type", OracleDbType.Decimal, p_docking_type, ParameterDirection.Input),
-                    new OracleParameter("p_document_name", OracleDbType.Varchar2, p_document_name, ParameterDirection.Input),
-                    new OracleParameter("p_document_type", OracleDbType.Decimal, p_document_type, ParameterDirection.Input),
-                    new OracleParameter("p_status", OracleDbType.Decimal, p_status, ParameterDirection.Input),
-                    new OracleParameter("p_deadline", OracleDbType.Date, p_deadline, ParameterDirection.Input),
-                    new OracleParameter("p_isshowcustomer", OracleDbType.Decimal, p_isshowcustomer, ParameterDirection.Input),
-                    new OracleParameter("p_in_out_date", OracleDbType.Date, p_in_out_date, ParameterDirection.Input),
-                    new OracleParameter("p_created_by", OracleDbType.Varchar2, p_created_by, ParameterDirection.Input),
-                    new OracleParameter("p_created_date", OracleDbType.Date, p_created_date, ParameterDirection.Input),
-                    new OracleParameter("p_place_submit", OracleDbType.Decimal, p_place_submit, ParameterDirection.Input),
-                    new OracleParameter("p_url", OracleDbType.Varchar2, p_url, ParameterDirection.Input),
-                    new OracleParameter("p_filename", OracleDbType.Varchar2, p_filename, ParameterDirection.Input),
-                    new OracleParameter("p_notes", OracleDbType.Varchar2, p_notes, ParameterDirection.Input),
-                    new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
-
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_billing.Proc_Billing_Header_Insert",
+                     new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
+                     new OracleParameter("p_billing_type", OracleDbType.Decimal, p_billing_type, ParameterDirection.Input),
+                     new OracleParameter("p_app_case_code", OracleDbType.Varchar2, p_app_case_code, ParameterDirection.Input),
+                     new OracleParameter("p_billing_date", OracleDbType.Date, p_billing_date, ParameterDirection.Input),
+                     new OracleParameter("p_deadline", OracleDbType.Date, p_deadline, ParameterDirection.Input),
+                     new OracleParameter("p_request_by", OracleDbType.Varchar2, p_request_by, ParameterDirection.Input),
+                     new OracleParameter("p_approve_by", OracleDbType.Varchar2, p_approve_by, ParameterDirection.Input),
+                     new OracleParameter("p_status", OracleDbType.Decimal, p_status, ParameterDirection.Input),
+                     //new OracleParameter("p_pay_status", OracleDbType.Decimal, p_pay_status, ParameterDirection.Input),
+                     //new OracleParameter("p_pay_date", OracleDbType.Date, p_pay_date, ParameterDirection.Input),
+                     new OracleParameter("p_total_pre_tex", OracleDbType.Decimal, p_total_pre_tex, ParameterDirection.Input),
+                     new OracleParameter("p_tex_fee", OracleDbType.Decimal, p_tex_fee, ParameterDirection.Input),
+                     new OracleParameter("p_total_vnd", OracleDbType.Decimal, p_total_vnd, ParameterDirection.Input),
+                     new OracleParameter("p_currency", OracleDbType.Varchar2, p_currency, ParameterDirection.Input),
+                     new OracleParameter("p_currency_rate", OracleDbType.Decimal, p_currency_rate, ParameterDirection.Input),
+                     new OracleParameter("p_total_foeign", OracleDbType.Decimal, p_total_foeign, ParameterDirection.Input),
+                     new OracleParameter("p_created_by", OracleDbType.Varchar2, p_created_by, ParameterDirection.Input),
+                     new OracleParameter("p_created_date", OracleDbType.Date, p_created_date, ParameterDirection.Input),
+                     new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
                     paramReturn);
-               
+
                 return Convert.ToDecimal(paramReturn.Value.ToString());
             }
             catch (Exception ex)
@@ -121,29 +140,26 @@ namespace DataAccess
             }
         }
 
-        public decimal Billing_Update(decimal p_billing_id, decimal p_docking_type, string p_document_name, decimal p_document_type, decimal p_status,
-            DateTime p_deadline, decimal p_isshowcustomer, DateTime p_in_out_date, string p_modify_by, DateTime p_modify_date, 
-            string p_language_code, string p_url, string p_notes, decimal p_place_submit, string p_filename)
+        public decimal Billing_Update(decimal p_billing_id, DateTime p_billing_date, DateTime p_deadline,
+            decimal p_total_pre_tex, decimal p_tex_fee, decimal p_total_vnd,
+            string p_currency, decimal p_currency_rate, decimal p_total_foeign, string p_modify_by, DateTime p_modify_date, string p_language_code)
         {
             try
             {
                 var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
-                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_billing.proc_billing_update",
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_billing.proc_billing_header_update",
                     new OracleParameter("p_billing_id", OracleDbType.Decimal, p_billing_id, ParameterDirection.Input),
-                    new OracleParameter("p_docking_type", OracleDbType.Decimal, p_docking_type, ParameterDirection.Input),
-                    new OracleParameter("p_document_name", OracleDbType.Varchar2, p_document_name, ParameterDirection.Input),
-                    new OracleParameter("p_document_type", OracleDbType.Decimal, p_document_type, ParameterDirection.Input),
-                    //new OracleParameter("p_status", OracleDbType.Decimal, p_status, ParameterDirection.Input),
-                    new OracleParameter("p_deadline", OracleDbType.Date, p_deadline, ParameterDirection.Input),
-                    new OracleParameter("p_isshowcustomer", OracleDbType.Decimal, p_isshowcustomer, ParameterDirection.Input),
-                    new OracleParameter("p_in_out_date", OracleDbType.Date, p_in_out_date, ParameterDirection.Input),
-                    new OracleParameter("p_modify_by", OracleDbType.Varchar2, p_modify_by, ParameterDirection.Input),
-                    new OracleParameter("p_modify_date", OracleDbType.Date, p_modify_date, ParameterDirection.Input),
-                    new OracleParameter("p_place_submit", OracleDbType.Decimal, p_place_submit, ParameterDirection.Input),
-                    new OracleParameter("p_url", OracleDbType.Varchar2, p_url, ParameterDirection.Input),
-                    new OracleParameter("p_filename", OracleDbType.Varchar2, p_filename, ParameterDirection.Input),
-                    new OracleParameter("p_notes", OracleDbType.Varchar2, p_notes, ParameterDirection.Input),
-                    new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
+                     new OracleParameter("p_billing_date", OracleDbType.Date, p_billing_date, ParameterDirection.Input),
+                     new OracleParameter("p_deadline", OracleDbType.Date, p_deadline, ParameterDirection.Input),
+                     new OracleParameter("p_total_pre_tex", OracleDbType.Decimal, p_total_pre_tex, ParameterDirection.Input),
+                     new OracleParameter("p_tex_fee", OracleDbType.Decimal, p_tex_fee, ParameterDirection.Input),
+                     new OracleParameter("p_total_vnd", OracleDbType.Decimal, p_total_vnd, ParameterDirection.Input),
+                     new OracleParameter("p_currency", OracleDbType.Varchar2, p_currency, ParameterDirection.Input),
+                     new OracleParameter("p_currency_rate", OracleDbType.Decimal, p_currency_rate, ParameterDirection.Input),
+                     new OracleParameter("p_total_foeign", OracleDbType.Decimal, p_total_foeign, ParameterDirection.Input),
+                     new OracleParameter("p_modify_by", OracleDbType.Varchar2, p_modify_by, ParameterDirection.Input),
+                     new OracleParameter("p_modify_date", OracleDbType.Date, p_modify_date, ParameterDirection.Input),
+                     new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
                     paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());

@@ -11,6 +11,7 @@ using BussinessFacade;
 using Common;
 using WebApps.CommonFunction;
 using Common.CommonData;
+using BussinessFacade.ModuleTrademark;
 
 namespace WebApps.Areas.Manager.Controllers
 {
@@ -112,12 +113,50 @@ namespace WebApps.Areas.Manager.Controllers
         [Route("danh-sach-billing/show-insert")]
         public ActionResult GetView2Insert()
         {
-            return PartialView("~/Areas/Manager/Views/Billing/_PartialInsert.cshtml", new Billing_Header_Info());
+            try
+            {
+                Billing_BL _obj_bl = new Billing_BL();
+                string _caseCode = _obj_bl.Billing_GenCaseCode();
+                Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
+                _Billing_Header_Info.Case_Code = _caseCode;
+                return PartialView("~/Areas/Manager/Views/Billing/_PartialInsert.cshtml", _Billing_Header_Info);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+
+                Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
+                return PartialView("~/Areas/Manager/Views/Billing/_PartialInsert.cshtml", new Billing_Header_Info());
+            }
+        }
+
+        [HttpPost]
+        [Route("danh-sach-billing/GetAppByCaseCode")]
+        public ActionResult GetInfoByCaseCode(string p_case_code)
+        {
+            try
+            {
+                Application_Header_BL _bl = new Application_Header_BL();
+                ApplicationHeaderInfo objAppHeaderInfo = _bl.GetApp_By_Case_Code(p_case_code, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
+                ViewBag.objAppHeaderInfo = objAppHeaderInfo;
+                return PartialView("~/Areas/Manager/Views/Billing/_Partial_AppInfo.cshtml");
+
+                //var PartialThongTinChuDon = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1");
+                //var PartialThongTinDaiDienChuDon = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2");
+
+                //var json = Json(new { PartialThongTinChuDon, PartialThongTinDaiDienChuDon });
+                //return json;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml");
+            }
         }
 
         [HttpPost]
         [Route("danh-sach-billing/do-insert-billing")]
-        public ActionResult DoInsert(Docking_Info p_Billing_Header_Info)
+        public ActionResult DoInsert(Billing_Header_Info p_Billing_Header_Info)
         {
             try
             {
@@ -158,28 +197,16 @@ namespace WebApps.Areas.Manager.Controllers
 
         [HttpPost]
         [Route("danh-sach-billing/do-edit-billing")]
-        public ActionResult DoEdit(Docking_Info p_Docking_Info)
+        public ActionResult DoEdit(Billing_Header_Info p_Billing_Header_Info)
         {
             try
             {
                 Billing_BL _obj_bl = new Billing_BL();
-                p_Docking_Info.Modify_By = SessionData.CurrentUser.Username;
-                p_Docking_Info.Modify_Date = DateTime.Now;
-                p_Docking_Info.Language_Code = AppsCommon.GetCurrentLang();
+                p_Billing_Header_Info.Modify_By = SessionData.CurrentUser.Username;
+                p_Billing_Header_Info.Modify_Date = DateTime.Now;
+                p_Billing_Header_Info.Language_Code = AppsCommon.GetCurrentLang();
 
-                if (p_Docking_Info.File_Upload != null)
-                {
-                    var url_File_Upload = AppLoadHelpers.PushFileToServer(p_Docking_Info.File_Upload, AppUpload.Document);
-                    p_Docking_Info.FileName = p_Docking_Info.File_Upload.FileName;
-                    p_Docking_Info.Url = url_File_Upload;
-                }
-                else
-                {
-                    p_Docking_Info.FileName = "NA";
-                    p_Docking_Info.Url = "NA";
-                }
-
-                decimal _ck = _obj_bl.Billing_Update(p_Docking_Info);
+                decimal _ck = _obj_bl.Billing_Update(p_Billing_Header_Info);
                 return Json(new { success = _ck });
             }
             catch (Exception ex)

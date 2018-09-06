@@ -143,6 +143,8 @@ namespace ObjectInfos
         public string DDSHCN { get; set; }
         // Người xử lý gần nhất
         public string User_Processing { get; set; }
+
+        public string Lawer_Name { get; set; }
     }
 
 

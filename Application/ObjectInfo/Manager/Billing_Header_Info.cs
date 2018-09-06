@@ -8,6 +8,7 @@ namespace ObjectInfos
 {
     public class Billing_Header_Info
     {
+        public decimal STT { get; set; }
         public decimal Billing_Id { get; set; }
         public string Case_Code { get; set; }
         public decimal Billing_Type { get; set; }
@@ -16,6 +17,21 @@ namespace ObjectInfos
         public string App_Case_Code { get; set; }
         public DateTime Billing_Date { get; set; }
         public DateTime Deadline { get; set; }
+
+        int _SoNgayTre;
+        public int SoNgayTre
+        {
+            get
+            {
+                TimeSpan _ts = DateTime.Now.Date - Billing_Date.Date;
+                return (int)_ts.TotalDays;
+            }
+            set
+            {
+                _SoNgayTre = value;
+            }
+        }
+
         public string Request_By { get; set; }
         public string Request_By_Name { get; set; }
 

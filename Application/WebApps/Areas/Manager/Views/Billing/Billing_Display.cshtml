@@ -91,7 +91,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Trạng thái thanh toán</div>
+                <div>TT thanh toán</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -103,7 +103,7 @@
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;">
-            <input type="button" value="Tìm kiếm" class="btn-default" onclick="Search_Docking(1, 1)" />
+            <input type="button" value="Tìm kiếm" class="btn-default" onclick="Search_Billing(1, 1)" />
             @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin)
             {
                 <input type="button" value="Thêm billing" class="btn-default" onclick="getView2Insert()" />
@@ -165,7 +165,7 @@
                 var _Status = $("#cboStatus").val();
                 var _payStatus = $("#cboPayStatus").val(); 
 
-                p_keysearch = _txtAppCaseCode + "|" + txtLawer + "|" + txtCustomerName + "|" + _Status + "|" + _DocumentType;
+                p_keysearch = _txtAppCaseCode + "|" + txtLawer + "|" + txtCustomerName + "|" + _Status + "|" + _payStatus;
 
                 //Lưu lại keysearch
                 $("#txtKeyValue").val(p_keysearch);
@@ -281,7 +281,7 @@
             success: function (data) {
                 if (data != null) {
                     $("#divPopUpBilling").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpBilling, "Duyệt thông tin billing", 700, 500, "txtName");
+                    ShowPopupDialog_Ipace('divWrapperPopUpBilling', "Duyệt thông tin billing", 700, 500, "txtName");
                 }
                 return false;
             }
