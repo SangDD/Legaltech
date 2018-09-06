@@ -8,6 +8,8 @@
     using WebApps.CommonFunction;
     using BussinessFacade.ModuleUsersAndRoles;
     using ObjectInfos;
+    using BussinessFacade;
+    using System.Collections.Generic;
 
     [ValidateAntiForgeryTokenOnAllPosts]
  
@@ -179,7 +181,25 @@
                 return Json(msg);
             }
         }
-     
+
+        [HttpPost]
+        [Route("find-wiki")]
+        public ActionResult FindOject(string keysSearch, string options)
+        {
+            var lstOjects = new List<WikiDoc_Info>();
+            try
+            {
+                var _WikiDoc_BL = new WikiDoc_BL();
+                lstOjects = _WikiDoc_BL.WikiDoc_Search(keysSearch, options);
+                ViewBag.Paging = _WikiDoc_BL.GetPagingHtml();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return PartialView("~/Areas/Wiki/Views/WikiDoc/_PartialDocData.cshtml", lstOjects);
+        }
+
     }
 
     public class MsgReportServerInfo
