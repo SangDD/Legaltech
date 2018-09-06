@@ -151,19 +151,6 @@
 
         public string FilePreview { get; set; }
 
-        ///HuwngTD thêm : có hiển thị cảnh báo hay ko   
-        bool _isdisplay = true;
-        public bool IsDisplayWarning
-        {
-            get
-            {
-                return _isdisplay;
-            }
-            set
-            {
-                _isdisplay = value;
-            }
-        }
-        public List<WarningMessageInfo> cListWarningMsg;
+      
     }
 }

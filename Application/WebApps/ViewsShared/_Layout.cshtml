@@ -9,15 +9,7 @@
 
     string _LanguageCode = AppsCommon.GetCurrentLang();
 
-    UserInfo   _currUser = new UserInfo();
-    if (SessionData.CurrentUser != null)
-    {
-
-        _currUser = (UserInfo)SessionData.CurrentUser;
-
-        SessionData.CurrentUser.cListWarningMsg = new List<WarningMessageInfo>();
-        AppsCommon.GetWarningData(_currUser.Type.ToString());
-    }
+  
 }
 
 <!DOCTYPE html>
@@ -102,102 +94,6 @@
         @*@Html.Partial("~/ViewsShared/_PartialFooter.cshtml")*@
     </div>
     @*End Footer*@
-    @if (SessionData.CurrentUser != null)
-    {
-
-        if (true)
-        {
-            string _Divwarning_contentstyle = "";
-            string _Divwarning_tyle = "";
-            string imgdown = "display: block";
-            string imgup = "display: none";
-
-            _currUser = (UserInfo)SessionData.CurrentUser;
-            if (_currUser.IsDisplayWarning == false)
-            {
-                _Divwarning_contentstyle = "display: none; transition:visibility 0s linear 0.5s,opacity 0.5s linear;";
-                _Divwarning_tyle = "border-bottom: 3px solid #FFF; width: 110px";
-                imgdown = "display: none";
-                imgup = "display: block";
-            }
-        @*<div id="warning" onmouseover="FuncOnmouseOver()" onmouseout="FunOnmoseUout()" style="@_Divwarning_tyle">
-            <label><a href="/trade-mark-mana/quan-ly-don/0" style="color: white">CẢNH BÁO  </a></label>
-            <a id="imgshowhide" href="javascript:;" onclick="return HideWarning()">
-                <img id="imgdown" src="~/Content/images/down.png" style="@imgdown" title="Ẩn cảnh báo" />
-                <img id="imgup" src="~/Content/images/up.png" style="@imgup" title="Hiện cảnh báo" />
-            </a>
-            <div style="clear: both; height: 0"></div>
-
-            <div id="warning_content" style="@_Divwarning_contentstyle">
-                @if (AppsCommon.W_LUUTAM > 0)
-                {
-                    <div>
-                        <a href="/trade-mark-mana/quan-ly-don/1">
-                            <span>Đơn lưu tạm</span>
-                            <span>@AppsCommon.W_LUUTAM</span>
-                        </a>
-                    </div>
-                }
-                @if (AppsCommon.W_CHOPHANLOAI > 0)
-                {
-                    <div>
-                        <a href="/trade-mark-mana/quan-ly-don/2">
-                            <span>Đơn chờ phân loại</span>
-                            <span>@AppsCommon.W_CHOPHANLOAI</span>
-                        </a>
-                    </div>
-                }
-                @if (AppsCommon.W_PHANCHOLUATSU > 0)
-                {
-                    <div>
-                        <a href="/trade-mark-mana/quan-ly-don/3">
-                            <span>Đơn đã phân cho luật sư</span>
-                            <span>@AppsCommon.W_PHANCHOLUATSU</span>
-                        </a>
-                    </div>
-                }
-                @if (AppsCommon.W_LUATSUDACOMFIRM > 0)
-                {
-                    <div>
-                        <a href="/trade-mark-mana/quan-ly-don/4">
-                            <span>Đơn luật sư đã confirm</span>
-                            <span>@AppsCommon.W_LUATSUDACOMFIRM</span>
-                        </a>
-                    </div>
-                }
-                @if (AppsCommon.W_CHOKHACHHANGCOMFIRM > 0)
-                {
-                    <div>
-                        <a href="/trade-mark-mana/quan-ly-don/5">
-                            <span>Đơn chờ khách hàng comfirm</span>
-                            <span>@AppsCommon.W_CHOKHACHHANGCOMFIRM</span>
-                        </a>
-                    </div>
-                }
-                @if (AppsCommon.W_KHACHHANGDACOMFIRM > 0)
-                {
-                    <div>
-                        <a href="/trade-mark-mana/quan-ly-don/6">
-                            <span>Đơn khách hàng đã comfirm</span>
-                            <span>@AppsCommon.W_KHACHHANGDACOMFIRM</span>
-                        </a>
-                    </div>
-                }
-                @if (AppsCommon.W_DAGUILENCUC > 0)
-                {
-                    <div>
-                        <a href="/trade-mark-mana/quan-ly-don/7">
-                            <span>Đơn đã gửi lên cục</span>
-                            <span>@AppsCommon.W_DAGUILENCUC</span>
-                        </a>
-                    </div>
-                }
-
-            </div>
-        </div>*@
-        }
-    }
-
 
     <script src=@($"/Scripts/nvs.jquery.validate.data.js?v={CommonVariables.AssemblyVersion}")></script>
     <script src=@($"/Scripts/nvs.jquery.util.js?v={CommonVariables.AssemblyVersion}")></script>
@@ -216,7 +112,6 @@
 
 </html>
 <script>
-    var _isdisplay = "@_currUser.IsDisplayWarning.ToString()";
     $(document).ready(function () {
         $('[data-menu="item-main-menu"]').on("click", function ()
         {
@@ -251,64 +146,5 @@
         window.location.href = url;
     }
 
-    //window.onload = HiddenDivWarning;
-    var _isShow; // nếu cái này = 1 thì ko cần ẩn đi nữa  
-
-    //function FuncOnmouseOver() {
-    //    clearTimeout(_isShow);
-    //}
-    //function FunOnmoseUout() {
-    //    _isShow = setTimeout(function () {
-    //        //$("#warning").attr("style", "opacity:0; visibility: hidden; transition:visibility 0s linear 0.5s,opacity 0.5s linear;");
-    //        $("#warning_content").attr("style", "display: none; transition:visibility 0s linear 0.5s,opacity 0.5s linear;");
-    //        $("#warning").attr("style", "border-bottom: 3px solid #FFF; width: 110px");
-    //        //$("#imgshowhide").attr("style", "margin: 8px 10px 0 0");
-    //        document.getElementById("imgdown").style.display = "none";
-    //        document.getElementById("imgup").style.display = "block";
-    //    }, 5000);
-    //}
-    //function HideWarning() {
-    //    var _warningart = $("#warning_content").css("display");
-
-    //    if (_warningart == "block") {
-    //        $("#warning_content").attr("style", "display: none");
-    //        $("#warning").attr("style", "border-bottom: 3px solid #FFF; width: 110px");
-    //        //$("#imgshowhide").attr("style", "margin: 8px 10px 0 0");
-    //        document.getElementById("imgdown").style.display = "none";
-    //        document.getElementById("imgup").style.display = "block";
-    //    }
-    //    else {
-    //        $("#warning_content").attr("style", "display: block");
-    //        $("#warning").attr("style", "border-bottom: none; ; width: 250px");
-    //        $("#imgshowhide").attr("style", "margin: 5px 10px 0 0");
-    //        document.getElementById("imgdown").style.display = "block";
-    //        document.getElementById("imgup").style.display = "none";
-    //    }
-    //    if (_isdisplay == "True") {
-    //        SetDisplayWarning();
-    //    }
-    //}
-
-    //Set ẩn hiện warning
-    function SetDisplayWarning() {
-        try {
-            $.ajax({
-                type: 'POST',
-                url: '/SetDisplayWarning/',
-                //string p_Search, int p_Status, int p_customerId
-                data: {
-                    p_isplay: false
-                },
-                dataType: "json",
-                async: false, cache: false, traditional: false,
-                success: function (data) {
-                    if (data != "") {
-                        _isdisplay = "false";
-                    }
-                }
-            });
-        } catch (e) {
-
-        }
-    }
+     
 </script>

@@ -8,6 +8,8 @@
     using WebApps.CommonFunction;
     using BussinessFacade.ModuleUsersAndRoles;
     using ObjectInfos;
+    using BussinessFacade;
+    using System.Collections.Generic;
 
     [ValidateAntiForgeryTokenOnAllPosts]
  
@@ -179,33 +181,25 @@
                 return Json(msg);
             }
         }
-        /// <summary>
-        /// HunGTD: set ẩn hiện thằng warning message
-        /// </summary>
-        /// <param name="p_isplay"></param>
-        /// <returns></returns>
+
         [HttpPost]
-        [Route("SetDisplayWarning")]
-        public ActionResult SetDisplayWarning(bool p_isplay)
+        [Route("find-wiki")]
+        public ActionResult FindOject(string keysSearch, string options)
         {
+            var lstOjects = new List<WikiDoc_Info>();
             try
             {
-                if (SessionData.CurrentUser == null)
-                {
-                    return null;
-                }
-                UserInfo _CurrUser = new UserInfo();
-                _CurrUser = (UserInfo)SessionData.CurrentUser;
-                _CurrUser.IsDisplayWarning = p_isplay;
-                SessionData.CurrentUser = _CurrUser;
-                return Json(new { sucsess = true });
+                var _WikiDoc_BL = new WikiDoc_BL();
+                lstOjects = _WikiDoc_BL.WikiDoc_Search(keysSearch, options);
+                ViewBag.Paging = _WikiDoc_BL.GetPagingHtml();
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return null;
             }
+            return PartialView("~/Areas/Wiki/Views/WikiDoc/_PartialDocData.cshtml", lstOjects);
         }
+
     }
 
     public class MsgReportServerInfo
