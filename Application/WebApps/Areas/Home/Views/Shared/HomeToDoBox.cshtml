@@ -1,0 +1,45 @@
+﻿<style>
+    #legaltodo_div {
+        text-align: left;
+        border: 1px solid #ccc;
+        min-height: 50px;
+        padding: 5px 0px 5px 5px;
+        margin-top:10px;
+    }
+
+    #legalsearch_table td {
+        cursor: pointer;
+        padding: 5px 10px;
+    }
+
+    .legalsearch_clssunderline {
+        text-decoration: underline;
+    }
+</style>
+<script>
+    function FunChooseSearchtype(item)
+    {
+        try {
+            $(".legalsearch_clssunderline").removeClass("legalsearch_clssunderline");
+            $(item).addClass("legalsearch_clssunderline");
+        } catch (e) {
+
+        }
+    }
+</script>
+<div class="divCover" id="legaltodo_div">
+    TÌM KIẾM DỮ LIỆU
+    <hr />
+    <table id="legalsearch_table">
+        <tr>
+            <td class="legalsearch_clssunderline" onclick="FunChooseSearchtype(this, 1)">Tình trạng đơn</td>
+            <td onclick="FunChooseSearchtype(this, 2)">Luật sư</td>
+            <td onclick="FunChooseSearchtype(this, 3)">Khách hàng</td>
+            <td onclick="FunChooseSearchtype(this, 4)">Wiki</td>
+        </tr>
+    </table>
+    <div>
+        <input type="text" id="legalsearch_txtsearchcontent" style="width: calc(100% - 30px);" /> <input type="button" style="width:25px" value="Go" />
+        <input type="hidden" id="legalsearch_txtsearchtype" value="1" />
+    </div>
+</div>
