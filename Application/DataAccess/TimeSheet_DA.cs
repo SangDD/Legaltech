@@ -152,13 +152,14 @@ namespace DataAccess
             }
         }
 
-        public decimal Timesheet_Approve(decimal p_id, int p_status, string p_reject_reason, string p_modify_by, DateTime p_modify_date)
+        public decimal Timesheet_Approve(decimal p_id,decimal p_hours_adjust, int p_status, string p_reject_reason, string p_modify_by, DateTime p_modify_date)
         {
             try
             {
                 var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_timesheet.proc_timesheet_approve",
                     new OracleParameter("p_id", OracleDbType.Decimal, p_id, ParameterDirection.Input),
+                    new OracleParameter("p_hours_adjust", OracleDbType.Decimal, p_hours_adjust, ParameterDirection.Input),
                     new OracleParameter("p_status", OracleDbType.Int16, p_status, ParameterDirection.Input),
                     new OracleParameter("p_reject_reason", OracleDbType.Varchar2, p_reject_reason, ParameterDirection.Input),
                     new OracleParameter("p_modify_by", OracleDbType.Varchar2, p_modify_by, ParameterDirection.Input),

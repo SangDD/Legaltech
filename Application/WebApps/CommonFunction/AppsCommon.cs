@@ -18,7 +18,7 @@ namespace WebApps.CommonFunction
     public class AppsCommon
     {
 
-
+       
         public static string GetCurrentLang()
         {
             try

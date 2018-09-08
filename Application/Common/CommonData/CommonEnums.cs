@@ -75,6 +75,14 @@
             New_Wait_Approve = 1,
             Approved = 2
         }
+
+        public enum Billing_Detail_Type
+        {
+            App = 1,
+            TimeSheet = 2,
+            Service = 3,
+            Others = 4
+        }
     }
 
     public class Report_Enums

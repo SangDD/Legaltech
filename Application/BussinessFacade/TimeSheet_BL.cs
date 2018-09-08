@@ -115,12 +115,12 @@ namespace BussinessFacade
             }
         }
 
-        public decimal Timesheet_Approve(decimal p_id, int p_status, string p_reject_reason, string p_modify_by)
+        public decimal Timesheet_Approve(decimal p_id, decimal p_hours_adjust, int p_status, string p_reject_reason, string p_modify_by)
         {
             try
             {
                 TimeSheet_DA _da = new TimeSheet_DA();
-                return _da.Timesheet_Approve(p_id, p_status, p_reject_reason, p_modify_by, DateTime.Now);
+                return _da.Timesheet_Approve(p_id, p_hours_adjust, p_status, p_reject_reason, p_modify_by, DateTime.Now);
             }
             catch (Exception ex)
             {

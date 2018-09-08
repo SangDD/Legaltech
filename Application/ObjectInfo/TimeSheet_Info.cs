@@ -25,6 +25,8 @@ namespace ObjectInfos
 
         public DateTime Time_Date { get; set; }
         public decimal Hours { get; set; }
+        public decimal Hours_Adjust { get; set; }
+
         public string Notes { get; set; }
         public decimal Status { get; set; }
         public string Status_Name { get; set; }

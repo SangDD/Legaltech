@@ -125,6 +125,22 @@
             return ds;
         }
 
+        public static DataSet GetUserByType(decimal p_user_type)
+        {
+            try
+            {
+               return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_s_users.proc_User_GetBy_Type",
+                    new OracleParameter("p_user_type", OracleDbType.Decimal, p_user_type, ParameterDirection.Input),
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
+
         public static int AddUser(UserInfo userAdd, string GroupId)
         {
             try

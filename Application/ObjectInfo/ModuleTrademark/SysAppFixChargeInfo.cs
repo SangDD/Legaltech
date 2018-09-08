@@ -10,6 +10,7 @@ namespace ObjectInfos
         public string Title { get; set; }
         public decimal Fee_Id { get; set; }
         public decimal Amount { get; set; }
+        public decimal Amount_Represent { get; set; }
         public string Char01 { get; set; }
         public string Char02 { get; set; }
         public string Char03 { get; set; }
