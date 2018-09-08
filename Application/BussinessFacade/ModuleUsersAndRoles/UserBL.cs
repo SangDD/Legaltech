@@ -115,6 +115,21 @@
             return Null<UserInfo>.GetListCollectionNull();
         }
 
+        public List<UserInfo> GetUserByType(decimal p_user_type)
+        {
+            try
+            {
+                var ds = UserDA.GetUserByType(p_user_type);
+                return CBO<UserInfo>.FillCollectionFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<UserInfo>();
+            }
+        }
+
+
         public ActionBusinessResult AddUser(UserInfo userAdd, string GroupId)
         {
             var passwordEncrypt = Encription.EncryptAccountPassword(userAdd.Username, userAdd.Password);

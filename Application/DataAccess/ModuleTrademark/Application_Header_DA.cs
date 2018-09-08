@@ -234,7 +234,8 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
                     new OracleParameter("p_user_name", OracleDbType.Varchar2, p_user_name, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
-                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_detail", OracleDbType.RefCursor, ParameterDirection.Output));
             }
             catch (Exception ex)
             {

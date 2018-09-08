@@ -72,11 +72,22 @@
                 </div>
             </div>
             <div class="div-search-title">
-                <div>Giờ  <i class="redspan">(*)</i></div>
+                <div>Giờ thực tế <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
                     @Html.TextBoxFor(m => m.Hours, new { id = "txtHours", @Value = Model.Hours == 0 ? "" : Model.Hours.ToString("#,##0.##"), onkeyup = "jsFormatNumber(this.value, this.id)", @disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Giờ điều chỉnh <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Hours_Adjust, new { id = "txtHours_Adjust", @Value = Model.Hours_Adjust == 0 ? "" : Model.Hours_Adjust.ToString("#,##0.##"), onkeyup = "jsFormatNumber(this.value, this.id)" })
                 </div>
             </div>
         </div>
@@ -115,7 +126,33 @@
 
 <script>
 
+    function CheckValidate() {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            var txtHours_Adjust = $("#txtHours_Adjust").val();
+            if (txtHours_Adjust == null) {
+                jError("Giờ điều chỉnh không được bỏ trống!", "lỗi", function () {
+                    $("#txtHours_Adjust").val('');
+                    $('#txtHours_Adjust').focus();
+                });
+                return false;
+            }
+        } catch (e) {
+            alert(e);
+            return false;
+        }
+    }
+
     function doRejectTimeSheet() {
+
+        if (validateForm() == false) {
+            return;
+        }
+
+
         nvsConfirm(null, "Bạn có chắc chắn muốn Từ chối timesheet này không?", function () {
             var formData = new FormData();
             collectData(formData, 2);
@@ -150,6 +187,10 @@
     }
 
     function doApproveTimeSheet() {
+        if (validateForm() == false) {
+            return;
+        }
+
         nvsConfirm(null, "Bạn có chắc chắn muốn Duyệt timesheet này không?", function () {
             var formData = new FormData();
             collectData(formData, 1);
@@ -185,6 +226,7 @@
 
     function collectData(formData, p_type) {
         formData.append('p_id', @Model.Id);
+        formData.append('p_hours_adjust', @Model.Id);
         formData.append('p_status', p_type);
         formData.append('p_reject_reason',  $("#txtReject_Reason").val());
     }

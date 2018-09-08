@@ -3,21 +3,27 @@
 @using ObjectInfos;
 @{
     List<Billing_Detail_Info> _list_data = new List<Billing_Detail_Info>();
-    if (ViewBag.Obj != null)
+    if (ViewBag.List_Billing != null)
     {
-        _list_data = ViewBag.Obj;
+        _list_data = ViewBag.List_Billing;
     }
+
+    decimal _tax = 5;
+    decimal _Tex_Fee = 0;
+    decimal _Total_Pre_Tex = 0;
+    decimal _Total_VND = 0;
 }
 
 <div>
     <table class="table-lst-data" id="tableListGroupUser">
         <thead>
             <tr>
-                <th class="class250">Mô tả công việc</th>
+                <th class="class300">Mô tả công việc</th>
                 <th class="class150">Lệ phí quốc gia</th>
                 <th class="class150">Phí đại diện</th>
-                <th class="class150">Phí dịch vụ</th>
+                <th class="class100">Phí dịch vụ</th>
                 <th class="class150">Tổng</th>
+                <th class="class80"></th>
             </tr>
         </thead>
         <tbody>
@@ -29,10 +35,57 @@
                         <td class="tdleftalign">@item.Biling_Detail_Name</td>
                         <td class="tdrightalign">@item.Nation_Fee.ToString("#,##0.##")</td>
                         <td class="tdrightalign">@item.Represent_Fee.ToString("#,##0.##")</td>
-                        <td class="tdrightalign">@item.Service_Fee.ToString("#,##0.##")</td>
+
+                        @if (item.Type != Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Detail_Type.Service))
+                        {
+                            <td class="tdrightalign">@item.Service_Fee.ToString("#,##0.##")</td>
+                        }
+                        else
+                        {
+                            <td class="tdrightalign">
+                                <input type="text" style="width:100px" id="txtService_Fee" value="@item.Service_Fee.ToString("#,##0.##")" onkeyup = "jsFormatNumber(this.value, this.id)" onblur="onChangeFeeService(this.value)" />
+                            </td>
+                        }
+
                         <td class="tdrightalign">@item.Total_Fee.ToString("#,##0.##")</td>
+                        <td class="tdcenteralign">
+                            <a href="javascript:;" onclick="doDeleteBillingDetail(@item.Ref_Id, @item.Type)" class="icon icon-delete" data-title="Xóa"></a>
+                        </td>
+
+                        @{
+                            _Total_Pre_Tex = _Total_Pre_Tex + item.Total_Fee;
+                            _Tex_Fee = Math.Round(_Total_Pre_Tex / 100 * _tax);
+                            _Total_VND = _Total_Pre_Tex + _Tex_Fee;
+                        }
                     </tr>
                 }
+
+                <tr>
+                    <td class="tdleftalign" style="font-weight:bold">Tổng trước thuế</td>
+                    <td class="tdrightalign">-</td>
+                    <td class="tdrightalign">-</td>
+                    <td class="tdrightalign">-</td>
+                    <td class="tdrightalign" style="font-weight:bold">@_Total_Pre_Tex.ToString("#,##0.##")</td>
+                    <td class="tdrightalign"></td>
+                </tr>
+
+                <tr>
+                    <td class="tdleftalign" style="font-weight:bold">Thuế & phí NH (5%)</td>
+                    <td class="tdrightalign">-</td>
+                    <td class="tdrightalign">-</td>
+                    <td class="tdrightalign">-</td>
+                    <td class="tdrightalign" style="font-weight:bold">@_Tex_Fee.ToString("#,##0.##")</td>
+                    <td class="tdrightalign"></td>
+                </tr>
+
+                <tr>
+                    <td class="tdleftalign" style="font-weight:bold">Tổng cộng</td>
+                    <td class="tdrightalign">-</td>
+                    <td class="tdrightalign">-</td>
+                    <td class="tdrightalign">-</td>
+                    <td class="tdrightalign" style="font-weight:bold">@_Total_VND.ToString("#,##0.##")</td>
+                    <td class="tdrightalign"></td>
+                </tr>
             }
             else
             {

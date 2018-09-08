@@ -103,7 +103,9 @@
 
                     string _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo1.Fee_Id.ToString();
                     if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                    {
                         _AppFeeFixInfo1.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo1.Number_Of_Patent;
+                    }
                     else
                         _AppFeeFixInfo1.Amount = 160000 * _AppFeeFixInfo1.Number_Of_Patent;
                     _lstFeeFix.Add(_AppFeeFixInfo1);
@@ -118,7 +120,9 @@
 
                     _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo2.Fee_Id.ToString();
                     if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                    {
                         _AppFeeFixInfo2.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo2.Number_Of_Patent;
+                    }
                     else
                         _AppFeeFixInfo2.Amount = 160000 * _AppFeeFixInfo2.Number_Of_Patent;
                     _lstFeeFix.Add(_AppFeeFixInfo2);
@@ -143,7 +147,9 @@
                         _AppFeeFixInfo21.Number_Of_Patent = (pDetail.Number_Pic - _numberPicOver);
 
                         if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                        {
                             _AppFeeFixInfo21.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo21.Number_Of_Patent;
+                        }
                         else
                             _AppFeeFixInfo21.Amount = 60000 * _AppFeeFixInfo21.Number_Of_Patent;
 
@@ -177,7 +183,9 @@
                         _AppFeeFixInfo22.Number_Of_Patent = (pDetail.Number_Page - _numberPageOver);
 
                         if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                        {
                             _AppFeeFixInfo22.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo22.Number_Of_Patent;
+                        }
                         else
                             _AppFeeFixInfo22.Amount = 10000 * _AppFeeFixInfo22.Number_Of_Patent;
 
@@ -288,7 +296,9 @@
 
                     string _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo1.Fee_Id.ToString();
                     if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                    {
                         _AppFeeFixInfo1.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo1.Number_Of_Patent;
+                    }
                     else
                         _AppFeeFixInfo1.Amount = 160000 * _AppFeeFixInfo1.Number_Of_Patent;
                     _lstFeeFix.Add(_AppFeeFixInfo1);
@@ -303,7 +313,9 @@
 
                     _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo2.Fee_Id.ToString();
                     if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                    {
                         _AppFeeFixInfo2.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo2.Number_Of_Patent;
+                    }
                     else
                         _AppFeeFixInfo2.Amount = 160000 * _AppFeeFixInfo2.Number_Of_Patent;
                     _lstFeeFix.Add(_AppFeeFixInfo2);
@@ -328,7 +340,9 @@
                         _AppFeeFixInfo21.Number_Of_Patent = (pDetail.Number_Pic - _numberPicOver);
 
                         if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                        {
                             _AppFeeFixInfo21.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo21.Number_Of_Patent;
+                        }
                         else
                             _AppFeeFixInfo21.Amount = 60000 * _AppFeeFixInfo21.Number_Of_Patent;
 
@@ -362,10 +376,11 @@
                         _AppFeeFixInfo22.Number_Of_Patent = (pDetail.Number_Page - _numberPageOver);
 
                         if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                        {
                             _AppFeeFixInfo22.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo22.Number_Of_Patent;
+                        }
                         else
                             _AppFeeFixInfo22.Amount = 10000 * _AppFeeFixInfo22.Number_Of_Patent;
-
                     }
                     else
                     {

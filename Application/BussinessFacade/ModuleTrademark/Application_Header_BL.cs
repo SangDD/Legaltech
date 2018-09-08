@@ -137,7 +137,7 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
-        public ApplicationHeaderInfo GetApp_By_Case_Code(string p_case_code, string p_user_name, string p_language_code)
+        public ApplicationHeaderInfo GetApp_By_Case_Code(string p_case_code, string p_user_name, string p_language_code, ref List<Billing_Detail_Info> p_lst_billing_detail)
         {
             try
             {
@@ -145,7 +145,8 @@ namespace BussinessFacade.ModuleTrademark
                 DataSet _ds = _da.GetApp_By_Case_Code(p_case_code, p_user_name, p_language_code);
                 if (_ds != null && _ds.Tables.Count > 0 && _ds.Tables[0].Rows.Count > 0)
                 {
-                    return CBO<ApplicationHeaderInfo>.FillObjectFromDataSet(_ds);
+                    p_lst_billing_detail = CBO<Billing_Detail_Info>.FillCollectionFromDataTable(_ds.Tables[1]);
+                    return CBO<ApplicationHeaderInfo>.FillObjectFromDataTable(_ds.Tables[0]);
                 }
                 else return null;
             }

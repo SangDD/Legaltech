@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApps.AppStart;
 using WebApps.Session;
+using System.Linq;
 
 using ObjectInfos;
 using BussinessFacade;
@@ -109,7 +110,7 @@ namespace WebApps.Areas.Manager.Controllers
         }
 
         // Insert 
-        [HttpPost]
+        [HttpGet]
         [Route("danh-sach-billing/show-insert")]
         public ActionResult GetView2Insert()
         {
@@ -119,7 +120,9 @@ namespace WebApps.Areas.Manager.Controllers
                 string _caseCode = _obj_bl.Billing_GenCaseCode();
                 Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
                 _Billing_Header_Info.Case_Code = _caseCode;
-                return PartialView("~/Areas/Manager/Views/Billing/_PartialInsert.cshtml", _Billing_Header_Info);
+                //return PartialView("~/Areas/Manager/Views/Billing/_PartialInsert.cshtml", _Billing_Header_Info);
+
+                return View("~/Areas/Manager/Views/Billing/_PartialInsert.cshtml", _Billing_Header_Info);
             }
             catch (Exception ex)
             {
@@ -137,20 +140,96 @@ namespace WebApps.Areas.Manager.Controllers
             try
             {
                 Application_Header_BL _bl = new Application_Header_BL();
-                ApplicationHeaderInfo objAppHeaderInfo = _bl.GetApp_By_Case_Code(p_case_code, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
+                List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
+                ApplicationHeaderInfo objAppHeaderInfo = _bl.GetApp_By_Case_Code(p_case_code, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang(), ref _lst_billing_detail);
                 ViewBag.objAppHeaderInfo = objAppHeaderInfo;
-                return PartialView("~/Areas/Manager/Views/Billing/_Partial_AppInfo.cshtml");
 
-                //var PartialThongTinChuDon = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1");
-                //var PartialThongTinDaiDienChuDon = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2");
+                Billing_Detail_Info _ChiPhiKhac = new Billing_Detail_Info();
+                _ChiPhiKhac.Nation_Fee = 0;
+                _ChiPhiKhac.Represent_Fee = 0;
+                _ChiPhiKhac.Service_Fee = 0;
+                _ChiPhiKhac.Biling_Detail_Name = "Chi phí khác";
+                _ChiPhiKhac.Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Detail_Type.Service);
+                _lst_billing_detail.Add(_ChiPhiKhac);
 
-                //var json = Json(new { PartialThongTinChuDon, PartialThongTinDaiDienChuDon });
-                //return json;
+                foreach (Billing_Detail_Info item in _lst_billing_detail)
+                {
+                    item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
+                }
+
+                SessionData.SetDataSession(p_case_code, _lst_billing_detail);
+
+                ViewBag.List_Billing = _lst_billing_detail;
+
+                var Partial_AppInfo = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Manager/Views/Billing/_Partial_AppInfo.cshtml");
+                var PartialDetail_Insert_Billing = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Manager/Views/Billing/_PartialDetail_Insert_Billing.cshtml");
+
+                var json = Json(new { Partial_AppInfo, PartialDetail_Insert_Billing });
+                return json;
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
                 return PartialView("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml");
+            }
+        }
+
+        [HttpPost]
+        [Route("danh-sach-billing/do-delete-billing-detail")]
+        public ActionResult doDeleteBillingDetail(string p_case_code, decimal p_Ref_Id, decimal p_Type)
+        {
+            try
+            {
+                List<Billing_Detail_Info> _lst_billing_detail = (List<Billing_Detail_Info>)SessionData.GetDataSession(p_case_code);
+                if (_lst_billing_detail == null)
+                {
+                    _lst_billing_detail = new List<Billing_Detail_Info>();
+                }
+
+                if (_lst_billing_detail.Count > 0)
+                    _lst_billing_detail.RemoveAll(x => x.Ref_Id == p_Ref_Id);
+
+                SessionData.SetDataSession(p_case_code, _lst_billing_detail);
+
+                ViewBag.List_Billing = _lst_billing_detail;
+                return PartialView("~/Areas/Manager/Views/Billing/_PartialDetail_Insert_Billing.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/Manager/Views/Billing/_PartialTableBilling.cshtml");
+            }
+        }
+
+        [HttpPost]
+        [Route("danh-sach-billing/change-other-billing-detail")]
+        public ActionResult ChangeOthersBillingDetail(string p_case_code, decimal p_amount)
+        {
+            try
+            {
+                List<Billing_Detail_Info> _lst_billing_detail = (List<Billing_Detail_Info>)SessionData.GetDataSession(p_case_code);
+                if (_lst_billing_detail == null)
+                {
+                    _lst_billing_detail = new List<Billing_Detail_Info>();
+                }
+
+                foreach (Billing_Detail_Info item in _lst_billing_detail)
+                {
+                    if (item.Type != Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Detail_Type.Service)) continue;
+
+                    item.Service_Fee = p_amount;
+                    item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
+                }
+
+                SessionData.SetDataSession(p_case_code, _lst_billing_detail);
+
+                ViewBag.List_Billing = _lst_billing_detail;
+                return PartialView("~/Areas/Manager/Views/Billing/_PartialDetail_Insert_Billing.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/Manager/Views/Billing/_PartialTableBilling.cshtml");
             }
         }
 
@@ -166,7 +245,7 @@ namespace WebApps.Areas.Manager.Controllers
                 p_Billing_Header_Info.Created_Date = DateTime.Now;
                 p_Billing_Header_Info.Language_Code = AppsCommon.GetCurrentLang();
                 p_Billing_Header_Info.Status = (decimal)CommonEnums.Billing_Status.New_Wait_Approve;
-                
+
                 decimal _ck = _obj_bl.Billing_Insert(p_Billing_Header_Info);
                 return Json(new { success = _ck });
             }

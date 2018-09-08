@@ -205,12 +205,12 @@ namespace WebApps.Areas.TimeSheet.Controllers
 
         [HttpPost]
         [Route("danh-sach-timesheet/do-approve-timeshet")]
-        public ActionResult DoApproveTimeSheet(decimal p_id, int p_status, string p_reject_reason)
+        public ActionResult DoApproveTimeSheet(decimal p_id,decimal p_hours_adjust, int p_status, string p_reject_reason)
         {
             try
             {
                 TimeSheet_BL _obj_bl = new TimeSheet_BL();
-                decimal _ck = _obj_bl.Timesheet_Approve(p_id, p_status, p_reject_reason, SessionData.CurrentUser.Username);
+                decimal _ck = _obj_bl.Timesheet_Approve(p_id, p_hours_adjust, p_status, p_reject_reason, SessionData.CurrentUser.Username);
                 return Json(new { success = _ck });
             }
             catch (Exception ex)
