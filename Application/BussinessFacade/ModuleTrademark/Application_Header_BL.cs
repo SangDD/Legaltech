@@ -10,12 +10,12 @@ namespace BussinessFacade.ModuleTrademark
     public class Application_Header_BL
     {
         public List<ApplicationHeaderInfo> ApplicationHeader_Search(string p_key_search, ref decimal p_total_record,
-            string p_from = "1", string p_to = "10", string p_sort_type = "ALL")
+            string p_from = "1", string p_to = "10", string p_sort_type = "ALL",  int p_search_from_home = 0)
         {
             try
             {
                 Application_Header_DA _da = new Application_Header_DA();
-                DataSet _ds = _da.ApplicationHeader_Search(p_key_search, p_from, p_to, p_sort_type, ref p_total_record);
+                DataSet _ds = _da.ApplicationHeader_Search(p_key_search, p_from, p_to, p_sort_type, ref p_total_record, p_search_from_home);
                 return CBO<ApplicationHeaderInfo>.FillCollectionFromDataSet(_ds);
             }
             catch (Exception ex)
@@ -24,7 +24,6 @@ namespace BussinessFacade.ModuleTrademark
                 return new List<ApplicationHeaderInfo>();
             }
         }
-
 
         public int AppHeader_Update_Status(decimal p_id, decimal p_status, string p_notes, string p_Modify_By, DateTime p_Modify_Date, string p_language_code)
         {

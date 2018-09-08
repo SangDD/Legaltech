@@ -77,9 +77,25 @@ namespace BussinessFacade
             {
                 WikiDoc_DA _da = new WikiDoc_DA();
                 var optionFilter = new OptionFilter(OPTIONS);
-                var totalRecordFindResult = 0;
+                decimal totalRecordFindResult = 0;
                 var ds = _da.WikiDoc_Search(P_KEY_SEARCH, optionFilter, ref totalRecordFindResult);
-                this.SetupPagingHtml(optionFilter, totalRecordFindResult, "pageListOfObjects", "divNumberRecordOnPageListObjects");
+                this.SetupPagingHtml(optionFilter, Convert.ToInt32(totalRecordFindResult), "pageListOfObjects", "divNumberRecordOnPageListObjects");
+                return CBO<WikiDoc_Info>.FillCollectionFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<WikiDoc_Info>();
+            }
+        }
+        public List<WikiDoc_Info> WikiDoc_DashboardSearch(ref decimal totalRecordFindResult, string P_KEY_SEARCH = "", string OPTIONS = "")
+        {
+            try
+            {
+                WikiDoc_DA _da = new WikiDoc_DA();
+                var optionFilter = new OptionFilter(OPTIONS);
+                var ds = _da.WikiDoc_Search(P_KEY_SEARCH, optionFilter, ref totalRecordFindResult);
+               // this.SetupPagingHtml(optionFilter, totalRecordFindResult, "wikipageListOfObjects", "wikidivNumberRecordOnPageListObjects");
                 return CBO<WikiDoc_Info>.FillCollectionFromDataSet(ds);
             }
             catch (Exception ex)
