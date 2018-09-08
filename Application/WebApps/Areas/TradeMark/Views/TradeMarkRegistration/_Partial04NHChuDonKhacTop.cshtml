@@ -69,25 +69,6 @@
             <input type="text" @disableView placeholder="@WebApps.Resources.Resource.lblTenDayDu" value="@Name" id="@txtTenDayDu" />
         </div>
     </div>
-
-    @* Khách hàng cũ lấy lại các thông tin  *@
-    @* TH xem chi tiết ko hiển thị *@
-    @*@if (!disableView.Contains("disabled"))
-    {
-        if (pUseCusinfo == 1)
-        {
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDonReuse.cshtml", pUseCusinfo)
-        }
-        else if (pUseCusinfo == 2)
-        {
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDonReuse.cshtml", pUseCusinfo)
-        }
-        else if (pUseCusinfo == 9)
-        {
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDonKhacReuse.cshtml", pUseCusinfo)
-        }
-    }*@
-    @*  *@
 </div>
 
 

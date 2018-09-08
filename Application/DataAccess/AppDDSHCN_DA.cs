@@ -46,6 +46,8 @@ namespace DataAccess
                     new OracleParameter("P_EMAIL", OracleDbType.Varchar2, pInfo.Email, ParameterDirection.Input),
                     new OracleParameter("P_CREATEDDATE", OracleDbType.Date, pInfo.Createddate, ParameterDirection.Input),
                     new OracleParameter("P_CREATEDBY", OracleDbType.Varchar2, pInfo.Createdby, ParameterDirection.Input),
+                    new OracleParameter("P_NGUOIDDSH", OracleDbType.Varchar2, pInfo.NguoiDDSH, ParameterDirection.Input),
+                    new OracleParameter("P_MANGUOIDAIDIEN", OracleDbType.Varchar2, pInfo.MaNguoiDaiDien, ParameterDirection.Input),
                     paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());
@@ -73,6 +75,8 @@ namespace DataAccess
                     new OracleParameter("P_EMAIL", OracleDbType.Varchar2, pInfo.Email, ParameterDirection.Input),
                     new OracleParameter("P_MODIFIEDDATE", OracleDbType.Date, pInfo.Modifieddate, ParameterDirection.Input),
                     new OracleParameter("P_MODIFIEDBY", OracleDbType.Varchar2, pInfo.Modifiedby, ParameterDirection.Input),
+                    new OracleParameter("P_NGUOIDDSH", OracleDbType.Varchar2, pInfo.NguoiDDSH, ParameterDirection.Input),
+                    new OracleParameter("P_MANGUOIDAIDIEN", OracleDbType.Varchar2, pInfo.MaNguoiDaiDien, ParameterDirection.Input),
                     paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());

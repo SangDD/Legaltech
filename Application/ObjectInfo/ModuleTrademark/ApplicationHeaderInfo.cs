@@ -141,6 +141,7 @@ namespace ObjectInfos
         public string App_Degree { get; set; }
 
         public string DDSHCN { get; set; }
+        public string MADDSHCN { get; set; }
         // Người xử lý gần nhất
         public string User_Processing { get; set; }
 
@@ -242,9 +243,9 @@ namespace ObjectInfos
         public decimal TM_04NH_D_22_ISU { get; set; }
 
         #region add thêm 1 số cột tùy biến để sau này cần thì thêm vào đây
-        public string Extent_fld01 { get; set; }
+        public string Extent_fld01 { get; set; } //su dung cho TH ma DNSC 
 
-        public string Extent_fld02 { get; set; }
+        public string Extent_fld02 { get; set; } //Su dung cho Nguoi shcn
 
         public string Extent_fld03 { get; set; }
 
@@ -295,6 +296,7 @@ namespace ObjectInfos
             pAppExportInfo.Months = pAppInfo.Months;
             pAppExportInfo.Years = pAppInfo.Years;
             pAppExportInfo.DDSHCN = pAppInfo.DDSHCN;
+            pAppExportInfo.MADDSHCN = pAppInfo.MADDSHCN;
             return pAppExportInfo;
         }
 

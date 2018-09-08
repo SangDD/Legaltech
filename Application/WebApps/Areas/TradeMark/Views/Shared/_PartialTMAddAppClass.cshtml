@@ -15,8 +15,8 @@
     {
         _ShowFromOtherApp = ViewBag.ShowFromOtherApp;
     }
-
-    }
+    string SoNhom = "";
+}
 <script src="~/Scripts/ScriptsLoadClassInfo.js"></script>
 
 <script>
@@ -24,60 +24,99 @@
     var _ArrGroupAppClass = [];    // = [{ name: 1, value: 'a' }, { name: 2, value: 'b' }, { name: 3, value: 'c' }];
     var _EditArryAppClass = new Array();
 </script>
- 
- 
- @foreach (var item in lstClassDetailInfo)
-    {
+
+
+@foreach (var item in lstClassDetailInfo)
+{
     <script>
             var _appinfo = { name: '@Html.Raw(item.Textinput)', value: '@Html.Raw(@item.Code)' }
             _EditArryAppClass.push(_appinfo)
     </script>
-    }
+}
 <div class="div_full_100_area" style="border:solid 1px #ccc; width: calc(100% - 28px ); margin: 10px 0px 0px 0px">
-    <div class="class_full_div_p class_text_center_bold">DANH MỤC VÀ PHÂN NHÓM HÀNG HOÁ, DỊCH VỤ MANG NHÃN HIỆU </div>
+    <div class="class_full_div_p class_text_center_bold">
+        DANH MỤC VÀ PHÂN NHÓM HÀNG HOÁ, DỊCH VỤ MANG NHÃN HIỆU
+        <a href="javascript:;" st="" class="icon icon-info" style="border:none" data-title="Gõ hàng hóa muốn đăng ký, chọn Class tương ứng"></a>
+    </div>
     <br />
 
 
- 
-        <div class="div-search-ad">  
+    <div class="div_full_100_area">
+        <div class="div-search-ad">
+            @*<div class="div-search-content">
+                <div class="class50">*@
+            @*<input type="text" id="txtTenHangHoa" placeholder="Tìm kiếm hàng hóa/dịch vụ" onkeyup="SearchAppCodeOnKeyUp('txtTenHangHoa', 'NVS002_DivShowSearchAppCode')" style="    border-left: 1px solid #ccc;"/>*@
+            @*<input type="text" id="txtTenHangHoa" placeholder="Tìm kiếm hàng hóa/dịch vụ" style="border-left: 1px solid #ccc;" />*@
+            @*</div>
+                </div>*@
+
+            <div class="div-search-title">
+                <div>
+                    Hàng hóa:
+                </div>
+            </div>
+            <div class="div-search-content" style="width:30%">
+                <div style="width:100%">
+                    <input type="text" id="txtTenHangHoa" placeholder="Tìm kiếm hàng hóa/dịch vụ" style="border-left: 1px solid #ccc;width:100%" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>
+                    Class:
+                </div>
+            </div>
             <div class="div-search-content">
                 <div>
-                    @*<input type="text" id="txtTenHangHoa" placeholder="Tìm kiếm hàng hóa/dịch vụ" onkeyup="SearchAppCodeOnKeyUp('txtTenHangHoa', 'NVS002_DivShowSearchAppCode')" style="    border-left: 1px solid #ccc;"/>*@
-                    <input type="text" id="txtTenHangHoa" placeholder="Tìm kiếm hàng hóa/dịch vụ"  style="border-left: 1px solid #ccc;"/>
+                    <select id="cboClassInfo">
+                        <option value="ALL"> Tất cả </option>
+                        @for (int i =1; i <= 45; i++)
+                        {
+                            if (i < 10)
+                            {
+                                SoNhom = "Nhóm 0" + i.ToString();
+                            }
+                            else
+                            {
+                                SoNhom ="Nhóm " +  i.ToString();
+                            }
+                            <option value="ALL">@SoNhom</option>
+                        }
+                    </select>
                 </div>
             </div>
         </div>
-     
+    </div>
 
-        @*<div class="div-search-ad" style="margin-top: 10px;" >
-            <div id="NVS002_DivShowSearchAppCode">
-                <div class="div-search-title">
-                    <div>Tên đầy đủ:</div>
-                </div>
-                <div class="div-search-content" style="display:inline-block;width: 500px;">
-                    <div id="DivContent_NVSCBO001_AppClassSearch" style="width:99%;display:inline-block">
-                        <select id="NVSCBO001_AppClassSearch">
-                            <option>Tìm kiếm hàng hóa/dịch vụ</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Mã nhóm</div>
-                </div>
-                <div class="div-search-content" style="display:inline-block;width: 180px;">
-                    <div id="" style="width:99%;display:inline-block">
-                        <select id="NVSCBOAppSearchByGroup01" onchange="NVSFunc001ShowComboxSearchByGroup('txtTenHangHoa', 'DivContent_NVSCBO001_AppClassSearch', 'NVSCBOAppSearchByGroup01')">
-                            <option value="">Chọn mã nhóm</option>
-                        </select>
-                    </div>
-                </div>
-                 
+    @*<div class="div-search-ad" style="margin-top: 10px;" >
+        <div id="NVS002_DivShowSearchAppCode">
+            <div class="div-search-title">
+                <div>Tên đầy đủ:</div>
             </div>
-                <div style="display:inline-block;width:100px">
-                    <input type="button" value="Thêm" class="btn" onclick="return funcAddDataRow();" style="width:75px;height:30px" />
+            <div class="div-search-content" style="display:inline-block;width: 500px;">
+                <div id="DivContent_NVSCBO001_AppClassSearch" style="width:99%;display:inline-block">
+                    <select id="NVSCBO001_AppClassSearch">
+                        <option>Tìm kiếm hàng hóa/dịch vụ</option>
+                    </select>
                 </div>
-            </div>*@
+            </div>
+
+            <div class="div-search-title">
+                <div>Mã nhóm</div>
+            </div>
+            <div class="div-search-content" style="display:inline-block;width: 180px;">
+                <div id="" style="width:99%;display:inline-block">
+                    <select id="NVSCBOAppSearchByGroup01" onchange="NVSFunc001ShowComboxSearchByGroup('txtTenHangHoa', 'DivContent_NVSCBO001_AppClassSearch', 'NVSCBOAppSearchByGroup01')">
+                        <option value="">Chọn mã nhóm</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+            <div style="display:inline-block;width:100px">
+                <input type="button" value="Thêm" class="btn" onclick="return funcAddDataRow();" style="width:75px;height:30px" />
+            </div>
+        </div>*@
 
     <div class="class_full_div_input">
         <div class="_table_display" id="divHangHoaThem" style="width: 100%">
@@ -87,13 +126,12 @@
                     <tr>
                         <th style="width: 4%">STT</th>
                         <th data-sort id="Username">Hàng hóa</th>
-                        <th style="width: 17%" data-sort>Mã hàng hóa</th>
+                        <th style="width: 17%" data-sort>Mã nhóm</th>
                         <th style="width: 100px;"></th>
                         <th class="clssDisplaynone"></th>
                     </tr>
                 </thead>
-                <tbody>
-                </tbody>
+                <tbody></tbody>
             </table>
         </div>
     </div>
@@ -113,19 +151,19 @@
 
 <script>
     $(document).ready(function () {
-      // đẩy vào table
+        // đẩy vào table
         _EditArryAppClass.forEach(function (element) {
             funcAddMessDataRow(element.name, element.value, 0);
         });
     })
 
-    //$('#NVSCBO001_AppClassSearch').multipleSelect({
-    //    filter: true,
-    //    noMatchesFound: "Không tìm thấy dữ liệu",
-    //    single: true,
-    //    isdatastring: false,
-    //    placeholder: 'Tìm kiếm dữ liệu hàng hóa'
-    //});
+    $('#cboClassInfo').multipleSelect({
+        filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        isdatastring: false,
+        placeholder: 'Tìm kiếm nhóm'
+    });
 
     function funIncreNumberRow(table_id) {
         try {
@@ -144,7 +182,7 @@
         }
     }
 
- 
+
     function funcAddDataRow() {
         try {
 
@@ -171,7 +209,7 @@
         }
     }
 
-    function funcAddDataRowSuggest(ptextInput,pclassCode) {
+    function funcAddDataRowSuggest(ptextInput, pclassCode) {
         try {
 
             var classCode = pclassCode;
@@ -222,7 +260,7 @@
 
             textInput = textInput.trim();
             classCode = classCode.trim();
-            var _html = "<tr><td></td><td class=\"TdLeft\">" + textInput + "</td><td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td><a href=\"javascript:;\" onclick=\"funcRemoveMessDataRow(this, '" + classCode + "');\">Xóa</a></td><td class=\"HasSort clssDisplaynone\">" + classCode.substr(0,5) + "</td></tr>";
+            var _html = "<tr><td></td><td class=\"TdLeft\">" + textInput + "</td><td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td><a href=\"javascript:;\" onclick=\"funcRemoveMessDataRow(this, '" + classCode + "');\">Xóa</a></td><td class=\"HasSort clssDisplaynone\">" + classCode.substr(0, 5) + "</td></tr>";
             $("#tblClassInfo").find("tbody").append(_html);
             AddTotalRows();
             funcReSortTable("#tblClassInfo", 'asc');
@@ -238,13 +276,13 @@
             // đẩy các dòng tổng xuống cuối table
             var _html = "";
             _ArrGroupAppClass.forEach(function (element) {
-                _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='2' class=\"tdRightAlign textbold\">Tổng SP</td><td colspan='2' class=\"TdLeft textbold\"> " + element.value + "</td>   <input  type=\"hidden\" class=\"txtTongSanPham\" value=\"" + element.value +"\"/> <td class=\"HasSort clssDisplaynone\"> " + element.name + "999 </td> </tr>";
+                _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='2' class=\"tdRightAlign textbold\">Tổng SP</td><td colspan='2' class=\"TdLeft textbold\"> " + element.value + "</td>   <input  type=\"hidden\" class=\"txtTongSanPham\" value=\"" + element.value + "\"/> <td class=\"HasSort clssDisplaynone\"> " + element.name + "999 </td> </tr>";
                 $("#tblClassInfo").find("tbody").append(_html);
             });
 
             // tổng số nhóm
 
-            _html = "<tr id='_rowappclassinfo0'><td colspan='2' class=\"tdRightAlign textbold\">Tổng số nhóm</td><td colspan='2' class=\"TdLeft textbold\"> " + _ArrGroupAppClass.length + "</td>  <input  type=\"hidden\" id=\"txtTongSoNhom\" value=\"" + _ArrGroupAppClass.length  +"\"/> <td class=\"HasSort clssDisplaynone\">  99999 </td></tr>";
+            _html = "<tr id='_rowappclassinfo0'><td colspan='2' class=\"tdRightAlign textbold\">Tổng số nhóm</td><td colspan='2' class=\"TdLeft textbold\"> " + _ArrGroupAppClass.length + "</td>  <input  type=\"hidden\" id=\"txtTongSoNhom\" value=\"" + _ArrGroupAppClass.length + "\"/> <td class=\"HasSort clssDisplaynone\">  99999 </td></tr>";
             $("#tblClassInfo").find("tbody").append(_html);
         } catch (e) {
             console.log(e);
@@ -319,7 +357,7 @@
     function funcGetDataClassInfo(formData) {
         try {
             var item = 0;
-            
+
             var tongSP = "";
             $("#tblClassInfo").find("tbody").find(".txtTongSanPham").each(function () {
                 tongSP = tongSP + $(this).val() + "|";
@@ -331,9 +369,9 @@
                 formData.append("pAppClassInfo[" + item + "].Textinput", str_data[0]);
                 formData.append("pAppClassInfo[" + item + "].Code", str_data[1]);
                 //Tổng số nhóm để tính xem có bao nhiêu nhóm phục vụ tính phí
-                formData.append("pAppClassInfo[" + item + "].TongSoNhom", tongSoNhom); 
+                formData.append("pAppClassInfo[" + item + "].TongSoNhom", tongSoNhom);
                 //Số sản phẩm để tính phần dư chênh lệch
-                formData.append("pAppClassInfo[" + item + "].TongSanPham", tongSP); 
+                formData.append("pAppClassInfo[" + item + "].TongSanPham", tongSP);
                 item++;
             });
             return true;

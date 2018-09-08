@@ -197,9 +197,17 @@
 
 
 <div class="div_full_100_area">
-    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CÁC TÀI LIỆU CÓ TRONG ĐƠN")
-    <div class="class_full_div_p class_text_left_bold clssDisplaynone">Tài liệu tối thiểu</div>
-    <br />
+    @*@Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CÁC TÀI LIỆU CÓ TRONG ĐƠN")*@
+
+    <div class="divCover cls_form_title">
+        <img src="/Content/icons/info.png">
+        <div class="cls_form_header">
+            CÁC TÀI LIỆU CÓ TRONG ĐƠN
+            <a href="javascript:;" st="" class="icon icon-info" style="border:none" data-title="Các tài liệu liên quan đính kèm trong đơn"></a>
+        </div>
+    </div>
+    @*<div class="class_full_div_p class_text_left_bold clssDisplaynone">Tài liệu tối thiểu</div>*@
+    @*<br />*@
     @* An di theo yc cua khach hang *@
     <div class="div-search-ad" style="display:none">
         <div class="div-search-content">
@@ -357,231 +365,231 @@
     <div style="margin-top:5px;margin-left:80px">
         @* File dinh kem lay tu db khi sua*@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_8)
-        </div>
+    </div>
 
-        @{
-            styleDisplay = "clssDisplaynone";
-            if (string.IsNullOrEmpty(ObjInfo04NH_D_8.Filename))
-            {
-                styleDisplay = "clssDisplayBlock";
-            }
+    @{
+        styleDisplay = "clssDisplaynone";
+        if (string.IsNullOrEmpty(ObjInfo04NH_D_8.Filename))
+        {
+            styleDisplay = "clssDisplayBlock";
         }
-        @* end file dinh kem *@
-        <div id="Pre_6_rdoBanGocDaNopTheoDonSo" class="@styleDisplay" style="margin-top:5px;margin-left:80px">
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoBanGocDaNopTheoDonSo")
-        </div>
-        <div class="div-search-ad" style="display:inline-flex;margin-left: 40px;">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width:342px">
-                    <input type="checkbox" id="6_rdoBanDichTiengViet" @ObjInfo04NH_D_9.styleCheck value="04NH_D_09" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                    <label>bản dịch tiếng Việt, gồm</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <input type="text" id="6_txtBDTV_UQ" maxlength="3" disabled="disabled" placeholder="6_txtBDTV_UQ" />
-            </div>
-            <div class="div-search-title" style="width:412px">
-                <div>trang</div>
+    }
+    @* end file dinh kem *@
+    <div id="Pre_6_rdoBanGocDaNopTheoDonSo" class="@styleDisplay" style="margin-top:5px;margin-left:80px">
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoBanGocDaNopTheoDonSo")
+    </div>
+    <div class="div-search-ad" style="display:inline-flex;margin-left: 40px;">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:342px">
+                <input type="checkbox" id="6_rdoBanDichTiengViet" @ObjInfo04NH_D_9.styleCheck value="04NH_D_09" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>bản dịch tiếng Việt, gồm</label>
             </div>
         </div>
+        <div class="div-search-content">
+            <input type="text" id="6_txtBDTV_UQ" maxlength="3" disabled="disabled" placeholder="6_txtBDTV_UQ" />
+        </div>
+        <div class="div-search-title" style="width:412px">
+            <div>trang</div>
+        </div>
+    </div>
 
-        <div style="margin-top:5px;margin-left:40px">
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_9)
-        </div>
-        @* end file dinh kem *@
-        @{
-            styleDisplay = "clssDisplaynone";
-            if (string.IsNullOrEmpty(ObjInfo04NH_D_9.Filename))
-            {
-                styleDisplay = "clssDisplayBlock";
-            }
+    <div style="margin-top:5px;margin-left:40px">
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_9)
+    </div>
+    @* end file dinh kem *@
+    @{
+        styleDisplay = "clssDisplaynone";
+        if (string.IsNullOrEmpty(ObjInfo04NH_D_9.Filename))
+        {
+            styleDisplay = "clssDisplayBlock";
         }
-        @* end file dinh kem *@
-        <div id="Pre_6_rdoBanDichTiengViet" class="@styleDisplay" style="margin-top:5px;margin-left:40px">
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoBanDichTiengViet")
-        </div>
-        <div class="div-search-ad" style="display:inline-flex;">
-            <div class="div-search-content">
-                <div class="div-checkbox">
-                    <input type="checkbox" maxlength="3" value="04NH_D_10" @ObjInfo04NH_D_10.styleCheck id="6_rdoTLXNDPSD" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                    <label>Tài liệu xác nhận được phép sử dụng các dấu hiệu đặc biệt (biểu tượng, cờ, huy hiệu, con dấu…), gồm</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <input type="text" id="6_TLXNDPSD" maxlength="3" disabled="disabled" placeholder="6_TLXNDPSD" />
-            </div>
-            <div class="div-search-title" style="width:190px">
-                <div>trang</div>
+    }
+    @* end file dinh kem *@
+    <div id="Pre_6_rdoBanDichTiengViet" class="@styleDisplay" style="margin-top:5px;margin-left:40px">
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoBanDichTiengViet")
+    </div>
+    <div class="div-search-ad" style="display:inline-flex;">
+        <div class="div-search-content">
+            <div class="div-checkbox">
+                <input type="checkbox" maxlength="3" value="04NH_D_10" @ObjInfo04NH_D_10.styleCheck id="6_rdoTLXNDPSD" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Tài liệu xác nhận được phép sử dụng các dấu hiệu đặc biệt (biểu tượng, cờ, huy hiệu, con dấu…), gồm</label>
             </div>
         </div>
-        @* File dinh kem lay tu db khi sua*@
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_10)
-        @{
-            styleDisplay = "clssDisplaynone";
-            if (string.IsNullOrEmpty(ObjInfo04NH_D_10.Filename))
-            {
-                styleDisplay = "clssDisplayBlock";
-            }
+        <div class="div-search-content">
+            <input type="text" id="6_TLXNDPSD" maxlength="3" disabled="disabled" placeholder="6_TLXNDPSD" />
+        </div>
+        <div class="div-search-title" style="width:190px">
+            <div>trang</div>
+        </div>
+    </div>
+    @* File dinh kem lay tu db khi sua*@
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_10)
+    @{
+        styleDisplay = "clssDisplaynone";
+        if (string.IsNullOrEmpty(ObjInfo04NH_D_10.Filename))
+        {
+            styleDisplay = "clssDisplayBlock";
         }
-        @* end file dinh kem *@
-        <div id="Pre_6_rdoTLXNDPSD" class="@styleDisplay">
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoTLXNDPSD")
-        </div>
-        <div class="div-search-ad" style="display:inline-flex;">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width:382px">
-                    <input type="checkbox" maxlength="3" value="04NH_D_11" @ObjInfo04NH_D_11.styleCheck id="6_rdoTLDKNH" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                    <label>Tài liệu xác nhận quyền đăng ký nhãn hiệu</label>
-                </div>
-            </div>
-        </div>
-        @* File dinh kem lay tu db khi sua*@
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_11)
-        @{
-            styleDisplay = "clssDisplaynone";
-            if (string.IsNullOrEmpty(ObjInfo04NH_D_11.Filename))
-            {
-                styleDisplay = "clssDisplayBlock";
-            }
-        }
-        @* end file dinh kem *@
-        <div id="Pre_6_rdoTLDKNH" class="@styleDisplay">
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoTLDKNH")
-        </div>
-        <div class="div-search-ad" style="display:inline-flex;">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width:382px">
-                    <input type="checkbox" maxlength="3" value="04NH_D_12" @ObjInfo04NH_D_12.styleCheck id="6_rdoTLThuHuongNK" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                    <label>Tài liệu xác nhận thụ hưởng quyền đăng ký từ người khác</label>
-                </div>
-            </div>
-        </div>
-        @* File dinh kem lay tu db khi sua*@
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_12)
-        @{
-            styleDisplay = "clssDisplaynone";
-            if (string.IsNullOrEmpty(ObjInfo04NH_D_12.Filename))
-            {
-                styleDisplay = "clssDisplayBlock";
-            }
-        }
-        @* end file dinh kem *@
-        <div id="Pre_6_rdoTLThuHuongNK" class="@styleDisplay">
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoTLThuHuongNK")
-        </div>
-        <div class="div-search-ad" style="display:inherit">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width:382px">
-                    <input type="checkbox" maxlength="3" value="04NH_D_13" @ObjInfo04NH_D_13.styleCheck id="6_rdoQuyCheSDNH" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                    <label>Quy chế sử dụng NH tập thể/chứng nhận, gồm</label>
-
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="6_txtQuyCheSDNHTrang" disabled="disabled" style="width:160px" maxlength="3" placeholder="6_txtQuyCheSDNHTrang" />
-                </div>
-            </div>
-            <div class="div-search-title" style="width:70px">
-                <div>trang </div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="6_txtQuyCheSDNHBan" disabled="disabled" maxlength="3" placeholder="6_txtQuyCheSDNHBan" />
-                </div>
-            </div>
-            <div class="div-search-title" style="width:165px">
-                <div>bản</div>
-            </div>
-        </div>
-        @* File dinh kem lay tu db khi sua*@
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_13)
-        @{
-            styleDisplay = "clssDisplaynone";
-            if (string.IsNullOrEmpty(ObjInfo04NH_D_13.Filename))
-            {
-                styleDisplay = "clssDisplayBlock";
-            }
-        }
-        @* end file dinh kem *@
-        <div id="Pre_6_rdoQuyCheSDNH" class="@styleDisplay">
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoQuyCheSDNH")
-        </div>
-
-        <div class="div-search-ad" style="display:inline-flex;">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width:382px">
-                    <input type="checkbox" maxlength="3" value="04NH_D_18" @ObjInfo04NH_D_18.styleCheck id="6_rdoBanDoKVDL" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                    <label>Bản đồ khu vực địa lý</label>
-                </div>
-            </div>
-        </div>
-        @* File dinh kem lay tu db khi sua*@
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_18)
-
-        @{
-            styleDisplay = "clssDisplaynone";
-            if (string.IsNullOrEmpty(ObjInfo04NH_D_18.Filename))
-            {
-                styleDisplay = "clssDisplayBlock";
-            }
-        }
-        @* end file dinh kem *@
-        <div id="Pre_6_rdoBanDoKVDL" class="@styleDisplay">
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoBanDoKVDL")
-        </div>
-        <div class="div-search-ad" style="display:inline-flex;">
-            <div class="div-search-content">
-                <div class="div-checkbox">
-                    <input type="checkbox" maxlength="3" value="04NH_D_19" @ObjInfo04NH_D_19.styleCheck id="6_rdoVBuyBanTinh" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                    <label>Văn bản của UBND tỉnh, TP trực thuộc TW cho phép sử dụng địa danh hoặc dấu hiệu khác chỉ nguồn gốc địa lý của đặc sản địa phượng </label>
-                </div>
-            </div>
-        </div>
-        @* File dinh kem lay tu db khi sua*@
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_19)
-        @{
-            styleDisplay = "clssDisplaynone";
-            if (string.IsNullOrEmpty(ObjInfo04NH_D_19.Filename))
-            {
-                styleDisplay = "clssDisplayBlock";
-            }
-        }
-        @* end file dinh kem *@
-        <div id="Pre_6_rdoVBuyBanTinh" class="@styleDisplay">
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoVBuyBanTinh")
-        </div>
-
-        <div class="div-search-ad" style="display:inline-flex;">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width:382px">
-                    <input type="checkbox" maxlength="3" value="04NH_D_20" @ObjInfo04NH_D_20.styleCheck id="6_rdoTLKhaiTTBS" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                    <label>Có tài liệu bổ trợ khai tại trang bổ sung</label>
-                </div>
-            </div>
-        </div>
-        @* File dinh kem lay tu db khi sua*@
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_20)
-        @{
-            styleDisplay = "clssDisplaynone";
-            if (string.IsNullOrEmpty(ObjInfo04NH_D_20.Filename))
-            {
-                styleDisplay = "clssDisplayBlock";
-            }
-        }
-        @* end file dinh kem *@
-        <div id="Pre_6_rdoTLKhaiTTBS" class="@styleDisplay">
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoTLKhaiTTBS")
-        </div>
-        <div class="div-search-ad" style="display:inline-flex;">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width:382px">
-                    <input type="checkbox" maxlength="3" value="04NH_D_22" @ObjInfo04NH_D_22.styleCheck id="6_rdoTLK" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                    <label>Tài liệu khác</label>
-                </div>
+    }
+    @* end file dinh kem *@
+    <div id="Pre_6_rdoTLXNDPSD" class="@styleDisplay">
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoTLXNDPSD")
+    </div>
+    <div class="div-search-ad" style="display:inline-flex;">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:382px">
+                <input type="checkbox" maxlength="3" value="04NH_D_11" @ObjInfo04NH_D_11.styleCheck id="6_rdoTLDKNH" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Tài liệu xác nhận quyền đăng ký nhãn hiệu</label>
             </div>
         </div>
     </div>
+    @* File dinh kem lay tu db khi sua*@
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_11)
+    @{
+        styleDisplay = "clssDisplaynone";
+        if (string.IsNullOrEmpty(ObjInfo04NH_D_11.Filename))
+        {
+            styleDisplay = "clssDisplayBlock";
+        }
+    }
+    @* end file dinh kem *@
+    <div id="Pre_6_rdoTLDKNH" class="@styleDisplay">
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoTLDKNH")
+    </div>
+    <div class="div-search-ad" style="display:inline-flex;">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:382px">
+                <input type="checkbox" maxlength="3" value="04NH_D_12" @ObjInfo04NH_D_12.styleCheck id="6_rdoTLThuHuongNK" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Tài liệu xác nhận thụ hưởng quyền đăng ký từ người khác</label>
+            </div>
+        </div>
+    </div>
+    @* File dinh kem lay tu db khi sua*@
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_12)
+    @{
+        styleDisplay = "clssDisplaynone";
+        if (string.IsNullOrEmpty(ObjInfo04NH_D_12.Filename))
+        {
+            styleDisplay = "clssDisplayBlock";
+        }
+    }
+    @* end file dinh kem *@
+    <div id="Pre_6_rdoTLThuHuongNK" class="@styleDisplay">
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoTLThuHuongNK")
+    </div>
+    <div class="div-search-ad" style="display:inherit">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:382px">
+                <input type="checkbox" maxlength="3" value="04NH_D_13" @ObjInfo04NH_D_13.styleCheck id="6_rdoQuyCheSDNH" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Quy chế sử dụng NH tập thể/chứng nhận, gồm</label>
+
+            </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="6_txtQuyCheSDNHTrang" disabled="disabled" style="width:160px" maxlength="3" placeholder="6_txtQuyCheSDNHTrang" />
+            </div>
+        </div>
+        <div class="div-search-title" style="width:70px">
+            <div>trang </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="6_txtQuyCheSDNHBan" disabled="disabled" maxlength="3" placeholder="6_txtQuyCheSDNHBan" />
+            </div>
+        </div>
+        <div class="div-search-title" style="width:165px">
+            <div>bản</div>
+        </div>
+    </div>
+    @* File dinh kem lay tu db khi sua*@
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_13)
+    @{
+        styleDisplay = "clssDisplaynone";
+        if (string.IsNullOrEmpty(ObjInfo04NH_D_13.Filename))
+        {
+            styleDisplay = "clssDisplayBlock";
+        }
+    }
+    @* end file dinh kem *@
+    <div id="Pre_6_rdoQuyCheSDNH" class="@styleDisplay">
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoQuyCheSDNH")
+    </div>
+
+    <div class="div-search-ad" style="display:inline-flex;">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:382px">
+                <input type="checkbox" maxlength="3" value="04NH_D_18" @ObjInfo04NH_D_18.styleCheck id="6_rdoBanDoKVDL" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Bản đồ khu vực địa lý</label>
+            </div>
+        </div>
+    </div>
+    @* File dinh kem lay tu db khi sua*@
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_18)
+
+    @{
+        styleDisplay = "clssDisplaynone";
+        if (string.IsNullOrEmpty(ObjInfo04NH_D_18.Filename))
+        {
+            styleDisplay = "clssDisplayBlock";
+        }
+    }
+    @* end file dinh kem *@
+    <div id="Pre_6_rdoBanDoKVDL" class="@styleDisplay">
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoBanDoKVDL")
+    </div>
+    <div class="div-search-ad" style="display:inline-flex;">
+        <div class="div-search-content">
+            <div class="div-checkbox">
+                <input type="checkbox" maxlength="3" value="04NH_D_19" @ObjInfo04NH_D_19.styleCheck id="6_rdoVBuyBanTinh" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Văn bản của UBND tỉnh, TP trực thuộc TW cho phép sử dụng địa danh hoặc dấu hiệu khác chỉ nguồn gốc địa lý của đặc sản địa phượng </label>
+            </div>
+        </div>
+    </div>
+    @* File dinh kem lay tu db khi sua*@
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_19)
+    @{
+        styleDisplay = "clssDisplaynone";
+        if (string.IsNullOrEmpty(ObjInfo04NH_D_19.Filename))
+        {
+            styleDisplay = "clssDisplayBlock";
+        }
+    }
+    @* end file dinh kem *@
+    <div id="Pre_6_rdoVBuyBanTinh" class="@styleDisplay">
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoVBuyBanTinh")
+    </div>
+
+    <div class="div-search-ad" style="display:inline-flex;">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:382px">
+                <input type="checkbox" maxlength="3" value="04NH_D_20" @ObjInfo04NH_D_20.styleCheck id="6_rdoTLKhaiTTBS" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Có tài liệu bổ trợ khai tại trang bổ sung</label>
+            </div>
+        </div>
+    </div>
+    @* File dinh kem lay tu db khi sua*@
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialShowFileAttach.cshtml", ObjInfo04NH_D_20)
+    @{
+        styleDisplay = "clssDisplaynone";
+        if (string.IsNullOrEmpty(ObjInfo04NH_D_20.Filename))
+        {
+            styleDisplay = "clssDisplayBlock";
+        }
+    }
+    @* end file dinh kem *@
+    <div id="Pre_6_rdoTLKhaiTTBS" class="@styleDisplay">
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoTLKhaiTTBS")
+    </div>
+    <div class="div-search-ad" style="display:inline-flex;">
+        <div class="div-search-content">
+            <div class="div-checkbox" style="width:382px">
+                <input type="checkbox" maxlength="3" value="04NH_D_22" @ObjInfo04NH_D_22.styleCheck id="6_rdoTLK" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <label>Tài liệu khác</label>
+            </div>
+        </div>
+    </div>
+</div>
 
     <script>
 

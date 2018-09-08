@@ -59,6 +59,19 @@
                  formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
                  //trang thai
                  formData.append("pInfo.Status", ptype);
+
+                 var daidienSH = $("#txtDaiDienSHCN").val();
+                 if (daidienSH === "") {
+                     $('#txtDaiDienSHCN').focus().val('');
+                     showError('Chưa chọn chủ đại đại diện sở hữu.');
+                     return false;
+                 }
+                 formData.append("pInfo.DDSHCN", daidienSH);
+
+                 //07/09/2018
+                 var madhsh = $("#txtMADDSHCN").val();
+                 formData.append("pInfo.MADDSHCN", madhsh);
+
                  //Lấy thông tin detail
                  var reponse = funcGetAppDetail(formData);
                  if (reponse == false) {

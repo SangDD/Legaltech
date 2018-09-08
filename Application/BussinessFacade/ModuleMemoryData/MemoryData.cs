@@ -285,7 +285,7 @@
                 {
                     pInfo = new CustomerSuggestInfo();
                     pInfo.label = item.Name_Vi + ", " + item.Address_Vi;
-                    pInfo.value = item.Name_Vi + "|" + item.Address_Vi + "|" + item.Phone + "|" + item.Fax + "|" + item.Email;
+                    pInfo.value = item.Name_Vi + "|" + item.Address_Vi + "|" + item.Phone + "|" + item.Fax + "|" + item.Email + "|" + item.NguoiDDSH + "|" + item.MaNguoiDaiDien;
                     pInfo.name = item.Name_Vi + ", " + item.Address_Vi;
                     lstChuDDSHCN.Add(pInfo);
                 }
