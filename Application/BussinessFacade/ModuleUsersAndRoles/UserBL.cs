@@ -115,6 +115,25 @@
             return Null<UserInfo>.GetListCollectionNull();
         }
 
+        public List<UserInfo> HomeFindUser(ref decimal totalRecordFindResult ,string keysSearch = "", string options = "")
+        {
+            try
+            {
+                int _totalrec = 0;
+                var optionFilter = new OptionFilter(options);
+                var ds = UserDA.FindUser(keysSearch, optionFilter, ref _totalrec);
+                totalRecordFindResult = _totalrec;
+                return CBO<UserInfo>.FillCollectionFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            return Null<UserInfo>.GetListCollectionNull();
+        }
+
+
         public ActionBusinessResult AddUser(UserInfo userAdd, string GroupId)
         {
             var passwordEncrypt = Encription.EncryptAccountPassword(userAdd.Username, userAdd.Password);

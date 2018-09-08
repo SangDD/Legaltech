@@ -74,7 +74,7 @@ namespace DataAccess
             }
         }
 
-        public DataSet WikiDoc_Search(string keysSearch, OptionFilter options, ref int totalRecord)
+        public DataSet WikiDoc_Search(string keysSearch, OptionFilter options, ref decimal totalRecord)
         {
             try
             {
@@ -88,7 +88,7 @@ namespace DataAccess
                  paramReturn,
 
                 new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output));
-                totalRecord = Convert.ToInt32(paramReturn.Value.ToString());
+                totalRecord = Convert.ToDecimal(paramReturn.Value.ToString());
                 return _Ds;
             }
             catch (Exception ex)

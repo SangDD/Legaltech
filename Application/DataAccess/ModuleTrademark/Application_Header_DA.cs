@@ -8,12 +8,13 @@ namespace DataAccess.ModuleTrademark
 {
     public class Application_Header_DA
     {
-        public DataSet ApplicationHeader_Search(string p_key_search, string p_from, string p_to, string p_sort_type, ref decimal p_total_record)
+        public DataSet ApplicationHeader_Search(string p_key_search, string p_from, string p_to, string p_sort_type, ref decimal p_total_record, int p_search_from_home = 0)
         {
             try
             {
                 OracleParameter paramReturn = new OracleParameter("p_total_record", OracleDbType.Decimal, ParameterDirection.Output);
                 DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_header.proc_application_header_search",
+                    new OracleParameter("P_SEARCH_FROM_HOME", OracleDbType.Decimal, p_search_from_home, ParameterDirection.Input),
                     new OracleParameter("p_key_search", OracleDbType.Varchar2, p_key_search, ParameterDirection.Input),
                     new OracleParameter("p_from", OracleDbType.Varchar2, p_from, ParameterDirection.Input),
                     new OracleParameter("p_to", OracleDbType.Varchar2, p_to, ParameterDirection.Input),

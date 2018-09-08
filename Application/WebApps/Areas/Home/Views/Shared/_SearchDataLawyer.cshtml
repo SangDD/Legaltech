@@ -1,7 +1,67 @@
-﻿
-@{
-    ViewBag.Title = "_SearchDataLawyer";
+﻿@using Common.CommonData
+@using Common.Extensions
+@model List<ObjectInfos.UserInfo>
+    @{ 
+        string _typesearch = "0";
+        if (ViewBag.SearchType != null)
+        {
+            _typesearch = ViewBag.SearchType;
+        }
+    }
+@try
+{
+    <div>
+        <table class="table-lst-data" id="tableListUser">
+            <thead>
+                <tr>
+                    <th style="width: 4%">STT</th>
+                    <th data-sort   class="ThSort" style="width: 10%"   id='@("USERNAME_" + _typesearch)'  onclick="HomeSortByCol('USERNAME_',@_typesearch)">Tên đăng nhập</th>
+                    <th  class="ThSort"  id='@("FULLNAME_" + _typesearch)'  onclick="HomeSortByCol('FULLNAME_',@_typesearch)">Họ tên</th>
+                    <th style="width: 10%" data-sort id="Status" >Trạng thái</th>
+                    <th style="width: 15%" data-sort id="Email"  >Email</th>
+                    <th style="width: 10%" data-sort id="Phone"  >Số điện thoại</th>
+                    <th style="width: 100px;">Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="tdcenteralign">@item.Stt</td>
+                            <td class="tdleftalign">@item.Username </td>
+                            <td class="tdleftalign">@item.FullName</td>
+                            <td class="tdleftalign">@item.StatusDisplayName</td>
+                            <td class="tdleftalign">@item.Email</td>
+                            <td class="tdleftalign">@item.Phone</td>
+                            <td class="tdcenteralign">
+                                <a href="javascript:viewDetailUser(@item.Id, '@item.Username')" class="icon icon-info" data-title="Xem chi tiết"></a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="8">Không có dữ liệu</td>
+                    </tr>}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="_ClassPage">
+        <ul>
+            @Html.Raw(ViewBag.Paging)
+        </ul>
+    </div>
+    <script>
+    $(function () {
+        HomeChangeIConSortWhenSortColumns(@_typesearch);
+    });
+    </script>
 }
-
-<h2>_SearchDataLawyer</h2>
-
+catch (Exception)
+{
+    // ignored
+}

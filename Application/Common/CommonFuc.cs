@@ -567,12 +567,17 @@ namespace Common
             }
         }
 
-        public static string Get_From_To_Page(int p_CurrentPage, ref string p_to)
+        public static string Get_From_To_Page(int p_CurrentPage, ref string p_to, int p_record_on_page = 0)
         {
             try
             {
                 string p_from = ((p_CurrentPage - 1) * Common.RecordOnpage + 1).ToString();
                 p_to = ((p_CurrentPage - 1) * Common.RecordOnpage + Common.RecordOnpage).ToString();
+                if(p_record_on_page != 0)
+                {
+                    p_from = ((p_CurrentPage - 1) * p_record_on_page + 1).ToString();
+                    p_to = ((p_CurrentPage - 1) * p_record_on_page + p_record_on_page).ToString();
+                }
 
                 return p_from;
             }
@@ -584,11 +589,18 @@ namespace Common
             }
         }
 
-        public static string Get_HtmlPaging<T>(int p_total_record, int PCurrentPage, string pLoaiBanghi = "Bản ghi")
+        public static string Get_HtmlPaging<T>(int p_total_record, int PCurrentPage, string pLoaiBanghi = "Bản ghi", int p_reconpage = 0)
         {
             try
             {
-                return Paging(PCurrentPage, Common.RecordOnpage, p_total_record, "jsPaging", pLoaiBanghi);
+                if(p_reconpage == 0)
+                {
+                    return Paging(PCurrentPage, Common.RecordOnpage, p_total_record, "jsPaging", pLoaiBanghi);
+                }
+                else
+                {
+                    return Paging(PCurrentPage, p_reconpage, p_total_record, "jsPaging", pLoaiBanghi);
+                }
             }
             catch (Exception ex)
             {

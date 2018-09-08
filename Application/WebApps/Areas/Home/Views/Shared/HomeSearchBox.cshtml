@@ -15,18 +15,12 @@
     {
         text-decoration:underline;
     }
-</style>
-<script>
-    function FunChooseSearchtype(item)
+    .divNumberRecordOnPage
     {
-        try {
-            $(".legalsearch_clssunderline").removeClass("legalsearch_clssunderline");
-            $(item).addClass("legalsearch_clssunderline");
-        } catch (e) {
-
-        }
+        display:none;
     }
-</script>
+</style>
+ 
 <div class="divCover" id="legalsearch_div" >
   TÌM KIẾM DỮ LIỆU
     <hr />
@@ -39,7 +33,190 @@
         </tr>
     </table>
     <div>
-        <input type="text" id="legalsearch_txtsearchcontent" style="width: calc(100% - 30px);" /> <input type="button" style="width:25px"   value="Go" />
+        <input type="text" id="legalsearch_txtsearchcontent" placeholder="case code, case name, tình trạng đơn, người xử lý, loại đơn" style="width: calc(100% - 30px);" /> <input type="button" style="width:25px"   value="Go" onclick="findObjects(1, 1)" />
         <input type="hidden" id="legalsearch_txtsearchtype" value="1"/>
+        <input type="hidden" id="colSorted_1" />
+        <input type="hidden" id="colSorted_2" />
+        <input type="hidden" id="colSorted_3" />
+        <input type="hidden" id="colSorted_4" />
+        <input type="hidden" id="SortType_1" />
+        <input type="hidden" id="SortType_2" />
+        <input type="hidden" id="SortType_3" />
+        <input type="hidden" id="SortType_4" />
+    </div>
+
+    <div class="divCover">
+        <div id="LegalSearchdivTable">
+            @Html.Partial("/Areas/Home/Views/Shared/_SearchDataWiki.cshtml")
+        </div>
+    </div>
+
+    <div id="divWrapperPopUpUser" class="divWrapperPopup" style="display: none;">
+        <div class="divPopup" id="divPopUpUser">
+        </div>
     </div>
 </div>
+<script>
+    var _Keysearch = "";
+    var _searchtype = "1";
+    var _searchContent = "";
+    var _arrKeySearch;
+    function FunChooseSearchtype(item, _searchtype) {
+        try {
+            $(".legalsearch_clssunderline").removeClass("legalsearch_clssunderline");
+            $(item).addClass("legalsearch_clssunderline");
+            $("#legalsearch_txtsearchtype").val(_searchtype);
+            if(_searchtype == 1)
+            {
+                $("#legalsearch_txtsearchcontent").attr("placeholder", "case code, case name, tình trạng đơn, người xử lý, loại đơn")
+            }
+            if (_searchtype == 2) {
+                $("#legalsearch_txtsearchcontent").attr("placeholder", "Tên luật sư")
+            }
+            if (_searchtype == 3) {
+                $("#legalsearch_txtsearchcontent").attr("placeholder", "Tên khách hàng")
+            } if (_searchtype == 4) {
+                $("#legalsearch_txtsearchcontent").attr("placeholder", "Tiêu đề, hashtag")
+            }
+        } catch (e) {
+
+        }
+    }
+    function findObjects(_pageNumber, _isSearching) {
+        try {
+            var _RecordonPage = 5;
+            if (_isSearching === 1) {
+                _searchtype = $("#legalsearch_txtsearchtype").val();
+                _searchContent = $("#legalsearch_txtsearchcontent").val();
+                _Keysearch = _searchtype + "|" + _searchContent;
+            } else {
+                _arrKeySearch = _Keysearch.split('|');
+                _searchtype = _arrKeySearch[0];
+                _searchContent = _arrKeySearch[1];
+                $("#legalsearch_txtsearchtype").val(_searchtype);
+                $("#legalsearch_txtsearchcontent").val(_searchContent);
+            }
+            _optionFilter = "";
+
+            if (_searchtype == "1")
+            {
+                //Tình trạng đơn
+            }
+            if (_searchtype == "2") {
+                //Luật sư
+            }
+            if (_searchtype == "3") {
+                //Khách hàng
+            }
+            if (_searchtype == "4") {
+                //Wiki                
+            }
+            var orderby = $("#colSorted_" + _searchtype).val();
+            var orderType = $("#SortType_" + _searchtype).val();
+            if (orderby.indexOf("NUMBER_TEXT") >= 0) {
+                orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
+            }
+            else if (orderby.indexOf("TITLE") >= 0) {
+                orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
+            }
+            else if (orderby.toLocaleUpperCase().indexOf("AGENCIE_NAME") >= 0) {
+                orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
+            }
+            var _optionFilter = orderby + "|" + orderType + "||" + _pageNumber + "|" + _RecordonPage
+            $.ajax({
+                type: "POST",
+                headers: { "cache-control": "no-cache" },
+                url: "/search-dashboard",
+                data: {
+                    searchtype: _searchtype,
+                    keysSearch: _searchContent,
+                    options: _optionFilter
+                },
+                async: false,
+                success: function (data) {
+                    if (data != null) {
+                        $("#LegalSearchdivTable").html(data);
+                    }
+                }
+            });
+            return true;
+        } catch (e) {
+            alert(e.toString());
+            return false;
+        }
+    }
+
+    function jsPaging(_page)
+    {
+        try {
+            findObjects(_page, 0);
+        } catch (e) {
+            alert(e.toString());
+        }
+    }
+
+
+    function HomeSortByCol(value, _Searchtype) {
+        try {
+            //Lay gia tri luu trong colSort luu duoi dang text Hidden
+            var _currentColSorted = $("#colSorted_" + _Searchtype).val();
+            //Lay gia tri luu trong SortType luu duoi dang text Hidden
+            var _currentSortedType = $("#SortType_" + _Searchtype).val();
+            var tag = "#" + value;
+            if (_currentColSorted == value) {
+                if (_currentSortedType == "ASC") {
+                    $("#SortType_" + _Searchtype).val("DESC");
+                }
+                else {
+                    $("#SortType_" + _Searchtype).val("ASC");
+                }
+            }
+            else {
+                $("#colSorted_" + _Searchtype).val(value);
+                $("#SortType_" + _Searchtype).val("ASC");
+            }
+            var pos = document.getElementById("tableList_" + _Searchtype).parentElement.scrollLeft;
+            //Sort lai thi ve trang dau
+            findObjects(1, 0, _Searchtype);
+            //Sort lai thi ve trang dau
+            document.getElementById("tableList_" + _Searchtype).parentElement.scrollLeft = pos;
+        } catch (e) {
+            console.info(e.toString());
+        }
+    }
+
+    function HomeChangeIConSortWhenSortColumns(_Searchtype) {
+        try {
+            var _order_by = $("#colSorted_" + _Searchtype).val();
+            var _order_type = $("#SortType_" + _Searchtype).val();
+            var _text = _order_type == 'DESC' ? $("#" + _order_by + "_" + _Searchtype).text() + " ▼" : $("#" + _order_by + "_" + _Searchtype).text() + " ▲";
+            $("#" + _order_by + "_" + _Searchtype).text(_text);
+        }
+        catch (e) {
+        }
+    }
+
+
+    function viewDetailUser(userId, username) {
+        $.ajax({
+            type: "POST",
+            url: "/quan-tri-he-thong/quan-ly-nguoi-dung/view-detail-user",
+            headers: { "cache-control": "no-cache" },
+            async: false,
+            data: { userId: userId },
+            success: function (data) {
+                if (data != null) {
+                    if (validateResponse(data)) {
+                        $("#divPopUpUser").html(data);
+                        ShowPopupDialog_Ipace('divWrapperPopUpUser', "Chi tiết người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 900);
+                    }
+                }
+                return false;
+            }
+        });
+    }
+
+    function ClosePopUpUser() {
+        CloseDivPopUp('divWrapperPopUpUser');
+    }
+</script>

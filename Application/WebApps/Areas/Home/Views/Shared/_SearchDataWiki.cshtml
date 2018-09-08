@@ -1,16 +1,24 @@
 ﻿@using Common.CommonData
 @using Common.Extensions
 @using ObjectInfos
+@{
+    string _typesearch = "0";
+    if(ViewBag.SearchType != null)
+    {
+        _typesearch = ViewBag.SearchType;
+    }
+}
 @model List<WikiDoc_Info>
 @try
 {
     <div>
-        <table class="table-lst-data" id="tableListObject">
+        <table class="table-lst-data" id='@("tableList_" + _typesearch)'>
             <thead>
                 <tr>
-                    <th style="width: 4%">STT</th>
-                    <th data-sort style="width: 10%" id="LANGUAGE_CODE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Ngôn ngữ</th>
-                    <th style="width: 25%" data-sort id="TITLE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Tiêu đề</th>
+                    <th style="width:50px">STT</th>
+                    <th class="ThSort" style="width: 10%"   id='@("LANGUAGE_CODE_" + _typesearch)'  onclick="HomeSortByCol('LANGUAGE_CODE',@_typesearch)">Ngôn ngữ</th>
+                    <th class="ThSort" style=""   id='@("TITLE_" + _typesearch)'  onclick="HomeSortByCol('TITLE',@_typesearch)">Tiêu đề</th>
+                    <th style="width:50px"></th>
                 </tr>
             </thead>
             <tbody>
@@ -22,6 +30,9 @@
                             <td class="tdcenteralign">@item.STT</td>
                             <td class="tdleftalign">@item.LANGUAGE_CODE</td>
                             <td class="tdleftalign">@item.TITLE</td>
+                            <td class="tdcenteralign">
+                                <a target="_blank" href="/wiki-manage/wiki-doc/doc-view/@item.ID/@item.STATUS" class="icon icon-info" data-title="Xem chi tiết"></a>
+                            </td>
                         </tr>
                     }
                 }
@@ -34,9 +45,16 @@
         </table>
     </div>
 
-    <div class="d-paging">
-        @Html.Raw(ViewBag.Paging)
+    <div class="_ClassPage">
+        <ul>
+            @Html.Raw(ViewBag.Paging)
+        </ul>
     </div>
+    <script>
+    $(function () {
+        HomeChangeIConSortWhenSortColumns(@_typesearch);
+    });
+    </script>
 }
 catch (Exception)
 {
