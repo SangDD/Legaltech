@@ -1,5 +1,5 @@
 ﻿<style>
-    .legalTodo_div {
+    .legalOrder_div {
         text-align: left;
         border: 1px solid #ccc;
         min-height: 50px;
@@ -7,48 +7,47 @@
         margin-top:10px;
     }
 
-    #legaltodo_table td {
+    #legalOrder_table td {
         cursor: pointer;
         padding: 5px 10px;
     }
 
- 
     .divNumberRecordOnPage {
         display: none;
     }
 </style>
 
-<div class="divCover legalTodo_div" >
-    VIỆC CẦN LÀM
+<div class="divCover legalOrder_div" >
+    YÊU CẦU
     <div>
-        <input type="hidden" id="colSortedTodo" />
-        <input type="hidden" id="SortTypeTodo" />
+        <input type="hidden" id="colSortedOrder" />
+        <input type="hidden" id="SortTypeOrder" />
     </div>
 
     <div class="divCover">
-        <div id="LegalTododivTable">
-            @Html.Partial("/Areas/Home/Views/Shared/_TodoData.cshtml")
+        <div id="LegalOrderdivTable">
+            @Html.Partial("/Areas/Home/Views/Shared/_OrderData.cshtml")
         </div>
     </div>
     
     <script>
-    var _TodoKeysearch = "";
-    var _TodoarrKeySearch;
+    var _OrderKeysearch = "";
+    var _OrderarrKeySearch;
    
-    function TodofindObjects(_pageNumber, _isSearching) {
+    function OrderfindObjects(_pageNumber, _isSearching) {
         try {
-            var _TodosearchContent = "";
+            var _OrdersearchContent = "";
             var _RecordonPage = 5;
             if (_isSearching === 1) {
                 _Keysearch = "";
             } else {
                 //_arrKeySearch = _TodoKeysearch.split('|');
                 //_searchContent = _TodoarrKeySearch[0];
-                _TodosearchContent = "";
+                _OrdersearchContent = "";
             }
             
-            var orderby = $("#colSortedTodo").val();
-            var orderType = $("#SortTypeTodo").val();
+            var orderby = $("#colSortedOrder").val();
+            var orderType = $("#SortTypeOrder").val();
             //if (orderby.indexOf("NUMBER_TEXT") >= 0) {
             //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
             //}
@@ -61,9 +60,9 @@
             $.ajax({
                 type: "POST",
                 headers: { "cache-control": "no-cache" },
-                url: "/search-todos",
+                url: "/search-orders",
                 data: {
-                    keysSearch: _TodosearchContent,
+                    keysSearch: _OrdersearchContent,
                     _sortype: (orderby + " " + orderType),
                     _reconpage: _RecordonPage,
                     p_CurrentPage: _pageNumber
@@ -71,7 +70,7 @@
                 async: false,
                 success: function (data) {
                     if (data != null) {
-                        $("#LegalTododivTable").html(data);
+                        $("#LegalOrderdivTable").html(data);
                     }
                 }
             });
@@ -85,46 +84,46 @@
     function TodojsPaging(_page)
     {
         try {
-            TodofindObjects(_page, 0);
+            OrderfindObjects(_page, 0);
         } catch (e) {
             alert(e.toString());
         }
     }
 
 
-    function TodoSortByCol(value) {
+    function OrderSortByCol(value) {
         try {
             //Lay gia tri luu trong colSort luu duoi dang text Hidden
-            var _currentColSorted = $("#colSortedTodo").val();
+            var _currentColSorted = $("#colSortedOrder").val();
             //Lay gia tri luu trong SortType luu duoi dang text Hidden
-            var _currentSortedType = $("#SortTypeTodo").val();
+            var _currentSortedType = $("#SortTypeOrder").val();
             var tag = "#" + value;
             if (_currentColSorted == value) {
                 if (_currentSortedType == "ASC") {
-                    $("#SortTypeTodo").val("DESC");
+                    $("#SortTypeOrder").val("DESC");
                 }
                 else {
-                    $("#SortTypeTodo").val("ASC");
+                    $("#SortTypeOrder").val("ASC");
                 }
             }
             else {
-                $("#colSortedTodo").val(value);
-                $("#SortTypeTodo").val("ASC");
+                $("#colSortedOrder").val(value);
+                $("#SortTypeOrder").val("ASC");
             }
-            var pos = document.getElementById("tableListTodo").parentElement.scrollLeft;
+            var pos = document.getElementById("tableListOrder").parentElement.scrollLeft;
             //Sort lai thi ve trang dau
-            TodofindObjects(1, 0);
+            OrderfindObjects(1, 0);
             //Sort lai thi ve trang dau
-            document.getElementById("tableListTodo").parentElement.scrollLeft = pos;
+            document.getElementById("tableListOrder").parentElement.scrollLeft = pos;
         } catch (e) {
             console.info(e.toString());
         }
     }
 
-    function TodoChangeIConSortWhenSortColumns() {
+    function OrderChangeIConSortWhenSortColumns() {
         try {
-            var _order_by = $("#colSortedTodo").val();
-            var _order_type = $("#SortTypeTodo").val();
+            var _order_by = $("#colSortedOrder").val();
+            var _order_type = $("#SortTypeOrder").val();
             var _text = _order_type == 'DESC' ? $("#" + _order_by).text() + " ▼" : $("#" + _order_by).text() + " ▲";
             $("#" + _order_by).text(_text);
         }

@@ -184,6 +184,9 @@
             }
         }
 
+        #region box search 
+         
+
         [HttpPost]
         [Route("search-dashboard")]
         public ActionResult FindOject(int searchtype, string keysSearch, string options)
@@ -266,7 +269,80 @@
             return null;
         }
 
+        #endregion
+
+        #region Box Todo
+        [HttpPost]
+        [Route("search-todos")]
+        public ActionResult Findtodos(string keysSearch, string _sortype, int _reconpage, int p_CurrentPage)
+        {
+            decimal _total_record = 0;
+            string p_to = "";
+            string p_from = CommonFuc.Get_From_To_Page(p_CurrentPage, ref p_to, _reconpage);
+            _sortype = " ORDER BY " + _sortype;
+            if (string.IsNullOrEmpty(_sortype) || _sortype.Trim() == "ORDER BY")
+            {
+                _sortype = "ALL";
+            }
+            string htmlPaging = "";
+            try
+            {
+                B_Todos_BL _obj_bl = new B_Todos_BL();
+                List<B_Todos_Info> _lst = _obj_bl.B_Todos_Search(keysSearch, ref _total_record, p_from, p_to, _sortype);
+                htmlPaging = CommonFuc.Get_HtmlPaging<B_Todos_Info>((int)_total_record, p_CurrentPage, "Nội dung", _reconpage, "TodojsPaging");
+                ViewBag.Paging = htmlPaging;
+                ViewBag.Obj = _lst;
+                ViewBag.SumRecord = _total_record;
+                return PartialView("~/Areas/Home/Views/Shared/_TodoData.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return null;
+        }
+
+        #endregion
+
+        #region Box order
+        [HttpPost]
+        [Route("search-orders")]
+        public ActionResult Findorders(string keysSearch, string _sortype, int _reconpage, int p_CurrentPage)
+        {
+            decimal _total_record = 0;
+            string p_to = "";
+            string p_from = CommonFuc.Get_From_To_Page(p_CurrentPage, ref p_to, _reconpage);
+            _sortype = " ORDER BY " + _sortype;
+            if (string.IsNullOrEmpty(_sortype) || _sortype.Trim() == "ORDER BY")
+            {
+                _sortype = "ALL";
+            }
+            string htmlPaging = "";
+            try
+            {
+                B_Todos_BL _obj_bl = new B_Todos_BL();
+                List<B_Todos_Info> _lst = _obj_bl.B_Todos_Search(keysSearch, ref _total_record, p_from, p_to, _sortype);
+                htmlPaging = CommonFuc.Get_HtmlPaging<B_Todos_Info>((int)_total_record, p_CurrentPage, "Nội dung", _reconpage, "TodojsPaging");
+                ViewBag.Paging = htmlPaging;
+                ViewBag.Obj = _lst;
+                ViewBag.SumRecord = _total_record;
+                return PartialView("~/Areas/Home/Views/Shared/_OrderData.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return null;
+        }
+
+        #endregion
+
     }
+
+
+
+
+
 
     public class MsgReportServerInfo
     {
