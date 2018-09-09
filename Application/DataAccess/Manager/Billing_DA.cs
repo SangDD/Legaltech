@@ -3,9 +3,7 @@ using Oracle.DataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ObjectInfos;
 
 namespace DataAccess
 {
@@ -48,13 +46,17 @@ namespace DataAccess
             }
         }
 
-        public DataSet Billing_GetBy_Id(decimal p_billing_id)
+        public DataSet Billing_GetBy_Id(decimal p_billing_id, string p_app_case_code, string p_language_code)
         {
             try
             {
                 return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_billing.proc_billing_getbyid",
                     new OracleParameter("p_billing_id", OracleDbType.Decimal, p_billing_id, ParameterDirection.Input),
-                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+                    new OracleParameter("p_app_case_code", OracleDbType.Varchar2, p_app_case_code, ParameterDirection.Input),
+                    new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_detail", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_header", OracleDbType.RefCursor, ParameterDirection.Output));
             }
             catch (Exception ex)
             {
@@ -189,6 +191,64 @@ namespace DataAccess
             {
                 Logger.LogException(ex);
                 return -1;
+            }
+        }
+
+        public int Billing_Detail_InsertBatch(List<Billing_Detail_Info> pInfo, decimal _billing_id)
+        {
+            try
+            {
+                int numberRecord = pInfo.Count;
+                decimal[] p_billing_id = new decimal[numberRecord];
+                string[] p_biling_detail_name = new string[numberRecord];
+                decimal[] p_ref_id = new decimal[numberRecord];
+                decimal[] p_type = new decimal[numberRecord];
+                decimal[] p_nation_fee = new decimal[numberRecord];
+                decimal[] p_represent_fee = new decimal[numberRecord];
+                decimal[] p_service_fee = new decimal[numberRecord];
+
+                for (int i = 0; i < pInfo.Count; i++)
+                {
+                    p_billing_id[i] = _billing_id;
+                    p_biling_detail_name[i] = pInfo[i].Biling_Detail_Name;
+                    p_ref_id[i] = pInfo[i].Ref_Id;
+                    p_type[i] = pInfo[i].Type;
+                    p_nation_fee[i] = pInfo[i].Nation_Fee;
+                    p_represent_fee[i] = pInfo[i].Represent_Fee;
+                    p_service_fee[i] = pInfo[i].Service_Fee;
+                }
+
+                var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
+                OracleHelper.ExcuteBatchNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_billing.Proc_Billing_Detail_Insert", numberRecord,
+                    new OracleParameter("p_billing_id", OracleDbType.Decimal, p_billing_id, ParameterDirection.Input),
+                    new OracleParameter("p_biling_detail_name", OracleDbType.Varchar2, p_biling_detail_name, ParameterDirection.Input),
+                    new OracleParameter("p_ref_id", OracleDbType.Decimal, p_ref_id, ParameterDirection.Input),
+                    new OracleParameter("p_type", OracleDbType.Decimal, p_type, ParameterDirection.Input),
+                    new OracleParameter("p_nation_fee", OracleDbType.Decimal, p_nation_fee, ParameterDirection.Input),
+                    new OracleParameter("p_represent_fee", OracleDbType.Decimal, p_represent_fee, ParameterDirection.Input),
+                    new OracleParameter("p_service_fee", OracleDbType.Decimal, p_service_fee, ParameterDirection.Input),
+                    paramReturn);
+
+                var result = ErrorCode.Error;
+                Oracle.DataAccess.Types.OracleDecimal[] _ArrReturn = (Oracle.DataAccess.Types.OracleDecimal[])paramReturn.Value;
+                foreach (Oracle.DataAccess.Types.OracleDecimal _item in _ArrReturn)
+                {
+                    if (Convert.ToInt32(_item.ToString()) < 0)
+                    {
+                        result = Convert.ToInt32(_item.ToString());
+                        break;
+                    }
+                    else
+                    {
+                        result = 1;
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
             }
         }
     }

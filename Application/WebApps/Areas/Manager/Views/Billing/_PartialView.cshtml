@@ -2,28 +2,26 @@
 @using BussinessFacade;
 @using BussinessFacade.ModuleMemoryData
 @using System.Xml
-@model Docking_Info
+@model Billing_Header_Info
 
 @{
-    List<AllCodeInfo> _lstDockingType = MemoryData.AllCode_GetBy_CdTypeCdName("DOCKING", "DOCKING_TYPE");
-    var lstDockingType = _lstDockingType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
+    ViewBag.Title = "Chi tiết billing";
+    Layout = "~/ViewsShared/_Layout.cshtml";
 
-
-    List<AllCodeInfo> _lstStatus = MemoryData.AllCode_GetBy_CdTypeCdName("DOCKING", "STATUS");
-    var lstStatus = _lstStatus.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
-
-    List<AllCodeInfo> _lstDocumentType = MemoryData.AllCode_GetBy_CdTypeCdName("DOCKING", "DOCUMENT_TYPE");
-    var lstDocumentType = _lstDocumentType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
-
-    List<AllCodeInfo> _lstPlace = MemoryData.AllCode_GetBy_CdTypeCdName("DOCKING", "PLACE_SUBMIT");
-    var lstPlace = _lstDocumentType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
-
-    Model.In_Out_Date = DateTime.Now;
-    string _in_out = "In Date";
-    if (Model.Docking_Type == Convert.ToInt16(Common.CommonData.CommonEnums.Docking_Type_Enum.Out_Book))
+    List<AllCodeInfo> _lstBank = MemoryData.AllCode_GetBy_CdTypeCdName("BILLING", "BANK");
+    string _BankName = "";
+    string _Bank_Account_Name = "";
+    string _Swift_Code = "";
+    if (_lstBank.Count > 0)
     {
-        _in_out = "Out Date";
+        _BankName = _lstBank[0].CdVal;
+        _Bank_Account_Name = _lstBank[1].CdVal;
+        _Swift_Code = _lstBank[2].CdVal;
     }
+
+    BussinessFacade.ModuleUsersAndRoles.UserBL _UserBL = new BussinessFacade.ModuleUsersAndRoles.UserBL();
+    List<UserInfo> _lstUsersAdmin = _UserBL.GetUserByType(Convert.ToDecimal(Common.CommonData.CommonEnums.UserType.Admin));
+    var lstUsersAdmin = _lstUsersAdmin.Select(x => new SelectListItem { Text = x.FullName, Value = x.Username });
 }
 <script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
 <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
@@ -43,161 +41,179 @@
 <style>
     /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
     .div-search-title > div {
-        width: 120px;
+        width: 150px;
     }
 </style>
 
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        Monitor
+        <span class="red">></span>
+        <a href="/quan-ly-billing/danh-sach-billing">Quản lý billing</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
 
-<div class="" style="padding:5px 38px">
-    <div class="divCover divCover_popup">
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Mã đơn<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @maxlength = "50", @style = "width: 200px;", @disabled = "disabled" })
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>In/Out book <i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.DropDownList("DockingType", lstDockingType, new { @id = "DockingType", onchange = "Choose_DockingType()", @disabled = "disabled" })
-                </div>
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Tên tài liệu<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.TextBoxFor(m => m.Document_Name, new { id = "Document_Name", @maxlength = "200", @disabled = "disabled" })
-                </div>
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Loại tài liệu<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.DropDownList("DocumentType", lstDocumentType, new { @id = "DocumentType", @style = "width: 200px;", @disabled = "disabled" })
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>Trạng thái <i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.DropDownList("Status", lstStatus, new { @id = "Status", @disabled = "disabled" })
-                </div>
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@_in_out <i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.TextBoxFor(m => m.In_Out_Date, "{0:dd/MM/yyyy}", new { id = "txtIn_Out_Date", @Value = Model.In_Out_Date == DateTime.MinValue ? "" : Model.In_Out_Date.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker", @disabled = "disabled" })
-                </div>
-            </div>
-        </div>
-
-        <div class="div-search-ad clssDisplaynone" id="clsPlace">
-            <div class="div-search-title">
-                <div>Nơi nộp <i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.DropDownList("Place_Submit", lstPlace, new { @id = "Place_Submit", @disabled = "disabled" })
-                </div>
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Deadline <i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.TextBoxFor(m => m.Deadline, "{0:dd/MM/yyyy}", new { id = "txtDeadline", @Value = Model.Deadline == DateTime.MinValue ? "" : Model.Deadline.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker", @disabled = "disabled" })
-                </div>
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Ghi chú</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.TextBoxFor(m => m.Notes, new { id = "txtNotes", @maxlength = "2000", @disabled = "disabled" })
-                </div>
-            </div>
-        </div>
-
-        @if (@Model.Url != null && @Model.Url != "")
-        {
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div>File đính kèm</div>
-                </div>
-                <div class="div-search-content">
-                    <div class="div-checkbox">
-                        <div class="div-search-content" id="div_ImgDownload">
-                            <div class="div-checkbox" style="border: none;">
-                                <a style="border: none;" href="@Model.Url" target="_blank">
-                                    <i class="fas fa-download" style="color:blue;font-size:16px;margin-top:7px; margin-right:5px;"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <label>@Model.FileName</label>
-                    </div>
-                </div>
-            </div>
-        }
-
-        <div class="form-group">
-            <div class="form-group-bottom">
-                <input type="submit" class="btn-default" value="Thoát" onclick="return doExitDocking()" />
-            </div>
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <div class="div-title-content"> CHI TIẾT BILLING</div>
         </div>
     </div>
+
+    <div class="divCover">
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Số bill<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Case_Code, new { id = "txtCaseCode", @maxlength = "50", @disabled = "disabled", @style = "width: 250px" })
+                    <input type="hidden" id="txtCaseCodeSearch" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Case code<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @maxlength = "50", @onblur = "onChangeApp_Case_Code()", @style = "width: 250px", @disabled = "disabled" })
+                </div>
+            </div>
+
+
+            <div class="div-search-title">
+                <div>Người xét duyệt<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.DropDownList("Approve_By", lstUsersAdmin, new { @id = "Approve_By", @disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+
+        <div id="divInfoApp" style="margin-top: 10px;">
+            @Html.Partial("~/Areas/Manager/Views/Billing/_Partial_AppInfo.cshtml")
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Ngày yêu cầu <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Billing_Date, "{0:dd/MM/yyyy}",
+                        new {
+                            id = "txtBilling_Date",
+                            @Value = Model.Billing_Date == DateTime.MinValue ? "" : Model.Billing_Date.ToString("dd/MM/yyyy"),
+                            @placeholder = "dd/mm/yyyy",
+                            @class = "datepicker",
+                            @style = "width: 250px",
+                            @disabled = "disabled"
+                        })
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Hạn thanh toán</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Deadline, "{0:dd/MM/yyyy}",
+                       new {
+                           @id = "txtDeadline",
+                           @Value = Model.Deadline == DateTime.MinValue ? "" : Model.Deadline.ToString("dd/MM/yyyy"),
+                           @placeholder = "dd/mm/yyyy",
+                           @class = "datepicker",
+                           @disabled = "disabled"
+                       })
+                </div>
+            </div>
+        </div>
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/bank.png" />
+            <div class="cls_form_header">
+                Vui lòng chuyển khoản vào tài khoản dưới đây
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Bank Name<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" style="width: 250px;" value="@_BankName" disabled="disabled" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Bank Account Name<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" style="width: 250px;" value="@_Bank_Account_Name" disabled="disabled" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>SWift Code<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" value="@_Swift_Code" disabled="disabled" />
+                </div>
+            </div>
+        </div>
+
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info_2.png" />
+            <div class="cls_form_header">
+                Chi tiết billing
+            </div>
+        </div>
+
+        <div id="divDataBillingDetail" class="divDataTables" style="overflow-x: auto;">
+            @Html.Partial("~/Areas/Manager/Views/Billing/_PartialDetail_Insert_Billing.cshtml")
+        </div>
+
+    </div>
+
+    <div class="divCover">
+        <div class="div-search-btn" style="width:600px;margin-top: 5px;">
+            <input type="submit" class="btn-default" value="Thoát" onclick="return onBack()" />
+        </div>
+    </div>
+
 </div>
 
 <script>
 
     $(document).ready(function () {
-        Choose_DockingType();
+        $("txtApp_Case_Code").focus();
     });
 
-
-
-    function Choose_DockingType() {
+    function onBack() {
         try {
-           var _DockingType = $('#DockingType').val();
-            if (_DockingType == '@Convert.ToInt16(Common.CommonData.CommonEnums.Docking_Type_Enum.Out_Book)') {
-                $("#clsPlace").removeClass("clssDisplaynone");
+
+            if (CheckSessionTimeOut() == false) {
+                return false;
             }
-            else {
-                $("#clsPlace").addClass("clssDisplaynone");
-            }
+
+            var url = "/quan-ly-billing/danh-sach-billing/show-insert/";
+            window.location.href = url;
         } catch (e) {
+            CreateRollingWaitingIcon(true);
             alert(e);
         }
     }
-
-    function doExitDocking() {
-        ClosePopUpDocking();
-    }
-
+ 
 </script>

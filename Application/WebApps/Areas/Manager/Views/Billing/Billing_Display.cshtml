@@ -200,26 +200,34 @@
         }
     }
 
-    function getViewBilling(_id) {
+    function GetView2View_Billing(_id, _app_case_code) {
         if (CheckSessionTimeOut() == false) {
             return false;
         }
+        try {
+            var url = "/quan-ly-billing/danh-sach-billing/show-view-billing?id=" + _id + "&case_code=" + _app_case_code;
+            window.location.href = url;
 
-        $.ajax({
-            type: "POST",
-            url: "/quan-ly-biling/danh-sach-billing/show-view/",
-            data: {
-                p_id: _id
-            },
-            async: false, cache: false, traditional: true,
-            success: function (data) {
-                if (data != null) {
-                    $("#divPopUpBilling").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpBilling', "Thông tin hóa đơn", 750, 800);
-                }
-                return false;
-            }
-        });
+            //$.ajax({
+            //    type: "POST",
+            //    url: "/quan-ly-billing/danh-sach-billing/show-view-billing/",
+            //    data: {
+            //        p_id: _id,
+            //        p_app_case_code: _app_case_code
+            //    },
+            //    async: false, cache: false, traditional: true,
+            //    success: function (data) {
+            //        if (data != null) {
+            //            $("#divPopUpBilling").html(data);
+            //            ShowPopupDialog_Ipace('divWrapperPopUpBilling', "Thông tin hóa đơn", 750, 800);
+            //        }
+            //        return false;
+            //    }
+            //});
+        } catch (e) {
+            console.log(e.toString())
+            alert(e.toString());
+        }
     }
 
     function getView2Insert() {
@@ -229,23 +237,9 @@
 
         var url = "/quan-ly-billing/danh-sach-billing/show-insert/";
         window.location.href = url;
-
-        //$.ajax({
-        //    type: "POST",
-        //    url: "/quan-ly-billing/danh-sach-billing/show-insert/",
-        //    dataType: "html",
-        //    async: false, cache: false, traditional: true,
-        //    success: function (data) {
-        //        if (data != null) {
-        //            $("#divPopUpBilling").html(data);
-        //            ShowPopupDialog_Ipace('divWrapperPopUpBilling', "Thêm mới billing", 800, 900,"txtApp_Case_Code");
-        //        }
-        //        return false;
-        //    }
-        //});
     }
 
-    function getView2Edit(_id) {
+    function getView2Edit(_id, _app_case_code) {
         if (CheckSessionTimeOut() == false) {
             return false;
         }
@@ -255,7 +249,8 @@
             url: "/quan-ly-billing/danh-sach-billing/show-edit/",
             dataType: "html",
             data: {
-                p_id: _id
+                p_id: _id,
+                p_app_case_code: _app_case_code
             },
             async: false, cache: false, traditional: true,
             success: function (data) {
@@ -268,7 +263,7 @@
         });
     }
 
-    function getView2Approve(_id) {
+    function getView2Approve(_id, _app_case_code) {
         if (CheckSessionTimeOut() == false) {
             return false;
         }
@@ -278,7 +273,8 @@
             url: "/quan-ly-billing/danh-sach-billing/show-approve/",
             dataType: "html",
             data: {
-                p_id: _id
+                p_id: _id,
+                p_app_case_code: _app_case_code
             },
             async: false, cache: false, traditional: true,
             success: function (data) {
@@ -325,7 +321,7 @@
         });
     }
 
-    function getView2ChangeStatus(_id) {
+    function getView2ChangeStatus(_id, _app_case_code) {
         if (CheckSessionTimeOut() == false) {
             return false;
         }
@@ -335,7 +331,8 @@
             url: "/quan-ly-billing/danh-sach-billing/show-change-status/",
             dataType: "html",
             data: {
-                p_id: _id
+                p_id: _id,
+                p_app_case_code: _app_case_code
             },
             async: false, cache: false, traditional: true,
             success: function (data) {

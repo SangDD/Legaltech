@@ -284,7 +284,7 @@
     }
 
     function onChangeFeeService(_value) {
-         
+
         var _amount = parseInt(_value.replace(/,/g, ""));
 
         try {
@@ -334,10 +334,14 @@
                             jError("Lỗi check lại kết nối tới server");
                             return false;
                         }
+                        else if (data.success == "-2") {
+                            jError("Không có thông tin billing");
+                            return false;
+                        }
                         else {
                             jAlert('Thêm billing thành công!', "THÔNG BÁO", function () {
-                                ClosePopUpBilling();
-                                Search_Billing(1, 1);
+                                var url = "/quan-ly-billing/danh-sach-billing/";
+                                window.location.href = url;
                             });
                         }
                     },
@@ -375,22 +379,27 @@
 
     function collectData(formData) {
         try {
-            formData.append('p_Docking_Info.App_Case_Code', $("#txtApp_Case_Code").val());
-            formData.append('p_Docking_Info.Document_Name', $("#Document_Name").val());
-            formData.append('p_Docking_Info.Docking_Type', $("#Docking_Type").val());
-            formData.append('p_Docking_Info.Place_Submit', $("#Place_Submit").val());
-            formData.append('p_Docking_Info.Document_Type', $("#Document_Type").val());
-            formData.append('p_Docking_Info.Status', $("#Status").val());
 
-            formData.append('p_Docking_Info.In_Out_Date', $("#txtIn_Out_Date").val());
-            formData.append('p_Docking_Info.Deadline', $("#txtDeadline").val());
-            formData.append('p_Docking_Info.Notes', $("#txtNotes").val());
+            // hearder
+            formData.append('p_Billing_Header_Info.Case_Code', $("#txtCaseCode").val());
+            formData.append('p_Billing_Header_Info.App_Case_Code', $("#txtApp_Case_Code").val());
+            formData.append('p_Billing_Header_Info.Billing_Type', '@Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Type.App)');
 
-            var pfile = $("#file_attach");//lay du lieu file
-            if (pfile.val() != "") {
-                var _file = pfile[0].files[0];
-                formData.append("p_Docking_Info.File_Upload", _file);
-            }
+            formData.append('p_Billing_Header_Info.Billing_Date', $("#txtBilling_Date").val());
+            formData.append('p_Billing_Header_Info.Deadline', $("#txtDeadline").val());
+
+            formData.append('p_Billing_Header_Info.Request_By', $("#txtRequest_By").val());
+            formData.append('p_Billing_Header_Info.Approve_By', $("#txtApprove_By").val());
+
+            formData.append('p_Billing_Header_Info.Total_Pre_Tex', parseInt($("#txt_Total_Pre_Tex").val().replace(/,/g, "")));
+            formData.append('p_Billing_Header_Info.Tex_Fee', parseInt($("#txt_Tex_Fee").val().replace(/,/g, "")));
+            formData.append('p_Billing_Header_Info.Total_Vnd', parseInt($("#txt_Total_VND").val().replace(/,/g, "")));
+
+            formData.append('p_Billing_Header_Info.Currency', '');
+            formData.append('p_Billing_Header_Info.Currency_Rate', 0);
+            formData.append('p_Billing_Header_Info.Total_Foeign', 0);
+            // detail
+
         } catch (e) {
             alert(e.toString());
         }
