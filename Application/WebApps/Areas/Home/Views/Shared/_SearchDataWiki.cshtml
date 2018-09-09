@@ -11,7 +11,6 @@
 @model List<WikiDoc_Info>
 @try
 {
-    <div>
         <table class="table-lst-data" id='@("tableList_" + _typesearch)'>
             <thead>
                 <tr>
@@ -43,8 +42,6 @@
                     </tr>}
             </tbody>
         </table>
-    </div>
-
     <div class="_ClassPage">
         <ul>
             @Html.Raw(ViewBag.Paging)

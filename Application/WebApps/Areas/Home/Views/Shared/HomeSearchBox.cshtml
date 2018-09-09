@@ -4,7 +4,6 @@
         text-align:left;
         border:1px solid #ccc;
         min-height:50px;
-        padding:5px 0px 5px 5px;
     }
     #legalsearch_table td
     {
@@ -19,6 +18,7 @@
     {
         display:none;
     }
+
 </style>
  
 <div class="divCover" id="legalsearch_div" >
@@ -45,8 +45,8 @@
         <input type="hidden" id="SortType_4" />
     </div>
 
-    <div class="divCover">
-        <div id="LegalSearchdivTable">
+    <div class="Homebox">
+        <div id="LegalSearchdivTable" class="LegaldivBoxTable">
             @Html.Partial("/Areas/Home/Views/Shared/_SearchDataAppStatus.cshtml")
         </div>
     </div>

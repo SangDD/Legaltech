@@ -288,6 +288,7 @@
             try
             {
                 B_Todos_BL _obj_bl = new B_Todos_BL();
+                keysSearch = B_Todo.TypeProcess;
                 List<B_Todos_Info> _lst = _obj_bl.B_Todos_Search(keysSearch, ref _total_record, p_from, p_to, _sortype);
                 htmlPaging = CommonFuc.Get_HtmlPaging<B_Todos_Info>((int)_total_record, p_CurrentPage, "Nội dung", _reconpage, "TodojsPaging");
                 ViewBag.Paging = htmlPaging;
@@ -321,6 +322,7 @@
             try
             {
                 B_Todos_BL _obj_bl = new B_Todos_BL();
+                keysSearch = B_Todo.TypeRequest;
                 List<B_Todos_Info> _lst = _obj_bl.B_Todos_Search(keysSearch, ref _total_record, p_from, p_to, _sortype);
                 htmlPaging = CommonFuc.Get_HtmlPaging<B_Todos_Info>((int)_total_record, p_CurrentPage, "Nội dung", _reconpage, "TodojsPaging");
                 ViewBag.Paging = htmlPaging;

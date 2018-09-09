@@ -99,4 +99,10 @@
         public const int Stt_daduyet = 3;
         public const int Stt_tuchoi = 4;
     }
+
+    public class B_Todo
+    {
+        public const string TypeRequest = "1";
+        public const string TypeProcess = "2";
+    }
 }
