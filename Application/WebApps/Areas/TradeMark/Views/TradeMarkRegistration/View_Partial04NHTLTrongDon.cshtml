@@ -153,9 +153,16 @@
 
 
 <div class="div_full_100_area">
-    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CÁC TÀI LIỆU CÓ TRONG ĐƠN")
-    <div class="class_full_div_p class_text_left_bold clssDisplaynone">Tài liệu tối thiểu</div>
-    <br />
+    @*@Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CÁC TÀI LIỆU CÓ TRONG ĐƠN")*@
+    <div class="divCover cls_form_title">
+        <img src="/Content/icons/info.png">
+        <div class="cls_form_header">
+            CÁC TÀI LIỆU CÓ TRONG ĐƠN
+            <a href="javascript:;" st="" class="icon icon-info" style="border:none" data-title="Các tài liệu liên quan đính kèm trong đơn"></a>
+        </div>
+    </div>
+    @*<div class="class_full_div_p class_text_left_bold clssDisplaynone">Tài liệu tối thiểu</div>
+        <br />*@
     @* An di theo yc cua khach hang *@
     <div class="div-search-ad" style="display:none">
         <div class="div-search-content">
@@ -244,7 +251,7 @@
     <div class="div-search-ad" style="display:inline-flex;margin-left: 40px;">
         <div class="div-search-content">
             <div class="div-checkbox" style="width:342px">
-                <input type="checkbox" @styleDiable  id="6_rdoBanGoc" @ObjInfo04NH_D_5.styleCheck value="04NH_D_05" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <input type="checkbox" @styleDiable id="6_rdoBanGoc" @ObjInfo04NH_D_5.styleCheck value="04NH_D_05" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>bản gốc</label>
             </div>
         </div>
@@ -257,7 +264,7 @@
     <div class="div-search-ad" style="display:inline-flex;margin-left: 40px;">
         <div class="div-search-content">
             <div class="div-checkbox" style="width:342px">
-                <input type="checkbox" @styleDiable  @ObjInfo04NH_D_6.styleCheck id="6_rdoBanSao" value="04NH_D_06" />
+                <input type="checkbox" @styleDiable @ObjInfo04NH_D_6.styleCheck id="6_rdoBanSao" value="04NH_D_06" />
                 <label>bản sao</label>
             </div>
         </div>
@@ -284,7 +291,7 @@
             </div>
         </div>
         <div class="div-search-content">
-            <input type="text" id="6_txtBangocDNTheoDonSo" @styleDiable  style="width:160px" disabled="disabled" maxlength="50" placeholder="6_txtBangocDNTheoDonSo" />
+            <input type="text" id="6_txtBangocDNTheoDonSo" @styleDiable style="width:160px" disabled="disabled" maxlength="50" placeholder="6_txtBangocDNTheoDonSo" />
         </div>
     </div>
     @* File dinh kem lay tu db khi sua*@
@@ -296,12 +303,12 @@
     <div class="div-search-ad" style="display:inline-flex;margin-left: 40px;">
         <div class="div-search-content">
             <div class="div-checkbox" style="width:342px">
-                <input type="checkbox"  @styleDiable id="6_rdoBanDichTiengViet" @ObjInfo04NH_D_9.styleCheck value="04NH_D_09" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <input type="checkbox" @styleDiable id="6_rdoBanDichTiengViet" @ObjInfo04NH_D_9.styleCheck value="04NH_D_09" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>bản dịch tiếng Việt, gồm</label>
             </div>
         </div>
         <div class="div-search-content">
-            <input type="text" @styleDiable  id="6_txtBDTV_UQ" maxlength="3" disabled="disabled" placeholder="6_txtBDTV_UQ" />
+            <input type="text" @styleDiable id="6_txtBDTV_UQ" maxlength="3" disabled="disabled" placeholder="6_txtBDTV_UQ" />
         </div>
         <div class="div-search-title" style="width:412px">
             <div>trang</div>
@@ -314,12 +321,12 @@
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
             <div class="div-checkbox">
-                <input type="checkbox"  @styleDiable maxlength="3" value="04NH_D_10" @ObjInfo04NH_D_10.styleCheck id="6_rdoTLXNDPSD" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <input type="checkbox" @styleDiable maxlength="3" value="04NH_D_10" @ObjInfo04NH_D_10.styleCheck id="6_rdoTLXNDPSD" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>Tài liệu xác nhận được phép sử dụng các dấu hiệu đặc biệt (biểu tượng, cờ, huy hiệu, con dấu…), gồm</label>
             </div>
         </div>
         <div class="div-search-content">
-            <input type="text" @styleDiable  id="6_TLXNDPSD" maxlength="3" disabled="disabled" placeholder="6_TLXNDPSD" />
+            <input type="text" @styleDiable id="6_TLXNDPSD" maxlength="3" disabled="disabled" placeholder="6_TLXNDPSD" />
         </div>
         <div class="div-search-title" style="width:190px">
             <div>trang</div>
@@ -331,7 +338,7 @@
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
-                <input type="checkbox"  @styleDiable maxlength="3" value="04NH_D_11" @ObjInfo04NH_D_11.styleCheck id="6_rdoTLDKNH" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <input type="checkbox" @styleDiable maxlength="3" value="04NH_D_11" @ObjInfo04NH_D_11.styleCheck id="6_rdoTLDKNH" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>Tài liệu xác nhận quyền đăng ký nhãn hiệu</label>
             </div>
         </div>
@@ -342,7 +349,7 @@
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
-                <input type="checkbox"  @styleDiable maxlength="3" value="04NH_D_12" @ObjInfo04NH_D_12.styleCheck id="6_rdoTLThuHuongNK" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <input type="checkbox" @styleDiable maxlength="3" value="04NH_D_12" @ObjInfo04NH_D_12.styleCheck id="6_rdoTLThuHuongNK" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>Tài liệu xác nhận thụ hưởng quyền đăng ký từ người khác</label>
             </div>
         </div>
@@ -353,14 +360,14 @@
     <div class="div-search-ad" style="display:inherit">
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
-                <input type="checkbox" @styleDiable  maxlength="3" value="04NH_D_13" @ObjInfo04NH_D_13.styleCheck id="6_rdoQuyCheSDNH" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <input type="checkbox" @styleDiable maxlength="3" value="04NH_D_13" @ObjInfo04NH_D_13.styleCheck id="6_rdoQuyCheSDNH" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>Quy chế sử dụng NH tập thể/chứng nhận, gồm</label>
 
             </div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" @styleDiable  id="6_txtQuyCheSDNHTrang" disabled="disabled" style="width:160px" maxlength="3" placeholder="6_txtQuyCheSDNHTrang" />
+                <input type="text" @styleDiable id="6_txtQuyCheSDNHTrang" disabled="disabled" style="width:160px" maxlength="3" placeholder="6_txtQuyCheSDNHTrang" />
             </div>
         </div>
         <div class="div-search-title" style="width:70px">
@@ -368,7 +375,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text"  @styleDiable id="6_txtQuyCheSDNHBan" disabled="disabled" maxlength="3" placeholder="6_txtQuyCheSDNHBan" />
+                <input type="text" @styleDiable id="6_txtQuyCheSDNHBan" disabled="disabled" maxlength="3" placeholder="6_txtQuyCheSDNHBan" />
             </div>
         </div>
         <div class="div-search-title" style="width:165px">
@@ -382,7 +389,7 @@
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
-                <input type="checkbox"  @styleDiable maxlength="3" value="04NH_D_18" @ObjInfo04NH_D_18.styleCheck id="6_rdoBanDoKVDL" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <input type="checkbox" @styleDiable maxlength="3" value="04NH_D_18" @ObjInfo04NH_D_18.styleCheck id="6_rdoBanDoKVDL" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>Bản đồ khu vực địa lý</label>
             </div>
         </div>
@@ -393,7 +400,7 @@
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
             <div class="div-checkbox">
-                <input type="checkbox"  @styleDiable maxlength="3" value="04NH_D_19" @ObjInfo04NH_D_19.styleCheck id="6_rdoVBuyBanTinh" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <input type="checkbox" @styleDiable maxlength="3" value="04NH_D_19" @ObjInfo04NH_D_19.styleCheck id="6_rdoVBuyBanTinh" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>Văn bản của UBND tỉnh, TP trực thuộc TW cho phép sử dụng địa danh hoặc dấu hiệu khác chỉ nguồn gốc địa lý của đặc sản địa phượng </label>
             </div>
         </div>
@@ -404,7 +411,7 @@
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
-                <input type="checkbox" @styleDiable  maxlength="3" value="04NH_D_20" @ObjInfo04NH_D_20.styleCheck id="6_rdoTLKhaiTTBS" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <input type="checkbox" @styleDiable maxlength="3" value="04NH_D_20" @ObjInfo04NH_D_20.styleCheck id="6_rdoTLKhaiTTBS" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>Có tài liệu bổ trợ khai tại trang bổ sung</label>
             </div>
         </div>
@@ -415,7 +422,7 @@
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
-                <input type="checkbox" @styleDiable  maxlength="3" value="04NH_D_22" @ObjInfo04NH_D_22.styleCheck id="6_rdoTLK" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                <input type="checkbox" @styleDiable maxlength="3" value="04NH_D_22" @ObjInfo04NH_D_22.styleCheck id="6_rdoTLK" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>Tài liệu khác</label>
             </div>
         </div>

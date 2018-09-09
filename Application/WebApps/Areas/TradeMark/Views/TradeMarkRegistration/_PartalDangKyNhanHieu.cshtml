@@ -261,12 +261,20 @@
             </div>
 
             <div class="div-search-ad">
+                @*<div class="div-search-content">*@
+                <div class="div-radio" style="width:70%">
+                    <input type="radio" name="3_rdoDaiDienChuDon" value="@DaiDienChuDon.DaiDienSH" placeholder="3_txtToChucDaiDien" id="3_txtToChucDaiDien" />
+                    <label>@WebApps.Resources.Resource.lblLaToChucDichVuDaiDienSoHuu</label>
+                </div>
+
+                @*//07/09/2018*@     
                 <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="radio" name="3_rdoDaiDienChuDon" value="@DaiDienChuDon.DaiDienSH" placeholder="3_txtToChucDaiDien" id="3_txtToChucDaiDien" />
-                        <label>@WebApps.Resources.Resource.lblLaToChucDichVuDaiDienSoHuu</label>
+                    <div>
+                        <label style="width:120px;display:inline-block ;border: 1px solid #aaa; padding-top: 5px;  padding-left: 2px;">Mã đại diện:</label>
+                        <input style="display:inline-block" type="text" placeholder="Mã đại diện" value="" id="txtMADDSHCN" />
                     </div>
                 </div>
+                @*</div>*@
             </div>
 
             <div class="div-search-ad">
@@ -285,9 +293,10 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text"  placeholder="Đại diện SHCN" value="" id="txtDaiDienSHCN" />
+                        <input type="text" placeholder="Đại diện SHCN" value="" id="txtDaiDienSHCN" />
                     </div>
                 </div>
+               
             </div>
             @*  *@
 
@@ -602,30 +611,36 @@
 
     document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {
         var preturn = fileNhanHieu(this, 'imgMauNhanHieu');
-
+        
         //kiểm tra ảnh có đúng kích cỡ hay không?
         if (this.files[0].type.indexOf("image") != -1) {
 
             var reader = new FileReader();
             reader.onload = function (e) {
                 $("#imgMauNhanHieuTeplace").attr("src", e.target.result);
+
+                var img = $("#imgMauNhanHieuTeplace");
+                var iheight = 500; var iwidth = 500;
+
+                iheight = img[0].height;
+                console.log('lan 1: ' + iheight);
+                iheight = img[0].height;
+                iwidth = img[0].width;
+                console.log(iheight);
+                //2x2 75x75 px
+                if (iheight > 302 || iheight < 75 || iwidth > 302 || iwidth < 75) {
+                    nvsConfirm(null, "Ảnh tải lên không đúng kích cỡ từ 2x2 đến 8x8 ?", function () {
+                        return true;
+                    }, function () {
+                        //Callback 
+                        $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
+                    });
+
+                } else {
+                    return true;
+                }
             }
             reader.readAsDataURL(this.files[0]);
-            var img = $("#imgMauNhanHieuTeplace");
-            var iheight = img[0].height;
-            var iwidth = img[0].width;
-            //2x2 75x75 px
-            if ((iheight != iwidth) || (   iheight >= 302  || iheight <= 75)) {
-                nvsConfirm(null, "Ảnh tải lên không đúng cỡ quy định bạn có muốn tiếp tục hay không?", function () {
-                    return true;
-                }, function () {
-                    //Callback 
-                    $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
-                });
-
-            } else {
-                return true;
-            }
         } else {
             nvsAlert("Thông báo", "File tải lên không phải là file ảnh?", "");
         }
@@ -1087,14 +1102,14 @@
             var txtFax = "2_txtFax";
             var txtEmail = "2_txtEmail";
             var arrVal = displayVal.split('|');
-            if (arrVal.length === 5) {
+            if (arrVal.length === 7) {
                 $("#" + txtNguoiDaidien).val(arrVal[0]);
                 $("#" + txtDiaChi).val(arrVal[1]);
                 $("#" + txtDienThoai).val(arrVal[2]);
                 $("#" + txtFax).val(arrVal[3]);
                 $("#" + txtEmail).val(arrVal[4]);
-                $("#txtDaiDienSHCN").val(arrVal[0]);
-                
+                $("#txtDaiDienSHCN").val(arrVal[5]);
+                $("#txtMADDSHCN").val(arrVal[6]);
             }
         } catch (e) {
 
@@ -1138,27 +1153,25 @@
     function funcGetAppDetail(formdata, pEditOrNew) {
         try {
             if (pEditOrNew == undefined) pEditOrNew = 1;
-
             var v_soDon_0 = $("#0_txtDonSo").val();
-            if (v_soDon_0 === "" || v_soDon_0 == undefined) {
-                showError('Số đơn không được để trống');
-                $("#0_txtDonSo").focus();
-                return false;
-            }
             formdata.append("pDetail.Appno", v_soDon_0);
             var v_NgayNopDonn_0 = $("#0_txtNgayNopDon").val();
-            if (v_NgayNopDonn_0 === "" || v_NgayNopDonn_0 == undefined && (pEditOrNew == 1)) {
-                showError('Phải chọn ít nhất 1 giá trị cho nhãn hiệu!');
-                $("#0_txtNgayNopDon").focus();
-                return false;
+            if (v_soDon_0 != "") {
+                if (v_NgayNopDonn_0 === "" || v_NgayNopDonn_0 == undefined && (pEditOrNew == 1)) {
+                    showError('Phải chọn ít nhất 1 giá trị cho nhãn hiệu!');
+                    $("#0_txtNgayNopDon").focus();
+                    return false;
+                }
             }
             /// return true if strDate1 <= strDate2
             //function compareDate_N0(strDate1, strDate2) {
             var timenow = $("#txtDateTime").val();
-            if (compareDate_N0(v_NgayNopDonn_0, timenow) == false) {
-                showError('Ngày nộp đơn lớn hơn ngày hiện tại!');
-                $("#0_txtNgayNopDon").focus();
-                return false;
+            if (v_soDon_0 != "") {
+                if (compareDate_N0(v_NgayNopDonn_0, timenow) == false) {
+                    showError('Ngày nộp đơn lớn hơn ngày hiện tại!');
+                    $("#0_txtNgayNopDon").focus();
+                    return false;
+                }
             }
             formdata.append("pDetail.Duadate", v_NgayNopDonn_0);
 
@@ -1505,6 +1518,10 @@
                 return false;
             }
             formData.append("pInfo.DDSHCN", daidienSH);
+
+            //07/09/2018
+            var madhsh = $("#txtMADDSHCN").val();
+            formData.append("pInfo.MADDSHCN", madhsh);
 
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
             //trang thai

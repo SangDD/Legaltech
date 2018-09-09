@@ -34,6 +34,28 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
+                <div>Người DDSH </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.NguoiDDSH, new { id = "txtNguoiDDSH", @maxlength = "50" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Mã Người đại diện </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.MaNguoiDaiDien, new { id = "txtMaNguoiDaiDien", @maxlength = "30" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
                 <div>Phone</div>
             </div>
             <div class="div-search-content">
@@ -145,6 +167,9 @@
         formData.append('pInfo.Phone', $("#txtPhone").val().trim());
         formData.append('pInfo.Fax', $("#txtFax").val().trim());
         formData.append('pInfo.Email', $("#txtEmail").val().trim());
+        //Dia chi co 1
         formData.append('pInfo.Address_En', $("#txtAddress_Vi").val().trim());
+        formData.append('pInfo.NguoiDDSH', $("#txtNguoiDDSH").val().trim());
+        formData.append('pInfo.MaNguoiDaiDien', $("#txtMaNguoiDaiDien").val().trim());
     }
 </script>

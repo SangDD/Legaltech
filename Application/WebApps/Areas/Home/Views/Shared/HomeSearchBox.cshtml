@@ -47,16 +47,14 @@
 
     <div class="divCover">
         <div id="LegalSearchdivTable">
-            @Html.Partial("/Areas/Home/Views/Shared/_SearchDataWiki.cshtml")
+            @Html.Partial("/Areas/Home/Views/Shared/_SearchDataAppStatus.cshtml")
         </div>
     </div>
-
     <div id="divWrapperPopUpUser" class="divWrapperPopup" style="display: none;">
         <div class="divPopup" id="divPopUpUser">
         </div>
     </div>
-</div>
-<script>
+    <script>
     var _Keysearch = "";
     var _searchtype = "1";
     var _searchContent = "";
@@ -109,7 +107,7 @@
                 //Khách hàng
             }
             if (_searchtype == "4") {
-                //Wiki                
+                //Wiki
             }
             var orderby = $("#colSorted_" + _searchtype).val();
             var orderType = $("#SortType_" + _searchtype).val();
@@ -219,4 +217,5 @@
     function ClosePopUpUser() {
         CloseDivPopUp('divWrapperPopUpUser');
     }
-</script>
+    </script>
+</div>

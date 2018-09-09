@@ -589,17 +589,22 @@ namespace Common
             }
         }
 
-        public static string Get_HtmlPaging<T>(int p_total_record, int PCurrentPage, string pLoaiBanghi = "Bản ghi", int p_reconpage = 0)
+        public static string Get_HtmlPaging<T>(int p_total_record, int PCurrentPage, string pLoaiBanghi = "Bản ghi", int p_reconpage = 0, string pfuncjs = "")
         {
             try
             {
-                if(p_reconpage == 0)
+                string _defaulFuncjs = "jsPaging";
+                if(!string.IsNullOrEmpty(pfuncjs))
                 {
-                    return Paging(PCurrentPage, Common.RecordOnpage, p_total_record, "jsPaging", pLoaiBanghi);
+                    _defaulFuncjs = pfuncjs;
+                }
+                if (p_reconpage == 0)
+                {
+                    return Paging(PCurrentPage, Common.RecordOnpage, p_total_record, _defaulFuncjs, pLoaiBanghi);
                 }
                 else
                 {
-                    return Paging(PCurrentPage, p_reconpage, p_total_record, "jsPaging", pLoaiBanghi);
+                    return Paging(PCurrentPage, p_reconpage, p_total_record, _defaulFuncjs, pLoaiBanghi);
                 }
             }
             catch (Exception ex)

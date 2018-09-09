@@ -10,6 +10,17 @@
 @*tìm kiếm*@
 @Html.Partial("~/Areas/Home/Views/Shared/HomeSearchBox.cshtml") 
 
+@*todos*@
+@Html.Partial("~/Areas/Home/Views/Shared/HomeToDoBox.cshtml") 
+
+@*todos*@
+@Html.Partial("~/Areas/Home/Views/Shared/HomeOrderBox.cshtml")
 
  
-
+ 
+<script>
+    $(function () {
+        TodofindObjects(1, 1);
+        OrderfindObjects(1, 1);
+    });
+</script>

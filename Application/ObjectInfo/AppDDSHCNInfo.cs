@@ -22,5 +22,7 @@ namespace ObjectInfos
         public DateTime Modifieddate { get; set; }
         public string Modifiedby { get; set; }
         public decimal Deleted { get; set; }
+        public string NguoiDDSH { get; set; }
+        public string MaNguoiDaiDien { get; set; }
     }
 }
