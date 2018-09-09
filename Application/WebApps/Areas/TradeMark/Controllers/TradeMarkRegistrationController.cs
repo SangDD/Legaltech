@@ -620,6 +620,14 @@
                 appInfo.Extent_fld01 = appInfo.DDSHCN;
                 //Su dung cho Nguoi shcn
                 appInfo.Extent_fld02 = appInfo.MADDSHCN;
+                if (!string.IsNullOrEmpty(appInfo.Appno))
+                {
+                    appInfo.Extent_fld03 = "DST"; //tach tu thang nao day
+                }
+                else
+                {
+                    appInfo.Extent_fld03 = "x";
+                }
 
                 List<AppInfoExport> _lst = new List<AppInfoExport>();
                 _lst.Add(appInfo);
@@ -914,9 +922,14 @@
                 var objBL = new AppDetail04NHBL();
                 string language = AppsCommon.GetCurrentLang();
                 var ds04NH = objBL.AppTM04NHGetByID(pAppHeaderId, language, pStatus);
+                string keyData = "objAppHeaderInfo" + SessionData.CurrentUser.Id.ToString() + DateTime.Now.ToString("DDMMHHmmss");
+                //Luu key duy nhat cua he thong
+                ViewBag.keyData = keyData;
+                SessionData.SetDataSession(keyData, "");
                 if (ds04NH != null && ds04NH.Tables.Count == 5)
                 {
                     ViewBag.objAppHeaderInfo = CBO<AppDetail04NHInfo>.FillObjectFromDataTable(ds04NH.Tables[0]);
+                    SessionData.SetDataSession(keyData, ViewBag.objAppHeaderInfo);
                     ViewBag.lstDocumentInfo = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds04NH.Tables[1]);
                     ViewBag.lstDocOther = CBO<AppDocumentOthersInfo>.FillCollectionFromDataTable(ds04NH.Tables[2]);
                     lstDocOther = ViewBag.lstDocOther;
@@ -1588,7 +1601,52 @@
                 return Json(new { lst = lstContain });
             }
         }
-            
-            
+
+        [HttpPost]
+        [Route("funcGetTTDHSH")]
+        public ActionResult GetThongTinDaiDien(string pKeyData ,string pDDSH, int pEdit ,decimal pID ,int pStatus)
+        {
+            try
+            {
+
+                if (pEdit == 1)
+                {
+                    var obj =(AppDetail04NHInfo)SessionData.GetDataSession(pKeyData);
+                    if (obj.Rep_Master_Type == pDDSH)
+                    {
+                        ViewBag.objAppHeaderInfo = obj;
+                        ViewBag.MADDSH = obj.MADDSHCN;
+                    }
+                    else
+                    {
+                        ViewBag.objAppHeaderInfo = new AppDetail04NHInfo();
+                    }
+                    //var objBL = new AppDetail04NHBL();
+                    //string language = AppsCommon.GetCurrentLang();
+                    //var ds04NH = objBL.AppTM04NHGetByID(pID, language, pStatus);
+                    //if (ds04NH != null && ds04NH.Tables.Count == 5)
+                    //{
+                    //    var obj  = CBO<AppDetail04NHInfo>.FillObjectFromDataTable(ds04NH.Tables[0]);
+                    //    if(obj.Rep_Master_Type== pDDSH)
+                    //    {
+                    //        ViewBag.objAppHeaderInfo = obj;
+                    //    }
+                    //    else
+                    //    {
+                    //        ViewBag.objAppHeaderInfo = new AppDetail04NHInfo();
+                    //    }
+
+                    //}
+
+                }
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "2");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "2");
+            }
+        }
+
     }
 }
