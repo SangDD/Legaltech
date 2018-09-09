@@ -43,13 +43,17 @@ namespace BussinessFacade
             }
         }
 
-        public Billing_Header_Info Billing_GetBy_Id(decimal p_docking_id)
+        public Billing_Header_Info Billing_GetBy_Id(decimal p_docking_id, string p_app_case_code, string p_language_code, 
+            ref ApplicationHeaderInfo applicationHeaderInfo, ref List<Billing_Detail_Info> p_lst_billing_detail)
         {
             try
             {
                 Billing_DA _da = new Billing_DA();
-                DataSet _ds = _da.Billing_GetBy_Id(p_docking_id);
-                return CBO<Billing_Header_Info>.FillObjectFromDataSet(_ds);
+                DataSet _ds = _da.Billing_GetBy_Id(p_docking_id, p_app_case_code, p_language_code);
+
+                p_lst_billing_detail = CBO<Billing_Detail_Info>.FillCollectionFromDataTable(_ds.Tables[1]);
+                applicationHeaderInfo = CBO<ApplicationHeaderInfo>.FillObjectFromDataTable(_ds.Tables[2]);
+                return CBO<Billing_Header_Info>.FillObjectFromDataTable(_ds.Tables[0]);
             }
             catch (Exception ex)
             {
@@ -93,7 +97,7 @@ namespace BussinessFacade
                 Billing_DA _da = new Billing_DA();
                 return _da.Billing_Update_Delete(p_docking_id, p_language_code, p_modify_by, p_modify_date);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Logger.LogException(ex);
                 return ErrorCode.Error;
@@ -102,10 +106,10 @@ namespace BussinessFacade
 
         public decimal Billing_Insert(Billing_Header_Info p_obj)
         {
-            try 
+            try
             {
                 Billing_DA _da = new Billing_DA();
-                return _da.Billing_Insert(p_obj.App_Case_Code, p_obj.Billing_Type, p_obj.App_Case_Code, p_obj.Billing_Date, p_obj.Deadline,
+                return _da.Billing_Insert(p_obj.Case_Code, p_obj.Billing_Type, p_obj.App_Case_Code, p_obj.Billing_Date, p_obj.Deadline,
                     p_obj.Request_By, p_obj.Approve_By, p_obj.Status, p_obj.Total_Pre_Tex, p_obj.Tex_Fee, p_obj.Total_Vnd,
                     p_obj.Currency, p_obj.Currency_Rate, p_obj.Total_Foeign, p_obj.Created_By, p_obj.Created_Date, p_obj.Language_Code);
             }
@@ -121,8 +125,22 @@ namespace BussinessFacade
             try
             {
                 Billing_DA _da = new Billing_DA();
-                return _da.Billing_Update(p_obj.Billing_Id, p_obj.Billing_Date, p_obj.Deadline, p_obj.Total_Pre_Tex, p_obj.Tex_Fee, p_obj.Total_Vnd, 
+                return _da.Billing_Update(p_obj.Billing_Id, p_obj.Billing_Date, p_obj.Deadline, p_obj.Total_Pre_Tex, p_obj.Tex_Fee, p_obj.Total_Vnd,
                     p_obj.Currency, p_obj.Currency_Rate, p_obj.Total_Foeign, p_obj.Modify_By, p_obj.Modify_Date, p_obj.Language_Code);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
+        public int Billing_Detail_InsertBatch(List<Billing_Detail_Info> pInfo, decimal p_billing_id)
+        {
+            try
+            {
+                Billing_DA _da = new Billing_DA();
+                return _da.Billing_Detail_InsertBatch(pInfo, p_billing_id);
             }
             catch (Exception ex)
             {

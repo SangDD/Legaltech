@@ -76,6 +76,12 @@
             Approved = 2
         }
 
+        public enum Billing_Type
+        {
+            App = 1,
+            Search = 2
+        }
+
         public enum Billing_Detail_Type
         {
             App = 1,
@@ -98,5 +104,11 @@
         public const int Stt_guibai = 2;
         public const int Stt_daduyet = 3;
         public const int Stt_tuchoi = 4;
+    }
+
+    public class B_Todo
+    {
+        public const string TypeRequest = "1";
+        public const string TypeProcess = "2";
     }
 }

@@ -14,7 +14,6 @@
     }
 }
 
-<div>
     <table class="table-lst-data" id='@("tableList_" + _typesearch)'>
         <thead>
             <tr>
@@ -57,13 +56,12 @@
             }
         </tbody>
     </table>
-</div>
-
 <div class="_ClassPage">
     <ul>
         @Html.Raw(ViewBag.Paging)
     </ul>
 </div>
+
 <script>
     $(function () {
         HomeChangeIConSortWhenSortColumns(@_typesearch);
