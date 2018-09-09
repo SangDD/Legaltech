@@ -63,7 +63,9 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" id="txtLawer" disabled="disabled" value="@_ApplicationHeaderInfo.Lawer_Name"/>
+            <input type="text" id="txtLawer_Name" disabled="disabled" value="@_ApplicationHeaderInfo.Lawer_Name" />
+            <input type="hidden" id="txtRequest_By" value="@_ApplicationHeaderInfo.Lawer_User_Name" />
+            <input type="hidden" id="txtApprove_By" value="@_ApplicationHeaderInfo.User_Admin_Grant" />
         </div>
     </div>
 </div>

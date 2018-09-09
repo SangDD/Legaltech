@@ -145,6 +145,8 @@ namespace ObjectInfos
         public string User_Processing { get; set; }
 
         public string Lawer_Name { get; set; }
+        public string Lawer_User_Name { get; set; }
+        public string User_Admin_Grant { get; set; }
     }
 
 
