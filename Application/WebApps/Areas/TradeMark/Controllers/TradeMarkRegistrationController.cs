@@ -20,6 +20,7 @@
     using CrystalDecisions.Shared;
     using System.Linq;
     using System.Drawing;
+    using System.Collections;
 
     [ValidateAntiForgeryTokenOnAllPosts]
     [RouteArea("TradeMarkRegistration", AreaPrefix = "trade-mark")]
@@ -439,13 +440,30 @@
                 }
                 if (pAppClassInfo != null)
                 {
+                    Hashtable _hsGroupclass = new Hashtable();
                     foreach (var item in pAppClassInfo)
                     {
-                        appInfo.strTongSonhom = item.TongSoNhom;
-                        appInfo.strTongSoSP = item.TongSanPham;
-                        appInfo.strListClass += item.Textinput + " - " + item.Code + ";";
+                        AppClassDetailInfo _newinfo = new AppClassDetailInfo();
+                        _newinfo.CloneObj();
+                        if (_hsGroupclass.ContainsKey(item.Code.Substring(0, 2)))
+                        {
+                            _newinfo = (AppClassDetailInfo)_hsGroupclass[item.Code.Substring(0, 2)];
+                        }
+                        _newinfo.Code = item.Code;
+                        _newinfo.Textinput += item.Textinput + ", ";
+                        _newinfo.IntTongSanPham++;
+                        _hsGroupclass[item.Code.Substring(0, 2)] = _newinfo;                        
                     }
-                    appInfo.strListClass = "Tổng số nhóm:" + appInfo.strTongSonhom + "; Tổng số sản phẩm: " + appInfo.strTongSoSP + " ; Danh sách nhóm: " + appInfo.strListClass;
+                    //appInfo.strListClass = "Tổng số nhóm: \n" + appInfo.strTongSonhom + "; Tổng số sản phẩm: " + appInfo.strTongSoSP + " ; Danh sách nhóm: " + appInfo.strListClass;
+                    List<AppClassDetailInfo> _listApp = new List<AppClassDetailInfo>();
+                    foreach (DictionaryEntry item in _hsGroupclass)
+                    {
+                        _listApp.Add((AppClassDetailInfo)item.Value);
+                    }
+                    foreach (AppClassDetailInfo item in _listApp.OrderBy(m=>m.Code))
+                    {
+                        appInfo.strListClass += "Nhóm " + item.Code.Substring(0,2) + ": " + item.Textinput.Trim().Trim(',') + " (" + (item.IntTongSanPham < 10 ? "0" + item.IntTongSanPham.ToString() : item.IntTongSanPham.ToString()) + " sản phẩm)" + "\n";
+                    }
                 }
                 if (lstDocOther != null)
                 {

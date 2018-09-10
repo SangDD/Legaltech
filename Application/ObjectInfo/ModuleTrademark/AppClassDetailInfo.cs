@@ -19,5 +19,11 @@ namespace ObjectInfos
 
         public string TongSanPham { get; set; }
 
+        public int IntTongSanPham { get; set; }
+
+        public object CloneObj()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }
