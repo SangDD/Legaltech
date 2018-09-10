@@ -5,9 +5,8 @@
 @model Billing_Header_Info
 
 @{
-    ViewBag.Title = "Thêm mới billing";
+    ViewBag.Title = "Duyệt billing";
     Layout = "~/ViewsShared/_Layout.cshtml";
-
 
     List<AllCodeInfo> _lstBank = MemoryData.AllCode_GetBy_CdTypeCdName("BILLING", "BANK");
     string _BankName = "";
@@ -23,9 +22,6 @@
     BussinessFacade.ModuleUsersAndRoles.UserBL _UserBL = new BussinessFacade.ModuleUsersAndRoles.UserBL();
     List<UserInfo> _lstUsersAdmin = _UserBL.GetUserByType(Convert.ToDecimal(Common.CommonData.CommonEnums.UserType.Admin));
     var lstUsersAdmin = _lstUsersAdmin.Select(x => new SelectListItem { Text = x.FullName, Value = x.Username });
-
-    Model.Billing_Date = DateTime.Now;
-    Model.Deadline = DateTime.Now.AddDays(30);
 }
 <script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
 <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
@@ -65,7 +61,7 @@
 <div class="d-main">
     <div class="divCover">
         <div class="classTitle">
-            <div class="div-title-content"> THÊM MỚI BILLING</div>
+            <div class="div-title-content"> DUYỆT THÔNG TIN BILLING</div>
         </div>
     </div>
 
@@ -87,7 +83,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @maxlength = "50", @onblur = "onChangeApp_Case_Code()", @style = "width: 250px" })
+                    @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @maxlength = "50", @onblur = "onChangeApp_Case_Code()", @style = "width: 250px", @disabled = "disabled" })
                 </div>
             </div>
 
@@ -97,7 +93,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.DropDownList("Approve_By", lstUsersAdmin, new { @id = "Approve_By" })
+                    @Html.DropDownList("Approve_By", lstUsersAdmin, new { @id = "Approve_By", @disabled = "disabled" })
                 </div>
             </div>
         </div>
@@ -119,7 +115,7 @@
                             @placeholder = "dd/mm/yyyy",
                             @class = "datepicker",
                             @style = "width: 250px",
-                            @onblur = "onChangeBilling_Date()"
+                            @disabled = "disabled"
                         })
                 </div>
             </div>
@@ -193,7 +189,8 @@
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;margin-top: 5px;">
-            <input type="submit" class="btn-default" value="Lưu" onclick="return doInsertBilling()" />
+            <input type="submit" class="btn-default" value="Duyệt" onclick="return onApprove()" />
+            <input type="submit" class="btn-default" value="Thoát" onclick="return onBack()" />
         </div>
     </div>
 
@@ -202,146 +199,40 @@
 <script>
 
     $(document).ready(function () {
-        $("#txtApp_Case_Code").focus();
+        $("txtApp_Case_Code").focus();
     });
 
-    function onChangeApp_Case_Code() {
+    function onBack() {
         try {
 
-            var _txtCaseCodeSearch = $("#txtCaseCodeSearch").val();
-            var _App_Case_Code = $("#txtApp_Case_Code").val();
-
-            if (_txtCaseCodeSearch == _App_Case_Code) {
-                return;
+            if (CheckSessionTimeOut() == false) {
+                return false;
             }
 
-            if (_App_Case_Code != "") {
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/quan-ly-billing/danh-sach-billing/GetAppByCaseCode',
-                    data: {
-                        p_case_code: _App_Case_Code,
-                    },
-                    async: true, cache: false, traditional: true,
-                    beforeSend: function () {
-                        CreateRollingWaitingIcon(true);
-                    },
-                    success: function (data) {
-                        CreateRollingWaitingIcon(false);
-
-                        $("#divInfoApp").html(data.Partial_AppInfo);
-                        $("#divDataBillingDetail").html(data.PartialDetail_Insert_Billing);
-
-                        CssPopUpTag("divWrapperPopUpBilling", ".divPopup");
-                        $("#txtCaseCodeSearch").val(_App_Case_Code);
-                    }
-                });
-            }
+            var url = "/quan-ly-billing/danh-sach-billing/";
+            window.location.href = url;
         } catch (e) {
             CreateRollingWaitingIcon(true);
             alert(e);
         }
     }
 
-    function onChangeBilling_Date() {
+    function onApprove() {
         try {
 
-            var txtBilling_Date = $("#txtBilling_Date").val();
-            if (checkDate("Billing", "#txtBilling_Date", txtBilling_Date) == false) {
+            if (CheckSessionTimeOut() == false) {
                 return false;
             }
 
-            $.ajax({
-                type: 'POST',
-                url: '/quan-ly-billing/danh-sach-billing/change-date',
-                data: {
-                    p_date: txtBilling_Date,
-                },
-                async: true, cache: false, traditional: true,
-                success: function (data) {
-                    CreateRollingWaitingIcon(false);
-                    $("#txtDeadline").val(data.success);
-                }
-            });
-        } catch (e) {
-            alert(e.toString());
-        }
-    }
-
-    function doDeleteBillingDetail(_Ref_Id, _type) {
-        try {
-            nvsConfirm(null, "Bạn có chắc chắn muốn xóa loại fee này không?", function () {
+            nvsConfirm(null, "Bạn có chắc chắn muốn duyệt billing này không?", function () {
                 $.ajax({
-                    url: '/quan-ly-billing/danh-sach-billing/do-delete-billing-detail',
-                    type: 'POST',
+                    url: "/quan-ly-billing/danh-sach-billing/do-change-status",
+                    type: "POST",
                     data: {
-                        p_case_code: $("#txtApp_Case_Code").val(),
-                        p_Ref_Id: _Ref_Id,
-                        p_Type: _type
+                        p_id: @Model.Billing_Id
                     },
-                    async: true, cache: false, traditional: true,
-                    beforeSend: function () {
-                        CreateRollingWaitingIcon(true);
-                    },
-                    success: function (data) {
-                        CreateRollingWaitingIcon(false);
-                        $("#divDataBillingDetail").html(data);
-                        CssPopUpTag("divWrapperPopUpBilling", ".divPopup");
-                    },
-                    error: function (e) {
-                        CreateRollingWaitingIcon(false);
-                        console.log(e);
-                    }
-                });
-            });
-        } catch (e) {
-
-        }
-    }
-
-    function onChangeFeeService(_value) {
-
-        var _amount = parseInt(_value.replace(/,/g, ""));
-
-        try {
-            $.ajax({
-                url: '/quan-ly-billing/danh-sach-billing/change-other-billing-detail',
-                type: 'POST',
-                data: {
-                    p_case_code: $("#txtApp_Case_Code").val(),
-                    p_amount: _amount
-                },
-                async: true, cache: false, traditional: true,
-                beforeSend: function () {
-                    CreateRollingWaitingIcon(true);
-                },
-                success: function (data) {
-                    CreateRollingWaitingIcon(false);
-                    $("#divDataBillingDetail").html(data);
-                    CssPopUpTag("divWrapperPopUpBilling", ".divPopup");
-                },
-                error: function (e) {
-                    CreateRollingWaitingIcon(false);
-                    console.log(e);
-                }
-            });
-        } catch (e) {
-
-        }
-    }
-
-    function doInsertBilling() {
-        if (validateForm()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn thêm billing này không?", function () {
-                var formData = new FormData();
-                collectData(formData);
-                $.ajax({
-                    url: '/quan-ly-billing/danh-sach-billing/do-insert-billing',
-                    type: 'POST',
-                    data: formData,
-                    async: true, traditional: true, contentType: false, processData: false,
                     headers: { "cache-control": "no-cache" },
+                    async: true, cache: false, traditional: true,
                     beforeSend: function () {
                         CreateRollingWaitingIcon(true);
                     },
@@ -352,13 +243,12 @@
                             return false;
                         }
                         else if (data.success == "-2") {
-                            jError("Không có thông tin billing");
+                            jError("Billing đã được duyệt, không thể duyệt");
                             return false;
                         }
                         else {
-                            jAlert('Thêm billing thành công!', "THÔNG BÁO", function () {
-                                var url = "/quan-ly-billing/danh-sach-billing/";
-                                window.location.href = url;
+                            jAlert('Duyệt billing thành công!', "THÔNG BÁO", function () {
+                                window.location.href = "/quan-ly-billing/danh-sach-billing/";
                             });
                         }
                     },
@@ -368,57 +258,10 @@
                     }
                 });
             });
-        }
-    }
-
-    function validateForm() {
-        if (CheckSessionTimeOut() == false) {
-            return false;
-        }
-
-        var App_Case_Code = $("#txtApp_Case_Code").val();
-        if (App_Case_Code == null) {
-            jError("Case code không được bỏ trống!", "lỗi", function () {
-                $("#txtApp_Case_Code").val('');
-                $('#txtApp_Case_Code').focus();
-            });
-            return false;
-        }
-
-        var txtBilling_Date = $("#txtBilling_Date").val();
-        if (checkDate("Billing", "#txtBilling_Date", txtBilling_Date) == false) {
-            return false;
-        }
-
-
-        return true;
-    }
-
-    function collectData(formData) {
-        try {
-
-            // hearder
-            formData.append('p_Billing_Header_Info.Case_Code', $("#txtCaseCode").val());
-            formData.append('p_Billing_Header_Info.App_Case_Code', $("#txtApp_Case_Code").val());
-            formData.append('p_Billing_Header_Info.Billing_Type', '@Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Type.App)');
-
-            formData.append('p_Billing_Header_Info.Billing_Date', $("#txtBilling_Date").val());
-            formData.append('p_Billing_Header_Info.Deadline', $("#txtDeadline").val());
-
-            formData.append('p_Billing_Header_Info.Request_By', $("#txtRequest_By").val());
-            formData.append('p_Billing_Header_Info.Approve_By', $("#txtApprove_By").val());
-
-            formData.append('p_Billing_Header_Info.Total_Pre_Tex', parseInt($("#txt_Total_Pre_Tex").val().replace(/,/g, "")));
-            formData.append('p_Billing_Header_Info.Tex_Fee', parseInt($("#txt_Tex_Fee").val().replace(/,/g, "")));
-            formData.append('p_Billing_Header_Info.Total_Vnd', parseInt($("#txt_Total_VND").val().replace(/,/g, "")));
-
-            formData.append('p_Billing_Header_Info.Currency', '');
-            formData.append('p_Billing_Header_Info.Currency_Rate', 0);
-            formData.append('p_Billing_Header_Info.Total_Foeign', 0);
-            // detail
-
         } catch (e) {
-            alert(e.toString());
+            CreateRollingWaitingIcon(true);
+            alert(e);
         }
     }
+ 
 </script>

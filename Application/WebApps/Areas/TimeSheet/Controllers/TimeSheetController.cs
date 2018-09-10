@@ -9,6 +9,7 @@ using ObjectInfos;
 using WebApps.Session;
 using BussinessFacade;
 using Common.CommonData;
+using WebApps.CommonFunction;
 
 namespace WebApps.Areas.TimeSheet.Controllers
 {
@@ -137,7 +138,7 @@ namespace WebApps.Areas.TimeSheet.Controllers
                 p_Timesheet_Info.Created_By = SessionData.CurrentUser.Username;
                 p_Timesheet_Info.Lawer_Id = SessionData.CurrentUser.Id;
                 p_Timesheet_Info.Status = (decimal)CommonEnums.TimeSheet_Status.New;
-                decimal _ck = _obj_bl.Timesheet_Insert(p_Timesheet_Info);
+                decimal _ck = _obj_bl.Timesheet_Insert(p_Timesheet_Info, AppsCommon.GetCurrentLang());
                 return Json(new { success = _ck });
             }
             catch (Exception ex)

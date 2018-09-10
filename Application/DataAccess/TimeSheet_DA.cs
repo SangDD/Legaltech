@@ -81,7 +81,7 @@ namespace DataAccess
         }
 
         public decimal Timesheet_Insert(string p_name, decimal p_app_header_id, decimal p_lawer_id, DateTime p_time_date, decimal p_hours, string p_notes, 
-            decimal p_status, string p_created_by, DateTime p_created_date)
+            decimal p_status, string p_created_by, DateTime p_created_date, string p_language_code)
         {
             try
             {
@@ -96,6 +96,7 @@ namespace DataAccess
                     new OracleParameter("p_status", OracleDbType.Decimal, p_status, ParameterDirection.Input),
                     new OracleParameter("p_created_by", OracleDbType.Varchar2, p_created_by, ParameterDirection.Input),
                     new OracleParameter("p_created_date", OracleDbType.Date, p_created_date, ParameterDirection.Input),
+                    new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
                     paramReturn);
                 
                 return Convert.ToDecimal(paramReturn.Value.ToString());

@@ -21,7 +21,8 @@
 
                 <th class="class100">Số ngày trễ</th>
                 <th class="class150">Số tiền</th>
-                <th class="class150">Trạng thái thanh toán</th>
+                <th class="class100">Trạng thái</th>
+                <th class="class100">TT thanh toán</th>
                 <th class="class100">Chức năng</th>
             </tr>
         </thead>
@@ -30,35 +31,52 @@
             {
                 foreach (var item in _list_data)
                 {
-                    <tr>
-                        <td class="tdcenteralign">@item.STT</td>
-                        <td class="tdleftalign">@item.Case_Code</td>
-                        <td class="tdleftalign">@item.App_Case_Code</td>
-                        <td class="tdcenteralign">@item.Billing_Date.ToString("dd/MM/yyyy")</td>
-                        <td class="tdcenteralign">@item.Deadline.ToString("dd/MM/yyyy")</td>
-                        <td class="tdcenteralign">@item.SoNgayTre</td>
-                        <td class="tdrightalign">@item.Total_Vnd.ToString("#,##0.##")</td>
+            <tr>
+                <td class="tdcenteralign">@item.STT</td>
+                <td class="tdleftalign">@item.Case_Code</td>
+                <td class="tdleftalign">@item.App_Case_Code</td>
+                <td class="tdcenteralign">@item.Billing_Date.ToString("dd/MM/yyyy")</td>
+                <td class="tdcenteralign">@item.Deadline.ToString("dd/MM/yyyy")</td>
+                <td class="tdcenteralign">@item.SoNgayTre</td>
+                <td class="tdrightalign" style="font-weight:bold;color: red">@item.Total_Vnd.ToString("#,##0.##")</td>
 
-                        <td class="tdleftalign">@item.Pay_Status_Name</td>
+                @if (item.Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Status.New_Wait_Approve))
+                {
+                    <td class="tdleftalign" style="font-weight:bold; color: red">@item.Status_Name</td>
+                }
+                else
+                {
+                    <td class="tdleftalign" style="font-weight:bold; color: blue">@item.Status_Name</td>
+                }
 
+                @if (item.Pay_Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Pay_Status.Payment))
+                {
+                    <td class="tdleftalign" style="font-weight:bold; color: red">@item.Pay_Status_Name</td>
+                }
+                else
+                {
+                    <td class="tdleftalign" style="font-weight:bold">@item.Pay_Status_Name</td>
+                }
 
-                        <td class="tdcenteralign">
-                            <a href="javascript:;" onclick="GetView2View_Billing(@item.Billing_Id, '@item.App_Case_Code')" class="icon icon-info" data-title="Xem chi tiết"></a>
-                            <a href="javascript:;" onclick="getView2Edit(@item.Billing_Id, '@item.App_Case_Code')" class="icon icon-edit" data-title="Sửa"></a>
+                
 
-                            @if (item.Status != Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Status.Approved))
-                            {
-                                <a href="javascript:;" onclick="doDeleteBilling(@item.Billing_Id)" class="icon icon-delete" data-title="Xóa"></a>
-                                <a href="javascript:;" onclick="getView2Approve(@item.Billing_Id, '@item.App_Case_Code')" class="icon icon-confirm-circle" data-title="Approve"></a>
-                            }
-                        </td>
-                    </tr>
+                <td class="tdcenteralign">
+                    <a href="javascript:;" onclick="GetView2View_Billing(@item.Billing_Id, '@item.App_Case_Code')" class="icon icon-info" data-title="Xem chi tiết"></a>
+
+                    @if (item.Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Status.New_Wait_Approve))
+                    {
+                        <a href="javascript:;" onclick="doDeleteBilling(@item.Billing_Id)" class="icon icon-delete" data-title="Xóa"></a>
+                        <a href="javascript:;" onclick="getView2Edit(@item.Billing_Id, '@item.App_Case_Code')" class="icon icon-edit" data-title="Sửa"></a>
+                        <a href="javascript:;" onclick="getView2Approve(@item.Billing_Id, '@item.App_Case_Code')" class="icon icon-confirm-circle" data-title="Approve"></a>
+                    }
+                </td>
+            </tr>
                 }
             }
             else
             {
                 <tr>
-                    <td colspan="9">Không có dữ liệu</td>
+                    <td colspan="10">Không có dữ liệu</td>
                 </tr>
             }
         </tbody>

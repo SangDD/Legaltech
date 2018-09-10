@@ -71,13 +71,13 @@ namespace BussinessFacade
             }
         }
 
-        public decimal Timesheet_Insert(Timesheet_Info p_obj)
+        public decimal Timesheet_Insert(Timesheet_Info p_obj, string p_language_code)
         {
             try
             {
                 TimeSheet_DA _da = new TimeSheet_DA();
                 return _da.Timesheet_Insert(p_obj.Name, p_obj.App_Header_Id, p_obj.Lawer_Id, p_obj.Time_Date,
-                     p_obj.Hours, p_obj.Notes, p_obj.Status, p_obj.Created_By, DateTime.Now);
+                     p_obj.Hours, p_obj.Notes, p_obj.Status, p_obj.Created_By, DateTime.Now, p_language_code);
             }
             catch (Exception ex)
             {

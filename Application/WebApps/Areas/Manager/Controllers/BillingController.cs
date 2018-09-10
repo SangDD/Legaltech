@@ -102,9 +102,14 @@ namespace WebApps.Areas.Manager.Controllers
                 ApplicationHeaderInfo objAppHeaderInfo = new ApplicationHeaderInfo();
                 List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
                 Billing_Header_Info _Billing_Header_Info = _obj_bl.Billing_GetBy_Id(id, case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
+                foreach (Billing_Detail_Info item in _lst_billing_detail)
+                {
+                    item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
+                }
 
                 ViewBag.objAppHeaderInfo = objAppHeaderInfo;
                 ViewBag.List_Billing = _lst_billing_detail;
+                ViewBag.Operator_Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.View);
                 return PartialView("~/Areas/Manager/Views/Billing/_PartialView.cshtml", _Billing_Header_Info);
             }
             catch (Exception ex)
@@ -113,7 +118,6 @@ namespace WebApps.Areas.Manager.Controllers
                 return PartialView("~/Areas/Manager/Views/Billing/_PartialView.cshtml", new Billing_Header_Info());
             }
         }
-
 
         // Insert 
         [HttpGet]
@@ -377,27 +381,48 @@ namespace WebApps.Areas.Manager.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("danh-sach-billing/show-billing")]
-        public ActionResult GetView2Approve(int p_id, string p_app_case_code)
+        [Route("danh-sach-billing/show-approve-billing")]
+        public ActionResult GetView2Approve(int id, string case_code)
         {
             try
             {
                 Billing_BL _obj_bl = new Billing_BL();
                 ApplicationHeaderInfo objAppHeaderInfo = new ApplicationHeaderInfo();
                 List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
-                Billing_Header_Info _Billing_Header_Info = _obj_bl.Billing_GetBy_Id(p_id, p_app_case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
+                Billing_Header_Info _Billing_Header_Info = _obj_bl.Billing_GetBy_Id(id, case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
+                foreach (Billing_Detail_Info item in _lst_billing_detail)
+                {
+                    item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
+                }
 
                 ViewBag.objAppHeaderInfo = objAppHeaderInfo;
                 ViewBag.List_Billing = _lst_billing_detail;
-                return PartialView("~/Areas/Manager/Views/Billing/_PartialView.cshtml", _Billing_Header_Info);
+                ViewBag.Operator_Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Approve);
+
+                return PartialView("~/Areas/Manager/Views/Billing/_PartialApprove.cshtml", _Billing_Header_Info);
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialApproveTimeSheet.cshtml");
+                return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialApprove.cshtml");
             }
 
+        }
+
+        [HttpPost]
+        [Route("danh-sach-billing/change-date")]
+        public ActionResult ChangeDate(string p_date)
+        {
+            try
+            {
+                DateTime _dt = ConvertData.ConvertString2Date(p_date);
+                return Json(new { success = _dt.AddMonths(1).ToString("dd/MM/yyyy") });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = DateTime.Now.AddMonths(1).ToString("dd/MM/yyyy") });
+            }
         }
     }
 }
