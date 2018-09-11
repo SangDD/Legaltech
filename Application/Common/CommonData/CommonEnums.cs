@@ -76,6 +76,12 @@
             Approved = 2
         }
 
+        public enum Billing_Pay_Status
+        {
+            Payment = 1,
+            Paid = 2
+        }
+
         public enum Billing_Type
         {
             App = 1,
@@ -88,6 +94,14 @@
             TimeSheet = 2,
             Service = 3,
             Others = 4
+        }
+
+        public enum Operator_Type
+        {
+            Insert = 1,
+            Update = 2,
+            Approve = 3,
+            View = 4    
         }
     }
 

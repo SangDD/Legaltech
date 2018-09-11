@@ -87,7 +87,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Hours_Adjust, new { id = "txtHours_Adjust", @Value = Model.Hours_Adjust == 0 ? "" : Model.Hours_Adjust.ToString("#,##0.##"), onkeyup = "jsFormatNumber(this.value, this.id)" })
+                    @Html.TextBoxFor(m => m.Hours_Adjust, new { id = "txtHours_Adjust", @Value = Model.Hours_Adjust == 0 ? "" : Model.Hours_Adjust.ToString("#,##0.##"), onkeyup = "jsFormatFloatNumber(this.value, this.value.length, 2)" })
                 </div>
             </div>
         </div>
@@ -133,7 +133,7 @@
             }
 
             var txtHours_Adjust = $("#txtHours_Adjust").val();
-            if (txtHours_Adjust == null) {
+            if (txtHours_Adjust == null || txtHours_Adjust == "") {
                 jError("Giờ điều chỉnh không được bỏ trống!", "lỗi", function () {
                     $("#txtHours_Adjust").val('');
                     $('#txtHours_Adjust').focus();
@@ -148,7 +148,7 @@
 
     function doRejectTimeSheet() {
 
-        if (validateForm() == false) {
+        if (CheckValidate() == false) {
             return;
         }
 
@@ -187,7 +187,7 @@
     }
 
     function doApproveTimeSheet() {
-        if (validateForm() == false) {
+        if (CheckValidate() == false) {
             return;
         }
 
@@ -211,7 +211,7 @@
                     }
                     else {
                         jAlert('Duyệt timesheet thành công!', "THÔNG BÁO", function () {
-                            ClosePopupApprove();
+                            ClosePopUpTimeSheet();
                             Search_TimeSheet(1,1);
                         });
                     }
@@ -226,7 +226,7 @@
 
     function collectData(formData, p_type) {
         formData.append('p_id', @Model.Id);
-        formData.append('p_hours_adjust', @Model.Id);
+        formData.append('p_hours_adjust', $("#txtHours_Adjust").val());
         formData.append('p_status', p_type);
         formData.append('p_reject_reason',  $("#txtReject_Reason").val());
     }

@@ -15,14 +15,14 @@
             <tr>
                 <th class="class30">STT</th>
                 <th class="class150" data-sort id="Appcode">Tên timesheet</th>
-                <th class="class150" data-sort id="Appcode">Ghi chú</th>
-
                 <th class="class150" data-sort id="Appcode">Mã đơn</th>
                 <th class="class100" data-sort id="Appcode">Tên vụ việc</th>
                 <th class="class150">Luật sư</th>
                 <th class="class100">Ngày</th>
                 <th class="class50">Số giờ</th>
+                <th class="class100">Số giờ điều chỉnh</th>
                 <th class="class100">Trạng thái</th>
+                <th class="class150" data-sort id="Appcode">Ghi chú</th>
                 <th class="class100">Chức năng</th>
             </tr>
         </thead>
@@ -31,46 +31,57 @@
             {
                 foreach (var item in _list_data)
                 {
-                    <tr>
-                        <td class="tdcenteralign">@item.STT</td>
-                        <td class="tdleftalign">@item.Name</td>
-                        <td class="tdleftalign">@item.Notes</td>
-                        <td class="tdleftalign">@item.App_Case_Code</td>
-                        <td class="tdleftalign">@item.Client_Reference</td>
-                        <td class="tdleftalign">@item.Lawer_Name</td>
-                        <td class="tdleftalign">@item.Time_Date.ToString("dd/MM/yyyy")</td>
-                        <td class="tdleftalign">@item.Hours</td>
-                        <td class="tdleftalign">@item.Status_Name</td>
+            <tr>
+                <td class="tdcenteralign">@item.STT</td>
+                <td class="tdleftalign">@item.Name</td>
+                <td class="tdleftalign">@item.App_Case_Code</td>
+                <td class="tdleftalign">@item.Client_Reference</td>
+                <td class="tdleftalign">@item.Lawer_Name</td>
+                <td class="tdleftalign">@item.Time_Date.ToString("dd/MM/yyyy")</td>
+                <td class="tdleftalign">@item.Hours</td>
+                <td class="tdleftalign">@item.Hours_Adjust.ToString("#,##0.##")</td>
 
-                        <td class="tdcenteralign">
-                            <a href="javascript:getViewTimeSheet(@item.Id)" class="icon icon-info" data-title="Xem chi tiết"></a>
+                @if (item.Status != Convert.ToDecimal(Common.CommonData.CommonEnums.TimeSheet_Status.Approve))
+                {
+                    <td class="tdleftalign" style="font-weight:bold; color: red">@item.Status_Name</td>
+                }
+                else
+                {
+                    <td class="tdleftalign" style="font-weight:bold; color: blue">@item.Status_Name</td>
+                }
 
-                            @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin)
-                            {
-                                if (item.Status == (decimal)CommonEnums.TimeSheet_Status.New)
-                                {
-                                    <a href="javascript:;" onclick="getView2Approve(@item.Id)" class="icon icon-confirm-circle" data-title="Duyệt"></a>
-                                    @*<a href="javascript:;" onclick="getView2Edit(@item.Id)" class="icon icon-edit" data-title="Sửa"></a>*@
-                                }
-                            }
-                            else if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
-                            {
-                                <a href="javascript:;" onclick="doDeleteTimeSheet(@item.Id)" class="icon icon-delete" data-title="Xóa"></a>
-                                <a href="javascript:;" onclick="getView2Edit(@item.Id)" class="icon icon-edit" data-title="Sửa"></a>
 
-                                @*if (item.Status != (decimal)CommonEnums.TimeSheet_Status.Approve)
-                                {
-                                    <a href="javascript:;" onclick="getView2Edit(@item.Id)" class="icon icon-edit" data-title="Sửa"></a>
-                                }*@
-                            }
-                        </td>
-                    </tr>
+                <td class="tdleftalign">@item.Notes</td>
+
+                <td class="tdcenteralign">
+                    <a href="javascript:getViewTimeSheet(@item.Id)" class="icon icon-info" data-title="Xem chi tiết"></a>
+
+                    @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin)
+                    {
+                        if (item.Status == (decimal)CommonEnums.TimeSheet_Status.New)
+                        {
+                            <a href="javascript:;" onclick="getView2Approve(@item.Id)" class="icon icon-confirm-circle" data-title="Duyệt"></a>
+                            @*<a href="javascript:;" onclick="getView2Edit(@item.Id)" class="icon icon-edit" data-title="Sửa"></a>*@
+                        }
+                    }
+                    else if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
+                    {
+                        <a href="javascript:;" onclick="doDeleteTimeSheet(@item.Id)" class="icon icon-delete" data-title="Xóa"></a>
+                        <a href="javascript:;" onclick="getView2Edit(@item.Id)" class="icon icon-edit" data-title="Sửa"></a>
+
+                        @*if (item.Status != (decimal)CommonEnums.TimeSheet_Status.Approve)
+                {
+                    <a href="javascript:;" onclick="getView2Edit(@item.Id)" class="icon icon-edit" data-title="Sửa"></a>
+                }*@
+                    }
+                </td>
+            </tr>
                 }
             }
             else
             {
                 <tr>
-                    <td colspan="10">Không có dữ liệu</td>
+                    <td colspan="11">Không có dữ liệu</td>
                 </tr>
             }
         </tbody>
