@@ -27,7 +27,8 @@
             ChoKHConfirm = 5,
             KhacHangDaConfirm = 6,
             KhacHangDaTuChoi = 61,
-            DaGuiLenCuc = 7
+            DaNopDon = 7,
+            DaGuiLenCuc = 8
         }
 
         public enum UserType
