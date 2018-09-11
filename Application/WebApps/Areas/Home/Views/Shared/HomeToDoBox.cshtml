@@ -16,10 +16,26 @@
     .divNumberRecordOnPage {
         display: none;
     }
+    .tbl_todonotify
+    {
+        float:left;
+        margin-left:10px;
+    }
+    .tdnotifynumber{
+        text-align: center;
+        color: red;
+        font-size: 20px;
+    }
+      .tdnotifytext{
+        text-align: center;
+        width:100px;
+    }
 </style>
 
 <div class="divCover legalTodo_div"  style="background-color: antiquewhite;">
-    <div class="box_title"> TÌM VIỆC CẦN LÀM </div>
+    <div class="box_title" style="width:200px; float:left"> VIỆC CẦN LÀM </div>
+    <div id="d_todo_notify" class="box_title" style="width:calc(100% - 240px); padding:0px; float:left">
+    </div>
     <div>
         <input type="hidden" id="colSortedTodo" />
         <input type="hidden" id="SortTypeTodo" />
@@ -71,7 +87,31 @@
                 async: false,
                 success: function (data) {
                     if (data != null) {
-                        $("#LegalTododivTable").html(data);
+                        var _htmlnotify = "";
+                        $("#LegalTododivTable").html(data.TodoData);
+                        //   alert(data.TodoNotify.NUMBER_APPS);
+                        if(data.TodoNotify.NUMBER_APPS > 0)
+                        {
+                            _htmlnotify = _htmlnotify + "<table class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_APPS + "</td></tr><tr><td class='tdnotifytext'>ĐƠN</td></tr></table>";
+                        }
+                        if (data.TodoNotify.NUMBER_QUETIONS > 0)
+                        {
+                            _htmlnotify = _htmlnotify + "<table  class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_QUETIONS + "</td></tr><tr><td class='tdnotifytext'>CÂU HỎI</td></tr></table>";
+                        }
+                        if (data.TodoNotify.NUMBER_SEARCH > 0)
+                        {
+                            _htmlnotify = _htmlnotify + "<table  class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_SEARCH + "</td></tr><tr><td class='tdnotifytext'>TÌM KIẾM</td></tr></table>";
+                        }
+                        if (data.TodoNotify.NUMBER_TIMESHEET > 0)
+                        {
+                            _htmlnotify = _htmlnotify + "<table  class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_TIMESHEET + "</td></tr><tr><td class='tdnotifytext'>TIMESHEET</td></tr></table>";
+                        }
+                        if (data.TodoNotify.NUMBER_BILLS > 0)
+                        {
+                            _htmlnotify = _htmlnotify + "<table  class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_BILLS + "</td></tr><tr><td class='tdnotifytext'>HÓA ĐƠN</td></tr></table>";
+                        }
+                        $("#d_todo_notify").html(_htmlnotify);
+
                     }
                 }
             });

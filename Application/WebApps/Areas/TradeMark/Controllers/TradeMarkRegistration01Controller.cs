@@ -21,6 +21,7 @@
     using CrystalDecisions.Shared;
     using System.Linq;
     using System.Drawing;
+    using System.Collections;
 
     [ValidateAntiForgeryTokenOnAllPosts]
     [RouteArea("TradeMarkRegistration", AreaPrefix = "trade-mark-01")]
@@ -642,15 +643,43 @@
                 pDetail.REF_APPNO_TEXT = pDetail.REF_APPNO_TEXT.Trim();
                 pDetail = CreateInstanceTM06DKQT.CopyAppHeaderInfo(pDetail, pInfo);
 
+                //if (pAppClassInfo != null)
+                //{
+                //    foreach (var item in pAppClassInfo)
+                //    {
+                //        pDetail.strTongSonhom = item.TongSoNhom;
+                //        pDetail.strTongSoSP = item.TongSanPham;
+                //        pDetail.strListClass += item.Textinput + " - " + item.Code + ";";
+                //    }
+                //    pDetail.strListClass = "Tổng số nhóm:" + pDetail.strTongSonhom + "; Tổng số sản phẩm: " + pDetail.strTongSoSP + " ; Danh sách nhóm: " + pDetail.strListClass;
+                //}
+
                 if (pAppClassInfo != null)
                 {
+                    Hashtable _hsGroupclass = new Hashtable();
                     foreach (var item in pAppClassInfo)
                     {
-                        pDetail.strTongSonhom = item.TongSoNhom;
-                        pDetail.strTongSoSP = item.TongSanPham;
-                        pDetail.strListClass += item.Textinput + " - " + item.Code + ";";
+                        AppClassDetailInfo _newinfo = new AppClassDetailInfo();
+                        _newinfo.CloneObj();
+                        if (_hsGroupclass.ContainsKey(item.Code.Substring(0, 2)))
+                        {
+                            _newinfo = (AppClassDetailInfo)_hsGroupclass[item.Code.Substring(0, 2)];
+                        }
+                        _newinfo.Code = item.Code;
+                        _newinfo.Textinput += item.Textinput + ", ";
+                        _newinfo.IntTongSanPham++;
+                        _hsGroupclass[item.Code.Substring(0, 2)] = _newinfo;
                     }
-                    pDetail.strListClass = "Tổng số nhóm:" + pDetail.strTongSonhom + "; Tổng số sản phẩm: " + pDetail.strTongSoSP + " ; Danh sách nhóm: " + pDetail.strListClass;
+                    //appInfo.strListClass = "Tổng số nhóm: \n" + appInfo.strTongSonhom + "; Tổng số sản phẩm: " + appInfo.strTongSoSP + " ; Danh sách nhóm: " + appInfo.strListClass;
+                    List<AppClassDetailInfo> _listApp = new List<AppClassDetailInfo>();
+                    foreach (DictionaryEntry item in _hsGroupclass)
+                    {
+                        _listApp.Add((AppClassDetailInfo)item.Value);
+                    }
+                    foreach (AppClassDetailInfo item in _listApp.OrderBy(m => m.Code))
+                    {
+                        pDetail.strListClass += "Nhóm " + item.Code.Substring(0, 2) + ": " + item.Textinput.Trim().Trim(',') + " (" + (item.IntTongSanPham < 10 ? "0" + item.IntTongSanPham.ToString() : item.IntTongSanPham.ToString()) + " sản phẩm)" + "\n";
+                    }
                 }
 
                 //Hiển thị tài liệu trong đơn

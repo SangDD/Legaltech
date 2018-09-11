@@ -34,5 +34,29 @@ namespace ObjectInfos
 
         public string PROCESSOR_BY_NAME { get; set; }
 
+        public int NUMBER_APPS { get; set; }
+
+        public int NUMBER_QUETIONS { get; set; }
+
+        public int NUMBER_SEARCH { get; set; }
+
+        public int NUMBER_TIMESHEET { get; set; }
+
+        public int NUMBER_BILLS { get; set; }
+
+    }
+
+    public class B_TodoNotify_Info
+    {
+        public int NUMBER_APPS { get; set; }
+
+        public int NUMBER_QUETIONS { get; set; }
+
+        public int NUMBER_SEARCH { get; set; }
+
+        public int NUMBER_TIMESHEET { get; set; }
+
+        public int NUMBER_BILLS { get; set; }
+
     }
 }

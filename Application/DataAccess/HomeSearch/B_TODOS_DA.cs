@@ -22,8 +22,9 @@ namespace DataAccess
                     new OracleParameter("p_to", OracleDbType.Varchar2, p_to, ParameterDirection.Input),
                     new OracleParameter("p_sort_type", OracleDbType.Varchar2, p_sort_type, ParameterDirection.Input),
                     paramReturn,
-                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
-
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("P_CURSOR_TODO", OracleDbType.RefCursor, ParameterDirection.Output));
+                
                 p_total_record = Convert.ToDecimal(paramReturn.Value.ToString());
                 return _ds;
             }

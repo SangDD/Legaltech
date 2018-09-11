@@ -12,6 +12,7 @@
     using System.Collections.Generic;
     using Common.CommonData;
     using BussinessFacade.ModuleTrademark;
+    using System.IO;
 
     [ValidateAntiForgeryTokenOnAllPosts]
  
@@ -288,13 +289,15 @@
             try
             {
                 B_Todos_BL _obj_bl = new B_Todos_BL();
-                keysSearch = B_Todo.TypeProcess;
-                List<B_Todos_Info> _lst = _obj_bl.B_Todos_Search(keysSearch, ref _total_record, p_from, p_to, _sortype);
+                keysSearch = B_Todo.TypeProcess + "|" + SessionData.CurrentUser.Username;
+                B_TodoNotify_Info p_todonotify = new B_TodoNotify_Info();
+                List<B_Todos_Info> _lst = _obj_bl.B_Todos_Search(ref p_todonotify, keysSearch, ref _total_record, p_from, p_to, _sortype);
                 htmlPaging = CommonFuc.Get_HtmlPaging<B_Todos_Info>((int)_total_record, p_CurrentPage, "Nội dung", _reconpage, "TodojsPaging");
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;
                 ViewBag.SumRecord = _total_record;
-                return PartialView("~/Areas/Home/Views/Shared/_TodoData.cshtml");
+                //return PartialView("~/Areas/Home/Views/Shared/_TodoData.cshtml");
+                return Json(new { TodoData = RenderPartialToString("~/Areas/Home/Views/Shared/_TodoData.cshtml", null), TodoNotify = p_todonotify });
             }
             catch (Exception ex)
             {
@@ -322,8 +325,9 @@
             try
             {
                 B_Todos_BL _obj_bl = new B_Todos_BL();
-                keysSearch = B_Todo.TypeRequest;
-                List<B_Todos_Info> _lst = _obj_bl.B_Todos_Search(keysSearch, ref _total_record, p_from, p_to, _sortype);
+                keysSearch = B_Todo.TypeRequest + "|" + SessionData.CurrentUser.Username;
+                B_TodoNotify_Info p_todonotify = new B_TodoNotify_Info();
+                List<B_Todos_Info> _lst = _obj_bl.B_Todos_Search(ref p_todonotify, keysSearch, ref _total_record, p_from, p_to, _sortype);
                 htmlPaging = CommonFuc.Get_HtmlPaging<B_Todos_Info>((int)_total_record, p_CurrentPage, "Nội dung", _reconpage, "TodojsPaging");
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;
@@ -335,6 +339,35 @@
                 Logger.LogException(ex);
             }
             return null;
+        }
+        /// <summary>
+        /// truyền vào view name và model trả ra partial dạng sstring
+        /// </summary>
+        /// <param name="viewName"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public string RenderPartialToString(string viewName, object model)
+        {
+            try
+            {
+                ViewData.Model = model;
+                using (var sw = new StringWriter())
+                {
+                    var viewResult = ViewEngines.Engines.FindPartialView(ControllerContext,
+                                                                             viewName);
+                    var viewContext = new ViewContext(ControllerContext, viewResult.View,
+                                                 ViewData, TempData, sw);
+                    viewContext.HttpContext.Response.ContentEncoding = System.Text.Encoding.GetEncoding("UTF-8");
+                    viewResult.View.Render(viewContext, sw);
+                    viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
+                    return sw.GetStringBuilder().ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return "";
+            }
         }
 
         #endregion

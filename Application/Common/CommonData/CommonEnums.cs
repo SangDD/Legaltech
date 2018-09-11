@@ -108,7 +108,7 @@
 
     public class B_Todo
     {
-        public const string TypeRequest = "1";
-        public const string TypeProcess = "2";
+        public const string TypeRequest = "ORDER";
+        public const string TypeProcess = "TODO";
     }
 }
