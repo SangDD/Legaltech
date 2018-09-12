@@ -26,7 +26,29 @@ namespace DataAccess.ModuleArticles
                 return new DataSet();
             }
         }
+        public DataSet ArticlesGetByPage(string pLanguage, string pTitle, DateTime pNgayCongBo, int pStart, int pEnd, ref decimal pTotalRecord)
+        {
+            try
+            {
+                OracleParameter paramReturn = new OracleParameter("P_TOTALRECORD", OracleDbType.Decimal, ParameterDirection.Output);
+                DataSet ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_NEWS.PROC_NEW_GET_BY_PAGE",
 
+                 new OracleParameter("P_LANGUAGE", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
+                 new OracleParameter("P_TITLE", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
+                 new OracleParameter("P_NGAYCONGBO", OracleDbType.Date, pLanguage, ParameterDirection.Input),
+                 new OracleParameter("P_START", OracleDbType.Int32, pLanguage, ParameterDirection.Input),
+                 new OracleParameter("P_END", OracleDbType.Int32, pLanguage, ParameterDirection.Input),
+                 new OracleParameter("P_CUSOR", OracleDbType.RefCursor, ParameterDirection.Output), paramReturn);
+                pTotalRecord = Convert.ToDecimal(paramReturn.Value.ToString());
+                return ds;
+
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
 
         public DataSet ArticlesGetPage(decimal pID, int pFrom, int pTo, string pLanguage, string pOrderBy, ref decimal pTotalRecord)
         {
