@@ -28,10 +28,18 @@
 
 @foreach (var item in lstClassDetailInfo)
 {
+    string pAppCode = item.Code;
+    if (!string.IsNullOrEmpty(item.Code))
+    {
+        if (item.Code.Length > 2)
+        {
+            pAppCode = item.Code.Substring(0, 2);
+        }
+    }
     <script>
-            var _appinfo = { name: '@Html.Raw(item.Textinput)', value: '@Html.Raw(@item.Code)' }
-            _EditArryAppClass.push(_appinfo)
-    </script>
+            var _appinfo = { name: '@Html.Raw(item.Textinput)', value: '@Html.Raw(@pAppCode)' }
+    _EditArryAppClass.push(_appinfo)
+</script>
 }
     <div class="div_full_100_area" style="border:solid 1px #ccc; width: calc(100% - 28px ); margin: 10px 0px 0px 0px">
         <div class="class_full_div_p class_text_center_bold">
@@ -251,6 +259,7 @@
             var _groupcode = classCode.substr(0, 2);
             var _countItem = 0;
             _ArrGroupAppClass.forEach(function (element) {
+                var abc = element.name;
                 if (element.name == _groupcode) {
                     _checkExits = 1;
                     element.value = element.value + 1;
