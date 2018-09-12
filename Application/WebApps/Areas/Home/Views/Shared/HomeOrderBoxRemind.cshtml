@@ -1,5 +1,5 @@
 ﻿<style>
-    .legalOrder_div {
+    .legalRemind_div {
         text-align: left;
         border: 1px solid #ccc;
         min-height: 50px;
@@ -17,37 +17,36 @@
     }
 </style>
 
-<div class="divCover legalOrder_div"  style="background-color: darkseagreen;">
-    <div class="box_title">   YÊU CẦU </div>
+<div class="divCover legalRemind_div"  style="background-color: cadetblue;">
+    <div class="box_title">   Remind </div>
     <div>
-        <input type="hidden" id="colSortedOrder" />
-        <input type="hidden" id="SortTypeOrder" />
+        <input type="hidden" id="colSortedRemid" />
+        <input type="hidden" id="SortTypeRemind" />
     </div>
 
     <div class="Homebox">
-        <div id="LegalOrderdivTable" class="LegaldivBoxTable">
-            @Html.Partial("/Areas/Home/Views/Shared/_OrderData.cshtml")
+        <div id="LegalReminddivTable" class="LegaldivBoxTable">
+            @Html.Partial("/Areas/Home/Views/Shared/_RemindData.cshtml")
         </div>
     </div>
     
     <script>
-    var _OrderKeysearch = "";
-    var _OrderarrKeySearch;
+ 
    
-    function OrderfindObjects(_pageNumber, _isSearching) {
+    function RemindfindObjects(_pageNumber, _isSearching) {
         try {
-            var _OrdersearchContent = "";
+            var _RemindsearchContent = "";
             var _RecordonPage = 5;
             if (_isSearching === 1) {
                 _Keysearch = "";
             } else {
                 //_arrKeySearch = _TodoKeysearch.split('|');
                 //_searchContent = _TodoarrKeySearch[0];
-                _OrdersearchContent = "";
+                _RemindsearchContent = "";
             }
             
-            var orderby = $("#colSortedOrder").val();
-            var orderType = $("#SortTypeOrder").val();
+            var orderby = $("#colSortedRemid").val();
+            var orderType = $("#SortTypeRemind").val();
             //if (orderby.indexOf("NUMBER_TEXT") >= 0) {
             //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
             //}
@@ -60,9 +59,9 @@
             $.ajax({
                 type: "POST",
                 headers: { "cache-control": "no-cache" },
-                url: "/search-orders",
+                url: "/search-remind",
                 data: {
-                    keysSearch: _OrdersearchContent,
+                    keysSearch: _RemindsearchContent,
                     _sortype: (orderby + " " + orderType),
                     _reconpage: _RecordonPage,
                     p_CurrentPage: _pageNumber
@@ -70,7 +69,7 @@
                 async: false,
                 success: function (data) {
                     if (data != null) {
-                        $("#LegalOrderdivTable").html(data);
+                        $("#LegalReminddivTable").html(data);
                     }
                 }
             });
@@ -81,49 +80,49 @@
         }
     }
 
-    function OrderjsPaging(_page)
+    function RemindjsPaging(_page)
     {
         try {
-            OrderfindObjects(_page, 0);
+            RemindfindObjects(_page, 0);
         } catch (e) {
             alert(e.toString());
         }
     }
 
 
-    function OrderSortByCol(value) {
+    function RemindSortByCol(value) {
         try {
             //Lay gia tri luu trong colSort luu duoi dang text Hidden
-            var _currentColSorted = $("#colSortedOrder").val();
+            var _currentColSorted = $("#colSortedRemid").val();
             //Lay gia tri luu trong SortType luu duoi dang text Hidden
-            var _currentSortedType = $("#SortTypeOrder").val();
+            var _currentSortedType = $("#SortTypeRemind").val();
             var tag = "#" + value;
             if (_currentColSorted == value) {
                 if (_currentSortedType == "ASC") {
-                    $("#SortTypeOrder").val("DESC");
+                    $("#SortTypeRemind").val("DESC");
                 }
                 else {
-                    $("#SortTypeOrder").val("ASC");
+                    $("#SortTypeRemind").val("ASC");
                 }
             }
             else {
-                $("#colSortedOrder").val(value);
-                $("#SortTypeOrder").val("ASC");
+                $("#colSortedRemid").val(value);
+                $("#SortTypeRemind").val("ASC");
             }
-            var pos = document.getElementById("tableListOrder").parentElement.scrollLeft;
+            var pos = document.getElementById("tableListRemind").parentElement.scrollLeft;
             //Sort lai thi ve trang dau
-            OrderfindObjects(1, 0);
+            RemindfindObjects(1, 0);
             //Sort lai thi ve trang dau
-            document.getElementById("tableListOrder").parentElement.scrollLeft = pos;
+            document.getElementById("tableListRemind").parentElement.scrollLeft = pos;
         } catch (e) {
             console.info(e.toString());
         }
     }
 
-    function OrderChangeIConSortWhenSortColumns() {
+    function RemindChangeIConSortWhenSortColumns() {
         try {
-            var _order_by = $("#colSortedOrder").val();
-            var _order_type = $("#SortTypeOrder").val();
+            var _order_by = $("#colSortedRemid").val();
+            var _order_type = $("#SortTypeRemind").val();
             var _text = _order_type == 'DESC' ? $("#" + _order_by).text() + " ▼" : $("#" + _order_by).text() + " ▲";
             $("#" + _order_by).text(_text);
         }
