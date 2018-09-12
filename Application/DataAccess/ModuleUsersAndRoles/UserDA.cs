@@ -160,7 +160,7 @@
                     new OracleParameter("p_type", OracleDbType.Int32, userAdd.Type, ParameterDirection.Input),
 
                     //
-                    new OracleParameter("p_country", OracleDbType.Varchar2, userAdd.Fax, ParameterDirection.Input),
+                    new OracleParameter("p_country", OracleDbType.Decimal, userAdd.Country, ParameterDirection.Input),
                     new OracleParameter("p_company_name", OracleDbType.NVarchar2, userAdd.Company_Name, ParameterDirection.Input),
                     new OracleParameter("p_main_business", OracleDbType.Varchar2, userAdd.Main_Business, ParameterDirection.Input),
                     new OracleParameter("p_title", OracleDbType.Varchar2, userAdd.Title, ParameterDirection.Input),
@@ -210,7 +210,7 @@
                     new OracleParameter("p_type", OracleDbType.Int32, userEdit.Type, ParameterDirection.Input),
 
                     //
-                    new OracleParameter("p_country", OracleDbType.Varchar2, userEdit.Fax, ParameterDirection.Input),
+                    new OracleParameter("p_country", OracleDbType.Decimal, userEdit.Country, ParameterDirection.Input),
                     new OracleParameter("p_company_name", OracleDbType.NVarchar2, userEdit.Company_Name, ParameterDirection.Input),
                     new OracleParameter("p_main_business", OracleDbType.Varchar2, userEdit.Main_Business, ParameterDirection.Input),
                     new OracleParameter("p_title", OracleDbType.Varchar2, userEdit.Title, ParameterDirection.Input),
