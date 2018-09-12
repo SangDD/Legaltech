@@ -3,7 +3,7 @@
 @using ObjectInfos.ModuleTrademark
 @using ObjectInfos
 @{
-    ViewBag.Title = "Sửa đăng ký nhãn hiệu";
+    ViewBag.Title = "Chi tiết đăng ký nhãn hiệu";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     var objAppHeaderInfo = new AppDetail04NHInfo();
@@ -34,6 +34,7 @@
 
     string styleDacTinhHangHoa = "";
     string styleSuDungDonUT = "";
+    string   styleNoneDisplay= "display:none";
     if (objAppHeaderInfo.Dactichhanghoa == 1)
     {
         styleDacTinhHangHoa = "checked='checked'";
@@ -41,6 +42,7 @@
     if (objAppHeaderInfo.Used_Special == 1)
     {
         styleSuDungDonUT = "checked='checked'";
+        styleNoneDisplay = "display:block";
     }
 
     //
@@ -430,173 +432,186 @@
         </div>
         @* 3  A14*@
         <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "YÊU CẦU HƯỞNG QUYỀN ƯU TIÊN")
+            @* @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "YÊU CẦU HƯỞNG QUYỀN ƯU TIÊN")*@
+            <div class="divCover cls_form_title">
+                <img src="/Content/icons/info.png">
+                <div class="cls_form_header">@WebApps.Resources.Resource.lblYeuCauHuongQuyenUT.ToUpper()</div>
+                <div style="display: inline-block;  padding-top: 8px; padding-left: 5px;">
+                    <input type="checkbox" name="0_ckbCoSuDungDonUuTien" @styleSuDungDonUT @disableView value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" />
+                    <label><a style="color:blue" id="hrefCo">Có</a></label>
+                </div>
+                <div style="display: inline-block;">
+                    <input type="checkbox" name="KO_ckbCoSuDungDonUuTien" @disableView value="KO" id="KOUT" />
+                    <label><a style="color:blue" id="hrefKhong">Không</a></label>
+                </div>
+            </div>
+            <div id="divDonUuTienSo1" style="@styleNoneDisplay">
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-checkbox">
+                            <input type="checkbox" disabled="disabled" name="0_ckbCoSuDungDonUuTien" @styleSuDungDonUT value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" />
+                            <label>Có sử dụng đơn ưu tiên</label>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-checkbox">
-                        <input type="checkbox" @disableView name="0_ckbCoSuDungDonUuTien" @styleSuDungDonUT value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" />
-                        <label>Có sử dụng đơn ưu tiên</label>
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <div>Số đơn:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" placeholder="6_txtSoDon" disabled="disabled" value="@objAppHeaderInfo.Sodon_Ut" class="classDacTinhUT" maxlength="50" id="6_txtSoDon" />
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div>Số đơn:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="6_txtSoDon" @disableView value="@objAppHeaderInfo.Appno" class="classDacTinhUT" maxlength="50" id="6_txtSoDon" />
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <div>Ngày nộp đơn:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" placeholder="6_txtNgayNopDon"  @disableView value="@objAppHeaderInfo.Ngaynopdon_Ut.ToString("dd/MM/yyyy")" class="classDacTinhUT datetimepicker" style="width:200px" maxlength="10" id="6_txtNgayNopDon" />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div>Ngày nộp đơn:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="6_txtNgayNopDon" @disableView value="@objAppHeaderInfo.Duadate.ToString("dd/MM/yyyy")" class="classDacTinhUT datetimepicker" style="width:200px" maxlength="10" id="6_txtNgayNopDon" />
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <div>Nước nộp đơn:</div>
                     </div>
-                </div>
-            </div>
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div>Nước nộp đơn:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <select id="6_txtNuocNopDon" class="classDacTinhUT">
-                            @foreach (var item in MemoryData.c_lst_Country)
-                            {
-                                if (item.Country_Id.ToString() == objAppHeaderInfo.Nuocnopdon_Ut)
+                    <div class="div-search-content">
+                        <div>
+                            <select id="6_txtNuocNopDon" class="classDacTinhUT" disabled="disabled">
+                                @foreach (var item in MemoryData.c_lst_Country)
                                 {
-                                    <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                                    if (item.Country_Id.ToString() == objAppHeaderInfo.Nuocnopdon_Ut)
+                                    {
+                                        <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Country_Id">@item.Name</option>
+                                    }
                                 }
-                                else
-                                {
-                                    <option value="@item.Country_Id">@item.Name</option>
-                                }
-                            }
-                        </select>
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="radio" @disableView name="4_YCHuongQuyen" class="classDacTinhUT" @styleYCHQUT value="NTVN" placeholder="4_ckbNopTaiVietNam" id="4_ckbNopTaiVietNam" />
-                        <label>Theo đơn (các đơn) đầu tiên nộp tại Việt Nam</label>
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="radio" disabled="disabled" name="4_YCHuongQuyen" class="classDacTinhUT" @styleYCHQUT value="NTVN" placeholder="4_ckbNopTaiVietNam" id="4_ckbNopTaiVietNam" />
+                            <label>Theo đơn (các đơn) đầu tiên nộp tại Việt Nam</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="radio" name="4_YCHuongQuyen" @disableView class="classDacTinhUT" @styleCongUocPR value="CUPR" placeholder="4_ckbNopTaiParis" id="4_ckbNopTaiParis" />
-                        <label>Theo đơn (các đơn) nộp theo Công ước Paris</label>
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="radio" name="4_YCHuongQuyen" disabled="disabled"class="classDacTinhUT" @styleCongUocPR value="CUPR" placeholder="4_ckbNopTaiParis" id="4_ckbNopTaiParis" />
+                            <label>Theo đơn (các đơn) nộp theo Công ước Paris</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="radio" name="4_YCHuongQuyen" @disableView class="classDacTinhUT" @styleTTK value="NTVN" placeholder="4_ckbThoaThuanKhac" id="4_ckbThoaThuanKhac" />
-                        <label>Theo thoả thuận khác</label>
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="radio" name="4_YCHuongQuyen" disabled="disabled"class="classDacTinhUT" @styleTTK value="NTVN" placeholder="4_ckbThoaThuanKhac" id="4_ckbThoaThuanKhac" />
+                            <label>Theo thoả thuận khác</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            @* TÀI LIEU ƯU TIEN *@
-            <div class="div-search-ad" style="display:inline-flex;">
-                <div class="div-search-content">
-                    <div class="div-checkbox" style="width:422px">
-                        <input type="checkbox" class="classDacTinhUT" maxlength="3" @disableView @ObjInfo04NH_D_14.styleCheck value="04NH_D_14" id="6_rdoTLCMQUT" />
-                        <label>Tài liệu chứng minh quyền ưu tiên</label>
+                @* TÀI LIEU ƯU TIEN *@
+                <div class="div-search-ad" style="display:inline-flex;">
+                    <div class="div-search-content">
+                        <div class="div-checkbox" style="width:422px">
+                            <input type="checkbox" class="classDacTinhUT" maxlength="3" disabled="disabled" @ObjInfo04NH_D_14.styleCheck value="04NH_D_14" id="6_rdoTLCMQUT" />
+                            <label>Tài liệu chứng minh quyền ưu tiên</label>
+                        </div>
+                    </div>
+                    <div class="div-search-content">
+                        <input type="text" id="6_txtTLCMQUT" disabled="disabled"  value="@ObjInfo04NH_D_14.CHAR01" maxlength="3" placeholder="6_txtTLCMQUT" />
+                    </div>
+                    <div class="div-search-title" style="width:412px">
+                        <div>bản</div>
                     </div>
                 </div>
-                <div class="div-search-content">
-                    <input type="text" id="6_txtTLCMQUT" disabled="disabled" @disableView value="@ObjInfo04NH_D_14.CHAR01" maxlength="3" placeholder="6_txtTLCMQUT" />
-                </div>
-                <div class="div-search-title" style="width:412px">
-                    <div>bản</div>
-                </div>
-            </div>
-            <div class="div-search-ad" style="display:inline-flex;    margin-left: 40px;">
-                <div class="div-search-content">
-                    <div class="div-checkbox" style="width:382px">
-                        <input type="checkbox" maxlength="3" class="classDacTinhUT" @disableView @ObjInfo04NH_D_15.styleCheck value="04NH_D_15" id="6_rdoBSDDT" />
-                        <label>Bản sao đơn đầu tiên, gồm</label>
+                <div class="div-search-ad" style="display:inline-flex;    margin-left: 40px;">
+                    <div class="div-search-content">
+                        <div class="div-checkbox" style="width:382px">
+                            <input type="checkbox" maxlength="3" class="classDacTinhUT" disabled="disabled" @ObjInfo04NH_D_15.styleCheck value="04NH_D_15" id="6_rdoBSDDT" />
+                            <label>Bản sao đơn đầu tiên, gồm</label>
+                        </div>
+                    </div>
+                    <div class="div-search-content">
+                        <input type="text" id="6_txtBSDDT" disabled="disabled"  value="@ObjInfo04NH_D_15.CHAR01" maxlength="3" placeholder="6_txtBSDDT" />
+                    </div>
+                    <div class="div-search-title" style="width:412px">
+                        <div>bản</div>
                     </div>
                 </div>
-                <div class="div-search-content">
-                    <input type="text" id="6_txtBSDDT" disabled="disabled" @disableView value="@ObjInfo04NH_D_15.CHAR01" maxlength="3" placeholder="6_txtBSDDT" />
-                </div>
-                <div class="div-search-title" style="width:412px">
-                    <div>bản</div>
-                </div>
-            </div>
-            <div style="margin-left:40px">
+                <div style="margin-left:40px">
 
-                @* File dinh kem lay tu db khi sua*@
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialShowFileAttach.cshtml", ObjInfo04NH_D_15)
+                    @* File dinh kem lay tu db khi sua*@
+                    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialShowFileAttach.cshtml", ObjInfo04NH_D_15)
 
-            </div>
-            <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
-                <div class="div-search-content">
-                    <div class="div-checkbox" style="width:382px">
-                        <input type="checkbox" class="classDacTinhUT" @disableView @ObjInfo04NH_D_16.styleCheck maxlength="3" value="04NH_D_16" id="6_rdoBDTVGom" />
-                        <label>Bản dịch tiếng Việt, gồm</label>
+                </div>
+                <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
+                    <div class="div-search-content">
+                        <div class="div-checkbox" style="width:382px">
+                            <input type="checkbox" class="classDacTinhUT"  disabled="disabled" @ObjInfo04NH_D_16.styleCheck maxlength="3" value="04NH_D_16" id="6_rdoBDTVGom" />
+                            <label>Bản dịch tiếng Việt, gồm</label>
+                        </div>
+                    </div>
+                    <div class="div-search-content">
+                        <input type="text" id="6_txtBDTVGom" disabled="disabled" @disableView value="@ObjInfo04NH_D_16.CHAR01" maxlength="3" placeholder="6_txtBDTVGom" />
+                    </div>
+                    <div class="div-search-title" style="width:412px">
+                        <div>bản</div>
                     </div>
                 </div>
-                <div class="div-search-content">
-                    <input type="text" id="6_txtBDTVGom" disabled="disabled" @disableView value="@ObjInfo04NH_D_16.CHAR01" maxlength="3" placeholder="6_txtBDTVGom" />
+                <div style="margin-left:40px">
+                    @* File dinh kem lay tu db khi sua*@
+                    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialShowFileAttach.cshtml", ObjInfo04NH_D_16)
                 </div>
-                <div class="div-search-title" style="width:412px">
-                    <div>bản</div>
-                </div>
-            </div>
-            <div style="margin-left:40px">
-                @* File dinh kem lay tu db khi sua*@
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialShowFileAttach.cshtml", ObjInfo04NH_D_16)
-            </div>
-            <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
-                <div class="div-search-content">
-                    <div class="div-checkbox" style="width:382px">
-                        <input type="checkbox" maxlength="3" value="04NH_D_17" @disableView @ObjInfo04NH_D_17.styleCheck class="classDacTinhUT" id="6_rdoGiayChuyenNhungUT" />
-                        <label> Giấy chuyển nhượng quyền ưu tiên </label>
+                <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
+                    <div class="div-search-content">
+                        <div class="div-checkbox" style="width:382px">
+                            <input type="checkbox" maxlength="3" value="04NH_D_17" disabled="disabled" @ObjInfo04NH_D_17.styleCheck class="classDacTinhUT" id="6_rdoGiayChuyenNhungUT" />
+                            <label> Giấy chuyển nhượng quyền ưu tiên </label>
+                        </div>
                     </div>
+                </div> <div style="margin-left:40px">
+                    @* File dinh kem lay tu db khi sua*@
+                    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialShowFileAttach.cshtml", ObjInfo04NH_D_17)
+                    @* end file dinh kem *@
                 </div>
-            </div> <div style="margin-left:40px">
-                @* File dinh kem lay tu db khi sua*@
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialShowFileAttach.cshtml", ObjInfo04NH_D_17)
-                @* end file dinh kem *@
-            </div>
-            <a href="javascript:;" onclick="return funcShowOrHidden('divDonUuTienSo2');" style="text-decoration:underline; color: blue;float: right;padding-top: 5px;">Thêm đơn</a>
-        </div>
-        @* div Don số 2 default fixed có 2 đơn *@
-        <div id="divDonUuTienSo2" @styleDonUtSo2>
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHDonUTSo2.cshtml")
-        </div>
-
-        @* Tài liệu có trong đơn *@
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHTLTrongDon.cshtml")
-        @* End tai lieu dinh kem  *@
-
-        @*TÀI LIỆU KHÁC*@
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHTaiLieuKhac.cshtml", "12")
-
-        @* CAM KẾT CHỦ ĐƠN  *@
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewNgayThangNam.cshtml")
-
-        <div class="class_save">
-            <div class="classGuiDon">
-                <input type="button" value="Quay lại" style="width:70px" id="btnBack" class="btn class_37" />
-            </div> <div class="classLuuTam">
+                @*<a href="javascript:;" onclick="return funcShowOrHidden('divDonUuTienSo2');" style="text-decoration:underline; color: blue;float: right;padding-top: 5px;">Thêm đơn</a>*@
             </div>
         </div>
-    </fieldset>
+            @* div Don số 2 default fixed có 2 đơn *@
+            <div id="divDonUuTienSo2" @styleDonUtSo2>
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHDonUTSo2.cshtml")
+            </div>
+
+            @* Tài liệu có trong đơn *@
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHTLTrongDon.cshtml")
+            @* End tai lieu dinh kem  *@
+
+            @*TÀI LIỆU KHÁC*@
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHTaiLieuKhac.cshtml", "12")
+
+            @* CAM KẾT CHỦ ĐƠN  *@
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewNgayThangNam.cshtml")
+
+            <div class="class_save">
+                <div class="classGuiDon">
+                    <input type="button" value="Quay lại" style="width:70px" id="btnBack" class="btn class_37" />
+                </div> <div class="classLuuTam">
+                </div>
+            </div>
+</fieldset>
 </div>
 <input type="hidden" id="txtDateTime" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialPreview.cshtml")

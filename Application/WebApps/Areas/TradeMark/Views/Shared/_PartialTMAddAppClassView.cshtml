@@ -18,8 +18,16 @@
 </script>
 @foreach (var item in lstClassDetailInfo)
 {
+    string pAppCode = item.Code;
+    if (!string.IsNullOrEmpty(item.Code))
+    {
+        if (item.Code.Length > 2)
+        {
+            pAppCode = item.Code.Substring(0, 2);
+        }
+    }
     <script>
-        var _appinfo = { name: '@Html.Raw(item.Textinput)', value: '@Html.Raw(@item.Code)' }
+        var _appinfo = { name: '@Html.Raw(item.Textinput)', value: '@Html.Raw(@pAppCode)' }
         _EditArryAppClass.push(_appinfo)
     </script>
 }
@@ -145,6 +153,7 @@
             funRemoveAllTotalRows();
 
             textInput = textInput.trim();
+            classCode = _groupcode;
             classCode = classCode.trim();
             var _html = "<tr><td></td><td class=\"TdLeft\">" + textInput + "</td><td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td></td><td class=\"HasSort clssDisplaynone\">" + classCode.substr(0,5) + "</td></tr>";
             $("#tblClassInfo").find("tbody").append(_html);
@@ -162,7 +171,7 @@
             // đẩy các dòng tổng xuống cuối table
             var _html = "";
             _ArrGroupAppClass.forEach(function (element) {
-                _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='2' class=\"tdRightAlign textbold\">Tổng SP</td><td colspan='2' class=\"TdLeft textbold\"> " + element.value + "</td>   <input  type=\"hidden\" class=\"txtTongSanPham\" value=\"" + element.value +"\"/> <td class=\"HasSort clssDisplaynone\"> " + element.name + "999 </td> </tr>";
+                _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='2' class=\"tdRightAlign textbold\">Tổng SP</td><td colspan='2' class=\"TdLeft textbold\"> " + element.value + "</td>   <input  type=\"hidden\" class=\"txtTongSanPham\" value=\"" + element.value +"\"/> <td class=\"HasSort clssDisplaynone\"> " + element.name + "</td> </tr>";
                 $("#tblClassInfo").find("tbody").append(_html);
             });
 
