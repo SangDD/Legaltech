@@ -96,13 +96,20 @@
                     c_dic_FeeByApp_Fix[item.Appcode + "_" + item.Fee_Id.ToString()] = item;
                 }
                 //lấy  
-                
+
                 foreach (var item in clstAppClass)
                 {
                     CustomerSuggestInfo pinfo = new CustomerSuggestInfo();
                     pinfo.label = item.Name_Vi;
                     pinfo.name = item.Name_Vi;
-                    pinfo.value = item.Code ;
+                    if (item.Code.Length > 2)
+                    {
+                        pinfo.value = item.Code.Substring(0, 2);
+                    }
+                    else
+                    {
+                        pinfo.value = item.Code;
+                    }
                     clstAppClassSuggest.Add(pinfo);
                 }
                 //lấy toàn bộ thông tin đơn lên mem, đang đọc toàn bộ cả anh cả việt.

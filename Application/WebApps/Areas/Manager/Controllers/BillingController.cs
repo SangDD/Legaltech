@@ -154,6 +154,11 @@ namespace WebApps.Areas.Manager.Controllers
                 ApplicationHeaderInfo objAppHeaderInfo = _bl.GetApp_By_Case_Code(p_case_code, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang(), ref _lst_billing_detail);
                 ViewBag.objAppHeaderInfo = objAppHeaderInfo;
 
+                if (objAppHeaderInfo.Status < (decimal)Common.CommonData.CommonEnums.App_Status.DaNopDon)
+                {
+                    return Json(new { success = -2 });
+                }
+
                 Billing_Detail_Info _ChiPhiKhac = new Billing_Detail_Info();
                 _ChiPhiKhac.Nation_Fee = 0;
                 _ChiPhiKhac.Represent_Fee = 0;
@@ -174,7 +179,7 @@ namespace WebApps.Areas.Manager.Controllers
                 var Partial_AppInfo = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Manager/Views/Billing/_Partial_AppInfo.cshtml");
                 var PartialDetail_Insert_Billing = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Manager/Views/Billing/_PartialDetail_Insert_Billing.cshtml");
 
-                var json = Json(new { Partial_AppInfo, PartialDetail_Insert_Billing });
+                var json = Json(new { success = 1, Partial_AppInfo, PartialDetail_Insert_Billing });
                 return json;
             }
             catch (Exception ex)
