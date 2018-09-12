@@ -58,7 +58,7 @@
 
 
         public string Fax { get; set; }
-        public string Country { get; set; }
+        public decimal Country { get; set; }
         public string Country_Name { get; set; }
         public string Company_Name { get; set; }
         public string Main_Business { get; set; }

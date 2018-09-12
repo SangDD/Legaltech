@@ -162,7 +162,7 @@
                         <select id="cboCountry">
                             @foreach (var item in MemoryData.c_lst_Country)
                             {
-                                if (item.Country_Id.ToString() == Model.Country)
+                                if (item.Country_Id == Model.Country)
                                 {
                                     <option selected="selected" value="@item.Country_Id">@item.Name</option>
                                 }
