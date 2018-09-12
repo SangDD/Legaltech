@@ -33,17 +33,35 @@ namespace ObjectInfos
         public string REQUEST_BY_NAME { get; set; }
 
         public string PROCESSOR_BY_NAME { get; set; }
+    }
 
-        public int NUMBER_APPS { get; set; }
+    public class B_Remind_Info
+    {
+        public decimal STT { get; set; }
 
-        public int NUMBER_QUETIONS { get; set; }
+        public decimal REMIND_ID { get; set; }
 
-        public int NUMBER_SEARCH { get; set; }
+        public string CASE_CODE { get; set; }
 
-        public int NUMBER_TIMESHEET { get; set; }
+        public string Code { get; set; }
 
-        public int NUMBER_BILLS { get; set; }
+        public string CONTENT { get; set; }
 
+        public string REQUEST_BY { get; set; }
+
+        public DateTime REQUEST_DATE { get; set; }
+
+        public string PROCESSOR_BY { get; set; }
+
+        public DateTime PROCESSOR_DATE { get; set; }
+
+        public int STATUS { get; set; }
+
+        public string LANGUAGE_CODE { get; set; }
+
+        public string REQUEST_BY_NAME { get; set; }
+
+        public string PROCESSOR_BY_NAME { get; set; }
     }
 
     public class B_TodoNotify_Info

@@ -230,11 +230,16 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
 
-                        $("#divInfoApp").html(data.Partial_AppInfo);
-                        $("#divDataBillingDetail").html(data.PartialDetail_Insert_Billing);
+                        if (data.success == "-2") {
+                            jError("Trạng thái đơn không hợp lệ");
+                        }
+                        else {
+                            $("#divInfoApp").html(data.Partial_AppInfo);
+                            $("#divDataBillingDetail").html(data.PartialDetail_Insert_Billing);
 
-                        CssPopUpTag("divWrapperPopUpBilling", ".divPopup");
-                        $("#txtCaseCodeSearch").val(_App_Case_Code);
+                            CssPopUpTag("divWrapperPopUpBilling", ".divPopup");
+                            $("#txtCaseCodeSearch").val(_App_Case_Code);
+                        }
                     }
                 });
             }

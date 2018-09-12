@@ -13,14 +13,16 @@
 @*todos*@
 @Html.Partial("~/Areas/Home/Views/Shared/HomeToDoBox.cshtml") 
 
-@*todos*@
+@*order*@
 @Html.Partial("~/Areas/Home/Views/Shared/HomeOrderBox.cshtml")
 
- 
+ @*remind*@
+@Html.Partial("~/Areas/Home/Views/Shared/HomeOrderBoxRemind.cshtml")
  
 <script>
     $(function () {
         TodofindObjects(1, 1);
         OrderfindObjects(1, 1);
+        RemindfindObjects(1, 1);
     });
 </script>
