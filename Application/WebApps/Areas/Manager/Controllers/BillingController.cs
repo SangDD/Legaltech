@@ -107,6 +107,7 @@ namespace WebApps.Areas.Manager.Controllers
                     item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
                 }
 
+                ViewBag.Billing_Header_Info = _Billing_Header_Info;
                 ViewBag.objAppHeaderInfo = objAppHeaderInfo;
                 ViewBag.List_Billing = _lst_billing_detail;
                 ViewBag.Operator_Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.View);
@@ -154,7 +155,12 @@ namespace WebApps.Areas.Manager.Controllers
                 ApplicationHeaderInfo objAppHeaderInfo = _bl.GetApp_By_Case_Code(p_case_code, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang(), ref _lst_billing_detail);
                 ViewBag.objAppHeaderInfo = objAppHeaderInfo;
 
-                if (objAppHeaderInfo.Status < (decimal)Common.CommonData.CommonEnums.App_Status.DaNopDon)
+                if (objAppHeaderInfo == null)
+                {
+                    return Json(new { success = -1 });
+                }
+
+                if (objAppHeaderInfo != null && objAppHeaderInfo.Status < (decimal)Common.CommonData.CommonEnums.App_Status.DaNopDon)
                 {
                     return Json(new { success = -2 });
                 }
@@ -178,8 +184,9 @@ namespace WebApps.Areas.Manager.Controllers
 
                 var Partial_AppInfo = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Manager/Views/Billing/_Partial_AppInfo.cshtml");
                 var PartialDetail_Insert_Billing = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Manager/Views/Billing/_PartialDetail_Insert_Billing.cshtml");
+                var PartialCurrency = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Manager/Views/Billing/_PartialCurrency.cshtml");
 
-                var json = Json(new { success = 1, Partial_AppInfo, PartialDetail_Insert_Billing });
+                var json = Json(new { success = 1, Partial_AppInfo, PartialDetail_Insert_Billing, PartialCurrency });
                 return json;
             }
             catch (Exception ex)
