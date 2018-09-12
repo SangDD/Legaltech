@@ -5,6 +5,8 @@ namespace ObjectInfos
 {
     public class NewsInfo
     {
+
+        public decimal STT { get; set; }
         public decimal Id { get; set; }
         [AllowHtml]
         public string Title { get; set; }

@@ -1,5 +1,5 @@
 ﻿<style>
-    .legalRemind_div {
+    .legalBulletin_div {
         text-align: left;
         border: 1px solid #ccc;
         min-height: 50px;
@@ -17,23 +17,23 @@
     }
 </style>
 
-<div class="divCover legalRemind_div"  style="background-color: cadetblue;">
-    <div class="box_title">   Remind </div>
+<div class="divCover legalBulletin_div"  style="background-color: cadetblue;">
+    <div class="box_title">   Bản tin </div>
     <div>
-        <input type="hidden" id="colSortedRemid" />
-        <input type="hidden" id="SortTypeRemind" />
+        <input type="hidden" id="colSortedBulletin" />
+        <input type="hidden" id="SortTypeBulletin" />
     </div>
 
     <div class="Homebox">
-        <div id="LegalReminddivTable" class="LegaldivBoxTable">
-            @Html.Partial("/Areas/Home/Views/Shared/_RemindData.cshtml")
+        <div id="LegalBulletindivTable" class="LegaldivBoxTable">
+            @Html.Partial("/Areas/Home/Views/Shared/_BulletinData.cshtml")
         </div>
     </div>
     
     <script>
  
    
-    function RemindfindObjects(_pageNumber, _isSearching) {
+    function BulletinfindObjects(_pageNumber, _isSearching) {
         try {
             var _RemindsearchContent = "";
             var _RecordonPage = 5;
@@ -45,8 +45,8 @@
                 _RemindsearchContent = "";
             }
             
-            var orderby = $("#colSortedRemid").val();
-            var orderType = $("#SortTypeRemind").val();
+            var orderby = $("#colSortedBulletin").val();
+            var orderType = $("#SortTypeBulletin").val();
             //if (orderby.indexOf("NUMBER_TEXT") >= 0) {
             //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
             //}
@@ -59,17 +59,17 @@
             $.ajax({
                 type: "POST",
                 headers: { "cache-control": "no-cache" },
-                url: "/search-remind",
+                url: "/search-bulletin",
                 data: {
                     keysSearch: _RemindsearchContent,
                     _sortype: (orderby + " " + orderType),
                     _reconpage: _RecordonPage,
                     p_CurrentPage: _pageNumber
                 },
-                async: false,
+                async: true,
                 success: function (data) {
                     if (data != null) {
-                        $("#LegalReminddivTable").html(data);
+                        $("#LegalBulletindivTable").html(data);
                     }
                 }
             });
@@ -80,49 +80,49 @@
         }
     }
 
-    function RemindjsPaging(_page)
+    function BulletinjsPaging(_page)
     {
         try {
-            RemindfindObjects(_page, 0);
+            BulletinfindObjects(_page, 0);
         } catch (e) {
             alert(e.toString());
         }
     }
 
 
-    function RemindSortByCol(value) {
+    function BulletinSortByCol(value) {
         try {
             //Lay gia tri luu trong colSort luu duoi dang text Hidden
-            var _currentColSorted = $("#colSortedRemid").val();
+            var _currentColSorted = $("#colSortedBulletin").val();
             //Lay gia tri luu trong SortType luu duoi dang text Hidden
-            var _currentSortedType = $("#SortTypeRemind").val();
+            var _currentSortedType = $("#SortTypeBulletin").val();
             var tag = "#" + value;
             if (_currentColSorted == value) {
                 if (_currentSortedType == "ASC") {
-                    $("#SortTypeRemind").val("DESC");
+                    $("#SortTypeBulletin").val("DESC");
                 }
                 else {
-                    $("#SortTypeRemind").val("ASC");
+                    $("#SortTypeBulletin").val("ASC");
                 }
             }
             else {
-                $("#colSortedRemid").val(value);
-                $("#SortTypeRemind").val("ASC");
+                $("#colSortedBulletin").val(value);
+                $("#SortTypeBulletin").val("ASC");
             }
-            var pos = document.getElementById("tableListRemind").parentElement.scrollLeft;
+            var pos = document.getElementById("tableListBullentin").parentElement.scrollLeft;
             //Sort lai thi ve trang dau
-            RemindfindObjects(1, 0);
+            BulletinfindObjects(1, 0);
             //Sort lai thi ve trang dau
-            document.getElementById("tableListRemind").parentElement.scrollLeft = pos;
+            document.getElementById("tableListBullentin").parentElement.scrollLeft = pos;
         } catch (e) {
             console.info(e.toString());
         }
     }
 
-    function RemindChangeIConSortWhenSortColumns() {
+    function BulletinChangeIConSortWhenSortColumns() {
         try {
-            var _order_by = $("#colSortedRemid").val();
-            var _order_type = $("#SortTypeRemind").val();
+            var _order_by = $("#colSortedBulletin").val();
+            var _order_type = $("#SortTypeBulletin").val();
             var _text = _order_type == 'DESC' ? $("#" + _order_by).text() + " ▼" : $("#" + _order_by).text() + " ▲";
             $("#" + _order_by).text(_text);
         }
