@@ -404,6 +404,7 @@
                             pAppDocumentInfo = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds04NH.Tables[1]);
                             pAppDocOtherInfo = CBO<AppDocumentOthersInfo>.FillCollectionFromDataTable(ds04NH.Tables[2]);
                             pAppClassInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds04NH.Tables[3]);
+
                             ViewBag.lstFeeInfo = CBO<AppFeeFixInfo>.FillCollectionFromDataTable(ds04NH.Tables[4]);
                         }
                     }
@@ -1120,6 +1121,17 @@
 
                             pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pInfo.Id, language);
                         }
+
+                        if (pReturn >= 0 && pAppClassInfo != null)
+                        {
+                            //pReturn = _AppFeeFixBL.AppFeeFixInsertBath(pFeeFixInfo, pInfo.Id);
+
+                            //if (pReturn >= 0 && pAppClassInfo != null)
+                            //{
+                                var listfeeCaculator = new List<AppFeeFixInfo>();
+                                pReturn = CaculatorFee(pAppClassInfo, pDetail.Sodon_Ut, pInfo.Id, listfeeCaculator);
+                            //}
+                        }
                     }
                     else
                     {
@@ -1405,6 +1417,8 @@
                     return 0;
                 }
                 AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
+                string language = AppsCommon.GetCurrentLang();
+                _AppFeeFixBL.AppFeeFixDelete(pAppHeaderId, language);
                 return _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, pAppHeaderId);
                 
                 #endregion
