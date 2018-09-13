@@ -1274,10 +1274,13 @@
                     string[] arrSoSanPham = pAppClassInfo[0].TongSanPham.Split('|');
                     for (int i = 0; i < arrSoSanPham.Length; i++)
                     {
-                        int TotalItemOnGroup = CommonFuc.ConvertToInt(arrSoSanPham[i]);
-                        if (TotalItemOnGroup > SoDongTinhQua)
+                        if (!string.IsNullOrEmpty(arrSoSanPham[i]))
                         {
-                            TongSoTinhPhi = TongSoTinhPhi + (TotalItemOnGroup - SoDongTinhQua);
+                            int TotalItemOnGroup = CommonFuc.ConvertToInt(arrSoSanPham[i]);
+                            if (TotalItemOnGroup > SoDongTinhQua)
+                            {
+                                TongSoTinhPhi = TongSoTinhPhi + (TotalItemOnGroup - SoDongTinhQua);
+                            }
                         }
                     }
                 }
