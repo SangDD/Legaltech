@@ -1,0 +1,111 @@
+﻿@using Common.CommonData
+@using Common.Extensions
+@using BussinessFacade.ModuleMemoryData
+@using ObjectInfos;
+@{
+    decimal _Operator_Type = (decimal)Common.CommonData.CommonEnums.Operator_Type.Insert;
+    if (ViewBag.Operator_Type != null)
+    {
+        _Operator_Type = (decimal)ViewBag.Operator_Type;
+    }
+
+    List<AllCodeInfo> _lstCurrency = MemoryData.AllCode_GetBy_CdTypeCdName("CURRENCY", "CODE");
+    var lstCurrency = _lstCurrency.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
+
+    ApplicationHeaderInfo _ApplicationHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        _ApplicationHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    }
+
+    string _IsCurrency = "0";
+    if (_Operator_Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert) && _ApplicationHeaderInfo.Customer_Country != Common.Common.Country_VietNam_Id)
+    {
+        _IsCurrency = "1";
+    }
+
+    Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
+    if (ViewBag.Billing_Header_Info != null)
+    {
+        _Billing_Header_Info = (Billing_Header_Info)ViewBag;
+    }
+}
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 150px;
+    }
+</style>
+
+<input type="hidden" id="txtIsCurrency" value="@_IsCurrency" />
+
+@if (_Operator_Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert) &&
+    _ApplicationHeaderInfo.Customer_Country != Common.Common.Country_VietNam_Id)
+{
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Chọn loại ngoại tệ<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                @Html.DropDownList("Currency", lstCurrency, new { @id = "cboCurrency", @style = "width: 250px;" })
+            </div>
+        </div>
+
+        <div class="div-search-title">
+            <div>Tỷ giá<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" style="width: 250px;" id="txtCurrency_Rate" onkeyup="jsFormatNumber(this.value, this.id)" onblur="onChangeCurrency_Rate(this.value)" />
+            </div>
+        </div>
+
+        <div class="div-search-title">
+            <div>Thành tiền (Ngoại tệ)<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtTotal_Foeign" disabled="disabled" />
+            </div>
+        </div>
+    </div>
+}
+else if (_Operator_Type != Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert))
+{
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Chọn loại ngoại tệ<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtTotal_Foeign" disabled="disabled" value="@_Billing_Header_Info.Currency" />
+            </div>
+        </div>
+
+        <div class="div-search-title">
+            <div>Tỷ giá<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" style="width: 250px;" id="txtCurrency_Rate" onkeyup="jsFormatNumber(this.value, this.id)" value="@_Billing_Header_Info.Currency_Rate" />
+            </div>
+        </div>
+
+        <div class="div-search-title">
+            <div>Thành tiền (Ngoại tệ)<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtTotal_Foeign" disabled="disabled" value="@_Billing_Header_Info.Total_Foeign.ToString("#,##0.##")" />
+            </div>
+        </div>
+    </div>
+}
+
+@*<div class="_ClassPage">
+        <ul>
+            @Html.Raw(ViewBag.Paging)
+        </ul>
+    </div>*@

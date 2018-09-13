@@ -131,6 +131,7 @@ namespace ObjectInfos
         public int Date_Wait { get; set; }
 
         public string Customer_Name { get; set; }
+        public decimal Customer_Country { get; set; }
         /// <summary>
         /// Phân biệt là xem hay sửa xóa
         /// </summary>

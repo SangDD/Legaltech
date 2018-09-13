@@ -1,5 +1,6 @@
 ﻿@using Common.CommonData
 @using Common.Extensions
+@using BussinessFacade.ModuleMemoryData
 @using ObjectInfos;
 @{
     List<Billing_Detail_Info> _list_data = new List<Billing_Detail_Info>();
@@ -112,7 +113,7 @@
                 </tr>
 
                 <tr>
-                    <td class="tdleftalign" style="font-weight:bold">Tổng cộng</td>
+                    <td class="tdleftalign" style="font-weight:bold">Tổng cộng (VNĐ)</td>
                     <td class="tdrightalign">-</td>
                     <td class="tdrightalign">-</td>
                     <td class="tdrightalign">-</td>
@@ -139,9 +140,3 @@
         </tbody>
     </table>
 </div>
-
-@*<div class="_ClassPage">
-        <ul>
-            @Html.Raw(ViewBag.Paging)
-        </ul>
-    </div>*@
