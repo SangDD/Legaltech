@@ -42,5 +42,63 @@ namespace BussinessFacade
                 return new List<NewsInfo>();
             }
         }
+
+        public NewsInfo ArticlesGetById(decimal pID, string pLanguage)
+        {
+            try
+            {
+                NewsDA objDA = new NewsDA();
+                DataSet ResultData = objDA.ArticlesGetById(pID, pLanguage);
+                return CBO<NewsInfo>.FillObjectFromDataSet(ResultData);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new NewsInfo();
+            }
+        }
+
+        public decimal ArticlesInsert(NewsInfo pInfo)
+        {
+            try
+            {
+                NewsDA objDA = new NewsDA();
+                return objDA.ArticlesInsert(pInfo);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
+        public decimal ArticlesUpdate(NewsInfo pInfo)
+        {
+            try
+            {
+                NewsDA objDA = new NewsDA();
+                return objDA.ArticlesUpdate(pInfo);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
+        public decimal ArticlesDeleted(NewsInfo pInfo)
+        {
+            try
+            {
+                NewsDA objDA = new NewsDA();
+                return objDA.ArticlesDeleted(pInfo);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
     }
 }

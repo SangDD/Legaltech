@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.Title = "Danh sách tin";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+    string  hrfLuuTam = "";
+    string hrfChoXuly = "";
+    string hrfTuChoi = "";
+}
+<style>
+    .div-search-title > div {
+        width: 150px;
+    }
+
+    .ms-parent {
+        margin: 0px 3px;
+    }
+
+    .ms-choice {
+        height: 30px;
+    }
+</style>
+
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        Wiki
+        <span class="red">></span>
+        <a href="/wiki-doc/list">Quản lý Wiki</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+<div class="d-main">
+    <div class="divCover">
+        <input type="hidden" value="MODIFIED_DATE" id="colSorted" />
+        <input type="hidden" value="DESC" id="SortType" />
+        <input type="hidden" value="" id="OptionSorting" />
+        <table style="margin:10px 0px">
+            <tr>
+                <td>
+                    <a style="@hrfLuuTam" href="/wiki-manage/wiki-doc/list/1">1. Danh sách bài viết lưu tạm</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a style="@hrfChoXuly" href="/wiki-manage/wiki-doc/list/2">  2. Danh sách bài viết chờ xử lý</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a style="@hrfTuChoi" href="/wiki-manage/wiki-doc/list/3">  3. Danh sách bài biết bị từ chối</a>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="divCover" id="div-search-simple">
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div style="width: 120px">Danh mục</div>
+            </div>
+            <div>
+                <div style="width:200px">
+                    <select id="cboSearchWikiCatalogue">
+                        <option value="ALL">
+                            Tất cả
+                        </option>
+                        
+                    </select>
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div style="width: 120px">Tiêu đề</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtSearchTitleHashtag" data-controlcondition="TRUE" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="divCover">
+        <div class="div-search-btn" style="width:450px;">
+            <input type="button" value="Tìm kiếm" class="btn-default" />
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div id="divTableObjects">
+            @Html.Partial("~/Areas/Articles/Views/ArticlesNews/_PartialViewTable.cshtml")
+        </div>
+    </div>
+
+</div>
+

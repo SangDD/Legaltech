@@ -1,0 +1,133 @@
+﻿
+@using Common.CommonData
+@using ObjectInfos;
+@{
+    ViewBag.Title = "Quản lý bài viết";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+    List<WikiCatalogues_Info> _listcata = new List<WikiCatalogues_Info>();
+    if (ViewBag.ListCata != null)
+    {
+        _listcata = ViewBag.ListCata;
+    }
+    var _CataInfo = new WikiCatalogues_Info();
+    if (ViewBag.CataInfo != null)
+    {
+        _CataInfo = ViewBag.CataInfo;
+    }
+    string _backhref = "/wiki-manage/wiki-doc/list-by-catalogue/" + _CataInfo.ID;
+}
+@try
+{
+    <style>
+        .div-search-title > div {
+            width: 150px;
+        }
+    </style>
+    <script>
+        var _isSimpleEditorToolBar = 1;// set cho ckfinder có cấu hình xoạn thảo đơn giản
+
+    </script>
+    <script src="~/Content/ckeditor/ckeditor.js"></script>
+    <div class="divCover">
+        <div class="d-nav">
+            <img src="~/Content/icons/Body-icon-home.png" /> I
+            Wiki
+            <span class="red">></span>
+            <a href="/wiki-doc/list">Quản lý bài viết</a>
+            <span class="red">></span>
+            <a href="/wiki-doc/add">Thêm mới bài viết</a>
+        </div>
+    </div>
+    <div class="divCover">
+        <div class="classLine">
+        </div>
+    </div>
+
+    <div class="d-main">
+        <div class="divCover">
+            <div class="classTitle">
+                <input type="hidden" value="MODIFIED_DATE" id="colSorted" />
+                <input type="hidden" value="DESC" id="SortType" />
+                <input type="hidden" value="" id="OptionSorting" />
+                <div class="div-title-content"> THÔNG TIN BÀI VIẾT </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tiêu đề<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtTitle" maxlength="500" />
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Chủ đề  </div>
+            </div>
+            <div class="div-search-content">
+                <div id="divWikiChildCatalogue">
+                    <input type="hidden" id="CboAddWikiCataChild" value="@_CataInfo.ID" />
+                    @if (WebApps.CommonFunction.AppsCommon.GetCurrentLang().ToUpper().Contains("VN"))
+                    {
+                        <input type="text" readonly value="@_CataInfo.NAME_ENG" />
+                    }
+                    else
+                    {
+                        <input type="text" readonly value="@_CataInfo.NAME" />
+                    }
+                </div>
+            </div>
+        </div>
+         
+
+        <div style="margin-top:15px">
+            <div>Nội dung<i class="redspan">(*)</i></div>
+            <textarea type="text" id="txtAddContent"></textarea>
+        </div>
+
+        <input type="text" id="txthashtag" style="display:none" />
+        <div type="text" id="divhashtag" style="display:none"></div>
+
+    </div>
+
+    <div class="class_save">
+        <div class="classGuiDon">
+            <input type="button" value="Gửi bài" id="btnGuiDon" class="btn" />
+        </div> <div class="classLuuTam">
+            <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn" />
+        </div>
+    </div>
+
+
+
+    <script>
+
+     var txtAddContent = CKEDITOR.replace("txtAddContent",
+     {
+         height: 500
+
+     });
+
+         
+
+        $("#btnLuuTam").click(function () {
+             
+
+        });
+
+
+
+        $("#btnGuiDon").click(function () {
+             
+        });
+
+          
+    </script>
+}
+catch (Exception)
+{
+    // ignored
+}

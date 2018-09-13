@@ -1440,8 +1440,10 @@
     <Content Include="Areas\Home\Views\Shared\HomeBulletin.cshtml" />
     <Content Include="Areas\Home\Views\Shared\_BulletinData.cshtml" />
     <Content Include="Areas\Manager\Views\Billing\_PartialCurrency.cshtml" />
-    <Content Include="Areas\Home\Views\Shared\HomeHotNews.cshtml" />
-    <Content Include="Areas\Home\Views\Shared\_HotnewsData.cshtml" />
+    <Content Include="Areas\Articles\Views\ArticlesNews\ListArticles.cshtml" />
+    <Content Include="Areas\Articles\Views\ArticlesNews\_PartialViewTable.cshtml" />
+    <Content Include="Areas\Articles\Views\ArticlesNews\_PartialViewAdd.cshtml" />
+    <Content Include="Areas\Articles\Views\ArticlesNews\_PartialviewEdit.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <Content Include="Areas\Home\Views\Wiki\_PartialListDocByCata.cshtml" />
@@ -1751,7 +1753,6 @@
     <Folder Include="Areas\Account\Models\" />
     <Folder Include="Areas\Account\Views\Shared\" />
     <Folder Include="Areas\Articles\Models\" />
-    <Folder Include="Areas\Articles\Views\ArticlesNews\" />
     <Folder Include="Areas\Articles\Views\Shared\" />
     <Folder Include="Areas\DaiDienSHCN\Models\" />
     <Folder Include="Areas\DaiDienSHCN\Views\Shared\" />

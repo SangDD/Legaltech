@@ -34,21 +34,14 @@ namespace WebApps.Areas.TradeMark.Controllers
 
                 decimal _total_record = 0;
                 Application_Header_BL _obj_bl = new Application_Header_BL();
-                //hungtd them trang thai 
                 string _status = "ALL";
-                //if(RouteData.Values["id"] != null && RouteData.Values["id"].ToString() != "0")
-                //{
-                //    _status = RouteData.Values["id"].ToString();
-                //}
                 ViewBag.Status = _status;
                 string _keySearch = "ALL|" + _status;
                 List<ApplicationHeaderInfo> _lst = _obj_bl.ApplicationHeader_Search(_keySearch, ref _total_record);
                 string htmlPaging = CommonFuc.Get_HtmlPaging<ApplicationHeaderInfo>((int)_total_record, 1, "Đơn");
-
                 ViewBag.Obj = _lst;
                 ViewBag.Paging = htmlPaging;
                 ViewBag.SumRecord = _total_record;
-
                 return View("~/Areas/TradeMark/Views/Application/DanhSach_Don.cshtml");
             }
             catch (Exception ex)

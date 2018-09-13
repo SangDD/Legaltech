@@ -73,8 +73,6 @@ namespace DataAccess.ModuleArticles
             }
         }
 
-
-
         public decimal ArticlesInsert(NewsInfo pInfo)
         {
             try
