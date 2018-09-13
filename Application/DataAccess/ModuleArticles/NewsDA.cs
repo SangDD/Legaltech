@@ -32,13 +32,13 @@ namespace DataAccess.ModuleArticles
             {
                 OracleParameter paramReturn = new OracleParameter("P_TOTALRECORD", OracleDbType.Decimal, ParameterDirection.Output);
                 DataSet ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_NEWS.PROC_NEW_GET_BY_PAGE",
-
                  new OracleParameter("P_LANGUAGE", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
                  new OracleParameter("P_TITLE", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
-                 new OracleParameter("P_NGAYCONGBO", OracleDbType.Date, pLanguage, ParameterDirection.Input),
-                 new OracleParameter("P_START", OracleDbType.Int32, pLanguage, ParameterDirection.Input),
-                 new OracleParameter("P_END", OracleDbType.Int32, pLanguage, ParameterDirection.Input),
-                 new OracleParameter("P_CUSOR", OracleDbType.RefCursor, ParameterDirection.Output), paramReturn);
+                 new OracleParameter("P_NGAYCONGBO", OracleDbType.Date, pNgayCongBo, ParameterDirection.Input),
+                 new OracleParameter("P_START", OracleDbType.Int32, pStart, ParameterDirection.Input),
+                 new OracleParameter("P_END", OracleDbType.Int32, pEnd, ParameterDirection.Input),
+                 new OracleParameter("P_CUSOR", OracleDbType.RefCursor, ParameterDirection.Output),
+                 paramReturn);
                 pTotalRecord = Convert.ToDecimal(paramReturn.Value.ToString());
                 return ds;
 
@@ -148,6 +148,28 @@ namespace DataAccess.ModuleArticles
             }
         }
 
+        public DataSet NewsHomeSearch(string p_key_search, string p_from, string p_to, string p_sort_type, ref decimal p_total_record)
+        {
+            try
+            {
+                OracleParameter paramReturn = new OracleParameter("p_total_record", OracleDbType.Decimal, ParameterDirection.Output);
+                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_NEWS.PROC_NEW_HOME_SHOW",
+                    new OracleParameter("p_key_search", OracleDbType.Varchar2, p_key_search, ParameterDirection.Input),
+                    new OracleParameter("p_from", OracleDbType.Varchar2, p_from, ParameterDirection.Input),
+                    new OracleParameter("p_to", OracleDbType.Varchar2, p_to, ParameterDirection.Input),
+                    new OracleParameter("p_sort_type", OracleDbType.Varchar2, p_sort_type, ParameterDirection.Input),
+                    paramReturn,
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output)
+                   );
+                p_total_record = Convert.ToDecimal(paramReturn.Value.ToString());
+                return _ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
 
 
     }
