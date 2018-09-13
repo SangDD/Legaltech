@@ -20,11 +20,15 @@
 @Html.Partial("~/Areas/Home/Views/Shared/HomeRemindBox.cshtml")
  
 @*bản tin*@
-@*@Html.Partial("~/Areas/Home/Views/Shared/_BulletinData.cshtml")*@
+@Html.Partial("~/Areas/Home/Views/Shared/HomeBulletin.cshtml")
+
+@Html.Partial("~/Areas/Home/Views/Shared/HomeHotNews.cshtml")
 <script>
     $(function () {
         TodofindObjects(1, 1);
         OrderfindObjects(1, 1);
         RemindfindObjects(1, 1);
+        BulletinfindObjects(1, 1);
+        HotnewsfindObjects(1, 1);
     });
 </script>

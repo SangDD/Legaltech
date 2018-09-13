@@ -1,12 +1,12 @@
 ﻿<style>
-    .legalBulletin_div {
+    .legalHotnews_div {
         text-align: left;
         border: 1px solid #ccc;
         min-height: 50px;
         padding: 5px 0px 5px 5px;
         margin-top:10px;
         width:calc(50% - 10px) ;
-        float:left;
+        float:right;
     }
 
     #legalOrder_table td {
@@ -19,23 +19,23 @@
     }
 </style>
 
-<div class="divCover legalBulletin_div"  style="background-color: bisque;">
-    <div class="box_title">   Bản tin </div>
+<div class="divCover legalHotnews_div"  style="background-color: darkcyan;">
+    <div class="box_title">   Highlighted news </div>
     <div>
-        <input type="hidden" id="colSortedBulletin" />
-        <input type="hidden" id="SortTypeBulletin" />
+        <input type="hidden" id="colSortedHotnews" />
+        <input type="hidden" id="SortTypeHotnews" />
     </div>
 
     <div class="Homebox">
-        <div id="LegalBulletindivTable" class="LegaldivBoxTable">
-            @Html.Partial("/Areas/Home/Views/Shared/_BulletinData.cshtml")
+        <div id="LegalHotnewsdivTable" class="LegaldivBoxTable">
+            @Html.Partial("/Areas/Home/Views/Shared/_HotnewsData.cshtml")
         </div>
     </div>
     
     <script>
  
    
-    function BulletinfindObjects(_pageNumber, _isSearching) {
+    function HotnewsfindObjects(_pageNumber, _isSearching) {
         try {
             var _RemindsearchContent = "";
             var _RecordonPage = 5;
@@ -47,8 +47,8 @@
                 _RemindsearchContent = "";
             }
             
-            var orderby = $("#colSortedBulletin").val();
-            var orderType = $("#SortTypeBulletin").val();
+            var orderby = $("#colSortedHotnews").val();
+            var orderType = $("#SortTypeHotnews").val();
             //if (orderby.indexOf("NUMBER_TEXT") >= 0) {
             //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
             //}
@@ -61,7 +61,7 @@
             $.ajax({
                 type: "POST",
                 headers: { "cache-control": "no-cache" },
-                url: "/search-bulletin",
+                url: "/search-HotNews",
                 data: {
                     keysSearch: _RemindsearchContent,
                     _sortype: (orderby + " " + orderType),
@@ -71,7 +71,7 @@
                 async: true,
                 success: function (data) {
                     if (data != null) {
-                        $("#LegalBulletindivTable").html(data);
+                        $("#LegalHotnewsdivTable").html(data);
                     }
                 }
             });
@@ -82,49 +82,49 @@
         }
     }
 
-    function BulletinjsPaging(_page)
+    function HotnewsjsPaging(_page)
     {
         try {
-            BulletinfindObjects(_page, 0);
+            HotnewsfindObjects(_page, 0);
         } catch (e) {
             alert(e.toString());
         }
     }
 
 
-    function BulletinSortByCol(value) {
+    function HotnewsSortByCol(value) {
         try {
             //Lay gia tri luu trong colSort luu duoi dang text Hidden
-            var _currentColSorted = $("#colSortedBulletin").val();
+            var _currentColSorted = $("#colSortedHotnews").val();
             //Lay gia tri luu trong SortType luu duoi dang text Hidden
-            var _currentSortedType = $("#SortTypeBulletin").val();
+            var _currentSortedType = $("#SortTypeHotnews").val();
             var tag = "#" + value;
             if (_currentColSorted == value) {
                 if (_currentSortedType == "ASC") {
-                    $("#SortTypeBulletin").val("DESC");
+                    $("#SortTypeHotnews").val("DESC");
                 }
                 else {
-                    $("#SortTypeBulletin").val("ASC");
+                    $("#SortTypeHotnews").val("ASC");
                 }
             }
             else {
-                $("#colSortedBulletin").val(value);
-                $("#SortTypeBulletin").val("ASC");
+                $("#colSortedHotnews").val(value);
+                $("#SortTypeHotnews").val("ASC");
             }
-            var pos = document.getElementById("tableListBullentin").parentElement.scrollLeft;
+            var pos = document.getElementById("tableListHotnews").parentElement.scrollLeft;
             //Sort lai thi ve trang dau
-            BulletinfindObjects(1, 0);
+            HotnewsfindObjects(1, 0);
             //Sort lai thi ve trang dau
-            document.getElementById("tableListBullentin").parentElement.scrollLeft = pos;
+            document.getElementById("tableListHotnews").parentElement.scrollLeft = pos;
         } catch (e) {
             console.info(e.toString());
         }
     }
 
-    function BulletinChangeIConSortWhenSortColumns() {
+    function HotnewsChangeIConSortWhenSortColumns() {
         try {
-            var _order_by = $("#colSortedBulletin").val();
-            var _order_type = $("#SortTypeBulletin").val();
+            var _order_by = $("#colSortedHotnews").val();
+            var _order_type = $("#SortTypeHotnews").val();
             var _text = _order_type == 'DESC' ? $("#" + _order_by).text() + " ▼" : $("#" + _order_by).text() + " ▲";
             $("#" + _order_by).text(_text);
         }

@@ -403,6 +403,75 @@
             return null;
         }
         #endregion
+
+
+ 
+        #region Box tin 
+        [HttpPost]
+        [Route("search-bulletin")]
+        public ActionResult Findbulletin(string keysSearch, string _sortype, int _reconpage, int p_CurrentPage)
+        {
+            decimal _total_record = 0;
+            string p_to = "";
+            string p_from = CommonFuc.Get_From_To_Page(p_CurrentPage, ref p_to, _reconpage);
+            _sortype = " ORDER BY " + _sortype;
+            if (string.IsNullOrEmpty(_sortype) || _sortype.Trim() == "ORDER BY")
+            {
+                _sortype = "ALL";
+            }
+            string htmlPaging = "";
+            try
+            {
+                NewsBL _obj_bl = new NewsBL();
+                keysSearch = "7|" + "ALL|" + SessionData.CurrentUser.Language;
+                //string pLanguage, string pTitle, DateTime pNgayCongBo, int pStart, int pEnd, ref decimal pTotalRecord)
+              
+                List<NewsInfo> _lst = _obj_bl.ArticleHomeSearch(keysSearch, ref _total_record, p_from, p_to, _sortype);
+                htmlPaging = CommonFuc.Get_HtmlPaging<B_Remind_Info>((int)_total_record, p_CurrentPage, "Tin", _reconpage, "BulletinjsPaging");
+                ViewBag.Paging = htmlPaging;
+                ViewBag.Obj = _lst;
+                ViewBag.SumRecord = _total_record;
+                return PartialView("~/Areas/Home/Views/Shared/_BulletinData.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return null;
+        }
+
+        [HttpPost]
+        [Route("search-HotNews")]
+        public ActionResult FindHotNews(string keysSearch, string _sortype, int _reconpage, int p_CurrentPage)
+        {
+            decimal _total_record = 0;
+            string p_to = "";
+            string p_from = CommonFuc.Get_From_To_Page(p_CurrentPage, ref p_to, _reconpage);
+            _sortype = " ORDER BY " + _sortype;
+            if (string.IsNullOrEmpty(_sortype) || _sortype.Trim() == "ORDER BY")
+            {
+                _sortype = "ALL";
+            }
+            string htmlPaging = "";
+            try
+            {
+                NewsBL _obj_bl = new NewsBL();
+                keysSearch = "7|" + "1|" + SessionData.CurrentUser.Language;
+
+                List<NewsInfo> _lst = _obj_bl.ArticleHomeSearch(keysSearch, ref _total_record, p_from, p_to, _sortype);
+                htmlPaging = CommonFuc.Get_HtmlPaging<B_Remind_Info>((int)_total_record, p_CurrentPage, "Tin", _reconpage, "HotnewsjsPaging");
+                ViewBag.Paging = htmlPaging;
+                ViewBag.Obj = _lst;
+                ViewBag.SumRecord = _total_record;
+                return PartialView("~/Areas/Home/Views/Shared/_HotnewsData.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return null;
+        }
+        #endregion
     }
 
 
