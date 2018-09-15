@@ -6,23 +6,25 @@
         _languagecode = ViewBag.LanguageCode;
     }
 }
- 
+
 @*tìm kiếm*@
-@Html.Partial("~/Areas/Home/Views/Shared/HomeSearchBox.cshtml") 
+@Html.Partial("~/Areas/Home/Views/Shared/HomeSearchBox.cshtml")
 
 @*todos*@
-@Html.Partial("~/Areas/Home/Views/Shared/HomeToDoBox.cshtml") 
+@Html.Partial("~/Areas/Home/Views/Shared/HomeToDoBox.cshtml")
 
 @*order*@
 @Html.Partial("~/Areas/Home/Views/Shared/HomeOrderBox.cshtml")
 
- @*remind*@
+@*remind*@
 @Html.Partial("~/Areas/Home/Views/Shared/HomeRemindBox.cshtml")
- 
+
 @*bản tin*@
 @Html.Partial("~/Areas/Home/Views/Shared/HomeBulletin.cshtml")
 
 @Html.Partial("~/Areas/Home/Views/Shared/HomeHotNews.cshtml")
+
+@Html.Partial("~/Areas/Home/Views/Shared/HomeUpdateNews.cshtml")
 <script>
     $(function () {
         TodofindObjects(1, 1);
@@ -30,5 +32,6 @@
         RemindfindObjects(1, 1);
         BulletinfindObjects(1, 1);
         HotnewsfindObjects(1, 1);
+        UpdatenewsfindObjects(1, 1);
     });
 </script>

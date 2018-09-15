@@ -7,45 +7,41 @@
     {
         _list_data = ViewBag.Obj;
     }
- 
+
 }
 
+<style>
+    /*==============================================================*/
+  
+</style>
 <div>
-    <table class="table-lst-data" id="tableListBullentin">
-        <thead>
-            <tr>
-                <th class="class30">STT</th>
-                <th class="class200"   id="HEADER"  onclick="BulletinSortByCol('HEADER')">Tiêu đề</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (_list_data.Count > 0)
-            {
-                foreach (var item in _list_data)
-                {
-                    <tr>
-                        <td class="tdcenteralign">@item.STT</td>
-                        <td class="tdleftalign">@item.Header</td>
-                    </tr>
-                }
-            }
-            else
-            {
-                <tr>
-                    <td colspan="9">Không có dữ liệu</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+
+    @if (_list_data.Count > 0)
+    {
+        foreach (var item in _list_data)
+        {
+            <div class="NewsParent BoxNewsImage">
+                <div class="NewsHeader">
+                    @DateTime.Now.ToString("dd/MM")
+                </div>
+                <div class="NewsContent">
+                    @item.Header
+                </div>
+            </div>
+
+
+        }
+    }
+
 </div>
 
-<div class="_ClassPage">
+@*<div class="_ClassPage">
     <ul>
         @Html.Raw(ViewBag.Paging)
     </ul>
-</div>
+</div>*@
 <script>
     $(function () {
-        BulletinChangeIConSortWhenSortColumns();
+    //    BulletinChangeIConSortWhenSortColumns();
     });
 </script>

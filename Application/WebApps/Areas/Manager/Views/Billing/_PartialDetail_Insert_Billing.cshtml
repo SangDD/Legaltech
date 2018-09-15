@@ -15,13 +15,22 @@
         _Operator_Type = (decimal)ViewBag.Operator_Type;
     }
 
-    decimal _tax = 5;
+    decimal _tax = Common.Common.Tax;
     decimal _Tex_Fee = 0;
     decimal _Total_Pre_Tex = 0;
     decimal _Total_VND = 0;
 
+
+    decimal _total_foeign = 0;
+
     foreach (Billing_Detail_Info item in _list_data)
     {
+        if (item.Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Detail_Type.Foeign))
+        {
+            _total_foeign = item.Total_Fee;
+            continue;
+        }
+
         _Total_Pre_Tex = _Total_Pre_Tex + item.Total_Fee;
         _Tex_Fee = Math.Round(_Total_Pre_Tex / 100 * _tax);
         _Total_VND = _Total_Pre_Tex + _Tex_Fee;
@@ -29,6 +38,7 @@
 }
 
 <div>
+    <input type="hidden" id="txtTotal_Foeign" value="@_total_foeign"/>
     <input type="hidden" id="txt_Total_Pre_Tex" value="@_Total_Pre_Tex" />
     <input type="hidden" id="txt_Tex_Fee" value="@_Tex_Fee" />
     <input type="hidden" id="txt_Total_VND" value="@_Total_VND" />
@@ -54,6 +64,10 @@
             {
                 foreach (var item in _list_data)
                 {
+                    if (item.Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Detail_Type.Foeign))
+                    {
+                        continue;
+                    }
 
                     <tr>
                         <td class="tdleftalign">@item.Biling_Detail_Name</td>
@@ -73,7 +87,7 @@
                             else
                             {
                                 <td class="tdrightalign">
-                                    <input type="text" style="width:100px" id="txtService_Fee" value="@item.Service_Fee.ToString("#,##0.##")" onkeyup="jsFormatNumber(this.value, this.id)" onblur="onChangeFeeService(this.value)" />
+                                    <input type="text" style="width:100px" id="txtService_Fee" value="@item.Service_Fee.ToString("#,##0.##")" onkeyup="jsFormatNumber(this.value, this.id)" onblur="onChangeOthersFee(this.value)" />
                                 </td>
                             }
                         }
@@ -123,6 +137,21 @@
                         <td class="tdrightalign"></td>
                     }
                 </tr>
+
+               if (_total_foeign != 0)
+               {
+                <tr>
+                    <td class="tdleftalign" style="font-weight:bold">Tổng cộng (ngoại tệ)</td>
+                    <td class="tdrightalign">-</td>
+                    <td class="tdrightalign">-</td>
+                    <td class="tdrightalign">-</td>
+                    <td class="tdrightalign" style="font-weight:bold; color: red">@_total_foeign.ToString("#,##0.##")</td>
+                    @if (_Operator_Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert))
+                    {
+                        <td class="tdrightalign"></td>
+                    }
+                </tr>
+               }
             }
             else
             {

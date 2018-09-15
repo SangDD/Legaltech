@@ -43,13 +43,32 @@ namespace BussinessFacade
             }
         }
 
-        public Billing_Header_Info Billing_GetBy_Id(decimal p_docking_id, string p_app_case_code, string p_language_code, 
+        public Billing_Header_Info Billing_GetBy_Id(decimal p_billing_id, string p_app_case_code, string p_language_code, 
             ref ApplicationHeaderInfo applicationHeaderInfo, ref List<Billing_Detail_Info> p_lst_billing_detail)
         {
             try
             {
                 Billing_DA _da = new Billing_DA();
-                DataSet _ds = _da.Billing_GetBy_Id(p_docking_id, p_app_case_code, p_language_code);
+                DataSet _ds = _da.Billing_GetBy_Id(p_billing_id, p_app_case_code, p_language_code);
+
+                p_lst_billing_detail = CBO<Billing_Detail_Info>.FillCollectionFromDataTable(_ds.Tables[1]);
+                applicationHeaderInfo = CBO<ApplicationHeaderInfo>.FillObjectFromDataTable(_ds.Tables[2]);
+                return CBO<Billing_Header_Info>.FillObjectFromDataTable(_ds.Tables[0]);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new Billing_Header_Info();
+            }
+        }
+
+        public Billing_Header_Info Billing_GetBy_Code(string p_case_code, string p_language_code,
+            ref ApplicationHeaderInfo applicationHeaderInfo, ref List<Billing_Detail_Info> p_lst_billing_detail)
+        {
+            try
+            {
+                Billing_DA _da = new Billing_DA();
+                DataSet _ds = _da.Billing_GetBy_Code(p_case_code, p_language_code);
 
                 p_lst_billing_detail = CBO<Billing_Detail_Info>.FillCollectionFromDataTable(_ds.Tables[1]);
                 applicationHeaderInfo = CBO<ApplicationHeaderInfo>.FillObjectFromDataTable(_ds.Tables[2]);

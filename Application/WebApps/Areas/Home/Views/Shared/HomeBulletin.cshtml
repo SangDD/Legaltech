@@ -5,7 +5,7 @@
         min-height: 50px;
         padding: 5px 0px 5px 5px;
         margin-top:10px;
-        width:calc(50% - 10px) ;
+        width:calc(33% - 10px) ;
         float:left;
     }
 
@@ -19,8 +19,16 @@
     }
 </style>
 
-<div class="divCover legalBulletin_div"  style="background-color: bisque;">
-    <div class="box_title">   Bản tin </div>
+<div class="divCover legalBulletin_div" >
+    
+    <div class="tinHDNVNewHome">
+        <div class="headerTinNghiepVu">
+            <img class="MainImageHeader"  src="~/Content/images/Book.png" />
+            <p class="MainTitleHeader"> BẢN TIN</p>
+            <br />
+            <hr class="MainTitleHr" />
+        </div>
+    </div>
     <div>
         <input type="hidden" id="colSortedBulletin" />
         <input type="hidden" id="SortTypeBulletin" />
@@ -31,106 +39,105 @@
             @Html.Partial("/Areas/Home/Views/Shared/_BulletinData.cshtml")
         </div>
     </div>
-    
+
     <script>
- 
-   
-    function BulletinfindObjects(_pageNumber, _isSearching) {
-        try {
-            var _RemindsearchContent = "";
-            var _RecordonPage = 5;
-            if (_isSearching === 1) {
-                _Keysearch = "";
-            } else {
-                //_arrKeySearch = _TodoKeysearch.split('|');
-                //_searchContent = _TodoarrKeySearch[0];
-                _RemindsearchContent = "";
+
+
+        function BulletinfindObjects(_pageNumber, _isSearching) {
+            try {
+                var _RemindsearchContent = "";
+                var _RecordonPage = 5;
+                if (_isSearching === 1) {
+                    _Keysearch = "";
+                } else {
+                    //_arrKeySearch = _TodoKeysearch.split('|');
+                    //_searchContent = _TodoarrKeySearch[0];
+                    _RemindsearchContent = "";
+                }
+
+                var orderby = $("#colSortedBulletin").val();
+                var orderType = $("#SortTypeBulletin").val();
+                //if (orderby.indexOf("NUMBER_TEXT") >= 0) {
+                //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
+                //}
+                //else if (orderby.indexOf("TITLE") >= 0) {
+                //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
+                //}
+                //else if (orderby.toLocaleUpperCase().indexOf("AGENCIE_NAME") >= 0) {
+                //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
+                //}
+                $.ajax({
+                    type: "POST",
+                    headers: { "cache-control": "no-cache" },
+                    url: "/search-bulletin",
+                    data: {
+                        keysSearch: _RemindsearchContent,
+                        _sortype: (orderby + " " + orderType),
+                        _reconpage: _RecordonPage,
+                        p_CurrentPage: _pageNumber
+                    },
+                    async: true,
+                    success: function (data) {
+                        if (data != null) {
+                            $("#LegalBulletindivTable").html(data);
+                        }
+                    }
+                });
+                return true;
+            } catch (e) {
+                alert(e.toString());
+                return false;
             }
-            
-            var orderby = $("#colSortedBulletin").val();
-            var orderType = $("#SortTypeBulletin").val();
-            //if (orderby.indexOf("NUMBER_TEXT") >= 0) {
-            //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
-            //}
-            //else if (orderby.indexOf("TITLE") >= 0) {
-            //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
-            //}
-            //else if (orderby.toLocaleUpperCase().indexOf("AGENCIE_NAME") >= 0) {
-            //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
-            //}           
-            $.ajax({
-                type: "POST",
-                headers: { "cache-control": "no-cache" },
-                url: "/search-bulletin",
-                data: {
-                    keysSearch: _RemindsearchContent,
-                    _sortype: (orderby + " " + orderType),
-                    _reconpage: _RecordonPage,
-                    p_CurrentPage: _pageNumber
-                },
-                async: true,
-                success: function (data) {
-                    if (data != null) {
-                        $("#LegalBulletindivTable").html(data);
+        }
+
+        function BulletinjsPaging(_page) {
+            try {
+                BulletinfindObjects(_page, 0);
+            } catch (e) {
+                alert(e.toString());
+            }
+        }
+
+
+        function BulletinSortByCol(value) {
+            try {
+                //Lay gia tri luu trong colSort luu duoi dang text Hidden
+                var _currentColSorted = $("#colSortedBulletin").val();
+                //Lay gia tri luu trong SortType luu duoi dang text Hidden
+                var _currentSortedType = $("#SortTypeBulletin").val();
+                var tag = "#" + value;
+                if (_currentColSorted == value) {
+                    if (_currentSortedType == "ASC") {
+                        $("#SortTypeBulletin").val("DESC");
+                    }
+                    else {
+                        $("#SortTypeBulletin").val("ASC");
                     }
                 }
-            });
-            return true;
-        } catch (e) {
-            alert(e.toString());
-            return false;
-        }
-    }
-
-    function BulletinjsPaging(_page)
-    {
-        try {
-            BulletinfindObjects(_page, 0);
-        } catch (e) {
-            alert(e.toString());
-        }
-    }
-
-
-    function BulletinSortByCol(value) {
-        try {
-            //Lay gia tri luu trong colSort luu duoi dang text Hidden
-            var _currentColSorted = $("#colSortedBulletin").val();
-            //Lay gia tri luu trong SortType luu duoi dang text Hidden
-            var _currentSortedType = $("#SortTypeBulletin").val();
-            var tag = "#" + value;
-            if (_currentColSorted == value) {
-                if (_currentSortedType == "ASC") {
-                    $("#SortTypeBulletin").val("DESC");
-                }
                 else {
+                    $("#colSortedBulletin").val(value);
                     $("#SortTypeBulletin").val("ASC");
                 }
+                var pos = document.getElementById("tableListBullentin").parentElement.scrollLeft;
+                //Sort lai thi ve trang dau
+                BulletinfindObjects(1, 0);
+                //Sort lai thi ve trang dau
+                document.getElementById("tableListBullentin").parentElement.scrollLeft = pos;
+            } catch (e) {
+                console.info(e.toString());
             }
-            else {
-                $("#colSortedBulletin").val(value);
-                $("#SortTypeBulletin").val("ASC");
-            }
-            var pos = document.getElementById("tableListBullentin").parentElement.scrollLeft;
-            //Sort lai thi ve trang dau
-            BulletinfindObjects(1, 0);
-            //Sort lai thi ve trang dau
-            document.getElementById("tableListBullentin").parentElement.scrollLeft = pos;
-        } catch (e) {
-            console.info(e.toString());
         }
-    }
 
-    function BulletinChangeIConSortWhenSortColumns() {
-        try {
-            var _order_by = $("#colSortedBulletin").val();
-            var _order_type = $("#SortTypeBulletin").val();
-            var _text = _order_type == 'DESC' ? $("#" + _order_by).text() + " ▼" : $("#" + _order_by).text() + " ▲";
-            $("#" + _order_by).text(_text);
+        function BulletinChangeIConSortWhenSortColumns() {
+            try {
+                var _order_by = $("#colSortedBulletin").val();
+                var _order_type = $("#SortTypeBulletin").val();
+                var _text = _order_type == 'DESC' ? $("#" + _order_by).text() + " ▼" : $("#" + _order_by).text() + " ▲";
+                $("#" + _order_by).text(_text);
+            }
+            catch (e) {
+            }
         }
-        catch (e) {
-        }
-    }
-  
+
     </script>
 </div>

@@ -94,7 +94,8 @@
             App = 1,
             TimeSheet = 2,
             Service = 3,
-            Others = 4
+            Others = 4,
+            Foeign = 5
         }
 
         public enum Operator_Type
@@ -102,7 +103,16 @@
             Insert = 1,
             Update = 2,
             Approve = 3,
-            View = 4    
+            View = 4
+        }
+
+        public enum Todo_Type
+        {
+            App = 1,
+            Question = 2,
+            Search = 3,
+            TimeSheet = 4,
+            Billing = 5
         }
     }
 
@@ -113,7 +123,7 @@
         public const string gc_TITLE_NAME = "TITLENAME";
     }
 
-    public class CommonWiki 
+    public class CommonWiki
     {
         public const int Stt_luutam = 1;
         public const int Stt_guibai = 2;

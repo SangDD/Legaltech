@@ -10,6 +10,7 @@ namespace Common
     {
         public static int RecordOnpage = 10;
         public static decimal Country_VietNam_Id = 234;
+        public static decimal Tax = 5;
     }
 
     /// <summary>

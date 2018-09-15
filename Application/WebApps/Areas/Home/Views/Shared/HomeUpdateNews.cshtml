@@ -1,0 +1,143 @@
+﻿<style>
+    .Updatenews_div {
+        text-align: left;
+        border: 1px solid #ccc;
+        min-height: 50px;
+        padding: 5px 0px 5px 5px;
+        margin-top:10px;
+        width:calc(33% - 10px) ;
+        float:left;
+        margin-left:5px;
+    }
+
+    #legalOrder_table td {
+        cursor: pointer;
+        padding: 5px 10px;
+    }
+
+    .divNumberRecordOnPage {
+        display: none;
+    }
+</style>
+
+<div class="divCover Updatenews_div"  >
+    <div class="tinHDNVNewHome">
+        <div class="headerTinNghiepVu">
+            <img class="MainImageHeader" src="~/Content/images/Book.png" />
+            <p class="MainTitleHeader">TIN TỨC</p>
+            <br />
+            <hr class="MainTitleHr" />
+        </div>
+    </div>
+    <div>
+        <input type="hidden" id="colSortedUpdatenews" />
+        <input type="hidden" id="SortTypeUpdatenews" />
+    </div>
+
+    <div class="Homebox">
+        <div id="LegalUpdatenewsdivTable" class="LegaldivBoxTable">
+            @Html.Partial("/Areas/Home/Views/Shared/_UpdatenewsData.cshtml")
+        </div>
+    </div>    
+    <script>
+ 
+   
+    function UpdatenewsfindObjects(_pageNumber, _isSearching) {
+        try {
+            var _RemindsearchContent = "";
+            var _RecordonPage = 5;
+            if (_isSearching === 1) {
+                _Keysearch = "";
+            } else {
+                //_arrKeySearch = _TodoKeysearch.split('|');
+                //_searchContent = _TodoarrKeySearch[0];
+                _RemindsearchContent = "";
+            }
+            
+            var orderby = $("#colSortedUpdatenews").val();
+            var orderType = $("#SortTypeUpdatenews").val();
+            //if (orderby.indexOf("NUMBER_TEXT") >= 0) {
+            //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
+            //}
+            //else if (orderby.indexOf("TITLE") >= 0) {
+            //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
+            //}
+            //else if (orderby.toLocaleUpperCase().indexOf("AGENCIE_NAME") >= 0) {
+            //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
+            //}           
+            $.ajax({
+                type: "POST",
+                headers: { "cache-control": "no-cache" },
+                url: "/search-Updatenews",
+                data: {
+                    keysSearch: _RemindsearchContent,
+                    _sortype: (orderby + " " + orderType),
+                    _reconpage: _RecordonPage,
+                    p_CurrentPage: _pageNumber
+                },
+                async: true,
+                success: function (data) {
+                    if (data != null) {
+                        $("#LegalUpdatenewsdivTable").html(data);
+                    }
+                }
+            });
+            return true;
+        } catch (e) {
+            alert(e.toString());
+            return false;
+        }
+    }
+
+    function UpdatenewsjsPaging(_page)
+    {
+        try {
+            UpdatenewsfindObjects(_page, 0);
+        } catch (e) {
+            alert(e.toString());
+        }
+    }
+
+
+    function UpdateSortByCol(value) {
+        try {
+            //Lay gia tri luu trong colSort luu duoi dang text Hidden
+            var _currentColSorted = $("#colSortedUpdatenews").val();
+            //Lay gia tri luu trong SortType luu duoi dang text Hidden
+            var _currentSortedType = $("#SortTypeUpdatenews").val();
+            var tag = "#" + value;
+            if (_currentColSorted == value) {
+                if (_currentSortedType == "ASC") {
+                    $("#SortTypeUpdatenews").val("DESC");
+                }
+                else {
+                    $("#SortTypeUpdatenews").val("ASC");
+                }
+            }
+            else {
+                $("#colSortedUpdatenews").val(value);
+                $("#SortTypeUpdatenews").val("ASC");
+            }
+            var pos = document.getElementById("tableListUpdatenews").parentElement.scrollLeft;
+            //Sort lai thi ve trang dau
+            UpdatenewsfindObjects(1, 0);
+            //Sort lai thi ve trang dau
+            document.getElementById("tableListUpdatenews").parentElement.scrollLeft = pos;
+        } catch (e) {
+            console.info(e.toString());
+        }
+    }
+
+    function UpdatenewsChangeIConSortWhenSortColumns() {
+        try {
+            var _order_by = $("#colSortedUpdatenews").val();
+            var _order_type = $("#SortTypeUpdatenews").val();
+            var _text = _order_type == 'DESC' ? $("#" + _order_by).text() + " ▼" : $("#" + _order_by).text() + " ▲";
+            $("#" + _order_by).text(_text);
+        }
+        catch (e) {
+        }
+    }
+  
+    </script>
+</div>

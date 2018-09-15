@@ -11,6 +11,7 @@ namespace ObjectInfos
         public decimal STT { get; set; }
 
         public decimal TODO_ID { get; set; }
+        public decimal TYPE { get; set; }
 
         public string CASE_CODE { get; set; }
 

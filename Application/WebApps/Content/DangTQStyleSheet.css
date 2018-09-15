@@ -1006,3 +1006,170 @@ nvshashtag
     color:black;
     font-weight:bold;
 }
+
+.BoxNewsImage {
+    border-bottom: 1px dashed #ecebee;
+    float: left;
+    width: 98%;
+    padding-bottom: 5px;
+    text-align: justify;
+    margin: 0px 10px;
+}
+
+    .BoxNewsImage:last-child {
+        border-bottom: 0px dashed #ecebee;
+    }
+
+.NewsParent {
+    width: 100%;
+    float: left;
+    padding: 12px 0 0 0;
+}
+
+.NewsHeader {
+    color: #666666;
+    font-style: italic;
+    width: 15%;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 21px;
+    /*margin-left: 10px;*/
+    float: left;
+}
+
+.NewsHeader_Text {
+    background: none repeat scroll 0 0 #dddbde;
+    width: 90%;
+    border: 1px solid #ddd;
+    font-size: 12px;
+}
+
+.NewsHeader img {
+    background: #FFF;
+    max-width: 45px;
+    max-height: 30px;
+    float: left;
+    border: 1px solid #ddd;
+    transform-origin: center;
+}
+
+.NewsContent {
+    float: right;
+    margin-right: 10px;
+    text-align: justify;
+    vertical-align: middle;
+    width: 81%;
+}
+
+    .NewsContent a {
+        font-size: 14px;
+        color: #333333;
+        text-align: justify;
+        font-weight: normal;
+    }
+
+        .NewsContent a:visited {
+            color: #660099 !important;
+        }
+
+        .NewsContent a:hover {
+            color: #0066ff;
+        }
+
+    .NewsContent img {
+        /*width: 20px;
+        height: 20px;*/
+    }
+
+/*=====================================================================*/
+
+.TitleHeader {
+    float: left;
+    font-size: 22px;
+    color: #00317d;
+    font-family: 'MyriadPro-Cond';
+    width: 100%;
+}
+
+.TitleHr {
+    border-top: 3px solid #BBC9D9;
+    border-bottom: 0;
+    background: #BBC9D9;
+    border-left: 0;
+    margin-bottom: 15px;
+}
+
+.MainTitleHeader {
+    float: left;
+    font-size: 19px;
+    color: #333;
+    font-family: 'MyriadPro-Cond';
+    /*width: 100%;*/
+    font-weight: bold;
+}
+
+.MainTitleHr {
+    border-top: 3px solid #BBC9D9;
+    border-bottom: 0;
+    background: #BBC9D9;
+    border-left: 0;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.MainImageHeader {
+    float: left;
+    margin-right: 5px;
+    margin-left: 10px;
+}
+/*=====================================================================*/
+/*Dinh nghĩa trang danh sách ArticlesList*/
+
+.HeaderContent {
+    text-align: justify;
+    margin-left: 5px;
+    padding-right: 10px;
+    display: table;
+}
+
+    .HeaderContent a {
+        line-height: 200%;
+        text-align: justify;
+    }
+.tinHDNVNewHome {
+    float: left;
+    height: auto;
+    vertical-align: middle;
+    line-height: 30px;
+    margin-top: 5px;
+    width: 100%;
+}
+.MainImageHeader {
+    width: 26px;
+}
+.MainImageHeader {
+    float: left;
+    margin-right: 5px;
+    margin-left: 10px;
+}
+.MainImageHeader {
+    float: left;
+    margin-right: 5px;
+    margin-left: 10px;
+}
+.MainTitleHeader {
+    float: left;
+    font-size: 19px;
+    color: #333;
+    font-family: 'MyriadPro-Cond';
+    /* width: 100%; */
+    font-weight: bold;
+}
+.MainTitleHr {
+    border-top: 3px solid #BBC9D9;
+    border-bottom: 0;
+    background: #BBC9D9;
+    border-left: 0;
+    margin-bottom: 5px;
+    width: 100%;
+}

@@ -189,9 +189,7 @@
             @Html.Partial("~/Areas/Manager/Views/Billing/_PartialDetail_Insert_Billing.cshtml")
         </div>
 
-        <div id="divCurrency" style="margin-top:5px;">
-            @*@Html.Partial("~/Areas/Manager/Views/Billing/_PartialCurrency.cshtml")*@
-        </div>
+       
 
     </div>
 
@@ -236,17 +234,17 @@
 
                         if (data.success == "-2") {
                             jError("Trạng thái đơn không hợp lệ");
-                            $("#divCurrency").html(null);
+                            //$("#divCurrency").html(null);
                         }
                         else if (data.success == "-1") {
-                            $("#divCurrency").html(null);
+                            //$("#divCurrency").html(null);
                         }
                         else {
                             $("#divInfoApp").html(data.Partial_AppInfo);
                             $("#divDataBillingDetail").html(data.PartialDetail_Insert_Billing);
-                            $("#divCurrency").html(data.PartialCurrency);
+                            //$("#divCurrency").html(data.PartialCurrency);
 
-                            CssPopUpTag("divWrapperPopUpBilling", ".divPopup");
+                            //CssPopUpTag("divWrapperPopUpBilling", ".divPopup");
                             $("#txtCaseCodeSearch").val(_App_Case_Code);
                         }
                     }
@@ -301,7 +299,8 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
                         $("#divDataBillingDetail").html(data);
-                        CssPopUpTag("divWrapperPopUpBilling", ".divPopup");
+                        //CssPopUpTag("divWrapperPopUpBilling", ".divPopup");
+                        onChangeCurrency_Rate($("#txtCurrency_Rate").val());
                     },
                     error: function (e) {
                         CreateRollingWaitingIcon(false);
@@ -314,13 +313,16 @@
         }
     }
 
-    function onChangeFeeService(_value) {
+    function onChangeOthersFee(_value) {
 
-        var _amount = parseInt(_value.replace(/,/g, ""));
+        var _amount = 0;
+        if (_value != "") {
+            _amount = parseInt(_value.replace(/,/g, ""));
+        }
 
         try {
             $.ajax({
-                url: '/quan-ly-billing/danh-sach-billing/change-other-billing-detail',
+                url: '/quan-ly-billing/danh-sach-billing/change-other-fee',
                 type: 'POST',
                 data: {
                     p_case_code: $("#txtApp_Case_Code").val(),
@@ -333,7 +335,6 @@
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
                     $("#divDataBillingDetail").html(data);
-                    //CssPopUpTag("divWrapperPopUpBilling", ".divPopup");
 
                     onChangeCurrency_Rate($("#txtCurrency_Rate").val());
                 },
@@ -351,20 +352,45 @@
 
         var _rate = parseInt(_value.replace(/,/g, ""));
 
-        var _txt_Total_VND = $("#txt_Total_VND").val();
-        if (_value == "" || _value == "0" || _txt_Total_VND == "" || _txt_Total_VND == "0") {
-            $("#txtTotal_Foeign").val('');
-            return;
-        }
-
         try {
-            var _txt_Total_VND = parseInt(_txt_Total_VND.replace(/,/g, ""))
-            var _Total_Foeign = Math.round(_txt_Total_VND / _rate);
-
-            $("#txtTotal_Foeign").val(_Total_Foeign);
+            $.ajax({
+                url: '/quan-ly-billing/danh-sach-billing/change-currency-rate',
+                type: 'POST',
+                data: {
+                    p_case_code: $("#txtApp_Case_Code").val(),
+                    p_currency_rate: _rate
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divDataBillingDetail").html(data);
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
+            });
         } catch (e) {
             console.log(e);
         }
+
+        //var _txt_Total_VND = $("#txt_Total_VND").val();
+        //if (_value == "" || _value == "0" || _txt_Total_VND == "" || _txt_Total_VND == "0") {
+        //    $("#txtTotal_Foeign").val('');
+        //    return;
+        //}
+
+        //try {
+        //    var _txt_Total_VND = parseInt(_txt_Total_VND.replace(/,/g, ""))
+        //    var _Total_Foeign = Math.ceil(_txt_Total_VND / _rate);
+
+        //    $("#txtTotal_Foeign").val(_Total_Foeign);
+        //} catch (e) {
+        //    console.log(e);
+        //}
     }
 
     function doInsertBilling() {
@@ -432,6 +458,17 @@
                 $('#txtApp_Case_Code').focus();
             });
             return false;
+        }
+
+        var _txtIsCurrency = $("#txtIsCurrency").val();
+        if (_txtIsCurrency == "1") {
+            var _currentcy_rate = $("#txtCurrency_Rate").val();
+            if (_currentcy_rate == "" || _currentcy_rate == "0") {
+                jError("Tỷ giá không được để trống", "lỗi", function () {
+                    $('#txtCurrency_Rate').focus();
+                });
+                return false;
+            }
         }
 
         return true;
