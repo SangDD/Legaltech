@@ -1,5 +1,10 @@
 ﻿@using ObjectInfos;
 @model Timesheet_Info
+@{
+
+    ViewBag.Title = "Duyệt time sheet";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+}
 
 <style>
     /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
@@ -8,25 +13,45 @@
     }
 </style>
 
-<div class="" style="padding:5px 38px">
-    <div class="divCover divCover_popup">
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        Monitor
+        <span class="red">></span>
+        <a href="/quan-ly-timesheet/danh-sach-timesheet">Quản lý timesheet</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <div class="div-title-content"> XEM CHI TIẾT TIMESHEET</div>
+        </div>
+    </div>
+
+    <div class="divCover">
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Mã đơn</div>
+                <div>Case code<i class="redspan"></i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @disabled = "disabled" })
+                    @Html.TextBoxFor(m => m.App_Case_Code, new { @id = "txtApp_Code", @disabled = "disabled" })
                 </div>
             </div>
         </div>
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Loại đơn</div>
+                <div>Case Name</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.App_Name, new { id = "txtApp_Name", @disabled = "disabled" })
+                    @Html.TextBoxFor(m => m.Case_Name, new { id = "txtCase_Name", @disabled = "disabled" })
                 </div>
             </div>
         </div>
@@ -44,16 +69,18 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Timesheet name <i class="redspan">(*)</i></div>
+                <div>Mô tả công việc <i class="redspan"></i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Name, new { id = "txtName", @maxlength = "200", @style = "width: 200px", @disabled = "disabled" })
+                    @Html.TextBoxFor(m => m.Name, new { id = "txtName", @maxlength = "200",  @disabled = "disabled" })
                 </div>
             </div>
+        </div>
 
+        <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Trạng thái  <i class="redspan">(*)</i></div>
+                <div>Trạng thái  <i class="redspan"></i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -64,30 +91,49 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Ngày <i class="redspan">(*)</i></div>
+                <div>Ngày <i class="redspan"></i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Time_Date, "{0:dd/MM/yyyy}", new { id = "txtTime_Date", @Value = Model.Time_Date == DateTime.MinValue ? "" : Model.Time_Date.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker", @style = "width: 200px", @disabled = "disabled" })
+                    @Html.TextBoxFor(m => m.Time_Date, "{0:dd/MM/yyyy}", new { id = "txtTime_Date", @Value = Model.Time_Date == DateTime.MinValue ? "" : Model.Time_Date.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker", @disabled = "disabled" })
                 </div>
             </div>
-            <div class="div-search-title">
-                <div>Giờ thực tế <i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.TextBoxFor(m => m.Hours, new { id = "txtHours", @Value = Model.Hours == 0 ? "" : Model.Hours.ToString("#,##0.##"), onkeyup = "jsFormatNumber(this.value, this.id)", @disabled = "disabled" })
-                </div>
-            </div>
+
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Giờ điều chỉnh <i class="redspan">(*)</i></div>
+                <div>Bắt đầu <i class="redspan"></i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Hours_Adjust, new { id = "txtHours_Adjust", @Value = Model.Hours_Adjust == 0 ? "" : Model.Hours_Adjust.ToString("#,##0.##"), onkeyup = "jsFormatFloatNumber(this.value, this.value.length, 2)" })
+                    @Html.TextBoxFor(m => m.From_Time, new { @disabled = "disabled" })
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div>Kết thúc  <i class="redspan"></i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.To_Time, new { @disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Giờ thực tế <i class="redspan"></i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Hours, new { @disabled = "disabled" })
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div>Giờ điều chỉnh  <i class="redspan"></i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Hours_Adjust, new { @disabled = "disabled" })
                 </div>
             </div>
         </div>
@@ -103,21 +149,24 @@
             </div>
         </div>
 
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Lý do từ chối</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.TextBoxFor(m => m.Reject_Reason, new { id = "txtReject_Reason", @maxlength = "2000" })
+        @if (Model.Status == Convert.ToInt16(Common.CommonData.CommonEnums.TimeSheet_Status.Reject))
+        {
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Lý do từ chối</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.Reject_Reason, new { id = "txtReject_Reason", @maxlength = "2000" })
+                    </div>
                 </div>
             </div>
-        </div>
+        }
+
     </div>
 
-    <div class="form-group">
-        <div class="form-group-bottom">
-            @*<input type="submit" class="btn-default" value="Lưu" onclick="return doEditTimeSheet()" />*@
+    <div class="divCover">
+        <div class="div-search-btn" style="width:600px;margin-top: 5px;">
             <input type="submit" class="btn-default" value="Duyệt" onclick="return doApproveTimeSheet()" />
             <input type="submit" class="btn-default" value="Từ chối" onclick="return doRejectTimeSheet()" />
         </div>
@@ -132,14 +181,14 @@
                 return false;
             }
 
-            var txtHours_Adjust = $("#txtHours_Adjust").val();
-            if (txtHours_Adjust == null || txtHours_Adjust == "") {
-                jError("Giờ điều chỉnh không được bỏ trống!", "lỗi", function () {
-                    $("#txtHours_Adjust").val('');
-                    $('#txtHours_Adjust').focus();
-                });
-                return false;
-            }
+            //var txtHours_Adjust = $("#txtHours_Adjust").val();
+            //if (txtHours_Adjust == null || txtHours_Adjust == "") {
+            //    jError("Giờ điều chỉnh không được bỏ trống!", "lỗi", function () {
+            //        $("#txtHours_Adjust").val('');
+            //        $('#txtHours_Adjust').focus();
+            //    });
+            //    return false;
+            //}
         } catch (e) {
             alert(e);
             return false;
@@ -152,10 +201,9 @@
             return;
         }
 
-
         nvsConfirm(null, "Bạn có chắc chắn muốn Từ chối timesheet này không?", function () {
             var formData = new FormData();
-            collectData(formData, 2);
+            collectData(formData, '@Convert.ToInt16(Common.CommonData.CommonEnums.TimeSheet_Status.Reject)');
             $.ajax({
                 url: '/quan-ly-timesheet/danh-sach-timesheet/do-approve-timeshet',
                 type: 'POST',
@@ -173,8 +221,8 @@
                     }
                     else {
                         jAlert('Từ chối timesheet thành công!', "THÔNG BÁO", function () {
-                            ClosePopUpTimeSheet();
-                            Search_TimeSheet(1,1);
+                            var url = "/quan-ly-timesheet/danh-sach-timesheet/";
+                            window.location.href = url;
                         });
                     }
                 },
@@ -193,7 +241,7 @@
 
         nvsConfirm(null, "Bạn có chắc chắn muốn Duyệt timesheet này không?", function () {
             var formData = new FormData();
-            collectData(formData, 1);
+            collectData(formData,'@Convert.ToInt16(Common.CommonData.CommonEnums.TimeSheet_Status.Approve)');
             $.ajax({
                 url: '/quan-ly-timesheet/danh-sach-timesheet/do-approve-timeshet',
                 type: 'POST',
@@ -211,8 +259,8 @@
                     }
                     else {
                         jAlert('Duyệt timesheet thành công!', "THÔNG BÁO", function () {
-                            ClosePopUpTimeSheet();
-                            Search_TimeSheet(1,1);
+                            var url = "/quan-ly-timesheet/danh-sach-timesheet/";
+                            window.location.href = url;
                         });
                     }
                 },
@@ -226,7 +274,6 @@
 
     function collectData(formData, p_type) {
         formData.append('p_id', @Model.Id);
-        formData.append('p_hours_adjust', $("#txtHours_Adjust").val());
         formData.append('p_status', p_type);
         formData.append('p_reject_reason',  $("#txtReject_Reason").val());
     }

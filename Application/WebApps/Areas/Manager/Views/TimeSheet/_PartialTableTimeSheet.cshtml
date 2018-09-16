@@ -1,0 +1,118 @@
+﻿@using Common.CommonData
+@using Common.Extensions
+@using ObjectInfos;
+@{
+    List<Timesheet_Info> _list_data = new List<Timesheet_Info>();
+    if (ViewBag.Obj != null)
+    {
+        _list_data = ViewBag.Obj;
+    }
+}
+
+<div>
+    <table class="table-lst-data" id="tableListGroupUser">
+        <thead>
+            <tr>
+                <th class="class30">STT</th>
+
+                @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.SupperAdmin)
+                {
+                    <th class="class150">Luật sư</th>
+                }
+
+                <th class="class100">Ngày</th>
+                <th class="class50">Bắt đầu</th>
+                <th class="class50">Kết thúc</th>
+                <th class="class150">Case name</th>
+                <th class="class150">Case code</th>
+                <th class="class200">Mô tả công việc</th>
+
+                <th class="class50">Thực tế</th>
+                <th class="class100">Điều chỉnh</th>
+
+                <th class="class100">Trạng thái</th>
+                <th class="class100">Ghi chú</th>
+                <th class="class100">Chức năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (_list_data.Count > 0)
+            {
+                foreach (var item in _list_data)
+                {
+                    <tr>
+                        <td class="tdcenteralign">@item.STT</td>
+
+                        @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.SupperAdmin)
+                        {
+                            <td class="tdleftalign">@item.Lawer_Name</td>
+                        }
+
+                        <td class="tdcenteralign">@item.Time_Date.ToString("dd/MM/yyyy")</td>
+                        <td class="tdcenteralign">@item.From_Time</td>
+                        <td class="tdcenteralign">@item.To_Time</td>
+
+                        <td class="tdleftalign">@item.Case_Name</td>
+                        <td class="tdleftalign">@item.App_Case_Code</td>
+                        <td class="tdleftalign">@item.Name</td>
+
+                        <td class="tdleftalign">@item.Hours</td>
+                        <td class="tdleftalign">@item.Hours_Adjust.ToString("#,##0.##")</td>
+
+                        @if (item.Status != Convert.ToDecimal(Common.CommonData.CommonEnums.TimeSheet_Status.Approve))
+                        {
+                            <td class="tdleftalign" style="font-weight:bold; color: red">@item.Status_Name</td>
+                        }
+                        else
+                        {
+                            <td class="tdleftalign" style="font-weight:bold; color: blue">@item.Status_Name</td>
+                        }
+
+
+                        <td class="tdleftalign">@item.Notes</td>
+
+                        <td class="tdcenteralign">
+                            <a href="javascript:getViewTimeSheet(@item.Id)" class="icon icon-info" data-title="Xem chi tiết"></a>
+
+                            @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin)
+                            {
+                                if (item.Status == (decimal)CommonEnums.TimeSheet_Status.New)
+                                {
+                                    <a href="javascript:;" onclick="getView2Approve(@item.Id)" class="icon icon-confirm-circle" data-title="Duyệt"></a>
+                                    <a href="javascript:;" onclick="getView2Edit(@item.Id)" class="icon icon-edit" data-title="Sửa"></a>
+                                }
+                            }
+                            else if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
+                            {
+                                <a href="javascript:;" onclick="doDeleteTimeSheet(@item.Id)" class="icon icon-delete" data-title="Xóa"></a>
+                                if (item.Status != (decimal)CommonEnums.TimeSheet_Status.Approve)
+                                {
+                                    <a href="javascript:;" onclick="getView2Edit(@item.Id)" class="icon icon-edit" data-title="Sửa"></a>
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.SupperAdmin)
+                    {
+                        <td colspan="13">Không có dữ liệu</td>
+                    }
+                    else
+                    {
+                        <td colspan="12">Không có dữ liệu</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="_ClassPage">
+    <ul>
+        @Html.Raw(ViewBag.Paging)
+    </ul>
+</div>

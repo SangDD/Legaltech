@@ -11,10 +11,10 @@ using BussinessFacade;
 using Common.CommonData;
 using WebApps.CommonFunction;
 
-namespace WebApps.Areas.TimeSheet.Controllers
+namespace WebApps.Areas.Manager.Controllers
 {
     [ValidateAntiForgeryTokenOnAllPosts]
-    [RouteArea("Timesheet", AreaPrefix = "quan-ly-timesheet")]
+    [RouteArea("Manager", AreaPrefix = "quan-ly-timesheet")]
     [Route("{action}")]
     public class TimeSheetController : Controller
     {
@@ -47,7 +47,7 @@ namespace WebApps.Areas.TimeSheet.Controllers
                 ViewBag.Paging = htmlPaging;
                 ViewBag.SumRecord = _total_record;
 
-                return View("~/Areas/TimeSheet/Views/TimeSheet/TimeSheetList.cshtml");
+                return View("~/Areas/Manager/Views/TimeSheet/TimeSheetList.cshtml");
             }
             catch (Exception ex)
             {
@@ -74,12 +74,12 @@ namespace WebApps.Areas.TimeSheet.Controllers
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;
                 ViewBag.SumRecord = _total_record;
-                return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialTableTimeSheet.cshtml");
+                return PartialView("~/Areas/Manager/Views/TimeSheet/_PartialTableTimeSheet.cshtml");
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialTableTimeSheet.cshtml");
+                return PartialView("~/Areas/Manager/Views/TimeSheet/_PartialTableTimeSheet.cshtml");
             }
         }
 
@@ -102,30 +102,34 @@ namespace WebApps.Areas.TimeSheet.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("danh-sach-timesheet/show-view")]
-        public ActionResult GetView2View(decimal p_id)
+        [HttpGet]
+        [Route("danh-sach-timesheet/show-view/{id}")]
+        public ActionResult GetView2View()
         {
             try
             {
-                TimeSheet_BL _obj_bl = new TimeSheet_BL();
-                Timesheet_Info _Timesheet_Info = _obj_bl.Timesheet_GetBy_Id(p_id);
-                //ViewBag.Timesheet_Info = _Timesheet_Info;
-                return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialViewTimeSheet.cshtml", _Timesheet_Info);
+                if (RouteData.Values["id"] != null && RouteData.Values["id"].ToString() != "")
+                {
+                    decimal p_id = Convert.ToDecimal(RouteData.Values["id"].ToString());
+                    TimeSheet_BL _obj_bl = new TimeSheet_BL();
+                    Timesheet_Info _Timesheet_Info = _obj_bl.Timesheet_GetBy_Id(p_id);
+                    return View("~/Areas/Manager/Views/TimeSheet/_PartialViewTimeSheet.cshtml", _Timesheet_Info);
+                }
+                else return View();
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialViewTimeSheet.cshtml", new Timesheet_Info());
+                return View("~/Areas/Manager/Views/TimeSheet/_PartialViewTimeSheet.cshtml", new Timesheet_Info());
             }
         }
 
         // Insert 
-        [HttpPost]
+        [HttpGet]
         [Route("danh-sach-timesheet/show-insert")]
         public ActionResult GetView2Insert()
         {
-            return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialInsertTimeSheet.cshtml", new Timesheet_Info());
+            return View("~/Areas/Manager/Views/TimeSheet/_PartialInsertTimeSheet.cshtml", new Timesheet_Info());
         }
 
         [HttpPost]
@@ -149,20 +153,25 @@ namespace WebApps.Areas.TimeSheet.Controllers
         }
 
         // edit
-        [HttpPost]
-        [Route("danh-sach-timesheet/show-edit")]
-        public ActionResult GetView2Edit(int p_id)
+        [HttpGet]
+        [Route("danh-sach-timesheet/show-edit/{id}")]
+        public ActionResult GetView2Edit()
         {
             try
             {
-                TimeSheet_BL _obj_bl = new TimeSheet_BL();
-                Timesheet_Info _Timesheet_Info = _obj_bl.Timesheet_GetBy_Id(p_id);
-                return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialEditTimeSheet.cshtml", _Timesheet_Info);
+                if (RouteData.Values["id"] != null && RouteData.Values["id"].ToString() != "")
+                {
+                    decimal p_id = Convert.ToDecimal(RouteData.Values["id"].ToString());
+                    TimeSheet_BL _obj_bl = new TimeSheet_BL();
+                    Timesheet_Info _Timesheet_Info = _obj_bl.Timesheet_GetBy_Id(p_id);
+                    return View("~/Areas/Manager/Views/TimeSheet/_PartialEditTimeSheet.cshtml", _Timesheet_Info);
+                }
+                else return View();
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialEditTimeSheet.cshtml");
+                return View("~/Areas/Manager/Views/TimeSheet/_PartialEditTimeSheet.cshtml");
             }
 
         }
@@ -186,38 +195,64 @@ namespace WebApps.Areas.TimeSheet.Controllers
         }
 
         // Approve
-        [HttpPost]
-        [Route("danh-sach-timesheet/show-approve")]
-        public ActionResult GetView2Approve(int p_id)
+        [HttpGet]
+        [Route("danh-sach-timesheet/show-approve/{id}")]
+        public ActionResult GetView2Approve()
         {
             try
             {
-                TimeSheet_BL _obj_bl = new TimeSheet_BL();
-                Timesheet_Info _Timesheet_Info = _obj_bl.Timesheet_GetBy_Id(p_id);
-                return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialApproveTimeSheet.cshtml", _Timesheet_Info);
+                if (RouteData.Values["id"] != null && RouteData.Values["id"].ToString() != "")
+                {
+                    decimal p_id = Convert.ToDecimal(RouteData.Values["id"].ToString());
+                    TimeSheet_BL _obj_bl = new TimeSheet_BL();
+                    Timesheet_Info _Timesheet_Info = _obj_bl.Timesheet_GetBy_Id(p_id);
+                    return View("~/Areas/Manager/Views/TimeSheet/_PartialApproveTimeSheet.cshtml", _Timesheet_Info);
+                }
+                else return View();
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialApproveTimeSheet.cshtml");
+                return View("~/Areas/Manager/Views/TimeSheet/_PartialApproveTimeSheet.cshtml");
             }
 
         }
 
         [HttpPost]
         [Route("danh-sach-timesheet/do-approve-timeshet")]
-        public ActionResult DoApproveTimeSheet(decimal p_id,decimal p_hours_adjust, int p_status, string p_reject_reason)
+        public ActionResult DoApproveTimeSheet(decimal p_id,int p_status, string p_reject_reason)
         {
             try
             {
                 TimeSheet_BL _obj_bl = new TimeSheet_BL();
-                decimal _ck = _obj_bl.Timesheet_Approve(p_id, p_hours_adjust, p_status, p_reject_reason, SessionData.CurrentUser.Username);
+                decimal _ck = _obj_bl.Timesheet_Approve(p_id, p_status, p_reject_reason, SessionData.CurrentUser.Username);
                 return Json(new { success = _ck });
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
                 return Json(new { success = "-1" });
+            }
+        }
+
+        [HttpPost]
+        [Route("danh-sach-timesheet/call-hours")]
+        public ActionResult CallHours(string p_From_Time, string p_To_Time)
+        {
+            try
+            {
+                p_From_Time = p_From_Time + ":00";
+                p_To_Time = p_To_Time + ":00";
+
+                DateTime _FromDate = ConvertData.ConvertStringTime2Date(p_From_Time);
+                DateTime _ToDate = ConvertData.ConvertStringTime2Date(p_To_Time);
+                TimeSpan _ts = _ToDate - _FromDate;
+                return Json(new { success = Math.Round(_ts.TotalHours,2).ToString("") });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = DateTime.Now.AddMonths(1).ToString("dd/MM/yyyy") });
             }
         }
     }

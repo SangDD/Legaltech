@@ -137,6 +137,48 @@ namespace WebApps.CommonFunction
 
         public const string strDate = "dd/MM/yyyy";
         public const string strDate_Time = "dd/MM/yyyy HH:mm";
+        public const string strTimeFormat = "HH:mm:ss";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="strTime"></param>
+        /// <returns></returns>
+        public static DateTime ConvertStringTime2Date(string strTime)
+        {
+            System.Globalization.CultureInfo provider = System.Globalization.CultureInfo.CurrentCulture;
+            try
+            {
+                return DateTime.ParseExact(CorrectStringTime(strTime), strTimeFormat, provider);
+            }
+            catch (Exception ex)
+            {
+                return DateTime.MinValue;
+            }
+        }
+
+
+        /// <summary>
+        /// Chuan hoa chuoi ky tu Time truyen vao dam bao phai dung dinh dang HH:mm:ss
+        /// </summary>
+        /// <param name="strTime"></param>
+        /// <returns></returns>
+        private static string CorrectStringTime(string strTime)
+        {
+            try
+            {
+                string _return = "00:00:00";
+                string[] _arr = strTime.Split(':');
+
+                if (_arr.Length >= 3)
+                    _return = _arr[0].PadLeft(2, '0') + ":" + _arr[1].PadLeft(2, '0') + ":" + _arr[2].PadLeft(2, '0');
+                return _return;
+            }
+            catch
+            {
+                return "00:00:00";
+            }
+        }
 
         public static string ConvertDate2String(DateTime p_date)
         {

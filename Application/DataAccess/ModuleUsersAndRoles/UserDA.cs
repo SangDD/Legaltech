@@ -71,6 +71,49 @@
             }
         }
 
+        public DataSet User_Search(string p_key_search, string p_from, string p_to, string p_column, string p_sort_type, ref decimal p_total_record)
+        {
+            try
+            {
+
+                string[] arrKeySearch = p_key_search.Split('|');
+                string _key_search = "";
+                foreach (string item in arrKeySearch)
+                {
+                    string _tem = item;
+                    if (_tem == "")
+                    {
+                        _tem = "ALL";
+                    }
+                    if (_key_search == "")
+                    {
+                        _key_search = _tem;
+                    }
+                    else
+                        _key_search = _key_search + "|" + _tem;
+                }
+
+                OracleParameter paramReturn = new OracleParameter("p_total_record", OracleDbType.Decimal, ParameterDirection.Output);
+                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_s_users.proc_user_search",
+                    new OracleParameter("p_key_search", OracleDbType.Varchar2, _key_search, ParameterDirection.Input),
+                    new OracleParameter("p_from", OracleDbType.Varchar2, p_from, ParameterDirection.Input),
+                    new OracleParameter("p_to", OracleDbType.Varchar2, p_to, ParameterDirection.Input),
+
+                    new OracleParameter("p_column", OracleDbType.Varchar2, p_column, ParameterDirection.Input),
+                    //new OracleParameter("p_sort_type", OracleDbType.Varchar2, p_sort_type, ParameterDirection.Input),
+                    paramReturn,
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+
+                p_total_record = Convert.ToDecimal(paramReturn.Value.ToString());
+                return _ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
         /// <summary>
         /// Find all user by key search
         /// </summary>
@@ -129,9 +172,9 @@
         {
             try
             {
-               return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_s_users.proc_User_GetBy_Type",
-                    new OracleParameter("p_user_type", OracleDbType.Decimal, p_user_type, ParameterDirection.Input),
-                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_s_users.proc_User_GetBy_Type",
+                     new OracleParameter("p_user_type", OracleDbType.Decimal, p_user_type, ParameterDirection.Input),
+                     new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
             }
             catch (Exception ex)
             {
@@ -177,6 +220,7 @@
 
                     new OracleParameter("p_other_type", OracleDbType.Decimal, userAdd.Other_Type, ParameterDirection.Input),
                     new OracleParameter("p_hourly_rate", OracleDbType.Decimal, userAdd.Hourly_Rate, ParameterDirection.Input),
+                    new OracleParameter("p_hourly_rate_usd", OracleDbType.Decimal, userAdd.Hourly_Rate_USD, ParameterDirection.Input),
 
                     new OracleParameter("p_GroupId", OracleDbType.Varchar2, GroupId, ParameterDirection.Input),
                     new OracleParameter("p_createdby", OracleDbType.Varchar2, userAdd.CreatedBy, ParameterDirection.Input),
@@ -226,6 +270,7 @@
                     new OracleParameter("p_contact_person", OracleDbType.Varchar2, userEdit.Contact_Person, ParameterDirection.Input),
                     new OracleParameter("p_other_type", OracleDbType.Decimal, userEdit.Other_Type, ParameterDirection.Input),
                     new OracleParameter("p_hourly_rate", OracleDbType.Decimal, userEdit.Hourly_Rate, ParameterDirection.Input),
+                    new OracleParameter("p_hourly_rate_usd", OracleDbType.Decimal, userEdit.Hourly_Rate_USD, ParameterDirection.Input),
 
                     new OracleParameter("p_GroupId", OracleDbType.Varchar2, GroupId, ParameterDirection.Input),
                     new OracleParameter("p_modifiedBy", OracleDbType.Varchar2, userEdit.ModifiedBy, ParameterDirection.Input),

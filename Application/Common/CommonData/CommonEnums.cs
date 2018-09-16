@@ -33,6 +33,7 @@
 
         public enum UserType
         {
+            SupperAdmin = 0,
             Admin = 1,
             Lawer = 2,
             Customer = 3

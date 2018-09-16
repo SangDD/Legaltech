@@ -77,7 +77,7 @@ namespace BussinessFacade
             {
                 TimeSheet_DA _da = new TimeSheet_DA();
                 return _da.Timesheet_Insert(p_obj.Name, p_obj.App_Header_Id, p_obj.Lawer_Id, p_obj.Time_Date,
-                     p_obj.Hours, p_obj.Notes, p_obj.Status, p_obj.Created_By, DateTime.Now, p_language_code);
+                 p_obj.From_Time, p_obj.To_Time, p_obj.Hours, p_obj.Hours_Adjust, p_obj.Notes, p_obj.Status, p_obj.Created_By, DateTime.Now, p_language_code);
             }
             catch (Exception ex)
             {
@@ -92,7 +92,7 @@ namespace BussinessFacade
             {
                 TimeSheet_DA _da = new TimeSheet_DA();
                 return _da.Timesheet_Update(p_obj.Id, p_obj.Name, p_obj.Time_Date,
-                     p_obj.Hours, p_obj.Notes, p_obj.Modify_By, DateTime.Now);
+                     p_obj.From_Time, p_obj.To_Time, p_obj.Hours, p_obj.Hours_Adjust, p_obj.Notes, p_obj.Modify_By, DateTime.Now);
             }
             catch (Exception ex)
             {
@@ -115,12 +115,12 @@ namespace BussinessFacade
             }
         }
 
-        public decimal Timesheet_Approve(decimal p_id, decimal p_hours_adjust, int p_status, string p_reject_reason, string p_modify_by)
+        public decimal Timesheet_Approve(decimal p_id, int p_status, string p_reject_reason, string p_modify_by)
         {
             try
             {
                 TimeSheet_DA _da = new TimeSheet_DA();
-                return _da.Timesheet_Approve(p_id, p_hours_adjust, p_status, p_reject_reason, p_modify_by, DateTime.Now);
+                return _da.Timesheet_Approve(p_id, p_status, p_reject_reason, p_modify_by, DateTime.Now);
             }
             catch (Exception ex)
             {

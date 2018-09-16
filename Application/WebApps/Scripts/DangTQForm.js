@@ -95,8 +95,108 @@ function checkValidate_Search(p_name, p_id, p_val) {
     }
 }
 
+function Check_Time_Sheet() {
+    try {
+
+        var txtFrom_Time = $("#txtFrom_Time").val();
+        var txtTo_Time = $("#txtTo_Time").val();
+
+        // from
+        if (txtFrom_Time == "") {
+            jError("Giờ bắt đầu không được để trống!", "lỗi", function () {
+                $("#txtFrom_Time").val('');
+                $("#txtFrom_Time").focus();
+            });
+            return false;
+        }
+
+        var _arr_From_Time = txtFrom_Time.split(":");
+        if (Check_fomat_Hours("Giờ bắt đầu", "#txtFrom_Time", txtFrom_Time) == false) {
+            return false;
+        }
+
+        // to
+        if (txtTo_Time == "") {
+            jError("Giờ kết thúc không được bỏ trống!", "lỗi", function () {
+                $("#txtTo_Time").val('');
+                $("#txtTo_Time").focus();
+            });
+            return false;
+        }
+
+        var _arr_To_Time = txtTo_Time.split(":");
+        if (Check_fomat_Hours("Giờ kết thúc", "#txtTo_Time", txtTo_Time) == false) {
+            return false;
+        }
+
+        // bắt đầu buổi sáng < kết thúc buổi sáng
+        if (Check_Validate_RangeTime(txtFrom_Time, txtTo_Time) == false) {
+            jError("Giờ kết thúc phải lớn hơn Giờ bắt đầu !", "lỗi", function () {
+                $("#txtTo_Time").val('');
+                $("#txtTo_Time").focus();
+            });
+            return false;
+        }
+
+        return true;
+
+    } catch (e) {
+        alert(e);
+        return false;
+    }
+}
+
+
+//  check giờ định dạng HH:mm
+// type = am/pm
+function Check_fomat_Hours(p_name, p_id, p_hour) {
+    try {
+        var _arr_time = p_hour.split(":");
+        if (_arr_time.length != 2) {
+            jError(p_name + " không đúng định dạng HH:mm!", "THÔNG BÁO", function () {
+                $(p_id).focus();
+            });
+            return false;
+        }
+        for (var i in _arr_time) {
+            var _time = _arr_time[i];
+
+            if (_time.length != 2) {
+                jError(p_name + " không đúng định dạng HH:mm!", "THÔNG BÁO", function () {
+                    $(p_id).focus();
+                });
+                return false;
+            }
+
+            if (i == 0) {
+                if (parseFloat(_time) > 23 || parseFloat(_time) < 0) {
+                    jError("Giờ trong khoảng " + p_name + " phải trong khoảng từ 0h-23h!", "THÔNG BÁO", function () {
+                        $(p_id).focus();
+                    });
+                    return false;
+                }
+            }
+            else if (i == 1) {
+                if (parseFloat(_time) > 59 || parseFloat(_time) < 0) {
+                    jError("Phút trong khoảng " + p_name + " phải trong khoảng từ 00-59!", "THÔNG BÁO", function () {
+                        $(p_id).focus();
+                    });
+                    return false;
+                }
+            }
+        }
+
+        return true;
+
+    } catch (e) {
+        alert(e);
+        return false;
+    }
+}
+
+
 //  check giờ định dạng HH:mm type = am/pm
-function Check_fomat_Hours(p_name, p_id, p_hour, p_type) {
+function Check_fomat_Hours_APM(p_name, p_id, p_hour, p_type) {
     try {
         var _arr_time = p_hour.split(":");
         if (_arr_time.length != 2) {

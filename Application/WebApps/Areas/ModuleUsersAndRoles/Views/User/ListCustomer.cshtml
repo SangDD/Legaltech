@@ -34,9 +34,9 @@
     <div class="d-main">
         <div class="divCover">
             <div class="classTitle">
-                <input type="hidden" value="LastTimeUpdated" id="colSorted" />
-                <input type="hidden" value="DESC" id="SortType" />
-                <input type="hidden" value="" id="OptionSorting" />
+                <input type="hidden" value="ALL|ALL|ALL|ALL" name="txtKeyValue" id="txtKeyValue" />
+                <input type="hidden" value="ID" name="txtSortColum" id="txtSortColumn" />
+                <input type="hidden" value="DESC" name="txtSortType" id="txtSortType" />
                 <div class="div-title-content"> THÔNG TIN KHÁCH HÀNG </div>
             </div>
         </div>
@@ -106,13 +106,9 @@
     </div>
 
     <script>
-        var _currentKeySearch = '@SessionStorages.SEARCH_USER_KEY_CONDITIONS';
-        var _currentOptionFilter = '@SessionStorages.SEARCH_USER_KEY_OPTIONS';
         var username = '', fullName = '', type = '', status = '';
 
         $(document).ready(function () {
-            initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findUsers);
-
             $('txtFullNameSearch').focus();
             $('[data-controlcondition="TRUE"]').on('keypress',
 				function (e) {
@@ -123,54 +119,56 @@
         });
 
         function findUsers(_pageNumber, _isSearching) {
-            reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
-            type = '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Customer)';
-            username = "";
-            if (isSearching == 1) {
-                fullName = $("#txtFullNameSearch").val().trim();
-                status = $("#cboStatusSearch").val();
-            } else {
-                window.arrKeySearch = window.keySearch.split('|');
-                fullName = arrKeySearch[1];
-                type = arrKeySearch[2];
-                status = arrKeySearch[3];
+            try {
+                type = '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Customer)';
+                username = "";
 
-                $("#txtFullNameSearch").val(fullName);
-                $("#cboStatusSearch").val(status);
-            }
+                var p_column = $("#txtSortColumn").val();
+                var p_type_sort = $("#txtSortType").val();
 
-            updateSearchingConditions("divNumberRecordOnPageListUsers", setKeySearch);
+                var p_keysearch;
+                if (_isSearching == 1) {
+                    fullName = $("#txtFullNameSearch").val().trim();
+                    status = $("#cboStatusSearch").val();
 
-            $.ajax({
-                type: "POST",
-                headers: { "cache-control": "no-cache" },
-                url: "/quan-tri-he-thong/quan-ly-nguoi-dung/find-user",
-                data: {
-                    keysSearch: keySearch,
-                    options: optionFilter,
-                    p_type: type
-                },
-                async: true,
-                beforeSend: function () {
-                    CreateRollingWaitingIcon(true);
-                },
-                success: function (data) {
-                    CreateRollingWaitingIcon(false);
-                    if (data != null) {
-                        onResponseWhenSearching(data, "divTableUsers", findUsers);
-                    }
+                    p_keysearch = username + "|" + fullName + "|" + type + "|" + status;
+
+                    //Lưu lại keysearch
+                    $("#txtKeyValue").val(p_keysearch);
+
+                } else {
+                    p_keysearch = $("#txtKeyValue").val();
                 }
-            });
-            return true;
-        }
 
-        function setKeySearch() {
-            window.keySearch = username + "|" + fullName + "|" + type + "|" + status;
-        }
 
-        function initOrderBySearching() {
-            window.colSort = 'LastTimeUpdated';
-            window.sortType = 'DESC';
+                $.ajax({
+                    type: "POST",
+                    headers: { "cache-control": "no-cache" },
+                    url: "/quan-tri-he-thong/quan-ly-nguoi-dung/find-user",
+                    data: {
+                        p_keysearch: p_keysearch,
+                        p_CurrentPage: _pageNumber,
+                        p_column: p_column,
+                        p_type_sort: p_type_sort,
+                        p_type: type
+                    },
+                    async: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data != null) {
+                            onResponseWhenSearching(data, "divTableUsers", findUsers);
+                        }
+                    }
+                });
+
+                return true;
+
+            } catch (e) {
+                console.log(e.message);
+            }
         }
 
         function pageListOfUsers(_pagenum) {
@@ -187,47 +185,42 @@
     <script>
 
         function getViewToAddNewUser() {
-            $.ajax({
-                type: "POST",
-                url: "/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-add-user",
-                headers: { "cache-control": "no-cache" },
-                async: false,
-                success: function (data) {
-                    if (data != null) {
-                        if (validateResponse(data)) {
-                            //$("#dpop-users").html(data);
-                            //ShowPopupDialog("dpop-users", "Thêm mới người dùng", 900, 0, "txtUsernameAdd");
-
-                            $("#divPopUpUser").html(data);
-                            ShowPopupDialog_Ipace('divWrapperPopUpUser', "Thêm mới người dùng", 900, 1200, "txtUsernameAdd");
-                        }
-                    }
-                    return false;
-                }
-            });
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            try {
+                var url = "/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-add-user";
+                window.location.href = url;
+            } catch (e) {
+                console.log(e.toString())
+            }
         }
-
-
 
         function getViewToEditUser(userId, username) {
-            $.ajax({
-                type: "POST",
-                url: "/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-edit-user",
-                headers: { "cache-control": "no-cache" },
-                data: { userId: userId },
-                async: false,
-                success: function (data) {
-                    if (data != null) {
-                        if (validateResponse(data)) {
-
-                            $("#divPopUpUser").html(data);
-                            ShowPopupDialog_Ipace('divWrapperPopUpUser', "Sửa người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 900, "txtFullNameEdit");
-                        }
-                    }
-                    return false;
-                }
-            });
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            try {
+                var url = "/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-edit-user/" + userId;
+                window.location.href = url;
+            } catch (e) {
+                console.log(e.toString())
+            }
         }
+
+        function viewDetailUser(userId, username) {
+
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            try {
+                var url = "/quan-tri-he-thong/quan-ly-nguoi-dung/view-detail-user/" + userId;
+                window.location.href = url;
+            } catch (e) {
+                console.log(e.toString())
+            }
+        }
+
 
         function doDeleteUser(userId, canDelete) {
             if (canDelete > 0) {
@@ -258,25 +251,7 @@
             }
         }
 
-        function viewDetailUser(userId, username) {
-            $.ajax({
-                type: "POST",
-                url: "/quan-tri-he-thong/quan-ly-nguoi-dung/view-detail-user",
-                headers: { "cache-control": "no-cache" },
-                async: false,
-                data: { userId: userId },
-                success: function (data) {
-                    if (data != null) {
-                        if (validateResponse(data)) {
-                            $("#divPopUpUser").html(data);
-                            ShowPopupDialog_Ipace('divWrapperPopUpUser', "Chi tiết người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 900);
-                        }
-                    }
-                    return false;
-                }
-            });
-        }
-
+        
         function getViewToResetPass(Username) {
             $.ajax({
                 type: "POST",

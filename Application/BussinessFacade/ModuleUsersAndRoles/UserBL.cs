@@ -97,6 +97,22 @@
             return new List<int>();
         }
 
+        public List<UserInfo> User_Search(string p_key_search, ref decimal p_total_record,
+            string p_from = "1", string p_to = "10", string p_column = "ALL", string p_sort_type = "ALL")
+        {
+            try
+            {
+                UserDA _da = new UserDA();
+                DataSet _ds = _da.User_Search(p_key_search, p_from, p_to, p_column, p_sort_type, ref p_total_record);
+                return CBO<UserInfo>.FillCollectionFromDataSet(_ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<UserInfo>();
+            }
+        }
+
         public List<UserInfo> FindUser(string keysSearch = "", string options = "")
         {
             try

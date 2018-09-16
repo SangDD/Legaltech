@@ -2,6 +2,10 @@
 @using BussinessFacade;
 @model Timesheet_Info
 @{
+
+    ViewBag.Title = "Thêm mới timesheet";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
     App_Lawer_BL _App_Lawer_BL = new App_Lawer_BL();
     List<App_Lawer_Info> _lstAppLawer = _App_Lawer_BL.GetApp_Grant4Lawer(WebApps.Session.SessionData.CurrentUser.Id, WebApps.Session.SessionData.CurrentUser.Type, WebApps.CommonFunction.AppsCommon.GetCurrentLang());
 }
@@ -27,9 +31,27 @@
     }
 </style>
 
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        Monitor
+        <span class="red">></span>
+        <a href="/quan-ly-timesheet/danh-sach-timesheet">Quản lý timesheet</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
 
-<div class="" style="padding:5px 38px">
-    <div class="divCover divCover_popup">
+
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <div class="div-title-content"> THÊM MỚI TIMESHEET</div>
+        </div>
+    </div>
+    <div class="divCover">
         <div class="div-search-ad">
             <div class="div-search-title">
                 <div>Mã đơn<i class="redspan">(*)</i></div>
@@ -47,7 +69,7 @@
         </div>
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Timesheet name <i class="redspan">(*)</i></div>
+                <div>Mô tả công việc <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -65,12 +87,42 @@
                     @Html.TextBoxFor(m => m.Time_Date, "{0:dd/MM/yyyy}", new { id = "txtTime_Date", @Value = Model.Time_Date == DateTime.MinValue ? "" : Model.Time_Date.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker" })
                 </div>
             </div>
+        </div>
+
+        <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Giờ  <i class="redspan">(*)</i></div>
+                <div>Bắt đầu <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Hours, new { id = "txtHours", @Value = Model.Hours == 0 ? "" : Model.Hours.ToString("#,##0.##"), onkeyup = "jsFormatNumber(this.value, this.id)" })
+                    @Html.TextBoxFor(m => m.From_Time, new { id = "txtFrom_Time", @maxlength = "5", @style = "width: 250px", @placeholder = "HH:mm", @onblur = "CallHours()" })
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div>Kết thúc  <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.To_Time, new { id = "txtTo_Time", @maxlength = "5", @placeholder = "HH:mm", @onblur = "CallHours()" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Giờ thực tế <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Hours, new { id = "txtHours", @Value = Model.Hours == 0 ? "" : Model.Hours.ToString("#,##0.##"), onkeyup = "jsFormatNumber(this.value, this.id)", @style = "width: 250px" })
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div>Giờ điều chỉnh  <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Hours_Adjust, new { id = "txtHours_Adjust", @Value = Model.Hours_Adjust == 0 ? "" : Model.Hours_Adjust.ToString("#,##0.##"), onkeyup = "jsFormatNumber(this.value, this.id)" })
                 </div>
             </div>
         </div>
@@ -87,8 +139,8 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <div class="form-group-bottom">
+    <div class="divCover">
+        <div class="div-search-btn" style="width:600px;margin-top: 5px;">
             <input type="submit" class="btn-default" value="Lưu" onclick="return doInsertTimeSheet()" />
         </div>
     </div>
@@ -129,8 +181,8 @@
                         }
                         else {
                             jAlert('Khai timesheet thành công!', "THÔNG BÁO", function () {
-                                ClosePopUpTimeSheet();
-                                Search_TimeSheet(1, 1);
+                                var url = "/quan-ly-timesheet/danh-sach-timesheet/";
+                                window.location.href = url;
                             });
                         }
                     },
@@ -143,6 +195,37 @@
         }
     }
 
+    function CallHours() {
+        try {
+            var txtFrom_Time = $("#txtFrom_Time").val();
+            var txtTo_Time = $("#txtTo_Time").val();
+
+            if (txtFrom_Time == "" || txtTo_Time == "") {
+                return false;
+            }
+
+            if (Check_Time_Sheet() == false) {
+                return false;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/quan-ly-timesheet/danh-sach-timesheet/call-hours',
+                data: {
+                    p_From_Time: txtFrom_Time,
+                    p_To_Time: txtTo_Time,
+                },
+                async: true, cache: false, traditional: true,
+                success: function (data) {
+                    $("#txtHours").val(data.success);
+                }
+            });
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+    
     function validateForm() {
         if (CheckSessionTimeOut() == false) {
             return false;
@@ -159,7 +242,7 @@
 
         var txtName = $("#txtName").val();
         if (txtName == "") {
-            jError("Tên đợt time sheet không được bỏ trống!", "lỗi", function () {
+            jError("Mô tả công việc không được bỏ trống!", "lỗi", function () {
                 $("#txtName").val('');
                 $("#txtName").focus();
             });
@@ -171,9 +254,13 @@
             return false;
         }
 
+        if (Check_Time_Sheet() == false) {
+            return false;
+        }
+
         var txtHours = $("#txtHours").val();
         if (txtHours == "") {
-            jError("Giờ khai timesheet không được bỏ trống!", "lỗi", function () {
+            jError("Giờ thực tế không được bỏ trống!", "lỗi", function () {
                 $("#txtHours").val('');
                 $("#txtHours").focus();
             });
@@ -181,9 +268,26 @@
         }
 
         if (txtHours == "0") {
-            jError("Giờ khai timesheet phải lớn hơn 0!", "lỗi", function () {
+            jError("Giờ thực tế phải lớn hơn 0!", "lỗi", function () {
                 $("#txtHours").val('');
                 $("#txtHours").focus();
+            });
+            return false;
+        }
+
+        var txtHours_Adjust = $("#txtHours_Adjust").val();
+        if (txtHours_Adjust == "") {
+            jError("Giờ điều chỉnh không được bỏ trống!", "lỗi", function () {
+                $("#txtHours_Adjust").val('');
+                $("#txtHours_Adjust").focus();
+            });
+            return false;
+        }
+
+        if (txtHours_Adjust == "0") {
+            jError("Giờ điều chỉnh phải lớn hơn 0!", "lỗi", function () {
+                $("#txtHours_Adjust").val('');
+                $("#txtHours_Adjust").focus();
             });
             return false;
         }
@@ -196,6 +300,9 @@
         formData.append('p_Timesheet_Info.Name', $("#txtName").val());
         formData.append('p_Timesheet_Info.Time_Date', $("#txtTime_Date").val());
         formData.append('p_Timesheet_Info.Hours', $("#txtHours").val());
+        formData.append('p_Timesheet_Info.Hours_Adjust', $("#txtHours_Adjust").val());
+        formData.append('p_Timesheet_Info.From_Time', $("#txtFrom_Time").val());
+        formData.append('p_Timesheet_Info.To_Time', $("#txtTo_Time").val());
         formData.append('p_Timesheet_Info.Notes', $("#txtNotes").val());
     }
 </script>

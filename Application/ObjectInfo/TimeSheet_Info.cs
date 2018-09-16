@@ -11,17 +11,22 @@ namespace ObjectInfos
         public decimal STT { get; set; }
         public decimal Id { get; set; }
         public string Name { get; set; }
+
         public decimal App_Header_Id { get; set; }
         public string App_Code { get; set; }
         public string App_Name { get; set; }
 
-        public string App_Case_Code { get; set; }
 
         public decimal Lawer_Id { get; set; }
         public string Lawer_Name { get; set; }
 
+        public string App_Case_Code { get; set; }
         public string Client_Reference { get; set; }
         public string Case_Name { get; set; }
+
+        public string From_Time { get; set; }
+        public string To_Time { get; set; }
+
 
         public DateTime Time_Date { get; set; }
         public decimal Hours { get; set; }

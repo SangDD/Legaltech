@@ -183,6 +183,7 @@
     <Compile Include="Areas\Home\HomeAreaRegistration.cs" />
     <Compile Include="Areas\Manager\Controllers\BillingController.cs" />
     <Compile Include="Areas\Manager\Controllers\DockingController.cs" />
+    <Compile Include="Areas\Manager\Controllers\TimeSheetController.cs" />
     <Compile Include="Areas\Manager\ManagerAreaRegistration.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\FunctionController.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\GroupUserController.cs" />
@@ -192,8 +193,6 @@
     <Compile Include="Areas\Patent\PatentAreaRegistration.cs" />
     <Compile Include="Areas\QuanLyPhi\Controllers\QLPhiController.cs" />
     <Compile Include="Areas\QuanLyPhi\QuanLyPhiAreaRegistration.cs" />
-    <Compile Include="Areas\TimeSheet\Controllers\TimeSheetController.cs" />
-    <Compile Include="Areas\TimeSheet\TimeSheetAreaRegistration.cs" />
     <Compile Include="Areas\TradeMark\Controllers\ApplicationController.cs" />
     <Compile Include="Areas\TradeMark\Controllers\PLD01_HDCN_4C2_Controller.cs" />
     <Compile Include="Areas\TradeMark\Controllers\PLC05_KN_3D_Controller.cs" />
@@ -1263,15 +1262,6 @@
     <Content Include="Areas\TradeMark\Views\Application\_PartialTableApplication.cshtml" />
     <Content Include="Areas\TradeMark\Views\Application\_PartialKH_Confirm.cshtml" />
     <Content Include="Content\AppForms\Request_for_amendment_of_application.doc" />
-    <Content Include="Areas\TimeSheet\Views\web.config" />
-    <Content Include="Areas\TimeSheet\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\TimeSheet\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\TimeSheet\Views\TimeSheet\TimeSheetList.cshtml" />
-    <Content Include="Areas\TimeSheet\Views\TimeSheet\_PartialTableTimeSheet.cshtml" />
-    <Content Include="Areas\TimeSheet\Views\TimeSheet\_PartialViewTimeSheet.cshtml" />
-    <Content Include="Areas\TimeSheet\Views\TimeSheet\_PartialEditTimeSheet.cshtml" />
-    <Content Include="Areas\TimeSheet\Views\TimeSheet\_PartialApproveTimeSheet.cshtml" />
-    <Content Include="Areas\TimeSheet\Views\TimeSheet\_PartialInsertTimeSheet.cshtml" />
     <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\_PartalDangKyNhanHieu.cshtml" />
     <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\_Partial04NHPhiLePhi.cshtml" />
     <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\_Partial04NHTLTrongDon.cshtml" />
@@ -1449,6 +1439,12 @@
     <Content Include="Areas\Home\Views\Shared\_HotnewsData.cshtml" />
     <Content Include="Areas\Home\Views\Shared\HomeUpdateNews.cshtml" />
     <Content Include="Areas\Home\Views\Shared\_UpdatenewsData.cshtml" />
+    <Content Include="Areas\Manager\Views\TimeSheet\TimeSheetList.cshtml" />
+    <Content Include="Areas\Manager\Views\TimeSheet\_PartialApproveTimeSheet.cshtml" />
+    <Content Include="Areas\Manager\Views\TimeSheet\_PartialEditTimeSheet.cshtml" />
+    <Content Include="Areas\Manager\Views\TimeSheet\_PartialInsertTimeSheet.cshtml" />
+    <Content Include="Areas\Manager\Views\TimeSheet\_PartialTableTimeSheet.cshtml" />
+    <Content Include="Areas\Manager\Views\TimeSheet\_PartialViewTimeSheet.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <Content Include="Areas\Home\Views\Wiki\_PartialListDocByCata.cshtml" />
@@ -1770,7 +1766,6 @@
     <Folder Include="Areas\Patent\Views\Shared\" />
     <Folder Include="Areas\QuanLyPhi\Models\" />
     <Folder Include="Areas\QuanLyPhi\Views\Shared\" />
-    <Folder Include="Areas\TimeSheet\Models\" />
     <Folder Include="Areas\TradeMark\Models\" />
     <Folder Include="Content\Archive\Document\" />
     <Folder Include="Content\Archive\FileAttact\" />

@@ -81,6 +81,7 @@
         public string Lawer_Type_Name { get; set; }
 
         public decimal Hourly_Rate { get; set; }
+        public decimal Hourly_Rate_USD { get; set; }
 
         // additional info
         public DateTime LastTimeUpdatePassword { get; set; }
