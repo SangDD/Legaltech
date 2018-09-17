@@ -149,6 +149,8 @@ namespace ObjectInfos
         public string Lawer_Name { get; set; }
         public string Lawer_User_Name { get; set; }
         public string User_Admin_Grant { get; set; }
+
+        public string Currency_Type { get; set; }
     }
 
 
@@ -271,7 +273,7 @@ namespace ObjectInfos
 
     public class CreateInstance
     {
-        public static AppInfoExport CopyAppHeaderInfo( AppInfoExport pAppExportInfo, ApplicationHeaderInfo pAppInfo)
+        public static AppInfoExport CopyAppHeaderInfo(AppInfoExport pAppExportInfo, ApplicationHeaderInfo pAppInfo)
         {
             pAppExportInfo.STT = pAppInfo.STT;
             pAppExportInfo.Id = pAppInfo.Id;
@@ -303,7 +305,7 @@ namespace ObjectInfos
             return pAppExportInfo;
         }
 
-        public static AppInfoExport CopyAppDetailInfo( AppInfoExport pAppExportInfo, AppDetail04NHInfo pAppInfo)
+        public static AppInfoExport CopyAppDetailInfo(AppInfoExport pAppExportInfo, AppDetail04NHInfo pAppInfo)
         {
             pAppExportInfo.Appno = pAppInfo.Appno;
             pAppExportInfo.Duadate = pAppInfo.Duadate;
@@ -320,7 +322,7 @@ namespace ObjectInfos
             pAppExportInfo.Sodon_Ut = pAppInfo.Sodon_Ut;
             pAppExportInfo.Ngaynopdon_Ut = pAppInfo.Ngaynopdon_Ut;
             pAppExportInfo.Nuocnopdon_Ut = pAppInfo.Nuocnopdon_Ut;
-           
+
             pAppExportInfo.Nguongocdialy = pAppInfo.Nguongocdialy;
             pAppExportInfo.Chatluong = pAppInfo.Chatluong;
             pAppExportInfo.Dactinhkhac = pAppInfo.Dactinhkhac;
@@ -362,7 +364,7 @@ namespace ObjectInfos
             return pAppExportInfo;
 
         }
-      
+
         public static AppInfoExport CopySysDocumentInfo(AppInfoExport pAppExportInfo, SysAppDocumentInfo pAppInfo)
         {
             return pAppExportInfo;

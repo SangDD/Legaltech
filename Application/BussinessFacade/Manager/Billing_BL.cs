@@ -109,6 +109,21 @@ namespace BussinessFacade
             }
         }
 
+        public int Billing_Update_Pay_Status(decimal p_docking_id, string p_language_code, decimal p_status, string p_modify_by, DateTime p_modify_date)
+        {
+            try
+            {
+                Billing_DA _da = new Billing_DA();
+                return _da.Billing_Update_Pay_Status(p_docking_id, p_language_code, p_status, p_modify_by, p_modify_date);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
+
         public int Billing_Update_Delete(decimal p_docking_id, string p_language_code, string p_modify_by, DateTime p_modify_date)
         {
             try
@@ -129,8 +144,8 @@ namespace BussinessFacade
             {
                 Billing_DA _da = new Billing_DA();
                 return _da.Billing_Insert(p_obj.Case_Code, p_obj.Billing_Type, p_obj.App_Case_Code, p_obj.Billing_Date, p_obj.Deadline,
-                    p_obj.Request_By, p_obj.Approve_By, p_obj.Status, p_obj.Total_Pre_Tex, p_obj.Tex_Fee, p_obj.Total_Vnd,
-                    p_obj.Currency, p_obj.Currency_Rate, p_obj.Total_Foeign, p_obj.Created_By, p_obj.Created_Date, p_obj.Language_Code);
+                    p_obj.Request_By, p_obj.Approve_By, p_obj.Status, p_obj.Total_Pre_Tex, p_obj.Tex_Fee, p_obj.Total_Amount,
+                    p_obj.Currency, p_obj.Currency_Rate, p_obj.Created_By, p_obj.Created_Date, p_obj.Language_Code);
             }
             catch (Exception ex)
             {
@@ -144,8 +159,8 @@ namespace BussinessFacade
             try
             {
                 Billing_DA _da = new Billing_DA();
-                return _da.Billing_Update(p_obj.Billing_Id, p_obj.Billing_Date, p_obj.Deadline, p_obj.Total_Pre_Tex, p_obj.Tex_Fee, p_obj.Total_Vnd,
-                    p_obj.Currency, p_obj.Currency_Rate, p_obj.Total_Foeign, p_obj.Modify_By, p_obj.Modify_Date, p_obj.Language_Code);
+                return _da.Billing_Update(p_obj.Billing_Id, p_obj.Billing_Date, p_obj.Deadline, p_obj.Total_Pre_Tex, p_obj.Tex_Fee, p_obj.Total_Amount,
+                    p_obj.Currency, p_obj.Currency_Rate, p_obj.Modify_By, p_obj.Modify_Date, p_obj.Language_Code);
             }
             catch (Exception ex)
             {

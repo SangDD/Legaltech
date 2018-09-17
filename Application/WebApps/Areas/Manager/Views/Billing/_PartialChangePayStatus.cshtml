@@ -1,11 +1,12 @@
-﻿@using ObjectInfos;
+﻿@using Common.CommonData
+@using ObjectInfos;
 @using BussinessFacade;
 @using BussinessFacade.ModuleMemoryData
 @using System.Xml
 @model Billing_Header_Info
 
 @{
-    ViewBag.Title = "Duyệt billing";
+    ViewBag.Title = "Cập nhật trạng thái thanh toán billing";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     List<AllCodeInfo> _lstBank = MemoryData.AllCode_GetBy_CdTypeCdName("BILLING", "BANK");
@@ -63,7 +64,7 @@
 <div class="d-main">
     <div class="divCover">
         <div class="classTitle">
-            <div class="div-title-content"> DUYỆT THÔNG TIN BILLING</div>
+            <div class="div-title-content"> THANH TOÁN TIN BILLING</div>
         </div>
     </div>
 
@@ -202,7 +203,12 @@
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;margin-top: 5px;">
-            <input type="submit" class="btn-default" value="Duyệt" onclick="return onApprove()" />
+            @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
+            {
+                <input type="submit" class="btn-default" value="Thanh toán" onclick="return onApprove()" />
+            }
+
+            <input type="submit" class="btn-default" value="Thanh toán" onclick="return onApprove()" />
             <input type="submit" class="btn-default" value="Thoát" onclick="return onBack()" />
         </div>
     </div>
@@ -237,9 +243,9 @@
                 return false;
             }
 
-            nvsConfirm(null, "Bạn có chắc chắn muốn duyệt billing này không?", function () {
+            nvsConfirm(null, "Bạn có chắc chắn muốn thanh toán billing này không?", function () {
                 $.ajax({
-                    url: "/quan-ly-billing/danh-sach-billing/do-change-status",
+                    url: "/quan-ly-billing/danh-sach-billing/do-change-pay-status",
                     type: "POST",
                     data: {
                         p_id: @Model.Billing_Id
@@ -256,11 +262,11 @@
                             return false;
                         }
                         else if (data.success == "-2") {
-                            jError("Billing đã được duyệt, không thể duyệt");
+                            jError("Billing đã được thanh toán, không thể thanh toán");
                             return false;
                         }
                         else {
-                            jAlert('Duyệt billing thành công!', "THÔNG BÁO", function () {
+                            jAlert('Thanh toán billing thành công!', "THÔNG BÁO", function () {
                                 window.location.href = "/quan-ly-billing/danh-sach-billing/";
                             });
                         }

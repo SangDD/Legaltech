@@ -13,11 +13,13 @@
     string _BankName = "";
     string _Bank_Account_Name = "";
     string _Swift_Code = "";
+    string _bank_Account_no = "";
     if (_lstBank.Count > 0)
     {
         _BankName = _lstBank[0].CdVal;
         _Bank_Account_Name = _lstBank[1].CdVal;
         _Swift_Code = _lstBank[2].CdVal;
+        _bank_Account_no = _lstBank[3].CdVal;
     }
 
     BussinessFacade.ModuleUsersAndRoles.UserBL _UserBL = new BussinessFacade.ModuleUsersAndRoles.UserBL();
@@ -159,6 +161,17 @@
             </div>
 
             <div class="div-search-title">
+                <div>SWift Code<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" value="@_Swift_Code" disabled="disabled" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
                 <div>Bank Account Name<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
@@ -168,11 +181,11 @@
             </div>
 
             <div class="div-search-title">
-                <div>SWift Code<i class="redspan">(*)</i></div>
+                <div>Bank Account No<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" value="@_Swift_Code" disabled="disabled" />
+                    <input type="text" value="@_bank_Account_no" disabled="disabled" />
                 </div>
             </div>
         </div>
@@ -189,7 +202,7 @@
             @Html.Partial("~/Areas/Manager/Views/Billing/_PartialDetail_Insert_Billing.cshtml")
         </div>
 
-       
+
 
     </div>
 
@@ -234,15 +247,12 @@
 
                         if (data.success == "-2") {
                             jError("Trạng thái đơn không hợp lệ");
-                            //$("#divCurrency").html(null);
                         }
                         else if (data.success == "-1") {
-                            //$("#divCurrency").html(null);
                         }
                         else {
                             $("#divInfoApp").html(data.Partial_AppInfo);
                             $("#divDataBillingDetail").html(data.PartialDetail_Insert_Billing);
-                            //$("#divCurrency").html(data.PartialCurrency);
 
                             //CssPopUpTag("divWrapperPopUpBilling", ".divPopup");
                             $("#txtCaseCodeSearch").val(_App_Case_Code);
@@ -299,8 +309,6 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
                         $("#divDataBillingDetail").html(data);
-                        //CssPopUpTag("divWrapperPopUpBilling", ".divPopup");
-                        onChangeCurrency_Rate($("#txtCurrency_Rate").val());
                     },
                     error: function (e) {
                         CreateRollingWaitingIcon(false);
@@ -335,8 +343,6 @@
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
                     $("#divDataBillingDetail").html(data);
-
-                    onChangeCurrency_Rate($("#txtCurrency_Rate").val());
                 },
                 error: function (e) {
                     CreateRollingWaitingIcon(false);
@@ -346,51 +352,6 @@
         } catch (e) {
             console.log(e);
         }
-    }
-
-    function onChangeCurrency_Rate(_value) {
-
-        var _rate = parseInt(_value.replace(/,/g, ""));
-
-        try {
-            $.ajax({
-                url: '/quan-ly-billing/danh-sach-billing/change-currency-rate',
-                type: 'POST',
-                data: {
-                    p_case_code: $("#txtApp_Case_Code").val(),
-                    p_currency_rate: _rate
-                },
-                async: true, cache: false, traditional: true,
-                beforeSend: function () {
-                    CreateRollingWaitingIcon(true);
-                },
-                success: function (data) {
-                    CreateRollingWaitingIcon(false);
-                    $("#divDataBillingDetail").html(data);
-                },
-                error: function (e) {
-                    CreateRollingWaitingIcon(false);
-                    console.log(e);
-                }
-            });
-        } catch (e) {
-            console.log(e);
-        }
-
-        //var _txt_Total_VND = $("#txt_Total_VND").val();
-        //if (_value == "" || _value == "0" || _txt_Total_VND == "" || _txt_Total_VND == "0") {
-        //    $("#txtTotal_Foeign").val('');
-        //    return;
-        //}
-
-        //try {
-        //    var _txt_Total_VND = parseInt(_txt_Total_VND.replace(/,/g, ""))
-        //    var _Total_Foeign = Math.ceil(_txt_Total_VND / _rate);
-
-        //    $("#txtTotal_Foeign").val(_Total_Foeign);
-        //} catch (e) {
-        //    console.log(e);
-        //}
     }
 
     function doInsertBilling() {
@@ -452,25 +413,14 @@
             return false;
         }
 
-        var _txt_Total_VND = $("#txt_Total_VND").val();
-        if (_txt_Total_VND == "" || _txt_Total_VND == "0") {
+        var _txt_Total_Amount = $("#txt_Total_Amount").val();
+        if (_txt_Total_Amount == "" || _txt_Total_Amount == "0") {
             jError("Không có thông tin billing", "lỗi", function () {
                 $('#txtApp_Case_Code').focus();
             });
             return false;
         }
-
-        var _txtIsCurrency = $("#txtIsCurrency").val();
-        if (_txtIsCurrency == "1") {
-            var _currentcy_rate = $("#txtCurrency_Rate").val();
-            if (_currentcy_rate == "" || _currentcy_rate == "0") {
-                jError("Tỷ giá không được để trống", "lỗi", function () {
-                    $('#txtCurrency_Rate').focus();
-                });
-                return false;
-            }
-        }
-
+         
         return true;
     }
 
@@ -490,20 +440,10 @@
 
             formData.append('p_Billing_Header_Info.Total_Pre_Tex', parseInt($("#txt_Total_Pre_Tex").val().replace(/,/g, "")));
             formData.append('p_Billing_Header_Info.Tex_Fee', parseInt($("#txt_Tex_Fee").val().replace(/,/g, "")));
-            formData.append('p_Billing_Header_Info.Total_Vnd', parseInt($("#txt_Total_VND").val().replace(/,/g, "")));
+            formData.append('p_Billing_Header_Info.Total_Amount', parseInt($("#txt_Total_Amount").val().replace(/,/g, "")));
 
-            parseInt($("#txt_Total_VND").val().replace(/,/g, ""))
-            var _txtIsCurrency = $("#txtIsCurrency").val();
-            if (_txtIsCurrency == "1") {
-                formData.append('p_Billing_Header_Info.Currency', $("#cboCurrency").val());
-                formData.append('p_Billing_Header_Info.Currency_Rate', parseInt($("#txtCurrency_Rate").val().replace(/,/g, "")));
-                formData.append('p_Billing_Header_Info.Total_Foeign', $("#txtTotal_Foeign").val());
-            }
-            else {
-                formData.append('p_Billing_Header_Info.Currency', '');
-                formData.append('p_Billing_Header_Info.Currency_Rate', 0);
-                formData.append('p_Billing_Header_Info.Total_Foeign', 0);
-            }
+            formData.append('p_Billing_Header_Info.Currency', $("#txtCurrency").val());
+            formData.append('p_Billing_Header_Info.Currency_Rate', parseInt($("#txtCurrency_Rate").val().replace(/,/g, "")));
         } catch (e) {
             alert(e.toString());
         }

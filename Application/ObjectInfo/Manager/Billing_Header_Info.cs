@@ -47,10 +47,9 @@ namespace ObjectInfos
         public DateTime Pay_Date { get; set; }
         public decimal Total_Pre_Tex { get; set; }
         public decimal Tex_Fee { get; set; }
-        public decimal Total_Vnd { get; set; }
+        public decimal Total_Amount { get; set; }
         public string Currency { get; set; }
         public decimal Currency_Rate { get; set; }
-        public decimal Total_Foeign { get; set; }
         public string Created_By { get; set; }
         public DateTime Created_Date { get; set; }
         public string Modify_By { get; set; }

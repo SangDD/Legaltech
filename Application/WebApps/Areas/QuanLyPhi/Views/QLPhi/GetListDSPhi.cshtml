@@ -123,10 +123,34 @@
 
     function funcUpdateFeeFix() {
         var formData = new FormData();
-        var amount = $("#txtAmountEdit").val().replace(/,/g, "");
+        var amount = $("#txtAmount").val().replace(/,/g, "");
         if (isNaN(amount)) {
-            jError("Lệ phí nhập vào phải là kiểu số!", "Thông báo", function () {
-                $("#txtAmountEdit").focus();
+            jError("Lệ phí quốc gia (VNĐ) nhập vào phải là kiểu số!", "Thông báo", function () {
+                $("#txtAmount").focus();
+            });
+            return false;
+        }
+
+        amount = $("#txtAmount_Usd").val();
+        if (isNaN(amount)) {
+            jError("Lệ phí quốc gia (USD) nhập vào phải là kiểu số!", "Thông báo", function () {
+                $("#txtAmount_Usd").focus();
+            });
+            return false;
+        }
+
+        amount = $("#txtAmount_Represent").val().replace(/,/g, "");
+        if (isNaN(amount)) {
+            jError("Lệ phí dịch vụ (VNĐ) nhập vào phải là kiểu số!", "Thông báo", function () {
+                $("#txtAmount_Represent").focus();
+            });
+            return false;
+        }
+
+        amount = $("#txtAmount_Represent_Usd").val().replace(/,/g, "");
+        if (isNaN(amount)) {
+            jError("Lệ phí dịch vụ (USD) nhập vào phải là kiểu số!", "Thông báo", function () {
+                $("#txtAmount_Represent_Usd").focus();
             });
             return false;
         }
@@ -166,7 +190,12 @@
     function getDataUpDDSHCNEdit(formData) {
         formData.append('pInfo.Id', $("#txtID").val());
         formData.append('pInfo.AppCode', $("#txtAppCode").val());
-        formData.append('pInfo.Amount', $("#txtAmountEdit").val().replace(/,/g, ""));
+        formData.append('pInfo.Amount', $("#txtAmount").val().replace(/,/g, ""));
+        formData.append('pInfo.Amount_Usd', $("#txtAmount_Usd").val().replace(/,/g, ""));
+
+        formData.append('pInfo.Amount_Represent', $("#txtAmount_Represent").val().replace(/,/g, ""));
+        formData.append('pInfo.Amount_Represent_Usd', $("#txtAmount_Represent_Usd").val().replace(/,/g, ""));
+
         formData.append('pInfo.Char01', $("#txtChar01Edit").val().trim());
         formData.append('pInfo.Description', $("#txtDescriptionEdit").val().trim());
     }

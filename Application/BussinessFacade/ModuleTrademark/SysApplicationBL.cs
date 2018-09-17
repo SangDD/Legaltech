@@ -62,13 +62,13 @@ namespace BussinessFacade.ModuleTrademark
                 return new List<SysAppFixChargeInfo>();
             }
         }
-        public SysAppFixChargeInfo  SysAppFixChargeById(decimal pID, string pAppCode)
+        public SysAppFixChargeInfo SysAppFixChargeById(decimal pID, string pAppCode)
         {
             try
             {
                 var _da = new SysApplicationDA();
-                DataSet ds = _da.SysAppFeeFixGetById(pID,pAppCode);
-               return CBO<SysAppFixChargeInfo>.FillObjectFromDataSet(ds);
+                DataSet ds = _da.SysAppFeeFixGetById(pID, pAppCode);
+                return CBO<SysAppFixChargeInfo>.FillObjectFromDataSet(ds);
             }
             catch (Exception ex)
             {
@@ -77,12 +77,12 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
-        public decimal SysAppFixChargeUpdate(decimal pID, string pAppCode, decimal pAmount, string pChar01, string pDescription)
+        public decimal SysAppFixChargeUpdate(SysAppFixChargeInfo pInfo)
         {
             try
             {
                 var _da = new SysApplicationDA();
-                var preturn = _da.SysAppFeeFixUpdate(pID, pAppCode, pAmount, pChar01, pDescription);
+                var preturn = _da.SysAppFeeFixUpdate(pInfo.Id, pInfo.Appcode, pInfo.Amount, pInfo.Amount_Usd, pInfo.Amount_Represent, pInfo.Amount_Represent_Usd, pInfo.Char01, pInfo.Description);
                 return preturn;
             }
             catch (Exception ex)

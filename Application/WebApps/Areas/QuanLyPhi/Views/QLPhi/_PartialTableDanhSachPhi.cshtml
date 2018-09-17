@@ -13,7 +13,10 @@
             <tr>
                 <th class="class30">STT</th>
                 <th class="class150" data-sort id="Appcode">Đơn</th>
-                <th class="class50" data-sort id="Appcode">Phí</th>
+                <th class="class50" data-sort id="Appcode">Phí quốc gia (VNĐ)</th>
+                <th class="class50" data-sort id="Appcode">Phí quốc gia (USD)</th>
+                <th class="class50" data-sort id="Appcode">Phí dịch vụ (VNĐ)</th>
+                <th class="class50" data-sort id="Appcode">Phí dịch vụ (USD)</th>
                 <th class="class50">Số lượng</th>
                 <th class="class150" data-sort id="Appcode">Mô tả</th>
                 <th class="class100">Chức năng</th>
@@ -29,6 +32,9 @@
                         <td class="tdcenteralign">@stt</td>
                         <td class="tdleftalign">@item.Title</td>
                         <td class="tdrightalign">@item.Amount.ToString("#,##0")</td>
+                        <td class="tdrightalign">@item.Amount_Usd.ToString("#,##0.##")</td>
+                        <td class="tdrightalign">@item.Amount_Represent.ToString("#,##0")</td>
+                        <td class="tdrightalign">@item.Amount_Represent_Usd.ToString("#,##0.##")</td>
                         <td class="tdrightalign">@item.Char01</td>
                         <td class="tdleftalign">@item.Description</td>
                         <td class="tdcenteralign">
@@ -40,7 +46,7 @@
             else
             {
                 <tr>
-                    <td colspan="10">Không có dữ liệu</td>
+                    <td colspan="9">Không có dữ liệu</td>
                 </tr>
             }
         </tbody>

@@ -1,6 +1,8 @@
 ﻿@using ObjectInfos;
 @using BussinessFacade.ModuleMemoryData
 @{
+    /**/
+
     ApplicationHeaderInfo _ApplicationHeaderInfo = new ApplicationHeaderInfo();
     if (ViewBag.objAppHeaderInfo != null)
     {
@@ -13,8 +15,11 @@
         _Operator_Type = (decimal)ViewBag.Operator_Type;
     }
 
-    List<AllCodeInfo> _lstCurrency = MemoryData.AllCode_GetBy_CdTypeCdName("CURRENCY", "CODE");
-    var lstCurrency = _lstCurrency.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
+    //List<AllCodeInfo> _lstCurrency = MemoryData.AllCode_GetBy_CdTypeCdName("CURRENCY", "CODE");
+    //var lstCurrency = _lstCurrency.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
+
+    List<AllCodeInfo> _lstCurrencyRate = MemoryData.AllCode_GetBy_CdTypeCdName("CURRENCY", "RATE");
+    string _currency_rate = Convert.ToDecimal(_lstCurrencyRate[0].CdVal).ToString("#,##0");
 
     Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
     if (ViewBag.Billing_Header_Info != null)
@@ -22,11 +27,11 @@
         _Billing_Header_Info = (Billing_Header_Info)ViewBag.Billing_Header_Info;
     }
 
-    string _IsCurrency = "0";
-    if (_Operator_Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert) && _ApplicationHeaderInfo.Customer_Country != Common.Common.Country_VietNam_Id)
-    {
-        _IsCurrency = "1";
-    }
+    //string _IsCurrency = "0";
+    //if (_Operator_Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert) && _ApplicationHeaderInfo.Customer_Country != Common.Common.Country_VietNam_Id)
+    //{
+    //    _IsCurrency = "1";
+    //}
 }
 
 <div class="div-search-ad">
@@ -91,49 +96,33 @@
     </div>
 </div>
 
-<input type="hidden" id="txtIsCurrency" value="@_IsCurrency" />
+@*<input type="hidden" id="txtIsCurrency" value="@_IsCurrency" />*@
 
-@if (_Operator_Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert) &&
-    _ApplicationHeaderInfo.Customer_Country != Common.Common.Country_VietNam_Id)
+@if (_ApplicationHeaderInfo.Currency_Type == Common.Common.Currency_Type_VND)
 {
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Chọn loại ngoại tệ<i class="redspan">(*)</i></div>
+            <div>Loại ngoại tệ<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                @Html.DropDownList("Currency", lstCurrency, new { @id = "cboCurrency", @style = "width: 250px;" })
+                @*@Html.DropDownList("Currency", lstCurrency, new { @id = "cboCurrency", @style = "width: 250px;" })*@
+                <input type="hidden" id="txtCurrency_Rate" value="1" />
+                <input type="text" id="txtCurrency" value="@_ApplicationHeaderInfo.Currency_Type" disabled="disabled" />
             </div>
         </div>
-
-        <div class="div-search-title">
-            <div>Tỷ giá<i class="redspan">(*)</i></div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <input type="text" id="txtCurrency_Rate" onkeyup="jsFormatNumber(this.value, this.id)" onblur="onChangeCurrency_Rate(this.value)" />
-            </div>
-        </div>
-
-        @*<div class="div-search-title">
-            <div>Thành tiền (Ngoại tệ)<i class="redspan">(*)</i></div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <input type="text" id="txtTotal_Foeign" disabled="disabled" />
-            </div>
-        </div>*@
     </div>
 }
-else if (_Operator_Type != Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert) && _ApplicationHeaderInfo.Customer_Country != Common.Common.Country_VietNam_Id)
+else if (_ApplicationHeaderInfo.Currency_Type == Common.Common.Currency_Type_USD)
 {
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Ngoại tệ<i class="redspan">(*)</i></div>
+            <div>Loại ngoại tệ<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" id="txtTotal_Foeign" disabled="disabled" value="@_Billing_Header_Info.Currency" style="width:250px" />
+                <input type="hidden" id="txtCurrency_Rate" value="1" />
+                <input type="text" id="txtCurrency" value="@_ApplicationHeaderInfo.Currency_Type" disabled="disabled" style="width:250px" />
             </div>
         </div>
 
@@ -142,7 +131,7 @@ else if (_Operator_Type != Convert.ToDecimal(Common.CommonData.CommonEnums.Opera
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" id="txtCurrency_Rate" disabled="disabled" onkeyup="jsFormatNumber(this.value, this.id)" value="@_Billing_Header_Info.Currency_Rate.ToString("#,##0.##")" />
+                <input type="text" id="txtCurrency_Rate" disabled="disabled" value="@_currency_rate" />
             </div>
         </div>
     </div>

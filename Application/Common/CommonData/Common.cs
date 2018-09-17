@@ -10,6 +10,9 @@ namespace Common
     {
         public static int RecordOnpage = 10;
         public static decimal Country_VietNam_Id = 234;
+        public static string Currency_Type_VND = "VND";
+        public static string Currency_Type_USD = "USD";
+
         public static decimal Tax = 5;
     }
 

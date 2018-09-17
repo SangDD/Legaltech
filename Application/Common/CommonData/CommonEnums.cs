@@ -95,8 +95,8 @@
             App = 1,
             TimeSheet = 2,
             Service = 3,
-            Others = 4,
-            Foeign = 5
+            Others = 4
+            //Foeign = 5
         }
 
         public enum Operator_Type

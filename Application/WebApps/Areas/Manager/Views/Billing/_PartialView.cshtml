@@ -12,11 +12,13 @@
     string _BankName = "";
     string _Bank_Account_Name = "";
     string _Swift_Code = "";
+    string _bank_Account_no = "";
     if (_lstBank.Count > 0)
     {
         _BankName = _lstBank[0].CdVal;
         _Bank_Account_Name = _lstBank[1].CdVal;
         _Swift_Code = _lstBank[2].CdVal;
+        _bank_Account_no = _lstBank[3].CdVal;
     }
 
     BussinessFacade.ModuleUsersAndRoles.UserBL _UserBL = new BussinessFacade.ModuleUsersAndRoles.UserBL();
@@ -155,6 +157,17 @@
             </div>
 
             <div class="div-search-title">
+                <div>SWift Code<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" value="@_Swift_Code" disabled="disabled" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
                 <div>Bank Account Name<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
@@ -164,14 +177,15 @@
             </div>
 
             <div class="div-search-title">
-                <div>SWift Code<i class="redspan">(*)</i></div>
+                <div>Bank Account No<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" value="@_Swift_Code" disabled="disabled" />
+                    <input type="text" value="@_bank_Account_no" disabled="disabled" />
                 </div>
             </div>
         </div>
+
 
 
         <div class="divCover cls_form_title">

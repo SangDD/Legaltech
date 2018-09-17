@@ -36,6 +36,7 @@ namespace DataAccess.ModuleTrademark
                 return new DataSet();
             }
         }
+
         public DataSet SysAppFeeFixGetById(decimal pID, string pAppCode)
         {
             try
@@ -52,20 +53,24 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
-        public decimal SysAppFeeFixUpdate(decimal pID, string pAppCode, decimal pAmount, string pChar01, string pDescription)
+        public decimal SysAppFeeFixUpdate(decimal p_id, string p_appcode, decimal p_amount, decimal p_amount_usd, decimal p_amount_represent, decimal p_amount_represent_usd, string p_char01, string p_description)
         {
             try
             {
-                var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
-                decimal preturn = OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SYS_APPLICATION.PROC_SYS_APP_FIX_UPDATE",
-                   new OracleParameter("P_ID", OracleDbType.Decimal, pID, ParameterDirection.Input),
-                   new OracleParameter("P_APPCODE", OracleDbType.Varchar2, pAppCode, ParameterDirection.Input),
-                   new OracleParameter("P_AMOUNT", OracleDbType.Varchar2, pAmount, ParameterDirection.Input),
-                   new OracleParameter("P_CHAR01", OracleDbType.Varchar2, pChar01, ParameterDirection.Input),
-                   new OracleParameter("P_DESCRIPTION", OracleDbType.Varchar2, pDescription, ParameterDirection.Input),
+                var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SYS_APPLICATION.PROC_SYS_APP_FIX_UPDATE",
+                   new OracleParameter("p_id", OracleDbType.Decimal, p_id, ParameterDirection.Input),
+                   new OracleParameter("p_appcode", OracleDbType.Varchar2, p_appcode, ParameterDirection.Input),
+                   new OracleParameter("p_amount", OracleDbType.Decimal, p_amount, ParameterDirection.Input),
+                   new OracleParameter("p_amount_usd", OracleDbType.Decimal, p_amount_usd, ParameterDirection.Input),
+                   new OracleParameter("p_amount_represent", OracleDbType.Decimal, p_amount_represent, ParameterDirection.Input),
+                   new OracleParameter("p_amount_represent_usd", OracleDbType.Decimal, p_amount_represent_usd, ParameterDirection.Input),
+
+                   new OracleParameter("p_char01", OracleDbType.Varchar2, p_char01, ParameterDirection.Input),
+                   new OracleParameter("p_description", OracleDbType.Varchar2, p_description, ParameterDirection.Input),
                     paramReturn);
 
-                return preturn;
+                return Convert.ToDecimal(paramReturn.Value.ToString());
             }
             catch (Exception ex)
             {

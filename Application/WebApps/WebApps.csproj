@@ -1430,7 +1430,6 @@
     <Content Include="Areas\Home\Views\Shared\_RemindData.cshtml" />
     <Content Include="Areas\Home\Views\Shared\HomeBulletin.cshtml" />
     <Content Include="Areas\Home\Views\Shared\_BulletinData.cshtml" />
-    <Content Include="Areas\Manager\Views\Billing\_PartialCurrency.cshtml" />
     <Content Include="Areas\Articles\Views\ArticlesNews\ListArticles.cshtml" />
     <Content Include="Areas\Articles\Views\ArticlesNews\_PartialViewTable.cshtml" />
     <Content Include="Areas\Articles\Views\ArticlesNews\_PartialViewAdd.cshtml" />
@@ -1445,6 +1444,7 @@
     <Content Include="Areas\Manager\Views\TimeSheet\_PartialInsertTimeSheet.cshtml" />
     <Content Include="Areas\Manager\Views\TimeSheet\_PartialTableTimeSheet.cshtml" />
     <Content Include="Areas\Manager\Views\TimeSheet\_PartialViewTimeSheet.cshtml" />
+    <Content Include="Areas\Manager\Views\Billing\_PartialChangePayStatus.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <Content Include="Areas\Home\Views\Wiki\_PartialListDocByCata.cshtml" />
@@ -1821,9 +1821,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>53968</DevelopmentServerPort>
+          <DevelopmentServerPort>53969</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:53968/</IISUrl>
+          <IISUrl>http://localhost:53969/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

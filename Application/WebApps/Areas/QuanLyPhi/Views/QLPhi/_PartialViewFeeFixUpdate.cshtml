@@ -4,7 +4,7 @@
 }
 <style>
     .div-search-title > div {
-        width: 120px;
+        width: 200px;
     }
 </style>
 
@@ -27,14 +27,52 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Lệ phí<i class="redspan">(*)</i></div>
+                <div>Lệ phí quốc gia (VNĐ)<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Amount, new { id = "txtAmountEdit", @maxlength = "20", onkeypress = "return isNumberKey(event);" , onkeyup = "jsFormatNumber(this.value, this.id)" })
+                    @*@Html.TextBoxFor(m => m.Amount, new { id = "txtAmount", @maxlength = "20", onkeypress = "return isNumberKey(event);", onkeyup = "jsFormatNumber(this.value, this.id)" })*@
+                    @Html.TextBoxFor(m => m.Amount, new { id = "txtAmount", @maxlength = "20", @Value = Model.Amount == 0 ? "" : Model.Amount.ToString("#,##0.##"), onkeyup = "jsFormatNumber(this.value, this.id)" })
                 </div>
             </div>
         </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Lệ phí quốc gia (USD)<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @*@Html.TextBoxFor(m => m.Amount_Usd, new { id = "txtAmount_Usd", @maxlength = "20", onkeypress = "return isNumberKey(event);", onkeyup = "jsFormatNumber(this.value, this.id)" })*@
+                    @Html.TextBoxFor(m => m.Amount_Usd, new { id = "txtAmount_Usd", @maxlength = "20", @Value = Model.Amount_Usd == 0 ? "" : Model.Amount_Usd.ToString("#,##0.##"), onkeyup = "jsFormatFloatNumber(this, this.length,2)" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Lệ phí dịch vụ (VNĐ)<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Amount_Represent, new { id = "txtAmount_Represent", @maxlength = "20", @Value = Model.Amount_Represent == 0 ? "" : Model.Amount_Represent.ToString("#,##0.##"), onkeyup = "jsFormatNumber(this.value, this.id)" })
+                    @*@Html.TextBoxFor(m => m.Amount_Represent, new { id = "txtAmount_Represent", @maxlength = "20", onkeypress = "return isNumberKey(event);", onkeyup = "jsFormatNumber(this.value, this.id)" })*@
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Lệ phí dịch vụ (USD)<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+@*                    @Html.TextBoxFor(m => m.Amount_Represent_Usd, new { id = "txtAmount_Represent_Usd", @maxlength = "20", onkeypress = "return isNumberKey(event);", onkeyup = "jsFormatFloatNumber(this, this.length,2)" })*@
+                    @Html.TextBoxFor(m => m.Amount_Represent_Usd, new { id = "txtAmount_Represent_Usd", @maxlength = "20", @Value = Model.Amount_Represent_Usd == 0 ? "" : Model.Amount_Represent_Usd.ToString("#,##0.##"), onkeyup = "jsFormatFloatNumber(this, this.length,2)" })
+                </div>
+            </div>
+        </div>
+
         <div class="div-search-ad">
             <div class="div-search-title">
                 <div>Số lượng tính phí<i class="redspan">(*)</i></div>
@@ -52,7 +90,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Description, new { id = "txtDescriptionEdit", @maxlength = "200",  @Value = Model.Description })
+                    @Html.TextBoxFor(m => m.Description, new { id = "txtDescriptionEdit", @maxlength = "200", @Value = Model.Description })
                 </div>
             </div>
         </div>

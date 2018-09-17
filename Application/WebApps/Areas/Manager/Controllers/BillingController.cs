@@ -107,12 +107,6 @@ namespace WebApps.Areas.Manager.Controllers
                     item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
                 }
 
-                if (_Billing_Header_Info.Total_Foeign != 0)
-                {
-                    // add ngoại tệ vào list fee
-                    AddFeeFoeign(_Billing_Header_Info.Total_Foeign, ref _lst_billing_detail);
-                }
-
                 ViewBag.Billing_Header_Info = _Billing_Header_Info;
                 ViewBag.objAppHeaderInfo = objAppHeaderInfo;
                 ViewBag.List_Billing = _lst_billing_detail;
@@ -138,12 +132,6 @@ namespace WebApps.Areas.Manager.Controllers
                 foreach (Billing_Detail_Info item in _lst_billing_detail)
                 {
                     item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
-                }
-
-                if (_Billing_Header_Info.Total_Foeign != 0)
-                {
-                    // add ngoại tệ vào list fee
-                    AddFeeFoeign(_Billing_Header_Info.Total_Foeign, ref _lst_billing_detail);
                 }
 
                 ViewBag.Billing_Header_Info = _Billing_Header_Info;
@@ -189,7 +177,7 @@ namespace WebApps.Areas.Manager.Controllers
             {
                 List<Billing_Detail_Info> _lst_billing_detail = Get_LstFee_Detail(p_Billing_Header_Info.App_Case_Code);
 
-                if (p_Billing_Header_Info.Total_Vnd == 0)
+                if (p_Billing_Header_Info.Total_Amount == 0)
                 {
                     return Json(new { success = "-2" });
                 }
@@ -303,11 +291,11 @@ namespace WebApps.Areas.Manager.Controllers
                     _ChiPhiKhac.Biling_Detail_Name = "Chi phí khác";
                     _ChiPhiKhac.Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Detail_Type.Service);
                     _lst_billing_detail.Add(_ChiPhiKhac);
+                }
 
-                    foreach (Billing_Detail_Info item in _lst_billing_detail)
-                    {
-                        item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
-                    }
+                foreach (Billing_Detail_Info item in _lst_billing_detail)
+                {
+                    item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
                 }
 
                 SessionData.SetDataSession(p_case_code, _lst_billing_detail);
@@ -340,42 +328,6 @@ namespace WebApps.Areas.Manager.Controllers
                 }
 
                 SessionData.SetDataSession(p_case_code, _lst_billing_detail);
-
-                ViewBag.List_Billing = _lst_billing_detail;
-                return PartialView("~/Areas/Manager/Views/Billing/_PartialDetail_Insert_Billing.cshtml");
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return PartialView("~/Areas/Manager/Views/Billing/_PartialTableBilling.cshtml");
-            }
-        }
-
-        [HttpPost]
-        [Route("danh-sach-billing/change-currency-rate")]
-        public ActionResult ChangeCurrency_Rate(string p_case_code, decimal p_currency_rate)
-        {
-            try
-            {
-                List<Billing_Detail_Info> _lst_billing_detail = Get_LstFee_Detail(p_case_code); 
-
-                decimal _total_fee = 0;
-                foreach (Billing_Detail_Info item in _lst_billing_detail)
-                {
-                    item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
-                    _total_fee += item.Total_Fee;
-                }
-
-                _total_fee = _total_fee + Math.Round(_total_fee / 100 * Common.Common.Tax);
-
-                decimal _total_fee_foeign = 0;
-                if (_total_fee != 0 && p_currency_rate != 0)
-                {
-                    _total_fee_foeign = Math.Ceiling(_total_fee / p_currency_rate);
-                    AddFeeFoeign(_total_fee_foeign, ref _lst_billing_detail);
-                }
-
-                // add ngoại tệ vào list fee
 
                 ViewBag.List_Billing = _lst_billing_detail;
                 return PartialView("~/Areas/Manager/Views/Billing/_PartialDetail_Insert_Billing.cshtml");
@@ -444,12 +396,6 @@ namespace WebApps.Areas.Manager.Controllers
                 foreach (Billing_Detail_Info item in _lst_billing_detail)
                 {
                     item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
-                }
-
-                if (_Billing_Header_Info.Total_Foeign != 0)
-                {
-                    // add ngoại tệ vào list fee
-                    AddFeeFoeign(_Billing_Header_Info.Total_Foeign, ref _lst_billing_detail);
                 }
 
                 ViewBag.Billing_Header_Info = _Billing_Header_Info;
@@ -527,18 +473,6 @@ namespace WebApps.Areas.Manager.Controllers
             }
         }
 
-        void AddFeeFoeign(decimal p_fee, ref List<Billing_Detail_Info> _lst_billing_detail)
-        {
-            Billing_Detail_Info _ChiPhiKhac = new Billing_Detail_Info();
-            _ChiPhiKhac.Nation_Fee = 0;
-            _ChiPhiKhac.Represent_Fee = 0;
-            _ChiPhiKhac.Service_Fee = 0;
-            _ChiPhiKhac.Total_Fee = p_fee;
-            _ChiPhiKhac.Biling_Detail_Name = "Thành tiền (Ngoại tệ)";
-            _ChiPhiKhac.Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Detail_Type.Foeign);
-            _lst_billing_detail.Add(_ChiPhiKhac);
-        }
-
         List<Billing_Detail_Info> Get_LstFee_Detail(string p_case_code)
         {
             try
@@ -548,13 +482,66 @@ namespace WebApps.Areas.Manager.Controllers
                 {
                     _lst_billing_detail = new List<Billing_Detail_Info>();
                 }
-                if (_lst_billing_detail.Count > 0)
-                    _lst_billing_detail.RemoveAll(t => t.Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Detail_Type.Foeign));
+
+                foreach (Billing_Detail_Info item in _lst_billing_detail)
+                {
+                    item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
+                }
+
                 return _lst_billing_detail;
             }
             catch (Exception ex)
             {
                 return new List<Billing_Detail_Info>();
+            }
+        }
+
+        // change pay status
+        [Route("danh-sach-billing/show-change-status-pay")]
+        public ActionResult GetView2ChangePayStatus(int id, string case_code)
+        {
+            try
+            {
+                Billing_BL _obj_bl = new Billing_BL();
+                ApplicationHeaderInfo objAppHeaderInfo = new ApplicationHeaderInfo();
+                List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
+                Billing_Header_Info _Billing_Header_Info = _obj_bl.Billing_GetBy_Id(id, case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
+                foreach (Billing_Detail_Info item in _lst_billing_detail)
+                {
+                    item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
+                }
+
+                ViewBag.Billing_Header_Info = _Billing_Header_Info;
+                ViewBag.objAppHeaderInfo = objAppHeaderInfo;
+                ViewBag.List_Billing = _lst_billing_detail;
+                ViewBag.Operator_Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Approve);
+
+                return PartialView("~/Areas/Manager/Views/Billing/_PartialChangePayStatus.cshtml", _Billing_Header_Info);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialChangePayStatus.cshtml");
+            }
+
+        }
+
+        [HttpPost]
+        [Route("danh-sach-billing/do-change-pay-status")]
+        public ActionResult DoUpdatePayStatus(int p_id)
+        {
+            try
+            {
+                Billing_BL _obj_bl = new Billing_BL();
+                var modifiedBy = SessionData.CurrentUser.Username;
+                decimal _status = (decimal)CommonEnums.Billing_Pay_Status.Paid;
+                decimal _result = _obj_bl.Billing_Update_Pay_Status(p_id, AppsCommon.GetCurrentLang(), _status, SessionData.CurrentUser.Username, DateTime.Now);
+                return Json(new { success = _result });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = -1 });
             }
         }
     }

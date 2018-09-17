@@ -87,7 +87,7 @@ namespace WebApps.Areas.QuanLyPhi.Controllers
             {
                 if (pInfo == null) return Json(new { success = -3 });
                 var sysApplication = new SysApplicationBL();
-                decimal presonse = sysApplication.SysAppFixChargeUpdate(pInfo.Id,pInfo.Appcode,pInfo.Amount,pInfo.Char01,pInfo.Description);
+                decimal presonse = sysApplication.SysAppFixChargeUpdate(pInfo);
                 return Json(new { success = presonse });
             }
             catch (Exception ex)
