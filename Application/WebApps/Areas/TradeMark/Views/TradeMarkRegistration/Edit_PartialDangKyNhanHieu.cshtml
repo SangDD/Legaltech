@@ -609,6 +609,12 @@
                             <label>Theo thoả thuận khác</label>
                         </div>
                     </div>
+
+                    @* Moithem *@
+                    <div class="div-search-content">
+                        <input type="text" id="txtThoathuanKhac" disabled="disabled" maxlength="150" />
+                    </div>
+
                 </div>
                 @* TÀI LIEU ƯU TIEN *@
                 <div class="div-search-ad" style="display:inline-flex;">
@@ -1697,6 +1703,8 @@
                 }
                 formdata.append("pDetail.Nuocnopdon_Ut", v_Nuocnopdon_Ut);
 
+                var ThoathuanKhac = $("#txtThoathuanKhac").val();
+                formdata.append("pDetail.ThoathuanKhac", ThoathuanKhac);
                 //Lấy thông tin đơn số 2
                 //Nếu có hiển thị lên thì mới check
                 if ($("#divDonUuTienSo2").is(":hidden") == false) {

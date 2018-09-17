@@ -58,11 +58,11 @@ namespace DataAccess.ModuleTrademark
                 new OracleParameter("P_NGAYNOPDON_UT2", OracleDbType.Date, pInfo.Ngaynopdon_Ut2, ParameterDirection.Input),
                 new OracleParameter("P_NUOCNOPDON_UT2", OracleDbType.Varchar2, pInfo.Nuocnopdon_Ut2, ParameterDirection.Input),
                 new OracleParameter("P_HUONGQUYENUUTIEN2", OracleDbType.Varchar2, pInfo.Huongquyenuutien2, ParameterDirection.Input),
-
-                new OracleParameter("YCCAPPHO1", OracleDbType.Varchar2, pInfo.YCCapPho1, ParameterDirection.Input),
-                new OracleParameter("YCCAPPHO2", OracleDbType.Varchar2, pInfo.YCCapPho2, ParameterDirection.Input),
-                new OracleParameter("YCCAPPHO3", OracleDbType.Varchar2, pInfo.YCCapPho3, ParameterDirection.Input),
-                new OracleParameter("YCCAPPHO4", OracleDbType.Varchar2, pInfo.YCCapPho4, ParameterDirection.Input),
+                 new OracleParameter("P_YCCAPPHO1", OracleDbType.Varchar2, pInfo.YCCapPho1, ParameterDirection.Input),
+                new OracleParameter("P_YCCAPPHO2", OracleDbType.Varchar2, pInfo.YCCapPho2, ParameterDirection.Input),
+                new OracleParameter("P_YCCAPPHO3", OracleDbType.Varchar2, pInfo.YCCapPho3, ParameterDirection.Input),
+                new OracleParameter("P_YCCAPPHO4", OracleDbType.Varchar2, pInfo.YCCapPho4, ParameterDirection.Input),
+                new OracleParameter("P_THOATHUANKHAC", OracleDbType.Varchar2, pInfo.ThoaThuanKhac, ParameterDirection.Input),
 
                 paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
@@ -126,11 +126,11 @@ namespace DataAccess.ModuleTrademark
                 new OracleParameter("P_NGAYNOPDON_UT2", OracleDbType.Date, pInfo.Ngaynopdon_Ut2, ParameterDirection.Input),
                 new OracleParameter("P_NUOCNOPDON_UT2", OracleDbType.Varchar2, pInfo.Nuocnopdon_Ut2, ParameterDirection.Input),
                 new OracleParameter("P_HUONGQUYENUUTIEN2", OracleDbType.Varchar2, pInfo.Huongquyenuutien2, ParameterDirection.Input),
-
-                new OracleParameter("YCCAPPHO1", OracleDbType.Varchar2, pInfo.YCCapPho1, ParameterDirection.Input),
-                new OracleParameter("YCCAPPHO2", OracleDbType.Varchar2, pInfo.YCCapPho2, ParameterDirection.Input),
-                new OracleParameter("YCCAPPHO3", OracleDbType.Varchar2, pInfo.YCCapPho3, ParameterDirection.Input),
-                new OracleParameter("YCCAPPHO4", OracleDbType.Varchar2, pInfo.YCCapPho4, ParameterDirection.Input),
+                new OracleParameter("P_YCCAPPHO1", OracleDbType.Varchar2, pInfo.YCCapPho1, ParameterDirection.Input),
+                new OracleParameter("P_YCCAPPHO2", OracleDbType.Varchar2, pInfo.YCCapPho2, ParameterDirection.Input),
+                new OracleParameter("P_YCCAPPHO3", OracleDbType.Varchar2, pInfo.YCCapPho3, ParameterDirection.Input),
+                new OracleParameter("P_YCCAPPHO4", OracleDbType.Varchar2, pInfo.YCCapPho4, ParameterDirection.Input),
+                new OracleParameter("P_THOATHUANKHAC", OracleDbType.Varchar2, pInfo.ThoaThuanKhac, ParameterDirection.Input),
                 paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;

@@ -330,7 +330,8 @@
                             $('#4_ckbNopTaiVietNam').prop('checked', false);
                             $('#4_ckbNopTaiParis').prop('checked', false);
                             $('#4_ckbThoaThuanKhac').prop('checked', false);
-
+                            $("#txtThoathuanKhac").val("")
+                            
 
                             $('#6_rdoTLCMQUT').prop('checked', false);
                             $('#6_rdoBSDDT').prop('checked', false);
@@ -407,6 +408,10 @@
                             <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="TTTK" placeholder="4_ckbThoaThuanKhac" id="4_ckbThoaThuanKhac" />
                             <label>@WebApps.Resources.Resource.lblTheoThoaThuanKhac</label>
                         </div>
+                    </div>
+                    @* Moithem *@
+                    <div class="div-search-content">
+                        <input type="text" id="txtThoathuanKhac" disabled="disabled" maxlength="150"  />
                     </div>
                 </div>
 
@@ -1306,6 +1311,8 @@
                 }
                 formdata.append("pDetail.Nuocnopdon_Ut", v_Nuocnopdon_Ut);
 
+                var ThoathuanKhac = $("#txtThoathuanKhac").val();
+                formdata.append("pDetail.ThoathuanKhac", ThoathuanKhac);
                 //Lấy thông tin đơn số 2
                 //Nếu có hiển thị lên thì mới check
                 if ($("#divDonUuTienSo2").is(":hidden") == false) {
@@ -1657,6 +1664,7 @@
             $("#2_txtDienThoai").val($("#1_txtDienThoai").val());
             $("#2_txtFax").val($("#1_txtFax").val());
             $("#2_txtEmail").val($("#1_txtEmail").val());
+            $("#divDaiDienSHCN").css("display", "none");
         } else {
             $("#2_txtTenDayDu").val("");
             $("#2_txtDiaChi").val("");
