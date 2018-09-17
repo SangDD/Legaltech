@@ -1665,7 +1665,11 @@
             $("#2_txtFax").val($("#1_txtFax").val());
             $("#2_txtEmail").val($("#1_txtEmail").val());
             $("#divDaiDienSHCN").css("display", "none");
-        } else {
+        }
+        else if (v_DDSHCN == "DDUQ") {
+            $("#divDaiDienSHCN").css("display", "none");
+        }
+        else {
             $("#2_txtTenDayDu").val("");
             $("#2_txtDiaChi").val("");
             $("#2_txtDienThoai").val("");
