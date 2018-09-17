@@ -602,9 +602,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="div-search-ad">
-                    <div class="div-search-content">
-                        <div class="div-radio">
+                <div class="div-search-ad" style="display:inline-flex;">
+                    <div class="div-search-content" style="width:250px">
+                        <div class="div-radio"  style="width:245px">
                             <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" @styleTTK value="NTVN" placeholder="4_ckbThoaThuanKhac" id="4_ckbThoaThuanKhac" />
                             <label>Theo thoả thuận khác</label>
                         </div>
@@ -612,7 +612,7 @@
 
                     @* Moithem *@
                     <div class="div-search-content">
-                        <input type="text" id="txtThoathuanKhac" disabled="disabled" maxlength="150" />
+                        <input type="text" id="txtThoathuanKhac"  maxlength="150" />
                     </div>
 
                 </div>
@@ -1079,6 +1079,7 @@
 
     $(document).ready(function () {
 
+
          GetThongTinDaiDien('@objAppHeaderInfo.Rep_Master_Type');
 
         if ($("#6_rdoGiayChuyenNhungUT").is(':checked')) {
@@ -1091,6 +1092,10 @@
             ShowHidenUpLoad("6_rdoBSDDT", "6_rdoBSDDT");
         }
 
+        var v_RepMasterType = $("input[name='3_rdoDaiDienChuDon']:checked").val();
+        if (v_RepMasterType != "DDSH") {
+            $("#divDaiDienSHCN").css("display", "none");
+        }
 
         if ($("#6_rdoTLK").is(":checked") == true) {
             $("#divContainerDocOther").css('display', 'block')
@@ -1540,11 +1545,11 @@
             formData.append("pInfo.Id", v_AppHeaderID);
 
             var daidienSH = $("#txtDaiDienSHCN").val();
-            if (daidienSH === "") {
-                $('#txtDaiDienSHCN').focus().val('');
-                showError('Chưa chọn chủ đại đại diện sở hữu.');
-                return false;
-            }
+            //if (daidienSH === "") {
+            //    $('#txtDaiDienSHCN').focus().val('');
+            //    showError('Chưa chọn chủ đại đại diện sở hữu.');
+            //    return false;
+            //}
             formData.append("pInfo.DDSHCN", daidienSH);
 
             //07/09/2018

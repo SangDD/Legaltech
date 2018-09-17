@@ -636,7 +636,14 @@
                 #endregion
                 appInfo.Logourl = Server.MapPath(appInfo.Logourl);
                 //su dung cho TH ma DNSC 
-                appInfo.Extent_fld01 = appInfo.DDSHCN;
+                if (appInfo.Rep_Master_Type == "DDSH")
+                {
+                    appInfo.Extent_fld01 = appInfo.DDSHCN;
+                }
+                else
+                {
+                    appInfo.Extent_fld01 = appInfo.Rep_Master_Name;
+                }
                 //Su dung cho Nguoi shcn
                 appInfo.Extent_fld02 = appInfo.MADDSHCN;
                 if (!string.IsNullOrEmpty(appInfo.Appno))
@@ -798,6 +805,45 @@
         }
 
         [HttpGet]
+        [Route("request-for-trade-mark-translate/{id}/{id1}/{id2}")]
+        public ActionResult TradeMarkForTranslate()
+        {
+            decimal App_Header_Id = 0;
+            string AppCode = "";
+            int Status = 0;
+            try
+            {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+                SessionData.CurrentUser.chashFile.Clear();
+                SessionData.CurrentUser.chashFileOther.Clear();
+
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    App_Header_Id = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
+                }
+                if (RouteData.Values.ContainsKey("id1"))
+                {
+                    Status = CommonFuc.ConvertToInt(RouteData.Values["id1"]);
+                }
+                if (RouteData.Values.ContainsKey("id2"))
+                {
+                    AppCode = RouteData.Values["id2"].ToString().ToUpper();
+                }
+
+                if (AppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
+                {
+                    return TradeMarkSuaDon(App_Header_Id, AppCode, Status,1);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return TradeMarkSuaDon(App_Header_Id, AppCode, Status,1);
+        }
+
+        [HttpGet]
         [Route("request-for-trade-mark-view/{id}/{id1}/{id2}")]
         public ActionResult TradeMarkForView()
         {
@@ -934,7 +980,7 @@
             }
         }
 
-        public ActionResult TradeMarkSuaDon(decimal pAppHeaderId, string pAppCode, int pStatus)
+        public ActionResult TradeMarkSuaDon(decimal pAppHeaderId, string pAppCode, int pStatus,int pEditOrTranslate=0)
         {
             if (pAppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
             {
@@ -955,7 +1001,7 @@
                     ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds04NH.Tables[3]);
                     ViewBag.lstFeeInfo = CBO<AppFeeFixInfo>.FillCollectionFromDataTable(ds04NH.Tables[4]);
                 }
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialDangKyNhanHieu.cshtml");
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/Translate_PartialDangKyNhanHieu.cshtml");
             }
             else if (pAppCode == TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD)
             {

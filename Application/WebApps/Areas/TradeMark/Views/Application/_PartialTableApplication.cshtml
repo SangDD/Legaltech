@@ -42,7 +42,8 @@
                 <td class="tdcenteralign">
                     <a href="/trade-mark/request-for-trade-mark-view/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-info" data-title="Xem chi tiết"></a>
                     <a href="/trade-mark/request-for-trade-mark-edit/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-edit" data-title="Sửa"></a>
-
+                   
+                    <a href="/trade-mark/request-for-trade-mark-translate/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-confirm-circle" data-title="Dịch"></a>
                     @if (item.Status == (decimal)CommonEnums.App_Status.Luu_tam)
                     {
                         <a href="javascript:;" onclick="return funcDelAppDoc('@item.Id','@item.Appcode')" class="icon icon-delete" data-title="Xóa"></a>
@@ -71,6 +72,7 @@
                         // Khách hàng đã confirm lại cho admin -> admin gửi lên cục
                         <a href="javascript:;" onclick="getViewFiling('@item.Id')" class="icon icon-confirm-circle" data-title="Nộp đơn"></a>
                     }
+
 
                 </td>
             </tr>
