@@ -602,13 +602,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="div-search-ad">
-                    <div class="div-search-content">
-                        <div class="div-radio">
+                <div class="div-search-ad" style="display:inline-flex;">
+                    <div class="div-search-content" style="width:250px">
+                        <div class="div-radio"  style="width:245px">
                             <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" @styleTTK value="NTVN" placeholder="4_ckbThoaThuanKhac" id="4_ckbThoaThuanKhac" />
                             <label>Theo thoả thuận khác</label>
                         </div>
                     </div>
+
+                    @* Moithem *@
+                    <div class="div-search-content">
+                        <input type="text" id="txtThoathuanKhac"  maxlength="150" />
+                    </div>
+
                 </div>
                 @* TÀI LIEU ƯU TIEN *@
                 <div class="div-search-ad" style="display:inline-flex;">
@@ -1073,6 +1079,7 @@
 
     $(document).ready(function () {
 
+
          GetThongTinDaiDien('@objAppHeaderInfo.Rep_Master_Type');
 
         if ($("#6_rdoGiayChuyenNhungUT").is(':checked')) {
@@ -1085,6 +1092,10 @@
             ShowHidenUpLoad("6_rdoBSDDT", "6_rdoBSDDT");
         }
 
+        var v_RepMasterType = $("input[name='3_rdoDaiDienChuDon']:checked").val();
+        if (v_RepMasterType != "DDSH") {
+            $("#divDaiDienSHCN").css("display", "none");
+        }
 
         if ($("#6_rdoTLK").is(":checked") == true) {
             $("#divContainerDocOther").css('display', 'block')
@@ -1534,11 +1545,11 @@
             formData.append("pInfo.Id", v_AppHeaderID);
 
             var daidienSH = $("#txtDaiDienSHCN").val();
-            if (daidienSH === "") {
-                $('#txtDaiDienSHCN').focus().val('');
-                showError('Chưa chọn chủ đại đại diện sở hữu.');
-                return false;
-            }
+            //if (daidienSH === "") {
+            //    $('#txtDaiDienSHCN').focus().val('');
+            //    showError('Chưa chọn chủ đại đại diện sở hữu.');
+            //    return false;
+            //}
             formData.append("pInfo.DDSHCN", daidienSH);
 
             //07/09/2018
@@ -1697,6 +1708,8 @@
                 }
                 formdata.append("pDetail.Nuocnopdon_Ut", v_Nuocnopdon_Ut);
 
+                var ThoathuanKhac = $("#txtThoathuanKhac").val();
+                formdata.append("pDetail.ThoathuanKhac", ThoathuanKhac);
                 //Lấy thông tin đơn số 2
                 //Nếu có hiển thị lên thì mới check
                 if ($("#divDonUuTienSo2").is(":hidden") == false) {
@@ -1998,13 +2011,12 @@
             $("#2_txtFax").val($("#1_txtFax").val());
             $("#2_txtEmail").val($("#1_txtEmail").val());
             $("#txtMADDSHCN").val("");
+            $("#divDaiDienSHCN").css("display", "none");
+        } else if (v_DDSHCN == "DDUQ") {
+            $("#divDaiDienSHCN").css("display", "none");
         } else {
 
-            //$("#2_txtTenDayDu").val("");
-            //$("#2_txtDiaChi").val("");
-            //$("#2_txtDienThoai").val("");
-            //$("#2_txtFax").val("");
-            //$("#2_txtEmail").val("");
+           
         }
     });
 

@@ -78,6 +78,7 @@ namespace ObjectInfos
         public string YCCapPho2 { get; set; }
         public string YCCapPho3 { get; set; }
         public string YCCapPho4 { get; set; }
+        public string ThoaThuanKhac { get; set; }
     }
 
     public class CustomerSuggestInfo
