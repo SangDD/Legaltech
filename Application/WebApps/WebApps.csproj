@@ -185,8 +185,10 @@
     <Compile Include="Areas\Manager\Controllers\DockingController.cs" />
     <Compile Include="Areas\Manager\Controllers\TimeSheetController.cs" />
     <Compile Include="Areas\Manager\ManagerAreaRegistration.cs" />
+    <Compile Include="Areas\ModuleUsersAndRoles\Controllers\CustomerController.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\FunctionController.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\GroupUserController.cs" />
+    <Compile Include="Areas\ModuleUsersAndRoles\Controllers\LawerController.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\UserController.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\ModuleUsersAndRolesAreaRegistration.cs" />
     <Compile Include="Areas\Patent\Controllers\PatentRegistrationController.cs" />
@@ -1387,9 +1389,6 @@
     <Content Include="Areas\DaiDienSHCN\Views\DDSHCN\_PartialTableDDSHCN.cshtml" />
     <Content Include="Areas\DaiDienSHCN\Views\DDSHCN\_PartialDaiDienSHCNUpdate.cshtml" />
     <Content Include="Areas\DaiDienSHCN\Views\DDSHCN\_PartialDaiDienSHCNDetail.cshtml" />
-    <Content Include="Areas\ModuleUsersAndRoles\Views\User\ListLawer.cshtml" />
-    <Content Include="Areas\ModuleUsersAndRoles\Views\User\ListCustomer.cshtml" />
-    <Content Include="Areas\ModuleUsersAndRoles\Views\User\_PartialTableListLawer.cshtml" />
     <Content Include="Areas\ModuleUsersAndRoles\Views\User\_PartialTableListCustomer.cshtml" />
     <Content Include="Areas\QuanLyPhi\Views\QLPhi\GetListDSPhi.cshtml" />
     <Content Include="Areas\QuanLyPhi\Views\QLPhi\_PartialTableDanhSachPhi.cshtml" />
@@ -1446,6 +1445,16 @@
     <Content Include="Areas\Manager\Views\TimeSheet\_PartialViewTimeSheet.cshtml" />
     <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\Translate_PartialDangKyNhanHieu.cshtml" />
     <Content Include="Areas\Manager\Views\Billing\_PartialChangePayStatus.cshtml" />
+    <Content Include="Areas\ModuleUsersAndRoles\Views\Lawer\ListLawer.cshtml" />
+    <Content Include="Areas\ModuleUsersAndRoles\Views\Lawer\_PartialDetail.cshtml" />
+    <Content Include="Areas\ModuleUsersAndRoles\Views\Lawer\_PartialInsert.cshtml" />
+    <Content Include="Areas\ModuleUsersAndRoles\Views\Lawer\_PartialEdit.cshtml" />
+    <Content Include="Areas\ModuleUsersAndRoles\Views\Lawer\_PartialTableListLawer.cshtml" />
+    <Content Include="Areas\ModuleUsersAndRoles\Views\Customer\_PartialInsert.cshtml" />
+    <Content Include="Areas\ModuleUsersAndRoles\Views\Customer\_PartialDetail.cshtml" />
+    <Content Include="Areas\ModuleUsersAndRoles\Views\Customer\_PartialEdit.cshtml" />
+    <Content Include="Areas\ModuleUsersAndRoles\Views\Customer\_PartialTableListCustomer.cshtml" />
+    <Content Include="Areas\ModuleUsersAndRoles\Views\Customer\ListCustomer.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <Content Include="Areas\Home\Views\Wiki\_PartialListDocByCata.cshtml" />

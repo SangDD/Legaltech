@@ -98,20 +98,7 @@
                 ViewBag.Obj = _lst;
                 ViewBag.SumRecord = _total_record;
 
-                if (p_type == "ALL")
-                {
-                    return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/_PartialTableListUsers.cshtml");
-                }
-                else if (p_type == ((int)(int)CommonEnums.UserType.Lawer).ToString())
-                {
-                    return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/_PartialTableListLawer.cshtml");
-                }
-                else if (p_type == ((int)(int)CommonEnums.UserType.Customer).ToString())
-                {
-                    return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/_PartialTableListCustomer.cshtml");
-                }
-                else return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/_PartialTableListUsers.cshtml");
-
+                return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/_PartialTableListUsers.cshtml");
             }
             catch (Exception ex)
             {

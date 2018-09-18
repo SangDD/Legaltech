@@ -78,10 +78,12 @@ function CheckSessionTimeOutPortal() {
 function onResponse(data) {
 	if(validateResponse(data)) {
 		if (data["result"]["IsActionSuccess"]) {
-			showSuccess(data["result"]["message"]);
+            //showSuccess(data["result"]["message"]);
+            jAlert(data["result"]["message"]);
 			return true;
 		} else {
-			showError(data["result"]["message"]);
+            //showError(data["result"]["message"]);
+            jError(data["result"]["message"]);
 			return false;
 		}
 	}

@@ -1,0 +1,285 @@
+﻿@using BussinessFacade.ModuleMemoryData
+@using BussinessFacade.ModuleUsersAndRoles
+@using Common.CommonData
+@using ObjectInfos;
+@{
+    ViewBag.Title = "Quản lý luật sư";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+    List<AllCodeInfo> _lstType = MemoryData.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE");
+    List<AllCodeInfo> _lstStatus = MemoryData.AllCode_GetBy_CdTypeCdName("USER_STATUS", "USER_STATUS");
+}
+@try
+{
+    <style>
+        /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+        .div-search-title > div {
+            width: 120px;
+        }
+    </style>
+
+    <div class="divCover">
+        <div class="d-nav">
+            <img src="~/Content/icons/Body-icon-home.png" /> I
+            Quản trị hệ thống
+            <span class="red">></span>
+            <a href="/luat-su/quan-ly-luat-su">Quản lý luật sư</a>
+        </div>
+    </div>
+    <div class="divCover">
+        <div class="classLine">
+        </div>
+    </div>
+
+    <div class="d-main">
+        <div class="divCover">
+            <div class="classTitle">
+                <input type="hidden" value="ALL|ALL|ALL|ALL" name="txtKeyValue" id="txtKeyValue" />
+                <input type="hidden" value="ID" name="txtSortColum" id="txtSortColumn" />
+                <input type="hidden" value="DESC" name="txtSortType" id="txtSortType" />
+                <div class="div-title-content"> THÔNG TIN LUẬT SƯ </div>
+            </div>
+        </div>
+
+        <div class="divCover" id="div-search-simple">
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div style="width: 120px">Tên luật sư</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtFullNameSearch" data-controlcondition="TRUE" />
+                    </div>
+                </div>
+
+                <div class="div-search-title">
+                    <div style="width: 120px">Trạng thái</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select data-controlcondition="TRUE" id="cboStatusSearch">
+                            <option selected="selected" value="">None</option>
+                            @foreach (var item in _lstStatus)
+                            {
+                                <option value="@item.CdVal">@item.Content</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divCover">
+            <div class="div-search-btn" style="width:450px;">
+                <input type="button" value="Tìm kiếm" class="btn-default" onclick="findUsers(1, 1)" />
+                @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.SupperAdmin)
+                {
+                    <input type="button" value="Thêm luật sư" class="btn-default" style="width: 125px;" onclick="getViewToAddNewUser()" />
+                }
+            </div>
+        </div>
+
+        <div class="divCover">
+            <div id="divTableUsers">
+                @Html.Partial("_PartialTableListLawer")
+            </div>
+        </div>
+
+        <div id="divWrapperViewUser" class="divWrapperPopup" style="display: none;">
+            <div class="divPopup" id="divViewUser">
+            </div>
+        </div>
+
+        <div id="divWrapperEditUser" class="divWrapperPopup" style="display: none;">
+            <div class="divPopup" id="divEditUser">
+            </div>
+        </div>
+
+        <div id="divWrapperAddUser" class="divWrapperPopup" style="display: none;">
+            <div class="divPopup" id="divAddUser">
+            </div>
+        </div>
+
+        <div id="divWrapperPopUpUser" class="divWrapperPopup" style="display: none;">
+            <div class="divPopup" id="divPopUpUser">
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        var username = '', fullName = '', type = '', status = '';
+
+        $(document).ready(function () {
+            $('txtFullNameSearch').focus();
+            $('[data-controlcondition="TRUE"]').on('keypress',
+				function (e) {
+				    enterKeyPress(e, 'btnFindUsers');
+                });
+
+            findUsers(1, 1)
+        });
+
+        function findUsers(_pageNumber, _isSearching) {
+            try {
+                type = '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Lawer)';
+                username = "";
+
+                var p_column = $("#txtSortColumn").val();
+                var p_type_sort = $("#txtSortType").val();
+
+                var p_keysearch;
+                if (_isSearching == 1) {
+                    fullName = $("#txtFullNameSearch").val().trim();
+                    status = $("#cboStatusSearch").val();
+
+                    p_keysearch = username + "|" + fullName + "|" + type + "|" + status;
+
+                    //Lưu lại keysearch
+                    $("#txtKeyValue").val(p_keysearch);
+
+                } else {
+                    p_keysearch = $("#txtKeyValue").val();
+                }
+
+
+                $.ajax({
+                    type: "POST",
+                    headers: { "cache-control": "no-cache" },
+                    url: "/luat-su/quan-ly-luat-su/find-lawer",
+                    data: {
+                        p_keysearch: p_keysearch,
+                        p_CurrentPage: _pageNumber,
+                        p_column: p_column,
+                        p_type_sort: p_type_sort,
+                        p_type: type
+                    },
+                    async: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data != null) {
+                            onResponseWhenSearching(data, "divTableUsers", findUsers);
+                        }
+                    }
+                });
+
+                return true;
+
+            } catch (e) {
+                console.log(e.message);
+            }
+        }
+
+        function pageListOfUsers(_pagenum) {
+            try {
+                findUsers(_pagenum, 0);
+            } catch (e) {
+                console.log(e.message);
+            }
+        }
+
+    </script>
+
+    @* task function *@
+    <script>
+
+        function getViewToAddNewUser() {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            try {
+                var url = "/luat-su/quan-ly-luat-su/get-view-to-add-lawer";
+                window.location.href = url;
+            } catch (e) {
+                console.log(e.toString())
+            }
+        }
+
+        function getViewToEditUser(userId, username) {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            try {
+                var url = "/luat-su/quan-ly-luat-su/get-view-to-edit-lawer/" + userId;
+                window.location.href = url;
+            } catch (e) {
+                console.log(e.toString())
+            }
+        }
+
+        function viewDetailUser(userId, username) {
+
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            try {
+                var url = "/luat-su/quan-ly-luat-su/view-detail-lawer/" + userId;
+                window.location.href = url;
+            } catch (e) {
+                console.log(e.toString())
+            }
+        }
+
+
+        function doDeleteUser(userId, canDelete) {
+            if (canDelete > 0) {
+                showError("Không thể xóa người dùng đang hoạt động.");
+                return false;
+            } else {
+                nvsConfirm(null, "Bạn có chắc chắn muốn xóa người dùng này không?", function () {
+                    $.ajax({
+                        url: "/luat-su/quan-ly-luat-su/do-delete-lawer",
+                        type: "POST",
+                        data: { userId: userId },
+                        headers: { "cache-control": "no-cache" },
+                        async: false,
+                        success: function (data) {
+                            if (data != null) {
+                                if (onResponse(data)) {
+                                    ClosePopupDialog('dpop-users', true);
+                                    findUsers(1, 0);
+                                }
+                            }
+                        },
+                        error: function (e) {
+                            console.log(e);
+                        }
+                    });
+
+                });
+            }
+        }
+
+        function getViewToResetPass(Username) {
+            $.ajax({
+                type: "POST",
+                url: "/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-reset-pass",
+                data: { p_user_name: Username },
+                headers: { "cache-control": "no-cache" },
+                async: false,
+                success: function (data) {
+                    if (data != null) {
+                        if (validateResponse(data)) {
+                            $("#divPopUpUser").html(data);
+                            ShowPopupDialog_Ipace('divWrapperPopUpUser', "Reset pass", 500, 1200, "txtPassword");
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
+
+        function ClosePopUpUser() {
+            CloseDivPopUp('divWrapperPopUpUser');
+        }
+
+    </script>
+}
+catch (Exception)
+{
+    // ignored
+}

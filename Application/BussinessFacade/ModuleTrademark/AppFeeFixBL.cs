@@ -23,20 +23,6 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
-        public int AppFeeFixlUpdate(AppFeeFixInfo pInfo)
-        {
-            try
-            {
-                AppFeeFixDA objData = new AppFeeFixDA();
-                return objData.AppFeeFixUpdate(pInfo);
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return ErrorCode.Error;
-            }
-        }
-
         public int AppFeeFixDelete(decimal p_app_header_id, string p_language_code)
         {
             try
