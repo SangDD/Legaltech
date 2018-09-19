@@ -57,5 +57,41 @@ namespace DataAccess
                 return new DataSet();
             }
         }
+
+
+        public DataSet TodoGetByCasecode(string p_key_search)
+        {
+            try
+            {
+                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_TODOS.PROC_TODO_GETBY_APPS",
+                    new OracleParameter("P_KEY_SEARCH", OracleDbType.Varchar2, p_key_search, ParameterDirection.Input),
+                    new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output)
+                   );
+                return _ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
+        public DataSet RemindGetByCasecode(string p_key_search)
+        {
+            try
+            {
+                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_TODOS.PROC_TODO_GETBY_APPS",
+                    new OracleParameter("P_KEY_SEARCH", OracleDbType.Varchar2, p_key_search, ParameterDirection.Input),
+                    new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output)
+                   );
+                return _ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
     }
 }
