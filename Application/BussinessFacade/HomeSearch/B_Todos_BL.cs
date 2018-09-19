@@ -44,5 +44,21 @@ namespace BussinessFacade
                 return new List<B_Remind_Info>();
             }
         }
+
+        public List<B_Todos_Info> TodoGetByCasecode(string p_key_search)
+        {
+            try
+            {
+                B_TODOS_DA _da = new B_TODOS_DA();
+                DataSet _ds = _da.TodoGetByCasecode(p_key_search);
+                return CBO<B_Todos_Info>.FillCollectionFromDataSet(_ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<B_Todos_Info>();
+            }
+        }
+        
     }
 }
