@@ -19,7 +19,7 @@ namespace WebApps.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resource {
@@ -394,6 +394,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Không.
+        /// </summary>
+        public static string lblNo {
+            get {
+                return ResourceManager.GetString("lblNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nước nộp đơn.
         /// </summary>
         public static string lblNuocNopDon {
@@ -552,6 +561,15 @@ namespace WebApps.Resources {
         public static string lblTheoThoaThuanKhac {
             get {
                 return ResourceManager.GetString("lblTheoThoaThuanKhac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Có.
+        /// </summary>
+        public static string lblYes {
+            get {
+                return ResourceManager.GetString("lblYes", resourceCulture);
             }
         }
         

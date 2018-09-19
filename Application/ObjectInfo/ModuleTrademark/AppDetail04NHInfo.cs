@@ -5,6 +5,27 @@ namespace ObjectInfos
 {
     public class AppDetail04NHInfo : ApplicationHeaderInfo
     {
+        public AppDetail04NHInfo()
+        {
+            App_Header_Id = 0;
+            Request = "";
+            Language_Code = "";
+            Appno = "";
+            Nuocnopdon_Ut2 = "";
+            ThoaThuanKhac = "";
+            Huongquyenuutien2 = "";
+            Sodon_Ut2 = "";
+            LoaiNhanHieu = "";
+            Dactinhkhac = "";
+            Chatluong = "";
+            Nguongocdialy = "";
+            Nuocnopdon_Ut = "";
+            Sodon_Ut = "";
+            Huongquyenuutien = "";
+            Description = "";
+            Color = "";
+            Dactichhanghoa =0;
+        }
         //public decimal Id { get; set; }
         public decimal App_Header_Id { get; set; }
         //public string Appcode { get; set; }

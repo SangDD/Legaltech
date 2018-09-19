@@ -12,6 +12,21 @@ namespace DataAccess.ModuleTrademark
         {
             try
             {
+                Logger.LogInfo("pInfo Insert1:" + pInfo.Id.ToString() + " pInfo.App_Header_Id:" + pInfo.App_Header_Id + " Appcode:" + pInfo.Appcode +
+                 " Language_Code:" + pInfo.Language_Code + " Dactichhanghoa:" + pInfo.Dactichhanghoa.ToString() + " pInfo.Used_Special:" + pInfo.Used_Special +
+                " pInfo.Duadate:" + pInfo.Duadate.ToString("dd/MM/yyyy") + " pInfo.Ngaynopdon_Ut:" + pInfo.Ngaynopdon_Ut.ToString("dd/MM/yyyy") +
+                " pInfo.Ngaynopdon_Ut2:" + pInfo.Ngaynopdon_Ut2.ToString("dd/MM/yyyy"));
+
+
+                Logger.LogInfo("1pInfo Logourl:" + pInfo.Logourl.ToString() + " pInfo.Dactichhanghoa:" + pInfo.Dactichhanghoa + " Color:" + pInfo.Color +
+                 " Description:" + pInfo.Description + " Huongquyenuutien:" + pInfo.Huongquyenuutien.ToString() + " pInfo.Sodon_Ut:" + pInfo.Sodon_Ut +
+                 " pInfo.Nguongocdialy:" + pInfo.Nguongocdialy + " pInfo.Chatluong:" + pInfo.Chatluong + " pInfo.Dactinhkhac:" + pInfo.Dactinhkhac);
+
+
+                Logger.LogInfo("2pInfo pInfo.LoaiNhanHieu:" + pInfo.LoaiNhanHieu.ToString() + " pInfo.CodeLogo:" + pInfo.CodeLogo + " Sodon_Ut2:" + pInfo.Sodon_Ut2 +
+               " Ngaynopdon_Ut2:" + pInfo.Ngaynopdon_Ut2.ToString("dd/MM/yyyy") + " Nuocnopdon_Ut2:" + pInfo.Nuocnopdon_Ut2.ToString() + " pInfo.Huongquyenuutien2:" + pInfo.Huongquyenuutien2 +
+               " pInfo.ThoaThuanKhac:" + pInfo.ThoaThuanKhac + " pInfo.Chatluong:" + pInfo.Chatluong + " pInfo.Dactinhkhac:" + pInfo.Dactinhkhac);
+
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
                 paramReturn.Size = 10;
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_DETAIL_04NH.PROC_APP_DETAIL_04NH_INSERT",
@@ -81,6 +96,22 @@ namespace DataAccess.ModuleTrademark
         {
             try
             {
+                Logger.LogInfo("pInfo:" + pInfo.Id.ToString() + " pInfo.App_Header_Id:" + pInfo.App_Header_Id + " Appcode:" + pInfo.Appcode +
+                    "Language_Code:" + pInfo.Language_Code + " Dactichhanghoa:" + pInfo.Dactichhanghoa.ToString() + " pInfo.Used_Special:" + pInfo.Used_Special +
+                   " pInfo.Duadate:" + pInfo.Duadate.ToString("dd/MM/yyyy")  + " pInfo.Ngaynopdon_Ut:" + pInfo.Ngaynopdon_Ut.ToString("dd/MM/yyyy") +
+                   " pInfo.Ngaynopdon_Ut2:" + pInfo.Ngaynopdon_Ut2.ToString("dd/MM/yyyy"));
+
+
+                Logger.LogInfo("1pInfo Logourl:" + pInfo.Logourl.ToString() + " pInfo.Dactichhanghoa:" + pInfo.Dactichhanghoa + " Color:" + pInfo.Color +
+               " Description:" + pInfo.Description + " Huongquyenuutien:" + pInfo.Huongquyenuutien.ToString() + " pInfo.Sodon_Ut:" + pInfo.Sodon_Ut +
+               " pInfo.Nguongocdialy:" + pInfo.Nguongocdialy + " pInfo.Chatluong:" + pInfo.Chatluong + " pInfo.Dactinhkhac:" + pInfo.Dactinhkhac);
+
+
+                Logger.LogInfo("2pInfo pInfo.LoaiNhanHieu:" + pInfo.LoaiNhanHieu.ToString() + " pInfo.CodeLogo:" + pInfo.CodeLogo + " Sodon_Ut2:" + pInfo.Sodon_Ut2 +
+               " Ngaynopdon_Ut2:" + pInfo.Ngaynopdon_Ut2.ToString("dd/MM/yyyy") + " Nuocnopdon_Ut2:" + pInfo.Nuocnopdon_Ut2.ToString() + " pInfo.Huongquyenuutien2:" + pInfo.Huongquyenuutien2 +
+               " pInfo.ThoaThuanKhac:" + pInfo.ThoaThuanKhac + " pInfo.Chatluong:" + pInfo.Chatluong + " pInfo.Dactinhkhac:" + pInfo.Dactinhkhac);
+
+
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
                 paramReturn.Size = 10;
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_DETAIL_04NH.PROC_APP_DETAIL_04NH_UPDATE",
@@ -91,7 +122,7 @@ namespace DataAccess.ModuleTrademark
                 new OracleParameter("p_appno", OracleDbType.Varchar2, pInfo.Appno, ParameterDirection.Input),
                 new OracleParameter("p_duadate", OracleDbType.Date, pInfo.Duadate, ParameterDirection.Input),
                 new OracleParameter("p_logourl", OracleDbType.Varchar2, pInfo.Logourl, ParameterDirection.Input),
-                new OracleParameter("p_dactichhanghoa", OracleDbType.Decimal, pInfo.Dactichhanghoa, ParameterDirection.Input),
+                new OracleParameter("p_dactichhanghoa", OracleDbType.Int32, pInfo.Dactichhanghoa, ParameterDirection.Input),
                 new OracleParameter("p_color", OracleDbType.Varchar2, pInfo.Color, ParameterDirection.Input),
                 new OracleParameter("p_description", OracleDbType.Varchar2, pInfo.Description, ParameterDirection.Input),
                 new OracleParameter("p_huongquyenuutien", OracleDbType.Varchar2, pInfo.Huongquyenuutien, ParameterDirection.Input),
