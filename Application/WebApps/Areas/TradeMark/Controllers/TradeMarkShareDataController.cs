@@ -62,7 +62,7 @@ namespace WebApps.Areas.TradeMark.Controllers
             return Json(new { success = 0 });
         }
 
-
+ 
         [HttpPost]
         [Route("get-tm04nh-info")]
         public ActionResult TM04NHGetInfo(decimal pAppHeaderId, string p_idchudon, string p_iddaidienchudon, string p_idappclass)
@@ -130,6 +130,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                     pAppCode = RouteData.Values["id2"].ToString().ToUpper();
                 }
                 string _casecode = "";
+                ViewBag.Appcode = pAppCode;
                 if (pAppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
                 {
                     var objBL = new AppDetail04NHBL();
@@ -226,8 +227,10 @@ namespace WebApps.Areas.TradeMark.Controllers
                 #region  lấy dữ liệu lịch sử giao dịch
 
                 B_Todos_BL _B_Todos_BL = new B_Todos_BL();
-                List<B_Todos_Info> _Listtodo = _B_Todos_BL.TodoGetByCasecode(_casecode);
+                List<B_Remind_Info> _ListRemind = new List<B_Remind_Info>();
+                List<B_Todos_Info> _Listtodo = _B_Todos_BL.NotifiGetByCasecode(_casecode, ref _ListRemind);
                 ViewBag.ListTodo = _Listtodo;
+                ViewBag.ListRemind = _ListRemind;
 
                 #endregion
             }

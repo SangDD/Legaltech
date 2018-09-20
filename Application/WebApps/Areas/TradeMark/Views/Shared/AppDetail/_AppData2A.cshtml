@@ -1,0 +1,166 @@
+﻿@using WebApps.CommonFunction
+@using ObjectInfos
+@{
+    var objAppHeaderInfo = new AppDetail04NHInfo();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        objAppHeaderInfo = (AppDetail04NHInfo)ViewBag.objAppHeaderInfo;
+    }
+    string styleChuDonKhac = "hidden='hidden'";
+    if (!string.IsNullOrEmpty(objAppHeaderInfo.Cdk_Name_2) || !string.IsNullOrEmpty(objAppHeaderInfo.Cdk_Name_3) || !string.IsNullOrEmpty(objAppHeaderInfo.Cdk_Name_4))
+    {
+        styleChuDonKhac = "";
+    }
+
+
+    //disable khi view
+    string disableView = @"disabled=disabled";
+    ViewBag.disableView = disableView;
+    string urlMauNhanHieu = "/Content/icons/logo.jpg";
+    if (!string.IsNullOrEmpty(objAppHeaderInfo.Logourl))
+    {
+
+        urlMauNhanHieu = objAppHeaderInfo.Logourl.Replace("~", "");
+    }
+    string styleNhanHieu = "", styleLienKet = "", styleNhanHieuCN = "", styleShowHidenNHCN = "display: none";
+    if (objAppHeaderInfo.LoaiNhanHieu == "NHTT")
+    {
+        styleNhanHieu = "checked='checked'";
+    }
+    else if (objAppHeaderInfo.LoaiNhanHieu == "NHLK")
+    {
+        styleLienKet = "checked='checked'";
+    }
+    else if (objAppHeaderInfo.LoaiNhanHieu == "NHCN")
+    {
+        styleNhanHieuCN = "checked='checked'";
+        styleShowHidenNHCN = "display: block";
+    }
+}
+<input type="hidden" id="txtLogoOld" value="@urlMauNhanHieu" />
+ <div class="div_full_100_area">
+    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN")
+
+    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
+</div>
+
+@if (!string.IsNullOrEmpty(objAppHeaderInfo.Cdk_Name_1))
+{
+
+    <div class="div_full_100_area">
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN KHÁC")
+
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
+    </div>
+
+            <div @styleChuDonKhac id="divHienChuDonKhac">
+                @if (!string.IsNullOrEmpty(objAppHeaderInfo.Cdk_Name_2))
+                {
+                    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "10")
+                }
+                else if (!string.IsNullOrEmpty(objAppHeaderInfo.Cdk_Name_3))
+                {
+                    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "11")
+                }
+                else if (!string.IsNullOrEmpty(objAppHeaderInfo.Cdk_Name_4))
+                {
+                    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "12")
+                }
+            </div>
+}
+<div class="div_full_100_area">
+    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName_View.cshtml", "0")
+</div>
+<div class="div_full_100_area">
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div style="width: 200px;">Đơn này được tách ra từ đơn số </div>
+        </div>
+        <div class="div-search-content">
+            <input type="text" id="0_txtDonSo" @disableView value="@objAppHeaderInfo.Appno" maxlength="20" placeholder="0_txtDonSo" />
+        </div>
+        <div class="div-search-title">
+            <div>Ngày nộp đơn </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input class="datetimepicker" @disableView value="@objAppHeaderInfo.Duadate.ToString("dd/MM/yyyy")" type="text" id="0_txtNgayNopDon" maxlength="10" placeholder="0_txtNgayNopDon" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="div_full_100_area">
+    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "NHÃN HIỆU")
+    <div class="class_full_div_input">
+
+        <div class="class_left_40">
+            <div class="class_block_title" style="padding-top:5px; "><label>Mẫu nhãn hiệu:</label> </div>
+            <div class="class_block_title_control" style="display:flex">
+                <div style="width:165px ;height:165px" id="divLogo">
+                    <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
+                </div>
+            </div>
+        </div>
+
+        <div class="class_right_60" style="display:block">
+            @* Thêm mục đích sau này Admin đặt tên theo qui tắc phục vụ tìm kiếm *@
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Tên nhãn hiệu:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" @disableView placeholder="Tên Nhãn hiệu" value="@objAppHeaderInfo.CodeLogo" maxlength="20" id="0_txtTenNhanHieu" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Mầu sắc:</div>
+                </div>
+                <div class="div-search-content">
+                    <div><input type="text" @disableView placeholder="0_MauSac" value="@objAppHeaderInfo.Color" maxlength="50" id="0_MauSac" /></div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title" style="height: 126px;">
+                    <div>Mô tả:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <textarea id="0_MoTa" maxlength="2000" @disableView rows="5" cols="10" placeholder="Mô tả" style="height:128px">@objAppHeaderInfo.Description</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-content">
+            <div class="div-radio">
+                <input type="radio" name="0_NhanHieu" value="NHTT" @disableView @styleNhanHieu placeholder="0_NhanHieuTapThe" id="0_NhanHieuTapThe" />
+                <label>Nhãn hiệu tập thể</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-content">
+            <div class="div-radio">
+                <input type="radio" name="0_NhanHieu" value="NHLK" @disableView @styleLienKet placeholder="0_NhanHieuLienKet" id="0_NhanHieuLienKet" />
+                <label>Nhãn hiệu liên kết</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-content">
+            <div class="div-radio">
+                <input type="radio" name="0_NhanHieu" value="NHCN" @disableView @styleNhanHieuCN placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" />
+                <label>Nhãn hiệu chứng nhận</label>
+            </div>
+        </div>
+    </div>
+</div>

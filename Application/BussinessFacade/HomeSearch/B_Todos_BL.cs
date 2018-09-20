@@ -45,13 +45,14 @@ namespace BussinessFacade
             }
         }
 
-        public List<B_Todos_Info> TodoGetByCasecode(string p_key_search)
+        public List<B_Todos_Info> NotifiGetByCasecode(string p_key_search, ref List<B_Remind_Info> p_remind_list)
         {
             try
             {
                 B_TODOS_DA _da = new B_TODOS_DA();
-                DataSet _ds = _da.TodoGetByCasecode(p_key_search);
-                return CBO<B_Todos_Info>.FillCollectionFromDataSet(_ds);
+                DataSet _ds = _da.NotifiGetByCasecode(p_key_search);
+                p_remind_list = CBO<B_Remind_Info>.FillCollectionFromDataTable(_ds.Tables[1]);  
+                return CBO<B_Todos_Info>.FillCollectionFromDataTable(_ds.Tables[0]);
             }
             catch (Exception ex)
             {

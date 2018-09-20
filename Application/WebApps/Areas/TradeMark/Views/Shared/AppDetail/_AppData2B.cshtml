@@ -1,0 +1,215 @@
+﻿@using ObjectInfos
+@using ObjectInfos.ModuleTrademark
+@using Common.Extensions;
+@{
+    List<App_Class_Info> _list = new List<App_Class_Info>();
+    if (ViewBag.ListAppClass != null)
+    {
+        _list = ViewBag.ListAppClass;
+    }
+    List<AppDetail04NHInfo> _List04nhdetail = new List<AppDetail04NHInfo>();
+    if (ViewBag.ListAppDetail04NHInfo != null)
+    {
+        _List04nhdetail = ViewBag.ListAppDetail04NHInfo;
+    }
+    var objAppHeaderInfo = new App_Detail_TM06DKQT_Info();
+    var lstDocumentInfo = new List<AppDocumentInfo>();
+    var lstClassDetailInfo = new List<AppClassDetailInfo>();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        objAppHeaderInfo = (App_Detail_TM06DKQT_Info)ViewBag.objAppHeaderInfo;
+    }
+    if (ViewBag.lstDocumentInfo != null)
+    {
+        lstDocumentInfo = (List<AppDocumentInfo>)ViewBag.lstDocumentInfo;
+    }
+
+    if (ViewBag.lstClassDetailInfo != null)
+    {
+        lstClassDetailInfo = (List<AppClassDetailInfo>)ViewBag.lstClassDetailInfo;
+    }
+    string _01_rdnghidinh_madrid = "";
+    string _01_rdnghidinh_thoa_uoc_madrid = "";
+    if (objAppHeaderInfo.THANHVIEN_ND_TC == "TVND")
+    {
+        _01_rdnghidinh_madrid = "checked='checked'";
+    }
+    else if (objAppHeaderInfo.THANHVIEN_ND_TC == "TVND_TU")
+    {
+        _01_rdnghidinh_thoa_uoc_madrid = "checked='checked'";
+    }
+
+    string urlMauNhanHieu = "/Content/icons/logo.jpg";
+    if (!string.IsNullOrEmpty(objAppHeaderInfo.LOGOURL))
+    {
+
+        urlMauNhanHieu = objAppHeaderInfo.LOGOURL.Replace("~", "");
+    }
+
+    string _01_rad_DonDK = "";
+    string _01_rad_GiayDK = "";
+    if (objAppHeaderInfo.DON_GIAY_DKNHCS == "DONDK")
+    {
+        _01_rad_DonDK = "checked='checked'";
+    }
+    else if (objAppHeaderInfo.DON_GIAY_DKNHCS == "GIAYDK")
+    {
+        _01_rad_GiayDK = "checked='checked'";
+    }
+
+    List<AppDocumentInfo> Lst_AppDoc = new List<AppDocumentInfo>();
+    if (ViewBag.Lst_AppDoc != null)
+    {
+        Lst_AppDoc = (List<AppDocumentInfo>)ViewBag.Lst_AppDoc;
+    }
+    Dictionary<string, AppDocumentInfo> dic_appDoc = new Dictionary<string, AppDocumentInfo>();
+    foreach (AppDocumentInfo item in Lst_AppDoc)
+    {
+        dic_appDoc[item.Document_Id] = item;
+    }
+    string _checked = "";
+    string _disabled = "";
+    string _doc_id = "";
+    string _id = "";
+    string _value = "";
+    string _model = "";
+}
+
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+
+    .div-title-col-2 {
+        height: 35px;
+        border: 1px solid #aaa;
+    }
+
+        .div-title-col-2 > div {
+            margin: 9px 5px 0px 7px;
+        }
+</style>
+<script src="~/Scripts/ScriptsLoadClassInfo.js"></script>
+<div class="d-popup-container" id="pop-sua-doi_dk"></div>
+<input type="hidden" id="txtAppCode" value='@Common.TradeMarkAppCode.AppCodeDangKyQuocTeNH' />
+<div class="div-search">
+   
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                THÔNG TIN CƠ BẢN
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio" style="width:400px">
+                    <input @_01_rdnghidinh_madrid type="radio" name="rad_thanhviennghidinhthu" value="TVND" id="_01_rdnghidinh_madrid" placeholder="_01_rdnghidinh_madrid" disabled />
+                    <label>chỉ là Thành viên Nghị định thư Madrid</label>
+                </div>
+            </div>
+
+            <div class="div-search-content">
+                <div class="div-radio">
+                    <input @_01_rdnghidinh_thoa_uoc_madrid type="radio" name="rad_thanhviennghidinhthu" value="TVND_TU" id="_01_rdnghidinh_thoa_uoc_madrid" placeholder="_01_rdnghidinh_thoa_uoc_madrid" disabled />
+                    <label>vừa là Thành viên Thoả ước Madrid, vừa là Thành viên Nghị định thư Madrid </label>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                NHÃN HIỆU QUỐC TẾ
+            </div>
+        </div>
+
+        <div class="class_full_div_input">
+            <div class="class_left_40">
+                <div class="class_block_title" style="padding-top:5px; "><label>Mẫu nhãn hiệu:</label> </div>
+                <div class="class_block_title_control" style="display:flex">
+                    <div style="width:180px ;height:180px" id="divLogo">
+                        <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
+                    </div>
+                </div>
+            </div>
+            <div class="class_right_60">
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio" style="width:400px">
+                            <input @_01_rad_DonDK type="radio" name="_01_rad_DonDkOrGiayDK" value="DONDK" id="_01_rad_DonDK" placeholder=" rad_DonDK" disabled />
+                            <label>Đơn đăng ký nhãn hiệu cơ sở </label>
+                        </div>
+                    </div>
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input @_01_rad_GiayDK type="radio" name="_01_rad_DonDkOrGiayDK" value="GIAYDK" id="_01_rad_GiayDK" placeholder="01_rad_GiayDK" disabled />
+                            <label>Giấy chứng nhận đăng ký nhãn hiệu cơ sở </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <div>Số đơn/Số GCN</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="" placeholder="" value="@objAppHeaderInfo.REF_APPNO_TEXT" disabled />
+
+                        </div>
+                    </div>
+
+                    <div class="div-search-title">
+                        <div style="width:200px">Ngày nộp đơn/Ngày cấp CGN</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input value="@objAppHeaderInfo.Send_Date.ToString("dd/MM/yyyy")" type="text" disabled />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClassView.cshtml")
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                 CHỦ ĐƠN
+            </div>
+        </div>
+
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon_View.cshtml", "_1")
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                ĐẠI DIỆN CỦA CHỦ ĐƠN
+            </div>
+        </div>
+
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon_View.cshtml", "_2")
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                TÊN VÀ MÃ NƯỚC CHỈ ĐỊNH ĐĂNG KÝ QUỐC TẾ NHÃN HIỆU
+            </div>
+        </div>
+        
+</div>
+
+ 
+
+ 
+
+
+ 

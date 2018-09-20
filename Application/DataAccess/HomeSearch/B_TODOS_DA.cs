@@ -59,13 +59,14 @@ namespace DataAccess
         }
 
 
-        public DataSet TodoGetByCasecode(string p_key_search)
+        public DataSet NotifiGetByCasecode(string p_key_search)
         {
             try
             {
-                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_TODOS.PROC_TODO_GETBY_APPS",
+                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_TODOS.PROC_NOTIFI_GETBY_APPS",
                     new OracleParameter("P_KEY_SEARCH", OracleDbType.Varchar2, p_key_search, ParameterDirection.Input),
-                    new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output)
+                    new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("P_CURSOR_RIMIND", OracleDbType.RefCursor, ParameterDirection.Output)
                    );
                 return _ds;
             }

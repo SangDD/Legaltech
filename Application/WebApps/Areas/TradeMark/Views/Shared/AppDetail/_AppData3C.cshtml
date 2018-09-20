@@ -1,0 +1,213 @@
+﻿ @using WebApps.CommonFunction;
+@using BussinessFacade.ModuleMemoryData
+@using ObjectInfos
+@using ObjectInfos.ModuleTrademark
+@{
+
+    ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    }
+
+    App_Detail_PLB02_CGD_Info _App_Detail = new App_Detail_PLB02_CGD_Info();
+    if (ViewBag.App_Detail != null)
+    {
+        _App_Detail = (App_Detail_PLB02_CGD_Info)ViewBag.App_Detail;
+    }
+
+    List<AppDocumentInfo> Lst_AppDoc = new List<AppDocumentInfo>();
+    if (ViewBag.Lst_AppDoc != null)
+    {
+        Lst_AppDoc = (List<AppDocumentInfo>)ViewBag.Lst_AppDoc;
+    }
+
+    List<AppFeeFixInfo> Lst_AppFee = new List<AppFeeFixInfo>();
+    if (ViewBag.Lst_AppFee != null)
+    {
+        Lst_AppFee = (List<AppFeeFixInfo>)ViewBag.Lst_AppFee;
+    }
+
+    Dictionary<string, AppDocumentInfo> dic_appDoc = new Dictionary<string, AppDocumentInfo>();
+    foreach (AppDocumentInfo item in Lst_AppDoc)
+    {
+        dic_appDoc[item.Document_Id] = item;
+    }
+}
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+
+    .div-title-col-2 {
+        height: 35px;
+        border: 1px solid #aaa;
+    }
+
+        .div-title-col-2 > div {
+            margin: 9px 5px 0px 7px;
+        }
+</style>
+ 
+<input type="hidden" id="txtAppCode" value='@_AppHeaderInfo.Appcode' />
+
+<div class="div-search ">    
+
+        @* Case name *@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName_View.cshtml", "0")
+
+        @* 4 - ĐƠN ĐƯỢC CHUYỂN NHƯỢNG *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                ĐƠN ĐƯỢC CHUYỂN NHƯỢNG
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio" style="width:382px">
+                    @if (_App_Detail.Transfer_Type == 1)
+                    {
+                        <input type="radio" name="4_rdoDonDuocChuyenNhuong" id="4_rdDK_SC" value="1" disabled="disabled" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="4_rdoDonDuocChuyenNhuong" id="4_rdDK_SC" value="1" disabled="disabled">
+                    }
+                    <label>Đơn đăng ký sáng chế</label>
+                </div>
+            </div>
+
+            <div class="div-search-content">
+                <div class="div-radio">
+                    @if (_App_Detail.Transfer_Type == 2)
+                    {
+                        <input type="radio" name="4_rdoDonDuocChuyenNhuong" id="4_rdDK_KDCN" value="2" disabled="disabled" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="4_rdoDonDuocChuyenNhuong" id="4_rdDK_KDCN" value="2" disabled="disabled">
+                    }
+                    <label>Đơn đăng ký kiểu dáng công nghiệp</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio" style="width:382px">
+                    @if (_App_Detail.Transfer_Type == 3)
+                    {
+                        <input type="radio" name="4_rdoDonDuocChuyenNhuong" id="4_rdDK_MBD" value="3" disabled="disabled" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="4_rdoDonDuocChuyenNhuong" id="4_rdDK_MBD" value="3" disabled="disabled">
+                    }
+
+                    <label>Đơn đăng ký thiết kế bố trí mạch tích hợp bán dẫn </label>
+                </div>
+            </div>
+
+            <div class="div-search-content">
+                <div class="div-radio">
+                    @if (_App_Detail.Transfer_Type == 4)
+                    {
+                        <input type="radio" name="4_rdoDonDuocChuyenNhuong" id="4_rdDK_NH" value="4" disabled="disabled" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="4_rdoDonDuocChuyenNhuong" id="4_rdDK_NH" value="4" disabled="disabled">
+                    }
+                    <label>Đơn đăng ký nhãn hiệu</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Số đơn:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Số đơn" id="4_txt_SoDon" disabled="disabled" value="@_App_Detail.Transfer_Appno" />
+                </div>
+            </div>
+        </div>
+
+        @* 1 - CHỦ ĐƠN*@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                CHỦ ĐƠN
+            </div>
+        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon_View.cshtml")
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio" style="width:382px">
+                    @if (_App_Detail.Master_Type == 1)
+                    {
+                        <input type="radio" name="1_rdoChuDon" value="1" id="rb_1_ChuDonChuyenNhuong" disabled="disabled" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="1_rdoChuDon" value="1" id="rb_1_ChuDonChuyenNhuong" disabled="disabled">
+                    }
+
+                    <label>là bên chuyển nhượng</label>
+                </div>
+            </div>
+
+            <div class="div-search-content">
+                <div class="div-radio">
+                    @if (_App_Detail.Master_Type == 2)
+                    {
+                        <input type="radio" name="1_rdoChuDon" value="2" disabled="disabled" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="1_rdoChuDon" value="2" disabled="disabled">
+                    }
+                    <label>là bên nhận chuyển nhượng</label>
+                </div>
+            </div>
+        </div>
+
+        @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                ĐẠI DIỆN CỦA CHỦ ĐƠN
+            </div>
+        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon_View.cshtml")
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Mã đại diện:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Mã đại diện" id="txt_MaDaiDien" value="@_App_Detail.Customer_Code" disabled="disabled" />
+                </div>
+            </div>
+        </div>
+        @* end 2 *@
+
+        @* 3 - BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN) *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN)
+            </div>
+        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/PLB02_CGD_3C/_PartialSecondMaster_View.cshtml", "3")
+
+</div>
+
+
