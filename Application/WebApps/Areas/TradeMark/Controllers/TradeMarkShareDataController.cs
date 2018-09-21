@@ -131,6 +131,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 }
                 string _casecode = "";
                 ViewBag.Appcode = pAppCode;
+                ViewBag.Currstatus = pStatus;
                 if (pAppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
                 {
                     var objBL = new AppDetail04NHBL();
