@@ -7,14 +7,14 @@
     //string language = WebApps.CommonFunction.AppsCommon.GetCurrentLang();
     // string language = WebApps.Session.SessionData.CurrentUser.Language;
     string _appcode = "";
-    if(ViewBag.Appcode != null)
+    if (ViewBag.Appcode != null)
     {
         _appcode = ViewBag.Appcode;
     }
     string _AppdetailPatch = "";
     string _AppdetailTitle = "";
     int _currstatus = 1;
-    if(ViewBag.Currstatus != null)
+    if (ViewBag.Currstatus != null)
     {
         _currstatus = ViewBag.Currstatus;
     }
@@ -28,6 +28,7 @@
         min-height: 50px;
         padding: 5px 0px 5px 5px;
         margin-top: 10px;
+        float:left;
     }
 
     #legaltodo_table td {
@@ -35,7 +36,7 @@
         padding: 5px 10px;
     }
 
-       .legalRemind_div {
+    .legalRemind_div {
         text-align: left;
         border: 1px solid #ccc;
         min-height: 50px;
@@ -47,13 +48,19 @@
         cursor: pointer;
         padding: 5px 10px;
     }
+</style>
 
- 
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
 </style>
 
 @Html.Partial("~/Areas/Home/Views/Shared/HomeSearchBox.cshtml")
 <fieldset style="border: 1px solid #dddddd; padding: 1.25rem; margin-top:20px">
-  
+
     @if (_appcode == TradeMarkAppCode.AppCodeDangKynhanHieu)
     {
         _AppdetailPatch = @"~/Areas/TradeMark/Views/Shared/AppDetail/_AppData2A.cshtml";
@@ -84,102 +91,99 @@
         _AppdetailPatch = @"~/Areas/TradeMark/Views/Shared/AppDetail/_AppData4C2.cshtml";
         _AppdetailTitle = "  ĐƠN ĐĂNG KÝ CHUYỂN NHƯỢNG";
     }
+
+    @* dangtq thử tý *@
+    @{
+        _AppdetailPatch = @"~/Areas/TradeMark/Views/Shared/AppDetail/_AppHeader.cshtml";
+        _AppdetailTitle = "  ĐƠN ĐĂNG KÝ CHUYỂN NHƯỢNG";
+    }
+
     <legend>@_AppdetailTitle </legend>
 
     <style>
-        .progress_div_radio
-        {
-            width:19px; 
-            float:left;
+        .progress_div_radio {
+            width: 19px;
+            float: left;
             padding: 0px 5px;
         }
-         .progress_div_radio > input[type=radio]
-        {
-             width: 1.5em;
-             height: 1.5em;
-        }
-          
-        .progress_hr
-        {
-            width:18%;
+
+            .progress_div_radio > input[type=radio] {
+                width: 1.5em;
+                height: 1.5em;
+            }
+
+        .progress_hr {
+            width: 18%;
             margin-top: 9px;
-            float:left;
+            float: left;
         }
-       
-       .progress_hr_first
-        {
-            width:20px;
+
+        .progress_hr_first {
+            width: 20px;
             margin-top: 9px;
-            float:left;
+            float: left;
         }
+
         .progress_div_text1 {
-            width:90px;
-            float:left;
+            width: 90px;
+            float: left;
         }
-         .progress_div_text2 {
-            width:90px;
-            float:left;
+
+        .progress_div_text2 {
+            width: 90px;
+            float: left;
             margin-left: calc(18% - 29px + 22px - 90px + 32px);
         }
-          .progress_div_text3 {
-            width:110px;
-            float:left;
+
+        .progress_div_text3 {
+            width: 110px;
+            float: left;
             margin-left: calc(18% - 29px + 22px - 90px + 29px);
         }
-           .progress_div_text4 {
-            width:100px;
-            float:left;
+
+        .progress_div_text4 {
+            width: 100px;
+            float: left;
             margin-left: calc(18% - 29px + 22px - 90px + 20px);
         }
-          .progress_div_text5 {
-            width:122px;
-            float:left;
+
+        .progress_div_text5 {
+            width: 122px;
+            float: left;
             margin-left: calc(18% - 29px + 22px - 90px + 18px);
         }
-        .progress_hr:last-child 
-        {
-            width:calc(100% - 70% - 215px);
+
+        .progress_hr:last-child {
+            width: calc(100% - 70% - 215px);
             margin-top: 9px;
-            float:left;
+            float: left;
         }
-          
     </style>
-    <div style="width:100%;">
+    <div style="width: 100%;">
         <div class="progress_div_text1"> Draft Cancelled</div>
         <div class="progress_div_text2"> Peding Reivew</div>
         <div class="progress_div_text3">Review in Progess</div>
         <div class="progress_div_text4">Peding Approval</div>
         <div class="progress_div_text5">Approval in Progress</div>
     </div>
+    @*<div style=*@
     <div style="width:100%;margin-top:25px">
         <hr class="progress_hr_first" />
-        @for (int i = 0; i <  5; i++)
-                {
-                _Checked = "";
-                if (i == _currstatus - 1)
-                {
-                    _Checked = "checked='checked'";
-                }
-            <div class="progress_div_radio"><input type="radio" name="name"  disabled @_Checked/></div>
+        @for (int i = 0; i < 5; i++)
+        {
+            _Checked = "";
+            if (i == _currstatus - 1)
+            {
+                _Checked = "checked='checked'";
+            }
+            <div class="progress_div_radio"><input type="radio" name="name" disabled @_Checked /></div>
             <hr class="progress_hr" />
         }
-       
-
-      
     </div>
- 
 
-
-
-
-
-
-
-
-    @Html.Partial(_AppdetailPatch)
-
-
-
+    <div style="float: left;width: 100%;">
+        @Html.Partial(_AppdetailPatch)
+    </div>
 
     <div class="divCover legalTodo_div" style="background-color: antiquewhite;">
         <div class="box_title" style="width:200px; float:left"> TODO </div>
@@ -191,22 +195,6 @@
             </div>
         </div>
     </div>
-
-
-    @*<div class="divCover legalRemind_div" style="background-color: cadetblue;">
-            <div class="box_title">   Remind </div>
-            <div>
-                <input type="hidden" id="colSortedRemid" />
-                <input type="hidden" id="SortTypeRemind" />
-            </div>
-
-            <div class="Homebox">
-                <div id="LegalReminddivTable" class="LegaldivBoxTable">
-                    @Html.Partial("~/Areas/TradeMark/Views/Shared/AppDetail/_ReminData.cshtml")
-                </div>
-            </div>
-        </div>*@
-
 
 </fieldset>
 
