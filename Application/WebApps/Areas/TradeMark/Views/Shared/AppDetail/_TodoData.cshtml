@@ -17,7 +17,7 @@
                 <th class="class150" id='REQUEST_BY_NAME' onclick="TodoSortByCol('REQUEST_BY_NAME')">Người gửi</th>
                 <th class="class250" id='REQUEST_DATE' onclick="TodoSortByCol('REQUEST_DATE')">Thời gian gửi</th>
                 <th class="class150" id='PROCESSOR_BY_NAME' onclick="TodoSortByCol('PROCESSOR_BY_NAME')">Người xử lý</th>
-                <th class="class250" id='PROCESSOR_DATE' onclick="TodoSortByCol('PROCESSOR_DATE')">Thời gian xử lý</th>
+                <th class="class250" id='PROCESSOR_DATE' onclick="TodoSortByCol('PROCESSOR_DATE')">Thời gian chờ</th>
                 <th class="class250">Trạng thái</th>
             </tr>
         </thead>
@@ -34,7 +34,16 @@
                         </td>
                         <td class="tdleftalign">@item.PROCESSOR_BY_NAME</td>
                         <td class="tdcenteralign">
-                            @item.PROCESSOR_DATE.ToDateStringN0()
+                       
+                            @{ 
+                                TimeSpan TS = DateTime.Now - item.REQUEST_DATE;
+                                int hour = TS.Days * 24 + TS.Hours;
+                                int mins = TS.Minutes;
+                                int secs = TS.Seconds;
+                                //  string timeDiff = hour.ToString("00") + ":" + mins.ToString("00") + ":" + secs.ToString("00");
+                                string timeDiff = hour.ToString("00") + "h";
+                                    }
+                            @timeDiff
                         </td>
                         <td class="tdleftalign">@item.CONTENT</td>
                     </tr>

@@ -1,5 +1,6 @@
 ﻿@using Common;
 @using ObjectInfos;
+@using BussinessFacade.ModuleMemoryData
 @{
     ViewBag.Title = "Chi tiết đơn";
     Layout = "~/ViewsShared/_Layout.cshtml";
@@ -19,6 +20,20 @@
         _currstatus = ViewBag.Currstatus;
     }
     string _Checked = "";
+    List<AllCodeInfo> _lstStatus = MemoryData.AllCode_GetBy_CdTypeCdName("APP", "STATUS");
+    int _count = 0;
+    List<B_Todos_Info> _Listtodo = new List<B_Todos_Info>();
+    if(ViewBag.ListTodo != null)
+    {
+        _Listtodo = ViewBag.ListTodo;
+    }
+    B_Todos_Info _FirstTodo = new B_Todos_Info();
+    if(_Listtodo.Count > 0)
+    {
+        _FirstTodo = _Listtodo[0];
+    }
+
+
 }
 
 <style>
@@ -28,6 +43,8 @@
         min-height: 50px;
         padding: 5px 0px 5px 5px;
         margin-top: 10px;
+        float:left;
+        width:100%;
     }
 
     #legaltodo_table td {
@@ -46,6 +63,10 @@
     #legalOrder_table td {
         cursor: pointer;
         padding: 5px 10px;
+    }
+    .cls_form_title
+    {
+        display:none;
     }
 
  
@@ -101,82 +122,194 @@
           
         .progress_hr
         {
-            width:18%;
+            width:12%;
             margin-top: 9px;
             float:left;
         }
-       
-       .progress_hr_first
+      
+        .progress_div_text1 {
+            width:80px;
+            float:left;
+            text-align:center;
+        }
+         .progress_div_text2 {
+            width:90px;
+            float:left;
+             text-align:center;
+            margin-left: calc(12% - 29px + 22px - 90px + 40px);
+
+        }
+          .progress_div_text3 {
+            width:110px;
+            float:left;
+             text-align:center;
+            margin-left: calc(12% - 29px + 22px - 90px + 29px);
+        }
+           .progress_div_text4 {
+            width:100px;
+            float:left;
+             text-align:center;
+            margin-left: calc(12% - 29px + 31px - 90px + 20px);
+        }
+          .progress_div_text5 {
+            width:122px;
+            float:left;
+             text-align:center;
+            margin-left: calc(12% - 29px + 22px - 90px + 11px);
+        }
+            .progress_div_text6 {
+            width:122px;
+            float:left;
+             text-align:center;
+            margin-left: calc(12% - 29px + 22px - 90px + 8px);
+        }
+        .progress_div_text7{
+            width:122px;
+            float:left;
+             text-align:center;
+            margin-left: calc(12% - 29px + 22px - 90px + 8px);
+        }
+        .progress_hr:last-child 
+        {
+            width:calc(100% - 75% - 215px);
+            margin-top: 9px;
+            float:left;
+        }
+         
+       .progress_hr:first-child 
         {
             width:20px;
             margin-top: 9px;
             float:left;
         }
-        .progress_div_text1 {
+
+       .progress_div_user1 {
+            width:80px;
+            float:left;
+            text-align:center;
+        }
+         .progress_div_user2 {
             width:90px;
             float:left;
+             text-align:center;
+            margin-left: calc(12% - 29px + 22px - 90px + 38px);
+
         }
-         .progress_div_text2 {
-            width:90px;
-            float:left;
-            margin-left: calc(18% - 29px + 22px - 90px + 32px);
-        }
-          .progress_div_text3 {
+          .progress_div_user3 {
             width:110px;
             float:left;
-            margin-left: calc(18% - 29px + 22px - 90px + 29px);
+             text-align:center;
+            margin-left: calc(12% - 29px + 22px - 90px + 29px);
         }
-           .progress_div_text4 {
+           .progress_div_user4 {
             width:100px;
             float:left;
-            margin-left: calc(18% - 29px + 22px - 90px + 20px);
+             text-align:center;
+            margin-left: calc(12% - 29px + 31px - 90px + 16px);
         }
-          .progress_div_text5 {
+          .progress_div_user5 {
             width:122px;
             float:left;
-            margin-left: calc(18% - 29px + 22px - 90px + 18px);
+             text-align:center;
+            margin-left: calc(12% - 29px + 22px - 90px + 18px);
         }
-        .progress_hr:last-child 
-        {
-            width:calc(100% - 70% - 215px);
-            margin-top: 9px;
+            .progress_div_user6 {
+            width:122px;
             float:left;
+             text-align:center;
+            margin-left: calc(12% - 29px + 22px - 90px + 6px);
         }
-          
+              .progress_div_user7{
+            width:122px;
+            float:left;
+             text-align:center;
+            margin-left: calc(12% - 29px + 22px - 90px + 7px);
+        }
+        .user_hidden
+        {
+            visibility:hidden
+        }
+        .user_progress_active
+        {
+            background-color: burlywood;
+        }
     </style>
-    <div style="width:100%;">
-        <div class="progress_div_text1"> Draft Cancelled</div>
-        <div class="progress_div_text2"> Peding Reivew</div>
-        <div class="progress_div_text3">Review in Progess</div>
-        <div class="progress_div_text4">Peding Approval</div>
-        <div class="progress_div_text5">Approval in Progress</div>
+    <div style="width:100%;float:left;">
+        @{ 
+            _count = 0;
+        }
+        @foreach (var item in _lstStatus)
+        {
+            if (_count > 6)
+            {
+                break;
+            }
+            _count++;
+            <div class="@("progress_div_text" +  _count)"> @item.Content</div>
+        }
     </div>
-    <div style="width:100%;margin-top:25px">
-        <hr class="progress_hr_first" />
-        @for (int i = 0; i <  5; i++)
-                {
-                _Checked = "";
-                if (i == _currstatus - 1)
-                {
-                    _Checked = "checked='checked'";
-                }
-            <div class="progress_div_radio"><input type="radio" name="name"  disabled @_Checked/></div>
+    <div style="width:100%;float:left;margin-top:7px">
+        <hr class="progress_hr" />
+        @{
+            _count = 0;
+        }
+        @foreach (var item in _lstStatus)
+        {
+            if (_count > 6)
+            {
+                break;
+            }
+            _count++;
+            _Checked = "";
+            if (item.CdVal == _currstatus.ToString())
+            {
+                _Checked = "checked='checked'";
+            }
+            <div class="progress_div_radio"><input type="radio" name="name" disabled @_Checked /></div>
             <hr class="progress_hr" />
         }
+        </div>
+       @if (_Listtodo.Count > 0)
+        {
+            <div style="width:100%;float:left; margin-top:7px">
+                @{
+                    _count = 0;
+                }
+                @foreach (var item in _lstStatus)
+                {
+                    if (_count > 6)
+                    {
+                        break;
+                    }
+                    _count++;
+                    if (item.CdVal == _currstatus.ToString())
+                    {
+                        <div class="@("user_progress_active progress_div_user" +  _count)"> @_FirstTodo.REQUEST_BY_NAME</div>
+                    }
+                    else
+                    {
+                        <div class="@("user_hidden progress_div_user" +  _count)">@_FirstTodo.REQUEST_BY_NAME </div>
+                    }
+                }
+            </div>
+           } 
+       
        
 
       
-    </div>
+ 
  
 
 
 
 
 
+    <div style="margin-top:20px;float:left">
+        @Html.Partial(_AppdetailPatch)
+    </div>
 
 
-
-    @Html.Partial(_AppdetailPatch)
+   
 
 
 
