@@ -3,6 +3,7 @@
 @{
     var _AppHeaderInfo = new ApplicationHeaderInfo();
     _AppHeaderInfo.Case_Code = "";
+    _AppHeaderInfo.Appcode = "";
     if (ViewBag.objAppHeaderInfo != null)
     {
         _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
@@ -216,8 +217,8 @@
             return false;
         }
         try {
-            var url = "/trade-mark/request-for-trade-mark-view/@_AppHeaderInfo.Id/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode.ToLower()";
-            href="/trade-mark/request-for-trade-mark-edit/@_AppHeaderInfo.Id/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode.ToLower()"
+            var url = "/trade-mark/request-for-trade-mark-view/@_AppHeaderInfo.Id/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode";
+            href="/trade-mark/request-for-trade-mark-edit/@_AppHeaderInfo.Id/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode"
             window.open(url);
             //location.href = url;
         } catch (e) {
@@ -230,7 +231,7 @@
             return false;
         }
         try {
-            var url = "/trade-mark/request-for-trade-mark-edit/@_AppHeaderInfo.Id/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode.ToLower()";
+            var url = "/trade-mark/request-for-trade-mark-edit/@_AppHeaderInfo.Id/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode";
             window.open(url);
             //location.href = url;
         } catch (e) {
