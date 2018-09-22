@@ -164,14 +164,15 @@ namespace WebApps.Areas.TradeMark.Controllers
 
         [HttpPost]
         [Route("quan-ly-don/do-admin-confirm-2-customer")]
-        public ActionResult do_admin_confirm_2_customer(decimal p_Application_Header_Id)
+        public ActionResult do_admin_confirm_2_customer(decimal p_Application_Header_Id, string p_note)
         {
             try
             {
                 Application_Header_BL _obj_bl = new Application_Header_BL();
                 decimal _status = (decimal)CommonEnums.App_Status.ChoKHConfirm;
 
-                int _ck = _obj_bl.AppHeader_Update_Status(p_Application_Header_Id, _status, "", SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+                int _ck = _obj_bl.AppHeader_Update_Status(p_Application_Header_Id, _status, p_note, 
+                    SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
                 return Json(new { success = _ck });
             }
             catch (Exception ex)

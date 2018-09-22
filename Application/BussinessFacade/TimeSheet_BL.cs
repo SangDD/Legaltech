@@ -55,6 +55,22 @@ namespace BussinessFacade
             }
         }
 
+        public Timesheet_Info Timesheet_GetBy_Casecode(string p_case_code)
+        {
+            try
+            {
+                TimeSheet_DA _da = new TimeSheet_DA();
+                DataSet _ds = _da.Timesheet_GetBy_Casecode(p_case_code);
+                return CBO<Timesheet_Info>.FillObjectFromDataSet(_ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return null;
+            }
+        }
+
+
         public List<Timesheet_Info> Timesheet_Search(string p_key_search, ref decimal p_total_record,
             string p_from = "1", string p_to = "10", string p_column = "ALL", string p_sort_type = "ALL")
         {

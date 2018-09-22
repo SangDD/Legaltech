@@ -1,10 +1,10 @@
 ﻿@using ObjectInfos;
 @using BussinessFacade.ModuleMemoryData
 @{
-    decimal _application_header_id = -1;
-    if (ViewBag.Application_Header_Id != null)
+    var _AppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.objAppHeaderInfo != null)
     {
-        _application_header_id = ViewBag.Application_Header_Id;
+        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
     }
 }
 
@@ -28,51 +28,50 @@
     });
 </script>
 
-<div class="" style="padding:5px 38px">
-    <div class="divCover divCover_popup">
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Ngày nộp đơn<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="Ngày nộp đơn" id="txt_filing_date" maxlength="100" class="datepicker" />
-                </div>
+<div>
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Ngày nộp đơn<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" placeholder="Ngày nộp đơn" id="txt_filing_date" maxlength="100" class="datepicker" />
             </div>
         </div>
+    </div>
 
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Số đơn<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" maxlength="100" placeholder="Số đơn" id="txt_App_No"/>
-                </div>
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Số đơn<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" maxlength="100" placeholder="Số đơn" id="txt_App_No" />
             </div>
         </div>
+    </div>
 
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Ghi chú </div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txtNotes" maxlength="2000" />
-                </div>
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Ghi chú </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtNotes" maxlength="2000" />
             </div>
         </div>
+    </div>
 
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <input type="button" id="btnChooseFile" value="Chọn file" class="btn" onclick="return Click_Upload_File()" style="margin-left:4px;height:29px;" />
-                <input type="file" id="file_attach" style="display:none" onchange="FuncChooseResultFile()" />
+    <div class="div-search-ad">
+        <div class="div-search-content">
+            <input type="button" id="btnChooseFile" value="Chọn file" class="btn" onclick="return Click_Upload_File()" style="margin-left:4px;height:29px;" />
+            <input type="file" id="file_attach" style="display:none" onchange="FuncChooseResultFile()" />
 
-                <div class="div-checkbox clssDisplaynone" id="div_RemoveImg">
-                    <img onclick="RemoveFile()" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" />
-                </div>
+            <div class="div-checkbox clssDisplaynone" id="div_RemoveImg">
+                <img onclick="RemoveFile()" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" />
             </div>
-            @*<div class="div-search-content">
+        </div>
+        @*<div class="div-search-content">
                 <div>
                     <input type="button" value="Chọn file" class="btn" onclick="return Click_Upload_File()" style="margin:2px;" />
                     <input type="file" id="file_attach" style="display:none" onchange="FuncChooseResultFile()" />
@@ -83,21 +82,19 @@
                 </div>
             </div>*@
 
-            <div class="div-search-title">
-                <div id="div_filename" style="width: 168px;">Tên file<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="Tên file Maximum file size is 2MB" id="txtMaxFile" readonly="readonly" />
-                </div>
+        <div class="div-search-title">
+            <div id="div_filename" style="width: 168px;">Tên file<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" placeholder="Tên file Maximum file size is 2MB" id="txtMaxFile" readonly="readonly" />
             </div>
         </div>
-
     </div>
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Nộp đơn" onclick="return do_Filing(@_application_header_id)" />
+            <input type="submit" class="btn-default" value="Nộp đơn" onclick="return do_Filing(@_AppHeaderInfo.Id)" />
         </div>
     </div>
 </div>

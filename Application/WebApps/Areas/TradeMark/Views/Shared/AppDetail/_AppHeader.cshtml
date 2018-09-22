@@ -1,17 +1,21 @@
 ﻿@using WebApps.CommonFunction
 @using ObjectInfos
 @{
-    var _AppHeaderInfo = new AppDetail04NHInfo();
+    var _AppHeaderInfo = new ApplicationHeaderInfo();
+    _AppHeaderInfo.Case_Code = "";
     if (ViewBag.objAppHeaderInfo != null)
     {
-        _AppHeaderInfo = (AppDetail04NHInfo)ViewBag.objAppHeaderInfo;
+        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
     }
 }
 
 <div class="divCover cls_form_title">
-    <img src="~/Content/icons/info.png" />
+    <img src="/Content/icons/icon_info_24.png" />
     <div class="cls_form_header">
-       Quản lý vụ việc
+
+        <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowViewApp()" data-title="Xem chi tiết">Thông tin đơn</a>
+        |
+        <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowEditApp()"  data-title="Xem chi tiết">Sửa đơn</a>
     </div>
 </div>
 
@@ -47,7 +51,7 @@
 
 
 <div class="divCover cls_form_title">
-    <img src="~/Content/icons/info.png" />
+    @*<img src="~/Content/icons/info.png" />*@
     <div class="cls_form_header">
         Chủ đơn
     </div>
@@ -72,18 +76,6 @@
         </div>
     </div>
 </div>
-
-
-@*<div class="div-search-ad">
-    <div class="div-search-title">
-        <div> Địa chỉ: </div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input type="text" maxlength="200" value="@_AppHeaderInfo.Master_Address" disabled="disabled" id="1_txtDiaChi" />
-        </div>
-    </div>
-</div>*@
 
 <div class="div-search-ad">
     <div class="div-search-title">
@@ -114,7 +106,7 @@
 </div>
 
 <div class="divCover cls_form_title">
-    <img src="~/Content/icons/info.png" />
+    @*<img src="~/Content/icons/info.png" />*@
     <div class="cls_form_header">
         Đại diện chủ đơn
     </div>
@@ -190,17 +182,6 @@
     </div>
 </div>
 
-@*<div class="div-search-ad">
-    <div class="div-search-title">
-        <div> Địa chỉ: </div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input type="text" value="@_AppHeaderInfo.Rep_Master_Address" maxlength="200" disabled="disabled" id="2_txtDiaChi" />
-        </div>
-    </div>
-</div>*@
-
 <div class="div-search-ad">
     <div class="div-search-title">
         <div> Điện thoại: </div>
@@ -229,3 +210,31 @@
     </div>
 </div>
 
+<script>
+    function ShowViewApp() {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        try {
+            var url = "/trade-mark/request-for-trade-mark-view/@_AppHeaderInfo.Id/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode.ToLower()";
+            href="/trade-mark/request-for-trade-mark-edit/@_AppHeaderInfo.Id/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode.ToLower()"
+            window.open(url);
+            //location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
+
+    function ShowEditApp() {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        try {
+            var url = "/trade-mark/request-for-trade-mark-edit/@_AppHeaderInfo.Id/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode.ToLower()";
+            window.open(url);
+            //location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
+</script>

@@ -228,6 +228,24 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
+        public DataSet GetApp_By_Case_Code_Billing(string p_case_code, string p_user_name, string p_language_code)
+        {
+            try
+            {
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_header.proc_getByCaseCode_billing",
+                    new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
+                    new OracleParameter("p_user_name", OracleDbType.Varchar2, p_user_name, ParameterDirection.Input),
+                    new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_detail", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
         public DataSet GetApp_By_Case_Code(string p_case_code, string p_user_name, string p_language_code)
         {
             try
@@ -246,7 +264,7 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
-        
+
 
         public DataSet GetApplicationHeader_ById(decimal p_Id, string p_languague_code)
         {

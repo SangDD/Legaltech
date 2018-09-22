@@ -11,11 +11,12 @@ namespace ObjectInfos
         public decimal STT { get; set; }
 
         public decimal TODO_ID { get; set; }
+
         public decimal TYPE { get; set; }
 
         public string CASE_CODE { get; set; }
 
-        public string Code { get; set; }
+        //public string Code { get; set; }
 
         public string CONTENT { get; set; }
 
@@ -28,6 +29,8 @@ namespace ObjectInfos
         public DateTime PROCESSOR_DATE { get; set; }
 
         public int STATUS { get; set; }
+
+        public string STATUS_NAME { get; set; }
 
         public string LANGUAGE_CODE { get; set; }
 

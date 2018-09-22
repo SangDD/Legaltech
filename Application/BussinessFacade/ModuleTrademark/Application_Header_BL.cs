@@ -10,7 +10,7 @@ namespace BussinessFacade.ModuleTrademark
     public class Application_Header_BL
     {
         public List<ApplicationHeaderInfo> ApplicationHeader_Search(string p_key_search, ref decimal p_total_record,
-            string p_from = "1", string p_to = "10", string p_sort_type = "ALL",  int p_search_from_home = 0)
+            string p_from = "1", string p_to = "10", string p_sort_type = "ALL", int p_search_from_home = 0)
         {
             try
             {
@@ -44,8 +44,8 @@ namespace BussinessFacade.ModuleTrademark
             try
             {
                 Application_Header_DA objData = new Application_Header_DA();
-                
-                return objData.AppHeader_Filing_Status(p_id, p_status,p_app_no, p_filing_date, p_url_copy, p_notes, p_Modify_By, p_Modify_Date, p_language_code);
+
+                return objData.AppHeader_Filing_Status(p_id, p_status, p_app_no, p_filing_date, p_url_copy, p_notes, p_Modify_By, p_Modify_Date, p_language_code);
             }
             catch (Exception ex)
             {
@@ -136,12 +136,12 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
-        public ApplicationHeaderInfo GetApp_By_Case_Code(string p_case_code, string p_user_name, string p_language_code, ref List<Billing_Detail_Info> p_lst_billing_detail)
+        public ApplicationHeaderInfo GetApp_By_Case_Code_Billing(string p_case_code, string p_user_name, string p_language_code, ref List<Billing_Detail_Info> p_lst_billing_detail)
         {
             try
             {
                 Application_Header_DA _da = new Application_Header_DA();
-                DataSet _ds = _da.GetApp_By_Case_Code(p_case_code, p_user_name, p_language_code);
+                DataSet _ds = _da.GetApp_By_Case_Code_Billing(p_case_code, p_user_name, p_language_code);
                 if (_ds != null && _ds.Tables.Count > 0 && _ds.Tables[0].Rows.Count > 0)
                 {
                     p_lst_billing_detail = CBO<Billing_Detail_Info>.FillCollectionFromDataTable(_ds.Tables[1]);
@@ -153,6 +153,22 @@ namespace BussinessFacade.ModuleTrademark
             {
                 Logger.LogException(ex);
                 return null;
+            }
+
+        }
+
+        public ApplicationHeaderInfo GetApp_By_Case_Code(string p_case_code, string p_user_name, string p_language_code)
+        {
+            try
+            {
+                Application_Header_DA _da = new Application_Header_DA();
+                DataSet _ds = _da.GetApp_By_Case_Code_Billing(p_case_code, p_user_name, p_language_code);
+                return CBO<ApplicationHeaderInfo>.FillObjectFromDataTable(_ds.Tables[0]);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new ApplicationHeaderInfo();
             }
         }
 

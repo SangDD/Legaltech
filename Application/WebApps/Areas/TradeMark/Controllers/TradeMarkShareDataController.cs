@@ -62,7 +62,7 @@ namespace WebApps.Areas.TradeMark.Controllers
             return Json(new { success = 0 });
         }
 
- 
+
         [HttpPost]
         [Route("get-tm04nh-info")]
         public ActionResult TM04NHGetInfo(decimal pAppHeaderId, string p_idchudon, string p_iddaidienchudon, string p_idappclass)
@@ -75,7 +75,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 var _AppDetail04NHInfo = new AppDetail04NHInfo();
                 if (ds04NH != null && ds04NH.Tables.Count == 5)
                 {
-                    _AppDetail04NHInfo  = CBO<AppDetail04NHInfo>.FillObjectFromDataTable(ds04NH.Tables[0]);
+                    _AppDetail04NHInfo = CBO<AppDetail04NHInfo>.FillObjectFromDataTable(ds04NH.Tables[0]);
                     ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds04NH.Tables[3]);
                 }
                 ViewBag.objAppHeaderInfo = _AppDetail04NHInfo;
@@ -87,9 +87,13 @@ namespace WebApps.Areas.TradeMark.Controllers
                 _viewChuDon = RenderPartialToString("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", p_idchudon);
                 _viewDaiDienChuDon = RenderPartialToString("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", p_iddaidienchudon);
                 _viewAppClass = RenderPartialToString("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialTMAddAppClass.cshtml", null);
-                return Json(new { success = 0, NgayNopDon = _AppDetail04NHInfo.Ngaynopdon_Ut.ToDateStringN0(),
+                return Json(new
+                {
+                    success = 0,
+                    NgayNopDon = _AppDetail04NHInfo.Ngaynopdon_Ut.ToDateStringN0(),
                     LogoURL = _AppDetail04NHInfo.Logourl,
-                    ViewChuDon = _viewChuDon, ViewDaiDienChuDon = _viewDaiDienChuDon,
+                    ViewChuDon = _viewChuDon,
+                    ViewDaiDienChuDon = _viewDaiDienChuDon,
                     ViewAppClass = _viewAppClass
                 });
 
@@ -103,7 +107,7 @@ namespace WebApps.Areas.TradeMark.Controllers
 
 
 
-     
+
         [Route("app-details/{id}/{id1}/{id2}")]
         public ActionResult AppDetails()
         {
@@ -147,7 +151,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                         ViewBag.lstFeeInfo = CBO<AppFeeFixInfo>.FillCollectionFromDataTable(ds04NH.Tables[4]);
                         _casecode = _objinfo.Case_Code;
                     }
-                   // return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialDangKyNhanHieu.cshtml");
+                    // return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialDangKyNhanHieu.cshtml");
                 }
                 else if (pAppCode == TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD)
                 {
@@ -223,8 +227,9 @@ namespace WebApps.Areas.TradeMark.Controllers
                         ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[2]);
                         _casecode = applicationHeaderInfo.Case_Code;
                     }
-                  //  return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartalViewDangKyNhanHieu.cshtml");
+                    //  return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartalViewDangKyNhanHieu.cshtml");
                 }
+
                 #region  lấy dữ liệu lịch sử giao dịch
 
                 B_Todos_BL _B_Todos_BL = new B_Todos_BL();
@@ -234,6 +239,46 @@ namespace WebApps.Areas.TradeMark.Controllers
                 ViewBag.ListRemind = _ListRemind;
 
                 #endregion
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return View("/Areas/TradeMark/Views/Shared/AppDetail/AppDetails.cshtml");
+        }
+
+        [Route("todo-details/{id}")]
+        public ActionResult Todo_Details()
+        {
+            try
+            {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+
+                string p_case_code = "";
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    p_case_code = RouteData.Values["id"].ToString();
+                }
+
+                Application_Header_BL _objBl = new Application_Header_BL();
+                ApplicationHeaderInfo _ApplicationHeaderInfo = _objBl.GetApp_By_Case_Code(p_case_code, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
+
+                int pStatus = (int)_ApplicationHeaderInfo.Status;
+                string pAppCode = _ApplicationHeaderInfo.Appcode;
+                SessionData.CurrentUser.chashFile.Clear();
+                SessionData.CurrentUser.chashFileOther.Clear();
+
+                ViewBag.Appcode = pAppCode;
+                ViewBag.Currstatus = pStatus;
+                ViewBag.objAppHeaderInfo = _ApplicationHeaderInfo;
+
+                //  lấy dữ liệu lịch sử giao dịch
+                B_Todos_BL _B_Todos_BL = new B_Todos_BL();
+                List<B_Remind_Info> _ListRemind = new List<B_Remind_Info>();
+                List<B_Todos_Info> _Listtodo = _B_Todos_BL.NotifiGetByCasecode(p_case_code, ref _ListRemind);
+                ViewBag.ListTodo = _Listtodo;
+                ViewBag.ListRemind = _ListRemind;
             }
             catch (Exception ex)
             {

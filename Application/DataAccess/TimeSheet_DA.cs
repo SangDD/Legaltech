@@ -65,6 +65,23 @@ namespace DataAccess
             }
         }
 
+        public DataSet Timesheet_GetBy_Casecode(string p_case_code)
+        {
+            try
+            {
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_timesheet.proc_getbycasecode",
+                    new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
+        
+
         public DataSet Timesheet_GetBy_Lawer(decimal p_lawer_id)
         {
             try

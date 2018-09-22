@@ -218,6 +218,29 @@ namespace WebApps.Areas.Manager.Controllers
 
         }
 
+        [HttpGet]
+        [Route("danh-sach-timesheet/show-approve-by-casecode/{id}")]
+        public ActionResult GetView2Approve_ByCasecode()
+        {
+            try
+            {
+                if (RouteData.Values["id"] != null && RouteData.Values["id"].ToString() != "")
+                {
+                    string p_caseCode = RouteData.Values["id"].ToString();
+                    TimeSheet_BL _obj_bl = new TimeSheet_BL();
+                    Timesheet_Info _Timesheet_Info = _obj_bl.Timesheet_GetBy_Casecode(p_caseCode);
+                    return View("~/Areas/Manager/Views/TimeSheet/_PartialApproveTimeSheet.cshtml", _Timesheet_Info);
+                }
+                else return View();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return View("~/Areas/Manager/Views/TimeSheet/_PartialApproveTimeSheet.cshtml");
+            }
+
+        }
+
         [HttpPost]
         [Route("danh-sach-timesheet/do-approve-timeshet")]
         public ActionResult DoApproveTimeSheet(decimal p_id,int p_status, string p_reject_reason)

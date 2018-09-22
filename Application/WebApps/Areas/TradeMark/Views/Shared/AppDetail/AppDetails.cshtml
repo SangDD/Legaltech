@@ -1,21 +1,20 @@
-﻿@using Common;
+﻿@using Common.CommonData
+@using Common;
 @using ObjectInfos;
 @using BussinessFacade.ModuleMemoryData
 @{
     ViewBag.Title = "Chi tiết đơn";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
-    //string language = WebApps.CommonFunction.AppsCommon.GetCurrentLang();
-    // string language = WebApps.Session.SessionData.CurrentUser.Language;
     string _appcode = "";
-    if(ViewBag.Appcode != null)
+    if (ViewBag.Appcode != null)
     {
         _appcode = ViewBag.Appcode;
     }
     string _AppdetailPatch = "";
     string _AppdetailTitle = "";
     int _currstatus = 1;
-    if(ViewBag.Currstatus != null)
+    if (ViewBag.Currstatus != null)
     {
         _currstatus = ViewBag.Currstatus;
     }
@@ -23,17 +22,16 @@
     List<AllCodeInfo> _lstStatus = MemoryData.AllCode_GetBy_CdTypeCdName("APP", "STATUS");
     int _count = 0;
     List<B_Todos_Info> _Listtodo = new List<B_Todos_Info>();
-    if(ViewBag.ListTodo != null)
+    if (ViewBag.ListTodo != null)
     {
         _Listtodo = ViewBag.ListTodo;
     }
+
     B_Todos_Info _FirstTodo = new B_Todos_Info();
-    if(_Listtodo.Count > 0)
+    if (_Listtodo.Count > 0)
     {
         _FirstTodo = _Listtodo[0];
     }
-
-
 }
 
 <style>
@@ -43,8 +41,8 @@
         min-height: 50px;
         padding: 5px 0px 5px 5px;
         margin-top: 10px;
-        float:left;
-        width:100%;
+        float: left;
+        width: 100%;
     }
 
     #legaltodo_table td {
@@ -52,7 +50,7 @@
         padding: 5px 10px;
     }
 
-       .legalRemind_div {
+    .legalRemind_div {
         text-align: left;
         border: 1px solid #ccc;
         min-height: 50px;
@@ -64,183 +62,206 @@
         cursor: pointer;
         padding: 5px 10px;
     }
-    .cls_form_title
-    {
-        display:none;
+
+    .cls_form_title {
+        /*display: none;*/
     }
 
- 
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
 </style>
 
 @Html.Partial("~/Areas/Home/Views/Shared/HomeSearchBox.cshtml")
 <fieldset style="border: 1px solid #dddddd; padding: 1.25rem; margin-top:20px">
-  
+
     @if (_appcode == TradeMarkAppCode.AppCodeDangKynhanHieu)
     {
-        _AppdetailPatch = @"~/Areas/TradeMark/Views/Shared/AppDetail/_AppData2A.cshtml";
+        //_AppdetailPatch = @"~/Areas/TradeMark/Views/Shared/AppDetail/_AppData2A.cshtml";
         _AppdetailTitle = "ĐĂNG KÝ NHÃN HIỆU";
     }
     @if (_appcode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
     {
-        _AppdetailPatch = @"~/Areas/TradeMark/Views/Shared/AppDetail/_AppData2B.cshtml";
+        //_AppdetailPatch = @"~/Areas/TradeMark/Views/Shared/AppDetail/_AppData2B.cshtml";
         _AppdetailTitle = "YÊU CẦU ĐĂNG KÝ QUỐC TẾ NHÃN HIỆU CÓ NGUỒN GỐC VIỆT NAM";
     }
     @if (_appcode == TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD)
     {
-        _AppdetailPatch = @"~/Areas/TradeMark/Views/Shared/AppDetail/_AppData3B.cshtml";
+        //_AppdetailPatch = @"~/Areas/TradeMark/Views/Shared/AppDetail/_AppData3B.cshtml";
         _AppdetailTitle = "SỬA ĐỔI ĐƠN ĐĂNG KÝ ĐỐI TƯỢNG SỞ HỮU CÔNG NGHIỆP";
     }
     @if (_appcode == TradeMarkAppCode.AppCode_TM_3C_PLB_02_CGD)
     {
-        _AppdetailPatch = @"~/Areas/TradeMark/Views/Shared/AppDetail/_AppData3C.cshtml";
+        //_AppdetailPatch = @"~/Areas/TradeMark/Views/Shared/AppDetail/_AppData3C.cshtml";
         _AppdetailTitle = " YÊU CẦU GHI NHẬN CHUYỂN NHƯỢNG ĐƠN ĐĂNG KÝ ĐỐI TƯỢNG SỞ HỮU CÔNG NGHIỆP";
     }
     @if (_appcode == TradeMarkAppCode.AppCode_TM_3D_PLC_05_KN)
     {
-        _AppdetailPatch = @"~/Areas/TradeMark/Views/Shared/AppDetail/_AppData3D.cshtml";
+        //_AppdetailPatch = @"~/Areas/TradeMark/Views/Shared/AppDetail/_AppData3D.cshtml";
         _AppdetailTitle = "TỜ KHAI KHIẾU NẠI";
     }
     @if (_appcode == TradeMarkAppCode.AppCode_TM_4C2_PLD_01_HDCN)
     {
-        _AppdetailPatch = @"~/Areas/TradeMark/Views/Shared/AppDetail/_AppData4C2.cshtml";
+        //_AppdetailPatch = @"~/Areas/TradeMark/Views/Shared/AppDetail/_AppData4C2.cshtml";
         _AppdetailTitle = "  ĐƠN ĐĂNG KÝ CHUYỂN NHƯỢNG";
+    }
+
+    @{
+        _AppdetailPatch = @"~/Areas/TradeMark/Views/Shared/AppDetail/_AppHeader.cshtml";
     }
     <legend>@_AppdetailTitle </legend>
 
     <style>
-        .progress_div_radio
-        {
-            width:19px; 
-            float:left;
+        .progress_div_radio {
+            width: 19px;
+            float: left;
             padding: 0px 5px;
         }
-         .progress_div_radio > input[type=radio]
-        {
-             width: 1.5em;
-             height: 1.5em;
-        }
-          
-        .progress_hr
-        {
-            width:12%;
+
+            .progress_div_radio > input[type=radio] {
+                width: 1.5em;
+                height: 1.5em;
+            }
+
+        .progress_hr {
+            /*width: 12%;*/
+            width: 10%;
             margin-top: 9px;
-            float:left;
+            float: left;
         }
-      
+
         .progress_div_text1 {
-            width:80px;
-            float:left;
-            text-align:center;
-        }
-         .progress_div_text2 {
-            width:90px;
-            float:left;
-             text-align:center;
-            margin-left: calc(12% - 29px + 22px - 90px + 40px);
-
-        }
-          .progress_div_text3 {
-            width:110px;
-            float:left;
-             text-align:center;
-            margin-left: calc(12% - 29px + 22px - 90px + 29px);
-        }
-           .progress_div_text4 {
-            width:100px;
-            float:left;
-             text-align:center;
-            margin-left: calc(12% - 29px + 31px - 90px + 20px);
-        }
-          .progress_div_text5 {
-            width:122px;
-            float:left;
-             text-align:center;
-            margin-left: calc(12% - 29px + 22px - 90px + 11px);
-        }
-            .progress_div_text6 {
-            width:122px;
-            float:left;
-             text-align:center;
-            margin-left: calc(12% - 29px + 22px - 90px + 8px);
-        }
-        .progress_div_text7{
-            width:122px;
-            float:left;
-             text-align:center;
-            margin-left: calc(12% - 29px + 22px - 90px + 8px);
-        }
-        .progress_hr:last-child 
-        {
-            width:calc(100% - 75% - 215px);
-            margin-top: 9px;
-            float:left;
-        }
-         
-       .progress_hr:first-child 
-        {
-            width:20px;
-            margin-top: 9px;
-            float:left;
+            width: 80px;
+            float: left;
+            text-align: center;
         }
 
-       .progress_div_user1 {
-            width:80px;
-            float:left;
-            text-align:center;
+        .progress_div_text2 {
+            width: 90px;
+            float: left;
+            text-align: center;
+            margin-left: calc(10% - 29px + 22px - 90px + 40px);
+            /*margin-left: calc(12% - 29px + 22px - 90px + 40px);*/
         }
-         .progress_div_user2 {
-            width:90px;
-            float:left;
-             text-align:center;
+
+        .progress_div_text3 {
+            width: 110px;
+            float: left;
+            text-align: center;
+            margin-left: calc(10% - 29px + 22px - 90px + 29px);
+        }
+
+        .progress_div_text4 {
+            width: 100px;
+            float: left;
+            text-align: center;
+            margin-left: calc(10% - 29px + 31px - 90px + 20px);
+        }
+
+        .progress_div_text5 {
+            width: 122px;
+            float: left;
+            text-align: center;
+            margin-left: calc(10% - 29px + 22px - 90px + 11px);
+        }
+
+        .progress_div_text6 {
+            width: 122px;
+            float: left;
+            text-align: center;
+            margin-left: calc(10% - 29px + 22px - 90px + 8px);
+        }
+
+        .progress_div_text7 {
+            width: 122px;
+            float: left;
+            text-align: center;
+            margin-left: calc(10% - 29px + 22px - 90px + 8px);
+        }
+
+        .progress_div_text8 {
+            width: 122px;
+            float: left;
+            text-align: center;
+            margin-left: calc(10% - 29px + 22px - 90px + 4px);
+        }
+
+        .progress_hr:last-child {
+            width: calc(100% - 75% - 215px);
+            margin-top: 9px;
+            float: left;
+        }
+
+        .progress_hr:first-child {
+            width: 20px;
+            margin-top: 9px;
+            float: left;
+        }
+
+        .progress_div_user1 {
+            width: 80px;
+            float: left;
+            text-align: center;
+        }
+
+        .progress_div_user2 {
+            width: 90px;
+            float: left;
+            text-align: center;
             margin-left: calc(12% - 29px + 22px - 90px + 38px);
-
         }
-          .progress_div_user3 {
-            width:110px;
-            float:left;
-             text-align:center;
+
+        .progress_div_user3 {
+            width: 110px;
+            float: left;
+            text-align: center;
             margin-left: calc(12% - 29px + 22px - 90px + 29px);
         }
-           .progress_div_user4 {
-            width:100px;
-            float:left;
-             text-align:center;
+
+        .progress_div_user4 {
+            width: 100px;
+            float: left;
+            text-align: center;
             margin-left: calc(12% - 29px + 31px - 90px + 16px);
         }
-          .progress_div_user5 {
-            width:122px;
-            float:left;
-             text-align:center;
+
+        .progress_div_user5 {
+            width: 122px;
+            float: left;
+            text-align: center;
             margin-left: calc(12% - 29px + 22px - 90px + 18px);
         }
-            .progress_div_user6 {
-            width:122px;
-            float:left;
-             text-align:center;
+
+        .progress_div_user6 {
+            width: 122px;
+            float: left;
+            text-align: center;
             margin-left: calc(12% - 29px + 22px - 90px + 6px);
         }
-              .progress_div_user7{
-            width:122px;
-            float:left;
-             text-align:center;
+
+        .progress_div_user7 {
+            width: 122px;
+            float: left;
+            text-align: center;
             margin-left: calc(12% - 29px + 22px - 90px + 7px);
         }
-        .user_hidden
-        {
-            visibility:hidden
+
+        .user_hidden {
+            visibility: hidden
         }
-        .user_progress_active
-        {
+
+        .user_progress_active {
             background-color: burlywood;
         }
     </style>
     <div style="width:100%;float:left;">
-        @{ 
+        @{
             _count = 0;
         }
         @foreach (var item in _lstStatus)
         {
-            if (_count > 6)
+            if (_count > 7)
             {
                 break;
             }
@@ -255,7 +276,7 @@
         }
         @foreach (var item in _lstStatus)
         {
-            if (_count > 6)
+            if (_count > 7)
             {
                 break;
             }
@@ -268,54 +289,77 @@
             <div class="progress_div_radio"><input type="radio" name="name" disabled @_Checked /></div>
             <hr class="progress_hr" />
         }
-        </div>
-       @if (_Listtodo.Count > 0)
-        {
-            <div style="width:100%;float:left; margin-top:7px">
-                @{
-                    _count = 0;
-                }
-                @foreach (var item in _lstStatus)
+    </div>
+    @if (_Listtodo.Count > 0)
+    {
+        <div style="width:100%;float:left; margin-top:7px">
+            @{
+                _count = 0;
+            }
+            @foreach (var item in _lstStatus)
+            {
+                if (_count > 6)
                 {
-                    if (_count > 6)
-                    {
-                        break;
-                    }
-                    _count++;
-                    if (item.CdVal == _currstatus.ToString())
-                    {
-                        <div class="@("user_progress_active progress_div_user" +  _count)"> @_FirstTodo.REQUEST_BY_NAME</div>
-                    }
-                    else
-                    {
-                        <div class="@("user_hidden progress_div_user" +  _count)">@_FirstTodo.REQUEST_BY_NAME </div>
-                    }
+                    break;
                 }
-            </div>
-           } 
-       
-       
+                _count++;
+                if (item.CdVal == _currstatus.ToString())
+                {
+                    <div class="@("user_progress_active progress_div_user" +  _count)"> @_FirstTodo.REQUEST_BY_NAME</div>
+                }
+                else
+                {
+                    <div class="@("user_hidden progress_div_user" +  _count)">@_FirstTodo.REQUEST_BY_NAME </div>
+                }
+            }
+        </div>
+    }
 
-      
- 
- 
+    <div style="margin-top:20px;float:left;width:100%">
+        @if (_currstatus == (int)CommonEnums.App_Status.DaGui_ChoPhanLoai || _currstatus == (decimal)CommonEnums.App_Status.KhacHangDaTuChoi)
+        {
+            @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialPhanLoai.cshtml")
+        }
+        else if (_currstatus == (int)CommonEnums.App_Status.DaPhanChoLuatSu)
+        {
+            // Luật sư Confirm đơn
+            @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialLawer_Confirm.cshtml")
+        }
+        else if (_currstatus == (int)CommonEnums.App_Status.LuatSuDaConfirm)
+        {
+            // Admin gửi lại cho KH
+            @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialAdminSend2Customer.cshtml")
+        }
+        else if (_currstatus == (int)CommonEnums.App_Status.ChoKHConfirm)
+        {
+            //Khách hàng confirm lại cho admin
+            @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialKH_Confirm.cshtml")
+        }
+        else if (_currstatus == (int)CommonEnums.App_Status.KhacHangDaConfirm)
+        {
+            // Khách hàng đã confirm lại cho admin -> phân loại cho 1 loại ng dùng khác
+            @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialPhanLoai_NopDon.cshtml")
+        }
+        else if (_currstatus == (int)CommonEnums.App_Status.DaNopDon)
+        {
+            // advice filling
+            @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_Filing.cshtml")
+        }
+    </div>
 
-
-
-
-
-    <div style="margin-top:20px;float:left">
+    <div style="margin-top:20px;float:left;width:100%">
         @Html.Partial(_AppdetailPatch)
     </div>
 
-
-   
-
-
-
+    <div class="divCover cls_form_title" style="margin-top:20px;float:left;width:100%">
+        <img src="/Content/icons/icon_info_24.png" />
+        <div class="cls_form_header">
+            Lịch sử giao dịch
+        </div>
+    </div>
 
     <div class="divCover legalTodo_div" style="background-color: antiquewhite;">
-        <div class="box_title" style="width:200px; float:left"> TODO </div>
+        <div class="box_title" style="width:200px; float:left">  </div>
         <div id="d_todo_notify" class="box_title" style="width:calc(100% - 240px); padding:0px; float:left">
         </div>
         <div class="Homebox">
@@ -324,22 +368,6 @@
             </div>
         </div>
     </div>
-
-
-    @*<div class="divCover legalRemind_div" style="background-color: cadetblue;">
-            <div class="box_title">   Remind </div>
-            <div>
-                <input type="hidden" id="colSortedRemid" />
-                <input type="hidden" id="SortTypeRemind" />
-            </div>
-
-            <div class="Homebox">
-                <div id="LegalReminddivTable" class="LegaldivBoxTable">
-                    @Html.Partial("~/Areas/TradeMark/Views/Shared/AppDetail/_ReminData.cshtml")
-                </div>
-            </div>
-        </div>*@
-
 
 </fieldset>
 

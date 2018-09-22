@@ -226,7 +226,7 @@ namespace WebApps.Areas.Manager.Controllers
             {
                 Application_Header_BL _bl = new Application_Header_BL();
                 List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
-                ApplicationHeaderInfo objAppHeaderInfo = _bl.GetApp_By_Case_Code(p_case_code, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang(), ref _lst_billing_detail);
+                ApplicationHeaderInfo objAppHeaderInfo = _bl.GetApp_By_Case_Code_Billing(p_case_code, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang(), ref _lst_billing_detail);
                 ViewBag.objAppHeaderInfo = objAppHeaderInfo;
 
                 if (objAppHeaderInfo == null)
@@ -542,6 +542,55 @@ namespace WebApps.Areas.Manager.Controllers
             {
                 Logger.LogException(ex);
                 return Json(new { success = -1 });
+            }
+        }
+
+
+        // action todo
+        [Route("danh-sach-billing/show-action-billing-by-code")]
+        public ActionResult GetView2Actiom_Biling_ByCode(string case_code)
+        {
+            try
+            {
+                Billing_BL _obj_bl = new Billing_BL();
+                ApplicationHeaderInfo objAppHeaderInfo = new ApplicationHeaderInfo();
+                List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
+                Billing_Header_Info _Billing_Header_Info = _obj_bl.Billing_GetBy_Code(case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
+                foreach (Billing_Detail_Info item in _lst_billing_detail)
+                {
+                    item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
+                }
+
+                if (_Billing_Header_Info.Status == (decimal)CommonEnums.Billing_Status.New_Wait_Approve)
+                {
+
+                    ViewBag.Billing_Header_Info = _Billing_Header_Info;
+                    ViewBag.objAppHeaderInfo = objAppHeaderInfo;
+                    ViewBag.List_Billing = _lst_billing_detail;
+                    ViewBag.Operator_Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Approve);
+                    return PartialView("~/Areas/Manager/Views/Billing/_PartialApprove.cshtml", _Billing_Header_Info);
+                }
+                else if (_Billing_Header_Info.Status == (decimal)CommonEnums.Billing_Status.Approved)
+                {
+                    ViewBag.Billing_Header_Info = _Billing_Header_Info;
+                    ViewBag.objAppHeaderInfo = objAppHeaderInfo;
+                    ViewBag.List_Billing = _lst_billing_detail;
+                    ViewBag.Operator_Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Approve);
+                    return PartialView("~/Areas/Manager/Views/Billing/_PartialChangePayStatus.cshtml", _Billing_Header_Info);
+                }
+                else
+                {
+                    ViewBag.Billing_Header_Info = _Billing_Header_Info;
+                    ViewBag.objAppHeaderInfo = objAppHeaderInfo;
+                    ViewBag.List_Billing = _lst_billing_detail;
+                    ViewBag.Operator_Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.View);
+                    return PartialView("~/Areas/Manager/Views/Billing/_PartialView.cshtml", _Billing_Header_Info);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/Manager/Views/Billing/_PartialView.cshtml", new Billing_Header_Info());
             }
         }
     }
