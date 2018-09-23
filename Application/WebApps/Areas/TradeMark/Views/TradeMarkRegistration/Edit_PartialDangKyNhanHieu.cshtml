@@ -172,7 +172,7 @@
 <input type="hidden" id="txtStatusEdit" value="@objAppHeaderInfo.Status" />
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
-        <legend>ĐĂNG KÝ NHÃN HIỆU</legend>
+        <legend>@WebApps.Resources.Resource.lblDangKyNhanHieu</legend>
         @* Case name *@
         <div class="div_full_100_area">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
@@ -181,13 +181,13 @@
         <div class="div_full_100_area">
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div style="width: 200px;">Đơn này được tách ra từ đơn số </div>
+                    <div style="width: 200px;">@WebApps.Resources.Resource.lblDonTachRaTuDonSo</div>
                 </div>
                 <div class="div-search-content">
                     <input type="text" id="0_txtDonSo" value="@objAppHeaderInfo.Appno" maxlength="20" placeholder="0_txtDonSo" />
                 </div>
                 <div class="div-search-title">
-                    <div>Ngày nộp đơn </div>
+                    <div>@WebApps.Resources.Resource.lblNgayNopDon </div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -199,7 +199,7 @@
 
         @* 1 *@
         <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN")
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
 
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
         </div>
@@ -247,7 +247,7 @@
             </div>
 
             <div class="div_full_100_area" style="@styleChuDon1" id="divHiddenChuDon01">
-                <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon01','divHiddenChuDon01','01');" style="text-decoration:underline; color: blue;float: right;">Ẩn</a>
+                <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon01','divHiddenChuDon01','01');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblAn</a>
             </div>
 
             <div id="divHienChuDonKhac">
@@ -255,13 +255,13 @@
                     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "10")
                 </div>
                 <div class="div_full_100_area" style="@styleChuDon2" id="divHiddenChuDon02">
-                    <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon02','divHiddenChuDon02','02');" style="text-decoration:underline; color: blue;float: right;">Ẩn</a>
+                    <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon02','divHiddenChuDon02','02');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblAn</a>
                 </div>
                 <div id="divAddNewChuDon03" @displayChuDon3>
                     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "11")
                 </div>
                 <div class="div_full_100_area" style="@styleChuDon3" id="divHiddenChuDon03">
-                    <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon03','divHiddenChuDon03','03');" style="text-decoration:underline; color: blue;float: right;">Ẩn</a>
+                    <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon03','divHiddenChuDon03','03');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblAn</a>
                 </div>
 
                 <div id="divAddNewChuDon04" @displayChuDon4>
@@ -269,21 +269,21 @@
                 </div>
 
                 <div class="div_full_100_area" style="@styleChuDon4" id="divHiddenChuDon04">
-                    <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon04','divHiddenChuDon04','04');" style="text-decoration:underline; color: blue;float: right;">Ẩn</a>
+                    <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon04','divHiddenChuDon04','04');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblAn</a>
                 </div>
 
                 <div class="div_full_100_area" id="divThemChuDon01">
-                    <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon01','divHiddenChuDon01');" style="text-decoration:underline; color: blue;float: right;">Thêm chủ đơn</a>
+                    <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon01','divHiddenChuDon01');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblThemChuDon</a>
                 </div>
 
                 <div class="div_full_100_area" style="display:none" id="divThemChuDon02">
-                    <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon02','divHiddenChuDon02');" style="text-decoration:underline; color: blue;float: right;">Thêm chủ đơn</a>
+                    <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon02','divHiddenChuDon02');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblThemChuDon</a>
                 </div>
                 <div class="div_full_100_area" style="display:none" id="divThemChuDon03">
-                    <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon03','divHiddenChuDon03');" style="text-decoration:underline; color: blue;float: right;">Thêm chủ đơn</a>
+                    <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon03','divHiddenChuDon03');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblThemChuDon</a>
                 </div>
                 <div class="div_full_100_area" style="display:none" id="divThemChuDon04">
-                    <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon04','divHiddenChuDon04');" style="text-decoration:underline; color: blue;float: right;">Thêm chủ đơn</a>
+                    <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon04','divHiddenChuDon04');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblThemChuDon</a>
                 </div>
             </div>
         }
@@ -291,11 +291,11 @@
 
         @* Nhan hieu *@
         <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "NHÃN HIỆU")
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblNhanHieu.ToUpper())
             <div class="class_full_div_input">
 
                 <div class="class_left_40">
-                    <div class="class_block_title" style="padding-top:5px; "><label>Mẫu nhãn hiệu:</label> </div>
+                    <div class="class_block_title" style="padding-top:5px; "><label>@WebApps.Resources.Resource.lblMauNhanHieu:</label> </div>
                     <div class="class_block_title_control" style="display:flex">
                         <div style="width:165px ;height:165px" id="divLogo">
                             <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
@@ -304,7 +304,7 @@
                         <div class="container" style="flex-grow:1;padding-top:50px">
                             <img onclick="funcRemoveTradeMarkImg('imgMauNhanHieu')" src="~/Content/icons/delete_file.png" style="margin: 0px 21px -44px 4px;" />
                             <div class="file-upload btn btn-primary" style="margin-top:95px">
-                                <span>Tải file</span>
+                                <span>@WebApps.Resources.Resource.lblTaiFile</span>
                                 <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
                             </div>
                         </div>
@@ -315,7 +315,7 @@
                     @* Thêm mục đích sau này Admin đặt tên theo qui tắc phục vụ tìm kiếm *@
                     <div class="div-search-ad">
                         <div class="div-search-title">
-                            <div>Tên nhãn hiệu:</div>
+                            <div>@WebApps.Resources.Resource.lblTenNhanHieu:</div>
                         </div>
                         <div class="div-search-content">
                             <div>
@@ -326,7 +326,7 @@
 
                     <div class="div-search-ad">
                         <div class="div-search-title">
-                            <div>Mầu sắc:</div>
+                            <div>@WebApps.Resources.Resource.lblMauSac:</div>
                         </div>
                         <div class="div-search-content">
                             <div><input type="text" placeholder="0_MauSac" value="@objAppHeaderInfo.Color" maxlength="50" id="0_MauSac" /></div>
@@ -335,7 +335,7 @@
 
                     <div class="div-search-ad">
                         <div class="div-search-title" style="height: 126px;">
-                            <div>Mô tả:</div>
+                            <div>@WebApps.Resources.Resource.lblMoTa:</div>
                         </div>
                         <div class="div-search-content">
                             <div>
@@ -350,7 +350,7 @@
                 <div class="div-search-content">
                     <div class="div-radio">
                         <input type="radio" name="0_NhanHieu" value="NHTT" @styleNhanHieu placeholder="0_NhanHieuTapThe" id="0_NhanHieuTapThe" />
-                        <label>Nhãn hiệu tập thể</label>
+                        <label>@WebApps.Resources.Resource.lblNhanHieuTapThe</label>
                     </div>
                 </div>
             </div>
@@ -359,7 +359,7 @@
                 <div class="div-search-content">
                     <div class="div-radio">
                         <input type="radio" name="0_NhanHieu" value="NHLK" @styleLienKet placeholder="0_NhanHieuLienKet" id="0_NhanHieuLienKet" />
-                        <label>Nhãn hiệu liên kết</label>
+                        <label>@WebApps.Resources.Resource.lblNhanHieuLienKet</label>
                     </div>
                 </div>
             </div>
@@ -368,14 +368,14 @@
                 <div class="div-search-content">
                     <div class="div-radio">
                         <input type="radio" name="0_NhanHieu" value="NHCN" @styleNhanHieuCN placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" />
-                        <label>Nhãn hiệu chứng nhận</label>
+                        <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="div_full_100_area" @styleShowHidenNHCN id="divNhanHieuChungNhan">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "MÔ TẢ TÓM TẮT ĐẶC TÍNH CỦA HÀNG HOÁ/DỊCH VỤ ĐƯỢC CHỨNG NHẬN")
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblMoTaDacTinhCuaHangHoa.ToUpper())
             @{
                 string styleNguonGocDL = "";
                 if (!string.IsNullOrEmpty(objAppHeaderInfo.Nguongocdialy))
@@ -400,7 +400,7 @@
                 <div class="div-search-content">
                     <div class="div-checkbox">
                         <input type="checkbox" name="0_ckbDacTinhHangHoa" @styleDacTinhHangHoa value="DTHH" placeholder="0_ckbDacTinhHangHoa" id="0_ckbDacTinhHangHoa" />
-                        <label>Đặc tính hàng hóa</label>
+                        <label>@WebApps.Resources.Resource.lblDacTinhHanghoa</label>
                     </div>
                 </div>
             </div>
@@ -408,18 +408,18 @@
             <div class="div-search-ad">
                 <div class="div-search-title">
                     <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" @styleNguonGocDL class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" placeholder="8_ckbNguonGocDiaLy" id="8_ckbNguonGocDiaLy" />
-                    <div>Nguồn gốc địa lý:</div>
+                    <div>@WebApps.Resources.Resource.lblNguonGocDiaLy:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" id="8_txtNguonGocDiaLy" class="classDacTinhHangHoa" value="@objAppHeaderInfo.Nguongocdialy" disabled="disabled" maxlength="100" placeholder="Nguồn gốc địa lý" />
+                        <input type="text" id="8_txtNguonGocDiaLy" class="classDacTinhHangHoa" value="@objAppHeaderInfo.Nguongocdialy" disabled="disabled" maxlength="100" placeholder="@WebApps.Resources.Resource.lblNguonGocDiaLy" />
                     </div>
                 </div>
             </div>
             <div class="div-search-ad">
                 <div class="div-search-title">
                     <input style="float: left;margin: 8px 0px 5px 5px;" type="checkbox" @styleChatluong name="8_ckbChatLuong" class="classDacTinhHangHoa" disabled="disabled" value="CLCL" placeholder="8_ckbChatLuong" id="8_ckbChatLuong" />
-                    <div>Chất lượng:</div>
+                    <div>@WebApps.Resources.Resource.lblChatLuong:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -430,7 +430,7 @@
             <div class="div-search-ad">
                 <div class="div-search-title">
                     <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" @styleNguonGocDiaLy name="8_ckbDacTinhKhac" class="classDacTinhHangHoa" disabled="disabled" value="DTKK" placeholder="8_ckbDacTinhKhac" id="8_ckbDacTinhKhac" />
-                    <div>Đặc tính khác:</div>
+                    <div>@WebApps.Resources.Resource.lblDacTinhKhac:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -447,12 +447,12 @@
 
         @* 2 *@
         <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "ĐẠI DIỆN CỦA CHỦ ĐƠN")
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblDaiDienChuDon.ToUpper())
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
                         <input type="radio" name="3_rdoDaiDienChuDon" value="@DaiDienChuDon.DaiDienPL" @styleDaiDienChuDon placeholder="3_txtNguoiDaiDienPL" id="3_txtNguoiDaiDienPL" />
-                        <label>Là người đại diện theo pháp luật của chủ đơn</label>
+                        <label> @WebApps.Resources.Resource.lblLaNguoiDaiDienTheoPL</label>
                     </div>
                 </div>
             </div>
@@ -468,8 +468,8 @@
                 @*//07/09/2018*@
                 <div class="div-search-content">
                     <div>
-                        <label style="width:120px;display:inline-block ;border: 1px solid #aaa; padding-top: 5px;  padding-left: 2px;">Mã đại diện:</label>
-                        <input style="display:inline-block" type="text" placeholder="Mã đại diện" value="@objAppHeaderInfo.MADDSHCN" id="txtMADDSHCN" />
+                        <label style="width:120px;display:inline-block ;border: 1px solid #aaa; padding-top: 5px;  padding-left: 2px;">@WebApps.Resources.Resource.lblMaDaiDien:</label>
+                        <input style="display:inline-block" type="text" placeholder="@WebApps.Resources.Resource.lblMaDaiDien" value="@objAppHeaderInfo.MADDSHCN" id="txtMADDSHCN" />
                     </div>
                 </div>
             </div>
@@ -480,7 +480,7 @@
                 <div class="div-search-content">
                     <div class="div-radio">
                         <input type="radio" name="3_rdoDaiDienChuDon" value="@DaiDienChuDon.DaiDienUyQuyen" @styleDaiDienUQ placeholder="3_txtToChucDaiDien" id="3_txtToChucDaiDien" />
-                        <label>Là người khác được uỷ quyền của chủ đơn</label>
+                        <label>@WebApps.Resources.Resource.lblLaNguoiKhacDuocUyQuyen</label>
                     </div>
                 </div>
             </div>
@@ -489,17 +489,16 @@
         </div>
         @* 3  A14*@
         <div class="div_full_100_area">
-            @*@Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "YÊU CẦU HƯỞNG QUYỀN ƯU TIÊN")*@
             <div class="divCover cls_form_title">
                 <img src="/Content/icons/info.png">
                 <div class="cls_form_header">@WebApps.Resources.Resource.lblYeuCauHuongQuyenUT.ToUpper()</div>
                 <div style="display: inline-block;  padding-top: 8px; padding-left: 5px;">
                     <input type="checkbox" name="0_ckbCoSuDungDonUuTien" @styleSuDungDonUT value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" onchange="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')" />
-                    <label><a style="color:blue" id="hrefCo" onclick="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')">Có</a></label>
+                    <label><a style="color:blue" id="hrefCo" onclick="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')">@WebApps.Resources.Resource.lblCo</a></label>
                 </div>
                 <div style="display: inline-block;">
                     <input type="checkbox" name="KO_ckbCoSuDungDonUuTien" value="KO" id="KOUT" onchange="return funcChoiseDonUT('KOUT')" />
-                    <label><a style="color:blue" id="hrefKhong" onclick="return funcChoiseDonUT('KOUT')">Không</a></label>
+                    <label><a style="color:blue" id="hrefKhong" onclick="return funcChoiseDonUT('KOUT')">@WebApps.Resources.Resource.lblKhong</a></label>
                 </div>
             </div>
             <script>
@@ -545,7 +544,7 @@
             <div id="divDonUuTienSo1" style="display:none">
                 <div class="div-search-ad">
                     <div class="div-search-title">
-                        <div>Số đơn:</div>
+                        <div>@WebApps.Resources.Resource.lblSoDon:</div>
                     </div>
                     <div class="div-search-content">
                         <div>
@@ -555,7 +554,7 @@
                 </div>
                 <div class="div-search-ad">
                     <div class="div-search-title">
-                        <div>Ngày nộp đơn:</div>
+                        <div>@WebApps.Resources.Resource.lblNgayNopDon:</div>
                     </div>
                     <div class="div-search-content">
                         <div>
@@ -565,7 +564,7 @@
                 </div>
                 <div class="div-search-ad">
                     <div class="div-search-title">
-                        <div>Nước nộp đơn:</div>
+                        <div>@WebApps.Resources.Resource.lblNuocNopDon:</div>
                     </div>
                     <div class="div-search-content">
                         <div>
@@ -590,7 +589,7 @@
                     <div class="div-search-content">
                         <div class="div-radio">
                             <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" @styleYCHQUT value="NTVN" placeholder="4_ckbNopTaiVietNam" id="4_ckbNopTaiVietNam" />
-                            <label>Theo đơn (các đơn) đầu tiên nộp tại Việt Nam</label>
+                            <label>@WebApps.Resources.Resource.lblTheoDonNopTaiVN</label>
                         </div>
                     </div>
                 </div>
@@ -598,7 +597,7 @@
                     <div class="div-search-content">
                         <div class="div-radio">
                             <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" @styleCongUocPR value="CUPR" placeholder="4_ckbNopTaiParis" id="4_ckbNopTaiParis" />
-                            <label>Theo đơn (các đơn) nộp theo Công ước Paris</label>
+                            <label>@WebApps.Resources.Resource.lblTheoDonNopCongUocPR</label>
                         </div>
                     </div>
                 </div>
@@ -606,7 +605,7 @@
                     <div class="div-search-content" style="width:250px">
                         <div class="div-radio"  style="width:245px">
                             <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" @styleTTK value="NTVN" placeholder="4_ckbThoaThuanKhac" id="4_ckbThoaThuanKhac" />
-                            <label>Theo thoả thuận khác</label>
+                            <label>@WebApps.Resources.Resource.lblTheoThoaThuanKhac</label>
                         </div>
                     </div>
 
@@ -621,28 +620,28 @@
                     <div class="div-search-content">
                         <div class="div-checkbox" style="width:422px">
                             <input type="checkbox" class="classDacTinhUT" maxlength="3" @ObjInfo04NH_D_14.styleCheck value="04NH_D_14" id="6_rdoTLCMQUT" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                            <label>Tài liệu chứng minh quyền ưu tiên</label>
+                            <label>@WebApps.Resources.Resource.lblTaiLieuChungMinhQuyenUT</label>
                         </div>
                     </div>
                     <div class="div-search-content">
                         <input type="text" id="6_txtTLCMQUT" disabled="disabled" value="@ObjInfo04NH_D_14.CHAR01" maxlength="3" placeholder="6_txtTLCMQUT" />
                     </div>
                     <div class="div-search-title" style="width:412px">
-                        <div>bản</div>
+                        <div>@WebApps.Resources.Resource.lblBan</div>
                     </div>
                 </div>
                 <div class="div-search-ad" style="display:inline-flex;    margin-left: 40px;">
                     <div class="div-search-content">
                         <div class="div-checkbox" style="width:382px">
                             <input type="checkbox" maxlength="3" class="classDacTinhUT" @ObjInfo04NH_D_15.styleCheck value="04NH_D_15" id="6_rdoBSDDT" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                            <label>Bản sao đơn đầu tiên, gồm</label>
+                            <label>@WebApps.Resources.Resource.lblbanSaoDauTienGom</label>
                         </div>
                     </div>
                     <div class="div-search-content">
                         <input type="text" id="6_txtBSDDT" disabled="disabled" value="@ObjInfo04NH_D_15.CHAR01" maxlength="3" placeholder="6_txtBSDDT" />
                     </div>
                     <div class="div-search-title" style="width:412px">
-                        <div>bản</div>
+                        <div>@WebApps.Resources.Resource.lblBan</div>
                     </div>
                 </div>
                 <div style="margin-left:40px">
@@ -666,14 +665,14 @@
                     <div class="div-search-content">
                         <div class="div-checkbox" style="width:382px">
                             <input type="checkbox" class="classDacTinhUT" @ObjInfo04NH_D_16.styleCheck maxlength="3" value="04NH_D_16" id="6_rdoBDTVGom" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                            <label>Bản dịch tiếng Việt, gồm</label>
+                            <label>@WebApps.Resources.Resource.lblBanDichTiengVietGom</label>
                         </div>
                     </div>
                     <div class="div-search-content">
                         <input type="text" id="6_txtBDTVGom" disabled="disabled" value="@ObjInfo04NH_D_16.CHAR01" maxlength="3" placeholder="6_txtBDTVGom" />
                     </div>
                     <div class="div-search-title" style="width:412px">
-                        <div>bản</div>
+                        <div>@WebApps.Resources.Resource.lblBan</div>
                     </div>
                 </div>
                 <div style="margin-left:40px">
@@ -695,7 +694,7 @@
                     <div class="div-search-content">
                         <div class="div-checkbox" style="width:382px">
                             <input type="checkbox" maxlength="3" value="04NH_D_17" @ObjInfo04NH_D_17.styleCheck class="classDacTinhUT" id="6_rdoGiayChuyenNhungUT" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                            <label> Giấy chuyển nhượng quyền ưu tiên </label>
+                            <label>@WebApps.Resources.Resource.lblGiayChuyenNhuongQuyenUT</label>
                         </div>
                     </div>
                 </div> <div style="margin-left:40px">
@@ -712,7 +711,7 @@
                         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialTaiLieuTrongDon.cshtml", "6_rdoGiayChuyenNhungUT")
                     </div>
                 </div>
-                <a href="javascript:;" onclick="return funcShowOrHidden('divDonUuTienSo2');" style="text-decoration:underline; color: blue;float: right;padding-top: 5px;">Thêm đơn</a>
+                <a href="javascript:;" onclick="return funcShowOrHidden('divDonUuTienSo2');" style="text-decoration:underline; color: blue;float: right;padding-top: 5px;">@WebApps.Resources.Resource.lblThemDon</a>
             </div>
         </div>
         @* div Don số 2 default fixed có 2 đơn *@
@@ -732,9 +731,9 @@
 
         <div class="class_save">
             <div class="classGuiDon">
-                <input type="button" value="Gửi đơn" style="width:70px" id="btnGuiDon" class="btn class_37" />
+                <input type="button" value="@WebApps.Resources.Resource.btnGuiDon" style="width:70px" id="btnGuiDon" class="btn class_37" />
             </div> <div class="classLuuTam">
-                <input type="button" value="Lưu tạm" style="width:70px" id="btnLuuTam" class="btn class_37" />
+                <input type="button" value="@WebApps.Resources.Resource.btnLuuTam" style="width:70px" id="btnLuuTam" class="btn class_37" />
             </div>
         </div>
     </fieldset>

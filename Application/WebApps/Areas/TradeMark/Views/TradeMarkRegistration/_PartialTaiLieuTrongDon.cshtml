@@ -25,7 +25,7 @@
 <div class="div-search-ad clssDisplaynone @AfterID" id="@div_Up" data-level="@Level">
     <div class="div-search-content">
         <div class="div-checkbox">
-            <input type="button" value="Chọn file" class="btn" onclick="return Click_Upload_File('@AfterID')" style="margin:2px;" />
+            <input type="button" value="@WebApps.Resources.Resource.lblChonFile" class="btn" onclick="return Click_Upload_File('@AfterID')" style="margin:2px;" />
             <div>
                 <input type="file" id="@pfile" name="@pfile" style="display:none" onchange="FuncChooseResultFile('@AfterID')" />
             </div>
@@ -36,7 +36,7 @@
     </div>
 
     <div class="div-search-title">
-        <div>Tên file:</div>
+        <div>@WebApps.Resources.Resource.lblTenFile:</div>
     </div>
     <div class="div-search-content">
         <div>

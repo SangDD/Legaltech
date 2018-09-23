@@ -50,19 +50,19 @@
 
     <div id="divDocumentOther" >
         <div class="div-search-ad">
-            <div class="div-search-title"> <div>Tên tài liệu:</div> </div>
+            <div class="div-search-title"> <div>@WebApps.Resources.Resource.lblTenTaiLieu:</div> </div>
             <div class="div-search-content">
-                <div> <input type="text" class="clssListUpload" maxlength="200" placeholder="Nhập tên tài liệu đính kèm" id="txtTaiLieuKhac1"> </div>
+                <div> <input type="text" class="clssListUpload" maxlength="200" placeholder="@WebApps.Resources.Resource.lblNhapTenTaiLieuDinhKem" id="txtTaiLieuKhac1"> </div>
             </div>
             <div class="div-search-content">
                 <div>
                     <div class="file-upload btn btn-primary">
-                        <span class="">Chọn file</span>
+                        <span class="">@WebApps.Resources.Resource.lblChonFile</span>
                         <input type="file" onchange="return funcChoiseFileDocOther('pfileName1', 'txtMaxfile1','txtTaiLieuKhac1','divRemoveFile1');" name="pfileName1" id="pfileName1" class="upload fileuploadurl" />
                     </div>
                     <input type="text" class="classMaxfile" id="txtMaxfile1" readonly placeholder="Maximum file size is 2MB">
                     <div class="div-checkbox clssDisplaynone" id="divRemoveFile1"><img onclick="return RemoveFileDocOther('txtTaiLieuKhac1','divRemoveFile1','txtMaxfile1');" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" /> </div>
-                    <input type="button" id="btnAddDocumentOther" value="Thêm" style="width:60px;" class="btn class_37" />
+                    <input type="button" id="btnAddDocumentOther" value="@WebApps.Resources.Resource.lblThem" style="width:60px;" class="btn class_37" />
                 </div>
             </div>
         </div>
@@ -109,7 +109,7 @@
             var btnXoa = "btnXoa" + e;
             var btnTaiFile = "btnTaiFile" + e;
             var btnremoveFile = "btnRemove" + e;
-            var t = '<div class="div-search-ad" id="' + divDocumnetNo + '"><div class="div-search-title"> <div>Tên tài liệu:</div> </div>  <div class="div-search-content"> <div> <input type="text" class="clssListUpload" maxlength="200" placeholder="Nhập tên tài liệu đính kèm"  id = "' + txtDocument + '" > </div> </div>';
+            var t = '<div class="div-search-ad" id="' + divDocumnetNo + '"><div class="div-search-title"> <div>'+@WebApps.Resources.Resource.lblTenTaiLieu+':</div> </div>  <div class="div-search-content"> <div> <input type="text" class="clssListUpload" maxlength="200" placeholder="'+ @WebApps.Resources.Resource.lblNhapTenTaiLieuDinhKem+'"  id = "' + txtDocument + '" > </div> </div>';
             t += '<div class="div-search-content"> <div> <div class="file-upload btn btn-primary"> <span>Chọn file</span>' +
                 ' <input type="file" onchange="return funcChoiseFileDocOther(\'' + pfileName + '\', \'' + txtMaxfile + '\', \'' + txtDocument + '\', \'' + btnremoveFile +'\');" name = "' + pfileName + '" id = "' + pfileName + '" class="upload fileuploadurl" /> </div>' +
                 '<input type="text" class="classMaxfile" id="' + txtMaxfile + '" readonly placeholder="Maximum file size is 2MB">' +

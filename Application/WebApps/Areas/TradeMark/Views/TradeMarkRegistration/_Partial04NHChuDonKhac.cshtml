@@ -72,10 +72,6 @@
                 <input type="text" @disableView placeholder="@WebApps.Resources.Resource.lblTenDayDu" value="@Name"  id="@txtTenDayDu" />
             </div>
         </div>
-        @*@if (!disableView.Contains("disabled"))
-        {
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDonKhacReuse.cshtml", pUseCusinfo)
-        }*@
     </div>
     <div class="div-search-ad">
         <div class="div-search-title">
@@ -133,24 +129,14 @@
     function funcThongTinChuDonKhac(formData, PreID) {
         try {
             var txtTenDayDu = $("#" + PreID + "_txtTenDayDu").val();
-            //if (txtTenDayDu === "") {
-            //    $("#" + PreID + "_txtTenDayDu").focus().val('');
-            //    showError('Tên không được để trống!');
-            //    return false;
-            //}
             var txtDiaChi = $("#" + PreID + "_txtDiaChi").val();
-            //if (txtDiaChi === "") {
-            //    $("#" + PreID + "_txtDiaChi").focus().val('');
-            //    showError('Địa chỉ không được để trống!');
-            //    return false;
-            //}
             var txtDienThoai = $("#" + PreID + "_txtDienThoai").val();
             var txtFax = $("#" + PreID + "_txtFax").val();
             var txtEmail = $("#" + PreID + "_txtEmail").val();
             if (txtEmail != "") {
                 if (!IsvalidEmail(txtEmail)) {
                     $("#" + PreID + "_txtEmail").focus();
-                    showError('Email không đúng định dạng!');
+                    showError('@WebApps.Resources.Resource.lblThongBaoLoiEmail!');
                     return false;
                 }
             }
