@@ -109,7 +109,7 @@
             var btnXoa = "btnXoa" + e;
             var btnTaiFile = "btnTaiFile" + e;
             var btnremoveFile = "btnRemove" + e;
-            var t = '<div class="div-search-ad" id="' + divDocumnetNo + '"><div class="div-search-title"> <div>'+@WebApps.Resources.Resource.lblTenTaiLieu+':</div> </div>  <div class="div-search-content"> <div> <input type="text" class="clssListUpload" maxlength="200" placeholder="'+ @WebApps.Resources.Resource.lblNhapTenTaiLieuDinhKem+'"  id = "' + txtDocument + '" > </div> </div>';
+            var t = '<div class="div-search-ad" id="' + divDocumnetNo + '"><div class="div-search-title"> <div> Tên file :</div> </div>  <div class="div-search-content"> <div> <input type="text" class="clssListUpload" maxlength="200" placeholder="Nhập tên tài liệu đính kèm "  id = "' + txtDocument + '" > </div> </div>';
             t += '<div class="div-search-content"> <div> <div class="file-upload btn btn-primary"> <span>Chọn file</span>' +
                 ' <input type="file" onchange="return funcChoiseFileDocOther(\'' + pfileName + '\', \'' + txtMaxfile + '\', \'' + txtDocument + '\', \'' + btnremoveFile +'\');" name = "' + pfileName + '" id = "' + pfileName + '" class="upload fileuploadurl" /> </div>' +
                 '<input type="text" class="classMaxfile" id="' + txtMaxfile + '" readonly placeholder="Maximum file size is 2MB">' +
