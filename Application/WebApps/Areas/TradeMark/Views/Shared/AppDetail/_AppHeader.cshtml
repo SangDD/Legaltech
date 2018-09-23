@@ -8,15 +8,24 @@
     {
         _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
     }
+
+    decimal c_operator_type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update);
+    if (ViewBag.Operator_Type != null)
+    {
+        c_operator_type = (decimal)ViewBag.Operator_Type;
+    }
 }
 
 <div class="divCover cls_form_title">
     <img src="/Content/icons/icon_info_24.png" />
     <div class="cls_form_header">
 
-        <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowViewApp()" data-title="Xem chi tiết">Thông tin đơn</a>
-        |
-        <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowEditApp()"  data-title="Xem chi tiết">Sửa đơn</a>
+        <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowViewApp()">Thông tin đơn</a>
+
+        @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update))
+        {
+            <a style = "text-decoration: underline; font-style: italic; color: blue;" href = "javascript:;" onclick = "ShowEditApp()"> Sửa đơn </a>
+        }
     </div>
 </div>
 

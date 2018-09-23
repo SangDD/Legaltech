@@ -326,38 +326,40 @@
             }
         </div>
     }
-
-    <div style="margin-top:20px;float:left;width:100%">
-        @if (_currstatus == (int)CommonEnums.App_Status.DaGui_ChoPhanLoai || _currstatus == (decimal)CommonEnums.App_Status.KhacHangDaTuChoi)
-        {
-            @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialPhanLoai.cshtml")
-        }
-        else if (_currstatus == (int)CommonEnums.App_Status.DaPhanChoLuatSu)
-        {
-            // Luật sư Confirm đơn
-            @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialLawer_Confirm.cshtml")
-        }
-        else if (_currstatus == (int)CommonEnums.App_Status.LuatSuDaConfirm)
-        {
-            // Admin gửi lại cho KH
-            @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialAdminSend2Customer.cshtml")
-        }
-        else if (_currstatus == (int)CommonEnums.App_Status.ChoKHConfirm)
-        {
-            //Khách hàng confirm lại cho admin
-            @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialKH_Confirm.cshtml")
-        }
-        else if (_currstatus == (int)CommonEnums.App_Status.KhacHangDaConfirm)
-        {
-            // Khách hàng đã confirm lại cho admin -> phân loại cho 1 loại ng dùng khác
-            @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialPhanLoai_NopDon.cshtml")
-        }
-        else if (_currstatus == (int)CommonEnums.App_Status.DaNopDon)
-        {
-            // advice filling
-            @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_Filing.cshtml")
-        }
-    </div>
+    @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update))
+    {
+        <div style="margin-top:20px;float:left;width:100%">
+            @if (_currstatus == (int)CommonEnums.App_Status.DaGui_ChoPhanLoai || _currstatus == (decimal)CommonEnums.App_Status.KhacHangDaTuChoi)
+            {
+                @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialPhanLoai.cshtml")
+            }
+            else if (_currstatus == (int)CommonEnums.App_Status.DaPhanChoLuatSu)
+            {
+                // Luật sư Confirm đơn
+                @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialLawer_Confirm.cshtml")
+            }
+            else if (_currstatus == (int)CommonEnums.App_Status.LuatSuDaConfirm)
+            {
+                // Admin gửi lại cho KH
+                @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialAdminSend2Customer.cshtml")
+            }
+            else if (_currstatus == (int)CommonEnums.App_Status.ChoKHConfirm)
+            {
+                //Khách hàng confirm lại cho admin
+                @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialKH_Confirm.cshtml")
+            }
+            else if (_currstatus == (int)CommonEnums.App_Status.KhacHangDaConfirm)
+            {
+                // Khách hàng đã confirm lại cho admin -> phân loại cho 1 loại ng dùng khác
+                @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialPhanLoai_NopDon.cshtml")
+            }
+            else if (_currstatus == (int)CommonEnums.App_Status.DaNopDon)
+            {
+                // advice filling
+                @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_Filing.cshtml")
+            }
+        </div>
+    }
 
     <div style="margin-top:20px;float:left;width:100%">
         @Html.Partial(_AppdetailPatch)

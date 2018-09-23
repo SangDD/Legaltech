@@ -185,9 +185,11 @@ body {
         display: inline-block;
         width: 100%;
         padding: 12px 10px 12px 10px;
-
-
     }
+
+        .group-menu > span > a {
+            color: #ccc;
+        }
 
     .group-menu:last-child ul {
         border-bottom: 1px solid #ebeaea;
@@ -1185,7 +1187,7 @@ select.divNumberRecordOnPage {
     padding: 3px;
     float: left;
     width: calc(50%);
-    display:flex ;
+    display: flex;
 }
 
 .class_right_50 {
@@ -1508,10 +1510,12 @@ select.divNumberRecordOnPage {
 .class_flex_grow {
     flex-grow: 1;
 }
+
 .class_text_end_radio {
     flex-grow: 1;
     margin-top: -2px;
 }
+
 .class_text_end {
     flex-grow: 1;
     /*flex-shrink:co lại khi kéo màn hình*/
@@ -1672,11 +1676,11 @@ input[type="checkbox"] {
 }
 
 .class_padding_right_10 {
-    padding-right:10px ;
+    padding-right: 10px;
 }
 
 .class_title_width_numer {
-   margin-top:-20px;
+    margin-top: -20px;
 }
 
 
@@ -1685,6 +1689,7 @@ input[type="checkbox"] {
 .active_change {
     background-color: #777777;
 }
+
 .autocomplete-suggestions {
     border: 1px solid #999;
     background: #fff;
@@ -1701,7 +1706,6 @@ input[type="checkbox"] {
 
 .autocomplete-selected {
     background: #f0f0f0;
-
 }
 
 .autocomplete-suggestions strong {
@@ -1728,7 +1732,7 @@ input[type="checkbox"] {
         width: 99%;
         border-bottom: 1px solid #aaa;
     }
- 
+
         .ui-autocomplete li a {
             display: block;
             padding: 6px 5px;
@@ -1738,17 +1742,19 @@ input[type="checkbox"] {
         }
 
 
-.ui-autocomplete li:hover {
-    background-color: #e9ece9;
-    cursor: pointer;
-}
+        .ui-autocomplete li:hover {
+            background-color: #e9ece9;
+            cursor: pointer;
+        }
 
 .clsCheck {
     font-weight: bold;
 }
-.ui-helper-hidden-accessible{
-    display:none ;
-} 
+
+.ui-helper-hidden-accessible {
+    display: none;
+}
+
 .ui-menu-item > a.ui-corner-all {
     display: block;
     padding: 3px 15px;
@@ -1758,7 +1764,8 @@ input[type="checkbox"] {
     color: #555555;
     white-space: nowrap;
 }
-  .ui-state-hover, .ui-state-active{
+
+.ui-state-hover, .ui-state-active {
     color: #ffffff;
     text-decoration: none;
     background-color: #0088cc;
@@ -1767,6 +1774,7 @@ input[type="checkbox"] {
     -moz-border-radius: 0px;
     background-image: none;
 }
+
 .clsLiActive {
     background-color: #e9ece9 !important;
     color: #ffffff;
