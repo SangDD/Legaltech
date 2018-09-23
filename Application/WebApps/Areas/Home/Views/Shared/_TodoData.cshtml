@@ -7,7 +7,6 @@
     {
         _list_data = ViewBag.Obj;
     }
-
 }
 
 <div>
@@ -28,41 +27,41 @@
             {
                 foreach (var item in _list_data)
                 {
-            <tr>
-                <td class="tdcenteralign">@item.STT</td>
-                <td class="tdleftalign">@item.CASE_CODE</td>
-                @if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.Billing))
-                {
-                    <td class="tdleftalign">
-                        <a href="javascript:;" onclick="GetView2Action_Billing('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CONTENT</a>
-                    </td>
-                }
-                else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.App))
-                {
-                    <td class="tdleftalign">
-                        <a href="/trade-mark-share-data/todo-details/@item.CASE_CODE" data-title="Xem chi tiết">@item.CONTENT</a>
-                    </td>
-                }
-                else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.TimeSheet))
-                {
-                    <td class="tdleftalign">
-                        <a href="javascript:;" onclick="GetView2Action_TimeSheet('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CONTENT</a>
-                    </td>
-                }
-                else
-                {
-                    <td class="tdleftalign">@item.CONTENT</td>
-                }
+                    <tr>
+                        <td class="tdcenteralign">@item.STT</td>
+                        <td class="tdleftalign">@item.CASE_CODE</td>
+                        @if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.Billing))
+                        {
+                            <td class="tdleftalign">
+                                <a href="javascript:;" onclick="GetView2Action_Billing('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CONTENT</a>
+                            </td>
+                        }
+                        else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.App))
+                        {
+                            <td class="tdleftalign">
+                                <a href="/trade-mark-share-data/todo-details/@item.CASE_CODE/2" data-title="Xem chi tiết">@item.CONTENT</a>
+                            </td>
+                        }
+                        else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.TimeSheet))
+                        {
+                            <td class="tdleftalign">
+                                <a href="javascript:;" onclick="GetView2Action_TimeSheet('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CONTENT</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="tdleftalign">@item.CONTENT</td>
+                        }
 
-                <td class="tdleftalign">@item.REQUEST_BY_NAME</td>
-                <td class="tdcenteralign">
-                    @item.REQUEST_DATE.ToDateStringN0()
-                </td>
-                <td class="tdleftalign">@item.PROCESSOR_BY_NAME</td>
-                <td class="tdcenteralign">
-                    @item.PROCESSOR_DATE.ToDateStringN0()
-                </td>
-            </tr>
+                        <td class="tdleftalign">@item.REQUEST_BY_NAME</td>
+                        <td class="tdcenteralign">
+                            @item.REQUEST_DATE.ToDateStringN0()
+                        </td>
+                        <td class="tdleftalign">@item.PROCESSOR_BY_NAME</td>
+                        <td class="tdcenteralign">
+                            @item.PROCESSOR_DATE.ToDateStringN0()
+                        </td>
+                    </tr>
                 }
             }
             else

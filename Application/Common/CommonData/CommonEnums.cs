@@ -26,9 +26,10 @@
             LuatSuDaConfirm = 4,
             ChoKHConfirm = 5,
             KhacHangDaConfirm = 6,
-            KhacHangDaTuChoi = 61,
-            DaNopDon = 7,
-            DaGuiLenCuc = 8
+            KhacHangDaTuChoi = 7,
+            DaPhanChoNhanVien = 8,
+            DaNopDon = 9,
+            DaGuiLenCuc = 10
         }
 
         public enum UserType
@@ -36,7 +37,8 @@
             SupperAdmin = 0,
             Admin = 1,
             Lawer = 2,
-            Customer = 3
+            Customer = 3,
+            Employee = 4
         }
 
         public enum UserStatus

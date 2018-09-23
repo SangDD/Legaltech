@@ -68,43 +68,33 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Địa chỉ<i class="redspan">(*)</i></div>
+                <div>Nhóm quyền</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Address, new { @id = "txtAddress", maxlength = "200" })
+                    <select id="cboGroupUser">
+                        <option value="-1">None</option>
+                        @foreach (var item in MemoryData.GetAllGroup())
+                        {
+                            if (item.Id == _groupId)
+                            {
+                                <option selected="selected" value="@item.Id">@item.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+                        }
+                    </select>
+
                 </div>
             </div>
         </div>
 
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Ngày sinh</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.TextBoxFor(m => m.DateOfBirth, new
-                    {
-                        @id = "txtDateOfBirth",
-                        @Value = Model.DateOfBirth == DateTime.MinValue ? "" : Model.DateOfBirth.ToString("dd/MM/yyyy"),
-                        @class= "datetimepicker",
-                        @style="width:200px;"
-                    })
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>Giới tính<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <select id="cboSex">
-                        @foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.SexType))
-                        {
-                            <option @(item.CdVal == Model.Sex ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
-                        }
-                    </select>
-                </div>
+        <div class="divCover cls_form_title">
+            <img src="/Content/icons/icon_info_24.png" />
+            <div class="cls_form_header">
+                Thông tin khác
             </div>
         </div>
 
@@ -194,6 +184,48 @@
                             {
                                 <option value="@item.Country_Id">@item.Name</option>
                             }
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Địa chỉ<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Address, new { @id = "txtAddress", maxlength = "200" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Ngày sinh</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.DateOfBirth, new
+                    {
+                        @id = "txtDateOfBirth",
+                        @Value = Model.DateOfBirth == DateTime.MinValue ? "" : Model.DateOfBirth.ToString("dd/MM/yyyy"),
+                        @class= "datetimepicker",
+                        @style="width:200px;"
+                    })
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Giới tính<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboSex">
+                        @foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.SexType))
+                        {
+                            <option @(item.CdVal == Model.Sex ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
                         }
                     </select>
                 </div>
@@ -361,7 +393,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <select id="cboLawerType" style="width:200px" >
+                        <select id="cboLawerType" style="width:200px">
                             @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "LAWER_TYPE"))
                             {
                                 <option @(item.CdVal == Model.Other_Type.ToString() ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
@@ -390,30 +422,7 @@
             </div>
         }
 
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Nhóm quyền</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <select id="cboGroupUser">
-                        <option value="-1">None</option>
-                        @foreach (var item in MemoryData.GetAllGroup())
-                        {
-                            if (item.Id == _groupId)
-                            {
-                                <option selected="selected" value="@item.Id">@item.Name</option>
-                            }
-                            else
-                            {
-                                <option value="@item.Id">@item.Name</option>
-                            }
-                        }
-                    </select>
 
-                </div>
-            </div>
-        </div>
     </div>
 
     <div class="form-group">
@@ -505,20 +514,15 @@
             return false;
         }
 
-        if ($("#txtAddress").val() === "") {
-            jError("Địa chỉ không được để trống!", "lỗi", function () {
-                $('#txtAddress').val('');
-                $('#txtAddress').focus();
-            });
-            return false;
-        }
+        //if ($("#txtAddress").val() === "") {
+        //    jError("Địa chỉ không được để trống!", "lỗi", function () {
+        //        $('#txtAddress').val('');
+        //        $('#txtAddress').focus();
+        //    });
+        //    return false;
+        //}
 
-		if (dateOfBirth === "" || dateOfBirth === window.maskDateTime_N0) {
-            jError("Ngày sinh không được để trống", "lỗi", function () {
-                $('#txtDateOfBirth').focus();
-            });
-            return false;
-		} else if (isValidDate_N0(dateOfBirth) === false) {
+        if (dateOfBirth != "" && dateOfBirth != window.maskDateTime_N0 && isValidDate_N0(dateOfBirth) === false) {
             jError("Ngày sinh không đúng định dạng (dd/mm/yyyy)!", "lỗi", function () {
                 $('#txtDateOfBirth').focus();
             });
@@ -626,7 +630,11 @@
 		formData.append('userInfo.Id', userId);
         formData.append('userInfo.FullName', fullName);
         formData.append('userInfo.Address', $("#txtAddress").val());
-		formData.append('userInfo.DateOfBirth', dateOfBirth);
+
+        if (dateOfBirth != "") {
+            formData.append('userInfo.DateOfBirth', dateOfBirth);
+        }
+		
 		formData.append('userInfo.Sex', sex);
 		formData.append('userInfo.Email', email);
         formData.append('userInfo.Phone', phone);

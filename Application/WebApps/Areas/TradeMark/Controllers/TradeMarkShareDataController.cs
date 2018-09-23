@@ -266,7 +266,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 decimal _operator_type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update);
                 if (RouteData.Values.ContainsKey("id1"))
                 {
-                    _operator_type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.View);
+                    _operator_type = Convert.ToDecimal(RouteData.Values["id1"].ToString());
                 }
                 ViewBag.Operator_Type = _operator_type;
 

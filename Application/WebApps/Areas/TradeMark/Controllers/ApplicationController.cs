@@ -107,6 +107,23 @@ namespace WebApps.Areas.TradeMark.Controllers
         }
 
         [HttpPost]
+        [Route("quan-ly-don/do-phan-loai-employee")]
+        public ActionResult AppHeader_Update_Employee(decimal p_Application_Header_Id, decimal p_employee, string p_note)
+        {
+            try
+            {
+                Application_Header_BL _obj_bl = new Application_Header_BL();
+                int _ck = _obj_bl.AppHeader_Update_Employee(p_Application_Header_Id, p_employee, p_note, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
+        [HttpPost]
         [Route("quan-ly-don/show-kh-confirm")]
         public ActionResult GetViewToCustomerConfirm(decimal p_application_header_id)
         {

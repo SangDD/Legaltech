@@ -5,7 +5,8 @@
 	using System.Web.Mvc;
 
 	using BussinessFacade;
-	using BussinessFacade.ModuleUsersAndRoles;
+    using BussinessFacade.ModuleMemoryData;
+    using BussinessFacade.ModuleUsersAndRoles;
 
 	using Common;
 
@@ -75,7 +76,8 @@
 				var groupBL = new GroupUserBL();
 				groupInfo.CreatedBy = SessionData.CurrentUser.Username;
 				result = groupBL.AddGroup(groupInfo);
-			}
+                MemoryData.ReloadGroup();
+            }
 			catch (Exception ex)
 			{
 				Logger.LogException(ex);
@@ -111,8 +113,9 @@
 				var groupBL = new GroupUserBL();
 				groupInfo.ModifiedBy = SessionData.CurrentUser.Username;
 				result = groupBL.EditGroup(groupInfo);
-			}
-			catch (Exception ex)
+                MemoryData.ReloadGroup();
+            }
+            catch (Exception ex)
 			{
 				Logger.LogException(ex);
 			}
@@ -129,8 +132,9 @@
 				var groupBL = new GroupUserBL();
 				var modifiedBy = SessionData.CurrentUser.Username;
 				result = groupBL.DeleteGroup(groupId, modifiedBy);
-			}
-			catch (Exception ex)
+                MemoryData.ReloadGroup();
+            }
+            catch (Exception ex)
 			{
 				Logger.LogException(ex);
 			}

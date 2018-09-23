@@ -80,7 +80,9 @@
 
                 AllCodeBL.LoadAllCodeToMemory();
                 #endregion
+
                 ReloadGroup();
+
                 ReloadCountry();
                 MenuBL.LoadAllMenuToMemory();
                 FunctionBL.LoadFunctionCollectionsToMemory();
@@ -299,7 +301,7 @@
             }
             catch (Exception ex)
             {
-             Logger.LogException(ex);
+                Logger.LogException(ex);
             }
         }
     }

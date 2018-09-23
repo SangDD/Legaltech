@@ -1,9 +1,14 @@
 ﻿@using BussinessFacade.ModuleMemoryData
 @using BussinessFacade.ModuleUsersAndRoles
 @using Common.CommonData
-@{ 
+@using ObjectInfos;
+@using System.Linq;
+@{
     ViewBag.Title = "Thêm mới người dùng";
     Layout = "~/ViewsShared/_Layout.cshtml";
+
+    List<AllCodeInfo> _lstUserType = MemoryData.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE");
+    _lstUserType.RemoveAll(m => m.CdVal == (Convert.ToDecimal(Common.CommonData.CommonEnums.UserType.SupperAdmin)).ToString());
 }
 
 <style>
@@ -18,7 +23,7 @@
         <img src="~/Content/icons/Body-icon-home.png" /> I
         Monitor
         <span class="red">></span>
-        <a href="/quan-ly-timesheet/danh-sach-timesheet">Quản lý timesheet</a>
+        <a href="/quan-ly-timesheet/danh-sach-timesheet"> Quản lý timesheet</a>
     </div>
 </div>
 <div class="divCover">
@@ -35,6 +40,55 @@
     </div>
 
     <div class="divCover">
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Loại người dùng<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboTypeAdd" style="width:200px" onchange="Choose_UserType()">
+                        @foreach (var item in _lstUserType)
+                        {
+                            <option value="@item.CdVal"> @item.Content </option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div>Trạng thái<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboStatusAdd">
+                        @foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.UserStatus))
+                        {
+                            <option value="@item.CdVal">
+                                @item.Content
+                            </option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Nhóm quyền<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboGroupUser">
+                        <option value="-1">None</option>
+                        @foreach (var item in MemoryData.GetAllGroup())
+                        {
+                            <option value="@item.Id"> @item.Name </option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
         <div class="div-search-ad">
             <div class="div-search-title">
                 <div>Tên đăng nhập<i class="redspan">(*)</i></div>
@@ -66,7 +120,7 @@
                 </div>
             </div>
             <div class="div-search-title">
-                <div>Mật khẩu nhắc lại <i class="redspan">(*)</i></div>
+                <div>Mật khẩu nhắc lại<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -75,42 +129,10 @@
             </div>
         </div>
 
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Địa chỉ<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txtAddress" maxlength="200" />
-                </div>
-            </div>
-        </div>
-
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Ngày sinh <i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txtDateOfBirthAdd" maxlength="250" class="datetimepicker" />
-                </div>
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Giới tính</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <select id="cboSexAdd">
-                        @foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.SexType))
-                        {
-                            <option value="@item.CdVal">@item.Content</option>
-                        }
-                    </select>
-                </div>
+        <div class="divCover cls_form_title">
+            <img src="/Content/icons/icon_info_24.png" />
+            <div class="cls_form_header">
+                Thông tin khác
             </div>
         </div>
 
@@ -143,7 +165,7 @@
                 </div>
             </div>
             <div class="div-search-title">
-                <div>Face </div>
+                <div>Face</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -185,7 +207,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Quốc tịch <i class="redspan">(*)</i></div>
+                <div>Quốc tịch<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -198,7 +220,9 @@
                             }
                             else
                             {
-                                <option value="@item.Country_Id">@item.Name</option>
+                                <option value="@item.Country_Id">
+                                    @item.Name
+                                </option>
                             }
                         }
                     </select>
@@ -208,27 +232,39 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Loại người dùng<i class="redspan">(*)</i></div>
+                <div>Địa chỉ</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <select id="cboTypeAdd" style="width:200px" onchange="Choose_UserType()">
-                        @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE"))
-                        {
-                            <option value="@item.CdVal">@item.Content</option>
-                        }
-                    </select>
+                    <input type="text" id="txtAddress" maxlength="200" />
                 </div>
             </div>
+        </div>
+
+
+        <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Trạng thái <i class="redspan">(*)</i></div>
+                <div>Ngày sinh</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <select id="cboStatusAdd">
-                        @foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.UserStatus))
+                    <input type="text" id="txtDateOfBirthAdd" maxlength="250" class="datetimepicker" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Giới tính</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboSexAdd">
+                        @foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.SexType))
                         {
-                            <option value="@item.CdVal">@item.Content</option>
+                            <option value="@item.CdVal">
+                                @item.Content
+                            </option>
                         }
                     </select>
                 </div>
@@ -238,7 +274,7 @@
         @*khách hàng*@
         <div class="div-search-ad clssDisplaynone" id="clsCustomer">
             <div class="div-search-title">
-                <div>Tên công ty <i class="redspan">(*)</i></div>
+                <div>Tên công ty<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -247,7 +283,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Ngành ngề chính  <i class="redspan">(*)</i></div>
+                <div>Ngành ngề chính<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -267,7 +303,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Chức vụ </div>
+                <div>Chức vụ</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -287,15 +323,20 @@
             </div>
 
             <div class="div-search-title">
-                <div>Contact Person </div>
+                <div>Contact Person</div>
             </div>
             <div class="div-search-content">
                 <div>
                     <select id="cboContact_Person">
                         <option value="Mr">Mr</option>
-                        <option value="Mr">Mrs</option>
-                        <option value="Mr">Ms</option>
-                        <option value="Mr">Miss</option>
+                        <option value="Mr">
+                            Mrs </ option >
+                        <option value="Mr">
+                            Ms
+                        </option>
+                        <option value="Mr">
+                            Miss
+                        </option>
                     </select>
                 </div>
             </div>
@@ -303,30 +344,38 @@
 
         <div class="div-search-ad clssDisplaynone" id="clsCustomer2">
             <div class="div-search-title">
-                <div>Lý do dùng </div>
+                <div>Lý do dùng</div>
             </div>
             <div class="div-search-content">
                 <div>
                     <select id="cboReasonSelect" style="width:200px">
-                        <option value="0">None</option>
+                        <option value="0">
+                            None
+                        </option>
                         @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "REASON_SELECT"))
                         {
-                            <option value="@item.CdVal">@item.Content</option>
+                            <option value="@item.CdVal">
+                                @item.Content
+                            </option>
                         }
                     </select>
                 </div>
             </div>
 
             <div class="div-search-title">
-                <div>Chính sách giá đặc biệt </div>
+                <div>Chính sách giá đặc biệt</div>
             </div>
             <div class="div-search-content">
                 <div>
                     <select id="cboRequestCredit">
-                        <option value="0">None</option>
+                        <option value="0">
+                            None
+                        </option>
                         @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "REQUEST_CREDIT"))
                         {
-                            <option value="@item.CdVal">@item.Content</option>
+                            <option value="@item.CdVal">
+                                @item.Content
+                            </option>
                         }
                     </select>
                 </div>
@@ -368,22 +417,7 @@
         </div>
 
 
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Nhóm quyền <i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <select id="cboGroupUser">
-                        <option value="-1">None</option>
-                        @foreach (var item in MemoryData.GetAllGroup())
-                        {
-                            <option value="@item.Id">@item.Name</option>
-                        }
-                    </select>
-                </div>
-            </div>
-        </div>
+
     </div>
 
     <div class="divCover">
@@ -434,7 +468,11 @@
         formData.append('userInfo.FullName', fullNameAdd);
         formData.append('userInfo.Address', $("#txtAddress").val());
         formData.append('userInfo.Password', passwordAdd);
-        formData.append('userInfo.DateOfBirth', dateOfBirthAdd);
+
+        if (dateOfBirthAdd != "") {
+            formData.append('userInfo.DateOfBirth', dateOfBirthAdd);
+        }
+
         formData.append('userInfo.Sex', sexAdd);
         formData.append('userInfo.Email', emailAdd);
         formData.append('userInfo.Phone', phoneAdd);
@@ -586,20 +624,15 @@
             return false;
         }
 
-        if ($("#txtAddress").val() === "") {
-            jError("Địa chỉ không được để trống!", "lỗi", function () {
-                $('#txtAddress').val('');
-                $('#txtAddress').focus();
-            });
-            return false;
-        }
+        //if ($("#txtAddress").val() === "") {
+        //    jError("Địa chỉ không được để trống!", "lỗi", function () {
+        //        $('#txtAddress').val('');
+        //        $('#txtAddress').focus();
+        //    });
+        //    return false;
+        //}
 
-        if (dateOfBirthAdd === "" || dateOfBirthAdd === window.maskDateTime_N0) {
-            jError("Ngày sinh không được để trống", "lỗi", function () {
-                $('#txtDateOfBirthAdd').focus();
-            });
-            return false;
-        } else if (isValidDate_N0(dateOfBirthAdd) === false) {
+        if (dateOfBirthAdd != "" && dateOfBirthAdd != window.maskDateTime_N0 && isValidDate_N0(dateOfBirthAdd) === false) {
             jError("Ngày sinh không đúng định dạng (dd/mm/yyyy)!", "lỗi", function () {
                 $('#txtDateOfBirthAdd').focus();
             });
