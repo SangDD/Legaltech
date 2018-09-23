@@ -43,8 +43,8 @@
 }
     <div class="div_full_100_area" style="border:solid 1px #ccc; width: calc(100% - 28px ); margin: 10px 0px 0px 0px">
         <div class="class_full_div_p class_text_center_bold">
-            DANH MỤC VÀ PHÂN NHÓM HÀNG HOÁ, DỊCH VỤ MANG NHÃN HIỆU
-            <a href="javascript:;" st="" class="icon icon-info" style="border:none" data-title="Gõ hàng hóa muốn đăng ký, chọn Class tương ứng"></a>
+            @WebApps.Resources.Resource.lblHeaderDanhMucVaPhanLoaiHangHoa
+            <a href="javascript:;" st="" class="icon icon-info" style="border:none" data-title="@WebApps.Resources.Resource.lblGohangHoaDKChonClass"></a>
         </div>
         <br />
 
@@ -60,7 +60,7 @@
 
                 <div class="div-search-title">
                     <div>
-                        Hàng hóa:
+                        @WebApps.Resources.Resource.lblHangHoa:
                     </div>
                 </div>
                 <div class="div-search-content" style="width:30%">
@@ -77,17 +77,17 @@
                 <div class="div-search-content">
                     <div style="display:inline-block">
                         <select id="cboClassInfo" style="width:350px">
-                            <option value=""> Tất cả </option>
+                            <option value=""> @WebApps.Resources.Resource.lblTatCa</option>
                             @for (int i = 1; i <= 45; i++)
                             {
                                 if (i < 10)
                                 {
-                                    SoNhom = "Nhóm 0" + i.ToString();
+                                    SoNhom = WebApps.Resources.Resource.lblNhom + "0" + i.ToString();
                                     maNhom="0" + i.ToString();
                                 }
                                 else
                                 {
-                                    SoNhom = "Nhóm " + i.ToString();
+                                    SoNhom = WebApps.Resources.Resource.lblNhom + " " + i.ToString();
                                     maNhom =  i.ToString();
                                 }
                                 <option value="@maNhom">@SoNhom</option>
@@ -95,7 +95,7 @@
                         </select>
 
 
-                        <input type="button" value="Thêm" class="btn" onclick="return funcAddDataRow();" style="width:75px;height:30px;    margin-left: 5px;" />
+                        <input type="button" value="@WebApps.Resources.Resource.lblThemDon" class="btn" onclick="return funcAddDataRow();" style="width:75px;height:30px;    margin-left: 5px;" />
                     </div>
 
                 </div>
@@ -134,13 +134,13 @@
 
         <div class="class_full_div_input">
             <div class="_table_display" id="divHangHoaThem" style="width: 100%">
-                <h4 class="h4_title">Hàng hóa đã thêm</h4>
+                <h4 class="h4_title">@WebApps.Resources.Resource.lblHangHoaDaThem</h4>
                 <table class="table-lst-data" id="tblClassInfo">
                     <thead>
                         <tr>
-                            <th style="width: 4%">STT</th>
-                            <th data-sort id="Username">Hàng hóa</th>
-                            <th style="width: 17%" data-sort>Mã nhóm</th>
+                            <th style="width: 4%">@WebApps.Resources.Resource.lblSTT</th>
+                            <th data-sort id="Username">@WebApps.Resources.Resource.lblHangHoa</th>
+                            <th style="width: 17%" data-sort>@WebApps.Resources.Resource.lblMaNhom</th>
                             <th style="width: 100px;"></th>
                             <th class="clssDisplaynone"></th>
                         </tr>
@@ -173,10 +173,10 @@
 
     $('#cboClassInfo').multipleSelect({
         filter: true,
-        noMatchesFound: "Không tìm thấy dữ liệu",
+        noMatchesFound: "@WebApps.Resources.Resource.lblKhongTimThayDL",
         single: true,
         isdatastring: false,
-        placeholder: 'Tìm kiếm nhóm'
+        placeholder: '@WebApps.Resources.Resource.lblTimKiemNhom'
     });
 
     function funIncreNumberRow(table_id) {

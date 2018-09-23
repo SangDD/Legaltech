@@ -2,30 +2,27 @@
     string href = "/Content/POA/VNmese translation POA (Blank).doc";
 }
 <div class="div_full_100_area">
-    @*@Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CÁC TÀI LIỆU CÓ TRONG ĐƠN")*@
 
     <div class="divCover cls_form_title">
         <img src="/Content/icons/info.png">
         <div class="cls_form_header">
-            CÁC TÀI LIỆU CÓ TRONG ĐƠN
-            <a href="javascript:;" st="" class="icon icon-info" style="border:none" data-title="Các tài liệu liên quan đính kèm trong đơn"></a>
+            @WebApps.Resources.Resource.lblTaiLieuTrongDon
+            <a href="javascript:;" st="" class="icon icon-info" style="border:none"  ></a>
         </div>
     </div>
-    @*<div class="class_full_div_p class_text_left_bold clssDisplaynone">Tài liệu tối thiểu</div>*@
-    @*<br />*@
 
     @* An di theo yc cua khach hang *@
     <div class="div-search-ad" style="display:none">
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
                 <input type="checkbox" maxlength="3" value="04NH_D_01" id="6_rdoToKhai" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                <label>Tờ khai, gồm</label>
+                <label>@WebApps.Resources.Resource.lblToKhaiGom</label>
                 <input style="width:100px;" type="hidden" id="6_txtToKhaiTrang" maxlength="50" placeholder="...." />
                 <label>......</label>
             </div>
         </div>
         <div class="div-search-title">
-            <div>trang:</div>
+            <div>@WebApps.Resources.Resource.lblBan:</div>
         </div>
         <div class="div-search-content">
             <div>
@@ -33,7 +30,7 @@
             </div>
         </div>
         <div class="div-search-title">
-            <div>bản (có danh mục và phân nhóm hàng hoá, dịch vụ mang nhãn hiệu)</div>
+            <div>@WebApps.Resources.Resource.lblBanCoDanhMucPhanLoaiHangHoa</div>
         </div>
         <div class="div-search-content">
             <div>
@@ -45,14 +42,14 @@
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
                 <input type="checkbox" maxlength="3" value="04NH_D_02" id="6_rdoMauNhanHieuTD" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                <label>Mẫu nhãn hiệu, gồm</label>
+                <label>@WebApps.Resources.Resource.lblMauNhanHieuGom</label>
             </div>
         </div>
         <div class="div-search-content">
             <div> <input style="width:160px" type="text" id="6_txtMauNhanHieuTD" value="9" maxlength="50" placeholder="6_txtMauNhanHieuTD" /></div>
         </div>
         <div class="div-search-title" style="width:412px">
-            <div>mẫu</div>
+            <div>@WebApps.Resources.Resource.lblMau</div>
         </div>
     </div>
 
@@ -62,7 +59,7 @@
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
                 <input type="checkbox" maxlength="3" value="04NH_D_03" id="6_rdoChungTuPhiLP" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                <label>Chứng từ phí, lệ phí</label>
+                <label>@WebApps.Resources.Resource.lblChungTuLePhi</label>
             </div>
         </div>
     </div>
@@ -72,8 +69,8 @@
         <div class="div-search-content">
             <div class="div-checkbox" style="width:600px">
                 <input type="checkbox" id="6_rdoGiayUyQuyen" name="6_rdoGiayUyQuyen" value="04NH_D_04" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                <label>Giấy uỷ quyền bằng tiếng</label> <a style="margin-top: -3px; border: none;padding-left: 20px;color: blue;" href="@href" target="_blank">Tải mẫu về <i class="fas fa-download" style="color: blue; font-size: 20px;"></i> </a>
-                <label style="font-style:italic;color:red">&nbsp;(Khách hàng điền đủ thông tin lên và tải lên)</label>
+                <label>@WebApps.Resources.Resource.lblGiayUyQuyen</label> <a style="margin-top: -3px; border: none;padding-left: 20px;color: blue;" href="@href" target="_blank">@WebApps.Resources.Resource.lblMauTaiVe <i class="fas fa-download" style="color: blue; font-size: 20px;"></i> </a>
+                <label style="font-style:italic;color:red">&nbsp;(@WebApps.Resources.Resource.lblKhacHangFillThongTin)</label>
 
             </div>
         </div>
@@ -90,7 +87,7 @@
         <div class="div-search-content">
             <div class="div-checkbox" style="width:342px">
                 <input type="checkbox" id="6_rdoBanGoc" value="04NH_D_05" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                <label>bản gốc</label>
+                <label>@WebApps.Resources.Resource.lblBanGoc</label>
             </div>
         </div>
     </div>
@@ -102,7 +99,7 @@
         <div class="div-search-content">
             <div class="div-checkbox" style="width:342px">
                 <input type="checkbox" id="6_rdoBanSao" value="04NH_D_06" />
-                <label>bản sao</label>
+                <label>@WebApps.Resources.Resource.lblBanSao</label>
             </div>
         </div>
     </div>
@@ -111,7 +108,7 @@
         <div class="div-search-content">
             <div class="div-radio" style="width:302px">
                 <input type="radio" name="bansao" value="04NH_D_07" id="6_rdoBanGocSeNopSau" onchange="return ShowHidenUpLoadRadioClick(this.id, this.id);" />
-                <label>bản gốc sẽ nộp sau</label>
+                <label>@WebApps.Resources.Resource.lblBanGocNopSau</label>
             </div>
         </div>
     </div>
@@ -120,9 +117,9 @@
     </div>
     <div class="div-search-ad" style="display:inline-flex;margin-left: 80px;">
         <div class="div-search-content">
-            <div class="div-radio" style="width:302px">
+            <div class="div-radio" style="width:350px">
                 <input type="radio" name="bansao" value="04NH_D_08" id="6_rdoBanGocDaNopTheoDonSo" onchange="return ShowHidenUpLoadRadioClick(this.id, this.id);" />
-                <label>bản gốc đã nộp theo đơn số <a href="javascript:;" st class="icon icon-info" style="border:none" data-title="Nếu Người nộp đơn không nhớ số đơn gốc thì có thể để trống, Luật sư sẽ điền thay sau"></a></label>
+                <label>@WebApps.Resources.Resource.lblBanGocNopTheoDonSo <a href="javascript:;" st class="icon icon-info" style="border:none" data-title="@WebApps.Resources.Resource.lblDatatitle04NHD08"></a></label>
             </div>
         </div>
         <div class="div-search-content">
@@ -136,14 +133,14 @@
         <div class="div-search-content">
             <div class="div-checkbox" style="width:342px">
                 <input type="checkbox" id="6_rdoBanDichTiengViet" value="04NH_D_09" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                <label>bản dịch tiếng Việt, gồm</label>
+                <label>@WebApps.Resources.Resource.lblBanDichTiengVietGom</label>
             </div>
         </div>
         <div class="div-search-content">
             <input type="text" id="6_txtBDTV_UQ" disabled="disabled" maxlength="3" placeholder="Số trang" />
         </div>
         <div class="div-search-title" style="width:100px">
-            <div>trang</div>
+            <div>@WebApps.Resources.Resource.lblTrang</div>
         </div>
     </div>
     <div style="margin-left: 40px;">
@@ -153,14 +150,14 @@
         <div class="div-search-content">
             <div class="div-checkbox">
                 <input type="checkbox" maxlength="3" value="04NH_D_10" id="6_rdoTLXNDPSD" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                <label>Tài liệu xác nhận được phép sử dụng các dấu hiệu đặc biệt (biểu tượng, cờ, huy hiệu, con dấu…), gồm</label>
+                <label>@WebApps.Resources.Resource.lblTaiLieuXacNhanDuoc</label>
             </div>
         </div>
         <div class="div-search-content">
             <input type="text" id="6_TLXNDPSD" disabled="disabled" maxlength="3" placeholder="Số trang" />
         </div>
         <div class="div-search-title" style="width:60px">
-            <div>trang</div>
+            <div>@WebApps.Resources.Resource.lblTrang</div>
         </div>
     </div>
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoTLXNDPSD")
@@ -168,7 +165,7 @@
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
                 <input type="checkbox" maxlength="3" value="04NH_D_11" id="6_rdoTLDKNH" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                <label>Tài liệu xác nhận quyền đăng ký nhãn hiệu</label>
+                <label>@WebApps.Resources.Resource.lblTaiLieuXacNhanQuyenDKNH</label>
             </div>
         </div>
     </div>
@@ -179,7 +176,7 @@
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
                 <input type="checkbox" maxlength="3" value="04NH_D_12" id="6_rdoTLThuHuongNK" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                <label>Tài liệu xác nhận thụ hưởng quyền đăng ký từ người khác</label>
+                <label>@WebApps.Resources.Resource.lblTaiLieuDKXacNhanThuHuong</label>
             </div>
         </div>
     </div>
@@ -189,24 +186,24 @@
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
                 <input type="checkbox" maxlength="3" value="04NH_D_13" id="6_rdoQuyCheSDNH" name="6_rdoQuyCheSDNH" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                <label>Quy chế sử dụng NH tập thể/chứng nhận, gồm</label>
+                <label>@WebApps.Resources.Resource.lblQuyCheSuDungNH</label>
             </div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" id="6_txtQuyCheSDNHTrang" disabled="disabled" style="width:160px" maxlength="3" placeholder="Số trang" />
+                <input type="text" id="6_txtQuyCheSDNHTrang" disabled="disabled" style="width:160px" maxlength="3" placeholder="@WebApps.Resources.Resource.lblTrang" />
             </div>
         </div>
         <div class="div-search-title" style="width:70px">
-            <div>trang </div>
+            <div>@WebApps.Resources.Resource.lblTrang </div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" id="6_txtQuyCheSDNHBan" disabled="disabled" maxlength="3" placeholder="Số bản" />
+                <input type="text" id="6_txtQuyCheSDNHBan" disabled="disabled" maxlength="3" placeholder="@WebApps.Resources.Resource.lblSoBan" />
             </div>
         </div>
         <div class="div-search-title" style="width:65px">
-            <div>bản</div>
+            <div>@WebApps.Resources.Resource.lblBan</div>
         </div>
     </div>
 
@@ -217,7 +214,7 @@
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
                 <input type="checkbox" maxlength="3" value="04NH_D_18" id="6_rdoBanDoKVDL" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                <label>Bản đồ khu vực địa lý</label>
+                <label>@WebApps.Resources.Resource.lblBanDoKhuVucDiaLy</label>
             </div>
         </div>
     </div>
@@ -228,7 +225,7 @@
         <div class="div-search-content">
             <div class="div-checkbox">
                 <input type="checkbox" maxlength="3" value="04NH_D_19" id="6_rdoVBuyBanTinh" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                <label>Văn bản của UBND tỉnh, TP trực thuộc TW cho phép sử dụng địa danh hoặc dấu hiệu khác chỉ nguồn gốc địa lý của đặc sản địa phượng </label>
+                <label>@WebApps.Resources.Resource.lblVanBanUBNDTinh</label>
             </div>
         </div>
     </div>
@@ -240,7 +237,7 @@
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
                 <input type="checkbox" maxlength="3" value="04NH_D_20" id="6_rdoTLKhaiTTBS" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                <label>Có tài liệu bổ trợ khai tại trang bổ sung</label>
+                <label>@WebApps.Resources.Resource.lblCoTaiLieuBoTro</label>
             </div>
         </div>
     </div>
@@ -250,7 +247,7 @@
         <div class="div-search-content">
             <div class="div-checkbox" style="width:382px">
                 <input type="checkbox" value="04NH_D_22" name="6_rdoTLK" id="6_rdoTLK" />
-                <label>Tài liệu khác</label>
+                <label>@WebApps.Resources.Resource.lblTaiLieuKhac</label>
             </div>
         </div>
     </div>

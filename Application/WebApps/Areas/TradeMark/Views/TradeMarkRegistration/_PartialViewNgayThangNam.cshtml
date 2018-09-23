@@ -19,19 +19,19 @@
     }
 }
 <div class="div_full_100_area">
-    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CAM KẾT CỦA CHỦ ĐƠN")
+    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblCamKetCuaChuDon.ToUpper())
     <div style="text-align: center;">
-        <i style="text-align: center;">Tôi cam đoan mọi thông tin trong tờ khai trên đây là trung thực, đúng sự thật và hoàn toàn chịu trách nhiệm trước pháp luật.</i>
+        <i style="text-align: center;">@WebApps.Resources.Resource.lblToiCamdoan.</i>
     </div>
     <br />
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Khai tại:</div>
+            <div>@WebApps.Resources.Resource.lblKhaiTai:</div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" @disableView style="margin-left: 1px;" value="@KhaiTai" placeholder="Khai tại" maxlength="200" id="txtKhaiTai" />
+                <input type="text" @disableView style="margin-left: 1px;" value="@KhaiTai" placeholder="@WebApps.Resources.Resource.lblKhaiTai" maxlength="200" id="txtKhaiTai" />
             </div>
         </div>
     </div>
@@ -39,10 +39,8 @@
 
     <div class="class_full_div_input">
         <div class="div-search-ad">
-
-
             <div class="div-search-title">
-                <div>Ngày khai:</div>
+                <div>@WebApps.Resources.Resource.lblNgayKhai:</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -78,7 +76,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Tháng:</div>
+                <div>@WebApps.Resources.Resource.lblThang:</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -113,7 +111,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Năm:</div>
+                <div>@WebApps.Resources.Resource.lblNam:</div>
             </div>
             <div class="div-search-content">
                 <div>

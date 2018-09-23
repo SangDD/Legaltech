@@ -16,7 +16,7 @@
     }
 </style>
 <div class="div_full_100_area">
-    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CÁC TÀI LIỆU KHÁC")
+    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblCacTaiLieuKhac.ToUpper())
     @{
         if (lstDocOther.Count > 0)
         {
