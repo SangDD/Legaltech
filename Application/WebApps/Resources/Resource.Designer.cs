@@ -781,6 +781,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to sản phẩm.
+        /// </summary>
+        public static string lblSanPham {
+            get {
+                return ResourceManager.GetString("lblSanPham", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Số bản.
         /// </summary>
         public static string lblSoBan {

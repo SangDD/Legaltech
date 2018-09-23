@@ -240,7 +240,7 @@
             }
 
             <div class="div_full_100_area">
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN KHÁC")
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblChuDonKhac.ToUpper())
                 <div id="divAddNewChuDon01" @displayChuDon1>
                     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
                 </div>
@@ -408,7 +408,7 @@
             <div class="div-search-ad">
                 <div class="div-search-title">
                     <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" @styleNguonGocDL class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" placeholder="8_ckbNguonGocDiaLy" id="8_ckbNguonGocDiaLy" />
-                    <div>@WebApps.Resources.Resource.lblNguonGocDiaLy:</div>
+                    <div style="width:250px">@WebApps.Resources.Resource.lblNguonGocDiaLy:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -468,7 +468,7 @@
                 @*//07/09/2018*@
                 <div class="div-search-content">
                     <div>
-                        <label style="width:120px;display:inline-block ;border: 1px solid #aaa; padding-top: 5px;  padding-left: 2px;">@WebApps.Resources.Resource.lblMaDaiDien:</label>
+                        <label style="width:180px;display:inline-block ;border: 1px solid #aaa; padding-top: 5px;  padding-left: 2px;">@WebApps.Resources.Resource.lblMaDaiDien:</label>
                         <input style="display:inline-block" type="text" placeholder="@WebApps.Resources.Resource.lblMaDaiDien" value="@objAppHeaderInfo.MADDSHCN" id="txtMADDSHCN" />
                     </div>
                 </div>

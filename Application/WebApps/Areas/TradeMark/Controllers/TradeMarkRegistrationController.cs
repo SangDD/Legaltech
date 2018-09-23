@@ -389,6 +389,7 @@
         {
             try
             {
+                string language = AppsCommon.GetCurrentLang();
                 AppInfoExport appInfo = new AppInfoExport();
                 string actionView = pInfo.ActionView;
                 if (actionView == "V")
@@ -396,7 +397,6 @@
                     if (pInfo.Appcode == TradeMarkAppCode.AppCodeDangKynhanHieu)
                     {
                         var objBL = new AppDetail04NHBL();
-                        string language = AppsCommon.GetCurrentLang();
                         var ds04NH = objBL.AppTM04NHGetByID(pInfo.Id, language, (int)pInfo.Status);
                         if (ds04NH != null && ds04NH.Tables.Count == 5)
                         {
@@ -413,8 +413,17 @@
                 //   string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/TM04Nh_vi.doc");
                 // Fill export_header
                 string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
-                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + pInfo.Appcode + _datetimenow + ".pdf");
-                SessionData.CurrentUser.FilePreview = "/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + pInfo.Appcode + _datetimenow + ".pdf";
+                string fileName = "";
+                if (language == Language.LangVI)
+                {
+                    fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + pInfo.Appcode + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + pInfo.Appcode + _datetimenow + ".pdf";
+                }
+                else
+                {
+                    fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Request_for_trademark_registration_en_exp_" + pInfo.Appcode + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "Request_for_trademark_registration_en_exp_" + pInfo.Appcode + _datetimenow + ".pdf";
+                }
                 // Fill export_detail  
                 appInfo.Status = 254;
                 appInfo.Status_Form = 252;
@@ -464,7 +473,7 @@
                     }
                     foreach (AppClassDetailInfo item in _listApp.OrderBy(m=>m.Code))
                     {
-                        appInfo.strListClass += "Nhóm " + item.Code.Substring(0,2) + ": " + item.Textinput.Trim().Trim(',') + " (" + (item.IntTongSanPham < 10 ? "0" + item.IntTongSanPham.ToString() : item.IntTongSanPham.ToString()) + " sản phẩm)" + "\n";
+                        appInfo.strListClass += Resources.Resource.lblNhom + item.Code.Substring(0,2) + ": " + item.Textinput.Trim().Trim(',') + " (" + (item.IntTongSanPham < 10 ? "0" + item.IntTongSanPham.ToString() : item.IntTongSanPham.ToString()) + " " + Resources.Resource.lblSanPham + " )" + "\n";
                     }
                 }
                 if (lstDocOther != null)
@@ -660,7 +669,14 @@
                 _lst.Add(appInfo);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<AppInfoExport>(_lst, false);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
-                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NH.rpt"));
+                if (language == Language.LangVI)
+                {
+                    oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NH.rpt"));
+                }
+                else
+                {
+                    oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NH_EN.rpt"));
+                }
 
                 CrystalDecisions.CrystalReports.Engine.PictureObject _pic01;
                 _pic01 = (CrystalDecisions.CrystalReports.Engine.PictureObject)oRpt.ReportDefinition.Sections[0].ReportObjects["Picture1"];
