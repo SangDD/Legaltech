@@ -12,6 +12,7 @@ using WebApps.CommonFunction;
 using WebApps.Session;
 using Common.Extensions;
 using BussinessFacade;
+using Common.CommonData;
 
 namespace WebApps.Areas.TradeMark.Controllers
 {
@@ -247,7 +248,7 @@ namespace WebApps.Areas.TradeMark.Controllers
             return View("/Areas/TradeMark/Views/Shared/AppDetail/AppDetails.cshtml");
         }
 
-        [Route("todo-details/{id}")]
+        [Route("todo-details/{id}/{id1}")]
         public ActionResult Todo_Details()
         {
             try
@@ -260,6 +261,14 @@ namespace WebApps.Areas.TradeMark.Controllers
                 {
                     p_case_code = RouteData.Values["id"].ToString();
                 }
+
+                // action là view hay sửa
+                decimal _operator_type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update);
+                if (RouteData.Values.ContainsKey("id1"))
+                {
+                    _operator_type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.View);
+                }
+                ViewBag.Operator_Type = _operator_type;
 
                 Application_Header_BL _objBl = new Application_Header_BL();
                 ApplicationHeaderInfo _ApplicationHeaderInfo = _objBl.GetApp_By_Case_Code(p_case_code, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());

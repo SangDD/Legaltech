@@ -624,9 +624,6 @@
 
                 _lst.Add(app_Detail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLB01_SDD_Info>(_lst, false);
-                //string _strCml = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD + DateTime.Now.ToString("ddMMyyyy") + ".xml"); 
-                //_ds_all.WriteXml(_strCml, XmlWriteMode.WriteSchema);
-
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
                 oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_PLB01SDD.rpt"));
 

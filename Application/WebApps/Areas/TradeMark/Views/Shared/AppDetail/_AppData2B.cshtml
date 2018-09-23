@@ -1,6 +1,7 @@
 ﻿@using ObjectInfos
 @using ObjectInfos.ModuleTrademark
 @using Common.Extensions;
+@using Common.CommonData;
 @{
     List<App_Class_Info> _list = new List<App_Class_Info>();
     if (ViewBag.ListAppClass != null)
@@ -93,7 +94,7 @@
 </style>
 <script src="~/Scripts/ScriptsLoadClassInfo.js"></script>
 <div class="d-popup-container" id="pop-sua-doi_dk"></div>
-<input type="hidden" id="txtAppCode" value='@Common.TradeMarkAppCode.AppCodeDangKyQuocTeNH' />
+<input type="hidden" id="txtAppCode" value='@TradeMarkAppCode.AppCodeDangKyQuocTeNH' />
 <div class="div-search">
    
 

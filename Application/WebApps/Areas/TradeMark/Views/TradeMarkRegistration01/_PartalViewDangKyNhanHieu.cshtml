@@ -1,6 +1,7 @@
 ﻿@using ObjectInfos
 @using ObjectInfos.ModuleTrademark
 @using Common.Extensions;
+@using Common.CommonData;
 @{
     ViewBag.Title = "chi tiết đơn đăng ký nhãn hiệu";
     Layout = "~/ViewsShared/_Layout.cshtml";
@@ -103,7 +104,7 @@
 
 <div class="d-popup-container" id="pop-sua-doi_dk"></div>
 
-<input type="hidden" id="txtAppCode" value='@Common.TradeMarkAppCode.AppCodeDangKyQuocTeNH' />
+<input type="hidden" id="txtAppCode" value='@TradeMarkAppCode.AppCodeDangKyQuocTeNH' />
 
 
 <div class="div-search ">

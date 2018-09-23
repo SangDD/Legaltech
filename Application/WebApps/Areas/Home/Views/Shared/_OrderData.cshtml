@@ -7,7 +7,7 @@
     {
         _list_data = ViewBag.Obj;
     }
- 
+
 }
 
 <div>
@@ -15,12 +15,12 @@
         <thead>
             <tr>
                 <th class="class30">STT</th>
-                <th class="class200"   id="CASE_CODE"  onclick="OrderSortByCol('CASE_CODE')">Case code</th>
+                <th class="class200" id="CASE_CODE" onclick="OrderSortByCol('CASE_CODE')">Case code</th>
                 <th class="class250">Nội dung</th>
-                <th class="class150" id='REQUEST_BY_NAME'  onclick="OrderSortByCol('REQUEST_BY_NAME')">Người gửi</th>
-                <th class="class250"  id='REQUEST_DATE'  onclick="OrderSortByCol('REQUEST_DATE')">Thời gian gửi</th>
-                <th class="class150" id='PROCESSOR_BY_NAME'  onclick="OrderSortByCol('PROCESSOR_BY_NAME')">Người xử lý</th>
-                <th class="class250"  id='PROCESSOR_DATE'  onclick="OrderSortByCol('PROCESSOR_DATE')">Thời gian xử lý</th>
+                <th class="class150" id='REQUEST_BY_NAME' onclick="OrderSortByCol('REQUEST_BY_NAME')">Người gửi</th>
+                <th class="class250" id='REQUEST_DATE' onclick="OrderSortByCol('REQUEST_DATE')">Thời gian gửi</th>
+                <th class="class150" id='PROCESSOR_BY_NAME' onclick="OrderSortByCol('PROCESSOR_BY_NAME')">Người xử lý</th>
+                <th class="class250" id='PROCESSOR_DATE' onclick="OrderSortByCol('PROCESSOR_DATE')">Thời gian xử lý</th>
             </tr>
         </thead>
         <tbody>
@@ -31,11 +31,33 @@
                     <tr>
                         <td class="tdcenteralign">@item.STT</td>
                         <td class="tdleftalign">@item.CASE_CODE</td>
-                        <td class="tdleftalign">@item.CONTENT</td>
+                        @*<td class="tdleftalign">@item.CONTENT</td>*@
+                        @if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.Billing))
+                        {
+                            <td class="tdleftalign">
+                                <a href="javascript:;" onclick="GetView2Action_Billing('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CONTENT</a>
+                            </td>
+                        }
+                        else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.App))
+                        {
+                            <td class="tdleftalign">
+                                <a href="/trade-mark-share-data/todo-details/@item.CASE_CODE/0" data-title="Xem chi tiết">@item.CONTENT</a>
+                            </td>
+                        }
+                        else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.TimeSheet))
+                        {
+                            <td class="tdleftalign">
+                                <a href="javascript:;" onclick="GetView2Action_TimeSheet('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CONTENT</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="tdleftalign">@item.CONTENT</td>
+                        }
                         <td class="tdleftalign">@item.REQUEST_BY_NAME</td>
                         <td class="tdcenteralign">
                             @item.REQUEST_DATE.ToDateStringN0()
-                         </td>
+                        </td>
                         <td class="tdleftalign">@item.PROCESSOR_BY_NAME</td>
                         <td class="tdcenteralign">
                             @item.PROCESSOR_DATE.ToDateStringN0()
@@ -62,4 +84,28 @@
     $(function () {
         OrderChangeIConSortWhenSortColumns();
     });
+
+    function GetView2View_TimeSheet(_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        try {
+            var url = "/quan-ly-timesheet/danh-sach-timesheet/show-view-by-case-code/" + _case_code;
+            window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
+
+    function GetView2View_Billing(_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        try {
+            var url = "/quan-ly-billing/danh-sach-billing/show-view-billing-by-code?case_code=" + _case_code;
+            window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
 </script>

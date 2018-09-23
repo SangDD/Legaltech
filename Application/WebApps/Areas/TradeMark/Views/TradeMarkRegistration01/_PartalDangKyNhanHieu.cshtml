@@ -1,5 +1,6 @@
 ﻿@using ObjectInfos
 @using BussinessFacade.ModuleMemoryData
+@using Common.CommonData;
 @{
     ViewBag.Title = "Tờ khai";
     Layout = "~/ViewsShared/_Layout.cshtml";
@@ -9,16 +10,15 @@
         _list = ViewBag.ListAppClass;
     }
     List<AppDetail04NHInfo> _List04nhdetail = new List<AppDetail04NHInfo>();
-    if (ViewBag.ListAppDetail04NHInfo != null)
-    {
-        _Li
-<a href="~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartalDangKyNhanHieu.cshtml">~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartalDangKyNhanHieu.cshtml</a>st04nhdetail = ViewBag.ListAppDetail04NHInfo;
-    }
+    //    if (ViewBag.ListAppDetail04NHInfo != null)
+    //    {
+    //        _Li
+    //< a href = "~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartalDangKyNhanHieu.cshtml" > ~/ Areas / TradeMark / Views / TradeMarkRegistration01 / _PartalDangKyNhanHieu.cshtml </ a > st04nhdetail = ViewBag.ListAppDetail04NHInfo;
+    //    }
+
     string _appcode = ViewBag.AppCode;
     ViewBag.Isdisable = 1;
 
-    //SysAppFixChargeInfo _Appfixcharge = BussinessFacade.ModuleMemoryData.MemoryData.c_dic_FeeByApp_Fix[_appcode];
-    //SysAppFixChargeInfo _Appfixcharge = new SysAppFixChargeInfo();
 }
 <script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
 <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
@@ -62,7 +62,7 @@
 
 <div class="d-popup-container" id="pop-sua-doi_dk"></div>
 
-<input type="hidden" id="txtAppCode" value='@Common.TradeMarkAppCode.AppCodeDangKyQuocTeNH' />
+<input type="hidden" id="txtAppCode" value='@TradeMarkAppCode.AppCodeDangKyQuocTeNH' />
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
@@ -71,18 +71,18 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-               THÔNG TIN CƠ BẢN
+                THÔNG TIN CƠ BẢN
             </div>
         </div>
-        
+
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio" style="width:400px">
                     <input type="radio" name="rad_thanhviennghidinhthu" value="TVND" id="_01_rdnghidinh_madrid" placeholder="_01_rdnghidinh_madrid" />
-                    <label>Chỉ là Thành viên Nghị định thư Madrid</label> 
+                    <label>Chỉ là Thành viên Nghị định thư Madrid</label>
                 </div>
             </div>
-        
+
             <div class="div-search-content">
                 <div class="div-radio">
                     <input type="radio" name="rad_thanhviennghidinhthu" value="TVND_TU" id="_01_rdnghidinh_thoa_uoc_madrid" placeholder="_01_rdnghidinh_thoa_uoc_madrid" />
@@ -123,10 +123,10 @@
                             <label>Đơn đăng ký nhãn hiệu cơ sở </label>
                         </div>
                     </div>
-                   
+
                 </div>
                 <div class="div-search-ad">
-                    
+
                     <div class="div-search-content">
                         <div class="div-radio">
                             <input type="radio" name="_01_rad_DonDkOrGiayDK" value="GIAYDK" id="_01_rad_GiayDK" placeholder="01_rad_GiayDK" />
@@ -166,7 +166,7 @@
         </div>
 
 
- 
+
 
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
@@ -174,11 +174,11 @@
                 2.CHỦ ĐƠN
             </div>
         </div>
-            
+
         <div id="div_chudon2a">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "_1")
         </div>
-        
+
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
@@ -192,19 +192,19 @@
         <div id="div_appclass_2a">
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialTMAddAppClass.cshtml")
         </div>
-        
 
-            <div class="divCover cls_form_title">
-                <img src="~/Content/icons/info.png" />
-                <div class="cls_form_header">
-                    4.TÊN VÀ MÃ NƯỚC CHỈ ĐỊNH ĐĂNG KÝ QUỐC TẾ NHÃN HIỆU
-                </div>
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                4.TÊN VÀ MÃ NƯỚC CHỈ ĐỊNH ĐĂNG KÝ QUỐC TẾ NHÃN HIỆU
             </div>
+        </div>
 
 
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDanhSachQuocGiaDKQTNH.cshtml", "_4")
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDanhSachQuocGiaDKQTNH.cshtml", "_4")
 
-            @*<div class="divCover cls_form_title">
+        @*<div class="divCover cls_form_title">
                 <img src="~/Content/icons/info.png" />
                 <div class="cls_form_header">
                     5.PHÍ, LỆ PHÍ
@@ -212,25 +212,25 @@
             </div>*@
 
 
-            <div class="div-search-ad" style="display:none">
-                <div class="div-search-title">
-                    <div style="width:450px"> Phí dịch vụ làm thủ tục đăng ký quốc tế nhãn hiệu đã nộp kèm theo: </div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="_5_txtLePhiDangKy" maxlength="20" id="_5_txtLePhiDangKy" onkeypress="return isNumberKey(event);" onkeyup="jsFormatNumber(this.value, this.id)" value="2,000,000" />
-                    </div>
+        <div class="div-search-ad" style="display:none">
+            <div class="div-search-title">
+                <div style="width:450px"> Phí dịch vụ làm thủ tục đăng ký quốc tế nhãn hiệu đã nộp kèm theo: </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="_5_txtLePhiDangKy" maxlength="20" id="_5_txtLePhiDangKy" onkeypress="return isNumberKey(event);" onkeyup="jsFormatNumber(this.value, this.id)" value="2,000,000" />
                 </div>
             </div>
+        </div>
 
 
 
-            <div class="divCover cls_form_title">
-                <img src="~/Content/icons/info.png" />
-                <div class="cls_form_header">
-                    5.CÁC TÀI LIỆU CÓ TRONG ĐƠN
-                </div>
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                5.CÁC TÀI LIỆU CÓ TRONG ĐƠN
             </div>
+        </div>
 
 
 
@@ -263,7 +263,7 @@
         }
         @*Bản dịch tiếng việt*@
 
-     
+
 
         @*9 bản gốc*@
 
@@ -419,14 +419,14 @@
 
         </div>
 
-            <div class="class_save">
-                <div class="classGuiDon">
-                    <input type="button" value="Gửi đơn" id="btnGuiDon" class="btn class_37" />
-                </div> <div class="classLuuTam">
-                    <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn class_37" />
-                </div>
+        <div class="class_save">
+            <div class="classGuiDon">
+                <input type="button" value="Gửi đơn" id="btnGuiDon" class="btn class_37" />
+            </div> <div class="classLuuTam">
+                <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn class_37" />
             </div>
-</fieldset>
+        </div>
+    </fieldset>
 </div>
 
 <input type="hidden" id="txtDateTime" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
@@ -451,7 +451,7 @@
             noMatchesFound: "Không tìm thấy dữ liệu",
             single: true,
             isdatastring: false,
-            width:200,
+            width: 200,
             placeholder: 'Tìm kiếm số đơn'
         });
 
@@ -503,7 +503,7 @@
 
     $("#btnLuuTam").click(function () {
         try {
-          
+
             var formData = new FormData();
             var v_AppCode = $("#txtAppCode").val();
             var cbo_04nh_data = $("#cbo_04nh_data");
@@ -545,7 +545,7 @@
                 _1_txtNgayNopDon.focus();
                 return false;
             }
- 
+
             if (_ArrGroupAppClass.length == 0 && _EditArryAppClass.length == 0) {
                 showError('Chưa chọn nhóm hàng hóa dịch vụ!');
                 $("#txtTenHangHoa").focus();
@@ -709,15 +709,13 @@
                 return false;
             }
 
-            if (cbo_04nh_data.val() == "" || cbo_04nh_data.val() == null )
-            {
+            if (cbo_04nh_data.val() == "" || cbo_04nh_data.val() == null) {
                 showError('Chưa chọn số đơn!');
                 $("#cbo_04nh_data").multipleSelect("focus");
                 return false;
             }
             var _1_txtNgayNopDon = $("#_1_txtNgayNopDon");
-            if (_1_txtNgayNopDon.val() == "" || _1_txtNgayNopDon.val() == "__/__/____")
-            {
+            if (_1_txtNgayNopDon.val() == "" || _1_txtNgayNopDon.val() == "__/__/____") {
                 showError('Ngày nộp đơn không được phép để trống!');
                 _1_txtNgayNopDon.focus();
                 return false;
@@ -728,11 +726,10 @@
             //    $("#Nvs001txt_search_app_code").focus();
             //    return false;
             //}
-            if (_ArrGroupAppClass.length == 0)
-            {
+            if (_ArrGroupAppClass.length == 0) {
                 showError('Chưa chọn nhóm hàng hóa dịch vụ!');
                 $("#txtTenHangHoa").focus();
-                  return false;
+                return false;
             }
             if (funcThongTinChuDonNguoiDaiDien(formData, "_1") != true) {
                 return false;
@@ -756,16 +753,14 @@
             var _listNational = $("#_4_cboNational01").val() + "," + $("#_4_cboNational02").val() + "," + $("#_4_cboNational03").val() + "," + $("#_4_cboNational04").val()
                 + "," + $("#_4_cboNational05").val() + "," + $("#_4_cboNational06").val() + "," + $("#_4_cboNational07").val() + "," + $("#_4_cboNational08").val();
             _listNational = _listNational.replace(/null/g, '');
-            if (_listNational.replace(/,/g, '') == "")
-            {
+            if (_listNational.replace(/,/g, '') == "") {
                 showError('Phải chọn ít nhất 1 nước chỉ định đăng ký nhãn hiệu!');
                 $("#_4_cboNational01").multipleSelect("focus");
-                  return false;
+                return false;
             }
             var _arrayNational = _listNational.split(",");
             _arrayNational = RepushArray(_arrayNational);
-            if (CheckArrDuplicate(_arrayNational) == true)
-            {
+            if (CheckArrDuplicate(_arrayNational) == true) {
                 showError('Có ít nhất 2 lựa chọn mã nước trùng nhau, vui lòng kiểm tra lại!');
                 $("#_4_cboNational01").focus();
                 return false;
@@ -848,8 +843,7 @@
     });
 
     // lấy thông tin chi tiết đơn
-    function funcGetAppDetail(formData)
-    {
+    function funcGetAppDetail(formData) {
         try {
             var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
             formData.append("pDetail.THANHVIEN_ND_TC", $("input[name='rad_thanhviennghidinhthu']:checked").val());
@@ -887,14 +881,14 @@
             formData.append("pDetail.COUNTRY_ID06_TEXT", $('#_4_cboNational06 option:selected').text());
             formData.append("pDetail.COUNTRY_ID07_TEXT", $('#_4_cboNational07 option:selected').text());
             formData.append("pDetail.COUNTRY_ID08_TEXT", $('#_4_cboNational08 option:selected').text());
-            
 
-          
+
+
 
 
             formData.append("pDetail.LEPHI", $("#_5_txtLePhiDangKy").val());
             formData.append("pDetail.PAGE_REMAIN", $("#_8_txtPageRemain").val());
-            
+
 
             // lấy thông tin chủ đơn
 
@@ -982,7 +976,7 @@
             //5 bản sao giấy ck dăng ký nh cs
             reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanSaoGiayDKNHCS", "4");
 
-            // bản cam kết sẽ sử dụng NH  
+            // bản cam kết sẽ sử dụng NH
             reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_CamKetSuDungNH", "5");
 
             //7 giay quy quyen bang tieng
@@ -992,7 +986,7 @@
             // 8 bản dịch tiếng việt
             reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanDichTiengViet", "7");
             formData.append("pAppDocumentInfo[7].CHAR01", $("#txt_6_Doc_BanDichTiengViet").val());
-            
+
             // 9 bản gốc
             reponse = funcGetCheckValueAndText(formData, "ckb_6_DocBanGoc", "8");
 
@@ -1002,7 +996,7 @@
             // 11 bản sao nộp sau
             reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanGocSeNopSau", "10");
 
-            // 12   bản gốc đã nộp theo số 
+            // 12   bản gốc đã nộp theo số
             reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_BanGocDaNopTheoDonSo", "11");
             formData.append("pAppDocumentInfo[11].CHAR01", $("#txt_6_Doc_BanGocDaNopTheoDonSo").val());
 
@@ -1046,9 +1040,8 @@
     }
 
     /// xóa những bản ghi trống
-    function RepushArray(_array)
-    {
-       var index = _array.length - 1;
+    function RepushArray(_array) {
+        var index = _array.length - 1;
         while (index >= 0) {
             if (_array[index] === '') {
                 _array.splice(index, 1);
@@ -1075,10 +1068,9 @@
             return false;
         }
     }
- 
+
     // lấy thông tin đơn 2a fill vào các trường
-    function chooseApp2a(_id)
-    {
+    function chooseApp2a(_id) {
         try {
             var imgMauNhanHieu = $("#imgMauNhanHieu");
             var _1_txtNgayNopDon = $("#_1_txtNgayNopDon");
@@ -1091,8 +1083,8 @@
                 url: '/trade-mark-share-data/get-tm04nh-info',
                 type: 'POST',
                 data: { pAppHeaderId: _id, p_idchudon: "_1", p_iddaidienchudon: "_2", p_idappclass: "" },
-               // processData: false, contentType: false, traditional: true, dataType: "json",
-              //  enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                // processData: false, contentType: false, traditional: true, dataType: "json",
+                //  enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.success >= 0) {
                         imgMauNhanHieu.attr("src", data.LogoURL);
@@ -1153,7 +1145,7 @@
             //    showError('Mẫu nhãn hiệu không được để trống');
             //    $("#pfile_6_rdoMauNhanHieu").focus();
             //    return false;
-       //     }
+            //     }
 
             if (_01_rad_DonDkOrGiayDK === "" || _01_rad_DonDkOrGiayDK == undefined) {
                 showError('Phải chọn ít nhất 1 loại giấy đăng kỹ nhãn hiệu cơ sở!');
@@ -1308,7 +1300,7 @@
         } catch (e) {
         }
     }
-    
+
 
     //function FuncChooseResultFile(p_AfterID) {
     //    try {

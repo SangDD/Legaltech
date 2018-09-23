@@ -1,6 +1,7 @@
 ﻿@using ObjectInfos
 @using ObjectInfos.ModuleTrademark
 @using Common.Extensions;
+@using Common.CommonData;
 @{
     ViewBag.Title = "Sửa đăng ký nhãn hiệu";
     Layout = "~/ViewsShared/_Layout.cshtml";
@@ -114,7 +115,7 @@
 
 <div class="d-popup-container" id="pop-sua-doi_dk"></div>
 
-<input type="hidden" id="txtAppCode" value='@Common.TradeMarkAppCode.AppCodeDangKyQuocTeNH' />
+<input type="hidden" id="txtAppCode" value='@TradeMarkAppCode.AppCodeDangKyQuocTeNH' />
 
 
 <div class="div-search ">
@@ -192,24 +193,24 @@
                         <div>
                             @*<input type="text" id="cbo_04nh_data" placeholder="cbo_04nh_data" maxlength="100" />*@
                             @*<select id="cbo_04nh_data" onchange="chooseApp2a($(this).val())">
-                                @foreach (var item in _List04nhdetail)
-                                {
-                                    if (item.App_Header_Id.ToString() == objAppHeaderInfo.REF_APPNO)
+                                    @foreach (var item in _List04nhdetail)
                                     {
-                                        <option selected="selected" value="@item.App_Header_Id">
-                                            @item.Appno
-                                        </option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@item.App_Header_Id">
-                                            @item.Appno
-                                        </option>
-                                    }
+                                        if (item.App_Header_Id.ToString() == objAppHeaderInfo.REF_APPNO)
+                                        {
+                                            <option selected="selected" value="@item.App_Header_Id">
+                                                @item.Appno
+                                            </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.App_Header_Id">
+                                                @item.Appno
+                                            </option>
+                                        }
 
-                                }
-                            </select>*@
-                           <input type="text" id="cbo_04nh_data" placeholder="cbo_04nh_data" readonly  value="@objAppHeaderInfo.REF_APPNO" style="display:none"/>
+                                    }
+                                </select>*@
+                            <input type="text" id="cbo_04nh_data" placeholder="cbo_04nh_data" readonly value="@objAppHeaderInfo.REF_APPNO" style="display:none" />
                             <input type="text" id="cbo_04nh_data_text" placeholder="cbo_04nh_data" readonly value="@objAppHeaderInfo.REF_APPNO_TEXT" />
 
                         </div>
@@ -220,16 +221,16 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input value="@objAppHeaderInfo.Send_Date.ToString("dd/MM/yyyy")" type="text" class="datepicker" id="_1_txtNgayNopDon" placeholder="_1_txtNgayNopDon" maxlength="10" readonly/>
+                            <input value="@objAppHeaderInfo.Send_Date.ToString("dd/MM/yyyy")" type="text" class="datepicker" id="_1_txtNgayNopDon" placeholder="_1_txtNgayNopDon" maxlength="10" readonly />
                         </div>
                     </div>
                 </div>
             </div>
 
-            </div>
+        </div>
 
 
-     
+
 
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialTMAddAppClass.cshtml")
 
@@ -297,8 +298,8 @@
             string _id = "";
             string _value = "";
             string _model = "";
-            }
-       
+        }
+
 
         @{
             try
@@ -394,7 +395,7 @@
         }
 
 
-      
+
 
         @{
             try
@@ -498,7 +499,7 @@
                 //13 chứng từ lệ phí
                 _doc_id = "C06DKQT_D_013";
                 _id = _doc_id + "|6_Doc_ChungTuLePhi|0|chứng từ lệ phí|1";
-                _value ="0||" ;
+                _value = "0||";
                 _model = _id + ";" + _value;
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialTaiLieuTrongDonEdit.cshtml", _model)
             }
@@ -703,14 +704,14 @@
         <div class="class_save">
             <div class="classGuiDon">
                 <input type="button" value="Gửi đơn" id="btnGuiDon" class="btn" />
-            </div> 
+            </div>
             @if (objAppHeaderInfo.Status == 1)
             {
                 <div class="classLuuTam">
                     <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn" />
                 </div>
             }
-         
+
         </div>
 
 
@@ -1304,7 +1305,7 @@
             //    $("#pfile_6_rdoMauNhanHieu").focus();
             //    return false;
             //}
-          
+
             @*formData.append("pDetail.LOGOURL", "@objAppHeaderInfo.LOGOURL");*@
             formData.append("pDetail.LOGOURL", $("#imgMauNhanHieu").attr("src"));
             var v_don_giaydknhcs = $("input[name='_01_rad_DonDkOrGiayDK']:checked").val();
@@ -1671,10 +1672,10 @@
                      enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                      success: function (data) {
                          if (data != null && data.status >= 0) {
-                          
+
                              return true;
                          } else {
-                          
+
                              return false;
                          }
                      },
@@ -1710,7 +1711,7 @@
             }
         }
 
-    
+
         // lấy thông tin đơn 2a fill vào các trường
         function chooseApp2a(_id)
         {

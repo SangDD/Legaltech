@@ -124,6 +124,29 @@ namespace WebApps.Areas.Manager.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("danh-sach-timesheet/show-view-by-case-code/{id}")]
+        public ActionResult GetView2View_ByCaseCode()
+        {
+            try
+            {
+                if (RouteData.Values["id"] != null && RouteData.Values["id"].ToString() != "")
+                {
+                    string p_caseCode = RouteData.Values["id"].ToString();
+                    TimeSheet_BL _obj_bl = new TimeSheet_BL();
+                    Timesheet_Info _Timesheet_Info = _obj_bl.Timesheet_GetBy_Casecode(p_caseCode);
+                    return View("~/Areas/Manager/Views/TimeSheet/_PartialViewTimeSheet.cshtml", _Timesheet_Info);
+                }
+                else return View();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return View("~/Areas/Manager/Views/TimeSheet/_PartialViewTimeSheet.cshtml", new Timesheet_Info());
+            }
+        }
+
+
         // Insert 
         [HttpGet]
         [Route("danh-sach-timesheet/show-insert")]

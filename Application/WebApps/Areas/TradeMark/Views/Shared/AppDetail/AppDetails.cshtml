@@ -1,10 +1,15 @@
 ﻿@using Common.CommonData
-@using Common;
 @using ObjectInfos;
 @using BussinessFacade.ModuleMemoryData
 @{
     ViewBag.Title = "Chi tiết đơn";
     Layout = "~/ViewsShared/_Layout.cshtml";
+
+    decimal c_operator_type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update);
+    if (ViewBag.Operator_Type != null)
+    {
+        c_operator_type = (decimal)ViewBag.Operator_Type;
+    }
 
     string _appcode = "";
     if (ViewBag.Appcode != null)
