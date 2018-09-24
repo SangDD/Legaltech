@@ -28,6 +28,7 @@ namespace DataAccess.ModuleTrademark
                     Amount[i] = pInfo[i].Amount;
                 }
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
+                paramReturn.Size = 7;
                 OracleHelper.ExcuteBatchNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_FEE_FIX.PROC_APP_FEE_FIX_INSERT", numberRecord,
                     new OracleParameter("P_APP_HEADER_ID", OracleDbType.Decimal, App_Header_Id, ParameterDirection.Input),
                     new OracleParameter("P_FEE_ID", OracleDbType.Decimal, Fee_Id, ParameterDirection.Input),
