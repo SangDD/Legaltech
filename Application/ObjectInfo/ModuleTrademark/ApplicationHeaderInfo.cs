@@ -136,7 +136,13 @@ namespace ObjectInfos
         /// Phân biệt là xem hay sửa xóa
         /// </summary>
         public string ActionView { get; set; }
+
         public HttpPostedFileBase File_Copy_Filing { get; set; }
+        public string Url_copy_filing { get; set; }
+
+        public HttpPostedFileBase File_Translate_Filing { get; set; }
+        public string URL_TRANSLATE_FILING { get; set; }
+
         public string Note { get; set; }
         public string App_No { get; set; }
         public string App_Degree { get; set; }

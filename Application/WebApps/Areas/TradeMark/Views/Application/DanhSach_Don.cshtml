@@ -454,49 +454,4 @@
         }
     }
 
-    function do_Filing(_application_header_id) {
-        if (validateAction()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn nộp đơn này cho khách hàng không?", function () {
-
-                var pfile = $("#file_attach");//lay du lieu file
-                var _file = pfile[0].files[0];
-                var formdata = new FormData();
-                formdata.append("pInfo.File_Copy_Filing", _file);
-                formdata.append("pInfo.Id", parseInt(_application_header_id));
-                formdata.append("pInfo.Filing_Date", $('#txt_filing_date').val());
-                formdata.append("pInfo.Note", $('#txtNotes').val());
-                formdata.append("pInfo.App_No", $('#txt_App_No').val());
-
-                $.ajax({
-                    url: '/trade-mark-mana/quan-ly-don/do-filing',
-                    type: 'POST',
-                    data: formdata,
-                    enctype: 'multipart/form-data',
-                    async: true, cache: false, traditional: true, contentType: false,
-                    processData: false,
-                    beforeSend: function () {
-                        CreateRollingWaitingIcon(true);
-                    },
-                    success: function (data) {
-                        CreateRollingWaitingIcon(false);
-                        if (data.success == "-1") {
-                            jError("Lỗi check lại kết nối tới server");
-                            return false;
-                        }
-                        else {
-                            jAlert('Nộp đơn thành công!', "THÔNG BÁO", function () {
-                                CloseDivPopUp('divWrapperPopUpApp');
-                                Search_Application(1, 1);
-                            });
-                        }
-                    },
-                    error: function (e) {
-                        CreateRollingWaitingIcon(false);
-                        console.log(e);
-                    }
-                });
-            });
-        }
-    }
-
 </script>

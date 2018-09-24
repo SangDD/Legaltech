@@ -200,6 +200,25 @@ namespace WebApps.Areas.TradeMark.Controllers
         }
 
         [HttpPost]
+        [Route("quan-ly-don/do-employee-confirm")]
+        public ActionResult DoEmployee_Confirm(decimal p_Application_Header_Id, decimal p_status, string p_note)
+        {
+            try
+            {
+                Application_Header_BL _obj_bl = new Application_Header_BL();
+                decimal _status = (decimal)CommonEnums.App_Status.DaNopDon;
+
+                int _ck = _obj_bl.AppHeader_Update_Status(p_Application_Header_Id, _status, p_note, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
+        [HttpPost]
         [Route("quan-ly-don/show-filing")]
         public ActionResult Show_Filing(decimal p_application_header_id)
         {
@@ -216,8 +235,12 @@ namespace WebApps.Areas.TradeMark.Controllers
                 Application_Header_BL _obj_bl = new Application_Header_BL();
                 decimal _status = (decimal)CommonEnums.App_Status.DaGuiLenCuc;
                 var url_File_Copy_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Copy_Filing, AppUpload.App);
-                //DateTime _filing_date = Common.Helpers.DateTimeHelper.ConvertToDate(p_filing_date);
-                int _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Id, _status, pInfo.App_No, pInfo.Filing_Date, url_File_Copy_Filing, pInfo.Note, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+
+                var url_File_Translate_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Translate_Filing, AppUpload.App);
+
+
+                int _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Id, _status, pInfo.App_No, pInfo.Filing_Date, url_File_Copy_Filing, url_File_Translate_Filing, 
+                    pInfo.Note, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
 
                 // nếu thành công thì gửi email cho khách hàng
                 if (_ck != -1)

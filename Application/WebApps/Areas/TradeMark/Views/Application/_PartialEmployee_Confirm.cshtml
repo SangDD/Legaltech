@@ -1,0 +1,134 @@
+﻿@using ObjectInfos;
+@using BussinessFacade.ModuleMemoryData
+@{
+    //decimal _application_header_id = -1;
+    //if (ViewBag.Application_Header_Id != null)
+    //{
+    //    _application_header_id = ViewBag.Application_Header_Id;
+    //}
+
+    var _AppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    }
+}
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 200px;
+    }
+</style>
+
+<div class="">
+    <div class="divCover cls_form_title">
+        <img src="~/Content/icons/info.png" />
+        <div class="cls_form_header">
+            Nhân viên nộp đơn phản hồi
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Nhân viên nộp đơn confirm<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <select id="cboConfirm" disabled="disabled">
+                    @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("CUSTOMER", "CONFIRM"))
+                    {
+                        if (item.CdVal == ((int)Common.CommonData.CommonEnums.Action_Type.Accept).ToString())
+                        {
+                            <option selected="selected" value="@item.CdVal">@item.Content</option>
+                        }
+                        else
+                        {
+                            <option value="@item.CdVal">@item.Content</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Ghi chú </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtNotes" maxlength="2000" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="form-group-bottom">
+            <input type="submit" class="btn-default" value="Xác nhận" onclick="return do_Employee_Confirm(@_AppHeaderInfo.Id)" />
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        //$('#cboConfirm').multipleSelect({
+        //    filter: true,
+        //    single: true,
+        //    isdatastring: false,
+        //    maxHeight: 150,
+        //    placeholder: "-- Nhân viên phản hồi --"
+        //});
+
+    });
+
+    function do_Employee_Confirm(_application_header_id) {
+        if (validateAction()) {
+            nvsConfirm(null, "Bạn có chắc chắn muốn xác nhận nộp đơn này không?", function () {
+                $.ajax({
+                    url: '/trade-mark-mana/quan-ly-don/do-employee-confirm',
+                    type: 'POST',
+                    data: {
+                        p_Application_Header_Id: _application_header_id,
+                        p_status: $('#cboConfirm').val(),
+                        p_note: $('#txtNotes').val()
+                    },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            jError("Lỗi check lại kết nối tới server");
+                            return false;
+                        }
+                        else {
+                            jAlert('Nhân viên nộp đơn thành công!', "THÔNG BÁO", function () {
+                                window.location.href = "/home";
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(true);
+                        console.log(e);
+                    }
+                });
+            });
+        }
+    }
+
+    function validateAction() {
+        var _Status = $('#cboConfirm').val();
+        if (_Status == null || _Status == "0") {
+            jError('Action Confirm không được để trống!', "Lỗi", function () {
+                $('#cboConfirm').multipleSelect('focus');
+            });
+            return false;
+        }
+
+        return true;
+    }
+
+</script>

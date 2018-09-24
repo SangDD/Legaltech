@@ -353,6 +353,11 @@
                 // Khách hàng đã confirm lại cho admin -> phân loại cho 1 loại ng dùng khác
                 @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialPhanLoai_NopDon.cshtml")
             }
+            else if (_currstatus == (int)CommonEnums.App_Status.DaPhanChoNhanVien)
+            {
+                // Nhân viên confirm
+                @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialEmployee_Confirm.cshtml")
+            }
             else if (_currstatus == (int)CommonEnums.App_Status.DaNopDon)
             {
                 // advice filling
