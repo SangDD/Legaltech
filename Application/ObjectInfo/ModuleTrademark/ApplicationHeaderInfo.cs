@@ -132,6 +132,8 @@ namespace ObjectInfos
 
         public string Customer_Name { get; set; }
         public decimal Customer_Country { get; set; }
+        public string Customer_Country_Name { get; set; }
+
         /// <summary>
         /// Phân biệt là xem hay sửa xóa
         /// </summary>
@@ -157,6 +159,8 @@ namespace ObjectInfos
         public string User_Admin_Grant { get; set; }
 
         public string Currency_Type { get; set; }
+
+        public string Comment_Filling { get; set; }
     }
 
 
