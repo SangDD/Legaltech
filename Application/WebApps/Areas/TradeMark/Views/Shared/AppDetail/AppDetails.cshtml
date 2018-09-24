@@ -131,7 +131,7 @@
 
         .progress_hr {
             /*width: 12%;*/
-            width: 10%;
+            width: 7%;
             margin-top: 9px;
             float: left;
         }
@@ -146,7 +146,7 @@
             width: 90px;
             float: left;
             text-align: center;
-            margin-left: calc(10% - 29px + 22px - 90px + 40px);
+            margin-left: calc(7% - 29px + 22px - 90px + 40px);
             /*margin-left: calc(12% - 29px + 22px - 90px + 40px);*/
         }
 
@@ -154,42 +154,49 @@
             width: 110px;
             float: left;
             text-align: center;
-            margin-left: calc(10% - 29px + 22px - 90px + 29px);
+            margin-left: calc(7% - 29px + 22px - 90px + 29px);
         }
 
         .progress_div_text4 {
             width: 100px;
             float: left;
             text-align: center;
-            margin-left: calc(10% - 29px + 31px - 90px + 20px);
+            margin-left: calc(7% - 29px + 31px - 90px + 20px);
         }
 
         .progress_div_text5 {
             width: 122px;
             float: left;
             text-align: center;
-            margin-left: calc(10% - 29px + 22px - 90px + 11px);
+            margin-left: calc(7% - 29px + 22px - 90px + 11px);
         }
 
         .progress_div_text6 {
             width: 122px;
             float: left;
             text-align: center;
-            margin-left: calc(10% - 29px + 22px - 90px + 8px);
+            margin-left: calc(7% - 29px + 22px - 90px + 8px);
         }
 
         .progress_div_text7 {
             width: 122px;
             float: left;
             text-align: center;
-            margin-left: calc(10% - 29px + 22px - 90px + 8px);
+            margin-left: calc(7% - 29px + 22px - 90px + 8px);
         }
 
         .progress_div_text8 {
             width: 122px;
             float: left;
             text-align: center;
-            margin-left: calc(10% - 29px + 22px - 90px + 4px);
+            margin-left: calc(7% - 29px + 22px - 90px + 4px);
+        }
+
+        .progress_div_text9 {
+            width: 122px;
+            float: left;
+            text-align: center;
+            margin-left: calc(7% - 29px + 22px - 90px + 4px);
         }
 
         .progress_hr:last-child {
@@ -214,49 +221,56 @@
             width: 90px;
             float: left;
             text-align: center;
-            margin-left: calc(10% - 29px + 22px - 90px + 38px);
+            margin-left: calc(7% - 29px + 22px - 90px + 38px);
         }
 
         .progress_div_user3 {
             width: 110px;
             float: left;
             text-align: center;
-            margin-left: calc(10% - 29px + 22px - 90px + 29px);
+            margin-left: calc(7% - 29px + 22px - 90px + 29px);
         }
 
         .progress_div_user4 {
             width: 100px;
             float: left;
             text-align: center;
-            margin-left: calc(10% - 29px + 31px - 90px + 16px);
+            margin-left: calc(7% - 29px + 31px - 90px + 16px);
         }
 
         .progress_div_user5 {
             width: 122px;
             float: left;
             text-align: center;
-            margin-left: calc(10% - 29px + 22px - 90px + 18px);
+            margin-left: calc(7% - 29px + 22px - 90px + 18px);
         }
 
         .progress_div_user6 {
             width: 122px;
             float: left;
             text-align: center;
-            margin-left: calc(10% - 29px + 22px - 90px + 6px);
+            margin-left: calc(7% - 29px + 22px - 90px + 6px);
         }
 
         .progress_div_user7 {
             width: 122px;
             float: left;
             text-align: center;
-            margin-left: calc(10% - 29px + 22px - 90px + 7px);
+            margin-left: calc(7% - 29px + 22px - 90px + 7px);
         }
 
         .progress_div_user8 {
             width: 122px;
             float: left;
             text-align: center;
-            margin-left: calc(10% - 29px + 22px - 90px + 6px);
+            margin-left: calc(7% - 29px + 22px - 90px + 6px);
+        }
+
+        .progress_div_user9 {
+            width: 122px;
+            float: left;
+            text-align: center;
+            margin-left: calc(7% - 29px + 22px - 90px + 6px);
         }
 
         .user_hidden {
@@ -273,11 +287,11 @@
         }
         @foreach (var item in _lstStatus)
         {
-            if (_count > 7)
+            _count++;
+            if (item.CdVal == Convert.ToDecimal(Common.CommonData.CommonEnums.App_Status.DaGuiLenCuc).ToString())
             {
                 break;
             }
-            _count++;
             <div class="@("progress_div_text" +  _count)"> @item.Content</div>
         }
     </div>
@@ -288,11 +302,11 @@
         }
         @foreach (var item in _lstStatus)
         {
-            if (_count > 7)
+            _count++;
+            if (item.CdVal == Convert.ToDecimal(Common.CommonData.CommonEnums.App_Status.DaGuiLenCuc).ToString())
             {
                 break;
             }
-            _count++;
             _Checked = "";
             if (item.CdVal == _currstatus.ToString())
             {
@@ -310,11 +324,11 @@
             }
             @foreach (var item in _lstStatus)
             {
-                if (_count > 6)
+                _count++;
+                if (item.CdVal == Convert.ToDecimal(Common.CommonData.CommonEnums.App_Status.DaGuiLenCuc).ToString())
                 {
                     break;
                 }
-                _count++;
                 if (item.CdVal == _currstatus.ToString())
                 {
                     <div class="@("user_progress_active progress_div_user" +  _count)"> @_FirstTodo.REQUEST_BY_NAME</div>

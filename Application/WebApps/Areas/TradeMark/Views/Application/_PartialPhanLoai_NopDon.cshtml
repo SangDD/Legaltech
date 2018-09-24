@@ -55,7 +55,7 @@
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Phân loại" onclick="return doPhanLoai()" />
+            <input type="submit" class="btn-default" value="Phân loại" onclick="return doPhanLoai('@_AppHeaderInfo.Id')" />
         </div>
     </div>
 </div>
@@ -75,25 +75,23 @@
 
     var _Employee_Id;
 
-    function doPhanLoai() {
+    function doPhanLoai(p_app_id) {
         if (validateAction()) {
-            var formData = new FormData();
-            //collectObjectData(formData);
             nvsConfirm(null, "Bạn có chắc chắn muốn phân đơn này cho nhân viên đi nộp đơn hay không?", function () {
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/do-phan-loai-employee',
                     type: 'POST',
                     data: {
-                        p_Application_Header_Id: '@_AppHeaderInfo.Id',
+                        p_Application_Header_Id: p_app_id,
                         p_employee: $('#cboEmployee').val(),
                         p_note: $('#txtNotes').val()
                     },
-                    processData: false,
-                    contentType: false,
-                    traditional: true,
-                    async: false,
-                    headers: { "cache-control": "no-cache" },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
                     success: function (data) {
+                        CreateRollingWaitingIcon(false);
                         if (data.success == "-1") {
                             jError("Lỗi check lại kết nối tới server");
                             return false;
@@ -105,6 +103,7 @@
                         }
                     },
                     error: function (e) {
+                        CreateRollingWaitingIcon(false);
                         console.log(e);
                     }
                 });
