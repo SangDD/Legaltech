@@ -86,6 +86,7 @@ namespace DataAccess.ModuleTrademark
             }
             catch (Exception ex)
             {
+                //tam thoi them o day 
                 Logger.LogException(ex);
                 return ErrorCode.Error;
             }
