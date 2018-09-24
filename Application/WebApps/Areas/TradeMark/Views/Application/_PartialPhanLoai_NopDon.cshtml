@@ -78,13 +78,13 @@
     function doPhanLoai() {
         if (validateAction()) {
             var formData = new FormData();
-            collectObjectData(formData);
+            //collectObjectData(formData);
             nvsConfirm(null, "Bạn có chắc chắn muốn phân đơn này cho nhân viên đi nộp đơn hay không?", function () {
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/do-phan-loai-employee',
                     type: 'POST',
                     data: {
-                        p_Application_Header_Id: @_AppHeaderInfo,
+                        p_Application_Header_Id: '@_AppHeaderInfo.Id',
                         p_employee: $('#cboEmployee').val(),
                         p_note: $('#txtNotes').val()
                     },
