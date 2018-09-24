@@ -37,8 +37,16 @@ namespace DataAccess.ModuleTrademark
                     App_Header_Id[i] = pAppHeaderid;
                     DocumentID[i] = pInfo[i].Document_Id;
                     Isuse[i] = pInfo[i].Isuse;
+                    if(Isuse[i]>2000000000 || Isuse[i] < 0)
+                    {
+                        Isuse[i] = 0;
+                    }
                     Note[i] = pInfo[i].Note;
                     Status[i] = pInfo[i].Status;
+                    if (Status[i] > 2000000000 || Status[i] < 0)
+                    {
+                        Status[i] = 0;
+                    }
                     FileName[i] = pInfo[i].Filename;
                     UrlHardCopy[i] = pInfo[i].Url_Hardcopy;
                     Document_Filling_Date[i] = pInfo[i].Document_Filing_Date;
@@ -47,8 +55,10 @@ namespace DataAccess.ModuleTrademark
                     Char03[i] = pInfo[i].CHAR03;
                     Char04[i] = pInfo[i].CHAR04;
                     Char05[i] = pInfo[i].CHAR05;
+
                 }
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
+                paramReturn.Size = 7;
                 OracleHelper.ExcuteBatchNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_DOCUMENT.PROC_APP_DOCUMENT_INSERT", numberRecord,
                     new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, Language, ParameterDirection.Input),
                     new OracleParameter("P_APP_HEADER_ID", OracleDbType.Decimal, App_Header_Id, ParameterDirection.Input),

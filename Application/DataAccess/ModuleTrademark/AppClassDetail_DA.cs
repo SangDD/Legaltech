@@ -27,7 +27,7 @@ namespace DataAccess.ModuleTrademark
                     Language[i] = pLanguage;
                 }
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
-              // paramReturn.Size = 10;
+                paramReturn.Size = 10;
                 OracleHelper.ExcuteBatchNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APPCLASS_DETAIL.PROC_APP_CLASS_DETAIL_INSERT", numberRecord,
                     new OracleParameter("P_TEXTINPUT", OracleDbType.Varchar2, TextInput, ParameterDirection.Input),
                     new OracleParameter("P_CODE", OracleDbType.Varchar2, Code, ParameterDirection.Input),
