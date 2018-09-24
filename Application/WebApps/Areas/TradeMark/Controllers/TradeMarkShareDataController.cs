@@ -107,8 +107,6 @@ namespace WebApps.Areas.TradeMark.Controllers
         }
 
 
-
-
         [Route("app-details/{id}/{id1}/{id2}")]
         public ActionResult AppDetails()
         {
