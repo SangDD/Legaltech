@@ -23,8 +23,7 @@ namespace WebApps.Areas.Articles.Controllers
             try
             {
                 if (SessionData.CurrentUser == null)
-                    return Redirect("~/home/index");
-
+                    return Redirect("/");
                 decimal _total_record = 0;
                 NewsBL objBL = new NewsBL();
                 string _status = "ALL";
@@ -35,7 +34,7 @@ namespace WebApps.Areas.Articles.Controllers
                 ViewBag.Obj = _lst;
                 ViewBag.Paging = htmlPaging;
                 ViewBag.SumRecord = _total_record;
-                return View();
+                return View("~/Areas/Articles/Views/ArticlesNews/GetListArticles.cshtml");
             }
             catch (Exception ex)
             {

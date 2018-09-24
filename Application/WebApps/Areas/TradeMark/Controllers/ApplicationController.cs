@@ -30,7 +30,7 @@ namespace WebApps.Areas.TradeMark.Controllers
             try
             {
                 if (SessionData.CurrentUser == null)
-                    return Redirect("~/home");
+                    return Redirect("/");
                 string language = AppsCommon.GetCurrentLang();
                 decimal _total_record = 0;
                 Application_Header_BL _obj_bl = new Application_Header_BL();

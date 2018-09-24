@@ -26,7 +26,7 @@ namespace WebApps.Areas.Manager.Controllers
             try
             {
                 if (SessionData.CurrentUser == null)
-                    return Redirect("~/home/index");
+                    return Redirect("/");
 
                 decimal _total_record = 0;
                 Docking_BL _obj_bl = new Docking_BL();

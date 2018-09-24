@@ -25,7 +25,7 @@ namespace WebApps.Areas.DaiDienSHCN.Controllers
             try
             {
                 if (SessionData.CurrentUser == null)
-                    return Redirect("~/home/index");
+                    return Redirect("/");
                 decimal _total_record = 0;
                 AppDDSHCN_BL _obj_bl = new AppDDSHCN_BL();
                 List<AppDDSHCNInfo> _lst = _obj_bl.AppDDSHCNGetAll("","",0,0,ref _total_record);

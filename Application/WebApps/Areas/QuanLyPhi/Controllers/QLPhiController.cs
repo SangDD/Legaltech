@@ -21,7 +21,7 @@ namespace WebApps.Areas.QuanLyPhi.Controllers
             try
             {
                 if (SessionData.CurrentUser == null)
-                    return Redirect("~/home/index");
+                    return Redirect("/");
                 var sysApplication = new SysApplicationBL();
                 List<SysAppFixChargeInfo> lstFee = sysApplication.Sys_App_Fix_Charge_GetAll();
                 ViewBag.listData = lstFee;
