@@ -7,6 +7,7 @@ using ObjectInfos;
 using BussinessFacade.ModuleTrademark;
 using WebApps.Session;
 using BussinessFacade;
+using BussinessFacade.ModuleMemoryData;
 
 namespace WebApps.Areas.Articles.Controllers
 {
@@ -34,7 +35,45 @@ namespace WebApps.Areas.Articles.Controllers
                 ViewBag.Obj = _lst;
                 ViewBag.Paging = htmlPaging;
                 ViewBag.SumRecord = _total_record;
+                ViewBag.lstCategory = MemoryData.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
                 return View("~/Areas/Articles/Views/ArticlesNews/GetListArticles.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return View();
+            }
+        }
+
+        [HttpGet]
+        [Route("soan-bai-viet")]
+        public ActionResult AddNewsArticles()
+        {
+            try
+            {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+                ViewBag.lstCategory = MemoryData.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
+
+                return View("~/Areas/Articles/Views/ArticlesNews/_PartialViewAdd.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return View();
+            }
+        }
+
+        [HttpGet]
+        [Route("sua-bai-viet")]
+        public ActionResult EdiNewsArticles(decimal pIDArticles,decimal pCategory, string pLanguage)
+        {
+            try
+            {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+                ViewBag.lstCategory = MemoryData.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
+                return View("~/Areas/Articles/Views/ArticlesNews/_PartialviewEdit.cshtml");
             }
             catch (Exception ex)
             {
