@@ -235,7 +235,6 @@ namespace WebApps.Areas.TradeMark.Controllers
                 Application_Header_BL _obj_bl = new Application_Header_BL();
                 decimal _status = (decimal)CommonEnums.App_Status.DaGuiLenCuc;
                 var url_File_Copy_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Copy_Filing, AppUpload.App);
-
                 var url_File_Translate_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Translate_Filing, AppUpload.App);
 
 
@@ -250,6 +249,8 @@ namespace WebApps.Areas.TradeMark.Controllers
                     ApplicationHeaderInfo _ApplicationHeaderInfo = _Application_Header_BL.GetApplicationHeader_ById(pInfo.Id, AppsCommon.GetCurrentLang());
 
                     string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/Report/Filing_advice.doc");
+                    if (_ApplicationHeaderInfo.Customer_Country != Common.Common.Country_VietNam_Id)
+                        _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/Report/Filing_advice_EN.doc");
                     DocumentModel document = DocumentModel.Load(_fileTemp);
 
                     // Fill export_header
@@ -270,6 +271,8 @@ namespace WebApps.Areas.TradeMark.Controllers
                     document.MailMerge.Execute(new { Master_Name = _ApplicationHeaderInfo.Master_Name });
                     document.MailMerge.Execute(new { App_No = _ApplicationHeaderInfo.App_No });
                     document.MailMerge.Execute(new { Str_Filing_Date = _ApplicationHeaderInfo.Str_Filing_Date });
+                    document.MailMerge.Execute(new { Comment_filling = _ApplicationHeaderInfo.Comment_Filling });
+                    document.MailMerge.Execute(new { Customer_Country_Name = _ApplicationHeaderInfo.Customer_Country_Name });
 
                     // lấy thông tin người dùng
                     UserBL _UserBL = new UserBL();
@@ -303,6 +306,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                     List<string> _LstAttachment = new List<string>();
                     _LstAttachment.Add(fileName);
                     _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(url_File_Copy_Filing));
+                    _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(url_File_Translate_Filing));
 
                     EmailHelper.SendMail(_emailTo, _emailCC, "Filing advice", "Filing advice", _LstAttachment);
                 }

@@ -1,0 +1,310 @@
+﻿@using BussinessFacade.ModuleMemoryData
+@using BussinessFacade.ModuleUsersAndRoles
+@using Common.CommonData
+@using ObjectInfos;
+@{
+    ViewBag.Title = "Danh sách bài viết lưu tạm";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+    List<WikiCatalogues_Info> _listcata = new List<WikiCatalogues_Info>();
+    if (ViewBag.ListCata != null)
+    {
+        _listcata = ViewBag.ListCata;
+    }
+    int _CurrentStatus = ViewBag.CurrStatus;
+    string _hef01 = "", _hef02 = "", _hef04 = "";
+    if (_CurrentStatus == 1)
+    {
+        _hef01 = "text-decoration: underline;";
+    }
+    if (_CurrentStatus == 2)
+    {
+        _hef02 = "text-decoration: underline;";
+    }
+    if (_CurrentStatus == 4)
+    {
+        _hef04 = "text-decoration: underline;";
+    }
+}
+
+@try
+{
+    <style>
+        /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+        .div-search-title > div {
+            width: 150px;
+        }
+
+        .ms-parent {
+            margin: 0px 3px;
+        }
+
+        .ms-choice {
+            height: 30px;
+        }
+    </style>
+
+    <div class="divCover">
+        <div class="d-nav">
+            <img src="~/Content/icons/Body-icon-home.png" /> I
+            Wiki
+            <span class="red">></span>
+            <a href="/wiki-doc/list">Quản lý Wiki</a>
+        </div>
+    </div>
+    <div class="divCover">
+        <div class="classLine">
+        </div>
+    </div>
+
+    <div class="d-main">
+        <div class="divCover">
+            <input type="hidden" value="MODIFIED_DATE" id="colSorted" />
+            <input type="hidden" value="DESC" id="SortType" />
+            <input type="hidden" value="" id="OptionSorting" />
+            <table style="margin:10px 0px">
+                <tr>
+                    <td>
+                        <a style="@_hef01" href="/quan-ly-search/them-moi-search">1. Create New Search</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a style="@_hef02" href="/wiki-manage/wiki-doc/list/@CommonSearch.Stt_PhanChoLuatSu">  2. Search cần phân cho luật sư</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a style="@_hef04" href="/wiki-manage/wiki-doc/list/@CommonSearch.Stt_ChoLuatSuPhanHoi">  3. Search chờ luật sư phản hồi</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a style="@_hef04" href="/wiki-manage/wiki-doc/list/@CommonSearch.Stt_ChoDuyet">  4. Search chờ duyệt (Ls đã phản hồi)</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a style="@_hef04" href="/wiki-manage/wiki-doc/list/@CommonSearch.Stt_DaPhanHoi">  5. Search đã phản hồi </a>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="divCover" id="div-search-simple">
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div style="width: 120px">Chủ đề bài viết</div>
+                </div>
+                <div>
+                    <div style="width:200px">
+                        <select id="cboSearchWikiCatalogue">
+                            <option value="ALL">
+                                Tất cả
+                            </option>
+                            @foreach (WikiCatalogues_Info item in _listcata)
+                            {
+                                if (item.CATA_LEVEL == 1)
+                                {
+                                    <option value="@item.ID">
+                                        @item.NAME
+                                    </option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div style="width: 120px">Tiêu đề/Hashtag</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtSearchTitleHashtag" data-controlcondition="TRUE" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="divCover">
+            <div class="div-search-btn" style="width:450px;">
+                <input type="button" value="Tìm kiếm" class="btn-default" onclick="findObjects(1, 1)" />
+            </div>
+        </div>
+
+        <div class="divCover">
+            <div id="divTableObjects">
+            
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function TodofindObjects(_pageNumber, _isSearching) {
+            try {
+                var _TodosearchContent = "";
+                var _RecordonPage = 5;
+                if (_isSearching === 1) {
+                    _Keysearch = "";
+                } else {
+                    //_arrKeySearch = _TodoKeysearch.split('|');
+                    //_searchContent = _TodoarrKeySearch[0];
+                    _TodosearchContent = "";
+                }
+
+                var orderby = $("#colSortedTodo").val();
+                var orderType = $("#SortTypeTodo").val();
+                //if (orderby.indexOf("NUMBER_TEXT") >= 0) {
+                //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
+                //}
+                //else if (orderby.indexOf("TITLE") >= 0) {
+                //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
+                //}
+                //else if (orderby.toLocaleUpperCase().indexOf("AGENCIE_NAME") >= 0) {
+                //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
+                //}           
+                $.ajax({
+                    type: "POST",
+                    headers: { "cache-control": "no-cache" },
+                    url: "/search-todos",
+                    data: {
+                        keysSearch: _TodosearchContent,
+                        _sortype: (orderby + " " + orderType),
+                        _reconpage: _RecordonPage,
+                        p_CurrentPage: _pageNumber
+                    },
+                    async: true,
+                    success: function (data) {
+                        if (data != null) {
+                            var _htmlnotify = "";
+                            $("#LegalTododivTable").html(data.TodoData);
+                            //   alert(data.TodoNotify.NUMBER_APPS);
+                            if (data.TodoNotify.NUMBER_APPS > 0) {
+                                _htmlnotify = _htmlnotify + "<table class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_APPS + "</td></tr><tr><td class='tdnotifytext'>ĐƠN</td></tr></table>";
+                            }
+                            if (data.TodoNotify.NUMBER_QUETIONS > 0) {
+                                _htmlnotify = _htmlnotify + "<table  class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_QUETIONS + "</td></tr><tr><td class='tdnotifytext'>CÂU HỎI</td></tr></table>";
+                            }
+                            if (data.TodoNotify.NUMBER_SEARCH > 0) {
+                                _htmlnotify = _htmlnotify + "<table  class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_SEARCH + "</td></tr><tr><td class='tdnotifytext'>TÌM KIẾM</td></tr></table>";
+                            }
+                            if (data.TodoNotify.NUMBER_TIMESHEET > 0) {
+                                _htmlnotify = _htmlnotify + "<table  class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_TIMESHEET + "</td></tr><tr><td class='tdnotifytext'>TIMESHEET</td></tr></table>";
+                            }
+                            if (data.TodoNotify.NUMBER_BILLS > 0) {
+                                _htmlnotify = _htmlnotify + "<table  class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_BILLS + "</td></tr><tr><td class='tdnotifytext'>HÓA ĐƠN</td></tr></table>";
+                            }
+                            $("#d_todo_notify").html(_htmlnotify);
+
+                        }
+                    }
+                });
+                return true;
+            } catch (e) {
+                alert(e.toString());
+                return false;
+            }
+        }
+
+        function TodojsPaging(_page) {
+            try {
+                TodofindObjects(_page, 0);
+            } catch (e) {
+                alert(e.toString());
+            }
+        }
+
+
+        function TodoSortByCol(value) {
+            try {
+                //Lay gia tri luu trong colSort luu duoi dang text Hidden
+                var _currentColSorted = $("#colSortedTodo").val();
+                //Lay gia tri luu trong SortType luu duoi dang text Hidden
+                var _currentSortedType = $("#SortTypeTodo").val();
+                var tag = "#" + value;
+                if (_currentColSorted == value) {
+                    if (_currentSortedType == "ASC") {
+                        $("#SortTypeTodo").val("DESC");
+                    }
+                    else {
+                        $("#SortTypeTodo").val("ASC");
+                    }
+                }
+                else {
+                    $("#colSortedTodo").val(value);
+                    $("#SortTypeTodo").val("ASC");
+                }
+                var pos = document.getElementById("tableListTodo").parentElement.scrollLeft;
+                //Sort lai thi ve trang dau
+                TodofindObjects(1, 0);
+                //Sort lai thi ve trang dau
+                document.getElementById("tableListTodo").parentElement.scrollLeft = pos;
+            } catch (e) {
+                console.info(e.toString());
+            }
+        }
+
+        function TodoChangeIConSortWhenSortColumns() {
+            try {
+                var _order_by = $("#colSortedTodo").val();
+                var _order_type = $("#SortTypeTodo").val();
+                var _text = _order_type == 'DESC' ? $("#" + _order_by).text() + " ▼" : $("#" + _order_by).text() + " ▲";
+                $("#" + _order_by).text(_text);
+            }
+            catch (e) {
+            }
+        }
+
+        $('#cboSearchWikiCatalogue').multipleSelect({
+            filter: true,
+            noMatchesFound: "Không tìm thấy dữ liệu",
+            single: true,
+            isdatastring: false,
+            placeholder: 'Tìm kiếm chủ đề'
+        });
+
+
+        function doDeleteObject(p_id) {
+            try {
+
+                    nvsConfirm(null, "Bạn có chắc chắn muốn xóa bài viết này không?", function () {
+                        $.ajax({
+                            url: "/wiki-manage/wiki-doc/do-delete-doc",
+                            type: "POST",
+                            data: { p_id: p_id },
+                            headers: { "cache-control": "no-cache" },
+                            async: false,
+                            success: function (data) {
+                                //if (data != null) {
+                                //    if (onResponse(data)) {
+                                //        ClosePopupDialog('dpop-users', true);
+                                //        findObjects(1, 0);
+                                //    }
+                                //}
+                                if (data.result >= 0) {
+                                    showSuccess("Xóa dữ liệu thành công!");
+                                    window.findObjects(1, 0);
+                                }
+                            },
+                            error: function (e) {
+                                console.log(e);
+                            }
+                        });
+
+                    });
+
+            } catch (e) {
+                alert(e.toString());
+            }
+
+        }
+
+
+    </script>
+}
+catch (Exception)
+{
+    // ignored
+}
