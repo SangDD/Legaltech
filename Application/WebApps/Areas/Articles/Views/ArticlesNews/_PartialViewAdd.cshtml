@@ -4,17 +4,6 @@
 @{
     ViewBag.Title = "Quản lý bài viết";
     Layout = "~/ViewsShared/_Layout.cshtml";
-    List<WikiCatalogues_Info> _listcata = new List<WikiCatalogues_Info>();
-    if (ViewBag.ListCata != null)
-    {
-        _listcata = ViewBag.ListCata;
-    }
-    var _CataInfo = new WikiCatalogues_Info();
-    if (ViewBag.CataInfo != null)
-    {
-        _CataInfo = ViewBag.CataInfo;
-    }
-    string _backhref = "/wiki-manage/wiki-doc/list-by-catalogue/" + _CataInfo.ID;
 }
 @try
 {
@@ -25,17 +14,15 @@
     </style>
     <script>
         var _isSimpleEditorToolBar = 1;// set cho ckfinder có cấu hình xoạn thảo đơn giản
-
     </script>
     <script src="~/Content/ckeditor/ckeditor.js"></script>
     <div class="divCover">
         <div class="d-nav">
-            <img src="~/Content/icons/Body-icon-home.png" /> I
-            Wiki
+            <img src="~/Content/icons/Body-icon-home.png" />Bài viết
             <span class="red">></span>
-            <a href="/wiki-doc/list">Quản lý bài viết</a>
+            <a href="/quan-ly-tin/danh-sach-tin">Quản lý bài viết</a>
             <span class="red">></span>
-            <a href="/wiki-doc/add">Thêm mới bài viết</a>
+            <a href="/quan-ly-tin/soan-bai-viet">Thêm mới bài viết</a>
         </div>
     </div>
     <div class="divCover">
@@ -59,39 +46,69 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txtTitle" maxlength="500" />
+                    <input type="text" id="txtTitle"  maxlength="500" />
                 </div>
             </div>
         </div>
+
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Chủ đề  </div>
+                <div>Tóm tắt</div>
             </div>
             <div class="div-search-content">
-                <div id="divWikiChildCatalogue">
-                    <input type="hidden" id="CboAddWikiCataChild" value="@_CataInfo.ID" />
-                    @if (WebApps.CommonFunction.AppsCommon.GetCurrentLang().ToUpper().Contains("VN"))
-                    {
-                        <input type="text" readonly value="@_CataInfo.NAME_ENG" />
-                    }
-                    else
-                    {
-                        <input type="text" readonly value="@_CataInfo.NAME" />
-                    }
+                <div>
+                    <textarea rows="4" style="height:70px" cols="50" id="txtHeader"></textarea>
                 </div>
             </div>
         </div>
-         
+
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Ảnh đại diện</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @*<img id="imgHeaderImage" width="100" height="100" />*@
+                    <input id="_txtAnhDaiDien" class="divCalendar" type="file" name="pfile" accept='image/*'>
+                    <input type="submit" class="btnSave" id="btnUpload" onclick="return UploadImageHeader()" value="Tải lên"> <i style="color: red">(File ảnh đuôi .png,.jpg, và có dung lượng nhỏ hơn 2MB)</i>
+                </div>
+            </div>
+        </div>
 
         <div style="margin-top:15px">
             <div>Nội dung<i class="redspan">(*)</i></div>
-            <textarea type="text" id="txtAddContent"></textarea>
+            <textarea type="text" id="txtNoiDung" name="txtNoiDung"></textarea>
         </div>
-
-        <input type="text" id="txthashtag" style="display:none" />
-        <div type="text" id="divhashtag" style="display:none"></div>
-
     </div>
+
+    <div class="divContentCMCKLanDau">
+        <div class="divCategories">
+            <div>Chuyên mục chính <i style="color: red">(*)</i></div> <br />
+            <select id="_txtCategories" size="10" class="select">
+                @if (ViewBag.lstCategory != null)
+                {
+                    foreach (AllCodeInfo item in ViewBag.lstCategory)
+                    {
+                        <option value="@item.CdVal">@item.Content</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="divCategoryRe">
+            <div>Chuyên mục  liên quan </div> <br />
+            <select id="_txtCategoriesRe" size="10" class="select">
+                @if (ViewBag.lstCategory != null)
+                {
+                    foreach (AllCodeInfo item in Model.lstCategory)
+                    {
+                        <option value="@item.CdVal">@item.Content</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+
 
     <div class="class_save">
         <div class="classGuiDon">
@@ -104,30 +121,52 @@
 
 
     <script>
-
-     var txtAddContent = CKEDITOR.replace("txtAddContent",
-     {
-         height: 500
-
-     });
-
-         
+        var txtNoiDung = CKEDITOR.replace("txtNoiDung",
+            {
+                height: 500
+            });
 
         $("#btnLuuTam").click(function () {
-             
+
 
         });
-
-
 
         $("#btnGuiDon").click(function () {
-             
+
         });
 
-          
     </script>
 }
 catch (Exception)
 {
-    // ignored
 }
+
+<style>
+    .select {
+        padding: 3px;
+    }
+
+        .select option {
+            line-height: 25px;
+            padding: 5px;
+        }
+
+
+    /*.divContentCMCKLanDau .divCategories {
+        float: left;
+        width: 45%;
+    }
+
+    .divContentCMCKLanDau .divCategoryRe {
+        float: left;
+        width: 50%;
+        padding-left: 30px;
+    }
+
+    .divContentCMCKLanDau {
+        width: 79%;
+        height: 100%;
+        float: left;
+        padding: 0 0 0 3px !important;
+    }*/
+</style>

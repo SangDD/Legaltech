@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "Danh sách tin";
+    Layout = "~/ViewsShared/_Layout.cshtml";
     string hrfLuuTam = "";
     string hrfChoXuly = "";
     string hrfTuChoi = "";
@@ -22,7 +23,7 @@
     <div class="d-nav">
         <img src="~/Content/icons/Body-icon-home.png" /> Tin tức
         <span class="red">></span>
-        <a href="/wiki-doc/list">Quản lý tin</a>
+        <a href="/quan-ly-tin/danh-sach-tin">Quản lý tin</a>
     </div>
 </div>
 <div class="divCover">
@@ -38,17 +39,17 @@
         <table style="margin:10px 0px">
             <tr>
                 <td>
-                    <a style="@hrfLuuTam" href="/wiki-manage/wiki-doc/list/1">1. Danh sách bài viết lưu tạm</a>
+                    <a style="@hrfLuuTam" href="/quan-ly-tin/danh-sach-tin/1">1. Danh sách bài viết lưu tạm</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a style="@hrfChoXuly" href="/wiki-manage/wiki-doc/list/2">  2. Danh sách bài viết chờ xử lý</a>
+                    <a style="@hrfChoXuly" href="/quan-ly-tin/danh-sach-tin/2">  2. Danh sách bài viết chờ xử lý</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a style="@hrfTuChoi" href="/wiki-manage/wiki-doc/list/3">  3. Danh sách bài biết bị từ chối</a>
+                    <a style="@hrfTuChoi" href="/quan-ly-tin/danh-sach-tin/3">  3. Danh sách bài biết bị từ chối</a>
                 </td>
             </tr>
         </table>
@@ -64,10 +65,7 @@
             <div>
                 <div style="width:200px">
                     <select id="cboSearchWikiCatalogue">
-                        <option value="ALL">
-                            Tất cả
-                        </option>
-
+                        <option value="ALL"> Tất cả </option>
                     </select>
                 </div>
             </div>
@@ -76,16 +74,16 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txtSearchTitleHashtag" data-controlcondition="TRUE" />
+                    <input type="text" id="txtNoiDungTin" data-controlcondition="TRUE" />
                 </div>
             </div>
         </div>
-
     </div>
 
     <div class="divCover">
         <div class="div-search-btn" style="width:450px;">
             <input type="button" value="Tìm kiếm" class="btn-default" />
+            <a href="/quan-ly-tin/soan-bai-viet"><input type="button" value="Thêm bài viết" class="btn-default" style="width: 125px;" /></a>
         </div>
     </div>
 
