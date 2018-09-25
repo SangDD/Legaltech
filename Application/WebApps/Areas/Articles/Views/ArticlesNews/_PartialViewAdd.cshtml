@@ -11,6 +11,9 @@
         .div-search-title > div {
             width: 150px;
         }
+        .select{
+            height:200px;
+        }
     </style>
     <script>
         var _isSimpleEditorToolBar = 1;// set cho ckfinder có cấu hình xoạn thảo đơn giản
@@ -46,7 +49,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txtTitle"  maxlength="500" />
+                    <input type="text" id="txtTitle" maxlength="500" />
                 </div>
             </div>
         </div>
@@ -57,7 +60,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <textarea rows="4" style="height:70px" cols="50" id="txtHeader"></textarea>
+                    <input type="text"  id="txtHeader"/>
                 </div>
             </div>
         </div>
@@ -82,9 +85,9 @@
         </div>
     </div>
 
-    <div class="divContentCMCKLanDau">
-        <div class="divCategories">
-            <div>Chuyên mục chính <i style="color: red">(*)</i></div> <br />
+    <div  style="width:100%">
+        <div class="class_left_50">
+            <div  style="width:200px">Chuyên mục chính <i style="color: red">(*)</i></div> <br />
             <select id="_txtCategories" size="10" class="select">
                 @if (ViewBag.lstCategory != null)
                 {
@@ -95,8 +98,8 @@
                 }
             </select>
         </div>
-        <div class="divCategoryRe">
-            <div>Chuyên mục  liên quan </div> <br />
+        <div class="class_right_50">
+            <div style="width:250px">Chuyên mục liên quan </div> <br />
             <select id="_txtCategoriesRe" size="10" class="select">
                 @if (ViewBag.lstCategory != null)
                 {
@@ -118,28 +121,27 @@
         </div>
     </div>
 
-
-
-    <script>
-        var txtNoiDung = CKEDITOR.replace("txtNoiDung",
-            {
-                height: 500
-            });
-
-        $("#btnLuuTam").click(function () {
-
-
-        });
-
-        $("#btnGuiDon").click(function () {
-
-        });
-
-    </script>
 }
 catch (Exception)
 {
 }
+
+<script>
+    var txtNoiDung = CKEDITOR.replace("txtNoiDung",
+        {
+            height: 500
+        });
+
+    $("#btnLuuTam").click(function () {
+
+
+    });
+
+    $("#btnGuiDon").click(function () {
+
+    });
+
+</script>
 
 <style>
     .select {
@@ -150,23 +152,14 @@ catch (Exception)
             line-height: 25px;
             padding: 5px;
         }
-
-
-    /*.divContentCMCKLanDau .divCategories {
-        float: left;
-        width: 45%;
+    .class100{
+        display:inline ;
     }
 
-    .divContentCMCKLanDau .divCategoryRe {
-        float: left;
-        width: 50%;
-        padding-left: 30px;
+    .classwidth200{
+        width:200px; 
     }
-
-    .divContentCMCKLanDau {
-        width: 79%;
-        height: 100%;
-        float: left;
-        padding: 0 0 0 3px !important;
-    }*/
+    .classwidth250 {
+        width: 250px;
+    }
 </style>

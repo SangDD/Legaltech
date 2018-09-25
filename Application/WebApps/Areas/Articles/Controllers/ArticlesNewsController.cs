@@ -32,7 +32,7 @@ namespace WebApps.Areas.Articles.Controllers
                 string _keySearch = "ALL|" + _status;
                 List<NewsInfo> _lst = objBL.ArticleHomeSearch(_keySearch, ref _total_record);
                 string htmlPaging = CommonFuc.Get_HtmlPaging<NewsInfo>((int)_total_record, 1, "Tin");
-                ViewBag.Obj = _lst;
+                ViewBag.listArticles = _lst;
                 ViewBag.Paging = htmlPaging;
                 ViewBag.SumRecord = _total_record;
                 ViewBag.lstCategory = MemoryData.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
