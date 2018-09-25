@@ -183,6 +183,7 @@
     <Compile Include="Areas\Home\HomeAreaRegistration.cs" />
     <Compile Include="Areas\Manager\Controllers\BillingController.cs" />
     <Compile Include="Areas\Manager\Controllers\DockingController.cs" />
+    <Compile Include="Areas\Manager\Controllers\SearchManageController.cs" />
     <Compile Include="Areas\Manager\Controllers\TimeSheetController.cs" />
     <Compile Include="Areas\Manager\ManagerAreaRegistration.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\CustomerController.cs" />
@@ -1478,6 +1479,8 @@
     <Content Include="Areas\TradeMark\Views\Application\_PartialPhanLoai_NopDon.cshtml" />
     <Content Include="Areas\TradeMark\Views\Application\_PartialEmployee_Confirm.cshtml" />
     <Content Include="Areas\Articles\Views\ArticlesNews\GetListArticles.cshtml" />
+    <Content Include="Areas\Manager\Views\SearchManage\ListSearch.cshtml" />
+    <Content Include="Areas\Manager\Views\SearchManage\_SearchData.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <Content Include="Areas\Home\Views\Wiki\_PartialListDocByCata.cshtml" />

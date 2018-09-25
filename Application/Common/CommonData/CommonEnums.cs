@@ -154,4 +154,12 @@
         public const string TypeRequest = "ORDER";
         public const string TypeProcess = "TODO";
     }
+
+    public class CommonSearch
+    {
+        public const int Stt_PhanChoLuatSu = 1;
+        public const int Stt_ChoLuatSuPhanHoi = 2;
+        public const int Stt_ChoDuyet = 3;
+        public const int Stt_DaPhanHoi = 4;
+    }
 }
