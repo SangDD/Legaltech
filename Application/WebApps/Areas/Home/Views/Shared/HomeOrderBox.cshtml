@@ -1,10 +1,10 @@
 ﻿<style>
     .legalOrder_div {
         text-align: left;
-        border: 1px solid #ccc;
+        /*border: 1px solid #ccc;*/
         min-height: 50px;
         padding: 5px 0px 5px 5px;
-        margin-top:10px;
+        margin-top: 10px;
     }
 
     #legalOrder_table td {
@@ -17,8 +17,8 @@
     }
 </style>
 
-<div class="divCover legalOrder_div"  style="background-color: darkseagreen;">
-    <div class="box_title">   YÊU CẦU </div>
+<div class="divCover legalOrder_div">
+    <div id="d_order_sum" class="box_title" style="float:left; width:100%; background-color: darkseagreen;">   YÊU CẦU </div>
     <div>
         <input type="hidden" id="colSortedOrder" />
         <input type="hidden" id="SortTypeOrder" />
@@ -29,107 +29,96 @@
             @Html.Partial("/Areas/Home/Views/Shared/_OrderData.cshtml")
         </div>
     </div>
-    
+
     <script>
-    var _OrderKeysearch = "";
-    var _OrderarrKeySearch;
-   
-    function OrderfindObjects(_pageNumber, _isSearching) {
-        try {
-            var _OrdersearchContent = "";
-            var _RecordonPage = 5;
-            if (_isSearching === 1) {
-                _Keysearch = "";
-            } else {
-                //_arrKeySearch = _TodoKeysearch.split('|');
-                //_searchContent = _TodoarrKeySearch[0];
-                _OrdersearchContent = "";
+        var _OrderKeysearch = "";
+        var _OrderarrKeySearch;
+
+        function OrderfindObjects(_pageNumber, _isSearching) {
+            try {
+                var _OrdersearchContent = "";
+                var _RecordonPage = 5;
+                if (_isSearching === 1) {
+                    _Keysearch = "";
+                } else {
+                    _OrdersearchContent = "";
+                }
+
+                var orderby = $("#colSortedOrder").val();
+                var orderType = $("#SortTypeOrder").val();
+                $.ajax({
+                    type: "POST",
+                    headers: { "cache-control": "no-cache" },
+                    url: "/search-orders",
+                    data: {
+                        keysSearch: _OrdersearchContent,
+                        _sortype: (orderby + " " + orderType),
+                        _reconpage: _RecordonPage,
+                        p_CurrentPage: _pageNumber
+                    },
+                    async: true,
+                    success: function (data) {
+                        if (data != null) {
+                            $("#LegalOrderdivTable").html(data.TodoData);
+                            $("#d_order_sum").html("YÊU CẦU - " + data.TodoNotify.Total);
+                        }
+                    }
+                });
+                return true;
+            } catch (e) {
+                alert(e.toString());
+                return false;
             }
-            
-            var orderby = $("#colSortedOrder").val();
-            var orderType = $("#SortTypeOrder").val();
-            //if (orderby.indexOf("NUMBER_TEXT") >= 0) {
-            //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
-            //}
-            //else if (orderby.indexOf("TITLE") >= 0) {
-            //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
-            //}
-            //else if (orderby.toLocaleUpperCase().indexOf("AGENCIE_NAME") >= 0) {
-            //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
-            //}           
-            $.ajax({
-                type: "POST",
-                headers: { "cache-control": "no-cache" },
-                url: "/search-orders",
-                data: {
-                    keysSearch: _OrdersearchContent,
-                    _sortype: (orderby + " " + orderType),
-                    _reconpage: _RecordonPage,
-                    p_CurrentPage: _pageNumber
-                },
-                async: true,
-                success: function (data) {
-                    if (data != null) {
-                        $("#LegalOrderdivTable").html(data);
+        }
+
+        function OrderjsPaging(_page) {
+            try {
+                OrderfindObjects(_page, 0);
+            } catch (e) {
+                alert(e.toString());
+            }
+        }
+
+
+        function OrderSortByCol(value) {
+            try {
+                //Lay gia tri luu trong colSort luu duoi dang text Hidden
+                var _currentColSorted = $("#colSortedOrder").val();
+                //Lay gia tri luu trong SortType luu duoi dang text Hidden
+                var _currentSortedType = $("#SortTypeOrder").val();
+                var tag = "#" + value;
+                if (_currentColSorted == value) {
+                    if (_currentSortedType == "ASC") {
+                        $("#SortTypeOrder").val("DESC");
+                    }
+                    else {
+                        $("#SortTypeOrder").val("ASC");
                     }
                 }
-            });
-            return true;
-        } catch (e) {
-            alert(e.toString());
-            return false;
-        }
-    }
-
-    function OrderjsPaging(_page)
-    {
-        try {
-            OrderfindObjects(_page, 0);
-        } catch (e) {
-            alert(e.toString());
-        }
-    }
-
-
-    function OrderSortByCol(value) {
-        try {
-            //Lay gia tri luu trong colSort luu duoi dang text Hidden
-            var _currentColSorted = $("#colSortedOrder").val();
-            //Lay gia tri luu trong SortType luu duoi dang text Hidden
-            var _currentSortedType = $("#SortTypeOrder").val();
-            var tag = "#" + value;
-            if (_currentColSorted == value) {
-                if (_currentSortedType == "ASC") {
-                    $("#SortTypeOrder").val("DESC");
-                }
                 else {
+                    $("#colSortedOrder").val(value);
                     $("#SortTypeOrder").val("ASC");
                 }
+                var pos = document.getElementById("tableListOrder").parentElement.scrollLeft;
+                //Sort lai thi ve trang dau
+                OrderfindObjects(1, 0);
+                //Sort lai thi ve trang dau
+                document.getElementById("tableListOrder").parentElement.scrollLeft = pos;
+            } catch (e) {
+                console.info(e.toString());
             }
-            else {
-                $("#colSortedOrder").val(value);
-                $("#SortTypeOrder").val("ASC");
-            }
-            var pos = document.getElementById("tableListOrder").parentElement.scrollLeft;
-            //Sort lai thi ve trang dau
-            OrderfindObjects(1, 0);
-            //Sort lai thi ve trang dau
-            document.getElementById("tableListOrder").parentElement.scrollLeft = pos;
-        } catch (e) {
-            console.info(e.toString());
         }
-    }
 
-    function OrderChangeIConSortWhenSortColumns() {
-        try {
-            var _order_by = $("#colSortedOrder").val();
-            var _order_type = $("#SortTypeOrder").val();
-            var _text = _order_type == 'DESC' ? $("#" + _order_by).text() + " ▼" : $("#" + _order_by).text() + " ▲";
-            $("#" + _order_by).text(_text);
+        function OrderChangeIConSortWhenSortColumns() {
+            try {
+                var _order_by = $("#colSortedOrder").val();
+                var _order_type = $("#SortTypeOrder").val();
+                var _text = _order_type == 'DESC' ? $("#" + _order_by).text() + " ▼" : $("#" + _order_by).text() + " ▲";
+                $("#" + _order_by).text(_text);
+            }
+            catch (e) {
+            }
         }
-        catch (e) {
-        }
-    }
-  
+
     </script>
 </div>

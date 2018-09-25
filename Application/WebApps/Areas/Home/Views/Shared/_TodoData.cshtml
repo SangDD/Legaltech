@@ -29,29 +29,31 @@
                 {
                     <tr>
                         <td class="tdcenteralign">@item.STT</td>
-                        <td class="tdleftalign">@item.CASE_CODE</td>
                         @if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.Billing))
                         {
                             <td class="tdleftalign">
-                                <a href="javascript:;" onclick="GetView2Action_Billing('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CONTENT</a>
+                                <a href="javascript:;" onclick="GetView2Action_Billing('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
                             </td>
                         }
                         else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.App))
                         {
                             <td class="tdleftalign">
-                                <a href="/trade-mark-share-data/todo-details/@item.CASE_CODE/2" data-title="Xem chi tiết">@item.CONTENT</a>
+                                <a href="javascript:;" onclick="GetView2Action_App('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
                             </td>
                         }
                         else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.TimeSheet))
                         {
                             <td class="tdleftalign">
-                                <a href="javascript:;" onclick="GetView2Action_TimeSheet('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CONTENT</a>
+                                <a href="javascript:;" onclick="GetView2Action_TimeSheet('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
                             </td>
                         }
                         else
                         {
                             <td class="tdleftalign">@item.CONTENT</td>
                         }
+
+                        <td class="tdleftalign">@item.CONTENT</td>
+
 
                         <td class="tdleftalign">@item.REQUEST_BY_NAME</td>
                         <td class="tdcenteralign">
@@ -84,13 +86,27 @@
         TodoChangeIConSortWhenSortColumns();
     });
 
+    function GetView2Action_App(_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        try {
+            var url = "/trade-mark-share-data/todo-details/" + _case_code + "/2"
+            window.open(url);
+            //window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
+
     function GetView2Action_TimeSheet(_case_code) {
         if (CheckSessionTimeOut() == false) {
             return false;
         }
         try {
             var url = "/quan-ly-timesheet/danh-sach-timesheet/show-approve-by-casecode/" + _case_code;
-            window.location.href = url;
+            window.open(url);
+            //window.location.href = url;
         } catch (e) {
             console.log(e.toString())
         }
@@ -102,7 +118,8 @@
         }
         try {
             var url = "/quan-ly-billing/danh-sach-billing/show-action-billing-by-code?case_code=" + _case_code;
-            window.location.href = url;
+            window.open(url);
+            //window.location.href = url;
         } catch (e) {
             console.log(e.toString())
         }

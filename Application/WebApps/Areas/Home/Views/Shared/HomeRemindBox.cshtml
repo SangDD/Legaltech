@@ -1,10 +1,10 @@
 ﻿<style>
     .legalRemind_div {
         text-align: left;
-        border: 1px solid #ccc;
+        /*border: 1px solid #ccc;*/
         min-height: 50px;
         padding: 5px 0px 5px 5px;
-        margin-top:10px;
+        margin-top: 10px;
     }
 
     #legalOrder_table td {
@@ -17,8 +17,8 @@
     }
 </style>
 
-<div class="divCover legalRemind_div"  style="background-color: cadetblue;">
-    <div class="box_title">   Remind </div>
+<div class="divCover legalRemind_div">
+    <div id="d_remind_sum" class="box_title" style="float:left;width:100%; background-color: cadetblue;">   REMIND </div>
     <div>
         <input type="hidden" id="colSortedRemid" />
         <input type="hidden" id="SortTypeRemind" />
@@ -29,106 +29,94 @@
             @Html.Partial("/Areas/Home/Views/Shared/_RemindData.cshtml")
         </div>
     </div>
-    
+
     <script>
- 
-   
-    function RemindfindObjects(_pageNumber, _isSearching) {
-        try {
-            var _RemindsearchContent = "";
-            var _RecordonPage = 5;
-            if (_isSearching === 1) {
-                _Keysearch = "";
-            } else {
-                //_arrKeySearch = _TodoKeysearch.split('|');
-                //_searchContent = _TodoarrKeySearch[0];
-                _RemindsearchContent = "";
+
+        function RemindfindObjects(_pageNumber, _isSearching) {
+            try {
+                var _RemindsearchContent = "";
+                var _RecordonPage = 5;
+                if (_isSearching === 1) {
+                    _Keysearch = "";
+                } else {
+                    _RemindsearchContent = "";
+                }
+
+                var orderby = $("#colSortedRemid").val();
+                var orderType = $("#SortTypeRemind").val();
+                $.ajax({
+                    type: "POST",
+                    headers: { "cache-control": "no-cache" },
+                    url: "/search-remind",
+                    data: {
+                        keysSearch: _RemindsearchContent,
+                        _sortype: (orderby + " " + orderType),
+                        _reconpage: _RecordonPage,
+                        p_CurrentPage: _pageNumber
+                    },
+                    async: true,
+                    success: function (data) {
+                        if (data != null) {
+                            $("#LegalReminddivTable").html(data.RemindData);
+                            $("#d_remind_sum").html("REMIND - " + data.Total);
+                        }
+                    }
+                });
+                return true;
+            } catch (e) {
+                alert(e.toString());
+                return false;
             }
-            
-            var orderby = $("#colSortedRemid").val();
-            var orderType = $("#SortTypeRemind").val();
-            //if (orderby.indexOf("NUMBER_TEXT") >= 0) {
-            //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
-            //}
-            //else if (orderby.indexOf("TITLE") >= 0) {
-            //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
-            //}
-            //else if (orderby.toLocaleUpperCase().indexOf("AGENCIE_NAME") >= 0) {
-            //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
-            //}           
-            $.ajax({
-                type: "POST",
-                headers: { "cache-control": "no-cache" },
-                url: "/search-remind",
-                data: {
-                    keysSearch: _RemindsearchContent,
-                    _sortype: (orderby + " " + orderType),
-                    _reconpage: _RecordonPage,
-                    p_CurrentPage: _pageNumber
-                },
-                async: true,
-                success: function (data) {
-                    if (data != null) {
-                        $("#LegalReminddivTable").html(data);
+        }
+
+        function RemindjsPaging(_page) {
+            try {
+                RemindfindObjects(_page, 0);
+            } catch (e) {
+                alert(e.toString());
+            }
+        }
+
+
+        function RemindSortByCol(value) {
+            try {
+                //Lay gia tri luu trong colSort luu duoi dang text Hidden
+                var _currentColSorted = $("#colSortedRemid").val();
+                //Lay gia tri luu trong SortType luu duoi dang text Hidden
+                var _currentSortedType = $("#SortTypeRemind").val();
+                var tag = "#" + value;
+                if (_currentColSorted == value) {
+                    if (_currentSortedType == "ASC") {
+                        $("#SortTypeRemind").val("DESC");
+                    }
+                    else {
+                        $("#SortTypeRemind").val("ASC");
                     }
                 }
-            });
-            return true;
-        } catch (e) {
-            alert(e.toString());
-            return false;
-        }
-    }
-
-    function RemindjsPaging(_page)
-    {
-        try {
-            RemindfindObjects(_page, 0);
-        } catch (e) {
-            alert(e.toString());
-        }
-    }
-
-
-    function RemindSortByCol(value) {
-        try {
-            //Lay gia tri luu trong colSort luu duoi dang text Hidden
-            var _currentColSorted = $("#colSortedRemid").val();
-            //Lay gia tri luu trong SortType luu duoi dang text Hidden
-            var _currentSortedType = $("#SortTypeRemind").val();
-            var tag = "#" + value;
-            if (_currentColSorted == value) {
-                if (_currentSortedType == "ASC") {
-                    $("#SortTypeRemind").val("DESC");
-                }
                 else {
+                    $("#colSortedRemid").val(value);
                     $("#SortTypeRemind").val("ASC");
                 }
+                var pos = document.getElementById("tableListRemind").parentElement.scrollLeft;
+                //Sort lai thi ve trang dau
+                RemindfindObjects(1, 0);
+                //Sort lai thi ve trang dau
+                document.getElementById("tableListRemind").parentElement.scrollLeft = pos;
+            } catch (e) {
+                console.info(e.toString());
             }
-            else {
-                $("#colSortedRemid").val(value);
-                $("#SortTypeRemind").val("ASC");
-            }
-            var pos = document.getElementById("tableListRemind").parentElement.scrollLeft;
-            //Sort lai thi ve trang dau
-            RemindfindObjects(1, 0);
-            //Sort lai thi ve trang dau
-            document.getElementById("tableListRemind").parentElement.scrollLeft = pos;
-        } catch (e) {
-            console.info(e.toString());
         }
-    }
 
-    function RemindChangeIConSortWhenSortColumns() {
-        try {
-            var _order_by = $("#colSortedRemid").val();
-            var _order_type = $("#SortTypeRemind").val();
-            var _text = _order_type == 'DESC' ? $("#" + _order_by).text() + " ▼" : $("#" + _order_by).text() + " ▲";
-            $("#" + _order_by).text(_text);
+        function RemindChangeIConSortWhenSortColumns() {
+            try {
+                var _order_by = $("#colSortedRemid").val();
+                var _order_type = $("#SortTypeRemind").val();
+                var _text = _order_type == 'DESC' ? $("#" + _order_by).text() + " ▼" : $("#" + _order_by).text() + " ▲";
+                $("#" + _order_by).text(_text);
+            }
+            catch (e) {
+            }
         }
-        catch (e) {
-        }
-    }
-  
+
     </script>
 </div>

@@ -1,41 +1,65 @@
-﻿<style>
-    #legalsearch_div
+﻿@{
+    ViewBag.Title = "Tìm kiếm thông tin";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+    string _searchtype = "";
+    if (ViewBag.Searchtype != null)
     {
-        text-align:left;
-        /*border:1px solid #ccc;*/
-        min-height:50px;
-    }
-    #legalsearch_table td
-    {
-        cursor:pointer;
-        padding: 5px 10px;
-        font-weight:bold;
-    }
-    .legalsearch_clssunderline
-    {
-        text-decoration:underline;
-    }
-    .divNumberRecordOnPage
-    {
-        display:none;
+        _searchtype = (string)ViewBag.Searchtype;
     }
 
+    string _searchContent = "";
+    if (ViewBag.SearchContent != null)
+    {
+        _searchContent = (string)ViewBag.SearchContent;
+    }
+
+    string _options = "";
+    if (ViewBag.Options != null)
+    {
+        _options = (string)ViewBag.Options;
+    }
+}
+
+<style>
+    #legalsearch_div {
+        text-align: left;
+        /*border:1px solid #ccc;*/
+        min-height: 50px;
+    }
+
+    #legalsearch_table td {
+        cursor: pointer;
+        padding: 5px 10px;
+        font-weight: bold;
+    }
+
+    .legalsearch_clssunderline {
+        text-decoration: underline;
+    }
+
+    .divNumberRecordOnPage {
+        display: none;
+    }
 </style>
- 
+
 <div class="divCover" id="legalsearch_div" style="background-color: honeydew;">
-   <div class="box_title"> TÌM KIẾM </div>
+    <div class="box_title"> TÌM KIẾM </div>
     <table id="legalsearch_table">
         <tr>
             <td class="legalsearch_clssunderline" onclick="FunChooseSearchtype(this, 1)">Tình trạng đơn</td>
             <td onclick="FunChooseSearchtype(this, 2)">Luật sư</td>
             <td onclick="FunChooseSearchtype(this, 3)">Khách hàng</td>
             <td onclick="FunChooseSearchtype(this, 4)">Wiki</td>
-            <td ><input type="text" id="legalsearch_txtsearchcontent" placeholder="case code, case name, tình trạng đơn, người xử lý, loại đơn" style="width: 520px" /> <input type="button" class="btn-default" style="min-width:41px !important; height:24px !important; margin-top:1px;" value="Go" onclick="findObjects(1, 1)" /></td>
+            <td>
+                <input type="text" id="legalsearch_txtsearchcontent" placeholder="case code, case name, tình trạng đơn, người xử lý, loại đơn" style="width: 520px" />
+                <input type="button" class="btn-default" style="min-width:41px !important; height:24px !important; margin-top:1px;" value="Go" onclick="findObjects(1, 1)" />
+            </td>
         </tr>
     </table>
     <div>
-     
-        <input type="hidden" id="legalsearch_txtsearchtype" value="1"/>
+
+        <input type="hidden" id="legalsearch_txtsearchtype" value="1" />
         <input type="hidden" id="colSorted_1" />
         <input type="hidden" id="colSorted_2" />
         <input type="hidden" id="colSorted_3" />
@@ -46,29 +70,40 @@
         <input type="hidden" id="SortType_4" />
     </div>
 
-    @*<div class="Homebox">
+    <div class="Homebox">
         <div id="LegalSearchdivTable" class="LegaldivBoxTable">
             @Html.Partial("/Areas/Home/Views/Shared/_SearchDataAppStatus.cshtml")
         </div>
-    </div>*@
+    </div>
+</div>
 
-    @*<div id="divWrapperPopUpUser" class="divWrapperPopup" style="display: none;">
-        <div class="divPopup" id="divPopUpUser">
-        </div>
-    </div>*@
+<script>
+    $(document).ready(function () {
+        $('#txtAppCaseCode').focus();
+        $("#cboStatus").keypress(function (evt) {
+            var key = evt.which || evt.charCode || evt.keyCode || 0;
+            if (key == 13) {
+                findObjects(1, 1);
+            }
+        });
 
-    <script>
+        $("#legalsearch_txtsearchtype").val('@_searchtype');
+        $("#legalsearch_txtsearchcontent").val('@_searchContent');
+
+        findObjects(1, 1);
+    });
+
     var _Keysearch = "";
     var _searchtype = "1";
     var _searchContent = "";
     var _arrKeySearch;
+
     function FunChooseSearchtype(item, _searchtype) {
         try {
             $(".legalsearch_clssunderline").removeClass("legalsearch_clssunderline");
             $(item).addClass("legalsearch_clssunderline");
             $("#legalsearch_txtsearchtype").val(_searchtype);
-            if(_searchtype == 1)
-            {
+            if (_searchtype == 1) {
                 $("#legalsearch_txtsearchcontent").attr("placeholder", "case code, case name, tình trạng đơn, người xử lý, loại đơn")
             }
             if (_searchtype == 2) {
@@ -83,6 +118,7 @@
 
         }
     }
+
     function findObjects(_pageNumber, _isSearching) {
         try {
             var _RecordonPage = 5;
@@ -99,8 +135,7 @@
             }
             _optionFilter = "";
 
-            if (_searchtype == "1")
-            {
+            if (_searchtype == "1") {
                 //Tình trạng đơn
             }
             if (_searchtype == "2") {
@@ -124,35 +159,30 @@
                 orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
             }
             var _optionFilter = orderby + "|" + orderType + "||" + _pageNumber + "|" + _RecordonPage
-
-            var url = "/search/search-dashboard?searchtype=" + _searchtype + "&searchContent=" + _searchContent + "&options=" + _optionFilter;
-            window.open(url);
-
-            //$.ajax({
-            //    type: "POST",
-            //    headers: { "cache-control": "no-cache" },
-            //    url: "/search-dashboard",
-            //    data: {
-            //        searchtype: _searchtype,
-            //        keysSearch: _searchContent,
-            //        options: _optionFilter
-            //    },
-            //    async: true,
-            //    success: function (data) {
-            //        if (data != null) {
-            //            $("#LegalSearchdivTable").html(data);
-            //        }
-            //    }
-            //});
-            //return true;
+            $.ajax({
+                type: "POST",
+                headers: { "cache-control": "no-cache" },
+                url: "/search/search-dashboard/search/",
+                data: {
+                    searchtype: _searchtype,
+                    keysSearch: _searchContent,
+                    options: _optionFilter
+                },
+                async: true,
+                success: function (data) {
+                    if (data != null) {
+                        $("#LegalSearchdivTable").html(data);
+                    }
+                }
+            });
+            return true;
         } catch (e) {
             alert(e.toString());
             return false;
         }
     }
 
-    function jsPaging(_page)
-    {
+    function jsPaging(_page) {
         try {
             findObjects(_page, 0);
         } catch (e) {
@@ -202,27 +232,26 @@
     }
 
 
-    function viewDetailUser(userId, username) {
-        $.ajax({
-            type: "POST",
-            url: "/quan-tri-he-thong/quan-ly-nguoi-dung/view-detail-user",
-            headers: { "cache-control": "no-cache" },
-            async: false,
-            data: { userId: userId },
-            success: function (data) {
-                if (data != null) {
-                    if (validateResponse(data)) {
-                        $("#divPopUpUser").html(data);
-                        ShowPopupDialog_Ipace('divWrapperPopUpUser', "Chi tiết người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 900);
-                    }
-                }
-                return false;
-            }
-        });
-    }
+    //function viewDetailUser(userId, username) {
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/quan-tri-he-thong/quan-ly-nguoi-dung/view-detail-user",
+    //        headers: { "cache-control": "no-cache" },
+    //        async: false,
+    //        data: { userId: userId },
+    //        success: function (data) {
+    //            if (data != null) {
+    //                if (validateResponse(data)) {
+    //                    $("#divPopUpUser").html(data);
+    //                    ShowPopupDialog_Ipace('divWrapperPopUpUser', "Chi tiết người dùng: <span class='data-in-title-popup'>" + username + "</span>", 900, 900);
+    //                }
+    //            }
+    //            return false;
+    //        }
+    //    });
+    //}
 
-    function ClosePopUpUser() {
-        CloseDivPopUp('divWrapperPopUpUser');
-    }
-    </script>
-</div>
+    //function ClosePopUpUser() {
+    //    CloseDivPopUp('divWrapperPopUpUser');
+    //}
+</script>

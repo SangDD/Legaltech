@@ -179,6 +179,7 @@
     <Compile Include="Areas\DaiDienSHCN\Controllers\DDSHCNController.cs" />
     <Compile Include="Areas\DaiDienSHCN\DaiDienSHCNAreaRegistration.cs" />
     <Compile Include="Areas\Home\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Home\Controllers\SearchController.cs" />
     <Compile Include="Areas\Home\Controllers\WikiController.cs" />
     <Compile Include="Areas\Home\HomeAreaRegistration.cs" />
     <Compile Include="Areas\Manager\Controllers\BillingController.cs" />
@@ -1478,6 +1479,7 @@
     <Content Include="Areas\TradeMark\Views\Application\_PartialPhanLoai_NopDon.cshtml" />
     <Content Include="Areas\TradeMark\Views\Application\_PartialEmployee_Confirm.cshtml" />
     <Content Include="Areas\Articles\Views\ArticlesNews\GetListArticles.cshtml" />
+    <Content Include="Areas\Home\Views\Search\HomeSearch.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <Content Include="Areas\Home\Views\Wiki\_PartialListDocByCata.cshtml" />

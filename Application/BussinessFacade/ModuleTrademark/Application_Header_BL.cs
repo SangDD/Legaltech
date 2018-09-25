@@ -177,7 +177,7 @@ namespace BussinessFacade.ModuleTrademark
             try
             {
                 Application_Header_DA _da = new Application_Header_DA();
-                DataSet _ds = _da.GetApp_By_Case_Code_Billing(p_case_code, p_user_name, p_language_code);
+                DataSet _ds = _da.GetApp_By_Case_Code(p_case_code, p_user_name, p_language_code);
                 return CBO<ApplicationHeaderInfo>.FillObjectFromDataTable(_ds.Tables[0]);
             }
             catch (Exception ex)

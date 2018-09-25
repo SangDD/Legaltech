@@ -296,8 +296,10 @@
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;
                 ViewBag.SumRecord = _total_record;
-                //return PartialView("~/Areas/Home/Views/Shared/_TodoData.cshtml");
-                return Json(new { TodoData = RenderPartialToString("~/Areas/Home/Views/Shared/_TodoData.cshtml", null), TodoNotify = p_todonotify });
+                //return Json(new { TodoData = RenderPartialToString("~/Areas/Home/Views/Shared/_TodoData.cshtml", null), TodoNotify = p_todonotify });
+
+                var TodoData = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Home/Views/Shared/_TodoData.cshtml");
+                return Json(new { TodoData, TodoNotify = p_todonotify });
             }
             catch (Exception ex)
             {
@@ -332,42 +334,17 @@
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;
                 ViewBag.SumRecord = _total_record;
-                return PartialView("~/Areas/Home/Views/Shared/_OrderData.cshtml");
+
+                var TodoData = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Home/Views/Shared/_OrderData.cshtml");
+                return Json(new { TodoData, TodoNotify = p_todonotify });
+
+                //return Json(new { TodoData = RenderPartialToString("~/Areas/Home/Views/Shared/_OrderData.cshtml", null), TodoNotify = p_todonotify });
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
             }
             return null;
-        }
-        /// <summary>
-        /// truyền vào view name và model trả ra partial dạng sstring
-        /// </summary>
-        /// <param name="viewName"></param>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public string RenderPartialToString(string viewName, object model)
-        {
-            try
-            {
-                ViewData.Model = model;
-                using (var sw = new StringWriter())
-                {
-                    var viewResult = ViewEngines.Engines.FindPartialView(ControllerContext,
-                                                                             viewName);
-                    var viewContext = new ViewContext(ControllerContext, viewResult.View,
-                                                 ViewData, TempData, sw);
-                    viewContext.HttpContext.Response.ContentEncoding = System.Text.Encoding.GetEncoding("UTF-8");
-                    viewResult.View.Render(viewContext, sw);
-                    viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
-                    return sw.GetStringBuilder().ToString();
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return "";
-            }
         }
 
         #endregion
@@ -395,7 +372,9 @@
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;
                 ViewBag.SumRecord = _total_record;
-                return PartialView("~/Areas/Home/Views/Shared/_RemindData.cshtml");
+
+                var RemindData = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Home/Views/Shared/_RemindData.cshtml");
+                return Json(new { RemindData, Total = _total_record });
             }
             catch (Exception ex)
             {
