@@ -1,7 +1,12 @@
 ﻿@using Common.CommonData
-@using Common.Extensions
 @using ObjectInfos
-@model List<NewsInfo>
+    @{ 
+        List<NewsInfo> listArticles = ViewBag.listArticles;
+        if (listArticles == null)
+        {
+            listArticles = new List<NewsInfo>();
+        }
+    }
 @try
 {
     <div>
@@ -9,7 +14,6 @@
             <thead>
                 <tr>
                     <th style="width: 4%">STT</th>
-                    <th data-sort style="width: 10%" id="LANGUAGE_CODE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Ngôn ngữ</th>
                     <th style="width: 25%" data-sort id="TITLE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Tiêu đề</th>
                     <th style="width: 25%" data-sort id="CREATED_BY" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Người tạo</th>
                     <th style="width: 15%" data-sort id="MODIFIED_DATE">Cập nhật lúc</th>
@@ -17,29 +21,27 @@
                 </tr>
             </thead>
             <tbody>
-                @if (Model != null && Model.Count > 0)
-                {
-                    foreach (var item in Model)
+                @{
+                    foreach (var item in listArticles)
                     {
                         <tr>
                             <td class="tdcenteralign">@item.STT</td>
-                            <td class="tdleftalign">a</td>
-                            <td class="tdleftalign">a</td>
-                            <td class="tdleftalign">a</td>
-                            <td class="tdleftalign">a</td>
+                            <td class="tdleftalign">@item.Title</td>
+                            <td class="tdleftalign">@item.Createdby</td>
+                            <td class="tdleftalign">@item.Createddate.ToString("dd/MM/yyy HH:mm:ss")</td>
                             <td class="tdcenteralign">
                                 <a href="javascript:;" class="icon icon-info" data-title="Xem chi tiết"></a>
-                                <a href="#" class="icon icon-edit" data-title="Sửa"></a>
-                                <a href="#" class="icon icon-delete" data-title="Xóa"></a>
+                                <a href="/quan-ly-tin/sua-bai-viet/@item.Id" class="icon icon-edit" data-title="Sửa"></a>
+                                <a href="javascript:;" onclick="return funcDelArticles(@item.Id)" class="icon icon-delete" data-title="Xóa"></a>
                             </td>
                         </tr>
                     }
+
+                    if (listArticles.Count < 1)
+                    {
+                        <tr><td colspan="9"> Không có dữ liệu </td> </tr>
+                    }
                 }
-                else
-                {
-                    <tr>
-                        <td colspan="9">Không có dữ liệu</td>
-                    </tr>}
             </tbody>
         </table>
     </div>

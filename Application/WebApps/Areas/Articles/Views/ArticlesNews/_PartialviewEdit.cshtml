@@ -1,50 +1,48 @@
-﻿
-@using Common.CommonData
+﻿@using Common.CommonData
 @using ObjectInfos;
-@using Common;
-@model WikiDoc_Info
+@model NewsInfo
 @{
-    ViewBag.Title = "Sửa bài viết";
+    ViewBag.Title = "Quản lý bài viết";
     Layout = "~/ViewsShared/_Layout.cshtml";
-    List<WikiCatalogues_Info> _listcata = new List<WikiCatalogues_Info>();
-    if (ViewBag.ListCata != null)
+    var objInfo = new NewsInfo();
+    if (Model != null)
     {
-        _listcata = ViewBag.ListCata;
+        objInfo = (NewsInfo)Model;
     }
 
-    var _CataInfo = new WikiCatalogues_Info();
-    if (ViewBag.CataInfo != null)
-    {
-        _CataInfo = ViewBag.CataInfo;
-    }
-    string _backhref = "/wiki-manage/wiki-doc/list/" + Model.STATUS;
-    if (Model.STATUS == CommonWiki.Stt_daduyet)
-    {
-        _backhref = "/wiki-manage/wiki-doc/list-by-catalogue/" + Model.CATA_ID; ;
-    }
 }
-
 @try
 {
     <style>
-        /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
         .div-search-title > div {
             width: 150px;
         }
+
+        .select {
+            height: 200px;
+        }
+
+        .btnSave {
+            height: 30px;
+            width: 75px;
+        }
+
+        #cke_txtNoiDung {
+            margin-left: 162px;
+        }
     </style>
     <script>
-        var _isSimpleEditorToolBar = 0;// set cho ckfinder có cấu hình xoạn thảo đơn giản
-
+        var _isSimpleEditorToolBar = 1;// set cho ckfinder có cấu hình xoạn thảo đơn giản
     </script>
     <script src="~/Content/ckeditor/ckeditor.js"></script>
+
     <div class="divCover">
         <div class="d-nav">
-            <img src="~/Content/icons/Body-icon-home.png" /> I
-            Wiki
+            <img src="~/Content/icons/Body-icon-home.png" />Bài viết
             <span class="red">></span>
             <a href="/quan-ly-tin/danh-sach-tin">Quản lý bài viết</a>
             <span class="red">></span>
-            <a href="/quan-ly-tin/soan-bai-viet">Sửa bài viết</a>
+            <a href="/quan-ly-tin/soan-bai-viet">Thêm mới bài viết</a>
         </div>
     </div>
     <div class="divCover">
@@ -55,13 +53,11 @@
     <div class="d-main">
         <div class="divCover">
             <div class="classTitle">
+                <input type="hidden" id="txtNewsId" value="@objInfo.Id" />
                 <input type="hidden" value="MODIFIED_DATE" id="colSorted" />
                 <input type="hidden" value="DESC" id="SortType" />
                 <input type="hidden" value="" id="OptionSorting" />
-                <input type="hidden" value="@Model.ID" id="txtDocID" />
-                <input type="hidden" id="txtcurrstatus" value="@ViewBag.CurrStatus" />
-                <input type="hidden" id="txtlanguagecode" value="@Model.LANGUAGE_CODE" />
-                <div class="div-title-content"> THÔNG TIN BÀI VIẾT </div>
+                <div class="div-title-content">SỬA THÔNG TIN BÀI VIẾT </div>
             </div>
         </div>
 
@@ -71,520 +67,212 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txtTitle" maxlength="500" value="@Model.TITLE" />
+                    <input type="text" id="txtTitle" value="@objInfo.Title" maxlength="200" />
                 </div>
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Chủ đề</div>
+                <div>Tóm tắt</div>
             </div>
             <div class="div-search-content">
-                <div id="divWikiChildCatalogue">
-                    <input type="hidden" id="CboAddWikiCataChild" value="@_CataInfo.ID" />
-                    @if (WebApps.CommonFunction.AppsCommon.GetCurrentLang().ToUpper().Contains("VN"))
-                    {
-                        <input type="text" readonly value="@_CataInfo.NAME_ENG" />
-                    }
-                    else
-                    {
-                        <input type="text" readonly value="@_CataInfo.NAME" />
-                    }
+                <div>
+                    <input type="text" id="txtHeader" value="@Html.Raw(objInfo.Header)"  maxlength="250" />
                 </div>
             </div>
         </div>
 
-
-        @Html.Partial("/Areas/Wiki/Views/WikiDoc/_PartialTaiLieuUpload.cshtml", new string[] { "WIKIADD_FILE_01", "File đính kèm 1" })
-        @if (!string.IsNullOrEmpty(Model.FILE_URL01))
-        {
-            <div class="div-checkbox" id="div_ImgDownload_WIKIADD_FILE_01" style="border: none;">
-                <a style="border: none;" href="@Model.FILE_URL01" target="_blank">
-                    <i class="fas fa-download" style="color:blue;font-size:16px;margin-top:7px; margin-right:5px;"></i>
-                    <span>@Model.FILE_URL01.GetFilename()</span>
-
-                </a>
+        <div class="class_full_div_input">
+            <div class="class_left_40">
+                <div class="class_block_title" style="padding-top:5px; ">
+                    <label>@WebApps.Resources.Resource.lblAnhDaiDien :</label>
+                </div>
+                <div class="class_block_title_control" style="display:flex">
+                    <div style="width:120px ;height:120px;margin-left: 40px;" id="divLogo">
+                        <img id="imgMauNhanHieu" src="~/Content/images/logo_ipace.png" style="width:120px ;height:120px">
+                        <img id="imgMauNhanHieuTeplace" src="~/Content/images/logo_ipace.png" hidden="hidden">
+                    </div>
+                    <div class="container" style="flex-grow:1;padding-top:20px">
+                        <div class="file-upload btn btn-primary" style="margin-top:95px">
+                            <span>@WebApps.Resources.Resource.lblTaiFile</span>
+                            <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="div-checkbox" id="div_ImgRemove_WIKIADD_FILE_01" style="border: none;">
-                <img onclick="RemoveFile_Edit('WIKIADD_FILE_01')" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" />
-            </div>
-        }
-        @Html.Partial("/Areas/Wiki/Views/WikiDoc/_PartialTaiLieuUpload.cshtml", new string[] { "WIKIADD_FILE_02", "File đính kèm 2" })
-        @if (!string.IsNullOrEmpty(Model.FILE_URL02))
-        {
-            <div class="div-checkbox" id="div_ImgDownload_WIKIADD_FILE_02" style="border: none;">
-                <a style="border: none;" href="@Model.FILE_URL02" target="_blank">
-                    <i class="fas fa-download" style="color:blue;font-size:16px;margin-top:7px; margin-right:5px;"></i>
-                    <span>@Model.FILE_URL02.GetFilename()</span>
-
-                </a>
-            </div>
-            <div class="div-checkbox" id="div_ImgRemove_WIKIADD_FILE_02" style="border: none;">
-                <img onclick="RemoveFile_Edit('WIKIADD_FILE_02')" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" />
-            </div>
-        }
-        @Html.Partial("/Areas/Wiki/Views/WikiDoc/_PartialTaiLieuUpload.cshtml", new string[] { "WIKIADD_FILE_03", "File đính kèm 3" })
-        @if (!string.IsNullOrEmpty(Model.FILE_URL03))
-        {
-            <div class="div-checkbox" id="div_ImgDownload_WIKIADD_FILE_03" style="border: none;">
-                <a style="border: none;" href="@Model.FILE_URL03" target="_blank">
-                    <i class="fas fa-download" style="color:blue;font-size:16px;margin-top:7px; margin-right:5px;"></i>
-                    <span>@Model.FILE_URL03.GetFilename()</span>
-
-                </a>
-            </div>
-            <div class="div-checkbox" id="div_ImgRemove_WIKIADD_FILE_03" style="border: none;">
-                <img onclick="RemoveFile_Edit('WIKIADD_FILE_03')" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" />
-            </div>
-        }
-        <input type="hidden" value='@Model.FILE_URL01' id="txt_WIKIADD_OLD_FILE_01" />
-        <input type="hidden" value='@Model.FILE_URL02' id="txt_WIKIADD_OLD_FILE_02" />
-        <input type="hidden" value='@Model.FILE_URL03' id="txt_WIKIADD_OLD_FILE_03" />
-
+        </div>
 
         <div style="margin-top:15px">
             <div>Nội dung<i class="redspan">(*)</i></div>
-            <textarea type="text" id="txtAddContent">@Html.Raw(Model.CONTENT)</textarea>
+            <div>
+                <textarea type="text" id="txtNoiDung" name="txtNoiDung">@Html.Raw(objInfo.Content)</textarea>
+            </div>
         </div>
-
-        @*<div class="div-search-ad">
-                <div class="div-search-title">
-                    <div>Lý do từ chối</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txtRefuseReason" maxlength="200" value="" />
-                    </div>
-                </div>
-            </div>*@
-
-        <input type="text" id="txthashtag" style="display:none" />
-        <div type="text" id="divhashtag" style="display:none"></div>
-
     </div>
-    if (Model.STATUS == 1)
-    {
-        <div class="class_save">
-            <div class="classGuiDon">
-                <input type="button" value="Gửi bài" id="btnGuiDon" class="btn" />
-            </div> <div class="classLuuTam">
-                <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn" />
-            </div>
+
+    <div style="width:100%;padding-top:10px;">
+        <div class="class_left_50">
+            <div style="width:200px">Chuyên mục chính <i style="color: red">(*)</i></div> <br />
+            <select id="_txtCategories" size="10" class="select">
+                @if (ViewBag.lstCategory != null)
+                {
+                    foreach (AllCodeInfo item in ViewBag.lstCategory)
+                    {
+                        <option value="@item.CdVal">@item.Content</option>
+                    }
+                }
+            </select>
         </div>
-    }
-    else if (Model.STATUS == 3)
-    {
-        <div class="class_save">
-            <div class="classGuiDon">
-                <input type="button" value="Lưu" id="btnDangTin" class="btn" />
-            </div>
+        <div class="class_right_50">
+            <div style="width:250px">Chuyên mục liên quan </div> <br />
+            <select id="_txtCategoriesRe" size="10" class="select">
+                @if (ViewBag.lstCategory != null)
+                {
+                    foreach (AllCodeInfo item in ViewBag.lstCategory)
+                    {
+                        <option value="@item.CdVal">@item.Content</option>
+                    }
+                }
+            </select>
         </div>
+    </div>
 
-    }
-    else
-    {
-        <div class="class_save">
-            <div class="classGuiDon">
-                <input type="button" value="Đăng tin" id="btnDangTin" class="btn" />
-            </div>
-            <div class="classGuiDon">
-                <input type="button" value="Từ chối" id="btnTuChoi" class="btn" />
-            </div>
+
+    <div class="class_save">
+        <div class="classGuiDon">
+            <input type="button" value="Gửi bài" id="btnLuuBai" class="btn" />
+        </div> <div class="classLuuTam">
+            <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn" />
         </div>
-    }
+    </div>
 
-
-
-
-    <script>
-
-                var txtAddContent = CKEDITOR.replace("txtAddContent",
-             {
-                 height: 500
-
-             });
-
-
-
-                function FuncSearchChildCatalogue(_cboId, _divid) {
-                    try {
-                        var inputValue = $("#" + _cboId).val();
-                        if (inputValue == "")
-                            return;
-                        $.ajax({
-                            type: "POST",
-                            url: "/wiki-manage/wiki-doc/search-catalogue-child",
-                            headers: { "cache-control": "no-cache" },
-                            data: { p_parentid: $("#" + _cboId).val() },
-                            async: false,
-                            success: function (data) {
-                                if (data != null) {
-                                    if (validateResponse(data)) {
-                                        $("#" + _divid).html(data);
-                                    }
-                                }
-                                return false;
-                            }
-                        });
-                    } catch (e) {
-                        alert(e.toString())
-                    }
-                }
-
-
-
-
-                $("#btnLuuTam").click(function () {
-                    try {
-                        var txtDocID = $("#txtDocID");
-                        var reponse = false;
-                        var formData = new FormData();
-                        var txtTitle = $("#txtTitle");
-                        var CboAddWikiCataParent = $("#CboAddWikiCataParent");
-                        var CboAddWikiCataChild = $("#CboAddWikiCataChild");
-
-                        if (txtTitle.val().trim() == "") {
-                            showError('Tiêu đề không được để trống!');
-                            txtTitle.focus();
-                            return false;
-                        }
-
-                        if (CboAddWikiCataChild.val() == "" || CboAddWikiCataChild.val() == null) {
-                            showError('Chủ đề bài viết không được để trống!');
-                            $("#CboAddWikiCataChild").multipleSelect("focus");
-                            return false;
-                        }
-                        var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
-                        if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
-                            showError('Nội dung bài viết không được để trống!!');
-                            txtAddContent.focus();
-                            txtAddContent.setData('');
-                            return false;
-                        }
-
-                        formData.append("_objectInfo.ID", txtDocID.val());
-                        formData.append("_objectInfo.TITLE", txtTitle.val().trim());
-                        formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
-                        formData.append("_objectInfo.CONTENT", _contentVal);
-                        formData.append("_objectInfo.STATUS", "1");
-                        var txt_WIKIADD_OLD_FILE_01 = $("#txt_WIKIADD_OLD_FILE_01");
-                        var txt_WIKIADD_OLD_FILE_02 = $("#txt_WIKIADD_OLD_FILE_02");
-                        var txt_WIKIADD_OLD_FILE_03 = $("#txt_WIKIADD_OLD_FILE_03");
-
-                        formData.append("_objectInfo.FILE_URL01", txt_WIKIADD_OLD_FILE_01.val());
-                        formData.append("_objectInfo.FILE_URL02", txt_WIKIADD_OLD_FILE_02.val());
-                        formData.append("_objectInfo.FILE_URL03", txt_WIKIADD_OLD_FILE_03.val());
-                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_01", "0");
-                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_02", "1");
-                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_03", "2");
-                        formData.append("_objectInfo.OLD_STATUS", $("#txtcurrstatus").val());
-                        formData.append("_objectInfo.LANGUAGE_CODE", $("#txtlanguagecode").val());
-                        $.ajax({
-                            url: '/wiki-manage/wiki-doc/save-edit-doc',
-                            type: 'POST',
-                            data: formData,
-                            processData: false, contentType: false, traditional: true, dataType: "json",
-                            enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
-                            success: function (data) {
-                                if (data != null && data.status >= 0) {
-                                    doUpdateHashTag(data.HashTag);
-
-                                } else {
-                                    jError(AddFail, ThongBao, function () {
-                                    });
-                                }
-                            },
-                            error: function (e) {
-                                console.log(e);
-                            }
-                        });
-
-                    } catch (e) {
-                        alert(e.toString());
-                        return false;
-                    }
-
-                });
-
-
-
-                $("#btnGuiDon").click(function () {
-                    try {
-                        var txtDocID = $("#txtDocID");
-                        var reponse = false;
-                        var formData = new FormData();
-                        var txtTitle = $("#txtTitle");
-                        var CboAddWikiCataParent = $("#CboAddWikiCataParent");
-                        var CboAddWikiCataChild = $("#CboAddWikiCataChild");
-
-                        if (txtTitle.val().trim() == "") {
-                            showError('Tiêu đề không được để trống!');
-                            txtTitle.focus();
-                            return false;
-                        }
-
-                        if (CboAddWikiCataChild.val() == "" || CboAddWikiCataChild.val() == null) {
-                            showError('Chủ đề bài viết không được để trống!');
-                            $("#CboAddWikiCataChild").multipleSelect("focus");
-                            return false;
-                        }
-                        var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
-                        if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
-                            showError('Nội dung bài viết không được để trống!!');
-                            txtAddContent.focus();
-                            txtAddContent.setData('');
-                            return false;
-                        }
-                        formData.append("_objectInfo.ID", txtDocID.val());
-                        formData.append("_objectInfo.TITLE", txtTitle.val().trim());
-                        formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
-                        formData.append("_objectInfo.CONTENT", _contentVal);
-                        var txt_WIKIADD_OLD_FILE_01 = $("#txt_WIKIADD_OLD_FILE_01");
-                        var txt_WIKIADD_OLD_FILE_02 = $("#txt_WIKIADD_OLD_FILE_02");
-                        var txt_WIKIADD_OLD_FILE_03 = $("#txt_WIKIADD_OLD_FILE_03");
-
-                        formData.append("_objectInfo.FILE_URL01", txt_WIKIADD_OLD_FILE_01.val());
-                        formData.append("_objectInfo.FILE_URL02", txt_WIKIADD_OLD_FILE_02.val());
-                        formData.append("_objectInfo.FILE_URL03", txt_WIKIADD_OLD_FILE_03.val());
-                        formData.append("_objectInfo.STATUS", "2");
-                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_01", "0");
-                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_02", "1");
-                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_03", "2");
-                        formData.append("_objectInfo.OLD_STATUS", $("#txtcurrstatus").val());
-                        formData.append("_objectInfo.LANGUAGE_CODE", $("#txtlanguagecode").val());
-                        $.ajax({
-                            url: '/wiki-manage/wiki-doc/save-edit-doc',
-                            type: 'POST',
-                            data: formData,
-                            processData: false, contentType: false, traditional: true, dataType: "json",
-                            enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
-                            success: function (data) {
-                                if (data != null && data.status >= 0) {
-                                    doUpdateHashTag(data.HashTag);
-
-                                } else {
-                                    jError(AddFail, ThongBao, function () {
-                                    });
-                                }
-                            },
-                            error: function (e) {
-                                console.log(e);
-                            }
-                        });
-
-                    } catch (e) {
-                        alert(e.toString());
-                        return false;
-                    }
-
-                });
-
-                $("#btnDangTin").click(function () {
-                    try {
-                        var txtDocID = $("#txtDocID");
-                        var reponse = false;
-                        var formData = new FormData();
-                        var txtTitle = $("#txtTitle");
-                        var CboAddWikiCataParent = $("#CboAddWikiCataParent");
-                        var CboAddWikiCataChild = $("#CboAddWikiCataChild");
-
-                        if (txtTitle.val().trim() == "") {
-                            showError('Tiêu đề không được để trống!');
-                            txtTitle.focus();
-                            return false;
-                        }
-
-                        if (CboAddWikiCataChild.val() == "" || CboAddWikiCataChild.val() == null) {
-                            showError('Chủ đề bài viết không được để trống!');
-                            $("#CboAddWikiCataChild").multipleSelect("focus");
-                            return false;
-                        }
-                        var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
-                        if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
-                            showError('Nội dung bài viết không được để trống!!');
-                            txtAddContent.focus();
-                            txtAddContent.setData('');
-                            return false;
-                        }
-                        formData.append("_objectInfo.ID", txtDocID.val());
-                        formData.append("_objectInfo.TITLE", txtTitle.val().trim());
-                        formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
-                        formData.append("_objectInfo.CONTENT", _contentVal);
-                        var txt_WIKIADD_OLD_FILE_01 = $("#txt_WIKIADD_OLD_FILE_01");
-                        var txt_WIKIADD_OLD_FILE_02 = $("#txt_WIKIADD_OLD_FILE_02");
-                        var txt_WIKIADD_OLD_FILE_03 = $("#txt_WIKIADD_OLD_FILE_03");
-
-                        formData.append("_objectInfo.FILE_URL01", txt_WIKIADD_OLD_FILE_01.val());
-                        formData.append("_objectInfo.FILE_URL02", txt_WIKIADD_OLD_FILE_02.val());
-                        formData.append("_objectInfo.FILE_URL03", txt_WIKIADD_OLD_FILE_03.val());
-                        formData.append("_objectInfo.STATUS", "3");
-                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_01", "0");
-                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_02", "1");
-                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_03", "2");
-                        formData.append("_objectInfo.OLD_STATUS", $("#txtcurrstatus").val());
-                        formData.append("_objectInfo.LANGUAGE_CODE", $("#txtlanguagecode").val());
-                        $.ajax({
-                            url: '/wiki-manage/wiki-doc/save-edit-doc',
-                            type: 'POST',
-                            data: formData,
-                            processData: false, contentType: false, traditional: true, dataType: "json",
-                            enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
-                            success: function (data) {
-                                if (data != null && data.status >= 0) {
-                                    doUpdateHashTag(data.HashTag);
-
-                                } else {
-                                    jError(AddFail, ThongBao, function () {
-                                    });
-                                }
-                            },
-                            error: function (e) {
-                                console.log(e);
-                            }
-                        });
-
-                    } catch (e) {
-                        alert(e.toString());
-                        return false;
-                    }
-
-                });
-
-                $("#btnTuChoi").click(function () {
-                    try {
-                        var txtDocID = $("#txtDocID");
-                        var reponse = false;
-                        var formData = new FormData();
-                        var txtTitle = $("#txtTitle");
-                        var CboAddWikiCataParent = $("#CboAddWikiCataParent");
-                        var CboAddWikiCataChild = $("#CboAddWikiCataChild");
-
-                        if (txtTitle.val().trim() == "") {
-                            showError('Tiêu đề không được để trống!');
-                            txtTitle.focus();
-                            return false;
-                        }
-
-                        if (CboAddWikiCataChild.val() == "" || CboAddWikiCataChild.val() == null) {
-                            showError('Chủ đề bài viết không được để trống!');
-                            $("#CboAddWikiCataChild").multipleSelect("focus");
-                            return false;
-                        }
-                        var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
-                        if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
-                            showError('Nội dung bài viết không được để trống!!');
-                            txtAddContent.focus();
-                            txtAddContent.setData('');
-                            return false;
-                        }
-                        formData.append("_objectInfo.ID", txtDocID.val());
-                        formData.append("_objectInfo.TITLE", txtTitle.val().trim());
-                        formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
-                        formData.append("_objectInfo.CONTENT", _contentVal);
-                        var txt_WIKIADD_OLD_FILE_01 = $("#txt_WIKIADD_OLD_FILE_01");
-                        var txt_WIKIADD_OLD_FILE_02 = $("#txt_WIKIADD_OLD_FILE_02");
-                        var txt_WIKIADD_OLD_FILE_03 = $("#txt_WIKIADD_OLD_FILE_03");
-
-                        formData.append("_objectInfo.FILE_URL01", txt_WIKIADD_OLD_FILE_01.val());
-                        formData.append("_objectInfo.FILE_URL02", txt_WIKIADD_OLD_FILE_02.val());
-                        formData.append("_objectInfo.FILE_URL03", txt_WIKIADD_OLD_FILE_03.val());
-                        formData.append("_objectInfo.STATUS", "4");
-                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_01", "0");
-                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_02", "1");
-                        ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_03", "2");
-                        formData.append("_objectInfo.OLD_STATUS", $("#txtcurrstatus").val());
-                        formData.append("_objectInfo.LANGUAGE_CODE", $("#txtlanguagecode").val());
-                        $.ajax({
-                            url: '/wiki-manage/wiki-doc/save-edit-doc',
-                            type: 'POST',
-                            data: formData,
-                            processData: false, contentType: false, traditional: true, dataType: "json",
-                            enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
-                            success: function (data) {
-                                if (data != null && data.status >= 0) {
-                                    jAlert(EditSuccess, ThongBao, function () {
-                                        location.href = '@_backhref';
-                                    });
-                                } else {
-                                    jError(AddFail, ThongBao, function () {
-                                    });
-                                }
-                            },
-                            error: function (e) {
-                                console.log(e);
-                            }
-                        });
-
-                    } catch (e) {
-                        alert(e.toString());
-                        return false;
-                    }
-
-                });
-
-                function doUpdateHashTag(v_data) {
-                    try {
-                        var txtDocID = $("#txtDocID");
-                        var _hashtag = $("#divhashtag").html(v_data).html();
-                        $.ajax({
-                            url: "/wiki-manage/wiki-doc/save-edit-hashtag-doc",
-                            type: "POST",
-                            // p_id, string p_hashtag
-                            data: { p_id: txtDocID.val(), p_hashtag: _hashtag },
-                            headers: { "cache-control": "no-cache" },
-                            async: false,
-                            success: function (data) {
-                                if (data.status >= 0) {
-                                    jAlert(EditSuccess, ThongBao, function () {
-                                        location.href = '@_backhref';
-                                    });
-                                }
-                            },
-                            error: function (e) {
-                                console.log(e);
-                            }
-                        });
-
-                    } catch (e) {
-                        alert(e.toString());
-                    }
-                }
-
-
-
-                function funcGetCheckValueAndText(formData, pID, pItem) {
-                    try {
-                        //Các tài liệụ đính kèm
-
-                        formData.append("pAppDocumentInfo[" + pItem + "].keyFileUpload", pID);
-                        formData.append("pAppDocumentInfo[" + pItem + "].Document_Id", $("#" + pID).val());
-                        formData.append("pAppDocumentInfo[" + pItem + "].Isuse", "1");
-                        return true;
-                    } catch (e) {
-                        return false;
-                    }
-
-                }
-
-                function RemoveFile_Edit(p_Id) {
-                    try {
-
-                        $("#div_ImgDownload_" + p_Id).addClass("clssDisplaynone");
-                        $("#div_ImgRemove_" + p_Id).addClass("clssDisplaynone");
-                        $("#txt_" + p_Id).val("");
-
-
-                    } catch (e) {
-                        alert(e);
-                    }
-                }
-
-
-
-    </script>
 }
 catch (Exception)
 {
-    // ignored
 }
+
+<script>
+    $(document).ready(function () {
+        $("#txtTitle").focus();
+    });
+    var txtNoiDung = CKEDITOR.replace("txtNoiDung",
+        {
+            height: 500
+        });
+
+    $("#btnLuuTam").click(function () {
+        SaveArticles(2);
+    });
+
+    $("#btnLuuBai").click(function () {
+        SaveArticles(1);
+    });
+
+    function SaveArticles(pStatus) {
+        try {
+            var formData = new FormData();
+
+            var tieude = $("#txtTitle").val();
+            if (tieude.trim() == "") {
+                showError('Tiêu đề bài viết không được để trống!!');
+                return false;
+            }
+            var header = $("#txtHeader").val();
+
+            var noidung = CKEDITOR.instances['txtNoiDung'].getData();
+            if (noidung.trim() == "" || noidung.replace(/&nbsp;/g, '').trim() == "") {
+                showError('Nội dung bài viết không được để trống!!');
+                $("#txtNoiDung").focus();
+                $("#txtNoiDung").setData('');
+                return false;
+            }
+
+            var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
+            if (fileLogo != undefined || fileLogo != null) {
+                formData.append("pNewsInfo.pfileLogo", fileLogo[0].files[0]);
+            }
+
+            var category = $("#_txtCategories").val();
+            if (category.trim() == "") {
+                showError('danh mục bài viết không được để trống!!');
+                return false;
+            }
+            var recategory = $("#_txtCategoriesRe").val();
+            formData.append("pNewsInfo.Id", $("#txtNewsId").val().trim());
+            formData.append("pNewsInfo.Title", tieude.trim());
+            formData.append("pNewsInfo.Content", noidung.trim());
+            formData.append("pNewsInfo.Categories_Id", category.trim());
+            formData.append("pNewsInfo.ReCategories_Id", recategory);
+            formData.append("pNewsInfo.Header", header);
+            formData.append("pNewsInfo.Status", pStatus);
+            $.ajax({
+                url: '/quan-ly-tin/luu-sua-bai-viet',
+                type: 'POST',
+                data: formData,
+                processData: false, contentType: false, traditional: true, dataType: "json",
+                enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                success: function (data) {
+                    if (data != null && data.status >= 0) {
+                        nvsAlert(AddSuccess, ThongBao, function () {
+                            //window.location = "/trade-mark-mana/quan-ly-don";
+                        });
+                    } else {
+                        nvsError(AddFail, ThongBao, function () {
+                        });
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+
+        } catch (e) {
+
+        }
+    }
+    document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {
+        var preturn = fileNhanHieu(this, 'imgMauNhanHieu');
+        if (this.files[0].type.indexOf("image") != -1) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#imgMauNhanHieuTeplace").attr("src", e.target.result);
+
+                var img = $("#imgMauNhanHieuTeplace");
+                var iheight = 500; var iwidth = 500;
+
+                iheight = img[0].height;
+                console.log('lan 1: ' + iheight);
+                iheight = img[0].height;
+                iwidth = img[0].width;
+                console.log(iheight);
+            }
+            reader.readAsDataURL(this.files[0]);
+        } else {
+            nvsAlert("Thông báo", "File tải lên không phải là file ảnh?", "");
+        }
+    };
+</script>
+
+<style>
+    .select {
+        padding: 3px;
+    }
+
+        .select option {
+            line-height: 25px;
+            padding: 5px;
+        }
+
+    .class100 {
+        display: inline;
+    }
+
+    .classwidth200 {
+        width: 200px;
+    }
+
+    .classwidth250 {
+        width: 250px;
+    }
+</style>

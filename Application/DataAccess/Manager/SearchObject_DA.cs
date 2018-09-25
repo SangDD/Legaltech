@@ -4,29 +4,29 @@ using Common.SearchingAndFiltering;
 using ObjectInfos;
 using Oracle.DataAccess.Client;
 using System;
-using System.Data;
+using System.Data; 
+using System.Collections.Generic;
+
 namespace DataAccess
 {
    public class SearchObject_DA
     {
-        public decimal  SEARCH_HEADER_INSERT(string P_CASE_CODE, string P_CLIENT_REFERENCE, string P_CASE_NAME,
-          DateTime P_REQUEST_DATE, DateTime P_RESPONSE_DATE, decimal P_STATUS, string P_LAWER_ID, string P_CREATED_BY,
-          DateTime P_CREATED_DATE, string P_LANGUAGE_CODE)
+        public decimal  SEARCH_HEADER_INSERT(SearchObject_Header_Info p_SearchObject_Header_Info)
         {
             try
             {
                 OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SEARCH_OBJECTS.PROC_SEARCH_HEADER_INSERT",
-                    new OracleParameter("P_CASE_CODE", OracleDbType.Varchar2, P_CASE_CODE, ParameterDirection.Input),
-                    new OracleParameter("P_CLIENT_REFERENCE", OracleDbType.Varchar2, P_CLIENT_REFERENCE, ParameterDirection.Input),
-                    new OracleParameter("P_CASE_NAME", OracleDbType.Varchar2, P_CASE_NAME, ParameterDirection.Input),
-                    new OracleParameter("P_REQUEST_DATE", OracleDbType.Date, P_REQUEST_DATE, ParameterDirection.Input),
-                    new OracleParameter("P_RESPONSE_DATE", OracleDbType.Date, P_RESPONSE_DATE, ParameterDirection.Input),
-                    new OracleParameter("P_STATUS", OracleDbType.Decimal, P_STATUS, ParameterDirection.Input),
-                    new OracleParameter("P_LAWER_ID", OracleDbType.Decimal, P_LAWER_ID, ParameterDirection.Input),
-                    new OracleParameter("P_CREATED_BY", OracleDbType.Varchar2, P_CREATED_BY, ParameterDirection.Input),
-                    new OracleParameter("P_CREATED_DATE", OracleDbType.Date, P_CREATED_DATE, ParameterDirection.Input),
-                    new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, P_LANGUAGE_CODE, ParameterDirection.Input),
+                    new OracleParameter("P_CASE_CODE", OracleDbType.Varchar2, p_SearchObject_Header_Info.CASE_CODE, ParameterDirection.Input),
+                    new OracleParameter("P_CLIENT_REFERENCE", OracleDbType.Varchar2, p_SearchObject_Header_Info.CLIENT_REFERENCE, ParameterDirection.Input),
+                    new OracleParameter("P_CASE_NAME", OracleDbType.Varchar2, p_SearchObject_Header_Info.CASE_NAME, ParameterDirection.Input),
+                    new OracleParameter("P_REQUEST_DATE", OracleDbType.Date, p_SearchObject_Header_Info.REQUEST_DATE, ParameterDirection.Input),
+                    new OracleParameter("P_RESPONSE_DATE", OracleDbType.Date, p_SearchObject_Header_Info.RESPONSE_DATE, ParameterDirection.Input),
+                    new OracleParameter("P_STATUS", OracleDbType.Decimal, p_SearchObject_Header_Info.STATUS, ParameterDirection.Input),
+                    new OracleParameter("P_LAWER_ID", OracleDbType.Decimal, p_SearchObject_Header_Info.LAWER_ID, ParameterDirection.Input),
+                    new OracleParameter("P_CREATED_BY", OracleDbType.Varchar2, p_SearchObject_Header_Info.CREATED_BY, ParameterDirection.Input),
+                    new OracleParameter("P_CREATED_DATE", OracleDbType.Date, p_SearchObject_Header_Info.CREATED_DATE, ParameterDirection.Input),
+                    new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, p_SearchObject_Header_Info.LANGUAGE_CODE, ParameterDirection.Input),
                     paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());
@@ -38,25 +38,23 @@ namespace DataAccess
             }
         }
 
-        public decimal  SEARCH_HEADER_UPDATE(decimal P_SEARCH_ID, string P_CASE_CODE, string P_CLIENT_REFERENCE, string P_CASE_NAME,
-        DateTime P_REQUEST_DATE, DateTime P_RESPONSE_DATE, decimal P_STATUS, string P_LAWER_ID, string P_MODIFIED_BY,
-        DateTime P_MODIFIED_DATE, string P_LANGUAGE_CODE)
+        public decimal  SEARCH_HEADER_UPDATE(SearchObject_Header_Info p_SearchObject_Header_Info)
         {
             try
             {
                 OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SEARCH_OBJECTS.PROC_SEARCH_HEADER_UPDATE",
-                    new OracleParameter("P_SEARCH_ID", OracleDbType.Decimal, P_SEARCH_ID, ParameterDirection.Input),
-                    new OracleParameter("P_CASE_CODE", OracleDbType.Varchar2, P_CASE_CODE, ParameterDirection.Input),
-                    new OracleParameter("P_CLIENT_REFERENCE", OracleDbType.Varchar2, P_CLIENT_REFERENCE, ParameterDirection.Input),
-                    new OracleParameter("P_CASE_NAME", OracleDbType.Varchar2, P_CASE_NAME, ParameterDirection.Input),
-                    new OracleParameter("P_REQUEST_DATE", OracleDbType.Date, P_REQUEST_DATE, ParameterDirection.Input),
-                    new OracleParameter("P_RESPONSE_DATE", OracleDbType.Date, P_RESPONSE_DATE, ParameterDirection.Input),
-                    new OracleParameter("P_STATUS", OracleDbType.Decimal, P_STATUS, ParameterDirection.Input),
-                    new OracleParameter("P_LAWER_ID", OracleDbType.Decimal, P_LAWER_ID, ParameterDirection.Input),
-                    new OracleParameter("P_MODIFIED_BY", OracleDbType.Varchar2, P_MODIFIED_BY, ParameterDirection.Input),
-                    new OracleParameter("P_MODIFIED_DATE", OracleDbType.Date, P_MODIFIED_DATE, ParameterDirection.Input),
-                    new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, P_LANGUAGE_CODE, ParameterDirection.Input),
+                    new OracleParameter("P_SEARCH_ID", OracleDbType.Decimal, p_SearchObject_Header_Info.SEARCH_ID, ParameterDirection.Input),
+                    new OracleParameter("P_CASE_CODE", OracleDbType.Varchar2, p_SearchObject_Header_Info.CASE_CODE, ParameterDirection.Input),
+                    new OracleParameter("P_CLIENT_REFERENCE", OracleDbType.Varchar2, p_SearchObject_Header_Info.CLIENT_REFERENCE, ParameterDirection.Input),
+                    new OracleParameter("P_CASE_NAME", OracleDbType.Varchar2, p_SearchObject_Header_Info.CASE_NAME, ParameterDirection.Input),
+                    new OracleParameter("P_REQUEST_DATE", OracleDbType.Date, p_SearchObject_Header_Info.REQUEST_DATE, ParameterDirection.Input),
+                    new OracleParameter("P_RESPONSE_DATE", OracleDbType.Date, p_SearchObject_Header_Info.RESPONSE_DATE, ParameterDirection.Input),
+                    new OracleParameter("P_STATUS", OracleDbType.Decimal, p_SearchObject_Header_Info.STATUS, ParameterDirection.Input),
+                    new OracleParameter("P_LAWER_ID", OracleDbType.Decimal, p_SearchObject_Header_Info.LAWER_ID, ParameterDirection.Input),
+                    new OracleParameter("P_MODIFIED_BY", OracleDbType.Varchar2, p_SearchObject_Header_Info.MODIFIED_BY, ParameterDirection.Input),
+                    new OracleParameter("P_MODIFIED_DATE", OracleDbType.Date, p_SearchObject_Header_Info.MODIFIED_DATE, ParameterDirection.Input),
+                    new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, p_SearchObject_Header_Info.LANGUAGE_CODE, ParameterDirection.Input),
                     paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());
@@ -127,19 +125,40 @@ namespace DataAccess
         }
 
 
-        public decimal SEARCH_DETAIL_INSERT(decimal P_SEARCH_ID, string P_SEARCH_TYPE, string P_SEARCH_VALUE, string P_SEARCH_OPERATOR )
+        public decimal SEARCH_DETAIL_INSERT(List<SearchObject_Detail_Info> P_SearchDetails )
         {
             try
             {
+                int _totalrec = P_SearchDetails.Count;
+                decimal[] P_SEARCH_ID = new decimal[_totalrec];
+                string[] P_SEARCH_TYPE = new string[_totalrec];
+                string[] P_SEARCH_VALUE = new string[_totalrec];
+                string[] P_SEARCH_OPERATOR = new string[_totalrec]; 
+
                 OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
-                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SEARCH_OBJECTS.PROC_SEARCH_DETAIL_INSERT",
+                paramReturn.Size = 10;
+                OracleHelper.ExcuteBatchNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SEARCH_OBJECTS.PROC_SEARCH_DETAIL_INSERT", _totalrec,
                     new OracleParameter("P_SEARCH_ID", OracleDbType.Decimal, P_SEARCH_ID, ParameterDirection.Input),
                     new OracleParameter("P_SEARCH_TYPE", OracleDbType.Varchar2, P_SEARCH_TYPE, ParameterDirection.Input),
                     new OracleParameter("P_SEARCH_VALUE", OracleDbType.Varchar2, P_SEARCH_VALUE, ParameterDirection.Input),
                     new OracleParameter("P_SEARCH_OPERATOR", OracleDbType.Varchar2, P_SEARCH_OPERATOR, ParameterDirection.Input),
                     paramReturn);
 
-                return Convert.ToDecimal(paramReturn.Value.ToString());
+                var result = ErrorCode.Error;
+                Oracle.DataAccess.Types.OracleDecimal[] _ArrReturn = (Oracle.DataAccess.Types.OracleDecimal[])paramReturn.Value;
+                foreach (Oracle.DataAccess.Types.OracleDecimal _item in _ArrReturn)
+                {
+                    if (Convert.ToInt32(_item.ToString()) < 0)
+                    {
+                        result = Convert.ToInt32(_item.ToString());
+                        break;
+                    }
+                    else
+                    {
+                        result = ErrorCode.Success;
+                    }
+                }
+                return result;
             }
             catch (Exception ex)
             {
@@ -167,16 +186,16 @@ namespace DataAccess
         }
 
 
-        public decimal SEARCH_QUESTION_INSERT(decimal P_SEARCH_ID, string P_SUBJECT, string P_CONTENT, string P_RESULT)
+        public decimal SEARCH_QUESTION_INSERT(SearchObject_Question_Info p_question_info)
         {
             try
             {
                 OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SEARCH_OBJECTS.PROC_SEARCH_QUESTION_INSERT",
-                    new OracleParameter("P_SEARCH_ID", OracleDbType.Decimal, P_SEARCH_ID, ParameterDirection.Input),
-                    new OracleParameter("P_SUBJECT", OracleDbType.Varchar2, P_SUBJECT, ParameterDirection.Input),
-                    new OracleParameter("P_CONTENT", OracleDbType.Clob, P_CONTENT, ParameterDirection.Input),
-                    new OracleParameter("P_RESULT", OracleDbType.Clob, P_RESULT, ParameterDirection.Input),
+                    new OracleParameter("P_SEARCH_ID", OracleDbType.Decimal, p_question_info.SEARCH_ID, ParameterDirection.Input),
+                    new OracleParameter("P_SUBJECT", OracleDbType.Varchar2, p_question_info.SUBJECT, ParameterDirection.Input),
+                    new OracleParameter("P_CONTENT", OracleDbType.Clob, p_question_info.CONTENT, ParameterDirection.Input),
+                    new OracleParameter("P_RESULT", OracleDbType.Clob, p_question_info.RESULT, ParameterDirection.Input),
                     paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());
