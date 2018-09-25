@@ -31,8 +31,8 @@
                             <td class="tdleftalign">@item.Createddate.ToString("dd/MM/yyy HH:mm:ss")</td>
                             <td class="tdcenteralign">
                                 <a href="javascript:;" class="icon icon-info" data-title="Xem chi tiết"></a>
-                                <a href="#" class="icon icon-edit" data-title="Sửa"></a>
-                                <a href="#" class="icon icon-delete" data-title="Xóa"></a>
+                                <a href="/quan-ly-tin/sua-bai-viet/@item.Id" class="icon icon-edit" data-title="Sửa"></a>
+                                <a href="javascript:;" onclick="return funcDelArticles(@item.Id)" class="icon icon-delete" data-title="Xóa"></a>
                             </td>
                         </tr>
                     }

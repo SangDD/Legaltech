@@ -1,5 +1,4 @@
-﻿
-@using Common.CommonData
+﻿@using Common.CommonData
 @using ObjectInfos;
 @{
     ViewBag.Title = "Quản lý bài viết";
@@ -11,8 +10,18 @@
         .div-search-title > div {
             width: 150px;
         }
-        .select{
-            height:200px;
+
+        .select {
+            height: 200px;
+        }
+
+        .btnSave {
+            height: 30px;
+            width: 75px;
+        }
+
+        #cke_txtNoiDung {
+            margin-left: 162px;
         }
     </style>
     <script>
@@ -49,7 +58,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txtTitle" maxlength="500" />
+                    <input type="text" id="txtTitle" maxlength="200" />
                 </div>
             </div>
         </div>
@@ -60,34 +69,42 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text"  id="txtHeader"/>
+                    <input type="text" id="txtHeader" maxlength="250" />
                 </div>
             </div>
         </div>
 
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Ảnh đại diện</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @*<img id="imgHeaderImage" width="100" height="100" />*@
-                    <input id="_txtAnhDaiDien" class="divCalendar" type="file" name="pfile" accept='image/*'>
-                    <input type="submit" class="btnSave" id="btnUpload" onclick="return UploadImageHeader()" value="Tải lên"> <i style="color: red">(File ảnh đuôi .png,.jpg, và có dung lượng nhỏ hơn 2MB)</i>
+        <div class="class_full_div_input">
+            <div class="class_left_40">
+                <div class="class_block_title" style="padding-top:5px; ">
+                    <label>@WebApps.Resources.Resource.lblAnhDaiDien :</label>
+                </div>
+                <div class="class_block_title_control" style="display:flex">
+                    <div style="width:120px ;height:120px;margin-left: 40px;" id="divLogo" >
+                        <img id="imgMauNhanHieu" src="~/Content/images/logo_ipace.png" style="width:120px ;height:120px">
+                        <img id="imgMauNhanHieuTeplace" src="~/Content/images/logo_ipace.png" hidden="hidden">
+                    </div>
+                    <div class="container" style="flex-grow:1;padding-top:20px">
+                        <div class="file-upload btn btn-primary" style="margin-top:95px">
+                            <span>@WebApps.Resources.Resource.lblTaiFile</span>
+                            <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div style="margin-top:15px">
             <div>Nội dung<i class="redspan">(*)</i></div>
-            <textarea type="text" id="txtNoiDung" name="txtNoiDung"></textarea>
+            <div>
+                <textarea type="text" id="txtNoiDung" name="txtNoiDung"></textarea>
+            </div>
         </div>
     </div>
 
-    <div  style="width:100%">
+    <div style="width:100%;padding-top:10px;">
         <div class="class_left_50">
-            <div  style="width:200px">Chuyên mục chính <i style="color: red">(*)</i></div> <br />
+            <div style="width:200px">Chuyên mục chính <i style="color: red">(*)</i></div> <br />
             <select id="_txtCategories" size="10" class="select">
                 @if (ViewBag.lstCategory != null)
                 {
@@ -103,7 +120,7 @@
             <select id="_txtCategoriesRe" size="10" class="select">
                 @if (ViewBag.lstCategory != null)
                 {
-                    foreach (AllCodeInfo item in Model.lstCategory)
+                    foreach (AllCodeInfo item in ViewBag.lstCategory)
                     {
                         <option value="@item.CdVal">@item.Content</option>
                     }
@@ -115,7 +132,7 @@
 
     <div class="class_save">
         <div class="classGuiDon">
-            <input type="button" value="Gửi bài" id="btnGuiDon" class="btn" />
+            <input type="button" value="Gửi bài" id="btnLuuBai" class="btn" />
         </div> <div class="classLuuTam">
             <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn" />
         </div>
@@ -127,20 +144,105 @@ catch (Exception)
 }
 
 <script>
+    $(document).ready(function () {
+        $("#txtTitle").focus();
+    });
     var txtNoiDung = CKEDITOR.replace("txtNoiDung",
         {
             height: 500
         });
 
-    $("#btnLuuTam").click(function () {
-
-
+    $("#btnLuuTam").click(function ()
+    {
+        SaveArticles(2);
     });
 
-    $("#btnGuiDon").click(function () {
-
+    $("#btnLuuBai").click(function () {
+        SaveArticles(1);
     });
 
+    function SaveArticles(pStatus) {
+        try {
+            var formData = new FormData();
+
+            var tieude = $("#txtTitle").val();
+            if (tieude.trim() == "") {
+                showError('Tiêu đề bài viết không được để trống!!');
+                return false;
+            }
+            var header = $("#txtHeader").val();
+
+            var noidung = CKEDITOR.instances['txtNoiDung'].getData();
+            if (noidung.trim() == "" || noidung.replace(/&nbsp;/g, '').trim() == "") {
+                showError('Nội dung bài viết không được để trống!!');
+                $("#txtNoiDung").focus();
+                $("#txtNoiDung").setData('');
+                return false;
+            }
+
+            var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
+            if (fileLogo != undefined || fileLogo != null) {
+                formData.append("pNewsInfo.pfileLogo", fileLogo[0].files[0]);
+            }
+
+            var category = $("#_txtCategories").val();
+            if (category.trim() == "") {
+                showError('danh mục bài viết không được để trống!!');
+                return false;
+            }
+            var recategory = $("#_txtCategoriesRe").val();
+
+            formData.append("pNewsInfo.Title", tieude.trim());
+            formData.append("pNewsInfo.Content", noidung.trim());
+            formData.append("pNewsInfo.Categories_Id", category.trim());
+            formData.append("pNewsInfo.ReCategories_Id", recategory);
+            formData.append("pNewsInfo.Header", header);
+            formData.append("pNewsInfo.Status", pStatus);
+            $.ajax({
+                url: '/quan-ly-tin/them-moi-bai-viet',
+                type: 'POST',
+                data: formData,
+                processData: false, contentType: false, traditional: true, dataType: "json",
+                enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                success: function (data) {
+                    if (data != null && data.status >= 0) {
+                        nvsAlert(AddSuccess, ThongBao, function () {
+                            window.location.reload();
+                        });
+                    } else {
+                        nvsError(AddFail, ThongBao, function () {
+                        });
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+
+        } catch (e) {
+
+        }
+    }
+    document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {
+        var preturn = fileNhanHieu(this, 'imgMauNhanHieu');
+        if (this.files[0].type.indexOf("image") != -1) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#imgMauNhanHieuTeplace").attr("src", e.target.result);
+
+                var img = $("#imgMauNhanHieuTeplace");
+                var iheight = 500; var iwidth = 500;
+
+                iheight = img[0].height;
+                iheight = img[0].height;
+                iwidth = img[0].width;
+                console.log(iheight);
+            }
+            reader.readAsDataURL(this.files[0]);
+        } else {
+            nvsAlert("Thông báo", "File tải lên không phải là file ảnh?", "");
+        }
+    };
 </script>
 
 <style>
@@ -152,13 +254,15 @@ catch (Exception)
             line-height: 25px;
             padding: 5px;
         }
-    .class100{
-        display:inline ;
+
+    .class100 {
+        display: inline;
     }
 
-    .classwidth200{
-        width:200px; 
+    .classwidth200 {
+        width: 200px;
     }
+
     .classwidth250 {
         width: 250px;
     }

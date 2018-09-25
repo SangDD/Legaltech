@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Web.Mvc;
 
 namespace ObjectInfos
@@ -18,6 +19,7 @@ namespace ObjectInfos
         public string  Content { get; set; }
         public decimal Status { get; set; }
         public string Categories_Id { get; set; }
+        public string ReCategories_Id { get; set; }
         public string Articles_Type { get; set; }
         public decimal Hottype { get; set; }
         public string Createdby { get; set; }
@@ -29,5 +31,7 @@ namespace ObjectInfos
         public string Unpublicby { get; set; }
         public DateTime Unpublicdate { get; set; }
         public decimal Deleted { get; set; }
+
+        public HttpPostedFileBase pfileLogo { get; set; }
     }
 }

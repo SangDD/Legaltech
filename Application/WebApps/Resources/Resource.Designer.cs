@@ -97,6 +97,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ảnh đại diện.
+        /// </summary>
+        public static string lblAnhDaiDien {
+            get {
+                return ResourceManager.GetString("lblAnhDaiDien", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to bản.
         /// </summary>
         public static string lblBan {
