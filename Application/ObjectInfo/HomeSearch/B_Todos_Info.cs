@@ -80,5 +80,17 @@ namespace ObjectInfos
 
         public int NUMBER_BILLS { get; set; }
 
+        int _total;
+        public int Total {
+
+            get
+            {
+                return NUMBER_APPS + NUMBER_QUETIONS + NUMBER_SEARCH + NUMBER_TIMESHEET + NUMBER_BILLS;
+            }
+            set
+            {
+                _total = value;
+            }
+        }
     }
 }

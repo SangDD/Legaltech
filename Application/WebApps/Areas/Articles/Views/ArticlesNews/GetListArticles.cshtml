@@ -95,3 +95,38 @@
 
 </div>
 
+<script>
+    function funcDelArticles(pID) {
+
+        nvsConfirm(null, "Bạn có chắc chắn muốn xóa bài viết này không?", function () {
+            $.ajax({
+                url: "/quan-ly-tin/xoa-bai-viet",
+                type: "POST",
+                data: {
+                    pIDArticles: pID
+                },
+                headers: { "cache-control": "no-cache" },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data.success == "-1") {
+                        jError("Lỗi check lại kết nối tới server");
+                        return false;
+                    }
+                    else {
+                        jAlert('Xóa bài viết thành công!', "THÔNG BÁO", function () {
+                            SearchDDSHCN(1, 1);
+                        });
+                    }
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
+            });
+        });
+    }
+</script>

@@ -14,48 +14,49 @@
     }
 }
 
-    <table class="table-lst-data" id='@("tableList_" + _typesearch)'>
-        <thead>
-            <tr>
-                <th class="class30">STT</th>
-                <th class="class200"   id='@("CASE_CODE_" + _typesearch)'  onclick="HomeSortByCol('CASE_CODE',@_typesearch)">Case code</th>
-                <th class="class250"  id='@("CASE_NAME_" + _typesearch)'  onclick="HomeSortByCol('CASE_NAME',@_typesearch)">Case name</th>
-                <th class="class150" id='@("APPCODE_" + _typesearch)'  onclick="HomeSortByCol('APPCODE',@_typesearch)">Loại đơn</th>
-                <th class="class250">Khách hàng</th>
-                <th class="class150">Người xử lý</th>
-                <th class="class100" id='@("DATE_WAIT_" + _typesearch)'  onclick="HomeSortByCol('DATE_WAIT',@_typesearch)">Thời gian chờ (ngày)</th>
-                <th class="class250" id='@("STATUS_NAME_" + _typesearch)'  onclick="HomeSortByCol('STATUS_NAME',@_typesearch)">Trạng thái</th>
-                <th class="class150"> </th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (_list_data.Count > 0)
-            {
-                foreach (var item in _list_data)
-                {
-                    <tr>
-                        <td class="tdcenteralign">@item.STT</td>
-                        <td class="tdleftalign">@item.Case_Code</td>
-                        <td class="tdleftalign">@item.Case_Name</td>
-                        <td class="tdleftalign">@item.Appcode</td>
-                        <td class="tdleftalign">@item.Customer_Name</td>
-                        <td class="tdleftalign">@item.User_Processing</td>
-                        <td class="tdcenteralign">@item.Date_Wait</td>
-                        <td class="tdleftalign">@item.Status_Name</td>
-                        <td class="tdcenteralign">
-                            <a target="_blank" href="/trade-mark/request-for-trade-mark-view/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-info" data-title="Xem chi tiết"></a>
-                        </td>
-                    </tr>
-                }
-            }
-            else
+<table class="table-lst-data" id='@("tableList_" + _typesearch)'>
+    <thead>
+        <tr>
+            <th class="class30">STT</th>
+            <th class="class200" id='@("CASE_CODE_" + _typesearch)' onclick="HomeSortByCol('CASE_CODE',@_typesearch)">Case code</th>
+            <th class="class250" id='@("CASE_NAME_" + _typesearch)' onclick="HomeSortByCol('CASE_NAME',@_typesearch)">Case name</th>
+            <th class="class150" id='@("APPCODE_" + _typesearch)' onclick="HomeSortByCol('APPCODE',@_typesearch)">Loại đơn</th>
+            <th class="class250">Khách hàng</th>
+            @*<th class="class150">Người xử lý</th>*@
+            <th class="class100" id='@("DATE_WAIT_" + _typesearch)' onclick="HomeSortByCol('DATE_WAIT',@_typesearch)">Thời gian chờ (ngày)</th>
+            <th class="class250" id='@("STATUS_NAME_" + _typesearch)' onclick="HomeSortByCol('STATUS_NAME',@_typesearch)">Trạng thái</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (_list_data.Count > 0)
+        {
+            foreach (var item in _list_data)
             {
                 <tr>
-                    <td colspan="9">Không có dữ liệu</td>
+                    <td class="tdcenteralign">@item.STT</td>
+                    <td class="tdleftalign">
+                        <a href="javascript:;" onclick="GetView2View_App('@item.Case_Code')" data-title="Xem chi tiết">@item.Case_Code</a>
+                    </td>
+                    <td class="tdleftalign">@item.Case_Name</td>
+                    <td class="tdleftalign">@item.Appcode</td>
+                    <td class="tdleftalign">@item.Customer_Name</td>
+                    @*<td class="tdleftalign">@item.User_Processing</td>*@
+                    <td class="tdcenteralign">@item.Date_Wait</td>
+                    <td class="tdleftalign">@item.Status_Name</td>
+                    @*<td class="tdcenteralign">
+                        <a target="_blank" href="/trade-mark/request-for-trade-mark-view/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-info" data-title="Xem chi tiết"></a>
+                    </td>*@
                 </tr>
             }
-        </tbody>
-    </table>
+        }
+        else
+        {
+            <tr>
+                <td colspan="7">Không có dữ liệu</td>
+            </tr>
+        }
+    </tbody>
+</table>
 <div class="_ClassPage">
     <ul>
         @Html.Raw(ViewBag.Paging)
@@ -66,4 +67,17 @@
     $(function () {
         HomeChangeIConSortWhenSortColumns(@_typesearch);
     });
+
+    function GetView2View_App(_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        try {
+            var url = "/trade-mark-share-data/todo-details/" + _case_code + "/0"
+            window.open(url);
+            //window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
 </script>

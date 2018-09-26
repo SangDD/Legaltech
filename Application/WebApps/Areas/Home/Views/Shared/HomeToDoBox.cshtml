@@ -1,10 +1,10 @@
 ﻿<style>
     .legalTodo_div {
         text-align: left;
-        border: 1px solid #ccc;
+        /*border: 1px solid #ccc;*/
         min-height: 50px;
         padding: 5px 0px 5px 5px;
-        margin-top:10px;
+        margin-top: 10px;
     }
 
     #legaltodo_table td {
@@ -12,30 +12,31 @@
         padding: 5px 10px;
     }
 
- 
+
     .divNumberRecordOnPage {
         display: none;
     }
-    .tbl_todonotify
-    {
-        float:left;
-        margin-left:10px;
+
+    .tbl_todonotify {
+        float: left;
+        margin-left: 10px;
     }
-    .tdnotifynumber{
+
+    .tdnotifynumber {
         text-align: center;
         color: red;
         font-size: 20px;
     }
-      .tdnotifytext{
+
+    .tdnotifytext {
         text-align: center;
-        width:100px;
+        width: 100px;
     }
 </style>
 
-<div class="divCover legalTodo_div"  style="background-color: antiquewhite;">
-    <div class="box_title" style="width:200px; float:left"> VIỆC CẦN LÀM </div>
-    <div id="d_todo_notify" class="box_title" style="width:calc(100% - 240px); padding:0px; float:left">
-    </div>
+<div class="divCover legalTodo_div">
+    <div id="d_todo_sum" class="box_title" style="width:100%; float:left; background-color: antiquewhite;"> VIỆC CẦN LÀM </div>
+    @*<div id="d_todo_notify" class="box_title" style="width:89%;background-color: antiquewhite; padding:0px; float:left"></div>*@
     <div>
         <input type="hidden" id="colSortedTodo" />
         <input type="hidden" id="SortTypeTodo" />
@@ -46,131 +47,115 @@
             @Html.Partial("/Areas/Home/Views/Shared/_TodoData.cshtml")
         </div>
     </div>
-    
-    <script>
-    var _TodoKeysearch = "";
-    var _TodoarrKeySearch;
-   
-    function TodofindObjects(_pageNumber, _isSearching) {
-        try {
-            var _TodosearchContent = "";
-            var _RecordonPage = 5;
-            if (_isSearching === 1) {
-                _Keysearch = "";
-            } else {
-                //_arrKeySearch = _TodoKeysearch.split('|');
-                //_searchContent = _TodoarrKeySearch[0];
-                _TodosearchContent = "";
-            }
-            
-            var orderby = $("#colSortedTodo").val();
-            var orderType = $("#SortTypeTodo").val();
-            //if (orderby.indexOf("NUMBER_TEXT") >= 0) {
-            //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
-            //}
-            //else if (orderby.indexOf("TITLE") >= 0) {
-            //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
-            //}
-            //else if (orderby.toLocaleUpperCase().indexOf("AGENCIE_NAME") >= 0) {
-            //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
-            //}           
-            $.ajax({
-                type: "POST",
-                headers: { "cache-control": "no-cache" },
-                url: "/search-todos",
-                data: {
-                    keysSearch: _TodosearchContent,
-                    _sortype: (orderby + " " + orderType),
-                    _reconpage: _RecordonPage,
-                    p_CurrentPage: _pageNumber
-                },
-                async: true,
-                success: function (data) {
-                    if (data != null) {
-                        var _htmlnotify = "";
-                        $("#LegalTododivTable").html(data.TodoData);
-                        //   alert(data.TodoNotify.NUMBER_APPS);
-                        if(data.TodoNotify.NUMBER_APPS > 0)
-                        {
-                            _htmlnotify = _htmlnotify + "<table class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_APPS + "</td></tr><tr><td class='tdnotifytext'>ĐƠN</td></tr></table>";
-                        }
-                        if (data.TodoNotify.NUMBER_QUETIONS > 0)
-                        {
-                            _htmlnotify = _htmlnotify + "<table  class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_QUETIONS + "</td></tr><tr><td class='tdnotifytext'>CÂU HỎI</td></tr></table>";
-                        }
-                        if (data.TodoNotify.NUMBER_SEARCH > 0)
-                        {
-                            _htmlnotify = _htmlnotify + "<table  class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_SEARCH + "</td></tr><tr><td class='tdnotifytext'>TÌM KIẾM</td></tr></table>";
-                        }
-                        if (data.TodoNotify.NUMBER_TIMESHEET > 0)
-                        {
-                            _htmlnotify = _htmlnotify + "<table  class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_TIMESHEET + "</td></tr><tr><td class='tdnotifytext'>TIMESHEET</td></tr></table>";
-                        }
-                        if (data.TodoNotify.NUMBER_BILLS > 0)
-                        {
-                            _htmlnotify = _htmlnotify + "<table  class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_BILLS + "</td></tr><tr><td class='tdnotifytext'>HÓA ĐƠN</td></tr></table>";
-                        }
-                        $("#d_todo_notify").html(_htmlnotify);
 
+    <script>
+        var _TodoKeysearch = "";
+        var _TodoarrKeySearch;
+
+        function TodofindObjects(_pageNumber, _isSearching) {
+            try {
+                var _TodosearchContent = "";
+                var _RecordonPage = 5;
+                if (_isSearching === 1) {
+                    _Keysearch = "";
+                } else {
+                    _TodosearchContent = "";
+                }
+
+                var orderby = $("#colSortedTodo").val();
+                var orderType = $("#SortTypeTodo").val();
+                $.ajax({
+                    type: "POST",
+                    headers: { "cache-control": "no-cache" },
+                    url: "/search-todos",
+                    data: {
+                        keysSearch: _TodosearchContent,
+                        _sortype: (orderby + " " + orderType),
+                        _reconpage: _RecordonPage,
+                        p_CurrentPage: _pageNumber
+                    },
+                    async: true,
+                    success: function (data) {
+                        if (data != null) {
+                            var _htmlnotify = "";
+                            $("#LegalTododivTable").html(data.TodoData);
+                            $("#d_todo_sum").html("VIỆC CẦN LÀM - " + data.TodoNotify.Total);
+
+
+                            //if (data.TodoNotify.NUMBER_APPS > 0) {
+                            //    _htmlnotify = _htmlnotify + "<table class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_APPS + "</td></tr><tr><td class='tdnotifytext'>ĐƠN</td></tr></table>";
+                            //}
+                            //if (data.TodoNotify.NUMBER_QUETIONS > 0) {
+                            //    _htmlnotify = _htmlnotify + "<table  class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_QUETIONS + "</td></tr><tr><td class='tdnotifytext'>CÂU HỎI</td></tr></table>";
+                            //}
+                            //if (data.TodoNotify.NUMBER_SEARCH > 0) {
+                            //    _htmlnotify = _htmlnotify + "<table  class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_SEARCH + "</td></tr><tr><td class='tdnotifytext'>TÌM KIẾM</td></tr></table>";
+                            //}
+                            //if (data.TodoNotify.NUMBER_TIMESHEET > 0) {
+                            //    _htmlnotify = _htmlnotify + "<table  class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_TIMESHEET + "</td></tr><tr><td class='tdnotifytext'>TIMESHEET</td></tr></table>";
+                            //}
+                            //if (data.TodoNotify.NUMBER_BILLS > 0) {
+                            //    _htmlnotify = _htmlnotify + "<table  class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_BILLS + "</td></tr><tr><td class='tdnotifytext'>HÓA ĐƠN</td></tr></table>";
+                            //}
+                            //$("#d_todo_notify").html(_htmlnotify);
+                        }
+                    }
+                });
+                return true;
+            } catch (e) {
+                alert(e.toString());
+                return false;
+            }
+        }
+
+        function TodojsPaging(_page) {
+            try {
+                TodofindObjects(_page, 0);
+            } catch (e) {
+                alert(e.toString());
+            }
+        }
+
+
+        function TodoSortByCol(value) {
+            try {
+                //Lay gia tri luu trong colSort luu duoi dang text Hidden
+                var _currentColSorted = $("#colSortedTodo").val();
+                //Lay gia tri luu trong SortType luu duoi dang text Hidden
+                var _currentSortedType = $("#SortTypeTodo").val();
+                var tag = "#" + value;
+                if (_currentColSorted == value) {
+                    if (_currentSortedType == "ASC") {
+                        $("#SortTypeTodo").val("DESC");
+                    }
+                    else {
+                        $("#SortTypeTodo").val("ASC");
                     }
                 }
-            });
-            return true;
-        } catch (e) {
-            alert(e.toString());
-            return false;
-        }
-    }
-
-    function TodojsPaging(_page)
-    {
-        try {
-            TodofindObjects(_page, 0);
-        } catch (e) {
-            alert(e.toString());
-        }
-    }
-
-
-    function TodoSortByCol(value) {
-        try {
-            //Lay gia tri luu trong colSort luu duoi dang text Hidden
-            var _currentColSorted = $("#colSortedTodo").val();
-            //Lay gia tri luu trong SortType luu duoi dang text Hidden
-            var _currentSortedType = $("#SortTypeTodo").val();
-            var tag = "#" + value;
-            if (_currentColSorted == value) {
-                if (_currentSortedType == "ASC") {
-                    $("#SortTypeTodo").val("DESC");
-                }
                 else {
+                    $("#colSortedTodo").val(value);
                     $("#SortTypeTodo").val("ASC");
                 }
+                var pos = document.getElementById("tableListTodo").parentElement.scrollLeft;
+                //Sort lai thi ve trang dau
+                TodofindObjects(1, 0);
+                //Sort lai thi ve trang dau
+                document.getElementById("tableListTodo").parentElement.scrollLeft = pos;
+            } catch (e) {
+                console.info(e.toString());
             }
-            else {
-                $("#colSortedTodo").val(value);
-                $("#SortTypeTodo").val("ASC");
-            }
-            var pos = document.getElementById("tableListTodo").parentElement.scrollLeft;
-            //Sort lai thi ve trang dau
-            TodofindObjects(1, 0);
-            //Sort lai thi ve trang dau
-            document.getElementById("tableListTodo").parentElement.scrollLeft = pos;
-        } catch (e) {
-            console.info(e.toString());
         }
-    }
 
-    function TodoChangeIConSortWhenSortColumns() {
-        try {
-            var _order_by = $("#colSortedTodo").val();
-            var _order_type = $("#SortTypeTodo").val();
-            var _text = _order_type == 'DESC' ? $("#" + _order_by).text() + " ▼" : $("#" + _order_by).text() + " ▲";
-            $("#" + _order_by).text(_text);
+        function TodoChangeIConSortWhenSortColumns() {
+            try {
+                var _order_by = $("#colSortedTodo").val();
+                var _order_type = $("#SortTypeTodo").val();
+                var _text = _order_type == 'DESC' ? $("#" + _order_by).text() + " ▼" : $("#" + _order_by).text() + " ▲";
+                $("#" + _order_by).text(_text);
+            }
+            catch (e) {
+            }
         }
-        catch (e) {
-        }
-    }
-  
+
     </script>
 </div>
