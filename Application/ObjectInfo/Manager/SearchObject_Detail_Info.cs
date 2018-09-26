@@ -13,5 +13,7 @@ namespace ObjectInfos
         public string SEARCH_TYPE { get; set; }
         public string SEARCH_VALUE { get; set; }
         public string SEARCH_OPERATOR { get; set; }
+
+        public string ANDOR { get; set; }
     }
 }

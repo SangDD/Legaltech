@@ -133,7 +133,8 @@ namespace DataAccess
                 decimal[] P_SEARCH_ID = new decimal[_totalrec];
                 string[] P_SEARCH_TYPE = new string[_totalrec];
                 string[] P_SEARCH_VALUE = new string[_totalrec];
-                string[] P_SEARCH_OPERATOR = new string[_totalrec]; 
+                string[] P_SEARCH_OPERATOR = new string[_totalrec];
+                string[] P_ANDOR = new string[_totalrec];
 
                 OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
                 paramReturn.Size = 10;
@@ -142,6 +143,7 @@ namespace DataAccess
                     new OracleParameter("P_SEARCH_TYPE", OracleDbType.Varchar2, P_SEARCH_TYPE, ParameterDirection.Input),
                     new OracleParameter("P_SEARCH_VALUE", OracleDbType.Varchar2, P_SEARCH_VALUE, ParameterDirection.Input),
                     new OracleParameter("P_SEARCH_OPERATOR", OracleDbType.Varchar2, P_SEARCH_OPERATOR, ParameterDirection.Input),
+                    new OracleParameter("P_ANDOR", OracleDbType.Varchar2, P_ANDOR, ParameterDirection.Input),
                     paramReturn);
 
                 var result = ErrorCode.Error;

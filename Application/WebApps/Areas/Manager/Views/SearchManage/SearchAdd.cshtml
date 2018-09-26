@@ -1,0 +1,235 @@
+﻿@using Common.CommonData
+@using ObjectInfos;
+@{
+    ViewBag.Title = "Thêm mới Search";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+    List<WikiCatalogues_Info> _listcata = new List<WikiCatalogues_Info>();
+    if (ViewBag.ListCata != null)
+    {
+        _listcata = ViewBag.ListCata;
+    }
+    var _CataInfo = new WikiCatalogues_Info();
+    if (ViewBag.CataInfo != null)
+    {
+        _CataInfo = ViewBag.CataInfo;
+    }
+}
+@try
+{
+    <style>
+        /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+        .div-search-title > div {
+            width: 150px;
+        }
+    </style>
+    <script>
+        var _isSimpleEditorToolBar = 1;// set cho ckfinder có cấu hình xoạn thảo đơn giản
+    </script>
+    <script src="~/Content/ckeditor/ckeditor.js"></script>
+    <div class="divCover">
+        <div class="d-nav">
+            <img src="~/Content/icons/Body-icon-home.png" /> I
+            Wiki
+            <span class="red">></span>
+            <a href="/wiki-doc/list">Quản lý Search</a>
+            <span class="red">></span>
+            <a href="#">Thêm mới Search</a>
+        </div>
+    </div>
+    <div class="divCover">
+        <div class="classLine">
+        </div>
+    </div>
+
+    <div class="d-main">
+        <div class="divCover">
+            <div class="classTitle">
+                <div class="div-title-content"> THÔNG TIN SEARCH </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div> Case name:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Case name" maxlength="200" id="_txtcasename"  />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div> Client Reference: </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input value="" type="text" placeholder="Client Reference" maxlength="200" id="txtClient_Reference" />
+                </div>
+            </div>
+        </div>
+       
+        <fieldset>
+            <legend>
+                Điều kiện Search
+            </legend>
+
+        </fieldset>
+          
+
+        <div style="margin-top:15px">
+            <div>Nội dung câu hỏi<i class="redspan">(*)</i></div>
+            <textarea type="text" id="txtAddContent"></textarea>
+        </div>
+
+    </div>
+
+    <div class="class_save">
+        <div class="classGuiDon">
+            <input type="button" value="Gửi bài" id="btnGuiDon" class="btn" />
+        </div> 
+        <div class="classLuuTam">
+            <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn" />
+        </div>
+    </div>
+
+
+
+    <script>
+
+        var txtAddContent = CKEDITOR.replace("txtAddContent",
+     {
+         height: 500
+
+     });
+
+        $("#btnLuuTam").click(function () {
+            try {
+                var reponse = false;
+                var formData = new FormData();
+                var txtTitle = $("#txtTitle");
+                var CboAddWikiCataParent = $("#CboAddWikiCataParent");
+                var CboAddWikiCataChild = $("#CboAddWikiCataChild");
+
+                if (txtTitle.val().trim() == "") {
+                    showError('Tiêu đề không được để trống!');
+                    txtTitle.focus();
+                    return false;
+                }
+
+                if (CboAddWikiCataChild.val() == "" || CboAddWikiCataChild.val() == null) {
+                    showError('Chủ đề bài viết không được để trống!');
+                    $("#CboAddWikiCataChild").multipleSelect("focus");
+                    return false;
+                }
+                var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
+                if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
+                    showError('Nội dung bài viết không được để trống!!');
+                    txtAddContent.focus();
+                    txtAddContent.setData('');
+                    return false;
+                }
+                formData.append("_objectInfo.TITLE", txtTitle.val().trim());
+                formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
+                formData.append("_objectInfo.CONTENT", _contentVal);
+                formData.append("_objectInfo.STATUS", '@CommonWiki.Stt_luutam');
+                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_01", "0");
+                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_02", "1");
+                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_03", "2");
+                $.ajax({
+                    url: '/wiki-manage/wiki-doc/add-doc',
+                    type: 'POST',
+                    data: formData,
+                    processData: false, contentType: false, traditional: true, dataType: "json",
+                    enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                    success: function (data) {
+                        if (data != null && data.status >= 0) {
+                            doUpdateHashTag(data.HashTag, data.status);
+                        } else {
+                            jError(AddFail, ThongBao, function () {
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+
+            } catch (e) {
+                alert(e.toString());
+                return false;
+            }
+
+        });
+
+
+
+        $("#btnGuiDon").click(function () {
+            try {
+                var reponse = false;
+                var formData = new FormData();
+                var txtTitle = $("#txtTitle");
+                var CboAddWikiCataParent = $("#CboAddWikiCataParent");
+                var CboAddWikiCataChild = $("#CboAddWikiCataChild");
+
+                if (txtTitle.val().trim() == "") {
+                    showError('Tiêu đề không được để trống!');
+                    txtTitle.focus();
+                    return false;
+                }
+
+                if (CboAddWikiCataChild.val() == "" || CboAddWikiCataChild.val() == null) {
+                    showError('Chủ đề bài viết không được để trống!');
+                    $("#CboAddWikiCataChild").multipleSelect("focus");
+                    return false;
+                }
+                var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
+                if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
+                    showError('Nội dung bài viết không được để trống!!');
+                    txtAddContent.focus();
+                    txtAddContent.setData('');
+                    return false;
+                }
+                formData.append("_objectInfo.TITLE", txtTitle.val().trim());
+                formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
+                formData.append("_objectInfo.CONTENT", _contentVal);
+                formData.append("_objectInfo.STATUS", "2");
+                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_01", "0");
+                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_02", "1");
+                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_03", "2");
+                $.ajax({
+                    url: '/wiki-manage/wiki-doc/add-doc',
+                    type: 'POST',
+                    data: formData,
+                    processData: false, contentType: false, traditional: true, dataType: "json",
+                    enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                    success: function (data) {
+                        if (data != null && data.status >= 0) {
+                            doUpdateHashTag(data.HashTag, data.status);
+                        } else {
+                            jError(AddFail, ThongBao, function () {
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+
+            } catch (e) {
+                alert(e.toString());
+                return false;
+            }
+
+        });
+         
+
+        
+
+    </script>
+}
+catch (Exception)
+{
+    // ignored
+}

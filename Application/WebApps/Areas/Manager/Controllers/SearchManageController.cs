@@ -39,5 +39,24 @@ namespace WebApps.Areas.Manager.Controllers
             }
             return View(@"~\Areas\Manager\Views\SearchManage\ListSearch.cshtml");
         }
+
+        [HttpGet]
+        [Route("them-moi")]
+        public ActionResult SearchAdd()
+        {
+            if (SessionData.CurrentUser == null)
+            {
+                return Redirect("/dang-xuat");
+            }
+            try
+            {
+               
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return View(@"~\Areas\Manager\Views\SearchManage\SearchAdd.cshtml");
+        }
     }
 }
