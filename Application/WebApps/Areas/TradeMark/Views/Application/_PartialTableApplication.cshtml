@@ -49,7 +49,7 @@
                     @* Chi Hien thi phan dich neu la ban ghi tiếng anh, và đang xem trên ngôn ngữ tiếng việt *@
                     @if (item.Id_Vi >= 0 && language == "VI_VN" && item.Languague_Code== "EN_US")
                     {
-                    <a href="/trade-mark/request-for-trade-mark-translate/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-house-add" style="background-color:red" data-title="Dịch"></a>
+                    <a href="/trade-mark/request-for-trade-mark-translate/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-house-add"   data-title="Dịch"></a>
                     }
                     @if (item.Status == (decimal)CommonEnums.App_Status.Luu_tam)
                     {
