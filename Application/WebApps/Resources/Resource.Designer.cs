@@ -1060,6 +1060,24 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tổng số nhóm.
+        /// </summary>
+        public static string lblTongSoNhom {
+            get {
+                return ResourceManager.GetString("lblTongSoNhom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tổng SP.
+        /// </summary>
+        public static string lblTongSP {
+            get {
+                return ResourceManager.GetString("lblTongSP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to trang.
         /// </summary>
         public static string lblTrang {
