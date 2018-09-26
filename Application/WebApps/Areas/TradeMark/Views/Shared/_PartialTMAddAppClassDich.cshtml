@@ -43,6 +43,7 @@
                     <tr>
                         <th style="width: 4%">@WebApps.Resources.Resource.lblSTT</th>
                         <th data-sort id="Username"> @WebApps.Resources.Resource.lblHangHoa</th>
+                        <th data-sort id="Username" style='background-color:yellow'> @WebApps.Resources.Resource.lblHangHoa (Dịch)</th>
                         <th style="width: 17%" data-sort>@WebApps.Resources.Resource.lblMaNhom</th>
                         <th style="width: 100px;"></th>
                         <th class="clssDisplaynone"></th>
@@ -99,7 +100,7 @@
         }
     }
 
- 
+
     function funcAddDataRow() {
         try {
 
@@ -155,7 +156,9 @@
             textInput = textInput.trim();
             classCode = _groupcode;
             classCode = classCode.trim();
-            var _html = "<tr><td></td><td class=\"TdLeft\">" + textInput + "</td><td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td></td><td class=\"HasSort clssDisplaynone\">" + classCode.substr(0,5) + "</td></tr>";
+            var _html = "<tr><td></td><td class=\"TdLeft\">" + textInput + "</td><td> <input type='text' class='DataAdd2'> </td> <td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td></td><td class=\"HasSort clssDisplaynone\">" + classCode.substr(0, 5) + "</td></tr>";
+
+
             $("#tblClassInfo").find("tbody").append(_html);
             AddTotalRows();
             funcReSortTable("#tblClassInfo", 'asc');
@@ -171,13 +174,13 @@
             // đẩy các dòng tổng xuống cuối table
             var _html = "";
             _ArrGroupAppClass.forEach(function (element) {
-                _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='2' class=\"tdRightAlign textbold\">"+"@WebApps.Resources.Resource.lblTongSP"+"</td><td colspan='2' class=\"TdLeft textbold\"> " + element.value + "</td>   <input  type=\"hidden\" class=\"txtTongSanPham\" value=\"" + element.value +"\"/> <td class=\"HasSort clssDisplaynone\"> " + element.name + "</td> </tr>";
+                _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='3' class=\"tdRightAlign textbold\">"+"@WebApps.Resources.Resource.lblTongSP"+"</td><td colspan='2' class=\"TdLeft textbold\"> " + element.value + "</td>   <input  type=\"hidden\" class=\"txtTongSanPham\" value=\"" + element.value +"\"/> <td class=\"HasSort clssDisplaynone\"> " + element.name + "</td> </tr>";
                 $("#tblClassInfo").find("tbody").append(_html);
             });
 
             // tổng số nhóm
 
-            _html = "<tr id='_rowappclassinfo0'><td colspan='2' class=\"tdRightAlign textbold\">"+"@WebApps.Resources.Resource.lblTongSoNhom"+"</td><td colspan='2' class=\"TdLeft textbold\"> " + _ArrGroupAppClass.length + "</td>  <input  type=\"hidden\" id=\"txtTongSoNhom\" value=\"" + _ArrGroupAppClass.length  +"\"/> <td class=\"HasSort clssDisplaynone\">  99999 </td></tr>";
+            _html = "<tr id='_rowappclassinfo0'><td colspan='3' class=\"tdRightAlign textbold\">" + "@WebApps.Resources.Resource.lblTongSoNhom"+"</td><td colspan='2' class=\"TdLeft textbold\"> " + _ArrGroupAppClass.length + "</td>  <input  type=\"hidden\" id=\"txtTongSoNhom\" value=\"" + _ArrGroupAppClass.length  +"\"/> <td class=\"HasSort clssDisplaynone\">  99999 </td></tr>";
             $("#tblClassInfo").find("tbody").append(_html);
         } catch (e) {
             console.log(e);
@@ -252,7 +255,7 @@
     function funcGetDataClassInfo(formData) {
         try {
             var item = 0;
-            
+
             var tongSP = "";
             $("#tblClassInfo").find("tbody").find(".txtTongSanPham").each(function () {
                 tongSP = tongSP + $(this).val() + "|";
@@ -264,9 +267,9 @@
                 formData.append("pAppClassInfo[" + item + "].Textinput", str_data[0]);
                 formData.append("pAppClassInfo[" + item + "].Code", str_data[1]);
                 //Tổng số nhóm để tính xem có bao nhiêu nhóm phục vụ tính phí
-                formData.append("pAppClassInfo[" + item + "].TongSoNhom", tongSoNhom); 
+                formData.append("pAppClassInfo[" + item + "].TongSoNhom", tongSoNhom);
                 //Số sản phẩm để tính phần dư chênh lệch
-                formData.append("pAppClassInfo[" + item + "].TongSanPham", tongSP); 
+                formData.append("pAppClassInfo[" + item + "].TongSanPham", tongSP);
                 item++;
             });
             return true;

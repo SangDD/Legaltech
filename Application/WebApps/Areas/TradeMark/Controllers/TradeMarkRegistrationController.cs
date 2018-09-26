@@ -1003,6 +1003,10 @@
             {
                 var objBL = new AppDetail04NHBL();
                 string language = AppsCommon.GetCurrentLang();
+                if (pEditOrTranslate == 1)
+                {
+                    language = Language.LangEN;
+                }
                 var ds04NH = objBL.AppTM04NHGetByID(pAppHeaderId, language, pStatus);
                 string keyData = "objAppHeaderInfo" + SessionData.CurrentUser.Id.ToString() + DateTime.Now.ToString("DDMMHHmmss");
                 //Luu key duy nhat cua he thong
@@ -1072,7 +1076,7 @@
 
                 return PartialView("~/Areas/TradeMark/Views/PLC05_KN_3D/_Partial_TM_3D_PLC_05_KN_Edit.cshtml");
             }
- 
+
             else if (pAppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
             {
                 var objBL = new AppDetail06DKQT_BL();
@@ -1109,7 +1113,7 @@
                 ViewBag.objAppHeaderInfo = applicationHeaderInfo;
 
                 return PartialView("~/Areas/TradeMark/Views/PLD01_HDCN_4C2/_Partial_TM_4C2_PLD_01_HDCN_Edit.cshtml");
- 
+
             }
             else
             {

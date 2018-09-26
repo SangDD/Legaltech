@@ -799,6 +799,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ảnh có kích cỡ từ.
+        /// </summary>
+        public static string lblSizeOfPicture {
+            get {
+                return ResourceManager.GetString("lblSizeOfPicture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Số bản.
         /// </summary>
         public static string lblSoBan {
@@ -1056,6 +1065,24 @@ namespace WebApps.Resources {
         public static string lblToKhaiGom {
             get {
                 return ResourceManager.GetString("lblToKhaiGom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tổng số nhóm.
+        /// </summary>
+        public static string lblTongSoNhom {
+            get {
+                return ResourceManager.GetString("lblTongSoNhom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tổng SP.
+        /// </summary>
+        public static string lblTongSP {
+            get {
+                return ResourceManager.GetString("lblTongSP", resourceCulture);
             }
         }
         

@@ -1,5 +1,5 @@
 ﻿@using Common.CommonData
-@using Common.Extensions
+@using WebApps.CommonFunction
 @using ObjectInfos;
 @{
     List<ApplicationHeaderInfo> _list_data = new List<ApplicationHeaderInfo>();
@@ -7,6 +7,8 @@
     {
         _list_data = ViewBag.Obj;
     }
+
+    string language = AppsCommon.GetCurrentLang();
 }
 
 <div>
@@ -44,8 +46,11 @@
                     <a href="/trade-mark-share-data/todo-details/@item.Case_Code/0" class="icon icon-info" data-title="Xem chi tiết"></a>
                     @*<a href="/trade-mark-share-data/todo-details/@item.Case_Code/2" class="icon icon-edit" data-title="Sửa"></a>*@
                     <a href="/trade-mark/request-for-trade-mark-edit/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-edit" data-title="Sửa"></a>
-
-                    <a href="/trade-mark/request-for-trade-mark-translate/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-confirm-circle" data-title="Dịch"></a>
+                    @* Chi Hien thi phan dich neu la ban ghi tiếng anh, và đang xem trên ngôn ngữ tiếng việt *@
+                    @if (item.Id_Vi >= 0 && language == "VI_VN" && item.Languague_Code== "EN_US")
+                    {
+                    <a href="/trade-mark/request-for-trade-mark-translate/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-house-add"   data-title="Dịch"></a>
+                    }
                     @if (item.Status == (decimal)CommonEnums.App_Status.Luu_tam)
                     {
                         <a href="javascript:;" onclick="return funcDelAppDoc('@item.Id','@item.Appcode')" class="icon icon-delete" data-title="Xóa"></a>

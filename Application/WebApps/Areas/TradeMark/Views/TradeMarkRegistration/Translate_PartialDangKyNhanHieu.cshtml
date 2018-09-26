@@ -155,6 +155,10 @@
     .div-search-title > div {
         width: 120px;
     }
+
+    .class_dich{
+        background-color:yellow ;
+    }
 </style>
 
 <div class="d-nav-container">
@@ -172,7 +176,7 @@
 <input type="hidden" id="txtStatusEdit" value="@objAppHeaderInfo.Status" />
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
-        <legend>@WebApps.Resources.Resource.lblDangKyNhanHieu</legend>
+        <legend>DỊCH @WebApps.Resources.Resource.lblDangKyNhanHieu</legend>
         @* Case name *@
         <div class="div_full_100_area">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
@@ -290,159 +294,224 @@
 
 
         @* Nhan hieu *@
-        <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblNhanHieu.ToUpper())
-            <div class="class_full_div_input">
-
-                <div class="class_left_40">
-                    <div class="class_block_title" style="padding-top:5px; "><label>@WebApps.Resources.Resource.lblMauNhanHieu:</label> </div>
-                    <div class="class_block_title_control" style="display:flex">
-                        <div style="width:165px ;height:165px" id="divLogo">
-                            <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
-                            <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
-                        </div>
-                        <div class="container" style="flex-grow:1;padding-top:50px">
-                            <img onclick="funcRemoveTradeMarkImg('imgMauNhanHieu')" src="~/Content/icons/delete_file.png" style="margin: 0px 21px -44px 4px;" />
-                            <div class="file-upload btn btn-primary" style="margin-top:95px">
-                                <span>@WebApps.Resources.Resource.lblTaiFile</span>
-                                <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
+            <div class="div_full_100_area">
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblNhanHieu.ToUpper())
+                <div class="class_full_div_input">
+                    <div class="class_left_40">
+                        <div class="class_block_title" style="padding-top:5px; "><label>@WebApps.Resources.Resource.lblMauNhanHieu:</label> </div>
+                        <div class="class_block_title_control" style="display:flex">
+                            <div style="width:165px ;height:165px" id="divLogo">
+                                <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
+                                <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="class_right_60" style="display:block">
-                    @* Thêm mục đích sau này Admin đặt tên theo qui tắc phục vụ tìm kiếm *@
-                    <div class="div-search-ad">
-                        <div class="div-search-title">
-                            <div>@WebApps.Resources.Resource.lblTenNhanHieu:</div>
-                        </div>
-                        <div class="div-search-content">
-                            <div>
-                                <input type="text" placeholder="Tên Nhãn hiệu" value="@objAppHeaderInfo.CodeLogo" maxlength="20" id="0_txtTenNhanHieu" />
+                            <div class="container" style="flex-grow:1;padding-top:50px">
+                                <img onclick="funcRemoveTradeMarkImg('imgMauNhanHieu')" src="~/Content/icons/delete_file.png" style="margin: 0px 21px -44px 4px;" />
+                                <div class="file-upload btn btn-primary" style="margin-top:95px">
+                                    <span>@WebApps.Resources.Resource.lblTaiFile</span>
+                                    <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="div-search-ad">
-                        <div class="div-search-title">
-                            <div>@WebApps.Resources.Resource.lblMauSac:</div>
+                    <div class="class_right_60" style="display:block">
+                        @* Thêm mục đích sau này Admin đặt tên theo qui tắc phục vụ tìm kiếm *@
+                        <div class="div-search-ad">
+                            <div class="div-search-title">
+                                <div>@WebApps.Resources.Resource.lblTenNhanHieu:</div>
+                            </div>
+                            <div class="div-search-content">
+                                <div>
+                                    <input type="text" placeholder="Tên Nhãn hiệu" value="@objAppHeaderInfo.CodeLogo" maxlength="20" id="0_txtTenNhanHieu" />
+                                </div>
+                            </div>
                         </div>
-                        <div class="div-search-content">
-                            <div><input type="text" placeholder="0_MauSac" value="@objAppHeaderInfo.Color" maxlength="50" id="0_MauSac" /></div>
-                        </div>
-                    </div>
 
-                    <div class="div-search-ad">
-                        <div class="div-search-title" style="height: 126px;">
-                            <div>@WebApps.Resources.Resource.lblMoTa:</div>
+                        <div class="div-search-ad">
+                            <div class="div-search-title">
+                                <div>@WebApps.Resources.Resource.lblMauSac:</div>
+                            </div>
+                            <div class="div-search-content">
+                                <div><input type="text" placeholder="0_MauSac" value="@objAppHeaderInfo.Color" maxlength="50" id="0_MauSac" /></div>
+                            </div>
                         </div>
-                        <div class="div-search-content">
-                            <div>
-                                <textarea id="0_MoTa" maxlength="2000" rows="5" cols="10" placeholder="Mô tả" style="height:128px">@objAppHeaderInfo.Description</textarea>
+
+                        <div class="div-search-ad">
+                            <div class="div-search-title" style="height: 126px;">
+                                <div>@WebApps.Resources.Resource.lblMoTa:</div>
+                            </div>
+                            <div class="div-search-content">
+                                <div>
+                                    <textarea id="0_MoTa" maxlength="2000" rows="5" cols="10" placeholder="Mô tả" style="height:128px">@objAppHeaderInfo.Description</textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                @* Dịch tiếng việt *@
+                <div class="class_full_div_input">
+                    <div class="class_left_40">
 
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" value="NHTT" @styleNhanHieu placeholder="0_NhanHieuTapThe" id="0_NhanHieuTapThe" />
-                        <label>@WebApps.Resources.Resource.lblNhanHieuTapThe</label>
+                    </div>
+
+
+                    <div class="class_right_60" style="display:block">
+                        @* Thêm mục đích sau này Admin đặt tên theo qui tắc phục vụ tìm kiếm *@
+                        <div class="div-search-ad">
+                            <div class="div-search-title">
+                                <div class="class_dich">@WebApps.Resources.Resource.lblMauSac (Dịch):</div>
+                            </div>
+                            <div class="div-search-content">
+                                <div><input type="text" placeholder="0_MauSac_VI" value="" maxlength="50" id="0_MauSac_VI" /></div>
+                            </div>
+                        </div>
+
+                        <div class="div-search-ad">
+                            <div class="div-search-title" style="height: 126px;">
+                                <div  class="class_dich">@WebApps.Resources.Resource.lblMoTa (Dịch):</div>
+                            </div>
+                            <div class="div-search-content">
+                                <div>
+                                    <textarea id="0_MoTa_VI" maxlength="2000" rows="5" cols="10" placeholder="Mô tả" style="height:128px"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   </div>
+                @* End dịch *@
+
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="radio" name="0_NhanHieu" value="NHTT" @styleNhanHieu placeholder="0_NhanHieuTapThe" id="0_NhanHieuTapThe" />
+                            <label>@WebApps.Resources.Resource.lblNhanHieuTapThe</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="radio" name="0_NhanHieu" value="NHLK" @styleLienKet placeholder="0_NhanHieuLienKet" id="0_NhanHieuLienKet" />
+                            <label>@WebApps.Resources.Resource.lblNhanHieuLienKet</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="radio" name="0_NhanHieu" value="NHCN" @styleNhanHieuCN placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" />
+                            <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" value="NHLK" @styleLienKet placeholder="0_NhanHieuLienKet" id="0_NhanHieuLienKet" />
-                        <label>@WebApps.Resources.Resource.lblNhanHieuLienKet</label>
-                    </div>
-                </div>
-            </div>
+            <div class="div_full_100_area" @styleShowHidenNHCN id="divNhanHieuChungNhan">
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblMoTaDacTinhCuaHangHoa.ToUpper())
+                @{
+                    string styleNguonGocDL = "";
+                    if (!string.IsNullOrEmpty(objAppHeaderInfo.Nguongocdialy))
+                    {
+                        styleNguonGocDL = "checked='checked'";
+                    }
 
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" value="NHCN" @styleNhanHieuCN placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" />
-                        <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    string styleChatluong = "";
+                    if (!string.IsNullOrEmpty(objAppHeaderInfo.Chatluong))
+                    {
+                        styleChatluong = "checked='checked'";
+                    }
 
-        <div class="div_full_100_area" @styleShowHidenNHCN id="divNhanHieuChungNhan">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblMoTaDacTinhCuaHangHoa.ToUpper())
-            @{
-                string styleNguonGocDL = "";
-                if (!string.IsNullOrEmpty(objAppHeaderInfo.Nguongocdialy))
-                {
-                    styleNguonGocDL = "checked='checked'";
+                    string styleNguonGocDiaLy = "";
+                    if (!string.IsNullOrEmpty(objAppHeaderInfo.Nguongocdialy))
+                    {
+                        styleNguonGocDiaLy = "checked='checked'";
+                    }
                 }
 
-                string styleChatluong = "";
-                if (!string.IsNullOrEmpty(objAppHeaderInfo.Chatluong))
-                {
-                    styleChatluong = "checked='checked'";
-                }
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-checkbox">
+                            <input type="checkbox" name="0_ckbDacTinhHangHoa" @styleDacTinhHangHoa value="DTHH" placeholder="0_ckbDacTinhHangHoa" id="0_ckbDacTinhHangHoa" />
+                            <label>@WebApps.Resources.Resource.lblDacTinhHanghoa</label>
+                        </div>
+                    </div>
+                </div>
 
-                string styleNguonGocDiaLy = "";
-                if (!string.IsNullOrEmpty(objAppHeaderInfo.Nguongocdialy))
-                {
-                    styleNguonGocDiaLy = "checked='checked'";
-                }
-            }
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" @styleNguonGocDL class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" placeholder="8_ckbNguonGocDiaLy" id="8_ckbNguonGocDiaLy" />
+                        <div style="width:250px">@WebApps.Resources.Resource.lblNguonGocDiaLy:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="8_txtNguonGocDiaLy" class="classDacTinhHangHoa" value="@objAppHeaderInfo.Nguongocdialy" disabled="disabled" maxlength="100" placeholder="@WebApps.Resources.Resource.lblNguonGocDiaLy" />
+                        </div>
+                    </div>
+                </div>
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <input style="float: left;margin: 8px 0px 5px 5px;" type="checkbox" @styleChatluong name="8_ckbChatLuong" class="classDacTinhHangHoa" disabled="disabled" value="CLCL" placeholder="8_ckbChatLuong" id="8_ckbChatLuong" />
+                        <div>@WebApps.Resources.Resource.lblChatLuong:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="8_txtChatLuong" maxlength="100" value="@objAppHeaderInfo.Chatluong" class="classDacTinhHangHoa" disabled="disabled" placeholder="8_txtChatLuong" />
+                        </div>
+                    </div>
+                </div>
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" @styleNguonGocDiaLy name="8_ckbDacTinhKhac" class="classDacTinhHangHoa" disabled="disabled" value="DTKK" placeholder="8_ckbDacTinhKhac" id="8_ckbDacTinhKhac" />
+                        <div>@WebApps.Resources.Resource.lblDacTinhKhac:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="8_txtDacTinhKhac" maxlength="100" class="classDacTinhHangHoa" value="@objAppHeaderInfo.Nguongocdialy" disabled="disabled" placeholder="8_txtDacTinhKhac" />
+                        </div>
+                    </div>
+                </div>
 
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-checkbox">
-                        <input type="checkbox" name="0_ckbDacTinhHangHoa" @styleDacTinhHangHoa value="DTHH" placeholder="0_ckbDacTinhHangHoa" id="0_ckbDacTinhHangHoa" />
-                        <label>@WebApps.Resources.Resource.lblDacTinhHanghoa</label>
+                @* DịCH đặc tính hàng hóa *@
+                <div class="div-search-ad">
+                    <div class="div-search-title class_dich">
+                        <div style="width:250px">@WebApps.Resources.Resource.lblNguonGocDiaLy (Dịch):</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="8_txtNguonGocDiaLy_VI" class="classDacTinhHangHoa" value="@objAppHeaderInfo.Nguongocdialy"   maxlength="100" placeholder="@WebApps.Resources.Resource.lblNguonGocDiaLy" />
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="div-search-ad">
+                    <div class="div-search-title class_dich">
+                        <div style="width:161px">@WebApps.Resources.Resource.lblChatLuong (Dịch):</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="8_txtChatLuong_VI" maxlength="100" value="@objAppHeaderInfo.Chatluong" class="classDacTinhHangHoa"  placeholder="8_txtChatLuong" />
+                        </div>
+                    </div>
+                </div>
+                <div class="div-search-ad">
+                    <div class="div-search-title class_dich">
+                        <div style="width:161px">@WebApps.Resources.Resource.lblDacTinhKhac (Dịch):</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="8_txtDacTinhKhac_VI" maxlength="100" class="classDacTinhHangHoa" value="@objAppHeaderInfo.Nguongocdialy" placeholder="8_txtDacTinhKhac" />
+                        </div>
+                    </div>
+                </div>
 
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" @styleNguonGocDL class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" placeholder="8_ckbNguonGocDiaLy" id="8_ckbNguonGocDiaLy" />
-                    <div  style="width:250px">@WebApps.Resources.Resource.lblNguonGocDiaLy:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="8_txtNguonGocDiaLy" class="classDacTinhHangHoa" value="@objAppHeaderInfo.Nguongocdialy" disabled="disabled" maxlength="100" placeholder="@WebApps.Resources.Resource.lblNguonGocDiaLy" />
-                    </div>
-                </div>
+                @* End đặc tính hàng hóa *@
+
             </div>
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <input style="float: left;margin: 8px 0px 5px 5px;" type="checkbox" @styleChatluong name="8_ckbChatLuong" class="classDacTinhHangHoa" disabled="disabled" value="CLCL" placeholder="8_ckbChatLuong" id="8_ckbChatLuong" />
-                    <div>@WebApps.Resources.Resource.lblChatLuong:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="8_txtChatLuong" maxlength="100" value="@objAppHeaderInfo.Chatluong" class="classDacTinhHangHoa" disabled="disabled" placeholder="8_txtChatLuong" />
-                    </div>
-                </div>
-            </div>
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" @styleNguonGocDiaLy name="8_ckbDacTinhKhac" class="classDacTinhHangHoa" disabled="disabled" value="DTKK" placeholder="8_ckbDacTinhKhac" id="8_ckbDacTinhKhac" />
-                    <div>@WebApps.Resources.Resource.lblDacTinhKhac:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="8_txtDacTinhKhac" maxlength="100" class="classDacTinhHangHoa" value="@objAppHeaderInfo.Nguongocdialy" disabled="disabled" placeholder="8_txtDacTinhKhac" />
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
         @* Class *@
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml")
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClassDich.cshtml")
         @* End Class *@
 
         @* 2 *@
@@ -613,8 +682,21 @@
                     <div class="div-search-content">
                         <input type="text" id="txtThoathuanKhac" maxlength="150" />
                     </div>
-
                 </div>
+
+                @* Dịch tiếng việt *@
+                <div class="div-search-ad" style="display:inline-flex;">
+                    <div class="div-search-title class_dich" style="width:245px">
+                        <div style="width: 250px;">@WebApps.Resources.Resource.lblTheoThoaThuanKhac (Dịch)</div>
+                    </div>
+                    <div class="div-search-content">
+                        <input type="text" id="txtThoathuanKhac_VI" maxlength="150" />
+                    </div>
+                </div>
+                @* End dịch tiếng việt *@
+
+
+
                 @* TÀI LIEU ƯU TIEN *@
                 <div class="div-search-ad" style="display:inline-flex;">
                     <div class="div-search-content">
@@ -724,7 +806,7 @@
         @* End tai lieu dinh kem  *@
 
         @*TÀI LIỆU KHÁC*@
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac.cshtml", "12")
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac_Dich.cshtml", "12")
 
         @* CAM KẾT CHỦ ĐƠN  *@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewNgayThangNam.cshtml")

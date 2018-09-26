@@ -161,6 +161,8 @@ namespace ObjectInfos
         public string Currency_Type { get; set; }
 
         public string Comment_Filling { get; set; }
+
+        public decimal Id_Vi { get; set; }
     }
 
 

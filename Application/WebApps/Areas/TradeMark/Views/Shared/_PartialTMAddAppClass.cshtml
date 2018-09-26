@@ -292,11 +292,11 @@
             // đẩy các dòng tổng xuống cuối table
             var _html = "";
             _ArrGroupAppClass.forEach(function (element) {
-                _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='2' class=\"tdRightAlign textbold\">Tổng SP nhóm("+element.name+")</td><td colspan='2' class=\"TdLeft textbold\"> " + element.value + "</td>   <input  type=\"hidden\" class=\"txtTongSanPham\" value=\"" + element.value + "\"/> <td class=\"HasSort clssDisplaynone\"> " + element.name + "</td> </tr>";
+                _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='2' class=\"tdRightAlign textbold\">"+"@WebApps.Resources.Resource.lblTongSP"+"("+element.name+")</td><td colspan='2' class=\"TdLeft textbold\"> " + element.value + "</td>   <input  type=\"hidden\" class=\"txtTongSanPham\" value=\"" + element.value + "\"/> <td class=\"HasSort clssDisplaynone\"> " + element.name + "</td> </tr>";
                 $("#tblClassInfo").find("tbody").append(_html);
             });
             // tổng số nhóm
-            _html = "<tr id='_rowappclassinfo0'><td colspan='2' class=\"tdRightAlign textbold\">Tổng số nhóm</td><td colspan='2' class=\"TdLeft textbold\"> " + _ArrGroupAppClass.length + "</td>  <input  type=\"hidden\" id=\"txtTongSoNhom\" value=\"" + _ArrGroupAppClass.length + "\"/> <td class=\"HasSort clssDisplaynone\">  99999 </td></tr>";
+            _html = "<tr id='_rowappclassinfo0'><td colspan='2' class=\"tdRightAlign textbold\">"+"@WebApps.Resources.Resource.lblTongSoNhom"+"</td><td colspan='2' class=\"TdLeft textbold\"> " + _ArrGroupAppClass.length + "</td>  <input  type=\"hidden\" id=\"txtTongSoNhom\" value=\"" + _ArrGroupAppClass.length + "\"/> <td class=\"HasSort clssDisplaynone\">  99999 </td></tr>";
             $("#tblClassInfo").find("tbody").append(_html);
         } catch (e) {
             console.log(e);
