@@ -799,6 +799,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ảnh có kích cỡ từ.
+        /// </summary>
+        public static string lblSizeOfPicture {
+            get {
+                return ResourceManager.GetString("lblSizeOfPicture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Số bản.
         /// </summary>
         public static string lblSoBan {
