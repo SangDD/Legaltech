@@ -5,6 +5,32 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;*/
 }
+.Title-news-iPace {
+    width: 98%;
+    margin: 23px 5px 5px 5px;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.grid-container_head {
+    display: grid;
+    grid-template-columns: 230px auto 100px;
+}
+
+.grid-item_head {
+    padding: 2px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.class-dangxuat {
+    font-size: 14px;
+    float: right;
+    text-decoration: underline;
+    color: blue;
+}
 
 html {
     width: 100%;
@@ -68,7 +94,7 @@ body {
     -webkit-flex-direction: row;
     flex-direction: row;
     flex-grow: 1;
-    padding-bottom: 40px;
+    padding-bottom: 120px;
 }
 
 .section-bottom {
@@ -79,17 +105,20 @@ body {
     left: 0;
     right: 0;
     min-width: 980px;
-    min-height: 40px;
+    min-height: 120px;
 }
 
 .main-menu {
     min-width: 230px;
     border-right: 1px solid #0055a8;
+    margin-bottom: 2px;
 }
 
 .main-content {
     width: 100%;
-    padding: 10px;
+    padding: 2px 2px 120px 2px;
+    border-bottom: 1px solid #0055a8;
+    margin-bottom: 2px;
 }
 
 .message-not-identity {
@@ -1090,7 +1119,21 @@ select.divNumberRecordOnPage {
         line-height: 23px;
     }
 }
+.logo_contain {
+    width: 20%;
+    display: inline-block;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    height: 30px;
+}
+    .logo_contain .lang-vn  {
+        padding: 3px 12px;
+        margin-left: 5px;
+    }
 
+.lang-vn {
+    background: url('../Content/images/Vietnam-24.png') no-repeat;
+}
 
 .lang_contain {
     width: 20%;

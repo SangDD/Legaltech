@@ -1,40 +1,61 @@
-﻿@*<link href="~/Content/cssfooter/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/cssfooter/default.css" rel="stylesheet" />
-    <link href="~/Content/cssfooter/theme.css" rel="stylesheet" />
-    <link href="~/Content/cssfooter/font-awesome.css" rel="stylesheet" />*@
-@*<link href="~/Content/cssfooter/default.css" rel="stylesheet" />
-<link href="~/Content/cssfooter/theme.css" rel="stylesheet" />*@
+﻿<style>
+    .DichVu-name1 {
+        color: #fff;
+        text-transform: uppercase;
+        padding: 2px 0;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #d2c0c0;
+    }
 
-<div class="Footer-container" style="overflow: visible;">
-    <div class="container">
-        <div class="space10"></div>
-        <div class="row">
-            <div class="col-md-5">
-                <div class="box_DichVu-VNT1">
-                    <div class="DichVu-name1"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;&nbsp;iPACE Consulting Co., Ltd</div>
-                    <div class="DichVu-desc1">
-                        <i class="fa fa-trophy" aria-hidden="true"></i>&nbsp;&nbsp;<a href="#" class="textlink21">Terms &amp; Conditions</a><br>
-                        <i class="fa fa-trophy" aria-hidden="true"></i>&nbsp;&nbsp;<a href="#" class="textlink21">Privacy Policy</a><br>
-                        <i class="fa fa-copyright"></i>&nbsp;&nbsp; Allrights reserved iPace<br>
-                    </div>
-                </div>
+    .box_DichVu-VNT1 {
+        text-align: left;
+        color:white ;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        margin-left: 7px;
+        margin-right: 7px;
+        padding: 5px;
+        position: relative;
+        text-shadow: 0 0 0 transparent, 0.7px 0.5px 0px #000;
+    }
+
+
+    .grid-container_footer {
+        font-weight: 600;
+        display: grid;
+        grid-template-columns: 15% auto 5% auto 15%;
+    }
+
+    .grid-item_footer {
+        padding: 2px;
+        color: white;
+    }
+</style>
+<div class="Footer-container" style="overflow: visible;height:120px; background: #1d1d1d;">
+    <div class="container_footer grid-container_footer">
+        <div grid-item_footer></div>
+        <div class="box_DichVu-VNT1 grid-item_footer">
+            <div class="DichVu-name1"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;&nbsp;iPath Consulting Co., Ltd</div>
+            <div class="DichVu-desc1">
+                <i class="fa fa-trophy" aria-hidden="true"></i>&nbsp;&nbsp;<a href="#" style="color:white" class="textlink21">Terms &amp; Conditions</a><br>
+                <i class="fa fa-trophy" aria-hidden="true"></i>&nbsp;&nbsp;<a href="#" style="color:white" class="textlink21">Privacy Policy</a><br>
+                <i class="fa fa-copyright"></i>&nbsp;&nbsp; Allrights reserved iPath<br>
             </div>
-            <div class="col-md-2">
-                <div class="box_DichVu-VNT1">
-                </div>
+        </div>
+        <div class="col-md-2 grid-item_footer">
+            <div class="box_DichVu-VNT1">
             </div>
-            <div class="col-md-5">
-                <div class="box_DichVu-VNT1">
-                    <div class="DichVu-name1">FOLLOW US</div>
-                    <div class="DichVu-desc1">
-                        <div class="space10"></div>
-                        <i class="fa fa-facebook-square fa-3x"></i>&nbsp;&nbsp;
-                        <i class="fa fa-google-plus-square fa-3x"></i>&nbsp;&nbsp;
-                        <i class="fa fa-twitter-square fa-3x"></i>
-                    </div>
-                </div>
+        </div>
+        <div class="box_DichVu-VNT1 grid-item_footer">
+            <div class="DichVu-name1">FOLLOW US</div>
+            <div class="DichVu-desc1">
+                <div class="space10"></div>
+                <i class="fa fa-facebook-square fa-3x"></i>&nbsp;&nbsp;
+                <i class="fa fa-google-plus-square fa-3x"></i>&nbsp;&nbsp;
+                <i class="fa fa-twitter-square fa-3x"></i>
             </div>
         </div>
 
+        <div class="grid-item_footer"></div>
     </div>
 </div>
