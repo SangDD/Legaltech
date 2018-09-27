@@ -117,7 +117,7 @@ namespace DataAccess.ModuleTrademark
             try
             {
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
-                var paramReturn_casecode = new OracleParameter("p_return_case_code", OracleDbType.Int32, ParameterDirection.Output);
+                var paramReturn_casecode = new OracleParameter("p_return_case_code", OracleDbType.Varchar2, ParameterDirection.Output);
                 paramReturn_casecode.Size = 50;
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_HEADER.PROC_APP_HEADER_INSERT",
                     new OracleParameter("P_APPCODE", OracleDbType.Varchar2, pInfo.Appcode, ParameterDirection.Input),
