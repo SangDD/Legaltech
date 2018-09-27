@@ -1,10 +1,9 @@
 ﻿<style>
     .legalTodo_div {
         text-align: left;
-        /*border: 1px solid #ccc;*/
         min-height: 50px;
-        padding: 5px 0px 5px 5px;
-        margin-top: 10px;
+        padding: 5px 0px 1px 5px;
+        margin-top: 5px;
     }
 
     #legaltodo_table td {
@@ -35,8 +34,8 @@
 </style>
 
 <div class="divCover legalTodo_div">
-    <div id="d_todo_sum" class="box_title" style="width:100%; float:left; background-color: antiquewhite;"> VIỆC CẦN LÀM </div>
-    @*<div id="d_todo_notify" class="box_title" style="width:89%;background-color: antiquewhite; padding:0px; float:left"></div>*@
+    <div id="d_todo_sum" class="box_title" style="width:100%; float:left; background-color: #efefef;">
+        <label style="padding-left:10px"> VIỆC CẦN LÀM </label></div>
     <div>
         <input type="hidden" id="colSortedTodo" />
         <input type="hidden" id="SortTypeTodo" />
@@ -79,7 +78,7 @@
                         if (data != null) {
                             var _htmlnotify = "";
                             $("#LegalTododivTable").html(data.TodoData);
-                            $("#d_todo_sum").html("VIỆC CẦN LÀM - " + data.TodoNotify.Total);
+                            $("#d_todo_sum").html("<label style='padding-left: 10px'>VIỆC CẦN LÀM - " + data.TodoNotify.Total + "</label>");
 
 
                             //if (data.TodoNotify.NUMBER_APPS > 0) {

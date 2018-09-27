@@ -1,10 +1,9 @@
 ﻿<style>
     .legalOrder_div {
         text-align: left;
-        /*border: 1px solid #ccc;*/
         min-height: 50px;
-        padding: 5px 0px 5px 5px;
-        margin-top: 10px;
+        padding: 5px 0px 1px 5px;
+        margin-top: 5px;
     }
 
     #legalOrder_table td {
@@ -18,7 +17,7 @@
 </style>
 
 <div class="divCover legalOrder_div">
-    <div id="d_order_sum" class="box_title" style="float:left; width:100%; background-color: darkseagreen;">   YÊU CẦU </div>
+    <div id="d_order_sum" class="box_title" style="float:left; width:100%; background-color: #efefef;"><label style="padding-left:10px"> YÊU CẦU </label>    </div>
     <div>
         <input type="hidden" id="colSortedOrder" />
         <input type="hidden" id="SortTypeOrder" />
@@ -60,7 +59,7 @@
                     success: function (data) {
                         if (data != null) {
                             $("#LegalOrderdivTable").html(data.TodoData);
-                            $("#d_order_sum").html("YÊU CẦU - " + data.TodoNotify.Total);
+                            $("#d_order_sum").html("<label style='padding-left: 10px'>YÊU CẦU - " + data.TodoNotify.Total + "</label>");
                         }
                     }
                 });
