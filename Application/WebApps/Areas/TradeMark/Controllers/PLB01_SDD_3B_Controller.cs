@@ -91,6 +91,7 @@
                         pDetail.Appcode = pInfo.Appcode;
                         pDetail.Language_Code = language;
                         pDetail.App_Header_Id = pAppHeaderID;
+                        pDetail.Case_Code = p_case_code;
                         pReturn = objDetail.Insert(pDetail);
                     }
 
@@ -284,6 +285,7 @@
                         pDetail.Appcode = pInfo.Appcode;
                         pDetail.Language_Code = language;
                         pDetail.App_Header_Id = pInfo.Id;
+                        pDetail.Case_Code = pInfo.Case_Code;
                         pReturn = objDetail.Update(pDetail);
                     }
 
@@ -525,6 +527,7 @@
                 List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
 
                 app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
+
                 // copy Header
                 App_Detail_PLB01_SDD_Info.CopyAppHeaderInfo(ref app_Detail, applicationHeaderInfo);
 

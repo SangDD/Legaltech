@@ -87,6 +87,7 @@
                         pDetail.Appcode = pInfo.Appcode;
                         pDetail.Language_Code = language;
                         pDetail.App_Header_Id = pAppHeaderID;
+                        pDetail.Case_Code = p_case_code;
                         pReturn = objDetail_BL.Insert(pDetail);
                         if (pReturn <= 0)
                             goto Commit_Transaction;
@@ -209,6 +210,7 @@
                         pDetail.Appcode = pInfo.Appcode;
                         pDetail.Language_Code = language;
                         pDetail.App_Header_Id = pInfo.Id;
+                        pDetail.Case_Code = pInfo.Case_Code;
                         pReturn = objDetail.Update(pDetail);
                         if (pReturn <= 0)
                             goto Commit_Transaction;

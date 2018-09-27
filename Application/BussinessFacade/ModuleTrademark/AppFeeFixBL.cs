@@ -36,20 +36,5 @@ namespace BussinessFacade.ModuleTrademark
                 return ErrorCode.Error;
             }
         }
-
-
-        public DataSet AppFeeFixGetByAppHeader(decimal p_app_header_id)
-        {
-            try
-            {
-                AppFeeFixDA objData = new AppFeeFixDA();
-                return objData.AppFeeFixGetByAppHeaderId(p_app_header_id);
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return new DataSet();
-            }
-        }
     }
 }
