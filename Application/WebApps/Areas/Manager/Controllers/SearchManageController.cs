@@ -58,5 +58,21 @@ namespace WebApps.Areas.Manager.Controllers
             }
             return View(@"~\Areas\Manager\Views\SearchManage\SearchAdd.cshtml");
         }
+
+        [HttpPost]
+        [Route("them-dieu-kien")]
+        public ActionResult AddNewDetail(decimal _idSearch)
+        {
+          
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return PartialView(@"~\Areas\Manager\Views\SearchManage\_PartialSearchCondition.cshtml", _idSearch.ToString() + "|0");
+        }
     }
 }
