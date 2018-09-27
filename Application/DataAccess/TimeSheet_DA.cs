@@ -97,7 +97,7 @@ namespace DataAccess
             }
         }
 
-        public decimal Timesheet_Insert(string p_name, decimal p_app_header_id, decimal p_lawer_id, DateTime p_time_date, 
+        public decimal Timesheet_Insert(string p_name, string p_app_case_code, decimal p_lawer_id, DateTime p_time_date, 
             string p_from_time, string p_to_time, decimal p_hours,decimal p_hours_adjust, string p_notes, 
             decimal p_status, string p_created_by, DateTime p_created_date, string p_language_code)
         {
@@ -106,7 +106,7 @@ namespace DataAccess
                 var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_timesheet.Proc_Timesheet_Insert",
                     new OracleParameter("p_name", OracleDbType.Varchar2, p_name, ParameterDirection.Input),
-                    new OracleParameter("p_app_header_id", OracleDbType.Decimal, p_app_header_id, ParameterDirection.Input),
+                    new OracleParameter("p_app_case_code", OracleDbType.Varchar2, p_app_case_code, ParameterDirection.Input),
                     new OracleParameter("p_lawer_id", OracleDbType.Decimal, p_lawer_id, ParameterDirection.Input),
                     new OracleParameter("p_time_date", OracleDbType.Date, p_time_date, ParameterDirection.Input),
                     new OracleParameter("p_from_time", OracleDbType.Varchar2, p_from_time, ParameterDirection.Input),

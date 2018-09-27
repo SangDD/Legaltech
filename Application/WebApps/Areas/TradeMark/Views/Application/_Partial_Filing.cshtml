@@ -110,7 +110,7 @@
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Nộp đơn" onclick="return do_Filing(@_AppHeaderInfo.Id)" />
+            <input type="submit" class="btn-default" value="Nộp đơn" onclick="return do_Filing(@_AppHeaderInfo.Case_Code)" />
         </div>
     </div>
 </div>
@@ -120,7 +120,7 @@
 
     });
 
-    function do_Filing(_application_header_id) {
+    function do_Filing(_case_code) {
         if (validateAction()) {
             nvsConfirm(null, "Bạn có chắc chắn muốn nộp đơn này cho khách hàng không?", function () {
 
@@ -133,7 +133,7 @@
                 var formdata = new FormData();
                 formdata.append("pInfo.File_Copy_Filing", _file);
                 formdata.append("pInfo.File_Translate_Filing", _file_t);
-                formdata.append("pInfo.Id", parseInt(_application_header_id));
+                formdata.append("pInfo.Case_Code", parseInt(_case_code));
                 formdata.append("pInfo.Filing_Date", $('#txt_filing_date').val());
                 formdata.append("pInfo.Note", $('#txtNotes').val());
                 formdata.append("pInfo.App_No", $('#txt_App_No').val());

@@ -65,7 +65,7 @@
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Xác nhận" onclick="return do_Lawer_Confirm(@_AppHeaderInfo.Id)" />
+            <input type="submit" class="btn-default" value="Xác nhận" onclick="return do_Lawer_Confirm(@_AppHeaderInfo.Case_Code)" />
         </div>
     </div>
 </div>
@@ -83,14 +83,14 @@
 
     });
 
-    function do_Lawer_Confirm(_application_header_id) {
+    function do_Lawer_Confirm(_case_code) {
         if (validateAction()) {
             nvsConfirm(null, "Bạn có chắc chắn muốn xác nhận đơn này không?", function () {
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/do-lw-confirm',
                     type: 'POST',
                     data: {
-                        p_Application_Header_Id: _application_header_id,
+                        p_case_code: _case_code,
                         p_status: $('#cboConfirm').val(),
                         p_note: $('#txtNotes').val()
                     },

@@ -32,13 +32,13 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
-        public int AppHeader_Update_Status(decimal p_id, decimal p_status, string p_notes, string p_Modify_By, DateTime p_Modify_Date, string p_language_code)
+        public int AppHeader_Update_Status(string p_case_code, decimal p_status, string p_notes, string p_Modify_By, DateTime p_Modify_Date, string p_language_code)
         {
             try
             {
                 var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
                 OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_header.proc_update_status",
-                    new OracleParameter("p_id", OracleDbType.Decimal, p_id, ParameterDirection.Input),
+                    new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
                     new OracleParameter("p_status", OracleDbType.Decimal, p_status, ParameterDirection.Input),
                     new OracleParameter("p_notes", OracleDbType.Varchar2, p_notes, ParameterDirection.Input),
                     new OracleParameter("p_Modify_By", OracleDbType.Varchar2, p_Modify_By, ParameterDirection.Input),
@@ -55,13 +55,13 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
-        public int AppHeader_Update_Employee(decimal p_id, decimal p_employee, string p_notes, string p_Modify_By, DateTime p_Modify_Date, string p_language_code)
+        public int AppHeader_Update_Employee(string p_case_code, decimal p_employee, string p_notes, string p_Modify_By, DateTime p_Modify_Date, string p_language_code)
         {
             try
             {
                 var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
                 OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_header.proc_update_employee",
-                    new OracleParameter("p_id", OracleDbType.Decimal, p_id, ParameterDirection.Input),
+                    new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
                     new OracleParameter("p_employee", OracleDbType.Decimal, p_employee, ParameterDirection.Input),
                     new OracleParameter("p_notes", OracleDbType.Varchar2, p_notes, ParameterDirection.Input),
                     new OracleParameter("p_Modify_By", OracleDbType.Varchar2, p_Modify_By, ParameterDirection.Input),
@@ -78,14 +78,14 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
-        public int AppHeader_Filing_Status(decimal p_id, decimal p_status, string p_app_no, DateTime p_filing_date, string p_url_copy, string p_url_translate,
+        public int AppHeader_Filing_Status(string p_case_code, decimal p_status, string p_app_no, DateTime p_filing_date, string p_url_copy, string p_url_translate,
             string p_notes, string p_Modify_By, DateTime p_Modify_Date, string p_language_code)
         {
             try
             {
                 var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
                 OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_header.proc_update_filing",
-                    new OracleParameter("p_id", OracleDbType.Decimal, p_id, ParameterDirection.Input),
+                    new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
                     new OracleParameter("p_status", OracleDbType.Decimal, p_status, ParameterDirection.Input),
                     new OracleParameter("p_app_no", OracleDbType.Varchar2, p_app_no, ParameterDirection.Input),
                     new OracleParameter("p_filing_date", OracleDbType.Date, p_filing_date, ParameterDirection.Input),
@@ -112,11 +112,13 @@ namespace DataAccess.ModuleTrademark
         /// </summary>
         /// <param name="pInfo"></param>
         /// <returns>TRA RA ID CUA BANG KHI INSERT THANH CONG</returns>
-        public int AppHeaderInsert(ApplicationHeaderInfo pInfo)
+        public int AppHeaderInsert(ApplicationHeaderInfo pInfo, ref string p_case_code)
         {
             try
             {
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
+                var paramReturn_casecode = new OracleParameter("p_return_case_code", OracleDbType.Int32, ParameterDirection.Output);
+                paramReturn_casecode.Size = 50;
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_HEADER.PROC_APP_HEADER_INSERT",
                     new OracleParameter("P_APPCODE", OracleDbType.Varchar2, pInfo.Appcode, ParameterDirection.Input),
                     new OracleParameter("P_MASTER_NAME", OracleDbType.Varchar2, pInfo.Master_Name, ParameterDirection.Input),
@@ -143,8 +145,10 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("p_case_name", OracleDbType.Varchar2, pInfo.Case_Name, ParameterDirection.Input),
                     new OracleParameter("P_DDSHCN", OracleDbType.Varchar2, pInfo.DDSHCN, ParameterDirection.Input),
                     new OracleParameter("P_MADDSHCN", OracleDbType.Varchar2, pInfo.MADDSHCN, ParameterDirection.Input),
-                    paramReturn);
+                    paramReturn, paramReturn_casecode);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
+
+                p_case_code = paramReturn_casecode.Value.ToString();
                 return result;
             }
             catch (Exception ex)

@@ -36,7 +36,7 @@
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Gửi xác nhận" onclick="return do_Admin_Gui_KH(@_AppHeaderInfo.Id)" />
+            <input type="submit" class="btn-default" value="Gửi xác nhận" onclick="return do_Admin_Gui_KH(@_AppHeaderInfo.Case_Code)" />
         </div>
     </div>
 </div>
@@ -45,14 +45,14 @@
     $(document).ready(function () {
     });
 
-    function do_Admin_Gui_KH(_application_header_id) {
+    function do_Admin_Gui_KH(_case_code) {
         if (validateAction()) {
             nvsConfirm(null, "Bạn có chắc chắn muốn gửi xác nhận đơn này cho khách hàng không?", function () {
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/do-admin-confirm-2-customer',
                     type: 'POST',
                     data: {
-                        p_Application_Header_Id: _application_header_id,
+                        p_case_code: _case_code,
                         p_note: $('#txtNotes').val()
                     },
                     async: true, cache: false, traditional: true,

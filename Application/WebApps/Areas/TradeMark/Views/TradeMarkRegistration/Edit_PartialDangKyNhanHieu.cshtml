@@ -165,6 +165,7 @@
 </div>
 <input type="hidden" id="txtAppCode" value='@objAppHeaderInfo.Appcode' />
 <input type="hidden" id="txtAppHeaderID" value="@objAppHeaderInfo.App_Header_Id" />
+<input type="hidden" id="txtCase_Code" value="@objAppHeaderInfo.Case_Code" />
 @* Luuw cac Id cua cac file dinh kem xoa di xu ly khi thuc hien nut luu *@
 <input type="hidden" id="txtDocumentInAppRemove" value="" />
 
@@ -1542,7 +1543,8 @@
                 return false;
             }
             formData.append("pInfo.Id", v_AppHeaderID);
-
+            formData.append("pInfo.Case_Code", $("#txtCase_Code").val());
+            
             var daidienSH = $("#txtDaiDienSHCN").val();
             //if (daidienSH === "") {
             //    $('#txtDaiDienSHCN').focus().val('');

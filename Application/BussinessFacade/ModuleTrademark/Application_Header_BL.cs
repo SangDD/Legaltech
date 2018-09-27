@@ -25,12 +25,12 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
-        public int AppHeader_Update_Status(decimal p_id, decimal p_status, string p_notes, string p_Modify_By, DateTime p_Modify_Date, string p_language_code)
+        public int AppHeader_Update_Status(string p_case_code, decimal p_status, string p_notes, string p_Modify_By, DateTime p_Modify_Date, string p_language_code)
         {
             try
             {
                 Application_Header_DA objData = new Application_Header_DA();
-                return objData.AppHeader_Update_Status(p_id, p_status, p_notes, p_Modify_By, p_Modify_Date, p_language_code);
+                return objData.AppHeader_Update_Status(p_case_code, p_status, p_notes, p_Modify_By, p_Modify_Date, p_language_code);
             }
             catch (Exception ex)
             {
@@ -39,12 +39,12 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
-        public int AppHeader_Update_Employee(decimal p_id, decimal p_employee, string p_notes, string p_Modify_By, DateTime p_Modify_Date, string p_language_code)
+        public int AppHeader_Update_Employee(string p_case_code, decimal p_employee, string p_notes, string p_Modify_By, DateTime p_Modify_Date, string p_language_code)
         {
             try
             {
                 Application_Header_DA objData = new Application_Header_DA();
-                return objData.AppHeader_Update_Employee(p_id, p_employee, p_notes, p_Modify_By, p_Modify_Date, p_language_code);
+                return objData.AppHeader_Update_Employee(p_case_code, p_employee, p_notes, p_Modify_By, p_Modify_Date, p_language_code);
             }
             catch (Exception ex)
             {
@@ -54,13 +54,13 @@ namespace BussinessFacade.ModuleTrademark
         }
 
 
-        public int AppHeader_Filing_Status(decimal p_id, decimal p_status, string p_app_no, DateTime p_filing_date, string p_url_copy,string p_url_translate, string p_notes, string p_Modify_By, DateTime p_Modify_Date, string p_language_code)
+        public int AppHeader_Filing_Status(string p_case_code, decimal p_status, string p_app_no, DateTime p_filing_date, string p_url_copy,string p_url_translate, string p_notes, string p_Modify_By, DateTime p_Modify_Date, string p_language_code)
         {
             try
             {
                 Application_Header_DA objData = new Application_Header_DA();
 
-                return objData.AppHeader_Filing_Status(p_id, p_status, p_app_no, p_filing_date, p_url_copy, p_url_translate, p_notes, p_Modify_By, p_Modify_Date, p_language_code);
+                return objData.AppHeader_Filing_Status(p_case_code, p_status, p_app_no, p_filing_date, p_url_copy, p_url_translate, p_notes, p_Modify_By, p_Modify_Date, p_language_code);
             }
             catch (Exception ex)
             {
@@ -74,12 +74,12 @@ namespace BussinessFacade.ModuleTrademark
         /// </summary>
         /// <param name="pInfo"></param>
         /// <returns>TRA RA ID CUA BANG KHI INSERT THANH CONG</returns>
-        public int AppHeaderInsert(ApplicationHeaderInfo pInfo)
+        public int AppHeaderInsert(ApplicationHeaderInfo pInfo, ref string p_case_code)
         {
             try
             {
                 Application_Header_DA objData = new Application_Header_DA();
-                return objData.AppHeaderInsert(pInfo);
+                return objData.AppHeaderInsert(pInfo, ref p_case_code);
             }
             catch (Exception ex)
             {

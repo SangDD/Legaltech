@@ -67,6 +67,7 @@
                 var CreatedDate = SessionData.CurrentUser.CurrentDate;
                 decimal pReturn = ErrorCode.Success;
                 int pAppHeaderID = 0;
+                string p_case_code = "";
 
                 using (var scope = new TransactionScope())
                 {
@@ -78,7 +79,7 @@
                     //pInfo.Status = (decimal)CommonEnums.App_Status.DaGui_ChoPhanLoai;
 
                     //TRA RA ID CUA BANG KHI INSERT
-                    pAppHeaderID = objBL.AppHeaderInsert(pInfo);
+                    pAppHeaderID = objBL.AppHeaderInsert(pInfo, ref p_case_code);
 
                     // detail
                     if (pAppHeaderID >= 0)
@@ -96,7 +97,7 @@
                     if (pFeeFixInfo.Count > 0)
                     {
                         AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
-                        pReturn = _AppFeeFixBL.AppFeeFixInsertBath(pFeeFixInfo, pAppHeaderID);
+                        pReturn = _AppFeeFixBL.AppFeeFixInsertBath(pFeeFixInfo, p_case_code);
                     }
                     #endregion
 
@@ -189,12 +190,12 @@
 
                     // xóa đi
                     AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
-                    _AppFeeFixBL.AppFeeFixDelete(pDetail.App_Header_Id, language);
+                    _AppFeeFixBL.AppFeeFixDelete(pDetail.Case_Code, language);
 
                     // insert lại fee
                     if (pFeeFixInfo.Count > 0)
                     {
-                        pReturn = _AppFeeFixBL.AppFeeFixInsertBath(pFeeFixInfo, pInfo.Id);
+                        pReturn = _AppFeeFixBL.AppFeeFixInsertBath(pFeeFixInfo, pInfo.Case_Code);
                     }
 
                     #endregion

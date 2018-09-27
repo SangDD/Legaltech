@@ -796,6 +796,7 @@
 
             var formData = new FormData();
             formData.append("pInfo.Id", @objAppHeaderInfo.Id);
+            formData.append("pInfo.Case_Code", @objAppHeaderInfo.Case_Code);
             formData.append("pInfo.Status", @objAppHeaderInfo.Status);
             var v_AppCode = $("#txtAppCode").val();
             var cbo_04nh_data = $("#cbo_04nh_data");
@@ -962,6 +963,7 @@
 
             var formData = new FormData();
             formData.append("pInfo.Id", @objAppHeaderInfo.Id);
+            formData.append("pInfo.Case_Code", @objAppHeaderInfo.Case_Code);
             formData.append("pInfo.Status", "2");
             var v_AppCode = $("#txtAppCode").val();
             var cbo_04nh_data = $("#cbo_04nh_data");
@@ -1129,6 +1131,7 @@
             var formData = new FormData();
             formData.append("pInfo.Id", @objAppHeaderInfo.Id);
             formData.append("pInfo.Status", @objAppHeaderInfo.Status);
+            formData.append("pInfo.Case_Code", @objAppHeaderInfo.Case_Code);
             var v_AppCode = $("#txtAppCode").val();
             var cbo_04nh_data = $("#cbo_04nh_data");
             var v_thanhviennghidinh = $("input[name='rad_thanhviennghidinhthu']:checked").val();

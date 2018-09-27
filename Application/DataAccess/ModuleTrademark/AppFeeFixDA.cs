@@ -9,19 +9,22 @@ namespace DataAccess.ModuleTrademark
 {
     public class AppFeeFixDA
     {
-        public int AppFeeFixInsertBatch(List<AppFeeFixInfo> pInfo ,decimal pAppHeaderid)
+        public int AppFeeFixInsertBatch(List<AppFeeFixInfo> pInfo ,string p_case_code)
         {
             try
             {
                 int numberRecord = pInfo.Count;
-                decimal[] App_Header_Id = new decimal[numberRecord];
+                //decimal[] App_Header_Id = new decimal[numberRecord];
                 decimal[] Fee_Id = new decimal[numberRecord];
                 decimal[] Isuse = new decimal[numberRecord];
                 decimal[] Number_Of_Patent = new decimal[numberRecord];
                 decimal[] Amount = new decimal[numberRecord];
+                string[] case_code = new string[numberRecord];
+
                 for (int i = 0; i < pInfo.Count; i++)
                 {
-                    App_Header_Id[i] = pAppHeaderid;
+                    case_code[i] = p_case_code;
+                    //App_Header_Id[i] = pAppHeaderid;
                     Fee_Id[i] = pInfo[i].Fee_Id;
                     Isuse[i] = pInfo[i].Isuse;
                     Number_Of_Patent[i] = pInfo[i].Number_Of_Patent ;
@@ -30,7 +33,8 @@ namespace DataAccess.ModuleTrademark
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
                 paramReturn.Size = 7;
                 OracleHelper.ExcuteBatchNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_FEE_FIX.PROC_APP_FEE_FIX_INSERT", numberRecord,
-                    new OracleParameter("P_APP_HEADER_ID", OracleDbType.Decimal, App_Header_Id, ParameterDirection.Input),
+                    new OracleParameter("p_case_code", OracleDbType.Varchar2, case_code, ParameterDirection.Input),
+                    //new OracleParameter("P_APP_HEADER_ID", OracleDbType.Decimal, App_Header_Id, ParameterDirection.Input),
                     new OracleParameter("P_FEE_ID", OracleDbType.Decimal, Fee_Id, ParameterDirection.Input),
                     new OracleParameter("P_ISUSE", OracleDbType.Decimal, Isuse, ParameterDirection.Input),
                     new OracleParameter("P_NUMBER_OF_PATENT", OracleDbType.Decimal, Number_Of_Patent , ParameterDirection.Input),
@@ -60,12 +64,12 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
-        public int AppFeeFixDelete (decimal p_app_header_id, string p_language_code)
+        public int AppFeeFixDelete (string p_case_code, string p_language_code)
         {
             try
             {
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_FEE_FIX.Proc_DeleteBy_Header",
-                    new OracleParameter("p_app_header_id", OracleDbType.Decimal, p_app_header_id, ParameterDirection.Input),
+                    new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input));
                 return ErrorCode.Success;
             }
@@ -75,6 +79,7 @@ namespace DataAccess.ModuleTrademark
                 return ErrorCode.Error;
             }
         }
+
         public DataSet AppFeeFixGetByAppHeaderId(decimal p_app_header_id )
         {
             try

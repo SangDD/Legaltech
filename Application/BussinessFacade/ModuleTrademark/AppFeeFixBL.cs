@@ -9,12 +9,12 @@ namespace BussinessFacade.ModuleTrademark
 {
     public class AppFeeFixBL
     {
-        public int AppFeeFixInsertBath(List<AppFeeFixInfo> pInfo, decimal pAppHeaderid)
+        public int AppFeeFixInsertBath(List<AppFeeFixInfo> pInfo, string p_case_code)
         {
             try
             {
                 AppFeeFixDA objData = new AppFeeFixDA();
-                return objData.AppFeeFixInsertBatch(pInfo, pAppHeaderid);
+                return objData.AppFeeFixInsertBatch(pInfo, p_case_code);
             }
             catch (Exception ex)
             {
@@ -23,12 +23,12 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
-        public int AppFeeFixDelete(decimal p_app_header_id, string p_language_code)
+        public int AppFeeFixDelete(string p_case_code, string p_language_code)
         {
             try
             {
                 AppFeeFixDA objData = new AppFeeFixDA();
-                return objData.AppFeeFixDelete(p_app_header_id, p_language_code);
+                return objData.AppFeeFixDelete(p_case_code, p_language_code);
             }
             catch (Exception ex)
             {
