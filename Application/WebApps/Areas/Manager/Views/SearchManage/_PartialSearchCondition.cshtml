@@ -1,0 +1,83 @@
+﻿@using BussinessFacade.ModuleMemoryData
+@using ObjectInfos;
+@model string
+@{
+    decimal _IdSearch = 0;
+    decimal _IsFirst = 0;
+    if (!string.IsNullOrEmpty(Model))
+    {
+        _IdSearch = Convert.ToDecimal(Model.Split('|')[0]);
+        _IsFirst = Convert.ToDecimal(Model.Split('|')[1]);
+    }
+    List<AllCodeInfo> _ListSearchType = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "SEARCHTYPE");
+    List<AllCodeInfo> _ListSearchOperator = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OPERATOR");
+    List<AllCodeInfo> _ListSearchAndor = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "ANDOR");
+}
+<div id='@("div_condition_" + _IdSearch)'>
+    @if (_IsFirst != 1)
+    {
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div>
+                    <select id="@("_txtsearchvalue_" + (_IdSearch + 1).ToString())" style="width:150px; border-left:1px solid #ccc">
+
+                        @foreach (AllCodeInfo item in _ListSearchAndor)
+                {
+                            <option value="@item.CdVal">
+                                @item.Content
+                            </option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+        </div>
+    }
+    <div class="div-search-ad" >
+        <div class="div-search-title">
+            <div style="width:100px"> Tiêu chí</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <select id="@("_cbosearchtype_" + _IdSearch)">
+                    @foreach (AllCodeInfo item in _ListSearchType)
+                    {
+                        <option value="@item.CdVal">
+                            @item.Content
+                        </option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="div-search-title">
+            <div style="width:100px"> Toán tử</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <select id="@("_cbosearchoperator_" + _IdSearch)">
+                    @foreach (AllCodeInfo item in _ListSearchOperator)
+                    {
+                        <option value="@item.CdVal">
+                            @item.Content
+                        </option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="div-search-title">
+            <div>Giá trị</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" style="min-width:400px" id="@("_txtsearchvalue_" + _IdSearch)">
+                @if (_IsFirst != 1)
+                {
+                     <a href="javascript:;" style="color:red;width:20px;border:none" onclick="funcdeletecondition(@_IdSearch)">xóa </a>
+                }
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" value="@_IdSearch" class="txtIdSeachClass" />
+
+</div>
