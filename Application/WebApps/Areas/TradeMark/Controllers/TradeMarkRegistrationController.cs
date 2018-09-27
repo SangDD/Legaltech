@@ -36,7 +36,7 @@
         {
             try
             {
-                
+
                 if (SessionData.CurrentUser == null)
                 {
                     return this.Redirect("/");
@@ -136,6 +136,8 @@
                 var CreatedDate = SessionData.CurrentUser.CurrentDate;
                 int pReturn = ErrorCode.Success;
                 int pAppHeaderID = 0;
+                string p_case_code = "";
+
                 using (var scope = new TransactionScope())
                 {
                     //
@@ -144,7 +146,7 @@
                     pInfo.Created_Date = CreatedDate;
                     pInfo.Send_Date = CreatedDate;
                     //TRA RA ID CUA BANG KHI INSERT
-                    pAppHeaderID = objBL.AppHeaderInsert(pInfo);
+                    pAppHeaderID = objBL.AppHeaderInsert(pInfo, ref p_case_code);
                     if (pAppHeaderID >= 0)
                     {
                         pDetail.Appcode = pInfo.Appcode;
@@ -218,7 +220,7 @@
                     if (pReturn >= 0 && pAppClassInfo != null)
                     {
                         var listfeeCaculator = new List<AppFeeFixInfo>();
-                        pReturn = CaculatorFee(pAppClassInfo, pDetail.Sodon_Ut, pAppHeaderID,  listfeeCaculator);
+                        pReturn = CaculatorFee(pAppClassInfo, pDetail.Sodon_Ut, p_case_code, listfeeCaculator);
                     }
                     //end
                     if (pReturn < 0)
@@ -259,7 +261,8 @@
                 var CreatedDate = SessionData.CurrentUser.CurrentDate;
                 int pReturn = ErrorCode.Success;
                 int pAppHeaderID = 0;
-                //
+                string p_case_code = "";
+
                 using (var scope = new TransactionScope())
                 {
                     pInfo.Languague_Code = language;
@@ -267,11 +270,11 @@
                     pInfo.Created_Date = CreatedDate;
 
                     //TRA RA ID CUA BANG KHI INSERT
-                    pAppHeaderID = objBL.AppHeaderInsert(pInfo);
+                    pAppHeaderID = objBL.AppHeaderInsert(pInfo, ref p_case_code);
                     //Gán lại khi lấy dl 
                     if (pAppHeaderID >= 0)
                     {
-                        pReturn = objFeeFixBL.AppFeeFixInsertBath(pFeeFixInfo, pAppHeaderID);
+                        pReturn = objFeeFixBL.AppFeeFixInsertBath(pFeeFixInfo, p_case_code);
                     }
                     else
                     {
@@ -373,15 +376,15 @@
             return Json(new { success = 0 });
         }
 
-          /// <summary>
-          /// hungtd sửa kết xuất pdf
-          /// </summary>
-          /// <param name="pInfo"></param>
-          /// <param name="pDetail"></param>
-          /// <param name="pAppDocumentInfo"></param>
-          /// <param name="pAppDocOtherInfo"></param>
-          /// <param name="pAppClassInfo"></param>
-          /// <returns></returns>
+        /// <summary>
+        /// hungtd sửa kết xuất pdf
+        /// </summary>
+        /// <param name="pInfo"></param>
+        /// <param name="pDetail"></param>
+        /// <param name="pAppDocumentInfo"></param>
+        /// <param name="pAppDocOtherInfo"></param>
+        /// <param name="pAppClassInfo"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("ket_xuat_file")]
         public ActionResult ExportData(ApplicationHeaderInfo pInfo, AppDetail04NHInfo pDetail, List<AppDocumentInfo> pAppDocumentInfo,
@@ -440,7 +443,7 @@
                 {
                     appInfo.Logourl = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
                 }
-                
+
                 foreach (var item in MemoryData.c_lst_Country)
                 {
                     if (item.Country_Id.ToString() == appInfo.Nuocnopdon_Ut)
@@ -463,7 +466,7 @@
                         _newinfo.Code = item.Code;
                         _newinfo.Textinput += item.Textinput + ", ";
                         _newinfo.IntTongSanPham++;
-                        _hsGroupclass[item.Code.Substring(0, 2)] = _newinfo;                        
+                        _hsGroupclass[item.Code.Substring(0, 2)] = _newinfo;
                     }
                     //appInfo.strListClass = "Tổng số nhóm: \n" + appInfo.strTongSonhom + "; Tổng số sản phẩm: " + appInfo.strTongSoSP + " ; Danh sách nhóm: " + appInfo.strListClass;
                     List<AppClassDetailInfo> _listApp = new List<AppClassDetailInfo>();
@@ -471,9 +474,9 @@
                     {
                         _listApp.Add((AppClassDetailInfo)item.Value);
                     }
-                    foreach (AppClassDetailInfo item in _listApp.OrderBy(m=>m.Code))
+                    foreach (AppClassDetailInfo item in _listApp.OrderBy(m => m.Code))
                     {
-                        appInfo.strListClass += Resources.Resource.lblNhom + item.Code.Substring(0,2) + ": " + item.Textinput.Trim().Trim(',') + " (" + (item.IntTongSanPham < 10 ? "0" + item.IntTongSanPham.ToString() : item.IntTongSanPham.ToString()) + " " + Resources.Resource.lblSanPham + " )" + "\n";
+                        appInfo.strListClass += Resources.Resource.lblNhom + item.Code.Substring(0, 2) + ": " + item.Textinput.Trim().Trim(',') + " (" + (item.IntTongSanPham < 10 ? "0" + item.IntTongSanPham.ToString() : item.IntTongSanPham.ToString()) + " " + Resources.Resource.lblSanPham + " )" + "\n";
                     }
                 }
                 if (lstDocOther != null)
@@ -497,7 +500,7 @@
                     {
                         DonUT = DonUT + "," + pDetail.Sodon_Ut2;
                     }
-                    int preturn = CaculatorFee(pAppClassInfo, DonUT, 0, listfeeCaculator, pPreview);
+                    int preturn = CaculatorFee(pAppClassInfo, DonUT, "", listfeeCaculator, pPreview);
                 }
                 foreach (var item in listfeeCaculator)
                 {
@@ -549,7 +552,7 @@
                     appInfo.TM04NH_TOTAL = appInfo.TM04NH_TOTAL + item.Amount;
                 }
                 #endregion
- 
+
                 #region Tài liệu trong đơn 
 
                 if (pAppDocumentInfo != null)
@@ -723,11 +726,11 @@
                 catch (Exception)
                 {
 
-                  
+
                 }
 
                 System.IO.FileInfo file = new System.IO.FileInfo(appInfo.Logourl);
-                
+
 
                 if (_ds_all != null)
                 {
@@ -765,7 +768,7 @@
             try
             {
                 //string tm04Nh = "TM04NH";
-                ViewBag.FileName= SessionData.CurrentUser.FilePreview ; // = "/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + tm04Nh + ".pdf";
+                ViewBag.FileName = SessionData.CurrentUser.FilePreview; // = "/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + tm04Nh + ".pdf";
                                                                         //return PartialView("~/Areas/TradeMark/Views/Shared/_PartialContentPreview_docx.cshtml");
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
             }
@@ -850,14 +853,14 @@
 
                 if (AppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
                 {
-                    return TradeMarkSuaDon(App_Header_Id, AppCode, Status,1);
+                    return TradeMarkSuaDon(App_Header_Id, AppCode, Status, 1);
                 }
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
             }
-            return TradeMarkSuaDon(App_Header_Id, AppCode, Status,1);
+            return TradeMarkSuaDon(App_Header_Id, AppCode, Status, 1);
         }
 
         [HttpGet]
@@ -928,7 +931,7 @@
                 ViewBag.App_Detail = app_Detail;
                 ViewBag.Lst_AppDoc = appDocumentInfos;
                 ViewBag.Lst_AppFee = appFeeFixInfos;
-                ViewBag.objAppHeaderInfo = applicationHeaderInfo; 
+                ViewBag.objAppHeaderInfo = applicationHeaderInfo;
 
                 return PartialView("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_TM_3B_PLB_01_SDD_View.cshtml");
             }
@@ -962,7 +965,7 @@
 
                 return PartialView("~/Areas/TradeMark/Views/PLC05_KN_3D/_Partial_TM_3D_PLC_05_KN_View.cshtml");
             }
- 
+
             else if (pAppCode == TradeMarkAppCode.AppCode_TM_4C2_PLD_01_HDCN)
             {
                 App_Detail_PLD01_HDCN_BL objBL = new App_Detail_PLD01_HDCN_BL();
@@ -978,7 +981,7 @@
 
                 return PartialView("~/Areas/TradeMark/Views/PLD01_HDCN_4C2/_Partial_TM_4C2_PLD_01_HDCN_View.cshtml");
             }
-            else if (pAppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH) 
+            else if (pAppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
             {
                 var objBL = new AppDetail06DKQT_BL();
                 string language = AppsCommon.GetCurrentLang();
@@ -997,7 +1000,7 @@
             }
         }
 
-        public ActionResult TradeMarkSuaDon(decimal pAppHeaderId, string pAppCode, int pStatus,int pEditOrTranslate=0)
+        public ActionResult TradeMarkSuaDon(decimal pAppHeaderId, string pAppCode, int pStatus, int pEditOrTranslate = 0)
         {
             if (pAppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
             {
@@ -1202,8 +1205,8 @@
 
                             //if (pReturn >= 0 && pAppClassInfo != null)
                             //{
-                                var listfeeCaculator = new List<AppFeeFixInfo>();
-                                pReturn = CaculatorFee(pAppClassInfo, pDetail.Sodon_Ut, pInfo.Id, listfeeCaculator);
+                            var listfeeCaculator = new List<AppFeeFixInfo>();
+                            pReturn = CaculatorFee(pAppClassInfo, pDetail.Sodon_Ut, pInfo.Case_Code, listfeeCaculator);
                             //}
                         }
                     }
@@ -1321,7 +1324,7 @@
             }
         }
 
-        public int CaculatorFee(List<AppClassDetailInfo> pAppClassInfo, string NumberAppNo, decimal pAppHeaderId , List<AppFeeFixInfo> _lstFeeFix, int pPrviewOrInsert =0)
+        public int CaculatorFee(List<AppClassDetailInfo> pAppClassInfo, string NumberAppNo, string p_case_code, List<AppFeeFixInfo> _lstFeeFix, int pPrviewOrInsert = 0)
         {
             try
             {
@@ -1367,7 +1370,7 @@
                 _AppFeeFixInfo = new AppFeeFixInfo();
                 _AppFeeFixInfo.Fee_Id = 200;
                 _AppFeeFixInfo.Isuse = 1;
-                _AppFeeFixInfo.App_Header_Id = pAppHeaderId;
+                _AppFeeFixInfo.Case_Code = p_case_code;
                 _AppFeeFixInfo.Number_Of_Patent = 1; //default là 1 
                 _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
@@ -1380,7 +1383,7 @@
                 _AppFeeFixInfo = new AppFeeFixInfo();
                 _AppFeeFixInfo.Fee_Id = 201;
                 _AppFeeFixInfo.Isuse = 1;
-                _AppFeeFixInfo.App_Header_Id = pAppHeaderId;
+                _AppFeeFixInfo.Case_Code = p_case_code;
                 _AppFeeFixInfo.Number_Of_Patent = TongSoNhom;
                 _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
@@ -1393,7 +1396,7 @@
                 _AppFeeFixInfo = new AppFeeFixInfo();
                 _AppFeeFixInfo.Fee_Id = 2011;
                 _AppFeeFixInfo.Isuse = 1;
-                _AppFeeFixInfo.App_Header_Id = pAppHeaderId;
+                _AppFeeFixInfo.Case_Code = p_case_code;
                 _AppFeeFixInfo.Number_Of_Patent = TongSoTinhPhi;
                 _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
@@ -1409,8 +1412,8 @@
                 _AppFeeFixInfo.Isuse = 0;
                 if (!string.IsNullOrEmpty(NumberAppNo))
                     _AppFeeFixInfo.Isuse = 1;
-                
-                _AppFeeFixInfo.App_Header_Id = pAppHeaderId;
+
+                _AppFeeFixInfo.Case_Code = p_case_code;
                 _AppFeeFixInfo.Number_Of_Patent = _AppFeeFixInfo.Isuse;
                 _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
@@ -1424,7 +1427,7 @@
                 _AppFeeFixInfo = new AppFeeFixInfo();
                 _AppFeeFixInfo.Fee_Id = 204;
                 _AppFeeFixInfo.Isuse = 1;
-                _AppFeeFixInfo.App_Header_Id = pAppHeaderId;
+                _AppFeeFixInfo.Case_Code = p_case_code;
                 _AppFeeFixInfo.Number_Of_Patent = 1; //default là 1 
                 _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
@@ -1437,7 +1440,7 @@
                 _AppFeeFixInfo = new AppFeeFixInfo();
                 _AppFeeFixInfo.Fee_Id = 205;
                 _AppFeeFixInfo.Isuse = 1;
-                _AppFeeFixInfo.App_Header_Id = pAppHeaderId;
+                _AppFeeFixInfo.Case_Code = p_case_code;
                 _AppFeeFixInfo.Number_Of_Patent = TongSoNhom;
                 _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
@@ -1451,7 +1454,7 @@
                 _AppFeeFixInfo = new AppFeeFixInfo();
                 _AppFeeFixInfo.Fee_Id = 2051;
                 _AppFeeFixInfo.Isuse = 1;
-                _AppFeeFixInfo.App_Header_Id = pAppHeaderId;
+                _AppFeeFixInfo.Case_Code = p_case_code;
                 _AppFeeFixInfo.Number_Of_Patent = TongSoTinhPhi;
                 _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
@@ -1466,7 +1469,7 @@
                 _AppFeeFixInfo = new AppFeeFixInfo();
                 _AppFeeFixInfo.Fee_Id = 207;
                 _AppFeeFixInfo.Isuse = 1;
-                _AppFeeFixInfo.App_Header_Id = pAppHeaderId;
+                _AppFeeFixInfo.Case_Code = p_case_code;
                 _AppFeeFixInfo.Number_Of_Patent = 1;
                 _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
@@ -1480,7 +1483,7 @@
                 _AppFeeFixInfo = new AppFeeFixInfo();
                 _AppFeeFixInfo.Fee_Id = 2071;
                 _AppFeeFixInfo.Isuse = 1;
-                _AppFeeFixInfo.App_Header_Id = pAppHeaderId;
+                _AppFeeFixInfo.Case_Code = p_case_code;
                 _AppFeeFixInfo.Number_Of_Patent = TongSoTinhPhi;
                 _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
@@ -1488,16 +1491,18 @@
                 else
                     _AppFeeFixInfo.Amount = 120000 * _AppFeeFixInfo.Number_Of_Patent;
                 _lstFeeFix.Add(_AppFeeFixInfo);
+
                 //Xem trước privew thì ko làm gì cả chỉ tính đẩy vào list thôi 
                 if (pPrviewOrInsert != 0)
                 {
                     return 0;
                 }
+
                 AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
                 string language = AppsCommon.GetCurrentLang();
-                _AppFeeFixBL.AppFeeFixDelete(pAppHeaderId, language);
-                return _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, pAppHeaderId);
-                
+                _AppFeeFixBL.AppFeeFixDelete(p_case_code, language);
+                return _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, p_case_code);
+
                 #endregion
 
             }
@@ -1690,7 +1695,7 @@
             List<CustomerSuggestInfo> lstContain = new List<CustomerSuggestInfo>();
             try
             {
-               
+
                 int check = 0;
                 foreach (var item in MemoryData.clstAppClassSuggest)
                 {
@@ -1713,14 +1718,14 @@
 
         [HttpPost]
         [Route("funcGetTTDHSH")]
-        public ActionResult GetThongTinDaiDien(string pKeyData ,string pDDSH, int pEdit ,decimal pID ,int pStatus)
+        public ActionResult GetThongTinDaiDien(string pKeyData, string pDDSH, int pEdit, decimal pID, int pStatus)
         {
             try
             {
 
                 if (pEdit == 1)
                 {
-                    var obj =(AppDetail04NHInfo)SessionData.GetDataSession(pKeyData);
+                    var obj = (AppDetail04NHInfo)SessionData.GetDataSession(pKeyData);
                     if (obj.Rep_Master_Type == pDDSH)
                     {
                         ViewBag.objAppHeaderInfo = obj;

@@ -40,12 +40,12 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
-        public int Deleted(decimal pAppHeaderID, string pAppCode, string pLanguage)
+        public int Deleted(decimal p_app_header_id, string pAppCode, string pLanguage)
         {
             try
             {
                 App_Detail_PLB01_SDD_DA objData = new App_Detail_PLB01_SDD_DA();
-                return objData.Deleted(pAppHeaderID, pAppCode, pLanguage);
+                return objData.Deleted(p_app_header_id, pAppCode, pLanguage);
             }
             catch (Exception ex)
             {
@@ -79,18 +79,6 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
-        public DataSet GetByID_DS(decimal p_app_header_id, string p_language_code)
-        {
-            try
-            {
-                var objData = new App_Detail_PLB01_SDD_DA();
-                return objData.GetByID(p_app_header_id, p_language_code);
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return null;
-            }
-        }
+       
     }
 }

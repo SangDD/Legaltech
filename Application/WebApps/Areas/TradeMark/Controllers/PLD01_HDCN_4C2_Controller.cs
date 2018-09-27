@@ -67,6 +67,7 @@
                 var CreatedDate = SessionData.CurrentUser.CurrentDate;
                 decimal pReturn = ErrorCode.Success;
                 int pAppHeaderID = 0;
+                string p_case_code = "";
 
                 using (var scope = new TransactionScope())
                 {
@@ -78,7 +79,7 @@
                     //pInfo.Status = (decimal)CommonEnums.App_Status.DaGui_ChoPhanLoai;
 
                     //TRA RA ID CUA BANG KHI INSERT
-                    pAppHeaderID = objBL.AppHeaderInsert(pInfo);
+                    pAppHeaderID = objBL.AppHeaderInsert(pInfo, ref p_case_code);
 
                     // detail
                     if (pAppHeaderID >= 0)
@@ -86,6 +87,7 @@
                         pDetail.Appcode = pInfo.Appcode;
                         pDetail.Language_Code = language;
                         pDetail.App_Header_Id = pAppHeaderID;
+                        pDetail.Case_Code = p_case_code;
                         pReturn = objDetail_BL.Insert(pDetail);
                         if (pReturn <= 0)
                             goto Commit_Transaction;
@@ -99,7 +101,7 @@
                     AppFeeFixInfo _AppFeeFixInfo1 = new AppFeeFixInfo();
                     _AppFeeFixInfo1.Fee_Id = 1;
                     _AppFeeFixInfo1.Isuse = 1;
-                    _AppFeeFixInfo1.App_Header_Id = pAppHeaderID;
+                    //_AppFeeFixInfo1.App_Header_Id = pAppHeaderID;
                     _AppFeeFixInfo1.Number_Of_Patent = pDetail.Object_Contract_No.Split(';').Length;
 
                     string _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo1.Fee_Id.ToString();
@@ -114,7 +116,7 @@
                     AppFeeFixInfo _AppFeeFixInfo2 = new AppFeeFixInfo();
                     _AppFeeFixInfo2.Fee_Id = 2;
                     _AppFeeFixInfo2.Isuse = 1;
-                    _AppFeeFixInfo2.App_Header_Id = pAppHeaderID;
+                    //_AppFeeFixInfo2.App_Header_Id = pAppHeaderID;
                     _AppFeeFixInfo2.Number_Of_Patent = pDetail.Object_Contract_No.Split(';').Length;
 
                     _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo2.Fee_Id.ToString();
@@ -129,7 +131,7 @@
                     AppFeeFixInfo _AppFeeFixInfo3 = new AppFeeFixInfo();
                     _AppFeeFixInfo3.Fee_Id = 3;
                     _AppFeeFixInfo3.Isuse = pFeeFixInfo[0].Isuse;
-                    _AppFeeFixInfo3.App_Header_Id = pInfo.Id;
+                    //_AppFeeFixInfo3.App_Header_Id = pInfo.Id;
                     if (_AppFeeFixInfo3.Isuse == 1)
                     {
                         _AppFeeFixInfo3.Number_Of_Patent = 1;
@@ -155,7 +157,7 @@
                     AppFeeFixInfo _AppFeeFixInfo4 = new AppFeeFixInfo();
                     _AppFeeFixInfo4.Fee_Id = 4;
                     _AppFeeFixInfo4.Isuse = pFeeFixInfo[1].Isuse;
-                    _AppFeeFixInfo4.App_Header_Id = pInfo.Id;
+                    //_AppFeeFixInfo4.App_Header_Id = pInfo.Id;
                     if (_AppFeeFixInfo4.Isuse == 1)
                     {
                         _AppFeeFixInfo4.Number_Of_Patent = 1;
@@ -181,7 +183,7 @@
                     AppFeeFixInfo _AppFeeFixInfo5 = new AppFeeFixInfo();
                     _AppFeeFixInfo5.Fee_Id = 5;
                     _AppFeeFixInfo5.Isuse = 1;
-                    _AppFeeFixInfo5.App_Header_Id = pAppHeaderID;
+                    //_AppFeeFixInfo5.App_Header_Id = pAppHeaderID;
                     _AppFeeFixInfo5.Number_Of_Patent = pDetail.Object_Contract_No.Split(';').Length;
 
                     _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo5.Fee_Id.ToString();
@@ -196,7 +198,7 @@
                     AppFeeFixInfo _AppFeeFixInfo6 = new AppFeeFixInfo();
                     _AppFeeFixInfo6.Fee_Id = 6;
                     _AppFeeFixInfo6.Isuse = 1;
-                    _AppFeeFixInfo6.App_Header_Id = pAppHeaderID;
+                    //_AppFeeFixInfo6.App_Header_Id = pAppHeaderID;
                     _AppFeeFixInfo6.Number_Of_Patent = 1;
 
                     _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo6.Fee_Id.ToString();
@@ -208,7 +210,7 @@
                     #endregion
 
                     AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
-                    pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, pAppHeaderID);
+                    pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, p_case_code);
                     #endregion
 
                     #region Tai lieu dinh kem 
@@ -290,6 +292,7 @@
                         pDetail.Appcode = pInfo.Appcode;
                         pDetail.Language_Code = language;
                         pDetail.App_Header_Id = pInfo.Id;
+                        pDetail.Case_Code = pInfo.Case_Code;
                         pReturn = objDetail.Update(pDetail);
                         if (pReturn <= 0)
                             goto Commit_Transaction;
@@ -303,7 +306,7 @@
                     AppFeeFixInfo _AppFeeFixInfo1 = new AppFeeFixInfo();
                     _AppFeeFixInfo1.Fee_Id = 1;
                     _AppFeeFixInfo1.Isuse = 1;
-                    _AppFeeFixInfo1.App_Header_Id = pInfo.Id;
+                    //_AppFeeFixInfo1.App_Header_Id = pInfo.Id;
                     _AppFeeFixInfo1.Number_Of_Patent = pDetail.Object_Contract_No.Split(';').Length;
 
                     string _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo1.Fee_Id.ToString();
@@ -318,7 +321,7 @@
                     AppFeeFixInfo _AppFeeFixInfo2 = new AppFeeFixInfo();
                     _AppFeeFixInfo2.Fee_Id = 2;
                     _AppFeeFixInfo2.Isuse = 1;
-                    _AppFeeFixInfo2.App_Header_Id = pInfo.Id;
+                    //_AppFeeFixInfo2.App_Header_Id = pInfo.Id;
                     _AppFeeFixInfo2.Number_Of_Patent = pDetail.Object_Contract_No.Split(';').Length;
 
                     _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo2.Fee_Id.ToString();
@@ -341,7 +344,7 @@
                     {
                         _AppFeeFixInfo3.Number_Of_Patent = 0;
                     }
-                    _AppFeeFixInfo3.App_Header_Id = pInfo.Id;
+                    //_AppFeeFixInfo3.App_Header_Id = pInfo.Id;
 
                     _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo3.Fee_Id.ToString();
                     if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
@@ -359,7 +362,7 @@
                     AppFeeFixInfo _AppFeeFixInfo4 = new AppFeeFixInfo();
                     _AppFeeFixInfo4.Fee_Id = 4;
                     _AppFeeFixInfo4.Isuse = pFeeFixInfo[1].Isuse;
-                    _AppFeeFixInfo4.App_Header_Id = pInfo.Id;
+                    //_AppFeeFixInfo4.App_Header_Id = pInfo.Id;
                     if (_AppFeeFixInfo4.Isuse == 1)
                     {
                         _AppFeeFixInfo4.Number_Of_Patent = 1;
@@ -385,7 +388,7 @@
                     AppFeeFixInfo _AppFeeFixInfo5 = new AppFeeFixInfo();
                     _AppFeeFixInfo5.Fee_Id = 5;
                     _AppFeeFixInfo5.Isuse = 1;
-                    _AppFeeFixInfo5.App_Header_Id = pInfo.Id;
+                    //_AppFeeFixInfo5.App_Header_Id = pInfo.Id;
                     _AppFeeFixInfo5.Number_Of_Patent = pDetail.Object_Contract_No.Split(';').Length;
 
                     _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo5.Fee_Id.ToString();
@@ -400,7 +403,7 @@
                     AppFeeFixInfo _AppFeeFixInfo6 = new AppFeeFixInfo();
                     _AppFeeFixInfo6.Fee_Id = 6;
                     _AppFeeFixInfo6.Isuse = 1;
-                    _AppFeeFixInfo6.App_Header_Id = pInfo.Id;
+                    //_AppFeeFixInfo6.App_Header_Id = pInfo.Id;
                     _AppFeeFixInfo6.Number_Of_Patent = 1;
 
                     _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo6.Fee_Id.ToString();
@@ -413,10 +416,10 @@
 
                     // xóa đi
                     AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
-                    _AppFeeFixBL.AppFeeFixDelete(pDetail.App_Header_Id, language);
+                    _AppFeeFixBL.AppFeeFixDelete(pDetail.Case_Code, language);
 
                     // insert lại fee
-                    pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, pInfo.Id);
+                    pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, pInfo.Case_Code);
                     #endregion
 
                     #region Tai lieu dinh kem 
@@ -886,7 +889,7 @@
                 AppFeeFixInfo _AppFeeFixInfo4 = new AppFeeFixInfo();
                 _AppFeeFixInfo4.Fee_Id = 4;
                 _AppFeeFixInfo4.Isuse = pFeeFixInfo[1].Isuse;
-                _AppFeeFixInfo4.App_Header_Id = pInfo.Id;
+                //_AppFeeFixInfo4.App_Header_Id = pInfo.Id;
                 if (_AppFeeFixInfo4.Isuse == 1)
                 {
                     _AppFeeFixInfo4.Number_Of_Patent = 1;

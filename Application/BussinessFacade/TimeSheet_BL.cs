@@ -92,7 +92,7 @@ namespace BussinessFacade
             try
             {
                 TimeSheet_DA _da = new TimeSheet_DA();
-                return _da.Timesheet_Insert(p_obj.Name, p_obj.App_Header_Id, p_obj.Lawer_Id, p_obj.Time_Date,
+                return _da.Timesheet_Insert(p_obj.Name, p_obj.App_Case_Code, p_obj.Lawer_Id, p_obj.Time_Date,
                  p_obj.From_Time, p_obj.To_Time, p_obj.Hours, p_obj.Hours_Adjust, p_obj.Notes, p_obj.Status, p_obj.Created_By, DateTime.Now, p_language_code);
             }
             catch (Exception ex)

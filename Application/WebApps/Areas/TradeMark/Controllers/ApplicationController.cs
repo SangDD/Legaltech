@@ -108,12 +108,12 @@ namespace WebApps.Areas.TradeMark.Controllers
 
         [HttpPost]
         [Route("quan-ly-don/do-phan-loai-employee")]
-        public ActionResult AppHeader_Update_Employee(decimal p_Application_Header_Id, decimal p_employee, string p_note)
+        public ActionResult AppHeader_Update_Employee(string p_case_code, decimal p_employee, string p_note)
         {
             try
             {
                 Application_Header_BL _obj_bl = new Application_Header_BL();
-                int _ck = _obj_bl.AppHeader_Update_Employee(p_Application_Header_Id, p_employee, p_note, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+                int _ck = _obj_bl.AppHeader_Update_Employee(p_case_code, p_employee, p_note, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
                 return Json(new { success = _ck });
             }
             catch (Exception ex)
@@ -133,7 +133,7 @@ namespace WebApps.Areas.TradeMark.Controllers
 
         [HttpPost]
         [Route("quan-ly-don/do-kh-confirm")]
-        public ActionResult DoCustomer_Confirm(decimal p_Application_Header_Id, decimal p_status, string p_note)
+        public ActionResult DoCustomer_Confirm(string p_case_code, decimal p_status, string p_note)
         {
             try
             {
@@ -142,7 +142,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 if (p_status == 0)
                     _status = (decimal)CommonEnums.App_Status.KhacHangDaTuChoi;
 
-                int _ck = _obj_bl.AppHeader_Update_Status(p_Application_Header_Id, _status, p_note, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+                int _ck = _obj_bl.AppHeader_Update_Status(p_case_code, _status, p_note, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
                 return Json(new { success = _ck });
             }
             catch (Exception ex)
@@ -162,14 +162,14 @@ namespace WebApps.Areas.TradeMark.Controllers
 
         [HttpPost]
         [Route("quan-ly-don/do-lw-confirm")]
-        public ActionResult DoLawer_Confirm(decimal p_Application_Header_Id, decimal p_status, string p_note)
+        public ActionResult DoLawer_Confirm(string p_case_code, decimal p_status, string p_note)
         {
             try
             {
                 Application_Header_BL _obj_bl = new Application_Header_BL();
                 decimal _status = (decimal)CommonEnums.App_Status.LuatSuDaConfirm;
 
-                int _ck = _obj_bl.AppHeader_Update_Status(p_Application_Header_Id, _status, p_note, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+                int _ck = _obj_bl.AppHeader_Update_Status(p_case_code, _status, p_note, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
                 return Json(new { success = _ck });
             }
             catch (Exception ex)
@@ -181,14 +181,14 @@ namespace WebApps.Areas.TradeMark.Controllers
 
         [HttpPost]
         [Route("quan-ly-don/do-admin-confirm-2-customer")]
-        public ActionResult do_admin_confirm_2_customer(decimal p_Application_Header_Id, string p_note)
+        public ActionResult do_admin_confirm_2_customer(string p_case_code, string p_note)
         {
             try
             {
                 Application_Header_BL _obj_bl = new Application_Header_BL();
                 decimal _status = (decimal)CommonEnums.App_Status.ChoKHConfirm;
 
-                int _ck = _obj_bl.AppHeader_Update_Status(p_Application_Header_Id, _status, p_note, 
+                int _ck = _obj_bl.AppHeader_Update_Status(p_case_code, _status, p_note, 
                     SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
                 return Json(new { success = _ck });
             }
@@ -201,14 +201,14 @@ namespace WebApps.Areas.TradeMark.Controllers
 
         [HttpPost]
         [Route("quan-ly-don/do-employee-confirm")]
-        public ActionResult DoEmployee_Confirm(decimal p_Application_Header_Id, decimal p_status, string p_note)
+        public ActionResult DoEmployee_Confirm(string p_case_code, decimal p_status, string p_note)
         {
             try
             {
                 Application_Header_BL _obj_bl = new Application_Header_BL();
                 decimal _status = (decimal)CommonEnums.App_Status.DaNopDon;
 
-                int _ck = _obj_bl.AppHeader_Update_Status(p_Application_Header_Id, _status, p_note, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+                int _ck = _obj_bl.AppHeader_Update_Status(p_case_code, _status, p_note, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
                 return Json(new { success = _ck });
             }
             catch (Exception ex)
@@ -238,7 +238,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 var url_File_Translate_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Translate_Filing, AppUpload.App);
 
 
-                int _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Id, _status, pInfo.App_No, pInfo.Filing_Date, url_File_Copy_Filing, url_File_Translate_Filing, 
+                int _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Case_Code, _status, pInfo.App_No, pInfo.Filing_Date, url_File_Copy_Filing, url_File_Translate_Filing, 
                     pInfo.Note, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
 
                 // nếu thành công thì gửi email cho khách hàng

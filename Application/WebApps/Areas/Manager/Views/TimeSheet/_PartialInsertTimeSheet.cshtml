@@ -61,7 +61,7 @@
                     <select id="cboAppHeader">
                         @foreach (var item in _lstAppLawer)
                         {
-                            <option value="@item.Application_Header_Id">@item.Case_Code - @item.Client_Reference</option>
+                            <option value="@item.Case_Code">@item.Case_Code - @item.Client_Reference</option>
                         }
                     </select>
                 </div>
@@ -296,7 +296,7 @@
     }
 
     function collectData(formData) {
-        formData.append('p_Timesheet_Info.App_Header_Id', $("#cboAppHeader").val());
+        formData.append('p_Timesheet_Info.App_Case_Code', $("#cboAppHeader").val());
         formData.append('p_Timesheet_Info.Name', $("#txtName").val());
         formData.append('p_Timesheet_Info.Time_Date', $("#txtTime_Date").val());
         formData.append('p_Timesheet_Info.Hours', $("#txtHours").val());

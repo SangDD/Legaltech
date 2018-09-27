@@ -427,6 +427,7 @@
             var formData = new FormData();
             formData.append("pInfo.Id", @_AppHeaderInfo.Id);
             formData.append("pInfo.Status", @_AppHeaderInfo.Status);
+            formData.append("pInfo.Case_Code", @_AppHeaderInfo.Case_Code);
 
             var reponse = funcThongTinCaseName(formData, "0");
             if (reponse == false) {

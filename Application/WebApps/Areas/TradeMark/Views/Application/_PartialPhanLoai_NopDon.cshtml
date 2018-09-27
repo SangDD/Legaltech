@@ -55,7 +55,7 @@
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Phân loại" onclick="return doPhanLoai('@_AppHeaderInfo.Id')" />
+            <input type="submit" class="btn-default" value="Phân loại" onclick="return doPhanLoai('@_AppHeaderInfo.Case_Code')" />
         </div>
     </div>
 </div>
@@ -75,14 +75,14 @@
 
     var _Employee_Id;
 
-    function doPhanLoai(p_app_id) {
+    function doPhanLoai(_case_code) {
         if (validateAction()) {
             nvsConfirm(null, "Bạn có chắc chắn muốn phân đơn này cho nhân viên đi nộp đơn hay không?", function () {
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/do-phan-loai-employee',
                     type: 'POST',
                     data: {
-                        p_Application_Header_Id: p_app_id,
+                        p_case_code: _case_code,
                         p_employee: $('#cboEmployee').val(),
                         p_note: $('#txtNotes').val()
                     },

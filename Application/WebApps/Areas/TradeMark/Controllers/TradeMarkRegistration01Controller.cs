@@ -199,6 +199,8 @@
                 var CreatedDate = SessionData.CurrentUser.CurrentDate;
                 int pReturn = ErrorCode.Success;
                 int pAppHeaderID = 0;
+                string p_case_code = "";
+
                 foreach (AppFeeFixInfo item in pFeeFixInfo)
                 {
                     if(item.Amount == 0)
@@ -214,11 +216,11 @@
                     pInfo.Created_By = CreatedBy;
                     pInfo.Created_Date = CreatedDate;
                     //TRA RA ID CUA BANG KHI INSERT
-                    pAppHeaderID = objBL.AppHeaderInsert(pInfo);
+                    pAppHeaderID = objBL.AppHeaderInsert(pInfo, ref p_case_code);
                     //Gán lại khi lấy dl 
                     if (pAppHeaderID >= 0)
                     {
-                        pReturn = objFeeFixBL.AppFeeFixInsertBath(pFeeFixInfo, pAppHeaderID);
+                        pReturn = objFeeFixBL.AppFeeFixInsertBath(pFeeFixInfo, p_case_code);
                     }
                     else
                     {
@@ -359,11 +361,11 @@
 
                     // xóa đi
                     AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
-                    _AppFeeFixBL.AppFeeFixDelete(pDetail.APP_HEADER_ID, language);
+                    _AppFeeFixBL.AppFeeFixDelete(pDetail.Case_Code, language);
 
                     // insert lại fee
 
-                    pReturn = objFeeFixBL.AppFeeFixInsertBath(pFeeFixInfo, pDetail.APP_HEADER_ID);
+                    pReturn = objFeeFixBL.AppFeeFixInsertBath(pFeeFixInfo, pInfo.Case_Code);
                     if (pReturn < 0)
                     {
                         Transaction.Current.Rollback();

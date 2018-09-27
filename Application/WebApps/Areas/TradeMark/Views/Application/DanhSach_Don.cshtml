@@ -250,208 +250,208 @@
         }
     }
 
-    function getViewPhanLoaiDon(_application_header_id) {
-        if (CheckSessionTimeOut() == false) {
-            return false;
-        }
+    //function getViewPhanLoaiDon(_application_header_id) {
+    //    if (CheckSessionTimeOut() == false) {
+    //        return false;
+    //    }
 
-        $.ajax({
-            type: "POST",
-            url: "/trade-mark-mana/quan-ly-don/show-phan-loai/",
-            dataType: "html",
-            data: {
-                p_application_header_id: _application_header_id
-            },
-            async: false, cache: false, traditional: true,
-            success: function (data) {
-                if (data != null) {
-                    $("#divPopUpApp").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpApp', "Phân loại đơn cho luật sư", 700, 500, "cboLawer");
-                }
-                return false;
-            }
-        });
-    }
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/trade-mark-mana/quan-ly-don/show-phan-loai/",
+    //        dataType: "html",
+    //        data: {
+    //            p_application_header_id: _application_header_id
+    //        },
+    //        async: false, cache: false, traditional: true,
+    //        success: function (data) {
+    //            if (data != null) {
+    //                $("#divPopUpApp").html(data);
+    //                ShowPopupDialog_Ipace('divWrapperPopUpApp', "Phân loại đơn cho luật sư", 700, 500, "cboLawer");
+    //            }
+    //            return false;
+    //        }
+    //    });
+    //}
 
-    function getViewConfirmKhachHang(_application_header_id) {
-        if (CheckSessionTimeOut() == false) {
-            return false;
-        }
+    //function getViewConfirmKhachHang(_application_header_id) {
+    //    if (CheckSessionTimeOut() == false) {
+    //        return false;
+    //    }
 
-        $.ajax({
-            type: "POST",
-            url: "/trade-mark-mana/quan-ly-don/show-kh-confirm/",
-            dataType: "html",
-            data: {
-                p_application_header_id: _application_header_id
-            },
-            async: false, cache: false, traditional: true,
-            success: function (data) {
-                if (data != null) {
-                    $("#divPopUpApp").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpApp', "Khách hàng phản hồi", 700, 500, "cboConfirm");
-                }
-                return false;
-            }
-        });
-    }
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/trade-mark-mana/quan-ly-don/show-kh-confirm/",
+    //        dataType: "html",
+    //        data: {
+    //            p_application_header_id: _application_header_id
+    //        },
+    //        async: false, cache: false, traditional: true,
+    //        success: function (data) {
+    //            if (data != null) {
+    //                $("#divPopUpApp").html(data);
+    //                ShowPopupDialog_Ipace('divWrapperPopUpApp', "Khách hàng phản hồi", 700, 500, "cboConfirm");
+    //            }
+    //            return false;
+    //        }
+    //    });
+    //}
 
-    function getViewLuatSuConfirm(_application_header_id) {
-        if (CheckSessionTimeOut() == false) {
-            return false;
-        }
+    //function getViewLuatSuConfirm(_application_header_id) {
+    //    if (CheckSessionTimeOut() == false) {
+    //        return false;
+    //    }
 
-        $.ajax({
-            type: "POST",
-            url: "/trade-mark-mana/quan-ly-don/show-lw-confirm/",
-            dataType: "html",
-            data: {
-                p_application_header_id: _application_header_id
-            },
-            async: false, cache: false, traditional: true,
-            success: function (data) {
-                if (data != null) {
-                    $("#divPopUpApp").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpApp', "Luật sư xác nhận đơn", 700, 500, "cboConfirm");
-                }
-                return false;
-            }
-        });
-    }
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/trade-mark-mana/quan-ly-don/show-lw-confirm/",
+    //        dataType: "html",
+    //        data: {
+    //            p_application_header_id: _application_header_id
+    //        },
+    //        async: false, cache: false, traditional: true,
+    //        success: function (data) {
+    //            if (data != null) {
+    //                $("#divPopUpApp").html(data);
+    //                ShowPopupDialog_Ipace('divWrapperPopUpApp', "Luật sư xác nhận đơn", 700, 500, "cboConfirm");
+    //            }
+    //            return false;
+    //        }
+    //    });
+    //}
 
-    function getViewFiling(_application_header_id) {
-        if (CheckSessionTimeOut() == false) {
-            return false;
-        }
+    //function getViewFiling(_application_header_id) {
+    //    if (CheckSessionTimeOut() == false) {
+    //        return false;
+    //    }
 
-        $.ajax({
-            type: "POST",
-            url: "/trade-mark-mana/quan-ly-don/show-filing/",
-            dataType: "html",
-            data: {
-                p_application_header_id: _application_header_id
-            },
-            async: false, cache: false, traditional: true,
-            success: function (data) {
-                if (data != null) {
-                    $("#divPopUpApp").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpApp', "Nộp đơn", 700, 500, "txt_filing_date");
-                }
-                return false;
-            }
-        });
-    }
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/trade-mark-mana/quan-ly-don/show-filing/",
+    //        dataType: "html",
+    //        data: {
+    //            p_application_header_id: _application_header_id
+    //        },
+    //        async: false, cache: false, traditional: true,
+    //        success: function (data) {
+    //            if (data != null) {
+    //                $("#divPopUpApp").html(data);
+    //                ShowPopupDialog_Ipace('divWrapperPopUpApp', "Nộp đơn", 700, 500, "txt_filing_date");
+    //            }
+    //            return false;
+    //        }
+    //    });
+    //}
 
 
-    function do_KH_Confirm(_application_header_id) {
-        alert($('#cboConfirm').val());
-        if (validateAction()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn xác nhận đơn này không?", function () {
-                $.ajax({
-                    url: '/trade-mark-mana/quan-ly-don/do-kh-confirm',
-                    type: 'POST',
-                    data: {
-                        p_Application_Header_Id: _application_header_id,
-                        p_status: $('#cboConfirm').val(),
-                        p_note: $('#txtNotes').val()
-                    },
-                    async: true, cache: false, traditional: true,
-                    beforeSend: function () {
-                        CreateRollingWaitingIcon(true);
-                    },
-                    success: function (data) {
-                        CreateRollingWaitingIcon(false);
-                        if (data.success == "-1") {
-                            jError("Lỗi check lại kết nối tới server");
-                            return false;
-                        }
-                        else {
-                            jAlert('Khách hàng phản hồi thành công!', "THÔNG BÁO", function () {
-                                CloseDivPopUp('divWrapperPopUpApp');
-                                Search_Application(1, 1);
-                            });
-                        }
-                    },
-                    error: function (e) {
-                        CreateRollingWaitingIcon(false);
-                        console.log(e);
-                    }
-                });
-            });
-        }
-    }
+    //function do_KH_Confirm(_application_header_id) {
+    //    alert($('#cboConfirm').val());
+    //    if (validateAction()) {
+    //        nvsConfirm(null, "Bạn có chắc chắn muốn xác nhận đơn này không?", function () {
+    //            $.ajax({
+    //                url: '/trade-mark-mana/quan-ly-don/do-kh-confirm',
+    //                type: 'POST',
+    //                data: {
+    //                    p_Application_Header_Id: _application_header_id,
+    //                    p_status: $('#cboConfirm').val(),
+    //                    p_note: $('#txtNotes').val()
+    //                },
+    //                async: true, cache: false, traditional: true,
+    //                beforeSend: function () {
+    //                    CreateRollingWaitingIcon(true);
+    //                },
+    //                success: function (data) {
+    //                    CreateRollingWaitingIcon(false);
+    //                    if (data.success == "-1") {
+    //                        jError("Lỗi check lại kết nối tới server");
+    //                        return false;
+    //                    }
+    //                    else {
+    //                        jAlert('Khách hàng phản hồi thành công!', "THÔNG BÁO", function () {
+    //                            CloseDivPopUp('divWrapperPopUpApp');
+    //                            Search_Application(1, 1);
+    //                        });
+    //                    }
+    //                },
+    //                error: function (e) {
+    //                    CreateRollingWaitingIcon(false);
+    //                    console.log(e);
+    //                }
+    //            });
+    //        });
+    //    }
+    //}
 
-    function do_Lawer_Confirm(_application_header_id) {
-        if (validateAction()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn xác nhận đơn này không?", function () {
-                $.ajax({
-                    url: '/trade-mark-mana/quan-ly-don/do-lw-confirm',
-                    type: 'POST',
-                    data: {
-                        p_Application_Header_Id: _application_header_id,
-                        p_status: $('#cboConfirm').val(),
-                        p_note: $('#txtNotes').val()
-                    },
-                    async: true, cache: false, traditional: true,
-                    beforeSend: function () {
-                        CreateRollingWaitingIcon(true);
-                    },
-                    success: function (data) {
-                        CreateRollingWaitingIcon(false);
-                        if (data.success == "-1") {
-                            jError("Lỗi check lại kết nối tới server");
-                            return false;
-                        }
-                        else {
-                            jAlert('Luật sư phản hồi thành công!', "THÔNG BÁO", function () {
-                                CloseDivPopUp('divWrapperPopUpApp');
-                                Search_Application(1, 1);
-                            });
-                        }
-                    },
-                    error: function (e) {
-                        CreateRollingWaitingIcon(true);
-                        console.log(e);
-                    }
-                });
-            });
-        }
-    }
+    //function do_Lawer_Confirm(_application_header_id) {
+    //    if (validateAction()) {
+    //        nvsConfirm(null, "Bạn có chắc chắn muốn xác nhận đơn này không?", function () {
+    //            $.ajax({
+    //                url: '/trade-mark-mana/quan-ly-don/do-lw-confirm',
+    //                type: 'POST',
+    //                data: {
+    //                    p_Application_Header_Id: _application_header_id,
+    //                    p_status: $('#cboConfirm').val(),
+    //                    p_note: $('#txtNotes').val()
+    //                },
+    //                async: true, cache: false, traditional: true,
+    //                beforeSend: function () {
+    //                    CreateRollingWaitingIcon(true);
+    //                },
+    //                success: function (data) {
+    //                    CreateRollingWaitingIcon(false);
+    //                    if (data.success == "-1") {
+    //                        jError("Lỗi check lại kết nối tới server");
+    //                        return false;
+    //                    }
+    //                    else {
+    //                        jAlert('Luật sư phản hồi thành công!', "THÔNG BÁO", function () {
+    //                            CloseDivPopUp('divWrapperPopUpApp');
+    //                            Search_Application(1, 1);
+    //                        });
+    //                    }
+    //                },
+    //                error: function (e) {
+    //                    CreateRollingWaitingIcon(true);
+    //                    console.log(e);
+    //                }
+    //            });
+    //        });
+    //    }
+    //}
 
-    function do_Admin_Gui_KH(_application_header_id) {
-        if (validateAction()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn gửi xác nhận đơn này cho khách hàng không?", function () {
-                $.ajax({
-                    url: '/trade-mark-mana/quan-ly-don/do-admin-confirm-2-customer',
-                    type: 'POST',
-                    data: {
-                        p_Application_Header_Id: _application_header_id,
-                        p_note: ""
-                    },
-                    async: true, cache: false, traditional: true,
-                    beforeSend: function () {
-                        CreateRollingWaitingIcon(true);
-                    },
-                    success: function (data) {
-                        CreateRollingWaitingIcon(false);
-                        if (data.success == "-1") {
-                            jError("Lỗi check lại kết nối tới server");
-                            return false;
-                        }
-                        else {
-                            jAlert('Gửi xác nhận thành công!', "THÔNG BÁO", function () {
-                                CloseDivPopUp('divWrapperPopUpApp');
-                                Search_Application(1, 1);
-                            });
-                        }
-                    },
-                    error: function (e) {
-                        CreateRollingWaitingIcon(true);
-                        console.log(e);
-                    }
-                });
-            });
-        }
-    }
+    //function do_Admin_Gui_KH(_application_header_id) {
+    //    if (validateAction()) {
+    //        nvsConfirm(null, "Bạn có chắc chắn muốn gửi xác nhận đơn này cho khách hàng không?", function () {
+    //            $.ajax({
+    //                url: '/trade-mark-mana/quan-ly-don/do-admin-confirm-2-customer',
+    //                type: 'POST',
+    //                data: {
+    //                    p_Application_Header_Id: _application_header_id,
+    //                    p_note: ""
+    //                },
+    //                async: true, cache: false, traditional: true,
+    //                beforeSend: function () {
+    //                    CreateRollingWaitingIcon(true);
+    //                },
+    //                success: function (data) {
+    //                    CreateRollingWaitingIcon(false);
+    //                    if (data.success == "-1") {
+    //                        jError("Lỗi check lại kết nối tới server");
+    //                        return false;
+    //                    }
+    //                    else {
+    //                        jAlert('Gửi xác nhận thành công!', "THÔNG BÁO", function () {
+    //                            CloseDivPopUp('divWrapperPopUpApp');
+    //                            Search_Application(1, 1);
+    //                        });
+    //                    }
+    //                },
+    //                error: function (e) {
+    //                    CreateRollingWaitingIcon(true);
+    //                    console.log(e);
+    //                }
+    //            });
+    //        });
+    //    }
+    //}
 
 </script>

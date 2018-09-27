@@ -504,27 +504,7 @@ namespace WebApps.CrytalReport_MVC
 
         void TM_PLB01SDD()
         {
-            try
-            {
-                string language = AppsCommon.GetCurrentLang();
-                App_Detail_PLB01_SDD_Info app_Detail = new App_Detail_PLB01_SDD_Info();
-                List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
-                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
-                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
-
-                App_Detail_PLB01_SDD_BL objBL = new App_Detail_PLB01_SDD_BL();
-                mv_dsData = objBL.GetByID_DS(mv_AppHeader_Id, language);
-
-                // copy Header
-                App_Detail_PLB01_SDD_Info.CopyAppHeaderInfo(ref app_Detail, applicationHeaderInfo);
-
-                string _strCml = TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD + DateTime.Now.ToString("ddMMyyyHH24mm") + ".xml";
-                mv_dsData.WriteXml(Server.MapPath(_strCml), XmlWriteMode.WriteSchema);
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-            }
+            
         }
 
         #endregion

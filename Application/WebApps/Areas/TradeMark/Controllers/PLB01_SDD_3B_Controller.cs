@@ -69,6 +69,7 @@
                 var CreatedDate = SessionData.CurrentUser.CurrentDate;
                 decimal pReturn = ErrorCode.Success;
                 int pAppHeaderID = 0;
+                string p_case_code = "";
 
                 using (var scope = new TransactionScope())
                 {
@@ -80,7 +81,9 @@
                     //pInfo.Status = (decimal)CommonEnums.App_Status.DaGui_ChoPhanLoai;
 
                     //TRA RA ID CUA BANG KHI INSERT
-                    pAppHeaderID = objBL.AppHeaderInsert(pInfo);
+
+
+                    pAppHeaderID = objBL.AppHeaderInsert(pInfo, ref p_case_code);
 
                     // detail
                     if (pAppHeaderID >= 0)
@@ -88,6 +91,7 @@
                         pDetail.Appcode = pInfo.Appcode;
                         pDetail.Language_Code = language;
                         pDetail.App_Header_Id = pAppHeaderID;
+                        pDetail.Case_Code = p_case_code;
                         pReturn = objDetail.Insert(pDetail);
                     }
 
@@ -98,7 +102,7 @@
                     AppFeeFixInfo _AppFeeFixInfo1 = new AppFeeFixInfo();
                     _AppFeeFixInfo1.Fee_Id = 1;
                     _AppFeeFixInfo1.Isuse = 1;
-                    _AppFeeFixInfo1.App_Header_Id = pAppHeaderID;
+                    //_AppFeeFixInfo1.App_Header_Id = pAppHeaderID;
                     _AppFeeFixInfo1.Number_Of_Patent = pDetail.App_No_Change.Split(',').Length;
 
                     string _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo1.Fee_Id.ToString();
@@ -115,7 +119,7 @@
                     AppFeeFixInfo _AppFeeFixInfo2 = new AppFeeFixInfo();
                     _AppFeeFixInfo2.Fee_Id = 2;
                     _AppFeeFixInfo2.Isuse = 1;
-                    _AppFeeFixInfo2.App_Header_Id = pAppHeaderID;
+                    //_AppFeeFixInfo2.App_Header_Id = pAppHeaderID;
                     _AppFeeFixInfo2.Number_Of_Patent = pDetail.App_No_Change.Split(',').Length;
 
                     _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo2.Fee_Id.ToString();
@@ -131,7 +135,7 @@
                     #region Đơn có trên 1 hình (từ hình thứ hai trở đi)
                     AppFeeFixInfo _AppFeeFixInfo21 = new AppFeeFixInfo();
                     _AppFeeFixInfo21.Fee_Id = 21;
-                    _AppFeeFixInfo21.App_Header_Id = pAppHeaderID;
+                    //_AppFeeFixInfo21.App_Header_Id = pAppHeaderID;
 
                     _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo21.Fee_Id.ToString();
                     decimal _numberPicOver = 1;
@@ -167,7 +171,7 @@
                     #region Bản mô tả sáng chế có trên 6 trang (từ trang thứ 7 trở đi)  
                     AppFeeFixInfo _AppFeeFixInfo22 = new AppFeeFixInfo();
                     _AppFeeFixInfo22.Fee_Id = 22;
-                    _AppFeeFixInfo22.App_Header_Id = pAppHeaderID;
+                    //_AppFeeFixInfo22.App_Header_Id = pAppHeaderID;
 
                     _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo22.Fee_Id.ToString();
                     decimal _numberPageOver = 6;
@@ -200,7 +204,7 @@
                     #endregion
 
                     AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
-                    pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, pAppHeaderID);
+                    pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, p_case_code);
                     #endregion
 
                     #region Tai lieu dinh kem 
@@ -281,6 +285,7 @@
                         pDetail.Appcode = pInfo.Appcode;
                         pDetail.Language_Code = language;
                         pDetail.App_Header_Id = pInfo.Id;
+                        pDetail.Case_Code = pInfo.Case_Code;
                         pReturn = objDetail.Update(pDetail);
                     }
 
@@ -291,7 +296,7 @@
                     AppFeeFixInfo _AppFeeFixInfo1 = new AppFeeFixInfo();
                     _AppFeeFixInfo1.Fee_Id = 1;
                     _AppFeeFixInfo1.Isuse = 1;
-                    _AppFeeFixInfo1.App_Header_Id = pInfo.Id;
+                    //_AppFeeFixInfo1.App_Header_Id = pInfo.Id;
                     _AppFeeFixInfo1.Number_Of_Patent = pDetail.App_No_Change.Split(',').Length;
 
                     string _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo1.Fee_Id.ToString();
@@ -308,7 +313,7 @@
                     AppFeeFixInfo _AppFeeFixInfo2 = new AppFeeFixInfo();
                     _AppFeeFixInfo2.Fee_Id = 2;
                     _AppFeeFixInfo2.Isuse = 1;
-                    _AppFeeFixInfo2.App_Header_Id = pInfo.Id;
+                    //_AppFeeFixInfo2.App_Header_Id = pInfo.Id;
                     _AppFeeFixInfo2.Number_Of_Patent = pDetail.App_No_Change.Split(',').Length;
 
                     _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo2.Fee_Id.ToString();
@@ -324,7 +329,7 @@
                     #region Đơn có trên 1 hình (từ hình thứ hai trở đi)
                     AppFeeFixInfo _AppFeeFixInfo21 = new AppFeeFixInfo();
                     _AppFeeFixInfo21.Fee_Id = 21;
-                    _AppFeeFixInfo21.App_Header_Id = pInfo.Id;
+                    //_AppFeeFixInfo21.App_Header_Id = pInfo.Id;
 
                     _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo21.Fee_Id.ToString();
                     decimal _numberPicOver = 1;
@@ -360,7 +365,7 @@
                     #region Bản mô tả sáng chế có trên 6 trang (từ trang thứ 7 trở đi)  
                     AppFeeFixInfo _AppFeeFixInfo22 = new AppFeeFixInfo();
                     _AppFeeFixInfo22.Fee_Id = 22;
-                    _AppFeeFixInfo22.App_Header_Id = pInfo.Id;
+                    //_AppFeeFixInfo22.App_Header_Id = pInfo.Id;
 
                     _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo22.Fee_Id.ToString();
                     decimal _numberPageOver = 6;
@@ -393,10 +398,10 @@
 
                     // xóa đi
                     AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
-                    _AppFeeFixBL.AppFeeFixDelete(pDetail.App_Header_Id, language);
+                    _AppFeeFixBL.AppFeeFixDelete(pDetail.Case_Code, language);
 
                     // insert lại fee
-                    pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, pInfo.Id);
+                    pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, pInfo.Case_Code);
                     #endregion
 
                     #region Tai lieu dinh kem 
@@ -522,6 +527,7 @@
                 List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
 
                 app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
+
                 // copy Header
                 App_Detail_PLB01_SDD_Info.CopyAppHeaderInfo(ref app_Detail, applicationHeaderInfo);
 
