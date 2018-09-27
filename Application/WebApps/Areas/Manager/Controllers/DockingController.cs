@@ -90,7 +90,7 @@ namespace WebApps.Areas.Manager.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("danh-sach-docking/show-view")]
         public ActionResult GetView2View(decimal p_id)
         {
@@ -98,21 +98,21 @@ namespace WebApps.Areas.Manager.Controllers
             {
                 Docking_BL _obj_bl = new Docking_BL();
                 Docking_Info _Docking_Info = _obj_bl.Docking_GetBy_Id(p_id);
-                return PartialView("~/Areas/Manager/Views/Docking/_PartialView.cshtml", _Docking_Info);
+                return View("~/Areas/Manager/Views/Docking/_PartialView.cshtml", _Docking_Info);
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return PartialView("~/Areas/Manager/Views/Docking/_PartialView.cshtml", new Docking_Info());
+                return View("~/Areas/Manager/Views/Docking/_PartialView.cshtml", new Docking_Info());
             }
         }
 
         // Insert 
-        [HttpPost]
+        [HttpGet]
         [Route("danh-sach-docking/show-insert")]
         public ActionResult GetView2Insert()
         {
-            return PartialView("~/Areas/Manager/Views/Docking/_PartialInsert.cshtml", new Docking_Info());
+            return View("~/Areas/Manager/Views/Docking/_PartialInsert.cshtml", new Docking_Info());
         }
 
         [HttpPost]
@@ -146,7 +146,7 @@ namespace WebApps.Areas.Manager.Controllers
         }
 
         // edit
-        [HttpPost]
+        [HttpGet]
         [Route("danh-sach-docking/show-edit")]
         public ActionResult GetView2Edit(int p_id)
         {
@@ -154,12 +154,12 @@ namespace WebApps.Areas.Manager.Controllers
             {
                 Docking_BL _obj_bl = new Docking_BL();
                 Docking_Info _Docking_Info = _obj_bl.Docking_GetBy_Id(p_id);
-                return PartialView("~/Areas/Manager/Views/Docking/_PartialEdit.cshtml", _Docking_Info);
+                return View("~/Areas/Manager/Views/Docking/_PartialEdit.cshtml", _Docking_Info);
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return PartialView("~/Areas/Manager/Views/Docking/_PartialEdit.cshtml");
+                return View("~/Areas/Manager/Views/Docking/_PartialEdit.cshtml");
             }
         }
 
@@ -196,7 +196,7 @@ namespace WebApps.Areas.Manager.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("danh-sach-docking/show-change-status")]
         public ActionResult GetView2UpdateStatus(int p_id)
         {
@@ -204,12 +204,30 @@ namespace WebApps.Areas.Manager.Controllers
             {
                 Docking_BL _obj_bl = new Docking_BL();
                 Docking_Info _Docking_Info = _obj_bl.Docking_GetBy_Id(p_id);
-                return PartialView("~/Areas/Manager/Views/Docking/_PartialChangeStatus.cshtml", _Docking_Info);
+                return View("~/Areas/Manager/Views/Docking/_PartialChangeStatus.cshtml", _Docking_Info);
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return PartialView("~/Areas/Manager/Views/Docking/_PartialChangeStatus.cshtml");
+                return View("~/Areas/Manager/Views/Docking/_PartialChangeStatus.cshtml");
+            }
+
+        }
+
+        [HttpGet]
+        [Route("danh-sach-docking/show-complete-doc")]
+        public ActionResult GetView2CompleteDoc(string p_case_code)
+        {
+            try
+            {
+                Docking_BL _obj_bl = new Docking_BL();
+                Docking_Info _Docking_Info = _obj_bl.Docking_GetBy_DocCaseCode(p_case_code);
+                return View("~/Areas/Manager/Views/Docking/_PartialChangeStatus.cshtml", _Docking_Info);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return View("~/Areas/Manager/Views/Docking/_PartialChangeStatus.cshtml");
             }
 
         }

@@ -42,10 +42,10 @@
                         <td class="tdcenteralign">
                             <a href="javascript:getViewDocking(@item.Docking_Id)" class="icon icon-info" data-title="Xem chi tiết"></a>
                             <a href="javascript:;" onclick="getView2Edit(@item.Docking_Id)" class="icon icon-edit" data-title="Sửa"></a>
-                            <a href="javascript:;" onclick="doDeleteDocking(@item.Docking_Id)" class="icon icon-delete" data-title="Xóa"></a>
 
                             @if (item.Status != Convert.ToDecimal(Common.CommonData.CommonEnums.Docking_Status.Completed))
                             {
+                                <a href="javascript:;" onclick="doDeleteDocking(@item.Docking_Id)" class="icon icon-delete" data-title="Xóa"></a>
                                 <a href="javascript:;" onclick="getView2ChangeStatus(@item.Docking_Id)" class="icon icon-confirm-circle" data-title="Complete document"></a>
                             }
                         </td>

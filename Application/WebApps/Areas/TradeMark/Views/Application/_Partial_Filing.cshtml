@@ -133,7 +133,8 @@
                 var formdata = new FormData();
                 formdata.append("pInfo.File_Copy_Filing", _file);
                 formdata.append("pInfo.File_Translate_Filing", _file_t);
-                formdata.append("pInfo.Case_Code", parseInt(_case_code));
+                formdata.append("pInfo.Case_Code", _case_code);
+                formdata.append("pInfo.Id", @_AppHeaderInfo.Id);
                 formdata.append("pInfo.Filing_Date", $('#txt_filing_date').val());
                 formdata.append("pInfo.Note", $('#txtNotes').val());
                 formdata.append("pInfo.App_No", $('#txt_App_No').val());

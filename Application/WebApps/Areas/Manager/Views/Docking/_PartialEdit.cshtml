@@ -5,6 +5,9 @@
 @model Docking_Info
 
 @{
+    ViewBag.Title = "Sửa thông tin docking";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
     List<AllCodeInfo> _lstDockingType = MemoryData.AllCode_GetBy_CdTypeCdName("DOCKING", "DOCKING_TYPE");
     var lstDockingType = _lstDockingType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
 
@@ -48,8 +51,27 @@
 </style>
 
 
-<div class="" style="padding:5px 38px">
-    <div class="divCover divCover_popup">
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        Monitor
+        <span class="red">></span>
+        <a href="/quan-ly-docking/danh-sach-docking">Quản lý docking</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <div class="div-title-content"> SỬA THÔNG TIN DOCKING</div>
+        </div>
+    </div>
+
+    <div class="divCover">
         <div class="div-search-ad">
             <div class="div-search-title">
                 <div>Case code<i class="redspan">(*)</i></div>
@@ -166,11 +188,11 @@
             </div>
         }
 
-        <div class="form-group">
-            <div class="form-group-bottom">
-                <input type="submit" class="btn-default" value="Sửa" onclick="return doEditDocking()" />
+            <div class="divCover">
+                <div class="div-search-btn" style="width:600px;margin-top: 5px;">
+                    <input type="submit" class="btn-default" value="Sửa" onclick="return doEditDocking()" />
+                </div>
             </div>
-        </div>
     </div>
 </div>
 
@@ -202,8 +224,8 @@
                         }
                         else {
                             jAlert('Sửa tài liệu thành công!', "THÔNG BÁO", function () {
-                                ClosePopUpDocking();
-                                Search_Docking(1, 1);
+                                var url = "/quan-ly-docking/danh-sach-docking";
+                                window.location.href = url;
                             });
                         }
                     },

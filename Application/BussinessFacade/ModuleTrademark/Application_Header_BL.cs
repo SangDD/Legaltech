@@ -35,7 +35,7 @@ namespace BussinessFacade.ModuleTrademark
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return ErrorCode.Error;
+                return -1;
             }
         }
 
@@ -49,7 +49,7 @@ namespace BussinessFacade.ModuleTrademark
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return ErrorCode.Error;
+                return -1;
             }
         }
 
@@ -65,7 +65,7 @@ namespace BussinessFacade.ModuleTrademark
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return ErrorCode.Error;
+                return -1;
             }
         }
 

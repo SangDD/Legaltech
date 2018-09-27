@@ -63,6 +63,23 @@ namespace DataAccess
             }
         }
 
+        public DataSet Docking_GetBy_DocCaseCode(string p_doc_case_code)
+        {
+            try
+            {
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_docking.proc_getby_doc_case_code",
+                    new OracleParameter("p_doc_case_code", OracleDbType.Varchar2, p_doc_case_code, ParameterDirection.Input),
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
+        
+
 
         public int Docking_Update_Status(decimal p_docking_id,string p_language_code, decimal p_status,string p_modify_by, DateTime p_modify_date)
         {

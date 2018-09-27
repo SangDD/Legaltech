@@ -31,10 +31,10 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Nhân viên nộp đơn confirm<i class="redspan">(*)</i></div>
+            <div style="width:150px">NV nộp đơn confirm<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
-            <div>
+            <div >
                 <select id="cboConfirm" disabled="disabled">
                     @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("CUSTOMER", "CONFIRM"))
                     {
@@ -54,7 +54,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Ghi chú </div>
+            <div style="width:150px">Ghi chú </div>
         </div>
         <div class="div-search-content">
             <div>
@@ -65,7 +65,7 @@
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Xác nhận" onclick="return do_Employee_Confirm(@_AppHeaderInfo.Case_Code)" />
+            <input type="submit" class="btn-default" value="Xác nhận" onclick="return do_Employee_Confirm('@_AppHeaderInfo.Case_Code')" />
         </div>
     </div>
 </div>

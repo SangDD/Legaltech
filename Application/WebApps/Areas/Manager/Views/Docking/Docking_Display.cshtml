@@ -212,87 +212,112 @@
             return false;
         }
 
-        $.ajax({
-            type: "POST",
-            url: "/quan-ly-docking/danh-sach-docking/show-view/",
-            data: {
-                p_id: _id
-            },
-            async: false, cache: false, traditional: true,
-            success: function (data) {
-                if (data != null) {
-                    $("#divPopUpDocking").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpDocking', "Thông tin tài liệu", 750, 800);
-                }
-                return false;
-            }
-        });
+        try {
+            var url = "/quan-ly-docking/danh-sach-docking/show-view?p_id=" + _id;
+            window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
+
+        //$.ajax({
+        //    type: "POST",
+        //    url: "/quan-ly-docking/danh-sach-docking/show-view/",
+        //    data: {
+        //        p_id: _id
+        //    },
+        //    async: false, cache: false, traditional: true,
+        //    success: function (data) {
+        //        if (data != null) {
+        //            $("#divPopUpDocking").html(data);
+        //            ShowPopupDialog_Ipace('divWrapperPopUpDocking', "Thông tin tài liệu", 750, 800);
+        //        }
+        //        return false;
+        //    }
+        //});
     }
 
     function getView2Insert() {
         if (CheckSessionTimeOut() == false) {
             return false;
         }
+        try {
+            var url = "/quan-ly-docking/danh-sach-docking/show-insert";
+            window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
 
-        $.ajax({
-            type: "POST",
-            url: "/quan-ly-docking/danh-sach-docking/show-insert/",
-            dataType: "html",
-            async: false, cache: false, traditional: true,
-            success: function (data) {
-                if (data != null) {
-                    $("#divPopUpDocking").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpDocking', "Thêm mới thông tin tài liệu", 750, 800, "txtApp_Case_Code");
-                }
-                return false;
-            }
-        });
+        //$.ajax({
+        //    type: "POST",
+        //    url: "/quan-ly-docking/danh-sach-docking/show-insert/",
+        //    dataType: "html",
+        //    async: false, cache: false, traditional: true,
+        //    success: function (data) {
+        //        if (data != null) {
+        //            $("#divPopUpDocking").html(data);
+        //            ShowPopupDialog_Ipace('divWrapperPopUpDocking', "Thêm mới thông tin tài liệu", 750, 800, "txtApp_Case_Code");
+        //        }
+        //        return false;
+        //    }
+        //});
     }
 
     function getView2Edit(_id) {
         if (CheckSessionTimeOut() == false) {
             return false;
         }
+        try {
+            var url = "/quan-ly-docking/danh-sach-docking/show-edit?p_id=" + _id;
+            window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
 
-        $.ajax({
-            type: "POST",
-            url: "/quan-ly-docking/danh-sach-docking/show-edit/",
-            dataType: "html",
-            data: {
-                p_id: _id
-            },
-            async: false, cache: false, traditional: true,
-            success: function (data) {
-                if (data != null) {
-                    $("#divPopUpDocking").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpDocking', "Sửa thông tin tài liệu", 750, 800, "txtApp_Case_Code");
-                }
-                return false;
-            }
-        });
+        //$.ajax({
+        //    type: "POST",
+        //    url: "/quan-ly-docking/danh-sach-docking/show-edit/",
+        //    dataType: "html",
+        //    data: {
+        //        p_id: _id
+        //    },
+        //    async: false, cache: false, traditional: true,
+        //    success: function (data) {
+        //        if (data != null) {
+        //            $("#divPopUpDocking").html(data);
+        //            ShowPopupDialog_Ipace('divWrapperPopUpDocking', "Sửa thông tin tài liệu", 750, 800, "txtApp_Case_Code");
+        //        }
+        //        return false;
+        //    }
+        //});
     }
 
     function getView2Approve(_id) {
         if (CheckSessionTimeOut() == false) {
             return false;
         }
+        try {
+            var url = "/quan-ly-docking/danh-sach-docking/show-change-status?p_id=" + _id;
+            window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
 
-        $.ajax({
-            type: "POST",
-            url: "/quan-ly-docking/danh-sach-docking/show-approve/",
-            dataType: "html",
-            data: {
-                p_id: _id
-            },
-            async: false, cache: false, traditional: true,
-            success: function (data) {
-                if (data != null) {
-                    $("#divPopUpDocking").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpDocking', "Duyệt thông tin tài liệu", 700, 500, "txtName");
-                }
-                return false;
-            }
-        });
+        //$.ajax({
+        //    type: "POST",
+        //    url: "/quan-ly-docking/danh-sach-docking/show-approve/",
+        //    dataType: "html",
+        //    data: {
+        //        p_id: _id
+        //    },
+        //    async: false, cache: false, traditional: true,
+        //    success: function (data) {
+        //        if (data != null) {
+        //            $("#divPopUpDocking").html(data);
+        //            ShowPopupDialog_Ipace('divWrapperPopUpDocking', "Duyệt thông tin tài liệu", 700, 500, "txtName");
+        //        }
+        //        return false;
+        //    }
+        //});
     }
 
     function doDeleteDocking(_id) {
@@ -333,23 +358,29 @@
         if (CheckSessionTimeOut() == false) {
             return false;
         }
+        try {
+            var url = "/quan-ly-docking/danh-sach-docking/show-change-status?p_id=" + _id;
+            window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
 
-        $.ajax({
-            type: "POST",
-            url: "/quan-ly-docking/danh-sach-docking/show-change-status/",
-            dataType: "html",
-            data: {
-                p_id: _id
-            },
-            async: false, cache: false, traditional: true,
-            success: function (data) {
-                if (data != null) {
-                    $("#divPopUpDocking").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpDocking', "Sửa thông tin tài liệu", 750, 800, "txtApp_Case_Code");
-                }
-                return false;
-            }
-        });
+        //$.ajax({
+        //    type: "POST",
+        //    url: "/quan-ly-docking/danh-sach-docking/show-change-status/",
+        //    dataType: "html",
+        //    data: {
+        //        p_id: _id
+        //    },
+        //    async: false, cache: false, traditional: true,
+        //    success: function (data) {
+        //        if (data != null) {
+        //            $("#divPopUpDocking").html(data);
+        //            ShowPopupDialog_Ipace('divWrapperPopUpDocking', "Sửa thông tin tài liệu", 750, 800, "txtApp_Case_Code");
+        //        }
+        //        return false;
+        //    }
+        //});
     }
 
     function ClosePopUpDocking() {

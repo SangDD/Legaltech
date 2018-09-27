@@ -51,7 +51,7 @@ namespace DataAccess.ModuleTrademark
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return ErrorCode.Error;
+                return -1;
             }
         }
 
@@ -74,7 +74,7 @@ namespace DataAccess.ModuleTrademark
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return ErrorCode.Error;
+                return -1;
             }
         }
 
@@ -102,7 +102,7 @@ namespace DataAccess.ModuleTrademark
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return ErrorCode.Error;
+                return -1;
             }
         }
 
