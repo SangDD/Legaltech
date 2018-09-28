@@ -1,4 +1,5 @@
-﻿@using WebApps.CommonFunction;
+﻿@using Common.CommonData
+@using WebApps.CommonFunction;
 @using BussinessFacade.ModuleMemoryData
 @{
     ViewBag.Title = "Request for amendment of application";
@@ -33,6 +34,9 @@
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
         <legend style="font-weight:600"> SỬA ĐỔI ĐƠN ĐĂNG KÝ ĐỐI TƯỢNG SỞ HỮU CÔNG NGHIỆP </legend>
+
+        @*thông tin khách hàng mà admin nhập hộ*@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCustomer.cshtml")
 
         @* Case name *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
@@ -367,6 +371,12 @@
         try {
             //Thông tin chủ đơn
             var formData = new FormData();
+
+            var reponse = funcThongTinNhapHo(formData);
+            if (reponse == false) {
+                return false;
+            }
+
             var reponse = funcThongTinCaseName(formData, "0");
             if (reponse == false) {
                 return false;
@@ -457,6 +467,11 @@
 
             //Thông tin chủ đơn
             var formData = new FormData();
+            var reponse = funcThongTinNhapHo(formData);
+            if (reponse == false) {
+                return false;
+            }
+
             var reponse = funcThongTinCaseName(formData,"0");
             if (reponse == false) {
                 return false;

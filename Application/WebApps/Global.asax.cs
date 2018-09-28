@@ -10,6 +10,7 @@
     using System.Web.Optimization;
     using System.Web.Routing;
     using AppStart;
+    using BussinessFacade;
     using BussinessFacade.ModuleMemoryData;
 	using Common;
 	using Common.CommonData;
@@ -43,6 +44,11 @@
                 Thread _th1 = new Thread(ThreadReloadWhenChangeData);
                 _th1.IsBackground = true;
                 _th1.Start();
+
+                // tự động change trạng thái của remind
+                Thread _th2= new Thread(ThreadChangeRemind);
+                _th2.IsBackground = true;
+                _th2.Start();
             }
             catch (Exception ex)
             {
@@ -231,6 +237,37 @@
                         }
                     }
                     Thread.Sleep(1000);
+                }
+                catch (Exception ex)
+                {
+                    Thread.Sleep(2000);
+                    Logger.Log().Error(ex.ToString());
+                }
+            }
+        }
+
+        /// <summary>
+        /// thread chuyên load dữ liệu tĩnh khi có sự thay đổi
+        /// </summary>
+        private void ThreadChangeRemind()
+        {
+            while (true)
+            {
+                try
+                {
+                    if (DateTime.Now.ToString("HH:mm") == "00:55" && Common.c_is_call_change_remind == false)
+                    {
+                        B_Remind_BL _bl = new B_Remind_BL();
+                        _bl.Auto_change_remind();
+                        Logger.Log().Info("ChangeRemind " + DateTime.Now.ToString("dd/MM/yyyy"));
+                        Common.c_is_call_change_remind = true;
+                    }
+                    else if (DateTime.Now.ToString("HH:mm") != "00:55")
+                    {
+                        Common.c_is_call_change_remind = false;
+                    }
+
+                    Thread.Sleep(60000);
                 }
                 catch (Exception ex)
                 {

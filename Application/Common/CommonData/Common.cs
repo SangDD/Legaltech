@@ -14,6 +14,7 @@ namespace Common
         public static string Currency_Type_USD = "USD";
 
         public static decimal Tax = 5;
+        public static bool c_is_call_change_remind = false;
     }
 
     /// <summary>
