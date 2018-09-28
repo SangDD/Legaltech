@@ -37,6 +37,9 @@
             ĐĂNG KÝ ĐỐI TƯỢNG SỞ HỮU CÔNG NGHIỆP
         </legend>
 
+        @*thông tin khách hàng mà admin nhập hộ*@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCustomer.cshtml")
+
         @* Case name *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
 
@@ -322,6 +325,11 @@
         try {
 
             var formData = new FormData();
+            var reponse = funcThongTinNhapHo(formData);
+            if (reponse == false) {
+                return false;
+            }
+
             formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai)');
             var reponse = funcThongTinCaseName(formData, "0");
             if (reponse == false) {
@@ -430,6 +438,11 @@
         try {
 
             var formData = new FormData();
+            var reponse = funcThongTinNhapHo(formData);
+            if (reponse == false) {
+                return false;
+            }
+
             formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.Luu_tam)');
             var reponse = funcThongTinCaseName(formData, "0");
             if (reponse == false) {

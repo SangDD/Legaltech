@@ -65,7 +65,9 @@
                 AppDocumentBL objDoc = new AppDocumentBL();
                 if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
                 string language = AppsCommon.GetCurrentLang();
+
                 var CreatedBy = SessionData.CurrentUser.Username;
+
                 var CreatedDate = SessionData.CurrentUser.CurrentDate;
                 decimal pReturn = ErrorCode.Success;
                 int pAppHeaderID = 0;
@@ -75,7 +77,11 @@
                 {
                     //
                     pInfo.Languague_Code = language;
-                    pInfo.Created_By = CreatedBy;
+                    if (pInfo.Created_By == null || pInfo.Created_By == "0" || pInfo.Created_By == "")
+                    {
+                        pInfo.Created_By = CreatedBy;
+                    }
+
                     pInfo.Created_Date = CreatedDate;
                     pInfo.Send_Date = DateTime.Now;
                     //pInfo.Status = (decimal)CommonEnums.App_Status.DaGui_ChoPhanLoai;

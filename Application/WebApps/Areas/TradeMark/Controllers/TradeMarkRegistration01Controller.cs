@@ -213,7 +213,10 @@
                 {
                     //
                     pInfo.Languague_Code = language;
-                    pInfo.Created_By = CreatedBy;
+                    if (pInfo.Created_By == null || pInfo.Created_By == "0" || pInfo.Created_By == "")
+                    {
+                        pInfo.Created_By = CreatedBy;
+                    }
                     pInfo.Created_Date = CreatedDate;
                     //TRA RA ID CUA BANG KHI INSERT
                     pAppHeaderID = objBL.AppHeaderInsert(pInfo, ref p_case_code);
