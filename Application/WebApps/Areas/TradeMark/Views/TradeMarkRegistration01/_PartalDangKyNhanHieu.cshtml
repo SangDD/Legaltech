@@ -67,8 +67,14 @@
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
         <legend> YÊU CẦU ĐĂNG KÝ QUỐC TẾ NHÃN HIỆU CÓ NGUỒN GỐC VIỆT NAM </legend>
 
+        @*thông tin khách hàng mà admin nhập hộ*@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCustomer.cshtml")
+
+        @* Case name *@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "-1")
+
         <div class="divCover cls_form_title">
-            <img src="~/Content/icons/info.png" />
+            <img src="~/Content/icons/info_2.png" />
             <div class="cls_form_header">
                 THÔNG TIN CƠ BẢN
             </div>
@@ -204,11 +210,11 @@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDanhSachQuocGiaDKQTNH.cshtml", "_4")
 
         @*<div class="divCover cls_form_title">
-                <img src="~/Content/icons/info.png" />
-                <div class="cls_form_header">
-                    5.PHÍ, LỆ PHÍ
-                </div>
-            </div>*@
+            <img src="~/Content/icons/info.png" />
+            <div class="cls_form_header">
+                5.PHÍ, LỆ PHÍ
+            </div>
+        </div>*@
 
 
         <div class="div-search-ad" style="display:none">
@@ -504,6 +510,16 @@
         try {
 
             var formData = new FormData();
+            var reponse = funcThongTinNhapHo(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            var reponse = funcThongTinCaseName(formData, "0");
+            if (reponse == false) {
+                return false;
+            }
+
             var v_AppCode = $("#txtAppCode").val();
             var cbo_04nh_data = $("#cbo_04nh_data");
             var v_thanhviennghidinh = $("input[name='rad_thanhviennghidinhthu']:checked").val();
@@ -679,6 +695,16 @@
         try {
 
             var formData = new FormData();
+            var reponse = funcThongTinNhapHo(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            var reponse = funcThongTinCaseName(formData, "0");
+            if (reponse == false) {
+                return false;
+            }
+
             var v_AppCode = $("#txtAppCode").val();
             var cbo_04nh_data = $("#cbo_04nh_data");
             var v_thanhviennghidinh = $("input[name='rad_thanhviennghidinhthu']:checked").val();
