@@ -135,6 +135,15 @@ namespace DataAccess
                 string[] P_SEARCH_VALUE = new string[_totalrec];
                 string[] P_SEARCH_OPERATOR = new string[_totalrec];
                 string[] P_ANDOR = new string[_totalrec];
+                int _count = 0;
+                foreach (SearchObject_Detail_Info item in P_SearchDetails)
+                {
+                    P_SEARCH_TYPE[_count] = item.SEARCH_TYPE;
+                    P_SEARCH_VALUE[_count] = item.SEARCH_VALUE;
+                    P_SEARCH_OPERATOR[_count] = item.SEARCH_OPERATOR;
+                    P_ANDOR[_count] = item.ANDOR;
+                    _count++;
+                }
 
                 OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
                 paramReturn.Size = 10;

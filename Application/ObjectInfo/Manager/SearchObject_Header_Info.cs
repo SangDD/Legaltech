@@ -26,7 +26,7 @@ namespace ObjectInfos
 
         public string CREATED_BY { get; set; }
 
-        public string CREATED_DATE { get; set; }
+        public DateTime CREATED_DATE { get; set; }
 
 
         public string MODIFIED_BY { get; set; }
