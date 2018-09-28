@@ -6,7 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using WebApps.AppStart;
 using WebApps.Session;
-
+using ObjectInfos;
+using BussinessFacade;
 namespace WebApps.Areas.Manager.Controllers
 {
     [ValidateAntiForgeryTokenOnAllPosts]
@@ -73,6 +74,54 @@ namespace WebApps.Areas.Manager.Controllers
                 Logger.LogException(ex);
             }
             return PartialView(@"~\Areas\Manager\Views\SearchManage\_PartialSearchCondition.cshtml", _idSearch.ToString() + "|0");
+        }
+
+        [HttpPost]
+        [Route("SearchInsert")]
+        public ActionResult SearchInsert(SearchObject_Header_Info p_searchHeaderInfo, List<SearchObject_Detail_Info> p_SearchObject_Detail_Info,
+            SearchObject_Question_Info p_questionInfo
+            )
+        {
+            decimal _rel = 0;
+            try
+            {
+                SearchObject_BL _searchBL = new SearchObject_BL();
+                p_searchHeaderInfo.CREATED_BY = SessionData.CurrentUser.Username;
+                p_searchHeaderInfo.CREATED_DATE = DateTime.Now;
+                p_searchHeaderInfo.REQUEST_DATE = DateTime.Now;
+                _rel = _searchBL.SEARCH_HEADER_INSERT(p_searchHeaderInfo);
+                if(_rel < 0)
+                {
+                    // lỗi thì xóa
+                   // _searchBL.SEARCH_HEADER_DELETE()
+                    return Json(new { success = _rel });
+                }
+                p_searchHeaderInfo.SEARCH_ID = _rel;
+                p_questionInfo.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
+                _rel = _searchBL.SEARCH_QUESTION_INSERT(p_questionInfo);
+                if (_rel < 0)
+                {
+                    // lỗi thì xóa
+                    _searchBL.SEARCH_HEADER_DELETE(p_searchHeaderInfo.SEARCH_ID);
+                    return Json(new { success = _rel });
+                }
+                foreach (SearchObject_Detail_Info item in p_SearchObject_Detail_Info)
+                {
+                    item.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
+                }
+                _rel = _searchBL.SEARCH_DETAIL_INSERT(p_SearchObject_Detail_Info);
+                if (_rel < 0)
+                {
+                    // lỗi thì xóa
+                    _searchBL.SEARCH_HEADER_DELETE(p_searchHeaderInfo.SEARCH_ID);
+                    return Json(new { success = _rel });
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return Json(new { success = _rel  });
         }
     }
 }

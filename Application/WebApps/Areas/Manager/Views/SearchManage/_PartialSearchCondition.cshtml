@@ -12,17 +12,23 @@
     List<AllCodeInfo> _ListSearchType = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "SEARCHTYPE");
     List<AllCodeInfo> _ListSearchOperator = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OPERATOR");
     List<AllCodeInfo> _ListSearchAndor = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "ANDOR");
+    string _displaynone = "";
 }
 <div id='@("div_condition_" + _IdSearch)'>
-    @if (_IsFirst != 1)
-    {
-        <div class="div-search-ad">
+        @if (_IsFirst != 1)
+        {
+            _displaynone = "margin-top:5px;";
+        }
+        else
+        {
+            _displaynone = "display:none;";
+        }
+        <div class="div-search-ad" style='@_displaynone'  >
             <div class="div-search-content">
                 <div>
-                    <select id="@("_txtsearchvalue_" + (_IdSearch + 1).ToString())" style="width:150px; border-left:1px solid #ccc">
-
+                    <select class="search_andor" id="@("_txtsearchAndor_" + (_IdSearch + 1).ToString())" style="width:150px; border-left:1px solid #ccc">
                         @foreach (AllCodeInfo item in _ListSearchAndor)
-                {
+                        {
                             <option value="@item.CdVal">
                                 @item.Content
                             </option>
@@ -32,14 +38,14 @@
             </div>
 
         </div>
-    }
+  
     <div class="div-search-ad" >
         <div class="div-search-title">
             <div style="width:100px"> Tiêu chí</div>
         </div>
         <div class="div-search-content">
             <div>
-                <select id="@("_cbosearchtype_" + _IdSearch)">
+                <select class="search_type" id="@("_cbosearchtype_" + _IdSearch)">
                     @foreach (AllCodeInfo item in _ListSearchType)
                     {
                         <option value="@item.CdVal">
@@ -54,7 +60,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <select id="@("_cbosearchoperator_" + _IdSearch)">
+                <select class="search_operator" id="@("_cbosearchoperator_" + _IdSearch)">
                     @foreach (AllCodeInfo item in _ListSearchOperator)
                     {
                         <option value="@item.CdVal">
@@ -69,7 +75,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" style="min-width:400px" id="@("_txtsearchvalue_" + _IdSearch)">
+                <input class="search_values" type="text" style="min-width:400px" id="@("_txtsearchvalue_" + _IdSearch)">
                 @if (_IsFirst != 1)
                 {
                      <a href="javascript:;" style="color:red;width:20px;border:none" onclick="funcdeletecondition(@_IdSearch)">xóa </a>

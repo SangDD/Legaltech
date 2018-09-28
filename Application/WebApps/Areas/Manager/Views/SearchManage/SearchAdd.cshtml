@@ -48,7 +48,6 @@
                 <div class="div-title-content"> THÔNG TIN SEARCH </div>
             </div>
         </div>
-
         <div class="div-search-ad">
             <div class="div-search-title">
                 <div> Case name:</div>
@@ -59,7 +58,6 @@
                 </div>
             </div>
         </div>
-
         <div class="div-search-ad">
             <div class="div-search-title">
                 <div> Client Reference: </div>
@@ -70,7 +68,6 @@
                 </div>
             </div>
         </div>
-       
         <fieldset style="padding:10px; margin-top:20px;">
             <legend>
                 Điều kiện Search
@@ -101,11 +98,9 @@
 
     <div class="class_save">
         <div class="classGuiDon">
-            <input type="button" value="Gửi bài" id="btnGuiDon" class="btn" />
+            <input type="button" value="Gửi câu hỏi" id="btnGuiBai" class="btn" />
         </div> 
-        <div class="classLuuTam">
-            <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn" />
-        </div>
+      
     </div>
 
 
@@ -118,17 +113,16 @@
 
      });
 
-        function funcAddCondition()
-        {
+        function funcAddCondition() {
             try {
                 var txtDdSeachClass = $(".txtIdSeachClass").last().val();
                 $.ajax({
                     type: 'POST',
                     url: '/quan-ly-search/them-dieu-kien/',
                     data: {
-                        _idSearch: txtDdSeachClass/1 + 1
+                        _idSearch: txtDdSeachClass / 1 + 1
                     },
-                    async: true, cache: false, traditional: true,                   
+                    async: true, cache: false, traditional: true,
                     success: function (data) {
                         $("#div_searchcondtion_content").append(data);
                     }
@@ -138,8 +132,7 @@
             }
         }
 
-        function funcdeletecondition(_idsearch)
-        {
+        function funcdeletecondition(_idsearch) {
             try {
                 $("#div_condition_" + _idsearch).remove();
             } catch (e) {
@@ -147,51 +140,85 @@
             }
         }
 
-        $("#btnLuuTam").click(function () {
+        $("#btnGuiBai").click(function () {
             try {
-                var reponse = false;
                 var formData = new FormData();
-                var txtTitle = $("#txtTitle");
-                var CboAddWikiCataParent = $("#CboAddWikiCataParent");
-                var CboAddWikiCataChild = $("#CboAddWikiCataChild");
 
-                if (txtTitle.val().trim() == "") {
-                    showError('Tiêu đề không được để trống!');
-                    txtTitle.focus();
+                var _txtcasename = $("#_txtcasename");
+                var txtClient_Reference = $("#txtClient_Reference");
+
+                if (_txtcasename.val().trim() == "") {
+                    jError("Case code không được bỏ trống!", "lỗi", function () {
+                        _txtcasename.val('');
+                        _txtcasename.focus();
+                    });
                     return false;
                 }
-
-                if (CboAddWikiCataChild.val() == "" || CboAddWikiCataChild.val() == null) {
-                    showError('Chủ đề bài viết không được để trống!');
-                    $("#CboAddWikiCataChild").multipleSelect("focus");
+                if (txtClient_Reference.val().trim() == "") {
+                    jError("Client Reference không được bỏ trống!", "lỗi", function () {
+                        txtClient_Reference.val('');
+                        txtClient_Reference.focus();
+                    });
                     return false;
                 }
                 var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
-                if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
-                    showError('Nội dung bài viết không được để trống!!');
-                    txtAddContent.focus();
-                    txtAddContent.setData('');
+              
+
+                formData.append("p_searchHeaderInfo.CASE_CODE", _txtcasename.val().trim());
+                formData.append("p_searchHeaderInfo.CLIENT_REFERENCE", txtClient_Reference.val());
+                formData.append("p_searchHeaderInfo.CONTENT", _contentVal);
+                formData.append("p_searchHeaderInfo.STATUS", '@CommonSearch.Stt_PhanChoLuatSu');
+                var _checkvaluessearch = 0;
+                var _searchValuesitem;
+                $('.search_andor').each(function (i, item) {
+                    formData.append("p_SearchObject_Detail_Info[" + i + "].ANDOR", $(item).val());
+                });
+                $('.search_type').each(function (i, item) {
+                    formData.append("p_SearchObject_Detail_Info[" + i + "].SEARCH_TYPE", $(item).val());
+                });
+                $('.search_operator').each(function (i, item) {
+                    formData.append("p_SearchObject_Detail_Info[" + i + "].SEARCH_OPERATOR", $(item).val());
+                });
+                $('.search_values').each(function (i, item) {
+                    if ($(item).val().trim() == "" && _checkvaluessearch == 0)
+                    {
+                        _checkvaluessearch = 1;
+                        _searchValuesitem = item;
+                    }
+                    formData.append("p_SearchObject_Detail_Info[" + i + "].SEARCH_VALUE", $(item).val());
+                });
+                if (_checkvaluessearch == 1)
+                {
+                    jError("Giá trị tìm kiếm không được phép để trống", "lỗi", function () {
+                        $(_searchValuesitem).focus();
+                    });
                     return false;
                 }
-                formData.append("_objectInfo.TITLE", txtTitle.val().trim());
-                formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
-                formData.append("_objectInfo.CONTENT", _contentVal);
-                formData.append("_objectInfo.STATUS", '@CommonWiki.Stt_luutam');
-                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_01", "0");
-                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_02", "1");
-                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_03", "2");
+                if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
+                    jError("Nội dung tìm kiếm không được để trống", "lỗi", function () {
+                        txtAddContent.focus();
+                        txtAddContent.setData('');
+                    });
+                    return false;
+                }
+                formData.append("p_questionInfo.SUBJECT", _contentVal);
+
                 $.ajax({
-                    url: '/wiki-manage/wiki-doc/add-doc',
+                    url: '/quan-ly-search/SearchInsert/',
                     type: 'POST',
                     data: formData,
                     processData: false, contentType: false, traditional: true, dataType: "json",
                     enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                     success: function (data) {
-                        if (data != null && data.status >= 0) {
-                            doUpdateHashTag(data.HashTag, data.status);
-                        } else {
-                            jError(AddFail, ThongBao, function () {
+                        if (data != null && data.success >= 0) {
+                            jAlert('Thêm search thành công!', "THÔNG BÁO", function () {
+                                var url = "/quan-ly-search/danh-sach-search/1";
+                                window.location.href = url;
                             });
+                        } else {
+                            jError("Có lỗi trong quá trình xử lý dữ liệu");
+                            return false;
+                   
                         }
                     },
                     error: function (e) {
@@ -205,70 +232,6 @@
             }
 
         });
-
-
-
-        $("#btnGuiDon").click(function () {
-            try {
-                var reponse = false;
-                var formData = new FormData();
-                var txtTitle = $("#txtTitle");
-                var CboAddWikiCataParent = $("#CboAddWikiCataParent");
-                var CboAddWikiCataChild = $("#CboAddWikiCataChild");
-
-                if (txtTitle.val().trim() == "") {
-                    showError('Tiêu đề không được để trống!');
-                    txtTitle.focus();
-                    return false;
-                }
-
-                if (CboAddWikiCataChild.val() == "" || CboAddWikiCataChild.val() == null) {
-                    showError('Chủ đề bài viết không được để trống!');
-                    $("#CboAddWikiCataChild").multipleSelect("focus");
-                    return false;
-                }
-                var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
-                if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
-                    showError('Nội dung bài viết không được để trống!!');
-                    txtAddContent.focus();
-                    txtAddContent.setData('');
-                    return false;
-                }
-                formData.append("_objectInfo.TITLE", txtTitle.val().trim());
-                formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
-                formData.append("_objectInfo.CONTENT", _contentVal);
-                formData.append("_objectInfo.STATUS", "2");
-                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_01", "0");
-                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_02", "1");
-                ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_03", "2");
-                $.ajax({
-                    url: '/wiki-manage/wiki-doc/add-doc',
-                    type: 'POST',
-                    data: formData,
-                    processData: false, contentType: false, traditional: true, dataType: "json",
-                    enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
-                    success: function (data) {
-                        if (data != null && data.status >= 0) {
-                            doUpdateHashTag(data.HashTag, data.status);
-                        } else {
-                            jError(AddFail, ThongBao, function () {
-                            });
-                        }
-                    },
-                    error: function (e) {
-                        console.log(e);
-                    }
-                });
-
-            } catch (e) {
-                alert(e.toString());
-                return false;
-            }
-
-        });
-         
-
-        
 
     </script>
 }
