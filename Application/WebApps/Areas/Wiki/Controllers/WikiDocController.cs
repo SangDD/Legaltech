@@ -64,7 +64,7 @@ namespace WebApps.Areas.Wiki.Controllers
             {
                 var _WikiCataBL = new WikiCatalogue_BL();
                 var ObjBL = new WikiDoc_BL();
-                lstObj = ObjBL.WikiDoc_Search(_Status .ToString() + "||");
+                lstObj = ObjBL.WikiDoc_Search(_Status.ToString() + "||");
                 ViewBag.Paging = ObjBL.GetPagingHtml();
                 List<WikiCatalogues_Info> lstOjects = _WikiCataBL.WikiCatalogueGetAll();
                 ViewBag.ListCata = lstOjects;

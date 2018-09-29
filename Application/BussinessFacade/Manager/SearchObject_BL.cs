@@ -7,10 +7,11 @@ using DataAccess;
 using Common;
 using ObjectInfos;
 using System.Data;
+using Common.SearchingAndFiltering;
 
 namespace BussinessFacade
 {
-   public class SearchObject_BL
+   public class SearchObject_BL: RepositoriesBL
     {
         public decimal SEARCH_HEADER_INSERT(SearchObject_Header_Info p_SearchObject_Header_Info)
          
@@ -71,14 +72,16 @@ namespace BussinessFacade
             }
         }
 
-        public List<SearchObject_Header_Info> SEARCH_OBJECT_SEARCH(string p_key_search, ref decimal p_total_record,
-                string p_from = "1", string p_to = "10", string p_sort_type = "ALL")
+        public List<SearchObject_Header_Info> SEARCH_OBJECT_SEARCH(string P_KEY_SEARCH = "", string OPTIONS = "")
         {
             try
             {
-                SearchObject_DA _objDA = new SearchObject_DA();
-                DataSet _ds = _objDA.SEARCH_OBJECT_SEARCH(p_key_search, p_from, p_to, p_sort_type, ref p_total_record);
-                return CBO<SearchObject_Header_Info>.FillCollectionFromDataSet(_ds);
+                SearchObject_DA _da = new SearchObject_DA();
+                var optionFilter = new OptionFilter(OPTIONS);
+                decimal totalRecordFindResult = 0;
+                var ds = _da.SEARCH_OBJECT_SEARCH(P_KEY_SEARCH, optionFilter, ref totalRecordFindResult);
+                this.SetupPagingHtml(optionFilter, Convert.ToInt32(totalRecordFindResult), "pageListOfObjects", "divNumberRecordOnPageListObjects");
+                return CBO<SearchObject_Header_Info>.FillCollectionFromDataSet(ds);
             }
             catch (Exception ex)
             {
@@ -129,6 +132,22 @@ namespace BussinessFacade
                 return -1;
             }
         }
+        public decimal SEARCH_QUESTION_UPDATE(SearchObject_Question_Info p_question_info)
+        {
+            try
+            {
+
+                SearchObject_DA _objDA = new SearchObject_DA();
+                return _objDA.SEARCH_QUESTION_UPDATE(p_question_info);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
+        
 
         public decimal SEARCH_QUESTION_DELETE(decimal P_SEARCH_ID)
         {

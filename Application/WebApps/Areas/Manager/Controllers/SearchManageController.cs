@@ -19,12 +19,13 @@ namespace WebApps.Areas.Manager.Controllers
 
         [HttpGet]
         [Route("danh-sach-search/{id}")]
-        public ActionResult Index()
+        public ActionResult ListByStatus()
         {
             if (SessionData.CurrentUser == null)
             {
                 return Redirect("/dang-xuat");
             }
+            List<SearchObject_Header_Info> lstOjects = new List<SearchObject_Header_Info>();
             try
             {
                 int _Status = 0;
@@ -33,13 +34,38 @@ namespace WebApps.Areas.Manager.Controllers
                     _Status = Convert.ToInt32(RouteData.Values["id"]);
                     ViewBag.CurrStatus = _Status;
                 }
+                var _SearchObject_BL = new SearchObject_BL();
+                lstOjects = _SearchObject_BL.SEARCH_OBJECT_SEARCH(_Status.ToString() + "|ALL|ALL|ALL|ALL");
+                ViewBag.Paging = _SearchObject_BL.GetPagingHtml();
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
             }
-            return View(@"~\Areas\Manager\Views\SearchManage\ListSearch.cshtml");
+            return View(@"~\Areas\Manager\Views\SearchManage\ListSearch.cshtml", lstOjects);
         }
+
+
+        [HttpPost]
+        [Route("findobject-search")]
+        public ActionResult FindsOnjectSearch(string keysSearch, string options)
+        {
+            List<SearchObject_Header_Info> lstOjects = new List<SearchObject_Header_Info>();
+            try
+            {
+
+                var _SearchObject_BL = new SearchObject_BL();
+                lstOjects = _SearchObject_BL.SEARCH_OBJECT_SEARCH(keysSearch, options);
+                ViewBag.Paging = _SearchObject_BL.GetPagingHtml();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return null;
+            }
+            return PartialView(@"~\Areas\Manager\Views\SearchManage\_SearchData.cshtml", lstOjects);
+        }
+
 
         [HttpGet]
         [Route("them-moi")]

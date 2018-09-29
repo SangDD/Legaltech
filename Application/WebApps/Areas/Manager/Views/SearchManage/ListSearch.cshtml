@@ -3,7 +3,7 @@
 @using Common.CommonData
 @using ObjectInfos;
 @{
-    ViewBag.Title = "Danh sách bài viết lưu tạm";
+    ViewBag.Title = "Quản lý Search";
     Layout = "~/ViewsShared/_Layout.cshtml";
     List<WikiCatalogues_Info> _listcata = new List<WikiCatalogues_Info>();
     if (ViewBag.ListCata != null)
@@ -11,7 +11,7 @@
         _listcata = ViewBag.ListCata;
     }
     int _CurrentStatus = ViewBag.CurrStatus;
-    string _hef01 = "", _hef02 = "", _hef04 = "";
+    string _hef01 = "", _hef02 = "", _hef03 = "", _hef04 = "";
     if (_CurrentStatus == 1)
     {
         _hef01 = "text-decoration: underline;";
@@ -19,6 +19,10 @@
     if (_CurrentStatus == 2)
     {
         _hef02 = "text-decoration: underline;";
+    }
+    if (_CurrentStatus == 3)
+    {
+        _hef03 = "text-decoration: underline;";
     }
     if (_CurrentStatus == 4)
     {
@@ -64,27 +68,27 @@
             <table style="margin:10px 0px">
                 <tr>
                     <td>
-                        <a style="@_hef01" href="/quan-ly-search/them-moi">1. Create New Search</a>
+                        <a   href="/quan-ly-search/them-moi">1. Create New Search</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <a style="@_hef02" href="/wiki-manage/wiki-doc/list/@CommonSearch.Stt_PhanChoLuatSu">  2. Search cần phân cho luật sư</a>
+                        <a style="@_hef01" href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_PhanChoLuatSu">  2. Search cần phân cho luật sư</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <a style="@_hef04" href="/wiki-manage/wiki-doc/list/@CommonSearch.Stt_ChoLuatSuPhanHoi">  3. Search chờ luật sư phản hồi</a>
+                        <a style="@_hef02" href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_ChoLuatSuPhanHoi">  3. Search chờ luật sư phản hồi</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <a style="@_hef04" href="/wiki-manage/wiki-doc/list/@CommonSearch.Stt_ChoDuyet">  4. Search chờ duyệt (Ls đã phản hồi)</a>
+                        <a style="@_hef03" href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_ChoDuyet">  4. Search chờ duyệt (Ls đã phản hồi)</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <a style="@_hef04" href="/wiki-manage/wiki-doc/list/@CommonSearch.Stt_DaPhanHoi">  5. Search đã phản hồi </a>
+                        <a style="@_hef04" href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_DaPhanHoi">  5. Search đã phản hồi </a>
                     </td>
                 </tr>
             </table>
@@ -95,37 +99,43 @@
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div style="width: 120px">Chủ đề bài viết</div>
+                    <div style="width: 120px">Case code</div>
                 </div>
                 <div>
                     <div style="width:200px">
-                        <select id="cboSearchWikiCatalogue">
-                            <option value="ALL">
-                                Tất cả
-                            </option>
-                            @foreach (WikiCatalogues_Info item in _listcata)
-                            {
-                                if (item.CATA_LEVEL == 1)
-                                {
-                                    <option value="@item.ID">
-                                        @item.NAME
-                                    </option>
-                                }
-                            }
-                        </select>
+                        <input type="text" id="txtCasecode" data-controlcondition="TRUE" />
                     </div>
                 </div>
                 <div class="div-search-title">
-                    <div style="width: 120px">Tiêu đề/Hashtag</div>
+                    <div style="width: 120px">Client Reference</div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" id="txtSearchTitleHashtag" data-controlcondition="TRUE" />
+                        <input type="text" id="_txtClientReference" data-controlcondition="TRUE" />
+                    </div>
+                </div>
+           
+            </div>
+            <div class="div-search-ad">
+
+                <div class="div-search-title">
+                    <div style="width: 120px">Khách hàng tạo</div>
+                </div>
+                <div class="div-search-content">
+                    <div style="width:200px">
+                        <input type="text" id="_txtCreateBy" data-controlcondition="TRUE" />
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div style="width: 120px">Luật sư được phân</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="_txtLawer" data-controlcondition="TRUE" />
                     </div>
                 </div>
             </div>
-
-        </div>
+            </div>
 
         <div class="divCover">
             <div class="div-search-btn" style="width:450px;">
@@ -135,69 +145,65 @@
 
         <div class="divCover">
             <div id="divTableObjects">
-            
+                @Html.Partial("/Areas/Manager/Views/SearchManage/_SearchData.cshtml")
             </div>
         </div>
 
     </div>
 
     <script>
-        function TodofindObjects(_pageNumber, _isSearching) {
+        var _currentKeySearch = '/Areas/Manager/Views/SearchManage/ListSearch.cshtml' + '@_CurrentStatus';
+        var _currentOptionFilter = '/Areas/Manager/Views/SearchManage/ListSearchFilter.cshtml' + '@_CurrentStatus';
+        var _status = '@_CurrentStatus', _casename = "", _clientref = "", _createby = "", _lawer = "";
+
+        $(document).ready(function () {
+              initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findObjects);
+              $('#txtCasecode').focus();
+            $('[data-controlcondition="TRUE"]').on('keypress',
+				function (e) {
+				    enterKeyPress(e, 'btnfindObjects');
+				});
+        });
+
+
+        function findObjects(_pageNumber, _isSearching) {
             try {
-                var _TodosearchContent = "";
-                var _RecordonPage = 5;
-                if (_isSearching === 1) {
-                    _Keysearch = "";
+                reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
+                if (isSearching === 1) {
+                    _status = '@_CurrentStatus';
+                    _casename = $("#txtCasecode").val();
+                    _clientref = $("#_txtClientReference").val().trim();
+                    _createby = $("#_txtCreateBy").val();
+                    _lawer = $("#_txtLawer").val();
+
                 } else {
-                    //_arrKeySearch = _TodoKeysearch.split('|');
-                    //_searchContent = _TodoarrKeySearch[0];
-                    _TodosearchContent = "";
+                    window.arrKeySearch = window.keySearch.split('|');
+
+                    _status = arrKeySearch[0];
+                    _casename = arrKeySearch[1];
+                    _clientref = arrKeySearch[2];
+                    _createby = arrKeySearch[3];
+                    _lawer = arrKeySearch[4];
+                    $("#txtCasecode").val(_casename);
+                    $("#_txtClientReference").val().trim(_clientref);
+                    $("#_txtCreateBy").val(_createby);
+                    $("#_txtLawer").val(_lawer);
                 }
 
-                var orderby = $("#colSortedTodo").val();
-                var orderType = $("#SortTypeTodo").val();
-                //if (orderby.indexOf("NUMBER_TEXT") >= 0) {
-                //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
-                //}
-                //else if (orderby.indexOf("TITLE") >= 0) {
-                //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
-                //}
-                //else if (orderby.toLocaleUpperCase().indexOf("AGENCIE_NAME") >= 0) {
-                //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
-                //}           
+                updateSearchingConditions("divNumberRecordOnPageListObjects", setKeySearch);
+
                 $.ajax({
                     type: "POST",
                     headers: { "cache-control": "no-cache" },
-                    url: "/search-todos",
+                    url: "/quan-ly-search/findobject-search/",
                     data: {
-                        keysSearch: _TodosearchContent,
-                        _sortype: (orderby + " " + orderType),
-                        _reconpage: _RecordonPage,
-                        p_CurrentPage: _pageNumber
+                        keysSearch: keySearch,
+                        options: optionFilter
                     },
-                    async: true,
+                    async: false,
                     success: function (data) {
                         if (data != null) {
-                            var _htmlnotify = "";
-                            $("#LegalTododivTable").html(data.TodoData);
-                            //   alert(data.TodoNotify.NUMBER_APPS);
-                            if (data.TodoNotify.NUMBER_APPS > 0) {
-                                _htmlnotify = _htmlnotify + "<table class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_APPS + "</td></tr><tr><td class='tdnotifytext'>ĐƠN</td></tr></table>";
-                            }
-                            if (data.TodoNotify.NUMBER_QUETIONS > 0) {
-                                _htmlnotify = _htmlnotify + "<table  class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_QUETIONS + "</td></tr><tr><td class='tdnotifytext'>CÂU HỎI</td></tr></table>";
-                            }
-                            if (data.TodoNotify.NUMBER_SEARCH > 0) {
-                                _htmlnotify = _htmlnotify + "<table  class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_SEARCH + "</td></tr><tr><td class='tdnotifytext'>TÌM KIẾM</td></tr></table>";
-                            }
-                            if (data.TodoNotify.NUMBER_TIMESHEET > 0) {
-                                _htmlnotify = _htmlnotify + "<table  class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_TIMESHEET + "</td></tr><tr><td class='tdnotifytext'>TIMESHEET</td></tr></table>";
-                            }
-                            if (data.TodoNotify.NUMBER_BILLS > 0) {
-                                _htmlnotify = _htmlnotify + "<table  class='tbl_todonotify'><tr><td class='tdnotifynumber'>" + data.TodoNotify.NUMBER_BILLS + "</td></tr><tr><td class='tdnotifytext'>HÓA ĐƠN</td></tr></table>";
-                            }
-                            $("#d_todo_notify").html(_htmlnotify);
-
+                            onResponseWhenSearching(data, "divTableObjects", findObjects);
                         }
                     }
                 });
@@ -206,72 +212,34 @@
                 alert(e.toString());
                 return false;
             }
+
+
         }
 
-        function TodojsPaging(_page) {
+        function setKeySearch() {
+            window.keySearch = _status + "|" + _casename + "|" + _clientref + "|" + _createby + "|" + _lawer;
+        }
+
+        function initOrderBySearching() {
+            window.colSort = 'MODIFIED_DATE';
+            window.sortType = 'DESC';
+        }
+
+        function pageListOfObjects(_pagenum) {
             try {
-                TodofindObjects(_page, 0);
+                findObjects(_pagenum, 0);
+
             } catch (e) {
-                alert(e.toString());
+                console.log(e.message);
             }
         }
-
-
-        function TodoSortByCol(value) {
-            try {
-                //Lay gia tri luu trong colSort luu duoi dang text Hidden
-                var _currentColSorted = $("#colSortedTodo").val();
-                //Lay gia tri luu trong SortType luu duoi dang text Hidden
-                var _currentSortedType = $("#SortTypeTodo").val();
-                var tag = "#" + value;
-                if (_currentColSorted == value) {
-                    if (_currentSortedType == "ASC") {
-                        $("#SortTypeTodo").val("DESC");
-                    }
-                    else {
-                        $("#SortTypeTodo").val("ASC");
-                    }
-                }
-                else {
-                    $("#colSortedTodo").val(value);
-                    $("#SortTypeTodo").val("ASC");
-                }
-                var pos = document.getElementById("tableListTodo").parentElement.scrollLeft;
-                //Sort lai thi ve trang dau
-                TodofindObjects(1, 0);
-                //Sort lai thi ve trang dau
-                document.getElementById("tableListTodo").parentElement.scrollLeft = pos;
-            } catch (e) {
-                console.info(e.toString());
-            }
-        }
-
-        function TodoChangeIConSortWhenSortColumns() {
-            try {
-                var _order_by = $("#colSortedTodo").val();
-                var _order_type = $("#SortTypeTodo").val();
-                var _text = _order_type == 'DESC' ? $("#" + _order_by).text() + " ▼" : $("#" + _order_by).text() + " ▲";
-                $("#" + _order_by).text(_text);
-            }
-            catch (e) {
-            }
-        }
-
-        $('#cboSearchWikiCatalogue').multipleSelect({
-            filter: true,
-            noMatchesFound: "Không tìm thấy dữ liệu",
-            single: true,
-            isdatastring: false,
-            placeholder: 'Tìm kiếm chủ đề'
-        });
 
 
         function doDeleteObject(p_id) {
             try {
-
-                    nvsConfirm(null, "Bạn có chắc chắn muốn xóa bài viết này không?", function () {
+                    nvsConfirm(null, "Bạn có chắc chắn muốn xóa bản ghi search này không?", function () {
                         $.ajax({
-                            url: "/wiki-manage/wiki-doc/do-delete-doc",
+                            url: "/quan-ly-search/do-delete",
                             type: "POST",
                             data: { p_id: p_id },
                             headers: { "cache-control": "no-cache" },

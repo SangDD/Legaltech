@@ -101,21 +101,21 @@ namespace DataAccess
             }
         }
 
-        public DataSet SEARCH_OBJECT_SEARCH(string p_key_search, string p_from, string p_to, string p_sort_type, ref decimal p_total_record)
+        public DataSet SEARCH_OBJECT_SEARCH(string keysSearch, OptionFilter options, ref decimal totalRecord)
         {
             try
             {
-                OracleParameter paramReturn = new OracleParameter("p_total_record", OracleDbType.Decimal, ParameterDirection.Output);
-                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SEARCH_OBJECTS.PROC_SEARCH_OBJECT_SEARCH",
-                    new OracleParameter("p_key_search", OracleDbType.Varchar2, p_key_search, ParameterDirection.Input),
-                    new OracleParameter("p_from", OracleDbType.Varchar2, p_from, ParameterDirection.Input),
-                    new OracleParameter("p_to", OracleDbType.Varchar2, p_to, ParameterDirection.Input),
-                    new OracleParameter("p_sort_type", OracleDbType.Varchar2, p_sort_type, ParameterDirection.Input),
-                    paramReturn,
-                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output)
-                   );
-                p_total_record = Convert.ToDecimal(paramReturn.Value.ToString());
-                return _ds;
+                DataSet _Ds = new DataSet();
+                OracleParameter paramReturn = new OracleParameter("P_TOTAL_RECORD", OracleDbType.Decimal, ParameterDirection.Output);
+                _Ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SEARCH_OBJECTS.PROC_SEARCH_OBJECT_SEARCH",
+                new OracleParameter("P_KEY_SEARCH", OracleDbType.Varchar2, keysSearch.ToFillKeySearch(), ParameterDirection.Input),
+                new OracleParameter("P_FROM", OracleDbType.Varchar2, options.StartAt.ToString(), ParameterDirection.Input),
+                new OracleParameter("P_TO", OracleDbType.Varchar2, options.EndAt.ToString(), ParameterDirection.Input),
+                new OracleParameter("P_SORT_TYPE", OracleDbType.Varchar2, options.OrderBy, ParameterDirection.Input),
+                paramReturn,
+                new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output));
+                totalRecord = Convert.ToDecimal(paramReturn.Value.ToString());
+                return _Ds;
             }
             catch (Exception ex)
             {
@@ -205,8 +205,10 @@ namespace DataAccess
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SEARCH_OBJECTS.PROC_SEARCH_QUESTION_INSERT",
                     new OracleParameter("P_SEARCH_ID", OracleDbType.Decimal, p_question_info.SEARCH_ID, ParameterDirection.Input),
                     new OracleParameter("P_SUBJECT", OracleDbType.Varchar2, p_question_info.SUBJECT, ParameterDirection.Input),
-                    new OracleParameter("P_CONTENT", OracleDbType.Clob, p_question_info.CONTENT, ParameterDirection.Input),
+                    new OracleParameter("P_CONTENT", OracleDbType.Varchar2, p_question_info.CONTENT, ParameterDirection.Input),
                     new OracleParameter("P_RESULT", OracleDbType.Clob, p_question_info.RESULT, ParameterDirection.Input),
+                    new OracleParameter("P_FILE_URL", OracleDbType.Varchar2, p_question_info.FILE_URL, ParameterDirection.Input),
+                    new OracleParameter("P_FILE_URL02", OracleDbType.Varchar2, p_question_info.FILE_URL02, ParameterDirection.Input),
                     paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());
@@ -217,6 +219,28 @@ namespace DataAccess
                 return -1;
             }
         }
+
+        public decimal SEARCH_QUESTION_UPDATE(SearchObject_Question_Info p_question_info)
+        {
+            try
+            {
+                OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SEARCH_OBJECTS.PROC_SEARCH_QUESTION_UPDATE",
+                    new OracleParameter("P_SEARCH_ID", OracleDbType.Decimal, p_question_info.SEARCH_ID, ParameterDirection.Input),
+                    new OracleParameter("P_RESULT", OracleDbType.Clob, p_question_info.RESULT, ParameterDirection.Input),
+                    new OracleParameter("P_FILE_URL", OracleDbType.Varchar2, p_question_info.FILE_URL, ParameterDirection.Input),
+                    new OracleParameter("P_FILE_URL02", OracleDbType.Varchar2, p_question_info.FILE_URL02, ParameterDirection.Input),
+                    paramReturn);
+
+                return Convert.ToDecimal(paramReturn.Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
 
         public decimal SEARCH_QUESTION_DELETE(decimal P_SEARCH_ID)
         {

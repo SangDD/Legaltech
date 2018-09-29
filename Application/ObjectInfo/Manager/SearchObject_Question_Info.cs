@@ -17,5 +17,9 @@ namespace ObjectInfos
         public string CONTENT { get; set; }
 
         public string RESULT { get; set; }
+
+        public string FILE_URL { get; set; }
+
+        public string FILE_URL02 { get; set; }
     }
 }

@@ -8,6 +8,9 @@ namespace ObjectInfos
 {
    public class SearchObject_Header_Info
     {
+
+        public decimal STT { get; set; }
+
         public decimal SEARCH_ID { get; set; }
 
         public string CASE_CODE { get; set; }
@@ -22,6 +25,8 @@ namespace ObjectInfos
 
         public decimal STATUS { get; set; }
 
+        public decimal STATUS_NAME { get; set; }
+
         public decimal LAWER_ID { get; set; }
 
         public string CREATED_BY { get; set; }
@@ -34,5 +39,9 @@ namespace ObjectInfos
         public DateTime MODIFIED_DATE { get; set; }
 
         public string LANGUAGE_CODE { get; set; }
+
+        public string CONTENT { get; set; }
+
+        
     }
 }

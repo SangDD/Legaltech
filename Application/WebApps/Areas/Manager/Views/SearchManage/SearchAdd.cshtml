@@ -24,10 +24,10 @@
             width: 150px;
         }
     </style>
-    <script>
+    @*<script>
         var _isSimpleEditorToolBar = 1;// set cho ckfinder có cấu hình xoạn thảo đơn giản
-    </script>
-    <script src="~/Content/ckeditor/ckeditor.js"></script>
+    </script>*@
+   // <script src="~/Content/ckeditor/ckeditor.js"></script>
     <div class="divCover">
         <div class="d-nav">
             <img src="~/Content/icons/Body-icon-home.png" />              
@@ -47,14 +47,41 @@
             <div class="classTitle">
                 <div class="div-title-content"> THÔNG TIN SEARCH </div>
             </div>
+            <table style="margin:10px 0px">
+                <tr>
+                    <td>
+                        <a  style="text-decoration: underline;" href="/quan-ly-search/them-moi">1. Create New Search</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_PhanChoLuatSu">  2. Search cần phân cho luật sư</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a  href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_ChoLuatSuPhanHoi">  3. Search chờ luật sư phản hồi</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a   href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_ChoDuyet">  4. Search chờ duyệt (Ls đã phản hồi)</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a   href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_DaPhanHoi">  5. Search đã phản hồi </a>
+                    </td>
+                </tr>
+            </table>
         </div>
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div> Case name:</div>
+                <div> Case code:</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Case name" maxlength="200" id="_txtcasename"  />
+                    <input type="text" placeholder="Case code" maxlength="200" id="_txtcasecode"  />
                 </div>
             </div>
         </div>
@@ -80,18 +107,15 @@
           
 
             <div class="div-search-ad" style="float:left; width:100%;">
-               
                   <input class="btn" style="margin: 4px 0px 0px 0px;" type="button" value="Thêm điều kiện" onclick="funcAddCondition()" /> 
-                
-               
             </div>
           
         </fieldset>
           
 
         <div style="margin-top:15px">
-            <div>Nội dung câu hỏi<i class="redspan">(*)</i></div>
-            <textarea type="text" id="txtAddContent"></textarea>
+            <div>Mô tả<i class="redspan">(*)</i></div>
+            <textarea type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200"></textarea>
         </div>
 
     </div>
@@ -107,11 +131,11 @@
 
     <script>
 
-        var txtAddContent = CKEDITOR.replace("txtAddContent",
-     {
-         height: 500
+     //   var txtAddContent = CKEDITOR.replace("txtAddContent",
+     //{
+     //    height: 500
 
-     });
+     //});
 
         function funcAddCondition() {
             try {
@@ -144,13 +168,13 @@
             try {
                 var formData = new FormData();
 
-                var _txtcasename = $("#_txtcasename");
+                var _txtcasecode = $("#_txtcasecode");
                 var txtClient_Reference = $("#txtClient_Reference");
 
-                if (_txtcasename.val().trim() == "") {
+                if (_txtcasecode.val().trim() == "") {
                     jError("Case code không được bỏ trống!", "lỗi", function () {
-                        _txtcasename.val('');
-                        _txtcasename.focus();
+                        _txtcasecode.val('');
+                        _txtcasecode.focus();
                     });
                     return false;
                 }
@@ -161,12 +185,11 @@
                     });
                     return false;
                 }
-                var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
+                //var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
               
 
-                formData.append("p_searchHeaderInfo.CASE_CODE", _txtcasename.val().trim());
+                formData.append("p_searchHeaderInfo.CASE_CODE", _txtcasecode.val().trim());
                 formData.append("p_searchHeaderInfo.CLIENT_REFERENCE", txtClient_Reference.val());
-                formData.append("p_searchHeaderInfo.CONTENT", _contentVal);
                 formData.append("p_searchHeaderInfo.STATUS", '@CommonSearch.Stt_PhanChoLuatSu');
                 var _checkvaluessearch = 0;
                 var _searchValuesitem;
@@ -194,14 +217,22 @@
                     });
                     return false;
                 }
-                if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
-                    jError("Nội dung tìm kiếm không được để trống", "lỗi", function () {
+                //if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
+                //    jError("Nội dung tìm kiếm không được để trống", "lỗi", function () {
+                //        txtAddContent.focus();
+                //        txtAddContent.setData('');
+                //    });
+                //    return false;
+                //}
+                var txtAddContent = $("#txtAddContent");
+                if (txtAddContent.val().trim() == "") {
+                    jError("Mô tả câu hỏi không được bỏ trống!", "lỗi", function () {
+                        txtAddContent.val('');
                         txtAddContent.focus();
-                        txtAddContent.setData('');
                     });
                     return false;
                 }
-                formData.append("p_questionInfo.SUBJECT", _contentVal);
+                formData.append("p_questionInfo.CONTENT", txtAddContent);
 
                 $.ajax({
                     url: '/quan-ly-search/SearchInsert/',
