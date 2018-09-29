@@ -1,5 +1,6 @@
-﻿@using Common.CommonData
+﻿@using WebApps.CommonFunction
 @using ObjectInfos;
+@using BussinessFacade.ModuleMemoryData
 @model NewsInfo
 @{
     ViewBag.Title = "Quản lý bài viết";
@@ -10,6 +11,12 @@
         objInfo = (NewsInfo)Model;
     }
 
+    string urlMauNhanHieu = "/Content/icons/logo.jpg";
+    if (!string.IsNullOrEmpty(objInfo.Imageheader))
+    {
+
+        urlMauNhanHieu = objInfo.Imageheader.Replace("~", "");
+    }
 }
 @try
 {
@@ -57,6 +64,8 @@
                 <input type="hidden" value="MODIFIED_DATE" id="colSorted" />
                 <input type="hidden" value="DESC" id="SortType" />
                 <input type="hidden" value="" id="OptionSorting" />
+                <input type="hidden" id="txtLogoOld" value="@urlMauNhanHieu" />
+
                 <div class="div-title-content">SỬA THÔNG TIN BÀI VIẾT </div>
             </div>
         </div>
@@ -78,22 +87,45 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txtHeader" value="@Html.Raw(objInfo.Header)"  maxlength="250" />
+                    <input type="text" id="txtHeader" value="@Html.Raw(objInfo.Header)" maxlength="250" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.lblQuocGia</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="6_txtNuocNopDon" class="classDacTinhUT">
+                        @foreach (var item in MemoryData.c_lst_Country)
+                        {
+                            if (Model.Country_Id == item.Country_Id)
+                            {
+                                <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Country_Id">@item.Name</option>
+                            }
+                        }
+                    </select>
                 </div>
             </div>
         </div>
 
         <div class="class_full_div_input">
+
             <div class="class_left_40">
-                <div class="class_block_title" style="padding-top:5px; ">
-                    <label>@WebApps.Resources.Resource.lblAnhDaiDien :</label>
-                </div>
+                <div class="class_block_title" style="padding-top:5px; "><label>@WebApps.Resources.Resource.lblAnhDaiDien:</label> </div>
                 <div class="class_block_title_control" style="display:flex">
                     <div style="width:120px ;height:120px;margin-left: 40px;" id="divLogo">
-                        <img id="imgMauNhanHieu" src="~/Content/images/logo_ipace.png" style="width:120px ;height:120px">
-                        <img id="imgMauNhanHieuTeplace" src="~/Content/images/logo_ipace.png" hidden="hidden">
+                        <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:120px ;height:120px">
+                        <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
                     </div>
                     <div class="container" style="flex-grow:1;padding-top:20px">
+                        <img onclick="funcRemoveTradeMarkImg('imgMauNhanHieu')" src="~/Content/icons/delete_file.png" style="margin: 0px 21px -44px 4px;" />
                         <div class="file-upload btn btn-primary" style="margin-top:95px">
                             <span>@WebApps.Resources.Resource.lblTaiFile</span>
                             <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
@@ -101,6 +133,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
         <div style="margin-top:15px">
@@ -139,7 +172,7 @@
     </div>
 
 
-    <div class="class_save">
+    <div class="class_save"  style="margin-left:163px;">
         <div class="classGuiDon">
             <input type="button" value="Gửi bài" id="btnLuuBai" class="btn" />
         </div> <div class="classLuuTam">
@@ -153,6 +186,19 @@ catch (Exception)
 }
 
 <script>
+    function funcRemoveTradeMarkImg(ptag) {
+        $("#" + ptag).attr('src', '');
+        $("#txtLogoOld").val("");
+
+    }
+    $('#6_txtNuocNopDon').multipleSelect({
+        filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        isdatastring: false,
+        placeholder: 'Tìm kiếm quốc gia'
+    });
+
     $(document).ready(function () {
         $("#txtTitle").focus();
     });
@@ -206,6 +252,8 @@ catch (Exception)
             formData.append("pNewsInfo.ReCategories_Id", recategory);
             formData.append("pNewsInfo.Header", header);
             formData.append("pNewsInfo.Status", pStatus);
+            var v_Nuocnopdon_Ut = $("#6_txtNuocNopDon").val();
+            formData.append("pNewsInfo.Country_Id", v_Nuocnopdon_Ut);
             $.ajax({
                 url: '/quan-ly-tin/luu-sua-bai-viet',
                 type: 'POST',
@@ -214,7 +262,7 @@ catch (Exception)
                 enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.status >= 0) {
-                        nvsAlert(AddSuccess, ThongBao, function () {
+                        nvsAlert("Sửa bài viết thành công!", ThongBao, function () {
                             //window.location = "/trade-mark-mana/quan-ly-don";
                         });
                     } else {

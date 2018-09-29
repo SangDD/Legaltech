@@ -20,18 +20,25 @@ namespace WebApps.Areas.Articles.Controllers
     {
         // GET: Articles/ArticlesNews
         [HttpGet]
-        [Route("danh-sach-tin")]
+        [Route("danh-sach-tin/{id}")]
         public ActionResult GetListArticles()
         {
             try
             {
+                decimal pStatus = 0;
                 if (SessionData.CurrentUser == null)
                     return Redirect("/");
+
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    pStatus  = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
+                }
+
                 decimal _total_record = 0;
                 NewsBL objBL = new NewsBL();
-                string _status = "ALL";
-                ViewBag.Status = _status;
-                string _keySearch = "ALL|" + _status;
+                //string _status = "ALL";
+                ViewBag.Status = pStatus.ToString();
+                string _keySearch =  pStatus.ToString() +"|ALL";
                 List<NewsInfo> _lst = objBL.ArticleHomeSearch(_keySearch, ref _total_record);
                 string htmlPaging = CommonFuc.Get_HtmlPaging<NewsInfo>((int)_total_record, 1, "Tin");
                 ViewBag.listArticles = _lst;
@@ -187,5 +194,6 @@ namespace WebApps.Areas.Articles.Controllers
                 return View();
             }
         }
+         
     }
 }

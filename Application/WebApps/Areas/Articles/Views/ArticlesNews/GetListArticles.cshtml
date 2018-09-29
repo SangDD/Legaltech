@@ -36,7 +36,7 @@
         <input type="hidden" value="MODIFIED_DATE" id="colSorted" />
         <input type="hidden" value="DESC" id="SortType" />
         <input type="hidden" value="" id="OptionSorting" />
-        <table style="margin:10px 0px">
+        @*<table style="margin:10px 0px">
             <tr>
                 <td>
                     <a style="@hrfLuuTam" href="/quan-ly-tin/danh-sach-tin/1">1. Danh sách bài viết lưu tạm</a>
@@ -52,11 +52,10 @@
                     <a style="@hrfTuChoi" href="/quan-ly-tin/danh-sach-tin/3">  3. Danh sách bài biết bị từ chối</a>
                 </td>
             </tr>
-        </table>
-
+        </table>*@
     </div>
 
-    <div class="divCover" id="div-search-simple">
+    <div class="divCover" id="div-search-simple" style="margin-top:10px">
 
         <div class="div-search-ad">
             <div class="div-search-title">
@@ -69,6 +68,18 @@
                     </select>
                 </div>
             </div>
+
+            <div class="div-search-title">
+                <div style="width: 120px">Trạng thái</div>
+            </div>
+            <div>
+                <div style="width:200px">
+                    <select id="cboStatus">
+                        <option value="ALL"> Tất cả </option>
+                    </select>
+                </div>
+            </div>
+
             <div class="div-search-title">
                 <div style="width: 120px">Tiêu đề</div>
             </div>
@@ -99,14 +110,15 @@
     function funcDelArticles(pID) {
 
         nvsConfirm(null, "Bạn có chắc chắn muốn xóa bài viết này không?", function () {
+            console.log('vao day');
             $.ajax({
                 url: "/quan-ly-tin/xoa-bai-viet",
-                type: "POST",
+                type: "GET",
                 data: {
                     pIDArticles: pID
                 },
-                headers: { "cache-control": "no-cache" },
                 async: true, cache: false, traditional: true,
+                enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                 beforeSend: function () {
                     CreateRollingWaitingIcon(true);
                 },

@@ -781,6 +781,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quốc gia.
+        /// </summary>
+        public static string lblQuocGia {
+            get {
+                return ResourceManager.GetString("lblQuocGia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quy chế sử dụng NH tập thể/chứng nhận, gồm.
         /// </summary>
         public static string lblQuyCheSuDungNH {

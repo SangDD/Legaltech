@@ -409,7 +409,7 @@
               
                 _javafunc = " onclick='gotoTask(this)'>";
 
-                userHtmlMenu += " <li  class='group-menu' onclick='javascript:;' >" + "  <span data-menu='item-main-menu'><i class='far fa-comment'></i> " + _menuName + " </span>  "
+                userHtmlMenu += " <li  class='group-menu' onclick='javascript:;' >" + "  <span data-menu='item-main-menu'><i class='fas fa-cog fa-fw'></i> " + _menuName + " </span>  "
                                             + " <ul class='ul-group-menu collapsed' style='display:none;'>";
                 _lastmenuid++;
                 _wikihref = _urlLang + "/wiki-manage/wiki-doc/list/1";
@@ -446,7 +446,7 @@
                     _menuName = "Wiki data";
                     _urlLang = "/en-gb";
                 }
-                userHtmlMenu += "<li class='group-menu' onclick='javascript:;'>" + "<span data-menu='item-main-menu'><i class='far fa-comment'></i> "+ _menuName + " </span>"
+                userHtmlMenu += "<li class='group-menu' onclick='javascript:;'>" + "<span data-menu='item-main-menu'><i class='fas fa-cog fa-fw'></i> " + _menuName + " </span>"
                                                + "<ul class='ul-group-menu collapsed' style='display:none;'>";
                 foreach (var item in _ListCata)
                 {
@@ -472,9 +472,9 @@
                 #endregion
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // Ignore: since handle exception here make no sense
+                Logger.LogException(ex);
             }
 
             return userHtmlMenu;

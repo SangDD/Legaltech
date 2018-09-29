@@ -31,7 +31,7 @@ namespace ObjectInfos
         public string Unpublicby { get; set; }
         public DateTime Unpublicdate { get; set; }
         public decimal Deleted { get; set; }
-
+        public decimal Country_Id { get; set; }
         public HttpPostedFileBase pfileLogo { get; set; }
     }
 }
