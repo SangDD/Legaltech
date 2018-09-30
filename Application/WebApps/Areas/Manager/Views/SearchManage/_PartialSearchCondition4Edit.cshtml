@@ -1,0 +1,114 @@
+﻿@using BussinessFacade.ModuleMemoryData
+@using ObjectInfos;
+@model SearchObject_Detail_Info
+@{
+    decimal _IdSearch = Model.ID;
+    decimal _IsFirst = Model.IS_FIRST;
+    
+    List<AllCodeInfo> _ListSearchType = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "SEARCHTYPE");
+    List<AllCodeInfo> _ListSearchOperator = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OPERATOR");
+    List<AllCodeInfo> _ListSearchAndor = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "ANDOR");
+    string _displaynone = "";
+ 
+}
+<div id='@("div_condition_" + _IdSearch)'>
+        @if (_IsFirst != 1)
+        {
+            _displaynone = "margin-top:5px;";
+        }
+        else
+        {
+            _displaynone = "display:none;";
+        }
+        <div class="div-search-ad" style='@_displaynone'  >
+            <div class="div-search-content">
+                <div>
+                    <select class="search_andor" id="@("_txtsearchAndor_" + (_IdSearch + 1).ToString())" style="width:150px; border-left:1px solid #ccc">
+                        @foreach (AllCodeInfo item in _ListSearchAndor)
+                        {
+                            if (item.CdVal == Model.ANDOR)
+                            {
+                                <option value="@item.CdVal" selected="selected">
+                                    @item.Content
+                                </option>
+                            }
+                            else
+                            {
+                                <option value="@item.CdVal">
+                                    @item.Content
+                                </option>
+                            }
+
+                        }
+                    </select>
+                </div>
+            </div>
+
+        </div>
+  
+    <div class="div-search-ad" >
+        <div class="div-search-title">
+            <div style="width:100px"> Tiêu chí</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <select class="search_type" id="@("_cbosearchtype_" + _IdSearch)">
+                    @foreach (AllCodeInfo item in _ListSearchType)
+                    {
+                        if (item.CdVal == Model.SEARCH_TYPE)
+                        {
+                            <option value="@item.CdVal" selected="selected">
+                                @item.Content
+                            </option>
+                        }
+                        else
+                        {
+                            <option value="@item.CdVal">
+                                @item.Content
+                            </option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="div-search-title">
+            <div style="width:100px"> Toán tử</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <select class="search_operator" id="@("_cbosearchoperator_" + _IdSearch)">
+                    @foreach (AllCodeInfo item in _ListSearchOperator)
+                    {
+                        if (item.CdVal == Model.SEARCH_OPERATOR)
+                        {
+                            <option value="@item.CdVal" selected="selected">
+                                @item.Content
+                            </option>
+                        }
+                        else
+                        {
+                            <option value="@item.CdVal">
+                                @item.Content
+                            </option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="div-search-title">
+            <div>Giá trị</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input class="search_values" type="text" style="min-width:400px" id="@("_txtsearchvalue_" + _IdSearch)" value="@Model.SEARCH_VALUE">
+                @if (_IsFirst != 1)
+                {
+                     <a href="javascript:;" style="color:red;width:20px;border:none" onclick="funcdeletecondition(@_IdSearch)">xóa </a>
+                }
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" value="@_IdSearch" class="txtIdSeachClass" />
+
+</div>

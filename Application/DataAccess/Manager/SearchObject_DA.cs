@@ -54,7 +54,6 @@ namespace DataAccess
                     new OracleParameter("P_LAWER_ID", OracleDbType.Decimal, p_SearchObject_Header_Info.LAWER_ID, ParameterDirection.Input),
                     new OracleParameter("P_MODIFIED_BY", OracleDbType.Varchar2, p_SearchObject_Header_Info.MODIFIED_BY, ParameterDirection.Input),
                     new OracleParameter("P_MODIFIED_DATE", OracleDbType.Date, p_SearchObject_Header_Info.MODIFIED_DATE, ParameterDirection.Input),
-                    new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, p_SearchObject_Header_Info.LANGUAGE_CODE, ParameterDirection.Input),
                     paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());
@@ -73,7 +72,10 @@ namespace DataAccess
                 DataSet _Ds = new DataSet();
                 _Ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SEARCH_OBJECTS.PROC_SEARCH_HEADER_GETBYID",
                 new OracleParameter("P_SEARCH_ID", OracleDbType.Decimal, P_ID, ParameterDirection.Input),
-                new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output));
+                new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output),
+                new OracleParameter("P_DETAIL_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output),
+                new OracleParameter("P_QUETION_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output)
+                );
                 return _Ds;
             }
             catch (Exception ex)
@@ -138,6 +140,7 @@ namespace DataAccess
                 int _count = 0;
                 foreach (SearchObject_Detail_Info item in P_SearchDetails)
                 {
+                    P_SEARCH_ID[_count] = item.SEARCH_ID;
                     P_SEARCH_TYPE[_count] = item.SEARCH_TYPE;
                     P_SEARCH_VALUE[_count] = item.SEARCH_VALUE;
                     P_SEARCH_OPERATOR[_count] = item.SEARCH_OPERATOR;
@@ -227,6 +230,7 @@ namespace DataAccess
                 OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SEARCH_OBJECTS.PROC_SEARCH_QUESTION_UPDATE",
                     new OracleParameter("P_SEARCH_ID", OracleDbType.Decimal, p_question_info.SEARCH_ID, ParameterDirection.Input),
+                    new OracleParameter("P_CONTENT", OracleDbType.Varchar2, p_question_info.CONTENT, ParameterDirection.Input),
                     new OracleParameter("P_RESULT", OracleDbType.Clob, p_question_info.RESULT, ParameterDirection.Input),
                     new OracleParameter("P_FILE_URL", OracleDbType.Varchar2, p_question_info.FILE_URL, ParameterDirection.Input),
                     new OracleParameter("P_FILE_URL02", OracleDbType.Varchar2, p_question_info.FILE_URL02, ParameterDirection.Input),

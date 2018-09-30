@@ -42,12 +42,15 @@ namespace BussinessFacade
             }
         }
 
-        public SearchObject_Header_Info SEARCH_HEADER_GETBYID(decimal P_ID)
+        public SearchObject_Header_Info SEARCH_HEADER_GETBYID(decimal P_ID, ref List<SearchObject_Detail_Info> p_searchListdetail, ref SearchObject_Question_Info p_question_info)
         {
             try
             {
                 SearchObject_DA _objDA = new SearchObject_DA();
                 DataSet _ds = _objDA.SEARCH_HEADER_GETBYID(P_ID);
+
+                p_searchListdetail = CBO<SearchObject_Detail_Info>.FillCollectionFromDataTable(_ds.Tables[1]);
+                p_question_info = CBO<SearchObject_Question_Info>.FillObjectFromDataTable(_ds.Tables[2]);
                 return CBO<SearchObject_Header_Info>.FillObjectFromDataSet(_ds);
             }
             catch (Exception ex)
