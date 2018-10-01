@@ -1,0 +1,81 @@
+﻿@using ObjectInfos;
+     
+@{
+    SearchObject_Header_Info _HeaderInfo = new SearchObject_Header_Info();
+    List<SearchObject_Detail_Info> _ListDetail = new List<SearchObject_Detail_Info>();
+    SearchObject_Question_Info _QuestionInfo = new SearchObject_Question_Info();
+    if (ViewBag.SearchHeader != null)
+    {
+        _HeaderInfo = ViewBag.SearchHeader;
+    }
+    if (ViewBag.SearchListDetail != null)
+    {
+        _ListDetail = ViewBag.SearchListDetail;
+    }
+    if (ViewBag.QuestionInfo != null)
+    {
+        _QuestionInfo = ViewBag.QuestionInfo;
+    }
+    decimal c_operator_type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update);
+    if (ViewBag.Operator_Type != null)
+    {
+        c_operator_type = (decimal)ViewBag.Operator_Type;
+    }
+}
+
+ <style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+</style>
+
+<div class="divCover cls_form_title">
+    <img src="/Content/icons/icon_info_24.png" />
+    <div class="cls_form_header">
+
+        <a style="text-decoration: underline; font-style: italic; color: blue;" href="/quan-ly-search/search-view/@_HeaderInfo.SEARCH_ID/@_HeaderInfo.STATUS"  >Thông tin Search</a>
+
+        @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update))
+        {
+            <a style="text-decoration: underline; font-style: italic; color: blue;"  href="/quan-ly-search/search-edit/@_HeaderInfo.SEARCH_ID/@_HeaderInfo.STATUS"> Sửa Search </a>
+        }
+    </div>
+</div>
+
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div> Case code:</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input readonly type="text" placeholder="Case code" maxlength="200" id="_txtcasecode" value="@_HeaderInfo.CASE_CODE" />
+        </div>
+    </div>
+</div>
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div> Case name:</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input readonly type="text" placeholder="Case name" maxlength="200" id="_txtcasename" value="@_HeaderInfo.CASE_NAME" />
+        </div>
+    </div>
+</div>
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div> Client Reference: </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input readonly type="text" placeholder="Client Reference" maxlength="200" id="txtClient_Reference" value="@_HeaderInfo.CLIENT_REFERENCE" />
+        </div>
+    </div>
+</div>
+
+<div style="margin-top:15px">
+    <div>Mô tả </div>
+    <textarea readonly type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200">@_HeaderInfo.CONTENT</textarea>
+</div>

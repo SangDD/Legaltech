@@ -5,29 +5,7 @@
 @{
     ViewBag.Title = "Quản lý Search";
     Layout = "~/ViewsShared/_Layout.cshtml";
-    List<WikiCatalogues_Info> _listcata = new List<WikiCatalogues_Info>();
-    if (ViewBag.ListCata != null)
-    {
-        _listcata = ViewBag.ListCata;
-    }
-    int _CurrentStatus = ViewBag.CurrStatus;
-    string _hef01 = "", _hef02 = "", _hef03 = "", _hef04 = "";
-    if (_CurrentStatus == 1)
-    {
-        _hef01 = "text-decoration: underline;";
-    }
-    if (_CurrentStatus == 2)
-    {
-        _hef02 = "text-decoration: underline;";
-    }
-    if (_CurrentStatus == 3)
-    {
-        _hef03 = "text-decoration: underline;";
-    }
-    if (_CurrentStatus == 4)
-    {
-        _hef04 = "text-decoration: underline;";
-    }
+    List<AllCodeInfo> _lstStatus = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "STATUS");
 }
 
 @try
@@ -50,8 +28,7 @@
     <div class="divCover">
         <div class="d-nav">
             <img src="~/Content/icons/Body-icon-home.png" /> I
-            Wiki
-            <span class="red">></span>
+            
             <a href="#">Quản lý Search</a>
         </div>
     </div>
@@ -73,24 +50,10 @@
                 </tr>
                 <tr>
                     <td>
-                        <a style="@_hef01" href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_PhanChoLuatSu">  2. Search cần phân cho luật sư</a>
+                        <a  style="text-decoration: underline;"  href="/quan-ly-search/danh-sach-search">  2. Quản lý search</a>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <a style="@_hef02" href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_ChoLuatSuPhanHoi">  3. Search chờ luật sư phản hồi</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a style="@_hef03" href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_ChoDuyet">  4. Search chờ duyệt (Ls đã phản hồi)</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a style="@_hef04" href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_DaPhanHoi">  5. Search đã phản hồi </a>
-                    </td>
-                </tr>
+                
             </table>
 
         </div>
@@ -117,7 +80,24 @@
            
             </div>
             <div class="div-search-ad">
-
+                <div class="div-search-title">
+                    <div style="width: 120px">Trạng thái</div>
+                </div>
+                <div class="div-search-content">
+                    <div style="width:200px">
+                       <select id="txtCboStatus">
+                           <option value="ALL">
+                               Tất cả
+                           </option>
+                           @foreach (var item in _lstStatus)
+                           {
+                            <option value="@item.CdVal">
+                                @item.Content  
+                            </option>
+                           }
+                       </select>
+                    </div>
+                </div>
                 <div class="div-search-title">
                     <div style="width: 120px">Khách hàng tạo</div>
                 </div>
@@ -152,9 +132,9 @@
     </div>
 
     <script>
-        var _currentKeySearch = '/Areas/Manager/Views/SearchManage/ListSearch.cshtml' + '@_CurrentStatus';
-        var _currentOptionFilter = '/Areas/Manager/Views/SearchManage/ListSearchFilter.cshtml' + '@_CurrentStatus';
-        var _status = '@_CurrentStatus', _casename = "", _clientref = "", _createby = "", _lawer = "";
+        var _currentKeySearch = '/Areas/Manager/Views/SearchManage/ListSearch.cshtml';
+        var _currentOptionFilter = '/Areas/Manager/Views/SearchManage/ListSearchFilter.cshtml';
+        var _status = '', _casename = "", _clientref = "", _createby = "", _lawer = "";
 
         $(document).ready(function () {
               initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findObjects);
@@ -170,7 +150,7 @@
             try {
                 reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
                 if (isSearching === 1) {
-                    _status = '@_CurrentStatus';
+                    _status = $("#txtCboStatus").val();
                     _casename = $("#txtCasecode").val();
                     _clientref = $("#_txtClientReference").val().trim();
                     _createby = $("#_txtCreateBy").val();
@@ -178,12 +158,7 @@
 
                 } else {
                     window.arrKeySearch = window.keySearch.split('|');
-
-                    _status = arrKeySearch[0];
-                    _casename = arrKeySearch[1];
-                    _clientref = arrKeySearch[2];
-                    _createby = arrKeySearch[3];
-                    _lawer = arrKeySearch[4];
+                    $("#txtCboStatus option[value="+_status+"]").prop("selected",true);
                     $("#txtCasecode").val(_casename);
                     $("#_txtClientReference").val().trim(_clientref);
                     $("#_txtCreateBy").val(_createby);
