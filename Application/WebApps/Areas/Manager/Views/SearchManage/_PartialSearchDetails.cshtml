@@ -33,9 +33,7 @@
 <div class="divCover cls_form_title">
     <img src="/Content/icons/icon_info_24.png" />
     <div class="cls_form_header">
-
-        <a style="text-decoration: underline; font-style: italic; color: blue;" href="/quan-ly-search/search-view/@_HeaderInfo.SEARCH_ID/@_HeaderInfo.STATUS"  >Thông tin Search</a>
-
+        
         @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update))
         {
             <a style="text-decoration: underline; font-style: italic; color: blue;"  href="/quan-ly-search/search-edit/@_HeaderInfo.SEARCH_ID/@_HeaderInfo.STATUS"> Sửa Search </a>
@@ -74,6 +72,21 @@
         </div>
     </div>
 </div>
+
+<fieldset style="padding:10px; margin-top:20px;">
+    <legend>
+        Điều kiện Search
+    </legend>
+    <div id="div_searchcondtion_content">
+        @foreach (var item in _ListDetail)
+        {
+            @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearchCondition4View.cshtml", item)
+        }
+    </div>
+
+</fieldset>
+
+
 
 <div style="margin-top:15px">
     <div>Mô tả </div>

@@ -101,10 +101,6 @@
         <div class="div-search-content">
             <div>
                 <input class="search_values" type="text" style="min-width:400px" id="@("_txtsearchvalue_" + _IdSearch)" value="@Model.SEARCH_VALUE" readonly>
-                @if (_IsFirst != 1)
-                {
-                     <a href="javascript:;" style="color:red;width:20px;border:none" onclick="funcdeletecondition(@_IdSearch)">xóa </a>
-                }
             </div>
         </div>
     </div>
