@@ -28,16 +28,19 @@ namespace WebApps.Areas.Articles.Controllers
                 decimal pStatus = 0;
                 if (SessionData.CurrentUser == null)
                     return Redirect("/");
-
                 if (RouteData.Values.ContainsKey("id"))
                 {
                     pStatus  = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
                 }
-
+                ViewBag.Status = pStatus;
+                //Nếu bài chờ xử lý thì lấy danh sách các bài đã gửi 
+                if (pStatus == Status.ChoXuly)
+                {
+                    pStatus = Status.VietBai;
+                }
                 decimal _total_record = 0;
                 NewsBL objBL = new NewsBL();
                 //string _status = "ALL";
-                ViewBag.Status = pStatus.ToString();
                 string _keySearch =  pStatus.ToString() +"|ALL";
                 List<NewsInfo> _lst = objBL.ArticleHomeSearch(_keySearch, ref _total_record);
                 string htmlPaging = CommonFuc.Get_HtmlPaging<NewsInfo>((int)_total_record, 1, "Tin");
@@ -45,6 +48,7 @@ namespace WebApps.Areas.Articles.Controllers
                 ViewBag.Paging = htmlPaging;
                 ViewBag.SumRecord = _total_record;
                 ViewBag.lstCategory = MemoryData.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
+                
                 return View("~/Areas/Articles/Views/ArticlesNews/GetListArticles.cshtml");
             }
             catch (Exception ex)
@@ -86,7 +90,7 @@ namespace WebApps.Areas.Articles.Controllers
                 }
                 string language = AppsCommon.GetCurrentLang();
                 var CreatedBy = SessionData.CurrentUser.Username;
-                var CreatedDate = SessionData.CurrentUser.CurrentDate;
+                var CreatedDate = CommonFuc.CurrentDate();
                 if (pNewsInfo.pfileLogo != null)
                 {
                     pNewsInfo.Imageheader = AppLoadHelpers.PushFileToServer(pNewsInfo.pfileLogo, AppUpload.Logo);
@@ -107,7 +111,7 @@ namespace WebApps.Areas.Articles.Controllers
         }
 
         [HttpGet]
-        [Route("sua-bai-viet/{id}")]
+        [Route("sua-bai-viet/{id}/{id2}")]
         public ActionResult EditNewsArticles()
         {
             try
@@ -115,11 +119,16 @@ namespace WebApps.Areas.Articles.Controllers
                 if (SessionData.CurrentUser == null)
                     return Redirect("/");
                 decimal pIDArticles = 0;
+                int Status = 0;
                 if (RouteData.Values.ContainsKey("id"))
                 {
                     pIDArticles = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
                 }
-
+                if (RouteData.Values.ContainsKey("id2"))
+                {
+                    Status = CommonFuc.ConvertToInt(RouteData.Values["id2"]);
+                }
+                ViewBag.Status = Status;
                 var objNewsBL = new NewsBL();
                 ViewBag.lstCategory = MemoryData.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
                 string language = AppsCommon.GetCurrentLang();
@@ -132,6 +141,41 @@ namespace WebApps.Areas.Articles.Controllers
                 return View();
             }
         }
+
+        [HttpGet]
+        [Route("chi-tiet-bai-viet/{id}/{id2}")]
+        public ActionResult DetailNewsArticles()
+        {
+            try
+            {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+                decimal pIDArticles = 0;
+                int Status = 0;
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    pIDArticles = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
+                }
+                if (RouteData.Values.ContainsKey("id2"))
+                {
+                    Status = CommonFuc.ConvertToInt(RouteData.Values["id2"]);
+                }
+                ViewBag.Status = Status;
+                var objNewsBL = new NewsBL();
+                ViewBag.lstCategory = MemoryData.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
+                string language = AppsCommon.GetCurrentLang();
+                var objNewInfo = objNewsBL.ArticlesGetById(pIDArticles, language);
+                return View("~/Areas/Articles/Views/ArticlesNews/_PartialviewView.cshtml", objNewInfo);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return View();
+            }
+        }
+
+
+
         [HttpGet]
         [Route("xoa-bai-viet")]
         public ActionResult DelNewsArticles(decimal pIDArticles)
@@ -175,7 +219,7 @@ namespace WebApps.Areas.Articles.Controllers
                 }
                 string language = AppsCommon.GetCurrentLang();
                 var ModifiedBy = SessionData.CurrentUser.Username;
-                var ModifiedDate = SessionData.CurrentUser.CurrentDate;
+                var ModifiedDate = CommonFuc.CurrentDate();
                 if (pNewsInfo.pfileLogo != null)
                 {
                     pNewsInfo.Imageheader = AppLoadHelpers.PushFileToServer(pNewsInfo.pfileLogo, AppUpload.Logo);

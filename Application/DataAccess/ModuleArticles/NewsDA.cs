@@ -113,6 +113,7 @@ namespace DataAccess.ModuleArticles
                     new OracleParameter("P_IMAGEHEADER", OracleDbType.Varchar2, pInfo.Imageheader, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGECODE", OracleDbType.Varchar2, pInfo.Languagecode, ParameterDirection.Input),
                     new OracleParameter("P_CONTENT", OracleDbType.Clob, pInfo.Content, ParameterDirection.Input),
+                    new OracleParameter("P_STATUS", OracleDbType.Decimal, pInfo.Status, ParameterDirection.Input),
                     new OracleParameter("P_CATEGORIES_ID", OracleDbType.Varchar2, pInfo.Categories_Id, ParameterDirection.Input),
                     new OracleParameter("P_ARTICLES_TYPE", OracleDbType.Varchar2, pInfo.Articles_Type, ParameterDirection.Input),
                     new OracleParameter("P_MODIFIEDBY", OracleDbType.Varchar2, pInfo.Modifiedby, ParameterDirection.Input),
