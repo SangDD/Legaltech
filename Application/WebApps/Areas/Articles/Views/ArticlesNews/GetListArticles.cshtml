@@ -1,4 +1,7 @@
-﻿@{
+﻿@using WebApps.CommonFunction
+@using ObjectInfos;
+@using BussinessFacade.ModuleMemoryData
+@{
     ViewBag.Title = "Danh sách tin";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
@@ -46,27 +49,24 @@
                 <div style="width:200px">
                     <select id="cboSearchWikiCatalogue">
                         <option value="ALL"> Tất cả </option>
+                        @if (ViewBag.lstCategory != null)
+                        {
+                            foreach (AllCodeInfo item in ViewBag.lstCategory)
+                            {
+                                <option value="@item.CdVal">@item.Content</option>
+                            }
+                        }
                     </select>
                 </div>
             </div>
 
-            <div class="div-search-title">
-                <div style="width: 120px">Trạng thái</div>
-            </div>
-            <div>
-                <div style="width:200px">
-                    <select id="cboStatus">
-                        <option value="ALL"> Tất cả </option>
-                    </select>
-                </div>
-            </div>
 
             <div class="div-search-title">
                 <div style="width: 120px">Tiêu đề</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txtNoiDungTin" data-controlcondition="TRUE" />
+                    <input type="text" id="txtTieuDeBaiViet" data-controlcondition="TRUE" />
                 </div>
             </div>
         </div>
@@ -74,11 +74,11 @@
 
     <div class="divCover">
         <div class="div-search-btn" style="width:450px;">
-            <input type="button" value="Tìm kiếm" class="btn-default" />
+            <input type="button" value="Tìm kiếm" id="btnSearch" class="btn-default" />
             @* Nếu là viết bài mới  *@
             @if (ViewBag.Status == Common.Status.VietBai)
             {
-            <a href="/quan-ly-tin/soan-bai-viet"><input type="button" value="Thêm bài viết" class="btn-default" style="width: 125px;" /></a>
+                <a href="/quan-ly-tin/soan-bai-viet"><input type="button" value="Thêm bài viết" class="btn-default" style="width: 125px;" /></a>
             }
         </div>
     </div>
@@ -92,6 +92,20 @@
 </div>
 
 <script>
+
+    $("#btnSearch").click(function () {
+        funcSearch();
+    });
+
+
+    function funcSearch() {
+        try {
+
+        } catch (e) {
+
+        }
+
+    }
     function funcDelArticles(pID) {
 
         nvsConfirm(null, "Bạn có chắc chắn muốn xóa bài viết này không?", function () {
