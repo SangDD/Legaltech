@@ -229,5 +229,43 @@ namespace WebApps.Areas.Manager.Controllers
             }
             return Json(new { success = _rel });
         }
+
+        [HttpPost]
+        [Route("SearchEdit4Lawer")]
+        public ActionResult SearchEdit4Lawer(SearchObject_Header_Info p_searchHeaderInfo, List<SearchObject_Detail_Info> p_SearchObject_Detail_Info,
+         SearchObject_Question_Info p_questionInfo
+         )
+        {
+            decimal _rel = 0;
+            try
+            {
+                SearchObject_BL _searchBL = new SearchObject_BL();
+                p_searchHeaderInfo.MODIFIED_BY = SessionData.CurrentUser.Username;
+                p_searchHeaderInfo.MODIFIED_DATE = DateTime.Now;
+                p_searchHeaderInfo.REQUEST_DATE = DateTime.Now;
+                _rel = _searchBL.SEARCH_HEADER_UPDATE(p_searchHeaderInfo);
+                if (_rel < 0)
+                {
+                    return Json(new { success = _rel });
+                }
+
+                p_questionInfo.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
+                _rel = _searchBL.SEARCH_QUESTION_UPDATE(p_questionInfo);
+
+                foreach (SearchObject_Detail_Info item in p_SearchObject_Detail_Info)
+                {
+                    item.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
+                }
+                //xóa detail
+                _searchBL.SEARCH_DETAIL_DELETE(p_searchHeaderInfo.SEARCH_ID);
+                _rel = _searchBL.SEARCH_DETAIL_INSERT(p_SearchObject_Detail_Info);
+                return Json(new { success = _rel });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return Json(new { success = _rel });
+        }
     }
 }

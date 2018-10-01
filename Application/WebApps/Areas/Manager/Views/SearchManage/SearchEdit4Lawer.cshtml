@@ -2,8 +2,41 @@
 @using ObjectInfos;
 @*@using BussinessFacade.ModuleMemoryData*@
 @{
-    ViewBag.Title = "Thêm mới Search";
+    ViewBag.Title = "Trả lời tìm kiếm";
     Layout = "~/ViewsShared/_Layout.cshtml";
+    SearchObject_Header_Info _HeaderInfo = new SearchObject_Header_Info();
+    List<SearchObject_Detail_Info> _ListDetail = new List<SearchObject_Detail_Info>();
+    SearchObject_Question_Info _QuestionInfo = new SearchObject_Question_Info();
+    if (ViewBag.SearchHeader != null)
+    {
+        _HeaderInfo = ViewBag.SearchHeader;
+    }
+    if (ViewBag.SearchListDetail != null)
+    {
+        _ListDetail = ViewBag.SearchListDetail;
+    }
+    if (ViewBag.QuestionInfo != null)
+    {
+        _QuestionInfo = ViewBag.QuestionInfo;
+    }
+    int _CurrentStatus = ViewBag.CurrStatus;
+    string _hef01 = "", _hef02 = "", _hef03 = "", _hef04 = "";
+    if (_CurrentStatus == 1)
+    {
+        _hef01 = "text-decoration: underline;";
+    }
+    if (_CurrentStatus == 2)
+    {
+        _hef02 = "text-decoration: underline;";
+    }
+    if (_CurrentStatus == 3)
+    {
+        _hef03 = "text-decoration: underline;";
+    }
+    if (_CurrentStatus == 4)
+    {
+        _hef04 = "text-decoration: underline;";
+    }
 }
 @try
 {
@@ -13,17 +46,17 @@
             width: 150px;
         }
     </style>
-    @*<script>
-        var _isSimpleEditorToolBar = 1;// set cho ckfinder có cấu hình xoạn thảo đơn giản
-    </script>*@
-   // <script src="~/Content/ckeditor/ckeditor.js"></script>
+   <script>
+            var _isSimpleEditorToolBar = 1;// set cho ckfinder có cấu hình xoạn thảo đơn giản
+   </script> 
+     <script src="~/Content/ckeditor/ckeditor.js"></script>
     <div class="divCover">
         <div class="d-nav">
-            <img src="~/Content/icons/Body-icon-home.png" />              
+            <img src="~/Content/icons/Body-icon-home.png" />
             <span class="red">></span>
             <a href="/wiki-doc/list">Quản lý Search</a>
             <span class="red">></span>
-            <a href="#">Thêm mới Search</a>
+            <a href="#">Sửa Search</a>
         </div>
     </div>
     <div class="divCover">
@@ -39,48 +72,48 @@
             <table style="margin:10px 0px">
                 <tr>
                     <td>
-                        <a  style="text-decoration: underline;" href="/quan-ly-search/them-moi">1. Create New Search</a>
+                        <a href="/quan-ly-search/them-moi">1. Create New Search</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <a href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_PhanChoLuatSu">  2. Search cần phân cho luật sư</a>
+                        <a style="@_hef01" href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_PhanChoLuatSu">  2. Search cần phân cho luật sư</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <a  href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_ChoLuatSuPhanHoi">  3. Search chờ luật sư phản hồi</a>
+                        <a style="@_hef02" href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_ChoLuatSuPhanHoi">  3. Search chờ luật sư phản hồi</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <a   href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_ChoDuyet">  4. Search chờ duyệt (Ls đã phản hồi)</a>
+                        <a style="@_hef03" href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_ChoDuyet">  4. Search chờ duyệt (Ls đã phản hồi)</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <a   href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_DaPhanHoi">  5. Search đã phản hồi </a>
+                        <a style="@_hef04" href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_DaPhanHoi">  5. Search đã phản hồi </a>
                     </td>
                 </tr>
             </table>
         </div>
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div> Case code<i class="redspan">(*)</i></div>
+                <div> Case code:</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Case code" maxlength="200" id="_txtcasecode"  />
+                    <input readonly type="text" placeholder="Case code" maxlength="200" id="_txtcasecode" value="@_HeaderInfo.CASE_CODE" />
                 </div>
             </div>
         </div>
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div> Client Reference<i class="redspan">(*)</i> </div>
+                <div> Client Reference: </div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input value="" type="text" placeholder="Client Reference" maxlength="200" id="txtClient_Reference" />
+                    <input readonly type="text" placeholder="Client Reference" maxlength="200" id="txtClient_Reference" value="@_HeaderInfo.CLIENT_REFERENCE" />
                 </div>
             </div>
         </div>
@@ -89,42 +122,48 @@
                 Điều kiện Search
             </legend>
             <div id="div_searchcondtion_content">
-                @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearchCondition.cshtml", "1|1")
-
-                @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearchCondition.cshtml", "2|0")
+                @foreach (var item in _ListDetail)
+                {
+                    @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearchCondition4Edit.cshtml", item)
+                }
             </div>
-          
-
             <div class="div-search-ad" style="float:left; width:100%;">
-                  <input class="btn" style="margin: 4px 0px 0px 0px;" type="button" value="Thêm điều kiện" onclick="funcAddCondition()" /> 
+                <input class="btn" style="margin: 4px 0px 0px 0px;" type="button" value="Thêm điều kiện" onclick="funcAddCondition()" />
             </div>
-          
+
         </fieldset>
-          
+
 
         <div style="margin-top:15px">
             <div>Mô tả<i class="redspan">(*)</i></div>
-            <textarea type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200"></textarea>
+            <textarea readonly="readonly" type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200">@_HeaderInfo.CONTENT</textarea>
         </div>
+
+        <div style="margin-top:15px">
+            <div>Trả lời<i class="redspan">(*)</i></div>
+            <textarea  type="text" id="txtResult" style="height:100px;width:100%;" maxlength="200"></textarea>
+        </div>
+
+
 
     </div>
 
     <div class="class_save">
         <div class="classGuiDon">
-            <input type="button" value="Gửi tìm kiếm" id="btnGuiBai" class="btn" />
-        </div> 
-      
+            <input type="button" value="Lưu" id="btnGuiBai" class="btn" />
+        </div>
+
     </div>
 
 
 
     <script>
 
-     //   var txtAddContent = CKEDITOR.replace("txtAddContent",
-     //{
-     //    height: 500
+        var txtResult = CKEDITOR.replace("txtResult",
+     {
+         height: 500
 
-     //});
+     });
 
         function funcAddCondition() {
             try {
@@ -174,9 +213,8 @@
                     });
                     return false;
                 }
-                //var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
-              
-
+                var _contentVal = CKEDITOR.instances['txtResult'].getData();
+                formData.append("p_searchHeaderInfo.SEARCH_ID", '@_HeaderInfo.SEARCH_ID');
                 formData.append("p_searchHeaderInfo.CASE_CODE", _txtcasecode.val().trim());
                 formData.append("p_searchHeaderInfo.CLIENT_REFERENCE", txtClient_Reference.val());
                 formData.append("p_searchHeaderInfo.STATUS", '@CommonSearch.Stt_PhanChoLuatSu');
@@ -206,39 +244,32 @@
                     });
                     return false;
                 }
-                //if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
-                //    jError("Nội dung tìm kiếm không được để trống", "lỗi", function () {
-                //        txtAddContent.focus();
-                //        txtAddContent.setData('');
-                //    });
-                //    return false;
-                //}
-                var txtAddContent = $("#txtAddContent");
-                if (txtAddContent.val().trim() == "") {
-                    jError("Mô tả câu hỏi không được bỏ trống!", "lỗi", function () {
-                        txtAddContent.val('');
-                        txtAddContent.focus();
+                if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
+                    jError("Nội dung trả lời không được để trống", "lỗi", function () {
+                        txtResult.focus();
+                        txtResult.setData('');
                     });
                     return false;
                 }
-                formData.append("p_questionInfo.CONTENT", txtAddContent.val());
+              
+                formData.append("p_questionInfo.RESULT", txtResult.val());
 
                 $.ajax({
-                    url: '/quan-ly-search/SearchInsert/',
+                    url: '/quan-ly-search/SearchEdit4Lawer/',
                     type: 'POST',
                     data: formData,
                     processData: false, contentType: false, traditional: true, dataType: "json",
                     enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                     success: function (data) {
                         if (data != null && data.success >= 0) {
-                            jAlert('Thêm search thành công!', "THÔNG BÁO", function () {
-                                var url = "/quan-ly-search/danh-sach-search/1";
+                            jAlert('Sửa search thành công!', "THÔNG BÁO", function () {
+                                var url = "/quan-ly-search/danh-sach-search/"+ "@_CurrentStatus";
                                 window.location.href = url;
                             });
                         } else {
                             jError("Có lỗi trong quá trình xử lý dữ liệu");
                             return false;
-                   
+
                         }
                     },
                     error: function (e) {
