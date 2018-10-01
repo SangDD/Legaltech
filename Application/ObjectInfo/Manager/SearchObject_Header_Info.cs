@@ -25,7 +25,7 @@ namespace ObjectInfos
 
         public decimal STATUS { get; set; }
 
-        public decimal STATUS_NAME { get; set; }
+        public string STATUS_NAME { get; set; }
 
         public decimal LAWER_ID { get; set; }
 
@@ -42,6 +42,12 @@ namespace ObjectInfos
 
         public string CONTENT { get; set; }
 
-        
+        public string LAWER_NAME { get; set; }
+
+        public string ADMIN_NAME { get; set; }
+
+
+
+
     }
 }

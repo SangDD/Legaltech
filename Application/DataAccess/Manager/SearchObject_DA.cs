@@ -85,6 +85,26 @@ namespace DataAccess
             }
         }
 
+        public DataSet SEARCH_HEADER_GETBY_CASECODE(string p_casecode)
+        {
+            try
+            {
+                DataSet _Ds = new DataSet();
+                _Ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SEARCH_OBJECTS.PROC_SEARCH_GETBY_CASECODE",
+                new OracleParameter("P_CASECODE", OracleDbType.Varchar2, p_casecode, ParameterDirection.Input),
+                new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output),
+                new OracleParameter("P_DETAIL_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output),
+                new OracleParameter("P_QUETION_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output)
+                );
+                return _Ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
         public decimal  SEARCH_HEADER_DELETE(decimal P_SEARCH_ID )
         {
             try

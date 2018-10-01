@@ -1,0 +1,221 @@
+﻿@using WebApps.CommonFunction
+@using ObjectInfos;
+@using BussinessFacade.ModuleMemoryData
+@model NewsInfo
+@{
+    ViewBag.Title = "Quản lý bài viết";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+    var objInfo = new NewsInfo();
+    if (Model != null)
+    {
+        objInfo = (NewsInfo)Model;
+    }
+
+    string urlMauNhanHieu = "/Content/icons/logo.jpg";
+    if (!string.IsNullOrEmpty(objInfo.Imageheader))
+    {
+
+        urlMauNhanHieu = objInfo.Imageheader.Replace("~", "");
+    }
+    string strChuyenMuc = "";
+    string strChuyenMucLienQuan = "";
+
+    if (ViewBag.lstCategory != null)
+    {
+        foreach (AllCodeInfo item in ViewBag.lstCategory)
+        {
+            if (Model.ReCategories_Id == item.CdVal)
+            {
+                strChuyenMucLienQuan = item.Content;
+            }
+
+            if (Model.Categories_Id == item.CdVal)
+            {
+                strChuyenMuc = item.Content;
+            }
+        }
+    }
+
+}
+@try
+{
+    <style>
+        .div-search-title > div {
+            width: 150px;
+        }
+
+        .select {
+            height: 200px;
+        }
+
+        .btnSave {
+            height: 30px;
+            width: 75px;
+        }
+
+        #cke_txtNoiDung {
+            margin-left: 162px;
+        }
+    </style>
+    <script>
+        var _isSimpleEditorToolBar = 1;// set cho ckfinder có cấu hình xoạn thảo đơn giản
+    </script>
+    <script src="~/Content/ckeditor/ckeditor.js"></script>
+
+    <div class="divCover">
+        <div class="d-nav">
+            <img src="~/Content/icons/Body-icon-home.png" />Bài viết
+            <span class="red">></span>
+            <a href="/quan-ly-tin/danh-sach-tin">Quản lý bài viết</a>
+            <span class="red">></span>
+            <a href="/quan-ly-tin/soan-bai-viet">Chi tiết bài viết</a>
+        </div>
+    </div>
+    <div class="divCover">
+        <div class="classLine">
+        </div>
+    </div>
+
+    <div class="d-main">
+        <div class="divCover">
+            <div class="classTitle">
+
+                <input type="hidden" id="txtMenuSelected" value="@ViewBag.Status" />
+                <div class="div-title-content">CHI TIẾT BÀI VIẾT </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tiêu đề<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtTitle" readonly="readonly" value="@objInfo.Title" maxlength="200" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tóm tắt</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtHeader" readonly="readonly" value="@Html.Raw(objInfo.Header)" maxlength="250" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.lblQuocGia</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @{
+                        string strQuocGia = "";
+                        foreach (var item in MemoryData.c_lst_Country)
+                        {
+                            if (Model.Country_Id == item.Country_Id)
+                            {
+                                strQuocGia = item.Name;
+                            }
+                        }
+                        <input type="text" id="txtHeaderCountry" readonly="readonly" value="@strQuocGia" maxlength="250" />
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="class_full_div_input">
+
+            <div class="class_left_40">
+                <div class="class_block_title" style="padding-top:5px; "><label>@WebApps.Resources.Resource.lblAnhDaiDien:</label> </div>
+                <div class="class_block_title_control" style="display:flex">
+                    <div style="width:120px ;height:120px;margin-left: 40px;" id="divLogo">
+                        <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:120px ;height:120px">
+                        <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="margin-top:15px">
+            <div>Nội dung<i class="redspan">(*)</i></div>
+            <div>
+                <textarea type="text" id="txtNoiDung" name="txtNoiDung">@Html.Raw(objInfo.Content)</textarea>
+            </div>
+        </div>
+
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Chuyên mục chính<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtCategory" readonly="readonly" value="@strChuyenMuc" maxlength="250" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Chuyên mục liên quan<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtReCategory" readonly="readonly" value="@strChuyenMucLienQuan" maxlength="250" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="class_save" style="margin-left:163px;">
+        <div class="classGuiDon">
+            <input type="button" value="Thoát" id="btnThoat" class="btn" />
+        </div>
+    </div>
+
+}
+catch (Exception)
+{
+}
+
+<script>
+    var txtNoiDung = CKEDITOR.replace("txtNoiDung",
+        {
+            height: 500
+        });
+    $("#btnThoat").click(function () {
+        var status = $("#txtMenuSelected").val();
+        location.href = "/quan-ly-tin/danh-sach-tin/" + status;
+    });
+</script>
+
+<style>
+    .select {
+        padding: 3px;
+    }
+
+        .select option {
+            line-height: 25px;
+            padding: 5px;
+        }
+
+    .class100 {
+        display: inline;
+    }
+
+    .classwidth200 {
+        width: 200px;
+    }
+
+    .classwidth250 {
+        width: 250px;
+    }
+</style>

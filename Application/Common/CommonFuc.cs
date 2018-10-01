@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
-using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Windows;
-using System.Xml.Linq;
 
 namespace Common
 {
@@ -986,5 +979,33 @@ namespace Common
             }
         }
 
+    }
+
+    public class Status
+    {
+        /// <summary>
+        /// Status =1
+        /// </summary>
+        public static int VietBai = 1;
+        /// <summary>
+        /// Status =2
+        /// </summary>
+        public static int Luutam = 2;
+        /// <summary>
+        /// status =4
+        /// </summary>
+        public static int ChoXuly = 4;
+        /// <summary>
+        /// status =5
+        /// </summary>
+        public static int TuChoi = 5;
+        /// <summary>
+        /// status =6
+        /// </summary>
+        public static int DaGo = 6;
+        /// <summary>
+        /// status =7
+        /// </summary>
+        public static int XuatBan = 7;
     }
 }

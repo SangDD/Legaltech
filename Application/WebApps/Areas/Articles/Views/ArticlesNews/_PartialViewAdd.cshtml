@@ -234,7 +234,7 @@ catch (Exception)
                 success: function (data) {
                     if (data != null && data.status >= 0) {
                         nvsAlert(AddSuccess, ThongBao, function () {
-                            window.location.reload();
+                            location.href = "/quan-ly-tin/danh-sach-tin/" + 1;
                         });
                     } else {
                         nvsError(AddFail, ThongBao, function () {
