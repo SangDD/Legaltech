@@ -14,6 +14,10 @@ using WebApps.CommonFunction;
 using Common.CommonData;
 using BussinessFacade.ModuleTrademark;
 using System.Transactions;
+using GemBox.Document;
+using BussinessFacade.ModuleUsersAndRoles;
+using System.IO;
+using System.Data;
 
 namespace WebApps.Areas.Manager.Controllers
 {
@@ -169,6 +173,28 @@ namespace WebApps.Areas.Manager.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("danh-sach-billing/show-insert-by-casecode")]
+        public ActionResult GetView2InsertByCaseCode(string p_case_code)
+        {
+            try
+            {
+                Billing_BL _obj_bl = new Billing_BL();
+                string _caseCode = _obj_bl.Billing_GenCaseCode();
+                Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
+                _Billing_Header_Info.Case_Code = _caseCode;
+                ViewBag.Case_Code = p_case_code;
+                return View("~/Areas/Manager/Views/Billing/_PartialInsert.cshtml", _Billing_Header_Info);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+
+                Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
+                return PartialView("~/Areas/Manager/Views/Billing/_PartialInsert.cshtml", new Billing_Header_Info());
+            }
+        }
+
         [HttpPost]
         [Route("danh-sach-billing/do-insert-billing")]
         public ActionResult DoInsert(Billing_Header_Info p_Billing_Header_Info)
@@ -196,6 +222,13 @@ namespace WebApps.Areas.Manager.Controllers
                     if (_ck > 0 && _lst_billing_detail.Count > 0)
                     {
                         _ck = _obj_bl.Billing_Detail_InsertBatch(_lst_billing_detail, _ck);
+                    }
+
+                    if (_ck > 0)
+                    {
+                        string _fileExport = Export_Billing(p_Billing_Header_Info.Case_Code);
+                        Application_Header_BL _BL = new Application_Header_BL();
+                        _ck = _BL.AppHeader_Update_Url_Billing(p_Billing_Header_Info.App_Case_Code, _fileExport);
                     }
 
                     //end
@@ -591,6 +624,115 @@ namespace WebApps.Areas.Manager.Controllers
             {
                 Logger.LogException(ex);
                 return PartialView("~/Areas/Manager/Views/Billing/_PartialView.cshtml", new Billing_Header_Info());
+            }
+        }
+
+        [HttpPost]
+        [Route("danh-sach-billing/do-export-billing")]
+        public ActionResult do_export_billing(string p_case_code)
+        {
+            try
+            {
+                string _fileName = Export_Billing(p_case_code); 
+                return Json(new { success = _fileName });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
+        string Export_Billing(string p_case_code)
+        {
+            try
+            {
+                Billing_BL _obj_bl = new Billing_BL();
+                ApplicationHeaderInfo _ApplicationHeaderInfo = new ApplicationHeaderInfo();
+                List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
+                Billing_Header_Info _Billing_Header_Info = _obj_bl.Billing_GetBy_Code(p_case_code, AppsCommon.GetCurrentLang(), ref _ApplicationHeaderInfo, ref _lst_billing_detail);
+                foreach (Billing_Detail_Info item in _lst_billing_detail)
+                {
+                    item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
+                }
+
+                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/Report/Biling_Report.doc");
+                //if (_ApplicationHeaderInfo.Customer_Country != Common.Common.Country_VietNam_Id)
+                //    _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/Report/Biling_Report_EN.doc");
+                DocumentModel document = DocumentModel.Load(_fileTemp);
+
+                // Fill export_header
+                string fileName_exp = "/Content/Export/" + "Biling_Report" + p_case_code + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf";
+                string fileName_exp_doc = "/Content/Export/" + "Biling_Report" + p_case_code + DateTime.Now.ToString("yyyyMMddHHmmss") + ".doc";
+
+                string fileName = System.Web.HttpContext.Current.Server.MapPath(fileName_exp);
+                string fileName_doc = System.Web.HttpContext.Current.Server.MapPath(fileName_exp_doc);
+
+                document.MailMerge.FieldMerging += (sender, e) =>
+                {
+                    if (e.IsValueFound)
+                    {
+                        if (e.FieldName == "Text")
+                            ((Run)e.Inline).Text = e.Value.ToString();
+                    }
+                };
+
+                document.MailMerge.Execute(new { DateNo = DateTime.Now.ToString("dd-MM-yyyy") });
+                document.MailMerge.Execute(new { Case_Name = _ApplicationHeaderInfo.Case_Name });
+                document.MailMerge.Execute(new { Client_Reference = _ApplicationHeaderInfo.Client_Reference });
+                document.MailMerge.Execute(new { Case_Code = _ApplicationHeaderInfo.Case_Code });
+                document.MailMerge.Execute(new { Master_Name = _ApplicationHeaderInfo.Master_Name });
+                document.MailMerge.Execute(new { App_No = _ApplicationHeaderInfo.App_No });
+                document.MailMerge.Execute(new { Customer_Country_Name = _ApplicationHeaderInfo.Customer_Country_Name });
+                document.MailMerge.Execute(new { Bill_Code = _Billing_Header_Info.Case_Code });
+
+                document.MailMerge.Execute(new { Total_Amount = _Billing_Header_Info.Total_Amount.ToString("#,##0.##") });
+                document.MailMerge.Execute(new { Total_Pre_Tex = _Billing_Header_Info.Total_Pre_Tex.ToString("#,##0.##") });
+                document.MailMerge.Execute(new { Tex_Fee = _Billing_Header_Info.Tex_Fee.ToString("#,##0.##") });
+                document.MailMerge.Execute(new { Currency = _Billing_Header_Info.Currency });
+
+                document.MailMerge.Execute(new { Deadline = _Billing_Header_Info.Deadline.ToString("dd/MM/yyyy") });
+                document.MailMerge.Execute(new { Billing_Date = _Billing_Header_Info.Billing_Date.ToString("dd/MM/yyyy") });
+
+                // lấy thông tin người dùng
+                UserBL _UserBL = new UserBL();
+                UserInfo userInfo = _UserBL.GetUserByUsername(_ApplicationHeaderInfo.Created_By);
+                if (userInfo != null)
+                {
+                    document.MailMerge.Execute(new { Contact_Person = userInfo.Contact_Person + " " + userInfo.FullName });
+                    document.MailMerge.Execute(new { Address = userInfo.Address });
+                    document.MailMerge.Execute(new { FullName = userInfo.FullName });
+                }
+                else
+                {
+                    document.MailMerge.Execute(new { Contact_Person = "" });
+                    document.MailMerge.Execute(new { Address = "" });
+                    document.MailMerge.Execute(new { FullName = "" });
+                }
+
+                DataTable dtDetail = new DataTable();
+                dtDetail = ConvertData.ConvertToDatatable<Billing_Detail_Info>(_lst_billing_detail);
+                document.MailMerge.Execute(dtDetail, "TEMP");
+
+                document.Save(fileName, SaveOptions.PdfDefault);
+                //document.Save(fileName_doc, SaveOptions.DocxDefault);
+
+                byte[] fileContents;
+                var options = SaveOptions.PdfDefault;
+                // Save document to DOCX format in byte array.
+                using (var stream = new MemoryStream())
+                {
+                    document.Save(stream, options);
+                    fileContents = stream.ToArray();
+                }
+                Convert.ToBase64String(fileContents);
+
+                return fileName_exp;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return "";
             }
         }
     }

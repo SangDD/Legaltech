@@ -56,5 +56,7 @@ namespace ObjectInfos
         public DateTime Modify_Date { get; set; }
         public string Language_Code { get; set; }
         public decimal Deleted { get; set; }
+        public decimal Is_AdviceFilling { get; set; }
+
     }
 }

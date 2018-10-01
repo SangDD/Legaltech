@@ -75,8 +75,9 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Case_Code, new { id = "txtCaseCode", @maxlength = "50", @disabled = "disabled", @style = "width: 250px" })
-                    <input type="hidden" id="txtCaseCodeSearch" />
+                    @*@Html.TextBoxFor(m => m.Case_Code, new { id = "txtCaseCode", @maxlength = "50", @disabled = "disabled", @style = "width: 250px" })*@
+                    <input type="text" value="@Model.Case_Code" disabled="disabled" style = "width: 250px"/>
+                    @*<input type="hidden" id="txtCaseCodeSearch" value="@Model.Case_Code"/>*@
                 </div>
             </div>
 
@@ -85,7 +86,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @maxlength = "50", @onblur = "onChangeApp_Case_Code()", @style = "width: 250px", @disabled = "disabled" })
+                    @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @maxlength = "50", @style = "width: 250px", @disabled = "disabled" })
                 </div>
             </div>
 
@@ -203,6 +204,7 @@
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;margin-top: 5px;">
+            <input type="submit" class="btn-default" value="Kết xuất" onclick="return onExport('@Model.Case_Code')" />
             <input type="submit" class="btn-default" value="Thoát" onclick="return onBack()" />
         </div>
     </div>
@@ -224,6 +226,47 @@
 
             var url = "/quan-ly-billing/danh-sach-billing/";
             window.location.href = url;
+        } catch (e) {
+            CreateRollingWaitingIcon(true);
+            alert(e);
+        }
+    }
+
+    function onExport(_Case_Code) {
+        try {
+
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            nvsConfirm(null, "Bạn có chắc chắn muốn kết xuất billing này không?", function () {
+                $.ajax({
+                    url: "/quan-ly-billing/danh-sach-billing/do-export-billing",
+                    type: "POST",
+                    data: {
+                        p_case_code: _Case_Code
+                    },
+                    headers: { "cache-control": "no-cache" },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            jError("Lỗi check lại kết nối tới server");
+                            return false;
+                        }
+                        else {
+                            jAlert('Kết xuất billing thành công!');
+                        }
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(false);
+                        console.log(e);
+                    }
+                });
+            });
         } catch (e) {
             CreateRollingWaitingIcon(true);
             alert(e);

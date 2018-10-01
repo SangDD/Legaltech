@@ -39,6 +39,17 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
+            <div>Số đơn<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" maxlength="100" placeholder="Số đơn" id="txt_App_No" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
             <div>Ngày nộp đơn<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
@@ -50,11 +61,11 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Số đơn<i class="redspan">(*)</i></div>
+            <div>Billing Request<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" maxlength="100" placeholder="Số đơn" id="txt_App_No" />
+                <a style="height: 20px !important;" href="javascript:;" onclick="getView2Insert('@_AppHeaderInfo.Case_Code')"> Yes </a>
             </div>
         </div>
     </div>
@@ -110,7 +121,7 @@
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Nộp đơn" onclick="return do_Filing('@_AppHeaderInfo.Case_Code')"/>
+            <input type="submit" class="btn-default" value="Nộp đơn" onclick="return do_Filing('@_AppHeaderInfo.Case_Code')" />
         </div>
     </div>
 </div>
@@ -119,6 +130,15 @@
     $(document).ready(function () {
 
     });
+
+    function getView2Insert(_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        var url = "/quan-ly-billing/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code;
+        window.open(url);
+    }
 
     function do_Filing(_case_code) {
         if (validateAction()) {

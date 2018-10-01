@@ -28,6 +28,13 @@
 
     Model.Billing_Date = DateTime.Now;
     Model.Deadline = DateTime.Now.AddDays(30);
+
+    string _case_code = "";
+    if (ViewBag.Case_Code != null)
+    {
+        _case_code = (string)ViewBag.Case_Code;
+    }
+    Model.App_Case_Code = _case_code;
 }
 <script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
 <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
@@ -218,6 +225,10 @@
 
     $(document).ready(function () {
         $("#txtApp_Case_Code").focus();
+
+        if ($("#txtApp_Case_Code").val() != "") {
+            onChangeApp_Case_Code();
+        }
     });
 
     function onChangeApp_Case_Code() {
@@ -444,6 +455,13 @@
 
             formData.append('p_Billing_Header_Info.Currency', $("#txtCurrency").val());
             formData.append('p_Billing_Header_Info.Currency_Rate', parseInt($("#txtCurrency_Rate").val().replace(/,/g, "")));
+
+            if ('@_case_code' != "") {
+                formData.append('p_Billing_Header_Info.Is_AdviceFilling', 1);
+            }
+            else {
+                formData.append('p_Billing_Header_Info.Is_AdviceFilling', 0);
+            }
         } catch (e) {
             alert(e.toString());
         }

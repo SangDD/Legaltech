@@ -308,6 +308,10 @@ namespace WebApps.Areas.TradeMark.Controllers
                     _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(url_File_Copy_Filing));
                     _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(url_File_Translate_Filing));
 
+                    if (_ApplicationHeaderInfo.Url_Billing != null && _ApplicationHeaderInfo.Url_Billing != "")
+                    {
+                        _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_ApplicationHeaderInfo.Url_Billing));
+                    }
                     EmailHelper.SendMail(_emailTo, _emailCC, "Filing advice", "Filing advice", _LstAttachment);
                 }
 
@@ -318,7 +322,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 Logger.LogException(ex);
                 return Json(new { success = "-1" });
             }
-        }
+        }       
 
         #endregion
     }

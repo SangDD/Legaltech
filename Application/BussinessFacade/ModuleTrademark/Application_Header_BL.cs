@@ -69,6 +69,21 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
+        public int AppHeader_Update_Url_Billing(string p_case_code, string p_url_billing)
+        {
+            try
+            {
+                Application_Header_DA objData = new Application_Header_DA();
+
+                return objData.AppHeader_Update_Url_Billing(p_case_code, p_url_billing);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

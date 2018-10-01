@@ -163,6 +163,7 @@ namespace ObjectInfos
         public string Comment_Filling { get; set; }
 
         public decimal Id_Vi { get; set; }
+        public string Url_Billing { get; set; }
     }
 
 
