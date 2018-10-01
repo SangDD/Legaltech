@@ -60,6 +60,24 @@ namespace BussinessFacade
             }
         }
 
+        public SearchObject_Header_Info SEARCH_HEADER_GETBY_CASECODE(string p_casecode, ref List<SearchObject_Detail_Info> p_searchListdetail, ref SearchObject_Question_Info p_question_info)
+        {
+            try
+            {
+                SearchObject_DA _objDA = new SearchObject_DA();
+                DataSet _ds = _objDA.SEARCH_HEADER_GETBY_CASECODE(p_casecode);
+                p_searchListdetail = CBO<SearchObject_Detail_Info>.FillCollectionFromDataTable(_ds.Tables[1]);
+                p_question_info = CBO<SearchObject_Question_Info>.FillObjectFromDataTable(_ds.Tables[2]);
+                return CBO<SearchObject_Header_Info>.FillObjectFromDataSet(_ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new SearchObject_Header_Info();
+            }
+        }
+
+
 
         public decimal SEARCH_HEADER_DELETE(decimal P_SEARCH_ID)
         {

@@ -20,7 +20,7 @@ namespace WebApps.Areas.Manager.Controllers
         // GET: Manager/SearchManage
 
         [HttpGet]
-        [Route("danh-sach-search/{id}")]
+        [Route("danh-sach-search")]
         public ActionResult ListByStatus()
         {
             if (SessionData.CurrentUser == null)
@@ -30,14 +30,9 @@ namespace WebApps.Areas.Manager.Controllers
             List<SearchObject_Header_Info> lstOjects = new List<SearchObject_Header_Info>();
             try
             {
-                int _Status = 0;
-                if (RouteData.Values.ContainsKey("id"))
-                {
-                    _Status = Convert.ToInt32(RouteData.Values["id"]);
-                    ViewBag.CurrStatus = _Status;
-                }
+                
                 var _SearchObject_BL = new SearchObject_BL();
-                lstOjects = _SearchObject_BL.SEARCH_OBJECT_SEARCH(_Status.ToString() + "||||");
+                lstOjects = _SearchObject_BL.SEARCH_OBJECT_SEARCH("||||");
                 ViewBag.Paging = _SearchObject_BL.GetPagingHtml();
             }
             catch (Exception ex)
@@ -162,7 +157,6 @@ namespace WebApps.Areas.Manager.Controllers
             {
                 return Redirect("/dang-xuat");
             }
-
             try
             {
                 SearchObject_BL _searchBL = new SearchObject_BL();
@@ -266,6 +260,48 @@ namespace WebApps.Areas.Manager.Controllers
                 Logger.LogException(ex);
             }
             return Json(new { success = _rel });
+        }
+
+
+        [HttpGet]
+        [Route("search-todo-detail/{id}")]
+        public ActionResult SearchShowTodo()
+        {
+            if (SessionData.CurrentUser == null)
+            {
+                return Redirect("/dang-xuat");
+            }
+            try
+            {
+                SearchObject_BL _searchBL = new SearchObject_BL();
+                SearchObject_Header_Info _HeaderInfo = new SearchObject_Header_Info();
+                List<SearchObject_Detail_Info> _ListDetail = new List<SearchObject_Detail_Info>();
+                SearchObject_Question_Info _QuestionInfo = new SearchObject_Question_Info();
+                string _casecode = "";
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    _casecode = RouteData.Values["id"].ToString();
+                    _HeaderInfo = _searchBL.SEARCH_HEADER_GETBY_CASECODE(_casecode, ref _ListDetail, ref _QuestionInfo);
+                    ViewBag.SearchHeader = _HeaderInfo;
+                    ViewBag.SearchListDetail = _ListDetail;
+                    ViewBag.QuestionInfo = _QuestionInfo;
+
+                    //  lấy dữ liệu lịch sử giao dịch
+                    B_Todos_BL _B_Todos_BL = new B_Todos_BL();
+                    List<B_Remind_Info> _ListRemind = new List<B_Remind_Info>();
+                    List<B_Todos_Info> _Listtodo = _B_Todos_BL.NotifiGetByCasecode(_casecode, ref _ListRemind);
+                    ViewBag.ListTodo = _Listtodo;
+                    ViewBag.ListRemind = _ListRemind;
+                }
+    
+                
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+ 
+            return View(@"~\Areas\Manager\Views\SearchManage\ToDo4Lawer.cshtml");
         }
     }
 }

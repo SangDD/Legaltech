@@ -19,24 +19,7 @@
     {
         _QuestionInfo = ViewBag.QuestionInfo;
     }
-    int _CurrentStatus = ViewBag.CurrStatus;
-    string _hef01 = "", _hef02 = "", _hef03 = "", _hef04 = "";
-    if (_CurrentStatus == 1)
-    {
-        _hef01 = "text-decoration: underline;";
-    }
-    if (_CurrentStatus == 2)
-    {
-        _hef02 = "text-decoration: underline;";
-    }
-    if (_CurrentStatus == 3)
-    {
-        _hef03 = "text-decoration: underline;";
-    }
-    if (_CurrentStatus == 4)
-    {
-        _hef04 = "text-decoration: underline;";
-    }
+    
 }
 @try
 {
@@ -54,7 +37,7 @@
         <div class="d-nav">
             <img src="~/Content/icons/Body-icon-home.png" />
             <span class="red">></span>
-            <a href="/wiki-doc/list">Quản lý Search</a>
+            <a href="#">Quản lý Search</a>
             <span class="red">></span>
             <a href="#">Sửa Search</a>
         </div>
@@ -77,33 +60,18 @@
                 </tr>
                 <tr>
                     <td>
-                        <a style="@_hef01" href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_PhanChoLuatSu">  2. Search cần phân cho luật sư</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a style="@_hef02" href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_ChoLuatSuPhanHoi">  3. Search chờ luật sư phản hồi</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a style="@_hef03" href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_ChoDuyet">  4. Search chờ duyệt (Ls đã phản hồi)</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a style="@_hef04" href="/quan-ly-search/danh-sach-search/@CommonSearch.Stt_DaPhanHoi">  5. Search đã phản hồi </a>
+                        <a style="text-decoration: underline;" href="/quan-ly-search/danh-sach-search">  2. Quản lý Search</a>
                     </td>
                 </tr>
             </table>
         </div>
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div> Case code:</div>
+                <div> Case name:</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Case code" maxlength="200" id="_txtcasecode" value="@_HeaderInfo.CASE_CODE" />
+                    <input type="text" placeholder="Case name" maxlength="200" id="_txtcasename" value="@_HeaderInfo.CASE_NAME" />
                 </div>
             </div>
         </div>
@@ -191,13 +159,13 @@
             try {
                 var formData = new FormData();
 
-                var _txtcasecode = $("#_txtcasecode");
+                var _txtcasename = $("#_txtcasename");
                 var txtClient_Reference = $("#txtClient_Reference");
 
-                if (_txtcasecode.val().trim() == "") {
+                if (_txtcasename.val().trim() == "") {
                     jError("Case code không được bỏ trống!", "lỗi", function () {
-                        _txtcasecode.val('');
-                        _txtcasecode.focus();
+                        _txtcasename.val('');
+                        _txtcasename.focus();
                     });
                     return false;
                 }
@@ -210,7 +178,7 @@
                 }
                 //var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
                 formData.append("p_searchHeaderInfo.SEARCH_ID", '@_HeaderInfo.SEARCH_ID');
-                formData.append("p_searchHeaderInfo.CASE_CODE", _txtcasecode.val().trim());
+                formData.append("p_searchHeaderInfo.CASE_NAME", _txtcasename.val().trim());
                 formData.append("p_searchHeaderInfo.CLIENT_REFERENCE", txtClient_Reference.val());
                 formData.append("p_searchHeaderInfo.STATUS", '@CommonSearch.Stt_PhanChoLuatSu');
                 var _checkvaluessearch = 0;
@@ -265,7 +233,7 @@
                     success: function (data) {
                         if (data != null && data.success >= 0) {
                             jAlert('Sửa search thành công!', "THÔNG BÁO", function () {
-                                var url = "/quan-ly-search/danh-sach-search/"+ "@_CurrentStatus";
+                                var url = "/quan-ly-search/danh-sach-search";
                                 window.location.href = url;
                             });
                         } else {
