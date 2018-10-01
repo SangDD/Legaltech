@@ -204,11 +204,17 @@
                 <input type="button" value="Từ chối" id="btnTuChoi" class="btn" />
             </div>
         }
-        else
+        else if (ViewBag.Status == Common.Status.XuatBan)
         {
             <div class="classGuiDon">
-                <input type="button" value="Lưu bài" id="btnLuuBai" class="btn" />
+                <input type="button" value="Gỡ bài" id="btnGobai" class="btn" />
             </div>
+        }
+        else
+        {
+        <div class="classGuiDon">
+            <input type="button" value="Lưu bài" id="btnLuuBai" class="btn" />
+        </div>
         }
     </div>
 
@@ -254,6 +260,12 @@ catch (Exception)
     $("#btnTuChoi").click(function () {
         SaveArticles(5);
     });
+
+    $("#btnGobai").click(function () {
+        SaveArticles(6);
+    });
+
+    
 
     function SaveArticles(pStatus) {
         try {
