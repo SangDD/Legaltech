@@ -267,7 +267,8 @@ namespace WebApps.Areas.Manager.Controllers
                     return Json(new { success = -1 });
                 }
 
-                if (objAppHeaderInfo != null && objAppHeaderInfo.Status < (decimal)Common.CommonData.CommonEnums.App_Status.DaNopDon)
+                // chỉ lấy những thằng nào mà > đã nộp đơn lên cục
+                if (objAppHeaderInfo != null && objAppHeaderInfo.Status < (decimal)Common.CommonData.CommonEnums.App_Status.DaGuiLenCuc)
                 {
                     return Json(new { success = -2 });
                 }
@@ -633,7 +634,7 @@ namespace WebApps.Areas.Manager.Controllers
         {
             try
             {
-                string _fileName = Export_Billing(p_case_code); 
+                string _fileName = Export_Billing(p_case_code);
                 return Json(new { success = _fileName });
             }
             catch (Exception ex)
