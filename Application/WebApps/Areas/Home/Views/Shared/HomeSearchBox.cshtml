@@ -19,13 +19,63 @@
     {
         display:none;
     }
+    .clssbox_search
+    {
+        width:70%;
+        height:35px;
+        border:1px solid #CBCCCE;
+        border-right: none;
+        float:left;
+ 
+    }
+      .clssbox_search > select
+    {
+      width:130px;
+      border:none;
+      background-color:#E9EAEF;
+      font-weight:bold;
+      height:30px;
+      padding-bottom: 2px;
+    }
+      .clssbox_search > select:focus
+    {
+      border:none;
+    }
 
+    .clssbox_search > input[type="text"]
+    {
+       width: calc(100% - 135px);
+      border:none;
+      border-left: 1px solid #CBCCCE;
+      background-color:#E9EAEF;
+      height: 22px;
+      margin-top:5px;
+    }
+    .clssbox_search > input[type="text"]:focus
+    {
+      border:none;
+      border-left: 1px solid #CBCCCE;     
+    }
+    .clssbox_button
+    {
+      width:100px;
+      float:left;
+    }
+    .clssbox_button > input[type="button"]
+    {
+      height:37px;
+      background-color:#00A0F8;
+      color:white;
+      padding:0px 5px;
+      border:none;
+    } 
+
+   
 </style>
  
 <div class="divCover" id="legalsearch_div" style="">
-    <div class="box_title"><label style="padding-left:10px;color: darkorange;"> TÌM KIẾM </label></div>
-    <hr class="MainTitleHr">
-    <table id="legalsearch_table">
+    <div class="box_title"><label style=""> TÌM KIẾM </label></div>
+    @*<table id="legalsearch_table">
         <tr>
             <td class="legalsearch_clssunderline" onclick="FunChooseSearchtype(this, 1)">Tình trạng đơn</td>
             <td onclick="FunChooseSearchtype(this, 2)">Luật sư</td>
@@ -33,7 +83,29 @@
             <td onclick="FunChooseSearchtype(this, 4)">Wiki</td>
             <td><input type="text" id="legalsearch_txtsearchcontent" placeholder="case code, case name, tình trạng đơn, người xử lý, loại đơn" style="width: 520px" /> <input type="button" class="btn-default" style="min-width:41px !important; height:24px !important; margin-top:1px;" value="Go" onclick="findObjects(1, 1)" /></td>
         </tr>
-    </table>
+    </table>*@
+
+    <div class="clssbox_search">
+        <select id="cbo_searchtype">
+            <option value="1">
+                Tình trạng đơn
+            </option>
+            <option value="2">
+              Luật sư
+            </option>
+            <option value="3">
+               Khách hàng
+            </option>
+            <option value="4">
+               Wiki
+            </option>
+        </select>
+        <input type="text" id="legalsearch_txtsearchcontent" placeholder="case code, case name, tình trạng đơn, người xử lý, loại đơn"   />        
+    </div>
+    <div class="clssbox_button">
+        <input type="button"  style="" value="Tìm kiếm" onclick="findObjects(1, 1)" />
+    </div>
+
     <div>
 
         <input type="hidden" id="legalsearch_txtsearchtype" value="1" />
