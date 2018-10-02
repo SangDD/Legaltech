@@ -184,6 +184,20 @@ namespace BussinessFacade
             }
         }
 
+       public decimal  SEARCH_LAWER_INSERT(App_Lawer_Info p_obj)
+        {
+            try
+            {
+                SearchObject_DA _objDA = new SearchObject_DA();
+                return _objDA.SEARCH_LAWER_INSERT(p_obj.Case_Code, p_obj.Lawer_Id, p_obj.Notes, p_obj.Language_Code, p_obj.Created_By, p_obj.Created_Date);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
     }
 
 

@@ -292,6 +292,14 @@ namespace WebApps.Areas.Manager.Controllers
                     List<B_Todos_Info> _Listtodo = _B_Todos_BL.NotifiGetByCasecode(_casecode, ref _ListRemind);
                     ViewBag.ListTodo = _Listtodo;
                     ViewBag.ListRemind = _ListRemind;
+
+                    // action là view hay sửa
+                    //decimal _operator_type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update);
+                    //if (RouteData.Values.ContainsKey("id1"))
+                    //{
+                    //    _operator_type = Convert.ToDecimal(RouteData.Values["id1"].ToString());
+                    //}
+                    //ViewBag.Operator_Type = _operator_type;
                 }
     
                 
@@ -303,5 +311,46 @@ namespace WebApps.Areas.Manager.Controllers
  
             return View(@"~\Areas\Manager\Views\SearchManage\ToDo4Lawer.cshtml");
         }
+
+        //[HttpPost]
+        //[Route("phan-loai-4lawer")]
+        //public ActionResult DoSearch4Lawer(SearchObject_Header_Info p_SearchObject_Header_Info)
+        //{
+        //    try
+        //    {
+        //        p_App_Lawer_Info.Language_Code = AppsCommon.GetCurrentLang();
+        //        p_App_Lawer_Info.Created_By = SessionData.CurrentUser.Username;
+        //        p_App_Lawer_Info.Created_Date = DateTime.Now;
+        //        SearchObject_BL _con = new SearchObject_BL();
+        //        decimal _ck = _con.SEARCH_LAWER_INSERT(p_App_Lawer_Info);
+        //        return Json(new { success = _ck });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.LogException(ex);
+        //        return Json(new { success = "-1" });
+        //    }
+        //}
+
+        [HttpPost]
+        [Route("tra-loi-search")]
+        public ActionResult DoSearchResult(App_Lawer_Info p_App_Lawer_Info)
+        {
+            try
+            {
+                p_App_Lawer_Info.Language_Code = AppsCommon.GetCurrentLang();
+                p_App_Lawer_Info.Created_By = SessionData.CurrentUser.Username;
+                p_App_Lawer_Info.Created_Date = DateTime.Now;
+                SearchObject_BL _con = new SearchObject_BL();
+                decimal _ck = _con.SEARCH_LAWER_INSERT(p_App_Lawer_Info);
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
     }
 }

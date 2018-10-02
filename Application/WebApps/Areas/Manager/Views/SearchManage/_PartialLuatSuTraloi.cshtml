@@ -29,66 +29,43 @@
     <div class="divCover cls_form_title">
         <img src="~/Content/icons/info.png" />
         <div class="cls_form_header">
-            Phân loại cho luật sư
+          Luật sư trả lời
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Chọn luật sư<i class="redspan">(*)</i></div>
+            <div>Trả lời<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <select id="cboLawer">
-                    @foreach (var item in _lstLawer)
-                    {
-                        <option value="@item.Id">@item.FullName</option>
-                    }
-                </select>
+                <textarea maxlength="4000" rows="10" style="height:200px; width:100%" id="_txtResult">
+                </textarea>
             </div>
         </div>
     </div>
 
-    <div class="div-search-ad">
-        <div class="div-search-title">
-            <div>Ghi chú </div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <input type="text" id="txtNotes" maxlength="2000" />
-            </div>
-        </div>
-    </div>
 
+    @Html.Partial("/Areas/Wiki/Views/WikiDoc/_PartialTaiLieuUpload.cshtml", new string[] { "WIKIADD_FILE_01", "File đính kèm 1" })
+
+    @Html.Partial("/Areas/Wiki/Views/WikiDoc/_PartialTaiLieuUpload.cshtml", new string[] { "WIKIADD_FILE_02", "File đính kèm 2" })
+     
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Phân loại" onclick="return doPhanLoai()" />
+            <input type="submit" class="btn-default" value="Trả lời" onclick="return doTraLoi()" />
         </div>
     </div>
 </div>
 
 <script>
-    $(document).ready(function(){
 
-        $('#cboLawer').multipleSelect({
-            filter: true,
-            single: true,
-            isdatastring: false,
-            maxHeight: 150,
-            placeholder: "-- Chọn luật sư --"
-        });
-
-    });
-
-    var _Lawer_Id;
-
-    function doPhanLoai() {
+    function doTraLoi() {
         if (validateAction()) {
             var formData = new FormData();
             collectObjectData(formData);
-            nvsConfirm(null, "Bạn có chắc chắn muốn phân search này cho luật sư hay không?", function () {
+            nvsConfirm(null, "Bạn có chắc chắn muốn trả lời search này cho luật sư hay không?", function () {
                 $.ajax({
-                    url: '/quan-ly-search/phan-loai-4lawer',
+                    url: '/quan-ly-search/tra-loi-search',
                     type: 'POST',
                     data: formData,
                     processData: false,
@@ -103,7 +80,7 @@
                             return false;
                         }
                         else {
-                            jAlert('Phân loại search cho luật sư mới thành công!', "THÔNG BÁO", function () {
+                            jAlert('Trả lời search cho luật sư mới thành công!', "THÔNG BÁO", function () {
                                 window.location.href = "/home";
                                 //CloseDivPopUp('divWrapperPopUpApp');
                                 //Search_Application(1,1);
@@ -119,10 +96,10 @@
     }
 
     function validateAction() {
-        _Lawer_Id = $('#cboLawer').val();
-        if (_Lawer_Id == null || _Lawer_Id == "0") {
-            jError('Tên luật sư không được để trống!', "Lỗi", function () {
-                $('#cboLawer').multipleSelect('focus');
+        var _txtResult = $("$_txtResult");
+        if (_txtResult == null || _txtResult == "") {
+            jError('Nội dung không được để trống!', "Lỗi", function () {
+                _txtResult.focus();
             });
             return false;
         }
@@ -131,8 +108,7 @@
     }
 
     function collectObjectData(formData) {
-        formData.append('p_App_Lawer_Info.Lawer_Id', _Lawer_Id);
-        formData.append('p_App_Lawer_Info.Case_Code', '@_SearchObject_Header_Info.CASE_CODE');
-        formData.append('p_App_Lawer_Info.Notes', $('#txtNotes').val());
+        formData.append('p_SearchObject_Header_Info.CONTENT', _Lawer_Id);
+        formData.append('p_SearchObject_Header_Info.CASE_CODE', '@_SearchObject_Header_Info.CASE_CODE');
     }
 </script>

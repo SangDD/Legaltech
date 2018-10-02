@@ -241,11 +241,11 @@
         <div style="margin-top:20px;float:left;width:100%">
             @if (_currstatus ==CommonSearch.Stt_PhanChoLuatSu )
             {
-                @*@Html.Partial("~/Areas/TradeMark/Views/Application/_PartialPhanLoai.cshtml")*@
+                @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialPhanLoai.cshtml")
             }
-            else if (_currstatus == CommonSearch.Stt_DaPhanHoi)
+            else if (_currstatus == CommonSearch.Stt_ChoLuatSuPhanHoi)
             {
-               
+                @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialLuatSuTraloi.cshtml")
             }
            
         </div>
