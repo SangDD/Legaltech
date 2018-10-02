@@ -11,6 +11,7 @@ namespace WebApps
         public static string Document = "Document";
         public static string Wiki = "Wiki";
         public static string App = "App";
+        public static string Search = "Search";
     }
 
     public class   AppLoadHelpers

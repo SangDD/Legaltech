@@ -9,6 +9,7 @@ using WebApps.Session;
 using ObjectInfos;
 using BussinessFacade;
 using WebApps.CommonFunction;
+using ObjectInfos.ModuleTrademark;
 
 namespace WebApps.Areas.Manager.Controllers
 {
@@ -18,6 +19,26 @@ namespace WebApps.Areas.Manager.Controllers
     public class SearchManageController : Controller
     {
         // GET: Manager/SearchManage
+
+        [HttpPost]
+        [Route("push-file-to-server")]
+        public ActionResult PushFileToServer(AppDocumentInfo pInfo)
+        {
+            try
+            {
+                if (pInfo.pfiles != null)
+                {
+                    var url = AppLoadHelpers.PushFileToServer(pInfo.pfiles, AppUpload.Search);
+                    SessionData.CurrentUser.chashFile[pInfo.keyFileUpload] = pInfo.pfiles;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = -1 });
+            }
+            return Json(new { success = 0 });
+        }
 
         [HttpGet]
         [Route("danh-sach-search")]
@@ -292,6 +313,7 @@ namespace WebApps.Areas.Manager.Controllers
                     List<B_Todos_Info> _Listtodo = _B_Todos_BL.NotifiGetByCasecode(_casecode, ref _ListRemind);
                     ViewBag.ListTodo = _Listtodo;
                     ViewBag.ListRemind = _ListRemind;
+                    ViewBag.Currstatus = _HeaderInfo.STATUS;
 
                     // action là view hay sửa
                     //decimal _operator_type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update);
@@ -312,29 +334,9 @@ namespace WebApps.Areas.Manager.Controllers
             return View(@"~\Areas\Manager\Views\SearchManage\ToDo4Lawer.cshtml");
         }
 
-        //[HttpPost]
-        //[Route("phan-loai-4lawer")]
-        //public ActionResult DoSearch4Lawer(SearchObject_Header_Info p_SearchObject_Header_Info)
-        //{
-        //    try
-        //    {
-        //        p_App_Lawer_Info.Language_Code = AppsCommon.GetCurrentLang();
-        //        p_App_Lawer_Info.Created_By = SessionData.CurrentUser.Username;
-        //        p_App_Lawer_Info.Created_Date = DateTime.Now;
-        //        SearchObject_BL _con = new SearchObject_BL();
-        //        decimal _ck = _con.SEARCH_LAWER_INSERT(p_App_Lawer_Info);
-        //        return Json(new { success = _ck });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Logger.LogException(ex);
-        //        return Json(new { success = "-1" });
-        //    }
-        //}
-
         [HttpPost]
-        [Route("tra-loi-search")]
-        public ActionResult DoSearchResult(App_Lawer_Info p_App_Lawer_Info)
+        [Route("phan-loai-4lawer")]
+        public ActionResult DoSearch4Lawer(App_Lawer_Info p_App_Lawer_Info)
         {
             try
             {
@@ -343,6 +345,56 @@ namespace WebApps.Areas.Manager.Controllers
                 p_App_Lawer_Info.Created_Date = DateTime.Now;
                 SearchObject_BL _con = new SearchObject_BL();
                 decimal _ck = _con.SEARCH_LAWER_INSERT(p_App_Lawer_Info);
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
+        [HttpPost]
+        [Route("tra-loi-search")]
+        public ActionResult DoSearchResult(SearchObject_Question_Info p_SearchObject_Header_Info,  
+            List<AppDocumentInfo> pAppDocumentInfo)
+        {
+            try
+            {
+                p_SearchObject_Header_Info.LANGUAGE_CODE = AppsCommon.GetCurrentLang();
+                p_SearchObject_Header_Info.CREATED_BY = SessionData.CurrentUser.Username;
+                p_SearchObject_Header_Info.CREATED_DATE = DateTime.Now;
+                SearchObject_BL _con = new SearchObject_BL();
+
+                if (pAppDocumentInfo != null)
+                {
+                    if (pAppDocumentInfo.Count > 0)
+                    {
+
+                        foreach (var info in pAppDocumentInfo)
+                        {
+                            if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
+                            {
+                                HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
+                                info.Filename = pfiles.FileName;
+                                info.Url_Hardcopy = "/Content/Archive/" + AppUpload.Search + "/" + pfiles.FileName;
+                                if (info.keyFileUpload == "ADD_FILE_01")
+                                {
+                                    p_SearchObject_Header_Info.FILE_URL = info.Url_Hardcopy;
+                                }
+                                if (info.keyFileUpload == "ADD_FILE_02")
+                                {
+                                    p_SearchObject_Header_Info.FILE_URL02 = info.Url_Hardcopy;
+                                }
+                                
+                                // lấy xong thì xóa
+                                SessionData.CurrentUser.chashFile.Remove(info.keyFileUpload);
+                            }
+                        }
+                    }
+                }
+
+                decimal _ck = _con.SEARCH_RESULT_SEARCH(p_SearchObject_Header_Info);
                 return Json(new { success = _ck });
             }
             catch (Exception ex)
