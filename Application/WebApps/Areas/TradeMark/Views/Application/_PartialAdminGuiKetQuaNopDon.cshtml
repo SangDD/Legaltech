@@ -1,12 +1,6 @@
 ﻿@using ObjectInfos;
 @using BussinessFacade.ModuleMemoryData
 @{
-    //decimal _application_header_id = -1;
-    //if (ViewBag.Application_Header_Id != null)
-    //{
-    //    _application_header_id = ViewBag.Application_Header_Id;
-    //}
-
     var _AppHeaderInfo = new ApplicationHeaderInfo();
     if (ViewBag.objAppHeaderInfo != null)
     {
@@ -25,32 +19,42 @@
     <div class="divCover cls_form_title">
         <img src="~/Content/icons/info.png" />
         <div class="cls_form_header">
-            Nhân viên nộp đơn phản hồi
+            Admin gửi kết quả nộp đơn tới khách hàng
         </div>
     </div>
 
-    @*<div class="div-search-ad">
+    <div class="div-search-ad">
         <div class="div-search-title">
-            <div style="width:150px">NV nộp đơn confirm<i class="redspan">(*)</i></div>
+            <div>File copy<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
-            <div >
-                <select id="cboConfirm" disabled="disabled">
-                    @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("CUSTOMER", "CONFIRM"))
-                    {
-                        if (item.CdVal == ((int)Common.CommonData.CommonEnums.Action_Type.Accept).ToString())
-                        {
-                            <option selected="selected" value="@item.CdVal">@item.Content</option>
-                        }
-                        else
-                        {
-                            <option value="@item.CdVal">@item.Content</option>
-                        }
-                    }
-                </select>
+            <div>
+                <a style="height: 20px !important;" href="@_AppHeaderInfo.Url_copy_filing"> File copy advice filing </a>
             </div>
         </div>
-    </div>*@
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>File dịch<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <a style="height: 20px !important;" href="@_AppHeaderInfo.URL_TRANSLATE_FILING"> File translate</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Billing<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <a style="height: 20px !important;" href="@_AppHeaderInfo.Url_Billing"> File billing </a>
+            </div>
+        </div>
+    </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
@@ -65,7 +69,7 @@
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Xác nhận" onclick="return do_Employee_Confirm('@_AppHeaderInfo.Case_Code')" />
+            <input type="submit" class="btn-default" value="Gửi" onclick="return do_Employee_Confirm('@_AppHeaderInfo.Case_Code')" />
         </div>
     </div>
 </div>
@@ -85,13 +89,13 @@
 
     function do_Employee_Confirm(_case_code) {
         if (validateAction()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn xác nhận nộp đơn này không?", function () {
+            nvsConfirm(null, "Bạn có chắc chắn muốn gửi kết quả nộp đơn tới khách hàng hay không?", function () {
                 $.ajax({
-                    url: '/trade-mark-mana/quan-ly-don/do-employee-confirm',
+                    url: '/trade-mark-mana/quan-ly-don/do-send-result-to-customer',
                     type: 'POST',
                     data: {
+                        p_app_id: @_AppHeaderInfo.Id,
                         p_case_code: _case_code,
-                        p_status: 1,
                         p_note: $('#txtNotes').val()
                     },
                     async: true, cache: false, traditional: true,
@@ -105,7 +109,7 @@
                             return false;
                         }
                         else {
-                            jAlert('Nhân viên nộp đơn thành công!', "THÔNG BÁO", function () {
+                            jAlert('Gửi kết quả nộp đơn thành công!', "THÔNG BÁO", function () {
                                 window.location.href = "/home";
                             });
                         }
@@ -120,14 +124,6 @@
     }
 
     function validateAction() {
-        //var _Status = $('#cboConfirm').val();
-        //if (_Status == null || _Status == "0") {
-        //    jError('Action Confirm không được để trống!', "Lỗi", function () {
-        //        $('#cboConfirm').multipleSelect('focus');
-        //    });
-        //    return false;
-        //}
-
         var _Note = $('#txtNotes').val();
         if (_Note == null || _Note == "") {
             jError('Ghi chú không được để trống!', "Lỗi", function () {

@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <div class="div-search-ad">
+    @*<div class="div-search-ad">
         <div class="div-search-title">
             <div>Luật sư confirm<i class="redspan">(*)</i></div>
         </div>
@@ -50,7 +50,7 @@
                 </select>
             </div>
         </div>
-    </div>
+    </div>*@
 
     <div class="div-search-ad">
         <div class="div-search-title">
@@ -91,7 +91,7 @@
                     type: 'POST',
                     data: {
                         p_case_code: _case_code,
-                        p_status: $('#cboConfirm').val(),
+                        p_status: 1,
                         p_note: $('#txtNotes').val()
                     },
                     async: true, cache: false, traditional: true,
@@ -120,13 +120,13 @@
     }
 
     function validateAction() {
-        var _Status = $('#cboConfirm').val();
-        if (_Status == null || _Status == "0") {
-            jError('Action Confirm không được để trống!', "Lỗi", function () {
-                $('#cboConfirm').multipleSelect('focus');
-            });
-            return false;
-        }
+        //var _Status = $('#cboConfirm').val();
+        //if (_Status == null || _Status == "0") {
+        //    jError('Action Confirm không được để trống!', "Lỗi", function () {
+        //        $('#cboConfirm').multipleSelect('focus');
+        //    });
+        //    return false;
+        //}
 
 
         var _Note = $('#txtNotes').val();

@@ -269,7 +269,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 ViewBag.Operator_Type = _operator_type;
 
                 Application_Header_BL _objBl = new Application_Header_BL();
-                ApplicationHeaderInfo _ApplicationHeaderInfo = _objBl.GetApp_By_Case_Code(p_case_code, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
+                ApplicationHeaderInfo _ApplicationHeaderInfo = _objBl.GetApp_By_Case_Code_Todo(p_case_code, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
 
                 int pStatus = (int)_ApplicationHeaderInfo.Status;
                 string pAppCode = _ApplicationHeaderInfo.Appcode;

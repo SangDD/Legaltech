@@ -87,9 +87,9 @@
                     //pInfo.Status = (decimal)CommonEnums.App_Status.DaGui_ChoPhanLoai;
 
                     //TRA RA ID CUA BANG KHI INSERT
-
-
                     pAppHeaderID = objBL.AppHeaderInsert(pInfo, ref p_case_code);
+                    if (pAppHeaderID < 0)
+                        goto Commit_Transaction;
 
                     // detail
                     if (pAppHeaderID >= 0)
@@ -99,6 +99,8 @@
                         pDetail.App_Header_Id = pAppHeaderID;
                         pDetail.Case_Code = p_case_code;
                         pReturn = objDetail.Insert(pDetail);
+                        if (pReturn <= 0)
+                            goto Commit_Transaction;
                     }
 
                     #region Phí cố định
@@ -211,6 +213,8 @@
 
                     AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
                     pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, p_case_code);
+                    if (pReturn < 0)
+                        goto Commit_Transaction;
                     #endregion
 
                     #region Tai lieu dinh kem 
@@ -238,6 +242,7 @@
                     #endregion
 
                     //end
+                    Commit_Transaction:
                     if (pReturn < 0)
                     {
                         Transaction.Current.Rollback();
@@ -283,16 +288,20 @@
                     pInfo.Send_Date = DateTime.Now;
 
                     //TRA RA ID CUA BANG KHI INSERT
-                    int _re = objBL.AppHeaderUpdate(pInfo);
+                    pReturn = objBL.AppHeaderUpdate(pInfo);
+                    if (pReturn < 0)
+                        goto Commit_Transaction;
 
                     // detail
-                    if (_re >= 0)
+                    if (pReturn >= 0)
                     {
                         pDetail.Appcode = pInfo.Appcode;
                         pDetail.Language_Code = language;
                         pDetail.App_Header_Id = pInfo.Id;
                         pDetail.Case_Code = pInfo.Case_Code;
                         pReturn = objDetail.Update(pDetail);
+                        if (pReturn <= 0)
+                            goto Commit_Transaction;
                     }
 
                     #region Phí cố định
@@ -408,6 +417,8 @@
 
                     // insert lại fee
                     pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, pInfo.Case_Code);
+                    if (pReturn < 0)
+                        goto Commit_Transaction;
                     #endregion
 
                     #region Tai lieu dinh kem 
@@ -457,9 +468,11 @@
                     #endregion
 
                     //end
+                    Commit_Transaction:
                     if (pReturn < 0)
                     {
                         Transaction.Current.Rollback();
+                        return Json(new { status = pReturn });
                     }
                     else
                     {

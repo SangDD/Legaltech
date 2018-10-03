@@ -224,7 +224,7 @@ namespace WebApps.Areas.Manager.Controllers
                         _ck = _obj_bl.Billing_Detail_InsertBatch(_lst_billing_detail, _ck);
                     }
 
-                    if (_ck > 0)
+                    if (_ck > 0 && p_Billing_Header_Info.Is_AdviceFilling == 1)
                     {
                         string _fileExport = Export_Billing(p_Billing_Header_Info.Case_Code);
                         Application_Header_BL _BL = new Application_Header_BL();
@@ -268,7 +268,7 @@ namespace WebApps.Areas.Manager.Controllers
                 }
 
                 // chỉ lấy những thằng nào mà > đã nộp đơn lên cục
-                if (objAppHeaderInfo != null && objAppHeaderInfo.Status < (decimal)Common.CommonData.CommonEnums.App_Status.DaGuiLenCuc)
+                if (objAppHeaderInfo != null && objAppHeaderInfo.Status < (decimal)Common.CommonData.CommonEnums.App_Status.DaNopDon)
                 {
                     return Json(new { success = -2 });
                 }

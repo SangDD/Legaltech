@@ -237,34 +237,22 @@ namespace WebApps.Areas.TradeMark.Controllers
         }
 
         [HttpPost]
-        [Route("quan-ly-don/show-filing")]
-        public ActionResult Show_Filing(decimal p_application_header_id)
-        {
-            ViewBag.Application_Header_Id = p_application_header_id;
-            return PartialView("~/Areas/TradeMark/Views/Application/_Partial_Filing.cshtml");
-        }
-
-        [HttpPost]
-        [Route("quan-ly-don/do-filing")]
-        public ActionResult do_Filing(ApplicationHeaderInfo pInfo)
+        [Route("quan-ly-don/do-send-result-to-customer")]
+        public ActionResult DoSendRult2Customer(decimal p_app_id, string p_case_code, string p_note)
         {
             try
             {
                 Application_Header_BL _obj_bl = new Application_Header_BL();
-                decimal _status = (decimal)CommonEnums.App_Status.DaGuiLenCuc;
-                var url_File_Copy_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Copy_Filing, AppUpload.App);
-                var url_File_Translate_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Translate_Filing, AppUpload.App);
+                decimal _status = (decimal)CommonEnums.App_Status.AdminGuiKetQuaNopDon;
 
-
-                int _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Case_Code, _status, pInfo.App_No, pInfo.Filing_Date, url_File_Copy_Filing, url_File_Translate_Filing, 
-                    pInfo.Note, pInfo.Comment_Filling, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+                int _ck = _obj_bl.AppHeader_Update_Status(p_case_code, _status, p_note, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
 
                 // nếu thành công thì gửi email cho khách hàng
                 if (_ck != -1)
                 {
                     // lấy thông tin đơn
                     Application_Header_BL _Application_Header_BL = new Application_Header_BL();
-                    ApplicationHeaderInfo _ApplicationHeaderInfo = _Application_Header_BL.GetApplicationHeader_ById(pInfo.Id, AppsCommon.GetCurrentLang());
+                    ApplicationHeaderInfo _ApplicationHeaderInfo = _Application_Header_BL.GetApplicationHeader_ById(p_app_id, AppsCommon.GetCurrentLang());
 
                     string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/Report/Filing_advice.doc");
                     if (_ApplicationHeaderInfo.Customer_Country != Common.Common.Country_VietNam_Id)
@@ -272,7 +260,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                     DocumentModel document = DocumentModel.Load(_fileTemp);
 
                     // Fill export_header
-                    string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Filing_advice_" + pInfo.Id.ToString() + ".pdf");
+                    string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Filing_advice_" + p_app_id.ToString() + ".pdf");
                     document.MailMerge.FieldMerging += (sender, e) =>
                     {
                         if (e.IsValueFound)
@@ -289,7 +277,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                     document.MailMerge.Execute(new { Master_Name = _ApplicationHeaderInfo.Master_Name });
                     document.MailMerge.Execute(new { App_No = _ApplicationHeaderInfo.App_No });
                     document.MailMerge.Execute(new { Str_Filing_Date = _ApplicationHeaderInfo.Str_Filing_Date });
-                    document.MailMerge.Execute(new { Comment_filling = pInfo.Comment_Filling });
+                    document.MailMerge.Execute(new { Comment_filling = _ApplicationHeaderInfo.Comment_Filling });
                     document.MailMerge.Execute(new { Customer_Country_Name = _ApplicationHeaderInfo.Customer_Country_Name });
 
                     // lấy thông tin người dùng
@@ -323,8 +311,8 @@ namespace WebApps.Areas.TradeMark.Controllers
                     string _emailCC = userInfo.Copyto;
                     List<string> _LstAttachment = new List<string>();
                     _LstAttachment.Add(fileName);
-                    _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(url_File_Copy_Filing));
-                    _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(url_File_Translate_Filing));
+                    _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_ApplicationHeaderInfo.Url_copy_filing));
+                    _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_ApplicationHeaderInfo.URL_TRANSLATE_FILING));
 
                     if (_ApplicationHeaderInfo.Url_Billing != null && _ApplicationHeaderInfo.Url_Billing != "")
                     {
@@ -333,6 +321,39 @@ namespace WebApps.Areas.TradeMark.Controllers
                     EmailHelper.SendMail(_emailTo, _emailCC, "Filing advice", "Filing advice", _LstAttachment);
                 }
 
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
+        
+
+        [HttpPost]
+        [Route("quan-ly-don/show-filing")]
+        public ActionResult Show_Filing(decimal p_application_header_id)
+        {
+            ViewBag.Application_Header_Id = p_application_header_id;
+            return PartialView("~/Areas/TradeMark/Views/Application/_Partial_Filing.cshtml");
+        }
+
+        [HttpPost]
+        [Route("quan-ly-don/do-filing")]
+        public ActionResult do_Filing(ApplicationHeaderInfo pInfo)
+        {
+            try
+            {
+                Application_Header_BL _obj_bl = new Application_Header_BL();
+                decimal _status = (decimal)CommonEnums.App_Status.DaGuiLenCuc;
+                var url_File_Copy_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Copy_Filing, AppUpload.App);
+                var url_File_Translate_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Translate_Filing, AppUpload.App);
+
+
+                int _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Case_Code, _status, pInfo.App_No, pInfo.Filing_Date, url_File_Copy_Filing, url_File_Translate_Filing, 
+                    pInfo.Note, pInfo.Comment_Filling, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
                 return Json(new { success = _ck });
             }
             catch (Exception ex)
