@@ -1,0 +1,66 @@
+﻿@using ObjectInfos;
+@{
+    B_TodoNotify_Info p_todonotify = new B_TodoNotify_Info();
+    if(ViewBag.Notify != null)
+    {
+        p_todonotify = ViewBag.Notify;
+    }
+}
+<style>
+    .notify_cover
+    {
+        width: calc( 85% );
+        float:left;
+        margin-top: 10px;
+    }
+    .notify_todo
+    {
+        width: 30%;
+        float:left;
+        height:20px;
+        padding: 20px 0px 20px 20px;
+        background-color:#ffffff;
+    }
+    .notify_number
+    {
+        float:left;
+        font-size:20px;
+        font-weight:bold;
+    }
+    .notify_text
+    {
+        float:left;
+        font-size:14px;
+        font-weight:bold;
+        margin-left: 15px;
+    }
+    .border4todo{
+        border-left:4px solid #00ff21;
+    }
+   
+    .border4Request{
+        border-left:4px solid #4800ff;
+         margin-left: 5px;
+    }
+     .border4Remind{
+        border-left:4px solid #ff0000;
+        margin-left: 5px;
+        width: calc(100% - 60% - 82px)
+    }
+</style>
+<div class="notify_cover">
+   <div class="notify_todo border4todo">
+       <span class="notify_number">120</span>
+       <span class="notify_text">Việc cần làm</span>
+   </div>
+    <div class="notify_todo border4Request">
+        <span class="notify_number">70</span>
+        <span class="notify_text">Yêu cầu</span>
+    </div>
+    <div class="notify_todo border4Remind">
+        <span class="notify_number">403</span>
+        <span class="notify_text">Remin Remin Remin Remin</span>
+    </div>
+</div>
+ 
+

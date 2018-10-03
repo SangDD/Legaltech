@@ -21,7 +21,7 @@
     }
     .clssbox_search
     {
-        width:70%;
+        width: calc(85%) ;
         height:35px;
         border:1px solid #CBCCCE;
         border-right: none;
@@ -36,6 +36,7 @@
       font-weight:bold;
       height:30px;
       padding-bottom: 2px;
+     float:left;
     }
       .clssbox_search > select:focus
     {
@@ -44,12 +45,13 @@
 
     .clssbox_search > input[type="text"]
     {
-       width: calc(100% - 135px);
+       width: calc(100% - 250px);
       border:none;
       border-left: 1px solid #CBCCCE;
       background-color:#E9EAEF;
       height: 22px;
       margin-top:5px;
+         float:left;
     }
     .clssbox_search > input[type="text"]:focus
     {
@@ -58,18 +60,33 @@
     }
     .clssbox_button
     {
-      width:100px;
+      width:120px;
       float:left;
+    
+
     }
     .clssbox_button > input[type="button"]
     {
       height:37px;
       background-color:#00A0F8;
       color:white;
-      padding:0px 5px;
+      padding: 0px 0px 0px 20px;
       border:none;
+      width:110px;
+      float:right;
+      cursor:pointer;
+      margin-top:-1px;
     } 
-
+    .search_icon
+    {
+        margin:9px 0px 0px -100px;
+        float:left;
+    }
+    .clssbox_button_icon
+    {
+        float:left;
+        width:30px;
+    }
    
 </style>
  
@@ -100,15 +117,17 @@
                Wiki
             </option>
         </select>
-        <input type="text" id="legalsearch_txtsearchcontent" placeholder="case code, case name, tình trạng đơn, người xử lý, loại đơn"   />        
+        <input type="text" id="legalsearch_txtsearchcontent" placeholder="case code, case name, tình trạng đơn, người xử lý, loại đơn"   />    
+        <div class="clssbox_button">
+            <input type="button" style="" value="Tìm kiếm" onclick="findObjects(1, 1)" />
+        </div>
     </div>
-    <div class="clssbox_button">
-        <input type="button"  style="" value="Tìm kiếm" onclick="findObjects(1, 1)" />
+    <div class="clssbox_button_icon">
+        <img src="~/Content/images/magnify.svg" class="search_icon" />
     </div>
 
     <div>
 
-        <input type="hidden" id="legalsearch_txtsearchtype" value="1" />
         <input type="hidden" id="colSorted_1" />
         <input type="hidden" id="colSorted_2" />
         <input type="hidden" id="colSorted_3" />
@@ -159,14 +178,14 @@
             try {
                 var _RecordonPage = 5;
                 if (_isSearching === 1) {
-                    _searchtype = $("#legalsearch_txtsearchtype").val();
+                    _searchtype = $("#cbo_searchtype").val();
                     _searchContent = $("#legalsearch_txtsearchcontent").val();
                     _Keysearch = _searchtype + "|" + _searchContent;
                 } else {
                     _arrKeySearch = _Keysearch.split('|');
                     _searchtype = _arrKeySearch[0];
                     _searchContent = _arrKeySearch[1];
-                    $("#legalsearch_txtsearchtype").val(_searchtype);
+                    $("#cbo_searchtype").val(_searchtype);
                     $("#legalsearch_txtsearchcontent").val(_searchContent);
                 }
                 _optionFilter = "";
