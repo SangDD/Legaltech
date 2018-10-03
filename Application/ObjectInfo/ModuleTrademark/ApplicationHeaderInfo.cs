@@ -157,6 +157,7 @@ namespace ObjectInfos
         public string Lawer_Name { get; set; }
         public string Lawer_User_Name { get; set; }
         public string User_Admin_Grant { get; set; }
+        public decimal Admin_Id { get; set; }
 
         public string Currency_Type { get; set; }
 

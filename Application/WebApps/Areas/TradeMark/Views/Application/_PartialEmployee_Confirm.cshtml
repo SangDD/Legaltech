@@ -54,7 +54,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div style="width:150px">Ghi chú </div>
+            <div style="width:150px">Ghi chú <i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
@@ -124,6 +124,14 @@
         if (_Status == null || _Status == "0") {
             jError('Action Confirm không được để trống!', "Lỗi", function () {
                 $('#cboConfirm').multipleSelect('focus');
+            });
+            return false;
+        }
+
+        var _Note = $('#txtNotes').val();
+        if (_Note == null || _Note == "") {
+            jError('Ghi chú không được để trống!', "Lỗi", function () {
+                $('#txtNotes').focus();
             });
             return false;
         }

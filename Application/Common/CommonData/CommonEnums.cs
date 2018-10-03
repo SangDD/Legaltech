@@ -21,15 +21,17 @@
         public enum App_Status
         {
             Luu_tam = 1,
-            DaGui_ChoPhanLoai = 2,
-            DaPhanChoLuatSu = 3,
-            LuatSuDaConfirm = 4,
-            ChoKHConfirm = 5,
-            KhacHangDaConfirm = 6,
-            KhacHangDaTuChoi = 7,
-            DaPhanChoNhanVien = 8,
-            DaNopDon = 9,
-            DaGuiLenCuc = 10
+            DaGui_ChoPhanLoai_Admin = 2,
+            DaGui_ChoPhanLoai = 3,
+            DaPhanChoLuatSu = 4,
+            LuatSuDaConfirm = 5,
+            ChoKHConfirm = 6,
+            KhacHangDaConfirm = 7,
+            KhacHangDaTuChoi = 8,
+            DaPhanChoNhanVien = 9,
+            DaNopDon = 10,
+            DaGuiLenCuc = 11, // luật sư đã gửi lên cục
+            AdminGuiKetQuaNopDon = 12
         }
 
         public enum UserType

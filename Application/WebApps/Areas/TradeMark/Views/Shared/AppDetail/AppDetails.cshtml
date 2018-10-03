@@ -343,7 +343,11 @@
     @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update))
     {
         <div style="margin-top:20px;float:left;width:100%">
-            @if (_currstatus == (int)CommonEnums.App_Status.DaGui_ChoPhanLoai || _currstatus == (decimal)CommonEnums.App_Status.KhacHangDaTuChoi)
+            @if (_currstatus == (int)CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin)
+            {
+                @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialPhanLoai_Admin.cshtml")
+            }
+            if (_currstatus == (int)CommonEnums.App_Status.DaGui_ChoPhanLoai || _currstatus == (decimal)CommonEnums.App_Status.KhacHangDaTuChoi)
             {
                 @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialPhanLoai.cshtml")
             }

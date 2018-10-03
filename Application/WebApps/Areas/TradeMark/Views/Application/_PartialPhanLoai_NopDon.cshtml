@@ -44,7 +44,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Ghi chú </div>
+            <div>Ghi chú <i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
@@ -116,6 +116,14 @@
         if (_Employee_Id == null || _Employee_Id == "0") {
             jError('Nhân viên không được để trống!', "Lỗi", function () {
                 $('#cboEmployee').multipleSelect('focus');
+            });
+            return false;
+        }
+
+        var _Note = $('#txtNotes').val();
+        if (_Note == null || _Note == "") {
+            jError('Ghi chú không được để trống!', "Lỗi", function () {
+                $('#txtNotes').focus();
             });
             return false;
         }

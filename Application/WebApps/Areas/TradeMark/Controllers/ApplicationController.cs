@@ -123,6 +123,24 @@ namespace WebApps.Areas.TradeMark.Controllers
             }
         }
 
+
+        [HttpPost]
+        [Route("quan-ly-don/do-phan-loai-admin")]
+        public ActionResult AppHeader_Update_Admin(string p_case_code, decimal p_admin, string p_note)
+        {
+            try
+            {
+                Application_Header_BL _obj_bl = new Application_Header_BL();
+                int _ck = _obj_bl.AppHeader_Update_Admin(p_case_code, p_admin, p_note, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
         [HttpPost]
         [Route("quan-ly-don/show-kh-confirm")]
         public ActionResult GetViewToCustomerConfirm(decimal p_application_header_id)
@@ -239,7 +257,7 @@ namespace WebApps.Areas.TradeMark.Controllers
 
 
                 int _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Case_Code, _status, pInfo.App_No, pInfo.Filing_Date, url_File_Copy_Filing, url_File_Translate_Filing, 
-                    pInfo.Note, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+                    pInfo.Note, pInfo.Comment_Filling, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
 
                 // nếu thành công thì gửi email cho khách hàng
                 if (_ck != -1)
@@ -271,7 +289,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                     document.MailMerge.Execute(new { Master_Name = _ApplicationHeaderInfo.Master_Name });
                     document.MailMerge.Execute(new { App_No = _ApplicationHeaderInfo.App_No });
                     document.MailMerge.Execute(new { Str_Filing_Date = _ApplicationHeaderInfo.Str_Filing_Date });
-                    document.MailMerge.Execute(new { Comment_filling = _ApplicationHeaderInfo.Comment_Filling });
+                    document.MailMerge.Execute(new { Comment_filling = pInfo.Comment_Filling });
                     document.MailMerge.Execute(new { Customer_Country_Name = _ApplicationHeaderInfo.Customer_Country_Name });
 
                     // lấy thông tin người dùng

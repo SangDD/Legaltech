@@ -76,6 +76,17 @@
         </div>
         <div class="div-search-content">
             <div>
+                <input type="text" id="txtComment_Filling" maxlength="2000" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Ghi chú <i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
                 <input type="text" id="txtNotes" maxlength="2000" />
             </div>
         </div>
@@ -157,6 +168,7 @@
                 formdata.append("pInfo.Id", @_AppHeaderInfo.Id);
                 formdata.append("pInfo.Filing_Date", $('#txt_filing_date').val());
                 formdata.append("pInfo.Note", $('#txtNotes').val());
+                formdata.append("pInfo.Comment_Filling", $('#txtComment_Filling').val());
                 formdata.append("pInfo.App_No", $('#txt_App_No').val());
 
                 $.ajax({
