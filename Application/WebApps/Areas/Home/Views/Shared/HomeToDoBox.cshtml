@@ -5,6 +5,7 @@
         padding: 5px 0px 1px 5px;
         margin-top: 10px;
         float:left;
+        width:100%;
     }
 
     #legaltodo_table td {
@@ -32,6 +33,10 @@
         text-align: center;
         width: 100px;
     }
+    .BoxtableHome .table-lst-data th
+    {
+        background-color: #ffffff;
+    }
 </style>
 
 <div class="divCover legalTodo_div">
@@ -43,7 +48,7 @@
     </div>
 
     <div class="Homebox">
-        <div id="LegalTododivTable" class="LegaldivBoxTable">
+        <div id="LegalTododivTable" class="LegaldivBoxTable BoxtableHome">
             @Html.Partial("/Areas/Home/Views/Shared/_TodoData.cshtml")
         </div>
     </div>
