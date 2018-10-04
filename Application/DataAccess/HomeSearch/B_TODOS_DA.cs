@@ -94,5 +94,22 @@ namespace DataAccess
             }
         }
 
+        public DataSet GET_NOTIFY(string P_USERNAME)
+        {
+            try
+            {
+                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_TODOS.proc_get_notify",
+                    new OracleParameter("P_USERNAME", OracleDbType.Varchar2, P_USERNAME, ParameterDirection.Input),
+                    new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output)
+                   );
+                return _ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
     }
 }

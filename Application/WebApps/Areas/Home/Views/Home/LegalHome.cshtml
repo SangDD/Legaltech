@@ -6,7 +6,6 @@
         _languagecode = ViewBag.LanguageCode;
     }
 }
-
 <style>
     .main-content
     {
@@ -14,7 +13,13 @@
       padding:10px;
     }
    
-    .BoxtableHome,  .table-lst-data th
+    .BoxtableHome 
+    {
+        background-color: #ffffff;
+        width: calc(100% - 20px);
+        padding: 0px 10px;
+    }
+     .table-lst-data th
     {
         background-color: #ffffff;
         width: calc(100% - 20px);
@@ -32,10 +37,12 @@
     }
      .legalbackgroup_div
      {
-         background-color: #ffffff;
-         margin-top:10px;
-         float:left;
-         width:100%;
+        background-color: #ffffff;
+        float:left;
+        width:100%;
+        text-align: left;
+        min-height: 50px;
+        padding: 5px 0px 1px 5px;       
      }
 
     .table-lst-data>tbody>tr:last-child>td
