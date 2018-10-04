@@ -10,6 +10,10 @@ namespace ObjectInfos
 
     public class AppDocumentOthersInfo
     {
+        public AppDocumentOthersInfo()
+        {
+            IdRef = 0;
+        }
         public decimal Id { get; set; }
         public decimal App_Header_Id { get; set; }
         public string Documentname { get; set; }
@@ -18,6 +22,8 @@ namespace ObjectInfos
 
         public string keyFileUpload { get; set; }
         public string Language_Code { get; set; }
+
+        public decimal IdRef { get; set; }
 
     }
 }

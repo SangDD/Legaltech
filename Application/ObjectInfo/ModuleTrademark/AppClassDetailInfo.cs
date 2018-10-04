@@ -8,7 +8,12 @@ namespace ObjectInfos
 {
     public class AppClassDetailInfo
     {
+        public AppClassDetailInfo()
+        {
+            IDREF = 0;
+        }
         public decimal Id { get; set; }
+        public decimal IDREF { get; set; }
         public string Textinput { get; set; }
         public string Code { get; set; }
         public decimal App_Header_Id { get; set; }

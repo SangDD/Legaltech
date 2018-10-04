@@ -25,6 +25,7 @@ namespace DataAccess.ModuleTrademark
                 if (numberRecord < 1) return 0;
                 string[] TextInput = new string[numberRecord];
                 decimal[] App_Header_Id = new decimal[numberRecord];
+                decimal[] IdRef = new decimal[numberRecord];
                 string[] Code = new string[numberRecord];
                 string[] Language = new string[numberRecord];
                 DateTime[] Document_Filling_Date = new DateTime[numberRecord];
@@ -34,6 +35,7 @@ namespace DataAccess.ModuleTrademark
                     TextInput[i] = lstNews[i].Textinput;
                     Code[i] = lstNews[i].Code;
                     Language[i] = pLanguage;
+                    IdRef[i] = lstNews[i].IDREF;
                 }
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
                 paramReturn.Size = 10;
@@ -42,6 +44,7 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("P_CODE", OracleDbType.Varchar2, Code, ParameterDirection.Input),
                     new OracleParameter("P_APP_HEADER_ID", OracleDbType.Decimal, App_Header_Id, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, Language, ParameterDirection.Input),
+                    new OracleParameter("P_IDREF", OracleDbType.Decimal, IdRef, ParameterDirection.Input),  
                     paramReturn);
 
                 var result = ErrorCode.Error;

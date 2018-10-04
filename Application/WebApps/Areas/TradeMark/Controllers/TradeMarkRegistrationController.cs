@@ -126,6 +126,7 @@
             try
             {
                 Application_Header_BL objBL = new Application_Header_BL();
+                if (pDetail.LoaiNhanHieu == "undefined") pDetail.LoaiNhanHieu = "";
                 AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
                 AppDetail04NHBL objDetail = new AppDetail04NHBL();
                 AppClassDetailBL objClassDetail = new AppClassDetailBL();
@@ -881,6 +882,7 @@
         {
             try
             {
+                if (pDetail.LoaiNhanHieu == "undefined") pDetail.LoaiNhanHieu = "";
                 Application_Header_BL objBL = new Application_Header_BL();
                 AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
                 AppDetail04NHBL objDetail = new AppDetail04NHBL();
@@ -949,6 +951,7 @@
                                     check = 1;
                                     info.App_Header_Id = pInfo.Id;
                                     info.Language_Code = language;
+                                    info.IdRef = info.Id;
                                     listDocument.Add(info);
                                 }
                             }
@@ -1288,6 +1291,7 @@
         {
             try
             {
+                if (pDetail.LoaiNhanHieu == "undefined") pDetail.LoaiNhanHieu = "";
                 Application_Header_BL objBL = new Application_Header_BL();
                 AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
                 AppDetail04NHBL objDetail = new AppDetail04NHBL();

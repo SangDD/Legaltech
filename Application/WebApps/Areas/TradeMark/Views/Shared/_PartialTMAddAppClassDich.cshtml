@@ -27,7 +27,7 @@
         }
     }
     <script>
-        var _appinfo = { name: '@Html.Raw(item.Textinput)', value: '@Html.Raw(@pAppCode)' }
+        var _appinfo = { name: '@Html.Raw(item.Textinput)', value: '@Html.Raw(@pAppCode)',id :'@Html.Raw(item.Id)' }
         _EditArryAppClass.push(_appinfo)
     </script>
 }
@@ -72,7 +72,7 @@
     $(document).ready(function () {
       // đẩy vào table
         _EditArryAppClass.forEach(function (element) {
-            funcAddMessDataRow(element.name, element.value, 0);
+            funcAddMessDataRow(element.name, element.value, 0,element.id);
         });
     })
     $('#NVSCBO001_AppClassSearch').multipleSelect({
@@ -117,7 +117,7 @@
             }
 
 
-            funcAddMessDataRow(className, classCode, 0);
+            funcAddMessDataRow(className, classCode, 0,0);
             $("#txtTenHangHoa").val("");
             $("#NVSCBO001_AppClassSearch").val("");
             $("#txtTenHangHoa").focus();
@@ -132,7 +132,7 @@
     var numCode = 0;
 
     // 2018.06.15 Hungtd sửa
-    function funcAddMessDataRow(textInput, classCode, type) {
+    function funcAddMessDataRow(textInput, classCode, type,pid) {
         try {
 
             // lấy ra nhóm hàng hóa
@@ -158,7 +158,7 @@
             textInput = textInput.trim();
             classCode = _groupcode;
             classCode = classCode.trim();
-            var _html = "<tr><td></td><td class=\"TdLeft\">" + textInput + "</td><td> <input type='text' class='DataAdd2'> <input type='hidden' id=\"" + txtCode +"\"> </td> <td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td></td><td class=\"HasSort clssDisplaynone\">" + classCode.substr(0, 5) + "</td></tr>";
+            var _html = "<tr><td></td><td class=\"TdLeft\">" + textInput + "</td><td> <input type='text' class='DataAdd2'> <input  value=\"" + classCode + "|" + pid + "\" type='hidden' id=\"" + txtCode +"\"> </td> <td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td></td><td class=\"HasSort clssDisplaynone\">" + classCode.substr(0, 5) + "</td></tr>";
 
 
             $("#tblClassInfo").find("tbody").append(_html);
@@ -254,7 +254,7 @@
     }
 
     //Lay thong tin trong bang
-    function funcGetDataClassInfo(formData) {
+    function funcGetDataClassInfoTranslate(formData) {
         try {
             var item = 0;
            
@@ -274,7 +274,10 @@
                 formData.append("pAppClassInfo[" + item + "].TongSanPham", tongSP);
                 item++;
                 txtCode = txtCode + item.toString();
-                formData.append("pAppClassInfo[" + item + "].Code", $("#"+txtCode).val());
+                var strCodeID = $("#" + txtCode).val().split('|');
+                console.log('txtCode:' + txtCode + ' strCodeID:' + strCodeID);
+                formData.append("pAppClassInfo[" + item + "].Code", strCodeID[0]);
+                formData.append("pAppClassInfo[" + item + "].IDREF", strCodeID[1]);
             });
             return true;
         }

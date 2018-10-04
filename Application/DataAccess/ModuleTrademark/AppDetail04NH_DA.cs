@@ -12,20 +12,20 @@ namespace DataAccess.ModuleTrademark
         {
             try
             {
-                Logger.LogInfo("pInfo Insert1:" + pInfo.Id.ToString() + " pInfo.App_Header_Id:" + pInfo.App_Header_Id + " Appcode:" + pInfo.Appcode +
-                 " Language_Code:" + pInfo.Language_Code + " Dactichhanghoa:" + pInfo.Dactichhanghoa.ToString() + " pInfo.Used_Special:" + pInfo.Used_Special +
-                " pInfo.Duadate:" + pInfo.Duadate.ToString("dd/MM/yyyy") + " pInfo.Ngaynopdon_Ut:" + pInfo.Ngaynopdon_Ut.ToString("dd/MM/yyyy") +
-                " pInfo.Ngaynopdon_Ut2:" + pInfo.Ngaynopdon_Ut2.ToString("dd/MM/yyyy"));
+               // Logger.LogInfo("pInfo Insert1:" + pInfo.Id.ToString() + " pInfo.App_Header_Id:" + pInfo.App_Header_Id + " Appcode:" + pInfo.Appcode +
+               //  " Language_Code:" + pInfo.Language_Code + " Dactichhanghoa:" + pInfo.Dactichhanghoa.ToString() + " pInfo.Used_Special:" + pInfo.Used_Special +
+               // " pInfo.Duadate:" + pInfo.Duadate.ToString("dd/MM/yyyy") + " pInfo.Ngaynopdon_Ut:" + pInfo.Ngaynopdon_Ut.ToString("dd/MM/yyyy") +
+               // " pInfo.Ngaynopdon_Ut2:" + pInfo.Ngaynopdon_Ut2.ToString("dd/MM/yyyy"));
 
 
-                Logger.LogInfo("1pInfo Logourl:" + pInfo.Logourl.ToString() + " pInfo.Dactichhanghoa:" + pInfo.Dactichhanghoa + " Color:" + pInfo.Color +
-                 " Description:" + pInfo.Description + " Huongquyenuutien:" + pInfo.Huongquyenuutien.ToString() + " pInfo.Sodon_Ut:" + pInfo.Sodon_Ut +
-                 " pInfo.Nguongocdialy:" + pInfo.Nguongocdialy + " pInfo.Chatluong:" + pInfo.Chatluong + " pInfo.Dactinhkhac:" + pInfo.Dactinhkhac);
+               // Logger.LogInfo("1pInfo Logourl:" + pInfo.Logourl.ToString() + " pInfo.Dactichhanghoa:" + pInfo.Dactichhanghoa + " Color:" + pInfo.Color +
+               //  " Description:" + pInfo.Description + " Huongquyenuutien:" + pInfo.Huongquyenuutien.ToString() + " pInfo.Sodon_Ut:" + pInfo.Sodon_Ut +
+               //  " pInfo.Nguongocdialy:" + pInfo.Nguongocdialy + " pInfo.Chatluong:" + pInfo.Chatluong + " pInfo.Dactinhkhac:" + pInfo.Dactinhkhac);
 
 
-                Logger.LogInfo("2pInfo pInfo.LoaiNhanHieu:" + pInfo.LoaiNhanHieu.ToString() + " pInfo.CodeLogo:" + pInfo.CodeLogo + " Sodon_Ut2:" + pInfo.Sodon_Ut2 +
-               " Ngaynopdon_Ut2:" + pInfo.Ngaynopdon_Ut2.ToString("dd/MM/yyyy") + " Nuocnopdon_Ut2:" + pInfo.Nuocnopdon_Ut2.ToString() + " pInfo.Huongquyenuutien2:" + pInfo.Huongquyenuutien2 +
-               " pInfo.ThoaThuanKhac:" + pInfo.ThoaThuanKhac + " pInfo.Chatluong:" + pInfo.Chatluong + " pInfo.Dactinhkhac:" + pInfo.Dactinhkhac);
+               // Logger.LogInfo("2pInfo pInfo.LoaiNhanHieu:" + pInfo.LoaiNhanHieu.ToString() + " pInfo.CodeLogo:" + pInfo.CodeLogo + " Sodon_Ut2:" + pInfo.Sodon_Ut2 +
+               //" Ngaynopdon_Ut2:" + pInfo.Ngaynopdon_Ut2.ToString("dd/MM/yyyy") + " Nuocnopdon_Ut2:" + pInfo.Nuocnopdon_Ut2.ToString() + " pInfo.Huongquyenuutien2:" + pInfo.Huongquyenuutien2 +
+               //" pInfo.ThoaThuanKhac:" + pInfo.ThoaThuanKhac + " pInfo.Chatluong:" + pInfo.Chatluong + " pInfo.Dactinhkhac:" + pInfo.Dactinhkhac);
 
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
                 paramReturn.Size = 10;
@@ -97,20 +97,20 @@ namespace DataAccess.ModuleTrademark
         {
             try
             {
-                Logger.LogInfo("pInfo:" + pInfo.Id.ToString() + " pInfo.App_Header_Id:" + pInfo.App_Header_Id + " Appcode:" + pInfo.Appcode +
-                    "Language_Code:" + pInfo.Language_Code + " Dactichhanghoa:" + pInfo.Dactichhanghoa.ToString() + " pInfo.Used_Special:" + pInfo.Used_Special +
-                   " pInfo.Duadate:" + pInfo.Duadate.ToString("dd/MM/yyyy")  + " pInfo.Ngaynopdon_Ut:" + pInfo.Ngaynopdon_Ut.ToString("dd/MM/yyyy") +
-                   " pInfo.Ngaynopdon_Ut2:" + pInfo.Ngaynopdon_Ut2.ToString("dd/MM/yyyy"));
+               // Logger.LogInfo("pInfo:" + pInfo.Id.ToString() + " pInfo.App_Header_Id:" + pInfo.App_Header_Id + " Appcode:" + pInfo.Appcode +
+               //     "Language_Code:" + pInfo.Language_Code + " Dactichhanghoa:" + pInfo.Dactichhanghoa.ToString() + " pInfo.Used_Special:" + pInfo.Used_Special +
+               //    " pInfo.Duadate:" + pInfo.Duadate.ToString("dd/MM/yyyy")  + " pInfo.Ngaynopdon_Ut:" + pInfo.Ngaynopdon_Ut.ToString("dd/MM/yyyy") +
+               //    " pInfo.Ngaynopdon_Ut2:" + pInfo.Ngaynopdon_Ut2.ToString("dd/MM/yyyy"));
 
 
-                Logger.LogInfo("1pInfo Logourl:" + pInfo.Logourl.ToString() + " pInfo.Dactichhanghoa:" + pInfo.Dactichhanghoa + " Color:" + pInfo.Color +
-               " Description:" + pInfo.Description + " Huongquyenuutien:" + pInfo.Huongquyenuutien.ToString() + " pInfo.Sodon_Ut:" + pInfo.Sodon_Ut +
-               " pInfo.Nguongocdialy:" + pInfo.Nguongocdialy + " pInfo.Chatluong:" + pInfo.Chatluong + " pInfo.Dactinhkhac:" + pInfo.Dactinhkhac);
+               // Logger.LogInfo("1pInfo Logourl:" + pInfo.Logourl.ToString() + " pInfo.Dactichhanghoa:" + pInfo.Dactichhanghoa + " Color:" + pInfo.Color +
+               //" Description:" + pInfo.Description + " Huongquyenuutien:" + pInfo.Huongquyenuutien.ToString() + " pInfo.Sodon_Ut:" + pInfo.Sodon_Ut +
+               //" pInfo.Nguongocdialy:" + pInfo.Nguongocdialy + " pInfo.Chatluong:" + pInfo.Chatluong + " pInfo.Dactinhkhac:" + pInfo.Dactinhkhac);
 
 
-                Logger.LogInfo("2pInfo pInfo.LoaiNhanHieu:" + pInfo.LoaiNhanHieu.ToString() + " pInfo.CodeLogo:" + pInfo.CodeLogo + " Sodon_Ut2:" + pInfo.Sodon_Ut2 +
-               " Ngaynopdon_Ut2:" + pInfo.Ngaynopdon_Ut2.ToString("dd/MM/yyyy") + " Nuocnopdon_Ut2:" + pInfo.Nuocnopdon_Ut2.ToString() + " pInfo.Huongquyenuutien2:" + pInfo.Huongquyenuutien2 +
-               " pInfo.ThoaThuanKhac:" + pInfo.ThoaThuanKhac + " pInfo.Chatluong:" + pInfo.Chatluong + " pInfo.Dactinhkhac:" + pInfo.Dactinhkhac);
+               // Logger.LogInfo("2pInfo pInfo.LoaiNhanHieu:" + pInfo.LoaiNhanHieu.ToString() + " pInfo.CodeLogo:" + pInfo.CodeLogo + " Sodon_Ut2:" + pInfo.Sodon_Ut2 +
+               //" Ngaynopdon_Ut2:" + pInfo.Ngaynopdon_Ut2.ToString("dd/MM/yyyy") + " Nuocnopdon_Ut2:" + pInfo.Nuocnopdon_Ut2.ToString() + " pInfo.Huongquyenuutien2:" + pInfo.Huongquyenuutien2 +
+               //" pInfo.ThoaThuanKhac:" + pInfo.ThoaThuanKhac + " pInfo.Chatluong:" + pInfo.Chatluong + " pInfo.Dactinhkhac:" + pInfo.Dactinhkhac);
 
 
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);

@@ -1670,12 +1670,12 @@
             }
 
             //DataAdd2
-            reponse = funcGetDataClassInfo(formData);
+            reponse = funcGetDataClassInfoTranslate(formData);
             if (reponse == false) {
                 return false;
             }
             //lay tai lieu khac
-            reponse = funcGetTenTaiLieuKhac(formData);
+            reponse = funcGetTenTaiLieuKhacDich(formData);
             if (reponse == false) {
                 return false;
             }
@@ -2038,13 +2038,16 @@
     }
 
 
-    function funcGetTenTaiLieuKhac(formData) {
+    function funcGetTenTaiLieuKhacDich(formData) {
         try {
             var item = 0;
             $(".txtTaiLieuKhacDich").each(function () {
                 formData.append("pAppDocOtherInfo[" + item + "].Documentname", $(this).val());
                 item++;
                 var txtIdTaiLieuKhacID = "txtTaiLieuKhacID" + item.toString();
+
+                
+                console.log('txtIdTaiLieuKhacID:' + txtIdTaiLieuKhacID + ' txtIdTaiLieuKhacID:' + $("#" + txtIdTaiLieuKhacID).val());
                 formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", $("#" + txtIdTaiLieuKhacID).val());
             });
             return true;
