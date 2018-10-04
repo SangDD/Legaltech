@@ -70,27 +70,10 @@ namespace ObjectInfos
 
     public class B_TodoNotify_Info
     {
-        public int NUMBER_APPS { get; set; }
+        public int NUMBER_TODO { get; set; }
 
-        public int NUMBER_QUETIONS { get; set; }
+        public int NUMBER_REQUEST { get; set; }
 
-        public int NUMBER_SEARCH { get; set; }
-
-        public int NUMBER_TIMESHEET { get; set; }
-
-        public int NUMBER_BILLS { get; set; }
-
-        int _total;
-        public int Total {
-
-            get
-            {
-                return NUMBER_APPS + NUMBER_QUETIONS + NUMBER_SEARCH + NUMBER_TIMESHEET + NUMBER_BILLS;
-            }
-            set
-            {
-                _total = value;
-            }
-        }
+        public int NUMBER_REMIND { get; set; }
     }
 }

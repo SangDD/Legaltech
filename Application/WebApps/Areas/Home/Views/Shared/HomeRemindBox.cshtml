@@ -1,10 +1,5 @@
 ﻿<style>
-    .legalRemind_div {
-        text-align: left;
-        min-height: 50px;
-        padding: 5px 0px 1px 5px;
-        margin-top: 5px;
-    }
+   
 
     #legalOrder_table td {
         cursor: pointer;
@@ -16,15 +11,14 @@
     }
 </style>
 
-<div class="divCover legalRemind_div legalbackgroup_div">
-    <div id="d_remind_sum" class="box_title" style="float:left;width:100%; background-color: #efefef;"> <label style="padding-left:10px"> REMIND </label>   </div>
+<div class="divCover legalRemind_div legalbackgroup_div clssDisplaynone" id="div_remindcorver">
     <div>
         <input type="hidden" id="colSortedRemid" />
         <input type="hidden" id="SortTypeRemind" />
     </div>
 
     <div class="Homebox">
-        <div id="LegalReminddivTable" class="LegaldivBoxTable">
+        <div id="LegalReminddivTable" class="LegaldivBoxTable BoxtableHome">
             @Html.Partial("/Areas/Home/Views/Shared/_RemindData.cshtml")
         </div>
     </div>

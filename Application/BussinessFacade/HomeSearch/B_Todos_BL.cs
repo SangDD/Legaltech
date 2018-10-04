@@ -60,6 +60,21 @@ namespace BussinessFacade
                 return new List<B_Todos_Info>();
             }
         }
-        
+
+        public B_TodoNotify_Info GET_NOTIFY(string p_username )
+        {
+            try
+            {
+                B_TODOS_DA _da = new B_TODOS_DA();
+                DataSet _ds = _da.GET_NOTIFY(p_username);
+                return CBO<B_TodoNotify_Info>.FillObjectFromDataSet(_ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new B_TodoNotify_Info();
+            }
+        }
+
     }
 }

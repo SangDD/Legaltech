@@ -1,10 +1,5 @@
 ﻿<style>
-    .legalOrder_div {
-        text-align: left;
-        min-height: 50px;
-        padding: 5px 0px 1px 5px;
-        margin-top: 5px;
-    }
+   
 
     #legalOrder_table td {
         cursor: pointer;
@@ -16,15 +11,14 @@
     }
 </style>
 
-<div class="divCover legalOrder_div legalbackgroup_div">
-    <div id="d_order_sum" class="box_title" style="float:left; width:100%; background-color: #efefef;"><label style="padding-left:10px"> YÊU CẦU </label>    </div>
+<div class="divCover legalOrder_div legalbackgroup_div clssDisplaynone" id="div_Ordercorver" >
     <div>
         <input type="hidden" id="colSortedOrder" />
         <input type="hidden" id="SortTypeOrder" />
     </div>
 
     <div class="Homebox">
-        <div id="LegalOrderdivTable" class="LegaldivBoxTable">
+        <div id="LegalOrderdivTable" class="LegaldivBoxTable BoxtableHome">
             @Html.Partial("/Areas/Home/Views/Shared/_OrderData.cshtml")
         </div>
     </div>

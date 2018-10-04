@@ -35,6 +35,12 @@
                 SessionData.CurrentUser.HtmlMenu = userBL.GetUserHtmlMenu(language);
             }
             ViewBag.LanguageCode = language;
+
+            B_Todos_BL _obj_bl = new B_Todos_BL();     
+            B_TodoNotify_Info p_todonotify = new B_TodoNotify_Info();
+            p_todonotify = _obj_bl.GET_NOTIFY(SessionData.CurrentUser.Username);
+            ViewBag.NotifyInfo = p_todonotify;
+
             return View("~/Areas/Home/Views/Home/LegalHome.cshtml");
 	    }
 
@@ -307,6 +313,8 @@
             }
             return null;
         }
+
+      
 
         #endregion
 
