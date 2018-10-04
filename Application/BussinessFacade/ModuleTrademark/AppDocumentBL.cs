@@ -52,6 +52,19 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
+        public int AppDocumentTranslate(string pLanguage, decimal pAppHeaderID, decimal pAppHeaderNew)
+        {
+            try
+            {
+                AppDocumentDA objData = new AppDocumentDA();
+                return objData.AppDocumentTranslate(pLanguage, pAppHeaderID,   pAppHeaderNew);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
         public int AppDocumentOtherInsertBatch(List<AppDocumentOthersInfo> pInfo)
         {
             try

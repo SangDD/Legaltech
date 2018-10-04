@@ -6,6 +6,12 @@
     {
         lstDocOther = (List<AppDocumentOthersInfo>)ViewBag.lstDocOther;
     }
+
+    var lstDocOtherVI = new List<AppDocumentOthersInfo>();
+    if (ViewBag.lstDocOther_VI != null)
+    {
+        lstDocOtherVI = (List<AppDocumentOthersInfo>)ViewBag.lstDocOther_VI;
+    }
     string listIDFileAtt = "";
     string styleTLK = "display:none";
     if (lstDocOther.Count > 0)
@@ -35,6 +41,7 @@
             No++;
             FileName = No.ToString() + ". " + item.Documentname;
             string txtIdTaiLieu = "txtTaiLieuKhac" + No.ToString();
+            string txtIdTaiLieuKhacID = "txtTaiLieuKhacID" + No.ToString();
             string TileLabel = "Tài liệu " + No.ToString() + " (Dịch)";
             <div id="@item.Id" class="classDocOtherE"> <a style="color:blue" href="@item.Filename">@FileName</a>  </div>
 
@@ -44,7 +51,8 @@
                         <div style="width: 250px;">@TileLabel</div>
                     </div>
                     <div class="div-search-content">
-                        <input type="text" id="@txtIdTaiLieu" maxlength="200" />
+                        <input type="text" id="@txtIdTaiLieu" class="txtTaiLieuKhacDich" maxlength="200" />
+                        <input type="hidden" id="@txtIdTaiLieuKhacID" value="@item.Id"/>
                     </div>
                 </div>
             </div>

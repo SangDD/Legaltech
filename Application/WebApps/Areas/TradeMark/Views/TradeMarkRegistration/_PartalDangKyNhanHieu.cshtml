@@ -1252,10 +1252,10 @@
             formdata.append("pDetail.Duadate", v_NgayNopDonn_0);
 
             var v_NhanHieu = $("input[name='0_NhanHieu']:checked").val();
-            if (v_NhanHieu === "" || v_NhanHieu == undefined && (pEditOrNew == 1)) {
-                showError('Phải chọn ít nhất 1 giá trị cho nhãn hiệu!');
-                return false;
-            }
+            //if (v_NhanHieu === "" || v_NhanHieu == undefined && (pEditOrNew == 1)) {
+            //    showError('Phải chọn ít nhất 1 giá trị cho nhãn hiệu!');
+            //    return false;
+            //}
             formdata.append("pDetail.LoaiNhanHieu", v_NhanHieu);
 
             var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
