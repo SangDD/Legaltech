@@ -612,7 +612,7 @@
 
                     @* Moithem *@
                     <div class="div-search-content">
-                        <input type="text" id="txtThoathuanKhac"  maxlength="150" />
+                        <input type="text" id="txtThoathuanKhac" value="@objAppHeaderInfo_VI.ThoaThuanKhac"  maxlength="150" />
                     </div>
 
                 </div>
@@ -1647,10 +1647,10 @@
             formdata.append("pDetail.Duadate", v_NgayNopDonn_0);
 
             var v_NhanHieu = $("input[name='0_NhanHieu']:checked").val();
-            if (v_NhanHieu === "" || v_NhanHieu == undefined && (pEditOrNew == 2)) {
-                showError('Phải chọn ít nhất 1 giá trị cho nhãn hiệu!');
-                return false;
-            }
+            //if (v_NhanHieu === "" || v_NhanHieu == undefined && (pEditOrNew == 2)) {
+            //    showError('Phải chọn ít nhất 1 giá trị cho nhãn hiệu!');
+            //    return false;
+            //}
             formdata.append("pDetail.LoaiNhanHieu", v_NhanHieu);
 
 

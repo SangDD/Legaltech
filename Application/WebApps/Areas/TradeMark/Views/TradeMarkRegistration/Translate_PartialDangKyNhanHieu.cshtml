@@ -7,6 +7,7 @@
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     var objAppHeaderInfo = new AppDetail04NHInfo();
+    var objAppHeaderInfo_VI = new AppDetail04NHInfo();
     var lstDocumentInfo = new List<AppDocumentInfo>();
     var lstDocOther = new List<AppDocumentOthersInfo>();
     var lstClassDetailInfo = new List<AppClassDetailInfo>();
@@ -14,6 +15,10 @@
     if (ViewBag.objAppHeaderInfo != null)
     {
         objAppHeaderInfo = (AppDetail04NHInfo)ViewBag.objAppHeaderInfo;
+    }
+    if (ViewBag.objAppHeaderInfo_VI != null)
+    {
+        objAppHeaderInfo_VI = (AppDetail04NHInfo)ViewBag.objAppHeaderInfo_VI;
     }
     if (ViewBag.lstDocumentInfo != null)
     {
@@ -364,7 +369,7 @@
                                 <div class="class_dich">@WebApps.Resources.Resource.lblMauSac (Dịch):</div>
                             </div>
                             <div class="div-search-content">
-                                <div><input type="text" placeholder="0_MauSac_VI" value="" maxlength="50" id="0_MauSac_VI" /></div>
+                                <div><input type="text" placeholder="0_MauSac_VI" value="@objAppHeaderInfo_VI.Color" maxlength="50" id="0_MauSac_VI" /></div>
                             </div>
                         </div>
 
@@ -374,7 +379,7 @@
                             </div>
                             <div class="div-search-content">
                                 <div>
-                                    <textarea id="0_MoTa_VI" maxlength="2000" rows="5" cols="10" placeholder="Mô tả" style="height:128px"></textarea>
+                                    <textarea id="0_MoTa_VI" maxlength="2000" rows="5" cols="10" placeholder="Mô tả" style="height:128px">@objAppHeaderInfo_VI.Description</textarea>
                                 </div>
                             </div>
                         </div>
@@ -482,7 +487,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" id="8_txtNguonGocDiaLy_VI" class="classDacTinhHangHoa" value="@objAppHeaderInfo.Nguongocdialy"   maxlength="100" placeholder="@WebApps.Resources.Resource.lblNguonGocDiaLy" />
+                            <input type="text" id="8_txtNguonGocDiaLy_VI" class="classDacTinhHangHoa" value="@objAppHeaderInfo_VI.Nguongocdialy"   maxlength="100" placeholder="@WebApps.Resources.Resource.lblNguonGocDiaLy" />
                         </div>
                     </div>
                 </div>
@@ -492,7 +497,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" id="8_txtChatLuong_VI" maxlength="100" value="@objAppHeaderInfo.Chatluong" class="classDacTinhHangHoa"  placeholder="8_txtChatLuong" />
+                            <input type="text" id="8_txtChatLuong_VI" maxlength="100" value="@objAppHeaderInfo_VI.Chatluong" class="classDacTinhHangHoa"  placeholder="8_txtChatLuong" />
                         </div>
                     </div>
                 </div>
@@ -502,7 +507,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" id="8_txtDacTinhKhac_VI" maxlength="100" class="classDacTinhHangHoa" value="@objAppHeaderInfo.Nguongocdialy" placeholder="8_txtDacTinhKhac" />
+                            <input type="text" id="8_txtDacTinhKhac_VI" maxlength="100" class="classDacTinhHangHoa" value="@objAppHeaderInfo_VI.Nguongocdialy" placeholder="8_txtDacTinhKhac" />
                         </div>
                     </div>
                 </div>
@@ -682,7 +687,7 @@
 
                     @* Moithem *@
                     <div class="div-search-content">
-                        <input type="text" id="txtThoathuanKhac" maxlength="150" />
+                        <input type="text" id="txtThoathuanKhac" value="@objAppHeaderInfo_VI.ThoaThuanKhac" maxlength="150" />
                     </div>
                 </div>
 
@@ -692,7 +697,7 @@
                         <div style="width: 250px;">@WebApps.Resources.Resource.lblTheoThoaThuanKhac (Dịch)</div>
                     </div>
                     <div class="div-search-content">
-                        <input type="text" id="txtThoathuanKhac_VI" maxlength="150" />
+                        <input type="text" id="txtThoathuanKhac_VI" value="@objAppHeaderInfo_VI.ThoaThuanKhac"  maxlength="150" />
                     </div>
                 </div>
                 @* End dịch tiếng việt *@
@@ -997,6 +1002,11 @@
             $("#8_txtNguonGocDiaLy").val("");
             $("#8_txtChatLuong").val("");
             $("#8_txtDacTinhKhac").val("");
+
+            $("#8_txtNguonGocDiaLy_VI").val("");
+            $("#8_txtChatLuong_VI").val("");
+            $("#8_txtDacTinhKhac_VI").val("");
+
             $("#divNhanHieuChungNhan").css('display', 'none');
         }
     });
@@ -1629,11 +1639,7 @@
             formData.append("pInfo.Case_Code", $("#txtCase_Code").val());
 
             var daidienSH = $("#txtDaiDienSHCN").val();
-            //if (daidienSH === "") {
-            //    $('#txtDaiDienSHCN').focus().val('');
-            //    showError('Chưa chọn chủ đại đại diện sở hữu.');
-            //    return false;
-            //}
+           
             formData.append("pInfo.DDSHCN", daidienSH);
 
             //07/09/2018
@@ -1662,6 +1668,8 @@
             if (reponse == false) {
                 return false;
             }
+
+            //DataAdd2
             reponse = funcGetDataClassInfo(formData);
             if (reponse == false) {
                 return false;
@@ -1677,7 +1685,7 @@
                 return false;
             }
             $.ajax({
-                url: '/trade-mark/dang-ky-nhan-hieu-sua-doi',
+                url: '/trade-mark/dich-dang-ky-nhan-hieu',
                 type: 'POST',
                 data: formData,
                 processData: false, contentType: false, traditional: true, dataType: "json",
@@ -1700,7 +1708,6 @@
         } catch (e) {
         }
     }
-
 
     function funcGetAppDetail(formdata, pEditOrNew) {
         try {
@@ -1730,10 +1737,10 @@
             formdata.append("pDetail.Duadate", v_NgayNopDonn_0);
 
             var v_NhanHieu = $("input[name='0_NhanHieu']:checked").val();
-            if (v_NhanHieu === "" || v_NhanHieu == undefined && (pEditOrNew == 2)) {
-                showError('Phải chọn ít nhất 1 giá trị cho nhãn hiệu!');
-                return false;
-            }
+            //if (v_NhanHieu === "" || v_NhanHieu == undefined && (pEditOrNew == 2)) {
+            //    showError('Phải chọn ít nhất 1 giá trị cho nhãn hiệu!');
+            //    return false;
+            //}
             formdata.append("pDetail.LoaiNhanHieu", v_NhanHieu);
 
 
@@ -1792,7 +1799,7 @@
                 }
                 formdata.append("pDetail.Nuocnopdon_Ut", v_Nuocnopdon_Ut);
 
-                var ThoathuanKhac = $("#txtThoathuanKhac").val();
+                var ThoathuanKhac = $("#txtThoathuanKhac_VI").val();
                 formdata.append("pDetail.ThoathuanKhac", ThoathuanKhac);
                 //Lấy thông tin đơn số 2
                 //Nếu có hiển thị lên thì mới check
@@ -1837,10 +1844,10 @@
             var codeNhanHieu = $("#0_txtTenNhanHieu").val();
             formdata.append("pDetail.CodeLogo", codeNhanHieu);
 
-            var v_MauSac_0 = $("#0_MauSac").val();
+            var v_MauSac_0 = $("#0_MauSac_VI").val();
             formdata.append("pDetail.Color", v_MauSac_0);
 
-            var v_MoTa_0 = $("#0_MoTa").val();
+            var v_MoTa_0 = $("#0_MoTa_VI").val();
             formdata.append("pDetail.Description", v_MoTa_0);
 
             //Sửa
@@ -1870,31 +1877,31 @@
                 return false;
             }
             if ($("#0_ckbDacTinhHangHoa").prop('checked') == true) {
-                var v_NguonGocDL = $("#8_txtNguonGocDiaLy").val();
+                var v_NguonGocDL = $("#8_txtNguonGocDiaLy_VI").val();
                 if ($("#8_ckbNguonGocDiaLy").prop('checked') == true) {
                     if (v_NguonGocDL === "" || v_NguonGocDL == undefined && (pEditOrNew == 2)) {
                         showError('Nguồn gốc địa lý không được để trống');
-                        $("#8_txtNguonGocDiaLy").focus();
+                        $("#8_txtNguonGocDiaLy_VI").focus();
                         return false;
                     }
                 }
                 formdata.append("pDetail.Nguongocdialy", v_NguonGocDL);
 
-                var v_ChatLuong = $("#8_txtChatLuong").val();
+                var v_ChatLuong = $("#8_txtChatLuong_VI").val();
                 if ($("#8_ckbChatLuong").prop('checked') == true) {
                     if (v_ChatLuong === "" || v_ChatLuong == undefined && (pEditOrNew == 2)) {
                         showError('Chất lượng không được để trống');
-                        $("#8_txtChatLuong").focus();
+                        $("#8_txtChatLuong_VI").focus();
                         return false;
                     }
                 }
                 formdata.append("pDetail.Chatluong", v_ChatLuong);
 
-                var v_Dactinhkhac = $("#8_txtDacTinhKhac").val();
+                var v_Dactinhkhac = $("#8_txtDacTinhKhac_VI").val();
                 if ($("#8_ckbDacTinhKhac").prop('checked') == true) {
                     if (v_Dactinhkhac === "" || v_Dactinhkhac == undefined && (pEditOrNew == 2)) {
                         showError('Đặc tính khác không được để trống');
-                        $("#8_txtDacTinhKhac").focus();
+                        $("#8_txtDacTinhKhac_VI").focus();
                         return false;
                     }
                 }
@@ -1913,7 +1920,6 @@
             $("#divContainerDocOther").css('display', 'none');
         }
     });
-
 
     function funGetThongTinFile(formData) {
         try {
@@ -2032,15 +2038,14 @@
     }
 
 
-
-
     function funcGetTenTaiLieuKhac(formData) {
         try {
             var item = 0;
-            $(".clssListUpload").each(function () {
-                formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", this.id);
-                formData.append("pAppDocOtherInfo[" + item + "].Documentname", $("#" + this.id).val());
+            $(".txtTaiLieuKhacDich").each(function () {
+                formData.append("pAppDocOtherInfo[" + item + "].Documentname", $(this).val());
                 item++;
+                var txtIdTaiLieuKhacID = "txtTaiLieuKhacID" + item.toString();
+                formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", $("#" + txtIdTaiLieuKhacID).val());
             });
             return true;
         } catch (e) {

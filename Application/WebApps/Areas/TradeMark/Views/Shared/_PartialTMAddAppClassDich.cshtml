@@ -129,7 +129,7 @@
 
     // mảng lưu xem mỗi nhóm hàng hóa có bao nhiêu thằng
     var _ArrGroupAppClass = [];    // = [{ name: 1, value: 'a' }, { name: 2, value: 'b' }, { name: 3, value: 'c' }];
-
+    var numCode = 0;
 
     // 2018.06.15 Hungtd sửa
     function funcAddMessDataRow(textInput, classCode, type) {
@@ -152,11 +152,13 @@
                 _ArrGroupAppClass.push(_newitem);
             }
             funRemoveAllTotalRows();
+            numCode++;
+            var txtCode = "txtCode" + numCode.toString();
 
             textInput = textInput.trim();
             classCode = _groupcode;
             classCode = classCode.trim();
-            var _html = "<tr><td></td><td class=\"TdLeft\">" + textInput + "</td><td> <input type='text' class='DataAdd2'> </td> <td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td></td><td class=\"HasSort clssDisplaynone\">" + classCode.substr(0, 5) + "</td></tr>";
+            var _html = "<tr><td></td><td class=\"TdLeft\">" + textInput + "</td><td> <input type='text' class='DataAdd2'> <input type='hidden' id=\"" + txtCode +"\"> </td> <td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td></td><td class=\"HasSort clssDisplaynone\">" + classCode.substr(0, 5) + "</td></tr>";
 
 
             $("#tblClassInfo").find("tbody").append(_html);
@@ -255,22 +257,24 @@
     function funcGetDataClassInfo(formData) {
         try {
             var item = 0;
-
+           
             var tongSP = "";
             $("#tblClassInfo").find("tbody").find(".txtTongSanPham").each(function () {
                 tongSP = tongSP + $(this).val() + "|";
             });
 
             var tongSoNhom = $("#txtTongSoNhom").val();
-            $("#tblClassInfo").find("tbody").find(".DataAdd").each(function () {
-                var str_data = $(this).val().split('|');
-                formData.append("pAppClassInfo[" + item + "].Textinput", str_data[0]);
-                formData.append("pAppClassInfo[" + item + "].Code", str_data[1]);
+            $("#tblClassInfo").find("tbody").find(".DataAdd2").each(function () {
+                var txtCode = "txtCode";
+                var str_data = $(this).val();
+                formData.append("pAppClassInfo[" + item + "].Textinput", str_data);
                 //Tổng số nhóm để tính xem có bao nhiêu nhóm phục vụ tính phí
                 formData.append("pAppClassInfo[" + item + "].TongSoNhom", tongSoNhom);
                 //Số sản phẩm để tính phần dư chênh lệch
                 formData.append("pAppClassInfo[" + item + "].TongSanPham", tongSP);
                 item++;
+                txtCode = txtCode + item.toString();
+                formData.append("pAppClassInfo[" + item + "].Code", $("#"+txtCode).val());
             });
             return true;
         }

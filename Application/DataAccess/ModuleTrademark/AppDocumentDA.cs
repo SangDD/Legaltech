@@ -14,7 +14,16 @@ namespace DataAccess.ModuleTrademark
         {
             try
             {
-                int numberRecord = pInfo.Count;
+                var listDoc = new List<AppDocumentInfo>();
+                foreach (var item in pInfo)
+                {
+                    if (!string.IsNullOrEmpty(item.Filename))
+                    {
+                        listDoc.Add(item);
+                    }
+                }
+                int numberRecord = listDoc.Count;
+                if (numberRecord < 1) return 0;
                 string[] Language = new string[numberRecord];
                 decimal[] App_Header_Id = new decimal[numberRecord];
                 string[] DocumentID = new string[numberRecord];
@@ -31,30 +40,30 @@ namespace DataAccess.ModuleTrademark
                 string[] Char05 = new string[numberRecord];
 
                 DateTime[] Document_Filling_Date = new DateTime[numberRecord];
-                for (int i = 0; i < pInfo.Count; i++)
+                for (int i = 0; i < listDoc.Count; i++)
                 {
-                    Language[i] = pInfo[i].Language_Code;
+                    Language[i] = listDoc[i].Language_Code;
                     App_Header_Id[i] = pAppHeaderid;
-                    DocumentID[i] = pInfo[i].Document_Id;
-                    Isuse[i] = pInfo[i].Isuse;
+                    DocumentID[i] = listDoc[i].Document_Id;
+                    Isuse[i] = listDoc[i].Isuse;
                     if(Isuse[i]>2000000000 || Isuse[i] < 0)
                     {
                         Isuse[i] = 0;
                     }
-                    Note[i] = pInfo[i].Note;
-                    Status[i] = pInfo[i].Status;
+                    Note[i] = listDoc[i].Note;
+                    Status[i] = listDoc[i].Status;
                     if (Status[i] > 2000000000 || Status[i] < 0)
                     {
                         Status[i] = 0;
                     }
-                    FileName[i] = pInfo[i].Filename;
-                    UrlHardCopy[i] = pInfo[i].Url_Hardcopy;
-                    Document_Filling_Date[i] = pInfo[i].Document_Filing_Date;
-                    Char01[i] = pInfo[i].CHAR01;
-                    Char02[i] = pInfo[i].CHAR02;
-                    Char03[i] = pInfo[i].CHAR03;
-                    Char04[i] = pInfo[i].CHAR04;
-                    Char05[i] = pInfo[i].CHAR05;
+                    FileName[i] = listDoc[i].Filename;
+                    UrlHardCopy[i] = listDoc[i].Url_Hardcopy;
+                    Document_Filling_Date[i] = listDoc[i].Document_Filing_Date;
+                    Char01[i] = listDoc[i].CHAR01;
+                    Char02[i] = listDoc[i].CHAR02;
+                    Char03[i] = listDoc[i].CHAR03;
+                    Char04[i] = listDoc[i].CHAR04;
+                    Char05[i] = listDoc[i].CHAR05;
 
                 }
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
@@ -109,6 +118,27 @@ namespace DataAccess.ModuleTrademark
                      new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
                     new OracleParameter("P_APP_HEADER_ID", OracleDbType.Decimal, pAppHeaderID, ParameterDirection.Input),
 
+                    paramReturn);
+                var result = Convert.ToInt32(paramReturn.Value.ToString());
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
+
+        public int AppDocumentTranslate( string pLanguage, decimal pAppHeaderID ,decimal pAppHeaderNew)
+        {
+            try
+            {
+                var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
+                OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_DOCUMENT.PROC_APP_TRANSLATE",
+                    new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
+                    new OracleParameter("P_APP_HEADER_ID", OracleDbType.Decimal, pAppHeaderID, ParameterDirection.Input),
+                    new OracleParameter("P_APP_NEW_ID", OracleDbType.Decimal, pAppHeaderNew, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;
