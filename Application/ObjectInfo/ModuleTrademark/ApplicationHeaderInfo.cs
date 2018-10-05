@@ -165,6 +165,8 @@ namespace ObjectInfos
 
         public decimal Id_Vi { get; set; }
         public string Url_Billing { get; set; }
+
+     
     }
 
 

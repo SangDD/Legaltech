@@ -17,6 +17,7 @@ namespace ObjectInfos
         public decimal Id { get; set; }
         public decimal App_Header_Id { get; set; }
         public string Documentname { get; set; }
+        public string DocumentnameVi { get; set; }
         public string Filename { get; set; }
         public decimal Deleted { get; set; }
 

@@ -14,17 +14,8 @@ namespace DataAccess.ModuleTrademark
         {
             try
             {
-                var listDoc = new List<AppDocumentInfo>();
-                foreach (var item in pInfo)
-                {
-                    listDoc.Add(item);
-
-                    //if (!string.IsNullOrEmpty(item.Filename))
-                    //{
-                    //     listDoc.Add(item);
-                    //}
-                }
-                int numberRecord = listDoc.Count;
+                
+                int numberRecord = pInfo.Count;
                 if (numberRecord < 1) return 0;
                 string[] Language = new string[numberRecord];
                 decimal[] App_Header_Id = new decimal[numberRecord];
@@ -42,30 +33,30 @@ namespace DataAccess.ModuleTrademark
                 string[] Char05 = new string[numberRecord];
 
                 DateTime[] Document_Filling_Date = new DateTime[numberRecord];
-                for (int i = 0; i < listDoc.Count; i++)
+                for (int i = 0; i < pInfo.Count; i++)
                 {
-                    Language[i] = listDoc[i].Language_Code;
+                    Language[i] = pInfo[i].Language_Code;
                     App_Header_Id[i] = pAppHeaderid;
-                    DocumentID[i] = listDoc[i].Document_Id;
-                    Isuse[i] = listDoc[i].Isuse;
+                    DocumentID[i] = pInfo[i].Document_Id;
+                    Isuse[i] = pInfo[i].Isuse;
                     if(Isuse[i]>2000000000 || Isuse[i] < 0)
                     {
                         Isuse[i] = 0;
                     }
-                    Note[i] = listDoc[i].Note;
-                    Status[i] = listDoc[i].Status;
+                    Note[i] = pInfo[i].Note;
+                    Status[i] = pInfo[i].Status;
                     if (Status[i] > 2000000000 || Status[i] < 0)
                     {
                         Status[i] = 0;
                     }
-                    FileName[i] = listDoc[i].Filename;
-                    UrlHardCopy[i] = listDoc[i].Url_Hardcopy;
-                    Document_Filling_Date[i] = listDoc[i].Document_Filing_Date;
-                    Char01[i] = listDoc[i].CHAR01;
-                    Char02[i] = listDoc[i].CHAR02;
-                    Char03[i] = listDoc[i].CHAR03;
-                    Char04[i] = listDoc[i].CHAR04;
-                    Char05[i] = listDoc[i].CHAR05;
+                    FileName[i] = pInfo[i].Filename;
+                    UrlHardCopy[i] = pInfo[i].Url_Hardcopy;
+                    Document_Filling_Date[i] = pInfo[i].Document_Filing_Date;
+                    Char01[i] = pInfo[i].CHAR01;
+                    Char02[i] = pInfo[i].CHAR02;
+                    Char03[i] = pInfo[i].CHAR03;
+                    Char04[i] = pInfo[i].CHAR04;
+                    Char05[i] = pInfo[i].CHAR05;
 
                 }
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);

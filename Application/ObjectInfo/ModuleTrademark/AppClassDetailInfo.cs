@@ -30,5 +30,6 @@ namespace ObjectInfos
         {
             return this.MemberwiseClone();
         }
+        public string TextinputVI { get; set; }
     }
 }

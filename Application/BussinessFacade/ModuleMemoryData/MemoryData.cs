@@ -104,6 +104,10 @@
                     CustomerSuggestInfo pinfo = new CustomerSuggestInfo();
                     pinfo.label = item.Name_Vi;
                     pinfo.name = item.Name_Vi;
+
+                    pinfo.label_en = item.Name_En;
+                    pinfo.name_en = item.Name_En;
+
                     if (item.Code.Length > 2)
                     {
                         pinfo.value = item.Code.Substring(0, 2);
@@ -234,33 +238,34 @@
                     pInfo.label = item.Master_Name + " Phone: " + item.Master_Phone + " Fax: " + item.Master_Fax + " Email: " + item.Rep_Master_Email;
                     pInfo.value = item.Master_Name + "|" + item.Master_Address + "|" + item.Master_Phone + "|" + item.Master_Fax + "|" + item.Rep_Master_Email;
                     pInfo.name = item.Master_Name + " Phone: " + item.Master_Phone + " Fax: " + item.Master_Fax + " Email: " + item.Rep_Master_Email;
-
+                    pInfo.Language = item.Language;
 
                     pInfo1.label = item.Cdk_Name_1 + " Phone: " + item.Cdk_Phone_1 + " Fax: " + item.Cdk_Fax_1 + " Email: " + item.Cdk_Email_1;
                     pInfo1.value = item.Cdk_Name_1 + "|" + item.Cdk_Address_1 + "|" + item.Cdk_Phone_1 + "|" + item.Cdk_Fax_1 + "|" + item.Cdk_Email_1;
                     pInfo1.name = item.Cdk_Name_1 + " Phone: " + item.Cdk_Phone_1 + " Fax: " + item.Cdk_Fax_1 + " Email: " + item.Cdk_Email_1;
+                    pInfo1.Language = item.Language;
 
                     pInfo2 = new CustomerSuggestInfo();
                     pInfo2.label = item.Cdk_Name_2 + " Phone: " + item.Cdk_Phone_2 + " Fax: " + item.Cdk_Fax_2 + " Email: " + item.Cdk_Email_2;
                     pInfo2.value = item.Cdk_Name_2 + "|" + item.Cdk_Address_2 + "|" + item.Cdk_Phone_2 + "|" + item.Cdk_Fax_2 + "|" + item.Cdk_Email_2;
                     pInfo2.name = item.Cdk_Name_2 + " Phone: " + item.Cdk_Phone_2 + " Fax: " + item.Cdk_Fax_2 + " Email: " + item.Cdk_Email_2;
-
+                    pInfo2.Language = item.Language;
                     pInfo3 = new CustomerSuggestInfo();
                     pInfo3.label = item.Cdk_Name_3 + " Phone: " + item.Cdk_Phone_3 + " Fax: " + item.Cdk_Fax_3 + " Email: " + item.Cdk_Email_3;
                     pInfo3.value = item.Cdk_Name_3 + "|" + item.Cdk_Address_3 + "|" + item.Cdk_Phone_3 + "|" + item.Cdk_Fax_3 + "|" + item.Cdk_Email_3;
                     pInfo3.name = item.Cdk_Name_3 + " Phone: " + item.Cdk_Phone_3 + " Fax: " + item.Cdk_Fax_3 + " Email: " + item.Cdk_Email_3;
-
+                    pInfo3.Language = item.Language;
                     pInfo4 = new CustomerSuggestInfo();
                     pInfo4.label = item.Cdk_Name_4 + " Phone: " + item.Cdk_Phone_4 + " Fax: " + item.Cdk_Fax_4 + " Email: " + item.Cdk_Email_4;
                     pInfo4.value = item.Cdk_Name_4 + "|" + item.Cdk_Address_4 + "|" + item.Cdk_Phone_4 + "|" + item.Cdk_Fax_4 + "|" + item.Cdk_Email_4;
                     pInfo4.name = item.Cdk_Name_4;
 
-
+                    pInfo4.Language = item.Language;
                     pInfo5 = new CustomerSuggestInfo();
                     pInfo5.label = item.Rep_Master_Name + " Phone: " + item.Rep_Master_Phone + " Fax: " + item.Rep_Master_Fax + " Email: " + item.Rep_Master_Email;
                     pInfo5.value = item.Rep_Master_Name + "|" + item.Rep_Master_Address + "|" + item.Rep_Master_Phone + "|" + item.Rep_Master_Fax + "|" + item.Rep_Master_Email;
                     pInfo5.name = item.Rep_Master_Name + " Phone: " + item.Rep_Master_Phone + " Fax: " + item.Rep_Master_Fax + " Email: " + item.Rep_Master_Email;
-
+                    pInfo5.Language = item.Language;
                     lstCacheCustomer.Add(pInfo);
                     if (!string.IsNullOrEmpty(item.Cdk_Name_1))
                         lstCacheCustomer1.Add(pInfo1);

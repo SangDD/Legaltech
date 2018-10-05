@@ -107,13 +107,19 @@ namespace ObjectInfos
         public string label { get; set; }
         public string value { get; set; }
         public string name { get; set; }
+
+        public string name_en { get; set; }
+        public string label_en { get; set; }
         public CustomerSuggestInfo()
         {
             value = "";
             label = "";
             name = "";
- 
-        } 
+            label_en = "";
+            name_en = "";
+            Language = "";
+        }
+        public string Language { get; set; }
     }
     public class CustomerInfo
     {
@@ -151,6 +157,7 @@ namespace ObjectInfos
             Cdk_Phone_4 = "";
             Cdk_Fax_4 = "";
             Cdk_Email_4 = "";
+            Language = "";
         }
 
         public string Master_Name { get; set; }
@@ -188,6 +195,8 @@ namespace ObjectInfos
         public string Cdk_Phone_4 { get; set; }
         public string Cdk_Fax_4 { get; set; }
         public string Cdk_Email_4 { get; set; }
-         
+
+        public string Language { get; set; }
+
     }
 }
