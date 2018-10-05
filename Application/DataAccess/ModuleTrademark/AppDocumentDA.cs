@@ -17,10 +17,12 @@ namespace DataAccess.ModuleTrademark
                 var listDoc = new List<AppDocumentInfo>();
                 foreach (var item in pInfo)
                 {
-                    if (!string.IsNullOrEmpty(item.Filename))
-                    {
-                        listDoc.Add(item);
-                    }
+                    listDoc.Add(item);
+
+                    //if (!string.IsNullOrEmpty(item.Filename))
+                    //{
+                    //     listDoc.Add(item);
+                    //}
                 }
                 int numberRecord = listDoc.Count;
                 if (numberRecord < 1) return 0;

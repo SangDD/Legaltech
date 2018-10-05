@@ -1,9 +1,13 @@
 ﻿@using Common.CommonData
 @using ObjectInfos;
-@*@using BussinessFacade.ModuleMemoryData*@
+@using BussinessFacade.ModuleMemoryData
 @{
     ViewBag.Title = "Thêm mới Search";
     Layout = "~/ViewsShared/_Layout.cshtml";
+
+    List<AllCodeInfo> _lstObject = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OBJECT");
+
+    List<AllCodeInfo> _lstType = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "SEARCHTYPE");
 }
 @try
 {
@@ -14,12 +18,13 @@
         }
     </style>
     @*<script>
-        var _isSimpleEditorToolBar = 1;// set cho ckfinder có cấu hình xoạn thảo đơn giản
-    </script>*@
-   // <script src="~/Content/ckeditor/ckeditor.js"></script>
+            var _isSimpleEditorToolBar = 1;// set cho ckfinder có cấu hình xoạn thảo đơn giản
+        </script>*@
+
+    // <script src="~/Content/ckeditor/ckeditor.js"></script>
     <div class="divCover">
         <div class="d-nav">
-            <img src="~/Content/icons/Body-icon-home.png" />              
+            <img src="~/Content/icons/Body-icon-home.png" />
             <span class="red">></span>
             <a href="/wiki-doc/list">Quản lý Search</a>
             <span class="red">></span>
@@ -39,7 +44,7 @@
             <table style="margin:10px 0px">
                 <tr>
                     <td>
-                        <a  style="text-decoration: underline;" href="/quan-ly-search/them-moi">1. Create New Search</a>
+                        <a style="text-decoration: underline;" href="/quan-ly-search/them-moi">1. Create New Search</a>
                     </td>
                 </tr>
                 <tr>
@@ -55,10 +60,11 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Case name" maxlength="200" id="_txtcasename"  />
+                    <input type="text" placeholder="Case name" maxlength="200" id="_txtcasename" />
                 </div>
             </div>
         </div>
+
         <div class="div-search-ad">
             <div class="div-search-title">
                 <div> Client Reference<i class="redspan">(*)</i> </div>
@@ -69,23 +75,70 @@
                 </div>
             </div>
         </div>
+
+        <div class="divCover cls_form_title">
+            <img src="/Content/icons/icon_info_24.png" />
+            <div class="cls_form_header">
+                Thông tin search
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Quốc tịch<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboCountry" style="width:200px">
+                        @foreach (var item in MemoryData.c_lst_Country)
+                        {
+                            if (item.Country_Id == Common.Common.Country_VietNam_Id)
+                            {
+                                <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Country_Id">
+                                    @item.Name
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Đối tượng<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboTypeAdd" >
+                        @foreach (var item in _lstObject)
+                        {
+                            <option value="@item.CdVal"> @item.Content </option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
         <fieldset style="padding:10px; margin-top:20px;">
             <legend>
                 Điều kiện Search
             </legend>
             <div id="div_searchcondtion_content">
                 @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearchCondition.cshtml", "1|1")
-
-                @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearchCondition.cshtml", "2|0")
+                @*@Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearchCondition.cshtml", "2|0")*@
             </div>
-          
+
 
             <div class="div-search-ad" style="float:left; width:100%;">
-                  <input class="btn" style="margin: 4px 0px 0px 0px;" type="button" value="Thêm điều kiện" onclick="funcAddCondition()" /> 
+                <input class="btn" style="margin: 4px 0px 0px 0px;" type="button" value="Thêm điều kiện" onclick="funcAddCondition()" />
             </div>
-          
+
         </fieldset>
-          
+
 
         <div style="margin-top:15px">
             <div>Mô tả<i class="redspan">(*)</i></div>
@@ -97,8 +150,8 @@
     <div class="class_save">
         <div class="classGuiDon">
             <input type="button" value="Gửi tìm kiếm" id="btnGuiBai" class="btn" />
-        </div> 
-      
+        </div>
+
     </div>
 
 
@@ -160,7 +213,7 @@
                     return false;
                 }
                 //var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
-              
+
 
                 formData.append("p_searchHeaderInfo.CASE_NAME", _txtcasename.val().trim());
                 formData.append("p_searchHeaderInfo.CLIENT_REFERENCE", txtClient_Reference.val());
@@ -223,7 +276,7 @@
                         } else {
                             jError("Có lỗi trong quá trình xử lý dữ liệu");
                             return false;
-                   
+
                         }
                     },
                     error: function (e) {
