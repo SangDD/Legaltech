@@ -286,7 +286,8 @@
                     pInfo.Modify_By = CreatedBy;
                     pInfo.Modify_Date = CreatedDate;
                     pInfo.Send_Date = DateTime.Now;
-
+                    pInfo.DDSHCN = "";
+                    pInfo.MADDSHCN = "";
                     //TRA RA ID CUA BANG KHI INSERT
                     pReturn = objBL.AppHeaderUpdate(pInfo);
                     if (pReturn < 0)
