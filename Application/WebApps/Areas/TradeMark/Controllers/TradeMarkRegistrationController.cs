@@ -1717,14 +1717,30 @@
             {
                 List<CustomerSuggestInfo> lstContain = new List<CustomerSuggestInfo>();
                 int check = 0;
+                string language = AppsCommon.GetCurrentLang();
                 foreach (var item in MemoryData.lstCacheCustomer)
                 {
                     if (string.IsNullOrEmpty(item.name)) continue;
-                    if (item.name.ToLower().Contains(pName.ToLower()))
+                    if (language == item.Language)
                     {
-                        check = 1;
-                        lstContain.Add(item);
+                        if (language == Language.LangVI)
+                        {
+                            if (item.name.ToLower().Contains(pName.ToLower()))
+                            {
+                                check = 1;
+                                lstContain.Add(item);
+                            }
+                        }
+                        else
+                        {
+                            if (item.name_en.ToLower().Contains(pName.ToLower()))
+                            {
+                                check = 1;
+                                lstContain.Add(item);
+                            }
+                        }
                     }
+                    
                 }
                 if (check == 1)
                 {
@@ -1750,15 +1766,30 @@
             {
                 List<CustomerSuggestInfo> lstContain = new List<CustomerSuggestInfo>();
                 int check = 0;
+                string language = AppsCommon.GetCurrentLang();
                 if (pNumber == 1)
                 {
                     foreach (var item in MemoryData.lstCacheCustomer1)
                     {
                         if (string.IsNullOrEmpty(item.name)) continue;
-                        if (item.name.ToLower().Contains(pName.ToLower()))
+                        if (language == item.Language)
                         {
-                            check = 1;
-                            lstContain.Add(item);
+                            if (language == Language.LangVI)
+                            {
+                                if (item.name.ToLower().Contains(pName.ToLower()))
+                                {
+                                    check = 1;
+                                    lstContain.Add(item);
+                                }
+                            }
+                            else
+                            {
+                                if (item.name_en.ToLower().Contains(pName.ToLower()))
+                                {
+                                    check = 1;
+                                    lstContain.Add(item);
+                                }
+                            }
                         }
                     }
                 }
@@ -1767,10 +1798,24 @@
                     foreach (var item in MemoryData.lstCacheCustomer2)
                     {
                         if (string.IsNullOrEmpty(item.name)) continue;
-                        if (item.name.ToLower().Contains(pName.ToLower()))
+                        if (language == item.Language)
                         {
-                            check = 1;
-                            lstContain.Add(item);
+                            if (language == Language.LangVI)
+                            {
+                                if (item.name.ToLower().Contains(pName.ToLower()))
+                                {
+                                    check = 1;
+                                    lstContain.Add(item);
+                                }
+                            }
+                            else
+                            {
+                                if (item.name_en.ToLower().Contains(pName.ToLower()))
+                                {
+                                    check = 1;
+                                    lstContain.Add(item);
+                                }
+                            }
                         }
                     }
                 }
@@ -1779,10 +1824,24 @@
                     foreach (var item in MemoryData.lstCacheCustomer3)
                     {
                         if (string.IsNullOrEmpty(item.name)) continue;
-                        if (item.name.ToLower().Contains(pName.ToLower()))
+                        if (language == item.Language)
                         {
-                            check = 1;
-                            lstContain.Add(item);
+                            if (language == Language.LangVI)
+                            {
+                                if (item.name.ToLower().Contains(pName.ToLower()))
+                                {
+                                    check = 1;
+                                    lstContain.Add(item);
+                                }
+                            }
+                            else
+                            {
+                                if (item.name_en.ToLower().Contains(pName.ToLower()))
+                                {
+                                    check = 1;
+                                    lstContain.Add(item);
+                                }
+                            }
                         }
                     }
                 }
@@ -1791,10 +1850,24 @@
                     foreach (var item in MemoryData.lstCacheCustomer4)
                     {
                         if (string.IsNullOrEmpty(item.name)) continue;
-                        if (item.name.ToLower().Contains(pName.ToLower()))
+                        if (language == item.Language)
                         {
-                            check = 1;
-                            lstContain.Add(item);
+                            if (language == Language.LangVI)
+                            {
+                                if (item.name.ToLower().Contains(pName.ToLower()))
+                                {
+                                    check = 1;
+                                    lstContain.Add(item);
+                                }
+                            }
+                            else
+                            {
+                                if (item.name_en.ToLower().Contains(pName.ToLower()))
+                                {
+                                    check = 1;
+                                    lstContain.Add(item);
+                                }
+                            }
                         }
                     }
                 }
@@ -1803,10 +1876,24 @@
                     foreach (var item in MemoryData.lstChuDDSHCN)
                     {
                         if (string.IsNullOrEmpty(item.name)) continue;
-                        if (item.name.ToLower().Contains(pName.ToLower()))
+                        if (language == item.Language)
                         {
-                            check = 1;
-                            lstContain.Add(item);
+                            if (language == Language.LangVI)
+                            {
+                                if (item.name.ToLower().Contains(pName.ToLower()))
+                                {
+                                    check = 1;
+                                    lstContain.Add(item);
+                                }
+                            }
+                            else
+                            {
+                                if (item.name_en.ToLower().Contains(pName.ToLower()))
+                                {
+                                    check = 1;
+                                    lstContain.Add(item);
+                                }
+                            }
                         }
                     }
                 }
@@ -1853,16 +1940,28 @@
             List<CustomerSuggestInfo> lstContain = new List<CustomerSuggestInfo>();
             try
             {
-
+                string language = AppsCommon.GetCurrentLang();
                 int check = 0;
                 foreach (var item in MemoryData.clstAppClassSuggest)
                 {
                     if (string.IsNullOrEmpty(item.name)) continue;
-                    if (item.name.ToLower().Contains(pName.ToLower()))
+                    if (language == Language.LangVI)
                     {
-                        ++check;
-                        lstContain.Add(item);
-                        if (check > 50) break;
+                        if (item.name.ToLower().Contains(pName.ToLower()))
+                        {
+                            ++check;
+                            lstContain.Add(item);
+                            if (check > 50) break;
+                        }
+                    }
+                    else
+                    {
+                        if (item.name_en.ToLower().Contains(pName.ToLower()))
+                        {
+                            ++check;
+                            lstContain.Add(item);
+                            if (check > 50) break;
+                        }
                     }
                 }
                 return Json(new { lst = lstContain });
@@ -1893,23 +1992,7 @@
                     {
                         ViewBag.objAppHeaderInfo = new AppDetail04NHInfo();
                     }
-                    //var objBL = new AppDetail04NHBL();
-                    //string language = AppsCommon.GetCurrentLang();
-                    //var ds04NH = objBL.AppTM04NHGetByID(pID, language, pStatus);
-                    //if (ds04NH != null && ds04NH.Tables.Count == 5)
-                    //{
-                    //    var obj  = CBO<AppDetail04NHInfo>.FillObjectFromDataTable(ds04NH.Tables[0]);
-                    //    if(obj.Rep_Master_Type== pDDSH)
-                    //    {
-                    //        ViewBag.objAppHeaderInfo = obj;
-                    //    }
-                    //    else
-                    //    {
-                    //        ViewBag.objAppHeaderInfo = new AppDetail04NHInfo();
-                    //    }
-
-                    //}
-
+                     
                 }
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "2");
             }
