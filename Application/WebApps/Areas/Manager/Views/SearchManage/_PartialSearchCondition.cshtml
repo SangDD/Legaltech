@@ -14,16 +14,27 @@
     List<AllCodeInfo> _ListSearchType = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "SEARCHTYPE");
 }
 <div id='@("div_condition_" + _IdSearch)' class="div-search-ad">
-    <div class="div-checkbox" style="border: none;">
-        <img onclick="RemoveFile_Edit('@_IdSearch')" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" />
-    </div>
+
+    @if (_IsFirst == 1)
+    {
+        <div class="div-checkbox" style="border: none;">
+            <img src="~/Content/icons/condition.png" style="margin: 10px 5px 0px 5px;width: 13px;" />
+        </div>
+    }
+    else
+    {
+        <div class="div-checkbox" style="border: none;">
+            <img onclick="funcdeletecondition('@_IdSearch')" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" />
+        </div>
+    }
+
 
     <div class="div-search-title">
         <div> Đối tượng <i class="redspan">(*)</i> </div>
     </div>
     <div class="div-search-content">
         <div>
-            <select class="search_type" id="@("_cbosearch_object_" + _IdSearch)" style="width:150px">
+            <select class="search_object" id="@("_cbosearch_object_" + _IdSearch)" style="width:150px">
                 @foreach (AllCodeInfo item in _lstObject)
                 {
                     <option value="@item.CdVal">
@@ -49,5 +60,6 @@
             </select>
         </div>
     </div>
+
 </div>
 <input type="hidden" value="@_IdSearch" class="txtIdSeachClass" />

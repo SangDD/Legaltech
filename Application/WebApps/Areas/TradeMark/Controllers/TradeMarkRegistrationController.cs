@@ -1840,7 +1840,7 @@
                     {
                         ++check;
                         lstContain.Add(item);
-                        if (check > 50) break;
+                        if (check > 10) break;
                     }
                 }
                 return Json(new { lst = lstContain });

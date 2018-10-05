@@ -153,18 +153,14 @@ namespace DataAccess
             {
                 int _totalrec = P_SearchDetails.Count;
                 decimal[] P_SEARCH_ID = new decimal[_totalrec];
-                string[] P_SEARCH_TYPE = new string[_totalrec];
-                string[] P_SEARCH_VALUE = new string[_totalrec];
-                string[] P_SEARCH_OPERATOR = new string[_totalrec];
-                string[] P_ANDOR = new string[_totalrec];
+                decimal[] P_SEARCH_OBJECT = new decimal[_totalrec];
+                decimal[] P_SEARCH_TYPE = new decimal[_totalrec];
                 int _count = 0;
                 foreach (SearchObject_Detail_Info item in P_SearchDetails)
                 {
                     P_SEARCH_ID[_count] = item.SEARCH_ID;
                     P_SEARCH_TYPE[_count] = item.SEARCH_TYPE;
-                    P_SEARCH_VALUE[_count] = item.SEARCH_VALUE;
-                    P_SEARCH_OPERATOR[_count] = item.SEARCH_OPERATOR;
-                    P_ANDOR[_count] = item.ANDOR;
+                    P_SEARCH_OBJECT[_count] = item.SEARCH_OBJECT;
                     _count++;
                 }
 
@@ -172,10 +168,8 @@ namespace DataAccess
                 paramReturn.Size = 10;
                 OracleHelper.ExcuteBatchNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SEARCH_OBJECTS.PROC_SEARCH_DETAIL_INSERT", _totalrec,
                     new OracleParameter("P_SEARCH_ID", OracleDbType.Decimal, P_SEARCH_ID, ParameterDirection.Input),
+                    new OracleParameter("P_SEARCH_OBJECT", OracleDbType.Varchar2, P_SEARCH_OBJECT, ParameterDirection.Input),
                     new OracleParameter("P_SEARCH_TYPE", OracleDbType.Varchar2, P_SEARCH_TYPE, ParameterDirection.Input),
-                    new OracleParameter("P_SEARCH_VALUE", OracleDbType.Varchar2, P_SEARCH_VALUE, ParameterDirection.Input),
-                    new OracleParameter("P_SEARCH_OPERATOR", OracleDbType.Varchar2, P_SEARCH_OPERATOR, ParameterDirection.Input),
-                    new OracleParameter("P_ANDOR", OracleDbType.Varchar2, P_ANDOR, ParameterDirection.Input),
                     paramReturn);
 
                 var result = ErrorCode.Error;

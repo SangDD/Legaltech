@@ -8,292 +8,294 @@
     List<AllCodeInfo> _lstObject = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OBJECT");
 
     List<AllCodeInfo> _lstType = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "SEARCHTYPE");
+
+    List<CustomerSuggestInfo> _lst = new List<CustomerSuggestInfo>();
+    if (ViewBag.Data_Object != null)
+    {
+        _lst = (List<CustomerSuggestInfo>)ViewBag.Data_Object;
+    }
 }
-@try
-{
-    <style>
-        /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
-        .div-search-title > div {
-            width: 150px;
-        }
-    </style>
-    @*<script>
-            var _isSimpleEditorToolBar = 1;// set cho ckfinder có cấu hình xoạn thảo đơn giản
-        </script>*@
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
 
-    // <script src="~/Content/ckeditor/ckeditor.js"></script>
-    <div class="divCover">
-        <div class="d-nav">
-            <img src="~/Content/icons/Body-icon-home.png" />
-            <span class="red">></span>
-            <a href="/wiki-doc/list">Quản lý Search</a>
-            <span class="red">></span>
-            <a href="#">Thêm mới Search</a>
-        </div>
-    </div>
-    <div class="divCover">
-        <div class="classLine">
-        </div>
-    </div>
+        // http://jqueryui.com/autocomplete/#custom-data
+        var availableTags = @Html.Raw(Json.Encode(@ViewBag.Data_Object));
+        $("#tags").autocomplete({
+            minLength: 3,
+            source: function (request, response) {
+                var results = $.ui.autocomplete.filter(availableTags, request.term);
 
-    <div class="d-main">
-        <div class="divCover">
-            <div class="classTitle">
-                <div class="div-title-content"> THÔNG TIN SEARCH </div>
-            </div>
-            <table style="margin:10px 0px">
-                <tr>
-                    <td>
-                        <a style="text-decoration: underline;" href="/quan-ly-search/them-moi">1. Create New Search</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="/quan-ly-search/danh-sach-search">  2. Quản lý Search</a>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div> Case name<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="Case name" maxlength="200" id="_txtcasename" />
-                </div>
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div> Client Reference<i class="redspan">(*)</i> </div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input value="" type="text" placeholder="Client Reference" maxlength="200" id="txtClient_Reference" />
-                </div>
-            </div>
-        </div>
-
-        <div class="divCover cls_form_title">
-            <img src="/Content/icons/icon_info_24.png" />
-            <div class="cls_form_header">
-                Thông tin search
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Quốc tịch<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <select id="cboCountry" style="width:200px">
-                        @foreach (var item in MemoryData.c_lst_Country)
-                        {
-                            if (item.Country_Id == Common.Common.Country_VietNam_Id)
-                            {
-                                <option selected="selected" value="@item.Country_Id">@item.Name</option>
-                            }
-                            else
-                            {
-                                <option value="@item.Country_Id">
-                                    @item.Name
-                                </option>
-                            }
-                        }
-                    </select>
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>Đối tượng<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <select id="cboTypeAdd" >
-                        @foreach (var item in _lstObject)
-                        {
-                            <option value="@item.CdVal"> @item.Content </option>
-                        }
-                    </select>
-                </div>
-            </div>
-        </div>
-
-
-        <fieldset style="padding:10px; margin-top:20px;">
-            <legend>
-                Điều kiện Search
-            </legend>
-            <div id="div_searchcondtion_content">
-                @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearchCondition.cshtml", "1|1")
-                @*@Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearchCondition.cshtml", "2|0")*@
-            </div>
-
-
-            <div class="div-search-ad" style="float:left; width:100%;">
-                <input class="btn" style="margin: 4px 0px 0px 0px;" type="button" value="Thêm điều kiện" onclick="funcAddCondition()" />
-            </div>
-
-        </fieldset>
-
-
-        <div style="margin-top:15px">
-            <div>Mô tả<i class="redspan">(*)</i></div>
-            <textarea type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200"></textarea>
-        </div>
-
-    </div>
-
-    <div class="class_save">
-        <div class="classGuiDon">
-            <input type="button" value="Gửi tìm kiếm" id="btnGuiBai" class="btn" />
-        </div>
-
-    </div>
-
-
-
-    <script>
-
-     //   var txtAddContent = CKEDITOR.replace("txtAddContent",
-     //{
-     //    height: 500
-
-     //});
-
-        function funcAddCondition() {
-            try {
-                var txtDdSeachClass = $(".txtIdSeachClass").last().val();
-                $.ajax({
-                    type: 'POST',
-                    url: '/quan-ly-search/them-dieu-kien/',
-                    data: {
-                        _idSearch: txtDdSeachClass / 1 + 1
-                    },
-                    async: true, cache: false, traditional: true,
-                    success: function (data) {
-                        $("#div_searchcondtion_content").append(data);
-                    }
-                });
-            } catch (e) {
-
-            }
-        }
-
-        function funcdeletecondition(_idsearch) {
-            try {
-                $("#div_condition_" + _idsearch).remove();
-            } catch (e) {
-
-            }
-        }
-
-        $("#btnGuiBai").click(function () {
-            try {
-                var formData = new FormData();
-
-                var _txtcasename = $("#_txtcasename");
-                var txtClient_Reference = $("#txtClient_Reference");
-
-                if (_txtcasename.val().trim() == "") {
-                    jError("Case name không được bỏ trống!", "lỗi", function () {
-                        _txtcasename.val('');
-                        _txtcasename.focus();
-                    });
-                    return false;
-                }
-                if (txtClient_Reference.val().trim() == "") {
-                    jError("Client Reference không được bỏ trống!", "lỗi", function () {
-                        txtClient_Reference.val('');
-                        txtClient_Reference.focus();
-                    });
-                    return false;
-                }
-                //var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
-
-
-                formData.append("p_searchHeaderInfo.CASE_NAME", _txtcasename.val().trim());
-                formData.append("p_searchHeaderInfo.CLIENT_REFERENCE", txtClient_Reference.val());
-                formData.append("p_searchHeaderInfo.STATUS", '@CommonSearch.Stt_PhanChoLuatSu');
-                var _checkvaluessearch = 0;
-                var _searchValuesitem;
-                $('.search_andor').each(function (i, item) {
-                    formData.append("p_SearchObject_Detail_Info[" + i + "].ANDOR", $(item).val());
-                });
-                $('.search_type').each(function (i, item) {
-                    formData.append("p_SearchObject_Detail_Info[" + i + "].SEARCH_TYPE", $(item).val());
-                });
-                $('.search_operator').each(function (i, item) {
-                    formData.append("p_SearchObject_Detail_Info[" + i + "].SEARCH_OPERATOR", $(item).val());
-                });
-                $('.search_values').each(function (i, item) {
-                    if ($(item).val().trim() == "" && _checkvaluessearch == 0)
-                    {
-                        _checkvaluessearch = 1;
-                        _searchValuesitem = item;
-                    }
-                    formData.append("p_SearchObject_Detail_Info[" + i + "].SEARCH_VALUE", $(item).val());
-                });
-                if (_checkvaluessearch == 1)
-                {
-                    jError("Giá trị tìm kiếm không được phép để trống", "lỗi", function () {
-                        $(_searchValuesitem).focus();
-                    });
-                    return false;
-                }
-                //if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
-                //    jError("Nội dung tìm kiếm không được để trống", "lỗi", function () {
-                //        txtAddContent.focus();
-                //        txtAddContent.setData('');
-                //    });
-                //    return false;
-                //}
-                var txtAddContent = $("#txtAddContent");
-                if (txtAddContent.val().trim() == "") {
-                    jError("Mô tả câu hỏi không được bỏ trống!", "lỗi", function () {
-                        txtAddContent.val('');
-                        txtAddContent.focus();
-                    });
-                    return false;
-                }
-                formData.append("p_questionInfo.CONTENT", txtAddContent.val());
-
-                $.ajax({
-                    url: '/quan-ly-search/SearchInsert/',
-                    type: 'POST',
-                    data: formData,
-                    processData: false, contentType: false, traditional: true, dataType: "json",
-                    enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
-                    success: function (data) {
-                        if (data != null && data.success >= 0) {
-                            jAlert('Thêm search thành công!', "THÔNG BÁO", function () {
-                                var url = "/quan-ly-search/danh-sach-search";
-                                window.location.href = url;
-                            });
-                        } else {
-                            jError("Có lỗi trong quá trình xử lý dữ liệu");
-                            return false;
-
-                        }
-                    },
-                    error: function (e) {
-                        console.log(e);
-                    }
-                });
-
-            } catch (e) {
-                alert(e.toString());
+                response(results.slice(0, 100));
+            },
+            select: function (event, ui) {
+                $("#txtClass").val(ui.item.value); 
                 return false;
             }
-
         });
+    });
+</script>
 
-    </script>
-}
-catch (Exception)
-{
-    // ignored
-}
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 150px;
+    }
+</style>
+@*<script>
+        var _isSimpleEditorToolBar = 1;// set cho ckfinder có cấu hình xoạn thảo đơn giản
+    </script>*@
+
+    //
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" />
+        <span class="red">></span>
+        <a href="/wiki-doc/list">Quản lý Search</a>
+        <span class="red">></span>
+        <a href="#">Thêm mới Search</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <div class="div-title-content"> THÔNG TIN SEARCH </div>
+        </div>
+        <table style="margin:10px 0px">
+            <tr>
+                <td>
+                    <a style="text-decoration: underline;" href="/quan-ly-search/them-moi">1. Create New Search</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="/quan-ly-search/danh-sach-search">  2. Quản lý Search</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div> Case name<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" placeholder="Case name" maxlength="200" id="_txtcasename" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div> Client Reference<i class="redspan">(*)</i> </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input value="" type="text" placeholder="Client Reference" maxlength="200" id="txtClient_Reference" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Quốc tịch<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <select id="cboCountry">
+                    @foreach (var item in MemoryData.c_lst_Country)
+                    {
+                        if (item.Country_Id == Common.Common.Country_VietNam_Id)
+                        {
+                            <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Country_Id">
+                                @item.Name
+                            </option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="divCover cls_form_title">
+        <img src="/Content/icons/icon_info_24.png" />
+        <div class="cls_form_header">
+            Nhóm hàng hóa
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Search<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input id="tags" style="height: 28px;margin-left: 3px;width:150px">
+            </div>
+        </div>
+
+        <div class="div-search-title">
+            <div> Class<i class="redspan">(*)</i> </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input value="" type="text" disabled="disabled" id="txtClass" />
+            </div>
+        </div>
+    </div>
+
+    <div class="divCover cls_form_title">
+        <img src="/Content/icons/icon_info_24.png" />
+        <div class="cls_form_header">
+            Điều kiện Search
+        </div>
+    </div>
+
+    <div id="div_searchcondtion_content">
+        @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearchCondition.cshtml", "1|1")
+    </div>
+
+    <div class="div-search-ad" style="float:left; width:100%;">
+        <input class="btn" style="margin: 4px 0px 0px 28px;" type="button" value="Thêm điều kiện" onclick="funcAddCondition()" />
+    </div>
+
+    <br />
+    <br />
+    <div style="margin-top:15px">
+        <div>Mô tả<i class="redspan">(*)</i></div>
+        <textarea type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200"></textarea>
+    </div>
+
+</div>
+
+<div class="class_save">
+    <div class="classGuiDon">
+        <input type="button" value="Gửi tìm kiếm" id="btnGuiBai" class="btn" />
+    </div>
+
+</div>
+
+
+<script>
+    function funcAddCondition() {
+        try {
+            var txtDdSeachClass = $(".txtIdSeachClass").last().val();
+            $.ajax({
+                type: 'POST',
+                url: '/quan-ly-search/them-dieu-kien/',
+                data: {
+                    _idSearch: txtDdSeachClass / 1 + 1
+                },
+                async: true, cache: false, traditional: true,
+                success: function (data) {
+                    $("#div_searchcondtion_content").append(data);
+                }
+            });
+        } catch (e) {
+
+        }
+    }
+
+    function funcdeletecondition(_idsearch) {
+        try {
+            $("#div_condition_" + _idsearch).remove();
+        } catch (e) {
+
+        }
+    }
+
+    $("#btnGuiBai").click(function () {
+        try {
+            var formData = new FormData();
+
+            var _txtcasename = $("#_txtcasename");
+            var txtClient_Reference = $("#txtClient_Reference");
+
+            if (_txtcasename.val().trim() == "") {
+                jError("Case name không được bỏ trống!", "lỗi", function () {
+                    _txtcasename.val('');
+                    _txtcasename.focus();
+                });
+                return false;
+            }
+            if (txtClient_Reference.val().trim() == "") {
+                jError("Client Reference không được bỏ trống!", "lỗi", function () {
+                    txtClient_Reference.val('');
+                    txtClient_Reference.focus();
+                });
+                return false;
+            }
+            //var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
+
+            formData.append("p_searchHeaderInfo.CASE_NAME", _txtcasename.val().trim());
+            formData.append("p_searchHeaderInfo.CLIENT_REFERENCE", txtClient_Reference.val());
+            formData.append("p_searchHeaderInfo.STATUS", '@CommonSearch.Stt_PhanChoLuatSu');
+            var _checkvaluessearch = 0;
+            var _searchValuesitem;
+            $('.search_object').each(function (i, item) {
+                formData.append("p_SearchObject_Detail_Info[" + i + "].SEARCH_OBJECT", $(item).val());
+            });
+            $('.search_type').each(function (i, item) {
+                formData.append("p_SearchObject_Detail_Info[" + i + "].SEARCH_OBJECT", $(item).val());
+            });
+            if (_checkvaluessearch == 1)
+            {
+                jError("Giá trị tìm kiếm không được phép để trống", "lỗi", function () {
+                    $(_searchValuesitem).focus();
+                });
+                return false;
+            }
+            var txtAddContent = $("#txtAddContent");
+            if (txtAddContent.val().trim() == "") {
+                jError("Mô tả câu hỏi không được bỏ trống!", "lỗi", function () {
+                    txtAddContent.val('');
+                    txtAddContent.focus();
+                });
+                return false;
+            }
+            formData.append("p_questionInfo.CONTENT", txtAddContent.val());
+
+            $.ajax({
+                url: '/quan-ly-search/SearchInsert/',
+                type: 'POST',
+                data: formData,
+                processData: false, contentType: false, traditional: true, dataType: "json",
+                enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                success: function (data) {
+                    if (data != null && data.success >= 0) {
+                        jAlert('Thêm search thành công!', "THÔNG BÁO", function () {
+                            var url = "/quan-ly-search/danh-sach-search";
+                            window.location.href = url;
+                        });
+                    } else {
+                        jError("Có lỗi trong quá trình xử lý dữ liệu");
+                        return false;
+
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+
+        } catch (e) {
+            alert(e.toString());
+            return false;
+        }
+
+    });
+
+</script>

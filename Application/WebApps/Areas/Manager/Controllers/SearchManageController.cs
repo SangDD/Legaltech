@@ -51,7 +51,7 @@ namespace WebApps.Areas.Manager.Controllers
             List<SearchObject_Header_Info> lstOjects = new List<SearchObject_Header_Info>();
             try
             {
-                
+
                 var _SearchObject_BL = new SearchObject_BL();
                 lstOjects = _SearchObject_BL.SEARCH_OBJECT_SEARCH("||||");
                 ViewBag.Paging = _SearchObject_BL.GetPagingHtml();
@@ -95,12 +95,14 @@ namespace WebApps.Areas.Manager.Controllers
             }
             try
             {
-               
+
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
             }
+
+            ViewBag.Data_Object = BussinessFacade.ModuleMemoryData.MemoryData.clstAppClassSuggest;
             return View(@"~\Areas\Manager\Views\SearchManage\SearchAdd.cshtml");
         }
 
@@ -108,7 +110,7 @@ namespace WebApps.Areas.Manager.Controllers
         [Route("them-dieu-kien")]
         public ActionResult AddNewDetail(decimal _idSearch)
         {
-          
+
             try
             {
 
@@ -123,8 +125,7 @@ namespace WebApps.Areas.Manager.Controllers
         [HttpPost]
         [Route("SearchInsert")]
         public ActionResult SearchInsert(SearchObject_Header_Info p_searchHeaderInfo, List<SearchObject_Detail_Info> p_SearchObject_Detail_Info,
-            SearchObject_Question_Info p_questionInfo
-            )
+            SearchObject_Question_Info p_questionInfo)
         {
             decimal _rel = 0;
             try
@@ -135,12 +136,13 @@ namespace WebApps.Areas.Manager.Controllers
                 p_searchHeaderInfo.REQUEST_DATE = DateTime.Now;
                 p_searchHeaderInfo.LANGUAGE_CODE = AppsCommon.GetCurrentLang();
                 _rel = _searchBL.SEARCH_HEADER_INSERT(p_searchHeaderInfo);
-                if(_rel < 0)
+                if (_rel < 0)
                 {
                     // lỗi thì xóa
-                   // _searchBL.SEARCH_HEADER_DELETE()
+                    // _searchBL.SEARCH_HEADER_DELETE()
                     return Json(new { success = _rel });
                 }
+
                 p_searchHeaderInfo.SEARCH_ID = _rel;
                 p_questionInfo.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
                 _rel = _searchBL.SEARCH_QUESTION_INSERT(p_questionInfo);
@@ -166,7 +168,7 @@ namespace WebApps.Areas.Manager.Controllers
             {
                 Logger.LogException(ex);
             }
-            return Json(new { success = _rel  });
+            return Json(new { success = _rel });
         }
 
 
@@ -225,10 +227,10 @@ namespace WebApps.Areas.Manager.Controllers
                 {
                     return Json(new { success = _rel });
                 }
-              
+
                 p_questionInfo.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
                 _rel = _searchBL.SEARCH_QUESTION_UPDATE(p_questionInfo);
-                
+
                 foreach (SearchObject_Detail_Info item in p_SearchObject_Detail_Info)
                 {
                     item.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
@@ -323,14 +325,14 @@ namespace WebApps.Areas.Manager.Controllers
                     //}
                     //ViewBag.Operator_Type = _operator_type;
                 }
-    
-                
+
+
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
             }
- 
+
             return View(@"~\Areas\Manager\Views\SearchManage\ToDo4Lawer.cshtml");
         }
 
@@ -356,7 +358,7 @@ namespace WebApps.Areas.Manager.Controllers
 
         [HttpPost]
         [Route("tra-loi-search")]
-        public ActionResult DoSearchResult(SearchObject_Question_Info p_SearchObject_Header_Info,  
+        public ActionResult DoSearchResult(SearchObject_Question_Info p_SearchObject_Header_Info,
             List<AppDocumentInfo> pAppDocumentInfo)
         {
             try
@@ -386,7 +388,7 @@ namespace WebApps.Areas.Manager.Controllers
                                 {
                                     p_SearchObject_Header_Info.FILE_URL02 = info.Url_Hardcopy;
                                 }
-                                
+
                                 // lấy xong thì xóa
                                 SessionData.CurrentUser.chashFile.Remove(info.keyFileUpload);
                             }
