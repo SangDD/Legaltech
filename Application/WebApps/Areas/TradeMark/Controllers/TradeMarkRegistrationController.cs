@@ -951,7 +951,7 @@
                                     check = 1;
                                     info.App_Header_Id = pInfo.Id;
                                     info.Language_Code = language;
-                                    info.IdRef = info.Id;
+                                    info.IdRef =CommonFuc.ConvertToDecimal(info.keyFileUpload);
                                     listDocument.Add(info);
                                 }
                             }

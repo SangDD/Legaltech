@@ -2041,14 +2041,14 @@
     function funcGetTenTaiLieuKhacDich(formData) {
         try {
             var item = 0;
+            var getdata = 0;
             $(".txtTaiLieuKhacDich").each(function () {
+                getdata++;
                 formData.append("pAppDocOtherInfo[" + item + "].Documentname", $(this).val());
-                item++;
-                var txtIdTaiLieuKhacID = "txtTaiLieuKhacID" + item.toString();
-
-                
+                var txtIdTaiLieuKhacID = "txtTaiLieuKhacID" + getdata.toString();
                 console.log('txtIdTaiLieuKhacID:' + txtIdTaiLieuKhacID + ' txtIdTaiLieuKhacID:' + $("#" + txtIdTaiLieuKhacID).val());
                 formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", $("#" + txtIdTaiLieuKhacID).val());
+                item++;
             });
             return true;
         } catch (e) {

@@ -18,6 +18,16 @@
     {
         styleTLK = "display:block";
     }
+    foreach (var info1 in lstDocOtherVI)
+    {
+        foreach (var item in lstDocOther)
+        {
+            if(info1.IdRef == item.Id)
+            {
+                item.DocumentnameVi = info1.Documentname;
+            }
+        }
+    }
 }
 <style>
     .classDocOtherE{
@@ -51,7 +61,7 @@
                         <div style="width: 250px;">@TileLabel</div>
                     </div>
                     <div class="div-search-content">
-                        <input type="text" id="@txtIdTaiLieu" class="txtTaiLieuKhacDich" maxlength="200" />
+                        <input type="text" id="@txtIdTaiLieu" value="@item.DocumentnameVi" class="txtTaiLieuKhacDich" maxlength="200" />
                         <input type="hidden" id="@txtIdTaiLieuKhacID" value="@item.Id"/>
                     </div>
                 </div>
