@@ -13,15 +13,8 @@ namespace DataAccess.ModuleTrademark
         {
             try
             {
-                var lstNews = new List<AppClassDetailInfo>();
-                foreach (var item in pInfo)
-                {
-                    if (!string.IsNullOrEmpty(item.Textinput))
-                    {
-                        lstNews.Add(item);
-                    }
-                }
-                int numberRecord = lstNews.Count;
+                 
+                int numberRecord = pInfo.Count;
                 if (numberRecord < 1) return 0;
                 string[] TextInput = new string[numberRecord];
                 decimal[] App_Header_Id = new decimal[numberRecord];
@@ -29,13 +22,13 @@ namespace DataAccess.ModuleTrademark
                 string[] Code = new string[numberRecord];
                 string[] Language = new string[numberRecord];
                 DateTime[] Document_Filling_Date = new DateTime[numberRecord];
-                for (int i = 0; i < lstNews.Count; i++)
+                for (int i = 0; i < pInfo.Count; i++)
                 {
                     App_Header_Id[i] = pAppHeaderid;
-                    TextInput[i] = lstNews[i].Textinput;
-                    Code[i] = lstNews[i].Code;
+                    TextInput[i] = pInfo[i].Textinput;
+                    Code[i] = pInfo[i].Code;
                     Language[i] = pLanguage;
-                    IdRef[i] = lstNews[i].IDREF;
+                    IdRef[i] = pInfo[i].IDREF;
                 }
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
                 paramReturn.Size = 10;
