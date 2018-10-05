@@ -901,14 +901,32 @@
                     //string 
                     string prefCaseCode = "";
                     pInfo.Languague_Code = language;
-                    pInfo.Created_By = CreatedBy;
-                    pInfo.Created_Date = CreatedDate;
-                    //TRA RA ID CUA BANG KHI INSERT
-                    pAppHeaderID = objBL.AppHeaderInsert(pInfo, ref prefCaseCode);
+                    //Có rồi thì update ko thì insert 
+                    if (pInfo.Id_Vi > 0)
+                    {
+                        pInfo.Modify_By = CreatedBy;
+                        pInfo.Modify_Date = CreatedDate; 
+                        pAppHeaderID = objBL.AppHeaderUpdate(pInfo);
+                    }
+                    else
+                    {
+                        //TRA RA ID CUA BANG KHI INSERT
+                        pInfo.Created_By = CreatedBy;
+                        pInfo.Created_Date = CreatedDate;
+                        pAppHeaderID = objBL.AppHeaderInsert(pInfo, ref prefCaseCode);
+                    }
+                   
 
                     if (pAppHeaderID >= 0)
                     {
-                        pInfo.Id = pAppHeaderID;
+                        if (pAppHeaderID > 0)
+                        {
+                            pInfo.Id = pAppHeaderID;
+                        }
+                        else
+                        {
+                            pInfo.Id = pInfo.Id_Vi;
+                        }
                         pDetail.Appcode = pInfo.Appcode;
                         pDetail.Language_Code = language;
                         pDetail.App_Header_Id = pInfo.Id;
@@ -957,6 +975,10 @@
                             }
                             if (check == 1)
                             {
+                                if (pInfo.Id_Vi > 0)
+                                {
+                                    pReturn = objDoc.AppDocumentOtherDeletedByApp(pInfo.Id_Vi, Language.LangVI);
+                                }
                                 pReturn = objDoc.AppDocumentOtherInsertBatch(listDocument);
                             }
                         }
