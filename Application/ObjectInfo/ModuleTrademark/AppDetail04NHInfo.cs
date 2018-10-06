@@ -102,6 +102,18 @@ namespace ObjectInfos
         public string ThoaThuanKhac { get; set; }
     }
 
+    public class SuggestInfo
+    {
+        public SuggestInfo (string _name, string _value)
+        {
+            name = _name;
+            value = _value;
+        }
+
+        public string value { get; set; }
+        public string name { get; set; }
+    }
+
     public class CustomerSuggestInfo
     {
         public string label { get; set; }

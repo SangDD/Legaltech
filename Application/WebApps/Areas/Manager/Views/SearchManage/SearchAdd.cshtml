@@ -6,14 +6,13 @@
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     List<AllCodeInfo> _lstObject = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OBJECT");
-
     List<AllCodeInfo> _lstType = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "SEARCHTYPE");
 
-    //List<CustomerSuggestInfo> _lst = new List<CustomerSuggestInfo>();
-    //if (ViewBag.Data_Object != null)
-    //{
-    //    _lst = (List<CustomerSuggestInfo>)ViewBag.Data_Object;
-    //}
+    List<SuggestInfo> _lst = new List<SuggestInfo>();
+    if (ViewBag.Data_Object != null)
+    {
+        _lst = (List<SuggestInfo>)ViewBag.Data_Object;
+    }
 
     string _json = "";
     if (ViewBag.json_object != null)
@@ -26,7 +25,33 @@
 <script>
     $(function () {
 
-        var availableTags = @Html.Raw(Json.Encode(@_json));
+        var availableTags = [
+            "ActionScript",
+            "AppleScript",
+            "Asp",
+            "BASIC",
+            "C",
+            "C++",
+            "Clojure",
+            "COBOL",
+            "ColdFusion",
+            "Erlang",
+            "Fortran",
+            "Groovy",
+            "Haskell",
+            "Java",
+            "JavaScript",
+            "Lisp",
+            "Perl",
+            "PHP",
+            "Python",
+            "Ruby",
+            "Scala",
+            "Scheme"
+        ];
+
+        var availableTags = @Html.Raw(Json.Encode(@_lst));
+
         $("#tags").autocomplete({
             minLength: 3,
             source: function (request, response) {
@@ -35,7 +60,7 @@
                 response(results.slice(0, 100));
             },
             select: function (event, ui) {
-                $("#txtClass").val(ui.item.value); 
+                $("#txtClass").val(ui.item.value);
                 return false;
             }
         });
@@ -52,7 +77,6 @@
         var _isSimpleEditorToolBar = 1;// set cho ckfinder có cấu hình xoạn thảo đơn giản
     </script>*@
 
-    //
 <script src="~/Content/ckeditor/ckeditor.js"></script>
 <div class="divCover">
     <div class="d-nav">
@@ -248,21 +272,13 @@
             formData.append("p_searchHeaderInfo.CASE_NAME", _txtcasename.val().trim());
             formData.append("p_searchHeaderInfo.CLIENT_REFERENCE", txtClient_Reference.val());
             formData.append("p_searchHeaderInfo.STATUS", '@CommonSearch.Stt_PhanChoLuatSu');
-            var _checkvaluessearch = 0;
-            var _searchValuesitem;
+
             $('.search_object').each(function (i, item) {
                 formData.append("p_SearchObject_Detail_Info[" + i + "].SEARCH_OBJECT", $(item).val());
             });
             $('.search_type').each(function (i, item) {
                 formData.append("p_SearchObject_Detail_Info[" + i + "].SEARCH_OBJECT", $(item).val());
             });
-            if (_checkvaluessearch == 1)
-            {
-                jError("Giá trị tìm kiếm không được phép để trống", "lỗi", function () {
-                    $(_searchValuesitem).focus();
-                });
-                return false;
-            }
             var txtAddContent = $("#txtAddContent");
             if (txtAddContent.val().trim() == "") {
                 jError("Mô tả câu hỏi không được bỏ trống!", "lỗi", function () {

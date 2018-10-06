@@ -10,6 +10,7 @@ using ObjectInfos;
 using BussinessFacade;
 using WebApps.CommonFunction;
 using ObjectInfos.ModuleTrademark;
+using System.Transactions;
 
 namespace WebApps.Areas.Manager.Controllers
 {
@@ -102,9 +103,22 @@ namespace WebApps.Areas.Manager.Controllers
                 Logger.LogException(ex);
             }
 
+            List<SuggestInfo> _lst = new List<SuggestInfo>();
+            foreach (var item in BussinessFacade.ModuleMemoryData.MemoryData.clstAppClassSuggest)
+            {
+                SuggestInfo _SuggestInfo = new SuggestInfo(item.name, item.value);
+                _lst.Add(_SuggestInfo);
+            }
+            System.Web.Script.Serialization.JavaScriptSerializer jss = new System.Web.Script.Serialization.JavaScriptSerializer();
+            jss.MaxJsonLength = Int32.MaxValue;
+
+
             //ViewBag.Data_Object = BussinessFacade.ModuleMemoryData.MemoryData.clstAppClassSuggest;
-            string json_object = Newtonsoft.Json.JsonConvert.SerializeObject(BussinessFacade.ModuleMemoryData.MemoryData.clstAppClassSuggest);
+            string json_object = Newtonsoft.Json.JsonConvert.SerializeObject(_lst);
+            string json_object2 = Newtonsoft.Json.JsonConvert.SerializeObject(BussinessFacade.ModuleMemoryData.MemoryData.clstAppClassSuggest);
             ViewBag.json_object = json_object;
+            ViewBag.json_object2 = json_object2;
+            ViewBag.Data_Object = _lst;
 
             return View(@"~\Areas\Manager\Views\SearchManage\SearchAdd.cshtml");
         }
@@ -133,38 +147,41 @@ namespace WebApps.Areas.Manager.Controllers
             decimal _rel = 0;
             try
             {
-                SearchObject_BL _searchBL = new SearchObject_BL();
-                p_searchHeaderInfo.CREATED_BY = SessionData.CurrentUser.Username;
-                p_searchHeaderInfo.CREATED_DATE = DateTime.Now;
-                p_searchHeaderInfo.REQUEST_DATE = DateTime.Now;
-                p_searchHeaderInfo.LANGUAGE_CODE = AppsCommon.GetCurrentLang();
-                _rel = _searchBL.SEARCH_HEADER_INSERT(p_searchHeaderInfo);
-                if (_rel < 0)
+                using (var scope = new TransactionScope())
                 {
-                    // lỗi thì xóa
-                    // _searchBL.SEARCH_HEADER_DELETE()
-                    return Json(new { success = _rel });
-                }
+                    SearchObject_BL _searchBL = new SearchObject_BL();
+                    p_searchHeaderInfo.CREATED_BY = SessionData.CurrentUser.Username;
+                    p_searchHeaderInfo.CREATED_DATE = DateTime.Now;
+                    p_searchHeaderInfo.REQUEST_DATE = DateTime.Now;
+                    p_searchHeaderInfo.LANGUAGE_CODE = AppsCommon.GetCurrentLang();
+                    _rel = _searchBL.SEARCH_HEADER_INSERT(p_searchHeaderInfo);
+                    if (_rel < 0)
+                    {
+                        return Json(new { success = _rel });
+                    }
 
-                p_searchHeaderInfo.SEARCH_ID = _rel;
-                p_questionInfo.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
-                _rel = _searchBL.SEARCH_QUESTION_INSERT(p_questionInfo);
-                if (_rel < 0)
-                {
-                    // lỗi thì xóa
-                    _searchBL.SEARCH_HEADER_DELETE(p_searchHeaderInfo.SEARCH_ID);
-                    return Json(new { success = _rel });
-                }
-                foreach (SearchObject_Detail_Info item in p_SearchObject_Detail_Info)
-                {
-                    item.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
-                }
-                _rel = _searchBL.SEARCH_DETAIL_INSERT(p_SearchObject_Detail_Info);
-                if (_rel < 0)
-                {
-                    // lỗi thì xóa
-                    _searchBL.SEARCH_HEADER_DELETE(p_searchHeaderInfo.SEARCH_ID);
-                    return Json(new { success = _rel });
+                    p_searchHeaderInfo.SEARCH_ID = _rel;
+                    p_questionInfo.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
+                    _rel = _searchBL.SEARCH_QUESTION_INSERT(p_questionInfo);
+                    if (_rel < 0)
+                        goto Commit_Transaction;
+
+                    foreach (SearchObject_Detail_Info item in p_SearchObject_Detail_Info)
+                    {
+                        item.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
+                    }
+                    _rel = _searchBL.SEARCH_DETAIL_INSERT(p_SearchObject_Detail_Info);
+
+                    //end
+                    Commit_Transaction:
+                    if (_rel < 0)
+                    {
+                        Transaction.Current.Rollback();
+                    }
+                    else
+                    {
+                        scope.Complete();
+                    }
                 }
             }
             catch (Exception ex)
@@ -173,7 +190,6 @@ namespace WebApps.Areas.Manager.Controllers
             }
             return Json(new { success = _rel });
         }
-
 
         [HttpGet]
         [Route("search-edit/{id}/{id2}")]
