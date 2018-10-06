@@ -296,16 +296,15 @@
             {
                 B_Todos_BL _obj_bl = new B_Todos_BL();
                 keysSearch = B_Todo.TypeProcess + "|" + SessionData.CurrentUser.Username;
-                B_TodoNotify_Info p_todonotify = new B_TodoNotify_Info();
-                List<B_Todos_Info> _lst = _obj_bl.B_Todos_Search(ref p_todonotify, keysSearch, ref _total_record, p_from, p_to, _sortype);
+                List<B_Todos_Info> _lst = _obj_bl.B_Todos_Search(keysSearch, ref _total_record, p_from, p_to, _sortype);
                 htmlPaging = CommonFuc.Get_HtmlPaging<B_Todos_Info>((int)_total_record, p_CurrentPage, "Nội dung", _reconpage, "TodojsPaging");
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;
                 ViewBag.SumRecord = _total_record;
                 //return Json(new { TodoData = RenderPartialToString("~/Areas/Home/Views/Shared/_TodoData.cshtml", null), TodoNotify = p_todonotify });
 
-                var TodoData = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Home/Views/Shared/_TodoData.cshtml");
-                return Json(new { TodoData, TodoNotify = p_todonotify });
+                var _TodoData = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Home/Views/Shared/_TodoData.cshtml");
+                return Json(new { TodoData = _TodoData });
             }
             catch (Exception ex)
             {
@@ -336,15 +335,14 @@
             {
                 B_Todos_BL _obj_bl = new B_Todos_BL();
                 keysSearch = B_Todo.TypeRequest + "|" + SessionData.CurrentUser.Username;
-                B_TodoNotify_Info p_todonotify = new B_TodoNotify_Info();
-                List<B_Todos_Info> _lst = _obj_bl.B_Todos_Search(ref p_todonotify, keysSearch, ref _total_record, p_from, p_to, _sortype);
+                List<B_Todos_Info> _lst = _obj_bl.B_Todos_Search(keysSearch, ref _total_record, p_from, p_to, _sortype);
                 htmlPaging = CommonFuc.Get_HtmlPaging<B_Todos_Info>((int)_total_record, p_CurrentPage, "Nội dung", _reconpage, "OrderjsPaging");
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;
                 ViewBag.SumRecord = _total_record;
 
-                var TodoData = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Home/Views/Shared/_OrderData.cshtml");
-                return Json(new { TodoData, TodoNotify = p_todonotify });
+                var _TodoData = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Home/Views/Shared/_OrderData.cshtml");
+                return Json(new { TodoData = _TodoData });
 
                 //return Json(new { TodoData = RenderPartialToString("~/Areas/Home/Views/Shared/_OrderData.cshtml", null), TodoNotify = p_todonotify });
             }
@@ -444,7 +442,7 @@
             try
             {
                 NewsBL _obj_bl = new NewsBL();
-                //  keysSearch = "7|" + "1|" + SessionData.CurrentUser.Language;
+                // keysSearch = "7|" + "1|" + SessionData.CurrentUser.Language;
                 keysSearch = "7|" + "ALL|" + SessionData.CurrentUser.Language;
 
                 List<NewsInfo> _lst = _obj_bl.ArticleHomeSearch(keysSearch, ref _total_record, p_from, p_to, _sortype);
@@ -479,7 +477,7 @@
             {
                 NewsBL _obj_bl = new NewsBL();
                 // keysSearch = "7|" + "1|" + SessionData.CurrentUser.Language;
-                keysSearch = "7|" + "ALL|" + SessionData.CurrentUser.Language;
+                 keysSearch = "7|" + "ALL|" + SessionData.CurrentUser.Language;
 
                 List<NewsInfo> _lst = _obj_bl.ArticleHomeSearch(keysSearch, ref _total_record, p_from, p_to, _sortype);
                 htmlPaging = CommonFuc.Get_HtmlPaging<B_Remind_Info>((int)_total_record, p_CurrentPage, "Tin", _reconpage, "UpdatenewsjsPaging");

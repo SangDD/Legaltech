@@ -16,7 +16,7 @@
     </table>*@
 
     <div class="clssbox_search">
-        <select id="cbo_searchtype">
+        <select id="cbo_searchtype" onchange="FunChooseSearchtype()">
             <option value="1">
                 Tình trạng đơn
             </option>
@@ -67,11 +67,9 @@
         var _searchtype = "1";
         var _searchContent = "";
         var _arrKeySearch;
-        function FunChooseSearchtype(item, _searchtype) {
+        function FunChooseSearchtype() {
             try {
-                $(".legalsearch_clssunderline").removeClass("legalsearch_clssunderline");
-                $(item).addClass("legalsearch_clssunderline");
-                $("#legalsearch_txtsearchtype").val(_searchtype);
+                var _searchtype = $("#cbo_searchtype").val();
                 if (_searchtype == 1) {
                     $("#legalsearch_txtsearchcontent").attr("placeholder", "case code, case name, tình trạng đơn, người xử lý, loại đơn")
                 }
