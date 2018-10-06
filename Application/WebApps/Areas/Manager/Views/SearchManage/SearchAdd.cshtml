@@ -9,10 +9,16 @@
 
     List<AllCodeInfo> _lstType = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "SEARCHTYPE");
 
-    List<CustomerSuggestInfo> _lst = new List<CustomerSuggestInfo>();
-    if (ViewBag.Data_Object != null)
+    //List<CustomerSuggestInfo> _lst = new List<CustomerSuggestInfo>();
+    //if (ViewBag.Data_Object != null)
+    //{
+    //    _lst = (List<CustomerSuggestInfo>)ViewBag.Data_Object;
+    //}
+
+    string _json = "";
+    if (ViewBag.json_object != null)
     {
-        _lst = (List<CustomerSuggestInfo>)ViewBag.Data_Object;
+        _json = (string)ViewBag.json_object;
     }
 }
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -20,8 +26,7 @@
 <script>
     $(function () {
 
-        // http://jqueryui.com/autocomplete/#custom-data
-        var availableTags = @Html.Raw(Json.Encode(@ViewBag.Data_Object));
+        var availableTags = @Html.Raw(Json.Encode(@_json));
         $("#tags").autocomplete({
             minLength: 3,
             source: function (request, response) {

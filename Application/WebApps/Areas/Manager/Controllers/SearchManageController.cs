@@ -102,7 +102,10 @@ namespace WebApps.Areas.Manager.Controllers
                 Logger.LogException(ex);
             }
 
-            ViewBag.Data_Object = BussinessFacade.ModuleMemoryData.MemoryData.clstAppClassSuggest;
+            //ViewBag.Data_Object = BussinessFacade.ModuleMemoryData.MemoryData.clstAppClassSuggest;
+            string json_object = Newtonsoft.Json.JsonConvert.SerializeObject(BussinessFacade.ModuleMemoryData.MemoryData.clstAppClassSuggest);
+            ViewBag.json_object = json_object;
+
             return View(@"~\Areas\Manager\Views\SearchManage\SearchAdd.cshtml");
         }
 
