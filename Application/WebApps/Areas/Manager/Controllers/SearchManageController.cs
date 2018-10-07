@@ -114,7 +114,7 @@ namespace WebApps.Areas.Manager.Controllers
                 }
                 _lst.Add(_SuggestInfo);
             }
-             
+
             ViewBag.Data_Object = _lst;
 
             return View(@"~\Areas\Manager\Views\SearchManage\SearchAdd.cshtml");
@@ -241,33 +241,47 @@ namespace WebApps.Areas.Manager.Controllers
 
         [HttpPost]
         [Route("SearchEdit")]
-        public ActionResult SearchEdit(SearchObject_Header_Info p_searchHeaderInfo, List<SearchObject_Detail_Info> p_SearchObject_Detail_Info,
-          SearchObject_Question_Info p_questionInfo
-          )
+        public ActionResult SearchEdit(SearchObject_Header_Info p_searchHeaderInfo, List<SearchObject_Detail_Info> p_SearchObject_Detail_Info, SearchObject_Question_Info p_questionInfo)
         {
             decimal _rel = 0;
             try
             {
-                SearchObject_BL _searchBL = new SearchObject_BL();
-                p_searchHeaderInfo.MODIFIED_BY = SessionData.CurrentUser.Username;
-                p_searchHeaderInfo.MODIFIED_DATE = DateTime.Now;
-                p_searchHeaderInfo.REQUEST_DATE = DateTime.Now;
-                _rel = _searchBL.SEARCH_HEADER_UPDATE(p_searchHeaderInfo);
-                if (_rel < 0)
+                using (var scope = new TransactionScope())
                 {
-                    return Json(new { success = _rel });
-                }
+                    SearchObject_BL _searchBL = new SearchObject_BL();
+                    p_searchHeaderInfo.MODIFIED_BY = SessionData.CurrentUser.Username;
+                    p_searchHeaderInfo.MODIFIED_DATE = DateTime.Now;
+                    p_searchHeaderInfo.REQUEST_DATE = DateTime.Now;
+                    _rel = _searchBL.SEARCH_HEADER_UPDATE(p_searchHeaderInfo);
+                    if (_rel < 0)
+                    {
+                        return Json(new { success = _rel });
+                    }
 
-                p_questionInfo.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
-                _rel = _searchBL.SEARCH_QUESTION_UPDATE(p_questionInfo);
+                    p_questionInfo.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
+                    _rel = _searchBL.SEARCH_QUESTION_UPDATE(p_questionInfo);
+                    if (_rel < 0)
+                        goto Commit_Transaction;
 
-                foreach (SearchObject_Detail_Info item in p_SearchObject_Detail_Info)
-                {
-                    item.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
+                    // detail
+                    foreach (SearchObject_Detail_Info item in p_SearchObject_Detail_Info)
+                    {
+                        item.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
+                    }
+                    _searchBL.SEARCH_DETAIL_DELETE(p_searchHeaderInfo.SEARCH_ID);
+                    _rel = _searchBL.SEARCH_DETAIL_INSERT(p_SearchObject_Detail_Info);
+
+                    //end
+                    Commit_Transaction:
+                    if (_rel < 0)
+                    {
+                        Transaction.Current.Rollback();
+                    }
+                    else
+                    {
+                        scope.Complete();
+                    }
                 }
-                //xóa detail
-                _searchBL.SEARCH_DETAIL_DELETE(p_searchHeaderInfo.SEARCH_ID);
-                _rel = _searchBL.SEARCH_DETAIL_INSERT(p_SearchObject_Detail_Info);
                 return Json(new { success = _rel });
             }
             catch (Exception ex)
@@ -279,9 +293,7 @@ namespace WebApps.Areas.Manager.Controllers
 
         [HttpPost]
         [Route("SearchEdit4Lawer")]
-        public ActionResult SearchEdit4Lawer(SearchObject_Header_Info p_searchHeaderInfo, List<SearchObject_Detail_Info> p_SearchObject_Detail_Info,
-         SearchObject_Question_Info p_questionInfo
-         )
+        public ActionResult SearchEdit4Lawer(SearchObject_Header_Info p_searchHeaderInfo, List<SearchObject_Detail_Info> p_SearchObject_Detail_Info, SearchObject_Question_Info p_questionInfo)
         {
             decimal _rel = 0;
             try
@@ -363,7 +375,7 @@ namespace WebApps.Areas.Manager.Controllers
                 Logger.LogException(ex);
             }
 
-            return View(@"~\Areas\Manager\Views\SearchManage\ToDo4Lawer.cshtml");
+            return View(@"~\Areas\Manager\Views\SearchManage\Search_Detail.cshtml");
         }
 
         [HttpPost]
@@ -388,8 +400,7 @@ namespace WebApps.Areas.Manager.Controllers
 
         [HttpPost]
         [Route("tra-loi-search")]
-        public ActionResult DoSearchResult(SearchObject_Question_Info p_SearchObject_Header_Info,
-            List<AppDocumentInfo> pAppDocumentInfo)
+        public ActionResult DoSearchResult(SearchObject_Question_Info p_SearchObject_Header_Info, List<AppDocumentInfo> pAppDocumentInfo)
         {
             try
             {

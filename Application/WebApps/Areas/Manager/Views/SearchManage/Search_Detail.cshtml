@@ -11,7 +11,7 @@
         c_operator_type = (decimal)ViewBag.Operator_Type;
     }
 
-    
+
     decimal _currstatus = 1;
     if (ViewBag.Currstatus != null)
     {
@@ -73,7 +73,8 @@
 </style>
 
 @Html.Partial("~/Areas/Home/Views/Shared/HomeSearchBox.cshtml")
-<fieldset style="border: 1px solid #dddddd; padding: 1.25rem; margin-top:20px">; 
+<fieldset style="border: 1px solid #dddddd; padding: 1.25rem; margin-top:20px">
+    ;
     <legend>YÊU CẦU TÌM KIẾM </legend>
 
     <style>
@@ -130,7 +131,7 @@
             margin-left: calc(20% - 29px + 22px - 90px + 11px);
         }
 
-         
+
 
         .progress_hr:last-child {
             width: calc(100% - 58% - 215px);
@@ -193,7 +194,7 @@
         @foreach (var item in _lstStatus)
         {
             _count++;
-           
+
             <div class="@("progress_div_text" +  _count)"> @item.Content</div>
         }
     </div>
@@ -205,7 +206,7 @@
         @foreach (var item in _lstStatus)
         {
             _count++;
-          
+
             _Checked = "";
             if (item.CdVal == _currstatus.ToString())
             {
@@ -224,7 +225,7 @@
             @foreach (var item in _lstStatus)
             {
                 _count++;
-               
+
                 if (item.CdVal == _currstatus.ToString())
                 {
                     <div class="@("user_progress_active progress_div_user" +  _count)"> @_FirstTodo.REQUEST_BY_NAME</div>
@@ -235,11 +236,11 @@
                 }
             }
         </div>
-                }
+    }
     @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update))
     {
         <div style="margin-top:20px;float:left;width:100%">
-            @if (_currstatus ==CommonSearch.Stt_PhanChoLuatSu )
+            @if (_currstatus == CommonSearch.Stt_PhanChoLuatSu)
             {
                 @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialPhanLoai.cshtml")
             }
@@ -247,7 +248,7 @@
             {
                 @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialLuatSuTraloi.cshtml")
             }
-           
+
         </div>
     }
 
