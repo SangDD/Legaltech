@@ -76,177 +76,117 @@
 <div class="d-main">
     <div class="divCover">
         <div class="classTitle">
-            <div class="div-title-content"> THÔNG TIN SEARCH </div>
+            <div class="div-title-content"> THÊM MỚI SEARCH</div>
         </div>
-        <table style="margin:10px 0px">
-            <tr>
-                <td>
-                    <a style="text-decoration: underline;" href="/quan-ly-search/them-moi">1. Create New Search</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="/quan-ly-search/danh-sach-search">  2. Quản lý Search</a>
-                </td>
-            </tr>
-        </table>
     </div>
-    <div class="div-search-ad">
-        <div class="div-search-title">
-            <div> Case name<i class="redspan">(*)</i></div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <input type="text" placeholder="Case name" maxlength="200" id="_txtcasename" />
+    <div class="divCover">
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div> Case name<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Case name" maxlength="200" id="_txtcasename" />
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="div-search-ad">
-        <div class="div-search-title">
-            <div> Client Reference<i class="redspan">(*)</i> </div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <input value="" type="text" placeholder="Client Reference" maxlength="200" id="txtClient_Reference" />
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div> Client Reference<i class="redspan">(*)</i> </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input value="" type="text" placeholder="Client Reference" maxlength="200" id="txtClient_Reference" />
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="div-search-ad">
-        <div class="div-search-title">
-            <div>Quốc tịch<i class="redspan">(*)</i></div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <select id="cboCountry">
-                    @foreach (var item in MemoryData.c_lst_Country)
-                    {
-                        if (item.Country_Id == Common.Common.Country_VietNam_Id)
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Quốc tịch<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboCountry">
+                        @foreach (var item in MemoryData.c_lst_Country)
                         {
-                            <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                            if (item.Country_Id == Common.Common.Country_VietNam_Id)
+                            {
+                                <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Country_Id">
+                                    @item.Name
+                                </option>
+                            }
                         }
-                        else
-                        {
-                            <option value="@item.Country_Id">
-                                @item.Name
-                            </option>
-                        }
-                    }
-                </select>
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="divCover cls_form_title">
-        <img src="/Content/icons/icon_info_24.png" />
-        <div class="cls_form_header">
-            Nhóm hàng hóa
-        </div>
-    </div>
-
-    <div class="div-search-ad">
-        <div class="div-search-title">
-            <div>Search<i class="redspan">(*)</i></div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <input id="tags" style="height: 28px;margin-left: 3px;width:150px">
+                    </select>
+                </div>
             </div>
         </div>
 
-        <div class="div-search-title">
-            <div> Class<i class="redspan">(*)</i> </div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <input value="" type="text" disabled="disabled" id="txtClass" />
+        <div class="divCover cls_form_title">
+            <img src="/Content/icons/icon_info_24.png" />
+            <div class="cls_form_header">
+                Nhóm hàng hóa
             </div>
         </div>
-    </div>
 
-    <div class="divCover cls_form_title">
-        <img src="/Content/icons/icon_info_24.png" />
-        <div class="cls_form_header">
-            Điều kiện Search
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Search<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input id="tags" style="height: 28px;margin-left: 3px;width:150px">
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div> Class<i class="redspan">(*)</i> </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input value="" type="text" disabled="disabled" id="txtClass" />
+                </div>
+            </div>
+        </div>
+
+        <div class="divCover cls_form_title">
+            <img src="/Content/icons/icon_info_24.png" />
+            <div class="cls_form_header">
+                Điều kiện Search
+            </div>
+        </div>
+
+        <div id="div_searchcondtion_content">
+            @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearchCondition.cshtml", "1|1")
+        </div>
+
+        <div class="div-search-ad" style="float:left; width:100%;">
+            <input class="btn" style="margin: 4px 0px 0px 28px;" type="button" value="Thêm điều kiện" onclick="funcAddCondition()" />
+        </div>
+
+        <br />
+        <br />
+        <div style="margin-top:15px">
+            <div>Mô tả<i class="redspan">(*)</i></div>
+            <textarea type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200"></textarea>
         </div>
     </div>
 
-    <div id="div_searchcondtion_content">
-        @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearchCondition.cshtml", "1|1")
+    <div class="divCover">
+        <div class="div-search-btn" style="width:600px;margin-top: 5px;">
+            <input type="submit" id="btnGuiBai" class="btn-default" value="Gửi tìm kiếm" />
+        </div>
     </div>
-
-    <div class="div-search-ad" style="float:left; width:100%;">
-        <input class="btn" style="margin: 4px 0px 0px 28px;" type="button" value="Thêm điều kiện" onclick="funcAddCondition()" />
-    </div>
-
-    <br />
-    <br />
-    <div style="margin-top:15px">
-        <div>Mô tả<i class="redspan">(*)</i></div>
-        <textarea type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200"></textarea>
-    </div>
-
 </div>
 
-<div class="class_save">
-    <div class="classGuiDon">
-        <input type="button" value="Gửi tìm kiếm" id="btnGuiBai" class="btn" />
-    </div>
-
-</div>
 
 
 <script>
-
-    //$(document).ready(function () {
-    //    //load the array first, it will happen only once - this is to be done if you are dealing with a small static data set
-    //    $.ajax({
-    //        dataType: "json",
-    //        //data: {
-    //        //    term: request.term,
-    //        //},
-    //        type: 'Get',
-    //        contentType: 'application/json; charset=utf-8',
-    //        xhrFields: {
-    //            withCredentials: true
-    //        },
-    //        crossDomain: true,
-    //        cache: true,
-    //        url: '/quan-ly-search/get-suggest-source',
-    //        success: function (data) {
-    //            var array = $.map(data.value, function (item) {
-    //                return {
-    //                    label: item.name,
-    //                    value: item.value
-    //                }
-    //            });
-
-    //            //create the auto complete once the ajax request is completed
-    //            $("#tags").autocomplete({
-    //                source: array,
-    //                minLength: 3,
-    //                open: function () {
-
-    //                },
-    //                close: function () {
-
-    //                },
-    //                focus: function (event, ui) {
-
-    //                },
-    //                select: function (event, ui) {
-    //                    $("#txtClass").val(ui.item.value);
-    //                    return false;
-    //                }
-    //            });
-    //        },
-    //        error: function (data) {
-    //        }
-    //    });
-    //});
 
     function funcAddCondition() {
         try {
@@ -301,12 +241,13 @@
             formData.append("p_searchHeaderInfo.CASE_NAME", _txtcasename.val().trim());
             formData.append("p_searchHeaderInfo.CLIENT_REFERENCE", txtClient_Reference.val());
             formData.append("p_searchHeaderInfo.STATUS", '@CommonSearch.Stt_PhanChoLuatSu');
+            formData.append("p_searchHeaderInfo.Country_Id", $("#cboCountry").val());
 
             $('.search_object').each(function (i, item) {
                 formData.append("p_SearchObject_Detail_Info[" + i + "].SEARCH_OBJECT", $(item).val());
             });
             $('.search_type').each(function (i, item) {
-                formData.append("p_SearchObject_Detail_Info[" + i + "].SEARCH_OBJECT", $(item).val());
+                formData.append("p_SearchObject_Detail_Info[" + i + "].SEARCH_TYPE", $(item).val());
             });
             var txtAddContent = $("#txtAddContent");
             if (txtAddContent.val().trim() == "") {

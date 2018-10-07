@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ObjectInfos
 {
-   public class SearchObject_Header_Info
+    public class SearchObject_Header_Info
     {
 
         public decimal STT { get; set; }
@@ -34,7 +34,7 @@ namespace ObjectInfos
         public DateTime CREATED_DATE { get; set; }
 
         public string MODIFIED_BY { get; set; }
-        
+
         public DateTime MODIFIED_DATE { get; set; }
 
         public string LANGUAGE_CODE { get; set; }
@@ -43,15 +43,12 @@ namespace ObjectInfos
 
         public string LAWER_NAME { get; set; }
 
-        public string ADMIN_NAME { get; set; } 
+        public string ADMIN_NAME { get; set; }
 
+        public string CONTENT { get; set; }
 
-         public string CONTENT { get; set; }
-
-        
-
-
-
+        public decimal Country_Id { get; set; }
+        public string Country_Name { get; set; }
 
     }
 }
