@@ -47,6 +47,7 @@ namespace WebApps.Areas.Articles.Controllers
                 string htmlPaging = CommonFuc.Get_HtmlPaging<NewsInfo>((int)_total_record, 1, "Tin");
                 ViewBag.listArticles = _lst;
                 ViewBag.Paging = htmlPaging;
+                //ViewBag.Status = pStatus;
                 ViewBag.SumRecord = _total_record;
                 ViewBag.lstCategory = MemoryData.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
                 
@@ -62,35 +63,30 @@ namespace WebApps.Areas.Articles.Controllers
 
         [HttpGet]
         [Route("tim-kiem-tin")]
-        public ActionResult SearchArticles(string pCategory,string pTitile, int pPage )
+        public ActionResult SearchArticles(string pCategory,string pTitile, int pPage ,int pStatus )
         {
             try
             {
-                decimal pStatus = 0;
-                if (SessionData.CurrentUser == null)
-                    return Redirect("/");
-                if (RouteData.Values.ContainsKey("id"))
-                {
-                    pStatus = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
-                }
                 ViewBag.Status = pStatus;
                 //Nếu bài chờ xử lý thì lấy danh sách các bài đã gửi 
                 if (pStatus == Status.ChoXuly)
                 {
                     pStatus = Status.VietBai;
                 }
+                int from = (pPage-1)*(Common.Common.RecordOnpage);
+                int to = (pPage) * (Common.Common.RecordOnpage);
                 decimal _total_record = 0;
                 NewsBL objBL = new NewsBL();
                 string language = AppsCommon.GetCurrentLang();
                 string _keySearch = pStatus.ToString() + "|ALL|" + language + "|" + pCategory +"|" + pTitile;
-                List<NewsInfo> _lst = objBL.ArticleHomeSearch(_keySearch, ref _total_record);
-                string htmlPaging = CommonFuc.Get_HtmlPaging<NewsInfo>((int)_total_record, 1, "Tin");
+                List<NewsInfo> _lst = objBL.ArticleHomeSearch(_keySearch, ref _total_record, from.ToString(), to.ToString());
+                string htmlPaging = CommonFuc.Get_HtmlPaging<NewsInfo>((int)_total_record, pPage, "Tin");
                 ViewBag.listArticles = _lst;
                 ViewBag.Paging = htmlPaging;
                 ViewBag.SumRecord = _total_record;
                 ViewBag.lstCategory = MemoryData.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
 
-                return View("~/Areas/Articles/Views/ArticlesNews/GetListArticles.cshtml");
+                return View("~/Areas/Articles/Views/ArticlesNews/_PartialViewTable.cshtml");
             }
             catch (Exception ex)
             {

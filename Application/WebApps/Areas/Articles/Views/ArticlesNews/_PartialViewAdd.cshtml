@@ -2,7 +2,7 @@
 @using ObjectInfos;
 @using BussinessFacade.ModuleMemoryData
 @{
-    ViewBag.Title = "Quản lý bài viết";
+    ViewBag.Title = WebApps.Resources.Resource.lblQuanLyBaiViet ;
     Layout = "~/ViewsShared/_Layout.cshtml";
 }
 @try
@@ -31,11 +31,11 @@
     <script src="~/Content/ckeditor/ckeditor.js"></script>
     <div class="divCover">
         <div class="d-nav">
-            <img src="~/Content/icons/Body-icon-home.png" />Bài viết
+            <img src="~/Content/icons/Body-icon-home.png" />@WebApps.Resources.Resource.lblBaiViet
             <span class="red">></span>
-            <a href="/quan-ly-tin/danh-sach-tin">Quản lý bài viết</a>
+            <a href="/quan-ly-tin/danh-sach-tin">@WebApps.Resources.Resource.lblQuanLyBaiViet</a>
             <span class="red">></span>
-            <a href="/quan-ly-tin/soan-bai-viet">Thêm mới bài viết</a>
+            <a href="/quan-ly-tin/soan-bai-viet">@WebApps.Resources.Resource.lblThemMoiBaiViet</a>
         </div>
     </div>
     <div class="divCover">
@@ -49,13 +49,13 @@
                 <input type="hidden" value="MODIFIED_DATE" id="colSorted" />
                 <input type="hidden" value="DESC" id="SortType" />
                 <input type="hidden" value="" id="OptionSorting" />
-                <div class="div-title-content"> THÔNG TIN BÀI VIẾT </div>
+                <div class="div-title-content">@WebApps.Resources.Resource.lblThongTinBaiViet</div>
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Tiêu đề<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.lblTieuDe<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -66,7 +66,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Tóm tắt</div>
+                <div>@WebApps.Resources.Resource.lblTomTat</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -112,7 +112,7 @@
         </div>
 
         <div style="margin-top:15px">
-            <div>Nội dung<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.lblNoiDung<i class="redspan">(*)</i></div>
             <div>
                 <textarea type="text" id="txtNoiDung" name="txtNoiDung"></textarea>
             </div>
@@ -121,7 +121,7 @@
 
     <div style="width:100%;padding-top:10px;">
         <div class="class_left_50">
-            <div style="width:200px">Chuyên mục chính <i style="color: red">(*)</i></div> <br />
+            <div style="width:200px">@WebApps.Resources.Resource.lblChuyenMucChinh <i style="color: red">(*)</i></div> <br />
             <select id="_txtCategories" size="10" class="select">
                 @if (ViewBag.lstCategory != null)
                 {
@@ -133,7 +133,7 @@
             </select>
         </div>
         <div class="class_right_50">
-            <div style="width:250px">Chuyên mục liên quan </div> <br />
+            <div style="width:250px">@WebApps.Resources.Resource.lblChuyenMucLienQuan</div> <br />
             <select id="_txtCategoriesRe" size="10" class="select">
                 @if (ViewBag.lstCategory != null)
                 {
@@ -149,9 +149,9 @@
 
     <div class="class_save" style="margin-left:163px;">
         <div class="classGuiDon">
-            <input type="button" value="Gửi bài" id="btnLuuBai" class="btn" />
+            <input type="button" value="@WebApps.Resources.Resource.btnGuiBai" id="btnLuuBai" class="btn" />
         </div> <div class="classLuuTam">
-            <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn" />
+            <input type="button" value="@WebApps.Resources.Resource.btnLuuTam" id="btnLuuTam" class="btn" />
         </div>
     </div>
 
@@ -211,8 +211,9 @@ catch (Exception)
             }
 
             var category = $("#_txtCategories").val();
-            if (category.trim() == "") {
+            if (category == "" || category==null || category==undefined) {
                 showError('danh mục bài viết không được để trống!!');
+                $("#_txtCategories").focus();
                 return false;
             }
             var recategory = $("#_txtCategoriesRe").val();

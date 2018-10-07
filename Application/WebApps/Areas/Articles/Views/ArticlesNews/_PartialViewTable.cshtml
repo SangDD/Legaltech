@@ -13,11 +13,11 @@
         <table class="table-lst-data" id="tableListObject">
             <thead>
                 <tr>
-                    <th style="width: 4%">STT</th>
-                    <th style="width: 25%" data-sort id="TITLE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Tiêu đề</th>
-                    <th style="width: 25%" data-sort id="CREATED_BY" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Người tạo</th>
-                    <th style="width: 15%" data-sort id="MODIFIED_DATE">Cập nhật lúc</th>
-                    <th style="width: 100px;">Chức năng</th>
+                    <th style="width: 4%">@WebApps.Resources.Resource.lblSTT</th>
+                    <th style="width: 25%" data-sort id="TITLE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.lblTieuDe</th>
+                    <th style="width: 25%" data-sort id="CREATED_BY" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.lblNguoiTao</th>
+                    <th style="width: 15%" data-sort id="MODIFIED_DATE">@WebApps.Resources.Resource.lblCapNhatLuc</th>
+                    <th style="width: 100px;">@WebApps.Resources.Resource.lblChucNang</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,20 +30,20 @@
                             <td class="tdleftalign">@item.Createdby</td>
                             <td class="tdleftalign">@item.Createddate.ToString("dd/MM/yyy HH:mm:ss")</td>
                             <td class="tdcenteralign">
-                                <a href="/quan-ly-tin/chi-tiet-bai-viet/@item.Id/@ViewBag.Status" class="icon icon-info" data-title="Xem chi tiết"></a>
-                                <a href="/quan-ly-tin/sua-bai-viet/@item.Id/@ViewBag.Status" class="icon icon-edit" data-title="Sửa"></a>
+                                <a href="/quan-ly-tin/chi-tiet-bai-viet/@item.Id/@ViewBag.Status" class="icon icon-info" data-title="@WebApps.Resources.Resource.btnXemChiTiet"></a>
+                                <a href="/quan-ly-tin/sua-bai-viet/@item.Id/@ViewBag.Status" class="icon icon-edit" data-title="@WebApps.Resources.Resource.btnSua"></a>
                                 @if (ViewBag.Status != Common.Status.XuatBan)
                                 {
-                                    <a href="javascript:;" onclick="return funcDelArticles(@item.Id)" class="icon icon-delete" data-title="Xóa"></a>
+                                    <a href="javascript:;" onclick="return funcDelArticles(@item.Id)" class="icon icon-delete" data-title="@WebApps.Resources.Resource.btnXoa"></a>
                                 }
                                 @if (ViewBag.Status == Common.Status.ChoXuly)
                                 {
-                                    <a href="/quan-ly-tin/sua-bai-viet/@item.Id/@ViewBag.Status" class="icon icon-confirm-circle" data-title="Công bố"></a>
+                                    <a href="/quan-ly-tin/sua-bai-viet/@item.Id/@ViewBag.Status" class="icon icon-confirm-circle" data-title="@WebApps.Resources.Resource.btnXuatban"></a>
                                 }
 
                                 @if (ViewBag.Status == Common.Status.XuatBan)
                                 {
-                                    <a href="/quan-ly-tin/sua-bai-viet/@item.Id/@ViewBag.Status" class="icon icon-cancel-circle" data-title="Gỡ bỏ"></a>
+                                    <a href="/quan-ly-tin/sua-bai-viet/@item.Id/@ViewBag.Status" class="icon icon-cancel-circle" data-title="@WebApps.Resources.Resource.btnGoBo"></a>
                                 }
 
                             </td>
