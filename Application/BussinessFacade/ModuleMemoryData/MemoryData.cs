@@ -38,6 +38,9 @@
 
         public static List<AppClassInfo> clstAppClass = new List<AppClassInfo>();
         public static List<CustomerSuggestInfo> clstAppClassSuggest = new List<CustomerSuggestInfo>();
+
+        //public static List<SuggestInfo> clstAppClassShortSuggest = new List<SuggestInfo>();
+        
         /// <summary>
         /// Danh sách chủ đại diện sở hữu công nghiệp
         /// </summary>
@@ -97,17 +100,15 @@
                 {
                     c_dic_FeeByApp_Fix[item.Appcode + "_" + item.Fee_Id.ToString()] = item;
                 }
-                //lấy  
-
                 foreach (var item in clstAppClass)
                 {
                     CustomerSuggestInfo pinfo = new CustomerSuggestInfo();
+                    
                     pinfo.label = item.Name_Vi;
                     pinfo.name = item.Name_Vi;
 
                     pinfo.label_en = item.Name_En;
                     pinfo.name_en = item.Name_En;
-
                     if (item.Code.Length > 2)
                     {
                         pinfo.value = item.Code.Substring(0, 2);

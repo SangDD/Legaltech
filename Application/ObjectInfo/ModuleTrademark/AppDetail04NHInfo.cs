@@ -143,6 +143,8 @@ namespace ObjectInfos
         }
         public string Language { get; set; }
     }
+
+
     public class CustomerInfo
     {
         public CustomerInfo()

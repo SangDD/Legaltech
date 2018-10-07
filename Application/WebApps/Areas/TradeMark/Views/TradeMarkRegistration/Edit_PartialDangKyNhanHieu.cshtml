@@ -2,6 +2,7 @@
 @using BussinessFacade.ModuleMemoryData
 @using ObjectInfos.ModuleTrademark
 @using ObjectInfos
+@using Common.CommonData
 @{
     ViewBag.Title = "Sửa đăng ký nhãn hiệu";
     Layout = "~/ViewsShared/_Layout.cshtml";
@@ -147,6 +148,25 @@
     if (objAppHeaderInfo.Duadate.ToString("dd/MM/yyyy") != "01/01/0001")
     {
         strDuaDate = objAppHeaderInfo.Duadate.ToString("dd/MM/yyyy");
+    }
+
+
+
+    string language = AppsCommon.GetCurrentLang();
+    var clstAppClassShortSuggest = new List<SuggestInfo>();
+    foreach (var item in MemoryData.clstAppClassSuggest)
+    {
+        var pShortInfo = new SuggestInfo("", "");
+        if (language == Language.LangVI)
+        {
+
+            pShortInfo = new SuggestInfo(item.name.Replace('/', ' '), item.value);
+        }
+        else
+        {
+            pShortInfo = new SuggestInfo(item.name_en.Replace('/', ' '), item.value);
+        }
+        clstAppClassShortSuggest.Add(pShortInfo);
     }
 }
 
@@ -604,7 +624,7 @@
                 </div>
                 <div class="div-search-ad" style="display:inline-flex;">
                     <div class="div-search-content" style="width:385px">
-                        <div class="div-radio"  style="width:385px">
+                        <div class="div-radio" style="width:385px">
                             <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" @styleTTK value="NTVN" placeholder="4_ckbThoaThuanKhac" id="4_ckbThoaThuanKhac" />
                             <label>@WebApps.Resources.Resource.lblTheoThoaThuanKhac</label>
                         </div>
@@ -612,7 +632,7 @@
 
                     @* Moithem *@
                     <div class="div-search-content">
-                        <input type="text" id="txtThoathuanKhac" value="@objAppHeaderInfo.ThoaThuanKhac"  maxlength="150" />
+                        <input type="text" id="txtThoathuanKhac" value="@objAppHeaderInfo.ThoaThuanKhac" maxlength="150" />
                     </div>
 
                 </div>
@@ -755,6 +775,47 @@
 <input type="hidden" value="@objAppHeaderInfo.Rep_Master_Type" id="txtRepMasterTypeEdit" />
 
 <script>
+
+    $(function ()
+    {
+      try {
+        var availableTags = [];
+        var array = @Html.Raw(Json.Encode(clstAppClassShortSuggest));
+        for (var i = 0; i < array.length; i++) {
+            availableTags[i] = array[i];
+        }
+        $("#txtTenHangHoa").autocomplete({
+            minLength: 3,
+            source: function (request, response) {
+                var results = $.ui.autocomplete.filter(availableTags, request.term.toUpperCase());
+                response(results.slice(0, 100));
+            },
+            select: function (event, ui) {
+                $("#txtClass").val(ui.item.value);
+                //return false;
+                var textinput = $("#txtTenHangHoa").val();
+                event.preventDefault();
+                funcAddDataRowSuggest(textinput, ui.item.value);
+                $("#txtTenHangHoa").val("");
+
+            },
+            focus: function (event, ui) {
+                var arrResult = $(".ui-menu-item");
+                for (var i = 0; i < arrResult.length; i++) {
+                    var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                    if (label == ui.item.name) {
+                        $(".clsLiActive").removeClass("clsLiActive")
+                        $(arrResult[i]).addClass("clsLiActive");
+                        break;
+                    }
+                }
+                event.preventDefault();
+            }
+        });
+        } catch (e) {
+        }
+    });
+
     function GetThongTinDaiDien(vChoise) {
         try {
             var id = $("#txtAppHeaderID").val();
@@ -930,58 +991,58 @@
         funcAddRemoveDisabled("6_rdoBDTVGom_2", "6_txtBDTVGom_2");
     });
 
-    $("#txtTenHangHoa").keypress(function (event) {
-        if (event.which == 13) {
-            //event.preventDefault();
-            //Search suggestion
-            var Name = $("#txtTenHangHoa").val();
-            if (Name.length < 3) {
-                return;
-            }
-            $.ajax({
-                url: '/trade-mark/GetNameSuggestAppClass',
-                type: 'POST',
-                data: {
-                    pName: Name
-                },
-                sync: true, cache: false, traditional: true,
-                success: function (data) {
-                    var lts = data.lst;
-                    $('#txtTenHangHoa').autocomplete({
-                        autoFocus: true,
-                        source: function (request, response) {
-                            var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
-                            response($.grep(lts, function (item) {
-                                return matcher.test(item.name);
-                            }));
-                        },
-                        select: function (event, ui) {
-                            var textinput = $("#txtTenHangHoa").val();
-                            event.preventDefault();
-                            funcAddDataRowSuggest(textinput, ui.item.value);
-                            $("#txtTenHangHoa").val("");
-                        },
-                        focus: function (event, ui) {
-                            var arrResult = $(".ui-menu-item");
-                            for (var i = 0; i < arrResult.length; i++) {
-                                var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                                if (label == ui.item.name) {
-                                    $(".clsLiActive").removeClass("clsLiActive")
-                                    $(arrResult[i]).addClass("clsLiActive");
-                                    break;
-                                }
-                            }
-                            event.preventDefault();
-                        },
-                        open: function (event, ui) {
-                            $("ul").scrollTop(0);
-                            event.preventDefault();
-                        },
-                    });
-                }
-            });
-        }
-    });
+    //$("#txtTenHangHoa").keypress(function (event) {
+    //    if (event.which == 13) {
+    //        //event.preventDefault();
+    //        //Search suggestion
+    //        var Name = $("#txtTenHangHoa").val();
+    //        if (Name.length < 3) {
+    //            return;
+    //        }
+    //        $.ajax({
+    //            url: '/trade-mark/GetNameSuggestAppClass',
+    //            type: 'POST',
+    //            data: {
+    //                pName: Name
+    //            },
+    //            sync: true, cache: false, traditional: true,
+    //            success: function (data) {
+    //                var lts = data.lst;
+    //                $('#txtTenHangHoa').autocomplete({
+    //                    autoFocus: true,
+    //                    source: function (request, response) {
+    //                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+    //                        response($.grep(lts, function (item) {
+    //                            return matcher.test(item.name);
+    //                        }));
+    //                    },
+    //                    select: function (event, ui) {
+    //                        var textinput = $("#txtTenHangHoa").val();
+    //                        event.preventDefault();
+    //                        funcAddDataRowSuggest(textinput, ui.item.value);
+    //                        $("#txtTenHangHoa").val("");
+    //                    },
+    //                    focus: function (event, ui) {
+    //                        var arrResult = $(".ui-menu-item");
+    //                        for (var i = 0; i < arrResult.length; i++) {
+    //                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
+    //                            if (label == ui.item.name) {
+    //                                $(".clsLiActive").removeClass("clsLiActive")
+    //                                $(arrResult[i]).addClass("clsLiActive");
+    //                                break;
+    //                            }
+    //                        }
+    //                        event.preventDefault();
+    //                    },
+    //                    open: function (event, ui) {
+    //                        $("ul").scrollTop(0);
+    //                        event.preventDefault();
+    //                    },
+    //                });
+    //            }
+    //        });
+    //    }
+    //});
 
     function funcRemoveTradeMarkImg(ptag) {
         $("#" + ptag).attr('src', '');
@@ -1544,7 +1605,7 @@
             }
             formData.append("pInfo.Id", v_AppHeaderID);
             formData.append("pInfo.Case_Code", $("#txtCase_Code").val());
-            
+
             var daidienSH = $("#txtDaiDienSHCN").val();
             //if (daidienSH === "") {
             //    $('#txtDaiDienSHCN').focus().val('');
@@ -2017,7 +2078,7 @@
             $("#divDaiDienSHCN").css("display", "none");
         } else {
 
-           
+
         }
     });
 
