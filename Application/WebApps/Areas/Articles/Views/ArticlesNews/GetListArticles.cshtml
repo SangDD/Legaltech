@@ -1,4 +1,4 @@
-﻿@using WebApps.CommonFunction
+﻿ @using WebApps.CommonFunction
 @using ObjectInfos;
 @using BussinessFacade.ModuleMemoryData
 @{
@@ -59,8 +59,6 @@
                     </select>
                 </div>
             </div>
-
-
             <div class="div-search-title">
                 <div style="width: 120px">Tiêu đề</div>
             </div>
@@ -94,13 +92,40 @@
 <script>
 
     $("#btnSearch").click(function () {
-        funcSearch();
+        funcSearch(1,0);
     });
 
 
-    function funcSearch() {
+    function funcSearch(page ,pType) {
         try {
+            var danhmuc = $("#cboSearchWikiCatalogue").val();
+            var tieude = $("#txtTieuDeBaiViet").val();
 
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            $.ajax({
+                url: "/quan-ly-tin/tim-kiem-tin",
+                type: "GET",
+                data: {
+                    pCategory: danhmuc,
+                    pTitile: tieude,
+                    pPage: page 
+                },
+                async: true, cache: false, traditional: true,
+                enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data)
+                {
+                    $("#divTableObjects").html(data);
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
+            });
         } catch (e) {
 
         }
@@ -139,5 +164,9 @@
                 }
             });
         });
+    }
+
+    function jsPaging(page) {
+        funcSearch(page, 0);
     }
 </script>
