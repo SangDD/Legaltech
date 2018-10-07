@@ -104,23 +104,34 @@ namespace WebApps.Areas.Manager.Controllers
             }
 
             List<SuggestInfo> _lst = new List<SuggestInfo>();
+            string _lang = AppsCommon.GetCurrentLang();
             foreach (var item in BussinessFacade.ModuleMemoryData.MemoryData.clstAppClassSuggest)
             {
-                SuggestInfo _SuggestInfo = new SuggestInfo(item.name, item.value);
+                SuggestInfo _SuggestInfo = new SuggestInfo(item.name.Replace('/', ' '), item.value);
+                if (_lang == "EN_US")
+                {
+                    _SuggestInfo.label = item.label_en;
+                }
                 _lst.Add(_SuggestInfo);
             }
-            System.Web.Script.Serialization.JavaScriptSerializer jss = new System.Web.Script.Serialization.JavaScriptSerializer();
-            jss.MaxJsonLength = Int32.MaxValue;
-
-
-            //ViewBag.Data_Object = BussinessFacade.ModuleMemoryData.MemoryData.clstAppClassSuggest;
-            string json_object = Newtonsoft.Json.JsonConvert.SerializeObject(_lst);
-            string json_object2 = Newtonsoft.Json.JsonConvert.SerializeObject(BussinessFacade.ModuleMemoryData.MemoryData.clstAppClassSuggest);
-            ViewBag.json_object = json_object;
-            ViewBag.json_object2 = json_object2;
+             
             ViewBag.Data_Object = _lst;
 
             return View(@"~\Areas\Manager\Views\SearchManage\SearchAdd.cshtml");
+        }
+
+        [HttpGet]
+        [Route("get-suggest-source")]
+        public ActionResult Get_Suggest_Source()
+        {
+            List<SuggestInfo> _lst = new List<SuggestInfo>();
+            foreach (var item in BussinessFacade.ModuleMemoryData.MemoryData.clstAppClassSuggest)
+            {
+                SuggestInfo _SuggestInfo = new SuggestInfo(item.name.Replace('/', ' '), item.value);
+                _lst.Add(_SuggestInfo);
+            }
+            string json_object = Newtonsoft.Json.JsonConvert.SerializeObject(_lst);
+            return Json(json_object, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

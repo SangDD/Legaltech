@@ -104,14 +104,24 @@ namespace ObjectInfos
 
     public class SuggestInfo
     {
-        public SuggestInfo (string _name, string _value)
+        public SuggestInfo (string _label, string _value)
         {
-            name = _name;
+            label = _label;
             value = _value;
         }
 
         public string value { get; set; }
-        public string name { get; set; }
+        public string label { get; set; }
+    }
+
+    public class SuggestInfo2
+    {
+        public SuggestInfo2(string _label)
+        {
+            label = _label;
+        }
+
+        public string label { get; set; }
     }
 
     public class CustomerSuggestInfo

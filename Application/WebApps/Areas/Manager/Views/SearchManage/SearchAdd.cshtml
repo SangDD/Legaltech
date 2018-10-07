@@ -8,49 +8,30 @@
     List<AllCodeInfo> _lstObject = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OBJECT");
     List<AllCodeInfo> _lstType = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "SEARCHTYPE");
 
-    List<SuggestInfo> _lst = new List<SuggestInfo>();
+    List<SuggestInfo> _lstSuggest = new List<SuggestInfo>();
     if (ViewBag.Data_Object != null)
     {
-        _lst = (List<SuggestInfo>)ViewBag.Data_Object;
-    }
-
-    string _json = "";
-    if (ViewBag.json_object != null)
-    {
-        _json = (string)ViewBag.json_object;
+        _lstSuggest = (List<SuggestInfo>)ViewBag.Data_Object;
     }
 }
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+@*<script src="~/Scripts/jquery-1.12.4.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>*@
+<style>
+    .ui-autocomplete-loading {
+        background: white url("/Content/icons/Rolling-1s-16px.svg") right center no-repeat;
+    }
+</style>
 <script>
     $(function () {
 
-        var availableTags = [
-            "ActionScript",
-            "AppleScript",
-            "Asp",
-            "BASIC",
-            "C",
-            "C++",
-            "Clojure",
-            "COBOL",
-            "ColdFusion",
-            "Erlang",
-            "Fortran",
-            "Groovy",
-            "Haskell",
-            "Java",
-            "JavaScript",
-            "Lisp",
-            "Perl",
-            "PHP",
-            "Python",
-            "Ruby",
-            "Scala",
-            "Scheme"
-        ];
-
-        var availableTags = @Html.Raw(Json.Encode(@_lst));
+        var availableTags = [];
+        var array = @Html.Raw(Json.Encode(@_lstSuggest));
+        for(var i = 0; i < array.length; i++) {
+            availableTags[i] = array[i];
+        }
 
         $("#tags").autocomplete({
             minLength: 3,
@@ -219,6 +200,54 @@
 
 
 <script>
+
+    //$(document).ready(function () {
+    //    //load the array first, it will happen only once - this is to be done if you are dealing with a small static data set
+    //    $.ajax({
+    //        dataType: "json",
+    //        //data: {
+    //        //    term: request.term,
+    //        //},
+    //        type: 'Get',
+    //        contentType: 'application/json; charset=utf-8',
+    //        xhrFields: {
+    //            withCredentials: true
+    //        },
+    //        crossDomain: true,
+    //        cache: true,
+    //        url: '/quan-ly-search/get-suggest-source',
+    //        success: function (data) {
+    //            var array = $.map(data.value, function (item) {
+    //                return {
+    //                    label: item.name,
+    //                    value: item.value
+    //                }
+    //            });
+
+    //            //create the auto complete once the ajax request is completed
+    //            $("#tags").autocomplete({
+    //                source: array,
+    //                minLength: 3,
+    //                open: function () {
+
+    //                },
+    //                close: function () {
+
+    //                },
+    //                focus: function (event, ui) {
+
+    //                },
+    //                select: function (event, ui) {
+    //                    $("#txtClass").val(ui.item.value);
+    //                    return false;
+    //                }
+    //            });
+    //        },
+    //        error: function (data) {
+    //        }
+    //    });
+    //});
+
     function funcAddCondition() {
         try {
             var txtDdSeachClass = $(".txtIdSeachClass").last().val();
