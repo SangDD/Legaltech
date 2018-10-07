@@ -3,7 +3,7 @@
 @using BussinessFacade.ModuleMemoryData
 @model NewsInfo
 @{
-    ViewBag.Title = "Quản lý bài viết";
+    ViewBag.Title =  WebApps.Resources.Resource.lblQuanLyBaiViet ;
     Layout = "~/ViewsShared/_Layout.cshtml";
     var objInfo = new NewsInfo();
     if (Model != null)
@@ -45,11 +45,11 @@
 
     <div class="divCover">
         <div class="d-nav">
-            <img src="~/Content/icons/Body-icon-home.png" />Bài viết
+            <img src="~/Content/icons/Body-icon-home.png" />@WebApps.Resources.Resource.lblBaiViet
             <span class="red">></span>
-            <a href="/quan-ly-tin/danh-sach-tin">Quản lý bài viết</a>
+            <a href="/quan-ly-tin/danh-sach-tin">@WebApps.Resources.Resource.lblQuanLyBaiViet</a>
             <span class="red">></span>
-            <a href="/quan-ly-tin/soan-bai-viet">Sửa bài viết</a>
+            <a href="/quan-ly-tin/soan-bai-viet">@WebApps.Resources.Resource.lblSuaBaiViet</a>
         </div>
     </div>
     <div class="divCover">
@@ -66,13 +66,13 @@
                 <input type="hidden" value="" id="OptionSorting" />
                 <input type="hidden" id="txtLogoOld" value="@urlMauNhanHieu" />
 
-                <div class="div-title-content">SỬA THÔNG TIN BÀI VIẾT </div>
+                <div class="div-title-content">@WebApps.Resources.Resource.lblSuaBaiViet.ToUpper()</div>
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Tiêu đề<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.lblTieuDe<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -83,7 +83,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Tóm tắt</div>
+                <div>@WebApps.Resources.Resource.lblTomTat</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -137,7 +137,7 @@
         </div>
 
         <div style="margin-top:15px">
-            <div>Nội dung<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.lblNoiDung<i class="redspan">(*)</i></div>
             <div>
                 <textarea type="text" id="txtNoiDung" name="txtNoiDung">@Html.Raw(objInfo.Content)</textarea>
             </div>
@@ -146,7 +146,7 @@
 
     <div style="width:100%;padding-top:10px;">
         <div class="class_left_50">
-            <div style="width:200px">Chuyên mục chính <i style="color: red">(*)</i></div> <br />
+            <div style="width:200px">@WebApps.Resources.Resource.lblChuyenMucChinh <i style="color: red">(*)</i></div> <br />
             <select id="_txtCategories" size="10" class="select">
                 @if (ViewBag.lstCategory != null)
                 {
@@ -165,7 +165,7 @@
             </select>
         </div>
         <div class="class_right_50">
-            <div style="width:250px">Chuyên mục liên quan </div> <br />
+            <div style="width:250px">@WebApps.Resources.Resource.lblChuyenMucLienQuan</div> <br />
             <select id="_txtCategoriesRe" size="10" class="select">
                 @if (ViewBag.lstCategory != null)
                 {
@@ -188,42 +188,45 @@
     <div class="class_save" style="margin-left:163px;">
         @if (ViewBag.Status == Common.Status.VietBai)
         {
-            <div class="classGuiDon">
+            @*<div class="classGuiDon">
                 <input type="button" value="Gửi bài" id="btnLuuBai" class="btn" />
-            </div>
+            </div>*@
             <div class="classLuuTam">
-                <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn" />
+                <input type="button" value="@WebApps.Resources.Resource.lblLuuBai" id="btnLuuBai" class="btn" />
             </div>
         }
         else if (ViewBag.Status == Common.Status.ChoXuly)
         {
             <div class="classGuiDon">
-                <input type="button" value="Xuất bản" id="btnXuatBan" class="btn" />
+                <input type="button" value="@WebApps.Resources.Resource.btnXuatban" id="btnXuatBan" class="btn" />
             </div>
             <div class="classLuuTam">
-                <input type="button" value="Từ chối" id="btnTuChoi" class="btn" />
+                <input type="button" value="@WebApps.Resources.Resource.btnTuChoi" id="btnTuChoi" class="btn" />
             </div>
         }
         else if (ViewBag.Status == Common.Status.XuatBan)
         {
             <div class="classGuiDon">
-                <input type="button" value="Gỡ bài" id="btnGobai" class="btn" />
+                <input type="button" value="@WebApps.Resources.Resource.lblLuuBai" id="btnLuuBaiXB" class="btn" />
+            </div>
+            <div class="classGuiDon">
+                <input type="button" value="@WebApps.Resources.Resource.btnGoBai" id="btnGobai" class="btn" />
             </div>
         }
         else if (ViewBag.Status == Common.Status.DaGo)
         {
-        <div class="classGuiDon">
-            <input type="button" value="Gửi bài" id="btnLuuBai" class="btn" />
-        </div>
-        <div class="classLuuTam">
-            <input type="button" value="Lưu bài" id="btnLuuGo" class="btn" />
-        </div>
+            <div class="classGuiDon">
+                <input type="button" value="@WebApps.Resources.Resource.btnGuiBai" id="btnLuuBai" class="btn" />
+            </div>
+            <div class="classLuuTam">
+                <input type="button" value="@WebApps.Resources.Resource.lblLuuBai" id="btnLuuGo" class="btn" />
+            </div>
         }
         else
         {
-        <div class="classGuiDon">
-            <input type="button" value="Lưu bài" id="btnLuuBai" class="btn" />
-        </div>
+            <div class="classGuiDon">
+                <input type="button" value="@WebApps.Resources.Resource.lblLuuBai" id="btnLuuBai" class="btn" />
+            </div>
         }
     </div>
 
@@ -263,23 +266,27 @@ catch (Exception)
     });
 
     $("#btnXuatBan").click(function () {
-        SaveArticles(7);
+        SaveArticles(7,4);
     });
     
     $("#btnTuChoi").click(function () {
-        SaveArticles(5);
+        SaveArticles(5,5);
     });
 
     $("#btnGobai").click(function () {
-        SaveArticles(6);
+        SaveArticles(6,7);
     });
 
     $("#btnLuuGo").click(function () {
-        SaveArticles(6);
+        SaveArticles(6,6);
+    });
+
+    $("#btnLuuBaiXB").click(function () {
+        SaveArticles(7,7);
     });
 
 
-    function SaveArticles(pStatus) {
+    function SaveArticles(pStatus,CurrentPage) {
         try {
             var formData = new FormData();
 
@@ -328,16 +335,16 @@ catch (Exception)
                     if (data != null && data.status >= 0) {
                         if (pStatus == 7) {
                             nvsAlert("Xuất bản bài viết thành công!", ThongBao, function () {
-                                location.href = "/quan-ly-tin/danh-sach-tin/" + pStatus;
+                                location.href = "/quan-ly-tin/danh-sach-tin/" + CurrentPage;
                             });
                         } else if (pStatus == 6) {
                             nvsAlert("Gỡ bài viết thành công!", ThongBao, function () {
-                                location.href = "/quan-ly-tin/danh-sach-tin/" + pStatus;
+                                location.href = "/quan-ly-tin/danh-sach-tin/" + CurrentPage;
                             });
                         }
                         else {
                             nvsAlert("Sửa bài viết thành công!", ThongBao, function () {
-                                location.href = "/quan-ly-tin/danh-sach-tin/" + pStatus;
+                                location.href = "/quan-ly-tin/danh-sach-tin/" + CurrentPage;
                             });
                         }
                     } else {

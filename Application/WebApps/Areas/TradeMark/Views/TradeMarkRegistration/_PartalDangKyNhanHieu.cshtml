@@ -1,9 +1,28 @@
 ﻿@using WebApps.CommonFunction
+@using Common.CommonData 
+@using ObjectInfos
 @using BussinessFacade.ModuleMemoryData
 @{
     ViewBag.Title = "Đăng ký nhãn hiệu";
     Layout = "~/ViewsShared/_Layout.cshtml";
+    string language = AppsCommon.GetCurrentLang();
+    var clstAppClassShortSuggest = new List<SuggestInfo>();
+    foreach (var item in MemoryData.clstAppClassSuggest)
+    {
+        var pShortInfo = new SuggestInfo("","");
+        if (language == Language.LangVI)
+        {
+
+              pShortInfo = new SuggestInfo(item.name.Replace('/', ' '), item.value);
+        }
+        else
+        {
+              pShortInfo = new SuggestInfo(item.name_en.Replace('/', ' '), item.value);
+        }
+        clstAppClassShortSuggest.Add(pShortInfo);
+    }
 }
+
 <style>
     /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
     .div-search-title > div {
@@ -524,13 +543,54 @@
     }
 </style>
 <script>
+    $(function ()
+    {
+      try {
+        var availableTags = [];
+        var array = @Html.Raw(Json.Encode(clstAppClassShortSuggest));
+        for (var i = 0; i < array.length; i++) {
+            availableTags[i] = array[i];
+        }
+        $("#txtTenHangHoa").autocomplete({
+            minLength: 3,
+            source: function (request, response) {
+                var results = $.ui.autocomplete.filter(availableTags, request.term.toUpperCase());
+                response(results.slice(0, 100));
+            },
+            select: function (event, ui) {
+                $("#txtClass").val(ui.item.value);
+                //return false;
+                var textinput = $("#txtTenHangHoa").val();
+                event.preventDefault();
+                funcAddDataRowSuggest(textinput, ui.item.value);
+                $("#txtTenHangHoa").val("");
+
+            },
+            focus: function (event, ui) {
+                var arrResult = $(".ui-menu-item");
+                for (var i = 0; i < arrResult.length; i++) {
+                    var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                    if (label == ui.item.name) {
+                        $(".clsLiActive").removeClass("clsLiActive")
+                        $(arrResult[i]).addClass("clsLiActive");
+                        break;
+                    }
+                }
+                event.preventDefault();
+            }
+        });
+        } catch (e) {
+        }
+    });
+
+
     function GetThongTinDaiDien(vChoise) {
-        try { 
+        try {
             $.ajax({
                 url: '/trade-mark/funcGetTTDHSH/',
                 type: 'POST',
                 data: {
-                    pKeyData: "", pDDSH:vChoise,   pEdit: 0,  pID:0,   pStatus:0 
+                    pKeyData: "", pDDSH:vChoise,   pEdit: 0,  pID:0,   pStatus:0
                 },
                 async: false, cache: false, traditional: true,
                 success: function (data) {
@@ -553,7 +613,7 @@
                         }
                         $("#txtDaiDienSHCN").val("");
                         $("#txtMADDSHCN").val("");
-                        
+
                         var txtTenDayDu_02 = $("#2_txtTenDayDu").val();
                         $.ajax({
                             url: '/trade-mark/GetNameSuggestKhac/',
@@ -689,7 +749,7 @@
             $('#8_ckbNguonGocDiaLy').prop('checked', false);
             $('#8_ckbChatLuong').prop('checked', false);
             $('#8_ckbDacTinhKhac').prop('checked', false);
-             
+
             $("#8_txtNguonGocDiaLy").val("");
             $("#8_txtChatLuong").val("");
             $("#8_txtDacTinhKhac").val("");
@@ -794,7 +854,7 @@
             validateOnBlur: false,
             scrollInput: false
         });
-     
+
         //Search suggestion
         var Name = $("#1_txtTenDayDu").val();
         $.ajax({
@@ -1030,62 +1090,65 @@
 
             }
         });
-        
+
 
     });
 
-    $("#txtTenHangHoa").keypress(function (event) {
-        if (event.which == 13) {
-            //event.preventDefault();
-            //Search suggestion
-            var Name = $("#txtTenHangHoa").val();
-            if (Name.length < 3) {
-                return;
-            }
-            $.ajax({
-                url: '/trade-mark/GetNameSuggestAppClass',
-                type: 'POST',
-                data: {
-                    pName: Name
-                },
-                sync: true, cache: false, traditional: true,
-                success: function (data) {
-                    var lts = data.lst;
-                    $('#txtTenHangHoa').autocomplete({
-                        autoFocus: true,
-                        source: function (request, response) {
-                            var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
-                            response($.grep(lts, function (item) {
-                                return matcher.test(item.name);
-                            }));
-                        },
-                        select: function (event, ui) {
-                            var textinput = $("#txtTenHangHoa").val();
-                            event.preventDefault();
-                            funcAddDataRowSuggest(textinput, ui.item.value);
-                            $("#txtTenHangHoa").val("");
-                        },
-                        focus: function (event, ui) {
-                            var arrResult = $(".ui-menu-item");
-                            for (var i = 0; i < arrResult.length; i++) {
-                                var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                                if (label == ui.item.name) {
-                                    $(".clsLiActive").removeClass("clsLiActive")
-                                    $(arrResult[i]).addClass("clsLiActive");
-                                    break;
-                                }
-                            }
-                            event.preventDefault();
-                        },
-                        open: function (event, ui) {
-                            $("ul").scrollTop(0);
-                            event.preventDefault();
-                        },
-                    });
-                }
-            });
-        }
-    });
+
+
+    //07/10/2018
+    //$("#txtTenHangHoa").keypress(function (event) {
+    //    if (event.which == 13) {
+    //        //event.preventDefault();
+    //        //Search suggestion
+    //        var Name = $("#txtTenHangHoa").val();
+    //        if (Name.length < 3) {
+    //            return;
+    //        }
+    //        $.ajax({
+    //            url: '/trade-mark/GetNameSuggestAppClass',
+    //            type: 'POST',
+    //            data: {
+    //                pName: Name
+    //            },
+    //            sync: true, cache: false, traditional: true,
+    //            success: function (data) {
+    //                var lts = data.lst;
+    //                $('#txtTenHangHoa').autocomplete({
+    //                    autoFocus: true,
+    //                    source: function (request, response) {
+    //                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+    //                        response($.grep(lts, function (item) {
+    //                            return matcher.test(item.name);
+    //                        }));
+    //                    },
+    //                    select: function (event, ui) {
+    //                        var textinput = $("#txtTenHangHoa").val();
+    //                        event.preventDefault();
+    //                        funcAddDataRowSuggest(textinput, ui.item.value);
+    //                        $("#txtTenHangHoa").val("");
+    //                    },
+    //                    focus: function (event, ui) {
+    //                        var arrResult = $(".ui-menu-item");
+    //                        for (var i = 0; i < arrResult.length; i++) {
+    //                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
+    //                            if (label == ui.item.name) {
+    //                                $(".clsLiActive").removeClass("clsLiActive")
+    //                                $(arrResult[i]).addClass("clsLiActive");
+    //                                break;
+    //                            }
+    //                        }
+    //                        event.preventDefault();
+    //                    },
+    //                    open: function (event, ui) {
+    //                        $("ul").scrollTop(0);
+    //                        event.preventDefault();
+    //                    },
+    //                });
+    //            }
+    //        });
+    //    }
+    //});
 
 
 
