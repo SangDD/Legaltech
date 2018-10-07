@@ -51,7 +51,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Ghi chú </div>
+            <div>Ghi chú <i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
@@ -84,19 +84,21 @@
 
     function doPhanLoai() {
         if (validateAction()) {
-            var formData = new FormData();
-            collectObjectData(formData);
             nvsConfirm(null, "Bạn có chắc chắn muốn phân search này cho luật sư hay không?", function () {
                 $.ajax({
                     url: '/quan-ly-search/phan-loai-4lawer',
                     type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    traditional: true,
-                    async: false,
-                    headers: { "cache-control": "no-cache" },
+                    data: {
+                        p_case_code: '@_SearchObject_Header_Info.CASE_CODE',
+                        p_lawer_id: _Lawer_Id,
+                        p_note: $('#txtNotes').val()
+                    },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
                     success: function (data) {
+                        CreateRollingWaitingIcon(false);
                         if (data.success == "-1") {
                             //jError("Lỗi check lại kết nối tới server", "Lỗi");
                             jError("Lỗi check lại kết nối tới server");
@@ -127,12 +129,15 @@
             return false;
         }
 
+        var _Note = $('#txtNotes').val();
+        if (_Note == null || _Note == "") {
+            jError('Ghi chú không được để trống!', "Lỗi", function () {
+                $('#txtNotes').focus();
+            });
+            return false;
+        }
+
         return true;
     }
-
-    function collectObjectData(formData) {
-        formData.append('p_App_Lawer_Info.Lawer_Id', _Lawer_Id);
-        formData.append('p_App_Lawer_Info.Case_Code', '@_SearchObject_Header_Info.CASE_CODE');
-        formData.append('p_App_Lawer_Info.Notes', $('#txtNotes').val());
-    }
+    
 </script>

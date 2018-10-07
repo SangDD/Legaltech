@@ -210,22 +210,16 @@
         }
 
 
-        function doDeleteObject(p_id) {
+        function doDeleteObject(_id) {
             try {
                     nvsConfirm(null, "Bạn có chắc chắn muốn xóa bản ghi search này không?", function () {
                         $.ajax({
-                            url: "/quan-ly-search/do-delete",
+                            url: "/quan-ly-search/danh-sach-search/do-delete-search",
                             type: "POST",
-                            data: { p_id: p_id },
+                            data: { p_id: _id },
                             headers: { "cache-control": "no-cache" },
                             async: false,
                             success: function (data) {
-                                //if (data != null) {
-                                //    if (onResponse(data)) {
-                                //        ClosePopupDialog('dpop-users', true);
-                                //        findObjects(1, 0);
-                                //    }
-                                //}
                                 if (data.result >= 0) {
                                     showSuccess("Xóa dữ liệu thành công!");
                                     window.findObjects(1, 0);

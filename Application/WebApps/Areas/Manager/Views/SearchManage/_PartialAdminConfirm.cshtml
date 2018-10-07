@@ -1,0 +1,92 @@
+﻿@using ObjectInfos;
+@using BussinessFacade;
+@{
+     
+    var _SearchObject_Header_Info = new SearchObject_Header_Info();
+    if (ViewBag.SearchHeader != null)
+    {
+        _SearchObject_Header_Info =  ViewBag.SearchHeader;
+    }
+}
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 200px;
+    }
+</style>
+<div>
+    <div class="divCover cls_form_title">
+        <img src="~/Content/icons/info.png" />
+        <div class="cls_form_header">
+            Gửi yêu cầu xác nhận search cho khách hàng
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Ghi chú <i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtNotes" maxlength="2000" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="form-group-bottom">
+            <input type="submit" class="btn-default" value="Trả lời khách hàng" onclick="return doConfirm()" />
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+
+    });
+
+    function doConfirm() {
+        if (validateAction()) {
+            nvsConfirm(null, "Bạn có chắc chắn muốn phản hồi lại cho khách hàng hay không?", function () {
+                $.ajax({
+                    url: '/quan-ly-search/admin-confirm',
+                    type: 'POST',
+                    data: {
+                        p_case_code: '@_SearchObject_Header_Info.CASE_CODE',
+                        p_note: $('#txtNotes').val()
+                    },
+                    processData: false, contentType: false, traditional: true, async: false,
+                    headers: { "cache-control": "no-cache" },
+                    success: function (data) {
+                        if (data.success == "-1") {
+                            jError("Lỗi check lại kết nối tới server");
+                            return false;
+                        }
+                        else {
+                            jAlert('Xử lý tác vụ thành công!', "THÔNG BÁO", function () {
+                                window.location.href = "/home";
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            });
+        }
+    }
+
+    function validateAction() {
+        var _Note = $('#txtNotes').val();
+        if (_Note == null || _Note == "") {
+            jError('Ghi chú không được để trống!', "Lỗi", function () {
+                $('#txtNotes').focus();
+            });
+            return false;
+        }
+
+        return true;
+    }
+    
+</script>

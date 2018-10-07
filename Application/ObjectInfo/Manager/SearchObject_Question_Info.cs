@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace ObjectInfos
 {
@@ -15,7 +16,10 @@ namespace ObjectInfos
         public string RESULT { get; set; }
 
         public string FILE_URL { get; set; }
+        public HttpPostedFileBase FileBase_File_Url { get; set; }
 
         public string FILE_URL02 { get; set; }
+        public HttpPostedFileBase FileBase_File_Url02 { get; set; }
+
     }
 }

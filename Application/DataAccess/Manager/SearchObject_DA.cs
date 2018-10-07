@@ -4,14 +4,14 @@ using Common.SearchingAndFiltering;
 using ObjectInfos;
 using Oracle.DataAccess.Client;
 using System;
-using System.Data; 
+using System.Data;
 using System.Collections.Generic;
 
 namespace DataAccess
 {
-   public class SearchObject_DA
+    public class SearchObject_DA
     {
-        public decimal  SEARCH_HEADER_INSERT(SearchObject_Header_Info p_SearchObject_Header_Info)
+        public decimal SEARCH_HEADER_INSERT(SearchObject_Header_Info p_SearchObject_Header_Info)
         {
             try
             {
@@ -23,7 +23,7 @@ namespace DataAccess
                     new OracleParameter("P_REQUEST_DATE", OracleDbType.Date, p_SearchObject_Header_Info.REQUEST_DATE, ParameterDirection.Input),
                     new OracleParameter("P_RESPONSE_DATE", OracleDbType.Date, p_SearchObject_Header_Info.RESPONSE_DATE, ParameterDirection.Input),
                     new OracleParameter("P_STATUS", OracleDbType.Decimal, p_SearchObject_Header_Info.STATUS, ParameterDirection.Input),
-                    new OracleParameter("P_LAWER_ID", OracleDbType.Decimal, p_SearchObject_Header_Info.LAWER_ID, ParameterDirection.Input),
+                    new OracleParameter("P_COUNTRY_ID", OracleDbType.Decimal, p_SearchObject_Header_Info.Country_Id, ParameterDirection.Input),
                     new OracleParameter("P_CREATED_BY", OracleDbType.Varchar2, p_SearchObject_Header_Info.CREATED_BY, ParameterDirection.Input),
                     new OracleParameter("P_CREATED_DATE", OracleDbType.Date, p_SearchObject_Header_Info.CREATED_DATE, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, p_SearchObject_Header_Info.LANGUAGE_CODE, ParameterDirection.Input),
@@ -38,7 +38,7 @@ namespace DataAccess
             }
         }
 
-        public decimal  SEARCH_HEADER_UPDATE(SearchObject_Header_Info p_SearchObject_Header_Info)
+        public decimal SEARCH_HEADER_UPDATE(SearchObject_Header_Info p_SearchObject_Header_Info)
         {
             try
             {
@@ -105,13 +105,15 @@ namespace DataAccess
             }
         }
 
-        public decimal  SEARCH_HEADER_DELETE(decimal P_SEARCH_ID )
+        public decimal SEARCH_HEADER_DELETE(decimal P_SEARCH_ID, string p_user_name, string p_language)
         {
             try
             {
                 OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SEARCH_OBJECTS.PROC_SEARCH_HEADER_DELETE",
                     new OracleParameter("P_SEARCH_ID", OracleDbType.Decimal, P_SEARCH_ID, ParameterDirection.Input),
+                    new OracleParameter("p_user_name", OracleDbType.Varchar2, p_user_name, ParameterDirection.Input),
+                    new OracleParameter("p_language", OracleDbType.Varchar2, p_language, ParameterDirection.Input),
                     paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());
@@ -147,7 +149,7 @@ namespace DataAccess
         }
 
 
-        public decimal SEARCH_DETAIL_INSERT(List<SearchObject_Detail_Info> P_SearchDetails )
+        public decimal SEARCH_DETAIL_INSERT(List<SearchObject_Detail_Info> P_SearchDetails)
         {
             try
             {
@@ -279,8 +281,7 @@ namespace DataAccess
         }
 
 
-        public decimal SEARCH_LAWER_INSERT(string p_case_code, decimal p_lawer_id, string p_notes, string p_language_code,
-         string p_created_by, DateTime p_created_date)
+        public decimal Update_Lawer(string p_case_code, decimal p_lawer_id, string p_notes, string p_language_code, string p_modified_by)
         {
             try
             {
@@ -291,8 +292,29 @@ namespace DataAccess
                     new OracleParameter("p_lawer_id", OracleDbType.Decimal, p_lawer_id, ParameterDirection.Input),
                     new OracleParameter("p_notes", OracleDbType.Varchar2, p_notes, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
-                    new OracleParameter("p_created_by", OracleDbType.Varchar2, p_created_by, ParameterDirection.Input),
-                    new OracleParameter("p_created_date", OracleDbType.Date, p_created_date, ParameterDirection.Input),
+                    new OracleParameter("p_modified_by", OracleDbType.Varchar2, p_modified_by, ParameterDirection.Input),
+                    paramReturn);
+
+                return Convert.ToDecimal(paramReturn.Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
+        public decimal Admin_Update(string p_case_code, string p_notes, string p_language_code, string p_modified_by)
+        {
+            try
+            {
+                OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
+                paramReturn.Size = 10;
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SEARCH_OBJECTS.proc_admin_comment",
+                    new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
+                    new OracleParameter("p_notes", OracleDbType.Varchar2, p_notes, ParameterDirection.Input),
+                    new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
+                    new OracleParameter("p_modified_by", OracleDbType.Varchar2, p_modified_by, ParameterDirection.Input),
                     paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());
@@ -305,7 +327,7 @@ namespace DataAccess
         }
 
         public decimal SEARCH_RESULT_SEARCH(string p_case_code, decimal p_lawer_id, string p_notes, string p_result, string p_language_code,
-       string p_created_by, DateTime p_created_date, string P_FILE_URL_01, string P_FILE_URL_02)
+            string p_modified_by, string P_FILE_URL_01, string P_FILE_URL_02)
         {
             try
             {
@@ -318,8 +340,7 @@ namespace DataAccess
                     new OracleParameter("P_FILE_URL_01", OracleDbType.Varchar2, P_FILE_URL_01, ParameterDirection.Input),
                     new OracleParameter("P_FILE_URL02", OracleDbType.Varchar2, P_FILE_URL_02, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
-                    new OracleParameter("p_created_by", OracleDbType.Varchar2, p_created_by, ParameterDirection.Input),
-                    new OracleParameter("p_created_date", OracleDbType.Date, p_created_date, ParameterDirection.Input),
+                    new OracleParameter("p_modified_by", OracleDbType.Varchar2, p_modified_by, ParameterDirection.Input),
                     paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());

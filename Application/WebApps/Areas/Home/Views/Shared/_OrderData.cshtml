@@ -15,11 +15,11 @@
         <thead>
             <tr>
                 <th class="class30">STT</th>
-                <th  class="tdleftalign" style="width:20%" id="CASE_CODE" onclick="OrderSortByCol('CASE_CODE')">Case code</th>
-                <th  class="tdleftalign" style="width:25%">Nội dung</th>
-                <th  class="tdleftalign" style="width:15%" id='REQUEST_BY_NAME' onclick="OrderSortByCol('REQUEST_BY_NAME')">Người gửi</th>
+                <th class="tdleftalign" style="width:20%" id="CASE_CODE" onclick="OrderSortByCol('CASE_CODE')">Case code</th>
+                <th class="tdleftalign" style="width:25%">Nội dung</th>
+                <th class="tdleftalign" style="width:15%" id='REQUEST_BY_NAME' onclick="OrderSortByCol('REQUEST_BY_NAME')">Người gửi</th>
                 <th style="width:10%" id='REQUEST_DATE' onclick="OrderSortByCol('REQUEST_DATE')">Thời gian gửi</th>
-                <th  class="tdleftalign" style="width:15%" id='PROCESSOR_BY_NAME' onclick="OrderSortByCol('PROCESSOR_BY_NAME')">Người xử lý</th>
+                <th class="tdleftalign" style="width:15%" id='PROCESSOR_BY_NAME' onclick="OrderSortByCol('PROCESSOR_BY_NAME')">Người xử lý</th>
                 <th style="width:10%" id='PROCESSOR_DATE' onclick="OrderSortByCol('REQUEST_DATE')">Thời gian chờ</th>
             </tr>
         </thead>
@@ -40,13 +40,18 @@
                         {
                             <td class="tdleftalign">
                                 <a href="javascript:;" onclick="GetView2View_App('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
-                                @*<a href="/trade-mark-share-data/todo-details/@item.CASE_CODE/0" data-title="Xem chi tiết">@item.CASE_CODE</a>*@
                             </td>
                         }
                         else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.TimeSheet))
                         {
                             <td class="tdleftalign">
-                                <a href="javascript:;" onclick="GetView2Action_TimeSheet('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
+                                <a href="javascript:;" onclick="GetView2View_TimeSheet('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
+                            </td>
+                        }
+                        else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.Search))
+                        {
+                            <td class="tdleftalign">
+                                <a href="javascript:;" onclick="GetView2View_Search('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
                             </td>
                         }
                         else
@@ -99,7 +104,7 @@
             return false;
         }
         try {
-            var url = "/trade-mark-share-data/todo-details/" + _case_code  + "/0"
+            var url = "/trade-mark-share-data/todo-details/" + _case_code + "/0"
             window.open(url);
             //window.location.href = url;
         } catch (e) {
@@ -126,6 +131,19 @@
         }
         try {
             var url = "/quan-ly-billing/danh-sach-billing/show-view-billing-by-code?case_code=" + _case_code;
+            window.open(url);
+            //window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
+
+    function GetView2View_Search(_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        try {
+            var url = "/quan-ly-search/search-todo-detail/" + _case_code + "/4";
             window.open(url);
             //window.location.href = url;
         } catch (e) {

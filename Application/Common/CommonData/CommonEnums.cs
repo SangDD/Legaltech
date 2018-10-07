@@ -161,7 +161,7 @@
     {
         public const int Stt_PhanChoLuatSu = 1;                 // chờ admin phân loại cho luật sư
         public const int Stt_ChoLuatSuPhanHoi = 2;              // chờ luật sư phản hồi
-        public const int Stt_ChoDuyet = 3;                      // chờ admin duyệt
+        public const int Stt_ChoAdminDuyet = 3;                 // chờ admin duyệt
         public const int Stt_DaPhanHoi = 4;                     // duyệt xong thì phản hồi cho khách hàng
     }
 }

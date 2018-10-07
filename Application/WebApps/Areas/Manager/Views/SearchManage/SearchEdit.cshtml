@@ -32,7 +32,7 @@
 @*<script>
         var _isSimpleEditorToolBar = 1;// set cho ckfinder có cấu hình xoạn thảo đơn giản
     </script>*@
-    //
+
 <script src="~/Content/ckeditor/ckeditor.js"></script>
 <div class="divCover">
     <div class="d-nav">
@@ -51,101 +51,92 @@
 <div class="d-main">
     <div class="divCover">
         <div class="classTitle">
-            <div class="div-title-content"> THÔNG TIN SEARCH </div>
+            <div class="div-title-content">SỬA THÔNG TIN SEARCH </div>
         </div>
-        <table style="margin:10px 0px">
-            <tr>
-                <td>
-                    <a href="/quan-ly-search/them-moi">1. Create New Search</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a style="text-decoration: underline;" href="/quan-ly-search/danh-sach-search">  2. Quản lý Search</a>
-                </td>
-            </tr>
-        </table>
     </div>
-    <div class="div-search-ad">
-        <div class="div-search-title">
-            <div> Case name:</div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <input type="text" placeholder="Case name" maxlength="200" id="_txtcasename" value="@_HeaderInfo.CASE_NAME" />
+    <div class="divCover">
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div> Case name:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Case name" maxlength="200" id="_txtcasename" value="@_HeaderInfo.CASE_NAME" />
+                </div>
             </div>
         </div>
-    </div>
-    <div class="div-search-ad">
-        <div class="div-search-title">
-            <div> Client Reference: </div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <input type="text" placeholder="Client Reference" maxlength="200" id="txtClient_Reference" value="@_HeaderInfo.CLIENT_REFERENCE" />
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div> Client Reference: </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Client Reference" maxlength="200" id="txtClient_Reference" value="@_HeaderInfo.CLIENT_REFERENCE" />
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="div-search-ad">
-        <div class="div-search-title">
-            <div>Quốc tịch<i class="redspan">(*)</i></div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <select id="cboCountry">
-                    @foreach (var item in MemoryData.c_lst_Country)
-                    {
-                        if (item.Country_Id == _HeaderInfo.Country_Id)
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Quốc tịch<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboCountry">
+                        @foreach (var item in MemoryData.c_lst_Country)
                         {
-                            <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                            if (item.Country_Id == _HeaderInfo.Country_Id)
+                            {
+                                <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Country_Id">
+                                    @item.Name
+                                </option>
+                            }
                         }
-                        else
-                        {
-                            <option value="@item.Country_Id">
-                                @item.Name
-                            </option>
-                        }
-                    }
-                </select>
+                    </select>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="divCover cls_form_title">
-        <img src="/Content/icons/icon_info_24.png" />
-        <div class="cls_form_header">
-            Nhóm hàng hóa
+        <div class="divCover cls_form_title">
+            <img src="/Content/icons/icon_info_24.png" />
+            <div class="cls_form_header">
+                Nhóm hàng hóa
+            </div>
+        </div>
+
+        <div class="divCover cls_form_title">
+            <img src="/Content/icons/icon_info_24.png" />
+            <div class="cls_form_header">
+                Điều kiện Search
+            </div>
+        </div>
+
+        <div id="div_searchcondtion_content">
+            @foreach (var item in _ListDetail)
+            {
+                @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearchCondition4Edit.cshtml", item)
+            }
+        </div>
+
+        <br />
+        <br />
+
+        <div style="margin-top:15px">
+            <div>Mô tả<i class="redspan">(*)</i></div>
+            <textarea type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200">@_HeaderInfo.CONTENT</textarea>
         </div>
     </div>
 
-    <div class="divCover cls_form_title">
-        <img src="/Content/icons/icon_info_24.png" />
-        <div class="cls_form_header">
-            Điều kiện Search
+    <div class="divCover">
+        <div class="div-search-btn" style="width:600px;margin-top: 5px;">
+            <input type="submit" id="btnGuiBai" class="btn-default" value="Sửa" />
         </div>
     </div>
 
-    <div id="div_searchcondtion_content">
-        @foreach (var item in _ListDetail)
-        {
-            @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearchCondition4Edit.cshtml", item)
-        }
-    </div>
-
-    <br />
-    <br />
-
-    <div style="margin-top:15px">
-        <div>Mô tả<i class="redspan">(*)</i></div>
-        <textarea type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200">@_HeaderInfo.CONTENT</textarea>
-    </div>
-</div>
-
-<div class="class_save">
-    <div class="classGuiDon">
-        <input type="button" value="Lưu" id="btnGuiBai" class="btn" />
-    </div>
 </div>
 
 

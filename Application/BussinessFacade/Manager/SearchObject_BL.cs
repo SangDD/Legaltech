@@ -11,10 +11,10 @@ using Common.SearchingAndFiltering;
 
 namespace BussinessFacade
 {
-   public class SearchObject_BL: RepositoriesBL
+    public class SearchObject_BL : RepositoriesBL
     {
         public decimal SEARCH_HEADER_INSERT(SearchObject_Header_Info p_SearchObject_Header_Info)
-         
+
         {
             try
             {
@@ -79,12 +79,12 @@ namespace BussinessFacade
 
 
 
-        public decimal SEARCH_HEADER_DELETE(decimal P_SEARCH_ID)
+        public decimal SEARCH_HEADER_DELETE(decimal P_SEARCH_ID, string p_user_name, string p_language)
         {
             try
             {
-                 SearchObject_DA _objDA = new SearchObject_DA();
-                   return _objDA.SEARCH_HEADER_DELETE(P_SEARCH_ID); 
+                SearchObject_DA _objDA = new SearchObject_DA();
+                return _objDA.SEARCH_HEADER_DELETE(P_SEARCH_ID, p_user_name, p_language);
             }
             catch (Exception ex)
             {
@@ -168,7 +168,7 @@ namespace BussinessFacade
             }
         }
 
-        
+
 
         public decimal SEARCH_QUESTION_DELETE(decimal P_SEARCH_ID)
         {
@@ -184,12 +184,12 @@ namespace BussinessFacade
             }
         }
 
-       public decimal  SEARCH_LAWER_INSERT(App_Lawer_Info p_obj)
+        public decimal Update_Lawer(string p_case_code, decimal p_lawer_id, string p_note,string p_language_code, string p_user_name)
         {
             try
             {
                 SearchObject_DA _objDA = new SearchObject_DA();
-                return _objDA.SEARCH_LAWER_INSERT(p_obj.Case_Code, p_obj.Lawer_Id, p_obj.Notes, p_obj.Language_Code, p_obj.Created_By, p_obj.Created_Date);
+                return _objDA.Update_Lawer(p_case_code, p_lawer_id, p_note, p_language_code, p_user_name);
             }
             catch (Exception ex)
             {
@@ -198,13 +198,27 @@ namespace BussinessFacade
             }
         }
 
+        public decimal Admin_Update(string p_case_code, string p_notes, string p_language_code, string p_modified_by)
+        {
+            try
+            {
+                SearchObject_DA _objDA = new SearchObject_DA();
+                return _objDA.Admin_Update(p_case_code, p_notes, p_language_code, p_modified_by);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+
+        }
+
         public decimal SEARCH_RESULT_SEARCH(SearchObject_Question_Info p_obj)
         {
             try
             {
                 SearchObject_DA _objDA = new SearchObject_DA();
-                return _objDA.SEARCH_RESULT_SEARCH(p_obj.CASE_CODE, p_obj.LAWER_ID, p_obj.NOTES, p_obj.CONTENT,
-                    p_obj.LANGUAGE_CODE, p_obj.CREATED_BY, p_obj.CREATED_DATE, p_obj.FILE_URL, p_obj.FILE_URL02);
+                return _objDA.SEARCH_RESULT_SEARCH(p_obj.CASE_CODE, p_obj.LAWER_ID, p_obj.NOTES, p_obj.CONTENT, p_obj.LANGUAGE_CODE, p_obj.MODIFIED_BY, p_obj.FILE_URL, p_obj.FILE_URL02);
             }
             catch (Exception ex)
             {

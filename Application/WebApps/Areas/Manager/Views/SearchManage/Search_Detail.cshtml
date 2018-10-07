@@ -74,7 +74,6 @@
 
 @Html.Partial("~/Areas/Home/Views/Shared/HomeSearchBox.cshtml")
 <fieldset style="border: 1px solid #dddddd; padding: 1.25rem; margin-top:20px">
-    ;
     <legend>YÊU CẦU TÌM KIẾM </legend>
 
     <style>
@@ -237,6 +236,7 @@
             }
         </div>
     }
+
     @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update))
     {
         <div style="margin-top:20px;float:left;width:100%">
@@ -248,13 +248,14 @@
             {
                 @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialLuatSuTraloi.cshtml")
             }
-
+            else if (_currstatus == CommonSearch.Stt_ChoAdminDuyet)
+            {
+                @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialAdminConfirm.cshtml")
+            }
         </div>
     }
 
-    <div style="margin-top:20px;float:left;width:100%">
-        @Html.Partial("/Areas/Manager/Views/SearchManage/_PartialSearchDetails.cshtml")
-    </div>
+    @Html.Partial("/Areas/Manager/Views/SearchManage/_PartialSearchDetails.cshtml")
 
     <div class="divCover cls_form_title" style="margin-top:20px;float:left;width:100%">
         <img src="/Content/icons/icon_info_24.png" />
