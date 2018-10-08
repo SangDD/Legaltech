@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Tìm kiếm thông tin";
-    Layout = "~/ViewsShared/_Layout.cshtml";
+    Layout = "~/ViewsShared/_LayoutHome.cshtml";
 
     string _searchtype = "";
     if (ViewBag.Searchtype != null)
@@ -19,6 +19,8 @@
     {
         _options = (string)ViewBag.Options;
     }
+
+
 }
 
 <style>
@@ -45,7 +47,7 @@
 
 <div class="divCover" id="legalsearch_div" style="">
     <div class="box_title"><label style="padding-left:10px;    color: darkorange;"> TÌM KIẾM </label></div>
-    <table id="legalsearch_table">
+    @*<table id="legalsearch_table">
         <tr>
             <td class="legalsearch_clssunderline" onclick="FunChooseSearchtype(this, 1)">Tình trạng đơn</td>
             <td onclick="FunChooseSearchtype(this, 2)">Luật sư</td>
@@ -56,10 +58,34 @@
                 <input type="button" class="btn-default" style="min-width:41px !important; height:24px !important; margin-top:1px;" value="Go" onclick="findObjects(1, 1)" />
             </td>
         </tr>
-    </table>
+    </table>*@
+    <div class="clssbox_search">
+        <select id="cbo_searchtype" onchange="FunChooseSearchtype()">
+            <option value="1">
+                Tình trạng đơn
+            </option>
+            <option value="2">
+                Luật sư
+            </option>
+            <option value="3">
+                Khách hàng
+            </option>
+            <option value="4">
+                Wiki
+            </option>
+        </select>
+        
+        <input type="text" id="legalsearch_txtsearchcontent" placeholder="case code, case name, tình trạng đơn, người xử lý, loại đơn" value="@_searchContent"/>
+        <div class="clssbox_button">
+            <input type="button" style="" value="Tìm kiếm" onclick="findObjects(1, 1)" />
+        </div>
+    </div>
+    <div class="clssbox_button_icon">
+        <img src="~/Content/images/magnify.svg" class="search_icon" />
+    </div>
     <div>
 
-        <input type="hidden" id="legalsearch_txtsearchtype" value="1" />
+        <input type="hidden" id="legalsearch_txtsearchtype" value="@_searchtype" />
         <input type="hidden" id="colSorted_1" />
         <input type="hidden" id="colSorted_2" />
         <input type="hidden" id="colSorted_3" />
@@ -91,6 +117,10 @@
         $("#legalsearch_txtsearchcontent").val('@_searchContent');
 
         findObjects(1, 1);
+
+        
+
+        $("#cbo_searchtype > option[value=" + _searchtype + "]").prop("selected", true);
     });
 
     var _Keysearch = "";
@@ -98,11 +128,9 @@
     var _searchContent = "";
     var _arrKeySearch;
 
-    function FunChooseSearchtype(item, _searchtype) {
+    function FunChooseSearchtype() {
         try {
-            $(".legalsearch_clssunderline").removeClass("legalsearch_clssunderline");
-            $(item).addClass("legalsearch_clssunderline");
-            $("#legalsearch_txtsearchtype").val(_searchtype);
+            var _searchtype = $("#cbo_searchtype").val();
             if (_searchtype == 1) {
                 $("#legalsearch_txtsearchcontent").attr("placeholder", "case code, case name, tình trạng đơn, người xử lý, loại đơn")
             }
@@ -114,11 +142,12 @@
             } if (_searchtype == 4) {
                 $("#legalsearch_txtsearchcontent").attr("placeholder", "Tiêu đề, hashtag")
             }
+            $("#legalsearch_txtsearchtype").val(_searchtype);
         } catch (e) {
 
         }
     }
-
+     
     function findObjects(_pageNumber, _isSearching) {
         try {
             var _RecordonPage = 5;
