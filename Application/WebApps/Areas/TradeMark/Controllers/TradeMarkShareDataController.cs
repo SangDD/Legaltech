@@ -87,7 +87,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 ViewBag.Isdisable = 1;
                 _viewChuDon = RenderPartialToString("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", p_idchudon);
                 _viewDaiDienChuDon = RenderPartialToString("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", p_iddaidienchudon);
-                _viewAppClass = RenderPartialToString("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialTMAddAppClass.cshtml", null);
+                _viewAppClass = RenderPartialToString("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTMAddAppClass.cshtml", null);
                 return Json(new
                 {
                     success = 0,
@@ -226,7 +226,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                         ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[2]);
                         _casecode = applicationHeaderInfo.Case_Code;
                     }
-                    //  return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartalViewDangKyNhanHieu.cshtml");
+                    //  return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartalViewDangKyNhanHieu.cshtml");
                 }
 
                 #region  lấy dữ liệu lịch sử giao dịch

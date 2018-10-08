@@ -1136,7 +1136,7 @@
                     ViewBag.Lst_AppDoc = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[1]);
                     ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[2]);
                 }
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartalViewDangKyNhanHieu.cshtml");
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartalViewDangKyNhanHieu.cshtml");
             }
             else
             {
@@ -1257,7 +1257,7 @@
                 // truyền vào trạng thái nào? để tạm thời = 7 là đã gửi lên cục
                 _list04nh = _AppDetail04NHBL.AppTM04NHSearchByStatus(7, language);
                 ViewBag.ListAppDetail04NHInfo = _list04nh;
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialEditDangKyNhanHieu.cshtml");
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialEditDangKyNhanHieu.cshtml");
             }
             else if (pAppCode == TradeMarkAppCode.AppCode_TM_4C2_PLD_01_HDCN)
             {
