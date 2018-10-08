@@ -27,7 +27,7 @@
     [ValidateAntiForgeryTokenOnAllPosts]
     [RouteArea("TradeMarkRegistration", AreaPrefix = "trade-mark-01")]
     [Route("{action}")]
-    public class TradeMarkRegistration01Controller : Controller
+    public class TradeMarkRegistrationDKQTController : Controller
     {
 
         public static List<AppDocumentOthersInfo> lstDocOther = new List<AppDocumentOthersInfo>();
@@ -98,12 +98,12 @@
         //        // truyền vào trạng thái nào? để tạm thời = 1 cho có dữ liệu
         //        _list04nh = _AppDetail04NHBL.AppTM04NHSearchByStatus(1, language);
         //        ViewBag.ListAppDetail04NHInfo = _list04nh;
-        //        return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialEditDangKyNhanHieu.cshtml");
+        //        return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialEditDangKyNhanHieu.cshtml");
         //    }
         //    else
         //    {
         //        //
-        //        return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialEditDangKyNhanHieu.cshtml");
+        //        return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialEditDangKyNhanHieu.cshtml");
         //    }
         //}
 
@@ -120,12 +120,12 @@
                     ViewBag.Lst_AppDoc = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[1]);
                     ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[2]);
                 }
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartalViewDangKyNhanHieu.cshtml");
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartalViewDangKyNhanHieu.cshtml");
             }
             else
             {
                 //
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartalViewDangKyNhanHieu.cshtml");
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartalViewDangKyNhanHieu.cshtml");
             }
         }
 
@@ -176,7 +176,7 @@
             {
                 Logger.LogException(ex);
             }
-            return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartalDangKyNhanHieu.cshtml");
+            return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartalDangKyNhanHieu.cshtml");
         }
 
 
@@ -889,12 +889,12 @@
             {
                 
                 ViewBag.FileName = "/Content/Export/" + "TM06DKQT_Request_for_international_trademark_registration_vi_exp_TM06DKQT.pdf";
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialContentPreview.cshtml");
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialContentPreview.cshtml");
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration01/_PartialContentPreview.cshtml");
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialContentPreview.cshtml");
             }
         }
 
