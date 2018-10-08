@@ -1,5 +1,6 @@
 ﻿@using Common.CommonData
 @using ObjectInfos;
+@using WebApps.CommonFunction
 @using BussinessFacade.ModuleMemoryData
 @{
     ViewBag.Title = "Thêm mới Search";
@@ -13,6 +14,23 @@
     {
         _lstSuggest = (List<SuggestInfo>)ViewBag.Data_Object;
     }
+
+    string language = AppsCommon.GetCurrentLang();
+    var clstAppClassShortSuggest = new List<SuggestInfo>();
+    foreach (var item in MemoryData.clstAppClassSuggest)
+    {
+        var pShortInfo = new SuggestInfo("", "");
+        if (language == Language.LangVI)
+        {
+
+            pShortInfo = new SuggestInfo(item.name.Replace('/', ' '), item.value);
+        }
+        else
+        {
+            pShortInfo = new SuggestInfo(item.name_en.Replace('/', ' '), item.value);
+        }
+        clstAppClassShortSuggest.Add(pShortInfo);
+    }
 }
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -25,7 +43,7 @@
     }
 </style>
 <script>
-    $(function () {
+    @*$(function () {
 
         var availableTags = [];
         var array = @Html.Raw(Json.Encode(@_lstSuggest));
@@ -45,6 +63,46 @@
                 return false;
             }
         });
+    });*@
+
+    $(function ()
+    {
+      try {
+        var availableTags = [];
+        var array = @Html.Raw(Json.Encode(clstAppClassShortSuggest));
+        for (var i = 0; i < array.length; i++) {
+            availableTags[i] = array[i];
+        }
+        $("#txtTenHangHoa").autocomplete({
+            minLength: 3,
+            source: function (request, response) {
+                var results = $.ui.autocomplete.filter(availableTags, request.term.toUpperCase());
+                response(results.slice(0, 100));
+            },
+            select: function (event, ui) {
+                $("#txtClass").val(ui.item.value);
+                //return false;
+                var textinput = $("#txtTenHangHoa").val();
+                event.preventDefault();
+                funcAddDataRowSuggest(textinput, ui.item.value);
+                $("#txtTenHangHoa").val("");
+
+            },
+            focus: function (event, ui) {
+                var arrResult = $(".ui-menu-item");
+                for (var i = 0; i < arrResult.length; i++) {
+                    var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                    if (label == ui.item.name) {
+                        $(".clsLiActive").removeClass("clsLiActive")
+                        $(arrResult[i]).addClass("clsLiActive");
+                        break;
+                    }
+                }
+                event.preventDefault();
+            }
+        });
+        } catch (e) {
+        }
     });
 </script>
 
@@ -134,7 +192,9 @@
             </div>
         </div>
 
-        <div class="div-search-ad">
+        @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialAddSearchClass.cshtml")
+        
+        @*<div class="div-search-ad">
             <div class="div-search-title">
                 <div>Search<i class="redspan">(*)</i></div>
             </div>
@@ -152,7 +212,7 @@
                     <input value="" type="text" disabled="disabled" id="txtClass" />
                 </div>
             </div>
-        </div>
+        </div>*@
 
         <div class="divCover cls_form_title">
             <img src="/Content/icons/icon_info_24.png" />
@@ -187,7 +247,6 @@
 
 
 <script>
-
     function funcAddCondition() {
         try {
             var txtDdSeachClass = $(".txtIdSeachClass").last().val();
@@ -258,6 +317,11 @@
                 return false;
             }
             formData.append("p_questionInfo.CONTENT", txtAddContent.val());
+
+            var reponse = funcGetDataClassInfo(formData);
+            if (reponse == false) {
+                return false;
+            }
 
             $.ajax({
                 url: '/quan-ly-search/SearchInsert/',

@@ -71,10 +71,11 @@ namespace DataAccess
             {
                 DataSet _Ds = new DataSet();
                 _Ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SEARCH_OBJECTS.PROC_SEARCH_HEADER_GETBYID",
-                new OracleParameter("P_SEARCH_ID", OracleDbType.Decimal, P_ID, ParameterDirection.Input),
-                new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output),
-                new OracleParameter("P_DETAIL_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output),
-                new OracleParameter("P_QUETION_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output)
+                    new OracleParameter("P_SEARCH_ID", OracleDbType.Decimal, P_ID, ParameterDirection.Input),
+                    new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("P_DETAIL_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("P_QUETION_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_class", OracleDbType.RefCursor, ParameterDirection.Output)
                 );
                 return _Ds;
             }
@@ -91,10 +92,11 @@ namespace DataAccess
             {
                 DataSet _Ds = new DataSet();
                 _Ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SEARCH_OBJECTS.PROC_SEARCH_GETBY_CASECODE",
-                new OracleParameter("P_CASECODE", OracleDbType.Varchar2, p_casecode, ParameterDirection.Input),
-                new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output),
-                new OracleParameter("P_DETAIL_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output),
-                new OracleParameter("P_QUETION_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output)
+                    new OracleParameter("P_CASECODE", OracleDbType.Varchar2, p_casecode, ParameterDirection.Input),
+                    new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("P_DETAIL_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("P_QUETION_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_class", OracleDbType.RefCursor, ParameterDirection.Output)
                 );
                 return _Ds;
             }
@@ -349,6 +351,75 @@ namespace DataAccess
             {
                 Logger.LogException(ex);
                 return -1;
+            }
+        }
+
+        public int SearchClass_InsertBatch(List<Search_Class_Info> pInfo, decimal p_seach_id, string pLanguage)
+        {
+            try
+            {
+                int numberRecord = pInfo.Count;
+                if (numberRecord < 1) return 0;
+                string[] TextInput = new string[numberRecord];
+                decimal[] _seach_id = new decimal[numberRecord];
+                string[] Code = new string[numberRecord];
+                string[] Language = new string[numberRecord];
+                DateTime[] Document_Filling_Date = new DateTime[numberRecord];
+                for (int i = 0; i < pInfo.Count; i++)
+                {
+                    _seach_id[i] = p_seach_id;
+                    TextInput[i] = pInfo[i].Textinput;
+                    Code[i] = pInfo[i].Code;
+                    Language[i] = pLanguage;
+                }
+                var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
+                paramReturn.Size = 10;
+                OracleHelper.ExcuteBatchNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_search_class_detail.proc_insert", numberRecord,
+                    new OracleParameter("p_textinput", OracleDbType.Varchar2, TextInput, ParameterDirection.Input),
+                    new OracleParameter("p_code", OracleDbType.Varchar2, Code, ParameterDirection.Input),
+                    new OracleParameter("p_seach_id", OracleDbType.Decimal, _seach_id, ParameterDirection.Input),
+                    new OracleParameter("p_language_code", OracleDbType.Varchar2, Language, ParameterDirection.Input),
+                    paramReturn);
+
+                var result = ErrorCode.Error;
+                Oracle.DataAccess.Types.OracleDecimal[] _ArrReturn = (Oracle.DataAccess.Types.OracleDecimal[])paramReturn.Value;
+                foreach (Oracle.DataAccess.Types.OracleDecimal _item in _ArrReturn)
+                {
+                    if (Convert.ToInt32(_item.ToString()) < 0)
+                    {
+                        result = Convert.ToInt32(_item.ToString());
+                        break;
+                    }
+                    else
+                    {
+                        result = ErrorCode.Success;
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
+        public int SearchClass_Delete(decimal p_seach_id, string pLanguage)
+        {
+            try
+            {
+                var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
+                OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_search_class_detail.proc_delete",
+                    new OracleParameter("p_seach_id", OracleDbType.Decimal, p_seach_id, ParameterDirection.Input),
+                    new OracleParameter("p_language_code", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
+                    paramReturn);
+                var result = Convert.ToInt32(paramReturn.Value.ToString());
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
             }
         }
     }

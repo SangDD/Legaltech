@@ -22,4 +22,26 @@ namespace ObjectInfos
         public HttpPostedFileBase FileBase_File_Url02 { get; set; }
 
     }
+
+    public class Search_Class_Info
+    {
+        public decimal Id { get; set; }
+        public string Textinput { get; set; }
+        public string Code { get; set; }
+        public decimal App_Header_Id { get; set; }
+
+        public string Languague_Code { get; set; }
+
+        public string TongSoNhom { get; set; }
+
+        public string TongSanPham { get; set; }
+
+        public int IntTongSanPham { get; set; }
+
+        public object CloneObj()
+        {
+            return this.MemberwiseClone();
+        }
+        public string TextinputVI { get; set; }
+    }
 }

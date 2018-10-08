@@ -153,7 +153,7 @@ namespace WebApps.Areas.Manager.Controllers
         [HttpPost]
         [Route("SearchInsert")]
         public ActionResult SearchInsert(SearchObject_Header_Info p_searchHeaderInfo, List<SearchObject_Detail_Info> p_SearchObject_Detail_Info,
-            SearchObject_Question_Info p_questionInfo)
+            SearchObject_Question_Info p_questionInfo, List<Search_Class_Info> pAppClassInfo)
         {
             decimal _rel = 0;
             try
@@ -182,6 +182,15 @@ namespace WebApps.Areas.Manager.Controllers
                         item.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
                     }
                     _rel = _searchBL.SEARCH_DETAIL_INSERT(p_SearchObject_Detail_Info);
+
+                    if (_rel < 0)
+                        goto Commit_Transaction;
+
+                    //Thêm thông tin class
+                    if (pAppClassInfo != null)
+                    {
+                        _rel = _searchBL.Search_Class_InsertBatch(pAppClassInfo, p_searchHeaderInfo.SEARCH_ID, AppsCommon.GetCurrentLang());
+                    }
 
                     //end
                     Commit_Transaction:
@@ -216,14 +225,16 @@ namespace WebApps.Areas.Manager.Controllers
                 SearchObject_Header_Info _HeaderInfo = new SearchObject_Header_Info();
                 List<SearchObject_Detail_Info> _ListDetail = new List<SearchObject_Detail_Info>();
                 SearchObject_Question_Info _QuestionInfo = new SearchObject_Question_Info();
+                List<Search_Class_Info> search_Class_Infos = new List<Search_Class_Info>();
                 decimal _Searchid = 0;
                 if (RouteData.Values.ContainsKey("id"))
                 {
                     _Searchid = Convert.ToDecimal(RouteData.Values["id"]);
-                    _HeaderInfo = _searchBL.SEARCH_HEADER_GETBYID(_Searchid, ref _ListDetail, ref _QuestionInfo);
+                    _HeaderInfo = _searchBL.SEARCH_HEADER_GETBYID(_Searchid, ref _ListDetail, ref _QuestionInfo, ref search_Class_Infos);
                     ViewBag.SearchHeader = _HeaderInfo;
                     ViewBag.SearchListDetail = _ListDetail;
                     ViewBag.QuestionInfo = _QuestionInfo;
+                    ViewBag.lstClassDetailInfo = search_Class_Infos;
                 }
                 int _Status = 0;
                 if (RouteData.Values.ContainsKey("id2"))
@@ -241,7 +252,8 @@ namespace WebApps.Areas.Manager.Controllers
 
         [HttpPost]
         [Route("SearchEdit")]
-        public ActionResult SearchEdit(SearchObject_Header_Info p_searchHeaderInfo, List<SearchObject_Detail_Info> p_SearchObject_Detail_Info, SearchObject_Question_Info p_questionInfo)
+        public ActionResult SearchEdit(SearchObject_Header_Info p_searchHeaderInfo, List<SearchObject_Detail_Info> p_SearchObject_Detail_Info, 
+            SearchObject_Question_Info p_questionInfo, List<Search_Class_Info> pAppClassInfo)
         {
             decimal _rel = 0;
             try
@@ -270,6 +282,16 @@ namespace WebApps.Areas.Manager.Controllers
                     }
                     _searchBL.SEARCH_DETAIL_DELETE(p_searchHeaderInfo.SEARCH_ID);
                     _rel = _searchBL.SEARCH_DETAIL_INSERT(p_SearchObject_Detail_Info);
+                    if (_rel < 0)
+                        goto Commit_Transaction;
+
+                    //Thêm thông tin class
+                    if (pAppClassInfo != null)
+                    {
+                        _rel = _searchBL.Search_Class_Delete(p_searchHeaderInfo.SEARCH_ID, AppsCommon.GetCurrentLang());
+
+                        _rel = _searchBL.Search_Class_InsertBatch(pAppClassInfo, p_searchHeaderInfo.SEARCH_ID, AppsCommon.GetCurrentLang());
+                    }
 
                     //end
                     Commit_Transaction:
@@ -291,41 +313,7 @@ namespace WebApps.Areas.Manager.Controllers
             return Json(new { success = _rel });
         }
 
-        [HttpPost]
-        [Route("SearchEdit4Lawer")]
-        public ActionResult SearchEdit4Lawer(SearchObject_Header_Info p_searchHeaderInfo, List<SearchObject_Detail_Info> p_SearchObject_Detail_Info, SearchObject_Question_Info p_questionInfo)
-        {
-            decimal _rel = 0;
-            try
-            {
-                SearchObject_BL _searchBL = new SearchObject_BL();
-                p_searchHeaderInfo.MODIFIED_BY = SessionData.CurrentUser.Username;
-                p_searchHeaderInfo.MODIFIED_DATE = DateTime.Now;
-                p_searchHeaderInfo.REQUEST_DATE = DateTime.Now;
-                _rel = _searchBL.SEARCH_HEADER_UPDATE(p_searchHeaderInfo);
-                if (_rel < 0)
-                {
-                    return Json(new { success = _rel });
-                }
-
-                p_questionInfo.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
-                _rel = _searchBL.SEARCH_QUESTION_UPDATE(p_questionInfo);
-
-                foreach (SearchObject_Detail_Info item in p_SearchObject_Detail_Info)
-                {
-                    item.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
-                }
-                //xóa detail
-                _searchBL.SEARCH_DETAIL_DELETE(p_searchHeaderInfo.SEARCH_ID);
-                _rel = _searchBL.SEARCH_DETAIL_INSERT(p_SearchObject_Detail_Info);
-                return Json(new { success = _rel });
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-            }
-            return Json(new { success = _rel });
-        }
+         
 
 
         [HttpGet]
@@ -342,11 +330,12 @@ namespace WebApps.Areas.Manager.Controllers
                 SearchObject_Header_Info _HeaderInfo = new SearchObject_Header_Info();
                 List<SearchObject_Detail_Info> _ListDetail = new List<SearchObject_Detail_Info>();
                 SearchObject_Question_Info _QuestionInfo = new SearchObject_Question_Info();
+                List<Search_Class_Info> search_Class_Infos = new List<Search_Class_Info>();
                 string _casecode = "";
                 if (RouteData.Values.ContainsKey("id"))
                 {
                     _casecode = RouteData.Values["id"].ToString();
-                    _HeaderInfo = _searchBL.SEARCH_HEADER_GETBY_CASECODE(_casecode, ref _ListDetail, ref _QuestionInfo);
+                    _HeaderInfo = _searchBL.SEARCH_HEADER_GETBY_CASECODE(_casecode, ref _ListDetail, ref _QuestionInfo, ref search_Class_Infos);
                     ViewBag.SearchHeader = _HeaderInfo;
                     ViewBag.SearchListDetail = _ListDetail;
                     ViewBag.QuestionInfo = _QuestionInfo;
@@ -358,6 +347,7 @@ namespace WebApps.Areas.Manager.Controllers
                     ViewBag.ListTodo = _Listtodo;
                     ViewBag.ListRemind = _ListRemind;
                     ViewBag.Currstatus = _HeaderInfo.STATUS;
+                    ViewBag.lstClassDetailInfo = search_Class_Infos;
 
                     //action là view hay sửa
                     decimal _operator_type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update);

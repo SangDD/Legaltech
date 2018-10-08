@@ -108,6 +108,8 @@
             </div>
         </div>
 
+        @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialAddSearchClass.cshtml")
+
         <div class="divCover cls_form_title">
             <img src="/Content/icons/icon_info_24.png" />
             <div class="cls_form_header">
@@ -214,6 +216,11 @@
                 return false;
             }
             formData.append("p_questionInfo.CONTENT", txtAddContent.val());
+
+            var reponse = funcGetDataClassInfo(formData);
+            if (reponse == false) {
+                return false;
+            }
 
             $.ajax({
                 url: '/quan-ly-search/SearchEdit/',
