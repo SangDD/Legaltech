@@ -13,8 +13,8 @@ namespace ObjectInfos
         public string Name { get; set; }
 
         //public decimal App_Header_Id { get; set; }
-        public string App_Code { get; set; }
-        public string App_Name { get; set; }
+        //public string App_Code { get; set; }
+        //public string App_Name { get; set; }
 
 
         public decimal Lawer_Id { get; set; }

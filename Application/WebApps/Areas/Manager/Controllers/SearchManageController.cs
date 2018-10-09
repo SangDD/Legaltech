@@ -11,6 +11,7 @@ using BussinessFacade;
 using WebApps.CommonFunction;
 using ObjectInfos.ModuleTrademark;
 using System.Transactions;
+using BussinessFacade.ModuleMemoryData;
 
 namespace WebApps.Areas.Manager.Controllers
 {
@@ -191,6 +192,46 @@ namespace WebApps.Areas.Manager.Controllers
                     {
                         _rel = _searchBL.Search_Class_InsertBatch(pAppClassInfo, p_searchHeaderInfo.SEARCH_ID, AppsCommon.GetCurrentLang());
                     }
+                    if (_rel < 0)
+                        goto Commit_Transaction;
+
+                    // thông tin thằng fee
+                    List<Search_Fix_Info> _lstFee = new List<Search_Fix_Info>();
+                    string _keyFee = "";
+                    foreach (var item in p_SearchObject_Detail_Info)
+                    {
+                        Search_Fix_Info _Search_Fix_Info = new Search_Fix_Info();
+                        if (pAppClassInfo != null)
+                            _Search_Fix_Info.Number_Of_Class = pAppClassInfo.Count;
+                        else
+                            _Search_Fix_Info.Number_Of_Class = 0;
+
+                        _keyFee = p_searchHeaderInfo.Country_Id.ToString() + "_" + item.SEARCH_OBJECT.ToString() + "_" + item.SEARCH_TYPE.ToString();
+
+                        if (MemoryData.c_dic_FeeBySearch.ContainsKey(_keyFee))
+                        {
+
+                            if (_Search_Fix_Info.Number_Of_Class == 0)
+                            {
+                                _Search_Fix_Info.Amount = MemoryData.c_dic_FeeBySearch[_keyFee].Amount;
+                                _Search_Fix_Info.Amount_usd = MemoryData.c_dic_FeeBySearch[_keyFee].Amount_usd;
+                            }
+                            else
+                            {
+                                _Search_Fix_Info.Amount = MemoryData.c_dic_FeeBySearch[_keyFee].Amount * _Search_Fix_Info.Number_Of_Class;
+                                _Search_Fix_Info.Amount_usd = MemoryData.c_dic_FeeBySearch[_keyFee].Amount_usd * _Search_Fix_Info.Number_Of_Class;
+                            }
+                        }
+                        else
+                            _Search_Fix_Info.Amount = 0;
+
+                        _lstFee.Add(_Search_Fix_Info);
+                    }
+
+                    if (_lstFee.Count > 0)
+                    {
+                        _rel = _searchBL.Search_Fee_InsertBatch(_lstFee, p_searchHeaderInfo.SEARCH_ID, AppsCommon.GetCurrentLang());
+                    }
 
                     //end
                     Commit_Transaction:
@@ -291,6 +332,49 @@ namespace WebApps.Areas.Manager.Controllers
                         _rel = _searchBL.Search_Class_Delete(p_searchHeaderInfo.SEARCH_ID, AppsCommon.GetCurrentLang());
 
                         _rel = _searchBL.Search_Class_InsertBatch(pAppClassInfo, p_searchHeaderInfo.SEARCH_ID, AppsCommon.GetCurrentLang());
+                    }
+
+                    if (_rel < 0)
+                        goto Commit_Transaction;
+
+                    // thông tin thằng fee
+                    List<Search_Fix_Info> _lstFee = new List<Search_Fix_Info>();
+                    string _keyFee = "";
+
+                    foreach (var item in p_SearchObject_Detail_Info)
+                    {
+                        Search_Fix_Info _Search_Fix_Info = new Search_Fix_Info();
+                        if (pAppClassInfo != null)
+                            _Search_Fix_Info.Number_Of_Class = pAppClassInfo.Count;
+                        else
+                            _Search_Fix_Info.Number_Of_Class = 0;
+
+                        _keyFee = p_searchHeaderInfo.Country_Id.ToString() + "_" + item.SEARCH_OBJECT.ToString() + "_" + item.SEARCH_TYPE.ToString();
+
+                        if (MemoryData.c_dic_FeeBySearch.ContainsKey(_keyFee))
+                        {
+
+                            if (_Search_Fix_Info.Number_Of_Class == 0)
+                            {
+                                _Search_Fix_Info.Amount = MemoryData.c_dic_FeeBySearch[_keyFee].Amount;
+                                _Search_Fix_Info.Amount_usd = MemoryData.c_dic_FeeBySearch[_keyFee].Amount_usd;
+                            }
+                            else
+                            {
+                                _Search_Fix_Info.Amount = MemoryData.c_dic_FeeBySearch[_keyFee].Amount * _Search_Fix_Info.Number_Of_Class;
+                                _Search_Fix_Info.Amount_usd = MemoryData.c_dic_FeeBySearch[_keyFee].Amount_usd * _Search_Fix_Info.Number_Of_Class;
+                            }
+                        }
+                        else
+                            _Search_Fix_Info.Amount = 0;
+
+                        _lstFee.Add(_Search_Fix_Info);
+                    }
+
+                    _rel = _searchBL.Search_Fee_Delete(p_searchHeaderInfo.SEARCH_ID, AppsCommon.GetCurrentLang());
+                    if (_lstFee.Count > 0)
+                    {
+                        _rel = _searchBL.Search_Fee_InsertBatch(_lstFee, p_searchHeaderInfo.SEARCH_ID, AppsCommon.GetCurrentLang());
                     }
 
                     //end

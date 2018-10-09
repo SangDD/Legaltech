@@ -354,6 +354,7 @@ namespace DataAccess
             }
         }
 
+        // class
         public int SearchClass_InsertBatch(List<Search_Class_Info> pInfo, decimal p_seach_id, string pLanguage)
         {
             try
@@ -404,14 +405,95 @@ namespace DataAccess
             }
         }
 
-        public int SearchClass_Delete(decimal p_seach_id, string pLanguage)
+        public int SearchClass_Delete(decimal p_search_id, string pLanguage)
         {
             try
             {
                 var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
                 OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_search_class_detail.proc_delete",
-                    new OracleParameter("p_seach_id", OracleDbType.Decimal, p_seach_id, ParameterDirection.Input),
+                    new OracleParameter("p_search_id", OracleDbType.Decimal, p_search_id, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
+                    paramReturn);
+                var result = Convert.ToInt32(paramReturn.Value.ToString());
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
+        // fee
+        public int Search_Fee_InsertBatch(List<Search_Fix_Info> pInfo, decimal p_search_id, string pLanguage)
+        {
+            try
+            {
+                int numberRecord = pInfo.Count;
+                if (numberRecord < 1) return 0;
+                decimal[] _search_id = new decimal[numberRecord];
+                decimal[] p_country_id = new decimal[numberRecord];
+                decimal[] p_search_object = new decimal[numberRecord];
+                decimal[] p_search_type = new decimal[numberRecord];
+                decimal[] p_number_of_class = new decimal[numberRecord];
+                decimal[] p_amount = new decimal[numberRecord];
+                decimal[] p_amount_usd = new decimal[numberRecord];
+
+                string[] Code = new string[numberRecord];
+                string[] Language = new string[numberRecord];
+                DateTime[] Document_Filling_Date = new DateTime[numberRecord];
+                for (int i = 0; i < pInfo.Count; i++)
+                {
+                    _search_id[i] = p_search_id;
+                    p_country_id[i] = pInfo[i].Country_Id;
+                    p_search_object[i] = pInfo[i].Search_Object;
+                    p_search_type[i] = pInfo[i].Search_Type;
+                    p_number_of_class[i] = pInfo[i].Number_Of_Class;
+                    p_amount[i] = pInfo[i].Amount;
+                    p_amount_usd[i] = pInfo[i].Amount_usd;
+                }
+                var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
+                paramReturn.Size = 10;
+                OracleHelper.ExcuteBatchNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_search_fee.proc_insert", numberRecord,
+                    new OracleParameter("p_search_id", OracleDbType.Decimal, _search_id, ParameterDirection.Input),
+                    new OracleParameter("p_country_id", OracleDbType.Decimal, p_country_id, ParameterDirection.Input),
+                    new OracleParameter("p_search_object", OracleDbType.Decimal, p_search_object, ParameterDirection.Input),
+                    new OracleParameter("p_search_type", OracleDbType.Decimal, p_search_type, ParameterDirection.Input),
+                    new OracleParameter("p_number_of_class", OracleDbType.Decimal, p_number_of_class, ParameterDirection.Input),
+                    new OracleParameter("p_amount", OracleDbType.Decimal, p_amount, ParameterDirection.Input),
+                    new OracleParameter("p_amount_usd", OracleDbType.Decimal, p_amount_usd, ParameterDirection.Input),
+                    paramReturn);
+
+                var result = ErrorCode.Error;
+                Oracle.DataAccess.Types.OracleDecimal[] _ArrReturn = (Oracle.DataAccess.Types.OracleDecimal[])paramReturn.Value;
+                foreach (Oracle.DataAccess.Types.OracleDecimal _item in _ArrReturn)
+                {
+                    if (Convert.ToInt32(_item.ToString()) < 0)
+                    {
+                        result = Convert.ToInt32(_item.ToString());
+                        break;
+                    }
+                    else
+                    {
+                        result = ErrorCode.Success;
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
+        public int Search_Fee_Delete(decimal p_search_id, string pLanguage)
+        {
+            try
+            {
+                var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
+                OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_search_fee.proc_delete_BySearchId",
+                    new OracleParameter("p_search_id", OracleDbType.Decimal, p_search_id, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;

@@ -54,16 +54,17 @@
     <div class="divCover">
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Mã đơn<i class="redspan">(*)</i></div>
+                <div>Case code<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <select id="cboAppHeader">
-                        @foreach (var item in _lstAppLawer)
-                        {
-                            <option value="@item.Case_Code">@item.Case_Code - @item.Client_Reference</option>
-                        }
-                    </select>
+                    @*<select id="cboAppHeader">
+                            @foreach (var item in _lstAppLawer)
+                            {
+                                <option value="@item.Case_Code">@item.Case_Code - @item.Client_Reference</option>
+                            }
+                        </select>*@
+                    @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @maxlength = "200" })
                 </div>
             </div>
         </div>
@@ -150,13 +151,13 @@
 
     $(document).ready(function () {
 
-        $('#cboAppHeader').multipleSelect({
-            filter: true,
-            single: true,
-            isdatastring: false,
-            maxHeight: 150,
-            placeholder: "-- Chọn đơn --"
-        });
+        //$('#cboAppHeader').multipleSelect({
+        //    filter: true,
+        //    single: true,
+        //    isdatastring: false,
+        //    maxHeight: 150,
+        //    placeholder: "-- Chọn đơn --"
+        //});
     });
 
     function doInsertTimeSheet() {
@@ -225,17 +226,17 @@
             console.log(e);
         }
     }
-    
+
     function validateForm() {
         if (CheckSessionTimeOut() == false) {
             return false;
         }
 
-        var cboAppHeader = $("#cboAppHeader").val();
-        if (cboAppHeader == null) {
-            jError("Đơn khai timesheet không được bỏ trống!", "lỗi", function () {
-                $("#cboAppHeader").val('');
-                $('#cboAppHeader').multipleSelect('focus');
+        var _App_Case_Code = $("#txtApp_Case_Code").val();
+        if (_App_Case_Code == null || _App_Case_Code == "") {
+            jError("Case code khai timesheet không được bỏ trống!", "lỗi", function () {
+                $("#txtApp_Case_Code").val('');
+                $('#txtApp_Case_Code').focus();
             });
             return false;
         }
@@ -296,7 +297,7 @@
     }
 
     function collectData(formData) {
-        formData.append('p_Timesheet_Info.App_Case_Code', $("#cboAppHeader").val());
+        formData.append('p_Timesheet_Info.App_Case_Code', $("#txtApp_Case_Code").val());
         formData.append('p_Timesheet_Info.Name', $("#txtName").val());
         formData.append('p_Timesheet_Info.Time_Date', $("#txtTime_Date").val());
         formData.append('p_Timesheet_Info.Hours', $("#txtHours").val());
