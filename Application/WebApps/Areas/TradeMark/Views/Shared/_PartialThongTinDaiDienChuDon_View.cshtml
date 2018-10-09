@@ -1,4 +1,5 @@
 ﻿@using ObjectInfos
+@using WebApps.Resources;
 @{
     ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
     if (ViewBag.objAppHeaderInfo != null)
@@ -6,6 +7,7 @@
         _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
     }
 }
+
 
 <div class="div-search-ad">
     <div class="div-search-content">
@@ -18,7 +20,7 @@
             {
                 <input type="radio" name="_2_DaiDienChuDon" value="DDPL" placeholder="_2_rdoNguoiDaiDienPL" id="_2_rdoNguoiDaiDienPL" disabled="disabled" />
             }
-            <label>Là người đại diện theo pháp luật của chủ đơn</label>
+            <label>@Resource.lblLaNguoiDaiDienTheoPL</label>
         </div>
     </div>
 
@@ -35,7 +37,7 @@
             {
                 <input type="radio" name="_2_DaiDienChuDon" value="DVDL" placeholder="_2_rdoToChucDichVuDL" id="_2_rdoToChucDichVuDL" disabled="disabled" />
             }
-            <label>Là tổ chức dịch vụ đại diện sở hữu công nghiệp được uỷ quyền của chủ đơn </label>
+            <label>@Resource.lblLaToChucDichVuDaiDienSoHuu </label>
         </div>
     </div>
 </div>
@@ -52,14 +54,14 @@
                 <input type="radio" name="_2_DaiDienChuDon" value="NDUQ" placeholder="_2_rdoNguoiDuocUyQuyen" id="_2_rdoNguoiDuocUyQuyen" disabled="disabled" />
             }
             
-            <label>Là người khác được uỷ quyền của chủ đơn </label>
+            <label>@Resource.lblLaNguoiKhacDuocUyQuyen</label>
         </div>
     </div>
 </div>
 
 <div class="div-search-ad">
     <div class="div-search-title">
-        <div> Tên đầy đủ:</div>
+        <div> @Resource.lblTenDayDu:</div>
     </div>
     <div class="div-search-content">
         <div>
@@ -70,7 +72,7 @@
 
 <div class="div-search-ad">
     <div class="div-search-title">
-        <div> Địa chỉ: </div>
+        <div> @Resource.lblDiaChi: </div>
     </div>
     <div class="div-search-content">
         <div>
@@ -81,7 +83,7 @@
 
 <div class="div-search-ad">
     <div class="div-search-title">
-        <div> Điện thoại: </div>
+        <div> @Resource.lblDienThoai: </div>
     </div>
     <div class="div-search-content">
         <div>

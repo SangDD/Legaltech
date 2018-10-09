@@ -65,7 +65,7 @@
             </div>
             <div class="div-search-content" style="width:30%">
                 <div style="width:100%">
-                    <input type="text" id="txtTenHangHoa" placeholder="Tìm kiếm hàng hóa/dịch vụ" style="border-left: 1px solid #ccc;width:100%" />
+                    <input type="text" id="txtTenHangHoa" placeholder="@WebApps.Resources.Resource.SearchAppClass" style="border-left: 1px solid #ccc;width:100%" />
                 </div>
             </div>
 
@@ -205,13 +205,13 @@
             //var classCode = $("#NVSCBO001_AppClassSearch").val();
             var className = $("#txtTenHangHoa").val();
             if (className == "" || className == undefined) {
-                showError('Chưa nhập tên hàng hóa!');
+                showError('@WebApps.Resources.Resource.ChuaNhapTenHangHoa');
                 return false;
             }
 
             var classCode = $("#cboClassInfo").val();
             if (classCode == "" || classCode == undefined) {
-                showError('Mã hàng hóa không đúng, Kiểm tra lại mã hàng hóa!');
+                showError('@WebApps.Resources.Resource.TenHangHoaKhongDung');
                 return false;
             }
 
@@ -231,12 +231,12 @@
             var classCode = pclassCode;
             var className = ptextInput;
             if (className == "" || className == undefined) {
-                showError('Chưa nhập tên hàng hóa!');
+                showError('@WebApps.Resources.Resource.ChuaNhapTenHangHoa');
                 return false;
             }
 
             if (classCode == "" || classCode == undefined) {
-                showError('Mã hàng hóa không đúng, Kiểm tra lại mã hàng hóa!');
+                showError('@WebApps.Resources.Resource.TenHangHoaKhongDung');
                 return false;
             }
 

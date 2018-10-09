@@ -108,7 +108,7 @@
 
         <div class="class_full_div_input">
             <div class="class_left_40">
-                <div class="class_block_title" style="padding-top:5px; "><label>Mẫu nhãn hiệu:</label> </div>
+                <div class="class_block_title" style="padding-top:5px; "><label>@Resource.TM2B_MauNhanHieu:</label> </div>
                 <div class="class_block_title_control" style="display:flex">
                     <div style="width:180px ;height:180px" id="divLogo">
                         <img id="imgMauNhanHieu" src="~/Content/icons/logo.jpg" style="width:160px ;height:160px">
@@ -165,7 +165,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" class="" id="_1_txtNgayNopDon" placeholder="" maxlength="10" readonly />
+                            <input type="text" class="" id="_1_txtNgayNopDon" placeholder="@Resource.TM2B_Ngaynopdon" maxlength="10" readonly />
                         </div>
                     </div>
                 </div>
@@ -276,7 +276,7 @@
 
         @{
             string _doc_id9 = "C06DKQT_D_09";
-            string _model9 = _doc_id9 + "|6_DocBanGoc|1|"+Resource.TM2B_BanGoc + "|0";
+            string _model9 = _doc_id9 + "|6_DocBanGoc|1|" + Resource.TM2B_BanGoc + "|0";
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDon.cshtml", _model9)
         }
 
@@ -284,7 +284,7 @@
 
         @{
             string _doc_id10 = "C06DKQT_D_010";
-            string _model10 = _doc_id10 + "|6_Doc_Sao|1|"+Resource.TM2B_BanSao + "|0";
+            string _model10 = _doc_id10 + "|6_Doc_Sao|1|" + Resource.TM2B_BanSao + "|0";
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDon.cshtml", _model10)
         }
 
@@ -292,7 +292,7 @@
 
         @{
             string _doc_id11 = "C06DKQT_D_011";
-            string _model11 = _doc_id11 + "|6_Doc_BanGocSeNopSau|2|:"+ Resource.TM2B_BanGocSeNopSau + "|0";
+            string _model11 = _doc_id11 + "|6_Doc_BanGocSeNopSau|2|" + Resource.TM2B_BanGocSeNopSau + "|0";
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDon.cshtml", _model11)
         }
 
@@ -300,7 +300,7 @@
 
         @{
             string _doc_id12 = "C06DKQT_D_012";
-            string _model12 = _doc_id12 + "|6_Doc_BanGocDaNopTheoDonSo|2|"+Resource.TM2B_BanGocDaNopTheo + "|"+Resource.TM2B_SodonNopTheo + "|0";
+            string _model12 = _doc_id12 + "|6_Doc_BanGocDaNopTheoDonSo|2|" + Resource.TM2B_BanGocDaNopTheo + "|"+Resource.TM2B_SodonNopTheo + "|0";
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDon.cshtml", _model12)
         }
 
@@ -325,12 +325,10 @@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialCamketChuDon.cshtml")
 
         <div style="display:none">
-
-
             <div class="divCover cls_form_title">
                 <img src="~/Content/icons/info.png" />
                 <div class="cls_form_header">
-                    PHẦN DÀNH CHO LUẬT SƯ
+                    @Resource.DanhChoLuatSu
                 </div>
             </div>
             @*phải ẩn đi ở form thêm mới do luật sư tự nhập*@

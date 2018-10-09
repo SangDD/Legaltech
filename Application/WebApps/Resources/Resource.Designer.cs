@@ -151,11 +151,29 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chưa nhập tên hàng hóa!.
+        /// </summary>
+        public static string ChuaNhapTenHangHoa {
+            get {
+                return ResourceManager.GetString("ChuaNhapTenHangHoa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to chứng khoán.
         /// </summary>
         public static string Code {
             get {
                 return ResourceManager.GetString("Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PHẦN DÀNH CHO LUẬT SƯ.
+        /// </summary>
+        public static string DanhChoLuatSu {
+            get {
+                return ResourceManager.GetString("DanhChoLuatSu", resourceCulture);
             }
         }
         
@@ -1384,11 +1402,38 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lên đầu trang.
+        /// </summary>
+        public static string LenDauTrang {
+            get {
+                return ResourceManager.GetString("LenDauTrang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to QUẢN LÝ VỤ VIỆC.
         /// </summary>
         public static string QuanLyVuViec {
             get {
                 return ResourceManager.GetString("QuanLyVuViec", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tìm kiếm hàng hóa/dịch vụ.
+        /// </summary>
+        public static string SearchAppClass {
+            get {
+                return ResourceManager.GetString("SearchAppClass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mã hàng hóa không đúng, Kiểm tra lại mã hàng hóa!.
+        /// </summary>
+        public static string TenHangHoaKhongDung {
+            get {
+                return ResourceManager.GetString("TenHangHoaKhongDung", resourceCulture);
             }
         }
         
@@ -1519,6 +1564,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chọn khách hàng.
+        /// </summary>
+        public static string TM2B_ChonKhachHang {
+            get {
+                return ResourceManager.GetString("TM2B_ChonKhachHang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ngày nộp đơn không được phép để trống!.
         /// </summary>
         public static string TM2B_ChonNgayNopDon {
@@ -1551,6 +1605,15 @@ namespace WebApps.Resources {
         public static string TM2B_ChonThanhVien {
             get {
                 return ResourceManager.GetString("TM2B_ChonThanhVien", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bạn chưa chọn khách hàng khai hộ đơn!.
+        /// </summary>
+        public static string TM2B_ChuaChonKhachHang {
+            get {
+                return ResourceManager.GetString("TM2B_ChuaChonKhachHang", resourceCulture);
             }
         }
         
@@ -1807,6 +1870,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Khách hàng:.
+        /// </summary>
+        public static string TM2B_TenKhachHang {
+            get {
+                return ResourceManager.GetString("TM2B_TenKhachHang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tên không được để trống!.
         /// </summary>
         public static string TM2B_TenKhongDuocDeTrong {
@@ -1852,6 +1924,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tìm kiếm quốc gia.
+        /// </summary>
+        public static string TM2B_TimKiemQuocGia {
+            get {
+                return ResourceManager.GetString("TM2B_TimKiemQuocGia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tìm kiếm số đơn.
         /// </summary>
         public static string TM2B_TimKiemSoDon {
@@ -1866,6 +1947,15 @@ namespace WebApps.Resources {
         public static string TM2B_TITLE {
             get {
                 return ResourceManager.GetString("TM2B_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sửa đơn.
+        /// </summary>
+        public static string TM2B_TitleEdit {
+            get {
+                return ResourceManager.GetString("TM2B_TitleEdit", resourceCulture);
             }
         }
         

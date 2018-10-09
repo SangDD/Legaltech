@@ -2,8 +2,9 @@
 @using ObjectInfos.ModuleTrademark
 @using Common.Extensions;
 @using Common.CommonData;
+@using WebApps.Resources;
 @{
-    ViewBag.Title = "Sửa đăng ký nhãn hiệu";
+    ViewBag.Title = Resource.TM2B_TitleEdit;
     Layout = "~/ViewsShared/_Layout.cshtml";
     List<App_Class_Info> _list = new List<App_Class_Info>();
     if (ViewBag.ListAppClass != null)
@@ -109,7 +110,7 @@
 <div class="d-nav-container">
     <ul class="ul-nav">
         <li><a href="javascript:;">TradeMark</a></li>
-        <li><a href="javascript:;"> Request for amendment of application)</a></li>
+        <li><a href="javascript:;"> @Resource.TM2B_Formname</a></li>
     </ul>
 </div>
 
@@ -120,12 +121,12 @@
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
-        <legend> YÊU CẦU ĐĂNG KÝ QUỐC TẾ NHÃN HIỆU CÓ NGUỒN GỐC VIỆT NAM </legend>
+        <legend> @Resource.TM2B_legend  </legend>
 
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                THÔNG TIN CƠ BẢN
+                @Resource.TM2B_thongtincoban
             </div>
         </div>
 
@@ -133,14 +134,14 @@
             <div class="div-search-content">
                 <div class="div-radio" style="width:400px">
                     <input @_01_rdnghidinh_madrid type="radio" name="rad_thanhviennghidinhthu" value="TVND" id="_01_rdnghidinh_madrid" placeholder="_01_rdnghidinh_madrid" />
-                    <label>Chỉ là Thành viên Nghị định thư Madrid</label>
+                    <label>@Resource.TM2B_thanhviennghidinhthu</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
                     <input @_01_rdnghidinh_thoa_uoc_madrid type="radio" name="rad_thanhviennghidinhthu" value="TVND_TU" id="_01_rdnghidinh_thoa_uoc_madrid" placeholder="_01_rdnghidinh_thoa_uoc_madrid" />
-                    <label>Vừa là Thành viên Thoả ước Madrid, vừa là Thành viên Nghị định thư Madrid </label>
+                    <label>@Resource.TM2B_thanhvienthoauoc</label>
                 </div>
             </div>
         </div>
@@ -149,20 +150,20 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                1.NHÃN HIỆU QUỐC TẾ
+                1.@Resource.TM2B_nhanhieuquocte
             </div>
         </div>
 
         <div class="class_full_div_input">
             <div class="class_left_40">
-                <div class="class_block_title" style="padding-top:5px; "><label>Mẫu nhãn hiệu:</label> </div>
+                <div class="class_block_title" style="padding-top:5px; "><label>@Resource.TM2B_MauNhanHieu:</label> </div>
                 <div class="class_block_title_control" style="display:flex">
                     <div style="width:180px ;height:180px" id="divLogo">
                         <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
                     </div>
                     <div class="container" style="display:none">
                         <div class="file-upload btn btn-primary" style="margin-top:86px">
-                            <span>Tải file</span>
+                            <span>@Resource.TM2B_taifile</span>
                             <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
                         </div>
                     </div>
@@ -173,13 +174,13 @@
                     <div class="div-search-content">
                         <div class="div-radio" style="width:400px">
                             <input @_01_rad_DonDK type="radio" name="_01_rad_DonDkOrGiayDK" value="DONDK" id="_01_rad_DonDK" placeholder=" rad_DonDK" />
-                            <label>Đơn đăng ký nhãn hiệu cơ sở </label>
+                            <label>@Resource.TM2B_dondangkynhanhieucs</label>
                         </div>
                     </div>
                     <div class="div-search-content">
                         <div class="div-radio">
                             <input @_01_rad_GiayDK type="radio" name="_01_rad_DonDkOrGiayDK" value="GIAYDK" id="_01_rad_GiayDK" placeholder="01_rad_GiayDK" />
-                            <label>Giấy chứng nhận đăng ký nhãn hiệu cơ sở </label>
+                            <label> @Resource.TM2B_giaycndknhcs</label>
                         </div>
                     </div>
                 </div>
@@ -187,7 +188,7 @@
 
                 <div class="div-search-ad">
                     <div class="div-search-title">
-                        <div>Số đơn/Số GCN</div>
+                        <div>@Resource.TM2B_sodon</div>
                     </div>
                     <div class="div-search-content">
                         <div>
@@ -217,11 +218,11 @@
                     </div>
 
                     <div class="div-search-title">
-                        <div style="width:200px">Ngày nộp đơn/Ngày cấp CGN</div>
+                        <div style="width:200px">@Resource.TM2B_Ngaynopdon</div>
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input value="@objAppHeaderInfo.Send_Date.ToString("dd/MM/yyyy")" type="text" class="datepicker" id="_1_txtNgayNopDon" placeholder="_1_txtNgayNopDon" maxlength="10" readonly />
+                            <input value="@objAppHeaderInfo.Send_Date.ToString("dd/MM/yyyy")" type="text" class="datepicker" id="_1_txtNgayNopDon" placeholder="@Resource.TM2B_Ngaynopdon" maxlength="10" readonly />
                         </div>
                     </div>
                 </div>
@@ -237,7 +238,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                2.CHỦ ĐƠN
+                2.@Resource.TM2B_ChuDon
             </div>
         </div>
 
@@ -246,7 +247,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                3. ĐẠI DIỆN CỦA CHỦ ĐƠN
+                3.@Resource.TM2B_DaiDienChuDon
             </div>
         </div>
 
@@ -256,24 +257,24 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                4.TÊN VÀ MÃ NƯỚC CHỈ ĐỊNH ĐĂNG KÝ QUỐC TẾ NHÃN HIỆU
+                4.@Resource.TM2B_TenNuocDK
             </div>
         </div>
 
 
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDanhSachQuocGiaDKQTNH.cshtml", "_4")
 
-        <div class="divCover cls_form_title" style="display:none">
+        @*<div class="divCover cls_form_title" style="display:none">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
                 5.PHÍ, LỆ PHÍ
             </div>
-        </div>
+        </div>*@
 
 
         <div class="div-search-ad" style="display:none">
             <div class="div-search-title">
-                <div style="width:450px"> Phí dịch vụ làm thủ tục đăng ký quốc tế nhãn hiệu đã nộp kèm theo: </div>
+                <div style="width:450px">@Resource.TM2B_PhiDichVu </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -287,7 +288,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                5.CÁC TÀI LIỆU CÓ TRONG ĐƠN
+                5.@Resource.TM2B_TaiLieuCoTrongDon
             </div>
         </div>
         @* 1. Tờ khai *@
@@ -306,7 +307,7 @@
             {
                 //4 bản sao tờ khai
                 _doc_id = "C06DKQT_D_04";
-                _id = _doc_id + "|6_Doc_BanSaoToKhai|0|Bản sao Tờ khai yêu cầu cấp GCN đăng ký nhãn hiệu cơ sở|1";
+                _id = _doc_id + "|6_Doc_BanSaoToKhai|0|" + Resource.TM2B_BanSaoToKhai + "|1";
                 _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
                 _model = _id + ";" + _value;
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -315,7 +316,7 @@
             {
                 //4 bản sao tờ khai
                 _doc_id = "C06DKQT_D_04";
-                _id = _doc_id + "|6_Doc_BanSaoToKhai|0|Bản sao Tờ khai yêu cầu cấp GCN đăng ký nhãn hiệu cơ sở|1";
+                _id = _doc_id + "|6_Doc_BanSaoToKhai|0|" + Resource.TM2B_BanSaoToKhai + "|1";
                 _value = "0||";
                 _model = _id + ";" + _value;
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -330,7 +331,7 @@
             {
                 //5 bản sao giay chung nhan dk nhan hieu co so
                 _doc_id = "C06DKQT_D_05";
-                _id = _doc_id + "|6_Doc_BanSaoGiayDKNHCS|0| Bản sao Giấy chứng nhận đăng ký nhãn hiệu cơ sở|1";
+                _id = _doc_id + "|6_Doc_BanSaoGiayDKNHCS|0|" + Resource.TM2B_BanSaoGiayCNDK + "|1";
                 _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
                 _model = _id + ";" + _value;
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -340,7 +341,7 @@
 
                 //5 bản sao giay chung nhan dk nhan hieu co so
                 _doc_id = "C06DKQT_D_05";
-                _id = _doc_id + "|6_Doc_BanSaoGiayDKNHCS|0| Bản sao Giấy chứng nhận đăng ký nhãn hiệu cơ sở|1";
+                _id = _doc_id + "|6_Doc_BanSaoGiayDKNHCS|0|" + Resource.TM2B_BanSaoGiayCNDK + "|1";
                 _value = "0||";
                 _model = _id + ";" + _value;
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -353,7 +354,7 @@
             {
                 // 6 bản cam kết sẽ sử dụng NH
                 _doc_id = "C06DKQT_D_06";
-                _id = _doc_id + "|6_Doc_CamKetSuDungNH|0|Bản cam kết sẽ sử dụng NH tại nước yêu cầu đăng ký bảo hộ (nếu chỉ định vào các quốc gia Ireland, Singapore, Vương quốc Anh và Hoa Kỳ|1";
+                _id = _doc_id + "|6_Doc_CamKetSuDungNH|0|" + Resource.TM2B_BanCamKetSeSD + "|1";
                 _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
                 _model = _id + ";" + _value;
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -363,7 +364,7 @@
 
                 // 6 bản cam kết sẽ sử dụng NH
                 _doc_id = "C06DKQT_D_06";
-                _id = _doc_id + "|6_Doc_CamKetSuDungNH|0|Bản cam kết sẽ sử dụng NH tại nước yêu cầu đăng ký bảo hộ (nếu chỉ định vào các quốc gia Ireland, Singapore, Vương quốc Anh và Hoa Kỳ|1";
+                _id = _doc_id + "|6_Doc_CamKetSuDungNH|0|" + Resource.TM2B_BanCamKetSeSD + "|1";
                 _value = "0||";
                 _model = _id + ";" + _value;
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -376,7 +377,7 @@
             {
                 // 7 giay quy quyen bang tieng
                 _doc_id = "C06DKQT_D_07";
-                _id = _doc_id + "|6_Doc_GiayUyQuyenBangTieng|0|Giấy ủy quyền|Bằng tiếng|0";
+                _id = _doc_id + "|6_Doc_GiayUyQuyenBangTieng|0|" + Resource.TM2B_GiayUyQuyen + "|" + Resource.TM2B_BangTieng + "|0";
                 _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
                 _model = _id + ";" + _value;
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -386,7 +387,7 @@
 
                 // 7 giay quy quyen bang tieng
                 _doc_id = "C06DKQT_D_07";
-                _id = _doc_id + "|6_Doc_GiayUyQuyenBangTieng|0|Giấy ủy quyền|Bằng tiếng|0";
+                _id = _doc_id + "|6_Doc_GiayUyQuyenBangTieng|0|" + Resource.TM2B_GiayUyQuyen + "|" + Resource.TM2B_BangTieng + "|0";
                 _value = "0||";
                 _model = _id + ";" + _value;
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -402,7 +403,7 @@
             {
                 // 9 bản gốc
                 _doc_id = "C06DKQT_D_09";
-                _id = _doc_id + "|6_DocBanGoc|1|Bản gốc|0";
+                _id = _doc_id + "|6_DocBanGoc|1" + Resource.TM2B_BanGoc + "|0";
                 _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
                 _model = _id + ";" + _value;
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -411,7 +412,7 @@
             {
                 // 9 bản gốc
                 _doc_id = "C06DKQT_D_09";
-                _id = _doc_id + "|6_DocBanGoc|1|Bản gốc|0";
+                _id = _doc_id + "|6_DocBanGoc|1|" + Resource.TM2B_BanGoc + "|0";
                 _value = "0||";
                 _model = _id + ";" + _value;
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -424,7 +425,7 @@
             {
                 //10 bản sao
                 _doc_id = "C06DKQT_D_010";
-                _id = _doc_id + "|6_Doc_Sao|1|Bản sao|0";
+                _id = _doc_id + "|6_Doc_Sao|1|" + Resource.TM2B_BanSao + "|0";
                 _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
                 _model = _id + ";" + _value;
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -432,7 +433,7 @@
             catch (Exception)
             {
                 _doc_id = "C06DKQT_D_010";
-                _id = _doc_id + "|6_Doc_Sao|1|Bản sao|0";
+                _id = _doc_id + "|6_Doc_Sao|1|" + Resource.TM2B_BanSao + "|0";
                 _value = "0||";
                 _model = _id + ";" + _value;
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -445,7 +446,7 @@
             {
                 //*11 bản sao nộp sau
                 _doc_id = "C06DKQT_D_011";
-                _id = _doc_id + "|6_Doc_BanGocSeNopSau|2|Bản gốc sẽ nộp sau|0";
+                _id = _doc_id + "|6_Doc_BanGocSeNopSau|2|" + Resource.TM2B_BanGocSeNopSau + "|0";
                 _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
                 _model = _id + ";" + _value;
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -454,7 +455,7 @@
             {
                 //*11 bản sao nộp sau
                 _doc_id = "C06DKQT_D_011";
-                _id = _doc_id + "|6_Doc_BanGocSeNopSau|2|Bản gốc sẽ nộp sau|0";
+                _id = _doc_id + "|6_Doc_BanGocSeNopSau|2|" + Resource.TM2B_BanGocSeNopSau + "|0";
                 _value = "0||";
                 _model = _id + ";" + _value;
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -467,7 +468,7 @@
             {
                 //12 bản gốc đã nộp theo số
                 _doc_id = "C06DKQT_D_012";
-                _id = _doc_id + "|6_Doc_BanGocDaNopTheoDonSo|2|Bản gốc đã nộp theo đơn|Số đơn|0";
+                _id = _doc_id + "|6_Doc_BanGocDaNopTheoDonSo|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|0";
                 _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
                 _model = _id + ";" + _value;
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -476,7 +477,7 @@
             {
                 //12 bản gốc đã nộp theo số
                 _doc_id = "C06DKQT_D_012";
-                _id = _doc_id + "|6_Doc_BanGocDaNopTheoDonSo|2|Bản gốc đã nộp theo đơn|Số đơn|0";
+                _id = _doc_id + "|6_Doc_BanGocDaNopTheoDonSo|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|0";
                 _value = "0||";
                 _model = _id + ";" + _value;
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -489,7 +490,7 @@
             {
                 //13 chứng từ lệ phí
                 _doc_id = "C06DKQT_D_013";
-                _id = _doc_id + "|6_Doc_ChungTuLePhi|0|chứng từ lệ phí|1";
+                _id = _doc_id + "|6_Doc_ChungTuLePhi|0|" + Resource.TM2B_ChungTuLePhi + "|1";
                 _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
                 _model = _id + ";" + _value;
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -498,7 +499,7 @@
             {
                 //13 chứng từ lệ phí
                 _doc_id = "C06DKQT_D_013";
-                _id = _doc_id + "|6_Doc_ChungTuLePhi|0|chứng từ lệ phí|1";
+                _id = _doc_id + "|6_Doc_ChungTuLePhi|0|" + Resource.TM2B_ChungTuLePhi + "|1";
                 _value = "0||";
                 _model = _id + ";" + _value;
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -511,7 +512,7 @@
             {
                 //14 tài liệu bổ sung
                 _doc_id = "C06DKQT_D_014";
-                _id = _doc_id + "|6_Doc_TaiLieuBoSung|0|Tài liệu bổ sung|Nhập tài liệu|0";
+                _id = _doc_id + "|6_Doc_TaiLieuBoSung|0|" + Resource.TM2B_TaiLieuBoSung + "|" + Resource.TM2B_NhapTaiLieu + "|0";
                 _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
                 _model = _id + ";" + _value;
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -520,7 +521,7 @@
             {
                 //14 tài liệu bổ sung
                 _doc_id = "C06DKQT_D_014";
-                _id = _doc_id + "|6_Doc_TaiLieuBoSung|0|Tài liệu bổ sung|Nhập tài liệu|0";
+                _id = _doc_id + "|6_Doc_TaiLieuBoSung|0|" + Resource.TM2B_TaiLieuBoSung + "|" + Resource.TM2B_NhapTaiLieu + "|0";
                 _value = "0||";
                 _model = _id + ";" + _value;
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -540,7 +541,7 @@
             <div class="divCover cls_form_title">
                 <img src="~/Content/icons/info.png" />
                 <div class="cls_form_header">
-                    PHẦN DÀNH CHO LUẬT SƯ
+                    @Resource.DanhChoLuatSu
                 </div>
             </div>
 
@@ -550,7 +551,7 @@
                     _checked = "";
                     _disabled = "";
                     _doc_id = "C06DKQT_D_01";
-                    _id = _doc_id + "|6_Doc_ToKhai|0|Tờ khai, gồm|Số trang|Số bản|0";
+                    _id = _doc_id + "|6_Doc_ToKhai|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|" + Resource.TM2B_SoBan + "|0";
                     _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].CHAR02 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
                     _model = _id + ";" + _value;
                     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -562,7 +563,7 @@
                     _checked = "";
                     _disabled = "";
                     _doc_id = "C06DKQT_D_01";
-                    _id = _doc_id + "|6_Doc_ToKhai|0|Tờ khai, gồm|Số trang|Số bản|0";
+                    _id = _doc_id + "|6_Doc_ToKhai|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|" + Resource.TM2B_SoBan + "|0";
                     _value = "0|||";
                     _model = _id + ";" + _value;
                     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -581,7 +582,7 @@
             @{
 
                 _doc_id = "C06DKQT_D_02";
-                _id = _doc_id + "|6_MauDKVPQuocTe|0|Tờ khai, gồm|Số trang|0";
+                _id = _doc_id + "|6_MauDKVPQuocTe|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|" + Resource.TM2B_SoBan + "|0";
                 _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
                 _model = _id + ";" + _value;
                 _checked = "";
@@ -601,7 +602,7 @@
                 <div class="div-search-content">
                     <div class="div-checkbox" style="width:300px">
                         <input @_checked type="checkbox" id="ckb_6_MauDKVPQuocTe" value="C06DKQT_D_02" onchange="return ShowHidenUpLoad(this.id, this.id, 'txt_6_MauDKVPQuocTe');" />
-                        Mẫu đăng ký của Văn phòng quốc tế, form số:
+                       @Resource.TM2B_MauDKVPQT
                     </div>
                 </div>
                 <div class="div-search-content">
@@ -610,7 +611,7 @@
                     </div>
                 </div>
                 <div class="div-search-title">
-                    <div>làm bằng tiếng </div>
+                    <div>@Resource.TM2B_LamBangTieng </div>
                 </div>
                 <div class="div-search-content">
                     <div style="width:150px">
@@ -619,7 +620,7 @@
                 </div>
 
                 <div class="div-search-title">
-                    <div>số trang:</div>
+                    <div>@Resource.TM2B_SoTrang:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -628,7 +629,7 @@
                 </div>
 
                 <div class="div-search-title">
-                    <div>số bản:</div>
+                    <div>@Resource.TM2B_SoBan:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -645,7 +646,7 @@
                 {
                     //  3 mẫu đăng ký nhãn hiệu
                     _doc_id = "C06DKQT_D_03";
-                    _id = _doc_id + "|6_Doc_MauNhanHieu|0|Mẫu nhãn hiệu|Số mẫu|0";
+                    _id = _doc_id + "|6_Doc_MauNhanHieu|0|" + Resource.TM2B_MauNhanHieu + "|" + Resource.TM2B_SoMau + "|0";
                     _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
                     _model = _id + ";" + _value;
                     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -654,7 +655,7 @@
                 {
                     //  3 mẫu đăng ký nhãn hiệu
                     _doc_id = "C06DKQT_D_03";
-                    _id = _doc_id + "|6_Doc_MauNhanHieu|0|Mẫu nhãn hiệu|Số mẫu|0";
+                    _id = _doc_id + "|6_Doc_MauNhanHieu|0|" + Resource.TM2B_MauNhanHieu + "|" + Resource.TM2B_SoMau + "|0";
                     _value = "0||";
                     _model = _id + ";" + _value;
                     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -677,7 +678,7 @@
 
                     // 8 giay quy quyen bang tieng
                     _doc_id = "C06DKQT_D_08";
-                    _id = _doc_id + "|6_Doc_BanDichTiengViet|1|Bản dịch tiếng Việt|số trang|0";
+                    _id = _doc_id + "|6_Doc_BanDichTiengViet|1|" + Resource.TM2B_BanDichTiengViet + "|" + Resource.TM2B_BanDichSoTrang + "|0";
                     _value = "0|||";
                     _model = _id + ";" + _value;
                     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -689,7 +690,7 @@
             <div class="div-search-ad" style="display:none">
                 <div class="div-search-content">
                     <div style="width:300px">
-                        Số trang bổ sung
+                        @Resource.TM2B_SoTrangBoSung
                     </div>
                 </div>
                 <div class="div-search-content">
@@ -703,12 +704,12 @@
 
         <div class="class_save">
             <div class="classGuiDon">
-                <input type="button" value="Gửi đơn" id="btnGuiDon" class="btn" />
+                <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn" />
             </div>
             @if (objAppHeaderInfo.Status == 1)
             {
                 <div class="classLuuTam">
-                    <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn" />
+                    <input type="button"  value="@Resource.btnLuuTam" id="btnLuuTam" class="btn" />
                 </div>
             }
 
@@ -733,7 +734,7 @@
             single: true,
             isdatastring: false,
             maxHeight: 150,
-            placeholder: "-- Tìm kiếm hàng hóa/dịch vụ --"
+            placeholder: "-- @Resource.SearchAppClass --"
         });
 
         //$('#cbo_04nh_data').multipleSelect({
