@@ -1564,7 +1564,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to chứng từ lệ phí.
+        ///   Looks up a localized string similar to Chứng từ lệ phí.
         /// </summary>
         public static string TM2B_ChungTuLePhi {
             get {
@@ -1582,11 +1582,38 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Địa chỉ không được để trống!.
+        /// </summary>
+        public static string TM2B_DiaChiKhongDuocDeTrong {
+            get {
+                return ResourceManager.GetString("TM2B_DiaChiKhongDuocDeTrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Đơn đăng ký nhãn hiệu cơ sở.
         /// </summary>
         public static string TM2B_dondangkynhanhieucs {
             get {
                 return ResourceManager.GetString("TM2B_dondangkynhanhieucs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email không đúng định dạng!.
+        /// </summary>
+        public static string TM2B_EmailKhongDuocDeTrong {
+            get {
+                return ResourceManager.GetString("TM2B_EmailKhongDuocDeTrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request for amendment of application.
+        /// </summary>
+        public static string TM2B_Formname {
+            get {
+                return ResourceManager.GetString("TM2B_Formname", resourceCulture);
             }
         }
         
@@ -1776,6 +1803,15 @@ namespace WebApps.Resources {
         public static string TM2B_TaiLieuCoTrongDon {
             get {
                 return ResourceManager.GetString("TM2B_TaiLieuCoTrongDon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên không được để trống!.
+        /// </summary>
+        public static string TM2B_TenKhongDuocDeTrong {
+            get {
+                return ResourceManager.GetString("TM2B_TenKhongDuocDeTrong", resourceCulture);
             }
         }
         
