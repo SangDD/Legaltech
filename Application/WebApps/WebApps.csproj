@@ -249,6 +249,12 @@
       <DependentUpon>TM_06DKQT.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Report\TM_PLB01SDD_EN.cs">
+      <DependentUpon>TM_PLB01SDD_EN.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Report\TM_PLB02_CGD.cs">
       <DependentUpon>TM_PLB02_CGD.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1254,6 +1260,10 @@
     <EmbeddedResource Include="Report\TM_06DKQT.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TM_06DKQT1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\TM_PLB01SDD_EN.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TM_PLB01SDD_EN.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Report\TM_PLB02_CGD.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

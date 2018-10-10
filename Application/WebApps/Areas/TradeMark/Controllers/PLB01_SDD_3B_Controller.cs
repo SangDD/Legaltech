@@ -651,7 +651,17 @@
                 _lst.Add(app_Detail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLB01_SDD_Info>(_lst, false);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
-                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_PLB01SDD.rpt"));
+
+
+                string _tempfile = "TM_PLB01SDD.rpt";
+                if (AppsCommon.GetCurrentLang() == Language.LangEN)
+                {
+                    _tempfile = "TM_PLB01SDD_EN.rpt";
+                }
+
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
+
+               
 
                 if (_ds_all != null)
                 {

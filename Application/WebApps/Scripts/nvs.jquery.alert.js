@@ -1,7 +1,33 @@
 ﻿// alert with popup
+var _thongbao = "Thông báo";
+var _loi = "Lỗi";
+var _thanhcong = "Thành công";
+var _canhbao = "Cảnh báo";
+var _chapnhap = "Chấp nhận";
+var _huy = "Hủy";
+var _loi1 = "Lỗi!";
+var _thanhcong1 = "Thành công!";
+var _thongbao1 = "Thông báo!";
+var _canhbao1 = "Cảnh báo!";
+if (_currentlanguage != undefined)
+{
+    if(_currentlanguage == "EN_US")
+    {
+         _thongbao = "Message";
+         _loi = "Error";
+         _thanhcong = "Success";
+         _canhbao = "Warning";
+         _chapnhap = "Accept";
+         _huy = "Abort";
+         _loi1 = "Error!";
+         _thanhcong1 = "Success!";
+         _thongbao1 = "Message!";
+         _canhbao1 = "Warning!";
+    }
+}
 function nvsAlert($title, $content, $fncallback) {
     try {
-        $title = $title == undefined ? "Thông báo" : $title;
+        $title = $title == undefined ? _thongbao : $title;
         swal({
             title: $title,
             text: $content
@@ -20,7 +46,7 @@ function nvsAlert($title, $content, $fncallback) {
 
 function nvsInfo($title, $content, $fncallback) {
     try {
-        $title = $title == undefined ? "Thông báo" : $title;
+        $title = $title == undefined ? _thongbao : $title;
         swal({
             title: $title,
             text: $content,
@@ -40,7 +66,7 @@ function nvsInfo($title, $content, $fncallback) {
 
 function nvsSuccess($title, $content, $fncallback) {
     try {
-        $title = $title == undefined ? "Thành công" : $title;
+        $title = $title == undefined ? _thanhcong : $title;
         swal({
             title: $title,
             text: $content,
@@ -81,7 +107,7 @@ function nvsConfirm($title, $content, $fnokcallback, $fncancelcallback) {
 
 function nvsWarning($title, $content, $fnokcallback, $fncancelcallback) {
     try {
-        $title = $title == undefined ? "Cảnh báo" : $title;
+        $title = $title == undefined ? _canhbao : $title;
         swal({
             title: $title,
             text: $content,
@@ -102,7 +128,7 @@ function nvsWarning($title, $content, $fnokcallback, $fncancelcallback) {
 
 function nvsError($title, $content, $fncallback) {
     try {
-        $title = $title == undefined ? "Lỗi" : $title;
+        $title = $title == undefined ? _loi : $title;
         swal({
             title: $title,
             text: $content,
@@ -150,8 +176,8 @@ function nvsPrompt($title, $content, $type, $fnokcallback, $fnreject, $fncancelc
             //closeOnConfirm: false,
             animation: "slide-from-top",
             inputPlaceholder: "",
-            confirmButtonText: 'Chấp nhận',
-            cancelButtonText: 'Hủy',
+            confirmButtonText: _chapnhap,
+            cancelButtonText: _huy,
             inputAttributes: { maxlength: $maxlength, id: 'txtPromt_p' },
             preConfirm: function (inputValue) {
                 return new window.Promise(function (resolve, reject) {
@@ -176,7 +202,7 @@ function nvsPrompt($title, $content, $type, $fnokcallback, $fnreject, $fncancelc
 }
 // alert by animation
 function showSuccess(_msg, _title, _options) {
-    _title = _title || "Thành công!";
+    _title = _title || _thanhcong1;
 
     var defaults = {
         type: "success",
@@ -195,7 +221,7 @@ function showSuccess(_msg, _title, _options) {
 }
 
 function showInfo(_msg, _title, _options) {
-    _title = _title || "Thông báo!";
+    _title = _title || _thongbao1;
 
     var defaults = {
         type: "info",
@@ -214,7 +240,7 @@ function showInfo(_msg, _title, _options) {
 }
 
 function showWarning(_msg, _title, _options) {
-    _title = _title || "Cảnh báo!";
+    _title = _title || _canhbao1;
 
     var defaults = {
         type: "warning",
@@ -233,7 +259,7 @@ function showWarning(_msg, _title, _options) {
 }
 
 function showError(_msg, _title, _options) {
-    _title = _title || "Lỗi!";
+    _title = _title || _loi1;
 
     var defaults = {
         type: "error",
