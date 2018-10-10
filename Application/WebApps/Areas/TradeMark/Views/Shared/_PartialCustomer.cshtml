@@ -1,11 +1,11 @@
 ﻿@model string
 @using ObjectInfos;
-
+@using WebApps.Resources;
 @{
     BussinessFacade.ModuleUsersAndRoles.UserBL _UserBL = new BussinessFacade.ModuleUsersAndRoles.UserBL();
     List<UserInfo> _lstUsersCustomer = _UserBL.GetUserByType(Convert.ToDecimal(Common.CommonData.CommonEnums.UserType.Customer));
     //var lstUsersCustomer = _lstUsersCustomer.Select(x => new SelectListItem { Text = x.FullName, Value = x.Username });
-    var lstUsersCustomer = new List<SelectListItem> { new SelectListItem { Text = "Chọn khách hàng", Value = "0" } }.Concat(_lstUsersCustomer.Select(x => new SelectListItem { Text = x.FullName, Value = x.Username }));
+    var lstUsersCustomer = new List<SelectListItem> { new SelectListItem { Text = Resource.TM2B_ChonKhachHang, Value = "0" } }.Concat(_lstUsersCustomer.Select(x => new SelectListItem { Text = x.FullName, Value = x.Username }));
 
     decimal _user_type = 0;
     if (WebApps.Session.SessionData.CurrentUser != null)
@@ -21,14 +21,14 @@
     <div class="divCover cls_form_title">
         <img src="~/Content/icons/info_2.png" />
         <div class="cls_form_header">
-            Chọn khách hàng
+           @Resource.TM2B_ChonKhachHang  
         </div>
     </div>
 
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div> Khách hàng:</div>
+            <div>@Resource.TM2B_TenKhachHang</div>
         </div>
         <div class="div-search-content">
             <div>
@@ -48,7 +48,7 @@
                 var _createdby = $("#cbo_Created_By").val();
                 if (_createdby == "0") {
                     $('#cbo_Created_By').focus();
-                    showError('Bạn chưa chọn khách hàng khai hộ đơn!');
+                    showError('@Resource.TM2B_ChuaChonKhachHang');
                     return false;
                 }
                 formData.append("pInfo.Created_By", _createdby);

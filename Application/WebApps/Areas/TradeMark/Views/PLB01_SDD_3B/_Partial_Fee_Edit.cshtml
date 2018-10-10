@@ -36,7 +36,7 @@
         styledisabled = "disabled='disabled'";
     }
 }
-
+@using WebApps.Resources;
 <div class="div-search-ad">
     <div class="div-search-content">
         <div class="div-checkbox" id="@divCheckbox" style="width:450px">
@@ -48,20 +48,20 @@
     @if (_IsShowMoney == "1")
     {
         <div class="div-search-title">
-            <div>Số đối tượng tính:</div>
+            <div>@Resource.TM3B_SoDoiTuongTinhPhi:</div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Số đối tượng tính phí" id="@Id_textbox" @styledisabled value="@Object" />
+                <input type="text" placeholder="@Resource.TM3B_SoDoiTuongTinhPhi" id="@Id_textbox" @styledisabled value="@Object" />
             </div>
         </div>
 
         <div class="div-search-title">
-            <div>Số tiền:</div>
+            <div>@Resource.TM3B_SoTien:</div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Số tiền" id="@Id_textbox_SoTien" @styledisabled value="@Amount" />
+                <input type="text" placeholder="@Resource.TM3B_SoTien" id="@Id_textbox_SoTien" @styledisabled value="@Amount" />
             </div>
         </div>
     }
