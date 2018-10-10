@@ -1,7 +1,7 @@
 ﻿@using Common.CommonData
 @using ObjectInfos;
 @using BussinessFacade.ModuleMemoryData
-
+@using WebApps.CommonFunction
 @{
     ViewBag.Title = "Sửa Search";
     Layout = "~/ViewsShared/_Layout.cshtml";
@@ -21,6 +21,22 @@
         _QuestionInfo = ViewBag.QuestionInfo;
     }
 
+    string language = AppsCommon.GetCurrentLang();
+    var clstAppClassShortSuggest = new List<SuggestInfo>();
+    foreach (var item in MemoryData.clstAppClassSuggest)
+    {
+        var pShortInfo = new SuggestInfo("", "");
+        if (language == Language.LangVI)
+        {
+
+            pShortInfo = new SuggestInfo(item.name.Replace('/', ' '), item.value);
+        }
+        else
+        {
+            pShortInfo = new SuggestInfo(item.name_en.Replace('/', ' '), item.value);
+        }
+        clstAppClassShortSuggest.Add(pShortInfo);
+    }
 }
 
 <style>
@@ -29,6 +45,54 @@
         width: 150px;
     }
 </style>
+
+<style>
+    .ui-autocomplete-loading {
+        background: white url("/Content/icons/Rolling-1s-16px.svg") right center no-repeat;
+    }
+</style>
+<script>
+    $(function ()
+    {
+      try {
+        var availableTags = [];
+        var array = @Html.Raw(Json.Encode(clstAppClassShortSuggest));
+        for (var i = 0; i < array.length; i++) {
+            availableTags[i] = array[i];
+        }
+        $("#txtTenHangHoa").autocomplete({
+            minLength: 3,
+            source: function (request, response) {
+                var results = $.ui.autocomplete.filter(availableTags, request.term.toUpperCase());
+                response(results.slice(0, 100));
+            },
+            select: function (event, ui) {
+                $("#txtClass").val(ui.item.value);
+                //return false;
+                var textinput = $("#txtTenHangHoa").val();
+                event.preventDefault();
+                funcAddDataRowSuggest(textinput, ui.item.value);
+                $("#txtTenHangHoa").val("");
+
+            },
+            focus: function (event, ui) {
+                var arrResult = $(".ui-menu-item");
+                for (var i = 0; i < arrResult.length; i++) {
+                    var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                    if (label == ui.item.name) {
+                        $(".clsLiActive").removeClass("clsLiActive")
+                        $(arrResult[i]).addClass("clsLiActive");
+                        break;
+                    }
+                }
+                event.preventDefault();
+            }
+        });
+        } catch (e) {
+        }
+    });
+</script>
+
 @*<script>
         var _isSimpleEditorToolBar = 1;// set cho ckfinder có cấu hình xoạn thảo đơn giản
     </script>*@

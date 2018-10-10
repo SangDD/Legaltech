@@ -50,7 +50,8 @@
         /// thông tin fee tĩnh theo đơn, key: appcode_ID(Fee)
         /// </summary>
         public static Dictionary<string, SysAppFixChargeInfo> c_dic_FeeByApp_Fix = new Dictionary<string, SysAppFixChargeInfo>();
-        public static Dictionary<string, Reports_Info> c_dic_report = new Dictionary<string, Reports_Info>();
+        public static Dictionary<string, Sys_Search_Fix_Info> c_dic_FeeBySearch = new Dictionary<string, Sys_Search_Fix_Info>();
+
 
         public static void LoadAllMemoryData()
         {
@@ -92,14 +93,13 @@
                 SysApplicationBL.SysApplicationAllOnMem();
                 //Load lên mem
                 clstAppClass = AppClassInfoBL.AppClassGetOnMem();
+
                 // dangtq thêm thông tin fee tĩnh theo đơn
-                c_dic_FeeByApp_Fix = new Dictionary<string, SysAppFixChargeInfo>();
-                SysApplicationBL _SysApplicationBL = new SysApplicationBL();
-                List<SysAppFixChargeInfo> _lst1 = _SysApplicationBL.Sys_App_Fix_Charge_GetAll();
-                foreach (SysAppFixChargeInfo item in _lst1)
-                {
-                    c_dic_FeeByApp_Fix[item.Appcode + "_" + item.Fee_Id.ToString()] = item;
-                }
+                LoadSys_App_Fee_Fix();
+
+                // DANGTQ load fee cho seach
+                LoadSys_Search_Fee_Fix();
+
                 foreach (var item in clstAppClass)
                 {
                     CustomerSuggestInfo pinfo = new CustomerSuggestInfo();
@@ -123,6 +123,43 @@
                 GetCacheCustomerInfo();
 
                 GetCacheDDSHCN();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+        }
+
+        public static void LoadSys_Search_Fee_Fix()
+        {
+            try
+            {
+                c_dic_FeeBySearch = new Dictionary<string, Sys_Search_Fix_Info>();
+                Sys_Search_Fix_BL _Sys_Search_Fix_BL = new Sys_Search_Fix_BL();
+
+                List<Sys_Search_Fix_Info> _lst1 = _Sys_Search_Fix_BL.Sys_Search_Fix_GetAll();
+                foreach (Sys_Search_Fix_Info item in _lst1)
+                {
+                    c_dic_FeeBySearch[item.Country_Id.ToString() + "_" + item.Search_Object.ToString() + "_" + item.Search_Type.ToString()] = item;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+        }
+
+        public static void LoadSys_App_Fee_Fix()
+        {
+            try
+            {
+                c_dic_FeeByApp_Fix = new Dictionary<string, SysAppFixChargeInfo>();
+                SysApplicationBL _SysApplicationBL = new SysApplicationBL();
+                List<SysAppFixChargeInfo> _lst1 = _SysApplicationBL.Sys_App_Fix_Charge_GetAll();
+                foreach (SysAppFixChargeInfo item in _lst1)
+                {
+                    c_dic_FeeByApp_Fix[item.Appcode + "_" + item.Fee_Id.ToString()] = item;
+                }
             }
             catch (Exception ex)
             {

@@ -255,5 +255,34 @@ namespace BussinessFacade
                 return ErrorCode.Error;
             }
         }
+
+        public int Search_Fee_InsertBatch(List<Search_Fix_Info> pInfo, decimal p_search_header, string pLanguage)
+        {
+            try
+            {
+                SearchObject_DA _objDA = new SearchObject_DA();
+                return _objDA.Search_Fee_InsertBatch(pInfo, p_search_header, pLanguage);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
+        public int Search_Fee_Delete(decimal p_search_header, string pLanguage)
+        {
+            try
+            {
+                SearchObject_DA _objDA = new SearchObject_DA();
+                return _objDA.Search_Fee_Delete(p_search_header, pLanguage);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
     }
 }
