@@ -1,4 +1,5 @@
 ﻿@model string
+@using WebApps.Resources;
 @{
     string[] arr = Model.Split(';');
 
@@ -50,7 +51,7 @@
 
             @if (Id == "6_Doc_BanGocPOA_ByApp")
             {
-                <label>@Lable <a href="javascript:;" st class="icon icon-info" style="border:none" data-title="Nếu Người nộp đơn không nhớ số đơn gốc thì có thể để trống, Luật sư sẽ điền thay sau"></a></label>
+                <label>@Lable <a href="javascript:;" st class="icon icon-info" style="border:none" data-title="@Resource.TM3B_LuatSuDienThay"></a></label>
             }
             else
             {
@@ -59,7 +60,7 @@
 
             @if (Id == "6_Doc_POA")
             {
-                <a style="margin-top: -3px; border: none;padding-left: 20px;color: blue;" href="@hrefPOA" target="_blank">Tải mẫu về <i class="fas fa-download" style="color: blue; font-size: 20px;"></i> </a>
+                <a style="margin-top: -3px; border: none;padding-left: 20px;color: blue;" href="@hrefPOA" target="_blank">@Resource.TM3B_TaiMau <i class="fas fa-download" style="color: blue; font-size: 20px;"></i> </a>
             }
         </div>
     </div>

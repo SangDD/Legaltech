@@ -1,6 +1,7 @@
 ﻿@using ObjectInfos
 @model List<AppClassInfo>
 @using System.Collections;
+@using WebApps.Resources;
 @{
        <select id="NVSCBO001_AppClassSearch">
            @foreach (var item in Model)
@@ -14,10 +15,10 @@
   <script>
       $('#NVSCBO001_AppClassSearch').multipleSelect({
           filter: true,
-          noMatchesFound: "Không tìm thấy dữ liệu",
+          noMatchesFound: "@Resource.lblKhongTimThayDL",
           single: true,
           isdatastring: false,
-          placeholder: 'Tìm kiếm dữ liệu hàng hóa'
+          placeholder: '@Resource.SearchAppClass'
       });
   </script>
 }

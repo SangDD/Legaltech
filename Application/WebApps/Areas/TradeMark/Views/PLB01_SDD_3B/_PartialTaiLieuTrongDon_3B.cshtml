@@ -1,4 +1,5 @@
 ﻿@model string
+@using WebApps.Resources;
 @{
     string AfterID = "";
     string Level = "0";
@@ -43,7 +44,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="Tên file Maximum file size is 2MB" id="@txtMaxFile"  readonly="readonly" />
+            <input type="text" placeholder="File Maximum file size is 2MB" id="@txtMaxFile"  readonly="readonly" />
         </div>
     </div>
 
@@ -156,7 +157,7 @@
                 var _Len = pfile[0].files[0].name.toString()
                 if (_Len.length > 200) {
                     _CheckFile = false;
-                    jError("Tên file không được quá 200 ký tự", "Lỗi", function () {
+                    jError("@Resource.TM3B_TenFileDai", "@Resource.TM3B_Loi", function () {
                         $(pfile).focus();
 
                     });
@@ -168,7 +169,7 @@
 
                 if (validateFileName(_file.name) == false) {
                     _CheckFile = false;
-                    jError("Không tải file có tên file được lưu là unicode Tiếng việt có dấu ! ", "Lỗi", function () {
+                    jError("@Resource.TM3B_TenFileChuaUnicode", "@Resource.TM3B_Loi", function () {
                         $(pfile).focus();
                     });
                     return false;
@@ -181,7 +182,7 @@
                 formdata.append("pInfo.pfiles", _file);
             }
             else {
-                jError("Không có file để tải lên!", "lỗi");
+                jError("@Resource.TM3B_KhongCoFile", "@Resource.TM3B_Loi");
                 return;
             }
 

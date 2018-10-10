@@ -8,7 +8,7 @@
         _Listdetail = ViewBag.ListAppDetail04NHInfo;
     }
 }
-
+@using WebApps.Resources;
     <select id="cbo_04nh_data">
         @foreach (var item in _Listdetail)
         {
@@ -20,10 +20,10 @@
     <script>
         $('#cbo_04nh_data').multipleSelect({
           filter: true,
-          noMatchesFound: "Không tìm thấy dữ liệu",
+          noMatchesFound: "@Resource.lblKhongTimThayDL",
           single: true,
           isdatastring: false,
-          placeholder: 'Tìm kiếm dữ liệu hàng hóa'
+          placeholder: '@Resource.TimSoDon'
       });
     </script>
 

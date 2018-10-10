@@ -779,7 +779,7 @@
                 + "," + $("#_4_cboNational05").val() + "," + $("#_4_cboNational06").val() + "," + $("#_4_cboNational07").val() + "," + $("#_4_cboNational08").val();
             _listNational = _listNational.replace(/null/g, '');
             if (_listNational.replace(/,/g, '') == "") {
-                showError(@Resource.TM2B_ChonNuocDKNH');
+                showError('@Resource.TM2B_ChonNuocDKNH');
                 $("#_4_cboNational01").multipleSelect("focus");
                 return false;
             }

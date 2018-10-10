@@ -1,6 +1,7 @@
 ﻿@using ObjectInfos
 @model List<AppClassInfo>
 @using System.Collections;
+@using WebApps.Resources;
 @{
     Hashtable _HsGroup = new Hashtable();
     if (ViewBag.HsGroup != null)
@@ -10,7 +11,7 @@
 
 
     <div class="div-search-title">
-        <div>Tên đầy đủ:</div>
+        <div>@Resource.lblTenDayDu:</div>
     </div>
     <div class="div-search-content" style="display:inline-block;width: 500px;">
         <div id="DivContent_NVSCBO001_AppClassSearch" style="width:99%;display:inline-block">
@@ -27,7 +28,7 @@
 
 
     <div class="div-search-title">
-        <div>Mã nhóm</div>
+        <div>@Resource.TM2B_MaNhom</div>
     </div>
 
 
@@ -49,10 +50,10 @@
     <script>
         $('#NVSCBO001_AppClassSearch').multipleSelect({
             filter: true,
-            noMatchesFound: "Không tìm thấy dữ liệu",
+            noMatchesFound: "@Resource.lblKhongTimThayDL",
             single: true,
             isdatastring: false,
-            placeholder: 'Tìm kiếm dữ liệu hàng hóa'
+            placeholder: '@Resource.SearchAppClass'
         });
     </script>
 }

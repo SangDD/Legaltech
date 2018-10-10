@@ -803,10 +803,15 @@
                 DataSet _ds_all = ConvertData.ConvertToDataSet<AppTM06DKQTInfoExport>(_lst, false);
 
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
-                Logger.LogInfo("b1: load");
-                Logger.LogInfo("b2: file:" + Server.MapPath("~/Report/") + "TM_06DKQT.rpt");
-                  oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_06DKQT.rpt"), OpenReportMethod.OpenReportByTempCopy);
-            //    oRpt.Load(@"C:\inetpub\wwwroot\Report\TM_06DKQT.rpt", OpenReportMethod);
+                //   Logger.LogInfo("b1: load");
+                //  Logger.LogInfo("b2: file:" + Server.MapPath("~/Report/") + "TM_06DKQT.rpt");
+                string _tempfile = "TM_06DKQT.rpt";
+                if(AppsCommon.GetCurrentLang() == Language.LangEN)
+                {
+                    _tempfile = "TM_06DKQT_EN.rpt";
+                }
+
+                  oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile), OpenReportMethod.OpenReportByTempCopy);
             
                 //   _ds_all.WriteXmlSchema(@"C:\Users\user\Desktop\LEGALTECH\XMLFILE\TM06DKQT.xml");
                 Logger.LogInfo("b3: ");

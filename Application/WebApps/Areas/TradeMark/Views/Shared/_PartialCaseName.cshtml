@@ -1,6 +1,6 @@
 ﻿@model string
 @using ObjectInfos;
-
+@using WebApps.Resources;
 @{
     string txtCase_Name = Model + "_txtCase_Name";
     string txtClient_Reference = Model + "_txtClient_Reference";
@@ -61,13 +61,13 @@
             var txtCase_Name = $("#" + PreID + "_txtCase_Name").val();
             if (txtCase_Name === "") {
                 $("#" + PreID + "_txtCase_Name").focus().val('');
-                showError('Case Name không được để trống!');
+                showError('@Resource.CaseNameTrong');
                 return false;
             }
             var txtClient_Reference = $("#" + PreID + "_txtClient_Reference").val();
             if (txtClient_Reference === "") {
                 $("#" + PreID + "_txtClient_Reference").focus().val('');
-                showError('Client Reference không được để trống!');
+                showError('@Resource.ClientReferenceTrong');
                 return false;
             }
 
