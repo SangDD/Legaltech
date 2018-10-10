@@ -51,6 +51,17 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
+            <div>Billing Request<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <a style="height: 20px !important;" href="javascript:;" onclick="getView2Insert('@_SearchObject_Header_Info.CASE_CODE')"> Yes </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
             <div>Ghi chú <i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
@@ -68,6 +79,15 @@
 </div>
 
 <script>
+
+    function getView2Insert(_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        var url = "/quan-ly-billing-search/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code;
+        window.open(url);
+    }
 
     var _SearchResult = "";
 

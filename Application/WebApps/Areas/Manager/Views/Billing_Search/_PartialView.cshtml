@@ -1,0 +1,276 @@
+﻿@using ObjectInfos;
+@using BussinessFacade;
+@using BussinessFacade.ModuleMemoryData
+@using System.Xml
+@model Billing_Header_Info
+
+@{
+    ViewBag.Title = "Chi tiết billing";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+    List<AllCodeInfo> _lstBank = MemoryData.AllCode_GetBy_CdTypeCdName("BILLING", "BANK");
+    string _BankName = "";
+    string _Bank_Account_Name = "";
+    string _Swift_Code = "";
+    string _bank_Account_no = "";
+    if (_lstBank.Count > 0)
+    {
+        _BankName = _lstBank[0].CdVal;
+        _Bank_Account_Name = _lstBank[1].CdVal;
+        _Swift_Code = _lstBank[2].CdVal;
+        _bank_Account_no = _lstBank[3].CdVal;
+    }
+
+    BussinessFacade.ModuleUsersAndRoles.UserBL _UserBL = new BussinessFacade.ModuleUsersAndRoles.UserBL();
+    List<UserInfo> _lstUsersAdmin = _UserBL.GetUserByType(Convert.ToDecimal(Common.CommonData.CommonEnums.UserType.Admin));
+    var lstUsersAdmin = _lstUsersAdmin.Select(x => new SelectListItem { Text = x.FullName, Value = x.Username });
+}
+<script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
+<link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
+<script>
+    $.datetimepicker.setLocale('vi');
+    $(document).ready(function () {
+        $('.datepicker').datetimepicker({
+            format: 'd/m/Y',
+            formatDate: 'd/m/Y',
+            timepicker: false,
+            mask: '39/19/9999',
+            validateOnBlur: true,
+        });
+    });
+</script>
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 150px;
+    }
+</style>
+
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        Monitor
+        <span class="red">></span>
+        <a href="/quan-ly-billing/danh-sach-billing">Quản lý billing</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <div class="div-title-content"> CHI TIẾT BILLING</div>
+        </div>
+    </div>
+
+    <div class="divCover">
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Số bill<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @*@Html.TextBoxFor(m => m.Case_Code, new { id = "txtCaseCode", @maxlength = "50", @disabled = "disabled", @style = "width: 250px" })*@
+                    <input type="text" value="@Model.Case_Code" disabled="disabled" style = "width: 250px"/>
+                    @*<input type="hidden" id="txtCaseCodeSearch" value="@Model.Case_Code"/>*@
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Case code<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @maxlength = "50", @style = "width: 250px", @disabled = "disabled" })
+                </div>
+            </div>
+
+
+            <div class="div-search-title">
+                <div>Người xét duyệt<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.DropDownList("Approve_By", lstUsersAdmin, new { @id = "Approve_By", @disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+
+        <div id="divInfoApp" style="margin-top: 10px;">
+            @Html.Partial("~/Areas/Manager/Views/Billing/_Partial_AppInfo.cshtml")
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Ngày yêu cầu <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Billing_Date, "{0:dd/MM/yyyy}",
+                        new {
+                            id = "txtBilling_Date",
+                            @Value = Model.Billing_Date == DateTime.MinValue ? "" : Model.Billing_Date.ToString("dd/MM/yyyy"),
+                            @placeholder = "dd/mm/yyyy",
+                            @class = "datepicker",
+                            @style = "width: 250px",
+                            @disabled = "disabled"
+                        })
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Hạn thanh toán</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Deadline, "{0:dd/MM/yyyy}",
+                       new {
+                           @id = "txtDeadline",
+                           @Value = Model.Deadline == DateTime.MinValue ? "" : Model.Deadline.ToString("dd/MM/yyyy"),
+                           @placeholder = "dd/mm/yyyy",
+                           @class = "datepicker",
+                           @disabled = "disabled"
+                       })
+                </div>
+            </div>
+        </div>
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/bank.png" />
+            <div class="cls_form_header">
+                Vui lòng chuyển khoản vào tài khoản dưới đây
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Bank Name<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" style="width: 250px;" value="@_BankName" disabled="disabled" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>SWift Code<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" value="@_Swift_Code" disabled="disabled" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Bank Account Name<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" style="width: 250px;" value="@_Bank_Account_Name" disabled="disabled" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Bank Account No<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" value="@_bank_Account_no" disabled="disabled" />
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info_2.png" />
+            <div class="cls_form_header">
+                Chi tiết billing
+            </div>
+        </div>
+
+        <div id="divDataBillingDetail" class="divDataTables" style="overflow-x: auto;">
+            @Html.Partial("~/Areas/Manager/Views/Billing/_PartialDetail_Insert_Billing.cshtml")
+        </div>
+
+    </div>
+
+    <div class="divCover">
+        <div class="div-search-btn" style="width:600px;margin-top: 5px;">
+            <input type="submit" class="btn-default" value="Kết xuất" onclick="return onExport('@Model.Case_Code')" />
+            <input type="submit" class="btn-default" value="Thoát" onclick="return onBack()" />
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $("txtApp_Case_Code").focus();
+    });
+
+    function onBack() {
+        try {
+
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            var url = "/quan-ly-billing/danh-sach-billing/";
+            window.location.href = url;
+        } catch (e) {
+            CreateRollingWaitingIcon(true);
+            alert(e);
+        }
+    }
+
+    function onExport(_Case_Code) {
+        try {
+
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            nvsConfirm(null, "Bạn có chắc chắn muốn kết xuất billing này không?", function () {
+                $.ajax({
+                    url: "/quan-ly-billing/danh-sach-billing/do-export-billing",
+                    type: "POST",
+                    data: {
+                        p_case_code: _Case_Code
+                    },
+                    headers: { "cache-control": "no-cache" },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            jError("Lỗi check lại kết nối tới server");
+                            return false;
+                        }
+                        else {
+                            jAlert('Kết xuất billing thành công!');
+                        }
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(false);
+                        console.log(e);
+                    }
+                });
+            });
+        } catch (e) {
+            CreateRollingWaitingIcon(true);
+            alert(e);
+        }
+    }
+ 
+</script>

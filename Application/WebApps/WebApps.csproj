@@ -179,6 +179,7 @@
     <Compile Include="Areas\Home\Controllers\WikiController.cs" />
     <Compile Include="Areas\Home\HomeAreaRegistration.cs" />
     <Compile Include="Areas\Manager\Controllers\BillingController.cs" />
+    <Compile Include="Areas\Manager\Controllers\Billing_SearchController.cs" />
     <Compile Include="Areas\Manager\Controllers\DockingController.cs" />
     <Compile Include="Areas\Manager\Controllers\SearchManageController.cs" />
     <Compile Include="Areas\Manager\Controllers\TimeSheetController.cs" />
@@ -1516,6 +1517,11 @@
     <Content Include="Areas\Manager\Views\SearchManage\_PartialTaiLieuUpload_New.cshtml" />
     <Content Include="Areas\Manager\Views\SearchManage\_PartialSearchClassView.cshtml" />
     <Content Include="Areas\Manager\Views\SearchManage\_PartialAddSearchClass.cshtml" />
+    <Content Include="Areas\Manager\Views\Billing_Search\_PartialInsert.cshtml" />
+    <Content Include="Areas\Manager\Views\Billing_Search\_PartialEdit.cshtml" />
+    <Content Include="Areas\Manager\Views\Billing_Search\_PartialView.cshtml" />
+    <Content Include="Areas\Manager\Views\Billing_Search\_Partial_SearchInfo.cshtml" />
+    <Content Include="Areas\Manager\Views\Billing_Search\_PartialDetail_Insert_Billing.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <Content Include="Areas\Home\Views\Wiki\_PartialListDocByCata.cshtml" />

@@ -42,7 +42,9 @@ namespace ObjectInfos
         public string NOTES { get; set; }
 
         public string LAWER_NAME { get; set; }
+        public string Lawer_User_Name { get; set; }
 
+        public string Admin_User_Name { get; set; }
         public string ADMIN_NAME { get; set; }
 
         public string CONTENT { get; set; }
@@ -50,5 +52,12 @@ namespace ObjectInfos
         public decimal Country_Id { get; set; }
         public string Country_Name { get; set; }
 
+
+        public string Currency_Type { get; set; }
+        public decimal Customer_Country { get; set; }
+        public string Customer_Country_Name { get; set; }
+
+        public string Customer_Name { get; set; }
+        public string Customer_Address { get; set; }
     }
 }
