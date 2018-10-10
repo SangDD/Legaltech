@@ -2,6 +2,8 @@
 @using WebApps.CommonFunction
 @using ObjectInfos
 @using System.Web.Script.Serialization;
+@using WebApps.Resources;
+     
 @{
     //var listClassInfo = MemoryData.clstAppClass;
     string _LanguageCode = AppsCommon.GetCurrentLang();
@@ -34,19 +36,19 @@
     </script>
     }
 <div class="div_full_100_area" style="border:solid 1px #ccc; width: calc(100% - 28px ); margin: 10px 0px 0px 0px">
-    <div class="class_full_div_p class_text_center_bold">DANH MỤC VÀ PHÂN NHÓM HÀNG HOÁ, DỊCH VỤ MANG NHÃN HIỆU </div>
+    <div class="class_full_div_p class_text_center_bold">@Resource.AppClassTile</div>
     <br />
 
 
     <div class="class_full_div_input">
         <div class="_table_display" id="divHangHoaThem" style="width: 100%">
-            <h4 class="h4_title">Hàng hóa đã thêm</h4>
+            <h4 class="h4_title">@Resource.HangHoaDaThem</h4>
             <table class="table-lst-data" id="tblClassInfo">
                 <thead>
                     <tr>
                         <th style="width: 4%">STT</th>
-                        <th data-sort id="Username">Hàng hóa</th>
-                        <th style="width: 17%" data-sort>Mã hàng hóa</th>
+                        <th data-sort id="Username">@Resource.HangHoa</th>
+                        <th style="width: 17%" data-sort>@Resource.MaHangHoa</th>
                         <th style='display:none'></th>
                         <th class="clssDisplaynone"></th>
                     </tr>
@@ -79,10 +81,10 @@
     })
     $('#NVSCBO001_AppClassSearch').multipleSelect({
         filter: true,
-        noMatchesFound: "Không tìm thấy dữ liệu",
+        noMatchesFound: "@Resource.lblKhongTimThayDL",
         single: true,
         isdatastring: false,
-        placeholder: 'Tìm kiếm dữ liệu hàng hóa'
+        placeholder: '@Resource.SearchAppClass'
     });
 
     function funIncreNumberRow(table_id) {
@@ -109,12 +111,12 @@
             var classCode = $("#NVSCBO001_AppClassSearch").val();
             var className = $("#txtTenHangHoa").val();
             if (className == "" || className == undefined) {
-                showError('Chưa nhập tên hàng hóa!');
+                showError('@Resource.ChuaNhapTenHangHoa');
                 return false;
             }
 
             if (classCode == "" || classCode == undefined) {
-                showError('Mã hàng hóa không đúng, Kiểm tra lại mã hàng hóa!');
+                showError('@Resource.MaHangHoaKhongDung');
                 return false;
             }
 
@@ -156,7 +158,7 @@
 
             textInput = textInput.trim();
             classCode = classCode.trim();
-            var _html = "<tr><td></td><td class=\"TdLeft\">" + textInput + "</td><td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td style='display:none'><a href=\"javascript:;\" onclick=\"funcRemoveMessDataRow(this, '" + classCode + "');\">Xóa</a></td><td class=\"HasSort clssDisplaynone\">" + classCode.substr(0,5) + "</td></tr>";
+            var _html = "<tr><td></td><td class=\"TdLeft\">" + textInput + "</td><td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td style='display:none'><a href=\"javascript:;\" onclick=\"funcRemoveMessDataRow(this, '" + classCode + "');\">"+"@Resource.btnXoa"+"</a></td><td class=\"HasSort clssDisplaynone\">" + classCode.substr(0,5) + "</td></tr>";
             $("#tblClassInfo").find("tbody").append(_html);
             AddTotalRows();
             funcReSortTable("#tblClassInfo", 'asc');
@@ -172,13 +174,13 @@
             // đẩy các dòng tổng xuống cuối table
             var _html = "";
             _ArrGroupAppClass.forEach(function (element) {
-                _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='2' class=\"tdRightAlign textbold\">Tổng SP</td><td colspan='2' class=\"TdLeft textbold\"> " + element.value + "</td>   <input  type=\"hidden\" class=\"txtTongSanPham\" value=\"" + element.value +"\"/> <td class=\"HasSort clssDisplaynone\"> " + element.name + "999 </td> </tr>";
+                _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='2' class=\"tdRightAlign textbold\">"+"@Resource.TongSanPham"+"</td><td colspan='2' class=\"TdLeft textbold\"> " + element.value + "</td>   <input  type=\"hidden\" class=\"txtTongSanPham\" value=\"" + element.value +"\"/> <td class=\"HasSort clssDisplaynone\"> " + element.name + "999 </td> </tr>";
                 $("#tblClassInfo").find("tbody").append(_html);
             });
 
             // tổng số nhóm
 
-            _html = "<tr id='_rowappclassinfo0'><td colspan='2' class=\"tdRightAlign textbold\">Tổng số nhóm</td><td colspan='2' class=\"TdLeft textbold\"> " + _ArrGroupAppClass.length + "</td>  <input  type=\"hidden\" id=\"txtTongSoNhom\" value=\"" + _ArrGroupAppClass.length  +"\"/> <td class=\"HasSort clssDisplaynone\">  99999 </td></tr>";
+            _html = "<tr id='_rowappclassinfo0'><td colspan='2' class=\"tdRightAlign textbold\">"+"@Resource.TongSoNhom"+"</td><td colspan='2' class=\"TdLeft textbold\"> " + _ArrGroupAppClass.length + "</td>  <input  type=\"hidden\" id=\"txtTongSoNhom\" value=\"" + _ArrGroupAppClass.length  +"\"/> <td class=\"HasSort clssDisplaynone\">  99999 </td></tr>";
             $("#tblClassInfo").find("tbody").append(_html);
         } catch (e) {
             console.log(e);

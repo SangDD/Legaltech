@@ -7,9 +7,13 @@
 
     string _LanguageCode = AppsCommon.GetCurrentLang();
 }
+
 <!DOCTYPE html>
 <html>
 <head>
+    <script>
+    var _currentlanguage = '@_LanguageCode';
+    </script>
     @* https://css-tricks.com/probably-use-initial-scale1/ *@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
