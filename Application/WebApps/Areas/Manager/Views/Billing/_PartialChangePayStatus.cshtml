@@ -102,7 +102,14 @@
         </div>
 
         <div id="divInfoApp" style="margin-top: 10px;">
-            @Html.Partial("~/Areas/Manager/Views/Billing/_Partial_AppInfo.cshtml")
+            @if (Model.App_Case_Code.Contains("SEARCH"))
+            {
+                @Html.Partial("~/Areas/Manager/Views/Billing_Search/_Partial_SearchInfo.cshtml")
+            }
+            else
+            {
+                @Html.Partial("~/Areas/Manager/Views/Billing/_Partial_AppInfo.cshtml")
+            }
         </div>
 
         <div class="div-search-ad">
@@ -196,7 +203,14 @@
         </div>
 
         <div id="divDataBillingDetail" class="divDataTables" style="overflow-x: auto;">
-            @Html.Partial("~/Areas/Manager/Views/Billing/_PartialDetail_Insert_Billing.cshtml")
+            @if (Model.App_Case_Code.Contains("SEARCH"))
+            {
+                @Html.Partial("~/Areas/Manager/Views/Billing_Search/_PartialDetail_Insert_Billing.cshtml")
+            }
+            else
+            {
+                @Html.Partial("~/Areas/Manager/Views/Billing/_PartialDetail_Insert_Billing.cshtml")
+            }
         </div>
 
     </div>

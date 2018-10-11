@@ -502,7 +502,7 @@ namespace DataAccess
             }
         }
 
-        public DataSet GetBilling_By_Case_Code_Billing(string p_case_code, string p_user_name, string p_language_code)
+        public DataSet GetBilling_By_Case_Code(string p_case_code, string p_user_name, string p_language_code)
         {
             try
             {

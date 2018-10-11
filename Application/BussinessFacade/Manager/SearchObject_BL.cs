@@ -286,13 +286,13 @@ namespace BussinessFacade
 
 
         /////
-        public SearchObject_Header_Info GetBilling_By_Case_Code_Billing(string p_case_code, string p_user_name, string p_language_code, 
+        public SearchObject_Header_Info GetBilling_By_Case_Code(string p_case_code, string p_user_name, string p_language_code, 
             ref List<Billing_Detail_Info> p_lst_billing_detail)
         {
             try
             {
                 SearchObject_DA _da = new SearchObject_DA();
-                DataSet _ds = _da.GetBilling_By_Case_Code_Billing(p_case_code, p_user_name, p_language_code);
+                DataSet _ds = _da.GetBilling_By_Case_Code(p_case_code, p_user_name, p_language_code);
                 if (_ds != null && _ds.Tables.Count > 0 && _ds.Tables[0].Rows.Count > 0)
                 {
                     p_lst_billing_detail = CBO<Billing_Detail_Info>.FillCollectionFromDataTable(_ds.Tables[1]);

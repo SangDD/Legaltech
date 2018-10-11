@@ -83,8 +83,6 @@ namespace DataAccess
             }
         }
 
-        
-
         public string Billing_GenCaseCode()
         {
             try

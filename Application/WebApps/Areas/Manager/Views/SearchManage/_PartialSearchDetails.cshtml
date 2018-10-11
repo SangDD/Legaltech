@@ -33,17 +33,18 @@
 
 <div style="float:left;width:100%">
 
-    <div class="divCover cls_form_title">
-        <img src="/Content/icons/icon_info_24.png" />
-        <div class="cls_form_header">
+    @*<div class="divCover cls_form_title">
+            <img src="/Content/icons/icon_info_24.png" />
+            <div class="cls_form_header">
 
-            @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update))
-            {
-                <a style="text-decoration: underline; font-style: italic; color: blue;" href="/quan-ly-search/search-edit/@_HeaderInfo.SEARCH_ID/@_HeaderInfo.STATUS"> Sửa Search </a>
-            }
-        </div>
-    </div>
+                @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update))
+                {
+                    <a style="text-decoration: underline; font-style: italic; color: blue;" href="/quan-ly-search/search-edit/@_HeaderInfo.SEARCH_ID/@_HeaderInfo.STATUS"> Sửa Search </a>
+                }
+            </div>
+        </div>*@
 
+    <br />
 
     <div class="div-search-ad">
         <div class="div-search-title">
@@ -51,11 +52,10 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input readonly type="text" placeholder="Case code" maxlength="200" id="_txtcasecode" value="@_HeaderInfo.CASE_CODE" />
+                <input readonly type="text" placeholder="Case code" maxlength="200" style="width:250px" id="_txtcasecode" value="@_HeaderInfo.CASE_CODE" />
             </div>
         </div>
-    </div>
-    <div class="div-search-ad">
+
         <div class="div-search-title">
             <div> Case name:</div>
         </div>
@@ -71,18 +71,16 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input readonly type="text" placeholder="Client Reference" maxlength="200" id="txtClient_Reference" value="@_HeaderInfo.CLIENT_REFERENCE" />
+                <input readonly type="text" placeholder="Client Reference" maxlength="200" style="width:250px" id="txtClient_Reference" value="@_HeaderInfo.CLIENT_REFERENCE" />
             </div>
         </div>
-    </div>
 
-    <div class="div-search-ad">
         <div class="div-search-title">
             <div>Quốc tịch<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <select id="cboCountry">
+                <select id="cboCountry" disabled="disabled">
                     @foreach (var item in MemoryData.c_lst_Country)
                     {
                         if (item.Country_Id == _HeaderInfo.Country_Id)

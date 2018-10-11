@@ -75,9 +75,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @*@Html.TextBoxFor(m => m.Case_Code, new { id = "txtCaseCode", @maxlength = "50", @disabled = "disabled", @style = "width: 250px" })*@
                     <input type="text" value="@Model.Case_Code" disabled="disabled" style = "width: 250px"/>
-                    @*<input type="hidden" id="txtCaseCodeSearch" value="@Model.Case_Code"/>*@
                 </div>
             </div>
 
@@ -241,7 +239,7 @@
 
             nvsConfirm(null, "Bạn có chắc chắn muốn kết xuất billing này không?", function () {
                 $.ajax({
-                    url: "/quan-ly-billing/danh-sach-billing/do-export-billing",
+                    url: "/quan-ly-billing-search/danh-sach-billing/do-export-billing",
                     type: "POST",
                     data: {
                         p_case_code: _Case_Code

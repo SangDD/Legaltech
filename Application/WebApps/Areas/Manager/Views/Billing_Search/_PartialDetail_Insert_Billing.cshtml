@@ -15,10 +15,10 @@
         _Operator_Type = (decimal)ViewBag.Operator_Type;
     }
 
-    ApplicationHeaderInfo _ApplicationHeaderInfo = new ApplicationHeaderInfo();
-    if (ViewBag.objAppHeaderInfo != null)
+    SearchObject_Header_Info _objSearch_HeaderInfo = new SearchObject_Header_Info();
+    if (ViewBag.objSearch_HeaderInfo != null)
     {
-        _ApplicationHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+        _objSearch_HeaderInfo = (SearchObject_Header_Info)ViewBag.objSearch_HeaderInfo;
     }
 
     decimal _tax = Common.Common.Tax;
@@ -111,7 +111,7 @@
                 </tr>
 
                 <tr>
-                    <td class="tdleftalign" style="font-weight:bold">Tổng cộng (@_ApplicationHeaderInfo.Currency_Type)</td>
+                    <td class="tdleftalign" style="font-weight:bold">Tổng cộng (@_objSearch_HeaderInfo.Currency_Type)</td>
                     <td class="tdrightalign">-</td>
                     <td class="tdrightalign" style="font-weight:bold; color: red">@_Total_Amount.ToString("#,##0.##")</td>
                     @if (_Operator_Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert))

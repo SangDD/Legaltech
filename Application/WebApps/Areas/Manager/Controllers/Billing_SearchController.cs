@@ -78,7 +78,7 @@ namespace WebApps.Areas.Manager.Controllers
             {
                 SearchObject_BL _bl = new SearchObject_BL();
                 List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
-                SearchObject_Header_Info objSearch_HeaderInfo = _bl.GetBilling_By_Case_Code_Billing(p_case_code, SessionData.CurrentUser.Username, 
+                SearchObject_Header_Info objSearch_HeaderInfo = _bl.GetBilling_By_Case_Code(p_case_code, SessionData.CurrentUser.Username, 
                     AppsCommon.GetCurrentLang(), ref _lst_billing_detail);
                 ViewBag.objSearch_HeaderInfo = objSearch_HeaderInfo;
 
@@ -270,14 +270,30 @@ namespace WebApps.Areas.Manager.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("danh-sach-billing/do-export-billing")]
+        public ActionResult do_export_billing(string p_case_code)
+        {
+            try
+            {
+                string _fileName = Export_Billing(p_case_code);
+                return Json(new { success = _fileName });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
         string Export_Billing(string p_case_code)
         {
             try
             {
                 Billing_BL _obj_bl = new Billing_BL();
-                ApplicationHeaderInfo _ApplicationHeaderInfo = new ApplicationHeaderInfo();
+                SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
                 List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
-                Billing_Header_Info _Billing_Header_Info = _obj_bl.Billing_GetBy_Code(p_case_code, AppsCommon.GetCurrentLang(), ref _ApplicationHeaderInfo, ref _lst_billing_detail);
+                Billing_Header_Info _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Code(p_case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
                 foreach (Billing_Detail_Info item in _lst_billing_detail)
                 {
                     item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
@@ -305,12 +321,12 @@ namespace WebApps.Areas.Manager.Controllers
                 };
 
                 document.MailMerge.Execute(new { DateNo = DateTime.Now.ToString("dd-MM-yyyy") });
-                document.MailMerge.Execute(new { Case_Name = _ApplicationHeaderInfo.Case_Name });
-                document.MailMerge.Execute(new { Client_Reference = _ApplicationHeaderInfo.Client_Reference });
-                document.MailMerge.Execute(new { Case_Code = _ApplicationHeaderInfo.Case_Code });
-                document.MailMerge.Execute(new { Master_Name = _ApplicationHeaderInfo.Master_Name });
-                document.MailMerge.Execute(new { App_No = _ApplicationHeaderInfo.App_No });
-                document.MailMerge.Execute(new { Customer_Country_Name = _ApplicationHeaderInfo.Customer_Country_Name });
+                document.MailMerge.Execute(new { Case_Name = SearchObject_Header_Info.CASE_NAME });
+                document.MailMerge.Execute(new { Client_Reference = SearchObject_Header_Info.CLIENT_REFERENCE });
+                document.MailMerge.Execute(new { Case_Code = SearchObject_Header_Info.CASE_CODE });
+                document.MailMerge.Execute(new { Master_Name = SearchObject_Header_Info.Customer_Name });
+                //document.MailMerge.Execute(new { App_No = SearchObject_Header_Info.App_No });
+                document.MailMerge.Execute(new { Customer_Country_Name = SearchObject_Header_Info.Customer_Country_Name });
                 document.MailMerge.Execute(new { Bill_Code = _Billing_Header_Info.Case_Code });
 
                 document.MailMerge.Execute(new { Total_Amount = _Billing_Header_Info.Total_Amount.ToString("#,##0.##") });
@@ -323,7 +339,7 @@ namespace WebApps.Areas.Manager.Controllers
 
                 // lấy thông tin người dùng
                 UserBL _UserBL = new UserBL();
-                UserInfo userInfo = _UserBL.GetUserByUsername(_ApplicationHeaderInfo.Created_By);
+                UserInfo userInfo = _UserBL.GetUserByUsername(SearchObject_Header_Info.CREATED_BY);
                 if (userInfo != null)
                 {
                     document.MailMerge.Execute(new { Contact_Person = userInfo.Contact_Person + " " + userInfo.FullName });

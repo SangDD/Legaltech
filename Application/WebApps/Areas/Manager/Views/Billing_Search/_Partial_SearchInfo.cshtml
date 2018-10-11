@@ -9,12 +9,6 @@
         _SearchObject_Header_Info = (SearchObject_Header_Info)ViewBag.objSearch_HeaderInfo;
     }
 
-    decimal _Operator_Type = (decimal)Common.CommonData.CommonEnums.Operator_Type.Insert;
-    if (ViewBag.Operator_Type != null)
-    {
-        _Operator_Type = (decimal)ViewBag.Operator_Type;
-    }
-
     List<AllCodeInfo> _lstCurrencyRate = MemoryData.AllCode_GetBy_CdTypeCdName("CURRENCY", "RATE");
     string _currency_rate = Convert.ToDecimal(_lstCurrencyRate[0].CdVal).ToString("#,##0");
 

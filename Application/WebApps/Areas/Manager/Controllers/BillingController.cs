@@ -104,17 +104,30 @@ namespace WebApps.Areas.Manager.Controllers
             {
                 Billing_BL _obj_bl = new Billing_BL();
                 ApplicationHeaderInfo objAppHeaderInfo = new ApplicationHeaderInfo();
+                SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
                 List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
-                Billing_Header_Info _Billing_Header_Info = _obj_bl.Billing_GetBy_Id(id, case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
+                Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
+                if (case_code.Contains("SEARCH"))
+                {
+                    _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Id(id, case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
+                }
+                else
+                {
+                    _Billing_Header_Info = _obj_bl.Billing_GetBy_Id(id, case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
+                }
+
                 foreach (Billing_Detail_Info item in _lst_billing_detail)
                 {
                     item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
                 }
 
-                ViewBag.Billing_Header_Info = _Billing_Header_Info;
-                ViewBag.objAppHeaderInfo = objAppHeaderInfo;
                 ViewBag.List_Billing = _lst_billing_detail;
                 ViewBag.Operator_Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.View);
+                ViewBag.Billing_Header_Info = _Billing_Header_Info;
+
+                ViewBag.objSearch_HeaderInfo = SearchObject_Header_Info;
+                ViewBag.objAppHeaderInfo = objAppHeaderInfo;
+
                 return PartialView("~/Areas/Manager/Views/Billing/_PartialView.cshtml", _Billing_Header_Info);
             }
             catch (Exception ex)
@@ -131,17 +144,31 @@ namespace WebApps.Areas.Manager.Controllers
             {
                 Billing_BL _obj_bl = new Billing_BL();
                 ApplicationHeaderInfo objAppHeaderInfo = new ApplicationHeaderInfo();
+                SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
                 List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
-                Billing_Header_Info _Billing_Header_Info = _obj_bl.Billing_GetBy_Code(case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
+                Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
+                if (case_code.Contains("SEARCH"))
+                {
+                    _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Code(case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
+                }
+                else
+                {
+                    _Billing_Header_Info = _obj_bl.Billing_GetBy_Code(case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
+                }
+
                 foreach (Billing_Detail_Info item in _lst_billing_detail)
                 {
                     item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
                 }
 
                 ViewBag.Billing_Header_Info = _Billing_Header_Info;
-                ViewBag.objAppHeaderInfo = objAppHeaderInfo;
                 ViewBag.List_Billing = _lst_billing_detail;
                 ViewBag.Operator_Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.View);
+
+
+                ViewBag.objSearch_HeaderInfo = SearchObject_Header_Info;
+                ViewBag.objAppHeaderInfo = objAppHeaderInfo;
+
                 return PartialView("~/Areas/Manager/Views/Billing/_PartialView.cshtml", _Billing_Header_Info);
             }
             catch (Exception ex)
@@ -259,7 +286,7 @@ namespace WebApps.Areas.Manager.Controllers
             {
                 Application_Header_BL _bl = new Application_Header_BL();
                 List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
-                ApplicationHeaderInfo objAppHeaderInfo = _bl.GetApp_By_Case_Code_Billing(p_case_code, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang(), ref _lst_billing_detail);
+                ApplicationHeaderInfo objAppHeaderInfo = _bl.GetBilling_ByAppCase_Code(p_case_code, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang(), ref _lst_billing_detail);
                 ViewBag.objAppHeaderInfo = objAppHeaderInfo;
 
                 if (objAppHeaderInfo == null)
@@ -381,13 +408,32 @@ namespace WebApps.Areas.Manager.Controllers
             try
             {
                 Billing_BL _obj_bl = new Billing_BL();
+                SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
                 ApplicationHeaderInfo objAppHeaderInfo = new ApplicationHeaderInfo();
                 List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
-                Billing_Header_Info _Billing_Header_Info = _obj_bl.Billing_GetBy_Id(p_id, p_app_case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
 
-                ViewBag.objAppHeaderInfo = objAppHeaderInfo;
+                Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
+                if (p_app_case_code.Contains("SEARCH"))
+                {
+                    _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Id(p_id, p_app_case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
+                }
+                else
+                {
+                    _Billing_Header_Info = _obj_bl.Billing_GetBy_Id(p_id, p_app_case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
+                }
+
                 ViewBag.List_Billing = _lst_billing_detail;
-                return PartialView("~/Areas/Manager/Views/Billing/_PartialEdit.cshtml", _Billing_Header_Info);
+
+                if (p_app_case_code.Contains("SEARCH"))
+                {
+                    ViewBag.objSearch_HeaderInfo = SearchObject_Header_Info;
+                    return PartialView("~/Areas/Manager/Views/Billing_Search/_PartialEdit.cshtml", _Billing_Header_Info);
+                }
+                else
+                {
+                    ViewBag.objAppHeaderInfo = objAppHeaderInfo;
+                    return PartialView("~/Areas/Manager/Views/Billing/_PartialEdit.cshtml", _Billing_Header_Info);
+                }
             }
             catch (Exception ex)
             {
@@ -425,48 +471,35 @@ namespace WebApps.Areas.Manager.Controllers
             {
                 Billing_BL _obj_bl = new Billing_BL();
                 ApplicationHeaderInfo objAppHeaderInfo = new ApplicationHeaderInfo();
+                SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
                 List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
-                Billing_Header_Info _Billing_Header_Info = _obj_bl.Billing_GetBy_Id(id, case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
+                Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
+                if (case_code.Contains("SEARCH"))
+                {
+                    _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Id(id, case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
+                }
+                else
+                {
+                    _Billing_Header_Info = _obj_bl.Billing_GetBy_Id(id, case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
+                }
+
                 foreach (Billing_Detail_Info item in _lst_billing_detail)
                 {
                     item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
                 }
 
                 ViewBag.Billing_Header_Info = _Billing_Header_Info;
-                ViewBag.objAppHeaderInfo = objAppHeaderInfo;
                 ViewBag.List_Billing = _lst_billing_detail;
                 ViewBag.Operator_Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Approve);
 
+                ViewBag.objSearch_HeaderInfo = SearchObject_Header_Info;
+                ViewBag.objAppHeaderInfo = objAppHeaderInfo;
                 return PartialView("~/Areas/Manager/Views/Billing/_PartialApprove.cshtml", _Billing_Header_Info);
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
                 return PartialView("~/Areas/TimeSheet/Views/TimeSheet/_PartialApprove.cshtml");
-            }
-
-        }
-
-        // update status
-        [HttpPost]
-        [Route("danh-sach-billing/show-change-status")]
-        public ActionResult GetView2UpdateStatus(int p_id, string p_app_case_code)
-        {
-            try
-            {
-                Billing_BL _obj_bl = new Billing_BL();
-                ApplicationHeaderInfo objAppHeaderInfo = new ApplicationHeaderInfo();
-                List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
-                Billing_Header_Info _Billing_Header_Info = _obj_bl.Billing_GetBy_Id(p_id, p_app_case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
-
-                ViewBag.objAppHeaderInfo = objAppHeaderInfo;
-                ViewBag.List_Billing = _lst_billing_detail;
-                return PartialView("~/Areas/Manager/Views/Billing/_PartialChangeStatus.cshtml", _Billing_Header_Info);
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return PartialView("~/Areas/Manager/Views/Billing/_PartialChangeStatus.cshtml");
             }
 
         }
@@ -489,7 +522,6 @@ namespace WebApps.Areas.Manager.Controllers
                 return Json(new { success = -1 });
             }
         }
-
 
         [HttpPost]
         [Route("danh-sach-billing/change-date")]
@@ -526,6 +558,7 @@ namespace WebApps.Areas.Manager.Controllers
             }
             catch (Exception ex)
             {
+                Logger.LogException(ex);
                 return new List<Billing_Detail_Info>();
             }
         }
@@ -538,17 +571,28 @@ namespace WebApps.Areas.Manager.Controllers
             {
                 Billing_BL _obj_bl = new Billing_BL();
                 ApplicationHeaderInfo objAppHeaderInfo = new ApplicationHeaderInfo();
+                SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
                 List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
-                Billing_Header_Info _Billing_Header_Info = _obj_bl.Billing_GetBy_Id(id, case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
+                Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
+                if (case_code.Contains("SEARCH"))
+                {
+                    _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Id(id, case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
+                }
+                else
+                {
+                    _Billing_Header_Info = _obj_bl.Billing_GetBy_Id(id, case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
+                }
                 foreach (Billing_Detail_Info item in _lst_billing_detail)
                 {
                     item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
                 }
 
                 ViewBag.Billing_Header_Info = _Billing_Header_Info;
-                ViewBag.objAppHeaderInfo = objAppHeaderInfo;
                 ViewBag.List_Billing = _lst_billing_detail;
                 ViewBag.Operator_Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Approve);
+
+                ViewBag.objSearch_HeaderInfo = SearchObject_Header_Info;
+                ViewBag.objAppHeaderInfo = objAppHeaderInfo;
 
                 return PartialView("~/Areas/Manager/Views/Billing/_PartialChangePayStatus.cshtml", _Billing_Header_Info);
             }
@@ -588,8 +632,19 @@ namespace WebApps.Areas.Manager.Controllers
             {
                 Billing_BL _obj_bl = new Billing_BL();
                 ApplicationHeaderInfo objAppHeaderInfo = new ApplicationHeaderInfo();
+                SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
                 List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
-                Billing_Header_Info _Billing_Header_Info = _obj_bl.Billing_GetBy_Code(case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
+                Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
+                if (case_code.Contains("SEARCH"))
+                {
+                    _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Code(case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
+                }
+                else
+                {
+                    _Billing_Header_Info = _obj_bl.Billing_GetBy_Code(case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
+                }
+
+
                 foreach (Billing_Detail_Info item in _lst_billing_detail)
                 {
                     item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
@@ -599,25 +654,34 @@ namespace WebApps.Areas.Manager.Controllers
                 {
 
                     ViewBag.Billing_Header_Info = _Billing_Header_Info;
-                    ViewBag.objAppHeaderInfo = objAppHeaderInfo;
                     ViewBag.List_Billing = _lst_billing_detail;
                     ViewBag.Operator_Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Approve);
+
+                    ViewBag.objSearch_HeaderInfo = SearchObject_Header_Info;
+                    ViewBag.objAppHeaderInfo = objAppHeaderInfo;
+
                     return PartialView("~/Areas/Manager/Views/Billing/_PartialApprove.cshtml", _Billing_Header_Info);
                 }
                 else if (_Billing_Header_Info.Status == (decimal)CommonEnums.Billing_Status.Approved)
                 {
                     ViewBag.Billing_Header_Info = _Billing_Header_Info;
-                    ViewBag.objAppHeaderInfo = objAppHeaderInfo;
                     ViewBag.List_Billing = _lst_billing_detail;
                     ViewBag.Operator_Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Approve);
+
+                    ViewBag.objSearch_HeaderInfo = SearchObject_Header_Info;
+                    ViewBag.objAppHeaderInfo = objAppHeaderInfo;
+
                     return PartialView("~/Areas/Manager/Views/Billing/_PartialChangePayStatus.cshtml", _Billing_Header_Info);
                 }
                 else
                 {
                     ViewBag.Billing_Header_Info = _Billing_Header_Info;
-                    ViewBag.objAppHeaderInfo = objAppHeaderInfo;
                     ViewBag.List_Billing = _lst_billing_detail;
                     ViewBag.Operator_Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.View);
+
+                    ViewBag.objSearch_HeaderInfo = SearchObject_Header_Info;
+                    ViewBag.objAppHeaderInfo = objAppHeaderInfo;
+
                     return PartialView("~/Areas/Manager/Views/Billing/_PartialView.cshtml", _Billing_Header_Info);
                 }
             }
@@ -734,6 +798,21 @@ namespace WebApps.Areas.Manager.Controllers
             {
                 Logger.LogException(ex);
                 return "";
+            }
+        }
+
+        [Route("Pre-View")]
+        public ActionResult PreViewApplication(string p_filename)
+        {
+            try
+            {
+                ViewBag.FileName = p_filename;
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
             }
         }
     }
