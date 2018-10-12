@@ -96,19 +96,18 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @maxlength = "50", @onblur = "onChangeApp_Case_Code()", @style = "width: 250px" })
+                    @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @maxlength = "50", @onblur = "onChangeApp_Case_Code()" })
                 </div>
             </div>
 
-
-            <div class="div-search-title">
+            @*<div class="div-search-title">
                 <div>Người xét duyệt<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
                     @Html.DropDownList("Approve_By", lstUsersAdmin, new { @id = "Approve_By" })
                 </div>
-            </div>
+            </div>*@
         </div>
 
         <div id="divInfoApp" style="margin-top: 10px;">
@@ -441,7 +440,6 @@
             // hearder
             formData.append('p_Billing_Header_Info.Case_Code', $("#txtCaseCode").val());
             formData.append('p_Billing_Header_Info.App_Case_Code', $("#txtApp_Case_Code").val());
-            formData.append('p_Billing_Header_Info.Billing_Type', '@Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Type.App)');
 
             formData.append('p_Billing_Header_Info.Billing_Date', $("#txtBilling_Date").val());
             formData.append('p_Billing_Header_Info.Deadline', $("#txtDeadline").val());

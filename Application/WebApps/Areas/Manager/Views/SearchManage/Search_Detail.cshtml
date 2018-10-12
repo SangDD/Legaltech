@@ -70,10 +70,20 @@
     .div-search-title > div {
         width: 150px;
     }
+
+    .main-content {
+        background-color: #E9EAEF;
+        padding: 10px;
+    }
+
 </style>
 
 @Html.Partial("~/Areas/Home/Views/Shared/HomeSearchBox.cshtml")
-<fieldset style="border: 1px solid #dddddd; padding: 1.25rem; margin-top:20px">
+
+@*Notify*@
+@Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+
+<fieldset style="border: 1px solid #908282; padding: 1.25rem; margin-top:20px">
     <legend>YÊU CẦU TÌM KIẾM </legend>
 
     <style>

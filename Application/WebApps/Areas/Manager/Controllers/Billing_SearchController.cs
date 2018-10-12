@@ -165,7 +165,7 @@ namespace WebApps.Areas.Manager.Controllers
                 p_Billing_Header_Info.Created_Date = DateTime.Now;
                 p_Billing_Header_Info.Language_Code = AppsCommon.GetCurrentLang();
                 p_Billing_Header_Info.Status = (decimal)CommonEnums.Billing_Status.New_Wait_Approve;
-
+                p_Billing_Header_Info.Billing_Type = (decimal)CommonEnums.Billing_Type.Question;
                 decimal _ck = 0;
                 using (var scope = new TransactionScope())
                 {
@@ -237,7 +237,7 @@ namespace WebApps.Areas.Manager.Controllers
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return PartialView("~/Areas/Manager/Views/Billing_Search/_PartialTableBilling.cshtml");
+                return PartialView("~/Areas/Manager/Views/Billing_Search/_PartialDetail_Insert_Billing.cshtml");
             }
         }
 
@@ -266,7 +266,7 @@ namespace WebApps.Areas.Manager.Controllers
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return PartialView("~/Areas/Manager/Views/Billing_Search/_PartialTableBilling.cshtml");
+                return PartialView("~/Areas/Manager/Views/Billing_Search/_PartialDetail_Insert_Billing.cshtml");
             }
         }
 
