@@ -2482,6 +2482,123 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN).
+        /// </summary>
+        public static string TM3C_BenThuHaiTrongHD {
+            get {
+                return ResourceManager.GetString("TM3C_BenThuHaiTrongHD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phải chọn ít nhất 1 giá trị cho chủ đơn.
+        /// </summary>
+        public static string TM3C_ChonChuDon {
+            get {
+                return ResourceManager.GetString("TM3C_ChonChuDon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phải chọn ít nhất 1 giá trị đơn yêu cầu chuyển nhượng!.
+        /// </summary>
+        public static string TM3C_ChonGiaTriYeuCauChuyenNhuong {
+            get {
+                return ResourceManager.GetString("TM3C_ChonGiaTriYeuCauChuyenNhuong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ĐƠN ĐƯỢC CHUYỂN NHƯỢNG.
+        /// </summary>
+        public static string TM3C_FormHeader {
+            get {
+                return ResourceManager.GetString("TM3C_FormHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to là bên chuyển nhượng.
+        /// </summary>
+        public static string TM3C_LaBenChuyenNhuong {
+            get {
+                return ResourceManager.GetString("TM3C_LaBenChuyenNhuong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to là bên nhận chuyển nhượng.
+        /// </summary>
+        public static string TM3C_LaBenNhanChuyenNhuong {
+            get {
+                return ResourceManager.GetString("TM3C_LaBenNhanChuyenNhuong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to YÊU CẦU GHI NHẬN CHUYỂN NHƯỢNG ĐƠN ĐĂNG KÝ ĐỐI TƯỢNG SỞ HỮU CÔNG NGHIỆP.
+        /// </summary>
+        public static string TM3C_Legend {
+            get {
+                return ResourceManager.GetString("TM3C_Legend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mã đại diện.
+        /// </summary>
+        public static string TM3C_MaDaiDien {
+            get {
+                return ResourceManager.GetString("TM3C_MaDaiDien", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mã đại diện không được để trống!.
+        /// </summary>
+        public static string TM3C_MaDaiDienKhongDuocTrong {
+            get {
+                return ResourceManager.GetString("TM3C_MaDaiDienKhongDuocTrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thông báo.
+        /// </summary>
+        public static string TM3C_ThongBao {
+            get {
+                return ResourceManager.GetString("TM3C_ThongBao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tờ khai, gồm 2 trang x2 bản.
+        /// </summary>
+        public static string TM3C_ToKhaiGom {
+            get {
+                return ResourceManager.GetString("TM3C_ToKhaiGom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Văn bản chuyển nhượng đơn, bằng tiếng .
+        /// </summary>
+        public static string TM3C_VanBanChuyenNhuong {
+            get {
+                return ResourceManager.GetString("TM3C_VanBanChuyenNhuong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Văn bản đồng ý của những chủ đơn khác (trường hợp nhiều người cùng có quyền nộp đơn).
+        /// </summary>
+        public static string TM3C_VanBanDongY {
+            get {
+                return ResourceManager.GetString("TM3C_VanBanDongY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tổng SP.
         /// </summary>
         public static string TongSanPham {

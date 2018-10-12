@@ -4,7 +4,7 @@
     ViewBag.Title = "Request for amendment of application";
     Layout = "~/ViewsShared/_Layout.cshtml";
 }
-
+@using WebApps.Resources;
 <style>
     /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
     .div-search-title > div {
@@ -33,8 +33,7 @@
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
         <legend style="font-weight:600">
-            YÊU CẦU GHI NHẬN CHUYỂN NHƯỢNG ĐƠN
-            ĐĂNG KÝ ĐỐI TƯỢNG SỞ HỮU CÔNG NGHIỆP
+            @Resource.TM3C_Legend
         </legend>
 
         @*thông tin khách hàng mà admin nhập hộ*@
@@ -47,7 +46,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                ĐƠN ĐƯỢC CHUYỂN NHƯỢNG
+               @Resource.TM3C_FormHeader
             </div>
         </div>
 
@@ -55,14 +54,14 @@
             <div class="div-search-content">
                 <div class="div-radio" style="width:382px">
                     <input type="radio" name="4_rdoDonDuocChuyenNhuong" id="4_rdDK_SC" value="1">
-                    <label>Đơn đăng ký sáng chế</label>
+                    <label>@Resource.TM3B_DonDKSangChe</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
                     <input type="radio" name="4_rdoDonDuocChuyenNhuong" id="4_rdDK_KDCN" value="2">
-                    <label>Đơn đăng ký kiểu dáng công nghiệp</label>
+                    <label>@Resource.TM3B_DonDKKieuDangCongNghiep</label>
                 </div>
             </div>
         </div>
@@ -71,25 +70,25 @@
             <div class="div-search-content">
                 <div class="div-radio" style="width:382px">
                     <input type="radio" name="4_rdoDonDuocChuyenNhuong" id="4_rdDK_MBD" value="3">
-                    <label>Đơn đăng ký thiết kế bố trí mạch tích hợp bán dẫn </label>
+                    <label>@Resource.TM3B_DonDKThietKeBotriMach </label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
                     <input type="radio" name="4_rdoDonDuocChuyenNhuong" id="4_rdDK_NH" value="4">
-                    <label>Đơn đăng ký nhãn hiệu</label>
+                    <label>@Resource.TM3B_DonDKNhanHieu</label>
                 </div>
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Số đơn:</div>
+                <div>@Resource.TM3B_SoDon:</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Số đơn" id="4_txt_SoDon" onblur="onChangeAppNo()" />
+                    <input type="text" placeholder="@Resource.TM3B_SoDon" id="4_txt_SoDon" onblur="onChangeAppNo()" />
                 </div>
             </div>
         </div>
@@ -100,7 +99,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                CHỦ ĐƠN
+               @Resource.TM2B_ChuDon
             </div>
         </div>
         <div id="div_PartialThongTinChuDon">
@@ -111,14 +110,14 @@
             <div class="div-search-content">
                 <div class="div-radio" style="width:382px">
                     <input type="radio" name="1_rdoChuDon" value="1" id="rb_1_ChuDonChuyenNhuong">
-                    <label>là bên chuyển nhượng</label>
+                    <label>@Resource.TM3C_LaBenChuyenNhuong</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
                     <input type="radio" name="1_rdoChuDon" value="2">
-                    <label>là bên nhận chuyển nhượng</label>
+                    <label>@Resource.TM3C_LaBenNhanChuyenNhuong</label>
                 </div>
             </div>
         </div>
@@ -127,7 +126,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                ĐẠI DIỆN CỦA CHỦ ĐƠN
+              @Resource.TM2B_DaiDienChuDon
             </div>
         </div>
 
@@ -137,11 +136,11 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Mã đại diện:</div>
+                <div>@Resource.TM3C_MaDaiDien:</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Mã đại diện" id="txt_MaDaiDien" />
+                    <input type="text" placeholder="@Resource.TM3C_MaDaiDien" id="txt_MaDaiDien" />
                 </div>
             </div>
         </div>
@@ -151,7 +150,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN)
+               @Resource.TM3C_BenThuHaiTrongHD
             </div>
         </div>
         @Html.Partial("~/Areas/TradeMark/Views/PLB02_CGD_3C/_PartialSecondMaster.cshtml", "3")
@@ -163,7 +162,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                CÁC TÀI LIỆU CÓ TRONG ĐƠN
+               @Resource.TM2B_TaiLieuCoTrongDon
             </div>
         </div>
 
@@ -172,7 +171,7 @@
             <div class="div-search-content">
                 <div class="div-checkbox">
                     <input type="checkbox" name="ckb_6_Doc_02_CGD_01" id="ckb_6_Doc_02_CGD_01" value="02_CGD_01" checked="checked">
-                    <label>Tờ khai, gồm 2 trang x2 bản</label>
+                    <label>@Resource.TM3C_ToKhaiGom</label>
                 </div>
             </div>
         </div>
@@ -181,49 +180,49 @@
         @* 2. Văn bản chuyển nhượng đơn, bằng tiếng *@
         @{
             string _doc_id2 = "02_CGD_02";
-            string _model2 = _doc_id2 + "|6_Doc_02_CGD_02|0|Văn bản chuyển nhượng đơn, bằng tiếng |Tiếng|1";
+            string _model2 = _doc_id2 + "|6_Doc_02_CGD_02|0|"+Resource.TM3C_VanBanChuyenNhuong+"|"+Resource.TM3B_Tieng+"|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model2)
         }
 
         @* 3. Văn bản đồng ý của những chủ đơn khác (trường hợp nhiều người cùng có quyền nộp đơn) *@
         @{
             string _doc_id3 = "02_CGD_03";
-            string _model3 = _doc_id3 + "|6_Doc_02_CGD_03|0|Văn bản đồng ý của những chủ đơn khác (trường hợp nhiều người cùng có quyền nộp đơn)||1";
+            string _model3 = _doc_id3 + "|6_Doc_02_CGD_03|0|"+Resource.TM3C_VanBanDongY + "||1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model3)
         }
 
         @* 4. Bản dịch tiếng Việt, gồm *@
         @{
             string _doc_id4 = "02_CGD_04";
-            string _model4 = _doc_id4 + "|6_Doc_02_CGD_04|0|Bản dịch tiếng Việt, gồm|Số trang|1";
+            string _model4 = _doc_id4 + "|6_Doc_02_CGD_04|0|"+Resource.TM3B_BanDichTiengVietGom+"|"+ Resource.TM2B_SoTrang + "|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)
         }
 
         @* 5.. POA Giấy uỷ quyền bằng tiếng *@
         @{
             string _doc_id50 = "02_CGD_05";
-            string _model50 = _doc_id50 + "|6_Doc_POA|0|Giấy uỷ quyền bằng tiếng|Tiếng|1";
+            string _model50 = _doc_id50 + "|6_Doc_POA|0|"+Resource.TM3B_GiayUyQuyenBangTieng+"|"+Resource.TM3B_Tieng+"|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model50)
         }
 
         @* 6 -> 5.1  Bản dịch tiếng Việt, gồm *@
         @{
             string _doc_id51 = "02_CGD_06";
-            string _model51 = _doc_id51 + "|6_Doc_BanDichPOA|1|Bản dịch tiếng Việt, gồm|Số trang|1";
+            string _model51 = _doc_id51 + "|6_Doc_BanDichPOA|1|"+Resource.TM3B_BanDichTiengVietGom+"|"+Resource.TM2B_SoTrang+"|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model51)
         }
 
         @* 7 -> 5.2 Bản gốc *@
         @{
             string _doc_id6 = "02_CGD_07";
-            string _model6 = _doc_id6 + "|6_Doc_BanGocPOA|1|Bản gốc||1";
+            string _model6 = _doc_id6 + "|6_Doc_BanGocPOA|1|"+Resource.TM2B_BanGoc+"||1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model6)
         }
 
         @* 8 -> 5.3 Bản sao *@
         @{
             string _doc_id7 = "02_CGD_08";
-            string _model7 = _doc_id7 + "|6_Doc_BanSaoPOA|1|Bản sao||0";
+            string _model7 = _doc_id7 + "|6_Doc_BanSaoPOA|1|"+Resource.TM2B_BanSao+"||0";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model7)
         }
 
@@ -231,14 +230,14 @@
         @* 9 -> 5.3.1 Bản sao  > Bản gốc sẽ nộp sau *@
         @{
             string _doc_id8 = "02_CGD_09";
-            string _model8 = _doc_id8 + "|6_Doc_BanGocPOA_Later|2|Bản gốc sẽ nộp sau||1";
+            string _model8 = _doc_id8 + "|6_Doc_BanGocPOA_Later|2|"+Resource.TM2B_BanGocSeNopSau+"||1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model8)
         }
 
         @* 10 -> 5.3.2 Bản sao  > Bản gốc đã nộp theo đơn *@
         @{
             string _doc_id9 = "02_CGD_10";
-            string _model9 = _doc_id9 + "|6_Doc_BanGocPOA_ByApp|2|Bản gốc đã nộp theo đơn số|Số đơn|0";
+            string _model9 = _doc_id9 + "|6_Doc_BanGocPOA_ByApp|2|"+Resource.lblBanGocNopTheoDonSo+"|"+Resource.TM3B_SoDon+"|0";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model9)
         }
 
@@ -246,28 +245,32 @@
 
         @* 11. Bản sao chứng từ nộp phí *@
         @{
+
             string _doc_id10 = "02_CGD_11";
-            string _model10 = _doc_id10 + "|6_Doc_BanSaoChungTu|0|Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ)||1";
+            string _model10 = _doc_id10 + "|6_Doc_BanSaoChungTu|0|"+ Resource.TM3B_BanSaoChungTuNopPhi + "||1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model10)
         }
 
         @* 12. Khác *@
         @{
+
             string _doc_id11 = "02_CGD_12";
-            string _model11 = _doc_id11 + "|6_Doc_Other|0|Tài liệu khác, cụ thể|Tên tài liệu|1";
+            string _model11 = _doc_id11 + "|6_Doc_Other|0|"+ Resource.TM3B_TaiLieuKhac + "|"+ Resource.TM3B_TaiLieuKhacTenTaiLieu + "|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model11)
         }
 
         @* Cam kết của chủ đơn *@
         @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml")
 
+
         <div class="class_save">
             <div class="classGuiDon">
-                <input type="button" value="Gửi đơn" id="btnGuiDon" class="btn" />
+                <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
             </div> <div class="classLuuTam">
-                <input type="button" value="Lưu tạm" id="btnLuuTam" class="btn" />
+                <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
             </div>
         </div>
+
     </fieldset>
 </div>
 
@@ -339,7 +342,7 @@
             var v_AppCode = $("#txtAppCode").val();
             if (v_AppCode === "") {
                 $('#txtAppCode').focus().val('');
-                showError('Chưa chọn loại đơn đăng ký!');
+                showError('@Resource.TM3B_ChonLoaiDonDK');
                 return false;
             }
             formData.append("pInfo.Appcode", v_AppCode);
@@ -350,7 +353,7 @@
             }
             var Master_Type = $("input[name='1_rdoChuDon']:checked").val();
             if (Master_Type === "" || Master_Type == undefined) {
-                jError("Phải chọn ít nhất 1 giá trị chủ đơn!", "lỗi", function () {
+                jError("@Resource.TM3C_ChonChuDon", "@Resource.TM3B_Loi", function () {
                     $("#rb_1_ChuDonChuyenNhuong").focus()
                 });
                 return false;
@@ -365,7 +368,7 @@
 
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                jError("Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!", "lỗi", function () {
+                jError("@Resource.TM2B_ChonDaiDienChuDon", "@Resource.TM3B_Loi", function () {
                     $("#_2_rdoNguoiDaiDienPL").focus()
                 });
                 return false;
@@ -452,7 +455,7 @@
             var v_AppCode = $("#txtAppCode").val();
             if (v_AppCode === "") {
                 $('#txtAppCode').focus().val('');
-                showError('Chưa chọn loại đơn đăng ký!');
+                showError('@Resource.TM3B_ChonLoaiDonDK');
                 return false;
             }
             formData.append("pInfo.AppCode", v_AppCode);
@@ -463,13 +466,12 @@
             }
             var Master_Type = $("input[name='1_rdoChuDon']:checked").val();
             if (Master_Type === "" || Master_Type == undefined) {
-                jError("Phải chọn ít nhất 1 giá trị chủ đơn!", "lỗi", function () {
+                jError("@Resource.TM3C_ChonChuDon", "@Resource.TM3B_Loi", function () {
                     $("#rb_1_ChuDonChuyenNhuong").focus()
                 });
                 return false;
             }
             formData.append("pDetail.Master_Type", v_RepMasterType);
-
 
             // đại diện chủ đơn
             if (funcThongTinDaiDienChuDon(formData, "2") != true) {
@@ -478,7 +480,7 @@
 
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                jError("Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!", "lỗi", function () {
+                jError("@Resource.TM2B_ChonDaiDienChuDon", "@Resource.TM3B_Loi", function () {
                     $("#_2_rdoNguoiDaiDienPL").focus()
                 });
                 return false;
@@ -521,11 +523,11 @@
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
                     if (data != null && data.status >= 0) {
-                        jAlert('Lưu tạm đơn thành công!', "THÔNG BÁO", function () {
+                        jAlert('@Resource.TM3B_LuuTamThanhCong', "@Resource.TM3C_ThongBao", function () {
                             window.location = "/trade-mark-mana/quan-ly-don";
                         });
                     } else {
-                        jError("Lưu tạm đơn không thành công");
+                        jError("@Resource.TM3B_LuuTamLoi");
                     }
                 },
                 error: function (e) {
@@ -550,7 +552,7 @@
 
             var txt_MaDaiDien = $("#txt_MaDaiDien").val();
             if (txt_MaDaiDien == "") {
-                jError("Mã đại diện không được để trống!", "lỗi", function () {
+                jError("@Resource.TM3C_MaDaiDienKhongDuocTrong", "@Resource.TM3B_Loi", function () {
                     $("#txt_MaDaiDien").focus()
                 });
                 return false;
@@ -559,7 +561,7 @@
 
             var _DonDuocChuyenNhuong = $("input[name='4_rdoDonDuocChuyenNhuong']:checked").val();
             if (_DonDuocChuyenNhuong === "" || _DonDuocChuyenNhuong == undefined) {
-                jError("Phải chọn ít nhất 1 giá trị đơn yêu cầu chuyển nhượng!", "lỗi", function () {
+                jError("@Resource.TM3C_ChonGiaTriYeuCauChuyenNhuong", "@Resource.TM3B_Loi", function () {
                     $("#4_rdDK_SC").focus()
                 });
                 return false;
@@ -569,7 +571,7 @@
             // số đơn
             var _4_txt_SoDon = $("#4_txt_SoDon").val();
             if (_4_txt_SoDon === "" || _4_txt_SoDon == undefined) {
-                jError("Số đơn không được để trống!", "lỗi", function () {
+                jError("@Resource.TM3B_SoDonKhongDuocDeTrong", "@Resource.TM3B_Loi", function () {
                     $("#4_txt_SoDon").focus()
                 });
                 return false;
@@ -577,7 +579,7 @@
             formData.append("pDetail.Transfer_Appno", _4_txt_SoDon);
         } catch (e) {
             console.log(e);
-            showError('Có lỗi xảy ra kiểm tra kết nối internet');
+            showError('@Resource.TM3B_InternetError');
             return false;
         }
     }

@@ -6,10 +6,10 @@
         _App_Detail = (App_Detail_PLB02_CGD_Info)ViewBag.App_Detail;
     }
 }
-
+@using WebApps.Resources;
 <div class="div-search-ad">
     <div class="div-search-title">
-        <div> Tên đầy đủ:</div>
+        <div> @Resource.lblTenDayDu:</div>
     </div>
     <div class="div-search-content">
         <div>
@@ -21,7 +21,7 @@
 
 <div class="div-search-ad">
     <div class="div-search-title">
-        <div> Địa chỉ: </div>
+        <div> @Resource.lblDiaChi: </div>
     </div>
     <div class="div-search-content">
         <div>
@@ -32,7 +32,7 @@
 
 <div class="div-search-ad">
     <div class="div-search-title">
-        <div> Điện thoại: </div>
+        <div> @Resource.lblDienThoai: </div>
     </div>
     <div class="div-search-content">
         <div>
