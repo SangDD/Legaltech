@@ -201,6 +201,10 @@ namespace WebApps.Areas.Manager.Controllers
                     foreach (var item in p_SearchObject_Detail_Info)
                     {
                         Search_Fix_Info _Search_Fix_Info = new Search_Fix_Info();
+                        _Search_Fix_Info.Search_Object = item.SEARCH_OBJECT;
+                        _Search_Fix_Info.Search_Type = item.SEARCH_TYPE;
+                        _Search_Fix_Info.Country_Id = p_searchHeaderInfo.Country_Id;
+
                         if (pAppClassInfo != null)
                             _Search_Fix_Info.Number_Of_Class = pAppClassInfo.Count;
                         else
@@ -344,6 +348,9 @@ namespace WebApps.Areas.Manager.Controllers
                     foreach (var item in p_SearchObject_Detail_Info)
                     {
                         Search_Fix_Info _Search_Fix_Info = new Search_Fix_Info();
+                        _Search_Fix_Info.Search_Object = item.SEARCH_OBJECT;
+                        _Search_Fix_Info.Search_Type = item.SEARCH_TYPE;
+                        _Search_Fix_Info.Country_Id = p_searchHeaderInfo.Country_Id;
                         if (pAppClassInfo != null)
                             _Search_Fix_Info.Number_Of_Class = pAppClassInfo.Count;
                         else

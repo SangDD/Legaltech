@@ -96,23 +96,13 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @maxlength = "50", @onblur = "onChangeApp_Case_Code()", @style = "width: 250px" })
-                </div>
-            </div>
-
-
-            <div class="div-search-title">
-                <div>Người xét duyệt<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.DropDownList("Approve_By", lstUsersAdmin, new { @id = "Approve_By" })
+                    @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @maxlength = "50", @onblur = "onChangeApp_Case_Code()" })
                 </div>
             </div>
         </div>
 
         <div id="divInfoApp" style="margin-top: 10px;">
-            @Html.Partial("~/Areas/Manager/Views/Billing/_Partial_AppInfo.cshtml")
+            @Html.Partial("~/Areas/Manager/Views/Billing_Search/_Partial_SearchInfo.cshtml")
         </div>
 
         <div class="div-search-ad">
@@ -206,10 +196,8 @@
         </div>
 
         <div id="divDataBillingDetail" class="divDataTables" style="overflow-x: auto;">
-            @Html.Partial("~/Areas/Manager/Views/Billing/_PartialDetail_Insert_Billing.cshtml")
+            @Html.Partial("~/Areas/Manager/Views/Billing_Search/_PartialDetail_Insert_Billing.cshtml")
         </div>
-
-
 
     </div>
 
@@ -245,7 +233,7 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: '/quan-ly-billing/danh-sach-billing/GetAppByCaseCode',
+                    url: '/quan-ly-billing-search/GetAppByCaseCode',
                     data: {
                         p_case_code: _App_Case_Code,
                     },
@@ -264,8 +252,6 @@
                         else {
                             $("#divInfoApp").html(data.Partial_AppInfo);
                             $("#divDataBillingDetail").html(data.PartialDetail_Insert_Billing);
-
-                            //CssPopUpTag("divWrapperPopUpBilling", ".divPopup");
                             $("#txtCaseCodeSearch").val(_App_Case_Code);
                         }
                     }
@@ -306,7 +292,7 @@
         try {
             nvsConfirm(null, "Bạn có chắc chắn muốn xóa loại fee này không?", function () {
                 $.ajax({
-                    url: '/quan-ly-billing/danh-sach-billing/do-delete-billing-detail',
+                    url: '/quan-ly-billing-search/do-delete-billing-detail',
                     type: 'POST',
                     data: {
                         p_case_code: $("#txtApp_Case_Code").val(),
@@ -341,7 +327,7 @@
 
         try {
             $.ajax({
-                url: '/quan-ly-billing/danh-sach-billing/change-other-fee',
+                url: '/quan-ly-billing-search/change-other-fee',
                 type: 'POST',
                 data: {
                     p_case_code: $("#txtApp_Case_Code").val(),
@@ -371,7 +357,7 @@
                 var formData = new FormData();
                 collectData(formData);
                 $.ajax({
-                    url: '/quan-ly-billing/danh-sach-billing/do-insert-billing',
+                    url: '/quan-ly-billing-search/do-insert-billing',
                     type: 'POST',
                     data: formData,
                     async: true, traditional: true, contentType: false, processData: false,
@@ -441,7 +427,7 @@
             // hearder
             formData.append('p_Billing_Header_Info.Case_Code', $("#txtCaseCode").val());
             formData.append('p_Billing_Header_Info.App_Case_Code', $("#txtApp_Case_Code").val());
-            formData.append('p_Billing_Header_Info.Billing_Type', '@Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Type.App)');
+            formData.append('p_Billing_Header_Info.Billing_Type', '@Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Type.Search)');
 
             formData.append('p_Billing_Header_Info.Billing_Date', $("#txtBilling_Date").val());
             formData.append('p_Billing_Header_Info.Deadline', $("#txtDeadline").val());

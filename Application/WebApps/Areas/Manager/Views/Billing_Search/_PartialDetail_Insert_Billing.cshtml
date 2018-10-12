@@ -1,0 +1,138 @@
+﻿@using Common.CommonData
+@using Common.Extensions
+@using BussinessFacade.ModuleMemoryData
+@using ObjectInfos;
+@{
+    List<Billing_Detail_Info> _list_data = new List<Billing_Detail_Info>();
+    if (ViewBag.List_Billing != null)
+    {
+        _list_data = ViewBag.List_Billing;
+    }
+
+    decimal _Operator_Type = (decimal)Common.CommonData.CommonEnums.Operator_Type.Insert;
+    if (ViewBag.Operator_Type != null)
+    {
+        _Operator_Type = (decimal)ViewBag.Operator_Type;
+    }
+
+    SearchObject_Header_Info _objSearch_HeaderInfo = new SearchObject_Header_Info();
+    if (ViewBag.objSearch_HeaderInfo != null)
+    {
+        _objSearch_HeaderInfo = (SearchObject_Header_Info)ViewBag.objSearch_HeaderInfo;
+    }
+
+    decimal _tax = Common.Common.Tax;
+    decimal _Tex_Fee = 0;
+    decimal _Total_Pre_Tex = 0;
+    decimal _Total_Amount = 0;
+
+
+    foreach (Billing_Detail_Info item in _list_data)
+    {
+        _Total_Pre_Tex = _Total_Pre_Tex + item.Total_Fee;
+        _Tex_Fee = Math.Round(_Total_Pre_Tex / 100 * _tax);
+        _Total_Amount = _Total_Pre_Tex + _Tex_Fee;
+    }
+}
+
+<div>
+    <input type="hidden" id="txt_Total_Pre_Tex" value="@_Total_Pre_Tex" />
+    <input type="hidden" id="txt_Tex_Fee" value="@_Tex_Fee" />
+    <input type="hidden" id="txt_Total_Amount" value="@_Total_Amount" />
+</div>
+
+<div>
+    <table class="table-lst-data" id="tableListGroupUser">
+        <thead>
+            <tr>
+                <th class="class300">Mô tả công việc</th>
+                <th class="class100">Phí dịch vụ</th>
+                <th class="class150" style="font-weight:bold">Tổng</th>
+                @if (_Operator_Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert))
+                {
+                    <th class="class80"></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @if (_list_data.Count > 0)
+            {
+                foreach (var item in _list_data)
+                {
+                    <tr>
+                        <td class="tdleftalign">@item.Biling_Detail_Name</td>
+
+                        @if (item.Type != Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Detail_Type.Service))
+                        {
+                            <td class="tdrightalign">@item.Service_Fee.ToString("#,##0.##")</td>
+                        }
+                        else
+                        {
+                            if (_Operator_Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.View) || _Operator_Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Approve))
+                            {
+                                <td class="tdrightalign">@item.Service_Fee.ToString("#,##0.##")</td>
+                            }
+                            else
+                            {
+                                <td class="tdrightalign">
+                                    <input type="text" style="width:100px" id="txtService_Fee" value="@item.Service_Fee.ToString("#,##0.##")" onkeyup="jsFormatNumber(this.value, this.id)" onblur="onChangeOthersFee(this.value)" />
+                                </td>
+                            }
+                        }
+
+                        <td class="tdrightalign" style="font-weight:bold">@item.Total_Fee.ToString("#,##0.##")</td>
+                        @if (_Operator_Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert))
+                        {
+                            <td class="tdcenteralign">
+                                <a href="javascript:;" onclick="doDeleteBillingDetail(@item.Ref_Id, @item.Type)" class="icon icon-delete" data-title="Xóa"></a>
+                            </td>
+                        }
+                    </tr>
+                }
+
+                <tr>
+                    <td class="tdleftalign" style="font-weight:bold">Tổng trước thuế</td>
+                    <td class="tdrightalign">-</td>
+                    <td class="tdrightalign" style="font-weight:bold">@_Total_Pre_Tex.ToString("#,##0.##")</td>
+                    @if (_Operator_Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert))
+                    {
+                        <td class="tdrightalign"></td>
+                    }
+                </tr>
+
+                <tr>
+                    <td class="tdleftalign" style="font-weight:bold">Thuế & phí NH (5%)</td>
+                    <td class="tdrightalign">-</td>
+                    <td class="tdrightalign" style="font-weight:bold">@_Tex_Fee.ToString("#,##0.##")</td>
+                    @if (_Operator_Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert))
+                    {
+                        <td class="tdrightalign"></td>
+                    }
+                </tr>
+
+                <tr>
+                    <td class="tdleftalign" style="font-weight:bold">Tổng cộng (@_objSearch_HeaderInfo.Currency_Type)</td>
+                    <td class="tdrightalign">-</td>
+                    <td class="tdrightalign" style="font-weight:bold; color: red">@_Total_Amount.ToString("#,##0.##")</td>
+                    @if (_Operator_Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert))
+                    {
+                        <td class="tdrightalign"></td>
+                    }
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    @if (_Operator_Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert))
+                    {
+                        <td colspan="4">Không có dữ liệu</td>
+                    }
+                    else
+                    {
+                        <td colspan="3">Không có dữ liệu</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

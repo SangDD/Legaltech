@@ -91,7 +91,8 @@
         public enum Billing_Type
         {
             App = 1,
-            Search = 2
+            Search = 2,
+            Question = 3
         }
 
         public enum Billing_Detail_Type

@@ -307,30 +307,6 @@
         });
     }
 
-    function getView2ChangeStatus(_id, _app_case_code) {
-        if (CheckSessionTimeOut() == false) {
-            return false;
-        }
-
-        $.ajax({
-            type: "POST",
-            url: "/quan-ly-billing/danh-sach-billing/show-change-status/",
-            dataType: "html",
-            data: {
-                p_id: _id,
-                p_app_case_code: _app_case_code
-            },
-            async: false, cache: false, traditional: true,
-            success: function (data) {
-                if (data != null) {
-                    $("#divPopUpBilling").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpBilling', "Sửa thông tin billing", 750, 800, "txtApp_Case_Code");
-                }
-                return false;
-            }
-        });
-    }
-
     function ClosePopUpBilling() {
         CloseDivPopUp('divWrapperPopUpBilling');
     }

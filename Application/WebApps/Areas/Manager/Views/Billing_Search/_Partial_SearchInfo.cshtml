@@ -1,0 +1,123 @@
+﻿@using ObjectInfos;
+@using BussinessFacade.ModuleMemoryData
+@{
+    /**/
+
+    SearchObject_Header_Info _SearchObject_Header_Info = new SearchObject_Header_Info();
+    if (ViewBag.objSearch_HeaderInfo != null)
+    {
+        _SearchObject_Header_Info = (SearchObject_Header_Info)ViewBag.objSearch_HeaderInfo;
+    }
+
+    List<AllCodeInfo> _lstCurrencyRate = MemoryData.AllCode_GetBy_CdTypeCdName("CURRENCY", "RATE");
+    string _currency_rate = Convert.ToDecimal(_lstCurrencyRate[0].CdVal).ToString("#,##0");
+
+    Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
+    if (ViewBag.Billing_Header_Info != null)
+    {
+        _Billing_Header_Info = (Billing_Header_Info)ViewBag.Billing_Header_Info;
+    }
+}
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div>Case name</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" style="width: 250px;" id="txtCaseName" disabled="disabled" value="@_SearchObject_Header_Info.CASE_NAME" />
+        </div>
+    </div>
+
+    <div class="div-search-title">
+        <div>Client Reference</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" id="txtClient_Reference" disabled="disabled" value="@_SearchObject_Header_Info.CLIENT_REFERENCE" />
+        </div>
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div>Tên khách hàng</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" style="width: 250px;" id="txtCustomerName" disabled="disabled" value="@_SearchObject_Header_Info.Customer_Name" />
+        </div>
+    </div>
+
+    <div class="div-search-title">
+        <div>Địa chỉ</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" id="txtAddress" disabled="disabled" value="@_SearchObject_Header_Info.Customer_Address" />
+        </div>
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div>Luật sư xử lý</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" id="txtLawer_Name" disabled="disabled" value="@_SearchObject_Header_Info.LAWER_NAME" style="width:250px"/>
+            <input type="hidden" id="txtRequest_By" value="@_SearchObject_Header_Info.Lawer_User_Name" />
+        </div>
+    </div>
+
+    <div class="div-search-title">
+        <div>Người xét duyệt</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" id="txtLawer_Name" disabled="disabled" value="@_SearchObject_Header_Info.ADMIN_NAME" />
+            <input type="hidden" id="txtApprove_By" value="@_SearchObject_Header_Info.Admin_User_Name" />
+        </div>
+    </div>
+</div>
+
+@*<input type="hidden" id="txtIsCurrency" value="@_IsCurrency" />*@
+
+@if (_SearchObject_Header_Info.Currency_Type == Common.Common.Currency_Type_VND)
+{
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Loại ngoại tệ<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                @*@Html.DropDownList("Currency", lstCurrency, new { @id = "cboCurrency", @style = "width: 250px;" })*@
+                <input type="hidden" id="txtCurrency_Rate" value="1" />
+                <input type="text" id="txtCurrency" value="@_SearchObject_Header_Info.Currency_Type" disabled="disabled" />
+            </div>
+        </div>
+    </div>
+}
+else if (_SearchObject_Header_Info.Currency_Type == Common.Common.Currency_Type_USD)
+{
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Loại ngoại tệ<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="hidden" id="txtCurrency_Rate" value="1" />
+                <input type="text" id="txtCurrency" value="@_SearchObject_Header_Info.Currency_Type" disabled="disabled" style="width:250px" />
+            </div>
+        </div>
+
+        <div class="div-search-title">
+            <div>Tỷ giá<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtCurrency_Rate" disabled="disabled" value="@_currency_rate" />
+            </div>
+        </div>
+    </div>
+}

@@ -439,9 +439,6 @@ namespace DataAccess
                 decimal[] p_amount = new decimal[numberRecord];
                 decimal[] p_amount_usd = new decimal[numberRecord];
 
-                string[] Code = new string[numberRecord];
-                string[] Language = new string[numberRecord];
-                DateTime[] Document_Filling_Date = new DateTime[numberRecord];
                 for (int i = 0; i < pInfo.Count; i++)
                 {
                     _search_id[i] = p_search_id;
@@ -502,6 +499,43 @@ namespace DataAccess
             {
                 Logger.LogException(ex);
                 return ErrorCode.Error;
+            }
+        }
+
+        public DataSet GetBilling_By_Case_Code(string p_case_code, string p_user_name, string p_language_code)
+        {
+            try
+            {
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_search_fee.proc_getByCaseCode_billing",
+                    new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
+                    new OracleParameter("p_user_name", OracleDbType.Varchar2, p_user_name, ParameterDirection.Input),
+                    new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_detail", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
+        public int Update_Url_Billing(string p_case_code, string p_url_billing)
+        {
+            try
+            {
+                var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
+                OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SEARCH_OBJECTS.proc_update_url_billing",
+                    new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
+                    new OracleParameter("p_status", OracleDbType.Varchar2, p_url_billing, ParameterDirection.Input),
+                    paramReturn);
+                var result = Convert.ToInt32(paramReturn.Value.ToString());
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
             }
         }
     }

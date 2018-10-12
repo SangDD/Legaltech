@@ -75,9 +75,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @*@Html.TextBoxFor(m => m.Case_Code, new { id = "txtCaseCode", @maxlength = "50", @disabled = "disabled", @style = "width: 250px" })*@
-                    <input type="text" value="@Model.Case_Code" disabled="disabled" style = "width: 250px"/>
-                    @*<input type="hidden" id="txtCaseCodeSearch" value="@Model.Case_Code"/>*@
+                    <input type="text" value="@Model.Case_Code" disabled="disabled" style="width: 250px" />
                 </div>
             </div>
 
@@ -86,23 +84,30 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @maxlength = "50", @style = "width: 250px", @disabled = "disabled" })
+                    @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @maxlength = "50", @disabled = "disabled" })
                 </div>
             </div>
 
 
-            <div class="div-search-title">
+            @*<div class="div-search-title">
                 <div>Người xét duyệt<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
                     @Html.DropDownList("Approve_By", lstUsersAdmin, new { @id = "Approve_By", @disabled = "disabled" })
                 </div>
-            </div>
+            </div>*@
         </div>
 
         <div id="divInfoApp" style="margin-top: 10px;">
-            @Html.Partial("~/Areas/Manager/Views/Billing/_Partial_AppInfo.cshtml")
+            @if (Model.App_Case_Code.Contains("SEARCH"))
+            {
+                @Html.Partial("~/Areas/Manager/Views/Billing_Search/_Partial_SearchInfo.cshtml")
+            }
+            else
+            {
+                @Html.Partial("~/Areas/Manager/Views/Billing/_Partial_AppInfo.cshtml")
+            }
         </div>
 
         <div class="div-search-ad">
@@ -197,14 +202,29 @@
         </div>
 
         <div id="divDataBillingDetail" class="divDataTables" style="overflow-x: auto;">
-            @Html.Partial("~/Areas/Manager/Views/Billing/_PartialDetail_Insert_Billing.cshtml")
+            @if (Model.App_Case_Code.Contains("SEARCH"))
+            {
+                @Html.Partial("~/Areas/Manager/Views/Billing_Search/_PartialDetail_Insert_Billing.cshtml")
+            }
+            else
+            {
+                @Html.Partial("~/Areas/Manager/Views/Billing/_PartialDetail_Insert_Billing.cshtml")
+            }
         </div>
 
     </div>
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;margin-top: 5px;">
-            <input type="submit" class="btn-default" value="Kết xuất" onclick="return onExport('@Model.Case_Code')" />
+            @if (Model.App_Case_Code.Contains("SEARCH"))
+            {
+                <input type="submit" class="btn-default" value="Kết xuất" onclick="return onExport('@Model.Case_Code',2)" />
+            }
+            else
+            {
+                <input type="submit" class="btn-default" value="Kết xuất" onclick="return onExport('@Model.Case_Code',1)" />
+            }
+
             <input type="submit" class="btn-default" value="Thoát" onclick="return onBack()" />
         </div>
     </div>
@@ -232,16 +252,21 @@
         }
     }
 
-    function onExport(_Case_Code) {
+    function onExport(_Case_Code, _type) {
         try {
 
             if (CheckSessionTimeOut() == false) {
                 return false;
             }
 
+            var _url = "/quan-ly-billing/danh-sach-billing/do-export-billing";
+            if (_type == 2) {
+                _url = "/quan-ly-billing-search/danh-sach-billing/do-export-billing";
+            }
+
             nvsConfirm(null, "Bạn có chắc chắn muốn kết xuất billing này không?", function () {
                 $.ajax({
-                    url: "/quan-ly-billing/danh-sach-billing/do-export-billing",
+                    url: _url,
                     type: "POST",
                     data: {
                         p_case_code: _Case_Code
@@ -253,12 +278,16 @@
                     },
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
+                        console.log(data.success);
                         if (data.success == "-1") {
                             jError("Lỗi check lại kết nối tới server");
                             return false;
                         }
                         else {
-                            jAlert('Kết xuất billing thành công!');
+                            jAlert('Kết xuất billing thành công!', "THÔNG BÁO", function () {
+                                OpenPreview("/quan-ly-billing/Pre-View?p_filename=" + data.success);
+                            });
+
                         }
                     },
                     error: function (e) {
@@ -272,5 +301,17 @@
             alert(e);
         }
     }
- 
+
+    function OpenPreview(url) {
+        try {
+            w = 1100; //độ rộng form popup
+            h = 600;//chiều cao
+            var left = (screen.width - w) / 2;
+            var top = (screen.height - h) / 4;  // for 25% - devide by 4  |  for 33% - devide by 3
+            var targetWin = window.open(url, 'Xem thông tin hóa đơn', 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+
+        } catch (e) {
+        }
+    }
+
 </script>
