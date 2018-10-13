@@ -86,19 +86,19 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @maxlength = "50", @onblur = "onChangeApp_Case_Code()", @style = "width: 250px", @disabled = "disabled" })
+                    @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @maxlength = "50", @onblur = "onChangeApp_Case_Code()", @disabled = "disabled" })
                 </div>
             </div>
 
 
-            <div class="div-search-title">
+            @*<div class="div-search-title">
                 <div>Người xét duyệt<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
                     @Html.DropDownList("Approve_By", lstUsersAdmin, new { @id = "Approve_By", @disabled = "disabled" })
                 </div>
-            </div>
+            </div>*@
         </div>
 
         <div id="divInfoApp" style="margin-top: 10px;">

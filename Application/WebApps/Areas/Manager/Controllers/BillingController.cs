@@ -693,6 +693,10 @@ namespace WebApps.Areas.Manager.Controllers
                 else
                 {
                     _Billing_Header_Info = _obj_bl.Billing_GetBy_Code(case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
+                    if(_Billing_Header_Info.Billing_Type == (decimal)CommonEnums.Billing_Type.Search)
+                    {
+                        _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Code(case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
+                    }
                 }
 
 
