@@ -209,6 +209,7 @@
     <Compile Include="CommonFunction\AppLoadHelpers.cs" />
     <Compile Include="CommonFunction\AppsCommon.cs" />
     <Compile Include="CommonFunction\Email.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="CrytalReport_MVC\Report_Viewer.aspx.cs">
       <DependentUpon>Report_Viewer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1179,6 +1180,47 @@
     <Content Include="Content\images\Vietnam-16.png" />
     <Content Include="Content\images\Vietnam-24.png" />
     <Content Include="Content\images\yellow.png" />
+    <Content Include="Content\News\Css\bootstrap.css" />
+    <Content Include="Content\News\Css\css.css" />
+    <Content Include="Content\News\Css\font-awesome.css" />
+    <Content Include="Content\News\Css\jquery.dropdown.min.css" />
+    <Content Include="Content\News\Css\learndash_template_style.css" />
+    <Content Include="Content\News\Css\main.css" />
+    <Content Include="Content\News\Css\register.css" />
+    <Content Include="Content\News\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\News\images\001.jpg" />
+    <Content Include="Content\News\images\001.png" />
+    <Content Include="Content\News\images\002.jpg" />
+    <Content Include="Content\News\images\002.png" />
+    <Content Include="Content\News\images\003.jpg" />
+    <Content Include="Content\News\images\003.png" />
+    <Content Include="Content\News\images\004.jpg" />
+    <Content Include="Content\News\images\004.png" />
+    <Content Include="Content\News\images\005.jpg" />
+    <Content Include="Content\News\images\005.png" />
+    <Content Include="Content\News\images\006.jpg" />
+    <Content Include="Content\News\images\006.png" />
+    <Content Include="Content\News\images\02.PNG" />
+    <Content Include="Content\News\images\03.jpg" />
+    <Content Include="Content\News\images\04.jpg" />
+    <Content Include="Content\News\images\bg02.png" />
+    <Content Include="Content\News\images\bg03.png" />
+    <Content Include="Content\News\images\Canon.jpg" />
+    <Content Include="Content\News\images\favicon.ico" />
+    <Content Include="Content\News\images\frame-blue.png" />
+    <Content Include="Content\News\images\frame-red.png" />
+    <Content Include="Content\News\images\frame-yellow.jpg" />
+    <Content Include="Content\News\images\golf.jpg" />
+    <Content Include="Content\News\images\iPhone.jpg" />
+    <Content Include="Content\News\images\logo_ipace-1.png" />
+    <Content Include="Content\News\images\logo_ipace.png" />
+    <Content Include="Content\News\images\MH370.jpg" />
+    <Content Include="Content\News\images\Phim.jpg" />
+    <Content Include="Content\News\images\Tesla.jpg" />
+    <Content Include="Content\News\scripts\analytics.js" />
+    <Content Include="Content\News\scripts\app.js" />
+    <Content Include="Content\News\scripts\jquery-3.2.1.min.js" />
+    <Content Include="Content\News\scripts\vendors.js" />
     <Content Include="Content\social-likes\social-likes.min.js" />
     <Content Include="Content\social-likes\social-likes_classic.css" />
     <Content Include="Content\WikiStyle.css" />
@@ -1525,6 +1567,14 @@
     <Content Include="Areas\Manager\Views\Billing_Search\_Partial_SearchInfo.cshtml" />
     <Content Include="Areas\Manager\Views\Billing_Search\_PartialDetail_Insert_Billing.cshtml" />
     <Content Include="Areas\Home\Views\Shared\_Partial_Quick_Notify.cshtml" />
+    <Content Include="Content\News\fonts\Canela-Bold.woff" />
+    <Content Include="Content\News\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\News\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\News\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\News\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\News\fonts\FontAwesome.otf" />
+    <Content Include="Content\News\fonts\Graphik-Medium.woff" />
+    <Content Include="Content\News\fonts\Graphik-SemiBold.woff" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <Content Include="Areas\Home\Views\Wiki\_PartialListDocByCata.cshtml" />
@@ -1834,6 +1884,8 @@
     <Content Include="ViewsShared\_LayoutPortal.cshtml" />
     <Content Include="ViewsShared\_PartialFooter.cshtml" />
     <Content Include="ViewsShared\_LayoutHome.cshtml" />
+    <Content Include="ViewsShared\_LayoutHomeNews.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Account\Models\" />

@@ -19,7 +19,7 @@
 	public class AccountController : Controller
 	{
 		// GET: Account/Login
-		[HttpGet][Route("")]
+		[HttpGet][Route("login")]
 		[AllowAnonymous]
 		public ActionResult Login(string returnUrl = "")
 		{

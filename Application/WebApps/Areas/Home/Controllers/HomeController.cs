@@ -18,8 +18,11 @@
  
     public class HomeController : Controller
     {
+        // GET: Home/index
+      
+
         // GET: Home/Home
-	    [HttpGet][Route("home")]
+        [HttpGet][Route("home")]
 	    public ActionResult KnHome()
 	    {
             if (SessionData.CurrentUser == null)

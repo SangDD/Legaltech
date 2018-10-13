@@ -13,6 +13,8 @@ namespace WebApps.Areas.Articles
                 "Articles/{controller}/{action}/{id}/{id2}",
                 new { action = "Index", id = UrlParameter.Optional, id2 = UrlParameter.Optional }, new[] { "WebApps.Controllers" }
             );
+
+
         }
     }
 }
