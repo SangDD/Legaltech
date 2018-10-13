@@ -181,6 +181,7 @@
     <Compile Include="Areas\Manager\Controllers\BillingController.cs" />
     <Compile Include="Areas\Manager\Controllers\Billing_SearchController.cs" />
     <Compile Include="Areas\Manager\Controllers\DockingController.cs" />
+    <Compile Include="Areas\Manager\Controllers\NotifyController.cs" />
     <Compile Include="Areas\Manager\Controllers\SearchManageController.cs" />
     <Compile Include="Areas\Manager\Controllers\TimeSheetController.cs" />
     <Compile Include="Areas\Manager\ManagerAreaRegistration.cs" />
@@ -1525,6 +1526,8 @@
     <Content Include="Areas\Manager\Views\Billing_Search\_Partial_SearchInfo.cshtml" />
     <Content Include="Areas\Manager\Views\Billing_Search\_PartialDetail_Insert_Billing.cshtml" />
     <Content Include="Areas\Home\Views\Shared\_Partial_Quick_Notify.cshtml" />
+    <Content Include="Areas\Manager\Views\Notify\Notify_Display.cshtml" />
+    <Content Include="Areas\Manager\Views\Notify\_PartialTableNotify.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <Content Include="Areas\Home\Views\Wiki\_PartialListDocByCata.cshtml" />
