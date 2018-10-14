@@ -276,10 +276,77 @@ namespace WebApps.Areas.Articles.Controllers
                 return View();
             }
         }
-         
 
 
 
+        /// <summary>
+        /// Danh sách bài viết 
+        /// </summary>
+        /// <param name="pCategory"></param>
+        /// <param name="pTitile"></param>
+        /// <param name="pPage"></param>
+        /// <param name="pStatus"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("search-news-home-page")]
+        public ActionResult ArticlesHomePage(string pCategory, string pTitile, int pPage, int pStatus)
+        {
+            try
+            {
+                ViewBag.Status = pStatus;
+                //Nếu bài chờ xử lý thì lấy danh sách các bài đã gửi 
+                if (pStatus == Status.ChoXuly)
+                {
+                    pStatus = Status.VietBai;
+                }
+                int from = (pPage - 1) * (Common.Common.RecordOnpage);
+                int to = (pPage) * (Common.Common.RecordOnpage);
+                decimal _total_record = 0;
+                NewsBL objBL = new NewsBL();
+                string language = AppsCommon.GetCurrentLang();
+                string _keySearch = pStatus.ToString() + "|ALL|" + language + "|" + pCategory + "|" + pTitile;
+                List<NewsInfo> _lst = objBL.ArticleHomeSearch(_keySearch, ref _total_record, from.ToString(), to.ToString());
+                string htmlPaging = CommonFuc.Get_HtmlPaging<NewsInfo>((int)_total_record, pPage, "Tin");
+                ViewBag.listArticles = _lst;
+                ViewBag.Paging = htmlPaging;
+                ViewBag.SumRecord = _total_record;
+                ViewBag.lstCategory = MemoryData.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
+                return View("~/Areas/Articles/Views/ArticlesNews/_HomeArticles.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return View();
+            }
+        }
+
+        [HttpGet]
+        [Route("news-home-page")]
+        public ActionResult GetNewsHomePage()
+        {
+            try
+            {
+                decimal pStatus = 7;
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+                decimal _total_record = 0;
+                NewsBL objBL = new NewsBL();
+                //string _status = "ALL";
+                string language = AppsCommon.GetCurrentLang();
+                string _keySearch = pStatus.ToString() + "|ALL|" + language + "|ALL";
+                List<NewsInfo> _lst = objBL.ArticleHomeSearch(_keySearch, ref _total_record);
+                string htmlPaging = CommonFuc.Get_HtmlPaging<NewsInfo>((int)_total_record, 1, "Tin");
+                ViewBag.listArticles = _lst;
+                ViewBag.Paging = htmlPaging;
+                ViewBag.SumRecord = _total_record;
+                return View("~/Areas/Articles/Views/ArticlesNews/_HomeArticles.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return View();
+            }
+        }
 
     }
 }

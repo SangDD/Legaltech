@@ -1,0 +1,22 @@
+﻿@using WebApps.CommonFunction
+@using ObjectInfos;
+@using BussinessFacade.ModuleMemoryData
+@{
+    var listArticles = new List<NewsInfo>();
+    if (ViewBag.listArticles != null)
+    {
+        listArticles = ViewBag.listArticles;
+    }
+}
+@foreach (var item in listArticles)
+{
+    <li class="c-listing_item">
+        <a class="c-listing_link js-entry-list-item" href="javascript:;" data-id="4869">
+            <h3 class="c-listing_title">@item.Title</h3>
+            <p class="c-listing_infos -red">
+                <span class="c-listing_infos-category"><span class="category-links"><span class="u-screen-reader-text">Categories </span><span class="u-text">Khenpo on Tour</span></span></span>
+                <span class="c-listing_infos-date"><span class="u-screen-reader-text">Posted on </span><time class="entry-date published" >@item.Publictime.ToString("dddd, dd MMMM yyyy")</time></span>
+            </p>
+        </a>
+    </li>
+}

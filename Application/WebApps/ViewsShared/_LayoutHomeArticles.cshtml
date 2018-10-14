@@ -1,5 +1,4 @@
-﻿<!DOCTYPE html>
-@using Common.CommonData
+﻿@using Common.CommonData
 @using WebApps.ExtensionObject
 @using WebApps.CommonFunction;
 @{
@@ -22,8 +21,10 @@
     <link href="~/Content/News/Css/learndash_template_style.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery-ui-1.10.2.min.js"></script>
+    @*<script src="~/Content/News/scripts/analytics.js"></script>*@
     <script src="~/Scripts/messagebox/JsFormPopup.js"></script>
     <script src="~/Scripts/messagebox/popup.js"></script>
+    @*<script src="~/Content/News/scripts/jquery-3.2.1.min.js"></script>*@
     <link href="~/Content/News/Css/css.css" rel="stylesheet" />
     <script src="~/Scripts/AlertPopup/NVSAlerts.js"></script>
     <link href="~/Scripts/AlertPopup/NVSAlertCss.css" rel="stylesheet" />
@@ -86,9 +87,9 @@
                     <!--[Menutop + mobi]-->
                     <ul id="menu-main-menu" class="c-header_nav-list u-list-reset">
                         <li class="c-header_nav-item js-nav-sublink">
-                            <a href="javascript:;" onclick="return functionGetNews(); " style="color: #999;">News</a>
+                            <a href="javascript:;" onclick="return functionGetNews();" style="color: #999;">News</a>
                         </li>
-                       
+
                         <li class="c-header_nav-item js-nav-sublink">
                             <button type="button" class="c-header_nav-item-label js-nav-link">Features</button>
                             <ul class="c-header_nav-sublist u-list-reset">
@@ -223,13 +224,13 @@
                                                             </a>
                                                         </li>
                                                         @*<li class="c-navleft_category-item">
-                                                                <a class="c-navleft_category-link" href="javascript:;">
-                                                                    <span class="c-navleft_category-title">Books</span>
-                                                                    <figure class="c-navleft_category-link-arrow">
-                                                                        <i class="fa fa-long-arrow-right" aria-hidden="true" style=" color: #666;font-size: 20px;"></i>
-                                                                    </figure>
-                                                                </a>
-                                                            </li>*@
+                                                            <a class="c-navleft_category-link" href="javascript:;">
+                                                                <span class="c-navleft_category-title">Books</span>
+                                                                <figure class="c-navleft_category-link-arrow">
+                                                                    <i class="fa fa-long-arrow-right" aria-hidden="true" style=" color: #666;font-size: 20px;"></i>
+                                                                </figure>
+                                                            </a>
+                                                        </li>*@
                                                         <li class="c-navleft_category-item">
                                                             <a class="c-navleft_category-link" href="javascript:;">
                                                                 <span class="c-navleft_category-title">Contact Us</span>
@@ -267,255 +268,10 @@
                             <!--end[MenuLeft]-->
 
                             <div class="t-Khoanbetong_col-right o-layout_item">
-                                <div class="t-Khoanbetong_inner">
-                                    <div class="c-carousel" data-module="Carousel,BiographyCircles">
-                                        <div class="c-carousel_percent js-carousel-percent" style="width: 7%;"></div>
-                                        <div class="c-carousel_wrap o-layout">
-                                            <!--[Image tròn]-->
 
-                                            <div class="c-carousel_col-left o-layout_item">
-                                                <div class="c-carousel_images">
-                                                    <div class="c-carousel_circle">
-                                                        <div class="c-carousel_circle-shape -red js-circle1" style="transform: translate3d(16.7475px, 13.9599px, 0px);"></div>
-                                                    </div>
-                                                    <div class="c-carousel_circle">
-                                                        <div class="c-carousel_circle-shape -content o-background js-circle2 js-image" style="background-image: url(/Content/News/images/001.png); transform: translate3d(-5.58249px, -4.65331px, 0px);">
-                                                        </div>
-                                                        <div class="c-carousel_circle-shape -content o-background js-circle2 js-image is-leave" style="background-image: url(/Content/News/images/002.png); transform: translate3d(-5.58249px, -4.65331px, 0px);">
-                                                        </div>
-                                                        <div class="c-carousel_circle-shape -content o-background js-circle2 js-image is-enter" style="background-image: url(/Content/News/images/003.png); transform: translate3d(-5.58249px, -4.65331px, 0px);">
-                                                        </div>
-                                                        <div class="c-carousel_circle-shape -content o-background js-circle2 js-image" style="background-image: url(/Content/News/images/004.png); transform: translate3d(-5.58249px, -4.65331px, 0px);">
-                                                        </div>
-                                                        <div class="c-carousel_circle-shape -content o-background js-circle2 js-image" style="background-image: url(/Content/News/images/005.png); transform: translate3d(-5.58249px, -4.65331px, 0px);">
-                                                        </div>
-                                                        <div class="c-carousel_circle-shape -content o-background js-circle2 js-image" style="background-image: url(/Content/News/images/006.png); transform: translate3d(-5.58249px, -4.65331px, 0px);">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <aside class="c-carousel-navigation o-layout">
-                                                    <button class="c-carousel-navigation_btn o-layout_item js-prev" type="button">
-                                                        <figure class="c-carousel-navigation_icon">
-                                                            <i class="fa fa-chevron-left" aria-hidden="true" style=" color: #ccc;font-size: 18px;"></i>
-                                                        </figure>
-                                                    </button>
-                                                    <button class="c-carousel-navigation_btn o-layout_item js-next" type="button">
-                                                        <figure class="c-carousel-navigation_icon">
-                                                            <i class="fa fa-chevron-left" aria-hidden="true" style=" color: #ccc;font-size: 18px;"></i>
-                                                        </figure>
-                                                    </button>
-                                                </aside>
-                                            </div>
-                                            <!--end[Image tròn]-->
-                                            <!--[Text]-->
-                                            <div class="c-carousel_col-right o-layout_item">
-                                                <div class="c-carousel_contents">
-                                                    <div class="c-carousel_slideid js-slide-id">3</div>
-                                                    <div class="c-carousel_content js-content">
-                                                        <h4 class="c-carousel_content-title">ACCESS.IP SOLUSION</h4>
-                                                        <div class="c-carousel_content-description">
-                                                            <p><span class="adm">_A Cloud Co-Elaboration Space of Services_</span></p>
-                                                            <p><b>ACCESS.IP</b> is a platform strived by IPath Consulting Company Limited to provide IP firms with <b>A Cloud Co-Elaboration Space of Services in Intellectual property.</b></p>
-                                                            <p>
-                                                                ACCESS.IP enables the IP firms, one connects to another, to handle IP registration and prosecution with a local IP Office in designated countries including Vietnam.
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="c-carousel_content js-content">
-                                                        <h3 class="c-carousel_content-title">ACCESS.IP SOLUTIONS</h3>
-                                                        <div class="c-carousel_content-description">
-                                                            <p><span class="adm">__One Platform, multiple IP Workflows__</span></p>
-                                                            <p>
-                                                                ACCESS.IP is customized to transform necessary IP workflows into local procedures, from application filing till granting, then monitoring and watching in relevant jurisdictions. The cloud working space allows the immediate collaboration between the IP firms with local Agents in keeping case progress updated without time delay.
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="c-carousel_content js-content is-active">
-                                                        <h3 class="c-carousel_content-title">ACCESS.IP SOLUTIONS</h3>
-                                                        <div class="c-carousel_content-description">
-                                                            <p><b>i-APPLICATION enables IP Attorneys to perform IP searches & applications with interactive directly with local Agents</b></p>
-                                                            <p><i>Free of Service Fees by doing almost of IP application processes by themselves, except for a minimum Agency fees before local IP Office and actual expenses;</i></p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="c-carousel_content js-content">
-                                                        <h3 class="c-carousel_content-title">ACCESS.IP SOLUTIONS</h3>
-                                                        <div class="c-carousel_content-description">
-                                                            <p><b>i-MONITOR</b> enables IP firms to closely follow up IP application handling process at local IP Offices</p>
-                                                            <p>
-                                                                <span class="adm">
-                                                                    Reduction of IP transaction workloads while monitoring application process substantively and timely with local IP Agents, almost at the same time with relevant local IP Offices;
-                                                                </span>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="c-carousel_content js-content">
-                                                        <h3 class="c-carousel_content-title">TACCESS.IP SOLUTIONS</h3>
-                                                        <div class="c-carousel_content-description">
-                                                            <p>
-                                                                <b>i-WATCHING</b> assists the clients managing the portfolio of IP registrations with the single access to the secured and encrypted account. <i>Each IP case have it own unique QR code and accessed by only the person authorized to handle it</i>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="c-carousel_content js-content">
-                                                        <h3 class="c-carousel_content-title">
-                                                            ACCESS.IP SOLUTIONS
-                                                        </h3>
-                                                        <div class="c-carousel_content-description">
-                                                            <p><span class="adm">_ FREE of Services Fees, Reduce Workload by 50% _</span></p>
-                                                            <p>
-                                                                STRUCTURE OF FEES<br>
-                                                                1.	Government Fees (20%): fix fees required by local IP Offices<br>
-                                                                2.	Agency Fees (30%): basic fees for representing (reviewing, filing, following up)<br>
-                                                                3.	Service <sup><i style=" color: #cf0d0d !important;">Fees</i></sup> FREE(50%): drafting /preparing Applications and Office Actions
-                                                            </p>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                                <div class="t-Khoanbetong_scroll js-btn-arrow">
-                                                    <figure class="t-Khoanbetong_scroll-icon">
-                                                        <i class="fa fa-long-arrow-down" aria-hidden="true" style=" font-size: 24px;"></i>
-                                                    </figure>
-                                                </div>
-                                            </div>
-
-                                            <!--end[Text]-->
-                                        </div>
-                                    </div>
+                                <div class="main-content">
+                                    @RenderBody()
                                 </div>
-
-                                <div class="t-Khoanbetong_content js-generic-color" data-color="red">
-                                    <h2></h2>
-                                    <section class="c-accordion-block" data-module="Dropdown" data-dropdown-mode="accordion" data-dropdown-scrollto="true">
-                                        <div class="c-accordion-block_item js-dropdown">
-                                            <div class="c-accordion-block_header js-dropdown-toggle">
-                                                <h2 class="c-accordion-block_title">i-Application</h2>
-                                                <figure class="c-accordion-block_icon">
-                                                    <i class="fa fa-plus-square-o" aria-hidden="true" style=" color: #666;font-size: 16px;"></i>
-                                                </figure>
-                                            </div>
-                                            <div class="c-accordion-block_content s-wysiwyg js-dropdown-content">
-                                                <p><b>ACCESS.IP SOLUTIONS</b></p>
-                                                <p>i-APPLICATION enables IP Attorneys to perform IP searches & applications with interactive directly with local Agents</p>
-                                                <p>
-                                                    <i>Free of Service Fees by doing almost of IP application processes by themselves, except for a minimum Agency fees before local IP Office and actual expenses;</i>
-                                                </p>
-
-                                                <p>&nbsp;</p>
-                                                <p><img class="aligncenter" src="/Content/News/images/003.jpg" alt=""></p>
-                                                <p>&nbsp;</p>
-                                            </div>
-                                        </div>
-                                    </section>
-
-                                    <section class="c-accordion-block" data-module="Dropdown" data-dropdown-mode="accordion" data-dropdown-scrollto="true">
-                                        <div class="c-accordion-block_item js-dropdown">
-                                            <div class="c-accordion-block_header js-dropdown-toggle">
-                                                <h2 class="c-accordion-block_title">i-Monitor</h2>
-                                                <figure class="c-accordion-block_icon">
-                                                    <i class="fa fa-plus-square-o" aria-hidden="true" style=" color: #666;font-size: 16px;"></i>
-                                                </figure>
-                                            </div>
-                                            <div class="c-accordion-block_content s-wysiwyg js-dropdown-content">
-                                                <p><b>ACCESS.IP SOLUTIONS</b></p>
-                                                <p>i-MONITOR enables IP firms to closely follow up IP application handling process at local IP Offices</p>
-                                                <p>
-                                                    <i>Reduction of IP transaction workloads while monitoring application process substantively and timely with local IP Agents, almost at the same time with relevant local IP Offices;</i>
-                                                </p>
-                                                <p>&nbsp;</p>
-                                                <p><img class="aligncenter" src="/Content/News/images/004.jpg" alt=""></p>
-                                                <p>&nbsp;</p>
-
-                                            </div>
-                                        </div>
-                                    </section>
-
-                                    <section class="c-accordion-block" data-module="Dropdown" data-dropdown-mode="accordion" data-dropdown-scrollto="true">
-                                        <div class="c-accordion-block_item js-dropdown">
-                                            <div class="c-accordion-block_header js-dropdown-toggle">
-                                                <h2 class="c-accordion-block_title">i-Watching</h2>
-                                                <figure class="c-accordion-block_icon">
-                                                    <i class="fa fa-plus-square-o" aria-hidden="true" style=" color: #666;font-size: 16px;"></i>
-                                                </figure>
-                                            </div>
-                                            <div class="c-accordion-block_content s-wysiwyg js-dropdown-content">
-                                                <p><b>ACCESS.IP SOLUTIONS</b></p>
-                                                <p>
-                                                    i-WATCHING assists the clients managing the portfolio of IP registrations with the single access to the secured and encrypted account. <i>Each IP case have it own unique QR code and accessed by only the person authorized to handle it</i>
-                                                </p>
-                                                <p>&nbsp;</p>
-                                                <p><img class="alignnone" src="/Content/News/images/005.jpg" alt=""></p>
-                                                <p>&nbsp;</p>
-                                            </div>
-                                        </div>
-                                    </section>
-
-
-                                </div>
-
-                                <div class="join-us">
-                                    <div class="container">
-                                        <div class="container-fluid">
-                                            <div class="title" style="padding-top: 15px;">
-                                                <span style="text-transform: unset;">
-                                                    <p></p>
-                                                    <p>
-                                                        Yes, automate my regulatory change management. Send me more info now!
-                                                    </p> <p></p>
-                                                </span>
-                                            </div>
-                                            @*<form method="POST"  >*@
-                                            <div class="row join-us-form form-row">
-                                                <div class="col-md-10">
-                                                    <div class="row">
-                                                        <div class="col-md-2">
-                                                            <span class="firt-name">
-                                                                <input type="text" name="FNAME" id="txtFNAME" value="" size="40" class="required join-us-input" aria-required="true" aria-invalid="false" placeholder="First Name" required="required" maxlength="30">
-                                                            </span>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <span class="last-name">
-                                                                <input type="text" name="LNAME" id="txtLNAME" value="" size="40" class="required join-us-input" aria-required="true" aria-invalid="false" placeholder="Last Name" required="required" maxlength="30">
-                                                            </span>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <span class="your-company">
-                                                                <input type="text" name="PHONE" id="txtPHONE" value="" size="40" class="required join-us-input" aria-required="true" aria-invalid="false" placeholder="Phone" required="required" maxlength="50">
-                                                            </span>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <span class="your-email">
-                                                                <input type="email" name="EMAIL" id="txtEmail" value="" size="40" class="required join-us-input" aria-invalid="false" placeholder="Email" required="required" maxlength="50">
-                                                            </span>
-                                                        </div>
-
-                                                        <div class="col-md-2">
-                                                            <span class="your-company">
-                                                                <input type="text" name="COMPANY" id="txtCOMPANY" value="" size="40" class="required join-us-input" aria-required="true" aria-invalid="false" placeholder="Company" maxlength="50">
-                                                            </span>
-                                                        </div>
-
-                                                        <p></p>
-                                                    </div>
-                                                    <p></p>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <input type="submit" onclick="return funcRegister();" value="Save Time" class="join-us-button join-us-button-text button">
-                                                            <span class="ajax-loader"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="msg-success sent-ok"></div>
-                                            @*</form>*@
-                                        </div>
-                                    </div>
-                                </div>
-
-
 
                                 <footer id="main-footer" class="c-footer js-animate">
                                     <div class="c-footer_wrap-head o-layout -middle">
@@ -564,10 +320,6 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="main-content">
-                                        @RenderBody()
-                                    </div>
-
                                 </footer>
                             </div>
                         </div>
@@ -580,7 +332,11 @@
                     <div class="scrollbar-thumb scrollbar-thumb-y" style="height: 209.778px; transform: translate3d(0px, 0px, 0px);"></div>
                 </aside>
                 <canvas class="overscroll-glow" style="display: none; pointer-events: none;"></canvas>
+
+             
             </main>
+
+
         </div>
 
     </div>
@@ -598,13 +354,17 @@
 </html>
 
 <script>
+    
+    function functionGetNews() {
+        window.location.href = "/quan-ly-tin/news-home-page";
+    }
     function funclogin() {
         window.location.href = "/login";
     }
     function funcHome() {
         window.location.href = "/";
     }
-
+   
     function funcRegister() {
         try {
             var fname = $("#txtFNAME").val();
@@ -637,7 +397,8 @@
                 data: formData,
                 processData: false, contentType: false, traditional: true, dataType: "json",
                 enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
-                success: function (data) {
+                success: function (data)
+                {
                     if (data != null && data.status >= 0) {
                         jAlert("Sign Up Success!", "Info");
                         funcReset();
@@ -673,9 +434,6 @@
         } catch (e) {
 
         }
-
-    }
-    function functionGetNews() {
-        window.location.href = "/quan-ly-tin/news-home-page";
+            
     }
 </script>
