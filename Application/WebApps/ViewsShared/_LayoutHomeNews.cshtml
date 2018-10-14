@@ -1,15 +1,16 @@
 ﻿<!DOCTYPE html>
+@using Common.CommonData
 @using WebApps.ExtensionObject
 @using WebApps.CommonFunction;
 @{
     string _LanguageCode = AppsCommon.GetCurrentLang();
 }
-<script>
-       var _currentlanguage = '@_LanguageCode';
-</script>
-<!-- HocDQ -->
-<html data-template="Khoanbetong" lang="en-US">
+<!DOCTYPE html>
+<html>
 <head>
+    <script>
+       var _currentlanguage = '@_LanguageCode';
+    </script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -20,18 +21,21 @@
     <link href="~/Content/News/Css/font-awesome.css" rel="stylesheet" />
     <link href="~/Content/News/Css/jquery.dropdown.min.css" rel="stylesheet" />
     <link href="~/Content/News/Css/learndash_template_style.css" rel="stylesheet" />
-
-    <script src="~/Content/News/scripts/analytics.js"></script>
-    <script src="~/Content/News/scripts/jquery-3.2.1.min.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.10.2.min.js"></script>
+    @*<script src="~/Content/News/scripts/analytics.js"></script>*@
+    <script src="~/Scripts/messagebox/JsFormPopup.js"></script>
+    <script src="~/Scripts/messagebox/popup.js"></script>
+    @*<script src="~/Content/News/scripts/jquery-3.2.1.min.js"></script>*@
     <link href="~/Content/News/Css/css.css" rel="stylesheet" />
+    <script src="~/Scripts/AlertPopup/NVSAlerts.js"></script>
+    <link href="~/Scripts/AlertPopup/NVSAlertCss.css" rel="stylesheet" />
+    <script src="~/Scripts/AlertPopup/ASSAlert.js"></script>
     <script src="~/Scripts/nvs.jquery.alert.js"></script>
 
     <link rel="icon" href="~/Content/News/images/favicon.ico">
 </head>
 <body>
-    <!--[if lt IE 9]>
-            <div class="alert alert-warning" role="alert">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/?locale=en">upgrade your browser</a> to improve your experience.</div>
-            <![endif]-->
     <div class="c-transitions js-transitions">
         <div class="c-transitions_mask"></div>
         <div class="c-transitions_mask"></div>
@@ -84,9 +88,6 @@
                     </div>
                     <!--[Menutop + mobi]-->
                     <ul id="menu-main-menu" class="c-header_nav-list u-list-reset">
-                        @*<li class="c-header_nav-item js-nav-nosublink">
-                                <a href="index.htm" class="c-header_nav-item-label" data-transition="full">Home</a>
-                            </li>*@
                         <li class="c-header_nav-item js-nav-sublink">
                             <button type="button" class="c-header_nav-item-label js-nav-link">Features</button>
                             <ul class="c-header_nav-sublist u-list-reset">
@@ -599,8 +600,7 @@
     <script src="~/Content/News/scripts/app.js"></script>
 </body>
 </html>
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery-ui-1.10.2.min.js"></script>
+
 <script>
     function funclogin() {
         window.location.href = "/login";
@@ -613,7 +613,8 @@
         try {
             var fname = $("#txtFNAME").val();
             if (fname === "" || fname == undefined) {
-                showError('The registered name is not empty!');
+                jAlert('The registered name is not empty!', "Info");
+                $("#txtFNAME").focus();
                 return false;
             }
 
@@ -622,7 +623,8 @@
             var email = $("#txtEmail").val();
 
             if (phone === "" && email == "") {
-                showError('Email or Phone number is not empty!');
+                jAlert('Email or Phone number is not empty!', "Info");
+                $("#txtEmail").focus();
                 return false;
             }
             var company = $("#txtCOMPANY").val();
@@ -639,14 +641,22 @@
                 data: formData,
                 processData: false, contentType: false, traditional: true, dataType: "json",
                 enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
-                success: function (data) {
+                success: function (data)
+                {
                     if (data != null && data.status >= 0) {
-                        nvsAlert("Sign Up Success!", "Info", function () {
-                        });
+                        jAlert("Sign Up Success!", "Info");
+                        funcReset();
                         return true;
-                    } else {
-                        nvsError("registration failed!", "Error", function () {
-                        });
+                    }
+                    else if (data.status == -22) {
+                        jAlert("The number of email or email was registered!", "Error");
+                        funcReset();
+                        return;
+                    }
+                    else {
+                        jAlert("Registration failed!", "Error");
+                        funcReset();
+                        return;
                     }
                 },
                 error: function (e) {
@@ -658,6 +668,16 @@
         } catch (e) {
 
         }
+    }
+    function funcReset() {
+        try {
+            $("#txtFNAME").val("");
+            $("#txtLNAME").val("");
+            $("#txtEmail").val("");
+            $("#txtPHONE").val("");
+        } catch (e) {
 
+        }
+            
     }
 </script>

@@ -14,6 +14,7 @@
     using DataAccess.ModuleUsersAndRoles;
 
     using ObjectInfos;
+    using ObjectInfos.ModuleUsersAndRoles;
 
     public class UserBL : RepositoriesBL
     {
@@ -542,5 +543,75 @@
                 this._lstFunctionDisplayInMenu = new List<FunctionInfo>();
             }
         }
+        #region Dang ky thong tin thanh vien ngoai trang portal 
+        public int RegisterInsert(RegisterInfo pRegistor)
+        {
+            try
+            {
+                return UserDA.RegisterInsert(pRegistor);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
+        public int RegisterUpdate(RegisterInfo pRegistor)
+        {
+            try
+            {
+                return UserDA.RegisterUpdate(pRegistor);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
+
+        public int RegisterDeleted(decimal pId, string pModified)
+        {
+            try
+            {
+                return UserDA.RegisterDeleted(pId, pModified);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
+
+        public List<RegisterInfo> RegisterGetAll(string pSearchKey, int pFrom, int pTo, ref decimal pTotalRecord)
+        {
+            try
+            {
+             DataSet ds = UserDA.RegisterGetAll(pSearchKey, pFrom, pTo, ref pTotalRecord);
+             return CBO<RegisterInfo>.FillCollectionFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<RegisterInfo>();
+            }
+        }
+
+        public List<RegisterInfo> RegisterGetById(decimal pID)
+        {
+            try
+            {
+                DataSet ds = UserDA.RegisterGetById(pID);
+                return CBO<RegisterInfo>.FillCollectionFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<RegisterInfo>();
+            }
+        }
+        #endregion
     }
 }

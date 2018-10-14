@@ -41,7 +41,9 @@
         {
             try
             {
-                return Json(new { status = 0 });
+                UserBL objBL = new UserBL();
+                int pReturn  = objBL.RegisterInsert(pRegisInfo);
+                return Json(new { status = pReturn });
             }
             catch (Exception ex)
             {
