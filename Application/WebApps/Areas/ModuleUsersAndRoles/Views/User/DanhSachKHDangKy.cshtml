@@ -1,0 +1,156 @@
+﻿@using BussinessFacade.ModuleMemoryData
+@using ObjectInfos.ModuleUsersAndRoles;
+@{
+    ViewBag.Title = "Danh sách khách hàng đăng ký";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+}
+    @try
+    {
+        <style>
+            /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+            .div-search-title > div {
+                width: 120px;
+            }
+        </style>
+
+        <div class="divCover">
+            <div class="d-nav">
+                <img src="~/Content/icons/Body-icon-home.png" /> I
+                Danh sách khách hàng đăng ký
+                <span class="red">></span>
+                <a href="/quan-tri-he-thong/quan-ly-nguoi-dung">Thông tin đăng ký</a>
+            </div>
+        </div>
+        <div class="divCover">
+            <div class="classLine">
+            </div>
+        </div>
+
+        <div class="d-main">
+            <div class="divCover">
+                <div class="classTitle">
+                    <input type="hidden" value="ALL|ALL|ALL|ALL" name="txtKeyValue" id="txtKeyValue" />
+                    <input type="hidden" value="ID" name="txtSortColum" id="txtSortColumn" />
+                    <input type="hidden" value="DESC" name="txtSortType" id="txtSortType" />
+                    <div class="div-title-content"> THÔNG TIN ĐĂNG KÝ </div>
+                </div>
+            </div>
+
+            <div class="divCover" id="div-search-simple">
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <div style="width: 120px">Tên đăng ký </div>
+                    </div>
+                    <div>
+                        <div>
+                            <input style="width: 250px;" type="text" id="txtFistLastName" data-controlcondition="TRUE" />
+                        </div>
+                    </div>
+                    <div class="div-search-title">
+                        <div style="width: 120px">Số điện thoại</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="txtPhoneSearch" data-controlcondition="TRUE" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <div style="width: 120px">Email </div>
+                    </div>
+                    <div>
+                        <div>
+                            <input type="text" style="width: 250px;"  id="txtEmailSearch" data-controlcondition="TRUE" />
+                        </div>
+                    </div>
+                    <div class="div-search-title">
+                        <div style="width: 120px">Công ty</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="txtCompany" data-controlcondition="TRUE" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divCover">
+                <div class="div-search-btn" style="width:450px;">
+                    <input type="button" value="Tìm kiếm" class="btn-default" onclick="funcSearchKHDangKy(1 )" />
+                </div>
+            </div>
+
+            <div class="divCover">
+                <div id="divKHRegistor">
+                    @Html.Partial("_PartialTableListRegistor")
+                </div>
+            </div>
+
+        </div>
+
+     <script>
+         function funcSearchKHDangKy(page) {
+             try {
+                 var company = $("#txtCompany").val().trim();
+                 var email = $("#txtEmailSearch").val().trim();
+                 var phone = $("#txtPhoneSearch").val().trim();
+                 var name = $("#txtFistLastName").val().trim();
+                 if (name == "") name = "ALL";
+                 if (email == "") email = "ALL";
+                 if (phone == "") phone = "ALL";
+                 if (company == "") company = "ALL";
+                 var keysearch = name + "|" + phone + "|" + email + "|" + company;
+                 $.ajax({
+                     url: "/quan-tri-he-thong/tim-kiem-kh-dk",
+                     type: 'POST',
+                     data: { pKeySearch: keysearch, pNumPage: page}, 
+                     success: function (data)
+                     {
+                         $("#divKHRegistor").html(data);
+                     },
+                     error: function (e) {
+                         console.log(e);
+                     }
+                 });
+             } catch (e) {
+             }  
+         }
+         function jsPageKH(page) {
+             funcSearchKHDangKy(page)
+         }
+         //Xác nhận đăng ký khách hàng 
+         function funcXacNhanDangKy(id) {
+             try {
+                 $.ajax({
+                     url: "/quan-tri-he-thong/xac-nhan-kh-dk",
+                     type: 'POST',
+                     data: { pID: id }, 
+                     success: function (data) {
+                         if (data != null && data.status >= 0) {
+                             nvsAlert("Xử lý thành công!", "thông báo", function () {
+                                 window.location.href = "/quan-tri-he-thong/danh-sach-kh-dk";
+                             });
+                             return true;
+                         }
+                         else {
+                             nvsError("Xử lý thất bại!", "thông báo", function () {
+                             });
+                             return;
+                         }
+                     },
+                     error: function (e) {
+                         console.log(e);
+                     }
+                 });
+             } catch (e) {
+             }
+
+         }
+     </script>
+    }
+    catch (Exception)
+    {
+        // ignored
+    }

@@ -582,6 +582,29 @@ namespace Common
             }
         }
 
+
+        public static int  GetFromToPage(int p_CurrentPage, ref int p_to, int p_record_on_page = 0)
+        {
+            try
+            {
+                int p_from = (p_CurrentPage - 1) * Common.RecordOnpage + 1 ;
+                p_to = ((p_CurrentPage - 1) * Common.RecordOnpage + Common.RecordOnpage);
+                if (p_record_on_page != 0)
+                {
+                    p_from = ((p_CurrentPage - 1) * p_record_on_page + 1);
+                    p_to = ((p_CurrentPage - 1) * p_record_on_page + p_record_on_page);
+                }
+
+                return p_from;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                p_to = 10;
+                return 1;
+            }
+        }
+
         public static string Get_HtmlPaging<T>(int p_total_record, int PCurrentPage, string pLoaiBanghi = "Bản ghi", int p_reconpage = 0, string pfuncjs = "")
         {
             try

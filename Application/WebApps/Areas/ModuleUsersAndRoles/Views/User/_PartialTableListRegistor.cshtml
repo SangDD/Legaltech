@@ -1,0 +1,72 @@
+﻿@using Common.CommonData
+@using Common.Extensions
+@using ObjectInfos.ModuleUsersAndRoles;
+
+@{
+    List<RegisterInfo> _list_data = new List<RegisterInfo>();
+    if (ViewBag.lstUsers != null)
+    {
+        _list_data = ViewBag.lstUsers;
+    }
+}
+
+<div>
+    <table class="table-lst-data" id="tableListUser">
+        <thead>
+            <tr>
+                <th style="width: 4%">STT</th>
+                <th data-sort id="Username" style="width:7%" data-sortoption="@((int)CommonEnums.OrderOptions.String)">First Name</th>
+                <th style="width: 8%" data-sort id="FullName" data-sortoption="@((int)CommonEnums.OrderOptions.String)">LastName</th>
+                <th style="width: 8%" data-sort id="Status" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Phone</th>
+                <th style="width: 15%" data-sort id="Type" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Email</th>
+                <th style="width: 20%" data-sort id="Email" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Company</th>
+                <th style="width: 15%" data-sort id="LastTimeUpdated">Ngày đăng ký</th>
+                <th style="width: 7%" data-sort id="Status" >Trạng thái</th>
+                <th style="width: 100px;">Chức năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (_list_data != null && _list_data.Count > 0)
+            {
+                int stt= 0;
+                foreach (var item in _list_data)
+                {
+                    stt++;
+                    string statusxl = "Đăng ký mới";
+                    if(item.Status != 0)
+                    {
+                        statusxl = "Đã xử lý";
+                    }
+            <tr>
+                <td class="tdcenteralign">@stt</td>
+                <td class="tdleftalign">@item.FistName</td>
+                <td class="tdleftalign">@item.LastName</td>
+                <td class="tdleftalign">@item.Phone</td>
+                <td class="tdleftalign">@item.Email</td>
+                <td class="tdleftalign">@item.Company</td>
+                <td class="tdleftalign">@item.CreateDate.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                <td class="tdleftalign">@statusxl</td>
+                <td class="tdcenteralign">
+                    @if (item.Status == 0)
+                    {
+                    <a href="javascript:funcXacNhanDangKy(@item.Id)" class="icon icon-edit" data-title="Xác nhận"></a>
+                    }
+                </td>
+            </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="9">Không có dữ liệu</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="_ClassPage">
+    <ul>
+        @Html.Raw(ViewBag.Paging)
+    </ul>
+</div>

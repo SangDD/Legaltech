@@ -409,7 +409,7 @@
             {
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_REGISTOR.PROC_REGISTOR_INSERT",
-                    new OracleParameter("P_FISTNAME", OracleDbType.Varchar2, pRegistor.FirstName, ParameterDirection.Input),
+                    new OracleParameter("P_FISTNAME", OracleDbType.Varchar2, pRegistor.FistName, ParameterDirection.Input),
                     new OracleParameter("P_LASTNAME", OracleDbType.Varchar2, pRegistor.LastName, ParameterDirection.Input),
                     new OracleParameter("P_PHONE", OracleDbType.Varchar2, pRegistor.Phone, ParameterDirection.Input),
                     new OracleParameter("P_EMAIL", OracleDbType.Varchar2, pRegistor.Email, ParameterDirection.Input),
@@ -431,15 +431,15 @@
             try
             {
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
-                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_REGISTOR.PROC_REGISTOR_INSERT",
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_REGISTOR.PROC_REGISTOR_UPDATE",
                     new OracleParameter("P_ID", OracleDbType.Decimal, pRegistor.Id, ParameterDirection.Input),
-                    new OracleParameter("P_FISTNAME", OracleDbType.Varchar2, pRegistor.FirstName, ParameterDirection.Input),
+                    new OracleParameter("P_FISTNAME", OracleDbType.Varchar2, pRegistor.FistName, ParameterDirection.Input),
                     new OracleParameter("P_LASTNAME", OracleDbType.Varchar2, pRegistor.LastName, ParameterDirection.Input),
                     new OracleParameter("P_PHONE", OracleDbType.Varchar2, pRegistor.Phone, ParameterDirection.Input),
                     new OracleParameter("P_EMAIL", OracleDbType.Varchar2, pRegistor.Email, ParameterDirection.Input),
                     new OracleParameter("P_COMPANY", OracleDbType.Varchar2, pRegistor.Company, ParameterDirection.Input),
                     new OracleParameter("P_MODIFIEDBY", OracleDbType.Varchar2, pRegistor.Modifiedby, ParameterDirection.Input),
-                    new OracleParameter("P_STATUS", OracleDbType.Varchar2, pRegistor.Status, ParameterDirection.Input),
+                    new OracleParameter("P_STATUS", OracleDbType.Int32, pRegistor.Status, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;

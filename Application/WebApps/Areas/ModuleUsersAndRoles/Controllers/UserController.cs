@@ -13,7 +13,7 @@
     using Common.CommonData;
     using Common.Ultilities;
     using ObjectInfos;
-
+    using ObjectInfos.ModuleUsersAndRoles;
     using Session;
 
     [ValidateAntiForgeryTokenOnAllPosts]
@@ -58,7 +58,6 @@
 
             return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/ListLawer.cshtml", lstUsers);
         }
-
 
         [HttpGet]
         [Route("quan-ly-khach-hang")]
@@ -272,5 +271,81 @@
                 return Json(new { success = -1 });
             }
         }
+
+
+        [HttpGet]
+        [Route("danh-sach-kh-dk")]
+        public ActionResult DanhSachKHDangKy()
+        {
+            var lstUsers = new List<RegisterInfo>();
+            try
+            {
+                decimal totalRecord = 0;
+                var userBL = new UserBL();
+                lstUsers = userBL.RegisterGetAll("ALL|ALL|ALL|ALL",0,20,ref totalRecord);
+                ViewBag.lstUsers = lstUsers;
+                string htmlPaging = CommonFuc.Get_HtmlPaging<RegisterInfo>((int)totalRecord, 1, "bản ghi",10, "jsPageKH");
+                ViewBag.Paging = htmlPaging;
+                return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/DanhSachKHDangKy.cshtml"  );
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/DanhSachKHDangKy.cshtml");
+        }
+
+
+        [HttpPost]
+        [Route("tim-kiem-kh-dk")]
+        public ActionResult SearchCustomerRegis(string pKeySearch, int pNumPage)
+        {
+            var lstUsers = new List<RegisterInfo>();
+            try
+            {
+                decimal totalRecord = 0;
+                var userBL = new UserBL();
+                int p_to = 0;
+                int p_from = CommonFuc.GetFromToPage(pNumPage, ref p_to);
+                lstUsers = userBL.RegisterGetAll(pKeySearch, p_from, p_to, ref totalRecord);
+                ViewBag.lstUsers = lstUsers;
+                string htmlPaging = CommonFuc.Get_HtmlPaging<RegisterInfo>((int)totalRecord, 1, "bản ghi", 10, "jsPageKH");
+                ViewBag.Paging = htmlPaging;
+                return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/_PartialTableListRegistor.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/_PartialTableListRegistor.cshtml");
+        }
+
+        [HttpPost]
+        [Route("xac-nhan-kh-dk")]
+        public ActionResult XacNhanKhachHangDK(decimal pID)
+        {
+            var lstUsers = new List<RegisterInfo>();
+            try
+            {
+                UserBL objBL = new UserBL();
+                RegisterInfo pInfo = new RegisterInfo();
+                pInfo.Id = pID;
+                pInfo.Modifiedby = SessionData.CurrentUser.Username;
+                pInfo.ModifiedDate = SessionData.CurrentUser.CurrentDate;
+                pInfo.Status = 1;
+                int preturn = objBL.RegisterUpdate(pInfo);
+                return Json(new { status = preturn });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { status = -3 });
+            }
+        }
+
+
+
     }
 }
