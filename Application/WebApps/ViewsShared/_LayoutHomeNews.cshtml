@@ -86,7 +86,7 @@
                     <!--[Menutop + mobi]-->
                     <ul id="menu-main-menu" class="c-header_nav-list u-list-reset">
                         <li class="c-header_nav-item js-nav-sublink">
-                            <a href="javascript:;" onclick="return functionGetNews(); " style="color: #999;">News</a>
+                            <span href="javascript:;" onclick="return functionGetNews();" style="color: #999;">News</span>
                         </li>
                        
                         <li class="c-header_nav-item js-nav-sublink">
@@ -232,7 +232,7 @@
                                                             </li>*@
                                                         <li class="c-navleft_category-item">
                                                             <a class="c-navleft_category-link" href="javascript:;">
-                                                                <span class="c-navleft_category-title">Contact Us</span>
+                                                                <span class="c-navleft_category-title" >Contact Us</span>
                                                                 <figure class="c-navleft_category-link-arrow">
                                                                     <i class="fa fa-long-arrow-right" aria-hidden="true" style=" color: #666;font-size: 20px;"></i>
                                                                 </figure>
@@ -664,6 +664,7 @@
 
         }
     }
+
     function funcReset() {
         try {
             $("#txtFNAME").val("");
@@ -675,6 +676,7 @@
         }
 
     }
+
     function functionGetNews() {
         window.location.href = "/quan-ly-tin/news-home-page";
     }
