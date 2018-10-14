@@ -6,7 +6,7 @@
     using Common;
     using Common.MessageCode;
     using Common.SearchingAndFiltering;
-
+    using ObjectInfos.ModuleUsersAndRoles;
     using Oracle.DataAccess.Client;
     using ObjectInfos;
 
@@ -400,5 +400,116 @@
 
             return KnMessageCode.DeleteUserFail.GetCode();
         }
+
+
+        #region Dang ky thong tin thanh vien ngoai trang portal 
+        public static int RegisterInsert(RegisterInfo pRegistor)
+        {
+            try
+            {
+                var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_REGISTOR.PROC_REGISTOR_INSERT",
+                    new OracleParameter("P_FISTNAME", OracleDbType.Varchar2, pRegistor.FirstName, ParameterDirection.Input),
+                    new OracleParameter("P_LASTNAME", OracleDbType.Varchar2, pRegistor.LastName, ParameterDirection.Input),
+                    new OracleParameter("P_PHONE", OracleDbType.Varchar2, pRegistor.Phone, ParameterDirection.Input),
+                    new OracleParameter("P_EMAIL", OracleDbType.Varchar2, pRegistor.Email, ParameterDirection.Input),
+                    new OracleParameter("P_COMPANY", OracleDbType.Varchar2, pRegistor.Company, ParameterDirection.Input),
+                    paramReturn);
+                var result = Convert.ToInt32(paramReturn.Value.ToString());
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return KnMessageCode.AddUserFail.GetCode();
+        }
+
+
+        public static int RegisterUpdate(RegisterInfo pRegistor)
+        {
+            try
+            {
+                var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_REGISTOR.PROC_REGISTOR_INSERT",
+                    new OracleParameter("P_ID", OracleDbType.Decimal, pRegistor.Id, ParameterDirection.Input),
+                    new OracleParameter("P_FISTNAME", OracleDbType.Varchar2, pRegistor.FirstName, ParameterDirection.Input),
+                    new OracleParameter("P_LASTNAME", OracleDbType.Varchar2, pRegistor.LastName, ParameterDirection.Input),
+                    new OracleParameter("P_PHONE", OracleDbType.Varchar2, pRegistor.Phone, ParameterDirection.Input),
+                    new OracleParameter("P_EMAIL", OracleDbType.Varchar2, pRegistor.Email, ParameterDirection.Input),
+                    new OracleParameter("P_COMPANY", OracleDbType.Varchar2, pRegistor.Company, ParameterDirection.Input),
+                    new OracleParameter("P_MODIFIEDBY", OracleDbType.Varchar2, pRegistor.Modifiedby, ParameterDirection.Input),
+                    new OracleParameter("P_STATUS", OracleDbType.Varchar2, pRegistor.Status, ParameterDirection.Input),
+                    paramReturn);
+                var result = Convert.ToInt32(paramReturn.Value.ToString());
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+           
+        }
+
+        public static int RegisterDeleted(decimal pId , string pModified)
+        {
+            try
+            {
+                var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_REGISTOR.PROC_REGISTOR_DELETED",
+                    new OracleParameter("P_ID", OracleDbType.Decimal, pId, ParameterDirection.Input),
+                    new OracleParameter("P_MODIFIEDBY", OracleDbType.Varchar2, pModified, ParameterDirection.Input),
+                    paramReturn);
+                var result = Convert.ToInt32(paramReturn.Value.ToString());
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return KnMessageCode.AddUserFail.GetCode();
+        }
+
+
+        public static DataSet RegisterGetAll(string pSearchKey, int pFrom, int pTo,ref  decimal pTotalRecord )
+        {
+            try
+            {
+              var paramReturn = new OracleParameter("P_TOTAL", OracleDbType.Int32, ParameterDirection.Output);
+                    paramReturn.Size =10;
+                    DataSet ds  = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_REGISTOR.PROC_REGISTOR_GETALL",
+                    new OracleParameter("P_SEARCH_KEY", OracleDbType.Varchar2, pSearchKey, ParameterDirection.Input),
+                    new OracleParameter("P_FROM", OracleDbType.Int32, pFrom, ParameterDirection.Input),
+                    new OracleParameter("P_TO", OracleDbType.Int32, pTo, ParameterDirection.Input),
+                    paramReturn ,
+                    new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output));
+              pTotalRecord = Convert.ToInt32(paramReturn.Value.ToString());
+              return ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
+        public static DataSet RegisterGetById(decimal pID)
+        {
+            try
+            {
+                DataSet ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_REGISTOR.PROC_REGISTOR_GETBYID",
+                new OracleParameter("P_ID", OracleDbType.Int32, pID, ParameterDirection.Input),    
+                new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output));
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
+        #endregion
     }
 }
