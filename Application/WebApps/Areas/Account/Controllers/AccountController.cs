@@ -8,6 +8,7 @@
 	using Common;
 	using Common.CommonData;
 	using Common.Helpers;
+    using ObjectInfos.ModuleUsersAndRoles;
     using RequestFilter;
 	using Session;
     using WebApps.CommonFunction;
@@ -32,7 +33,24 @@
 			return View();
 		}
 
-		[HttpPost][Route("dang-nhap")]
+        [HttpPost]
+        [Route("register")]
+        [AllowAnonymous]
+        [ValidateInput(false)]
+        public ActionResult Register(RegisterInfo pRegisInfo)
+        {
+            try
+            {
+                return Json(new { status = 0 });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { status = -2 });
+            }
+        }
+
+        [HttpPost][Route("dang-nhap")]
 		[AllowAnonymous]
 		public ActionResult Login(string userName, string password, string returnUrl = "")
 		{
