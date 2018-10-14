@@ -10,21 +10,37 @@ using Common;
 
 namespace BussinessFacade
 {
-   public class B_Todos_BL
+    public class B_Todos_BL
     {
-        public List<B_Todos_Info> Notify_Search(string p_key_search, ref decimal p_total_record,
+        public List<B_Todos_Info> Notify_Search(string p_key_search,string p_user_name, ref decimal p_total_record,
                 string p_from = "1", string p_to = "10", string p_sort_type = "ALL")
         {
             try
             {
                 B_TODOS_DA _da = new B_TODOS_DA();
-                DataSet _ds = _da.Notify_Search(p_key_search, p_from, p_to, p_sort_type, ref p_total_record);
+                DataSet _ds = _da.Notify_Search(p_key_search,p_user_name, p_from, p_to, p_sort_type, ref p_total_record);
                 return CBO<B_Todos_Info>.FillCollectionFromDataSet(_ds);
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
                 return new List<B_Todos_Info>();
+            }
+        }
+
+        public List<B_Remind_Info> Notify_R_Search(string p_key_search, string p_user_name, ref decimal p_total_record,
+               string p_from = "1", string p_to = "10", string p_sort_type = "ALL")
+        {
+            try
+            {
+                B_TODOS_DA _da = new B_TODOS_DA();
+                DataSet _ds = _da.Notify_Search(p_key_search, p_user_name, p_from, p_to, p_sort_type, ref p_total_record);
+                return CBO<B_Remind_Info>.FillCollectionFromDataSet(_ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<B_Remind_Info>();
             }
         }
 
@@ -67,7 +83,7 @@ namespace BussinessFacade
             {
                 B_TODOS_DA _da = new B_TODOS_DA();
                 DataSet _ds = _da.NotifiGetByCasecode(p_key_search);
-                p_remind_list = CBO<B_Remind_Info>.FillCollectionFromDataTable(_ds.Tables[1]);  
+                p_remind_list = CBO<B_Remind_Info>.FillCollectionFromDataTable(_ds.Tables[1]);
                 return CBO<B_Todos_Info>.FillCollectionFromDataTable(_ds.Tables[0]);
             }
             catch (Exception ex)
@@ -77,7 +93,7 @@ namespace BussinessFacade
             }
         }
 
-        public B_TodoNotify_Info GET_NOTIFY(string p_username )
+        public B_TodoNotify_Info GET_NOTIFY(string p_username)
         {
             try
             {

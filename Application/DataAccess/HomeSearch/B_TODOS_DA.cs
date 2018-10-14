@@ -11,13 +11,14 @@ namespace DataAccess
 {
    public class B_TODOS_DA
     {
-        public DataSet Notify_Search(string p_key_search, string p_from, string p_to, string p_sort_type, ref decimal p_total_record)
+        public DataSet Notify_Search(string p_key_search, string p_user_name, string p_from, string p_to, string p_sort_type, ref decimal p_total_record)
         {
             try
             {
                 OracleParameter paramReturn = new OracleParameter("p_total_record", OracleDbType.Decimal, ParameterDirection.Output);
                 DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_todos.proc_todo_search",
                     new OracleParameter("p_key_search", OracleDbType.Varchar2, p_key_search, ParameterDirection.Input),
+                    new OracleParameter("p_user_name", OracleDbType.Varchar2, p_user_name, ParameterDirection.Input),
                     new OracleParameter("p_from", OracleDbType.Varchar2, p_from, ParameterDirection.Input),
                     new OracleParameter("p_to", OracleDbType.Varchar2, p_to, ParameterDirection.Input),
                     new OracleParameter("p_sort_type", OracleDbType.Varchar2, p_sort_type, ParameterDirection.Input),

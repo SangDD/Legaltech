@@ -53,7 +53,7 @@
             <input type="hidden" value="ALL|ALL|ALL|ALL|ALL" name="txtKeyValue" id="txtKeyValue" />
             <input type="hidden" value="todo_id" name="txtSortColum" id="txtSortColumn" />
             <input type="hidden" value="DESC" name="txtSortType" id="txtSortType" />
-            <div class="div-title-content"> THÔNG TIN @_type</div>
+            <div id="divTitle" class="div-title-content"> THÔNG TIN @_type</div>
         </div>
     </div>
     
@@ -69,7 +69,7 @@
             </div>
             <div>
                 <div>
-                    <input style="width: 150px;" type="text" id="txtAppCaseCode" data-controlcondition="TRUE" />
+                    <input style="width: 250px;" type="text" id="txtAppCaseCode" data-controlcondition="TRUE" />
                 </div>
             </div>
 
@@ -78,7 +78,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" style="width: 150px;" id="txtRequestBy" data-controlcondition="TRUE" />
+                    <input type="text" style="width: 250px;" id="txtRequestBy" data-controlcondition="TRUE" />
                 </div>
             </div>
 
@@ -110,6 +110,9 @@
         </div>
     </div>
 
+    <div class="divCover">
+        @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Detail_Notify.cshtml" , _type)
+    </div>
 
     <div class="divCover">
         <div id="divDataNotify" class="divDataTables" style="overflow-x: auto;">
@@ -136,11 +139,11 @@
         $("#cboStatus").keypress(function (evt) {
             var key = evt.which || evt.charCode || evt.keyCode || 0;
             if (key == 13) {
-                Search_Billing(1, 1);
+                Search_Notify(1, 1);
             }
         });
 
-        Search_Notify(1, 1);
+        //Search_Notify(1, 1);
     });
 
     function jsPaging(page) {
@@ -151,6 +154,11 @@
         try {
             if (CheckSessionTimeOut() == false) {
                 return false;
+            }
+
+            var _type = $("#txtType").val();
+            if (_type == null || _type == "") {
+                _type = '@_type';
             }
 
             var p_keysearch;
@@ -173,7 +181,7 @@
 
                 var _Status = $("#cboStatus").val();
 
-                p_keysearch = _txtAppCaseCode + "|" + _txtRequestBy + "|" + txtReponseBy + "|" + _Status;
+                p_keysearch = _type + "|" + _txtAppCaseCode + "|" + _Status + "|" + _txtRequestBy + "|" + txtReponseBy  ;
 
                 //Lưu lại keysearch
                 $("#txtKeyValue").val(p_keysearch);

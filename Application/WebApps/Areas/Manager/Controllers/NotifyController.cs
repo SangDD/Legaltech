@@ -43,11 +43,21 @@ namespace WebApps.Areas.Manager.Controllers
 
                 decimal _total_record = 0;
                 B_Todos_BL _obj_bl = new B_Todos_BL();
-                string keysSearch = _type + "|" + SessionData.CurrentUser.Username;
-                List<B_Todos_Info> _lst = _obj_bl.B_Todos_Search(keysSearch, ref _total_record);
-                string htmlPaging = CommonFuc.Get_HtmlPaging<B_Todos_Info>((int)_total_record, 1, "Nội dung", 10, "TodojsPaging");
+                string keysSearch = _type + "|" + "ALL" + "|" + "ALL" + "|" + "ALL" + "|" + "ALL";
+                string htmlPaging = "";
+                if (_type == "REMIND")
+                {
+                    List<B_Remind_Info> _lst = _obj_bl.Notify_R_Search(keysSearch, SessionData.CurrentUser.Username, ref _total_record);
+                    htmlPaging = CommonFuc.Get_HtmlPaging<B_Remind_Info>((int)_total_record, 1, "Nội dung");
+                    ViewBag.Obj = _lst;
+                }
+                else
+                {
+                    List<B_Todos_Info> _lst = _obj_bl.Notify_Search(keysSearch, SessionData.CurrentUser.Username, ref _total_record);
+                    htmlPaging = CommonFuc.Get_HtmlPaging<B_Todos_Info>((int)_total_record, 1, "Nội dung");
+                    ViewBag.Obj = _lst;
+                }
 
-                ViewBag.Obj = _lst;
                 ViewBag.Paging = htmlPaging;
                 ViewBag.SumRecord = _total_record;
                 ViewBag.Type = _type;
@@ -71,11 +81,22 @@ namespace WebApps.Areas.Manager.Controllers
                 string p_to = "";
                 string p_from = CommonFuc.Get_From_To_Page(p_CurrentPage, ref p_to);
                 B_Todos_BL _obj_bl = new B_Todos_BL();
-                List<B_Todos_Info> _lst = _obj_bl.Notify_Search(p_keysearch, ref _total_record, p_from, p_to);
-                string htmlPaging = CommonFuc.Get_HtmlPaging<B_Todos_Info>((int)_total_record, 1, "Nội dung");
+
+                string htmlPaging = "";
+                if (p_keysearch.Contains("REMIND"))
+                {
+                    List<B_Remind_Info> _lst1 = _obj_bl.Notify_R_Search(p_keysearch, SessionData.CurrentUser.Username, ref _total_record, p_from, p_to);
+                    ViewBag.Obj = _lst1;
+                    htmlPaging = CommonFuc.Get_HtmlPaging<B_Remind_Info>((int)_total_record, p_CurrentPage, "Nội dung");
+                }
+                else
+                {
+                    List<B_Todos_Info> _lst = _obj_bl.Notify_Search(p_keysearch, SessionData.CurrentUser.Username, ref _total_record, p_from, p_to);
+                    htmlPaging = CommonFuc.Get_HtmlPaging<B_Todos_Info>((int)_total_record, p_CurrentPage, "Nội dung");
+                    ViewBag.Obj = _lst;
+                }
 
                 ViewBag.Paging = htmlPaging;
-                ViewBag.Obj = _lst;
                 ViewBag.SumRecord = _total_record;
             }
             catch (Exception ex)
