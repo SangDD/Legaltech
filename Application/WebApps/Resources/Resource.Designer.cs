@@ -2500,7 +2500,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Phải chọn ít nhất 1 giá trị đơn yêu cầu chuyển nhượng!.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string TM3C_ChonGiaTriYeuCauChuyenNhuong {
             get {
@@ -2595,6 +2595,222 @@ namespace WebApps.Resources {
         public static string TM3C_VanBanDongY {
             get {
                 return ResourceManager.GetString("TM3C_VanBanDongY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bản sao quyết định/thông báo bị khiếu nại (nếu có).
+        /// </summary>
+        public static string TM3D_BanSaoQuyetDinh {
+            get {
+                return ResourceManager.GetString("TM3D_BanSaoQuyetDinh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bản sao quyết định giải quyết khiếu nại lần đầu (đối với khiếu nại lần  hai).
+        /// </summary>
+        public static string TM3D_BanSaoQuyetDinhGiaiQuyet {
+            get {
+                return ResourceManager.GetString("TM3D_BanSaoQuyetDinhGiaiQuyet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phải chọn ít nhất 1 giá trị đối tượng khiếu nại!.
+        /// </summary>
+        public static string TM3D_ChonGiaTriDoiTuongKhieuNai {
+            get {
+                return ResourceManager.GetString("TM3D_ChonGiaTriDoiTuongKhieuNai", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fee không được để trống!.
+        /// </summary>
+        public static string TM3D_FeeKhongDuocDeTrong {
+            get {
+                return ResourceManager.GetString("TM3D_FeeKhongDuocDeTrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ĐỐI TƯỢNG KHIẾU NẠI.
+        /// </summary>
+        public static string TM3D_Header {
+            get {
+                return ResourceManager.GetString("TM3D_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Khiếu nại lần 1.
+        /// </summary>
+        public static string TM3D_KhieuNaiLan1 {
+            get {
+                return ResourceManager.GetString("TM3D_KhieuNaiLan1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Khiếu nại lần 2.
+        /// </summary>
+        public static string TM3D_KhieuNaiLan2 {
+            get {
+                return ResourceManager.GetString("TM3D_KhieuNaiLan2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lần khiếu nại.
+        /// </summary>
+        public static string TM3D_LanKhieuNai {
+            get {
+                return ResourceManager.GetString("TM3D_LanKhieuNai", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TỜ KHAI KHIẾU NẠI.
+        /// </summary>
+        public static string TM3D_Legend {
+            get {
+                return ResourceManager.GetString("TM3D_Legend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Liên quan đến Đơn đăng ký đối tượng sở hữu công nghiệp.
+        /// </summary>
+        public static string TM3D_LienQuanDenDonDK {
+            get {
+                return ResourceManager.GetString("TM3D_LienQuanDenDonDK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Liên quan đến Văn bằng bảo hộ đối tượng sở hữu công nghiệp.
+        /// </summary>
+        public static string TM3D_LienQuanDenVanPhongBaoHo {
+            get {
+                return ResourceManager.GetString("TM3D_LienQuanDenVanPhongBaoHo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngày quyết định.
+        /// </summary>
+        public static string TM3D_NgayQuyetDinh {
+            get {
+                return ResourceManager.GetString("TM3D_NgayQuyetDinh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phí thẩm định để giải quyết khiếu nại.
+        /// </summary>
+        public static string TM3D_PhiThamDinhDeGiaiQuyet {
+            get {
+                return ResourceManager.GetString("TM3D_PhiThamDinhDeGiaiQuyet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phí tra cứu thông tin phục vụ việc giải quyết khiếu nại.
+        /// </summary>
+        public static string TM3D_PhiTraCuuThongTin {
+            get {
+                return ResourceManager.GetString("TM3D_PhiTraCuuThongTin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quyết định/thông báo.
+        /// </summary>
+        public static string TM3D_QuyetDinhThongBao {
+            get {
+                return ResourceManager.GetString("TM3D_QuyetDinhThongBao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số bằng.
+        /// </summary>
+        public static string TM3D_SoBang {
+            get {
+                return ResourceManager.GetString("TM3D_SoBang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số bằng không được để trống!.
+        /// </summary>
+        public static string TM3D_SoBangKhongDuocDeTrong {
+            get {
+                return ResourceManager.GetString("TM3D_SoBangKhongDuocDeTrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số đối tượng tính phí không được để trống!.
+        /// </summary>
+        public static string TM3D_SoDoiTuongTinhPhiKhongDeTrong {
+            get {
+                return ResourceManager.GetString("TM3D_SoDoiTuongTinhPhiKhongDeTrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số quyết định.
+        /// </summary>
+        public static string TM3D_SoQuyetDinh {
+            get {
+                return ResourceManager.GetString("TM3D_SoQuyetDinh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số quyết định không được để trống!.
+        /// </summary>
+        public static string TM3D_SoQuyetDinhKhongDuocBoTrong {
+            get {
+                return ResourceManager.GetString("TM3D_SoQuyetDinhKhongDuocBoTrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số tiền không được để trống!.
+        /// </summary>
+        public static string TM3D_SoTienKhongDuocDeTrong {
+            get {
+                return ResourceManager.GetString("TM3D_SoTienKhongDuocDeTrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to THÊM ĐƠN KHIẾU NẠI.
+        /// </summary>
+        public static string TM3D_Title {
+            get {
+                return ResourceManager.GetString("TM3D_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tờ khai, gồm ... trang x3 bản.
+        /// </summary>
+        public static string TM3D_ToKhaiGom {
+            get {
+                return ResourceManager.GetString("TM3D_ToKhaiGom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Văn bản giải trình lý do khiếu nại, gồm......trang  02 bản.
+        /// </summary>
+        public static string TM3D_VanBanGiaiTrinhLyDo {
+            get {
+                return ResourceManager.GetString("TM3D_VanBanGiaiTrinhLyDo", resourceCulture);
             }
         }
         

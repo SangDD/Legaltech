@@ -2,9 +2,10 @@
 @using WebApps.CommonFunction;
 @using BussinessFacade.ModuleMemoryData
 @using ObjectInfos
-@using ObjectInfos.ModuleTrademark
+@using ObjectInfos.ModuleTrademark;
+@using WebApps.Resources;
 @{
-    ViewBag.Title = "XEM CHI TIẾT ĐƠN KHIẾU NẠI";
+    ViewBag.Title = Resource.TM3D_Title;
     Layout = "~/ViewsShared/_Layout.cshtml";
 
 
@@ -67,7 +68,7 @@
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
         <legend style="font-weight:600">
-            TỜ KHAI KHIẾU NẠI
+            @Resource.TM3D_Legend
         </legend>
 
         @* Case name *@
@@ -77,26 +78,26 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                ĐỐI TƯỢNG KHIẾU NẠI
+                @Resource.TM3D_Header
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Lần khiếu nại</div>
+                <div>@Resource.TM3D_LanKhieuNai</div>
             </div>
             <div class="div-search-content">
                 <div>
                     <select id="cboAppealTimes" disabled="disabled">
                         @if (_App_Detail.Times == 1)
                         {
-                            <option value="1" selected="selected">Khiếu nại lần 1</option>
-                            <option value="2">Khiếu nại lần 2</option>
+                            <option value="1" selected="selected">@Resource.TM3D_KhieuNaiLan1</option>
+                            <option value="2">@Resource.TM3D_KhieuNaiLan2</option>
                         }
                         else
                         {
-                            <option value="1">Khiếu nại lần 1</option>
-                            <option value="2" selected="selected">Khiếu nại lần 2</option>
+                            <option value="1">@Resource.TM3D_KhieuNaiLan1</option>
+                            <option value="2" selected="selected">@Resource.TM3D_KhieuNaiLan2</option>
                         }
                     </select>
                 </div>
@@ -114,25 +115,25 @@
                     {
                         <input type="radio" name="3_rdoAppeal_Object" id="3_rdAppeal_Object_1" value="1" onchange="return OnChangeAppealObject()" disabled="disabled">
                     }
-                    <label>Quyết định/thông báo</label>
+                    <label>@Resource.TM3D_QuyetDinhThongBao</label>
                 </div>
             </div>
 
             <div class="div-search-title">
-                <div>Số quyết định</div>
+                <div>@Resource.TM3D_SoQuyetDinh</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Số quyết định" id="3_txt_appeal_number" maxlength="100" value="@_App_Detail.Appeal_Number" disabled="disabled" />
+                    <input type="text" id="3_txt_appeal_number" maxlength="100" value="@_App_Detail.Appeal_Number" disabled="disabled" />
                 </div>
             </div>
 
             <div class="div-search-title">
-                <div>Ngày</div>
+                <div>@Resource.TM3D_NgayQuyetDinh</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Ngày quyết định" id="3_txt_appeal_date" maxlength="100" disabled="disabled" value="@_App_Detail.Appeal_Date.ToString("dd/MM/yyyy")" />
+                    <input type="text"  id="3_txt_appeal_date" maxlength="100" disabled="disabled" value="@_App_Detail.Appeal_Date.ToString("dd/MM/yyyy")" />
                 </div>
             </div>
 
@@ -150,15 +151,15 @@
                         <input type="radio" name="3_rdoAppeal_Object" id="3_rdAppeal_Object_2" value="2" onchange="return OnChangeAppealObject()" disabled="disabled">
                     }
 
-                    <label>Liên quan đến Đơn đăng ký đối tượng sở hữu công nghiệp</label>
+                    <label>@Resource.TM3D_LienQuanDenDonDK</label>
                 </div>
             </div>
             <div class="div-search-title">
-                <div>Số đơn</div>
+                <div>@Resource.lblSoDon</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Số đơn" id="3_txt_appeal_appno" maxlength="100" value="@_App_Detail.Appeal_Appno" disabled="disabled" />
+                    <input type="text" id="3_txt_appeal_appno" maxlength="100" value="@_App_Detail.Appeal_Appno" disabled="disabled" />
                 </div>
             </div>
         </div>
@@ -174,15 +175,15 @@
                     {
                         <input type="radio" name="3_rdoAppeal_Object" id="3_rdAppeal_Object_3" value="3" onchange="return OnChangeAppealObject()" disabled="disabled">
                     }
-                    <label>Liên quan đến Văn bằng bảo hộ đối tượng sở hữu công nghiệp </label>
+                    <label>@Resource.TM3D_LienQuanDenVanPhongBaoHo</label>
                 </div>
             </div>
             <div class="div-search-title">
-                <div>Số bằng</div>
+                <div>@Resource.TM3D_SoBang</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Số bằng" id="3_txt_appeal_degree" maxlength="100" value="@_App_Detail.Appeal_Degree" disabled="disabled" />
+                    <input type="text"   id="3_txt_appeal_degree" maxlength="100" value="@_App_Detail.Appeal_Degree" disabled="disabled" />
                 </div>
             </div>
         </div>
@@ -192,7 +193,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                CHỦ ĐƠN
+                @Resource.TM2B_ChuDon
             </div>
         </div>
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon_View.cshtml")
@@ -201,18 +202,18 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                ĐẠI DIỆN CỦA CHỦ ĐƠN
+                @Resource.TM2B_DaiDienChuDon
             </div>
         </div>
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon_View.cshtml")
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Mã đại diện:</div>
+                <div>@Resource.lblMaDaiDien:</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Mã đại diện" id="txt_MaDaiDien" value="@_App_Detail.Customer_Code" disabled="disabled" />
+                    <input type="text"   id="txt_MaDaiDien" value="@_App_Detail.Customer_Code" disabled="disabled" />
                 </div>
             </div>
         </div>
@@ -224,24 +225,24 @@
             <div class="divCover cls_form_title">
                 <img src="~/Content/icons/info.png" />
                 <div class="cls_form_header">
-                    PHÍ, LỆ PHÍ
+                    @Resource.lblPhiLePhi
                 </div>
             </div>
 
             @* 2. Phí tra cứu thông tin phục vụ việc giải quyết khiếu nại *@
-            if (Lst_AppFee.Count >= 1)
-            {
-                string _fee_id1 = "PhiTraCuu|Phí tra cứu thông tin phục vụ việc giải quyết khiếu nại";
-                string _fee_value1 = Lst_AppFee[0].Isuse.ToString() + "|" + Lst_AppFee[0].Number_Of_Patent.ToString() + "|" + Lst_AppFee[0].Amount.ToString("#,##0.##");
+        if (Lst_AppFee.Count >= 1)
+        {
+            string _fee_id1 = "PhiTraCuu|" + Resource.TM3D_PhiTraCuuThongTin;
+            string _fee_value1 = Lst_AppFee[0].Isuse.ToString() + "|" + Lst_AppFee[0].Number_Of_Patent.ToString() + "|" + Lst_AppFee[0].Amount.ToString("#,##0.##");
                 @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Fee_View.cshtml", _fee_id1 + ";" + _fee_value1)
             }
 
 
             @* 2. Phí thẩm định để giải quyết khiếu nại *@
-            if (Lst_AppFee.Count >= 2)
-            {
-                string _fee_id2 = "PhiThamDinh|Phí thẩm định để giải quyết khiếu nại";
-                string _fee_value2 = Lst_AppFee[1].Isuse.ToString() + "|" + Lst_AppFee[1].Number_Of_Patent.ToString() + "|" + Lst_AppFee[1].Amount.ToString("#,##0.##");
+        if (Lst_AppFee.Count >= 2)
+        {
+            string _fee_id2 = "PhiThamDinh|" + Resource.TM3D_PhiThamDinhDeGiaiQuyet;
+            string _fee_value2 = Lst_AppFee[1].Isuse.ToString() + "|" + Lst_AppFee[1].Number_Of_Patent.ToString() + "|" + Lst_AppFee[1].Amount.ToString("#,##0.##");
                 @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Fee_View.cshtml", _fee_id2 + ";" + _fee_value2)
             }
         }
@@ -251,14 +252,14 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                CÁC TÀI LIỆU CÓ TRONG ĐƠN
+                @Resource.TM2B_TaiLieuCoTrongDon
             </div>
         </div>
 
         @* 1. Tờ khai *@
         @{
             string _doc_id = "C05_KN_01";
-            string _id = _doc_id + "|6_Doc_C05_KN_01|0|Tờ khai, gồm ... trang x3 bản|Số trang|0";
+            string _id = _doc_id + "|6_Doc_C05_KN_01|0|" + Resource.TM3D_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|0";
             string _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
             string _model = _id + ";" + _value;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model)
@@ -267,7 +268,7 @@
         @* 2. Văn bản giải trình lý do khiếu nại, gồm......trang  02 bản *@
         @{
             string _doc_id2 = "C05_KN_02";
-            string _id2 = _doc_id2 + "|6_Doc_C05_KN_02|0|Văn bản giải trình lý do khiếu nại, gồm......trang  02 bản|Số trang|1";
+            string _id2 = _doc_id2 + "|6_Doc_C05_KN_02|0|" + Resource.TM3D_VanBanGiaiTrinhLyDo + "|" + Resource.TM2B_SoTrang + "|1";
             string _value2 = dic_appDoc[_doc_id2].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id2].CHAR01 + "|" + dic_appDoc[_doc_id2].Url_Hardcopy;
             string _model2 = _id2 + ";" + _value2;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model2)
@@ -276,7 +277,7 @@
         @* 3. Bản sao quyết định/thông báo bị khiếu nại (nếu có)  *@
         @{
             string _doc_id3 = "C05_KN_03";
-            string _id3 = _doc_id3 + "|6_Doc_C05_KN_03|0|Bản sao quyết định/thông báo bị khiếu nại (nếu có)||1";
+            string _id3 = _doc_id3 + "|6_Doc_C05_KN_03|0|" + Resource.TM3D_BanSaoQuyetDinh + "|1";
             string _value3 = dic_appDoc[_doc_id3].Isuse.ToString().Trim() + " | " + dic_appDoc[_doc_id3].CHAR01 + "|" + dic_appDoc[_doc_id3].Url_Hardcopy;
             string _model3 = _id3 + ";" + _value3;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model3)
@@ -285,7 +286,7 @@
         @* 4. Bản sao quyết định giải quyết khiếu nại lần đầu (đối với khiếu nại lần hai) *@
         @{
             string _doc_id4 = "C05_KN_04";
-            string _id4 = _doc_id4 + "|6_Doc_C05_KN_04|0|Bản sao quyết định giải quyết khiếu nại lần đầu (đối với khiếu nại lần  hai)|Số trang|1";
+            string _id4 = _doc_id4 + "|6_Doc_C05_KN_04|0|" + Resource.TM3D_BanSaoQuyetDinhGiaiQuyet + "|" + Resource.TM2B_SoTrang + "|1";
             string _value4 = dic_appDoc[_doc_id4].Isuse.ToString().Trim() + " | " + dic_appDoc[_doc_id4].CHAR01 + "|" + dic_appDoc[_doc_id4].Url_Hardcopy;
             string _model4 = _id4 + ";" + _value4;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model4)
@@ -294,7 +295,7 @@
         @* 5. Giấy uỷ quyền bằng tiếng *@
         @{
             string _doc_id50 = "C05_KN_05";
-            string _id50 = _doc_id50 + "|6_Doc_POA|0|Giấy uỷ quyền bằng tiếng|Tiếng|1";
+            string _id50 = _doc_id50 + "|6_Doc_POA|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|" + Resource.TM3B_Tieng + "|1";
             string _value50 = dic_appDoc[_doc_id50].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id50].CHAR01 + "|" + dic_appDoc[_doc_id50].Url_Hardcopy;
             string _model50 = _id50 + ";" + _value50;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model50)
@@ -303,7 +304,7 @@
         @* 6 -> 5.1  Bản dịch tiếng Việt, gồm *@
         @{
             string _doc_id5 = "C05_KN_06";
-            string _id5 = _doc_id5 + "|6_Doc_BanDichPOA|1|Bản dịch tiếng Việt, gồm|Số trang|1";
+            string _id5 = _doc_id5 + "|6_Doc_BanDichPOA|1|" + Resource.lblBanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
             string _value5 = dic_appDoc[_doc_id5].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id5].CHAR01 + "|" + dic_appDoc[_doc_id5].Url_Hardcopy;
             string _model5 = _id5 + ";" + _value5;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model5)
@@ -312,7 +313,7 @@
         @* 7 -> 5.2 Bản gốc *@
         @{
             string _doc_id6 = "C05_KN_07";
-            string _id6 = _doc_id6 + "|6_Doc_BanGocPOA|1|Bản gốc||1";
+            string _id6 = _doc_id6 + "|6_Doc_BanGocPOA|1|" + Resource.lblBanGoc + "||1";
             string _value6 = dic_appDoc[_doc_id6].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id6].CHAR01 + "|" + dic_appDoc[_doc_id6].Url_Hardcopy;
             string _model6 = _id6 + ";" + _value6;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model6)
@@ -321,7 +322,7 @@
         @* 8 -> 5.3 Bản sao *@
         @{
             string _doc_id7 = "C05_KN_08";
-            string _id7 = _doc_id7 + "|6_Doc_BanSaoPOA|1|Bản sao||0";
+            string _id7 = _doc_id7 + "|6_Doc_BanSaoPOA|1|" + Resource.TM2B_BanSao + "||0";
             string _value7 = dic_appDoc[_doc_id7].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id7].CHAR01 + "|" + dic_appDoc[_doc_id7].Url_Hardcopy;
             string _model7 = _id7 + ";" + _value7;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model7)
@@ -330,7 +331,7 @@
         @* 9 -> 5.3.1 Bản sao  > Bản gốc sẽ nộp sau *@
         @{
             string _doc_id8 = "C05_KN_09";
-            string _id8 = _doc_id8 + "|6_Doc_BanGocPOA_Later|2|Bản gốc sẽ nộp sau||1";
+            string _id8 = _doc_id8 + "|6_Doc_BanGocPOA_Later|2|" + Resource.TM2B_BanGocSeNopSau + "||1";
             string _value8 = dic_appDoc[_doc_id8].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id8].CHAR01 + "|" + dic_appDoc[_doc_id8].Url_Hardcopy;
             string _model8 = _id8 + ";" + _value8;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model8)
@@ -339,7 +340,7 @@
         @* 10 -> 5.3.2 Bản sao  > Bản gốc đã nộp theo đơn *@
         @{
             string _doc_id9 = "C05_KN_10";
-            string _id9 = _doc_id9 + "|6_Doc_BanGocPOA_ByApp|2|Bản gốc đã nộp theo đơn số|Số đơn|0";
+            string _id9 = _doc_id9 + "|6_Doc_BanGocPOA_ByApp|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM3B_SoDon + "|0";
             string _value9 = dic_appDoc[_doc_id9].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id9].CHAR01 + "|" + dic_appDoc[_doc_id9].Url_Hardcopy;
             string _model9 = _id9 + ";" + _value9;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model9)
@@ -348,7 +349,7 @@
         @* 11 -> Bản sao chứng từ nộp phí *@
         @{
             string _doc_id10 = "C05_KN_11";
-            string _id10 = _doc_id10 + "|6_Doc_BanSaoChungTu|0|Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ)||1";
+            string _id10 = _doc_id10 + "|6_Doc_BanSaoChungTu|0|" + Resource.TM3B_BanSaoChungTuNopPhi + "||1";
             string _value10 = dic_appDoc[_doc_id10].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id10].CHAR01 + "|" + dic_appDoc[_doc_id10].Url_Hardcopy;
             string _model10 = _id10 + ";" + _value10;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model10)
@@ -357,7 +358,7 @@
         @* 12. Khác *@
         @{
             string _doc_id11 = "C05_KN_12";
-            string _id11 = _doc_id11 + "|6_Doc_Other|0|Tài liệu khác, cụ thể|Tên tài liệu|1";
+            string _id11 = _doc_id11 + "|6_Doc_Other|0|" + Resource.TM3B_TaiLieuKhac + "|" + Resource.TM3B_TaiLieuKhacTenTaiLieu + "|1";
             string _value11 = dic_appDoc[_doc_id11].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id11].CHAR01 + "|" + dic_appDoc[_doc_id11].Url_Hardcopy;
             string _model11 = _id11 + ";" + _value11;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model11)
