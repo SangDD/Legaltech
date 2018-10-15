@@ -327,8 +327,6 @@ namespace WebApps.Areas.Articles.Controllers
             try
             {
                 decimal pStatus = 7;
-                if (SessionData.CurrentUser == null)
-                    return Redirect("/");
                 decimal _total_record = 0;
                 NewsBL objBL = new NewsBL();
                 //string _status = "ALL";
@@ -348,5 +346,30 @@ namespace WebApps.Areas.Articles.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("news-detail/{id}/{id2}")]
+        public ActionResult NewsDetailPortal()
+        {
+            try
+            {
+                decimal pIDArticles = 0;
+                //int Status = 7;
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    pIDArticles = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
+                }
+                var objNewsBL = new NewsBL();
+                string language = AppsCommon.GetCurrentLang();
+                var objNewInfo = objNewsBL.ArticlesGetById(pIDArticles, language);
+                ViewBag.objNewInfo = objNewInfo;
+                return View("~/Areas/Articles/Views/ArticlesNews/_HomeDetailNews.cshtml");
+             
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return View();
+            }
+        }
     }
 }

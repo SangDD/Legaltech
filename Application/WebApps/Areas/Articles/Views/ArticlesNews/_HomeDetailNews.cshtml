@@ -1,0 +1,38 @@
+﻿@using ObjectInfos
+
+@{
+    var objInfo = new NewsInfo();
+    if (ViewBag.objNewInfo != null)
+    {
+        objInfo = ViewBag.objNewInfo;
+    }
+    Layout = "~/ViewsShared/_LayoutHomeArticles.cshtml";
+}
+
+<div class="t-generic_col-right o-layout_item" style="padding-top:100px;margin-left:20px">
+    <div class="t-generic_col-right-wrap o-layout">
+        <div class="c-content o-layout_item js-entry-container is-enabled is-entry-loaded" style="padding-left: 150px;">
+            <button class="c-viewlist-btn js-animate js-entry-list-toggle" data-sticky="" data-sticky-target="#main-footer">
+                <div class="c-viewlist-btn_icon" style="background-color:#ff0000">
+                    <figure class="c-viewlist-btn_figure">
+                        @*<svg class="-mobile" role="img">
+                            <use xlink:href="http://khenposodargye.org/content/themes/khenpo-2018/assets/images/sprite.svg#icon-arrow-generic"></use>
+                        </svg>
+                        <svg class="-desktop" role="img">
+                            <use xlink:href="http://khenposodargye.org/content/themes/khenpo-2018/assets/images/sprite.svg#icon-close-listing">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.97 13.8" id="icon-close-listing" width="100%" height="100%"><title>X</title><path d="M.006.68l.731-.683L12.98 13.111l-.73.682z"></path><path d="M.003 13.112L12.252.004l.73.683L.733 13.794z"></path></svg>
+
+                            </use>
+                        </svg>*@
+                    </figure>
+                </div>
+                <span class="c-viewlist-btn_label">Back to the list</span>
+            </button>
+
+            <h1 class="t-generic_title">@objInfo.Title</h1>
+            <div class="t-generic_summary">
+                @Html.Raw(objInfo.Content)
+            </div>
+        </div>
+    </div>
+</div>
