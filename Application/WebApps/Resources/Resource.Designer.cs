@@ -2815,6 +2815,114 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bằng độc quyền giải pháp hữu ích.
+        /// </summary>
+        public static string TM4C_BangDocQuyenGiaiPhaiHuuIch {
+            get {
+                return ResourceManager.GetString("TM4C_BangDocQuyenGiaiPhaiHuuIch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bằng độc quyền kiểu dáng công nghiệp.
+        /// </summary>
+        public static string TM4C_BangDocQuyenKieuDangCongNghiep {
+            get {
+                return ResourceManager.GetString("TM4C_BangDocQuyenKieuDangCongNghiep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bằng độc quyền sáng chế.
+        /// </summary>
+        public static string TM4C_BangDocQuyenSangChe {
+            get {
+                return ResourceManager.GetString("TM4C_BangDocQuyenSangChe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ĐỐI TƯỢNG CỦA HỢP ĐỒNG.
+        /// </summary>
+        public static string TM4C_FormHeader {
+            get {
+                return ResourceManager.GetString("TM4C_FormHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Giấy chứng nhận đăng ký nhãn hiệu.
+        /// </summary>
+        public static string TM4C_GiayChungNhanDangKyNhanHieu {
+            get {
+                return ResourceManager.GetString("TM4C_GiayChungNhanDangKyNhanHieu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Giấy CN đăng ký thiết kế bố trí mạch tích hợp bán dẫn.
+        /// </summary>
+        public static string TM4C_GiayCNDangKyThietKe {
+            get {
+                return ResourceManager.GetString("TM4C_GiayCNDangKyThietKe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ĐƠN ĐĂNG KÝ CHUYỂN NHƯỢNG.
+        /// </summary>
+        public static string TM4C_Legend {
+            get {
+                return ResourceManager.GetString("TM4C_Legend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lệ phí cấp Giấy chứng nhận đăng ký nhãn hiệu (TH chuyển nhượng một phần danh mục hàng hóa/dịch vụ mang nhãn hiệu).
+        /// </summary>
+        public static string TM4C_LePhiDangKyNhanHieu {
+            get {
+                return ResourceManager.GetString("TM4C_LePhiDangKyNhanHieu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phí thẩm định đơn (TH chuyển nhượng nhãn hiệu tập thể, nhãn hiệu chứng nhận).
+        /// </summary>
+        public static string TM4C_PhiThamDinhDon {
+            get {
+                return ResourceManager.GetString("TM4C_PhiThamDinhDon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số văn bằng bảo hộ.
+        /// </summary>
+        public static string TM4C_SoBangBaoHo {
+            get {
+                return ResourceManager.GetString("TM4C_SoBangBaoHo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đơn đăng ký chuyển nhượng.
+        /// </summary>
+        public static string TM4C_Title {
+            get {
+                return ResourceManager.GetString("TM4C_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tờ khai, gồm 2 trang x2 bản.
+        /// </summary>
+        public static string TM4C_ToKhaiGom {
+            get {
+                return ResourceManager.GetString("TM4C_ToKhaiGom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tổng SP.
         /// </summary>
         public static string TongSanPham {

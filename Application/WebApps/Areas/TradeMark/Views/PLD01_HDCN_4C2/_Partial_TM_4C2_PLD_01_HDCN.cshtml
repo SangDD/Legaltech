@@ -1,8 +1,9 @@
 ﻿@using Common.CommonData
 @using WebApps.CommonFunction;
 @using BussinessFacade.ModuleMemoryData
+@using WebApps.Resources;
 @{
-    ViewBag.Title = "Đơn đăng ký chuyển nhượng";
+    ViewBag.Title = Resource.TM4C_Title
     Layout = "~/ViewsShared/_Layout.cshtml";
 }
 
@@ -34,7 +35,7 @@
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
         <legend style="font-weight:600">
-            ĐƠN ĐĂNG KÝ CHUYỂN NHƯỢNG
+          @Resource.TM4C_Legend
         </legend>
 
         @*thông tin khách hàng mà admin nhập hộ*@
@@ -47,7 +48,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                ĐỐI TƯỢNG CỦA HỢP ĐỒNG
+                @Resource.TM4C_FormHeader
             </div>
         </div>
 
@@ -55,14 +56,14 @@
             <div class="div-search-content">
                 <div class="div-radio" style="width:382px">
                     <input type="radio" name="4_rdoDoiTuongHopDong" id="4_rdDT_1" value="1">
-                    <label>Bằng độc quyền sáng chế</label>
+                    <label>@Resource.TM4C_BangDocQuyenSangChe</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
                     <input type="radio" name="4_rdoDoiTuongHopDong" id="4_rdDT_2" value="2">
-                    <label>Bằng độc quyền giải pháp hữu ích</label>
+                    <label>@Resource.TM4C_BangDocQuyenGiaiPhaiHuuIch</label>
                 </div>
             </div>
         </div>
@@ -71,14 +72,14 @@
             <div class="div-search-content">
                 <div class="div-radio" style="width:382px">
                     <input type="radio" name="4_rdoDoiTuongHopDong" id="4_rdDT_3" value="3">
-                    <label>Giấy CN đăng ký thiết kế bố trí mạch tích hợp bán dẫn</label>
+                    <label>@Resource.TM4C_GiayCNDangKyThietKe</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
                     <input type="radio" name="4_rdoDoiTuongHopDong" id="4_rdDT_4" value="4">
-                    <label>Bằng độc quyền kiểu dáng công nghiệp</label>
+                    <label>@Resource.TM4C_BangDocQuyenKieuDangCongNghiep</label>
                 </div>
             </div>
         </div>
@@ -87,18 +88,18 @@
             <div class="div-search-content">
                 <div class="div-radio">
                     <input type="radio" name="4_rdoDoiTuongHopDong" id="4_rdDT_5" value="5">
-                    <label>Giấy chứng nhận đăng ký nhãn hiệu</label>
+                    <label>@Resource.TM4C_GiayChungNhanDangKyNhanHieu</label>
                 </div>
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Số văn bằng bảo hộ:</div>
+                <div>@Resource.TM4C_SoBangBaoHo:</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Số văn bằng bảo hộ" id="4_txt_VanBangBaoHo" />
+                    <input type="text" placeholder="@Resource.TM4C_SoBangBaoHo" id="4_txt_VanBangBaoHo" />
                 </div>
             </div>
         </div>
@@ -109,7 +110,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                CHỦ ĐƠN
+               @Resource.TM2B_ChuDon
             </div>
         </div>
         <div id="div_PartialThongTinChuDon">
@@ -120,14 +121,14 @@
             <div class="div-search-content">
                 <div class="div-radio" style="width:382px">
                     <input type="radio" name="1_rdoChuDon" value="1" id="rb_1_ChuDonChuyenNhuong">
-                    <label>là bên chuyển nhượng</label>
+                    <label>@Resource.TM3C_LaBenChuyenNhuong</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
                     <input type="radio" name="1_rdoChuDon" value="2">
-                    <label>là bên nhận chuyển nhượng</label>
+                    <label>@Resource.TM3C_LaBenChuyenNhuong</label>
                 </div>
             </div>
         </div>
@@ -136,7 +137,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                ĐẠI DIỆN CỦA CHỦ ĐƠN
+               @Resource.TM2B_DaiDienChuDon
             </div>
         </div>
 
@@ -146,11 +147,11 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Mã đại diện:</div>
+                <div>@Resource.TM3C_MaDaiDien:</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Mã đại diện" id="txt_MaDaiDien" />
+                    <input type="text" placeholder="@Resource.TM3C_MaDaiDien" id="txt_MaDaiDien" />
                 </div>
             </div>
         </div>
@@ -160,7 +161,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN)
+                @Resource.TM3C_BenThuHaiTrongHD
             </div>
         </div>
         @Html.Partial("~/Areas/TradeMark/Views/PLD01_HDCN_4C2/_PartialSecondMaster.cshtml", "3")
@@ -170,19 +171,19 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                PHÍ, LỆ PHÍ
+                @Resource.lblPhiLePhi
             </div>
         </div>
         @{
 
             @* 2. Phí tra cứu thông tin phục vụ việc giải quyết khiếu nại *@
-            string _fee_id1 = "PhiThamDinh";
-            string _modelFee1 = _fee_id1 + "|Phí thẩm định đơn (TH chuyển nhượng nhãn hiệu tập thể, nhãn hiệu chứng nhận)|0";
+        string _fee_id1 = "PhiThamDinh";
+        string _modelFee1 = _fee_id1 + "|"+Resource.TM4C_PhiThamDinhDon + "|0";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Fee.cshtml", _modelFee1)
 
             @* 2. Phí thẩm định để giải quyết khiếu nại *@
-            string _fee_id2 = "PhiCapGiayChungNhan";
-            string _modelFee2 = _fee_id2 + "|Lệ phí cấp Giấy chứng nhận đăng ký nhãn hiệu (TH chuyển nhượng một phần danh mục hàng hóa/dịch vụ mang nhãn hiệu)|0";
+        string _fee_id2 = "PhiCapGiayChungNhan";
+        string _modelFee2 = _fee_id2 + "|"+ Resource.TM4C_LePhiDangKyNhanHieu + "|0";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Fee.cshtml", _modelFee2)
         }
 
@@ -190,7 +191,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                CÁC TÀI LIỆU CÓ TRONG ĐƠN
+                @Resource.lblTaiLieuTrongDon
             </div>
         </div>
 
@@ -199,7 +200,7 @@
             <div class="div-search-content">
                 <div class="div-checkbox">
                     <input type="checkbox" name="ckb_6_Doc_PLD01_HDCB_01" id="ckb_6_Doc_PLD01_HDCB_01" value="PLD01_HDCB_01" checked="checked" disabled="disabled">
-                    <label>Tờ khai, gồm 2 trang x2 bản</label>
+                    <label>@Resource.TM4C_ToKhaiGom</label>
                 </div>
             </div>
         </div>
