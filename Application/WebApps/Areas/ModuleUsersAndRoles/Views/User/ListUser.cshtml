@@ -31,6 +31,11 @@
         </div>
     </div>
 
+    @*Notify*@
+    <div class="divCover">
+        @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+    </div>
+
     <div class="d-main">
         <div class="divCover">
             <div class="classTitle">
@@ -135,8 +140,8 @@
         $(document).ready(function () {
             $('txtUsernameSearch').focus();
             $('[data-controlcondition="TRUE"]').on('keypress',
-				function (e) {
-				    enterKeyPress(e, 'btnFindUsers');
+                function (e) {
+                    enterKeyPress(e, 'btnFindUsers');
                 });
 
             findUsers(1, 1)
@@ -225,7 +230,7 @@
                 return false;
             }
             try {
-                var url = "/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-edit-user/" + userId ;
+                var url = "/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-edit-user/" + userId;
                 window.location.href = url;
             } catch (e) {
                 console.log(e.toString())
@@ -275,7 +280,7 @@
             }
         }
 
-       
+
         function getViewToResetPass(Username) {
             $.ajax({
                 type: "POST",

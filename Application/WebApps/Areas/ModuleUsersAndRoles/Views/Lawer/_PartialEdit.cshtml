@@ -36,6 +36,10 @@
     </div>
 </div>
 
+@*Notify*@
+<div class="divCover">
+    @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+</div>
 
 <div class="d-main">
     <div class="divCover">
@@ -491,11 +495,11 @@
         formData.append('userInfo.Wechat_Link', $("#txtwechat_link").val());
         formData.append('userInfo.Other_Link', $("#txtOther_Link").val());
 
-         
+
         formData.append('userInfo.Other_Type', $("#cboLawerType").val());
         formData.append('userInfo.Hourly_Rate', $("#txthourly_rate").val().replace(/,/g, ""));
         formData.append('userInfo.Hourly_Rate_USD', $("#txthourly_rate_usd").val().replace(/,/g, ""));
-         
+
 		formData.append('GroupId', GroupId);
 	}
 </script>

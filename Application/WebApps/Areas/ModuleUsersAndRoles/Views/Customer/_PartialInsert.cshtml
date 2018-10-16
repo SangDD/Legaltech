@@ -1,7 +1,7 @@
 ﻿@using BussinessFacade.ModuleMemoryData
 @using BussinessFacade.ModuleUsersAndRoles
 @using Common.CommonData
-@{ 
+@{
     ViewBag.Title = "Thêm mới khách hàng";
     Layout = "~/ViewsShared/_Layout.cshtml";
 }
@@ -26,6 +26,11 @@
     </div>
 </div>
 
+
+@*Notify*@
+<div class="divCover">
+    @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+</div>
 
 <div class="d-main">
     <div class="divCover">
@@ -559,7 +564,7 @@
             return false;
         }
 
-        var _cboCountry =  $("#cboCountry").val();
+        var _cboCountry = $("#cboCountry").val();
         if (_cboCountry == null) {
             jError("Quốc tịch không được bỏ trống!", "lỗi", function () {
                 $('#cboCountry').multipleSelect('focus');
@@ -574,7 +579,7 @@
             return false;
         }
 
-        
+
         var _txtcompany_name = $("#txtcompany_name").val();
         if (_txtcompany_name == null || _txtcompany_name == "") {
             jError("Tên công ty khách hàng không được bỏ trống!", "lỗi", function () {

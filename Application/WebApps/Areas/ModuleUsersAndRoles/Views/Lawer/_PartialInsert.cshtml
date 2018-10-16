@@ -26,6 +26,10 @@
     </div>
 </div>
 
+@*Notify*@
+<div class="divCover">
+    @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+</div>
 
 <div class="d-main">
     <div class="divCover">
@@ -360,7 +364,7 @@
         //formData.append('userInfo.Title', $("#txttitle").val());
         //formData.append('userInfo.Copyto', $("#txtcopyto").val());
 
-       
+
 
         //formData.append('userInfo.Reason_Select', $("#cboReasonSelect").val());
         //formData.append('userInfo.Request_Credit', $("#cboRequestCredit").val());
@@ -374,7 +378,7 @@
         formData.append('GroupId', GroupIdAdd);
     }
 
-        
+
 
     function back() {
         var url = "/luat-su/quan-ly-luat-su/";

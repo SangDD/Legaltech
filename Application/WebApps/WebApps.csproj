@@ -183,6 +183,7 @@
     <Compile Include="Areas\Manager\Controllers\DockingController.cs" />
     <Compile Include="Areas\Manager\Controllers\NotifyController.cs" />
     <Compile Include="Areas\Manager\Controllers\SearchManageController.cs" />
+    <Compile Include="Areas\Manager\Controllers\Search_FeeController.cs" />
     <Compile Include="Areas\Manager\Controllers\TimeSheetController.cs" />
     <Compile Include="Areas\Manager\ManagerAreaRegistration.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\CustomerController.cs" />
@@ -1583,7 +1584,11 @@
     <Content Include="Areas\Manager\Views\Notify\Notify_Display.cshtml" />
     <Content Include="Areas\Manager\Views\Notify\_PartialTableNotify.cshtml" />
     <Content Include="Areas\Home\Views\Shared\_Partial_Detail_Notify.cshtml" />
-    <Content Include="Areas\Articles\Views\ArticlesNews\_HomeDetailNews.cshtml" />
+    <Content Include="Areas\Manager\Views\Search_Fee\Search_Fee_Display.cshtml" />
+    <Content Include="Areas\Manager\Views\Search_Fee\_PartialTableSearch_Fee.cshtml" />
+    <Content Include="Areas\Manager\Views\Search_Fee\_PartialView.cshtml" />
+    <Content Include="Areas\Manager\Views\Search_Fee\_PartialInsert.cshtml" />
+    <Content Include="Areas\Manager\Views\Search_Fee\_PartialEdit.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <Content Include="Areas\Home\Views\Wiki\_PartialListDocByCata.cshtml" />

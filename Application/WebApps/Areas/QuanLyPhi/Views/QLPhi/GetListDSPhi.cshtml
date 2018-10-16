@@ -21,6 +21,11 @@
     </div>
 </div>
 
+@*Notify*@
+<div class="divCover">
+    @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+</div>
+
 <div class="d-main">
     <div class="divCover">
         <div class="classTitle">
@@ -67,7 +72,7 @@
 <script>
 
     function functionSearchDSPhi() {
-        
+
         if (CheckSessionTimeOut() == false) {
             return false;
         }
@@ -77,7 +82,7 @@
             url: "/quan-ly-phi/danh-sach-phi/search",
             dataType: "html",
             data: {
-                 pAppCode: _appcode
+                pAppCode: _appcode
             },
             async: false, cache: false, traditional: true,
             success: function (data) {

@@ -71,6 +71,11 @@
     </div>
 </div>
 
+@*Notify*@
+<div class="divCover">
+    @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+</div>
+
 <div class="d-main">
     <div class="divCover">
         <div class="classTitle">
@@ -101,13 +106,13 @@
             </div>
 
             @*<div class="div-search-title">
-                <div>Người xét duyệt<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.DropDownList("Approve_By", lstUsersAdmin, new { @id = "Approve_By" })
+                    <div>Người xét duyệt<i class="redspan">(*)</i></div>
                 </div>
-            </div>*@
+                <div class="div-search-content">
+                    <div>
+                        @Html.DropDownList("Approve_By", lstUsersAdmin, new { @id = "Approve_By" })
+                    </div>
+                </div>*@
         </div>
 
         <div id="divInfoApp" style="margin-top: 10px;">
@@ -430,7 +435,7 @@
             });
             return false;
         }
-         
+
         return true;
     }
 

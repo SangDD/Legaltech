@@ -1,0 +1,217 @@
+﻿@using ObjectInfos;
+@using BussinessFacade;
+@using BussinessFacade.ModuleMemoryData
+@using System.Xml
+@model Sys_Search_Fix_Info
+
+@{
+    ViewBag.Title = "thêm mới phí tìm kiếm";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+    List<AllCodeInfo> _lstType = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "SEARCHTYPE");
+    var lstType = _lstType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
+
+    List<AllCodeInfo> _lstObject = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OBJECT");
+    var lstObject = _lstObject.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
+
+}
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 150px;
+    }
+</style>
+
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        Quản lý
+        <span class="red">></span>
+        <a href="/quan-ly-phi-tim-kiem/danh-sach-phi-tim-kiem">Quản lý phí tìm kiếm</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+
+@*Notify*@
+<div class="divCover">
+    @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+</div>
+
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <div class="div-title-content"> THÊM MỚI PHÍ TÌM KIẾM</div>
+        </div>
+    </div>
+
+    <div class="divCover">
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Quốc tịch<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboCountry">
+                        @foreach (var item in MemoryData.c_lst_Country)
+                        {
+                            if (item.Country_Id == Common.Common.Country_VietNam_Id)
+                            {
+                                <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Country_Id">
+                                    @item.Name
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Đối tượng <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.DropDownList("Search_Object", lstObject, new { @id = "cboObject", @style = "width: 200px" })
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Loại tìm kiếm</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.DropDownList("Search_Type", lstType, new { @id = "cboType" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Lệ phí (VNĐ)<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" style="width: 250px;" value="@Model.Amount.ToString("#,##0.##")" id="txtAmount" onkeyup="jsFormatNumber(this.value, this.id)" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Lệ phí (USD)<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" value="@Model.Amount_usd.ToString("#,##0.##")" id="txtAmount_usd" onkeyup="jsFormatFloatNumber(this, this.length,2)" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div class="div-search-btn" style="width:600px;margin-top: 5px;">
+            <input type="submit" class="btn-default" value="Đồng ý" onclick="return onInsert()" />
+            <input type="submit" class="btn-default" value="Thoát" onclick="return onBack()" />
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $("#cboCountry").focus();
+    });
+
+    function onBack() {
+        try {
+
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            var url = "/quan-ly-phi-tim-kiem/danh-sach-phi-tim-kiem/";
+            window.location.href = url;
+        } catch (e) {
+            CreateRollingWaitingIcon(true);
+            alert(e);
+        }
+    }
+
+    function onInsert() {
+        if (validateForm()) {
+            var formData = new FormData();
+            collectDataToUser(formData);
+            $.ajax({
+                url: '/quan-ly-phi-tim-kiem/do-insert',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                traditional: true,
+                async: true,
+                headers: { "cache-control": "no-cache" },
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data.success == "-1") {
+                        jError("Lỗi check lại kết nối tới server");
+                        return false;
+                    } else if (data.success == "-2") {
+                        jError("Phí tìm kiếm đã tồn tại");
+                        return false;
+                    }
+                    else {
+                        jAlert('Thêm mới thành công!', "THÔNG BÁO", function () {
+                            var url = "/quan-ly-phi-tim-kiem/danh-sach-phi-tim-kiem/";
+                            window.location.href = url;
+                        });
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        }
+    }
+
+    function validateForm() {
+        var txtAmount = $("#txtAmount").val();
+        if (txtAmount == "" || txtAmount == "0") {
+            jError("Phí VNĐ không được để trống", "lỗi", function () {
+                $('#txtAmount').focus();
+            });
+            return false;
+        }
+
+        var txtAmount_usd = $("#txtAmount_usd").val();
+        if (txtAmount_usd == "" || txtAmount_usd == "0") {
+            jError("Phí USD không được để trống", "lỗi", function () {
+                $('#txtAmount_usd').focus();
+            });
+            return false;
+        }
+
+        return true;
+    }
+
+
+    function collectDataToUser(formData) {
+        formData.append('p_obj.Country_Id', $("#cboCountry").val());
+        formData.append('p_obj.Search_Object', $("#cboObject").val());
+        formData.append('p_obj.Search_Type', $("#cboType").val());
+        formData.append('p_obj.Amount', parseInt($("#txtAmount").val().replace(/,/g, "")));
+        formData.append('p_obj.Amount_usd', parseFloat($("#txtAmount_usd").val()));
+    }
+</script>

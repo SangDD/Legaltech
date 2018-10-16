@@ -45,6 +45,11 @@
     </div>
 </div>
 
+@*Notify*@
+<div class="divCover">
+    @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+</div>
+
 
 <div class="d-main">
     <div class="divCover">
@@ -311,7 +316,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        @Html.TextBoxFor(m => m.Hourly_Rate, new { @disabled = "disabled", @Value = Model.Hourly_Rate == 0 ? "" : Model.Hourly_Rate.ToString("#,##0.##") , @style = "width: 200px" })
+                        @Html.TextBoxFor(m => m.Hourly_Rate, new { @disabled = "disabled", @Value = Model.Hourly_Rate == 0 ? "" : Model.Hourly_Rate.ToString("#,##0.##"), @style = "width: 200px" })
                     </div>
                 </div>
 

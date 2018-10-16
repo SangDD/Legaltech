@@ -37,6 +37,12 @@
     </div>
 </div>
 
+
+@*Notify*@
+<div class="divCover">
+    @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+</div>
+
 <div class="d-main">
     <div class="divCover">
         <div class="classTitle">
@@ -163,7 +169,7 @@
                 }
 
                 var _Status = $("#cboStatus").val();
-                var _payStatus = $("#cboPayStatus").val(); 
+                var _payStatus = $("#cboPayStatus").val();
 
                 p_keysearch = _txtAppCaseCode + "|" + txtLawer + "|" + txtCustomerName + "|" + _Status + "|" + _payStatus;
 
@@ -295,7 +301,7 @@
                     }
                     else {
                         jAlert('Xóa billing thành công!', "THÔNG BÁO", function () {
-                            Search_Billing(1,1);
+                            Search_Billing(1, 1);
                         });
                     }
                 },

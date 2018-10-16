@@ -13,7 +13,7 @@
     List<AllCodeInfo> _lstStatus = MemoryData.AllCode_GetBy_CdTypeCdName("APP", "STATUS");
     var lstStatus = new List<SelectListItem> { new SelectListItem { Text = "Tất cả", Value = "ALL" } }.Concat(_lstStatus.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal }));
     string _status = "";
-    if(ViewBag.Status != null)
+    if (ViewBag.Status != null)
     {
         _status = ViewBag.Status;
     }
@@ -45,6 +45,12 @@
 <div class="divCover">
     <div class="classLine">
     </div>
+</div>
+
+
+@*Notify*@
+<div class="divCover">
+    @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
 </div>
 
 <div class="d-main">
@@ -86,7 +92,7 @@
                 </div>
             </div>
 
-          
+
         </div>
     </div>
 

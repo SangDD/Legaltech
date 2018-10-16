@@ -27,6 +27,11 @@
 </div>
 
 
+@*Notify*@
+<div class="divCover">
+    @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+</div>
+
 <div class="d-main">
     <div class="divCover">
         <div class="classTitle">
@@ -73,7 +78,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Name, new { id = "txtName", @maxlength = "200",  @disabled = "disabled" })
+                    @Html.TextBoxFor(m => m.Name, new { id = "txtName", @maxlength = "200", @disabled = "disabled" })
                 </div>
             </div>
         </div>

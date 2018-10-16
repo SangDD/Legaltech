@@ -1,0 +1,241 @@
+﻿@using Common.CommonData
+@using ObjectInfos;
+@using BussinessFacade;
+@using BussinessFacade.ModuleMemoryData
+@{
+    ViewBag.Title = "Quản lý phí tìm kiếm";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+    string language = WebApps.Session.SessionData.CurrentUser.Language;
+    decimal _UserType = WebApps.Session.SessionData.CurrentUser.Type;
+
+    List<AllCodeInfo> _lstType = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "SEARCHTYPE");
+    var lstType = new List<SelectListItem> { new SelectListItem { Text = "Tất cả", Value = "ALL" } }.Concat(_lstType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal }));
+
+
+    List<AllCodeInfo> _lstObject = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OBJECT");
+    var lstObject = new List<SelectListItem> { new SelectListItem { Text = "Tất cả", Value = "ALL" } }.Concat(_lstObject.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal }));
+
+}
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+</style>
+
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        Monitor
+        <span class="red">></span>
+        <a href="/quan-ly-phi-tim-kiem/danh-sach-phi-tim-kiem">Quản lý phí tìm kiếm</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+
+@*Notify*@
+<div class="divCover">
+    @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+</div>
+
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <input type="hidden" value="ALL|ALL|ALL|ALL|ALL" name="txtKeyValue" id="txtKeyValue" />
+            <input type="hidden" value="Id" name="txtSortColum" id="txtSortColumn" />
+            <input type="hidden" value="DESC" name="txtSortType" id="txtSortType" />
+            <div class="div-title-content"> THÔNG TIN PHÍ TÌM KIẾM</div>
+        </div>
+    </div>
+
+    <div class="divCover" id="div-search-simple">
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Quốc tịch</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboCountry" style="width:150px;">
+                        <option value="ALL">Tất cả</option>
+                        @foreach (var item in MemoryData.c_lst_Country)
+                        {
+                            if (item.Country_Id == Common.Common.Country_VietNam_Id)
+                            {
+                                <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Country_Id">
+                                    @item.Name
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Đối tượng  </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.DropDownList("cboObject", lstObject, new { @id = "cboObject", @style = "width: 150px;" })
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Loại tìm kiếm</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.DropDownList("cboType", lstType, new { @id = "cboType" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div class="div-search-btn" style="width:600px;">
+            <input type="button" value="Tìm kiếm" class="btn-default" onclick="Search_Fee(1, 1)" />
+            @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin)
+            {
+                <input type="button" value="Thêm phí" class="btn-default" onclick="getView2Insert()" />
+            }
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div id="divDataFee" class="divDataTables" style="overflow-x: auto;">
+            @Html.Partial("~/Areas/Manager/Views/Search_Fee/_PartialTableSearch_Fee.cshtml")
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#txtAppCaseCode').focus();
+        Search_Fee(1, 1);
+    });
+
+    function jsPaging(page) {
+        Search_Fee(page, 0);
+    }
+
+    function Search_Fee(p_NumPage, p_type) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            var p_keysearch;
+            if (p_type == 1) {
+
+                var cboCountry = $("#cboCountry").val();
+                var cboObject = $("#cboObject").val();
+                var cboType = $("#cboType").val();
+
+                p_keysearch = cboCountry + "|" + cboObject + "|" + cboType;
+
+                //Lưu lại keysearch
+                $("#txtKeyValue").val(p_keysearch);
+
+            } else {
+                p_keysearch = $("#txtKeyValue").val();
+            }
+            var p_column = $("#txtSortColumn").val();
+            var p_type_sort = $("#txtSortType").val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/quan-ly-phi-tim-kiem/search/',
+                data: {
+                    p_keysearch: p_keysearch,
+                    p_CurrentPage: p_NumPage,
+                    p_column: p_column,
+                    p_type_sort: p_type_sort
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divDataFee").html(data);
+                }
+            });
+        }
+        catch (e) {
+            alert(e);
+        }
+    }
+
+    function GetView2View(_id) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        try {
+            var url = "/quan-ly-phi-tim-kiem/show-view?id=" + _id;
+            window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
+
+    function getView2Insert() {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        var url = "/quan-ly-phi-tim-kiem/show-insert/";
+        window.location.href = url;
+    }
+
+    function getView2Edit(_id) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        var url = "/quan-ly-phi-tim-kiem/show-edit?id=" + _id;
+        window.location.href = url;
+    }
+
+    function doDelete(_id) {
+
+        nvsConfirm(null, "Bạn có chắc chắn muốn xóa phí này không?", function () {
+            $.ajax({
+                url: "/quan-ly-phi-tim-kiem/do-delete-fee",
+                type: "POST",
+                data: {
+                    p_id: _id
+                },
+                headers: { "cache-control": "no-cache" },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data.success == "-1") {
+                        jError("Lỗi check lại kết nối tới server");
+                        return false;
+                    }
+                    else {
+                        jAlert('Xóa phí thành công!', "THÔNG BÁO", function () {
+                            Search_Fee(1, 1);
+                        });
+                    }
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
+            });
+        });
+    }
+</script>

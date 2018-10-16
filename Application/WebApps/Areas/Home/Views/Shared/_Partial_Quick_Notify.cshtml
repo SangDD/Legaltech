@@ -3,7 +3,7 @@
 @using WebApps.Session
 @{
     B_TodoNotify_Info p_todonotify = new B_TodoNotify_Info();
-    if(ViewBag.NotifyInfo != null)
+    if (ViewBag.NotifyInfo != null)
     {
         p_todonotify = ViewBag.NotifyInfo;
     }
@@ -14,71 +14,71 @@
     }
 }
 <style>
-    .notify_cover
-    {
-        width: calc( 85% );
-        float:left;
+    .notify_cover {
+        width: calc( 100% );
+        float: left;
         margin-top: 10px;
     }
-    .notify_todo
-    {
+
+    .notify_todo {
         width: 30%;
-        float:left;
-        height:6px;
+        float: left;
+        height: 6px;
         padding: 10px 0px 20px 20px;
-        background-color:#ffffff;
-        cursor:pointer;
+        background-color: #e4e0d8;
+        cursor: pointer;
     }
-    .notify_number
-    {
-        float:left;
-        font-size:20px;
-        font-weight:bold;
+
+    .notify_number {
+        float: left;
+        font-size: 20px;
+        font-weight: bold;
     }
-    .notify_text
-    {
-        float:left;
-        font-size:14px;
-        font-weight:bold;
+
+    .notify_text {
+        float: left;
+        font-size: 14px;
+        font-weight: bold;
         margin-left: 15px;
     }
-    .border4todo{
-        border-left:8px solid #00ff21;
+
+    .border4todo {
+        border-left: 8px solid #00ff21;
     }
-   
-    .border4Request{
-        border-left:8px solid #4800ff;
-         margin-left: 5px;
+
+    .border4Request {
+        border-left: 8px solid #4800ff;
+        margin-left: 5px;
     }
-     .border4Remind{
-        border-left:8px solid #ff0000;
+
+    .border4Remind {
+        border-left: 8px solid #ff0000;
         margin-left: 5px;
         width: calc(100% - 60% - 94px)
     }
-     
-     .div_showchoosetab
-     {
-         width:100%;float:left;
-         margin-top:-3px;
-         height:14px;
-     }
-      .div_showchoosetab div
-     {
-        width:33.33%;
-          text-align:center;
-          float:left;
-     }
-    .div_showchoosetab div img
-     {
-      margin-top:-3px;
-     }
 
+    .div_showchoosetab {
+        width: 100%;
+        float: left;
+        margin-top: -3px;
+        height: 14px;
+    }
+
+        .div_showchoosetab div {
+            width: 33.33%;
+            text-align: center;
+            float: left;
+        }
+
+            .div_showchoosetab div img {
+                margin-top: -3px;
+            }
 </style>
 <div class="notify_cover">
-   <div class="notify_todo border4todo" onclick="funchooseNotifi('div_todocorver')">
-       <span class="notify_number">@p_todonotify.NUMBER_TODO</span>
-       <span class="notify_text">Việc cần làm</span>
-   </div>
+    <div class="notify_todo border4todo" onclick="funchooseNotifi('div_todocorver')">
+        <span class="notify_number">@p_todonotify.NUMBER_TODO</span>
+        <span class="notify_text">Việc cần làm</span>
+    </div>
     <div class="notify_todo border4Request" onclick="funchooseNotifi('div_Ordercorver')">
         <span class="notify_number">@p_todonotify.NUMBER_REQUEST</span>
         <span class="notify_text">Yêu cầu</span>
@@ -92,58 +92,56 @@
 
     <div class="div_showchoosetab">
         @*<div>
-            <img src="~/Content/images/down.svg" id="img_todocorver"/> 
-         </div>
-        <div>
-            <img class="clsshidden" src="~/Content/images/down.svg" id="img_Ordercorver"/>
-        </div>
-        <div>
-            <img  class="clsshidden"  src="~/Content/images/down.svg" id="img_remindcorver"/>
-        </div>*@
+                <img src="~/Content/images/down.svg" id="img_todocorver"/>
+             </div>
+            <div>
+                <img class="clsshidden" src="~/Content/images/down.svg" id="img_Ordercorver"/>
+            </div>
+            <div>
+                <img  class="clsshidden"  src="~/Content/images/down.svg" id="img_remindcorver"/>
+            </div>*@
     </div>
 </div>
- <script>
-     function funchooseNotifi(_div)
-     {
-         try {
-             if(_div == "div_todocorver")
-             {
-                 window.open("/quan-ly-notify/danh-sach-notify/TODO");
-                 //$("#div_todocorver").addClass("clssDisplaynone");
-                 //$("#div_Ordercorver").addClass("clssDisplaynone")
-                 //$("#div_remindcorver").addClass("clssDisplaynone");
-                 //$("#div_todocorver").removeClass("clssDisplaynone");
+<script>
+    function funchooseNotifi(_div) {
+        try {
+            if (_div == "div_todocorver") {
+                window.open("/quan-ly-notify/danh-sach-notify/TODO");
+                //$("#div_todocorver").addClass("clssDisplaynone");
+                //$("#div_Ordercorver").addClass("clssDisplaynone")
+                //$("#div_remindcorver").addClass("clssDisplaynone");
+                //$("#div_todocorver").removeClass("clssDisplaynone");
 
-                 //$("#img_Ordercorver").addClass("clsshidden")
-                 //$("#img_remindcorver").addClass("clsshidden");
-                 //$("#img_todocorver").removeClass("clsshidden");
-             }
-             if (_div == "div_Ordercorver") {
-                 window.open("/quan-ly-notify/danh-sach-notify/ORDER");
-                 //$("#div_todocorver").addClass("clssDisplaynone");
-                 //$("#div_Ordercorver").addClass("clssDisplaynone")
-                 //$("#div_remindcorver").addClass("clssDisplaynone");
-                 //$("#div_Ordercorver").removeClass("clssDisplaynone");
+                //$("#img_Ordercorver").addClass("clsshidden")
+                //$("#img_remindcorver").addClass("clsshidden");
+                //$("#img_todocorver").removeClass("clsshidden");
+            }
+            if (_div == "div_Ordercorver") {
+                window.open("/quan-ly-notify/danh-sach-notify/ORDER");
+                //$("#div_todocorver").addClass("clssDisplaynone");
+                //$("#div_Ordercorver").addClass("clssDisplaynone")
+                //$("#div_remindcorver").addClass("clssDisplaynone");
+                //$("#div_Ordercorver").removeClass("clssDisplaynone");
 
-                 //$("#img_todocorver").addClass("clsshidden");
-                 //$("#img_remindcorver").addClass("clsshidden");
-                 //$("#img_Ordercorver").removeClass("clsshidden");
-             }
-             if (_div == "div_remindcorver") {
-                 window.open("/quan-ly-notify/danh-sach-notify/REMIND");
-                 //$("#div_todocorver").addClass("clssDisplaynone");
-                 //$("#div_Ordercorver").addClass("clssDisplaynone")
-                 //$("#div_remindcorver").addClass("clssDisplaynone");
-                 //$("#div_remindcorver").removeClass("clssDisplaynone");
+                //$("#img_todocorver").addClass("clsshidden");
+                //$("#img_remindcorver").addClass("clsshidden");
+                //$("#img_Ordercorver").removeClass("clsshidden");
+            }
+            if (_div == "div_remindcorver") {
+                window.open("/quan-ly-notify/danh-sach-notify/REMIND");
+                //$("#div_todocorver").addClass("clssDisplaynone");
+                //$("#div_Ordercorver").addClass("clssDisplaynone")
+                //$("#div_remindcorver").addClass("clssDisplaynone");
+                //$("#div_remindcorver").removeClass("clssDisplaynone");
 
-                 //$("#img_todocorver").addClass("clsshidden");
-                 //$("#img_Ordercorver").addClass("clsshidden")
-                 //$("#img_remindcorver").removeClass("clsshidden");
-             }
-              
-         } catch (e) {
-    
-         }
-     }
- </script>
+                //$("#img_todocorver").addClass("clsshidden");
+                //$("#img_Ordercorver").addClass("clsshidden")
+                //$("#img_remindcorver").removeClass("clsshidden");
+            }
+
+        } catch (e) {
+
+        }
+    }
+</script>
 

@@ -27,6 +27,22 @@ namespace BussinessFacade
             }
         }
 
+        public List<Sys_Search_Fix_Info> Sys_Search_Fix_Search(string p_key_search, ref decimal p_total_record,
+           string p_from = "1", string p_to = "10", string p_sort_type = "ALL")
+        {
+            try
+            {
+                Sys_Search_Fix_DA _da = new Sys_Search_Fix_DA();
+                DataSet _ds = _da.Sys_Search_Fix_Search(p_key_search, p_from, p_to, p_sort_type, ref p_total_record);
+                return CBO<Sys_Search_Fix_Info>.FillCollectionFromDataSet(_ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<Sys_Search_Fix_Info>();
+            }
+        }
+
         public Sys_Search_Fix_Info Sys_Search_Fix_GetById(decimal p_id)
         {
             try

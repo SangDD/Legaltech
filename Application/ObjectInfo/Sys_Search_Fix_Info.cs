@@ -4,6 +4,7 @@ namespace ObjectInfos
 {
     public class Sys_Search_Fix_Info
     {
+        public decimal STT { get; set; }
         public decimal Id { get; set; }
 
         public decimal Country_Id { get; set; }
