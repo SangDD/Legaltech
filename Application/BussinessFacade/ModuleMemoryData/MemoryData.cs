@@ -109,13 +109,16 @@
 
                     pinfo.label_en = item.Name_En;
                     pinfo.name_en = item.Name_En;
-                    if (item.Code.Length > 2)
+                    if (!string.IsNullOrEmpty(item.Code))
                     {
-                        pinfo.value = item.Code.Substring(0, 2);
-                    }
-                    else
-                    {
-                        pinfo.value = item.Code;
+                        if (item.Code.Length > 2)
+                        {
+                            pinfo.value = item.Code.Substring(0, 2);
+                        }
+                        else
+                        {
+                            pinfo.value = item.Code;
+                        }
                     }
                     clstAppClassSuggest.Add(pinfo);
                 }

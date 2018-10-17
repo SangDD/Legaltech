@@ -6,4 +6,45 @@
     @Html.Partial("~/Areas/Articles/Views/ArticlesNews/_HomePartialViewNews.cshtml")
 </div>
 
- 
+
+<script>
+    function jsPaging(page) {
+        try {
+            funcSearch(page);
+        } catch (e) {
+
+        }
+
+    }
+
+
+
+    function funcSearch(page) {
+        try {
+            var danhmuc = "ALL";
+            $.ajax({
+                url: "/quan-ly-tin/next-news-page",
+                type: "GET",
+                data: {
+
+                    pCategory: danhmuc,
+                    pPage: page,
+                },
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    $("#divHomeNews").html(data);
+                    CreateRollingWaitingIcon(false);
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
+            });
+        } catch (e) {
+
+        }
+
+    }
+</script>
