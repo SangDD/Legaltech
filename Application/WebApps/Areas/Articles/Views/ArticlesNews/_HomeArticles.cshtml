@@ -24,26 +24,27 @@
             var danhmuc = "ALL";
             $.ajax({
                 url: "/quan-ly-tin/next-news-page",
-                type: "GET",
+                type: "POST",
                 data: {
-
                     pCategory: danhmuc,
                     pPage: page,
                 },
-                beforeSend: function () {
-                    CreateRollingWaitingIcon(true);
-                },
+                async: true, cache: false, traditional: true,
+                enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                //beforeSend: function () {
+                //    CreateRollingWaitingIcon(true);
+                //},
                 success: function (data) {
                     $("#divHomeNews").html(data);
-                    CreateRollingWaitingIcon(false);
+                    //CreateRollingWaitingIcon(false);
                 },
                 error: function (e) {
-                    CreateRollingWaitingIcon(false);
+                    //CreateRollingWaitingIcon(false);
                     console.log(e);
                 }
             });
         } catch (e) {
-
+            console.log(e);
         }
 
     }

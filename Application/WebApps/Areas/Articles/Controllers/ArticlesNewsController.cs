@@ -348,7 +348,7 @@ namespace WebApps.Areas.Articles.Controllers
 
 
 
-        [HttpGet]
+        [HttpPost]
         [Route("next-news-page")]
         public ActionResult GetNextPage(string pCategory, int pPage)
         {
@@ -367,7 +367,7 @@ namespace WebApps.Areas.Articles.Controllers
                 ViewBag.Paging = htmlPaging;
                 ViewBag.SumRecord = _total_record;
                 //ViewBag.lstCategory = MemoryData.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
-                return View("~/Areas/Articles/Views/ArticlesNews/_PartialViewTable.cshtml");
+                return View("~/Areas/Articles/Views/ArticlesNews/_HomePartialViewNews.cshtml");
             }
             catch (Exception ex)
             {
