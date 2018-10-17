@@ -56,6 +56,7 @@
 
         public decimal Lawer_Id { get; set; }
 
+        public decimal Rating { get; set; }
 
         public string Fax { get; set; }
         public decimal Country { get; set; }

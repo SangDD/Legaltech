@@ -159,12 +159,17 @@
         var pShortInfo = new SuggestInfo("", "");
         if (language == Language.LangVI)
         {
-
-            pShortInfo = new SuggestInfo(item.name.Replace('/', ' '), item.value);
+            if (!string.IsNullOrEmpty(item.name) && !string.IsNullOrEmpty(item.value))
+            {
+                pShortInfo = new SuggestInfo(item.name.Replace('/', ' '), item.value);
+            }
         }
         else
         {
-            pShortInfo = new SuggestInfo(item.name_en.Replace('/', ' '), item.value);
+            if (!string.IsNullOrEmpty(item.name_en) && !string.IsNullOrEmpty(item.value))
+            {
+                pShortInfo = new SuggestInfo(item.name_en.Replace('/', ' '), item.value);
+            }
         }
         clstAppClassShortSuggest.Add(pShortInfo);
     }
