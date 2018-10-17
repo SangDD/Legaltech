@@ -3,8 +3,9 @@
 @using BussinessFacade.ModuleMemoryData
 @using ObjectInfos
 @using ObjectInfos.ModuleTrademark
+@using WebApps.Resources;
 @{
-    ViewBag.Title = "Sửa Đơn đăng ký chuyển nhượng";
+    ViewBag.Title = Resource.TM4C_Title
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
@@ -57,7 +58,7 @@
 <div class="d-nav-container">
     <ul class="ul-nav">
         <li><a href="javascript:;">TradeMark</a></li>
-        <li><a href="javascript:;">  Đơn đăng ký chuyển nhượng</a></li>
+        <li><a href="javascript:;">  @Resource.TM4C_Title</a></li>
     </ul>
 </div>
 
@@ -76,7 +77,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                ĐỐI TƯỢNG CỦA HỢP ĐỒNG
+                @Resource.TM4C_FormHeader
             </div>
         </div>
 
@@ -92,7 +93,7 @@
                     {
                         <input type="radio" name="4_rdoDoiTuongHopDong" id="4_rdDT_1" value="1">
                     }
-                    <label>Bằng độc quyền sáng chế</label>
+                    <label>@Resource.TM4C_BangDocQuyenSangChe</label>
                 </div>
             </div>
 
@@ -106,7 +107,7 @@
                     {
                         <input type="radio" name="4_rdoDoiTuongHopDong" id="4_rdDT_2" value="2">
                     }
-                    <label>Bằng độc quyền giải pháp hữu ích</label>
+                    <label>@Resource.TM4C_BangDocQuyenGiaiPhaiHuuIch</label>
                 </div>
             </div>
         </div>
@@ -122,7 +123,7 @@
                     {
                         <input type="radio" name="4_rdoDoiTuongHopDong" id="4_rdDT_3" value="3">
                     }
-                    <label>Giấy CN đăng ký thiết kế bố trí mạch tích hợp bán dẫn</label>
+                    <label>@Resource.TM4C_GiayCNDangKyThietKe</label>
                 </div>
             </div>
 
@@ -136,7 +137,7 @@
                     {
                         <input type="radio" name="4_rdoDoiTuongHopDong" id="4_rdDT_4" value="4">
                     }
-                    <label>Bằng độc quyền kiểu dáng công nghiệp</label>
+                    <label>@Resource.TM4C_BangDocQuyenKieuDangCongNghiep</label>
                 </div>
             </div>
         </div>
@@ -152,14 +153,14 @@
                     {
                         <input type="radio" name="4_rdoDoiTuongHopDong" id="4_rdDT_5" value="5">
                     }
-                    <label>Giấy chứng nhận đăng ký nhãn hiệu</label>
+                    <label>@Resource.TM4C_GiayChungNhanDangKyNhanHieu</label>
                 </div>
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Số văn bằng bảo hộ:</div>
+                <div>@Resource.TM4C_SoBangBaoHo:</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -172,7 +173,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                CHỦ ĐƠN
+                @Resource.TM2B_ChuDon
             </div>
         </div>
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
@@ -188,7 +189,7 @@
                     {
                         <input type="radio" name="1_rdoChuDon" value="1" id="rb_1_ChuDonChuyenNhuong">
                     }
-                    <label>là bên chuyển nhượng</label>
+                    <label>@Resource.TM3C_LaBenChuyenNhuong</label>
                 </div>
             </div>
 
@@ -202,7 +203,7 @@
                     {
                         <input type="radio" name="1_rdoChuDon" value="2">
                     }
-                    <label>là bên nhận chuyển nhượng</label>
+                    <label>@Resource.TM3C_LaBenChuyenNhuong</label>
                 </div>
             </div>
         </div>
@@ -211,17 +212,17 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                ĐẠI DIỆN CỦA CHỦ ĐƠN
+                @Resource.TM2B_DaiDienChuDon
             </div>
         </div>
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Mã đại diện:</div>
+                <div>@Resource.TM3C_MaDaiDien:</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Mã đại diện" id="txt_MaDaiDien" value="@_App_Detail.Customer_Code" />
+                    <input type="text"  placeholder="@Resource.TM3C_MaDaiDien" id="txt_MaDaiDien" value="@_App_Detail.Customer_Code" />
                 </div>
             </div>
         </div>
@@ -232,7 +233,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN)
+                @Resource.TM3C_BenThuHaiTrongHD
             </div>
         </div>
         @Html.Partial("~/Areas/TradeMark/Views/PLD01_HDCN_4C2/_PartialSecondMaster.cshtml", "3")
@@ -241,18 +242,18 @@
             <div class="divCover cls_form_title">
                 <img src="~/Content/icons/info.png" />
                 <div class="cls_form_header">
-                    PHÍ, LỆ PHÍ
+                    @Resource.lblPhiLePhi
                 </div>
             </div>
 
             @* 2. Phí tra cứu thông tin phục vụ việc giải quyết khiếu nại *@
-            string _fee_id1 = "PhiThamDinh|Phí thẩm định đơn (TH chuyển nhượng nhãn hiệu tập thể, nhãn hiệu chứng nhận)|0";
-            string _fee_value1 = Lst_AppFee[2].Isuse.ToString() + "|" + Lst_AppFee[2].Number_Of_Patent.ToString() + "|" + Lst_AppFee[2].Amount.ToString("#,##0.##");
+        string _fee_id1 = "PhiThamDinh|" + Resource.TM4C_PhiThamDinhDon + "|0";
+        string _fee_value1 = Lst_AppFee[2].Isuse.ToString() + "|" + Lst_AppFee[2].Number_Of_Patent.ToString() + "|" + Lst_AppFee[2].Amount.ToString("#,##0.##");
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Fee_Edit.cshtml", _fee_id1 + ";" + _fee_value1)
 
             @* 2. Phí thẩm định để giải quyết khiếu nại *@
-            string _fee_id2 = "PhiCapGiayChungNhan|Lệ phí cấp Giấy chứng nhận đăng ký nhãn hiệu (TH chuyển nhượng một phần danh mục hàng hóa/dịch vụ mang nhãn hiệu)|0";
-            string _fee_value2 = Lst_AppFee[3].Isuse.ToString() + "|" + Lst_AppFee[3].Number_Of_Patent.ToString() + "|" + Lst_AppFee[3].Amount.ToString("#,##0.##");
+        string _fee_id2 = "PhiCapGiayChungNhan|" + Resource.TM4C_LePhiDangKyNhanHieu + "|0";
+        string _fee_value2 = Lst_AppFee[3].Isuse.ToString() + "|" + Lst_AppFee[3].Number_Of_Patent.ToString() + "|" + Lst_AppFee[3].Amount.ToString("#,##0.##");
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Fee_Edit.cshtml", _fee_id2 + ";" + _fee_value2)
         }
 
@@ -260,105 +261,105 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info.png" />
             <div class="cls_form_header">
-                CÁC TÀI LIỆU CÓ TRONG ĐƠN
+                @Resource.lblTaiLieuTrongDon
             </div>
         </div>
 
         @* 1. Tờ khai *@
         @{
             string _doc_id1 = "PLD01_HDCB_01";
-            string _model1 = _doc_id1 + "|6_Doc_PLD01_HDCB_01|0|gồm 2 trang x2 bản||0" + ";" + dic_appDoc[_doc_id1].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id1].CHAR01 + "|" + dic_appDoc[_doc_id1].Url_Hardcopy;
+            string _model1 = _doc_id1 + "|6_Doc_PLD01_HDCB_01|0|"+ Resource.TM4C_ToKhaiGom + "||0" + ";" + dic_appDoc[_doc_id1].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id1].CHAR01 + "|" + dic_appDoc[_doc_id1].Url_Hardcopy;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model1)
         }
 
         @* 2. Hợp đồng chuyển nhượng, bằng tiếng *@
         @{
             string _doc_id2 = "PLD01_HDCB_02";
-            string _model2 = _doc_id2 + "|6_Doc_PLD01_HDCB_02|0|Hợp đồng chuyển nhượng, bằng tiếng|Tiếng|0||Số trang" + ";" + dic_appDoc[_doc_id2].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id2].CHAR01 + "|" + dic_appDoc[_doc_id2].Url_Hardcopy + "|" + dic_appDoc[_doc_id2].CHAR02;
+            string _model2 = _doc_id2 + "|6_Doc_PLD01_HDCB_02|0|"+ Resource.TM4C_HopDongChuyenNhuongBangTieng + "|"+ Resource.TM3B_Tieng + "|0||" + Resource.TM3B_Tieng + ";" + dic_appDoc[_doc_id2].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id2].CHAR01 + "|" + dic_appDoc[_doc_id2].Url_Hardcopy + "|" + dic_appDoc[_doc_id2].CHAR02;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model2)
         }
 
         @* 3. 2.1 Bản gốc *@
         @{
             string _doc_id3 = "PLD01_HDCB_03";
-            string _model3 = _doc_id3 + "|6_Doc_PLD01_HDCB_03|1|Bản gốc||1" + ";" + dic_appDoc[_doc_id3].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id3].CHAR01 + "|" + dic_appDoc[_doc_id3].Url_Hardcopy;
+            string _model3 = _doc_id3 + "|6_Doc_PLD01_HDCB_03|1|"+Resource.TM2B_BanGoc+"||1" + ";" + dic_appDoc[_doc_id3].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id3].CHAR01 + "|" + dic_appDoc[_doc_id3].Url_Hardcopy;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model3)
         }
 
         @* 4. 2.2 bản sao *@
         @{
             string _doc_id4 = "PLD01_HDCB_04";
-            string _model4 = _doc_id4 + "|6_Doc_PLD01_HDCB_04|1|Bản sao||1" + ";" + dic_appDoc[_doc_id4].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id4].CHAR01 + "|" + dic_appDoc[_doc_id4].Url_Hardcopy;
+            string _model4 = _doc_id4 + "|6_Doc_PLD01_HDCB_04|1|"+Resource.TM2B_BanSao+"||1" + ";" + dic_appDoc[_doc_id4].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id4].CHAR01 + "|" + dic_appDoc[_doc_id4].Url_Hardcopy;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model4)
         }
 
         @* 5. Bản dịch hợp đồng ra tiếng Việt, gồm *@
         @{
             string _doc_id5 = "PLD01_HDCB_05";
-            string _model5 = _doc_id5 + "|6_Doc_PLD01_HDCB_05|0|Bản dịch hợp đồng ra tiếng Việt, gồm|Số trang|1" + ";" + dic_appDoc[_doc_id5].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id5].CHAR01 + "|" + dic_appDoc[_doc_id5].Url_Hardcopy;
+            string _model5 = _doc_id5 + "|6_Doc_PLD01_HDCB_05|0|"+Resource.lblBanDichTiengVietGom+"|"+Resource.TM2B_SoTrang+"|1" + ";" + dic_appDoc[_doc_id5].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id5].CHAR01 + "|" + dic_appDoc[_doc_id5].Url_Hardcopy;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model5)
         }
 
         @* 6. Văn bản đồng ý của các đồng chủ sở hữu (trong trường hợp đối tượng sở hữu công nghiệp thuộc sở hữu chung),  gồm *@
         @{
             string _doc_id6 = "PLD01_HDCB_06";
-            string _model6 = _doc_id6 + "|6_Doc_PLD01_HDCB_06|0|Văn bản đồng ý của các đồng chủ sở hữu (trong trường hợp đối tượng sở hữu công nghiệp thuộc sở hữu chung),  gồm|Số trang|1|770" + ";" + dic_appDoc[_doc_id6].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id6].CHAR01 + "|" + dic_appDoc[_doc_id6].Url_Hardcopy;
+            string _model6 = _doc_id6 + "|6_Doc_PLD01_HDCB_06|0|"+Resource.TM4C_VanBanDongY+"|"+Resource.TM2B_SoTrang+"|1|770" + ";" + dic_appDoc[_doc_id6].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id6].CHAR01 + "|" + dic_appDoc[_doc_id6].Url_Hardcopy;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model6)
         }
 
         @* 7. Quy chế sử dụng nhãn hiệu tập thể, quy chế sử dụng nhãn hiệu chứng nhận của Bên nhận chuyển nhượng *@
         @{
             string _doc_id7 = "PLD01_HDCB_07";
-            string _model7 = _doc_id7 + "|6_Doc_PLD01_HDCB_07|0|Quy chế sử dụng nhãn hiệu tập thể, quy chế sử dụng nhãn hiệu chứng nhận của Bên nhận chuyển nhượng||0" + ";" + dic_appDoc[_doc_id7].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id7].CHAR01 + "|" + dic_appDoc[_doc_id7].Url_Hardcopy;
+            string _model7 = _doc_id7 + "|6_Doc_PLD01_HDCB_07|0|"+Resource.TM4C_QuyCheSuDungNhanHieu + "||0" + ";" + dic_appDoc[_doc_id7].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id7].CHAR01 + "|" + dic_appDoc[_doc_id7].Url_Hardcopy;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model7)
         }
 
         @* 8. Tài liệu chứng minh quyền nộp đơn của bên nhận chuyển nhượng đối với nhãn hiệu chứng nhận, nhãn hiệu tập thể *@
         @{
             string _doc_id8 = "PLD01_HDCB_08";
-            string _model8 = _doc_id8 + "|6_Doc_PLD01_HDCB_08|0|Tài liệu chứng minh quyền nộp đơn của bên nhận chuyển nhượng đối với nhãn hiệu chứng nhận, nhãn hiệu tập thể||0" + ";" + dic_appDoc[_doc_id8].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id8].CHAR01 + "|" + dic_appDoc[_doc_id8].Url_Hardcopy;
+            string _model8 = _doc_id8 + "|6_Doc_PLD01_HDCB_08|0|" + Resource.TM4C_TaiLieuChungMinh + "||0" + ";" + dic_appDoc[_doc_id8].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id8].CHAR01 + "|" + dic_appDoc[_doc_id8].Url_Hardcopy;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model8)
         }
 
         @* 9. Bản gốc văn bằng bảo hộ *@
         @{
             string _doc_id9 = "PLD01_HDCB_09";
-            string _model9 = _doc_id9 + "|6_Doc_PLD01_HDCB_09|0|Bản gốc văn bằng bảo hộ||0" + ";" + dic_appDoc[_doc_id9].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id9].CHAR01 + "|" + dic_appDoc[_doc_id9].Url_Hardcopy;
+            string _model9 = _doc_id9 + "|6_Doc_PLD01_HDCB_09|0|"+ Resource.TM4C_BanGocVanBangBaoHo + "||0" + ";" + dic_appDoc[_doc_id9].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id9].CHAR01 + "|" + dic_appDoc[_doc_id9].Url_Hardcopy;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model9)
         }
 
         @* 10 Quy chế sử dụng nhãn hiệu tập thể, quy chế sử dụng nhãn hiệu chứng nhận của Bên nhận chuyển nhượng *@
         @{
             string _doc_id10 = "PLD01_HDCB_10";
-            string _model10 = _doc_id10 + "|6_Doc_PLD01_HDCB_10|0|Bản gốc đã nộp theo đơn số|Số đơn gốc|1" + ";" + dic_appDoc[_doc_id10].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id10].CHAR01 + "|" + dic_appDoc[_doc_id10].Url_Hardcopy;
+            string _model10 = _doc_id10 + "|6_Doc_PLD01_HDCB_10|0|"+ Resource.TM2B_BanGocDaNopTheo + "|"+ Resource.TM4C_SoDonGoc + "|1" + ";" + dic_appDoc[_doc_id10].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id10].CHAR01 + "|" + dic_appDoc[_doc_id10].Url_Hardcopy;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model10)
         }
 
         @* 11.. POA Giấy uỷ quyền bằng tiếng *@
         @{
             string _doc_id11 = "PLD01_HDCB_11";
-            string _model11 = _doc_id11 + "|6_Doc_POA|0|Giấy uỷ quyền bằng tiếng|Tiếng|1" + ";" + dic_appDoc[_doc_id11].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id11].CHAR01 + "|" + dic_appDoc[_doc_id11].Url_Hardcopy;
+            string _model11 = _doc_id11 + "|6_Doc_POA|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|"+ Resource.TM2B_BangTieng + "|1" + ";" + dic_appDoc[_doc_id11].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id11].CHAR01 + "|" + dic_appDoc[_doc_id11].Url_Hardcopy;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model11)
         }
 
         @* 12 -> 11.1  Bản dịch tiếng Việt, gồm *@
         @{
             string _doc_id12 = "PLD01_HDCB_12";
-            string _model12 = _doc_id12 + "|6_Doc_BanDichPOA|1|Bản dịch tiếng Việt, gồm|Số trang|1" + ";" + dic_appDoc[_doc_id12].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id12].CHAR01 + "|" + dic_appDoc[_doc_id12].Url_Hardcopy;
+            string _model12 = _doc_id12 + "|6_Doc_BanDichPOA|1|"+ Resource.lblBanDichTiengVietGom + "|"+ Resource.TM2B_SoTrang + "|1" + ";" + dic_appDoc[_doc_id12].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id12].CHAR01 + "|" + dic_appDoc[_doc_id12].Url_Hardcopy;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model12)
         }
 
         @* 13 -> 11.2 Bản gốc *@
         @{
             string _doc_id13 = "PLD01_HDCB_13";
-            string _model13 = _doc_id13 + "|6_Doc_BanGocPOA|1|Bản gốc||1" + ";" + dic_appDoc[_doc_id13].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id13].CHAR01 + "|" + dic_appDoc[_doc_id13].Url_Hardcopy;
+            string _model13 = _doc_id13 + "|6_Doc_BanGocPOA|1|"+ Resource.TM2B_BanGoc + "||1" + ";" + dic_appDoc[_doc_id13].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id13].CHAR01 + "|" + dic_appDoc[_doc_id13].Url_Hardcopy;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model13)
         }
 
         @* 14 -> 11.3 Bản sao *@
         @{
             string _doc_id14 = "PLD01_HDCB_14";
-            string _model14 = _doc_id14 + "|6_Doc_BanSaoPOA|1|Bản sao||0" + ";" + dic_appDoc[_doc_id14].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id14].CHAR01 + "|" + dic_appDoc[_doc_id14].Url_Hardcopy;
+            string _model14 = _doc_id14 + "|6_Doc_BanSaoPOA|1|"+Resource.TM2B_BanSao + "||0" + ";" + dic_appDoc[_doc_id14].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id14].CHAR01 + "|" + dic_appDoc[_doc_id14].Url_Hardcopy;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model14)
         }
 
@@ -366,14 +367,14 @@
         @* 15 -> 11.3.1 Bản sao  > Bản gốc sẽ nộp sau *@
         @{
             string _doc_id15 = "PLD01_HDCB_15";
-            string _model15 = _doc_id15 + "|6_Doc_BanGocPOA_Later|2|Bản gốc sẽ nộp sau||1" + ";" + dic_appDoc[_doc_id15].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id15].CHAR01 + "|" + dic_appDoc[_doc_id15].Url_Hardcopy;
+            string _model15 = _doc_id15 + "|6_Doc_BanGocPOA_Later|2|"+Resource.TM2B_BanGocSeNopSau+"||1" + ";" + dic_appDoc[_doc_id15].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id15].CHAR01 + "|" + dic_appDoc[_doc_id15].Url_Hardcopy;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model15)
         }
 
         @* 16 -> 11.3.2 Bản sao  > Bản gốc đã nộp theo đơn *@
         @{
             string _doc_id16 = "PLD01_HDCB_16";
-            string _model16 = _doc_id16 + "|6_Doc_BanGocPOA_ByApp|2|Bản gốc đã nộp theo đơn số|Số đơn|0" + ";" + dic_appDoc[_doc_id16].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id16].CHAR01 + "|" + dic_appDoc[_doc_id16].Url_Hardcopy;
+            string _model16 = _doc_id16 + "|6_Doc_BanGocPOA_ByApp|2|"+ Resource.TM2B_BanGocSeNopSau + "|"+Resource.TM2B_sodon+"|0" + ";" + dic_appDoc[_doc_id16].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id16].CHAR01 + "|" + dic_appDoc[_doc_id16].Url_Hardcopy;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model16)
         }
 
@@ -382,14 +383,14 @@
         @* 17. Bản sao chứng từ nộp phí *@
         @{
             string _doc_id17 = "PLD01_HDCB_17";
-            string _model17 = _doc_id17 + "|6_Doc_PLD01_HDCB_17|0|Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ)||1" + ";" + dic_appDoc[_doc_id17].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id17].CHAR01 + "|" + dic_appDoc[_doc_id17].Url_Hardcopy;
+            string _model17 = _doc_id17 + "|6_Doc_PLD01_HDCB_17|0|"+ Resource.TM3B_BanSaoChungTuNopPhi + "||1" + ";" + dic_appDoc[_doc_id17].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id17].CHAR01 + "|" + dic_appDoc[_doc_id17].Url_Hardcopy;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model17)
         }
 
         @* 18. Khác *@
         @{
             string _doc_id18 = "PLD01_HDCB_18";
-            string _model18 = _doc_id18 + "|6_Doc_PLD01_HDCB_18|0|Tài liệu khác, cụ thể|Tên tài liệu|1" + ";" + dic_appDoc[_doc_id18].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id18].CHAR01 + "|" + dic_appDoc[_doc_id18].Url_Hardcopy;
+            string _model18 = _doc_id18 + "|6_Doc_PLD01_HDCB_18|0|"+ Resource.TM3B_TaiLieuKhac + "|"+ Resource.TM3B_TaiLieuKhacTenTaiLieu + "|1" + ";" + dic_appDoc[_doc_id18].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id18].CHAR01 + "|" + dic_appDoc[_doc_id18].Url_Hardcopy;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model18)
         }
 
@@ -401,7 +402,7 @@
 
         <div class="class_save">
             <div class="classGuiDon">
-                <input type="button" value="Sửa đơn" id="btnSuaDon" class="btn" />
+                <input type="button" value="@Resource.TM3B_BtnSuaDon" id="btnSuaDon" class="btn" />
             </div>
         </div>
     </fieldset>
@@ -440,7 +441,7 @@
 
             var Master_Type = $("input[name='1_rdoChuDon']:checked").val();
             if (Master_Type === "" || Master_Type == undefined) {
-                jError("Phải chọn ít nhất 1 giá trị chủ đơn!", "lỗi", function () {
+                jError("@Resource.TM3C_ChonChuDon", "@Resource.TM3B_Loi", function () {
                     $("#rb_1_ChuDonChuyenNhuong").focus()
                 });
                 return false;
@@ -454,7 +455,7 @@
             }
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                jError("Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!", "lỗi", function () {
+                jError("@Resource.TM2B_ChonDaiDienChuDon", "@Resource.TM3B_Loi", function () {
                     $("#_2_rdoNguoiDaiDienPL").focus()
                 });
             }
@@ -530,7 +531,7 @@
 
             var txt_MaDaiDien = $("#txt_MaDaiDien").val();
             if (txt_MaDaiDien == "") {
-                jError("Mã đại diện không được để trống!", "lỗi", function () {
+                jError("@Resource.TM3C_MaDaiDienKhongDuocTrong", "@Resource.TM3B_Loi", function () {
                     $("#txt_MaDaiDien").focus()
                 });
                 return false;
@@ -539,7 +540,7 @@
 
             var _Object_Contract_Type = $("input[name='4_rdoDoiTuongHopDong']:checked").val();
             if (_Object_Contract_Type === "" || _Object_Contract_Type == undefined) {
-                jError("Phải chọn ít nhất 1 giá trị đơn yêu cầu chuyển nhượng!", "lỗi", function () {
+                jError("@Resource.TM3C_ChonGiaTriYeuCauChuyenNhuong", "@Resource.TM3B_Loi", function () {
                     $("#4_rdDT_1").focus()
                 });
                 return false;
@@ -549,7 +550,7 @@
             // số đơn
             var _VanBangBaoHo = $("#4_txt_VanBangBaoHo").val();
             if (_VanBangBaoHo === "" || _VanBangBaoHo == undefined) {
-                jError("Văn bằng bảo hộ không được để trống!", "lỗi", function () {
+                jError("@Resource.TM4C_VanBangBaoHoKhongDuocDeTrong", "@Resource.TM3B_Loi", function () {
                     $("#4_txt_VanBangBaoHo").focus()
                 });
                 return false;
@@ -557,7 +558,7 @@
             formData.append("pDetail.Object_Contract_No", _VanBangBaoHo);
         } catch (e) {
             console.log(e);
-            showError('Có lỗi xảy ra kiểm tra kết nối internet');
+            showError('@Resource.TM3B_InternetError');
             return false;
         }
     }
@@ -692,7 +693,7 @@
             }
         } catch (e) {
             console.log(e);
-            showError('Có lỗi xảy ra kiểm tra kết nối internet');
+            showError('@Resource.TM3B_InternetError');
             return false;
         }
     }

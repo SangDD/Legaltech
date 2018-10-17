@@ -2815,6 +2815,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bản dịch hợp đồng ra tiếng Việt, gồm.
+        /// </summary>
+        public static string TM4C_BanDichHopDongTiengViet {
+            get {
+                return ResourceManager.GetString("TM4C_BanDichHopDongTiengViet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bằng độc quyền giải pháp hữu ích.
         /// </summary>
         public static string TM4C_BangDocQuyenGiaiPhaiHuuIch {
@@ -2838,6 +2847,15 @@ namespace WebApps.Resources {
         public static string TM4C_BangDocQuyenSangChe {
             get {
                 return ResourceManager.GetString("TM4C_BangDocQuyenSangChe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bản gốc văn bằng bảo hộ.
+        /// </summary>
+        public static string TM4C_BanGocVanBangBaoHo {
+            get {
+                return ResourceManager.GetString("TM4C_BanGocVanBangBaoHo", resourceCulture);
             }
         }
         
@@ -2869,6 +2887,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hợp đồng chuyển nhượng, bằng tiếng.
+        /// </summary>
+        public static string TM4C_HopDongChuyenNhuongBangTieng {
+            get {
+                return ResourceManager.GetString("TM4C_HopDongChuyenNhuongBangTieng", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ĐƠN ĐĂNG KÝ CHUYỂN NHƯỢNG.
         /// </summary>
         public static string TM4C_Legend {
@@ -2896,11 +2923,38 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quy chế sử dụng nhãn hiệu tập thể, quy chế sử dụng nhãn hiệu chứng nhận của Bên nhận chuyển nhượng.
+        /// </summary>
+        public static string TM4C_QuyCheSuDungNhanHieu {
+            get {
+                return ResourceManager.GetString("TM4C_QuyCheSuDungNhanHieu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Số văn bằng bảo hộ.
         /// </summary>
         public static string TM4C_SoBangBaoHo {
             get {
                 return ResourceManager.GetString("TM4C_SoBangBaoHo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số đơn gốc.
+        /// </summary>
+        public static string TM4C_SoDonGoc {
+            get {
+                return ResourceManager.GetString("TM4C_SoDonGoc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tài liệu chứng minh quyền nộp đơn của bên nhận chuyển nhượng đối với nhãn hiệu chứng nhận, nhãn hiệu tập thể.
+        /// </summary>
+        public static string TM4C_TaiLieuChungMinh {
+            get {
+                return ResourceManager.GetString("TM4C_TaiLieuChungMinh", resourceCulture);
             }
         }
         
@@ -2919,6 +2973,24 @@ namespace WebApps.Resources {
         public static string TM4C_ToKhaiGom {
             get {
                 return ResourceManager.GetString("TM4C_ToKhaiGom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Văn bản đồng ý của các đồng chủ sở hữu (trong trường hợp đối tượng sở hữu công nghiệp thuộc sở hữu chung),  gồm.
+        /// </summary>
+        public static string TM4C_VanBanDongY {
+            get {
+                return ResourceManager.GetString("TM4C_VanBanDongY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Văn bằng bảo hộ không được để trống!.
+        /// </summary>
+        public static string TM4C_VanBangBaoHoKhongDuocDeTrong {
+            get {
+                return ResourceManager.GetString("TM4C_VanBangBaoHoKhongDuocDeTrong", resourceCulture);
             }
         }
         
