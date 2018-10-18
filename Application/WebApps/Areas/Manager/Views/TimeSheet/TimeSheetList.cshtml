@@ -7,8 +7,8 @@
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     string language = WebApps.Session.SessionData.CurrentUser.Language;
-    List<SysApplicationInfo> _lst = BussinessFacade.ModuleTrademark.SysApplicationBL.GetSysAppByLanguage(language);
-    var lstApp = new List<SelectListItem> { new SelectListItem { Text = "Tất cả", Value = "ALL" } }.Concat(_lst.Select(x => new SelectListItem { Text = x.Appname, Value = x.Appcode }));
+    //List<SysApplicationInfo> _lst = BussinessFacade.ModuleTrademark.SysApplicationBL.GetSysAppByLanguage(language);
+    //var lstApp = new List<SelectListItem> { new SelectListItem { Text = "Tất cả", Value = "ALL" } }.Concat(_lst.Select(x => new SelectListItem { Text = x.Appname, Value = x.Appcode }));
 
     Lawer_Info_BL _Lawer_Info_BL = new Lawer_Info_BL();
     List<UserInfo> _lstLawer = _Lawer_Info_BL.Lawer_Info_GetAll();
@@ -49,11 +49,12 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Loại đơn</div>
+                <div>Case code</div>
             </div>
             <div>
                 <div>
-                    @Html.DropDownList("cboAppCode", lstApp, new { @id = "cboAppCode", @style = "width:200px" })
+                    <input type="text" id="txtCaseCode" style = "width:200px" />
+                    @*@Html.DropDownList("cboAppCode", lstApp, new { @id = "cboAppCode", @style = "width:200px" })*@
                 </div>
             </div>
 
@@ -125,8 +126,8 @@
             placeholder: "-- Chọn luật sư --"
         });
 
-        $('#cboAppCode').focus();
-        $("#cboAppCode").keypress(function (evt) {
+        $('#txtCaseCode').focus();
+        $("#txtCaseCode").keypress(function (evt) {
             var key = evt.which || evt.charCode || evt.keyCode || 0;
             if (key == 13) {
                 Search_TimeSheet(1, 1);
@@ -146,7 +147,10 @@
 
             var p_keysearch;
             if (p_type == 1) {
-                var _AppCode = $("#cboAppCode").val();
+                var _txtCaseCode = $("#txtCaseCode").val();
+                if (_txtCaseCode == null || _txtCaseCode == "") {
+                    _txtCaseCode = "ALL";
+                }
 
                 var _Lawer = "ALL";
                 if (@_UserType == '@((int)CommonEnums.UserType.Admin)') {
@@ -159,7 +163,7 @@
                 }
 
                 var _Status = $("#cboStatus").val();
-                p_keysearch = _AppCode  + "|" + _Status+ "|" + _Lawer;
+                p_keysearch = _txtCaseCode  + "|" + _Status+ "|" + _Lawer;
 
                 //Lưu lại keysearch
                 $("#txtKeyValue").val(p_keysearch);
