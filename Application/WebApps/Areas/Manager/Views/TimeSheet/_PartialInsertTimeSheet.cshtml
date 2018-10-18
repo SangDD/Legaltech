@@ -121,7 +121,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Hours, new { id = "txtHours", @Value = Model.Hours == 0 ? "" : Model.Hours.ToString("#,##0.##"), onkeyup = "jsFormatNumber(this.value, this.id)", @style = "width: 250px" })
+                    @Html.TextBoxFor(m => m.Hours, new { id = "txtHours", @Value = Model.Hours == 0 ? "" : Model.Hours.ToString("#,##0.##"), onkeyup = "jsFormatFloatNumber(this, this.length,2)", @style = "width: 250px" })
                 </div>
             </div>
             <div class="div-search-title">
@@ -129,7 +129,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Hours_Adjust, new { id = "txtHours_Adjust", @Value = Model.Hours_Adjust == 0 ? "" : Model.Hours_Adjust.ToString("#,##0.##"), onkeyup = "jsFormatNumber(this.value, this.id)" })
+                    @Html.TextBoxFor(m => m.Hours_Adjust, new { id = "txtHours_Adjust", @Value = Model.Hours_Adjust == 0 ? "" : Model.Hours_Adjust.ToString("#,##0.##"), onkeyup = "jsFormatFloatNumber(this, this.length,2)" })
                 </div>
             </div>
         </div>
@@ -306,8 +306,8 @@
         formData.append('p_Timesheet_Info.App_Case_Code', $("#txtApp_Case_Code").val());
         formData.append('p_Timesheet_Info.Name', $("#txtName").val());
         formData.append('p_Timesheet_Info.Time_Date', $("#txtTime_Date").val());
-        formData.append('p_Timesheet_Info.Hours', $("#txtHours").val());
-        formData.append('p_Timesheet_Info.Hours_Adjust', $("#txtHours_Adjust").val());
+        formData.append('p_Timesheet_Info.Hours', parseFloat($("#txtHours").val()));
+        formData.append('p_Timesheet_Info.Hours_Adjust', parseFloat($("#txtHours_Adjust").val()));
         formData.append('p_Timesheet_Info.From_Time', $("#txtFrom_Time").val());
         formData.append('p_Timesheet_Info.To_Time', $("#txtTo_Time").val());
         formData.append('p_Timesheet_Info.Notes', $("#txtNotes").val());
