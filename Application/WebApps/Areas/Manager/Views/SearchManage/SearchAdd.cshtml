@@ -9,11 +9,11 @@
     List<AllCodeInfo> _lstObject = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OBJECT");
     List<AllCodeInfo> _lstType = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "SEARCHTYPE");
 
-    List<SuggestInfo> _lstSuggest = new List<SuggestInfo>();
-    if (ViewBag.Data_Object != null)
-    {
-        _lstSuggest = (List<SuggestInfo>)ViewBag.Data_Object;
-    }
+    //List<SuggestInfo> _lstSuggest = new List<SuggestInfo>();
+    //if (ViewBag.Data_Object != null)
+    //{
+    //    _lstSuggest = (List<SuggestInfo>)ViewBag.Data_Object;
+    //}
 
     string language = AppsCommon.GetCurrentLang();
     var clstAppClassShortSuggest = new List<SuggestInfo>();

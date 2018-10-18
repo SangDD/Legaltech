@@ -147,7 +147,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text"  placeholder="@Resource.TM3B_SoDon"  id="4_txt_SoDon" value="@_App_Detail.Transfer_Appno" />
+                    <input type="text" placeholder="@Resource.TM3B_SoDon" id="4_txt_SoDon" value="@_App_Detail.Transfer_Appno" />
                 </div>
             </div>
         </div>
@@ -349,7 +349,17 @@
 
         <div class="class_save">
             <div class="classGuiDon">
-                <input type="button" value="@Resource.TM3B_BtnSuaDon" id="btnSuaDon" class="btn" />
+                @*<input type="button" value="@Resource.TM3B_BtnSuaDon" id="btnSuaDon" class="btn" />*@
+
+                @if (_AppHeaderInfo.Status == (int)Common.CommonData.CommonEnums.App_Status.Luu_tam)
+                {
+                    <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
+                    <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
+                }
+                else
+                {
+                    <input type="button" value="@Resource.TM3B_BtnSuaDon" id="btnSuaDon" class="btn" />
+                }
             </div>
         </div>
     </fieldset>
@@ -363,6 +373,7 @@
 
 
 <script>
+
     $(document).ready(function () {
         //Search suggestion
         var Name = $("#1_txtTenDayDu").val();
@@ -419,14 +430,130 @@
     });
 
 
+    $("#btnGuiDon").click(function () {
+        try {
+
+            //Thông tin chủ đơn
+            var formData = new FormData();
+            GetDatatoUpdate(formData, @Convert.ToInt16(Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin));
+            if (reponse == false) {
+                return false;
+            }
+
+            $.ajax({
+                url: '/trade-mark-3c/Edit_PLB_02_CGD',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                traditional: true,
+                dataType: "json",
+                enctype: 'multipart/form-data',
+                async: false,
+                headers: { "cache-control": "no-cache" },
+                success: function (data) {
+                    if (data != null && data.status >= 0) {
+                        jAlert(EditSuccess, ThongBao, function () {
+                            window.location = "/trade-mark-mana/quan-ly-don";
+                        });
+                    } else {
+                        jError(EditFail, ThongBao, function () {
+                        });
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+
+        } catch (e) {
+            console.log(e);
+        }
+    });
+
+    $("#btnLuuTam").click(function () {
+        try {
+
+            //Thông tin chủ đơn
+            var formData = new FormData();
+            var reponse = GetDatatoUpdate(formData, @_AppHeaderInfo.Status);
+            if (reponse == false) {
+                return false;
+            }
+
+            $.ajax({
+                url: '/trade-mark-3c/Edit_PLB_02_CGD',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                traditional: true,
+                dataType: "json",
+                enctype: 'multipart/form-data',
+                async: false,
+                headers: { "cache-control": "no-cache" },
+                success: function (data) {
+                    if (data != null && data.status >= 0) {
+                        jAlert(EditSuccess, ThongBao, function () {
+                            window.location = "/trade-mark-mana/quan-ly-don";
+                        });
+                    } else {
+                        jError(EditFail, ThongBao, function () {
+                        });
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+
+        } catch (e) {
+            console.log(e);
+        }
+    });
+
     $("#btnSuaDon").click(function () {
         try {
 
             //Thông tin chủ đơn
             var formData = new FormData();
-            formData.append("pInfo.Id", @_AppHeaderInfo.Id);
-            formData.append("pInfo.Status", @_AppHeaderInfo.Status);
-            formData.append("pInfo.Case_Code", '@_AppHeaderInfo.Case_Code');
+            var reponse = GetDatatoUpdate(formData, @_AppHeaderInfo.Status);
+            if (reponse == false) {
+                return false;
+            }
+            $.ajax({
+                url: '/trade-mark-3c/Edit_PLB_02_CGD',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                traditional: true,
+                dataType: "json",
+                enctype: 'multipart/form-data',
+                async: false,
+                headers: { "cache-control": "no-cache" },
+                success: function (data) {
+                    if (data != null && data.status >= 0) {
+                        jAlert(EditSuccess, ThongBao, function () {
+                            window.location = "/trade-mark-mana/quan-ly-don";
+                        });
+                    } else {
+                        jError(EditFail, ThongBao, function () {
+                        });
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+
+        } catch (e) {
+            console.log(e);
+        }
+    });
+
+    function GetDatatoUpdate(formData, p_status) {
+        try {
             var reponse = funcThongTinCaseName(formData, "0");
             if (reponse == false) {
                 return false;
@@ -435,6 +562,10 @@
             if (funcThongTinChuDon(formData, "1") != true) {
                 return false;
             }
+
+            formData.append("pInfo.Id", @_AppHeaderInfo.Id);
+            formData.append("pInfo.Case_Code", '@_AppHeaderInfo.Case_Code');
+            formData.append("pInfo.Status", p_status );
 
             var Master_Type = $("input[name='1_rdoChuDon']:checked").val();
             if (Master_Type === "" || Master_Type == undefined) {
@@ -474,37 +605,10 @@
             if (reponse == false) {
                 return false;
             }
-
-            $.ajax({
-                url: '/trade-mark-3c/Edit_PLB_02_CGD',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                traditional: true,
-                dataType: "json",
-                enctype: 'multipart/form-data',
-                async: false,
-                headers: { "cache-control": "no-cache" },
-                success: function (data) {
-                    if (data != null && data.status >= 0) {
-                        jAlert(EditSuccess, ThongBao, function () {
-                            window.location = "/trade-mark-mana/quan-ly-don";
-                        });
-                    } else {
-                        jError(EditFail, ThongBao, function () {
-                        });
-                    }
-                },
-                error: function (e) {
-                    console.log(e);
-                }
-            });
-
         } catch (e) {
             console.log(e);
         }
-    });
+    }
 
     function funcGetAppDetail(formData) {
         try {

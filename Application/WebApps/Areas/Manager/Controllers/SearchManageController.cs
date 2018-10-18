@@ -97,26 +97,24 @@ namespace WebApps.Areas.Manager.Controllers
             }
             try
             {
+                //List<SuggestInfo> _lst = new List<SuggestInfo>();
+                //string _lang = AppsCommon.GetCurrentLang();
+                //foreach (var item in BussinessFacade.ModuleMemoryData.MemoryData.clstAppClassSuggest)
+                //{
+                //    SuggestInfo _SuggestInfo = new SuggestInfo(item.name.Replace('/', ' '), item.value);
+                //    if (_lang == "EN_US")
+                //    {
+                //        _SuggestInfo.label = item.label_en;
+                //    }
+                //    _lst.Add(_SuggestInfo);
+                //}
 
+                //ViewBag.Data_Object = _lst;
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
             }
-
-            List<SuggestInfo> _lst = new List<SuggestInfo>();
-            string _lang = AppsCommon.GetCurrentLang();
-            foreach (var item in BussinessFacade.ModuleMemoryData.MemoryData.clstAppClassSuggest)
-            {
-                SuggestInfo _SuggestInfo = new SuggestInfo(item.name.Replace('/', ' '), item.value);
-                if (_lang == "EN_US")
-                {
-                    _SuggestInfo.label = item.label_en;
-                }
-                _lst.Add(_SuggestInfo);
-            }
-
-            ViewBag.Data_Object = _lst;
 
             return View(@"~\Areas\Manager\Views\SearchManage\SearchAdd.cshtml");
         }

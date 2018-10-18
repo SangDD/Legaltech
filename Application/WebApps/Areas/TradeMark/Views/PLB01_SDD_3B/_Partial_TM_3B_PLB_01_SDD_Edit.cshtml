@@ -578,8 +578,6 @@
         });
     });
 
-
-
     function ShowHiden_SoHinhSoTrang() {
         try {
             if ($("#3_rdDonSangChe").is(':checked') || $("#3_rdKieuDangCongNghiep ").is(':checked')) {
@@ -645,7 +643,10 @@
 
             //Thông tin chủ đơn
             var formData = new FormData();
-            GetDatatoUpdate(formData, @Convert.ToInt16(Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin));
+            var reponse = GetDatatoUpdate(formData, @Convert.ToInt16(Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin));
+            if (reponse == false) {
+                return false;
+            }
 
             $.ajax({
                 url: '/trade-mark-3b/Edit_PLB_01_SDD',
@@ -683,7 +684,10 @@
 
             //Thông tin chủ đơn
             var formData = new FormData();
-            GetDatatoUpdate(formData, @_AppHeaderInfo.Status);
+            var reponse = GetDatatoUpdate(formData, @_AppHeaderInfo.Status);
+            if (reponse == false) {
+                return false;
+            }
 
             $.ajax({
                 url: '/trade-mark-3b/Edit_PLB_01_SDD',
@@ -721,7 +725,10 @@
 
             //Thông tin chủ đơn
             var formData = new FormData();
-            GetDatatoUpdate(formData, @_AppHeaderInfo.Status);
+            var reponse = GetDatatoUpdate(formData, @_AppHeaderInfo.Status);
+            if (reponse == false) {
+                return false;
+            }
 
             $.ajax({
                 url: '/trade-mark-3b/Edit_PLB_01_SDD',
