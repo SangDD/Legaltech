@@ -5,6 +5,9 @@
     if (ViewBag.objNewInfo != null)
     {
         objInfo = ViewBag.objNewInfo;
+
+
+        ViewBag.Title= objInfo.Title;
     }
     Layout = "~/ViewsShared/_LayoutHomeArticles.cshtml";
 }
@@ -33,5 +36,5 @@
     </div>
 </div>
 
+@Html.Partial("~/ViewsShared/_PartialViewFaceYoutube.cshtml")
 
- 
