@@ -270,11 +270,8 @@
                                 <div class="t-Khoanbetong_inner">
 
                                     @RenderBody()
-                                    @*<div class="c-carousel" data-module="Carousel,BiographyCircles">
-                                    </div>*@
-                                     
-                                    @*<div class="join-us" style="padding-top:0px;">
-                                    </div>*@
+
+                                    @Html.Partial("~/ViewsShared/_PartialViewFaceYoutube.cshtml")
 
                                     <footer id="main-footer" class="c-footer js-animate">
                                         <div class="c-footer_wrap-head o-layout -middle">
@@ -295,7 +292,7 @@
                                                             </a>
                                                         </li>
                                                         <li class="c-footer-actions_social-item">
-                                                            <a class="c-footer-actions_social-link" href="http://facebook.com/Sodargye" target="_blank">
+                                                            <a class="c-footer-actions_social-link" href="http://facebook.com" target="_blank">
                                                                 <figure class="c-footer-actions_social-icon">
                                                                     <i class="fa fa-facebook" aria-hidden="true" style=" color:#FFF;font-size: 30px;"></i>
                                                                 </figure>
@@ -319,7 +316,6 @@
                                                     <a href="javascript:;">Contact us</a>
                                                 </li>
                                                 <li class="c-footer_cta-item -locomotive">
-                                                    @*<a href="http://hocngheolam.org/" target="_blank">By Hocngheolam</a>*@
                                                 </li>
                                             </ul>
                                         </div>
@@ -327,6 +323,7 @@
 
                                     </footer>
                                 </div>
+
                             </div>
                    </section>
                 </article>

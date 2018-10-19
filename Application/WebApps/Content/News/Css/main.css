@@ -8695,22 +8695,23 @@ a:focus,a:hover {
 }
 
 .c-sharer {
-  position: absolute;
-  top: calc(100vh - 40px - 70px - 10px);
-  right: 40px;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  background-color: #f5f0ea;
-  z-index: 100;
-  cursor: pointer;
-  -webkit-transition: background-color;
-  transition: background-color;
-  -webkit-transition-duration: .3s;
-  transition-duration: .3s;
-  -webkit-transition-timing-function: cubic-bezier(.645,.045,.355,1);
-  transition-timing-function: cubic-bezier(.645,.045,.355,1);
-  display: none;
+    position: absolute;
+    /*top: calc(100vh - 40px - 70px - 10px);*/
+    bottom: 360px;
+    right: 40px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #f5f0ea;
+    z-index: 100;
+    cursor: pointer;
+    -webkit-transition: background-color;
+    transition: background-color;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+    -webkit-transition-timing-function: cubic-bezier(.645,.045,.355,1);
+    transition-timing-function: cubic-bezier(.645,.045,.355,1);
+    display: none;
 }
 
 @media(min-width:1000px) {
