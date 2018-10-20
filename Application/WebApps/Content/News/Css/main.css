@@ -6881,13 +6881,14 @@ a:focus,a:hover {
   position: relative;
   width: 100%;
   overflow: hidden;
-	background-image: url(../images/bg03.png);
+	/*background-image: url(../images/bg03.png);*/
     background-position: center !important;
     background-repeat: no-repeat !important;
     background-size: cover !important;
   /*background-color: #da4347;
   background-color: #cfcfcf;*/
 }
+ 
 
 @media(max-width:999px) {
   .c-carousel {
@@ -7521,8 +7522,9 @@ a:focus,a:hover {
 }
 
 .c-navleft {
-  /*background-color: #f5f0ea;*/
-	background-color: #fff;
+    /*background-color: #f5f0ea;*/
+    background-image: url(../images/bg03.png);
+    background-color: #fff;
 }
 
 @media(max-width:999px) {

@@ -1721,26 +1721,12 @@
                 foreach (var item in MemoryData.lstCacheCustomer)
                 {
                     if (string.IsNullOrEmpty(item.name)) continue;
-                    if (language == item.Language)
+                    if (item.name.ToLower().Contains(pName.ToLower()))
                     {
-                        if (language == Language.LangVI)
-                        {
-                            if (item.name.ToLower().Contains(pName.ToLower()))
-                            {
-                                check = 1;
-                                lstContain.Add(item);
-                            }
-                        }
-                        else
-                        {
-                            if (item.name_en.ToLower().Contains(pName.ToLower()))
-                            {
-                                check = 1;
-                                lstContain.Add(item);
-                            }
-                        }
+                        check = 1;
+                        lstContain.Add(item);
                     }
-                    
+
                 }
                 if (check == 1)
                 {
@@ -1772,24 +1758,10 @@
                     foreach (var item in MemoryData.lstCacheCustomer1)
                     {
                         if (string.IsNullOrEmpty(item.name)) continue;
-                        if (language == item.Language)
+                        if (item.name.ToLower().Contains(pName.ToLower()))
                         {
-                            if (language == Language.LangVI)
-                            {
-                                if (item.name.ToLower().Contains(pName.ToLower()))
-                                {
-                                    check = 1;
-                                    lstContain.Add(item);
-                                }
-                            }
-                            else
-                            {
-                                if (item.name_en.ToLower().Contains(pName.ToLower()))
-                                {
-                                    check = 1;
-                                    lstContain.Add(item);
-                                }
-                            }
+                            check = 1;
+                            lstContain.Add(item);
                         }
                     }
                 }
@@ -1800,21 +1772,10 @@
                         if (string.IsNullOrEmpty(item.name)) continue;
                         if (language == item.Language)
                         {
-                            if (language == Language.LangVI)
+                            if (item.name.ToLower().Contains(pName.ToLower()))
                             {
-                                if (item.name.ToLower().Contains(pName.ToLower()))
-                                {
-                                    check = 1;
-                                    lstContain.Add(item);
-                                }
-                            }
-                            else
-                            {
-                                if (item.name_en.ToLower().Contains(pName.ToLower()))
-                                {
-                                    check = 1;
-                                    lstContain.Add(item);
-                                }
+                                check = 1;
+                                lstContain.Add(item);
                             }
                         }
                     }
@@ -1826,21 +1787,10 @@
                         if (string.IsNullOrEmpty(item.name)) continue;
                         if (language == item.Language)
                         {
-                            if (language == Language.LangVI)
+                            if (item.name.ToLower().Contains(pName.ToLower()))
                             {
-                                if (item.name.ToLower().Contains(pName.ToLower()))
-                                {
-                                    check = 1;
-                                    lstContain.Add(item);
-                                }
-                            }
-                            else
-                            {
-                                if (item.name_en.ToLower().Contains(pName.ToLower()))
-                                {
-                                    check = 1;
-                                    lstContain.Add(item);
-                                }
+                                check = 1;
+                                lstContain.Add(item);
                             }
                         }
                     }
@@ -1852,21 +1802,10 @@
                         if (string.IsNullOrEmpty(item.name)) continue;
                         if (language == item.Language)
                         {
-                            if (language == Language.LangVI)
+                            if (item.name.ToLower().Contains(pName.ToLower()))
                             {
-                                if (item.name.ToLower().Contains(pName.ToLower()))
-                                {
-                                    check = 1;
-                                    lstContain.Add(item);
-                                }
-                            }
-                            else
-                            {
-                                if (item.name_en.ToLower().Contains(pName.ToLower()))
-                                {
-                                    check = 1;
-                                    lstContain.Add(item);
-                                }
+                                check = 1;
+                                lstContain.Add(item);
                             }
                         }
                     }
@@ -1878,21 +1817,10 @@
                         if (string.IsNullOrEmpty(item.name)) continue;
                         if (language == item.Language)
                         {
-                            if (language == Language.LangVI)
+                            if (item.name.ToLower().Contains(pName.ToLower()))
                             {
-                                if (item.name.ToLower().Contains(pName.ToLower()))
-                                {
-                                    check = 1;
-                                    lstContain.Add(item);
-                                }
-                            }
-                            else
-                            {
-                                if (item.name_en.ToLower().Contains(pName.ToLower()))
-                                {
-                                    check = 1;
-                                    lstContain.Add(item);
-                                }
+                                check = 1;
+                                lstContain.Add(item);
                             }
                         }
                     }
