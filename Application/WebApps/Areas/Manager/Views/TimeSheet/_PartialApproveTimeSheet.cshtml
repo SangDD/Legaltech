@@ -143,13 +143,24 @@
             </div>
         </div>
 
-        <div class="div-search-ad">
+        @*<div class="div-search-ad">
             <div class="div-search-title">
                 <div>Ghi chú</div>
             </div>
             <div class="div-search-content">
                 <div>
                     @Html.TextBoxFor(m => m.Notes, new { id = "txtNotes", @maxlength = "2000" })
+                </div>
+            </div>
+        </div>*@
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Yêu cầu<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtNotes" maxlength="500" />
                 </div>
             </div>
         </div>
@@ -186,14 +197,15 @@
                 return false;
             }
 
-            //var txtHours_Adjust = $("#txtHours_Adjust").val();
-            //if (txtHours_Adjust == null || txtHours_Adjust == "") {
-            //    jError("Giờ điều chỉnh không được bỏ trống!", "lỗi", function () {
-            //        $("#txtHours_Adjust").val('');
-            //        $('#txtHours_Adjust').focus();
-            //    });
-            //    return false;
-            //}
+            var txtNotes = $("#txtNotes").val();
+            if (txtNotes == null || txtNotes == "") {
+                jError("Yêu cầu không được bỏ trống!", "lỗi", function () {
+                    $("#txtNotes").val('');
+                    $('#txtNotes').focus();
+                });
+                return false;
+            }
+
         } catch (e) {
             alert(e);
             return false;
@@ -280,6 +292,7 @@
     function collectData(formData, p_type) {
         formData.append('p_id', @Model.Id);
         formData.append('p_status', p_type);
-        formData.append('p_reject_reason',  $("#txtReject_Reason").val());
+        formData.append('p_reject_reason', $("#txtReject_Reason").val());
+        formData.append('p_notes', $("#txtNotes").val());
     }
 </script>

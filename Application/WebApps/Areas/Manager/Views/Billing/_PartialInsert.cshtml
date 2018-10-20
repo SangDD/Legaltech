@@ -106,13 +106,13 @@
             </div>
 
             @*<div class="div-search-title">
-                    <div>Người xét duyệt<i class="redspan">(*)</i></div>
+                <div>Người xét duyệt<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.DropDownList("Approve_By", lstUsersAdmin, new { @id = "Approve_By" })
                 </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.DropDownList("Approve_By", lstUsersAdmin, new { @id = "Approve_By" })
-                    </div>
-                </div>*@
+            </div>*@
         </div>
 
         <div id="divInfoApp" style="margin-top: 10px;">
@@ -150,6 +150,17 @@
                            @class = "datepicker",
                            @disabled = "disabled"
                        })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Yêu cầu<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtNotes" maxlength="500" />
                 </div>
             </div>
         </div>
@@ -436,6 +447,15 @@
             return false;
         }
 
+        var txtNotes = $("#txtNotes").val();
+        if (txtNotes == null || txtNotes == "") {
+            jError("Yêu cầu không được bỏ trống!", "lỗi", function () {
+                $("#txtNotes").val('');
+                $('#txtNotes').focus();
+            });
+            return false;
+        }
+
         return true;
     }
 
@@ -458,6 +478,7 @@
 
             formData.append('p_Billing_Header_Info.Currency', $("#txtCurrency").val());
             formData.append('p_Billing_Header_Info.Currency_Rate', parseInt($("#txtCurrency_Rate").val().replace(/,/g, "")));
+            formData.append('p_Billing_Header_Info.Notes', $("#txtNotes").val());
 
             if ('@_case_code' != "") {
                 formData.append('p_Billing_Header_Info.Is_AdviceFilling', 1);

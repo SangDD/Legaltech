@@ -207,7 +207,7 @@ namespace WebApps.Areas.Manager.Controllers
             {
                 TimeSheet_BL _obj_bl = new TimeSheet_BL();
                 p_Timesheet_Info.Modify_By = SessionData.CurrentUser.Username;
-                decimal _ck = _obj_bl.Timesheet_Update(p_Timesheet_Info);
+                decimal _ck = _obj_bl.Timesheet_Update(p_Timesheet_Info, AppsCommon.GetCurrentLang());
                 return Json(new { success = _ck });
             }
             catch (Exception ex)
@@ -230,6 +230,40 @@ namespace WebApps.Areas.Manager.Controllers
                     TimeSheet_BL _obj_bl = new TimeSheet_BL();
                     Timesheet_Info _Timesheet_Info = _obj_bl.Timesheet_GetBy_Id(p_id);
                     return View("~/Areas/Manager/Views/TimeSheet/_PartialApproveTimeSheet.cshtml", _Timesheet_Info);
+                }
+                else return View();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return View("~/Areas/Manager/Views/TimeSheet/_PartialApproveTimeSheet.cshtml");
+            }
+
+        }
+
+        [HttpGet]
+        [Route("danh-sach-timesheet/show-action-by-casecode/{id}")]
+        public ActionResult GetView2Action_ByCasecode()
+        {
+            try
+            {
+                if (RouteData.Values["id"] != null && RouteData.Values["id"].ToString() != "")
+                {
+                    string p_caseCode = RouteData.Values["id"].ToString();
+                    TimeSheet_BL _obj_bl = new TimeSheet_BL();
+                    Timesheet_Info _Timesheet_Info = _obj_bl.Timesheet_GetBy_Casecode(p_caseCode);
+                    if (_Timesheet_Info.Status == (decimal)Common.CommonData.CommonEnums.TimeSheet_Status.New)
+                    {
+                        return View("~/Areas/Manager/Views/TimeSheet/_PartialApproveTimeSheet.cshtml", _Timesheet_Info);
+                    }
+                    else if (_Timesheet_Info.Status == (decimal)Common.CommonData.CommonEnums.TimeSheet_Status.Reject)
+                    {
+                        return View("~/Areas/Manager/Views/TimeSheet/_PartialEditTimeSheet.cshtml", _Timesheet_Info);
+                    }
+                    else
+                    {
+                        return View("~/Areas/Manager/Views/TimeSheet/_PartialViewTimeSheet.cshtml", _Timesheet_Info);
+                    }
                 }
                 else return View();
             }
@@ -266,12 +300,12 @@ namespace WebApps.Areas.Manager.Controllers
 
         [HttpPost]
         [Route("danh-sach-timesheet/do-approve-timeshet")]
-        public ActionResult DoApproveTimeSheet(decimal p_id,int p_status, string p_reject_reason)
+        public ActionResult DoApproveTimeSheet(decimal p_id, int p_status, string p_reject_reason, string p_notes)
         {
             try
             {
                 TimeSheet_BL _obj_bl = new TimeSheet_BL();
-                decimal _ck = _obj_bl.Timesheet_Approve(p_id, p_status, p_reject_reason, SessionData.CurrentUser.Username);
+                decimal _ck = _obj_bl.Timesheet_Approve(p_id, p_status, p_reject_reason, p_notes, SessionData.CurrentUser.Username);
                 return Json(new { success = _ck });
             }
             catch (Exception ex)
@@ -293,7 +327,7 @@ namespace WebApps.Areas.Manager.Controllers
                 DateTime _FromDate = ConvertData.ConvertStringTime2Date(p_From_Time);
                 DateTime _ToDate = ConvertData.ConvertStringTime2Date(p_To_Time);
                 TimeSpan _ts = _ToDate - _FromDate;
-                return Json(new { success = Math.Round(_ts.TotalHours,2).ToString("") });
+                return Json(new { success = Math.Round(_ts.TotalHours, 2).ToString("") });
             }
             catch (Exception ex)
             {

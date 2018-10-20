@@ -19,10 +19,14 @@
     var clstAppClassShortSuggest = new List<SuggestInfo>();
     foreach (var item in MemoryData.clstAppClassSuggest)
     {
+        if (item == null || item.name == null)
+        {
+            continue;
+        }
+
         var pShortInfo = new SuggestInfo("", "");
         if (language == Language.LangVI)
         {
-
             pShortInfo = new SuggestInfo(item.name.Replace('/', ' '), item.value);
         }
         else
@@ -190,6 +194,17 @@
             </div>
         </div>
 
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Yêu cầu<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtNotes" maxlength="500" />
+                </div>
+            </div>
+        </div>
+
         <div class="divCover cls_form_title">
             <img src="/Content/icons/icon_info_24.png" />
             <div class="cls_form_header">
@@ -200,24 +215,24 @@
         @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialAddSearchClass.cshtml")
 
         @*<div class="div-search-ad">
-                <div class="div-search-title">
-                    <div>Search<i class="redspan">(*)</i></div>
+            <div class="div-search-title">
+                <div>Search<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input id="tags" style="height: 28px;margin-left: 3px;width:150px">
                 </div>
-                <div class="div-search-content">
-                    <div>
-                        <input id="tags" style="height: 28px;margin-left: 3px;width:150px">
-                    </div>
-                </div>
+            </div>
 
-                <div class="div-search-title">
-                    <div> Class<i class="redspan">(*)</i> </div>
+            <div class="div-search-title">
+                <div> Class<i class="redspan">(*)</i> </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input value="" type="text" disabled="disabled" id="txtClass" />
                 </div>
-                <div class="div-search-content">
-                    <div>
-                        <input value="" type="text" disabled="disabled" id="txtClass" />
-                    </div>
-                </div>
-            </div>*@
+            </div>
+        </div>*@
 
         <div class="divCover cls_form_title">
             <img src="/Content/icons/icon_info_24.png" />
@@ -300,12 +315,23 @@
                 });
                 return false;
             }
+
+            var txtNotes = $("#txtNotes").val();
+            if (txtNotes == null || txtNotes == "") {
+                jError("Yêu cầu không được bỏ trống!", "lỗi", function () {
+                    $("#txtNotes").val('');
+                    $('#txtNotes').focus();
+                });
+                return false;
+            }
+
             //var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
 
             formData.append("p_searchHeaderInfo.CASE_NAME", _txtcasename.val().trim());
             formData.append("p_searchHeaderInfo.CLIENT_REFERENCE", txtClient_Reference.val());
             formData.append("p_searchHeaderInfo.STATUS", '@CommonSearch.Stt_PhanChoLuatSu');
             formData.append("p_searchHeaderInfo.Country_Id", $("#cboCountry").val());
+            formData.append("p_searchHeaderInfo.Notes", $("#txtNotes").val());
 
             $('.search_object').each(function (i, item) {
                 formData.append("p_SearchObject_Detail_Info[" + i + "].SEARCH_OBJECT", $(item).val());

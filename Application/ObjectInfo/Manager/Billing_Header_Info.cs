@@ -57,6 +57,7 @@ namespace ObjectInfos
         public string Language_Code { get; set; }
         public decimal Deleted { get; set; }
         public decimal Is_AdviceFilling { get; set; }
+        public string Notes { get; set; }
 
     }
 }

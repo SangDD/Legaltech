@@ -132,7 +132,7 @@ namespace DataAccess
         }
 
         public decimal Timesheet_Update(decimal p_id, string p_name, DateTime p_time_date, string p_from_time, string p_to_time, decimal p_hours, decimal p_hours_adjust, 
-            string p_notes,  string p_modify_by, DateTime p_modify_date)
+            string p_notes,  string p_modify_by, DateTime p_modify_date, string p_language_code)
         {
             try
             {
@@ -149,6 +149,7 @@ namespace DataAccess
                     new OracleParameter("p_notes", OracleDbType.Varchar2, p_notes, ParameterDirection.Input),
                     new OracleParameter("p_modify_by", OracleDbType.Varchar2, p_modify_by, ParameterDirection.Input),
                     new OracleParameter("p_modify_date", OracleDbType.Date, p_modify_date, ParameterDirection.Input),
+                    new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
                     paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());
@@ -180,7 +181,7 @@ namespace DataAccess
             }
         }
 
-        public decimal Timesheet_Approve(decimal p_id, int p_status, string p_reject_reason, string p_modify_by, DateTime p_modify_date)
+        public decimal Timesheet_Approve(decimal p_id, int p_status, string p_reject_reason, string p_notes, string p_modify_by, DateTime p_modify_date)
         {
             try
             {
@@ -190,6 +191,7 @@ namespace DataAccess
                     //new OracleParameter("p_hours_adjust", OracleDbType.Decimal, p_hours_adjust, ParameterDirection.Input),
                     new OracleParameter("p_status", OracleDbType.Int16, p_status, ParameterDirection.Input),
                     new OracleParameter("p_reject_reason", OracleDbType.Varchar2, p_reject_reason, ParameterDirection.Input),
+                    new OracleParameter("p_notes", OracleDbType.Varchar2, p_notes, ParameterDirection.Input),
                     new OracleParameter("p_modify_by", OracleDbType.Varchar2, p_modify_by, ParameterDirection.Input),
                     new OracleParameter("p_modify_date", OracleDbType.Date, p_modify_date, ParameterDirection.Input),
                     paramReturn);

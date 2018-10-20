@@ -102,13 +102,13 @@ namespace BussinessFacade
             }
         }
 
-        public decimal Timesheet_Update(Timesheet_Info p_obj)
+        public decimal Timesheet_Update(Timesheet_Info p_obj, string p_language_code)
         {
             try
             {
                 TimeSheet_DA _da = new TimeSheet_DA();
                 return _da.Timesheet_Update(p_obj.Id, p_obj.Name, p_obj.Time_Date,
-                     p_obj.From_Time, p_obj.To_Time, p_obj.Hours, p_obj.Hours_Adjust, p_obj.Notes, p_obj.Modify_By, DateTime.Now);
+                     p_obj.From_Time, p_obj.To_Time, p_obj.Hours, p_obj.Hours_Adjust, p_obj.Notes, p_obj.Modify_By, DateTime.Now, p_language_code);
             }
             catch (Exception ex)
             {
@@ -131,12 +131,12 @@ namespace BussinessFacade
             }
         }
 
-        public decimal Timesheet_Approve(decimal p_id, int p_status, string p_reject_reason, string p_modify_by)
+        public decimal Timesheet_Approve(decimal p_id, int p_status, string p_reject_reason,string p_notes, string p_modify_by)
         {
             try
             {
                 TimeSheet_DA _da = new TimeSheet_DA();
-                return _da.Timesheet_Approve(p_id, p_status, p_reject_reason, p_modify_by, DateTime.Now);
+                return _da.Timesheet_Approve(p_id, p_status, p_reject_reason, p_notes, p_modify_by, DateTime.Now);
             }
             catch (Exception ex)
             {

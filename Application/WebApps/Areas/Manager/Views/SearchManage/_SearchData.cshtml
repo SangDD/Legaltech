@@ -43,8 +43,12 @@
                             <td class="tdleftalign">@item.CREATED_BY</td>
                             <td class="tdcenteralign">
                                 <a href="/quan-ly-search/search-todo-detail/@item.CASE_CODE/4" class="icon icon-info" data-title="Xem chi tiết"></a>
-                                <a href="/quan-ly-search/search-edit/@item.SEARCH_ID/@item.STATUS" class="icon icon-edit" data-title="Sửa"></a>
-                                <a href="javascript:doDeleteObject(@item.SEARCH_ID, 1)" class="icon icon-delete" data-title="Xóa"></a>
+
+                                @if (item.STATUS == Convert.ToDecimal(Common.CommonData.CommonSearch.Stt_PhanChoLuatSu))
+                                {
+                                    <a href="/quan-ly-search/search-edit/@item.SEARCH_ID/@item.STATUS" class="icon icon-edit" data-title="Sửa"></a>
+                                    <a href="javascript:doDeleteObject(@item.SEARCH_ID, 1)" class="icon icon-delete" data-title="Xóa"></a>
+                                }
                             </td>
                         </tr>
                     }

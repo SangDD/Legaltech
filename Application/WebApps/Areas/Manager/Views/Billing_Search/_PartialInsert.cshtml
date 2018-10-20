@@ -140,6 +140,18 @@
             </div>
         </div>
 
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Yêu cầu<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtNotes" maxlength="500" />
+                </div>
+            </div>
+        </div>
+
+
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/bank.png" />
             <div class="cls_form_header">
@@ -417,6 +429,15 @@
             });
             return false;
         }
+
+        var txtNotes = $("#txtNotes").val();
+        if (txtNotes == null || txtNotes == "") {
+            jError("Yêu cầu không được bỏ trống!", "lỗi", function () {
+                $("#txtNotes").val('');
+                $('#txtNotes').focus();
+            });
+            return false;
+        }
          
         return true;
     }
@@ -440,6 +461,7 @@
 
             formData.append('p_Billing_Header_Info.Currency', $("#txtCurrency").val());
             formData.append('p_Billing_Header_Info.Currency_Rate', parseInt($("#txtCurrency_Rate").val().replace(/,/g, "")));
+            formData.append('p_Billing_Header_Info.Notes', $("#txtNotes").val());
 
             if ('@_case_code' != "") {
                 formData.append('p_Billing_Header_Info.Is_AdviceFilling', 1);

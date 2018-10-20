@@ -27,6 +27,7 @@ namespace DataAccess
                     new OracleParameter("P_CREATED_BY", OracleDbType.Varchar2, p_SearchObject_Header_Info.CREATED_BY, ParameterDirection.Input),
                     new OracleParameter("P_CREATED_DATE", OracleDbType.Date, p_SearchObject_Header_Info.CREATED_DATE, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, p_SearchObject_Header_Info.LANGUAGE_CODE, ParameterDirection.Input),
+                    new OracleParameter("P_NOTES", OracleDbType.Varchar2, p_SearchObject_Header_Info.NOTES, ParameterDirection.Input),
                     paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());
@@ -54,6 +55,7 @@ namespace DataAccess
                     new OracleParameter("P_LAWER_ID", OracleDbType.Decimal, p_SearchObject_Header_Info.LAWER_ID, ParameterDirection.Input),
                     new OracleParameter("P_MODIFIED_BY", OracleDbType.Varchar2, p_SearchObject_Header_Info.MODIFIED_BY, ParameterDirection.Input),
                     new OracleParameter("P_MODIFIED_DATE", OracleDbType.Date, p_SearchObject_Header_Info.MODIFIED_DATE, ParameterDirection.Input),
+                    new OracleParameter("P_NOTES", OracleDbType.Varchar2, p_SearchObject_Header_Info.NOTES, ParameterDirection.Input),
                     paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());

@@ -183,7 +183,7 @@ namespace BussinessFacade
                 Billing_DA _da = new Billing_DA();
                 return _da.Billing_Insert(p_obj.Case_Code, p_obj.Billing_Type, p_obj.App_Case_Code, p_obj.Billing_Date, p_obj.Deadline,
                     p_obj.Request_By, p_obj.Approve_By, p_obj.Status, p_obj.Total_Pre_Tex, p_obj.Tex_Fee, p_obj.Total_Amount,
-                    p_obj.Currency, p_obj.Currency_Rate, p_obj.Created_By, p_obj.Created_Date, p_obj.Language_Code);
+                    p_obj.Currency, p_obj.Currency_Rate, p_obj.Created_By, p_obj.Created_Date, p_obj.Language_Code, p_obj.Notes);
             }
             catch (Exception ex)
             {

@@ -163,19 +163,21 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Ghi chú</div>
+                <div>Yêu cầu<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Notes, new { id = "txtNotes", @maxlength = "2000" })
+                    @*@Html.TextBoxFor(m => m.Notes, new { id = "txtNotes", @maxlength = "2000" })*@
+                    <input type="text" id="txtNotes" maxlength = "2000"/>
                 </div>
             </div>
         </div>
+
     </div>
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Lưu" onclick="return doEditTimeSheet()" />
+            <input type="submit" class="btn-default" value="Sửa" onclick="return doEditTimeSheet()" />
         </div>
     </div>
 </div>
@@ -275,6 +277,15 @@
             return false;
         }
 
+        var txtNotes = $("#txtNotes").val();
+        if (txtNotes == null || txtNotes == "") {
+            jError("Yêu cầu không được bỏ trống!", "lỗi", function () {
+                $("#txtNotes").val('');
+                $('#txtNotes').focus();
+            });
+            return false;
+        }
+
         return true;
     }
 
@@ -311,7 +322,7 @@
 
     function collectData(formData) {
         formData.append('p_Timesheet_Info.Id', @Model.Id);
-        formData.append('p_Timesheet_Info.App_Header_Id', @Model.App_Header_Id);
+        
         formData.append('p_Timesheet_Info.Lawer_Id', @Model.Lawer_Id);
         formData.append('p_Timesheet_Info.Name', $("#txtName").val());
         formData.append('p_Timesheet_Info.Time_Date', $("#txtTime_Date").val());

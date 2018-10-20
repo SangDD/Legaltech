@@ -148,7 +148,7 @@ namespace DataAccess
 
         public decimal Billing_Insert(string p_case_code, decimal p_billing_type, string p_app_case_code, DateTime p_billing_date, DateTime p_deadline,
             string p_request_by, string p_approve_by, decimal p_status, decimal p_total_pre_tex, decimal p_tex_fee, decimal p_total_amount,
-            string p_currency, decimal p_currency_rate, string p_created_by, DateTime p_created_date, string p_language_code)
+            string p_currency, decimal p_currency_rate, string p_created_by, DateTime p_created_date, string p_language_code, string p_notes)
         {
             try
             {
@@ -172,6 +172,7 @@ namespace DataAccess
                      new OracleParameter("p_created_by", OracleDbType.Varchar2, p_created_by, ParameterDirection.Input),
                      new OracleParameter("p_created_date", OracleDbType.Date, p_created_date, ParameterDirection.Input),
                      new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
+                     new OracleParameter("p_notes", OracleDbType.Varchar2, p_notes, ParameterDirection.Input),
                     paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());
