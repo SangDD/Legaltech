@@ -46,7 +46,11 @@
                     // nếu thay đổi danh mục cha
                     _Slidebar.Append("</ul>");
                 }
+                _Slidebar.Append("<a class='' href='/wiki-view/doc-list/" + item.ID + "/0'  >");
                 _Slidebar.Append("<h4> " + (AppsCommon.GetCurrentLang() == Language.LangVI?item.NAME:item.NAME_ENG) + "</h4>");
+
+
+                _Slidebar.Append("</a>");
                 if (_new_parentid != _old_parentid)
                 {
                     _old_parentid = _new_parentid;
