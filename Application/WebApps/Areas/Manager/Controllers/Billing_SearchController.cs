@@ -181,6 +181,9 @@ namespace WebApps.Areas.Manager.Controllers
                         string _fileExport = Export_Billing(p_Billing_Header_Info.Case_Code);
                         SearchObject_BL _bl = new SearchObject_BL();
                         _ck = _bl.Update_Url_Billing(p_Billing_Header_Info.App_Case_Code, _fileExport);
+
+                        // insert vào docking
+                        TradeMark.Controllers.ApplicationController.Insert_Docketing(p_Billing_Header_Info.Case_Code, "Report Billing", _fileExport);
                     }
 
                     //end

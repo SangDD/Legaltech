@@ -257,6 +257,8 @@ namespace WebApps.Areas.Manager.Controllers
                         string _fileExport = Export_Billing(p_Billing_Header_Info.Case_Code);
                         Application_Header_BL _BL = new Application_Header_BL();
                         _ck = _BL.AppHeader_Update_Url_Billing(p_Billing_Header_Info.App_Case_Code, _fileExport);
+
+                        TradeMark.Controllers.ApplicationController.Insert_Docketing(p_Billing_Header_Info.App_Case_Code, "Report Billing", _fileExport);
                     }
 
                     //end
@@ -438,7 +440,7 @@ namespace WebApps.Areas.Manager.Controllers
                 {
                     return PartialView("~/Areas/Manager/Views/Billing/_PartialDetail_Insert_Billing.cshtml");
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -689,7 +691,7 @@ namespace WebApps.Areas.Manager.Controllers
                 else
                 {
                     _Billing_Header_Info = _obj_bl.Billing_GetBy_Code(case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
-                    if(_Billing_Header_Info.Billing_Type == (decimal)CommonEnums.Billing_Type.Search)
+                    if (_Billing_Header_Info.Billing_Type == (decimal)CommonEnums.Billing_Type.Search)
                     {
                         _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Code(case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
                     }
@@ -866,5 +868,38 @@ namespace WebApps.Areas.Manager.Controllers
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
             }
         }
+
+        //public static void Insert_Docketing(string p_app_case_code, string p_doc_name, string p_url_File_Atachment)
+        //{
+        //    try
+        //    {
+        //        // insert vào docking để lưu trữ
+        //        Docking_BL _obj_docBL = new Docking_BL();
+        //        Docking_Info p_Docking_Info = new Docking_Info();
+        //        p_Docking_Info.Created_By = SessionData.CurrentUser.Username;
+        //        p_Docking_Info.Created_Date = DateTime.Now;
+        //        p_Docking_Info.Language_Code = AppsCommon.GetCurrentLang();
+        //        p_Docking_Info.Status = (decimal)CommonEnums.Docking_Status.Completed;
+        //        p_Docking_Info.Docking_Type = (decimal)CommonEnums.Docking_Type_Enum.In_Book;
+        //        p_Docking_Info.Document_Type = (decimal)CommonEnums.Document_Type_Enum.Khac;
+        //        p_Docking_Info.Document_Name = p_doc_name;
+        //        p_Docking_Info.In_Out_Date = DateTime.Now;
+        //        p_Docking_Info.Isshowcustomer = 1;
+        //        p_Docking_Info.App_Case_Code = p_app_case_code;
+
+        //        string[] _arr = p_url_File_Atachment.Split('/');
+        //        if (_arr.Length > 0)
+        //        {
+        //            p_Docking_Info.FileName = _arr[_arr.Length - 1];
+        //        }
+        //        p_Docking_Info.Url = p_url_File_Atachment;
+
+        //        _obj_docBL.Docking_Insert(p_Docking_Info);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.LogException(ex);
+        //    }
+        //}
     }
 }
