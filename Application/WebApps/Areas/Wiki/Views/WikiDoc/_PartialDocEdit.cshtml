@@ -84,11 +84,11 @@
                     <input type="hidden" id="CboAddWikiCataChild" value="@_CataInfo.ID" />
                     @if (WebApps.CommonFunction.AppsCommon.GetCurrentLang().ToUpper().Contains("VN"))
                     {
-                        <input type="text" readonly value="@_CataInfo.NAME_ENG" />
+                        <input type="text" readonly value="@_CataInfo.NAME" />
                     }
                     else
                     {
-                        <input type="text" readonly value="@_CataInfo.NAME" />
+                        <input type="text" readonly value="@_CataInfo.NAME_ENG" />
                     }
                 </div>
             </div>

@@ -14,6 +14,11 @@
         _CataInfo = ViewBag.CataInfo;
     }
     string _backhref = "/wiki-manage/wiki-doc/list-by-catalogue/" + _CataInfo.ID;
+    decimal _Cataid = 0;
+    if(ViewBag.Cataid != null)
+    {
+        _Cataid = ViewBag.Cataid;
+    }
 }
 @try
 {
@@ -69,15 +74,30 @@
             </div>
             <div class="div-search-content">
                 <div id="divWikiChildCatalogue">
-                    <input type="hidden" id="CboAddWikiCataChild"  value="@_CataInfo.ID" />
-                    @if (WebApps.CommonFunction.AppsCommon.GetCurrentLang().ToUpper().Contains("VN"))
+                    @if (_Cataid != 0)
                     {
-                        <input type="text" readonly value="@_CataInfo.NAME_ENG" />
+                        <input type="hidden" id="CboAddWikiCataChild" value="@_CataInfo.ID" />
+                        if (WebApps.CommonFunction.AppsCommon.GetCurrentLang().ToUpper().Contains("VN"))
+                    {
+                            <input type="text" readonly value="@_CataInfo.NAME_ENG" />
+                        }
+                        else
+                        {
+                            <input type="text" readonly value="@_CataInfo.NAME" />
+                        }
                     }
                     else
                     {
-                        <input type="text" readonly value="@_CataInfo.NAME" />
+                        <select  id="CboAddWikiCataChild">
+                             @foreach (var item in _listcata)
+                            {
+                                <option value="@item.ID">
+                                    @item.NAME                                    
+                                </option>
+                            }
+                        </select>
                     }
+                    
                 </div>
             </div>
         </div>

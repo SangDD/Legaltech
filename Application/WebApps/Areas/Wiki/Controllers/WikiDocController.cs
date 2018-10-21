@@ -222,7 +222,7 @@ namespace WebApps.Areas.Wiki.Controllers
                     return Redirect("/dang-xuat");
                 }
                 decimal _Cataid = 0;
-                if (RouteData.Values.ContainsKey("id"))
+                if (RouteData.Values.ContainsKey("id") && RouteData.Values["id"].ToString() != "0")
                 {
                     _Cataid = Convert.ToInt32(RouteData.Values["id"]);
                     var _ObjectInfo = new WikiCatalogues_Info();
@@ -230,6 +230,7 @@ namespace WebApps.Areas.Wiki.Controllers
                     _ObjectInfo = _WikiCatalogue_BL.WikiCatalogue_GetByID(_Cataid);
                     ViewBag.CataInfo = _ObjectInfo;
                 }
+                ViewBag.Cataid = _Cataid;
                 if (SessionData.CurrentUser == null)
                     return Redirect("/");
                 var _WikiCataBL = new WikiCatalogue_BL ();

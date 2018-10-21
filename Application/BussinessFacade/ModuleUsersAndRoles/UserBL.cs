@@ -453,13 +453,14 @@
                 {
                     _lastmenuid++;
                     _wikistyle = ""; _wikihref = ""; _javafunc = "";
-                    if(item.CATA_LEVEL == 1)
+                    if (item.CATA_LEVEL == 1)
                     {
                         _wikistyle = "style='margin-left:10px;'";
-                        _wikihref  = _urlLang + "/wiki-manage/wiki-doc/list-by-catalogue/" + item.ID;
-                        _wikihref = "data-url='" + _wikihref + "' ";
-                        _javafunc = " onclick='gotoTask(this)'>";
+                       
                     }
+                    _wikihref = _urlLang + "/wiki-manage/wiki-doc/list-by-catalogue/" + item.ID;
+                    _wikihref = "data-url='" + _wikihref + "' ";
+                    _javafunc = " onclick='gotoTask(this)'>";
 
                     userHtmlMenu += "<li id='li-menu-" + _lastmenuid + "' " + _wikistyle
                             + _wikihref

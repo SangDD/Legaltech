@@ -65,17 +65,22 @@
            <table style="margin:10px 0px">
                <tr>
                    <td>
-                       <a style="@_hef01" href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_luutam">1. Danh sách bài viết lưu tạm</a> 
+                       <a  href="/vi-vn/wiki-manage/wiki-doc/add/0">1. Thêm mới bài viết</a>
                    </td>
                </tr>
                <tr>
                    <td>
-                       <a  style="@_hef02"  href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_guibai">  2. Danh sách bài viết chờ xử lý</a> 
+                       <a style="@_hef01" href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_luutam">2. Danh sách bài viết lưu tạm</a> 
                    </td>
                </tr>
                <tr>
                    <td>
-                       <a style="@_hef04" href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_tuchoi">  3. Danh sách bài biết bị từ chối</a>
+                       <a  style="@_hef02"  href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_guibai">  3. Danh sách bài viết chờ xử lý</a> 
+                   </td>
+               </tr>
+               <tr>
+                   <td>
+                       <a style="@_hef04" href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_tuchoi">  4. Danh sách bài biết bị từ chối</a>
                    </td>
                </tr>
            </table>
@@ -91,10 +96,7 @@
                 <div>
                     <div style="width:200px">
                        <select id="cboSearchWikiCatalogue">
-                           <option value="ALL">
-                               Tất cả
-                           </option>
-                           @foreach (WikiCatalogues_Info item in _listcata)
+                           @*@foreach (WikiCatalogues_Info item in _listcata)
                            {
                                if (item.CATA_LEVEL == 1)
                                {
@@ -102,6 +104,17 @@
                                        @item.NAME
                                    </option>
                                }
+                           }*@
+                           <option value="ALL">
+                               Tất cả
+                           </option>
+                           @foreach (WikiCatalogues_Info item in _listcata)
+                           {
+                          
+                                   <option value="@item.ID">
+                                       @item.NAME
+                                   </option>
+                             
                            }
                        </select>
                     </div>
@@ -150,6 +163,7 @@
 
         function findObjects(_pageNumber, _isSearching) {
             try {
+
                 reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
                 if (isSearching === 1) {
                     _status = '@_CurrentStatus';
@@ -157,13 +171,21 @@
                     _titleHashtag = $("#txtSearchTitleHashtag").val().trim();
 
                 } else {
+                  
                     window.arrKeySearch = window.keySearch.split('|');
-                    _status = arrKeySearch[0];
-                    _catalogue = arrKeySearch[1];
-                    _titleHashtag = arrKeySearch[2];
-
-                    $("#cboSearchWikiCatalogue option[value=" + _catalogue + "]").attr("selected", "selected");
-                    $("#txtSearchTitleHashtag").val(_titleHashtag);
+                    if (arrKeySearch.length > 0)
+                    {
+                        _status = arrKeySearch[0];
+                        _catalogue = arrKeySearch[1];
+                        _titleHashtag = arrKeySearch[2];
+                        if (_catalogue != "")
+                        {
+                            $("#cboSearchWikiCatalogue option[value=" + _catalogue + "]").attr("selected", "selected");
+                        }
+                       
+                        $("#txtSearchTitleHashtag").val(_titleHashtag);
+                    }
+                  
                 }
 
                 updateSearchingConditions("divNumberRecordOnPageListObjects", setKeySearch);
