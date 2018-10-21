@@ -390,9 +390,12 @@ namespace WebApps.Areas.TradeMark.Controllers
                 var url_File_Copy_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Copy_Filing, AppUpload.App);
                 var url_File_Translate_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Translate_Filing, AppUpload.App);
 
-
                 int _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Case_Code, _status, pInfo.App_No, pInfo.Filing_Date, url_File_Copy_Filing, url_File_Translate_Filing,
                     pInfo.Note, pInfo.Comment_Filling, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+
+                Insert_Docketing(pInfo.Case_Code, "File Copy Filing", url_File_Copy_Filing);
+                Insert_Docketing(pInfo.Case_Code, "File Translate Filing", url_File_Translate_Filing);
+
                 return Json(new { success = _ck });
             }
             catch (Exception ex)
@@ -410,10 +413,26 @@ namespace WebApps.Areas.TradeMark.Controllers
             {
                 Application_Header_BL _obj_bl = new Application_Header_BL();
                 decimal _status = (decimal)CommonEnums.App_Status.Customer_Review;
-                
+
                 int _ck = _obj_bl.AppHeader_Update_Status(pInfo.Case_Code, _status, pInfo.Note,
                      SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
 
+                var url_File_Atachment = AppLoadHelpers.PushFileToServer(pInfo.File_Atachment, AppUpload.App);
+                Insert_Docketing(pInfo.Case_Code, "Tài liệu đính kèm từ khách hàng", url_File_Atachment);
+
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
+        public static void Insert_Docketing(string p_app_case_code, string p_doc_name, string p_url_File_Atachment)
+        {
+            try
+            {
                 // insert vào docking để lưu trữ
                 Docking_BL _obj_docBL = new Docking_BL();
                 Docking_Info p_Docking_Info = new Docking_Info();
@@ -423,25 +442,25 @@ namespace WebApps.Areas.TradeMark.Controllers
                 p_Docking_Info.Status = (decimal)CommonEnums.Docking_Status.Completed;
                 p_Docking_Info.Docking_Type = (decimal)CommonEnums.Docking_Type_Enum.In_Book;
                 p_Docking_Info.Document_Type = (decimal)CommonEnums.Document_Type_Enum.Khac;
-                p_Docking_Info.Document_Name = "Tài liệu đính kèm";
+                p_Docking_Info.Document_Name = p_doc_name;
                 p_Docking_Info.In_Out_Date = DateTime.Now;
                 p_Docking_Info.Isshowcustomer = 1;
+                p_Docking_Info.App_Case_Code = p_app_case_code;
 
-                if (p_Docking_Info.File_Upload != null)
+                //
+                string[] _arr = p_url_File_Atachment.Split('/');
+                if (_arr.Length > 0)
                 {
-                    var url_File_Atachment = AppLoadHelpers.PushFileToServer(pInfo.File_Atachment, AppUpload.App);
-                    p_Docking_Info.FileName = pInfo.File_Atachment.FileName;
-                    p_Docking_Info.Url = url_File_Atachment;
+                    p_Docking_Info.FileName = _arr[_arr.Length - 1];
                 }
 
-                _obj_docBL.Docking_Insert(p_Docking_Info);
+                p_Docking_Info.Url = p_url_File_Atachment;
 
-                return Json(new { success = _ck });
+                _obj_docBL.Docking_Insert(p_Docking_Info);
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return Json(new { success = "-1" });
             }
         }
 
