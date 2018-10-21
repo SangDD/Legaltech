@@ -36,7 +36,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 Application_Header_BL _obj_bl = new Application_Header_BL();
                 string _status = "ALL";
                 ViewBag.Status = _status;
-                string _keySearch = "ALL|" + _status +"|ALL|ALL|" + language;
+                string _keySearch = "ALL|" + _status + "|ALL|ALL|" + language;
                 List<ApplicationHeaderInfo> _lst = _obj_bl.ApplicationHeader_Search(_keySearch, ref _total_record);
                 string htmlPaging = CommonFuc.Get_HtmlPaging<ApplicationHeaderInfo>((int)_total_record, 1, "Đơn");
                 ViewBag.Obj = _lst;
@@ -95,8 +95,30 @@ namespace WebApps.Areas.TradeMark.Controllers
                 p_App_Lawer_Info.Language_Code = AppsCommon.GetCurrentLang();
                 p_App_Lawer_Info.Created_By = SessionData.CurrentUser.Username;
                 p_App_Lawer_Info.Created_Date = DateTime.Now;
+                p_App_Lawer_Info.ReGrant = 0;
                 App_Lawer_BL _con = new App_Lawer_BL();
-                decimal _ck = _con.App_Lawer_Insert(p_App_Lawer_Info);
+                decimal _ck = _con.App_Lawer_Insert(p_App_Lawer_Info, (decimal)CommonEnums.App_Status.DaPhanChoLuatSu);
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
+        [HttpPost]
+        [Route("quan-ly-don/do-re-phan-loai-advice")]
+        public ActionResult DoReAddAppLawer(App_Lawer_Info p_App_Lawer_Info)
+        {
+            try
+            {
+                p_App_Lawer_Info.Language_Code = AppsCommon.GetCurrentLang();
+                p_App_Lawer_Info.Created_By = SessionData.CurrentUser.Username;
+                p_App_Lawer_Info.Created_Date = DateTime.Now;
+                p_App_Lawer_Info.ReGrant = 1;
+                App_Lawer_BL _con = new App_Lawer_BL();
+                decimal _ck = _con.App_Lawer_Insert(p_App_Lawer_Info, (decimal)CommonEnums.App_Status.DaGuiLenCuc);
                 return Json(new { success = _ck });
             }
             catch (Exception ex)
@@ -206,7 +228,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 Application_Header_BL _obj_bl = new Application_Header_BL();
                 decimal _status = (decimal)CommonEnums.App_Status.ChoKHConfirm;
 
-                int _ck = _obj_bl.AppHeader_Update_Status(p_case_code, _status, p_note, 
+                int _ck = _obj_bl.AppHeader_Update_Status(p_case_code, _status, p_note,
                     SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
                 return Json(new { success = _ck });
             }
@@ -214,7 +236,7 @@ namespace WebApps.Areas.TradeMark.Controllers
             {
                 Logger.LogException(ex);
                 return Json(new { success = "-1" });
-            } 
+            }
         }
 
         [HttpPost]
@@ -330,7 +352,24 @@ namespace WebApps.Areas.TradeMark.Controllers
             }
         }
 
-        
+        [HttpPost]
+        [Route("quan-ly-don/do-reject-result-to-customer")]
+        public ActionResult DoRejectRult2Customer(decimal p_app_id, string p_case_code, string p_note)
+        {
+            try
+            {
+                Application_Header_BL _obj_bl = new Application_Header_BL();
+                decimal _status = (decimal)CommonEnums.App_Status.AdminTuChoiKetQuaNopDon;
+                int _ck = _obj_bl.AppHeader_Update_Status(p_case_code, _status, p_note, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
 
         [HttpPost]
         [Route("quan-ly-don/show-filing")]
@@ -352,7 +391,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 var url_File_Translate_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Translate_Filing, AppUpload.App);
 
 
-                int _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Case_Code, _status, pInfo.App_No, pInfo.Filing_Date, url_File_Copy_Filing, url_File_Translate_Filing, 
+                int _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Case_Code, _status, pInfo.App_No, pInfo.Filing_Date, url_File_Copy_Filing, url_File_Translate_Filing,
                     pInfo.Note, pInfo.Comment_Filling, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
                 return Json(new { success = _ck });
             }
@@ -361,7 +400,50 @@ namespace WebApps.Areas.TradeMark.Controllers
                 Logger.LogException(ex);
                 return Json(new { success = "-1" });
             }
-        }       
+        }
+
+        [HttpPost]
+        [Route("quan-ly-don/do-customer-review")]
+        public ActionResult Do_Customer_Review(Customer_Review_Info pInfo)
+        {
+            try
+            {
+                Application_Header_BL _obj_bl = new Application_Header_BL();
+                decimal _status = (decimal)CommonEnums.App_Status.Customer_Review;
+                
+                int _ck = _obj_bl.AppHeader_Update_Status(pInfo.Case_Code, _status, pInfo.Note,
+                     SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+
+                // insert vào docking để lưu trữ
+                Docking_BL _obj_docBL = new Docking_BL();
+                Docking_Info p_Docking_Info = new Docking_Info();
+                p_Docking_Info.Created_By = SessionData.CurrentUser.Username;
+                p_Docking_Info.Created_Date = DateTime.Now;
+                p_Docking_Info.Language_Code = AppsCommon.GetCurrentLang();
+                p_Docking_Info.Status = (decimal)CommonEnums.Docking_Status.Completed;
+                p_Docking_Info.Docking_Type = (decimal)CommonEnums.Docking_Type_Enum.In_Book;
+                p_Docking_Info.Document_Type = (decimal)CommonEnums.Document_Type_Enum.Khac;
+                p_Docking_Info.Document_Name = "Tài liệu đính kèm";
+                p_Docking_Info.In_Out_Date = DateTime.Now;
+                p_Docking_Info.Isshowcustomer = 1;
+
+                if (p_Docking_Info.File_Upload != null)
+                {
+                    var url_File_Atachment = AppLoadHelpers.PushFileToServer(pInfo.File_Atachment, AppUpload.App);
+                    p_Docking_Info.FileName = pInfo.File_Atachment.FileName;
+                    p_Docking_Info.Url = url_File_Atachment;
+                }
+
+                _obj_docBL.Docking_Insert(p_Docking_Info);
+
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
 
         #endregion
     }

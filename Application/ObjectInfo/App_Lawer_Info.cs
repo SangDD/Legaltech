@@ -22,7 +22,8 @@ namespace ObjectInfos
         
         public string App_Code { get; set; }
         public string App_Name { get; set; }
- 
+
+        public decimal ReGrant { get; set; }
 
     }
 }

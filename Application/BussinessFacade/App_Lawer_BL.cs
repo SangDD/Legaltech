@@ -26,12 +26,12 @@ namespace BussinessFacade
             }
         }
 
-        public decimal App_Lawer_Insert(App_Lawer_Info p_obj)
+        public decimal App_Lawer_Insert(App_Lawer_Info p_obj, decimal p_status)
         {
             try
             {
                 App_Lawer_DA _da = new App_Lawer_DA();
-                return _da.App_Lawer_Insert(p_obj.Case_Code, p_obj.Lawer_Id, p_obj.Notes, p_obj.Language_Code, p_obj.Created_By,p_obj.Created_Date);
+                return _da.App_Lawer_Insert(p_obj.Case_Code, p_obj.Lawer_Id, p_status, p_obj.Notes, p_obj.Language_Code, p_obj.Created_By,p_obj.Created_Date, p_obj.ReGrant);
             }
             catch (Exception ex)
             {

@@ -31,7 +31,16 @@
             DaPhanChoNhanVien = 9,
             DaNopDon = 10,
             DaGuiLenCuc = 11, // luật sư đã gửi lên cục
-            AdminGuiKetQuaNopDon = 12
+            AdminGuiKetQuaNopDon = 12,
+            AdminTuChoiKetQuaNopDon = 13,
+
+            Customer_Review = 14,
+            ChapNhan_ThongBaoHinhThuc = 15,
+            TuChoi_ThongBaoHinhThuc = 16,
+            CongBoDon = 17,
+            ChapNhan_ThongBaoNoiDung = 18,
+            TuChoi_ThongBaoNoiDung = 19,
+            ThongBaoCapBang = 20
         }
 
         public enum UserType
@@ -67,6 +76,13 @@
         {
             In_Book = 1,
             Out_Book = 2
+        }
+
+        public enum Document_Type_Enum
+        {
+            BanGoc = 1,
+            BanSao = 2,
+            Khac = 3
         }
 
         public enum Docking_Status

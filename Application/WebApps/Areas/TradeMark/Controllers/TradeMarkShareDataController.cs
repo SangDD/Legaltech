@@ -106,146 +106,6 @@ namespace WebApps.Areas.TradeMark.Controllers
             }
         }
 
-
-        [Route("app-details/{id}/{id1}/{id2}")]
-        public ActionResult AppDetails()
-        {
-            try
-            {
-                decimal pAppHeaderId = 0;
-                int pStatus = 0;
-                string pAppCode = "";
-                if (SessionData.CurrentUser == null)
-                    return Redirect("/");
-                SessionData.CurrentUser.chashFile.Clear();
-                SessionData.CurrentUser.chashFileOther.Clear();
-
-                if (RouteData.Values.ContainsKey("id"))
-                {
-                    pAppHeaderId = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
-                }
-                if (RouteData.Values.ContainsKey("id1"))
-                {
-                    pStatus = CommonFuc.ConvertToInt(RouteData.Values["id1"]);
-                }
-                if (RouteData.Values.ContainsKey("id2"))
-                {
-                    pAppCode = RouteData.Values["id2"].ToString().ToUpper();
-                }
-                string _casecode = "";
-                ViewBag.Appcode = pAppCode;
-                ViewBag.Currstatus = pStatus;
-                if (pAppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
-                {
-                    var objBL = new AppDetail04NHBL();
-                    string language = AppsCommon.GetCurrentLang();
-                    var ds04NH = objBL.AppTM04NHGetByID(pAppHeaderId, language, pStatus);
-                    if (ds04NH != null && ds04NH.Tables.Count == 5)
-                    {
-                        AppDetail04NHInfo _objinfo = CBO<AppDetail04NHInfo>.FillObjectFromDataTable(ds04NH.Tables[0]);
-                        ViewBag.objAppHeaderInfo = _objinfo;
-                        ViewBag.lstDocumentInfo = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds04NH.Tables[1]);
-                        ViewBag.lstDocOther = CBO<AppDocumentOthersInfo>.FillCollectionFromDataTable(ds04NH.Tables[2]);
-                        ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds04NH.Tables[3]);
-                        ViewBag.lstFeeInfo = CBO<AppFeeFixInfo>.FillCollectionFromDataTable(ds04NH.Tables[4]);
-                        _casecode = _objinfo.Case_Code;
-                    }
-                    // return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialDangKyNhanHieu.cshtml");
-                }
-                else if (pAppCode == TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD)
-                {
-                    App_Detail_PLB01_SDD_BL objBL = new App_Detail_PLB01_SDD_BL();
-                    string language = AppsCommon.GetCurrentLang();
-                    List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
-                    List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
-                    ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
-                    App_Detail_PLB01_SDD_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
-                    ViewBag.App_Detail = app_Detail;
-                    ViewBag.Lst_AppDoc = appDocumentInfos;
-                    ViewBag.Lst_AppFee = appFeeFixInfos;
-                    ViewBag.objAppHeaderInfo = applicationHeaderInfo;
-                    _casecode = applicationHeaderInfo.Case_Code;
-                    //return PartialView("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_TM_3B_PLB_01_SDD_View.cshtml");
-                }
-                else if (pAppCode == TradeMarkAppCode.AppCode_TM_3C_PLB_02_CGD)
-                {
-                    App_Detail_Plb02_CGD_BL objBL = new App_Detail_Plb02_CGD_BL();
-                    string language = AppsCommon.GetCurrentLang();
-                    List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
-                    List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
-                    ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
-                    App_Detail_PLB02_CGD_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
-                    ViewBag.App_Detail = app_Detail;
-                    ViewBag.Lst_AppDoc = appDocumentInfos;
-                    ViewBag.Lst_AppFee = appFeeFixInfos;
-                    ViewBag.objAppHeaderInfo = applicationHeaderInfo;
-                    _casecode = applicationHeaderInfo.Case_Code;
-                    //  return PartialView("~/Areas/TradeMark/Views/PLB02_CGD_3C/_Partial_TM_3C_PLB_02_SDD_View.cshtml");
-                }
-                else if (pAppCode == TradeMarkAppCode.AppCode_TM_3D_PLC_05_KN)
-                {
-                    App_Detail_PLC05_KN_BL objBL = new App_Detail_PLC05_KN_BL();
-                    string language = AppsCommon.GetCurrentLang();
-                    List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
-                    List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
-                    ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
-                    App_Detail_PLC05_KN_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
-                    ViewBag.App_Detail = app_Detail;
-                    ViewBag.Lst_AppDoc = appDocumentInfos;
-                    ViewBag.Lst_AppFee = appFeeFixInfos;
-                    ViewBag.objAppHeaderInfo = applicationHeaderInfo;
-                    _casecode = applicationHeaderInfo.Case_Code;
-                    //   return PartialView("~/Areas/TradeMark/Views/PLC05_KN_3D/_Partial_TM_3D_PLC_05_KN_View.cshtml");
-                }
-
-                else if (pAppCode == TradeMarkAppCode.AppCode_TM_4C2_PLD_01_HDCN)
-                {
-                    App_Detail_PLD01_HDCN_BL objBL = new App_Detail_PLD01_HDCN_BL();
-                    string language = AppsCommon.GetCurrentLang();
-                    List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
-                    List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
-                    ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
-                    App_Detail_PLD01_HDCN_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
-                    ViewBag.App_Detail = app_Detail;
-                    ViewBag.Lst_AppDoc = appDocumentInfos;
-                    ViewBag.Lst_AppFee = appFeeFixInfos;
-                    ViewBag.objAppHeaderInfo = applicationHeaderInfo;
-                    _casecode = applicationHeaderInfo.Case_Code;
-                    // return PartialView("~/Areas/TradeMark/Views/PLD01_HDCN_4C2/_Partial_TM_4C2_PLD_01_HDCN_View.cshtml");
-                }
-                else if (pAppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
-                {
-                    var objBL = new AppDetail06DKQT_BL();
-                    string language = AppsCommon.GetCurrentLang();
-                    var ds06Dkqt = objBL.AppTM06DKQTGetByID(pAppHeaderId, language, pStatus);
-                    if (ds06Dkqt != null && ds06Dkqt.Tables.Count == 3)
-                    {
-                        App_Detail_TM06DKQT_Info applicationHeaderInfo = CBO<App_Detail_TM06DKQT_Info>.FillObjectFromDataTable(ds06Dkqt.Tables[0]);
-                        ViewBag.objAppHeaderInfo = applicationHeaderInfo;
-                        ViewBag.Lst_AppDoc = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[1]);
-                        ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[2]);
-                        _casecode = applicationHeaderInfo.Case_Code;
-                    }
-                    //  return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartalViewDangKyNhanHieu.cshtml");
-                }
-
-                #region  lấy dữ liệu lịch sử giao dịch
-
-                B_Todos_BL _B_Todos_BL = new B_Todos_BL();
-                List<B_Remind_Info> _ListRemind = new List<B_Remind_Info>();
-                List<B_Todos_Info> _Listtodo = _B_Todos_BL.NotifiGetByCasecode(_casecode, ref _ListRemind);
-                ViewBag.ListTodo = _Listtodo;
-                ViewBag.ListRemind = _ListRemind;
-
-                #endregion
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-            }
-            return View("/Areas/TradeMark/Views/Shared/AppDetail/AppDetails.cshtml");
-        }
-
         [Route("todo-details/{id}/{id1}")]
         public ActionResult Todo_Details()
         {
@@ -271,14 +131,67 @@ namespace WebApps.Areas.TradeMark.Controllers
                 Application_Header_BL _objBl = new Application_Header_BL();
                 ApplicationHeaderInfo _ApplicationHeaderInfo = _objBl.GetApp_By_Case_Code_Todo(p_case_code, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
 
-                int pStatus = (int)_ApplicationHeaderInfo.Status;
                 string pAppCode = _ApplicationHeaderInfo.Appcode;
                 SessionData.CurrentUser.chashFile.Clear();
                 SessionData.CurrentUser.chashFileOther.Clear();
 
                 ViewBag.Appcode = pAppCode;
-                ViewBag.Currstatus = pStatus;
+                ViewBag.Currstatus = (int)_ApplicationHeaderInfo.Status;
                 ViewBag.objAppHeaderInfo = _ApplicationHeaderInfo;
+
+                //  lấy dữ liệu lịch sử giao dịch
+                B_Todos_BL _B_Todos_BL = new B_Todos_BL();
+                List<B_Remind_Info> _ListRemind = new List<B_Remind_Info>();
+                List<B_Todos_Info> _Listtodo = _B_Todos_BL.NotifiGetByCasecode(p_case_code, ref _ListRemind);
+                ViewBag.ListTodo = _Listtodo;
+                ViewBag.ListRemind = _ListRemind;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return View("/Areas/TradeMark/Views/Shared/AppDetail/AppDetails.cshtml");
+        }
+
+        [Route("app-re-grant/{id}/{id1}/{id2}")]
+        public ActionResult App_Re_Grant2Lawer()
+        {
+            try
+            {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+
+                string p_case_code = "";
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    p_case_code = RouteData.Values["id"].ToString();
+                }
+
+                // action là view hay sửa
+                decimal _operator_type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update);
+                if (RouteData.Values.ContainsKey("id1"))
+                {
+                    _operator_type = Convert.ToDecimal(RouteData.Values["id1"].ToString());
+                }
+                ViewBag.Operator_Type = _operator_type;
+
+                Application_Header_BL _objBl = new Application_Header_BL();
+                ApplicationHeaderInfo _ApplicationHeaderInfo = _objBl.GetApp_By_Case_Code_Todo(p_case_code, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
+
+                string pAppCode = _ApplicationHeaderInfo.Appcode;
+                SessionData.CurrentUser.chashFile.Clear();
+                SessionData.CurrentUser.chashFileOther.Clear();
+
+                ViewBag.Appcode = pAppCode;
+                ViewBag.Currstatus = (int)_ApplicationHeaderInfo.Status;
+                ViewBag.objAppHeaderInfo = _ApplicationHeaderInfo;
+
+                // ép cứng đến 1 trạng thái
+                ViewBag.Re_Grant = 1;
+                if (RouteData.Values.ContainsKey("id2"))
+                {
+                    ViewBag.Hard_Status = Convert.ToDecimal(RouteData.Values["id2"].ToString());
+                }
 
                 //  lấy dữ liệu lịch sử giao dịch
                 B_Todos_BL _B_Todos_BL = new B_Todos_BL();

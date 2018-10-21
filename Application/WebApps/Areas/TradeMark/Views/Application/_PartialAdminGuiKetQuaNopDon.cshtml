@@ -69,22 +69,17 @@
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Gửi" onclick="return do_Employee_Confirm('@_AppHeaderInfo.Case_Code')" />
+            <input type="submit" class="btn-default" value="Send" onclick="return do_Employee_Confirm('@_AppHeaderInfo.Case_Code')" />
+
+            <input type="submit" class="btn-default" value="Reject" onclick="return onReject('@_AppHeaderInfo.Case_Code')" />
+
+            <input type="submit" class="btn-default" value="Transfer" onclick="return onTransfer('@_AppHeaderInfo.Case_Code')" />
         </div>
     </div>
 </div>
 
 <script>
     $(document).ready(function () {
-
-        //$('#cboConfirm').multipleSelect({
-        //    filter: true,
-        //    single: true,
-        //    isdatastring: false, 
-        //    maxHeight: 150,
-        //    placeholder: "-- Nhân viên phản hồi --"
-        //});
-
     });
 
     function do_Employee_Confirm(_case_code) {
@@ -121,6 +116,47 @@
                 });
             });
         }
+    }
+
+    function onReject(_case_code) {
+        if (validateAction()) {
+            nvsConfirm(null, "Bạn có chắc chắn muốn từ chối hay không?", function () {
+                $.ajax({
+                    url: '/trade-mark-mana/quan-ly-don/do-reject-result-to-customer',
+                    type: 'POST',
+                    data: {
+                        p_app_id: @_AppHeaderInfo.Id,
+                        p_case_code: _case_code,
+                        p_note: $('#txtNotes').val()
+                    },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            jError("Lỗi check lại kết nối tới server");
+                            return false;
+                        }
+                        else {
+                            jAlert('Gửi kết quả nộp đơn thành công!', "THÔNG BÁO", function () {
+                                window.location.href = "/home";
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(true);
+                        console.log(e);
+                    }
+                });
+            });
+        }
+    }
+
+    function onTransfer(_case_code) {
+        var url = "/trade-mark-share-data/app-re-grant/" + _case_code + "/2" + "/" + '@_AppHeaderInfo.Status';
+        window.open(url);
     }
 
     function validateAction() {

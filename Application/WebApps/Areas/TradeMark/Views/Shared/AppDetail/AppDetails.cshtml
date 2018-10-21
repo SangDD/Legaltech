@@ -37,6 +37,18 @@
     {
         _FirstTodo = _Listtodo[0];
     }
+
+    decimal _reGrant = 0;
+    if (ViewBag.Re_Grant != null)
+    {
+        _reGrant = (decimal)ViewBag.Re_Grant;
+    }
+
+    decimal _hardStatus = -1;
+    if (ViewBag.Hard_Status != null)
+    {
+        _hardStatus = (decimal)ViewBag.Hard_Status;
+    }
 }
 
 <style>
@@ -416,6 +428,16 @@
             {
                 // advice filling
                 @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialAdminGuiKetQuaNopDon.cshtml")
+            }
+
+            @* Nếu có sự thay đổi về quyền của luật sư*@
+            @if (_reGrant == 1)
+            {
+                // nếu đổi quyền ở bước duyệt advice filing
+                if (_hardStatus == (int)CommonEnums.App_Status.DaGuiLenCuc)
+                {
+                    @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_Re_PhanLoai_2_Lawer.cshtml")
+                }
             }
         </div>
     }

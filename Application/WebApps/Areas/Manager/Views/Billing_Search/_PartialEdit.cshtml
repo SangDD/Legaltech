@@ -16,7 +16,7 @@
     var lstDocumentType = _lstDocumentType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
 
     List<AllCodeInfo> _lstPlace = MemoryData.AllCode_GetBy_CdTypeCdName("DOCKING", "PLACE_SUBMIT");
-    var lstPlace = _lstDocumentType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
+    var lstPlace = _lstPlace.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
 
     Model.In_Out_Date = DateTime.Now;
     string _in_out = "In Date";
