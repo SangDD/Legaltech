@@ -11,6 +11,11 @@
     {
         B_Todos_BL _obj_bl = new B_Todos_BL();
         p_todonotify = _obj_bl.GET_NOTIFY(SessionData.CurrentUser.Username);
+
+        if (p_todonotify == null)
+        {
+            p_todonotify = new B_TodoNotify_Info();
+        }
     }
 }
 <style>
