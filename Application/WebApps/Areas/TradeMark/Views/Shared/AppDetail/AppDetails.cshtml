@@ -429,16 +429,30 @@
                 // advice filling
                 @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialAdminGuiKetQuaNopDon.cshtml")
             }
-            else if (_currstatus == (int)CommonEnums.App_Status.AdminGuiKetQuaNopDon)
-            {
-                // khách hàng review
-                @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_Customer_Review_Result.cshtml")
-            }
             else if (_currstatus == (int)CommonEnums.App_Status.AdminTuChoiKetQuaNopDon)
             {
                 // admin reject kết quả -> chuyển  về bước advice
                 @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_Filing.cshtml")
             }
+            else if (_currstatus == (int)CommonEnums.App_Status.AdminGuiKetQuaNopDon)
+            {
+                // khách hàng review
+                @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_Customer_Review_Result.cshtml")
+            }
+
+            else if (_currstatus == (int)CommonEnums.App_Status.Customer_Review)
+            {
+                // luật sư cập nhật ngày trả kết quả
+                // chưa làm
+                @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_Update_Form_Result.cshtml")
+            }
+
+            else if (_currstatus == (int)CommonEnums.App_Status.LuatSuCapNhatNgayTraKetQua)
+            {
+                // luật sư cập nhật thông tin kết quả hình thức
+                @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_Update_Form_Result.cshtml")
+            }
+
 
             @* Nếu có sự thay đổi về quyền của luật sư*@
             @if (_reGrant == 1)

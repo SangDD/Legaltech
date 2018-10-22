@@ -35,12 +35,26 @@
             AdminTuChoiKetQuaNopDon = 13,
 
             Customer_Review = 14,
+            LuatSuCapNhatNgayTraKetQua = 14,
+
             ChapNhan_ThongBaoHinhThuc = 15,
             TuChoi_ThongBaoHinhThuc = 16,
+
+
             CongBoDon = 17,
             ChapNhan_ThongBaoNoiDung = 18,
             TuChoi_ThongBaoNoiDung = 19,
             ThongBaoCapBang = 20
+        }
+
+        public enum Notice_Status
+        {
+            Da_Xu_Ly_Xong = 0,
+            LuatSu_GuiChoAdminDuyet = 1,
+            Admin_DuyetGuiChoKhachHang = 2,
+            Admin_TuchoiDuyet = 2,
+            KhachHang_Review = 3,
+            LuatSu_XulyTiep = 4
         }
 
         public enum UserType
