@@ -1,0 +1,268 @@
+﻿<!DOCTYPE html>
+@using Common.CommonData
+@using WebApps.ExtensionObject
+@using WebApps.CommonFunction;
+@{
+    string _LanguageCode = AppsCommon.GetCurrentLang();
+}
+<html>
+<head>
+    <script>
+       var _currentlanguage = '@_LanguageCode';
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>iPath - Knowledge Power</title>
+ 
+
+
+    <link href="~/Content/News/Css/register.css" rel="stylesheet" />
+    <link href="~/Content/News/Css/main.css" rel="stylesheet" />
+    <link href="~/Content/News/Css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/News/Css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/News/Css/jquery.dropdown.min.css" rel="stylesheet" />
+    <link href="~/Content/News/Css/learndash_template_style.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.10.2.min.js"></script>
+    <script src=@($"/Scripts/jquery.unobtrusive-ajax.min.js?v={CommonVariables.AssemblyVersion}")></script>
+    <script src="~/Scripts/messagebox/JsFormPopup.js"></script>
+    <script src="~/Scripts/messagebox/popup.js"></script>
+    <link href="~/Content/News/Css/css.css" rel="stylesheet" />
+    <script src="~/Scripts/AlertPopup/NVSAlerts.js"></script>
+    <link href="~/Scripts/AlertPopup/NVSAlertCss.css" rel="stylesheet" />
+    <script src="~/Scripts/AlertPopup/ASSAlert.js"></script>
+    <script src="~/Scripts/nvs.jquery.alert.js"></script>
+
+
+
+
+
+    <link href="~/Content/WikiStyle.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="hidden">
+        @Html.Partial("~/ViewsShared/nvs.variables.js.cshtml")
+    </div>
+    <div class="c-transitions js-transitions">
+        <div class="c-transitions_mask"></div>
+        <div class="c-transitions_mask"></div>
+        <div class="c-transitions_logo" aria-hidden="true">
+            <div class="c-transitions_logo-image js-transition-logo"></div>
+        </div>
+        <div class="c-transitions_loader" aria-hidden="true">
+            <div class="c-transitions_loader-progress"></div>
+        </div>
+    </div>
+
+    <div class="o-barba js-barba" id="js-barba-wrapper" aria-live="polite">
+        <!--[bg ngoai]-->
+        <div class="o-barba_frame" data-module="Frame">
+            <div class="o-barba_frame-paralax js-parallax" style="transform: translate3d(0px, 0px, 0px);">
+                <div class="o-background" style="background-image:url(/Content/News/images/frame-blue.png)"></div>
+            </div>
+            <div class="o-barba_frame-paralax js-parallax" style="transform: translate3d(0px, 0px, 0px);">
+                <div class="o-background" style="background-image:url(/Content/News/images/frame-red.png)"></div>
+            </div>
+        </div>
+        <!--[end bg ngoai]-->
+        <div id="bodytop" class="js-barba-container o-barba_container page-template page-template-templates page-template-Khoanbetong page-template-templatesKhoanbetong-php page page-id-36 page-child parent-pageid-60 Khoanbetong" data-template="Khoanbetong" style="visibility: visible;">
+            <div class="c-header_nav-list-overlay js-nav-overlay"></div>
+            <!--[logo + button mobi]-->
+            <nav class="c-header-mobile">
+                <div class="c-header-mobile_logo">
+                    <a class="c-header-mobile_logo-link" href="index.htm" aria-label="tên công ty">
+                        <figure class="c-header-mobile_logo_img" aria-hidden="true">
+                            <img class="c-header-mobile_logo_svg-color" src="/Content/News/images/logo_ipace-1.png">
+                            <img class="c-header-mobile_logo_svg-white" src="/Content/News/images/logo_ipace-1.png">
+                        </figure>
+                    </a>
+                </div>
+                <button class="c-header_nav-burger" data-module="BurgerMenu" type="button">
+                    <div class="c-header_nav-burger-line"></div>
+                </button>
+            </nav>
+            <!--end[logo + button mobi]-->
+
+            <header class="c-header" data-module="HeaderNav">
+                <nav class="c-header_nav js-header-nav">
+                    <div class="c-header_nav-logo">
+                        <a class="c-header_nav-logo-link" href="index.htm" aria-label="tên công ty" data-transition="full">
+                            <figure class="c-header_nav-logo_img" aria-hidden="true">
+                                <img class="c-header_nav-logo_svg-color" src="/Content/News/images/logo_ipace-1.png">
+                                <img class="c-header_nav-logo_svg-white" src="/Content/News/images/logo_ipace-1.png">
+                            </figure>
+                        </a>
+                    </div>
+                    <!--[Menutop + mobi]-->
+               
+
+                    <ul class="c-header_nav-social">
+                        <li class="c-header_nav-social-item">
+                            <a class="c-header_nav-social-link" href="#" target="_blank">
+                                <figure class="c-header_nav-social-icon">
+                                    <svg role="img" title="Twitter">
+                                        <i class="fa fa-twitter" aria-hidden="true" style=" color:#06cafc;"></i>
+                                    </svg>
+                                </figure>
+                            </a>
+                        </li>
+                        <li class="c-header_nav-social-item">
+                            <a class="c-header_nav-social-link" href="#" target="_blank">
+                                <figure class="c-header_nav-social-icon">
+                                    <svg role="img" title="Facebook">
+                                        <i class="fa fa-facebook" aria-hidden="true" style=" color: #13559d;"></i>
+                                    </svg>
+                                </figure>
+                            </a>
+                        </li>
+                        <li class="c-header_nav-social-item">
+                            <a class="c-header_nav-social-link" href="javascript:;" target="_blank">
+                                <figure class="c-header_nav-social-icon">
+                                    <svg role="img" title="YouTube">
+                                        <i class="fa fa-youtube-play" aria-hidden="true" style=" color:#FF0000;"></i>
+                                    </svg>
+                                </figure>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!--end[Menutop + mobi]-->
+                </nav>
+            </header>
+
+            <main class="js-scroll tpl- o-main" data-scrollbar="" tabindex="1" style="overflow: hidden; outline: none;">
+                <article class="scroll-content">
+                    <section class="t-Khoanbetong">
+                        <div class="t-Khoanbetong_wrap o-layout">
+                            <!--[MenuLeft]-->
+
+                            @Html.Partial("~/Areas/Home/Views/Wiki/_PartialWikiMenu.cshtml")
+
+                            <!--end[MenuLeft]-->
+
+                            <div class="t-Khoanbetong_col-right o-layout_item">
+                                <div class="t-Khoanbetong_inner">
+                                    <div class="main-content">
+                                        @RenderBody()
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </section>
+                </article>
+                <aside class="scrollbar-track scrollbar-track-x" style="display: none;">
+                    <div class="scrollbar-thumb scrollbar-thumb-x" style="width: 1259px; transform: translate3d(0px, 0px, 0px);"></div>
+                </aside>
+                <aside class="scrollbar-track scrollbar-track-y" style="display: block;">
+                    <div class="scrollbar-thumb scrollbar-thumb-y" style="height: 209.778px; transform: translate3d(0px, 0px, 0px);"></div>
+                </aside>
+                <canvas class="overscroll-glow" style="display: none; pointer-events: none;"></canvas>
+            </main>
+        </div>
+
+    </div>
+    <script>
+        window.templateData = window.templateData || {
+        };
+        window.isMobile = false;
+        window.isIe = false;
+        window.isTrident = false;
+        window.isFirefox = false;
+    </script>
+    <script src="~/Content/News/scripts/vendors.js"></script>
+    <script src="~/Content/News/scripts/app.js"></script>
+
+
+    <script src=@($"/Scripts/nvs.jquery.validate.data.js?v={CommonVariables.AssemblyVersion}")></script>
+    <script src=@($"/Scripts/nvs.jquery.filter.search.js?v={CommonVariables.AssemblyVersion}")></script>
+    <script src=@($"/Scripts/common-data-loader.js?v={CommonVariables.AssemblyVersion}")></script>
+
+</body>
+</html>
+
+<script>
+    function funclogin() {
+        window.location.href = "/login";
+    }
+    function funcHome() {
+        window.location.href = "/";
+    }
+
+    function funcRegister() {
+        try {
+            var fname = $("#txtFNAME").val();
+            if (fname === "" || fname == undefined) {
+                jAlert('The registered name is not empty!', "Info");
+                $("#txtFNAME").focus();
+                return false;
+            }
+
+            var lname = $("#txtLNAME").val();
+            var phone = $("#txtPHONE").val();
+            var email = $("#txtEmail").val();
+
+            if (phone === "" && email == "") {
+                jAlert('Email or Phone number is not empty!', "Info");
+                $("#txtEmail").focus();
+                return false;
+            }
+            var company = $("#txtCOMPANY").val();
+            var formData = new FormData();
+            formData.append("pRegisInfo.FistName", fname);
+            formData.append("pRegisInfo.LastName", lname);
+            formData.append("pRegisInfo.Email", email);
+            formData.append("pRegisInfo.Phone", phone);
+            formData.append("pRegisInfo.Company", company);
+
+            $.ajax({
+                url: "/register",
+                type: 'POST',
+                data: formData,
+                processData: false, contentType: false, traditional: true, dataType: "json",
+                enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                success: function (data) {
+                    if (data != null && data.status >= 0) {
+                        jAlert("Sign Up Success!", "Info");
+                        funcReset();
+                        return true;
+                    }
+                    else if (data.status == -22) {
+                        jAlert("The number of email or email was registered!", "Error");
+                        funcReset();
+                        return;
+                    }
+                    else {
+                        jAlert("Registration failed!", "Error");
+                        funcReset();
+                        return;
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+
+
+        } catch (e) {
+
+        }
+    }
+
+    function funcReset() {
+        try {
+            $("#txtFNAME").val("");
+            $("#txtLNAME").val("");
+            $("#txtEmail").val("");
+            $("#txtPHONE").val("");
+        } catch (e) {
+
+        }
+
+    }
+
+    function functionGetNews() {
+        window.location.href = "/quan-ly-tin/news-home-page";
+    }
+</script>

@@ -1,0 +1,115 @@
+﻿@using ObjectInfos
+@{
+    List<WikiCatalogues_Info> _Listcatalogue = new List<WikiCatalogues_Info>();
+    if (ViewBag.ListCatalogue != null)
+    {
+        _Listcatalogue = ViewBag.ListCatalogue;
+    }
+    string _isactive = "";
+    decimal _cataid = 0;
+    if(ViewBag.CurrCata != null)
+    {
+        _cataid = ViewBag.CurrCata;
+    }
+}
+
+<div class="t-Khoanbetong_col-left o-layout_item js-animate" data-sticky="">
+    <aside class="c-navleft" data-module="NavLeft">
+        <div class="c-navleft_scroll js-scroll sticky" data-scrollbar="" tabindex="1" style="overflow: hidden; outline: none;">
+            <article class="scroll-content">
+                <div class="c-navleft_inner">
+                    <div class="c-navleft_logo">
+                        <a class="c-navleft_logo-link" href="javascript:;" onclick="return funcHome();" data-transition="full">
+                            <figure class="c-navleft_logo-figure">
+                                <img src="/Content/News/images/logo_ipace.png" alt="" aria-hidden="true">
+                            </figure>
+                        </a>
+                    </div>
+                    <div class="c-navleft_head js-head">
+                        <figure class="c-navleft_head-viewmore">
+                            <svg class="c-navleft_head-viewmore-less" role="img">
+                                <use xlink:href="/Content/News/images/icon-arrow-right.png"></use>
+                            </svg>
+                            <svg class="c-navleft_head-viewmore-more" role="img">
+                                <use xlink:href="/Content/News/images/icon-arrow-right.png"></use>
+                            </svg>
+                        </figure>
+                        <h3 class="c-navleft_head-title">Wiki content</h3>
+                    </div>
+                    <!--[MenuLeft]-->
+
+                    <div class="c-navleft_category">
+                        <ul class="c-navleft_category-list -big">
+
+                            @foreach (WikiCatalogues_Info item in _Listcatalogue)
+                                        {
+                                            _isactive = "";
+                                            if (item.ID == _cataid)
+                                            {
+                                                _isactive = "is-active";
+                                            }
+                                            if (item.CATA_LEVEL == 0)
+                                            {
+                                    <li class="c-navleft_category-item">
+                                        <a class="c-navleft_category-link @_isactive" href="/wiki-view/doc-view/@item.ID/0">
+                                            <span class="c-navleft_category-title">@item.NAME</span>
+                                            <figure class="c-navleft_category-link-arrow">
+                                                <i class="fa fa-long-arrow-right" aria-hidden="true" style="color #666;font-size 20px;"></i>
+                                            </figure>
+                                        </a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="c-navleft_category-item">
+                                        <a style="padding-left:10px;" class="c-navleft_category-link @_isactive"  href="/wiki-view/doc-view/@item.ID/0">
+                                            <span class="c-navleft_category-title">@item.NAME</span>
+                                            <figure class="c-navleft_category-link-arrow">
+                                                <i class="fa fa-long-arrow-right" aria-hidden="true" style="color #666;font-size 20px;"></i>
+                                            </figure>
+                                        </a>
+                                    </li>
+                                }
+                            }
+
+                          
+
+                            @*<li class="c-navleft_category-item">
+                                <a class="c-navleft_category-link is-active" href="javascript:;">
+                                    <span class="c-navleft_category-title">Features</span>
+                                    <figure class="c-navleft_category-link-arrow">
+                                        <i class="fa fa-long-arrow-right" aria-hidden="true" style=" color #666;font-size 20px;"></i>
+                                    </figure>
+                                </a>
+                            </li>*@
+
+                       
+
+                            @*<li class="c-navleft_category-item">
+                                <a class="c-navleft_category-link" href="javascript:;">
+                                    <span class="c-navleft_category-title">About Us</span>
+                                    <figure class="c-navleft_category-link-arrow">
+                                        <i class="fa fa-long-arrow-right" aria-hidden="true" style=" color #666;font-size 20px;"></i>
+                                    </figure>
+                                </a>
+                            </li>*@
+
+
+
+                        </ul>
+                    </div>
+
+                    <!--end[MenuLeft]-->
+                </div>
+            </article>
+            <aside class="scrollbar-track scrollbar-track-x show" style="display: none;">
+                <div class="scrollbar-thumb scrollbar-thumb-x" style="width: 365px; transform: translate3d(0px, 0px, 0px);"></div>
+            </aside>
+            <aside class="scrollbar-track scrollbar-track-y show" style="display: none;">
+                <div class="scrollbar-thumb scrollbar-thumb-y" style="height: 686.877px; transform: translate3d(0px, 0px, 0px);"></div>
+            </aside>
+            <canvas class="overscroll-glow" style="display: none; pointer-events: none;"></canvas>
+        </div>
+    </aside>
+</div>
+

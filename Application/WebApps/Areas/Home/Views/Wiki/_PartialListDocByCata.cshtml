@@ -19,7 +19,7 @@
         <div id="pagination-append" class="list-group item-list with-letters row">
             @foreach (var item in _listDoc)
             {
-                <a class="dynamic-linkset list-group-item col-md-6 itemdoc"  href='@("/wiki-view/doc-list/0/" + item.ID)' >
+                <a class="dynamic-linkset list-group-item col-md-6 itemdoc"  href='@("/wiki-view/doc-view/0/" + item.ID)' >
                     <span class="badge">@item.VIEW_NUMBER</span>
                     @item.TITLE
                 </a>

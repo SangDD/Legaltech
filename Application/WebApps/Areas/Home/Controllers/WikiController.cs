@@ -19,6 +19,80 @@ namespace WebApps.Areas.Home.Controllers
     [Route("{action}")]
     public class WikiController : Controller
     {
+
+
+        [HttpGet]
+
+        [Route("doc-view/{id}/{id1}")]
+        public ActionResult ViewWiki()
+        {
+            try
+            {
+                WikiCatalogue_BL _CatalogueBL = new WikiCatalogue_BL();
+                WikiDoc_BL _WikiBL = new WikiDoc_BL();
+                decimal _Cataid = 0, _Docid = 0;
+                if (RouteData.Values["id"] != null)
+                {
+                    _Cataid = Convert.ToDecimal(RouteData.Values["id"]);
+                }
+                if (RouteData.Values["id1"] != null)
+                {
+                    _Docid = Convert.ToDecimal(RouteData.Values["id1"]);
+                }
+
+                List<WikiCatalogues_Info> _ListCata = new List<WikiCatalogues_Info>();
+                _ListCata = _CatalogueBL.Portal_CataGetAll();
+                List<WikiDoc_Info> _ListDocSearch = new List<WikiDoc_Info>();
+                if (_Cataid > 0)
+                {
+                    // lấy ds tin theo danh mục
+                    //  _ListDocSearch = _WikiBL.WikiDoc_GetBy_CataID(_Cataid);
+                    //ViewBag.ListDocSearch = _ListDocSearch;
+
+                    _ListDocSearch = _WikiBL.PortalWikiDoc_Search("3|" + _Cataid.ToString() + "|ALL|" + AppsCommon.GetCurrentLang());
+                    ViewBag.Paging = _WikiBL.GetPagingHtml();
+                    ViewBag.ListDocSearch = _ListDocSearch;
+                    WikiCatalogue_BL _Catabl = new WikiCatalogue_BL();
+                    WikiCatalogues_Info _Catainfo = new WikiCatalogues_Info();
+                    _Catainfo = _Catabl.WikiCatalogue_GetByID(_Cataid);
+                    ViewBag.CatalogueInfo = _Catainfo;
+                }
+                else
+                {
+                    // lấy thằng đầu tiên
+                    WikiCatalogues_Info _firstCata = new WikiCatalogues_Info();
+                    foreach (var item in _ListCata)
+                    {
+                        if (item.PARENT_ID != 0)
+                        {
+                            _firstCata = item;
+                            break;
+                        }
+                    }
+
+                    _ListDocSearch = _WikiBL.PortalWikiDoc_Search("3|" + _firstCata.ID.ToString() + "|ALL|" + AppsCommon.GetCurrentLang());
+                    ViewBag.Paging = _WikiBL.GetPagingHtml();
+                    ViewBag.ListDocSearch = _ListDocSearch;
+                    ViewBag.CatalogueInfo = _firstCata;
+                }
+                WikiDoc_Info _DocInfo = new WikiDoc_Info();
+                if (_Docid > 0)
+                {
+                    // lấy chi tiết tin
+                    _DocInfo = _WikiBL.PortalWikiDoc_GetById(_Docid);
+                    ViewBag.DocdetailInfo = _DocInfo;
+                }
+                ViewBag.ListCatalogue = _ListCata;
+                ViewBag.CurrCata = _Cataid;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return View("/Areas/Home/Views/Wiki/View.cshtml");
+        }
+
+
         // GET: Home/Wiki
 
         /// <summary>
@@ -56,75 +130,75 @@ namespace WebApps.Areas.Home.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("doc-list/{id}/{id1}")]
-        public ActionResult List()
-        {
-            try
-            {
-                WikiCatalogue_BL _CatalogueBL = new WikiCatalogue_BL();
-                WikiDoc_BL _WikiBL = new WikiDoc_BL();
-                decimal _Cataid = 0, _Docid = 0;
-                if (RouteData.Values["id"] != null)
-                {
-                    _Cataid = Convert.ToDecimal(RouteData.Values["id"]);
-                }
-                if (RouteData.Values["id1"] != null)
-                {
-                    _Docid = Convert.ToDecimal(RouteData.Values["id1"]);
-                }
-               
-                List<WikiCatalogues_Info> _ListCata = new List<WikiCatalogues_Info>();
-                _ListCata = _CatalogueBL.Portal_CataGetAll();
-                List<WikiDoc_Info> _ListDocSearch = new List<WikiDoc_Info>();
-                if (_Cataid > 0)
-                {
-                    // lấy ds tin theo danh mục
-                    //  _ListDocSearch = _WikiBL.WikiDoc_GetBy_CataID(_Cataid);
-                    //ViewBag.ListDocSearch = _ListDocSearch;
-                  
-                    _ListDocSearch = _WikiBL.PortalWikiDoc_Search("3|" + _Cataid.ToString() + "|ALL|" + AppsCommon.GetCurrentLang());
-                    ViewBag.Paging = _WikiBL.GetPagingHtml();
-                    ViewBag.ListDocSearch = _ListDocSearch;
-                    WikiCatalogue_BL _Catabl = new WikiCatalogue_BL();
-                    WikiCatalogues_Info _Catainfo = new WikiCatalogues_Info();
-                    _Catainfo = _Catabl.WikiCatalogue_GetByID(_Cataid);
-                    ViewBag.CatalogueInfo = _Catainfo;
-                }
-                else
-                {
-                    // lấy thằng đầu tiên
-                    WikiCatalogues_Info _firstCata = new WikiCatalogues_Info();
-                    foreach (var item in _ListCata)
-                    {
-                        if(item.PARENT_ID != 0)
-                        {
-                            _firstCata = item;
-                            break;
-                        }
-                    }
+        //[HttpGet]
+        //[Route("doc-view/{id}/{id1}")]
+        //public ActionResult List()
+        //{
+        //    try
+        //    {
+        //        WikiCatalogue_BL _CatalogueBL = new WikiCatalogue_BL();
+        //        WikiDoc_BL _WikiBL = new WikiDoc_BL();
+        //        decimal _Cataid = 0, _Docid = 0;
+        //        if (RouteData.Values["id"] != null)
+        //        {
+        //            _Cataid = Convert.ToDecimal(RouteData.Values["id"]);
+        //        }
+        //        if (RouteData.Values["id1"] != null)
+        //        {
+        //            _Docid = Convert.ToDecimal(RouteData.Values["id1"]);
+        //        }
 
-                    _ListDocSearch = _WikiBL.PortalWikiDoc_Search("3|"+ _firstCata.ID.ToString() +"|ALL|" + AppsCommon.GetCurrentLang());
-                    ViewBag.Paging = _WikiBL.GetPagingHtml();
-                    ViewBag.ListDocSearch = _ListDocSearch;
-                    ViewBag.CatalogueInfo = _firstCata;
-                }
-                WikiDoc_Info _DocInfo = new WikiDoc_Info();
-                if (_Docid > 0)
-                {
-                    // lấy chi tiết tin
-                    _DocInfo = _WikiBL.PortalWikiDoc_GetById(_Docid);
-                    ViewBag.DocdetailInfo = _DocInfo;
-                }
-                ViewBag.ListCatalogue = _ListCata;
-         
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-            }
-            return View("/Areas/Home/Views/Wiki/List.cshtml");
-        }
+        //        List<WikiCatalogues_Info> _ListCata = new List<WikiCatalogues_Info>();
+        //        _ListCata = _CatalogueBL.Portal_CataGetAll();
+        //        List<WikiDoc_Info> _ListDocSearch = new List<WikiDoc_Info>();
+        //        if (_Cataid > 0)
+        //        {
+        //            // lấy ds tin theo danh mục
+        //            //  _ListDocSearch = _WikiBL.WikiDoc_GetBy_CataID(_Cataid);
+        //            //ViewBag.ListDocSearch = _ListDocSearch;
+
+        //            _ListDocSearch = _WikiBL.PortalWikiDoc_Search("3|" + _Cataid.ToString() + "|ALL|" + AppsCommon.GetCurrentLang());
+        //            ViewBag.Paging = _WikiBL.GetPagingHtml();
+        //            ViewBag.ListDocSearch = _ListDocSearch;
+        //            WikiCatalogue_BL _Catabl = new WikiCatalogue_BL();
+        //            WikiCatalogues_Info _Catainfo = new WikiCatalogues_Info();
+        //            _Catainfo = _Catabl.WikiCatalogue_GetByID(_Cataid);
+        //            ViewBag.CatalogueInfo = _Catainfo;
+        //        }
+        //        else
+        //        {
+        //            // lấy thằng đầu tiên
+        //            WikiCatalogues_Info _firstCata = new WikiCatalogues_Info();
+        //            foreach (var item in _ListCata)
+        //            {
+        //                if (item.PARENT_ID != 0)
+        //                {
+        //                    _firstCata = item;
+        //                    break;
+        //                }
+        //            }
+
+        //            _ListDocSearch = _WikiBL.PortalWikiDoc_Search("3|" + _firstCata.ID.ToString() + "|ALL|" + AppsCommon.GetCurrentLang());
+        //            ViewBag.Paging = _WikiBL.GetPagingHtml();
+        //            ViewBag.ListDocSearch = _ListDocSearch;
+        //            ViewBag.CatalogueInfo = _firstCata;
+        //        }
+        //        WikiDoc_Info _DocInfo = new WikiDoc_Info();
+        //        if (_Docid > 0)
+        //        {
+        //            // lấy chi tiết tin
+        //            _DocInfo = _WikiBL.PortalWikiDoc_GetById(_Docid);
+        //            ViewBag.DocdetailInfo = _DocInfo;
+        //        }
+        //        ViewBag.ListCatalogue = _ListCata;
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.LogException(ex);
+        //    }
+        //    return View("/Areas/Home/Views/Wiki/List.cshtml");
+        //}
 
         [HttpPost]
         [Route("GetDocByCataid")]
@@ -161,7 +235,7 @@ namespace WebApps.Areas.Home.Controllers
                 var _WikiDoc_BL = new WikiDoc_BL();
                 lstOjects = _WikiDoc_BL.PortalWikiDoc_Search(keysSearch + "|" + AppsCommon.GetCurrentLang(), options);
                 ViewBag.Paging = _WikiDoc_BL.GetPagingHtml();
-                if (keysSearch.Split('|').Length >2 && keysSearch.Split('|')[1] != "ALL" && keysSearch.Split('|')[1] != "")
+                if (keysSearch.Split('|').Length > 2 && keysSearch.Split('|')[1] != "ALL" && keysSearch.Split('|')[1] != "")
                 {
                     WikiCatalogue_BL _Catabl = new WikiCatalogue_BL();
                     WikiCatalogues_Info _Catainfo = new WikiCatalogues_Info();
@@ -185,8 +259,8 @@ namespace WebApps.Areas.Home.Controllers
             {
                 WikiDoc_BL _WikiBL = new WikiDoc_BL();
                 WikiDoc_Info _DocInfo = new WikiDoc_Info();
-                    // lấy chi tiết tin
-               _DocInfo = _WikiBL.PortalWikiDoc_GetById(p_id);
+                // lấy chi tiết tin
+                _DocInfo = _WikiBL.PortalWikiDoc_GetById(p_id);
                 ViewBag.DocdetailInfo = _DocInfo;
             }
             catch (Exception ex)
@@ -209,13 +283,13 @@ namespace WebApps.Areas.Home.Controllers
                 // lấy chi tiết tin
                 _DocInfo = _WikiBL.PortalWikiDoc_GetById(p_id);
                 //lưu file html trc
-                
+
                 string fullFileName = Request.MapPath("/Content/ExportDocFile/" + "1.html");
                 StreamWriter streamWriter =
                     new StreamWriter(new FileStream(fullFileName, FileMode.Create, FileAccess.Write));
                 streamWriter.Write(_DocInfo.CONTENT);
                 streamWriter.Close();
-                _filedownload =  "/Content/ExportDocFile/" + _DocInfo.ID + ".pdf" ;
+                _filedownload = "/Content/ExportDocFile/" + _DocInfo.ID + ".pdf";
                 DocumentModel.Load(Server.MapPath("/Content/ExportDocFile/1.html")).Save(Server.MapPath(_filedownload));
                 _fileSaveName = _DocInfo.ID.ToString() + ".pdf";
 
@@ -224,7 +298,7 @@ namespace WebApps.Areas.Home.Controllers
             {
                 Logger.LogException(ex);
             }
-            return Json(new { result = "1", FileDownload = _filedownload, FileSaveName= _fileSaveName });
+            return Json(new { result = "1", FileDownload = _filedownload, FileSaveName = _fileSaveName });
         }
 
         [HttpPost]
@@ -237,7 +311,7 @@ namespace WebApps.Areas.Home.Controllers
                 WikiDoc_Info _DocInfo = new WikiDoc_Info();
                 // lấy chi tiết tin
                 _DocInfo = _WikiBL.WikiVoting(p_id, SessionData.CurrentUser.Id.ToString(), p_point);
-                return Json(new { success = 0, TotalVoted = _DocInfo.NUMBER_VOTED, WidthDiv = Math.Round((_DocInfo.RATING / (_DocInfo.NUMBER_VOTED * 5) * 100), 2),  Rating = Math.Round((_DocInfo.RATING /( _DocInfo.NUMBER_VOTED * 5) ),2)});
+                return Json(new { success = 0, TotalVoted = _DocInfo.NUMBER_VOTED, WidthDiv = Math.Round((_DocInfo.RATING / (_DocInfo.NUMBER_VOTED * 5) * 100), 2), Rating = Math.Round((_DocInfo.RATING / (_DocInfo.NUMBER_VOTED * 5)), 2) });
             }
             catch (Exception ex)
             {

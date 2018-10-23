@@ -44,19 +44,7 @@ small {
     box-sizing: border-box
 }
 
-html {
-    font-size: 10px;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
-}
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.42857;
-    color: #333;
-    background-color: #fff
-}
- 
+  
 
 a {
     color: #337ab7;
@@ -1697,5 +1685,94 @@ select.divNumberRecordOnPage {
     width:100%;
     padding-right:15px;
 }
-
+.d-paging-left
+{
+    display:none;
+}
+.divNumberRecordOnPage
+{
+    display:none;
+}
 /*end  rating*/
+
+
+     .clssbox_search
+    {
+        width: 100% ;
+        height:35px;
+        border:1px solid #CBCCCE;
+        border-right: none;
+        float:left;
+ 
+    }
+    .clssbox_search > select
+    {
+      width:130px;
+      border:none;
+      background-color:#E9EAEF;
+      font-weight:bold;
+      height:30px;
+      padding-bottom: 0px;
+     float:left;
+    }
+      .clssbox_search > select:focus
+    {
+      border:none;
+    }
+
+    .clssbox_search > input[type="text"]
+    {
+       width: calc(100% - 120px);
+      border:none;
+      border-left: 1px solid #CBCCCE;
+      background-color:#E9EAEF;
+      height: 22px;
+      margin-top:5px;
+         float:left;
+    }
+    .clssbox_search > input[type="text"]:focus
+    {
+      border:none;
+      border-left: 1px solid #CBCCCE;     
+    }
+    .clssbox_button
+    {
+      width:120px;
+      float:left;
+    
+
+    }
+        .clssbox_button > input[type="button"] {
+            height: 35px;
+            background-color: #00A0F8;
+            color: white;
+            padding: 0px 0px 0px 6px;
+            border: none;
+            width: 110px;
+            float: right;
+            cursor: pointer;
+            margin-top: -1px;
+            background-image: url('images/magnify.svg');
+            background-position: center left;
+            border-left: 10px solid #00A0F8;
+             background-repeat: no-repeat;
+        } 
+    .search_icon
+    {
+        margin:9px 0px 0px -100px;
+        float:left;
+    }
+    .clssbox_button_icon
+    {
+        float:left;
+        width:30px;
+    }
+
+    #div_wiki_datacontent, #div_wiki_datacontent_Detail
+    {
+        width:100%;
+    }
+    .div_wikicontent
+    {
+        margin-top:30px;
+    }
