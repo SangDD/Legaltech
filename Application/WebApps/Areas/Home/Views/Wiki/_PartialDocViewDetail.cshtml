@@ -1,5 +1,6 @@
 ﻿@using ObjectInfos;
 @using WebApps.Session 
+@using WebApps.CommonFunction;
 @{
     WikiDoc_Info _DocdetailInfo = new WikiDoc_Info();
     if (ViewBag.DocdetailInfo != null)
@@ -30,6 +31,12 @@
     {
 
         _rating = 0;
+    }
+    string _LanguageCode = AppsCommon.GetCurrentLang();
+    string _langlink = "/vi-vn";
+    if (_LanguageCode != "VI_VN")
+    {
+        _langlink = "/en-gb";
     }
 }
 @*<script src="~/Scripts/WikiScript.js"></script>*@

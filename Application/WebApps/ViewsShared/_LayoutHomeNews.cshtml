@@ -4,6 +4,11 @@
 @using WebApps.CommonFunction;
 @{
     string _LanguageCode = AppsCommon.GetCurrentLang();
+    string _langlink = "/vi-vn";
+    if (_LanguageCode != "VI_VN")
+    {
+        _langlink = "/en-gb";
+    }
 }
 <html>
 <head>
@@ -178,7 +183,7 @@
                                                         </li>
 
                                                         <li class="c-navleft_category-item">
-                                                            <a class="c-navleft_category-link" href="/vi-vn/wiki-view/doc-view/0/0">
+                                                            <a class="c-navleft_category-link" href="@_langlink/wiki-view/doc-view/0/0">
                                                                 <span class="c-navleft_category-title">Wiki</span>
                                                                 <figure class="c-navleft_category-link-arrow">
                                                                     <i class="fa fa-long-arrow-right" aria-hidden="true" style=" color: #666;font-size: 20px;"></i>

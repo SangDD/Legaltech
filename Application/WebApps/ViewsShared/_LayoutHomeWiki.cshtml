@@ -4,15 +4,20 @@
 @using WebApps.CommonFunction;
 @{
     string _LanguageCode = AppsCommon.GetCurrentLang();
+    string _langlink = "/vi-vn";
+    if(_LanguageCode != "VI_VN")
+    {
+        _langlink = "/en-gb";
+    }
 }
 <html>
 <head>
     <script>
        var _currentlanguage = '@_LanguageCode';
     </script>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    @*<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">*@
     <title>iPath - Knowledge Power</title>
  
 
@@ -23,22 +28,23 @@
     <link href="~/Content/News/Css/font-awesome.css" rel="stylesheet" />
     <link href="~/Content/News/Css/jquery.dropdown.min.css" rel="stylesheet" />
     <link href="~/Content/News/Css/learndash_template_style.css" rel="stylesheet" />
+    <link href="~/Content/News/Css/css.css" rel="stylesheet" />
+
+
+
+
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery-ui-1.10.2.min.js"></script>
     <script src=@($"/Scripts/jquery.unobtrusive-ajax.min.js?v={CommonVariables.AssemblyVersion}")></script>
     <script src="~/Scripts/messagebox/JsFormPopup.js"></script>
     <script src="~/Scripts/messagebox/popup.js"></script>
-    <link href="~/Content/News/Css/css.css" rel="stylesheet" />
-    <script src="~/Scripts/AlertPopup/NVSAlerts.js"></script>
-    <link href="~/Scripts/AlertPopup/NVSAlertCss.css" rel="stylesheet" />
-    <script src="~/Scripts/AlertPopup/ASSAlert.js"></script>
-    <script src="~/Scripts/nvs.jquery.alert.js"></script>
+
+    
 
 
 
 
-
-    <link href="~/Content/WikiStyle.css" rel="stylesheet" />
+  
 </head>
 <body>
     <div class="hidden">
