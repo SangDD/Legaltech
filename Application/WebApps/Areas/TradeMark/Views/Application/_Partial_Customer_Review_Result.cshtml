@@ -39,6 +39,59 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
+            <div>Ngày nộp đơn</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" disabled="disabled" value="@_AppHeaderInfo.Filing_Date.ToString("dd/MM/yyyy")" style="width: 200px" />
+            </div>
+        </div>
+
+        <div class="div-search-title">
+            <div>Ngày cục trả lời</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" disabled="disabled" value="@_AppHeaderInfo.Expected_Accept_Date.ToString("dd/MM/yyyy")" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>File copy<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <a style="height: 20px !important;" href="@_AppHeaderInfo.Url_copy_filing"> File copy advice filing </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>File dịch<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <a style="height: 20px !important;" href="@_AppHeaderInfo.URL_TRANSLATE_FILING"> File translate</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Billing<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <a style="height: 20px !important;" href="@_AppHeaderInfo.Url_Billing"> File billing </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
             <div>Ghi chú <i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
@@ -95,7 +148,7 @@
                 }
 
                 $.ajax({
-                    url: '/trade-mark-mana/quan-ly-don/do-customer-review',
+                    url: '/trade-mark-mana/quan-ly-don/do-customer-review-filing',
                     type: 'POST',
                     data: formdata,
                     enctype: 'multipart/form-data',

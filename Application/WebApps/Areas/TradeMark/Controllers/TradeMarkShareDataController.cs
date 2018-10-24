@@ -145,12 +145,22 @@ namespace WebApps.Areas.TradeMark.Controllers
                 List<B_Todos_Info> _Listtodo = _B_Todos_BL.NotifiGetByCasecode(p_case_code, ref _ListRemind);
                 ViewBag.ListTodo = _Listtodo;
                 ViewBag.ListRemind = _ListRemind;
+
+                // sau advise filing
+                if (_ApplicationHeaderInfo.Status >= (decimal)CommonEnums.App_Status.Customer_Review)
+                {
+                    return View("/Areas/TradeMark/Views/Shared/AppDetail/AppDetails_After_Filing.cshtml");
+                }
+                else
+                {
+                    return View("/Areas/TradeMark/Views/Shared/AppDetail/AppDetails.cshtml");
+                }
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
+                return View("/Areas/TradeMark/Views/Shared/AppDetail/AppDetails.cshtml");
             }
-            return View("/Areas/TradeMark/Views/Shared/AppDetail/AppDetails.cshtml");
         }
 
         [Route("app-re-grant/{id}/{id1}/{id2}")]
@@ -199,12 +209,22 @@ namespace WebApps.Areas.TradeMark.Controllers
                 List<B_Todos_Info> _Listtodo = _B_Todos_BL.NotifiGetByCasecode(p_case_code, ref _ListRemind);
                 ViewBag.ListTodo = _Listtodo;
                 ViewBag.ListRemind = _ListRemind;
+
+                // sau advise filing
+                if (_ApplicationHeaderInfo.Status >= (decimal)CommonEnums.App_Status.Customer_Review)
+                {
+                    return View("/Areas/TradeMark/Views/Shared/AppDetail/AppDetails_After_Filing.cshtml");
+                }
+                else
+                {
+                    return View("/Areas/TradeMark/Views/Shared/AppDetail/AppDetails.cshtml");
+                }
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
+                return View("/Areas/TradeMark/Views/Shared/AppDetail/AppDetails.cshtml");
             }
-            return View("/Areas/TradeMark/Views/Shared/AppDetail/AppDetails.cshtml");
         }
 
 

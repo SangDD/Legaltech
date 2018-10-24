@@ -35,26 +35,39 @@
             AdminTuChoiKetQuaNopDon = 13,
 
             Customer_Review = 14,
-            LuatSuCapNhatNgayTraKetQua = 14,
 
-            ChapNhan_ThongBaoHinhThuc = 15,
-            TuChoi_ThongBaoHinhThuc = 16,
+            ChapNhan_ThongBaoHinhThuc = 14,
+            TuChoi_ThongBaoHinhThuc = 15,
 
 
-            CongBoDon = 17,
-            ChapNhan_ThongBaoNoiDung = 18,
-            TuChoi_ThongBaoNoiDung = 19,
-            ThongBaoCapBang = 20
+            CongBoDon = 16,
+            ChapNhan_ThongBaoNoiDung = 17,
+            TuChoi_ThongBaoNoiDung = 18,
+            ThongBaoCapBang = 19
         }
 
-        public enum Notice_Status
+        public enum Notice_Accept_Status
         {
-            Da_Xu_Ly_Xong = 0,
-            LuatSu_GuiChoAdminDuyet = 1,
-            Admin_DuyetGuiChoKhachHang = 2,
-            Admin_TuchoiDuyet = 2,
-            KhachHang_Review = 3,
-            LuatSu_XulyTiep = 4
+            Cuc_TraLoi = 0,                             // khi có kết quả thì mặc định trạng thái này luôn, vì có TH admin reject hoặc phân cho luật sư khác
+            LuatSu_GuiChoAdminDuyet = 1,                // Ls update kết quả thông báo chờ admin duyệt
+            Admin_DuyetGuiChoKhachHang = 2,             // admin duyệt va gửi cho khách hàng
+            Admin_TuchoiDuyet = 2,                      // admin từ chối duyệt và gửi cho luật sư
+            KhachHang_Review_ = 3                       // khách hàng đã review thì gửi lại cho luật sư
+        }
+
+        public enum Notice_Reject_Status
+        {
+            Cuc_TraLoi = 0,                             // khi có kết quả thì mặc định trạng thái này luôn, vì có TH admin reject hoặc phân cho luật sư khác
+            LuatSu_GuiChoAdminDuyet = 1,                // Ls update kết quả thông báo chờ admin duyệt
+            Admin_DuyetGuiChoKhachHang = 2,             // admin duyệt va gửi cho khách hàng
+            Admin_TuchoiDuyet = 2,                      // admin từ chối duyệt và gửi cho luật sư
+            KhachHang_Review_TraLoi = 3,                // khách hàng đã review thì gửi lại cho luật sư
+            LuatSu_DichTraLoiCuc = 4,                   // luật sư dịch xong thì gửi cho admin
+            Admin_Duyet_TraLoiCuc = 5,                  // admin duyệt thì gửi cho luật sư
+            Admin_TuChoi_TraLoiCuc = 6,                 // admin duyệt thì gửi cho luật sư 
+            LuatSu_Update_TB = 7                        // luật sư update thông báo trả lời và gửi cho admin , 
+                                                        // nếu thành công thì nhảy lên trạng thái  ChapNhan_ThongBaoHinhThuc/ChapNhan_ThongBaoNoiDung(App_Status) 
+                                                        // nếu lỗi thì nhảy lên trạng thái LuatSu_GuiChoAdminDuyet
         }
 
         public enum UserType

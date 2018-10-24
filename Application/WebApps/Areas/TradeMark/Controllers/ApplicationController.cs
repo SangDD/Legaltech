@@ -390,7 +390,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 var url_File_Copy_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Copy_Filing, AppUpload.App);
                 var url_File_Translate_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Translate_Filing, AppUpload.App);
 
-                int _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Case_Code, _status, pInfo.App_No, pInfo.Filing_Date, url_File_Copy_Filing, url_File_Translate_Filing,
+                int _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Case_Code, _status, pInfo.App_No, pInfo.Filing_Date, pInfo.Expected_Accept_Date, url_File_Copy_Filing, url_File_Translate_Filing,
                     pInfo.Note, pInfo.Comment_Filling, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
 
                 Insert_Docketing(pInfo.Case_Code, "File Copy Filing", url_File_Copy_Filing);
@@ -406,7 +406,7 @@ namespace WebApps.Areas.TradeMark.Controllers
         }
 
         [HttpPost]
-        [Route("quan-ly-don/do-customer-review")]
+        [Route("quan-ly-don/do-customer-review-filing")]
         public ActionResult Do_Customer_Review(Customer_Review_Info pInfo)
         {
             try

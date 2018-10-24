@@ -61,6 +61,17 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
+            <div>Ngày trả kết quả<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" placeholder="Ngày trả kết quả" id="txt_expected_accept_date" maxlength="100" class="datepicker" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
             <div>Billing Request<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
@@ -170,6 +181,7 @@
                 formdata.append("pInfo.Note", $('#txtNotes').val());
                 formdata.append("pInfo.Comment_Filling", $('#txtComment_Filling').val());
                 formdata.append("pInfo.App_No", $('#txt_App_No').val());
+                formdata.append("pInfo.Expected_Accept_Date", $('#txt_expected_accept_date').val());
 
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/do-filing',
@@ -301,6 +313,12 @@
         // check validate ngày
         var _filing_date = $("#txt_filing_date").val();
         if (checkDate("Ngày nộp đơn", "#txt_filing_date", _filing_date) == false) {
+            return false;
+        }
+
+        // check validate ngày
+        var _txt_expected_accept_date = $("#txt_expected_accept_date").val();
+        if (checkDate("Ngày trả kết quả", "#txt_expected_accept_date", _txt_expected_accept_date) == false) {
             return false;
         }
 
