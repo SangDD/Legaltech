@@ -1,0 +1,196 @@
+﻿@using Common.CommonData
+@using ObjectInfos;
+@using BussinessFacade;
+@using BussinessFacade.ModuleMemoryData
+@using System.Xml
+@model WikiDoc_Info
+
+@{
+    ViewBag.Title = "Cập nhật trạng thái Wiki";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+    
+}
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 150px;
+    }
+</style>
+
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        Monitor
+        <span class="red">></span>
+        <a href="/quan-ly-billing/danh-sach-billing">Quản lý Wiki</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+
+@*Notify*@
+<div class="divCover">
+    @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+</div>
+
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <div class="div-title-content"> CHUYỂN TRẠNG THÁI WIKI</div>
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info_2.png" />
+            <div class="cls_form_header">
+                Chi tiết Wiki
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tiêu đề  </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.TITLE, new { id = "txtTITLE", @maxlength = "50", @disabled = "disabled", @style = "width: 250px" })
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div>Chủ đề</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" value="@Model.CATA_NAME" disabled /> 
+                </div>
+            </div>
+        </div>
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info_2.png" />
+            <div class="cls_form_header">
+              Thông tin thêm
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div> Ghi chú </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                     <textarea id="_txtNote" maxlength="200">
+                         @Model.NOTE
+                     </textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divCover cls_form_title" style="margin-top:20px;float:left;width:100%">
+        <img src="/Content/icons/icon_info_24.png" />
+        <div class="cls_form_header">
+            Lịch sử giao dịch
+        </div>
+    </div>
+
+    <div class="divCover legalTodo_div" style="background-color: antiquewhite;">
+        <div class="box_title" style="width:200px; float:left">  </div>
+        <div id="d_todo_notify" class="box_title" style="width:calc(100% - 240px); padding:0px; float:left">
+        </div>
+        <div class="Homebox">
+            <div id="LegalTododivTable" class="LegaldivBoxTable">
+                @Html.Partial("~/Areas/Wiki/Views/WikiDoc/_TodoData.cshtml")
+            </div>
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div class="div-search-btn" style="width:600px;margin-top: 5px;">
+            @if (Model.STATUS == CommonWiki.Stt_guibai)
+            {
+                <input type="submit" class="btn-default" value="Duyệt" onclick="return onApprove('@CommonWiki.Stt_daduyet')" />
+            }
+            <input type="submit" class="btn-default" value="Từ chối" onclick="return onApprove('@CommonWiki.Stt_tuchoi')" />
+            <input type="submit" class="btn-default" value="Thoát" onclick="return onBack()" />
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+       // $("txtApp_Case_Code").focus();
+    });
+
+    function onBack() {
+        try {
+
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            var url = "/wiki-doc/list/";
+            window.location.href = url;
+        } catch (e) {
+            CreateRollingWaitingIcon(true);
+            alert(e);
+        }
+    }
+
+    function onApprove(_status) {
+        try {
+
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            var _mess = "Bạn có chắc chắn muốn duyệt bài viết này?";
+            var _txtNote = $("#_txtNote");
+            if(_status == '@CommonWiki.Stt_tuchoi')
+            {
+                _mess = "Bạn có chắc chắn muốn từ chối duyệt bài viết này?";
+            }
+            nvsConfirm(null, _mess, function () {
+                $.ajax({
+                    url: "/wiki-manage/wiki-doc/approveorreject",
+                    type: "POST",
+                    data: {
+                        p_id: @Model.ID,
+                        p_status: _status,
+                        p_note: _txtNote.val()
+                    },
+                    headers: { "cache-control": "no-cache" },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            jError("Lỗi check lại kết nối tới server");
+                            return false;
+                        }
+                        else if (data.success > 0) {
+                            jError("Cập nhật dữ liệu thành công!");
+                            return false;
+                        }
+
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(false);
+                        console.log(e);
+                    }
+                });
+            });
+        } catch (e) {
+            CreateRollingWaitingIcon(true);
+            alert(e);
+        }
+    }
+
+</script>

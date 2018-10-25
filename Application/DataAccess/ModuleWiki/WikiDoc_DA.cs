@@ -44,7 +44,7 @@ namespace DataAccess
 
         public decimal WikiDoc_Update(decimal P_ID, string P_TITLE, string P_CONTENT, string P_LANGUAGE_CODE,
          string P_MODIFIED_BY, DateTime P_MODIFIED_DATE, string P_HASHTAG, string P_FILE_URL01, string P_FILE_URL02,
-         string P_FILE_URL03, decimal P_CATA_ID, decimal P_STATUS, string P_REFUSE_REASON)
+         string P_FILE_URL03, decimal P_CATA_ID, decimal P_STATUS, string P_NOTE)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace DataAccess
                     new OracleParameter("P_FILE_URL03", OracleDbType.Varchar2, P_FILE_URL03, ParameterDirection.Input),
                     new OracleParameter("P_CATA_ID", OracleDbType.Decimal, P_CATA_ID, ParameterDirection.Input),                 
                     new OracleParameter("P_STATUS", OracleDbType.Decimal, P_STATUS, ParameterDirection.Input),
-                    new OracleParameter("P_REFUSE_REASON", OracleDbType.Varchar2, P_REFUSE_REASON, ParameterDirection.Input),
+                    new OracleParameter("P_NOTE", OracleDbType.Varchar2, P_NOTE, ParameterDirection.Input),
                     paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());
@@ -219,6 +219,44 @@ namespace DataAccess
                 new OracleParameter("P_DOCID", OracleDbType.Decimal, P_DOCID, ParameterDirection.Input),
                 new OracleParameter("P_USERID", OracleDbType.Varchar2, P_USERID, ParameterDirection.Input),
                 new OracleParameter("P_POINT", OracleDbType.Decimal, P_POINT, ParameterDirection.Input),
+                new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output));
+                return _Ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
+        public decimal WikiDoc_Update_Status(decimal P_ID, decimal p_status, string p_note, string p_modified_by)
+        {
+            try
+            {
+                OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_WIKI_DOCS.PROC_WIKI_DOCS_APPRO_OR_REFUSE",
+                    new OracleParameter("P_ID", OracleDbType.Decimal, P_ID, ParameterDirection.Input),
+                    new OracleParameter("P_STATUS", OracleDbType.Varchar2, p_status, ParameterDirection.Input),
+                    new OracleParameter("P_NOTE", OracleDbType.Varchar2, p_note, ParameterDirection.Input),
+                    new OracleParameter("P_MODIFIED_BY", OracleDbType.Varchar2, p_modified_by, ParameterDirection.Input),
+                    new OracleParameter("P_MODIFIED_DATE", OracleDbType.Varchar2, DateTime.Now, ParameterDirection.Input),
+                    paramReturn);
+                return Convert.ToDecimal(paramReturn.Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
+        public DataSet PortalWikiDoc_GetByCaseCode(string p_casecode)
+        {
+            try
+            {
+                DataSet _Ds = new DataSet();
+                _Ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_WIKI_DOCS.PROC_WIKI_DOCS_GETBY_CASECODE",
+                new OracleParameter("P_CASECODE", OracleDbType.Varchar2, p_casecode, ParameterDirection.Input),
                 new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output));
                 return _Ds;
             }

@@ -34,7 +34,7 @@ namespace BussinessFacade
                 WikiDoc_DA _da = new WikiDoc_DA();
                 return _da.WikiDoc_Update(p_ObjInffo.ID, p_ObjInffo.TITLE, p_ObjInffo.CONTENT, p_ObjInffo.LANGUAGE_CODE, p_ObjInffo.MODIFIED_BY,
                     p_ObjInffo.MODIFIED_DATE, p_ObjInffo.HASHTAG, p_ObjInffo.FILE_URL01, p_ObjInffo.FILE_URL02, p_ObjInffo.FILE_URL03,
-                    p_ObjInffo.CATA_ID, p_ObjInffo.STATUS, p_ObjInffo.REFUSE_REASON);
+                    p_ObjInffo.CATA_ID, p_ObjInffo.STATUS, p_ObjInffo.NOTE);
             }
             catch (Exception ex)
             {
@@ -150,6 +150,8 @@ namespace BussinessFacade
             }
         }
 
+
+      
         public List<WikiDoc_Info> PortalWikiDoc_Search(string P_KEY_SEARCH = "", string OPTIONS = "")
         {
             try
@@ -182,5 +184,37 @@ namespace BussinessFacade
                 return new WikiDoc_Info();
             }
         }
+
+        public decimal WikiDoc_Update_Status(decimal P_ID, decimal p_status, string p_note, string p_modified_by)
+        {
+            try
+            {
+                WikiDoc_DA _da = new WikiDoc_DA();
+                return _da.WikiDoc_Update_Status(P_ID, p_status, p_note, p_modified_by);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
+        public WikiDoc_Info PortalWikiDoc_GetByCaseCode(string p_casecode)
+        {
+            try
+            {
+                WikiDoc_DA _da = new WikiDoc_DA();
+                var ds = _da.PortalWikiDoc_GetByCaseCode(p_casecode);
+                return CBO<WikiDoc_Info>.FillObjectFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new WikiDoc_Info();
+            }
+        }
+
+
+        
     }
 }

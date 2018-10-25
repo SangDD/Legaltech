@@ -29,7 +29,7 @@
 }
 <link href=@($"/Content/WikiStyle.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" /> 
 <link href="~/Content/social-likes/social-likes_classic.css" rel="stylesheet" />
-<script src="~/Content/social-likes/social-likes.min.js"></script>
+@*<script src="~/Content/social-likes/social-likes.min.js"></script>*@
 
  
 <input type="hidden" value="TITLE" id="colSorted" />
@@ -54,11 +54,11 @@
     @{
         if (ViewBag.DocdetailInfo != null)
         {
-            _displayDivListDoc = "display:none";
+            _displayDivListDoc = "display:none !important";
         }
         else
         {
-            _displayDivDetail = "display:none";
+            _displayDivDetail = "display:none !important";
         }
     }
 
@@ -68,7 +68,14 @@
     <div id="div_wiki_datacontent" class="mdc-card mdc-card--stroked" style="@_displayDivListDoc">
         @Html.Partial("/Areas/Home/Views/Wiki/_PartialListDocByCata.cshtml")
     </div>
+
+     
+
+        
+       
 </div>
+
+
 <script>
     var _currentKeySearch = '/Areas/Home/Views/Wiki/List_currentKeySearch';
     var _currentOptionFilter = '/Areas/Home/Views/Wiki/List_currentOptionFilter';

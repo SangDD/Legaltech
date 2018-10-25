@@ -581,7 +581,64 @@ namespace WebApps.Areas.Wiki.Controllers
                 return p_content;
             }
         }
- 
+
+        [Route("wiki-doc/doc-approve/{id}/{id1}")]
+        public ActionResult approve()
+        {
+            if (SessionData.CurrentUser == null)
+            {
+                return Redirect("/dang-xuat");
+            }
+            var _WikiDoc_BL = new WikiDoc_BL();
+            WikiDoc_Info _ObjInfo = new WikiDoc_Info();
+
+            string _casecode = "";
+            if (RouteData.Values.ContainsKey("id"))
+            {
+                _casecode = RouteData.Values["id"].ToString();
+            }
+            int _crrstatus = 0;
+            if (RouteData.Values.ContainsKey("id1"))
+            {
+                _crrstatus = CommonFuc.ConvertToInt(RouteData.Values["id1"]);
+            }
+            try
+            {
+                _ObjInfo = _WikiDoc_BL.PortalWikiDoc_GetByCaseCode(_casecode);
+                ViewBag.CataInfo = _ObjInfo;
+                //  lấy dữ liệu lịch sử giao dịch
+                B_Todos_BL _B_Todos_BL = new B_Todos_BL();
+                List<B_Remind_Info> _ListRemind = new List<B_Remind_Info>();
+                List<B_Todos_Info> _Listtodo = _B_Todos_BL.NotifiGetByCasecode(_casecode, ref _ListRemind);
+                ViewBag.ListTodo = _Listtodo;
+                ViewBag.ListRemind = _ListRemind;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            ViewBag.CurrStatus = _crrstatus;
+            return PartialView("~/Areas/Wiki/Views/WikiDoc/_PartialWikiApproOrReject.cshtml", _ObjInfo);
+        }
+
+        [HttpPost]
+        [Route("wiki-doc/approveorreject")]
+        public ActionResult approveorreject(decimal p_id, decimal p_status, string p_note)
+        {
+            decimal _result = 0;
+            var _WikiDoc_BL = new WikiDoc_BL();
+            try
+            {
+                _result = _WikiDoc_BL.WikiDoc_Update_Status(p_id, p_status, p_note, SessionData.CurrentUser.Username);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            return Json(new { result = _result });
+        }
+
 
     }
 }

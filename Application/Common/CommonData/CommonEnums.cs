@@ -161,7 +161,8 @@
             Question = 2,
             Search = 3,
             TimeSheet = 4,
-            Billing = 5
+            Billing = 5,
+            Wiki = 6
         }
     }
 

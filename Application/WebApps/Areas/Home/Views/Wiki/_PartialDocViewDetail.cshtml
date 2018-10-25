@@ -48,7 +48,7 @@
         border: none;
     }
 
-#div_wiki_datacontent_Detail {
+    #div_wiki_datacontent_Detail {
         padding: 0px 0px 20px 0px;
     }
 
@@ -144,9 +144,8 @@
             </div>*@
 
         <div class="Box-Share">
-
             <div class="clsBtnShare" onclick="return funcLikeShareSocial(this)">
-                <div style=" color: #0d4a86;font-weight:bold; margin-left:40px"> SHARE</div>
+                <div style="color: #0d4a86;font-weight:bold; margin-left:40px"> SHARE</div>
             </div>
             <div class="social-likes">
                 <div class="facebook" title="Share link on Facebook">
@@ -162,14 +161,14 @@
             <div class="Box-Share" style="margin-left:120px">
 
                 <div class="clsBtnDownload" onclick="ExportDocToFile(@_DocdetailInfo.ID)">
-                    <div style=" color: #0d4a86;font-weight:bold; margin-left:32px"> DOWNLOAD</div>
+                    <div style="color: #0d4a86;font-weight:bold; margin-left:32px"> DOWNLOAD</div>
                 </div>
                 <div class="socialdownloadwiki"></div>
             </div>
        
             <div class="Box-Share" style="margin-left:270px">
                 <div class="clsBtnCopy click-copy" onclick="funcSetSelect()">
-                    <div style=" color: #0d4a86;font-weight:bold; margin-left:32px"> COPY</div>
+                    <div style="color: #0d4a86;font-weight:bold; margin-left:32px"> COPY</div>
                 </div>
                 <div class="socialdownloadwiki"></div>
             </div>
@@ -234,8 +233,11 @@
 </div>
 </div>
 
+@*<script src="~/Content/social-likes/social-likes.min.js"></script>*@
+
 <script>
-    function funcLikeShareSocial(a) {
+    function funcLikeShareSocial(a)
+    {
         "display: block;" == $(a).siblings("div").attr("style") ? ($(a).siblings("div").fadeOut(),
           $(a).attr("style", 'background: url("/Content/images/share.png") no-repeat')) :
         (

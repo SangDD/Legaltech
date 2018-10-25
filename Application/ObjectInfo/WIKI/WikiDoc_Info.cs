@@ -44,7 +44,7 @@ namespace ObjectInfos
 
         public DateTime MODIFIED_DATE { set; get; }
 
-        public string REFUSE_REASON { set; get; }
+        public string NOTE { set; get; }
 
         public decimal RATING { set; get; }
 
@@ -53,6 +53,8 @@ namespace ObjectInfos
         public string USER_VOTED { set { _uservote = value; } get { return _uservote; } }
 
         public decimal NUMBER_VOTED { set; get; }
+
+        public string CASE_CODE { set; get; }
 
 
 
