@@ -52,7 +52,7 @@
             LuatSu_GuiChoAdminDuyet = 1,                // Ls update kết quả thông báo chờ admin duyệt
             Admin_DuyetGuiChoKhachHang = 2,             // admin duyệt va gửi cho khách hàng
             Admin_TuchoiDuyet = 2,                      // admin từ chối duyệt và gửi cho luật sư
-            KhachHang_Review_ = 3                       // khách hàng đã review thì gửi lại cho luật sư
+            KhachHang_Review = 3                       // khách hàng đã review thì gửi lại cho luật sư
         }
 
         public enum Notice_Reject_Status
@@ -68,6 +68,18 @@
             LuatSu_Update_TB = 7                        // luật sư update thông báo trả lời và gửi cho admin , 
             // nếu thành công thì nhảy lên trạng thái  ChapNhan_ThongBaoHinhThuc/ChapNhan_ThongBaoNoiDung(App_Status) 
             // nếu lỗi thì nhảy lên trạng thái LuatSu_GuiChoAdminDuyet                                       
+        }
+
+        public enum Notice_Type
+        {
+            HinhThuc = 1,
+            NoiDung = 2
+        }
+
+        public enum Notice_Result
+        {
+            ChapNhan = 1,
+            TuChoi = 2
         }
 
         public enum UserType

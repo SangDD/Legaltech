@@ -46,9 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppDDSHCN_DA.cs" />
-    <Compile Include="App_Class_DA.cs" />
-    <Compile Include="App_Lawer_DA.cs" />
+    <Compile Include="Application\AppDDSHCN_DA.cs" />
+    <Compile Include="Application\App_Class_DA.cs" />
+    <Compile Include="Application\App_Lawer_DA.cs" />
+    <Compile Include="Application\App_Notice_Info_DA.cs" />
     <Compile Include="HomeSearch\B_TODOS_DA.cs" />
     <Compile Include="Manager\Billing_DA.cs" />
     <Compile Include="Manager\B_Remind_DA.cs" />
@@ -76,9 +77,9 @@
     <Compile Include="ModuleWiki\WikiDoc_DA.cs" />
     <Compile Include="OracleHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Lawer_Info_DA.cs" />
-    <Compile Include="Sys_Search_Fix_DA.cs" />
-    <Compile Include="TimeSheet_DA.cs" />
+    <Compile Include="Manager\Lawer_Info_DA.cs" />
+    <Compile Include="Manager\Sys_Search_Fix_DA.cs" />
+    <Compile Include="Manager\TimeSheet_DA.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

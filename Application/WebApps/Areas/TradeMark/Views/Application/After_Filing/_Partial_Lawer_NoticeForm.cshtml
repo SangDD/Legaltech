@@ -1,0 +1,310 @@
+﻿@using ObjectInfos;
+@using BussinessFacade.ModuleMemoryData
+@{
+    var _AppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    }
+}
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 250px;
+    }
+</style>
+<script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
+<link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
+<script>
+    $.datetimepicker.setLocale('vi');
+    $(document).ready(function () {
+        $('.datepicker').datetimepicker({
+            format: 'd/m/Y',
+            formatDate: 'd/m/Y',
+            timepicker: false,
+            mask: '39/19/9999',
+            validateOnBlur: true,
+        });
+    });
+</script>
+
+<div>
+    <div class="divCover cls_form_title">
+        <img src="~/Content/icons/info.png" />
+        <div class="cls_form_header">
+            Thông báo hình thức
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div id="divNumberNotice">Số thông báo lần 1<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" maxlength="100" placeholder="Số đơn" id="txt_Notice_Number" style="width:200px"  />
+            </div>
+        </div>
+
+        <div class="div-search-title">
+            <div>Ngày thông báo <i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" placeholder="Ngày thông báo" id="txt_notice_date" maxlength="100" class="datepicker" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Ngày hợp lệ</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" placeholder="Ngày hợp lệ" id="txt_accept_date" maxlength="100" class="datepicker" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Nội dung từ chối </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txt_Reject_Reason" maxlength="2000" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Advise trả lời </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txt_advise_replies" maxlength="2000" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Billing Request<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <a style="height: 20px !important;" href="javascript:;" onclick="getView2Insert('@_AppHeaderInfo.Case_Code')"> Yes </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Ghi chú <i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtNotes" maxlength="2000" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-content">
+            <input type="button" id="btnChooseFile" value="Chọn file" class="btn" onclick="return Click_Upload_File()" style="margin-left:4px;height:29px;" />
+            <input type="file" id="file_attach" style="display:none" onchange="FuncChooseResultFile()" />
+
+            <div class="div-checkbox clssDisplaynone" id="div_RemoveImg">
+                <img onclick="RemoveFile()" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" />
+            </div>
+        </div>
+        <div class="div-search-title">
+            <div id="div_filename" style="width: 168px;">File scan form notice<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" placeholder="Tên file Maximum file size is 2MB" id="txtMaxFile" readonly="readonly" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="form-group-bottom">
+            <input type="submit" class="btn-default" value="Luật sư xác nhận" onclick="return do_Filing('@_AppHeaderInfo.Case_Code')" />
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+    });
+
+    function getView2Insert(_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        var url = "/quan-ly-billing/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code;
+        window.open(url);
+    }
+
+    function do_Filing(_case_code) {
+        if (validateAction()) {
+            nvsConfirm(null, "Bạn có chắc chắn muốn nộp đơn này cho khách hàng không?", function () {
+
+                var pfile = $("#file_attach");//lay du lieu file
+                var _file = pfile[0].files[0];
+
+                var formdata = new FormData();
+                formdata.append("pInfo.File_Notice_Url", _file);
+                formdata.append("pInfo.Case_Code", _case_code);
+                formdata.append("pInfo.Notice_Number", $('#txt_Notice_Number').val());
+                formdata.append("pInfo.Notice_Date", $('#txt_notice_date').val());
+                formdata.append("pInfo.Reject_Reason", $('#txt_Reject_Reason').val());
+                formdata.append("pInfo.Advise_Replies", $('#txt_advise_replies').val());
+                formdata.append("pInfo.Note", $('#txtNotes').val());
+
+                $.ajax({
+                    url: '/trade-mark-mana/quan-ly-don/lawer-notice-form',
+                    type: 'POST',
+                    data: formdata,
+                    enctype: 'multipart/form-data',
+                    async: true, cache: false, traditional: true, contentType: false,
+                    processData: false,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            jError("Lỗi check lại kết nối tới server");
+                            return false;
+                        }
+                        else {
+                            jAlert('Submit thành công!', "THÔNG BÁO", function () {
+                                window.location.href = "/home";
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(false);
+                        console.log(e);
+                    }
+                });
+            });
+        }
+    }
+
+    function Click_Upload_File(p_AfterID) {
+        var _idfile = "file_attach";
+        document.getElementById(_idfile).click();
+    }
+
+    function FuncChooseResultFile() {
+        try {
+
+            var _textFile = $("#txtMaxFile");
+            var _txt = document.getElementById("txtMaxFile");
+            var div_filename = document.getElementById("div_filename");
+
+            // lay du lieu file
+            var pfile = $("#file_attach");
+
+            if (pfile.val() == "") {
+                _textFile.val("");
+
+                $("#div_RemoveImg").addClass("clssDisplaynone");
+                div_filename.width = "168px";
+                //_txt.style.width = "561px";
+            }
+            else {
+                var _Filename = pfile[0].files[0].name.toString();
+                _textFile.val(_Filename);
+
+                $("#div_RemoveImg").removeClass("clssDisplaynone");
+                div_filename.width = "143px";
+                //_txt.style.width = "536px";
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function RemoveFile(p_AfterID) {
+        try {
+
+            $("#file_attach").val('');
+            $("#div_RemoveImg").addClass("clssDisplaynone");
+            var _textFile = $("#txtMaxFile");
+            _textFile.val("");
+
+        } catch (e) {
+            alert(e.toString());
+        }
+    }
+
+    function validateAction() {
+        var txt_Notice_Number = $("#txt_Notice_Number").val();
+        if (txt_Notice_Number == null || txt_Notice_Number == "") {
+            jError("Số thông báo không được để trống", "Lỗi", function () {
+                $("#txt_Notice_Number").focus();
+            });
+            return false;
+        }
+
+        // check validate ngày
+        var txt_notice_date = $("#txt_notice_date").val();
+        if (checkDate("Ngày thông báo", "#txt_notice_date", txt_notice_date) == false) {
+            return false;
+        }
+
+        // check validate ngày
+        var txt_accept_date = $("#txt_accept_date").val();
+        if (txt_accept_date != "") {
+            if (checkDate("Ngày hợp lệ", "#txt_accept_date", txt_accept_date) == false) {
+                return false;
+            }
+        }
+        
+        var pfile = $("#file_attach");//lay du lieu file
+        if (pfile.val() != "") {
+            var _CheckFile = true;
+            var _Len = pfile[0].files[0].name.toString()
+            if (_Len.length > 200) {
+                _CheckFile = false;
+                jError("Tên file không được quá 200 ký tự", "Lỗi", function () {
+                    $(pfile).focus();
+
+                });
+                return false;
+            }
+
+            var _file = pfile[0].files[0];
+            var _size = _file.size / 1024 / 1024;
+
+            if (validateFileName(_file.name) == false) {
+                _CheckFile = false;
+                jError("Không tải file có tên file được lưu là unicode Tiếng việt có dấu ! ", "Lỗi", function () {
+                    $(pfile).focus();
+                });
+                return false;
+            }
+            if (_CheckFile == false) {
+                return false;
+            }
+        }
+        else {
+            jError("File scan form notice không được để trống", "Lỗi", function () {
+                $("#btnChooseFile").focus();
+            });
+            return false;
+        }
+
+        return true;
+    }
+
+</script>
