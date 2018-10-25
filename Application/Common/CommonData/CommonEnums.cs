@@ -66,8 +66,8 @@
             Admin_Duyet_TraLoiCuc = 5,                  // admin duyệt thì gửi cho luật sư
             Admin_TuChoi_TraLoiCuc = 6,                 // admin duyệt thì gửi cho luật sư 
             LuatSu_Update_TB = 7                        // luật sư update thông báo trả lời và gửi cho admin , 
-                                                        // nếu thành công thì nhảy lên trạng thái  ChapNhan_ThongBaoHinhThuc/ChapNhan_ThongBaoNoiDung(App_Status) 
-                                                        // nếu lỗi thì nhảy lên trạng thái LuatSu_GuiChoAdminDuyet
+            // nếu thành công thì nhảy lên trạng thái  ChapNhan_ThongBaoHinhThuc/ChapNhan_ThongBaoNoiDung(App_Status) 
+            // nếu lỗi thì nhảy lên trạng thái LuatSu_GuiChoAdminDuyet                                       
         }
 
         public enum UserType
