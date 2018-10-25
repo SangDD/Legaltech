@@ -70,6 +70,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Đơn tiếng anh.
+        /// </summary>
+        public static string btnDonTiengAnh {
+            get {
+                return ResourceManager.GetString("btnDonTiengAnh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gỡ bài.
         /// </summary>
         public static string btnGoBai {

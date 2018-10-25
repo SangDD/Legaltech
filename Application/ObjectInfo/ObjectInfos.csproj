@@ -46,18 +46,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppDDSHCNInfo.cs" />
-    <Compile Include="App_Class_Info.cs" />
+    <Compile Include="Application\AppDDSHCNInfo.cs" />
+    <Compile Include="Application\App_Class_Info.cs" />
     <Compile Include="Base_Info.cs" />
     <Compile Include="HomeSearch\B_Todos_Info.cs" />
+    <Compile Include="Application\App_Notice_Info.cs" />
     <Compile Include="Manager\Search_Fix_Info.cs" />
     <Compile Include="ModuleUsersAndRoles\RegisterInfo.cs" />
-    <Compile Include="Sys_Search_Fix_Info.cs" />
+    <Compile Include="Manager\Sys_Search_Fix_Info.cs" />
     <Compile Include="Manager\Billing_Detail_Info.cs" />
     <Compile Include="Manager\Billing_Header_Info.cs" />
     <Compile Include="Manager\Docking_Info.cs" />
-    <Compile Include="Lawer_Info_Info.cs" />
-    <Compile Include="App_Lawer_Info.cs" />
+    <Compile Include="Manager\Lawer_Info_Info.cs" />
+    <Compile Include="Application\App_Lawer_Info.cs" />
     <Compile Include="Manager\SearchObject_Detail_Info.cs" />
     <Compile Include="Manager\SearchObject_Header_Info.cs" />
     <Compile Include="Manager\SearchObject_Question_Info.cs" />
@@ -88,8 +89,8 @@
     <Compile Include="ModuleUsersAndRoles\MenuInfo.cs" />
     <Compile Include="ModuleUsersAndRoles\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Customer_Review_Info.cs" />
-    <Compile Include="TimeSheet_Info.cs" />
+    <Compile Include="Application\Customer_Review_Info.cs" />
+    <Compile Include="Manager\TimeSheet_Info.cs" />
     <Compile Include="WIKI\WikiCatalogues_Info.cs" />
     <Compile Include="WIKI\WikiDoc_Info.cs" />
   </ItemGroup>

@@ -429,6 +429,51 @@ namespace WebApps.Areas.TradeMark.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("quan-ly-don/lawer-notice-form")]
+        public ActionResult Do_Lawer_Notice_Form(App_Notice_Info pInfo)
+        {
+            try
+            {
+                pInfo.Notice_Type = (decimal)CommonEnums.Notice_Type.HinhThuc;
+                pInfo.Status = (decimal)CommonEnums.Notice_Accept_Status.LuatSu_GuiChoAdminDuyet;
+
+                decimal _status_app = (decimal)CommonEnums.App_Status.ChapNhan_ThongBaoHinhThuc;
+                if (pInfo.Accept_Date == null || pInfo.Accept_Date.Date == DateTime.MinValue.Date)
+                {
+                    _status_app = (decimal)CommonEnums.App_Status.TuChoi_ThongBaoHinhThuc;
+                    pInfo.Result = (decimal)CommonEnums.Notice_Result.ChapNhan;
+                }
+                else
+                {
+                    pInfo.Result = (decimal)CommonEnums.Notice_Result.TuChoi;
+                }
+
+                // update trạng thái đơn trước
+                Application_Header_BL _obj_bl = new Application_Header_BL();
+                decimal _ck = _obj_bl.AppHeader_Update_Status(pInfo.Case_Code, _status_app, pInfo.Note,
+                     SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+
+                // insert vào bảng thông báo
+                var url_File_Atachment = AppLoadHelpers.PushFileToServer(pInfo.File_Notice_Url, AppUpload.App);
+                pInfo.Notice_Url = url_File_Atachment;
+
+                App_Notice_Info_BL _App_Notice_Info_BL = new App_Notice_Info_BL();
+                _ck = _App_Notice_Info_BL.App_Notice_Insert(pInfo, AppsCommon.GetCurrentLang());
+
+
+                // insert file vào doc
+                Insert_Docketing(pInfo.Case_Code, "Scan thông báo hình thức", url_File_Atachment);
+
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
         public static void Insert_Docketing(string p_app_case_code, string p_doc_name, string p_url_File_Atachment)
         {
             try

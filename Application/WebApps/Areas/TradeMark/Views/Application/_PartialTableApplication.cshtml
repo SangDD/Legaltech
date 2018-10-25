@@ -45,7 +45,10 @@
                             @*<a href="/trade-mark/request-for-trade-mark-view/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-info" data-title="Xem chi tiết"></a>*@
                             <a href="/trade-mark-share-data/todo-details/@item.Case_Code/0" class="icon icon-info" data-title="Xem chi tiết"></a>
                             @*<a href="/trade-mark-share-data/todo-details/@item.Case_Code/2" class="icon icon-edit" data-title="Sửa"></a>*@
+                            @if ((language == "VI_VN" && item.Languague_Code == "VI_VN") || (language == "EN_US" && item.Languague_Code == "EN_US"))
+                            {
                             <a href="/trade-mark/request-for-trade-mark-edit/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-edit" data-title="Sửa"></a>
+                            }
                             @* Chi Hien thi phan dich neu la ban ghi tiếng anh, và đang xem trên ngôn ngữ tiếng việt *@
                             @if (item.Id_Vi >= 0 && language == "VI_VN" && item.Languague_Code == "EN_US")
                             {

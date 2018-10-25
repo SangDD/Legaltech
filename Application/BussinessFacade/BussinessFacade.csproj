@@ -48,9 +48,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppDDSHCN_BL.cs" />
-    <Compile Include="App_Class_BL.cs" />
-    <Compile Include="App_Lawer_BL.cs" />
+    <Compile Include="Application\AppDDSHCN_BL.cs" />
+    <Compile Include="Application\App_Notice_Info_BL.cs" />
+    <Compile Include="Application\App_Class_BL.cs" />
+    <Compile Include="Application\App_Lawer_BL.cs" />
     <Compile Include="HomeSearch\B_Todos_BL.cs" />
     <Compile Include="Manager\Billing_BL.cs" />
     <Compile Include="Manager\B_Remind_BL.cs" />
@@ -66,9 +67,9 @@
     <Compile Include="ModuleTrademark\AppDetail04NHBL.cs" />
     <Compile Include="ModuleWiki\WikiCatalogue_BL.cs" />
     <Compile Include="ModuleWiki\WikiDoc_BL.cs" />
-    <Compile Include="Sys_Search_Fix_BL.cs" />
-    <Compile Include="TimeSheet_BL.cs" />
-    <Compile Include="Lawer_Info_BL.cs" />
+    <Compile Include="Manager\Sys_Search_Fix_BL.cs" />
+    <Compile Include="Manager\TimeSheet_BL.cs" />
+    <Compile Include="Manager\Lawer_Info_BL.cs" />
     <Compile Include="ModuleMemoryData\AllCodeBL.cs" />
     <Compile Include="ModuleMemoryData\MemoryData.cs" />
     <Compile Include="ModuleTrademark\AppDetail01BL.cs" />

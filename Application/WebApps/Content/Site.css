@@ -40,6 +40,7 @@ body {
     -webkit-flex-direction: column;
     flex-direction: column;
     flex: 1;
+    overflow:auto ;
 }
 
 .section-top {
@@ -1140,7 +1141,7 @@ select.divNumberRecordOnPage {
 }
 
 .lang-vn, .lang-en {
-    padding: 3px 12px;
+    padding: 7px 20px;
     margin-left: 5px;
 }
 
@@ -1827,6 +1828,7 @@ input[type="checkbox"] {
 
 .class-dangxuat {
     font-size: 14px;
+    font-weight:bold ;
     float: right;
     text-decoration: underline;
     color: blue;
