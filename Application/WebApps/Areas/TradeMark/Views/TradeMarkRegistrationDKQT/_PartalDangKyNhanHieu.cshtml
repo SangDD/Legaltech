@@ -53,13 +53,25 @@
         }
 </style>
 <script src="~/Scripts/ScriptsLoadClassInfo.js"></script>
-<div class="d-nav-container">
+@*<div class="d-nav-container">
     <ul class="ul-nav">
         <li><a href="javascript:;">TradeMark</a></li>
         <li><a href="javascript:;"> @Resource.TM2B_Formname</a></li>
     </ul>
-</div>
+</div>*@
 
+<div class="d-nav-container" style="background-color:#fff">
+    <div class="divCover">
+        <div class="d-nav">
+            <img src="/Content/icons/Body-icon-home.png">TradeMark <span class="red">&gt;</span>
+           <a href="javascript:;">@Resource.TM2B_Formname</a>
+        </div>
+    </div>
+    <div class="divCover">
+        <div class="classLine">
+        </div>
+    </div>
+</div>
 
 <div class="d-popup-container" id="pop-sua-doi_dk"></div>
 
@@ -78,7 +90,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info_2.png" />
             <div class="cls_form_header">
-               @Resource.TM2B_thongtincoban
+                @Resource.TM2B_thongtincoban
             </div>
         </div>
 
@@ -212,11 +224,11 @@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDanhSachQuocGiaDKQTNH.cshtml", "_4")
 
         @*<div class="divCover cls_form_title">
-            <img src="~/Content/icons/info.png" />
-            <div class="cls_form_header">
-                5.PHÍ, LỆ PHÍ
-            </div>
-        </div>*@
+                <img src="~/Content/icons/info.png" />
+                <div class="cls_form_header">
+                    5.PHÍ, LỆ PHÍ
+                </div>
+            </div>*@
 
 
         <div class="div-search-ad" style="display:none">
@@ -244,28 +256,28 @@
         @*4bản sao tờ khai *@
         @{
             string _doc_id4 = "C06DKQT_D_04";
-            string _model4 = _doc_id4 + "|6_Doc_BanSaoToKhai|0|"+Resource.TM2B_BanSaoToKhai + "|1";
+            string _model4 = _doc_id4 + "|6_Doc_BanSaoToKhai|0|" + Resource.TM2B_BanSaoToKhai + "|1";
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDon.cshtml", _model4)
         }
 
         @*5 bản sao giay chung nhan dk nhan hieu co so *@
         @{
             string _doc_id5 = "C06DKQT_D_05";
-            string _model5 = _doc_id5 + "|6_Doc_BanSaoGiayDKNHCS|0|"+Resource.TM2B_BanSaoGiayCNDK + "|1";
+            string _model5 = _doc_id5 + "|6_Doc_BanSaoGiayDKNHCS|0|" + Resource.TM2B_BanSaoGiayCNDK + "|1";
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDon.cshtml", _model5)
         }
 
         @*6 bản cam kết sẽ sử dụng NH *@
         @{
             string _doc_id6 = "C06DKQT_D_06";
-            string _model6 = _doc_id6 + "|6_Doc_CamKetSuDungNH|0|"+Resource.TM2B_BanCamKetSeSD + "|1";
+            string _model6 = _doc_id6 + "|6_Doc_CamKetSuDungNH|0|" + Resource.TM2B_BanCamKetSeSD + "|1";
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDon.cshtml", _model6)
         }
 
         @*7 giay quy quyen bang tieng *@
         @{
             string _doc_id7 = "C06DKQT_D_07";
-            string _model7 = _doc_id7 + "|6_Doc_GiayUyQuyenBangTieng|0|"+Resource.TM2B_GiayUyQuyen + "|"+ Resource.TM2B_BangTieng + "|0";
+            string _model7 = _doc_id7 + "|6_Doc_GiayUyQuyenBangTieng|0|" + Resource.TM2B_GiayUyQuyen + "|" + Resource.TM2B_BangTieng + "|0";
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDon.cshtml", _model7)
         }
         @*Bản dịch tiếng việt*@
@@ -300,7 +312,7 @@
 
         @{
             string _doc_id12 = "C06DKQT_D_012";
-            string _model12 = _doc_id12 + "|6_Doc_BanGocDaNopTheoDonSo|2|" + Resource.TM2B_BanGocDaNopTheo + "|"+Resource.TM2B_SodonNopTheo + "|0";
+            string _model12 = _doc_id12 + "|6_Doc_BanGocDaNopTheoDonSo|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|0";
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDon.cshtml", _model12)
         }
 
@@ -308,7 +320,7 @@
 
         @{
             string _doc_id13 = "C06DKQT_D_013";
-            string _model13 = _doc_id13 + "|6_Doc_ChungTuLePhi|0|"+ Resource.TM2B_ChungTuLePhi + "|1";
+            string _model13 = _doc_id13 + "|6_Doc_ChungTuLePhi|0|" + Resource.TM2B_ChungTuLePhi + "|1";
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDon.cshtml", _model13)
         }
 
@@ -316,7 +328,7 @@
 
         @{
             string _doc_id14 = "C06DKQT_D_014";
-            string _model14 = _doc_id14 + "|6_Doc_TaiLieuBoSung|0|"+ Resource.TM2B_TaiLieuBoSung + "|"+ Resource.TM2B_NhapTaiLieu + "|0";
+            string _model14 = _doc_id14 + "|6_Doc_TaiLieuBoSung|0|" + Resource.TM2B_TaiLieuBoSung + "|" + Resource.TM2B_NhapTaiLieu + "|0";
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDon.cshtml", _model14)
         }
 
@@ -336,7 +348,7 @@
             @* 1. Tài tờ khai *@
             @{
                 string _doc_id1 = "C06DKQT_D_01";
-                string _model1 = _doc_id1 + "|6_Doc_ToKhai|0|"+Resource.TM2B_ToKhaiGom + "|"+ Resource.TM2B_SoTrang + "|"+Resource.TM2B_SoBan + "|0";
+                string _model1 = _doc_id1 + "|6_Doc_ToKhai|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|" + Resource.TM2B_SoBan + "|0";
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDon.cshtml", _model1)
             }
             @* 2. mẫu đăng ký của văn phòng quốc tế *@
@@ -352,7 +364,7 @@
                 <div class="div-search-content">
                     <div class="div-checkbox" style="width:300px">
                         <input type="checkbox" id="ckb_6_MauDKVPQuocTe" value="C06DKQT_D_02" onchange="return ShowHidenUpLoad(this.id, this.id, 'txt_6_MauDKVPQuocTe');" />
-                       @Resource.TM2B_MauDKVPQT
+                        @Resource.TM2B_MauDKVPQT
                     </div>
                 </div>
                 <div class="div-search-content">
@@ -392,7 +404,7 @@
             @*3 mẫu đăng ký nhãn hiệu*@
             @{
                 string _doc_id3 = "C06DKQT_D_03";
-                string _model3 = _doc_id3 + "|6_Doc_MauNhanHieu|0|"+Resource.TM2B_MauNhanHieu + "|"+Resource.TM2B_SoMau + "|0";
+                string _model3 = _doc_id3 + "|6_Doc_MauNhanHieu|0|" + Resource.TM2B_MauNhanHieu + "|" + Resource.TM2B_SoMau + "|0";
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDon.cshtml", _model3)
             }
 
@@ -402,7 +414,7 @@
             @*ẩn từ đây*@
             @{
                 string _doc_id8 = "C06DKQT_D_08";
-                string _model8 = _doc_id8 + "|6_Doc_BanDichTiengViet|1|"+ Resource.TM2B_BanDichTiengViet + "|"+Resource.TM2B_BanDichSoTrang + "|0";
+                string _model8 = _doc_id8 + "|6_Doc_BanDichTiengViet|1|" + Resource.TM2B_BanDichTiengViet + "|" + Resource.TM2B_BanDichSoTrang + "|0";
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDon.cshtml", _model8)
             }
 
