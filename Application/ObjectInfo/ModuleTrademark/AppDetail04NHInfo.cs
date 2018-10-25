@@ -100,6 +100,10 @@ namespace ObjectInfos
         public string YCCapPho3 { get; set; }
         public string YCCapPho4 { get; set; }
         public string ThoaThuanKhac { get; set; }
+        public decimal VI_TRANSLATE { get; set; }
+        public decimal ID_EN { get; set; }
+        public decimal STATUS_EN { get; set; }
+        
     }
 
     public class SuggestInfo
