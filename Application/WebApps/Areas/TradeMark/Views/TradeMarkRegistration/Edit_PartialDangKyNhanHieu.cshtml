@@ -770,10 +770,19 @@
         <div class="class_save">
             <div class="classGuiDon">
                 <input type="button" value="@WebApps.Resources.Resource.btnGuiDon" style="width:70px" id="btnGuiDon" class="btn class_37" />
-            </div> <div class="classLuuTam">
+            </div>
+            <div class="classLuuTam">
                 <input type="button" value="@WebApps.Resources.Resource.btnLuuTam" style="width:70px" id="btnLuuTam" class="btn class_37" />
             </div>
+            @* Nếu bản ghi tiếng việt thì hiển thị bản ghi tiêng sanh để chuyển đổi *@
+            @if (objAppHeaderInfo.VI_TRANSLATE > 0)
+            {
+                <div class="" style="order:3;margin-left:20px ;">
+                    <input type="button" value="@WebApps.Resources.Resource.btnDonTiengAnh" style="width:90px" id="btnTiengAnh" class="btn class_37" />
+                </div>
+            }
         </div>
+</div>
     </fieldset>
 </div>
 <input type="hidden" id="txtDateTime" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
@@ -1582,6 +1591,10 @@
         } catch (e) {
         }
     }
+    
+    $("#btnTiengAnh").click(function () {
+        window.location.href = "/trade-mark/request-for-trade-mark-translate/" +@objAppHeaderInfo.ID_EN.ToString()+"/"+@objAppHeaderInfo.STATUS_EN.ToString()+"/tm04nh/" + @objAppHeaderInfo.Id.ToString() ;
+    });
 
     $("#btnGuiDon").click(function () {
 
