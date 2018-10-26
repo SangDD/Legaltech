@@ -36,14 +36,14 @@
 
             Customer_Review = 14,
 
-            ChapNhan_ThongBaoHinhThuc = 14,
-            TuChoi_ThongBaoHinhThuc = 15,
+            ChapNhan_ThongBaoHinhThuc = 15,
+            TuChoi_ThongBaoHinhThuc = 16,
 
 
-            CongBoDon = 16,
-            ChapNhan_ThongBaoNoiDung = 17,
-            TuChoi_ThongBaoNoiDung = 18,
-            ThongBaoCapBang = 19
+            CongBoDon = 17,
+            ChapNhan_ThongBaoNoiDung = 18,
+            TuChoi_ThongBaoNoiDung = 19,
+            ThongBaoCapBang = 20
         }
 
         public enum Notice_Accept_Status

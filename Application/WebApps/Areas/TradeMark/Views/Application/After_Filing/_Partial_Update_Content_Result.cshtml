@@ -39,20 +39,11 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div id="divNumberNotice">Số thông báo lần 1<i class="redspan">(*)</i></div>
+            <div>Số thông báo<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" maxlength="100" placeholder="Số đơn" id="txt_Notice_Number" style="width:200px" />
-            </div>
-        </div>
-
-        <div class="div-search-title">
-            <div>Ngày thông báo <i class="redspan">(*)</i></div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <input type="text" placeholder="Ngày thông báo" id="txt_notice_date" maxlength="100" class="datepicker" />
+                <input type="text" maxlength="100" placeholder="Số thông báo" id="txtNumber_Form" />
             </div>
         </div>
     </div>
@@ -63,29 +54,18 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày hợp lệ" id="txt_accept_date" maxlength="100" class="datepicker" />
+                <input type="text" placeholder="Ngày nộp đơn" id="txt_Accept_Content_Date" maxlength="100" class="datepicker" />
             </div>
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Nội dung từ chối </div>
+            <div>Nội dung từ chối</div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" id="txt_Reject_Reason" maxlength="2000" />
-            </div>
-        </div>
-    </div>
-
-    <div class="div-search-ad">
-        <div class="div-search-title">
-            <div>Advise trả lời </div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <input type="text" id="txt_advise_replies" maxlength="2000" />
+                <input type="text" maxlength="2000" id="txt_Reject_Reason" />
             </div>
         </div>
     </div>
@@ -128,7 +108,7 @@
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Luật sư xác nhận" onclick="return do_Filing('@_AppHeaderInfo.Case_Code')" />
+            <input type="submit" class="btn-default" value="Submit" onclick="return do_Submit('@_AppHeaderInfo.Case_Code')" />
         </div>
     </div>
 </div>
@@ -138,33 +118,28 @@
 
     });
 
-    function getView2Insert(_case_code) {
-        if (CheckSessionTimeOut() == false) {
-            return false;
-        }
-
-        var url = "/quan-ly-billing/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code;
-        window.open(url);
-    }
-
-    function do_Filing(_case_code) {
+    function do_Submit(_case_code) {
         if (validateAction()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn nộp đơn này cho khách hàng không?", function () {
+            nvsConfirm(null, "Bạn có chắc chắn muốn gửi yêu cầu này cho admin hay không?", function () {
 
-                var pfile = $("#file_attach_1");//lay du lieu file
-                var _file = pfile[0].files[0];
 
                 var formdata = new FormData();
-                formdata.append("pInfo.File_Notice_Url", _file);
                 formdata.append("pInfo.Case_Code", _case_code);
-                formdata.append("pInfo.Notice_Number", $('#txt_Notice_Number').val());
-                formdata.append("pInfo.Notice_Date", $('#txt_notice_date').val());
-                formdata.append("pInfo.Reject_Reason", $('#txt_Reject_Reason').val());
-                formdata.append("pInfo.Advise_Replies", $('#txt_advise_replies').val());
+                formdata.append("pInfo.Id", @_AppHeaderInfo.Id);
+                formdata.append("pInfo.Accept_Form_Date", $('#txt_Accept_Date').val());
                 formdata.append("pInfo.Note", $('#txtNotes').val());
+                formdata.append("pInfo.Reject_Reason", $('#txt_Reject_Reason').val());
+                formdata.append("pInfo.Number_Form", $('#txtNumber_Form').val());
+
+                // lay du lieu file
+                var pfile = $("#file_attach_1");
+                var _file = pfile[0].files[0];
+                if (pfile.val() != "") {
+                    formdata.append("pInfo.File_Attachment", _file);
+                }
 
                 $.ajax({
-                    url: '/trade-mark-mana/quan-ly-don/lawer-notice-form',
+                    url: '/trade-mark-mana/quan-ly-don/do-form-notice',
                     type: 'POST',
                     data: formdata,
                     enctype: 'multipart/form-data',
@@ -180,7 +155,7 @@
                             return false;
                         }
                         else {
-                            jAlert('Submit thành công!', "THÔNG BÁO", function () {
+                            jAlert('Nộp đơn thành công!', "THÔNG BÁO", function () {
                                 window.location.href = "/home";
                             });
                         }
@@ -195,28 +170,22 @@
     }
 
     function validateAction() {
-        var txt_Notice_Number = $("#txt_Notice_Number").val();
-        if (txt_Notice_Number == null || txt_Notice_Number == "") {
+        // check validate ngày
+        var _txt_Accept_Date = $("#txt_Accept_Date").val();
+        if (_txt_Accept_Date != "") {
+            if (checkDate("Ngày hợp lệ", "#txt_Accept_Date", _txt_Accept_Date) == false) {
+                return false;
+            }
+        }
+
+        var txtNumber_Form = $("#txtNumber_Form").val();
+        if (txtNumber_Form == null || txtNumber_Form == "") {
             jError("Số thông báo không được để trống", "Lỗi", function () {
-                $("#txt_Notice_Number").focus();
+                $("#txtNumber_Form").focus();
             });
             return false;
         }
 
-        // check validate ngày
-        var txt_notice_date = $("#txt_notice_date").val();
-        if (checkDate("Ngày thông báo", "#txt_notice_date", txt_notice_date) == false) {
-            return false;
-        }
-
-        // check validate ngày
-        var txt_accept_date = $("#txt_accept_date").val();
-        if (txt_accept_date != "") {
-            if (checkDate("Ngày hợp lệ", "#txt_accept_date", txt_accept_date) == false) {
-                return false;
-            }
-        }
-        
         var _re = checkValidate_File("file_attach_1");
         if (_re == false) {
             return false;

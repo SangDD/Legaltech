@@ -88,7 +88,7 @@
             collectObjectData(formData);
             nvsConfirm(null, "Bạn có chắc chắn muốn phân đơn này cho luật sư hay không?", function () {
                 $.ajax({
-                    url: '/trade-mark-mana/quan-ly-don/do-re-phan-loai-advice',
+                    url: '/trade-mark-mana/quan-ly-don/do-re-grant-advice',
                     type: 'POST',
                     data: formData,
                     processData: false,

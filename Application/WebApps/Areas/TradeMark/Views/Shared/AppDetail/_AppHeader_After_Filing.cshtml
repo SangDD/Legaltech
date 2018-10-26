@@ -25,20 +25,7 @@
 <div class="divCover cls_form_title">
     @*<img src="/Content/icons/icon_info_24.png" />*@
     <div class="cls_form_header">
-
         <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowViewApp()">Xem chi tiết đơn</a>
-
-        @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update))
-        {
-            if (_AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.Luu_tam ||
-                _AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.DaPhanChoLuatSu ||
-                _AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.ChoKHConfirm ||
-                _AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.KhacHangDaTuChoi)
-            {
-                <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowEditApp()"> Sửa đơn </a>
-            }
-        }
-
     </div>
 </div>
 
