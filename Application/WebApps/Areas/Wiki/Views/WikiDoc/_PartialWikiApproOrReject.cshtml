@@ -52,20 +52,22 @@
             </div>
         </div>
         <div class="div-search-ad">
-            <div class="div-search-title">
+            <div class="div-search-title" >
                 <div>Tiêu đề  </div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.TITLE, new { id = "txtTITLE", @maxlength = "50", @disabled = "disabled", @style = "width: 250px" })
+                    @Html.TextBoxFor(m => m.TITLE, new { id = "txtTITLE", @maxlength = "50", @disabled = "disabled"  })
                 </div>
             </div>
+        </div>
+        <div class="div-search-ad">         
             <div class="div-search-title">
                 <div>Chủ đề</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" value="@Model.CATA_NAME" disabled /> 
+                    <input type="text" value="@Model.CATA_NAME" disabled />
                 </div>
             </div>
         </div>
@@ -78,14 +80,12 @@
         </div>
 
         <div class="div-search-ad">
-            <div class="div-search-title">
+            <div class="div-search-title" style="height:46px">
                 <div> Ghi chú </div>
             </div>
             <div class="div-search-content">
                 <div>
-                     <textarea id="_txtNote" maxlength="200">
-                         @Model.NOTE
-                     </textarea>
+                     <textarea id="_txtNote" maxlength="200" style="height:48px">@Model.NOTE</textarea>
                 </div>
             </div>
         </div>
@@ -114,8 +114,17 @@
             @if (Model.STATUS == CommonWiki.Stt_guibai)
             {
                 <input type="submit" class="btn-default" value="Duyệt" onclick="return onApprove('@CommonWiki.Stt_daduyet')" />
+                <input type="submit" class="btn-default" value="Từ chối" onclick="return onApprove('@CommonWiki.Stt_tuchoi')" />
             }
-            <input type="submit" class="btn-default" value="Từ chối" onclick="return onApprove('@CommonWiki.Stt_tuchoi')" />
+            @if (Model.STATUS == CommonWiki.Stt_tuchoi && WebApps.Session.SessionData.CurrentUser.Type == Convert.ToInt32(CommonEnums.UserType.Lawer))
+            {
+                // nếu là luật sư
+               <a href="/wiki-manage/wiki-doc/doc-edit/@Model.ID/@Model.STATUS">
+                   <input type="submit" class="btn-default" value="Sửa" />
+              </a>
+            }
+
+
             <input type="submit" class="btn-default" value="Thoát" onclick="return onBack()" />
         </div>
     </div>
@@ -125,8 +134,8 @@
 <script>
 
     $(document).ready(function () {
-       // $("txtApp_Case_Code").focus();
-    });
+                // $("txtApp_Case_Code").focus();
+            });
 
     function onBack() {
         try {
@@ -135,7 +144,7 @@
                 return false;
             }
 
-            var url = "/wiki-doc/list/";
+            var url = "/wiki-manage/wiki-doc/list/1";
             window.location.href = url;
         } catch (e) {
             CreateRollingWaitingIcon(true);
@@ -155,6 +164,13 @@
             {
                 _mess = "Bạn có chắc chắn muốn từ chối duyệt bài viết này?";
             }
+            if(_status == '@CommonWiki.Stt_tuchoi' && _txtNote.val().trim() == "")
+            {
+                showError('Nội dung ghi chú không được bỏ trống!');
+                _txtNote.focus();
+                return false;
+            }
+
             nvsConfirm(null, _mess, function () {
                 $.ajax({
                     url: "/wiki-manage/wiki-doc/approveorreject",
@@ -171,13 +187,15 @@
                     },
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
-                        if (data.success == "-1") {
+                        if (data.result == "-1") {
                             jError("Lỗi check lại kết nối tới server");
                             return false;
                         }
-                        else if (data.success > 0) {
+                        else if (data.result > 0) {
                             jError("Cập nhật dữ liệu thành công!");
-                            return false;
+                            jAlert("Cập nhật dữ liệu thành công!", "Thông báo", function () {
+                                location.href = "/wiki-manage/wiki-doc/list/1";
+                            });
                         }
 
                     },

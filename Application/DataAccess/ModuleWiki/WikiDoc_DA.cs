@@ -239,7 +239,7 @@ namespace DataAccess
                     new OracleParameter("P_STATUS", OracleDbType.Varchar2, p_status, ParameterDirection.Input),
                     new OracleParameter("P_NOTE", OracleDbType.Varchar2, p_note, ParameterDirection.Input),
                     new OracleParameter("P_MODIFIED_BY", OracleDbType.Varchar2, p_modified_by, ParameterDirection.Input),
-                    new OracleParameter("P_MODIFIED_DATE", OracleDbType.Varchar2, DateTime.Now, ParameterDirection.Input),
+                    new OracleParameter("P_MODIFIED_DATE", OracleDbType.Date, DateTime.Now, ParameterDirection.Input),
                     paramReturn);
                 return Convert.ToDecimal(paramReturn.Value.ToString());
             }

@@ -29,7 +29,7 @@
 }
 <link href=@($"/Content/WikiStyle.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" /> 
 <link href="~/Content/social-likes/social-likes_classic.css" rel="stylesheet" />
-@*<script src="~/Content/social-likes/social-likes.min.js"></script>*@
+<script src="~/Content/social-likes/social-likes.min.js"></script>
 
  
 <input type="hidden" value="TITLE" id="colSorted" />
@@ -85,7 +85,8 @@
     }
 
     $(document).ready(function () {
-        initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findObjects);
+        //initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findObjects);
+        initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch);
         $('_txtwikidocsearch').focus();
 
     });

@@ -582,7 +582,7 @@ namespace WebApps.Areas.Wiki.Controllers
             }
         }
 
-        [Route("wiki-doc/doc-approve/{id}/{id1}")]
+        [Route("wiki-doc/doc-approve/{id}")]
         public ActionResult approve()
         {
             if (SessionData.CurrentUser == null)
@@ -596,11 +596,6 @@ namespace WebApps.Areas.Wiki.Controllers
             if (RouteData.Values.ContainsKey("id"))
             {
                 _casecode = RouteData.Values["id"].ToString();
-            }
-            int _crrstatus = 0;
-            if (RouteData.Values.ContainsKey("id1"))
-            {
-                _crrstatus = CommonFuc.ConvertToInt(RouteData.Values["id1"]);
             }
             try
             {
@@ -617,7 +612,6 @@ namespace WebApps.Areas.Wiki.Controllers
             {
                 Logger.LogException(ex);
             }
-            ViewBag.CurrStatus = _crrstatus;
             return PartialView("~/Areas/Wiki/Views/WikiDoc/_PartialWikiApproOrReject.cshtml", _ObjInfo);
         }
 

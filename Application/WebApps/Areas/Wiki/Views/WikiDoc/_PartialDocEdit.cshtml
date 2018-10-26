@@ -162,7 +162,7 @@
         <div type="text" id="divhashtag" style="display:none"></div>
 
     </div>
-    if (Model.STATUS == 1)
+    if (Model.STATUS == 1 )
     {
         <div class="class_save">
             <div class="classGuiDon">
@@ -179,19 +179,27 @@
                 <input type="button" value="Lưu" id="btnDangTin" class="btn" />
             </div>
         </div>
-            
-      }
-            else
-            {
-            <div class="class_save">
-                <div class="classGuiDon">
-                    <input type="button" value="Đăng tin" id="btnDangTin" class="btn" />
-                </div>
-                <div class="classGuiDon">
-                    <input type="button" value="Từ chối" id="btnTuChoi" class="btn" />
-                </div>
+
+    }
+    else if (Model.STATUS == 4)
+    {
+        <div class="class_save">
+            <div class="classGuiDon">
+                <input type="button" value="Gửi bài" id="btnGuiDon" class="btn" />
             </div>
-            }
+        </div>
+    }
+    else
+    {
+    <div class="class_save">
+        <div class="classGuiDon">
+            <input type="button" value="Đăng tin" id="btnDangTin" class="btn" />
+        </div>
+        <div class="classGuiDon">
+            <input type="button" value="Từ chối" id="btnTuChoi" class="btn" />
+        </div>
+    </div>
+    }
 
 
 
