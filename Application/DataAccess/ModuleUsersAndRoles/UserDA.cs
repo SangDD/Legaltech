@@ -440,6 +440,7 @@
                     new OracleParameter("P_COMPANY", OracleDbType.Varchar2, pRegistor.Company, ParameterDirection.Input),
                     new OracleParameter("P_MODIFIEDBY", OracleDbType.Varchar2, pRegistor.Modifiedby, ParameterDirection.Input),
                     new OracleParameter("P_STATUS", OracleDbType.Int32, pRegistor.Status, ParameterDirection.Input),
+                    new OracleParameter("P_KEYSECRET", OracleDbType.Varchar2, pRegistor.KeySecret, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;

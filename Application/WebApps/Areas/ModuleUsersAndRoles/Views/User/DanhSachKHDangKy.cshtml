@@ -121,12 +121,12 @@
              funcSearchKHDangKy(page)
          }
          //Xác nhận đăng ký khách hàng 
-         function funcXacNhanDangKy(id) {
+         function funcXacNhanDangKy(id,email ) {
              try {
                  $.ajax({
                      url: "/quan-tri-he-thong/xac-nhan-kh-dk",
                      type: 'POST',
-                     data: { pID: id }, 
+                     data: { pID: id, pEmail: email}, 
                      success: function (data) {
                          if (data != null && data.status >= 0) {
                              nvsAlert("Xử lý thành công!", "thông báo", function () {

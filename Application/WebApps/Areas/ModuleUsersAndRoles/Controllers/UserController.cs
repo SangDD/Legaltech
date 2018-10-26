@@ -324,18 +324,24 @@
 
         [HttpPost]
         [Route("xac-nhan-kh-dk")]
-        public ActionResult XacNhanKhachHangDK(decimal pID)
+        public ActionResult XacNhanKhachHangDK(decimal pID,string pEmail)
         {
             var lstUsers = new List<RegisterInfo>();
             try
             {
+                var passwordEncrypt = Encription.EncryptAccountPassword(pEmail, "123456");
                 UserBL objBL = new UserBL();
                 RegisterInfo pInfo = new RegisterInfo();
                 pInfo.Id = pID;
                 pInfo.Modifiedby = SessionData.CurrentUser.Username;
                 pInfo.ModifiedDate = SessionData.CurrentUser.CurrentDate;
+                pInfo.KeySecret = passwordEncrypt;
                 pInfo.Status = 1;
                 int preturn = objBL.RegisterUpdate(pInfo);
+                if (preturn >= 0)
+                {
+                   EmailHelper.SendMail(pEmail, "doduysang@gmail.com", "Email thông báo đăng ký mở tài khoản thành công", "Dear Customer, Quí khách đăng ký thành công tài khoản username:" + pEmail + " password:123456" + "\n quí khách vui lòng truy cập vào địa chỉ <a href='http://pathlaw.net/vi-vn/login'>http://pathlaw.net/vi-vn/login</a> để đổi mật khẩu của tài khoản. \n cảm ơn quí khách hàng. ", new List<string>());
+                }
                 return Json(new { status = preturn });
             }
             catch (Exception ex)

@@ -19,5 +19,6 @@ namespace ObjectInfos.ModuleUsersAndRoles
         public DateTime ModifiedDate { get; set; }
 
         public DateTime CreateDate { get; set; }
+        public string KeySecret { get; set; }
     }
 }
