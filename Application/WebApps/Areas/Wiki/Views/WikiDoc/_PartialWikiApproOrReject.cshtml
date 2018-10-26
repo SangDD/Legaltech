@@ -111,7 +111,7 @@
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;margin-top: 5px;">
-            @if (Model.STATUS == CommonWiki.Stt_guibai)
+            @if (Model.STATUS == CommonWiki.Stt_guibai && WebApps.Session.SessionData.CurrentUser.Type == Convert.ToInt32(CommonEnums.UserType.Admin))
             {
                 <input type="submit" class="btn-default" value="Duyệt" onclick="return onApprove('@CommonWiki.Stt_daduyet')" />
                 <input type="submit" class="btn-default" value="Từ chối" onclick="return onApprove('@CommonWiki.Stt_tuchoi')" />
