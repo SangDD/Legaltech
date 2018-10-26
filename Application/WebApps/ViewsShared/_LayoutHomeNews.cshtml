@@ -94,8 +94,22 @@
                             <a href="javascript:;" onclick="return funclogin();" class="c-header_nav-item-label" data-transition="full">Sign in</a>
                         </li>
                         <li class="c-header_nav-item js-nav-nosublink">
-                            <a href="#botton"  class="c-header_nav-item-label" data-transition="full">Sign up</a>
+                            <a href="#botton" class="c-header_nav-item-label" data-transition="full">Sign up</a>
                         </li>
+
+                        <li class="c-header_nav-item js-nav-nosublink">
+                            <div class="" style="width:100% !important;padding-top:10px;">
+                                @if (_LanguageCode == LangCode.EN_US.ToString())
+                                {
+                                    <a href="javascript:;" onclick="return funcVi();" class="lang-vn"></a>
+                                }
+                                else
+                                {
+                                    <a href="javascript:;" onclick="return funcEn();" class="lang-en"></a>
+                                }
+                            </div>
+                        </li>
+                         
                     </ul>
 
                     <ul class="c-header_nav-social">
@@ -658,5 +672,12 @@
 
     function functionGetNews() {
         window.location.href = "/quan-ly-tin/news-home-page";
+    }
+
+    function funcVi() {
+        window.location.href = "/Language?culture=vi-VN&returnUrl=Home";
+    }
+    function funcEn() {
+        window.location.href = "/Language?culture=en-GB&returnUrl=Home";
     }
 </script>

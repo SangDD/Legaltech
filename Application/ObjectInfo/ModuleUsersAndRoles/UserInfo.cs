@@ -91,6 +91,7 @@
         public string DefaultHomePage { get; set; }
         public DateTime LoginTime { get; set; }
         public bool AccountRoleChanged { get; set; }
+        public int loginfirst { get; set; }
         public List<FunctionInfo> AllAccountRoles { get; set; }
 
         public List<int> GroupSelectedCollection { get; set; }

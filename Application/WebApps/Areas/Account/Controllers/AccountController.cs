@@ -77,8 +77,11 @@
 
                     var urlContinue = SessionData.CurrentUser.DefaultHomePage;
 					if (!string.IsNullOrEmpty(returnUrl)) urlContinue = returnUrl;
-
-                    return Json(new { result = result.ToJson(), urlContinue });
+                    if (userBL.CurrentUserInfo.loginfirst == 0 && userName!= "SuperAdmin")
+                    {
+                        urlContinue = "/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-edit-user/" + userBL.CurrentUserInfo.Id.ToString();
+                    }
+                        return Json(new { result = result.ToJson(), urlContinue });
 				}
 			}
 			catch (Exception ex)
