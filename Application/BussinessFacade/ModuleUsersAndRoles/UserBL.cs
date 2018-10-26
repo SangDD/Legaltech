@@ -458,15 +458,17 @@
                         _wikistyle = "style='margin-left:10px;'";
                        
                     }
-                    _wikihref = _urlLang + "/wiki-manage/wiki-doc/list-by-catalogue/" + item.ID;
+                    _wikihref = _urlLang + "/wiki-view/doc-view/" + item.ID + "/0";
                     _wikihref = "data-url='" + _wikihref + "' ";
-                    _javafunc = " onclick='gotoTask(this)'>";
+                    _javafunc = "   >";
 
-                    userHtmlMenu += "<li id='li-menu-" + _lastmenuid + "' " + _wikistyle
+                    userHtmlMenu +=  "<li id='li-menu-" + _lastmenuid + "' " + _wikistyle
                             + _wikihref
                             + "data-id='" + _lastmenuid + "' "
-                             + _javafunc + "<span class='menu-text'>" + (language == Language.LangEN?item.NAME_ENG:item.NAME) 
-                            + "</span></li>";
+                             + _javafunc + "<span class='menu-text'>" + " <a target='_blank' href = '/wiki-view/doc-view/" + item.ID + "/0' >" + 
+                               (language == Language.LangEN?item.NAME_ENG:item.NAME) 
+                              + " </a> " 
+                            + "</span></li>  ";
                 
                 }
                 userHtmlMenu += "</ul></li>";
