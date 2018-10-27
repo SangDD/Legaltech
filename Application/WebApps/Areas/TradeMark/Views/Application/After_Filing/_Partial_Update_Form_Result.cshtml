@@ -101,6 +101,17 @@
         </div>
     </div>
 
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Ghi chú <i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtNotes" maxlength="2000" />
+            </div>
+        </div>
+    </div>
+
     @{
         string _id1 = "1";
         string _isValid1 = "1";
@@ -115,16 +126,6 @@
         @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile.cshtml", _model2)
     }
 
-    <div class="div-search-ad">
-        <div class="div-search-title">
-            <div>Ghi chú <i class="redspan">(*)</i></div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <input type="text" id="txtNotes" maxlength="2000" />
-            </div>
-        </div>
-    </div>
 
     <div class="form-group">
         <div class="form-group-bottom">
