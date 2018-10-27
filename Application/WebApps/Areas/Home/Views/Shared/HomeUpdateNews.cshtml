@@ -5,8 +5,7 @@
 <div class="divCover Updatenews_div"  >
     <div class="tinHDNVNewHome">
         <div class="headerTinNghiepVu" style="background-color:#efefef">
-            @*<img class="MainImageHeader" src="~/Content/images/Book.png" />*@
-            <p class="MainTitleHeader"  >TIN TỨC</p>
+            <p class="MainTitleHeader">@WebApps.Resources.Resource.lblTinTuc.ToUpper()</p>
             <br />
             <hr class="MainTitleHr" />
         </div>
@@ -31,22 +30,11 @@
             if (_isSearching === 1) {
                 _Keysearch = "";
             } else {
-                //_arrKeySearch = _TodoKeysearch.split('|');
-                //_searchContent = _TodoarrKeySearch[0];
                 _RemindsearchContent = "";
             }
             
             var orderby = $("#colSortedUpdatenews").val();
             var orderType = $("#SortTypeUpdatenews").val();
-            //if (orderby.indexOf("NUMBER_TEXT") >= 0) {
-            //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
-            //}
-            //else if (orderby.indexOf("TITLE") >= 0) {
-            //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
-            //}
-            //else if (orderby.toLocaleUpperCase().indexOf("AGENCIE_NAME") >= 0) {
-            //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
-            //}           
             $.ajax({
                 type: "POST",
                 headers: { "cache-control": "no-cache" },
