@@ -77,42 +77,39 @@
 
 
 <script>
-    var _currentKeySearch = '/Areas/Home/Views/Wiki/List_currentKeySearch';
-    var _currentOptionFilter = '/Areas/Home/Views/Wiki/List_currentOptionFilter';
     var _status = '3', _catalogue = 'ALL', _titleHashtag = 'ALL';
     if ($("#txtwikicataid").val() != "0") {
         _catalogue = $("#txtwikicataid").val();
     }
 
     $(document).ready(function () {
-        //initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findObjects);
-      //  initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch);
         $('_txtwikidocsearch').focus();
 
     });
-
+    var keySearch = "";
+    var arrKeySearch;
     function findObjects(_pageNumber, _isSearching) {
         try {
             //reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
-            //if (isSearching === 1) {
-            //    _status = "3";
-            //    _catalogue = "ALL";
-            //    _titleHashtag = $("#_txtwikidocsearch").val().trim();
+            if (_isSearching === 1) {
+                _status = "3";
+                _catalogue = "ALL";
+                _titleHashtag = $("#_txtwikidocsearch").val().trim();
 
-            //} else {
-            //    window.arrKeySearch = window.keySearch.split('|');
-            //    _status = arrKeySearch[0];
-            //    if ($("#txtwikicataid").val() == "0")
-            //    {
-            //        _catalogue = arrKeySearch[1];
-            //    }
-            //    else
-            //    {
-            //        _catalogue = $("#txtwikicataid").val();
-            //    }
-            //    _titleHashtag = arrKeySearch[2];
-            //    $("#_txtwikidocsearch").val(_titleHashtag);
-            //}
+            } else {
+                arrKeySearch = keySearch.split('|');
+                _status = arrKeySearch[0];
+                if ($("#txtwikicataid").val() == "0")
+                {
+                    _catalogue = arrKeySearch[1];
+                }
+                else
+                {
+                    _catalogue = $("#txtwikicataid").val();
+                }
+                _titleHashtag = arrKeySearch[2];
+                $("#_txtwikidocsearch").val(_titleHashtag);
+            }
             _status = "3";
 
             if ($("#txtwikicataid").val() == "0") {
@@ -126,7 +123,8 @@
             {
                 _titleHashtag = "ALL";
             }
-            updateSearchingConditions("divNumberRecordOnPageListObjects", setKeySearch);
+            // updateSearchingConditions("divNumberRecordOnPageListObjects", setKeySearch);
+            var optionFilter = "TITLE|ASC||20|20";
             $.ajax({
                 type: "POST",
                 headers: { "cache-control": "no-cache" },
@@ -140,7 +138,8 @@
                     if (data != null) {
                         $("#div_wiki_datacontent_Detail").attr("style", "display:none");
                         $("#div_wiki_datacontent").removeAttr("style");
-                        onResponseWhenSearching(data, "div_wiki_datacontent", findObjects);
+                        $("#div_wiki_datacontent").html(data);
+                     //   onResponseWhenSearching(data, "div_wiki_datacontent", findObjects);
                     }
                 }
             });
