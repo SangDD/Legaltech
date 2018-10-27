@@ -121,22 +121,26 @@
              funcSearchKHDangKy(page)
          }
          //Xác nhận đăng ký khách hàng 
-         function funcXacNhanDangKy(id,email ) {
+         function funcXacNhanDangKy(id, email) {
+             $("#hrfXuLyMailXacNhan").css('display', 'none');
              try {
                  $.ajax({
                      url: "/quan-tri-he-thong/xac-nhan-kh-dk",
                      type: 'POST',
                      data: { pID: id, pEmail: email}, 
+                     async: false, cache: false ,
                      success: function (data) {
                          if (data != null && data.status >= 0) {
                              nvsAlert("Xử lý thành công!", "thông báo", function () {
                                  window.location.href = "/quan-tri-he-thong/danh-sach-kh-dk";
                              });
+                             $("#hrfXuLyMailXacNhan").css('display', 'block');
                              return true;
                          }
                          else {
                              nvsError("Xử lý thất bại!", "thông báo", function () {
                              });
+                             $("#hrfXuLyMailXacNhan").css('display', 'block');
                              return;
                          }
                      },
@@ -146,7 +150,7 @@
                  });
              } catch (e) {
              }
-
+             $("#hrfXuLyMailXacNhan").css('display', 'block');
          }
      </script>
     }
