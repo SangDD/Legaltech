@@ -91,10 +91,10 @@
                     <!--[Menutop + mobi]-->
                     <ul id="menu-main-menu" class="c-header_nav-list u-list-reset">
                         <li class="c-header_nav-item js-nav-nosublink">
-                            <a href="/login"  class="c-header_nav-item-label" data-transition="full">Sign in</a>
+                            <a href="javascript:;" onclick="funLogin();" class="c-header_nav-item-label" data-transition="full">@WebApps.Resources.Resource.lblSigin</a>
                         </li>
                         <li class="c-header_nav-item js-nav-nosublink">
-                            <a href="#botton" class="c-header_nav-item-label" data-transition="full">Sign up</a>
+                            <a href="#botton" class="c-header_nav-item-label" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
                         </li>
 
                         <li class="c-header_nav-item js-nav-nosublink">
@@ -318,7 +318,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="c-carousel_content js-content">
-                                                        <h3 class="c-carousel_content-title">TACCESS.IP SOLUTIONS</h3>
+                                                        <h3 class="c-carousel_content-title">ACCESS.IP SOLUTIONS</h3>
                                                         <div class="c-carousel_content-description">
                                                             <p>
                                                                 <b>i-WATCHING</b> assists the clients managing the portfolio of IP registrations with the single access to the secured and encrypted account. <i>Each IP case have it own unique QR code and accessed by only the person authorized to handle it</i>
@@ -426,10 +426,9 @@
                                         <div class="container-fluid">
                                             <div class="title" style="padding-top: 15px;">
                                                 <span style="text-transform: unset;">
-                                                    <p></p>
                                                     <p>
-                                                        Yes, automate my regulatory change management. Send me more info now!
-                                                    </p> <p></p>
+                                                        Please register here for more information
+                                                    </p>  
                                                 </span>
                                             </div>
                                             @*<form method="POST"  >*@
@@ -470,7 +469,7 @@
                                                 <div class="col-md-2">
                                                     <div class="row">
                                                         <div class="col-md-12">
-                                                            <input type="submit" id="btnSignUp" onclick="return funcRegister();" value="Save Time" class="join-us-button join-us-button-text button">
+                                                            <input type="submit" id="btnSignUp" onclick="return funcRegister();" value="Sign in" class="join-us-button join-us-button-text button">
                                                             <span class="ajax-loader"></span>
                                                         </div>
                                                     </div>
@@ -563,6 +562,10 @@
 </html>
 
 <script>
+    function funLogin() {
+        window.location.href = "/login";
+    }
+
     function funcRegister() {
         try {
             var fname = $("#txtFNAME").val();

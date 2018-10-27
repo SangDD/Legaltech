@@ -1096,6 +1096,24 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Đăng nhập.
+        /// </summary>
+        public static string lblSigin {
+            get {
+                return ResourceManager.GetString("lblSigin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đăng ký.
+        /// </summary>
+        public static string lblSignup {
+            get {
+                return ResourceManager.GetString("lblSignup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ảnh có kích cỡ từ.
         /// </summary>
         public static string lblSizeOfPicture {

@@ -87,12 +87,11 @@
                     <!--[Menutop + mobi]-->
                     <ul id="menu-main-menu" class="c-header_nav-list u-list-reset">
                         <li class="c-header_nav-item js-nav-nosublink">
-                            <a href="/login" class="c-header_nav-item-label" data-transition="full">Sign in</a>
+                            <a href="javascript:;" onclick="funLogin();" class="c-header_nav-item-label" data-transition="full">@WebApps.Resources.Resource.lblSigin</a>
                         </li>
                         <li class="c-header_nav-item js-nav-nosublink">
-                            <a href="#" class="c-header_nav-item-label" data-transition="full">Sign up</a>
+                            <a href="#botton" class="c-header_nav-item-label" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
                         </li>
-
                         <li class="c-header_nav-item js-nav-nosublink">
                             <div class="" style="width:100% !important;padding-top:10px;">
                                 @if (_LanguageCode == LangCode.EN_US.ToString())
@@ -321,6 +320,9 @@
 </html>
 
 <script>
+    function funLogin() {
+        window.location.href = "/login";
+    }
     function funcVi() {
         window.location.href = "/Language?culture=vi-VN&returnUrl=Home";
     }
