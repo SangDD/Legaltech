@@ -330,6 +330,14 @@
             return false;
         }
 
+        var _Note = $('#txtNotes').val();
+        if (_Note == null || _Note == "") {
+            jError('Ghi chú không được để trống!', "Lỗi", function () {
+                $('#txtNotes').focus();
+            });
+            return false;
+        }
+
         var pfile = $("#file_attach");//lay du lieu file
         if (pfile.val() != "") {
             var _CheckFile = true;

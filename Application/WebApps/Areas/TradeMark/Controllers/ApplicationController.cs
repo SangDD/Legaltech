@@ -417,8 +417,11 @@ namespace WebApps.Areas.TradeMark.Controllers
                 int _ck = _obj_bl.AppHeader_Update_Status(pInfo.Case_Code, _status, pInfo.Note,
                      SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
 
-                var url_File_Atachment = AppLoadHelpers.PushFileToServer(pInfo.File_Atachment, AppUpload.App);
-                Insert_Docketing(pInfo.Case_Code, "Tài liệu đính kèm từ khách hàng", url_File_Atachment);
+                if (_ck >= 0)
+                {
+                    var url_File_Atachment = AppLoadHelpers.PushFileToServer(pInfo.File_Atachment, AppUpload.App);
+                    Insert_Docketing(pInfo.Case_Code, "Tài liệu đính kèm từ khách hàng", url_File_Atachment);
+                }
 
                 return Json(new { success = _ck });
             }

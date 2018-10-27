@@ -1,7 +1,7 @@
 ﻿@model string
 @using BussinessFacade.ModuleMemoryData
 @{
-    string[] arr = Model.Split(';');
+    string[] arr = Model.Split('|');
 
     string _id = "_" + arr[0];
     string file_attach = "file_attach" + _id;
@@ -104,10 +104,10 @@
     function checkValidate_File(p_AfterID) {
         try {
             // dịch
-            var pfile_Dich = $("#file_attach_" + p_AfterID);
+            var pfile = $("#file_attach_" + p_AfterID);
 
-            var _txtIsValid = $("#txtIsValid_" + p_AfterID);
-            var _lblName = $("#lblName" + p_AfterID);
+            var _txtIsValid = $("#txtIsValid_" + p_AfterID).val();
+            var _lblName = $("#lblName_" + p_AfterID).val();
 
             if (_txtIsValid == "1" && pfile_Dich.val() != "") {
                 jError(_lblName + " không được để trống", "Lỗi", function () {
@@ -116,24 +116,24 @@
                 return false;
             }
 
-            if (pfile_Dich.val() != "") {
+            if (pfile.val() != "") {
                 var _CheckFile = true;
-                var _Len = pfile_Dich[0].files[0].name.toString()
+                var _Len = pfile[0].files[0].name.toString()
                 if (_Len.length > 200) {
                     _CheckFile = false;
                     jError("Tên file không được quá 200 ký tự", "Lỗi", function () {
-                        $(pfile_Dich).focus();
+                        $(pfile).focus();
                     });
                     return false;
                 }
 
-                var _file = pfile_Dich[0].files[0];
+                var _file = pfile[0].files[0];
                 var _size = _file.size / 1024 / 1024;
 
                 if (validateFileName(_file.name) == false) {
                     _CheckFile = false;
                     jError("Không tải file có tên file được lưu là unicode Tiếng việt có dấu ! ", "Lỗi", function () {
-                        $(pfile_Dich).focus();
+                        $(pfile).focus();
                     });
                     return false;
                 }
@@ -142,7 +142,7 @@
                 }
             }
              
-            return false;
+            return true;
         } catch (e) {
             return false;
         }
