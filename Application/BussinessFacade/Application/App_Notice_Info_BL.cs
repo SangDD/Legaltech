@@ -74,12 +74,12 @@ namespace BussinessFacade
             }
         }
 
-        public decimal App_Notice_Update_Status(string p_case_code, decimal p_notice_type, decimal p_status, string p_note, string p_modify_by)
+        public decimal App_Notice_Update_Status(string p_case_code, decimal p_notice_type, decimal p_status, decimal p_result, DateTime p_accept_date, string p_note, string p_modify_by)
         {
             try
             {
                 App_Notice_Info_DA _da = new App_Notice_Info_DA();
-                return _da.App_Notice_Update_Status(p_case_code, p_notice_type, p_status, p_note, p_modify_by);
+                return _da.App_Notice_Update_Status(p_case_code, p_notice_type, p_status,p_result,p_accept_date, p_note, p_modify_by);
             }
             catch (Exception ex)
             {

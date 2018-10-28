@@ -50,7 +50,7 @@ namespace DataAccess
             }
         }
 
-        public int App_Notice_Update_Status(string p_case_code, decimal p_notice_type, decimal p_status, string p_note, string p_modify_by)
+        public int App_Notice_Update_Status(string p_case_code, decimal p_notice_type, decimal p_status, decimal p_result, DateTime p_accept_date, string p_note, string p_modify_by)
         {
             try
             {
@@ -59,6 +59,8 @@ namespace DataAccess
                     new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
                     new OracleParameter("p_notice_type", OracleDbType.Decimal, p_notice_type, ParameterDirection.Input),
                     new OracleParameter("p_status", OracleDbType.Decimal, p_status, ParameterDirection.Input),
+                    new OracleParameter("p_result", OracleDbType.Decimal, p_result, ParameterDirection.Input),
+                    new OracleParameter("p_accept_date", OracleDbType.Date, p_accept_date, ParameterDirection.Input),
                     new OracleParameter("p_note", OracleDbType.Varchar2, p_note, ParameterDirection.Input),
                     new OracleParameter("p_modify_by", OracleDbType.Varchar2, p_modify_by, ParameterDirection.Input),
                     paramReturn);

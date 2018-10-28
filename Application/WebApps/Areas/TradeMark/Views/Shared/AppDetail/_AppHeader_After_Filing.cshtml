@@ -14,6 +14,17 @@
     {
         c_operator_type = (decimal)ViewBag.Operator_Type;
     }
+
+    string _Filing_Date = _AppHeaderInfo.Filing_Date == DateTime.MinValue ? "" : _AppHeaderInfo.Filing_Date.ToString("dd/MM/yyyy");
+    string _Accept_Date = _AppHeaderInfo.Accept_Date == DateTime.MinValue ? "" : _AppHeaderInfo.Accept_Date.ToString("dd/MM/yyyy");
+    string _Public_Date = _AppHeaderInfo.Public_Date == DateTime.MinValue ? "" : _AppHeaderInfo.Public_Date.ToString("dd/MM/yyyy");
+
+    string _Accept_Content_Date = _AppHeaderInfo.Accept_Content_Date == DateTime.MinValue ? "" : _AppHeaderInfo.Accept_Content_Date.ToString("dd/MM/yyyy");
+
+
+    string _Grant_Date = _AppHeaderInfo.Grant_Date == DateTime.MinValue ? "" : _AppHeaderInfo.Grant_Date.ToString("dd/MM/yyyy");
+    string _Grant_Public_Date = _AppHeaderInfo.Grant_Public_Date == DateTime.MinValue ? "" : _AppHeaderInfo.Grant_Public_Date.ToString("dd/MM/yyyy");
+
 }
 <style>
     /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
@@ -125,104 +136,72 @@
 <div class="divCover cls_form_title">
     @*<img src="~/Content/icons/info.png" />*@
     <div class="cls_form_header">
-        Đại diện chủ đơn
+        Thông tin nộp đơn
     </div>
 </div>
 
 <div class="div-search-ad">
-    <div class="div-search-content">
-        <div class="div-radio">
-            @if (_AppHeaderInfo.Rep_Master_Type == "DDPL")
-            {
-                <input type="radio" name="_2_DaiDienChuDon" value="DDPL" placeholder="_2_rdoNguoiDaiDienPL" id="_2_rdoNguoiDaiDienPL" disabled="disabled" checked="checked" />
-            }
-            else
-            {
-                <input type="radio" name="_2_DaiDienChuDon" value="DDPL" placeholder="_2_rdoNguoiDaiDienPL" id="_2_rdoNguoiDaiDienPL" disabled="disabled" />
-            }
-            <label>Là người đại diện theo pháp luật của chủ đơn</label>
-        </div>
+    <div class="div-search-title">
+        <div>Filling date:  </div>
     </div>
-
-</div>
-
-<div class="div-search-ad">
     <div class="div-search-content">
-        <div class="div-radio">
-            @if (_AppHeaderInfo.Rep_Master_Type == "DVDL")
-            {
-                <input type="radio" name="_2_DaiDienChuDon" value="DVDL" placeholder="_2_rdoToChucDichVuDL" id="_2_rdoToChucDichVuDL" disabled="disabled" checked="checked" />
-            }
-            else
-            {
-                <input type="radio" name="_2_DaiDienChuDon" value="DVDL" placeholder="_2_rdoToChucDichVuDL" id="_2_rdoToChucDichVuDL" disabled="disabled" />
-            }
-            <label>Là tổ chức dịch vụ đại diện sở hữu công nghiệp được uỷ quyền của chủ đơn </label>
-        </div>
-    </div>
-</div>
-
-<div class="div-search-ad">
-    <div class="div-search-content">
-        <div class="div-radio">
-            @if (_AppHeaderInfo.Rep_Master_Type == "NDUQ")
-            {
-                <input type="radio" name="_2_DaiDienChuDon" value="NDUQ" placeholder="_2_rdoNguoiDuocUyQuyen" id="_2_rdoNguoiDuocUyQuyen" disabled="disabled" checked="checked" />
-            }
-            else
-            {
-                <input type="radio" name="_2_DaiDienChuDon" value="NDUQ" placeholder="_2_rdoNguoiDuocUyQuyen" id="_2_rdoNguoiDuocUyQuyen" disabled="disabled" />
-            }
-
-            <label>Là người khác được uỷ quyền của chủ đơn </label>
+        <div>
+            <input type="text" maxlength="50" value="@_Filing_Date" disabled="disabled" />
         </div>
     </div>
 </div>
 
 <div class="div-search-ad">
     <div class="div-search-title">
-        <div> Tên đầy đủ:</div>
+        <div>Accept date:  </div>
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" value="@_AppHeaderInfo.Rep_Master_Name" style="width:250px" maxlength="200" disabled="disabled" id="2_txtTenDayDu" />
-        </div>
-    </div>
-
-    <div class="div-search-title">
-        <div> Địa chỉ: </div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input type="text" value="@_AppHeaderInfo.Rep_Master_Address" maxlength="200" disabled="disabled" id="2_txtDiaChi" />
+            <input type="text" maxlength="50" value="@_Accept_Date" disabled="disabled" />
         </div>
     </div>
 </div>
 
 <div class="div-search-ad">
     <div class="div-search-title">
-        <div> Điện thoại: </div>
+        <div>Public date:  </div>
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" p value="@_AppHeaderInfo.Rep_Master_Phone" style="width: 250px;" maxlength="50" disabled="disabled" id="2_txtDienThoai" />
+            <input type="text" maxlength="50" value="@_Public_Date" disabled="disabled" />
         </div>
     </div>
+</div>
 
+<div class="div-search-ad">
     <div class="div-search-title">
-        <div> Fax: </div>
+        <div>Accept Content Date:  </div>
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" value="@_AppHeaderInfo.Rep_Master_Fax" maxlength="50" disabled="disabled" id="2_txtFax" />
+            <input type="text" maxlength="50" value="@_Accept_Content_Date" disabled="disabled" />
         </div>
     </div>
+</div>
+
+<div class="div-search-ad">
     <div class="div-search-title">
-        <div>Email:  </div>
+        <div>Grant date:  </div>
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" value="@_AppHeaderInfo.Rep_Master_Email" maxlength="50" disabled="disabled" id="2_txtEmail" />
+            <input type="text" maxlength="50" value="@_Grant_Date" disabled="disabled" />
+        </div>
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div>Grant Public Date:  </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" maxlength="50" value="@_Grant_Public_Date" disabled="disabled" />
         </div>
     </div>
 </div>
