@@ -72,20 +72,21 @@ namespace DataAccess
             }
         }
 
-        public decimal App_Notice_Insert(string p_case_code, string p_notice_number, DateTime p_notice_date, decimal p_notice_type, string p_notice_url, decimal p_result,
-            DateTime p_accept_date, string p_accept_url, string p_reject_reason, decimal p_status, string p_advise_replies,
+        public decimal App_Notice_Insert(string p_case_code, string p_notice_number, DateTime p_notice_date, decimal p_notice_type, string p_notice_url, string p_notice_trans_url,
+            decimal p_result, DateTime p_accept_date, string p_accept_url, string p_reject_reason, decimal p_status, string p_advise_replies,
             string p_biling_url, string p_created_by, string p_note)
         {
             {
                 try
                 {
                     var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
-                    OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_notice_info.pkg_app_notice_info",
+                    OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_notice_info.Proc_App_Notice_Info_Insert",
                         new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
                         new OracleParameter("p_notice_number", OracleDbType.Varchar2, p_notice_number, ParameterDirection.Input),
                         new OracleParameter("p_notice_date", OracleDbType.Date, p_notice_date, ParameterDirection.Input),
                         new OracleParameter("p_notice_type", OracleDbType.Decimal, p_notice_type, ParameterDirection.Input),
                         new OracleParameter("p_notice_url", OracleDbType.Varchar2, p_notice_url, ParameterDirection.Input),
+                        new OracleParameter("p_notice_trans_url", OracleDbType.Varchar2, p_notice_trans_url, ParameterDirection.Input),
                         new OracleParameter("p_result", OracleDbType.Decimal, p_result, ParameterDirection.Input),
                         new OracleParameter("p_accept_date", OracleDbType.Date, p_accept_date, ParameterDirection.Input),
                         new OracleParameter("p_accept_url", OracleDbType.Varchar2, p_accept_url, ParameterDirection.Input),

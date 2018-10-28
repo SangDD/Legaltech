@@ -144,7 +144,7 @@
             return false;
         }
 
-        var url = "/quan-ly-billing/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code;
+        var url = "/quan-ly-billing/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code + "&p_type=" + @(Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Insert_Type.Accept_Form));
         window.open(url);
     }
 
@@ -160,6 +160,8 @@
                 formdata.append("pInfo.Case_Code", _case_code);
                 formdata.append("pInfo.Notice_Number", $('#txt_Notice_Number').val());
                 formdata.append("pInfo.Notice_Date", $('#txt_notice_date').val());
+                formdata.append("pInfo.Accept_Date", $('#txt_accept_date').val());
+
                 formdata.append("pInfo.Reject_Reason", $('#txt_Reject_Reason').val());
                 formdata.append("pInfo.Advise_Replies", $('#txt_advise_replies').val());
                 formdata.append("pInfo.Note", $('#txtNotes').val());

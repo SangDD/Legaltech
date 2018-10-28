@@ -109,6 +109,13 @@
     @* Process status *@
     @Html.Partial("~/Areas/TradeMark/Views/Shared/AppDetail/_Partial_Process.cshtml")
 
+    @if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
+    {
+        <div style="width: 100%;float: left;margin-top:20px">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/AppDetail/_Partial_Sub_Process.cshtml")
+        </div>
+    }
+
     @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update))
     {
         <div style="margin-top:20px;float:left;width:100%">

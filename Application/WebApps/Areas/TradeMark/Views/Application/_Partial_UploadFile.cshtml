@@ -109,7 +109,7 @@
             var _txtIsValid = $("#txtIsValid_" + p_AfterID).val();
             var _lblName = $("#lblName_" + p_AfterID).val();
 
-            if (_txtIsValid == "1" && pfile_Dich.val() != "") {
+            if (_txtIsValid == "1" && pfile.val() == "") {
                 jError(_lblName + " không được để trống", "Lỗi", function () {
                     $("#btnChooseFile_" + p_AfterID).focus();
                 });

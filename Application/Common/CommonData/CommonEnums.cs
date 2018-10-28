@@ -51,8 +51,8 @@
             Cuc_TraLoi = 0,                             // khi có kết quả thì mặc định trạng thái này luôn, vì có TH admin reject hoặc phân cho luật sư khác
             LuatSu_GuiChoAdminDuyet = 1,                // Ls update kết quả thông báo chờ admin duyệt
             Admin_DuyetGuiChoKhachHang = 2,             // admin duyệt va gửi cho khách hàng
-            Admin_TuchoiDuyet = 2,                      // admin từ chối duyệt và gửi cho luật sư
-            KhachHang_Review = 3                       // khách hàng đã review thì gửi lại cho luật sư
+            Admin_TuchoiDuyet = 3,                      // admin từ chối duyệt và gửi cho luật sư
+            KhachHang_Review_TraLoi = 4                 // khách hàng đã review thì gửi lại cho luật sư
         }
 
         public enum Notice_Reject_Status
@@ -60,12 +60,12 @@
             Cuc_TraLoi = 0,                             // khi có kết quả thì mặc định trạng thái này luôn, vì có TH admin reject hoặc phân cho luật sư khác
             LuatSu_GuiChoAdminDuyet = 1,                // Ls update kết quả thông báo chờ admin duyệt
             Admin_DuyetGuiChoKhachHang = 2,             // admin duyệt va gửi cho khách hàng
-            Admin_TuchoiDuyet = 2,                      // admin từ chối duyệt và gửi cho luật sư
-            KhachHang_Review_TraLoi = 3,                // khách hàng đã review thì gửi lại cho luật sư
-            LuatSu_DichTraLoiCuc = 4,                   // luật sư dịch xong thì gửi cho admin
-            Admin_Duyet_TraLoiCuc = 5,                  // admin duyệt thì gửi cho luật sư
-            Admin_TuChoi_TraLoiCuc = 6,                 // admin duyệt thì gửi cho luật sư 
-            LuatSu_Update_TB = 7                        // luật sư update thông báo trả lời và gửi cho admin , 
+            Admin_TuchoiDuyet = 3,                      // admin từ chối duyệt và gửi cho luật sư
+            KhachHang_Review_TraLoi = 4,                // khách hàng đã review thì gửi lại cho luật sư
+            LuatSu_DichTraLoiCuc = 5,                   // luật sư dịch xong thì gửi cho admin
+            Admin_Duyet_TraLoiCuc = 6,                  // admin duyệt thì gửi cho luật sư
+            Admin_TuChoi_TraLoiCuc = 7,                 // admin duyệt thì gửi cho luật sư 
+            LuatSu_Update_TB = 8                        // luật sư update thông báo trả lời và gửi cho khách hàng , 
             // nếu thành công thì nhảy lên trạng thái  ChapNhan_ThongBaoHinhThuc/ChapNhan_ThongBaoNoiDung(App_Status) 
             // nếu lỗi thì nhảy lên trạng thái LuatSu_GuiChoAdminDuyet                                       
         }
@@ -157,6 +157,17 @@
             Service = 3,
             Others = 4
             //Foeign = 5
+        }
+
+        public enum Billing_Insert_Type
+        {
+            App = 0,
+            Search = 1,
+            Advise_Filling = 2,
+            Accept_Form = 3,
+            Grant_App = 4,
+            Accept_Content = 5,
+            Public_App = 6
         }
 
         public enum Operator_Type
