@@ -41,118 +41,77 @@
     _EditArryAppClass.push(_appinfo)
     </script>
 }
-    <div class="div_full_100_area" style="border:solid 1px #ccc; width: calc(100% - 28px ); margin: 10px 0px 0px 0px">
-        <div class="class_full_div_p class_text_center_bold">
-            @WebApps.Resources.Resource.lblHeaderDanhMucVaPhanLoaiHangHoa
-        </div>
-        <i class="h4_title" style="border-bottom:none">@WebApps.Resources.Resource.lblGohangHoaDKChonClass</i>
-        <br />
+<div class="div_full_100_area" style="border:solid 1px #ccc; width: calc(100% - 28px ); margin: 10px 0px 0px 0px">
+    <div class="class_full_div_p class_text_center_bold">
+        @WebApps.Resources.Resource.lblHeaderDanhMucVaPhanLoaiHangHoa
+    </div>
+    <i class="h4_title" style="border-bottom:none">@WebApps.Resources.Resource.lblGohangHoaDKChonClass</i>
+    <br />
 
 
-        <div class="div_full_100_area">
-            <div class="div-search-ad">
-                @*<div class="div-search-content">
-                <div class="class50">*@
-                @*<input type="text" id="txtTenHangHoa" placeholder="Tìm kiếm hàng hóa/dịch vụ" onkeyup="SearchAppCodeOnKeyUp('txtTenHangHoa', 'NVS002_DivShowSearchAppCode')" style="    border-left: 1px solid #ccc;"/>*@
-                @*<input type="text" id="txtTenHangHoa" placeholder="Tìm kiếm hàng hóa/dịch vụ" style="border-left: 1px solid #ccc;" />*@
-                @*</div>
-                </div>*@
-
-                <div class="div-search-title">
-                    <div>
-                        @WebApps.Resources.Resource.lblHangHoa:
-                    </div>
+    <div class="div_full_100_area">
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>
+                    @WebApps.Resources.Resource.lblHangHoa:
                 </div>
-                <div class="div-search-content" style="width:30%">
-                    <div style="width:100%">
-                        <input type="text" id="txtTenHangHoa" placeholder="@WebApps.Resources.Resource.SearchAppClass" style="border-left: 1px solid #ccc;width:100%" />
-                    </div>
+            </div>
+            <div class="div-search-content" style="width:30%">
+                <div style="width:100%">
+                    <input type="text" id="txtTenHangHoa" placeholder="@WebApps.Resources.Resource.SearchAppClass" style="border-left: 1px solid #ccc;width:100%" />
                 </div>
+            </div>
 
-                <div class="div-search-title">
-                    <div>
-                        Class:
-                    </div>
+            <div class="div-search-title">
+                <div>
+                    Class:
                 </div>
-                <div class="div-search-content">
-                    <div style="display:inline-block">
-                        <select id="cboClassInfo" style="width:350px">
-                            <option value=""> @WebApps.Resources.Resource.lblTatCa</option>
-                            @for (int i = 1; i <= 45; i++)
+            </div>
+            <div class="div-search-content">
+                <div style="display:inline-block">
+                    <select id="cboClassInfo" style="width:350px">
+                        <option value=""> @WebApps.Resources.Resource.lblTatCa</option>
+                        @for (int i = 1; i <= 45; i++)
+                        {
+                            if (i < 10)
                             {
-                                if (i < 10)
-                                {
-                                    SoNhom = WebApps.Resources.Resource.lblNhom + "0" + i.ToString();
-                                    maNhom = "0" + i.ToString();
-                                }
-                                else
-                                {
-                                    SoNhom = WebApps.Resources.Resource.lblNhom + " " + i.ToString();
-                                    maNhom = i.ToString();
-                                }
-                                <option value="@maNhom">@SoNhom</option>
+                                SoNhom = WebApps.Resources.Resource.lblNhom + "0" + i.ToString();
+                                maNhom = "0" + i.ToString();
                             }
-                        </select>
-
-
-                        <input type="button" value="@WebApps.Resources.Resource.lblThemDon" class="btn" onclick="return funcAddDataRow();" style="width:75px;height:30px;    margin-left: 5px;" />
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        @*<div class="div-search-ad" style="margin-top: 10px;" >
-        <div id="NVS002_DivShowSearchAppCode">
-            <div class="div-search-title">
-                <div>Tên đầy đủ:</div>
-            </div>
-            <div class="div-search-content" style="display:inline-block;width: 500px;">
-                <div id="DivContent_NVSCBO001_AppClassSearch" style="width:99%;display:inline-block">
-                    <select id="NVSCBO001_AppClassSearch">
-                        <option>Tìm kiếm hàng hóa/dịch vụ</option>
+                            else
+                            {
+                                SoNhom = WebApps.Resources.Resource.lblNhom + " " + i.ToString();
+                                maNhom = i.ToString();
+                            }
+                            <option value="@maNhom">@SoNhom</option>
+                        }
                     </select>
+
+
+                    <input type="button" value="@WebApps.Resources.Resource.lblThemDon" class="btn" onclick="return funcAddDataRow();" style="width:75px;height:30px;    margin-left: 5px;" />
                 </div>
-            </div>
 
-            <div class="div-search-title">
-                <div>Mã nhóm</div>
-            </div>
-            <div class="div-search-content" style="display:inline-block;width: 180px;">
-                <div id="" style="width:99%;display:inline-block">
-                    <select id="NVSCBOAppSearchByGroup01" onchange="NVSFunc001ShowComboxSearchByGroup('txtTenHangHoa', 'DivContent_NVSCBO001_AppClassSearch', 'NVSCBOAppSearchByGroup01')">
-                        <option value="">Chọn mã nhóm</option>
-                    </select>
-                </div>
-            </div>
-
-        </div>
-            <div style="display:inline-block;width:100px">
-                <input type="button" value="Thêm" class="btn" onclick="return funcAddDataRow();" style="width:75px;height:30px" />
-            </div>
-        </div>*@
-
-        <div class="class_full_div_input">
-            <div class="_table_display" id="divHangHoaThem" style="width: 100%">
-                <h4 class="h4_title">@WebApps.Resources.Resource.lblHangHoaDaThem</h4>
-                <table class="table-lst-data" id="tblClassInfo">
-                    <thead>
-                        <tr>
-                            <th style="width: 4%">@WebApps.Resources.Resource.lblSTT</th>
-                            <th data-sort id="Username">@WebApps.Resources.Resource.lblHangHoa</th>
-                            <th style="width: 17%" data-sort>@WebApps.Resources.Resource.lblMaNhom</th>
-                            <th style="width: 100px;"></th>
-                            <th class="clssDisplaynone"></th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
             </div>
         </div>
     </div>
-
-@*<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+    <div class="class_full_div_input">
+        <div class="_table_display" id="divHangHoaThem" style="width: 100%">
+            <h4 class="h4_title">@WebApps.Resources.Resource.lblHangHoaDaThem</h4>
+            <table class="table-lst-data" id="tblClassInfo">
+                <thead>
+                    <tr>
+                        <th style="width: 4%">@WebApps.Resources.Resource.lblSTT</th>
+                        <th data-sort id="Username">@WebApps.Resources.Resource.lblHangHoa</th>
+                        <th style="width: 17%" data-sort>@WebApps.Resources.Resource.lblMaNhom</th>
+                        <th style="width: 100px;"></th>
+                        <th class="clssDisplaynone"></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
 <style>
     .h4_title {
         border-bottom: 2px solid #ff6229;
@@ -250,12 +209,14 @@
             console.log(e);
         }
     }
-
+    var txt = "txtid";
+    var txtdata = "txtiddata";
+    var count = 0;
 
     // 2018.06.15 Hungtd sửa
     function funcAddMessDataRow(textInput, classCode, type) {
         try {
-
+            count++;
             // lấy ra nhóm hàng hóa
             var _checkExits = 0;
             var _groupcode = classCode.substr(0, 2);
@@ -274,11 +235,14 @@
                 var _newitem = { name: _groupcode, value: 1  };
                 _ArrGroupAppClass.push(_newitem);
             }
+            txt = txt + count.toString();
+            txtdata = txtdata + count.toString();
             funRemoveAllTotalRows();
             textInput = textInput.trim();
             classCode =   _groupcode;
             classCode = classCode.trim();
-            var _html = "<tr><td></td><td class=\"TdLeft\">" + textInput + "</td><td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td><a href=\"javascript:;\" onclick=\"funcRemoveMessDataRow(this, '" + classCode + "');\">Xóa</a></td><td class=\"HasSort clssDisplaynone\">" + classCode.substr(0, 5) + "</td></tr>";
+            var _html = "<tr><td></td><td class=\"TdLeft\">" + "<input type=\"text\" onblur='return funSaveClassEdit(\"" + txt + "\",\"" + txtdata +"\")' style='width: calc(100% - 26px); border:none' id=\"" +
+                txt + "\"  value=\"" + textInput + "\"/> <span class=\"icon icon-edit\" onclick='return functEdit(\"" + txt + "\",\"" + txtdata +"\")'>" + " </td><td  class=\"TdLeft\" >" + classCode + "<input class=\"DataAdd\" type=\"hidden\" id=\"" + txtdata + "\" value=\"" + textInput + "|" + classCode + "\" /></td><td><a href=\"javascript:;\" onclick=\"funcRemoveMessDataRow(this, '" + classCode + "');\">Xóa</a></td><td class=\"HasSort clssDisplaynone\">" + classCode.substr(0, 5) + "</td></tr>";
             $("#tblClassInfo").find("tbody").append(_html);
             AddTotalRows();
             funcReSortTable("#tblClassInfo", 'asc');
@@ -288,13 +252,34 @@
             console.log(e);
         }
     }
+    function functEdit(pID,pIdData) {
+        try {
+            $("#" + pID).css('border', '1px solid #ccc');
 
+        } catch (e) {
+
+        }
+
+    }
+
+    function funSaveClassEdit(pID, pIdData) {
+        try {
+            var txtnew = $("#" + pID).val();
+            var strData = $("#" + pIdData).val();
+            var arr = strData.split("|");
+            var datanew = txtnew + "|" + arr[1];
+            $("#" + pIdData).val(datanew);
+            $("#" + pID).css('border', 'none');
+        } catch (e) {
+
+        }
+    }
     function AddTotalRows() {
         try {
             // đẩy các dòng tổng xuống cuối table
             var _html = "";
             _ArrGroupAppClass.forEach(function (element) {
-                _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='2' class=\"tdRightAlign textbold\">"+"@WebApps.Resources.Resource.lblTongSP"+"("+element.name+")</td><td colspan='2' class=\"TdLeft textbold\"> " + element.value + "</td>   <input  type=\"hidden\" class=\"txtTongSanPham\" value=\"" + element.value + "\"/> <td class=\"HasSort clssDisplaynone\"> " + element.name + "</td> </tr>";
+                _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='2' class=\"tdRightAlign textbold\">"+"@WebApps.Resources.Resource.lblTongSP"+"("+element.name+")</td><td colspan='2' class=\"TdLeft textbold\">" + element.value + "</td>   <input  type=\"hidden\" class=\"txtTongSanPham\" value=\"" + element.value + "\"/> <td class=\"HasSort clssDisplaynone\"> " + element.name + "</td> </tr>";
                 $("#tblClassInfo").find("tbody").append(_html);
             });
             // tổng số nhóm
@@ -398,3 +383,5 @@
         }
     }
 </script>
+<style>
+</style>
