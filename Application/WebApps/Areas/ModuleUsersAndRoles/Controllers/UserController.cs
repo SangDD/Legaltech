@@ -335,6 +335,12 @@
             {
                 var userBL = new UserBL();
                 _RegisterInfo = userBL.RegisterGetByCaseCode(_casecode);
+                //  lấy dữ liệu lịch sử giao dịch
+                B_Todos_BL _B_Todos_BL = new B_Todos_BL();
+                List<B_Remind_Info> _ListRemind = new List<B_Remind_Info>();
+                List<B_Todos_Info> _Listtodo = _B_Todos_BL.NotifiGetByCasecode(_casecode, ref _ListRemind);
+                ViewBag.ListTodo = _Listtodo;
+                ViewBag.ListRemind = _ListRemind;
                 return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/ViewRegisterInfo.cshtml", _RegisterInfo);
             }
             catch (Exception ex)
