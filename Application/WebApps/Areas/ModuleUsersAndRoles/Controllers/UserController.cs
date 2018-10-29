@@ -322,6 +322,28 @@
             return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/_PartialTableListRegistor.cshtml");
         }
 
+        [Route("chi-tiet-dang-ky/{id}")]
+        public ActionResult RegisterDetail()
+        {
+            var _RegisterInfo = new RegisterInfo();
+            string _casecode = "";
+            if(RouteData.Values["id"] != null)
+            {
+                _casecode = RouteData.Values["id"].ToString();
+            }
+            try
+            {
+                var userBL = new UserBL();
+                _RegisterInfo = userBL.RegisterGetByCaseCode(_casecode);
+                return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/ViewRegisterInfo.cshtml", _RegisterInfo);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return null;
+        }
+
         [HttpPost]
         [Route("xac-nhan-kh-dk")]
         public ActionResult XacNhanKhachHangDK(decimal pID,string pEmail)

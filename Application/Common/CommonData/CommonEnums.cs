@@ -185,7 +185,8 @@
             Search = 3,
             TimeSheet = 4,
             Billing = 5,
-            Wiki = 6
+            Wiki = 6,
+            Register = 7
         }
     }
 
