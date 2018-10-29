@@ -401,5 +401,113 @@ namespace WebApps.Areas.Articles.Controllers
                 return View();
             }
         }
+
+        [HttpGet]
+        [Route("about-us/{id}")]
+        public ActionResult NewsDetailByCategory()
+        {
+            try
+            {
+                string pCategory ="";
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    pCategory = CommonFuc.ConvertToString(RouteData.Values["id"]);
+                }
+                var objNewsBL = new NewsBL();
+                string language = AppsCommon.GetCurrentLang();
+                List <NewsInfo> lstNews = objNewsBL.NewsStatic(language);
+                ViewBag.objNewInfo = new NewsInfo();
+                if (lstNews.Count>0)
+                {
+                    foreach (var item in lstNews)
+                    {
+                        if(item.Categories_Id.ToUpper() == pCategory.ToUpper())
+                        {
+                            ViewBag.objNewInfo = item;
+                            return View("~/Areas/Articles/Views/ArticlesNews/NewsDetailByCategory.cshtml");
+                        }
+                    }
+                } 
+                return View("~/Areas/Articles/Views/ArticlesNews/NewsDetailByCategory.cshtml");
+
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return View();
+            }
+        }
+
+        [HttpGet]
+        [Route("features/{id}")]
+        public ActionResult NewsDetailfeatures()
+        {
+            try
+            {
+                string pCategory = "";
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    pCategory = CommonFuc.ConvertToString(RouteData.Values["id"]);
+                }
+                var objNewsBL = new NewsBL();
+                string language = AppsCommon.GetCurrentLang();
+                List<NewsInfo> lstNews = objNewsBL.NewsStatic(language);
+                ViewBag.objNewInfo = new NewsInfo();
+                if (lstNews.Count > 0)
+                {
+                    foreach (var item in lstNews)
+                    {
+                        if (item.Categories_Id.ToUpper() == pCategory.ToUpper())
+                        {
+                            ViewBag.objNewInfo = item;
+                            return View("~/Areas/Articles/Views/ArticlesNews/NewsDetailByCategory.cshtml");
+                        }
+                    }
+                }
+                return View("~/Areas/Articles/Views/ArticlesNews/NewsDetailByCategory.cshtml");
+
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return View();
+            }
+        }
+
+        [HttpGet]
+        [Route("member-ship/{id}")]
+        public ActionResult NewsDetailmembership()
+        {
+            try
+            {
+                string pCategory = "";
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    pCategory = CommonFuc.ConvertToString(RouteData.Values["id"]);
+                }
+                var objNewsBL = new NewsBL();
+                string language = AppsCommon.GetCurrentLang();
+                List<NewsInfo> lstNews = objNewsBL.NewsStatic(language);
+                ViewBag.objNewInfo = new NewsInfo();
+                if (lstNews.Count > 0)
+                {
+                    foreach (var item in lstNews)
+                    {
+                        if (item.Categories_Id.ToUpper() == pCategory.ToUpper())
+                        {
+                            ViewBag.objNewInfo = item;
+                            return View("~/Areas/Articles/Views/ArticlesNews/NewsDetailByCategory.cshtml");
+                        }
+                    }
+                }
+                return View("~/Areas/Articles/Views/ArticlesNews/NewsDetailByCategory.cshtml");
+
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return View();
+            }
+        }
     }
 }

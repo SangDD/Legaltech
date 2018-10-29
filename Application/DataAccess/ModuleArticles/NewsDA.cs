@@ -172,6 +172,33 @@ namespace DataAccess.ModuleArticles
             }
         }
 
+        /// <summary>
+        /// Các bài viết tĩnh
+        /// </summary>
+        /// <param name="p_key_search"></param>
+        /// <param name="p_from"></param>
+        /// <param name="p_to"></param>
+        /// <param name="p_sort_type"></param>
+        /// <param name="p_total_record"></param>
+        /// <returns></returns>
+        public DataSet NewsStatic(string pLanguage)
+        {
+            try
+            {
+                
+                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_NEWS.PROC_NEWS_STATIC",
+                    new OracleParameter("pLanguage", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output)
+                   );
+                return _ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
 
     }
 }

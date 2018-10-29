@@ -43,6 +43,22 @@ namespace BussinessFacade
             }
         }
 
+        public List<NewsInfo> NewsStatic(string language)
+        {
+            try
+            {
+                NewsDA _da = new NewsDA();
+                DataSet _ds = _da.NewsStatic(language);
+                return CBO<NewsInfo>.FillCollectionFromDataSet(_ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<NewsInfo>();
+            }
+        }
+        
+
         public NewsInfo ArticlesGetById(decimal pID, string pLanguage)
         {
             try
