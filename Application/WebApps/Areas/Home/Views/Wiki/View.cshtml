@@ -95,6 +95,7 @@
                 _status = "3";
                 _catalogue = "ALL";
                 _titleHashtag = $("#_txtwikidocsearch").val().trim();
+              
 
             } else {
                 arrKeySearch = keySearch.split('|');
@@ -123,8 +124,9 @@
             {
                 _titleHashtag = "ALL";
             }
+            keySearch = _status + "|" + _catalogue + "|" + _titleHashtag;
             // updateSearchingConditions("divNumberRecordOnPageListObjects", setKeySearch);
-            var optionFilter = "TITLE|ASC||20|20";
+            var optionFilter = "TITLE|ASC||" + _pageNumber + "|20" ;
             $.ajax({
                 type: "POST",
                 headers: { "cache-control": "no-cache" },
