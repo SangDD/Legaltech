@@ -12,11 +12,11 @@
         _Listtodo = ViewBag.ListTodo;
     }
 
-    int _currstatus = 1;
-    if (ViewBag.Currstatus != null)
-    {
-        _currstatus = ViewBag.Currstatus;
-    }
+    //int _currstatus = 1;
+    //if (ViewBag.Currstatus != null)
+    //{
+    //_currstatus = ViewBag.Currstatus;
+    //}
 
     B_Todos_Info _FirstTodo = new B_Todos_Info();
     if (_Listtodo.Count > 0)
@@ -198,7 +198,7 @@
 
         _count++;
         _Checked = "";
-        if (item.CdVal == _currstatus.ToString())
+        if (item.CdVal == _App_Notice_Info.Status.ToString())
         {
             _Checked = "checked='checked'";
         }
@@ -220,13 +220,13 @@
             }
 
             _count++;
-            if (item.CdVal == _currstatus.ToString())
+            if (item.CdVal == _App_Notice_Info.Status.ToString())
             {
-                <div class="@("user_progress_active progress_div_user_sub" +  _count)"> @_FirstTodo.REQUEST_BY_NAME</div>
+                <div class="@("user_progress_active progress_div_user_sub" +  _count)"> @_FirstTodo.REQUEST_BY_NAME - @_FirstTodo.REQUEST_DATE.ToString("dd/MM/yyyy")</div>
             }
             else
             {
-                <div class="@("user_hidden progress_div_user_sub" +  _count)">@_FirstTodo.REQUEST_BY_NAME </div>
+                <div class="@("user_hidden progress_div_user_sub" +  _count)">@_FirstTodo.REQUEST_BY_NAME - @_FirstTodo.REQUEST_DATE.ToString("dd/MM/yyyy")</div>
             }
         }
     </div>
