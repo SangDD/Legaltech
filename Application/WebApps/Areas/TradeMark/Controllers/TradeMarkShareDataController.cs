@@ -149,6 +149,11 @@ namespace WebApps.Areas.TradeMark.Controllers
                 // sau advise filing
                 if (_ApplicationHeaderInfo.Status >= (decimal)CommonEnums.App_Status.Customer_Review)
                 {
+                    // LẤY THÔNG TIN CỦA THẰNG NOTICE APP
+                    App_Notice_Info_BL _notice_BL = new App_Notice_Info_BL();
+                    App_Notice_Info _App_Notice_Info = _notice_BL.App_Notice_GetBy_CaseCode(p_case_code);
+                    ViewBag.App_Notice_Info = _App_Notice_Info;
+
                     return View("/Areas/TradeMark/Views/Shared/AppDetail/AppDetails_After_Filing.cshtml");
                 }
                 else

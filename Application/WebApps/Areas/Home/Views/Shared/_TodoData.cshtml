@@ -69,6 +69,13 @@
                                 <a href="javascript:;" onclick="GetView2Action_Wiki('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
                             </td>
                         }
+                        else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.Register))
+                        {
+                            <td class="tdleftalign">
+                                <a href="javascript:;" onclick="GetView2Action_Register('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
+                            </td>
+                        }
+                        
                         else
                         {
                             <td class="tdleftalign">@item.CASE_CODE</td>
@@ -179,6 +186,21 @@
             console.log(e.toString())
         }
     }
+
+    function GetView2Action_Register(_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        try {
+            var url = "/quan-tri-he-thong/chi-tiet-dang-ky/" + _case_code + "";
+            window.open(url);
+            //window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
+
+    
     
 
 </script>

@@ -12,7 +12,7 @@ namespace BussinessFacade
 {
     public class App_Notice_Info_BL
     {
-        public App_Notice_Info App_Notice_GetBy_CaseCode(string p_case_code, decimal p_notice_type)
+        public App_Notice_Info App_Notice_GetBy_CaseCode(string p_case_code, decimal p_notice_type = -1)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace BussinessFacade
             {
                 App_Notice_Info_DA _da = new App_Notice_Info_DA();
                 return _da.App_Notice_Insert(p_obj.Case_Code, p_obj.Notice_Number, p_obj.Notice_Date, p_obj.Notice_Type,
-                    p_obj.Notice_Url, p_obj.Result, p_obj.Accept_Date, p_obj.Accept_Url, p_obj.Reject_Reason, p_obj.Status, p_obj.Advise_Replies,
+                    p_obj.Notice_Url, p_obj.Notice_Trans_Url, p_obj.Result, p_obj.Accept_Date, p_obj.Accept_Url, p_obj.Reject_Reason, p_obj.Status, p_obj.Advise_Replies,
                     p_obj.Biling_Url, p_obj.Created_By, p_obj.Note);
             }
             catch (Exception ex)
@@ -74,12 +74,12 @@ namespace BussinessFacade
             }
         }
 
-        public decimal App_Notice_Update_Status(string p_case_code, decimal p_notice_type, decimal p_status, string p_note, string p_modify_by)
+        public decimal App_Notice_Update_Status(string p_case_code, decimal p_notice_type, decimal p_status, decimal p_result, DateTime p_accept_date, string p_note, string p_modify_by)
         {
             try
             {
                 App_Notice_Info_DA _da = new App_Notice_Info_DA();
-                return _da.App_Notice_Update_Status(p_case_code, p_notice_type, p_status, p_note, p_modify_by);
+                return _da.App_Notice_Update_Status(p_case_code, p_notice_type, p_status,p_result,p_accept_date, p_note, p_modify_by);
             }
             catch (Exception ex)
             {

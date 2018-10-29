@@ -198,7 +198,7 @@ namespace WebApps.Areas.Manager.Controllers
 
         [HttpGet]
         [Route("danh-sach-billing/show-insert-by-casecode")]
-        public ActionResult GetView2InsertByCaseCode(string p_case_code)
+        public ActionResult GetView2InsertByCaseCode(string p_case_code, decimal p_type)
         {
             try
             {
@@ -207,6 +207,7 @@ namespace WebApps.Areas.Manager.Controllers
                 Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
                 _Billing_Header_Info.Case_Code = _caseCode;
                 ViewBag.Case_Code = p_case_code;
+                ViewBag.Insert_Type = p_type;
                 return View("~/Areas/Manager/Views/Billing/_PartialInsert.cshtml", _Billing_Header_Info);
             }
             catch (Exception ex)
@@ -252,16 +253,28 @@ namespace WebApps.Areas.Manager.Controllers
                         _ck = _obj_bl.Billing_Detail_InsertBatch(_lst_billing_detail, _ck);
                     }
 
-                    if (_ck > 0 && p_Billing_Header_Info.Is_AdviceFilling == 1)
+                    if (_ck > 0 && p_Billing_Header_Info.Insert_Type != (decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.App)
                     {
                         string _fileExport = Export_Billing(p_Billing_Header_Info.Case_Code);
-                        Application_Header_BL _BL = new Application_Header_BL();
-                        _ck = _BL.AppHeader_Update_Url_Billing(p_Billing_Header_Info.App_Case_Code, _fileExport);
+                        if (_fileExport == "") goto Commit_Transaction;
 
-                        TradeMark.Controllers.ApplicationController.Insert_Docketing(p_Billing_Header_Info.App_Case_Code, "Report Billing", _fileExport);
+                        if (p_Billing_Header_Info.Insert_Type == (decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Advise_Filling)
+                        {
+                            Application_Header_BL _BL = new Application_Header_BL();
+                            _ck = _BL.AppHeader_Update_Advise_Url_Billing(p_Billing_Header_Info.App_Case_Code, _fileExport);
+                        }
+                        else if (p_Billing_Header_Info.Insert_Type == (decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Accept_Form)
+                        {
+                            string _key = "BILLING_APP_" + ((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Accept_Form).ToString();
+                            SessionData.SetDataSession(_key, _fileExport);
+                        }
+
+                        // nếu kết xuất file thành công thì insert vào docking
+                        TradeMark.Controllers.ApplicationController.Insert_Docketing(p_Billing_Header_Info.App_Case_Code, "Report Billing", _fileExport, true);
                     }
 
                     //end
+                    Commit_Transaction:
                     if (_ck < 0)
                     {
                         Transaction.Current.Rollback();

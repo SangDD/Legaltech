@@ -20,5 +20,7 @@ namespace ObjectInfos.ModuleUsersAndRoles
 
         public DateTime CreateDate { get; set; }
         public string KeySecret { get; set; }
+
+        public string CASE_CODE { get; set; }
     }
 }

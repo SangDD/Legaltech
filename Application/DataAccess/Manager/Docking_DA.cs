@@ -138,6 +138,41 @@ namespace DataAccess
             }
         }
 
+        public decimal Docking_Insert_Transaction(string p_app_case_code, decimal p_docking_type, string p_document_name, decimal p_document_type, decimal p_status,
+            DateTime p_deadline, decimal p_isshowcustomer, DateTime p_in_out_date, string p_created_by, DateTime p_created_date, string p_language_code,
+            string p_url, string p_notes, decimal p_place_submit, string p_filename)
+        {
+            try
+            {
+                var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "Pkg_Docking.Proc_Docking_Insert_tran",
+                    new OracleParameter("p_app_case_code", OracleDbType.Varchar2, p_app_case_code, ParameterDirection.Input),
+                    new OracleParameter("p_docking_type", OracleDbType.Decimal, p_docking_type, ParameterDirection.Input),
+                    new OracleParameter("p_document_name", OracleDbType.Varchar2, p_document_name, ParameterDirection.Input),
+                    new OracleParameter("p_document_type", OracleDbType.Decimal, p_document_type, ParameterDirection.Input),
+                    new OracleParameter("p_status", OracleDbType.Decimal, p_status, ParameterDirection.Input),
+                    new OracleParameter("p_deadline", OracleDbType.Date, p_deadline, ParameterDirection.Input),
+                    new OracleParameter("p_isshowcustomer", OracleDbType.Decimal, p_isshowcustomer, ParameterDirection.Input),
+                    new OracleParameter("p_in_out_date", OracleDbType.Date, p_in_out_date, ParameterDirection.Input),
+                    new OracleParameter("p_created_by", OracleDbType.Varchar2, p_created_by, ParameterDirection.Input),
+                    new OracleParameter("p_created_date", OracleDbType.Date, p_created_date, ParameterDirection.Input),
+                    new OracleParameter("p_place_submit", OracleDbType.Decimal, p_place_submit, ParameterDirection.Input),
+                    new OracleParameter("p_url", OracleDbType.Varchar2, p_url, ParameterDirection.Input),
+                    new OracleParameter("p_filename", OracleDbType.Varchar2, p_filename, ParameterDirection.Input),
+                    new OracleParameter("p_notes", OracleDbType.Varchar2, p_notes, ParameterDirection.Input),
+                    new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
+
+                    paramReturn);
+
+                return Convert.ToDecimal(paramReturn.Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
         public decimal Docking_Update(decimal p_docking_id, decimal p_docking_type, string p_document_name, decimal p_document_type, decimal p_status,
             DateTime p_deadline, decimal p_isshowcustomer, DateTime p_in_out_date, string p_modify_by, DateTime p_modify_date, 
             string p_language_code, string p_url, string p_notes, decimal p_place_submit, string p_filename)

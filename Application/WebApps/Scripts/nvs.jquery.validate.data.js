@@ -1,8 +1,8 @@
 ﻿$(function () {
-	$(document).ajaxSend(function (event, request) {
-		var securityToken = document.head.querySelector('meta[name="__RequestVerificationToken"]').content;
-		request.setRequestHeader("__RequestVerificationToken", securityToken);
-	});
+	//$(document).ajaxSend(function (event, request) {
+	//	var securityToken = document.head.querySelector('meta[name="__RequestVerificationToken"]').content;
+	//	request.setRequestHeader("__RequestVerificationToken", securityToken);
+	//});
 });
 
 //check session time out 

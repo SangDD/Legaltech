@@ -511,6 +511,22 @@
             }
         }
 
+        public static DataSet RegisterGetByCaseCode(string p_casecode)
+        {
+            try
+            {
+                DataSet ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_REGISTOR.PROC_REGISTOR_CASECODE",
+                new OracleParameter("P_CASECODE", OracleDbType.Varchar2, p_casecode, ParameterDirection.Input),
+                new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output));
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
         #endregion
     }
 }

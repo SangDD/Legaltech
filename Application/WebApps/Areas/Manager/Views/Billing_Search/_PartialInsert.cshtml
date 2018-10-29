@@ -35,6 +35,13 @@
         _case_code = (string)ViewBag.Case_Code;
     }
     Model.App_Case_Code = _case_code;
+
+
+    decimal _insertType = -1;
+    if (_case_code != "")
+    {
+        _insertType = (decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Search;
+    }
 }
 <script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
 <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
@@ -438,7 +445,7 @@
             });
             return false;
         }
-         
+
         return true;
     }
 
@@ -463,12 +470,7 @@
             formData.append('p_Billing_Header_Info.Currency_Rate', parseInt($("#txtCurrency_Rate").val().replace(/,/g, "")));
             formData.append('p_Billing_Header_Info.Notes', $("#txtNotes").val());
 
-            if ('@_case_code' != "") {
-                formData.append('p_Billing_Header_Info.Is_AdviceFilling', 1);
-            }
-            else {
-                formData.append('p_Billing_Header_Info.Is_AdviceFilling', 0);
-            }
+            formData.append('p_Billing_Header_Info.Insert_Type', @_insertType);
         } catch (e) {
             alert(e.toString());
         }

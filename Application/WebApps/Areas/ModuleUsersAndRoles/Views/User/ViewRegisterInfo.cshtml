@@ -1,0 +1,201 @@
+﻿@using Common.CommonData;
+@using ObjectInfos.ModuleUsersAndRoles;
+@using BussinessFacade;
+@using BussinessFacade.ModuleMemoryData;
+@using System.Xml;
+@model RegisterInfo
+
+@{
+    ViewBag.Title = "Gửi email xác nhận";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+
+}
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 150px;
+    }
+</style>
+
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        Monitor
+        <span class="red">></span>
+        <a href="#">Gửi email xác nhận mở tài khoản</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+
+@*Notify*@
+<div class="divCover">
+    @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+</div>
+
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <div class="div-title-content"> GỬI EMAIL XÁC NHẬN MỞ TÀI KHOẢN</div>
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/info_2.png" />
+            <div class="cls_form_header">
+                Chi tiết thông tin đăng ký
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Case code </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.CASE_CODE, new { id = "Casecode", @maxlength = "100", @disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Họ </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.FistName, new { id = "FistName", @maxlength = "100", @disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tên</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" value="@Model.LastName" disabled />
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div> SĐT </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" value="@Model.Phone" disabled />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div> Email </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" value="@Model.Email" disabled />
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div> Ngày đăng ký </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" value="@Model.CreateDate.ToString("dd/MM/yyyy HH:mm:ss")" disabled />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divCover cls_form_title" style="margin-top:20px;float:left;width:100%">
+        <img src="/Content/icons/icon_info_24.png" />
+        <div class="cls_form_header">
+            Lịch sử giao dịch
+        </div>
+    </div>
+
+    <div class="divCover legalTodo_div" style="background-color: antiquewhite;">
+        <div class="box_title" style="width:200px; float:left">  </div>
+        <div id="d_todo_notify" class="box_title" style="width:calc(100% - 240px); padding:0px; float:left">
+        </div>
+        <div class="Homebox">
+            <div id="LegalTododivTable" class="LegaldivBoxTable">
+                @Html.Partial("~/Areas/Wiki/Views/WikiDoc/_TodoData.cshtml")
+            </div>
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div class="div-search-btn" style="width:600px;margin-top: 5px;">
+            @if (Model.Status == 0)
+            {
+                <input type="submit" class="btn-default" value="Gửi Email xác nhận"
+                        onclick="javascript:funcXacNhanDangKy(@Model.Id,'@Model.Email','@Model.Phone')" />
+            }
+            <input type="submit" class="btn-default" value="Thoát" onclick="return onBack()" />
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+                // $("txtApp_Case_Code").focus();
+            });
+
+    function onBack() {
+        try {
+
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            var url = "/quan-tri-he-thong/danh-sach-kh-dk";
+            window.location.href = url;
+        } catch (e) {
+            CreateRollingWaitingIcon(true);
+            alert(e);
+        }
+    }
+
+    //Xác nhận đăng ký khách hàng
+    function funcXacNhanDangKy(id, email) {
+        try {
+            $.ajax({
+                url: "/quan-tri-he-thong/xac-nhan-kh-dk",
+                type: 'POST',
+                data: { pID: id, pEmail: email },
+                async: false, cache: false,
+                success: function (data) {
+                    if (data != null && data.status >= 0) {
+                        jAlert("Xử lý thành công!", "thông báo", function () {
+                           window.location.href = "/quan-tri-he-thong/danh-sach-kh-dk";
+                        });
+                        return true;
+                    }
+                    else {
+                        nvsError("Xử lý thất bại!", "thông báo", function () {
+                        });
+                        return;
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        } catch (e) {
+        }
+        $("#hrfXuLyMailXacNhan").css('display', 'block');
+    }
+
+</script>

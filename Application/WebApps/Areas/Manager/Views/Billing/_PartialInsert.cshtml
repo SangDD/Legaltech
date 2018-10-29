@@ -35,6 +35,13 @@
         _case_code = (string)ViewBag.Case_Code;
     }
     Model.App_Case_Code = _case_code;
+
+
+    decimal _insertType = (decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.App;
+    if (ViewBag.Insert_Type != null)
+    {
+        _insertType = (decimal)ViewBag.Insert_Type;
+    }
 }
 <script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
 <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
@@ -106,13 +113,13 @@
             </div>
 
             @*<div class="div-search-title">
-                <div>Người xét duyệt<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.DropDownList("Approve_By", lstUsersAdmin, new { @id = "Approve_By" })
+                    <div>Người xét duyệt<i class="redspan">(*)</i></div>
                 </div>
-            </div>*@
+                <div class="div-search-content">
+                    <div>
+                        @Html.DropDownList("Approve_By", lstUsersAdmin, new { @id = "Approve_By" })
+                    </div>
+                </div>*@
         </div>
 
         <div id="divInfoApp" style="margin-top: 10px;">
@@ -480,12 +487,14 @@
             formData.append('p_Billing_Header_Info.Currency_Rate', parseInt($("#txtCurrency_Rate").val().replace(/,/g, "")));
             formData.append('p_Billing_Header_Info.Notes', $("#txtNotes").val());
 
-            if ('@_case_code' != "") {
+            formData.append('p_Billing_Header_Info.Insert_Type', @_insertType);
+
+            @*if ('@_case_code' != "") {
                 formData.append('p_Billing_Header_Info.Is_AdviceFilling', 1);
             }
             else {
-                formData.append('p_Billing_Header_Info.Is_AdviceFilling', 0);
-            }
+                formData.append('p_Billing_Header_Info.Insert_Type', -1);
+            }*@
         } catch (e) {
             alert(e.toString());
         }

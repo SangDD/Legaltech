@@ -78,7 +78,7 @@ namespace WebApps.Areas.Manager.Controllers
             {
                 SearchObject_BL _bl = new SearchObject_BL();
                 List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
-                SearchObject_Header_Info objSearch_HeaderInfo = _bl.GetBilling_By_Case_Code(p_case_code, SessionData.CurrentUser.Username, 
+                SearchObject_Header_Info objSearch_HeaderInfo = _bl.GetBilling_By_Case_Code(p_case_code, SessionData.CurrentUser.Username,
                     AppsCommon.GetCurrentLang(), ref _lst_billing_detail);
                 ViewBag.objSearch_HeaderInfo = objSearch_HeaderInfo;
 
@@ -176,17 +176,20 @@ namespace WebApps.Areas.Manager.Controllers
                         _ck = _obj_bl.Billing_Detail_InsertBatch(_lst_billing_detail, _ck);
                     }
 
-                    if (_ck > 0 && p_Billing_Header_Info.Is_AdviceFilling == 1)
+                    if (_ck > 0 && p_Billing_Header_Info.Insert_Type == (decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Search)
                     {
                         string _fileExport = Export_Billing(p_Billing_Header_Info.Case_Code);
+                        if (_fileExport == "") goto Commit_Transaction;
+
                         SearchObject_BL _bl = new SearchObject_BL();
                         _ck = _bl.Update_Url_Billing(p_Billing_Header_Info.App_Case_Code, _fileExport);
 
                         // insert vào docking
-                        TradeMark.Controllers.ApplicationController.Insert_Docketing(p_Billing_Header_Info.Case_Code, "Report Billing", _fileExport);
+                        TradeMark.Controllers.ApplicationController.Insert_Docketing(p_Billing_Header_Info.Case_Code, "Report Billing", _fileExport, true);
                     }
 
                     //end
+                    Commit_Transaction:
                     if (_ck < 0)
                     {
                         Transaction.Current.Rollback();

@@ -150,7 +150,7 @@
 
     function do_Filing(_case_code) {
         if (validateAction()) {
-            nvsConfirm(null, "Bạn có chắc chắn cập nhật thông tin thông báo hình thức hay không không?", function () {
+            nvsConfirm(null, "Bạn có chắc chắn muốn nộp đơn này cho khách hàng không?", function () {
 
                 
 
@@ -228,14 +228,6 @@
             if (checkDate("Ngày hợp lệ", "#txt_accept_date", txt_accept_date) == false) {
                 return false;
             }
-        }
-
-        var _Note = $('#txtNotes').val();
-        if (_Note == null || _Note == "") {
-            jError('Ghi chú không được để trống!', "Lỗi", function () {
-                $('#txtNotes').focus();
-            });
-            return false;
         }
 
         var _re = checkValidate_File("1");

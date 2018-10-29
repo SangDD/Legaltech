@@ -356,31 +356,33 @@
                 </div>
             </div>
         </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Nhóm quyền</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <select id="cboGroupUser">
-                        <option value="-1">None</option>
-                        @foreach (var item in MemoryData.GetAllGroup())
-                        {
-                            if (item.Id == _groupId)
+        @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.SupperAdmin)
+        {
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Nhóm quyền</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboGroupUser">
+                            <option value="-1">None</option>
+                            @foreach (var item in MemoryData.GetAllGroup())
                             {
-                                <option selected="selected" value="@item.Id">@item.Name</option>
+                                if (item.Id == _groupId)
+                                {
+                                    <option selected="selected" value="@item.Id">@item.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
                             }
-                            else
-                            {
-                                <option value="@item.Id">@item.Name</option>
-                            }
-                        }
-                    </select>
+                        </select>
 
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     </div>
 
     <div class="form-group">

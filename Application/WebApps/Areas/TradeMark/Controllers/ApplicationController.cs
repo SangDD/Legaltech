@@ -417,7 +417,8 @@ namespace WebApps.Areas.TradeMark.Controllers
                 int _ck = _obj_bl.AppHeader_Update_Status(pInfo.Case_Code, _status, pInfo.Note,
                      SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
 
-                if (_ck >= 0)
+                // insert file vào docketing
+                if (_ck == 0)
                 {
                     var url_File_Atachment = AppLoadHelpers.PushFileToServer(pInfo.File_Atachment, AppUpload.App);
                     Insert_Docketing(pInfo.Case_Code, "Tài liệu đính kèm từ khách hàng", url_File_Atachment);
@@ -432,6 +433,7 @@ namespace WebApps.Areas.TradeMark.Controllers
             }
         }
 
+        #region Thông báo hình thức
         [HttpPost]
         [Route("quan-ly-don/lawer-notice-form")]
         public ActionResult Do_Lawer_Notice_Form(App_Notice_Info pInfo)
@@ -445,11 +447,11 @@ namespace WebApps.Areas.TradeMark.Controllers
                 if (pInfo.Accept_Date == null || pInfo.Accept_Date.Date == DateTime.MinValue.Date)
                 {
                     _status_app = (decimal)CommonEnums.App_Status.TuChoi_ThongBaoHinhThuc;
-                    pInfo.Result = (decimal)CommonEnums.Notice_Result.ChapNhan;
+                    pInfo.Result = (decimal)CommonEnums.Notice_Result.TuChoi;
                 }
                 else
                 {
-                    pInfo.Result = (decimal)CommonEnums.Notice_Result.TuChoi;
+                    pInfo.Result = (decimal)CommonEnums.Notice_Result.ChapNhan;
                 }
 
                 // update trạng thái đơn trước
@@ -457,16 +459,41 @@ namespace WebApps.Areas.TradeMark.Controllers
                 decimal _ck = _obj_bl.AppHeader_Update_Status(pInfo.Case_Code, _status_app, pInfo.Note,
                      SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
 
-                // insert vào bảng thông báo
-                var url_File_Atachment = AppLoadHelpers.PushFileToServer(pInfo.File_Notice_Url, AppUpload.App);
-                pInfo.Notice_Url = url_File_Atachment;
+                if (_ck == 0)
+                {
+                    // Notice_Url 
+                    var url_File_Atachment = "";
+                    if (pInfo.File_Notice_Url != null)
+                    {
+                        url_File_Atachment = AppLoadHelpers.PushFileToServer(pInfo.File_Notice_Url, AppUpload.App);
+                        pInfo.Notice_Url = url_File_Atachment;
+                    }
 
-                App_Notice_Info_BL _App_Notice_Info_BL = new App_Notice_Info_BL();
-                _ck = _App_Notice_Info_BL.App_Notice_Insert(pInfo, AppsCommon.GetCurrentLang());
+                    // insert vào bảng thông báo
+                    var url_File_AtachmentTrans = "";
+                    if (pInfo.File_Notice_Trans_Url != null)
+                    {
+                        url_File_AtachmentTrans = AppLoadHelpers.PushFileToServer(pInfo.File_Notice_Trans_Url, AppUpload.App);
+                        pInfo.Notice_Trans_Url = url_File_AtachmentTrans;
+                    }
 
+                    // url billing
+                    string _keyUrlBilling = "BILLING_APP_" + ((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Accept_Form).ToString();
+                    string _url_billing = (string)SessionData.GetDataSession(_keyUrlBilling);
+                    if (_url_billing != null && _url_billing != "")
+                        pInfo.Biling_Url = _url_billing;
 
-                // insert file vào doc
-                Insert_Docketing(pInfo.Case_Code, "Scan thông báo hình thức", url_File_Atachment);
+                    App_Notice_Info_BL _App_Notice_Info_BL = new App_Notice_Info_BL();
+                    _ck = _App_Notice_Info_BL.App_Notice_Insert(pInfo, AppsCommon.GetCurrentLang());
+
+                    // insert file vào docketing
+                    if (_ck > 0)
+                    {
+                        Insert_Docketing(pInfo.Case_Code, "File scan accept form", url_File_Atachment);
+                        Insert_Docketing(pInfo.Case_Code, "File transalte accept form", url_File_AtachmentTrans);
+                    }
+                }
+
 
                 return Json(new { success = _ck });
             }
@@ -477,7 +504,99 @@ namespace WebApps.Areas.TradeMark.Controllers
             }
         }
 
-        public static void Insert_Docketing(string p_app_case_code, string p_doc_name, string p_url_File_Atachment)
+        [HttpPost]
+        [Route("quan-ly-don/do-admin-approve-form")]
+        public ActionResult AdminApprove_Form(string p_case_code, decimal p_status, string p_note)
+        {
+            try
+            {
+                Application_Header_BL _obj_bl = new Application_Header_BL();
+                decimal _status = (decimal)CommonEnums.App_Status.LuatSuDaConfirm;
+
+                int _ck = _obj_bl.AppHeader_Update_Status(p_case_code, _status, p_note, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        } 
+        #endregion
+
+        [HttpPost]
+        [Route("quan-ly-don/do-lawer-public-application")]
+        public ActionResult Do_Lawer_Public_App(App_Notice_Info pInfo)
+        {
+            try
+            {
+                pInfo.Notice_Type = (decimal)CommonEnums.Notice_Type.HinhThuc;
+                pInfo.Status = (decimal)CommonEnums.Notice_Accept_Status.LuatSu_GuiChoAdminDuyet;
+
+                // trạng thái app
+                decimal _status_app = (decimal)CommonEnums.App_Status.CongBoDon;
+
+                // trạng thái notice
+                if (pInfo.Accept_Date == null || pInfo.Accept_Date.Date == DateTime.MinValue.Date)
+                {
+                    pInfo.Result = (decimal)CommonEnums.Notice_Result.TuChoi;
+                }
+                else
+                {
+                    pInfo.Result = (decimal)CommonEnums.Notice_Result.ChapNhan;
+                }
+
+                // update trạng thái đơn trước
+                Application_Header_BL _obj_bl = new Application_Header_BL();
+                decimal _ck = _obj_bl.AppHeader_Update_Status(pInfo.Case_Code, _status_app, pInfo.Note,
+                     SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+
+                if (_ck == 0)
+                {
+                    // Notice_Url 
+                    var url_File_Atachment = "";
+                    if (pInfo.File_Notice_Url != null)
+                    {
+                        url_File_Atachment = AppLoadHelpers.PushFileToServer(pInfo.File_Notice_Url, AppUpload.App);
+                        pInfo.Notice_Url = url_File_Atachment;
+                    }
+
+                    // insert vào bảng thông báo
+                    var url_File_AtachmentTrans = "";
+                    if (pInfo.File_Notice_Trans_Url != null)
+                    {
+                        url_File_AtachmentTrans = AppLoadHelpers.PushFileToServer(pInfo.File_Notice_Trans_Url, AppUpload.App);
+                        pInfo.Notice_Trans_Url = url_File_AtachmentTrans;
+                    }
+
+                    // url billing
+                    string _keyUrlBilling = "BILLING_APP_" + ((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Accept_Form).ToString();
+                    string _url_billing = (string)SessionData.GetDataSession(_keyUrlBilling);
+                    if (_url_billing != null && _url_billing != "")
+                        pInfo.Biling_Url = _url_billing;
+
+                    App_Notice_Info_BL _App_Notice_Info_BL = new App_Notice_Info_BL();
+                    _ck = _App_Notice_Info_BL.App_Notice_Insert(pInfo, AppsCommon.GetCurrentLang());
+
+                    // insert file vào docketing
+                    if (_ck > 0)
+                    {
+                        Insert_Docketing(pInfo.Case_Code, "Trích xuất Công báo SHCN", url_File_Atachment);
+                        Insert_Docketing(pInfo.Case_Code, "Dịch trích xuất Công báo SHCN", url_File_AtachmentTrans);
+                    }
+                }
+
+
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
+        public static void Insert_Docketing(string p_app_case_code, string p_doc_name, string p_url_File_Atachment, bool p_is_transaction = false)
         {
             try
             {
@@ -504,7 +623,14 @@ namespace WebApps.Areas.TradeMark.Controllers
 
                 p_Docking_Info.Url = p_url_File_Atachment;
 
-                _obj_docBL.Docking_Insert(p_Docking_Info);
+                if (p_is_transaction == false)
+                {
+                    _obj_docBL.Docking_Insert(p_Docking_Info);
+                }
+                else
+                {
+                    _obj_docBL.Docking_Insert_Transaction(p_Docking_Info);
+                }
             }
             catch (Exception ex)
             {

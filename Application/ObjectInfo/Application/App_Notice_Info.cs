@@ -21,6 +21,9 @@ namespace ObjectInfos
         public HttpPostedFileBase File_Notice_Url { get; set; }
         public string Notice_Url { get; set; }
 
+        public HttpPostedFileBase File_Notice_Trans_Url { get; set; }
+        public string Notice_Trans_Url { get; set; }
+
         public decimal Result { get; set; }
         public DateTime Accept_Date { get; set; }
 

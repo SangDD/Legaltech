@@ -602,19 +602,37 @@
             }
         }
 
-        public List<RegisterInfo> RegisterGetById(decimal pID)
+        public RegisterInfo RegisterGetById(decimal pID)
         {
             try
             {
                 DataSet ds = UserDA.RegisterGetById(pID);
-                return CBO<RegisterInfo>.FillCollectionFromDataSet(ds);
+                return CBO<RegisterInfo>.FillObjectFromDataSet(ds);
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return new List<RegisterInfo>();
+                return new RegisterInfo();
             }
         }
+
+        public RegisterInfo RegisterGetByCaseCode(string p_casecode)
+        {
+            try
+            {
+                DataSet ds = UserDA.RegisterGetByCaseCode(p_casecode);
+                return CBO<RegisterInfo>.FillObjectFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new RegisterInfo();
+            }
+        }
+
+
+
+        
         #endregion
     }
 }
