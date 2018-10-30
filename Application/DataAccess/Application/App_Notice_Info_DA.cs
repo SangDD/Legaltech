@@ -50,7 +50,8 @@ namespace DataAccess
             }
         }
 
-        public int App_Notice_Update_Status(string p_case_code, decimal p_notice_type, decimal p_status, decimal p_result, DateTime p_accept_date, string p_note, string p_modify_by)
+        public int App_Notice_Update_Status(string p_case_code, decimal p_notice_type, decimal p_status, decimal p_result, 
+            DateTime p_accept_date, string p_note, string p_modify_by, string p_language_code)
         {
             try
             {
@@ -63,6 +64,7 @@ namespace DataAccess
                     new OracleParameter("p_accept_date", OracleDbType.Date, p_accept_date, ParameterDirection.Input),
                     new OracleParameter("p_note", OracleDbType.Varchar2, p_note, ParameterDirection.Input),
                     new OracleParameter("p_modify_by", OracleDbType.Varchar2, p_modify_by, ParameterDirection.Input),
+                    new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;
@@ -110,19 +112,45 @@ namespace DataAccess
             }
         }
 
-        public decimal App_Notice_Review(string p_case_code, decimal p_notice_type, decimal p_status, 
-            string p_advise_replies, string p_note, string p_modify_by)
+        public decimal App_Notice_Review_Accept(string p_case_code, decimal p_notice_type, decimal p_status,
+            string p_note, string p_modify_by, string p_language_code)
         {
             try
             {
                 var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
-                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_notice_info.proc_review",
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_notice_info.proc_review_accept",
+                    new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
+                    new OracleParameter("p_notice_type", OracleDbType.Decimal, p_notice_type, ParameterDirection.Input),
+                    new OracleParameter("p_status", OracleDbType.Decimal, p_status, ParameterDirection.Input),
+                    new OracleParameter("p_note", OracleDbType.Varchar2, p_note, ParameterDirection.Input),
+                    new OracleParameter("p_modify_by", OracleDbType.Varchar2, p_modify_by, ParameterDirection.Input),
+                    new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
+                    paramReturn);
+
+                return Convert.ToDecimal(paramReturn.Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
+        public decimal App_Notice_Review_Reject(string p_case_code, decimal p_notice_type, decimal p_status, 
+            string p_advise_replies, string p_advise_replies_trans, string p_note, string p_modify_by, string p_language_code)
+        {
+            try
+            {
+                var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_notice_info.proc_review_reject",
                     new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
                     new OracleParameter("p_notice_type", OracleDbType.Decimal, p_notice_type, ParameterDirection.Input),
                     new OracleParameter("p_status", OracleDbType.Decimal, p_status, ParameterDirection.Input),
                     new OracleParameter("p_advise_replies", OracleDbType.Varchar2, p_advise_replies, ParameterDirection.Input),
+                    new OracleParameter("p_advise_replies_trans", OracleDbType.Varchar2, p_advise_replies_trans, ParameterDirection.Input), 
                     new OracleParameter("p_note", OracleDbType.Varchar2, p_note, ParameterDirection.Input),
                     new OracleParameter("p_modify_by", OracleDbType.Varchar2, p_modify_by, ParameterDirection.Input),
+                    new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
                     paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());

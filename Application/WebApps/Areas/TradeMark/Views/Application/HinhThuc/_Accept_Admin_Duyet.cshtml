@@ -148,7 +148,7 @@
             nvsConfirm(null, "Bạn có chắc chắn muốn duyệt nội dung này hay không?", function () {
 
                 $.ajax({
-                    url: '/trade-mark-mana/quan-ly-don/do-admin-approve-form',
+                    url: '/trade-mark-mana/quan-ly-don/accept-admin-approve-form',
                     type: 'POST',
                     data: {
                         p_case_code: _case_code,
@@ -184,7 +184,7 @@
         if (validateAction()) {
             nvsConfirm(null, "Bạn có chắc chắn muốn duyệt nội dung này hay không?", function () {
                 $.ajax({
-                    url: '/trade-mark-mana/quan-ly-don/do-admin-approve-form',
+                    url: '/trade-mark-mana/quan-ly-don/accept-admin-approve-form',
                     type: 'POST',
                     data: {
                         p_case_code: _case_code,
@@ -217,7 +217,7 @@
     }
 
     function onTransfer(_case_code) {
-        var url = "/trade-mark-share-data/app-re-grant/" + 0 + "/2" + "/" + '@_AppHeaderInfo.Status';
+        var url = "/trade-mark-share-data/app-re-grant/" + _case_code + "/2" + "/" + '@_AppHeaderInfo.Status';
         window.open(url);
     }
 

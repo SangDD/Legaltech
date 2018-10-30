@@ -140,11 +140,13 @@
 
             @if (_reGrant == 1)
             {
-                // nếu đổi quyền ở bước duyệt advice filing
+                @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_Re_PhanLoai_2_Lawer.cshtml")
+
+                @*// nếu đổi quyền ở bước duyệt advice filing
                 if (_hardStatus == (int)CommonEnums.App_Status.DaGuiLenCuc)
                 {
                     @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_Re_PhanLoai_2_Lawer.cshtml")
-                }
+                }*@
             }
             else
             {

@@ -60,12 +60,13 @@ namespace BussinessFacade
             }
         }
 
-        public decimal App_Notice_Review(App_Notice_Info p_obj)
+        public decimal App_Notice_Review_Accept(string p_Case_Code, decimal p_Notice_Type, decimal p_status,
+            string p_notes, string p_modify_by, string p_language_code)
         {
             try
             {
                 App_Notice_Info_DA _da = new App_Notice_Info_DA();
-                return _da.App_Notice_Review(p_obj.Case_Code, p_obj.Notice_Type, p_obj.Status, p_obj.Advise_Replies, p_obj.Note, p_obj.Modify_By);
+                return _da.App_Notice_Review_Accept(p_Case_Code, p_Notice_Type, p_status, p_notes, p_modify_by, p_language_code);
             }
             catch (Exception ex)
             {
@@ -74,12 +75,28 @@ namespace BussinessFacade
             }
         }
 
-        public decimal App_Notice_Update_Status(string p_case_code, decimal p_notice_type, decimal p_status, decimal p_result, DateTime p_accept_date, string p_note, string p_modify_by)
+        public decimal App_Notice_Review_Reject(string p_Case_Code, decimal p_Notice_Type, decimal p_status, string Advise_Replies, string Advise_Replies_Trans,
+           string p_notes, string p_modify_by, string p_language_code)
         {
             try
             {
                 App_Notice_Info_DA _da = new App_Notice_Info_DA();
-                return _da.App_Notice_Update_Status(p_case_code, p_notice_type, p_status,p_result,p_accept_date, p_note, p_modify_by);
+                return _da.App_Notice_Review_Reject(p_Case_Code, p_Notice_Type, p_status, Advise_Replies, Advise_Replies_Trans, p_notes, p_modify_by, p_language_code);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
+        public decimal App_Notice_Update_Status(string p_case_code, decimal p_notice_type, decimal p_status, decimal p_result,
+            DateTime p_accept_date, string p_note, string p_modify_by, string p_language_code)
+        {
+            try
+            {
+                App_Notice_Info_DA _da = new App_Notice_Info_DA();
+                return _da.App_Notice_Update_Status(p_case_code, p_notice_type, p_status, p_result, p_accept_date, p_note, p_modify_by, p_language_code);
             }
             catch (Exception ex)
             {

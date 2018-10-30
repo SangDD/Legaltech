@@ -73,7 +73,10 @@
         public enum Notice_Type
         {
             HinhThuc = 1,
-            NoiDung = 2
+            CongBo_Don = 2,
+            NoiDung = 3,
+            ThongBao_Cap_Bang = 4,
+            CongBo_Bang = 5
         }
 
         public enum Notice_Result
