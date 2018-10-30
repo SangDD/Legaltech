@@ -155,7 +155,7 @@
             nvsConfirm(null, "Bạn có chắc chắn muốn duyệt nội dung này hay không?", function () {
 
                 $.ajax({
-                    url: '/trade-mark-mana/quan-ly-don/accept-admin-approve-form',
+                    url: '/trade-mark-mana/quan-ly-don/accept-admin-approve',
                     type: 'POST',
                     data: {
                         p_case_code: _case_code,
@@ -191,7 +191,7 @@
         if (validateAction()) {
             nvsConfirm(null, "Bạn có chắc chắn muốn duyệt nội dung này hay không?", function () {
                 $.ajax({
-                    url: '/trade-mark-mana/quan-ly-don/accept-admin-approve-form',
+                    url: '/trade-mark-mana/quan-ly-don/accept-admin-approve',
                     type: 'POST',
                     data: {
                         p_case_code: _case_code,

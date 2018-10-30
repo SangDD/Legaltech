@@ -43,7 +43,8 @@
             CongBoDon = 17,
             ChapNhan_ThongBaoNoiDung = 18,
             TuChoi_ThongBaoNoiDung = 19,
-            ThongBaoCapBang = 20
+            ThongBaoCapBang = 20,
+            CongBoBang = 21
         }
 
         public enum Notice_Accept_Status

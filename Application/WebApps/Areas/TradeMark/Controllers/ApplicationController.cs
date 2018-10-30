@@ -433,6 +433,50 @@ namespace WebApps.Areas.TradeMark.Controllers
             }
         }
 
+        public static void Insert_Docketing(string p_app_case_code, string p_doc_name, string p_url_File_Atachment, bool p_is_transaction = false)
+        {
+            try
+            {
+                // insert vào docking để lưu trữ
+                Docking_BL _obj_docBL = new Docking_BL();
+                Docking_Info p_Docking_Info = new Docking_Info();
+                p_Docking_Info.Created_By = SessionData.CurrentUser.Username;
+                p_Docking_Info.Created_Date = DateTime.Now;
+                p_Docking_Info.Language_Code = AppsCommon.GetCurrentLang();
+                p_Docking_Info.Status = (decimal)CommonEnums.Docking_Status.Completed;
+                p_Docking_Info.Docking_Type = (decimal)CommonEnums.Docking_Type_Enum.In_Book;
+                p_Docking_Info.Document_Type = (decimal)CommonEnums.Document_Type_Enum.Khac;
+                p_Docking_Info.Document_Name = p_doc_name;
+                p_Docking_Info.In_Out_Date = DateTime.Now;
+                p_Docking_Info.Isshowcustomer = 1;
+                p_Docking_Info.App_Case_Code = p_app_case_code;
+
+                //
+                string[] _arr = p_url_File_Atachment.Split('/');
+                if (_arr.Length > 0)
+                {
+                    p_Docking_Info.FileName = _arr[_arr.Length - 1];
+                }
+
+                p_Docking_Info.Url = p_url_File_Atachment;
+
+                if (p_is_transaction == false)
+                {
+                    _obj_docBL.Docking_Insert(p_Docking_Info);
+                }
+                else
+                {
+                    _obj_docBL.Docking_Insert_Transaction(p_Docking_Info);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+        }
+
+        #endregion
+
         #region Thông báo hình thức
         [HttpPost]
         [Route("quan-ly-don/lawer-notice-form")]
@@ -505,7 +549,7 @@ namespace WebApps.Areas.TradeMark.Controllers
         }
 
         [HttpPost]
-        [Route("quan-ly-don/accept-admin-approve-form")]
+        [Route("quan-ly-don/accept-admin-approve")]
         public ActionResult Accept_AdminApprove_Form(string p_case_code, decimal p_status, string p_note)
         {
             try
@@ -530,7 +574,7 @@ namespace WebApps.Areas.TradeMark.Controllers
         }
 
         [HttpPost]
-        [Route("quan-ly-don/accept-customer-approve-form")]
+        [Route("quan-ly-don/accept-customer-approve")]
         public ActionResult Accept_Customer_Approve_Form(string p_case_code, decimal p_status, string p_note)
         {
             try
@@ -551,7 +595,7 @@ namespace WebApps.Areas.TradeMark.Controllers
         }
 
         [HttpPost]
-        [Route("quan-ly-don/reject-admin-approve-form")]
+        [Route("quan-ly-don/reject-admin-approve")]
         public ActionResult Reject_AdminApprove_Form(string p_case_code, string p_advise_replies, string p_advise_replies_trans, decimal p_status, string p_note)
         {
             try
@@ -577,6 +621,7 @@ namespace WebApps.Areas.TradeMark.Controllers
 
         #endregion
 
+        #region công bố đơn
         [HttpPost]
         [Route("quan-ly-don/do-lawer-public-application")]
         public ActionResult Do_Lawer_Public_App(App_Notice_Info pInfo)
@@ -586,10 +631,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 pInfo.Notice_Type = (decimal)CommonEnums.Notice_Type.HinhThuc;
                 pInfo.Status = (decimal)CommonEnums.Notice_Accept_Status.LuatSu_GuiChoAdminDuyet;
 
-                // trạng thái app
                 decimal _status_app = (decimal)CommonEnums.App_Status.CongBoDon;
-
-                // trạng thái notice
                 if (pInfo.Accept_Date == null || pInfo.Accept_Date.Date == DateTime.MinValue.Date)
                 {
                     pInfo.Result = (decimal)CommonEnums.Notice_Result.TuChoi;
@@ -623,7 +665,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                     }
 
                     // url billing
-                    string _keyUrlBilling = "BILLING_APP_" + ((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Accept_Form).ToString();
+                    string _keyUrlBilling = "BILLING_APP_" + ((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Grant_App).ToString();
                     string _url_billing = (string)SessionData.GetDataSession(_keyUrlBilling);
                     if (_url_billing != null && _url_billing != "")
                         pInfo.Biling_Url = _url_billing;
@@ -634,11 +676,10 @@ namespace WebApps.Areas.TradeMark.Controllers
                     // insert file vào docketing
                     if (_ck > 0)
                     {
-                        Insert_Docketing(pInfo.Case_Code, "Trích xuất Công báo SHCN", url_File_Atachment);
-                        Insert_Docketing(pInfo.Case_Code, "Dịch trích xuất Công báo SHCN", url_File_AtachmentTrans);
+                        Insert_Docketing(pInfo.Case_Code, "File trích xuất Thông báo SHCN", url_File_Atachment);
+                        Insert_Docketing(pInfo.Case_Code, "File transalte", url_File_AtachmentTrans);
                     }
                 }
-
 
                 return Json(new { success = _ck });
             }
@@ -648,49 +689,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 return Json(new { success = "-1" });
             }
         }
-
-        public static void Insert_Docketing(string p_app_case_code, string p_doc_name, string p_url_File_Atachment, bool p_is_transaction = false)
-        {
-            try
-            {
-                // insert vào docking để lưu trữ
-                Docking_BL _obj_docBL = new Docking_BL();
-                Docking_Info p_Docking_Info = new Docking_Info();
-                p_Docking_Info.Created_By = SessionData.CurrentUser.Username;
-                p_Docking_Info.Created_Date = DateTime.Now;
-                p_Docking_Info.Language_Code = AppsCommon.GetCurrentLang();
-                p_Docking_Info.Status = (decimal)CommonEnums.Docking_Status.Completed;
-                p_Docking_Info.Docking_Type = (decimal)CommonEnums.Docking_Type_Enum.In_Book;
-                p_Docking_Info.Document_Type = (decimal)CommonEnums.Document_Type_Enum.Khac;
-                p_Docking_Info.Document_Name = p_doc_name;
-                p_Docking_Info.In_Out_Date = DateTime.Now;
-                p_Docking_Info.Isshowcustomer = 1;
-                p_Docking_Info.App_Case_Code = p_app_case_code;
-
-                //
-                string[] _arr = p_url_File_Atachment.Split('/');
-                if (_arr.Length > 0)
-                {
-                    p_Docking_Info.FileName = _arr[_arr.Length - 1];
-                }
-
-                p_Docking_Info.Url = p_url_File_Atachment;
-
-                if (p_is_transaction == false)
-                {
-                    _obj_docBL.Docking_Insert(p_Docking_Info);
-                }
-                else
-                {
-                    _obj_docBL.Docking_Insert_Transaction(p_Docking_Info);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-            }
-        }
-
+ 
         #endregion
     }
 }
