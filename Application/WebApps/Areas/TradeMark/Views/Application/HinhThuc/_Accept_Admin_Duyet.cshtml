@@ -8,9 +8,16 @@
     }
 
     App_Notice_Info _App_Notice_Info = new App_Notice_Info();
+    _App_Notice_Info.Number_Result = 0;
     if (ViewBag.App_Notice_Info != null)
     {
         _App_Notice_Info = (App_Notice_Info)ViewBag.App_Notice_Info;
+    }
+
+    string _str_number = "";
+    if (_App_Notice_Info.Number_Result > 0)
+    {
+        _str_number = "lần" + _App_Notice_Info.Number_Result.ToString();
     }
 }
 
@@ -45,7 +52,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div id="divNumberNotice">Số thông báo<i class="redspan">(*)</i></div>
+            <div id="divNumberNotice">Số thông báo @_str_number<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>

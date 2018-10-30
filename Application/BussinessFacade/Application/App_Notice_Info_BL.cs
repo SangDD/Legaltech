@@ -27,6 +27,25 @@ namespace BussinessFacade
             }
         }
 
+        public int Get_Number_Notice(string p_case_code, decimal p_notice_type)
+        {
+            try
+            {
+                App_Notice_Info_DA _da = new App_Notice_Info_DA();
+                DataSet _ds = _da.Get_Number_Notice(p_case_code, p_notice_type);
+                if (_ds != null && _ds.Tables.Count > 0 && _ds.Tables[0].Rows.Count > 0)
+                {
+                    return Convert.ToInt16(_ds.Tables[0].Rows[0][0]);
+                }
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return 0;
+            }
+        }
+
 
         public List<App_Notice_Info> App_Notice_Search(string p_key_search, ref decimal p_total_record,
             string p_from = "1", string p_to = "10", string p_column = "ALL", string p_sort_type = "ALL")

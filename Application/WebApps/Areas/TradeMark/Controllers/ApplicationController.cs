@@ -530,6 +530,27 @@ namespace WebApps.Areas.TradeMark.Controllers
         }
 
         [HttpPost]
+        [Route("quan-ly-don/accept-customer-approve-form")]
+        public ActionResult Accept_Customer_Approve_Form(string p_case_code, decimal p_status, string p_note)
+        {
+            try
+            {
+                App_Notice_Info_BL _obj_bl = new App_Notice_Info_BL();
+                decimal _status = (decimal)CommonEnums.Notice_Accept_Status.KhachHang_Review_TraLoi;
+
+                decimal _ck = _obj_bl.App_Notice_Review_Accept(p_case_code, (decimal)CommonEnums.Notice_Type.HinhThuc, _status,
+                    p_note, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
+
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
+        [HttpPost]
         [Route("quan-ly-don/reject-admin-approve-form")]
         public ActionResult Reject_AdminApprove_Form(string p_case_code, string p_advise_replies, string p_advise_replies_trans, decimal p_status, string p_note)
         {

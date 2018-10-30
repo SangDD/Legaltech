@@ -14,6 +14,8 @@
     {
         c_operator_type = (decimal)ViewBag.Operator_Type;
     }
+
+    string language = AppsCommon.GetCurrentLang();
 }
 <style>
     /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
@@ -27,7 +29,7 @@
     <div class="cls_form_header">
 
         <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowViewApp()">Xem chi tiết đơn</a>
-
+        &nbsp; &nbsp;
         @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update))
         {
             if (_AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.Luu_tam ||
@@ -36,6 +38,14 @@
                 _AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.KhacHangDaTuChoi)
             {
                 <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowEditApp()"> Sửa đơn </a>
+            }
+
+            @:&nbsp;
+            @:&nbsp;
+            @* Chi Hien thi phan dich neu la ban ghi tiếng anh, và đang xem trên ngôn ngữ tiếng việt *@
+            if (_AppHeaderInfo.Id_Vi >= 0 && language == "VI_VN" && _AppHeaderInfo.Languague_Code == "EN_US")
+            {
+                <a href="/trade-mark/request-for-trade-mark-translate/@_AppHeaderInfo.Id/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode.ToLower()/@_AppHeaderInfo.Id_Vi" class="icon icon-house-add" data-title="Dịch"></a>
             }
         }
 

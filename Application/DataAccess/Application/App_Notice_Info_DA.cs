@@ -50,6 +50,22 @@ namespace DataAccess
             }
         }
 
+        public DataSet Get_Number_Notice(string p_case_code, decimal p_notice_type)
+        {
+            try
+            {
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_notice_info.proc_get_number",
+                    new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
+                    new OracleParameter("p_notice_type", OracleDbType.Decimal, p_notice_type, ParameterDirection.Input),
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
         public int App_Notice_Update_Status(string p_case_code, decimal p_notice_type, decimal p_status, decimal p_result, 
             DateTime p_accept_date, string p_note, string p_modify_by, string p_language_code)
         {

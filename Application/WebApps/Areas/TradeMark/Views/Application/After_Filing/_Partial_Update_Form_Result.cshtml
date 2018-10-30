@@ -1,10 +1,20 @@
 ﻿@using ObjectInfos;
+@using BussinessFacade;
 @using BussinessFacade.ModuleMemoryData
 @{
     var _AppHeaderInfo = new ApplicationHeaderInfo();
     if (ViewBag.objAppHeaderInfo != null)
     {
         _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    }
+
+    // LẤY THÔNG TIN SỐ LẦN
+    App_Notice_Info_BL _notice_BL = new App_Notice_Info_BL();
+    int _Number_Notice = _notice_BL.Get_Number_Notice(_AppHeaderInfo.Case_Code, (decimal)Common.CommonData.CommonEnums.Notice_Type.HinhThuc);
+    string _str_number = "";
+    if (_Number_Notice > 0)
+    {
+        _str_number = "lần" + _Number_Notice.ToString();
     }
 }
 
@@ -39,7 +49,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div id="divNumberNotice">Số thông báo lần 1<i class="redspan">(*)</i></div>
+            <div id="divNumberNotice">Số thông báo @_str_number<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
