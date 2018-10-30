@@ -44,12 +44,12 @@
     public override void SetConfig()
     {
         //HungTD: kiem tra quyen
-        if (Administrator.SessionData.CurrentUser == null)
-            return  ;
+        //if (Administrator.SessionData.CurrentUser == null)
+        //    return  ;
         var _user_info = (NaviObjectInfo.ModuleQLKHInfo.UserInfo)Administrator.SessionData.CurrentUser;
         Session["CKFinder_UserRole"] = _user_info.UserName;
         ArrayList _arr_sub_folder_in_ck = (ArrayList)Session[_user_info.UserName + "g_arr_subfolder_in_ckfinder"];
-        ArrayList _arr_user_folder_rule = (ArrayList)Session[_user_info.UserName + "g_arr_user_folder_rule"];       
+        ArrayList _arr_user_folder_rule = (ArrayList)Session[_user_info.UserName + "g_arr_user_folder_rule"];
 
         LicenseName = "";
         LicenseKey = "";
@@ -66,8 +66,8 @@
             //Đường dẫn tuyệt đối của FTP nằm trong thư mục public của Portal để đẩy vào để Admin 
             BaseDir = HttpContext.Current.Server.MapPath("~/Content");
         }
-        
-        
+
+
         Plugins = new string[] {
         };
         // Settings for extra plugins.
@@ -152,10 +152,10 @@
                 acl_admin.FileUpload = true;
                 acl_admin.FileRename = true;
                 acl_admin.FileDelete = true;
-                 NaviCommon.Common.log.Error(_str_folder_name);
+                NaviCommon.Common.log.Error(_str_folder_name);
             }
             // han che quyen cac folder trong _arr_false_folder
-             NaviCommon.Common.log.Error("Item trong thang _arr_false_folder");
+            NaviCommon.Common.log.Error("Item trong thang _arr_false_folder");
             foreach (int _item in _arr_false_folder)
             {
                 string _str_folder_name = _arr_sub_folder_in_ck[_item].ToString();
@@ -171,7 +171,7 @@
                 acl_admin.FileUpload = false;
                 acl_admin.FileRename = false;
                 acl_admin.FileDelete = false;
-                 NaviCommon.Common.log.Error(_str_folder_name);
+                NaviCommon.Common.log.Error(_str_folder_name);
             }
             //doi voi thu muc Photo thi set mot so quyen khac
             acl_admin = AccessControl.Add();
@@ -229,5 +229,5 @@
         //bien nay de kiem tra goi ham config lan bao nhieu
         Administrator.CommonData.g_count_load_setconfig++;
     }
- 
+
 </script>
