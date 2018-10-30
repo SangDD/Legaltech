@@ -123,7 +123,7 @@
             return false;
         }
 
-        var url = "/quan-ly-billing/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code + "&p_type=" + @(Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Insert_Type.Grant_App));
+        var url = "/quan-ly-billing/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code + "&p_type=" + @(Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Insert_Type.Public_Form));
         window.open(url);
     }
 
@@ -171,7 +171,7 @@
                             return false;
                         }
                         else {
-                            jAlert('Nộp đơn thành công!', "THÔNG BÁO", function () {
+                            jAlert('Submit thành công!', "THÔNG BÁO", function () {
                                 window.location.href = "/home";
                             });
                         }

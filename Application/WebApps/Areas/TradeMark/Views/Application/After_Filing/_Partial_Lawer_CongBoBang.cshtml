@@ -33,13 +33,13 @@
     <div class="divCover cls_form_title">
         <img src="~/Content/icons/info.png" />
         <div class="cls_form_header">
-            Công bố đơn
+            Công bố bằng
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Số công bố đơn<i class="redspan">(*)</i></div>
+            <div>Số công bố bằng<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
@@ -82,17 +82,17 @@
     </div>
 
     @{
-        string _id1 = "1";
-        string _isValid1 = "1";
-        string _model1 = _id1 + "|" + _isValid1 + "|" + "File trích xuất Thông báo SHCN";
-        @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile.cshtml", _model1)
+    string _id1 = "1";
+    string _isValid1 = "1";
+    string _model1 = _id1 + "|" + _isValid1 + "|" + "File trích xuất Thông báo SHCN";
+    @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile.cshtml", _model1)
     }
 
     @{
-        string _id2 = "2";
-        string _isValid2 = "0"; ;
-        string _model2 = _id2 + "|" + _isValid2 + "|" + "File dịch";
-        @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile.cshtml", _model2)
+    string _id2 = "2";
+    string _isValid2 = "0"; ;
+    string _model2 = _id2 + "|" + _isValid2 + "|" + "File dịch";
+    @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile.cshtml", _model2)
     }
 
     <div class="div-search-ad">
@@ -123,7 +123,7 @@
             return false;
         }
 
-        var url = "/quan-ly-billing/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code + "&p_type=" + @(Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Insert_Type.Grant_App));
+        var url = "/quan-ly-billing/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code + "&p_type=" + @(Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Insert_Type.Grant_Public));
         window.open(url);
     }
 
@@ -131,8 +131,8 @@
         if (validateAction()) {
             nvsConfirm(null, "Bạn có chắc chắn muốn gửi yêu cầu này cho admin hay không?", function () {
 
-                
-               var formdata = new FormData();
+
+                var formdata = new FormData();
                 formdata.append("pInfo.Case_Code", _case_code);
                 formdata.append("pInfo.Notice_Number", $('#txt_Notice_Number').val());
                 formdata.append("pInfo.Notice_Date", $('#txt_notice_date').val());
@@ -155,7 +155,7 @@
                 }
 
                 $.ajax({
-                    url: '/trade-mark-mana/quan-ly-don/do-lawer-public-application',
+                    url: '/trade-mark-mana/quan-ly-don/lawer-grant-public',
                     type: 'POST',
                     data: formdata,
                     enctype: 'multipart/form-data',
@@ -171,7 +171,7 @@
                             return false;
                         }
                         else {
-                            jAlert('Nộp đơn thành công!', "THÔNG BÁO", function () {
+                            jAlert('Submit thành công!', "THÔNG BÁO", function () {
                                 window.location.href = "/home";
                             });
                         }

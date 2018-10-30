@@ -26,6 +26,7 @@ namespace ObjectInfos
 
         public decimal Result { get; set; }
         public DateTime Accept_Date { get; set; }
+        public DateTime DeadLine { get; set; }
 
         public HttpPostedFileBase File_Accept_Url { get; set; }
 

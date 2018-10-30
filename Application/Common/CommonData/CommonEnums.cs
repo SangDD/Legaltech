@@ -169,9 +169,10 @@
             Search = 1,
             Advise_Filling = 2,
             Accept_Form = 3,
-            Grant_App = 4,
+            Public_Form = 4,                // công bố đơn
             Accept_Content = 5,
-            Public_App = 6
+            Grant_Accept = 6,               // thông báo cấp bằng
+            Grant_Public = 7                // công bố bằng
         }
 
         public enum Operator_Type

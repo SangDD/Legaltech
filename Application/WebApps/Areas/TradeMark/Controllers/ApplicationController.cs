@@ -665,7 +665,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                     }
 
                     // url billing
-                    string _keyUrlBilling = "BILLING_APP_" + ((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Grant_App).ToString();
+                    string _keyUrlBilling = "BILLING_APP_" + ((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Public_Form).ToString();
                     string _url_billing = (string)SessionData.GetDataSession(_keyUrlBilling);
                     if (_url_billing != null && _url_billing != "")
                         pInfo.Biling_Url = _url_billing;
@@ -689,7 +689,221 @@ namespace WebApps.Areas.TradeMark.Controllers
                 return Json(new { success = "-1" });
             }
         }
- 
+
+        #endregion
+
+        #region thông báo nội dung
+        [HttpPost]
+        [Route("quan-ly-don/lawer-notice-content")]
+        public ActionResult Do_Lawer_Notice_Content(App_Notice_Info pInfo)
+        {
+            try
+            {
+                pInfo.Notice_Type = (decimal)CommonEnums.Notice_Type.HinhThuc;
+                pInfo.Status = (decimal)CommonEnums.Notice_Accept_Status.LuatSu_GuiChoAdminDuyet;
+
+                decimal _status_app = (decimal)CommonEnums.App_Status.ChapNhan_ThongBaoNoiDung;
+                if (pInfo.Accept_Date == null || pInfo.Accept_Date.Date == DateTime.MinValue.Date)
+                {
+                    _status_app = (decimal)CommonEnums.App_Status.TuChoi_ThongBaoNoiDung;
+                    pInfo.Result = (decimal)CommonEnums.Notice_Result.TuChoi;
+                }
+                else
+                {
+                    pInfo.Result = (decimal)CommonEnums.Notice_Result.ChapNhan;
+                }
+
+                // update trạng thái đơn trước
+                Application_Header_BL _obj_bl = new Application_Header_BL();
+                decimal _ck = _obj_bl.AppHeader_Update_Status(pInfo.Case_Code, _status_app, pInfo.Note,
+                     SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+
+                if (_ck == 0)
+                {
+                    // Notice_Url 
+                    var url_File_Atachment = "";
+                    if (pInfo.File_Notice_Url != null)
+                    {
+                        url_File_Atachment = AppLoadHelpers.PushFileToServer(pInfo.File_Notice_Url, AppUpload.App);
+                        pInfo.Notice_Url = url_File_Atachment;
+                    }
+
+                    // insert vào bảng thông báo
+                    var url_File_AtachmentTrans = "";
+                    if (pInfo.File_Notice_Trans_Url != null)
+                    {
+                        url_File_AtachmentTrans = AppLoadHelpers.PushFileToServer(pInfo.File_Notice_Trans_Url, AppUpload.App);
+                        pInfo.Notice_Trans_Url = url_File_AtachmentTrans;
+                    }
+
+                    // url billing
+                    string _keyUrlBilling = "BILLING_APP_" + ((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Accept_Content).ToString();
+                    string _url_billing = (string)SessionData.GetDataSession(_keyUrlBilling);
+                    if (_url_billing != null && _url_billing != "")
+                        pInfo.Biling_Url = _url_billing;
+
+                    App_Notice_Info_BL _App_Notice_Info_BL = new App_Notice_Info_BL();
+                    _ck = _App_Notice_Info_BL.App_Notice_Insert(pInfo, AppsCommon.GetCurrentLang());
+
+                    // insert file vào docketing
+                    if (_ck > 0)
+                    {
+                        Insert_Docketing(pInfo.Case_Code, "File scan accept form", url_File_Atachment);
+                        Insert_Docketing(pInfo.Case_Code, "File transalte accept form", url_File_AtachmentTrans);
+                    }
+                }
+
+
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+        #endregion
+
+        #region thông báo cấp bằng
+        [HttpPost]
+        [Route("quan-ly-don/lawer-grant-accept")]
+        public ActionResult Do_Lawer_Grant_Accept(App_Notice_Info pInfo)
+        {
+            try
+            {
+                pInfo.Notice_Type = (decimal)CommonEnums.Notice_Type.HinhThuc;
+                pInfo.Status = (decimal)CommonEnums.Notice_Accept_Status.LuatSu_GuiChoAdminDuyet;
+                decimal _status_app = (decimal)CommonEnums.App_Status.ThongBaoCapBang;
+
+                if (pInfo.Accept_Date == null || pInfo.Accept_Date.Date == DateTime.MinValue.Date)
+                {
+                    pInfo.Result = (decimal)CommonEnums.Notice_Result.TuChoi;
+                }
+                else
+                {
+                    pInfo.Result = (decimal)CommonEnums.Notice_Result.ChapNhan;
+                }
+
+                // update trạng thái đơn trước
+                Application_Header_BL _obj_bl = new Application_Header_BL();
+                decimal _ck = _obj_bl.AppHeader_Update_Status(pInfo.Case_Code, _status_app, pInfo.Note,
+                     SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+
+                if (_ck == 0)
+                {
+                    // Notice_Url 
+                    var url_File_Atachment = "";
+                    if (pInfo.File_Notice_Url != null)
+                    {
+                        url_File_Atachment = AppLoadHelpers.PushFileToServer(pInfo.File_Notice_Url, AppUpload.App);
+                        pInfo.Notice_Url = url_File_Atachment;
+                    }
+
+                    // insert vào bảng thông báo
+                    var url_File_AtachmentTrans = "";
+                    if (pInfo.File_Notice_Trans_Url != null)
+                    {
+                        url_File_AtachmentTrans = AppLoadHelpers.PushFileToServer(pInfo.File_Notice_Trans_Url, AppUpload.App);
+                        pInfo.Notice_Trans_Url = url_File_AtachmentTrans;
+                    }
+
+                    // url billing
+                    string _keyUrlBilling = "BILLING_APP_" + ((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Grant_Accept).ToString();
+                    string _url_billing = (string)SessionData.GetDataSession(_keyUrlBilling);
+                    if (_url_billing != null && _url_billing != "")
+                        pInfo.Biling_Url = _url_billing;
+
+                    App_Notice_Info_BL _App_Notice_Info_BL = new App_Notice_Info_BL();
+                    _ck = _App_Notice_Info_BL.App_Notice_Insert(pInfo, AppsCommon.GetCurrentLang());
+
+                    // insert file vào docketing
+                    if (_ck > 0)
+                    {
+                        Insert_Docketing(pInfo.Case_Code, "File scan accept form", url_File_Atachment);
+                        Insert_Docketing(pInfo.Case_Code, "File transalte accept form", url_File_AtachmentTrans);
+                    }
+                }
+
+
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+        #endregion
+
+        #region công bố bằng
+        [HttpPost]
+        [Route("quan-ly-don/lawer-grant-public")]
+        public ActionResult Do_Lawer_Grant_Public(App_Notice_Info pInfo)
+        {
+            try
+            {
+                pInfo.Notice_Type = (decimal)CommonEnums.Notice_Type.HinhThuc;
+                pInfo.Status = (decimal)CommonEnums.Notice_Accept_Status.LuatSu_GuiChoAdminDuyet;
+                decimal _status_app = (decimal)CommonEnums.App_Status.ThongBaoCapBang;
+
+                if (pInfo.Accept_Date == null || pInfo.Accept_Date.Date == DateTime.MinValue.Date)
+                {
+                    pInfo.Result = (decimal)CommonEnums.Notice_Result.TuChoi;
+                }
+                else
+                {
+                    pInfo.Result = (decimal)CommonEnums.Notice_Result.ChapNhan;
+                }
+
+                // update trạng thái đơn trước
+                Application_Header_BL _obj_bl = new Application_Header_BL();
+                decimal _ck = _obj_bl.AppHeader_Update_Status(pInfo.Case_Code, _status_app, pInfo.Note,
+                     SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+
+                if (_ck == 0)
+                {
+                    // Notice_Url 
+                    var url_File_Atachment = "";
+                    if (pInfo.File_Notice_Url != null)
+                    {
+                        url_File_Atachment = AppLoadHelpers.PushFileToServer(pInfo.File_Notice_Url, AppUpload.App);
+                        pInfo.Notice_Url = url_File_Atachment;
+                    }
+
+                    // insert vào bảng thông báo
+                    var url_File_AtachmentTrans = "";
+                    if (pInfo.File_Notice_Trans_Url != null)
+                    {
+                        url_File_AtachmentTrans = AppLoadHelpers.PushFileToServer(pInfo.File_Notice_Trans_Url, AppUpload.App);
+                        pInfo.Notice_Trans_Url = url_File_AtachmentTrans;
+                    }
+
+                    // url billing
+                    string _keyUrlBilling = "BILLING_APP_" + ((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Grant_Public).ToString();
+                    string _url_billing = (string)SessionData.GetDataSession(_keyUrlBilling);
+                    if (_url_billing != null && _url_billing != "")
+                        pInfo.Biling_Url = _url_billing;
+
+                    App_Notice_Info_BL _App_Notice_Info_BL = new App_Notice_Info_BL();
+                    _ck = _App_Notice_Info_BL.App_Notice_Insert(pInfo, AppsCommon.GetCurrentLang());
+
+                    // insert file vào docketing
+                    if (_ck > 0)
+                    {
+                        Insert_Docketing(pInfo.Case_Code, "File scan accept form", url_File_Atachment);
+                        Insert_Docketing(pInfo.Case_Code, "File transalte accept form", url_File_AtachmentTrans);
+                    }
+                }
+
+
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
         #endregion
     }
 }
