@@ -320,10 +320,11 @@
 </html>
 
 <script>
+    scrollingElement = (document.scrollingElement || document.body)
     function funcBottom() {
-        //window.location.href = "/";
-        window.scrollTo(0, document.body.scrollHeight);
+        $('.t-Khoanbetong_scroll').click();
         $("#txtFNAME").focus();
+         
     }
     function funcHome() {
         window.location.href = "/";
