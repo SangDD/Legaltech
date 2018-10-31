@@ -65,7 +65,7 @@
             <!--[logo + button mobi]-->
             <nav class="c-header-mobile">
                 <div class="c-header-mobile_logo">
-                    <a class="c-header-mobile_logo-link" href="index.htm" aria-label="tên công ty">
+                    <a class="c-header-mobile_logo-link" href="javascript:;" aria-label="tên công ty">
                         <figure class="c-header-mobile_logo_img" aria-hidden="true">
                             <img class="c-header-mobile_logo_svg-color" src="/Content/News/images/logo_ipace-1.png">
                             <img class="c-header-mobile_logo_svg-white" src="/Content/News/images/logo_ipace-1.png">
@@ -81,7 +81,7 @@
             <header class="c-header" data-module="HeaderNav">
                 <nav class="c-header_nav js-header-nav">
                     <div class="c-header_nav-logo">
-                        <a class="c-header_nav-logo-link" href="index.htm" aria-label="tên công ty" data-transition="full">
+                        <a class="c-header_nav-logo-link" href="javascript:;" aria-label="tên công ty" data-transition="full">
                             <figure class="c-header_nav-logo_img" aria-hidden="true">
                                 <img class="c-header_nav-logo_svg-color" src="/Content/News/images/logo_ipace-1.png">
                                 <img class="c-header_nav-logo_svg-white" src="/Content/News/images/logo_ipace-1.png">
@@ -423,14 +423,14 @@
 
                                 </div>
 
-                                <div class="join-us">
+                                <div class="join-us" style="margin-top:30px">
                                     <div class="container">
                                         <div class="container-fluid">
                                             <div class="title" style="padding-top: 15px;">
                                                 <span style="text-transform: unset;">
                                                     <p>
                                                         Please register here for more information
-                                                    </p>  
+                                                    </p>
                                                 </span>
                                             </div>
                                             @*<form method="POST"  >*@
@@ -641,10 +641,9 @@
         }
 
     }
-    scrollingElement = (document.scrollingElement || document.body)
     function funcBottom() {
         $('.t-Khoanbetong_scroll').click();
-        $("#txtFNAME").focus();
+       
     }
 
     function funcVi() {
