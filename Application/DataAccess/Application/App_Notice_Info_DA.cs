@@ -66,7 +66,7 @@ namespace DataAccess
             }
         }
 
-        public int App_Notice_Update_Status(string p_case_code, decimal p_notice_type, decimal p_status, decimal p_result, 
+        public int App_Notice_Update_Status(string p_case_code, decimal p_notice_type, decimal p_status, decimal p_result,
             DateTime p_accept_date, string p_note, string p_modify_by, string p_language_code)
         {
             try
@@ -93,8 +93,8 @@ namespace DataAccess
         }
 
         public decimal App_Notice_Insert(string p_case_code, string p_notice_number, DateTime p_notice_date, decimal p_notice_type, string p_notice_url, string p_notice_trans_url,
-            decimal p_result, DateTime p_accept_date, string p_accept_url, string p_reject_reason, decimal p_status, string p_advise_replies,
-            string p_biling_url, string p_created_by, string p_note)
+            decimal p_result, DateTime p_accept_date, DateTime p_exp_date, string p_accept_url, string p_reject_reason, decimal p_status, string p_advise_replies,
+            decimal p_billing_id, string p_billing_url, string p_created_by, string p_note)
         {
             {
                 try
@@ -109,11 +109,13 @@ namespace DataAccess
                         new OracleParameter("p_notice_trans_url", OracleDbType.Varchar2, p_notice_trans_url, ParameterDirection.Input),
                         new OracleParameter("p_result", OracleDbType.Decimal, p_result, ParameterDirection.Input),
                         new OracleParameter("p_accept_date", OracleDbType.Date, p_accept_date, ParameterDirection.Input),
+                        new OracleParameter("p_exp_date", OracleDbType.Date, p_exp_date, ParameterDirection.Input),
                         new OracleParameter("p_accept_url", OracleDbType.Varchar2, p_accept_url, ParameterDirection.Input),
                         new OracleParameter("p_reject_reason", OracleDbType.Varchar2, p_reject_reason, ParameterDirection.Input),
                         new OracleParameter("p_status", OracleDbType.Decimal, p_status, ParameterDirection.Input),
                         new OracleParameter("p_advise_replies", OracleDbType.Varchar2, p_advise_replies, ParameterDirection.Input),
-                        new OracleParameter("p_biling_url", OracleDbType.Varchar2, p_biling_url, ParameterDirection.Input),
+                        new OracleParameter("p_billing_id", OracleDbType.Decimal, p_billing_id, ParameterDirection.Input),
+                        new OracleParameter("p_biling_url", OracleDbType.Varchar2, p_billing_url, ParameterDirection.Input),
                         new OracleParameter("p_created_by", OracleDbType.Varchar2, p_created_by, ParameterDirection.Input),
                         new OracleParameter("p_note", OracleDbType.Varchar2, p_note, ParameterDirection.Input),
                         paramReturn);
@@ -152,7 +154,7 @@ namespace DataAccess
             }
         }
 
-        public decimal App_Notice_Review_Reject(string p_case_code, decimal p_notice_type, decimal p_status, 
+        public decimal App_Notice_Review_Reject(string p_case_code, decimal p_notice_type, decimal p_status,
             string p_advise_replies, string p_advise_replies_trans, string p_note, string p_modify_by, string p_language_code)
         {
             try
@@ -163,7 +165,7 @@ namespace DataAccess
                     new OracleParameter("p_notice_type", OracleDbType.Decimal, p_notice_type, ParameterDirection.Input),
                     new OracleParameter("p_status", OracleDbType.Decimal, p_status, ParameterDirection.Input),
                     new OracleParameter("p_advise_replies", OracleDbType.Varchar2, p_advise_replies, ParameterDirection.Input),
-                    new OracleParameter("p_advise_replies_trans", OracleDbType.Varchar2, p_advise_replies_trans, ParameterDirection.Input), 
+                    new OracleParameter("p_advise_replies_trans", OracleDbType.Varchar2, p_advise_replies_trans, ParameterDirection.Input),
                     new OracleParameter("p_note", OracleDbType.Varchar2, p_note, ParameterDirection.Input),
                     new OracleParameter("p_modify_by", OracleDbType.Varchar2, p_modify_by, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
