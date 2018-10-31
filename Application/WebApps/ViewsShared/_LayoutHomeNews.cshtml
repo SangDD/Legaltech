@@ -94,7 +94,7 @@
                             <a href="javascript:;" onclick="funLogin();" class="c-header_nav-item-label" data-transition="full">@WebApps.Resources.Resource.lblSigin</a>
                         </li>
                         <li class="c-header_nav-item js-nav-nosublink">
-                            <a href="#btButton" class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
+                            <a href="javascript:;"  onclick="return funcBottom();" class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
                         </li>
 
                         <li class="c-header_nav-item js-nav-nosublink">
@@ -641,7 +641,12 @@
         }
 
     }
-     
+    function funcBottom() {
+        //window.location.href = "/";
+       
+        window.scrollTo(0, document.body.scrollHeight);
+        $("#txtFNAME").focus();
+    }
 
     function funcVi() {
         window.location.href = "/Language?culture=vi-VN&returnUrl=Home";

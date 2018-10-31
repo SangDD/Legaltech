@@ -90,7 +90,7 @@
                             <a href="javascript:;" onclick="funLogin();" class="c-header_nav-item-label" data-transition="full">@WebApps.Resources.Resource.lblSigin</a>
                         </li>
                         <li class="c-header_nav-item js-nav-nosublink" id="btButton">
-                            <a href="#btButton"  class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
+                            <a href="javascript:;" onclick="return funcBottom();"  class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
                         </li>
                         <li class="c-header_nav-item js-nav-nosublink">
                             <div class="" style="width:100% !important;padding-top:10px;">
@@ -210,7 +210,7 @@
                                                         </li>
                                                          
                                                         <li class="c-navleft_category-item">
-                                                            <a class="c-navleft_category-link" href="/wiki-view/doc-list/0/0">
+                                                            <a class="c-navleft_category-link" href="/wiki-view/doc-view/0/0">
                                                                 <span class="c-navleft_category-title">@WebApps.Resources.Resource.lblWiki</span>
                                                                 <figure class="c-navleft_category-link-arrow">
                                                                     <i class="fa fa-long-arrow-right" aria-hidden="true" style=" color: #666;font-size: 20px;"></i>
@@ -321,7 +321,9 @@
 
 <script>
     function funcBottom() {
-        $("#btnSignUp").scroll();
+        //window.location.href = "/";
+        window.scrollTo(0, document.body.scrollHeight);
+        $("#txtFNAME").focus();
     }
     function funcHome() {
         window.location.href = "/";
