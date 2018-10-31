@@ -475,6 +475,27 @@ namespace WebApps.Areas.TradeMark.Controllers
             }
         }
 
+        void AddBilling2Notice(decimal p_insert_billing_type, ref App_Notice_Info pInfo)
+        {
+            try
+            {
+                // url billing
+                string _keyUrlBilling = "BILLING_APP_URL_" + pInfo.Case_Code + "_" + p_insert_billing_type.ToString();
+                string _url_billing = (string)SessionData.GetDataSession(_keyUrlBilling);
+                if (_url_billing != null && _url_billing != "")
+                    pInfo.Billing_Url = _url_billing;
+
+                // id billing
+                string _keyIdBilling = "BILLING_APP_ID_" + pInfo.Case_Code + "_" + p_insert_billing_type.ToString();
+                decimal _id_billing = (decimal)SessionData.GetDataSession(_keyIdBilling);
+                if (_id_billing > 0)
+                    pInfo.Billing_Id = _id_billing;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+        }
         #endregion
 
         #region Thông báo hình thức
@@ -521,11 +542,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                         pInfo.Notice_Trans_Url = url_File_AtachmentTrans;
                     }
 
-                    // url billing
-                    string _keyUrlBilling = "BILLING_APP_" + ((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Accept_Form).ToString();
-                    string _url_billing = (string)SessionData.GetDataSession(_keyUrlBilling);
-                    if (_url_billing != null && _url_billing != "")
-                        pInfo.Biling_Url = _url_billing;
+                    AddBilling2Notice((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Accept_Form, ref pInfo);
 
                     App_Notice_Info_BL _App_Notice_Info_BL = new App_Notice_Info_BL();
                     _ck = _App_Notice_Info_BL.App_Notice_Insert(pInfo, AppsCommon.GetCurrentLang());
@@ -550,7 +567,7 @@ namespace WebApps.Areas.TradeMark.Controllers
 
         [HttpPost]
         [Route("quan-ly-don/accept-admin-approve")]
-        public ActionResult Accept_AdminApprove_Form(string p_case_code, decimal p_status, string p_note)
+        public ActionResult Accept_AdminApprove_Form(string p_case_code, decimal p_Notice_Type, decimal p_status, string p_note)
         {
             try
             {
@@ -561,7 +578,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                     _status = (decimal)CommonEnums.Notice_Accept_Status.Admin_DuyetGuiChoKhachHang;
                 }
 
-                decimal _ck = _obj_bl.App_Notice_Review_Accept(p_case_code, (decimal)CommonEnums.Notice_Type.HinhThuc, _status,
+                decimal _ck = _obj_bl.App_Notice_Review_Accept(p_case_code, p_Notice_Type, _status,
                     p_note, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
 
                 return Json(new { success = _ck });
@@ -575,14 +592,14 @@ namespace WebApps.Areas.TradeMark.Controllers
 
         [HttpPost]
         [Route("quan-ly-don/accept-customer-approve")]
-        public ActionResult Accept_Customer_Approve_Form(string p_case_code, decimal p_status, string p_note)
+        public ActionResult Accept_Customer_Approve_Form(string p_case_code, decimal p_Notice_Type, decimal p_status, string p_note)
         {
             try
             {
                 App_Notice_Info_BL _obj_bl = new App_Notice_Info_BL();
                 decimal _status = (decimal)CommonEnums.Notice_Accept_Status.KhachHang_Review_TraLoi;
 
-                decimal _ck = _obj_bl.App_Notice_Review_Accept(p_case_code, (decimal)CommonEnums.Notice_Type.HinhThuc, _status,
+                decimal _ck = _obj_bl.App_Notice_Review_Accept(p_case_code, p_Notice_Type, _status,
                     p_note, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
 
                 return Json(new { success = _ck });
@@ -596,7 +613,7 @@ namespace WebApps.Areas.TradeMark.Controllers
 
         [HttpPost]
         [Route("quan-ly-don/reject-admin-approve")]
-        public ActionResult Reject_AdminApprove_Form(string p_case_code, string p_advise_replies, string p_advise_replies_trans, decimal p_status, string p_note)
+        public ActionResult Reject_AdminApprove_Form(string p_case_code, decimal p_Notice_Type, string p_advise_replies, string p_advise_replies_trans, decimal p_status, string p_note)
         {
             try
             {
@@ -607,7 +624,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                     _status = (decimal)CommonEnums.Notice_Reject_Status.Admin_DuyetGuiChoKhachHang;
                 }
 
-                decimal _ck = _obj_bl.App_Notice_Review_Reject(p_case_code, (decimal)CommonEnums.Notice_Type.HinhThuc, _status, p_advise_replies, p_advise_replies_trans,
+                decimal _ck = _obj_bl.App_Notice_Review_Reject(p_case_code, p_Notice_Type, _status, p_advise_replies, p_advise_replies_trans,
                     p_note, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
 
                 return Json(new { success = _ck });
@@ -628,7 +645,7 @@ namespace WebApps.Areas.TradeMark.Controllers
         {
             try
             {
-                pInfo.Notice_Type = (decimal)CommonEnums.Notice_Type.HinhThuc;
+                pInfo.Notice_Type = (decimal)CommonEnums.Notice_Type.CongBo_Don;
                 pInfo.Status = (decimal)CommonEnums.Notice_Accept_Status.LuatSu_GuiChoAdminDuyet;
 
                 decimal _status_app = (decimal)CommonEnums.App_Status.CongBoDon;
@@ -664,11 +681,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                         pInfo.Notice_Trans_Url = url_File_AtachmentTrans;
                     }
 
-                    // url billing
-                    string _keyUrlBilling = "BILLING_APP_" + ((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Public_Form).ToString();
-                    string _url_billing = (string)SessionData.GetDataSession(_keyUrlBilling);
-                    if (_url_billing != null && _url_billing != "")
-                        pInfo.Biling_Url = _url_billing;
+                    AddBilling2Notice((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Public_Form, ref pInfo);
 
                     App_Notice_Info_BL _App_Notice_Info_BL = new App_Notice_Info_BL();
                     _ck = _App_Notice_Info_BL.App_Notice_Insert(pInfo, AppsCommon.GetCurrentLang());
@@ -699,7 +712,7 @@ namespace WebApps.Areas.TradeMark.Controllers
         {
             try
             {
-                pInfo.Notice_Type = (decimal)CommonEnums.Notice_Type.HinhThuc;
+                pInfo.Notice_Type = (decimal)CommonEnums.Notice_Type.NoiDung;
                 pInfo.Status = (decimal)CommonEnums.Notice_Accept_Status.LuatSu_GuiChoAdminDuyet;
 
                 decimal _status_app = (decimal)CommonEnums.App_Status.ChapNhan_ThongBaoNoiDung;
@@ -736,11 +749,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                         pInfo.Notice_Trans_Url = url_File_AtachmentTrans;
                     }
 
-                    // url billing
-                    string _keyUrlBilling = "BILLING_APP_" + ((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Accept_Content).ToString();
-                    string _url_billing = (string)SessionData.GetDataSession(_keyUrlBilling);
-                    if (_url_billing != null && _url_billing != "")
-                        pInfo.Biling_Url = _url_billing;
+                    AddBilling2Notice((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Accept_Content, ref pInfo);
 
                     App_Notice_Info_BL _App_Notice_Info_BL = new App_Notice_Info_BL();
                     _ck = _App_Notice_Info_BL.App_Notice_Insert(pInfo, AppsCommon.GetCurrentLang());
@@ -771,7 +780,7 @@ namespace WebApps.Areas.TradeMark.Controllers
         {
             try
             {
-                pInfo.Notice_Type = (decimal)CommonEnums.Notice_Type.HinhThuc;
+                pInfo.Notice_Type = (decimal)CommonEnums.Notice_Type.ThongBao_Cap_Bang;
                 pInfo.Status = (decimal)CommonEnums.Notice_Accept_Status.LuatSu_GuiChoAdminDuyet;
                 decimal _status_app = (decimal)CommonEnums.App_Status.ThongBaoCapBang;
 
@@ -808,10 +817,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                     }
 
                     // url billing
-                    string _keyUrlBilling = "BILLING_APP_" + ((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Grant_Accept).ToString();
-                    string _url_billing = (string)SessionData.GetDataSession(_keyUrlBilling);
-                    if (_url_billing != null && _url_billing != "")
-                        pInfo.Biling_Url = _url_billing;
+                    AddBilling2Notice((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Grant_Accept, ref pInfo);
 
                     App_Notice_Info_BL _App_Notice_Info_BL = new App_Notice_Info_BL();
                     _ck = _App_Notice_Info_BL.App_Notice_Insert(pInfo, AppsCommon.GetCurrentLang());
@@ -842,7 +848,7 @@ namespace WebApps.Areas.TradeMark.Controllers
         {
             try
             {
-                pInfo.Notice_Type = (decimal)CommonEnums.Notice_Type.HinhThuc;
+                pInfo.Notice_Type = (decimal)CommonEnums.Notice_Type.CongBo_Bang;
                 pInfo.Status = (decimal)CommonEnums.Notice_Accept_Status.LuatSu_GuiChoAdminDuyet;
                 decimal _status_app = (decimal)CommonEnums.App_Status.ThongBaoCapBang;
 
@@ -879,10 +885,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                     }
 
                     // url billing
-                    string _keyUrlBilling = "BILLING_APP_" + ((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Grant_Public).ToString();
-                    string _url_billing = (string)SessionData.GetDataSession(_keyUrlBilling);
-                    if (_url_billing != null && _url_billing != "")
-                        pInfo.Biling_Url = _url_billing;
+                    AddBilling2Notice((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Grant_Public, ref pInfo);
 
                     App_Notice_Info_BL _App_Notice_Info_BL = new App_Notice_Info_BL();
                     _ck = _App_Notice_Info_BL.App_Notice_Insert(pInfo, AppsCommon.GetCurrentLang());

@@ -263,10 +263,13 @@ namespace WebApps.Areas.Manager.Controllers
                             Application_Header_BL _BL = new Application_Header_BL();
                             _ck = _BL.AppHeader_Update_Advise_Url_Billing(p_Billing_Header_Info.App_Case_Code, _fileExport);
                         }
-                        else if (p_Billing_Header_Info.Insert_Type == (decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Accept_Form)
+                        else  
                         {
-                            string _key = "BILLING_APP_" + ((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Accept_Form).ToString();
+                            string _key = "BILLING_APP_URL_" + p_Billing_Header_Info.App_Case_Code + "_" + p_Billing_Header_Info.Insert_Type.ToString();
                             SessionData.SetDataSession(_key, _fileExport);
+
+                            _key = "BILLING_APP_ID_" + p_Billing_Header_Info.App_Case_Code + "_" + p_Billing_Header_Info.Insert_Type.ToString();
+                            SessionData.SetDataSession(_key, _ck);
                         }
 
                         // nếu kết xuất file thành công thì insert vào docking

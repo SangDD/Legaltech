@@ -46,7 +46,7 @@
     <div class="divCover cls_form_title">
         <img src="~/Content/icons/info.png" />
         <div class="cls_form_header">
-            Review thông báo hình thức
+            Admin review grant public
         </div>
     </div>
 
@@ -139,7 +139,7 @@
     <div class="form-group">
         <div class="form-group-bottom">
             <input type="submit" class="btn-default" value="Submit" onclick="return do_Submit('@_AppHeaderInfo.Case_Code')" />
-            <input type="submit" class="btn-default" value="Reject" onclick="return do_Reject('@_AppHeaderInfo.Case_Code')" />
+            @*<input type="submit" class="btn-default" value="Reject" onclick="return do_Reject('@_AppHeaderInfo.Case_Code')" />*@
             <input type="submit" class="btn-default" value="Transfer" onclick="return onTransfer('@_AppHeaderInfo.Case_Code')" />
         </div>
     </div>
@@ -159,6 +159,7 @@
                     type: 'POST',
                     data: {
                         p_case_code: _case_code,
+                        p_Notice_Type : '@Convert.ToDecimal(Common.CommonData.CommonEnums.Notice_Type.ThongBao_Cap_Bang)',
                         p_status: 1,
                         p_note: $('#txtNotes').val()
                     },
@@ -195,6 +196,7 @@
                     type: 'POST',
                     data: {
                         p_case_code: _case_code,
+                        p_Notice_Type : '@Convert.ToDecimal(Common.CommonData.CommonEnums.Notice_Type.ThongBao_Cap_Bang)',
                         p_status: 0,
                         p_note: $('#txtNotes').val()
                     },

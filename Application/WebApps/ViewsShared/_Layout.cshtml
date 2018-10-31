@@ -1,10 +1,16 @@
 ﻿@using Common.CommonData
 @using WebApps.ExtensionObject
 @using WebApps.CommonFunction;
+@using WebApps.Session;
 @{
     Layout = null;
 
     string _LanguageCode = AppsCommon.GetCurrentLang();
+    string _username = "";
+    if (SessionData.CurrentUser != null)
+    {
+        _username = SessionData.CurrentUser.Username;
+    }
 }
 <!DOCTYPE html>
 <html>
@@ -116,7 +122,7 @@
                     </div>
                     @Html.Partial("~/ViewsShared/_PartialMainMenu.cshtml")
                     <div class="class-dangxuat">
-                        <a href="/dang-xuat" style="padding-right: 12px; padding-top: 10px;">Đăng xuất</a>
+                        <a href="/dang-xuat" style="padding-right: 12px; padding-top: 10px;">@_username - Đăng xuất</a>
                     </div>
                 </div>
 

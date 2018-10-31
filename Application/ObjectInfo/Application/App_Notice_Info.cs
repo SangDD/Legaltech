@@ -26,7 +26,7 @@ namespace ObjectInfos
 
         public decimal Result { get; set; }
         public DateTime Accept_Date { get; set; }
-        public DateTime DeadLine { get; set; }
+        public DateTime Exp_Date { get; set; }
 
         public HttpPostedFileBase File_Accept_Url { get; set; }
 
@@ -43,7 +43,9 @@ namespace ObjectInfos
         public string Replies_Url { get; set; }
         public HttpPostedFileBase File_Biling_Url { get; set; }
 
-        public string Biling_Url { get; set; }
+        public string Billing_Url { get; set; }
+        public decimal Billing_Id { get; set; }
+
         public string Created_By { get; set; }
         public DateTime Created_Date { get; set; }
         public decimal Deleted { get; set; }

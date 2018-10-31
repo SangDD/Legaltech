@@ -18,7 +18,7 @@
         _currstatus = ViewBag.Currstatus;
     }
 
-    B_Todos_Info _FirstTodo = new B_Todos_Info(); 
+    B_Todos_Info _FirstTodo = new B_Todos_Info();
     if (_Listtodo.Count > 0)
     {
         _FirstTodo = _Listtodo[0];
@@ -194,6 +194,7 @@
         {
             _Checked = "checked='checked'";
         }
+
         <div class="progress_div_radio"><input type="radio" name="name" disabled @_Checked /></div>
         <hr class="progress_hr" />
     }

@@ -65,7 +65,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày hết hạn" id="txt_deadline" maxlength="100" class="datepicker" />
+                <input type="text" placeholder="Ngày hết hạn" id="txtExp_Date" maxlength="100" class="datepicker" />
             </div>
         </div>
     </div>
@@ -148,7 +148,7 @@
                 formdata.append("pInfo.Notice_Number", $('#txt_Notice_Number').val());
                 formdata.append("pInfo.Notice_Date", $('#txt_notice_date').val());
                 formdata.append("pInfo.Accept_Date", $('#txt_notice_date').val());
-                formdata.append("pInfo.DeadLine", $('#txt_deadline').val());
+                formdata.append("pInfo.Exp_Date", $('#txtExp_Date').val());
 
                 formdata.append("pInfo.Advise_Replies", $('#txt_advise_replies').val());
                 formdata.append("pInfo.Note", $('#txtNotes').val());
@@ -163,7 +163,7 @@
                 var pfile2 = $("#file_attach_1");//lay du lieu file
                 if (pfile2.val() != "") {
                     var _file2 = pfile2[0].files[0];
-                    formdata.append("pInfo.Notice_Trans_Url", _file2);
+                    formdata.append("pInfo.File_Notice_Trans_Url", _file2);
                 }
 
                 $.ajax({
@@ -213,8 +213,8 @@
         }
 
         // check validate ngày
-        var txt_deadline = $("#txt_deadline").val();
-        if (checkDate("Ngày hết hạn", "#txt_deadline", txt_deadline) == false) {
+        var txtExp_Date = $("#txtExp_Date").val();
+        if (checkDate("Ngày hết hạn", "#txtExp_Date", txtExp_Date) == false) {
             return false;
         }
 
