@@ -8,16 +8,16 @@
     }
 
     App_Notice_Info _App_Notice_Info = new App_Notice_Info();
-    _App_Notice_Info.Number_Result = 0;
+    _App_Notice_Info.Times = 0;
     if (ViewBag.App_Notice_Info != null)
     {
         _App_Notice_Info = (App_Notice_Info)ViewBag.App_Notice_Info;
     }
 
     string _str_number = "";
-    if (_App_Notice_Info.Number_Result > 0)
+    if (_App_Notice_Info.Times > 0)
     {
-        _str_number = "lần" + _App_Notice_Info.Number_Result.ToString();
+        _str_number = "lần" + _App_Notice_Info.Times.ToString();
     }
 }
 
@@ -131,7 +131,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <a style="height: 20px !important;" href="@_App_Notice_Info.Biling_Url" download="@_App_Notice_Info.Biling_Url"> File billing </a>
+                <a style="height: 20px !important;" href="@_App_Notice_Info.Billing_Url" download="@_App_Notice_Info.Billing_Url"> File billing </a>
             </div>
         </div>
     </div>

@@ -17,6 +17,7 @@ namespace ObjectInfos
         public string Notice_Number { get; set; }
         public DateTime Notice_Date { get; set; }
         public decimal Notice_Type { get; set; }
+        public string Notice_Type_Name { get; set; }
 
         public HttpPostedFileBase File_Notice_Url { get; set; }
         public string Notice_Url { get; set; }
@@ -25,15 +26,19 @@ namespace ObjectInfos
         public string Notice_Trans_Url { get; set; }
 
         public decimal Result { get; set; }
+        public string Result_Name { get; set; }
+
         public DateTime Accept_Date { get; set; }
         public DateTime Exp_Date { get; set; }
 
         public HttpPostedFileBase File_Accept_Url { get; set; }
 
         public string Accept_Url { get; set; }
-        public decimal Number_Result { get; set; }
+        public decimal Times { get; set; }
         public string Reject_Reason { get; set; }
         public decimal Status { get; set; }
+        public string Status_Name { get; set; }
+
         public string Advise_Replies { get; set; }
         public string Replies_Number { get; set; }
         public DateTime Replies_Date { get; set; }

@@ -1,0 +1,42 @@
+﻿@using Common.CommonData
+@using Common.Extensions
+@using ObjectInfos;
+@{
+    List<App_Notice_Info> _list_data = new List<App_Notice_Info>();
+    if (ViewBag.Notice_Data != null)
+    {
+        _list_data = ViewBag.Notice_Data;
+    }
+
+}
+<div>
+    <table class="table-lst-data" id="tableListTodo">
+        <thead>
+            <tr>
+                <th style="width:20%">Số thông báo</th>
+                <th style="width:55%">Mô tả nội dung</th>
+                <th style="width:5%">Ngày thông báo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (_list_data.Count > 0)
+            {
+                foreach (var item in _list_data)
+                {
+                    <tr>
+                        <td class="tdleftalign">@item.Notice_Number</td>
+                        <td class="tdleftalign">@item.Notice_Type_Name - @item.Result_Name</td>
+                        <td class="tdleftalign">@item.Notice_Date.ToString("dd/MM/yyyy")</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3">Không có dữ liệu</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

@@ -1,0 +1,51 @@
+﻿@using Common.CommonData
+@using Common.Extensions
+@using ObjectInfos;
+@{
+    List<Docking_Info> _list_data = new List<Docking_Info>();
+    if (ViewBag.Docking_Data != null)
+    {
+        _list_data = ViewBag.Docking_Data;
+    }
+}
+
+<div>
+    <table class="table-lst-data" id="tableListGroupUser">
+        <thead>
+            <tr>
+                @*<th class="class30">STT</th>*@
+                <th class="class100">In/Out book</th>
+                @*<th class="class150">Case code</th>*@
+                <th class="class200">Tên tài liệu</th>
+                <th class="class100">Loại tài liệu</th>
+                <th class="class150">Tình trạng</th>
+                <th class="class100">Thời hạn</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (_list_data.Count > 0)
+            {
+                foreach (var item in _list_data)
+                {
+                    <tr>
+                        @*<td class="tdcenteralign">@item.STT</td>*@
+                        <td class="tdleftalign">@item.Docking_Type_Name</td>
+                        @*<td class="tdleftalign">@item.Document_Name</td>*@
+                        <td class="tdleftalign">
+                            <a href="@item.Url" download="@item.Url">@item.Document_Name</a>
+                        </td>
+                        <td class="tdleftalign">@item.Document_Type_Name</td>
+                        <td class="tdleftalign">@item.Status_Name</td>
+                        <td class="tdcenteralign">@(item.Deadline == DateTime.MinValue ? "" : item.Deadline.ToString("dd/MM/yyyy"))</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6">Không có dữ liệu</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

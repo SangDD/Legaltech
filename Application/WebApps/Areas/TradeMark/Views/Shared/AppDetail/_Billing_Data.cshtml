@@ -1,0 +1,85 @@
+﻿@using Common.CommonData
+@using Common.Extensions
+@using ObjectInfos;
+@{
+    List<Billing_Header_Info> _list_data = new List<Billing_Header_Info>();
+    if (ViewBag.Billing_Data != null)
+    {
+        _list_data = ViewBag.Billing_Data;
+    }
+}
+
+<div>
+    <table class="table-lst-data" id="tableListGroupUser">
+        <thead>
+            <tr>
+                @*<th class="class30">STT</th>*@
+                <th class="class150">Số bill</th>
+                <th class="class150">Case code</th>
+                <th class="class100">Ngày tháng</th>
+                <th class="class100">Hạn thanh toán</th>
+
+                <th class="class100">Số ngày trễ</th>
+                <th class="class150">Số tiền</th>
+                <th class="class100">Trạng thái</th>
+                <th class="class100">TT thanh toán</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (_list_data.Count > 0)
+            {
+                foreach (var item in _list_data)
+                {
+                    <tr>
+                        <td class="tdleftalign">
+                            <a href="javascript:;" onclick="GetView2View_Billing(@item.Billing_Id, '@item.App_Case_Code')">@item.Case_Code</a>
+                        </td>
+                        <td class="tdleftalign">@item.App_Case_Code</td>
+                        <td class="tdcenteralign">@item.Billing_Date.ToString("dd/MM/yyyy")</td>
+                        <td class="tdcenteralign">@item.Deadline.ToString("dd/MM/yyyy")</td>
+                        <td class="tdcenteralign">@item.SoNgayTre</td>
+                        <td class="tdrightalign" style="font-weight:bold;color: red">@item.Total_Amount.ToString("#,##0.##")</td>
+
+                        @if (item.Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Status.New_Wait_Approve))
+                        {
+                            <td class="tdleftalign" style="font-weight:bold; color: red">@item.Status_Name</td>
+                        }
+                        else
+                        {
+                            <td class="tdleftalign" style="font-weight:bold; color: blue">@item.Status_Name</td>
+                        }
+
+                        @if (item.Pay_Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Pay_Status.Payment))
+                        {
+                            <td class="tdleftalign" style="font-weight:bold; color: red">@item.Pay_Status_Name</td>
+                        }
+                        else
+                        {
+                            <td class="tdleftalign" style="font-weight:bold">@item.Pay_Status_Name</td>
+                        }
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="8">Không có dữ liệu</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function GetView2View_Billing(_id, _app_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        try {
+            var url = "/quan-ly-billing/danh-sach-billing/show-view-billing?id=" + _id + "&case_code=" + _app_case_code;
+            window.open(url);
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
+</script>

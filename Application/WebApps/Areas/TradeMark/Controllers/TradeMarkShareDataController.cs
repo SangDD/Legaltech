@@ -128,8 +128,16 @@ namespace WebApps.Areas.TradeMark.Controllers
                 }
                 ViewBag.Operator_Type = _operator_type;
 
+
+                List<B_Todos_Info> b_Todos_Infos = new List<B_Todos_Info>();
+                List<Billing_Header_Info> billing_Header_Infos = new List<Billing_Header_Info>();
+                List<Docking_Info> docking_Infos = new List<Docking_Info>();
+                List<App_Notice_Info> app_Notice_Infos = new List<App_Notice_Info>();
+                List<B_Remind_Info> b_Remind_Infos = new List<B_Remind_Info>();
+
                 Application_Header_BL _objBl = new Application_Header_BL();
-                ApplicationHeaderInfo _ApplicationHeaderInfo = _objBl.GetApp_By_Case_Code_Todo(p_case_code, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
+                ApplicationHeaderInfo _ApplicationHeaderInfo = _objBl.Get_Info_After_Filling(p_case_code, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang(),
+                    ref b_Todos_Infos, ref billing_Header_Infos, ref docking_Infos, ref app_Notice_Infos, ref b_Remind_Infos);
 
                 string pAppCode = _ApplicationHeaderInfo.Appcode;
                 SessionData.CurrentUser.chashFile.Clear();
@@ -140,11 +148,15 @@ namespace WebApps.Areas.TradeMark.Controllers
                 ViewBag.objAppHeaderInfo = _ApplicationHeaderInfo;
 
                 //  lấy dữ liệu lịch sử giao dịch
-                B_Todos_BL _B_Todos_BL = new B_Todos_BL();
-                List<B_Remind_Info> _ListRemind = new List<B_Remind_Info>();
-                List<B_Todos_Info> _Listtodo = _B_Todos_BL.NotifiGetByCasecode(p_case_code, ref _ListRemind);
-                ViewBag.ListTodo = _Listtodo;
-                ViewBag.ListRemind = _ListRemind;
+                //B_Todos_BL _B_Todos_BL = new B_Todos_BL();
+                //List<B_Remind_Info> _ListRemind = new List<B_Remind_Info>();
+                //List<B_Todos_Info> _Listtodo = _B_Todos_BL.NotifiGetByCasecode(p_case_code, ref _ListRemind);
+                ViewBag.ListTodo = b_Todos_Infos;
+                ViewBag.Billing_Data = billing_Header_Infos;
+                ViewBag.Docking_Data = docking_Infos;
+                ViewBag.Notice_Data = app_Notice_Infos;
+                ViewBag.ListRemind = b_Remind_Infos;
+
 
                 // sau advise filing
                 if (_ApplicationHeaderInfo.Status >= (decimal)CommonEnums.App_Status.Customer_Review)

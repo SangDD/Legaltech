@@ -68,8 +68,8 @@ namespace BussinessFacade.ModuleTrademark
         }
 
 
-        public int AppHeader_Filing_Status(string p_case_code, decimal p_status, string p_app_no, 
-            DateTime p_filing_date,DateTime p_expected_accept_date, string p_url_copy,string p_url_translate, string p_notes, string p_comment_filling, 
+        public int AppHeader_Filing_Status(string p_case_code, decimal p_status, string p_app_no,
+            DateTime p_filing_date, DateTime p_expected_accept_date, string p_url_copy, string p_url_translate, string p_notes, string p_comment_filling,
             string p_Modify_By, DateTime p_Modify_Date, string p_language_code)
         {
             try
@@ -218,6 +218,32 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
+        public ApplicationHeaderInfo Get_Info_After_Filling(string p_case_code, string p_user_name, string p_language_code,
+            ref List<B_Todos_Info> b_Todos_Infos, ref List<Billing_Header_Info>billing_Header_Infos, 
+            ref List<Docking_Info> docking_Infos, ref List<App_Notice_Info> app_Notice_Infos, ref List<B_Remind_Info> b_Remind_Infos)
+        {
+            try
+            {
+                Application_Header_DA _da = new Application_Header_DA();
+                DataSet _ds = _da.Get_Info_After_Filling(p_case_code, p_user_name, p_language_code);
+                ApplicationHeaderInfo _ApplicationHeaderInfo = CBO<ApplicationHeaderInfo>.FillObjectFromDataTable(_ds.Tables[0]);
+
+                b_Todos_Infos = CBO<B_Todos_Info>.FillCollectionFromDataTable(_ds.Tables[1]);
+                billing_Header_Infos = CBO<Billing_Header_Info>.FillCollectionFromDataTable(_ds.Tables[2]);
+                docking_Infos = CBO<Docking_Info>.FillCollectionFromDataTable(_ds.Tables[3]);
+                app_Notice_Infos = CBO<App_Notice_Info>.FillCollectionFromDataTable(_ds.Tables[4]);
+                b_Remind_Infos = CBO<B_Remind_Info>.FillCollectionFromDataTable(_ds.Tables[5]);
+
+
+                return _ApplicationHeaderInfo;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new ApplicationHeaderInfo();
+            }
+        }
+
         public ApplicationHeaderInfo GetApp_By_Case_Code_Todo(string p_case_code, string p_user_name, string p_language_code)
         {
             try
@@ -251,22 +277,6 @@ namespace BussinessFacade.ModuleTrademark
                 return null;
             }
         }
-
-
-        public DataSet GetWarningData(string p_usertype)
-        {
-            try
-            {
-                Application_Header_DA _da = new Application_Header_DA();
-                return _da.GetWarningData(p_usertype);
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return new DataSet();
-            }
-        }
-
     }
 
     public class AppClassInfoBL

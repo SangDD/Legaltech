@@ -8,7 +8,7 @@
     }
 
     App_Notice_Info _App_Notice_Info = new App_Notice_Info();
-    _App_Notice_Info.Number_Result = 0;
+    _App_Notice_Info.Times = 0;
     if (ViewBag.App_Notice_Info != null)
     {
         _App_Notice_Info = (App_Notice_Info)ViewBag.App_Notice_Info;
@@ -16,9 +16,9 @@
 
 
     string _str_number = "";
-    if (_App_Notice_Info.Number_Result > 0)
+    if (_App_Notice_Info.Times > 0)
     {
-        _str_number = "lần" + _App_Notice_Info.Number_Result.ToString();
+        _str_number = "lần" + _App_Notice_Info.Times.ToString();
     }
 }
 

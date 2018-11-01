@@ -374,15 +374,21 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
-        public DataSet GetWarningData(string p_user_type)
+        public DataSet Get_Info_After_Filling(string p_case_code, string p_user_name, string p_language_code)
         {
             try
             {
-                OracleParameter paramReturn = new OracleParameter("p_total_record", OracleDbType.Decimal, ParameterDirection.Output);
-                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_HEADER.PROC_GET_WARING_DATA",
-                    new OracleParameter("P_USER_TYPE", OracleDbType.Varchar2, p_user_type, ParameterDirection.Input),
-                    new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output));
-                return _ds;
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_header.proc_getAfter_Filling",
+                    new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
+                    new OracleParameter("p_user_name", OracleDbType.Varchar2, p_user_name, ParameterDirection.Input),
+                    new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
+                    new OracleParameter("p_cursor_app", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_todo", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_billing", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_docketing", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_notice", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_remind", OracleDbType.RefCursor, ParameterDirection.Output)
+                 );
             }
             catch (Exception ex)
             {
@@ -390,7 +396,6 @@ namespace DataAccess.ModuleTrademark
                 return new DataSet();
             }
         }
-
     }
 
 
