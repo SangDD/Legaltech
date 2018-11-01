@@ -38,21 +38,17 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\NewDLL\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine">
+      <HintPath>c:\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
     </Reference>
-    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\NewDLL\CrystalDecisions.ReportSource.dll</HintPath>
+    <Reference Include="CrystalDecisions.ReportSource">
+      <HintPath>c:\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.ReportSource.dll</HintPath>
     </Reference>
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\NewDLL\CrystalDecisions.Shared.dll</HintPath>
+    <Reference Include="CrystalDecisions.Shared">
+      <HintPath>c:\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.Shared.dll</HintPath>
     </Reference>
-    <Reference Include="CrystalDecisions.Web, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\NewDLL\CrystalDecisions.Web.dll</HintPath>
+    <Reference Include="CrystalDecisions.Web">
+      <HintPath>c:\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.Web.dll</HintPath>
     </Reference>
     <Reference Include="GemBox.Document">
       <HintPath>..\Extended dll\GemBox.Document.dll</HintPath>
@@ -183,8 +179,11 @@
     <Compile Include="Areas\Home\Controllers\WikiController.cs" />
     <Compile Include="Areas\Home\HomeAreaRegistration.cs" />
     <Compile Include="Areas\Manager\Controllers\BillingController.cs" />
+    <Compile Include="Areas\Manager\Controllers\Billing_SearchController.cs" />
     <Compile Include="Areas\Manager\Controllers\DockingController.cs" />
+    <Compile Include="Areas\Manager\Controllers\NotifyController.cs" />
     <Compile Include="Areas\Manager\Controllers\SearchManageController.cs" />
+    <Compile Include="Areas\Manager\Controllers\Search_FeeController.cs" />
     <Compile Include="Areas\Manager\Controllers\TimeSheetController.cs" />
     <Compile Include="Areas\Manager\ManagerAreaRegistration.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\CustomerController.cs" />
@@ -201,7 +200,7 @@
     <Compile Include="Areas\TradeMark\Controllers\PLD01_HDCN_4C2_Controller.cs" />
     <Compile Include="Areas\TradeMark\Controllers\PLC05_KN_3D_Controller.cs" />
     <Compile Include="Areas\TradeMark\Controllers\PLB02_CGD_3C_Controller.cs" />
-    <Compile Include="Areas\TradeMark\Controllers\TradeMarkRegistration01Controller.cs" />
+    <Compile Include="Areas\TradeMark\Controllers\TradeMarkRegistrationDKQTController.cs" />
     <Compile Include="Areas\TradeMark\Controllers\PLB01_SDD_3B_Controller.cs" />
     <Compile Include="Areas\TradeMark\Controllers\TradeMarkRegistrationController.cs" />
     <Compile Include="Areas\TradeMark\Controllers\TradeMarkShareDataController.cs" />
@@ -212,6 +211,7 @@
     <Compile Include="CommonFunction\AppLoadHelpers.cs" />
     <Compile Include="CommonFunction\AppsCommon.cs" />
     <Compile Include="CommonFunction\Email.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="CrytalReport_MVC\Report_Viewer.aspx.cs">
       <DependentUpon>Report_Viewer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -240,11 +240,23 @@
       <DependentUpon>TM_04NH.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Report\TM_06DKQT_EN.cs">
+      <DependentUpon>TM_06DKQT_EN.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Report\TM_06DKQT1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TM_06DKQT.rpt</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Report\TM_PLB01SDD_EN.cs">
+      <DependentUpon>TM_PLB01SDD_EN.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Report\TM_PLB02_CGD.cs">
       <DependentUpon>TM_PLB02_CGD.rpt</DependentUpon>
@@ -282,6 +294,42 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Articles\Views\web.config" />
+    <Content Include="Areas\Home\Views\Home\About.cshtml" />
+    <Content Include="Areas\Home\Views\Home\AccessDenied.cshtml" />
+    <Content Include="Areas\Home\Views\Home\AccountSessionInvalid.cshtml" />
+    <Content Include="Areas\Home\Views\Home\Contact.cshtml" />
+    <Content Include="Areas\Home\Views\Home\ForceRelogin.cshtml" />
+    <Content Include="Areas\Home\Views\Home\KnHome.cshtml" />
+    <Content Include="Areas\Home\Views\Home\LegalHome.cshtml" />
+    <Content Include="Areas\Home\Views\Home\PageNotFound.cshtml" />
+    <Content Include="Areas\Home\Views\Search\HomeSearch.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\HomeBulletin.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\HomeHotNews.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\HomeOrderBox.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\HomeRemindBox.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\HomeSearchBox.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\HomeToDoBox.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\HomeUpdateNews.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\_BulletinData.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\_HotnewsData.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\_OrderData.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\_PartialNotify.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\_Partial_Detail_Notify.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\_Partial_Quick_Notify.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\_RemindData.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\_SearchDataAppStatus.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\_SearchDataCustomer.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\_SearchDataLawyer.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\_SearchDataWiki.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\_TodoData.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\_UpdatenewsData.cshtml" />
+    <Content Include="Areas\Home\Views\web.config" />
+    <Content Include="Areas\Home\Views\Wiki\List.cshtml" />
+    <Content Include="Areas\Home\Views\Wiki\_PartialDocViewDetail.cshtml" />
+    <Content Include="Areas\Home\Views\Wiki\_PartialListDocByCata.cshtml" />
+    <Content Include="Areas\Home\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\_Partial04NHTaiLieuKhac_Dich.cshtml" />
     <Content Include="Content\Archive\NoteArchive.txt" />
     <Content Include="Content\ckeditor\build-config.js" />
     <Content Include="Content\ckeditor\ckeditor.js" />
@@ -1106,6 +1154,7 @@
     <Content Include="Content\CSSWaitingIcon\default.css" />
     <Content Include="Content\CSSWaitingIcon\reload.css" />
     <Content Include="Content\CSSWaitingIcon\rolling.css" />
+    <Content Include="Content\LegalhomeStyleSheet.css" />
     <Content Include="Content\DangTQStyleSheet.css" />
     <Content Include="Content\Datetimepicker_master\jquery.datetimepicker.full.js" />
     <Content Include="Content\Datetimepicker_master\jquery.datetimepicker.full.min.js" />
@@ -1155,6 +1204,7 @@
     <Content Include="Content\images\login_background.png" />
     <Content Include="Content\images\logo.ico" />
     <Content Include="Content\images\logo_ipath.png" />
+    <Content Include="Content\images\magnify.svg" />
     <Content Include="Content\images\orange.png" />
     <Content Include="Content\images\share.png" />
     <Content Include="Content\images\share_active.png" />
@@ -1167,6 +1217,38 @@
     <Content Include="Content\images\Vietnam-16.png" />
     <Content Include="Content\images\Vietnam-24.png" />
     <Content Include="Content\images\yellow.png" />
+    <Content Include="Content\News\Css\bootstrap.css" />
+    <Content Include="Content\News\Css\css.css" />
+    <Content Include="Content\News\Css\font-awesome.css" />
+    <Content Include="Content\News\Css\jquery.dropdown.min.css" />
+    <Content Include="Content\News\Css\learndash_template_style.css" />
+    <Content Include="Content\News\Css\main.css" />
+    <Content Include="Content\News\Css\register.css" />
+    <Content Include="Content\News\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\News\images\001.jpg" />
+    <Content Include="Content\News\images\001.png" />
+    <Content Include="Content\News\images\002.jpg" />
+    <Content Include="Content\News\images\002.png" />
+    <Content Include="Content\News\images\003.jpg" />
+    <Content Include="Content\News\images\003.png" />
+    <Content Include="Content\News\images\004.jpg" />
+    <Content Include="Content\News\images\004.png" />
+    <Content Include="Content\News\images\005.jpg" />
+    <Content Include="Content\News\images\005.png" />
+    <Content Include="Content\News\images\006.jpg" />
+    <Content Include="Content\News\images\006.png" />
+    <Content Include="Content\News\images\bg02.png" />
+    <Content Include="Content\News\images\bg03.png" />
+    <Content Include="Content\News\images\favicon.ico" />
+    <Content Include="Content\News\images\frame-blue.png" />
+    <Content Include="Content\News\images\frame-red.png" />
+    <Content Include="Content\News\images\frame-yellow.jpg" />
+    <Content Include="Content\News\images\logo_ipace-1.png" />
+    <Content Include="Content\News\images\logo_ipace.png" />
+    <Content Include="Content\News\scripts\analytics.js" />
+    <Content Include="Content\News\scripts\app.js" />
+    <Content Include="Content\News\scripts\jquery-3.2.1.min.js" />
+    <Content Include="Content\News\scripts\vendors.js" />
     <Content Include="Content\social-likes\social-likes.min.js" />
     <Content Include="Content\social-likes\social-likes_classic.css" />
     <Content Include="Content\WikiStyle.css" />
@@ -1175,14 +1257,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Areas\Home\Views\Home\About.cshtml" />
-    <Content Include="Areas\Home\Views\Home\AccessDenied.cshtml" />
-    <Content Include="Areas\Home\Views\Home\AccountSessionInvalid.cshtml" />
-    <Content Include="Areas\Home\Views\Home\Contact.cshtml" />
-    <Content Include="Areas\Home\Views\Home\ForceRelogin.cshtml" />
-    <Content Include="Areas\Home\Views\Home\KnHome.cshtml" />
-    <Content Include="Areas\Home\Views\Home\PageNotFound.cshtml" />
-    <Content Include="Areas\Home\Views\web.config" />
     <Content Include="Areas\Account\Views\Account\Login.cshtml" />
     <Content Include="Areas\Account\Views\web.config" />
     <Content Include="Content\fonts\IDAutomationHC39M.ttf" />
@@ -1241,9 +1315,17 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TM_04NH.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report\TM_06DKQT_EN.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TM_06DKQT_EN.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\TM_06DKQT.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TM_06DKQT1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\TM_PLB01SDD_EN.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TM_PLB01SDD_EN.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Report\TM_PLB02_CGD.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1295,11 +1377,11 @@
     <Content Include="Areas\AppClass\Views\AppClass\_PartialAppClassData.cshtml" />
     <Content Include="Areas\AppClass\Views\AppClass\_PartialDetailAppClass.cshtml" />
     <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\_PartialPreview.cshtml" />
-    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration01\AppSuaDoiDonDangKy.cshtml" />
-    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration01\DangKyNhanHieu.cshtml" />
-    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration01\_PartalDangKyNhanHieu.cshtml" />
-    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration01\_PartialPreview.cshtml" />
-    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration01\_PartialTaiLieuTrongDon.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistrationDKQT\AppSuaDoiDonDangKy.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistrationDKQT\DangKyNhanHieu.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistrationDKQT\_PartalDangKyNhanHieu.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistrationDKQT\_PartialPreview.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistrationDKQT\_PartialTaiLieuTrongDon.cshtml" />
     <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\_PartialContentPreview.cshtml" />
     <Content Include="Areas\TradeMark\Views\Shared\_PartialThongTinChuDon.cshtml" />
     <Content Include="Areas\TradeMark\Views\PLB01_SDD_3B\_Partial_TM_3B_PLB_01_SDD.cshtml" />
@@ -1329,11 +1411,11 @@
     <Content Include="Areas\TradeMark\Views\Shared\_PartialFileDinhKemView.cshtml" />
     <Content Include="Areas\TradeMark\Views\Shared\_PartialTMAddAppClassView.cshtml" />
     <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\View_Partial04NHTaiLieuKhac.cshtml" />
-    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration01\_PatialTaiLieuTrongDonUpload.cshtml" />
-    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration01\_PartialCamketChuDon.cshtml" />
-    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration01\_PartialTaiLieuTrongDonEdit.cshtml" />
-    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration01\_PartialCamKetChuDon_Edit.cshtml" />
-    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration01\_PartialCamKetChuDon_View.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistrationDKQT\_PatialTaiLieuTrongDonUpload.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistrationDKQT\_PartialCamketChuDon.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistrationDKQT\_PartialTaiLieuTrongDonEdit.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistrationDKQT\_PartialCamKetChuDon_Edit.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistrationDKQT\_PartialCamKetChuDon_View.cshtml" />
     <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\_Partial04NHDonUTSo2.cshtml" />
     <Content Include="Areas\TradeMark\Views\PLB01_SDD_3B\_PartialPreview.cshtml" />
     <Content Include="Areas\TradeMark\Views\PLB01_SDD_3B\_PartialPreview_IU.cshtml" />
@@ -1367,10 +1449,10 @@
     <Content Include="Areas\TradeMark\Views\PLB01_SDD_3B\_Partial_Fee.cshtml" />
     <Content Include="Areas\TradeMark\Views\PLB01_SDD_3B\_Partial_Fee_Edit.cshtml" />
     <Content Include="Areas\TradeMark\Views\PLB01_SDD_3B\_Partial_Fee_View.cshtml" />
-    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration01\_PartalViewDangKyNhanHieu.cshtml" />
-    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration01\_PartialContentPreview.cshtml" />
-    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration01\_PartialEditDangKyNhanHieu.cshtml" />
-    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration01\_PartialTaiLieuTrongDonView.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistrationDKQT\_PartalViewDangKyNhanHieu.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistrationDKQT\_PartialContentPreview.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistrationDKQT\_PartialEditDangKyNhanHieu.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistrationDKQT\_PartialTaiLieuTrongDonView.cshtml" />
     <Content Include="Areas\TradeMark\Views\Shared\_PartialDanhSachQuocGiaDKQTNH_View.cshtml" />
     <Content Include="Areas\Wiki\Views\Shared\_PartialCatalogue.cshtml" />
     <Content Include="Content\Archive\Wiki\Wiki.docx" />
@@ -1383,9 +1465,6 @@
     <Content Include="Areas\Wiki\Views\Catalogue\_PartialCatalogueDetail.cshtml" />
     <Content Include="Areas\Wiki\Views\Catalogue\_PartialCatalogueEdit.cshtml" />
     <Content Include="Areas\Wiki\Views\Catalogue\CatalogueList.cshtml" />
-    <Content Include="Areas\Home\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Home\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Home\Views\Wiki\List.cshtml" />
     <Content Include="Areas\TradeMark\Views\Application\_PartialLawer_Confirm.cshtml" />
     <Content Include="Areas\TradeMark\Views\PLD01_HDCN_4C2\_Partial_TM_4C2_PLD_01_HDCN.cshtml" />
     <Content Include="Areas\TradeMark\Views\PLD01_HDCN_4C2\_Partial_TM_4C2_PLD_01_HDCN_Edit.cshtml" />
@@ -1394,7 +1473,7 @@
     <Content Include="Areas\TradeMark\Views\PLD01_HDCN_4C2\_PartialPreview_IU.cshtml" />
     <Content Include="Areas\TradeMark\Views\PLD01_HDCN_4C2\_PartialSecondMaster.cshtml" />
     <Content Include="Areas\TradeMark\Views\PLD01_HDCN_4C2\_PartialSecondMaster_View.cshtml" />
-    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration01\_PartialTMAddAppClass.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistrationDKQT\_PartialTMAddAppClass.cshtml" />
     <Content Include="Areas\TradeMark\Views\Shared\_PartialContentPreview_docx.cshtml" />
     <Content Include="Content\AppForms\TM04Nh_vi.doc" />
     <Content Include="Areas\ModuleUsersAndRoles\Views\User\_PartialResetPass.cshtml" />
@@ -1422,35 +1501,16 @@
     <Content Include="Areas\Manager\Views\Docking\_PartialView.cshtml" />
     <Content Include="Areas\Manager\Views\Docking\Docking_Display.cshtml" />
     <Content Include="Areas\Manager\Views\Billing\_PartialView.cshtml" />
-    <Content Include="Areas\Manager\Views\Billing\_PartialChangeStatus.cshtml" />
     <Content Include="Areas\Manager\Views\Billing\_PartialEdit.cshtml" />
     <Content Include="Areas\Manager\Views\Billing\_PartialInsert.cshtml" />
     <Content Include="Areas\Manager\Views\Billing\_PartialTableBilling.cshtml" />
-    <Content Include="Areas\Home\Views\Home\LegalHome.cshtml" />
-    <Content Include="Areas\Home\Views\Shared\HomeSearchBox.cshtml" />
-    <Content Include="Areas\Home\Views\Shared\HomeToDoBox.cshtml" />
-    <Content Include="Areas\Home\Views\Shared\_SearchDataAppStatus.cshtml" />
-    <Content Include="Areas\Home\Views\Shared\_SearchDataLawyer.cshtml" />
-    <Content Include="Areas\Home\Views\Shared\_SearchDataCustomer.cshtml" />
-    <Content Include="Areas\Home\Views\Shared\_SearchDataWiki.cshtml" />
     <Content Include="Areas\AppClass\Views\web.config" />
     <Content Include="Areas\Manager\Views\Billing\_PartialDetail_Insert_Billing.cshtml" />
     <Content Include="Areas\Manager\Views\Billing\_Partial_AppInfo.cshtml" />
-    <Content Include="Areas\Home\Views\Shared\_TodoData.cshtml" />
-    <Content Include="Areas\Home\Views\Shared\HomeOrderBox.cshtml" />
-    <Content Include="Areas\Home\Views\Shared\_OrderData.cshtml" />
     <Content Include="Areas\Manager\Views\Billing\_PartialApprove.cshtml" />
-    <Content Include="Areas\Home\Views\Shared\HomeRemindBox.cshtml" />
-    <Content Include="Areas\Home\Views\Shared\_RemindData.cshtml" />
-    <Content Include="Areas\Home\Views\Shared\HomeBulletin.cshtml" />
-    <Content Include="Areas\Home\Views\Shared\_BulletinData.cshtml" />
     <Content Include="Areas\Articles\Views\ArticlesNews\_PartialViewTable.cshtml" />
     <Content Include="Areas\Articles\Views\ArticlesNews\_PartialViewAdd.cshtml" />
     <Content Include="Areas\Articles\Views\ArticlesNews\_PartialviewEdit.cshtml" />
-    <Content Include="Areas\Home\Views\Shared\HomeHotNews.cshtml" />
-    <Content Include="Areas\Home\Views\Shared\_HotnewsData.cshtml" />
-    <Content Include="Areas\Home\Views\Shared\HomeUpdateNews.cshtml" />
-    <Content Include="Areas\Home\Views\Shared\_UpdatenewsData.cshtml" />
     <Content Include="Areas\Manager\Views\TimeSheet\TimeSheetList.cshtml" />
     <Content Include="Areas\Manager\Views\TimeSheet\_PartialApproveTimeSheet.cshtml" />
     <Content Include="Areas\Manager\Views\TimeSheet\_PartialEditTimeSheet.cshtml" />
@@ -1472,12 +1532,6 @@
     <Content Include="Areas\TradeMark\Views\Shared\AppDetail\AppDetails.cshtml" />
     <Content Include="Areas\TradeMark\Views\Shared\AppDetail\_TodoData.cshtml" />
     <Content Include="Areas\TradeMark\Views\Shared\AppDetail\_ReminData.cshtml" />
-    <Content Include="Areas\TradeMark\Views\Shared\AppDetail\_AppData2A.cshtml" />
-    <Content Include="Areas\TradeMark\Views\Shared\AppDetail\_AppData2B.cshtml" />
-    <Content Include="Areas\TradeMark\Views\Shared\AppDetail\_AppData3B.cshtml" />
-    <Content Include="Areas\TradeMark\Views\Shared\AppDetail\_AppData3C.cshtml" />
-    <Content Include="Areas\TradeMark\Views\Shared\AppDetail\_AppData3D.cshtml" />
-    <Content Include="Areas\TradeMark\Views\Shared\AppDetail\_AppData4C2.cshtml" />
     <Content Include="Areas\TradeMark\Views\Shared\AppDetail\_AppHeader.cshtml" />
     <Content Include="Areas\TradeMark\Views\Application\_PartialAdminSend2Customer.cshtml" />
     <Content Include="Areas\TradeMark\Views\Application\_PartialPhanLoai_NopDon.cshtml" />
@@ -1485,23 +1539,87 @@
     <Content Include="Areas\Articles\Views\ArticlesNews\GetListArticles.cshtml" />
     <Content Include="Areas\Manager\Views\SearchManage\ListSearch.cshtml" />
     <Content Include="Areas\Manager\Views\SearchManage\_SearchData.cshtml" />
-    <Content Include="Areas\Home\Views\Search\HomeSearch.cshtml" />
     <Content Include="Areas\Manager\Views\SearchManage\SearchAdd.cshtml" />
-    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\_Partial04NHTaiLieuKhac_Dich.cshtml" />
-    <Content Include="Areas\TradeMark\Views\Shared\_PartialTMAddAppClassDich.cshtml" />
-    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\_Partial04NHTaiLieuKhac_Dich.cshtml" />
-    <Content Include="Areas\TradeMark\Views\Shared\_PartialTMAddAppClassDich.cshtml" />
     <Content Include="Areas\Manager\Views\SearchManage\_PartialSearchCondition.cshtml" />
     <Content Include="Areas\TradeMark\Views\Shared\_PartialCustomer.cshtml" />
     <Content Include="Areas\Manager\Views\SearchManage\SearchEdit.cshtml" />
     <Content Include="Areas\Manager\Views\SearchManage\_PartialSearchCondition4Edit.cshtml" />
-    <Content Include="Areas\Manager\Views\SearchManage\SearchEdit4Lawer.cshtml" />
     <Content Include="Areas\Manager\Views\SearchManage\_PartialSearchCondition4View.cshtml" />
     <Content Include="Areas\Articles\Views\ArticlesNews\_PartialviewView.cshtml" />
+    <Content Include="Areas\Manager\Views\SearchManage\Search_Detail.cshtml" />
+    <Content Include="Areas\Manager\Views\SearchManage\_PartialSearchDetails.cshtml" />
+    <Content Include="Areas\Manager\Views\SearchManage\_TodoData.cshtml" />
+    <Content Include="Areas\Manager\Views\SearchManage\_PartialPhanLoai.cshtml" />
+    <Content Include="Areas\Manager\Views\SearchManage\_PartialLuatSuTraloi.cshtml" />
+    <Content Include="Areas\Manager\Views\SearchManage\_PartialTaiLieuUpload.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\_PartialPhanLoai_Admin.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\_PartialAdminGuiKetQuaNopDon.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Shared\_PartialTMAddAppClassDich.cshtml" />
+    <Content Include="Areas\Manager\Views\SearchManage\_PartialAdminConfirm.cshtml" />
+    <Content Include="Areas\Manager\Views\SearchManage\_PartialTaiLieuUpload_New.cshtml" />
+    <Content Include="Areas\Manager\Views\SearchManage\_PartialSearchClassView.cshtml" />
+    <Content Include="Areas\Manager\Views\SearchManage\_PartialAddSearchClass.cshtml" />
+    <Content Include="Areas\Manager\Views\Billing_Search\_PartialInsert.cshtml" />
+    <Content Include="Areas\Manager\Views\Billing_Search\_PartialEdit.cshtml" />
+    <Content Include="Areas\Manager\Views\Billing_Search\_Partial_SearchInfo.cshtml" />
+    <Content Include="Areas\Manager\Views\Billing_Search\_PartialDetail_Insert_Billing.cshtml" />
+    <Content Include="Content\News\fonts\Canela-Bold.woff" />
+    <Content Include="Content\News\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\News\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\News\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\News\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\News\fonts\FontAwesome.otf" />
+    <Content Include="Content\News\fonts\Graphik-Medium.woff" />
+    <Content Include="Content\News\fonts\Graphik-SemiBold.woff" />
+    <Content Include="Areas\ModuleUsersAndRoles\Views\User\DanhSachKHDangKy.cshtml" />
+    <Content Include="Areas\ModuleUsersAndRoles\Views\User\_PartialTableListRegistor.cshtml" />
+    <Content Include="Areas\Articles\Views\ArticlesNews\_HomeArticles.cshtml" />
+    <Content Include="Areas\Articles\Views\ArticlesNews\_HomePartialViewNews.cshtml" />
+    <Content Include="Areas\Manager\Views\Notify\Notify_Display.cshtml" />
+    <Content Include="Areas\Manager\Views\Notify\_PartialTableNotify.cshtml" />
+    <Content Include="Areas\Manager\Views\Search_Fee\Search_Fee_Display.cshtml" />
+    <Content Include="Areas\Manager\Views\Search_Fee\_PartialTableSearch_Fee.cshtml" />
+    <Content Include="Areas\Manager\Views\Search_Fee\_PartialView.cshtml" />
+    <Content Include="Areas\Manager\Views\Search_Fee\_PartialInsert.cshtml" />
+    <Content Include="Areas\Manager\Views\Search_Fee\_PartialEdit.cshtml" />
+    <Content Include="Areas\Articles\Views\ArticlesNews\_HomeDetailNews.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\_Partial_Re_PhanLoai_2_Lawer.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\_Partial_Customer_Review_Result.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\After_Filing\_Partial_Update_Form_Result.cshtml" />
+    <Content Include="Areas\Home\Views\Wiki\View.cshtml" />
+    <Content Include="Areas\Home\Views\Wiki\_PartialWikiMenu.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Shared\AppDetail\AppDetails_After_Filing.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Shared\AppDetail\_AppHeader_After_Filing.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Shared\AppDetail\_Partial_Process.cshtml" />
+    <Content Include="Areas\Wiki\Views\WikiDoc\_PartialWikiApproOrReject.cshtml" />
+    <Content Include="Areas\Wiki\Views\WikiDoc\_TodoData.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\After_Filing\_Partial_Lawer_CongBoDon.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\After_Filing\_Partial_Update_Content_Result.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\After_Filing\_Partial_Lawer_TB_CapBang.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\_Partial_UploadFile.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Shared\AppDetail\_Partial_Sub_Process.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\HinhThuc\_Accept_Admin_Duyet.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\HinhThuc\_Accept_Admin_TuChoi.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\HinhThuc\_Accept_KH_Review.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\NoiDung\_Accept_KH_Review.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\NoiDung\_Accept_Admin_Duyet.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\NoiDung\_Accept_Admin_TuChoi.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\CapBang\_Accept_KH_Review.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\CapBang\_Accept_Admin_Duyet.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\CapBang\_Accept_Admin_TuChoi.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\CongBo_Bang\_Accept_KH_Review.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\CongBo_Bang\_Accept_Admin_Duyet.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\CongBo_Bang\_Accept_Admin_TuChoi.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\CongBo_Don\_Accept_KH_Review.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\CongBo_Don\_Accept_Admin_Duyet.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\CongBo_Don\_Accept_Admin_TuChoi.cshtml" />
+    <Content Include="Areas\ModuleUsersAndRoles\Views\User\ViewRegisterInfo.cshtml" />
+    <Content Include="Areas\ModuleUsersAndRoles\Views\User\_TodoData.cshtml" />
+    <Content Include="Areas\Articles\Views\ArticlesNews\NewsDetailByCategory.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\After_Filing\_Partial_Lawer_CongBoBang.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
-    <Content Include="Areas\Home\Views\Wiki\_PartialListDocByCata.cshtml" />
-    <Content Include="Areas\Home\Views\Wiki\_PartialDocViewDetail.cshtml" />
+    <None Include="Properties\PublishProfiles\HungTDLap.pubxml" />
     <None Include="Properties\PublishProfiles\HungTDPublic.pubxml" />
     <None Include="Properties\PublishProfiles\Legaltech.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -1512,7 +1630,9 @@
     <Content Include="Scripts\common-data-loader.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-ui-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\messagebox\JsFormPopup.js" />
     <Content Include="Scripts\messagebox\popup.js" />
@@ -1803,6 +1923,12 @@
     <Content Include="ViewsShared\_PartialMainMenu.cshtml" />
     <Content Include="ViewsShared\_LayoutPortal.cshtml" />
     <Content Include="ViewsShared\_PartialFooter.cshtml" />
+    <Content Include="ViewsShared\_LayoutHome.cshtml" />
+    <Content Include="ViewsShared\_LayoutHomeNews.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="ViewsShared\_LayoutHomeArticles.cshtml" />
+    <Content Include="ViewsShared\_PartialViewFaceYoutube.cshtml" />
+    <Content Include="ViewsShared\_LayoutHomeWiki.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Account\Models\" />

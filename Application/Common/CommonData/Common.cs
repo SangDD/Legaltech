@@ -15,6 +15,9 @@ namespace Common
 
         public static decimal Tax = 5;
         public static bool c_is_call_change_remind = false;
+
+        public static string BaseUrl { get; set; }
+        public static string BaseDir { get; set; }
     }
 
     /// <summary>

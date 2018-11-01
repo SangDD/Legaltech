@@ -14,6 +14,9 @@
 			{
                 connectionString = ConfigurationManager.ConnectionStrings["ConnectionStringDB"].ConnectionString;
                 Host = CommonFuc.GetConfig("HostLegal");
+
+                Common.BaseDir = System.Configuration.ConfigurationManager.AppSettings["BaseDir"].ToString();
+                Common.BaseUrl = System.Configuration.ConfigurationManager.AppSettings["BaseUrl"].ToString();
             }
             catch (Exception ex)
 			{

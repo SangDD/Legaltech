@@ -412,7 +412,7 @@
             try
             {
                 NewsBL _obj_bl = new NewsBL();
-                keysSearch = "7|" + "ALL|" + SessionData.CurrentUser.Language;
+                keysSearch = "7|" + "ALL|" + SessionData.CurrentUser.Language + "|THONGBAO";
                 //string pLanguage, string pTitle, DateTime pNgayCongBo, int pStart, int pEnd, ref decimal pTotalRecord)
               
                 List<NewsInfo> _lst = _obj_bl.ArticleHomeSearch(keysSearch, ref _total_record, p_from, p_to, _sortype);
@@ -446,7 +446,7 @@
             {
                 NewsBL _obj_bl = new NewsBL();
                 // keysSearch = "7|" + "1|" + SessionData.CurrentUser.Language;
-                keysSearch = "7|" + "ALL|" + SessionData.CurrentUser.Language;
+                keysSearch = "7|" + "ALL|" + SessionData.CurrentUser.Language + "|LEGAL_UPDATE";
 
                 List<NewsInfo> _lst = _obj_bl.ArticleHomeSearch(keysSearch, ref _total_record, p_from, p_to, _sortype);
                 htmlPaging = CommonFuc.Get_HtmlPaging<B_Remind_Info>((int)_total_record, p_CurrentPage, "Tin", _reconpage, "HotnewsjsPaging");
@@ -480,7 +480,7 @@
             {
                 NewsBL _obj_bl = new NewsBL();
                 // keysSearch = "7|" + "1|" + SessionData.CurrentUser.Language;
-                 keysSearch = "7|" + "ALL|" + SessionData.CurrentUser.Language;
+                 keysSearch = "7|" + "ALL|" + SessionData.CurrentUser.Language + "|TIN_TUC";
 
                 List<NewsInfo> _lst = _obj_bl.ArticleHomeSearch(keysSearch, ref _total_record, p_from, p_to, _sortype);
                 htmlPaging = CommonFuc.Get_HtmlPaging<B_Remind_Info>((int)_total_record, p_CurrentPage, "Tin", _reconpage, "UpdatenewsjsPaging");

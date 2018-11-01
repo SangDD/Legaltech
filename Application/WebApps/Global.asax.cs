@@ -104,6 +104,11 @@
                 string culture = "";
                 var httpCookie = Request.Cookies["language"];
                 var queryLanguage = "";
+                string _patch = Request.CurrentExecutionFilePath;
+                if (_patch.ToUpper().Contains("CKFINDER") == true)
+                {
+                    return;
+                }
                 bool isAjaxCall = string.Equals("XMLHttpRequest", Context.Request.Headers["x-requested-with"], StringComparison.OrdinalIgnoreCase);
 
                 if (Request.HttpMethod == WebRequestMethods.Http.Get && !isAjaxCall)

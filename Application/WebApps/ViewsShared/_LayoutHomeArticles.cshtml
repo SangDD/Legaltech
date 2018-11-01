@@ -87,7 +87,17 @@
                     <!--[Menutop + mobi]-->
                     <ul id="menu-main-menu" class="c-header_nav-list u-list-reset">
                         <li class="c-header_nav-item js-nav-nosublink">
-                            <a href="javascript:;" onclick="funLogin();" class="c-header_nav-item-label" data-transition="full">@WebApps.Resources.Resource.lblSigin</a>
+                            <a href="javascript:;" onclick="funLogin();" class="c-header_nav-item-label" data-transition="full">
+                                @if (WebApps.Session.SessionData.CurrentUser != null)
+                                {
+                                    @WebApps.Resources.Resource.lblQuanLy
+                                }
+                                else
+                                {
+                                    @WebApps.Resources.Resource.lblSigin
+                                }
+                               
+                            </a>
                         </li>
                         @*<li class="c-header_nav-item js-nav-nosublink" id="btButton">
                             <a href="javascript:;" onclick="return funcBottom();" class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
