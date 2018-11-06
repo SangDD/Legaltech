@@ -11,7 +11,7 @@
         _listcata = ViewBag.ListCata;
     }
     int _CurrentStatus = ViewBag.CurrStatus;
-    string _hef01 = "", _hef02 = "",  _hef04 = "";
+    string _hef01 = "", _hef02 = "",  _hef04 = "", _hef05 = "";
     if (_CurrentStatus == 1)
     {
         _hef01 = "text-decoration: underline;";
@@ -24,7 +24,10 @@
     {
         _hef04 = "text-decoration: underline;";
     }
-
+    if (_CurrentStatus == 3)
+    {
+        _hef05 = "text-decoration: underline;";
+    }
     }
 
     @try
@@ -81,6 +84,11 @@
                <tr>
                    <td>
                        <a style="@_hef04" href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_tuchoi">  4. Danh sách bài biết bị từ chối</a>
+                   </td>
+               </tr>
+               <tr>
+                   <td>
+                       <a style="@_hef05" href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_daduyet">  5. Danh sách bài biết đã duyệt</a>
                    </td>
                </tr>
            </table>
