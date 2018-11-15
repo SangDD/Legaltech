@@ -64,8 +64,8 @@
             Admin_TuchoiDuyet = 3,                      // admin từ chối duyệt và gửi cho luật sư
             KhachHang_Review_TraLoi = 4,                // khách hàng đã review thì gửi lại cho luật sư
             LuatSu_DichTraLoiCuc = 5,                   // luật sư dịch xong thì gửi cho admin
-            Admin_Duyet_TraLoiCuc = 6,                  // admin duyệt thì gửi cho luật sư
-            Admin_TuChoi_TraLoiCuc = 7,                 // admin duyệt thì gửi cho luật sư 
+            Admin_Duyet_Dich = 6,                       // admin duyệt thì gửi cho luật sư
+            Admin_TuChoi_Dich = 7,                      // admin duyệt thì gửi cho luật sư 
             LuatSu_Update_TB = 8                        // luật sư update thông báo trả lời và gửi cho khách hàng , 
             // nếu thành công thì nhảy lên trạng thái  ChapNhan_ThongBaoHinhThuc/ChapNhan_ThongBaoNoiDung(App_Status) 
             // nếu lỗi thì nhảy lên trạng thái LuatSu_GuiChoAdminDuyet                                       

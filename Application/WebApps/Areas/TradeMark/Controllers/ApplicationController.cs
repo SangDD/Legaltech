@@ -567,7 +567,7 @@ namespace WebApps.Areas.TradeMark.Controllers
 
         [HttpPost]
         [Route("quan-ly-don/accept-admin-approve")]
-        public ActionResult Accept_AdminApprove_Form(string p_case_code, decimal p_Notice_Type, decimal p_status, string p_note)
+        public ActionResult Accept_AdminApprove(string p_case_code, decimal p_Notice_Type, decimal p_status, string p_note)
         {
             try
             {
@@ -592,7 +592,7 @@ namespace WebApps.Areas.TradeMark.Controllers
 
         [HttpPost]
         [Route("quan-ly-don/accept-customer-approve")]
-        public ActionResult Accept_Customer_Approve_Form(string p_case_code, decimal p_Notice_Type, decimal p_status, string p_note)
+        public ActionResult Accept_Customer_Approve(string p_case_code, decimal p_Notice_Type, decimal p_status, string p_note)
         {
             try
             {
@@ -613,7 +613,7 @@ namespace WebApps.Areas.TradeMark.Controllers
 
         [HttpPost]
         [Route("quan-ly-don/reject-admin-approve")]
-        public ActionResult Reject_AdminApprove_Form(string p_case_code, decimal p_Notice_Type, string p_advise_replies, string p_advise_replies_trans, decimal p_status, string p_note)
+        public ActionResult Reject_AdminApprove(string p_case_code, decimal p_Notice_Type, string p_advise_replies, string p_advise_replies_trans, decimal p_status, string p_note)
         {
             try
             {
@@ -624,6 +624,96 @@ namespace WebApps.Areas.TradeMark.Controllers
                     _status = (decimal)CommonEnums.Notice_Reject_Status.Admin_DuyetGuiChoKhachHang;
                 }
 
+                decimal _ck = _obj_bl.App_Notice_Review_Reject(p_case_code, p_Notice_Type, _status, p_advise_replies, p_advise_replies_trans,
+                    p_note, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
+
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
+        [HttpPost]
+        [Route("quan-ly-don/reject-customer-approve")]
+        public ActionResult Reject_CustomerApprove(string p_case_code, decimal p_Notice_Type, string p_advise_replies, string p_advise_replies_trans, string p_note)
+        {
+            try
+            {
+                App_Notice_Info_BL _obj_bl = new App_Notice_Info_BL();
+                decimal _status = (decimal)CommonEnums.Notice_Reject_Status.KhachHang_Review_TraLoi;
+
+                decimal _ck = _obj_bl.App_Notice_Review_Reject(p_case_code, p_Notice_Type, _status, p_advise_replies, p_advise_replies_trans,
+                    p_note, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
+
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
+        [HttpPost]
+        [Route("quan-ly-don/reject-lawer-translate")]
+        public ActionResult Reject_Lawer_Translate(string p_case_code, decimal p_Notice_Type, string p_advise_replies, string p_advise_replies_trans, string p_note)
+        {
+            try
+            {
+                App_Notice_Info_BL _obj_bl = new App_Notice_Info_BL();
+                decimal _status = (decimal)CommonEnums.Notice_Reject_Status.LuatSu_DichTraLoiCuc;
+
+                decimal _ck = _obj_bl.App_Notice_Review_Reject(p_case_code, p_Notice_Type, _status, p_advise_replies, p_advise_replies_trans,
+                    p_note, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
+
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
+
+        [HttpPost]
+        [Route("quan-ly-don/reject-admin-approve-translate")]
+        public ActionResult Reject_Admin_Approve_Translate(string p_case_code, decimal p_Notice_Type, string p_advise_replies, string p_advise_replies_trans, 
+            decimal p_status, string p_note)
+        {
+            try
+            {
+                App_Notice_Info_BL _obj_bl = new App_Notice_Info_BL();
+                decimal _status = (decimal)CommonEnums.Notice_Reject_Status.Admin_Duyet_Dich;
+                if (p_status != 1)
+                {
+                    _status = (decimal)CommonEnums.Notice_Reject_Status.Admin_TuChoi_Dich;
+                }
+
+                decimal _ck = _obj_bl.App_Notice_Review_Reject(p_case_code, p_Notice_Type, _status, p_advise_replies, p_advise_replies_trans,
+                    p_note, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
+
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
+        [HttpPost]
+        [Route("quan-ly-don/reject-lawer-send-replies")]
+        public ActionResult Reject_Lawer_Send_Replise(string p_case_code, decimal p_Notice_Type, string p_advise_replies, string p_advise_replies_trans,
+            decimal p_status, string p_note)
+        {
+            try
+            {
+                App_Notice_Info_BL _obj_bl = new App_Notice_Info_BL();
+                decimal _status = (decimal)CommonEnums.Notice_Reject_Status.LuatSu_Update_TB;
                 decimal _ck = _obj_bl.App_Notice_Review_Reject(p_case_code, p_Notice_Type, _status, p_advise_replies, p_advise_replies_trans,
                     p_note, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
 

@@ -40,6 +40,8 @@ namespace ObjectInfos
         public string Status_Name { get; set; }
 
         public string Advise_Replies { get; set; }
+        public string Advise_Replies_Trans { get; set; }
+
         public string Replies_Number { get; set; }
         public DateTime Replies_Date { get; set; }
         public DateTime Replies_Deadline { get; set; }
