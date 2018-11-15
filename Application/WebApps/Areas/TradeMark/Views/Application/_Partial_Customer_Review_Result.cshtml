@@ -122,7 +122,7 @@
 
     function do_Customer_Review(_case_code) {
         if (validateAction()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn nộp đơn này cho khách hàng không?", function () {
+            nvsConfirm(null, "Bạn có chắc chắn muốn gửi nội dung này hay không?", function () {
 
                 var formdata = new FormData();
                 formdata.append("pInfo.Case_Code", _case_code);

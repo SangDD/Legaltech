@@ -143,10 +143,10 @@
                 @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_Re_PhanLoai_2_Lawer.cshtml")
 
                 @*// nếu đổi quyền ở bước duyệt advice filing
-            if (_hardStatus == (int)CommonEnums.App_Status.DaGuiLenCuc)
-            {
-                @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_Re_PhanLoai_2_Lawer.cshtml")
-            }*@
+                if (_hardStatus == (int)CommonEnums.App_Status.DaGuiLenCuc)
+                {
+                    @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_Re_PhanLoai_2_Lawer.cshtml")
+                }*@
             }
             else
             {
@@ -179,28 +179,28 @@
                     else if (_App_Notice_Info.Status == (decimal)CommonEnums.Notice_Reject_Status.KhachHang_Review_TraLoi)
                     {
                         // khách hàng review xong thì luật sư dịch câu trả lời
-                        @Html.Partial("~/Areas/TradeMark/Views/Application/After_Filing/_Reject_LS_Dich.cshtml")
+                        @Html.Partial("~/Areas/TradeMark/Views/Application/HinhThuc/_Reject_LS_Dich.cshtml")
                     }
 
                     else if (_App_Notice_Info.Status == (decimal)CommonEnums.Notice_Reject_Status.LuatSu_DichTraLoiCuc)
                     {
                         // luật sư dịch xong thì admin duyệt
-                        @Html.Partial("~/Areas/TradeMark/Views/Application/After_Filing/_Reject_Admin_Duyet_Dich.cshtml")
+                        @Html.Partial("~/Areas/TradeMark/Views/Application/HinhThuc/_Reject_Admin_Duyet_Dich.cshtml")
                     }
                     else if (_App_Notice_Info.Status == (decimal)CommonEnums.Notice_Reject_Status.Admin_Duyet_Dich)
                     {
-                        // admin duyệt xong thì gửi cho khách hàng
-                        @Html.Partial("~/Areas/TradeMark/Views/Application/After_Filing/_Reject_KH_Review_Dich.cshtml")
+                        // admin duyệt xong thì gửi cho khách hàng ?????
+                        @Html.Partial("~/Areas/TradeMark/Views/Application/HinhThuc/_Reject_KH_Review_Dich.cshtml")
                     }
                     else if (_App_Notice_Info.Status == (decimal)CommonEnums.Notice_Reject_Status.Admin_TuChoi_Dich)
                     {
                         // khác mà review xong thì chuyển sang bước công bố đơn
-                        @Html.Partial("~/Areas/TradeMark/Views/Application/After_Filing/_Reject_Admin_TuChoi_Dich.cshtml")
+                        @Html.Partial("~/Areas/TradeMark/Views/Application/HinhThuc/_Reject_Admin_TuChoi_Dich.cshtml")
                     }
-                    else if (_App_Notice_Info.Status == (decimal)CommonEnums.Notice_Reject_Status.LuatSu_Update_TB)
+                    else if (_App_Notice_Info.Status == (decimal)CommonEnums.Notice_Reject_Status.LuatSu_Update_Deadline)
                     {
                         // khác mà review xong thì chuyển sang bước công bố đơn
-                        @Html.Partial("~/Areas/TradeMark/Views/Application/After_Filing/_Partial_Lawer_CongBoDon.cshtml")
+                        @Html.Partial("~/Areas/TradeMark/Views/Application/HinhThuc/_Reject_LuatSu_Update_Deadline.cshtml")
                     }
                 }
                 else if (_currstatus == (int)CommonEnums.App_Status.ChapNhan_ThongBaoHinhThuc)

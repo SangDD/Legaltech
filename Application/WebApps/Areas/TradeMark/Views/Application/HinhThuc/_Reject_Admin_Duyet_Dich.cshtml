@@ -46,7 +46,7 @@
     <div class="divCover cls_form_title">
         <img src="~/Content/icons/info.png" />
         <div class="cls_form_header">
-            Admin review accept form
+            Admin review transalate notice form
         </div>
     </div>
 
@@ -155,11 +155,13 @@
             nvsConfirm(null, "Bạn có chắc chắn muốn duyệt nội dung này hay không?", function () {
 
                 $.ajax({
-                    url: '/trade-mark-mana/quan-ly-don/accept-admin-approve',
+                    url: '/trade-mark-mana/quan-ly-don/reject-admin-approve-translate',
                     type: 'POST',
                     data: {
                         p_case_code: _case_code,
-                        p_Notice_Type : '@Convert.ToDecimal(Common.CommonData.CommonEnums.Notice_Type.HinhThuc)',
+                        p_Notice_Type: '@Convert.ToDecimal(Common.CommonData.CommonEnums.Notice_Type.HinhThuc)',
+                        p_advise_replies: $('#txt_advise_replies').val(),
+                        p_advise_replies_trans: $('#txt_advise_replies_trans').val(),
                         p_status: 1,
                         p_note: $('#txtNotes').val()
                     },
@@ -192,11 +194,13 @@
         if (validateAction()) {
             nvsConfirm(null, "Bạn có chắc chắn muốn duyệt nội dung này hay không?", function () {
                 $.ajax({
-                    url: '/trade-mark-mana/quan-ly-don/accept-admin-approve',
+                    url: '/trade-mark-mana/quan-ly-don/reject-admin-approve-translate',
                     type: 'POST',
                     data: {
                         p_case_code: _case_code,
-                        p_Notice_Type : '@Convert.ToDecimal(Common.CommonData.CommonEnums.Notice_Type.HinhThuc)',
+                        p_Notice_Type: '@Convert.ToDecimal(Common.CommonData.CommonEnums.Notice_Type.HinhThuc)',
+                        p_advise_replies: $('#txt_advise_replies').val(),
+                        p_advise_replies_trans: $('#txt_advise_replies_trans').val(),
                         p_status: 0,
                         p_note: $('#txtNotes').val()
                     },

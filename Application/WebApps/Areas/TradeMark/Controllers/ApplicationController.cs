@@ -713,7 +713,7 @@ namespace WebApps.Areas.TradeMark.Controllers
             try
             {
                 App_Notice_Info_BL _obj_bl = new App_Notice_Info_BL();
-                decimal _status = (decimal)CommonEnums.Notice_Reject_Status.LuatSu_Update_TB;
+                decimal _status = (decimal)CommonEnums.Notice_Reject_Status.LuatSu_Update_Deadline;
                 decimal _ck = _obj_bl.App_Notice_Review_Reject(p_case_code, p_Notice_Type, _status, p_advise_replies, p_advise_replies_trans,
                     p_note, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
 
