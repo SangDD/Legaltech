@@ -46,7 +46,7 @@
     <div class="divCover cls_form_title">
         <img src="~/Content/icons/info.png" />
         <div class="cls_form_header">
-            Lawer update new deadline notice form
+            Lawer update new deadline notice content
         </div>
     </div>
 
@@ -213,7 +213,7 @@
                     type: 'POST',
                     data: {
                         p_case_code: _case_code,
-                        p_Notice_Type: '@Convert.ToDecimal(Common.CommonData.CommonEnums.Notice_Type.HinhThuc)',
+                        p_Notice_Type: '@Convert.ToDecimal(Common.CommonData.CommonEnums.Notice_Type.NoiDung)',
                         p_replies_date: $('#txt_replies_date').val(),
                         p_next_deadline: $('#txt_replies_deadline').val(),
                         p_url_scan_copy_cv: _file,

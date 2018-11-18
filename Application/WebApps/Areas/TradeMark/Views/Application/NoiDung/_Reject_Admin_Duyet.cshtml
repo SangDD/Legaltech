@@ -46,7 +46,7 @@
     <div class="divCover cls_form_title">
         <img src="~/Content/icons/info.png" />
         <div class="cls_form_header">
-            Lawer update new deadline notice form
+            Admin review reject content from lawer
         </div>
     </div>
 
@@ -83,44 +83,11 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Ngày trả lời</div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <input type="text" placeholder="Ngày trả lời cục" id="txt_replies_date" maxlength="100" disabled="disabled" value="@_App_Notice_Info.Replies_Date.ToString("dd/MM/yyyy")" />
-            </div>
-        </div>
-    </div>
-
-    <div class="div-search-ad">
-        <div class="div-search-title">
-            <div>Next Deadline</div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <input type="text" placeholder="Ngày cục trả lời" id="txt_replies_deadline" maxlength="100" disabled="disabled" value="@_App_Notice_Info.Replies_Deadline.ToString("dd/MM/yyyy")" />
-            </div>
-        </div>
-    </div>
-
-    <div class="div-search-ad">
-        <div class="div-search-title">
-            <div>Nội dung chính</div>
+            <div>Advise replise </div>
         </div>
         <div class="div-search-content">
             <div>
                 <input type="text" id="txt_advise_replies" value="@_App_Notice_Info.Advise_Replies" />
-            </div>
-        </div>
-    </div>
-
-    <div class="div-search-ad">
-        <div class="div-search-title">
-            <div>Nội dung chính  (TA)</div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <input type="text" id="txt_advise_replies_trans" value="@_App_Notice_Info.Advise_Replies_Trans" />
             </div>
         </div>
     </div>
@@ -135,6 +102,7 @@
             </div>
         </div>
     </div>
+
     <div class="div-search-ad">
         <div class="div-search-title">
             <div>File scan thông báo<i class="redspan">(*)</i></div>
@@ -168,29 +136,13 @@
         </div>
     </div>
 
-    <div class="div-search-ad">
-        <div class="div-search-title">
-            <div>CV trả lời cục<i class="redspan">(*)</i></div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <a style="height: 20px !important;" href="@_App_Notice_Info.CV_Answer_Url" download="@_App_Notice_Info.CV_Answer_Url"> CV trả lời cục </a>
-            </div>
-        </div>
-    </div>
-
-    @* Upload file copy scan cv trả lời có dấu đỏ của cục *@
-    @{
-        string _id1 = "1";
-        string _isValid1 = "1";
-        string _model1 = _id1 + "|" + _isValid1 + "|" + "File scan CV trả lời";
-        @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile.cshtml", _model1)
-    }
-
-
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Submit" onclick="return do_Submit('@_AppHeaderInfo.Case_Code')" />
+            <input type="submit" class="btn-default" value="Accept" onclick="return do_Submit('@_AppHeaderInfo.Case_Code')" />
+            <input type="submit" class="btn-default" value="Reject" onclick="return do_Submit('@_AppHeaderInfo.Case_Code')" />
+
+            @*<input type="submit" class="btn-default" value="Reject" onclick="return do_Reject('@_AppHeaderInfo.Case_Code')" />*@
+            <input type="submit" class="btn-default" value="Transfer" onclick="return onTransfer('@_AppHeaderInfo.Case_Code')" />
         </div>
     </div>
 </div>
@@ -204,19 +156,15 @@
         if (validateAction()) {
             nvsConfirm(null, "Bạn có chắc chắn muốn duyệt nội dung này hay không?", function () {
 
-                // file copy scan cv trả lời có dấu đỏ của cục
-                var pfile = $("#file_attach_1");//lay du lieu file
-                var _file = pfile[0].files[0];
-
                 $.ajax({
-                    url: '/trade-mark-mana/quan-ly-don/reject-lawer-update-deadline',
+                    url: '/trade-mark-mana/quan-ly-don/reject-admin-approve',
                     type: 'POST',
                     data: {
                         p_case_code: _case_code,
-                        p_Notice_Type: '@Convert.ToDecimal(Common.CommonData.CommonEnums.Notice_Type.HinhThuc)',
-                        p_replies_date: $('#txt_replies_date').val(),
-                        p_next_deadline: $('#txt_replies_deadline').val(),
-                        p_url_scan_copy_cv: _file,
+                        p_Notice_Type: '@Convert.ToDecimal(Common.CommonData.CommonEnums.Notice_Type.NoiDung)',
+                        p_advise_replies: $('#txt_advise_replies').val(),
+                        p_advise_replies_trans: '',
+                        p_status: 1,
                         p_note: $('#txtNotes').val()
                     },
                     async: true, cache: false, traditional: true,
@@ -244,19 +192,56 @@
         }
     }
 
+    function do_Reject(_case_code) {
+        if (validateAction()) {
+            nvsConfirm(null, "Bạn có chắc chắn muốn từ chối nội dung này hay không?", function () {
+                $.ajax({
+                    url: '/trade-mark-mana/quan-ly-don/reject-admin-approve',
+                    type: 'POST',
+                    data: {
+                        p_case_code: _case_code,
+                        p_Notice_Type: '@Convert.ToDecimal(Common.CommonData.CommonEnums.Notice_Type.NoiDung)',
+                        p_advise_replies: $('#txt_advise_replies').val(),
+                        p_advise_replies_trans: '',
+                        p_status: 0,
+                        p_note: $('#txtNotes').val()
+                    },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            jError("Lỗi check lại kết nối tới server");
+                            return false;
+                        }
+                        else {
+                            jAlert('Submit thành công!', "THÔNG BÁO", function () {
+                                window.location.href = "/home";
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(false);
+                        console.log(e);
+                    }
+                });
+            });
+        }
+    }
+
+    function onTransfer(_case_code) {
+        var url = "/trade-mark-share-data/app-re-grant/" + _case_code + "/2" + "/" + '@_AppHeaderInfo.Status';
+        window.open(url);
+    }
+
     function validateAction() {
-        var txt_replies_date = $("#txt_replies_date").val();
-        if (checkDate("Ngày trả lời cục", "#txt_replies_date", txt_replies_date) == false) {
-            return false;
-        }
-
-        var txt_replies_deadline = $("#txt_replies_deadline").val();
-        if (checkDate("Ngày cục trả lời", "#txt_replies_deadline", txt_replies_deadline) == false) {
-            return false;
-        }
-
-        var _re = checkValidate_File("1");
-        if (_re == false) {
+        var _txt_advise_replies = $('#txt_advise_replies').val();
+        if (_txt_advise_replies == null || _txt_advise_replies == "") {
+            jError('Advise trả lời không được để trống!', "Lỗi", function () {
+                $('#txt_advise_replies').focus();
+            });
             return false;
         }
 
