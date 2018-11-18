@@ -77,7 +77,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày hợp lệ" id="txt_accept_date" maxlength="100" disabled="disabled" value="@_App_Notice_Info.Accept_Date.ToString("dd/MM/yyyy")" />
+                <input type="text" placeholder="Ngày hợp lệ" id="txt_accept_date" maxlength="100" disabled="disabled" value="@(_App_Notice_Info.Accept_Date == DateTime.MinValue ? "" : _App_Notice_Info.Accept_Date.ToString("dd/MM/yyyy") )" />
             </div>
         </div>
     </div>

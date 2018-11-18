@@ -244,13 +244,14 @@ namespace WebApps.Areas.Manager.Controllers
                     p_Billing_Header_Info.Billing_Type = (decimal)CommonEnums.Billing_Type.Search;
                 }
                 decimal _ck = 0;
+                decimal _idBilling = 0;
                 using (var scope = new TransactionScope())
                 {
-                    _ck = _obj_bl.Billing_Insert(p_Billing_Header_Info);
+                    _idBilling = _obj_bl.Billing_Insert(p_Billing_Header_Info);
 
-                    if (_ck > 0 && _lst_billing_detail.Count > 0)
+                    if (_idBilling > 0 && _lst_billing_detail.Count > 0)
                     {
-                        _ck = _obj_bl.Billing_Detail_InsertBatch(_lst_billing_detail, _ck);
+                        _ck = _obj_bl.Billing_Detail_InsertBatch(_lst_billing_detail, _idBilling);
                     }
 
                     if (_ck > 0 && p_Billing_Header_Info.Insert_Type != (decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.App)
@@ -269,7 +270,7 @@ namespace WebApps.Areas.Manager.Controllers
                             SessionData.SetDataSession(_key, _fileExport);
 
                             _key = "BILLING_APP_ID_" + p_Billing_Header_Info.App_Case_Code + "_" + p_Billing_Header_Info.Insert_Type.ToString();
-                            SessionData.SetDataSession(_key, _ck);
+                            SessionData.SetDataSession(_key, _idBilling);
                         }
 
                         // nếu kết xuất file thành công thì insert vào docking

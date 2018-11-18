@@ -65,7 +65,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày thông báo" id="txt_notice_date" maxlength="100" disabled="disabled" value="@_App_Notice_Info.Notice_Date.ToString("dd/MM/yyyy")" />
+                <input type="text" placeholder="Ngày thông báo" id="txt_notice_date" maxlength="100" disabled="disabled" value="@(_App_Notice_Info.Notice_Date == DateTime.MinValue ? "" : _App_Notice_Info.Notice_Date.ToString("dd/MM/yyyy") )" />
             </div>
         </div>
     </div>
@@ -76,7 +76,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày hợp lệ" id="txt_accept_date" maxlength="100" disabled="disabled" value="@_App_Notice_Info.Accept_Date.ToString("dd/MM/yyyy")" />
+                <input type="text" placeholder="Ngày hợp lệ" id="txt_accept_date" maxlength="100" disabled="disabled" value="@(_App_Notice_Info.Accept_Date == DateTime.MinValue ? "" : _App_Notice_Info.Accept_Date.ToString("dd/MM/yyyy") )" />
             </div>
         </div>
     </div>
@@ -88,6 +88,17 @@
         <div class="div-search-content">
             <div>
                 <input type="text" id="txt_advise_replies" disabled="disabled" value="@_App_Notice_Info.Advise_Replies" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Nội dung chính (TA)</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txt_advise_replies_trans"  value="@_App_Notice_Info.Advise_Replies_Trans" />
             </div>
         </div>
     </div>

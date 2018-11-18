@@ -76,7 +76,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày hợp lệ" id="txt_accept_date" maxlength="100" disabled="disabled" value="@_App_Notice_Info.Accept_Date.ToString("dd/MM/yyyy")" />
+                <input type="text" placeholder="Ngày hợp lệ" id="txt_accept_date" maxlength="100" disabled="disabled" value="@(_App_Notice_Info.Accept_Date == DateTime.MinValue ? "" : _App_Notice_Info.Accept_Date.ToString("dd/MM/yyyy") )" />
             </div>
         </div>
     </div>
@@ -87,7 +87,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày trả lời cục" id="txt_replies_date" maxlength="100" disabled="disabled" value="@_App_Notice_Info.Replies_Date.ToString("dd/MM/yyyy")" />
+                <input type="text" placeholder="Ngày trả lời cục" id="txt_replies_date" maxlength="100" value="@(_App_Notice_Info.Replies_Date == DateTime.MinValue ? "" : _App_Notice_Info.Replies_Date.ToString("dd/MM/yyyy") )" class="datepicker" />
             </div>
         </div>
     </div>
@@ -264,36 +264,34 @@
             }
 
             var _url = "/trade-mark-mana/quan-ly-don/do-export-cv-auto";
-            nvsConfirm(null, "Bạn có chắc chắn muốn xem CV trả lời này không?", function () {
-                $.ajax({
-                    url: _url,
-                    type: "POST",
-                    data: {
-                        p_case_code: _case_code,
-                        p_Notice_Type: '@Convert.ToDecimal(Common.CommonData.CommonEnums.Notice_Type.NoiDung)',
-                        p_advise_replies: $('#txt_advise_replies').val()
-                    },
-                    headers: { "cache-control": "no-cache" },
-                    async: true, cache: false, traditional: true,
-                    beforeSend: function () {
-                        CreateRollingWaitingIcon(true);
-                    },
-                    success: function (data) {
-                        CreateRollingWaitingIcon(false);
-                        console.log(data.success);
-                        if (data.success == "-1") {
-                            jError("Lỗi check lại kết nối tới server");
-                            return false;
-                        }
-                        else {
-                            OpenPreview("/quan-ly-don/Pre-View?p_filename=" + data.success);
-                        }
-                    },
-                    error: function (e) {
-                        CreateRollingWaitingIcon(false);
-                        console.log(e);
+            $.ajax({
+                url: _url,
+                type: "POST",
+                data: {
+                    p_case_code: _case_code,
+                    p_Notice_Type: '@Convert.ToDecimal(Common.CommonData.CommonEnums.Notice_Type.NoiDung)',
+                    p_advise_replies: $('#txt_advise_replies').val()
+                },
+                headers: { "cache-control": "no-cache" },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(data.success);
+                    if (data.success == "-1") {
+                        jError("Lỗi check lại kết nối tới server");
+                        return false;
                     }
-                });
+                    else {
+                        OpenPreview("/trade-mark-mana/Pre-View?p_filename=" + data.success);
+                    }
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
             });
         } catch (e) {
             CreateRollingWaitingIcon(true);

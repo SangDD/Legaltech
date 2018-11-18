@@ -14,7 +14,7 @@
     string _str_number = "";
     if (_Number_Notice > 0)
     {
-        _str_number = "lần" + _Number_Notice.ToString();
+        _str_number = "lần " + _Number_Notice.ToString();
     }
 }
 
@@ -180,7 +180,7 @@
                     formdata.append("pInfo.File_Notice_Url", _file);
                 }
 
-                var pfile2 = $("#file_attach_1");//lay du lieu file
+                var pfile2 = $("#file_attach_2");//lay du lieu file
                 if (pfile2.val() != "") {
                     var _file2 = pfile2[0].files[0];
                     formdata.append("pInfo.File_Notice_Trans_Url", _file2);

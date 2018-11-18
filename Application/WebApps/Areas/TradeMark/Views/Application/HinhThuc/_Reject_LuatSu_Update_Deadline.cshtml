@@ -76,7 +76,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày hợp lệ" id="txt_accept_date" maxlength="100" disabled="disabled" value="@_App_Notice_Info.Accept_Date.ToString("dd/MM/yyyy")" />
+                <input type="text" placeholder="Ngày hợp lệ" id="txt_accept_date" maxlength="100" disabled="disabled" value="@(_App_Notice_Info.Accept_Date == DateTime.MinValue ? "" : _App_Notice_Info.Accept_Date.ToString("dd/MM/yyyy") )"/>
             </div>
         </div>
     </div>
@@ -87,7 +87,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày trả lời cục" id="txt_replies_date" maxlength="100" disabled="disabled" value="@_App_Notice_Info.Replies_Date.ToString("dd/MM/yyyy")" />
+                <input type="text" placeholder="Ngày trả lời cục" id="txt_replies_date" maxlength="100" value="@(_App_Notice_Info.Replies_Date == DateTime.MinValue ? "" : _App_Notice_Info.Replies_Date.ToString("dd/MM/yyyy") )" />
             </div>
         </div>
     </div>
@@ -98,7 +98,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày cục trả lời" id="txt_replies_deadline" maxlength="100" disabled="disabled" value="@_App_Notice_Info.Replies_Deadline.ToString("dd/MM/yyyy")" />
+                <input type="text" placeholder="Ngày cục trả lời" id="txt_replies_deadline" maxlength="100" value="@(_App_Notice_Info.Replies_Deadline == DateTime.MinValue ? "" : _App_Notice_Info.Replies_Deadline.ToString("dd/MM/yyyy") )" class="datepicker"/>
             </div>
         </div>
     </div>
@@ -109,7 +109,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" id="txt_advise_replies" value="@_App_Notice_Info.Advise_Replies" />
+                <input type="text" id="txt_advise_replies" value="@_App_Notice_Info.Advise_Replies" disabled="disabled"/>
             </div>
         </div>
     </div>
@@ -120,7 +120,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" id="txt_advise_replies_trans" value="@_App_Notice_Info.Advise_Replies_Trans" />
+                <input type="text" id="txt_advise_replies_trans" value="@_App_Notice_Info.Advise_Replies_Trans" disabled="disabled"/>
             </div>
         </div>
     </div>
