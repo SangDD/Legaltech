@@ -95,12 +95,12 @@ namespace BussinessFacade
         }
 
         public decimal App_Notice_Review_Reject(string p_Case_Code, decimal p_Notice_Type, decimal p_status, string Advise_Replies, string Advise_Replies_Trans,
-           string p_notes, string p_modify_by, string p_language_code)
+           string p_notes, string p_modify_by, string p_language_code, DateTime p_replies_date)
         {
             try
             {
                 App_Notice_Info_DA _da = new App_Notice_Info_DA();
-                return _da.App_Notice_Review_Reject(p_Case_Code, p_Notice_Type, p_status, Advise_Replies, Advise_Replies_Trans, p_notes, p_modify_by, p_language_code);
+                return _da.App_Notice_Review_Reject(p_Case_Code, p_Notice_Type, p_status, Advise_Replies, Advise_Replies_Trans, p_notes, p_modify_by, p_language_code, p_replies_date);
             }
             catch (Exception ex)
             {
@@ -109,6 +109,35 @@ namespace BussinessFacade
             }
         }
 
+        public decimal Reject_Lawer_Update_Deadline(string p_case_code, decimal p_notice_type, DateTime p_replies_date, DateTime p_next_deadline, string p_replies_url,
+            decimal p_status, string p_note, string p_modify_by, string p_language_code)
+        {
+            try
+            {
+                App_Notice_Info_DA _da = new App_Notice_Info_DA();
+                return _da.Reject_Lawer_Update_Deadline(p_case_code, p_notice_type, p_replies_date, p_next_deadline, p_replies_url,
+                     p_status, p_note, p_modify_by, p_language_code);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
+        public decimal Update_CV_Auto(string p_case_code, decimal p_notice_type, string p_cv_answer_url, string p_modify_by, string p_language_code)
+        {
+            try
+            {
+                App_Notice_Info_DA _da = new App_Notice_Info_DA();
+                return _da.Update_CV_Auto(p_case_code, p_notice_type, p_cv_answer_url, p_modify_by, p_language_code);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
         public decimal App_Notice_Update_Status(string p_case_code, decimal p_notice_type, decimal p_status, decimal p_result,
             DateTime p_accept_date, string p_note, string p_modify_by, string p_language_code)
         {

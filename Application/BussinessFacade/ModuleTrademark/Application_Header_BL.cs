@@ -203,12 +203,17 @@ namespace BussinessFacade.ModuleTrademark
 
         }
 
-        public ApplicationHeaderInfo GetApp_By_Case_Code(string p_case_code, string p_user_name, string p_language_code)
+        /// <summary>
+        /// Lấy thông tin app theo casecode 
+        /// </summary>
+        /// <param name="p_language_code">Nếu = -1 thì ko lấy language</param>
+        /// <returns></returns>
+        public ApplicationHeaderInfo GetApp_By_Case_Code(string p_case_code, string p_language_code = "-1")
         {
             try
             {
                 Application_Header_DA _da = new Application_Header_DA();
-                DataSet _ds = _da.GetApp_By_Case_Code(p_case_code, p_user_name, p_language_code);
+                DataSet _ds = _da.GetApp_By_Case_Code(p_case_code, p_language_code);
                 return CBO<ApplicationHeaderInfo>.FillObjectFromDataTable(_ds.Tables[0]);
             }
             catch (Exception ex)

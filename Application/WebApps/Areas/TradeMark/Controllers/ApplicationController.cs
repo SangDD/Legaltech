@@ -499,6 +499,100 @@ namespace WebApps.Areas.TradeMark.Controllers
         #endregion
 
         #region Thông báo hình thức
+
+        [HttpPost]
+        [Route("quan-ly-don/do-export-cv-auto")]
+        public ActionResult do_export_cv_auto(string p_case_code, decimal p_Notice_Type, string p_advise_replies)
+        {
+            try
+            {
+                string _fileName = Export_CV_Auto(p_case_code, p_Notice_Type, p_advise_replies);
+                return Json(new { success = _fileName });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
+        string Export_CV_Auto(string p_case_code, decimal p_Notice_Type, string p_advise_replies)
+        {
+            try
+            {
+                App_Notice_Info_BL _bl = new App_Notice_Info_BL();
+                App_Notice_Info _App_Notice_Info = _bl.App_Notice_GetBy_CaseCode(p_case_code, p_Notice_Type);
+
+                Application_Header_BL _bl_app = new Application_Header_BL();
+                ApplicationHeaderInfo _ApplicationHeaderInfo = _bl_app.GetApp_By_Case_Code(p_case_code);
+
+                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/Report/CVForm.doc");
+                DocumentModel document = DocumentModel.Load(_fileTemp);
+
+                // Fill export_header
+                string fileName_exp = "/Content/Export/" + "CVForm" + p_case_code + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf";
+                string fileName_exp_doc = "/Content/Export/" + "CVForm" + p_case_code + DateTime.Now.ToString("yyyyMMddHHmmss") + ".doc";
+
+                string fileName = System.Web.HttpContext.Current.Server.MapPath(fileName_exp);
+                string fileName_doc = System.Web.HttpContext.Current.Server.MapPath(fileName_exp_doc);
+
+                document.MailMerge.FieldMerging += (sender, e) =>
+                {
+                    if (e.IsValueFound)
+                    {
+                        if (e.FieldName == "Text")
+                            ((Run)e.Inline).Text = e.Value.ToString();
+                    }
+                };
+
+                // thông tin app
+                document.MailMerge.Execute(new { Date_Now = "ngày " + DateTime.Now.Date.ToString() + " tháng " + DateTime.Now.Month.ToString() + " năm " + DateTime.Now.Year.ToString() });
+                document.MailMerge.Execute(new { App_No = _ApplicationHeaderInfo.App_No });
+                document.MailMerge.Execute(new { Filing_Date = _ApplicationHeaderInfo.Filing_Date.ToString("dd-MM-yyyy") });
+                document.MailMerge.Execute(new { Master_Name = _ApplicationHeaderInfo.Master_Name });
+
+                // thông tin trả lời
+                document.MailMerge.Execute(new { Replies_Number = _App_Notice_Info.Replies_Number });
+                document.MailMerge.Execute(new { Advise_Replies = _App_Notice_Info.Advise_Replies });
+
+
+                document.Save(fileName, SaveOptions.PdfDefault);
+                //document.Save(fileName_doc, SaveOptions.DocxDefault);
+
+                byte[] fileContents;
+                var options = SaveOptions.PdfDefault;
+                // Save document to DOCX format in byte array.
+                using (var stream = new MemoryStream())
+                {
+                    document.Save(stream, options);
+                    fileContents = stream.ToArray();
+                }
+                Convert.ToBase64String(fileContents);
+
+                return fileName_exp;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return "";
+            }
+        }
+
+        [Route("Pre-View")]
+        public ActionResult PreViewApplication(string p_filename)
+        {
+            try
+            {
+                ViewBag.FileName = p_filename;
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+            }
+        }
+
         [HttpPost]
         [Route("quan-ly-don/lawer-notice-form")]
         public ActionResult Do_Lawer_Notice_Form(App_Notice_Info pInfo)
@@ -625,7 +719,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 }
 
                 decimal _ck = _obj_bl.App_Notice_Review_Reject(p_case_code, p_Notice_Type, _status, p_advise_replies, p_advise_replies_trans,
-                    p_note, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
+                    p_note, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang(), DateTime.MinValue);
 
                 return Json(new { success = _ck });
             }
@@ -646,7 +740,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 decimal _status = (decimal)CommonEnums.Notice_Reject_Status.KhachHang_Review_TraLoi;
 
                 decimal _ck = _obj_bl.App_Notice_Review_Reject(p_case_code, p_Notice_Type, _status, p_advise_replies, p_advise_replies_trans,
-                    p_note, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
+                    p_note, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang(), DateTime.MinValue);
 
                 return Json(new { success = _ck });
             }
@@ -659,7 +753,7 @@ namespace WebApps.Areas.TradeMark.Controllers
 
         [HttpPost]
         [Route("quan-ly-don/reject-lawer-translate")]
-        public ActionResult Reject_Lawer_Translate(string p_case_code, decimal p_Notice_Type, string p_advise_replies, string p_advise_replies_trans, string p_note)
+        public ActionResult Reject_Lawer_Translate(string p_case_code, decimal p_Notice_Type, string p_advise_replies, string p_advise_replies_trans, DateTime p_replies_date, string p_note)
         {
             try
             {
@@ -667,7 +761,18 @@ namespace WebApps.Areas.TradeMark.Controllers
                 decimal _status = (decimal)CommonEnums.Notice_Reject_Status.LuatSu_DichTraLoiCuc;
 
                 decimal _ck = _obj_bl.App_Notice_Review_Reject(p_case_code, p_Notice_Type, _status, p_advise_replies, p_advise_replies_trans,
-                    p_note, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
+                    p_note, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang(), p_replies_date);
+
+                // file công văn trả lời cục tự động hệ thống kết xuất ra
+                string _fileName = Export_CV_Auto(p_case_code, p_Notice_Type, p_advise_replies);
+                if (_fileName != "")
+                {
+                    // update vào thằng notice
+                    _ck = _obj_bl.Update_CV_Auto(p_case_code, p_Notice_Type, _fileName, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
+
+                    // insert vào docking
+                    TradeMark.Controllers.ApplicationController.Insert_Docketing(p_case_code, "CV Answer", _fileName, false);
+                }
 
                 return Json(new { success = _ck });
             }
@@ -681,7 +786,7 @@ namespace WebApps.Areas.TradeMark.Controllers
 
         [HttpPost]
         [Route("quan-ly-don/reject-admin-approve-translate")]
-        public ActionResult Reject_Admin_Approve_Translate(string p_case_code, decimal p_Notice_Type, string p_advise_replies, string p_advise_replies_trans, 
+        public ActionResult Reject_Admin_Approve_Translate(string p_case_code, decimal p_Notice_Type, string p_advise_replies, string p_advise_replies_trans,
             decimal p_status, string p_note)
         {
             try
@@ -694,6 +799,36 @@ namespace WebApps.Areas.TradeMark.Controllers
                 }
 
                 decimal _ck = _obj_bl.App_Notice_Review_Reject(p_case_code, p_Notice_Type, _status, p_advise_replies, p_advise_replies_trans,
+                    p_note, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang(), DateTime.MinValue);
+
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
+        [HttpPost]
+        [Route("quan-ly-don/reject-lawer-update-deadline")]
+        public ActionResult Reject_Lawer_Update_Deadline(string p_case_code, decimal p_Notice_Type, DateTime p_replies_date, DateTime p_next_deadline,
+            HttpPostedFileBase p_url_scan_copy_cv, string p_note)
+        {
+            try
+            {
+                App_Notice_Info_BL _obj_bl = new App_Notice_Info_BL();
+                decimal _status = (decimal)CommonEnums.Notice_Reject_Status.LuatSu_Update_Deadline;
+
+                // file copy scan cv trả lời có dấu đỏ của cục
+                // chưa làm, làm sau
+                string _Replies_Url = "";
+                if (p_url_scan_copy_cv != null)
+                {
+                    _Replies_Url = AppLoadHelpers.PushFileToServer(p_url_scan_copy_cv, AppUpload.App);
+                }
+
+                decimal _ck = _obj_bl.Reject_Lawer_Update_Deadline(p_case_code, p_Notice_Type, p_replies_date, p_next_deadline, _Replies_Url, _status,
                     p_note, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
 
                 return Json(new { success = _ck });
@@ -715,7 +850,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 App_Notice_Info_BL _obj_bl = new App_Notice_Info_BL();
                 decimal _status = (decimal)CommonEnums.Notice_Reject_Status.LuatSu_Update_Deadline;
                 decimal _ck = _obj_bl.App_Notice_Review_Reject(p_case_code, p_Notice_Type, _status, p_advise_replies, p_advise_replies_trans,
-                    p_note, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
+                    p_note, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang(), DateTime.MinValue);
 
                 return Json(new { success = _ck });
             }

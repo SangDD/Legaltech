@@ -339,13 +339,12 @@ namespace DataAccess.ModuleTrademark
         }
 
 
-        public DataSet GetApp_By_Case_Code(string p_case_code, string p_user_name, string p_language_code)
+        public DataSet GetApp_By_Case_Code(string p_case_code, string p_language_code)
         {
             try
             {
                 return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_header.proc_getByCaseCode",
                     new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
-                    new OracleParameter("p_user_name", OracleDbType.Varchar2, p_user_name, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
                     new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
             }

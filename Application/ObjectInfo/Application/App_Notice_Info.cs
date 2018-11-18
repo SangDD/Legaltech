@@ -47,7 +47,12 @@ namespace ObjectInfos
         public DateTime Replies_Deadline { get; set; }
         public HttpPostedFileBase File_Replies_Url { get; set; }
 
+        // Công văn trả lời cục có dấu đỏ
         public string Replies_Url { get; set; }
+
+        // công văn trả lời cục tự động
+        public string CV_Answer_Url { get; set; }
+
         public HttpPostedFileBase File_Biling_Url { get; set; }
 
         public string Billing_Url { get; set; }

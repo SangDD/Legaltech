@@ -83,6 +83,17 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
+            <div>Ngày trả lời</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" placeholder="Ngày trả lời cục" id="txt_replies_date" maxlength="100" disabled="disabled" value="@_App_Notice_Info.Replies_Date.ToString("dd/MM/yyyy")" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
             <div>Nội dung chính</div>
         </div>
         <div class="div-search-content">
@@ -146,6 +157,17 @@
         </div>
     </div>
 
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>CV trả lời<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <a style="height: 20px !important;" href="javascript:;" onclick="Download_CV('@_App_Notice_Info.Case_Code')"> CV trả lời </a>
+            </div>
+        </div>
+    </div>
+
     <div class="form-group">
         <div class="form-group-bottom">
             <input type="submit" class="btn-default" value="Submit" onclick="return do_Submit('@_AppHeaderInfo.Case_Code')" />
@@ -170,6 +192,7 @@
                         p_Notice_Type: '@Convert.ToDecimal(Common.CommonData.CommonEnums.Notice_Type.HinhThuc)',
                         p_advise_replies: $('#txt_advise_replies').val(),
                         p_advise_replies_trans: $('#txt_advise_replies_trans').val(),
+                        p_replies_date: $('#txt_replies_date').val(),
                         p_note: $('#txtNotes').val()
                     },
                     async: true, cache: false, traditional: true,
@@ -198,6 +221,12 @@
     }
 
     function validateAction() {
+
+        var txt_replies_date = $("#txt_replies_date").val();
+        if (checkDate("Ngày trả lời cục", "#txt_replies_date", txt_replies_date) == false) {
+            return false;
+        }
+
         var _txt_advise_replies = $('#txt_advise_replies').val();
         if (_txt_advise_replies == null || _txt_advise_replies == "") {
             jError('Advise trả lời không được để trống!', "Lỗi", function () {
@@ -214,6 +243,8 @@
             return false;
         }
 
+
+
         var _Note = $('#txtNotes').val();
         if (_Note == null || _Note == "") {
             jError('Ghi chú không được để trống!', "Lỗi", function () {
@@ -223,6 +254,63 @@
         }
 
         return true;
+    }
+
+    function Download_CV(_case_code) {
+        try {
+
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            var _url = "/trade-mark-mana/quan-ly-don/do-export-cv-auto";
+            nvsConfirm(null, "Bạn có chắc chắn muốn xem CV trả lời này không?", function () {
+                $.ajax({
+                    url: _url,
+                    type: "POST",
+                    data: {
+                        p_case_code: _case_code,
+                        p_Notice_Type: '@Convert.ToDecimal(Common.CommonData.CommonEnums.Notice_Type.HinhThuc)',
+                        p_advise_replies: $('#txt_advise_replies').val()
+                    },
+                    headers: { "cache-control": "no-cache" },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        console.log(data.success);
+                        if (data.success == "-1") {
+                            jError("Lỗi check lại kết nối tới server");
+                            return false;
+                        }
+                        else {
+                            OpenPreview("/quan-ly-don/Pre-View?p_filename=" + data.success);
+                        }
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(false);
+                        console.log(e);
+                    }
+                });
+            });
+        } catch (e) {
+            CreateRollingWaitingIcon(true);
+            alert(e);
+        }
+    }
+
+    function OpenPreview(url) {
+        try {
+            w = 1100; //độ rộng form popup
+            h = 600;//chiều cao
+            var left = (screen.width - w) / 2;
+            var top = (screen.height - h) / 4;  // for 25% - devide by 4  |  for 33% - devide by 3
+            var targetWin = window.open(url, 'Xem thông tin hóa đơn', 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+
+        } catch (e) {
+        }
     }
 
 </script>
