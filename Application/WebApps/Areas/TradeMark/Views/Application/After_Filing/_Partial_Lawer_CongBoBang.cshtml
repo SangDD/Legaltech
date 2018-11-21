@@ -61,6 +61,17 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
+            <div>Next Deadline</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" placeholder="Ngày cục trả lời" id="txt_replies_deadline" maxlength="100" class="datepicker" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
             <div>Nội dung chính<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
@@ -82,17 +93,17 @@
     </div>
 
     @{
-    string _id1 = "1";
-    string _isValid1 = "1";
-    string _model1 = _id1 + "|" + _isValid1 + "|" + "File trích xuất Thông báo SHCN";
-    @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile.cshtml", _model1)
+        string _id1 = "1";
+        string _isValid1 = "1";
+        string _model1 = _id1 + "|" + _isValid1 + "|" + "File trích xuất Thông báo SHCN";
+        @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile.cshtml", _model1)
     }
 
     @{
-    string _id2 = "2";
-    string _isValid2 = "0"; ;
-    string _model2 = _id2 + "|" + _isValid2 + "|" + "File dịch";
-    @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile.cshtml", _model2)
+        string _id2 = "2";
+        string _isValid2 = "0"; ;
+        string _model2 = _id2 + "|" + _isValid2 + "|" + "File dịch";
+        @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile.cshtml", _model2)
     }
 
     <div class="div-search-ad">
@@ -140,6 +151,7 @@
 
                 formdata.append("pInfo.Advise_Replies", $('#txt_advise_replies').val());
                 formdata.append("pInfo.Note", $('#txtNotes').val());
+                formdata.append("pInfo.Replies_Deadline", $('#txt_replies_deadline').val());
 
                 // lay du lieu file
                 var pfile = $("#file_attach_1");//lay du lieu file
@@ -148,7 +160,7 @@
                     formdata.append("pInfo.File_Notice_Url", _file);
                 }
 
-                var pfile2 = $("#file_attach_1");//lay du lieu file
+                var pfile2 = $("#file_attach_2");//lay du lieu file
                 if (pfile2.val() != "") {
                     var _file2 = pfile2[0].files[0];
                     formdata.append("pInfo.File_Notice_Trans_Url", _file2);
@@ -206,6 +218,13 @@
                 $('#txt_advise_replies').focus();
             });
             return false;
+        }
+
+        var txt_replies_deadline = $("#txt_replies_deadline").val();
+        if (txt_replies_deadline != "" && txt_replies_deadline != "__/__/____") {
+            if (checkDate("Next Deadline", "#txt_replies_deadline", txt_replies_deadline) == false) {
+                return false;
+            }
         }
 
         var _Note = $('#txtNotes').val();

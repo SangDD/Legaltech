@@ -83,6 +83,17 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
+            <div>Next Deadline</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" placeholder="Ngày cục trả lời" id="txt_replies_deadline" disabled="disabled" value="@(_App_Notice_Info.Replies_Deadline == DateTime.MinValue ? "" : _App_Notice_Info.Replies_Deadline.ToString("dd/MM/yyyy") )" class="datepicker" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
             <div>Nội dung chính </div>
         </div>
         <div class="div-search-content">

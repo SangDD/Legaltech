@@ -61,6 +61,18 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
+            <div>Next Deadline</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" placeholder="Ngày cục trả lời" id="txt_replies_deadline" maxlength="100" class="datepicker" />
+            </div>
+        </div>
+    </div>
+
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
             <div>Nội dung chính<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
@@ -140,6 +152,7 @@
 
                 formdata.append("pInfo.Advise_Replies", $('#txt_advise_replies').val());
                 formdata.append("pInfo.Note", $('#txtNotes').val());
+                formdata.append("pInfo.Replies_Deadline", $('#txt_replies_deadline').val());
 
                 // lay du lieu file
                 var pfile = $("#file_attach_1");//lay du lieu file
@@ -148,7 +161,7 @@
                     formdata.append("pInfo.File_Notice_Url", _file);
                 }
 
-                var pfile2 = $("#file_attach_1");//lay du lieu file
+                var pfile2 = $("#file_attach_2");//lay du lieu file
                 if (pfile2.val() != "") {
                     var _file2 = pfile2[0].files[0];
                     formdata.append("pInfo.File_Notice_Trans_Url", _file2);
@@ -198,6 +211,13 @@
         var txt_notice_date = $("#txt_notice_date").val();
         if (checkDate("Ngày công bố", "#txt_notice_date", txt_notice_date) == false) {
             return false;
+        }
+
+        var txt_replies_deadline = $("#txt_replies_deadline").val();
+        if (txt_replies_deadline != "" && txt_replies_deadline != "__/__/____") {
+            if (checkDate("Next Deadline", "#txt_replies_deadline", txt_replies_deadline) == false) {
+                return false;
+            }
         }
 
         var txt_advise_replies = $('#txt_advise_replies').val();

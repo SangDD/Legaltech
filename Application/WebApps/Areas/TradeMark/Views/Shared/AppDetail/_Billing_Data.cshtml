@@ -15,7 +15,7 @@
             <tr>
                 @*<th class="class30">STT</th>*@
                 <th class="class150">Số bill</th>
-                <th class="class150">Case code</th>
+                @*<th class="class150">Case code</th>*@
                 <th class="class100">Ngày tháng</th>
                 <th class="class100">Hạn thanh toán</th>
 
@@ -34,7 +34,7 @@
                         <td class="tdleftalign">
                             <a href="javascript:;" onclick="GetView2View_Billing(@item.Billing_Id, '@item.App_Case_Code')">@item.Case_Code</a>
                         </td>
-                        <td class="tdleftalign">@item.App_Case_Code</td>
+                        @*<td class="tdleftalign">@item.App_Case_Code</td>*@
                         <td class="tdcenteralign">@item.Billing_Date.ToString("dd/MM/yyyy")</td>
                         <td class="tdcenteralign">@item.Deadline.ToString("dd/MM/yyyy")</td>
                         <td class="tdcenteralign">@item.SoNgayTre</td>

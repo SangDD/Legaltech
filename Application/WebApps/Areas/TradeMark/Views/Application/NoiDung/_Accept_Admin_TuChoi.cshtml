@@ -6,6 +6,20 @@
     {
         _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
     }
+
+    App_Notice_Info _App_Notice_Info = new App_Notice_Info();
+    _App_Notice_Info.Times = 0;
+    if (ViewBag.App_Notice_Info != null)
+    {
+        _App_Notice_Info = (App_Notice_Info)ViewBag.App_Notice_Info;
+    }
+
+
+    string _str_number = "";
+    if (_App_Notice_Info.Times > 0)
+    {
+        _str_number = "lần" + _App_Notice_Info.Times.ToString();
+    }
 }
 
 <style>
@@ -39,11 +53,11 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div id="divNumberNotice">Số thông báo lần 1<i class="redspan">(*)</i></div>
+            <div id="divNumberNotice">Số thông báo @_str_number<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" maxlength="100" placeholder="Số thông báo" id="txt_Notice_Number" style="width:200px" />
+                <input type="text" maxlength="100" placeholder="Số thông báo" id="txt_Notice_Number" style="width:200px" value="@_App_Notice_Info.Notice_Number" />
             </div>
         </div>
 
@@ -52,7 +66,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày thông báo" id="txt_notice_date" maxlength="100" class="datepicker" />
+                <input type="text" placeholder="Ngày thông báo" id="txt_notice_date" maxlength="100" class="datepicker" value="@_App_Notice_Info.Notice_Date.ToString("dd/MM/yyyy")" />
             </div>
         </div>
     </div>
@@ -63,7 +77,18 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày hợp lệ" id="txt_accept_date" maxlength="100" class="datepicker" />
+                <input type="text" placeholder="Ngày hợp lệ" id="txt_accept_date" maxlength="100" class="datepicker" value=@(_App_Notice_Info.Accept_Date == DateTime.MinValue ? "" : _App_Notice_Info.Accept_Date.ToString("dd/MM/yyyy")) />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Next Deadline</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" placeholder="Ngày cục trả lời" id="txt_replies_deadline" maxlength="100" value="@(_App_Notice_Info.Replies_Deadline == DateTime.MinValue ? "" : _App_Notice_Info.Replies_Deadline.ToString("dd/MM/yyyy") )" class="datepicker" />
             </div>
         </div>
     </div>
@@ -74,7 +99,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" id="txt_Reject_Reason" maxlength="2000" />
+                <input type="text" id="txt_Reject_Reason" maxlength="2000" value="@_App_Notice_Info.Reject_Reason" />
             </div>
         </div>
     </div>
@@ -85,7 +110,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" id="txt_advise_replies" maxlength="2000" />
+                <input type="text" id="txt_advise_replies" maxlength="2000" value="@_App_Notice_Info.Advise_Replies" />
             </div>
         </div>
     </div>
@@ -124,8 +149,7 @@
         string _isValid2 = "0"; ;
         string _model2 = _id2 + "|" + _isValid2 + "|" + "File dịch";
         @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile.cshtml", _model2)
-    }
-
+    } 
 
     <div class="form-group">
         <div class="form-group-bottom">
@@ -163,6 +187,8 @@
                 formdata.append("pInfo.Reject_Reason", $('#txt_Reject_Reason').val());
                 formdata.append("pInfo.Advise_Replies", $('#txt_advise_replies').val());
                 formdata.append("pInfo.Note", $('#txtNotes').val());
+                formdata.append("pInfo.Replies_Deadline", $('#txt_replies_deadline').val());
+
 
                 var pfile = $("#file_attach_1");//lay du lieu file
                 if (pfile.val() != "") {
@@ -170,7 +196,7 @@
                     formdata.append("pInfo.File_Notice_Url", _file);
                 }
 
-                var pfile2 = $("#file_attach_1");//lay du lieu file
+                var pfile2 = $("#file_attach_2");//lay du lieu file
                 if (pfile2.val() != "") {
                     var _file2 = pfile2[0].files[0];
                     formdata.append("pInfo.Notice_Trans_Url", _file2);
@@ -226,6 +252,13 @@
         var txt_accept_date = $("#txt_accept_date").val();
         if (txt_accept_date != "" && txt_accept_date != "__/__/____") {
             if (checkDate("Ngày hợp lệ", "#txt_accept_date", txt_accept_date) == false) {
+                return false;
+            }
+        }
+
+        var txt_replies_deadline = $("#txt_replies_deadline").val();
+        if (txt_replies_deadline != "" && txt_replies_deadline != "__/__/____") {
+            if (checkDate("Next Deadline", "#txt_replies_deadline", txt_replies_deadline) == false) {
                 return false;
             }
         }

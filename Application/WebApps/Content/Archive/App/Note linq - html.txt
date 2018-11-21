@@ -1,0 +1,115 @@
+string _re = string.Join(", ", _lst_student.Select(m => m.Name));
+string _re1 = _lst_student.ToDelimitedString(m => m.Name, ",");
+_re1 = _re1.Substring(0,_re1.Length - 1);
+
+List<string> list = new List<string> { "1", "2", "3" };
+string result1 = string.Join(", ", list);
+
+//nhóm ck theo trạng thái
+var results = _arrSymbol.GroupBy(n => n.Status_Name)
+	.Select(g => new
+	{
+	Status_Name = g.Key,
+	Lst_Symbol = g.Select(p => p.Symbol).ToList()
+	}).ToList();
+
+	// nhóm theo property thành dic
+ Dictionary<string, List<Order_MM_Info>> _dic_order_by_Symbol = _lst_order
+	.GroupBy(o => o.Symbol)
+	.ToDictionary(g => g.Key, g => g.ToList());	
+	
+//FindAll
+//OrderBy
+//hashtable.Cast<DictionaryEntry>().OrderBy(entry => entry.Value).ToList()
+
+-- sort ArrayList
+// if you might have objects of other types, OfType<> will
+// - filter elements that are not of the given type
+// - return an enumeration of the elements already cast to the right type
+arrRegion.OfType<Portal.Entidad.Region>().OrderBy(r => r.RegNombre);
+
+// if there is only a single type in your ArrayList, use Cast<>
+// to return an enumeration of the elements already cast to the right type
+arrRegion.Cast<Portal.Entidad.Region>().OrderBy(r => r.RegNombre);
+
+-----------------------------------------------------
+var selectListProduct = new List<SelectListItem> { new SelectListItem { Text = "Danh mục công ty", Value = "0" } }.Concat(_listProduct_Item.Select(x => new SelectListItem { Text = x.Name, Value = x.Pro_Item_Id.ToString() }));
+@Html.DropDownListFor(m => m.Pro_Item_Code, selectListProduct, new { id = "Pro_Item_Code" })
+
+@Html.DropDownListFor(m => m.Dorb, new SelectList(lstDorb, "Cdval", "Content"), new { id = "Dorb", @onchange = "Chose_Dorb()" })
+// change text in div
+var div_add = document.getElementById("div_add");
+div_add.innerHTML = "Số tiền phải nộp thêm" + '<i class="redspan">(*)</i>';
+
+// lay text trong combobox
+var _Card_Type_text = $("#Card_Type > option:selected").text();
+
+// data-bind trong combobox
+var _Member_Id = $("#Member_Id > option:selected").attr("data-bind");
+
+addClass/removeClass("div_hidden");
+
+// cho sửa false / readonly = true
+$("#Add_Amount").prop('readonly', false);
+
+// disabled
+$("#txt_Acc_Num_Auto").prop('disabled', true);
+
+// un disabled
+$("#txt_Acc_Num_Auto").removeAttr("disabled");
+
+// checkbox/radio
+var Amt2Qtty = $('#Amt2Qtty').is(":checked");
+
+// duyet cac class
+$(".cls_Paraname").each(function (item) {
+	var _value = $(this).val();
+	var _id = $(this).attr('id');
+	_link =  _link + "&" + _id + "=" + _value;
+});
+
+// gán giá trị cho drodownlist
+var j_agent_search = (new Function("return [0];")());
+$('#ProCatItem').multipleSelect("setSelects", j_agent_search);
+
+//filter in ICollectionView đk datagridview binding ObservableCollection
+//ICollectionView cv = CollectionViewSource.GetDefaultView(dgrSymbol.ItemsSource);
+//if (str == "" && _idBoard == "-1" && _status == "-1" && ckbIsMM.IsChecked == false)
+//    cv.Filter = null;
+//else
+//{
+//    cv.Filter = o =>
+//    {
+//        SymbolInfo _t = o as SymbolInfo;
+
+//        // nếu tìm theo ck mà ko đúng CK thì loại
+//        if (str != "" && _t.Symbol.Contains(str) == false)
+//        {
+//            return false;
+//        }
+
+//        // nếu tìm theo bảng mà ko đúng bảng thì loại
+//        if (_idBoard != "-1" && _t.Idboard.ToString() != _idBoard)
+//        {
+//            return false;
+//        }
+
+//        // nếu tìm theo trạng thái mà ko đúng trạng thái thì loại
+//        if (_status != "-1" && _t.Status.ToString() != _status)
+//        {
+//            return false;
+//        }
+
+//        if (ckbIsMM.IsChecked == true && _t.Is_MM == 0)
+//        {
+//            return false;
+//        }
+
+//        _count++;
+//        return true;
+//    };
+//} 
+
+// QR CODE IN MVC ---
+//http://www.c-sharpcorner.com/blogs/upload-or-take-photo-from-camera-in-mvc1
+//https://jeremylindsayni.wordpress.com/2016/04/02/how-to-read-and-create-barcode-images-using-c-and-zxing-net/

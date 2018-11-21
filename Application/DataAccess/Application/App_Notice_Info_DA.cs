@@ -94,7 +94,7 @@ namespace DataAccess
 
         public decimal App_Notice_Insert(string p_case_code, string p_notice_number, DateTime p_notice_date, decimal p_notice_type, string p_notice_url, string p_notice_trans_url,
             decimal p_result, DateTime p_accept_date, DateTime p_exp_date, string p_accept_url, string p_reject_reason, decimal p_status, string p_advise_replies,
-            decimal p_billing_id, string p_billing_url, string p_created_by, string p_note)
+            decimal p_billing_id, string p_billing_url, string p_created_by, string p_note, DateTime p_replies_deadline)
         {
             {
                 try
@@ -116,6 +116,7 @@ namespace DataAccess
                         new OracleParameter("p_advise_replies", OracleDbType.Varchar2, p_advise_replies, ParameterDirection.Input),
                         new OracleParameter("p_billing_id", OracleDbType.Decimal, p_billing_id, ParameterDirection.Input),
                         new OracleParameter("p_biling_url", OracleDbType.Varchar2, p_billing_url, ParameterDirection.Input),
+                        new OracleParameter("p_replies_deadline", OracleDbType.Date, p_replies_deadline, ParameterDirection.Input),
                         new OracleParameter("p_created_by", OracleDbType.Varchar2, p_created_by, ParameterDirection.Input),
                         new OracleParameter("p_note", OracleDbType.Varchar2, p_note, ParameterDirection.Input),
                         paramReturn);
