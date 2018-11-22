@@ -1,0 +1,222 @@
+﻿@using ObjectInfos;
+@using BussinessFacade.ModuleMemoryData
+@{
+    ViewBag.Title = "Chi tiết thông báo";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+    //var _AppHeaderInfo = new ApplicationHeaderInfo();
+    //if (ViewBag.objAppHeaderInfo != null)
+    //{
+    //    _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    //}
+
+    App_Notice_Info _App_Notice_Info = new App_Notice_Info();
+    _App_Notice_Info.Times = 0;
+    if (ViewBag.App_Notice_Info != null)
+    {
+        _App_Notice_Info = (App_Notice_Info)ViewBag.App_Notice_Info;
+    }
+}
+<script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
+<link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
+<script>
+    $.datetimepicker.setLocale('vi');
+    $(document).ready(function () {
+        $('.datepicker').datetimepicker({
+            format: 'd/m/Y',
+            formatDate: 'd/m/Y',
+            timepicker: false,
+            mask: '39/19/9999',
+            validateOnBlur: true,
+        });
+    });
+</script>
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 150px;
+    }
+</style>
+
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        <a href="/home">Dashboard</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <div class="div-title-content"> CHI TIẾT THÔNG BÁO</div>
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div id="divNumberNotice">Số thông báo</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" maxlength="100" placeholder="Số thông báo" value="@_App_Notice_Info.Notice_Number" id="txt_Notice_Number" style="width:200px" disabled="disabled" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Ngày thông báo </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Ngày thông báo" id="txt_notice_date" maxlength="100" disabled="disabled" value="@_App_Notice_Info.Notice_Date.ToString("dd/MM/yyyy")" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Ngày hợp lệ</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Ngày hợp lệ" id="txt_accept_date" maxlength="100" disabled="disabled" value="@(_App_Notice_Info.Accept_Date == DateTime.MinValue ? "" : _App_Notice_Info.Accept_Date.ToString("dd/MM/yyyy") )" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Ngày trả lời</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Ngày trả lời cục" id="txt_replies_date" maxlength="100" value="@(_App_Notice_Info.Replies_Date == DateTime.MinValue ? "" : _App_Notice_Info.Replies_Date.ToString("dd/MM/yyyy") )" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Next Deadline</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="Ngày cục trả lời" id="txt_replies_deadline" maxlength="100" value="@(_App_Notice_Info.Replies_Deadline == DateTime.MinValue ? "" : _App_Notice_Info.Replies_Deadline.ToString("dd/MM/yyyy") )" class="datepicker" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Nội dung chính</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txt_advise_replies" value="@_App_Notice_Info.Advise_Replies" disabled="disabled" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Nội dung chính  (TA)</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txt_advise_replies_trans" value="@_App_Notice_Info.Advise_Replies_Trans" disabled="disabled" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Ghi chú </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtNotes" maxlength="2000" />
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>File scan thông báo</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <a style="height: 20px !important;" href="@_App_Notice_Info.Notice_Url" download="@_App_Notice_Info.Notice_Url"> File scan thông báo </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>File dịch</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <a style="height: 20px !important;" href="@_App_Notice_Info.Notice_Trans_Url" download="@_App_Notice_Info.Notice_Trans_Url"> File translate</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Billing</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <a style="height: 20px !important;" href="@_App_Notice_Info.Billing_Url" download="@_App_Notice_Info.Billing_Url"> File billing </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>CV trả lời cục</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <a style="height: 20px !important;" href="@_App_Notice_Info.CV_Answer_Url" download="@_App_Notice_Info.CV_Answer_Url"> CV trả lời cục </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div class="div-search-btn" style="width:600px;margin-top: 5px;">
+          
+
+            <input type="submit" class="btn-default" value="Back" onclick="return onBack()" />
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        //$("txtApp_Case_Code").focus();
+    });
+
+    function onBack() {
+        try {
+
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            var url = "/trade-mark-share-data/todo-details/" + @_App_Notice_Info.Case_Code + "/2";
+            //window.open(url);
+            window.location.href = url;
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+</script>

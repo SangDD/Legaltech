@@ -52,6 +52,40 @@
             }
         }
 
+        [HttpGet]
+        [Route("register/{id}/{id1}")]
+        public ActionResult Register2()
+        {
+            try
+            {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+
+                SessionData.CurrentUser.chashFile.Clear();
+                SessionData.CurrentUser.chashFileOther.Clear();
+                string AppCode = "";
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    AppCode = RouteData.Values["id"].ToString().ToUpper();
+                }
+                ViewBag.AppCode = AppCode;
+
+                string _App_No = "";
+                if (RouteData.Values.ContainsKey("id1"))
+                {
+                    _App_No = RouteData.Values["id1"].ToString().ToUpper();
+                }
+                ViewBag.App_No = _App_No;
+
+                return PartialView("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_TM_3B_PLB_01_SDD.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_TM_3B_PLB_01_SDD.cshtml");
+            }
+        }
+
         [HttpPost]
         [Route("register_PLB_01_SDD")]
         public ActionResult Register_PLB_01_SDD(ApplicationHeaderInfo pInfo, App_Detail_PLB01_SDD_Info pDetail,

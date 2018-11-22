@@ -249,6 +249,31 @@ namespace WebApps.Areas.TradeMark.Controllers
             }
         }
 
+        [Route("app-notice-details/{id}")]
+        public ActionResult App_Notice_Detail()
+        {
+            try
+            {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+
+                string p_case_code = "";
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    p_case_code = RouteData.Values["id"].ToString();
+                }
+
+                // LẤY THÔNG TIN CỦA THẰNG NOTICE APP
+                App_Notice_Info_BL _notice_BL = new App_Notice_Info_BL();
+                App_Notice_Info _App_Notice_Info = _notice_BL.App_Notice_GetBy_CaseCode(p_case_code);
+                ViewBag.App_Notice_Info = _App_Notice_Info;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return View("/Areas/TradeMark/Views/Application/After_Filing/ViewDetail_NoticeApp.cshtml");
+        }
 
         /// <summary>
         /// truyền vào view name và model trả ra partial dạng sstring

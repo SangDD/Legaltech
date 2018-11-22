@@ -348,7 +348,7 @@
         @* 3. Bản sao quyết định/thông báo bị khiếu nại (nếu có)  *@
         @{
             string _doc_id3 = "C05_KN_03";
-            string _id3 = _doc_id3 + "|6_Doc_C05_KN_03|0|" + Resource.TM3D_BanSaoQuyetDinh + "|1";
+            string _id3 = _doc_id3 + "|6_Doc_C05_KN_03|0|" + Resource.TM3D_BanSaoQuyetDinh + "||1";
             string _value3 = dic_appDoc[_doc_id3].Isuse.ToString().Trim() + " | " + dic_appDoc[_doc_id3].CHAR01 + "|" + dic_appDoc[_doc_id3].Url_Hardcopy;
             string _model3 = _id3 + ";" + _value3;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model3)

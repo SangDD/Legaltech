@@ -40,7 +40,42 @@
                 {
                     AppCode = RouteData.Values["id"].ToString().ToUpper();
                 }
+
                 ViewBag.AppCode = AppCode;
+                return PartialView("~/Areas/TradeMark/Views/PLB02_CGD_3C/_Partial_TM_3C_PLB_02_SDD.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/TradeMark/Views/PLB02_CGD_3C/_Partial_TM_3C_PLB_02_SDD.cshtml");
+            }
+        }
+
+        [HttpGet]
+        [Route("register/{id}/{id1}")]
+        public ActionResult Register2()
+        {
+            try
+            {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+
+                SessionData.CurrentUser.chashFile.Clear();
+                SessionData.CurrentUser.chashFileOther.Clear();
+                string AppCode = "";
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    AppCode = RouteData.Values["id"].ToString().ToUpper();
+                }
+
+                string _App_No = "";
+                if (RouteData.Values.ContainsKey("id1"))
+                {
+                    _App_No = RouteData.Values["id1"].ToString().ToUpper();
+                }
+
+                ViewBag.AppCode = AppCode;
+                ViewBag.App_No = _App_No;
                 return PartialView("~/Areas/TradeMark/Views/PLB02_CGD_3C/_Partial_TM_3C_PLB_02_SDD.cshtml");
             }
             catch (Exception ex)

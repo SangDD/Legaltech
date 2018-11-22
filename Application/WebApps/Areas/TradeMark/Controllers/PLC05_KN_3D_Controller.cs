@@ -50,6 +50,40 @@
             }
         }
 
+        [HttpGet]
+        [Route("register/{id}/{id1}")]
+        public ActionResult Register2()
+        {
+            try
+            {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+
+                SessionData.CurrentUser.chashFile.Clear();
+                SessionData.CurrentUser.chashFileOther.Clear();
+                string AppCode = "";
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    AppCode = RouteData.Values["id"].ToString().ToUpper();
+                }
+                ViewBag.AppCode = AppCode;
+
+                string _App_No = "";
+                if (RouteData.Values.ContainsKey("id1"))
+                {
+                    _App_No = RouteData.Values["id1"].ToString().ToUpper();
+                }
+                ViewBag.App_No = _App_No;
+
+                return PartialView("~/Areas/TradeMark/Views/PLC05_KN_3D/_Partial_TM_3D_PLC_05_KN.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/TradeMark/Views/PLC05_KN_3D/_Partial_TM_3D_PLC_05_KN.cshtml");
+            }
+        }
+
         [HttpPost]
         [Route("register_PLC05_KN_3D")]
         public ActionResult Register_PLC05_KN_3D(ApplicationHeaderInfo pInfo, App_Detail_PLC05_KN_Info pDetail,

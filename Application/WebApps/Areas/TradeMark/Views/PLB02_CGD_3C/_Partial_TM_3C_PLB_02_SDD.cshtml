@@ -3,6 +3,12 @@
 @{
     ViewBag.Title = "Request for amendment of application";
     Layout = "~/ViewsShared/_Layout.cshtml";
+
+    string _App_No = "";
+    if (ViewBag.App_No != null)
+    {
+        _App_No = (string)ViewBag.App_No;
+    }
 }
 @using WebApps.Resources;
 <style>
@@ -359,6 +365,13 @@
                 });
             }
         });
+
+        // nếu có appno
+        if ('@_App_No' != "")
+        {
+            $("#4_txt_SoDon").val('@_App_No');
+            onChangeAppNo();
+        }
     });
 
     function onChangeAppNo() {

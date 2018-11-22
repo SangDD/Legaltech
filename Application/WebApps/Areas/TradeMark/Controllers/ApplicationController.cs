@@ -1074,8 +1074,6 @@ namespace WebApps.Areas.TradeMark.Controllers
                     pInfo.Result = (decimal)CommonEnums.Notice_Result.ChapNhan;
                 }
 
-
-
                 // Notice_Url 
                 var url_File_Atachment = "";
                 if (pInfo.File_Notice_Url != null)

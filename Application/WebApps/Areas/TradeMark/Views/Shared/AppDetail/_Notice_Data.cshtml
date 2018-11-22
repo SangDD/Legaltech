@@ -24,7 +24,12 @@
                 foreach (var item in _list_data)
                 {
                     <tr>
-                        <td class="tdleftalign">@item.Notice_Number</td>
+                        @*<td class="tdleftalign">@item.Notice_Number</td>*@
+
+                        <td class="tdleftalign">
+                            <a href="javascript:;" onclick="GetView2View_Notice('@item.Case_Code')" data-title="Xem chi tiết">@item.Notice_Number</a>
+                        </td>
+
                         <td class="tdleftalign">@item.Notice_Type_Name - @item.Result_Name</td>
                         <td class="tdleftalign">@item.Notice_Date.ToString("dd/MM/yyyy")</td>
                     </tr>
@@ -39,4 +44,19 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    function GetView2View_Notice(_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        try {
+            var url = "/trade-mark-share-data/app-notice-details/" + _case_code;
+            window.open(url);
+            //window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
+</script>
 

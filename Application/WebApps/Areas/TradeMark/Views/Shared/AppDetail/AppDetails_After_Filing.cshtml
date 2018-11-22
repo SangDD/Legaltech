@@ -87,6 +87,20 @@
     }
 </style>
 
+<div class="divCover">
+    <div class="d-nav">
+        @*<a href="/home">
+            <img src="~/Content/icons/Body-icon-home.png" /> I
+        </a>*@
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        <a href="/home">Dashboard</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
 @Html.Partial("~/Areas/Home/Views/Shared/HomeSearchBox.cshtml")
 
 @*Notify*@
@@ -421,15 +435,15 @@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/AppDetail/_Docketing_Data.cshtml")
     </div>
 
-    <div class="divCover legalTodo_div" style="background-color: antiquewhite;">
-        <div class="box_title" style="width:200px; float:left">  </div>
-        <div id="d_todo_notify" class="box_title" style="width:calc(100% - 240px); padding:0px; float:left">
-        </div>
-        <div class="Homebox">
-            <div id="LegalTododivTable" class="LegaldivBoxTable">
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/AppDetail/_TodoData.cshtml")
+    @*<div class="divCover legalTodo_div" style="background-color: antiquewhite;">
+            <div class="box_title" style="width:200px; float:left">  </div>
+            <div id="d_todo_notify" class="box_title" style="width:calc(100% - 240px); padding:0px; float:left">
             </div>
-        </div>
-    </div>
+            <div class="Homebox">
+                <div id="LegalTododivTable" class="LegaldivBoxTable">
+                    @Html.Partial("~/Areas/TradeMark/Views/Shared/AppDetail/_TodoData.cshtml")
+                </div>
+            </div>
+        </div>*@
 </fieldset>
 
