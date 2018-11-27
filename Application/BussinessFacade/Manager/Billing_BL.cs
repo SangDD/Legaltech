@@ -12,13 +12,13 @@ namespace BussinessFacade
 {
     public class Billing_BL
     {
-        public List<Billing_Header_Info> Billing_Search(string p_key_search, ref decimal p_total_record,
+        public List<Billing_Header_Info> Billing_Search(string p_user_name, string p_key_search, ref decimal p_total_record,
            string p_from = "1", string p_to = "10", string p_sort_type = "ALL")
         {
             try
             {
                 Billing_DA _da = new Billing_DA();
-                DataSet _ds = _da.Billing_Search(p_key_search, p_from, p_to, p_sort_type, ref p_total_record);
+                DataSet _ds = _da.Billing_Search(p_user_name, p_key_search, p_from, p_to, p_sort_type, ref p_total_record);
                 return CBO<Billing_Header_Info>.FillCollectionFromDataSet(_ds);
             }
             catch (Exception ex)

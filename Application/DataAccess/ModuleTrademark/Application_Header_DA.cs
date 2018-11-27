@@ -8,12 +8,13 @@ namespace DataAccess.ModuleTrademark
 {
     public class Application_Header_DA
     {
-        public DataSet ApplicationHeader_Search(string p_key_search, string p_from, string p_to, string p_sort_type, ref decimal p_total_record, int p_search_from_home = 0)
+        public DataSet ApplicationHeader_Search(string p_user_name, string p_key_search, string p_from, string p_to, string p_sort_type, ref decimal p_total_record, int p_search_from_home = 0)
         {
             try
             {
                 OracleParameter paramReturn = new OracleParameter("p_total_record", OracleDbType.Decimal, ParameterDirection.Output);
                 DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_header.proc_application_header_search",
+                    new OracleParameter("p_user_name", OracleDbType.Varchar2, p_user_name, ParameterDirection.Input),
                     new OracleParameter("P_SEARCH_FROM_HOME", OracleDbType.Decimal, p_search_from_home, ParameterDirection.Input),
                     new OracleParameter("p_key_search", OracleDbType.Varchar2, p_key_search, ParameterDirection.Input),
                     new OracleParameter("p_from", OracleDbType.Varchar2, p_from, ParameterDirection.Input),
@@ -102,7 +103,7 @@ namespace DataAccess.ModuleTrademark
         }
 
 
-        public int AppHeader_Filing_Status(string p_case_code, decimal p_status, string p_app_no, DateTime p_filing_date,DateTime p_expected_accept_date, string p_url_copy, 
+        public int AppHeader_Filing_Status(string p_case_code, decimal p_status, string p_app_no, DateTime p_filing_date, DateTime p_expected_accept_date, string p_url_copy,
             string p_url_translate, string p_notes, string p_comment_filling,
             string p_Modify_By, DateTime p_Modify_Date, string p_language_code)
         {
@@ -269,7 +270,7 @@ namespace DataAccess.ModuleTrademark
         }
 
 
-        public DataSet LayThongTinKhachHang(string pUser,string pLanguage,string pAppCode)
+        public DataSet LayThongTinKhachHang(string pUser, string pLanguage, string pAppCode)
         {
             try
             {
@@ -286,7 +287,7 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
-        public DataSet GetMasterByAppNo(string p_appNo,string p_user_name, string p_languague_code)
+        public DataSet GetMasterByAppNo(string p_appNo, string p_user_name, string p_languague_code)
         {
             try
             {

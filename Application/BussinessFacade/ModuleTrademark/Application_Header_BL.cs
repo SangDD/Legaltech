@@ -9,13 +9,13 @@ namespace BussinessFacade.ModuleTrademark
 {
     public class Application_Header_BL
     {
-        public List<ApplicationHeaderInfo> ApplicationHeader_Search(string p_key_search, ref decimal p_total_record,
+        public List<ApplicationHeaderInfo> ApplicationHeader_Search(string p_user_name, string p_key_search, ref decimal p_total_record,
             string p_from = "1", string p_to = "10", string p_sort_type = "ALL", int p_search_from_home = 0)
         {
             try
             {
                 Application_Header_DA _da = new Application_Header_DA();
-                DataSet _ds = _da.ApplicationHeader_Search(p_key_search, p_from, p_to, p_sort_type, ref p_total_record, p_search_from_home);
+                DataSet _ds = _da.ApplicationHeader_Search(p_user_name, p_key_search, p_from, p_to, p_sort_type, ref p_total_record, p_search_from_home);
                 return CBO<ApplicationHeaderInfo>.FillCollectionFromDataSet(_ds);
             }
             catch (Exception ex)
@@ -224,7 +224,7 @@ namespace BussinessFacade.ModuleTrademark
         }
 
         public ApplicationHeaderInfo Get_Info_After_Filling(string p_case_code, string p_user_name, string p_language_code,
-            ref List<B_Todos_Info> b_Todos_Infos, ref List<Billing_Header_Info>billing_Header_Infos, 
+            ref List<B_Todos_Info> b_Todos_Infos, ref List<Billing_Header_Info> billing_Header_Infos,
             ref List<Docking_Info> docking_Infos, ref List<App_Notice_Info> app_Notice_Infos, ref List<B_Remind_Info> b_Remind_Infos)
         {
             try

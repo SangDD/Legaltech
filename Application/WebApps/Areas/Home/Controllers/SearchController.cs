@@ -66,7 +66,7 @@ namespace WebApps.Areas.Home.Controllers
                 {
                     // đơn
                     Application_Header_BL _obj_bl = new Application_Header_BL();
-                    List<ApplicationHeaderInfo> _lst = _obj_bl.ApplicationHeader_Search(keysSearch, ref _total_record, p_from, p_to, _sortype, 1);
+                    List<ApplicationHeaderInfo> _lst = _obj_bl.ApplicationHeader_Search(SessionData.CurrentUser.Username, keysSearch, ref _total_record, p_from, p_to, _sortype, 1);
                     htmlPaging = CommonFuc.Get_HtmlPaging<ApplicationHeaderInfo>((int)_total_record, p_CurrentPage, "Đơn", _reconpage);
 
                     ViewBag.Paging = htmlPaging;

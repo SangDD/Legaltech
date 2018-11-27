@@ -37,7 +37,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 string _status = "ALL";
                 ViewBag.Status = _status;
                 string _keySearch = "ALL|" + _status + "|ALL|ALL|" + language;
-                List<ApplicationHeaderInfo> _lst = _obj_bl.ApplicationHeader_Search(_keySearch, ref _total_record);
+                List<ApplicationHeaderInfo> _lst = _obj_bl.ApplicationHeader_Search(SessionData.CurrentUser.Username, _keySearch, ref _total_record);
                 string htmlPaging = CommonFuc.Get_HtmlPaging<ApplicationHeaderInfo>((int)_total_record, 1, "Đơn");
                 ViewBag.Obj = _lst;
                 ViewBag.Paging = htmlPaging;
@@ -63,7 +63,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 string p_from = CommonFuc.Get_From_To_Page(p_CurrentPage, ref p_to);
                 string language = AppsCommon.GetCurrentLang();
                 Application_Header_BL _obj_bl = new Application_Header_BL();
-                List<ApplicationHeaderInfo> _lst = _obj_bl.ApplicationHeader_Search(p_keysearch + "|" + language, ref _total_record, p_from, p_to);
+                List<ApplicationHeaderInfo> _lst = _obj_bl.ApplicationHeader_Search(SessionData.CurrentUser.Username, p_keysearch + "|" + language, ref _total_record, p_from, p_to);
                 string htmlPaging = CommonFuc.Get_HtmlPaging<ApplicationHeaderInfo>((int)_total_record, p_CurrentPage, "Đơn");
 
                 ViewBag.Paging = htmlPaging;

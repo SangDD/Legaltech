@@ -25,12 +25,13 @@ namespace DataAccess
             }
         }
 
-        public DataSet Timesheet_Search(string p_key_search, string p_from, string p_to, string p_column , string p_sort_type, ref decimal p_total_record)
+        public DataSet Timesheet_Search(string p_user_name, string p_key_search, string p_from, string p_to, string p_column , string p_sort_type, ref decimal p_total_record)
         {
             try
             {
                 OracleParameter paramReturn = new OracleParameter("p_total_record", OracleDbType.Decimal, ParameterDirection.Output);
                 DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_timesheet.proc_timesheet_search",
+                    new OracleParameter("p_user_name", OracleDbType.Varchar2, p_user_name, ParameterDirection.Input),
                     new OracleParameter("p_key_search", OracleDbType.Varchar2, p_key_search, ParameterDirection.Input),
                     new OracleParameter("p_from", OracleDbType.Varchar2, p_from, ParameterDirection.Input),
                     new OracleParameter("p_to", OracleDbType.Varchar2, p_to, ParameterDirection.Input),

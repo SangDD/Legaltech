@@ -15,16 +15,17 @@
     using System.IO;
 
     [ValidateAntiForgeryTokenOnAllPosts]
- 
+
     public class HomeController : Controller
     {
         // GET: Home/index
-      
+
 
         // GET: Home/Home
-        [HttpGet][Route("home")]
-	    public ActionResult KnHome()
-	    {
+        [HttpGet]
+        [Route("home")]
+        public ActionResult KnHome()
+        {
             if (SessionData.CurrentUser == null)
             {
                 return this.Redirect("/");
@@ -39,92 +40,99 @@
             }
             ViewBag.LanguageCode = language;
 
-            B_Todos_BL _obj_bl = new B_Todos_BL();     
+            B_Todos_BL _obj_bl = new B_Todos_BL();
             B_TodoNotify_Info p_todonotify = new B_TodoNotify_Info();
             p_todonotify = _obj_bl.GET_NOTIFY(SessionData.CurrentUser.Username);
             ViewBag.NotifyInfo = p_todonotify;
 
             return View("~/Areas/Home/Views/Home/LegalHome.cshtml");
-	    }
+        }
 
-	    [HttpGet][Route("filter-request-not-identity")]
-	    public ActionResult FilterRequestNotIdentity(string requestMethod, string isRequestTypeAjax, string urlRedirect, string returnUrl = "")
-	    {
-		    try
-		    {
-			    var fullPathResponse = urlRedirect;
+        [HttpGet]
+        [Route("filter-request-not-identity")]
+        public ActionResult FilterRequestNotIdentity(string requestMethod, string isRequestTypeAjax, string urlRedirect, string returnUrl = "")
+        {
+            try
+            {
+                var fullPathResponse = urlRedirect;
 
-			    if (!string.IsNullOrEmpty(returnUrl))
-			    {
-				    fullPathResponse += "?returnUrl=" + returnUrl;
-			    }
+                if (!string.IsNullOrEmpty(returnUrl))
+                {
+                    fullPathResponse += "?returnUrl=" + returnUrl;
+                }
 
-			    if (requestMethod.ToUpper() == "POST" || isRequestTypeAjax?.ToUpper() == "TRUE")
-			    {
-				    if (urlRedirect == RouteConfig.KnAccessDenied)
-				    {
-					    return this.Json(new { redirectTo = RouteConfig.KnAccessDeniedShortern, dataInTab = true }, JsonRequestBehavior.AllowGet);
-				    }
+                if (requestMethod.ToUpper() == "POST" || isRequestTypeAjax?.ToUpper() == "TRUE")
+                {
+                    if (urlRedirect == RouteConfig.KnAccessDenied)
+                    {
+                        return this.Json(new { redirectTo = RouteConfig.KnAccessDeniedShortern, dataInTab = true }, JsonRequestBehavior.AllowGet);
+                    }
 
-				    return this.Json(new { redirectTo = fullPathResponse }, JsonRequestBehavior.AllowGet);
-			    }
+                    return this.Json(new { redirectTo = fullPathResponse }, JsonRequestBehavior.AllowGet);
+                }
 
-			    if (requestMethod.ToUpper() == "GET")
-			    {
-				    return Redirect(fullPathResponse);
-			    }
-		    }
-		    catch (Exception)
-		    {
-			    // Ignored
-		    }
+                if (requestMethod.ToUpper() == "GET")
+                {
+                    return Redirect(fullPathResponse);
+                }
+            }
+            catch (Exception)
+            {
+                // Ignored
+            }
 
-		    return Json(new { redirectTo = RouteConfig.KnHttpNotFound });
-	    }
+            return Json(new { redirectTo = RouteConfig.KnHttpNotFound });
+        }
 
-	    [HttpGet][Route("about-us")]
-	    public ActionResult About()
-	    {
-		    ViewBag.Message = "Your application description page.";
+        [HttpGet]
+        [Route("about-us")]
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
 
-		    return View("~/Areas/Home/Views/Home/About.cshtml");
-	    }
+            return View("~/Areas/Home/Views/Home/About.cshtml");
+        }
 
-	    [HttpGet][Route("contact")]
-	    public ActionResult Contact()
-	    {
-		    ViewBag.Message = "Your contact page.";
+        [HttpGet]
+        [Route("contact")]
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
 
-		    return View("~/Areas/Home/Views/Home/Contact.cshtml");
-	    }
+            return View("~/Areas/Home/Views/Home/Contact.cshtml");
+        }
 
-	    [HttpGet][Route("page-not-found")]
-	    public ActionResult PageNotFound()
-	    {
-		    return View("~/Areas/Home/Views/Home/PageNotFound.cshtml");
-	    }
+        [HttpGet]
+        [Route("page-not-found")]
+        public ActionResult PageNotFound()
+        {
+            return View("~/Areas/Home/Views/Home/PageNotFound.cshtml");
+        }
 
-	    [HttpGet][Route("access-denied")]
-	    public ActionResult AccessDenied()
-	    {
-		    return View("~/Areas/Home/Views/Home/AccessDenied.cshtml");
-	    }
+        [HttpGet]
+        [Route("access-denied")]
+        public ActionResult AccessDenied()
+        {
+            return View("~/Areas/Home/Views/Home/AccessDenied.cshtml");
+        }
 
-	    [HttpGet][Route("re-login")]
-	    public ActionResult ForceRelogin()
-	    {
-		    SessionData.CurrentUser = null;
-		    Session.Abandon();
-		    return View("~/Areas/Home/Views/Home/ForceRelogin.cshtml");
-	    }
+        [HttpGet]
+        [Route("re-login")]
+        public ActionResult ForceRelogin()
+        {
+            SessionData.CurrentUser = null;
+            Session.Abandon();
+            return View("~/Areas/Home/Views/Home/ForceRelogin.cshtml");
+        }
 
-	    [HttpGet][Route("account-session-invalid")]
-	    public ActionResult AccountSessionInvalid()
-	    {
-		    SessionData.CurrentUser = null;
-		    Session.Abandon();
-		    return View("~/Areas/Home/Views/Home/AccountSessionInvalid.cshtml");
-	    }
+        [HttpGet]
+        [Route("account-session-invalid")]
+        public ActionResult AccountSessionInvalid()
+        {
+            SessionData.CurrentUser = null;
+            Session.Abandon();
+            return View("~/Areas/Home/Views/Home/AccountSessionInvalid.cshtml");
+        }
 
         [HttpGet]
         [Route("Language")]
@@ -195,13 +203,13 @@
         }
 
         #region box search 
-         
+
 
         [HttpPost]
         [Route("search-dashboard")]
         public ActionResult FindOject(int searchtype, string keysSearch, string options)
         {
-          
+
             int p_CurrentPage = 1;
             int _reconpage = 5;
             p_CurrentPage = Convert.ToInt32(options.Split('|')[3]);
@@ -211,7 +219,7 @@
             string p_from = CommonFuc.Get_From_To_Page(p_CurrentPage, ref p_to, _reconpage);
             string _sortype = "ALL";
             _sortype = " ORDER BY " + options.Split('|')[0] + " " + options.Split('|')[1];
-            if(string.IsNullOrEmpty(_sortype) || _sortype.Trim() == "ORDER BY")
+            if (string.IsNullOrEmpty(_sortype) || _sortype.Trim() == "ORDER BY")
             {
                 _sortype = "ALL";
             }
@@ -223,7 +231,7 @@
                 {
                     // đơn
                     Application_Header_BL _obj_bl = new Application_Header_BL();
-                    List<ApplicationHeaderInfo> _lst = _obj_bl.ApplicationHeader_Search(keysSearch, ref _total_record, p_from, p_to, _sortype, 1);
+                    List<ApplicationHeaderInfo> _lst = _obj_bl.ApplicationHeader_Search(SessionData.CurrentUser.Username, keysSearch, ref _total_record, p_from, p_to, _sortype, 1);
                     htmlPaging = CommonFuc.Get_HtmlPaging<ApplicationHeaderInfo>((int)_total_record, p_CurrentPage, "Đơn", _reconpage);
 
                     ViewBag.Paging = htmlPaging;
@@ -236,7 +244,7 @@
                     // luật sư
                     var userBL = new UserBL();
                     var lstUsers = new List<UserInfo>();
-                    keysSearch ="|" + keysSearch + "|" + Convert.ToInt16(CommonEnums.UserType.Lawer) + "|";
+                    keysSearch = "|" + keysSearch + "|" + Convert.ToInt16(CommonEnums.UserType.Lawer) + "|";
                     lstUsers = userBL.HomeFindUser(ref _total_record, keysSearch, options);
                     htmlPaging = CommonFuc.Get_HtmlPaging<UserInfo>((int)_total_record, p_CurrentPage, "Luật sư", _reconpage);
                     ViewBag.Paging = htmlPaging;
@@ -263,14 +271,14 @@
                     var lstOjects = new List<WikiDoc_Info>();
                     keysSearch = CommonWiki.Stt_daduyet.ToString() + "||" + keysSearch;
                     var _WikiDoc_BL = new WikiDoc_BL();
-                    lstOjects = _WikiDoc_BL.WikiDoc_DashboardSearch(ref _total_record, keysSearch, options);                   
+                    lstOjects = _WikiDoc_BL.WikiDoc_DashboardSearch(ref _total_record, keysSearch, options);
                     htmlPaging = CommonFuc.Get_HtmlPaging<WikiDoc_Info>((int)_total_record, p_CurrentPage, "Bài viết", _reconpage);
                     ViewBag.Paging = htmlPaging;
                     ViewBag.SumRecord = _total_record;
-                  
+
                     return PartialView("~/Areas/Home/Views/Shared/_SearchDataWiki.cshtml", lstOjects);
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -316,7 +324,7 @@
             return null;
         }
 
-      
+
 
         #endregion
 
@@ -375,7 +383,7 @@
             try
             {
                 B_Todos_BL _obj_bl = new B_Todos_BL();
-                keysSearch =  SessionData.CurrentUser.Username;
+                keysSearch = SessionData.CurrentUser.Username;
                 List<B_Remind_Info> _lst = _obj_bl.B_Remind_Search(keysSearch, ref _total_record, p_from, p_to, _sortype);
                 htmlPaging = CommonFuc.Get_HtmlPaging<B_Remind_Info>((int)_total_record, p_CurrentPage, "Nội dung", _reconpage, "RemindjsPaging");
                 ViewBag.Paging = htmlPaging;
@@ -394,7 +402,7 @@
         #endregion
 
 
- 
+
         #region Box tin 
         [HttpPost]
         [Route("search-bulletin")]
@@ -414,7 +422,7 @@
                 NewsBL _obj_bl = new NewsBL();
                 keysSearch = "7|" + "ALL|" + SessionData.CurrentUser.Language + "|THONGBAO";
                 //string pLanguage, string pTitle, DateTime pNgayCongBo, int pStart, int pEnd, ref decimal pTotalRecord)
-              
+
                 List<NewsInfo> _lst = _obj_bl.ArticleHomeSearch(keysSearch, ref _total_record, p_from, p_to, _sortype);
                 htmlPaging = CommonFuc.Get_HtmlPaging<B_Remind_Info>((int)_total_record, p_CurrentPage, "Tin", _reconpage, "BulletinjsPaging");
                 ViewBag.Paging = htmlPaging;
@@ -480,7 +488,7 @@
             {
                 NewsBL _obj_bl = new NewsBL();
                 // keysSearch = "7|" + "1|" + SessionData.CurrentUser.Language;
-                 keysSearch = "7|" + "ALL|" + SessionData.CurrentUser.Language + "|TIN_TUC";
+                keysSearch = "7|" + "ALL|" + SessionData.CurrentUser.Language + "|TIN_TUC";
 
                 List<NewsInfo> _lst = _obj_bl.ArticleHomeSearch(keysSearch, ref _total_record, p_from, p_to, _sortype);
                 htmlPaging = CommonFuc.Get_HtmlPaging<B_Remind_Info>((int)_total_record, p_CurrentPage, "Tin", _reconpage, "UpdatenewsjsPaging");
