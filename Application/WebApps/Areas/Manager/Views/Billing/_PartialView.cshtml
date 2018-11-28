@@ -225,7 +225,8 @@
                 <input type="submit" class="btn-default" value="Kết xuất" onclick="return onExport('@Model.Case_Code',1)" />
             }
 
-            <input type="submit" class="btn-default" value="Thoát" onclick="return onBack()" />
+            <input type="submit" class="btn-default" value="Edit" onclick="return getView2Edit(@Model.Billing_Id,'@Model.App_Case_Code')" />
+            <input type="submit" class="btn-default" value="Exit" onclick="return onBack()" />
         </div>
     </div>
 
@@ -236,6 +237,30 @@
     $(document).ready(function () {
         $("txtApp_Case_Code").focus();
     });
+
+    function getView2Edit(_id, _app_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/quan-ly-billing/danh-sach-billing/show-edit/",
+            dataType: "html",
+            data: {
+                p_id: _id,
+                p_app_case_code: _app_case_code
+            },
+            async: false, cache: false, traditional: true,
+            success: function (data) {
+                if (data != null) {
+                    $("#divPopUpBilling").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPopUpBilling', "Sửa thông tin billing", 750, 800, "txtApp_Case_Code");
+                }
+                return false;
+            }
+        });
+    }
 
     function onBack() {
         try {

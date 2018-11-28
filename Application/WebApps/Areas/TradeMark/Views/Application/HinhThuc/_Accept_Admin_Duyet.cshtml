@@ -19,6 +19,9 @@
     {
         _str_number = "lần" + _App_Notice_Info.Times.ToString();
     }
+
+    decimal _UserType = WebApps.Session.SessionData.CurrentUser.Type;
+
 }
 
 <style>
@@ -136,16 +139,35 @@
         </div>
     </div>
 
-    <div class="div-search-ad">
-        <div class="div-search-title">
-            <div>Billing<i class="redspan">(*)</i></div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <a style="height: 20px !important;" href="@_App_Notice_Info.Billing_Url" download="@_App_Notice_Info.Billing_Url"> File billing </a>
+    @if (WebApps.Session.SessionData.CurrentUser.Type == (int)Common.CommonData.CommonEnums.UserType.Admin
+        || WebApps.Session.SessionData.CurrentUser.Type == (int)Common.CommonData.CommonEnums.UserType.SupperAdmin
+        || WebApps.Session.SessionData.CurrentUser.Type == (int)Common.CommonData.CommonEnums.UserType.Lawer)
+    {
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Billing<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <a style="height: 20px !important;" href="javascript:;" onclick="GetView2View_Billing(@_App_Notice_Info.Billing_Id, '@_App_Notice_Info.Case_Code')" > View billing </a>
+                </div>
             </div>
         </div>
-    </div>
+    }
+    else if (WebApps.Session.SessionData.CurrentUser.Type == (int)Common.CommonData.CommonEnums.UserType.Customer)
+    {
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Billing<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <a style="height: 20px !important;" href="@_App_Notice_Info.Billing_Url" download="@_App_Notice_Info.Billing_Url"> File billing </a>
+                </div>
+            </div>
+        </div>
+    }
+
 
     <div class="form-group">
         <div class="form-group-bottom">
@@ -160,6 +182,18 @@
     $(document).ready(function () {
 
     });
+
+    function GetView2View_Billing(_id, _app_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        try {
+            var url = "/quan-ly-billing/danh-sach-billing/show-view-billing?id=" + _id + "&case_code=" + _app_case_code;
+            window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
 
     function do_Submit(_case_code) {
         if (validateAction()) {
