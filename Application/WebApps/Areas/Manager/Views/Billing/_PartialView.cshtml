@@ -225,7 +225,11 @@
                 <input type="submit" class="btn-default" value="Kết xuất" onclick="return onExport('@Model.Case_Code',1)" />
             }
 
-            <input type="submit" class="btn-default" value="Edit" onclick="return getView2Edit(@Model.Billing_Id,'@Model.App_Case_Code')" />
+            @if (Model.Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Status.New_Wait_Approve))
+            {
+                <input type="submit" class="btn-default" value="Edit" onclick="return getView2Edit(@Model.Billing_Id,'@Model.App_Case_Code')" /> 
+            }
+            
             <input type="submit" class="btn-default" value="Exit" onclick="return onBack()" />
         </div>
     </div>
