@@ -5,7 +5,7 @@
 @model Billing_Header_Info
 
 @{
-    ViewBag.Title = "Chi tiết billing";
+    ViewBag.Title = "Sửa thông tin billing";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     List<AllCodeInfo> _lstBank = MemoryData.AllCode_GetBy_CdTypeCdName("BILLING", "BANK");
@@ -63,7 +63,7 @@
 <div class="d-main">
     <div class="divCover">
         <div class="classTitle">
-            <div class="div-title-content"> CHI TIẾT BILLING</div>
+            <div class="div-title-content"> SỬA THÔNG TIN BILLING</div>
         </div>
     </div>
 
@@ -225,6 +225,8 @@
                 <input type="submit" class="btn-default" value="Kết xuất" onclick="return onExport('@Model.Case_Code',1)" />
             }
 
+
+            <input type="submit" class="btn-default" value="Lưu" onclick="return doEditBilling()" />
             <input type="submit" class="btn-default" value="Exit" onclick="return onBack()" />
         </div>
     </div>
@@ -237,28 +239,197 @@
         $("txtApp_Case_Code").focus();
     });
 
-    function getView2Edit(_id, _app_case_code) {
+    function onChangeOthersFee(_value) {
+
+        var _amount = 0;
+        if (_value != "") {
+            _amount = parseInt(_value.replace(/,/g, ""));
+        }
+
+        try {
+            $.ajax({
+                url: '/quan-ly-billing/danh-sach-billing/change-other-fee',
+                type: 'POST',
+                data: {
+                    p_case_code: $("#txtApp_Case_Code").val(),
+                    p_amount: _amount
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divDataBillingDetail").html(data);
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    function onChangeBilling_Date() {
+        try {
+
+            var txtBilling_Date = $("#txtBilling_Date").val();
+            if (checkDate("Billing", "#txtBilling_Date", txtBilling_Date) == false) {
+                return false;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/quan-ly-billing/danh-sach-billing/change-date',
+                data: {
+                    p_date: txtBilling_Date,
+                },
+                async: true, cache: false, traditional: true,
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#txtDeadline").val(data.success);
+                }
+            });
+        } catch (e) {
+            alert(e.toString());
+        }
+    }
+
+    function doEditBilling() {
+        if (validateForm()) {
+            nvsConfirm(null, "Bạn có chắc chắn muốn thêm billing này không?", function () {
+                var formData = new FormData();
+                collectData(formData);
+                $.ajax({
+                    url: '/quan-ly-billing/danh-sach-billing/do-edit-billing',
+                    type: 'POST',
+                    data: formData,
+                    async: true, traditional: true, contentType: false, processData: false,
+                    headers: { "cache-control": "no-cache" },
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            jError("Lỗi check lại kết nối tới server");
+                            return false;
+                        }
+                        else if (data.success == "-2") {
+                            jError("Không có thông tin billing");
+                            return false;
+                        }
+                        else {
+                            jAlert('Sửa thông tin billing thành công!', "THÔNG BÁO", function () {
+                                var url = "/quan-ly-billing/danh-sach-billing/";
+                                window.location.href = url;
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(false);
+                        console.log(e);
+                    }
+                });
+            });
+        }
+    }
+
+    function validateForm() {
         if (CheckSessionTimeOut() == false) {
             return false;
         }
 
-        $.ajax({
-            type: "POST",
-            url: "/quan-ly-billing/danh-sach-billing/show-edit/",
-            dataType: "html",
-            data: {
-                p_id: _id,
-                p_app_case_code: _app_case_code
-            },
-            async: false, cache: false, traditional: true,
-            success: function (data) {
-                if (data != null) {
-                    $("#divPopUpBilling").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpBilling', "Sửa thông tin billing", 750, 800, "txtApp_Case_Code");
-                }
-                return false;
-            }
-        });
+        var App_Case_Code = $("#txtApp_Case_Code").val();
+        if (App_Case_Code == null) {
+            jError("Case code không được bỏ trống!", "lỗi", function () {
+                $("#txtApp_Case_Code").val('');
+                $('#txtApp_Case_Code').focus();
+            });
+            return false;
+        }
+
+        var txtBilling_Date = $("#txtBilling_Date").val();
+        if (checkDate("Billing", "#txtBilling_Date", txtBilling_Date) == false) {
+            return false;
+        }
+
+        var _txt_Total_Amount = $("#txt_Total_Amount").val();
+        if (_txt_Total_Amount == "" || _txt_Total_Amount == "0") {
+            jError("Không có thông tin billing", "lỗi", function () {
+                $('#txtApp_Case_Code').focus();
+            });
+            return false;
+        }
+
+        //var txtNotes = $("#txtNotes").val();
+        //if (txtNotes == null || txtNotes == "") {
+        //    jError("Yêu cầu không được bỏ trống!", "lỗi", function () {
+        //        $("#txtNotes").val('');
+        //        $('#txtNotes').focus();
+        //    });
+        //    return false;
+        //}
+
+        return true;
+    }
+
+    function collectData(formData) {
+        try {
+
+            // hearder
+            formData.append('p_Billing_Header_Info.Billing_Id', '@Model.Billing_Id');
+            formData.append('p_Billing_Header_Info.Case_Code', $("#txtCaseCode").val());
+            formData.append('p_Billing_Header_Info.App_Case_Code', $("#txtApp_Case_Code").val());
+
+            formData.append('p_Billing_Header_Info.Billing_Date', $("#txtBilling_Date").val());
+            formData.append('p_Billing_Header_Info.Deadline', $("#txtDeadline").val());
+
+            formData.append('p_Billing_Header_Info.Request_By', $("#txtRequest_By").val());
+            formData.append('p_Billing_Header_Info.Approve_By', $("#txtApprove_By").val());
+
+            formData.append('p_Billing_Header_Info.Total_Pre_Tex', parseInt($("#txt_Total_Pre_Tex").val().replace(/,/g, "")));
+            formData.append('p_Billing_Header_Info.Tex_Fee', parseInt($("#txt_Tex_Fee").val().replace(/,/g, "")));
+            formData.append('p_Billing_Header_Info.Total_Amount', parseInt($("#txt_Total_Amount").val().replace(/,/g, "")));
+
+            formData.append('p_Billing_Header_Info.Currency', $("#txtCurrency").val());
+            formData.append('p_Billing_Header_Info.Currency_Rate', parseInt($("#txtCurrency_Rate").val().replace(/,/g, "")));
+            formData.append('p_Billing_Header_Info.Notes', $("#txtNotes").val());
+        } catch (e) {
+            alert(e.toString());
+        }
+    }
+
+    function doDeleteBillingDetail(_Ref_Id, _type) {
+        try {
+            nvsConfirm(null, "Bạn có chắc chắn muốn xóa loại fee này không?", function () {
+                $.ajax({
+                    url: '/quan-ly-billing/danh-sach-billing/do-delete-billing-detail',
+                    type: 'POST',
+                    data: {
+                        p_case_code: $("#txtApp_Case_Code").val(),
+                        p_Ref_Id: _Ref_Id,
+                        p_Type: _type
+                    },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        $("#divDataBillingDetail").html(data);
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(false);
+                        console.log(e);
+                    }
+                });
+            });
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     function onBack() {

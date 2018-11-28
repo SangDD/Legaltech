@@ -264,7 +264,7 @@ namespace WebApps.Areas.Manager.Controllers
                             Application_Header_BL _BL = new Application_Header_BL();
                             _ck = _BL.AppHeader_Update_Advise_Url_Billing(p_Billing_Header_Info.App_Case_Code, _fileExport);
                         }
-                        else  
+                        else
                         {
                             string _key = "BILLING_APP_URL_" + p_Billing_Header_Info.App_Case_Code + "_" + p_Billing_Header_Info.Insert_Type.ToString();
                             SessionData.SetDataSession(_key, _fileExport);
@@ -467,7 +467,6 @@ namespace WebApps.Areas.Manager.Controllers
         }
 
         // edit
-        [HttpPost]
         [Route("danh-sach-billing/show-edit")]
         public ActionResult GetView2Edit(int p_id, string p_app_case_code)
         {
@@ -488,7 +487,15 @@ namespace WebApps.Areas.Manager.Controllers
                     _Billing_Header_Info = _obj_bl.Billing_GetBy_Id(p_id, p_app_case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
                 }
 
+                foreach (Billing_Detail_Info item in _lst_billing_detail)
+                {
+                    item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
+                }
+
                 ViewBag.List_Billing = _lst_billing_detail;
+                SessionData.SetDataSession(p_app_case_code, _lst_billing_detail);
+                ViewBag.Operator_Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert);
+                ViewBag.Billing_Header_Info = _Billing_Header_Info;
 
                 if (p_app_case_code.Contains("SEARCH"))
                 {
@@ -514,12 +521,52 @@ namespace WebApps.Areas.Manager.Controllers
         {
             try
             {
+                List<Billing_Detail_Info> _lst_billing_detail = Get_LstFee_Detail(p_Billing_Header_Info.App_Case_Code);
+                if (p_Billing_Header_Info.Total_Amount == 0)
+                {
+                    return Json(new { success = "-2" });
+                }
+
                 Billing_BL _obj_bl = new Billing_BL();
                 p_Billing_Header_Info.Modify_By = SessionData.CurrentUser.Username;
                 p_Billing_Header_Info.Modify_Date = DateTime.Now;
-                p_Billing_Header_Info.Language_Code = AppsCommon.GetCurrentLang();
 
-                decimal _ck = _obj_bl.Billing_Update(p_Billing_Header_Info);
+                decimal _ck = 0;
+                using (var scope = new TransactionScope())
+                {
+                    _ck = _obj_bl.Billing_Update(p_Billing_Header_Info);
+                    if (_ck <= 0)
+                    {
+                        goto Commit_Transaction;
+                    }
+
+                    // xóa đi trước
+                    if (_ck > 0)
+                    {
+                        _ck = _obj_bl.Billing_Delete_Detail(p_Billing_Header_Info.Billing_Id);
+                        if (_ck <= 0)
+                        {
+                            goto Commit_Transaction;
+                        }
+                    }
+
+                    // và insert lại sau
+                    if (_lst_billing_detail.Count > 0)
+                    {
+                        _ck = _obj_bl.Billing_Detail_InsertBatch(_lst_billing_detail, p_Billing_Header_Info.Billing_Id);
+                    }
+
+                    //end
+                    Commit_Transaction:
+                    if (_ck < 0)
+                    {
+                        Transaction.Current.Rollback();
+                    }
+                    else
+                    {
+                        scope.Complete();
+                    }
+                }
                 return Json(new { success = _ck });
             }
             catch (Exception ex)

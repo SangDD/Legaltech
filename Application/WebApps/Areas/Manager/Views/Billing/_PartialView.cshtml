@@ -246,24 +246,12 @@
         if (CheckSessionTimeOut() == false) {
             return false;
         }
-
-        $.ajax({
-            type: "POST",
-            url: "/quan-ly-billing/danh-sach-billing/show-edit/",
-            dataType: "html",
-            data: {
-                p_id: _id,
-                p_app_case_code: _app_case_code
-            },
-            async: false, cache: false, traditional: true,
-            success: function (data) {
-                if (data != null) {
-                    $("#divPopUpBilling").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpBilling', "Sửa thông tin billing", 750, 800, "txtApp_Case_Code");
-                }
-                return false;
-            }
-        });
+        try {
+            var url = "/quan-ly-billing/danh-sach-billing/show-edit?p_id=" + _id + "&p_app_case_code=" + _app_case_code;
+            window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
     }
 
     function onBack() {

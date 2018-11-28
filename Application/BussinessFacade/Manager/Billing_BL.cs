@@ -43,7 +43,7 @@ namespace BussinessFacade
             }
         }
 
-        public Billing_Header_Info Billing_GetBy_Id(decimal p_billing_id, string p_app_case_code, string p_language_code, 
+        public Billing_Header_Info Billing_GetBy_Id(decimal p_billing_id, string p_app_case_code, string p_language_code,
             ref ApplicationHeaderInfo applicationHeaderInfo, ref List<Billing_Detail_Info> p_lst_billing_detail)
         {
             try
@@ -162,12 +162,12 @@ namespace BussinessFacade
         }
 
 
-        public int Billing_Update_Delete(decimal p_docking_id, string p_language_code, string p_modify_by, DateTime p_modify_date)
+        public int Billing_Update_Delete(decimal p_billing_id, string p_language_code, string p_modify_by, DateTime p_modify_date)
         {
             try
             {
                 Billing_DA _da = new Billing_DA();
-                return _da.Billing_Update_Delete(p_docking_id, p_language_code, p_modify_by, p_modify_date);
+                return _da.Billing_Update_Delete(p_billing_id, p_language_code, p_modify_by, p_modify_date);
             }
             catch (Exception ex)
             {
@@ -218,6 +218,35 @@ namespace BussinessFacade
             {
                 Logger.LogException(ex);
                 return -1;
+            }
+        }
+
+        public int Billing_Delete_Detail(decimal p_billing_id)
+        {
+            try
+            {
+                Billing_DA _da = new Billing_DA();
+                return _da.Billing_Delete_Detail(p_billing_id);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
+        public List<Billing_Detail_Info> Get_Detail_Billing(decimal p_billing_id, string p_app_case_code, string p_language_code)
+        {
+            try
+            {
+                Billing_DA _da = new Billing_DA();
+                DataSet _ds = _da.Get_Detail_Billing(p_billing_id, p_app_case_code, p_language_code);
+                return CBO<Billing_Detail_Info>.FillCollectionFromDataSet(_ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<Billing_Detail_Info>();
             }
         }
     }

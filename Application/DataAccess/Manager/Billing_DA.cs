@@ -145,7 +145,7 @@ namespace DataAccess
             }
         }
 
-        
+
 
         public decimal Billing_Insert(string p_case_code, decimal p_billing_type, string p_app_case_code, DateTime p_billing_date, DateTime p_deadline,
             string p_request_by, string p_approve_by, decimal p_status, decimal p_total_pre_tex, decimal p_tex_fee, decimal p_total_amount,
@@ -271,7 +271,7 @@ namespace DataAccess
                     new OracleParameter("p_service_fee", OracleDbType.Decimal, p_service_fee, ParameterDirection.Input),
                     paramReturn);
 
-                var result = ErrorCode.Error;
+                var result = -1;
                 Oracle.DataAccess.Types.OracleDecimal[] _ArrReturn = (Oracle.DataAccess.Types.OracleDecimal[])paramReturn.Value;
                 foreach (Oracle.DataAccess.Types.OracleDecimal _item in _ArrReturn)
                 {
@@ -290,8 +290,46 @@ namespace DataAccess
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return ErrorCode.Error;
+                return -1;
             }
         }
+
+        public int Billing_Delete_Detail(decimal p_billing_id)
+        {
+            try
+            {
+
+                var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_billing.proc_delete_detail",
+                    new OracleParameter("p_billing_id", OracleDbType.Decimal, p_billing_id, ParameterDirection.Input),
+                    paramReturn);
+
+                var result = Convert.ToInt32(paramReturn.Value.ToString());
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
+        public DataSet Get_Detail_Billing(decimal p_billing_id, string p_app_case_code, string p_language_code)
+        {
+            try
+            {
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_billing.proc_get_billing_detail",
+                    new OracleParameter("p_billing_id", OracleDbType.Decimal, p_billing_id, ParameterDirection.Input),
+                    new OracleParameter("p_app_case_code", OracleDbType.Varchar2, p_app_case_code, ParameterDirection.Input),
+                    new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
+                    new OracleParameter("p_cursor_detail", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
     }
 }
