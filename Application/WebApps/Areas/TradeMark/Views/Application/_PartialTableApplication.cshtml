@@ -9,6 +9,7 @@
     }
 
     string language = AppsCommon.GetCurrentLang();
+    decimal _UserType = WebApps.Session.SessionData.CurrentUser.Type;
 }
 
 <div>
@@ -50,9 +51,17 @@
                                 <a href="/trade-mark/request-for-trade-mark-edit/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-edit" data-title="Sửa"></a>
                             }
                             @* Chi Hien thi phan dich neu la ban ghi tiếng anh, và đang xem trên ngôn ngữ tiếng việt *@
-                            @if (item.Id_Vi >= 0 && language == "VI_VN" && item.Languague_Code == "EN_US")
+
+                            @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin
+                            || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.SupperAdmin
+                            || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
                             {
-                                <a href="/trade-mark/request-for-trade-mark-translate/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()/@item.Id_Vi" class="icon icon-house-add" data-title="Dịch"></a>
+                                if (item.Id_Vi >= 0 && language == "VI_VN" && item.Languague_Code == "EN_US")
+                                {
+                                    <a href="/trade-mark/request-for-trade-mark-translate/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()/@item.Id_Vi" data-title="Dịch">
+                                        <img src="/Content/icons/translate.png">
+                                    </a>
+                                }
                             }
                             @if (item.Status == (decimal)CommonEnums.App_Status.Luu_tam)
                             {

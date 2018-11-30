@@ -262,7 +262,7 @@ namespace WebApps.Areas.Manager.Controllers
                         if (p_Billing_Header_Info.Insert_Type == (decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Advise_Filling)
                         {
                             Application_Header_BL _BL = new Application_Header_BL();
-                            _ck = _BL.AppHeader_Update_Advise_Url_Billing(p_Billing_Header_Info.App_Case_Code, _fileExport);
+                            _ck = _BL.AppHeader_Update_Advise_Url_Billing(p_Billing_Header_Info.App_Case_Code, _idBilling, _fileExport);
                         }
                         else
                         {

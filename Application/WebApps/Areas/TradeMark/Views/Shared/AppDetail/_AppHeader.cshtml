@@ -1,5 +1,6 @@
 ﻿@using WebApps.CommonFunction
 @using ObjectInfos
+@using Common.CommonData
 @{
     var _AppHeaderInfo = new ApplicationHeaderInfo();
     _AppHeaderInfo.Case_Code = "";
@@ -16,6 +17,7 @@
     }
 
     string language = AppsCommon.GetCurrentLang();
+    decimal _UserType = WebApps.Session.SessionData.CurrentUser.Type;
 }
 <style>
     /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
@@ -47,15 +49,23 @@
             {
                 <a href="/trade-mark/request-for-trade-mark-translate/@_AppHeaderInfo.Id/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode.ToLower()/@_AppHeaderInfo.Id_Vi" class="icon icon-house-add" data-title="Dịch"></a>
             }
-        }
 
+            if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin
+                || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.SupperAdmin
+                || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
+            {
+                <a href="/trade-mark/request-for-trade-mark-translate/@_AppHeaderInfo.Id/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode.ToLower()/@_AppHeaderInfo.Id_Vi" data-title="Dịch">
+                    <img src="/Content/icons/translate.png">
+                </a>
+            }
+        }
     </div>
 </div>
 
 <div class="divCover cls_form_title">
     <img src="/Content/icons/icon_info_24.png" />
     <div class="cls_form_header">
-        THÔNG TIN ĐƠN 
+        THÔNG TIN ĐƠN
     </div>
 </div>
 
