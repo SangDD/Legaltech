@@ -388,16 +388,11 @@
             return false;
         }
 
-		if (dateOfBirth === "" || dateOfBirth === window.maskDateTime_N0) {
-            jError("Ngày sinh không được để trống", "lỗi", function () {
-                $('#txtDateOfBirth').focus();
-            });
-            return false;
-		} else if (isValidDate_N0(dateOfBirth) === false) {
-            jError("Ngày sinh không đúng định dạng (dd/mm/yyyy)!", "lỗi", function () {
-                $('#txtDateOfBirth').focus();
-            });
-            return false;
+        var txtDateOfBirth = $("#txtDateOfBirth").val();
+        if (txtDateOfBirth != "" && txtDateOfBirth != "__/__/____") {
+            if (checkDate("Ngày sinh", "#txtDateOfBirth", txtDateOfBirth) == false) {
+                return false;
+            }
         }
 
         if (phone === "") {

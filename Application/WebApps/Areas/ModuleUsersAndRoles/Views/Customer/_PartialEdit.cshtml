@@ -219,12 +219,14 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <select id="cboStatus">
+                    @Html.TextBoxFor(m => m.StatusDisplayName, new {@disabled = "disabled" })
+
+                    @*<select id="cboStatus" disabled="disabled">
                         @foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.UserStatus))
                         {
                             <option @(item.CdVal == Model.Status.ToString() ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
                         }
-                    </select>
+                    </select>*@
                 </div>
             </div>
         </div>
@@ -364,7 +366,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <select id="cboGroupUser">
+                        <select id="cboGroupUser" disabled="disabled">
                             <option value="-1">None</option>
                             @foreach (var item in MemoryData.GetAllGroup())
                             {
@@ -464,7 +466,9 @@
 		email = $('#txtEmail').val().trim();
 		phone = $('#txtPhone').val().trim();
 		//type = $('#cboType').val();
-		status = $('#cboStatus').val();
+		//status = $('#cboStatus').val();
+        status = '@Model.Status';
+
 		GroupId = $('#cboGroupUser').val();
 
 		if (fullName === "") {
@@ -482,16 +486,11 @@
             return false;
         }
 
-		if (dateOfBirth === "" || dateOfBirth === window.maskDateTime_N0) {
-            jError("Ngày sinh không được để trống", "lỗi", function () {
-                $('#txtDateOfBirth').focus();
-            });
-            return false;
-		} else if (isValidDate_N0(dateOfBirth) === false) {
-            jError("Ngày sinh không đúng định dạng (dd/mm/yyyy)!", "lỗi", function () {
-                $('#txtDateOfBirth').focus();
-            });
-            return false;
+        var txtDateOfBirth = $("#txtDateOfBirth").val();
+        if (txtDateOfBirth != "" && txtDateOfBirth != "__/__/____") {
+            if (checkDate("Ngày sinh", "#txtDateOfBirth", txtDateOfBirth) == false) {
+                return false;
+            }
         }
 
         if (phone === "") {
