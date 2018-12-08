@@ -397,81 +397,81 @@
                 #endregion
 
                 #region Load menu wiki
-                int _lastmenuid = _userHtmlMenuId;
-                string _wikistyle = "", _wikihref = "", _javafunc = "", _wikilink = "";
-                string _menuName = "Quản lý Wiki";
-                string _urlLang = "/vi-vn";
+                //int _lastmenuid = _userHtmlMenuId;
+                //string _wikistyle = "", _wikihref = "", _javafunc = "", _wikilink = "";
+                //string _menuName = "Quản lý Wiki";
+                //string _urlLang = "/vi-vn";
               
-                if (language == Language.LangEN)
-                {
-                    _menuName = "Wiki manage";
-                    _urlLang = "/en-gb";
-                }
+                //if (language == Language.LangEN)
+                //{
+                //    _menuName = "Wiki manage";
+                //    _urlLang = "/en-gb";
+                //}
               
-                _javafunc = " onclick='gotoTask(this)'>";
+                //_javafunc = " onclick='gotoTask(this)'>";
 
-                userHtmlMenu += " <li  class='group-menu' onclick='javascript:;' >" + "  <span data-menu='item-main-menu'><i class='fas fa-cog fa-fw'></i> " + _menuName + " </span>  "
-                                            + " <ul class='ul-group-menu collapsed' style='display:none;'>";
-                _lastmenuid++;
-                _wikihref = _urlLang + "/wiki-manage/wiki-doc/list/1";
-                _wikilink = _urlLang + "/wiki-manage/wiki-doc/list/";
-                _wikilink = "data-link='" + _wikilink + "' ";
-                _wikihref = "data-url='" + _wikihref + "' ";
-                // quản lý bài viết
-                userHtmlMenu += "<li id='li-menu-" + _lastmenuid  + "' " 
-                           + _wikihref 
-                           + _wikilink  
-                           + "data-id='" + _lastmenuid + "' "
-                            + _javafunc + "<span class='menu-text'>" + (language == Language.LangEN ? "Wiki manage by status" : "Quản lý bài viết")
-                           + "</span></li>";
-                // quản lý danh mục chủ đề
-                _lastmenuid++;
-                _wikihref = _urlLang + "/wiki-manage/wiki-doc/catalogue-list";
-                _wikihref = "data-url='" + _wikihref + "' ";
-                userHtmlMenu += "<li id='li-menu-" + _lastmenuid  + "' "
-                          + _wikihref
-                          + "data-id='" + _lastmenuid + "' "
-                           + _javafunc + "<span class='menu-text'>" + (language == Language.LangEN ? "Catalogue manage" : "Quản lý chủ đề")
-                          + "</span></li>";
+                //userHtmlMenu += " <li  class='group-menu' onclick='javascript:;' >" + "  <span data-menu='item-main-menu'><i class='fas fa-cog fa-fw'></i> " + _menuName + " </span>  "
+                //                            + " <ul class='ul-group-menu collapsed' style='display:none;'>";
+                //_lastmenuid++;
+                //_wikihref = _urlLang + "/wiki-manage/wiki-doc/list/1";
+                //_wikilink = _urlLang + "/wiki-manage/wiki-doc/list/";
+                //_wikilink = "data-link='" + _wikilink + "' ";
+                //_wikihref = "data-url='" + _wikihref + "' ";
+                //// quản lý bài viết
+                //userHtmlMenu += "<li id='li-menu-" + _lastmenuid  + "' " 
+                //           + _wikihref 
+                //           + _wikilink  
+                //           + "data-id='" + _lastmenuid + "' "
+                //            + _javafunc + "<span class='menu-text'>" + (language == Language.LangEN ? "Wiki manage by status" : "Quản lý bài viết")
+                //           + "</span></li>";
+                //// quản lý danh mục chủ đề
+                //_lastmenuid++;
+                //_wikihref = _urlLang + "/wiki-manage/wiki-doc/catalogue-list";
+                //_wikihref = "data-url='" + _wikihref + "' ";
+                //userHtmlMenu += "<li id='li-menu-" + _lastmenuid  + "' "
+                //          + _wikihref
+                //          + "data-id='" + _lastmenuid + "' "
+                //           + _javafunc + "<span class='menu-text'>" + (language == Language.LangEN ? "Catalogue manage" : "Quản lý chủ đề")
+                //          + "</span></li>";
 
-                userHtmlMenu += "  </ul></li>  ";
+                //userHtmlMenu += "  </ul></li>  ";
 
              
-                WikiCatalogue_BL _CatalogueBL = new WikiCatalogue_BL();
-                List<WikiCatalogues_Info> _ListCata = new List<WikiCatalogues_Info>();
-                _ListCata = _CatalogueBL.Portal_CataGetAll();
+                //WikiCatalogue_BL _CatalogueBL = new WikiCatalogue_BL();
+                //List<WikiCatalogues_Info> _ListCata = new List<WikiCatalogues_Info>();
+                //_ListCata = _CatalogueBL.Portal_CataGetAll();
 
-                _menuName = "Thư viện dữ liệu";
-                if (language == Language.LangEN)
-                {
-                    _menuName = "Wiki data";
-                    _urlLang = "/en-gb";
-                }
-                userHtmlMenu += "<li class='group-menu' onclick='javascript:;'>" + "<span data-menu='item-main-menu'><i class='fas fa-cog fa-fw'></i> " + _menuName + " </span>"
-                                               + "<ul class='ul-group-menu collapsed' style='display:none;'>";
-                foreach (var item in _ListCata)
-                {
-                    _lastmenuid++;
-                    _wikistyle = ""; _wikihref = ""; _javafunc = "";
-                    if (item.CATA_LEVEL == 1)
-                    {
-                        _wikistyle = "style='margin-left:10px;'";
+                //_menuName = "Thư viện dữ liệu";
+                //if (language == Language.LangEN)
+                //{
+                //    _menuName = "Wiki data";
+                //    _urlLang = "/en-gb";
+                //}
+                //userHtmlMenu += "<li class='group-menu' onclick='javascript:;'>" + "<span data-menu='item-main-menu'><i class='fas fa-cog fa-fw'></i> " + _menuName + " </span>"
+                //                               + "<ul class='ul-group-menu collapsed' style='display:none;'>";
+                //foreach (var item in _ListCata)
+                //{
+                //    _lastmenuid++;
+                //    _wikistyle = ""; _wikihref = ""; _javafunc = "";
+                //    if (item.CATA_LEVEL == 1)
+                //    {
+                //        _wikistyle = "style='margin-left:10px;'";
                        
-                    }
-                    _wikihref = _urlLang + "/wiki-view/doc-view/" + item.ID + "/0";
-                    _wikihref = "data-url='" + _wikihref + "' ";
-                    _javafunc = "   >";
+                //    }
+                //    _wikihref = _urlLang + "/wiki-view/doc-view/" + item.ID + "/0";
+                //    _wikihref = "data-url='" + _wikihref + "' ";
+                //    _javafunc = "   >";
 
-                    userHtmlMenu +=  "<li id='li-menu-" + _lastmenuid + "' " + _wikistyle
-                            + _wikihref
-                            + "data-id='" + _lastmenuid + "' "
-                             + _javafunc + "<span class='menu-text'>" + " <a target='_blank' href = '/wiki-view/doc-view/" + item.ID + "/0' >" + 
-                               (language == Language.LangEN?item.NAME_ENG:item.NAME) 
-                              + " </a> " 
-                            + "</span></li>  ";
+                //    userHtmlMenu +=  "<li id='li-menu-" + _lastmenuid + "' " + _wikistyle
+                //            + _wikihref
+                //            + "data-id='" + _lastmenuid + "' "
+                //             + _javafunc + "<span class='menu-text'>" + " <a target='_blank' href = '/wiki-view/doc-view/" + item.ID + "/0' >" + 
+                //               (language == Language.LangEN?item.NAME_ENG:item.NAME) 
+                //              + " </a> " 
+                //            + "</span></li>  ";
                 
-                }
-                userHtmlMenu += "</ul></li>";
+                //}
+                //userHtmlMenu += "</ul></li>";
 
                 #endregion
 

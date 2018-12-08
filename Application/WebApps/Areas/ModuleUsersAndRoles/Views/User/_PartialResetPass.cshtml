@@ -21,7 +21,7 @@
         <div class="divCover divCover_popup">
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div>Mật khẩu<i class="redspan">(*)</i></div>
+                    <div>Mật khẩu cũ<i class="redspan">(*)</i></div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -99,7 +99,7 @@
             rePassword = $('#txtRePassword').val();
 
             if (password === "") {
-                jError("Nật khẩu không được để trống!", "lỗi", function () {
+                jError("Mật khẩu không được để trống!", "lỗi", function () {
                     $('#txtPassword').focus();
                 });
                 return false;

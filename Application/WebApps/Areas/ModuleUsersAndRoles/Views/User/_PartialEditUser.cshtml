@@ -432,7 +432,11 @@
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Lưu" onclick="return doUser()" />
+            <input type="submit" class="btn-default" value="Sửa" onclick="return doUser()" />
+            @if (WebApps.Session.SessionData.CurrentUser.Username == Model.Username)
+            {
+                <input type="submit" class="btn-default" value="Reset pass" onclick="return getViewToResetPass('@Model.Username')" />
+            }
             <input type="submit" class="btn-default" value="Thoát" onclick="return back()" />
         </div>
     </div>
@@ -681,5 +685,28 @@
         }
 
 		formData.append('GroupId', GroupId);
-	}
+    }
+
+    function getViewToResetPass(Username) {
+        $.ajax({
+            type: "POST",
+            url: "/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-reset-pass",
+            data: { p_user_name: Username },
+            headers: { "cache-control": "no-cache" },
+            async: false,
+            success: function (data) {
+                if (data != null) {
+                    if (validateResponse(data)) {
+                        $("#divPopUpUser").html(data);
+                        ShowPopupDialog_Ipace('divWrapperPopUpUser', "Reset pass", 500, 1200, "txtPassword");
+                    }
+                }
+                return false;
+            }
+        });
+    }
+
+    function ClosePopUpUser() {
+        CloseDivPopUp('divWrapperPopUpUser');
+    }
 </script>
