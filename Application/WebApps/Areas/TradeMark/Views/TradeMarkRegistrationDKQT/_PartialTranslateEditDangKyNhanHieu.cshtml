@@ -4,7 +4,7 @@
 @using Common.CommonData;
 @using WebApps.Resources;
 @{
-    ViewBag.Title = Resource.TM2B_TitleEdit;
+    ViewBag.Title = "Dịch đơn ĐKNHQT";
     Layout = "~/ViewsShared/_Layout.cshtml";
     List<App_Class_Info> _list = new List<App_Class_Info>();
     if (ViewBag.ListAppClass != null)
@@ -107,12 +107,7 @@
         }
 </style>
 <script src="~/Scripts/ScriptsLoadClassInfo.js"></script>
-@*<div class="d-nav-container">
-    <ul class="ul-nav">
-        <li><a href="javascript:;">TradeMark</a></li>
-        <li><a href="javascript:;"> @Resource.TM2B_Formname</a></li>
-    </ul>
-</div>*@
+ 
 
 <div class="d-nav-container" style="background-color:#fff">
     <div class="divCover">
@@ -809,9 +804,9 @@
         try {
 
             var formData = new FormData();
-            formData.append("pInfo.Id", '@objAppHeaderInfo.Id');
-            formData.append("pInfo.Case_Code", '@objAppHeaderInfo.Case_Code');
-            formData.append("pInfo.Status", '@objAppHeaderInfo.Status');
+            formData.append("pInfo.Id", @objAppHeaderInfo.Id);
+            formData.append("pInfo.Case_Code", @objAppHeaderInfo.Case_Code);
+            formData.append("pInfo.Status", @objAppHeaderInfo.Status);
             var v_AppCode = $("#txtAppCode").val();
             var cbo_04nh_data = $("#cbo_04nh_data");
             var v_thanhviennghidinh = $("input[name='rad_thanhviennghidinhthu']:checked").val();
@@ -976,8 +971,8 @@
         try {
 
             var formData = new FormData();
-            formData.append("pInfo.Id", '@objAppHeaderInfo.Id');
-            formData.append("pInfo.Case_Code", '@objAppHeaderInfo.Case_Code');
+            formData.append("pInfo.Id", @objAppHeaderInfo.Id);
+            formData.append("pInfo.Case_Code", @objAppHeaderInfo.Case_Code);
             formData.append("pInfo.Status", "2");
             var v_AppCode = $("#txtAppCode").val();
             var cbo_04nh_data = $("#cbo_04nh_data");
@@ -1143,9 +1138,9 @@
         try {
 
             var formData = new FormData();
-            formData.append("pInfo.Id", '@objAppHeaderInfo.Id');
-            formData.append("pInfo.Status", '@objAppHeaderInfo.Status');
-            formData.append("pInfo.Case_Code", '@objAppHeaderInfo.Case_Code');
+            formData.append("pInfo.Id", @objAppHeaderInfo.Id);
+            formData.append("pInfo.Status", @objAppHeaderInfo.Status);
+            formData.append("pInfo.Case_Code", @objAppHeaderInfo.Case_Code);
             var v_AppCode = $("#txtAppCode").val();
             var cbo_04nh_data = $("#cbo_04nh_data");
             var v_thanhviennghidinh = $("input[name='rad_thanhviennghidinhthu']:checked").val();
@@ -1365,17 +1360,17 @@
     function funcThongTinChuDonNguoiDaiDien(formData, PreID) {
         try {
             var txtTenDayDu = $("#" + PreID + "_txtTenDayDu").val();
-            //if (txtTenDayDu === "") {
-            //    $("#" + PreID + "_txtTenDayDu").focus().val('');
-            //    showError('Tên không được để trống!');
-            //    return false;
-            //}
+            if (txtTenDayDu === "") {
+                $("#" + PreID + "_txtTenDayDu").focus().val('');
+                showError('Tên không được để trống!');
+                return false;
+            }
             var txtDiaChi = $("#" + PreID + "_txtDiaChi").val();
-            //if (txtDiaChi === "") {
-            //    $("#" + PreID + "_txtDiaChi").focus().val('');
-            //    showError('Địa chỉ không được để trống!');
-            //    return false;
-            //}
+            if (txtDiaChi === "") {
+                $("#" + PreID + "_txtDiaChi").focus().val('');
+                showError('Địa chỉ không được để trống!');
+                return false;
+            }
             var txtDienThoai = $("#" + PreID + "_txtDienThoai").val();
             var txtFax = $("#" + PreID + "_txtFax").val();
             var txtEmail = $("#" + PreID + "_txtEmail").val();
@@ -1551,9 +1546,9 @@
     function funGetDataTM06DKQTPreview(ptype, url) {
              try {
                  var formData = new FormData();
-                 formData.append("pInfo.Id", '@objAppHeaderInfo.Id');
-                 formData.append("pInfo.Status", '@objAppHeaderInfo.Status');
-                 formData.append("pInfo.Case_Code", '@objAppHeaderInfo.Case_Code');
+                 formData.append("pInfo.Id", @objAppHeaderInfo.Id);
+                 formData.append("pInfo.Status", @objAppHeaderInfo.Status);
+                 formData.append("pInfo.Case_Code", @objAppHeaderInfo.Case_Code);
                  var v_AppCode = $("#txtAppCode").val();
                  var cbo_04nh_data = $("#cbo_04nh_data");
                  var v_thanhviennghidinh = $("input[name='rad_thanhviennghidinhthu']:checked").val();

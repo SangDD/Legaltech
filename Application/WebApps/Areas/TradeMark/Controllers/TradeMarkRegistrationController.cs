@@ -1239,8 +1239,13 @@
 
             else if (pAppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
             {
-                var objBL = new AppDetail06DKQT_BL();
                 string language = AppsCommon.GetCurrentLang();
+                if (pEditOrTranslate == 1)
+                {
+                    language = Language.LangEN; 
+                }
+                    var objBL = new AppDetail06DKQT_BL();
+              
                 var ds06Dkqt = objBL.AppTM06DKQTGetByID(pAppHeaderId, language, pStatus);
                 if (ds06Dkqt != null && ds06Dkqt.Tables.Count == 3)
                 {
@@ -1257,7 +1262,15 @@
                 // truyền vào trạng thái nào? để tạm thời = 7 là đã gửi lên cục
                 _list04nh = _AppDetail04NHBL.AppTM04NHSearchByStatus(7, language);
                 ViewBag.ListAppDetail04NHInfo = _list04nh;
-                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialEditDangKyNhanHieu.cshtml");
+                if (pEditOrTranslate == 1)
+                {
+                    return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTranslateEditDangKyNhanHieu.cshtml");
+                }
+                else
+                {
+                    return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialEditDangKyNhanHieu.cshtml");
+                }
+               
             }
             else if (pAppCode == TradeMarkAppCode.AppCode_TM_4C2_PLD_01_HDCN)
             {
