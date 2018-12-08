@@ -81,7 +81,18 @@
                     if (!string.IsNullOrEmpty(returnUrl)) urlContinue = returnUrl;
                     if (userBL.CurrentUserInfo.loginfirst == 0 && userName != "SuperAdmin")
                     {
-                        urlContinue = "/customer/quan-ly-customer/get-view-to-edit-customer/" + userBL.CurrentUserInfo.Id.ToString();
+                        if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Customer)
+                        {
+                            urlContinue = "/customer/quan-ly-customer/get-view-to-edit-customer/" + userBL.CurrentUserInfo.Id.ToString();
+                        }
+                        else if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
+                        {
+                            urlContinue = "/luat-su/quan-ly-luat-su/get-view-to-edit-lawer/" + userBL.CurrentUserInfo.Id.ToString();
+                        }
+                        else
+                        {
+                            urlContinue = "/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-edit-user/" + userBL.CurrentUserInfo.Id.ToString();
+                        }
                     }
                     return Json(new { result = result.ToJson(), urlContinue });
                 }

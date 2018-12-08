@@ -57,7 +57,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Username, new { @id = "txtUsername", maxlength = "64", @style = "width:200px;", })
+                    @Html.TextBoxFor(m => m.Username, new { @id = "txtUsername", maxlength = "64", @style = "width:200px;", @readonly = "readonly" })
                 </div>
             </div>
 
@@ -99,7 +99,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Giới tính<i class="redspan">(*)</i></div>
+                <div>Giới tính</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -220,13 +220,6 @@
             <div class="div-search-content">
                 <div>
                     @Html.TextBoxFor(m => m.StatusDisplayName, new {@disabled = "disabled" })
-
-                    @*<select id="cboStatus" disabled="disabled">
-                        @foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.UserStatus))
-                        {
-                            <option @(item.CdVal == Model.Status.ToString() ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
-                        }
-                    </select>*@
                 </div>
             </div>
         </div>
@@ -525,7 +518,7 @@
         var _txtcompany_name = $("#txtcompany_name").val();
         if (_txtcompany_name == null || _txtcompany_name == "") {
             jError("Tên công ty khách hàng không được bỏ trống!", "lỗi", function () {
-                $('#_txtcompany_name').focus();
+                $('#txtcompany_name').focus();
             });
             return false;
         }
@@ -538,12 +531,12 @@
             return false;
         }
 
-        if (GroupId == "-1") {
-            jError("Loại người dùng không được để trống!", "lỗi", function () {
-                $("#cboGroupUser").focus();
-            });
-            return false;
-        }
+        //if (GroupId == "-1") {
+        //    jError("Loại người dùng không được để trống!", "lỗi", function () {
+        //        $("#cboGroupUser").focus();
+        //    });
+        //    return false;
+        //}
 
         return true;
     }
@@ -578,8 +571,6 @@
         formData.append('userInfo.Customer_Code', $("#txtCustomer_Code").val());
         formData.append('userInfo.Contact_Person', $("#cboContact_Person").val());
 
-
-
-		formData.append('GroupId', GroupId);
+		formData.append('GroupId', '@_groupId');
 	}
 </script>

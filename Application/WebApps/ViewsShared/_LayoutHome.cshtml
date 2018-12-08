@@ -8,10 +8,13 @@
     string _LanguageCode = AppsCommon.GetCurrentLang();
 
     string _username = "";
+    decimal _id = 0;
     if (SessionData.CurrentUser != null)
     {
         _username = SessionData.CurrentUser.FullName;
+        _id = SessionData.CurrentUser.Id;
     }
+
 }
 
 <!DOCTYPE html>
@@ -81,9 +84,27 @@
                         </div>
                     </div>
                     @Html.Partial("~/ViewsShared/_PartialMainMenu.cshtml")
+
+
                     <div class="class-dangxuat">
-                        <a href="/dang-xuat" style="padding-right: 12px; padding-top: 10px;">@_username - Đăng xuất</a>
+                        <a href="/dang-xuat" style="padding-right: 12px; padding-top: 10px;"> Đăng xuất</a>
                     </div>
+
+                    <div class="class-dangxuat">
+                        @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Customer)
+                        {
+                            <a href="/customer/quan-ly-customer/get-view-to-edit-customer/@_id" style="padding-right: 12px; padding-top: 10px;">@_username</a>
+                        }
+                        else if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
+                        {
+                            <a href="/luat-su/quan-ly-luat-su/get-view-to-edit-lawer/@_id" style="padding-right: 12px; padding-top: 10px;">@_username</a>
+                        }
+                        else
+                        {
+                            <a href="/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-edit-user/@_id" style="padding-right: 12px; padding-top: 10px;">@_username</a>
+                        }
+                    </div>
+
                 </div>
 
             </div>

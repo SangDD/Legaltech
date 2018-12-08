@@ -193,7 +193,7 @@
         try {
             var fname = $("#txtFNAME").val();
             if (fname === "" || fname == undefined) {
-                jAlert('The registered name is not empty!', "Info");
+                jError('The registered name is not empty!', "Info");
                 $("#txtFNAME").focus();
                 return false;
             }
@@ -203,7 +203,7 @@
             var email = $("#txtEmail").val();
 
             if (phone === "" && email == "") {
-                jAlert('Email or Phone number is not empty!', "Info");
+                jError('Email or Phone number is not empty!', "Info");
                 $("#txtEmail").focus();
                 return false;
             }
@@ -228,12 +228,12 @@
                         return true;
                     }
                     else if (data.status == -22) {
-                        jAlert("The number of email or email was registered!", "Error");
+                        jError("The number of email or email was registered!", "Error");
                         funcReset();
                         return;
                     }
                     else {
-                        jAlert("Registration failed!", "Error");
+                        jError("Registration failed!", "Error");
                         funcReset();
                         return;
                     }

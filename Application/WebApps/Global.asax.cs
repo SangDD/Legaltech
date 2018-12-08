@@ -33,7 +33,8 @@
                     EMailFrom = CommonFuc.GetConfig("EMailFrom"),
                     PassWord = CommonFuc.GetConfig("EMailPass"),
                     DisplayName = CommonFuc.GetConfig("DisplayName"),
-                    IsSsl = CommonFuc.GetConfig("SSL") == "Y"
+                    IsSsl = CommonFuc.GetConfig("SSL") == "Y",
+                    EmailCC = CommonFuc.GetConfig("EmailCC")
                 };
                 Logger.Log().Info("Start Application_Start");
                 CommonVariables.AssemblyVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();

@@ -148,7 +148,7 @@
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;margin-top: 5px;">
-            <input type="submit" class="btn-default" value="Lưu" onclick="return doInsertTimeSheet()" />
+            <input type="submit" class="btn-default" value="Gửi Admin" onclick="return doInsertTimeSheet()" />
         </div>
     </div>
 </div>
@@ -168,7 +168,7 @@
 
     function doInsertTimeSheet() {
         if (validateForm()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn khai timesheet này không?", function () {
+            nvsConfirm(null, "Bạn có chắc chắn muốn gửi Admin timesheet này không?", function () {
                 var formData = new FormData();
                 collectData(formData);
                 $.ajax({
@@ -187,7 +187,7 @@
                             return false;
                         }
                         else {
-                            jAlert('Khai timesheet thành công!', "THÔNG BÁO", function () {
+                            jAlert('Gửi Admin timesheet thành công!', "THÔNG BÁO", function () {
                                 var url = "/quan-ly-timesheet/danh-sach-timesheet/";
                                 window.location.href = url;
                             });

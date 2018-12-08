@@ -127,7 +127,6 @@
                             id = "txtBilling_Date",
                             @Value = Model.Billing_Date == DateTime.MinValue ? "" : Model.Billing_Date.ToString("dd/MM/yyyy"),
                             @placeholder = "dd/mm/yyyy",
-                            @class = "datepicker",
                             @style = "width: 250px",
                             @disabled = "disabled"
                         })
@@ -144,7 +143,6 @@
                            @id = "txtDeadline",
                            @Value = Model.Deadline == DateTime.MinValue ? "" : Model.Deadline.ToString("dd/MM/yyyy"),
                            @placeholder = "dd/mm/yyyy",
-                           @class = "datepicker",
                            @disabled = "disabled"
                        })
                 </div>
@@ -216,12 +214,18 @@
                 @Html.Partial("~/Areas/Manager/Views/Billing/_PartialDetail_Insert_Billing.cshtml")
             }
         </div>
-
     </div>
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;margin-top: 5px;">
             <input type="submit" class="btn-default" value="Duyệt" onclick="return onApprove()" />
+            <input type="submit" class="btn-default" value="Từ chối" onclick="return onReject()" />
+
+            @if (Model.Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Status.New_Wait_Approve))
+            {
+                <input type="submit" class="btn-default" value="Edit" onclick="return getView2Edit(@Model.Billing_Id,'@Model.App_Case_Code')" />
+            }
+
             <input type="submit" class="btn-default" value="Thoát" onclick="return onBack()" />
         </div>
     </div>
@@ -233,6 +237,18 @@
     $(document).ready(function () {
         $("txtApp_Case_Code").focus();
     });
+
+    function getView2Edit(_id, _app_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        try {
+            var url = "/quan-ly-billing/danh-sach-billing/show-edit?p_id=" + _id + "&p_app_case_code=" + _app_case_code;
+            window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
 
     function onBack() {
         try {
@@ -258,7 +274,54 @@
 
             nvsConfirm(null, "Bạn có chắc chắn muốn duyệt billing này không?", function () {
                 $.ajax({
-                    url: "/quan-ly-billing/danh-sach-billing/do-change-status",
+                    url: "/quan-ly-billing/danh-sach-billing/do-approve",
+                    type: "POST",
+                    data: {
+                        p_id: @Model.Billing_Id
+                    },
+                    headers: { "cache-control": "no-cache" },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            jError("Lỗi check lại kết nối tới server");
+                            return false;
+                        }
+                        else if (data.success == "-2") {
+                            jError("Billing đã được duyệt, không thể duyệt");
+                            return false;
+                        }
+                        else {
+                            jAlert('Từ chối duyệt billing thành công!', "THÔNG BÁO", function () {
+                                window.location.href = "/quan-ly-billing/danh-sach-billing/";
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(false);
+                        console.log(e);
+                    }
+                });
+            });
+        } catch (e) {
+            CreateRollingWaitingIcon(true);
+            alert(e);
+        }
+    }
+
+    function onReject() {
+        try {
+
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            nvsConfirm(null, "Bạn có chắc chắn muốn từ chối duyệt billing này không?", function () {
+                $.ajax({
+                    url: "/quan-ly-billing/danh-sach-billing/do-reject",
                     type: "POST",
                     data: {
                         p_id: @Model.Billing_Id

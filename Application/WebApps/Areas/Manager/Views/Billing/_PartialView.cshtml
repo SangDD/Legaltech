@@ -3,7 +3,6 @@
 @using BussinessFacade.ModuleMemoryData
 @using System.Xml
 @model Billing_Header_Info
-
 @{
     ViewBag.Title = "Chi tiết billing";
     Layout = "~/ViewsShared/_Layout.cshtml";
@@ -21,9 +20,9 @@
         _bank_Account_no = _lstBank[3].CdVal;
     }
 
-    BussinessFacade.ModuleUsersAndRoles.UserBL _UserBL = new BussinessFacade.ModuleUsersAndRoles.UserBL();
-    List<UserInfo> _lstUsersAdmin = _UserBL.GetUserByType(Convert.ToDecimal(Common.CommonData.CommonEnums.UserType.Admin));
-    var lstUsersAdmin = _lstUsersAdmin.Select(x => new SelectListItem { Text = x.FullName, Value = x.Username });
+    //BussinessFacade.ModuleUsersAndRoles.UserBL _UserBL = new BussinessFacade.ModuleUsersAndRoles.UserBL();
+    //List<UserInfo> _lstUsersAdmin = _UserBL.GetUserByType(Convert.ToDecimal(Common.CommonData.CommonEnums.UserType.Admin));
+    //var lstUsersAdmin = _lstUsersAdmin.Select(x => new SelectListItem { Text = x.FullName, Value = x.Username });
 }
 <script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
 <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
@@ -121,7 +120,6 @@
                             id = "txtBilling_Date",
                             @Value = Model.Billing_Date == DateTime.MinValue ? "" : Model.Billing_Date.ToString("dd/MM/yyyy"),
                             @placeholder = "dd/mm/yyyy",
-                            @class = "datepicker",
                             @style = "width: 250px",
                             @disabled = "disabled"
                         })
@@ -138,7 +136,6 @@
                            @id = "txtDeadline",
                            @Value = Model.Deadline == DateTime.MinValue ? "" : Model.Deadline.ToString("dd/MM/yyyy"),
                            @placeholder = "dd/mm/yyyy",
-                           @class = "datepicker",
                            @disabled = "disabled"
                        })
                 </div>

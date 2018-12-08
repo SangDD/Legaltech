@@ -44,7 +44,7 @@
 <div class="d-main">
     <div class="divCover">
         <div class="classTitle">
-            <div class="div-title-content">SỬA THÔNG TIN NGƯỜI DÙNG</div>
+            <div class="div-title-content">SỬA THÔNG TIN LUẬT SƯ</div>
         </div>
     </div>
 
@@ -56,7 +56,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Username, new { @id = "txtUsername", maxlength = "64", @style = "width:200px;", })
+                    @Html.TextBoxFor(m => m.Username, new { @id = "txtUsername", maxlength = "64", @style = "width:200px;", @readonly = "readonly" })
                 </div>
             </div>
 
@@ -98,7 +98,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Giới tính<i class="redspan">(*)</i></div>
+                <div>Giới tính</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -218,12 +218,13 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <select id="cboStatus">
-                        @foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.UserStatus))
-                        {
-                            <option @(item.CdVal == Model.Status.ToString() ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
-                        }
-                    </select>
+                    @*<select id="cboStatus">
+                            @foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.UserStatus))
+                            {
+                                <option @(item.CdVal == Model.Status.ToString() ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
+                            }
+                        </select>*@
+                    @Html.TextBoxFor(m => m.StatusDisplayName, new { @disabled = "disabled" })
                 </div>
             </div>
         </div>
@@ -370,7 +371,7 @@
 		email = $('#txtEmail').val().trim();
 		phone = $('#txtPhone').val().trim();
 		//type = $('#cboType').val();
-		status = $('#cboStatus').val();
+		status = '@Model.Status';
 		GroupId = $('#cboGroupUser').val();
 
 		if (fullName === "") {
@@ -464,12 +465,12 @@
         }
 
 
-        if (GroupId == "-1") {
-            jError("Loại người dùng không được để trống!", "lỗi", function () {
-                $("#cboGroupUser").focus();
-            });
-            return false;
-        }
+        //if (GroupId == "-1") {
+        //    jError("Loại người dùng không được để trống!", "lỗi", function () {
+        //        $("#cboGroupUser").focus();
+        //    });
+        //    return false;
+        //}
 
         return true;
     }
@@ -492,11 +493,10 @@
         formData.append('userInfo.Wechat_Link', $("#txtwechat_link").val());
         formData.append('userInfo.Other_Link', $("#txtOther_Link").val());
 
-
         formData.append('userInfo.Other_Type', $("#cboLawerType").val());
         formData.append('userInfo.Hourly_Rate', $("#txthourly_rate").val().replace(/,/g, ""));
         formData.append('userInfo.Hourly_Rate_USD', $("#txthourly_rate_usd").val().replace(/,/g, ""));
 
-		formData.append('GroupId', GroupId);
+		formData.append('GroupId', '@_groupId');
 	}
 </script>

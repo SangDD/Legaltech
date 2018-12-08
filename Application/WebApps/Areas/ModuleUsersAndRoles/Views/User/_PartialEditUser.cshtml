@@ -57,7 +57,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Username, new { @id = "txtUsername", maxlength = "64", @style = "width:200px;", })
+                    @Html.TextBoxFor(m => m.Username, new { @id = "txtUsername", maxlength = "64", @style = "width:200px;", @readonly = "readonly" })
                 </div>
             </div>
 
@@ -223,7 +223,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Giới tính<i class="redspan">(*)</i></div>
+                <div>Giới tính</div>
             </div>
             <div class="div-search-content">
                 <div>

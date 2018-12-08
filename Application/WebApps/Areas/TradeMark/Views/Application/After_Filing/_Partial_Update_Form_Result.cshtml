@@ -62,7 +62,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày thông báo" id="txt_notice_date" maxlength="100" class="datepicker" />
+                <input type="text" placeholder="Ngày thông báo" id="txt_notice_date" onblur = "onChangeNotice_Date()" maxlength="100" class="datepicker" />
             </div>
         </div>
     </div>
@@ -84,7 +84,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày cục trả lời" id="txt_replies_deadline" maxlength="100" class="datepicker" />
+                <input type="text" placeholder="Ngày cục trả lời" id="txt_replies_deadline" maxlength="100" readonly="readonly" />
             </div>
         </div>
     </div>
@@ -159,6 +159,31 @@
     $(document).ready(function () {
 
     });
+
+    function onChangeNotice_Date() {
+        try {
+
+            var txt_notice_date = $("#txt_notice_date").val();
+            if (checkDate("Ngày thông báo", "#txt_notice_date", txt_notice_date) == false) {
+                return false;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/quan-ly-billing/danh-sach-billing/change-date',
+                data: {
+                    p_date: txt_notice_date,
+                },
+                async: true, cache: false, traditional: true,
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#txt_replies_deadline").val(data.success);
+                }
+            });
+        } catch (e) {
+            alert(e.toString());
+        }
+    }
 
     function getView2Insert(_case_code) {
         if (CheckSessionTimeOut() == false) {

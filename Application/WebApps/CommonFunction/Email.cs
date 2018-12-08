@@ -12,7 +12,7 @@ namespace WebApps
         public string Host { get; set; }
         public int Port { get; set; }
         public string EMailFrom { get; set; }
-        //public string EmailCC { get; set; }
+        public string EmailCC { get; set; }
         public string PassWord { get; set; }
         public string DisplayName { get; set; }
         public bool IsSsl { get; set; }
@@ -47,6 +47,11 @@ namespace WebApps
                     mail.Subject = p_Subject;
                     mail.Body = p_content;
                     mail.IsBodyHtml = true;
+
+                    // cc cho chị tuyến
+                    if (EmailHelper.EmailOriginal.EmailCC != null && EmailHelper.EmailOriginal.EmailCC != "")
+                        mail.CC.Add(EmailHelper.EmailOriginal.EmailCC);
+
                     if (!string.IsNullOrEmpty(p_EmailCC))
                     {
                         foreach (var emailCC in p_EmailCC.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries))

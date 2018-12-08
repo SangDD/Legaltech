@@ -7,10 +7,13 @@
 
     string _LanguageCode = AppsCommon.GetCurrentLang();
     string _username = "";
+    decimal _id = 0;
     if (SessionData.CurrentUser != null)
     {
         _username = SessionData.CurrentUser.FullName;
+        _id = SessionData.CurrentUser.Id;
     }
+
 }
 <!DOCTYPE html>
 <html>
@@ -60,46 +63,6 @@
         @Html.Partial("~/ViewsShared/nvs.variables.js.cshtml")
     </div>
     <div class="container-wrapper">
-        @*<div class="grid-container_head" style="height:85px;width:99%">
-            <div class="main-menu grid-item" style="border-right:none">
-                <div class="logo_contain" style="width:100% !important">
-                    <a href="/">
-                        <img src="~/Content/images/logo_ipath.p1g" alt="" style=" width: 57px;margin: 10px 60px;" />
-                    </a>
-                </div>
-            </div>
-            <div class="grid-item_head">
-                <div class="Title-news-iPace">IPath</div>
-            </div>
-            <div class="grid-item_head">
-                <div class="" style="width:100% !important;padding-top:10px;">
-                    @if (_LanguageCode == LangCode.EN_US.ToString())
-                    {
-                        <a href="/Language?culture=vi-VN&returnUrl=Home" class="lang-vn"></a>
-                    }
-                    else
-                    {
-                        <a href="/Language?culture=en-GB&returnUrl=Home" class="lang-en"></a>
-                    }
-                </div>
-                <div class="class-dangxuat">
-                    <a href="/dang-xuat" style="padding-right: 12px; padding-top: 10px;">Đăng xuất</a>
-                </div>
-            </div>
-        </div>
-        <div class="" style="height: 8px;background-color: #dfdfdf;"></div>
-
-        <div class="section-body">
-            <div class="main-menu">
-                <div id="divMns">
-                    @Html.Partial("~/ViewsShared/_PartialMainMenu.cshtml")
-                </div>
-
-            </div>
-            <div class="main-content">
-                @RenderBody()
-            </div>
-        </div>*@
         <div class="section-body">
             <div class="main-menu">
                 <div id="divMns">
@@ -122,7 +85,22 @@
                     </div>
                     @Html.Partial("~/ViewsShared/_PartialMainMenu.cshtml")
                     <div class="class-dangxuat">
-                        <a href="/dang-xuat" style="padding-right: 12px; padding-top: 10px;">@_username - Đăng xuất</a>
+                        <a href="/dang-xuat" style="padding-right: 12px; padding-top: 10px;"> Đăng xuất</a>
+                    </div>
+
+                    <div class="class-dangxuat">
+                        @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Customer)
+                        {
+                            <a href="/customer/quan-ly-customer/get-view-to-edit-customer/@_id" style="padding-right: 12px; padding-top: 10px;">@_username</a>
+                        }
+                        else if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
+                        {
+                            <a href="/luat-su/quan-ly-luat-su/get-view-to-edit-lawer/@_id" style="padding-right: 12px; padding-top: 10px;">@_username</a>
+                        }
+                        else
+                        {
+                            <a href="/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-edit-user/@_id" style="padding-right: 12px; padding-top: 10px;">@_username</a>
+                        }
                     </div>
                 </div>
 

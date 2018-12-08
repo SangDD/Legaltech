@@ -393,8 +393,11 @@ namespace WebApps.Areas.TradeMark.Controllers
                 int _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Case_Code, _status, pInfo.App_No, pInfo.Filing_Date, pInfo.Expected_Accept_Date, url_File_Copy_Filing, url_File_Translate_Filing,
                     pInfo.Note, pInfo.Comment_Filling, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
 
-                Insert_Docketing(pInfo.Case_Code, "File Copy Filing", url_File_Copy_Filing);
-                Insert_Docketing(pInfo.Case_Code, "File Translate Filing", url_File_Translate_Filing);
+                if (_ck >= 0)
+                {
+                    Insert_Docketing(pInfo.Case_Code, "File Copy Filing", url_File_Copy_Filing);
+                    Insert_Docketing(pInfo.Case_Code, "File Translate Filing", url_File_Translate_Filing);
+                }
 
                 return Json(new { success = _ck });
             }

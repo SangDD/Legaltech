@@ -139,7 +139,8 @@
         public enum Billing_Status
         {
             New_Wait_Approve = 1,
-            Approved = 2
+            Approved = 2,
+            Reject = 3
         }
 
         public enum Billing_Pay_Status

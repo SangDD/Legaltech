@@ -394,7 +394,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chọn file.
+        ///   Looks up a localized string similar to Tải file.
         /// </summary>
         public static string lblChonFile {
             get {
