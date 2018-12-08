@@ -939,17 +939,17 @@
     function funcThongTinChuDonNguoiDaiDien(formData, PreID) {
         try {
             var txtTenDayDu = $("#" + PreID + "_txtTenDayDu").val();
-            if (txtTenDayDu === "") {
+            @*if (txtTenDayDu === "") {
                 $("#" + PreID + "_txtTenDayDu").focus().val('');
                 showError('@Resource.TM2B_TenKhongDuocDeTrong');
                 return false;
-            }
+            }*@
             var txtDiaChi = $("#" + PreID + "_txtDiaChi").val();
-            if (txtDiaChi === "") {
+            @*if (txtDiaChi === "") {
                 $("#" + PreID + "_txtDiaChi").focus().val('');
                 showError('@Resource.TM2B_DiaChiKhongDuocDeTrong');
                 return false;
-            }
+            }*@
             var txtDienThoai = $("#" + PreID + "_txtDienThoai").val();
             var txtFax = $("#" + PreID + "_txtFax").val();
             var txtEmail = $("#" + PreID + "_txtEmail").val();
