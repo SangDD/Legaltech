@@ -1710,11 +1710,11 @@
                 enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.status >= 0) {
-                        nvsAlert(EditSuccess, ThongBao, function () {
+                        nvsAlert(TranslatedSucess, ThongBao, function () {
                             window.location = "/trade-mark-mana/quan-ly-don";
                         });
                     } else {
-                        nvsError(EditFail, ThongBao, function () {
+                        nvsError(TranslatedFail, ThongBao, function () {
                         });
                     }
                 },

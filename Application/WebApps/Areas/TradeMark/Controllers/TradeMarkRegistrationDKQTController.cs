@@ -903,6 +903,142 @@
             }
         }
 
+        [HttpPost]
+        [Route("dich-don-dang-ky")]
+        public ActionResult DichDonDangKy(ApplicationHeaderInfo pInfo, App_Detail_TM06DKQT_Info pDetail, List<AppDocumentInfo> pAppDocumentInfo,
+       List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo, List<AppFeeFixInfo> pFeeFixInfo)
+        {
+            try
+            {
+                Application_Header_BL objBL = new Application_Header_BL();
+                AppDetail06DKQT_BL objDetailBL = new AppDetail06DKQT_BL();
+                AppClassDetailBL objClassDetail = new AppClassDetailBL();
+                AppDocumentBL objDoc = new AppDocumentBL();
+                AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
+                if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
+                string language = AppsCommon.GetCurrentLang();
+                var CreatedBy = SessionData.CurrentUser.Username;
+                var CreatedDate = SessionData.CurrentUser.CurrentDate;
+                int pReturn = ErrorCode.Success;
+                int pAppHeaderID = 0;
+               
+
+                foreach (AppFeeFixInfo item in pFeeFixInfo)
+                {
+                    if (item.Amount == 0)
+                    {
+                        // fix là 2 củ
+                        item.Amount = 2000000;
+                    }
+                }
+                decimal pIDHeaderEng = pInfo.Id;
+                using (var scope = new TransactionScope())
+                {
+                    //
+                    string prefCaseCode = "";
+                    pInfo.Languague_Code = language;
+                    if (pInfo.Created_By == null || pInfo.Created_By == "0" || pInfo.Created_By == "")
+                    {
+                        pInfo.Created_By = CreatedBy;
+                    }
+   
+                    //kiểm tra có rồi thì update, chưa có thì insert
+                    if (pInfo.Id_Vi > 0)
+                    {
+                        pInfo.Modify_By = CreatedBy;
+                        pInfo.Modify_Date = CreatedDate;
+                        pAppHeaderID = objBL.AppHeaderUpdate(pInfo);
+                    }
+                    else
+                    {
+                        //TRA RA ID CUA BANG KHI INSERT
+                        pInfo.Created_By = CreatedBy;
+                        pInfo.Created_Date = CreatedDate;
+                        pAppHeaderID = objBL.AppHeaderInsert(pInfo, ref prefCaseCode);
+                    }
+
+
+                    //Gán lại khi lấy dl 
+                    if (pAppHeaderID >= 0)
+                    {
+                        pReturn = objFeeFixBL.AppFeeFixInsertBath(pFeeFixInfo, prefCaseCode);
+                    }
+                    else
+                    {
+                        Transaction.Current.Rollback();
+                    }
+                    if (pReturn >= 0)
+                    {
+                        pDetail.Appcode = pInfo.Appcode;
+                        pDetail.LANGUAGE_CODE = language;
+                        pDetail.APP_HEADER_ID = pAppHeaderID;
+                        if (pDetail.pfileLogo != null)
+                        {
+                            pDetail.LOGOURL = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
+                        }
+                        pReturn = objDetailBL.App_Detail_06TMDKQT_Insert(pDetail);
+                        //Thêm thông tin class
+                        if (pReturn >= 0)
+                        {
+                            pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID, language);
+                        }
+                    }
+                    //Tai lieu dinh kem 
+                    if (pReturn >= 0 && pAppDocumentInfo != null)
+                    {
+                        if (pAppDocumentInfo.Count > 0)
+                        {
+                            pReturn = objDoc.AppDocumentTranslate(language, pIDHeaderEng, pAppHeaderID);
+                        }
+                    }
+                    //tai lieu khac 
+                    if (pReturn >= 0 && pAppDocOtherInfo != null)
+                    {
+                        if (pAppDocOtherInfo.Count > 0)
+                        {
+                            var listDocument = new List<AppDocumentOthersInfo>();
+                            int check = 0;
+                            foreach (var info in pAppDocOtherInfo)
+                            {
+                                if (!string.IsNullOrEmpty(info.Documentname))
+                                {
+                                    check = 1;
+                                    info.App_Header_Id = pInfo.Id;
+                                    info.Language_Code = language;
+                                    info.IdRef = CommonFuc.ConvertToDecimal(info.keyFileUpload);
+                                    listDocument.Add(info);
+                                }
+                            }
+                            if (check == 1)
+                            {
+                                if (pInfo.Id_Vi > 0)
+                                {
+                                    pReturn = objDoc.AppDocumentOtherDeletedByApp(pInfo.Id_Vi, language);
+                                }
+                                pReturn = objDoc.AppDocumentOtherInsertBatch(listDocument);
+                            }
+                        }
+                    }
+                    //end
+                    if (pReturn < 0)
+                    {
+                        Transaction.Current.Rollback();
+                    }
+                    else
+                    {
+                        scope.Complete();
+                    }
+                }
+
+                return Json(new { status = pAppHeaderID });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { status = ErrorCode.Error });
+            }
+        }
+
 
 
 
