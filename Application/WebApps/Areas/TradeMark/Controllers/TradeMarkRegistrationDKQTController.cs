@@ -170,7 +170,7 @@
                 // truyền vào trạng thái nào? để tạm thời = 7 là đã gửi lên cục
                 _list04nh = _AppDetail04NHBL.AppTM04NHSearchByStatus(7,  AppsCommon.GetCurrentLang());
                 ViewBag.ListAppDetail04NHInfo = _list04nh;
-
+                ViewBag.Isdisable = 0;
             }
             catch (Exception ex)
             {

@@ -2,8 +2,7 @@
 @using ObjectInfos;
 @using WebApps.Resources;
 @{
-    string txtCase_Name = Model + "_txtCase_Name";
-    string txtClient_Reference = Model + "_txtClient_Reference";
+
 
 
     var objAppHeaderInfo = new ApplicationHeaderInfo();
@@ -17,11 +16,13 @@
     {
         _disable = "disabled";
     }
-
+    string txtCase_Name = Model + "_txtCase_Name";
+    string txtClient_Reference = Model + "_txtClient_Reference";
     if (Model == "-1")
     {
         _disable = "";
     }
+
 }
 
 <div class="divCover cls_form_title">
@@ -58,6 +59,7 @@
 <script>
     function funcThongTinCaseName(formData, PreID) {
         try {
+             
             var txtCase_Name = $("#" + PreID + "_txtCase_Name").val();
             if (txtCase_Name === "") {
                 $("#" + PreID + "_txtCase_Name").focus().val('');
