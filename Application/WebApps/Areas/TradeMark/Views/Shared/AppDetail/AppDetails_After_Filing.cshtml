@@ -30,6 +30,12 @@
         _App_Notice_Info = (App_Notice_Info)ViewBag.App_Notice_Info;
     }
 
+    var _AppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    }
+
     decimal _reGrant = 0;
     if (ViewBag.Re_Grant != null)
     {
@@ -90,8 +96,8 @@
 <div class="divCover">
     <div class="d-nav">
         @*<a href="/home">
-            <img src="~/Content/icons/Body-icon-home.png" /> I
-        </a>*@
+                <img src="~/Content/icons/Body-icon-home.png" /> I
+            </a>*@
         <img src="~/Content/icons/Body-icon-home.png" /> I
         <a href="/home">Dashboard</a>
     </div>
@@ -100,6 +106,13 @@
     <div class="classLine">
     </div>
 </div>
+
+<div id="divWrapperPopUpDocking" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divPopUpDocking">
+    </div>
+</div>
+<input type="hidden" id="txtAppCaseCode" value="@_AppHeaderInfo.Case_Code" />
+<input type="hidden" id="txtChooseId" />
 
 @Html.Partial("~/Areas/Home/Views/Shared/HomeSearchBox.cshtml")
 
@@ -446,4 +459,33 @@
             </div>
         </div>*@
 </fieldset>
+
+<script>
+    function ClosePopUpDocking() {
+        CloseDivPopUp('divWrapperPopUpDocking');
+    }
+
+    function OpenChooseFile(_id) {
+        $("#txtChooseId").val(_id);
+        var _caseCode = $("#txtAppCaseCode").val();
+
+        var _docking_id = $("#dock_id" + _id).val()
+        $.ajax({
+            type: "POST",
+            url: "/quan-ly-docking/danh-sach-docking/chose-docketing/",
+            data: {
+                p_case_code: _caseCode,
+                p_docking_id: _docking_id
+            },
+            async: false, cache: false, traditional: true,
+            success: function (data) {
+                if (data != null) {
+                    $("#divPopUpDocking").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPopUpDocking', "Thông tin tài liệu", 750, 800);
+                }
+                return false;
+            }
+        });
+    }
+</script>
 

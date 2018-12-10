@@ -12,8 +12,7 @@
     string txtMaxFile = "txtMaxFile" + _id;
     string txtIsValid = "txtIsValid" + _id;
     string lblName = "lblName" + _id;
-    string dock_id = "dock_id" + _id;
-    string dock_url = "dock_url" + _id;
+    string dock_id = "dock_id_" + _id;
 
     string IsCheckValid = "1";
     if (arr.Length > 1)
@@ -33,9 +32,9 @@
         <input type="hidden" id="@txtIsValid" value="@IsCheckValid" />
         <input type="hidden" id="@lblName" value="@_lable" />
         <input type="hidden" id="@dock_id" />
-        <input type="hidden" id="@dock_url" />
 
-        <input type="button" id="@btnChooseFile" value="Tải file" class="btn" onclick="return OpenChooseFile('@_id')" style="margin-left:4px;height:29px;" />
+        <input type="button" id="@btnChooseFile" value="Tải file" class="btn" onclick="return Click_Upload_File('@_id')" style="margin-left:4px;height:29px;" />
+        @*<input type="button" id="@btnChooseFile" value="Tải file" class="btn" onclick="return OpenChooseFile('@_id')" style="margin-left:4px;height:29px;" />*@
         <input type="file" id="@file_attach" style="display:none" onchange="FuncChooseResultFile('@_id')" />
 
         <div class="div-checkbox clssDisplaynone" id="@div_RemoveImg">
@@ -47,8 +46,10 @@
     </div>
     <div class="div-search-content">
         <div>
-            <a id="@txtMaxFile" style="height: 20px !important;">
-            </a>
+            <input type="text" placeholder="Tên file Maximum file size is 2MB" id="@txtMaxFile" readonly="readonly" />
+            @*<a id="@txtMaxFile" style="height: 20px !important;">
+
+            </a>*@
         </div>
     </div>
 </div>
@@ -67,14 +68,12 @@
                 // lấy ra thằng nào được chọn
                 if ($("#" + _id).is(":checked") == true) {
                     var _name = $(this).attr('name');
-                    var _url = $(this).attr('data-url');
-
                     var _AfterID = $("#txtChooseId").val();
                     var _FileName = "txtMaxFile" + _AfterID;
 
                     //$("#" + _FileName).val($(this).attr('data-name'));
-                    $("#dock_id" + _AfterID).val(_id)
-                    $("#dock_url" + _AfterID).val(_url)
+                    $("#dock_id_" + _AfterID).val(_id)
+                    var _url = $(this).attr('data-url');
                     $("#" + _FileName).text($(this).attr('data-name'));
                     var link = document.getElementById(_FileName);
                     link.setAttribute("href", _url);
@@ -139,9 +138,8 @@
     function checkValidate_File(p_AfterID) {
         try {
             // dịch
-            //var pfile = $("#file_attach_" + p_AfterID);
+            var pfile = $("#file_attach_" + p_AfterID);
 
-            var pfile = $("#dock_url_" + p_AfterID);
             var _txtIsValid = $("#txtIsValid_" + p_AfterID).val();
             var _lblName = $("#lblName_" + p_AfterID).val();
 
@@ -152,31 +150,31 @@
                 return false;
             }
 
-            //if (pfile.val() != "") {
-            //    var _CheckFile = true;
-            //    var _Len = pfile[0].files[0].name.toString()
-            //    if (_Len.length > 200) {
-            //        _CheckFile = false;
-            //        jError("Tên file không được quá 200 ký tự", "Lỗi", function () {
-            //            $(pfile).focus();
-            //        });
-            //        return false;
-            //    }
+            if (pfile.val() != "") {
+                var _CheckFile = true;
+                var _Len = pfile[0].files[0].name.toString()
+                if (_Len.length > 200) {
+                    _CheckFile = false;
+                    jError("Tên file không được quá 200 ký tự", "Lỗi", function () {
+                        $(pfile).focus();
+                    });
+                    return false;
+                }
 
-            //    var _file = pfile[0].files[0];
-            //    var _size = _file.size / 1024 / 1024;
+                var _file = pfile[0].files[0];
+                var _size = _file.size / 1024 / 1024;
 
-            //    if (validateFileName(_file.name) == false) {
-            //        _CheckFile = false;
-            //        jError("Không tải file có tên file được lưu là unicode Tiếng việt có dấu ! ", "Lỗi", function () {
-            //            $(pfile).focus();
-            //        });
-            //        return false;
-            //    }
-            //    if (_CheckFile == false) {
-            //        return false;
-            //    }
-            //}
+                if (validateFileName(_file.name) == false) {
+                    _CheckFile = false;
+                    jError("Không tải file có tên file được lưu là unicode Tiếng việt có dấu ! ", "Lỗi", function () {
+                        $(pfile).focus();
+                    });
+                    return false;
+                }
+                if (_CheckFile == false) {
+                    return false;
+                }
+            }
 
             return true;
         } catch (e) {

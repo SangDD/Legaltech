@@ -73,6 +73,22 @@ namespace BussinessFacade
             }
         }
 
+        public List<Docking_Info> Docking_GetBy_AppCaseCode(string p_app_case_code)
+        {
+            try
+            {
+                Docking_DA _da = new Docking_DA();
+                DataSet _ds = _da.Docking_GetBy_AppCaseCode(p_app_case_code);
+                return CBO<Docking_Info>.FillCollectionFromDataSet(_ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<Docking_Info>();
+            }
+        }
+        
+
         public int Docking_Update_Status(decimal p_docking_id, string p_language_code, decimal p_status, string p_modify_by, DateTime p_modify_date)
         {
             try

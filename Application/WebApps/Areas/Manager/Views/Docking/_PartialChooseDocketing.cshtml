@@ -1,0 +1,91 @@
+﻿@using Common.CommonData
+@using Common.Extensions
+@using ObjectInfos;
+@{
+    List<Docking_Info> _list_data = new List<Docking_Info>();
+    if (ViewBag.Lst_Docking != null)
+    {
+        _list_data = ViewBag.Lst_Docking;
+    }
+
+    string _docketing_id = "";
+    if (ViewBag.Docking_id != null)
+    {
+        _docketing_id = ViewBag.Docking_id;
+    }
+}
+
+<div class="divDataTables" style="overflow-x: auto;">
+    <table class="table-lst-data" id="tableListGroupUser">
+        <thead>
+            <tr>
+                <th class="class30"></th>
+                <th class="class200">Tên tài liệu</th>
+                <th class="class100">In/Out book</th>
+                <th class="class100">Loại tài liệu</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (_list_data.Count > 0)
+            {
+                foreach (var item in _list_data)
+                {
+                    <tr>
+                        <td class="tdcenteralign">
+
+                            @if (_docketing_id == "" || _docketing_id != "ckb_" + item.Docking_Id)
+                            {
+                                <input type="checkbox" onchange="CheckUnCheck('@item.Docking_Id')" data-name="@item.Document_Name" data-url="@item.Url" name="@item.Case_Code" id="@("ckb_" + item.Docking_Id)" class="cls_Choose_Docketing" />
+                            }
+                            else
+                            {
+                                <input checked="checked" type="checkbox" onchange="CheckUnCheck('@item.Docking_Id')" data-name="@item.Document_Name" data-url="@item.Url" name="@item.Case_Code" id="@("ckb_" + item.Docking_Id)" class="cls_Choose_Docketing" />
+                            }
+                        </td>
+                        <td class="tdleftalign">
+                            <a href="@item.Url" download="@item.Url">@item.Document_Name</a>
+                        </td>
+
+                        <td class="tdleftalign">@item.Docking_Type_Name</td>
+                        <td class="tdleftalign">@item.Document_Type_Name</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4">Không có dữ liệu</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="form-group">
+        <div class="form-group-bottom">
+            <input type="submit" class="btn-default" value="Chấp nhận" onclick="return doChooseDocketing()" />
+        </div>
+    </div>
+</div>
+
+<script>
+    function CheckUnCheck(_docId) {
+        try {
+            var _ckbId = "ckb_" + _docId;
+            var _docCheck = $("#" + _ckbId).is(":checked");
+            if (_docCheck == true) {
+
+                $(".cls_Choose_Docketing").each(function (item) {
+                    var _value = $(this).val();
+                    var _id = $(this).attr('id');
+
+                    if (_id != _ckbId) {
+                        $("#" + _id).prop("checked", false);
+                    }
+                });
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+</script>
+

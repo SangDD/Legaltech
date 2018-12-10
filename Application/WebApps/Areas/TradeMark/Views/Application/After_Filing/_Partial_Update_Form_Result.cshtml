@@ -211,17 +211,21 @@
                 formdata.append("pInfo.Note", $('#txtNotes').val());
                 formdata.append("pInfo.Replies_Deadline", $('#txt_replies_deadline').val());
 
-                var pfile = $("#file_attach_1");//lay du lieu file
-                if (pfile.val() != "") {
-                    var _file = pfile[0].files[0];
-                    formdata.append("pInfo.File_Notice_Url", _file);
-                }
+                // lưu file từ docketing
+                formdata.append("pInfo.Notice_Url", $("#dock_url_1").val());
+                formdata.append("pInfo.Notice_Trans_Url", $("#dock_url_2").val());
 
-                var pfile2 = $("#file_attach_2");//lay du lieu file
-                if (pfile2.val() != "") {
-                    var _file2 = pfile2[0].files[0];
-                    formdata.append("pInfo.File_Notice_Trans_Url", _file2);
-                }
+                //var pfile = $("#file_attach_1");//lay du lieu file
+                //if (pfile.val() != "") {
+                //    var _file = pfile[0].files[0];
+                //    formdata.append("pInfo.File_Notice_Url", _file);
+                //}
+
+                //var pfile2 = $("#file_attach_2");//lay du lieu file
+                //if (pfile2.val() != "") {
+                //    var _file2 = pfile2[0].files[0];
+                //    formdata.append("pInfo.File_Notice_Trans_Url", _file2);
+                //}
 
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/lawer-notice-form',

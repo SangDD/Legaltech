@@ -163,7 +163,15 @@
         </div>
         <div class="div-search-content">
             <div>
-                <a style="height: 20px !important;" href="@_App_Notice_Info.Billing_Url" download="@_App_Notice_Info.Billing_Url"> File billing </a>
+                @*<a style="height: 20px !important;" href="@_App_Notice_Info.Billing_Url" download="@_App_Notice_Info.Billing_Url"> File billing </a>*@
+                @if (_App_Notice_Info.Billing_Id > 0)
+                {
+                    <a style="height: 20px !important;" href="@_App_Notice_Info.Billing_Url" download="@_App_Notice_Info.Billing_Url"> File billing </a>
+                }
+                else
+                {
+                    <input type="text" value="No billing" disabled="disabled" />
+                }
             </div>
         </div>
     </div>
@@ -217,7 +225,8 @@
                         p_replies_date: $('#txt_replies_date').val(),
                         p_next_deadline: $('#txt_replies_deadline').val(),
                         p_url_scan_copy_cv: _file,
-                        p_note: $('#txtNotes').val()
+                        p_note: $('#txtNotes').val(),
+                        p_replies_url: $("#dock_url_1").val()
                     },
                     async: true, cache: false, traditional: true,
                     beforeSend: function () {

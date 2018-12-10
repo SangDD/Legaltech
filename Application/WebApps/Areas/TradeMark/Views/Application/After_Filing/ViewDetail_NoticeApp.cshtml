@@ -171,7 +171,14 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <a style="height: 20px !important;" href="@_App_Notice_Info.Billing_Url" download="@_App_Notice_Info.Billing_Url"> File billing </a>
+                    @if (_App_Notice_Info.Billing_Id > 0)
+                    {
+                        <a style="height: 20px !important;" href="@_App_Notice_Info.Billing_Url" download="@_App_Notice_Info.Billing_Url"> File billing </a>
+                    }
+                    else
+                    {
+                        <input type="text" value="No billing" disabled="disabled" />
+                    }
                 </div>
             </div>
         </div>

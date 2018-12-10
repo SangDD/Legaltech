@@ -250,5 +250,24 @@ namespace WebApps.Areas.Manager.Controllers
                 return Json(new { success = -1 });
             }
         }
+
+        [HttpPost]
+        [Route("danh-sach-docking/chose-docketing")]
+        public ActionResult ChooseDocketing(string p_case_code, string p_docking_id)
+        {
+            try
+            {
+                Docking_BL _obj_bl = new Docking_BL();
+                List<Docking_Info> _lstDocking = _obj_bl.Docking_GetBy_AppCaseCode(p_case_code);
+                ViewBag.Lst_Docking = _lstDocking;
+                ViewBag.Docking_id = p_docking_id;
+                return PartialView("~/Areas/Manager/Views/Docking/_PartialChooseDocketing.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/Manager/Views/Docking/_PartialChooseDocketing.cshtml");
+            }
+        }
     }
 }
