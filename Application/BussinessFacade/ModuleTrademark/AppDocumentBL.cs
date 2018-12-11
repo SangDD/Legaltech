@@ -52,12 +52,12 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
-        public int AppDocumentTranslate(string pLanguage, decimal pAppHeaderID, decimal pAppHeaderNew)
+        public int AppDocumentTranslate(string pLanguage_new, decimal p_app_old_id, decimal p_app_new_id)
         {
             try
             {
                 AppDocumentDA objData = new AppDocumentDA();
-                return objData.AppDocumentTranslate(pLanguage, pAppHeaderID,   pAppHeaderNew);
+                return objData.AppDocumentTranslate(pLanguage_new, p_app_old_id, p_app_new_id);
             }
             catch (Exception ex)
             {

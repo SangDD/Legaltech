@@ -891,7 +891,7 @@
                 AppClassDetailBL objClassDetail = new AppClassDetailBL();
                 AppDocumentBL objDoc = new AppDocumentBL();
                 if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
-                string language = Language.LangVI;
+                //string language = Language.LangVI;
                 var CreatedBy = SessionData.CurrentUser.Username;
                 var CreatedDate = SessionData.CurrentUser.CurrentDate;
                 int pReturn = ErrorCode.Success;
@@ -899,11 +899,21 @@
                 decimal pIDHeaderEng = 0;
                 pIDHeaderEng = pInfo.Id;
 
+                // lấy appheader gốc
+                ApplicationHeaderInfo _AppHeader_Goc = objBL.GetApplicationHeader_ById(pIDHeaderEng, "");
+                string language_New = "";
+                if (_AppHeader_Goc.Languague_Code == Language.LangVI)
+                {
+                    language_New = Language.LangEN;
+                }
+                else
+                {
+                    language_New = Language.LangVI;
+                }
+
                 using (var scope = new TransactionScope())
                 {
                     //string 
-                    string prefCaseCode = "";
-                    pInfo.Languague_Code = language;
                     //Có rồi thì update ko thì insert 
                     if (pInfo.Id_Vi > 0)
                     {
@@ -914,8 +924,12 @@
                     else
                     {
                         //TRA RA ID CUA BANG KHI INSERT
-                        pInfo.Created_By = CreatedBy;
+                        pInfo.Created_By = _AppHeader_Goc.Created_By;
+                        pInfo.Status = _AppHeader_Goc.Status;
                         pInfo.Created_Date = CreatedDate;
+                        pInfo.Languague_Code = language_New; 
+
+                        string prefCaseCode = "";
                         pAppHeaderID = objBL.AppHeaderInsert(pInfo, ref prefCaseCode);
                     }
 
@@ -930,7 +944,7 @@
                             pInfo.Id = pInfo.Id_Vi;
                         }
                         pDetail.Appcode = pInfo.Appcode;
-                        pDetail.Language_Code = language;
+                        pDetail.Language_Code = language_New;
                         pDetail.App_Header_Id = pInfo.Id;
                         pDetail.Logourl = pDetail.LogourlOrg;
                         pReturn = objDetail.App_Detail_04NH_Insert(pDetail);
@@ -939,9 +953,9 @@
                         if (pReturn >= 0 && pAppClassInfo != null)
                         {
                             //Xoa cac class cu di 
-                            pReturn = objClassDetail.AppClassDetailDeleted(pInfo.Id, language);
+                            pReturn = objClassDetail.AppClassDetailDeleted(pInfo.Id, language_New);
 
-                            pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pInfo.Id, language);
+                            pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pInfo.Id, language_New);
                         }
                     }
                     else
@@ -954,7 +968,7 @@
                     {
                         if (pAppDocumentInfo.Count > 0)
                         {
-                            pReturn = objDoc.AppDocumentTranslate(Language.LangEN, pIDHeaderEng, pInfo.Id);
+                            pReturn = objDoc.AppDocumentTranslate(language_New, pIDHeaderEng, pInfo.Id);
                         }
                     }
 
@@ -971,7 +985,7 @@
                                 {
                                     check = 1;
                                     info.App_Header_Id = pInfo.Id;
-                                    info.Language_Code = language;
+                                    info.Language_Code = language_New;
                                     info.IdRef = CommonFuc.ConvertToDecimal(info.keyFileUpload);
                                     listDocument.Add(info);
                                 }

@@ -43,20 +43,21 @@
             }
 
             @:&nbsp;
-            @:&nbsp;
             @* Chi Hien thi phan dich neu la ban ghi tiếng anh, và đang xem trên ngôn ngữ tiếng việt *@
-            if (_AppHeaderInfo.Id_Vi >= 0 && language == "VI_VN" && _AppHeaderInfo.Languague_Code == "EN_US")
-            {
-                <a href="/trade-mark/request-for-trade-mark-translate/@_AppHeaderInfo.Id/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode.ToLower()/@_AppHeaderInfo.Id_Vi" class="icon icon-house-add" data-title="Dịch"></a>
-            }
-
             if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin
                 || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.SupperAdmin
                 || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
             {
-                <a href="/trade-mark/request-for-trade-mark-translate/@_AppHeaderInfo.Id/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode.ToLower()/@_AppHeaderInfo.Id_Vi" data-title="Dịch">
-                    <img src="/Content/icons/translate.png">
-                </a>
+
+                if (_AppHeaderInfo.Status != (decimal)CommonEnums.App_Status.Luu_tam)
+                {
+                    if (_AppHeaderInfo.Appcode == TradeMarkAppCode.AppCodeDangKynhanHieu || _AppHeaderInfo.Appcode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
+                    {
+                        <a href="/trade-mark/request-for-trade-mark-translate/@_AppHeaderInfo.Id/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode.ToLower()/@_AppHeaderInfo.Id_Vi" data-title="Dịch">
+                            <img src="/Content/icons/translate.png">
+                        </a>
+                    }
+                }
             }
         }
     </div>

@@ -123,15 +123,15 @@ namespace DataAccess.ModuleTrademark
         }
 
 
-        public int AppDocumentTranslate( string pLanguage, decimal pAppHeaderID ,decimal pAppHeaderNew)
+        public int AppDocumentTranslate( string pLanguage_new, decimal p_app_old_id, decimal p_app_new_id)
         {
             try
             {
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
                 OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_DOCUMENT.PROC_APP_TRANSLATE",
-                    new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
-                    new OracleParameter("P_APP_HEADER_ID", OracleDbType.Decimal, pAppHeaderID, ParameterDirection.Input),
-                    new OracleParameter("P_APP_NEW_ID", OracleDbType.Decimal, pAppHeaderNew, ParameterDirection.Input),
+                    new OracleParameter("P_LANGUAGE_CODE_NEW", OracleDbType.Varchar2, pLanguage_new, ParameterDirection.Input),
+                    new OracleParameter("p_app_old_id", OracleDbType.Decimal, p_app_old_id, ParameterDirection.Input),
+                    new OracleParameter("p_app_new_id", OracleDbType.Decimal, p_app_new_id, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;

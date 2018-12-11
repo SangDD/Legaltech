@@ -171,11 +171,11 @@
 </style>
 
 @*<div class="d-nav-container">
-    <ul class="ul-nav">
-        <li><a href="javascript:;">TradeMark</a></li>
-        <li><a href="javascript:;"> Request for amendment of application)</a></li>
-    </ul>
-</div>*@
+        <ul class="ul-nav">
+            <li><a href="javascript:;">TradeMark</a></li>
+            <li><a href="javascript:;"> Request for amendment of application)</a></li>
+        </ul>
+    </div>*@
 <div class="d-nav-container" style="background-color:#fff">
     <div class="divCover">
         <div class="d-nav">
@@ -357,7 +357,7 @@
                             <div>@WebApps.Resources.Resource.lblMauSac:</div>
                         </div>
                         <div class="div-search-content">
-                            <div><input type="text" placeholder="0_MauSac" value="@objAppHeaderInfo.Color"  @styleDich  maxlength="50" id="0_MauSac" /></div>
+                            <div><input type="text" placeholder="0_MauSac" value="@objAppHeaderInfo.Color" @styleDich maxlength="50" id="0_MauSac" /></div>
                         </div>
                     </div>
 
@@ -367,7 +367,7 @@
                         </div>
                         <div class="div-search-content">
                             <div>
-                                <textarea id="0_MoTa" disabled maxlength="2000" rows="5" cols="10"  @styleDich placeholder="Mô tả" style="height:128px">@objAppHeaderInfo.Description</textarea>
+                                <textarea id="0_MoTa" disabled maxlength="2000" rows="5" cols="10" @styleDich placeholder="Mô tả" style="height:128px">@objAppHeaderInfo.Description</textarea>
                             </div>
                         </div>
                     </div>
@@ -405,7 +405,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" value="NHTT" @styleNhanHieu   @styleDich  placeholder="0_NhanHieuTapThe" id="0_NhanHieuTapThe" />
+                        <input type="radio" name="0_NhanHieu" value="NHTT" @styleNhanHieu @styleDich placeholder="0_NhanHieuTapThe" id="0_NhanHieuTapThe" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuTapThe</label>
                     </div>
                 </div>
@@ -414,7 +414,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" value="NHLK" @styleLienKet @styleDich  placeholder="0_NhanHieuLienKet" id="0_NhanHieuLienKet" />
+                        <input type="radio" name="0_NhanHieu" value="NHLK" @styleLienKet @styleDich placeholder="0_NhanHieuLienKet" id="0_NhanHieuLienKet" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuLienKet</label>
                     </div>
                 </div>
@@ -423,7 +423,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" value="NHCN" @styleNhanHieuCN  @styleDich placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" />
+                        <input type="radio" name="0_NhanHieu" value="NHCN" @styleNhanHieuCN @styleDich placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
                     </div>
                 </div>
@@ -835,10 +835,11 @@
 
         <div class="class_save">
             <div class="classGuiDon">
-                <input type="button" value="@WebApps.Resources.Resource.btnGuiDon" style="width:70px" id="btnGuiDon" class="btn class_37" />
-            </div> <div class="classLuuTam">
-                <input type="button" value="@WebApps.Resources.Resource.btnLuuTam" style="width:70px" id="btnLuuTam" class="btn class_37" />
+                <input type="button" value="Dịch" style="width:70px" id="btnGuiDon" class="btn class_37" />
             </div>
+            @*<div class="classLuuTam">
+                    <input type="button" value="@WebApps.Resources.Resource.btnLuuTam" style="width:70px" id="btnLuuTam" class="btn class_37" />
+                </div>*@
         </div>
     </fieldset>
 </div>
@@ -1614,16 +1615,10 @@
     }
 
     $("#btnGuiDon").click(function () {
-
-        funcSaveType(2);
+        funcSaveType();
     });
 
-    $("#btnLuuTam").click(function () {
-        funcSaveType(1);
-
-    });
-
-    function funcSaveType(pStatus) {
+    function funcSaveType() {
         try {
             //Thông tin chủ đơn
             var formData = new FormData();
@@ -1651,23 +1646,20 @@
                 return false;
             }
             formData.append("pInfo.Id", v_AppHeaderID);
-
             formData.append("pInfo.Id_Vi", $("#txtHeaderVI").val());
-             
             formData.append("pInfo.Case_Code", $("#txtCase_Code").val());
 
             var daidienSH = $("#txtDaiDienSHCN").val();
-
             formData.append("pInfo.DDSHCN", daidienSH);
 
             //07/09/2018
             var madhsh = $("#txtMADDSHCN").val();
             formData.append("pInfo.MADDSHCN", madhsh);
 
-
             if (funcThongTinChuDonNguoiDaiDien(formData, "2") != true) {
                 return false;
             }
+
             var v_RepMasterType = $("input[name='3_rdoDaiDienChuDon']:checked").val();
             if (v_RepMasterType === "" || v_RepMasterType == undefined) {
                 showError('Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!');
@@ -1675,7 +1667,7 @@
             }
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
             //trang thai
-            formData.append("pInfo.Status", pStatus);
+            formData.append("pInfo.Status", $("#txtStatusEdit").val());
             //Lấy thông tin detail
             var reponse = funcGetAppDetail(formData);
             if (reponse == false) {
