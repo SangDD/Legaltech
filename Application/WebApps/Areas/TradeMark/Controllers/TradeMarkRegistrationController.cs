@@ -891,13 +891,13 @@
                 AppClassDetailBL objClassDetail = new AppClassDetailBL();
                 AppDocumentBL objDoc = new AppDocumentBL();
                 if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
-                string language = Language.LangVI;
+                string language = AppsCommon.GetCurrentLang();
                 var CreatedBy = SessionData.CurrentUser.Username;
                 var CreatedDate = SessionData.CurrentUser.CurrentDate;
                 int pReturn = ErrorCode.Success;
                 int pAppHeaderID = 0;
-                decimal pIDHeaderEng = 0;
-                pIDHeaderEng = pInfo.Id;
+                decimal pIDHeaderRoot = 0;
+                pIDHeaderRoot = pInfo.Id;
 
                 using (var scope = new TransactionScope())
                 {
@@ -954,7 +954,7 @@
                     {
                         if (pAppDocumentInfo.Count > 0)
                         {
-                            pReturn = objDoc.AppDocumentTranslate(Language.LangEN, pIDHeaderEng, pInfo.Id);
+                            pReturn = objDoc.AppDocumentTranslate(Language.LangEN, pIDHeaderRoot, pInfo.Id);
                         }
                     }
 

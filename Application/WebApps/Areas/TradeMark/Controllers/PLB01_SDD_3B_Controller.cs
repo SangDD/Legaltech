@@ -526,7 +526,7 @@
         [HttpPost]
         [Route("Translate_PLB_01_SDD")]
         public ActionResult Translate_PLB_01_SDD(ApplicationHeaderInfo pInfo, App_Detail_PLB01_SDD_Info pDetail,
-          List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo)
+            List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo)
         {
             try
             {
@@ -536,32 +536,55 @@
                 AppDocumentBL objDoc = new AppDocumentBL();
                 if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
                 string language = AppsCommon.GetCurrentLang();
+
                 var CreatedBy = SessionData.CurrentUser.Username;
+
                 var CreatedDate = SessionData.CurrentUser.CurrentDate;
                 decimal pReturn = ErrorCode.Success;
-
+                int pAppHeaderID = 0;
+                string prefCaseCode = "";
+                decimal pIDHeaderRootLang= pInfo.Id;
                 using (var scope = new TransactionScope())
                 {
                     //
+                  
                     pInfo.Languague_Code = language;
-                    pInfo.Modify_By = CreatedBy;
-                    pInfo.Modify_Date = CreatedDate;
+                    if (pInfo.Created_By == null || pInfo.Created_By == "0" || pInfo.Created_By == "")
+                    {
+                        pInfo.Created_By = CreatedBy;
+                    }
+
+                    pInfo.Created_Date = CreatedDate;
                     pInfo.Send_Date = DateTime.Now;
-                    pInfo.DDSHCN = "";
-                    pInfo.MADDSHCN = "";
+                    //pInfo.Status = (decimal)CommonEnums.App_Status.DaGui_ChoPhanLoai;
+
                     //TRA RA ID CUA BANG KHI INSERT
-                    pReturn = objBL.AppHeaderUpdate(pInfo);
-                    if (pReturn < 0)
+                    //kiểm tra có rồi thì update, chưa có thì insert
+                    if (pInfo.Id_Vi > 0)
+                    {
+                        pInfo.Modify_By = CreatedBy;
+                        pInfo.Modify_Date = CreatedDate;
+                        pAppHeaderID = objBL.AppHeaderUpdate(pInfo);
+                    }
+                    else
+                    {
+                        //TRA RA ID CUA BANG KHI INSERT
+                        pInfo.Created_By = CreatedBy;
+                        pInfo.Created_Date = CreatedDate;
+                        pAppHeaderID = objBL.AppHeaderInsert(pInfo, ref prefCaseCode);
+                    }
+
+                    if (pAppHeaderID < 0)
                         goto Commit_Transaction;
 
                     // detail
-                    if (pReturn >= 0)
+                    if (pAppHeaderID >= 0)
                     {
                         pDetail.Appcode = pInfo.Appcode;
                         pDetail.Language_Code = language;
-                        pDetail.App_Header_Id = pInfo.Id;
-                        pDetail.Case_Code = pInfo.Case_Code;
-                        pReturn = objDetail.Update(pDetail);
+                        pDetail.App_Header_Id = pAppHeaderID;
+                        pDetail.Case_Code = prefCaseCode;
+                        pReturn = objDetail.Insert(pDetail);
                         if (pReturn <= 0)
                             goto Commit_Transaction;
                     }
@@ -573,7 +596,7 @@
                     AppFeeFixInfo _AppFeeFixInfo1 = new AppFeeFixInfo();
                     _AppFeeFixInfo1.Fee_Id = 1;
                     _AppFeeFixInfo1.Isuse = 1;
-                    //_AppFeeFixInfo1.App_Header_Id = pInfo.Id;
+                    //_AppFeeFixInfo1.App_Header_Id = pAppHeaderID;
                     _AppFeeFixInfo1.Number_Of_Patent = pDetail.App_No_Change.Split(',').Length;
 
                     string _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo1.Fee_Id.ToString();
@@ -590,7 +613,7 @@
                     AppFeeFixInfo _AppFeeFixInfo2 = new AppFeeFixInfo();
                     _AppFeeFixInfo2.Fee_Id = 2;
                     _AppFeeFixInfo2.Isuse = 1;
-                    //_AppFeeFixInfo2.App_Header_Id = pInfo.Id;
+                    //_AppFeeFixInfo2.App_Header_Id = pAppHeaderID;
                     _AppFeeFixInfo2.Number_Of_Patent = pDetail.App_No_Change.Split(',').Length;
 
                     _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo2.Fee_Id.ToString();
@@ -606,7 +629,7 @@
                     #region Đơn có trên 1 hình (từ hình thứ hai trở đi)
                     AppFeeFixInfo _AppFeeFixInfo21 = new AppFeeFixInfo();
                     _AppFeeFixInfo21.Fee_Id = 21;
-                    //_AppFeeFixInfo21.App_Header_Id = pInfo.Id;
+                    //_AppFeeFixInfo21.App_Header_Id = pAppHeaderID;
 
                     _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo21.Fee_Id.ToString();
                     decimal _numberPicOver = 1;
@@ -642,7 +665,7 @@
                     #region Bản mô tả sáng chế có trên 6 trang (từ trang thứ 7 trở đi)  
                     AppFeeFixInfo _AppFeeFixInfo22 = new AppFeeFixInfo();
                     _AppFeeFixInfo22.Fee_Id = 22;
-                    //_AppFeeFixInfo22.App_Header_Id = pInfo.Id;
+                    //_AppFeeFixInfo22.App_Header_Id = pAppHeaderID;
 
                     _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo22.Fee_Id.ToString();
                     decimal _numberPageOver = 6;
@@ -663,6 +686,7 @@
                         }
                         else
                             _AppFeeFixInfo22.Amount = 10000 * _AppFeeFixInfo22.Number_Of_Patent;
+
                     }
                     else
                     {
@@ -673,12 +697,8 @@
                     _lstFeeFix.Add(_AppFeeFixInfo22);
                     #endregion
 
-                    // xóa đi
                     AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
-                    _AppFeeFixBL.AppFeeFixDelete(pDetail.Case_Code, language);
-
-                    // insert lại fee
-                    pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, pInfo.Case_Code);
+                    pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, prefCaseCode);
                     if (pReturn < 0)
                         goto Commit_Transaction;
                     #endregion
@@ -688,43 +708,7 @@
                     {
                         if (pAppDocumentInfo.Count > 0)
                         {
-                            // Get ra để map sau đó xóa đi để insert vào sau
-                            AppDocumentBL _AppDocumentBL = new AppDocumentBL();
-                            List<AppDocumentInfo> Lst_AppDoc = _AppDocumentBL.AppDocument_Getby_AppHeader(pDetail.App_Header_Id, language);
-                            Dictionary<string, AppDocumentInfo> dic_appDoc = new Dictionary<string, AppDocumentInfo>();
-                            foreach (AppDocumentInfo item in Lst_AppDoc)
-                            {
-                                dic_appDoc[item.Document_Id] = item;
-                            }
-
-                            // xóa đi trước
-                            _AppDocumentBL.AppDocumentDelByApp(pDetail.App_Header_Id, language);
-
-                            foreach (var info in pAppDocumentInfo)
-                            {
-                                if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
-                                {
-                                    HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
-                                    info.Filename = pfiles.FileName;
-                                    info.Url_Hardcopy = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
-                                    info.Status = 0;
-                                }
-                                else
-                                {
-                                    if (dic_appDoc.ContainsKey(info.Document_Id))
-                                    {
-                                        info.Filename = dic_appDoc[info.Document_Id].Filename;
-                                        info.Url_Hardcopy = dic_appDoc[info.Document_Id].Url_Hardcopy;
-                                        info.Status = dic_appDoc[info.Document_Id].Status;
-                                    }
-                                }
-
-                                info.App_Header_Id = pInfo.Id;
-                                info.Document_Filing_Date = CommonFuc.CurrentDate();
-                                info.Language_Code = language;
-                            }
-                            pReturn = objDoc.AppDocumentInsertBath(pAppDocumentInfo, pInfo.Id);
-
+                            pReturn = objDoc.AppDocumentTranslate(language, pIDHeaderRootLang, pAppHeaderID);
                         }
                     }
                 #endregion
@@ -734,14 +718,13 @@
                     if (pReturn < 0)
                     {
                         Transaction.Current.Rollback();
-                        return Json(new { status = pReturn });
                     }
                     else
                     {
                         scope.Complete();
                     }
                 }
-                return Json(new { status = pInfo.Id });
+                return Json(new { status = pAppHeaderID });
             }
             catch (Exception ex)
             {
@@ -749,6 +732,8 @@
                 return Json(new { status = ErrorCode.Error });
             }
         }
+
+
 
         [HttpPost]
         [Route("push-file-to-server")]

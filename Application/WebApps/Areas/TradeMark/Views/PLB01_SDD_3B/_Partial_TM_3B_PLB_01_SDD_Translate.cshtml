@@ -611,6 +611,7 @@
             return false;
         }
         formData.append("pInfo.Id", @_AppHeaderInfo.Id);
+        formData.append("pInfo.Id_Vi", @_AppHeaderInfo.Id_Vi);
         formData.append("pInfo.Case_Code", '@_AppHeaderInfo.Case_Code');
         formData.append("pInfo.Status", p_status );
 
@@ -656,7 +657,7 @@
             }
 
             $.ajax({
-                url: '/trade-mark-3b/Edit_PLB_01_SDD',
+                url: '/trade-mark-3b/Translate_PLB_01_SDD',
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -668,7 +669,7 @@
                 headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.status >= 0) {
-                        jAlert(EditSuccess, ThongBao, function () {
+                        jAlert(TranslatedSucess, ThongBao, function () {
                             window.location = "/trade-mark-mana/quan-ly-don";
                         });
                     } else {
@@ -697,7 +698,7 @@
             }
 
             $.ajax({
-                url: '/trade-mark-3b/Edit_PLB_01_SDD',
+                url: '/trade-mark-3b/Translate_PLB_01_SDD',
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -709,7 +710,7 @@
                 headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.status >= 0) {
-                        jAlert(EditSuccess, ThongBao, function () {
+                        jAlert(TranslatedSucess, ThongBao, function () {
                             window.location = "/trade-mark-mana/quan-ly-don";
                         });
                     } else {
