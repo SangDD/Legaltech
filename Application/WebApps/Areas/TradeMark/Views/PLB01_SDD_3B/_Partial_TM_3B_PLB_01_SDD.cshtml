@@ -615,7 +615,7 @@
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
                     if (data != null && data.status >= 0) {
-                        jAlert('@Resource.TM3B_LuuTamThanhCong', "THÔNG BÁO", function () {
+                        jAlert('@Resource.TM3B_LuuTamThanhCong', "@Resource.TM3C_ThongBao", function () {
                             window.location = "/trade-mark-mana/quan-ly-don";
                         });
                     } else {

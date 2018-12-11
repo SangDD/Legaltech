@@ -896,8 +896,8 @@
                 var CreatedDate = SessionData.CurrentUser.CurrentDate;
                 int pReturn = ErrorCode.Success;
                 int pAppHeaderID = 0;
-                decimal pIDHeaderEng = 0;
-                pIDHeaderEng = pInfo.Id;
+                decimal pIDHeaderRoot = 0;
+                pIDHeaderRoot = pInfo.Id;
 
                 // lấy appheader gốc
                 ApplicationHeaderInfo _AppHeader_Goc = objBL.GetApplicationHeader_ById(pIDHeaderEng, "");
@@ -968,7 +968,7 @@
                     {
                         if (pAppDocumentInfo.Count > 0)
                         {
-                            pReturn = objDoc.AppDocumentTranslate(language_New, pIDHeaderEng, pInfo.Id);
+                            pReturn = objDoc.AppDocumentTranslate(Language.LangEN, pIDHeaderRoot, pInfo.Id);
                         }
                     }
 
