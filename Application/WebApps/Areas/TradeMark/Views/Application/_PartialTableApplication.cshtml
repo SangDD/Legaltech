@@ -43,13 +43,9 @@
                         <td class="tdleftalign">@item.Status_Name</td>
 
                         <td class="tdcenteralign">
-                            @*<a href="/trade-mark/request-for-trade-mark-view/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-info" data-title="Xem chi tiết"></a>*@
                             <a href="/trade-mark-share-data/todo-details/@item.Case_Code/0" class="icon icon-info" data-title="Xem chi tiết"></a>
-                            @*<a href="/trade-mark-share-data/todo-details/@item.Case_Code/2" class="icon icon-edit" data-title="Sửa"></a>*@
-                            @if ((language == "VI_VN" && item.Languague_Code == "VI_VN") || (language == "EN_US" && item.Languague_Code == "EN_US"))
-                            {
-                                <a href="/trade-mark/request-for-trade-mark-edit/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-edit" data-title="Sửa"></a>
-                            }
+                            @*@if ((language == "VI_VN" && item.Languague_Code == "VI_VN") || (language == "EN_US" && item.Languague_Code == "EN_US"))*@
+                            <a href="/trade-mark/request-for-trade-mark-edit/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-edit" data-title="Sửa"></a>
 
                             @* Phần dịch thì dịch hết từ việt sang anh và từ anh sang việt*@
                             @* Chi Hien thi phan dich neu la ban ghi tiếng anh, và đang xem trên ngôn ngữ tiếng việt *@
@@ -58,9 +54,12 @@
                             || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
                             {
                                 //if (item.Id_Vi >= 0 && language == "VI_VN" && item.Languague_Code == "EN_US")
-                                <a href="/trade-mark/request-for-trade-mark-translate/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()/@item.Id_Vi" data-title="Dịch">
-                                    <img src="/Content/icons/translate.png">
-                                </a>
+                                if (item.Status != (decimal)CommonEnums.App_Status.Luu_tam)
+                                {
+                                    <a href="/trade-mark/request-for-trade-mark-translate/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()/@item.Id_Vi" data-title="Dịch">
+                                        <img src="/Content/icons/translate.png">
+                                    </a>
+                                }
                             }
                             @if (item.Status == (decimal)CommonEnums.App_Status.Luu_tam)
                             {
