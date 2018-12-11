@@ -26,45 +26,49 @@
     }
 </style>
 
+@* xem *@
 <div class="divCover cls_form_title">
-    @*<img src="/Content/icons/icon_info_24.png" />*@
+    <img src="/Content/icons/icon_info_24.png" />
     <div class="cls_form_header">
-
         <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowViewApp()">Xem chi tiết đơn</a>
-        &nbsp; &nbsp;
-        @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update))
-        {
-            if (_AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.Luu_tam ||
-                _AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.DaPhanChoLuatSu ||
-                _AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.ChoKHConfirm ||
-                _AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.KhacHangDaTuChoi)
-            {
-                <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowEditApp()"> Sửa đơn </a>
-            }
-
-            @:&nbsp;
-            @* Chi Hien thi phan dich neu la ban ghi tiếng anh, và đang xem trên ngôn ngữ tiếng việt *@
-            if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin
-                || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.SupperAdmin
-                || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
-            {
-
-                if (_AppHeaderInfo.Status != (decimal)CommonEnums.App_Status.Luu_tam)
-                {
-                    if (_AppHeaderInfo.Appcode == TradeMarkAppCode.AppCodeDangKynhanHieu || _AppHeaderInfo.Appcode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
-                    {
-                        <a href="/trade-mark/request-for-trade-mark-translate/@_AppHeaderInfo.Id/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode.ToLower()/@_AppHeaderInfo.Id_Vi" data-title="Dịch">
-                            <img src="/Content/icons/translate.png">
-                        </a>
-                    }
-                }
-            }
-        }
     </div>
 </div>
 
+@* sửa *@
+@if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update))
+{
+    if (_AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.Luu_tam ||
+                    _AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.DaPhanChoLuatSu ||
+                    _AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.ChoKHConfirm ||
+                    _AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.KhacHangDaTuChoi)
+    {
+        <div class="divCover cls_form_title">
+            <img src="/Content/icons/edit.png" />
+            <div class="cls_form_header">
+                <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowEditApp()"> Sửa đơn </a>
+            </div>
+        </div>
+    }
+}
+
+@* dịch *@
+@if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update))
+{
+    if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin
+                || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.SupperAdmin
+                || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
+    {
+        <div class="divCover cls_form_title">
+            <img src="/Content/icons/translate.png" />
+            <div class="cls_form_header">
+                <a style="text-decoration: underline; font-style: italic; color: blue;" href="/trade-mark/request-for-trade-mark-translate/@_AppHeaderInfo.Id/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode.ToLower()/@_AppHeaderInfo.Id_Vi"> Dịch </a>
+            </div>
+        </div>
+    }
+}
+
 <div class="divCover cls_form_title">
-    <img src="/Content/icons/icon_info_24.png" />
+    <img src="/Content/icons/category.png" />
     <div class="cls_form_header">
         THÔNG TIN ĐƠN
     </div>
@@ -102,7 +106,7 @@
 
 
 <div class="divCover cls_form_title">
-    @*<img src="~/Content/icons/info.png" />*@
+    @*<img src="~/Content/icons/category.png" />*@
     <div class="cls_form_header">
         Chủ đơn
     </div>
@@ -157,7 +161,7 @@
 </div>
 
 <div class="divCover cls_form_title">
-    @*<img src="~/Content/icons/info.png" />*@
+    @*<img src="~/Content/icons/category.png" />*@
     <div class="cls_form_header">
         Đại diện chủ đơn
     </div>

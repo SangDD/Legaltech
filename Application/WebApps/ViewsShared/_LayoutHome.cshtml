@@ -88,21 +88,33 @@
 
 
                     <div class="class-dangxuat">
-                        <a href="/dang-xuat" style="padding-right: 12px; padding-top: 10px;"> Đăng xuất</a>
+                        <a href="/dang-xuat" style="padding-right: 12px; padding-top: 10px;">
+                            <img src="/Content/icons/logout.png" />
+                            Đăng xuất
+                        </a>
                     </div>
 
                     <div class="class-dangxuat">
                         @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Customer)
                         {
-                            <a href="/customer/quan-ly-customer/get-view-to-edit-customer/@_id" style="padding-right: 12px; padding-top: 10px;">@_username</a>
+                            <a href="/customer/quan-ly-customer/get-view-to-edit-customer/@_id" style="padding-right: 12px; padding-top: 10px;">
+                                <img src="/Content/icons/user_info.png" />
+                                @_username
+                            </a>
                         }
                         else if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
                         {
-                            <a href="/luat-su/quan-ly-luat-su/get-view-to-edit-lawer/@_id" style="padding-right: 12px; padding-top: 10px;">@_username</a>
+                            <a href="/luat-su/quan-ly-luat-su/get-view-to-edit-lawer/@_id" style="padding-right: 12px; padding-top: 10px;">
+                                <img src="/Content/icons/user_info.png" />
+                                @_username
+                            </a>
                         }
                         else
                         {
-                            <a href="/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-edit-user/@_id" style="padding-right: 12px; padding-top: 10px;">@_username</a>
+                            <a href="/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-edit-user/@_id" style="padding-right: 12px; padding-top: 10px;">
+                                <img src="/Content/icons/user_info.png" />
+                                @_username
+                            </a>
                         }
                     </div>
 

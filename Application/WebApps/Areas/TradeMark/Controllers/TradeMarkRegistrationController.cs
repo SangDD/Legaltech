@@ -900,7 +900,7 @@
                 pIDHeaderRoot = pInfo.Id;
 
                 // lấy appheader gốc
-                ApplicationHeaderInfo _AppHeader_Goc = objBL.GetApplicationHeader_ById(pIDHeaderEng, "");
+                ApplicationHeaderInfo _AppHeader_Goc = objBL.GetApplicationHeader_ById(pIDHeaderRoot, "");
                 string language_New = "";
                 if (_AppHeader_Goc.Languague_Code == Language.LangVI)
                 {
