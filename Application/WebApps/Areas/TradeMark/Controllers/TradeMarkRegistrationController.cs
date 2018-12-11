@@ -1199,8 +1199,13 @@
             }
             else if (pAppCode == TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD)
             {
-                App_Detail_PLB01_SDD_BL objBL = new App_Detail_PLB01_SDD_BL();
                 string language = AppsCommon.GetCurrentLang();
+                if (pEditOrTranslate == 1)
+                {
+                    language = Language.LangEN;
+                }
+                App_Detail_PLB01_SDD_BL objBL = new App_Detail_PLB01_SDD_BL();
+              
                 List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
                 List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
                 ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
@@ -1209,8 +1214,15 @@
                 ViewBag.Lst_AppDoc = appDocumentInfos;
                 ViewBag.Lst_AppFee = appFeeFixInfos;
                 ViewBag.objAppHeaderInfo = applicationHeaderInfo;
-
-                return PartialView("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_TM_3B_PLB_01_SDD_Edit.cshtml");
+                if (pEditOrTranslate == 1)
+                {
+                    return PartialView("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_TM_3B_PLB_01_SDD_Translate.cshtml");
+                }
+                else
+                {
+                    return PartialView("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_TM_3B_PLB_01_SDD_Edit.cshtml");
+                }
+                   
             }
             else if (pAppCode == TradeMarkAppCode.AppCode_TM_3C_PLB_02_CGD)
             {
