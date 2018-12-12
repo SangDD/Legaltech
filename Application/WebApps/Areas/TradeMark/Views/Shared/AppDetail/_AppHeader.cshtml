@@ -37,18 +37,18 @@
 @* sửa *@
 @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update))
 {
-    if (_AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.Luu_tam ||
-                    _AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.DaPhanChoLuatSu ||
-                    _AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.ChoKHConfirm ||
-                    _AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.KhacHangDaTuChoi)
-    {
-        <div class="divCover cls_form_title">
-            <img src="/Content/icons/edit.png" />
-            <div class="cls_form_header">
-                <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowEditApp()"> Sửa đơn </a>
-            </div>
-        </div>
-    }
+if (_AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.Luu_tam ||
+            _AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.DaPhanChoLuatSu ||
+            _AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.ChoKHConfirm ||
+            _AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.KhacHangDaTuChoi)
+{
+<div class="divCover cls_form_title">
+    <img src="/Content/icons/edit.png" />
+    <div class="cls_form_header">
+        <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowEditApp()"> Sửa đơn </a>
+    </div>
+</div>
+}
 }
 
 @* dịch *@
@@ -58,12 +58,18 @@
                 || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.SupperAdmin
                 || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
     {
-        <div class="divCover cls_form_title">
-            <img src="/Content/icons/translate.png" />
-            <div class="cls_form_header">
-                <a style="text-decoration: underline; font-style: italic; color: blue;" href="/trade-mark/request-for-trade-mark-translate/@_AppHeaderInfo.Id/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode.ToLower()/@_AppHeaderInfo.Id_Vi"> Dịch </a>
-            </div>
-        </div>
+        if (_AppHeaderInfo.Status != (decimal)Common.CommonData.CommonEnums.App_Status.Luu_tam)
+        {
+            if (_AppHeaderInfo.Appcode == TradeMarkAppCode.AppCodeDangKynhanHieu || _AppHeaderInfo.Appcode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
+            {
+                <div class="divCover cls_form_title">
+                    <img src="/Content/icons/translate.png" />
+                    <div class="cls_form_header">
+                        <a style="text-decoration: underline; font-style: italic; color: blue;" href="/trade-mark/request-for-trade-mark-translate/@_AppHeaderInfo.Id/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode.ToLower()/@_AppHeaderInfo.Id_Vi"> Dịch </a>
+                    </div>
+                </div>
+            }
+        }
     }
 }
 
@@ -272,7 +278,7 @@
         }
         try {
             var url = "/trade-mark/request-for-trade-mark-view/@_AppHeaderInfo.Id/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode";
-            href="/trade-mark/request-for-trade-mark-edit/@_AppHeaderInfo.Id/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode"
+            href = "/trade-mark/request-for-trade-mark-edit/@_AppHeaderInfo.Id/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode"
             window.open(url);
             //location.href = url;
         } catch (e) {
