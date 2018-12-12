@@ -20,7 +20,7 @@
 <html>
 <head>
     <script>
-       var _currentlanguage = '@_LanguageCode';
+        var _currentlanguage = '@_LanguageCode';
     </script>
     @* https://css-tricks.com/probably-use-initial-scale1/ *@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -85,14 +85,14 @@
                         </div>
                     </div>
                     @Html.Partial("~/ViewsShared/_PartialMainMenu.cshtml")
-                    <div class="class-dangxuat">
+                    <div class="class-dangxuat" style="margin-top: 10px;">
                         <a href="/dang-xuat" style="padding-right: 12px; padding-top: 10px;">
-                            <img src="/Content/icons/logout.png" />
+                            @*<img src="/Content/icons/logout.png" />*@
                             Đăng xuất
                         </a>
                     </div>
 
-                    <div class="class-dangxuat">
+                    <div class="class-dangxuat" style="margin-top: 4px;">
                         @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Customer)
                         {
                             <a href="/customer/quan-ly-customer/get-view-to-edit-customer/@_id" style="padding-right: 12px; padding-top: 10px;">
