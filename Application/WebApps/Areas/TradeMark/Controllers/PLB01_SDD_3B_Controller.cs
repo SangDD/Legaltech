@@ -535,7 +535,15 @@
                 App_Detail_PLB01_SDD_BL objDetail = new App_Detail_PLB01_SDD_BL();
                 AppDocumentBL objDoc = new AppDocumentBL();
                 if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
-                string language = AppsCommon.GetCurrentLang();
+                string language = "";
+                if (pInfo.Languague_Code == Language.LangVI)
+                {
+                    language = Language.LangEN;
+                }
+                else
+                {
+                    language = Language.LangVI;
+                }
 
                 var CreatedBy = SessionData.CurrentUser.Username;
 

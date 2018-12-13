@@ -916,13 +916,21 @@
                 AppDocumentBL objDoc = new AppDocumentBL();
                 AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
                 if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
-                string language = AppsCommon.GetCurrentLang();
+                string language = "";
+                if(pInfo.Languague_Code == Language.LangVI)
+                {
+                    language = Language.LangEN;
+                }
+                else
+                {
+                    language = Language.LangVI;
+                }
                 var CreatedBy = SessionData.CurrentUser.Username;
                 var CreatedDate = SessionData.CurrentUser.CurrentDate;
                 int pReturn = ErrorCode.Success;
                 int pAppHeaderID = 0;
-               
-
+                decimal pIDHeaderoot = pInfo.Id;
+                string prefCaseCode = "";
                 foreach (AppFeeFixInfo item in pFeeFixInfo)
                 {
                     if (item.Amount == 0)
@@ -931,11 +939,11 @@
                         item.Amount = 2000000;
                     }
                 }
-                decimal pIDHeaderEng = pInfo.Id;
+          
                 using (var scope = new TransactionScope())
                 {
                     //
-                    string prefCaseCode = "";
+                
                     pInfo.Languague_Code = language;
                     if (pInfo.Created_By == null || pInfo.Created_By == "0" || pInfo.Created_By == "")
                     {
@@ -988,7 +996,7 @@
                     {
                         if (pAppDocumentInfo.Count > 0)
                         {
-                            pReturn = objDoc.AppDocumentTranslate(language, pIDHeaderEng, pAppHeaderID);
+                            pReturn = objDoc.AppDocumentTranslate(language, pIDHeaderoot, pAppHeaderID);
                         }
                     }
                     //tai lieu khac 

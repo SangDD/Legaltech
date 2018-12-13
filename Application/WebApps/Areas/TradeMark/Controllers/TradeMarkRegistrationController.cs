@@ -968,7 +968,7 @@
                     {
                         if (pAppDocumentInfo.Count > 0)
                         {
-                            pReturn = objDoc.AppDocumentTranslate(Language.LangEN, pIDHeaderRoot, pInfo.Id);
+                            pReturn = objDoc.AppDocumentTranslate(language_New, pIDHeaderRoot, pInfo.Id);
                         }
                     }
 
@@ -1168,8 +1168,16 @@
                 string language = AppsCommon.GetCurrentLang();
                 if (pEditOrTranslate == 1)
                 {
-                    language = Language.LangEN;
-                    
+
+                    if (language == Language.LangEN)
+                    {
+                        language = Language.LangVI;
+                    }
+                    else
+                    {
+                        language = Language.LangEN;
+                    }
+
                     //Nếu là dịch lấy cả bản ghi tiếng việt lên
                     var ds04NHVI = objBL.AppTM04NHGetByID(pIDVi, Language.LangVI, pStatus);
 
@@ -1216,10 +1224,18 @@
                 string language = AppsCommon.GetCurrentLang();
                 if (pEditOrTranslate == 1)
                 {
-                    language = Language.LangEN;
+                    if (language == Language.LangEN)
+                    {
+                        language = Language.LangVI;
+                    }
+                    else
+                    {
+                        language = Language.LangEN;
+                    }
+
                 }
                 App_Detail_PLB01_SDD_BL objBL = new App_Detail_PLB01_SDD_BL();
-              
+
                 List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
                 List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
                 ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
@@ -1236,12 +1252,25 @@
                 {
                     return PartialView("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_TM_3B_PLB_01_SDD_Edit.cshtml");
                 }
-                   
+
             }
             else if (pAppCode == TradeMarkAppCode.AppCode_TM_3C_PLB_02_CGD)
             {
                 App_Detail_Plb02_CGD_BL objBL = new App_Detail_Plb02_CGD_BL();
                 string language = AppsCommon.GetCurrentLang();
+
+                if (pEditOrTranslate == 1)
+                {
+                    if (language == Language.LangEN)
+                    {
+                        language = Language.LangVI;
+                    }
+                    else
+                    {
+                        language = Language.LangEN;
+                    }
+
+                }
                 List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
                 List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
                 ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
@@ -1250,13 +1279,29 @@
                 ViewBag.Lst_AppDoc = appDocumentInfos;
                 ViewBag.Lst_AppFee = appFeeFixInfos;
                 ViewBag.objAppHeaderInfo = applicationHeaderInfo;
-
-                return PartialView("~/Areas/TradeMark/Views/PLB02_CGD_3C/_Partial_TM_3C_PLB_02_SDD_Edit.cshtml");
+                if (pEditOrTranslate == 1)
+                    return PartialView("~/Areas/TradeMark/Views/PLB02_CGD_3C/_Partial_TM_3C_PLB_02_SDD_Translate.cshtml");
+                else
+                    return PartialView("~/Areas/TradeMark/Views/PLB02_CGD_3C/_Partial_TM_3C_PLB_02_SDD_Edit.cshtml");
+        
             }
             else if (pAppCode == TradeMarkAppCode.AppCode_TM_3D_PLC_05_KN)
             {
-                App_Detail_PLC05_KN_BL objBL = new App_Detail_PLC05_KN_BL();
                 string language = AppsCommon.GetCurrentLang();
+                if (pEditOrTranslate == 1)
+                {
+                    if (language == Language.LangEN)
+                    {
+                        language = Language.LangVI;
+                    }
+                    else
+                    {
+                        language = Language.LangEN;
+                    }
+
+                }
+                App_Detail_PLC05_KN_BL objBL = new App_Detail_PLC05_KN_BL();
+            
                 List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
                 List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
                 ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
@@ -1265,8 +1310,10 @@
                 ViewBag.Lst_AppDoc = appDocumentInfos;
                 ViewBag.Lst_AppFee = appFeeFixInfos;
                 ViewBag.objAppHeaderInfo = applicationHeaderInfo;
-
-                return PartialView("~/Areas/TradeMark/Views/PLC05_KN_3D/_Partial_TM_3D_PLC_05_KN_Edit.cshtml");
+                if (pEditOrTranslate == 1)
+                    return PartialView("~/Areas/TradeMark/Views/PLC05_KN_3D/_Partial_TM_3D_PLC_05_KN_Translate.cshtml");
+                else
+                    return PartialView("~/Areas/TradeMark/Views/PLC05_KN_3D/_Partial_TM_3D_PLC_05_KN_Edit.cshtml");
             }
 
             else if (pAppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
@@ -1274,7 +1321,14 @@
                 string language = AppsCommon.GetCurrentLang();
                 if (pEditOrTranslate == 1)
                 {
-                    language = Language.LangEN;
+                    if (language == Language.LangEN)
+                    {
+                        language = Language.LangVI;
+                    }
+                    else
+                    {
+                        language = Language.LangEN;
+                    }
                 }
                 var objBL = new AppDetail06DKQT_BL();
 
@@ -1306,8 +1360,21 @@
             }
             else if (pAppCode == TradeMarkAppCode.AppCode_TM_4C2_PLD_01_HDCN)
             {
-                App_Detail_PLD01_HDCN_BL objBL = new App_Detail_PLD01_HDCN_BL();
                 string language = AppsCommon.GetCurrentLang();
+                if (pEditOrTranslate == 1)
+                {
+                    if (language == Language.LangEN)
+                    {
+                        language = Language.LangVI;
+                    }
+                    else
+                    {
+                        language = Language.LangEN;
+                    }
+
+                }
+                App_Detail_PLD01_HDCN_BL objBL = new App_Detail_PLD01_HDCN_BL();
+             
                 List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
                 List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
                 ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
@@ -1316,8 +1383,10 @@
                 ViewBag.Lst_AppDoc = appDocumentInfos;
                 ViewBag.Lst_AppFee = appFeeFixInfos;
                 ViewBag.objAppHeaderInfo = applicationHeaderInfo;
-
-                return PartialView("~/Areas/TradeMark/Views/PLD01_HDCN_4C2/_Partial_TM_4C2_PLD_01_HDCN_Edit.cshtml");
+                if (pEditOrTranslate == 1)
+                    return PartialView("~/Areas/TradeMark/Views/PLD01_HDCN_4C2/_Partial_TM_4C2_PLD_01_HDCN_Translate.cshtml");
+                else
+                    return PartialView("~/Areas/TradeMark/Views/PLD01_HDCN_4C2/_Partial_TM_4C2_PLD_01_HDCN_Edit.cshtml");
 
             }
             else

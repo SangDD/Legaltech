@@ -20,6 +20,7 @@
                 <th class="class200" data-sort id="Appcode">Case code</th>
                 <th class="class250">Case name</th>
                 <th class="class150">Loại đơn</th>
+                <th class="class150">Ngôn ngữ</th>
                 <th class="class250">Khách hàng</th>
                 <th class="class150">Người xử lý</th>
                 <th class="class100">Thời gian chờ (ngày)</th>
@@ -36,7 +37,9 @@
                         <td class="tdcenteralign">@item.STT</td>
                         <td class="tdleftalign">@item.Case_Code</td>
                         <td class="tdleftalign">@item.Case_Name</td>
+
                         <td class="tdleftalign">@item.Appcode</td>
+                        <td class="tdleftalign">@item.Languague_Code</td>
                         <td class="tdleftalign">@item.Customer_Name</td>
                         <td class="tdleftalign">@item.User_Processing</td>
                         <td class="tdcenteralign">@item.Date_Wait</td>
@@ -54,14 +57,13 @@
                             || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
                             {
                                 //if (item.Id_Vi >= 0 && language == "VI_VN" && item.Languague_Code == "EN_US")
-                                if (item.Status != (decimal)CommonEnums.App_Status.Luu_tam)
+                                if (item.Status != (decimal)CommonEnums.App_Status.Luu_tam && item.Id_Vi == 0)
                                 {
-                                    if (item.Appcode == TradeMarkAppCode.AppCodeDangKynhanHieu || item.Appcode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
-                                    {
+                                    
                                         <a href="/trade-mark/request-for-trade-mark-translate/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()/@item.Id_Vi" data-title="Dịch">
                                             <img src="/Content/icons/translate.png">
                                         </a>
-                                    }
+                                    
                                 }
                             }
                             @if (item.Status == (decimal)CommonEnums.App_Status.Luu_tam)

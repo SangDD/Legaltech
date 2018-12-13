@@ -809,6 +809,7 @@
             formData.append("pInfo.Id", @objAppHeaderInfo.Id);
             formData.append("pInfo.Id_Vi", @objAppHeaderInfo.Id_Vi);
             formData.append("pInfo.Case_Code", '@objAppHeaderInfo.Case_Code');
+            formData.append("pInfo.Languague_Code", '@objAppHeaderInfo.Languague_Code');
             formData.append("pInfo.Status", 2);
             var v_AppCode = $("#txtAppCode").val();
             var cbo_04nh_data = $("#cbo_04nh_data");
@@ -978,6 +979,7 @@
             formData.append("pInfo.Id_Vi", @objAppHeaderInfo.Id_Vi);
             formData.append("pInfo.Status", 1);
             formData.append("pInfo.Case_Code", '@objAppHeaderInfo.Case_Code');
+            formData.append("pInfo.Languague_Code", '@objAppHeaderInfo.Languague_Code');
             var v_AppCode = $("#txtAppCode").val();
             var cbo_04nh_data = $("#cbo_04nh_data");
             var v_thanhviennghidinh = $("input[name='rad_thanhviennghidinhthu']:checked").val();

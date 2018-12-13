@@ -492,6 +492,225 @@
         }
 
         [HttpPost]
+        [Route("Translate_PLD01_HDCN_4C2")]
+        public ActionResult Translate_PLD01_HDCN_4C2(ApplicationHeaderInfo pInfo, App_Detail_PLD01_HDCN_Info pDetail,
+          List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo)
+        {
+            try
+            {
+                Application_Header_BL objBL = new Application_Header_BL();
+                AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
+                App_Detail_PLD01_HDCN_BL objDetail_BL = new App_Detail_PLD01_HDCN_BL();
+                AppDocumentBL objDoc = new AppDocumentBL();
+                if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
+                string language = "";
+                if (pInfo.Languague_Code == Language.LangVI)
+                {
+                    language = Language.LangEN;
+                }
+                else
+                {
+                    language = Language.LangVI;
+                }
+                var CreatedBy = SessionData.CurrentUser.Username;
+                var CreatedDate = SessionData.CurrentUser.CurrentDate;
+                decimal pReturn = ErrorCode.Success;
+                int pAppHeaderID = 0;
+                decimal pIDHeaderoot = pInfo.Id;
+                string prefCaseCode = "";
+                using (var scope = new TransactionScope())
+                {
+                    //
+                    pInfo.Languague_Code = language;
+                    if (pInfo.Created_By == null || pInfo.Created_By == "0" || pInfo.Created_By == "")
+                    {
+                        pInfo.Created_By = CreatedBy;
+                    }
+                    pInfo.Created_Date = CreatedDate;
+                    pInfo.Send_Date = DateTime.Now;
+                    //pInfo.Status = (decimal)CommonEnums.App_Status.DaGui_ChoPhanLoai;
+
+                    //TRA RA ID CUA BANG KHI INSERT
+                    if (pInfo.Id_Vi > 0)
+                    {
+                        pInfo.Modify_By = CreatedBy;
+                        pInfo.Modify_Date = CreatedDate;
+                        pAppHeaderID = objBL.AppHeaderUpdate(pInfo);
+                    }
+                    else
+                    {
+                        //TRA RA ID CUA BANG KHI INSERT
+                        pInfo.Created_By = CreatedBy;
+                        pInfo.Created_Date = CreatedDate;
+                        pAppHeaderID = objBL.AppHeaderInsert(pInfo, ref prefCaseCode);
+                    }
+
+
+                    // detail
+                    if (pAppHeaderID >= 0)
+                    {
+                        pDetail.Appcode = pInfo.Appcode;
+                        pDetail.Language_Code = language;
+                        pDetail.App_Header_Id = pAppHeaderID;
+                        pDetail.Case_Code = prefCaseCode;
+                        pReturn = objDetail_BL.Insert(pDetail);
+                        if (pReturn <= 0)
+                            goto Commit_Transaction;
+                    }
+                    else goto Commit_Transaction;
+
+                    #region Phí cố định
+
+                    #region Phí thẩm định hồ sơ đăng ký hợp đồng chuyển nhượng 
+                    List<AppFeeFixInfo> _lstFeeFix = new List<AppFeeFixInfo>();
+                    AppFeeFixInfo _AppFeeFixInfo1 = new AppFeeFixInfo();
+                    _AppFeeFixInfo1.Fee_Id = 1;
+                    _AppFeeFixInfo1.Isuse = 1;
+                    //_AppFeeFixInfo1.App_Header_Id = pAppHeaderID;
+                    _AppFeeFixInfo1.Number_Of_Patent = pDetail.Object_Contract_No.Split(';').Length;
+
+                    string _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo1.Fee_Id.ToString();
+                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                        _AppFeeFixInfo1.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo1.Number_Of_Patent;
+                    else
+                        _AppFeeFixInfo1.Amount = 230000 * _AppFeeFixInfo1.Number_Of_Patent;
+                    _lstFeeFix.Add(_AppFeeFixInfo1);
+                    #endregion
+
+                    #region Phí tra cứu nhãn hiệu liên kết phục vụ việc thẩm định hồ sơ đăng ký hợp đồng chuyển nhượng 
+                    AppFeeFixInfo _AppFeeFixInfo2 = new AppFeeFixInfo();
+                    _AppFeeFixInfo2.Fee_Id = 2;
+                    _AppFeeFixInfo2.Isuse = 1;
+                    //_AppFeeFixInfo2.App_Header_Id = pAppHeaderID;
+                    _AppFeeFixInfo2.Number_Of_Patent = pDetail.Object_Contract_No.Split(';').Length;
+
+                    _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo2.Fee_Id.ToString();
+                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                        _AppFeeFixInfo2.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo2.Number_Of_Patent;
+                    else
+                        _AppFeeFixInfo2.Amount = 180000 * _AppFeeFixInfo2.Number_Of_Patent;
+                    _lstFeeFix.Add(_AppFeeFixInfo2);
+                    #endregion
+
+                    #region Phí thẩm định đơn 
+                    AppFeeFixInfo _AppFeeFixInfo3 = new AppFeeFixInfo();
+                    _AppFeeFixInfo3.Fee_Id = 3;
+                    _AppFeeFixInfo3.Isuse = pFeeFixInfo[0].Isuse;
+                    //_AppFeeFixInfo3.App_Header_Id = pInfo.Id;
+                    if (_AppFeeFixInfo3.Isuse == 1)
+                    {
+                        _AppFeeFixInfo3.Number_Of_Patent = 1;
+                    }
+                    else
+                    {
+                        _AppFeeFixInfo3.Number_Of_Patent = 0;
+                    }
+
+                    _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo3.Fee_Id.ToString();
+                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                    {
+                        _AppFeeFixInfo3.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo3.Number_Of_Patent;
+                    }
+                    else
+                    {
+                        _AppFeeFixInfo3.Amount = 180000 * _AppFeeFixInfo3.Number_Of_Patent;
+                    }
+                    _lstFeeFix.Add(_AppFeeFixInfo3);
+                    #endregion
+
+                    #region Lệ phí cấp Giấy chứng nhận đăng ký nhãn hiệu
+                    AppFeeFixInfo _AppFeeFixInfo4 = new AppFeeFixInfo();
+                    _AppFeeFixInfo4.Fee_Id = 4;
+                    _AppFeeFixInfo4.Isuse = pFeeFixInfo[1].Isuse;
+                    //_AppFeeFixInfo4.App_Header_Id = pInfo.Id;
+                    if (_AppFeeFixInfo4.Isuse == 1)
+                    {
+                        _AppFeeFixInfo4.Number_Of_Patent = 1;
+                    }
+                    else
+                    {
+                        _AppFeeFixInfo4.Number_Of_Patent = 0;
+                    }
+
+                    _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo4.Fee_Id.ToString();
+                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                    {
+                        _AppFeeFixInfo4.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo4.Number_Of_Patent;
+                    }
+                    else
+                    {
+                        _AppFeeFixInfo4.Amount = 120000 * _AppFeeFixInfo4.Number_Of_Patent;
+                    }
+                    _lstFeeFix.Add(_AppFeeFixInfo4);
+                    #endregion
+
+                    #region Phí đăng bạ quyết định ghi nhận chuyển nhượng quyền SHCN
+                    AppFeeFixInfo _AppFeeFixInfo5 = new AppFeeFixInfo();
+                    _AppFeeFixInfo5.Fee_Id = 5;
+                    _AppFeeFixInfo5.Isuse = 1;
+                    //_AppFeeFixInfo5.App_Header_Id = pAppHeaderID;
+                    _AppFeeFixInfo5.Number_Of_Patent = pDetail.Object_Contract_No.Split(';').Length;
+
+                    _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo5.Fee_Id.ToString();
+                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                        _AppFeeFixInfo5.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo5.Number_Of_Patent;
+                    else
+                        _AppFeeFixInfo5.Amount = 120000 * _AppFeeFixInfo5.Number_Of_Patent;
+                    _lstFeeFix.Add(_AppFeeFixInfo5);
+                    #endregion
+
+                    #region Phí công bố quyết định ghi nhận chuyển nhượng quyền SHCN
+                    AppFeeFixInfo _AppFeeFixInfo6 = new AppFeeFixInfo();
+                    _AppFeeFixInfo6.Fee_Id = 6;
+                    _AppFeeFixInfo6.Isuse = 1;
+                    //_AppFeeFixInfo6.App_Header_Id = pAppHeaderID;
+                    _AppFeeFixInfo6.Number_Of_Patent = 1;
+
+                    _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo6.Fee_Id.ToString();
+                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                        _AppFeeFixInfo6.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo6.Number_Of_Patent;
+                    else
+                        _AppFeeFixInfo6.Amount = 120000 * _AppFeeFixInfo6.Number_Of_Patent;
+                    _lstFeeFix.Add(_AppFeeFixInfo6);
+                    #endregion
+
+                    AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
+                    pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, prefCaseCode);
+                    #endregion
+
+                    #region Tai lieu dinh kem 
+                    if (pReturn >= 0 && pAppDocumentInfo != null)
+                    {
+                        if (pAppDocumentInfo.Count > 0)
+                        {
+                            pReturn = objDoc.AppDocumentTranslate(language, pIDHeaderoot, pAppHeaderID);
+                        }
+                    }
+                    else goto Commit_Transaction;
+                    #endregion
+
+                    //end
+                    Commit_Transaction:
+                    if (pReturn < 0)
+                    {
+                        Transaction.Current.Rollback();
+                    }
+                    else
+                    {
+                        scope.Complete();
+                    }
+                }
+                return Json(new { status = pAppHeaderID });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { status = ErrorCode.Error });
+            }
+        }
+
+
+        [HttpPost]
         [Route("ket_xuat_file")]
         public ActionResult ExportData_View(decimal pAppHeaderId, string p_appCode)
         {

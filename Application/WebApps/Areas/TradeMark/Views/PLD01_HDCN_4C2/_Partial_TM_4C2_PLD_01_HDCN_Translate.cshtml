@@ -5,7 +5,7 @@
 @using ObjectInfos.ModuleTrademark
 @using WebApps.Resources;
 @{
-    ViewBag.Title = Resource.TM4C_Title;
+    ViewBag.Title = "Dịch đơn chuyển nhượng đăng ký";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
@@ -415,16 +415,10 @@
 
         <div class="class_save">
             <div class="classGuiDon">
-                @*<input type="button" value="@Resource.TM3B_BtnSuaDon" id="btnSuaDon" class="btn" />*@
-                @if (_AppHeaderInfo.Status == (int)Common.CommonData.CommonEnums.App_Status.Luu_tam)
-                {
-                    <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
-                    <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
-                }
-                else
-                {
-                    <input type="button" value="@Resource.TM3B_BtnSuaDon" id="btnSuaDon" class="btn" />
-                }
+                <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
+            </div>
+            <div class="classLuuTam">
+                <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
             </div>
         </div>
     </fieldset>
@@ -504,7 +498,7 @@
             }
 
             $.ajax({
-                url: '/trade-mark-4c2/Edit_PLD01_HDCN_4C2',
+                url: '/trade-mark-4c2/Translate_PLD01_HDCN_4C2',
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -516,7 +510,7 @@
                 headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.status >= 0) {
-                        jAlert(EditSuccess, ThongBao, function () {
+                        jAlert(TranslatedSucess, ThongBao, function () {
                             window.location = "/trade-mark-mana/quan-ly-don";
                         });
                     } else {
@@ -545,7 +539,7 @@
             }
 
             $.ajax({
-                url: '/trade-mark-4c2/Edit_PLD01_HDCN_4C2',
+                url: '/trade-mark-4c2/Translate_PLD01_HDCN_4C2',
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -557,7 +551,7 @@
                 headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.status >= 0) {
-                        jAlert(EditSuccess, ThongBao, function () {
+                        jAlert(TranslatedSucess, ThongBao, function () {
                             window.location = "/trade-mark-mana/quan-ly-don";
                         });
                     } else {
@@ -575,59 +569,14 @@
         }
     });
 
-    $("#btnSuaDon").click(function () {
-        try {
-
-            //Thông tin chủ đơn
-            var formData = new FormData();
-            var reponse = GetDatatoUpdate(formData, @_AppHeaderInfo.Status);
-            if (reponse == false) {
-                return false;
-            }
-
-            $.ajax({
-                url: '/trade-mark-4c2/Edit_PLD01_HDCN_4C2',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                traditional: true,
-                dataType: "json",
-                enctype: 'multipart/form-data',
-                async: true,
-                headers: { "cache-control": "no-cache" },
-                beforeSend: function () {
-                    CreateRollingWaitingIcon(true);
-                },
-                success: function (data) {
-                    CreateRollingWaitingIcon(false);
-                    if (data != null && data.status >= 0) {
-                        jAlert(EditSuccess, ThongBao, function () {
-                            window.location = "/trade-mark-mana/quan-ly-don";
-                        });
-                    } else {
-                        jError(EditFail, ThongBao, function () {
-                        });
-                    }
-                },
-                error: function (e) {
-                    CreateRollingWaitingIcon(false);
-                    console.log(e);
-                }
-            });
-
-        } catch (e) {
-            CreateRollingWaitingIcon(false);
-            console.log(e);
-        }
-    });
-
+   
     function GetDatatoUpdate(formData, p_status) {
         try {
             formData.append("pInfo.Id", @_AppHeaderInfo.Id);
+            formData.append("pInfo.Id_Vi", '@_AppHeaderInfo.Id_Vi');
             formData.append("pInfo.Status", @_AppHeaderInfo.Status);
             formData.append("pInfo.Case_Code", '@_AppHeaderInfo.Case_Code');
-
+            formData.append("pInfo.Languague_Code", '@_AppHeaderInfo.Languague_Code');
             var reponse = funcThongTinCaseName(formData, "0");
             if (reponse == false) {
                 return false;

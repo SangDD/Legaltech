@@ -306,6 +306,114 @@
         }
 
         [HttpPost]
+        [Route("Translate_PLC05_KN_3D")]
+        public ActionResult Translate_PLC05_KN_3D(ApplicationHeaderInfo pInfo, App_Detail_PLC05_KN_Info pDetail,
+          List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo)
+        {
+            try
+            {
+                Application_Header_BL objBL = new Application_Header_BL();
+                AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
+                App_Detail_PLC05_KN_BL objDetail_BL = new App_Detail_PLC05_KN_BL();
+                AppDocumentBL objDoc = new AppDocumentBL();
+                if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
+                string language = "";
+                if (pInfo.Languague_Code == Language.LangVI)
+                {
+                    language = Language.LangEN;
+                }
+                else
+                {
+                    language = Language.LangVI;
+                }
+                var CreatedBy = SessionData.CurrentUser.Username;
+                var CreatedDate = SessionData.CurrentUser.CurrentDate;
+                decimal pReturn = ErrorCode.Success;
+                int pAppHeaderID = 0;
+                decimal pIDHeaderoot = pInfo.Id;
+                string prefCaseCode = "";
+                using (var scope = new TransactionScope())
+                {
+                    //
+                    pInfo.Languague_Code = language;
+                    if (pInfo.Created_By == null || pInfo.Created_By == "0" || pInfo.Created_By == "")
+                    {
+                        pInfo.Created_By = CreatedBy;
+                    }
+                    pInfo.Created_Date = CreatedDate;
+                    pInfo.Send_Date = DateTime.Now;
+                    //pInfo.Status = (decimal)CommonEnums.App_Status.DaGui_ChoPhanLoai;
+
+                    //TRA RA ID CUA BANG KHI INSERT
+                    if (pInfo.Id_Vi > 0)
+                    {
+                        pInfo.Modify_By = CreatedBy;
+                        pInfo.Modify_Date = CreatedDate;
+                        pAppHeaderID = objBL.AppHeaderUpdate(pInfo);
+                    }
+                    else
+                    {
+                        //TRA RA ID CUA BANG KHI INSERT
+                        pInfo.Created_By = CreatedBy;
+                        pInfo.Created_Date = CreatedDate;
+                        pAppHeaderID = objBL.AppHeaderInsert(pInfo, ref prefCaseCode);
+                    }
+
+
+                    // detail
+                    if (pAppHeaderID >= 0)
+                    {
+                        pDetail.Appcode = pInfo.Appcode;
+                        pDetail.Language_Code = language;
+                        pDetail.App_Header_Id = pAppHeaderID;
+                        pDetail.Case_Code = prefCaseCode;
+                        pReturn = objDetail_BL.Insert(pDetail);
+                        if (pReturn <= 0)
+                            goto Commit_Transaction;
+                    }
+                    else goto Commit_Transaction;
+
+                    #region Phí cố định
+                    if (pFeeFixInfo.Count > 0)
+                    {
+                        AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
+                        pReturn = _AppFeeFixBL.AppFeeFixInsertBath(pFeeFixInfo, prefCaseCode);
+                    }
+                    #endregion
+
+                    #region Tai lieu dinh kem 
+                    if (pReturn >= 0 && pAppDocumentInfo != null)
+                    {
+                        if (pAppDocumentInfo.Count > 0)
+                        {
+                            pReturn = objDoc.AppDocumentTranslate(language, pIDHeaderoot, pAppHeaderID);
+                        }
+                    }
+                    else goto Commit_Transaction;
+                    #endregion
+
+                    //end
+                    Commit_Transaction:
+                    if (pReturn < 0)
+                    {
+                        Transaction.Current.Rollback();
+                    }
+                    else
+                    {
+                        scope.Complete();
+                    }
+                }
+                return Json(new { status = pAppHeaderID });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { status = ErrorCode.Error });
+            }
+        }
+
+
+        [HttpPost]
         [Route("ket_xuat_file")]
         public ActionResult ExportData_View(decimal pAppHeaderId, string p_appCode)
         {
