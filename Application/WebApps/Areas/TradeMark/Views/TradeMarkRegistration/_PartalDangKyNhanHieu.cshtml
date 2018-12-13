@@ -802,8 +802,9 @@
             $("#6_txtNuocNopDon").multipleSelect("disable")
         }
     });
-
+    var _checkanh = 0;
     document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {
+        _checkanh = 0;
         var preturn = fileNhanHieu(this, 'imgMauNhanHieu');
 
         //kiểm tra ảnh có đúng kích cỡ hay không?
@@ -823,6 +824,7 @@
                 console.log(iheight);
                 //2x2 75x75 px
                 if (iheight > 302 || iheight < 75 || iwidth > 302 || iwidth < 75) {
+                    _checkanh = 1;
                     nvsConfirm(null, "Ảnh tải lên không đúng kích cỡ từ 2x2 đến 8x8 ?", function () {
                         return true;
                     }, function () {
@@ -837,6 +839,7 @@
             reader.readAsDataURL(this.files[0]);
         } else {
             nvsAlert("Thông báo", "File tải lên không phải là file ảnh?", "");
+            _checkanh = 2;
         }
     };
 
@@ -1645,6 +1648,14 @@
             }
 
             if (funcThongTinChuDonNguoiDaiDien(formData, "1", New) != true) {
+                return false;
+            }
+            if (_checkanh === 1) {
+                showError('Ảnh tải lên không đúng kích cỡ từ 2x2 đến 8x8!');
+                return false;
+            }
+            if (_checkanh === 2) {
+                showError('File tải lên không đúng định dạng file ảnh');
                 return false;
             }
             var v_AppCode = $("#txtAppCode").val();
