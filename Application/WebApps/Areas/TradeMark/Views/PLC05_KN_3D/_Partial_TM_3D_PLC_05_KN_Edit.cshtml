@@ -124,16 +124,16 @@
 </script>
 
 @*<div class="d-nav-container">
-    <ul class="ul-nav">
-        <li><a href="javascript:;">TradeMark</a></li>
-        <li><a href="javascript:;">  Request for amendment of application</a></li>
-    </ul>
-</div>*@
+        <ul class="ul-nav">
+            <li><a href="javascript:;">TradeMark</a></li>
+            <li><a href="javascript:;">  Request for amendment of application</a></li>
+        </ul>
+    </div>*@
 <div class="d-nav-container" style="background-color:#fff">
     <div class="divCover">
         <div class="d-nav">
             <img src="/Content/icons/Body-icon-home.png">@WebApps.Resources.Resource.lblNhanHieu <span class="red">&gt;</span>
-        <a href="javascript:;">Request for amendment of application</a>
+            <a href="javascript:;">@WebApps.Resources.Resource.lblKhieuNai</a>
         </div>
     </div>
     <div class="divCover">
@@ -212,7 +212,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text"    placeholder="@Resource.TM3D_NgayQuyetDinh" id="3_txt_appeal_date" maxlength="100" class="datepicker" value="@_App_Detail.Appeal_Date.ToString("dd/MM/yyyy")" />
+                    <input type="text" placeholder="@Resource.TM3D_NgayQuyetDinh" id="3_txt_appeal_date" maxlength="100" class="datepicker" value="@_App_Detail.Appeal_Date.ToString("dd/MM/yyyy")" />
                 </div>
             </div>
 
@@ -238,7 +238,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text"  placeholder="@Resource.lblSoDon"  id="3_txt_appeal_appno" maxlength="100" value="@_App_Detail.Appeal_Appno" />
+                    <input type="text" placeholder="@Resource.lblSoDon" id="3_txt_appeal_appno" maxlength="100" value="@_App_Detail.Appeal_Appno" />
                 </div>
             </div>
         </div>
@@ -308,13 +308,13 @@
             </div>
 
             @* 2. Phí tra cứu thông tin phục vụ việc giải quyết khiếu nại *@
-        string _fee_id1 = "PhiTraCuu|" + Resource.TM3D_PhiTraCuuThongTin;
-        string _fee_value1 = Lst_AppFee[0].Isuse.ToString() + "|" + Lst_AppFee[0].Number_Of_Patent.ToString() + "|" + Lst_AppFee[0].Amount.ToString("#,##0.##");
+            string _fee_id1 = "PhiTraCuu|" + Resource.TM3D_PhiTraCuuThongTin;
+            string _fee_value1 = Lst_AppFee[0].Isuse.ToString() + "|" + Lst_AppFee[0].Number_Of_Patent.ToString() + "|" + Lst_AppFee[0].Amount.ToString("#,##0.##");
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Fee_Edit.cshtml", _fee_id1 + ";" + _fee_value1)
 
             @* 2. Phí thẩm định để giải quyết khiếu nại *@
-        string _fee_id2 = "PhiThamDinh|" + Resource.TM3D_PhiThamDinhDeGiaiQuyet;
-        string _fee_value2 = Lst_AppFee[1].Isuse.ToString() + "|" + Lst_AppFee[1].Number_Of_Patent.ToString() + "|" + Lst_AppFee[1].Amount.ToString("#,##0.##");
+            string _fee_id2 = "PhiThamDinh|" + Resource.TM3D_PhiThamDinhDeGiaiQuyet;
+            string _fee_value2 = Lst_AppFee[1].Isuse.ToString() + "|" + Lst_AppFee[1].Number_Of_Patent.ToString() + "|" + Lst_AppFee[1].Amount.ToString("#,##0.##");
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Fee_Edit.cshtml", _fee_id2 + ";" + _fee_value2)
         }
         @* END Fee *@
@@ -330,7 +330,7 @@
         @* 1. Tờ khai *@
         @{
             string _doc_id = "C05_KN_01";
-            string _id = _doc_id + "|6_Doc_C05_KN_01|0|"+ Resource.TM3D_ToKhaiGom + "|"+ Resource.TM2B_SoTrang + "|0";
+            string _id = _doc_id + "|6_Doc_C05_KN_01|0|" + Resource.TM3D_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|0";
 
             string _value = "";
             if (dic_appDoc.ContainsKey(_doc_id) == false)
