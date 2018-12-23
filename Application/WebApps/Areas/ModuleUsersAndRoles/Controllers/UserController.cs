@@ -30,7 +30,10 @@
             {
                 var userBL = new UserBL();
                 lstUsers = userBL.FindUser();
-                ViewBag.Paging = userBL.GetPagingHtml();
+
+                string htmlPaging = CommonFuc.Get_HtmlPaging<UserInfo>((int)lstUsers.Count, 1, "Người dùng");
+                ViewBag.Paging = htmlPaging;
+                //ViewBag.Paging = userBL.GetPagingHtml();
             }
             catch (Exception ex)
             {
@@ -91,7 +94,7 @@
 
                 var userBL = new UserBL();
                 List<UserInfo> _lst = userBL.User_Search(p_keysearch, ref _total_record, p_from, p_to);
-                string htmlPaging = CommonFuc.Get_HtmlPaging<Timesheet_Info>((int)_total_record, 1, "Người dùng");
+                string htmlPaging = CommonFuc.Get_HtmlPaging<UserInfo>((int)_total_record, p_CurrentPage, "Người dùng");
 
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;

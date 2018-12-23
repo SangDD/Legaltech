@@ -1,7 +1,8 @@
 ﻿@using WebApps.CommonFunction
-@using Common.CommonData 
+@using Common.CommonData
 @using ObjectInfos
 @using BussinessFacade.ModuleMemoryData
+@using WebApps.Resources;
 @{
     ViewBag.Title = "Đăng ký nhãn hiệu";
     Layout = "~/ViewsShared/_Layout.cshtml";
@@ -9,7 +10,7 @@
     var clstAppClassShortSuggest = new List<SuggestInfo>();
     foreach (var item in MemoryData.clstAppClassSuggest)
     {
-        var pShortInfo = new SuggestInfo("","");
+        var pShortInfo = new SuggestInfo("", "");
 
         if (language == Language.LangVI)
         {
@@ -38,8 +39,10 @@
 <div class="d-nav-container" style="background-color:#fff">
     <div class="divCover">
         <div class="d-nav">
-            <img src="/Content/icons/Body-icon-home.png">TradeMark <span class="red">&gt;</span>
-            <a href="javascript:;">Request for amendment of application</a>
+            <img src="~/Content/icons/Body-icon-home.png" /> I
+            <a href="/home">Home</a>
+            <span class="red">></span>
+            <a href="javascript:;">@Resource.TM2A_Formname</a>
         </div>
     </div>
     <div class="divCover">

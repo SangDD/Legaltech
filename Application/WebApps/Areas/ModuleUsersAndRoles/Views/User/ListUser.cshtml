@@ -147,6 +147,10 @@
             findUsers(1, 1)
         });
 
+        function jsPaging(page) {
+            findUsers(page, 0);
+        }
+
         function findUsers(_pageNumber, _isSearching) {
             try {
                 type = "ALL";
@@ -194,15 +198,6 @@
                 });
 
                 return true;
-
-            } catch (e) {
-                console.log(e.message);
-            }
-        }
-
-        function pageListOfUsers(_pagenum) {
-            try {
-                findUsers(_pagenum, 0);
 
             } catch (e) {
                 console.log(e.message);
@@ -279,7 +274,6 @@
                 });
             }
         }
-
 
         function getViewToResetPass(Username) {
             $.ajax({
