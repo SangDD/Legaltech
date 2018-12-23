@@ -2662,6 +2662,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chuyển giao đơn.
+        /// </summary>
+        public static string TM3C_Formname {
+            get {
+                return ResourceManager.GetString("TM3C_Formname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to là bên chuyển nhượng.
         /// </summary>
         public static string TM3C_LaBenChuyenNhuong {
