@@ -864,11 +864,14 @@
             }
 
             var txt_MaDaiDien = $("#txt_MaDaiDien").val();
-            if (txt_MaDaiDien == "") {
-                jError("@Resource.TM3C_MaDaiDienKhongDuocTrong", "@Resource.TM3B_Loi", function () {
-                    $("#txt_MaDaiDien").focus()
-                });
-                return false;
+            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+            if (v_RepMasterType = "DDPL") {
+                if (txt_MaDaiDien == "") {
+                    jError("@Resource.TM3C_MaDaiDienKhongDuocTrong", "@Resource.TM3B_Loi", function () {
+                        $("#txt_MaDaiDien").focus()
+                    });
+                    return false;
+                }
             }
             formData.append("pDetail.Customer_Code", txt_MaDaiDien);
 
