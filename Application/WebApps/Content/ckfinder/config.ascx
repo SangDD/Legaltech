@@ -118,7 +118,7 @@
 		// sent in the cookie
 		//
 		// https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29_Prevention_Cheat_Sheet#Double_Submit_Cookies
-		EnableCsrfProtection = true;
+		//EnableCsrfProtection = true;
 
 		// The session variable name that CKFinder must use to retrieve the
 		// "role" of the current user. The "role" is optional and can be used
