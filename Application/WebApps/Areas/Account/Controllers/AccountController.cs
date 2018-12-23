@@ -8,6 +8,7 @@
     using Common;
     using Common.CommonData;
     using Common.Helpers;
+    using Common.MessageCode;
     using ObjectInfos.ModuleUsersAndRoles;
     using RequestFilter;
     using Session;
@@ -94,6 +95,12 @@
                             urlContinue = "/quan-tri-he-thong/quan-ly-nguoi-dung/get-view-to-edit-user/" + userBL.CurrentUserInfo.Id.ToString();
                         }
                     }
+
+                    if (language != "VI_VN")
+                    {
+                        result.MessageCode = KnMessageCode.LoginSuccess_En;
+                    }
+
                     return Json(new { result = result.ToJson(), urlContinue });
                 }
             }

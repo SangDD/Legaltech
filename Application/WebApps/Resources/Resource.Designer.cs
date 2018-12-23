@@ -1564,6 +1564,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ĐĂNG NHẬP.
+        /// </summary>
+        public static string Login {
+            get {
+                return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mã hàng hóa.
         /// </summary>
         public static string MaHangHoa {
@@ -1578,6 +1587,24 @@ namespace WebApps.Resources {
         public static string MaHangHoaKhongDung {
             get {
                 return ResourceManager.GetString("MaHangHoaKhongDung", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mật khẩu.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mật khẩu không được để trống!.
+        /// </summary>
+        public static string Password_KhongDuocDeTrong {
+            get {
+                return ResourceManager.GetString("Password_KhongDuocDeTrong", resourceCulture);
             }
         }
         
@@ -1623,6 +1650,15 @@ namespace WebApps.Resources {
         public static string TM04NH_QuanLyVuViec {
             get {
                 return ResourceManager.GetString("TM04NH_QuanLyVuViec", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đăng ký nhãn hiệu.
+        /// </summary>
+        public static string TM2A_Formname {
+            get {
+                return ResourceManager.GetString("TM2A_Formname", resourceCulture);
             }
         }
         
@@ -3117,6 +3153,24 @@ namespace WebApps.Resources {
         public static string TongSoNhom {
             get {
                 return ResourceManager.GetString("TongSoNhom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên đăng nhập.
+        /// </summary>
+        public static string User_Name {
+            get {
+                return ResourceManager.GetString("User_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username cannot be blank.
+        /// </summary>
+        public static string User_Name_KhongDuocDeTrong {
+            get {
+                return ResourceManager.GetString("User_Name_KhongDuocDeTrong", resourceCulture);
             }
         }
         
