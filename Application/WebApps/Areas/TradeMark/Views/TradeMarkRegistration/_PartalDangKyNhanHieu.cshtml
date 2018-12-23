@@ -570,7 +570,7 @@
                 //return false;
                 var textinput = $("#txtTenHangHoa").val();
                 event.preventDefault();
-                funcAddDataRowSuggest(textinput, ui.item.value);
+                funcAddDataRowSuggest(ui.item.label, ui.item.value);
                 $("#txtTenHangHoa").val("");
 
             },
