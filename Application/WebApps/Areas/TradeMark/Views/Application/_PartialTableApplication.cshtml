@@ -57,7 +57,7 @@
                             || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
                             {
                                 //if (item.Id_Vi >= 0 && language == "VI_VN" && item.Languague_Code == "EN_US")
-                                if (item.Status != (decimal)CommonEnums.App_Status.Luu_tam && item.Id_Vi == 0)
+                                if (item.Status != (decimal)CommonEnums.App_Status.Luu_tam )
                                 {
                                     
                                         <a href="/trade-mark/request-for-trade-mark-translate/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()/@item.Id_Vi" data-title="Dịch">

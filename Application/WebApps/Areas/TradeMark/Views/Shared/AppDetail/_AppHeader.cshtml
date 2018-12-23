@@ -34,21 +34,31 @@
     </div>
 </div>
 
+@if (_AppHeaderInfo.Id_Vi > 0)
+{
+    <div class="divCover cls_form_title">
+        <img src="/Content/icons/icon_info_24.png" />
+        <div class="cls_form_header">
+            <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowViewApp_Translate()">Xem đơn dịch</a>
+        </div>
+    </div>
+}
+
 @* sửa *@
 @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update))
 {
-if (_AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.Luu_tam ||
-            _AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.DaPhanChoLuatSu ||
-            _AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.ChoKHConfirm ||
-            _AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.KhacHangDaTuChoi)
-{
-<div class="divCover cls_form_title">
-    <img src="/Content/icons/edit.png" />
-    <div class="cls_form_header">
-        <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowEditApp()"> Sửa đơn </a>
-    </div>
-</div>
-}
+    if (_AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.Luu_tam ||
+                _AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.DaPhanChoLuatSu ||
+                _AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.ChoKHConfirm ||
+                _AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.KhacHangDaTuChoi)
+    {
+        <div class="divCover cls_form_title">
+            <img src="/Content/icons/edit.png" />
+            <div class="cls_form_header">
+                <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowEditApp()"> Sửa đơn </a>
+            </div>
+        </div>
+    }
 }
 
 @* dịch *@
@@ -272,6 +282,7 @@ if (_AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.L
 </div>
 
 <script>
+
     function ShowViewApp() {
         if (CheckSessionTimeOut() == false) {
             return false;
@@ -285,6 +296,22 @@ if (_AppHeaderInfo.Status == (decimal)Common.CommonData.CommonEnums.App_Status.L
             console.log(e.toString())
         }
     }
+
+    function ShowViewApp_Translate() {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        try {
+            var url = "/trade-mark/request-for-trade-mark-view/@_AppHeaderInfo.Id_Vi/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode";
+            href = "/trade-mark/request-for-trade-mark-edit/@_AppHeaderInfo.Id_Vi/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode"
+            window.open(url);
+            //location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
+
+    
 
     function ShowEditApp() {
         if (CheckSessionTimeOut() == false) {

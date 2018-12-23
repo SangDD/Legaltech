@@ -425,7 +425,8 @@
                 // Fill export_header
                 string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
                 string fileName = "";
-                if (language == Language.LangVI)
+                //if (language == Language.LangVI)
+                if (pInfo.Languague_Code == Language.LangVI)
                 {
                     fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + pInfo.Appcode + _datetimenow + ".pdf");
                     SessionData.CurrentUser.FilePreview = "/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + pInfo.Appcode + _datetimenow + ".pdf";
@@ -680,7 +681,8 @@
                 _lst.Add(appInfo);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<AppInfoExport>(_lst, false);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
-                if (language == Language.LangVI)
+                //if (language == Language.LangVI)
+                if (pInfo.Languague_Code == Language.LangVI)
                 {
                     oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NH.rpt"));
                 }

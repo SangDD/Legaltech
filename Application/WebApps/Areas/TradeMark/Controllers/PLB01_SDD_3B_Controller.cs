@@ -908,21 +908,18 @@
 
 
                 string _tempfile = "TM_PLB01SDD.rpt";
-                if (AppsCommon.GetCurrentLang() == Language.LangEN)
+                //if (AppsCommon.GetCurrentLang() == Language.LangEN)
+                if (app_Detail.Language_Code == Language.LangEN)
                 {
                     _tempfile = "TM_PLB01SDD_EN.rpt";
                 }
-
                 oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
-
-               
 
                 if (_ds_all != null)
                 {
                     _ds_all.Tables[0].TableName = "Table";
                     oRpt.SetDataSource(_ds_all);
                 }
-                //Puth_Data2_Fomulator(ref oRpt, appFeeFixInfos, appDocumentInfos);
                 oRpt.Refresh();
 
                 Response.Buffer = false;
@@ -939,141 +936,6 @@
                 //byte[] byteArray_doc= new byte[oStream_doc.Length];
                 //oStream_doc.Read(byteArray_doc, 0, Convert.ToInt32(oStream_doc.Length - 1));
                 //System.IO.File.WriteAllBytes(fileName_doc, byteArray_doc.ToArray()); // Requires System.Linq
-
-                return Json(new { success = 0 });
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return Json(new { success = 0 });
-            }
-        }
-
-        [HttpPost]
-        [Route("ket_xuat_file_old")]
-        public ActionResult ExportData_View_Old(decimal pAppHeaderId, string p_appCode)
-        {
-            try
-            {
-                string language = AppsCommon.GetCurrentLang();
-                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
-                App_Detail_PLB01_SDD_Info app_Detail = new App_Detail_PLB01_SDD_Info();
-                List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
-                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
-
-                App_Detail_PLB01_SDD_BL objBL = new App_Detail_PLB01_SDD_BL();
-                app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
-
-                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/B01_V1.doc");
-                DocumentModel document = DocumentModel.Load(_fileTemp);
-
-                // Fill export_header
-                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VI_" + p_appCode + ".docx");
-                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VI_" + p_appCode + ".pdf");
-
-                // copy Header
-                App_Detail_PLB01_SDD_Info.CopyAppHeaderInfo(ref app_Detail, applicationHeaderInfo);
-
-                #region Tài liệu có trong đơn
-
-                foreach (AppDocumentInfo item in appDocumentInfos)
-                {
-                    if (item.Document_Id == "01_SDD_01")
-                    {
-                        app_Detail.Doc_Id_1 = item.CHAR01;
-                        app_Detail.Doc_Id_1_Check = item.Isuse;
-                    }
-                    else if (item.Document_Id == "01_SDD_02")
-                    {
-                        app_Detail.Doc_Id_2 = item.CHAR01;
-                        app_Detail.Doc_Id_2_Check = item.Isuse;
-                    }
-                    else if (item.Document_Id == "01_SDD_03")
-                    {
-                        app_Detail.Doc_Id_3 = item.CHAR01;
-                        app_Detail.Doc_Id_3_Check = item.Isuse;
-                    }
-                    else if (item.Document_Id == "01_SDD_04")
-                    {
-                        app_Detail.Doc_Id_4 = item.CHAR01;
-                        app_Detail.Doc_Id_4_Check = item.Isuse;
-                    }
-                    else if (item.Document_Id == "01_SDD_05")
-                    {
-                        app_Detail.Doc_Id_5 = item.CHAR01;
-                        app_Detail.Doc_Id_5_Check = item.Isuse;
-                    }
-
-                    else if (item.Document_Id == "01_SDD_06")
-                    {
-                        app_Detail.Doc_Id_6_Check = item.Isuse;
-                    }
-                    else if (item.Document_Id == "01_SDD_07")
-                    {
-                        app_Detail.Doc_Id_7_Check = item.Isuse;
-                    }
-                    else if (item.Document_Id == "01_SDD_08")
-                    {
-                        app_Detail.Doc_Id_8_Check = item.Isuse;
-                    }
-
-                    else if (item.Document_Id == "01_SDD_09")
-                    {
-                        app_Detail.Doc_Id_9 = item.CHAR01;
-                        app_Detail.Doc_Id_9_Check = item.Isuse;
-                    }
-                    else if (item.Document_Id == "01_SDD_10")
-                    {
-                        app_Detail.Doc_Id_10_Check = item.Isuse;
-                    }
-                    else if (item.Document_Id == "01_SDD_11")
-                    {
-                        app_Detail.Doc_Id_11 = item.CHAR01;
-                        app_Detail.Doc_Id_11_Check = item.Isuse;
-                    }
-                }
-
-                #endregion
-
-                #region Fee
-                if (appFeeFixInfos.Count > 0)
-                {
-                    foreach (var item in appFeeFixInfos)
-                    {
-                        if (item.Fee_Id == 1)
-                        {
-                            app_Detail.Fee_Id_1 = item.Number_Of_Patent;
-                            app_Detail.Fee_Id_1_Check = item.Isuse;
-                            app_Detail.Fee_Id_1_Val = item.Amount.ToString("#,##0.##");
-                        }
-                        else if (item.Fee_Id == 2)
-                        {
-                            app_Detail.Fee_Id_2 = item.Number_Of_Patent;
-                            app_Detail.Fee_Id_2_Check = item.Isuse;
-                            app_Detail.Fee_Id_2_Val = item.Amount.ToString("#,##0.##");
-                        }
-                        else if (item.Fee_Id == 21)
-                        {
-                            app_Detail.Fee_Id_21 = item.Number_Of_Patent;
-                            app_Detail.Fee_Id_21_Check = item.Isuse;
-                            app_Detail.Fee_Id_21_Val = item.Amount.ToString("#,##0.##");
-                        }
-                        else if (item.Fee_Id == 22)
-                        {
-                            app_Detail.Fee_Id_22 = item.Number_Of_Patent;
-                            app_Detail.Fee_Id_22_Check = item.Isuse;
-                            app_Detail.Fee_Id_22_Val = item.Amount.ToString("#,##0.##");
-                        }
-
-                        app_Detail.Total_Fee = app_Detail.Total_Fee + item.Amount;
-                        app_Detail.Total_Fee_Str = app_Detail.Total_Fee.ToString("#,##0.##");
-                    }
-                }
-                #endregion
-
-                document.MailMerge.Execute(app_Detail);
-                document.Save(fileName, SaveOptions.DocxDefault);
-                document.Save(fileName_pdf, SaveOptions.PdfDefault);
 
                 return Json(new { success = 0 });
             }
@@ -1282,7 +1144,14 @@
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLB01_SDD_Info>(_lst, false);
 
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
-                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_PLB01SDD.rpt"));
+                //oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_PLB01SDD.rpt"));
+
+                string _tempfile = "TM_PLB01SDD.rpt";
+                if (AppsCommon.GetCurrentLang() == Language.LangEN)
+                {
+                    _tempfile = "TM_PLB01SDD_EN.rpt";
+                }
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
 
                 if (_ds_all != null)
                 {
