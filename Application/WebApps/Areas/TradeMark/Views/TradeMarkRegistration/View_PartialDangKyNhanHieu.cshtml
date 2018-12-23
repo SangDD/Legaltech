@@ -2,6 +2,7 @@
 @using BussinessFacade.ModuleMemoryData
 @using ObjectInfos.ModuleTrademark
 @using ObjectInfos
+@using WebApps.Resources;
 @{
     ViewBag.Title = "Chi tiết đăng ký nhãn hiệu";
     Layout = "~/ViewsShared/_Layout.cshtml";
@@ -34,7 +35,7 @@
 
     string styleDacTinhHangHoa = "";
     string styleSuDungDonUT = "";
-    string   styleNoneDisplay= "display:none";
+    string styleNoneDisplay = "display:none";
     if (objAppHeaderInfo.Dactichhanghoa == 1)
     {
         styleDacTinhHangHoa = "checked='checked'";
@@ -158,16 +159,18 @@
 </style>
 
 @*<div class="d-nav-container">
-    <ul class="ul-nav">
-        <li><a href="javascript:;">TradeMark</a></li>
-        <li><a href="javascript:;"> Request for amendment of application)</a></li>
-    </ul>
-</div>*@
+        <ul class="ul-nav">
+            <li><a href="javascript:;">TradeMark</a></li>
+            <li><a href="javascript:;"> Request for amendment of application)</a></li>
+        </ul>
+    </div>*@
 <div class="d-nav-container" style="background-color:#fff">
     <div class="divCover">
         <div class="d-nav">
-            <img src="/Content/icons/Body-icon-home.png">TradeMark <span class="red">&gt;</span>
-             <a href="javascript:;">Request for amendment of application</a>
+            <img src="~/Content/icons/Body-icon-home.png" /> I
+            <a href="/home">Home</a>
+            <span class="red">></span>
+            <a href="javascript:;">@Resource.TM2A_Formname</a>
         </div>
     </div>
     <div class="divCover">
@@ -212,7 +215,7 @@
 
         @* 1 *@
         <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN")
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
 
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
         </div>
@@ -221,7 +224,7 @@
         {
 
             <div class="div_full_100_area">
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN KHÁC")
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblChuDonKhac.ToUpper())
 
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
             </div>
@@ -353,7 +356,7 @@
                 <div class="div-search-ad">
                     <div class="div-search-title">
                         <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" @disableView @styleNguonGocDL class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" placeholder="8_ckbNguonGocDiaLy" id="8_ckbNguonGocDiaLy" />
-                        <div  style="width:250px">@WebApps.Resources.Resource.lblNguonGocDiaLy:</div>
+                        <div style="width:250px">@WebApps.Resources.Resource.lblNguonGocDiaLy:</div>
                     </div>
                     <div class="div-search-content">
                         <div>
@@ -471,7 +474,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" placeholder="6_txtNgayNopDon"  @disableView value="@objAppHeaderInfo.Ngaynopdon_Ut.ToString("dd/MM/yyyy")" class="classDacTinhUT datetimepicker" style="width:200px" maxlength="10" id="6_txtNgayNopDon" />
+                            <input type="text" placeholder="6_txtNgayNopDon" @disableView value="@objAppHeaderInfo.Ngaynopdon_Ut.ToString("dd/MM/yyyy")" class="classDacTinhUT datetimepicker" style="width:200px" maxlength="10" id="6_txtNgayNopDon" />
                         </div>
                     </div>
                 </div>
@@ -509,13 +512,13 @@
                 <div class="div-search-ad">
                     <div class="div-search-content">
                         <div class="div-radio">
-                            <input type="radio" name="4_YCHuongQuyen" disabled="disabled"class="classDacTinhUT" @styleCongUocPR value="CUPR" placeholder="4_ckbNopTaiParis" id="4_ckbNopTaiParis" />
+                            <input type="radio" name="4_YCHuongQuyen" disabled="disabled" class="classDacTinhUT" @styleCongUocPR value="CUPR" placeholder="4_ckbNopTaiParis" id="4_ckbNopTaiParis" />
                             <label>@WebApps.Resources.Resource.lblTheoDonNopCongUocPR</label>
                         </div>
                     </div>
                 </div>
                 <div class="div-search-ad" style="display:inline-flex;">
-                    <div class="div-search-content"  style="width:250px">
+                    <div class="div-search-content" style="width:250px">
                         <div class="div-radio" style="width:245px">
                             <input type="radio" name="4_YCHuongQuyen" disabled="disabled" class="classDacTinhUT" @styleTTK value="NTVN" placeholder="4_ckbThoaThuanKhac" id="4_ckbThoaThuanKhac" />
                             <label>@WebApps.Resources.Resource.lblTheoThoaThuanKhac</label>
@@ -535,7 +538,7 @@
                         </div>
                     </div>
                     <div class="div-search-content">
-                        <input type="text" id="6_txtTLCMQUT" disabled="disabled"  value="@ObjInfo04NH_D_14.CHAR01" maxlength="3" placeholder="6_txtTLCMQUT" />
+                        <input type="text" id="6_txtTLCMQUT" disabled="disabled" value="@ObjInfo04NH_D_14.CHAR01" maxlength="3" placeholder="6_txtTLCMQUT" />
                     </div>
                     <div class="div-search-title" style="width:412px">
                         <div>@WebApps.Resources.Resource.lblBan</div>
@@ -549,7 +552,7 @@
                         </div>
                     </div>
                     <div class="div-search-content">
-                        <input type="text" id="6_txtBSDDT" disabled="disabled"  value="@ObjInfo04NH_D_15.CHAR01" maxlength="3" placeholder="6_txtBSDDT" />
+                        <input type="text" id="6_txtBSDDT" disabled="disabled" value="@ObjInfo04NH_D_15.CHAR01" maxlength="3" placeholder="6_txtBSDDT" />
                     </div>
                     <div class="div-search-title" style="width:412px">
                         <div>@WebApps.Resources.Resource.lblBan</div>
@@ -564,7 +567,7 @@
                 <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
                     <div class="div-search-content">
                         <div class="div-checkbox" style="width:382px">
-                            <input type="checkbox" class="classDacTinhUT"  disabled="disabled" @ObjInfo04NH_D_16.styleCheck maxlength="3" value="04NH_D_16" id="6_rdoBDTVGom" />
+                            <input type="checkbox" class="classDacTinhUT" disabled="disabled" @ObjInfo04NH_D_16.styleCheck maxlength="3" value="04NH_D_16" id="6_rdoBDTVGom" />
                             <label>@WebApps.Resources.Resource.lblBanDichTiengVietGom</label>
                         </div>
                     </div>
@@ -593,28 +596,28 @@
                 </div>
             </div>
         </div>
-            @* div Don số 2 default fixed có 2 đơn *@
-            <div id="divDonUuTienSo2" @styleDonUtSo2>
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHDonUTSo2.cshtml")
+        @* div Don số 2 default fixed có 2 đơn *@
+        <div id="divDonUuTienSo2" @styleDonUtSo2>
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHDonUTSo2.cshtml")
+        </div>
+
+        @* Tài liệu có trong đơn *@
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHTLTrongDon.cshtml")
+        @* End tai lieu dinh kem  *@
+
+        @*TÀI LIỆU KHÁC*@
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHTaiLieuKhac.cshtml", "12")
+
+        @* CAM KẾT CHỦ ĐƠN  *@
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewNgayThangNam.cshtml")
+
+        <div class="class_save">
+            <div class="classGuiDon">
+                <input type="button" value="Quay lại" style="width:70px" id="btnBack" class="btn class_37" />
+            </div> <div class="classLuuTam">
             </div>
-
-            @* Tài liệu có trong đơn *@
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHTLTrongDon.cshtml")
-            @* End tai lieu dinh kem  *@
-
-            @*TÀI LIỆU KHÁC*@
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHTaiLieuKhac.cshtml", "12")
-
-            @* CAM KẾT CHỦ ĐƠN  *@
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewNgayThangNam.cshtml")
-
-            <div class="class_save">
-                <div class="classGuiDon">
-                    <input type="button" value="Quay lại" style="width:70px" id="btnBack" class="btn class_37" />
-                </div> <div class="classLuuTam">
-                </div>
-            </div>
-</fieldset>
+        </div>
+    </fieldset>
 </div>
 <input type="hidden" id="txtDateTime" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialPreview.cshtml")
@@ -827,8 +830,8 @@
             $("#txtDocumentInAppRemove").val(arrlistID);
         } catch (e) {
         }
-    } 
-    
+    }
+
 </script>
 
 <style>

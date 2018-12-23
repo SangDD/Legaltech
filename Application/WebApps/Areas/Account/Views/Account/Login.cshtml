@@ -1,8 +1,10 @@
 ﻿@using Common.CommonData
 @using WebApps.ExtensionObject
 @using WebApps.Resources;
+@using WebApps.CommonFunction
 @{
     Layout = null;
+    string language = AppsCommon.GetCurrentLang();
 }
 <!DOCTYPE html>
 <html>
@@ -10,7 +12,14 @@
     <meta name="viewport" content="width=device-width" />
     <meta charset="utf-8" />
     <meta name="__RequestVerificationToken" content="@Html.AntiForgeryTokenValue()" />
-    <title>Đăng nhập hệ thống</title>
+    @if (language == "VI_VN")
+    {
+        <title>Đăng nhập hệ thống</title>
+    }
+    else
+    {
+        <title>Login System</title>
+    }
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <script src=@($"/Scripts/jquery-1.10.2.min.js?v={CommonVariables.AssemblyVersion}")></script>
     <script src=@($"/Scripts/jquery-ui-1.10.2.min.js?v={CommonVariables.AssemblyVersion}")></script>

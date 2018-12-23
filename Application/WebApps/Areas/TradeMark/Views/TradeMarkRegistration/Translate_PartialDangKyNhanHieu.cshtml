@@ -2,6 +2,7 @@
 @using BussinessFacade.ModuleMemoryData
 @using ObjectInfos.ModuleTrademark
 @using ObjectInfos
+@using WebApps.Resources;
 @{
     /**/
 
@@ -179,8 +180,10 @@
 <div class="d-nav-container" style="background-color:#fff">
     <div class="divCover">
         <div class="d-nav">
-            <img src="/Content/icons/Body-icon-home.png">TradeMark <span class="red">&gt;</span>
-            <a href="javascript:;">Request for amendment of application</a>
+            <img src="~/Content/icons/Body-icon-home.png" /> I
+            <a href="/home">Home</a>
+            <span class="red">></span>
+            <a href="javascript:;">@Resource.TM2A_Formname</a>
         </div>
     </div>
     <div class="divCover">
@@ -269,7 +272,7 @@
             }
 
             <div class="div_full_100_area">
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CHỦ ĐƠN KHÁC")
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblChuDonKhac.ToUpper())
                 <div id="divAddNewChuDon01" @displayChuDon1>
                     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
                 </div>
