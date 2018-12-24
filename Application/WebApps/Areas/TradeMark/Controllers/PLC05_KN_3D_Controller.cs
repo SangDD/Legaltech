@@ -538,7 +538,13 @@
                 //_ds_all.WriteXml(_strCml, System.Data.XmlWriteMode.WriteSchema);
 
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
-                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_PLC05_KN.rpt"));
+                string _tempfile = "TM_PLC05_KN.rpt";
+                if (app_Detail.Language_Code == Language.LangEN)
+                {
+                    _tempfile = "TM_PLC05_KN_EN.rpt";
+                }
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
+                //oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_PLC05_KN.rpt"));
 
                 if (_ds_all != null)
                 {
@@ -680,7 +686,15 @@
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLC05_KN_Info>(_lst, false);
                  
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
-                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_PLC05_KN.rpt"));
+
+                string _tempfile = "TM_PLC05_KN.rpt";
+                if (AppsCommon.GetCurrentLang() == Language.LangEN)
+                {
+                    _tempfile = "TM_PLC05_KN_EN.rpt";
+                }
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
+
+                //oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_PLC05_KN.rpt"));
 
                 if (_ds_all != null)
                 {

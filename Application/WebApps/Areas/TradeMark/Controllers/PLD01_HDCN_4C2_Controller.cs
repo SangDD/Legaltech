@@ -893,7 +893,14 @@
                 //_ds_all.WriteXml(_strCml, System.Data.XmlWriteMode.WriteSchema);
 
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
-                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_PLD01_HDCN.rpt"));
+
+                string _tempfile = "TM_PLD01_HDCN.rpt";
+                if (app_Detail.Language_Code == Language.LangEN)
+                {
+                    _tempfile = "TM_PLD01_HDCN_EN.rpt";
+                }
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
+                //oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_PLD01_HDCN.rpt"));
 
                 if (_ds_all != null)
                 {
@@ -1183,7 +1190,14 @@
                 _ds_all.Tables[0].TableName = "Table_4c2";
 
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
-                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_PLD01_HDCN.rpt"));
+
+                string _tempfile = "TM_PLD01_HDCN.rpt";
+                if (AppsCommon.GetCurrentLang() == Language.LangEN)
+                {
+                    _tempfile = "TM_PLD01_HDCN_EN.rpt";
+                }
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
+                //oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_PLD01_HDCN.rpt"));
 
                 if (_ds_all != null)
                 {

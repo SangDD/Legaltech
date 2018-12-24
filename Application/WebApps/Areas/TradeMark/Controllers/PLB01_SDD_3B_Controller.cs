@@ -906,9 +906,7 @@
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLB01_SDD_Info>(_lst, false);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
-
                 string _tempfile = "TM_PLB01SDD.rpt";
-                //if (AppsCommon.GetCurrentLang() == Language.LangEN)
                 if (app_Detail.Language_Code == Language.LangEN)
                 {
                     _tempfile = "TM_PLB01SDD_EN.rpt";
