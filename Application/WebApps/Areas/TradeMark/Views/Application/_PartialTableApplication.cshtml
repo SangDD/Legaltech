@@ -19,13 +19,13 @@
                 <th class="class30">STT</th>
                 <th class="class200" data-sort id="Appcode">Case code</th>
                 <th class="class250">Case name</th>
-                <th class="class150">Loại đơn</th>
-                <th class="class150">Ngôn ngữ</th>
-                <th class="class250">Khách hàng</th>
-                <th class="class150">Người xử lý</th>
-                <th class="class100">Thời gian chờ (ngày)</th>
-                <th class="class250">Trạng thái</th>
-                <th class="class150">Chức năng</th>
+                <th class="class150">@WebApps.Resources.Resource.LoaiDon</th>
+                <th class="class150">@WebApps.Resources.Resource.NgonNgu</th>
+                <th class="class250">@WebApps.Resources.Resource.KhachHang</th>
+                @*<th class="class150">Người xử lý</th>*@
+                <th class="class100">@WebApps.Resources.Resource.Thoigiancho (@WebApps.Resources.Resource.Ngay)</th>
+                <th class="class250">@WebApps.Resources.Resource.TrangThai</th>
+                <th class="class150">@WebApps.Resources.Resource.ChucNang</th>
             </tr>
         </thead>
         <tbody>
@@ -41,7 +41,7 @@
                         <td class="tdleftalign">@item.Appcode</td>
                         <td class="tdleftalign">@item.Languague_Code</td>
                         <td class="tdleftalign">@item.Customer_Name</td>
-                        <td class="tdleftalign">@item.User_Processing</td>
+                        @*<td class="tdleftalign">@item.User_Processing</td>*@
                         <td class="tdcenteralign">@item.Date_Wait</td>
                         <td class="tdleftalign">@item.Status_Name</td>
 
@@ -77,7 +77,7 @@
             else
             {
                 <tr>
-                    <td colspan="8">Không có dữ liệu</td>
+                    <td colspan="8">@WebApps.Resources.Resource.KhongCoDuLieu</td>
                 </tr>
             }
         </tbody>

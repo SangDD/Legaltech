@@ -2,16 +2,16 @@
 @using ObjectInfos;
 @using BussinessFacade.ModuleMemoryData
 @{
-    ViewBag.Title = "Quản lý đơn";
+    ViewBag.Title = @WebApps.Resources.Resource.QuanLyDon;
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     //string language = WebApps.CommonFunction.AppsCommon.GetCurrentLang();
     string language = WebApps.Session.SessionData.CurrentUser.Language;
     List<SysApplicationInfo> _lst = BussinessFacade.ModuleTrademark.SysApplicationBL.GetSysAppByLanguage(language);
-    var lstApp = new List<SelectListItem> { new SelectListItem { Text = "Tất cả", Value = "ALL" } }.Concat(_lst.Select(x => new SelectListItem { Text = x.Appname, Value = x.Appcode }));
+    var lstApp = new List<SelectListItem> { new SelectListItem { Text = @WebApps.Resources.Resource.lblTatCa, Value = "ALL" } }.Concat(_lst.Select(x => new SelectListItem { Text = x.Appname, Value = x.Appcode }));
 
     List<AllCodeInfo> _lstStatus = MemoryData.AllCode_GetBy_CdTypeCdName("APP", "STATUS");
-    var lstStatus = new List<SelectListItem> { new SelectListItem { Text = "Tất cả", Value = "ALL" } }.Concat(_lstStatus.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal }));
+    var lstStatus = new List<SelectListItem> { new SelectListItem { Text = @WebApps.Resources.Resource.lblTatCa, Value = "ALL" } }.Concat(_lstStatus.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal }));
     string _status = "";
     if (ViewBag.Status != null)
     {
@@ -23,15 +23,6 @@
     .div-search-title > div {
         width: 120px;
     }
-
-    .div-title-col-2 {
-        height: 35px;
-        border: 1px solid #aaa;
-    }
-
-        .div-title-col-2 > div {
-            margin: 9px 5px 0px 7px;
-        }
 </style>
 
 <div class="divCover">
@@ -39,7 +30,7 @@
         <img src="~/Content/icons/Body-icon-home.png" /> I
         <a href="/home">Home</a>
         <span class="red">></span>
-        <a href="/trade-mark-mana/quan-ly-don">Quản lý đơn</a>
+        <a href="/trade-mark-mana/quan-ly-don">@WebApps.Resources.Resource.QuanLyDon</a>
     </div>
 </div>
 <div class="divCover">
@@ -78,35 +69,32 @@
             <div class="div-search-title">
                 <div>Case name</div>
             </div>
-            <div>
-                <div>
-                    <input style="width: 250px;" type="text" id="txtCaseName" />
-                </div>
-            </div>
-            <div class="div-search-title">
-                <div>Người xử lý </div>
-            </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txtLawer" />
+                    <input type="text" id="txtCaseName" />
                 </div>
             </div>
-
-
+            @*<div class="div-search-title">
+                    <div>Người xử lý </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtLawer" />
+                    </div>
+                </div>*@
         </div>
     </div>
 
     <div class="divCover" id="div-search-simple">
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Trạng thái đơn</div>
+                <div>@WebApps.Resources.Resource.TrangThaiDon</div>
             </div>
-            <div>
+            <div class="div-search-content">
                 <div>
-                    @*@Html.DropDownList("cboStatus", lstStatus, new { @id = "cboStatus", @style = "width: 250px;" })*@
                     <select id="cboStatus" style="width: 250px;">
                         <option value="ALL">
-                            Tất cả
+                            @WebApps.Resources.Resource.lblTatCa
                         </option>
                         @foreach (var item in _lstStatus)
                         {
@@ -128,7 +116,7 @@
                 </div>
             </div>
             <div class="div-search-title">
-                <div>Loại đơn </div>
+                <div>@WebApps.Resources.Resource.LoaiDon </div>
             </div>
             <div class="div-search-content">
                 <div>

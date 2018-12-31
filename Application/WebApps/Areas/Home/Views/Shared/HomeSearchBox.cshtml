@@ -71,7 +71,7 @@
 </style>
  
 <div class="divCover" id="legalsearch_div" style="">
-    <div class="box_title"><label style=""> TÌM KIẾM </label></div>
+    <div class="box_title"><label style=""> @WebApps.Resources.Resource.TimKiem </label></div>
     @*<table id="legalsearch_table">
         <tr>
             <td class="legalsearch_clssunderline" onclick="FunChooseSearchtype(this, 1)">Tình trạng đơn</td>
@@ -85,21 +85,21 @@
     <div class="clssbox_search">
         <select id="cbo_searchtype" onchange="FunChooseSearchtype()">
             <option value="1">
-                Tình trạng đơn
+                @WebApps.Resources.Resource.TinhTrangDon
             </option>
             <option value="2">
-              Luật sư
+                @WebApps.Resources.Resource.LuatSu
             </option>
             <option value="3">
-               Khách hàng
+                @WebApps.Resources.Resource.KhachHang
             </option>
             <option value="4">
                Wiki
             </option>
         </select>
-        <input type="text" id="legalsearch_txtsearchcontent" placeholder="case code, case name, tình trạng đơn, người xử lý, loại đơn"   />    
+        <input type="text" id="legalsearch_txtsearchcontent" placeholder="case code, case name, @WebApps.Resources.Resource.TinhTrangDon, @WebApps.Resources.Resource.Processor"   />    
         <div class="clssbox_button">
-            <input type="button" style="" value="Tìm kiếm" onclick="findObjects(1, 1)" />
+            <input type="button" style="" value="@WebApps.Resources.Resource.TimKiem" onclick="findObjects(1, 1)" />
         </div>
     </div>
     <div class="clssbox_button_icon">
@@ -138,15 +138,15 @@
             try {
                 var _searchtype = $("#cbo_searchtype").val();
                 if (_searchtype == 1) {
-                    $("#legalsearch_txtsearchcontent").attr("placeholder", "case code, case name, tình trạng đơn, người xử lý, loại đơn")
+                    $("#legalsearch_txtsearchcontent").attr("placeholder", "case code, case name, @WebApps.Resources.Resource.TinhTrangDon, @WebApps.Resources.Resource.Processor")
                 }
                 if (_searchtype == 2) {
-                    $("#legalsearch_txtsearchcontent").attr("placeholder", "Tên luật sư")
+                    $("#legalsearch_txtsearchcontent").attr("placeholder", " @WebApps.Resources.Resource.TenLuatSu")
                 }
                 if (_searchtype == 3) {
-                    $("#legalsearch_txtsearchcontent").attr("placeholder", "Tên khách hàng")
+                    $("#legalsearch_txtsearchcontent").attr("placeholder", "@WebApps.Resources.Resource.TenKhachHang")
                 } if (_searchtype == 4) {
-                    $("#legalsearch_txtsearchcontent").attr("placeholder", "Tiêu đề, hashtag")
+                    $("#legalsearch_txtsearchcontent").attr("placeholder", "@WebApps.Resources.Resource.TieuDe, hashtag")
                 }
             } catch (e) {
 

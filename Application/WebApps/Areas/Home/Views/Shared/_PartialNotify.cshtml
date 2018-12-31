@@ -1,6 +1,7 @@
 ﻿@using ObjectInfos;
 @using BussinessFacade;
 @using WebApps.Session
+@using WebApps.Resources
 @{
     B_TodoNotify_Info p_todonotify = new B_TodoNotify_Info();
     if (ViewBag.NotifyInfo != null)
@@ -104,20 +105,20 @@
     <div class="grid-item" style="padding-right: 28px;">
         <div class="notify_todo border4todo" style="width:100%" onclick="funchooseNotifi('div_todocorver')">
             <span class="notify_number">@p_todonotify.NUMBER_TODO</span>
-            <span class="notify_text">Việc cần làm</span>
+            <span class="notify_text">@Resource.Todo</span>
         </div>
 
     </div>
     <div class="grid-item" style="padding-right: 38px;">
         <div class="notify_todo border4Request" style="width:100%" onclick="funchooseNotifi('div_Ordercorver')">
             <span class="notify_number">@p_todonotify.NUMBER_REQUEST</span>
-            <span class="notify_text">Yêu cầu</span>
+            <span class="notify_text">@Resource.Request</span>
         </div>
     </div>
     <div class="grid-item" style="background:#ffffff">
         <div class="notify_end border4Remind" onclick="funchooseNotifi('div_remindcorver')">
             <span class="notify_number">@p_todonotify.NUMBER_REMIND</span>
-            <span class="notify_text">Remind  </span>
+            <span class="notify_text">@Resource.Remind  </span>
         </div>
     </div>
 </div>
