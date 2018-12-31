@@ -6,7 +6,7 @@
 @model ObjectInfos.UserInfo
 @{
 
-    ViewBag.Title = "Sửa Thông tin người dùng";
+    ViewBag.Title = WebApps.Resources.Resource.SuaThongTinNguoiDung;
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     int _groupId = 0;
@@ -28,7 +28,7 @@
         <img src="~/Content/icons/Body-icon-home.png" /> I
         <a href="/home">Home</a>
         <span class="red">></span>
-        <a href="/quan-tri-he-thong/quan-ly-nguoi-dung">Quản lý người dùng</a>
+        <a href="/quan-tri-he-thong/quan-ly-nguoi-dung">@WebApps.Resources.Resource.QuanLyNguoiDung</a>
     </div>
 </div>
 <div class="divCover">
@@ -45,7 +45,7 @@
 <div class="d-main">
     <div class="divCover">
         <div class="classTitle">
-            <div class="div-title-content">SỬA THÔNG TIN NGƯỜI DÙNG</div>
+            <div class="div-title-content">@WebApps.Resources.Resource.SuaThongTinNguoiDung.ToUpper()</div>
         </div>
     </div>
 
@@ -53,7 +53,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Tên đăng nhập<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.TenDangNhap<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -62,7 +62,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Họ tên<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.HoTen<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -73,7 +73,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Nhóm quyền</div>
+                <div>@WebApps.Resources.Resource.NhomQuyen</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -99,13 +99,13 @@
         <div class="divCover cls_form_title">
             <img src="/Content/icons/category.png" />
             <div class="cls_form_header">
-                Thông tin khác
+                @WebApps.Resources.Resource.ThongTinKhac
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Số điện thoại<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.SoDienThoai<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -174,7 +174,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Quốc tịch <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.QuocTich <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -197,7 +197,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Địa chỉ<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.DiaChi<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -208,7 +208,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Ngày sinh</div>
+                <div>@WebApps.Resources.Resource.NgaySinh</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -223,7 +223,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Giới tính</div>
+                <div>@WebApps.Resources.Resource.GioiTinh</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -239,7 +239,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Loại người dùng<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.LoaiNguoiDung<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -247,7 +247,7 @@
                 </div>
             </div>
             <div class="div-search-title">
-                <div>Trạng thái </div>
+                <div>@WebApps.Resources.Resource.TrangThai</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -266,7 +266,7 @@
         {
             <div class="div-search-ad" id="clsCustomer">
                 <div class="div-search-title">
-                    <div>Tên công ty <i class="redspan">(*)</i></div>
+                    <div>@WebApps.Resources.Resource.TenCongTy <i class="redspan">(*)</i></div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -275,7 +275,7 @@
                 </div>
 
                 <div class="div-search-title">
-                    <div>Ngành ngề chính  <i class="redspan">(*)</i></div>
+                    <div>@WebApps.Resources.Resource.NghanhNgheChinh  <i class="redspan">(*)</i></div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -286,7 +286,7 @@
 
             <div class="div-search-ad" id="clsCustomer1">
                 <div class="div-search-title">
-                    <div>Người quản lý</div>
+                    <div>@WebApps.Resources.Resource.NguoiQuanLy</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -295,7 +295,7 @@
                 </div>
 
                 <div class="div-search-title">
-                    <div>Chức vụ </div>
+                    <div>@WebApps.Resources.Resource.ChucVu </div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -306,7 +306,7 @@
 
             <div class="div-search-ad" id="clsCustomer1">
                 <div class="div-search-title">
-                    <div>Mã đại diện</div>
+                    <div>@WebApps.Resources.Resource.MaDaiDien</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -315,7 +315,7 @@
                 </div>
 
                 <div class="div-search-title">
-                    <div>Contact_Person </div>
+                    <div>Contact Person </div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -362,7 +362,7 @@
 
             <div class="div-search-ad" id="clsCustomer2">
                 <div class="div-search-title">
-                    <div>Lý do dùng </div>
+                    <div>@WebApps.Resources.Resource.LyDoDung </div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -376,7 +376,7 @@
                 </div>
 
                 <div class="div-search-title">
-                    <div>Chính sách giá đặc biệt </div>
+                    <div>@WebApps.Resources.Resource.ChinhSachGiaDacBiet </div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -394,7 +394,7 @@
         {
             <div class="div-search-ad" id="clsLawer">
                 <div class="div-search-title">
-                    <div>Loại luật sư <i class="redspan">(*)</i></div>
+                    <div>@WebApps.Resources.Resource.LoaiLuatSu <i class="redspan">(*)</i></div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -408,7 +408,7 @@
                 </div>
 
                 <div class="div-search-title">
-                    <div>Số tiền / 1 giờ (VNĐ) <i class="redspan">(*)</i></div>
+                    <div>@WebApps.Resources.Resource.SoTien1GioVND <i class="redspan">(*)</i></div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -417,7 +417,7 @@
                 </div>
 
                 <div class="div-search-title">
-                    <div>Số tiền / 1 giờ (USD) <i class="redspan">(*)</i></div>
+                    <div>@WebApps.Resources.Resource.SoTien1GioUSD <i class="redspan">(*)</i></div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -432,12 +432,17 @@
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Sửa" onclick="return doUser()" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Sua" onclick="return doUser()" />
             @if (WebApps.Session.SessionData.CurrentUser.Username == Model.Username)
             {
-                <input type="submit" class="btn-default" value="Reset pass" onclick="return getViewToResetPass('@Model.Username')" />
+                <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.ResetPass" onclick="return getViewToResetPass('@Model.Username')" />
             }
-            <input type="submit" class="btn-default" value="Thoát" onclick="return back()" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Thoat" onclick="return back()" />
+        </div>
+    </div>
+
+    <div id="divWrapperPopUpUser" class="divWrapperPopup" style="display: none;">
+        <div class="divPopup" id="divPopUpUser">
         </div>
     </div>
 </div>

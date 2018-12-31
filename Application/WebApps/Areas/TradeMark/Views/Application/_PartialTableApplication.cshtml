@@ -46,9 +46,9 @@
                         <td class="tdleftalign">@item.Status_Name</td>
 
                         <td class="tdcenteralign">
-                            <a href="/trade-mark-share-data/todo-details/@item.Case_Code/0" class="icon icon-info" data-title="Xem chi tiết"></a>
+                            <a href="/trade-mark-share-data/todo-details/@item.Case_Code/0" class="icon icon-info" data-title="@WebApps.Resources.Resource.XemChiTiet"></a>
                             @*@if ((language == "VI_VN" && item.Languague_Code == "VI_VN") || (language == "EN_US" && item.Languague_Code == "EN_US"))*@
-                            <a href="/trade-mark/request-for-trade-mark-edit/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-edit" data-title="Sửa"></a>
+                            <a href="/trade-mark/request-for-trade-mark-edit/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-edit" data-title="@WebApps.Resources.Resource.Sua"></a>
 
                             @* Phần dịch thì dịch hết từ việt sang anh và từ anh sang việt*@
                             @* Chi Hien thi phan dich neu la ban ghi tiếng anh, và đang xem trên ngôn ngữ tiếng việt *@
@@ -68,7 +68,7 @@
                             }
                             @if (item.Status == (decimal)CommonEnums.App_Status.Luu_tam)
                             {
-                                <a href="javascript:;" onclick="return funcDelAppDoc('@item.Id','@item.Appcode')" class="icon icon-delete" data-title="Xóa"></a>
+                                <a href="javascript:;" onclick="return funcDelAppDoc('@item.Id','@item.Appcode')" class="icon icon-delete" data-title="@WebApps.Resources.Resource.Xoa"></a>
                             }
                         </td>
                     </tr>
