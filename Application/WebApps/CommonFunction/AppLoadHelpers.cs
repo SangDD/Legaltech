@@ -6,7 +6,7 @@ namespace WebApps
 {
     public class AppUpload
     {
-        public static string Logo = "Logo";
+        public static string Logo = "Logo"; 
         public static string FileAttact = "FileAttact";
         public static string Document = "Document";
         public static string Wiki = "Wiki";
