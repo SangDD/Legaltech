@@ -36,7 +36,7 @@
 <div class="divCover cls_form_title">
     <img src="/Content/icons/view.png" />
     <div class="cls_form_header">
-        <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowViewApp()">Xem chi tiết đơn</a>
+        <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowViewApp()">@WebApps.Resources.Resource.XemChiTiet</a>
     </div>
 </div>
 
@@ -46,7 +46,7 @@
         <img src="/Content/icons/view.png" />
         <img src="/Content/icons/translate.png" />
         <div class="cls_form_header">
-            <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowViewApp_Translate()">Xem đơn dịch</a>
+            <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowViewApp_Translate()">@WebApps.Resources.Resource.XemDonDich</a>
         </div>
     </div>
 }
@@ -54,38 +54,24 @@
 <div class="divCover cls_form_title">
     <img src="/Content/icons/link_to.png" />
     <div class="cls_form_header">
-        <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ChuyenNhuong('@_AppHeaderInfo.App_No')">Chuyển nhượng | </a>
-        <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="SuaDoi('@_AppHeaderInfo.App_No')">Sửa đổi đơn | </a>
-        <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="KhieuKien('@_AppHeaderInfo.App_No')">Khiếu kiện</a>
+        <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ChuyenNhuong('@_AppHeaderInfo.App_No')">@WebApps.Resources.Resource.ChuyenNhuong | </a>
+        <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="SuaDoi('@_AppHeaderInfo.App_No')">@WebApps.Resources.Resource.SuaDoiDon | </a>
+        <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="KhieuKien('@_AppHeaderInfo.App_No')">@WebApps.Resources.Resource.KhieuKien</a>
 
     </div>
 </div>
-
-@*<div class="divCover cls_form_title">
-        <img src="/Content/icons/link_to.png" />
-        <div class="cls_form_header">
-            <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="SuaDoi('@_AppHeaderInfo.App_No')">Sửa đổi đơn</a>
-        </div>
-    </div>
-
-    <div class="divCover cls_form_title">
-        <img src="/Content/icons/link_to.png" />
-        <div class="cls_form_header">
-            <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="KhieuKien('@_AppHeaderInfo.App_No')">Khiếu kiện</a>
-        </div>
-    </div>*@
 
 
 <div class="divCover cls_form_title">
     <img src="/Content/icons/category.png" />
     <div class="cls_form_header">
-        Thông tin nộp đơn
+        @WebApps.Resources.Resource.ThonTinNopDon
     </div>
 </div>
 
 <div class="div-search-ad">
     <div class="div-search-title">
-        <div>Filling date:  </div>
+        <div>@WebApps.Resources.Resource.NgayNopDon:  </div>
     </div>
     <div class="div-search-content">
         <div>
@@ -152,13 +138,13 @@
 <div class="divCover cls_form_title">
     <img src="/Content/icons/category.png" />
     <div class="cls_form_header">
-        THÔNG TIN ĐƠN
+        @WebApps.Resources.Resource.ThongTinDon.ToUpper()
     </div>
 </div>
 
 <div class="div-search-ad">
     <div class="div-search-title">
-        <div> Case code:</div>
+        <div> @WebApps.Resources.Resource.CaseCode:</div>
     </div>
     <div class="div-search-content">
         <div>
@@ -166,7 +152,7 @@
         </div>
     </div>
     <div class="div-search-title">
-        <div>Case name:  </div>
+        <div>@WebApps.Resources.Resource.CaseName:  </div>
     </div>
     <div class="div-search-content">
         <div>
@@ -177,11 +163,11 @@
 
 <div class="div-search-ad">
     <div class="div-search-title">
-        <div> Client Reference: </div>
+        <div> @WebApps.Resources.Resource.ClientReference: </div>
     </div>
     <div class="div-search-content">
         <div>
-            <input value="@_AppHeaderInfo.Client_Reference" type="text" placeholder="Client Reference" maxlength="200" disabled="disabled" />
+            <input value="@_AppHeaderInfo.Client_Reference" type="text" placeholder="@WebApps.Resources.Resource.ClientReference" maxlength="200" disabled="disabled" />
         </div>
     </div>
 </div>

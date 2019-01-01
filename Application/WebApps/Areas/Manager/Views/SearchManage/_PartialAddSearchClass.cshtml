@@ -50,13 +50,7 @@
 
     <div class="div_full_100_area">
         <div class="div-search-ad">
-            @*<div class="div-search-content">
-                <div class="class50">*@
-            @*<input type="text" id="txtTenHangHoa" placeholder="Tìm kiếm hàng hóa/dịch vụ" onkeyup="SearchAppCodeOnKeyUp('txtTenHangHoa', 'NVS002_DivShowSearchAppCode')" style="    border-left: 1px solid #ccc;"/>*@
-            @*<input type="text" id="txtTenHangHoa" placeholder="Tìm kiếm hàng hóa/dịch vụ" style="border-left: 1px solid #ccc;" />*@
-            @*</div>
-                </div>*@
-
+        
             <div class="div-search-title">
                 <div>
                     @WebApps.Resources.Resource.lblHangHoa:
@@ -64,13 +58,13 @@
             </div>
             <div class="div-search-content" style="width:30%">
                 <div style="width:100%">
-                    <input type="text" id="txtTenHangHoa" placeholder="Tìm kiếm hàng hóa/dịch vụ" style="border-left: 1px solid #ccc;width:100%" />
+                    <input type="text" id="txtTenHangHoa" placeholder="@WebApps.Resources.Resource.TimKiemHangHoaDichVu" style="border-left: 1px solid #ccc;width:100%" />
                 </div>
             </div>
 
             <div class="div-search-title">
                 <div>
-                    Class:
+                    @WebApps.Resources.Resource.Class:
                 </div>
             </div>
             <div class="div-search-content">
@@ -100,36 +94,6 @@
             </div>
         </div>
     </div>
-
-    @*<div class="div-search-ad" style="margin-top: 10px;" >
-        <div id="NVS002_DivShowSearchAppCode">
-            <div class="div-search-title">
-                <div>Tên đầy đủ:</div>
-            </div>
-            <div class="div-search-content" style="display:inline-block;width: 500px;">
-                <div id="DivContent_NVSCBO001_AppClassSearch" style="width:99%;display:inline-block">
-                    <select id="NVSCBO001_AppClassSearch">
-                        <option>Tìm kiếm hàng hóa/dịch vụ</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>Mã nhóm</div>
-            </div>
-            <div class="div-search-content" style="display:inline-block;width: 180px;">
-                <div id="" style="width:99%;display:inline-block">
-                    <select id="NVSCBOAppSearchByGroup01" onchange="NVSFunc001ShowComboxSearchByGroup('txtTenHangHoa', 'DivContent_NVSCBO001_AppClassSearch', 'NVSCBOAppSearchByGroup01')">
-                        <option value="">Chọn mã nhóm</option>
-                    </select>
-                </div>
-            </div>
-
-        </div>
-            <div style="display:inline-block;width:100px">
-                <input type="button" value="Thêm" class="btn" onclick="return funcAddDataRow();" style="width:75px;height:30px" />
-            </div>
-        </div>*@
 
     <div class="class_full_div_input">
         <div class="_table_display" id="divHangHoaThem" style="width: 100%">

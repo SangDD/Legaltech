@@ -121,28 +121,28 @@
     <div class="divCover">
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div> Case name:</div>
+                <div> @WebApps.Resources.Resource.CaseName:</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Case name" maxlength="200" id="_txtcasename" value="@_HeaderInfo.CASE_NAME" />
+                    <input type="text" placeholder="@WebApps.Resources.Resource.CaseName" maxlength="200" id="_txtcasename" value="@_HeaderInfo.CASE_NAME" />
                 </div>
             </div>
         </div>
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div> Client Reference: </div>
+                <div> @WebApps.Resources.Resource.ClientReference: </div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Client Reference" maxlength="200" id="txtClient_Reference" value="@_HeaderInfo.CLIENT_REFERENCE" />
+                    <input type="text" placeholder="@WebApps.Resources.Resource.ClientReference" maxlength="200" id="txtClient_Reference" value="@_HeaderInfo.CLIENT_REFERENCE" />
                 </div>
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Quốc tịch<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.QuocTich<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -168,7 +168,7 @@
         <div class="divCover cls_form_title">
             <img src="/Content/icons/category.png" />
             <div class="cls_form_header">
-                Nhóm hàng hóa
+                @WebApps.Resources.Resource.Class
             </div>
         </div>
 
@@ -177,7 +177,7 @@
         <div class="divCover cls_form_title">
             <img src="/Content/icons/category.png" />
             <div class="cls_form_header">
-                Điều kiện Search
+                @WebApps.Resources.Resource.DieuKienSearch
             </div>
         </div>
 
@@ -192,14 +192,14 @@
         <br />
 
         <div style="margin-top:15px">
-            <div>Mô tả<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.lblMoTa<i class="redspan">(*)</i></div>
             <textarea type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200">@_HeaderInfo.CONTENT</textarea>
         </div>
     </div>
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;margin-top: 5px;">
-            <input type="submit" id="btnGuiBai" class="btn-default" value="Sửa" />
+            <input type="submit" id="btnGuiBai" class="btn-default" value="@WebApps.Resources.Resource.Sua" />
         </div>
     </div>
 

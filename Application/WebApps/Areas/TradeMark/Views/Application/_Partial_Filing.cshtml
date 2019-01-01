@@ -33,39 +33,39 @@
     <div class="divCover cls_form_title">
         <img src="~/Content/icons/category.png" />
         <div class="cls_form_header">
-            Nộp đơn
+            @WebApps.Resources.Resource.lblNopdon
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Số đơn<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.SoDon<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" maxlength="100" placeholder="Số đơn" id="txt_App_No" />
+                <input type="text" maxlength="100" placeholder="@WebApps.Resources.Resource.SoDon" id="txt_App_No" />
             </div>
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Ngày nộp đơn<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.lblNgayNopDon<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày nộp đơn" id="txt_filing_date" maxlength="100" class="datepicker" />
+                <input type="text" placeholder="@WebApps.Resources.Resource.lblNgayNopDon" id="txt_filing_date" maxlength="100" class="datepicker" />
             </div>
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Ngày trả kết quả<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.NgayTraKetQua<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày trả kết quả" id="txt_expected_accept_date" maxlength="100" class="datepicker" />
+                <input type="text" placeholder="@WebApps.Resources.Resource.NgayTraKetQua" id="txt_expected_accept_date" maxlength="100" class="datepicker" />
             </div>
         </div>
     </div>
@@ -83,7 +83,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Nội dung chính </div>
+            <div>@WebApps.Resources.Resource.NoiDungChinh </div>
         </div>
         <div class="div-search-content">
             <div>
@@ -94,7 +94,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Ghi chú <i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.GhiChu <i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
@@ -105,7 +105,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-content">
-            <input type="button" id="btnChooseFile" value="Tải file" class="btn" onclick="return Click_Upload_File()" style="margin-left:4px;height:29px;" />
+            <input type="button" id="btnChooseFile" value="@WebApps.Resources.Resource.lblTaiFile" class="btn" onclick="return Click_Upload_File()" style="margin-left:4px;height:29px;" />
             <input type="file" id="file_attach" style="display:none" onchange="FuncChooseResultFile()" />
 
             <div class="div-checkbox clssDisplaynone" id="div_RemoveImg">
@@ -117,14 +117,14 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Tên file Maximum file size is 2MB" id="txtMaxFile" readonly="readonly" />
+                <input type="text" placeholder="@WebApps.Resources.Resource.FileUp2MB" id="txtMaxFile" readonly="readonly" />
             </div>
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-content">
-            <input type="button" id="btnChooseFile_Dich" value="Tải file" class="btn" onclick="return Click_Upload_File_Dich()" style="margin-left:4px;height:29px;" />
+            <input type="button" id="btnChooseFile_Dich" value="@WebApps.Resources.Resource.lblTaiFile" class="btn" onclick="return Click_Upload_File_Dich()" style="margin-left:4px;height:29px;" />
             <input type="file" id="file_attach_Dich" style="display:none" onchange="FuncChooseResultFile_Dich()" />
 
             <div class="div-checkbox clssDisplaynone" id="div_RemoveImg_Dich">
@@ -136,14 +136,14 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Tên file Maximum file size is 2MB" id="txtMaxFile_Dich" readonly="readonly" />
+                <input type="text" placeholder="@WebApps.Resources.Resource.FileUp2MB" id="txtMaxFile_Dich" readonly="readonly" />
             </div>
         </div>
     </div>
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Luật sư xác nhận" onclick="return do_Filing('@_AppHeaderInfo.Case_Code')" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.LuatSuXacNhan" onclick="return do_Filing('@_AppHeaderInfo.Case_Code')" />
         </div>
     </div>
 </div>

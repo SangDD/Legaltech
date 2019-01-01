@@ -14,7 +14,7 @@
 
 <div class="div-search-ad">
     <div class="div-search-content">
-        <input type="button" id="@btnChooseFile" value="Tải file" class="btn" onclick="return Click_Upload_File('@AfterID')" style="margin-left:4px;height:29px;" />
+        <input type="button" id="@btnChooseFile" value="@WebApps.Resources.Resource.lblTaiFile" class="btn" onclick="return Click_Upload_File('@AfterID')" style="margin-left:4px;height:29px;" />
         <input type="file" id="@file_attach" style="display:none" onchange="FuncChooseResultFile('@AfterID')" />
 
         <div class="div-checkbox clssDisplaynone" id="@div_RemoveImg">
@@ -26,7 +26,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" placeholder="Tên file Maximum file size is 2MB" id="@txtMaxFile" readonly="readonly" />
+            <input type="text" placeholder="@WebApps.Resources.Resource.FileUp2MB" id="@txtMaxFile" readonly="readonly" />
         </div>
     </div>
 </div>

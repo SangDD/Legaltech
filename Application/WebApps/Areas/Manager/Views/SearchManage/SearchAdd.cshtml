@@ -146,35 +146,35 @@
 <div class="d-main">
     <div class="divCover">
         <div class="classTitle">
-            <div class="div-title-content"> THÊM MỚI SEARCH</div>
+            <div class="div-title-content"> @WebApps.Resources.Resource.ThemMoiSearch.ToUpper()</div>
         </div>
     </div>
     <div class="divCover">
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div> Case name<i class="redspan">(*)</i></div>
+                <div> @WebApps.Resources.Resource.CaseName<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Case name" maxlength="200" id="_txtcasename" />
+                    <input type="text" placeholder="@WebApps.Resources.Resource.CaseName" maxlength="200" id="_txtcasename" />
                 </div>
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div> Client Reference<i class="redspan">(*)</i> </div>
+                <div> @WebApps.Resources.Resource.ClientReference<i class="redspan">(*)</i> </div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input value="" type="text" placeholder="Client Reference" maxlength="200" id="txtClient_Reference" />
+                    <input value="" type="text" placeholder="@WebApps.Resources.Resource.ClientReference" maxlength="200" id="txtClient_Reference" />
                 </div>
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Quốc tịch<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.QuocTich<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -199,7 +199,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Yêu cầu<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.YeuCau<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -211,36 +211,17 @@
         <div class="divCover cls_form_title">
             <img src="/Content/icons/category.png" />
             <div class="cls_form_header">
-                Nhóm hàng hóa
+                @WebApps.Resources.Resource.Class
             </div>
         </div>
 
         @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialAddSearchClass.cshtml")
 
-        @*<div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Search<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input id="tags" style="height: 28px;margin-left: 3px;width:150px">
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div> Class<i class="redspan">(*)</i> </div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input value="" type="text" disabled="disabled" id="txtClass" />
-                </div>
-            </div>
-        </div>*@
-
+      
         <div class="divCover cls_form_title">
             <img src="/Content/icons/category.png" />
             <div class="cls_form_header">
-                Điều kiện Search
+                @WebApps.Resources.Resource.DieuKienSearch
             </div>
         </div>
 
@@ -249,20 +230,20 @@
         </div>
 
         <div class="div-search-ad" style="float:left; width:100%;">
-            <input class="btn" style="margin: 4px 0px 0px 28px;" type="button" value="Thêm điều kiện" onclick="funcAddCondition()" />
+            <input class="btn" style="margin: 4px 0px 0px 28px;" type="button" value="@WebApps.Resources.Resource.ThemDieuKien" onclick="funcAddCondition()" />
         </div>
 
         <br />
         <br />
         <div style="margin-top:15px">
-            <div>Mô tả<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.lblMoTa<i class="redspan">(*)</i></div>
             <textarea type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200"></textarea>
         </div>
     </div>
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;margin-top: 5px;">
-            <input type="submit" id="btnGuiBai" class="btn-default" value="Gửi tìm kiếm" />
+            <input type="submit" id="btnGuiBai" class="btn-default" value="@WebApps.Resources.Resource.GuiTimKiem" />
         </div>
     </div>
 </div>

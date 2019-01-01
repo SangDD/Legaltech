@@ -94,7 +94,7 @@
                             <a href="javascript:;" onclick="funLogin();" class="c-header_nav-item-label" data-transition="full">  
                                 @if (WebApps.Session.SessionData.CurrentUser != null)
                                 {
-                                    @WebApps.Resources.Resource.lblQuanLy
+                                    @WebApps.Session.SessionData.CurrentUser.Username
                                 }
                                 else
                                 {
