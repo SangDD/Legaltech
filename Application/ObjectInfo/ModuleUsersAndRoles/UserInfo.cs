@@ -52,6 +52,8 @@
         public string ModifiedBy { get; set; }
         public DateTime ModifiedDate { get; set; }
         public DateTime LastTimeUpdated { get; set; }
+        public DateTime LAST_LOGIN { get; set; }
+
         public int Deleted { get; set; }
 
         public decimal Lawer_Id { get; set; }

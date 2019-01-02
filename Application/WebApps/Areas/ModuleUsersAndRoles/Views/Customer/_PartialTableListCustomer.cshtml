@@ -19,7 +19,6 @@
                 <th style="width: 10%" data-sort id="Status" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Trạng thái</th>
                 <th style="width: 15%" data-sort id="Email" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Email</th>
                 <th style="width: 10%" data-sort id="Phone" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Số điện thoại</th>
-                <th style="width: 15%" data-sort id="LastTimeUpdated">Cập nhật lúc</th>
                 <th style="width: 100px;">Chức năng</th>
             </tr>
         </thead>
@@ -35,7 +34,6 @@
                         <td class="tdleftalign">@item.StatusDisplayName</td>
                         <td class="tdleftalign">@item.Email</td>
                         <td class="tdleftalign">@item.Phone</td>
-                        <td class="tdleftalign">@item.LastTimeUpdated.ToDateTimeStringN0()</td>
                         <td class="tdcenteralign">
                             <a href="javascript:viewDetailUser(@item.Id, '@item.Username')" class="icon icon-info" data-title="Xem chi tiết"></a>
                             @if (WebApps.Session.SessionData.CurrentUser.Username == item.Username

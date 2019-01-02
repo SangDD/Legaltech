@@ -12,6 +12,7 @@ using System.Collections;
 using System.Reflection;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text;
 
 namespace WebApps.CommonFunction
 {
@@ -71,6 +72,26 @@ namespace WebApps.CommonFunction
                     ViewResult.ViewEngine.ReleaseView(controllerContext, ViewResult.View);
                     return sw.GetStringBuilder().ToString();
                 }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return "";
+            }
+        }
+
+        public static string CreateRandomString(int p_length)
+        {
+            try
+            {
+                StringBuilder sb = new StringBuilder();
+                char c; Random rand = new Random();
+                for (int i = 0; i < p_length; i++)
+                {
+                    c = Convert.ToChar(Convert.ToInt32(rand.Next(65, 87)));
+                    sb.Append(c);
+                }
+                return sb.ToString();
             }
             catch (Exception ex)
             {

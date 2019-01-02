@@ -73,6 +73,9 @@
         <div class="classLine">
         </div>
     </div>
+    <div class="divCover">
+        @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+    </div>
 </div>
 
 <div class="d-popup-container" id="pop-sua-doi_dk"></div>
@@ -116,7 +119,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                1.@Resource.TM2B_nhanhieuquocte
+                1.@Resource.TM2B_nhanhieuquocte.ToUpper()
             </div>
         </div>
 

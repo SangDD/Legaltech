@@ -360,7 +360,8 @@
             var lstUsers = new List<RegisterInfo>();
             try
             {
-                var passwordEncrypt = Encription.EncryptAccountPassword(pEmail, "123456");
+                string _pass = CommonFunction.AppsCommon.CreateRandomString(10);
+                var passwordEncrypt = Encription.EncryptAccountPassword(pEmail, _pass);
                 UserBL objBL = new UserBL();
                 RegisterInfo pInfo = new RegisterInfo();
                 pInfo.Id = pID;
@@ -371,7 +372,7 @@
                 int preturn = objBL.RegisterUpdate(pInfo);
                 if (preturn >= 0)
                 {
-                   EmailHelper.SendMail(pEmail, "doduysang@gmail.com", "Email thông báo đăng ký mở tài khoản thành công", "Dear Customer, Quí khách đăng ký thành công tài khoản username:" + pEmail + " password:123456" + "\n quí khách vui lòng truy cập vào địa chỉ <a href='http://pathlaw.net/vi-vn/login'>http://pathlaw.net/vi-vn/login</a> để đổi mật khẩu của tài khoản. \n cảm ơn quí khách hàng. ", new List<string>());
+                   EmailHelper.SendMail(pEmail, "", "Email thông báo đăng ký mở tài khoản thành công", "Dear Customer, Quí khách đăng ký thành công tài khoản username:" + pEmail + " password:" + _pass + "\n quí khách vui lòng truy cập vào địa chỉ <a href='http://pathlaw.net/vi-vn/login'>http://pathlaw.net/vi-vn/login</a> để đổi mật khẩu của tài khoản. \n cảm ơn quí khách hàng. ", new List<string>());
                 }
                 return Json(new { status = preturn });
             }

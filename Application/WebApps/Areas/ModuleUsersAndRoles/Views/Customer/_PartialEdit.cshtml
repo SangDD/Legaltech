@@ -219,7 +219,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.StatusDisplayName, new {@disabled = "disabled" })
+                    @Html.TextBoxFor(m => m.StatusDisplayName, new { @disabled = "disabled" })
                 </div>
             </div>
         </div>
@@ -388,7 +388,12 @@
                 <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.ResetPass" onclick="return getViewToResetPass('@Model.Username')" />
             }
 
-            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Thoat" onclick="return back()" />
+            @*<input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Thoat" onclick="return back()" />*@
+        </div>
+    </div>
+
+    <div id="divWrapperPopUpUser" class="divWrapperPopup" style="display: none;">
+        <div class="divPopup" id="divPopUpUser">
         </div>
     </div>
 </div>

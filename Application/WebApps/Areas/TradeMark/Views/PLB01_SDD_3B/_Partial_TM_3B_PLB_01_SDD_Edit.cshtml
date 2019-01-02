@@ -75,6 +75,9 @@
         <div class="classLine">
         </div>
     </div>
+    <div class="divCover">
+        @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+    </div>
 </div>
 
 <input type="hidden" id="txtAppCode" value='@_AppHeaderInfo.Appcode' />
@@ -655,38 +658,39 @@
 
     $("#btnGuiDon").click(function () {
         try {
-
-            //Thông tin chủ đơn
-            var formData = new FormData();
-            var reponse = GetDatatoUpdate(formData, @Convert.ToInt16(Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin));
-            if (reponse == false) {
-                return false;
-            }
-
-            $.ajax({
-                url: '/trade-mark-3b/Edit_PLB_01_SDD',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                traditional: true,
-                dataType: "json",
-                enctype: 'multipart/form-data',
-                async: false,
-                headers: { "cache-control": "no-cache" },
-                success: function (data) {
-                    if (data != null && data.status >= 0) {
-                        jAlert(EditSuccess, ThongBao, function () {
-                            window.location = "/trade-mark-mana/quan-ly-don";
-                        });
-                    } else {
-                        jError(EditFail, ThongBao, function () {
-                        });
-                    }
-                },
-                error: function (e) {
-                    console.log(e);
+            nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmGui", function () {
+                //Thông tin chủ đơn
+                var formData = new FormData();
+                var reponse = GetDatatoUpdate(formData, @Convert.ToInt16(Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin));
+                if (reponse == false) {
+                    return false;
                 }
+
+                $.ajax({
+                    url: '/trade-mark-3b/Edit_PLB_01_SDD',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    traditional: true,
+                    dataType: "json",
+                    enctype: 'multipart/form-data',
+                    async: false,
+                    headers: { "cache-control": "no-cache" },
+                    success: function (data) {
+                        if (data != null && data.status >= 0) {
+                            jAlert(EditSuccess, ThongBao, function () {
+                                window.location = "/trade-mark-mana/quan-ly-don";
+                            });
+                        } else {
+                            jError(EditFail, ThongBao, function () {
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
             });
 
         } catch (e) {
@@ -696,40 +700,40 @@
 
     $("#btnLuuTam").click(function () {
         try {
-
-            //Thông tin chủ đơn
-            var formData = new FormData();
-            var reponse = GetDatatoUpdate(formData, @_AppHeaderInfo.Status);
-            if (reponse == false) {
-                return false;
-            }
-
-            $.ajax({
-                url: '/trade-mark-3b/Edit_PLB_01_SDD',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                traditional: true,
-                dataType: "json",
-                enctype: 'multipart/form-data',
-                async: false,
-                headers: { "cache-control": "no-cache" },
-                success: function (data) {
-                    if (data != null && data.status >= 0) {
-                        jAlert(EditSuccess, ThongBao, function () {
-                            window.location = "/trade-mark-mana/quan-ly-don";
-                        });
-                    } else {
-                        jError(EditFail, ThongBao, function () {
-                        });
-                    }
-                },
-                error: function (e) {
-                    console.log(e);
+            nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmLuuTam", function () {
+                //Thông tin chủ đơn
+                var formData = new FormData();
+                var reponse = GetDatatoUpdate(formData, @_AppHeaderInfo.Status);
+                if (reponse == false) {
+                    return false;
                 }
-            });
 
+                $.ajax({
+                    url: '/trade-mark-3b/Edit_PLB_01_SDD',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    traditional: true,
+                    dataType: "json",
+                    enctype: 'multipart/form-data',
+                    async: false,
+                    headers: { "cache-control": "no-cache" },
+                    success: function (data) {
+                        if (data != null && data.status >= 0) {
+                            jAlert(EditSuccess, ThongBao, function () {
+                                window.location = "/trade-mark-mana/quan-ly-don";
+                            });
+                        } else {
+                            jError(EditFail, ThongBao, function () {
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            });
         } catch (e) {
             console.log(e);
         }
@@ -737,40 +741,40 @@
 
     $("#btnSuaDon").click(function () {
         try {
-
-            //Thông tin chủ đơn
-            var formData = new FormData();
-            var reponse = GetDatatoUpdate(formData, @_AppHeaderInfo.Status);
-            if (reponse == false) {
-                return false;
-            }
-
-            $.ajax({
-                url: '/trade-mark-3b/Edit_PLB_01_SDD',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                traditional: true,
-                dataType: "json",
-                enctype: 'multipart/form-data',
-                async: false,
-                headers: { "cache-control": "no-cache" },
-                success: function (data) {
-                    if (data != null && data.status >= 0) {
-                        jAlert(EditSuccess, ThongBao, function () {
-                            window.location = "/trade-mark-mana/quan-ly-don";
-                        });
-                    } else {
-                        jError(EditFail, ThongBao, function () {
-                        });
-                    }
-                },
-                error: function (e) {
-                    console.log(e);
+            nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmLuu", function () {
+                //Thông tin chủ đơn
+                var formData = new FormData();
+                var reponse = GetDatatoUpdate(formData, @_AppHeaderInfo.Status);
+                if (reponse == false) {
+                    return false;
                 }
-            });
 
+                $.ajax({
+                    url: '/trade-mark-3b/Edit_PLB_01_SDD',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    traditional: true,
+                    dataType: "json",
+                    enctype: 'multipart/form-data',
+                    async: false,
+                    headers: { "cache-control": "no-cache" },
+                    success: function (data) {
+                        if (data != null && data.status >= 0) {
+                            jAlert(EditSuccess, ThongBao, function () {
+                                window.location = "/trade-mark-mana/quan-ly-don";
+                            });
+                        } else {
+                            jError(EditFail, ThongBao, function () {
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            });
         } catch (e) {
             console.log(e);
         }

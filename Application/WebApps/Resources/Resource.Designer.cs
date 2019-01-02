@@ -124,7 +124,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sửa.
+        ///   Looks up a localized string similar to Lưu.
         /// </summary>
         public static string btnSua {
             get {
@@ -291,6 +291,42 @@ namespace WebApps.Resources {
         public static string Code {
             get {
                 return ResourceManager.GetString("Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want translate this application ?.
+        /// </summary>
+        public static string ConfirmDich {
+            get {
+                return ResourceManager.GetString("ConfirmDich", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want send this application ?.
+        /// </summary>
+        public static string ConfirmGui {
+            get {
+                return ResourceManager.GetString("ConfirmGui", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want save this application ?.
+        /// </summary>
+        public static string ConfirmLuu {
+            get {
+                return ResourceManager.GetString("ConfirmLuu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want save tem this application ?.
+        /// </summary>
+        public static string ConfirmLuuTam {
+            get {
+                return ResourceManager.GetString("ConfirmLuuTam", resourceCulture);
             }
         }
         

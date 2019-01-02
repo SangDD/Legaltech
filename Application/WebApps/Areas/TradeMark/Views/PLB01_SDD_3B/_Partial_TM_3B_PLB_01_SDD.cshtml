@@ -30,11 +30,11 @@
 </style>
 
 @*<div class="d-nav-container">
-    <ul class="ul-nav">
-        <li><a href="javascript:;">TradeMark</a></li>
-        <li><a href="javascript:;">  @Resource.TM3B_Formname</a></li>
-    </ul>
-</div>*@
+        <ul class="ul-nav">
+            <li><a href="javascript:;">TradeMark</a></li>
+            <li><a href="javascript:;">  @Resource.TM3B_Formname</a></li>
+        </ul>
+    </div>*@
 <div class="d-nav-container" style="background-color:#fff">
     <div class="divCover">
         <div class="d-nav">
@@ -49,8 +49,14 @@
         <div class="classLine">
         </div>
     </div>
+
+    <div class="divCover">
+        @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+    </div>
+
 </div>
 <input type="hidden" id="txtAppCode" value='@ViewBag.AppCode' />
+
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
@@ -66,7 +72,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-               @Resource.TM3B_FormHeader
+                @Resource.TM3B_FormHeader
             </div>
         </div>
 
@@ -147,7 +153,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-               @Resource.TM3B_NoiDungYCSuaDoi
+                @Resource.TM3B_NoiDungYCSuaDoi
             </div>
         </div>
 
@@ -243,42 +249,42 @@
         @* 2. Tài liệu xác nhận *@
         @{
             string _doc_id2 = "01_SDD_02";
-            string _model2 = _doc_id2 + "|6_Doc_TLXacNhan|0|"+Resource.TM3B_TaiLieuXacNhanThayDoi + "|"+Resource.TM3B_Tieng + "|1";
+            string _model2 = _doc_id2 + "|6_Doc_TLXacNhan|0|" + Resource.TM3B_TaiLieuXacNhanThayDoi + "|" + Resource.TM3B_Tieng + "|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model2)
         }
 
         @* 3. Bản dịch tiếng Việt *@
         @{
             string _doc_id3 = "01_SDD_03";
-            string _model3 = _doc_id3 + "|6_Doc_BDichTv|0|"+Resource.TM3B_BanDichTiengVietGom + "|"+Resource.TM2B_SoTrang+"|1";
+            string _model3 = _doc_id3 + "|6_Doc_BDichTv|0|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model3)
         }
 
         @* 4. Giấy uỷ quyền bằng tiếng *@
         @{
             string _doc_id4 = "01_SDD_04";
-            string _model4 = _doc_id4 + "|6_Doc_POA|0|"+ Resource.TM3B_GiayUyQuyenBangTieng + "|"+ Resource.TM3B_Tieng + "|1";
+            string _model4 = _doc_id4 + "|6_Doc_POA|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|" + Resource.TM3B_Tieng + "|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)
         }
 
         @* 4.1  Bản dịch tiếng Việt, gồm *@
         @{
             string _doc_id5 = "01_SDD_05";
-            string _model5 = _doc_id5 + "|6_Doc_BanDichPOA|1|"+ Resource.TM3B_BanDichTiengVietGom + "|"+ Resource.TM2B_SoTrang + "|1";
+            string _model5 = _doc_id5 + "|6_Doc_BanDichPOA|1|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model5)
         }
 
         @* 4.2 Bản gốc *@
         @{
             string _doc_id6 = "01_SDD_06";
-            string _model6 = _doc_id6 + "|6_Doc_BanGocPOA|1|"+Resource.TM2B_BanGoc+"||1";
+            string _model6 = _doc_id6 + "|6_Doc_BanGocPOA|1|" + Resource.TM2B_BanGoc + "||1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model6)
         }
 
         @* 4.3 Bản sao *@
         @{
             string _doc_id7 = "01_SDD_07";
-            string _model7 = _doc_id7 + "|6_Doc_BanSaoPOA|1|"+ Resource.TM2B_BanSao+ "||0";
+            string _model7 = _doc_id7 + "|6_Doc_BanSaoPOA|1|" + Resource.TM2B_BanSao + "||0";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model7)
         }
 
@@ -286,28 +292,28 @@
         @* 4.3.1 Bản sao  > Bản gốc sẽ nộp sau *@
         @{
             string _doc_id8 = "01_SDD_08";
-            string _model8 = _doc_id8 + "|6_Doc_BanGocPOA_Later|2|"+ Resource.TM2B_BanGocSeNopSau + "||1";
+            string _model8 = _doc_id8 + "|6_Doc_BanGocPOA_Later|2|" + Resource.TM2B_BanGocSeNopSau + "||1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model8)
         }
 
         @* 4.3.2 Bản sao  > Bản gốc đã nộp theo đơn *@
         @{
             string _doc_id9 = "01_SDD_09";
-            string _model9 = _doc_id9 + "|6_Doc_BanGocPOA_ByApp|2|"+ Resource.TM2B_BanGocDaNopTheo + "|"+ Resource.TM2B_SodonNopTheo + "|0";
+            string _model9 = _doc_id9 + "|6_Doc_BanGocPOA_ByApp|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|0";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model9)
         }
 
         @* 5. Bản sao chứng từ nộp phí *@
         @{
             string _doc_id10 = "01_SDD_10";
-            string _model10 = _doc_id10 + "|6_Doc_BanSaoChungTu|0|"+ Resource.TM3B_BanSaoChungTuNopPhi + "||1";
+            string _model10 = _doc_id10 + "|6_Doc_BanSaoChungTu|0|" + Resource.TM3B_BanSaoChungTuNopPhi + "||1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model10)
         }
 
         @* 6. Khác *@
         @{
             string _doc_id11 = "01_SDD_11";
-            string _model11 = _doc_id11 + "|6_Doc_Other|0|"+Resource.TM3B_TaiLieuKhac + "|"+Resource.TM3B_TaiLieuKhacTenTaiLieu + "|1";
+            string _model11 = _doc_id11 + "|6_Doc_Other|0|" + Resource.TM3B_TaiLieuKhac + "|" + Resource.TM3B_TaiLieuKhacTenTaiLieu + "|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model11)
         }
 
@@ -317,9 +323,9 @@
         <div class="class_save">
             <div class="classGuiDon">
                 <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
-            </div> 
+            </div>
             <div class="classLuuTam">
-                       <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
+                <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
             </div>
         </div>
     </fieldset>
@@ -451,91 +457,94 @@
 
     $("#btnGuiDon").click(function () {
         try {
-            //Thông tin chủ đơn
-            var formData = new FormData();
+            nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmGui", function () {
+                //Thông tin chủ đơn
+                var formData = new FormData();
 
-            var reponse = funcThongTinNhapHo(formData);
-            if (reponse == false) {
-                return false;
-            }
-
-            var reponse = funcThongTinCaseName(formData, "0");
-            if (reponse == false) {
-                return false;
-            }
-
-            if (funcThongTinChuDon(formData, "1") != true) {
-                return false;
-            }
-
-            formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin)');
-            var v_AppCode = $("#txtAppCode").val();
-            if (v_AppCode === "") {
-                $('#txtAppCode').focus().val('');
-                showError('@Resource.TM3B_ChonLoaiDonDK');
-                return false;
-            }
-
-            // đại diện chủ đơn
-            formData.append("pInfo.Appcode", v_AppCode);
-            if (funcThongTinDaiDienChuDon(formData, "2") != true) {
-                return false;
-            }
-            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-            if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                jError("@Resource.TM2B_ChonDaiDienChuDon", "@Resource.TM3B_Loi", function () {
-                    $("#_2_rdoNguoiDaiDienPL").focus()
-                });
-                return false;
-            }
-            formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-
-            //Lấy thông tin detail
-            reponse = funcGetAppDetail(formData);
-            if (reponse == false) {
-                return false;
-            }
-
-            //Lấy thông tin tài liệu có trong đơn
-            reponse = funGetDocumentFile(formData);
-            if (reponse == false) {
-                return false;
-            }
-
-            reponse = funcGetCamKetChuDon(formData);
-            if (reponse == false) {
-                return false;
-            }
-
-            $.ajax({
-                url: '/trade-mark-3b/register_PLB_01_SDD',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                traditional: true,
-                dataType: "json",
-                enctype: 'multipart/form-data',
-                async: true,
-                headers: { "cache-control": "no-cache" },
-                beforeSend: function () {
-                    CreateRollingWaitingIcon(true);
-                },
-                success: function (data) {
-                    CreateRollingWaitingIcon(false);
-                    if (data != null && data.status >= 0) {
-                        jAlert(AddSuccess, ThongBao, function () {
-                            window.location = "/trade-mark-mana/quan-ly-don";
-                        });
-                    } else {
-                        jError(AddFail, ThongBao, function () {
-                        });
-                    }
-                },
-                error: function (e) {
-                    CreateRollingWaitingIcon(false);
-                    console.log(e);
+                var reponse = funcThongTinNhapHo(formData);
+                if (reponse == false) {
+                    return false;
                 }
+
+                var reponse = funcThongTinCaseName(formData, "0");
+                if (reponse == false) {
+                    return false;
+                }
+
+                if (funcThongTinChuDon(formData, "1") != true) {
+                    return false;
+                }
+
+                formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin)');
+                var v_AppCode = $("#txtAppCode").val();
+                if (v_AppCode === "") {
+                    $('#txtAppCode').focus().val('');
+                    showError('@Resource.TM3B_ChonLoaiDonDK');
+                    return false;
+                }
+
+                // đại diện chủ đơn
+                formData.append("pInfo.Appcode", v_AppCode);
+                if (funcThongTinDaiDienChuDon(formData, "2") != true) {
+                    return false;
+                }
+                var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+                if (v_RepMasterType === "" || v_RepMasterType == undefined) {
+                    jError("@Resource.TM2B_ChonDaiDienChuDon", "@Resource.TM3B_Loi", function () {
+                        $("#_2_rdoNguoiDaiDienPL").focus()
+                    });
+                    return false;
+                }
+                formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+
+                //Lấy thông tin detail
+                reponse = funcGetAppDetail(formData);
+                if (reponse == false) {
+                    return false;
+                }
+
+                //Lấy thông tin tài liệu có trong đơn
+                reponse = funGetDocumentFile(formData);
+                if (reponse == false) {
+                    return false;
+                }
+
+                reponse = funcGetCamKetChuDon(formData);
+                if (reponse == false) {
+                    return false;
+                }
+
+                $.ajax({
+                    url: '/trade-mark-3b/register_PLB_01_SDD',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    traditional: true,
+                    dataType: "json",
+                    enctype: 'multipart/form-data',
+                    async: true,
+                    headers: { "cache-control": "no-cache" },
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data != null && data.status >= 0) {
+                            jAlert(AddSuccess, ThongBao, function () {
+                                window.location = "/trade-mark-mana/quan-ly-don";
+                            });
+                        } else {
+                            jError(AddFail, ThongBao, function () {
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(false);
+                        console.log(e);
+                    }
+                });
+        
             });
 
         } catch (e) {
@@ -546,91 +555,92 @@
 
     $("#btnLuuTam").click(function () {
         try {
-
-            //Thông tin chủ đơn
-            var formData = new FormData();
-            var reponse = funcThongTinNhapHo(formData);
-            if (reponse == false) {
-                return false;
-            }
-
-            var reponse = funcThongTinCaseName(formData,"0");
-            if (reponse == false) {
-                return false;
-            }
-
-            if (funcThongTinChuDon(formData, "1") != true) {
-                return false;
-            }
-            formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.Luu_tam)');
-
-            var v_AppCode = $("#txtAppCode").val();
-            if (v_AppCode === "") {
-                $('#txtAppCode').focus().val('');
-                showError('@Resource.TM3B_ChonLoaiDonDK');
-                return false;
-            }
-
-            // đại diện chủ đơn
-            formData.append("pInfo.Appcode", v_AppCode);
-            if (funcThongTinDaiDienChuDon(formData, "2") != true) {
-                return false;
-            }
-            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-            if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                jError("@Resource.TM2B_ChonDaiDienChuDon", "@Resource.TM3B_Loi", function () {
-                    $("#_2_rdoNguoiDaiDienPL").focus()
-                });
-            }
-            formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-
-            //Lấy thông tin detail
-            reponse = funcGetAppDetail(formData);
-            if (reponse == false) {
-                return false;
-            }
-
-            //Lấy thông tin tài liệu có trong đơn
-            reponse = funGetDocumentFile(formData);
-            if (reponse == false) {
-                return false;
-            }
-
-            reponse = funcGetCamKetChuDon(formData);
-            if (reponse == false) {
-                return false;
-            }
-
-            $.ajax({
-                url: '/trade-mark-3b/register_PLB_01_SDD',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                traditional: true,
-                dataType: "json",
-                enctype: 'multipart/form-data',
-                async: true,
-                headers: { "cache-control": "no-cache" },
-                beforeSend: function () {
-                    CreateRollingWaitingIcon(true);
-                },
-                success: function (data) {
-                    CreateRollingWaitingIcon(false);
-                    if (data != null && data.status >= 0) {
-                        jAlert('@Resource.TM3B_LuuTamThanhCong', "@Resource.TM3C_ThongBao", function () {
-                            window.location = "/trade-mark-mana/quan-ly-don";
-                        });
-                    } else {
-                        jError("@Resource.TM3B_LuuTamLoi");
-                    }
-                },
-                error: function (e) {
-                    CreateRollingWaitingIcon(false);
-                    console.log(e);
+            nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmLuuTam", function () {
+                //Thông tin chủ đơn
+                var formData = new FormData();
+                var reponse = funcThongTinNhapHo(formData);
+                if (reponse == false) {
+                    return false;
                 }
-            });
 
+                var reponse = funcThongTinCaseName(formData, "0");
+                if (reponse == false) {
+                    return false;
+                }
+
+                if (funcThongTinChuDon(formData, "1") != true) {
+                    return false;
+                }
+                formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.Luu_tam)');
+
+                var v_AppCode = $("#txtAppCode").val();
+                if (v_AppCode === "") {
+                    $('#txtAppCode').focus().val('');
+                    showError('@Resource.TM3B_ChonLoaiDonDK');
+                    return false;
+                }
+
+                // đại diện chủ đơn
+                formData.append("pInfo.Appcode", v_AppCode);
+                if (funcThongTinDaiDienChuDon(formData, "2") != true) {
+                    return false;
+                }
+                var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+                if (v_RepMasterType === "" || v_RepMasterType == undefined) {
+                    jError("@Resource.TM2B_ChonDaiDienChuDon", "@Resource.TM3B_Loi", function () {
+                        $("#_2_rdoNguoiDaiDienPL").focus()
+                    });
+                }
+                formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+
+                //Lấy thông tin detail
+                reponse = funcGetAppDetail(formData);
+                if (reponse == false) {
+                    return false;
+                }
+
+                //Lấy thông tin tài liệu có trong đơn
+                reponse = funGetDocumentFile(formData);
+                if (reponse == false) {
+                    return false;
+                }
+
+                reponse = funcGetCamKetChuDon(formData);
+                if (reponse == false) {
+                    return false;
+                }
+
+                $.ajax({
+                    url: '/trade-mark-3b/register_PLB_01_SDD',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    traditional: true,
+                    dataType: "json",
+                    enctype: 'multipart/form-data',
+                    async: true,
+                    headers: { "cache-control": "no-cache" },
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data != null && data.status >= 0) {
+                            jAlert('@Resource.TM3B_LuuTamThanhCong', "@Resource.TM3C_ThongBao", function () {
+                                window.location = "/trade-mark-mana/quan-ly-don";
+                            });
+                        } else {
+                            jError("@Resource.TM3B_LuuTamLoi");
+                        }
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(false);
+                        console.log(e);
+                    }
+                });
+                
+            });
         } catch (e) {
             CreateRollingWaitingIcon(false);
             console.log(e);

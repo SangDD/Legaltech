@@ -20,7 +20,7 @@
                 <th style="width: 10%" data-sort id="Type" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Loại người dùng</th>
                 <th style="width: 15%" data-sort id="Email" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Email</th>
                 <th style="width: 10%" data-sort id="Phone" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Số điện thoại</th>
-                <th style="width: 15%" data-sort id="LastTimeUpdated">Cập nhật lúc</th>
+                <th style="width: 15%" data-sort id="LastTimeUpdated">Lần truy cập gần nhất</th>
                 <th style="width: 100px;">Chức năng</th>
             </tr>
         </thead>
@@ -37,7 +37,7 @@
                         <td class="tdleftalign">@item.Type_Name</td>
                         <td class="tdleftalign">@item.Email</td>
                         <td class="tdleftalign">@item.Phone</td>
-                        <td class="tdleftalign">@item.LastTimeUpdated.ToDateTimeStringN0()</td>
+                        <td class="tdleftalign">@item.LAST_LOGIN.ToDateTimeStringN0()</td>
                         <td class="tdcenteralign">
                             <a href="javascript:viewDetailUser(@item.Id, '@item.Username')" class="icon icon-info" data-title="Xem chi tiết"></a>
                             @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin)
