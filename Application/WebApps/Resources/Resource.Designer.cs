@@ -2302,6 +2302,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thêm.
+        /// </summary>
+        public static string Them {
+            get {
+                return ResourceManager.GetString("Them", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thêm điều kiện.
         /// </summary>
         public static string ThemDieuKien {
