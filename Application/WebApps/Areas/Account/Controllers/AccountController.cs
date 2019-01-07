@@ -159,7 +159,7 @@
 
                 //string key_EncryptString = AppsCommon.DecryptString(_nd_confirm);
 
-                string link = "http://localhost:53969/quen-mat-khau/thong-bao?confirm=" + _nd_confirm;
+                string link = Configuration.LinkPathlaw + "/quen-mat-khau/thong-bao?confirm=" + _nd_confirm;
                 string content = GetContentMail(link);
                 _ck = EmailHelper.SendMail(_user.Email, "", "Đặt lại mật khẩu", content, a);
                 return Json(new { success = 1 });
@@ -173,7 +173,7 @@
 
         public string GetContentMail(string link)
         {
-            string title = "ATT_Online";
+            string title = EmailHelper.EmailOriginal.DisplayName;
             string content = "Chào bạn, Để đặt lại mật khẩu, bạn cần bấm vào link liên kết bên dưới. Thao tác này sẽ giúp bạn thay đổi mật khẩu.";
             return "<div>" +
                 "<div>" + title + "</div>" +
