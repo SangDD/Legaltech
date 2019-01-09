@@ -84,14 +84,14 @@ namespace BussinessFacade
             }
         }
 
-        public List<WikiCatalogues_Info> WikiCata_Search(string P_KEY_SEARCH = "", string OPTIONS = "")
+        public List<WikiCatalogues_Info> Portal_Catalogue_Search(string P_KEY_SEARCH = "", string OPTIONS = "")
         {
             try
             {
                 WikiCatalogue_DA _da = new WikiCatalogue_DA();
                 var optionFilter = new OptionFilter(OPTIONS);
                 var totalRecordFindResult = 0;
-                var ds = _da.WikiCata_Search(P_KEY_SEARCH, optionFilter, ref totalRecordFindResult);
+                var ds = _da.Portal_Catalogue_Search(P_KEY_SEARCH, optionFilter, ref totalRecordFindResult);
                 this.SetupPagingHtml(optionFilter, totalRecordFindResult, "pageListOfObjects", "divNumberRecordOnPageListObjects");
                 return CBO<WikiCatalogues_Info>.FillCollectionFromDataSet(ds);
             }
@@ -108,6 +108,26 @@ namespace BussinessFacade
             {
                 WikiCatalogue_DA _da = new WikiCatalogue_DA();
                 var ds = _da.Portal_CataGetAll();
+                return CBO<WikiCatalogues_Info>.FillCollectionFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<WikiCatalogues_Info>();
+            }
+        }
+
+        
+
+        public List<WikiCatalogues_Info> WikiCata_Search(string P_KEY_SEARCH = "", string OPTIONS = "")
+        {
+            try
+            {
+                WikiCatalogue_DA _da = new WikiCatalogue_DA();
+                var optionFilter = new OptionFilter(OPTIONS);
+                var totalRecordFindResult = 0;
+                var ds = _da.WikiCata_Search(P_KEY_SEARCH, optionFilter, ref totalRecordFindResult);
+                this.SetupPagingHtml(optionFilter, totalRecordFindResult, "pageListOfObjects", "divNumberRecordOnPageListObjects");
                 return CBO<WikiCatalogues_Info>.FillCollectionFromDataSet(ds);
             }
             catch (Exception ex)

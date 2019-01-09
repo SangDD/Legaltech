@@ -1,15 +1,10 @@
 ﻿@using ObjectInfos;
 @using WebApps.CommonFunction;
 @{
-    List<WikiDoc_Info> _listDoc = new List<WikiDoc_Info>();
-    if (ViewBag.ListDocSearch != null)
+    List<WikiCatalogues_Info> _listObject = new List<WikiCatalogues_Info>();
+    if (ViewBag.ListObject != null)
     {
-        _listDoc = ViewBag.ListDocSearch;
-    }
-    WikiCatalogues_Info _Catainfo = new WikiCatalogues_Info();
-    if (ViewBag.CatalogueInfo != null)
-    {
-        _Catainfo = ViewBag.CatalogueInfo;
+        _listObject = ViewBag.ListObject;
     }
     string _LanguageCode = AppsCommon.GetCurrentLang();
     string _langlink = "/vi-vn";

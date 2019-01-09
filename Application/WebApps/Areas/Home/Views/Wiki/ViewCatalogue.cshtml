@@ -1,0 +1,143 @@
+﻿@using ObjectInfos
+@using System.Text;
+@using Common.CommonData;
+@using WebApps.CommonFunction;
+@{
+    Layout = "~/ViewsShared/_LayoutHomeWiki.cshtml";
+    string _languagecode = "/vi-vn/";
+    if (ViewBag.LanguageCode != null)
+    {
+        _languagecode = ViewBag.LanguageCode;
+    }
+    List<WikiCatalogues_Info> _Listcatalogue = new List<WikiCatalogues_Info>();
+    if (ViewBag.ListCatalogue != null)
+    {
+        _Listcatalogue = ViewBag.ListCatalogue;
+    }
+
+
+}
+<link href=@($"/Content/WikiStyle.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
+<link href="~/Content/social-likes/social-likes_classic.css" rel="stylesheet" />
+<script src="~/Content/social-likes/social-likes.min.js"></script>
+
+
+<input type="hidden" value="TITLE" id="colSorted" />
+<input type="hidden" value="ASC" id="SortType" />
+<input type="hidden" value="" id="OptionSorting" />
+<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 div_wikicontent">
+ 
+
+
+    <div class="clssbox_search">
+
+        <input type="text" id="_txtwikidocsearch" placeholder="Tìm kiếm theo tên danh mục" />
+        <input type="hidden" id="_txtwikicataid" />
+        <div class="clssbox_button">
+            <input type="button" id="btnfindObjects" value="@WebApps.Resources.Resource.WikiSearchButton" onclick="findObjects(1, 1)" />
+        </div>
+    </div>
+ 
+    <div id="div_wiki_datacontent" class="mdc-card mdc-card--stroked"  >
+        @Html.Partial("/Areas/Home/Views/Wiki/_PartialListChilCataByParent.cshtml")
+    </div>
+</div>
+
+
+<script>
+    var _NameABC = 'ALL', _ParentID = 'ALL', _NameSearch = 'ALL';
+
+    $(document).ready(function () {
+        $('_txtwikidocsearch').focus();
+    });
+    var keySearch = "";
+    var arrKeySearch;
+    function findObjects(_pageNumber, _isSearching) {
+        try {
+            //reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
+            if (_isSearching === 1) {
+                _NameABC = "ALL";
+                _ParentID = "ALL";
+                _NameSearch = $("#_txtwikidocsearch").val().trim();
+
+            } else {
+                arrKeySearch = keySearch.split('|');
+                _NameABC = arrKeySearch[0];
+                _NameSearch = arrKeySearch[1];
+                if ($("#_txtwikicataid").val() == "0")
+                {
+                    _ParentID = arrKeySearch[2];
+                }
+                else
+                {
+                    _ParentID = $("#_txtwikicataid").val();
+                }
+                $("#_txtwikidocsearch").val(_NameSearch);
+            }
+            _status = "3";
+
+            if ($("#_txtwikicataid").val() == "0") {
+                _ParentID = "ALL";
+            }
+            else {
+                _ParentID = $("#_txtwikicataid").val();
+            }
+            _NameSearch = $("#_txtwikidocsearch").val().trim();
+            if (_NameSearch.trim() == "")
+            {
+                _NameSearch = "ALL";
+            }
+            keySearch = _NameABC + "|" + _NameSearch + "|" + _ParentID;
+            // updateSearchingConditions("divNumberRecordOnPageListObjects", setKeySearch);
+            var optionFilter = "NAME|ASC||" + _pageNumber + "|20" ;
+            $.ajax({
+                type: "POST",
+                headers: { "cache-control": "no-cache" },
+                url: "/wiki-view/CatalogueSearch/",
+                data: {
+                    keysSearch: keySearch,
+                    options: optionFilter
+                },
+                async: false,
+                success: function (data) {
+                    if (data != null) {
+                        $("#div_wiki_datacontent").html(data);
+                     //   onResponseWhenSearching(data, "div_wiki_datacontent", findObjects);
+                    }
+                }
+            });
+            return true;
+        } catch (e) {
+            alert(e.toString());
+            return false;
+        }
+
+
+    }
+
+    function setKeySearch() {
+        window.keySearch = _status + "|" + _catalogue + "|" + _titleHashtag;
+    }
+
+    function initOrderBySearching() {
+        window.colSort = 'MODIFIED_DATE';
+        window.sortType = 'DESC';
+    }
+
+    function pageListOfObjects(_pagenum) {
+        try {
+            findObjects(_pagenum, 0);
+
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+
+
+ 
+
+ 
+
+</script>
+
+

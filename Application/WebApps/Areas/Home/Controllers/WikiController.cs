@@ -92,6 +92,55 @@ namespace WebApps.Areas.Home.Controllers
             return View("/Areas/Home/Views/Wiki/View.cshtml");
         }
 
+        [Route("cata-view/{id}")]
+        public ActionResult ViewCata()
+        {
+            try
+            {
+                WikiCatalogue_BL _CatalogueBL = new WikiCatalogue_BL();
+                string _Cataid = "";
+                if (RouteData.Values["id"] != null)
+                {
+                    _Cataid =  RouteData.Values["id"].ToString();
+                }
+                if (_Cataid == "0") _Cataid = "ALL";
+                WikiCatalogues_Info _parentinfo = new WikiCatalogues_Info();
+                if (_Cataid != "0")
+                {
+                    _parentinfo = _CatalogueBL.WikiCatalogue_GetByID(Convert.ToDecimal(_Cataid));
+                }
+                List<WikiCatalogues_Info> _ListCata = new List<WikiCatalogues_Info>();
+                _ListCata = _CatalogueBL.Portal_Catalogue_Search("ALL|ALL|" + _Cataid.ToString() +  "|" + AppsCommon.GetCurrentLang());
+                ViewBag.Paging = _CatalogueBL.GetPagingHtml();
+                ViewBag.ListObject = _ListCata;
+                ViewBag.Parentinfo = _parentinfo;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return View("/Areas/Home/Views/Wiki/View.cshtml");
+        }
+
+        [HttpPost]
+        [Route("CatalogueSearch")]
+        public ActionResult CatalougeSearch(string keysSearch, string options)
+        {
+            var lstOjects = new List<WikiCatalogues_Info>();
+            try
+            {
+                WikiCatalogue_BL _CatalogueBL = new WikiCatalogue_BL();
+                lstOjects = _CatalogueBL.Portal_Catalogue_Search(keysSearch + "|" + AppsCommon.GetCurrentLang(), options);
+                ViewBag.Paging = _CatalogueBL.GetPagingHtml();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            ViewBag.ListObject = lstOjects;
+            return PartialView("/Areas/Home/Views/Wiki/_PartialListChilCataByParent.cshtml");
+        }
+
 
         // GET: Home/Wiki
 

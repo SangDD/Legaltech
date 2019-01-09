@@ -32,5 +32,7 @@ namespace ObjectInfos
 
         public DateTime MODIFIED_DATE { set; get; }
 
+        public decimal NUMBER_DOC { set; get; }
+
     }
 }
