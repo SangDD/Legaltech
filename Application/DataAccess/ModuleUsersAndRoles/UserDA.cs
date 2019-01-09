@@ -27,6 +27,21 @@
             }
         }
 
+        public static DataSet GetBy_Email(string p_email)
+        {
+            try
+            {
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_s_users.proc_User_GetByEmail",
+                    new OracleParameter("p_email", OracleDbType.Varchar2, p_email, ParameterDirection.Input),
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
         public static DataSet GetUserByUsername(string username)
         {
             try

@@ -119,23 +119,16 @@
     <div class="fixed">
         <div class="d-container" style="width: 400px;">
             <div class="d-form-login">
-                <form id="frmLogin" method="post" action="/dang-nhap?returnUrl=@ViewBag.returnUrl" enctype="multipart/form-data">
-                    <div>
-                        <p class="font-size-20 text-font-medium text-color-2">@Resource.Login</p>
-                    </div>
-                    <div>
-                        <p>@Resource.User_Name</p>
-                        <input type="text" name="userName" id="txtUsernameLogin" autofocus placeholder="" />
-                    </div>
-                    <div>
-                        <p>@Resource.Password</p>
-                        <input type="password" name="password" id="txtPasswordLogin" placeholder="" />
-                    </div>
-                    <div>
-                        <input style="width: 120px;" type="submit" class="btn" value="@Resource.Login" onclick="return validateLoginData()" />
-                        <p style="margin-top: 20px; font-size: 12px;" class="reset_pass" ><a href="/fogot-pass">Quên mật khẩu</a></p>
-                    </div>
-                </form>
+                <div>
+                    <p class="font-size-20 text-font-medium text-color-2">Quên mật khẩu</p>
+                </div>
+                <div>
+                    <p>Email</p>
+                    <input type="text" id="gmail" autofocus placeholder="" />
+                </div>
+                <div>
+                    <input style="width: 120px;" type="submit" class="btn" value="Đặt lại mật khẩu" onclick="return SendEmail()" />
+                </div>
             </div>
         </div>
     </div>
@@ -160,29 +153,35 @@
 </body>
 </html>
 
+@*Nếu bạn quên mật khẩu, bạn có thể dùng mẫu sau để thiết lập lại mật khẩu. Bạn sẽ nhận được một email
+    với nội dung hướng dẫn đặt lại mật khẩu*@
 
 <script>
-    $(document).ready(function () {
-        $('#txtUsernameLogin').focus();
-    });
-
-    function RemovePassword() {
+    function SendEmail() {
         try {
-            alert('a');
+            // gmail
+            var p_gmail = $("#gmail").val().trim();
+
             $.ajax({
-                type: 'GET',
-                url: '/fogot-pass',
-                dataType: "html",
+                type: 'POST',
+                url: '/do-fogot-pass',
                 data: {
-
-                }
-                , async: false, cache: false, traditional: true,
+                    gmail: p_gmail
+                },
+                async: true, cache: false, traditional: true,
                 success: function (data) {
-                    //$("#divView").html(data);
-                    //ShowPopupDialog_Ipace('divWrapperView', "Quên mật khẩu", 700, 700, "gmail");
-
-                    $("#divPopUpUser").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpUser', "Quên mật khẩu", 700, 700, "gmail");
+                    if (data.success > 0) {
+                        jAlert("Yêu cầu thiết lập lại mật khẩu đã được gửi tới email của bạn, Vui lòng làm theo hướng dẫn trong email này", "Thông báo", function () {
+                            window.location = "/home";
+                        });
+                    } else if (data.success == '-2') {
+                        jAlert("Tài khoản email không chính xác, Vui lòng kiểm tra lại tài khoản", "Thông báo", function () {
+                            window.location = "/home";
+                        });
+                    }
+                    else {
+                        jError('Kết nối không thành công!', "lỗi");
+                    }
                 }
             });
 
@@ -190,44 +189,4 @@
             console.log(ex);
         }
     }
-
-
-    function validateLoginData() {
-        var userName = $('#txtUsernameLogin').val().trim();
-        var pwd = $('#txtPasswordLogin').val();
-        $('#txtUserNameLogin').val(userName);
-        if (userName === "") {
-            $('#txtUsernameLogin').focus().val('');
-            showError("@Resource.User_Name_KhongDuocDeTrong");
-            return false;
-        }
-        if (pwd === "") {
-            $('#txtPasswordLogin').focus().val('');
-            showError("@Resource.Password_KhongDuocDeTrong");
-            return false;
-        }
-        return true;
-    }
-     
-    $("#frmLogin").on("submit", function (e) {
-        e = window.event || e;
-        e.preventDefault();
-        $.ajax({
-            url: this.action,
-            type: this.method,
-            data: new FormData(this),
-            processData: false, contentType: false,
-            async: true, cache: false, traditional: true,
-            success: function (data) {
-                if (onResponse(data)) {
-                    window.location.href = data["urlContinue"];
-                } else {
-                    $('#txtUsernameLogin').focus();
-                }
-            },
-            error: function (e) {
-                console.log(e);
-            }
-        });
-    });
 </script>

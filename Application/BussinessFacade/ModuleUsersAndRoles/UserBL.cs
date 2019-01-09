@@ -42,6 +42,21 @@
             return CBO<UserInfo>.FillObjectFromDataSet(ds);
         }
 
+        public UserInfo GetBy_Email(string p_email)
+        {
+            try
+            {
+                var ds = UserDA.GetBy_Email(p_email);
+                return CBO<UserInfo>.FillObjectFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return null;
+            }
+
+        }
+
         public UserInfo GetUserByUsername(string username)
         {
             try
@@ -132,7 +147,7 @@
             return Null<UserInfo>.GetListCollectionNull();
         }
 
-        public List<UserInfo> HomeFindUser(ref decimal totalRecordFindResult ,string keysSearch = "", string options = "")
+        public List<UserInfo> HomeFindUser(ref decimal totalRecordFindResult, string keysSearch = "", string options = "")
         {
             try
             {
@@ -401,13 +416,13 @@
                 //string _wikistyle = "", _wikihref = "", _javafunc = "", _wikilink = "";
                 //string _menuName = "Quản lý Wiki";
                 //string _urlLang = "/vi-vn";
-              
+
                 //if (language == Language.LangEN)
                 //{
                 //    _menuName = "Wiki manage";
                 //    _urlLang = "/en-gb";
                 //}
-              
+
                 //_javafunc = " onclick='gotoTask(this)'>";
 
                 //userHtmlMenu += " <li  class='group-menu' onclick='javascript:;' >" + "  <span data-menu='item-main-menu'><i class='fas fa-cog fa-fw'></i> " + _menuName + " </span>  "
@@ -436,7 +451,7 @@
 
                 //userHtmlMenu += "  </ul></li>  ";
 
-             
+
                 //WikiCatalogue_BL _CatalogueBL = new WikiCatalogue_BL();
                 //List<WikiCatalogues_Info> _ListCata = new List<WikiCatalogues_Info>();
                 //_ListCata = _CatalogueBL.Portal_CataGetAll();
@@ -456,7 +471,7 @@
                 //    if (item.CATA_LEVEL == 1)
                 //    {
                 //        _wikistyle = "style='margin-left:10px;'";
-                       
+
                 //    }
                 //    _wikihref = _urlLang + "/wiki-view/doc-view/" + item.ID + "/0";
                 //    _wikihref = "data-url='" + _wikihref + "' ";
@@ -469,7 +484,7 @@
                 //               (language == Language.LangEN?item.NAME_ENG:item.NAME) 
                 //              + " </a> " 
                 //            + "</span></li>  ";
-                
+
                 //}
                 //userHtmlMenu += "</ul></li>";
 
@@ -592,8 +607,8 @@
         {
             try
             {
-             DataSet ds = UserDA.RegisterGetAll(pSearchKey, pFrom, pTo, ref pTotalRecord);
-             return CBO<RegisterInfo>.FillCollectionFromDataSet(ds);
+                DataSet ds = UserDA.RegisterGetAll(pSearchKey, pFrom, pTo, ref pTotalRecord);
+                return CBO<RegisterInfo>.FillCollectionFromDataSet(ds);
             }
             catch (Exception ex)
             {
@@ -632,7 +647,7 @@
 
 
 
-        
+
         #endregion
     }
 }
