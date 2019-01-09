@@ -156,9 +156,7 @@
                 string _nd_confirm = current.ToString("dd/MM/yyyy HH:mm") + "|" + _user.Id;
 
                 _nd_confirm = WebApps.CommonFunction.AppsCommon.EncryptString(_nd_confirm);
-
-                //string key_EncryptString = AppsCommon.DecryptString(_nd_confirm);
-
+                //string key_EncryptString = WebApps.CommonFunction.AppsCommon.DecryptString(_nd_confirm);
                 string link = Configuration.LinkPathlaw + "/quen-mat-khau/thong-bao?confirm=" + _nd_confirm;
                 string content = GetContentMail(link);
                 _ck = EmailHelper.SendMail(_user.Email, "", "Đặt lại mật khẩu", content, a);

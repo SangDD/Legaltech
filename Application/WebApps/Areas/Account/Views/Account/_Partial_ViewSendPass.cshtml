@@ -14,11 +14,11 @@
     <meta name="__RequestVerificationToken" content="@Html.AntiForgeryTokenValue()" />
     @if (language == "VI_VN")
     {
-        <title>Đăng nhập hệ thống</title>
+        <title>Quên mật khẩu</title>
     }
     else
     {
-        <title>Login System</title>
+        <title>Fogot password</title>
     }
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <script src=@($"/Scripts/jquery-1.10.2.min.js?v={CommonVariables.AssemblyVersion}")></script>
@@ -42,6 +42,14 @@
     <link href=@($"/Content/fonts/fontawesome/fontawesome-all.min.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
 
     <link href=@($"/Scripts/outSourcesLib/datetimepickerMaster/jquery.datetimepicker.min.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
+    <script src="@Url.Script("~/Scripts/DangTQForm.js")"></script>
+    <script src="~/Scripts/messagebox/JsFormPopup.js"></script>
+    <script src="~/Scripts/messagebox/popup.js"></script>
+    <link href="~/Content/CssFormPoup/StyleFormPopup.css" rel="stylesheet" />
+    @* Loader *@
+    <link href="~/Content/CSSWaitingIcon/rolling.css" rel="stylesheet" />
+    <link href="~/Scripts/AlertPopup/NVSAlertCss.css" rel="stylesheet" />
+    <script src="~/Scripts/AlertPopup/ASSAlert.js"></script>
 
     <style>
         * {
@@ -169,15 +177,17 @@
                     gmail: p_gmail
                 },
                 async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
                 success: function (data) {
+                    CreateRollingWaitingIcon(false);
                     if (data.success > 0) {
                         jAlert("Yêu cầu thiết lập lại mật khẩu đã được gửi tới email của bạn, Vui lòng làm theo hướng dẫn trong email này", "Thông báo", function () {
-                            window.location = "/home";
+                            window.location = "/login";
                         });
                     } else if (data.success == '-2') {
-                        jAlert("Tài khoản email không chính xác, Vui lòng kiểm tra lại tài khoản", "Thông báo", function () {
-                            window.location = "/home";
-                        });
+                        jAlert("Tài khoản email không chính xác, Vui lòng kiểm tra lại tài khoản", "Thông báo");
                     }
                     else {
                         jError('Kết nối không thành công!', "lỗi");
