@@ -12,17 +12,31 @@
     {
         _langlink = "/en-gb";
     }
+    WikiCatalogues_Info _Catainfo = new WikiCatalogues_Info();
+    if(ViewBag.Parentinfo != null)
+    {
+        _Catainfo = ViewBag.Parentinfo;
+    }
 }
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h3 style="padding-left:20px">@_Catainfo.NAME</h3>
         <input type="hidden" id="txtwikicataid" value="@_Catainfo.ID" />
         <div id="pagination-append" class="list-group item-list with-letters row">
-            @foreach (var item in _listDoc)
+            @foreach (var item in _listObject)
             {
                 <a class="dynamic-linkset list-group-item col-md-6 itemdoc" href='@(_langlink + "/wiki-view/doc-view/0/" + item.ID)'>
-                    <span class="badge">@item.VIEW_NUMBER</span>
-                    @item.TITLE
+                    <span class="badge">@item.NUMBER_DOC</span>
+                   @if (_LanguageCode == "VI_VN")
+                   {
+                    @item.NAME
+                   }
+                   else
+                   {
+                       @item.NAME_ENG
+                   }
+
+
                 </a>
             }
         </div>

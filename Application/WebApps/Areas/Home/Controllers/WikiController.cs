@@ -103,23 +103,42 @@ namespace WebApps.Areas.Home.Controllers
                 {
                     _Cataid =  RouteData.Values["id"].ToString();
                 }
-                if (_Cataid == "0") _Cataid = "ALL";
+                
                 WikiCatalogues_Info _parentinfo = new WikiCatalogues_Info();
+                List<WikiCatalogues_Info> _ListCataMenu = new List<WikiCatalogues_Info>();
+                _ListCataMenu = _CatalogueBL.Portal_CataGetAll();
+                List<WikiCatalogues_Info> _ListCata = new List<WikiCatalogues_Info>();
+                foreach (var item in _ListCataMenu)
+                {
+                    if (item.ID != 0)
+                    {
+                        _parentinfo = item;
+                        break;
+                    }
+                }
                 if (_Cataid != "0")
                 {
                     _parentinfo = _CatalogueBL.WikiCatalogue_GetByID(Convert.ToDecimal(_Cataid));
                 }
-                List<WikiCatalogues_Info> _ListCata = new List<WikiCatalogues_Info>();
+               else
+                     _Cataid = _parentinfo.ID.ToString();
+
                 _ListCata = _CatalogueBL.Portal_Catalogue_Search("ALL|ALL|" + _Cataid.ToString() +  "|" + AppsCommon.GetCurrentLang());
                 ViewBag.Paging = _CatalogueBL.GetPagingHtml();
                 ViewBag.ListObject = _ListCata;
                 ViewBag.Parentinfo = _parentinfo;
+               
+                ViewBag.ListCatalogue = _ListCataMenu;
+                // lấy thằng đầu tiên
+               
+                ViewBag.CurrCata = _parentinfo.ID;
+
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
             }
-            return View("/Areas/Home/Views/Wiki/View.cshtml");
+            return View("/Areas/Home/Views/Wiki/ViewCatalogue.cshtml");
         }
 
         [HttpPost]
