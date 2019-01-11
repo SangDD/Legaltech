@@ -63,7 +63,7 @@
         {
             if (SessionData.CurrentUser != null)
             {
-                return Json(new { redirectTo = SessionData.CurrentUser.DefaultHomePage });
+                return Json(new { redirectTo =  SessionData.CurrentUser.DefaultHomePage });
             }
             string language = AppsCommon.GetCurrentLang();
             var result = new ActionBusinessResult();
