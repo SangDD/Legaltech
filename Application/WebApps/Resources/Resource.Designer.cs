@@ -268,7 +268,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Số tham chiếu của Khách hàng.
+        ///   Looks up a localized string similar to Tham chiếu của KH.
         /// </summary>
         public static string ClientReference {
             get {
