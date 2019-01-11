@@ -153,11 +153,11 @@
                 DateTime currentTime = DateTime.Now;
                 DateTime current = currentTime.AddMinutes(5);
 
-                string _nd_confirm = current.ToString("dd/MM/yyyy HH:mm") + "|" + _user.Id;
+                string _nd_confirm = current.ToString("ddMMyyyy HH:mm") + "_" + _user.Id;
 
                 _nd_confirm = WebApps.CommonFunction.AppsCommon.EncryptString(_nd_confirm);
                 //string key_EncryptString = WebApps.CommonFunction.AppsCommon.DecryptString(_nd_confirm);
-                string link = Configuration.LinkPathlaw + "/quen-mat-khau/thong-bao?confirm=" + _nd_confirm;
+                string link = Configuration.LinkPathlaw + "/vi-vn/quen-mat-khau/thong-bao?confirm=" + _nd_confirm;
                 string content = GetContentMail(link);
                 _ck = EmailHelper.SendMail(_user.Email, "", "Đặt lại mật khẩu", content, a);
                 return Json(new { success = 1 });

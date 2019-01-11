@@ -12,8 +12,8 @@
     using AppStart;
     using BussinessFacade;
     using BussinessFacade.ModuleMemoryData;
-	using Common;
-	using Common.CommonData;
+    using Common;
+    using Common.CommonData;
     using GemBox.Document;
     using GemBox.Spreadsheet;
     using ObjectInfos;
@@ -47,7 +47,7 @@
                 _th1.Start();
 
                 // tự động change trạng thái của remind
-                Thread _th2= new Thread(ThreadChangeRemind);
+                Thread _th2 = new Thread(ThreadChangeRemind);
                 _th2.IsBackground = true;
                 _th2.Start();
             }
@@ -60,7 +60,7 @@
         protected virtual void Application_Start()
         {
             //Add key cho gembox 
-            SpreadsheetInfo.SetLicense("ETJW-8TZ7-8IQ6-0LAD"); 
+            SpreadsheetInfo.SetLicense("ETJW-8TZ7-8IQ6-0LAD");
 
             ComponentInfo.SetLicense("DTFX-2TZ7-8IQ6-VTY3");
 
@@ -116,11 +116,21 @@
                 {
                     string _reg = @"^(.*)(/EN-GB/)(.*)$";
                     Match match = Regex.Match(Request.RawUrl.ToUpper(), _reg);
+                    if (Request.RawUrl.Contains("quen-mat-khau") == true)
+                    {
+                        _reg = @"^(.*)(/en-gb/)(.*)$";
+                        match = Regex.Match(Request.RawUrl, _reg);
+                    }
 
                     if (!match.Success)
                     {
                         _reg = @"^(.*)(/VI-VN/)(.*)$";
                         match = Regex.Match(Request.RawUrl.ToUpper(), _reg);
+                        if (Request.RawUrl.Contains("quen-mat-khau") == true)
+                        {
+                            _reg = @"^(.*)(/vi-vn/)(.*)$";
+                            match = Regex.Match(Request.RawUrl, _reg);
+                        }
                     }
 
                     if (match.Success && match.Groups.Count == 4)

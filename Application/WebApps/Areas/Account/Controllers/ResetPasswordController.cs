@@ -20,19 +20,22 @@ namespace AnThanh.Controllers
         {
             try
             {
-                confirm = confirm.Replace(" ","+");
+                confirm = confirm.Replace(" ", "+");
                 string decryptString = WebApps.CommonFunction.AppsCommon.DecryptString(confirm);
 
-                string _p_date = decryptString.Split('|')[0];
-                decimal _p_userid = Convert.ToDecimal(decryptString.Split('|')[1]);
+                string _p_date = decryptString.Split('_')[0];
+                decimal _p_userid = Convert.ToDecimal(decryptString.Split('_')[1]);
 
                 // kiểm tra hạn sử dụng của link;
-           
+
+                string[] _arr = _p_date.Split(' ');
+
+                DateTime dt = ConvertString2Date(_p_date);
 
                 TimeSpan difference_day = new TimeSpan();
-                DateTime x = Convert.ToDateTime(_p_date);
-                difference_day = DateTime.Now - Convert.ToDateTime(_p_date);
-                
+                //DateTime x = Convert.ToDateTime(_p_date);
+                difference_day = DateTime.Now - dt;
+
                 decimal _ck_minutes = 1;
                 UserInfo _user = new UserInfo();
                 UserBL _userBL = new UserBL();
@@ -50,22 +53,36 @@ namespace AnThanh.Controllers
                 ViewBag.User = _user;
                 ViewBag.Minutes = _ck_minutes;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.LogException(ex);
             }
             return View();
         }
-        
+
+        public DateTime ConvertString2Date(string str)
+        {
+            System.Globalization.CultureInfo provider = System.Globalization.CultureInfo.CurrentCulture;
+            try
+            {
+                return DateTime.ParseExact(str, "ddMMyyyy HH:mm", provider);
+            }
+            catch (Exception ex)
+            {
+                return DateTime.MinValue;
+                throw ex;
+            }
+        }
+
 
         [Route("update-pass")]
-        public ActionResult UpdatePass(decimal user_id, string user_name,string pass)
+        public ActionResult UpdatePass(decimal user_id, string user_name, string pass)
         {
             decimal _ck = -1;
             try
             {
                 var userBL = new UserBL();
-                int re = userBL.DoResetPass(user_name, Encription.EncryptAccountPassword(user_name, pass), pass, SessionData.CurrentUser.Username);
+                int re = userBL.DoResetPass(user_name, Encription.EncryptAccountPassword(user_name, pass), pass, user_name);
                 return Json(new { success = re });
             }
             catch (Exception ex)

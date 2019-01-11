@@ -184,7 +184,7 @@
                     CreateRollingWaitingIcon(false);
                     if (data.success > 0) {
                         jAlert("Yêu cầu thiết lập lại mật khẩu đã được gửi tới email của bạn, Vui lòng làm theo hướng dẫn trong email này", "Thông báo", function () {
-                            window.location = "/login";
+                            window.location = "/";
                         });
                     } else if (data.success == '-2') {
                         jAlert("Tài khoản email không chính xác, Vui lòng kiểm tra lại tài khoản", "Thông báo");
