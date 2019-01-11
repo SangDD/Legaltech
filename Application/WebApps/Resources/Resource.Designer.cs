@@ -3994,6 +3994,60 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Người làm đơn tự đặt, ví dụ: Đăng ký Nhãn hiệu “FUN” cho nhóm 41 tại Việt Nam.
+        /// </summary>
+        public static string TooltipCaseName {
+            get {
+                return ResourceManager.GetString("TooltipCaseName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Điền thông tin Chủ đơn hoặc chọn trong danh mục sẵn có.
+        /// </summary>
+        public static string TooltipChuDon {
+            get {
+                return ResourceManager.GetString("TooltipChuDon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Người làm đơn điền Số tham chiếu tương ứng với vụ việc nhằm mục đích quản lý của riêng mình, ví dụ: CLIENT-NH1-VN.
+        /// </summary>
+        public static string TooltipClientReference {
+            get {
+                return ResourceManager.GetString("TooltipClientReference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mục này chỉ phải điền khi đơn này là đơn tách ra từ một đơn đã nộp trước đó có liên quan.
+        /// </summary>
+        public static string TooltipDonTachRaTuDonSo {
+            get {
+                return ResourceManager.GetString("TooltipDonTachRaTuDonSo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đánh nhãn hiệu chữ vào ô trống dưới đây và/hoặc insert phần hình từ một file có sẵn và mô tả các thông tin tương ứng bên phải.
+        /// </summary>
+        public static string TooltipNhanHieu {
+            get {
+                return ResourceManager.GetString("TooltipNhanHieu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Điền thông tin Đồng Chủ đơn, nếu có.
+        /// </summary>
+        public static string TooltipThongTinDongChuDon {
+            get {
+                return ResourceManager.GetString("TooltipThongTinDongChuDon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Trạng thái.
         /// </summary>
         public static string TrangThai {

@@ -225,7 +225,10 @@
             <div class="div-search-ad">
                 <div class="div-search-title">
                     <div style="width: 200px;">@WebApps.Resources.Resource.lblDonTachRaTuDonSo</div>
+                    <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+                       data-title="@WebApps.Resources.Resource.TooltipDonTachRaTuDonSo"></a>
                 </div>
+
                 <div class="div-search-content">
                     <input type="text" id="0_txtDonSo" value="@objAppHeaderInfo.Appno" maxlength="20" placeholder="0_txtDonSo" />
                 </div>
@@ -242,7 +245,7 @@
 
         @* 1 *@
         <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
 
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
         </div>
@@ -283,7 +286,7 @@
             }
 
             <div class="div_full_100_area">
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblChuDonKhac.ToUpper())
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDonKhac.cshtml", @WebApps.Resources.Resource.lblChuDonKhac.ToUpper())
                 <div id="divAddNewChuDon01" @displayChuDon1>
                     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
                 </div>
@@ -339,6 +342,9 @@
 
                 <div class="class_left_40">
                     <div class="class_block_title" style="padding-top:5px; "><label>@WebApps.Resources.Resource.lblMauNhanHieu:</label> </div>
+                    <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+                       data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
+
                     <div class="class_block_title_control" style="display:flex">
                         <div style="width:165px ;height:165px" id="divLogo">
                             <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">

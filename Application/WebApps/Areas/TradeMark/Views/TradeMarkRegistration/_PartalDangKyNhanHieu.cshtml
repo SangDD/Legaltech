@@ -35,6 +35,16 @@
     .div-search-title > div {
         width: 110px;
     }
+
+    a.icon :hover {
+        display: block !important;
+        z-index: 100;
+        left: 0px;
+        margin: 10px;
+        width: 250px !important;
+        position: absolute !important;
+        top: 10px;
+    }
 </style>
 <div class="d-nav-container" style="background-color:#fff">
     <div class="divCover">
@@ -68,7 +78,10 @@
             <div class="div-search-ad">
                 <div class="div-search-title">
                     <div style="width: 200px;">@WebApps.Resources.Resource.lblDonTachRaTuDonSo </div>
+                    <a  href="javascript:;" st="" class="icon icon-info tip" data-placement="right" style="border:none"
+                       data-title="@WebApps.Resources.Resource.TooltipDonTachRaTuDonSo"></a>
                 </div>
+
                 <div class="div-search-content">
                     <input type="text" id="0_txtDonSo" maxlength="20" placeholder="@WebApps.Resources.Resource.lblSoDon" />
                 </div>
@@ -85,7 +98,7 @@
 
         @* 1 *@
         <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
         </div>
 
@@ -93,7 +106,7 @@
         @* Thong tin chu don   *@
 
         <div class="div_full_100_area" style="display:none" id="divChungDonKhac001">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblChuDonKhac.ToUpper())
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDonKhac.cshtml", @WebApps.Resources.Resource.lblChuDonKhac.ToUpper())
             <div id="divAddNewChuDon01" hidden="hidden">
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
             </div>
@@ -151,6 +164,9 @@
                     <div class="class_block_title" style="padding-top:5px; ">
                         <label>@WebApps.Resources.Resource.lblMauNhanHieu :</label>
                     </div>
+                    <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+                       data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
+
                     <div class="class_block_title_control" style="display:flex">
                         <div style="width:165px ;height:165px" id="divLogo">
                             <img id="imgMauNhanHieu" src="~/Content/icons/logo.jpg" style="width:160px ;height:160px">
@@ -1655,11 +1671,12 @@
             if (reponse == false) {
                 return false;
             }
-
+          
             if (funcThongTinChuDonNguoiDaiDien(formData, "1", New) != true) {
                 return false;
             }
-            if (_checkanh === 1) {
+
+            if (_checkanh === 1 ) {
                 showError('Ảnh tải lên không đúng kích cỡ từ 2x2 đến 8x8!');
                 return false;
             }
