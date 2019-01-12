@@ -18,7 +18,7 @@
 
 
     [ValidateAntiForgeryTokenOnAllPosts]
-    [RouteArea("Account", AreaPrefix = "")]
+    [RouteArea("acount", AreaPrefix = "acount")]
     [Route("{action}")]
     public class AccountController : Controller
     {
@@ -34,7 +34,7 @@
             }
 
             ViewBag.returnUrl = returnUrl;
-            return View();
+            return View(@"~\Areas\Account\Views\Account\Login.cshtml");
         }
 
         [HttpPost]

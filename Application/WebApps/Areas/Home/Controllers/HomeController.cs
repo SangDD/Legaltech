@@ -14,8 +14,9 @@
     using BussinessFacade.ModuleTrademark;
     using System.IO;
 
+  
     [ValidateAntiForgeryTokenOnAllPosts]
-
+    [RouteArea("home", AreaPrefix = "")]
     public class HomeController : Controller
     {
         // GET: Home/index

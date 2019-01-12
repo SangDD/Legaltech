@@ -51,7 +51,7 @@ namespace WebApps.Areas.Wiki.Controllers
         {
             if (SessionData.CurrentUser == null)
             {
-                return Redirect("/dang-xuat");
+                return Redirect("/acount/dang-xuat");
             }
             List<WikiDoc_Info> lstObj = new List<WikiDoc_Info>();
             int _Status = 0;
@@ -219,7 +219,7 @@ namespace WebApps.Areas.Wiki.Controllers
             {
                 if (SessionData.CurrentUser == null)
                 {
-                    return Redirect("/dang-xuat");
+                    return Redirect("/acount/dang-xuat");
                 }
                 decimal _Cataid = 0;
                 if (RouteData.Values.ContainsKey("id") && RouteData.Values["id"].ToString() != "0")
@@ -307,7 +307,7 @@ namespace WebApps.Areas.Wiki.Controllers
         {
             if (SessionData.CurrentUser == null)
             {
-                return Redirect("/dang-xuat");
+                return Redirect("/acount/dang-xuat");
             }
             var _WikiDoc_BL = new WikiDoc_BL();
             WikiDoc_Info _ObjInfo = new WikiDoc_Info();
@@ -465,7 +465,7 @@ namespace WebApps.Areas.Wiki.Controllers
         {
             if (SessionData.CurrentUser == null)
             {
-                return Redirect("/dang-xuat");
+                return Redirect("/acount/dang-xuat");
             }
             var _WikiDoc_BL = new WikiDoc_BL();
             WikiDoc_Info _ObjInfo = new WikiDoc_Info();
@@ -587,7 +587,7 @@ namespace WebApps.Areas.Wiki.Controllers
         {
             if (SessionData.CurrentUser == null)
             {
-                return Redirect("/dang-xuat");
+                return Redirect("/acount/dang-xuat");
             }
             var _WikiDoc_BL = new WikiDoc_BL();
             WikiDoc_Info _ObjInfo = new WikiDoc_Info();
