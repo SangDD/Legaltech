@@ -151,6 +151,19 @@ namespace WebApps.Areas.Home.Controllers
                 WikiCatalogue_BL _CatalogueBL = new WikiCatalogue_BL();
                 lstOjects = _CatalogueBL.Portal_Catalogue_Search(keysSearch + "|" + AppsCommon.GetCurrentLang(), options);
                 ViewBag.Paging = _CatalogueBL.GetPagingHtml();
+                string _Cataid = "";
+                WikiCatalogues_Info _parentinfo = new WikiCatalogues_Info();
+                if (keysSearch != "" && keysSearch.Split('|').Length > 1)
+                {
+                    _Cataid = keysSearch.Split('|')[2];
+                }
+                if (_Cataid != "0")
+                {
+                    _parentinfo = _CatalogueBL.WikiCatalogue_GetByID(Convert.ToDecimal(_Cataid));
+                }
+                else
+                    _Cataid = _parentinfo.ID.ToString();
+                ViewBag.Parentinfo = _parentinfo;
             }
             catch (Exception ex)
             {

@@ -90,11 +90,21 @@
                     {
                         <select  id="CboAddWikiCataChild">
                              @foreach (var item in _listcata)
-                            {
-                                <option value="@item.ID">
-                                    @item.NAME                                    
-                                </option>
-                            }
+                             {
+                                 if (item.CATA_LEVEL == 0)
+                                 {
+                                    <option value="@item.ID" disabled>
+                                        @item.NAME
+                                    </option>
+                                 }
+                                 else
+                                 {
+                                    <option value="@item.ID">
+                                        @item.NAME
+                                    </option>
+                                 }
+
+                             }
                         </select>
                     }
                     

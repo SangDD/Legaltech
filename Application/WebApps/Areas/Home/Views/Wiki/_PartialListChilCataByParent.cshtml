@@ -8,21 +8,30 @@
     }
     string _LanguageCode = AppsCommon.GetCurrentLang();
     string _langlink = "/vi-vn";
-    if (_LanguageCode != "VI_VN")
-    {
-        _langlink = "/en-gb";
-    }
     WikiCatalogues_Info _Catainfo = new WikiCatalogues_Info();
-    if(ViewBag.Parentinfo != null)
+    if (ViewBag.Parentinfo != null)
     {
         _Catainfo = ViewBag.Parentinfo;
     }
+    string _cataname = _Catainfo.NAME;
+    if (_LanguageCode != "VI_VN")
+    {
+        _langlink = "/en-gb";
+       _cataname = _Catainfo.NAME_ENG;
+    }
+
+
+
 }
+<style>
+    
+    
+</style>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <h3 style="padding-left:20px">@_Catainfo.NAME</h3>
-        <input type="hidden" id="txtwikicataid" value="@_Catainfo.ID" />
-        <div id="pagination-append" class="list-group item-list with-letters row">
+        <input type="hidden" id="txthiidencataname"  value="@_Catainfo.NAME"/>
+        <input type="hidden" id="_txtwikicataid" value="@_Catainfo.ID" />
+        <div id="pagination-append" class="list-group item-list with-letters wikitable">
             @foreach (var item in _listObject)
             {
                 <a class="dynamic-linkset list-group-item col-md-6 itemdoc" href='@(_langlink + "/wiki-view/doc-view/0/" + item.ID)'>
@@ -45,4 +54,8 @@
 <div class="d-paging">
     @Html.Raw(ViewBag.Paging)
 </div>
-
+<script>
+    $(document).ready(function () {
+        $('#h3cataname').text($("#txthiidencataname").val());
+    });
+</script>

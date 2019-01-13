@@ -1142,7 +1142,17 @@ a {
 a:focus {
     outline: none
 }
-   
+ .letters-list li
+ {
+     display: block;
+    list-style: none;
+    float: left;
+    width: 3.704%;
+    border: 1px solid #dfdfdf;
+    border-right: none;
+    text-align: center;
+    background-color: #f4f4f4;
+ }
 
 .letters-list li:last-child {
     border-right: 1px solid #dfdfdf;
@@ -1196,7 +1206,7 @@ a:focus {
 
 .item-list .list-group-item {
     border: none;
-    border-top: 1px solid #dfdfdf;
+    border-bottom: 1px solid #dfdfdf;
     margin-bottom: 0;
     padding: 1em
 }
@@ -1777,3 +1787,18 @@ select.divNumberRecordOnPage {
     {
         margin-top:30px;
     }
+     .wikitable
+    {
+     display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(49%, 1fr));
+    grid-gap: 10px;
+    vertical-align: baseline;
+    }
+     .h3cataname
+     {
+          padding: 30px 10px 10px 6px;
+     }
+     .anameunderline
+     {
+         text-decoration:underline;
+     }

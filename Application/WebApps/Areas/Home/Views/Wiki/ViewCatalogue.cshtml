@@ -2,6 +2,7 @@
 @using System.Text;
 @using Common.CommonData;
 @using WebApps.CommonFunction;
+
 @{
     Layout = "~/ViewsShared/_LayoutHomeWiki.cshtml";
     string _languagecode = "/vi-vn/";
@@ -15,7 +16,11 @@
         _Listcatalogue = ViewBag.ListCatalogue;
     }
 
-
+    WikiCatalogues_Info _Catainfo = new WikiCatalogues_Info();
+    if (ViewBag.CatalogueInfo != null)
+    {
+        _Catainfo = ViewBag.CatalogueInfo;
+    }
 }
 <link href=@($"/Content/WikiStyle.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
 <link href="~/Content/social-likes/social-likes_classic.css" rel="stylesheet" />
@@ -25,21 +30,57 @@
 <input type="hidden" value="TITLE" id="colSorted" />
 <input type="hidden" value="ASC" id="SortType" />
 <input type="hidden" value="" id="OptionSorting" />
- 
 
 
-    <div class="clssbox_search">
 
-        <input type="text" id="_txtwikidocsearch" placeholder="Tìm kiếm theo tên danh mục" />
-        <input type="hidden" id="_txtwikicataid" />
-        <div class="clssbox_button">
-            <input type="button" id="btnfindObjects" value="@WebApps.Resources.Resource.WikiSearchButton" onclick="findObjects(1, 1)" />
-        </div>
+<div class="clssbox_search">
+
+    <input type="text" id="_txtwikidocsearch" placeholder="Tìm kiếm theo tên danh mục" />
+     
+    <input type="hidden" id="_txtwikicatanameabc" value="ALL" />
+    <div class="clssbox_button">
+        <input type="button" id="btnfindObjects" value="@WebApps.Resources.Resource.WikiSearchButton" onclick="findObjects(1, 1)" />
     </div>
- 
-    <div id="div_wiki_datacontent" class="mdc-card mdc-card--stroked"  >
-        @Html.Partial("/Areas/Home/Views/Wiki/_PartialListChilCataByParent.cshtml")
-    </div>
+</div>
+<h3 id="h3cataname" class="h3cataname"> </h3>
+
+<ul class="letters-list clearfix hidden-xs" style="padding: 0px;">
+    <li class="">
+        <a  class="namaabc" onclick="searchcata('ALL')" event-category="Filter" event-action="executive" event-label="a">ALL</a>
+    </li>
+    <li class="">
+        <a  class="namaabc" onclick="searchcata('a')" event-category="Filter" event-action="executive" event-label="a">A</a>
+    </li>
+    <li class=""><a class="namaabc" onclick="searchcata('b')" event-category="Filter" event-action="executive" event-label="b">B</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('c')" event-category="Filter" event-action="executive" event-label="c">C</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('d')" event-category="Filter" event-action="executive" event-label="d">D</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('e')" event-category="Filter" event-action="executive" event-label="e">E</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('f')" event-category="Filter" event-action="executive" event-label="f">F</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('g')" event-category="Filter" event-action="executive" event-label="g">G</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('h')" event-category="Filter" event-action="executive" event-label="h">H</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('i')" event-category="Filter" event-action="executive" event-label="i">I</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('j')" event-category="Filter" event-action="executive" event-label="j">J</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('k')" event-category="Filter" event-action="executive" event-label="k">K</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('l')" event-category="Filter" event-action="executive" event-label="l">L</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('m')" event-category="Filter" event-action="executive" event-label="m">M</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('n')" event-category="Filter" event-action="executive" event-label="n">N</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('o')" event-category="Filter" event-action="executive" event-label="o">O</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('p')" event-category="Filter" event-action="executive" event-label="p">P</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('q')" event-category="Filter" event-action="executive" event-label="q">Q</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('r')" event-category="Filter" event-action="executive" event-label="r">R</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('s')" event-category="Filter" event-action="executive" event-label="s">S</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('t')" event-category="Filter" event-action="executive" event-label="t">T</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('u')" event-category="Filter" event-action="executive" event-label="u">U</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('v')" event-category="Filter" event-action="executive" event-label="v">V</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('w')" event-category="Filter" event-action="executive" event-label="w">W</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('x')" event-category="Filter" event-action="executive" event-label="x">X</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('y')" event-category="Filter" event-action="executive" event-label="y">Y</a></li>
+    <li class=""><a class="namaabc" onclick="searchcata('z')" event-category="Filter" event-action="executive" event-label="z">Z</a></li>
+</ul>
+
+<div id="div_wiki_datacontent" class="mdc-card mdc-card--stroked">
+    @Html.Partial("/Areas/Home/Views/Wiki/_PartialListChilCataByParent.cshtml")
+</div>
 
 
 <script>
@@ -50,24 +91,46 @@
     });
     var keySearch = "";
     var arrKeySearch;
-    function findObjects(_pageNumber, _isSearching) {
+    $(".namaabc").click(function () {
+        $(".namaabc").removeClass("anameunderline");
+        $(this).addClass("anameunderline");
+    });
+    function searchcata(_namebc)
+    {
+        try {
+            if (_namebc == "ALL")
+            {
+                location.reload();
+                return false;
+            }
+            $("#_txtwikicatanameabc").val(_namebc);
+            findObjects(1, 1);
+        } catch (e) {
+            alert(e.toString());
+        }
+    }
+    function findObjects(_pageNumber, _isSearching)
+    {
         try {
             //reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
             if (_isSearching === 1) {
-                _NameABC = "ALL";
-                _ParentID = "ALL";
+                _NameABC = $("#_txtwikicatanameabc").val();
+               
                 _NameSearch = $("#_txtwikidocsearch").val().trim();
+                //if(_NameSearch != "ALL")
+                //{
+                //    // nếu tìm bằng text box thì tìm trên tất cả các danh mục cha
+                //    _ParentID = "ALL";
+                //}
 
             } else {
                 arrKeySearch = keySearch.split('|');
                 _NameABC = arrKeySearch[0];
                 _NameSearch = arrKeySearch[1];
-                if ($("#_txtwikicataid").val() == "0")
-                {
+                if ($("#_txtwikicataid").val() == "0") {
                     _ParentID = arrKeySearch[2];
                 }
-                else
-                {
+                else {
                     _ParentID = $("#_txtwikicataid").val();
                 }
                 $("#_txtwikidocsearch").val(_NameSearch);
@@ -80,14 +143,18 @@
             else {
                 _ParentID = $("#_txtwikicataid").val();
             }
-            _NameSearch = $("#_txtwikidocsearch").val().trim();
-            if (_NameSearch.trim() == "")
+            if (_NameSearch != "ALL" && _NameSearch != "")
             {
+                // nếu tìm bằng text box thì tìm trên tất cả các danh mục cha
+                _ParentID = "ALL";
+            }
+            _NameSearch = $("#_txtwikidocsearch").val().trim();
+            if (_NameSearch.trim() == "") {
                 _NameSearch = "ALL";
             }
             keySearch = _NameABC + "|" + _NameSearch + "|" + _ParentID;
             // updateSearchingConditions("divNumberRecordOnPageListObjects", setKeySearch);
-            var optionFilter = "NAME|ASC||" + _pageNumber + "|20" ;
+            var optionFilter = "NAME|ASC||" + _pageNumber + "|20";
             $.ajax({
                 type: "POST",
                 headers: { "cache-control": "no-cache" },
@@ -100,7 +167,7 @@
                 success: function (data) {
                     if (data != null) {
                         $("#div_wiki_datacontent").html(data);
-                     //   onResponseWhenSearching(data, "div_wiki_datacontent", findObjects);
+                        //   onResponseWhenSearching(data, "div_wiki_datacontent", findObjects);
                     }
                 }
             });
@@ -132,9 +199,9 @@
     }
 
 
- 
 
- 
+
+
 
 </script>
 

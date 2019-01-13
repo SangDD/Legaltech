@@ -128,7 +128,11 @@
                     _name = arrKeySearch[0];
                     _parent_id = arrKeySearch[1];
                     $("#txt_listname").val(_name)
-                    $("#CboListWikiCataParent option[value=" + _parent_id + "]").attr("selected", "selected");
+                    if (_parent_id != "ALL")
+                    {
+                        $("#CboListWikiCataParent option[value=" + _parent_id + "]").attr("selected", "selected");
+                    }
+                   
                 }
 
                 updateSearchingConditions("divNumberRecordOnPageListObjects", setKeySearch);

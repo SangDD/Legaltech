@@ -48,7 +48,7 @@
                     <div class="c-navleft_category">
                         <ul class="c-navleft_category-list -big">
 
-                            @foreach (WikiCatalogues_Info item in _Listcatalogue)
+                            @foreach (WikiCatalogues_Info item in _Listcatalogue.Where(m=>m.CATA_LEVEL == 0).ToList())
                                         {
                                             _isactive = "";
                                             if (item.ID == _cataid)
