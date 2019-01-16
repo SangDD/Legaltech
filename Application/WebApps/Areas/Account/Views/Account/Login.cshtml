@@ -133,7 +133,7 @@
                     </div>
                     <div>
                         <input style="width: 120px;" type="submit" class="btn" value="@Resource.Login" onclick="return validateLoginData()" />
-                        <p style="margin-top: 20px; font-size: 12px;" class="reset_pass" ><a href="/acount/fogot-pass">Quên mật khẩu</a></p>
+                        <p style="margin-top: 20px; font-size: 12px;" class="reset_pass">@Resource.Click <a href="/acount/fogot-pass">@Resource.Here</a> @Resource.ToResetPass</p>
                     </div>
                 </form>
             </div>
@@ -182,7 +182,7 @@
                     //ShowPopupDialog_Ipace('divWrapperView', "Quên mật khẩu", 700, 700, "gmail");
 
                     $("#divPopUpUser").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpUser', "Quên mật khẩu", 700, 700, "gmail");
+                    ShowPopupDialog_Ipace('divWrapperPopUpUser','@Resource.QuenMatKhau', 700, 700, "gmail");
                 }
             });
 
@@ -208,7 +208,7 @@
         }
         return true;
     }
-     
+
     $("#frmLogin").on("submit", function (e) {
         e = window.event || e;
         e.preventDefault();
