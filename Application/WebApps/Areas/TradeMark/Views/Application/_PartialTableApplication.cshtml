@@ -22,7 +22,6 @@
                 <th class="class150">@WebApps.Resources.Resource.LoaiDon</th>
                 <th class="class150">@WebApps.Resources.Resource.NgonNgu</th>
                 <th class="class250">@WebApps.Resources.Resource.KhachHang</th>
-                @*<th class="class150">Người xử lý</th>*@
                 <th class="class100">@WebApps.Resources.Resource.Thoigiancho (@WebApps.Resources.Resource.Ngay)</th>
                 <th class="class250">@WebApps.Resources.Resource.TrangThai</th>
                 @if (WebApps.Session.SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.Admin ||
@@ -51,13 +50,13 @@
                         @if (WebApps.Session.SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.Admin ||
                             WebApps.Session.SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.SupperAdmin)
                         {
-                            if (@item.Modify_Date.Date != DateTime.MinValue.Date)
+                            if (item.Modify_Date.Date != DateTime.MinValue.Date)
                             {
-                                <th class="class100">@item.Modify_Date</th>
+                                <td class="tdcenteralign">@item.Modify_Date</td>
                             }
                             else
                             {
-                                <th class="class100"></th>
+                                <td class="tdcenteralign">@item.Created_Date</td>
                             }
                         }
                         <td class="tdcenteralign">
