@@ -18,7 +18,7 @@
 
 
     [ValidateAntiForgeryTokenOnAllPosts]
-    [RouteArea("acount", AreaPrefix = "acount")]
+    [RouteArea("account", AreaPrefix = "account")]
     [Route("{action}")]
     public class AccountController : Controller
     {
@@ -174,6 +174,8 @@
             return Json(new { success = _ck });
         }
 
+
+
         public string GetContentMail(string link)
         {
             string title = EmailHelper.EmailOriginal.DisplayName;
@@ -202,5 +204,21 @@
             
 
         }
+
+
+        [HttpGet]
+        [Route("register")]
+        [AllowAnonymous]
+        public ActionResult Register(string returnUrl = "")
+        {
+            if (SessionData.CurrentUser != null)
+            {
+                return this.Redirect(SessionData.CurrentUser.DefaultHomePage);
+            }
+
+            ViewBag.returnUrl = returnUrl;
+            return View(@"~\Areas\Account\Views\Account\Register.cshtml");
+        }
+
     }
 }

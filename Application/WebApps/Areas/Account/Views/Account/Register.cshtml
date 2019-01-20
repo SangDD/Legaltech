@@ -62,13 +62,17 @@
             position: relative;
             min-width: 1000px;
             overflow: auto;
-            background-image: url('/Content/images/login_background.png');
+            /*background-image: url('/Content/images/login_background.png');*/
+            background-color: #478ccc;
             background-repeat: no-repeat;
             background-position: center center;
             background-size: cover;
             background-attachment: fixed;
-            font-size: 13px;
+          
             font-family: Roboto-Regular;
+        }
+        *{
+              font-size: 13px !important;
         }
 
         .fixed {
@@ -92,20 +96,41 @@
         .d-container {
             align-items: center;
             padding: 30px 30px 50px 30px;
-            background-color: #fff;
+              background-color: #F5F7F8;
         }
 
         .d-form-login input {
             margin-bottom: 10px;
-            height: 37px;
+            height: 45px;
         }
 
             .d-form-login input.btn {
-                margin-top: 10px;
+                margin-top: 30px;
             }
 
         .d-form-login p {
             padding: 10px 0;
+        }
+        input[type="text"], input[type="password"], textarea {
+            border: 1px solid #dfe4ea;
+        }
+        .btn{
+                background-color: #478CCC;
+        }
+        input[type="button"],
+        input[type="submit"] {
+        width:100%;
+        }
+        input[type="checkbox"]
+        {
+            -ms-transform: scale(1.5); /* IE */
+            -moz-transform: scale(1.5); /* FF */
+            -webkit-transform: scale(1.5); /* Safari and Chrome */
+            -o-transform: scale(1.5)
+        }
+        .formname
+        {
+            font-size:24px !important;
         }
     </style>
 
@@ -119,21 +144,42 @@
     <div class="fixed">
         <div class="d-container" style="width: 400px;">
             <div class="d-form-login">
-                <form id="frmLogin" method="post" action="/account/dang-nhap?returnUrl=@ViewBag.returnUrl" enctype="multipart/form-data">
+                <form id="frmLogin" method="post" action="/account/dang-nhap?returnUrl=@ViewBag.returnUrl"
+                       enctype="multipart/form-data">
                     <div>
-                        <p class="font-size-20 text-font-medium text-color-2">@Resource.Login</p>
+                        <p class="font-size-20 text-font-medium text-color-2 formname">Create Your Account</p>
                     </div>
                     <div>
-                        <p>@Resource.User_Name</p>
-                        <input type="text" name="userName" id="txtUsernameLogin" autofocus placeholder="" />
+                        <p>First Name</p>
+                        <input type="text" name="txtfirstname" id="txtfirstname" autofocus   />
                     </div>
                     <div>
-                        <p>@Resource.Password</p>
-                        <input type="password" name="password" id="txtPasswordLogin" placeholder="" />
+                        <p>Last Name</p>
+                        <input type="text" name="txtlastname" id="txtlastname" />
                     </div>
                     <div>
-                        <input style="width: 120px;" type="submit" class="btn" value="@Resource.Login" onclick="return validateLoginData()" />
-                        <p style="margin-top: 20px; font-size: 12px;" class="reset_pass">@Resource.Click <a href="/account/fogot-pass">@Resource.Here</a> @Resource.ToResetPass</p>
+                        <p>Phone</p>
+                        <input type="text" name="txtphone" id="txtphone" />
+                    </div>
+                    <div>
+                        <p>Email</p>
+                        <input type="text" name="txtemail" id="txtemail" />
+                    </div>
+                    <div style="margin-top:11px;">
+                        <div style="width:26px;float:left;padding-top:10px;">
+                            <input type="checkbox" name="checkterm" id="cbocheckterm" />
+                        </div>
+                        <div style="width:80%;float:left;line-height:18px;">
+                         To register with us please tick to agree our <br /> 
+                            <span style="color:#478CCC">
+                             Terms and Conditions
+                            </span>
+                        </div>
+                       
+                        
+                    </div>
+                    <div>
+                        <input  type="submit" class="btn" value="Register" onclick="return " />
                     </div>
                 </form>
             </div>
