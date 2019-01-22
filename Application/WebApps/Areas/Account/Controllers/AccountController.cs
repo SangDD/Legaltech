@@ -217,6 +217,7 @@
             }
 
             ViewBag.returnUrl = returnUrl;
+            Logger.LogInfo("1");
             return View(@"~\Areas\Account\Views\Account\Register.cshtml");
         }
 

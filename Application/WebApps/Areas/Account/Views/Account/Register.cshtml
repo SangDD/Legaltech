@@ -14,7 +14,7 @@
     <meta name="__RequestVerificationToken" content="@Html.AntiForgeryTokenValue()" />
     @if (language == "VI_VN")
     {
-        <title>Đăng nhập hệ thống</title>
+        <title>Register</title>
     }
     else
     {
@@ -30,11 +30,6 @@
 
     <link href=@($"/Scripts/outSourcesLib/SweetAlert/sweetalert2.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
 
-    <link href=@($"/Scripts/outSourcesLib/multipleSelect/multiple-select.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
-
-    <link href=@($"/Scripts/outSourcesLib/DragTable/jquery.dataTables.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
-    <link href=@($"/Scripts/outSourcesLib/DragTable/dataTables.fixedColumns.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
-
     <link href=@($"/Content/font.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
     <link href=@($"/Content/Site.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
     <link href=@($"/Content/IconNVS/IconNVS.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
@@ -42,7 +37,9 @@
     <link href=@($"/Content/fonts/fontawesome/fontawesome-all.min.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
 
     <link href=@($"/Scripts/outSourcesLib/datetimepickerMaster/jquery.datetimepicker.min.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
-
+    <script>
+        var _currentlanguage = '@language';
+    </script>
     <style>
         * {
             margin: 0;
@@ -121,6 +118,11 @@
         input[type="submit"] {
         width:100%;
         }
+          input[type="button"]:disabled,
+        input[type="submit"]:disabled {
+       background:#808080;
+       box-shadow:none !important;
+        }
         input[type="checkbox"]
         {
             -ms-transform: scale(1.5); /* IE */
@@ -144,30 +146,30 @@
     <div class="fixed">
         <div class="d-container" style="width: 400px;">
             <div class="d-form-login">
-                <form id="frmLogin" method="post" action="/account/dang-nhap?returnUrl=@ViewBag.returnUrl"
+                <form id="frmLogin" method="post" action=""
                        enctype="multipart/form-data">
                     <div>
                         <p class="font-size-20 text-font-medium text-color-2 formname">Create Your Account</p>
                     </div>
                     <div>
                         <p>First Name</p>
-                        <input type="text" name="txtfirstname" id="txtfirstname" autofocus   />
+                        <input type="text" name="txtFNAME" id="txtFNAME" autofocus   />
                     </div>
                     <div>
                         <p>Last Name</p>
-                        <input type="text" name="txtlastname" id="txtlastname" />
+                        <input type="text" name="txtLNAME" id="txtLNAME" />
                     </div>
                     <div>
                         <p>Phone</p>
-                        <input type="text" name="txtphone" id="txtphone" />
+                        <input type="text" name="txtPHONE" id="txtPHONE" />
                     </div>
                     <div>
                         <p>Email</p>
-                        <input type="text" name="txtemail" id="txtemail" />
+                        <input type="text" name="txtEmail" id="txtEmail" />
                     </div>
                     <div style="margin-top:11px;">
                         <div style="width:26px;float:left;padding-top:10px;">
-                            <input type="checkbox" name="checkterm" id="cbocheckterm" />
+                            <input type="checkbox" name="checkterm" id="cbocheckterm" onchange="funccheckterm()" />
                         </div>
                         <div style="width:80%;float:left;line-height:18px;">
                          To register with us please tick to agree our <br /> 
@@ -179,7 +181,7 @@
                         
                     </div>
                     <div>
-                        <input  type="submit" class="btn" value="Register" onclick="return " />
+                        <input  type="button" class="btn" disabled id="btnRegister" value="Register" onclick="return funcRegister()" />
                     </div>
                 </form>
             </div>
@@ -203,77 +205,113 @@
     <script src=@($"/Scripts/outSourcesLib/DragTable/jquery.dataTables.min.js?v={CommonVariables.AssemblyVersion}")></script>
     <script src=@($"/Scripts/outSourcesLib/DragTable/dataTables.fixedColumns.min.js?v={CommonVariables.AssemblyVersion}")></script>
     <script src=@($"/Scripts/outSourcesLib/datetimepickerMaster/jquery.datetimepicker.full.min.js?v={CommonVariables.AssemblyVersion}")></script>
+    <script src="~/Scripts/AlertPopup/NVSAlerts.js"></script>
+    <link href="~/Scripts/AlertPopup/NVSAlertCss.css" rel="stylesheet" />
+    <script src="~/Scripts/AlertPopup/ASSAlert.js"></script>
+    <script src="~/Scripts/nvs.jquery.alert.js"></script>
 </body>
 </html>
 
 
 <script>
     $(document).ready(function () {
-        $('#txtUsernameLogin').focus();
+        $('#txtFNAME').focus();
     });
-
-    function RemovePassword() {
+    function funccheckterm()
+    {
         try {
-            alert('a');
+           
+            if($("#cbocheckterm").prop("checked") == true)
+            {
+                $("#btnRegister").removeAttr("disabled");
+            }
+            else
+            {
+                $("#btnRegister").attr("disabled", "true");
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+ 
+
+    function funcHome() {
+        window.location.href = "/";
+    }
+    function funcRegister() {
+        try {
+            var fname = $("#txtFNAME").val();
+            if (fname === "" || fname == undefined) {
+                jError('The registered name is not empty!', "Info", function () {
+                    $("#txtFNAME").focus();
+                });
+              
+                return false;
+            }
+
+            var lname = $("#txtLNAME").val();
+            var phone = $("#txtPHONE").val();
+            var email = $("#txtEmail").val();
+
+            if (phone === "" && email == "") {
+                jError('Email or Phone number is not empty!', "Info", function () {
+                    $("#txtEmail").focus();
+                });
+                return false;
+            }
+            var company = $("#txtCOMPANY").val();
+            var formData = new FormData();
+            formData.append("pRegisInfo.FistName", fname);
+            formData.append("pRegisInfo.LastName", lname);
+            formData.append("pRegisInfo.Email", email);
+            formData.append("pRegisInfo.Phone", phone);
+            formData.append("pRegisInfo.Company", company);
+
             $.ajax({
-                type: 'GET',
-                url: '/fogot-pass',
-                dataType: "html",
-                data: {
-
-                }
-                , async: false, cache: false, traditional: true,
+                url: "/account/register",
+                type: 'POST',
+                data: formData,
+                processData: false, contentType: false, traditional: true, dataType: "json",
+                enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                 success: function (data) {
-                    //$("#divView").html(data);
-                    //ShowPopupDialog_Ipace('divWrapperView', "Quên mật khẩu", 700, 700, "gmail");
-
-                    $("#divPopUpUser").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpUser','@Resource.QuenMatKhau', 700, 700, "gmail");
+                    if (data != null && data.status >= 0) {
+                        jAlert('Sign Up Success!', "Info", function () {
+                            funcHome();
+                        });
+                      
+                        return true;
+                    }
+                    else if (data.status == -22) {
+                        jError("The number of email or email was registered!", "Error");
+                        funcReset();
+                        return;
+                    }
+                    else {
+                        jError("Registration failed!", "Error");
+                        funcReset();
+                        return;
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
                 }
             });
 
-        } catch (ex) {
-            console.log(ex);
+
+        } catch (e) {
+
         }
     }
 
+    function funcReset() {
+        try {
+            $("#txtFNAME").val("");
+            $("#txtLNAME").val("");
+            $("#txtEmail").val("");
+            $("#txtPHONE").val("");
+        } catch (e) {
 
-    function validateLoginData() {
-        var userName = $('#txtUsernameLogin').val().trim();
-        var pwd = $('#txtPasswordLogin').val();
-        $('#txtUserNameLogin').val(userName);
-        if (userName === "") {
-            $('#txtUsernameLogin').focus().val('');
-            showError("@Resource.User_Name_KhongDuocDeTrong");
-            return false;
         }
-        if (pwd === "") {
-            $('#txtPasswordLogin').focus().val('');
-            showError("@Resource.Password_KhongDuocDeTrong");
-            return false;
-        }
-        return true;
+
     }
-
-    $("#frmLogin").on("submit", function (e) {
-        e = window.event || e;
-        e.preventDefault();
-        $.ajax({
-            url: this.action,
-            type: this.method,
-            data: new FormData(this),
-            processData: false, contentType: false,
-            async: true, cache: false, traditional: true,
-            success: function (data) {
-                if (onResponse(data)) {
-                    window.location.href = data["urlContinue"];
-                } else {
-                    $('#txtUsernameLogin').focus();
-                }
-            },
-            error: function (e) {
-                console.log(e);
-            }
-        });
-    });
 </script>
