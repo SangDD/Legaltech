@@ -119,7 +119,7 @@
     <div class="fixed">
         <div class="d-container" style="width: 400px;">
             <div class="d-form-login">
-                <form id="frmLogin" method="post" action="/acount/dang-nhap?returnUrl=@ViewBag.returnUrl" enctype="multipart/form-data">
+                <form id="frmLogin" method="post" action="/account/dang-nhap?returnUrl=@ViewBag.returnUrl" enctype="multipart/form-data">
                     <div>
                         <p class="font-size-20 text-font-medium text-color-2">@Resource.Login</p>
                     </div>
@@ -133,7 +133,7 @@
                     </div>
                     <div>
                         <input style="width: 120px;" type="submit" class="btn" value="@Resource.Login" onclick="return validateLoginData()" />
-                        <p style="margin-top: 20px; font-size: 12px;" class="reset_pass" ><a href="/fogot-pass">Quên mật khẩu</a></p>
+                        <p style="margin-top: 20px; font-size: 12px;" class="reset_pass">@Resource.Click <a href="/account/fogot-pass">@Resource.Here</a> @Resource.ToResetPass</p>
                     </div>
                 </form>
             </div>
@@ -182,7 +182,7 @@
                     //ShowPopupDialog_Ipace('divWrapperView', "Quên mật khẩu", 700, 700, "gmail");
 
                     $("#divPopUpUser").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpUser', "Quên mật khẩu", 700, 700, "gmail");
+                    ShowPopupDialog_Ipace('divWrapperPopUpUser','@Resource.QuenMatKhau', 700, 700, "gmail");
                 }
             });
 
@@ -208,7 +208,7 @@
         }
         return true;
     }
-     
+
     $("#frmLogin").on("submit", function (e) {
         e = window.event || e;
         e.preventDefault();

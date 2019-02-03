@@ -18,7 +18,7 @@
 
 
     [ValidateAntiForgeryTokenOnAllPosts]
-    [RouteArea("acount", AreaPrefix = "acount")]
+    [RouteArea("account", AreaPrefix = "account")]
     [Route("{action}")]
     public class AccountController : Controller
     {
@@ -158,6 +158,11 @@
                 _nd_confirm = WebApps.CommonFunction.AppsCommon.EncryptString(_nd_confirm);
                 //string key_EncryptString = WebApps.CommonFunction.AppsCommon.DecryptString(_nd_confirm);
                 string link = Configuration.LinkPathlaw + "/vi-vn/quen-mat-khau/thong-bao?confirm=" + _nd_confirm;
+                string language = AppsCommon.GetCurrentLang();
+                if (language != "VI_VN")
+                {
+                    link = Configuration.LinkPathlaw + "/en-gb/quen-mat-khau/thong-bao?confirm=" + _nd_confirm;
+                }
                 string content = GetContentMail(link);
                 _ck = EmailHelper.SendMail(_user.Email, "", "Đặt lại mật khẩu", content, a);
                 return Json(new { success = 1 });
@@ -169,17 +174,52 @@
             return Json(new { success = _ck });
         }
 
+
+
         public string GetContentMail(string link)
         {
             string title = EmailHelper.EmailOriginal.DisplayName;
-            string content = "Chào bạn, Để đặt lại mật khẩu, bạn cần bấm vào link liên kết bên dưới. Thao tác này sẽ giúp bạn thay đổi mật khẩu.";
-            return "<div>" +
+            string language = AppsCommon.GetCurrentLang();
+            string content = "";
+            if (language != "VI_VN")
+            {
+                content = "Hi, To reset your password, you need to click on the link below. This will help you change your password.";
+                return "<div>" +
+                "<div>" + title + "</div>" +
+                 "<div>" + content + "</div>" +
+                  "<div>" + link + "</div>" +
+                   "<div>Thanks.</div>" +
+                "</div>";
+            }
+            else
+            {
+                content = "Chào bạn, Để đặt lại mật khẩu, bạn cần bấm vào link liên kết bên dưới. Thao tác này sẽ giúp bạn thay đổi mật khẩu.";
+                return "<div>" +
                 "<div>" + title + "</div>" +
                  "<div>" + content + "</div>" +
                   "<div>" + link + "</div>" +
                    "<div>Cảm ơn.</div>" +
                 "</div>";
+            }
+            
 
         }
+
+
+        [HttpGet]
+        [Route("register")]
+        [AllowAnonymous]
+        public ActionResult Register(string returnUrl = "")
+        {
+            if (SessionData.CurrentUser != null)
+            {
+                return this.Redirect(SessionData.CurrentUser.DefaultHomePage);
+            }
+
+            ViewBag.returnUrl = returnUrl;
+            Logger.LogInfo("1");
+            return View(@"~\Areas\Account\Views\Account\Register.cshtml");
+        }
+
     }
 }

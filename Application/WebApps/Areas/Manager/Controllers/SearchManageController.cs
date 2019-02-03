@@ -48,7 +48,7 @@ namespace WebApps.Areas.Manager.Controllers
         {
             if (SessionData.CurrentUser == null)
             {
-                return Redirect("/acount/dang-xuat");
+                return Redirect("/account/dang-xuat");
             }
             List<SearchObject_Header_Info> lstOjects = new List<SearchObject_Header_Info>();
             try
@@ -93,7 +93,7 @@ namespace WebApps.Areas.Manager.Controllers
         {
             if (SessionData.CurrentUser == null)
             {
-                return Redirect("/acount/dang-xuat");
+                return Redirect("/account/dang-xuat");
             }
             try
             {
@@ -260,7 +260,7 @@ namespace WebApps.Areas.Manager.Controllers
         {
             if (SessionData.CurrentUser == null)
             {
-                return Redirect("/acount/dang-xuat");
+                return Redirect("/account/dang-xuat");
             }
             try
             {
@@ -411,7 +411,7 @@ namespace WebApps.Areas.Manager.Controllers
         {
             if (SessionData.CurrentUser == null)
             {
-                return Redirect("/acount/dang-xuat");
+                return Redirect("/account/dang-xuat");
             }
             try
             {

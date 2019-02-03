@@ -12,14 +12,7 @@
     <meta name="viewport" content="width=device-width" />
     <meta charset="utf-8" />
     <meta name="__RequestVerificationToken" content="@Html.AntiForgeryTokenValue()" />
-    @if (language == "VI_VN")
-    {
-        <title>Quên mật khẩu</title>
-    }
-    else
-    {
-        <title>Fogot password</title>
-    }
+    <title>@Resource.QuenMatKhau</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <script src=@($"/Scripts/jquery-1.10.2.min.js?v={CommonVariables.AssemblyVersion}")></script>
     <script src=@($"/Scripts/jquery-ui-1.10.2.min.js?v={CommonVariables.AssemblyVersion}")></script>
@@ -128,14 +121,14 @@
         <div class="d-container" style="width: 400px;">
             <div class="d-form-login">
                 <div>
-                    <p class="font-size-20 text-font-medium text-color-2">Quên mật khẩu</p>
+                    <p class="font-size-20 text-font-medium text-color-2">@Resource.QuenMatKhau ?</p>
                 </div>
                 <div>
-                    <p>Email</p>
+                    <p>@Resource.EmailQuenMK</p>
                     <input type="text" id="gmail" autofocus placeholder="" />
                 </div>
                 <div>
-                    <input style="width: 120px;" type="submit" class="btn" value="Đặt lại mật khẩu" onclick="return SendEmail()" />
+                    <input style="width: 120px;" type="submit" class="btn" value="@Resource.DatLaiMatKhau" onclick="return SendEmail()" />
                 </div>
             </div>
         </div>
@@ -172,7 +165,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/do-fogot-pass',
+                url: '/account/do-fogot-pass',
                 data: {
                     gmail: p_gmail
                 },
@@ -183,14 +176,14 @@
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
                     if (data.success > 0) {
-                        jAlert("Yêu cầu thiết lập lại mật khẩu đã được gửi tới email của bạn, Vui lòng làm theo hướng dẫn trong email này", "Thông báo", function () {
+                        jAlert('@Resource.ThongBaoDatLaiMK', '@Resource.ThongBao', function () {
                             window.location = "/";
                         });
                     } else if (data.success == '-2') {
-                        jAlert("Tài khoản email không chính xác, Vui lòng kiểm tra lại tài khoản", "Thông báo");
+                        jAlert('@Resource.TKHoacMKSai', '@Resource.ThongBao');
                     }
                     else {
-                        jError('Kết nối không thành công!', "lỗi");
+                        jError('@Resource.KetNoiKhongThanhCong', '@Resource.Loi');
                     }
                 }
             });

@@ -11,7 +11,7 @@ using WebApps.Session;
 
 namespace AnThanh.Controllers
 {
-    [RouteArea("Account", AreaPrefix = "quen-mat-khau")]
+    [RouteArea("Resetpass", AreaPrefix = "quen-mat-khau")]
     [Route("{action}")]
     public class ResetPasswordController : Controller
     {
