@@ -25,10 +25,7 @@
     <link href="~/Content/News/Css/register.css" rel="stylesheet" />
     <link href="~/Content/News/Css/main.css" rel="stylesheet" />
     <link href="~/Content/News/Css/bootstrap.css" rel="stylesheet" />
-    @*<link href="~/Content/News/Css/font-awesome.css" rel="stylesheet" />
-    <link href="~/Content/News/Css/jquery.dropdown.min.css" rel="stylesheet" />
-    <link href="~/Content/News/Css/learndash_template_style.css" rel="stylesheet" />
-    <link href="~/Content/News/Css/css.css" rel="stylesheet" />*@
+ 
 
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -101,7 +98,7 @@
                             <a class="c-header_nav-social-link" href="#" target="_blank">
                                 <figure class="c-header_nav-social-icon">
                                     <svg role="img" title="Twitter">
-                                        <i class="fa fa-twitter" aria-hidden="true" style=" color:#06cafc;"></i>
+                                        <i class="fa fa-twitter" aria-hidden="true" style="color:#06cafc;"></i>
                                     </svg>
                                 </figure>
                             </a>
@@ -110,7 +107,7 @@
                             <a class="c-header_nav-social-link" href="#" target="_blank">
                                 <figure class="c-header_nav-social-icon">
                                     <svg role="img" title="Facebook">
-                                        <i class="fa fa-facebook" aria-hidden="true" style=" color: #13559d;"></i>
+                                        <i class="fa fa-facebook" aria-hidden="true" style="color: #13559d;"></i>
                                     </svg>
                                 </figure>
                             </a>
@@ -126,7 +123,6 @@
                         </li>
                     </ul>
 
-                    <!--end[Menutop + mobi]-->
                 </nav>
             </header>
 
@@ -154,32 +150,12 @@
                         </div>
                     </section>
                 </article>
-                <aside class="scrollbar-track scrollbar-track-x" style="display: none;">
-                    <div class="scrollbar-thumb scrollbar-thumb-x" style="width: 1259px; transform: translate3d(0px, 0px, 0px);"></div>
-                </aside>
-                <aside class="scrollbar-track scrollbar-track-y" style="display: block;">
-                    <div class="scrollbar-thumb scrollbar-thumb-y" style="height: 209.778px; transform: translate3d(0px, 0px, 0px);"></div>
-                </aside>
-                <canvas class="overscroll-glow" style="display: none; pointer-events: none;"></canvas>
+               
             </main>
         </div>
 
     </div>
-    @*<script>
-        window.templateData = window.templateData || {
-        };
-        window.isMobile = false;
-        window.isIe = false;
-        window.isTrident = false;
-        window.isFirefox = false;
-    </script>*@
-    @*<script src="~/Content/News/scripts/vendors.js"></script>
-    <script src="~/Content/News/scripts/app.js"></script>*@
-
-
-
-    @*<script src=@($"/Scripts/nvs.jquery.filter.search.js?v={CommonVariables.AssemblyVersion}")></script>
-    <script src=@($"/Scripts/common-data-loader.js?v={CommonVariables.AssemblyVersion}")></script>*@
+    
 
 </body>
 </html>
@@ -191,79 +167,7 @@
     function funcHome() {
         window.location.href = "/";
     }
-
-    function funcRegister() {
-        try {
-            var fname = $("#txtFNAME").val();
-            if (fname === "" || fname == undefined) {
-                jError('The registered name is not empty!', "Info");
-                $("#txtFNAME").focus();
-                return false;
-            }
-
-            var lname = $("#txtLNAME").val();
-            var phone = $("#txtPHONE").val();
-            var email = $("#txtEmail").val();
-
-            if (phone === "" && email == "") {
-                jError('Email or Phone number is not empty!', "Info");
-                $("#txtEmail").focus();
-                return false;
-            }
-            var company = $("#txtCOMPANY").val();
-            var formData = new FormData();
-            formData.append("pRegisInfo.FistName", fname);
-            formData.append("pRegisInfo.LastName", lname);
-            formData.append("pRegisInfo.Email", email);
-            formData.append("pRegisInfo.Phone", phone);
-            formData.append("pRegisInfo.Company", company);
-
-            $.ajax({
-                url: "/register",
-                type: 'POST',
-                data: formData,
-                processData: false, contentType: false, traditional: true, dataType: "json",
-                enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
-                success: function (data) {
-                    if (data != null && data.status >= 0) {
-                        jAlert("Sign Up Success!", "Info");
-                        funcReset();
-                        return true;
-                    }
-                    else if (data.status == -22) {
-                        jError("The number of email or email was registered!", "Error");
-                        funcReset();
-                        return;
-                    }
-                    else {
-                        jError("Registration failed!", "Error");
-                        funcReset();
-                        return;
-                    }
-                },
-                error: function (e) {
-                    console.log(e);
-                }
-            });
-
-
-        } catch (e) {
-            alert(e.toString());
-        }
-    }
-
-    function funcReset() {
-        try {
-            $("#txtFNAME").val("");
-            $("#txtLNAME").val("");
-            $("#txtEmail").val("");
-            $("#txtPHONE").val("");
-        } catch (e) {
-
-        }
-
-    }
-
+      
     function functionGetNews() {
         window.location.href = "/quan-ly-tin/news-home-page";
     }
