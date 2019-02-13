@@ -4,13 +4,13 @@
 
     public class AccountAreaRegistration : AreaRegistration 
     {
-        public override string AreaName => "Account";
+        public override string AreaName => "account11";
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
                 "Account_default",
-                "Account/{controller}/{action}/{id}",
+                "account11/{controller}/{action}/{id}",
                 new { action = "Login", id = UrlParameter.Optional },
                 new[] { "WebApps.Controllers" });
         }

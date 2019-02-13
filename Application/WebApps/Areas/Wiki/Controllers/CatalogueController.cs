@@ -21,7 +21,7 @@ namespace WebApps.Areas.Wiki.Controllers
         {
             if (SessionData.CurrentUser == null)
             {
-               return Redirect("/acount/dang-xuat");
+               return Redirect("/account/dang-xuat");
             }
             List<WikiCatalogues_Info> lstObj = new List<WikiCatalogues_Info>();
             try
