@@ -3,6 +3,7 @@
 @using ObjectInfos.ModuleTrademark
 @using ObjectInfos
 @using Common.CommonData
+@using WebApps.Resources;
 @{
     ViewBag.Title = "Sửa đăng ký nhãn hiệu";
     Layout = "~/ViewsShared/_Layout.cshtml";
@@ -237,7 +238,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input class="datetimepicker" value="@strDuaDate" type="text" id="0_txtNgayNopDon" maxlength="10"  />
+                        <input class="datetimepicker" value="@strDuaDate" type="text" id="0_txtNgayNopDon" maxlength="10" />
                     </div>
                 </div>
             </div>
@@ -1731,9 +1732,24 @@
                 enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.status >= 0) {
-                        nvsAlert(EditSuccess, ThongBao, function () {
-                            window.location = "/trade-mark-mana/quan-ly-don";
-                        });
+                        //nvsAlert(EditSuccess, ThongBao, function () {
+                        //    window.location = "/trade-mark-mana/quan-ly-don";
+                        //});
+
+                        if (pStatus == 1) {
+                            nvsAlert('@Resource.LuuTamThanhCong', ThongBao, function () {
+                                window.location = "/trade-mark-mana/quan-ly-don";
+                            });
+                        } else if (true) {
+                            nvsAlert('@Resource.GuiDonThanhCong', ThongBao, function () {
+                                window.location = "/trade-mark-mana/quan-ly-don";
+                            });
+                        } else {
+                            nvsAlert('@Resource.SuaDonThanhCong', ThongBao, function () {
+                                window.location = "/trade-mark-mana/quan-ly-don";
+                            });
+                        }
+
                     } else {
                         nvsError(EditFail, ThongBao, function () {
                         });

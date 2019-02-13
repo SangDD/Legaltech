@@ -376,6 +376,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dịch đơn thành công.
+        /// </summary>
+        public static string DichDonThanhCong {
+            get {
+                return ResourceManager.GetString("DichDonThanhCong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Điều kiện Search.
         /// </summary>
         public static string DieuKienSearch {
@@ -426,6 +435,15 @@ namespace WebApps.Resources {
         public static string GioiTinh {
             get {
                 return ResourceManager.GetString("GioiTinh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gửi đơn thành công.
+        /// </summary>
+        public static string GuiDonThanhCong {
+            get {
+                return ResourceManager.GetString("GuiDonThanhCong", resourceCulture);
             }
         }
         
@@ -1942,6 +1960,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lưu tạm thành công.
+        /// </summary>
+        public static string LuuTamThanhCong {
+            get {
+                return ResourceManager.GetString("LuuTamThanhCong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lý do dùng.
         /// </summary>
         public static string LyDoDung {
@@ -2298,6 +2325,15 @@ namespace WebApps.Resources {
         public static string SuaDoiDon {
             get {
                 return ResourceManager.GetString("SuaDoiDon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sửa đơn thành công.
+        /// </summary>
+        public static string SuaDonThanhCong {
+            get {
+                return ResourceManager.GetString("SuaDonThanhCong", resourceCulture);
             }
         }
         

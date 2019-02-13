@@ -864,7 +864,7 @@
                 enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.status >= 0) {
-                        jAlert(AddSuccess, ThongBao, function () {
+                        jAlert('@Resource.GuiDonThanhCong', ThongBao, function () {
                             window.location = "/trade-mark-mana/quan-ly-don";
                         });
                     } else {
