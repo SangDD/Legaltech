@@ -1746,9 +1746,16 @@
                 enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.status >= 0) {
-                        nvsAlert(AddSuccess, ThongBao, function () {
-                            window.location = "/trade-mark-mana/quan-ly-don";
-                        });
+                        if (ptype == 1) {
+                            nvsAlert('@Resource.LuuTamThanhCong', ThongBao, function () {
+                                window.location = "/trade-mark-mana/quan-ly-don";
+                            });
+                        } else {
+                            nvsAlert('@Resource.GuiDonThanhCong', ThongBao, function () {
+                                window.location = "/trade-mark-mana/quan-ly-don";
+                            });
+                        }
+                        
                         return true;
                     } else {
                         nvsError(AddFail, ThongBao, function () {

@@ -951,7 +951,7 @@
                 enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.status >= 0) {
-                        jAlert(TranslatedSucess, ThongBao, function () {
+                        jAlert('@Resource.DichDonThanhCong', ThongBao, function () {
                             location.href= "/vi-vn/trade-mark-mana/quan-ly-don";
                         });
                     } else {
