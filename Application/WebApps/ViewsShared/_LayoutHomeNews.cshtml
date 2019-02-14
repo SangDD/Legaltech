@@ -91,7 +91,7 @@
                     <!--[Menutop + mobi]-->
                     <ul id="menu-main-menu" class="c-header_nav-list u-list-reset">
                         <li class="c-header_nav-item js-nav-nosublink">
-                            <a href="javascript:;" onclick="funLogin();" class="c-header_nav-item-label" data-transition="full">  
+                            <a href="javascript:;" onclick="funLogin();" class="c-header_nav-item-label" data-transition="full">
                                 @if (WebApps.Session.SessionData.CurrentUser != null)
                                 {
                                     @WebApps.Session.SessionData.CurrentUser.Username
@@ -102,11 +102,13 @@
                                 }
                             </a>
                         </li>
-                        <li class="c-header_nav-item js-nav-nosublink">
-                            @*<a href="javascript:;"  onclick="return funcBottom();" class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>*@
-                            <a href="/vi-vn/account/register"   class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
-
-                        </li>
+                        @if (WebApps.Session.SessionData.CurrentUser == null)
+                        {
+                            <li class="c-header_nav-item js-nav-nosublink">
+                                @*<a href="javascript:;"  onclick="return funcBottom();" class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>*@
+                                <a href="/vi-vn/account/register" class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
+                            </li>
+                        }
 
                         <li class="c-header_nav-item js-nav-nosublink">
                             <div class="" style="width:100% !important;padding-top:10px;">
@@ -166,7 +168,7 @@
                                         <article class="scroll-content">
                                             <div class="c-navleft_inner">
                                                 <div class="c-navleft_logo">
-                                                    <a class="c-navleft_logo-link" href="javscript:;"  onclick="return funcHome();" data-transition="full">
+                                                    <a class="c-navleft_logo-link" href="javscript:;" onclick="return funcHome();" data-transition="full">
                                                         <figure class="c-navleft_logo-figure">
                                                             <img src="/Content/News/images/logo_ipace.png" alt="" aria-hidden="true">
                                                         </figure>
@@ -657,7 +659,7 @@
     }
     function funcBottom() {
         $('.t-Khoanbetong_scroll').click();
-       
+
     }
 
     function funcVi() {
