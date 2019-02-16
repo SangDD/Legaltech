@@ -75,14 +75,17 @@
             @_cataofDoc.PARENT_NAME_EN
         }
     </a>>
-    @if (_languagecode == "VI_VN")
-    {
-        @_cataofDoc.NAME
-    }
-    else
-    {
-        @_cataofDoc.NAME_ENG
-    }
+    <a href='@(_langlink + "/wiki-view/child-catalouge/" + _cataofDoc.ID)'>
+        @if (_languagecode == "VI_VN")
+        {
+            @_cataofDoc.NAME
+        }
+        else
+        {
+            @_cataofDoc.NAME_ENG
+        }
+    </a>
+   
 </h3>
 
 
