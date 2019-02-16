@@ -304,7 +304,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want translate this application ?.
+        ///   Looks up a localized string similar to Bạn có muốn dịch đơn này không?.
         /// </summary>
         public static string ConfirmDich {
             get {
@@ -313,7 +313,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want send this application ?.
+        ///   Looks up a localized string similar to Bạn có muốn gửi đơn này không?.
         /// </summary>
         public static string ConfirmGui {
             get {
@@ -322,7 +322,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want save this application ?.
+        ///   Looks up a localized string similar to Bạn có muốn lưu đơn này lại không?.
         /// </summary>
         public static string ConfirmLuu {
             get {
@@ -331,7 +331,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want save tem this application ?.
+        ///   Looks up a localized string similar to Bạn có muốn lưu tạm đơn này không?.
         /// </summary>
         public static string ConfirmLuuTam {
             get {
