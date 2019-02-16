@@ -34,7 +34,7 @@
         <div id="pagination-append" class="list-group item-list with-letters wikitable">
             @foreach (var item in _listObject)
             {
-                <a class="dynamic-linkset list-group-item col-md-6 itemdoc" href='@(_langlink + "/wiki-view/doc-view/0/" + item.ID)'>
+                <a class="dynamic-linkset list-group-item col-md-6 itemdoc" href='@(_langlink + "/wiki-view/child-catalouge/" + item.ID)'>
                     <span class="badge">@item.NUMBER_DOC</span>
                    @if (_LanguageCode == "VI_VN")
                    {

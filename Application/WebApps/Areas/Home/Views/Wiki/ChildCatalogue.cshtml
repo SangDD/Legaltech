@@ -1,0 +1,256 @@
+﻿@using ObjectInfos
+@using System.Text;
+@using Common.CommonData;
+@using WebApps.CommonFunction;
+@{
+    Layout = "~/ViewsShared/_LayoutHomeWiki.cshtml";
+    string _languagecode = "/vi-vn/";
+    if (ViewBag.LanguageCode != null)
+    {
+        _languagecode = ViewBag.LanguageCode;
+    }
+    string _langlink = "/vi-vn";
+    List<WikiCatalogues_Info> _Listcatalogue = new List<WikiCatalogues_Info>();
+    if (ViewBag.ListCatalogue != null)
+    {
+        _Listcatalogue = ViewBag.ListCatalogue;
+    }
+    decimal _new_parentid = 0, _old_parentid = 0;
+    int _countrow = 1;
+    StringBuilder _Slidebar = new StringBuilder();
+    if (_languagecode != "VI_VN")
+    {
+        _langlink = "/en-gb";
+    }
+    WikiCatalogues_Info _currcatainfo = new WikiCatalogues_Info();
+    if (ViewBag.CatalogueInfo != null)
+    {
+        _currcatainfo = ViewBag.CatalogueInfo;
+    }
+   
+
+}
+<link href=@($"/Content/WikiStyle.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" /> 
+<link href="~/Content/social-likes/social-likes_classic.css" rel="stylesheet" />
+<script src="~/Content/social-likes/social-likes.min.js"></script>
+
+ 
+<input type="hidden" value="TITLE" id="colSorted" />
+<input type="hidden" value="ASC" id="SortType" />
+<input type="hidden" value="" id="OptionSorting" />
+
+    <div class="clssbox_search">
+        <input type="text" id="_txtwikidocsearch"placeholder="@WebApps.Resources.Resource.WikiSearchPlaceholder"  />
+        <div class="clssbox_button">
+            <input type="button"   id="btnfindObjects" value="@WebApps.Resources.Resource.WikiSearchButton" onclick="findObjects(1, 1)" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding: 0px 5px 0px 16px">
+           <div class="sidebar" style="margin-top:15px;">
+               <h4>
+                   Chủ đề liên quan
+               </h4>
+               <ul class="list-group">
+                   <li class="list-group-item">
+                       @foreach (var item in _Listcatalogue)
+                       {
+
+                           if (item.PARENT_ID == _currcatainfo.PARENT_ID && item.ID != _currcatainfo.ID)
+                           {
+                               // lấy ra list những thằng anh em của nó
+                            <a class="dynamic-linkset list-group-item col-md-6 itemdoc" href='@(_langlink + "/wiki-view/child-catalouge/" + item.ID)'>
+                                @if (_languagecode == "VI_VN")
+                                {
+                                    @item.NAME
+                                }
+                                else
+                                {
+                                    @item.NAME_ENG
+                                }
+                            </a>
+                           }
+
+                       }
+                   </li>
+               </ul>
+           </div>
+
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" style="padding: 0px 16px 0px 5px">
+            <div id="div_wiki_datacontent" class="mdc-card mdc-card--stroked">
+                @Html.Partial("/Areas/Home/Views/Wiki/_PartialListDocByCata.cshtml")
+            </div>
+        </div>
+     </div>
+
+    <script>
+        var _status = '3', _catalogue = 'ALL', _titleHashtag = 'ALL';
+        if ($("#txtwikicataid").val() != "0") {
+            _catalogue = $("#txtwikicataid").val();
+        }
+
+        $(document).ready(function () {
+            $('_txtwikidocsearch').focus();
+
+        });
+        var keySearch = "";
+        var arrKeySearch;
+        function findObjects(_pageNumber, _isSearching) {
+            try {
+                //reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
+                if (_isSearching === 1) {
+                    _status = "3";
+                    _catalogue = "ALL";
+                    _titleHashtag = $("#_txtwikidocsearch").val().trim();
+
+
+                } else {
+                    arrKeySearch = keySearch.split('|');
+                    _status = arrKeySearch[0];
+                    if ($("#txtwikicataid").val() == "0") {
+                        _catalogue = arrKeySearch[1];
+                    }
+                    else {
+                        _catalogue = $("#txtwikicataid").val();
+                    }
+                    _titleHashtag = arrKeySearch[2];
+                    $("#_txtwikidocsearch").val(_titleHashtag);
+                }
+                _status = "3";
+
+                if ($("#txtwikicataid").val() == "0") {
+                    _catalogue = "ALL";
+                }
+                else {
+                    _catalogue = $("#txtwikicataid").val();
+                }
+                _titleHashtag = $("#_txtwikidocsearch").val().trim();
+                if (_titleHashtag.trim() == "") {
+                    _titleHashtag = "ALL";
+                }
+                keySearch = _status + "|" + _catalogue + "|" + _titleHashtag;
+                // updateSearchingConditions("divNumberRecordOnPageListObjects", setKeySearch);
+                var optionFilter = "TITLE|ASC||" + _pageNumber + "|20";
+                $.ajax({
+                    type: "POST",
+                    headers: { "cache-control": "no-cache" },
+                    url: "/wiki-view/WikiDocSearch/",
+                    data: {
+                        keysSearch: keySearch,
+                        options: optionFilter
+                    },
+                    async: false,
+                    success: function (data) {
+                        if (data != null) {
+                            $("#div_wiki_datacontent_Detail").attr("style", "display:none");
+                            $("#div_wiki_datacontent").removeAttr("style");
+                            $("#div_wiki_datacontent").html(data);
+                            //   onResponseWhenSearching(data, "div_wiki_datacontent", findObjects);
+                        }
+                    }
+                });
+                return true;
+            } catch (e) {
+                alert(e.toString());
+                return false;
+            }
+
+
+        }
+
+        function setKeySearch() {
+            window.keySearch = _status + "|" + _catalogue + "|" + _titleHashtag;
+        }
+
+        function initOrderBySearching() {
+            window.colSort = 'MODIFIED_DATE';
+            window.sortType = 'DESC';
+        }
+
+        function pageListOfObjects(_pagenum) {
+            try {
+                findObjects(_pagenum, 0);
+
+            } catch (e) {
+                console.log(e.message);
+            }
+        }
+
+
+
+        //function GetDocByCataid(_cataid) {
+        //    try {
+        //        $.ajax({
+        //            type: "POST",
+        //            url: "/wiki-view/GetDocByCataid/",
+        //            headers: { "cache-control": "no-cache" },
+        //            async: false,
+        //            data: { p_id: _cataid },
+        //            success: function (data) {
+        //                if (data != null) {
+        //                        $("#div_wiki_datacontent").html(data);
+        //                }
+        //                return false;
+        //            }
+        //        });
+        //    } catch (e) {
+        //        alert(e.toString());
+        //    }
+        //}
+
+        //function GetDocDetail(_Docid) {
+        //    try {
+        //        $.ajax({
+        //            type: "POST",
+        //            url: "/wiki-view/GetDocDetail/",
+        //            headers: { "cache-control": "no-cache" },
+        //            async: false,
+        //            data: { p_id: _Docid },
+        //            success: function (data) {
+        //                if (data != null) {
+        //                    $("#div_wiki_datacontent").html(data);
+        //                    document.getElementById("content").innerHTML = "/vi-vn/wiki-view/doc-list/0/12";
+        //                    window.history.pushState({ "html": "/vi-vn/wiki-view/doc-list/0/12", "pageTitle": "Chi tiết tin" }, "", urlPath);
+        //                }
+        //                return false;
+        //            }
+        //        });
+        //    } catch (e) {
+        //        alert(e.toString());
+        //    }
+        //}
+
+
+        function ExportDocToFile(_Docid) {
+            try {
+                if (CheckSessionTimeOutPortal() == false) {
+                    return false;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "/wiki-view/ExportDocToFile/",
+                    headers: { "cache-control": "no-cache" },
+                    async: false,
+                    data: { p_id: _Docid },
+                    success: function (data) {
+                        if (data.result >= 0) {
+                            var element = document.createElement('a');
+                            element.setAttribute('href', data.FileDownload);
+                            element.setAttribute('download', data.FileSaveName);
+                            element.style.display = 'none';
+                            document.body.appendChild(element);
+                            element.click();
+                            document.body.removeChild(element);
+                        }
+                        return false;
+                    }
+                });
+            } catch (e) {
+                alert(e.toString());
+            }
+        }
+
+    </script>
+
+

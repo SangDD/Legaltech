@@ -1385,9 +1385,9 @@ a:focus {
     overflow-x: hidden;
 }
 
-.sidebar:hover {
+/*.sidebar:hover {
     overflow-x: visible
-}
+}*/
 
 .sidebar li {
     border: none;
@@ -1805,3 +1805,39 @@ select.divNumberRecordOnPage {
      {
          text-decoration:underline;
      }
+
+    .t-Khoanbetong_col-left
+    {
+        width:260px;
+    }
+@media(max-width:999px) {
+  .t-Khoanbetong_col-right {
+    width: 100%;
+  }
+}
+
+@media(min-width:1000px) {
+  .t-Khoanbetong_col-right {
+    width: calc(100% - 260px) !important;
+  }
+}
+ @media(max-width:999px) {
+  .c-navleft_category {
+    padding: 0 10px;
+    height: 0;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .c-navleft.is-open .c-navleft_category {
+    padding: 0 30px 60px;
+    margin: 40px 0 0;
+    height: calc(100vh - 60px - 140px);
+  }
+}
+
+@media(min-width:1000px) {
+  .c-navleft_category {
+    padding: 0 10px;
+  }
+}
