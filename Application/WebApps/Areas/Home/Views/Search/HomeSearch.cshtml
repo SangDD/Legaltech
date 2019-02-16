@@ -1,4 +1,5 @@
-﻿@{
+﻿@using WebApps.Resources;
+@{
     ViewBag.Title = "Tìm kiếm thông tin";
     Layout = "~/ViewsShared/_LayoutHome.cshtml";
 
@@ -62,8 +63,8 @@
                 Wiki
             </option>
         </select>
-        
-        <input type="text" id="legalsearch_txtsearchcontent" placeholder="@WebApps.Resources.Resource.CaseCode, @WebApps.Resources.Resource.CaseName, @WebApps.Resources.Resource.TinhTrangDon, @WebApps.Resources.Resource.Processor, @WebApps.Resources.Resource.LoaiDon" value="@_searchContent"/>
+
+        <input type="text" id="legalsearch_txtsearchcontent" placeholder="@WebApps.Resources.Resource.CaseCode, @WebApps.Resources.Resource.CaseName, @WebApps.Resources.Resource.TinhTrangDon, @WebApps.Resources.Resource.Processor, @WebApps.Resources.Resource.LoaiDon" value="@_searchContent" />
         <div class="clssbox_button">
             <input type="button" style="" value="@WebApps.Resources.Resource.TimKiem" onclick="findObjects(1, 1)" />
         </div>
@@ -106,7 +107,7 @@
 
         findObjects(1, 1);
 
-        
+
 
         $("#cbo_searchtype > option[value=" + _searchtype + "]").prop("selected", true);
     });
@@ -117,25 +118,24 @@
     var _arrKeySearch;
 
     function FunChooseSearchtype() {
-        try {
-            var _searchtype = $("#cbo_searchtype").val();
-            if (_searchtype == 1) {
-                $("#legalsearch_txtsearchcontent").attr("placeholder", "@WebApps.Resources.Resource.CaseCode, @WebApps.Resources.Resource.CaseName, @WebApps.Resources.Resource.TinhTrangDon, @WebApps.Resources.Resource.Processor, @WebApps.Resources.Resource.LoaiDon")
-            }
-            if (_searchtype == 2) {
-                $("#legalsearch_txtsearchcontent").attr("placeholder", @WebApps.Resources.Resource.TenLuatSu)
-            }
-            if (_searchtype == 3) {
-                $("#legalsearch_txtsearchcontent").attr("placeholder", @WebApps.Resources.Resource.TenKhachHang)
-            } if (_searchtype == 4) {
-                $("#legalsearch_txtsearchcontent").attr("placeholder", "@WebApps.Resources.Resource.TieuDe, hashtag")
-            }
-            $("#legalsearch_txtsearchtype").val(_searchtype);
-        } catch (e) {
+            try {
+                var _searchtype = $("#cbo_searchtype").val();
+                if (_searchtype == 1) {
+                    $("#legalsearch_txtsearchcontent").attr("placeholder", '@Html.Raw(Resource.CaseCode), @Html.Raw(Resource.CaseName), @Html.Raw(Resource.TinhTrangDon), @Html.Raw(Resource.Processor), @Html.Raw(Resource.LoaiDon)')
+                }
+                if (_searchtype == 2) {
+                    $("#legalsearch_txtsearchcontent").attr("placeholder", '@Html.Raw(Resource.TenLuatSu)')
+                }
+                if (_searchtype == 3) {
+                    $("#legalsearch_txtsearchcontent").attr("placeholder", '@Html.Raw(Resource.TenKhachHang)')
+                } if (_searchtype == 4) {
+                    $("#legalsearch_txtsearchcontent").attr("placeholder", '@Html.Raw(Resource.TieuDe) , hashtag')
+                }
+            } catch (e) {
 
+            }
         }
-    }
-     
+
     function findObjects(_pageNumber, _isSearching) {
         try {
             var _RecordonPage = 5;
@@ -247,5 +247,5 @@
         catch (e) {
         }
     }
- 
+
 </script>
