@@ -4,11 +4,7 @@
 @using WebApps.CommonFunction;
 @{
     Layout = "~/ViewsShared/_LayoutHomeWiki.cshtml";
-    string _languagecode = "/vi-vn/";
-    if (ViewBag.LanguageCode != null)
-    {
-        _languagecode = ViewBag.LanguageCode;
-    }
+    string _languagecode = AppsCommon.GetCurrentLang();
     string _langlink = "/vi-vn";
     List<WikiCatalogues_Info> _Listcatalogue = new List<WikiCatalogues_Info>();
     if (ViewBag.ListCatalogue != null)
@@ -27,7 +23,7 @@
     {
         _currcatainfo = ViewBag.CatalogueInfo;
     }
-   
+
 
 }
 <link href=@($"/Content/WikiStyle.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" /> 
@@ -39,15 +35,16 @@
 <input type="hidden" value="ASC" id="SortType" />
 <input type="hidden" value="" id="OptionSorting" />
 
-    <div class="clssbox_search">
-        <input type="text" id="_txtwikidocsearch"placeholder="@WebApps.Resources.Resource.WikiSearchPlaceholder"  />
-        <div class="clssbox_button">
-            <input type="button"   id="btnfindObjects" value="@WebApps.Resources.Resource.WikiSearchButton" onclick="findObjects(1, 1)" />
-        </div>
+<div class="clssbox_search">
+    <input type="text" id="_txtwikidocsearch" placeholder="Tìm kiếm theo tên danh mục" />
+    <input type="hidden" id="_txtwikicatanameabc" value="ALL" />
+    <div class="clssbox_button">
+        <input type="button" id="btnfindObjects" value="@WebApps.Resources.Resource.WikiSearchButton" onclick="findObjects(1, 1)" />
     </div>
+</div>
     <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding: 0px 5px 0px 16px">
-           <div class="sidebar" style="margin-top:15px;">
+           <div class="sidebar divfullheight" style="margin-top:15px; ">
                <h4>
                    Chủ đề liên quan
                </h4>
@@ -78,64 +75,70 @@
 
         </div>
         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" style="padding: 0px 16px 0px 5px">
-            <div id="div_wiki_datacontent" class="mdc-card mdc-card--stroked">
+            <div id="div_wiki_datacontent" class="mdc-card mdc-card--stroked divfullheight">
                 @Html.Partial("/Areas/Home/Views/Wiki/_PartialListDocByCata.cshtml")
             </div>
         </div>
      </div>
 
     <script>
-        var _status = '3', _catalogue = 'ALL', _titleHashtag = 'ALL';
-        if ($("#txtwikicataid").val() != "0") {
-            _catalogue = $("#txtwikicataid").val();
-        }
-
+        var _NameABC = 'ALL', _ParentID = 'ALL', _NameSearch = 'ALL';
         $(document).ready(function () {
             $('_txtwikidocsearch').focus();
+        });
+        $("#_txtwikidocsearch").keyup(function (event) {
+            if (event.keyCode === 13) {
 
+                $("#btnfindObjects").click();
+            }
         });
         var keySearch = "";
         var arrKeySearch;
+        var keySearch = "";
+        var arrKeySearch;
+
         function findObjects(_pageNumber, _isSearching) {
             try {
-                //reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
                 if (_isSearching === 1) {
-                    _status = "3";
-                    _catalogue = "ALL";
-                    _titleHashtag = $("#_txtwikidocsearch").val().trim();
-
-
-                } else {
+                    _NameABC = $("#_txtwikicatanameabc").val();
+                    _NameSearch = $("#_txtwikidocsearch").val().trim();
+                }
+                else
+                {
                     arrKeySearch = keySearch.split('|');
-                    _status = arrKeySearch[0];
-                    if ($("#txtwikicataid").val() == "0") {
-                        _catalogue = arrKeySearch[1];
+                    _NameABC = arrKeySearch[0];
+                    _NameSearch = arrKeySearch[1];
+                    if ($("#_txtwikicataid").val() == "0") {
+                        _ParentID = arrKeySearch[2];
                     }
                     else {
-                        _catalogue = $("#txtwikicataid").val();
+                        _ParentID = $("#_txtwikicataid").val();
                     }
-                    _titleHashtag = arrKeySearch[2];
-                    $("#_txtwikidocsearch").val(_titleHashtag);
+                    $("#_txtwikidocsearch").val(_NameSearch);
                 }
                 _status = "3";
 
-                if ($("#txtwikicataid").val() == "0") {
-                    _catalogue = "ALL";
+                if ($("#_txtwikicataid").val() == "0") {
+                    _ParentID = "ALL";
                 }
                 else {
-                    _catalogue = $("#txtwikicataid").val();
+                    _ParentID = $("#_txtwikicataid").val();
                 }
-                _titleHashtag = $("#_txtwikidocsearch").val().trim();
-                if (_titleHashtag.trim() == "") {
-                    _titleHashtag = "ALL";
+                if (_NameSearch != "ALL" && _NameSearch != "") {
+                    // nếu tìm bằng text box thì tìm trên tất cả các danh mục cha
+                    _ParentID = "ALL";
                 }
-                keySearch = _status + "|" + _catalogue + "|" + _titleHashtag;
+                _NameSearch = $("#_txtwikidocsearch").val().trim();
+                if (_NameSearch.trim() == "") {
+                    _NameSearch = "ALL";
+                }
+                keySearch = _NameABC + "|" + _NameSearch + "|" + _ParentID;
                 // updateSearchingConditions("divNumberRecordOnPageListObjects", setKeySearch);
-                var optionFilter = "TITLE|ASC||" + _pageNumber + "|20";
+                var optionFilter = "NAME|ASC||" + _pageNumber + "|20";
                 $.ajax({
                     type: "POST",
                     headers: { "cache-control": "no-cache" },
-                    url: "/wiki-view/WikiDocSearch/",
+                    url: "/wiki-view/CatalogueSearch/",
                     data: {
                         keysSearch: keySearch,
                         options: optionFilter
@@ -143,10 +146,7 @@
                     async: false,
                     success: function (data) {
                         if (data != null) {
-                            $("#div_wiki_datacontent_Detail").attr("style", "display:none");
-                            $("#div_wiki_datacontent").removeAttr("style");
                             $("#div_wiki_datacontent").html(data);
-                            //   onResponseWhenSearching(data, "div_wiki_datacontent", findObjects);
                         }
                     }
                 });
@@ -158,7 +158,6 @@
 
 
         }
-
         function setKeySearch() {
             window.keySearch = _status + "|" + _catalogue + "|" + _titleHashtag;
         }

@@ -4,18 +4,7 @@
 @using WebApps.CommonFunction;
 @{
     Layout = "~/ViewsShared/_LayoutHomeWiki.cshtml";
-    string _languagecode = "/vi-vn/";
-    if (ViewBag.LanguageCode != null)
-    {
-        _languagecode = ViewBag.LanguageCode;
-    }
-    List<WikiCatalogues_Info> _Listcatalogue = new List<WikiCatalogues_Info>();
-    if (ViewBag.ListCatalogue != null)
-    {
-        _Listcatalogue = ViewBag.ListCatalogue;
-    }
-    decimal _new_parentid = 0, _old_parentid = 0;
-    int _countrow = 1;
+    string _languagecode = AppsCommon.GetCurrentLang();
     StringBuilder _Slidebar = new StringBuilder();
     WikiDoc_Info _DocdetailInfo = new WikiDoc_Info();
     if (ViewBag.DocdetailInfo != null)
@@ -24,7 +13,16 @@
     }
     string _displayDivDetail = "";
     string _displayDivListDoc = "";
-   
+    List<WikiDoc_Info> _ListDocSearch = new List<WikiDoc_Info>();
+    if (ViewBag.ListDocSearch != null)
+    {
+        _ListDocSearch = ViewBag.ListDocSearch;
+    }
+    string _langlink = "/vi-vn";
+    if (_languagecode != "VI_VN")
+    {
+        _langlink = "/en-gb";
+    }
 
 }
 <link href=@($"/Content/WikiStyle.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" /> 
@@ -61,13 +59,42 @@
         }
     }
 
-    <div id="div_wiki_datacontent_Detail" class="mdc-card mdc-card--stroked" style="@_displayDivDetail">
-        @Html.Partial("/Areas/Home/Views/Wiki/_PartialDocViewDetail.cshtml")
-    </div>
-    <div id="div_wiki_datacontent" class="mdc-card mdc-card--stroked" style="@_displayDivListDoc">
-        @Html.Partial("/Areas/Home/Views/Wiki/_PartialListDocByCata.cshtml")
-    </div>
+<div class="row">
 
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding: 0px 5px 0px 16px">
+        <div class="sidebar divfullheight" style="margin-top:15px; ">
+            <h4>
+                Bài viết liên quan
+            </h4>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    @foreach (var item in _ListDocSearch)
+                {
+
+                    if (item.CATA_ID == _DocdetailInfo.CATA_ID && item.ID != _DocdetailInfo.ID)
+                    {
+                        // lấy ra list những thằng anh em của nó
+                        <a class="dynamic-linkset list-group-item col-md-6 itemdoc" href='@(_langlink + "/wiki-view/doc-view/0/" + item.ID)' >
+                                @item.TITLE
+                        </a>
+                    }
+
+                }
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" style="padding: 0px 16px 0px 5px" >
+        <div id="div_wiki_datacontent_Detail" class="mdc-card mdc-card--stroked divfullheight" style="@_displayDivDetail">
+            @Html.Partial("/Areas/Home/Views/Wiki/_PartialDocViewDetail.cshtml")
+        </div>
+        <div id="div_wiki_datacontent" class="mdc-card mdc-card--stroked divfullheight" style="@_displayDivListDoc">
+            @Html.Partial("/Areas/Home/Views/Wiki/_PartialListDocByCata.cshtml")
+        </div>
+    </div>
+    
+    </div>
      
 
         
@@ -80,6 +107,12 @@
         _catalogue = $("#txtwikicataid").val();
     }
 
+    $("#_txtwikidocsearch").keyup(function (event) {
+        if (event.keyCode === 13) {
+
+            $("#btnfindObjects").click();
+        }
+    });
     $(document).ready(function () {
         $('_txtwikidocsearch').focus();
 

@@ -5,11 +5,7 @@
 
 @{
     Layout = "~/ViewsShared/_LayoutHomeWiki.cshtml";
-    string _languagecode = "/vi-vn/";
-    if (ViewBag.LanguageCode != null)
-    {
-        _languagecode = ViewBag.LanguageCode;
-    }
+    string _languagecode = AppsCommon.GetCurrentLang();
     List<WikiCatalogues_Info> _Listcatalogue = new List<WikiCatalogues_Info>();
     if (ViewBag.ListCatalogue != null)
     {
@@ -30,8 +26,6 @@
 <input type="hidden" value="TITLE" id="colSorted" />
 <input type="hidden" value="ASC" id="SortType" />
 <input type="hidden" value="" id="OptionSorting" />
-
-
 
 <div class="clssbox_search">
 
@@ -78,7 +72,7 @@
     <li class=""><a class="namaabc" onclick="searchcata('z')" event-category="Filter" event-action="executive" event-label="z">Z</a></li>
 </ul>
 
-<div id="div_wiki_datacontent" class="mdc-card mdc-card--stroked">
+<div id="div_wiki_datacontent" class="mdc-card mdc-card--stroked" style="min-height:60vh ">
     @Html.Partial("/Areas/Home/Views/Wiki/_PartialListChilCataByParent.cshtml")
 </div>
 
@@ -86,6 +80,12 @@
 <script>
     var _NameABC = 'ALL', _ParentID = 'ALL', _NameSearch = 'ALL';
 
+    $("#_txtwikidocsearch").keyup(function (event) {
+        if (event.keyCode === 13) {
+          
+            $("#btnfindObjects").click();
+        }
+    });
     $(document).ready(function () {
         $('_txtwikidocsearch').focus();
     });
