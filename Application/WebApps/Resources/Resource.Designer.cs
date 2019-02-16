@@ -1447,7 +1447,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ảnh có kích cỡ từ 2x2 đến 8x8, dung lượng tối đa 2M.
+        ///   Looks up a localized string similar to Ảnh có kích cỡ từ 2x2 đến 8x8, dung lượng tối đa 2MB.
         /// </summary>
         public static string lblSizeOfPicture {
             get {
@@ -4206,6 +4206,15 @@ namespace WebApps.Resources {
         public static string TooltipNhanHieu {
             get {
                 return ResourceManager.GetString("TooltipNhanHieu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ảnh 2x2 có độ phân giải tương ứng 75x75px, ảnh 8x8 có độ phân giải tương ứng 302x302 px.
+        /// </summary>
+        public static string TooltipSizeofImage {
+            get {
+                return ResourceManager.GetString("TooltipSizeofImage", resourceCulture);
             }
         }
         

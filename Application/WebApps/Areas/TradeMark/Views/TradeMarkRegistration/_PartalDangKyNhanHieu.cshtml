@@ -216,7 +216,8 @@
                 </div>
             </div>
             <i style="color:red;font-weight:bold;margin-left:120px">(@WebApps.Resources.Resource.lblSizeOfPicture)</i>
-
+            <a href="javascript:;" st="" class="icon icon-info tip" data-placement="right" style="border:none"
+               data-title="@Resource.TooltipSizeofImage"></a>
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
@@ -844,7 +845,7 @@
                 iheight = img[0].height;
                 iwidth = img[0].width;
                 console.log(iheight);
-                //2x2 75x75 px
+                //2x2 75x75 px , 8x8 302x302
                 if (iheight > 302 || iheight < 75 || iwidth > 302 || iwidth < 75) {
                     _checkanh = 1;
                     nvsConfirm(null, "Ảnh tải lên không đúng kích cỡ từ 2x2 đến 8x8 ?", function () {
