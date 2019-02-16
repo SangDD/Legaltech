@@ -1621,19 +1621,19 @@
     });
 
     $("#btnGuiDon").click(function () {
-        nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmGui", function () {
+        nvsConfirm(null, "@Html.Raw(@WebApps.Resources.Resource.ConfirmGui)", function () {
             funcSaveType(2);
         });
     });
 
     $("#btnLuuTam").click(function () {
-        nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmLuuTam", function () {
+        nvsConfirm(null, "@Html.Raw(@WebApps.Resources.Resource.ConfirmLuuTam)", function () {
             funcSaveType(1);
         });
     });
 
     $("#btnSuaDon").click(function () {
-        nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmLuu", function () {
+        nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuu)", function () {
             funcSaveType('@objAppHeaderInfo.Status');
         });
     });
@@ -1737,15 +1737,15 @@
                         //});
 
                         if (pStatus == 1) {
-                            nvsAlert('@Resource.LuuTamThanhCong', ThongBao, function () {
+                            nvsAlert('@Html.Raw(Resource.LuuTamThanhCong)', ThongBao, function () {
                                 window.location = "/trade-mark-mana/quan-ly-don";
                             });
                         } else if (true) {
-                            nvsAlert('@Resource.GuiDonThanhCong', ThongBao, function () {
+                            nvsAlert('@Html.Raw(Resource.GuiDonThanhCong)', ThongBao, function () {
                                 window.location = "/trade-mark-mana/quan-ly-don";
                             });
                         } else {
-                            nvsAlert('@Resource.SuaDonThanhCong', ThongBao, function () {
+                            nvsAlert('@Html.Raw(Resource.SuaDonThanhCong)', ThongBao, function () {
                                 window.location = "/trade-mark-mana/quan-ly-don";
                             });
                         }
