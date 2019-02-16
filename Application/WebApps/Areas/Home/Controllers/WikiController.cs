@@ -52,9 +52,9 @@ namespace WebApps.Areas.Home.Controllers
                     _ListDocSearch = _WikiBL.PortalWikiDoc_Search("3|" + _Cataid.ToString() + "|ALL|" + AppsCommon.GetCurrentLang());
                     ViewBag.Paging = _WikiBL.GetPagingHtml();
                     ViewBag.ListDocSearch = _ListDocSearch;
-                    WikiCatalogue_BL _Catabl = new WikiCatalogue_BL();
+                  
                     WikiCatalogues_Info _Catainfo = new WikiCatalogues_Info();
-                    _Catainfo = _Catabl.WikiCatalogue_GetByID(_Cataid);
+                    _Catainfo = _CatalogueBL.WikiCatalogue_GetByID(_Cataid);
                     ViewBag.CatalogueInfo = _Catainfo;
                 }
                 else
@@ -81,6 +81,7 @@ namespace WebApps.Areas.Home.Controllers
                     // lấy chi tiết tin
                     _DocInfo = _WikiBL.PortalWikiDoc_GetById(_Docid);
                     ViewBag.DocdetailInfo = _DocInfo;
+                    ViewBag.CataOfDoc = _CatalogueBL.WikiCatalogue_GetByID(_DocInfo.CATA_ID);
                 }
                 ViewBag.ListCatalogue = _ListCata;
                 ViewBag.CurrCata = _Cataid;

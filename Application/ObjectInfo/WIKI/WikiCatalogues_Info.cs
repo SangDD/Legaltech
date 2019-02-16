@@ -24,6 +24,9 @@ namespace ObjectInfos
 
         public string PARENT_NAME { set; get; }
 
+        public string PARENT_NAME_EN { set; get; }
+        
+
         public string CREATED_BY { set; get; }
 
         public string MODIFIED_BY { set; get; }

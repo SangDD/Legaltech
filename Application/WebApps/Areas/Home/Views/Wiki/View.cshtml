@@ -23,6 +23,12 @@
     {
         _langlink = "/en-gb";
     }
+    WikiCatalogues_Info _cataofDoc = new WikiCatalogues_Info();
+    if(ViewBag.CataOfDoc != null)
+    {
+        _cataofDoc = ViewBag.CataOfDoc;
+    }
+
 
 }
 <link href=@($"/Content/WikiStyle.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" /> 
@@ -58,6 +64,27 @@
             _displayDivDetail = "display:none !important";
         }
     }
+<h3 id="h3cataname" class="h3cataname">
+    <a href='@(_langlink + "/wiki-view/cata-view/" + _cataofDoc.PARENT_ID)'>
+        @if (_languagecode == "VI_VN")
+            {
+            @_cataofDoc.PARENT_NAME
+        }
+        else
+        {
+            @_cataofDoc.PARENT_NAME_EN
+        }
+    </a>>
+    @if (_languagecode == "VI_VN")
+    {
+        @_cataofDoc.NAME
+    }
+    else
+    {
+        @_cataofDoc.NAME_ENG
+    }
+</h3>
+
 
 <div class="row">
 
