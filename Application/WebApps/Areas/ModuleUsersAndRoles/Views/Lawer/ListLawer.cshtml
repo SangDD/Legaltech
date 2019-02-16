@@ -3,7 +3,7 @@
 @using Common.CommonData
 @using ObjectInfos;
 @{
-    ViewBag.Title = "Quản lý luật sư";
+    ViewBag.Title = "Thông tin luật sư";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     List<AllCodeInfo> _lstType = MemoryData.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE");
@@ -23,7 +23,7 @@
             <img src="~/Content/icons/Body-icon-home.png" /> I
             <a href="/home">Home</a>
             <span class="red">></span>
-            <a href="/luat-su/quan-ly-luat-su">Quản lý luật sư</a>
+            <a href="/luat-su/quan-ly-luat-su">Thông tin luật sư</a>
         </div>
     </div>
     <div class="divCover">
