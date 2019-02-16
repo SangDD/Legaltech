@@ -992,6 +992,7 @@
 
 
     $("#hrfExportData").click(function () {
+       
         var v_Master_Name = $("#1_txtTenDayDu").val().trim();
         if (v_Master_Name === "") {
             $('#1_txtTenDayDu').focus().val('');
@@ -1055,6 +1056,7 @@
 
         var formData = new FormData();
         //ObjectHeader
+        formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
         formData.append("pInfo.Appcode", v_AppCode);
         formData.append("pInfo.Master_Name", v_Master_Name);
         formData.append("pInfo.Master_Address", v_Master_Address);

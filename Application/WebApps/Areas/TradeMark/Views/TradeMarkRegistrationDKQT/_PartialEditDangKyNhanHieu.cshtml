@@ -1152,7 +1152,7 @@
             alert(e.toString());
         }
     });
-    
+
     $("#btnLuuTam").click(function () {
         try {
             nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmLuuTam", function () {
@@ -1554,6 +1554,7 @@
                  formData.append("pInfo.Id", '@objAppHeaderInfo.Id');
                  formData.append("pInfo.Status", '@objAppHeaderInfo.Status');
                  formData.append("pInfo.Case_Code", '@objAppHeaderInfo.Case_Code');
+                 formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
                  var v_AppCode = $("#txtAppCode").val();
                  var cbo_04nh_data = $("#cbo_04nh_data");
                  var v_thanhviennghidinh = $("input[name='rad_thanhviennghidinhthu']:checked").val();

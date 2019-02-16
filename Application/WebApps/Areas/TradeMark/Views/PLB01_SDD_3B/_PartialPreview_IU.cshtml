@@ -36,7 +36,7 @@
 
             var formData = new FormData();
             formData.append("pInfo.Appcode", $("#txtAppCode").val());
-
+            formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
             //Thông tin chủ đơn
             if (funcThongTinChuDon_Exp(formData, "1") != true) {
                 return false;
@@ -49,7 +49,7 @@
 
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-            
+
             //Lấy thông tin detail
             var reponse = funcGetAppDetail(formData);
             if (reponse == false) {
