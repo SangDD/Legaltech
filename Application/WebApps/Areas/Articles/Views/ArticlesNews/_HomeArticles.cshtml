@@ -2,7 +2,12 @@
     ViewBag.Title = "Danh sách tin";
     Layout = "~/ViewsShared/_LayoutHomeArticles.cshtml";
 }
-<div id="divHomeNews" style="padding-top:100px;">
+<div class="classtitleHeadNews">
+    <h2 class="classTitleNews">@Html.Raw(WebApps.Resources.Resource.lblNews.ToUpper())</h2>
+    <hr />
+</div>
+<div id="divHomeNews" style="padding-top:10px;">
+   
     @Html.Partial("~/Areas/Articles/Views/ArticlesNews/_HomePartialViewNews.cshtml")
 </div>
 
@@ -12,13 +17,9 @@
         try {
             funcSearch(page);
         } catch (e) {
-
         }
-
     }
-
-
-
+     
     function funcSearch(page) {
         try {
             var danhmuc = "ALL";
