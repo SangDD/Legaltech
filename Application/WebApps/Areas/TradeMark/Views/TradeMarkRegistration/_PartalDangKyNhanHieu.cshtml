@@ -1328,10 +1328,11 @@
     function funcGetAppDetail(formdata, pEditOrNew ,pPreView) {
         try {
             if (pEditOrNew == undefined) pEditOrNew = 1;
+            if (pPreView == undefined) pPreView = 0;
             var v_soDon_0 = $("#0_txtDonSo").val();
             formdata.append("pDetail.Appno", v_soDon_0);
             var v_NgayNopDonn_0 = $("#0_txtNgayNopDon").val();
-            if (v_soDon_0 != "" && pPreView ==3) {
+            if (v_soDon_0 != "" && pPreView !=3) {
                 if (v_NgayNopDonn_0 === "" || v_NgayNopDonn_0 == undefined && (pEditOrNew == 1)) {
                     showError('Phải chọn ít nhất 1 giá trị cho nhãn hiệu!');
                     $("#0_txtNgayNopDon").focus();
@@ -1341,7 +1342,7 @@
             /// return true if strDate1 <= strDate2
             //function compareDate_N0(strDate1, strDate2) {
             var timenow = $("#txtDateTime").val();
-            if (v_soDon_0 != "" && pPreView == 3) {
+            if (v_soDon_0 != "" && pPreView != 3) {
                 if (compareDate_N0(v_NgayNopDonn_0, timenow) == false) {
                     showError('Ngày nộp đơn lớn hơn ngày hiện tại!');
                     $("#0_txtNgayNopDon").focus();
