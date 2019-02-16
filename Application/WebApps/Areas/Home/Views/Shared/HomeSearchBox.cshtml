@@ -1,75 +1,72 @@
-﻿<style>
-  
-     .clssbox_search
-    {
-        width: calc(85%) ;
-        height:35px;
-        border:1px solid #CBCCCE;
+﻿@using WebApps.Resources;
+
+<style>
+
+    .clssbox_search {
+        width: calc(85%);
+        height: 35px;
+        border: 1px solid #CBCCCE;
         border-right: none;
-        float:left;
- 
-    }
-    .clssbox_search > select
-    {
-      width:130px;
-      border:none;
-      background-color:#E9EAEF;
-      font-weight:bold;
-      height:30px;
-      padding-bottom: 0px;
-     float:left;
-    }
-      .clssbox_search > select:focus
-    {
-      border:none;
+        float: left;
     }
 
-    .clssbox_search > input[type="text"]
-    {
-       width: calc(100% - 250px);
-      border:none;
-      border-left: 1px solid #CBCCCE;
-      background-color:#E9EAEF;
-      height: 22px;
-      margin-top:5px;
-         float:left;
-    }
-    .clssbox_search > input[type="text"]:focus
-    {
-      border:none;
-      border-left: 1px solid #CBCCCE;     
-    }
-    .clssbox_button
-    {
-      width:120px;
-      float:left;
-    
+        .clssbox_search > select {
+            width: 130px;
+            border: none;
+            background-color: #E9EAEF;
+            font-weight: bold;
+            height: 30px;
+            padding-bottom: 0px;
+            float: left;
+        }
 
+            .clssbox_search > select:focus {
+                border: none;
+            }
+
+        .clssbox_search > input[type="text"] {
+            width: calc(100% - 250px);
+            border: none;
+            border-left: 1px solid #CBCCCE;
+            background-color: #E9EAEF;
+            height: 22px;
+            margin-top: 5px;
+            float: left;
+        }
+
+            .clssbox_search > input[type="text"]:focus {
+                border: none;
+                border-left: 1px solid #CBCCCE;
+            }
+
+    .clssbox_button {
+        width: 120px;
+        float: left;
     }
-    .clssbox_button > input[type="button"]
-    {
-      height:37px;
-      background-color:#00A0F8;
-      color:white;
-      padding: 0px 0px 0px 20px;
-      border:none;
-      width:110px;
-      float:right;
-      cursor:pointer;
-      margin-top:-1px;
-    } 
-    .search_icon
-    {
-        margin:9px 0px 0px -100px;
-        float:left;
+
+        .clssbox_button > input[type="button"] {
+            height: 37px;
+            background-color: #00A0F8;
+            color: white;
+            padding: 0px 0px 0px 20px;
+            border: none;
+            width: 110px;
+            float: right;
+            cursor: pointer;
+            margin-top: -1px;
+        }
+
+    .search_icon {
+        margin: 9px 0px 0px -100px;
+        float: left;
     }
-    .clssbox_button_icon
-    {
-        float:left;
-        width:30px;
+
+    .clssbox_button_icon {
+        float: left;
+        width: 30px;
     }
 </style>
- 
+
 <div class="divCover" id="legalsearch_div" style="">
     <div class="box_title"><label style=""> @WebApps.Resources.Resource.TimKiem </label></div>
     <div class="clssbox_search">
@@ -84,10 +81,10 @@
                 @WebApps.Resources.Resource.KhachHang
             </option>
             <option value="4">
-               Wiki
+                Wiki
             </option>
         </select>
-        <input type="text" id="legalsearch_txtsearchcontent" placeholder="case code, case name, @WebApps.Resources.Resource.TinhTrangDon, @WebApps.Resources.Resource.Processor, @WebApps.Resources.Resource.LoaiDon"   />    
+        <input type="text" id="legalsearch_txtsearchcontent" placeholder="case code, case name, @WebApps.Resources.Resource.TinhTrangDon, @WebApps.Resources.Resource.Processor, @WebApps.Resources.Resource.LoaiDon" />
         <div class="clssbox_button">
             <input type="button" style="" value="@WebApps.Resources.Resource.TimKiem" onclick="findObjects(1, 1)" />
         </div>
@@ -107,30 +104,32 @@
         <input type="hidden" id="SortType_3" />
         <input type="hidden" id="SortType_4" />
     </div>
- 
+
     <script>
         var _Keysearch = "";
         var _searchtype = "1";
         var _searchContent = "";
         var _arrKeySearch;
+
         function FunChooseSearchtype() {
             try {
                 var _searchtype = $("#cbo_searchtype").val();
                 if (_searchtype == 1) {
-                    $("#legalsearch_txtsearchcontent").attr("placeholder", "case code, case name, @WebApps.Resources.Resource.TinhTrangDon, @WebApps.Resources.Resource.Processor,@WebApps.Resources.Resource.LoaiDon ")
+                    $("#legalsearch_txtsearchcontent").attr("placeholder", '@Html.Raw(Resource.CaseCode), @Html.Raw(Resource.CaseName), @Html.Raw(Resource.TinhTrangDon), @Html.Raw(Resource.Processor), @Html.Raw(Resource.LoaiDon)')
                 }
                 if (_searchtype == 2) {
-                    $("#legalsearch_txtsearchcontent").attr("placeholder", " @WebApps.Resources.Resource.TenLuatSu")
+                    $("#legalsearch_txtsearchcontent").attr("placeholder", '@Html.Raw(Resource.TenLuatSu)')
                 }
                 if (_searchtype == 3) {
-                    $("#legalsearch_txtsearchcontent").attr("placeholder", "@WebApps.Resources.Resource.TenKhachHang")
+                    $("#legalsearch_txtsearchcontent").attr("placeholder", '@Html.Raw(Resource.TenKhachHang)')
                 } if (_searchtype == 4) {
-                    $("#legalsearch_txtsearchcontent").attr("placeholder", "@WebApps.Resources.Resource.TieuDe, hashtag")
+                    $("#legalsearch_txtsearchcontent").attr("placeholder", '@Html.Raw(Resource.TieuDe) , hashtag')
                 }
             } catch (e) {
 
             }
         }
+
         function findObjects(_pageNumber, _isSearching) {
             try {
                 var _RecordonPage = 5;
