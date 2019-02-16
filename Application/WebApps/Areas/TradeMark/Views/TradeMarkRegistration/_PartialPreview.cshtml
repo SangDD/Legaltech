@@ -32,7 +32,7 @@
                      return false;
                  }
                  var v_AppCode = $("#txtAppCode").val();
-                 if (v_AppCode === "") {
+                 if (v_AppCode === "" && ptype!=3) {
                      $('#txtAppCode').focus().val('');
                      showError('Chưa chọn loại đơn đăng ký!');
                      return false;
@@ -40,7 +40,7 @@
                  formData.append("pInfo.Appcode", v_AppCode);
 
                  var v_AppHeaderID = $("#txtAppHeaderID").val();
-                 if (v_AppHeaderID === "") {
+                 if (v_AppHeaderID === "" && ptype != 3) {
                      $('#txtAppHeaderID').focus().val('');
                      showError('Không lấy được ID bản ghi!');
                      return false;
@@ -52,7 +52,7 @@
                      return false;
                  }
                  var v_RepMasterType = $("input[name='3_rdoDaiDienChuDon']:checked").val();
-                 if (v_RepMasterType === "" || v_RepMasterType == undefined) {
+                 if ((v_RepMasterType === "" || v_RepMasterType == undefined)   && ptype != 3) {
                      showError('Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!');
                      return false;
                  }
@@ -73,7 +73,7 @@
                  formData.append("pInfo.MADDSHCN", madhsh);
 
                  //Lấy thông tin detail
-                 var reponse = funcGetAppDetail(formData);
+                 var reponse = funcGetAppDetail(formData, ptype);
                  if (reponse == false) {
                      return false;
                  }
