@@ -974,6 +974,20 @@ namespace Common
             }
         }
 
+        public static decimal ConvertToDecimalReturn0(object pInput)
+        {
+            try
+            {
+                if (pInput == null) return 0;
+                return Convert.ToDecimal(pInput);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return 0;
+            }
+        }
+
         public static Int32 ConvertToInt(object pInput)
         {
             try

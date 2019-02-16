@@ -3262,7 +3262,7 @@ a:focus,a:hover {
 @media(max-width:999px) {
   .c-header_nav-list {
     position: relative;
-    margin-top: 140px;
+    margin-top: 20px;
     left: 0;
     width: 100%;
   }
@@ -3271,7 +3271,7 @@ a:focus,a:hover {
 @media(min-width:1000px) {
   .c-header_nav-list {
     position: absolute;
-    top: 50%;
+    top: 20px;
     right: 0;
     -webkit-transform: translate3d(0,-50%,0);
     transform: translate3d(0,-50%,0);
@@ -8189,7 +8189,7 @@ a:focus,a:hover {
 }
 
 .c-listing_title {
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.4;
   color: #392f2f;
   -webkit-transform: translate3d(0,0,0);
@@ -8269,54 +8269,54 @@ a:focus,a:hover {
   }
 }
 
-.c-listing_infos-category,.c-listing_infos-date {
-  position: relative;
-  margin: 0;
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 1;
-  color: #da4347;
+.c-listing_infos-category, .c-listing_infos-date {
+    position: relative;
+    margin: 0;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1;
+    color: #6595D0;
 }
 
 .-red .c-listing_infos-category,.-red .c-listing_infos-date {
-  color: #da4347;
+  color: #6595D0;
 }
 
-.-blue .c-listing_infos-category,.-blue .c-listing_infos-date {
-  color: #1accd9;
+.-blue .c-listing_infos-category, .-blue .c-listing_infos-date {
+    color: #6595D0;
 }
 
-.-orange .c-listing_infos-category,.-orange .c-listing_infos-date {
-  color: #edb548;
+.-orange .c-listing_infos-category, .-orange .c-listing_infos-date {
+    color: #6595D0;
 }
 
 .c-listing_infos-date {
   margin-left: 28px;
 }
 
-.c-listing_infos-date::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: -8px;
-  -webkit-transform: translateX(-100%);
-  -ms-transform: translateX(-100%);
-  transform: translateX(-100%);
-  width: 14px;
-  height: 1px;
-  background-color: #da4347;
-}
+    .c-listing_infos-date::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: -8px;
+        -webkit-transform: translateX(-100%);
+        -ms-transform: translateX(-100%);
+        transform: translateX(-100%);
+        width: 14px;
+        height: 1px;
+        background-color: #6595D0;
+    }
 
 .-red .c-listing_infos-date::after {
-  background-color: #da4347;
+    background-color: #6595D0;
 }
 
 .-blue .c-listing_infos-date::after {
-  background-color: #1accd9;
+    background-color: #6595D0;
 }
 
 .-orange .c-listing_infos-date::after {
-  background-color: #edb548;
+    background-color: #6595D0;
 }
 
 @-webkit-keyframes loaderLine {
@@ -9181,7 +9181,7 @@ a:focus,a:hover {
 @media(min-width:1000px) {
   .c-viewlist-btn_icon {
     position: absolute;
-    top: 212px;
+    top:68px;
     right: 0;
     width: 50px;
     height: 50px;
@@ -9823,12 +9823,13 @@ a:focus,a:hover {
 }
 
 .t-generic_category {
-  font-size: 10px;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: 1px;
-  color: #a8a6a6;
-  text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 1px;
+    /*color: #a8a6a6;*/
+    color: #6595D0;
+    text-transform: uppercase;
 }
 
 @media(max-width:699px) {
@@ -9844,10 +9845,11 @@ a:focus,a:hover {
 }
 
 .t-generic_title {
-  margin: 0;
-  font-family: 'Roboto', sans-serif;
-  line-height: 1.1;
-  color: #da4347;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.1;
+    /*color: #da4347;*/
+    color: #6595D0;
 }
 
 .-red .t-generic_title {
@@ -9864,19 +9866,19 @@ a:focus,a:hover {
 
 @media(max-width:699px) {
   .t-generic_title {
-    font-size: 40px;
+    font-size: 30px;
   }
 }
 
 @media(min-width:700px) and (max-width:999px) {
     .t-generic_title {
-        font-size: 40px;
+        font-size: 30px;
     }
 }
 
 @media(min-width:1000px) {
     .t-generic_title {
-        font-size: 40px;
+        font-size: 30px;
     }
 }
 
@@ -9888,21 +9890,21 @@ a:focus,a:hover {
 
 @media(max-width:699px) {
     .t-generic_summary {
-        margin: 40px 0 0;
+        margin: 10px 0 0;
         font-size: 18px;
     }
 }
 
 @media(min-width:700px) and (max-width:999px) {
     .t-generic_summary {
-        margin: 40px 0 0;
+        margin: 10px 0 0;
         font-size: 18px;
     }
 }
 
 @media(min-width:1000px) {
     .t-generic_summary {
-        margin: 60px 0 0;
+        margin: 10px 0 0;
         font-size: 18px;
     }
 }
@@ -11341,4 +11343,9 @@ select.divNumberRecordOnPage {
     padding: 7px 20px;
     margin-left: 5px;
 }
- 
+
+
+.classTitleNews {
+    padding-left: 52px;
+    color: #6595D0;
+}
