@@ -38,6 +38,7 @@
                      return false;
                  }
                  formData.append("pInfo.Appcode", v_AppCode);
+                 formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
 
                  var v_AppHeaderID = $("#txtAppHeaderID").val();
                  if (v_AppHeaderID === "" && ptype != 3) {

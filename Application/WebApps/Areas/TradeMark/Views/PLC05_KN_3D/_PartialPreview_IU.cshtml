@@ -34,7 +34,7 @@
 
             var formData = new FormData();
             formData.append("pInfo.Appcode", $("#txtAppCode").val());
-
+            formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
             //Thông tin chủ đơn
             if (funcThongTinChuDon_Exp(formData, "1") != true) {
                 return false;
