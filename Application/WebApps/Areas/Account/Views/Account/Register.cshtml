@@ -174,7 +174,16 @@
                         <div style="width:80%;float:left;line-height:18px;">
                          To register with us please tick to agree our <br /> 
                             <span style="color:#478CCC">
-                             Terms and Conditions
+                                @if (language == LangCode.EN_US.ToString())
+                                {
+                                    <a href="/quan-ly-tin/news-detail/102/7" target="_blank"> Terms and Conditions</a>
+                                }
+                                else
+                                {
+                                    <a href="/quan-ly-tin/news-detail/101/7" target="_blank"> Terms and Conditions</a>
+                                }
+                         
+                         
                             </span>
                         </div>
                        
