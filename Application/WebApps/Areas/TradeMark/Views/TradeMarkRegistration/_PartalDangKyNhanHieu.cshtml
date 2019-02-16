@@ -1318,7 +1318,7 @@
     }
 
     $("#btnGuiDon").click(function () {
-        nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmGui", function () {
+        nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
             var url = "/trade-mark/dang_ky_nhan_hieu";
             funGetDataTM04NHGuiLuuTam(2, url);
         });
@@ -1491,19 +1491,25 @@
                 }
 
                 formdata.append("pDetail.Nguongocdialy", v_NguonGocDL);
-
+                var v_ChatLuong = "";
                 if ($("#8_ckbChatLuong").prop('checked') == true) {
-                    var v_ChatLuong = $("#8_txtChatLuong").val();
+                      v_ChatLuong = $("#8_txtChatLuong").val();
                     if (v_ChatLuong === "" || v_ChatLuong == undefined && (pEditOrNew == 1)) {
                         showError('Chất lượng không được để trống');
                         $("#8_txtChatLuong").focus();
                         return false;
                     }
+                } else {
+                      v_ChatLuong = $("#8_txtChatLuong").val();
+                    if (v_ChatLuong === "" || v_ChatLuong == undefined) {
+                        v_ChatLuong = "";
+                    }
                 }
 
                 formdata.append("pDetail.Chatluong", v_ChatLuong);
+                var v_Dactinhkhac = "";
                 if ($("#8_ckbDacTinhKhac").prop('checked') == true) {
-                    var v_Dactinhkhac = $("#8_txtDacTinhKhac").val();
+                      v_Dactinhkhac = $("#8_txtDacTinhKhac").val();
                     if (v_Dactinhkhac === "" || v_Dactinhkhac == undefined && (pEditOrNew == 1)) {
                         showError('Đặc tính khác không được để trống');
                         $("#8_txtDacTinhKhac").focus();
@@ -1636,7 +1642,7 @@
 
     $("#btnLuuTam").click(function () {
         try {
-            nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmLuuTam", function () {
+            nvsConfirm(null, "@Html.Raw(@WebApps.Resources.Resource.ConfirmLuuTam)", function () {
                 var url = "/trade-mark/dang_ky_nhan_hieu";
                 funGetDataTM04NHGuiLuuTam(1, url);
             });

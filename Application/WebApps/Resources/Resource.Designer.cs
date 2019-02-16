@@ -322,7 +322,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bạn có muốn lưu đơn này lại không?.
+        ///   Looks up a localized string similar to Bạn có muốn lưu đơn này không?.
         /// </summary>
         public static string ConfirmLuu {
             get {
