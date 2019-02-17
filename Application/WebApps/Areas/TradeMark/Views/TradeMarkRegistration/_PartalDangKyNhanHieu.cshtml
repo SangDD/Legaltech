@@ -78,19 +78,26 @@
             <div class="div-search-ad">
                 <div class="div-search-title">
                     <div style="width: 200px;">@WebApps.Resources.Resource.lblDonTachRaTuDonSo </div>
-                    <a  href="javascript:;" st="" class="icon icon-info tip" data-placement="right" style="border:none"
+                    <a href="javascript:;" st="" class="icon icon-info tip" data-placement="right" style="border:none"
                        data-title="@WebApps.Resources.Resource.TooltipDonTachRaTuDonSo"></a>
                 </div>
 
                 <div class="div-search-content">
-                    <input type="text" id="0_txtDonSo" maxlength="20" placeholder="@WebApps.Resources.Resource.lblSoDon" />
+                        <input type="text" id="0_txtDonSo" onblur="return funcDetailDontach();" maxlength="20" placeholder="@WebApps.Resources.Resource.lblSoDon" />
                 </div>
+
+                <div class="div-search-title">
+                    <div><a id="hrfDetailDonTach" href=""  target="_blank" style="color:blue;border:none">@WebApps.Resources.Resource.XemChiTiet</a></div>
+                </div>
+                <div class="div-search-content">
+                </div>
+
                 <div class="div-search-title">
                     <div>@WebApps.Resources.Resource.lblNgayNopDon</div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input class="datetimepicker" type="text" id="0_txtNgayNopDon" maxlength="10"  />
+                        <input class="datetimepicker" type="text" id="0_txtNgayNopDon" maxlength="10" />
                     </div>
                 </div>
             </div>
@@ -574,6 +581,8 @@
     }
 </style>
 <script>
+    
+
     $(function ()
     {
       try {
@@ -614,6 +623,17 @@
         }
     });
 
+
+
+    function funcDetailDontach() {
+        try {
+            var SoDonTach = document.getElementById("0_txtDonSo").value ;
+            var url = "";
+            url = "/trade-mark-share-data/todo-details/" + SoDonTach + "/0";
+            $("#hrfDetailDonTach").attr("href", url);
+        } catch (e) {
+        }
+    }
 
     function GetThongTinDaiDien(vChoise) {
         try {
