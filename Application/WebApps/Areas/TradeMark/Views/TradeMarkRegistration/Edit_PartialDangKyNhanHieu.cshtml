@@ -231,8 +231,14 @@
                 </div>
 
                 <div class="div-search-content">
-                    <input type="text" id="0_txtDonSo" value="@objAppHeaderInfo.Appno" maxlength="20" placeholder="0_txtDonSo" />
+                    <input type="text" id="0_txtDonSo" onblur="return funcDetailDontach();" value="@objAppHeaderInfo.Appno" maxlength="20" placeholder="0_txtDonSo" />
                 </div>
+                <div class="div-search-title">
+                    <div><a id="hrfDetailDonTach" href="javascript:;" target="_blank" style="color:blue;border:none">@WebApps.Resources.Resource.XemChiTiet</a></div>
+                </div>
+                <div class="div-search-content">
+                </div>
+
                 <div class="div-search-title">
                     <div>@WebApps.Resources.Resource.lblNgayNopDon </div>
                 </div>
@@ -2166,5 +2172,17 @@
 
         }
     });
+
+
+
+    function funcDetailDontach() {
+        try {
+            var SoDonTach = document.getElementById("0_txtDonSo").value;
+            var url = "";
+            url = "/trade-mark-share-data/todo-details/" + SoDonTach + "/0";
+            $("#hrfDetailDonTach").attr("href", url);
+        } catch (e) {
+        }
+    }
 
 </script>

@@ -271,7 +271,7 @@
             </div>
         </div>
         <div class="div-search-content">
-            <input style="width:160px" type="text" id="6_txtGiayUQTiengViet" disabled="disabled" maxlength="50" value="@objDocumentInfoPOA.CHAR01" placeholder="6_txtGiayUQTiengViet" />
+            <input style="width:160px" type="hidden" id="6_txtGiayUQTiengViet" disabled="disabled" maxlength="50" value="@objDocumentInfoPOA.CHAR01" placeholder="6_txtGiayUQTiengViet" />
         </div>
     </div>
     @* File dinh kem lay tu db khi sua*@
@@ -355,8 +355,13 @@
             </div>
         </div>
         <div class="div-search-content">
-            <input type="text" id="6_txtBangocDNTheoDonSo" style="width:160px" disabled="disabled" maxlength="50" placeholder="6_txtBangocDNTheoDonSo" />
+            <input type="text" id="6_txtBangocDNTheoDonSo" onblur="return funcDetaiBanGoc();" style="width:160px" disabled="disabled" maxlength="50" placeholder="6_txtBangocDNTheoDonSo" />
         </div>
+
+        <div class="div-search-content">
+            <div><a id="hrfDetailBanGoc" href="javascript:;" target="_blank" style="color:blue;border:none">@WebApps.Resources.Resource.XemChiTiet</a></div>
+        </div>
+
     </div>
     <div style="margin-top:5px;margin-left:80px">
         @* File dinh kem lay tu db khi sua*@
@@ -620,6 +625,16 @@
         $("input[id='6_rdoBanDichTiengViet'").change(function () {
             funcAddRemoveDisabled("6_rdoBanDichTiengViet", "6_txtBDTV_UQ");
         });
+
+        function funcDetaiBanGoc() {
+            try {
+                var SoDonTach = document.getElementById("6_txtBangocDNTheoDonSo").value;
+                var url = "";
+                url = "/trade-mark-share-data/todo-details/" + SoDonTach + "/0";
+                $("#hrfDetailBanGoc").attr("href", url);
+            } catch (e) {
+            }
+        }
         
     </script>
 

@@ -230,7 +230,7 @@
             </div>
         </div>
         <div class="div-search-content">
-            <input style="width:160px" type="text" id="6_txtGiayUQTiengViet" disabled="disabled" maxlength="50" value="@objDocumentInfoPOA.CHAR01" placeholder="6_txtGiayUQTiengViet" />
+            <input style="width:160px" type="hidden" id="6_txtGiayUQTiengViet" disabled="disabled" maxlength="50" value="@objDocumentInfoPOA.CHAR01" placeholder="6_txtGiayUQTiengViet" />
         </div>
     </div>
     @* File dinh kem lay tu db khi sua*@
@@ -293,6 +293,11 @@
         <div class="div-search-content">
             <input type="text" id="6_txtBangocDNTheoDonSo" @styleDiable style="width:160px" disabled="disabled" maxlength="50" placeholder="6_txtBangocDNTheoDonSo" />
         </div>
+
+        <div class="div-search-content">
+            <div><a id="hrfDetailBanGoc" href="javascript:;" target="_blank" style="color:blue;border:none">@WebApps.Resources.Resource.XemChiTiet</a></div>
+        </div>
+
     </div>
     @* File dinh kem lay tu db khi sua*@
     <div style="margin-left: 80px;margin-top: 5px;">
@@ -430,6 +435,22 @@
 </div>
 
 <script>
+
+    $(document).ready(function () {
+       
+            try {
+                var SoDonTach = document.getElementById("6_txtBangocDNTheoDonSo").value;
+                if (SoDonTach === undefined || SoDonTach == "") {
+
+                } else {
+                    var url = "";
+                    url = "/trade-mark-share-data/todo-details/" + SoDonTach + "/0";
+                    $("#hrfDetailBanGoc").attr("href", url);
+                }
+            } catch (e) {
+            }
+        }
+    });
 
     $("input[id='6_rdoGiayUyQuyen'").change(function () {
         funcAddRemoveDisabled("6_rdoGiayUyQuyen", "6_txtGiayUQTiengViet");
