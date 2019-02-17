@@ -20,6 +20,7 @@
     using CrystalDecisions.CrystalReports.Engine;
     using CrystalDecisions.Shared;
     using System.Linq;
+    using BussinessFacade;
 
     [ValidateAntiForgeryTokenOnAllPosts]
     [RouteArea("TradeMarkRegistration", AreaPrefix = "trade-mark-3b")]
@@ -312,7 +313,7 @@
                 var CreatedBy = SessionData.CurrentUser.Username;
                 var CreatedDate = SessionData.CurrentUser.CurrentDate;
                 decimal pReturn = ErrorCode.Success;
-
+                bool _IsOk = false;
                 using (var scope = new TransactionScope())
                 {
                     //
@@ -512,8 +513,16 @@
                     else
                     {
                         scope.Complete();
+                        _IsOk = true;
                     }
                 }
+
+                //if (pInfo.UpdateToDo == 1 && _IsOk == true)
+                //{
+                //    // update todo theo case code và ông sửa
+                //    B_Todos_BL _B_Todos_BL = new B_Todos_BL();
+                //    _B_Todos_BL.UpdateTodo_ByCaseCode(pInfo.Id, SessionData.CurrentUser.Username);
+                //}
                 return Json(new { status = pInfo.Id });
             }
             catch (Exception ex)

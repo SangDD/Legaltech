@@ -20,6 +20,7 @@ namespace ObjectInfos
 
     public class ApplicationHeaderInfo
     {
+        public decimal UpdateToDo { get; set; }
         public decimal STT { get; set; }
         public decimal Id { get; set; }
         public string Appcode { get; set; }
