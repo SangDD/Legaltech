@@ -714,7 +714,7 @@
 
     $("#btnLuuTam").click(function () {
         try {
-            nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmLuuTam", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuuTam)", function () {
                 //Thông tin chủ đơn
                 var formData = new FormData();
                 var reponse = GetDatatoUpdate(formData, @_AppHeaderInfo.Status);
@@ -735,7 +735,7 @@
                     headers: { "cache-control": "no-cache" },
                     success: function (data) {
                         if (data != null && data.status >= 0) {
-                            jAlert('@Resource.LuuTamThanhCong', ThongBao, function () {
+                            jAlert('@Html.Raw(Resource.LuuTamThanhCong)', ThongBao, function () {
                                 window.location = "/trade-mark-mana/quan-ly-don";
                             });
                         } else {
@@ -755,7 +755,7 @@
 
     $("#btnSuaDon").click(function () {
         try {
-            nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmLuu", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuu)", function () {
                 //Thông tin chủ đơn
                 var formData = new FormData();
                 var reponse = GetDatatoUpdate(formData, @_AppHeaderInfo.Status);
@@ -776,7 +776,7 @@
                     headers: { "cache-control": "no-cache" },
                     success: function (data) {
                         if (data != null && data.status >= 0) {
-                            jAlert('@Resource.SuaDonThanhCong', ThongBao, function () {
+                            jAlert('@Html.Raw(Resource.SuaDonThanhCong)', ThongBao, function () {
                                 window.location = "/trade-mark-mana/quan-ly-don";
                             });
                         } else {
