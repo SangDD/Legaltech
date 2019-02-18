@@ -174,6 +174,16 @@
         }
         clstAppClassShortSuggest.Add(pShortInfo);
     }
+
+    B_Todos_Info _todo = new B_Todos_Info();
+    if (ViewBag.B_Todos_Info != null)
+    {
+        _todo = (B_Todos_Info)ViewBag.B_Todos_Info;
+    }
+    else
+    {
+        _todo = null;
+    }
 }
 
 <style>
@@ -799,6 +809,11 @@
             else
             {
                 <input type="button" value="@WebApps.Resources.Resource.TM3B_BtnSuaDon" id="btnSuaDon" class="btn" />
+
+                if (_todo != null)
+                {
+                    <input type="button" value="@Resource.Send" id="btnSend" class="btn" style="margin-left:5px"/>
+                }
             }
 
             @* Nếu bản ghi tiếng việt thì hiển thị bản ghi tiêng sanh để chuyển đổi *@
@@ -1628,26 +1643,36 @@
 
     $("#btnGuiDon").click(function () {
         nvsConfirm(null, "@Html.Raw(@WebApps.Resources.Resource.ConfirmGui)", function () {
-            funcSaveType(2);
+            funcSaveType(2, 0);
         });
     });
 
     $("#btnLuuTam").click(function () {
         nvsConfirm(null, "@Html.Raw(@WebApps.Resources.Resource.ConfirmLuuTam)", function () {
-            funcSaveType(1);
+            funcSaveType(1, 0);
         });
     });
 
     $("#btnSuaDon").click(function () {
         nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuu)", function () {
-            funcSaveType('@objAppHeaderInfo.Status');
+            funcSaveType('@objAppHeaderInfo.Status', 0);
         });
     });
 
-    function funcSaveType(pStatus) {
+    $("#btnSend").click(function () {
+        nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
+            funcSaveType('@objAppHeaderInfo.Status', 1);
+        }); 
+    });
+
+    function funcSaveType(pStatus, pUpdateTodo) {
         try {
             //Thông tin chủ đơn
             var formData = new FormData();
+
+            if (pUpdateTodo == 1) {
+                formData.append("pInfo.UpdateToDo", 1);
+            }
 
             var reponse = funcThongTinCaseName(formData, "0");
             if (reponse == false) {
@@ -1746,7 +1771,7 @@
                             nvsAlert('@Html.Raw(Resource.LuuTamThanhCong)', ThongBao, function () {
                                 window.location = "/trade-mark-mana/quan-ly-don";
                             });
-                        } else if (true) {
+                        } else if (pStatus == 2) {
                             nvsAlert('@Html.Raw(Resource.GuiDonThanhCong)', ThongBao, function () {
                                 window.location = "/trade-mark-mana/quan-ly-don";
                             });
