@@ -559,6 +559,10 @@
             <div class="classLuuTam">
                 <input type="button" value="@WebApps.Resources.Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
             </div>
+
+            <div class="classLuuTam">
+                <input type="button" value="Dữ liệu quá khứ" id="btnDuLieuCu" class="btn class_37" style="margin-left:5px"/>
+            </div>
         </div>
     </fieldset>
 </div>
@@ -1342,6 +1346,13 @@
         nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
             var url = "/trade-mark/dang_ky_nhan_hieu";
             funGetDataTM04NHGuiLuuTam(2, url);
+        });
+    });
+
+    $("#btnDuLieuCu").click(function () {
+        nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
+            var url = "/trade-mark/dang_ky_nhan_hieu";
+            funGetDataTM04NHGuiLuuTam(-2, url);
         });
     });
 

@@ -200,7 +200,7 @@
                 var CreatedBy = SessionData.CurrentUser.Username;
                 var CreatedDate = SessionData.CurrentUser.CurrentDate;
                 decimal pReturn = ErrorCode.Success;
-
+                bool _IsOk = false;
                 using (var scope = new TransactionScope())
                 {
                     //
@@ -294,6 +294,25 @@
                     else
                     {
                         scope.Complete();
+                        _IsOk = true;
+                    }
+                }
+
+                // tự động update todo
+                if (pInfo.UpdateToDo == 1 && _IsOk == true)
+                {
+                    if (pInfo.Status == (int)CommonEnums.App_Status.ChoKHConfirm)
+                    {
+                        Application_Header_BL _obj_bl = new Application_Header_BL();
+                        decimal _status = (decimal)CommonEnums.App_Status.KhacHangDaConfirm;
+
+                        string _note = "Xác nhận nộp đơn";
+                        if (AppsCommon.GetCurrentLang() != "VI_VN")
+                        {
+                            _note = "confirmation for filing";
+                        }
+                        int _ck = _obj_bl.AppHeader_Update_Status(pInfo.Case_Code, _status, _note,
+                            SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
                     }
                 }
                 return Json(new { status = pInfo.Id });

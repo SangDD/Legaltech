@@ -929,7 +929,7 @@
                         pInfo.Created_By = _AppHeader_Goc.Created_By;
                         pInfo.Status = _AppHeader_Goc.Status;
                         pInfo.Created_Date = CreatedDate;
-                        pInfo.Languague_Code = language_New; 
+                        pInfo.Languague_Code = language_New;
 
                         string prefCaseCode = "";
                         pAppHeaderID = objBL.AppHeaderInsert(pInfo, ref prefCaseCode);
@@ -1164,12 +1164,18 @@
 
         public ActionResult TradeMarkSuaDon(decimal pAppHeaderId, string pAppCode, int pStatus, int pEditOrTranslate = 0, decimal pIDVi = 0)
         {
-
-            B_Todos_BL _B_Todos_BL = new B_Todos_BL();
-            B_Todos_Info _B_Todos_Info = _B_Todos_BL.Todo_GetByCaseCode(pAppHeaderId, SessionData.CurrentUser.Username);
-            if (_B_Todos_Info != null)
+            // chỉ xét TH đối với khách hàng
+            if (SessionData.CurrentUser != null && SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.Customer)
             {
-                ViewBag.B_Todos_Info = _B_Todos_Info;
+                if (pStatus == (int)CommonEnums.App_Status.ChoKHConfirm)
+                {
+                    B_Todos_BL _B_Todos_BL = new B_Todos_BL();
+                    B_Todos_Info _B_Todos_Info = _B_Todos_BL.Todo_GetByCaseCode(pAppHeaderId, SessionData.CurrentUser.Username);
+                    if (_B_Todos_Info != null)
+                    {
+                        ViewBag.B_Todos_Info = _B_Todos_Info;
+                    }
+                }
             }
 
             if (pAppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
@@ -1293,7 +1299,7 @@
                     return PartialView("~/Areas/TradeMark/Views/PLB02_CGD_3C/_Partial_TM_3C_PLB_02_SDD_Translate.cshtml");
                 else
                     return PartialView("~/Areas/TradeMark/Views/PLB02_CGD_3C/_Partial_TM_3C_PLB_02_SDD_Edit.cshtml");
-        
+
             }
             else if (pAppCode == TradeMarkAppCode.AppCode_TM_3D_PLC_05_KN)
             {
@@ -1311,7 +1317,7 @@
 
                 }
                 App_Detail_PLC05_KN_BL objBL = new App_Detail_PLC05_KN_BL();
-            
+
                 List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
                 List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
                 ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
@@ -1384,7 +1390,7 @@
 
                 }
                 App_Detail_PLD01_HDCN_BL objBL = new App_Detail_PLD01_HDCN_BL();
-             
+
                 List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
                 List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
                 ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
@@ -1449,6 +1455,7 @@
                 var CreatedDate = SessionData.CurrentUser.CurrentDate;
                 int pReturn = ErrorCode.Success;
                 int pAppHeaderID = 0;
+                bool _IsOk = false;
                 using (var scope = new TransactionScope())
                 {
                     //
@@ -1595,6 +1602,25 @@
                         //Lấy lại thông tin kế thừa đưa lên memory
                         MemoryData.Enqueue_ChangeData(Table_Change.APPHEADER);
                         scope.Complete();
+                        _IsOk = true;
+                    }
+                }
+
+                // tự động update todo
+                if (pInfo.UpdateToDo == 1 && _IsOk == true)
+                {
+                    if (pInfo.Status == (int)CommonEnums.App_Status.ChoKHConfirm)
+                    {
+                        Application_Header_BL _obj_bl = new Application_Header_BL();
+                        decimal _status = (decimal)CommonEnums.App_Status.KhacHangDaConfirm;
+
+                        string _note = "Xác nhận nộp đơn";
+                        if (AppsCommon.GetCurrentLang() != "VI_VN")
+                        {
+                            _note = "confirmation for filing";
+                        }
+                        int _ck = _obj_bl.AppHeader_Update_Status(pInfo.Case_Code, _status, _note,
+                            SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
                     }
                 }
                 return Json(new { status = pReturn });
@@ -1693,8 +1719,8 @@
                 }
                 else
                 {
-                        _AppFeeFixInfo.Amount = 0;
-                       _lstFeeFix.Add(_AppFeeFixInfo);
+                    _AppFeeFixInfo.Amount = 0;
+                    _lstFeeFix.Add(_AppFeeFixInfo);
                 }
 
                 //4.Số đơn ưu tiên  pDetail.Used_Special
@@ -1765,7 +1791,7 @@
                     _AppFeeFixInfo.Amount = 0;
                     _lstFeeFix.Add(_AppFeeFixInfo);
                 }
-                
+
 
                 //8.Phí thẩm định đơn
                 _AppFeeFixInfo = new AppFeeFixInfo();

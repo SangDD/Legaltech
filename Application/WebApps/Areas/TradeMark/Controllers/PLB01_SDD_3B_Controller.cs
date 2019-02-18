@@ -517,12 +517,25 @@
                     }
                 }
 
-                //if (pInfo.UpdateToDo == 1 && _IsOk == true)
-                //{
-                //    // update todo theo case code và ông sửa
-                //    B_Todos_BL _B_Todos_BL = new B_Todos_BL();
-                //    _B_Todos_BL.UpdateTodo_ByCaseCode(pInfo.Id, SessionData.CurrentUser.Username);
-                //}
+                // tự động update todo
+                if (pInfo.UpdateToDo == 1 && _IsOk == true)
+                {
+                    if (pInfo.Status == (int)CommonEnums.App_Status.ChoKHConfirm)
+                    {
+                        Application_Header_BL _obj_bl = new Application_Header_BL();
+                        decimal _status = (decimal)CommonEnums.App_Status.KhacHangDaConfirm;
+
+                        string _note = "Xác nhận nộp đơn";
+                        if (AppsCommon.GetCurrentLang() != "VI_VN")
+                        {
+                            _note = "confirmation for filing";
+                        }
+                        int _ck = _obj_bl.AppHeader_Update_Status(pInfo.Case_Code, _status, _note, 
+                            SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+                    }
+                }
+
+
                 return Json(new { status = pInfo.Id });
             }
             catch (Exception ex)

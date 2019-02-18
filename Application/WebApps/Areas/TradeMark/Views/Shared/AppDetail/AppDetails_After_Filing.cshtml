@@ -47,6 +47,12 @@
     {
         _hardStatus = (decimal)ViewBag.Hard_Status;
     }
+
+    List<B_Todos_Info> _Listtodo = new List<B_Todos_Info>();
+    if (ViewBag.ListTodo != null)
+    {
+        _Listtodo = ViewBag.ListTodo;
+    }
 }
 
 <style>

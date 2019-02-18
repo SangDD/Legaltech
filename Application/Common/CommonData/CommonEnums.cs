@@ -20,6 +20,7 @@
 
         public enum App_Status
         {
+            DuLieuCu = -2,
             Luu_tam = 1,
             DaGui_ChoPhanLoai_Admin = 2,
             DaGui_ChoPhanLoai = 3,

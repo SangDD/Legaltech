@@ -342,6 +342,9 @@
             </div> <div class="classLuuTam">
                 <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
             </div>
+            <div class="classLuuTam">
+                <input type="button" value="Dữ liệu quá khứ" id="btnDuLieuCu" class="btn class_37" style="margin-left:5px" />
+            </div>
         </div>
     </fieldset>
 </div>
@@ -503,6 +506,112 @@
                 }
 
                 formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin)');
+                var reponse = funcThongTinCaseName(formData, "0");
+                if (reponse == false) {
+                    return false;
+                }
+
+                var v_AppCode = $("#txtAppCode").val();
+                if (v_AppCode === "") {
+                    $('#txtAppCode').focus().val('');
+
+                    showError('@Resource.TM3B_ChonLoaiDonDK');
+                    return false;
+                }
+                formData.append("pInfo.Appcode", v_AppCode);
+
+                //Thông tin chủ đơn
+                if (funcThongTinChuDon(formData, "1") != true) {
+                    return false;
+                }
+
+                // đại diện chủ đơn
+                if (funcThongTinDaiDienChuDon(formData, "2") != true) {
+                    return false;
+                }
+
+                var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+                if (v_RepMasterType === "" || v_RepMasterType == undefined) {
+                    jError("@Resource.TM3C_ChonChuDon", "@Resource.TM3B_Loi", function () {
+                        $("#_2_rdoNguoiDaiDienPL").focus()
+                    });
+                    return false;
+                }
+                formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+
+
+                //Lấy thông tin detail
+                var reponse = funcGetAppDetail(formData);
+                if (reponse == false) {
+                    return false;
+                }
+
+                // get thông tin fee
+                var reponse = funcGet_Fee(formData);
+                if (reponse == false) {
+                    return false;
+                }
+
+                //Lấy thông tin tài liệu có trong đơn
+                reponse = funGetDocumentFile(formData);
+                if (reponse == false) {
+                    return false;
+                }
+
+                reponse = funcGetCamKetChuDon(formData);
+                if (reponse == false) {
+                    return false;
+                }
+
+                // Display the values
+                for (var value of formData.values()) {
+                    console.log(value);
+                }
+
+                // Display the values
+                for (var key of formData.keys()) {
+                    console.log(key);
+                }
+
+                $.ajax({
+                    url: '/trade-mark-3d/register_PLC05_KN_3D',
+                    type: 'POST',
+                    data: formData,
+                    processData: false, contentType: false, traditional: true, async: false,
+                    dataType: "json",
+                    enctype: 'multipart/form-data',
+                    headers: { "cache-control": "no-cache" },
+                    success: function (data) {
+                        if (data != null && data.status >= 0) {
+                            jAlert('@Resource.GuiDonThanhCong', ThongBao, function () {
+                                window.location = "/trade-mark-mana/quan-ly-don";
+                            });
+                        } else {
+                            jError(AddFail, ThongBao, function () {
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    });
+
+    $("#btnDuLieuCu").click(function () {
+        try {
+            nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmGui", function () {
+                var formData = new FormData();
+                var reponse = funcThongTinNhapHo(formData);
+                if (reponse == false) {
+                    return false;
+                }
+
+                formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.DuLieuCu)');
                 var reponse = funcThongTinCaseName(formData, "0");
                 if (reponse == false) {
                     return false;
