@@ -1447,7 +1447,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ảnh có kích cỡ từ 2x2 đến 8x8, dung lượng tối đa 2MB.
+        ///   Looks up a localized string similar to Ảnh có kích cỡ từ 2x2 đến 8x8.
         /// </summary>
         public static string lblSizeOfPicture {
             get {
@@ -2271,6 +2271,15 @@ namespace WebApps.Resources {
         public static string SearchAppClass {
             get {
                 return ResourceManager.GetString("SearchAppClass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gửi.
+        /// </summary>
+        public static string Send {
+            get {
+                return ResourceManager.GetString("Send", resourceCulture);
             }
         }
         

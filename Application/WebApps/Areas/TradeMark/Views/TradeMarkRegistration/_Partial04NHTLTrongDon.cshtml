@@ -75,7 +75,7 @@
             </div>
         </div>
         <div class="div-search-content">
-            <input style="width:160px" type="text" id="6_txtGiayUQTiengViet" disabled="disabled" maxlength="50" />
+            <input style="width:160px" type="hidden" id="6_txtGiayUQTiengViet" disabled="disabled" maxlength="50" />
         </div>
 
     </div>
@@ -123,8 +123,13 @@
             </div>
         </div>
         <div class="div-search-content">
-            <input type="text" id="6_txtBangocDNTheoDonSo" disabled="disabled" style="width:160px" maxlength="50" />
+            <input type="text" id="6_txtBangocDNTheoDonSo" onblur="return funcDetaiBanGoc();" disabled="disabled" style="width:160px" maxlength="50" />
         </div>
+
+        <div class="div-search-content">
+            <div><a id="hrfDetailBanGoc" href="javascript:;" target="_blank" style="color:blue;border:none">@WebApps.Resources.Resource.XemChiTiet</a></div>
+        </div>
+
     </div>
     <div style="margin-left: 80px;">
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBanGocDaNopTheoDonSo")
@@ -255,6 +260,16 @@
 
 
     <script>
+
+        function funcDetaiBanGoc() {
+            try {
+                var SoDonTach = document.getElementById("6_txtBangocDNTheoDonSo").value;
+                var url = "";
+                url = "/trade-mark-share-data/todo-details/" + SoDonTach + "/0";
+                $("#hrfDetailBanGoc").attr("href", url);
+            } catch (e) {
+            }
+        }
 
         $("input[id='6_rdoGiayUyQuyen'").change(function () {
             funcAddRemoveDisabled("6_rdoGiayUyQuyen", "6_txtGiayUQTiengViet");

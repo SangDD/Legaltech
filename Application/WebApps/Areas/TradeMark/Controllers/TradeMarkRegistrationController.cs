@@ -1164,6 +1164,14 @@
 
         public ActionResult TradeMarkSuaDon(decimal pAppHeaderId, string pAppCode, int pStatus, int pEditOrTranslate = 0, decimal pIDVi = 0)
         {
+
+            B_Todos_BL _B_Todos_BL = new B_Todos_BL();
+            B_Todos_Info _B_Todos_Info = _B_Todos_BL.Todo_GetByCaseCode(pAppHeaderId, SessionData.CurrentUser.Username);
+            if (_B_Todos_Info != null)
+            {
+                ViewBag.B_Todos_Info = _B_Todos_Info;
+            }
+
             if (pAppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
             {
                 var objBL = new AppDetail04NHBL();

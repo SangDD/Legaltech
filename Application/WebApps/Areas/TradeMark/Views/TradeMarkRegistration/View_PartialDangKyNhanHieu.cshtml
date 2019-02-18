@@ -203,14 +203,28 @@
                     <div style="width: 200px;">@WebApps.Resources.Resource.lblDonTachRaTuDonSo</div>
                 </div>
                 <div class="div-search-content">
-                    <input type="text" id="0_txtDonSo" @disableView value="@objAppHeaderInfo.Appno" maxlength="20" placeholder="0_txtDonSo" />
+                    <input type="text"  onblur="return funcDetailDontach();" id="0_txtDonSo" @disableView value="@objAppHeaderInfo.Appno" maxlength="20" placeholder="0_txtDonSo" />
                 </div>
+
+                <div class="div-search-title" id="divHrefDetail">
+                    <div><a id="hrfDetailDonTach" href="javascript:;" target="_blank" style="color:blue;border:none">@WebApps.Resources.Resource.XemChiTiet</a></div>
+                </div>
+                <div class="div-search-content">
+                </div>
+
                 <div class="div-search-title">
                     <div>@WebApps.Resources.Resource.lblNgayNopDon</div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input class="datetimepicker" @disableView value="@objAppHeaderInfo.Duadate.ToString("dd/MM/yyyy")" type="text" id="0_txtNgayNopDon" maxlength="10" />
+                        @{
+                            string formatDate = objAppHeaderInfo.Duadate.ToString("dd/MM/yyyy");
+                            if(formatDate== "01/01/0001")
+                            {
+                                formatDate = "";
+                            }
+                            <input class="datetimepicker" @disableView value="@formatDate" type="text" id="0_txtNgayNopDon" maxlength="10" />
+                        }
                     </div>
                 </div>
             </div>
@@ -738,15 +752,7 @@
 
     $(document).ready(function () {
 
-        //if ($("#6_rdoGiayChuyenNhungUT").is(':checked')) {
-        //    ShowHidenUpLoad("6_rdoGiayChuyenNhungUT", "6_rdoGiayChuyenNhungUT");
-        //}
-        //if ($("#6_rdoBDTVGom").is(':checked')) {
-        //    ShowHidenUpLoad("6_rdoBDTVGom", "6_rdoBDTVGom");
-        //}
-        //if ($("#6_rdoBSDDT").is(':checked')) {
-        //    ShowHidenUpLoad("6_rdoBSDDT", "6_rdoBSDDT");
-        //}
+        
         //ham 1
         if ($("#0_ckbCoSuDungDonUuTien").is(':checked')) {
             funcEnableDisable('classDacTinhUT', true);
@@ -759,6 +765,16 @@
 
         if ($("#0_ckbDacTinhHangHoa").is(':checked')) {
             funcEnableDisable('classDacTinhHangHoa', true);
+        }
+
+        
+        var SoDonTach = document.getElementById("0_txtDonSo").value;
+        if (SoDonTach != "" && SoDonTach != undefined) {
+            var url = "";
+            url = "/trade-mark-share-data/todo-details/" + SoDonTach + "/0";
+            $("#hrfDetailDonTach").attr("href", url);
+        } else {
+            $("#divHrefDetail").css('display', 'none');
         }
 
     });
@@ -834,7 +850,7 @@
         } catch (e) {
         }
     }
-
+    
 </script>
 
 <style>

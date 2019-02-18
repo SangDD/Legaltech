@@ -3,7 +3,7 @@
 @using ObjectInfos
 @using ObjectInfos.ModuleTrademark
 @using WebApps.Resources;
-     
+
 @{
     ViewBag.Title = "Edit Request for amendment of application";
     Layout = "~/ViewsShared/_Layout.cshtml";
@@ -37,6 +37,16 @@
     {
         dic_appDoc[item.Document_Id] = item;
     }
+
+    B_Todos_Info _todo = new B_Todos_Info();
+    if (ViewBag.B_Todos_Info != null)
+    {
+        _todo = (B_Todos_Info)ViewBag.B_Todos_Info;
+    }
+    else
+    {
+        _todo = null;
+    }
 }
 
 <style>
@@ -56,11 +66,11 @@
 </style>
 
 @*<div class="d-nav-container">
-    <ul class="ul-nav">
-        <li><a href="javascript:;">TradeMark</a></li>
-        <li><a href="javascript:;">  @Resource.TM3B_Formname</a></li>
-    </ul>
-</div>*@
+        <ul class="ul-nav">
+            <li><a href="javascript:;">TradeMark</a></li>
+            <li><a href="javascript:;">  @Resource.TM3B_Formname</a></li>
+        </ul>
+    </div>*@
 <div class="d-nav-container" style="background-color:#fff">
     <div class="divCover">
         <div class="d-nav">
@@ -305,7 +315,7 @@
         @* 1. Tờ khai *@
         @{
             string _doc_id = "01_SDD_01";
-            string _id = _doc_id + "|6_Doc_ToKhai|0|"+Resource.TM2B_ToKhaiGom + "|"+ Resource.TM2B_SoTrang + "|0";
+            string _id = _doc_id + "|6_Doc_ToKhai|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|0";
             string _value = "";
             if (dic_appDoc.ContainsKey(_doc_id) == false)
             {
@@ -412,7 +422,7 @@
         @* 4.3 Bản sao *@
         @{
             string _doc_id7 = "01_SDD_07";
-            string _id7 = _doc_id7 + "|6_Doc_BanSaoPOA|1|"+ Resource.TM2B_BanSao+ "||0";
+            string _id7 = _doc_id7 + "|6_Doc_BanSaoPOA|1|" + Resource.TM2B_BanSao + "||0";
             string _value7 = "";
             if (dic_appDoc.ContainsKey(_doc_id) == false)
             {
@@ -464,7 +474,7 @@
         @* 5. Bản sao chứng từ nộp phí *@
         @{
             string _doc_id10 = "01_SDD_10";
-            string _id10 = _doc_id10 + "|6_Doc_BanSaoChungTu|0|"+ Resource.TM3B_BanSaoChungTuNopPhi + "||1";
+            string _id10 = _doc_id10 + "|6_Doc_BanSaoChungTu|0|" + Resource.TM3B_BanSaoChungTuNopPhi + "||1";
             string _value10 = "";
             if (dic_appDoc.ContainsKey(_doc_id) == false)
             {
@@ -514,6 +524,10 @@
                 else
                 {
                     <input type="button" value="@Resource.TM3B_BtnSuaDon" id="btnSuaDon" class="btn" />
+                    if (_todo != null)
+                    {
+                        <input type="button" value="@Resource.Send" id="btnSend" class="btn" />
+                    }
                 }
 
             </div>
@@ -700,7 +714,7 @@
 
     $("#btnLuuTam").click(function () {
         try {
-            nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmLuuTam", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuuTam)", function () {
                 //Thông tin chủ đơn
                 var formData = new FormData();
                 var reponse = GetDatatoUpdate(formData, @_AppHeaderInfo.Status);
@@ -721,7 +735,7 @@
                     headers: { "cache-control": "no-cache" },
                     success: function (data) {
                         if (data != null && data.status >= 0) {
-                            jAlert('@Resource.LuuTamThanhCong', ThongBao, function () {
+                            jAlert('@Html.Raw(Resource.LuuTamThanhCong)', ThongBao, function () {
                                 window.location = "/trade-mark-mana/quan-ly-don";
                             });
                         } else {
@@ -741,7 +755,7 @@
 
     $("#btnSuaDon").click(function () {
         try {
-            nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmLuu", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuu)", function () {
                 //Thông tin chủ đơn
                 var formData = new FormData();
                 var reponse = GetDatatoUpdate(formData, @_AppHeaderInfo.Status);
@@ -762,7 +776,49 @@
                     headers: { "cache-control": "no-cache" },
                     success: function (data) {
                         if (data != null && data.status >= 0) {
-                            jAlert('@Resource.SuaDonThanhCong', ThongBao, function () {
+                            jAlert('@Html.Raw(Resource.SuaDonThanhCong)', ThongBao, function () {
+                                window.location = "/trade-mark-mana/quan-ly-don";
+                            });
+                        } else {
+                            jError(EditFail, ThongBao, function () {
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    });
+
+    $("#btnSend").click(function () {
+        try {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuu)", function () {
+                //Thông tin chủ đơn
+                var formData = new FormData();
+                var reponse = GetDatatoUpdate(formData, @_AppHeaderInfo.Status);
+                formData.append("pInfo.UpdateToDo", 1);
+                if (reponse == false) {
+                    return false;
+                }
+
+                $.ajax({
+                    url: '/trade-mark-3b/Edit_PLB_01_SDD',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    traditional: true,
+                    dataType: "json",
+                    enctype: 'multipart/form-data',
+                    async: false,
+                    headers: { "cache-control": "no-cache" },
+                    success: function (data) {
+                        if (data != null && data.status >= 0) {
+                            jAlert('@Html.Raw(Resource.SuaDonThanhCong)', ThongBao, function () {
                                 window.location = "/trade-mark-mana/quan-ly-don";
                             });
                         } else {
