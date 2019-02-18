@@ -193,7 +193,7 @@
 </div>
 <div class="div_ratingcontent">
     <div class="kk-star-ratings disabled bottom-right rgt" >
-        @if (SessionData.CurrentUser != null &&  _DocdetailInfo.USER_VOTED.Contains(userid) == false)
+        @*@if (SessionData.CurrentUser != null &&  _DocdetailInfo.USER_VOTED.Contains(userid) == false)
         {
             <div class="kksr-stars kksr-star gray">
                 <div id="div_ratingcontent_percent" class="kksr-fuel kksr-star yellow" style="@_styleVoting"></div>
@@ -214,8 +214,19 @@
                 <a href="javascript:;" style="cursor:auto"></a>
                 <a href="javascript:;" style="cursor:auto"></a>
             </div>
-        }
+        }*@
         
+       
+        <div class="kksr-stars kksr-star gray">
+            <div id="div_ratingcontent_percent" class="kksr-fuel kksr-star yellow" style="@_styleVoting"></div>
+            <a href="javascript:;" id="voting_i01" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('01')" onmouseout="StarOnMouseOut('01')" onclick="WikiDocVoting(1)"></a>
+            <a href="javascript:;" id="voting_i02" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('02')" onmouseout="StarOnMouseOut('02')" onclick="WikiDocVoting(2)"></a>
+            <a href="javascript:;" id="voting_i03" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('03')" onmouseout="StarOnMouseOut('03')" onclick="WikiDocVoting(3)"></a>
+            <a href="javascript:;" id="voting_i04" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('04')" onmouseout="StarOnMouseOut('04')" onclick="WikiDocVoting(4)"></a>
+            <a href="javascript:;" id="voting_i05" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('05')" onmouseout="StarOnMouseOut('05')" onclick="WikiDocVoting(5)"></a>
+        </div>
+         
+
             <div class="kksr-legend">
                 <div itemprop="aggregateRating">
                     <span id="ratingValue">@_rating</span>
@@ -230,6 +241,20 @@
 @*<script src="~/Content/social-likes/social-likes.min.js"></script>*@
 
 <script>
+    var _Listuservoted =  '@_DocdetailInfo.USER_VOTED';
+    $(document).ready(function () {
+        // kiểm tra xem userr này vote chưa
+        if(_Listuservoted.indexOf(_usernamewiki) >=0)
+        {
+            for (var i = 0; i <= 5; i++) {
+                $("#voting_i0" + i).removeAttr("onmouseover");
+                $("#voting_i0" + i).removeAttr("StarOnMouseOut");
+                $("#voting_i0" + i).removeAttr("onclick");
+            }
+        }
+    });
+   
+
     function funcLikeShareSocial(a)
     {
         "display: block;" == $(a).siblings("div").attr("style") ? ($(a).siblings("div").fadeOut(),
@@ -266,7 +291,7 @@
             $.ajax({
                 url: "/wiki-view/WikiDocVoting",
                 type: "POST",
-                data: { p_id: '@_DocdetailInfo.ID', p_point: _Point },
+                data: { p_id: '@_DocdetailInfo.ID', p_point: _Point, p_userwikiid: _usernamewiki },
                 headers: { "cache-control": "no-cache" },
                 async: false,
                 success: function (data) {
@@ -276,7 +301,7 @@
                         $("#ratingValue").text(data.Rating);
                         $("#ratingCount").text(data.TotalVoted);
                         
-                        for (var i = 0; i <= 4; i++) {
+                        for (var i = 0; i <= 5; i++) {
                             $("#voting_i0" + i).removeAttr("onmouseover");
                             $("#voting_i0" + i).removeAttr("StarOnMouseOut");
                             $("#voting_i0" + i).removeAttr("onclick");

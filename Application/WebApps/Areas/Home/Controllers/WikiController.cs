@@ -315,14 +315,14 @@ namespace WebApps.Areas.Home.Controllers
 
         [HttpPost]
         [Route("WikiDocVoting")]
-        public ActionResult WikiDocVoting(decimal p_id, decimal p_point)
+        public ActionResult WikiDocVoting(decimal p_id, decimal p_point, string p_userwikiid)
         {
             try
             {
                 WikiDoc_BL _WikiBL = new WikiDoc_BL();
                 WikiDoc_Info _DocInfo = new WikiDoc_Info();
                 // lấy chi tiết tin
-                _DocInfo = _WikiBL.WikiVoting(p_id, SessionData.CurrentUser.Id.ToString(), p_point);
+                _DocInfo = _WikiBL.WikiVoting(p_id, p_userwikiid, p_point);
                 return Json(new { success = 0, TotalVoted = _DocInfo.NUMBER_VOTED, WidthDiv = Math.Round((_DocInfo.RATING / (_DocInfo.NUMBER_VOTED * 5) * 100), 2), Rating = Math.Round((_DocInfo.RATING / (_DocInfo.NUMBER_VOTED * 5)), 2) });
             }
             catch (Exception ex)

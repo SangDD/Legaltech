@@ -9,12 +9,15 @@
     {
         _langlink = "/en-gb";
     }
+    Random _ramdom = new Random();
+    string _userwikiramdom = DateTime.Now.Ticks.ToString() + _ramdom.Next(99999);
 }
 <html>
 <head>
     <script>
        var _currentlanguage = '@_LanguageCode';
     </script>
+   
     @*<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">*@
@@ -32,8 +35,30 @@
     <script src="~/Scripts/jquery-ui-1.10.2.min.js"></script>
     <script src=@($"/Scripts/jquery.unobtrusive-ajax.min.js?v={CommonVariables.AssemblyVersion}")></script>
     <script src=@($"/Scripts/nvs.jquery.validate.data.js?v={CommonVariables.AssemblyVersion}")></script>
-    @*<script src="~/Scripts/messagebox/JsFormPopup.js"></script>
-    <script src="~/Scripts/messagebox/popup.js"></script>*@
+    <script>
+    var _usernamewiki = "";
+    function funclogin() {
+        window.location.href = "/account/login";
+    }
+    function funcHome() {
+        window.location.href = "/";
+    }
+
+    function functionGetNews() {
+        window.location.href = "/quan-ly-tin/news-home-page";
+    }
+
+
+    $(document).ready(function () {
+        _usernamewiki = getCookie("usernamewiki");
+        if (_usernamewiki != "" || _usernamewiki == null) {
+         } else {
+             // cho cookies 1 năm
+             setCookie("usernamewiki", '@_userwikiramdom', 365);
+            _usernamewiki = getCookie("usernamewiki");
+        }
+    });
+    </script>
   
 </head>
 <body>
@@ -160,15 +185,3 @@
 </body>
 </html>
 
-<script>
-    function funclogin() {
-        window.location.href = "/account/login";
-    }
-    function funcHome() {
-        window.location.href = "/";
-    }
-      
-    function functionGetNews() {
-        window.location.href = "/quan-ly-tin/news-home-page";
-    }
-</script>
