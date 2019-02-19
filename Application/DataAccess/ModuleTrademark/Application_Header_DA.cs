@@ -194,6 +194,10 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("p_case_name", OracleDbType.Varchar2, pInfo.Case_Name, ParameterDirection.Input),
                     new OracleParameter("P_DDSHCN", OracleDbType.Varchar2, pInfo.DDSHCN, ParameterDirection.Input),
                     new OracleParameter("P_MADDSHCN", OracleDbType.Varchar2, pInfo.MADDSHCN, ParameterDirection.Input),
+
+                    new OracleParameter("p_App_No", OracleDbType.Varchar2, pInfo.App_No, ParameterDirection.Input),
+                    new OracleParameter("p_App_Degree", OracleDbType.Varchar2, pInfo.App_Degree, ParameterDirection.Input),
+
                     paramReturn, paramReturn_casecode);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
 

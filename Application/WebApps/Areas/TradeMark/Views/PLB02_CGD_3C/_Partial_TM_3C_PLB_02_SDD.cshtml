@@ -286,6 +286,10 @@
         @* Cam kết của chủ đơn *@
         @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml")
 
+        @if (WebApps.Session.SessionData.CurrentUser.Type != (int)Common.CommonData.CommonEnums.UserType.Customer)
+        {
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDuLieuQuaKhu.cshtml", "1")
+        }
 
         <div class="class_save">
             <div class="classGuiDon">
@@ -293,9 +297,12 @@
             </div> <div class="classLuuTam">
                 <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
             </div>
-            <div class="classLuuTam">
-                <input type="button" value="Dữ liệu quá khứ" id="btnDuLieuCu" class="btn class_37" style="margin-left:5px" />
-            </div>
+            @if (WebApps.Session.SessionData.CurrentUser.Type != (int)Common.CommonData.CommonEnums.UserType.Customer)
+            {
+                <div class="classLuuTam">
+                    <input type="button" value="Dữ liệu quá khứ" id="btnDuLieuCu" class="btn class_37" style="margin-left:5px" />
+                </div>
+            }
         </div>
 
     </fieldset>
@@ -602,6 +609,10 @@
                 // Display the values
                 for (var key of formData.keys()) {
                     console.log(key);
+                }
+
+                if (funcThongTinQuaKhu(formData, "1") != true) {
+                    return false;
                 }
 
                 $.ajax({

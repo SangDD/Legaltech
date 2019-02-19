@@ -83,11 +83,11 @@
                 </div>
 
                 <div class="div-search-content">
-                        <input type="text" id="0_txtDonSo" onblur="return funcDetailDontach();" maxlength="20" placeholder="@WebApps.Resources.Resource.lblSoDon" />
+                    <input type="text" id="0_txtDonSo" onblur="return funcDetailDontach();" maxlength="20" placeholder="@WebApps.Resources.Resource.lblSoDon" />
                 </div>
 
                 <div class="div-search-title">
-                    <div><a id="hrfDetailDonTach" href="javascript:;"  target="_blank" style="color:blue;border:none">@WebApps.Resources.Resource.XemChiTiet</a></div>
+                    <div><a id="hrfDetailDonTach" href="javascript:;" target="_blank" style="color:blue;border:none">@WebApps.Resources.Resource.XemChiTiet</a></div>
                 </div>
                 <div class="div-search-content">
                 </div>
@@ -552,6 +552,11 @@
         @* CAM KẾT CHỦ ĐƠN  *@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewNgayThangNam.cshtml")
 
+        @if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
+        {
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDuLieuQuaKhu.cshtml", "1")
+        }
+
         <div class="class_save">
             <div class="classGuiDon">
                 <input type="button" value="@WebApps.Resources.Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
@@ -560,9 +565,12 @@
                 <input type="button" value="@WebApps.Resources.Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
             </div>
 
-            <div class="classLuuTam">
-                <input type="button" value="Dữ liệu quá khứ" id="btnDuLieuCu" class="btn class_37" style="margin-left:5px"/>
-            </div>
+            @if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
+            {
+                <div class="classLuuTam">
+                    <input type="button" value="Dữ liệu quá khứ" id="btnDuLieuCu" class="btn class_37" style="margin-left:5px" />
+                </div>
+            }
         </div>
     </fieldset>
 </div>
@@ -585,7 +593,7 @@
     }
 </style>
 <script>
-    
+
 
     $(function ()
     {
@@ -1710,7 +1718,7 @@
             if (reponse == false) {
                 return false;
             }
-          
+
             if (funcThongTinChuDonNguoiDaiDien(formData, "1", New) != true) {
                 return false;
             }
@@ -1739,7 +1747,7 @@
                 return false;
             }
             var daidienSH = $("#txtDaiDienSHCN").val();
-            
+
             formData.append("pInfo.DDSHCN", daidienSH);
 
             //07/09/2018
@@ -1773,6 +1781,12 @@
             if (reponse == false) {
                 return false;
             }
+
+            // dangtq check dữ liệu quá khứ
+            if (ptype == -2 && funcThongTinQuaKhu(formData, "1") != true) {
+                 return false;
+            }
+
             $.ajax({
                 url: url,
                 type: 'POST',
@@ -1790,7 +1804,7 @@
                                 window.location = "/trade-mark-mana/quan-ly-don";
                             });
                         }
-                        
+
                         return true;
                     } else {
                         nvsError(AddFail, ThongBao, function () {
