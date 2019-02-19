@@ -105,6 +105,22 @@ namespace BussinessFacade
             }
         }
 
+        public List<WikiDoc_Info> HomeWikiDoc_Search(string p_key_search, ref decimal p_total_record,
+               string p_from = "1", string p_to = "10", string p_sort_type = "ALL")
+        {
+            try
+            {
+                WikiDoc_DA _da = new WikiDoc_DA();
+                var ds = _da.HomeWikiDoc_Search(p_key_search, p_from, p_to, p_sort_type, ref p_total_record);
+                return CBO<WikiDoc_Info>.FillCollectionFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<WikiDoc_Info>();
+            }
+        }
+
         public WikiDoc_Info WikiDoc_GetById(decimal P_ID)
         {
             try

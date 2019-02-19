@@ -5,7 +5,7 @@
 <div class="divCover legalHotnews_div" >
     <div class="tinHDNVNewHome">
         <div class="headerTinNghiepVu" style="background-color:#efefef">
-            <p class="MainTitleHeader">@WebApps.Resources.Resource.lblLegalupdate.ToUpper()</p>
+            <a href="/quan-ly-tin/news-home-page"> @WebApps.Resources.Resource.lblTinTuc.ToUpper()</a>
             <br />
             <hr class="MainTitleHr" />
         </div>
@@ -15,7 +15,7 @@
         <input type="hidden" id="SortTypeHotnews" />
     </div>
 
-    <div class="Homebox">
+    <div class="Homebox"> 
         <div id="LegalHotnewsdivTable" class="LegaldivBoxTable">
             @Html.Partial("/Areas/Home/Views/Shared/_HotnewsData.cshtml")
         </div>

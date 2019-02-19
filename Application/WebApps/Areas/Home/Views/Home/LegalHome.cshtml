@@ -26,19 +26,19 @@
 @*remind*@
 @Html.Partial("~/Areas/Home/Views/Shared/HomeRemindBox.cshtml")
 
-@*bản tin*@
-@Html.Partial("~/Areas/Home/Views/Shared/HomeBulletin.cshtml")
+@*wiki *@
+@Html.Partial("~/Areas/Home/Views/Shared/HomeWikiData.cshtml")
 
 @Html.Partial("~/Areas/Home/Views/Shared/HomeHotNews.cshtml")
 
-@Html.Partial("~/Areas/Home/Views/Shared/HomeUpdateNews.cshtml")
+@*@Html.Partial("~/Areas/Home/Views/Shared/HomeUpdateNews.cshtml")*@
 <script>
     $(function () {
         TodofindObjects(1, 1);
         OrderfindObjects(1, 1);
         RemindfindObjects(1, 1);
-        BulletinfindObjects(1, 1);
+        WikihomefindObjects(1, 1);
         HotnewsfindObjects(1, 1);
-        UpdatenewsfindObjects(1, 1);
+        //UpdatenewsfindObjects(1, 1);
     });
 </script>

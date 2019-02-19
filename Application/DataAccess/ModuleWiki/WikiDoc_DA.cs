@@ -98,6 +98,29 @@ namespace DataAccess
             }
         }
 
+        public DataSet HomeWikiDoc_Search(string p_key_search, string p_from, string p_to, string p_sort_type, ref decimal p_total_record)
+        {
+            try
+            {
+                OracleParameter paramReturn = new OracleParameter("P_TOTAL_RECORD", OracleDbType.Decimal, ParameterDirection.Output);
+                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_WIKI_DOCS.PROC_WIKI_DOC_SEARCH",
+                    new OracleParameter("P_KEY_SEARCH", OracleDbType.Varchar2, p_key_search, ParameterDirection.Input),
+                    new OracleParameter("P_FROM", OracleDbType.Varchar2, p_from, ParameterDirection.Input),
+                    new OracleParameter("P_TO", OracleDbType.Varchar2, p_to, ParameterDirection.Input),
+                    new OracleParameter("P_SORT_TYPE", OracleDbType.Varchar2, p_sort_type, ParameterDirection.Input),
+                    paramReturn,
+                    new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output)
+                   );
+                p_total_record = Convert.ToDecimal(paramReturn.Value.ToString());
+                return _ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
         public decimal WikiDoc_Delete(decimal P_ID)
         {
             try

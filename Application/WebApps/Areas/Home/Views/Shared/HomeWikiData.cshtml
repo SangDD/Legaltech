@@ -1,56 +1,48 @@
 ﻿
-<div class="divCover legalBulletin_div" >
+<div class="divCover legalWikihome_div" >
     
     <div class="tinHDNVNewHome">
         <div class="headerTinNghiepVu" style="background-color:#efefef">
-            <p class="MainTitleHeader" >@WebApps.Resources.Resource.TM3C_ThongBao.ToUpper()</p>
+            <p class="MainTitleHeader" >
+                <a href="/wiki-view/cata-view/0">THƯ VIỆN DỮ LIỆU </a>
+            
+            </p>
             <br />
             <hr class="MainTitleHr" />
         </div>
     </div>
     <div>
-        <input type="hidden" id="colSortedBulletin" />
-        <input type="hidden" id="SortTypeBulletin" />
+        <input type="hidden" id="colSortedWikihome" />
+        <input type="hidden" id="SortTypeWikihome" />
     </div>
 
     <div class="Homebox"> 
-        <div id="LegalBulletindivTable" class="LegaldivBoxTable">
-            @Html.Partial("/Areas/Home/Views/Shared/_BulletinData.cshtml")
+        <div id="LegalWikihomedivTable" class="LegaldivBoxTable">
+            @Html.Partial("/Areas/Home/Views/Shared/_WikiHomeData.cshtml")
         </div>
     </div>
 
     <script>
 
 
-        function BulletinfindObjects(_pageNumber, _isSearching) {
+        function WikihomefindObjects(_pageNumber, _isSearching) {
             try {
-                var _RemindsearchContent = "";
+                var _WikisearchContent = "";
                 var _RecordonPage = 3;
                 if (_isSearching === 1) {
                     _Keysearch = "";
                 } else {
-                    //_arrKeySearch = _TodoKeysearch.split('|');
-                    //_searchContent = _TodoarrKeySearch[0];
-                    _RemindsearchContent = "";
+                    _WikisearchContent = "";
                 }
 
-                var orderby = $("#colSortedBulletin").val();
-                var orderType = $("#SortTypeBulletin").val();
-                //if (orderby.indexOf("NUMBER_TEXT") >= 0) {
-                //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
-                //}
-                //else if (orderby.indexOf("TITLE") >= 0) {
-                //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
-                //}
-                //else if (orderby.toLocaleUpperCase().indexOf("AGENCIE_NAME") >= 0) {
-                //    orderby = "NLSSORT(UPPER(" + orderby + "), 'NLS_SORT=vietnamese')";
-                //}
+                var orderby = $("#colSortedWikihome").val();
+                var orderType = $("#SortTypeWikihome").val();
                 $.ajax({
                     type: "POST",
                     headers: { "cache-control": "no-cache" },
-                    url: "/search-bulletin",
+                    url: "/search-Wikihome",
                     data: {
-                        keysSearch: _RemindsearchContent,
+                        keysSearch: _WikisearchContent,
                         _sortype: (orderby + " " + orderType),
                         _reconpage: _RecordonPage,
                         p_CurrentPage: _pageNumber
@@ -58,7 +50,7 @@
                     async: true,
                     success: function (data) {
                         if (data != null) {
-                            $("#LegalBulletindivTable").html(data);
+                            $("#LegalWikihomedivTable").html(data);
                         }
                     }
                 });
@@ -69,37 +61,37 @@
             }
         }
 
-        function BulletinjsPaging(_page) {
+        function WikihomejsPaging(_page) {
             try {
-                BulletinfindObjects(_page, 0);
+                WikihomefindObjects(_page, 0);
             } catch (e) {
                 alert(e.toString());
             }
         }
 
 
-        function BulletinSortByCol(value) {
+        function WikihomeSortByCol(value) {
             try {
                 //Lay gia tri luu trong colSort luu duoi dang text Hidden
-                var _currentColSorted = $("#colSortedBulletin").val();
+                var _currentColSorted = $("#colSortedWikihome").val();
                 //Lay gia tri luu trong SortType luu duoi dang text Hidden
-                var _currentSortedType = $("#SortTypeBulletin").val();
+                var _currentSortedType = $("#SortTypeWikihome").val();
                 var tag = "#" + value;
                 if (_currentColSorted == value) {
                     if (_currentSortedType == "ASC") {
-                        $("#SortTypeBulletin").val("DESC");
+                        $("#SortTypeWikihome").val("DESC");
                     }
                     else {
-                        $("#SortTypeBulletin").val("ASC");
+                        $("#SortTypeWikihome").val("ASC");
                     }
                 }
                 else {
-                    $("#colSortedBulletin").val(value);
-                    $("#SortTypeBulletin").val("ASC");
+                    $("#colSortedWikihome").val(value);
+                    $("#SortTypeWikihome").val("ASC");
                 }
                 var pos = document.getElementById("tableListBullentin").parentElement.scrollLeft;
                 //Sort lai thi ve trang dau
-                BulletinfindObjects(1, 0);
+                WikihomefindObjects(1, 0);
                 //Sort lai thi ve trang dau
                 document.getElementById("tableListBullentin").parentElement.scrollLeft = pos;
             } catch (e) {
@@ -107,10 +99,10 @@
             }
         }
 
-        function BulletinChangeIConSortWhenSortColumns() {
+        function WikihomeChangeIConSortWhenSortColumns() {
             try {
-                var _order_by = $("#colSortedBulletin").val();
-                var _order_type = $("#SortTypeBulletin").val();
+                var _order_by = $("#colSortedWikihome").val();
+                var _order_type = $("#SortTypeWikihome").val();
                 var _text = _order_type == 'DESC' ? $("#" + _order_by).text() + " ▼" : $("#" + _order_by).text() + " ▲";
                 $("#" + _order_by).text(_text);
             }

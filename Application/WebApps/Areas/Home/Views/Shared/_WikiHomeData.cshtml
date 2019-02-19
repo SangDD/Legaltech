@@ -2,14 +2,17 @@
 @using Common.Extensions
 @using ObjectInfos;
 @{
-    List<NewsInfo> _list_data = new List<NewsInfo>();
+    List<WikiDoc_Info> _list_data = new List<WikiDoc_Info>();
     if (ViewBag.Obj != null)
     {
         _list_data = ViewBag.Obj;
     }
- 
+
 }
 
+<style>
+    /*==============================================================*/
+</style>
 <div>
     @if (_list_data.Count > 0)
     {
@@ -17,25 +20,17 @@
         {
             <div class="NewsParent BoxNewsImage">
                 <div class="NewsHeader">
-                    @item.Publictime.ToString("dd/MM")
+                    @item.MODIFIED_DATE.ToString("dd/MM")
                 </div>
                 <div class="NewsContent">
-                    <a target="_blank" href="/quan-ly-tin/news-detail/@item.Id/7">@item.Title</a>  
+                    <a target="_blank" href="/wiki-view/doc-view/0/@item.ID">@item.TITLE</a>  
                 </div>
             </div>
-
-
         }
     }
-</div>
 
-@*<div class="_ClassPage">
-    <ul>
-        @Html.Raw(ViewBag.Paging)
-    </ul>
 </div>
 <script>
     $(function () {
-        HotnewsChangeIConSortWhenSortColumns();
     });
-</script>*@
+</script>
