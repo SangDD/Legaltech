@@ -4237,7 +4237,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to để đổi mật khẩu.
+        ///   Looks up a localized string similar to để reset mật khẩu.
         /// </summary>
         public static string ToResetPass {
             get {

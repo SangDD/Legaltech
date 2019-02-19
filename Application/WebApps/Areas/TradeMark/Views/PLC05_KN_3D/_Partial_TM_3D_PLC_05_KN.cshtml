@@ -342,9 +342,12 @@
             </div> <div class="classLuuTam">
                 <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
             </div>
-            <div class="classLuuTam">
-                <input type="button" value="Dữ liệu quá khứ" id="btnDuLieuCu" class="btn class_37" style="margin-left:5px" />
-            </div>
+            @if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
+            {
+                <div class="classLuuTam">
+                    <input type="button" value="Dữ liệu quá khứ" id="btnDuLieuCu" class="btn class_37" style="margin-left:5px" />
+                </div>
+            }
         </div>
     </fieldset>
 </div>
