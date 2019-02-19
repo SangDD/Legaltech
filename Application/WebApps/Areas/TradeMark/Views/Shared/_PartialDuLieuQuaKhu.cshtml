@@ -1,0 +1,91 @@
+﻿@model string
+@using ObjectInfos;
+@using WebApps.Resources;
+@{
+    var objAppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        objAppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    }
+    string _disable = "";
+    int _Isdisable = 0;
+    if (ViewBag.Isdisable == 1)
+    {
+        _disable = "disabled";
+    }
+    string txtApp_No = Model + "_txtApp_No";
+    string txtApp_Degree = Model + "_txtApp_Degree";
+    if (Model == "-1")
+    {
+        _disable = "";
+    }
+
+}
+
+<div class="divCover cls_form_title">
+    <img src="~/Content/icons/category.png" />
+    <div class="cls_form_header">
+        @WebApps.Resources.Resource.DuLieuQuaKhu
+    </div>
+</div>
+
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div>
+            @WebApps.Resources.Resource.SoDon <i class="redspan">(*)</i>
+        </div>
+        <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+           data-title="@WebApps.Resources.Resource.TooltipAppNo"></a>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input value="@objAppHeaderInfo.App_No" type="text" placeholder="@WebApps.Resources.Resource.SoDon" maxlength="200" id="@txtApp_No" @_disable />
+        </div>
+    </div>
+</div>
+
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div>
+            @WebApps.Resources.Resource.TM3D_SoBang
+        </div>
+        <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+           data-title="@WebApps.Resources.Resource.TooltipAppDegree"></a>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input value="@objAppHeaderInfo.App_Degree" type="text" placeholder="@WebApps.Resources.Resource.TM3D_SoBang" maxlength="200" id="@txtApp_Degree" @_disable />
+        </div>
+    </div>
+</div>
+
+<script>
+    function funcThongTinQuaKhu(formData, PreID) {
+        try {
+             
+            var txtApp_No = $("#" + PreID + "_txtApp_No").val();
+            if (txtApp_No === "") {
+                $("#" + PreID + "_txtApp_No").focus().val('');
+                showError('@Resource.AppNoTrong');
+                return false;
+            }
+
+            var txtApp_Degree = $("#" + PreID + "_txtApp_Degree").val();
+
+            //Chủ đơn
+            formData.append("pInfo.App_No", txtApp_No);
+            formData.append("pInfo.App_Degree", txtApp_Degree);
+
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+</script>
+
+
+
+
+

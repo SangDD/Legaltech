@@ -70,6 +70,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Số đơn cục cấp không được để trống.
+        /// </summary>
+        public static string AppNoTrong {
+            get {
+                return ResourceManager.GetString("AppNoTrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Đơn tiếng anh.
         /// </summary>
         public static string btnDonTiengAnh {
@@ -399,6 +408,15 @@ namespace WebApps.Resources {
         public static string DoiMatKhau {
             get {
                 return ResourceManager.GetString("DoiMatKhau", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dữ liệu quá khứ.
+        /// </summary>
+        public static string DuLieuQuaKhu {
+            get {
+                return ResourceManager.GetString("DuLieuQuaKhu", resourceCulture);
             }
         }
         
@@ -4170,6 +4188,24 @@ namespace WebApps.Resources {
         public static string TongSoNhom {
             get {
                 return ResourceManager.GetString("TongSoNhom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số bằng cục cấp.
+        /// </summary>
+        public static string TooltipAppDegree {
+            get {
+                return ResourceManager.GetString("TooltipAppDegree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số đơn cục cấp.
+        /// </summary>
+        public static string TooltipAppNo {
+            get {
+                return ResourceManager.GetString("TooltipAppNo", resourceCulture);
             }
         }
         

@@ -552,6 +552,11 @@
         @* CAM KẾT CHỦ ĐƠN  *@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewNgayThangNam.cshtml")
 
+        @if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
+        {
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDuLieuQuaKhu.cshtml", "1")
+        }
+
         <div class="class_save">
             <div class="classGuiDon">
                 <input type="button" value="@WebApps.Resources.Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
@@ -1776,6 +1781,12 @@
             if (reponse == false) {
                 return false;
             }
+
+            // dangtq check dữ liệu quá khứ
+            if (ptype == -2 && funcThongTinQuaKhu(formData, "1") != true) {
+                 return false;
+            }
+
             $.ajax({
                 url: url,
                 type: 'POST',

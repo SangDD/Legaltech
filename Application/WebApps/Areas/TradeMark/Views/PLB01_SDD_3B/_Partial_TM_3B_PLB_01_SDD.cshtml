@@ -320,6 +320,11 @@
         @* Cam kết của chủ đơn *@
         @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml")
 
+        @if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
+        {
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDuLieuQuaKhu.cshtml", "1")
+        }
+
         <div class="class_save">
             <div class="classGuiDon">
                 <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
@@ -464,7 +469,7 @@
 
     $("#btnGuiDon").click(function () {
         try {
-            nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmGui", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
                 //Thông tin chủ đơn
                 var formData = new FormData();
 
@@ -486,7 +491,7 @@
                 var v_AppCode = $("#txtAppCode").val();
                 if (v_AppCode === "") {
                     $('#txtAppCode').focus().val('');
-                    showError('@Resource.TM3B_ChonLoaiDonDK');
+                    showError('@Html.Raw(Resource.TM3B_ChonLoaiDonDK)');
                     return false;
                 }
 
@@ -497,7 +502,7 @@
                 }
                 var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
                 if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                    jError("@Resource.TM2B_ChonDaiDienChuDon", "@Resource.TM3B_Loi", function () {
+                    jError("@Html.Raw(Resource.TM2B_ChonDaiDienChuDon)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                         $("#_2_rdoNguoiDaiDienPL").focus()
                     });
                     return false;
@@ -538,7 +543,7 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
                         if (data != null && data.status >= 0) {
-                            jAlert('@Resource.GuiDonThanhCong', ThongBao, function () {
+                            jAlert('@Html.Raw(Resource.GuiDonThanhCong)', ThongBao, function () {
                                 window.location = "/trade-mark-mana/quan-ly-don";
                             });
                         } else {
@@ -562,7 +567,7 @@
 
     $("#btnDuLieuCu").click(function () {
         try {
-            nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmGui", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
                 //Thông tin chủ đơn
                 var formData = new FormData();
 
@@ -584,7 +589,7 @@
                 var v_AppCode = $("#txtAppCode").val();
                 if (v_AppCode === "") {
                     $('#txtAppCode').focus().val('');
-                    showError('@Resource.TM3B_ChonLoaiDonDK');
+                    showError('@Html.Raw(Resource.TM3B_ChonLoaiDonDK)');
                     return false;
                 }
 
@@ -595,7 +600,7 @@
                 }
                 var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
                 if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                    jError("@Resource.TM2B_ChonDaiDienChuDon", "@Resource.TM3B_Loi", function () {
+                    jError("@Html.Raw(Resource.TM2B_ChonDaiDienChuDon)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                         $("#_2_rdoNguoiDaiDienPL").focus()
                     });
                     return false;
@@ -619,6 +624,10 @@
                     return false;
                 }
 
+                if (funcThongTinQuaKhu(formData, "1") != true) {
+                    return false;
+                }
+
                 $.ajax({
                     url: '/trade-mark-3b/register_PLB_01_SDD',
                     type: 'POST',
@@ -636,7 +645,7 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
                         if (data != null && data.status >= 0) {
-                            jAlert('@Resource.GuiDonThanhCong', ThongBao, function () {
+                            jAlert('@Html.Raw(Resource.GuiDonThanhCong)', ThongBao, function () {
                                 window.location = "/trade-mark-mana/quan-ly-don";
                             });
                         } else {
@@ -660,7 +669,7 @@
 
     $("#btnLuuTam").click(function () {
         try {
-            nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmLuuTam", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuuTam)", function () {
                 //Thông tin chủ đơn
                 var formData = new FormData();
                 var reponse = funcThongTinNhapHo(formData);
@@ -681,7 +690,7 @@
                 var v_AppCode = $("#txtAppCode").val();
                 if (v_AppCode === "") {
                     $('#txtAppCode').focus().val('');
-                    showError('@Resource.TM3B_ChonLoaiDonDK');
+                    showError('@Html.Raw(Resource.TM3B_ChonLoaiDonDK)');
                     return false;
                 }
 
@@ -692,7 +701,7 @@
                 }
                 var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
                 if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                    jError("@Resource.TM2B_ChonDaiDienChuDon", "@Resource.TM3B_Loi", function () {
+                    jError("@Html.Raw(Resource.TM2B_ChonDaiDienChuDon)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                         $("#_2_rdoNguoiDaiDienPL").focus()
                     });
                 }
@@ -732,7 +741,7 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
                         if (data != null && data.status >= 0) {
-                            jAlert('@Resource.TM3B_LuuTamThanhCong', "@Resource.TM3C_ThongBao", function () {
+                            jAlert('@Html.Raw(Resource.TM3B_LuuTamThanhCong)', "@Resource.TM3C_ThongBao", function () {
                                 window.location = "/trade-mark-mana/quan-ly-don";
                             });
                         } else {

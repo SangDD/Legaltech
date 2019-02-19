@@ -336,6 +336,11 @@
         @* Cam kết của chủ đơn *@
         @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml")
 
+        @if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
+        {
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDuLieuQuaKhu.cshtml", "1")
+        }
+
         <div class="class_save">
             <div class="classGuiDon">
                 <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
@@ -680,6 +685,10 @@
                 // Display the values
                 for (var key of formData.keys()) {
                     console.log(key);
+                }
+
+                if (funcThongTinQuaKhu(formData, "1") != true) {
+                    return false;
                 }
 
                 $.ajax({
