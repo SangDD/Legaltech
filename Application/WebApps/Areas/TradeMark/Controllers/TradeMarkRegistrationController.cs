@@ -1687,17 +1687,21 @@
                     _AppFeeFixInfo.Amount = 150000 * _AppFeeFixInfo.Number_Of_Patent;
                 _lstFeeFix.Add(_AppFeeFixInfo);
 
-                //2.TỔNG SỐ NHÓM 
+                //2.Phí phân loại quốc tế về Nhãn hiệu
+                //20.02.2019 SUA THEO YC CHI TUYEN, CHUA RO TINH KHI NAO 
                 _AppFeeFixInfo = new AppFeeFixInfo();
                 _AppFeeFixInfo.Fee_Id = 201;
-                _AppFeeFixInfo.Isuse = 1;
+                _AppFeeFixInfo.Isuse = 0;
                 _AppFeeFixInfo.Case_Code = p_case_code;
                 _AppFeeFixInfo.Number_Of_Patent = TongSoNhom;
                 _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
-                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                    _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo.Number_Of_Patent;
-                else
-                    _AppFeeFixInfo.Amount = 200000 * _AppFeeFixInfo.Number_Of_Patent;
+                //Tạm thời ram vào =0 
+                //if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                //    _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo.Number_Of_Patent;
+                //else
+                //    _AppFeeFixInfo.Amount = 200000 * _AppFeeFixInfo.Number_Of_Patent;
+
+                _AppFeeFixInfo.Amount = 0;
                 _lstFeeFix.Add(_AppFeeFixInfo);
 
                 //3.Tổng số sản phẩm tren nhom 

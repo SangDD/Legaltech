@@ -408,7 +408,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" value="NHTT" @styleNhanHieu @styleDich placeholder="0_NhanHieuTapThe" id="0_NhanHieuTapThe" />
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHTT" @styleNhanHieu @styleDich placeholder="0_NhanHieuTapThe" id="0_NhanHieuTapThe" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuTapThe</label>
                     </div>
                 </div>
@@ -417,7 +417,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" value="NHLK" @styleLienKet @styleDich placeholder="0_NhanHieuLienKet" id="0_NhanHieuLienKet" />
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu"  value="NHLK" @styleLienKet @styleDich placeholder="0_NhanHieuLienKet" id="0_NhanHieuLienKet" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuLienKet</label>
                     </div>
                 </div>
@@ -426,7 +426,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" value="NHCN" @styleNhanHieuCN @styleDich placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" />
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu"  value="NHCN" @styleNhanHieuCN @styleDich placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
                     </div>
                 </div>
@@ -545,7 +545,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="3_rdoDaiDienChuDon" value="@DaiDienChuDon.DaiDienPL" @styleDaiDienChuDon placeholder="3_txtNguoiDaiDienPL" id="3_txtNguoiDaiDienPL" />
+                        <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienPL" @styleDaiDienChuDon placeholder="3_txtNguoiDaiDienPL" id="3_txtNguoiDaiDienPL" />
                         <label> @WebApps.Resources.Resource.lblLaNguoiDaiDienTheoPL</label>
                     </div>
                 </div>
@@ -555,7 +555,7 @@
 
             <div class="div-search-ad">
                 <div class="div-radio" style="width:60%">
-                    <input type="radio" name="3_rdoDaiDienChuDon" value="@DaiDienChuDon.DaiDienSH" @styleDaiDienSH placeholder="3_txtToChucDaiDien" id="3_txtToChucDaiDien" />
+                    <input type="radio" name="3_rdoDaiDienChuDon"  class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienSH" @styleDaiDienSH placeholder="3_txtToChucDaiDien" id="3_txtToChucDaiDien" />
                     <label>@WebApps.Resources.Resource.lblLaToChucDichVuDaiDienSoHuu</label>
                 </div>
 
@@ -573,7 +573,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="3_rdoDaiDienChuDon" value="@DaiDienChuDon.DaiDienUyQuyen" @styleDaiDienUQ placeholder="3_txtToChucDaiDien" id="3_txtToChucDaiDien" />
+                        <input type="radio" name="3_rdoDaiDienChuDon"  class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienUyQuyen" @styleDaiDienUQ placeholder="3_txtToChucDaiDien" id="3_txtToChucDaiDien" />
                         <label>@WebApps.Resources.Resource.lblLaNguoiKhacDuocUyQuyen</label>
                     </div>
                 </div>
@@ -2136,4 +2136,19 @@
         }
     });
 
+
+    $(document).on('dblclick', '.classNhanHieu', function () {
+        if (this.checked) {
+            $(this).prop('checked', false);
+        }
+    });
+
+    $(document).on('dblclick', '.classDaiDienChuDon', function () {
+        if (this.checked) {
+            $(this).prop('checked', false);
+            $("#divDDPLChoise").empty();
+            $("#divDDSHChoise").empty();
+            $("#divDDUQChoise").empty();
+        }
+    });
 </script>
