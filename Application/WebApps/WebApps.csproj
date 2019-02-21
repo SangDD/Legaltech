@@ -242,6 +242,12 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\TM_04NHLogoChu.cs">
+      <DependentUpon>TM_04NHLogoChu.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Report\TM_04NH_EN.cs">
       <DependentUpon>TM_04NH_EN.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1700,6 +1706,10 @@
     <None Include="Properties\PublishProfiles\HungTDLap.pubxml" />
     <None Include="Properties\PublishProfiles\HungTDPublic.pubxml" />
     <None Include="Properties\PublishProfiles\Legaltech.pubxml" />
+    <EmbeddedResource Include="Report\TM_04NHLogoChu.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TM_04NHLogoChu.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\AlertPopup\ASSAlert.js" />
     <Content Include="Scripts\AlertPopup\NVSAlertCss.css" />

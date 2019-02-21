@@ -211,13 +211,7 @@
                     });
 
 
-                    $("#txtFontSize").change(function () {
-
-                        alert('aaa');
-                        $(".classChuNhanHieu").css('font-size', "'"+ $(this).val().toString()+'px' + "'");
-                        //var size = $(this).val()
-                        //document.getElementById("txtChuNhanHieu").style.fontSize = size;
-                    })
+                  
                 </script>
             </div>
             <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
@@ -239,8 +233,9 @@
                 @*</div>*@
 
                 <div id="divckbNhanHieuChu" style="display:none">
-                    <div style="width:165px ;height:165px" id="divLogo">
+                    <div style="width:165px ;height:165px"  >
                         <input type="text" class="classChuNhanHieu" id="txtChuNhanHieu" style="height:160px;width:160px" />
+                        <span style="height:160px;width:160px;border:1px;" id="pChuNhanHien"></span>
                     </div>
                 </div>
             </div>
@@ -1466,12 +1461,20 @@
             //}
             formdata.append("pDetail.LoaiNhanHieu", v_NhanHieu);
 
-            var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
-            if (fileLogo != undefined || fileLogo != null) {
-                formdata.append("pDetail.pfileLogo", fileLogo[0].files[0]);
-            } else {
-                showError('Mẫu nhãn hiệu không được để trống');
-                $("#pfile_6_rdoMauNhanHieu").focus();
+            //Logo dang chu 
+            if ($("#ckbNhanHieuChu").prop('checked') == true) {
+                formdata.append("pDetail.isChuLogo", 1); 
+                formdata.append("pDetail.ChuLogo", $("#txtChuNhanHieu").val());
+            }
+            else {
+                formdata.append("pDetail.isChuLogo", 0);  
+                var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
+                if (fileLogo != undefined || fileLogo != null) {
+                    formdata.append("pDetail.pfileLogo", fileLogo[0].files[0]);
+                } else {
+                    showError('Mẫu nhãn hiệu không được để trống');
+                    $("#pfile_6_rdoMauNhanHieu").focus();
+                }
             }
 
             var v_DacTinh = 0;
@@ -1924,5 +1927,11 @@
              
         }
     });
+
+    var chunhanhieu = "";
+
+    $("#txtFontSize").change(function () {
+       
+    })
     
 </script>

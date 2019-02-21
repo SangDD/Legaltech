@@ -156,11 +156,23 @@
                         pDetail.Appcode = pInfo.Appcode;
                         pDetail.Language_Code = language;
                         pDetail.App_Header_Id = pAppHeaderID;
-                        if (pDetail.pfileLogo != null)
+
+                        if (pDetail.isChuLogo != 1)
                         {
-                            pDetail.Logourl = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
+                            pDetail.isChuLogo = 0;
+                            if (pDetail.pfileLogo != null)
+                            {
+                                pDetail.Logourl = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
+                            }
                         }
+                        else
+                        {
+                            pDetail.Logourl = pDetail.ChuLogo;
+                            pDetail.isChuLogo = 1;
+                        }
+
                         pReturn = objDetail.App_Detail_04NH_Insert(pDetail);
+
                         //Thêm thông tin class
                         if (pReturn >= 0 && pAppClassInfo != null)
                         {
@@ -444,15 +456,22 @@
                 appInfo = CreateInstance.CopyAppDetailInfo(appInfo, pDetail);
                 appInfo.DuadateExp = appInfo.Duadate.ToString("dd/MM/yyyy");
                 appInfo.Ngaynopdon_UtExp = appInfo.Ngaynopdon_Ut.ToString("dd/MM/yyyy");
-                if (string.IsNullOrEmpty(appInfo.Logourl))
-                {
-                    appInfo.Logourl = pDetail.LogourlOrg;
-                }
-                if (pDetail.pfileLogo != null)
-                {
-                    appInfo.Logourl = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
-                }
 
+                if (pDetail.isChuLogo == 1)
+                {
+                    appInfo.Logourl = pDetail.ChuLogo;
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(appInfo.Logourl))
+                    {
+                        appInfo.Logourl = pDetail.LogourlOrg;
+                    }
+                    if (pDetail.pfileLogo != null)
+                    {
+                        appInfo.Logourl = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
+                    }
+                }
                 foreach (var item in MemoryData.c_lst_Country)
                 {
                     if (item.Country_Id.ToString() == appInfo.Nuocnopdon_Ut)
@@ -656,7 +675,13 @@
                     }
                 }
                 #endregion
+                if (pDetail.isChuLogo == 1)
+                {
+                    appInfo.Logourl = pDetail.ChuLogo;
+                }
+                else { 
                 appInfo.Logourl = Server.MapPath(appInfo.Logourl);
+                }
                 //su dung cho TH ma DNSC 
                 if (appInfo.Rep_Master_Type == "DDSH")
                 {
@@ -685,62 +710,72 @@
                 if (pInfo.Languague_Code == Language.LangVI)
                 {
                     oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NH.rpt"));
+                    if (pDetail.isChuLogo == 1)
+                    {
+                        oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NHLogoChu.rpt"));
+                    }
+
                 }
                 else
                 {
                     oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NH_EN.rpt"));
+                    if (pDetail.isChuLogo == 1)
+                    {
+                        oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NHLogoChu_EN.rpt"));
+                    }
                 }
-
-                CrystalDecisions.CrystalReports.Engine.PictureObject _pic01;
-                _pic01 = (CrystalDecisions.CrystalReports.Engine.PictureObject)oRpt.ReportDefinition.Sections[0].ReportObjects["Picture1"];
-                _pic01.Width = 100;
-                _pic01.Height = 100;
-                try
+                if (pDetail.isChuLogo != 1)
                 {
-                    Bitmap img = new Bitmap(appInfo.Logourl);
+                    CrystalDecisions.CrystalReports.Engine.PictureObject _pic01;
+                    _pic01 = (CrystalDecisions.CrystalReports.Engine.PictureObject)oRpt.ReportDefinition.Sections[0].ReportObjects["Picture1"];
+                    _pic01.Width = 100;
+                    _pic01.Height = 100;
                     try
                     {
-
-                        double _Const = 6.666666666666;
-                        int _left = 0, _top = 0, _marginleft = 225, _margintop = 4215;
-                        int _h = 600;
-                        double _d1 = (_h - img.Width) / 2;
-                        _d1 = _Const * _d1;
-                        _left = _marginleft + Convert.ToInt32(_d1);
-                        if (_left < 0)
+                        Bitmap img = new Bitmap(appInfo.Logourl);
+                        try
                         {
-                            _left = _marginleft;
-                        }
-                        _pic01.Left = _left;
-                        // top
 
-                        _d1 = (_h - img.Height) / 2;
-                        _d1 = _Const * _d1;
-                        _top = _margintop + Convert.ToInt32(_d1);
-                        if (_top < 0)
+                            double _Const = 6.666666666666;
+                            int _left = 0, _top = 0, _marginleft = 225, _margintop = 4215;
+                            int _h = 600;
+                            double _d1 = (_h - img.Width) / 2;
+                            _d1 = _Const * _d1;
+                            _left = _marginleft + Convert.ToInt32(_d1);
+                            if (_left < 0)
+                            {
+                                _left = _marginleft;
+                            }
+                            _pic01.Left = _left;
+                            // top
+
+                            _d1 = (_h - img.Height) / 2;
+                            _d1 = _Const * _d1;
+                            _top = _margintop + Convert.ToInt32(_d1);
+                            if (_top < 0)
+                            {
+                                _top = _margintop;
+                            }
+                            _pic01.Top = _top;
+
+                        }
+                        catch (Exception ex)
                         {
-                            _top = _margintop;
+                            Logger.LogException(ex);
                         }
-                        _pic01.Top = _top;
-
+                        finally
+                        {
+                            img.Dispose();
+                        }
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
-                        Logger.LogException(ex);
+
+
                     }
-                    finally
-                    {
-                        img.Dispose();
-                    }
+
+                    System.IO.FileInfo file = new System.IO.FileInfo(appInfo.Logourl);
                 }
-                catch (Exception)
-                {
-
-
-                }
-
-                System.IO.FileInfo file = new System.IO.FileInfo(appInfo.Logourl);
-
 
                 if (_ds_all != null)
                 {

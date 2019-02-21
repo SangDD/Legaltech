@@ -79,6 +79,7 @@ namespace DataAccess.ModuleTrademark
                 new OracleParameter("P_YCCAPPHO3", OracleDbType.Varchar2, pInfo.YCCapPho3, ParameterDirection.Input),
                 new OracleParameter("P_YCCAPPHO4", OracleDbType.Varchar2, pInfo.YCCapPho4, ParameterDirection.Input),
                 new OracleParameter("P_THOATHUANKHAC", OracleDbType.Varchar2, pInfo.ThoaThuanKhac, ParameterDirection.Input),
+                new OracleParameter("P_LOGOCHU", OracleDbType.Int32, pInfo.isChuLogo, ParameterDirection.Input),
 
                 paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
