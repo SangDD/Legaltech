@@ -74,6 +74,17 @@
                 </div>
             </div>
         </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tóm tắt<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtHeader" maxlength="1000" value="@Model.HEADER"/>
+                </div>
+            </div>
+        </div>
   
         <div class="div-search-ad">
             <div class="div-search-title">
@@ -248,6 +259,7 @@
                         var reponse = false;
                         var formData = new FormData();
                         var txtTitle = $("#txtTitle");
+                        var txtHeader = $("#txtHeader");
                         var CboAddWikiCataParent = $("#CboAddWikiCataParent");
                         var CboAddWikiCataChild = $("#CboAddWikiCataChild");
 
@@ -256,6 +268,12 @@
                             txtTitle.focus();
                             return false;
                         }
+
+                        //if (txtHeader.val().trim() == "") {
+                        //    showError('Tóm tắt không được để trống!');
+                        //    txtHeader.focus();
+                        //    return false;
+                        //}
 
                         if (CboAddWikiCataChild.val() == "" || CboAddWikiCataChild.val() == null) {
                             showError('Chủ đề bài viết không được để trống!');
@@ -272,6 +290,7 @@
 
                         formData.append("_objectInfo.ID", txtDocID.val());
                         formData.append("_objectInfo.TITLE", txtTitle.val().trim());
+                        formData.append("_objectInfo.HEADER", txtHeader.val().trim());
                         formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
                         formData.append("_objectInfo.CONTENT", _contentVal);
                         formData.append("_objectInfo.STATUS", "1");
@@ -322,6 +341,7 @@
                         var reponse = false;
                         var formData = new FormData();
                         var txtTitle = $("#txtTitle");
+                        var txtHeader = $("#txtHeader");
                         var CboAddWikiCataParent = $("#CboAddWikiCataParent");
                         var CboAddWikiCataChild = $("#CboAddWikiCataChild");
 
@@ -345,6 +365,7 @@
                         }
                         formData.append("_objectInfo.ID", txtDocID.val());
                         formData.append("_objectInfo.TITLE", txtTitle.val().trim());
+                        formData.append("_objectInfo.HEADER", txtHeader.val().trim());
                         formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
                         formData.append("_objectInfo.CONTENT", _contentVal);
                         var txt_WIKIADD_OLD_FILE_01 = $("#txt_WIKIADD_OLD_FILE_01");
@@ -393,6 +414,7 @@
                         var reponse = false;
                         var formData = new FormData();
                         var txtTitle = $("#txtTitle");
+                        var txtHeader = $("#txtHeader");
                         var CboAddWikiCataParent = $("#CboAddWikiCataParent");
                         var CboAddWikiCataChild = $("#CboAddWikiCataChild");
 
@@ -416,6 +438,7 @@
                         }
                         formData.append("_objectInfo.ID", txtDocID.val());
                         formData.append("_objectInfo.TITLE", txtTitle.val().trim());
+                        formData.append("_objectInfo.HEADER", txtHeader.val().trim());
                         formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
                         formData.append("_objectInfo.CONTENT", _contentVal);
                         var txt_WIKIADD_OLD_FILE_01 = $("#txt_WIKIADD_OLD_FILE_01");

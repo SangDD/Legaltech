@@ -3,7 +3,7 @@
 @using WebApps.CommonFunction
 @using BussinessFacade.ModuleMemoryData
 @{
-    ViewBag.Title = "Thêm mới Search";
+    ViewBag.Title = "Yêu cầu tra cứu";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     List<AllCodeInfo> _lstObject = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OBJECT");
@@ -133,7 +133,7 @@
         <span class="red">></span>
         <a href="/quan-ly-search/danh-sach-search">Quản lý Search</a>
         <span class="red">></span>
-        <a href="#">Thêm mới Search</a>
+        <a href="#">Yêu cầu tra cứu</a>
     </div>
 </div>
 <div class="divCover">

@@ -13,14 +13,13 @@
     }
 
     WikiCatalogues_Info _Catainfo = new WikiCatalogues_Info();
-    if (ViewBag.CatalogueInfo != null)
+    if (ViewBag.Parentinfo != null)
     {
-        _Catainfo = ViewBag.CatalogueInfo;
+        _Catainfo = ViewBag.Parentinfo;
     }
 }
 <link href=@($"/Content/WikiStyle.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
-@*<link href="~/Content/social-likes/social-likes_classic.css" rel="stylesheet" />
-<script src="~/Content/social-likes/social-likes.min.js"></script>*@
+ 
 
 
 <input type="hidden" value="TITLE" id="colSorted" />
@@ -32,6 +31,8 @@
     <input type="text" id="_txtwikidocsearch" placeholder="Tìm kiếm theo tên danh mục" />
      
     <input type="hidden" id="_txtwikicatanameabc" value="ALL" />
+    <input type="hidden" id="_txtwikicataid" value="@_Catainfo.ID" />
+    
     <div class="clssbox_button">
         <input type="button" id="btnfindObjects" value="@WebApps.Resources.Resource.WikiSearchButton" onclick="findObjects(1, 1)" />
     </div>
@@ -78,7 +79,10 @@
 
 
 <script>
-    var _NameABC = 'ALL', _ParentID = 'ALL', _NameSearch = 'ALL';
+
+    var _NameABC = 'ALL';
+    var _ParentID = 'ALL';
+    var _NameSearch = 'ALL';
 
     $("#_txtwikidocsearch").keyup(function (event) {
         if (event.keyCode === 13) {
@@ -87,6 +91,7 @@
         }
     });
     $(document).ready(function () {
+        setKeySearch();
         $('_txtwikidocsearch').focus();
     });
     var keySearch = "";
@@ -122,6 +127,8 @@
                 //    // nếu tìm bằng text box thì tìm trên tất cả các danh mục cha
                 //    _ParentID = "ALL";
                 //}
+                _ParentID = $("#_txtwikicataid").val();
+
 
             } else {
                 arrKeySearch = keySearch.split('|');
@@ -133,7 +140,12 @@
                 else {
                     _ParentID = $("#_txtwikicataid").val();
                 }
-                $("#_txtwikidocsearch").val(_NameSearch);
+                if (_NameSearch != "ALL")
+                {
+                    $("#_txtwikidocsearch").val(_NameSearch);
+                }
+               
+
             }
             _status = "3";
 
@@ -154,7 +166,7 @@
             }
             keySearch = _NameABC + "|" + _NameSearch + "|" + _ParentID;
             // updateSearchingConditions("divNumberRecordOnPageListObjects", setKeySearch);
-            var optionFilter = "NAME|ASC||" + _pageNumber + "|20";
+            var optionFilter = "NAME|ASC||" + _pageNumber + "|10";
             $.ajax({
                 type: "POST",
                 headers: { "cache-control": "no-cache" },
@@ -181,7 +193,7 @@
     }
 
     function setKeySearch() {
-        window.keySearch = _status + "|" + _catalogue + "|" + _titleHashtag;
+        window.keySearch = _NameABC + "|" + _ParentID + "|" + _NameSearch;
     }
 
     function initOrderBySearching() {

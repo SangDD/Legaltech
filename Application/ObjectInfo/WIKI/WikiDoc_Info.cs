@@ -14,6 +14,8 @@ namespace ObjectInfos
 
         public string TITLE { set; get; }
 
+        public string HEADER { set; get; }
+
         public string CONTENT { set; get; }
 
         public decimal VIEW_NUMBER { set; get; }

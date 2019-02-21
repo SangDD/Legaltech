@@ -104,7 +104,7 @@
                     if (item.CATA_ID == _DocdetailInfo.CATA_ID && item.ID != _DocdetailInfo.ID)
                     {
                         // lấy ra list những thằng anh em của nó
-                        <a class="dynamic-linkset list-group-item col-md-6 itemdoc" href='@(_langlink + "/wiki-view/doc-view/0/" + item.ID)' >
+                        <a class="dynamic-linkset list-group-item col-md-6 itemdoc" href='@(_langlink + "/wiki-view/doc-view/"+item.CATA_ID+"/" + item.ID)' >
                                 @item.TITLE
                         </a>
                     }
@@ -233,50 +233,7 @@
         }
     }
 
-
-
-    //function GetDocByCataid(_cataid) {
-    //    try {
-    //        $.ajax({
-    //            type: "POST",
-    //            url: "/wiki-view/GetDocByCataid/",
-    //            headers: { "cache-control": "no-cache" },
-    //            async: false,
-    //            data: { p_id: _cataid },
-    //            success: function (data) {
-    //                if (data != null) {
-    //                        $("#div_wiki_datacontent").html(data);
-    //                }
-    //                return false;
-    //            }
-    //        });
-    //    } catch (e) {
-    //        alert(e.toString());
-    //    }
-    //}
-
-    //function GetDocDetail(_Docid) {
-    //    try {
-    //        $.ajax({
-    //            type: "POST",
-    //            url: "/wiki-view/GetDocDetail/",
-    //            headers: { "cache-control": "no-cache" },
-    //            async: false,
-    //            data: { p_id: _Docid },
-    //            success: function (data) {
-    //                if (data != null) {
-    //                    $("#div_wiki_datacontent").html(data);
-    //                    document.getElementById("content").innerHTML = "/vi-vn/wiki-view/doc-list/0/12";
-    //                    window.history.pushState({ "html": "/vi-vn/wiki-view/doc-list/0/12", "pageTitle": "Chi tiết tin" }, "", urlPath);
-    //                }
-    //                return false;
-    //            }
-    //        });
-    //    } catch (e) {
-    //        alert(e.toString());
-    //    }
-    //}
-
+     
 
     function ExportDocToFile(_Docid) {
         try {
