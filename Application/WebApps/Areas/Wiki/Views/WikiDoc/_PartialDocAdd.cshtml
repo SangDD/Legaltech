@@ -70,7 +70,17 @@
         </div>
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Chủ đề  </div>
+                <div>Tóm tắt<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtHeader" maxlength="1000" />
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Chủ đề </div>
             </div>
             <div class="div-search-content">
                 <div id="divWikiChildCatalogue">
@@ -184,6 +194,7 @@
                 var reponse = false;
                 var formData = new FormData();
                 var txtTitle = $("#txtTitle");
+                var txtHeader = $("#txtHeader");
                 var CboAddWikiCataParent = $("#CboAddWikiCataParent");
                 var CboAddWikiCataChild = $("#CboAddWikiCataChild");
                
@@ -192,6 +203,12 @@
                     txtTitle.focus();
                     return false;
                 }
+
+                //if (txtHeader.val().trim() == "") {
+                //    showError('Tóm tắt không được để trống!');
+                //    txtHeader.focus();
+                //    return false;
+                //}
 
                 if (CboAddWikiCataChild.val() == "" || CboAddWikiCataChild.val() == null) {
                     showError('Chủ đề bài viết không được để trống!');
@@ -206,6 +223,7 @@
                     return false;
                 }
                 formData.append("_objectInfo.TITLE", txtTitle.val().trim());
+                formData.append("_objectInfo.HEADER", txtHeader.val().trim());
                 formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
                 formData.append("_objectInfo.CONTENT", _contentVal);
                 formData.append("_objectInfo.STATUS", '@CommonWiki.Stt_luutam');
@@ -245,6 +263,7 @@
                 var reponse = false;
                 var formData = new FormData();
                 var txtTitle = $("#txtTitle");
+                var txtHeader = $("#txtHeader");
                 var CboAddWikiCataParent = $("#CboAddWikiCataParent");
                 var CboAddWikiCataChild = $("#CboAddWikiCataChild");
 
@@ -267,6 +286,7 @@
                     return false;
                 }
                 formData.append("_objectInfo.TITLE", txtTitle.val().trim());
+                formData.append("_objectInfo.HEADER", txtHeader.val().trim());
                 formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
                 formData.append("_objectInfo.CONTENT", _contentVal);
                 formData.append("_objectInfo.STATUS", "2");

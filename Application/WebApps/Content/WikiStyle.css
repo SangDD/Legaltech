@@ -1884,3 +1884,9 @@ input[type=text], select, select option {
     font-size: 15px;
     text-transform:capitalize;
 }
+  .wiki_header {
+        max-height: 60px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }

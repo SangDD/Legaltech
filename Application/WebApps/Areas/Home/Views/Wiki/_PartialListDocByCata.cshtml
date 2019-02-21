@@ -18,16 +18,26 @@
         _langlink = "/en-gb";
     }
 }
+ 
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <input type="hidden" id="txtwikicataid" value="@_Catainfo.ID"/>
+        <input type="hidden" id="txtwikicataid" value="@_Catainfo.ID" />
         <div id="pagination-append" class="list-group item-list with-letters wikitable">
             @foreach (var item in _listDoc)
             {
-                <a class="dynamic-linkset list-group-item col-md-6 itemdoc"  href='@(_langlink + "/wiki-view/doc-view/0/" + item.ID)' >
+                <div class="dynamic-linkset list-group-item col-md-6 itemdoc">
                     <span class="badge">@item.VIEW_NUMBER</span>
-                    @item.TITLE
-                </a>
+                    <a href='@(_langlink + "/wiki-view/doc-view/"+item.CATA_ID+"/" + item.ID)'>
+
+                        @item.TITLE
+                    </a>
+                
+                    <div class="wiki_header">
+                        @item.HEADER
+                    </div>
+                   
+                </div>
+
             }
         </div>
     </div>
