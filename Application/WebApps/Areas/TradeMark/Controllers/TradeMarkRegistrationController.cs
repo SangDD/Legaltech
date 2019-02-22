@@ -412,6 +412,24 @@
         {
             try
             {
+                CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+                if (pInfo.Languague_Code == Language.LangVI)
+                {
+                    oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NH.rpt"));
+                    if (pDetail.isChuLogo == 1)
+                    {
+                        oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NHLogoChu.rpt"));
+                    }
+
+                }
+                else
+                {
+                    oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NH_EN.rpt"));
+                    if (pDetail.isChuLogo == 1)
+                    {
+                        oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NHLogoChu_EN.rpt"));
+                    }
+                }
                 string language = AppsCommon.GetCurrentLang();
                 AppInfoExport appInfo = new AppInfoExport();
                 string actionView = pInfo.ActionView;
@@ -460,6 +478,12 @@
                 if (pDetail.isChuLogo == 1)
                 {
                     appInfo.Logourl = pDetail.ChuLogo;
+                    //Hungtd: set font size cho logo
+                    CrystalDecisions.CrystalReports.Engine.TextObject _tectLogo;
+                    _tectLogo = (CrystalDecisions.CrystalReports.Engine.TextObject)oRpt.ReportDefinition.Sections[0].ReportObjects["Text8"];
+                    Font _fontFa = new Font(FontFamily.GenericSansSerif, pDetail.LOGO_FONT_SIZE==0?10: pDetail.LOGO_FONT_SIZE);
+                    //_tectLogo.Height = pDetail.LOGO_FONT_SIZE == 0 ? 10 * 70 : pDetail.LOGO_FONT_SIZE * 70;// set chiều cao nếu cần
+                    _tectLogo.ApplyFont(_fontFa);
                 }
                 else
                 {
@@ -705,25 +729,9 @@
                 List<AppInfoExport> _lst = new List<AppInfoExport>();
                 _lst.Add(appInfo);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<AppInfoExport>(_lst, false);
-                CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+              
                 //if (language == Language.LangVI)
-                if (pInfo.Languague_Code == Language.LangVI)
-                {
-                    oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NH.rpt"));
-                    if (pDetail.isChuLogo == 1)
-                    {
-                        oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NHLogoChu.rpt"));
-                    }
-
-                }
-                else
-                {
-                    oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NH_EN.rpt"));
-                    if (pDetail.isChuLogo == 1)
-                    {
-                        oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NHLogoChu_EN.rpt"));
-                    }
-                }
+             
                 if (pDetail.isChuLogo != 1)
                 {
                     CrystalDecisions.CrystalReports.Engine.PictureObject _pic01;

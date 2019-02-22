@@ -104,7 +104,9 @@ namespace ObjectInfos
         public decimal VI_TRANSLATE { get; set; }
         public decimal ID_EN { get; set; }
         public decimal STATUS_EN { get; set; }
-        
+
+        public int LOGO_FONT_SIZE { get; set; }
+
     }
 
     public class SuggestInfo
