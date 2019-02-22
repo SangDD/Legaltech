@@ -46,8 +46,11 @@ namespace ObjectInfos
         public string Logourl { get; set; }
         public string CodeLogo { get; set; }
         public HttpPostedFileBase pfileLogo { get; set; }
-        public int isChuLogo { get; set; }
+         
+        public int Logochu { get; set; }
         public string ChuLogo { get; set; }
+        public string FONTTYPE { get; set; }
+
         public int Dactichhanghoa { get; set; }
         public string Color { get; set; }
 

@@ -189,60 +189,52 @@
             </div>
         </div>*@
 
-        <div class="class_left_40">
-            <div class="class_block_title" style="padding-top:5px; ">
-                <label>@WebApps.Resources.Resource.lblMauNhanHieu :</label>
-                <input type="checkbox"  name="ckbNhanHieuChu" id="ckbNhanHieuChu" /> <span>là chữ (font-size)</span>
-                <input type="number"  id="txtFontSize" value="10" style="height: 17px;width: 40px;padding: 3px 0px 1px 0px;" /> 
-                <script>
-                    $("input[name='ckbNhanHieuChu'").change(function () {
-                        if (document.getElementById('ckbNhanHieuChu').checked) {
-                            $("#divckbNhanHieuAnh").css('display', 'none');
-                            $("#divLogo").css('display', 'none');
-                            $("#tagSuggessIMG").css('display', 'none');
-                            
-                            $("#divckbNhanHieuChu").css('display', 'block');
-                        } else {
-                            $("#divckbNhanHieuAnh").css('display', 'block');
-                            $("#divLogo").css('display', 'block');
-                            $("#divckbNhanHieuChu").css('display', 'none');
-                            $("#tagSuggessIMG").css('display', 'block');
-                        }
-                    });
+                <div class="class_left_40">
+                    <div class="class_block_title" style="padding-top:5px; ">
+                        <label>@WebApps.Resources.Resource.lblMauNhanHieu :</label>
+                        <input type="checkbox" name="ckbNhanHieuChu" id="ckbNhanHieuChu" /> <span>là chữ (font-size)</span>
+                        <input type="number" onchange="changeFontSize()" id="txtFontSize" value="12" style="height: 17px;width: 40px;padding: 3px 0px 1px 0px;" />
+                        <script>
+                            $("input[name='ckbNhanHieuChu'").change(function () {
+                                if (document.getElementById('ckbNhanHieuChu').checked) {
+                                    $("#divckbNhanHieuAnh").css('display', 'none');
+                                    $("#divLogo").css('display', 'none');
+                                    $("#tagSuggessIMG").css('display', 'none');
 
-
-                  
-                </script>
-            </div>
-            <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
-               data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
-
-            <div class="class_block_title_control" style="display:flex">
-                @* div them *@
-                @*<div id="divckbNhanHieuAnh">*@
-                    <div style="width:165px ;height:165px" id="divLogo">
-                        <img id="imgMauNhanHieu" src="~/Content/icons/logo.jpg" style="width:160px ;height:160px">
-                        <img id="imgMauNhanHieuTeplace" src="~/Content/icons/logo.jpg" hidden="hidden">
+                                    $("#divckbNhanHieuChu").css('display', 'block');
+                                } else {
+                                    $("#divckbNhanHieuAnh").css('display', 'block');
+                                    $("#divLogo").css('display', 'block');
+                                    $("#divckbNhanHieuChu").css('display', 'none');
+                                    $("#tagSuggessIMG").css('display', 'block');
+                                }
+                            });
+                        </script>
                     </div>
-                    <div class="container" id="divckbNhanHieuAnh"  style="flex-grow:1;padding-top:50px">
-                        <div class="file-upload btn btn-primary" style="margin-top:95px">
-                            <span>@WebApps.Resources.Resource.lblTaiFile</span>
-                            <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
+                    <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+                       data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
+
+                    <div class="class_block_title_control" style="display:flex">
+                        @* div them *@
+                        @*<div id="divckbNhanHieuAnh">*@
+                        <div style="width:165px ;height:165px" id="divLogo">
+                            <img id="imgMauNhanHieu" src="~/Content/icons/logo.jpg" style="width:160px ;height:160px">
+                            <img id="imgMauNhanHieuTeplace" src="~/Content/icons/logo.jpg" hidden="hidden">
+                        </div>
+                        <div class="container" id="divckbNhanHieuAnh" style="flex-grow:1;padding-top:50px">
+                            <div class="file-upload btn btn-primary" style="margin-top:95px">
+                                <span>@WebApps.Resources.Resource.lblTaiFile</span>
+                                <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
+                            </div>
+                        </div>
+                        @*</div>*@
+                        <div id="divckbNhanHieuChu" style="display:none">
+                            <div style="width:165px ;height:165px">
+                                <input type="text" class="classChuNhanHieu" id="txtChuNhanHieu" style="height:160px;width:160px;text-align: center;" />
+                            </div>
                         </div>
                     </div>
-                @*</div>*@
-
-                <div id="divckbNhanHieuChu" style="display:none">
-                    <div style="width:165px ;height:165px"  >
-                        <input type="text" class="classChuNhanHieu" id="txtChuNhanHieu" style="height:160px;width:160px" />
-                        <span style="height:160px;width:160px;border:1px;" id="pChuNhanHien"></span>
-                    </div>
                 </div>
-            </div>
-        </div>
-                
-
-
 
                 <div class="class_right_60" style="display:block">
                     @* Thêm mục đích sau này Admin đặt tên theo qui tắc phục vụ tìm kiếm *@
@@ -1463,11 +1455,13 @@
 
             //Logo dang chu 
             if ($("#ckbNhanHieuChu").prop('checked') == true) {
-                formdata.append("pDetail.isChuLogo", 1); 
+                formdata.append("pDetail.Logochu", 1); 
                 formdata.append("pDetail.ChuLogo", $("#txtChuNhanHieu").val());
+                formdata.append("pDetail.LOGO_FONT_SIZE", $("#txtFontSize").val());  
+                formdata.append("pDetail.FONTTYPE", "");  
             }
             else {
-                formdata.append("pDetail.isChuLogo", 0);  
+                formdata.append("pDetail.Logochu", 0);  
                 var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
                 if (fileLogo != undefined || fileLogo != null) {
                     formdata.append("pDetail.pfileLogo", fileLogo[0].files[0]);
@@ -1929,10 +1923,15 @@
         }
     });
 
-    var chunhanhieu = "";
+     
 
-    $("#txtFontSize").change(function () {
-       
-    })
+    function changeFontSize()
+    {
+        try {
+            document.getElementById("txtChuNhanHieu").style.fontSize = document.getElementById("txtFontSize").value + "px";
+        } catch (e) {
+
+        }
+    }
     
 </script>

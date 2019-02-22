@@ -67,7 +67,6 @@ namespace DataAccess.ModuleTrademark
                 new OracleParameter("p_cdk_fax_4", OracleDbType.Varchar2, pInfo.Cdk_Fax_4, ParameterDirection.Input),
                 new OracleParameter("p_cdk_email_4", OracleDbType.Varchar2, pInfo.Cdk_Email_4, ParameterDirection.Input),
                 new OracleParameter("p_used_special", OracleDbType.Decimal, pInfo.Used_Special, ParameterDirection.Input),
-
                 new OracleParameter("P_LOAINHANHIEU", OracleDbType.Varchar2, pInfo.LoaiNhanHieu, ParameterDirection.Input),
                 new OracleParameter("P_CODELOGO", OracleDbType.Varchar2, pInfo.CodeLogo, ParameterDirection.Input),
                 new OracleParameter("P_SODON_UT2", OracleDbType.Varchar2, pInfo.Sodon_Ut2, ParameterDirection.Input),
@@ -79,7 +78,9 @@ namespace DataAccess.ModuleTrademark
                 new OracleParameter("P_YCCAPPHO3", OracleDbType.Varchar2, pInfo.YCCapPho3, ParameterDirection.Input),
                 new OracleParameter("P_YCCAPPHO4", OracleDbType.Varchar2, pInfo.YCCapPho4, ParameterDirection.Input),
                 new OracleParameter("P_THOATHUANKHAC", OracleDbType.Varchar2, pInfo.ThoaThuanKhac, ParameterDirection.Input),
-                new OracleParameter("P_LOGOCHU", OracleDbType.Int32, pInfo.isChuLogo, ParameterDirection.Input),
+                new OracleParameter("P_LOGOCHU", OracleDbType.Int32, pInfo.Logochu, ParameterDirection.Input),
+                new OracleParameter("P_LOGO_FONT_SIZE", OracleDbType.Int32, pInfo.LOGO_FONT_SIZE, ParameterDirection.Input),
+                new OracleParameter("P_FONTTYPE", OracleDbType.Varchar2, pInfo.FONTTYPE, ParameterDirection.Input),
 
                 paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
@@ -166,6 +167,9 @@ namespace DataAccess.ModuleTrademark
                 new OracleParameter("P_YCCAPPHO3", OracleDbType.Varchar2, pInfo.YCCapPho3, ParameterDirection.Input),
                 new OracleParameter("P_YCCAPPHO4", OracleDbType.Varchar2, pInfo.YCCapPho4, ParameterDirection.Input),
                 new OracleParameter("P_THOATHUANKHAC", OracleDbType.Varchar2, pInfo.ThoaThuanKhac, ParameterDirection.Input),
+                 new OracleParameter("P_LOGOCHU", OracleDbType.Int32, pInfo.Logochu, ParameterDirection.Input),
+                new OracleParameter("P_LOGO_FONT_SIZE", OracleDbType.Int32, pInfo.LOGO_FONT_SIZE, ParameterDirection.Input),
+                new OracleParameter("P_FONTTYPE", OracleDbType.Varchar2, pInfo.FONTTYPE, ParameterDirection.Input),
                 paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;

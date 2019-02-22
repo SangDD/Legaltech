@@ -267,14 +267,49 @@
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblNhanHieu.ToUpper())
             <div class="class_full_div_input">
 
+                @*<div class="class_left_40">
+            <div class="class_block_title" style="padding-top:5px; "><label>@WebApps.Resources.Resource.lblMauNhanHieu:</label> </div>
+            <div class="class_block_title_control" style="display:flex">
+                <div style="width:165px ;height:165px" id="divLogo">
+                    <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
+                </div>
+            </div>
+        </div>*@
+
                 <div class="class_left_40">
-                    <div class="class_block_title" style="padding-top:5px; "><label>@WebApps.Resources.Resource.lblMauNhanHieu:</label> </div>
-                    <div class="class_block_title_control" style="display:flex">
-                        <div style="width:165px ;height:165px" id="divLogo">
-                            <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
-                        </div>
+                    <div class="class_block_title" style="padding-top:5px; ">
+                        <label>@WebApps.Resources.Resource.lblMauNhanHieu :</label>
+                        @if (objAppHeaderInfo.Logochu == 1)
+                        {
+                            <input type="checkbox" checked="checked" disabled="disabled" name="ckbNhanHieuChu" id="ckbNhanHieuChu" /> <span>là chữ (font-size)</span>
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="ckbNhanHieuChu" disabled="disabled" id="ckbNhanHieuChu" /> <span>là chữ (font-size)</span>
+                        }
+                        <input type="number"  disabled="disabled" id="txtFontSize" value="@objAppHeaderInfo.LOGO_FONT_SIZE" style="height: 17px;width: 40px;padding: 3px 0px 1px 0px;" />
+                    </div>
+                    <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+                       data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
+                    <div class="class_block_title_control divLogoAnh" style="display:flex">
+                        @if (objAppHeaderInfo.Logochu != 1)
+                        {
+                            <div style="width:165px ;height:165px" id="divLogo">
+                                <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
+                            </div>
+                        }
+                        else
+                        {
+
+                            <div id="divckbNhanHieuChu">
+                                <div style="width:165px ;height:165px">
+                                    <input type="text" class="classChuNhanHieu" id="txtChuNhanHieu" value="@urlMauNhanHieu" style="height:160px;width:160px;text-align: center;" />
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
+
 
                 <div class="class_right_60" style="display:block">
                     @* Thêm mục đích sau này Admin đặt tên theo qui tắc phục vụ tìm kiếm *@

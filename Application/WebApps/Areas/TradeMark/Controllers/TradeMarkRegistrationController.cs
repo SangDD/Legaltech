@@ -157,9 +157,9 @@
                         pDetail.Language_Code = language;
                         pDetail.App_Header_Id = pAppHeaderID;
 
-                        if (pDetail.isChuLogo != 1)
+                        if (pDetail.Logochu != 1)
                         {
-                            pDetail.isChuLogo = 0;
+                            pDetail.Logochu = 0;
                             if (pDetail.pfileLogo != null)
                             {
                                 pDetail.Logourl = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
@@ -168,7 +168,7 @@
                         else
                         {
                             pDetail.Logourl = pDetail.ChuLogo;
-                            pDetail.isChuLogo = 1;
+                            pDetail.Logochu = 1;
                         }
 
                         pReturn = objDetail.App_Detail_04NH_Insert(pDetail);
@@ -416,7 +416,7 @@
                 if (pInfo.Languague_Code == Language.LangVI)
                 {
                     oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NH.rpt"));
-                    if (pDetail.isChuLogo == 1)
+                    if (pDetail.Logochu == 1)
                     {
                         oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NHLogoChu.rpt"));
                     }
@@ -425,7 +425,7 @@
                 else
                 {
                     oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NH_EN.rpt"));
-                    if (pDetail.isChuLogo == 1)
+                    if (pDetail.Logochu == 1)
                     {
                         oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NHLogoChu_EN.rpt"));
                     }
@@ -442,6 +442,7 @@
                         if (ds04NH != null && ds04NH.Tables.Count == 5)
                         {
                             pDetail = CBO<AppDetail04NHInfo>.FillObjectFromDataTable(ds04NH.Tables[0]);
+                            pDetail.ChuLogo = pDetail.Logourl;
                             pInfo = (ApplicationHeaderInfo)pDetail;
                             pAppDocumentInfo = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds04NH.Tables[1]);
                             pAppDocOtherInfo = CBO<AppDocumentOthersInfo>.FillCollectionFromDataTable(ds04NH.Tables[2]);
@@ -450,6 +451,23 @@
                             ViewBag.lstFeeInfo = CBO<AppFeeFixInfo>.FillCollectionFromDataTable(ds04NH.Tables[4]);
                         }
                     }
+
+                    if (pInfo.Languague_Code == Language.LangVI)
+                    {
+                        if (pDetail.Logochu == 1)
+                        {
+                            oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NHLogoChu.rpt"));
+                        }
+
+                    }
+                    else
+                    {
+                        if (pDetail.Logochu == 1)
+                        {
+                            oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NHLogoChu_EN.rpt"));
+                        }
+                    }
+
                 }
                 //   string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/TM04Nh_vi.doc");
                 // Fill export_header
@@ -475,7 +493,7 @@
                 appInfo.DuadateExp = appInfo.Duadate.ToString("dd/MM/yyyy");
                 appInfo.Ngaynopdon_UtExp = appInfo.Ngaynopdon_Ut.ToString("dd/MM/yyyy");
 
-                if (pDetail.isChuLogo == 1)
+                if (pDetail.Logochu == 1)
                 {
                     appInfo.Logourl = pDetail.ChuLogo;
                     //Hungtd: set font size cho logo
@@ -699,7 +717,7 @@
                     }
                 }
                 #endregion
-                if (pDetail.isChuLogo == 1)
+                if (pDetail.Logochu == 1)
                 {
                     appInfo.Logourl = pDetail.ChuLogo;
                 }
@@ -732,7 +750,7 @@
               
                 //if (language == Language.LangVI)
              
-                if (pDetail.isChuLogo != 1)
+                if (pDetail.Logochu != 1)
                 {
                     CrystalDecisions.CrystalReports.Engine.PictureObject _pic01;
                     _pic01 = (CrystalDecisions.CrystalReports.Engine.PictureObject)oRpt.ReportDefinition.Sections[0].ReportObjects["Picture1"];
