@@ -788,7 +788,7 @@
                 if (_ds_all != null)
                 {
                     _ds_all.Tables[0].TableName = "Table";
-                    oRpt.SetDataSource(_ds_all);
+                    oRpt.SetDataSource(_ds_all);   
                 }
                 oRpt.Refresh();
 
