@@ -11,7 +11,7 @@
 
 <div id='@("div_condition_" + _IdSearch)' class="div-search-ad">
     <input type="hidden" value="@_IdSearch" class="txtIdSeachClass" />
-    <div class="div-search-title">
+    @*<div class="div-search-title">
         <div> Đối tượng <i class="redspan">(*)</i> </div>
     </div>
     <div class="div-search-content">
@@ -25,19 +25,28 @@
                 }
             </select>
         </div>
-    </div>
+    </div>*@
 
     <div class="div-search-title">
-        <div> Đối tượng <i class="redspan">(*)</i> </div>
+        <div> Loại <i class="redspan">(*)</i> </div>
     </div>
     <div class="div-search-content">
         <div>
             <select class="search_type" id="@("_cbosearch_type_" + _IdSearch)" disabled="disabled">
                 @foreach (AllCodeInfo item in _ListSearchType)
                 {
-                    <option value="@item.CdVal">
-                        @item.Content
-                    </option>
+                    if (item.CdVal == Model.SEARCH_TYPE.ToString())
+                    {
+                        <option value="@item.CdVal" selected="selected">
+                            @item.Content
+                        </option>
+                    }
+                    else
+                    {
+                        <option value="@item.CdVal">
+                            @item.Content
+                        </option>
+                    }
                 }
             </select>
         </div>

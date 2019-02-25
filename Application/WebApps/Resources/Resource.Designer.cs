@@ -394,7 +394,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Điều kiện Search.
+        ///   Looks up a localized string similar to Đối tượng tra cứu.
         /// </summary>
         public static string DieuKienSearch {
             get {
@@ -2059,6 +2059,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mô tả tóm tắt nhãn hiệu.
+        /// </summary>
+        public static string MoTaTomTat {
+            get {
+                return ResourceManager.GetString("MoTaTomTat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ngày.
         /// </summary>
         public static string Ngay {
@@ -2163,6 +2172,15 @@ namespace WebApps.Resources {
         public static string NoiDungChinh {
             get {
                 return ResourceManager.GetString("NoiDungChinh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đối tượng.
+        /// </summary>
+        public static string Object {
+            get {
+                return ResourceManager.GetString("Object", resourceCulture);
             }
         }
         
@@ -2491,7 +2509,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thêm mới search.
+        ///   Looks up a localized string similar to Yêu cầu tra cứu.
         /// </summary>
         public static string ThemMoiSearch {
             get {

@@ -3,7 +3,7 @@
 @using BussinessFacade.ModuleMemoryData
 @using WebApps.CommonFunction
 @{
-    ViewBag.Title = "Sửa Search";
+    ViewBag.Title = "Sửa thông tin yêu cầu tìm kiếm";
     Layout = "~/ViewsShared/_Layout.cshtml";
     SearchObject_Header_Info _HeaderInfo = new SearchObject_Header_Info();
     List<SearchObject_Detail_Info> _ListDetail = new List<SearchObject_Detail_Info>();
@@ -28,15 +28,22 @@
         var pShortInfo = new SuggestInfo("", "");
         if (language == Language.LangVI)
         {
-
-            pShortInfo = new SuggestInfo(item.name.Replace('/', ' '), item.value);
+            if (item.name != null)
+            {
+                pShortInfo = new SuggestInfo(item.name.Replace('/', ' '), item.value);
+            }
         }
         else
         {
-            pShortInfo = new SuggestInfo(item.name_en.Replace('/', ' '), item.value);
+            if (item.name_en != null)
+            {
+                pShortInfo = new SuggestInfo(item.name_en.Replace('/', ' '), item.value);
+            }
         }
         clstAppClassShortSuggest.Add(pShortInfo);
     }
+
+    List<AllCodeInfo> _lstObject = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OBJECT");
 }
 
 <style>
@@ -115,7 +122,7 @@
 <div class="d-main">
     <div class="divCover">
         <div class="classTitle">
-            <div class="div-title-content">SỬA THÔNG TIN SEARCH </div>
+            <div class="div-title-content">SỬA THÔNG TIN YÊU CẦU TÌM KIẾM </div>
         </div>
     </div>
     <div class="divCover">
@@ -136,6 +143,33 @@
             <div class="div-search-content">
                 <div>
                     <input type="text" placeholder="@WebApps.Resources.Resource.ClientReference" maxlength="200" id="txtClient_Reference" value="@_HeaderInfo.CLIENT_REFERENCE" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.Object<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select class="search_object" id="cbosearch_object">
+                        @foreach (AllCodeInfo item in _lstObject)
+                        {
+                            if (item.CdVal == _HeaderInfo.Object_Search.ToString())
+                            {
+                                <option value="@item.CdVal" selected="selected">
+                                    @item.Content
+                                </option>
+                            }
+                            else
+                            {
+                                <option value="@item.CdVal">
+                                    @item.Content
+                                </option>
+                            }
+                        }
+                    </select>
                 </div>
             </div>
         </div>
@@ -165,10 +199,18 @@
             </div>
         </div>
 
+        <br />
+        @{
+            string _id1 = "1";
+            string _isValid1 = "1";
+            string _model1 = _id1 + "|" + _isValid1 + "|" + "File đính kèm";
+            @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile_Local.cshtml", _model1)
+        }
+
         <div class="divCover cls_form_title">
             <img src="/Content/icons/category.png" />
             <div class="cls_form_header">
-                @WebApps.Resources.Resource.Class
+                @WebApps.Resources.Resource.MoTaTomTat
             </div>
         </div>
 
@@ -258,16 +300,28 @@
                 return false;
             }
 
+            var _re = checkValidate_File("1");
+            if (_re == false) {
+                return false;
+            }
+
             //var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
             formData.append("p_searchHeaderInfo.SEARCH_ID", '@_HeaderInfo.SEARCH_ID');
             formData.append("p_searchHeaderInfo.CASE_NAME", _txtcasename.val().trim());
             formData.append("p_searchHeaderInfo.CLIENT_REFERENCE", txtClient_Reference.val());
             formData.append("p_searchHeaderInfo.STATUS", '@CommonSearch.Stt_PhanChoLuatSu');
             formData.append("p_searchHeaderInfo.Country_Id", $("#cboCountry").val());
+            formData.append("p_searchHeaderInfo.Object_Search", $("#cbosearch_object").val());
 
-            $('.search_object').each(function (i, item) {
-                formData.append("p_SearchObject_Detail_Info[" + i + "].SEARCH_OBJECT", $(item).val());
-            });
+            var pfile = $("#file_attach_1");//lay du lieu file
+            if (pfile.val() != "") {
+                var _file = pfile[0].files[0];
+                formData.append("p_searchHeaderInfo.Url_File_Up", _file);
+            }
+
+            //$('.search_object').each(function (i, item) {
+            //    formData.append("p_SearchObject_Detail_Info[" + i + "].SEARCH_OBJECT", $(item).val());
+            //});
             $('.search_type').each(function (i, item) {
                 formData.append("p_SearchObject_Detail_Info[" + i + "].SEARCH_TYPE", $(item).val());
             });

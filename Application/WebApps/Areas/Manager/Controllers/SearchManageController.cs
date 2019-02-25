@@ -164,6 +164,14 @@ namespace WebApps.Areas.Manager.Controllers
                     p_searchHeaderInfo.CREATED_DATE = DateTime.Now;
                     p_searchHeaderInfo.REQUEST_DATE = DateTime.Now;
                     p_searchHeaderInfo.LANGUAGE_CODE = AppsCommon.GetCurrentLang();
+
+                    var url_File_Atachment = "";
+                    if (p_searchHeaderInfo.Url_File_Up != null)
+                    {
+                        url_File_Atachment = AppLoadHelpers.PushFileToServer(p_searchHeaderInfo.Url_File_Up, AppUpload.Search);
+                        p_searchHeaderInfo.Url_File = url_File_Atachment;
+                    }
+
                     _rel = _searchBL.SEARCH_HEADER_INSERT(p_searchHeaderInfo);
                     if (_rel < 0)
                     {
@@ -179,6 +187,7 @@ namespace WebApps.Areas.Manager.Controllers
                     foreach (SearchObject_Detail_Info item in p_SearchObject_Detail_Info)
                     {
                         item.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
+                        item.SEARCH_OBJECT = p_searchHeaderInfo.Object_Search;
                     }
                     _rel = _searchBL.SEARCH_DETAIL_INSERT(p_SearchObject_Detail_Info);
 
@@ -322,6 +331,7 @@ namespace WebApps.Areas.Manager.Controllers
                     foreach (SearchObject_Detail_Info item in p_SearchObject_Detail_Info)
                     {
                         item.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
+                        item.SEARCH_OBJECT = p_searchHeaderInfo.Object_Search;
                     }
                     _searchBL.SEARCH_DETAIL_DELETE(p_searchHeaderInfo.SEARCH_ID);
                     _rel = _searchBL.SEARCH_DETAIL_INSERT(p_SearchObject_Detail_Info);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace ObjectInfos
 {
@@ -59,5 +60,11 @@ namespace ObjectInfos
 
         public string Customer_Name { get; set; }
         public string Customer_Address { get; set; }
+        public decimal Object_Search { get; set; }
+        public string Object_Search_Name { get; set; }
+
+        public HttpPostedFileBase Url_File_Up { get; set; }
+        public string Url_File { get; set; }
+
     }
 }

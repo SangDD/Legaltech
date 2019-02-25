@@ -39,7 +39,7 @@
 @*<script src="https://code.jquery.com/jquery-1.12.4.js"></script>*@
 @*<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
 
-<script src="~/Scripts/jquery-1.12.4.js"></script>
+@*<script src="~/Scripts/jquery-1.12.4.js"></script>*@
 @*<script src="~/Scripts/jquery-ui-1.12.1.js"></script>*@
 
 <script src="~/Content/ComboCheckList/jquery.multiple.select_new.js"></script>
@@ -202,6 +202,23 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.Object<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select class="search_object" id="cbosearch_object">
+                        @foreach (AllCodeInfo item in _lstObject)
+                        {
+                            <option value="@item.CdVal">
+                                @item.Content
+                            </option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
                 <div>@WebApps.Resources.Resource.YeuCau<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
@@ -211,10 +228,19 @@
             </div>
         </div>
 
+        <br/>
+        @{
+            string _id1 = "1";
+            string _isValid1 = "1";
+            string _model1 = _id1 + "|" + _isValid1 + "|" + "File đính kèm";
+            @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile_Local.cshtml", _model1)
+        }
+
+
         <div class="divCover cls_form_title">
             <img src="/Content/icons/category.png" />
             <div class="cls_form_header">
-                @WebApps.Resources.Resource.Class
+                @WebApps.Resources.Resource.MoTaTomTat
             </div>
         </div>
 
@@ -303,6 +329,11 @@
                 return false;
             }
 
+            var _re = checkValidate_File("1");
+            if (_re == false) {
+                return false;
+            }
+
             var txtNotes = $("#txtNotes").val();
             if (txtNotes == null || txtNotes == "") {
                 jError("Yêu cầu không được bỏ trống!", "lỗi", function () {
@@ -319,10 +350,19 @@
             formData.append("p_searchHeaderInfo.STATUS", '@CommonSearch.Stt_PhanChoLuatSu');
             formData.append("p_searchHeaderInfo.Country_Id", $("#cboCountry").val());
             formData.append("p_searchHeaderInfo.Notes", $("#txtNotes").val());
+            formData.append("p_searchHeaderInfo.Object_Search", $("#cbosearch_object").val());
 
-            $('.search_object').each(function (i, item) {
-                formData.append("p_SearchObject_Detail_Info[" + i + "].SEARCH_OBJECT", $(item).val());
-            });
+            // lay du lieu file
+            var pfile = $("#file_attach_1");//lay du lieu file
+            if (pfile.val() != "") {
+                var _file = pfile[0].files[0];
+                formData.append("p_searchHeaderInfo.Url_File_Up", _file);
+            }
+
+            //$('.search_object').each(function (i, item) {
+            //    formData.append("p_SearchObject_Detail_Info[" + i + "].SEARCH_OBJECT", $(item).val());
+            //});
+
             $('.search_type').each(function (i, item) {
                 formData.append("p_SearchObject_Detail_Info[" + i + "].SEARCH_TYPE", $(item).val());
             });
@@ -349,7 +389,7 @@
                 enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.success >= 0) {
-                        jAlert('Thêm search thành công!', "THÔNG BÁO", function () {
+                        jAlert('Thêm yêu cầu tìm kiếm thành công!', "THÔNG BÁO", function () {
                             var url = "/quan-ly-search/danh-sach-search";
                             window.location.href = url;
                         });
