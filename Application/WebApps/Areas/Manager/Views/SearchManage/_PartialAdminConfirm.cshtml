@@ -43,7 +43,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <a style="height: 20px !important;" href="@QuestionInfo.FILE_URL"> @_filename </a>
+                    <a style="height: 20px !important;" href="@QuestionInfo.FILE_URL" download="@QuestionInfo.FILE_URL"> @_filename </a>
                 </div>
             </div>
         </div>
@@ -64,7 +64,27 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <a style="height: 20px !important;" href="@QuestionInfo.FILE_URL02"> @_filename1 </a>
+                    <a style="height: 20px !important;" href="@QuestionInfo.FILE_URL02" download="@QuestionInfo.FILE_URL02"> @_filename1 </a>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (_SearchObject_Header_Info.Url_Billing != null && _SearchObject_Header_Info.Url_Billing != "")
+    {
+        string[] _arr1 = _SearchObject_Header_Info.Url_Billing.Split('/');
+        string _filename1 = "Billing";
+        if (_arr1.Length > 0)
+        {
+            _filename1 = _arr1[_arr1.Length - 1];
+        }
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Billing<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <a style="height: 20px !important;" href="@_SearchObject_Header_Info.Url_Billing" download="@_SearchObject_Header_Info.Url_Billing"> @_filename1 </a>
                 </div>
             </div>
         </div>
@@ -109,15 +129,18 @@
         if (validateAction()) {
             nvsConfirm(null, "Bạn có chắc chắn muốn phản hồi lại cho khách hàng hay không?", function () {
                 $.ajax({
-                    url: '/quan-ly-search/admin-confirm',
+                    url: '/quan-ly-search/admin-confirm-a',
                     type: 'POST',
                     data: {
                         p_case_code: '@_SearchObject_Header_Info.CASE_CODE',
                         p_note: $('#txtNotes').val()
                     },
-                    processData: false, contentType: false, traditional: true, async: false,
-                    headers: { "cache-control": "no-cache" },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
                     success: function (data) {
+                        CreateRollingWaitingIcon(false);
                         if (data.success == "-1") {
                             jError("Lỗi check lại kết nối tới server");
                             return false;

@@ -308,13 +308,13 @@ namespace BussinessFacade
 
         }
 
-        public int Update_Url_Billing(string p_case_code, string p_url_billing)
+        public int Update_Url_Billing(string p_case_code,decimal p_billing_id, string p_url_billing)
         {
             try
             {
                 SearchObject_DA objData = new SearchObject_DA();
 
-                return objData.Update_Url_Billing(p_case_code, p_url_billing);
+                return objData.Update_Url_Billing(p_case_code, p_billing_id, p_url_billing);
             }
             catch (Exception ex)
             {

@@ -149,7 +149,79 @@
 
     <div style="margin-top:15px">
         <div>@WebApps.Resources.Resource.lblMoTa </div>
-        <textarea readonly type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200">@_HeaderInfo.CONTENT</textarea>
+        <textarea disabled type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200">@_HeaderInfo.CONTENT</textarea>
     </div>
 
+    <div class="divCover cls_form_title">
+        <img src="/Content/icons/category.png" />
+        <div class="cls_form_header">
+            Kết quả
+        </div>
+    </div>
+
+    @if (_QuestionInfo.FILE_URL != null && _QuestionInfo.FILE_URL != "")
+    {
+        string[] _arr = _QuestionInfo.FILE_URL.Split('/');
+        string _filename = "File attach";
+        if (_arr.Length > 0)
+        {
+            _filename = _arr[_arr.Length - 1];
+        }
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>File attach<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <a style="height: 20px !important;" href="@_QuestionInfo.FILE_URL" download="@_QuestionInfo.FILE_URL"> @_filename </a>
+                </div>
+            </div>
+        </div>
+    }
+
+
+    @if (_QuestionInfo.FILE_URL02 != null && _QuestionInfo.FILE_URL02 != "")
+    {
+        string[] _arr1 = _QuestionInfo.FILE_URL02.Split('/');
+        string _filename1 = "File attach";
+        if (_arr1.Length > 0)
+        {
+            _filename1 = _arr1[_arr1.Length - 1];
+        }
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>File attach<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <a style="height: 20px !important;" href="@_QuestionInfo.FILE_URL02" download="@_QuestionInfo.FILE_URL02"> @_filename1 </a>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (_HeaderInfo.Url_Billing != null && _HeaderInfo.Url_Billing != "")
+    {
+        string[] _arr1 = _HeaderInfo.Url_Billing.Split('/');
+        string _filename1 = "Billing";
+        if (_arr1.Length > 0)
+        {
+            _filename1 = _arr1[_arr1.Length - 1];
+        }
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Billing<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <a style="height: 20px !important;" href="@_HeaderInfo.Url_Billing" download="@_HeaderInfo.Url_Billing"> @_filename1 </a>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div style="margin-top:15px">
+        <div>Kết quả</div>
+        <textarea disabled type="text" style="height:100px;width:100%;" maxlength="200">@_QuestionInfo.RESULT</textarea>
+    </div>
 </div>

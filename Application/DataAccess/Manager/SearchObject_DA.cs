@@ -526,14 +526,15 @@ namespace DataAccess
             }
         }
 
-        public int Update_Url_Billing(string p_case_code, string p_url_billing)
+        public int Update_Url_Billing(string p_case_code,decimal p_billing_id, string p_url_billing)
         {
             try
             {
                 var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
                 OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SEARCH_OBJECTS.proc_update_url_billing",
                     new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
-                    new OracleParameter("p_status", OracleDbType.Varchar2, p_url_billing, ParameterDirection.Input),
+                    new OracleParameter("p_url_billing", OracleDbType.Varchar2, p_url_billing, ParameterDirection.Input),
+                    new OracleParameter("p_billing_id", OracleDbType.Decimal, p_billing_id, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;

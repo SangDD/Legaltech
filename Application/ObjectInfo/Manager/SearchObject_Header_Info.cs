@@ -66,5 +66,7 @@ namespace ObjectInfos
         public HttpPostedFileBase Url_File_Up { get; set; }
         public string Url_File { get; set; }
 
+        public decimal Billing_Id { get; set; }
+        public string Url_Billing { get; set; }
     }
 }

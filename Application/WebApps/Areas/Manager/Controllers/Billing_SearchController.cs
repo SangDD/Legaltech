@@ -167,13 +167,14 @@ namespace WebApps.Areas.Manager.Controllers
                 p_Billing_Header_Info.Status = (decimal)CommonEnums.Billing_Status.New_Wait_Approve;
                 p_Billing_Header_Info.Billing_Type = (decimal)CommonEnums.Billing_Type.Question;
                 decimal _ck = 0;
+                decimal _billing_id = 0;
                 using (var scope = new TransactionScope())
                 {
-                    _ck = _obj_bl.Billing_Insert(p_Billing_Header_Info);
+                    _billing_id = _obj_bl.Billing_Insert(p_Billing_Header_Info);
 
-                    if (_ck > 0 && _lst_billing_detail.Count > 0)
+                    if (_billing_id > 0 && _lst_billing_detail.Count > 0)
                     {
-                        _ck = _obj_bl.Billing_Detail_InsertBatch(_lst_billing_detail, _ck);
+                        _ck = _obj_bl.Billing_Detail_InsertBatch(_lst_billing_detail, _billing_id);
                     }
 
                     if (_ck > 0 && p_Billing_Header_Info.Insert_Type == (decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Search)
@@ -182,7 +183,7 @@ namespace WebApps.Areas.Manager.Controllers
                         if (_fileExport == "") goto Commit_Transaction;
 
                         SearchObject_BL _bl = new SearchObject_BL();
-                        _ck = _bl.Update_Url_Billing(p_Billing_Header_Info.App_Case_Code, _fileExport);
+                        _ck = _bl.Update_Url_Billing(p_Billing_Header_Info.App_Case_Code, _billing_id, _fileExport);
 
                         // insert vào docking
                         TradeMark.Controllers.ApplicationController.Insert_Docketing(p_Billing_Header_Info.Case_Code, "Report Billing", _fileExport, true);

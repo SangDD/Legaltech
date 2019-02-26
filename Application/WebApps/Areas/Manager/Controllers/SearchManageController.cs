@@ -55,7 +55,8 @@ namespace WebApps.Areas.Manager.Controllers
             {
 
                 var _SearchObject_BL = new SearchObject_BL();
-                lstOjects = _SearchObject_BL.SEARCH_OBJECT_SEARCH("||||");
+                string _key = "ALL|ALL|ALL|ALL|ALL" + "|" + SessionData.CurrentUser.Type.ToString() + "|" + SessionData.CurrentUser.Username;
+                lstOjects = _SearchObject_BL.SEARCH_OBJECT_SEARCH(_key);
                 ViewBag.Paging = _SearchObject_BL.GetPagingHtml();
             }
             catch (Exception ex)
@@ -75,7 +76,7 @@ namespace WebApps.Areas.Manager.Controllers
             {
 
                 var _SearchObject_BL = new SearchObject_BL();
-                lstOjects = _SearchObject_BL.SEARCH_OBJECT_SEARCH(keysSearch, options);
+                lstOjects = _SearchObject_BL.SEARCH_OBJECT_SEARCH(keysSearch + "|" + SessionData.CurrentUser.Type.ToString() + "|" + SessionData.CurrentUser.Username, options);
                 ViewBag.Paging = _SearchObject_BL.GetPagingHtml();
             }
             catch (Exception ex)
@@ -483,7 +484,7 @@ namespace WebApps.Areas.Manager.Controllers
         }
 
         [HttpPost]
-        [Route("admin-confirm")]
+        [Route("admin-confirm-a")]
         public ActionResult DoAdminConfirm(string p_case_code, string p_note)
         {
             try

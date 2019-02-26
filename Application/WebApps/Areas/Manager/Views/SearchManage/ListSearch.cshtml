@@ -3,7 +3,7 @@
 @using Common.CommonData
 @using ObjectInfos;
 @{
-    ViewBag.Title = "Quản lý Search";
+    ViewBag.Title = "Quản lý yêu cầu tìm kiếm";
     Layout = "~/ViewsShared/_Layout.cshtml";
     List<AllCodeInfo> _lstStatus = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "STATUS");
 }
@@ -29,7 +29,7 @@
         <div class="d-nav">
             <img src="~/Content/icons/Body-icon-home.png" /> I
 
-            <a href="#">Quản lý Search</a>
+            <a href="#">Quản lý yêu cầu tìm kiếm</a>
         </div>
     </div>
     <div class="divCover">
@@ -139,10 +139,10 @@
                 reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
                 if (isSearching === 1) {
                     _status = $("#txtCboStatus").val();
-                    _casename = $("#txtCasecode").val();
-                    _clientref = $("#_txtClientReference").val().trim();
-                    _createby = $("#_txtCreateBy").val();
-                    _lawer = $("#_txtLawer").val();
+                    _casename = $("#txtCasecode").val() || "ALL";
+                    _clientref = $("#_txtClientReference").val().trim() || "ALL";
+                    _createby = $("#_txtCreateBy").val() || "ALL";
+                    _lawer = $("#_txtLawer").val() || "ALL";
 
                 } else {
                     window.arrKeySearch = window.keySearch.split('|');
