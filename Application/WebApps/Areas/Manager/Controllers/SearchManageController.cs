@@ -317,6 +317,18 @@ namespace WebApps.Areas.Manager.Controllers
                     p_searchHeaderInfo.MODIFIED_BY = SessionData.CurrentUser.Username;
                     p_searchHeaderInfo.MODIFIED_DATE = DateTime.Now;
                     p_searchHeaderInfo.REQUEST_DATE = DateTime.Now;
+
+                    var url_File_Atachment = "";
+                    if (p_searchHeaderInfo.Url_File_Up != null)
+                    {
+                        url_File_Atachment = AppLoadHelpers.PushFileToServer(p_searchHeaderInfo.Url_File_Up, AppUpload.Search);
+                        p_searchHeaderInfo.Url_File = url_File_Atachment;
+                    }
+                    else
+                    {
+                        p_searchHeaderInfo.Url_File = "NA";
+                    }
+
                     _rel = _searchBL.SEARCH_HEADER_UPDATE(p_searchHeaderInfo);
                     if (_rel < 0)
                     {

@@ -199,10 +199,58 @@
             </div>
         </div>
 
-        <br />
+        @if (_HeaderInfo.Url_File != null && _HeaderInfo.Url_File != "")
+        {
+            @*<div class="div-search-ad">
+                <div class="div-search-title">
+                    <div> File đính kèm: </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <a style="height: 20px !important;" href="@_HeaderInfo.Url_File" download="@_HeaderInfo.Url_File"> File đính kèm </a>
+                    </div>
+                </div>
+            </div>*@
+
+            string[] _arr1 = _HeaderInfo.Url_File.Split('/');
+            string _filename1 = "File đính kèm";
+            if (_arr1.Length > 0)
+            {
+                _filename1 = _arr1[_arr1.Length - 1];
+            }
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>File đính kèm</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <a style="height: 20px !important;" href="@_HeaderInfo.Url_File" download="@_HeaderInfo.Url_File"> @_filename1 </a>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (_HeaderInfo.Url_File != null && _HeaderInfo.Url_File != "")
+        {
+            <div class="divCover cls_form_title">
+                <img src="/Content/icons/category.png" />
+                <div class="cls_form_header">
+                    Tải file đính kèm khác
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="divCover cls_form_title">
+                <img src="/Content/icons/category.png" />
+                <div class="cls_form_header">
+                    Tải file đính kèm
+                </div>
+            </div>
+        }
         @{
             string _id1 = "1";
-            string _isValid1 = "1";
+            string _isValid1 = "0";
             string _model1 = _id1 + "|" + _isValid1 + "|" + "File đính kèm";
             @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile_Local.cshtml", _model1)
         }

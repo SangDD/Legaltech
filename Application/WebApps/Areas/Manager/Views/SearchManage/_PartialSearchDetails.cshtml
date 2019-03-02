@@ -110,16 +110,36 @@
         </div>
     </div>
 
-    <div class="div-search-ad">
-        <div class="div-search-title">
-            <div> File đính kèm: </div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <a style="height: 20px !important;" href="@_HeaderInfo.Url_File" download="@_HeaderInfo.Url_File"> File đính kèm </a>
+    @if (_HeaderInfo.Url_File != null && _HeaderInfo.Url_File != "")
+    {
+        @*<div class="div-search-ad">
+                <div class="div-search-title">
+                    <div> File đính kèm: </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <a style="height: 20px !important;" href="@_HeaderInfo.Url_File" download="@_HeaderInfo.Url_File"> File đính kèm </a>
+                    </div>
+                </div>
+            </div>*@
+
+        string[] _arr1 = _HeaderInfo.Url_File.Split('/');
+        string _filename1 = "File đính kèm";
+        if (_arr1.Length > 0)
+        {
+            _filename1 = _arr1[_arr1.Length - 1];
+        }
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>File đính kèm</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <a style="height: 20px !important;" href="@_HeaderInfo.Url_File" download="@_HeaderInfo.Url_File"> @_filename1 </a>
+                </div>
             </div>
         </div>
-    </div>
+    }
 
     <div class="divCover cls_form_title">
         <img src="/Content/icons/category.png" />
