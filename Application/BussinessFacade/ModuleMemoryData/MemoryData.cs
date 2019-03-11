@@ -113,7 +113,8 @@
                     {
                         if (item.Code.Length > 2)
                         {
-                            pinfo.value = item.Code.Substring(0, 2);
+                            //pinfo.value = item.Code.Substring(0, 2);
+                            pinfo.value = item.Group_Code;
                         }
                         else
                         {

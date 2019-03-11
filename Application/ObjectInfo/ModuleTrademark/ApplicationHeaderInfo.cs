@@ -7,6 +7,8 @@ namespace ObjectInfos
 {
     public class AppClassInfo
     {
+        public string Group_Code { get; set; }
+
         public string Code { get; set; }
         public string Name_Vi { get; set; }
         public string Name_En { get; set; }
