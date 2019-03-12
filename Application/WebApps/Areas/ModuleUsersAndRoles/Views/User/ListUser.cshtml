@@ -74,7 +74,7 @@
                 <div>
                     <div>
                         <select data-controlcondition="TRUE" id="cboUserType" style="width: 250px;">
-                            <option value="">None</option>
+                            <option value="ALL">Tất cả</option>
                             @foreach (var item in _lstType)
                             {
                                 <option value="@item.CdVal">@item.Content</option>
@@ -88,7 +88,7 @@
                 <div class="div-search-content">
                     <div>
                         <select data-controlcondition="TRUE" id="cboStatusSearch">
-                            <option selected="selected" value="">None</option>
+                            <option selected="selected" value="">Tất cả</option>
                             @foreach (var item in _lstStatus)
                             {
                                 <option value="@item.CdVal">@item.Content</option>
@@ -153,7 +153,7 @@
 
         function findUsers(_pageNumber, _isSearching) {
             try {
-                type = "ALL";
+                type = $("#cboUserType").val();
 
                 var p_column = $("#txtSortColumn").val();
                 var p_type_sort = $("#txtSortType").val();
