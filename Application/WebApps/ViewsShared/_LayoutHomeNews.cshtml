@@ -3,12 +3,14 @@
 @using WebApps.ExtensionObject
 @using WebApps.CommonFunction;
 @{
+
     string _LanguageCode = AppsCommon.GetCurrentLang();
     string _langlink = "/vi-vn";
     if (_LanguageCode != "VI_VN")
     {
         _langlink = "/en-gb";
     }
+
 }
 <html>
 <head>
@@ -266,14 +268,14 @@
                                                         </div>
                                                         <div class="c-carousel_circle-shape -content o-background js-circle2 js-image is-leave" style="background-image: url(/Content/News/images/002.png); transform: translate3d(-5.58249px, -4.65331px, 0px);">
                                                         </div>
-                                                        <div class="c-carousel_circle-shape -content o-background js-circle2 js-image is-enter" style="background-image: url(/Content/News/images/003.png); transform: translate3d(-5.58249px, -4.65331px, 0px);">
+                                                        <div class="c-carousel_circle-shape -content o-background js-circle2 js-image is-enter" style="background-image: url(/Content/News/images/006.png); transform: translate3d(-5.58249px, -4.65331px, 0px);">
                                                         </div>
-                                                        <div class="c-carousel_circle-shape -content o-background js-circle2 js-image" style="background-image: url(/Content/News/images/004.png); transform: translate3d(-5.58249px, -4.65331px, 0px);">
+                                                        @*<div class="c-carousel_circle-shape -content o-background js-circle2 js-image" style="background-image: url(/Content/News/images/004.png); transform: translate3d(-5.58249px, -4.65331px, 0px);">
                                                         </div>
                                                         <div class="c-carousel_circle-shape -content o-background js-circle2 js-image" style="background-image: url(/Content/News/images/005.png); transform: translate3d(-5.58249px, -4.65331px, 0px);">
                                                         </div>
                                                         <div class="c-carousel_circle-shape -content o-background js-circle2 js-image" style="background-image: url(/Content/News/images/006.png); transform: translate3d(-5.58249px, -4.65331px, 0px);">
-                                                        </div>
+                                                        </div>*@
                                                     </div>
                                                 </div>
 
@@ -299,59 +301,65 @@
                                                         <h4 class="c-carousel_content-title">ACCESS.IP SOLUSION</h4>
                                                         <div class="c-carousel_content-description">
                                                             <p><span class="adm">_A Cloud Co-Elaboration Space of Services_</span></p>
-                                                            <p><b>ACCESS.IP</b> is a platform strived by IPath Consulting Company Limited to provide IP firms with <b>A Cloud Co-Elaboration Space of Services in Intellectual property.</b></p>
-                                                            <p>
-                                                                ACCESS.IP enables the IP firms, one connects to another, to handle IP registration and prosecution with a local IP Office in designated countries including Vietnam.
-                                                            </p>
+                                                            @if (_LanguageCode != "VI_VN")
+                                                            {
+                                                                <p><b>ACCESS.IP</b> is a platform strived by IPath Consulting Company Limited to provide IP firms with <b>A Cloud Co-Elaboration Space of Services in Intellectual property.</b></p>
+                                                                <p>
+                                                                    ACCESS.IP enables the IP firms, one connects to another, to handle IP registration and prosecution with a local IP Office in designated countries including Vietnam.
+                                                                </p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p><b>ACCESS.IP</b> là một nền tảng phát triển không gian làm việc số bởi Công ty TNHH Tư vấn iPath trong lĩnh vực cung cấp dịch vụ về Sở hữu trí tuệ (IP).</p>
+                                                                <p>
+                                                                    ACCESS.IP là giải pháp kết nối  Khách hàng với các tổ chức đại diện về IP, trực tiếp hợp tác giải quyết các vấn đề về xác lập quyền và bảo hộ quyền sở hữu trí tuệ đối với Nhãn hiệu, Sáng chế và Bản quyền tại Việt Nam và nước ngoài.
+                                                                </p>
+                                                            }
                                                         </div>
                                                     </div>
                                                     <div class="c-carousel_content js-content">
                                                         <h3 class="c-carousel_content-title">ACCESS.IP SOLUTIONS</h3>
                                                         <div class="c-carousel_content-description">
                                                             <p><span class="adm">__One Platform, multiple IP Workflows__</span></p>
-                                                            <p>
-                                                                ACCESS.IP is customized to transform necessary IP workflows into local procedures, from application filing till granting, then monitoring and watching in relevant jurisdictions. The cloud working space allows the immediate collaboration between the IP firms with local Agents in keeping case progress updated without time delay.
-                                                            </p>
+                                                            @if (_LanguageCode != "VI_VN")
+                                                            {
+                                                                <p>
+                                                                    ACCESS.IP is customized to transform necessary IP workflows into local procedures, from application filing till granting, then monitoring and watching in relevant jurisdictions. The cloud working space allows the immediate collaboration between the IP firms with local Agents in keeping case progress updated without time delay.
+                                                                </p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p>
+                                                                    ACCESS.IP tích hợp tất cả các thủ tục cần thiết,từ giai đoạn nộp đơn cho đến khi văn bằng bảo hộ được cấp, để xác lập quyền đối với Nhãn hiệu, Sáng chế và Bản quyền phù hợp với trình tự pháp lý nói chung, và theo đúng quy định và hướng dẫn cụ thể của Cục Sở hữu trí tuệ nói riêng. ACCESS.IP còn tích hợp các giao dịch tự động giữa Khách hàng và tổ chức đại diên, trong việc quản lý, cập nhật và báo cáo tiến trình nộp đơn đăng ký và duy trì hiệu lực sau khi văn bằng bảo hộ được cấp, giúp đơn giản hoá khối lượng giao dịch và kích hoạt tương tác tại bất kỳ thời điểm nào Khách hàng truy cập ACCESS.IP.
+                                                                </p>
+                                                            }
                                                         </div>
                                                     </div>
-                                                    <div class="c-carousel_content js-content is-active">
-                                                        <h3 class="c-carousel_content-title">ACCESS.IP SOLUTIONS</h3>
-                                                        <div class="c-carousel_content-description">
-                                                            <p><b>i-APPLICATION enables IP Attorneys to perform IP searches & applications with interactive directly with local Agents</b></p>
-                                                            <p><i>Free of Service Fees by doing almost of IP application processes by themselves, except for a minimum Agency fees before local IP Office and actual expenses;</i></p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="c-carousel_content js-content">
-                                                        <h3 class="c-carousel_content-title">ACCESS.IP SOLUTIONS</h3>
-                                                        <div class="c-carousel_content-description">
-                                                            <p><b>i-MONITOR</b> enables IP firms to closely follow up IP application handling process at local IP Offices</p>
-                                                            <p>
-                                                                <span class="adm">
-                                                                    Reduction of IP transaction workloads while monitoring application process substantively and timely with local IP Agents, almost at the same time with relevant local IP Offices;
-                                                                </span>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="c-carousel_content js-content">
-                                                        <h3 class="c-carousel_content-title">ACCESS.IP SOLUTIONS</h3>
-                                                        <div class="c-carousel_content-description">
-                                                            <p>
-                                                                <b>i-WATCHING</b> assists the clients managing the portfolio of IP registrations with the single access to the secured and encrypted account. <i>Each IP case have it own unique QR code and accessed by only the person authorized to handle it</i>
-                                                            </p>
-                                                        </div>
-                                                    </div>
+
                                                     <div class="c-carousel_content js-content">
                                                         <h3 class="c-carousel_content-title">
                                                             ACCESS.IP SOLUTIONS
                                                         </h3>
                                                         <div class="c-carousel_content-description">
-                                                            <p><span class="adm">_ FREE of Services Fees, Reduce Workload by 50% _</span></p>
-                                                            <p>
-                                                                STRUCTURE OF FEES<br>
-                                                                1.	Government Fees (20%): fix fees required by local IP Offices<br>
-                                                                2.	Agency Fees (30%): basic fees for representing (reviewing, filing, following up)<br>
-                                                                3.	Service <sup><i style=" color: #cf0d0d !important;">Fees</i></sup> FREE(50%): drafting /preparing Applications and Office Actions
-                                                            </p>
+                                                            <p><span class="adm">_Reduced Workload, Free of Charge by 50%_ </span></p>
+                                                            @if (_LanguageCode != "VI_VN")
+                                                            {
+                                                                <p>
+                                                                    ACCESS.IP restructures IP Schedule of Charges, applied for Members only, as follows:<br>
+                                                                    1.  Government Fees (20%): fix fees required by local IP Offices<br>
+                                                                    2.  Agency Fees (30%): basic fees for representing (reviewing, filing, following up)<br>
+                                                                    3.  Service <sup><i style=" color: #cf0d0d !important;">Fees</i></sup> FREE(50%): drafting, preparing forms available in ACCESS.IP
+                                                                </p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p>
+                                                                    ACCESS.IP một mặt là giải pháp tích hợp tương tác để hợp tác thực hiện thủ tục xác lập và bảo hộ quyền sở hữu trí tuệ, đồng thời giúp cấu trúc lại biểu phí áp dụng đối với Khách hàng thành viên của mình như sau:<br>
+                                                                    1.  Lệ phí quốc gia (20%): cố định theo lệ phí công bố bởi cơ quan SHTT nước sở tại<br>
+                                                                    2.  Phí Đại diện (30%): thay mặt khách hàng nộp đơn với cơ quan SHTT nước sở tại<br>
+                                                                    3.  Phí dịch vụ <sup><i style=" color: #cf0d0d !important;">Fees</i></sup> Miễn phí (50%): (Khách hàng thành viên tự thực hiện) soạn thảo đơn, chuẩn bị tài liệu, ....theo mẫu sẵn có trên ACCESS.IP.
+                                                                </p>
+                                                            }
                                                         </div>
                                                     </div>
 
@@ -372,20 +380,23 @@
                                     <section class="c-accordion-block" data-module="Dropdown" data-dropdown-mode="accordion" data-dropdown-scrollto="true">
                                         <div class="c-accordion-block_item js-dropdown">
                                             <div class="c-accordion-block_header js-dropdown-toggle">
-                                                <h2 class="c-accordion-block_title">i-Application</h2>
+                                                <h2 class="c-accordion-block_title">i-Searching:</h2>
                                                 <figure class="c-accordion-block_icon">
                                                     <i class="fa fa-plus-square-o" aria-hidden="true" style=" color: #666;font-size: 16px;"></i>
                                                 </figure>
                                             </div>
                                             <div class="c-accordion-block_content s-wysiwyg js-dropdown-content">
                                                 <p><b>ACCESS.IP SOLUTIONS</b></p>
-                                                <p>i-APPLICATION enables IP Attorneys to perform IP searches & applications with interactive directly with local Agents</p>
+                                                <p>Việc tra cứu khả năng bảo hộ của các đối tượng Sở hữu trí tuệ (SHTT) và/hoặc truy vấn bất kỳ vấn đề pháp lý nào ở nước sở tại có thể được gửi trực tiếp cho các chuyên viên tư vấn cho từng lĩnh vực trên ACCESS.IP.</p>
                                                 <p>
-                                                    <i>Free of Service Fees by doing almost of IP application processes by themselves, except for a minimum Agency fees before local IP Office and actual expenses;</i>
+                                                    <br /><b>Nhãn hiệu:</b> khả năng đăng ký và khả năng đáp ứng yêu cầu bảo hộ được tra cứu và đánh giá trên cơ sở dữ+A12 liệu công bố sớm nhất. Các phương án thay thế hoặc thoả thuận với chủ nhãn hiệu đối chứng cũng có thể được tư vấn theo yêu cầu;
+                                                    <br /><b>Sáng chế:</b> trên cơ sở phân tích và làm rõ yêu cầu bảo hộ, khả năng bảo hộ cũng như tính mới, tính sáng tạo của sáng chế sẽ được các chuyên gia phân tích và đánh giá dựa trên cơ sở dữ liệu sáng chế được công bố bảo hộ trên toàn thế giới;
+                                                    <br /><b>Thủ tục và pháp lý:</b> Khách hàng có thể gửi bất kỳ câu hỏi truy vấn nào khác về thủ tục và biểu nộp đơn, chuyển nhượng, li-xăng, khiếu nại, phản đối, tranh chấp, chống hàng giả, …trong lĩnh vực sở hữu trí tuệ;
+                                                    <br /><b>Nghiên cứu pháp lý khác:</b> có thể liên quan hoặc không liên quan đến sở hữu trí tuệ, Khách hàng có thể gửi bất kỳ câu hỏi truy vấn nào về quy định pháp lý trong lĩnh vực đầu tư và cấp phép, quản lý nhân sự và lao động, xuất nhập khẩu, quản lý rủi ro và tuân thủ pháp chế và các vấn đề khác trong hoạt động kinh doanh tại Việt Nam và nước ngoài.
                                                 </p>
 
                                                 <p>&nbsp;</p>
-                                                <p><img class="aligncenter" src="/Content/News/images/003.jpg" alt=""></p>
+                                                <p style="text-align: center;"><img class="aligncenter" src="/Content/News/images/1.png" alt=""></p>
                                                 <p>&nbsp;</p>
                                             </div>
                                         </div>
@@ -394,19 +405,19 @@
                                     <section class="c-accordion-block" data-module="Dropdown" data-dropdown-mode="accordion" data-dropdown-scrollto="true">
                                         <div class="c-accordion-block_item js-dropdown">
                                             <div class="c-accordion-block_header js-dropdown-toggle">
-                                                <h2 class="c-accordion-block_title">i-Monitor</h2>
+                                                <h2 class="c-accordion-block_title">i-Filing</h2>
                                                 <figure class="c-accordion-block_icon">
                                                     <i class="fa fa-plus-square-o" aria-hidden="true" style=" color: #666;font-size: 16px;"></i>
                                                 </figure>
                                             </div>
                                             <div class="c-accordion-block_content s-wysiwyg js-dropdown-content">
                                                 <p><b>ACCESS.IP SOLUTIONS</b></p>
-                                                <p>i-MONITOR enables IP firms to closely follow up IP application handling process at local IP Offices</p>
+                                               @* <p>i-MONITOR enables IP firms to closely follow up IP application handling process at local IP Offices</p>*@
                                                 <p>
-                                                    <i>Reduction of IP transaction workloads while monitoring application process substantively and timely with local IP Agents, almost at the same time with relevant local IP Offices;</i>
+                                                    <i>Tính năng này thiết kế để nộp đơn yêu cầu đăng ký Nhãn hiệu, Sáng chế và Bản quyền và các đối tượng khác. Khách hàng có thể tự hoàn thành đơn đăng ký theo mẫu biểu có sẵn với những chỉ dẫn cụ thể trên ứng dụng. Theo đó, Khách hàng  hoàn toàn không phải trả phí dịch vụ cho công việc phần lớn được hoàn thành dễ dàng này nhờ sự hỗ trợ của máy tính, ngoài một khoản phí Đại diện nộp đơn cho Cục Sở hữu trí tuệ.</i>
                                                 </p>
                                                 <p>&nbsp;</p>
-                                                <p><img class="aligncenter" src="/Content/News/images/004.jpg" alt=""></p>
+                                                <p style="text-align: center;"><img class="aligncenter" src="/Content/News/images/2.png" alt=""></pstyle="text-align:>
                                                 <p>&nbsp;</p>
 
                                             </div>
@@ -424,10 +435,17 @@
                                             <div class="c-accordion-block_content s-wysiwyg js-dropdown-content">
                                                 <p><b>ACCESS.IP SOLUTIONS</b></p>
                                                 <p>
-                                                    i-WATCHING assists the clients managing the portfolio of IP registrations with the single access to the secured and encrypted account. <i>Each IP case have it own unique QR code and accessed by only the person authorized to handle it</i>
+                                                    Là tính năng hỗ trợ theo dõi, bảo vệ và duy trì hiệu lực danh mục tài sản sở hữu trí tuệ của khách hàng đã đăng ký tại Việt Nam và nước ngoài. Cụ thể là:
+                                                </p>
+                                                <p>
+                                                    Theo dõi tiến trình đăng ký: việc quản lý quá trình đăng ký và bảo hộ sẽ được thực hiện bởi các chuyên viên kinh nghiệm với những khuyến cáo và chỉ dẫn cụ thể: tình trạng xét nghiệm đơn, khi nào cần nộp công văn phúc đáp, phản đối, khiếu nại, khi nào cần công bố và thay đổi đơn, gia hạn hoặc duy trì hiệu lực văn bằng bảo hộ được cấp;
+                                                    <br /><b>Tuân thủ pháp chế:</b> Khách hàng sẽ được cập nhật những quy định mới trong môi trường pháp lý thay đổi liên tục tại Việt Nam cũng như quốc tế; những thay đổi cần thiết nếu có ảnh hưởng đến quyền và tài sản sở hữu trí tuệ của mình:
+                                                    <br /><b>Phòng ngừa xâm phạm:</b>  sử dụng các biện pháp theo dõi tích cực và chủ động, thông qua các kênh điều tra thích hợp để phát hiện kịp thời các hành vi có khả năng xâm phạm quyền và tài sản Sở hữu trí tuệ của Khách hàng trong lĩnh vực kinh doanh hàng hoá, dịch vụ tương ứng;
+                                                    <br /><b>Điều tra xác minh:</b> triển khai các biện pháp điều tra định hướng kiểm soát rủi ro nhằm đánh giá sâu sắc và toàn diện về đối tác, khách hàng, nhà cung cấp, để thiết kế các chiến lược chuyển nhượng hoặc nhượng quyền thương mại hiệu quả hơn;
+                                                    <br /><b>Thông báo tự động:</b> ACCESS.IP liên tục cập nhật và tự động gửi báo cáo cho khách hàng trên bất kỳ diễn tiến nào về tình trạng đơn, vụ việc, thời hạn, thời hiệu, kết quả điều tra xác minh và phân tích liên quan.
                                                 </p>
                                                 <p>&nbsp;</p>
-                                                <p><img class="alignnone" src="/Content/News/images/005.jpg" alt=""></p>
+                                                <p style="text-align: center;"><img class="alignnone" src="/Content/News/images/3.png" alt=""></p>
                                                 <p>&nbsp;</p>
                                             </div>
                                         </div>
@@ -441,9 +459,18 @@
                                         <div class="container-fluid">
                                             <div class="title" style="padding-top: 15px;">
                                                 <span style="text-transform: unset;">
-                                                    <p>
-                                                        Please register here for more information
-                                                    </p>
+                                                    @if (_LanguageCode != "VI_VN")
+                                                    {
+                                                        <p>
+                                                            Please register here for more information
+                                                        </p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p>
+                                                            Đăng ký thông tin
+                                                        </p>
+                                                    }
                                                 </span>
                                             </div>
                                             @*<form method="POST"  >*@
@@ -538,7 +565,7 @@
                                         <ul class="c-footer_cta-list">
                                             <li class="c-footer_cta-item -copyright">Ⓒ iPath - Allrights reserved</li>
                                             <li class="c-footer_cta-item -contact">
-                                                <a href="javascript:;">Contact us</a>
+                                                <a href="javascript:;">Điều khoản sử dụng / Chính sách quyền riêng tư</a>
                                             </li>
                                             <li class="c-footer_cta-item -locomotive">
                                             </li>

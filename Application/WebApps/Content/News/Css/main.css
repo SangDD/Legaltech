@@ -9753,9 +9753,10 @@ a:focus,a:hover {
 }
 
 @media(min-width:1000px) {
-  .t-generic_col-right {
-    width: calc(100% - 365px);
-  }
+    .t-generic_col-right {
+        width: calc(100% - 100px);
+        /*width: calc(100% - 365px);*/
+    }
 }
 
 .t-generic_col-right-wrap {

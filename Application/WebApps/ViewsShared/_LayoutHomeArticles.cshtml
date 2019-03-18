@@ -101,8 +101,8 @@
                             </a>
                         </li>
                         @*<li class="c-header_nav-item js-nav-nosublink" id="btButton">
-                            <a href="javascript:;" onclick="return funcBottom();" class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
-                        </li>*@
+                                <a href="javascript:;" onclick="return funcBottom();" class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
+                            </li>*@
                         <li class="c-header_nav-item js-nav-nosublink">
                             <div class="" style="width:100% !important;padding-top:10px;">
                                 @if (_LanguageCode == LangCode.EN_US.ToString())
@@ -260,9 +260,18 @@
                                             <div class="container-fluid">
                                                 <div class="title" style="padding-top: 15px;">
                                                     <span style="text-transform: unset;">
-                                                        <p>
-                                                            Please register here for more information
-                                                        </p>
+                                                        @if (_LanguageCode != "VI_VN")
+                                                        {
+                                                            <p>
+                                                                Please register here for more information
+                                                            </p>
+                                                        }
+                                                        else
+                                                        {
+                                                            <p>
+                                                                Đăng ký thông tin
+                                                            </p>
+                                                        }
                                                     </span>
                                                 </div>
                                                 @*<form method="POST"  >*@
@@ -354,7 +363,7 @@
                                             <ul class="c-footer_cta-list">
                                                 <li class="c-footer_cta-item -copyright">Ⓒ iPath - Allrights reserved</li>
                                                 <li class="c-footer_cta-item -contact">
-                                                    <a href="javascript:;">Contact us</a>
+                                                    <a href="javascript:;">Điều khoản sử dụng / Chính sách quyền riêng tư</a>
                                                 </li>
                                                 <li class="c-footer_cta-item -locomotive">
                                                 </li>
@@ -366,7 +375,7 @@
                                 </div>
 
                             </div>
-</section>
+                    </section>
                 </article>
                 <aside class="scrollbar-track scrollbar-track-x" style="display: none;">
                     <div class="scrollbar-thumb scrollbar-thumb-x" style="width: 1259px; transform: translate3d(0px, 0px, 0px);"></div>
@@ -392,98 +401,98 @@
 </body>
 </html>
 
-    <script>
-        function functionGetNews() {
-            window.location.href = "/quan-ly-tin/news-home-page";
-        }
-        function funcBottom() {
-            $('.t-Khoanbetong_scroll').click();
-            $("#txtFNAME").focus();
+<script>
+    function functionGetNews() {
+        window.location.href = "/quan-ly-tin/news-home-page";
+    }
+    function funcBottom() {
+        $('.t-Khoanbetong_scroll').click();
+        $("#txtFNAME").focus();
 
-        }
-        function funcHome() {
-            window.location.href = "/";
-        }
-        function funLogin() {
-            window.location.href = "/account/login";
-        }
-        function funcVi() {
-            window.location.href = "/Language?culture=vi-VN&returnUrl=Home";
-        }
-        function funcEn() {
-            window.location.href = "/Language?culture=en-GB&returnUrl=Home";
-        }
+    }
+    function funcHome() {
+        window.location.href = "/";
+    }
+    function funLogin() {
+        window.location.href = "/account/login";
+    }
+    function funcVi() {
+        window.location.href = "/Language?culture=vi-VN&returnUrl=Home";
+    }
+    function funcEn() {
+        window.location.href = "/Language?culture=en-GB&returnUrl=Home";
+    }
 
-        function funcRegister() {
-            try {
-                var fname = $("#txtFNAME").val();
-                if (fname === "" || fname == undefined) {
-                    jError('The registered name is not empty!', "Info");
-                    $("#txtFNAME").focus();
-                    return false;
-                }
+    function funcRegister() {
+        try {
+            var fname = $("#txtFNAME").val();
+            if (fname === "" || fname == undefined) {
+                jError('The registered name is not empty!', "Info");
+                $("#txtFNAME").focus();
+                return false;
+            }
 
-                var lname = $("#txtLNAME").val();
-                var phone = $("#txtPHONE").val();
-                var email = $("#txtEmail").val();
+            var lname = $("#txtLNAME").val();
+            var phone = $("#txtPHONE").val();
+            var email = $("#txtEmail").val();
 
-                if (phone === "" && email == "") {
-                    jError('Email or Phone number is not empty!', "Info");
-                    $("#txtEmail").focus();
-                    return false;
-                }
-                var company = $("#txtCOMPANY").val();
-                var formData = new FormData();
-                formData.append("pRegisInfo.FistName", fname);
-                formData.append("pRegisInfo.LastName", lname);
-                formData.append("pRegisInfo.Email", email);
-                formData.append("pRegisInfo.Phone", phone);
-                formData.append("pRegisInfo.Company", company);
+            if (phone === "" && email == "") {
+                jError('Email or Phone number is not empty!', "Info");
+                $("#txtEmail").focus();
+                return false;
+            }
+            var company = $("#txtCOMPANY").val();
+            var formData = new FormData();
+            formData.append("pRegisInfo.FistName", fname);
+            formData.append("pRegisInfo.LastName", lname);
+            formData.append("pRegisInfo.Email", email);
+            formData.append("pRegisInfo.Phone", phone);
+            formData.append("pRegisInfo.Company", company);
 
-                $.ajax({
-                    url: "/register",
-                    type: 'POST',
-                    data: formData,
-                    processData: false, contentType: false, traditional: true, dataType: "json",
-                    enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
-                    success: function (data) {
-                        if (data != null && data.status >= 0) {
-                            jAlert("Sign Up Success!", "Info");
-                            funcReset();
-                            return true;
-                        }
-                        else if (data.status == -22) {
-                            jError("The number of email or email was registered!", "Error");
-                            funcReset();
-                            return;
-                        }
-                        else {
-                            jError("Registration failed!", "Error");
-                            funcReset();
-                            return;
-                        }
-                    },
-                    error: function (e) {
-                        console.log(e);
+            $.ajax({
+                url: "/register",
+                type: 'POST',
+                data: formData,
+                processData: false, contentType: false, traditional: true, dataType: "json",
+                enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                success: function (data) {
+                    if (data != null && data.status >= 0) {
+                        jAlert("Sign Up Success!", "Info");
+                        funcReset();
+                        return true;
                     }
-                });
+                    else if (data.status == -22) {
+                        jError("The number of email or email was registered!", "Error");
+                        funcReset();
+                        return;
+                    }
+                    else {
+                        jError("Registration failed!", "Error");
+                        funcReset();
+                        return;
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
 
 
-            } catch (e) {
+        } catch (e) {
 
-            }
+        }
+    }
+
+    function funcReset() {
+        try {
+            $("#txtFNAME").val("");
+            $("#txtLNAME").val("");
+            $("#txtEmail").val("");
+            $("#txtPHONE").val("");
+        } catch (e) {
+
         }
 
-        function funcReset() {
-            try {
-                $("#txtFNAME").val("");
-                $("#txtLNAME").val("");
-                $("#txtEmail").val("");
-                $("#txtPHONE").val("");
-            } catch (e) {
+    }
 
-            }
-
-        }
-
-    </script>
+</script>
