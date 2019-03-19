@@ -212,8 +212,6 @@ namespace WebApps.Areas.Articles.Controllers
             }
         }
 
-
-
         [HttpGet]
         [Route("xoa-bai-viet")]
         public ActionResult DelNewsArticles(decimal pIDArticles)
@@ -276,8 +274,6 @@ namespace WebApps.Areas.Articles.Controllers
                 return View();
             }
         }
-
-
 
         /// <summary>
         /// Danh sách bài viết 
@@ -346,8 +342,6 @@ namespace WebApps.Areas.Articles.Controllers
             }
         }
 
-
-
         [HttpPost]
         [Route("next-news-page")]
         public ActionResult GetNextPage(string pCategory, int pPage)
@@ -408,28 +402,38 @@ namespace WebApps.Areas.Articles.Controllers
         {
             try
             {
-                string pCategory ="";
+                string _code = "";
                 if (RouteData.Values.ContainsKey("id"))
                 {
-                    pCategory = CommonFuc.ConvertToString(RouteData.Values["id"]);
+                    _code = CommonFuc.ConvertToString(RouteData.Values["id"]);
                 }
-                var objNewsBL = new NewsBL();
+                var objBL = new Sys_Pages_BL();
                 string language = AppsCommon.GetCurrentLang();
-                List <NewsInfo> lstNews = objNewsBL.NewsStatic(language);
-                ViewBag.objNewInfo = new NewsInfo();
-                if (lstNews.Count>0)
-                {
-                    foreach (var item in lstNews)
-                    {
-                        if(item.Categories_Id.ToUpper() == pCategory.ToUpper())
-                        {
-                            ViewBag.objNewInfo = item;
-                            return View("~/Areas/Articles/Views/ArticlesNews/NewsDetailByCategory.cshtml");
-                        }
-                    }
-                } 
-                return View("~/Areas/Articles/Views/ArticlesNews/NewsDetailByCategory.cshtml");
+                Sys_Pages_Info _pageInfo = objBL.Sys_Pages_GetBy_Code(_code);
+                ViewBag.objNewInfo = _pageInfo;
+                return View("~/Areas/Sys_Pages/Views/SysPages/NewsDetail_By_Home.cshtml");
 
+                //string pCategory ="";
+                //if (RouteData.Values.ContainsKey("id"))
+                //{
+                //    pCategory = CommonFuc.ConvertToString(RouteData.Values["id"]);
+                //}
+                //var objNewsBL = new NewsBL();
+                //string language = AppsCommon.GetCurrentLang();
+                //List <NewsInfo> lstNews = objNewsBL.NewsStatic(language);
+                //ViewBag.objNewInfo = new NewsInfo();
+                //if (lstNews.Count>0)
+                //{
+                //    foreach (var item in lstNews)
+                //    {
+                //        if(item.Categories_Id.ToUpper() == pCategory.ToUpper())
+                //        {
+                //            ViewBag.objNewInfo = item;
+                //            return View("~/Areas/Articles/Views/ArticlesNews/NewsDetailByCategory.cshtml");
+                //        }
+                //    }
+                //} 
+                //return View("~/Areas/Articles/Views/ArticlesNews/NewsDetailByCategory.cshtml");
             }
             catch (Exception ex)
             {
@@ -444,27 +448,39 @@ namespace WebApps.Areas.Articles.Controllers
         {
             try
             {
-                string pCategory = "";
+
+                string _code = "";
                 if (RouteData.Values.ContainsKey("id"))
                 {
-                    pCategory = CommonFuc.ConvertToString(RouteData.Values["id"]);
+                    _code = CommonFuc.ConvertToString(RouteData.Values["id"]);
                 }
-                var objNewsBL = new NewsBL();
+                var objBL = new Sys_Pages_BL();
                 string language = AppsCommon.GetCurrentLang();
-                List<NewsInfo> lstNews = objNewsBL.NewsStatic(language);
-                ViewBag.objNewInfo = new NewsInfo();
-                if (lstNews.Count > 0)
-                {
-                    foreach (var item in lstNews)
-                    {
-                        if (item.Categories_Id.ToUpper() == pCategory.ToUpper())
-                        {
-                            ViewBag.objNewInfo = item;
-                            return View("~/Areas/Articles/Views/ArticlesNews/NewsDetailByCategory.cshtml");
-                        }
-                    }
-                }
-                return View("~/Areas/Articles/Views/ArticlesNews/NewsDetailByCategory.cshtml");
+                Sys_Pages_Info _pageInfo = objBL.Sys_Pages_GetBy_Code(_code);
+                ViewBag.objNewInfo = _pageInfo;
+                return View("~/Areas/Sys_Pages/Views/SysPages/NewsDetail_By_Home.cshtml");
+
+                //string pCategory = "";
+                //if (RouteData.Values.ContainsKey("id"))
+                //{
+                //    pCategory = CommonFuc.ConvertToString(RouteData.Values["id"]);
+                //}
+                //var objNewsBL = new NewsBL();
+                //string language = AppsCommon.GetCurrentLang();
+                //List<NewsInfo> lstNews = objNewsBL.NewsStatic(language);
+                //ViewBag.objNewInfo = new NewsInfo();
+                //if (lstNews.Count > 0)
+                //{
+                //    foreach (var item in lstNews)
+                //    {
+                //        if (item.Categories_Id.ToUpper() == pCategory.ToUpper())
+                //        {
+                //            ViewBag.objNewInfo = item;
+                //            return View("~/Areas/Articles/Views/ArticlesNews/NewsDetailByCategory.cshtml");
+                //        }
+                //    }
+                //}
+                //return View("~/Areas/Articles/Views/ArticlesNews/NewsDetailByCategory.cshtml");
 
             }
             catch (Exception ex)
@@ -480,27 +496,38 @@ namespace WebApps.Areas.Articles.Controllers
         {
             try
             {
-                string pCategory = "";
+                string _code = "";
                 if (RouteData.Values.ContainsKey("id"))
                 {
-                    pCategory = CommonFuc.ConvertToString(RouteData.Values["id"]);
+                    _code = CommonFuc.ConvertToString(RouteData.Values["id"]);
                 }
-                var objNewsBL = new NewsBL();
+                var objBL = new Sys_Pages_BL();
                 string language = AppsCommon.GetCurrentLang();
-                List<NewsInfo> lstNews = objNewsBL.NewsStatic(language);
-                ViewBag.objNewInfo = new NewsInfo();
-                if (lstNews.Count > 0)
-                {
-                    foreach (var item in lstNews)
-                    {
-                        if (item.Categories_Id.ToUpper() == pCategory.ToUpper())
-                        {
-                            ViewBag.objNewInfo = item;
-                            return View("~/Areas/Articles/Views/ArticlesNews/NewsDetailByCategory.cshtml");
-                        }
-                    }
-                }
-                return View("~/Areas/Articles/Views/ArticlesNews/NewsDetailByCategory.cshtml");
+                Sys_Pages_Info _pageInfo = objBL.Sys_Pages_GetBy_Code(_code);
+                ViewBag.objNewInfo = _pageInfo;
+                return View("~/Areas/Sys_Pages/Views/SysPages/NewsDetail_By_Home.cshtml");
+
+                //string pCategory = "";
+                //if (RouteData.Values.ContainsKey("id"))
+                //{
+                //    pCategory = CommonFuc.ConvertToString(RouteData.Values["id"]);
+                //}
+                //var objNewsBL = new NewsBL();
+                //string language = AppsCommon.GetCurrentLang();
+                //List<NewsInfo> lstNews = objNewsBL.NewsStatic(language);
+                //ViewBag.objNewInfo = new NewsInfo();
+                //if (lstNews.Count > 0)
+                //{
+                //    foreach (var item in lstNews)
+                //    {
+                //        if (item.Categories_Id.ToUpper() == pCategory.ToUpper())
+                //        {
+                //            ViewBag.objNewInfo = item;
+                //            return View("~/Areas/Articles/Views/ArticlesNews/NewsDetailByCategory.cshtml");
+                //        }
+                //    }
+                //}
+                //return View("~/Areas/Articles/Views/ArticlesNews/NewsDetailByCategory.cshtml");
 
             }
             catch (Exception ex)

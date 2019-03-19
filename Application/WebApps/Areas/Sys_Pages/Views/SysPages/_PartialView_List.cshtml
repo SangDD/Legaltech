@@ -1,0 +1,56 @@
+﻿@using Common.CommonData
+@using ObjectInfos
+@{
+    List<Sys_Pages_Info> listArticles = ViewBag.listArticles;
+    if (listArticles == null)
+    {
+        listArticles = new List<Sys_Pages_Info>();
+    }
+}
+@try
+{
+    <div>
+        <table class="table-lst-data" id="tableListObject">
+            <thead>
+                <tr>
+                    <th style="width: 4%">@WebApps.Resources.Resource.lblSTT</th>
+                    <th style="width: 25%" data-sort id="HEADER" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.lblTieuDe</th>
+                    <th style="width: 25%" data-sort id="CREATED_BY" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.lblNguoiTao</th>
+                    <th style="width: 15%" data-sort id="MODIFIED_DATE">@WebApps.Resources.Resource.lblCapNhatLuc</th>
+                    <th style="width: 100px;">@WebApps.Resources.Resource.lblChucNang</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in listArticles)
+                    {
+                        <tr>
+                            <td class="tdcenteralign">@item.STT</td>
+                            <td class="tdleftalign">@item.Header</td>
+                            <td class="tdleftalign">@item.Created_By</td>
+                            <td class="tdleftalign">@item.Created_Date.ToString("dd/MM/yyy HH:mm:ss")</td>
+                            <td class="tdcenteralign">
+                                <a href="/quan-ly-trang-bia/chi-tiet-bai-viet/@item.Id" class="icon icon-info" data-title="@WebApps.Resources.Resource.btnXemChiTiet"></a>
+                                <a href="/quan-ly-trang-bia/sua-bai-viet/@item.Id" class="icon icon-edit" data-title="@WebApps.Resources.Resource.btnSua"></a>
+                                <a href="javascript:;" onclick="return funcDel_Pages(@item.Id)" class="icon icon-delete" data-title="@WebApps.Resources.Resource.btnXoa"></a>
+                            </td>
+                        </tr>
+                    }
+
+                    if (listArticles.Count < 1)
+                    {
+                        <tr><td colspan="9"> Không có dữ liệu </td> </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-paging">
+        @Html.Raw(ViewBag.Paging)
+    </div>
+}
+catch (Exception)
+{
+    // ignored
+}

@@ -1,0 +1,39 @@
+﻿@using ObjectInfos
+@using WebApps.CommonFunction;
+@{
+    var objInfo = new Sys_Pages_Info();
+    if (ViewBag.objNewInfo != null)
+    {
+        objInfo = ViewBag.objNewInfo;
+
+
+        ViewBag.Title = objInfo.Header;
+    }
+    Layout = "~/ViewsShared/_LayoutHomeArticles.cshtml";
+    string _LanguageCode = AppsCommon.GetCurrentLang();
+}
+<style>
+    #divClose:hover {
+        background-color: #da4347;
+    }
+</style>
+<div class="t-generic_col-right o-layout_item" style="padding-top:100px;margin-left:20px">
+    <div class="t-generic_col-right-wrap o-layout">
+        <div class="c-content o-layout_item js-entry-container is-enabled is-entry-loaded" style="padding-left: 50px;">
+            <h1 class="t-generic_title">@objInfo.Header</h1>
+            <div class="t-generic_summary">
+                @if (_LanguageCode != "VI_VN")
+                {
+                    @Html.Raw(objInfo.Content_En)
+                }
+                else
+                {
+                    @Html.Raw(objInfo.Content)
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/ViewsShared/_PartialViewFaceYoutube.cshtml")
+

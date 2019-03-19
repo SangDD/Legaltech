@@ -1,0 +1,165 @@
+﻿@using WebApps.CommonFunction
+@using ObjectInfos;
+@using BussinessFacade.ModuleMemoryData
+@{
+    ViewBag.Title = @WebApps.Resources.Resource.QuanLyTrangBia;
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+}
+<style>
+    .div-search-title > div {
+        width: 150px;
+    }
+
+    .ms-parent {
+        margin: 0px 3px;
+    }
+
+    .ms-choice {
+        height: 30px;
+    }
+</style>
+
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        <a href="/home">Home</a>
+        <span class="red">></span>
+        <a href="/quan-ly-trang-bìa/danh-sach-tin">@WebApps.Resources.Resource.QuanLyTrangBia</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+<div class="d-main">
+    <div class="divCover">
+        <input type="hidden" value="MODIFIED_DATE" id="colSorted" />
+        <input type="hidden" value="DESC" id="SortType" />
+        <input type="hidden" value="" id="OptionSorting" />
+        <input type="hidden" value="@ViewBag.Status" id="txtStatusFilter" />
+    </div>
+
+    <div class="divCover" id="div-search-simple" style="margin-top:10px">
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div style="width: 120px">@WebApps.Resources.Resource.lblTieuDe</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtTieuDeBaiViet" data-controlcondition="TRUE" />
+                </div>
+            </div>
+
+            @*<div class="div-search-title">
+                    <div style="width: 120px">Trạng thái</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select data-controlcondition="TRUE" id="cboStatusSearch">
+                            <option selected="selected" value="">None</option>
+                            @foreach (var item in _lstStatus)
+                            {
+                                <option value="@item.CdVal">@item.Content</option>
+                            }
+                        </select>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div class="div-search-btn" style="width:450px;">
+            <input type="button" value="Tìm kiếm" id="btnSearch" class="btn-default" />
+            <a href="/quan-ly-trang-bia/soan-bai-viet"><input type="button" value="Thêm bài viết" class="btn-default" style="width: 125px;" /></a>
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div id="divTableObjects">
+            @Html.Partial("~/Areas/Sys_Pages/Views/SysPages/_PartialView_List.cshtml")
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    $("#btnSearch").click(function () {
+        funcSearch(1, 0);
+    });
+
+
+    function funcSearch(page, pType) {
+        try {
+            var tieude = $("#txtTieuDeBaiViet").val() || "ALL";
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            $.ajax({
+                url: "/quan-ly-trang-bia/tim-kiem",
+                type: "GET",
+                data: {
+                    p_keySearch: tieude,
+                    pPage: page
+                },
+                async: true, cache: false, traditional: true,
+                enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    $("#divTableObjects").html(data);
+                    CreateRollingWaitingIcon(false);
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
+            });
+        } catch (e) {
+
+        }
+
+    }
+    function funcDel_Pages(pID) {
+
+        nvsConfirm(null, "Bạn có chắc chắn muốn xóa bài viết này không?", function () {
+            console.log('vao day');
+            $.ajax({
+                url: "/quan-ly-trang-bia/xoa-bai-viet",
+                type: "GET",
+                data: {
+                    p_id: pID
+                },
+                async: true, cache: false, traditional: true,
+                enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data.success == -1) {
+                        jError("Lỗi check lại kết nối tới server");
+                        return false;
+                    }
+                    else {
+                        jAlert('Xóa bài viết thành công!', "THÔNG BÁO", function () {
+                            funcSearch(1, 1);
+                        });
+                    }
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
+            });
+        });
+    }
+
+    function jsPaging(page) {
+        funcSearch(page, 0);
+    }
+</script>

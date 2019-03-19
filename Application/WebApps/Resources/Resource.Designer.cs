@@ -2248,6 +2248,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quản lý trang bìa.
+        /// </summary>
+        public static string QuanLyTrangBia {
+            get {
+                return ResourceManager.GetString("QuanLyTrangBia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to QUẢN LÝ VỤ VIỆC.
         /// </summary>
         public static string QuanLyVuViec {
