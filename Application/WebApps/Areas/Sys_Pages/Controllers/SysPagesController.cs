@@ -225,5 +225,29 @@ namespace WebApps.Areas.Sys_Pages.Controllers
                 return View();
             }
         }
+
+        [HttpGet]
+        [Route("trang/{id}")]
+        public ActionResult NewsDetail_Page()
+        {
+            try
+            {
+                string _code = "";
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    _code = CommonFuc.ConvertToString(RouteData.Values["id"]);
+                }
+                var objBL = new Sys_Pages_BL();
+                string language = AppsCommon.GetCurrentLang();
+                Sys_Pages_Info _pageInfo = objBL.Sys_Pages_GetBy_Code(_code);
+                ViewBag.objNewInfo = _pageInfo;
+                return View("~/Areas/Sys_Pages/Views/SysPages/NewsDetail_By_Home.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return View();
+            }
+        }
     }
 }

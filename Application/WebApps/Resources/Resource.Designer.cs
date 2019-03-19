@@ -853,6 +853,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Xin vui lòng liên hệ để có thêm thông tin chi tiết.
+        /// </summary>
+        public static string lblDangKy {
+            get {
+                return ResourceManager.GetString("lblDangKy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ĐĂNG KÝ NHÃN HIỆU.
         /// </summary>
         public static string lblDangKyNhanHieu {
@@ -1834,7 +1843,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Về chúng tôi.
+        ///   Looks up a localized string similar to Giới thiệu.
         /// </summary>
         public static string lblVeChungToi {
             get {
@@ -1843,7 +1852,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thư viện dữ liệu.
+        ///   Looks up a localized string similar to WikiPath.
         /// </summary>
         public static string lblWiki {
             get {

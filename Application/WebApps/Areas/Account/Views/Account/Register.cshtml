@@ -65,11 +65,11 @@
             background-position: center center;
             background-size: cover;
             background-attachment: fixed;
-          
             font-family: Roboto-Regular;
         }
-        *{
-              font-size: 13px !important;
+
+        * {
+            font-size: 13px !important;
         }
 
         .fixed {
@@ -93,7 +93,7 @@
         .d-container {
             align-items: center;
             padding: 30px 30px 50px 30px;
-              background-color: #F5F7F8;
+            background-color: #F5F7F8;
         }
 
         .d-form-login input {
@@ -108,31 +108,35 @@
         .d-form-login p {
             padding: 10px 0;
         }
+
         input[type="text"], input[type="password"], textarea {
             border: 1px solid #dfe4ea;
         }
-        .btn{
-                background-color: #478CCC;
+
+        .btn {
+            background-color: #478CCC;
         }
+
         input[type="button"],
         input[type="submit"] {
-        width:100%;
+            width: 100%;
         }
-          input[type="button"]:disabled,
-        input[type="submit"]:disabled {
-       background:#808080;
-       box-shadow:none !important;
-        }
-        input[type="checkbox"]
-        {
+
+            input[type="button"]:disabled,
+            input[type="submit"]:disabled {
+                background: #808080;
+                box-shadow: none !important;
+            }
+
+        input[type="checkbox"] {
             -ms-transform: scale(1.5); /* IE */
             -moz-transform: scale(1.5); /* FF */
             -webkit-transform: scale(1.5); /* Safari and Chrome */
             -o-transform: scale(1.5)
         }
-        .formname
-        {
-            font-size:24px !important;
+
+        .formname {
+            font-size: 24px !important;
         }
     </style>
 
@@ -147,13 +151,13 @@
         <div class="d-container" style="width: 400px;">
             <div class="d-form-login">
                 <form id="frmLogin" method="post" action=""
-                       enctype="multipart/form-data">
+                      enctype="multipart/form-data">
                     <div>
                         <p class="font-size-20 text-font-medium text-color-2 formname">Create Your Account</p>
                     </div>
                     <div>
                         <p>First Name</p>
-                        <input type="text" name="txtFNAME" id="txtFNAME" autofocus   />
+                        <input type="text" name="txtFNAME" id="txtFNAME" autofocus />
                     </div>
                     <div>
                         <p>Last Name</p>
@@ -172,25 +176,24 @@
                             <input type="checkbox" name="checkterm" id="cbocheckterm" onchange="funccheckterm()" />
                         </div>
                         <div style="width:80%;float:left;line-height:18px;">
-                         To register with us please tick to agree our <br /> 
+                            To register with us please tick to agree our <br />
                             <span style="color:#478CCC">
-                                @if (language == LangCode.EN_US.ToString())
-                                {
-                                    <a href="/quan-ly-tin/news-detail/102/7" target="_blank"> Terms and Conditions</a>
-                                }
-                                else
-                                {
-                                    <a href="/quan-ly-tin/news-detail/101/7" target="_blank"> Terms and Conditions</a>
-                                }
-                         
-                         
+                                @*@if (language == LangCode.EN_US.ToString())
+                                    {
+                                        <a href="/quan-ly-tin/news-detail/102/7" target="_blank"> Terms and Conditions</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/quan-ly-tin/news-detail/101/7" target="_blank"> Terms and Conditions</a>
+                                    }*@
+                                <a href="/quan-ly-trang-bia/trang/term" target="_blank"> Terms and Conditions</a>
                             </span>
                         </div>
-                       
-                        
+
+
                     </div>
                     <div>
-                        <input  type="button" class="btn" disabled id="btnRegister" value="Register" onclick="return funcRegister()" />
+                        <input type="button" class="btn" disabled id="btnRegister" value="Register" onclick="return funcRegister()" />
                     </div>
                 </form>
             </div>
@@ -226,23 +229,20 @@
     $(document).ready(function () {
         $('#txtFNAME').focus();
     });
-    function funccheckterm()
-    {
+    function funccheckterm() {
         try {
-           
-            if($("#cbocheckterm").prop("checked") == true)
-            {
+
+            if ($("#cbocheckterm").prop("checked") == true) {
                 $("#btnRegister").removeAttr("disabled");
             }
-            else
-            {
+            else {
                 $("#btnRegister").attr("disabled", "true");
             }
         } catch (e) {
             console.log(e);
         }
     }
- 
+
 
     function funcHome() {
         window.location.href = "/";
@@ -254,7 +254,7 @@
                 jError('The registered name is not empty!', "Info", function () {
                     $("#txtFNAME").focus();
                 });
-              
+
                 return false;
             }
 
@@ -287,7 +287,7 @@
                         jAlert('Sign Up Success!', "Info", function () {
                             funcHome();
                         });
-                      
+
                         return true;
                     }
                     else if (data.status == -22) {
