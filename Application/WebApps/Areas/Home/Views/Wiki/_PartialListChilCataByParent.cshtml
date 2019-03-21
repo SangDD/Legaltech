@@ -1,6 +1,8 @@
 ﻿@using ObjectInfos;
 @using WebApps.CommonFunction;
 @{
+    /**/
+
     List<WikiCatalogues_Info> _listObject = new List<WikiCatalogues_Info>();
     if (ViewBag.ListObject != null)
     {
@@ -17,33 +19,31 @@
     if (_LanguageCode != "VI_VN")
     {
         _langlink = "/en-gb";
-       _cataname = _Catainfo.NAME_ENG;
+        _cataname = _Catainfo.NAME_ENG;
     }
 
 
 
 }
 <style>
-    
-    
 </style>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <input type="hidden" id="txthiidencataname"  value="@_Catainfo.NAME"/>
+        <input type="hidden" id="txthiidencataname" value="@_Catainfo.NAME" />
         <input type="hidden" id="_txtwikicataid" value="@_Catainfo.ID" />
         <div id="pagination-append" class="list-group item-list with-letters wikitable">
             @foreach (var item in _listObject)
             {
                 <a class="dynamic-linkset list-group-item col-md-6 itemdoc" href='@(_langlink + "/wiki-view/child-catalouge/" + item.ID)'>
                     <span class="badge">@item.NUMBER_DOC</span>
-                   @if (_LanguageCode == "VI_VN")
-                   {
-                    @item.NAME
-                   }
-                   else
-                   {
-                       @item.NAME_ENG
-                   }
+                    @if (_LanguageCode == "VI_VN")
+                    {
+                        @item.NAME
+                    }
+                    else
+                    {
+                        @item.NAME_ENG
+                    }
 
 
                 </a>

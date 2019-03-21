@@ -299,7 +299,15 @@ namespace WebApps.Areas.Home.Controllers
                 string fullFileName = Request.MapPath("/Content/ExportDocFile/" + "1.html");
                 StreamWriter streamWriter =
                     new StreamWriter(new FileStream(fullFileName, FileMode.Create, FileAccess.Write));
-                streamWriter.Write(_DocInfo.CONTENT);
+
+                if (AppsCommon.GetCurrentLang() == "VI_VN")
+                {
+                    streamWriter.Write(_DocInfo.CONTENT);
+                }
+                else
+                {
+                    streamWriter.Write(_DocInfo.CONTENT_En);
+                }
                 streamWriter.Close();
                 _filedownload = "/Content/ExportDocFile/" + _DocInfo.ID + ".pdf";
                 DocumentModel.Load(Server.MapPath("/Content/ExportDocFile/1.html")).Save(Server.MapPath(_filedownload));

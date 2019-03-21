@@ -6,7 +6,7 @@
     ViewBag.Title = "Sửa bài viết";
     Layout = "~/ViewsShared/_Layout.cshtml";
     List<WikiCatalogues_Info> _listcata = new List<WikiCatalogues_Info>();
-    if(ViewBag.ListCata != null)
+    if (ViewBag.ListCata != null)
     {
         _listcata = ViewBag.ListCata;
     }
@@ -16,7 +16,7 @@
     {
         _CataInfo = ViewBag.CataInfo;
     }
-    string   _backhref = "/wiki-manage/wiki-doc/list/" + Model.STATUS;
+    string _backhref = "/wiki-manage/wiki-doc/list/" + Model.STATUS;
     //if(Model.STATUS == CommonWiki.Stt_daduyet)
     //{
     //    _backhref = "/wiki-manage/wiki-doc/list/" + Model.STATUS; ;
@@ -57,8 +57,8 @@
                 <input type="hidden" value="MODIFIED_DATE" id="colSorted" />
                 <input type="hidden" value="DESC" id="SortType" />
                 <input type="hidden" value="" id="OptionSorting" />
-                <input type="hidden"  value="@Model.ID" id="txtDocID"/>
-                <input type="hidden" id="txtcurrstatus"   value="@ViewBag.CurrStatus" />
+                <input type="hidden" value="@Model.ID" id="txtDocID" />
+                <input type="hidden" id="txtcurrstatus" value="@ViewBag.CurrStatus" />
                 <input type="hidden" id="txtlanguagecode" value="@Model.LANGUAGE_CODE" />
                 <div class="div-title-content"> THÔNG TIN BÀI VIẾT </div>
             </div>
@@ -70,7 +70,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txtTitle" maxlength="500" value="@Model.TITLE"/>
+                    <input type="text" id="txtTitle" maxlength="500" value="@Model.TITLE" />
                 </div>
             </div>
         </div>
@@ -81,11 +81,11 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txtHeader" maxlength="1000" value="@Model.HEADER"/>
+                    <input type="text" id="txtHeader" maxlength="1000" value="@Model.HEADER" />
                 </div>
             </div>
         </div>
-  
+
         <div class="div-search-ad">
             <div class="div-search-title">
                 <div>Chủ đề</div>
@@ -105,7 +105,7 @@
             </div>
         </div>
 
-      
+
         @Html.Partial("/Areas/Wiki/Views/WikiDoc/_PartialTaiLieuUpload.cshtml", new string[] { "WIKIADD_FILE_01", "File đính kèm 1" })
         @if (!string.IsNullOrEmpty(Model.FILE_URL01))
         {
@@ -113,7 +113,7 @@
                 <a style="border: none;" href="@Model.FILE_URL01" target="_blank">
                     <i class="fas fa-download" style="color:blue;font-size:16px;margin-top:7px; margin-right:5px;"></i>
                     <span>@Model.FILE_URL01.GetFilename()</span>
-                  
+
                 </a>
             </div>
             <div class="div-checkbox" id="div_ImgRemove_WIKIADD_FILE_01" style="border: none;">
@@ -127,7 +127,7 @@
                 <a style="border: none;" href="@Model.FILE_URL02" target="_blank">
                     <i class="fas fa-download" style="color:blue;font-size:16px;margin-top:7px; margin-right:5px;"></i>
                     <span>@Model.FILE_URL02.GetFilename()</span>
-               
+
                 </a>
             </div>
             <div class="div-checkbox" id="div_ImgRemove_WIKIADD_FILE_02" style="border: none;">
@@ -135,13 +135,13 @@
             </div>
         }
         @Html.Partial("/Areas/Wiki/Views/WikiDoc/_PartialTaiLieuUpload.cshtml", new string[] { "WIKIADD_FILE_03", "File đính kèm 3" })
-       @if (!string.IsNullOrEmpty(Model.FILE_URL03))
-       {
+        @if (!string.IsNullOrEmpty(Model.FILE_URL03))
+        {
             <div class="div-checkbox" id="div_ImgDownload_WIKIADD_FILE_03" style="border: none;">
                 <a style="border: none;" href="@Model.FILE_URL03" target="_blank">
                     <i class="fas fa-download" style="color:blue;font-size:16px;margin-top:7px; margin-right:5px;"></i>
                     <span>@Model.FILE_URL03.GetFilename()</span>
-              
+
                 </a>
             </div>
             <div class="div-checkbox" id="div_ImgRemove_WIKIADD_FILE_03" style="border: none;">
@@ -151,29 +151,34 @@
         <input type="hidden" value='@Model.FILE_URL01' id="txt_WIKIADD_OLD_FILE_01" />
         <input type="hidden" value='@Model.FILE_URL02' id="txt_WIKIADD_OLD_FILE_02" />
         <input type="hidden" value='@Model.FILE_URL03' id="txt_WIKIADD_OLD_FILE_03" />
-         
+
 
         <div style="margin-top:15px">
             <div>Nội dung<i class="redspan">(*)</i></div>
             <textarea type="text" id="txtAddContent">@Html.Raw(Model.CONTENT)</textarea>
         </div>
-     
+
+        <div style="margin-top:15px">
+            <div>Nội dung (EN)<i class="redspan">(*)</i></div>
+            <textarea type="text" id="txtAddContent_En">@Html.Raw(Model.CONTENT_En)</textarea>
+        </div>
+
         @*<div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Lý do từ chối</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txtRefuseReason" maxlength="200" value="" />
+                <div class="div-search-title">
+                    <div>Lý do từ chối</div>
                 </div>
-            </div>
-        </div>*@
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtRefuseReason" maxlength="200" value="" />
+                    </div>
+                </div>
+            </div>*@
 
         <input type="text" id="txthashtag" style="display:none" />
         <div type="text" id="divhashtag" style="display:none"></div>
 
     </div>
-    if (Model.STATUS == 1 )
+    if (Model.STATUS == 1)
     {
         <div class="class_save">
             <div class="classGuiDon">
@@ -202,26 +207,27 @@
     }
     else
     {
-    <div class="class_save">
-        <div class="classGuiDon">
-            <input type="button" value="Đăng tin" id="btnDangTin" class="btn" />
+        <div class="class_save">
+            <div class="classGuiDon">
+                <input type="button" value="Đăng tin" id="btnDangTin" class="btn" />
+            </div>
+            <div class="classGuiDon">
+                <input type="button" value="Từ chối" id="btnTuChoi" class="btn" />
+            </div>
         </div>
-        <div class="classGuiDon">
-            <input type="button" value="Từ chối" id="btnTuChoi" class="btn" />
-        </div>
-    </div>
     }
 
+    <script>
 
+        var txtAddContent = CKEDITOR.replace("txtAddContent",
+        {
+            height: 500
+            });
 
-
-            <script>
-
-                var txtAddContent = CKEDITOR.replace("txtAddContent",
-             {
-                 height: 500
-
-             });
+        var txtAddContent_En = CKEDITOR.replace("txtAddContent_En",
+            {
+                height: 500
+            });
 
 
 
@@ -269,12 +275,6 @@
                             return false;
                         }
 
-                        //if (txtHeader.val().trim() == "") {
-                        //    showError('Tóm tắt không được để trống!');
-                        //    txtHeader.focus();
-                        //    return false;
-                        //}
-
                         if (CboAddWikiCataChild.val() == "" || CboAddWikiCataChild.val() == null) {
                             showError('Chủ đề bài viết không được để trống!');
                             $("#CboAddWikiCataChild").multipleSelect("focus");
@@ -288,11 +288,21 @@
                             return false;
                         }
 
+                        var _contentVal_En = CKEDITOR.instances['txtAddContent_En'].getData();
+                        if (_contentVal_En.trim() == "" || _contentVal_En.replace(/&nbsp;/g, '').trim() == "") {
+                            showError('Nội dung bài viết tiếng anh không được để trống!!');
+                            txtAddContent_En.focus();
+                            txtAddContent_En.setData('');
+                            return false;
+                        }
+
                         formData.append("_objectInfo.ID", txtDocID.val());
                         formData.append("_objectInfo.TITLE", txtTitle.val().trim());
                         formData.append("_objectInfo.HEADER", txtHeader.val().trim());
                         formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
                         formData.append("_objectInfo.CONTENT", _contentVal);
+                        formData.append("_objectInfo.CONTENT_En", _contentVal_En);
+
                         formData.append("_objectInfo.STATUS", "1");
                         var txt_WIKIADD_OLD_FILE_01 = $("#txt_WIKIADD_OLD_FILE_01");
                         var txt_WIKIADD_OLD_FILE_02 = $("#txt_WIKIADD_OLD_FILE_02");
@@ -363,11 +373,22 @@
                             txtAddContent.setData('');
                             return false;
                         }
+
+                        var _contentVal_En = CKEDITOR.instances['txtAddContent_En'].getData();
+                        if (_contentVal_En.trim() == "" || _contentVal_En.replace(/&nbsp;/g, '').trim() == "") {
+                            showError('Nội dung bài viết tiếng anh không được để trống!!');
+                            txtAddContent_En.focus();
+                            txtAddContent_En.setData('');
+                            return false;
+                        }
+
                         formData.append("_objectInfo.ID", txtDocID.val());
                         formData.append("_objectInfo.TITLE", txtTitle.val().trim());
                         formData.append("_objectInfo.HEADER", txtHeader.val().trim());
                         formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
                         formData.append("_objectInfo.CONTENT", _contentVal);
+                        formData.append("_objectInfo.CONTENT_En", _contentVal_En);
+
                         var txt_WIKIADD_OLD_FILE_01 = $("#txt_WIKIADD_OLD_FILE_01");
                         var txt_WIKIADD_OLD_FILE_02 = $("#txt_WIKIADD_OLD_FILE_02");
                         var txt_WIKIADD_OLD_FILE_03 = $("#txt_WIKIADD_OLD_FILE_03");
@@ -436,11 +457,22 @@
                             txtAddContent.setData('');
                             return false;
                         }
+
+                        var _contentVal_En = CKEDITOR.instances['txtAddContent_En'].getData();
+                        if (_contentVal_En.trim() == "" || _contentVal_En.replace(/&nbsp;/g, '').trim() == "") {
+                            showError('Nội dung bài viết tiếng anh không được để trống!!');
+                            txtAddContent_En.focus();
+                            txtAddContent_En.setData('');
+                            return false;
+                        }
+
                         formData.append("_objectInfo.ID", txtDocID.val());
                         formData.append("_objectInfo.TITLE", txtTitle.val().trim());
                         formData.append("_objectInfo.HEADER", txtHeader.val().trim());
                         formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
                         formData.append("_objectInfo.CONTENT", _contentVal);
+                        formData.append("_objectInfo.CONTENT_En", _contentVal_En);
+
                         var txt_WIKIADD_OLD_FILE_01 = $("#txt_WIKIADD_OLD_FILE_01");
                         var txt_WIKIADD_OLD_FILE_02 = $("#txt_WIKIADD_OLD_FILE_02");
                         var txt_WIKIADD_OLD_FILE_03 = $("#txt_WIKIADD_OLD_FILE_03");
@@ -508,10 +540,20 @@
                             txtAddContent.setData('');
                             return false;
                         }
+
+                        var _contentVal_En = CKEDITOR.instances['txtAddContent_En'].getData();
+                        if (_contentVal_En.trim() == "" || _contentVal_En.replace(/&nbsp;/g, '').trim() == "") {
+                            showError('Nội dung bài viết tiếng anh không được để trống!!');
+                            txtAddContent_En.focus();
+                            txtAddContent_En.setData('');
+                            return false;
+                        }
+
                         formData.append("_objectInfo.ID", txtDocID.val());
                         formData.append("_objectInfo.TITLE", txtTitle.val().trim());
                         formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
                         formData.append("_objectInfo.CONTENT", _contentVal);
+                        formData.append("_objectInfo.CONTENT_En", _contentVal_En);
                         var txt_WIKIADD_OLD_FILE_01 = $("#txt_WIKIADD_OLD_FILE_01");
                         var txt_WIKIADD_OLD_FILE_02 = $("#txt_WIKIADD_OLD_FILE_02");
                         var txt_WIKIADD_OLD_FILE_03 = $("#txt_WIKIADD_OLD_FILE_03");
@@ -612,9 +654,9 @@
 
 
 
-            </script>
-            }
-            catch (Exception)
-            {
-            // ignored
-            }
+    </script>
+}
+catch (Exception)
+{
+    // ignored
+}

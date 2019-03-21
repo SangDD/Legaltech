@@ -12,7 +12,7 @@ namespace DataAccess
 {
   public class WikiDoc_DA
     {
-        public decimal WikiDoc_Insert(string P_TITLE, string P_HEADER, string P_CONTENT, string P_LANGUAGE_CODE,
+        public decimal WikiDoc_Insert(string P_TITLE, string P_HEADER, string P_CONTENT, string P_CONTENT_EN, string P_LANGUAGE_CODE,
           string P_CREATED_BY, DateTime P_CREATED_DATE, string P_HASHTAG, string P_FILE_URL01, string P_FILE_URL02,
           string P_FILE_URL03, decimal P_CATA_ID, decimal P_STATUS)
         {
@@ -23,6 +23,7 @@ namespace DataAccess
                     new OracleParameter("P_TITLE", OracleDbType.Varchar2, P_TITLE, ParameterDirection.Input),
                     new OracleParameter("P_HEADER", OracleDbType.Varchar2, P_HEADER, ParameterDirection.Input),
                     new OracleParameter("P_CONTENT", OracleDbType.Clob, P_CONTENT, ParameterDirection.Input),
+                    new OracleParameter("P_CONTENT_EN", OracleDbType.Clob, P_CONTENT_EN, ParameterDirection.Input),
                     new OracleParameter("P_CREATED_BY", OracleDbType.Varchar2, P_CREATED_BY, ParameterDirection.Input),
                     new OracleParameter("P_CREATED_DATE", OracleDbType.Date, P_CREATED_DATE, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, P_LANGUAGE_CODE, ParameterDirection.Input),
@@ -43,7 +44,7 @@ namespace DataAccess
             }
         }
 
-        public decimal WikiDoc_Update(decimal P_ID, string P_TITLE, string P_HEADER, string P_CONTENT, string P_LANGUAGE_CODE,
+        public decimal WikiDoc_Update(decimal P_ID, string P_TITLE, string P_HEADER, string P_CONTENT, string P_CONTENT_EN, string P_LANGUAGE_CODE,
          string P_MODIFIED_BY, DateTime P_MODIFIED_DATE, string P_HASHTAG, string P_FILE_URL01, string P_FILE_URL02,
          string P_FILE_URL03, decimal P_CATA_ID, decimal P_STATUS, string P_NOTE)
         {
@@ -55,6 +56,7 @@ namespace DataAccess
                     new OracleParameter("P_TITLE", OracleDbType.Varchar2, P_TITLE, ParameterDirection.Input),
                     new OracleParameter("P_HEADER", OracleDbType.Varchar2, P_HEADER, ParameterDirection.Input),
                     new OracleParameter("P_CONTENT", OracleDbType.Clob, P_CONTENT, ParameterDirection.Input),
+                    new OracleParameter("P_CONTENT_EN", OracleDbType.Clob, P_CONTENT_EN, ParameterDirection.Input),
                     new OracleParameter("P_MODIFIED_BY", OracleDbType.Varchar2, P_MODIFIED_BY, ParameterDirection.Input),
                     new OracleParameter("P_MODIFIED_DATE", OracleDbType.Date, P_MODIFIED_DATE, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, P_LANGUAGE_CODE, ParameterDirection.Input),

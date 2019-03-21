@@ -47,7 +47,7 @@
                 <div class="div-title-content"> THÔNG TIN BÀI VIẾT </div>
                 <a style="float:right" href="@_backhref"><input type="button" name="name" value="Trở lại" class="btn" /> </a>
             </div>
-          
+
         </div>
 
         <div class="div-search-ad">
@@ -77,17 +77,25 @@
             </div>
             <div class="div-search-content">
                 <div id="divWikiChildCatalogue">
-                    <input type="text" value="@Model.CATA_NAME" disabled /> 
+                    <input type="text" value="@Model.CATA_NAME" disabled />
                 </div>
             </div>
         </div>
 
 
         <div style="margin-top:15px">
-           
-            @Html.Raw(Model.CONTENT)
+            <div>@WebApps.Resources.Resource.lblNoiDung<i class="redspan">(*)</i></div>
+            <div>
+                <textarea type="text" id="txtNoiDung" name="txtNoiDung" disabled readonly style="height:500px;width: 100%;">@Html.Raw(Model.CONTENT)</textarea>
+            </div>
         </div>
 
+        <div style="margin-top:15px">
+            <div>@WebApps.Resources.Resource.lblNoiDung (En)<i class="redspan">(*)</i></div>
+            <div>
+                <textarea type="text" id="txtNoiDung" name="txtNoiDung" readonly style="height:500px;width: 100%;">@Html.Raw(Model.CONTENT_En)</textarea>
+            </div>
+        </div>
 
         @if (!string.IsNullOrEmpty(Model.FILE_URL01))
         {

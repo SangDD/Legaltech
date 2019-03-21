@@ -15,7 +15,7 @@
     }
     string _backhref = "/wiki-manage/wiki-doc/list-by-catalogue/" + _CataInfo.ID;
     decimal _Cataid = 0;
-    if(ViewBag.Cataid != null)
+    if (ViewBag.Cataid != null)
     {
         _Cataid = ViewBag.Cataid;
     }
@@ -64,7 +64,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txtTitle" maxlength="500"  />
+                    <input type="text" id="txtTitle" maxlength="500" />
                 </div>
             </div>
         </div>
@@ -88,7 +88,7 @@
                     {
                         <input type="hidden" id="CboAddWikiCataChild" value="@_CataInfo.ID" />
                         if (WebApps.CommonFunction.AppsCommon.GetCurrentLang().ToUpper().Contains("VN"))
-                    {
+                        {
                             <input type="text" readonly value="@_CataInfo.NAME_ENG" />
                         }
                         else
@@ -98,26 +98,26 @@
                     }
                     else
                     {
-                        <select  id="CboAddWikiCataChild">
-                             @foreach (var item in _listcata)
-                             {
-                                 if (item.CATA_LEVEL == 0)
-                                 {
+                        <select id="CboAddWikiCataChild">
+                            @foreach (var item in _listcata)
+                            {
+                                if (item.CATA_LEVEL == 0)
+                                {
                                     <option value="@item.ID" disabled>
                                         @item.NAME
                                     </option>
-                                 }
-                                 else
-                                 {
+                                }
+                                else
+                                {
                                     <option value="@item.ID">
                                         @item.NAME
                                     </option>
-                                 }
+                                }
 
-                             }
+                            }
                         </select>
                     }
-                    
+
                 </div>
             </div>
         </div>
@@ -134,6 +134,11 @@
         <div style="margin-top:15px">
             <div>Nội dung<i class="redspan">(*)</i></div>
             <textarea type="text" id="txtAddContent"></textarea>
+        </div>
+
+        <div style="margin-top:15px">
+            <div>Nội dung (EN)<i class="redspan">(*)</i></div>
+            <textarea type="text" id="txtAddContent_En"></textarea>
         </div>
 
         <input type="text" id="txthashtag" style="display:none" />
@@ -154,12 +159,16 @@
     <script>
 
         var txtAddContent = CKEDITOR.replace("txtAddContent",
-     {
-         height: 500
+        {
+            height: 500
+            });
 
-     });
+        var txtAddContent_En = CKEDITOR.replace("txtAddContent_En",
+            {
+                height: 500
+            });
 
-     
+
 
         //function FuncSearchChildCatalogue(_cboId, _divid) {
         //    try {
@@ -186,8 +195,6 @@
         //    }
         //}
 
-       
-
 
         $("#btnLuuTam").click(function () {
             try {
@@ -197,7 +204,7 @@
                 var txtHeader = $("#txtHeader");
                 var CboAddWikiCataParent = $("#CboAddWikiCataParent");
                 var CboAddWikiCataChild = $("#CboAddWikiCataChild");
-               
+
                 if (txtTitle.val().trim() == "") {
                     showError('Tiêu đề không được để trống!');
                     txtTitle.focus();
@@ -217,11 +224,12 @@
                 }
                 var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
                 if (_contentVal.trim() == "" || _contentVal.replace(/&nbsp;/g, '').trim() == "") {
-                    showError('Nội dung bài viết không được để trống!!');  
+                    showError('Nội dung bài viết không được để trống!!');
                     txtAddContent.focus();
                     txtAddContent.setData('');
                     return false;
                 }
+
                 formData.append("_objectInfo.TITLE", txtTitle.val().trim());
                 formData.append("_objectInfo.HEADER", txtHeader.val().trim());
                 formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
@@ -253,7 +261,6 @@
                 alert(e.toString());
                 return false;
             }
-
         });
 
 
@@ -285,10 +292,20 @@
                     txtAddContent.setData('');
                     return false;
                 }
+
+                var _contentVal_En = CKEDITOR.instances['txtAddContent_En'].getData();
+                if (_contentVal_En.trim() == "" || _contentVal_En.replace(/&nbsp;/g, '').trim() == "") {
+                    showError('Nội dung bài viết tiếng anh không được để trống!!');
+                    txtAddContent_En.focus();
+                    txtAddContent_En.setData('');
+                    return false;
+                }
+
                 formData.append("_objectInfo.TITLE", txtTitle.val().trim());
                 formData.append("_objectInfo.HEADER", txtHeader.val().trim());
                 formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
                 formData.append("_objectInfo.CONTENT", _contentVal);
+                formData.append("_objectInfo.CONTENT_En", _contentVal_En);
                 formData.append("_objectInfo.STATUS", "2");
                 ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_01", "0");
                 ponse = funcGetCheckValueAndText(formData, "WIKIADD_FILE_02", "1");
@@ -322,7 +339,7 @@
 
         function doUpdateHashTag( v_data, _docid) {
             try {
-               
+
                 var _hashtag = $("#divhashtag").html(v_data).html();
                 $.ajax({
                     url: "/wiki-manage/wiki-doc/save-edit-hashtag-doc",
