@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace ObjectInfos
 {
@@ -16,7 +17,10 @@ namespace ObjectInfos
 
         public string HEADER { set; get; }
 
+        [AllowHtml]
         public string CONTENT { set; get; }
+
+        [AllowHtml]
         public string CONTENT_En { set; get; }
 
         public decimal VIEW_NUMBER { set; get; }

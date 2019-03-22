@@ -17,6 +17,9 @@ namespace ObjectInfos
         public string Languagecode { get; set; }
         [AllowHtml]
         public string  Content { get; set; }
+        [AllowHtml]
+        public string Content_En { get; set; }
+
         public decimal Status { get; set; }
         public string Categories_Id { get; set; }
         public string ReCategories_Id { get; set; }

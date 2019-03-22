@@ -26,6 +26,7 @@ namespace DataAccess.ModuleArticles
                 return new DataSet();
             }
         }
+
         public DataSet ArticlesGetByPage(string pLanguage, string pTitle, DateTime pNgayCongBo, int pStart, int pEnd, ref decimal pTotalRecord)
         {
             try
@@ -84,12 +85,13 @@ namespace DataAccess.ModuleArticles
                     new OracleParameter("P_IMAGEHEADER", OracleDbType.Varchar2, pInfo.Imageheader, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGECODE", OracleDbType.Varchar2, pInfo.Languagecode, ParameterDirection.Input),
                     new OracleParameter("P_CONTENT", OracleDbType.Clob, pInfo.Content, ParameterDirection.Input),
+                    new OracleParameter("P_CONTENT_EN", OracleDbType.Clob, pInfo.Content_En, ParameterDirection.Input),
                     new OracleParameter("P_STATUS", OracleDbType.Decimal, pInfo.Status, ParameterDirection.Input),
                     new OracleParameter("P_CATEGORIES_ID", OracleDbType.Varchar2, pInfo.Categories_Id, ParameterDirection.Input),
                     new OracleParameter("P_ARTICLES_TYPE", OracleDbType.Varchar2, pInfo.Articles_Type, ParameterDirection.Input),
                     new OracleParameter("P_CREATEDBY", OracleDbType.Varchar2, pInfo.Createdby, ParameterDirection.Input),
                     new OracleParameter("P_CREATEDDATE", OracleDbType.Date, pInfo.Createddate, ParameterDirection.Input),
-                     new OracleParameter("P_COUNTRYID", OracleDbType.Decimal, pInfo.Country_Id, ParameterDirection.Input),
+                    new OracleParameter("P_COUNTRYID", OracleDbType.Decimal, pInfo.Country_Id, ParameterDirection.Input),
                     paramReturn);
                 return Convert.ToDecimal(paramReturn.Value.ToString());
             }
@@ -99,7 +101,6 @@ namespace DataAccess.ModuleArticles
                 return -1;
             }
         }
-
 
         public decimal ArticlesUpdate(NewsInfo pInfo)
         {
@@ -113,12 +114,13 @@ namespace DataAccess.ModuleArticles
                     new OracleParameter("P_IMAGEHEADER", OracleDbType.Varchar2, pInfo.Imageheader, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGECODE", OracleDbType.Varchar2, pInfo.Languagecode, ParameterDirection.Input),
                     new OracleParameter("P_CONTENT", OracleDbType.Clob, pInfo.Content, ParameterDirection.Input),
+                    new OracleParameter("P_CONTENT_EN", OracleDbType.Clob, pInfo.Content_En, ParameterDirection.Input),
                     new OracleParameter("P_STATUS", OracleDbType.Decimal, pInfo.Status, ParameterDirection.Input),
                     new OracleParameter("P_CATEGORIES_ID", OracleDbType.Varchar2, pInfo.Categories_Id, ParameterDirection.Input),
                     new OracleParameter("P_ARTICLES_TYPE", OracleDbType.Varchar2, pInfo.Articles_Type, ParameterDirection.Input),
                     new OracleParameter("P_MODIFIEDBY", OracleDbType.Varchar2, pInfo.Modifiedby, ParameterDirection.Input),
                     new OracleParameter("P_MODIFIEDDATE", OracleDbType.Date, pInfo.Modifieddate, ParameterDirection.Input),
-                     new OracleParameter("P_COUNTRYID", OracleDbType.Decimal, pInfo.Country_Id, ParameterDirection.Input),
+                    new OracleParameter("P_COUNTRYID", OracleDbType.Decimal, pInfo.Country_Id, ParameterDirection.Input),
                     paramReturn);
                 return Convert.ToDecimal(paramReturn.Value.ToString());
             }
@@ -185,7 +187,7 @@ namespace DataAccess.ModuleArticles
         {
             try
             {
-                
+
                 DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_NEWS.PROC_NEWS_STATIC",
                     new OracleParameter("pLanguage", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
                     new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output)

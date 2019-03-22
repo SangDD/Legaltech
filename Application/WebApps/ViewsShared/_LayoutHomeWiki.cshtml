@@ -5,7 +5,7 @@
 @{
     string _LanguageCode = AppsCommon.GetCurrentLang();
     string _langlink = "/vi-vn";
-    if(_LanguageCode != "VI_VN")
+    if (_LanguageCode != "VI_VN")
     {
         _langlink = "/en-gb";
     }
@@ -17,18 +17,18 @@
     <script>
        var _currentlanguage = '@_LanguageCode';
     </script>
-   
+
     @*<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">*@
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">*@
     <title>Following the Rule of Law</title>
- 
+
 
 
     @*<link href="~/Content/News/Css/register.css" rel="stylesheet" />*@
     <link href="~/Content/News/Css/main.css" rel="stylesheet" />
     <link href="~/Content/News/Css/bootstrap.css" rel="stylesheet" />
- 
+
 
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -59,7 +59,7 @@
         }
     });
     </script>
-  
+
 </head>
 <body>
     <div class="hidden">
@@ -116,7 +116,41 @@
                         </a>
                     </div>
                     <!--[Menutop + mobi]-->
-               
+
+                    <ul id="menu-main-menu" class="c-header_nav-list u-list-reset">
+                        <li class="c-header_nav-item js-nav-nosublink">
+                            <a href="javascript:;" onclick="funLogin();" class="c-header_nav-item-label" data-transition="full">
+                                @if (WebApps.Session.SessionData.CurrentUser != null)
+                                {
+                                    @WebApps.Session.SessionData.CurrentUser.Username
+                                }
+                                else
+                                {
+                                    @WebApps.Resources.Resource.lblSigin
+                                }
+                            </a>
+                        </li>
+                        @if (WebApps.Session.SessionData.CurrentUser == null)
+                        {
+                            <li class="c-header_nav-item js-nav-nosublink">
+                                <a target="_blank" href="/vi-vn/account/register" class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
+                            </li>
+                        }
+
+                        <li class="c-header_nav-item js-nav-nosublink">
+                            <div class="" style="width:100% !important;padding-top:10px;">
+                                @if (_LanguageCode == LangCode.EN_US.ToString())
+                                {
+                                    <a href="javascript:;" onclick="return funcVi();" class="lang-vn"></a>
+                                }
+                                else
+                                {
+                                    <a href="javascript:;" onclick="return funcEn();" class="lang-en"></a>
+                                }
+                            </div>
+                        </li>
+
+                    </ul>
 
                     <ul class="c-header_nav-social">
                         <li class="c-header_nav-social-item">
@@ -167,20 +201,20 @@
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 div_wikicontent">
 
                                             @RenderBody()
-                                         </div>
                                         </div>
+                                    </div>
                                 </div>
-                               
+
                             </div>
                         </div>
                     </section>
                 </article>
-               
+
             </main>
         </div>
 
     </div>
-    
+
 
 </body>
 </html>

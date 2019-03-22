@@ -100,9 +100,13 @@
                                 }
                             </a>
                         </li>
-                        @*<li class="c-header_nav-item js-nav-nosublink" id="btButton">
-                                <a href="javascript:;" onclick="return funcBottom();" class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
-                            </li>*@
+                        @if (WebApps.Session.SessionData.CurrentUser == null)
+                        {
+                            <li class="c-header_nav-item js-nav-nosublink">
+                                @*<a href="javascript:;"  onclick="return funcBottom();" class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>*@
+                                <a target="_blank" href="/vi-vn/account/register" class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
+                            </li>
+                        }
                         <li class="c-header_nav-item js-nav-nosublink">
                             <div class="" style="width:100% !important;padding-top:10px;">
                                 @if (_LanguageCode == LangCode.EN_US.ToString())

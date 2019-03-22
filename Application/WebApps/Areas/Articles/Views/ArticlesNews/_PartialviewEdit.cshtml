@@ -14,7 +14,6 @@
     string urlMauNhanHieu = "/Content/icons/logo.jpg";
     if (!string.IsNullOrEmpty(objInfo.Imageheader))
     {
-
         urlMauNhanHieu = objInfo.Imageheader.Replace("~", "");
     }
 }
@@ -142,6 +141,13 @@
                 <textarea type="text" id="txtNoiDung" name="txtNoiDung">@Html.Raw(objInfo.Content)</textarea>
             </div>
         </div>
+
+        <div style="margin-top:15px">
+            <div>@WebApps.Resources.Resource.lblNoiDung (EN)<i class="redspan">(*)</i></div>
+            <div style="margin-left: 162px;">
+                <textarea type="text" id="txtNoiDung_En" name="txtNoiDung_En">@Html.Raw(objInfo.Content_En)</textarea>
+            </div>
+        </div>
     </div>
 
     <div style="width:100%;padding-top:10px;">
@@ -257,6 +263,11 @@ catch (Exception)
             height: 500
         });
 
+    var txtNoiDung_En = CKEDITOR.replace("txtNoiDung_En",
+        {
+            height: 500
+        });
+
     $("#btnLuuTam").click(function () {
         SaveArticles(2);
     });
@@ -305,6 +316,14 @@ catch (Exception)
                 return false;
             }
 
+            var _contentVal_En = CKEDITOR.instances['txtNoiDung_En'].getData();
+            if (_contentVal_En.trim() == "" || _contentVal_En.replace(/&nbsp;/g, '').trim() == "") {
+                showError('Nội dung bài viết tiếng anh không được để trống!!');
+                txtNoiDung_En.focus();
+                txtNoiDung_En.setData('');
+                return false;
+            }
+
             var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
             if (fileLogo != undefined || fileLogo != null) {
                 formData.append("pNewsInfo.pfileLogo", fileLogo[0].files[0]);
@@ -319,6 +338,7 @@ catch (Exception)
             formData.append("pNewsInfo.Id", $("#txtNewsId").val().trim());
             formData.append("pNewsInfo.Title", tieude.trim());
             formData.append("pNewsInfo.Content", noidung.trim());
+            formData.append("pNewsInfo.Content_En", _contentVal_En.trim());
             formData.append("pNewsInfo.Categories_Id", category.trim());
             formData.append("pNewsInfo.ReCategories_Id", recategory);
             formData.append("pNewsInfo.Header", header);
