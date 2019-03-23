@@ -169,25 +169,25 @@
             <div class="class_full_div_input">
 
                 @*<div class="class_left_40">
-            <div class="class_block_title" style="padding-top:5px; ">
-                <label>@WebApps.Resources.Resource.lblMauNhanHieu :</label>
-            </div>
-            <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
-               data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
-
-            <div class="class_block_title_control" style="display:flex">
-                <div style="width:165px ;height:165px" id="divLogo">
-                    <img id="imgMauNhanHieu" src="~/Content/icons/logo.jpg" style="width:160px ;height:160px">
-                    <img id="imgMauNhanHieuTeplace" src="~/Content/icons/logo.jpg" hidden="hidden">
+                <div class="class_block_title" style="padding-top:5px; ">
+                    <label>@WebApps.Resources.Resource.lblMauNhanHieu :</label>
                 </div>
-                <div class="container" style="flex-grow:1;padding-top:50px">
-                    <div class="file-upload btn btn-primary" style="margin-top:95px">
-                        <span>@WebApps.Resources.Resource.lblTaiFile</span>
-                        <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
+                <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+                   data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
+
+                <div class="class_block_title_control" style="display:flex">
+                    <div style="width:165px ;height:165px" id="divLogo">
+                        <img id="imgMauNhanHieu" src="~/Content/icons/logo.jpg" style="width:160px ;height:160px">
+                        <img id="imgMauNhanHieuTeplace" src="~/Content/icons/logo.jpg" hidden="hidden">
+                    </div>
+                    <div class="container" style="flex-grow:1;padding-top:50px">
+                        <div class="file-upload btn btn-primary" style="margin-top:95px">
+                            <span>@WebApps.Resources.Resource.lblTaiFile</span>
+                            <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>*@
+            </div>*@
 
                 <div class="class_left_40">
                     <div class="class_block_title" style="padding-top:5px; ">
@@ -274,6 +274,38 @@
             <i id="tagSuggessIMG" style="color:red;font-weight:bold;margin-left:120px">(@WebApps.Resources.Resource.lblSizeOfPicture)</i>
             <a href="javascript:;" st="" class="icon icon-info tip" data-placement="right" style="border:none"
                data-title="@Resource.TooltipSizeofImage"></a>
+
+
+            @*<div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-radio">
+                        <input type="checkbox" name="0_NhanHieu_1" class="classNhanHieu" value="NHTT" 
+                               placeholder="0_NhanHieuTapThe" id="0_NhanHieuTapThe" onclick="return Validate_NhanHieu(0)"/>
+                        <label>@WebApps.Resources.Resource.lblNhanHieuTapThe</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-radio">
+                        <input type="checkbox" name="0_NhanHieu_1" class="classNhanHieu" value="NHLK" 
+                               placeholder="0_NhanHieuLienKet" id="0_NhanHieuLienKet" onclick="return Validate_NhanHieu(1)"/>
+                        <label>@WebApps.Resources.Resource.lblNhanHieuLienKet</label>
+                    </div>
+                </div>
+            </div>
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-radio">
+                        <input type="checkbox" name="0_NhanHieu_1" value="NHCN" class="classNhanHieu" 
+                               placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" onclick="return Validate_NhanHieu(2)"/>
+                        <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
+                    </div>
+                </div>
+            </div>*@
+
+            @* old *@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
@@ -373,7 +405,7 @@
             <div class="div-search-ad">
                 @*<div class="div-search-content">*@
                 <div class="div-radio" style="width:60%">
-                    <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon"  value="@DaiDienChuDon.DaiDienSH" placeholder="3_txtToChucDaiDien" id="3_txtToChucDaiDien" />
+                    <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienSH" placeholder="3_txtToChucDaiDien" id="3_txtToChucDaiDien" />
                     <label>@WebApps.Resources.Resource.lblLaToChucDichVuDaiDienSoHuu</label>
                 </div>
 
@@ -393,7 +425,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="3_rdoDaiDienChuDon"  class="classDaiDienChuDon"  value="@DaiDienChuDon.DaiDienUyQuyen" placeholder="3_txtToChucDaiDien" id="3_txtToChucDaiDien" />
+                        <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienUyQuyen" placeholder="3_txtToChucDaiDien" id="3_txtToChucDaiDien" />
                         <label>@WebApps.Resources.Resource.lblLaNguoiKhacDuocUyQuyen</label>
                     </div>
                 </div>
@@ -643,6 +675,12 @@
 </style>
 <script>
 
+    //nếu dùng checkbox
+    //$(document).ready(function () {
+    //    $('.classNhanHieu').click(function () {
+    //        $('.classNhanHieu').not(this).prop('checked', false);
+    //    });
+    //});
 
     $(function ()
     {
@@ -683,8 +721,6 @@
         } catch (e) {
         }
     });
-
-
 
     function funcDetailDontach() {
         try {
@@ -1453,15 +1489,15 @@
             //}
             formdata.append("pDetail.LoaiNhanHieu", v_NhanHieu);
 
-            //Logo dang chu 
+            //Logo dang chu
             if ($("#ckbNhanHieuChu").prop('checked') == true) {
-                formdata.append("pDetail.Logochu", 1); 
+                formdata.append("pDetail.Logochu", 1);
                 formdata.append("pDetail.ChuLogo", $("#txtChuNhanHieu").val());
-                formdata.append("pDetail.LOGO_FONT_SIZE", $("#txtFontSize").val());  
-                formdata.append("pDetail.FONTTYPE", "");  
+                formdata.append("pDetail.LOGO_FONT_SIZE", $("#txtFontSize").val());
+                formdata.append("pDetail.FONTTYPE", "");
             }
             else {
-                formdata.append("pDetail.Logochu", 0);  
+                formdata.append("pDetail.Logochu", 0);
                 var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
                 if (fileLogo != undefined || fileLogo != null) {
                     formdata.append("pDetail.pfileLogo", fileLogo[0].files[0]);
@@ -1625,7 +1661,7 @@
                 }
 
                 formdata.append("pDetail.Dactinhkhac", v_Dactinhkhac);
-              
+
             }
         } catch (e) {
             showError('Có lỗi xảy ra kiểm tra kết nối internet');
@@ -1919,11 +1955,11 @@
             $("#divDDPLChoise").empty();
             $("#divDDSHChoise").empty();
             $("#divDDUQChoise").empty();
-             
+
         }
     });
 
-     
+
 
     function changeFontSize()
     {
@@ -1933,5 +1969,5 @@
 
         }
     }
-    
+
 </script>
