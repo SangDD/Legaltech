@@ -488,7 +488,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHTT" @styleNhanHieu placeholder="0_NhanHieuTapThe" id="0_NhanHieuTapThe" />
+                        <input type="checkbox" name="0_NhanHieu" class="classNhanHieu" value="NHTT" @styleNhanHieu placeholder="0_NhanHieuTapThe" id="0_NhanHieuTapThe" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuTapThe</label>
                     </div>
                 </div>
@@ -497,7 +497,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHLK" @styleLienKet placeholder="0_NhanHieuLienKet" id="0_NhanHieuLienKet" />
+                        <input type="checkbox" name="0_NhanHieu" class="classNhanHieu" value="NHLK" @styleLienKet placeholder="0_NhanHieuLienKet" id="0_NhanHieuLienKet" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuLienKet</label>
                     </div>
                 </div>
@@ -506,7 +506,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHCN" @styleNhanHieuCN placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" />
+                        <input type="checkbox" name="0_NhanHieu" class="classNhanHieu" value="NHCN" @styleNhanHieuCN placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
                     </div>
                 </div>
@@ -916,6 +916,11 @@
 <input type="hidden" value="@objAppHeaderInfo.Rep_Master_Type" id="txtRepMasterTypeEdit" />
 
 <script>
+    $(document).ready(function () {
+        $('.classNhanHieu').click(function () {
+            $('.classNhanHieu').not(this).prop('checked', false);
+        });
+    });
 
     $(function ()
     {

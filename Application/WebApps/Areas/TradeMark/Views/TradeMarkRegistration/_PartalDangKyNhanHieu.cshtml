@@ -276,11 +276,11 @@
                data-title="@Resource.TooltipSizeofImage"></a>
 
 
-            @*<div class="div-search-ad">
+            <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="checkbox" name="0_NhanHieu_1" class="classNhanHieu" value="NHTT" 
-                               placeholder="0_NhanHieuTapThe" id="0_NhanHieuTapThe" onclick="return Validate_NhanHieu(0)"/>
+                        <input type="checkbox" name="0_NhanHieu" class="classNhanHieu" value="NHTT" 
+                               placeholder="0_NhanHieuTapThe" id="0_NhanHieuTapThe" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuTapThe</label>
                     </div>
                 </div>
@@ -289,8 +289,8 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="checkbox" name="0_NhanHieu_1" class="classNhanHieu" value="NHLK" 
-                               placeholder="0_NhanHieuLienKet" id="0_NhanHieuLienKet" onclick="return Validate_NhanHieu(1)"/>
+                        <input type="checkbox" name="0_NhanHieu" class="classNhanHieu" value="NHLK" 
+                               placeholder="0_NhanHieuLienKet" id="0_NhanHieuLienKet" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuLienKet</label>
                     </div>
                 </div>
@@ -298,15 +298,15 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="checkbox" name="0_NhanHieu_1" value="NHCN" class="classNhanHieu" 
-                               placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" onclick="return Validate_NhanHieu(2)"/>
+                        <input type="checkbox" name="0_NhanHieu" value="NHCN" class="classNhanHieu" 
+                               placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan"/>
                         <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
                     </div>
                 </div>
-            </div>*@
+            </div>
 
             @* old *@
-            <div class="div-search-ad">
+            @*<div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
                         <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHTT" placeholder="0_NhanHieuTapThe" id="0_NhanHieuTapThe" />
@@ -330,7 +330,7 @@
                         <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
                     </div>
                 </div>
-            </div>
+            </div>*@
 
         </div>
         @* End tai lieu dinh kem  *@
@@ -676,11 +676,11 @@
 <script>
 
     //nếu dùng checkbox
-    //$(document).ready(function () {
-    //    $('.classNhanHieu').click(function () {
-    //        $('.classNhanHieu').not(this).prop('checked', false);
-    //    });
-    //});
+    $(document).ready(function () {
+        $('.classNhanHieu').click(function () {
+            $('.classNhanHieu').not(this).prop('checked', false);
+        });
+    });
 
     $(function ()
     {
@@ -905,11 +905,11 @@
         }
     });
 
-    $(document).on('dblclick', '.classNhanHieu', function () {
-        if (this.checked) {
-            $(this).prop('checked', false);
-        }
-    });
+    //$(document).on('dblclick', '.classNhanHieu', function () {
+    //    if (this.checked) {
+    //        $(this).prop('checked', false);
+    //    }
+    //});
 
 
     $('#6_txtNuocNopDon').multipleSelect({
@@ -1443,6 +1443,9 @@
     }
 
     $("#btnGuiDon").click(function () {
+        var v_NhanHieu = $("input[name='0_NhanHieu']:checked").val();
+        alert(v_NhanHieu);
+
         nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
             var url = "/trade-mark/dang_ky_nhan_hieu";
             funGetDataTM04NHGuiLuuTam(2, url);
