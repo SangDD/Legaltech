@@ -168,6 +168,7 @@ namespace ObjectInfos
 
         public decimal Id_Vi { get; set; }
         public string Url_Billing { get; set; }
+        public decimal Billing_Id_Advise { get; set; }
 
         public DateTime Expected_Accept_Date { get; set; }
         public DateTime Expected_Public_Date { get; set; }

@@ -61,21 +61,67 @@
     </div>
 </div>
 
-
 <div class="divCover cls_form_title">
     <img src="/Content/icons/category.png" />
     <div class="cls_form_header">
-        @WebApps.Resources.Resource.ThonTinNopDon
+        @WebApps.Resources.Resource.QuanLyVuViec.ToUpper()
     </div>
 </div>
 
 <div class="div-search-ad">
     <div class="div-search-title">
-        <div>@WebApps.Resources.Resource.NgayNopDon:  </div>
+        <div> @WebApps.Resources.Resource.CaseCode:</div>
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" maxlength="50" value="@_Filing_Date" disabled="disabled" />
+            <input type="text" maxlength="50" style="width: 250px;" value="@_AppHeaderInfo.Case_Code" disabled="disabled" />
+        </div>
+    </div>
+    <div class="div-search-title">
+        <div>@WebApps.Resources.Resource.CaseName:  </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" maxlength="50" value="@_AppHeaderInfo.Case_Name" disabled="disabled" />
+        </div>
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div> @WebApps.Resources.Resource.ClientReference: </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input value="@_AppHeaderInfo.Client_Reference" type="text" placeholder="@WebApps.Resources.Resource.ClientReference" maxlength="200" disabled="disabled" />
+        </div>
+    </div>
+</div>
+
+
+<div class="divCover cls_form_title">
+    <img src="/Content/icons/category.png" />
+    <div class="cls_form_header">
+        @WebApps.Resources.Resource.ThongTinDon.ToUpper()
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div>@WebApps.Resources.Resource.SoDon:</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" maxlength="50" style="width:250px" value="@_AppHeaderInfo.App_No" disabled="disabled" />
+        </div>
+    </div>
+
+    <div class="div-search-title">
+        <div>@WebApps.Resources.Resource.CaseName:  </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" maxlength="50" value="@_AppHeaderInfo.Case_Name" disabled="disabled" />
         </div>
     </div>
 </div>
@@ -135,42 +181,6 @@
     </div>
 </div>
 
-<div class="divCover cls_form_title">
-    <img src="/Content/icons/category.png" />
-    <div class="cls_form_header">
-        @WebApps.Resources.Resource.ThongTinDon.ToUpper()
-    </div>
-</div>
-
-<div class="div-search-ad">
-    <div class="div-search-title">
-        <div> @WebApps.Resources.Resource.CaseCode:</div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input type="text" maxlength="50" style="width: 250px;" value="@_AppHeaderInfo.Case_Code" disabled="disabled" />
-        </div>
-    </div>
-    <div class="div-search-title">
-        <div>@WebApps.Resources.Resource.CaseName:  </div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input type="text" maxlength="50" value="@_AppHeaderInfo.Case_Name" disabled="disabled" />
-        </div>
-    </div>
-</div>
-
-<div class="div-search-ad">
-    <div class="div-search-title">
-        <div> @WebApps.Resources.Resource.ClientReference: </div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input value="@_AppHeaderInfo.Client_Reference" type="text" placeholder="@WebApps.Resources.Resource.ClientReference" maxlength="200" disabled="disabled" />
-        </div>
-    </div>
-</div>
 
 
 <div class="divCover cls_form_title">

@@ -961,7 +961,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tính năng.
+        ///   Looks up a localized string similar to ACCESS IP.
         /// </summary>
         public static string lblFeatures {
             get {
@@ -2248,6 +2248,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chính sách quyền riêng tư.
+        /// </summary>
+        public static string Private {
+            get {
+                return ResourceManager.GetString("Private", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ngưởi xử lý.
         /// </summary>
         public static string Processor {
@@ -2532,6 +2541,15 @@ namespace WebApps.Resources {
         public static string TenLuatSu {
             get {
                 return ResourceManager.GetString("TenLuatSu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Điều khoản sử dụng.
+        /// </summary>
+        public static string Term {
+            get {
+                return ResourceManager.GetString("Term", resourceCulture);
             }
         }
         

@@ -1822,8 +1822,8 @@ input[type=text], select, select option {
 }
 
 .wikitable {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(49%, 1fr));
+    /*display: grid;*/
+    /*grid-template-columns: repeat(auto-fill, minmax(49%, 1fr));*/
     grid-gap: 10px;
     vertical-align: baseline;
 }
@@ -1886,7 +1886,7 @@ input[type=text], select, select option {
 }
   .wiki_header {
         max-height: 60px;
-        white-space: nowrap;
+        /*white-space: nowrap;*/
         text-overflow: ellipsis;
         overflow: hidden;
     }

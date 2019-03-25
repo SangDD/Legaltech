@@ -18,7 +18,7 @@
         _langlink = "/en-gb";
     }
 }
- 
+
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <input type="hidden" id="txtwikicataid" value="@_Catainfo.ID" />
@@ -27,15 +27,24 @@
             {
                 <div class="dynamic-linkset list-group-item col-md-6 itemdoc">
                     <span class="badge">@item.VIEW_NUMBER</span>
-                    <a href='@(_langlink + "/wiki-view/doc-view/"+item.CATA_ID+"/" + item.ID)'>
 
-                        @item.TITLE
-                    </a>
-                
+                    @if (WebApps.Session.SessionData.CurrentUser != null)
+                    {
+                        <a href='@(_langlink + "/wiki-view/doc-view/"+item.CATA_ID+"/" + item.ID)'>
+                            @item.TITLE
+                        </a>
+                    }
+                    else
+                    {
+                        <a href='javascript:;'>
+                            @item.TITLE
+                        </a>
+                    }
+
+
                     <div class="wiki_header">
                         @item.HEADER
                     </div>
-                   
                 </div>
 
             }

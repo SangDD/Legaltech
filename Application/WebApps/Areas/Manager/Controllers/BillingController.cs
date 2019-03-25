@@ -984,5 +984,27 @@ namespace WebApps.Areas.Manager.Controllers
         //        Logger.LogException(ex);
         //    }
         //}
+
+        [Route("danh-sach-billing/check-exits-billing")]
+        public ActionResult Check_Exits_Billing(string p_app_case_code)
+        {
+            try
+            {
+                Application_Header_BL _bl_app = new Application_Header_BL();
+                ApplicationHeaderInfo _ApplicationHeaderInfo = _bl_app.GetApp_By_Case_Code(p_app_case_code);
+                if (_ApplicationHeaderInfo != null && _ApplicationHeaderInfo.Billing_Id_Advise > 0)
+                {
+                    return Json(new { success = _ApplicationHeaderInfo.Billing_Id_Advise });
+                }
+                else
+                    return Json(new { success = 0 });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = 0 });
+            }
+        }
+
     }
 }
