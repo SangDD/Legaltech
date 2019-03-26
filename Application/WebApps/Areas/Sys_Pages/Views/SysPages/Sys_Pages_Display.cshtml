@@ -106,13 +106,12 @@
                     pPage: page
                 },
                 async: true, cache: false, traditional: true,
-                enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                 beforeSend: function () {
                     CreateRollingWaitingIcon(true);
                 },
                 success: function (data) {
-                    $("#divTableObjects").html(data);
                     CreateRollingWaitingIcon(false);
+                    $("#divTableObjects").html(data);
                 },
                 error: function (e) {
                     CreateRollingWaitingIcon(false);
@@ -120,7 +119,7 @@
                 }
             });
         } catch (e) {
-
+            alert(e);
         }
 
     }

@@ -50,12 +50,13 @@ namespace WebApps.Areas.Sys_Pages.Controllers
         {
             try
             {
-                int from = (pPage - 1) * (Common.Common.RecordOnpage);
-                int to = (pPage) * (Common.Common.RecordOnpage);
+                string p_to = "";
+                string p_from = CommonFuc.Get_From_To_Page(pPage, ref p_to);
+
                 decimal _total_record = 0;
                 Sys_Pages_BL objBL = new Sys_Pages_BL();
                 string language = AppsCommon.GetCurrentLang();
-                List<Sys_Pages_Info> _lst = objBL.Sys_Pages_Search(p_keySearch, ref _total_record, from.ToString(), to.ToString());
+                List<Sys_Pages_Info> _lst = objBL.Sys_Pages_Search(p_keySearch, ref _total_record, p_from, p_to);
                 string htmlPaging = CommonFuc.Get_HtmlPaging<NewsInfo>((int)_total_record, pPage, "Tin");
                 ViewBag.listArticles = _lst;
                 ViewBag.Paging = htmlPaging;
