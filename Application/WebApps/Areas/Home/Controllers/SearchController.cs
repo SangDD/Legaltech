@@ -93,7 +93,7 @@ namespace WebApps.Areas.Home.Controllers
                     var userBL = new UserBL();
                     var lstUsers = new List<UserInfo>();
                     keysSearch = "|" + keysSearch + "|" + Convert.ToInt16(CommonEnums.UserType.Customer) + "|";
-                    lstUsers = userBL.HomeFindUser(ref _total_record, keysSearch, options);
+                    lstUsers = userBL.FindCustomer(ref _total_record, keysSearch, options);
                     htmlPaging = CommonFuc.Get_HtmlPaging<UserInfo>((int)_total_record, p_CurrentPage, "Khách hàng", _reconpage);
                     ViewBag.Paging = htmlPaging;
                     ViewBag.SumRecord = _total_record;

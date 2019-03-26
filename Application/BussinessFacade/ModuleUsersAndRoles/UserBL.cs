@@ -164,6 +164,25 @@
 
             return Null<UserInfo>.GetListCollectionNull();
         }
+        public List<UserInfo> FindCustomer(ref decimal totalRecordFindResult, string keysSearch = "", string options = "")
+        {
+            try
+            {
+                int _totalrec = 0;
+                var optionFilter = new OptionFilter(options);
+                var ds = UserDA.FindCustomer(keysSearch, optionFilter, ref _totalrec);
+                totalRecordFindResult = _totalrec;
+                return CBO<UserInfo>.FillCollectionFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            return Null<UserInfo>.GetListCollectionNull();
+        }
+
+        
 
 
         public List<UserInfo> GetUserByType(decimal p_user_type)

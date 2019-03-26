@@ -183,6 +183,49 @@
             return ds;
         }
 
+        public static DataSet FindCustomer(string keysSearch, OptionFilter options, ref int totalRecord)
+        {
+            var ds = new DataSet();
+            try
+            {
+                // Keys search
+                var keysearch = Null.NullString; // Find by near value matching of  UserName
+                var fullName = Null.NullString; // Find by near value matching of  FullName
+                var departmentId = Null.NullString; // Array departmentId, split by ',' and user IN operator in sql for searching
+                var type = Null.NullString; // Find by near value matching of  GroupId
+                var status = Null.NullString; // Array Status, split by ',' and user IN operator in sql for searching
+                if (!string.IsNullOrEmpty(keysSearch))
+                {
+                    var arrKeySearch = keysSearch.Split('|');
+                    if (arrKeySearch.Length == 4)
+                    {
+                        keysearch = arrKeySearch[1];
+                        type = KeySearch.FilterComboboxValue(arrKeySearch[2]);
+                        status = KeySearch.FilterComboboxValue(arrKeySearch[3]);
+                    }
+                }
+
+                var paramTotalRecord = new OracleParameter("p_totalRecord", OracleDbType.Int32, ParameterDirection.Output);
+                ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_s_users.proc_module_search_execute",
+                    new OracleParameter("p_keysearch", OracleDbType.Varchar2, keysearch, ParameterDirection.Input),
+                    new OracleParameter("p_type", OracleDbType.Varchar2, type, ParameterDirection.Input),
+                    new OracleParameter("p_status", OracleDbType.Varchar2, status, ParameterDirection.Input),
+                    new OracleParameter("p_orderBy", OracleDbType.Varchar2, options.OrderBy, ParameterDirection.Input),
+                    new OracleParameter("p_startAt", OracleDbType.Decimal, options.StartAt, ParameterDirection.Input),
+                    new OracleParameter("p_endAt", OracleDbType.Decimal, options.EndAt, ParameterDirection.Input),
+                    paramTotalRecord,
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+
+                totalRecord = Convert.ToInt32(paramTotalRecord.Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            return ds;
+        }
+
         public static DataSet GetUserByType(decimal p_user_type)
         {
             try
