@@ -332,7 +332,8 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <select id="cboContact_Person">
+                    <input type="text" id="txtContact_Person" maxlength="200" />
+                    @*<select id="cboContact_Person">
                         <option value="Mr">Mr</option>
                         <option value="Mr">
                             Mrs </ option >
@@ -342,7 +343,7 @@
                         <option value="Mr">
                             Miss
                         </option>
-                    </select>
+                    </select>*@
                 </div>
             </div>
         </div>
@@ -499,7 +500,7 @@
         formData.append('userInfo.Reason_Select', $("#cboReasonSelect").val());
         formData.append('userInfo.Request_Credit', $("#cboRequestCredit").val());
         formData.append('userInfo.Customer_Code', $("#txtCustomer_Code").val());
-        formData.append('userInfo.Contact_Person', $("#cboContact_Person").val());
+        formData.append('userInfo.Contact_Person', $("#txtContact_Person").val());
 
         formData.append('userInfo.Other_Type', $("#cboLawerType").val());
         formData.append('userInfo.Hourly_Rate', $("#txthourly_rate").val().replace(/,/g, ""));

@@ -244,6 +244,17 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
+                <div>Rating</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Rating, new { @disabled = "disabled", @Value = Model.Rating == 0 ? "" : Model.Rating.ToString("#,##0.##") })
+                </div>
+            </div>
+        </div>
+
+        @*<div class="div-search-ad">
+            <div class="div-search-title">
                 <div>Nhóm quyền</div>
             </div>
             <div class="div-search-content">
@@ -251,7 +262,7 @@
                     <input type="text" value="@_GroupName" disabled="disabled" />
                 </div>
             </div>
-        </div>
+        </div>*@
     </div>
 
     @*<div class="divCover">

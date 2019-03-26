@@ -239,6 +239,15 @@
 
                     new OracleParameter("p_GroupId", OracleDbType.Varchar2, GroupId, ParameterDirection.Input),
                     new OracleParameter("p_createdby", OracleDbType.Varchar2, userAdd.CreatedBy, ParameterDirection.Input),
+
+                    new OracleParameter("p_is_agent", OracleDbType.Varchar2, userAdd.Is_Agent, ParameterDirection.Input),
+                    new OracleParameter("p_tel_contact_person", OracleDbType.Varchar2, userAdd.Tel_Contact_Person, ParameterDirection.Input),
+                    new OracleParameter("p_agent_representative", OracleDbType.Varchar2, userAdd.Agent_Representative, ParameterDirection.Input),
+                    new OracleParameter("p_license_agent", OracleDbType.Varchar2, userAdd.License_Agent, ParameterDirection.Input),
+                    new OracleParameter("p_division", OracleDbType.Varchar2, userAdd.Division, ParameterDirection.Input),
+                    new OracleParameter("p_direct_supervisor", OracleDbType.Varchar2, userAdd.Direct_Supervisor, ParameterDirection.Input),
+                    new OracleParameter("p_referee", OracleDbType.Varchar2, userAdd.Referee, ParameterDirection.Input),
+
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;
@@ -289,6 +298,15 @@
 
                     new OracleParameter("p_GroupId", OracleDbType.Varchar2, GroupId, ParameterDirection.Input),
                     new OracleParameter("p_modifiedBy", OracleDbType.Varchar2, userEdit.ModifiedBy, ParameterDirection.Input),
+
+                    new OracleParameter("p_is_agent", OracleDbType.Varchar2, userEdit.Is_Agent, ParameterDirection.Input),
+                    new OracleParameter("p_tel_contact_person", OracleDbType.Varchar2, userEdit.Tel_Contact_Person, ParameterDirection.Input),
+                    new OracleParameter("p_agent_representative", OracleDbType.Varchar2, userEdit.Agent_Representative, ParameterDirection.Input),
+                    new OracleParameter("p_license_agent", OracleDbType.Varchar2, userEdit.License_Agent, ParameterDirection.Input),
+                    new OracleParameter("p_division", OracleDbType.Varchar2, userEdit.Division, ParameterDirection.Input),
+                    new OracleParameter("p_direct_supervisor", OracleDbType.Varchar2, userEdit.Direct_Supervisor, ParameterDirection.Input),
+                    new OracleParameter("p_referee", OracleDbType.Varchar2, userEdit.Referee, ParameterDirection.Input),
+
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;

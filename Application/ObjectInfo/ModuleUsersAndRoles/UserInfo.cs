@@ -94,6 +94,15 @@
         public DateTime LoginTime { get; set; }
         public bool AccountRoleChanged { get; set; }
         public int loginfirst { get; set; }
+
+        public decimal Is_Agent { get; set; }
+        public string Tel_Contact_Person { get; set; }
+        public string Agent_Representative { get; set; }
+        public string License_Agent { get; set; }
+        public string Division { get; set; }
+        public string Direct_Supervisor { get; set; }
+        public string Referee { get; set; }
+
         public List<FunctionInfo> AllAccountRoles { get; set; }
 
         public List<int> GroupSelectedCollection { get; set; }

@@ -319,43 +319,46 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <select id="cboContact_Person">
-                            @if (Model.Contact_Person == "Mr")
-                            {
-                                <option value="Mr" selected="selected">Mr</option>
-                            }
-                            else
-                            {
-                                <option value="Mr">Mr</option>
-                            }
+                        @Html.TextBoxFor(m => m.Contact_Person, new { @id = "txtContact_Person", @maxlength = "200" })
 
-                            @if (Model.Contact_Person == "Mrs")
-                            {
-                                <option value="Mrs" selected="selected">Mrs</option>
-                            }
-                            else
-                            {
-                                <option value="Mrs">Mrs</option>
-                            }
 
-                            @if (Model.Contact_Person == "Ms")
-                            {
-                                <option value="Ms" selected="selected">Ms</option>
-                            }
-                            else
-                            {
-                                <option value="Ms">Ms</option>
-                            }
+                        @*<select id="cboContact_Person">
+                                @if (Model.Contact_Person == "Mr")
+                                {
+                                    <option value="Mr" selected="selected">Mr</option>
+                                }
+                                else
+                                {
+                                    <option value="Mr">Mr</option>
+                                }
 
-                            @if (Model.Contact_Person == "Miss")
-                            {
-                                <option value="Miss" selected="selected">Miss</option>
-                            }
-                            else
-                            {
-                                <option value="Miss">Miss</option>
-                            }
-                        </select>
+                                @if (Model.Contact_Person == "Mrs")
+                                {
+                                    <option value="Mrs" selected="selected">Mrs</option>
+                                }
+                                else
+                                {
+                                    <option value="Mrs">Mrs</option>
+                                }
+
+                                @if (Model.Contact_Person == "Ms")
+                                {
+                                    <option value="Ms" selected="selected">Ms</option>
+                                }
+                                else
+                                {
+                                    <option value="Ms">Ms</option>
+                                }
+
+                                @if (Model.Contact_Person == "Miss")
+                                {
+                                    <option value="Miss" selected="selected">Miss</option>
+                                }
+                                else
+                                {
+                                    <option value="Miss">Miss</option>
+                                }
+                            </select>*@
                     </div>
                 </div>
             </div>
@@ -680,7 +683,7 @@
             formData.append('userInfo.Request_Credit', $("#cboRequestCredit").val());
 
             formData.append('userInfo.Customer_Code', $("#txtCustomer_Code").val());
-            formData.append('userInfo.Contact_Person', $("#cboContact_Person").val());
+            formData.append('userInfo.Contact_Person', $("#txtContact_Person").val());
 
         }
         else if (@Model.Type == '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Lawer)') {
