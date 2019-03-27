@@ -268,23 +268,112 @@
 
         <div class="div-search-ad" id="clsCustomer1">
             <div class="div-search-title">
-                <div>@WebApps.Resources.Resource.MaDaiDien</div>
+                <div>@WebApps.Resources.Resource.NguoiGioiThieu </div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Customer_Code, new { @id = "txtCustomer_Code", @maxlength = "200", @style = "width: 200px" })
+                    <select id="cboReferee" style="width: 200px">
+                        <option value=""></option>
+                        @foreach (var item in BussinessFacade.ModuleUsersAndRoles.UserBL.GetAllUsers())
+                        {
+                            <option @(item.Username == Model.Referee ? "selected=\"selected\"" : "") value="@item.Username">@item.FullName</option>
+                        }
+                    </select>
                 </div>
             </div>
 
             <div class="div-search-title">
-                <div>Contact Person </div>
+                <div>@WebApps.Resources.Resource.MaDaiDien</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Contact_Person, new { @id = "txtContact_Person", @maxlength = "200" })
+                    @Html.TextBoxFor(m => m.Customer_Code, new { @id = "txtCustomer_Code", @maxlength = "200" })
                 </div>
             </div>
         </div>
+
+        <div class="div-search-ad" id="clsCustomer1">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.ContactPerson </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Contact_Person, new { @id = "txtContact_Person", @maxlength = "200", @style = "width: 200px" })
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.TelContactPerson</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Tel_Contact_Person, new { @id = "txtTel_Contact_Person", @maxlength = "200" })
+                </div>
+            </div>
+        </div>
+
+        @if (Model.Is_Agent == 1)
+        {
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-radio">
+                        <input type="checkbox" id="ckbAgent" checked="checked" onclick="onChooseAgent()" />
+                        <label>@WebApps.Resources.Resource.LaDaiDien</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div id="divAgent_Representative">@WebApps.Resources.Resource.NguoiDaiDienSHCN  </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.Agent_Representative, new { @maxlength = "200", @style = "width: 200px" })
+                    </div>
+                </div>
+
+                <div class="div-search-title">
+                    <div>@WebApps.Resources.Resource.TheHanhNghe </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.License_Agent, new { @maxlength = "200" })
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-radio">
+                        <input type="checkbox" id="ckbAgent" onclick="onChooseAgent()" />
+                        <label>@WebApps.Resources.Resource.LaDaiDien</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div id="divAgent_Representative">@WebApps.Resources.Resource.NguoiDaiDienTheoPL </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.Agent_Representative, new { @maxlength = "200", @style = "width: 200px" })
+                    </div>
+                </div>
+
+                <div class="div-search-title">
+                    <div id="divLicense_Agent">@WebApps.Resources.Resource.GiayUyQuyen </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.License_Agent, new { @maxlength = "200" })
+                    </div>
+                </div>
+            </div>
+        }
 
         <div class="div-search-ad" id="clsCustomer2">
             <div class="div-search-title">
@@ -388,6 +477,29 @@
 
 		$('#txtDateOfBirth').datetimepicker({ value: dateOfBirth });
     });
+
+    function onChooseAgent() {
+        try {
+            var _IsAgent = $('#ckbAgent').is(":checked");
+            if (_IsAgent == true) {
+
+                var _divAgent_Representative = document.getElementById("divAgent_Representative");
+                _divAgent_Representative.innerHTML = "Người đại diện SHCN";
+
+                var _divLicense_Agent = document.getElementById("divLicense_Agent");
+                _divLicense_Agent.innerHTML = "Thẻ hành nghề";
+            } else {
+                var _divAgent_Representative = document.getElementById("divAgent_Representative");
+                _divAgent_Representative.innerHTML = "Người đại diện theo PL";
+
+                var _divLicense_Agent = document.getElementById("divLicense_Agent");
+                _divLicense_Agent.innerHTML = "Giấy uỷ quyền";
+            }
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     function back() {
         var url = "/customer/quan-ly-customer/";
@@ -544,6 +656,18 @@
 
         formData.append('userInfo.Customer_Code', $("#txtCustomer_Code").val());
         formData.append('userInfo.Contact_Person', $("#txtContact_Person").val());
+
+        formData.append('userInfo.Tel_Contact_Person', $("#txtTel_Contact_Person").val());
+        formData.append('userInfo.Agent_Representative', $("#txtAgent_Representative").val());
+        formData.append('userInfo.License_Agent', $("#txtLicense_Agent").val());
+        formData.append('userInfo.Referee', $("#cboReferee").val());
+
+        var _IsAgent = $('#ckbAgent').is(":checked");
+        if (_IsAgent == true) {
+            formData.append('userInfo.Is_Agent', 1);
+        } else {
+            formData.append('userInfo.Is_Agent', 0);
+        }
 
 		formData.append('GroupId', '@_groupId');
     }

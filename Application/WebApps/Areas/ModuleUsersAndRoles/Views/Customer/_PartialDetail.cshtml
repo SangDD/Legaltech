@@ -36,7 +36,7 @@
         <img src="~/Content/icons/Body-icon-home.png" /> I
         <a href="/home">Home</a>
         <span class="red">></span>
-        <a href="/customer/quan-ly-customer">Quản lý khách hàng</a>
+        <a href="/customer/quan-ly-customer">@WebApps.Resources.Resource.QuanLyKhachHang</a>
 
     </div>
 </div>
@@ -53,14 +53,14 @@
 <div class="d-main">
     <div class="divCover">
         <div class="classTitle">
-            <div class="div-title-content"> THÔNG TIN KHÁCH HÀNG</div>
+            <div class="div-title-content"> @WebApps.Resources.Resource.ThongTinKhachHang.ToUpper()</div>
         </div>
     </div>
 
     <div class="divCover">
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Tên đăng nhập<i class="redspan"></i></div>
+                <div>@WebApps.Resources.Resource.TenDangNhap<i class="redspan"></i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -69,7 +69,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Họ tên<i class="redspan"></i></div>
+                <div>@WebApps.Resources.Resource.HoTen<i class="redspan"></i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -80,7 +80,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Địa chỉ<i class="redspan"></i></div>
+                <div>@WebApps.Resources.Resource.DiaChi<i class="redspan"></i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -91,7 +91,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Ngày sinh</div>
+                <div>@WebApps.Resources.Resource.NgaySinh</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -105,7 +105,7 @@
 
 
             <div class="div-search-title">
-                <div>Giới tính</div>
+                <div>@WebApps.Resources.Resource.GioiTinh</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -116,7 +116,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Số điện thoại<i class="redspan"></i></div>
+                <div>@WebApps.Resources.Resource.SoDienThoai<i class="redspan"></i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -185,7 +185,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Quốc tịch</div>
+                <div>@WebApps.Resources.Resource.QuocTich</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -196,7 +196,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Loại người dùng<i class="redspan"></i></div>
+                <div>@WebApps.Resources.Resource.LoaiNguoiDung<i class="redspan"></i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -204,7 +204,7 @@
                 </div>
             </div>
             <div class="div-search-title">
-                <div>Trạng thái </div>
+                <div>@WebApps.Resources.Resource.TrangThai </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -215,7 +215,7 @@
 
         <div class="div-search-ad" id="clsCustomer">
             <div class="div-search-title">
-                <div>Tên công ty <i class="redspan"></i></div>
+                <div>@WebApps.Resources.Resource.TenCongTy <i class="redspan"></i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -224,7 +224,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Lĩnh vực hoạt động  <i class="redspan"></i></div>
+                <div>@WebApps.Resources.Resource.LinhVucHoatDong<i class="redspan"></i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -235,7 +235,7 @@
 
         <div class="div-search-ad" id="clsCustomer1">
             <div class="div-search-title">
-                <div>Người quản lý</div>
+                <div>@WebApps.Resources.Resource.NguoiQuanLy</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -244,7 +244,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Chức vụ </div>
+                <div>@WebApps.Resources.Resource.ChucVu </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -255,7 +255,7 @@
 
         <div class="div-search-ad" id="clsCustomer3">
             <div class="div-search-title">
-                <div>Mã đại diện</div>
+                <div>@WebApps.Resources.Resource.MaDaiDien</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -264,18 +264,18 @@
             </div>
 
             <div class="div-search-title">
-                <div>Rating </div>
+                <div>@WebApps.Resources.Resource.NguoiGioiThieu </div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Rating, new { @disabled = "disabled", @Value = Model.Rating == 0 ? "" : Model.Rating.ToString("#,##0.##") })
+                    @Html.TextBoxFor(m => m.Referee, new { @maxlength = "200", @disabled = "disabled" })
                 </div>
             </div>
         </div>
 
         <div class="div-search-ad" id="clsCustomer3">
             <div class="div-search-title">
-                <div>Contact Person </div>
+                <div>@WebApps.Resources.Resource.ContactPerson </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -284,7 +284,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Tel/email of contact person </div>
+                <div>@WebApps.Resources.Resource.TelContactPerson </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -296,8 +296,17 @@
         @if (Model.Is_Agent == 1)
         {
             <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-radio">
+                        <input type="checkbox" id="ckbAgent" checked="checked" />
+                        <label>@WebApps.Resources.Resource.LaDaiDien</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div>Người đại diện SHCN </div>
+                    <div>@WebApps.Resources.Resource.NguoiDaiDienSHCN </div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -306,7 +315,7 @@
                 </div>
 
                 <div class="div-search-title">
-                    <div>Thẻ hành nghề </div>
+                    <div>@WebApps.Resources.Resource.TheHanhNghe </div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -319,7 +328,7 @@
         {
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div>Người ĐD theo PL </div>
+                    <div>@WebApps.Resources.Resource.NguoiDaiDienTheoPL </div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -328,7 +337,7 @@
                 </div>
 
                 <div class="div-search-title">
-                    <div>Giấy uỷ quyền (đính kèm) </div>
+                    <div>@WebApps.Resources.Resource.GiayUyQuyen </div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -340,7 +349,7 @@
 
         <div class="div-search-ad" id="clsCustomer2">
             <div class="div-search-title">
-                <div>Lý do dùng </div>
+                <div>@WebApps.Resources.Resource.LyDoDung </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -349,11 +358,22 @@
             </div>
 
             <div class="div-search-title">
-                <div>Chính sách giá đặc biệt </div>
+                <div>@WebApps.Resources.Resource.ChinhSachGiaDacBiet </div>
             </div>
             <div class="div-search-content">
                 <div>
                     @Html.TextBoxFor(m => m.Request_Credit_Name, new { @disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad" id="clsCustomer3">
+            <div class="div-search-title">
+                <div style="color:red">Rating </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Rating, new { @disabled = "disabled", @Value = Model.Rating == 0 ? "" : Model.Rating.ToString("#,##0.##") })
                 </div>
             </div>
         </div>

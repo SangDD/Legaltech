@@ -18,7 +18,7 @@
         <img src="~/Content/icons/Body-icon-home.png" /> I
         <a href="/home">Home</a>
         <span class="red">></span>
-        <a href="/customer/quan-ly-customer">Quản lý timesheet</a>
+        <a href="/customer/quan-ly-customer">@WebApps.Resources.Resource.QuanLyKhachHang</a>
     </div>
 </div>
 <div class="divCover">
@@ -35,14 +35,14 @@
 <div class="d-main">
     <div class="divCover">
         <div class="classTitle">
-            <div class="div-title-content"> THÊM MỚI KHÁCH HÀNG</div>
+            <div class="div-title-content"> @WebApps.Resources.Resource.ThemMoiKhachHang.ToUpper()</div>
         </div>
     </div>
 
     <div class="divCover">
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Tên đăng nhập<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.TenDangNhap<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -52,7 +52,7 @@
         </div>
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Họ tên<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.HoTen<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -63,7 +63,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Mật khẩu<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.MatKhau<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -71,7 +71,7 @@
                 </div>
             </div>
             <div class="div-search-title">
-                <div>Mật khẩu nhắc lại <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.MatKhauNhacLai <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -82,7 +82,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Địa chỉ<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.DiaChi<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -94,18 +94,16 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Ngày sinh <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.NgaySinh <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txtDateOfBirthAdd" maxlength="250" class="datetimepicker" />
+                    <input type="text" id="txtDateOfBirthAdd" maxlength="250" class="datetimepicker" style="width:200px" />
                 </div>
             </div>
-        </div>
 
-        <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Giới tính</div>
+                <div>@WebApps.Resources.Resource.GioiTinh</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -121,7 +119,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Số điện thoại<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.SoDienThoai<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -190,7 +188,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Quốc tịch <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.QuocTich <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -213,7 +211,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Loại người dùng<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.LoaiNguoiDung<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -233,7 +231,7 @@
                 </div>
             </div>
             <div class="div-search-title">
-                <div>Trạng thái <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.TrangThai <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -250,7 +248,7 @@
         @*khách hàng*@
         <div class="div-search-ad" id="clsCustomer">
             <div class="div-search-title">
-                <div>Tên công ty <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.TenCongTy <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -259,7 +257,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Ngành ngề chính  <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.LinhVucHoatDong <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -270,7 +268,7 @@
 
         <div class="div-search-ad" id="clsCustomer1">
             <div class="div-search-title">
-                <div>Người quản lý</div>
+                <div>@WebApps.Resources.Resource.NguoiQuanLy</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -279,7 +277,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Chức vụ </div>
+                <div>@WebApps.Resources.Resource.ChucVu </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -288,20 +286,37 @@
             </div>
         </div>
 
-        <div class="div-search-ad" id="clsCustomer3">
+        <div class="div-search-ad" id="clsCustomer1">
             <div class="div-search-title">
-                <div>Mã đại diện</div>
+                <div>@WebApps.Resources.Resource.NguoiGioiThieu </div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txtCustomer_Code" maxlength="200" style="width: 200px" />
+                    <select id="cboReferee">
+                        <option value=""></option>
+                        @foreach (var item in BussinessFacade.ModuleUsersAndRoles.UserBL.GetAllUsers())
+                        {
+                            <option value="@item.Username">@item.FullName</option>
+                        }
+                    </select>
                 </div>
             </div>
         </div>
 
         <div class="div-search-ad" id="clsCustomer3">
             <div class="div-search-title">
-                <div>Contact Person </div>
+                <div>@WebApps.Resources.Resource.MaDaiDien</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtCustomer_Code" maxlength="200" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad" id="clsCustomer3">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.ContactPerson </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -310,19 +325,47 @@
             </div>
 
             <div class="div-search-title">
-                <div>Tel/email of contact person</div>
+                <div>@WebApps.Resources.Resource.TelContactPerson</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txtTel_Contact_Person" maxlength="200" style="width: 200px" />
+                    <input type="text" id="txtTel_Contact_Person" maxlength="200" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio">
+                    <input type="checkbox" id="ckbAgent" onclick="onChooseAgent()" />
+                    <label>@WebApps.Resources.Resource.LaDaiDien</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div id="divAgent_Representative">@WebApps.Resources.Resource.NguoiDaiDienSHCN </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtAgent_Representative" maxlength="200" style="width: 200px" />
                 </div>
             </div>
 
+            <div class="div-search-title">
+                <div id="divLicense_Agent">@WebApps.Resources.Resource.GiayUyQuyen </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtLicense_Agent" maxlength="200" />
+                </div>
+            </div>
         </div>
 
         <div class="div-search-ad" id="clsCustomer2">
             <div class="div-search-title">
-                <div>Lý do dùng </div>
+                <div>@WebApps.Resources.Resource.LyDoDung </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -337,7 +380,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Chính sách giá đặc biệt </div>
+                <div>@WebApps.Resources.Resource.ChinhSachGiaDacBiet </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -354,7 +397,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Nhóm quyền <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.NhomQuyen <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -411,6 +454,29 @@
         });
     });
 
+    function onChooseAgent() {
+        try {
+            var _IsAgent = $('#ckbAgent').is(":checked");
+            if (_IsAgent == true) {
+
+                var _divAgent_Representative = document.getElementById("divAgent_Representative");
+                _divAgent_Representative.innerHTML = "Người đại diện SHCN";
+
+                var _divLicense_Agent = document.getElementById("divLicense_Agent");
+                _divLicense_Agent.innerHTML = "Thẻ hành nghề";
+            } else {
+                var _divAgent_Representative = document.getElementById("divAgent_Representative");
+                _divAgent_Representative.innerHTML = "Người đại diện theo PL";
+
+                var _divLicense_Agent = document.getElementById("divLicense_Agent");
+                _divLicense_Agent.innerHTML = "Giấy uỷ quyền";
+            }
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     function collectDataToAddNewUser(formData) {
         formData.append('userInfo.Username', usernameAdd);
         formData.append('userInfo.FullName', fullNameAdd);
@@ -439,6 +505,19 @@
         formData.append('userInfo.Request_Credit', $("#cboRequestCredit").val());
         formData.append('userInfo.Customer_Code', $("#txtCustomer_Code").val());
         formData.append('userInfo.Contact_Person', $("#txtContact_Person").val());
+
+        formData.append('userInfo.Tel_Contact_Person', $("#txtTel_Contact_Person").val());
+        formData.append('userInfo.Agent_Representative', $("#txtAgent_Representative").val());
+        formData.append('userInfo.License_Agent', $("#txtLicense_Agent").val());
+        formData.append('userInfo.Referee', $("#cboReferee").val());
+
+        var _IsAgent = $('#ckbAgent').is(":checked");
+        if (_IsAgent == true) {
+            formData.append('userInfo.Is_Agent', 1);
+        } else {
+            formData.append('userInfo.Is_Agent', 0);
+        }
+
 
         formData.append('GroupId', GroupIdAdd);
     }
