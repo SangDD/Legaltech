@@ -105,6 +105,17 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.DiaChi<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Address, new { @id = "txtAddress", maxlength = "200" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
                 <div>@WebApps.Resources.Resource.SoDienThoai<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
@@ -195,16 +206,7 @@
             </div>
         </div>
 
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@WebApps.Resources.Resource.DiaChi<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.TextBoxFor(m => m.Address, new { @id = "txtAddress", maxlength = "200" })
-                </div>
-            </div>
-        </div>
+
 
         <div class="div-search-ad">
             <div class="div-search-title">
@@ -239,6 +241,64 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.NguoiGioiThieu </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboReferee">
+                        <option value=""></option>
+                        @foreach (var item in BussinessFacade.ModuleUsersAndRoles.UserBL.GetAllUsers())
+                        {
+                            <option @(item.Username == Model.Referee ? "selected=\"selected\"" : "") value="@item.Username">@item.FullName</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.CongTy<i class="redspan"></i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Company_Name, new { @id = "txtCompany_Name", @style = "width: 200px", @maxlength = "200" })
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.ChucVu<i class="redspan"></i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Title, new { @id = "txtTitle", @maxlength = "200" })
+                </div>
+            </div>
+
+        </div>
+
+        <div class="div-search-ad">
+
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.BoPhan </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Division, new { @id = "txtDivision", @style = "width: 200px", @maxlength = "200" })
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.TruongBoPhan </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Direct_Supervisor, new { @id = "txtDirect_Supervisor", @maxlength = "200" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
                 <div>@WebApps.Resources.Resource.LoaiNguoiDung<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
@@ -246,6 +306,7 @@
                     @Html.TextBoxFor(m => m.Type_Name, new { @style = "width: 200px", @disabled = "disabled" })
                 </div>
             </div>
+
             <div class="div-search-title">
                 <div>@WebApps.Resources.Resource.TrangThai</div>
             </div>
@@ -260,176 +321,6 @@
                 </div>
             </div>
         </div>
-
-
-        @if (Model.Type == Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Customer))
-        {
-            <div class="div-search-ad" id="clsCustomer">
-                <div class="div-search-title">
-                    <div>@WebApps.Resources.Resource.TenCongTy <i class="redspan">(*)</i></div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.TextBoxFor(m => m.Company_Name, new { @id = "txtcompany_name", @maxlength = "500", @style = "width: 200px" })
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>@WebApps.Resources.Resource.NghanhNgheChinh  <i class="redspan">(*)</i></div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.TextBoxFor(m => m.Main_Business, new { @id = "txtmain_business", @maxlength = "500" })
-                    </div>
-                </div>
-            </div>
-
-            <div class="div-search-ad" id="clsCustomer1">
-                <div class="div-search-title">
-                    <div>@WebApps.Resources.Resource.NguoiQuanLy</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.TextBoxFor(m => m.Copyto, new { @id = "txtcopyto", @maxlength = "200", @style = "width: 200px" })
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>@WebApps.Resources.Resource.ChucVu </div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.TextBoxFor(m => m.Title, new { @id = "txttitle", @maxlength = "500" })
-                    </div>
-                </div>
-            </div>
-
-            <div class="div-search-ad" id="clsCustomer1">
-                <div class="div-search-title">
-                    <div>@WebApps.Resources.Resource.MaDaiDien</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.TextBoxFor(m => m.Customer_Code, new { @id = "txtCustomer_Code", @maxlength = "200", @style = "width: 200px" })
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Contact Person </div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.TextBoxFor(m => m.Contact_Person, new { @id = "txtContact_Person", @maxlength = "200" })
-
-
-                        @*<select id="cboContact_Person">
-                                @if (Model.Contact_Person == "Mr")
-                                {
-                                    <option value="Mr" selected="selected">Mr</option>
-                                }
-                                else
-                                {
-                                    <option value="Mr">Mr</option>
-                                }
-
-                                @if (Model.Contact_Person == "Mrs")
-                                {
-                                    <option value="Mrs" selected="selected">Mrs</option>
-                                }
-                                else
-                                {
-                                    <option value="Mrs">Mrs</option>
-                                }
-
-                                @if (Model.Contact_Person == "Ms")
-                                {
-                                    <option value="Ms" selected="selected">Ms</option>
-                                }
-                                else
-                                {
-                                    <option value="Ms">Ms</option>
-                                }
-
-                                @if (Model.Contact_Person == "Miss")
-                                {
-                                    <option value="Miss" selected="selected">Miss</option>
-                                }
-                                else
-                                {
-                                    <option value="Miss">Miss</option>
-                                }
-                            </select>*@
-                    </div>
-                </div>
-            </div>
-
-            <div class="div-search-ad" id="clsCustomer2">
-                <div class="div-search-title">
-                    <div>@WebApps.Resources.Resource.LyDoDung </div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <select id="cboReasonSelect" style="width: 200px">
-                            @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "REASON_SELECT"))
-                            {
-                                <option @(item.CdVal == Model.Reason_Select.ToString() ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
-                            }
-                        </select>
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>@WebApps.Resources.Resource.ChinhSachGiaDacBiet </div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <select id="cboRequestCredit">
-                            @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "REQUEST_CREDIT"))
-                            {
-                                <option @(item.CdVal == Model.Request_Credit.ToString() ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
-                            }
-                        </select>
-                    </div>
-                </div>
-            </div>
-        }
-        else if (Model.Type == Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Lawer))
-        {
-            <div class="div-search-ad" id="clsLawer">
-                <div class="div-search-title">
-                    <div>@WebApps.Resources.Resource.LoaiLuatSu <i class="redspan">(*)</i></div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <select id="cboLawerType" style="width:200px">
-                            @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "LAWER_TYPE"))
-                            {
-                                <option @(item.CdVal == Model.Other_Type.ToString() ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
-                            }
-                        </select>
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>@WebApps.Resources.Resource.SoTien1GioVND <i class="redspan">(*)</i></div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.TextBoxFor(m => m.Hourly_Rate, new { @id = "txthourly_rate", @Value = Model.Hourly_Rate == 0 ? "" : Model.Hourly_Rate.ToString("#,##0.##"), @onkeyup = "jsFormatNumber(this.value, this.id)" })
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>@WebApps.Resources.Resource.SoTien1GioUSD <i class="redspan">(*)</i></div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.TextBoxFor(m => m.Hourly_Rate_USD, new { @id = "txthourly_rate_usd", @Value = Model.Hourly_Rate_USD == 0 ? "" : Model.Hourly_Rate_USD.ToString("#,##0.##"), @onkeyup = "jsFormatNumber(this.value, this.id)" })
-                    </div>
-                </div>
-            </div>
-        }
-
 
     </div>
 
@@ -581,65 +472,6 @@
             return false;
         }
 
-        if (@Model.Type == '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Customer)') {
-            var _txtcompany_name = $("#txtcompany_name").val();
-            if (_txtcompany_name == null || _txtcompany_name == "") {
-                jError("Tên công ty khách hàng không được bỏ trống!", "lỗi", function () {
-                    $('#_txtcompany_name').focus();
-                });
-                return false;
-            }
-
-            var _txtmain_business = $("#txtmain_business").val();
-            if (txtmain_business == null || txtmain_business == "") {
-                jError("Ngành ngề chín không được bỏ trống!", "lỗi", function () {
-                    $('#txtmain_business').focus();
-                });
-                return false;
-            }
-
-        } else if (@Model.Type == '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Lawer)') {
-            var _cboLawerType =  $("#cboLawerType").val();
-            if (_cboLawerType == null) {
-                jError("Loại luật sư không được bỏ trống!", "lỗi", function () {
-                    $('#cboLawerType').focus();
-                });
-                return false;
-            }
-
-            var _txthourly_rate = $("#txthourly_rate").val();
-            if (_txthourly_rate == null || _txthourly_rate == "") {
-                jError("Số tiền / 1 giờ (VNĐ) không được bỏ trống!", "lỗi", function () {
-                    $('#txthourly_rate').focus();
-                });
-                return false;
-            }
-
-            if (_txthourly_rate == "0") {
-                jError("Số tiền / 1 giờ (VNĐ) phải lớn hơn 0!", "lỗi", function () {
-                    $("#txthourly_rate").val('');
-                    $("#txthourly_rate").focus();
-                });
-                return false;
-            }
-
-            var _txthourly_rate_usd = $("#txthourly_rate_usd").val();
-            if (_txthourly_rate_usd == null || _txthourly_rate_usd == "") {
-                jError("Số tiền / 1 giờ (USD) không được bỏ trống!", "lỗi", function () {
-                    $('#txthourly_rate_usd').focus();
-                });
-                return false;
-            }
-
-            if (_txthourly_rate_usd == "0") {
-                jError("Số tiền / 1 giờ (USD) phải lớn hơn 0!", "lỗi", function () {
-                    $("#txthourly_rate_usd").val('');
-                    $("#txthourly_rate_usd").focus();
-                });
-                return false;
-            }
-        }
-
         if (GroupId == "-1") {
             jError("Loại người dùng không được để trống!", "lỗi", function () {
                 $("#cboGroupUser").focus();
@@ -672,25 +504,11 @@
         formData.append('userInfo.Wechat_Link', $("#txtwechat_link").val());
         formData.append('userInfo.Other_Link', $("#txtOther_Link").val());
 
-        if (@Model.Type == '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Customer)') {
-
-            formData.append('userInfo.Company_Name', $("#txtcompany_name").val());
-            formData.append('userInfo.Main_Business', $("#txtmain_business").val());
-            formData.append('userInfo.Title', $("#txttitle").val());
-            formData.append('userInfo.Copyto', $("#txtcopyto").val());
-
-            formData.append('userInfo.Reason_Select', $("#cboReasonSelect").val());
-            formData.append('userInfo.Request_Credit', $("#cboRequestCredit").val());
-
-            formData.append('userInfo.Customer_Code', $("#txtCustomer_Code").val());
-            formData.append('userInfo.Contact_Person', $("#txtContact_Person").val());
-
-        }
-        else if (@Model.Type == '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Lawer)') {
-            formData.append('userInfo.Other_Type', $("#cboLawerType").val());
-            formData.append('userInfo.Hourly_Rate', $("#txthourly_rate").val().replace(/,/g, ""));
-            formData.append('userInfo.Hourly_Rate_USD', $("#txthourly_rate_usd").val().replace(/,/g, ""));
-        }
+        formData.append('userInfo.Referee', $("#cboReferee").val());
+        formData.append('userInfo.Company_Name', $("#txtCompany_Name").val());
+        formData.append('userInfo.Title', $("#txtTitle").val());
+        formData.append('userInfo.Division', $("#txtDivision").val());
+        formData.append('userInfo.Direct_Supervisor', $("#txtDirect_Supervisor").val());
 
 		formData.append('GroupId', GroupId);
     }

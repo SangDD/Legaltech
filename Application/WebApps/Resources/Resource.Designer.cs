@@ -2716,6 +2716,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thêm mới người dùng.
+        /// </summary>
+        public static string ThemMoiNguoiDung {
+            get {
+                return ResourceManager.GetString("ThemMoiNguoiDung", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yêu cầu tra cứu.
         /// </summary>
         public static string ThemMoiSearch {
@@ -2811,6 +2820,15 @@ namespace WebApps.Resources {
         public static string ThongTinLuatSu {
             get {
                 return ResourceManager.GetString("ThongTinLuatSu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thông tin người dùng.
+        /// </summary>
+        public static string ThongTinNguoiDung {
+            get {
+                return ResourceManager.GetString("ThongTinNguoiDung", resourceCulture);
             }
         }
         

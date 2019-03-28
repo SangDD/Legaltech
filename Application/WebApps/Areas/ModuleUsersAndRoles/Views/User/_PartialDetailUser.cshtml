@@ -6,7 +6,7 @@
 
 @{
 
-    ViewBag.Title = "Thông tin người dùng";
+    ViewBag.Title = WebApps.Resources.Resource.ThongTinNguoiDung;
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     string _GroupName = "Chưa có nhóm quyền";
@@ -35,9 +35,6 @@
     <div class="d-nav">
         <img src="~/Content/icons/Body-icon-home.png" /> I
         <a href="/home">Home</a>
-        @*<span class="red">></span>*@
-        @*<a href="/quan-tri-he-thong/quan-ly-nguoi-dung">Quản lý người dùng</a>*@
-
     </div>
 </div>
 <div class="divCover">
@@ -54,14 +51,14 @@
 <div class="d-main">
     <div class="divCover">
         <div class="classTitle">
-            <div class="div-title-content"> THÔNG TIN NGƯỜI DÙNG</div>
+            <div class="div-title-content"> @WebApps.Resources.Resource.ThongTinNguoiDung</div>
         </div>
     </div>
 
     <div class="divCover">
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Tên đăng nhập<i class="redspan"></i></div>
+                <div>@WebApps.Resources.Resource.TenDangNhap<i class="redspan"></i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -70,7 +67,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Họ tên<i class="redspan"></i></div>
+                <div>@WebApps.Resources.Resource.HoTen<i class="redspan"></i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -81,7 +78,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Địa chỉ<i class="redspan"></i></div>
+                <div>@WebApps.Resources.Resource.DiaChi<i class="redspan"></i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -92,7 +89,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Ngày sinh</div>
+                <div>@WebApps.Resources.Resource.NgaySinh</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -106,7 +103,7 @@
 
 
             <div class="div-search-title">
-                <div>Giới tính</div>
+                <div>@WebApps.Resources.Resource.GioiTinh</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -117,7 +114,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Số điện thoại<i class="redspan"></i></div>
+                <div>@WebApps.Resources.Resource.SoDienThoai<i class="redspan"></i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -186,7 +183,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Quốc tịch</div>
+                <div>@WebApps.Resources.Resource.QuocTich</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -197,7 +194,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Loại người dùng<i class="redspan"></i></div>
+                <div>@WebApps.Resources.Resource.LoaiNguoiDung<i class="redspan"></i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -205,7 +202,7 @@
                 </div>
             </div>
             <div class="div-search-title">
-                <div>Trạng thái </div>
+                <div>@WebApps.Resources.Resource.TrangThai </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -214,185 +211,46 @@
             </div>
         </div>
 
-        @if (Model.Type == Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Customer))
-        {
-            <div class="div-search-ad" id="clsCustomer">
-                <div class="div-search-title">
-                    <div>Tên công ty <i class="redspan"></i></div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.CongTy<i class="redspan"></i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Company_Name, new { @id = "txtCompany_Name", @style = "width: 200px", @disabled = "disabled" })
                 </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.TextBoxFor(m => m.Company_Name, new { @maxlength = "500", @style = "width: 200px", @disabled = "disabled" })
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Ngành ngề chính  <i class="redspan"></i></div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.TextBoxFor(m => m.Main_Business, new { @maxlength = "500", @disabled = "disabled" })
-                    </div>
+            </div>
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.ChucVu<i class="redspan"></i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Title, new { @id = "txtTitle", @disabled = "disabled" })
                 </div>
             </div>
 
-            <div class="div-search-ad" id="clsCustomer1">
-                <div class="div-search-title">
-                    <div>Người quản lý</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.TextBoxFor(m => m.Copyto, new { @maxlength = "200", @style = "width: 200px", @disabled = "disabled" })
-                    </div>
-                </div>
+        </div>
 
-                <div class="div-search-title">
-                    <div>Chức vụ </div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.TextBoxFor(m => m.Title, new { @maxlength = "500", @disabled = "disabled" })
-                    </div>
+        <div class="div-search-ad">
+
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.BoPhan </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Division, new { @id = "txtDivision", @disabled = "disabled", @style = "width: 200px" })
                 </div>
             </div>
 
-            <div class="div-search-ad" id="clsCustomer3">
-                <div class="div-search-title">
-                    <div>Mã đại diện</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.TextBoxFor(m => m.Customer_Code, new { @maxlength = "200", @disabled = "disabled", @style = "width: 200px" })
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Rating </div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.TextBoxFor(m => m.Rating, new { @disabled = "disabled", @Value = Model.Rating == 0 ? "" : Model.Rating.ToString("#,##0.##") })
-                    </div>
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.TruongBoPhan </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Direct_Supervisor, new { @id = "txtDirect_Supervisor", @disabled = "disabled" })
                 </div>
             </div>
-
-            <div class="div-search-ad" id="clsCustomer3">
-                <div class="div-search-title">
-                    <div>Contact Person </div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.TextBoxFor(m => m.Contact_Person, new { @maxlength = "200", @disabled = "disabled", @style = "width: 200px" })
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Tel/email of contact person </div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.TextBoxFor(m => m.Tel_Contact_Person, new { @disabled = "disabled" })
-                    </div>
-                </div>
-            </div>
-
-            <div class="div-search-ad" id="clsCustomer2">
-                <div class="div-search-title">
-                    <div>Lý do dùng </div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.TextBoxFor(m => m.Reason_Select_Name, new { @disabled = "disabled", @style = "width: 200px" })
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Chính sách giá đặc biệt </div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.TextBoxFor(m => m.Request_Credit_Name, new { @disabled = "disabled" })
-                    </div>
-                </div>
-            </div>
-
-            if (Model.Is_Agent == 1)
-            {
-                <div class="div-search-ad">
-                    <div class="div-search-title">
-                        <div>Người đại diện SHCN </div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            @Html.TextBoxFor(m => m.Agent_Representative, new { @disabled = "disabled", @style = "width: 200px" })
-                        </div>
-                    </div>
-
-                    <div class="div-search-title">
-                        <div>Thẻ hành nghề </div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            @Html.TextBoxFor(m => m.License_Agent, new { @disabled = "disabled" })
-                        </div>
-                    </div>
-                </div>
-            }
-            else
-            {
-                <div class="div-search-ad">
-                    <div class="div-search-title">
-                        <div>Người đại diện theo pháp luật </div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            @Html.TextBoxFor(m => m.Agent_Representative, new { @disabled = "disabled", @style = "width: 200px" })
-                        </div>
-                    </div>
-
-                    <div class="div-search-title">
-                        <div>Giấy uỷ quyền (đính kèm) </div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            @Html.TextBoxFor(m => m.License_Agent, new { @disabled = "disabled" })
-                        </div>
-                    </div>
-                </div>
-            }
-        }
-        else if (Model.Type == Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Lawer))
-        {
-            <div class="div-search-ad" id="clsLawer">
-                <div class="div-search-title">
-                    <div>Loại luật sư <i class="redspan"></i></div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.TextBoxFor(m => m.Lawer_Type_Name, new { @disabled = "disabled" })
-                    </div>
-                </div>
-            </div>
-            <div class="div-search-ad" id="clsLawer">
-                <div class="div-search-title">
-                    <div>Số tiền / 1 giờ (VNĐ)<i class="redspan"></i></div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.TextBoxFor(m => m.Hourly_Rate, new { @disabled = "disabled", @Value = Model.Hourly_Rate == 0 ? "" : Model.Hourly_Rate.ToString("#,##0.##"), @style = "width: 200px" })
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Số tiền / 1 giờ (USD)<i class="redspan"></i></div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.TextBoxFor(m => m.Hourly_Rate_USD, new { @disabled = "disabled", @Value = Model.Hourly_Rate_USD == 0 ? "" : Model.Hourly_Rate_USD.ToString("#,##0.##") })
-                    </div>
-                </div>
-            </div>
-        }
+        </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
@@ -400,7 +258,16 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" value="@_GroupName" disabled="disabled" />
+                    <input type="text" value="@_GroupName" disabled="disabled" style="width:200px" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.NguoiGioiThieu </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Referee, new { @id = "Referee", @disabled = "disabled" })
                 </div>
             </div>
         </div>

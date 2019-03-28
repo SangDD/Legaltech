@@ -4,7 +4,7 @@
 @using ObjectInfos;
 @using System.Linq;
 @{
-    ViewBag.Title = "Thêm mới người dùng";
+    ViewBag.Title = WebApps.Resources.Resource.ThemMoiNguoiDung;
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     List<AllCodeInfo> _lstUserType = MemoryData.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE");
@@ -23,7 +23,7 @@
         <img src="~/Content/icons/Body-icon-home.png" /> I
         <a href="/home">Home</a>
         <span class="red">></span>
-        <a href="/quan-tri-he-thong/quan-ly-nguoi-dung"> Quản lý người dùng</a>
+        <a href="/quan-tri-he-thong/quan-ly-nguoi-dung"> @WebApps.Resources.Resource.QuanLyNguoiDung</a>
     </div>
 </div>
 <div class="divCover">
@@ -40,7 +40,7 @@
 <div class="d-main">
     <div class="divCover">
         <div class="classTitle">
-            <div class="div-title-content"> THÊM MỚI NGƯỜI DÙNG</div>
+            <div class="div-title-content"> @WebApps.Resources.Resource.ThemMoiNguoiDung</div>
         </div>
     </div>
 
@@ -48,20 +48,23 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Loại người dùng<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.LoaiNguoiDung<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
                     <select id="cboTypeAdd" style="width:200px" onchange="Choose_UserType()">
                         @foreach (var item in _lstUserType)
                         {
-                            <option value="@item.CdVal"> @item.Content </option>
+                            if (item.CdVal != Convert.ToInt16(CommonEnums.UserType.Customer).ToString() && item.CdVal != Convert.ToInt16(CommonEnums.UserType.Lawer).ToString())
+                            {
+                                <option value="@item.CdVal"> @item.Content </option>
+                            }
                         }
                     </select>
                 </div>
             </div>
             <div class="div-search-title">
-                <div>Trạng thái<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.TrangThai<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -79,7 +82,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Nhóm quyền<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.NhomQuyen<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -96,7 +99,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Tên đăng nhập<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.TenDangNhap<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -106,7 +109,7 @@
         </div>
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Họ tên<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.HoTen<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -117,7 +120,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Mật khẩu<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.MatKhau<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -125,7 +128,7 @@
                 </div>
             </div>
             <div class="div-search-title">
-                <div>Mật khẩu nhắc lại<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.MatKhauNhacLai<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -137,13 +140,25 @@
         <div class="divCover cls_form_title">
             <img src="/Content/icons/category.png" />
             <div class="cls_form_header">
-                Thông tin khác
+                @WebApps.Resources.Resource.ThongTinKhac
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Số điện thoại<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.DiaChi</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtAddress" maxlength="200" />
+                </div>
+            </div>
+        </div>
+
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.lblDienThoai<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -212,7 +227,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Quốc tịch<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.QuocTich<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -235,21 +250,11 @@
             </div>
         </div>
 
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Địa chỉ</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txtAddress" maxlength="200" />
-                </div>
-            </div>
-        </div>
 
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Ngày sinh</div>
+                <div>@WebApps.Resources.Resource.NgaySinh</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -260,11 +265,11 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Giới tính</div>
+                <div>@WebApps.Resources.Resource.GioiTinh</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <select id="cboSexAdd">
+                    <select id="cboSexAdd" style="width:200px">
                         @foreach (var item in AllCodeBL.GetAllCodeByCdName(AllCodeCdName.SexType))
                         {
                             <option value="@item.CdVal">
@@ -274,162 +279,67 @@
                     </select>
                 </div>
             </div>
-        </div>
 
-        @*khách hàng*@
-        <div class="div-search-ad clssDisplaynone" id="clsCustomer">
             <div class="div-search-title">
-                <div>Tên công ty<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.NguoiGioiThieu </div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txtcompany_name" maxlength="500" style="width: 200px" />
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>Ngành ngề chính<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txtmain_business" maxlength="500" />
-                </div>
-            </div>
-        </div>
-
-        <div class="div-search-ad clssDisplaynone" id="clsCustomer1">
-            <div class="div-search-title">
-                <div>Người quản lý</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txtcopyto" maxlength="200" style="width: 200px" />
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>Chức vụ</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txttitle" maxlength="500" />
-                </div>
-            </div>
-        </div>
-
-        <div class="div-search-ad clssDisplaynone" id="clsCustomer3">
-            <div class="div-search-title">
-                <div>Mã đại diện</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txtCustomer_Code" maxlength="200" style="width: 200px" />
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>Contact Person</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txtContact_Person" maxlength="200" />
-                    @*<select id="cboContact_Person">
-                        <option value="Mr">Mr</option>
-                        <option value="Mr">
-                            Mrs </ option >
-                        <option value="Mr">
-                            Ms
-                        </option>
-                        <option value="Mr">
-                            Miss
-                        </option>
-                    </select>*@
-                </div>
-            </div>
-        </div>
-
-        <div class="div-search-ad clssDisplaynone" id="clsCustomer2">
-            <div class="div-search-title">
-                <div>Lý do dùng</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <select id="cboReasonSelect" style="width:200px">
-                        <option value="0">
-                            None
-                        </option>
-                        @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "REASON_SELECT"))
+                    <select id="cboReferee">
+                        <option value=""></option>
+                        @foreach (var item in BussinessFacade.ModuleUsersAndRoles.UserBL.GetAllUsers())
                         {
-                            <option value="@item.CdVal">
-                                @item.Content
-                            </option>
-                        }
-                    </select>
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>Chính sách giá đặc biệt</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <select id="cboRequestCredit">
-                        <option value="0">
-                            None
-                        </option>
-                        @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "REQUEST_CREDIT"))
-                        {
-                            <option value="@item.CdVal">
-                                @item.Content
-                            </option>
+                            <option value="@item.Username">@item.FullName</option>
                         }
                     </select>
                 </div>
             </div>
         </div>
 
-        @*luật sư*@
-        <div class="div-search-ad clssDisplaynone" id="clsLawer">
+        <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Loại luật sư <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.CongTy</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <select id="cboLawerType" style="width:200px">
-                        @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "LAWER_TYPE"))
-                        {
-                            <option value="@item.CdVal">@item.Content</option>
-                        }
-                    </select>
+                    <input type="text" id="txtCompany_Name" maxlength="200" style="width: 200px" />
                 </div>
             </div>
 
             <div class="div-search-title">
-                <div>Số tiền / 1 giờ (VNĐ) <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.ChucVu</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txthourly_rate" onkeyup="jsFormatNumber(this.value, this.id)" />
-                </div>
-            </div>
-            <div class="div-search-title">
-                <div>Số tiền / 1 giờ (USD) <i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txthourly_rate_usd" onkeyup="jsFormatNumber(this.value, this.id)" />
+                    <input type="text" id="txtTitle" maxlength="200" />
                 </div>
             </div>
         </div>
 
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.BoPhan</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtDivision" maxlength="200" style="width: 200px" />
+                </div>
+            </div>
 
-
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.TruongBoPhan</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtDirect_Supervisor" maxlength="200" />
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;margin-top: 5px;">
-            <input type="submit" class="btn-default" value="Lưu" onclick="return doAddNewUser()" />
-            @*<input type="submit" class="btn-default" value="Thoát" onclick="return back()" />*@
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Luu" onclick="return doAddNewUser()" />
         </div>
     </div>
 </div>
@@ -487,24 +397,16 @@
         formData.append('userInfo.Status', statusAdd);
 
         formData.append('userInfo.Country', $("#cboCountry").val());
-        formData.append('userInfo.Company_Name', $("#txtcompany_name").val());
-        formData.append('userInfo.Main_Business', $("#txtmain_business").val());
-        formData.append('userInfo.Title', $("#txttitle").val());
-        formData.append('userInfo.Copyto', $("#txtcopyto").val());
-
         formData.append('userInfo.Face_Link', $("#txtface_link").val());
         formData.append('userInfo.Linkedin_Link', $("#txtlinkedin").val());
         formData.append('userInfo.Wechat_Link', $("#txtwechat_link").val());
         formData.append('userInfo.Other_Link', $("#txtOther_Link").val());
 
-        formData.append('userInfo.Reason_Select', $("#cboReasonSelect").val());
-        formData.append('userInfo.Request_Credit', $("#cboRequestCredit").val());
-        formData.append('userInfo.Customer_Code', $("#txtCustomer_Code").val());
-        formData.append('userInfo.Contact_Person', $("#txtContact_Person").val());
-
-        formData.append('userInfo.Other_Type', $("#cboLawerType").val());
-        formData.append('userInfo.Hourly_Rate', $("#txthourly_rate").val().replace(/,/g, ""));
-        formData.append('userInfo.Hourly_Rate_USD', $("#txthourly_rate_usd").val().replace(/,/g, ""));
+        formData.append('userInfo.Referee', $("#cboReferee").val());
+        formData.append('userInfo.Company_Name', $("#txtCompany_Name").val());
+        formData.append('userInfo.Title', $("#txtTitle").val());
+        formData.append('userInfo.Division', $("#txtDivision").val());
+        formData.append('userInfo.Direct_Supervisor', $("#txtDirect_Supervisor").val());
 
         formData.append('GroupId', GroupIdAdd);
     }
@@ -513,30 +415,14 @@
         try {
             typeAdd = $('#cboTypeAdd').val();
 
-            if (typeAdd == '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Customer)') {
+            @*if (typeAdd == '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Customer)') {
 
                 $("#clsCustomer").removeClass("clssDisplaynone");
                 $("#clsCustomer1").removeClass("clssDisplaynone");
                 $("#clsCustomer2").removeClass("clssDisplaynone");
                 $("#clsCustomer3").removeClass("clssDisplaynone");
-
                 $("#clsLawer").addClass("clssDisplaynone");
-
-            } else if (typeAdd == '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Lawer)') {
-                $("#clsCustomer").addClass("clssDisplaynone");
-                $("#clsCustomer1").addClass("clssDisplaynone");
-                $("#clsCustomer2").addClass("clssDisplaynone");
-                $("#clsCustomer3").addClass("clssDisplaynone");
-
-                $("#clsLawer").removeClass("clssDisplaynone");
-            } else {
-                $("#clsCustomer").addClass("clssDisplaynone");
-                $("#clsCustomer1").addClass("clssDisplaynone");
-                $("#clsCustomer2").addClass("clssDisplaynone");
-                $("#clsCustomer3").addClass("clssDisplaynone");
-
-                $("#clsLawer").addClass("clssDisplaynone");
-            }
+            }*@  
         } catch (e) {
             alert(e);
         }
@@ -678,65 +564,6 @@
                 $('#cboStatusAdd').focus();
             });
             return false;
-        }
-
-        if (typeAdd == '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Customer)') {
-            var _txtcompany_name = $("#txtcompany_name").val();
-            if (_txtcompany_name == null || _txtcompany_name == "") {
-                jError("Tên công ty khách hàng không được bỏ trống!", "lỗi", function () {
-                    $('#_txtcompany_name').focus();
-                });
-                return false;
-            }
-
-            var _txtmain_business = $("#txtmain_business").val();
-            if (txtmain_business == null || txtmain_business == "") {
-                jError("Ngành ngề chín không được bỏ trống!", "lỗi", function () {
-                    $('#txtmain_business').focus();
-                });
-                return false;
-            }
-
-        } else if (typeAdd == '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Lawer)') {
-            var _cboLawerType =  $("#cboLawerType").val();
-            if (_cboLawerType == null) {
-                jError("Loại luật sư không được bỏ trống!", "lỗi", function () {
-                    $('#cboLawerType').focus();
-                });
-                return false;
-            }
-
-            var _txthourly_rate = $("#txthourly_rate").val();
-            if (_txthourly_rate == null || _txthourly_rate == "") {
-                jError("Số tiền / 1 giờ (VNĐ) không được bỏ trống!", "lỗi", function () {
-                    $('#txthourly_rate').focus();
-                });
-                return false;
-            }
-
-            if (_txthourly_rate == "0") {
-                jError("Số tiền / 1 giờ (VNĐ) phải lớn hơn 0!", "lỗi", function () {
-                    $("#txthourly_rate").val('');
-                    $("#txthourly_rate").focus();
-                });
-                return false;
-            }
-
-            var _txthourly_rate_usd = $("#txthourly_rate_usd").val();
-            if (_txthourly_rate_usd == null || _txthourly_rate_usd == "") {
-                jError("Số tiền / 1 giờ (USD) không được bỏ trống!", "lỗi", function () {
-                    $('#txthourly_rate_usd').focus();
-                });
-                return false;
-            }
-
-            if (_txthourly_rate_usd == "0") {
-                jError("Số tiền / 1 giờ (USD) phải lớn hơn 0!", "lỗi", function () {
-                    $("#txthourly_rate_usd").val('');
-                    $("#txthourly_rate_usd").focus();
-                });
-                return false;
-            }
         }
 
         if (GroupIdAdd == "-1") {
