@@ -198,6 +198,14 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("p_App_No", OracleDbType.Varchar2, pInfo.App_No, ParameterDirection.Input),
                     new OracleParameter("p_App_Degree", OracleDbType.Varchar2, pInfo.App_Degree, ParameterDirection.Input),
 
+                    new OracleParameter("p_Filing_Date", OracleDbType.Date, pInfo.Filing_Date, ParameterDirection.Input),
+                    new OracleParameter("p_Accept_Date", OracleDbType.Date, pInfo.Accept_Date, ParameterDirection.Input),
+                    new OracleParameter("p_Public_Date", OracleDbType.Date, pInfo.Public_Date, ParameterDirection.Input),
+                    new OracleParameter("p_Accept_Content_Date", OracleDbType.Date, pInfo.Accept_Content_Date, ParameterDirection.Input),
+                    new OracleParameter("p_Grant_Date", OracleDbType.Date, pInfo.Grant_Date, ParameterDirection.Input),
+                    new OracleParameter("p_Grant_Public_Date", OracleDbType.Date, pInfo.Grant_Public_Date, ParameterDirection.Input),
+
+
                     paramReturn, paramReturn_casecode);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
 

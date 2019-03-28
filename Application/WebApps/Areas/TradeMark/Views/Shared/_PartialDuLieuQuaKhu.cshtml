@@ -21,50 +21,156 @@
     }
 
 }
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+</style>
+<script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
+<link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
+<script>
+    $.datetimepicker.setLocale('vi');
+    $(document).ready(function () {
+        $('.datepicker').datetimepicker({
+            format: 'd/m/Y',
+            formatDate: 'd/m/Y',
+            timepicker: false,
+            mask: '39/19/9999',
+            validateOnBlur: true,
+        });
+    });
+</script>
 
-<div class="divCover cls_form_title">
-    <img src="~/Content/icons/category.png" />
-    <div class="cls_form_header">
-        @WebApps.Resources.Resource.DuLieuQuaKhu
-    </div>
-</div>
+@if (WebApps.Session.SessionData.CurrentUser != null && 
+    WebApps.Session.SessionData.CurrentUser.Type != (int)Common.CommonData.CommonEnums.UserType.Customer)
+{
 
-
-<div class="div-search-ad">
-    <div class="div-search-title">
-        <div>
-            @WebApps.Resources.Resource.SoDon <i class="redspan">(*)</i>
-        </div>
-        <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
-           data-title="@WebApps.Resources.Resource.TooltipAppNo"></a>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input value="@objAppHeaderInfo.App_No" type="text" placeholder="@WebApps.Resources.Resource.SoDon" maxlength="200" id="@txtApp_No" @_disable />
-        </div>
-    </div>
-</div>
-
-
-<div class="div-search-ad">
-    <div class="div-search-title">
-        <div>
-            @WebApps.Resources.Resource.TM3D_SoBang
-        </div>
-        <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
-           data-title="@WebApps.Resources.Resource.TooltipAppDegree"></a>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input value="@objAppHeaderInfo.App_Degree" type="text" placeholder="@WebApps.Resources.Resource.TM3D_SoBang" maxlength="200" id="@txtApp_Degree" @_disable />
+    <div class="divCover cls_form_title">
+        <img src="~/Content/icons/category.png" />
+        <div class="cls_form_header">
+            <input type="checkbox" id="ckbPassData" onclick="onChoosePassData()" />
+            @WebApps.Resources.Resource.DuLieuQuaKhu
         </div>
     </div>
-</div>
+
+    <div class="clssDisplaynone" id="clsPassData">
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>
+                    @WebApps.Resources.Resource.SoDon <i class="redspan">(*)</i>
+                </div>
+                <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+                   data-title="@WebApps.Resources.Resource.TooltipAppNo"></a>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input value="@objAppHeaderInfo.App_No" type="text" placeholder="@WebApps.Resources.Resource.SoDon" maxlength="200" id="@txtApp_No" @_disable />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>
+                    @WebApps.Resources.Resource.TM3D_SoBang
+                </div>
+                <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+                   data-title="@WebApps.Resources.Resource.TooltipAppDegree"></a>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input value="@objAppHeaderInfo.App_Degree" type="text" placeholder="@WebApps.Resources.Resource.TM3D_SoBang" maxlength="200" id="@txtApp_Degree" @_disable />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div style="width: 146px;">@WebApps.Resources.Resource.FillingDate:  </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" maxlength="50" class="datepicker" id="txtFilling_Date" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div style="width: 146px;">@WebApps.Resources.Resource.Accept_Date:  </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" maxlength="50" class="datepicker" id="txtAccept_Date" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div style="width: 146px;">@WebApps.Resources.Resource.Public_Date:  </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" maxlength="50" class="datepicker" id="txtPublic_Date" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div style="width: 146px;">@WebApps.Resources.Resource.Accept_Content_Date:  </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" maxlength="50" class="datepicker" id="txtAccept_Content_Date" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div style="width: 146px;">@WebApps.Resources.Resource.Grant_Date:  </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" maxlength="50" class="datepicker" id="txtGrant_Date" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div style="width: 146px;">@WebApps.Resources.Resource.Grant_Public_Date:  </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" maxlength="50" class="datepicker" id="txtGrant_Public_Date" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
 
 <script>
+    function onChoosePassData() {
+        try {
+            var _IsPassData = $('#ckbPassData').is(":checked");
+            if (_IsPassData == true) {
+                $("#clsPassData").removeClass("clssDisplaynone");
+            } else {
+                $("#clsPassData").addClass("clssDisplaynone");
+            }
+        } catch (e) {
+
+        }
+    }
+
     function funcThongTinQuaKhu(formData, PreID) {
         try {
-             
+
             var txtApp_No = $("#" + PreID + "_txtApp_No").val();
             if (txtApp_No === "") {
                 $("#" + PreID + "_txtApp_No").focus().val('');
@@ -78,12 +184,21 @@
             formData.append("pInfo.App_No", txtApp_No);
             formData.append("pInfo.App_Degree", txtApp_Degree);
 
+            formData.append("pInfo.Filing_Date", $("#txtFiling_Date").val());
+            formData.append("pInfo.Accept_Date", $("#txtFiling_Date").val());
+            formData.append("pInfo.Public_Date", $("#txtPublic_Date").val());
+            formData.append("pInfo.Accept_Content_Date", $("#txtAccept_Content_Date").val());
+            formData.append("pInfo.Grant_Date", $("#txtGrant_Date").val());
+            formData.append("pInfo.Grant_Public_Date", $("#txtGrant_Public_Date").val());
+
             return true;
         } catch (e) {
             return false;
         }
     }
 </script>
+
+
 
 
 

@@ -61,6 +61,24 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ngày chấp nhận nội dung.
+        /// </summary>
+        public static string Accept_Content_Date {
+            get {
+                return ResourceManager.GetString("Accept_Content_Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngày chấp nhận đơn.
+        /// </summary>
+        public static string Accept_Date {
+            get {
+                return ResourceManager.GetString("Accept_Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DANH MỤC VÀ PHÂN NHÓM HÀNG HOÁ, DỊCH VỤ MANG NHÃN HIỆU.
         /// </summary>
         public static string AppClassTile {
@@ -484,6 +502,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ngày nộp đơn.
+        /// </summary>
+        public static string FillingDate {
+            get {
+                return ResourceManager.GetString("FillingDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tên.
         /// </summary>
         public static string First_Name {
@@ -516,6 +543,24 @@ namespace WebApps.Resources {
         public static string GioiTinh {
             get {
                 return ResourceManager.GetString("GioiTinh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngày cấp bằng.
+        /// </summary>
+        public static string Grant_Date {
+            get {
+                return ResourceManager.GetString("Grant_Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngày công bố bằng.
+        /// </summary>
+        public static string Grant_Public_Date {
+            get {
+                return ResourceManager.GetString("Grant_Public_Date", resourceCulture);
             }
         }
         
@@ -2361,6 +2406,15 @@ namespace WebApps.Resources {
         public static string Processor {
             get {
                 return ResourceManager.GetString("Processor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngày công bố đơn.
+        /// </summary>
+        public static string Public_Date {
+            get {
+                return ResourceManager.GetString("Public_Date", resourceCulture);
             }
         }
         
