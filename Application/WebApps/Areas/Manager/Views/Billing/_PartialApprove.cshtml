@@ -96,13 +96,13 @@
 
 
             @*<div class="div-search-title">
-                    <div>Người xét duyệt<i class="redspan">(*)</i></div>
+                <div>Người xét duyệt<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.DropDownList("Approve_By", lstUsersAdmin, new { @id = "Approve_By", @disabled = "disabled" })
                 </div>
-                <div class="div-search-content">
-                    <div>
-                        @Html.DropDownList("Approve_By", lstUsersAdmin, new { @id = "Approve_By", @disabled = "disabled" })
-                    </div>
-                </div>*@
+            </div>*@
         </div>
 
         <div id="divInfoApp" style="margin-top: 10px;">
@@ -214,6 +214,17 @@
                 @Html.Partial("~/Areas/Manager/Views/Billing/_PartialDetail_Insert_Billing.cshtml")
             }
         </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Reject reason</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" value="" id="txtReject_Reason" maxlength="500"/>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="divCover">
@@ -319,12 +330,21 @@
                 return false;
             }
 
+            if ($("txtReject_Reason").val().trim() == "") {
+                jError("Lý do từ chối không được bỏ trống!", "lỗi", function () {
+                    $("#txtReject_Reason").val('');
+                    $('#txtReject_Reason').focus();
+                });
+                return false;
+            }
+
             nvsConfirm(null, "Bạn có chắc chắn muốn từ chối duyệt billing này không?", function () {
                 $.ajax({
                     url: "/quan-ly-billing/danh-sach-billing/do-reject",
                     type: "POST",
                     data: {
-                        p_id: @Model.Billing_Id
+                        p_id: @Model.Billing_Id,
+                        p_reject_reason: $("txtReject_Reason").val()
                     },
                     headers: { "cache-control": "no-cache" },
                     async: true, cache: false, traditional: true,

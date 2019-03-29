@@ -45,11 +45,11 @@
     <table class="table-lst-data" id="tableListGroupUser">
         <thead>
             <tr>
-                <th class="class300">Mô tả công việc</th>
-                <th class="class150">Lệ phí quốc gia</th>
-                <th class="class150">Phí đại diện</th>
-                <th class="class100">Phí dịch vụ</th>
-                <th class="class150" style="font-weight:bold">Tổng</th>
+                <th class="class300">@WebApps.Resources.Resource.MoTaCongViec</th>
+                <th class="class150">@WebApps.Resources.Resource.LePhiQuocGia</th>
+                <th class="class150">@WebApps.Resources.Resource.LePhiDaiDien</th>
+                <th class="class100">@WebApps.Resources.Resource.PhiDichVu</th>
+                <th class="class150" style="font-weight:bold">@WebApps.Resources.Resource.Tong</th>
                 @if (_Operator_Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert))
                 {
                     <th class="class80"></th>
@@ -95,7 +95,7 @@
                 }
 
                 <tr>
-                    <td class="tdleftalign" style="font-weight:bold">Tổng trước thuế</td>
+                    <td class="tdleftalign" style="font-weight:bold">@WebApps.Resources.Resource.TongTruocThue</td>
                     <td class="tdrightalign">-</td>
                     <td class="tdrightalign">-</td>
                     <td class="tdrightalign">-</td>
@@ -107,7 +107,7 @@
                 </tr>
 
                 <tr>
-                    <td class="tdleftalign" style="font-weight:bold">Thuế & phí NH (5%)</td>
+                    <td class="tdleftalign" style="font-weight:bold">@WebApps.Resources.Resource.ThuePhiNH (5%)</td>
                     <td class="tdrightalign">-</td>
                     <td class="tdrightalign">-</td>
                     <td class="tdrightalign">-</td>
@@ -119,7 +119,7 @@
                 </tr>
 
                 <tr>
-                    <td class="tdleftalign" style="font-weight:bold">Tổng cộng (@_ApplicationHeaderInfo.Currency_Type)</td>
+                    <td class="tdleftalign" style="font-weight:bold">@WebApps.Resources.Resource.TongCong (@_ApplicationHeaderInfo.Currency_Type)</td>
                     <td class="tdrightalign">-</td>
                     <td class="tdrightalign">-</td>
                     <td class="tdrightalign">-</td>
@@ -135,11 +135,11 @@
                 <tr>
                     @if (_Operator_Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert))
                     {
-                        <td colspan="9">Không có dữ liệu</td>
+                    <td colspan="9">@WebApps.Resources.Resource.KhongCoDuLieu</td>
                     }
                     else
                     {
-                        <td colspan="8">Không có dữ liệu</td>
+                    <td colspan="8">@WebApps.Resources.Resource.KhongCoDuLieu</td>
                     }
                 </tr>
             }

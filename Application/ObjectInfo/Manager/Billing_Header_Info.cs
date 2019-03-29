@@ -61,6 +61,7 @@ namespace ObjectInfos
         public decimal Insert_Type { get; set; }
 
         public string Notes { get; set; }
+        public string Reject_Reason { get; set; }
 
     }
 }

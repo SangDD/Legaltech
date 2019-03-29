@@ -209,6 +209,20 @@
             }
         </div>
 
+        @if (Model.Status == (decimal)Common.CommonData.CommonEnums.Billing_Status.Reject)
+        {
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Reject reason</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" value="@Model.Reject_Reason" disabled="disabled" />
+                    </div>
+                </div>
+            </div>
+        }
+
     </div>
 
     <div class="divCover">

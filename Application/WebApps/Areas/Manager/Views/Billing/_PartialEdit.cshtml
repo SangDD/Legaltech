@@ -5,7 +5,7 @@
 @model Billing_Header_Info
 
 @{
-    ViewBag.Title = "Sửa thông tin billing";
+    ViewBag.Title = WebApps.Resources.Resource.SuaBiliing;
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     List<AllCodeInfo> _lstBank = MemoryData.AllCode_GetBy_CdTypeCdName("BILLING", "BANK");
@@ -52,7 +52,7 @@
         <img src="~/Content/icons/Body-icon-home.png" /> I
         <a href="/home">Home</a>
         <span class="red">></span>
-        <a href="/quan-ly-billing/danh-sach-billing">Quản lý billing</a>
+        <a href="/quan-ly-billing/danh-sach-billing">@WebApps.Resources.Resource.QuanLyBilling</a>
     </div>
 </div>
 <div class="divCover">
@@ -63,7 +63,7 @@
 <div class="d-main">
     <div class="divCover">
         <div class="classTitle">
-            <div class="div-title-content"> SỬA THÔNG TIN BILLING</div>
+            <div class="div-title-content"> @WebApps.Resources.Resource.SuaBiliing.ToUpper()</div>
         </div>
     </div>
 
@@ -71,7 +71,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Số bill<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.SoBill<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -80,7 +80,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Case code<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.CaseCode<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -112,7 +112,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Ngày yêu cầu <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.NgayYeuCau <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -129,7 +129,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Hạn thanh toán</div>
+                <div>@WebApps.Resources.Resource.HanThanhToan</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -148,13 +148,13 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/bank.png" />
             <div class="cls_form_header">
-                Vui lòng chuyển khoản vào tài khoản dưới đây
+                @WebApps.Resources.Resource.VuiLongChuyenKhoan
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Bank Name<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.TenNganHang<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -163,7 +163,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>SWift Code<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.SWiftCode<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -174,7 +174,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Bank Account Name<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.ChuTaiKhoan<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -183,7 +183,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Bank Account No<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.SoTaiKhoan<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -197,7 +197,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info_2.png" />
             <div class="cls_form_header">
-                Chi tiết billing
+                @WebApps.Resources.Resource.ChiTietBilling
             </div>
         </div>
 
@@ -218,16 +218,16 @@
         <div class="div-search-btn" style="width:600px;margin-top: 5px;">
             @if (Model.App_Case_Code.Contains("SEARCH"))
             {
-                <input type="submit" class="btn-default" value="Kết xuất" onclick="return onExport('@Model.Case_Code',2)" />
+                <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.KetXuat" onclick="return onExport('@Model.Case_Code',2)" />
             }
             else
             {
-                <input type="submit" class="btn-default" value="Kết xuất" onclick="return onExport('@Model.Case_Code',1)" />
+                <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.KetXuat" onclick="return onExport('@Model.Case_Code',1)" />
             }
 
 
-            <input type="submit" class="btn-default" value="Lưu" onclick="return doEditBilling()" />
-            <input type="submit" class="btn-default" value="Exit" onclick="return onBack()" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Luu" onclick="return doEditBilling()" />
+            @*<input type="submit" class="btn-default" value="Exit" onclick="return onBack()" />*@
         </div>
     </div>
 

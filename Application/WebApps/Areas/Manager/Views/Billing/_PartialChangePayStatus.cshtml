@@ -53,7 +53,7 @@
         <img src="~/Content/icons/Body-icon-home.png" /> I
         <a href="/home">Home</a>
         <span class="red">></span>
-        <a href="/quan-ly-billing/danh-sach-billing">Quản lý billing</a>
+        <a href="/quan-ly-billing/danh-sach-billing">@WebApps.Resources.Resource.QuanLyBilling</a>
     </div>
 </div>
 <div class="divCover">
@@ -70,7 +70,7 @@
 <div class="d-main">
     <div class="divCover">
         <div class="classTitle">
-            <div class="div-title-content"> THANH TOÁN TIN BILLING</div>
+            <div class="div-title-content"> @WebApps.Resources.Resource.ThanhToanBilling.ToUpper()</div>
         </div>
     </div>
 
@@ -78,7 +78,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Số bill<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.SoBill<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -88,7 +88,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Case code<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.CaseCode<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -120,7 +120,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Ngày yêu cầu <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.NgayYeuCau <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -137,7 +137,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Hạn thanh toán</div>
+                <div>@WebApps.Resources.Resource.HanThanhToan</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -156,13 +156,13 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/bank.png" />
             <div class="cls_form_header">
-                Vui lòng chuyển khoản vào tài khoản dưới đây
+                @WebApps.Resources.Resource.VuiLongChuyenKhoan
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Bank Name<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.TenNganHang<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -171,7 +171,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>SWift Code<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.SWiftCode<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -182,7 +182,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Bank Account Name<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.ChuTaiKhoan<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -191,7 +191,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Bank Account No<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.SoTaiKhoan<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -204,7 +204,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info_2.png" />
             <div class="cls_form_header">
-                Chi tiết billing
+                @WebApps.Resources.Resource.ChiTietBilling
             </div>
         </div>
 
@@ -225,11 +225,11 @@
         <div class="div-search-btn" style="width:600px;margin-top: 5px;">
             @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.SupperAdmin)
             {
-                <input type="submit" class="btn-default" value="Thanh toán" onclick="return onApprove()" />
+                <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.ThanhToan" onclick="return onApprove()" />
             }
 
             @*<input type="submit" class="btn-default" value="Thanh toán" onclick="return onApprove()" />*@
-            <input type="submit" class="btn-default" value="Thoát" onclick="return onBack()" />
+            @*<input type="submit" class="btn-default" value="Thoát" onclick="return onBack()" />*@
         </div>
     </div>
 

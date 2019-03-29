@@ -405,7 +405,7 @@
                 {
                     @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialPhanLoai.cshtml")
                 }
-                else if (_currstatus == (int)CommonEnums.App_Status.DaPhanChoLuatSu)
+                else if (_currstatus == (int)CommonEnums.App_Status.DaPhanChoLuatSu || _currstatus == (int)CommonEnums.App_Status.AdminReject)
                 {
                     // Luật sư Confirm đơn
                     @Html.Partial("~/Areas/TradeMark/Views/Application/_PartialLawer_Confirm.cshtml")

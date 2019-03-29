@@ -101,13 +101,14 @@ namespace DataAccess
         }
 
 
-        public int Billing_Update_Status(decimal p_billing_id, string p_language_code, decimal p_status, string p_modify_by, DateTime p_modify_date)
+        public int Billing_Update_Status(decimal p_billing_id, string p_reject_reason, string p_language_code, decimal p_status, string p_modify_by, DateTime p_modify_date)
         {
             try
             {
                 var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
                 OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_billing.proc_billing_updateStatus",
                     new OracleParameter("p_billing_id", OracleDbType.Decimal, p_billing_id, ParameterDirection.Input),
+                    new OracleParameter("p_reject_reason", OracleDbType.Varchar2, p_reject_reason, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
                     new OracleParameter("p_status", OracleDbType.Decimal, p_status, ParameterDirection.Input),
                     new OracleParameter("p_modify_by", OracleDbType.Varchar2, p_modify_by, ParameterDirection.Input),

@@ -240,6 +240,27 @@ namespace WebApps.Areas.TradeMark.Controllers
         }
 
         [HttpPost]
+        [Route("quan-ly-don/do-admin-reject-2-lawer")]
+        public ActionResult do_admin_reject_2_lawer(string p_case_code, string p_note)
+        {
+            try
+            {
+                Application_Header_BL _obj_bl = new Application_Header_BL();
+                decimal _status = (decimal)CommonEnums.App_Status.AdminReject;
+
+                int _ck = _obj_bl.AppHeader_Update_Status(p_case_code, _status, p_note,
+                    SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+        
+
+        [HttpPost]
         [Route("quan-ly-don/do-employee-confirm")]
         public ActionResult DoEmployee_Confirm(string p_case_code, decimal p_status, string p_note)
         {

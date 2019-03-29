@@ -626,7 +626,7 @@ namespace WebApps.Areas.Manager.Controllers
                 Billing_BL _obj_bl = new Billing_BL();
                 var modifiedBy = SessionData.CurrentUser.Username;
                 decimal _status = (decimal)CommonEnums.Billing_Status.Approved;
-                decimal _result = _obj_bl.Billing_Update_Status(p_id, AppsCommon.GetCurrentLang(), _status, SessionData.CurrentUser.Username, DateTime.Now);
+                decimal _result = _obj_bl.Billing_Update_Status(p_id, "", AppsCommon.GetCurrentLang(), _status, SessionData.CurrentUser.Username, DateTime.Now);
                 return Json(new { success = _result });
             }
             catch (Exception ex)
@@ -638,14 +638,14 @@ namespace WebApps.Areas.Manager.Controllers
 
         [HttpPost]
         [Route("danh-sach-billing/do-reject")]
-        public ActionResult DoReject(int p_id)
+        public ActionResult DoReject(int p_id, string p_reject_reason)
         {
             try
             {
                 Billing_BL _obj_bl = new Billing_BL();
                 var modifiedBy = SessionData.CurrentUser.Username;
                 decimal _status = (decimal)CommonEnums.Billing_Status.Reject;
-                decimal _result = _obj_bl.Billing_Update_Status(p_id, AppsCommon.GetCurrentLang(), _status, SessionData.CurrentUser.Username, DateTime.Now);
+                decimal _result = _obj_bl.Billing_Update_Status(p_id, p_reject_reason, AppsCommon.GetCurrentLang(), _status, SessionData.CurrentUser.Username, DateTime.Now);
                 return Json(new { success = _result });
             }
             catch (Exception ex)

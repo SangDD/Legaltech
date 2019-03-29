@@ -4,7 +4,7 @@
 @using BussinessFacade.ModuleMemoryData
 @using WebApps.Resources;
 @{
-    ViewBag.Title = "Quản lý billing";
+    ViewBag.Title = WebApps.Resources.Resource.QuanLyBilling;
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     string language = WebApps.Session.SessionData.CurrentUser.Language;
@@ -30,7 +30,7 @@
         <img src="~/Content/icons/Body-icon-home.png" /> I
         <a href="/home">Home</a>
         <span class="red">></span>
-        <a href="/quan-ly-billing/danh-sach-billing">Quản lý billing</a>
+        <a href="/quan-ly-billing/danh-sach-billing">@WebApps.Resources.Resource.QuanLyBilling</a>
     </div>
 </div>
 <div class="divCover">
@@ -50,7 +50,7 @@
             <input type="hidden" value="ALL|ALL|ALL|ALL|ALL" name="txtKeyValue" id="txtKeyValue" />
             <input type="hidden" value="Billing_Id" name="txtSortColum" id="txtSortColumn" />
             <input type="hidden" value="DESC" name="txtSortType" id="txtSortType" />
-            <div class="div-title-content"> THÔNG TIN BILLING</div>
+            <div class="div-title-content"> @WebApps.Resources.Resource.ChiTietBilling</div>
         </div>
     </div>
 
@@ -58,7 +58,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Case code</div>
+                <div>@WebApps.Resources.Resource.CaseCode</div>
             </div>
             <div>
                 <div>
@@ -67,7 +67,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Luật sư</div>
+                <div>@WebApps.Resources.Resource.LuatSu</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -76,7 +76,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Tên khách hàng</div>
+                <div>@WebApps.Resources.Resource.TenKhachHang</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -87,7 +87,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Trạng thái  </div>
+                <div>@WebApps.Resources.Resource.TrangThai </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -96,7 +96,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>TT thanh toán</div>
+                <div>@WebApps.Resources.Resource.TrangThaiThanhToan</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -111,7 +111,7 @@
             <input type="button" value="Tìm kiếm" class="btn-default" onclick="Search_Billing(1, 1)" />
             @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin)
             {
-                <input type="button" value="Thêm billing" class="btn-default" onclick="getView2Insert()" />
+                <input type="button" value="@WebApps.Resources.Resource.ThemMoi" class="btn-default" onclick="getView2Insert()" />
             }
         </div>
     </div>

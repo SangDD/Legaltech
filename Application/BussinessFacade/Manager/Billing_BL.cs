@@ -133,12 +133,12 @@ namespace BussinessFacade
             }
         }
 
-        public int Billing_Update_Status(decimal p_docking_id, string p_language_code, decimal p_status, string p_modify_by, DateTime p_modify_date)
+        public int Billing_Update_Status(decimal p_billing_id, string p_reject_reason, string p_language_code, decimal p_status, string p_modify_by, DateTime p_modify_date)
         {
             try
             {
                 Billing_DA _da = new Billing_DA();
-                return _da.Billing_Update_Status(p_docking_id, p_language_code, p_status, p_modify_by, p_modify_date);
+                return _da.Billing_Update_Status(p_billing_id, p_reject_reason, p_language_code, p_status, p_modify_by, p_modify_date);
             }
             catch (Exception ex)
             {

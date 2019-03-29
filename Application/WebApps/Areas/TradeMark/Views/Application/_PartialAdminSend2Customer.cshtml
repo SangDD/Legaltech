@@ -37,6 +37,8 @@
     <div class="form-group">
         <div class="form-group-bottom">
             <input type="submit" class="btn-default" value="Gửi xác nhận" onclick="return do_Admin_Gui_KH('@_AppHeaderInfo.Case_Code')" />
+            <input type="submit" class="btn-default" value="Từ chối" onclick="return do_Admin_Reject('@_AppHeaderInfo.Case_Code')" />
+
         </div>
     </div>
 </div>
@@ -50,6 +52,41 @@
             nvsConfirm(null, "Bạn có chắc chắn muốn gửi xác nhận đơn này cho khách hàng không?", function () {
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/do-admin-confirm-2-customer',
+                    type: 'POST',
+                    data: {
+                        p_case_code: _case_code,
+                        p_note: $('#txtNotes').val()
+                    },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            jError("Lỗi check lại kết nối tới server");
+                            return false;
+                        }
+                        else {
+                            jAlert('Gửi xác nhận thành công!', "THÔNG BÁO", function () {
+                                window.location.href = "/home";
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(true);
+                        console.log(e);
+                    }
+                });
+            });
+        }
+    }
+
+    function do_Admin_Reject(_case_code) {
+        if (validateAction()) {
+            nvsConfirm(null, "Bạn có chắc chắn muốn từ chối xác nhận đơn này không?", function () {
+                $.ajax({
+                    url: '/trade-mark-mana/quan-ly-don/do-admin-reject-2-lawer',
                     type: 'POST',
                     data: {
                         p_case_code: _case_code,

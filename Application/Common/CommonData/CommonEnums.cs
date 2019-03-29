@@ -26,6 +26,7 @@
             DaGui_ChoPhanLoai = 3,
             DaPhanChoLuatSu = 4,
             LuatSuDaConfirm = 5,
+            AdminReject = 51,
             ChoKHConfirm = 6,
             KhacHangDaConfirm = 7,
             KhacHangDaTuChoi = 8,
