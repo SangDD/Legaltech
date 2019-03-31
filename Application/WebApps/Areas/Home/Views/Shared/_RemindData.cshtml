@@ -15,7 +15,7 @@
         <thead>
             <tr>
                 <th class="class30">STT</th>
-                <th  class="tdleftalign" style="width:20%" id="CASE_CODE" onclick="RemindSortByCol('CASE_CODE')">Case code</th>
+                <th class="tdleftalign" style="width:20%" id="CASE_CODE" onclick="RemindSortByCol('CASE_CODE')">Case code</th>
 
                 <th class="tdleftalign" style="width:25%">@WebApps.Resources.Resource.Noidung</th>
                 <th class="tdleftalign" style="width:15%" id='REQUEST_BY_NAME' onclick="RemindSortByCol('REQUEST_BY_NAME')">@WebApps.Resources.Resource.Nguoigui</th>
@@ -32,9 +32,49 @@
                     <tr>
                         <td class="tdcenteralign">@item.STT</td>
                         @*<td class="tdleftalign">@item.CASE_CODE</td>*@
-                        <td class="tdleftalign">
-                            <a href="javascript:;" onclick="GetView2Action_Doc('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
-                        </td>
+
+                        @if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.Billing))
+                        {
+                            <td class="tdleftalign">
+                                <a href="javascript:;" onclick="GetView2Action_Billing('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
+                            </td>
+                        }
+                        else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.App))
+                        {
+                            <td class="tdleftalign">
+                                <a href="javascript:;" onclick="GetView2Action_App('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
+                            </td>
+                        }
+                        else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.TimeSheet))
+                        {
+                            <td class="tdleftalign">
+                                <a href="javascript:;" onclick="GetView2Action_TimeSheet('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
+                            </td>
+                        }
+                        else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.Search))
+                        {
+                            <td class="tdleftalign">
+                                <a href="javascript:;" onclick="GetView2Action_Search('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
+                            </td>
+                        }
+                        else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.Wiki))
+                        {
+                            <td class="tdleftalign">
+                                <a href="javascript:;" onclick="GetView2Action_Wiki('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
+                            </td>
+                        }
+                        else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.Register))
+                        {
+                            <td class="tdleftalign">
+                                <a href="javascript:;" onclick="GetView2Action_Register('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
+                            </td>
+                        }
+
+                        else
+                        {
+                            <td class="tdleftalign">@item.CASE_CODE</td>
+                        }
+
                         <td class="tdleftalign">@item.CONTENT</td>
                         <td class="tdleftalign">@item.REQUEST_BY_NAME</td>
                         <td class="tdcenteralign">
@@ -86,4 +126,83 @@
             console.log(e.toString())
         }
     }
+
+    function GetView2Action_App(_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        try {
+            var url = "/trade-mark-share-data/todo-details/" + _case_code + "/2";
+            window.open(url);
+            //window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
+
+    function GetView2Action_TimeSheet(_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        try {
+            var url = "/quan-ly-timesheet/danh-sach-timesheet/show-action-by-casecode/" + _case_code;
+            window.open(url);
+            //window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
+
+    function GetView2Action_Billing(_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        try {
+            var url = "/quan-ly-billing/danh-sach-billing/show-action-billing-by-code?case_code=" + _case_code;
+            window.open(url);
+            //window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
+
+    function GetView2Action_Search(_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        try {
+            var url = "/quan-ly-search/search-todo-detail/" + _case_code + "/2";
+            window.open(url);
+            //window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
+
+    function GetView2Action_Wiki(_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        try {
+            var url = "/Wiki-Manage/wiki-doc/doc-approve/" + _case_code + "";
+            window.open(url);
+            //window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
+
+    function GetView2Action_Register(_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        try {
+            var url = "/quan-tri-he-thong/chi-tiet-dang-ky/" + _case_code + "";
+            window.open(url);
+            //window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
+
 </script>

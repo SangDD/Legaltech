@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.CommonData;
 using Oracle.DataAccess.Client;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-   public class B_TODOS_DA
+    public class B_TODOS_DA
     {
         public DataSet Notify_Search(string p_key_search, string p_user_name, string p_from, string p_to, string p_sort_type, ref decimal p_total_record)
         {
@@ -49,7 +50,7 @@ namespace DataAccess
                     paramReturn,
                     new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output)
                    );
-                
+
                 p_total_record = Convert.ToDecimal(paramReturn.Value.ToString());
                 return _ds;
             }
@@ -124,10 +125,10 @@ namespace DataAccess
         {
             try
             {
-                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_TODOS.proc_UpdateTodo_ByCaseCode",
-                    new OracleParameter("p_app_id", OracleDbType.Decimal, p_app_id, ParameterDirection.Input),
-                    new OracleParameter("p_processor_by", OracleDbType.Varchar2, p_processor_by, ParameterDirection.Input)
-                   );
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_TODOS.proc_UpdateTodo_ByCaseCode",
+                   new OracleParameter("p_app_id", OracleDbType.Decimal, p_app_id, ParameterDirection.Input),
+                   new OracleParameter("p_processor_by", OracleDbType.Varchar2, p_processor_by, ParameterDirection.Input)
+                  );
                 return true;
             }
             catch (Exception ex)
@@ -172,5 +173,49 @@ namespace DataAccess
             }
         }
 
+        public bool Remind_Insert_Common(decimal p_type, string p_case_code, decimal p_ref_id, string p_user_name, string p_language_code)
+        {
+            try
+            {
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_remind.proc_do_insert",
+                   new OracleParameter("p_type", OracleDbType.Decimal, p_type, ParameterDirection.Input),
+                   new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
+                   new OracleParameter("p_ref_id", OracleDbType.Decimal, p_ref_id, ParameterDirection.Input),
+                   new OracleParameter("p_user_name", OracleDbType.Varchar2, p_user_name, ParameterDirection.Input),
+                   new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return false;
+            }
+        }
+
+        public bool Remind_Insert_ByTodo(decimal p_type, string p_case_code, decimal p_ref_id, string p_request_by,
+            string p_content, string p_processor_by, string p_language_code)
+        {
+            try
+            {
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_remind.proc_insert_by_todo",
+                   new OracleParameter("p_type", OracleDbType.Decimal, p_type, ParameterDirection.Input),
+                   new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
+
+                   new OracleParameter("p_content", OracleDbType.Varchar2, p_content, ParameterDirection.Input),
+                   new OracleParameter("p_request_by", OracleDbType.Varchar2, p_request_by, ParameterDirection.Input),
+                   new OracleParameter("p_request_date", OracleDbType.Date, DateTime.Now, ParameterDirection.Input),
+                   new OracleParameter("p_processor_by", OracleDbType.Varchar2, p_processor_by, ParameterDirection.Input),
+                   new OracleParameter("p_status", OracleDbType.Decimal, (decimal)Remind_Status_Enum.Active, ParameterDirection.Input),
+                   new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
+                   new OracleParameter("p_active_date", OracleDbType.Date, DateTime.Now, ParameterDirection.Input),
+                   new OracleParameter("p_ref_id", OracleDbType.Decimal, p_ref_id, ParameterDirection.Input));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return false;
+            }
+        }
     }
 }

@@ -24,7 +24,8 @@
         <thead>
             <tr>
                 <th class="class30">STT</th>
-                <th  class="tdleftalign" style="width:20%" id="CASE_CODE" onclick="TodoSortByCol('CASE_CODE')">Case code</th>
+                <th class="class50">@WebApps.Resources.Resource.Remind</th>
+                <th class="tdleftalign" style="width:20%" id="CASE_CODE" onclick="TodoSortByCol('CASE_CODE')">Case code</th>
                 <th class="tdleftalign" style="width:25%">@WebApps.Resources.Resource.Noidung</th>
                 <th class="tdleftalign" style="width:15%" id='REQUEST_BY_NAME' onclick="TodoSortByCol('REQUEST_BY_NAME')">@WebApps.Resources.Resource.Nguoigui</th>
                 <th style="width:10%" id='REQUEST_DATE' onclick="TodoSortByCol('REQUEST_DATE')">@WebApps.Resources.Resource.Thoigiangui</th>
@@ -39,6 +40,10 @@
                 {
                     <tr>
                         <td class="tdcenteralign">@item.STT</td>
+                        <td class="tdcenteralign">
+                            <a href="javascript:;" onclick="onRemind(@((decimal)Remind_Type_Enum.REMIND_TYPE_APP),'@item.CASE_CODE', @item.TODO_ID)" class="icon icon-info" data-title="Remind"></a>
+                        </td>
+
                         @if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.Billing))
                         {
                             <td class="tdleftalign">
@@ -75,7 +80,7 @@
                                 <a href="javascript:;" onclick="GetView2Action_Register('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
                             </td>
                         }
-                        
+
                         else
                         {
                             <td class="tdleftalign">@item.CASE_CODE</td>
@@ -99,6 +104,8 @@
                             }
                             @timeDiff
                         </td>
+
+
                     </tr>
                 }
             }
@@ -121,6 +128,47 @@
     $(function () {
         TodoChangeIConSortWhenSortColumns();
     });
+
+    function onRemind(_type, _case_code, _ref_id) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        try {
+            nvsConfirm(null, "Bạn có chắc chắn muốn remind công việc này không?", function () {
+                $.ajax({
+                    url: "/do-remind",
+                    type: "POST",
+                    data: {
+                        p_type: _type,
+                        p_case_code: _case_code,
+                        p_ref_id: _ref_id
+                    },
+                    headers: { "cache-control": "no-cache" },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            jError("Lỗi check lại kết nối tới server");
+                            return false;
+                        }
+                        else {
+                            jAlert('Remind công việc thành công!', "THÔNG BÁO");
+                        }
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(false);
+                        console.log(e);
+                    }
+                });
+            });
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
 
     function GetView2Action_App(_case_code) {
         if (CheckSessionTimeOut() == false) {
@@ -200,7 +248,7 @@
         }
     }
 
-    
-    
+
+
 
 </script>

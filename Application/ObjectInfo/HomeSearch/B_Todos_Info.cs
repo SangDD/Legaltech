@@ -66,6 +66,8 @@ namespace ObjectInfos
         public string REQUEST_BY_NAME { get; set; }
 
         public string PROCESSOR_BY_NAME { get; set; }
+
+        public decimal TYPE { get; set; }
     }
 
     public class B_TodoNotify_Info

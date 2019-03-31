@@ -12,13 +12,13 @@ namespace BussinessFacade
 {
     public class B_Todos_BL
     {
-        public List<B_Todos_Info> Notify_Search(string p_key_search,string p_user_name, ref decimal p_total_record,
+        public List<B_Todos_Info> Notify_Search(string p_key_search, string p_user_name, ref decimal p_total_record,
                 string p_from = "1", string p_to = "10", string p_sort_type = "ALL")
         {
             try
             {
                 B_TODOS_DA _da = new B_TODOS_DA();
-                DataSet _ds = _da.Notify_Search(p_key_search,p_user_name, p_from, p_to, p_sort_type, ref p_total_record);
+                DataSet _ds = _da.Notify_Search(p_key_search, p_user_name, p_from, p_to, p_sort_type, ref p_total_record);
                 return CBO<B_Todos_Info>.FillCollectionFromDataSet(_ds);
             }
             catch (Exception ex)
@@ -136,5 +136,34 @@ namespace BussinessFacade
             }
         }
 
+        public bool Remind_Insert_Common(decimal p_type, string p_case_code, decimal p_ref_id, string p_user_name, string p_language_code)
+        {
+            try
+            {
+                B_TODOS_DA _da = new B_TODOS_DA();
+                return _da.Remind_Insert_Common(p_type, p_case_code, p_ref_id, p_user_name, p_language_code);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return false;
+            }
+        }
+
+        public bool Remind_Insert_ByTodo(decimal p_type, string p_case_code, decimal p_ref_id, 
+            string p_request_by, string p_language_code,
+            string p_content = "NA", string p_processor_by = "NA")
+        {
+            try
+            {
+                B_TODOS_DA _da = new B_TODOS_DA();
+                return _da.Remind_Insert_ByTodo(p_type, p_case_code, p_ref_id, p_request_by, p_content, p_processor_by, p_language_code);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return false;
+            }
+        }
     }
 }

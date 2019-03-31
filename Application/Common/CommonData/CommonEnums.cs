@@ -229,6 +229,20 @@
         public const int Stt_tuchoi = 4;
     }
 
+    public enum Remind_Type_Enum
+    {
+        REMIND_TYPE_APP = 1,
+        REMIND_TYPE_DOC = 2,
+        REMIND_TYPE_BILL = 3
+    }
+
+    public enum Remind_Status_Enum
+    {
+        New = 0,
+        Active = 1,
+        Process = 2
+    }
+
     public class B_Todo
     {
         public const string TypeRequest = "ORDER";

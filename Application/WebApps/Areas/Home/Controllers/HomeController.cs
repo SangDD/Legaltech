@@ -14,7 +14,7 @@
     using BussinessFacade.ModuleTrademark;
     using System.IO;
 
-  
+
     [ValidateAntiForgeryTokenOnAllPosts]
     [RouteArea("home", AreaPrefix = "")]
     public class HomeController : Controller
@@ -325,7 +325,28 @@
             return null;
         }
 
-
+        [HttpPost]
+        [Route("do-remind")]
+        public ActionResult do_Remind(decimal p_type, string p_case_code, decimal p_ref_id)
+        {
+            try
+            {
+                B_Todos_BL _obj_bl = new B_Todos_BL();
+                var modifiedBy = SessionData.CurrentUser.Username;
+                bool _result = _obj_bl.Remind_Insert_ByTodo(p_type, p_case_code, p_ref_id, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
+                if (_result)
+                {
+                    return Json(new { success = 1 });
+                }
+                else
+                    return Json(new { success = -1 });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = -1 });
+            }
+        }
 
         #endregion
 
@@ -401,8 +422,6 @@
             return null;
         }
         #endregion
-
-
 
         #region Box tin 
         [HttpPost]
@@ -539,11 +558,6 @@
 
         #endregion
     }
-
-
-
-
-
 
     public class MsgReportServerInfo
     {
