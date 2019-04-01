@@ -190,8 +190,33 @@
             return false;
         }
 
-        var url = "/quan-ly-billing/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code + "&p_type=" + @(Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Insert_Type.Accept_Form));
-        window.open(url);
+        @*var url = "/quan-ly-billing/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code + "&p_type=" + @(Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Insert_Type.Accept_Form));
+        window.open(url);*@
+
+        @*$.ajax({
+            type: 'POST',
+            url: '/quan-ly-billing/danh-sach-billing/check-exits-billing/',
+            data: {
+                p_app_case_code: _case_code,
+                p_type: '@Convert.ToDecimal(Common.CommonData.CommonEnums.Notice_Type.HinhThuc)',
+            },
+            headers: { "cache-control": "no-cache" },
+            async: true, cache: false, traditional: true,
+            beforeSend: function () {
+                CreateRollingWaitingIcon(true);
+            },
+            success: function (data) {
+                CreateRollingWaitingIcon(false);
+                if (data.success > 0) {
+                    var url = "/quan-ly-billing/danh-sach-billing/show-view-billing?id=" + data.success + "&case_code=" + _case_code;
+                    window.open(url);
+                }
+                else {
+                    var url = "/quan-ly-billing/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code + "&p_type=" + @(Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Insert_Type.Accept_Form));
+                    window.open(url);
+                }
+            }
+        });*@
     }
 
     function do_Filing(_case_code) {

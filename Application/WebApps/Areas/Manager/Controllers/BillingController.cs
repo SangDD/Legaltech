@@ -277,8 +277,8 @@ namespace WebApps.Areas.Manager.Controllers
                         TradeMark.Controllers.ApplicationController.Insert_Docketing(p_Billing_Header_Info.App_Case_Code, "Report Billing", _fileExport, true);
                     }
 
-                    //end
-                    Commit_Transaction:
+                //end
+                Commit_Transaction:
                     if (_ck < 0)
                     {
                         Transaction.Current.Rollback();
@@ -556,8 +556,8 @@ namespace WebApps.Areas.Manager.Controllers
                         _ck = _obj_bl.Billing_Detail_InsertBatch(_lst_billing_detail, p_Billing_Header_Info.Billing_Id);
                     }
 
-                    //end
-                    Commit_Transaction:
+                //end
+                Commit_Transaction:
                     if (_ck < 0)
                     {
                         Transaction.Current.Rollback();
@@ -986,18 +986,33 @@ namespace WebApps.Areas.Manager.Controllers
         //}
 
         [Route("danh-sach-billing/check-exits-billing")]
-        public ActionResult Check_Exits_Billing(string p_app_case_code)
+        public ActionResult Check_Exits_Billing(string p_app_case_code, decimal p_type)
         {
             try
             {
                 Application_Header_BL _bl_app = new Application_Header_BL();
                 ApplicationHeaderInfo _ApplicationHeaderInfo = _bl_app.GetApp_By_Case_Code(p_app_case_code);
-                if (_ApplicationHeaderInfo != null && _ApplicationHeaderInfo.Billing_Id_Advise > 0)
+
+                // 0 advise filling
+                if (p_type == 0)
                 {
-                    return Json(new { success = _ApplicationHeaderInfo.Billing_Id_Advise });
+                    if (_ApplicationHeaderInfo != null && _ApplicationHeaderInfo.Billing_Id_Advise > 0)
+                    {
+                        return Json(new { success = _ApplicationHeaderInfo.Billing_Id_Advise });
+                    }
                 }
-                else
-                    return Json(new { success = 0 });
+                else 
+                {
+                    // lấy ở app notice ra
+                    App_Notice_Info_BL _bl = new App_Notice_Info_BL();
+                    App_Notice_Info _App_Notice_Info = _bl.App_Notice_GetBy_CaseCode(p_app_case_code, p_type);
+                    if (_App_Notice_Info != null && _App_Notice_Info.Billing_Id > 0)
+                    {
+                        return Json(new { success = _App_Notice_Info.Billing_Id });
+                    }
+                }
+
+                return Json(new { success = 0 });
             }
             catch (Exception ex)
             {

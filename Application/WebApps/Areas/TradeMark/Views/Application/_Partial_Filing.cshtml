@@ -162,7 +162,8 @@
             type: 'POST',
             url: '/quan-ly-billing/danh-sach-billing/check-exits-billing/',
             data: {
-                p_app_case_code: _case_code
+                p_app_case_code: _case_code,
+                p_type : 0
             },
             headers: { "cache-control": "no-cache" },
             async: true, cache: false, traditional: true,

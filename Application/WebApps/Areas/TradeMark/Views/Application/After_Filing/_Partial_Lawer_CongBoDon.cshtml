@@ -54,7 +54,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày công bố" id="txt_notice_date" maxlength="100" class="datepicker" onblur = "onChangeNotice_Date()"/>
+                <input type="text" placeholder="Ngày công bố" id="txt_notice_date" maxlength="100" class="datepicker" onblur="onChangeNotice_Date()" />
             </div>
         </div>
     </div>
@@ -65,7 +65,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày cục trả lời" id="txt_replies_deadline" maxlength="100" readonly="readonly"/>
+                <input type="text" placeholder="Ngày cục trả lời" id="txt_replies_deadline" maxlength="100" readonly="readonly" />
             </div>
         </div>
     </div>
@@ -162,13 +162,38 @@
 
         var url = "/quan-ly-billing/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code + "&p_type=" + @(Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Insert_Type.Public_Form));
         window.open(url);
+
+        @*$.ajax({
+            type: 'POST',
+            url: '/quan-ly-billing/danh-sach-billing/check-exits-billing/',
+            data: {
+                p_app_case_code: _case_code,
+                p_type: '@Convert.ToDecimal(Common.CommonData.CommonEnums.Notice_Type.CongBo_Don)',
+            },
+            headers: { "cache-control": "no-cache" },
+            async: true, cache: false, traditional: true,
+            beforeSend: function () {
+                CreateRollingWaitingIcon(true);
+            },
+            success: function (data) {
+                CreateRollingWaitingIcon(false);
+                if (data.success > 0) {
+                    var url = "/quan-ly-billing/danh-sach-billing/show-view-billing?id=" + data.success + "&case_code=" + _case_code;
+                    window.open(url);
+                }
+                else {
+                    var url = "/quan-ly-billing/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code + "&p_type=" + @(Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Insert_Type.Public_Form));
+                    window.open(url);
+                }
+            }
+        });*@
     }
 
     function do_Submit(_case_code) {
         if (validateAction()) {
             nvsConfirm(null, "Bạn có chắc chắn muốn gửi yêu cầu này cho admin hay không?", function () {
 
-                
+
                var formdata = new FormData();
                 formdata.append("pInfo.Case_Code", _case_code);
                 formdata.append("pInfo.Notice_Number", $('#txt_Notice_Number').val());
