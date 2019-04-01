@@ -33,44 +33,44 @@
     <div class="divCover cls_form_title">
         <img src="~/Content/icons/category.png" />
         <div class="cls_form_header">
-            Thông báo hình thức
+            @WebApps.Resources.Resource.ThongBaoHinhThuc
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div id="divNumberNotice">Số thông báo lần 1<i class="redspan">(*)</i></div>
+            <div id="divNumberNotice">@WebApps.Resources.Resource.SoThongBao<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" maxlength="100" placeholder="Số thông báo" id="txt_Notice_Number" style="width:200px" />
+                <input type="text" maxlength="100" id="txt_Notice_Number" style="width:200px" />
             </div>
         </div>
 
         <div class="div-search-title">
-            <div>Ngày thông báo <i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.NgayThongBao<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày thông báo" id="txt_notice_date" maxlength="100" class="datepicker" />
-            </div>
-        </div>
-    </div>
-
-    <div class="div-search-ad">
-        <div class="div-search-title">
-            <div>Ngày hợp lệ</div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <input type="text" placeholder="Ngày hợp lệ" id="txt_accept_date" maxlength="100" class="datepicker" />
+                <input type="text" id="txt_notice_date" maxlength="100" class="datepicker" />
             </div>
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Nội dung từ chối </div>
+            <div>@WebApps.Resources.Resource.NgayHopLe</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txt_accept_date" maxlength="100" class="datepicker" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.NoiDungTuChoi </div>
         </div>
         <div class="div-search-content">
             <div>
@@ -81,7 +81,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Advise trả lời </div>
+            <div>@WebApps.Resources.Resource.AdviseRep </div>
         </div>
         <div class="div-search-content">
             <div>
@@ -92,7 +92,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Billing Request<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.BillingRequest<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
@@ -103,7 +103,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Ghi chú <i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.GhiChu <i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
@@ -115,21 +115,21 @@
     @{
         string _id1 = "1";
         string _isValid1 = "1";
-        string _model1 = _id1 + "|" + _isValid1 + "|" + "File scan thông báo";
+        string _model1 = _id1 + "|" + _isValid1 + "|" + WebApps.Resources.Resource.FileScanTB;
         @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile.cshtml", _model1)
     }
 
     @{
         string _id2 = "2";
         string _isValid2 = "0"; ;
-        string _model2 = _id2 + "|" + _isValid2 + "|" + "File dịch";
+        string _model2 = _id2 + "|" + _isValid2 + "|" + WebApps.Resources.Resource.FileDich;
         @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile.cshtml", _model2)
     }
 
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Luật sư xác nhận" onclick="return do_Filing('@_AppHeaderInfo.Case_Code')" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.LuatSuXacNhan" onclick="return do_Filing('@_AppHeaderInfo.Case_Code')" />
         </div>
     </div>
 </div>
@@ -152,7 +152,7 @@
         if (validateAction()) {
             nvsConfirm(null, "Bạn có chắc chắn muốn nộp đơn này cho khách hàng không?", function () {
 
-                
+
 
                 var formdata = new FormData();
                 formdata.append("pInfo.Case_Code", _case_code);

@@ -53,67 +53,67 @@
 <div class="d-main">
     <div class="divCover">
         <div class="classTitle">
-            <div class="div-title-content"> CHI TIẾT THÔNG BÁO</div>
+            <div class="div-title-content"> @WebApps.Resources.Resource.ChiTietThongBao.ToUpper()</div>
         </div>
     </div>
 
     <div class="divCover">
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div id="divNumberNotice">Số thông báo</div>
+                <div id="divNumberNotice">@WebApps.Resources.Resource.SoThongBao</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" maxlength="100" placeholder="Số thông báo" value="@_App_Notice_Info.Notice_Number" id="txt_Notice_Number" style="width:200px" disabled="disabled" />
+                    <input type="text" maxlength="100" value="@_App_Notice_Info.Notice_Number" id="txt_Notice_Number" style="width:200px" disabled="disabled" />
                 </div>
             </div>
 
             <div class="div-search-title">
-                <div>Ngày thông báo </div>
+                <div>@WebApps.Resources.Resource.NgayThongBao </div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Ngày thông báo" id="txt_notice_date" maxlength="100" disabled="disabled" value="@_App_Notice_Info.Notice_Date.ToString("dd/MM/yyyy")" />
-                </div>
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>Ngày hợp lệ</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="Ngày hợp lệ" id="txt_accept_date" maxlength="100" disabled="disabled" value="@(_App_Notice_Info.Accept_Date == DateTime.MinValue ? "" : _App_Notice_Info.Accept_Date.ToString("dd/MM/yyyy") )" />
+                    <input type="text" id="txt_notice_date" maxlength="100" disabled="disabled" value="@_App_Notice_Info.Notice_Date.ToString("dd/MM/yyyy")" />
                 </div>
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Ngày trả lời</div>
+                <div>@WebApps.Resources.Resource.NgayHopLe</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Ngày trả lời cục" id="txt_replies_date" maxlength="100" value="@(_App_Notice_Info.Replies_Date == DateTime.MinValue ? "" : _App_Notice_Info.Replies_Date.ToString("dd/MM/yyyy") )" />
+                    <input type="text" id="txt_accept_date" maxlength="100" disabled="disabled" value="@(_App_Notice_Info.Accept_Date == DateTime.MinValue ? "" : _App_Notice_Info.Accept_Date.ToString("dd/MM/yyyy") )" />
                 </div>
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Next Deadline</div>
+                <div>@WebApps.Resources.Resource.NgayCucTraLoi</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="Ngày cục trả lời" id="txt_replies_deadline" maxlength="100" value="@(_App_Notice_Info.Replies_Deadline == DateTime.MinValue ? "" : _App_Notice_Info.Replies_Deadline.ToString("dd/MM/yyyy") )" class="datepicker" />
+                    <input type="text" id="txt_replies_date" maxlength="100" value="@(_App_Notice_Info.Replies_Date == DateTime.MinValue ? "" : _App_Notice_Info.Replies_Date.ToString("dd/MM/yyyy") )" />
                 </div>
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Nội dung chính</div>
+                <div>@WebApps.Resources.Resource.NextDeadline</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txt_replies_deadline" maxlength="100" value="@(_App_Notice_Info.Replies_Deadline == DateTime.MinValue ? "" : _App_Notice_Info.Replies_Deadline.ToString("dd/MM/yyyy") )" class="datepicker" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.NoiDungChinh</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -124,7 +124,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Nội dung chính  (TA)</div>
+                <div>@WebApps.Resources.Resource.NoiDungChinh  (TA)</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -135,7 +135,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Ghi chú </div>
+                <div>@WebApps.Resources.Resource.GhiChu </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -145,7 +145,7 @@
         </div>
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>File scan thông báo</div>
+                <div>@WebApps.Resources.Resource.FileScanTB</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -156,7 +156,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>File dịch</div>
+                <div>@WebApps.Resources.Resource.FileDich</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -167,7 +167,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Billing</div>
+                <div>@WebApps.Resources.Resource.Billing</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -177,7 +177,7 @@
                     }
                     else
                     {
-                        <input type="text" value="No billing" disabled="disabled" />
+                        <input type="text" value="@WebApps.Resources.Resource.NoBilling" disabled="disabled" />
                     }
                 </div>
             </div>
@@ -185,7 +185,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>CV trả lời cục</div>
+                <div>@WebApps.Resources.Resource.CVCucTraLoi</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -197,9 +197,7 @@
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;margin-top: 5px;">
-          
-
-            <input type="submit" class="btn-default" value="Back" onclick="return onBack()" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Back" onclick="return onBack()" />
         </div>
     </div>
 
