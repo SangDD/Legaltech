@@ -61,7 +61,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ngày chấp nhận nội dung.
+        ///   Looks up a localized string similar to Ngày chấp nhận ND.
         /// </summary>
         public static string Accept_Content_Date {
             get {

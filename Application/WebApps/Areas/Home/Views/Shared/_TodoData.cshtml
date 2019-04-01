@@ -41,7 +41,7 @@
                     <tr>
                         <td class="tdcenteralign">@item.STT</td>
                         <td class="tdcenteralign">
-                            <a href="javascript:;" onclick="onRemind(@((decimal)Remind_Type_Enum.REMIND_TYPE_APP),'@item.CASE_CODE', @item.TODO_ID)" class="icon icon-info" data-title="Remind"></a>
+                            <a href="javascript:;" onclick="onRemind(@item.TYPE,'@item.CASE_CODE', @item.TODO_ID)" class="fa fa-bell" data-title="Remind"></a>
                         </td>
 
                         @if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.Billing))
