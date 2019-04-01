@@ -90,10 +90,14 @@
         styleTTK = "checked='checked'";
     }
     string urlMauNhanHieu = "/Content/icons/logo.jpg";
-    if (!string.IsNullOrEmpty(objAppHeaderInfo.Logourl))
+    string urlLogoChu = "";
+    if (!string.IsNullOrEmpty(objAppHeaderInfo.Logourl) && objAppHeaderInfo.Logochu != 1)
     {
-
         urlMauNhanHieu = objAppHeaderInfo.Logourl.Replace("~", "");
+    }
+    if (!string.IsNullOrEmpty(objAppHeaderInfo.Logourl) && objAppHeaderInfo.Logochu == 1)
+    {
+        urlLogoChu = objAppHeaderInfo.Logourl;  
     }
     AppDocumentInfo ObjInfo04NH_D_14 = new AppDocumentInfo();
     AppDocumentInfo ObjInfo04NH_D_15 = new AppDocumentInfo();
@@ -184,6 +188,7 @@
     {
         _todo = null;
     }
+    List<AllCodeInfo> _lstLogoType = MemoryData.AllCode_GetBy_CdTypeCdName("NOTICE_APP", "LOGOTYPE");
 }
 
 <style>
@@ -380,40 +385,90 @@
                 <div class="class_left_40">
                     <div class="class_block_title" style="padding-top:5px; ">
                         <label>@WebApps.Resources.Resource.lblMauNhanHieu :</label>
-                        @if (objAppHeaderInfo.Logochu == 1)
+                        @*@if (objAppHeaderInfo.Logochu == 1)
                         {
                             <input type="checkbox" checked="checked" name="ckbNhanHieuChu" id="ckbNhanHieuChu" /> <span>là chữ (font-size)</span>
                         }
                         else
                         {
                             <input type="checkbox" name="ckbNhanHieuChu" id="ckbNhanHieuChu" /> <span>là chữ (font-size)</span>
-                        }
-                        <input type="number" onchange="changeFontSize()" id="txtFontSize" value="@objAppHeaderInfo.LOGO_FONT_SIZE" style="height: 17px;width: 40px;padding: 3px 0px 1px 0px;" />
-                        <script>
-                            $("input[name='ckbNhanHieuChu'").change(function () {
-                                if (document.getElementById('ckbNhanHieuChu').checked) {
-                                    $("#divLogo").css('display', 'none');
-                                    $("#divLogoHiden").css('display', 'none');
-                                    $("#divckbNhanHieuChu").css('display', 'block');
-                                } else {
-
-                                    $("#divckbNhanHieuChu").css('display', 'none');
-                                    $("#divLogo").css('display', 'block');
-                                    $("#divLogoHiden").css('display', 'block');
+                        }*@
+                        <select id="cboLogoType" onchange="funcChangeLogoType()" style="width:190px">
+                            @foreach (var item in _lstLogoType)
+                            {
+                                if (objAppHeaderInfo.Logochu == Convert.ToInt32(item.CdVal))
+                                {
+                                    <option value="@item.CdVal" selected="selected">
+                                        @item.Content
+                                    </option>
                                 }
+                                else
+                                {
+                                    <option value="@item.CdVal">
+                                        @item.Content
+                                    </option>
+                                }
+
+                            }
+                        </select>
+                        <span id="spfontsize" style="display:none">(font-size)</span>
+                        <input type="number" onchange="changeFontSize()" id="txtFontSize"  value="@objAppHeaderInfo.LOGO_FONT_SIZE" style="height: 17px;width: 40px;padding: 3px 0px 1px 0px;display:none" />
+                        <script>
+                            $(document).ready(function () {
+                                funcChangeLogoType();
                             });
+                            function funcChangeLogoType()
+                            {
+                                try {
+                                    if($("#cboLogoType").val() == "1")
+                                    {
+                                        $("#divLogo").css('display', 'none');
+                                        $("#divLogoHiden").css('display', 'none');
+                                        $("#divckbNhanHieuChu").css('display', 'block');
+                                        $("#spfontsize").css('display', 'block');
+                                        $("#txtFontSize").css('display', 'block');
+                                        $("#iddivLogoAnh").css('display', 'none');
+                                        
+                                    }
+                                    else 
+                                    {
+                                        $("#divckbNhanHieuChu").css('display', 'none');
+                                        $("#divLogo").css('display', 'block');
+                                        $("#divLogoHiden").css('display', 'block');
+                             
+                                        $("#spfontsize").css('display', 'none');
+                                        $("#txtFontSize").css('display', 'none');
+                                        $("#iddivLogoAnh").css('display', 'block');
+                                    }
+                                    
+                                } catch (e) {
+                                    console.log(e.toString());
+                                }
+                            }
+                            //$("input[name='ckbNhanHieuChu'").change(function () {
+                            //    if (document.getElementById('ckbNhanHieuChu').checked) {
+                            //        $("#divLogo").css('display', 'none');
+                            //        $("#divLogoHiden").css('display', 'none');
+                            //        $("#divckbNhanHieuChu").css('display', 'block');
+                            //    } else {
+
+                            //        $("#divckbNhanHieuChu").css('display', 'none');
+                            //        $("#divLogo").css('display', 'block');
+                            //        $("#divLogoHiden").css('display', 'block');
+                            //    }
+                            //});
                         </script>
                     </div>
                     <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
                        data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
-                    <div class="class_block_title_control divLogoAnh" style="display:flex">
+                    <div class="class_block_title_control divLogoAnh"   style="display:flex">
                         @if (objAppHeaderInfo.Logochu != 1)
                         {
                             <div style="width:165px ;height:165px" id="divLogo" class="divLogoAnh">
                                 <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
                                 <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
                             </div>
-                            <div class="container divLogoAnh" style="flex-grow:1;padding-top:50px">
+                            <div class="container divLogoAnh" id="iddivLogoAnh" style="flex-grow:1;padding-top:50px">
                                 <img onclick="funcRemoveTradeMarkImg('imgMauNhanHieu')" src="~/Content/icons/delete_file.png" style="margin: 0px 21px -44px 4px;" />
                                 <div class="file-upload btn btn-primary" style="margin-top:95px">
                                     <span>@WebApps.Resources.Resource.lblTaiFile</span>
@@ -422,7 +477,7 @@
                             </div>
                             <div id="divckbNhanHieuChu" style="display:none">
                                 <div style="width:165px ;height:165px">
-                                    <input type="text" class="classChuNhanHieu" id="txtChuNhanHieu" value="@urlMauNhanHieu" style="height:160px;width:160px;text-align: center;" />
+                                    <input type="text" class="classChuNhanHieu" id="txtChuNhanHieu" value="@urlLogoChu" style="height:160px;width:160px;text-align: center;" />
                                 </div>
                             </div>
                         }
@@ -442,7 +497,7 @@
 
                             <div id="divckbNhanHieuChu">
                                 <div style="width:165px ;height:165px">
-                                    <input type="text" class="classChuNhanHieu" id="txtChuNhanHieu" value="@urlMauNhanHieu" style="height:160px;width:160px;text-align: center;" />
+                                    <input type="text" class="classChuNhanHieu" id="txtChuNhanHieu" value="@urlLogoChu" style="height:160px;width:160px;text-align: center;" />
                                 </div>
                             </div>
                         }
@@ -1909,14 +1964,15 @@
             formdata.append("pDetail.LoaiNhanHieu", v_NhanHieu);
 
             //Logo dang chu 
-            if ($("#ckbNhanHieuChu").prop('checked') == true) {
-                formdata.append("pDetail.Logochu", 1);
+
+            if ($("#cboLogoType").val() == "1") {
+                formdata.append("pDetail.Logochu", $("#cboLogoType").val());
                 formdata.append("pDetail.ChuLogo", $("#txtChuNhanHieu").val());
                 formdata.append("pDetail.LOGO_FONT_SIZE", $("#txtFontSize").val());
                 formdata.append("pDetail.FONTTYPE", "");
             }
             else {
-                formdata.append("pDetail.Logochu", 0);
+                formdata.append("pDetail.Logochu", $("#cboLogoType").val());
                 var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
                 if (fileLogo != undefined || fileLogo != null) {
                     formdata.append("pDetail.pfileLogo", fileLogo[0].files[0]);

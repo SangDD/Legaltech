@@ -33,46 +33,46 @@
     <div class="divCover cls_form_title">
         <img src="~/Content/icons/category.png" />
         <div class="cls_form_header">
-            Công bố bằng
+            @WebApps.Resources.Resource.CongBoBang
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Số công bố bằng<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.SoCongBoBang<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" maxlength="100" placeholder="Số công bố" id="txt_Notice_Number" />
+                <input type="text" maxlength="100" id="txt_Notice_Number" />
             </div>
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Ngày công bố<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.NgayCongBo<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày công bố" id="txt_notice_date" maxlength="100" class="datepicker" onblur = "onChangeNotice_Date()"/>
+                <input type="text" id="txt_notice_date" maxlength="100" class="datepicker" onblur = "onChangeNotice_Date()"/>
             </div>
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Next Deadline</div>
+            <div>@WebApps.Resources.Resource.NextDeadline</div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày cục trả lời" id="txt_replies_deadline" maxlength="100" readonly="readonly" />
+                <input type="text" id="txt_replies_deadline" maxlength="100" readonly="readonly" />
             </div>
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Nội dung chính<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.NoiDungChinh<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
@@ -95,20 +95,20 @@
     @{
         string _id1 = "1";
         string _isValid1 = "1";
-        string _model1 = _id1 + "|" + _isValid1 + "|" + "File trích xuất Thông báo SHCN";
+        string _model1 = _id1 + "|" + _isValid1 + "|" + WebApps.Resources.Resource.FileTrichXuatSHCN;
         @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile.cshtml", _model1)
     }
 
     @{
         string _id2 = "2";
         string _isValid2 = "0"; ;
-        string _model2 = _id2 + "|" + _isValid2 + "|" + "File dịch";
+        string _model2 = _id2 + "|" + _isValid2 + "|" + WebApps.Resources.Resource.FileDich;
         @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile.cshtml", _model2)
     }
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Ghi chú <i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.GhiChu <i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
@@ -119,7 +119,7 @@
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Submit" onclick="return do_Submit('@_AppHeaderInfo.Case_Code')" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Submit" onclick="return do_Submit('@_AppHeaderInfo.Case_Code')" />
         </div>
     </div>
 </div>
@@ -161,6 +161,31 @@
 
         var url = "/quan-ly-billing/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code + "&p_type=" + @(Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Insert_Type.Grant_Public));
         window.open(url);
+
+        $.ajax({
+            type: 'POST',
+            url: '/quan-ly-billing/danh-sach-billing/check-exits-billing/',
+            data: {
+                p_app_case_code: _case_code,
+                p_type: '@Convert.ToDecimal(Common.CommonData.CommonEnums.Notice_Type.CongBo_Bang)',
+            },
+            headers: { "cache-control": "no-cache" },
+            async: true, cache: false, traditional: true,
+            beforeSend: function () {
+                CreateRollingWaitingIcon(true);
+            },
+            success: function (data) {
+                CreateRollingWaitingIcon(false);
+                if (data.success > 0) {
+                    var url = "/quan-ly-billing/danh-sach-billing/show-view-billing?id=" + data.success + "&case_code=" + _case_code;
+                    window.open(url);
+                }
+                else {
+                    var url = "/quan-ly-billing/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code + "&p_type=" + @(Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Insert_Type.Grant_Public));
+                    window.open(url);
+                }
+            }
+        });
     }
 
     function do_Submit(_case_code) {

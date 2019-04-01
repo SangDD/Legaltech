@@ -159,7 +159,7 @@
 
                         if (pDetail.Logochu != 1)
                         {
-                            pDetail.Logochu = 0;
+                            //pDetail.Logochu = 0;
                             if (pDetail.pfileLogo != null)
                             {
                                 pDetail.Logourl = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
@@ -1537,6 +1537,19 @@
                         else
                         {
                             pDetail.Logourl = pDetail.LogourlOrg;
+                        }
+                        if (pDetail.Logochu != 1)
+                        {
+                            //pDetail.Logochu = 0;
+                            if (pDetail.pfileLogo != null)
+                            {
+                                pDetail.Logourl = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
+                            }
+                        }
+                        else
+                        {
+                            pDetail.Logourl = pDetail.ChuLogo;
+                            pDetail.Logochu = 1;
                         }
                         pReturn = objDetail.App_Detail_04NH_Update(pDetail);
                         //Thêm thông tin class

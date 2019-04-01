@@ -28,6 +28,7 @@
         }
         clstAppClassShortSuggest.Add(pShortInfo);
     }
+    List<AllCodeInfo> _lstLogoType = MemoryData.AllCode_GetBy_CdTypeCdName("NOTICE_APP", "LOGOTYPE");
 }
 
 <style>
@@ -191,24 +192,58 @@
 
                 <div class="class_left_40">
                     <div class="class_block_title" style="padding-top:5px; ">
-                        <label>@WebApps.Resources.Resource.lblMauNhanHieu :</label>
-                        <input type="checkbox" name="ckbNhanHieuChu" id="ckbNhanHieuChu" /> <span>là chữ (font-size)</span>
-                        <input type="number" onchange="changeFontSize()" id="txtFontSize" value="12" style="height: 17px;width: 40px;padding: 3px 0px 1px 0px;" />
+                        <label>@WebApps.Resources.Resource.lblMauNhanHieu:</label>
+                        <select id="cboLogoType" onchange="funcChangeLogoType()">
+                            @foreach (var item in _lstLogoType)
+                            {
+                                <option value="@item.CdVal">
+                                    @item.Content
+                                </option>
+                            }
+                        </select>
+                        @*<input type="checkbox" name="ckbNhanHieuChu" id="ckbNhanHieuChu" />*@ 
+                        <span id="spfontsize" style="display:none">(font-size)</span>
+                        <input type="number" onchange="changeFontSize()" id="txtFontSize" value="12" style="height: 17px;width: 40px;padding: 3px 0px 1px 0px;display:none" />
                         <script>
-                            $("input[name='ckbNhanHieuChu'").change(function () {
-                                if (document.getElementById('ckbNhanHieuChu').checked) {
-                                    $("#divckbNhanHieuAnh").css('display', 'none');
-                                    $("#divLogo").css('display', 'none');
-                                    $("#tagSuggessIMG").css('display', 'none');
-
-                                    $("#divckbNhanHieuChu").css('display', 'block');
-                                } else {
-                                    $("#divckbNhanHieuAnh").css('display', 'block');
-                                    $("#divLogo").css('display', 'block');
-                                    $("#divckbNhanHieuChu").css('display', 'none');
-                                    $("#tagSuggessIMG").css('display', 'block');
+                            function funcChangeLogoType()
+                            {
+                                try {
+                                    if($("#cboLogoType").val() != "1" )
+                                    {
+                                        $("#divckbNhanHieuAnh").css('display', 'block');
+                                        $("#divLogo").css('display', 'block');
+                                        $("#divckbNhanHieuChu").css('display', 'none');
+                                        $("#tagSuggessIMG").css('display', 'block');
+                                        $("#spfontsize").css('display', 'none');
+                                        $("#txtFontSize").css('display', 'none');
+                                    }
+                                    else
+                                    {
+                                        $("#divckbNhanHieuAnh").css('display', 'none');
+                                        $("#divLogo").css('display', 'none');
+                                        $("#tagSuggessIMG").css('display', 'none');
+                                        $("#divckbNhanHieuChu").css('display', 'block');
+                                        $("#spfontsize").css('display', 'block');
+                                        $("#txtFontSize").css('display', 'block');
+                                    }
+                                    
+                                } catch (e) {
+                                    console.log(e.toString());
                                 }
-                            });
+                            }
+                            //$("input[name='ckbNhanHieuChu'").change(function () {
+                            //    if (document.getElementById('ckbNhanHieuChu').checked) {
+                            //        $("#divckbNhanHieuAnh").css('display', 'none');
+                            //        $("#divLogo").css('display', 'none');
+                            //        $("#tagSuggessIMG").css('display', 'none');
+                            //        $("#divckbNhanHieuChu").css('display', 'block');
+                            //    } else {
+                            //        $("#divckbNhanHieuAnh").css('display', 'block');
+                            //        $("#divLogo").css('display', 'block');
+                            //        $("#divckbNhanHieuChu").css('display', 'none');
+                            //        $("#tagSuggessIMG").css('display', 'block');
+                            //    }
+                            //});
                         </script>
                     </div>
                     <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
@@ -1493,14 +1528,14 @@
             formdata.append("pDetail.LoaiNhanHieu", v_NhanHieu);
 
             //Logo dang chu
-            if ($("#ckbNhanHieuChu").prop('checked') == true) {
+            if ($("#cboLogoType").val() == "1") {
                 formdata.append("pDetail.Logochu", 1);
                 formdata.append("pDetail.ChuLogo", $("#txtChuNhanHieu").val());
                 formdata.append("pDetail.LOGO_FONT_SIZE", $("#txtFontSize").val());
                 formdata.append("pDetail.FONTTYPE", "");
             }
             else {
-                formdata.append("pDetail.Logochu", 0);
+                formdata.append("pDetail.Logochu", $("#cboLogoType").val());
                 var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
                 if (fileLogo != undefined || fileLogo != null) {
                     formdata.append("pDetail.pfileLogo", fileLogo[0].files[0]);
