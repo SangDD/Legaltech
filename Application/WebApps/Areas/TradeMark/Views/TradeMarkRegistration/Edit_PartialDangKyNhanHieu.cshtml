@@ -752,7 +752,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" placeholder="6_txtNgayNopDon" value="@objAppHeaderInfo.Duadate.ToString("dd/MM/yyyy")" class="classDacTinhUT datetimepicker" style="width:200px" maxlength="10" id="6_txtNgayNopDon" />
+                            <input type="text"   placeholder="6_txtNgayNopDon" value="@objAppHeaderInfo.Duadate.ToString("dd/MM/yyyy")" class="classDacTinhUT datetimepicker" style="width:200px" maxlength="10" id="6_txtNgayNopDon" />
                         </div>
                     </div>
                 </div>
@@ -2356,6 +2356,15 @@
             var url = "";
             url = "/trade-mark-share-data/todo-details/" + SoDonTach + "/0";
             $("#hrfDetailDonTach").attr("href", url);
+            if(SoDonTach != "")
+            {
+                $("#0_txtNgayNopDon").removeAttr("readonly");
+            }
+            else
+            {
+                $("#0_txtNgayNopDon").attr("readonly", "readonly");
+                $("#0_txtNgayNopDon").val("");
+            }
         } catch (e) {
         }
     }
@@ -2377,7 +2386,7 @@
     });
 
     $(document).ready(function () {
-     
+        funcDetailDontach();
     });
     function changeFontSize() {
         try {

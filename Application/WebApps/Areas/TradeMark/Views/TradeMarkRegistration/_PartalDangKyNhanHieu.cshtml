@@ -98,7 +98,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input class="datetimepicker" type="text" id="0_txtNgayNopDon" maxlength="10" />
+                        <input class="datetimepicker" readonly="readonly" type="text" id="0_txtNgayNopDon" maxlength="10" />
                     </div>
                 </div>
             </div>
@@ -539,7 +539,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" placeholder="@WebApps.Resources.Resource.lblNgayNopDon" class="classDacTinhUT datetimepicker" style="width:200px" maxlength="10" id="6_txtNgayNopDon" />
+                            <input  type="text" placeholder="@WebApps.Resources.Resource.lblNgayNopDon" class="classDacTinhUT" style="width:200px" maxlength="10" id="6_txtNgayNopDon" />
                         </div>
                     </div>
                 </div>
@@ -763,6 +763,15 @@
             var url = "";
             url = "/trade-mark-share-data/todo-details/" + SoDonTach + "/0";
             $("#hrfDetailDonTach").attr("href", url);
+            if(SoDonTach != "")
+            {
+                $("#0_txtNgayNopDon").removeAttr("readonly");
+            }
+            else
+            {
+                $("#0_txtNgayNopDon").attr("readonly", "readonly");
+                $("#0_txtNgayNopDon").val("");
+            }
         } catch (e) {
         }
     }
