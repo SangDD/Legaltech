@@ -68,5 +68,22 @@ namespace ObjectInfos
 
         public decimal Billing_Id { get; set; }
         public string Url_Billing { get; set; }
+
+
+
+        //HungTD Thêm up ảnh
+        public HttpPostedFileBase pfileLogo { get; set; }
+
+        public int Logochu { get; set; }
+        public string ChuLogo { get; set; }
+
+        public string LogourlOrg { get; set; }
+        public string Logourl { get; set; }
+
+        public int LOGO_FONT_SIZE { get; set; }
+
+        public string FONTTYPE { get; set; }
+        //End HungTD
     }
+
 }
