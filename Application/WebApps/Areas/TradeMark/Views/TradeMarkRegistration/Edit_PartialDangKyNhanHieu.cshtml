@@ -360,60 +360,103 @@
         @* Nhan hieu *@
         <div class="div_full_100_area">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblNhanHieu.ToUpper())
-            <div class="class_full_div_input">
+            <div class="class_full_div_input_extent">
 
-                @*<div class="class_left_40">
-            <div class="class_block_title" style="padding-top:5px; "><label>@WebApps.Resources.Resource.lblMauNhanHieu:</label> </div>
-            <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
-               data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <div>@WebApps.Resources.Resource.lblMauNhanHieu:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <select id="cboLogoType" onchange="funcChangeLogoType()" style="width:300px">
+                                @foreach (var item in _lstLogoType)
+                                {
+                                    if (objAppHeaderInfo.Logochu == Convert.ToInt32(item.CdVal))
+                                    {
+                                        <option value="@item.CdVal" selected="selected">
+                                            @item.Content
+                                        </option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.CdVal">
+                                            @item.Content
+                                        </option>
+                                    }
 
-            <div class="class_block_title_control" style="display:flex">
-                <div style="width:165px ;height:165px" id="divLogo">
-                    <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
-                    <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
-                </div>
-                <div class="container" style="flex-grow:1;padding-top:50px">
-                    <img onclick="funcRemoveTradeMarkImg('imgMauNhanHieu')" src="~/Content/icons/delete_file.png" style="margin: 0px 21px -44px 4px;" />
-                    <div class="file-upload btn btn-primary" style="margin-top:95px">
-                        <span>@WebApps.Resources.Resource.lblTaiFile</span>
-                        <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
+                                }
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>*@
+
+
+                <div class="div-search-ad" id="spfontsize" style="display:none">
+                    <div class="div-search-title">
+                        <div>
+                            Font-size
+                        </div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="number" onchange="changeFontSize()" id="txtFontSize" value="@(objAppHeaderInfo.LOGO_FONT_SIZE==0?12:objAppHeaderInfo.LOGO_FONT_SIZE)" style="height: 24px;width: 300px;padding: 3px 0px 1px 0px;display:none" />
+                        </div>
+                    </div>
+                </div>
 
                 <div class="class_left_40">
                     <div class="class_block_title" style="padding-top:5px; ">
-                        <label>@WebApps.Resources.Resource.lblMauNhanHieu :</label>
-                        @*@if (objAppHeaderInfo.Logochu == 1)
+                  
+                     
+                      
+                    </div>
+                    <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+                       data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
+                    <div class="class_block_title_control divLogoAnh" style="display:flex">
+                        @if (objAppHeaderInfo.Logochu != 1)
                         {
-                            <input type="checkbox" checked="checked" name="ckbNhanHieuChu" id="ckbNhanHieuChu" /> <span>là chữ (font-size)</span>
+                            <div style="width:165px ;height:165px;margin-left: 10px;" id="divLogo" class="divLogoAnh">
+                                <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
+                                <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
+                            </div>
+                            <div class="container divLogoAnh" id="iddivLogoAnh" style="flex-grow:1;padding-top:50px">
+                                <img onclick="funcRemoveTradeMarkImg('imgMauNhanHieu')" src="~/Content/icons/delete_file.png" style="margin: 0px 21px -44px 4px;" />
+                                <div class="file-upload btn btn-primary" style="margin-top:95px">
+                                    <span>@WebApps.Resources.Resource.lblTaiFile</span>
+                                    <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
+                                </div>
+                            </div>
+                            <div id="divckbNhanHieuChu" style="display:none">
+                                <div style="width:165px ;height:165px;margin-left: 10px;">
+                                    <input type="text" class="classChuNhanHieu" id="txtChuNhanHieu" value="@urlLogoChu" style="height:160px;width:160px;text-align: center;" />
+                                </div>
+                            </div>
                         }
                         else
                         {
-                            <input type="checkbox" name="ckbNhanHieuChu" id="ckbNhanHieuChu" /> <span>là chữ (font-size)</span>
-                        }*@
-                        <select id="cboLogoType" onchange="funcChangeLogoType()" style="width:190px">
-                            @foreach (var item in _lstLogoType)
-                            {
-                                if (objAppHeaderInfo.Logochu == Convert.ToInt32(item.CdVal))
-                                {
-                                    <option value="@item.CdVal" selected="selected">
-                                        @item.Content
-                                    </option>
-                                }
-                                else
-                                {
-                                    <option value="@item.CdVal">
-                                        @item.Content
-                                    </option>
-                                }
+                            <div style="width:165px ;height:165px;margin-left: 10px;;display:none" id="divLogo">
+                                <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
+                                <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
+                            </div>
+                            <div class="container" id="divLogoHiden" style="flex-grow:1;padding-top:50px;display:none">
+                                <img onclick="funcRemoveTradeMarkImg('imgMauNhanHieu')" src="~/Content/icons/delete_file.png" style="margin: 0px 21px -44px 4px;" />
+                                <div class="file-upload btn btn-primary" style="margin-top:95px">
+                                    <span>@WebApps.Resources.Resource.lblTaiFile</span>
+                                    <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
+                                </div>
+                            </div>
 
-                            }
-                        </select>
-                        <span id="spfontsize" style="display:none">(font-size)</span>
-                        <input type="number" onchange="changeFontSize()" id="txtFontSize"  value="@objAppHeaderInfo.LOGO_FONT_SIZE" style="height: 17px;width: 40px;padding: 3px 0px 1px 0px;display:none" />
-                        <script>
+                            <div id="divckbNhanHieuChu">
+                                <div style="width:165px ;height:165px;margin-left: 10px;">
+                                    <input type="text" class="classChuNhanHieu" id="txtChuNhanHieu" value="@urlLogoChu" style="height:160px;width:160px;text-align: center;" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+
+                  <script>
                             $(document).ready(function () {
                                 funcChangeLogoType();
                             });
@@ -428,82 +471,25 @@
                                         $("#spfontsize").css('display', 'block');
                                         $("#txtFontSize").css('display', 'block');
                                         $("#iddivLogoAnh").css('display', 'none');
-                                        
+
                                     }
-                                    else 
+                                    else
                                     {
                                         $("#divckbNhanHieuChu").css('display', 'none');
                                         $("#divLogo").css('display', 'block');
                                         $("#divLogoHiden").css('display', 'block');
-                             
+
                                         $("#spfontsize").css('display', 'none');
                                         $("#txtFontSize").css('display', 'none');
                                         $("#iddivLogoAnh").css('display', 'block');
                                     }
-                                    
+
                                 } catch (e) {
                                     console.log(e.toString());
                                 }
                             }
-                            //$("input[name='ckbNhanHieuChu'").change(function () {
-                            //    if (document.getElementById('ckbNhanHieuChu').checked) {
-                            //        $("#divLogo").css('display', 'none');
-                            //        $("#divLogoHiden").css('display', 'none');
-                            //        $("#divckbNhanHieuChu").css('display', 'block');
-                            //    } else {
-
-                            //        $("#divckbNhanHieuChu").css('display', 'none');
-                            //        $("#divLogo").css('display', 'block');
-                            //        $("#divLogoHiden").css('display', 'block');
-                            //    }
-                            //});
+                          
                         </script>
-                    </div>
-                    <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
-                       data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
-                    <div class="class_block_title_control divLogoAnh"   style="display:flex">
-                        @if (objAppHeaderInfo.Logochu != 1)
-                        {
-                            <div style="width:165px ;height:165px" id="divLogo" class="divLogoAnh">
-                                <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
-                                <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
-                            </div>
-                            <div class="container divLogoAnh" id="iddivLogoAnh" style="flex-grow:1;padding-top:50px">
-                                <img onclick="funcRemoveTradeMarkImg('imgMauNhanHieu')" src="~/Content/icons/delete_file.png" style="margin: 0px 21px -44px 4px;" />
-                                <div class="file-upload btn btn-primary" style="margin-top:95px">
-                                    <span>@WebApps.Resources.Resource.lblTaiFile</span>
-                                    <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
-                                </div>
-                            </div>
-                            <div id="divckbNhanHieuChu" style="display:none">
-                                <div style="width:165px ;height:165px">
-                                    <input type="text" class="classChuNhanHieu" id="txtChuNhanHieu" value="@urlLogoChu" style="height:160px;width:160px;text-align: center;" />
-                                </div>
-                            </div>
-                        }
-                        else
-                        {
-                            <div style="width:165px ;height:165px;display:none" id="divLogo">
-                                <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
-                                <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
-                            </div>
-                            <div class="container" id="divLogoHiden" style="flex-grow:1;padding-top:50px;display:none">
-                                <img onclick="funcRemoveTradeMarkImg('imgMauNhanHieu')" src="~/Content/icons/delete_file.png" style="margin: 0px 21px -44px 4px;" />
-                                <div class="file-upload btn btn-primary" style="margin-top:95px">
-                                    <span>@WebApps.Resources.Resource.lblTaiFile</span>
-                                    <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
-                                </div>
-                            </div>
-
-                            <div id="divckbNhanHieuChu">
-                                <div style="width:165px ;height:165px">
-                                    <input type="text" class="classChuNhanHieu" id="txtChuNhanHieu" value="@urlLogoChu" style="height:160px;width:160px;text-align: center;" />
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
-
 
                 <div class="class_right_60" style="display:block">
                     @* Thêm mục đích sau này Admin đặt tên theo qui tắc phục vụ tìm kiếm *@
