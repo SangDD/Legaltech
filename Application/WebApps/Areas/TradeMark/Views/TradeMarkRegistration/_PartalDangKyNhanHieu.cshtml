@@ -167,92 +167,46 @@
         @* Nhan hieu *@
         <div class="div_full_100_area">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblNhanHieu.ToUpper())
-            <div class="class_full_div_input">
+            <div class="class_full_div_input_extent">
 
-                @*<div class="class_left_40">
-                <div class="class_block_title" style="padding-top:5px; ">
-                    <label>@WebApps.Resources.Resource.lblMauNhanHieu :</label>
-                </div>
-                <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
-                   data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
-
-                <div class="class_block_title_control" style="display:flex">
-                    <div style="width:165px ;height:165px" id="divLogo">
-                        <img id="imgMauNhanHieu" src="~/Content/icons/logo.jpg" style="width:160px ;height:160px">
-                        <img id="imgMauNhanHieuTeplace" src="~/Content/icons/logo.jpg" hidden="hidden">
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <div>@WebApps.Resources.Resource.lblMauNhanHieu:</div>
                     </div>
-                    <div class="container" style="flex-grow:1;padding-top:50px">
-                        <div class="file-upload btn btn-primary" style="margin-top:95px">
-                            <span>@WebApps.Resources.Resource.lblTaiFile</span>
-                            <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
+                    <div class="div-search-content">
+                        <div>
+                            <select id="cboLogoType" onchange="funcChangeLogoType()" style="width:300px">
+                                @foreach (var item in _lstLogoType)
+                                {
+                                    <option value="@item.CdVal">
+                                        @item.Content
+                                    </option>
+                                }
+                            </select>
                         </div>
                     </div>
                 </div>
-            </div>*@
+
+                <div class="div-search-ad" id="spfontsize" style="display:none">
+                    <div class="div-search-title">
+                        <div>
+                            Font-size
+                        </div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="number" onchange="changeFontSize()" id="txtFontSize" value="12" style="height: 24px;width: 300px;padding: 3px 0px 1px 0px;display:none" />
+                        </div>
+                    </div>
+                </div>
+
 
                 <div class="class_left_40">
-                    <div class="class_block_title" style="padding-top:5px; ">
-                        <label>@WebApps.Resources.Resource.lblMauNhanHieu:</label>
-                        <select id="cboLogoType" onchange="funcChangeLogoType()">
-                            @foreach (var item in _lstLogoType)
-                            {
-                                <option value="@item.CdVal">
-                                    @item.Content
-                                </option>
-                            }
-                        </select>
-                        @*<input type="checkbox" name="ckbNhanHieuChu" id="ckbNhanHieuChu" />*@ 
-                        <span id="spfontsize" style="display:none">(font-size)</span>
-                        <input type="number" onchange="changeFontSize()" id="txtFontSize" value="12" style="height: 17px;width: 40px;padding: 3px 0px 1px 0px;display:none" />
-                        <script>
-                            function funcChangeLogoType()
-                            {
-                                try {
-                                    if($("#cboLogoType").val() != "1" )
-                                    {
-                                        $("#divckbNhanHieuAnh").css('display', 'block');
-                                        $("#divLogo").css('display', 'block');
-                                        $("#divckbNhanHieuChu").css('display', 'none');
-                                        $("#tagSuggessIMG").css('display', 'block');
-                                        $("#spfontsize").css('display', 'none');
-                                        $("#txtFontSize").css('display', 'none');
-                                    }
-                                    else
-                                    {
-                                        $("#divckbNhanHieuAnh").css('display', 'none');
-                                        $("#divLogo").css('display', 'none');
-                                        $("#tagSuggessIMG").css('display', 'none');
-                                        $("#divckbNhanHieuChu").css('display', 'block');
-                                        $("#spfontsize").css('display', 'block');
-                                        $("#txtFontSize").css('display', 'block');
-                                    }
-                                    
-                                } catch (e) {
-                                    console.log(e.toString());
-                                }
-                            }
-                            //$("input[name='ckbNhanHieuChu'").change(function () {
-                            //    if (document.getElementById('ckbNhanHieuChu').checked) {
-                            //        $("#divckbNhanHieuAnh").css('display', 'none');
-                            //        $("#divLogo").css('display', 'none');
-                            //        $("#tagSuggessIMG").css('display', 'none');
-                            //        $("#divckbNhanHieuChu").css('display', 'block');
-                            //    } else {
-                            //        $("#divckbNhanHieuAnh").css('display', 'block');
-                            //        $("#divLogo").css('display', 'block');
-                            //        $("#divckbNhanHieuChu").css('display', 'none');
-                            //        $("#tagSuggessIMG").css('display', 'block');
-                            //    }
-                            //});
-                        </script>
-                    </div>
                     <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
                        data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
 
                     <div class="class_block_title_control" style="display:flex">
-                        @* div them *@
-                        @*<div id="divckbNhanHieuAnh">*@
-                        <div style="width:165px ;height:165px" id="divLogo">
+                        <div style="width:165px ;height:165px;margin-left: 10px;" id="divLogo">
                             <img id="imgMauNhanHieu" src="~/Content/icons/logo.jpg" style="width:160px ;height:160px">
                             <img id="imgMauNhanHieuTeplace" src="~/Content/icons/logo.jpg" hidden="hidden">
                         </div>
@@ -262,14 +216,15 @@
                                 <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
                             </div>
                         </div>
-                        @*</div>*@
                         <div id="divckbNhanHieuChu" style="display:none">
-                            <div style="width:165px ;height:165px">
+                            <div style="width:165px ;height:165px;margin-left: 10px;">
                                 <input type="text" class="classChuNhanHieu" id="txtChuNhanHieu" style="height:160px;width:160px;text-align: center;" />
                             </div>
                         </div>
                     </div>
                 </div>
+
+
 
                 <div class="class_right_60" style="display:block">
                     @* Thêm mục đích sau này Admin đặt tên theo qui tắc phục vụ tìm kiếm *@
@@ -310,6 +265,36 @@
             <a href="javascript:;" st="" class="icon icon-info tip" data-placement="right" style="border:none"
                data-title="@Resource.TooltipSizeofImage"></a>
 
+
+            <script>
+                            function funcChangeLogoType()
+                            {
+                                try {
+                                    if($("#cboLogoType").val() != "1" )
+                                    {
+                                        $("#divckbNhanHieuAnh").css('display', 'block');
+                                        $("#divLogo").css('display', 'block');
+                                        $("#divckbNhanHieuChu").css('display', 'none');
+                                        $("#tagSuggessIMG").css('display', 'block');
+                                        $("#spfontsize").css('display', 'none');
+                                        $("#txtFontSize").css('display', 'none');
+                                    }
+                                    else
+                                    {
+                                        $("#divckbNhanHieuAnh").css('display', 'none');
+                                        $("#divLogo").css('display', 'none');
+                                        $("#tagSuggessIMG").css('display', 'none');
+                                        $("#divckbNhanHieuChu").css('display', 'block');
+                                        $("#spfontsize").css('display', 'block');
+                                        $("#txtFontSize").css('display', 'block');
+                                    }
+
+                                } catch (e) {
+                                    console.log(e.toString());
+                                }
+                            }
+                         
+            </script>
 
             <div class="div-search-ad">
                 <div class="div-search-content">

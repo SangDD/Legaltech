@@ -35,6 +35,8 @@
         }
         clstAppClassShortSuggest.Add(pShortInfo);
     }
+
+    List<AllCodeInfo> _lstLogoType = MemoryData.AllCode_GetBy_CdTypeCdName("NOTICE_APP", "LOGOTYPE");
 }
 @*<script src="https://code.jquery.com/jquery-1.12.4.js"></script>*@
 @*<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
@@ -242,6 +244,174 @@
             @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile_Local.cshtml", _model1)
         }
 
+        <div class="divCover cls_form_title">
+            <img src="/Content/icons/category.png" />
+            <div class="cls_form_header">
+                Ảnh nhãn hiệu
+            </div>
+        </div>
+
+        <div class="class_full_div_input_extent">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>@WebApps.Resources.Resource.lblMauNhanHieu:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboLogoType" onchange="funcChangeLogoType()">
+                            @foreach (var item in _lstLogoType)
+                            {
+                                <option value="@item.CdVal">
+                                    @item.Content
+                                </option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="div-search-ad" id="spfontsize" style="display:none">
+                <div class="div-search-title">
+                   <div>
+                       Font-size 
+                    </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="number" onchange="changeFontSize()" id="txtFontSize" value="12" style="height: 27px; display:none" />
+                    </div>
+                </div>
+            </div>
+          
+            <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+               data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
+
+            <div class="class_block_title_control" style="display:flex;padding-top:10px">
+                <div style="width:165px ;height:165px;margin-left: 13px;" id="divLogo">
+                    <img id="imgMauNhanHieu" src="~/Content/icons/logo.jpg" style="width:160px ;height:160px">
+                    <img id="imgMauNhanHieuTeplace" src="~/Content/icons/logo.jpg" hidden="hidden">
+                </div>
+                <div class="container" id="divckbNhanHieuAnh" style="flex-grow:1;padding-top:50px">
+                    <div class="file-upload btn btn-primary" style="margin-top:95px">
+                        <span>@WebApps.Resources.Resource.lblTaiFile</span>
+                        <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
+                    </div>
+                </div>
+                <div id="divckbNhanHieuChu" style="display:none">
+                    <div style="width:165px ;height:165px;margin-left: 13px;">
+                        <input type="text" class="classChuNhanHieu" id="txtChuNhanHieu" style="height:160px;width:160px;text-align: center;" />
+                    </div>
+                </div>
+            </div>
+            <script>
+                            function funcChangeLogoType()
+                            {
+                                try {
+                                    if($("#cboLogoType").val() != "1" )
+                                    {
+                                        $("#divckbNhanHieuAnh").css('display', 'block');
+                                        $("#divLogo").css('display', 'block');
+                                        $("#divckbNhanHieuChu").css('display', 'none');
+                                        $("#tagSuggessIMG").css('display', 'block');
+                                        $("#spfontsize").css('display', 'none');
+                                        $("#txtFontSize").css('display', 'none');
+                                    }
+                                    else
+                                    {
+                                        $("#divckbNhanHieuAnh").css('display', 'none');
+                                        $("#divLogo").css('display', 'none');
+                                        $("#tagSuggessIMG").css('display', 'none');
+                                        $("#divckbNhanHieuChu").css('display', 'block');
+                                        $("#spfontsize").css('display', 'block');
+                                        $("#txtFontSize").css('display', 'block');
+                                    }
+
+                                } catch (e) {
+                                    console.log(e.toString());
+                                }
+                            }
+
+                            function changeFontSize()
+                            {
+                                try {
+                                    document.getElementById("txtChuNhanHieu").style.fontSize = document.getElementById("txtFontSize").value + "px";
+                                } catch (e) {
+
+                                }
+                            }
+
+                            var _checkanh = 0;
+                            document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {
+                                _checkanh = 0;
+                                var preturn = fileNhanHieu(this, 'imgMauNhanHieu');
+
+                                //kiểm tra ảnh có đúng kích cỡ hay không?
+                                if (this.files[0].type.indexOf("image") != -1) {
+
+                                    var reader = new FileReader();
+                                    reader.onload = function (e) {
+                                        $("#imgMauNhanHieuTeplace").attr("src", e.target.result);
+
+                                        var img = $("#imgMauNhanHieuTeplace");
+                                        var iheight = 500; var iwidth = 500;
+
+                                        iheight = img[0].height;
+                                        console.log('lan 1: ' + iheight);
+                                        iheight = img[0].height;
+                                        iwidth = img[0].width;
+                                        console.log(iheight);
+                                        //2x2 75x75 px , 8x8 302x302
+                                        if (iheight > 302 || iheight < 75 || iwidth > 302 || iwidth < 75) {
+                                            _checkanh = 1;
+                                            nvsConfirm(null, "Ảnh tải lên không đúng kích cỡ từ 2x2 đến 8x8 ?", function () {
+                                                return true;
+                                            }, function () {
+                                                //Callback
+                                                $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
+                                            });
+
+                                        } else {
+                                            return true;
+                                        }
+                                    }
+                                    reader.readAsDataURL(this.files[0]);
+                                } else {
+                                    nvsAlert("Thông báo", "File tải lên không phải là file ảnh?", "");
+                                    _checkanh = 2;
+                                }
+                            };
+
+                            function funcUpLoadMauNhanHieu(pFile) {
+                                try {
+                                    var file = document.getElementsByName(pFile);
+                                    if (file != undefined) {
+                                        formdata.append("pInfo.pfiles", file[0].files[0]);
+                                    }
+                                } catch (e) {
+                                }
+                            }
+
+                            function  fileNhanHieu(pfile, pIdImg) {
+                                try {
+                                    if (pfile.files && pfile.files[0]) {
+                                        var reader = new FileReader();
+                                        reader.onload = function (e) {
+                                            $("#" + pIdImg).attr("src", e.target.result);
+                                        }
+                                        reader.readAsDataURL(pfile.files[0]);
+
+
+                                    }
+                                } catch (e) {
+
+                                }
+                            }
+
+            </script>
+        </div>
+
+
+
+
 
         <div class="divCover cls_form_title">
             <img src="/Content/icons/category.png" />
@@ -251,6 +421,8 @@
         </div>
 
         @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialAddSearchClass.cshtml")
+
+       
 
 
         <div class="divCover cls_form_title">
@@ -357,6 +529,22 @@
             formData.append("p_searchHeaderInfo.Country_Id", $("#cboCountry").val());
             formData.append("p_searchHeaderInfo.Notes", $("#txtNotes").val());
             formData.append("p_searchHeaderInfo.Object_Search", $("#cbosearch_object").val());
+
+            //hungtd thêm up ảnh
+            if ($("#cboLogoType").val() == "1") {
+                formData.append("p_searchHeaderInfo.Logochu", 1);
+                formData.append("p_searchHeaderInfo.ChuLogo", $("#txtChuNhanHieu").val());
+                formData.append("p_searchHeaderInfo.LOGO_FONT_SIZE", $("#txtFontSize").val());
+                formData.append("p_searchHeaderInfo.FONTTYPE", "");
+            }
+            else {
+                formData.append("p_searchHeaderInfo.Logochu", $("#cboLogoType").val());
+                var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
+                if (fileLogo != undefined || fileLogo != null) {
+                    formData.append("p_searchHeaderInfo.pfileLogo", fileLogo[0].files[0]);
+                } 
+            }
+            //end hungtd
 
             // lay du lieu file
             var pfile = $("#file_attach_1");//lay du lieu file

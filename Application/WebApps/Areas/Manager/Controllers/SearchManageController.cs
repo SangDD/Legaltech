@@ -176,6 +176,24 @@ namespace WebApps.Areas.Manager.Controllers
                         p_searchHeaderInfo.Url_File = url_File_Atachment;
                     }
 
+                    //HungTD: thêm up ảnh
+
+                    if (p_searchHeaderInfo.Logochu != 1)
+                    {
+                        //pDetail.Logochu = 0;
+                        if (p_searchHeaderInfo.pfileLogo != null)
+                        {
+                            p_searchHeaderInfo.Logourl = AppLoadHelpers.PushFileToServer(p_searchHeaderInfo.pfileLogo, AppUpload.FileAttact);
+                        }
+                    }
+                    else
+                    {
+                        p_searchHeaderInfo.Logourl = p_searchHeaderInfo.ChuLogo;
+                        p_searchHeaderInfo.Logochu = 1;
+                    }
+
+
+                    //END HungTD
                     _rel = _searchBL.SEARCH_HEADER_INSERT(p_searchHeaderInfo);
                     if (_rel < 0)
                     {
@@ -184,6 +202,9 @@ namespace WebApps.Areas.Manager.Controllers
 
                     p_searchHeaderInfo.SEARCH_ID = _rel;
                     p_questionInfo.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
+
+
+
                     _rel = _searchBL.SEARCH_QUESTION_INSERT(p_questionInfo);
                     if (_rel < 0)
                         goto Commit_Transaction;
@@ -331,6 +352,33 @@ namespace WebApps.Areas.Manager.Controllers
                     {
                         p_searchHeaderInfo.Url_File = "NA";
                     }
+                    //HungTD
+
+                    if (p_searchHeaderInfo.pfileLogo != null)
+                    {
+                        p_searchHeaderInfo.Logourl = AppLoadHelpers.PushFileToServer(p_searchHeaderInfo.pfileLogo, AppUpload.Logo);
+                    }
+                    else
+                    {
+                        p_searchHeaderInfo.Logourl = p_searchHeaderInfo.LogourlOrg;
+                    }
+                    if (p_searchHeaderInfo.Logochu != 1)
+                    {
+                        //pDetail.Logochu = 0;
+                        if (p_searchHeaderInfo.pfileLogo != null)
+                        {
+                            p_searchHeaderInfo.Logourl = AppLoadHelpers.PushFileToServer(p_searchHeaderInfo.pfileLogo, AppUpload.Logo);
+                        }
+                    }
+                    else
+                    {
+                        p_searchHeaderInfo.Logourl = p_searchHeaderInfo.ChuLogo;
+                        p_searchHeaderInfo.Logochu = 1;
+                    }
+
+
+                    //End HungTD
+
 
                     _rel = _searchBL.SEARCH_HEADER_UPDATE(p_searchHeaderInfo);
                     if (_rel < 0)

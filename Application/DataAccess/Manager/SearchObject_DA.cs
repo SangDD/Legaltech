@@ -30,6 +30,11 @@ namespace DataAccess
                     new OracleParameter("P_NOTES", OracleDbType.Varchar2, p_SearchObject_Header_Info.NOTES, ParameterDirection.Input),
                     new OracleParameter("P_OBJECT_SEARCH", OracleDbType.Decimal, p_SearchObject_Header_Info.Object_Search, ParameterDirection.Input),
                     new OracleParameter("P_URL_FILE", OracleDbType.Varchar2, p_SearchObject_Header_Info.Url_File, ParameterDirection.Input),
+                     //HungTD thêm up ảnh
+                     new OracleParameter("P_LOGOURL", OracleDbType.Varchar2, p_SearchObject_Header_Info.Logourl, ParameterDirection.Input),
+                     new OracleParameter("P_LOGOCHU", OracleDbType.Decimal, p_SearchObject_Header_Info.Logochu, ParameterDirection.Input),
+                     new OracleParameter("P_LOGO_FONT_SIZE", OracleDbType.Decimal, p_SearchObject_Header_Info.LOGO_FONT_SIZE, ParameterDirection.Input),
+                     new OracleParameter("P_FONTTYPE", OracleDbType.Varchar2, p_SearchObject_Header_Info.FONTTYPE, ParameterDirection.Input),
                     paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());
@@ -60,6 +65,11 @@ namespace DataAccess
                     new OracleParameter("P_NOTES", OracleDbType.Varchar2, p_SearchObject_Header_Info.NOTES, ParameterDirection.Input),
                     new OracleParameter("P_OBJECT_SEARCH", OracleDbType.Decimal, p_SearchObject_Header_Info.Object_Search, ParameterDirection.Input),
                     new OracleParameter("P_URL_FILE", OracleDbType.Varchar2, p_SearchObject_Header_Info.Url_File, ParameterDirection.Input),
+                     //HungTD thêm up ảnh
+                     new OracleParameter("P_LOGOURL", OracleDbType.Varchar2, p_SearchObject_Header_Info.Logourl, ParameterDirection.Input),
+                     new OracleParameter("P_LOGOCHU", OracleDbType.Decimal, p_SearchObject_Header_Info.Logochu, ParameterDirection.Input),
+                     new OracleParameter("P_LOGO_FONT_SIZE", OracleDbType.Decimal, p_SearchObject_Header_Info.LOGO_FONT_SIZE, ParameterDirection.Input),
+                     new OracleParameter("P_FONTTYPE", OracleDbType.Varchar2, p_SearchObject_Header_Info.FONTTYPE, ParameterDirection.Input),
                     paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());
@@ -236,6 +246,7 @@ namespace DataAccess
                     new OracleParameter("P_RESULT", OracleDbType.Clob, p_question_info.RESULT, ParameterDirection.Input),
                     new OracleParameter("P_FILE_URL", OracleDbType.Varchar2, p_question_info.FILE_URL, ParameterDirection.Input),
                     new OracleParameter("P_FILE_URL02", OracleDbType.Varchar2, p_question_info.FILE_URL02, ParameterDirection.Input),
+
                     paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());
@@ -258,7 +269,7 @@ namespace DataAccess
                     new OracleParameter("P_RESULT", OracleDbType.Clob, p_question_info.RESULT, ParameterDirection.Input),
                     new OracleParameter("P_FILE_URL", OracleDbType.Varchar2, p_question_info.FILE_URL, ParameterDirection.Input),
                     new OracleParameter("P_FILE_URL02", OracleDbType.Varchar2, p_question_info.FILE_URL02, ParameterDirection.Input),
-                    paramReturn);
+                        paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());
             }
@@ -526,7 +537,7 @@ namespace DataAccess
             }
         }
 
-        public int Update_Url_Billing(string p_case_code,decimal p_billing_id, string p_url_billing)
+        public int Update_Url_Billing(string p_case_code, decimal p_billing_id, string p_url_billing)
         {
             try
             {

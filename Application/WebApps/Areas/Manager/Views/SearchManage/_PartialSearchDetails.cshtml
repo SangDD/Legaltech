@@ -22,6 +22,18 @@
     {
         c_operator_type = (decimal)ViewBag.Operator_Type;
     }
+
+    List<AllCodeInfo> _lstLogoType = MemoryData.AllCode_GetBy_CdTypeCdName("NOTICE_APP", "LOGOTYPE");
+    string urlMauNhanHieu = "/Content/icons/logo.jpg";
+    string urlLogoChu = "";
+    if (!string.IsNullOrEmpty(_HeaderInfo.Logourl) && _HeaderInfo.Logochu != 1)
+    {
+        urlMauNhanHieu = _HeaderInfo.Logourl.Replace("~", "");
+    }
+    if (!string.IsNullOrEmpty(_HeaderInfo.Logourl) && _HeaderInfo.Logochu == 1)
+    {
+        urlLogoChu = _HeaderInfo.Logourl;
+    }
 }
 
 <style>
@@ -140,6 +152,131 @@
             </div>
         </div>
     }
+
+
+  
+
+ @if (!string.IsNullOrEmpty(_HeaderInfo.Logourl))
+ {
+    <div class="divCover cls_form_title">
+        <img src="/Content/icons/category.png" />
+        <div class="cls_form_header">
+            Ảnh nhãn hiệu
+        </div>
+    </div>
+
+    <div class="class_full_div_input_extent">
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.lblMauNhanHieu:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboLogoType" onchange="funcChangeLogoType()" disabled>
+                        @foreach (var item in _lstLogoType)
+                        {
+                            if (_HeaderInfo.Logochu == Convert.ToInt32(item.CdVal))
+                            {
+                                <option value="@item.CdVal" selected="selected">
+                                    @item.Content
+                                </option>
+                            }
+                            else
+                            {
+                                <option value="@item.CdVal">
+                                    @item.Content
+                                </option>
+                            }
+
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="div-search-ad" id="spfontsize" style="display:none">
+            <div class="div-search-title">
+                <div>
+                    Font-size
+                </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input disabled type="number" onchange="changeFontSize()" id="txtFontSize" value="@(_HeaderInfo.LOGO_FONT_SIZE==0?12:_HeaderInfo.LOGO_FONT_SIZE)" style="height: 27px; display:none" />
+                </div>
+            </div>
+        </div>
+
+        <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+           data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
+        <div class="class_block_title_control divLogoAnh" style="display:flex;padding-top:10px">
+            @if (_HeaderInfo.Logochu != 1)
+            {
+                <div style="width:165px ;height:165px" id="divLogo" class="divLogoAnh">
+                    <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
+                    <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
+                </div>
+                <div id="divckbNhanHieuChu" style="display:none">
+                    <div style="width:165px ;height:165px;  margin-left: 13px;">
+                        <input readonly type="text" class="classChuNhanHieu" id="txtChuNhanHieu" value="@urlLogoChu" style="height:160px;width:160px;text-align: center;" />
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div style="width:165px ;height:165px;display:none" id="divLogo">
+                    <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
+                    <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
+                </div>
+
+                <div id="divckbNhanHieuChu">
+                    <div style="width:165px ;height:165px;  margin-left: 13px;">
+                        <input readonly type="text" class="classChuNhanHieu" id="txtChuNhanHieu" value="@urlLogoChu" style="height:160px;width:160px;text-align: center;" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <script>
+                            $(document).ready(function () {
+                                funcChangeLogoType();
+                                changeFontSize();
+                            });
+                            function funcChangeLogoType()
+                            {
+                                try {
+                                    if($("#cboLogoType").val() == "1")
+                                    {
+                                        $("#divLogo").css('display', 'none');
+                                        $("#divLogoHiden").css('display', 'none');
+                                        $("#divckbNhanHieuChu").css('display', 'block');
+                                        $("#spfontsize").css('display', 'block');
+                                        $("#txtFontSize").css('display', 'block');
+                                        $("#iddivLogoAnh").css('display', 'none');
+
+                                    }
+                                    else
+                                    {
+                                        $("#divckbNhanHieuChu").css('display', 'none');
+                                        $("#divLogo").css('display', 'block');
+                                        $("#divLogoHiden").css('display', 'block');
+
+                                        $("#spfontsize").css('display', 'none');
+                                        $("#txtFontSize").css('display', 'none');
+                                        $("#iddivLogoAnh").css('display', 'block');
+                                    }
+
+                                } catch (e) {
+                                    console.log(e.toString());
+                                }
+                            }
+
+    </script>
+ }
+
+   
 
     <div class="divCover cls_form_title">
         <img src="/Content/icons/category.png" />
