@@ -14,10 +14,10 @@
         <thead>
             <tr>
                 <th class="class30">STT</th>
-                <th style="width:35%" id='CONTENT' onclick="TodoSortByCol('CONTENT')">Mô tả nội dung</th>
-                <th class="class150" id='PROCESSOR_BY_NAME' onclick="TodoSortByCol('PROCESSOR_BY_NAME')">Người xử lý</th>
-                <th class="class250" id='PROCESSOR_DATE' onclick="TodoSortByCol('PROCESSOR_DATE')">Thời gian chờ</th>
-                <th class="class250" id='STATUS' onclick="TodoSortByCol('STATUS')">Trạng thái</th>
+                <th style="width:35%" id='CONTENT' onclick="TodoSortByCol('CONTENT')">@WebApps.Resources.Resource.Noidung</th>
+                <th class="class150" id='PROCESSOR_BY_NAME' onclick="TodoSortByCol('PROCESSOR_BY_NAME')">@WebApps.Resources.Resource.NguoiXuLy</th>
+                <th class="class250" id='PROCESSOR_DATE' onclick="TodoSortByCol('PROCESSOR_DATE')">@WebApps.Resources.Resource.Thoigiancho</th>
+                <th class="class250" id='STATUS' onclick="TodoSortByCol('STATUS')">@WebApps.Resources.Resource.TrangThai</th>
 
                 @*<th class="class150" id='REQUEST_BY_NAME' onclick="TodoSortByCol('REQUEST_BY_NAME')">Người gửi</th>
                     <th class="class250" id='REQUEST_DATE' onclick="TodoSortByCol('REQUEST_DATE')">Thời gian gửi</th>*@
@@ -53,7 +53,7 @@
             else
             {
                 <tr>
-                    <td colspan="5">Không có dữ liệu</td>
+                    <td colspan="5">@WebApps.Resources.Resource.KhongCoDuLieu</td>
                 </tr>
             }
         </tbody>

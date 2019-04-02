@@ -19,13 +19,13 @@
     <div class="divCover cls_form_title">
         <img src="~/Content/icons/category.png" />
         <div class="cls_form_header">
-            Gửi yêu cầu xác nhận đơn cho khách hàng
+            @WebApps.Resources.Resource.GuiYeuCauXacNhanToiKH
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Ghi chú <i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.GhiChu <i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
@@ -36,8 +36,8 @@
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Gửi xác nhận" onclick="return do_Admin_Gui_KH('@_AppHeaderInfo.Case_Code')" />
-            <input type="submit" class="btn-default" value="Từ chối" onclick="return do_Admin_Reject('@_AppHeaderInfo.Case_Code')" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Accept" onclick="return do_Admin_Gui_KH('@_AppHeaderInfo.Case_Code')" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Reject" onclick="return do_Admin_Reject('@_AppHeaderInfo.Case_Code')" />
 
         </div>
     </div>

@@ -33,13 +33,13 @@
     <div class="divCover cls_form_title">
         <img src="~/Content/icons/category.png" />
         <div class="cls_form_header">
-            Khách hàng review
+            @WebApps.Resources.Resource.KH_Review
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Ngày nộp đơn</div>
+            <div>@WebApps.Resources.Resource.NgayNopDon</div>
         </div>
         <div class="div-search-content">
             <div>
@@ -48,7 +48,7 @@
         </div>
 
         <div class="div-search-title">
-            <div>Ngày cục trả lời</div>
+            <div>@WebApps.Resources.Resource.NgayCucTraLoi</div>
         </div>
         <div class="div-search-content">
             <div>
@@ -59,7 +59,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>File copy<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.FileCopy<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
@@ -70,29 +70,29 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>File dịch<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.FileDich<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <a style="height: 20px !important;" download="@_AppHeaderInfo.URL_TRANSLATE_FILING" href="@_AppHeaderInfo.URL_TRANSLATE_FILING"> File translate</a>
+                <a style="height: 20px !important;" download="@_AppHeaderInfo.URL_TRANSLATE_FILING" href="@_AppHeaderInfo.URL_TRANSLATE_FILING"> @WebApps.Resources.Resource.FileDich </a>
             </div>
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Billing<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.Billing<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <a style="height: 20px !important;" download="@_AppHeaderInfo.Url_Billing" href="@_AppHeaderInfo.Url_Billing"> File billing </a>
+                <a style="height: 20px !important;" download="@_AppHeaderInfo.Url_Billing" href="@_AppHeaderInfo.Url_Billing"> @WebApps.Resources.Resource.FileBilling </a>
             </div>
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Ghi chú <i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.GhiChu <i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
@@ -104,13 +104,13 @@
     @{
         string _id1 = "1";
         string _isValid1 = "0";
-        string _model1 = _id1 + "|" + _isValid1 + "|" + "File scan thông báo";
+        string _model1 = _id1 + "|" + _isValid1 + "|" + WebApps.Resources.Resource.FileScanTB ;
         @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile_Local.cshtml", _model1)
     }
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Submit" onclick="return do_Customer_Review('@_AppHeaderInfo.Case_Code')" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Submit" onclick="return do_Customer_Review('@_AppHeaderInfo.Case_Code')" />
         </div>
     </div>
 </div>

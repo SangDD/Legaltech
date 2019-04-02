@@ -19,13 +19,13 @@
     <div class="divCover cls_form_title">
         <img src="~/Content/icons/category.png" />
         <div class="cls_form_header">
-            Admin gửi kết quả nộp đơn tới khách hàng
+            @WebApps.Resources.Resource.AdminGuiKetQuaNopDon
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Ngày nộp đơn</div>
+            <div>@WebApps.Resources.Resource.NgayNopDon</div>
         </div>
         <div class="div-search-content">
             <div>
@@ -34,7 +34,7 @@
         </div>
 
         <div class="div-search-title">
-            <div>Ngày cục trả lời</div>
+            <div>@WebApps.Resources.Resource.NgayCucTraLoi</div>
         </div>
         <div class="div-search-content">
             <div>
@@ -45,40 +45,40 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>File copy<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.FileCopy<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <a style="height: 20px !important;" href="@_AppHeaderInfo.Url_copy_filing"> File copy advice filing </a>
+                <a style="height: 20px !important;" href="@_AppHeaderInfo.Url_copy_filing"> @WebApps.Resources.Resource.FileCopy advice filing </a>
             </div>
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>File dịch<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.FileDich<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <a style="height: 20px !important;" href="@_AppHeaderInfo.URL_TRANSLATE_FILING"> File translate</a>
+                <a style="height: 20px !important;" href="@_AppHeaderInfo.URL_TRANSLATE_FILING"> @WebApps.Resources.Resource.FileDich </a>
             </div>
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Billing<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.Billing<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <a style="height: 20px !important;" href="@_AppHeaderInfo.Url_Billing"> File billing </a>
+                <a style="height: 20px !important;" href="@_AppHeaderInfo.Url_Billing"> @WebApps.Resources.Resource.FileBilling </a>
             </div>
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Ghi chú <i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.GhiChu <i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
@@ -89,11 +89,11 @@
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Send" onclick="return do_Employee_Confirm('@_AppHeaderInfo.Case_Code')" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Send" onclick="return do_Employee_Confirm('@_AppHeaderInfo.Case_Code')" />
 
-            <input type="submit" class="btn-default" value="Reject" onclick="return onReject('@_AppHeaderInfo.Case_Code')" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Reject" onclick="return onReject('@_AppHeaderInfo.Case_Code')" />
 
-            <input type="submit" class="btn-default" value="Transfer" onclick="return onTransfer('@_AppHeaderInfo.Case_Code')" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Transfer" onclick="return onTransfer('@_AppHeaderInfo.Case_Code')" />
         </div>
     </div>
 </div>

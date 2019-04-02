@@ -52,49 +52,49 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div id="divNumberNotice">Số thông báo @_str_number<i class="redspan">(*)</i></div>
+            <div id="divNumberNotice">@WebApps.Resources.Resource.SoThongBao @_str_number<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" maxlength="100" placeholder="Số thông báo" value="@_App_Notice_Info.Notice_Number" id="txt_Notice_Number" style="width:200px" disabled="disabled" />
+                <input type="text" maxlength="100"  value="@_App_Notice_Info.Notice_Number" id="txt_Notice_Number" style="width:200px" disabled="disabled" />
             </div>
         </div>
 
         <div class="div-search-title">
-            <div>Ngày thông báo <i class="redspan">(*)</i></div>
+            <div> @WebApps.Resources.Resource.NgayThongBao <i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày thông báo" id="txt_notice_date" maxlength="100" disabled="disabled" value="@_App_Notice_Info.Notice_Date.ToString("dd/MM/yyyy")" />
-            </div>
-        </div>
-    </div>
-
-    <div class="div-search-ad">
-        <div class="div-search-title">
-            <div>Ngày hợp lệ</div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <input type="text" placeholder="Ngày hợp lệ" id="txt_accept_date" maxlength="100" disabled="disabled" value="@(_App_Notice_Info.Accept_Date == DateTime.MinValue ? "" : _App_Notice_Info.Accept_Date.ToString("dd/MM/yyyy") )" />
+                <input type="text"  id="txt_notice_date" maxlength="100" disabled="disabled" value="@_App_Notice_Info.Notice_Date.ToString("dd/MM/yyyy")" />
             </div>
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Ngày trả lời</div>
+            <div> @WebApps.Resources.Resource.NgayHopLe</div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày trả lời cục" id="txt_replies_date" maxlength="100" value="@(_App_Notice_Info.Replies_Date == DateTime.MinValue ? "" : _App_Notice_Info.Replies_Date.ToString("dd/MM/yyyy") )" class="datepicker" />
+                <input type="text"  id="txt_accept_date" maxlength="100" disabled="disabled" value="@(_App_Notice_Info.Accept_Date == DateTime.MinValue ? "" : _App_Notice_Info.Accept_Date.ToString("dd/MM/yyyy") )" />
             </div>
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Nội dung chính</div>
+            <div>@WebApps.Resources.Resource.NgayCucTraLoi</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txt_replies_date" maxlength="100" value="@(_App_Notice_Info.Replies_Date == DateTime.MinValue ? "" : _App_Notice_Info.Replies_Date.ToString("dd/MM/yyyy") )" class="datepicker" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.NoiDungChinh</div>
         </div>
         <div class="div-search-content">
             <div>
@@ -105,7 +105,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Nội dung chính  (TA)</div>
+            <div>@WebApps.Resources.Resource.NoiDungChinh  (TA)</div>
         </div>
         <div class="div-search-content">
             <div>
@@ -116,7 +116,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Ghi chú <i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.GhiChu <i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
@@ -126,40 +126,40 @@
     </div>
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>File scan thông báo<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.FileScanTB<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <a style="height: 20px !important;" href="@_App_Notice_Info.Notice_Url" download="@_App_Notice_Info.Notice_Url"> File scan thông báo </a>
+                <a style="height: 20px !important;" href="@_App_Notice_Info.Notice_Url" download="@_App_Notice_Info.Notice_Url"> @WebApps.Resources.Resource.FileScanTB </a>
             </div>
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>File dịch<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.FileDich<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <a style="height: 20px !important;" href="@_App_Notice_Info.Notice_Trans_Url" download="@_App_Notice_Info.Notice_Trans_Url"> File translate</a>
+                <a style="height: 20px !important;" href="@_App_Notice_Info.Notice_Trans_Url" download="@_App_Notice_Info.Notice_Trans_Url"> @WebApps.Resources.Resource.FileDich </a>
             </div>
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Billing<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.Billing<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                @*<a style="height: 20px !important;" href="@_App_Notice_Info.Billing_Url" download="@_App_Notice_Info.Billing_Url"> File billing </a>*@
+                @*<a style="height: 20px !important;" href="@_App_Notice_Info.Billing_Url" download="@_App_Notice_Info.Billing_Url"> @WebApps.Resources.Resource.FileBilling </a>*@
                 @if (_App_Notice_Info.Billing_Id > 0)
                 {
-                    <a style="height: 20px !important;" href="@_App_Notice_Info.Billing_Url" download="@_App_Notice_Info.Billing_Url"> File billing </a>
+                    <a style="height: 20px !important;" href="@_App_Notice_Info.Billing_Url" download="@_App_Notice_Info.Billing_Url"> @WebApps.Resources.Resource.FileBilling </a>
                 }
                 else
                 {
-                    <input type="text" value="No billing" disabled="disabled" />
+                    <input type="text" value="@WebApps.Resources.Resource.NoBilling" disabled="disabled" />
                 }
             </div>
         </div>
