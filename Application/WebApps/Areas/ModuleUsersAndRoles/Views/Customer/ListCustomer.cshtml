@@ -3,7 +3,7 @@
 @using Common.CommonData
 @using ObjectInfos;
 @{
-    ViewBag.Title = "Quản lý khách hàng";
+    ViewBag.Title = "Thông tin khách hàng";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     List<AllCodeInfo> _lstType = MemoryData.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE");
@@ -21,9 +21,9 @@
     <div class="divCover">
         <div class="d-nav">
             <img src="~/Content/icons/Body-icon-home.png" /> I
-            <a href="/home">Quản trị hệ thống</a>
+            <a href="/home">Home</a>
             <span class="red">></span>
-            <a href="/customer/quan-ly-customer">Quản lý khách hàng</a>
+            <a href="/customer/quan-ly-customer">Thông tin khách hàng</a>
         </div>
     </div>
     <div class="divCover">
@@ -179,7 +179,7 @@
             }
         }
 
-        function pageListOfUsers(_pagenum) {
+        function jsPaging(_pagenum) {
             try {
                 findUsers(_pagenum, 0);
 

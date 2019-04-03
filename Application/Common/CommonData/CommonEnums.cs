@@ -243,6 +243,13 @@
         Process = 2
     }
 
+    public class Search_Object_Enum
+    {
+        public const int Trademark = 1;
+        public const int Patent = 2;
+        public const int Legal_Inquiries = 3;
+    }
+
     public class B_Todo
     {
         public const string TypeRequest = "ORDER";

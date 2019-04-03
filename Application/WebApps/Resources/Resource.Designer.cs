@@ -2239,6 +2239,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tra cứu pháp luật.
+        /// </summary>
+        public static string LegalInquiries {
+            get {
+                return ResourceManager.GetString("LegalInquiries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lên đầu trang.
         /// </summary>
         public static string LenDauTrang {
@@ -3162,6 +3171,15 @@ namespace WebApps.Resources {
         public static string SuaThongTinNguoiDung {
             get {
                 return ResourceManager.GetString("SuaThongTinNguoiDung", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sửa thông tin tìm kiếm.
+        /// </summary>
+        public static string SuaThongTinTimKiem {
+            get {
+                return ResourceManager.GetString("SuaThongTinTimKiem", resourceCulture);
             }
         }
         
@@ -5268,6 +5286,15 @@ namespace WebApps.Resources {
         public static string ToResetPass {
             get {
                 return ResourceManager.GetString("ToResetPass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nhãn hiệu.
+        /// </summary>
+        public static string Trademark {
+            get {
+                return ResourceManager.GetString("Trademark", resourceCulture);
             }
         }
         

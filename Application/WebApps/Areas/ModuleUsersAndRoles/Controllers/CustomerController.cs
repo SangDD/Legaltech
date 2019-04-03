@@ -40,7 +40,7 @@ namespace WebApps.Areas.ModuleUsersAndRoles.Controllers
 
                 var userBL = new UserBL();
                 List<UserInfo> _lst = userBL.User_Search(p_keysearch, ref _total_record, p_from, p_to);
-                string htmlPaging = CommonFuc.Get_HtmlPaging<Timesheet_Info>((int)_total_record, p_CurrentPage, "Luật sư");
+                string htmlPaging = CommonFuc.Get_HtmlPaging<Timesheet_Info>((int)_total_record, p_CurrentPage, "khách hàng");
 
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;

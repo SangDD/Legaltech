@@ -31,6 +31,12 @@
     {
         _FirstTodo = _Listtodo[0];
     }
+
+    SearchObject_Header_Info _HeaderInfo = new SearchObject_Header_Info();
+    if (ViewBag.SearchHeader != null)
+    {
+        _HeaderInfo = ViewBag.SearchHeader;
+    }
 }
 
 <style>
@@ -265,7 +271,14 @@
         </div>
     }
 
-    @Html.Partial("/Areas/Manager/Views/SearchManage/_PartialSearchDetails.cshtml")
+    @if (_HeaderInfo.Object_Search == Search_Object_Enum.Trademark)
+    {
+        @Html.Partial("/Areas/Manager/Views/SearchManage/_PartialSearchDetails.cshtml")
+    }
+    else if (_HeaderInfo.Object_Search == Search_Object_Enum.Legal_Inquiries)
+    {
+        @Html.Partial("/Areas/Manager/Views/SearchManage/_PartialSearchDetails_Inquiries.cshtml")
+    }
 
     <div class="divCover cls_form_title" style="margin-top:20px;float:left;width:100%">
         <img src="/Content/icons/category.png" />

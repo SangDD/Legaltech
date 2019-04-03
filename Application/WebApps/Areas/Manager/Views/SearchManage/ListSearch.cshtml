@@ -3,7 +3,7 @@
 @using Common.CommonData
 @using ObjectInfos;
 @{
-    ViewBag.Title = "Quản lý yêu cầu tìm kiếm";
+    ViewBag.Title = "iSearching";
     Layout = "~/ViewsShared/_Layout.cshtml";
     List<AllCodeInfo> _lstStatus = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "STATUS");
 }
@@ -28,8 +28,9 @@
     <div class="divCover">
         <div class="d-nav">
             <img src="~/Content/icons/Body-icon-home.png" /> I
-
-            <a href="#">Quản lý yêu cầu tìm kiếm</a>
+            <a href="/home">Home</a>
+            <span class="red">></span>
+            <a href="#">iSearching</a>
         </div>
     </div>
     <div class="divCover">
@@ -107,7 +108,7 @@
         <div class="divCover">
             <div class="div-search-btn" style="width:450px;">
                 <input type="button" value="Tìm kiếm" class="btn-default" onclick="findObjects(1, 1)" />
-                <input type="button" value="Thêm mới" class="btn-default" onclick="AddNew()" />
+                @*<input type="button" value="Thêm mới" class="btn-default" onclick="AddNew()" />*@
             </div>
         </div>
 

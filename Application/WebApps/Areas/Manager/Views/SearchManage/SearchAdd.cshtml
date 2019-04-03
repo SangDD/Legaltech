@@ -3,7 +3,7 @@
 @using WebApps.CommonFunction
 @using BussinessFacade.ModuleMemoryData
 @{
-    ViewBag.Title = "Yêu cầu tra cứu";
+    ViewBag.Title = "Trademark";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     List<AllCodeInfo> _lstObject = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OBJECT");
@@ -131,11 +131,12 @@
 <script src="~/Content/ckeditor/ckeditor.js"></script>
 <div class="divCover">
     <div class="d-nav">
-        <img src="~/Content/icons/Body-icon-home.png" />
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        <a href="/home">Home</a>
         <span class="red">></span>
-        <a href="/quan-ly-search/danh-sach-search">Quản lý Search</a>
+        <a href="/quan-ly-search/danh-sach-search">iSearching</a>
         <span class="red">></span>
-        <a href="#">Yêu cầu tra cứu</a>
+        <a href="#">@WebApps.Resources.Resource.Trademark</a>
     </div>
 </div>
 <div class="divCover">
@@ -151,7 +152,7 @@
 <div class="d-main">
     <div class="divCover">
         <div class="classTitle">
-            <div class="div-title-content"> @WebApps.Resources.Resource.ThemMoiSearch.ToUpper()</div>
+            <div class="div-title-content"> @WebApps.Resources.Resource.Trademark.ToUpper()</div>
         </div>
     </div>
     <div class="divCover">
@@ -168,7 +169,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div> @WebApps.Resources.Resource.ClientReference<i class="redspan">(*)</i> </div>
+                <div> @WebApps.Resources.Resource.ClientReference </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -202,7 +203,7 @@
             </div>
         </div>
 
-        <div class="div-search-ad">
+        @*<div class="div-search-ad">
             <div class="div-search-title">
                 <div>@WebApps.Resources.Resource.Object<i class="redspan">(*)</i></div>
             </div>
@@ -218,7 +219,8 @@
                     </select>
                 </div>
             </div>
-        </div>
+        </div>*@
+
         <div class="div-search-ad">
             <div class="div-search-title">
                 <div>@WebApps.Resources.Resource.YeuCau<i class="redspan">(*)</i></div>
@@ -255,6 +257,8 @@
             <div class="div-search-ad">
                 <div class="div-search-title">
                     <div>@WebApps.Resources.Resource.lblMauNhanHieu:</div>
+                    <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+                       data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -282,8 +286,7 @@
                 </div>
             </div>
           
-            <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
-               data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
+            
 
             <div class="class_block_title_control" style="display:flex;padding-top:10px">
                 <div style="width:165px ;height:165px;margin-left: 13px;" id="divLogo">
@@ -499,13 +502,13 @@
                 });
                 return false;
             }
-            if (txtClient_Reference.val().trim() == "") {
-                jError("Client Reference không được bỏ trống!", "lỗi", function () {
-                    txtClient_Reference.val('');
-                    txtClient_Reference.focus();
-                });
-                return false;
-            }
+            //if (txtClient_Reference.val().trim() == "") {
+            //    jError("Client Reference không được bỏ trống!", "lỗi", function () {
+            //        txtClient_Reference.val('');
+            //        txtClient_Reference.focus();
+            //    });
+            //    return false;
+            //}
 
             var _re = checkValidate_File("1");
             if (_re == false) {
@@ -528,7 +531,7 @@
             formData.append("p_searchHeaderInfo.STATUS", '@CommonSearch.Stt_PhanChoLuatSu');
             formData.append("p_searchHeaderInfo.Country_Id", $("#cboCountry").val());
             formData.append("p_searchHeaderInfo.Notes", $("#txtNotes").val());
-            formData.append("p_searchHeaderInfo.Object_Search", $("#cbosearch_object").val());
+            formData.append("p_searchHeaderInfo.Object_Search", '@Search_Object_Enum.Trademark');
 
             //hungtd thêm up ảnh
             if ($("#cboLogoType").val() == "1") {

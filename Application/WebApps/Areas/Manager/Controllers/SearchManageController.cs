@@ -124,6 +124,18 @@ namespace WebApps.Areas.Manager.Controllers
         }
 
         [HttpGet]
+        [Route("them-moi-inquiries")]
+        public ActionResult SearchAdd_Inquiries()
+        {
+            if (SessionData.CurrentUser == null)
+            {
+                return Redirect("/account/dang-xuat");
+            }
+
+            return View(@"~\Areas\Manager\Views\SearchManage\SearchAdd_Inquiries.cshtml");
+        }
+
+        [HttpGet]
         [Route("get-suggest-source")]
         public ActionResult Get_Suggest_Source()
         {
@@ -177,21 +189,22 @@ namespace WebApps.Areas.Manager.Controllers
                     }
 
                     //HungTD: thêm up ảnh
-
-                    if (p_searchHeaderInfo.Logochu != 1)
+                    if (p_searchHeaderInfo.Object_Search == Common.CommonData.Search_Object_Enum.Trademark)
                     {
-                        //pDetail.Logochu = 0;
-                        if (p_searchHeaderInfo.pfileLogo != null)
+                        if (p_searchHeaderInfo.Logochu != 1)
                         {
-                            p_searchHeaderInfo.Logourl = AppLoadHelpers.PushFileToServer(p_searchHeaderInfo.pfileLogo, AppUpload.FileAttact);
+                            //pDetail.Logochu = 0;
+                            if (p_searchHeaderInfo.pfileLogo != null)
+                            {
+                                p_searchHeaderInfo.Logourl = AppLoadHelpers.PushFileToServer(p_searchHeaderInfo.pfileLogo, AppUpload.FileAttact);
+                            }
+                        }
+                        else
+                        {
+                            p_searchHeaderInfo.Logourl = p_searchHeaderInfo.ChuLogo;
+                            p_searchHeaderInfo.Logochu = 1;
                         }
                     }
-                    else
-                    {
-                        p_searchHeaderInfo.Logourl = p_searchHeaderInfo.ChuLogo;
-                        p_searchHeaderInfo.Logochu = 1;
-                    }
-
 
                     //END HungTD
                     _rel = _searchBL.SEARCH_HEADER_INSERT(p_searchHeaderInfo);
@@ -203,21 +216,27 @@ namespace WebApps.Areas.Manager.Controllers
                     p_searchHeaderInfo.SEARCH_ID = _rel;
                     p_questionInfo.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
 
-
-
                     _rel = _searchBL.SEARCH_QUESTION_INSERT(p_questionInfo);
                     if (_rel < 0)
                         goto Commit_Transaction;
 
-                    foreach (SearchObject_Detail_Info item in p_SearchObject_Detail_Info)
+                    if (p_SearchObject_Detail_Info == null)
                     {
-                        item.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
-                        item.SEARCH_OBJECT = p_searchHeaderInfo.Object_Search;
+                        p_SearchObject_Detail_Info = new List<SearchObject_Detail_Info>();
                     }
-                    _rel = _searchBL.SEARCH_DETAIL_INSERT(p_SearchObject_Detail_Info);
 
-                    if (_rel < 0)
-                        goto Commit_Transaction;
+                    if (p_SearchObject_Detail_Info.Count > 0)
+                    {
+                        foreach (SearchObject_Detail_Info item in p_SearchObject_Detail_Info)
+                        {
+                            item.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
+                            item.SEARCH_OBJECT = p_searchHeaderInfo.Object_Search;
+                        }
+                        _rel = _searchBL.SEARCH_DETAIL_INSERT(p_SearchObject_Detail_Info);
+
+                        if (_rel < 0)
+                            goto Commit_Transaction;
+                    }
 
                     //Thêm thông tin class
                     if (pAppClassInfo != null)
@@ -269,8 +288,8 @@ namespace WebApps.Areas.Manager.Controllers
                         _rel = _searchBL.Search_Fee_InsertBatch(_lstFee, p_searchHeaderInfo.SEARCH_ID, AppsCommon.GetCurrentLang());
                     }
 
-                    //end
-                    Commit_Transaction:
+                //end
+                Commit_Transaction:
                     if (_rel < 0)
                     {
                         Transaction.Current.Rollback();
@@ -319,17 +338,28 @@ namespace WebApps.Areas.Manager.Controllers
                     _Status = Convert.ToInt32(RouteData.Values["id2"]);
                     ViewBag.CurrStatus = _Status;
                 }
+
+                if (_HeaderInfo.Object_Search == Common.CommonData.Search_Object_Enum.Trademark)
+                {
+                    return View(@"~\Areas\Manager\Views\SearchManage\SearchEdit.cshtml");
+                }
+                else if (_HeaderInfo.Object_Search == Common.CommonData.Search_Object_Enum.Legal_Inquiries)
+                {
+                    return View(@"~\Areas\Manager\Views\SearchManage\SearchEdit_Inquiries.cshtml");
+                }
+
+                return View(@"~\Areas\Manager\Views\SearchManage\SearchEdit.cshtml");
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
+                return View(@"~\Areas\Manager\Views\SearchManage\SearchEdit.cshtml");
             }
-            return View(@"~\Areas\Manager\Views\SearchManage\SearchEdit.cshtml");
         }
 
         [HttpPost]
         [Route("SearchEdit")]
-        public ActionResult SearchEdit(SearchObject_Header_Info p_searchHeaderInfo, List<SearchObject_Detail_Info> p_SearchObject_Detail_Info, 
+        public ActionResult SearchEdit(SearchObject_Header_Info p_searchHeaderInfo, List<SearchObject_Detail_Info> p_SearchObject_Detail_Info,
             SearchObject_Question_Info p_questionInfo, List<Search_Class_Info> pAppClassInfo)
         {
             decimal _rel = 0;
@@ -352,33 +382,33 @@ namespace WebApps.Areas.Manager.Controllers
                     {
                         p_searchHeaderInfo.Url_File = "NA";
                     }
-                    //HungTD
 
-                    if (p_searchHeaderInfo.pfileLogo != null)
+                    //HungTD
+                    if (p_searchHeaderInfo.Object_Search == Common.CommonData.Search_Object_Enum.Trademark)
                     {
-                        p_searchHeaderInfo.Logourl = AppLoadHelpers.PushFileToServer(p_searchHeaderInfo.pfileLogo, AppUpload.Logo);
-                    }
-                    else
-                    {
-                        p_searchHeaderInfo.Logourl = p_searchHeaderInfo.LogourlOrg;
-                    }
-                    if (p_searchHeaderInfo.Logochu != 1)
-                    {
-                        //pDetail.Logochu = 0;
                         if (p_searchHeaderInfo.pfileLogo != null)
                         {
                             p_searchHeaderInfo.Logourl = AppLoadHelpers.PushFileToServer(p_searchHeaderInfo.pfileLogo, AppUpload.Logo);
                         }
+                        else
+                        {
+                            p_searchHeaderInfo.Logourl = p_searchHeaderInfo.LogourlOrg;
+                        }
+                        if (p_searchHeaderInfo.Logochu != 1)
+                        {
+                            //pDetail.Logochu = 0;
+                            if (p_searchHeaderInfo.pfileLogo != null)
+                            {
+                                p_searchHeaderInfo.Logourl = AppLoadHelpers.PushFileToServer(p_searchHeaderInfo.pfileLogo, AppUpload.Logo);
+                            }
+                        }
+                        else
+                        {
+                            p_searchHeaderInfo.Logourl = p_searchHeaderInfo.ChuLogo;
+                            p_searchHeaderInfo.Logochu = 1;
+                        }
+                        //End HungTD
                     }
-                    else
-                    {
-                        p_searchHeaderInfo.Logourl = p_searchHeaderInfo.ChuLogo;
-                        p_searchHeaderInfo.Logochu = 1;
-                    }
-
-
-                    //End HungTD
-
 
                     _rel = _searchBL.SEARCH_HEADER_UPDATE(p_searchHeaderInfo);
                     if (_rel < 0)
@@ -392,21 +422,27 @@ namespace WebApps.Areas.Manager.Controllers
                         goto Commit_Transaction;
 
                     // detail
-                    foreach (SearchObject_Detail_Info item in p_SearchObject_Detail_Info)
+                    if (p_SearchObject_Detail_Info == null)
                     {
-                        item.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
-                        item.SEARCH_OBJECT = p_searchHeaderInfo.Object_Search;
+                        p_SearchObject_Detail_Info = new List<SearchObject_Detail_Info>();
                     }
-                    _searchBL.SEARCH_DETAIL_DELETE(p_searchHeaderInfo.SEARCH_ID);
-                    _rel = _searchBL.SEARCH_DETAIL_INSERT(p_SearchObject_Detail_Info);
-                    if (_rel < 0)
-                        goto Commit_Transaction;
+                    if (p_SearchObject_Detail_Info.Count > 0)
+                    {
+                        foreach (SearchObject_Detail_Info item in p_SearchObject_Detail_Info)
+                        {
+                            item.SEARCH_ID = p_searchHeaderInfo.SEARCH_ID;
+                            item.SEARCH_OBJECT = p_searchHeaderInfo.Object_Search;
+                        }
+                        _searchBL.SEARCH_DETAIL_DELETE(p_searchHeaderInfo.SEARCH_ID);
+                        _rel = _searchBL.SEARCH_DETAIL_INSERT(p_SearchObject_Detail_Info);
+                        if (_rel < 0)
+                            goto Commit_Transaction;
+                    }
 
                     //Thêm thông tin class
                     if (pAppClassInfo != null)
                     {
                         _rel = _searchBL.Search_Class_Delete(p_searchHeaderInfo.SEARCH_ID, AppsCommon.GetCurrentLang());
-
                         _rel = _searchBL.Search_Class_InsertBatch(pAppClassInfo, p_searchHeaderInfo.SEARCH_ID, AppsCommon.GetCurrentLang());
                     }
 
@@ -456,8 +492,8 @@ namespace WebApps.Areas.Manager.Controllers
                         _rel = _searchBL.Search_Fee_InsertBatch(_lstFee, p_searchHeaderInfo.SEARCH_ID, AppsCommon.GetCurrentLang());
                     }
 
-                    //end
-                    Commit_Transaction:
+                //end
+                Commit_Transaction:
                     if (_rel < 0)
                     {
                         Transaction.Current.Rollback();
@@ -475,9 +511,6 @@ namespace WebApps.Areas.Manager.Controllers
             }
             return Json(new { success = _rel });
         }
-
-         
-
 
         [HttpGet]
         [Route("search-todo-detail/{id}/{id1}")]
