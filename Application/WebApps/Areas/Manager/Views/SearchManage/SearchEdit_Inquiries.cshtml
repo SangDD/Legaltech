@@ -1,0 +1,263 @@
+﻿@using Common.CommonData
+@using ObjectInfos;
+@using BussinessFacade.ModuleMemoryData
+@using WebApps.CommonFunction
+@{
+    ViewBag.Title = "Sửa thông tin yêu cầu tìm kiếm";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+    SearchObject_Header_Info _HeaderInfo = new SearchObject_Header_Info();
+    List<SearchObject_Detail_Info> _ListDetail = new List<SearchObject_Detail_Info>();
+    SearchObject_Question_Info _QuestionInfo = new SearchObject_Question_Info();
+    if (ViewBag.SearchHeader != null)
+    {
+        _HeaderInfo = ViewBag.SearchHeader;
+    }
+
+    if (ViewBag.QuestionInfo != null)
+    {
+        _QuestionInfo = ViewBag.QuestionInfo;
+    }
+
+    string language = AppsCommon.GetCurrentLang();
+
+    List<AllCodeInfo> _lstObject = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OBJECT");
+    List<AllCodeInfo> _lstLogoType = MemoryData.AllCode_GetBy_CdTypeCdName("NOTICE_APP", "LOGOTYPE");
+}
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 150px;
+    }
+</style>
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        <a href="/home">Home</a>
+        <span class="red">></span>
+        <a href="/quan-ly-search/danh-sach-search">iSearching</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <div class="div-title-content">@WebApps.Resources.Resource.SuaThongTinTimKiem.ToUpper() </div>
+        </div>
+    </div>
+    <div class="divCover">
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div> @WebApps.Resources.Resource.CaseName:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="@WebApps.Resources.Resource.CaseName" maxlength="200" id="_txtcasename" value="@_HeaderInfo.CASE_NAME" />
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div> @WebApps.Resources.Resource.ClientReference: </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="@WebApps.Resources.Resource.ClientReference" maxlength="200" id="txtClient_Reference" value="@_HeaderInfo.CLIENT_REFERENCE" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.Object<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select class="search_object" id="cbosearch_object" disabled>
+                        @foreach (AllCodeInfo item in _lstObject)
+                        {
+                            if (item.CdVal == _HeaderInfo.Object_Search.ToString())
+                            {
+                                <option value="@item.CdVal" selected="selected">
+                                    @item.Content
+                                </option>
+                            }
+                            else
+                            {
+                                <option value="@item.CdVal">
+                                    @item.Content
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.QuocTich<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboCountry">
+                        @foreach (var item in MemoryData.c_lst_Country)
+                        {
+                            if (item.Country_Id == _HeaderInfo.Country_Id)
+                            {
+                                <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Country_Id">
+                                    @item.Name
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        @if (_HeaderInfo.Url_File != null && _HeaderInfo.Url_File != "")
+        {
+            string[] _arr1 = _HeaderInfo.Url_File.Split('/');
+            string _filename1 = "File đính kèm";
+            if (_arr1.Length > 0)
+            {
+                _filename1 = _arr1[_arr1.Length - 1];
+            }
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>File đính kèm</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <a style="height: 20px !important;" href="@_HeaderInfo.Url_File" download="@_HeaderInfo.Url_File"> @_filename1 </a>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (_HeaderInfo.Url_File != null && _HeaderInfo.Url_File != "")
+        {
+            <div class="divCover cls_form_title">
+                <img src="/Content/icons/category.png" />
+                <div class="cls_form_header">
+                    Tải file đính kèm khác
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="divCover cls_form_title">
+                <img src="/Content/icons/category.png" />
+                <div class="cls_form_header">
+                    Tải file đính kèm
+                </div>
+            </div>
+        }
+        @{
+            string _id1 = "1";
+            string _isValid1 = "0";
+            string _model1 = _id1 + "|" + _isValid1 + "|" + "File đính kèm";
+            @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile_Local.cshtml", _model1)
+        }
+
+        <div style="margin-top:15px">
+            <div>@WebApps.Resources.Resource.lblMoTa<i class="redspan">(*)</i></div>
+            <textarea type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200">@_HeaderInfo.CONTENT</textarea>
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div class="div-search-btn" style="width:600px;margin-top: 5px;">
+            <input type="submit" id="btnGuiBai" class="btn-default" value="@WebApps.Resources.Resource.Sua" />
+        </div>
+    </div>
+
+</div>
+
+
+
+<script>
+     
+    $("#btnGuiBai").click(function () {
+        try {
+            var formData = new FormData();
+
+            var _txtcasename = $("#_txtcasename");
+            var txtClient_Reference = $("#txtClient_Reference");
+
+            if (_txtcasename.val().trim() == "") {
+                jError("Case code không được bỏ trống!", "lỗi", function () {
+                    _txtcasename.val('');
+                    _txtcasename.focus();
+                });
+                return false;
+            }
+
+            var _re = checkValidate_File("1");
+            if (_re == false) {
+                return false;
+            }
+
+            //var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
+            formData.append("p_searchHeaderInfo.SEARCH_ID", '@_HeaderInfo.SEARCH_ID');
+            formData.append("p_searchHeaderInfo.CASE_NAME", _txtcasename.val().trim());
+            formData.append("p_searchHeaderInfo.CLIENT_REFERENCE", txtClient_Reference.val());
+            formData.append("p_searchHeaderInfo.STATUS", '@CommonSearch.Stt_PhanChoLuatSu');
+            formData.append("p_searchHeaderInfo.Country_Id", $("#cboCountry").val());
+            formData.append("p_searchHeaderInfo.Object_Search", $("#cbosearch_object").val());
+
+            var pfile = $("#file_attach_1");//lay du lieu file
+            if (pfile.val() != "") {
+                var _file = pfile[0].files[0];
+                formData.append("p_searchHeaderInfo.Url_File_Up", _file);
+            }
+             
+            var txtAddContent = $("#txtAddContent");
+            if (txtAddContent.val().trim() == "") {
+                jError("Mô tả câu hỏi không được bỏ trống!", "lỗi", function () {
+                    txtAddContent.val('');
+                    txtAddContent.focus();
+                });
+                return false;
+            }
+            formData.append("p_questionInfo.CONTENT", txtAddContent.val());
+
+            $.ajax({
+                url: '/quan-ly-search/SearchEdit/',
+                type: 'POST',
+                data: formData,
+                processData: false, contentType: false, traditional: true, dataType: "json",
+                enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                success: function (data) {
+                    if (data != null && data.success >= 0) {
+                        jAlert('Sửa search thành công!', "THÔNG BÁO", function () {
+                            var url = "/quan-ly-search/danh-sach-search";
+                            window.location.href = url;
+                        });
+                    } else {
+                        jError("Có lỗi trong quá trình xử lý dữ liệu");
+                        return false;
+
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+
+        } catch (e) {
+            alert(e.toString());
+            return false;
+        }
+
+    });
+
+</script>
