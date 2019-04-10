@@ -46,8 +46,27 @@
     }
 </style>
 
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        <a href="/home">Home</a>
+        <span class="red">></span>
+        <a href="/home">@WebApps.Resources.Resource.TimKiem</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+
+@*Notify*@
+<div class="divCover">
+    @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+</div>
+
 <div class="divCover" id="legalsearch_div" style="">
-    <div class="box_title"><label style="padding-left:10px;    color: darkorange;"> @WebApps.Resources.Resource.TimKiem.ToUpper() </label></div>
+    @*<div class="box_title"><label style="padding-left:10px;    color: darkorange;"> @WebApps.Resources.Resource.TimKiem.ToUpper() </label></div>*@
     <div class="clssbox_search">
         <select id="cbo_searchtype" onchange="FunChooseSearchtype()">
             <option value="1">
@@ -85,8 +104,8 @@
         <input type="hidden" id="SortType_4" />
     </div>
 
-    <div class="Homebox">
-        <div id="LegalSearchdivTable" class="LegaldivBoxTable">
+    <div class="Homebox" >
+        <div id="LegalSearchdivTable" class="LegaldivBoxTable" style="margin-top: 10px;">
             @Html.Partial("/Areas/Home/Views/Shared/_SearchDataAppStatus.cshtml")
         </div>
     </div>
@@ -110,6 +129,8 @@
 
 
         $("#cbo_searchtype > option[value=" + _searchtype + "]").prop("selected", true);
+
+        FunChooseSearchtype();
     });
 
     var _Keysearch = "";
@@ -127,7 +148,7 @@
                     $("#legalsearch_txtsearchcontent").attr("placeholder", '@Html.Raw(Resource.TenLuatSu)')
                 }
                 if (_searchtype == 3) {
-                    $("#legalsearch_txtsearchcontent").attr("placeholder", '@Html.Raw(Resource.TenKhachHang)')
+                    $("#legalsearch_txtsearchcontent").attr("placeholder", '@Html.Raw(Resource.TenKhachHang), @Html.Raw(Resource.QuocTich), @Html.Raw(Resource.MaDaiDien), @Html.Raw(Resource.NghanhNgheChinh)')
                 } if (_searchtype == 4) {
                     $("#legalsearch_txtsearchcontent").attr("placeholder", '@Html.Raw(Resource.TieuDe) , hashtag')
                 }
