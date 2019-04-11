@@ -283,7 +283,7 @@
                 return false;
             }
 
-            nvsConfirm(null, "Bạn có chắc chắn muốn duyệt billing này không?", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmApprove)", function () {
                 $.ajax({
                     url: "/quan-ly-billing/danh-sach-billing/do-approve",
                     type: "POST",
@@ -298,15 +298,15 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
                         if (data.success == "-1") {
-                            jError("Lỗi check lại kết nối tới server");
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                             return false;
                         }
                         else if (data.success == "-2") {
-                            jError("Billing đã được duyệt, không thể duyệt");
+                            jError("@Html.Raw(WebApps.Resources.Resource.NoiDungDaDuyetKhongTheDuyet)");
                             return false;
                         }
                         else {
-                            jAlert('Duyệt billing thành công!', "THÔNG BÁO", function () {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.DuyetThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 window.location.href = "/quan-ly-billing/danh-sach-billing/";
                             });
                         }
@@ -331,14 +331,14 @@
             }
 
             if ($("txtReject_Reason").val().trim() == "") {
-                jError("Lý do từ chối không được bỏ trống!", "lỗi", function () {
+                jError("Lý do từ chối không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $("#txtReject_Reason").val('');
                     $('#txtReject_Reason').focus();
                 });
                 return false;
             }
 
-            nvsConfirm(null, "Bạn có chắc chắn muốn từ chối duyệt billing này không?", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.TuChoiNoiDung)", function () {
                 $.ajax({
                     url: "/quan-ly-billing/danh-sach-billing/do-reject",
                     type: "POST",
@@ -354,15 +354,15 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
                         if (data.success == "-1") {
-                            jError("Lỗi check lại kết nối tới server");
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                             return false;
                         }
                         else if (data.success == "-2") {
-                            jError("Billing đã được duyệt, không thể duyệt");
+                            jError("@Html.Raw(WebApps.Resources.Resource.NoiDungDaDuyetKhongTheDuyet)");
                             return false;
                         }
                         else {
-                            jAlert('Từ chối billing thành công!', "THÔNG BÁO", function () {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.TuChoiThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 window.location.href = "/quan-ly-billing/danh-sach-billing/";
                             });
                         }

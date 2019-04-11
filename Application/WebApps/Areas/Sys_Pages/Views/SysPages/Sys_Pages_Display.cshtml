@@ -125,7 +125,7 @@
     }
     function funcDel_Pages(pID) {
 
-        nvsConfirm(null, "Bạn có chắc chắn muốn xóa bài viết này không?", function () {
+        nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmDelete)", function () {
             console.log('vao day');
             $.ajax({
                 url: "/quan-ly-trang-bia/xoa-bai-viet",
@@ -141,11 +141,11 @@
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
                     if (data.success == -1) {
-                        jError("Lỗi check lại kết nối tới server");
+                        jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                         return false;
                     }
                     else {
-                        jAlert('Xóa bài viết thành công!', "THÔNG BÁO", function () {
+                        jAlert("@Html.Raw(WebApps.Resources.Resource.XoaThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                             funcSearch(1, 1);
                         });
                     }

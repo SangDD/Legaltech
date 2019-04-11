@@ -135,7 +135,7 @@
         }
 
         try {
-            nvsConfirm(null, "Bạn có chắc chắn muốn remind công việc này không?", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmRemind)", function () {
                 $.ajax({
                     url: "/do-remind",
                     type: "POST",
@@ -152,11 +152,11 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
                         if (data.success == "-1") {
-                            jError("Lỗi check lại kết nối tới server");
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                             return false;
                         }
                         else {
-                            jAlert('Remind công việc thành công!', "THÔNG BÁO");
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.RemindThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)");
                         }
                     },
                     error: function (e) {

@@ -292,7 +292,7 @@
                 _url = "/quan-ly-billing-search/danh-sach-billing/do-export-billing";
             }
 
-            nvsConfirm(null, "Bạn có chắc chắn muốn kết xuất billing này không?", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmKetXuat)", function () {
                 $.ajax({
                     url: _url,
                     type: "POST",
@@ -308,11 +308,11 @@
                         CreateRollingWaitingIcon(false);
                         console.log(data.success);
                         if (data.success == "-1") {
-                            jError("Lỗi check lại kết nối tới server");
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                             return false;
                         }
                         else {
-                            jAlert('Kết xuất billing thành công!', "THÔNG BÁO", function () {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.KetXuatThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 OpenPreview("/quan-ly-billing/Pre-View?p_filename=" + data.success);
                             });
 

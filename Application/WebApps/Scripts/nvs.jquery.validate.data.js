@@ -21,7 +21,7 @@ function CheckSessionTimeOut() {
         //        if (data != null) {
         //            if (data["Code"] == -1) {
         //                rBool = false;
-        //                jAlert("Hệ thống đã hết thời gian kết nối, bạn hãy đăng nhập lại", "Thông báo", function () {
+        //                jAlert("Hệ thống đã hết thời gian kết nối, bạn hãy đăng nhập lại", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
         //                    window.location.href = "home";
         //                });
 

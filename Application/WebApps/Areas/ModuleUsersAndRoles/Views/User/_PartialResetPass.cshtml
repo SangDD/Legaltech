@@ -59,7 +59,7 @@
        
         function doResetPass() {
             if (validateFormResetPass()) {
-                nvsConfirm(null, "Bạn có chắc chắn muốn reset mật khẩu người dùng này hay không?", function () {
+                nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmResetMK)", function () {
                     $.ajax({
                         url: '/quan-tri-he-thong/quan-ly-nguoi-dung/do-reset-pass',
                         type: 'POST',
@@ -75,11 +75,11 @@
                         success: function (data) {
                             CreateRollingWaitingIcon(false);
                             if (data.success != "0") {
-                                jError("Lỗi check lại kết nối tới server");
+                                jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                                 return false;
                             }
                             else {
-                                jAlert('Reset mật khẩu thành công!', "THÔNG BÁO", function () {
+                                jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                     ClosePopUpUser();
                                 });
                             }
@@ -99,24 +99,24 @@
             rePassword = $('#txtRePassword').val();
 
             if (password === "") {
-                jError("Mật khẩu không được để trống!", "lỗi", function () {
+                jError("@Html.Raw(WebApps.Resources.Resource.MatKhauKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $('#txtPassword').focus();
                 });
                 return false;
             }
             if (rePassword === "") {
-                jError("Xác nhận mật khẩu không được để trống!", "lỗi", function () {
+                jError("@Html.Raw(WebApps.Resources.Resource.MatKhauNhacLaiKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $('#txtRePassword').focus();
                 });
                 return false;
             }
             if (password.length < 6) {
-                jError("Mật khẩu phải chứa từ 6 đến 64 ký tự!", "lỗi", function () {
+                jError("@Html.Raw(WebApps.Resources.Resource.DoDaiMK)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $('#txtRePassword').focus();
                 });
                 return false;
             } else if (password !== rePassword) {
-                jError("Mật khẩu và xác nhận mật khẩu không giống nhau!", "lỗi", function () {
+                jError("@Html.Raw(WebApps.Resources.Resource.MatKhauKhongGiong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $('#txtRePassword').focus();
                     $("#txtRePassword").select();
                 });

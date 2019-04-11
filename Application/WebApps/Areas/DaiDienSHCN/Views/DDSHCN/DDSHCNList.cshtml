@@ -152,7 +152,7 @@
 
     function funcDeleteDDSHCN(pID) {
 
-        nvsConfirm(null, "Bạn có chắc chắn muốn xóa DDSHCN này không?", function () {
+        nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmDelete)", function () {
             $.ajax({
                 url: "/dai-dien-so-huu-cn/danh-sach-ddsh/execute-deleted",
                 type: "POST",
@@ -167,11 +167,11 @@
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
                     if (data.success == "-1") {
-                        jError("Lỗi check lại kết nối tới server");
+                        jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                         return false;
                     }
                     else {
-                        jAlert('Xóa DDSHCN thành công!', "THÔNG BÁO", function () {
+                        jAlert("@Html.Raw(WebApps.Resources.Resource.XoaThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                             SearchDDSHCN(1, 1);
                         });
                     }
@@ -204,7 +204,7 @@
             success: function (data) {
                 if (data != null) {
                     $("#divPopUpDDSHCN").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpDDSHCN', "Thông tin DDSHCN", 700, 500);
+                    ShowPopupDialog_Ipace('divWrapperPopUpDDSHCN', "@WebApps.Resources.Resource.ThongTin", 700, 500);
                 }
                 return false;
             }

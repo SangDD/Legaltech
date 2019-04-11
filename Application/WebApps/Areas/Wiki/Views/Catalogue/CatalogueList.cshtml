@@ -233,7 +233,7 @@
         function doDeleteObject(p_id) {
             try { 
                
-                    nvsConfirm(null, "Bạn có chắc chắn muốn xóa chủ đề này không?", function () {
+                    nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmDelete)", function () {
                         $.ajax({
                             url: "/wiki-manage/wiki-doc/do-delete-catalogue",
                             type: "POST",
@@ -242,7 +242,7 @@
                             async: false,
                             success: function (data) {
                                 if (data.result >= 0) {
-                                    showSuccess("Xóa dữ liệu thành công!");
+                                    showSuccess("@Html.Raw(WebApps.Resources.Resource.XoaThanhCong)");
                                     window.findObjects(1, 0);
                                 }
                                 else if(data.result  == -2)
@@ -252,7 +252,7 @@
                                 }
                                 else
                                 {
-                                    showError("Có lỗi xảy ra trong quá trình cập nhật dữ liệu!");
+                                    showError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                                 }
                             },
                             error: function (e) {
@@ -334,7 +334,7 @@
                         success: function (data) {
                             CreateRollingWaitingIcon(false);
                             if (data.result >= 0) {
-                                showSuccess("Thêm mới dữ liệu thành công!");
+                                showSuccess("@Html.Raw(WebApps.Resources.Resource.ThemThanhCong)");
                                     ClosePopUpObject();
                                     window.findObjects(1, 0);
                             }

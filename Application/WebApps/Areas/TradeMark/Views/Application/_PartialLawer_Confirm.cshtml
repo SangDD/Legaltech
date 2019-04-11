@@ -85,7 +85,7 @@
 
     function do_Lawer_Confirm(_case_code) {
         if (validateAction()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn xác nhận đơn này không?", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmSubmit)", function () {
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/do-lw-confirm',
                     type: 'POST',
@@ -101,11 +101,11 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
                         if (data.success == "-1") {
-                            jError("Lỗi check lại kết nối tới server");
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                             return false;
                         }
                         else {
-                            jAlert('Luật sư phản hồi thành công!', "THÔNG BÁO", function () {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 window.location.href = "/home";
                             });
                         }
@@ -122,7 +122,7 @@
     function validateAction() {
         //var _Status = $('#cboConfirm').val();
         //if (_Status == null || _Status == "0") {
-        //    jError('Action Confirm không được để trống!', "Lỗi", function () {
+        //    jError('Action Confirm không được để trống!', "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
         //        $('#cboConfirm').multipleSelect('focus');
         //    });
         //    return false;
@@ -131,7 +131,7 @@
 
         var _Note = $('#txtNotes').val();
         if (_Note == null || _Note == "") {
-            jError('Ghi chú không được để trống!', "Lỗi", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.GhiChuKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtNotes').focus();
             });
             return false;

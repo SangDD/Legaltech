@@ -178,7 +178,7 @@
         function doDeleteObject(p_id) {
             try {
 
-                    nvsConfirm(null, "Bạn có chắc chắn muốn xóa bài viết này không?", function () {
+                    nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmDelete)", function () {
                         $.ajax({
                             url: "/wiki-manage/wiki-doc/do-delete-doc",
                             type: "POST",
@@ -193,7 +193,7 @@
                                 //    }
                                 //}
                                 if (data.result >= 0) {
-                                    showSuccess("Xóa dữ liệu thành công!");
+                                    showSuccess("@Html.Raw(WebApps.Resources.Resource.XoaThanhCong)");
                                     window.findObjects(1, 0);
                                 }
                             },

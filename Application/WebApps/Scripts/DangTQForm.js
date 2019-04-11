@@ -17,19 +17,19 @@ function checkDate(p_name, p_id, p_val) {
         }
         var isPass = isDate_ddMMyyyy(p_val);
         if (p_val == "") {
-            jError(p_name + " không được để trống!", "THÔNG BÁO", function () {
+            jError(p_name + " not be empty!", "NOTIFICATION", function () {
                 $(p_id).focus();
             });
             return false;
         }
         if (isPass == 0) {
-            jError(p_name + " " + p_val + " sai định dạng ngày dd/mm/yyyy!", "THÔNG BÁO", function () {
+            jError(p_name + " " + p_val + " wrong format dd/mm/yyyy!", "NOTIFICATION", function () {
                 $(p_id).focus();
             });
             return false;
         }
         if (isPass == 1) {
-            jError(p_name + " " + p_val + " không tồn tại!", "THÔNG BÁO", function () {
+            jError(p_name + " " + p_val + " does not exist!", "NOTIFICATION", function () {
                 $(p_id).focus();
             });
             return false;
@@ -76,13 +76,13 @@ function checkValidate_Search(p_name, p_id, p_val) {
 
         var isPass = isDate_ddMMyyyy(p_val);
         if (isPass == 0) {
-            jError(p_name + " " + p_val + " sai định dạng ngày dd/mm/yyyy!", "THÔNG BÁO", function () {
+            jError(p_name + " " + p_val + " wrong format dd/mm/yyyy!", "NOTIFICATION", function () {
                 $(p_id).focus();
             });
             return false;
         }
         if (isPass == 1) {
-            jError(p_name + " " + p_val + " không tồn tại!", "THÔNG BÁO", function () {
+            jError(p_name + " " + p_val + " does not exist!", "NOTIFICATION", function () {
                 $(p_id).focus();
             });
             return false;
@@ -103,7 +103,7 @@ function Check_Time_Sheet() {
 
         // from
         if (txtFrom_Time == "") {
-            jError("Giờ bắt đầu không được để trống!", "lỗi", function () {
+            jError("Start time cannot be left blank!", "Error", function () {
                 $("#txtFrom_Time").val('');
                 $("#txtFrom_Time").focus();
             });
@@ -111,13 +111,13 @@ function Check_Time_Sheet() {
         }
 
         var _arr_From_Time = txtFrom_Time.split(":");
-        if (Check_fomat_Hours("Giờ bắt đầu", "#txtFrom_Time", txtFrom_Time) == false) {
+        if (Check_fomat_Hours("Start time", "#txtFrom_Time", txtFrom_Time) == false) {
             return false;
         }
 
         // to
         if (txtTo_Time == "") {
-            jError("Giờ kết thúc không được bỏ trống!", "lỗi", function () {
+            jError("End time must not be blank!", "Error", function () {
                 $("#txtTo_Time").val('');
                 $("#txtTo_Time").focus();
             });
@@ -125,13 +125,13 @@ function Check_Time_Sheet() {
         }
 
         var _arr_To_Time = txtTo_Time.split(":");
-        if (Check_fomat_Hours("Giờ kết thúc", "#txtTo_Time", txtTo_Time) == false) {
+        if (Check_fomat_Hours("End time", "#txtTo_Time", txtTo_Time) == false) {
             return false;
         }
 
         // bắt đầu buổi sáng < kết thúc buổi sáng
         if (Check_Validate_RangeTime(txtFrom_Time, txtTo_Time) == false) {
-            jError("Giờ kết thúc phải lớn hơn Giờ bắt đầu !", "lỗi", function () {
+            jError("End time must be greater than Start time !", "Error", function () {
                 $("#txtTo_Time").val('');
                 $("#txtTo_Time").focus();
             });
@@ -153,7 +153,7 @@ function Check_fomat_Hours(p_name, p_id, p_hour) {
     try {
         var _arr_time = p_hour.split(":");
         if (_arr_time.length != 2) {
-            jError(p_name + " không đúng định dạng HH:mm!", "THÔNG BÁO", function () {
+            jError(p_name + " wrong format HH:mm!", "NOTIFICATION", function () {
                 $(p_id).focus();
             });
             return false;
@@ -162,7 +162,7 @@ function Check_fomat_Hours(p_name, p_id, p_hour) {
             var _time = _arr_time[i];
 
             if (_time.length != 2) {
-                jError(p_name + " không đúng định dạng HH:mm!", "THÔNG BÁO", function () {
+                jError(p_name + " wrong format HH:mm!", "NOTIFICATION", function () {
                     $(p_id).focus();
                 });
                 return false;
@@ -170,7 +170,7 @@ function Check_fomat_Hours(p_name, p_id, p_hour) {
 
             if (i == 0) {
                 if (parseFloat(_time) > 23 || parseFloat(_time) < 0) {
-                    jError("Giờ trong khoảng " + p_name + " phải trong khoảng từ 0h-23h!", "THÔNG BÁO", function () {
+                    jError("Time of about " + p_name + " must in 0h-23h!", "NOTIFICATION", function () {
                         $(p_id).focus();
                     });
                     return false;
@@ -178,7 +178,7 @@ function Check_fomat_Hours(p_name, p_id, p_hour) {
             }
             else if (i == 1) {
                 if (parseFloat(_time) > 59 || parseFloat(_time) < 0) {
-                    jError("Phút trong khoảng " + p_name + " phải trong khoảng từ 00-59!", "THÔNG BÁO", function () {
+                    jError("Minutes in approx " + p_name + " must in 00-59!", "NOTIFICATION", function () {
                         $(p_id).focus();
                     });
                     return false;
@@ -200,7 +200,7 @@ function Check_fomat_Hours_APM(p_name, p_id, p_hour, p_type) {
     try {
         var _arr_time = p_hour.split(":");
         if (_arr_time.length != 2) {
-            jError(p_name + " không đúng định dạng!", "THÔNG BÁO", function () {
+            jError(p_name + " wrong format!", "NOTIFICATION", function () {
                 $(p_id).focus();
             });
             return false;
@@ -209,7 +209,7 @@ function Check_fomat_Hours_APM(p_name, p_id, p_hour, p_type) {
             var _time = _arr_time[i];
            
             if (_time.length != 2) {
-                jError(p_name + " không đúng định dạng!", "THÔNG BÁO", function () {
+                jError(p_name + " wrong format!", "NOTIFICATION", function () {
                     $(p_id).focus();
                 });
                 return false;
@@ -217,7 +217,7 @@ function Check_fomat_Hours_APM(p_name, p_id, p_hour, p_type) {
 
             if (i == 0) {
                 if (parseFloat(_time) > 23 || parseFloat(_time) < 0) {
-                    jError("Giờ trong khoảng " + p_name + " phải trong khoảng từ 0h-23h!", "THÔNG BÁO", function () {
+                    jError("Time of about " + p_name + " must in 0h-23h!", "NOTIFICATION", function () {
                         $(p_id).focus();
                     });
                     return false;
@@ -225,7 +225,7 @@ function Check_fomat_Hours_APM(p_name, p_id, p_hour, p_type) {
 
                 if (p_type == "AM") {
                     if (parseFloat(_time) > 12) {
-                        jError("Giờ trong khoảng " + p_name + " phải trong khoảng từ 0h-11h59 !", "THÔNG BÁO", function () {
+                        jError("Time of about " + p_name + " must in 0h-11h59 !", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                             $(p_id).focus();
                         });
                         return false;
@@ -233,7 +233,7 @@ function Check_fomat_Hours_APM(p_name, p_id, p_hour, p_type) {
                 }
                 else if (p_type == "PM") {
                     if (parseFloat(_time) < 12) {
-                        jError("Giờ trong khoảng " + p_name + " phải trong khoảng từ 12h-23h59 !", "THÔNG BÁO", function () {
+                        jError("Time of about " + p_name + " must in 12h-23h59 !", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                             $(p_id).focus();
                         });
                         return false;
@@ -242,7 +242,7 @@ function Check_fomat_Hours_APM(p_name, p_id, p_hour, p_type) {
             }
             else if (i == 1) {
                 if (parseFloat(_time) > 59 || parseFloat(_time) < 0) {
-                    jError("Phút trong khoảng " + p_name + " phải trong khoảng từ 00-59!", "THÔNG BÁO", function () {
+                    jError("Phút trong khoảng " + p_name + " must in 00-59!", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                         $(p_id).focus();
                     });
                     return false;

@@ -206,11 +206,11 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
                         if (data.success == "-1") {
-                            jError("Lỗi check lại kết nối tới server");
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                             return false;
                         }
                         else {
-                            jAlert('Submit thành công!', "THÔNG BÁO", function () {
+                            jAlert('Submit thành công!', "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 window.location.href = "/home";
                             });
                         }
@@ -227,7 +227,7 @@
     function validateAction() {
         var txt_Notice_Number = $("#txt_Notice_Number").val();
         if (txt_Notice_Number == null || txt_Notice_Number == "") {
-            jError("Số thông báo không được để trống", "Lỗi", function () {
+            jError("Số thông báo không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#txt_Notice_Number").focus();
             });
             return false;
@@ -249,7 +249,7 @@
 
         var _Note = $('#txtNotes').val();
         if (_Note == null || _Note == "") {
-            jError('Ghi chú không được để trống!', "Lỗi", function () {
+            jError('Ghi chú không được để trống!', "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtNotes').focus();
             });
             return false;

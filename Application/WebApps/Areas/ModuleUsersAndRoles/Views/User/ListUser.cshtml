@@ -247,7 +247,7 @@
 
 
         function doDeleteUser(userId, canDelete) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn xóa người dùng này không?", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmDelete)", function () {
                 $.ajax({
                     url: "/quan-tri-he-thong/quan-ly-nguoi-dung/do-delete-user",
                     type: "POST",

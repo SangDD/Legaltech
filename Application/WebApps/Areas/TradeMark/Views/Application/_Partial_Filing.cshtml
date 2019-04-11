@@ -186,7 +186,7 @@
 
     function do_Filing(_case_code) {
         if (validateAction()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn nộp đơn này cho khách hàng không?", function () {
+            nvsConfirm(null,"@Html.Raw(WebApps.Resources.Resource.ConfirmSubmit)", function () {
 
                 var pfile = $("#file_attach");//lay du lieu file
                 var _file = pfile[0].files[0];
@@ -218,11 +218,11 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
                         if (data.success == "-1") {
-                            jError("Lỗi check lại kết nối tới server");
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                             return false;
                         }
                         else {
-                            jAlert('Nộp đơn thành công!', "THÔNG BÁO", function () {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 window.location.href = "/home";
                             });
                         }
@@ -346,7 +346,7 @@
 
         var _App_No = $("#txt_App_No").val();
         if (_App_No == null || _App_No == "") {
-            jError("Số đơn không được để trống", "Lỗi", function () {
+            jError("Số đơn không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#txt_App_No").focus();
             });
             return false;
@@ -354,7 +354,7 @@
 
         var _Note = $('#txtNotes').val();
         if (_Note == null || _Note == "") {
-            jError('Ghi chú không được để trống!', "Lỗi", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.GhiChuKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtNotes').focus();
             });
             return false;
@@ -364,21 +364,21 @@
         if (pfile.val() != "") {
             var _CheckFile = true;
             var _Len = pfile[0].files[0].name.toString()
-            if (_Len.length > 200) {
+            @*if (_Len.length > 200) {
                 _CheckFile = false;
-                jError("Tên file không được quá 200 ký tự", "Lỗi", function () {
+                jError("Tên file không được quá 200 ký tự", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $(pfile).focus();
 
                 });
                 return false;
-            }
+            }*@
 
             var _file = pfile[0].files[0];
             var _size = _file.size / 1024 / 1024;
 
             if (validateFileName(_file.name) == false) {
                 _CheckFile = false;
-                jError("Không tải file có tên file được lưu là unicode Tiếng việt có dấu ! ", "Lỗi", function () {
+                jError("@Html.Raw(WebApps.Resources.Resource.TaiFileUnicode)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $(pfile).focus();
                 });
                 return false;
@@ -388,7 +388,7 @@
             }
         }
         else {
-            jError("File copy không được để trống", "Lỗi", function () {
+            jError("File copy can't not empty", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#btnChooseFile").focus();
             });
             return false;
@@ -398,20 +398,20 @@
         if (pfile_Dich.val() != "") {
             var _CheckFile = true;
             var _Len = pfile_Dich[0].files[0].name.toString()
-            if (_Len.length > 200) {
+            @*if (_Len.length > 200) {
                 _CheckFile = false;
-                jError("Tên file không được quá 200 ký tự", "Lỗi", function () {
+                jError("Tên file không được quá 200 ký tự", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $(pfile_Dich).focus();
                 });
                 return false;
-            }
+            }*@
 
             var _file = pfile_Dich[0].files[0];
             var _size = _file.size / 1024 / 1024;
 
             if (validateFileName(_file.name) == false) {
                 _CheckFile = false;
-                jError("Không tải file có tên file được lưu là unicode Tiếng việt có dấu ! ", "Lỗi", function () {
+                jError("@Html.Raw(WebApps.Resources.Resource.TaiFileUnicode)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $(pfile_Dich).focus();
                 });
                 return false;
@@ -421,7 +421,7 @@
             }
         }
         else {
-            jError("File dịch không được để trống", "Lỗi", function () {
+            jError("File transalte can't not empty", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#btnChooseFile").focus();
             });
             return false;

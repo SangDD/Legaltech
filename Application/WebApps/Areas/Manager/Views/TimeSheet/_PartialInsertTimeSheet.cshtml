@@ -168,7 +168,7 @@
 
     function doInsertTimeSheet() {
         if (validateForm()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn gửi Admin timesheet này không?", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmInsert)", function () {
                 var formData = new FormData();
                 collectData(formData);
                 $.ajax({
@@ -183,11 +183,11 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
                         if (data.success == "-1") {
-                            jError("Lỗi check lại kết nối tới server");
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                             return false;
                         }
                         else {
-                            jAlert('Gửi Admin timesheet thành công!', "THÔNG BÁO", function () {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.ThemThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 var url = "/quan-ly-timesheet/danh-sach-timesheet/";
                                 window.location.href = url;
                             });
@@ -240,7 +240,7 @@
 
         var _App_Case_Code = $("#txtApp_Case_Code").val();
         if (_App_Case_Code == null || _App_Case_Code == "") {
-            jError("Case code khai timesheet không được bỏ trống!", "lỗi", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.CaseCodeTimeSheetKhongDuocBoTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#txtApp_Case_Code").val('');
                 $('#txtApp_Case_Code').focus();
             });
@@ -249,7 +249,7 @@
 
         var txtName = $("#txtName").val();
         if (txtName == "") {
-            jError("Mô tả công việc không được bỏ trống!", "lỗi", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.MoTaKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#txtName").val('');
                 $("#txtName").focus();
             });
@@ -257,7 +257,7 @@
         }
 
         var txtTime_Date = $("#txtTime_Date").val();
-        if (checkDate("Ngày khai timesheet", "#txtTime_Date", txtTime_Date) == false) {
+        if (checkDate("Timesheet date", "#txtTime_Date", txtTime_Date) == false) {
             return false;
         }
 
@@ -267,7 +267,7 @@
 
         var txtHours = $("#txtHours").val();
         if (txtHours == "") {
-            jError("Giờ thực tế không được bỏ trống!", "lỗi", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.GioTimeSheetTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#txtHours").val('');
                 $("#txtHours").focus();
             });
@@ -275,7 +275,7 @@
         }
 
         if (txtHours == "0") {
-            jError("Giờ thực tế phải lớn hơn 0!", "lỗi", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.GioTimeSheetLonHon0)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#txtHours").val('');
                 $("#txtHours").focus();
             });
@@ -284,7 +284,7 @@
 
         var txtHours_Adjust = $("#txtHours_Adjust").val();
         if (txtHours_Adjust == "") {
-            jError("Giờ điều chỉnh không được bỏ trống!", "lỗi", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.GioDieuChinhTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#txtHours_Adjust").val('');
                 $("#txtHours_Adjust").focus();
             });
@@ -292,7 +292,7 @@
         }
 
         if (txtHours_Adjust == "0") {
-            jError("Giờ điều chỉnh phải lớn hơn 0!", "lỗi", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.GioDieuChinhLonHon0)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#txtHours_Adjust").val('');
                 $("#txtHours_Adjust").focus();
             });
@@ -301,7 +301,7 @@
 
         var txtNotes = $("#txtNotes").val();
         if (txtNotes == null) {
-            jError("Yêu cầu không được bỏ trống!", "lỗi", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.YeuCauKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#txtNotes").val('');
                 $('#txtNotes').focus();
             });

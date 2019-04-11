@@ -25,7 +25,7 @@
     <div class="divCover cls_form_title">
         <img src="~/Content/icons/category.png" />
         <div class="cls_form_header">
-            Gửi yêu cầu xác nhận search cho khách hàng
+            @WebApps.Resources.Resource.GuiYeuCauXacNhanChoKhachHang
         </div>
     </div>
 
@@ -115,7 +115,7 @@
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Trả lời khách hàng" onclick="return doConfirm()" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Submit" onclick="return doConfirm()" />
         </div>
     </div>
 </div>
@@ -127,7 +127,7 @@
 
     function doConfirm() {
         if (validateAction()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn phản hồi lại cho khách hàng hay không?", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmPhanHoiKhachHang)", function () {
                 $.ajax({
                     url: '/quan-ly-search/admin-confirm-a',
                     type: 'POST',
@@ -142,11 +142,11 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
                         if (data.success == "-1") {
-                            jError("Lỗi check lại kết nối tới server");
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                             return false;
                         }
                         else {
-                            jAlert('Xử lý tác vụ thành công!', "THÔNG BÁO", function () {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 window.location.href = "/home";
                             });
                         }
@@ -162,7 +162,7 @@
     function validateAction() {
         var _Note = $('#txtNotes').val();
         if (_Note == null || _Note == "") {
-            jError('Ghi chú không được để trống!', "Lỗi", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.GhiChuKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtNotes').focus();
             });
             return false;

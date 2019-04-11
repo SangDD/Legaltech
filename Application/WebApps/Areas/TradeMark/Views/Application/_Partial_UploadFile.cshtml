@@ -146,7 +146,7 @@
             var _lblName = $("#lblName_" + p_AfterID).val();
 
             if (_txtIsValid == "1" && pfile.val() == "") {
-                jError(_lblName + " không được để trống", "Lỗi", function () {
+                jError(_lblName + " không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $("#btnChooseFile_" + p_AfterID).focus();
                 });
                 return false;
@@ -157,7 +157,7 @@
             //    var _Len = pfile[0].files[0].name.toString()
             //    if (_Len.length > 200) {
             //        _CheckFile = false;
-            //        jError("Tên file không được quá 200 ký tự", "Lỗi", function () {
+            //        jError("Tên file không được quá 200 ký tự", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
             //            $(pfile).focus();
             //        });
             //        return false;
@@ -168,7 +168,7 @@
 
             //    if (validateFileName(_file.name) == false) {
             //        _CheckFile = false;
-            //        jError("Không tải file có tên file được lưu là unicode Tiếng việt có dấu ! ", "Lỗi", function () {
+            //        jError("Không tải file có tên file được lưu là unicode Tiếng việt có dấu ! ", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
             //            $(pfile).focus();
             //        });
             //        return false;

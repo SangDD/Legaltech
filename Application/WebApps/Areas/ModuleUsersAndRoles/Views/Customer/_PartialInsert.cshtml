@@ -572,38 +572,38 @@
         statusAdd = $('#cboStatusAdd').val();
         GroupIdAdd = $('#cboGroupUser').val();
         if (usernameAdd === "") {
-            jError("Tên đăng nhập không được để trống!", "lỗi", function () {
+            jError("Tên đăng nhập không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtUsernameAdd').focus();
             });
             return false;
         }
 
         if (fullNameAdd === "") {
-            jError("Họ tên không được để trống!", "lỗi", function () {
+            jError("Họ tên không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtFullNameAdd').focus();
             });
             return false;
         }
 
         if (passwordAdd === "") {
-            jError("Nật khẩu không được để trống!", "lỗi", function () {
+            jError("Nật khẩu không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtPasswordAdd').focus();
             });
             return false;
         }
         if (rePasswordAdd === "") {
-            jError("Xác nhận mật khẩu không được để trống!", "lỗi", function () {
+            jError("Xác nhận mật khẩu không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtRePasswordAdd').focus();
             });
             return false;
         }
         if (passwordAdd.length < 6) {
-            jError("Mật khẩu phải chứa từ 6 đến 64 ký tự!", "lỗi", function () {
+            jError("Mật khẩu phải chứa từ 6 đến 64 ký tự!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtRePasswordAdd').focus();
             });
             return false;
         } else if (passwordAdd !== rePasswordAdd) {
-            jError("Mật khẩu và xác nhận mật khẩu không giống nhau!", "lỗi", function () {
+            jError("Mật khẩu và xác nhận mật khẩu không giống nhau!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtRePasswordAdd').focus();
                 $("#txtRePasswordAdd").select();
             });
@@ -611,7 +611,7 @@
         }
 
         if ($("#txtAddress").val() === "") {
-            jError("Địa chỉ không được để trống!", "lỗi", function () {
+            jError("Địa chỉ không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtAddress').val('');
                 $('#txtAddress').focus();
             });
@@ -619,19 +619,19 @@
         }
 
         if (dateOfBirthAdd === "" || dateOfBirthAdd === window.maskDateTime_N0) {
-            jError("Ngày sinh không được để trống", "lỗi", function () {
+            jError("Ngày sinh không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtDateOfBirthAdd').focus();
             });
             return false;
         } else if (isValidDate_N0(dateOfBirthAdd) === false) {
-            jError("Ngày sinh không đúng định dạng (dd/mm/yyyy)!", "lỗi", function () {
+            jError("Ngày sinh không đúng định dạng (dd/mm/yyyy)!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtDateOfBirthAdd').focus();
             });
             return false;
         }
 
         if (phoneAdd === "") {
-            jError("Điện thoại không được để trống!", "lỗi", function () {
+            jError("Điện thoại không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtPhoneAdd').val('');
                 $('#txtPhoneAdd').focus();
             });
@@ -639,12 +639,12 @@
         }
 
         if (emailAdd === "") {
-            jError("Email không được để trống!", "lỗi", function () {
+            jError("Email không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtEmailAdd').focus();
             });
             return false;
         } else if (!IsvalidEmail(emailAdd)) {
-            jError("Email không đúng định dạng!", "lỗi", function () {
+            jError("Email không đúng định dạng!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtEmailAdd').focus();
             });
             return false;
@@ -652,14 +652,14 @@
 
         var _cboCountry = $("#cboCountry").val();
         if (_cboCountry == null) {
-            jError("Quốc tịch không được bỏ trống!", "lỗi", function () {
+            jError("Quốc tịch không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#cboCountry').multipleSelect('focus');
             });
             return false;
         }
 
         if (statusAdd == null) {
-            jError("Trạng thái không được bỏ trống!", "lỗi", function () {
+            jError("Trạng thái không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#cboStatusAdd').focus();
             });
             return false;
@@ -668,7 +668,7 @@
 
         var _txtcompany_name = $("#txtcompany_name").val();
         if (_txtcompany_name == null || _txtcompany_name == "") {
-            jError("Tên công ty khách hàng không được bỏ trống!", "lỗi", function () {
+            jError("Tên công ty khách hàng không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#_txtcompany_name').focus();
             });
             return false;
@@ -676,14 +676,14 @@
 
         var _txtmain_business = $("#txtmain_business").val();
         if (txtmain_business == null || txtmain_business == "") {
-            jError("Ngành ngề chín không được bỏ trống!", "lỗi", function () {
+            jError("Ngành ngề chín không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtmain_business').focus();
             });
             return false;
         }
 
         if (GroupIdAdd == "-1") {
-            jError("Loại người dùng không được để trống!", "lỗi", function () {
+            jError("Loại người dùng không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#cboGroupUser").focus();
             });
             return false;

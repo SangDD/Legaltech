@@ -145,10 +145,10 @@
 
 		function doDeleteGroupUser(groupId, numberUserInGroup) {
 			if (numberUserInGroup > 0) {
-				showError("Không thể xóa nhóm quyền đang tồn tại người dùng.");
+				showError("@Html.Raw(WebApps.Resources.Resource.KhongTheXoaNhomQuyen)");
 				return false;
 			} else {
-				nvsConfirm(null, "Bạn có chắc chắn muốn xóa nhóm quyền này không?", function () {
+				nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmDelete)", function () {
 					$.ajax({
 						url: "/quan-tri-he-thong/quan-ly-nhom-quyen/do-delete-group",
 						type: "POST",

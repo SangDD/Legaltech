@@ -299,7 +299,7 @@
 
     function doEditBilling() {
         if (validateForm()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn thêm billing này không?", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmEdit)", function () {
                 var formData = new FormData();
                 collectData(formData);
                 $.ajax({
@@ -314,7 +314,7 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
                         if (data.success == "-1") {
-                            jError("Lỗi check lại kết nối tới server");
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                             return false;
                         }
                         else if (data.success == "-2") {
@@ -322,7 +322,7 @@
                             return false;
                         }
                         else {
-                            jAlert('Sửa thông tin billing thành công!', "THÔNG BÁO", function () {
+                            jAlert('Sửa thông tin billing thành công!', "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 var url = "/quan-ly-billing/danh-sach-billing/";
                                 window.location.href = url;
                             });
@@ -344,7 +344,7 @@
 
         var App_Case_Code = $("#txtApp_Case_Code").val();
         if (App_Case_Code == null) {
-            jError("Case code không được bỏ trống!", "lỗi", function () {
+            jError("Case code không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#txtApp_Case_Code").val('');
                 $('#txtApp_Case_Code').focus();
             });
@@ -358,7 +358,7 @@
 
         var _txt_Total_Amount = $("#txt_Total_Amount").val();
         if (_txt_Total_Amount == "" || _txt_Total_Amount == "0") {
-            jError("Không có thông tin billing", "lỗi", function () {
+            jError("Không có thông tin billing", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtApp_Case_Code').focus();
             });
             return false;
@@ -366,7 +366,7 @@
 
         //var txtNotes = $("#txtNotes").val();
         //if (txtNotes == null || txtNotes == "") {
-        //    jError("Yêu cầu không được bỏ trống!", "lỗi", function () {
+        //    jError("Yêu cầu không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
         //        $("#txtNotes").val('');
         //        $('#txtNotes').focus();
         //    });
@@ -404,7 +404,7 @@
 
     function doDeleteBillingDetail(_Ref_Id, _type) {
         try {
-            nvsConfirm(null, "Bạn có chắc chắn muốn xóa loại fee này không?", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmDelete)", function () {
                 $.ajax({
                     url: '/quan-ly-billing/danh-sach-billing/do-delete-billing-detail',
                     type: 'POST',
@@ -459,7 +459,7 @@
                 _url = "/quan-ly-billing-search/danh-sach-billing/do-export-billing";
             }
 
-            nvsConfirm(null, "Bạn có chắc chắn muốn kết xuất billing này không?", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmKetXuat)", function () {
                 $.ajax({
                     url: _url,
                     type: "POST",
@@ -475,11 +475,11 @@
                         CreateRollingWaitingIcon(false);
                         console.log(data.success);
                         if (data.success == "-1") {
-                            jError("Lỗi check lại kết nối tới server");
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                             return false;
                         }
                         else {
-                            jAlert('Kết xuất billing thành công!', "THÔNG BÁO", function () {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.KetXuatThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 OpenPreview("/quan-ly-billing/Pre-View?p_filename=" + data.success);
                             });
 

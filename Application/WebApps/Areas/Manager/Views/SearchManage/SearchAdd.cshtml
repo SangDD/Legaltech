@@ -365,7 +365,7 @@
                                         //2x2 75x75 px , 8x8 302x302
                                         if (iheight > 302 || iheight < 75 || iwidth > 302 || iwidth < 75) {
                                             _checkanh = 1;
-                                            nvsConfirm(null, "Ảnh tải lên không đúng kích cỡ từ 2x2 đến 8x8 ?", function () {
+                                            nvsConfirm(null,"@Html.Raw(WebApps.Resources.Resource.KichThuoc2288)", function () {
                                                 return true;
                                             }, function () {
                                                 //Callback
@@ -378,7 +378,7 @@
                                     }
                                     reader.readAsDataURL(this.files[0]);
                                 } else {
-                                    nvsAlert("Thông báo", "File tải lên không phải là file ảnh?", "");
+                                    nvsAlert("@Html.Raw(WebApps.Resources.Resource.ThongBao)", "@Html.Raw(WebApps.Resources.Resource.FileKhongPhaiLaAnh)", "");
                                     _checkanh = 2;
                                 }
                             };
@@ -496,14 +496,14 @@
             var txtClient_Reference = $("#txtClient_Reference");
 
             if (_txtcasename.val().trim() == "") {
-                jError("Case name không được bỏ trống!", "lỗi", function () {
+                jError("@Html.Raw(WebApps.Resources.Resource.CaseNameTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     _txtcasename.val('');
                     _txtcasename.focus();
                 });
                 return false;
             }
             //if (txtClient_Reference.val().trim() == "") {
-            //    jError("Client Reference không được bỏ trống!", "lỗi", function () {
+            //    jError("Client Reference không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
             //        txtClient_Reference.val('');
             //        txtClient_Reference.focus();
             //    });
@@ -517,7 +517,7 @@
 
             var txtNotes = $("#txtNotes").val();
             if (txtNotes == null || txtNotes == "") {
-                jError("Yêu cầu không được bỏ trống!", "lỗi", function () {
+                jError("@Html.Raw(WebApps.Resources.Resource.YeuCauKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $("#txtNotes").val('');
                     $('#txtNotes').focus();
                 });
@@ -565,7 +565,7 @@
             });
             var txtAddContent = $("#txtAddContent");
             if (txtAddContent.val().trim() == "") {
-                jError("Mô tả câu hỏi không được bỏ trống!", "lỗi", function () {
+                jError("Mô tả câu hỏi không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     txtAddContent.val('');
                     txtAddContent.focus();
                 });
@@ -586,12 +586,12 @@
                 enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.success >= 0) {
-                        jAlert('Thêm yêu cầu tìm kiếm thành công!', "THÔNG BÁO", function () {
+                        jAlert("@Html.Raw(WebApps.Resources.Resource.ThemThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                             var url = "/quan-ly-search/danh-sach-search";
                             window.location.href = url;
                         });
                     } else {
-                        jError("Có lỗi trong quá trình xử lý dữ liệu");
+                        jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                         return false;
 
                     }

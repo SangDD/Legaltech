@@ -416,14 +416,14 @@
 		GroupId = $('#cboGroupUser').val();
 
 		if (fullName === "") {
-            jError("Họ tên không được để trống!", "lỗi", function () {
+            jError("Họ tên không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtFullName').focus();
             });
             return false;
         }
 
         //if ($("#txtAddress").val() === "") {
-        //    jError("Địa chỉ không được để trống!", "lỗi", function () {
+        //    jError("Địa chỉ không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
         //        $('#txtAddress').val('');
         //        $('#txtAddress').focus();
         //    });
@@ -438,14 +438,14 @@
         }
 
         //if (dateOfBirth != "" && dateOfBirth != window.maskDateTime_N0 && isValidDate_N0(dateOfBirth) === false) {
-        //    jError("Ngày sinh không đúng định dạng (dd/mm/yyyy)!", "lỗi", function () {
+        //    jError("Ngày sinh không đúng định dạng (dd/mm/yyyy)!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
         //        $('#txtDateOfBirth').focus();
         //    });
         //    return false;
         //}
 
         if (phone === "") {
-            jError("Điện thoại không được để trống!", "lỗi", function () {
+            jError("Điện thoại không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtPhone').val('');
                 $('#txtPhone').focus();
             });
@@ -453,12 +453,12 @@
         }
 
         if (email === "") {
-            jError("Email không được để trống!", "lỗi", function () {
+            jError("Email không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtEmail').focus();
             });
             return false;
         } else if (!IsvalidEmail(email)) {
-            jError("Email không đúng định dạng!", "lỗi", function () {
+            jError("Email không đúng định dạng!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtEmail').focus();
             });
             return false;
@@ -466,14 +466,14 @@
 
         var _cboCountry = $("#cboCountry").val();
         if (_cboCountry == null) {
-            jError("Quốc tịch không được bỏ trống!", "lỗi", function () {
+            jError("Quốc tịch không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#cboCountry').multipleSelect('focus');
             });
             return false;
         }
 
         if (GroupId == "-1") {
-            jError("Loại người dùng không được để trống!", "lỗi", function () {
+            jError("Loại người dùng không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#cboGroupUser").focus();
             });
             return false;

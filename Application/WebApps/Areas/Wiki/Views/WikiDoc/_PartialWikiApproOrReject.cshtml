@@ -158,15 +158,15 @@
             if (CheckSessionTimeOut() == false) {
                 return false;
             }
-            var _mess = "Bạn có chắc chắn muốn duyệt bài viết này?";
+            var _mess = "@Html.Raw(WebApps.Resources.Resource.ConfirmApprove)";
             var _txtNote = $("#_txtNote");
             if(_status == '@CommonWiki.Stt_tuchoi')
             {
-                _mess = "Bạn có chắc chắn muốn từ chối duyệt bài viết này?";
+                _mess = "@Html.Raw(WebApps.Resources.Resource.TuChoiNoiDung)";
             }
             if(_status == '@CommonWiki.Stt_tuchoi' && _txtNote.val().trim() == "")
             {
-                showError('Nội dung ghi chú không được bỏ trống!');
+                showError("@Html.Raw(WebApps.Resources.Resource.GhiChuKhongDuocDeTrong)");
                 _txtNote.focus();
                 return false;
             }
@@ -188,12 +188,11 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
                         if (data.result == "-1") {
-                            jError("Lỗi check lại kết nối tới server");
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                             return false;
                         }
                         else if (data.result > 0) {
-                            jError("Cập nhật dữ liệu thành công!");
-                            jAlert("Cập nhật dữ liệu thành công!", "Thông báo", function () {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 location.href = "/wiki-manage/wiki-doc/list/1";
                             });
                         }

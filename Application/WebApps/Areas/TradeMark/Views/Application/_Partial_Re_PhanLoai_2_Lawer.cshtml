@@ -86,7 +86,7 @@
         if (validateAction()) {
             var formData = new FormData();
             collectObjectData(formData);
-            nvsConfirm(null, "Bạn có chắc chắn muốn phân đơn này cho luật sư hay không?", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmPhanLoai)", function () {
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/do-re-grant-advice',
                     type: 'POST',
@@ -99,11 +99,11 @@
                     success: function (data) {
                         if (data.success == "-1") {
                             //jError("Lỗi check lại kết nối tới server", "Lỗi");
-                            jError("Lỗi check lại kết nối tới server");
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                             return false;
                         }
                         else {
-                            jAlert('Phân loại đơn cho luật sư mới thành công!', "THÔNG BÁO", function () {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 window.location.href = "/home";
                             });
                         }
@@ -119,7 +119,7 @@
     function validateAction() {
         _Lawer_Id = $('#cboLawer').val();
         if (_Lawer_Id == null || _Lawer_Id == "0") {
-            jError('Tên luật sư không được để trống!', "Lỗi", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.LuatSuKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#cboLawer').multipleSelect('focus');
             });
             return false;
@@ -127,7 +127,7 @@
 
         var _Note = $('#txtNotes').val();
         if (_Note == null || _Note == "") {
-            jError('Ghi chú không được để trống!', "Lỗi", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.GhiChuKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtNotes').focus();
             });
             return false;

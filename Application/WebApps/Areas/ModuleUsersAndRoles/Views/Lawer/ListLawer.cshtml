@@ -232,10 +232,10 @@
 
         function doDeleteUser(userId, canDelete) {
             if (canDelete > 0) {
-                showError("Không thể xóa người dùng đang hoạt động.");
+                showError("@Html.Raw(WebApps.Resources.Resource.KhongTheXoaNguoiDung)");
                 return false;
             } else {
-                nvsConfirm(null, "Bạn có chắc chắn muốn xóa người dùng này không?", function () {
+                nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmDelete)", function () {
                     $.ajax({
                         url: "/luat-su/quan-ly-luat-su/do-delete-lawer",
                         type: "POST",

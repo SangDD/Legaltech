@@ -77,7 +77,7 @@
 
     function doPhanLoai(_case_code) {
         if (validateAction()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn phân đơn này cho nhân viên đi nộp đơn hay không?", function () {
+            nvsConfirm(null,"@Html.Raw(WebApps.Resources.Resource.ConfirmPhanLoai)", function () {
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/do-phan-loai-employee',
                     type: 'POST',
@@ -93,11 +93,11 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
                         if (data.success == "-1") {
-                            jError("Lỗi check lại kết nối tới server");
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                             return false;
                         }
                         else {
-                            jAlert('Phân loại đơn cho nhân viên thành công!', "THÔNG BÁO", function () {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 window.location.href = "/home";
                             });
                         }
@@ -114,7 +114,7 @@
     function validateAction() {
         _Employee_Id = $('#cboEmployee').val();
         if (_Employee_Id == null || _Employee_Id == "0") {
-            jError('Nhân viên không được để trống!', "Lỗi", function () {
+            jError('Employee can not empty', "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#cboEmployee').multipleSelect('focus');
             });
             return false;
@@ -122,7 +122,7 @@
 
         var _Note = $('#txtNotes').val();
         if (_Note == null || _Note == "") {
-            jError('Ghi chú không được để trống!', "Lỗi", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.GhiChuKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtNotes').focus();
             });
             return false;

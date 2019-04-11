@@ -29,7 +29,7 @@
     <div class="divCover cls_form_title">
         <img src="~/Content/icons/category.png" />
         <div class="cls_form_header">
-            Luật sư trả lời
+            @WebApps.Resources.Resource.LuatSuPhanHoi
         </div>
     </div>
 
@@ -73,7 +73,7 @@
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="Trả lời" onclick="return doTraLoi()" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Submit" onclick="return doTraLoi()" />
         </div>
     </div>
 </div>
@@ -95,7 +95,7 @@
         if (validateAction()) {
             var formData = new FormData();
             collectObjectData(formData);
-            nvsConfirm(null, "Bạn có chắc chắn muốn trả lời search này cho luật sư hay không?", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmPhanHoi)", function () {
                 $.ajax({
                     url: '/quan-ly-search/tra-loi-search',
                     type: 'POST',
@@ -108,11 +108,11 @@
                     success: function (data) {
                         if (data.success == "-1") {
                             //jError("Lỗi check lại kết nối tới server", "Lỗi");
-                            jError("Lỗi check lại kết nối tới server");
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                             return false;
                         }
                         else {
-                            jAlert('Trả lời search thành công!', "THÔNG BÁO", function () {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 window.location.href = "/home";
                                 //CloseDivPopUp('divWrapperPopUpApp');
                                 //Search_Application(1,1);
@@ -130,7 +130,7 @@
     function validateAction() {
         var _txtResult = $("#_txtResult");
         if (_txtResult.val() == null || _txtResult.val().trim() == "") {
-            jError('Nội dung không được để trống!', "Lỗi", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.NoiDungKhongTheDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 _txtResult.focus();
             });
             return false;

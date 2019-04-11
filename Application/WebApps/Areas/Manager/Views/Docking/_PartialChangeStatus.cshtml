@@ -218,7 +218,7 @@
 
     function doChangeStatusDocking() {
         try {
-            nvsConfirm(null, "Bạn có chắc chắn muốn hoàn thành tài liệu này không?", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmHoanThanhTL)", function () {
                 $.ajax({
                     url: "/quan-ly-docking/danh-sach-docking/do-change-status",
                     type: "POST",
@@ -233,11 +233,11 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
                         if (data.success == "-1") {
-                            jError("Lỗi check lại kết nối tới server");
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                             return false;
                         }
                         else {
-                            jAlert('Cập nhật tài liệu thành công!', "THÔNG BÁO", function () {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 var url = "/quan-ly-docking/danh-sach-docking";
                                 window.location.href = url;
                             });

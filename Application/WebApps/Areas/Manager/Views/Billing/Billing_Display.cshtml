@@ -289,7 +289,7 @@
 
     function doDeleteBilling(_id) {
 
-        nvsConfirm(null, "Bạn có chắc chắn muốn xóa billing này không?", function () {
+        nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmDelete)", function () {
             $.ajax({
                 url: "/quan-ly-billing/danh-sach-billing/do-delete-billing",
                 type: "POST",
@@ -304,15 +304,15 @@
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
                     if (data.success == "-1") {
-                        jError("Lỗi check lại kết nối tới server");
+                        jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                         return false;
                     }
                     else if (data.success == "-2") {
-                        jError("Billing đã được duyệt, không thể xóa");
+                        jError("@Html.Raw(WebApps.Resources.Resource.NoiDungDaDuyetKhongTheXoa)");
                         return false;
                     }
                     else {
-                        jAlert('Xóa billing thành công!', "THÔNG BÁO", function () {
+                        jAlert("@Html.Raw(WebApps.Resources.Resource.XoaThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                             Search_Billing(1, 1);
                         });
                     }

@@ -210,7 +210,7 @@
 
     function doEditDocking() {
         if (validateForm()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn sửa tài liệu này không?", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmEdit)", function () {
                 var formData = new FormData();
                 collectData(formData);
                 $.ajax({
@@ -225,11 +225,11 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
                         if (data.success == "-1") {
-                            jError("Lỗi check lại kết nối tới server");
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                             return false;
                         }
                         else {
-                            jAlert('Sửa tài liệu thành công!', "THÔNG BÁO", function () {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 var url = "/quan-ly-docking/danh-sach-docking";
                                 window.location.href = url;
                             });
@@ -251,7 +251,7 @@
 
         var App_Case_Code = $("#txtApp_Case_Code").val();
         if (App_Case_Code == null) {
-            jError("Case code không được bỏ trống!", "lỗi", function () {
+            jError("Case code không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#txtApp_Case_Code").val('');
                 $('#txtApp_Case_Code').focus();
             });
@@ -260,7 +260,7 @@
 
         var _txtDocument_Name = $("#Document_Name").val();
         if (_txtDocument_Name == "") {
-            jError("Tên tài liệu không được bỏ trống!", "lỗi", function () {
+            jError("Tên tài liệu không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#Document_Name").val('');
                 $("#Document_Name").focus();
             });
@@ -284,7 +284,7 @@
         //    var _Len = pfile[0].files[0].name.toString()
         //    if (_Len.length > 200) {
         //        _CheckFile = false;
-        //        jError("Tên file không được quá 200 ký tự", "Lỗi", function () {
+        //        jError("Tên file không được quá 200 ký tự", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
         //            $(pfile).focus();
 
         //        });
@@ -296,7 +296,7 @@
 
         //    if (validateFileName(_file.name) == false) {
         //        _CheckFile = false;
-        //        jError("Không tải file có tên file được lưu là unicode Tiếng việt có dấu ! ", "Lỗi", function () {
+        //        jError("Không tải file có tên file được lưu là unicode Tiếng việt có dấu ! ", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
         //            $(pfile).focus();
         //        });
         //        return false;

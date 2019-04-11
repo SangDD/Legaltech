@@ -207,7 +207,7 @@
 
     function doDelete(_id) {
 
-        nvsConfirm(null, "Bạn có chắc chắn muốn xóa phí này không?", function () {
+        nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmDelete)", function () {
             $.ajax({
                 url: "/quan-ly-phi-tim-kiem/do-delete-fee",
                 type: "POST",
@@ -222,11 +222,11 @@
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
                     if (data.success == "-1") {
-                        jError("Lỗi check lại kết nối tới server");
+                        jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                         return false;
                     }
                     else {
-                        jAlert('Xóa phí thành công!', "THÔNG BÁO", function () {
+                        jAlert("@Html.Raw(WebApps.Resources.Resource.XoaThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                             Search_Fee(1, 1);
                         });
                     }

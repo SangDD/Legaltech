@@ -243,7 +243,7 @@
         function doDeleteObject(p_id) {
             try {
                
-                    nvsConfirm(null, "Bạn có chắc chắn muốn xóa hàng hóa/dịch vụ này không?", function () {
+                    nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmDelete)", function () {
                         $.ajax({
                             url: "/quan-ly-thong-tin/hang-hoa-dich-vu/do-delete-class",
                             type: "POST",
@@ -258,7 +258,7 @@
                                 //    }
                                 //}
                                 if (data.result >= 0) {
-                                    showSuccess("Xóa dữ liệu thành công!");
+                                    showSuccess("@Html.Raw(WebApps.Resources.Resource.XoaThanhCong)");
                                     window.findObjects(1, 0);
                                 }
                             },

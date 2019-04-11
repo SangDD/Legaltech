@@ -130,7 +130,7 @@
         var formData = new FormData();
         var amount = $("#txtAmount").val().replace(/,/g, "");
         if (isNaN(amount)) {
-            jError("Lệ phí quốc gia (VNĐ) nhập vào phải là kiểu số!", "Thông báo", function () {
+            jError("Lệ phí quốc gia (VNĐ) nhập vào phải là kiểu số!", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                 $("#txtAmount").focus();
             });
             return false;
@@ -138,7 +138,7 @@
 
         amount = $("#txtAmount_Usd").val();
         if (isNaN(amount)) {
-            jError("Lệ phí quốc gia (USD) nhập vào phải là kiểu số!", "Thông báo", function () {
+            jError("Lệ phí quốc gia (USD) nhập vào phải là kiểu số!", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                 $("#txtAmount_Usd").focus();
             });
             return false;
@@ -146,7 +146,7 @@
 
         amount = $("#txtAmount_Represent").val().replace(/,/g, "");
         if (isNaN(amount)) {
-            jError("Lệ phí dịch vụ (VNĐ) nhập vào phải là kiểu số!", "Thông báo", function () {
+            jError("Lệ phí dịch vụ (VNĐ) nhập vào phải là kiểu số!", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                 $("#txtAmount_Represent").focus();
             });
             return false;
@@ -154,7 +154,7 @@
 
         amount = $("#txtAmount_Represent_Usd").val().replace(/,/g, "");
         if (isNaN(amount)) {
-            jError("Lệ phí dịch vụ (USD) nhập vào phải là kiểu số!", "Thông báo", function () {
+            jError("Lệ phí dịch vụ (USD) nhập vào phải là kiểu số!", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                 $("#txtAmount_Represent_Usd").focus();
             });
             return false;
@@ -173,11 +173,11 @@
             success: function (data) {
                 CreateRollingWaitingIcon(false);
                 if (data.success == "-1") {
-                    jError("Lỗi check lại kết nối tới server");
+                    jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                     return false;
                 }
                 else {
-                    jAlert('Sửa dữ liệu phí thành công!', "THÔNG BÁO", function () {
+                    jAlert('Sửa dữ liệu phí thành công!', "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                         ClosePopUpDDSHCN();
                         functionSearchDSPhi();
                     });

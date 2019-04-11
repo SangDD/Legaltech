@@ -263,7 +263,7 @@
                 return false;
             }
 
-            nvsConfirm(null, "Bạn có chắc chắn muốn thanh toán billing này không?", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmThanhToan)", function () {
                 $.ajax({
                     url: "/quan-ly-billing/danh-sach-billing/do-change-pay-status",
                     type: "POST",
@@ -278,15 +278,15 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
                         if (data.success == "-1") {
-                            jError("Lỗi check lại kết nối tới server");
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                             return false;
                         }
                         else if (data.success == "-2") {
-                            jError("Billing đã được thanh toán, không thể thanh toán");
+                            jError("@Html.Raw(WebApps.Resources.Resource.NoiDungDaThanhToan)");
                             return false;
                         }
                         else {
-                            jAlert('Thanh toán billing thành công!', "THÔNG BÁO", function () {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.ThanhToanThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 window.location.href = "/quan-ly-billing/danh-sach-billing/";
                             });
                         }

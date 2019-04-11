@@ -190,7 +190,7 @@
 
     function do_Submit(_case_code) {
         if (validateAction()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn gửi yêu cầu này cho admin hay không?", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmSubmit)", function () {
 
 
                 var formdata = new FormData();
@@ -233,11 +233,11 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
                         if (data.success == "-1") {
-                            jError("Lỗi check lại kết nối tới server");
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                             return false;
                         }
                         else {
-                            jAlert('Submit thành công!', "THÔNG BÁO", function () {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 window.location.href = "/home";
                             });
                         }
@@ -254,7 +254,7 @@
     function validateAction() {
         var txt_Notice_Number = $("#txt_Notice_Number").val();
         if (txt_Notice_Number == null || txt_Notice_Number == "") {
-            jError("Số thông báo không được để trống", "Lỗi", function () {
+            jError("Số thông báo không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#txt_Notice_Number").focus();
             });
             return false;
@@ -268,7 +268,7 @@
 
         var txt_advise_replies = $('#txt_advise_replies').val();
         if (txt_advise_replies == null || txt_advise_replies == "") {
-            jError('Nội dung chính không được để trống!', "Lỗi", function () {
+            jError('Nội dung chính không được để trống!', "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txt_advise_replies').focus();
             });
             return false;
@@ -283,7 +283,7 @@
 
         var _Note = $('#txtNotes').val();
         if (_Note == null || _Note == "") {
-            jError('Ghi chú không được để trống!', "Lỗi", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.GhiChuKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtNotes').focus();
             });
             return false;

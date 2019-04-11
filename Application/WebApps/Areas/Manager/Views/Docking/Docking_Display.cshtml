@@ -328,7 +328,7 @@
 
     function doDeleteDocking(_id) {
 
-        nvsConfirm(null, "Bạn có chắc chắn muốn xóa tài liệu này không?", function () {
+        nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmDelete)", function () {
             $.ajax({
                 url: "/quan-ly-docking/danh-sach-docking/do-delete-docking",
                 type: "POST",
@@ -343,11 +343,11 @@
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
                     if (data.success == "-1") {
-                        jError("Lỗi check lại kết nối tới server");
+                        jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                         return false;
                     }
                     else {
-                        jAlert('Xóa tài liệu thành công!', "THÔNG BÁO", function () {
+                        jAlert("@Html.Raw(WebApps.Resources.Resource.XoaThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                             Search_Docking(1, 1);
                         });
                     }

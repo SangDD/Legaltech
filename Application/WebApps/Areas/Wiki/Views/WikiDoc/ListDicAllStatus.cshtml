@@ -52,7 +52,7 @@
             <img src="~/Content/icons/Body-icon-home.png" /> I
             <a href="/home">Home</a>
             <span class="red">></span>
-            <a href="/wiki-doc/list">Quản lý Wiki</a>
+            <a href="/wiki-doc/list">@WebApps.Resources.Resource.QuanLyWiki</a>
         </div>
     </div>
     <div class="divCover">
@@ -68,27 +68,27 @@
            <table style="margin:10px 0px">
                <tr>
                    <td>
-                       <a  href="/vi-vn/wiki-manage/wiki-doc/add/0">1. Thêm mới bài viết</a>
+                       <a  href="/vi-vn/wiki-manage/wiki-doc/add/0">1. @WebApps.Resources.Resource.ThemMoi</a>
                    </td>
                </tr>
                <tr>
                    <td>
-                       <a style="@_hef01" href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_luutam">2. Danh sách bài viết lưu tạm</a> 
+                       <a style="@_hef01" href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_luutam">2. @WebApps.Resources.Resource.DanhSachBaiVietLuuTam</a> 
                    </td>
                </tr>
                <tr>
                    <td>
-                       <a  style="@_hef02"  href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_guibai">  3. Danh sách bài viết chờ xử lý</a> 
+                       <a style="@_hef02" href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_guibai">  3. @WebApps.Resources.Resource.DanhSachBaiVietChoXuLy</a> 
                    </td>
                </tr>
                <tr>
                    <td>
-                       <a style="@_hef04" href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_tuchoi">  4. Danh sách bài biết bị từ chối</a>
+                       <a style="@_hef04" href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_tuchoi">  4. @WebApps.Resources.Resource.DanhSachBaiVietBiTuChoi</a>
                    </td>
                </tr>
                <tr>
                    <td>
-                       <a style="@_hef05" href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_daduyet">  5. Danh sách bài biết đã duyệt</a>
+                       <a style="@_hef05" href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_daduyet">  5. @WebApps.Resources.Resource.DanhSachBaiVietDaDuyet</a>
                    </td>
                </tr>
            </table>
@@ -99,7 +99,7 @@
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div style="width: 120px">Chủ đề bài viết</div>
+                    <div style="width: 120px">@WebApps.Resources.Resource.ChuDeBaiViet</div>
                 </div>
                 <div>
                     <div style="width:200px">
@@ -114,7 +114,7 @@
                                }
                            }*@
                            <option value="ALL">
-                               Tất cả
+                               @WebApps.Resources.Resource.TatCa
                            </option>
                            @foreach (WikiCatalogues_Info item in _listcata)
                            {
@@ -128,7 +128,7 @@
                     </div>
                 </div>
                 <div class="div-search-title">
-                    <div style="width: 120px">Tiêu đề/Hashtag</div>
+                    <div style="width: 120px">@WebApps.Resources.Resource.Hashtag</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -141,7 +141,7 @@
 
         <div class="divCover">
             <div class="div-search-btn" style="width:450px;">
-                <input type="button" value="Tìm kiếm" class="btn-default" onclick="findObjects(1, 1)" />
+                <input type="button" value="@WebApps.Resources.Resource.TimKiem" class="btn-default" onclick="findObjects(1, 1)" />
             </div>
         </div>
 
@@ -242,17 +242,17 @@
 
         $('#cboSearchWikiCatalogue').multipleSelect({
             filter: true,
-            noMatchesFound: "Không tìm thấy dữ liệu",
+            noMatchesFound: "@Html.Raw(WebApps.Resources.Resource.KhongTimThayDuLieu)",
             single: true,
             isdatastring: false,
-            placeholder: 'Tìm kiếm chủ đề'
+            placeholder: "@Html.Raw(WebApps.Resources.Resource.TimKiemChuDe)"
         });
 
 
         function doDeleteObject(p_id) {
             try {
 
-                    nvsConfirm(null, "Bạn có chắc chắn muốn xóa bài viết này không?", function () {
+                    nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmDelete)", function () {
                         $.ajax({
                             url: "/wiki-manage/wiki-doc/do-delete-doc",
                             type: "POST",
@@ -267,7 +267,7 @@
                                 //    }
                                 //}
                                 if (data.result >= 0) {
-                                    showSuccess("Xóa dữ liệu thành công!");
+                                    showSuccess("@Html.Raw(WebApps.Resources.Resource.XoaThanhCong)");
                                     window.findObjects(1, 0);
                                 }
                             },
