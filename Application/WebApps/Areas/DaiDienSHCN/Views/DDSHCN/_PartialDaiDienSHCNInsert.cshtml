@@ -112,7 +112,7 @@
         var formData = new FormData();
         var name = $("#txtName_Vi").val();
         if (name == "") {
-            jError("Tên DDSHCN không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+            jError( "@Html.Raw(WebApps.Resources.Resource.DDSHCNTrong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                 $("#txtName_Vi").val('');
                 $("#txtName_Vi").focus();
             });
@@ -120,7 +120,7 @@
         }
         var address = $("#txtAddress_Vi").val();
         if (address == "") {
-            jError("Địa chỉ không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+            jError( "@Html.Raw(WebApps.Resources.Resource.TM2B_DiaChiKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                 $("#txtAddress_Vi").val('');
                 $("#txtAddress_Vi").focus();
             });
@@ -143,7 +143,7 @@
                     return false;
                 }
                 else {
-                    jAlert('Thêm DDSHCN thành công!', "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function ()
+                    jAlert( "@Html.Raw(WebApps.Resources.Resource.ThemThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function ()
                     {
                         ClosePopUpDDSHCN();
                         SearchDDSHCN(1, 1);

@@ -1252,7 +1252,7 @@
                 //2x2 75x75 px
                 if (iheight > 302 || iheight < 75 || iwidth > 302 || iwidth < 75) {
                     _checkanh = 1;
-                    nvsConfirm(null, "Ảnh tải lên không đúng kích cỡ từ 2x2 đến 8x8 ?", function () {
+                    nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.KichThuoc2288)", function () {
                         return true;
                     }, function () {
                         //Callback
@@ -1265,7 +1265,7 @@
             }
             reader.readAsDataURL(this.files[0]);
         } else {
-            nvsAlert("Thông báo", "File tải lên không phải là file ảnh?", "");
+            nvsAlert("@Html.Raw(WebApps.Resources.Resource.ThongBao)", "@Html.Raw(WebApps.Resources.Resource.FileKhongPhaiLaAnh)", "");
             _checkanh = 2;
         }
     };

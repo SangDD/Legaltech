@@ -610,17 +610,17 @@
                 enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.status >= 0) {
-                        jAlert("Sign Up Success!", "Info");
+                        jAlert("@Html.Raw(WebApps.Resources.Resource.SignUpSuccess)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)");
                         funcReset();
                         return true;
                     }
                     else if (data.status == -22) {
-                        jError("The number of email or email was registered!", "Error");
+                        jError("@Html.Raw(WebApps.Resources.Resource.EmailPhoneTrung)", "@Html.Raw(WebApps.Resources.Resource.Loi)");
                         funcReset();
                         return;
                     }
                     else {
-                        jError("Registration failed!", "Error");
+                        jError("@Html.Raw(WebApps.Resources.Resource.SignUpError)","@Html.Raw(WebApps.Resources.Resource.Loi)");
                         funcReset();
                         return;
                     }

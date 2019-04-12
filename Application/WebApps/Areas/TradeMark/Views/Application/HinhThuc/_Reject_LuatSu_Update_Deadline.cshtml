@@ -210,7 +210,7 @@
 
     function do_Submit(_case_code) {
         if (validateAction()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn duyệt nội dung này hay không?", function () {
+            nvsConfirm(null,jAlert("@Html.Raw(WebApps.Resources.Resource.ConfirmApprove)", function () {
 
                 // file copy scan cv trả lời có dấu đỏ của cục
                 var pfile = $("#file_attach_1");//lay du lieu file
@@ -239,7 +239,7 @@
                             return false;
                         }
                         else {
-                            jAlert('Submit thành công!', "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 window.location.href = "/home";
                             });
                         }
@@ -271,7 +271,7 @@
 
         var _Note = $('#txtNotes').val();
         if (_Note == null || _Note == "") {
-            jError('Ghi chú không được để trống!', "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.GhiChuKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtNotes').focus();
             });
             return false;

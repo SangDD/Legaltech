@@ -199,7 +199,7 @@
 	}
 
 	function doDeleteFunction(functionId) {
-		nvsConfirm(null, "Bạn có chắc chắn muốn xóa function này không?", function () {
+		nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmDelete)", function () {
 			$.ajax({
 				url: "/quan-tri-he-thong/quan-ly-chuc-nang/do-delete-function",
 				type: "POST",

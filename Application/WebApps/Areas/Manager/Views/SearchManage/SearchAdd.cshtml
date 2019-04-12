@@ -565,7 +565,7 @@
             });
             var txtAddContent = $("#txtAddContent");
             if (txtAddContent.val().trim() == "") {
-                jError("Mô tả câu hỏi không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                jError("@Html.Raw(WebApps.Resources.Resource.MoTaKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     txtAddContent.val('');
                     txtAddContent.focus();
                 });

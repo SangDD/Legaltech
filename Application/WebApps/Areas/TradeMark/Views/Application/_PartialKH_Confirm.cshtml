@@ -108,7 +108,7 @@
     function validateAction() {
         var _Status = $('#cboConfirm').val();
         if (_Status == null) {
-            jError('Action Confirm can not empty!', "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("Action Confirm" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#cboConfirm').multipleSelect('focus');
             });
             return false;

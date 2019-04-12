@@ -254,7 +254,7 @@
     function validateAction() {
         var txt_Notice_Number = $("#txt_Notice_Number").val();
         if (txt_Notice_Number == null || txt_Notice_Number == "") {
-            jError("Số thông báo không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.SoThongBao)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#txt_Notice_Number").focus();
             });
             return false;
@@ -262,13 +262,13 @@
 
         // check validate ngày
         var txt_notice_date = $("#txt_notice_date").val();
-        if (checkDate("Ngày công bố", "#txt_notice_date", txt_notice_date) == false) {
+        if (checkDate("@Html.Raw(WebApps.Resources.Resource.NgayCongBo)", "#txt_notice_date", txt_notice_date) == false) {
             return false;
         }
 
         var txt_advise_replies = $('#txt_advise_replies').val();
         if (txt_advise_replies == null || txt_advise_replies == "") {
-            jError('Nội dung chính không được để trống!', "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.NoiDungChinh)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txt_advise_replies').focus();
             });
             return false;
@@ -276,7 +276,7 @@
 
         var txt_replies_deadline = $("#txt_replies_deadline").val();
         if (txt_replies_deadline != "" && txt_replies_deadline != "__/__/____") {
-            if (checkDate("Next Deadline", "#txt_replies_deadline", txt_replies_deadline) == false) {
+            if (checkDate("@Html.Raw(WebApps.Resources.Resource.NextDeadline)", "#txt_replies_deadline", txt_replies_deadline) == false) {
                 return false;
             }
         }

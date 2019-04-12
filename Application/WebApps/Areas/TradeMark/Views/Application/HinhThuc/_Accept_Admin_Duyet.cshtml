@@ -149,7 +149,6 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @*<a style="height: 20px !important;" href="javascript:;" onclick="GetView2View_Billing(@_App_Notice_Info.Billing_Id, '@_App_Notice_Info.Case_Code')" > View billing </a>*@
                     @if (_App_Notice_Info.Billing_Id > 0)
                     {
                         <a style="height: 20px !important;" href="javascript:;" onclick="GetView2View_Billing(@_App_Notice_Info.Billing_Id, '@_App_Notice_Info.Case_Code')" > View billing </a>
@@ -170,7 +169,6 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @*<a style="height: 20px !important;" href="@_App_Notice_Info.Billing_Url" download="@_App_Notice_Info.Billing_Url"> @WebApps.Resources.Resource.FileBilling </a>*@
                     @if (_App_Notice_Info.Billing_Id > 0)
                     {
                         <a style="height: 20px !important;" href="@_App_Notice_Info.Billing_Url" download="@_App_Notice_Info.Billing_Url"> @WebApps.Resources.Resource.FileBilling </a>
@@ -188,7 +186,6 @@
     <div class="form-group">
         <div class="form-group-bottom">
             <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Submit" onclick="return do_Submit('@_AppHeaderInfo.Case_Code')" />
-            @*<input type="submit" class="btn-default" value="Reject" onclick="return do_Reject('@_AppHeaderInfo.Case_Code')" />*@
             <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Transfer" onclick="return onTransfer('@_AppHeaderInfo.Case_Code')" />
         </div>
     </div>
@@ -213,7 +210,7 @@
 
     function do_Submit(_case_code) {
         if (validateAction()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn duyệt nội dung này hay không?", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmApprove)", function () {
 
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/accept-admin-approve',
@@ -235,7 +232,7 @@
                             return false;
                         }
                         else {
-                            jAlert('Submit thành công!', "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 window.location.href = "/home";
                             });
                         }
@@ -251,7 +248,7 @@
 
     function do_Reject(_case_code) {
         if (validateAction()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn duyệt nội dung này hay không?", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.TuChoiNoiDung)", function () {
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/accept-admin-approve',
                     type: 'POST',
@@ -272,7 +269,7 @@
                             return false;
                         }
                         else {
-                            jAlert('Submit thành công!', "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 window.location.href = "/home";
                             });
                         }
@@ -294,7 +291,7 @@
     function validateAction() {
         var _Note = $('#txtNotes').val();
         if (_Note == null || _Note == "") {
-            jError('Ghi chú không được để trống!', "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.GhiChuKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtNotes').focus();
             });
             return false;

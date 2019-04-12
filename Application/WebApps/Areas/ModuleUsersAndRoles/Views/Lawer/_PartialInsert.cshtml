@@ -494,38 +494,38 @@
         statusAdd = $('#cboStatusAdd').val();
         GroupIdAdd = $('#cboGroupUser').val();
         if (usernameAdd === "") {
-            jError("Tên đăng nhập không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.TenDangNhap)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtUsernameAdd').focus();
             });
             return false;
         }
 
         if (fullNameAdd === "") {
-            jError("Họ tên không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.HoTen)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtFullNameAdd').focus();
             });
             return false;
         }
 
         if (passwordAdd === "") {
-            jError("Nật khẩu không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.MatKhau)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtPasswordAdd').focus();
             });
             return false;
         }
         if (rePasswordAdd === "") {
-            jError("Xác nhận mật khẩu không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.MatKhauNhacLai)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtRePasswordAdd').focus();
             });
             return false;
         }
         if (passwordAdd.length < 6) {
-            jError("Mật khẩu phải chứa từ 6 đến 64 ký tự!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.DoDaiMK)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtRePasswordAdd').focus();
             });
             return false;
         } else if (passwordAdd !== rePasswordAdd) {
-            jError("Mật khẩu và xác nhận mật khẩu không giống nhau!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.MatKhauKhongGiong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtRePasswordAdd').focus();
                 $("#txtRePasswordAdd").select();
             });
@@ -533,7 +533,7 @@
         }
 
         if ($("#txtAddress").val() === "") {
-            jError("Địa chỉ không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.TM2B_DiaChiKhongDuocDeTrong)" , "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtAddress').val('');
                 $('#txtAddress').focus();
             });
@@ -542,13 +542,13 @@
 
         var txtDateOfBirth = $("#txtDateOfBirthAdd").val();
         if (txtDateOfBirth != "" && txtDateOfBirth != "__/__/____") {
-            if (checkDate("Ngày sinh", "#txtDateOfBirthAdd", txtDateOfBirth) == false) {
+            if (checkDate("@Html.Raw(WebApps.Resources.Resource.NgaySinh)" , "#txtDateOfBirthAdd", txtDateOfBirth) == false) {
                 return false;
             }
         }
 
         if (phoneAdd === "") {
-            jError("Điện thoại không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.DienThoaiKhongDuocDeTrong)" , "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtPhoneAdd').val('');
                 $('#txtPhoneAdd').focus();
             });
@@ -556,12 +556,12 @@
         }
 
         if (emailAdd === "") {
-            jError("Email không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.EmailKhongDuocDeTrong)" , "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtEmailAdd').focus();
             });
             return false;
         } else if (!IsvalidEmail(emailAdd)) {
-            jError("Email không đúng định dạng!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.EmailFormat)" , "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtEmailAdd').focus();
             });
             return false;
@@ -569,14 +569,14 @@
 
         var _cboCountry =  $("#cboCountry").val();
         if (_cboCountry == null) {
-            jError("Quốc tịch không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.QuocTichKhongDuocDeTrong)" , "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#cboCountry').multipleSelect('focus');
             });
             return false;
         }
 
         if (statusAdd == null) {
-            jError("Trạng thái không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.TrangThai)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)"  , "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#cboStatusAdd').focus();
             });
             return false;
@@ -585,7 +585,7 @@
         if (typeAdd == '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Customer)') {
             var _txtcompany_name = $("#txtCompany_Name").val();
             if (_txtcompany_name == null || _txtcompany_name == "") {
-                jError("Tên công ty khách hàng không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                jError("@Html.Raw(WebApps.Resources.Resource.TenCongTyKhongDuocDeTrong)" , "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $('#txtCompany_Name').focus();
                 });
                 return false;
@@ -593,7 +593,7 @@
 
             var _txtmain_business = $("#txtmain_business").val();
             if (txtmain_business == null || txtmain_business == "") {
-                jError("Ngành ngề chín không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                jError("@Html.Raw(WebApps.Resources.Resource.NganhNgheChinhTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $('#txtmain_business').focus();
                 });
                 return false;
@@ -602,7 +602,7 @@
         } else if (typeAdd == '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Lawer)') {
             var _cboLawerType =  $("#cboLawerType").val();
             if (_cboLawerType == null) {
-                jError("Loại luật sư không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                jError("@Html.Raw(WebApps.Resources.Resource.LoaiLuatSu)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $('#cboLawerType').focus();
                 });
                 return false;
@@ -610,14 +610,14 @@
 
             var _txthourly_rate = $("#txthourly_rate").val();
             if (_txthourly_rate == null || _txthourly_rate == "") {
-                jError("Số tiền / 1 giờ (VNĐ) không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                jError("@Html.Raw(WebApps.Resources.Resource.SoTien1GioVND)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $('#txthourly_rate').focus();
                 });
                 return false;
             }
 
             if (_txthourly_rate == "0") {
-                jError("Số tiền / 1 giờ (VNĐ) phải lớn hơn 0!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                jError("@Html.Raw(WebApps.Resources.Resource.SoTien1GioVND)" + "@Html.Raw(WebApps.Resources.Resource.LonHon0)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $("#txthourly_rate").val('');
                     $("#txthourly_rate").focus();
                 });
@@ -626,14 +626,14 @@
 
             var _txthourly_rate_usd = $("#txthourly_rate_usd").val();
             if (_txthourly_rate_usd == null || _txthourly_rate_usd == "") {
-                jError("Số tiền / 1 giờ (USD) không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                jError("@Html.Raw(WebApps.Resources.Resource.SoTien1GioUSD)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $('#txthourly_rate_usd').focus();
                 });
                 return false;
             }
 
             if (_txthourly_rate_usd == "0") {
-                jError("Số tiền / 1 giờ (USD) phải lớn hơn 0!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                jError("@Html.Raw(WebApps.Resources.Resource.SoTien1GioUSD)" + "@Html.Raw(WebApps.Resources.Resource.LonHon0)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $("#txthourly_rate_usd").val('');
                     $("#txthourly_rate_usd").focus();
                 });
@@ -642,7 +642,7 @@
         }
 
         if (GroupIdAdd == "-1") {
-            jError("Loại người dùng không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.NhomQuyen)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#cboGroupUser").focus();
             });
             return false;

@@ -178,13 +178,13 @@
                 async: false, cache: false,
                 success: function (data) {
                     if (data != null && data.status >= 0) {
-                        jAlert("Xử lý thành công!", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                        jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                            window.location.href = "/quan-tri-he-thong/danh-sach-kh-dk";
                         });
                         return true;
                     }
                     else {
-                        nvsError("Xử lý thất bại!", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                        nvsError("@Html.Raw(WebApps.Resources.Resource.LoiXuLyDuLieu)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                         });
                         return;
                     }

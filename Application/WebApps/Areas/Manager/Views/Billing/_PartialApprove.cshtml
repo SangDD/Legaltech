@@ -331,7 +331,7 @@
             }
 
             if ($("txtReject_Reason").val().trim() == "") {
-                jError("Lý do từ chối không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                jError("@Html.Raw(WebApps.Resources.Resource.LyDoKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $("#txtReject_Reason").val('');
                     $('#txtReject_Reason').focus();
                 });

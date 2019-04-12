@@ -340,13 +340,13 @@
 
         // check validate ngày
         var _txt_expected_accept_date = $("#txt_expected_accept_date").val();
-        if (checkDate("Ngày trả kết quả", "#txt_expected_accept_date", _txt_expected_accept_date) == false) {
+        if (checkDate("@Html.Raw(WebApps.Resources.Resource.NgayTraKetQua)", "#txt_expected_accept_date", _txt_expected_accept_date) == false) {
             return false;
         }
 
         var _App_No = $("#txt_App_No").val();
         if (_App_No == null || _App_No == "") {
-            jError("Số đơn không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.SoDon)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#txt_App_No").focus();
             });
             return false;
@@ -364,14 +364,14 @@
         if (pfile.val() != "") {
             var _CheckFile = true;
             var _Len = pfile[0].files[0].name.toString()
-            @*if (_Len.length > 200) {
+            if (_Len.length > 200) {
                 _CheckFile = false;
-                jError("Tên file không được quá 200 ký tự", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                jError("@Html.Raw(WebApps.Resources.Resource.File200KyTu)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $(pfile).focus();
 
                 });
                 return false;
-            }*@
+            }
 
             var _file = pfile[0].files[0];
             var _size = _file.size / 1024 / 1024;
@@ -388,7 +388,7 @@
             }
         }
         else {
-            jError("File copy can't not empty", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.FileCopy)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#btnChooseFile").focus();
             });
             return false;
@@ -398,13 +398,13 @@
         if (pfile_Dich.val() != "") {
             var _CheckFile = true;
             var _Len = pfile_Dich[0].files[0].name.toString()
-            @*if (_Len.length > 200) {
+            if (_Len.length > 200) {
                 _CheckFile = false;
-                jError("Tên file không được quá 200 ký tự", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                jError("@Html.Raw(WebApps.Resources.Resource.File200KyTu)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $(pfile_Dich).focus();
                 });
                 return false;
-            }*@
+            }
 
             var _file = pfile_Dich[0].files[0];
             var _size = _file.size / 1024 / 1024;
@@ -421,7 +421,7 @@
             }
         }
         else {
-            jError("File transalte can't not empty", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.FileDich)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#btnChooseFile").focus();
             });
             return false;

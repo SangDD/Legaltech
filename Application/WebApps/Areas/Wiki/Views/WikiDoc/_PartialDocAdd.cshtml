@@ -248,7 +248,7 @@
                         if (data != null && data.status >= 0) {
                             doUpdateHashTag(data.HashTag, data.status);
                         } else {
-                            jError(AddFail, ThongBao, function () {
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiXuLyDuLieu)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                             });
                         }
                     },
@@ -320,7 +320,7 @@
                         if (data != null && data.status >= 0) {
                             doUpdateHashTag(data.HashTag, data.status);
                         } else {
-                            jError(AddFail, ThongBao, function () {
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiXuLyDuLieu)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                             });
                         }
                     },
@@ -350,7 +350,7 @@
                     async: false,
                     success: function (data) {
                         if (data.status >= 0) {
-                            jAlert(AddSuccess, ThongBao, function () {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.ThemThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 location.href = '@_backhref';
                             });
                         }

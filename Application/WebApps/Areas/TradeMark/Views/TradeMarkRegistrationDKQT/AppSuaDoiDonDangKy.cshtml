@@ -978,7 +978,7 @@
                     jAlert('@WebApps.Resources.Resource.GuiDonThanhCong', ThongBao, function () {
                     });
                 } else {
-                    jError(AddFail, ThongBao, function () {
+                    jError("@Html.Raw(WebApps.Resources.Resource.LoiXuLyDuLieu)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                     });
                 }
             },
@@ -1155,11 +1155,11 @@
             success: function (data) {
                 if (data != null && data.status >= 0) {
 
-                    jAlert(AddSuccess, ThongBao, function () {
+                    jAlert("@Html.Raw(WebApps.Resources.Resource.ThemThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                     });
 
                 } else {
-                    jAlert(AddFail, ThongBao, function () {
+                    jAlert("@Html.Raw(WebApps.Resources.Resource.LoiXuLyDuLieu)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                     });
                 }
             },

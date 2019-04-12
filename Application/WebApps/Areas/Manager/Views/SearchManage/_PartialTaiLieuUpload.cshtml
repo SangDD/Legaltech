@@ -142,21 +142,21 @@
             if (pfile.val() != "") {
                 var _CheckFile = true;
                 var _Len = pfile[0].files[0].name.toString()
-                if (_Len.length > 200) {
+                @*if (_Len.length > 200) {
                     _CheckFile = false;
                     jError("Tên file không được quá 200 ký tự", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                         $(pfile).focus();
 
                     });
                     return false;
-                }
+                }*@
 
                 var _file = pfile[0].files[0];
                 var _size = _file.size / 1024 / 1024;
 
                 if (validateFileName(_file.name) == false) {
                     _CheckFile = false;
-                    jError("Không tải file có tên file được lưu là unicode Tiếng việt có dấu ! ", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                    jError("@Html.Raw(WebApps.Resources.Resource.TaiFileUnicode)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                         $(pfile).focus();
                     });
                     return false;
@@ -169,7 +169,7 @@
                 formdata.append("pInfo.pfiles", _file);
             }
             else {
-                jError("Không có file để tải lên!", "lỗi");
+                jError("@Html.Raw(WebApps.Resources.Resource.TM3B_KhongCoFile)", "@Html.Raw(WebApps.Resources.Resource.Loi)");
                 return;
             }
 

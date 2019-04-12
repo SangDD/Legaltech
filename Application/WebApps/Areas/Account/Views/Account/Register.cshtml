@@ -251,7 +251,7 @@
         try {
             var fname = $("#txtFNAME").val();
             if (fname === "" || fname == undefined) {
-                jError('The registered name is not empty!', "Info", function () {
+                jError("@Html.Raw(WebApps.Resources.Resource.fullNameTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $("#txtFNAME").focus();
                 });
 
@@ -263,7 +263,7 @@
             var email = $("#txtEmail").val();
 
             if (phone === "" && email == "") {
-                jError('Email or Phone number is not empty!', "Info", function () {
+                jError("@Html.Raw(WebApps.Resources.Resource.EmailPhoneTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $("#txtEmail").focus();
                 });
                 return false;
@@ -284,19 +284,19 @@
                 enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.status >= 0) {
-                        jAlert('Sign Up Success!', "Info", function () {
+                        jAlert("@Html.Raw(WebApps.Resources.Resource.SignUpSuccess)","@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                             funcHome();
                         });
 
                         return true;
                     }
                     else if (data.status == -22) {
-                        jError("The number of email or email was registered!", "Error");
+                        jError("@Html.Raw(WebApps.Resources.Resource.EmailPhoneTrung)", "@Html.Raw(WebApps.Resources.Resource.Loi)");
                         funcReset();
                         return;
                     }
                     else {
-                        jError("Registration failed!", "Error");
+                        jError("@Html.Raw(WebApps.Resources.Resource.SignUpError)", "@Html.Raw(WebApps.Resources.Resource.Loi)");
                         funcReset();
                         return;
                     }

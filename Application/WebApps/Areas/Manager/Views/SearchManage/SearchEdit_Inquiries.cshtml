@@ -194,7 +194,7 @@
             var txtClient_Reference = $("#txtClient_Reference");
 
             if (_txtcasename.val().trim() == "") {
-                jError("Case code không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                jError("@Html.Raw(WebApps.Resources.Resource.CaseCodeKhongDuocBoTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     _txtcasename.val('');
                     _txtcasename.focus();
                 });
@@ -222,7 +222,7 @@
              
             var txtAddContent = $("#txtAddContent");
             if (txtAddContent.val().trim() == "") {
-                jError("Mô tả câu hỏi không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                jError("@Html.Raw(WebApps.Resources.Resource.MoTaKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     txtAddContent.val('');
                     txtAddContent.focus();
                 });
@@ -238,12 +238,12 @@
                 enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.success >= 0) {
-                        jAlert('Sửa search thành công!', "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                        jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                             var url = "/quan-ly-search/danh-sach-search";
                             window.location.href = url;
                         });
                     } else {
-                        jError("Có lỗi trong quá trình xử lý dữ liệu");
+                        jError("@Html.Raw(WebApps.Resources.Resource.LoiXuLyDuLieu)");
                         return false;
 
                     }

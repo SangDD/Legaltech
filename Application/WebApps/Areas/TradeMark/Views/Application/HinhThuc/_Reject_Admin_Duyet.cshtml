@@ -154,15 +154,14 @@
         </div>
     </div>
 </div>
-
 <script>
     $(document).ready(function () {
 
     });
-
+     
     function do_Submit(_case_code) {
         if (validateAction()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn duyệt nội dung này hay không?", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmApprove)", function () {
 
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/reject-admin-approve',
@@ -186,7 +185,7 @@
                             return false;
                         }
                         else {
-                            jAlert('Submit thành công!', "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 window.location.href = "/home";
                             });
                         }
@@ -202,7 +201,7 @@
 
     function do_Reject(_case_code) {
         if (validateAction()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn từ chối nội dung này hay không?", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.TuChoiNoiDung)", function () {
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/reject-admin-approve',
                     type: 'POST',
@@ -225,7 +224,7 @@
                             return false;
                         }
                         else {
-                            jAlert('Submit thành công!', "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 window.location.href = "/home";
                             });
                         }
@@ -247,7 +246,7 @@
     function validateAction() {
         var _txt_advise_replies = $('#txt_advise_replies').val();
         if (_txt_advise_replies == null || _txt_advise_replies == "") {
-            jError('Advise trả lời không được để trống!', "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.AdviseTraLoi)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txt_advise_replies').focus();
             });
             return false;
@@ -255,7 +254,7 @@
 
         var _Note = $('#txtNotes').val();
         if (_Note == null || _Note == "") {
-            jError('Ghi chú không được để trống!', "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.GhiChuKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtNotes').focus();
             });
             return false;

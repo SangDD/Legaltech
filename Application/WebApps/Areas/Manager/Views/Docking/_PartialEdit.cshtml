@@ -251,7 +251,7 @@
 
         var App_Case_Code = $("#txtApp_Case_Code").val();
         if (App_Case_Code == null) {
-            jError("Case code không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.CaseCodeKhongDuocBoTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#txtApp_Case_Code").val('');
                 $('#txtApp_Case_Code').focus();
             });
@@ -260,7 +260,7 @@
 
         var _txtDocument_Name = $("#Document_Name").val();
         if (_txtDocument_Name == "") {
-            jError("Tên tài liệu không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.TenTaiLieuKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#Document_Name").val('');
                 $("#Document_Name").focus();
             });

@@ -478,38 +478,38 @@
         statusAdd = $('#cboStatusAdd').val();
         GroupIdAdd = $('#cboGroupUser').val();
         if (usernameAdd === "") {
-            jError("Tên đăng nhập không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.TenDangNhap)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtUsernameAdd').focus();
             });
             return false;
         }
 
         if (fullNameAdd === "") {
-            jError("Họ tên không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.HoTen)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtFullNameAdd').focus();
             });
             return false;
         }
 
         if (passwordAdd === "") {
-            jError("Nật khẩu không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.MatKhau)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtPasswordAdd').focus();
             });
             return false;
         }
         if (rePasswordAdd === "") {
-            jError("Xác nhận mật khẩu không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.MatKhauNhacLai)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtRePasswordAdd').focus();
             });
             return false;
         }
         if (passwordAdd.length < 6) {
-            jError("Mật khẩu phải chứa từ 6 đến 64 ký tự!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.DoDaiMK)"  , "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtRePasswordAdd').focus();
             });
             return false;
         } else if (passwordAdd !== rePasswordAdd) {
-            jError("Mật khẩu và xác nhận mật khẩu không giống nhau!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.MatKhauKhongGiong)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtRePasswordAdd').focus();
                 $("#txtRePasswordAdd").select();
             });
@@ -525,14 +525,14 @@
         //}
 
         if (dateOfBirthAdd != "" && dateOfBirthAdd != window.maskDateTime_N0 && isValidDate_N0(dateOfBirthAdd) === false) {
-            jError("Ngày sinh không đúng định dạng (dd/mm/yyyy)!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.NgaySinh)" + "@Html.Raw(WebApps.Resources.Resource.KhongDungDinhDang)" + " (dd/mm/yyyy)!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtDateOfBirthAdd').focus();
             });
             return false;
         }
 
         if (phoneAdd === "") {
-            jError("Điện thoại không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.DienThoaiKhongDuocDeTrong)" , "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtPhoneAdd').val('');
                 $('#txtPhoneAdd').focus();
             });
@@ -540,12 +540,12 @@
         }
 
         if (emailAdd === "") {
-            jError("Email không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.EmailKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtEmailAdd').focus();
             });
             return false;
         } else if (!IsvalidEmail(emailAdd)) {
-            jError("Email không đúng định dạng!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.EmailFormat)" , "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtEmailAdd').focus();
             });
             return false;
@@ -553,21 +553,21 @@
 
         var _cboCountry =  $("#cboCountry").val();
         if (_cboCountry == null) {
-            jError("Quốc tịch không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.QuocTichKhongDuocDeTrong)" , "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#cboCountry').multipleSelect('focus');
             });
             return false;
         }
 
         if (statusAdd == null) {
-            jError("Trạng thái không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.TrangThai)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#cboStatusAdd').focus();
             });
             return false;
         }
 
         if (GroupIdAdd == "-1") {
-            jError("Loại người dùng không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.NhomQuyen)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#cboGroupUser").focus();
             });
             return false;

@@ -672,11 +672,11 @@
                 enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.status >= 0) {
-                        jAlert(AddSuccess, ThongBao, function () {
+                        jAlert("@Html.Raw(WebApps.Resources.Resource.ThemThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                             window.location = "/trade-mark-mana/quan-ly-don";
                         });
                     } else {
-                        jError(AddFail, ThongBao, function () {
+                        jError("@Html.Raw(WebApps.Resources.Resource.LoiXuLyDuLieu)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                         });
                     }
                 },
@@ -864,11 +864,11 @@
                 enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                 success: function (data) {
                     if (data != null && data.status >= 0) {
-                        jAlert('@Resource.GuiDonThanhCong', ThongBao, function () {
+                        jAlert('@Html.Raw(Resource.GuiDonThanhCong)', '@Html.Raw(Resource.ThongBao)', function () {
                             window.location = "/trade-mark-mana/quan-ly-don";
                         });
                     } else {
-                        jError(AddFail, ThongBao, function () {
+                        jError("@Html.Raw(WebApps.Resources.Resource.LoiXuLyDuLieu)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                         });
                     }
                 },

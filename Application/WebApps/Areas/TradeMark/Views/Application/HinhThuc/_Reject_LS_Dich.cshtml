@@ -190,7 +190,7 @@
 
     function do_Submit(_case_code) {
         if (validateAction()) {
-            nvsConfirm(null, "Bạn có chắc chắn muốn gửi nội dung này hay không?", function () {
+            nvsConfirm(null, jAlert("@Html.Raw(WebApps.Resources.Resource.ConfirmSubmit)", function () {
 
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/reject-lawer-translate',
@@ -214,7 +214,7 @@
                             return false;
                         }
                         else {
-                            jAlert('Submit thành công!', "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                                 window.location.href = "/home";
                             });
                         }
@@ -237,7 +237,7 @@
 
         var _txt_advise_replies = $('#txt_advise_replies').val();
         if (_txt_advise_replies == null || _txt_advise_replies == "") {
-            jError('Advise trả lời không được để trống!', "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.AdviseTraLoi)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txt_advise_replies').focus();
             });
             return false;
@@ -245,7 +245,7 @@
 
         var _txt_advise_replies_trans = $('#txt_advise_replies_trans').val();
         if (_txt_advise_replies_trans == null || _txt_advise_replies_trans == "") {
-            jError('Advise trả lời (TA) không được để trống!', "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.SoThongBao)" + " (TA) " + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txt_advise_replies_trans').focus();
             });
             return false;
@@ -255,7 +255,7 @@
 
         var _Note = $('#txtNotes').val();
         if (_Note == null || _Note == "") {
-            jError('Ghi chú không được để trống!', "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.GhiChuKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtNotes').focus();
             });
             return false;
