@@ -167,45 +167,46 @@
         @* Nhan hieu *@
         <div class="div_full_100_area">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblNhanHieu.ToUpper())
+
             <div class="class_full_div_input_extent">
-
-                <div class="div-search-ad">
-                    <div class="div-search-title">
-                        <div>@WebApps.Resources.Resource.lblMauNhanHieu:</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <select id="cboLogoType" onchange="funcChangeLogoType()" style="width:300px">
-                                @foreach (var item in _lstLogoType)
-                                {
-                                    <option value="@item.CdVal">
-                                        @item.Content
-                                    </option>
-                                }
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="div-search-ad" id="spfontsize" style="display:none">
-                    <div class="div-search-title">
-                        <div>
-                            Font-size
-                        </div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input type="number" onchange="changeFontSize()" id="txtFontSize" value="12" style="height: 24px;width: 300px;padding: 3px 0px 1px 0px;display:none" />
-                        </div>
-                    </div>
-                </div>
-
-
+              
                 <div class="class_left_40">
+
+                    <div class="div-search-ad">
+                        <div class="div-search-title">
+                            <div>@WebApps.Resources.Resource.lblMauNhanHieu:</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <select id="cboLogoType" onchange="funcChangeLogoType()" style="width:300px">
+                                    @foreach (var item in _lstLogoType)
+                                    {
+                                        <option value="@item.CdVal">
+                                            @item.Content
+                                        </option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="div-search-ad" id="spfontsize" style="display:none">
+                        <div class="div-search-title">
+                            <div>
+                                Font-size
+                            </div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <input type="number" onchange="changeFontSize()" id="txtFontSize" value="12" style="height: 24px;width: 300px;padding: 3px 0px 1px 0px;display:none" />
+                            </div>
+                        </div>
+                    </div>
+
                     <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
                        data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
 
-                    <div class="class_block_title_control" style="display:flex">
+                    <div class="class_block_title_control" style="display:flex;margin-top: 10px;">
                         <div style="width:165px ;height:165px;margin-left: 10px;" id="divLogo">
                             <img id="imgMauNhanHieu" src="~/Content/icons/logo.jpg" style="width:160px ;height:160px">
                             <img id="imgMauNhanHieuTeplace" src="~/Content/icons/logo.jpg" hidden="hidden">

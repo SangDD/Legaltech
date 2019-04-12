@@ -376,6 +376,15 @@
             var _file = pfile[0].files[0];
             var _size = _file.size / 1024 / 1024;
 
+            var _check_kyTu = CheckKyTuDacBietShoKyTu(pfile.name);
+            if (_check_kyTu != "") {
+                _CheckFile = false;
+                jAlert("Cảnh báo", "Không tải file có tên file chứa các ký tự | , } { @@ + & = ! ? ; / # \ \" $ % ^ * ( ) < > ` ~ [ ] \\ ", function () {
+                    $(pfile).focus();
+                });
+                return false;
+            }
+
             if (validateFileName(_file.name) == false) {
                 _CheckFile = false;
                 jError("@Html.Raw(WebApps.Resources.Resource.TaiFileUnicode)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
@@ -408,6 +417,15 @@
 
             var _file = pfile_Dich[0].files[0];
             var _size = _file.size / 1024 / 1024;
+
+            var _check_kyTu = CheckKyTuDacBietShoKyTu(pfile_Dich.name);
+            if (_check_kyTu != "") {
+                _CheckFile = false;
+                jAlert("Cảnh báo", "Không tải file có tên file chứa các ký tự | , } { @@ + & = ! ? ; / # \ \" $ % ^ * ( ) < > ` ~ [ ] \\ ", function () {
+                    $(pfile_Dich).focus();
+                });
+                return false;
+            }
 
             if (validateFileName(_file.name) == false) {
                 _CheckFile = false;

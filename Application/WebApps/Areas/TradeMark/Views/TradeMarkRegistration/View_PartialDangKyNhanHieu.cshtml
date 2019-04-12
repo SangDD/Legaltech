@@ -148,6 +148,9 @@
     //disable khi view
     string disableView = @"disabled=disabled";
     ViewBag.disableView = disableView;
+
+    List<AllCodeInfo> _lstLogoType = MemoryData.AllCode_GetBy_CdTypeCdName("NOTICE_APP", "LOGOTYPE");
+
 }
 
 
@@ -203,7 +206,7 @@
                     <div style="width: 200px;">@WebApps.Resources.Resource.lblDonTachRaTuDonSo</div>
                 </div>
                 <div class="div-search-content">
-                    <input type="text"  onblur="return funcDetailDontach();" id="0_txtDonSo" @disableView value="@objAppHeaderInfo.Appno" maxlength="20" placeholder="0_txtDonSo" />
+                    <input type="text" onblur="return funcDetailDontach();" id="0_txtDonSo" @disableView value="@objAppHeaderInfo.Appno" maxlength="20" placeholder="0_txtDonSo" />
                 </div>
 
                 <div class="div-search-title" id="divHrefDetail">
@@ -219,7 +222,7 @@
                     <div>
                         @{
                             string formatDate = objAppHeaderInfo.Duadate.ToString("dd/MM/yyyy");
-                            if(formatDate== "01/01/0001")
+                            if (formatDate == "01/01/0001")
                             {
                                 formatDate = "";
                             }
@@ -268,16 +271,62 @@
             <div class="class_full_div_input">
 
                 @*<div class="class_left_40">
-            <div class="class_block_title" style="padding-top:5px; "><label>@WebApps.Resources.Resource.lblMauNhanHieu:</label> </div>
-            <div class="class_block_title_control" style="display:flex">
-                <div style="width:165px ;height:165px" id="divLogo">
-                    <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
-                </div>
-            </div>
-        </div>*@
+                        <div class="class_block_title" style="padding-top:5px; "><label>@WebApps.Resources.Resource.lblMauNhanHieu:</label> </div>
+                        <div class="class_block_title_control" style="display:flex">
+                            <div style="width:165px ;height:165px" id="divLogo">
+                                <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
+                            </div>
+                        </div>
+                    </div>*@
 
                 <div class="class_left_40">
-                    <div class="class_block_title" style="padding-top:5px; ">
+
+                    <div class="div-search-ad">
+                        <div class="div-search-title">
+                            <div>@WebApps.Resources.Resource.lblMauNhanHieu:</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <select id="cboLogoType" onchange="funcChangeLogoType()" style="width:300px" disabled>
+                                    @foreach (var item in _lstLogoType)
+                                    {
+                                        if (objAppHeaderInfo.Logochu == Convert.ToInt32(item.CdVal))
+                                        {
+                                            <option value="@item.CdVal" selected="selected">
+                                                @item.Content
+                                            </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.CdVal">
+                                                @item.Content
+                                            </option>
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (objAppHeaderInfo.Logochu == 1)
+                    {
+                        <div class="div-search-ad" id="spfontsize">
+                            <div class="div-search-title">
+                                <div>
+                                    Font-size
+                                </div>
+                            </div>
+                            <div class="div-search-content">
+                                <div>
+                                    <input type="number" onchange="changeFontSize()" id="txtFontSize" value="@(objAppHeaderInfo.LOGO_FONT_SIZE==0?12:objAppHeaderInfo.LOGO_FONT_SIZE)" style="height: 24px;width: 300px;padding: 3px 0px 1px 0px;" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+                    @*<div class="class_block_title" style="padding-top:5px; ">
                         <label>@WebApps.Resources.Resource.lblMauNhanHieu :</label>
                         @if (objAppHeaderInfo.Logochu == 1)
                         {
@@ -287,11 +336,13 @@
                         {
                             <input type="checkbox" name="ckbNhanHieuChu" disabled="disabled" id="ckbNhanHieuChu" /> <span>là chữ (font-size)</span>
                         }
-                        <input type="number"  disabled="disabled" id="txtFontSize" value="@objAppHeaderInfo.LOGO_FONT_SIZE" style="height: 17px;width: 40px;padding: 3px 0px 1px 0px;" />
-                    </div>
+                        <input type="number" disabled="disabled" id="txtFontSize" value="@objAppHeaderInfo.LOGO_FONT_SIZE" style="height: 17px;width: 40px;padding: 3px 0px 1px 0px;" />
+                    </div>*@
+
                     <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
                        data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
-                    <div class="class_block_title_control divLogoAnh" style="display:flex">
+
+                    <div class="class_block_title_control divLogoAnh" style="display:flex; margin-top:10px;">
                         @if (objAppHeaderInfo.Logochu != 1)
                         {
                             <div style="width:165px ;height:165px" id="divLogo">
@@ -303,7 +354,7 @@
 
                             <div id="divckbNhanHieuChu">
                                 <div style="width:165px ;height:165px">
-                                    <input type="text" class="classChuNhanHieu" id="txtChuNhanHieu" value="@urlMauNhanHieu" style="height:160px;width:160px;text-align: center;" />
+                                    <input type="text" class="classChuNhanHieu" readonly id="txtChuNhanHieu" value="@urlMauNhanHieu" style="height:160px;width:160px;text-align: center;" />
                                 </div>
                             </div>
                         }
@@ -787,7 +838,7 @@
 
     $(document).ready(function () {
 
-        
+
         //ham 1
         if ($("#0_ckbCoSuDungDonUuTien").is(':checked')) {
             funcEnableDisable('classDacTinhUT', true);
@@ -802,7 +853,7 @@
             funcEnableDisable('classDacTinhHangHoa', true);
         }
 
-        
+
         var SoDonTach = document.getElementById("0_txtDonSo").value;
         if (SoDonTach != "" && SoDonTach != undefined) {
             var url = "";
@@ -885,7 +936,7 @@
         } catch (e) {
         }
     }
-    
+
 </script>
 
 <style>
