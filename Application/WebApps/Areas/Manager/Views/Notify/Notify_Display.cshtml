@@ -13,7 +13,7 @@
     var lstPayStatus = new List<SelectListItem> { new SelectListItem { Text = "Tất cả", Value = "ALL" } }.Concat(_lstPayStatus.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal }));
 
 
-    List<AllCodeInfo> _lstStatus = MemoryData.AllCode_GetBy_CdTypeCdName("BILLING", "STATUS");
+    List<AllCodeInfo> _lstStatus = MemoryData.AllCode_GetBy_CdTypeCdName("TODO", "STATUS");
     var lstStatus = new List<SelectListItem> { new SelectListItem { Text = "Tất cả", Value = "ALL" } }.Concat(_lstStatus.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal }));
 
     string _type = "";
@@ -98,7 +98,21 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.DropDownList("cboStatus", lstStatus, new { @id = "cboStatus" })
+                    <select id="cboStatus">
+                        <option value="ALL">-- ALL --</option>
+                        @foreach (var item in _lstStatus)
+                        {
+                            if (item.CdVal == "0")
+                            {
+                                <option selected="selected" value="@item.CdVal">@item.Content</option>
+                            }
+                            else
+                            {
+                                <option value="@item.CdVal">@item.Content</option>
+                            }
+                        }
+                    </select>
+                    @*@Html.DropDownList("cboStatus", lstStatus, new { @id = "cboStatus" })*@
                 </div>
             </div>
         </div>

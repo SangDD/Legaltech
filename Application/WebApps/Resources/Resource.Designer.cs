@@ -3535,7 +3535,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quốc tịch.
+        ///   Looks up a localized string similar to Quốc gia.
         /// </summary>
         public static string QuocTich {
             get {

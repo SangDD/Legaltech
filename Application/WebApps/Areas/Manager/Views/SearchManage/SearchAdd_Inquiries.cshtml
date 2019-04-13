@@ -55,27 +55,7 @@
         </div>
     </div>
     <div class="divCover">
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div> @WebApps.Resources.Resource.CaseName<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="@WebApps.Resources.Resource.CaseName" maxlength="200" id="_txtcasename" />
-                </div>
-            </div>
-        </div>
 
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div> @WebApps.Resources.Resource.ClientReference </div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input value="" type="text" placeholder="@WebApps.Resources.Resource.ClientReference" maxlength="200" id="txtClient_Reference" />
-                </div>
-            </div>
-        </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
@@ -113,6 +93,37 @@
             </div>
         </div>
 
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div> @WebApps.Resources.Resource.CaseName</div>
+                <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+                   data-title="@WebApps.Resources.Resource.TooltipCaseName"></a>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="@WebApps.Resources.Resource.CaseName" maxlength="200" id="_txtcasename" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div> @WebApps.Resources.Resource.ClientReference </div>
+                <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+                   data-title="@WebApps.Resources.Resource.TooltipClientReference"></a>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input value="" type="text" placeholder="@WebApps.Resources.Resource.ClientReference" maxlength="200" id="txtClient_Reference" />
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top:15px">
+            <div>@WebApps.Resources.Resource.lblMoTa<i class="redspan">(*)</i></div>
+            <textarea type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200"></textarea>
+        </div>
+
         <div class="divCover cls_form_title">
             <img src="/Content/icons/category.png" />
             <div class="cls_form_header">
@@ -127,10 +138,7 @@
             @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile_Local.cshtml", _model1)
         }
 
-        <div style="margin-top:15px">
-            <div>@WebApps.Resources.Resource.lblMoTa<i class="redspan">(*)</i></div>
-            <textarea type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200"></textarea>
-        </div>
+
     </div>
 
     <div class="divCover">
@@ -152,13 +160,13 @@
             var _txtcasename = $("#_txtcasename");
             var txtClient_Reference = $("#txtClient_Reference");
 
-            if (_txtcasename.val().trim() == "") {
+            @*if (_txtcasename.val().trim() == "") {
                 jError("@Html.Raw(WebApps.Resources.Resource.CaseNameTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     _txtcasename.val('');
                     _txtcasename.focus();
                 });
                 return false;
-            }
+            }*@
 
             var _re = checkValidate_File("1");
             if (_re == false) {

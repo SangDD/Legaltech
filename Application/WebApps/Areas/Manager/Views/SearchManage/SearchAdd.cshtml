@@ -156,27 +156,7 @@
         </div>
     </div>
     <div class="divCover">
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div> @WebApps.Resources.Resource.CaseName<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="@WebApps.Resources.Resource.CaseName" maxlength="200" id="_txtcasename" />
-                </div>
-            </div>
-        </div>
 
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div> @WebApps.Resources.Resource.ClientReference </div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input value="" type="text" placeholder="@WebApps.Resources.Resource.ClientReference" maxlength="200" id="txtClient_Reference" />
-                </div>
-            </div>
-        </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
@@ -203,24 +183,6 @@
             </div>
         </div>
 
-        @*<div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@WebApps.Resources.Resource.Object<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <select class="search_object" id="cbosearch_object">
-                        @foreach (AllCodeInfo item in _lstObject)
-                        {
-                            <option value="@item.CdVal">
-                                @item.Content
-                            </option>
-                        }
-                    </select>
-                </div>
-            </div>
-        </div>*@
-
         <div class="div-search-ad">
             <div class="div-search-title">
                 <div>@WebApps.Resources.Resource.YeuCau<i class="redspan">(*)</i></div>
@@ -232,19 +194,29 @@
             </div>
         </div>
 
-        <div class="divCover cls_form_title">
-            <img src="/Content/icons/category.png" />
-            <div class="cls_form_header">
-                Tải file đính kèm
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div> @WebApps.Resources.Resource.CaseName<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="@WebApps.Resources.Resource.CaseName" maxlength="200" id="_txtcasename" />
+                </div>
             </div>
         </div>
-        <br />
-        @{
-            string _id1 = "1";
-            string _isValid1 = "1";
-            string _model1 = _id1 + "|" + _isValid1 + "|" + "File đính kèm";
-            @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile_Local.cshtml", _model1)
-        }
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div> @WebApps.Resources.Resource.ClientReference </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input value="" type="text" placeholder="@WebApps.Resources.Resource.ClientReference" maxlength="200" id="txtClient_Reference" />
+                </div>
+            </div>
+        </div>
+
+
 
         <div class="divCover cls_form_title">
             <img src="/Content/icons/category.png" />
@@ -275,8 +247,8 @@
             </div>
             <div class="div-search-ad" id="spfontsize" style="display:none">
                 <div class="div-search-title">
-                   <div>
-                       Font-size 
+                    <div>
+                        Font-size
                     </div>
                 </div>
                 <div class="div-search-content">
@@ -285,8 +257,8 @@
                     </div>
                 </div>
             </div>
-          
-            
+
+
 
             <div class="class_block_title_control" style="display:flex;padding-top:10px">
                 <div style="width:165px ;height:165px;margin-left: 13px;" id="divLogo">
@@ -425,7 +397,7 @@
 
         @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialAddSearchClass.cshtml")
 
-       
+
 
 
         <div class="divCover cls_form_title">
@@ -449,6 +421,20 @@
             <div>@WebApps.Resources.Resource.lblMoTa<i class="redspan">(*)</i></div>
             <textarea type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200"></textarea>
         </div>
+
+        <div class="divCover cls_form_title">
+            <img src="/Content/icons/category.png" />
+            <div class="cls_form_header">
+                Tải file đính kèm
+            </div>
+        </div>
+        <br />
+        @{
+            string _id1 = "1";
+            string _isValid1 = "0";
+            string _model1 = _id1 + "|" + _isValid1 + "|" + "File đính kèm";
+            @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile_Local.cshtml", _model1)
+        }
     </div>
 
     <div class="divCover">
