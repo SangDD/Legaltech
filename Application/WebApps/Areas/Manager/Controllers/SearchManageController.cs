@@ -15,6 +15,7 @@ using BussinessFacade.ModuleMemoryData;
 using GemBox.Document;
 using BussinessFacade.ModuleUsersAndRoles;
 using System.IO;
+using Common.CommonData;
 
 namespace WebApps.Areas.Manager.Controllers
 {
@@ -288,8 +289,8 @@ namespace WebApps.Areas.Manager.Controllers
                         _rel = _searchBL.Search_Fee_InsertBatch(_lstFee, p_searchHeaderInfo.SEARCH_ID, AppsCommon.GetCurrentLang());
                     }
 
-                //end
-                Commit_Transaction:
+                    //end
+                    Commit_Transaction:
                     if (_rel < 0)
                     {
                         Transaction.Current.Rollback();
@@ -492,8 +493,8 @@ namespace WebApps.Areas.Manager.Controllers
                         _rel = _searchBL.Search_Fee_InsertBatch(_lstFee, p_searchHeaderInfo.SEARCH_ID, AppsCommon.GetCurrentLang());
                     }
 
-                //end
-                Commit_Transaction:
+                    //end
+                    Commit_Transaction:
                     if (_rel < 0)
                     {
                         Transaction.Current.Rollback();
@@ -691,20 +692,108 @@ namespace WebApps.Areas.Manager.Controllers
 
         [HttpPost]
         [Route("tra-loi-search")]
-        public ActionResult DoSearchResult(SearchObject_Question_Info p_SearchObject_Header_Info)
+        public ActionResult DoSearchResult(SearchObject_Question_Info p_SearchObject_Header_Info, Billing_Header_Info p_Billing_Header_Info)
         {
             try
             {
-                p_SearchObject_Header_Info.LANGUAGE_CODE = AppsCommon.GetCurrentLang();
-                p_SearchObject_Header_Info.MODIFIED_BY = SessionData.CurrentUser.Username;
-                p_SearchObject_Header_Info.MODIFIED_DATE = DateTime.Now;
-                p_SearchObject_Header_Info.FILE_URL = AppLoadHelpers.PushFileToServer(p_SearchObject_Header_Info.FileBase_File_Url, AppUpload.Search);
-                p_SearchObject_Header_Info.FILE_URL02 = AppLoadHelpers.PushFileToServer(p_SearchObject_Header_Info.FileBase_File_Url02, AppUpload.Search);
 
-                SearchObject_BL _con = new SearchObject_BL();
-                decimal _ck = _con.SEARCH_RESULT_SEARCH(p_SearchObject_Header_Info);
+                List<Billing_Detail_Info> _lst_billing_detail = AppsCommon.Get_LstFee_Detail(p_SearchObject_Header_Info.CASE_CODE);
+                if (_lst_billing_detail.Count == 0)
+                {
+                    return Json(new { success = "-2" });
+                }
 
+
+
+                decimal _ck = 0;
+                decimal _billing_id = 0;
+                using (var scope = new TransactionScope())
+                {
+
+                    p_SearchObject_Header_Info.LANGUAGE_CODE = AppsCommon.GetCurrentLang();
+                    p_SearchObject_Header_Info.MODIFIED_BY = SessionData.CurrentUser.Username;
+                    p_SearchObject_Header_Info.MODIFIED_DATE = DateTime.Now;
+                    p_SearchObject_Header_Info.FILE_URL = AppLoadHelpers.PushFileToServer(p_SearchObject_Header_Info.FileBase_File_Url, AppUpload.Search);
+                    p_SearchObject_Header_Info.FILE_URL02 = AppLoadHelpers.PushFileToServer(p_SearchObject_Header_Info.FileBase_File_Url02, AppUpload.Search);
+
+                    SearchObject_BL _con = new SearchObject_BL();
+                    _ck = _con.SEARCH_RESULT_SEARCH(p_SearchObject_Header_Info);
+
+                    if (_ck < 0)
+                    {
+                        goto Commit_Transaction;
+                    }
+
+                    // insert billing
+                    SearchObject_BL _SearchObject_BL = new SearchObject_BL();
+                    List<Billing_Detail_Info> _lst_detail = new List<Billing_Detail_Info>();
+                    SearchObject_Header_Info objSearch_HeaderInfo = _SearchObject_BL.GetBilling_By_Case_Code(p_SearchObject_Header_Info.CASE_CODE, SessionData.CurrentUser.Username,
+                        AppsCommon.GetCurrentLang(), ref _lst_detail);
+
+                    Billing_BL _obj_bl = new Billing_BL();
+                    p_Billing_Header_Info.Created_By = SessionData.CurrentUser.Username;
+                    p_Billing_Header_Info.Created_Date = DateTime.Now;
+                    p_Billing_Header_Info.Language_Code = AppsCommon.GetCurrentLang();
+                    p_Billing_Header_Info.Status = (decimal)CommonEnums.Billing_Status.New_Wait_Approve;
+                    p_Billing_Header_Info.Billing_Type = (decimal)CommonEnums.Billing_Type.Search;
+                    p_Billing_Header_Info.Notes = "Billing for case code " + p_SearchObject_Header_Info.CASE_CODE + " - " + p_SearchObject_Header_Info.NOTES;
+
+                    p_Billing_Header_Info.Case_Code = _obj_bl.Billing_GenCaseCode();
+                    p_Billing_Header_Info.App_Case_Code = p_SearchObject_Header_Info.CASE_CODE;
+
+                    p_Billing_Header_Info.Billing_Date = DateTime.Now;
+                    p_Billing_Header_Info.Deadline = DateTime.Now.AddDays(30);
+
+                    p_Billing_Header_Info.Request_By = SessionData.CurrentUser.Username;
+                    p_Billing_Header_Info.Approve_By = "";
+
+                    
+                    foreach (Billing_Detail_Info item in _lst_billing_detail)
+                    {
+                        p_Billing_Header_Info.Total_Pre_Tex = p_Billing_Header_Info.Total_Pre_Tex + item.Total_Fee;
+                    }
+
+                    p_Billing_Header_Info.Tex_Fee = Math.Round(p_Billing_Header_Info.Total_Pre_Tex / 100 * Common.Common.Tax);
+                    p_Billing_Header_Info.Total_Amount = p_Billing_Header_Info.Total_Pre_Tex + p_Billing_Header_Info.Tex_Fee;
+
+                    p_Billing_Header_Info.Currency = objSearch_HeaderInfo.Currency_Type;
+                    p_Billing_Header_Info.Currency_Rate = AppsCommon.Get_Currentcy_VCB();
+
+                    p_Billing_Header_Info.Insert_Type = (decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Search;
+
+                    _billing_id = _obj_bl.Billing_Insert(p_Billing_Header_Info);
+
+                    if (_billing_id > 0 && _lst_billing_detail.Count > 0)
+                    {
+                        _ck = _obj_bl.Billing_Detail_InsertBatch(_lst_billing_detail, _billing_id);
+                    }
+
+                    if (_ck > 0 && p_Billing_Header_Info.Insert_Type == (decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Search)
+                    {
+                        string _fileExport = AppsCommon.Export_Billing(p_Billing_Header_Info.Case_Code);
+                        if (_fileExport == "") goto Commit_Transaction;
+
+                        SearchObject_BL _bl = new SearchObject_BL();
+                        _ck = _bl.Update_Url_Billing(p_Billing_Header_Info.App_Case_Code, _billing_id, _fileExport);
+
+                        // insert vào docking
+                        TradeMark.Controllers.ApplicationController.Insert_Docketing(p_Billing_Header_Info.Case_Code, "Report Billing", _fileExport, true);
+                    }
+
+                    //end
+                    Commit_Transaction:
+                    if (_ck < 0)
+                    {
+                        Transaction.Current.Rollback();
+                    }
+                    else
+                    {
+                        scope.Complete();
+                    }
+                }
                 return Json(new { success = _ck });
+
+
             }
             catch (Exception ex)
             {

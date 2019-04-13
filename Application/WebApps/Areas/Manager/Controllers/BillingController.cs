@@ -277,8 +277,8 @@ namespace WebApps.Areas.Manager.Controllers
                         TradeMark.Controllers.ApplicationController.Insert_Docketing(p_Billing_Header_Info.App_Case_Code, "Report Billing", _fileExport, true);
                     }
 
-                //end
-                Commit_Transaction:
+                    //end
+                    Commit_Transaction:
                     if (_ck < 0)
                     {
                         Transaction.Current.Rollback();
@@ -556,8 +556,8 @@ namespace WebApps.Areas.Manager.Controllers
                         _ck = _obj_bl.Billing_Detail_InsertBatch(_lst_billing_detail, p_Billing_Header_Info.Billing_Id);
                     }
 
-                //end
-                Commit_Transaction:
+                    //end
+                    Commit_Transaction:
                     if (_ck < 0)
                     {
                         Transaction.Current.Rollback();
@@ -1001,7 +1001,7 @@ namespace WebApps.Areas.Manager.Controllers
                         return Json(new { success = _ApplicationHeaderInfo.Billing_Id_Advise });
                     }
                 }
-                else 
+                else
                 {
                     // lấy ở app notice ra
                     App_Notice_Info_BL _bl = new App_Notice_Info_BL();
@@ -1021,5 +1021,114 @@ namespace WebApps.Areas.Manager.Controllers
             }
         }
 
+        [Route("danh-sach-billing/get-view-to-popup-insert")]
+        public ActionResult Get_View_To_Popup_Insert(string p_case_code, decimal p_type)
+        {
+            try
+            {
+                List<Billing_Detail_Info> _lst_billing_detail = AppsCommon.Get_LstFee_Detail(p_case_code);
+                if (_lst_billing_detail.Count > 0)
+                {
+                    foreach (Billing_Detail_Info item in _lst_billing_detail)
+                    {
+                        item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
+                    }
+
+                    string _Currency_Type = (string)SessionData.GetDataSession(p_case_code + "_CURRENCY_TYPE");
+                    if (_Currency_Type != null)
+                    {
+                        ViewBag.Currency_Type = _Currency_Type;
+                    }
+                }
+                else
+                {
+                    // nếu chưa có phí
+                    Billing_BL _obj_bl = new Billing_BL();
+                    ApplicationHeaderInfo objAppHeaderInfo = new ApplicationHeaderInfo();
+                    SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
+                    Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
+                    if (p_case_code.Contains("SEARCH"))
+                    {
+                        SearchObject_BL _bl = new SearchObject_BL();
+                        SearchObject_Header_Info = _bl.GetBilling_By_Case_Code(p_case_code, SessionData.CurrentUser.Username,
+                          AppsCommon.GetCurrentLang(), ref _lst_billing_detail);
+
+                        ViewBag.objSearch_HeaderInfo = SearchObject_Header_Info;
+                        if (SearchObject_Header_Info == null)
+                        {
+                            return Json(new { success = -1 });
+                        }
+
+                        SessionData.SetDataSession(p_case_code + "_CURRENCY_TYPE", SearchObject_Header_Info.Currency_Type);
+                        ViewBag.Currency_Type = SearchObject_Header_Info.Currency_Type;
+                    }
+                    else
+                    {
+                        Application_Header_BL _bl = new Application_Header_BL();
+                        objAppHeaderInfo = _bl.GetBilling_ByAppCase_Code(p_case_code, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang(), ref _lst_billing_detail);
+                        ViewBag.objAppHeaderInfo = objAppHeaderInfo;
+
+                        if (objAppHeaderInfo == null)
+                        {
+                            return Json(new { success = -1 });
+                        }
+
+                        // chỉ lấy những thằng nào mà > đã nộp đơn lên cục
+                        if (objAppHeaderInfo != null && objAppHeaderInfo.Status < (decimal)Common.CommonData.CommonEnums.App_Status.DaNopDon)
+                        {
+                            return Json(new { success = -2 });
+                        }
+
+                        SessionData.SetDataSession(p_case_code + "_CURRENCY_TYPE", objAppHeaderInfo.Currency_Type);
+                        ViewBag.Currency_Type = objAppHeaderInfo.Currency_Type;
+                    }
+
+                    // chi phí khác
+                    Billing_Detail_Info _ChiPhiKhac = new Billing_Detail_Info();
+                    _ChiPhiKhac.Nation_Fee = 0;
+                    _ChiPhiKhac.Represent_Fee = 0;
+                    _ChiPhiKhac.Service_Fee = 0;
+                    _ChiPhiKhac.Biling_Detail_Name = "Chi phí khác";
+                    _ChiPhiKhac.Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Detail_Type.Service);
+                    _lst_billing_detail.Add(_ChiPhiKhac);
+
+                    foreach (Billing_Detail_Info item in _lst_billing_detail)
+                    {
+                        item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
+                    }
+
+                    SessionData.SetDataSession(p_case_code, _lst_billing_detail);
+
+                   
+                }
+
+                ViewBag.List_Billing = _lst_billing_detail;
+                ViewBag.Operator_Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert);
+                ViewBag.ShowPopUp = 1;
+                ViewBag.App_Case_Code = p_case_code;
+
+                if (p_case_code.Contains("SEARCH"))
+                {
+                    //var Partial_AppInfo = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Manager/Views/Billing_Search/_Partial_SearchInfo.cshtml");
+                    var PartialDetail_Insert_Billing = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Manager/Views/Billing_Search/_PartialDetail_Insert_Billing.cshtml");
+
+                    var json = Json(new { success = 1, PartialDetail_Insert_Billing });
+                    return json;
+                }
+                else
+                {
+                    //var Partial_AppInfo = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Manager/Views/Billing/_Partial_AppInfo.cshtml");
+                    var PartialDetail_Insert_Billing = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Manager/Views/Billing/_PartialDetail_Insert_Billing.cshtml");
+                    var json = Json(new { success = 1, PartialDetail_Insert_Billing });
+                    return json;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = 0 });
+            }
+        }
     }
 }

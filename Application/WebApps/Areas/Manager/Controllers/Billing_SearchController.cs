@@ -107,9 +107,12 @@ namespace WebApps.Areas.Manager.Controllers
                 }
 
                 SessionData.SetDataSession(p_case_code, _lst_billing_detail);
+                SessionData.SetDataSession(p_case_code + "_CURRENCY_TYPE", objSearch_HeaderInfo.Currency_Type);
 
                 ViewBag.List_Billing = _lst_billing_detail;
                 ViewBag.Operator_Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert);
+                ViewBag.App_Case_Code = p_case_code;
+                ViewBag.Currency_Type = objSearch_HeaderInfo.Currency_Type;
 
                 var Partial_AppInfo = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Manager/Views/Billing_Search/_Partial_SearchInfo.cshtml");
                 var PartialDetail_Insert_Billing = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Manager/Views/Billing_Search/_PartialDetail_Insert_Billing.cshtml");
@@ -165,7 +168,7 @@ namespace WebApps.Areas.Manager.Controllers
                 p_Billing_Header_Info.Created_Date = DateTime.Now;
                 p_Billing_Header_Info.Language_Code = AppsCommon.GetCurrentLang();
                 p_Billing_Header_Info.Status = (decimal)CommonEnums.Billing_Status.New_Wait_Approve;
-                p_Billing_Header_Info.Billing_Type = (decimal)CommonEnums.Billing_Type.Question;
+                p_Billing_Header_Info.Billing_Type = (decimal)CommonEnums.Billing_Type.Search;
                 decimal _ck = 0;
                 decimal _billing_id = 0;
                 using (var scope = new TransactionScope())
@@ -238,7 +241,15 @@ namespace WebApps.Areas.Manager.Controllers
 
                 SessionData.SetDataSession(p_case_code, _lst_billing_detail);
 
+                ViewBag.App_Case_Code = p_case_code;
                 ViewBag.List_Billing = _lst_billing_detail;
+
+                string _Currency_Type = (string)SessionData.GetDataSession(p_case_code + "_CURRENCY_TYPE");
+                if (_Currency_Type != null)
+                {
+                    ViewBag.Currency_Type = _Currency_Type;
+                }
+
                 return PartialView("~/Areas/Manager/Views/Billing_Search/_PartialDetail_Insert_Billing.cshtml");
             }
             catch (Exception ex)
@@ -266,8 +277,15 @@ namespace WebApps.Areas.Manager.Controllers
                 }
 
                 SessionData.SetDataSession(p_case_code, _lst_billing_detail);
-
                 ViewBag.List_Billing = _lst_billing_detail;
+                ViewBag.App_Case_Code = p_case_code;
+
+                string _Currency_Type = (string)SessionData.GetDataSession(p_case_code + "_CURRENCY_TYPE");
+                if (_Currency_Type != null)
+                {
+                    ViewBag.Currency_Type = _Currency_Type;
+                }
+
                 return PartialView("~/Areas/Manager/Views/Billing_Search/_PartialDetail_Insert_Billing.cshtml");
             }
             catch (Exception ex)

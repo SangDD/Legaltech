@@ -14,6 +14,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Security.Cryptography;
+using ObjectInfos;
+using GemBox.Document;
+using BussinessFacade.ModuleUsersAndRoles;
+using BussinessFacade;
+using WebApps.Session;
+using System.Xml;
+using Newtonsoft.Json;
+using System.Net;
 
 namespace WebApps.CommonFunction
 {
@@ -212,6 +220,157 @@ namespace WebApps.CommonFunction
             }
         }
 
+        public static string Export_Billing(string p_case_code)
+        {
+            try
+            {
+                Billing_BL _obj_bl = new Billing_BL();
+                SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
+                List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
+                Billing_Header_Info _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Code(p_case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
+                foreach (Billing_Detail_Info item in _lst_billing_detail)
+                {
+                    item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
+                }
+
+                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/Report/Biling_Search_Report.doc");
+                //if (_ApplicationHeaderInfo.Customer_Country != Common.Common.Country_VietNam_Id)
+                //    _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/Report/Biling_Report_EN.doc");
+                DocumentModel document = DocumentModel.Load(_fileTemp);
+
+                // Fill export_header
+                string fileName_exp = "/Content/Export/" + "Biling_Search_Report" + p_case_code + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf";
+                string fileName_exp_doc = "/Content/Export/" + "Biling_Search_Report" + p_case_code + DateTime.Now.ToString("yyyyMMddHHmmss") + ".doc";
+
+                string fileName = System.Web.HttpContext.Current.Server.MapPath(fileName_exp);
+                string fileName_doc = System.Web.HttpContext.Current.Server.MapPath(fileName_exp_doc);
+
+                document.MailMerge.FieldMerging += (sender, e) =>
+                {
+                    if (e.IsValueFound)
+                    {
+                        if (e.FieldName == "Text")
+                            ((Run)e.Inline).Text = e.Value.ToString();
+                    }
+                };
+
+                document.MailMerge.Execute(new { DateNo = DateTime.Now.ToString("dd-MM-yyyy") });
+                document.MailMerge.Execute(new { Case_Name = SearchObject_Header_Info.CASE_NAME });
+                document.MailMerge.Execute(new { Client_Reference = SearchObject_Header_Info.CLIENT_REFERENCE });
+                document.MailMerge.Execute(new { Case_Code = SearchObject_Header_Info.CASE_CODE });
+                document.MailMerge.Execute(new { Master_Name = SearchObject_Header_Info.Customer_Name });
+                //document.MailMerge.Execute(new { App_No = SearchObject_Header_Info.App_No });
+                document.MailMerge.Execute(new { Customer_Country_Name = SearchObject_Header_Info.Customer_Country_Name });
+                document.MailMerge.Execute(new { Bill_Code = _Billing_Header_Info.Case_Code });
+
+                document.MailMerge.Execute(new { Total_Amount = _Billing_Header_Info.Total_Amount.ToString("#,##0.##") });
+                document.MailMerge.Execute(new { Total_Pre_Tex = _Billing_Header_Info.Total_Pre_Tex.ToString("#,##0.##") });
+                document.MailMerge.Execute(new { Tex_Fee = _Billing_Header_Info.Tex_Fee.ToString("#,##0.##") });
+                document.MailMerge.Execute(new { Currency = _Billing_Header_Info.Currency });
+
+                document.MailMerge.Execute(new { Deadline = _Billing_Header_Info.Deadline.ToString("dd/MM/yyyy") });
+                document.MailMerge.Execute(new { Billing_Date = _Billing_Header_Info.Billing_Date.ToString("dd/MM/yyyy") });
+
+                // lấy thông tin người dùng
+                UserBL _UserBL = new UserBL();
+                UserInfo userInfo = _UserBL.GetUserByUsername(SearchObject_Header_Info.CREATED_BY);
+                if (userInfo != null)
+                {
+                    document.MailMerge.Execute(new { Contact_Person = userInfo.Contact_Person + " " + userInfo.FullName });
+                    document.MailMerge.Execute(new { Address = userInfo.Address });
+                    document.MailMerge.Execute(new { FullName = userInfo.FullName });
+                }
+                else
+                {
+                    document.MailMerge.Execute(new { Contact_Person = "" });
+                    document.MailMerge.Execute(new { Address = "" });
+                    document.MailMerge.Execute(new { FullName = "" });
+                }
+
+                DataTable dtDetail = new DataTable();
+                dtDetail = ConvertData.ConvertToDatatable<Billing_Detail_Info>(_lst_billing_detail);
+                document.MailMerge.Execute(dtDetail, "TEMP");
+
+                document.Save(fileName, SaveOptions.PdfDefault);
+                //document.Save(fileName_doc, SaveOptions.DocxDefault);
+
+                byte[] fileContents;
+                var options = SaveOptions.PdfDefault;
+                // Save document to DOCX format in byte array.
+                using (var stream = new MemoryStream())
+                {
+                    document.Save(stream, options);
+                    fileContents = stream.ToArray();
+                }
+                Convert.ToBase64String(fileContents);
+
+                return fileName_exp;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return "";
+            }
+        }
+
+        public static List<Billing_Detail_Info> Get_LstFee_Detail(string p_case_code)
+        {
+            try
+            {
+                List<Billing_Detail_Info> _lst_billing_detail = (List<Billing_Detail_Info>)SessionData.GetDataSession(p_case_code);
+                if (_lst_billing_detail == null)
+                {
+                    _lst_billing_detail = new List<Billing_Detail_Info>();
+                }
+
+                foreach (Billing_Detail_Info item in _lst_billing_detail)
+                {
+                    item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
+                }
+
+                return _lst_billing_detail;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<Billing_Detail_Info>();
+            }
+        }
+
+        public static decimal Get_Currentcy_VCB()
+        {
+            try
+            {
+                string _url = CommonFuc.GetConfig("Link_VCB");
+                var response = new WebClient().DownloadString(_url);
+
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(response);
+                var json = JsonConvert.SerializeXmlNode(doc, Newtonsoft.Json.Formatting.None, true);
+
+
+                XmlElement _ExrateList = doc["ExrateList"];
+                foreach (XmlElement item in _ExrateList)
+                {
+
+                    XmlElement _XmlElement = (XmlElement)item;
+                    if (_XmlElement != null)
+                    {
+                        string _currentcy = _XmlElement.GetAttribute("CurrencyCode");
+                        if (_currentcy == "USD")
+                        {
+                            return Convert.ToDecimal(_XmlElement.GetAttribute("Sell"));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            return 0;
+        }
     }
 
 
