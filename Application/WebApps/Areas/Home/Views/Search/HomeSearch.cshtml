@@ -1,4 +1,5 @@
 ﻿@using WebApps.Resources;
+@using WebApps.Session;
 @{
     ViewBag.Title = "Tìm kiếm thông tin";
     Layout = "~/ViewsShared/_LayoutHome.cshtml";
@@ -21,7 +22,11 @@
         _options = (string)ViewBag.Options;
     }
 
-
+    decimal _user_type = 0;
+    if (SessionData.CurrentUser != null)
+    {
+        _user_type = SessionData.CurrentUser.Type;
+    }
 }
 
 <style>
@@ -75,9 +80,14 @@
             <option value="2">
                 @WebApps.Resources.Resource.LuatSu
             </option>
-            <option value="3">
-                @WebApps.Resources.Resource.KhachHang
-            </option>
+
+            @if (_user_type != 3)
+            {
+                <option value="3">
+                    @WebApps.Resources.Resource.KhachHang
+                </option>
+            }
+
             <option value="4">
                 Wiki
             </option>
@@ -104,7 +114,7 @@
         <input type="hidden" id="SortType_4" />
     </div>
 
-    <div class="Homebox" >
+    <div class="Homebox">
         <div id="LegalSearchdivTable" class="LegaldivBoxTable" style="margin-top: 10px;">
             @Html.Partial("/Areas/Home/Views/Shared/_SearchDataAppStatus.cshtml")
         </div>

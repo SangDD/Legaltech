@@ -45,9 +45,22 @@
         </div>
     </div>
 
-    @Html.Partial("/Areas/Manager/Views/SearchManage/_PartialTaiLieuUpload_New.cshtml", new string[] { "ADD_FILE_01", "File đính kèm 1" })
+    @{
+        string _id1 = "1";
+        string _isValid1 = "0";
+        string _model1 = _id1 + "|" + _isValid1 + "|" + @WebApps.Resources.Resource.FileDinhKem;
+        @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile_Local.cshtml", _model1);
+    }
 
-    @Html.Partial("/Areas/Manager/Views/SearchManage/_PartialTaiLieuUpload_New.cshtml", new string[] { "ADD_FILE_02", "File đính kèm 2" })
+    @{
+        string _id2 = "1";
+        string _isValid2 = "0";
+        string _model2 = _id2 + "|" + _isValid2 + "|" + @WebApps.Resources.Resource.FileDinhKem;
+        @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile_Local.cshtml", _model2);
+    }
+
+    @*@Html.Partial("/Areas/Manager/Views/SearchManage/_PartialTaiLieuUpload_New.cshtml", new string[] { "ADD_FILE_01", "File đính kèm 1" })
+        @Html.Partial("/Areas/Manager/Views/SearchManage/_PartialTaiLieuUpload_New.cshtml", new string[] { "ADD_FILE_02", "File đính kèm 2" })*@
 
     <div class="div-search-ad">
         <div class="div-search-title">
@@ -114,8 +127,7 @@
                 else if (data.success == "-1") {
                 }
                 else {
-                    //$("#divInfoApp").html(data.Partial_AppInfo);
-                    $("#divDataBillingDetail").html(data.PartialDetail_Insert_Billing);
+                    $("#divDataBillingDetail").html(data);
                     ShowPopupDialog_Ipace('divWrapperPopUpBilling', "@Html.Raw(WebApps.Resources.Resource.ThongTinPhi)", 500, 1200);
                 }
             }
@@ -143,6 +155,9 @@
                             //jError("Lỗi check lại kết nối tới server", "Lỗi");
                             jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                             return false;
+                        } else if (data.success == "-2") {
+                            jError("@Html.Raw(WebApps.Resources.Resource.KhongCoThongTinBilling)");
+                            return false;
                         }
                         else {
                             jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
@@ -169,13 +184,23 @@
             return false;
         }
 
-        if (CheckValidate_File('ADD_FILE_01')  == false) {
+        var _re = checkValidate_File("1");
+        if (_re == false) {
             return false;
         }
 
-        if (CheckValidate_File('ADD_FILE_02') == false) {
+        var _re = checkValidate_File("2");
+        if (_re == false) {
             return false;
         }
+
+        //if (CheckValidate_File('ADD_FILE_01')  == false) {
+        //    return false;
+        //}
+
+        //if (CheckValidate_File('ADD_FILE_02') == false) {
+        //    return false;
+        //}
 
         return true;
     }
@@ -187,14 +212,26 @@
         formData.append('p_SearchObject_Header_Info.CASE_CODE', '@_SearchObject_Header_Info.CASE_CODE');
         formData.append('p_SearchObject_Header_Info.NOTES', $('#txtNotes').val());
 
-        var pfile = $("#file_attach_ADD_FILE_01");//lay du lieu file
-        var _file = pfile[0].files[0];
+        var pfile = $("#file_attach_1");//lay du lieu file
+        if (pfile.val() != "") {
+            var _file = pfile[0].files[0];
+            formData.append('p_SearchObject_Header_Info.FileBase_File_Url', _file);
+        }
 
-        var pfile_t = $("#file_attach_ADD_FILE_02");//lay du lieu file
-        var _file_t = pfile_t[0].files[0];
+        var pfile_t = $("#file_attach_2");//lay du lieu file
+        if (pfile_t.val() != "") {
+            var _file_t = pfile_t[0].files[0];
+            formData.append('p_SearchObject_Header_Info.FileBase_File_Url02', _file_t);
+        }
 
-        formData.append('p_SearchObject_Header_Info.FileBase_File_Url', _file);
-        formData.append('p_SearchObject_Header_Info.FileBase_File_Url02', _file_t);
+        //var pfile = $("#file_attach_ADD_FILE_01");//lay du lieu file
+        //var _file = pfile[0].files[0];
+
+        //var pfile_t = $("#file_attach_ADD_FILE_02");//lay du lieu file
+        //var _file_t = pfile_t[0].files[0];
+
+        //formData.append('p_SearchObject_Header_Info.FileBase_File_Url', _file);
+        //formData.append('p_SearchObject_Header_Info.FileBase_File_Url02', _file_t);
     }
 
 

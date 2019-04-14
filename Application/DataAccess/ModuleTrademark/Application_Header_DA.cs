@@ -103,7 +103,7 @@ namespace DataAccess.ModuleTrademark
         }
 
 
-        public int AppHeader_Filing_Status(string p_case_code, decimal p_status, string p_app_no, DateTime p_filing_date, DateTime p_expected_accept_date, string p_url_copy,
+        public decimal AppHeader_Filing_Status(string p_case_code, decimal p_status, string p_app_no, DateTime p_filing_date, DateTime p_expected_accept_date, string p_url_copy,
             string p_url_translate, string p_notes, string p_comment_filling,
             string p_Modify_By, DateTime p_Modify_Date, string p_language_code)
         {
@@ -124,7 +124,7 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("p_Modify_Date", OracleDbType.Date, p_Modify_Date, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
                     paramReturn);
-                var result = Convert.ToInt32(paramReturn.Value.ToString());
+                var result = Convert.ToDecimal(paramReturn.Value.ToString());
                 return result;
             }
             catch (Exception ex)

@@ -934,6 +934,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File đính kèm.
+        /// </summary>
+        public static string FileDinhKem {
+            get {
+                return ResourceManager.GetString("FileDinhKem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File tải lên không phải là file ảnh?.
         /// </summary>
         public static string FileKhongPhaiLaAnh {

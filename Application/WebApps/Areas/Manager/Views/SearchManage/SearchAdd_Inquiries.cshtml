@@ -192,11 +192,11 @@
             formData.append("p_searchHeaderInfo.Object_Search", '@Search_Object_Enum.Legal_Inquiries');
 
             // lay du lieu file
-            //var pfile = $("#file_attach_1");//lay du lieu file
-            //if (pfile.val() != "") {
-            //    var _file = pfile[0].files[0];
-            //    formData.append("p_searchHeaderInfo.Url_File_Up", _file);
-            //}
+            var pfile = $("#file_attach_1");//lay du lieu file
+            if (pfile.val() != "") {
+                var _file = pfile[0].files[0];
+                formData.append("p_searchHeaderInfo.Url_File_Up", _file);
+            }
             
             var txtAddContent = $("#txtAddContent");
             if (txtAddContent.val().trim() == "") {
@@ -212,9 +212,13 @@
                 url: '/quan-ly-search/SearchInsert/',
                 type: 'POST',
                 data: formData,
-                processData: false, contentType: false, traditional: true, dataType: "json",
-                enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                async: true, traditional: true, contentType: false, processData: false,
+                headers: { "cache-control": "no-cache" },
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
                 success: function (data) {
+                    CreateRollingWaitingIcon(false);
                     if (data != null && data.success >= 0) {
                         jAlert("@Html.Raw(WebApps.Resources.Resource.ThemThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                             var url = "/quan-ly-search/danh-sach-search";
@@ -227,6 +231,7 @@
                     }
                 },
                 error: function (e) {
+                    CreateRollingWaitingIcon(false);
                     console.log(e);
                 }
             });

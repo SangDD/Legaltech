@@ -154,7 +154,7 @@
                 var _file = pfile[0].files[0];
                 var _size = _file.size / 1024 / 1024;
 
-                var _check_kyTu = CheckKyTuDacBietShoKyTu(pfile.name);
+                @*var _check_kyTu = CheckKyTuDacBietShoKyTu(pfile.name);
                 if (_check_kyTu != "") {
                     _CheckFile = false;
                     jAlert("Cảnh báo", "Không tải file có tên file chứa các ký tự | , } { @@ + & = ! ? ; / # \ \" $ % ^ * ( ) < > ` ~ [ ] \\ ", function () {
@@ -169,7 +169,7 @@
                         $(pfile).focus();
                     });
                     return false;
-                }
+                }*@
                 if (_CheckFile == false) {
                     return false;
                 }

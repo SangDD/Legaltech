@@ -324,68 +324,7 @@
         }
     }
 
-    function doDeleteBillingDetail(_Ref_Id, _type) {
-        try {
-            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmDelete)", function () {
-                $.ajax({
-                    url: '/quan-ly-billing/danh-sach-billing/do-delete-billing-detail',
-                    type: 'POST',
-                    data: {
-                        p_case_code: $("#txtApp_Case_Code").val(),
-                        p_Ref_Id: _Ref_Id,
-                        p_Type: _type
-                    },
-                    async: true, cache: false, traditional: true,
-                    beforeSend: function () {
-                        CreateRollingWaitingIcon(true);
-                    },
-                    success: function (data) {
-                        CreateRollingWaitingIcon(false);
-                        $("#divDataBillingDetail").html(data);
-                    },
-                    error: function (e) {
-                        CreateRollingWaitingIcon(false);
-                        console.log(e);
-                    }
-                });
-            });
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    function onChangeOthersFee(_value) {
-
-        var _amount = 0;
-        if (_value != "") {
-            _amount = parseInt(_value.replace(/,/g, ""));
-        }
-
-        try {
-            $.ajax({
-                url: '/quan-ly-billing/danh-sach-billing/change-other-fee',
-                type: 'POST',
-                data: {
-                    p_case_code: $("#txtApp_Case_Code").val(),
-                    p_amount: _amount
-                },
-                async: true, cache: false, traditional: true,
-                beforeSend: function () {
-                    CreateRollingWaitingIcon(true);
-                },
-                success: function (data) {
-                    CreateRollingWaitingIcon(false);
-                    $("#divDataBillingDetail").html(data);
-                },
-                error: function (e) {
-                    CreateRollingWaitingIcon(false);
-                    console.log(e);
-                }
-            });
-        } catch (e) {
-            console.log(e);
-        }
-    }
+  
 
     function doInsertBilling() {
         if (validateForm()) {

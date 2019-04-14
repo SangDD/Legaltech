@@ -160,33 +160,30 @@
             return false;
         }
 
-        var url = "/quan-ly-billing/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code + "&p_type=" + @(Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Insert_Type.Public_Form));
-        window.open(url);
+        @*var url = "/quan-ly-billing/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code + "&p_type=" + @(Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Insert_Type.Public_Form));
+        window.open(url);*@
 
-        @*$.ajax({
-            type: 'POST',
-            url: '/quan-ly-billing/danh-sach-billing/check-exits-billing/',
+        $.ajax({
+            type: "POST",
+            url: "/quan-ly-billing/danh-sach-billing/get-view-to-popup-insert",
             data: {
-                p_app_case_code: _case_code,
-                p_type: '@Convert.ToDecimal(Common.CommonData.CommonEnums.Notice_Type.CongBo_Don)',
+                p_case_code: _case_code,
+                p_type: 1
             },
             headers: { "cache-control": "no-cache" },
-            async: true, cache: false, traditional: true,
-            beforeSend: function () {
-                CreateRollingWaitingIcon(true);
-            },
+            async: false,
             success: function (data) {
-                CreateRollingWaitingIcon(false);
-                if (data.success > 0) {
-                    var url = "/quan-ly-billing/danh-sach-billing/show-view-billing?id=" + data.success + "&case_code=" + _case_code;
-                    window.open(url);
+                if (data.success == "-2") {
+                    jError("@Html.Raw(WebApps.Resources.Resource.TrangThaiDonKhongHopLe)");
+                }
+                else if (data.success == "-1") {
                 }
                 else {
-                    var url = "/quan-ly-billing/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code + "&p_type=" + @(Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Insert_Type.Public_Form));
-                    window.open(url);
+                    $("#divDataBillingDetail").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPopUpBilling', "@Html.Raw(WebApps.Resources.Resource.ThongTinPhi)", 500, 1200);
                 }
             }
-        });*@
+        });
     }
 
     function do_Submit(_case_code) {

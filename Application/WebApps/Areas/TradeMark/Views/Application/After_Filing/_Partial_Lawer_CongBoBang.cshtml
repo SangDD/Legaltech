@@ -159,7 +159,29 @@
             return false;
         }
 
-        var url = "/quan-ly-billing/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code + "&p_type=" + @(Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Insert_Type.Grant_Public));
+        $.ajax({
+            type: "POST",
+            url: "/quan-ly-billing/danh-sach-billing/get-view-to-popup-insert",
+            data: {
+                p_case_code: _case_code,
+                p_type: 1
+            },
+            headers: { "cache-control": "no-cache" },
+            async: false,
+            success: function (data) {
+                if (data.success == "-2") {
+                    jError("@Html.Raw(WebApps.Resources.Resource.TrangThaiDonKhongHopLe)");
+                }
+                else if (data.success == "-1") {
+                }
+                else {
+                    $("#divDataBillingDetail").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPopUpBilling', "@Html.Raw(WebApps.Resources.Resource.ThongTinPhi)", 500, 1200);
+                }
+            }
+        });
+
+        @*var url = "/quan-ly-billing/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code + "&p_type=" + @(Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Insert_Type.Grant_Public));
         window.open(url);
 
         $.ajax({
@@ -185,7 +207,7 @@
                     window.open(url);
                 }
             }
-        });
+        });*@
     }
 
     function do_Submit(_case_code) {

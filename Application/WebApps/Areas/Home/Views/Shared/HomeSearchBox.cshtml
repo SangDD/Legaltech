@@ -1,5 +1,13 @@
 ﻿@using WebApps.Resources;
+@using WebApps.Session;
 
+@{
+    decimal _user_type = 0;
+    if (SessionData.CurrentUser != null)
+    {
+        _user_type = SessionData.CurrentUser.Type;
+    }
+}
 <style>
 
     .clssbox_search {
@@ -77,9 +85,12 @@
             <option value="2">
                 @WebApps.Resources.Resource.LuatSu
             </option>
-            <option value="3">
-                @WebApps.Resources.Resource.KhachHang
-            </option>
+            @if (_user_type != 3)
+            {
+                <option value="3">
+                    @WebApps.Resources.Resource.KhachHang
+                </option>
+            }
             <option value="4">
                 Wiki
             </option>

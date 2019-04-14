@@ -167,13 +167,13 @@
                 var _file = pfile[0].files[0];
                 var _size = _file.size / 1024 / 1024;
 
-                if (validateFileName(_file.name) == false) {
+                @*if (validateFileName(_file.name) == false) {
                     _CheckFile = false;
                     jError("@Resource.TM3B_TenFileChuaUnicode", "@Resource.TM3B_Loi", function () {
                         $(pfile).focus();
                     });
                     return false;
-                }
+                }*@
                 if (_CheckFile == false) {
                     return false;
                 }

@@ -68,7 +68,7 @@ namespace BussinessFacade.ModuleTrademark
         }
 
 
-        public int AppHeader_Filing_Status(string p_case_code, decimal p_status, string p_app_no,
+        public decimal AppHeader_Filing_Status(string p_case_code, decimal p_status, string p_app_no,
             DateTime p_filing_date, DateTime p_expected_accept_date, string p_url_copy, string p_url_translate, string p_notes, string p_comment_filling,
             string p_Modify_By, DateTime p_Modify_Date, string p_language_code)
         {

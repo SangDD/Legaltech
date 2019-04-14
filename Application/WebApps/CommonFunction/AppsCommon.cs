@@ -371,6 +371,103 @@ namespace WebApps.CommonFunction
 
             return 0;
         }
+
+        public static decimal Insert_Billing(string p_Case_Code, string p_note, decimal p_insert_type, ref string p_fileExport)
+        {
+            try
+            {
+                List<Billing_Detail_Info> _lst_billing_detail = AppsCommon.Get_LstFee_Detail(p_Case_Code);
+                if (_lst_billing_detail.Count == 0)
+                {
+                    return -2;
+                }
+
+                decimal _ck = 0;
+
+                Billing_BL _Billing_BL = new Billing_BL();
+                Billing_Header_Info p_Billing_Header_Info = new Billing_Header_Info();
+                p_Billing_Header_Info.Created_By = SessionData.CurrentUser.Username;
+                p_Billing_Header_Info.Created_Date = DateTime.Now;
+                p_Billing_Header_Info.Language_Code = AppsCommon.GetCurrentLang();
+                p_Billing_Header_Info.Status = (decimal)CommonEnums.Billing_Status.New_Wait_Approve;
+                p_Billing_Header_Info.Billing_Type = (decimal)CommonEnums.Billing_Type.App;
+                if (p_Billing_Header_Info.App_Case_Code.Contains("SEARCH"))
+                    p_Billing_Header_Info.Billing_Type = (decimal)CommonEnums.Billing_Type.Search;
+                p_Billing_Header_Info.Insert_Type = p_insert_type;
+
+                p_Billing_Header_Info.Notes = "Billing for case code " + p_Case_Code + " - " + p_note;
+
+                p_Billing_Header_Info.Case_Code = _Billing_BL.Billing_GenCaseCode();
+                p_Billing_Header_Info.App_Case_Code = p_Case_Code;
+
+                p_Billing_Header_Info.Billing_Date = DateTime.Now;
+                p_Billing_Header_Info.Deadline = DateTime.Now.AddDays(30);
+
+                p_Billing_Header_Info.Request_By = SessionData.CurrentUser.Username;
+                p_Billing_Header_Info.Approve_By = "";
+
+
+                decimal _idBilling = _Billing_BL.Billing_Insert(p_Billing_Header_Info);
+                if (_idBilling > 0 && _lst_billing_detail.Count > 0)
+                {
+                    _ck = _Billing_BL.Billing_Detail_InsertBatch(_lst_billing_detail, _idBilling);
+                }
+
+                p_fileExport = Export_Billing(p_Billing_Header_Info.Case_Code);
+
+                // nếu kết xuất file thành công thì insert vào docking
+                Insert_Docketing(p_Billing_Header_Info.App_Case_Code, "Report Billing", p_fileExport, true);
+
+                return _ck;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
+        public static void Insert_Docketing(string p_app_case_code, string p_doc_name, string p_url_File_Atachment, bool p_is_transaction = false)
+        {
+            try
+            {
+                // insert vào docking để lưu trữ
+                Docking_BL _obj_docBL = new Docking_BL();
+                Docking_Info p_Docking_Info = new Docking_Info();
+                p_Docking_Info.Created_By = SessionData.CurrentUser.Username;
+                p_Docking_Info.Created_Date = DateTime.Now;
+                p_Docking_Info.Language_Code = AppsCommon.GetCurrentLang();
+                p_Docking_Info.Status = (decimal)CommonEnums.Docking_Status.Completed;
+                p_Docking_Info.Docking_Type = (decimal)CommonEnums.Docking_Type_Enum.In_Book;
+                p_Docking_Info.Document_Type = (decimal)CommonEnums.Document_Type_Enum.Khac;
+                p_Docking_Info.Document_Name = p_doc_name;
+                p_Docking_Info.In_Out_Date = DateTime.Now;
+                p_Docking_Info.Isshowcustomer = 1;
+                p_Docking_Info.App_Case_Code = p_app_case_code;
+
+                //
+                string[] _arr = p_url_File_Atachment.Split('/');
+                if (_arr.Length > 0)
+                {
+                    p_Docking_Info.FileName = _arr[_arr.Length - 1];
+                }
+
+                p_Docking_Info.Url = p_url_File_Atachment;
+
+                if (p_is_transaction == false)
+                {
+                    _obj_docBL.Docking_Insert(p_Docking_Info);
+                }
+                else
+                {
+                    _obj_docBL.Docking_Insert_Transaction(p_Docking_Info);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+        }
     }
 
 
@@ -560,7 +657,7 @@ namespace WebApps.CommonFunction
             }
         }
         #endregion
-         
+
         #region Convert DataTable
 
         public static void ConvertArrayListToDataTable(ArrayList arrayList, ref DataTable p_dt)

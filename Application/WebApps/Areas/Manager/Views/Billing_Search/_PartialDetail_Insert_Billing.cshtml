@@ -27,11 +27,11 @@
         _Currency_Type = (string)ViewBag.Currency_Type;
     }
 
-    SearchObject_Header_Info _objSearch_HeaderInfo = new SearchObject_Header_Info();
-    if (ViewBag.objSearch_HeaderInfo != null)
-    {
-        _objSearch_HeaderInfo = (SearchObject_Header_Info)ViewBag.objSearch_HeaderInfo;
-    }
+    //SearchObject_Header_Info _objSearch_HeaderInfo = new SearchObject_Header_Info();
+    //if (ViewBag.objSearch_HeaderInfo != null)
+    //{
+    //    _objSearch_HeaderInfo = (SearchObject_Header_Info)ViewBag.objSearch_HeaderInfo;
+    //}
 
     decimal _tax = Common.Common.Tax;
     decimal _Tex_Fee = 0;
@@ -175,7 +175,8 @@
                     data: {
                         p_case_code: $("#txtApp_Case_CodeP").val(),
                         p_Ref_Id: _Ref_Id,
-                        p_Type: _type
+                        p_Type: _type,
+                        p_ShowPopUp: '@_ShowPopUp'
                     },
                     async: true, cache: false, traditional: true,
                     beforeSend: function () {
@@ -184,6 +185,9 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
                         $("#divDataBillingDetail").html(data);
+                        if (@_ShowPopUp == 1) {
+                            ShowPopupDialog_Ipace('divWrapperPopUpBilling', "@Html.Raw(WebApps.Resources.Resource.ThongTinPhi)", 500, 1200);
+                        }
                     },
                     error: function (e) {
                         CreateRollingWaitingIcon(false);
@@ -209,7 +213,8 @@
                 type: 'POST',
                 data: {
                     p_case_code: $("#txtApp_Case_CodeP").val(),
-                    p_amount: _amount
+                    p_amount: _amount,
+                    p_ShowPopUp: '@_ShowPopUp'
                 },
                 async: true, cache: false, traditional: true,
                 beforeSend: function () {
@@ -218,6 +223,9 @@
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
                     $("#divDataBillingDetail").html(data);
+                    if (@_ShowPopUp == 1) {
+                        ShowPopupDialog_Ipace('divWrapperPopUpBilling', "@Html.Raw(WebApps.Resources.Resource.ThongTinPhi)", 500, 1200);
+                    }
                 },
                 error: function (e) {
                     CreateRollingWaitingIcon(false);

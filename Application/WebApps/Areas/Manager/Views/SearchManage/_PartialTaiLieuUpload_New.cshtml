@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="div-search-title">
-        <div id="@div_filename" style="width: 168px;">Tên file<i class="redspan">(*)</i></div>
+        <div id="@div_filename" style="width: 168px;">@WebApps.Resources.Resource.FileDinhKem<i class="redspan">(*)</i></div>
     </div>
     <div class="div-search-content">
         <div>
@@ -91,13 +91,13 @@
                 //    return false;
                 //}
 
-                if (validateFileName(_file.name) == false) {
+                @*if (validateFileName(_file.name) == false) {
                     _CheckFile = false;
                     jError("@Html.Raw(WebApps.Resources.Resource.TaiFileUnicode)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                         $(pfile).focus();
                     });
                     return false;
-                }
+                }*@
                 if (_CheckFile == false) {
                     return false;
                 }

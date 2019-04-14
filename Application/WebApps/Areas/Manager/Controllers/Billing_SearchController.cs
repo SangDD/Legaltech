@@ -113,6 +113,7 @@ namespace WebApps.Areas.Manager.Controllers
                 ViewBag.Operator_Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert);
                 ViewBag.App_Case_Code = p_case_code;
                 ViewBag.Currency_Type = objSearch_HeaderInfo.Currency_Type;
+                ViewBag.ShowPopUp = 0;
 
                 var Partial_AppInfo = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Manager/Views/Billing_Search/_Partial_SearchInfo.cshtml");
                 var PartialDetail_Insert_Billing = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Manager/Views/Billing_Search/_PartialDetail_Insert_Billing.cshtml");
@@ -189,7 +190,7 @@ namespace WebApps.Areas.Manager.Controllers
                         _ck = _bl.Update_Url_Billing(p_Billing_Header_Info.App_Case_Code, _billing_id, _fileExport);
 
                         // insert vào docking
-                        TradeMark.Controllers.ApplicationController.Insert_Docketing(p_Billing_Header_Info.Case_Code, "Report Billing", _fileExport, true);
+                        AppsCommon.Insert_Docketing(p_Billing_Header_Info.Case_Code, "Report Billing", _fileExport, true);
                     }
 
                     //end
@@ -200,6 +201,7 @@ namespace WebApps.Areas.Manager.Controllers
                     }
                     else
                     {
+                        SessionData.RemoveDataSession(p_Billing_Header_Info.App_Case_Code);
                         scope.Complete();
                     }
                 }
@@ -214,7 +216,7 @@ namespace WebApps.Areas.Manager.Controllers
 
         [HttpPost]
         [Route("do-delete-billing-detail")]
-        public ActionResult doDeleteBillingDetail(string p_case_code, decimal p_Ref_Id, decimal p_Type)
+        public ActionResult doDeleteBillingDetail(string p_case_code, decimal p_Ref_Id, decimal p_Type, decimal p_ShowPopUp)
         {
             try
             {
@@ -243,7 +245,7 @@ namespace WebApps.Areas.Manager.Controllers
 
                 ViewBag.App_Case_Code = p_case_code;
                 ViewBag.List_Billing = _lst_billing_detail;
-
+                ViewBag.ShowPopUp = p_ShowPopUp;
                 string _Currency_Type = (string)SessionData.GetDataSession(p_case_code + "_CURRENCY_TYPE");
                 if (_Currency_Type != null)
                 {
@@ -262,7 +264,7 @@ namespace WebApps.Areas.Manager.Controllers
         // Change
         [HttpPost]
         [Route("change-other-fee")]
-        public ActionResult Change_Others_Fee(string p_case_code, decimal p_amount)
+        public ActionResult Change_Others_Fee(string p_case_code, decimal p_amount, decimal p_ShowPopUp)
         {
             try
             {
@@ -279,7 +281,7 @@ namespace WebApps.Areas.Manager.Controllers
                 SessionData.SetDataSession(p_case_code, _lst_billing_detail);
                 ViewBag.List_Billing = _lst_billing_detail;
                 ViewBag.App_Case_Code = p_case_code;
-
+                ViewBag.ShowPopUp = p_ShowPopUp;
                 string _Currency_Type = (string)SessionData.GetDataSession(p_case_code + "_CURRENCY_TYPE");
                 if (_Currency_Type != null)
                 {

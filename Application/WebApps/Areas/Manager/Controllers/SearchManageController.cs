@@ -704,7 +704,6 @@ namespace WebApps.Areas.Manager.Controllers
                 }
 
 
-
                 decimal _ck = 0;
                 decimal _billing_id = 0;
                 using (var scope = new TransactionScope())
@@ -747,7 +746,7 @@ namespace WebApps.Areas.Manager.Controllers
                     p_Billing_Header_Info.Request_By = SessionData.CurrentUser.Username;
                     p_Billing_Header_Info.Approve_By = "";
 
-                    
+
                     foreach (Billing_Detail_Info item in _lst_billing_detail)
                     {
                         p_Billing_Header_Info.Total_Pre_Tex = p_Billing_Header_Info.Total_Pre_Tex + item.Total_Fee;
@@ -777,7 +776,7 @@ namespace WebApps.Areas.Manager.Controllers
                         _ck = _bl.Update_Url_Billing(p_Billing_Header_Info.App_Case_Code, _billing_id, _fileExport);
 
                         // insert vào docking
-                        TradeMark.Controllers.ApplicationController.Insert_Docketing(p_Billing_Header_Info.Case_Code, "Report Billing", _fileExport, true);
+                        AppsCommon.Insert_Docketing(p_Billing_Header_Info.Case_Code, "Report Billing", _fileExport, true);
                     }
 
                     //end
@@ -788,6 +787,7 @@ namespace WebApps.Areas.Manager.Controllers
                     }
                     else
                     {
+                        SessionData.RemoveDataSession(p_SearchObject_Header_Info.CASE_CODE);
                         scope.Complete();
                     }
                 }

@@ -213,9 +213,9 @@
                         headers: { "cache-control": "no-cache" },
                         async: false,
                         success: function (data) {
-                            if (data.result >= 0) {
+                            if (data.success >= 0) {
                                 showSuccess("@Html.Raw(WebApps.Resources.Resource.XoaThanhCong)");
-                                window.findObjects(1, 0);
+                                findObjects(1, 0);
                             }
                         },
                         error: function (e) {

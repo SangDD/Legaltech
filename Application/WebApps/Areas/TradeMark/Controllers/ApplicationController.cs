@@ -14,6 +14,7 @@ using System.Web;
 using GemBox.Document;
 using BussinessFacade.ModuleUsersAndRoles;
 using System.IO;
+using System.Transactions;
 
 namespace WebApps.Areas.TradeMark.Controllers
 {
@@ -258,7 +259,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 return Json(new { success = "-1" });
             }
         }
-        
+
 
         [HttpPost]
         [Route("quan-ly-don/do-employee-confirm")]
@@ -406,20 +407,85 @@ namespace WebApps.Areas.TradeMark.Controllers
         {
             try
             {
-                Application_Header_BL _obj_bl = new Application_Header_BL();
-                decimal _status = (decimal)CommonEnums.App_Status.DaGuiLenCuc;
-                var url_File_Copy_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Copy_Filing, AppUpload.App);
-                var url_File_Translate_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Translate_Filing, AppUpload.App);
-
-                int _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Case_Code, _status, pInfo.App_No, pInfo.Filing_Date, pInfo.Expected_Accept_Date, url_File_Copy_Filing, url_File_Translate_Filing,
-                    pInfo.Note, pInfo.Comment_Filling, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
-
-                if (_ck >= 0)
+                List<Billing_Detail_Info> _lst_billing_detail = AppsCommon.Get_LstFee_Detail(pInfo.Case_Code);
+                if (_lst_billing_detail.Count == 0)
                 {
-                    Insert_Docketing(pInfo.Case_Code, "File Copy Filing", url_File_Copy_Filing);
-                    Insert_Docketing(pInfo.Case_Code, "File Translate Filing", url_File_Translate_Filing);
+                    return Json(new { success = "-2" });
                 }
 
+                decimal _ck = 0;
+                using (var scope = new TransactionScope())
+                {
+                    Application_Header_BL _obj_bl = new Application_Header_BL();
+                    decimal _status = (decimal)CommonEnums.App_Status.DaGuiLenCuc;
+                    var url_File_Copy_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Copy_Filing, AppUpload.App);
+                    var url_File_Translate_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Translate_Filing, AppUpload.App);
+
+                    _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Case_Code, _status, pInfo.App_No, pInfo.Filing_Date, pInfo.Expected_Accept_Date, url_File_Copy_Filing, url_File_Translate_Filing,
+                      pInfo.Note, pInfo.Comment_Filling, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+
+                    if (_ck >= 0)
+                    {
+                        AppsCommon.Insert_Docketing(pInfo.Case_Code, "File Copy Filing", url_File_Copy_Filing);
+                        AppsCommon.Insert_Docketing(pInfo.Case_Code, "File Translate Filing", url_File_Translate_Filing);
+                    }
+                    else
+                    {
+                        goto Commit_Transaction;
+                    }
+
+                    // insert billing
+                    Billing_BL _Billing_BL = new Billing_BL();
+                    Billing_Header_Info p_Billing_Header_Info = new Billing_Header_Info();
+                    p_Billing_Header_Info.Created_By = SessionData.CurrentUser.Username;
+                    p_Billing_Header_Info.Created_Date = DateTime.Now;
+                    p_Billing_Header_Info.Language_Code = AppsCommon.GetCurrentLang();
+                    p_Billing_Header_Info.Status = (decimal)CommonEnums.Billing_Status.New_Wait_Approve;
+                    p_Billing_Header_Info.Billing_Type = (decimal)CommonEnums.Billing_Type.App;
+                    p_Billing_Header_Info.Notes = "Billing for case code " + pInfo.Case_Code + " - " + pInfo.Note;
+
+                    p_Billing_Header_Info.Case_Code = _Billing_BL.Billing_GenCaseCode();
+                    p_Billing_Header_Info.App_Case_Code = pInfo.Case_Code;
+
+                    p_Billing_Header_Info.Billing_Date = DateTime.Now;
+                    p_Billing_Header_Info.Deadline = DateTime.Now.AddDays(30);
+
+                    p_Billing_Header_Info.Request_By = SessionData.CurrentUser.Username;
+                    p_Billing_Header_Info.Approve_By = "";
+
+                    p_Billing_Header_Info.Insert_Type = (decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Advise_Filling;
+
+                    if (p_Billing_Header_Info.App_Case_Code.Contains("SEARCH"))
+                        p_Billing_Header_Info.Billing_Type = (decimal)CommonEnums.Billing_Type.Search;
+
+                    decimal _idBilling = _Billing_BL.Billing_Insert(p_Billing_Header_Info);
+
+                    if (_idBilling > 0 && _lst_billing_detail.Count > 0)
+                    {
+                        _ck = _Billing_BL.Billing_Detail_InsertBatch(_lst_billing_detail, _idBilling);
+                    }
+
+                    string _fileExport = AppsCommon.Export_Billing(p_Billing_Header_Info.Case_Code);
+                    if (_fileExport == "") goto Commit_Transaction;
+
+                    Application_Header_BL _BL = new Application_Header_BL();
+                    _ck = _BL.AppHeader_Update_Advise_Url_Billing(p_Billing_Header_Info.App_Case_Code, _idBilling, _fileExport);
+
+                    // nếu kết xuất file thành công thì insert vào docking
+                    AppsCommon.Insert_Docketing(p_Billing_Header_Info.App_Case_Code, "Report Billing", _fileExport, true);
+
+                    //end
+                    Commit_Transaction:
+                    if (_ck < 0)
+                    {
+                        Transaction.Current.Rollback();
+                    }
+                    else
+                    {
+                        SessionData.RemoveDataSession(pInfo.Case_Code);
+                        scope.Complete();
+                    }
+                }
                 return Json(new { success = _ck });
             }
             catch (Exception ex)
@@ -445,7 +511,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 if (_ck == 0)
                 {
                     var url_File_Atachment = AppLoadHelpers.PushFileToServer(pInfo.File_Atachment, AppUpload.App);
-                    Insert_Docketing(pInfo.Case_Code, "Tài liệu đính kèm từ khách hàng", url_File_Atachment);
+                    AppsCommon.Insert_Docketing(pInfo.Case_Code, "Tài liệu đính kèm từ khách hàng", url_File_Atachment);
                 }
 
                 return Json(new { success = _ck });
@@ -457,69 +523,38 @@ namespace WebApps.Areas.TradeMark.Controllers
             }
         }
 
-        public static void Insert_Docketing(string p_app_case_code, string p_doc_name, string p_url_File_Atachment, bool p_is_transaction = false)
-        {
-            try
-            {
-                // insert vào docking để lưu trữ
-                Docking_BL _obj_docBL = new Docking_BL();
-                Docking_Info p_Docking_Info = new Docking_Info();
-                p_Docking_Info.Created_By = SessionData.CurrentUser.Username;
-                p_Docking_Info.Created_Date = DateTime.Now;
-                p_Docking_Info.Language_Code = AppsCommon.GetCurrentLang();
-                p_Docking_Info.Status = (decimal)CommonEnums.Docking_Status.Completed;
-                p_Docking_Info.Docking_Type = (decimal)CommonEnums.Docking_Type_Enum.In_Book;
-                p_Docking_Info.Document_Type = (decimal)CommonEnums.Document_Type_Enum.Khac;
-                p_Docking_Info.Document_Name = p_doc_name;
-                p_Docking_Info.In_Out_Date = DateTime.Now;
-                p_Docking_Info.Isshowcustomer = 1;
-                p_Docking_Info.App_Case_Code = p_app_case_code;
-
-                //
-                string[] _arr = p_url_File_Atachment.Split('/');
-                if (_arr.Length > 0)
-                {
-                    p_Docking_Info.FileName = _arr[_arr.Length - 1];
-                }
-
-                p_Docking_Info.Url = p_url_File_Atachment;
-
-                if (p_is_transaction == false)
-                {
-                    _obj_docBL.Docking_Insert(p_Docking_Info);
-                }
-                else
-                {
-                    _obj_docBL.Docking_Insert_Transaction(p_Docking_Info);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-            }
-        }
-
+         
         void AddBilling2Notice(decimal p_insert_billing_type, ref App_Notice_Info pInfo)
         {
             try
             {
-                // url billing
-                string _keyUrlBilling = "BILLING_APP_URL_" + pInfo.Case_Code + "_" + p_insert_billing_type.ToString();
-                string _url_billing = (string)SessionData.GetDataSession(_keyUrlBilling);
-                if (_url_billing != null && _url_billing != "")
-                    pInfo.Billing_Url = _url_billing;
+                string _url_billing = "";
+                decimal _id_billing = AppsCommon.Insert_Billing(pInfo.Case_Code, pInfo.Note, p_insert_billing_type, ref _url_billing);
 
-                // id billing
-                string _keyIdBilling = "BILLING_APP_ID_" + pInfo.Case_Code + "_" + p_insert_billing_type.ToString();
-                decimal _id_billing = (decimal)SessionData.GetDataSession(_keyIdBilling);
                 if (_id_billing > 0)
+                {
+                    pInfo.Billing_Url = _url_billing;
                     pInfo.Billing_Id = _id_billing;
+                }
+
+                //// url billing
+                //string _keyUrlBilling = "BILLING_APP_URL_" + pInfo.Case_Code + "_" + p_insert_billing_type.ToString();
+                //string _url_billing = (string)SessionData.GetDataSession(_keyUrlBilling);
+                //if (_url_billing != null && _url_billing != "")
+                //    pInfo.Billing_Url = _url_billing;
+
+                //// id billing
+                //string _keyIdBilling = "BILLING_APP_ID_" + pInfo.Case_Code + "_" + p_insert_billing_type.ToString();
+                //decimal _id_billing = (decimal)SessionData.GetDataSession(_keyIdBilling);
+                //if (_id_billing > 0)
+                //    pInfo.Billing_Id = _id_billing;
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
             }
         }
+
         #endregion
 
         #region Thông báo hình thức
@@ -637,39 +672,15 @@ namespace WebApps.Areas.TradeMark.Controllers
                     pInfo.Result = (decimal)CommonEnums.Notice_Result.ChapNhan;
                 }
 
-                // Notice_Url 
-                //var url_File_Atachment = "";
-                //if (pInfo.File_Notice_Url != null)
-                //{
-                //    url_File_Atachment = AppLoadHelpers.PushFileToServer(pInfo.File_Notice_Url, AppUpload.App);
-                //    pInfo.Notice_Url = url_File_Atachment;
-                //}
-
-                //// insert vào bảng thông báo
-                //var url_File_AtachmentTrans = "";
-                //if (pInfo.File_Notice_Trans_Url != null)
-                //{
-                //    url_File_AtachmentTrans = AppLoadHelpers.PushFileToServer(pInfo.File_Notice_Trans_Url, AppUpload.App);
-                //    pInfo.Notice_Trans_Url = url_File_AtachmentTrans;
-                //}
-
                 AddBilling2Notice((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Accept_Form, ref pInfo);
 
                 App_Notice_Info_BL _App_Notice_Info_BL = new App_Notice_Info_BL();
                 decimal _ck = _App_Notice_Info_BL.App_Notice_Insert(pInfo, AppsCommon.GetCurrentLang());
 
-                //// insert file vào docketing
-                //if (_ck > 0)
-                //{
-                //    Insert_Docketing(pInfo.Case_Code, "File scan accept form", url_File_Atachment);
-                //    Insert_Docketing(pInfo.Case_Code, "File transalte accept form", url_File_AtachmentTrans);
-                //}
-
                 // update trạng thái đơn trước
                 Application_Header_BL _obj_bl = new Application_Header_BL();
                 _ck = _obj_bl.AppHeader_Update_Status(pInfo.Case_Code, _status_app, pInfo.Note,
                    SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
-
 
                 return Json(new { success = _ck });
             }
@@ -792,7 +803,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                     _ck = _obj_bl.Update_CV_Auto(p_case_code, p_Notice_Type, _fileName, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
 
                     // insert vào docking
-                    TradeMark.Controllers.ApplicationController.Insert_Docketing(p_case_code, "CV Answer", _fileName, false);
+                    AppsCommon.Insert_Docketing(p_case_code, "CV Answer", _fileName, false);
                 }
 
                 return Json(new { success = _ck });
@@ -908,36 +919,13 @@ namespace WebApps.Areas.TradeMark.Controllers
                 else
                 {
                     pInfo.Result = (decimal)CommonEnums.Notice_Result.ChapNhan;
-                }
-
-                //// Notice_Url 
-                //var url_File_Atachment = "";
-                //if (pInfo.File_Notice_Url != null)
-                //{
-                //    url_File_Atachment = AppLoadHelpers.PushFileToServer(pInfo.File_Notice_Url, AppUpload.App);
-                //    pInfo.Notice_Url = url_File_Atachment;
-                //}
-
-                //// insert vào bảng thông báo
-                //var url_File_AtachmentTrans = "";
-                //if (pInfo.File_Notice_Trans_Url != null)
-                //{
-                //    url_File_AtachmentTrans = AppLoadHelpers.PushFileToServer(pInfo.File_Notice_Trans_Url, AppUpload.App);
-                //    pInfo.Notice_Trans_Url = url_File_AtachmentTrans;
-                //}
+                } 
 
                 AddBilling2Notice((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Public_Form, ref pInfo);
 
                 App_Notice_Info_BL _App_Notice_Info_BL = new App_Notice_Info_BL();
                 decimal _ck = _App_Notice_Info_BL.App_Notice_Insert(pInfo, AppsCommon.GetCurrentLang());
-
-                // insert file vào docketing
-                //if (_ck > 0)
-                //{
-                //    Insert_Docketing(pInfo.Case_Code, "File trích xuất Thông báo SHCN", url_File_Atachment);
-                //    Insert_Docketing(pInfo.Case_Code, "File transalte", url_File_AtachmentTrans);
-                //}
-
+                 
                 // update trạng thái đơn trước
                 Application_Header_BL _obj_bl = new Application_Header_BL();
                 _ck = _obj_bl.AppHeader_Update_Status(pInfo.Case_Code, _status_app, pInfo.Note,
@@ -975,33 +963,10 @@ namespace WebApps.Areas.TradeMark.Controllers
                     pInfo.Result = (decimal)CommonEnums.Notice_Result.ChapNhan;
                 }
 
-                // Notice_Url 
-                //var url_File_Atachment = "";
-                //if (pInfo.File_Notice_Url != null)
-                //{
-                //    url_File_Atachment = AppLoadHelpers.PushFileToServer(pInfo.File_Notice_Url, AppUpload.App);
-                //    pInfo.Notice_Url = url_File_Atachment;
-                //}
-
-                //// insert vào bảng thông báo
-                //var url_File_AtachmentTrans = "";
-                //if (pInfo.File_Notice_Trans_Url != null)
-                //{
-                //    url_File_AtachmentTrans = AppLoadHelpers.PushFileToServer(pInfo.File_Notice_Trans_Url, AppUpload.App);
-                //    pInfo.Notice_Trans_Url = url_File_AtachmentTrans;
-                //}
-
                 AddBilling2Notice((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Accept_Content, ref pInfo);
 
                 App_Notice_Info_BL _App_Notice_Info_BL = new App_Notice_Info_BL();
                 decimal _ck = _App_Notice_Info_BL.App_Notice_Insert(pInfo, AppsCommon.GetCurrentLang());
-
-                // insert file vào docketing
-                //if (_ck > 0)
-                //{
-                //    Insert_Docketing(pInfo.Case_Code, "File scan accept form", url_File_Atachment);
-                //    Insert_Docketing(pInfo.Case_Code, "File transalte accept form", url_File_AtachmentTrans);
-                //}
 
                 // update trạng thái đơn trước
                 Application_Header_BL _obj_bl = new Application_Header_BL();
@@ -1037,36 +1002,14 @@ namespace WebApps.Areas.TradeMark.Controllers
                 else
                 {
                     pInfo.Result = (decimal)CommonEnums.Notice_Result.ChapNhan;
-                }
-
-                //// Notice_Url 
-                //var url_File_Atachment = "";
-                //if (pInfo.File_Notice_Url != null)
-                //{
-                //    url_File_Atachment = AppLoadHelpers.PushFileToServer(pInfo.File_Notice_Url, AppUpload.App);
-                //    pInfo.Notice_Url = url_File_Atachment;
-                //}
-
-                //// insert vào bảng thông báo
-                //var url_File_AtachmentTrans = "";
-                //if (pInfo.File_Notice_Trans_Url != null)
-                //{
-                //    url_File_AtachmentTrans = AppLoadHelpers.PushFileToServer(pInfo.File_Notice_Trans_Url, AppUpload.App);
-                //    pInfo.Notice_Trans_Url = url_File_AtachmentTrans;
-                //}
+                } 
 
                 // url billing
                 AddBilling2Notice((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Grant_Accept, ref pInfo);
 
                 App_Notice_Info_BL _App_Notice_Info_BL = new App_Notice_Info_BL();
-                decimal _ck = _App_Notice_Info_BL.App_Notice_Insert(pInfo, AppsCommon.GetCurrentLang());
+                decimal _ck = _App_Notice_Info_BL.App_Notice_Insert(pInfo, AppsCommon.GetCurrentLang()); 
 
-                // insert file vào docketing
-                //if (_ck > 0)
-                //{
-                //    Insert_Docketing(pInfo.Case_Code, "File scan accept form", url_File_Atachment);
-                //    Insert_Docketing(pInfo.Case_Code, "File transalte accept form", url_File_AtachmentTrans);
-                //}
                 // update trạng thái đơn trước
                 Application_Header_BL _obj_bl = new Application_Header_BL();
                 _ck = _obj_bl.AppHeader_Update_Status(pInfo.Case_Code, _status_app, pInfo.Note,
@@ -1102,39 +1045,16 @@ namespace WebApps.Areas.TradeMark.Controllers
                     pInfo.Result = (decimal)CommonEnums.Notice_Result.ChapNhan;
                 }
 
-                //// Notice_Url 
-                //var url_File_Atachment = "";
-                //if (pInfo.File_Notice_Url != null)
-                //{
-                //    url_File_Atachment = AppLoadHelpers.PushFileToServer(pInfo.File_Notice_Url, AppUpload.App);
-                //    pInfo.Notice_Url = url_File_Atachment;
-                //}
-
-                //// insert vào bảng thông báo
-                //var url_File_AtachmentTrans = "";
-                //if (pInfo.File_Notice_Trans_Url != null)
-                //{
-                //    url_File_AtachmentTrans = AppLoadHelpers.PushFileToServer(pInfo.File_Notice_Trans_Url, AppUpload.App);
-                //    pInfo.Notice_Trans_Url = url_File_AtachmentTrans;
-                //}
-
                 // url billing
                 AddBilling2Notice((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Grant_Public, ref pInfo);
 
                 App_Notice_Info_BL _App_Notice_Info_BL = new App_Notice_Info_BL();
                 decimal _ck = _App_Notice_Info_BL.App_Notice_Insert(pInfo, AppsCommon.GetCurrentLang());
 
-                // insert file vào docketing
-                //if (_ck > 0)
-                //{
-                //    Insert_Docketing(pInfo.Case_Code, "File scan accept form", url_File_Atachment);
-                //    Insert_Docketing(pInfo.Case_Code, "File transalte accept form", url_File_AtachmentTrans);
-                //}
                 // update trạng thái đơn trước
                 Application_Header_BL _obj_bl = new Application_Header_BL();
                 _ck = _obj_bl.AppHeader_Update_Status(pInfo.Case_Code, _status_app, pInfo.Note,
                    SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
-
 
                 return Json(new { success = _ck });
             }
@@ -1144,6 +1064,8 @@ namespace WebApps.Areas.TradeMark.Controllers
                 return Json(new { success = "-1" });
             }
         }
+
+
         #endregion
     }
 }
