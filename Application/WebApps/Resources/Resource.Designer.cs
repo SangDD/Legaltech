@@ -1726,7 +1726,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ACCESS IP.
+        ///   Looks up a localized string similar to ACCESS.IP.
         /// </summary>
         public static string lblFeatures {
             get {
