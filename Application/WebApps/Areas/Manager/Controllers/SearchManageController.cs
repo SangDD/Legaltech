@@ -582,15 +582,16 @@ namespace WebApps.Areas.Manager.Controllers
 
         [HttpPost]
         [Route("admin-confirm-a")]
-        public ActionResult DoAdminConfirm(string p_case_code, string p_note)
+        public ActionResult DoAdminConfirm(string p_case_code, decimal p_status, string p_note)
         {
             try
             {
                 SearchObject_BL _con = new SearchObject_BL();
-                decimal _ck = _con.Admin_Update(p_case_code, p_note, AppsCommon.GetCurrentLang(), SessionData.CurrentUser.Username);
+
+                decimal _ck = _con.Admin_Update(p_case_code, p_status, p_note, AppsCommon.GetCurrentLang(), SessionData.CurrentUser.Username);
 
                 // nếu thành công thì gửi email cho khách hàng
-                if (_ck != -1)
+                if (_ck != -1 && p_status == (decimal)CommonSearch.Stt_DaPhanHoi)
                 {
                     // lấy thông tin search
                     SearchObject_BL _searchBL = new SearchObject_BL();
@@ -735,7 +736,7 @@ namespace WebApps.Areas.Manager.Controllers
                     p_Billing_Header_Info.Language_Code = AppsCommon.GetCurrentLang();
                     p_Billing_Header_Info.Status = (decimal)CommonEnums.Billing_Status.New_Wait_Approve;
                     p_Billing_Header_Info.Billing_Type = (decimal)CommonEnums.Billing_Type.Search;
-                    p_Billing_Header_Info.Notes = "Billing for case code " + p_SearchObject_Header_Info.CASE_CODE + " - " + p_SearchObject_Header_Info.NOTES;
+                    p_Billing_Header_Info.Notes = "Billing for case code " + p_SearchObject_Header_Info.CASE_CODE + " - " + p_SearchObject_Header_Info.NOTE;
 
                     p_Billing_Header_Info.Case_Code = _obj_bl.Billing_GenCaseCode();
                     p_Billing_Header_Info.App_Case_Code = p_SearchObject_Header_Info.CASE_CODE;

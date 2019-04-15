@@ -27,7 +27,7 @@ namespace DataAccess
                     new OracleParameter("P_CREATED_BY", OracleDbType.Varchar2, p_SearchObject_Header_Info.CREATED_BY, ParameterDirection.Input),
                     new OracleParameter("P_CREATED_DATE", OracleDbType.Date, p_SearchObject_Header_Info.CREATED_DATE, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, p_SearchObject_Header_Info.LANGUAGE_CODE, ParameterDirection.Input),
-                    new OracleParameter("P_NOTES", OracleDbType.Varchar2, p_SearchObject_Header_Info.NOTES, ParameterDirection.Input),
+                    new OracleParameter("P_NOTES", OracleDbType.Varchar2, p_SearchObject_Header_Info.NOTE, ParameterDirection.Input),
                     new OracleParameter("P_OBJECT_SEARCH", OracleDbType.Decimal, p_SearchObject_Header_Info.Object_Search, ParameterDirection.Input),
                     new OracleParameter("P_URL_FILE", OracleDbType.Varchar2, p_SearchObject_Header_Info.Url_File, ParameterDirection.Input),
                      //HungTD thêm up ảnh
@@ -62,7 +62,7 @@ namespace DataAccess
                     new OracleParameter("P_LAWER_ID", OracleDbType.Decimal, p_SearchObject_Header_Info.LAWER_ID, ParameterDirection.Input),
                     new OracleParameter("P_MODIFIED_BY", OracleDbType.Varchar2, p_SearchObject_Header_Info.MODIFIED_BY, ParameterDirection.Input),
                     new OracleParameter("P_MODIFIED_DATE", OracleDbType.Date, p_SearchObject_Header_Info.MODIFIED_DATE, ParameterDirection.Input),
-                    new OracleParameter("P_NOTES", OracleDbType.Varchar2, p_SearchObject_Header_Info.NOTES, ParameterDirection.Input),
+                    new OracleParameter("P_NOTES", OracleDbType.Varchar2, p_SearchObject_Header_Info.NOTE, ParameterDirection.Input),
                     new OracleParameter("P_OBJECT_SEARCH", OracleDbType.Decimal, p_SearchObject_Header_Info.Object_Search, ParameterDirection.Input),
                     new OracleParameter("P_URL_FILE", OracleDbType.Varchar2, p_SearchObject_Header_Info.Url_File, ParameterDirection.Input),
                      //HungTD thêm up ảnh
@@ -323,7 +323,7 @@ namespace DataAccess
             }
         }
 
-        public decimal Admin_Update(string p_case_code, string p_notes, string p_language_code, string p_modified_by)
+        public decimal Admin_Update(string p_case_code, decimal p_status, string p_notes, string p_language_code, string p_modified_by)
         {
             try
             {
@@ -331,6 +331,7 @@ namespace DataAccess
                 paramReturn.Size = 10;
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SEARCH_OBJECTS.proc_admin_comment",
                     new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
+                    new OracleParameter("p_status", OracleDbType.Decimal, p_status, ParameterDirection.Input),
                     new OracleParameter("p_notes", OracleDbType.Varchar2, p_notes, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
                     new OracleParameter("p_modified_by", OracleDbType.Varchar2, p_modified_by, ParameterDirection.Input),

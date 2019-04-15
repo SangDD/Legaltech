@@ -115,7 +115,8 @@
 
     <div class="form-group">
         <div class="form-group-bottom">
-            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Submit" onclick="return doConfirm()" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Accept" onclick="return doConfirm()" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Reject" onclick="return doReject()" />
         </div>
     </div>
 </div>
@@ -133,6 +134,42 @@
                     type: 'POST',
                     data: {
                         p_case_code: '@_SearchObject_Header_Info.CASE_CODE',
+                        p_status: '@Common.CommonData.CommonSearch.Stt_DaPhanHoi',
+                        p_note: $('#txtNotes').val()
+                    },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
+                            return false;
+                        }
+                        else {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                                window.location.href = "/home";
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            });
+        }
+    }
+
+    function doReject() {
+        if (validateAction()) {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.TuChoiNoiDung)", function () {
+                $.ajax({
+                    url: '/quan-ly-search/admin-confirm-a',
+                    type: 'POST',
+                    data: {
+                        p_case_code: '@_SearchObject_Header_Info.CASE_CODE',
+                        p_status: '@Common.CommonData.CommonSearch.Admin_Reject',
                         p_note: $('#txtNotes').val()
                     },
                     async: true, cache: false, traditional: true,

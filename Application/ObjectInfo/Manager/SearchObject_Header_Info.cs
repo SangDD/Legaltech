@@ -40,7 +40,7 @@ namespace ObjectInfos
 
         public string LANGUAGE_CODE { get; set; }
 
-        public string NOTES { get; set; }
+        public string NOTE { get; set; }
 
         public string LAWER_NAME { get; set; }
         public string Lawer_User_Name { get; set; }

@@ -516,7 +516,7 @@
             formData.append("p_searchHeaderInfo.CLIENT_REFERENCE", txtClient_Reference.val());
             formData.append("p_searchHeaderInfo.STATUS", '@CommonSearch.Stt_PhanChoLuatSu');
             formData.append("p_searchHeaderInfo.Country_Id", $("#cboCountry").val());
-            formData.append("p_searchHeaderInfo.Notes", $("#txtNotes").val());
+            formData.append("p_searchHeaderInfo.Note", $("#txtNotes").val());
             formData.append("p_searchHeaderInfo.Object_Search", '@Search_Object_Enum.Trademark');
 
             //hungtd thêm up ảnh
@@ -569,8 +569,13 @@
                 type: 'POST',
                 data: formData,
                 processData: false, contentType: false, traditional: true, dataType: "json",
-                enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                enctype: 'multipart/form-data',
+                async: false, headers: { "cache-control": "no-cache" }, 
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
                 success: function (data) {
+                    CreateRollingWaitingIcon(false);
                     if (data != null && data.success >= 0) {
                         jAlert("@Html.Raw(WebApps.Resources.Resource.ThemThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                             var url = "/quan-ly-search/danh-sach-search";

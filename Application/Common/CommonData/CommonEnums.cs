@@ -250,6 +250,13 @@
         public const int Legal_Inquiries = 3;
     }
 
+    public class Search_Status_Enum
+    {
+        public const int Trademark = 1;
+        public const int Patent = 2;
+        public const int Legal_Inquiries = 3;
+    }
+
     public class B_Todo
     {
         public const string TypeRequest = "ORDER";
@@ -262,5 +269,7 @@
         public const int Stt_ChoLuatSuPhanHoi = 2;              // chờ luật sư phản hồi
         public const int Stt_ChoAdminDuyet = 3;                 // chờ admin duyệt
         public const int Stt_DaPhanHoi = 4;                     // duyệt xong thì phản hồi cho khách hàng
+        public const int Admin_Reject = 5;                      // admin reject
+
     }
 }

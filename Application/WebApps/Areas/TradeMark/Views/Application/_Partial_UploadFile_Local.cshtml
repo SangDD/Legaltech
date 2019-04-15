@@ -49,7 +49,7 @@
             <input type="text" id="@txtMaxFile" readonly="readonly" />
             @*<a id="@txtMaxFile" style="height: 20px !important;">
 
-            </a>*@
+                </a>*@
         </div>
     </div>
 </div>
@@ -144,7 +144,7 @@
             var _lblName = $("#lblName_" + p_AfterID).val();
 
             if (_txtIsValid == "1" && pfile.val() == "") {
-                jError(_lblName + " không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                jError(_lblName + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $("#btnChooseFile_" + p_AfterID).focus();
                 });
                 return false;
@@ -161,25 +161,9 @@
                     return false;
                 }
 
-                var _file = pfile[0].files[0];
-                var _size = _file.size / 1024 / 1024;
-
-                //var _check_kyTu = CheckKyTuDacBietShoKyTu(pfile.name);
-                //if (_check_kyTu != "") {
-                //    _CheckFile = false;
-                //    jAlert("Cảnh báo", "Không tải file có tên file chứa các ký tự | , } { @@ + & = ! ? ; / # \ \" $ % ^ * ( ) < > ` ~ [ ] \\ ", function () {
-                //        $(pfile).focus();
-                //    });
-                //    return false;
-                //}
-
-                @*if (validateFileName(_file.name) == false) {
-                    _CheckFile = false;
-                    jError("@Html.Raw(WebApps.Resources.Resource.TaiFileUnicode)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
-                        $(pfile).focus();
-                    });
-                    return false;
-                }*@
+                //var _file = pfile[0].files[0];
+                //var _size = _file.size / 1024 / 1024;
+                 
                 if (_CheckFile == false) {
                     return false;
                 }

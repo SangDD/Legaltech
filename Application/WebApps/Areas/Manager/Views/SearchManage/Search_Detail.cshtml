@@ -280,6 +280,10 @@
             {
                 @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialAdminConfirm.cshtml")
             }
+            else if (_currstatus == CommonSearch.Admin_Reject)
+            {
+                @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialAdmin_Reject.cshtml")
+            }
         </div>
     }
 
