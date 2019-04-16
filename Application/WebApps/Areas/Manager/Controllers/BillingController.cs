@@ -523,7 +523,8 @@ namespace WebApps.Areas.Manager.Controllers
                 if (p_app_case_code.Contains("SEARCH"))
                 {
                     ViewBag.objSearch_HeaderInfo = SearchObject_Header_Info;
-                    return PartialView("~/Areas/Manager/Views/Billing_Search/_PartialEdit.cshtml", _Billing_Header_Info);
+                    //return PartialView("~/Areas/Manager/Views/Billing_Search/_PartialEdit.cshtml", _Billing_Header_Info);
+                    return PartialView("~/Areas/Manager/Views/Billing/_PartialEdit.cshtml", _Billing_Header_Info);
                 }
                 else
                 {
@@ -537,6 +538,7 @@ namespace WebApps.Areas.Manager.Controllers
                 return PartialView("~/Areas/Manager/Views/Billing/_PartialEdit.cshtml");
             }
         }
+
 
         [HttpPost]
         [Route("danh-sach-billing/do-edit-billing")]

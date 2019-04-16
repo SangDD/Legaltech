@@ -52,7 +52,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" value="@_SearchObject_Header_Info.NOTE" maxlength="2000" />
+                <input type="text" value="@_SearchObject_Header_Info.NOTE" maxlength="2000" disabled />
             </div>
         </div>
     </div>
@@ -70,16 +70,33 @@
         </div>
     </div>
 
-    <div class="div-search-ad">
-        <div class="div-search-title">
-            <div>@WebApps.Resources.Resource.Billing<i class="redspan">(*)</i></div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <a style="height: 20px !important;" href="javascript:;" onclick="getView2Insert('@_SearchObject_Header_Info.CASE_CODE')"> Yes </a>
+    @if (_SearchObject_Header_Info.Billing_Id > 0)
+    {
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.Billing<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <a style="height: 20px !important;" href="javascript:;" onclick="getView2EditBilling(@_SearchObject_Header_Info.Billing_Id)"> Edit </a>
+                </div>
             </div>
         </div>
-    </div>
+    }
+    else
+    {
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.Billing<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <a style="height: 20px !important;" href="javascript:;" onclick="getView2Insert('@_SearchObject_Header_Info.CASE_CODE')"> Yes </a>
+                </div>
+            </div>
+        </div>
+    }
+
 
     <div class="div-search-ad">
         <div class="div-search-title">
@@ -113,6 +130,21 @@
 
     function ClosePopUpBilling() {
         CloseDivPopUp('divWrapperPopUpBilling');
+    }
+
+    function getView2EditBilling(_billingId) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+            var _app_case_code = "";
+
+            var url = "/quan-ly-billing/danh-sach-billing/show-edit?p_id=" + _billingId + "&p_app_case_code=" + _app_case_code;
+            window.open(url);
+
+        } catch (e) {
+
+        }
     }
 
     function getView2Insert(_case_code) {
