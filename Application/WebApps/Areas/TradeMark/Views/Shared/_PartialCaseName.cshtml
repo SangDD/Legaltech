@@ -36,7 +36,7 @@
 <div class="div-search-ad">
     <div class="div-search-title">
         <div>
-            @WebApps.Resources.Resource.CaseName <i class="redspan">(*)</i>
+            @WebApps.Resources.Resource.CaseName  
 
         </div>
         <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
@@ -53,7 +53,7 @@
 <div class="div-search-ad">
     <div class="div-search-title">
         <div style="width: 200px;">
-            @WebApps.Resources.Resource.ClientReference <i class="redspan">(*)</i>
+            @WebApps.Resources.Resource.ClientReference  
         </div>
         <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
            data-title="@WebApps.Resources.Resource.TooltipClientReference"></a>
@@ -70,17 +70,17 @@
         try {
              
             var txtCase_Name = $("#" + PreID + "_txtCase_Name").val();
-            if (txtCase_Name === "") {
+            @*if (txtCase_Name === "") {
                 $("#" + PreID + "_txtCase_Name").focus().val('');
                 showError('@Resource.CaseNameTrong');
                 return false;
-            }
+            }*@
             var txtClient_Reference = $("#" + PreID + "_txtClient_Reference").val();
-            if (txtClient_Reference === "") {
+            @*if (txtClient_Reference === "") {
                 $("#" + PreID + "_txtClient_Reference").focus().val('');
                 showError('@Resource.ClientReferenceTrong');
                 return false;
-            }
+            }*@
 
             //Chủ đơn
             formData.append("pInfo.Case_Name", txtCase_Name);

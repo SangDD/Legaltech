@@ -709,10 +709,10 @@ namespace WebApps.Areas.Manager.Controllers
                 decimal _billing_id = 0;
                 using (var scope = new TransactionScope())
                 {
-
                     p_SearchObject_Header_Info.LANGUAGE_CODE = AppsCommon.GetCurrentLang();
                     p_SearchObject_Header_Info.MODIFIED_BY = SessionData.CurrentUser.Username;
                     p_SearchObject_Header_Info.MODIFIED_DATE = DateTime.Now;
+
                     p_SearchObject_Header_Info.FILE_URL = AppLoadHelpers.PushFileToServer(p_SearchObject_Header_Info.FileBase_File_Url, AppUpload.Search);
                     p_SearchObject_Header_Info.FILE_URL02 = AppLoadHelpers.PushFileToServer(p_SearchObject_Header_Info.FileBase_File_Url02, AppUpload.Search);
 
@@ -725,6 +725,7 @@ namespace WebApps.Areas.Manager.Controllers
                     }
 
                     // insert billing
+                    // lấy thông tin cũ
                     SearchObject_BL _SearchObject_BL = new SearchObject_BL();
                     List<Billing_Detail_Info> _lst_detail = new List<Billing_Detail_Info>();
                     SearchObject_Header_Info objSearch_HeaderInfo = _SearchObject_BL.GetBilling_By_Case_Code(p_SearchObject_Header_Info.CASE_CODE, SessionData.CurrentUser.Username,

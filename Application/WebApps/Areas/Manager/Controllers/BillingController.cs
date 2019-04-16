@@ -510,8 +510,6 @@ namespace WebApps.Areas.Manager.Controllers
                     _Billing_Header_Info = _obj_bl.Billing_GetBy_Id(p_id, p_app_case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
                 }
 
-                p_app_case_code = _Billing_Header_Info.App_Case_Code;
-
                 foreach (Billing_Detail_Info item in _lst_billing_detail)
                 {
                     item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
@@ -521,6 +519,11 @@ namespace WebApps.Areas.Manager.Controllers
                 SessionData.SetDataSession(p_app_case_code, _lst_billing_detail);
                 ViewBag.Operator_Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert);
                 ViewBag.Billing_Header_Info = _Billing_Header_Info;
+
+                SessionData.SetDataSession(p_app_case_code + "_CURRENCY_TYPE", SearchObject_Header_Info.Currency_Type);
+                ViewBag.App_Case_Code = p_app_case_code;
+                ViewBag.Currency_Type = SearchObject_Header_Info.Currency_Type;
+                ViewBag.ShowPopUp = 0;
 
                 if (p_app_case_code.Contains("SEARCH"))
                 {

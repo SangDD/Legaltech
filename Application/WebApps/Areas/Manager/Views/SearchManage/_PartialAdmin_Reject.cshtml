@@ -78,7 +78,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <a style="height: 20px !important;" href="javascript:;" onclick="getView2EditBilling(@_SearchObject_Header_Info.Billing_Id)"> Edit </a>
+                    <a style="height: 20px !important;" href="javascript:;" onclick="getView2EditBilling(@_SearchObject_Header_Info.Billing_Id, '@_SearchObject_Header_Info.CASE_CODE')"> Edit </a>
                 </div>
             </div>
         </div>
@@ -132,12 +132,11 @@
         CloseDivPopUp('divWrapperPopUpBilling');
     }
 
-    function getView2EditBilling(_billingId) {
+    function getView2EditBilling(_billingId, _app_case_code) {
         try {
             if (CheckSessionTimeOut() == false) {
                 return false;
             }
-            var _app_case_code = "";
 
             var url = "/quan-ly-billing/danh-sach-billing/show-edit?p_id=" + _billingId + "&p_app_case_code=" + _app_case_code;
             window.open(url);
