@@ -510,6 +510,8 @@ namespace WebApps.Areas.Manager.Controllers
                     _Billing_Header_Info = _obj_bl.Billing_GetBy_Id(p_id, p_app_case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
                 }
 
+                p_app_case_code = _Billing_Header_Info.App_Case_Code;
+
                 foreach (Billing_Detail_Info item in _lst_billing_detail)
                 {
                     item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
