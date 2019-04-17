@@ -58,6 +58,34 @@
     </div>
 
     <div class="divCover">
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div id="divNumberNotice">@WebApps.Resources.Resource.Noidung</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" value="@_App_Notice_Info.Notice_Type_Name" style="font-weight:bold;width:200px" disabled="disabled" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Kết quả </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @if (_App_Notice_Info.Result == 1)
+                    {
+                        <input type="text" value="@_App_Notice_Info.Result_Name" style="color:blue;font-weight:bold" disabled="disabled" />
+                    }
+                    else
+                    {
+                        <input type="text" value="@_App_Notice_Info.Result_Name" style="color:red;font-weight:bold" disabled="disabled" />
+                    }
+                </div>
+            </div>
+        </div>
+
         <div class="div-search-ad">
             <div class="div-search-title">
                 <div id="divNumberNotice">@WebApps.Resources.Resource.SoThongBao</div>
@@ -91,11 +119,11 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>@WebApps.Resources.Resource.NgayCucTraLoi</div>
+                <div>Ngày trả lời</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txt_replies_date" maxlength="100" value="@(_App_Notice_Info.Replies_Date == DateTime.MinValue ? "" : _App_Notice_Info.Replies_Date.ToString("dd/MM/yyyy") )" />
+                    <input type="text" id="txt_replies_date" disabled value="@(_App_Notice_Info.Replies_Date == DateTime.MinValue ? "" : _App_Notice_Info.Replies_Date.ToString("dd/MM/yyyy") )" />
                 </div>
             </div>
         </div>
@@ -106,7 +134,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txt_replies_deadline" maxlength="100" value="@(_App_Notice_Info.Replies_Deadline == DateTime.MinValue ? "" : _App_Notice_Info.Replies_Deadline.ToString("dd/MM/yyyy") )" class="datepicker" />
+                    <input type="text" value="@(_App_Notice_Info.Replies_Deadline == DateTime.MinValue ? "" : _App_Notice_Info.Replies_Deadline.ToString("dd/MM/yyyy") )" disabled />
                 </div>
             </div>
         </div>
@@ -139,7 +167,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txtNotes" maxlength="2000" />
+                    <input type="text" id="txtNotes" maxlength="2000" disabled/>
                 </div>
             </div>
         </div>
