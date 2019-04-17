@@ -304,5 +304,11 @@ namespace WebApps.Areas.TradeMark.Controllers
                 return "";
             }
         }
+
+        [Route("get-view-to-add-class")]
+        public ActionResult PopUpAddClass()
+        { 
+            return PartialView("/Areas/TradeMark/Views/Shared/_Partial_PopUp_AddClass.cshtml");
+        }
     }
 }

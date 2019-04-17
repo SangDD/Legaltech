@@ -94,6 +94,7 @@
             </div>
         </div>
     </div>
+
     <div class="class_full_div_input">
         <div class="_table_display" id="divHangHoaThem" style="width: 100%">
             <h4 class="h4_title">@WebApps.Resources.Resource.lblHangHoaDaThem</h4>
@@ -101,7 +102,11 @@
                 <thead>
                     <tr>
                         <th style="width: 4%">@WebApps.Resources.Resource.lblSTT</th>
-                        <th data-sort id="Username">@WebApps.Resources.Resource.lblHangHoa</th>
+                        <th data-sort id="Username">
+                            @WebApps.Resources.Resource.lblHangHoa
+                            <button onclick="onOpenFormAddClass()"><i class="fa fa-plus-circle"></i></button>
+                            @*<input type="button" class="btn" style="width:50px" value="+" />*@
+                        </th>
                         <th style="width: 17%" data-sort>@WebApps.Resources.Resource.lblMaNhom</th>
                         <th style="width: 100px;"></th>
                         <th class="clssDisplaynone"></th>
@@ -111,7 +116,14 @@
             </table>
         </div>
     </div>
+
+    <div id="divWrapperPopUpClass" class="divWrapperPopup" style="display: none;">
+        <div class="divPopup" id="divPopUpClass">
+        </div>
+    </div>
+
 </div>
+
 <style>
     .h4_title {
         border-bottom: 2px solid #ff6229;
@@ -139,6 +151,24 @@
         isdatastring: false,
         placeholder: '@WebApps.Resources.Resource.lblTimKiemNhom'
     });
+
+    function onOpenFormAddClass() {
+        $.ajax({
+            type: "POST",
+            url: "/trade-mark-share-data/get-view-to-add-class",
+            headers: { "cache-control": "no-cache" },
+            async: false,
+            success: function (data) {
+                if (data != null) {
+                    if (validateResponse(data)) {
+                        $("#divPopUpClass").html(data);
+                        ShowPopupDialog_Ipace('divWrapperPopUpClass', "Add class", 500, 1200);
+                    }
+                }
+                return false;
+            }
+        });
+    }
 
     function funIncreNumberRow(table_id) {
         try {

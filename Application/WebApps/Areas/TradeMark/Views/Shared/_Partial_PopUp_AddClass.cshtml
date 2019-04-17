@@ -1,0 +1,98 @@
+﻿@using BussinessFacade.ModuleMemoryData
+@using BussinessFacade.ModuleUsersAndRoles
+@using Common.CommonData
+@{
+    string User_Name = "";
+    if (ViewBag.User_Name != null)
+    {
+        User_Name = (string)ViewBag.User_Name;
+    }
+}
+@try
+{
+    <style>
+        /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+        .div-search-title > div {
+            width: 145px;
+        }
+    </style>
+
+    <div class="" style="padding:5px 38px">
+        <div class="divCover divCover_popup">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>@WebApps.Resources.Resource.HangHoa<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtSymbol" style="height: 30px; border: 1px solid #aaa; border-left: none;padding-left: 5px; " />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>@WebApps.Resources.Resource.Class <i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtClass" maxlength="64" style="height: 30px; border: 1px solid #aaa; border-left: none;padding-left: 5px; " />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-group-bottom">
+                <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Luu" onclick="return doAddClass()" />
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        var _Symbol = "";
+        var _Class = "";
+        $(document).ready(function () {
+           
+        });
+
+
+        function doAddClass() {
+            if (validateFormAddClass()) {
+                nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmSubmit)", function () {
+
+                    funcAddMessDataRow(_Symbol, _Class, 0);
+                    CloseDivPopUp('divWrapperPopUpClass');
+                });
+            }
+        }
+
+        function validateFormAddClass() {
+
+            _Symbol = $('#txtSymbol').val();
+            _Class = $('#txtClass').val();
+
+            if (_Symbol === "") {
+                jError("@Html.Raw(WebApps.Resources.Resource.HangHoa)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                    $('#txtSymbol').focus();
+                });
+                return false;
+            }
+            if (_Class === "") {
+                jError("@Html.Raw(WebApps.Resources.Resource.Class)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                    $('#txtClass').focus();
+                });
+                return false;
+            }
+           
+            return true;
+        }
+
+
+    </script>
+}
+catch (Exception)
+{
+    // ignored
+}
