@@ -44,7 +44,7 @@
 
         <div class="form-group">
             <div class="form-group-bottom">
-                <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Luu" onclick="return doAddClass()" />
+                <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Accept" onclick="return doAddClass()" />
             </div>
         </div>
     </div>
@@ -60,7 +60,7 @@
 
         function doAddClass() {
             if (validateFormAddClass()) {
-                nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmSubmit)", function () {
+                nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmInsert)", function () {
 
                     funcAddMessDataRow(_Symbol, _Class, 0);
                     CloseDivPopUp('divWrapperPopUpClass');
