@@ -85,6 +85,13 @@
                 });
                 return false;
             }
+
+            if (_Class.length != 2) {
+                 jError("@Html.Raw(WebApps.Resources.Resource.Class)" + "@Html.Raw(WebApps.Resources.Resource.KhongDungDinhDang)" + " (2 ký tự)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                    $('#txtClass').focus();
+                });
+                return false;
+            }
            
             return true;
         }
