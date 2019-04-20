@@ -21,7 +21,9 @@
                 <th class="class250">@WebApps.Resources.Resource.CaseName</th>
                 <th class="class150">@WebApps.Resources.Resource.TenDoiTuong</th>
                 @*<th class="class150">@WebApps.Resources.Resource.NgonNgu</th>*@
-                <th class="class250">@WebApps.Resources.Resource.KhachHang</th>
+                <th class="class250">@WebApps.Resources.Resource.Agent</th>
+                <th class="class250">@WebApps.Resources.Resource.lblChuDon</th>
+
                 @*<th class="class100">@WebApps.Resources.Resource.Thoigiancho (@WebApps.Resources.Resource.Ngay)</th>*@
 
                 <th class="class150">@WebApps.Resources.Resource.SoDon</th>
@@ -48,14 +50,15 @@
                 <td class="tdleftalign">@item.Case_Name</td>
                 <td class="tdleftalign">@item.App_No</td>
                 @*<td class="tdleftalign">@item.Languague_Code</td>*@
-                <td class="tdleftalign">@item.Customer_Name</td>
+                <td class="tdleftalign">@item.Rep_Master_Name</td>
+                <td class="tdleftalign">@item.Master_Name</td>
+
                 @*<td class="tdcenteralign">@item.Date_Wait</td>*@
 
-                <td>
 
-                </td>
                 <td class="tdleftalign">@item.Object_Name</td>
                 <td class="tdleftalign">@item.Status_Name</td>
+                <td></td>
                 @if (WebApps.Session.SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.Admin ||
                     WebApps.Session.SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.SupperAdmin)
                 {
