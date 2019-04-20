@@ -171,30 +171,37 @@
             }
         }
 
-        public static List<AllCodeInfo> AllCode_GetBy_CdTypeCdName(string p_cdname, string p_cdtype)
-        {
-            try
-            {
-                if (c_hs_Allcode.ContainsKey(p_cdname + "|" + p_cdtype))
-                {
-                    List<AllCodeInfo> _lst = new List<AllCodeInfo>();
+        //public static List<AllCodeInfo> AllCode_GetBy_CdTypeCdName(string p_cdname, string p_cdtype, string p_lang = "VI_VN")
+        //{
+        //    try
+        //    {
+        //        if (c_hs_Allcode.ContainsKey(p_cdname + "|" + p_cdtype))
+        //        {
+        //            List<AllCodeInfo> _lst = new List<AllCodeInfo>();
 
-                    List<AllCodeInfo> _lst_tem = (List<AllCodeInfo>)c_hs_Allcode[p_cdname + "|" + p_cdtype];
+        //            List<AllCodeInfo> _lst_tem = (List<AllCodeInfo>)c_hs_Allcode[p_cdname + "|" + p_cdtype];
+        //            //string language = WebApps.CommonFunction.AppsCommon.GetCurrentLang();
 
-                    foreach (AllCodeInfo item in _lst_tem)
-                        _lst.Add(item);
+        //            foreach (AllCodeInfo item in _lst_tem)
+        //            {
+        //                if (p_lang != "VI_VN")
+        //                {
+        //                    item.Content = item.Content_Eng;
+        //                }
+        //                _lst.Add(item);
+        //            }
 
-                    _lst = _lst.OrderBy(m => m.LstOdr).ToList();
-                    return _lst;
-                }
-                else return new List<AllCodeInfo>();
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return new List<AllCodeInfo>();
-            }
-        }
+        //            _lst = _lst.OrderBy(m => m.LstOdr).ToList();
+        //            return _lst;
+        //        }
+        //        else return new List<AllCodeInfo>();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.LogException(ex);
+        //        return new List<AllCodeInfo>();
+        //    }
+        //}
 
         #region Group
 

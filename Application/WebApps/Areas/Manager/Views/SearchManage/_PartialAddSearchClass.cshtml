@@ -41,10 +41,6 @@
     </script>
 }
 <div class="div_full_100_area" style="border:solid 1px #ccc; width: calc(100% - 28px ); margin: 10px 0px 0px 0px">
-    @*<div class="class_full_div_p class_text_center_bold">
-            @WebApps.Resources.Resource.lblHeaderDanhMucVaPhanLoaiHangHoa
-            <a href="javascript:;" st="" class="icon icon-info" style="border:none" data-title="@WebApps.Resources.Resource.lblGohangHoaDKChonClass"></a>
-        </div>*@
     <br />
 
     <div class="div_full_100_area">
@@ -93,7 +89,14 @@
 
             </div>
         </div>
+
+        <div class="class_full_div_p class_text_center_bold" style="text-align:left;font-style:italic">
+            @WebApps.Resources.Resource.ThemNhomThuCong
+            <button onclick="onOpenFormAddClass()"><i class="fa fa-plus-circle"></i></button>
+        </div>
     </div>
+
+    
 
     <div class="class_full_div_input">
         <div class="_table_display" id="divHangHoaThem" style="width: 100%">
@@ -104,7 +107,6 @@
                         <th style="width: 4%">@WebApps.Resources.Resource.lblSTT</th>
                         <th data-sort id="Username">
                             @WebApps.Resources.Resource.lblHangHoa
-                            <button onclick="onOpenFormAddClass()"><i class="fa fa-plus-circle"></i></button>
                         </th>
                         <th style="width: 17%" data-sort>@WebApps.Resources.Resource.lblMaNhom</th>
                         <th style="width: 100px;"></th>
@@ -154,7 +156,7 @@
                 if (data != null) {
                     if (validateResponse(data)) {
                         $("#divPopUpClass").html(data);
-                        ShowPopupDialog_Ipace('divWrapperPopUpClass', "Add class", 500, 1200);
+                        ShowPopupDialog_Ipace('divWrapperPopUpClass', "Add class", 1200, 1200);
                     }
                 }
                 return false;

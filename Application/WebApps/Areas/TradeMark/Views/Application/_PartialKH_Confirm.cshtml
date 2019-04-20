@@ -29,7 +29,7 @@
         <div class="div-search-content">
             <div>
                 <select id="cboConfirm">
-                    @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("CUSTOMER", "CONFIRM"))
+                    @foreach (var item in WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("CUSTOMER", "CONFIRM"))
                     {
                         <option value="@item.CdVal">@item.Content</option>
                     }

@@ -24,7 +24,7 @@
         _currstatus = ViewBag.Currstatus;
     }
     string _Checked = "";
-    List<AllCodeInfo> _lstStatus = MemoryData.AllCode_GetBy_CdTypeCdName("APP", "STATUS");
+    List<AllCodeInfo> _lstStatus = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("APP", "STATUS");
     int _count = 0;
     List<B_Todos_Info> _Listtodo = new List<B_Todos_Info>();
     if (ViewBag.ListTodo != null)

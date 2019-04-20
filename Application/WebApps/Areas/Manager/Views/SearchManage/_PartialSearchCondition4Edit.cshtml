@@ -5,8 +5,8 @@
     decimal _IdSearch = Model.ID;
     decimal _IsFirst = Model.IS_FIRST;
 
-    List<AllCodeInfo> _lstObject = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OBJECT");
-    List<AllCodeInfo> _ListSearchType = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "SEARCHTYPE");
+    List<AllCodeInfo> _lstObject = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OBJECT");
+    List<AllCodeInfo> _ListSearchType = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "SEARCHTYPE");
 
 }
 <div id='@("div_condition_" + _IdSearch)' class="div-search-ad">

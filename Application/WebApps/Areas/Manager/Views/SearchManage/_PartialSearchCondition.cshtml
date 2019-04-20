@@ -10,8 +10,8 @@
         _IsFirst = Convert.ToDecimal(Model.Split('|')[1]);
     }
 
-    List<AllCodeInfo> _lstObject = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OBJECT");
-    List<AllCodeInfo> _ListSearchType = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "SEARCHTYPE");
+    List<AllCodeInfo> _lstObject = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OBJECT");
+    List<AllCodeInfo> _ListSearchType = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "SEARCHTYPE");
 }
 <div id='@("div_condition_" + _IdSearch)' class="div-search-ad">
 

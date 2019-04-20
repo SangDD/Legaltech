@@ -93,7 +93,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>@WebApps.Resources.Resource.NgaySinh <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.NgaySinh</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -215,7 +215,7 @@
             <div class="div-search-content">
                 <div>
                     <select id="cboTypeAdd" style="width:200px" disabled="disabled">
-                        @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE"))
+                        @foreach (var item in WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE"))
                         {
                             if (item.CdVal == ((int)CommonEnums.UserType.Lawer).ToString())
                             {
@@ -252,7 +252,7 @@
             <div class="div-search-content">
                 <div>
                     <select id="cboLawerType" style="width:200px">
-                        @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "LAWER_TYPE"))
+                        @foreach (var item in WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("USER", "LAWER_TYPE"))
                         {
                             <option value="@item.CdVal">@item.Content</option>
                         }

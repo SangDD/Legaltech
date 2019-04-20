@@ -236,7 +236,7 @@
             <div class="div-search-content">
                 <div>
                     <select id="cboLawerType" style="width:200px">
-                        @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "LAWER_TYPE"))
+                        @foreach (var item in WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("USER", "LAWER_TYPE"))
                         {
                             <option @(item.CdVal == Model.Other_Type.ToString() ? "selected=\"selected\"" : "") value="@item.CdVal">@item.Content</option>
                         }

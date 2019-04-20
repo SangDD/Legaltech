@@ -7,7 +7,7 @@
     ViewBag.Title = WebApps.Resources.Resource.ThemMoiNguoiDung;
     Layout = "~/ViewsShared/_Layout.cshtml";
 
-    List<AllCodeInfo> _lstUserType = MemoryData.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE");
+    List<AllCodeInfo> _lstUserType = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE");
     _lstUserType.RemoveAll(m => m.CdVal == (Convert.ToDecimal(Common.CommonData.CommonEnums.UserType.SupperAdmin)).ToString());
 }
 

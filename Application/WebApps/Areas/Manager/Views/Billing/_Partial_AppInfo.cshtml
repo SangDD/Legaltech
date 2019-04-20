@@ -15,10 +15,10 @@
         _Operator_Type = (decimal)ViewBag.Operator_Type;
     }
 
-    //List<AllCodeInfo> _lstCurrency = MemoryData.AllCode_GetBy_CdTypeCdName("CURRENCY", "CODE");
+    //List<AllCodeInfo> _lstCurrency = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("CURRENCY", "CODE");
     //var lstCurrency = _lstCurrency.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
 
-    List<AllCodeInfo> _lstCurrencyRate = MemoryData.AllCode_GetBy_CdTypeCdName("CURRENCY", "RATE");
+    List<AllCodeInfo> _lstCurrencyRate = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("CURRENCY", "RATE");
     string _currency_rate = Convert.ToDecimal(_lstCurrencyRate[0].CdVal).ToString("#,##0");
 
     Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();

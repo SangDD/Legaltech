@@ -8,10 +8,10 @@
     ViewBag.Title = "thêm mới phí tìm kiếm";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
-    List<AllCodeInfo> _lstType = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "SEARCHTYPE");
+    List<AllCodeInfo> _lstType = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "SEARCHTYPE");
     var lstType = _lstType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
 
-    List<AllCodeInfo> _lstObject = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OBJECT");
+    List<AllCodeInfo> _lstObject = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OBJECT");
     var lstObject = _lstObject.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
 
 }

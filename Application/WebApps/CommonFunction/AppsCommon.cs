@@ -22,6 +22,8 @@ using WebApps.Session;
 using System.Xml;
 using Newtonsoft.Json;
 using System.Net;
+using BussinessFacade.ModuleMemoryData;
+using System.Linq;
 
 namespace WebApps.CommonFunction
 {
@@ -466,6 +468,48 @@ namespace WebApps.CommonFunction
             catch (Exception ex)
             {
                 Logger.LogException(ex);
+            }
+        }
+
+        public static List<AllCodeInfo> AllCode_GetBy_CdTypeCdName(string p_cdname, string p_cdtype, string p_lang = "VI_VN")
+        {
+            try
+            {
+                if (MemoryData.c_hs_Allcode.ContainsKey(p_cdname + "|" + p_cdtype))
+                {
+                    List<AllCodeInfo> _lst = new List<AllCodeInfo>();
+
+                    List<AllCodeInfo> _lst_tem = (List<AllCodeInfo>)MemoryData.c_hs_Allcode[p_cdname + "|" + p_cdtype];
+                    string language = WebApps.CommonFunction.AppsCommon.GetCurrentLang();
+
+                    foreach (AllCodeInfo item in _lst_tem)
+                    {
+                        AllCodeInfo _AllCodeInfo = new AllCodeInfo();
+                        _AllCodeInfo.CdName = item.CdName;
+                        _AllCodeInfo.CdType = item.CdType;
+                        _AllCodeInfo.CdVal = item.CdVal;
+                        _AllCodeInfo.Content = item.Content;
+                        _AllCodeInfo.Content_Eng = item.Content_Eng;
+                        _lst.Add(_AllCodeInfo);
+                    }
+
+                    _lst = _lst.OrderBy(m => m.LstOdr).ToList();
+                    foreach (var item in _lst)
+                    {
+                        if (language != "VI_VN")
+                        {
+                            item.Content = item.Content_Eng;
+                        }
+                    }
+
+                    return _lst;
+                }
+                else return new List<AllCodeInfo>();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<AllCodeInfo>();
             }
         }
     }

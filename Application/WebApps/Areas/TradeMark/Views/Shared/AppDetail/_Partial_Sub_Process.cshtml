@@ -4,7 +4,7 @@
 @using BussinessFacade.ModuleMemoryData
 @{
     string _Checked = "";
-    List<AllCodeInfo> _lstStatus = MemoryData.AllCode_GetBy_CdTypeCdName("NOTICE_APP", "STATUS");
+    List<AllCodeInfo> _lstStatus = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("NOTICE_APP", "STATUS");
     int _count = 0;
     List<B_Todos_Info> _Listtodo = new List<B_Todos_Info>();
     if (ViewBag.ListTodo != null)

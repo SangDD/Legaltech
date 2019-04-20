@@ -9,14 +9,14 @@
     string language = WebApps.Session.SessionData.CurrentUser.Language;
     decimal _UserType = WebApps.Session.SessionData.CurrentUser.Type;
 
-    List<AllCodeInfo> _lstDockingType = MemoryData.AllCode_GetBy_CdTypeCdName("DOCKING", "DOCKING_TYPE");
+    List<AllCodeInfo> _lstDockingType = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("DOCKING", "DOCKING_TYPE");
     var lstDockingType = new List<SelectListItem> { new SelectListItem { Text = "Tất cả", Value = "ALL" } }.Concat(_lstDockingType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal }));
 
 
-    List<AllCodeInfo> _lstStatus = MemoryData.AllCode_GetBy_CdTypeCdName("DOCKING", "STATUS");
+    List<AllCodeInfo> _lstStatus = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("DOCKING", "STATUS");
     var lstStatus = new List<SelectListItem> { new SelectListItem { Text = "Tất cả", Value = "ALL" } }.Concat(_lstStatus.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal }));
 
-    List<AllCodeInfo> _lstDocumentType = MemoryData.AllCode_GetBy_CdTypeCdName("DOCKING", "DOCUMENT_TYPE");
+    List<AllCodeInfo> _lstDocumentType = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("DOCKING", "DOCUMENT_TYPE");
     var lstDocumentType = new List<SelectListItem> { new SelectListItem { Text = "Tất cả", Value = "ALL" } }.Concat(_lstDocumentType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal }));
 }
 

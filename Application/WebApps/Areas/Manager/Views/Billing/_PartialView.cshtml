@@ -7,7 +7,7 @@
     ViewBag.Title = "Chi tiết billing";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
-    List<AllCodeInfo> _lstBank = MemoryData.AllCode_GetBy_CdTypeCdName("BILLING", "BANK");
+    List<AllCodeInfo> _lstBank = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("BILLING", "BANK");
     string _BankName = "";
     string _Bank_Account_Name = "";
     string _Swift_Code = "";

@@ -94,7 +94,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>@WebApps.Resources.Resource.NgaySinh <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.NgaySinh</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -216,7 +216,7 @@
             <div class="div-search-content">
                 <div>
                     <select id="cboTypeAdd" style="width:200px" disabled="disabled">
-                        @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE"))
+                        @foreach (var item in WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("USER", "USER_TYPE"))
                         {
                             if (item.CdVal == ((int)CommonEnums.UserType.Customer).ToString())
                             {
@@ -292,27 +292,19 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <select id="cboReferee">
-                        <option value=""></option>
-                        @foreach (var item in BussinessFacade.ModuleUsersAndRoles.UserBL.GetAllUsers())
-                        {
-                            <option value="@item.Username">@item.FullName</option>
-                        }
-                    </select>
+                    <input type="text" id="cboReferee" maxlength="500" />
+                    @*<select id="cboReferee">
+                            <option value=""></option>
+                            @foreach (var item in BussinessFacade.ModuleUsersAndRoles.UserBL.GetAllUsers())
+                            {
+                                <option value="@item.Username">@item.FullName</option>
+                            }
+                        </select>*@
                 </div>
             </div>
         </div>
 
-        <div class="div-search-ad" id="clsCustomer3">
-            <div class="div-search-title">
-                <div>@WebApps.Resources.Resource.MaDaiDien</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txtCustomer_Code" maxlength="200" />
-                </div>
-            </div>
-        </div>
+
 
         <div class="div-search-ad" id="clsCustomer3">
             <div class="div-search-title">
@@ -339,6 +331,17 @@
                 <div class="div-radio">
                     <input type="checkbox" id="ckbAgent" onclick="onChooseAgent()" />
                     <label>@WebApps.Resources.Resource.LaDaiDien</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad" id="clsCustomer3">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.MaDaiDien</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtCustomer_Code" maxlength="200" disabled />
                 </div>
             </div>
         </div>
@@ -371,7 +374,7 @@
                 <div>
                     <select id="cboReasonSelect" style="width:200px">
                         <option value="0">None</option>
-                        @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "REASON_SELECT"))
+                        @foreach (var item in WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("USER", "REASON_SELECT"))
                         {
                             <option value="@item.CdVal">@item.Content</option>
                         }
@@ -386,7 +389,7 @@
                 <div>
                     <select id="cboRequestCredit">
                         <option value="0">None</option>
-                        @foreach (var item in MemoryData.AllCode_GetBy_CdTypeCdName("USER", "REQUEST_CREDIT"))
+                        @foreach (var item in WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("USER", "REQUEST_CREDIT"))
                         {
                             <option value="@item.CdVal">@item.Content</option>
                         }
@@ -464,12 +467,18 @@
 
                 var _divLicense_Agent = document.getElementById("divLicense_Agent");
                 _divLicense_Agent.innerHTML = "Thẻ hành nghề";
+
+                $("#txtCustomer_Code").removeAttr("disabled");
+
             } else {
                 var _divAgent_Representative = document.getElementById("divAgent_Representative");
                 _divAgent_Representative.innerHTML = "Người đại diện theo PL";
 
                 var _divLicense_Agent = document.getElementById("divLicense_Agent");
                 _divLicense_Agent.innerHTML = "Giấy uỷ quyền";
+
+                $("#txtCustomer_Code").val('');
+                $("#txtCustomer_Code").prop('disabled', true);
             }
 
         } catch (e) {
@@ -618,7 +627,14 @@
             return false;
         }
 
-        if (dateOfBirthAdd === "" || dateOfBirthAdd === window.maskDateTime_N0) {
+
+        if (dateOfBirthAdd != "" && dateOfBirthAdd != "__/__/____") {
+            if (checkDate("@Html.Raw(WebApps.Resources.Resource.NgaySinh)" , "#txtDateOfBirthAdd", txtDateOfBirth) == false) {
+                return false;
+            }
+        }
+
+        @*if (dateOfBirthAdd === "" || dateOfBirthAdd === window.maskDateTime_N0) {
             jError("@Html.Raw(WebApps.Resources.Resource.NgaySinh)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtDateOfBirthAdd').focus();
             });
@@ -628,7 +644,7 @@
                 $('#txtDateOfBirthAdd').focus();
             });
             return false;
-        }
+        }*@
 
         if (phoneAdd === "") {
             jError("@Html.Raw(WebApps.Resources.Resource.lblDienThoai)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {

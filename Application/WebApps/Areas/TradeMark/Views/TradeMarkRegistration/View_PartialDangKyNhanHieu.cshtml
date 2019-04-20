@@ -149,7 +149,7 @@
     string disableView = @"disabled=disabled";
     ViewBag.disableView = disableView;
 
-    List<AllCodeInfo> _lstLogoType = MemoryData.AllCode_GetBy_CdTypeCdName("NOTICE_APP", "LOGOTYPE");
+    List<AllCodeInfo> _lstLogoType = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("NOTICE_APP", "LOGOTYPE");
 
 }
 

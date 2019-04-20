@@ -9,7 +9,7 @@
         _SearchObject_Header_Info = (SearchObject_Header_Info)ViewBag.objSearch_HeaderInfo;
     }
 
-    List<AllCodeInfo> _lstCurrencyRate = MemoryData.AllCode_GetBy_CdTypeCdName("CURRENCY", "RATE");
+    List<AllCodeInfo> _lstCurrencyRate = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("CURRENCY", "RATE");
     string _currency_rate = Convert.ToDecimal(_lstCurrencyRate[0].CdVal).ToString("#,##0");
 
     Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();

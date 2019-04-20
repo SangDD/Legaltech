@@ -30,7 +30,7 @@ namespace WebApps.Areas.Articles.Controllers
                     return Redirect("/");
                 if (RouteData.Values.ContainsKey("id"))
                 {
-                    pStatus  = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
+                    pStatus = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
                 }
                 ViewBag.Status = pStatus;
                 //Nếu bài chờ xử lý thì lấy danh sách các bài đã gửi 
@@ -42,15 +42,15 @@ namespace WebApps.Areas.Articles.Controllers
                 NewsBL objBL = new NewsBL();
                 //string _status = "ALL";
                 string language = AppsCommon.GetCurrentLang();
-                string _keySearch =  pStatus.ToString() +"|ALL|" + language + "|ALL";
+                string _keySearch = pStatus.ToString() + "|ALL|" + language + "|ALL";
                 List<NewsInfo> _lst = objBL.ArticleHomeSearch(_keySearch, ref _total_record);
                 string htmlPaging = CommonFuc.Get_HtmlPaging<NewsInfo>((int)_total_record, 1, "Tin");
                 ViewBag.listArticles = _lst;
                 ViewBag.Paging = htmlPaging;
                 //ViewBag.Status = pStatus;
                 ViewBag.SumRecord = _total_record;
-                ViewBag.lstCategory = MemoryData.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
-                
+                ViewBag.lstCategory = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
+
                 return View("~/Areas/Articles/Views/ArticlesNews/GetListArticles.cshtml");
             }
             catch (Exception ex)
@@ -63,7 +63,7 @@ namespace WebApps.Areas.Articles.Controllers
 
         [HttpGet]
         [Route("tim-kiem-tin")]
-        public ActionResult SearchArticles(string pCategory,string pTitile, int pPage ,int pStatus )
+        public ActionResult SearchArticles(string pCategory, string pTitile, int pPage, int pStatus)
         {
             try
             {
@@ -73,18 +73,18 @@ namespace WebApps.Areas.Articles.Controllers
                 {
                     pStatus = Status.VietBai;
                 }
-                int from = (pPage-1)*(Common.Common.RecordOnpage);
+                int from = (pPage - 1) * (Common.Common.RecordOnpage);
                 int to = (pPage) * (Common.Common.RecordOnpage);
                 decimal _total_record = 0;
                 NewsBL objBL = new NewsBL();
                 string language = AppsCommon.GetCurrentLang();
-                string _keySearch = pStatus.ToString() + "|ALL|" + language + "|" + pCategory +"|" + pTitile;
+                string _keySearch = pStatus.ToString() + "|ALL|" + language + "|" + pCategory + "|" + pTitile;
                 List<NewsInfo> _lst = objBL.ArticleHomeSearch(_keySearch, ref _total_record, from.ToString(), to.ToString());
                 string htmlPaging = CommonFuc.Get_HtmlPaging<NewsInfo>((int)_total_record, pPage, "Tin");
                 ViewBag.listArticles = _lst;
                 ViewBag.Paging = htmlPaging;
                 ViewBag.SumRecord = _total_record;
-                ViewBag.lstCategory = MemoryData.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
+                ViewBag.lstCategory = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
 
                 return View("~/Areas/Articles/Views/ArticlesNews/_PartialViewTable.cshtml");
             }
@@ -104,7 +104,7 @@ namespace WebApps.Areas.Articles.Controllers
             {
                 if (SessionData.CurrentUser == null)
                     return Redirect("/");
-                ViewBag.lstCategory = MemoryData.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
+                ViewBag.lstCategory = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
 
                 return View("~/Areas/Articles/Views/ArticlesNews/_PartialViewAdd.cshtml");
             }
@@ -117,14 +117,14 @@ namespace WebApps.Areas.Articles.Controllers
 
         [HttpPost]
         [Route("them-moi-bai-viet")]
-        public ActionResult SaveNewsArticles(NewsInfo pNewsInfo  )
+        public ActionResult SaveNewsArticles(NewsInfo pNewsInfo)
         {
             try
             {
                 decimal preturn = 0;
-                if (pNewsInfo ==null)
+                if (pNewsInfo == null)
                 {
-                       return Json(new { status = -99 });
+                    return Json(new { status = -99 });
                 }
                 string language = AppsCommon.GetCurrentLang();
                 var CreatedBy = SessionData.CurrentUser.Username;
@@ -168,10 +168,10 @@ namespace WebApps.Areas.Articles.Controllers
                 }
                 ViewBag.Status = Status;
                 var objNewsBL = new NewsBL();
-                ViewBag.lstCategory = MemoryData.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
+                ViewBag.lstCategory = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
                 string language = AppsCommon.GetCurrentLang();
                 var objNewInfo = objNewsBL.ArticlesGetById(pIDArticles, language);
-                return View("~/Areas/Articles/Views/ArticlesNews/_PartialviewEdit.cshtml",objNewInfo);
+                return View("~/Areas/Articles/Views/ArticlesNews/_PartialviewEdit.cshtml", objNewInfo);
             }
             catch (Exception ex)
             {
@@ -200,7 +200,7 @@ namespace WebApps.Areas.Articles.Controllers
                 }
                 ViewBag.Status = Status;
                 var objNewsBL = new NewsBL();
-                ViewBag.lstCategory = MemoryData.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
+                ViewBag.lstCategory = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
                 string language = AppsCommon.GetCurrentLang();
                 var objNewInfo = objNewsBL.ArticlesGetById(pIDArticles, language);
                 return View("~/Areas/Articles/Views/ArticlesNews/_PartialviewView.cshtml", objNewInfo);
@@ -222,7 +222,7 @@ namespace WebApps.Areas.Articles.Controllers
                 if (SessionData.CurrentUser == null)
                     return Redirect("/");
                 var objNewsBL = new NewsBL();
-                ViewBag.lstCategory = MemoryData.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
+                ViewBag.lstCategory = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
                 string language = AppsCommon.GetCurrentLang();
                 NewsInfo pNewsInfo = new NewsInfo();
                 var ModifiedBy = SessionData.CurrentUser.Username;
@@ -244,7 +244,7 @@ namespace WebApps.Areas.Articles.Controllers
 
         [HttpPost]
         [Route("luu-sua-bai-viet")]
-        public ActionResult ExecuteNewsArticles(NewsInfo pNewsInfo )
+        public ActionResult ExecuteNewsArticles(NewsInfo pNewsInfo)
         {
             try
             {
@@ -306,7 +306,7 @@ namespace WebApps.Areas.Articles.Controllers
                 ViewBag.listArticles = _lst;
                 ViewBag.Paging = htmlPaging;
                 ViewBag.SumRecord = _total_record;
-                ViewBag.lstCategory = MemoryData.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
+                ViewBag.lstCategory = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
                 return View("~/Areas/Articles/Views/ArticlesNews/_HomeArticles.cshtml");
             }
             catch (Exception ex)
@@ -328,7 +328,7 @@ namespace WebApps.Areas.Articles.Controllers
                 //string _status = "ALL";
                 string language = AppsCommon.GetCurrentLang();
                 string _keySearch = pStatus.ToString() + "|ALL|" + language + "|ALL";
-                List<NewsInfo> _lst = objBL.ArticleHomeSearch(_keySearch, ref _total_record,"1","10");
+                List<NewsInfo> _lst = objBL.ArticleHomeSearch(_keySearch, ref _total_record, "1", "10");
                 string htmlPaging = CommonFuc.Get_HtmlPaging<NewsInfo>((int)_total_record, 1, "Tin");
                 ViewBag.listArticles = _lst;
                 ViewBag.Paging = htmlPaging;
@@ -360,7 +360,7 @@ namespace WebApps.Areas.Articles.Controllers
                 ViewBag.listArticles = _lst;
                 ViewBag.Paging = htmlPaging;
                 ViewBag.SumRecord = _total_record;
-                //ViewBag.lstCategory = MemoryData.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
+                //ViewBag.lstCategory = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
                 return View("~/Areas/Articles/Views/ArticlesNews/_HomePartialViewNews.cshtml");
             }
             catch (Exception ex)
@@ -387,7 +387,7 @@ namespace WebApps.Areas.Articles.Controllers
                 var objNewInfo = objNewsBL.ArticlesGetById(pIDArticles, language);
                 ViewBag.objNewInfo = objNewInfo;
                 return View("~/Areas/Articles/Views/ArticlesNews/_HomeDetailNews.cshtml");
-             
+
             }
             catch (Exception ex)
             {

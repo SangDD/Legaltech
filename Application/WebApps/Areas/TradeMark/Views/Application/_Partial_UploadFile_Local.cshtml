@@ -33,7 +33,7 @@
         <input type="hidden" id="@lblName" value="@_lable" />
         <input type="hidden" id="@dock_id" />
 
-        <input type="button" id="@btnChooseFile" value="Tải file" class="btn" onclick="return Click_Upload_File('@_id')" style="margin-left:4px;height:29px;" />
+        <input type="button" id="@btnChooseFile" value="@WebApps.Resources.Resource.lblTaiFile" class="btn" onclick="return Click_Upload_File('@_id')" style="margin-left:4px;height:29px;" />
         @*<input type="button" id="@btnChooseFile" value="Tải file" class="btn" onclick="return OpenChooseFile('@_id')" style="margin-left:4px;height:29px;" />*@
         <input type="file" id="@file_attach" style="display:none" onchange="FuncChooseResultFile('@_id')" />
 

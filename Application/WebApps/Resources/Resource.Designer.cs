@@ -673,7 +673,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Contact Person.
+        ///   Looks up a localized string similar to Người liên hệ.
         /// </summary>
         public static string ContactPerson {
             get {
@@ -790,7 +790,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Đối tượng tra cứu.
+        ///   Looks up a localized string similar to Loại tra cứu.
         /// </summary>
         public static string DieuKienSearch {
             get {
@@ -1150,6 +1150,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hàng hóa dịch vụ mang nhãn hiệu.
+        /// </summary>
+        public static string HangHoaDichVuMangNhanHieu {
+            get {
+                return ResourceManager.GetString("HangHoaDichVuMangNhanHieu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hạn thanh toán.
         /// </summary>
         public static string HanThanhToan {
@@ -1182,6 +1191,15 @@ namespace WebApps.Resources {
         public static string HoTen {
             get {
                 return ResourceManager.GetString("HoTen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tra cứu.
+        /// </summary>
+        public static string iSeaching {
+            get {
+                return ResourceManager.GetString("iSeaching", resourceCulture);
             }
         }
         
@@ -1321,7 +1339,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Là đại diện.
+        ///   Looks up a localized string similar to Là tổ chức đại diện SHCN.
         /// </summary>
         public static string LaDaiDien {
             get {
@@ -2680,7 +2698,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tra cứu pháp luật.
+        ///   Looks up a localized string similar to Tra cứu thông tin khác.
         /// </summary>
         public static string LegalInquiries {
             get {
@@ -3337,6 +3355,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nội dung yêu cầu.
+        /// </summary>
+        public static string NoiDungYeuCau {
+            get {
+                return ResourceManager.GetString("NoiDungYeuCau", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nhân viên nộp đơn phản hồi.
         /// </summary>
         public static string NVNopDonPhanHoi {
@@ -3850,6 +3877,24 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tải file đính kèm.
+        /// </summary>
+        public static string TaiFileDinhKem {
+            get {
+                return ResourceManager.GetString("TaiFileDinhKem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tải file đính kèm khác.
+        /// </summary>
+        public static string TaiFileDinhKemKhac {
+            get {
+                return ResourceManager.GetString("TaiFileDinhKemKhac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Không tải file có tên file được lưu là unicode Tiếng việt có dấu !.
         /// </summary>
         public static string TaiFileUnicode {
@@ -3895,7 +3940,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TelContactPerson.
+        ///   Looks up a localized string similar to Điện thoại người liên hệ.
         /// </summary>
         public static string TelContactPerson {
             get {
@@ -4098,6 +4143,15 @@ namespace WebApps.Resources {
         public static string ThemMoiSearch {
             get {
                 return ResourceManager.GetString("ThemMoiSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lưu ý nếu đã biết phân nhóm, nhập hàng hóa dịch vụ tại đây.
+        /// </summary>
+        public static string ThemNhomThuCong {
+            get {
+                return ResourceManager.GetString("ThemNhomThuCong", resourceCulture);
             }
         }
         
@@ -6024,6 +6078,24 @@ namespace WebApps.Resources {
         public static string Trademark {
             get {
                 return ResourceManager.GetString("Trademark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nhãn hiệu tra cứu.
+        /// </summary>
+        public static string TrademarkSample {
+            get {
+                return ResourceManager.GetString("TrademarkSample", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tra cứu nhãn hiệu.
+        /// </summary>
+        public static string TrademarkSearch {
+            get {
+                return ResourceManager.GetString("TrademarkSearch", resourceCulture);
             }
         }
         

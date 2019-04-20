@@ -20,8 +20,8 @@
 
     string language = AppsCommon.GetCurrentLang();
 
-    List<AllCodeInfo> _lstObject = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OBJECT");
-    List<AllCodeInfo> _lstLogoType = MemoryData.AllCode_GetBy_CdTypeCdName("NOTICE_APP", "LOGOTYPE");
+    List<AllCodeInfo> _lstObject = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OBJECT");
+    List<AllCodeInfo> _lstLogoType = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("NOTICE_APP", "LOGOTYPE");
 }
 <style>
     /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
@@ -35,7 +35,7 @@
         <img src="~/Content/icons/Body-icon-home.png" /> I
         <a href="/home">Home</a>
         <span class="red">></span>
-        <a href="/quan-ly-search/danh-sach-search">iSearching</a>
+        <a href="/quan-ly-search/danh-sach-search">@WebApps.Resources.Resource.iSeaching</a>
     </div>
 </div>
 <div class="divCover">
@@ -126,14 +126,14 @@
         @if (_HeaderInfo.Url_File != null && _HeaderInfo.Url_File != "")
         {
             string[] _arr1 = _HeaderInfo.Url_File.Split('/');
-            string _filename1 = "File đính kèm";
+            string _filename1 = WebApps.Resources.Resource.FileDinhKem;
             if (_arr1.Length > 0)
             {
                 _filename1 = _arr1[_arr1.Length - 1];
             }
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div>File đính kèm</div>
+                    <div>@WebApps.Resources.Resource.FileDinhKem</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -148,7 +148,7 @@
             <div class="divCover cls_form_title">
                 <img src="/Content/icons/category.png" />
                 <div class="cls_form_header">
-                    Tải file đính kèm khác
+                    @WebApps.Resources.Resource.TaiFileDinhKemKhac
                 </div>
             </div>
         }
@@ -157,19 +157,19 @@
             <div class="divCover cls_form_title">
                 <img src="/Content/icons/category.png" />
                 <div class="cls_form_header">
-                    Tải file đính kèm
+                    @WebApps.Resources.Resource.TaiFileDinhKem
                 </div>
             </div>
         }
         @{
             string _id1 = "1";
             string _isValid1 = "0";
-            string _model1 = _id1 + "|" + _isValid1 + "|" + "File đính kèm";
+            string _model1 = _id1 + "|" + _isValid1 + "|" + WebApps.Resources.Resource.FileDinhKem;
             @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile_Local.cshtml", _model1)
         }
 
         <div style="margin-top:15px">
-            <div>@WebApps.Resources.Resource.lblMoTa<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.NoiDungYeuCau<i class="redspan">(*)</i></div>
             <textarea type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200">@_HeaderInfo.CONTENT</textarea>
         </div>
     </div>

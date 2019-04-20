@@ -6,13 +6,13 @@
     ViewBag.Title = "Trademark";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
-    List<AllCodeInfo> _lstObject = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OBJECT");
-    List<AllCodeInfo> _lstType = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "SEARCHTYPE");
+    List<AllCodeInfo> _lstObject = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OBJECT");
+    List<AllCodeInfo> _lstType = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "SEARCHTYPE");
 
     
     string language = AppsCommon.GetCurrentLang();
      
-    List<AllCodeInfo> _lstLogoType = MemoryData.AllCode_GetBy_CdTypeCdName("NOTICE_APP", "LOGOTYPE");
+    List<AllCodeInfo> _lstLogoType = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("NOTICE_APP", "LOGOTYPE");
 }
 <script src="~/Content/ComboCheckList/jquery.multiple.select_new.js"></script>
 <link href="~/Content/ComboCheckList/multiple-select.css" rel="stylesheet" />
@@ -33,7 +33,7 @@
         <img src="~/Content/icons/Body-icon-home.png" /> I
         <a href="/home">Home</a>
         <span class="red">></span>
-        <a href="/quan-ly-search/danh-sach-search">iSearching</a>
+        <a href="/quan-ly-search/danh-sach-search">@WebApps.Resources.Resource.iSeaching</a>
         <span class="red">></span>
         <a href="#">@WebApps.Resources.Resource.LegalInquiries</a>
     </div>
@@ -120,21 +120,21 @@
         </div>
 
         <div style="margin-top:15px">
-            <div>@WebApps.Resources.Resource.lblMoTa<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.NoiDungYeuCau<i class="redspan">(*)</i></div>
             <textarea type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200"></textarea>
         </div>
 
         <div class="divCover cls_form_title">
             <img src="/Content/icons/category.png" />
             <div class="cls_form_header">
-                Tải file đính kèm
+                @WebApps.Resources.Resource.TaiFileDinhKem
             </div>
         </div>
         <br />
         @{
             string _id1 = "1";
             string _isValid1 = "0";
-            string _model1 = _id1 + "|" + _isValid1 + "|" + "File đính kèm";
+            string _model1 = _id1 + "|" + _isValid1 + "|" + WebApps.Resources.Resource.FileDinhKem;
             @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile_Local.cshtml", _model1)
         }
 

@@ -9,11 +9,11 @@
     string language = WebApps.Session.SessionData.CurrentUser.Language;
     decimal _UserType = WebApps.Session.SessionData.CurrentUser.Type;
 
-    List<AllCodeInfo> _lstType = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "SEARCHTYPE");
+    List<AllCodeInfo> _lstType = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "SEARCHTYPE");
     var lstType = new List<SelectListItem> { new SelectListItem { Text = "Tất cả", Value = "ALL" } }.Concat(_lstType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal }));
 
 
-    List<AllCodeInfo> _lstObject = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OBJECT");
+    List<AllCodeInfo> _lstObject = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "OBJECT");
     var lstObject = new List<SelectListItem> { new SelectListItem { Text = "Tất cả", Value = "ALL" } }.Concat(_lstObject.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal }));
 
 }

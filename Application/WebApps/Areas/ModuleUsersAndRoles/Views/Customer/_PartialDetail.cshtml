@@ -255,15 +255,6 @@
 
         <div class="div-search-ad" id="clsCustomer3">
             <div class="div-search-title">
-                <div>@WebApps.Resources.Resource.MaDaiDien</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.TextBoxFor(m => m.Customer_Code, new { @maxlength = "200", @disabled = "disabled", @style = "width: 200px" })
-                </div>
-            </div>
-
-            <div class="div-search-title">
                 <div>@WebApps.Resources.Resource.NguoiGioiThieu </div>
             </div>
             <div class="div-search-content">
@@ -315,6 +306,15 @@
                 </div>
 
                 <div class="div-search-title">
+                    <div>@WebApps.Resources.Resource.MaDaiDien</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @Html.TextBoxFor(m => m.Customer_Code, new { @maxlength = "200", @disabled = "disabled", @style = "width: 200px" })
+                    </div>
+                </div>
+
+                <div class="div-search-title">
                     <div>@WebApps.Resources.Resource.TheHanhNghe </div>
                 </div>
                 <div class="div-search-content">
@@ -328,7 +328,7 @@
         {
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div>@WebApps.Resources.Resource.NguoiDaiDienTheoPL </div>
+                     <div>@WebApps.Resources.Resource.NguoiDaiDienTheoPL </div>
                 </div>
                 <div class="div-search-content">
                     <div>

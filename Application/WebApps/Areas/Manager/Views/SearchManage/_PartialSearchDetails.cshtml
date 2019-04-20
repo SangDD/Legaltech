@@ -23,7 +23,7 @@
         c_operator_type = (decimal)ViewBag.Operator_Type;
     }
 
-    List<AllCodeInfo> _lstLogoType = MemoryData.AllCode_GetBy_CdTypeCdName("NOTICE_APP", "LOGOTYPE");
+    List<AllCodeInfo> _lstLogoType = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("NOTICE_APP", "LOGOTYPE");
     string urlMauNhanHieu = "/Content/icons/logo.jpg";
     string urlLogoChu = "";
     if (!string.IsNullOrEmpty(_HeaderInfo.Logourl) && _HeaderInfo.Logochu != 1)
@@ -305,7 +305,7 @@
     <br />
 
     <div style="margin-top:15px">
-        <div>@WebApps.Resources.Resource.lblMoTa </div>
+        <div>@WebApps.Resources.Resource.NoiDungYeuCau </div>
         <textarea disabled type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200">@_HeaderInfo.CONTENT</textarea>
     </div>
 

@@ -5,7 +5,7 @@
 @{
     ViewBag.Title = "iSearching";
     Layout = "~/ViewsShared/_Layout.cshtml";
-    List<AllCodeInfo> _lstStatus = MemoryData.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "STATUS");
+    List<AllCodeInfo> _lstStatus = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "STATUS");
 }
 
 @try
