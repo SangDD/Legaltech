@@ -132,6 +132,7 @@ namespace ObjectInfos
 
         public DateTime Status_Date { get; set; }
         public int Date_Wait { get; set; }
+        public string Object_Name { get; set; }
 
         public string Customer_Name { get; set; }
         public decimal Customer_Country { get; set; }

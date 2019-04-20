@@ -754,6 +754,24 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deadline.
+        /// </summary>
+        public static string Deadline {
+            get {
+                return ResourceManager.GetString("Deadline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deadline alert.
+        /// </summary>
+        public static string DeadlineAlert {
+            get {
+                return ResourceManager.GetString("DeadlineAlert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Địa chỉ.
         /// </summary>
         public static string DiaChi {
@@ -3972,6 +3990,15 @@ namespace WebApps.Resources {
         public static string TenDangNhap {
             get {
                 return ResourceManager.GetString("TenDangNhap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên đối tượng.
+        /// </summary>
+        public static string TenDoiTuong {
+            get {
+                return ResourceManager.GetString("TenDoiTuong", resourceCulture);
             }
         }
         

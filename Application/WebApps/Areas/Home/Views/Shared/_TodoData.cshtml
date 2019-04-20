@@ -24,7 +24,7 @@
         <thead>
             <tr>
                 <th class="class30">STT</th>
-                <th class="class50">@WebApps.Resources.Resource.Remind</th>
+                @*<th class="class50">@WebApps.Resources.Resource.Remind</th>*@
                 <th class="tdleftalign" style="width:20%" id="CASE_CODE" onclick="TodoSortByCol('CASE_CODE')">Case code</th>
                 <th class="tdleftalign" style="width:25%">@WebApps.Resources.Resource.Noidung</th>
                 <th class="tdleftalign" style="width:15%" id='REQUEST_BY_NAME' onclick="TodoSortByCol('REQUEST_BY_NAME')">@WebApps.Resources.Resource.Nguoigui</th>
@@ -40,9 +40,9 @@
                 {
                     <tr>
                         <td class="tdcenteralign">@item.STT</td>
-                        <td class="tdcenteralign">
+                        @*<td class="tdcenteralign">
                             <a href="javascript:;" onclick="onRemind(@item.TYPE,'@item.CASE_CODE', @item.TODO_ID)" class="fa fa-bell" data-title="Remind"></a>
-                        </td>
+                        </td>*@
 
                         @if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.Billing))
                         {

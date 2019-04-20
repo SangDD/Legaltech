@@ -95,7 +95,7 @@
                 Wiki
             </option>
         </select>
-        <input type="text" id="legalsearch_txtsearchcontent" placeholder="case code, case name, @WebApps.Resources.Resource.TinhTrangDon, @WebApps.Resources.Resource.Processor, @WebApps.Resources.Resource.LoaiDon" />
+        <input type="text" id="legalsearch_txtsearchcontent" placeholder="@WebApps.Resources.Resource.lblTenNhanHieu, @WebApps.Resources.Resource.CaseCode, @WebApps.Resources.Resource.CaseName,  @WebApps.Resources.Resource.TinhTrangDon, @WebApps.Resources.Resource.Processor, @WebApps.Resources.Resource.LoaiDon" />
         <div class="clssbox_button">
             <input type="button" style="" value="@WebApps.Resources.Resource.TimKiem" onclick="findObjects(1, 1)" />
         </div>
@@ -126,7 +126,7 @@
             try {
                 var _searchtype = $("#cbo_searchtype").val();
                 if (_searchtype == 1) {
-                    $("#legalsearch_txtsearchcontent").attr("placeholder", '@Html.Raw(Resource.CaseCode), @Html.Raw(Resource.CaseName), @Html.Raw(Resource.TinhTrangDon), @Html.Raw(Resource.Processor), @Html.Raw(Resource.LoaiDon)')
+                    $("#legalsearch_txtsearchcontent").attr("placeholder", '@Html.Raw(Resource.lblTenNhanHieu), @Html.Raw(Resource.CaseCode), @Html.Raw(Resource.CaseName), @Html.Raw(Resource.TinhTrangDon), @Html.Raw(Resource.Processor), @Html.Raw(Resource.LoaiDon) ')
                 }
                 if (_searchtype == 2) {
                     $("#legalsearch_txtsearchcontent").attr("placeholder", '@Html.Raw(Resource.TenLuatSu)')

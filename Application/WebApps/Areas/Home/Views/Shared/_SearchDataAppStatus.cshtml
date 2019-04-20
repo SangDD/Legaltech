@@ -18,13 +18,13 @@
     <thead>
         <tr>
             <th class="class30">STT</th>
-            <th   class="class200 tdleftalign"  id='@("CASE_CODE_" + _typesearch)' onclick="HomeSortByCol('CASE_CODE',@_typesearch)">Case code</th>
-            <th class="class250 tdleftalign" id='@("CASE_NAME_" + _typesearch)' onclick="HomeSortByCol('CASE_NAME',@_typesearch)">Case name</th>
-            <th class="class150 tdleftalign" id='@("APPCODE_" + _typesearch)' onclick="HomeSortByCol('APPCODE',@_typesearch)">Loại đơn</th>
-            <th class="class250 tdleftalign">Khách hàng</th>
-            @*<th class="class150">Người xử lý</th>*@
-            <th class="class100" id='@("DATE_WAIT_" + _typesearch)' onclick="HomeSortByCol('DATE_WAIT',@_typesearch)">Thời gian chờ (ngày)</th>
-            <th class="class250" id='@("STATUS_NAME_" + _typesearch)' onclick="HomeSortByCol('STATUS_NAME',@_typesearch)">Trạng thái</th>
+            <th class="class200 tdleftalign" id='@("CASE_CODE_" + _typesearch)' onclick="HomeSortByCol('CASE_CODE',@_typesearch)">@WebApps.Resources.Resource.CaseCode</th>
+            <th class="class250 tdleftalign" id='@("CASE_NAME_" + _typesearch)' onclick="HomeSortByCol('CASE_NAME',@_typesearch)">@WebApps.Resources.Resource.CaseName</th>
+            <th class="class150 tdleftalign" id='@("App_No_" + _typesearch)' onclick="HomeSortByCol('APPCODE',@_typesearch)">@WebApps.Resources.Resource.SoDon</th>
+            <th class="class150 tdleftalign" id='@("Object_Name_" + _typesearch)' onclick="HomeSortByCol('APPCODE',@_typesearch)">@WebApps.Resources.Resource.TenDoiTuong</th>
+            <th class="class250 tdleftalign">@WebApps.Resources.Resource.KhachHang</th>
+
+            <th class="class250" id='@("STATUS_NAME_" + _typesearch)' onclick="HomeSortByCol('STATUS_NAME',@_typesearch)">@WebApps.Resources.Resource.TinhTrangDon</th>
         </tr>
     </thead>
     <tbody>
@@ -32,27 +32,28 @@
         {
             foreach (var item in _list_data)
             {
-                <tr>
-                    <td class="tdcenteralign">@item.STT</td>
-                    <td class="tdleftalign">
-                        <a href="javascript:;" onclick="GetView2View_App('@item.Case_Code')" data-title="Xem chi tiết">@item.Case_Code</a>
-                    </td>
-                    <td class="tdleftalign">@item.Case_Name</td>
-                    <td class="tdleftalign">@item.Appcode</td>
-                    <td class="tdleftalign">@item.Customer_Name</td>
-                    @*<td class="tdleftalign">@item.User_Processing</td>*@
-                    <td class="tdcenteralign">@item.Date_Wait</td>
-                    <td class="tdleftalign">@item.Status_Name</td>
-                    @*<td class="tdcenteralign">
-                        <a target="_blank" href="/trade-mark/request-for-trade-mark-view/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-info" data-title="Xem chi tiết"></a>
-                    </td>*@
-                </tr>
+        <tr>
+            <td class="tdcenteralign">@item.STT</td>
+            <td class="tdleftalign">
+                <a href="javascript:;" onclick="GetView2View_App('@item.Case_Code')" data-title="Xem chi tiết">@item.Case_Code</a>
+            </td>
+            <td class="tdleftalign">@item.Case_Name</td>
+            <td class="tdleftalign">@item.App_No</td>
+            <td class="tdleftalign">@item.Object_Name</td>
+            <td class="tdleftalign">@item.Customer_Name</td>
+            @*<td class="tdleftalign">@item.User_Processing</td>*@
+            @*<td class="tdcenteralign">@item.Date_Wait</td>*@
+            <td class="tdleftalign">@item.Status_Name</td>
+            @*<td class="tdcenteralign">
+            <a target="_blank" href="/trade-mark/request-for-trade-mark-view/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-info" data-title="Xem chi tiết"></a>
+        </td>*@
+        </tr>
             }
         }
         else
         {
             <tr>
-                <td colspan="7">Không có dữ liệu</td>
+                <td colspan="7">@WebApps.Resources.Resource.KhongCoDuLieu</td>
             </tr>
         }
     </tbody>
