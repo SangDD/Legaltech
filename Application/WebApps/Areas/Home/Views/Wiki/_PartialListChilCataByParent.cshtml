@@ -29,7 +29,7 @@
 </style>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <input type="hidden" id="txthiidencataname" value="@_Catainfo.NAME" />
+        <input type="hidden" id="txthiidencataname" value="@_cataname" />
         <input type="hidden" id="_txtwikicataid" value="@_Catainfo.ID" />
         <div id="pagination-append" class="list-group item-list with-letters wikitable">
             @foreach (var item in _listObject)
@@ -44,8 +44,6 @@
                     {
                         @item.NAME_ENG
                     }
-
-
                 </a>
             }
         </div>
