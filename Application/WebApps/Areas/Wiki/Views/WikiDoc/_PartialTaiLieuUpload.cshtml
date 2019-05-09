@@ -17,7 +17,7 @@
 }
 
 <div class="div-search-ad @AfterID" id="@div_Up" data-level="@Level">
-   
+
     <div class="div-search-title">
         <div>@Title</div>
         <input type="hidden" value="@AfterID" id="@AfterID" />
@@ -25,38 +25,39 @@
     <div class="div-search-content">
         <div class="div-checkbox">
 
-            <input type="button" value="Tải file" class="btn" onclick="return Click_Upload_File('@AfterID')" style="margin:2px;" />
+            <input type="button" value="@WebApps.Resources.Resource.TM2B_taifile" class="btn" onclick="return Click_Upload_File('@AfterID')" style="margin:2px;" />
             <div>
                 <input type="file" id="@pfile" style="display:none" onchange="FuncChooseResultFile('@AfterID')" />
             </div>
         </div>
     </div>
- 
+
+    <div class="div-search-title">
+        <div>@WebApps.Resources.Resource.Tenfile:</div>
+    </div>
     <div class="div-search-content">
         <div>
             <input type="text" id="@txtMaxFile" style="width:400px" readonly="readonly" />
         </div>
     </div>
 
-    <div class="div-search-content clssDisplaynone" id="@div_Img">
-        <div class="div-checkbox">
-            <img onclick="RemoveFile('@AfterID')" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" />
+    @*<div class="div-search-content clssDisplaynone" id="@div_Img">
+            <div class="div-checkbox">
+                <img onclick="RemoveFile('@AfterID')" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" />
+            </div>
         </div>
-    </div>
 
-    <div class="div-search-content clssDisplaynone" id="@div_check">
-        <div class="div-checkbox" style="width:20px ">
-            <i class="fa fa-check" id="@ifafaCheck" style="font-size:15px;color:green;margin-top: 5px; margin-left: 3px;"></i>
-        </div>
-    </div>
+        <div class="div-search-content clssDisplaynone" id="@div_check">
+            <div class="div-checkbox" style="width:20px ">
+                <i class="fa fa-check" id="@ifafaCheck" style="font-size:15px;color:green;margin-top: 5px; margin-left: 3px;"></i>
+            </div>
+        </div>*@
 
-    <div class="div-search-content">
-        <div class="div-checkbox" style="width:70px ">
-            <input type="button" value="Tải file" class="btn" style="margin:2px;" id="@btnTaiFile" onclick="return funcPushFileToServer('@AfterID');" />
-        </div>
-    </div>
-
-
+    @*<div class="div-search-content">
+            <div class="div-checkbox" style="width:70px ">
+                <input type="button" value="Tải file" class="btn" style="margin:2px;" id="@btnTaiFile" onclick="return funcPushFileToServer('@AfterID');" />
+            </div>
+        </div>*@
 </div>
 
 <script>
@@ -84,6 +85,8 @@
                 $("#div_img_" + p_AfterID).removeClass("clssDisplaynone");
 
                 _txt.style.width = "400px";
+
+                funcPushFileToServer(p_AfterID);
             }
         } catch (e) {
             alert(e);
