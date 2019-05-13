@@ -16,7 +16,7 @@ namespace BussinessFacade
             try
             {
                 WikiDoc_DA _da = new WikiDoc_DA();
-                return _da.WikiDoc_Insert(p_ObjInffo.TITLE, p_ObjInffo.HEADER, p_ObjInffo.CONTENT, p_ObjInffo.CONTENT_En, p_ObjInffo.LANGUAGE_CODE, p_ObjInffo.CREATED_BY,
+                return _da.WikiDoc_Insert(p_ObjInffo.TITLE, p_ObjInffo.TITLE_EN, p_ObjInffo.HEADER, p_ObjInffo.HEADER_EN, p_ObjInffo.CONTENT, p_ObjInffo.CONTENT_En, p_ObjInffo.LANGUAGE_CODE, p_ObjInffo.CREATED_BY,
                     p_ObjInffo.CREATED_DATE, p_ObjInffo.HASHTAG, p_ObjInffo.FILE_URL01, p_ObjInffo.FILE_URL02, p_ObjInffo.FILE_URL03,
                     p_ObjInffo.CATA_ID, p_ObjInffo.STATUS);
             }
@@ -32,7 +32,7 @@ namespace BussinessFacade
             try
             {
                 WikiDoc_DA _da = new WikiDoc_DA();
-                return _da.WikiDoc_Update(p_ObjInffo.ID, p_ObjInffo.TITLE, p_ObjInffo.HEADER, p_ObjInffo.CONTENT, p_ObjInffo.CONTENT_En, p_ObjInffo.LANGUAGE_CODE, p_ObjInffo.MODIFIED_BY,
+                return _da.WikiDoc_Update(p_ObjInffo.ID, p_ObjInffo.TITLE, p_ObjInffo.TITLE_EN, p_ObjInffo.HEADER, p_ObjInffo.HEADER_EN, p_ObjInffo.CONTENT, p_ObjInffo.CONTENT_En, p_ObjInffo.LANGUAGE_CODE, p_ObjInffo.MODIFIED_BY,
                     p_ObjInffo.MODIFIED_DATE, p_ObjInffo.HASHTAG, p_ObjInffo.FILE_URL01, p_ObjInffo.FILE_URL02, p_ObjInffo.FILE_URL03,
                     p_ObjInffo.CATA_ID, p_ObjInffo.STATUS, p_ObjInffo.NOTE);
             }

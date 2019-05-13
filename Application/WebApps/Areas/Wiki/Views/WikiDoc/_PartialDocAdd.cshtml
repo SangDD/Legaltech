@@ -38,7 +38,7 @@
             <img src="~/Content/icons/Body-icon-home.png" /> I
             <a href="/home">Home</a>
             <span class="red">></span>
-            <a href="/wiki-doc/list">Quản lý bài viết</a>
+            <a href="/wiki-manage/wiki-doc/list/1">Quản lý bài viết</a>
             <span class="red">></span>
             <a href="/wiki-doc/add">Thêm mới bài viết</a>
         </div>
@@ -68,6 +68,18 @@
                 </div>
             </div>
         </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tiêu đề (EN)<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtTitle_EN" maxlength="500" />
+                </div>
+            </div>
+        </div>
+
         <div class="div-search-ad">
             <div class="div-search-title">
                 <div>Tóm tắt<i class="redspan">(*)</i></div>
@@ -78,6 +90,18 @@
                 </div>
             </div>
         </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tóm tắt (EN)<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtHeader_EN" maxlength="1000" />
+                </div>
+            </div>
+        </div>
+
         <div class="div-search-ad">
             <div class="div-search-title">
                 <div>Chủ đề </div>
@@ -202,12 +226,21 @@
                 var formData = new FormData();
                 var txtTitle = $("#txtTitle");
                 var txtHeader = $("#txtHeader");
+                var txtTitle_EN = $("#txtTitle_EN");
+                var txtHeader_EN = $("#txtHeader_EN");
+
                 var CboAddWikiCataParent = $("#CboAddWikiCataParent");
                 var CboAddWikiCataChild = $("#CboAddWikiCataChild");
 
                 if (txtTitle.val().trim() == "") {
                     showError('Tiêu đề không được để trống!');
                     txtTitle.focus();
+                    return false;
+                }
+
+                if (txtTitle_EN.val().trim() == "") {
+                    showError('Tiêu đề (EN) không được để trống!');
+                    txtTitle_EN.focus();
                     return false;
                 }
 
@@ -232,6 +265,10 @@
 
                 formData.append("_objectInfo.TITLE", txtTitle.val().trim());
                 formData.append("_objectInfo.HEADER", txtHeader.val().trim());
+
+                formData.append("_objectInfo.TITLE_EN", txtTitle_EN.val().trim());
+                formData.append("_objectInfo.HEADER_EN", txtHeader_EN.val().trim());
+
                 formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
                 formData.append("_objectInfo.CONTENT", _contentVal);
                 formData.append("_objectInfo.STATUS", '@CommonWiki.Stt_luutam');
@@ -271,12 +308,20 @@
                 var formData = new FormData();
                 var txtTitle = $("#txtTitle");
                 var txtHeader = $("#txtHeader");
+                var txtTitle_EN = $("#txtTitle_EN");
+                var txtHeader_EN = $("#txtHeader_EN");
                 var CboAddWikiCataParent = $("#CboAddWikiCataParent");
                 var CboAddWikiCataChild = $("#CboAddWikiCataChild");
 
                 if (txtTitle.val().trim() == "") {
                     showError('Tiêu đề không được để trống!');
                     txtTitle.focus();
+                    return false;
+                }
+
+                if (txtTitle_EN.val().trim() == "") {
+                    showError('Tiêu đề (EN) không được để trống!');
+                    txtTitle_EN.focus();
                     return false;
                 }
 
@@ -303,6 +348,10 @@
 
                 formData.append("_objectInfo.TITLE", txtTitle.val().trim());
                 formData.append("_objectInfo.HEADER", txtHeader.val().trim());
+
+                formData.append("_objectInfo.TITLE_EN", txtTitle_EN.val().trim());
+                formData.append("_objectInfo.HEADER_EN", txtHeader_EN.val().trim());
+
                 formData.append("_objectInfo.CATA_ID", CboAddWikiCataChild.val());
                 formData.append("_objectInfo.CONTENT", _contentVal);
                 formData.append("_objectInfo.CONTENT_En", _contentVal_En);

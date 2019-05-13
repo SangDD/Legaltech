@@ -1,5 +1,5 @@
 ﻿@using ObjectInfos;
-@using WebApps.Session 
+@using WebApps.Session
 @using WebApps.CommonFunction;
 @{
     WikiDoc_Info _DocdetailInfo = new WikiDoc_Info();
@@ -25,7 +25,7 @@
     decimal _rating = 0;
     try
     {
-        _rating =Math.Round(_DocdetailInfo.RATING / (_DocdetailInfo.NUMBER_VOTED * 5), 2);
+        _rating = Math.Round(_DocdetailInfo.RATING / (_DocdetailInfo.NUMBER_VOTED * 5), 2);
     }
     catch (Exception)
     {
@@ -70,7 +70,7 @@
 
     .clsBtnBack {
         background-image: url(/Content/images/Tro_ve.png);
-    left: 0;
+        left: 0;
     }
 
         .clsBtnBack:hover {
@@ -161,7 +161,7 @@
                 </div>
                 <div class="socialdownloadwiki"></div>
             </div>
-       
+
             <div class="Box-Share" style="margin-left:270px">
                 <div class="clsBtnCopy click-copy" onclick="funcSetSelect()">
                     <div style="color: #0d4a86;font-weight:bold; margin-left:32px"> COPY</div>
@@ -169,8 +169,8 @@
                 <div class="socialdownloadwiki"></div>
             </div>
         }
-     
-           </div>
+
+    </div>
 </div>
 <div>
     <div>
@@ -194,31 +194,31 @@
     }
 </div>
 <div class="div_ratingcontent">
-    <div class="kk-star-ratings disabled bottom-right rgt" >
+    <div class="kk-star-ratings disabled bottom-right rgt">
         @*@if (SessionData.CurrentUser != null &&  _DocdetailInfo.USER_VOTED.Contains(userid) == false)
-        {
-            <div class="kksr-stars kksr-star gray">
-                <div id="div_ratingcontent_percent" class="kksr-fuel kksr-star yellow" style="@_styleVoting"></div>
-                <a href="javascript:;" id="voting_i01" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('01')" onmouseout="StarOnMouseOut('01')" onclick="WikiDocVoting(1)"></a>
-                <a href="javascript:;" id="voting_i02" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('02')" onmouseout="StarOnMouseOut('02')" onclick="WikiDocVoting(2)"></a>
-                <a href="javascript:;" id="voting_i03" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('03')" onmouseout="StarOnMouseOut('03')" onclick="WikiDocVoting(3)"></a>
-                <a href="javascript:;" id="voting_i04" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('04')" onmouseout="StarOnMouseOut('04')" onclick="WikiDocVoting(4)"></a>
-                <a href="javascript:;" id="voting_i05" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('05')" onmouseout="StarOnMouseOut('05')" onclick="WikiDocVoting(5)"></a>
-            </div>
-        }
-        else
-        {
-            <div class="kksr-stars kksr-star gray">
-                <div id="div_ratingcontent_percent" class="kksr-fuel kksr-star yellow" style="@_styleVoting"></div>
-                <a href="javascript:;" style="cursor:auto"></a>
-                <a href="javascript:;" style="cursor:auto"></a>
-                <a href="javascript:;" style="cursor:auto"></a>
-                <a href="javascript:;" style="cursor:auto"></a>
-                <a href="javascript:;" style="cursor:auto"></a>
-            </div>
-        }*@
-        
-       
+            {
+                <div class="kksr-stars kksr-star gray">
+                    <div id="div_ratingcontent_percent" class="kksr-fuel kksr-star yellow" style="@_styleVoting"></div>
+                    <a href="javascript:;" id="voting_i01" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('01')" onmouseout="StarOnMouseOut('01')" onclick="WikiDocVoting(1)"></a>
+                    <a href="javascript:;" id="voting_i02" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('02')" onmouseout="StarOnMouseOut('02')" onclick="WikiDocVoting(2)"></a>
+                    <a href="javascript:;" id="voting_i03" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('03')" onmouseout="StarOnMouseOut('03')" onclick="WikiDocVoting(3)"></a>
+                    <a href="javascript:;" id="voting_i04" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('04')" onmouseout="StarOnMouseOut('04')" onclick="WikiDocVoting(4)"></a>
+                    <a href="javascript:;" id="voting_i05" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('05')" onmouseout="StarOnMouseOut('05')" onclick="WikiDocVoting(5)"></a>
+                </div>
+            }
+            else
+            {
+                <div class="kksr-stars kksr-star gray">
+                    <div id="div_ratingcontent_percent" class="kksr-fuel kksr-star yellow" style="@_styleVoting"></div>
+                    <a href="javascript:;" style="cursor:auto"></a>
+                    <a href="javascript:;" style="cursor:auto"></a>
+                    <a href="javascript:;" style="cursor:auto"></a>
+                    <a href="javascript:;" style="cursor:auto"></a>
+                    <a href="javascript:;" style="cursor:auto"></a>
+                </div>
+            }*@
+
+
         <div class="kksr-stars kksr-star gray">
             <div id="div_ratingcontent_percent" class="kksr-fuel kksr-star yellow" style="@_styleVoting"></div>
             <a href="javascript:;" id="voting_i01" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('01')" onmouseout="StarOnMouseOut('01')" onclick="WikiDocVoting(1)"></a>
@@ -227,17 +227,17 @@
             <a href="javascript:;" id="voting_i04" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('04')" onmouseout="StarOnMouseOut('04')" onclick="WikiDocVoting(4)"></a>
             <a href="javascript:;" id="voting_i05" data-wpel-link="internal" class="kksr-star" onmouseover="StarOnMouseOver('05')" onmouseout="StarOnMouseOut('05')" onclick="WikiDocVoting(5)"></a>
         </div>
-         
 
-            <div class="kksr-legend">
-                <div itemprop="aggregateRating">
-                    <span id="ratingValue">@_rating</span>
-                    <span id="ratingCount">@_DocdetailInfo.NUMBER_VOTED</span> votes
-                    <meta content="1"><div itemprop="itemReviewed">
-                    </div>
+
+        <div class="kksr-legend">
+            <div itemprop="aggregateRating">
+                <span id="ratingValue">@_rating</span>
+                <span id="ratingCount">@_DocdetailInfo.NUMBER_VOTED</span> votes
+                <meta content="1"><div itemprop="itemReviewed">
                 </div>
             </div>
-</div>
+        </div>
+    </div>
 </div>
 
 @*<script src="~/Content/social-likes/social-likes.min.js"></script>*@
@@ -255,7 +255,7 @@
             }
         }
     });
-   
+
 
     function funcLikeShareSocial(a)
     {
@@ -302,13 +302,13 @@
                         $("#div_ratingcontent_percent").attr("style", "width:" + data.WidthDiv + "%;");
                         $("#ratingValue").text(data.Rating);
                         $("#ratingCount").text(data.TotalVoted);
-                        
+
                         for (var i = 0; i <= 5; i++) {
                             $("#voting_i0" + i).removeAttr("onmouseover");
                             $("#voting_i0" + i).removeAttr("StarOnMouseOut");
                             $("#voting_i0" + i).removeAttr("onclick");
                         }
-                        
+
                     }
                 },
                 error: function (e) {

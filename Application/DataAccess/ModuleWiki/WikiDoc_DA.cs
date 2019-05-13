@@ -12,7 +12,7 @@ namespace DataAccess
 {
   public class WikiDoc_DA
     {
-        public decimal WikiDoc_Insert(string P_TITLE, string P_HEADER, string P_CONTENT, string P_CONTENT_EN, string P_LANGUAGE_CODE,
+        public decimal WikiDoc_Insert(string P_TITLE, string P_TITLE_EN, string P_HEADER,string P_HEADER_EN, string P_CONTENT, string P_CONTENT_EN, string P_LANGUAGE_CODE,
           string P_CREATED_BY, DateTime P_CREATED_DATE, string P_HASHTAG, string P_FILE_URL01, string P_FILE_URL02,
           string P_FILE_URL03, decimal P_CATA_ID, decimal P_STATUS)
         {
@@ -21,7 +21,9 @@ namespace DataAccess
                 OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_WIKI_DOCS.PROC_WIKI_DOCS_INSERT",
                     new OracleParameter("P_TITLE", OracleDbType.Varchar2, P_TITLE, ParameterDirection.Input),
+                    new OracleParameter("P_TITLE_EN", OracleDbType.Varchar2, P_TITLE_EN, ParameterDirection.Input),
                     new OracleParameter("P_HEADER", OracleDbType.Varchar2, P_HEADER, ParameterDirection.Input),
+                    new OracleParameter("P_HEADER_EN", OracleDbType.Varchar2, P_HEADER_EN, ParameterDirection.Input),
                     new OracleParameter("P_CONTENT", OracleDbType.Clob, P_CONTENT, ParameterDirection.Input),
                     new OracleParameter("P_CONTENT_EN", OracleDbType.Clob, P_CONTENT_EN, ParameterDirection.Input),
                     new OracleParameter("P_CREATED_BY", OracleDbType.Varchar2, P_CREATED_BY, ParameterDirection.Input),
@@ -44,7 +46,7 @@ namespace DataAccess
             }
         }
 
-        public decimal WikiDoc_Update(decimal P_ID, string P_TITLE, string P_HEADER, string P_CONTENT, string P_CONTENT_EN, string P_LANGUAGE_CODE,
+        public decimal WikiDoc_Update(decimal P_ID, string P_TITLE,string P_TITLE_EN, string P_HEADER,string P_HEADER_EN, string P_CONTENT, string P_CONTENT_EN, string P_LANGUAGE_CODE,
          string P_MODIFIED_BY, DateTime P_MODIFIED_DATE, string P_HASHTAG, string P_FILE_URL01, string P_FILE_URL02,
          string P_FILE_URL03, decimal P_CATA_ID, decimal P_STATUS, string P_NOTE)
         {
@@ -54,7 +56,9 @@ namespace DataAccess
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_WIKI_DOCS.PROC_WIKI_DOCS_UPDATE",
                     new OracleParameter("P_ID", OracleDbType.Decimal, P_ID, ParameterDirection.Input),
                     new OracleParameter("P_TITLE", OracleDbType.Varchar2, P_TITLE, ParameterDirection.Input),
+                    new OracleParameter("P_TITLE_EN", OracleDbType.Varchar2, P_TITLE_EN, ParameterDirection.Input),
                     new OracleParameter("P_HEADER", OracleDbType.Varchar2, P_HEADER, ParameterDirection.Input),
+                    new OracleParameter("P_HEADER_EN", OracleDbType.Varchar2, P_HEADER_EN, ParameterDirection.Input),
                     new OracleParameter("P_CONTENT", OracleDbType.Clob, P_CONTENT, ParameterDirection.Input),
                     new OracleParameter("P_CONTENT_EN", OracleDbType.Clob, P_CONTENT_EN, ParameterDirection.Input),
                     new OracleParameter("P_MODIFIED_BY", OracleDbType.Varchar2, P_MODIFIED_BY, ParameterDirection.Input),

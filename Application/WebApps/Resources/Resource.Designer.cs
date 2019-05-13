@@ -151,6 +151,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bài viết liên quan.
+        /// </summary>
+        public static string BaiVietLienQuan {
+            get {
+                return ResourceManager.GetString("BaiVietLienQuan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Billing.
         /// </summary>
         public static string Billing {

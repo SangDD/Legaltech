@@ -14,8 +14,12 @@ namespace ObjectInfos
         public decimal ID { set; get; }
 
         public string TITLE { set; get; }
+        public string TITLE_EN { set; get; }
+
 
         public string HEADER { set; get; }
+        public string HEADER_EN { set; get; }
+
 
         [AllowHtml]
         public string CONTENT { set; get; }

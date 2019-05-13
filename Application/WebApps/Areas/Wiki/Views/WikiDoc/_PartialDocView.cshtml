@@ -26,7 +26,7 @@
             <img src="~/Content/icons/Body-icon-home.png" /> I
             <a href="/home">Home</a>
             <span class="red">></span>
-            <a href="/wiki-doc/list">Quản lý bài viết</a>
+            <a href="/wiki-manage/wiki-doc/list/1">Quản lý bài viết</a>
             <span class="red">></span>
             <a href="#">Chi tiết bài viết</a>
            
@@ -63,6 +63,17 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
+                <div>Tiêu đề (EN)</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtTitle_EN" maxlength="500" value="@Model.TITLE_EN" disabled />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
                 <div>Tóm tắt</div>
             </div>
             <div class="div-search-content">
@@ -71,6 +82,18 @@
                 </div>
             </div>
         </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tóm tắt (EN)</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtTitle_EN" maxlength="500" value="@Model.HEADER_EN" disabled />
+                </div>
+            </div>
+        </div>
+
         <div class="div-search-ad">
             <div class="div-search-title">
                 <div>Chủ đề </div>

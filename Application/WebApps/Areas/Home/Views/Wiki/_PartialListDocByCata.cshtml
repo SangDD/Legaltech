@@ -31,19 +31,39 @@
                     @if (WebApps.Session.SessionData.CurrentUser != null)
                     {
                         <a href='@(_langlink + "/wiki-view/doc-view/"+item.CATA_ID+"/" + item.ID)'>
-                            @item.TITLE
+                            @if (_LanguageCode == "VI_VN")
+                            {
+                                @item.TITLE
+                            }
+                            else
+                            {
+                                @item.TITLE_EN
+                            }
                         </a>
                     }
                     else
                     {
                         <a href='javascript:;'>
-                            @item.TITLE
+                            @if (_LanguageCode == "VI_VN")
+                            {
+                                @item.TITLE
+                            }
+                            else
+                            {
+                                @item.TITLE_EN
+                            }
                         </a>
                     }
 
-
                     <div class="wiki_header">
-                        @item.HEADER
+                        @if (_LanguageCode == "VI_VN")
+                        {
+                            @item.HEADER
+                        }
+                        else
+                        {
+                            @item.HEADER_EN
+                        }
                     </div>
                 </div>
 
