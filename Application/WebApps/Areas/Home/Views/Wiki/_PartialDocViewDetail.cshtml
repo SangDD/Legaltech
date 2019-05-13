@@ -43,7 +43,14 @@
 }
 @*<script src="~/Scripts/WikiScript.js"></script>*@
 <h1>
-    @_DocdetailInfo.TITLE
+    @if (_LanguageCode == "VI_VN")
+    {
+        @_DocdetailInfo.TITLE
+    }
+    else
+    {
+        @_DocdetailInfo.TITLE_EN
+    }
 </h1>
 <style>
     .d-paging {
