@@ -699,10 +699,10 @@ namespace WebApps.Areas.Manager.Controllers
             {
 
                 List<Billing_Detail_Info> _lst_billing_detail = AppsCommon.Get_LstFee_Detail(p_SearchObject_Header_Info.CASE_CODE);
-                if (_lst_billing_detail.Count == 0)
-                {
-                    return Json(new { success = "-2" });
-                }
+                //if (_lst_billing_detail.Count == 0)
+                //{
+                //    return Json(new { success = "-2" });
+                //}
 
 
                 decimal _ck = 0;
@@ -726,6 +726,11 @@ namespace WebApps.Areas.Manager.Controllers
 
                     // insert billing
                     // lấy thông tin cũ
+                    if (_lst_billing_detail.Count == 0)
+                    {
+                        goto Commit_Transaction;
+                    }
+
                     SearchObject_BL _SearchObject_BL = new SearchObject_BL();
                     List<Billing_Detail_Info> _lst_detail = new List<Billing_Detail_Info>();
                     SearchObject_Header_Info objSearch_HeaderInfo = _SearchObject_BL.GetBilling_By_Case_Code(p_SearchObject_Header_Info.CASE_CODE, SessionData.CurrentUser.Username,

@@ -408,10 +408,10 @@ namespace WebApps.Areas.TradeMark.Controllers
             try
             {
                 List<Billing_Detail_Info> _lst_billing_detail = AppsCommon.Get_LstFee_Detail(pInfo.Case_Code);
-                if (_lst_billing_detail.Count == 0)
-                {
-                    return Json(new { success = "-2" });
-                }
+                //if (_lst_billing_detail.Count == 0)
+                //{
+                //    return Json(new { success = "-2" });
+                //}
 
                 decimal _ck = 0;
                 using (var scope = new TransactionScope())
@@ -435,6 +435,11 @@ namespace WebApps.Areas.TradeMark.Controllers
                     }
 
                     // insert billing
+                    if (_lst_billing_detail.Count == 0)
+                    {
+                        goto Commit_Transaction;
+                    }
+
                     Billing_BL _Billing_BL = new Billing_BL();
                     Billing_Header_Info p_Billing_Header_Info = new Billing_Header_Info();
                     p_Billing_Header_Info.Created_By = SessionData.CurrentUser.Username;

@@ -330,7 +330,7 @@
                 return false;
             }
 
-            if ($("txtReject_Reason").val().trim() == "") {
+            if ($("txtReject_Reason").val() == "") {
                 jError("@Html.Raw(WebApps.Resources.Resource.LyDoKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $("#txtReject_Reason").val('');
                     $('#txtReject_Reason').focus();
