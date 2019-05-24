@@ -229,19 +229,19 @@
         <div class="div-search-btn" style="width:600px;margin-top: 5px;">
             @if (Model.App_Case_Code.Contains("SEARCH"))
             {
-                <input type="submit" class="btn-default" value="Kết xuất" onclick="return onExport('@Model.Case_Code',2)" />
+                <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.KetXuat" onclick="return onExport('@Model.Case_Code',2)" />
             }
             else
             {
-                <input type="submit" class="btn-default" value="Kết xuất" onclick="return onExport('@Model.Case_Code',1)" />
+                <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.KetXuat" onclick="return onExport('@Model.Case_Code',1)" />
             }
 
             @if (Model.Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Status.New_Wait_Approve))
             {
-                <input type="submit" class="btn-default" value="Edit" onclick="return getView2Edit(@Model.Billing_Id,'@Model.App_Case_Code')" /> 
+                <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Sua" onclick="return getView2Edit(@Model.Billing_Id,'@Model.App_Case_Code')" /> 
             }
             
-            <input type="submit" class="btn-default" value="Exit" onclick="return onBack()" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Thoat" onclick="return onBack()" />
         </div>
     </div>
 

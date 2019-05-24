@@ -249,5 +249,20 @@ namespace BussinessFacade
                 return new List<Billing_Detail_Info>();
             }
         }
+
+        public Billing_Header_Info Billing_GetBy_Id(decimal p_billing_id, string p_language_code)
+        {
+            try
+            {
+                Billing_DA _da = new Billing_DA();
+                DataSet _ds = _da.Billing_GetBy_Id(p_billing_id, p_language_code);
+                return CBO<Billing_Header_Info>.FillObjectFromDataTable(_ds.Tables[0]);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new Billing_Header_Info();
+            }
+        }
     }
 }

@@ -50,6 +50,11 @@
                 Thread _th2 = new Thread(ThreadChangeRemind);
                 _th2.IsBackground = true;
                 _th2.Start();
+
+                Thread _th3 = new Thread(ThreadSendEmail);
+                _th3.IsBackground = true;
+                _th3.Start();
+
             }
             catch (Exception ex)
             {
@@ -284,6 +289,31 @@
                     }
 
                     Thread.Sleep(60000);
+                }
+                catch (Exception ex)
+                {
+                    Thread.Sleep(2000);
+                    Logger.Log().Error(ex.ToString());
+                }
+            }
+        }
+
+        void ThreadSendEmail()
+        {
+            while (true)
+            {
+                try
+                {
+                    Email_Info _Email_Info = WebApps.CommonFunction.AppsCommon.Dequeue_SendEmail();
+                    if (_Email_Info != null)
+                    {
+                        bool _ck = EmailHelper.SendMail(_Email_Info.EmailTo, _Email_Info.EmailCC, _Email_Info.Subject, _Email_Info.Content, _Email_Info.LstAttachment);
+                        if (_ck == false)
+                        {
+                            WebApps.CommonFunction.AppsCommon.EnqueueSendEmail(_Email_Info);
+                        }
+                    }
+                    Thread.Sleep(1000);
                 }
                 catch (Exception ex)
                 {

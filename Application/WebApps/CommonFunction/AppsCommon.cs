@@ -29,6 +29,21 @@ namespace WebApps.CommonFunction
 {
     public class AppsCommon
     {
+        static MyQueue c_QueueSendEmail = new MyQueue();
+
+        public static void EnqueueSendEmail (Email_Info email_Info)
+        {
+            c_QueueSendEmail.Enqueue(email_Info);
+        }
+
+        public static Email_Info Dequeue_SendEmail()
+        {
+            Email_Info _Email_Info = (Email_Info)c_QueueSendEmail.Dequeue();
+            if (_Email_Info != null)
+                return _Email_Info;
+            else return null;
+        }
+
         public static string gKeyEncrypt = @"L2WcFveA50iHVuucn+bPUw==";
 
         public static string GetCurrentLang()

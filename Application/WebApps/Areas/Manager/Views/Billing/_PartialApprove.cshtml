@@ -217,7 +217,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Reject reason</div>
+                <div>@WebApps.Resources.Resource.LyDoTuChoi</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -229,15 +229,15 @@
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;margin-top: 5px;">
-            <input type="submit" class="btn-default" value="Duyệt" onclick="return onApprove()" />
-            <input type="submit" class="btn-default" value="Từ chối" onclick="return onReject()" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Duyet" onclick="return onApprove()" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.TuChoi" onclick="return onReject()" />
 
             @if (Model.Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Status.New_Wait_Approve))
             {
-                <input type="submit" class="btn-default" value="Edit" onclick="return getView2Edit(@Model.Billing_Id,'@Model.App_Case_Code')" />
+                <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Sua" onclick="return getView2Edit(@Model.Billing_Id,'@Model.App_Case_Code')" />
             }
 
-            <input type="submit" class="btn-default" value="Thoát" onclick="return onBack()" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Thoat" onclick="return onBack()" />
         </div>
     </div>
 

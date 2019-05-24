@@ -826,6 +826,9 @@ namespace WebApps.Areas.Manager.Controllers
                     ViewBag.objSearch_HeaderInfo = SearchObject_Header_Info;
                     ViewBag.objAppHeaderInfo = objAppHeaderInfo;
 
+                    ViewBag.Currency_Type = SearchObject_Header_Info.Currency_Type;
+                    ViewBag.App_Case_Code = _Billing_Header_Info.App_Case_Code;
+
                     return PartialView("~/Areas/Manager/Views/Billing/_PartialApprove.cshtml", _Billing_Header_Info);
                 }
                 else if (_Billing_Header_Info.Status == (decimal)CommonEnums.Billing_Status.Approved)

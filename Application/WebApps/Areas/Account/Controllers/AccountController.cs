@@ -143,7 +143,7 @@
                 UserInfo _user = new UserInfo();
                 UserBL _userBL = new UserBL();
                 _user = _userBL.GetBy_Email(gmail);
-                List<string> a = new List<string>();
+                List<string> _LstAttachment = new List<string>();
 
                 if (_user.Id == 0)
                 {
@@ -164,7 +164,19 @@
                     link = Configuration.LinkPathlaw + "/en-gb/quen-mat-khau/thong-bao?confirm=" + _nd_confirm;
                 }
                 string content = GetContentMail(link);
-                _ck = EmailHelper.SendMail(_user.Email, "", "Đặt lại mật khẩu", content, a);
+
+                Email_Info _Email_Info = new Email_Info
+                {
+                    EmailTo = _user.Email,
+                    EmailCC = "",
+                    Subject = "Đặt lại mật khẩu",
+                    Content = content,
+                    LstAttachment = _LstAttachment,
+                };
+
+                CommonFunction.AppsCommon.EnqueueSendEmail(_Email_Info);
+
+                //_ck = EmailHelper.SendMail(_user.Email, "", "Đặt lại mật khẩu", content, _LstAttachment);
                 return Json(new { success = 1 });
             }
             catch (Exception ex)

@@ -2968,6 +2968,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lý do từ chối.
+        /// </summary>
+        public static string LyDoTuChoi {
+            get {
+                return ResourceManager.GetString("LyDoTuChoi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mã đại diện.
         /// </summary>
         public static string MaDaiDien {

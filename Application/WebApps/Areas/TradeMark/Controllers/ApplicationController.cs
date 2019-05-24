@@ -360,9 +360,26 @@ namespace WebApps.Areas.TradeMark.Controllers
 
                     if (_ApplicationHeaderInfo.Url_Billing != null && _ApplicationHeaderInfo.Url_Billing != "")
                     {
-                        _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_ApplicationHeaderInfo.Url_Billing));
+                        // lấy thông tin billing
+                        Billing_BL _Billing_BL = new Billing_BL();
+                        Billing_Header_Info _Billing_Header_Info = _Billing_BL.Billing_GetBy_Id(_ApplicationHeaderInfo.Billing_Id_Advise, AppsCommon.GetCurrentLang());
+                        if (_Billing_Header_Info.Billing_Id > 0 && _Billing_Header_Info.Status == (decimal)CommonEnums.Billing_Status.Approved)
+                        {
+                            _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_ApplicationHeaderInfo.Url_Billing));
+                        }
                     }
-                    EmailHelper.SendMail(_emailTo, _emailCC, "Filing advice", "Filing advice", _LstAttachment);
+
+                    Email_Info _Email_Info = new Email_Info
+                    {
+                        EmailTo = _emailTo,
+                        EmailCC = _emailCC,
+                        Subject = "Filing advice",
+                        Content = "Filing advice",
+                        LstAttachment = _LstAttachment,
+                    };
+
+                    CommonFunction.AppsCommon.EnqueueSendEmail(_Email_Info);
+                    //EmailHelper.SendMail(_emailTo, _emailCC, "Filing advice", "Filing advice", _LstAttachment);
                 }
 
                 return Json(new { success = _ck });

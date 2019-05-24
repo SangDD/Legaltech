@@ -9,7 +9,7 @@ namespace ObjectInfos
     /// <summary>
     /// Dùng chung cho một số info khác 
     /// </summary>
-   public class Base_Info
+    public class Base_Info
     {
         public string Created_By { set; get; }
 
@@ -19,5 +19,14 @@ namespace ObjectInfos
 
         public DateTime Modified_Date { set; get; }
 
+    }
+
+    public class Email_Info
+    {
+        public string EmailTo { get; set; }
+        public string EmailCC { get; set; }
+        public string Subject { get; set; }
+        public string Content { get; set; }
+        public List<string> LstAttachment { get; set; }
     }
 }
