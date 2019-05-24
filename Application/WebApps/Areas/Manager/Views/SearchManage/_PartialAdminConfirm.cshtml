@@ -13,6 +13,13 @@
     {
         QuestionInfo = (SearchObject_Question_Info)ViewBag.QuestionInfo;
     }
+
+    Billing_Header_Info _Billing_Header_Info = null;
+    if (_SearchObject_Header_Info.Url_Billing != null && _SearchObject_Header_Info.Url_Billing != "")
+    {
+        Billing_BL _Billing_BL = new Billing_BL();
+        _Billing_Header_Info = _Billing_BL.Billing_GetBy_Id(_SearchObject_Header_Info.Billing_Id, WebApps.CommonFunction.AppsCommon.GetCurrentLang());
+    }
 }
 
 <style>
@@ -77,10 +84,16 @@
         if (_arr1.Length > 0)
         {
             _filename1 = _arr1[_arr1.Length - 1];
+
+            // Hiển thị cả trạng thái reject nữa
+            if (_Billing_Header_Info.Status == (decimal)Common.CommonData.CommonEnums.Billing_Status.Reject)
+            {
+                _filename1 = _filename1 + "(" + _Billing_Header_Info.Status_Name + ")";
+            }
         }
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>@WebApps.Resources.Resource.Billing<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.Billing</div>
             </div>
             <div class="div-search-content">
                 <div>
