@@ -3454,6 +3454,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Đơn đăng ký sáng chế yêu cầu cấp bằng sáng chế.
+        /// </summary>
+        public static string PatentRegister {
+            get {
+                return ResourceManager.GetString("PatentRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Phân loại cho luật sư.
         /// </summary>
         public static string PhanLoaiChoLuatSu {
