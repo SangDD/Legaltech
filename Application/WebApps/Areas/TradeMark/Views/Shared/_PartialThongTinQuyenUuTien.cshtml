@@ -1,0 +1,190 @@
+﻿@using BussinessFacade.ModuleMemoryData
+@model string
+@using ObjectInfos;
+@using WebApps.Resources;
+@{
+    string txtSoDon = Model + "_UT_txtSoDon";
+    string txtNgayNopDon = Model + "_UT_txtNgayNopDon";
+    string txtQuocTich = Model + "_UT_txtQuocGia";
+    string rdo_YCHuongQuyen = Model + "_rdo_YCHuongQuyen";
+
+    string ckbNopTaiVietNam = Model + "_ckbNopTaiVietNam";
+    string ckbNopTaiParis = Model + "_ckbNopTaiParis";
+
+    string ckbThoaThuanKhac = Model + "_ckbThoaThuanKhac";
+    string txtThoathuanKhac = Model + "_txtThoathuanKhac";
+    string TLCMQUT = Model + "_TLCMQUT";
+    string BanSaoDauTien = Model + "_BanSaoDauTien";
+    string BanDich = Model + "_BanDich";
+    string GiayChuyenNhuong = Model + "_GiayChuyenNhuong";
+
+    string _disable = "";
+    if (ViewBag.Isdisable == 1)
+    {
+        _disable = "disabled";
+    }
+
+    string _doc_id = TLCMQUT;
+    string _model = _doc_id + "|" + TLCMQUT + "|0|" + @WebApps.Resources.Resource.lblTaiLieuChungMinhQuyenUuTien + "|" + Resource.lblSoBan + "|0";
+
+    string _doc_id2 = BanSaoDauTien;
+    string _model2 = _doc_id2 + "|" + BanSaoDauTien + "|1|" + @WebApps.Resources.Resource.lblbanSaoDauTienGom + "|" + Resource.lblSoBan + "|1";
+
+    string _doc_id3 = BanDich;
+    string _model3 = _doc_id3 + "|" + BanDich + "|1|" + @WebApps.Resources.Resource.lblbanSaoDauTienGom + "|" + Resource.lblSoBan + "|1";
+
+    string _doc_id4 = GiayChuyenNhuong;
+    string _model4 = _doc_id4 + "|" + GiayChuyenNhuong + "|1|" + @WebApps.Resources.Resource.lblGiayChuyenNhuongQuyenUT + "|" + "" + "|1";
+}
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div> @Resource.SoDon <i class="redspan">(*)</i></div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" maxlength="200" id="@txtSoDon" @_disable style="width:150px" />
+        </div>
+    </div>
+
+    <div class="div-search-title">
+        <div> @Resource.NgayNopDon <i class="redspan">(*)</i> </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" id="@txtNgayNopDon" @_disable />
+        </div>
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div>@WebApps.Resources.Resource.QuocTich <i class="redspan">(*)</i></div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <select id="@txtQuocTich">
+                @foreach (var item in MemoryData.c_lst_Country)
+                {
+                    if (item.Country_Id == Common.Common.Country_VietNam_Id)
+                    {
+                        <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Country_Id">@item.Name</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-content">
+        <div class="div-radio">
+            <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbNopTaiVietNam" value="NTVN">
+            <label>@WebApps.Resources.Resource.lblTheoDonNopTaiVN</label>
+        </div>
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-content">
+        <div class="div-radio">
+            <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbNopTaiParis" value="CUPR">
+            <label>@WebApps.Resources.Resource.lblTheoDonNopCongUocPR</label>
+        </div>
+    </div>
+</div>
+
+<div class="div-search-ad" style="display:inline-flex;">
+    <div class="div-search-content" style="width:385px">
+        <div class="div-radio" style="width:385px">
+            <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbThoaThuanKhac" value="TTTK">
+            <label>@WebApps.Resources.Resource.lblTheoThoaThuanKhac</label>
+        </div>
+    </div>
+
+    <div class="div-search-content">
+        <input type="text" id="@txtThoathuanKhac" placeholder="@WebApps.Resources.Resource.lblTheoThoaThuanKhac" maxlength="150" />
+    </div>
+</div>
+
+
+@Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
+
+@Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model2)
+
+@Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model3)
+
+@Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)
+
+
+<script>
+    function funcThongTinChuDon(formData, PreID) {
+        try {
+            var txtTenDayDu = $("#" + PreID + "_txtTenDayDu").val();
+            if (txtTenDayDu === "") {
+                $("#" + PreID + "_txtTenDayDu").focus().val('');
+                showError('@Resource.TM2B_TenKhongDuocDeTrong');
+                return false;
+            }
+            var txtDiaChi = $("#" + PreID + "_txtDiaChi").val();
+            if (txtDiaChi === "") {
+                $("#" + PreID + "_txtDiaChi").focus().val('');
+                showError('@Resource.TM2B_DiaChiKhongDuocDeTrong');
+                return false;
+            }
+            var txtDienThoai = $("#" + PreID + "_txtDienThoai").val();
+            var txtFax = $("#" + PreID + "_txtFax").val();
+            var txtEmail = $("#" + PreID + "_txtEmail").val();
+            if (txtEmail != "") {
+                if (!IsvalidEmail(txtEmail)) {
+                    $("#" + PreID + "_txtEmail").focus();
+                    showError('@Resource.lblThongBaoLoiEmail');
+                    return false;
+                }
+            }
+            //Chủ đơn
+            if (PreID == "1") {
+                formData.append("pInfo.Master_Name", txtTenDayDu);
+                formData.append("pInfo.Master_Address", txtDiaChi);
+                formData.append("pInfo.Master_Phone", txtDienThoai);
+                formData.append("pInfo.Master_Fax", txtFax);
+                formData.append("pInfo.Master_Email", txtEmail);
+            } else if (PreID == "2") { //Người đại diện
+                formData.append("pInfo.Rep_Master_Name", txtTenDayDu);
+                formData.append("pInfo.Rep_Master_Address", txtDiaChi);
+                formData.append("pInfo.Rep_Master_Phone", txtDienThoai);
+                formData.append("pInfo.Rep_Master_Fax", txtFax);
+                formData.append("pInfo.Rep_Master_Email", txtEmail);
+                //Detail
+            }
+            // BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN)
+            else if (PreID == "3") {
+                formData.append("pDetail.Second_Name", txtTenDayDu);
+                formData.append("pDetail.Second_Address", txtDiaChi);
+                formData.append("pDetail.Second_Phone", txtDienThoai);
+                formData.append("pDetail.Second_Fax", txtFax);
+                formData.append("pDetail.Second_Email", txtEmail);
+            }
+            else if (PreID == "9") {
+                formData.append("pDetail.Cdk_Name_1", txtTenDayDu);
+                formData.append("pDetail.Cdk_Address_1", txtDiaChi);
+                formData.append("pDetail.Cdk_Phone_1", txtDienThoai);
+                formData.append("pDetail.Cdk_Fax_1", txtFax);
+                formData.append("pDetail.Cdk_Email_1", txtEmail);
+            }
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+</script>
+
+
+
+
+

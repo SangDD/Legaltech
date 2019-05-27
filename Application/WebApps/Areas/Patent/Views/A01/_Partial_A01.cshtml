@@ -155,10 +155,53 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio" style="margin-left: 0px">
-                        <input type="radio" name="2_rdo_PCT_SuaDoi" id="2_rdo_PCT_SuaDoi" value="1" onchange="return ShowHiden_PCT_SuaDoi()">
+                        <input type="checkbox" name="2_rdo_PCT_SuaDoi" id="2_rdo_PCT_SuaDoi" onchange="return ShowHiden_PCT_SuaDoi()">
                         <label> Có sửa đổi, bổ sung tại thời điểm vào pha quốc gia</label>
                     </div>
                 </div>
+            </div>
+
+            <div class="clssDisplaynone" id="divPCT_SuaDoi" style="margin-top: 5px;margin-left: 15px;">
+                <div class="divCover cls_form_title">
+                    <div class="cls_form_header">
+                        @Resource.TM3B_NoiDungYCSuaDoi.ToUpper() <i class="redspan">(*)</i>
+                    </div>
+                </div>
+
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio" style="width:382px">
+                            <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1">
+                            <label>@Resource.TM3B_TenChuDon</label>
+                        </div>
+                    </div>
+
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2">
+                            <label>@Resource.TM3B_DiaChiChuDon</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio" style="width:382px">
+                            <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3">
+                            <label>@Resource.TM3B_NoiDungKhac</label>
+                        </div>
+                    </div>
+
+                    <div class="div-search-title" style="margin-left: 0px !important;">
+                        <div>@Resource.TM3B_DeNghiSuaThanh:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" placeholder="@Resource.TM3B_DeNghiSuaThanh" id="4_DeNghiSuaThanh" />
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -226,74 +269,94 @@
             </div>
         </div>
 
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@Resource.TM3B_SoDon <i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="@Resource.TM3B_SoDon" id="3_SoDon" onblur="onChangeAppNo()" />
-                </div>
-            </div>
-        </div>
-        @* end 3 *@
-
-        @* 4 - NỘI DUNG YÊU CẦU SỬA ĐỔI *@
-        <div class="divCover cls_form_title">
+        @* 1 - CHỦ ĐƠN*@
+        @*<div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                @Resource.TM3B_NoiDungYCSuaDoi
+                @Resource.TM2B_ChuDon
             </div>
+        </div>*@
+
+
+        @*<div id="div_PartialThongTinChuDon">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+        </div>*@
+
+        <div class="div_full_100_area">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
         </div>
+
 
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio" style="width:382px">
-                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1">
-                    <label>@Resource.TM3B_TenChuDon</label>
+                    <input type="radio" name="1_rdoChuDon" value="1" id="rb_1_ChuDonChuyenNhuong" onchange="onChangeChuDonKhac()">
+                    <label>Chủ đơn đồng thời là tác giả sáng chế</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
-                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2">
-                    <label>@Resource.TM3B_DiaChiChuDon</label>
+                    <input type="radio" name="1_rdoChuDon" value="2" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
+                    <label>Ngoài chủ đơn khai tại mục này còn có những chủ đơn khác khai tại trang bổ sung</label>
                 </div>
             </div>
         </div>
 
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-radio" style="width:382px">
-                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3">
-                    <label>@Resource.TM3B_NoiDungKhac</label>
-                </div>
-            </div>
+        @* Thong tin chu don   *@
 
-            <div class="div-search-title" style="margin-left: 0px !important;">
-                <div>@Resource.TM3B_DeNghiSuaThanh:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="@Resource.TM3B_DeNghiSuaThanh" id="4_DeNghiSuaThanh" />
-                </div>
+        <div class="div_full_100_area" style="display:none" id="divChungDonKhac001">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDonKhac.cshtml", @WebApps.Resources.Resource.lblChuDonKhac.ToUpper())
+            <div id="divAddNewChuDon01" hidden="hidden">
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
             </div>
         </div>
 
-        @* end 4 *@
-
-        @* 1 - CHỦ ĐƠN*@
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/category.png" />
-            <div class="cls_form_header">
-                @Resource.TM2B_ChuDon
-            </div>
+        <div class="div_full_100_area classChuDonKhac" style="display:none" id="divHiddenChuDon01">
+            <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon01','divHiddenChuDon01','01');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblAn</a>
         </div>
 
-        <div id="div_PartialThongTinChuDon">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+        @*CHỦ ĐƠN KHÁC 1*@
+        <div id="divAddNewChuDon02" hidden="hidden">
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "10")
         </div>
+
+        <div class="div_full_100_area classChuDonKhac" style="display:none" id="divHiddenChuDon02">
+            <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon02','divHiddenChuDon02','02');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblAn</a>
+        </div>
+        <div id="divAddNewChuDon03" hidden="hidden">
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "11")
+        </div>
+
+        <div class="div_full_100_area classChuDonKhac" style="display:none" id="divHiddenChuDon03">
+            <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon03','divHiddenChuDon03','03');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblAn</a>
+        </div>
+
+        <div id="divAddNewChuDon04" hidden="hidden">
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "12")
+        </div>
+
+        <div class="div_full_100_area classChuDonKhac" style="display:none" id="divHiddenChuDon04">
+            <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon04','divHiddenChuDon04','04');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblAn</a>
+        </div>
+
+        <div class="div_full_100_area" id="divThemChuDon01">
+
+            <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon01','divHiddenChuDon01');" style="text-decoration:underline; color: blue; ">@WebApps.Resources.Resource.lblChuDonKhac</a>
+
+        </div>
+        <div class="div_full_100_area" style="display:none" id="divThemChuDon02">
+            <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon02','divHiddenChuDon02');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblThemChuDon</a>
+        </div>
+        <div class="div_full_100_area" style="display:none" id="divThemChuDon03">
+            <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon03','divHiddenChuDon03');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblThemChuDon</a>
+        </div>
+        <div class="div_full_100_area" style="display:none" id="divThemChuDon04">
+            <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon04','divHiddenChuDon04');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblThemChuDon</a>
+        </div>
+        @* End thong tin chu don *@
+
 
         @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
         <div class="divCover cls_form_title">
@@ -302,10 +365,56 @@
                 @Resource.TM2B_DaiDienChuDon
             </div>
         </div>
+
         <div id="div_PartialThongTinDaiDienChuDon">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
         </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@Resource.TM3C_MaDaiDien:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="@Resource.TM3C_MaDaiDien" id="txt_MaDaiDien" />
+                </div>
+            </div>
+        </div>
         @* end 2 *@
+
+        @* Tác giả *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                Tác giả
+            </div>
+        </div>
+
+        <div id="div_PartialThongTinTacGia">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinTacGia.cshtml", "1")
+        </div>
+
+        <div id="divTacGiaKhac">
+
+        </div>
+
+        <div class="div_full_100_area classChuDonKhac">
+            <input type="hidden" id="txt_id_tacgia" value="1" />
+            <a href="javascript:;" onclick="return ThemTacGia();" style="text-decoration:underline; color: blue;float: left;">Thêm tác giả</a>
+        </div>
+
+        @* Tác giả *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                @WebApps.Resources.Resource.lblYeuCauHuongQuyenUT.ToUpper()
+            </div>
+        </div>
+
+        <div id="div_PartialThongTinTacGia">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinQuyenUuTien.cshtml", "1")
+        </div>
+
 
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
         <div class="divCover cls_form_title">
@@ -562,7 +671,7 @@
                 $("#divPCT").addClass("clssDisplaynone");
             }
 
-             
+
         } catch (e) {
             alert(e);
         }
@@ -578,7 +687,7 @@
                 $("#divDQSC").addClass("clssDisplaynone");
             }
 
-             
+
         } catch (e) {
             alert(e);
         }
@@ -601,13 +710,50 @@
 
     function ShowHiden_PCT_SuaDoi() {
         try {
-            //if ($("#2_rdoNguonGocDon").is(':checked') ) {
-            //    $("#divGPHI").removeClass("clssDisplaynone");
-            //    $("#txt_GPHI_SoDon").focus();
-            //}
-            //else {
-            //    $("#divGPHI").addClass("clssDisplaynone");
-            //}
+            if ($("#2_rdo_PCT_SuaDoi").is(':checked') ) {
+                $("#divPCT_SuaDoi").removeClass("clssDisplaynone");
+            }
+            else {
+                $("#divPCT_SuaDoi").addClass("clssDisplaynone");
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function onChangeChuDonKhac() {
+        try {
+            if ($("#rdChuDonKhac").is(':checked')) {
+                $("#divChungDonKhac001").removeClass("clssDisplaynone");
+            }
+            else {
+                $("#divChungDonKhac001").addClass("clssDisplaynone");
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function ThemTacGia() {
+        try {
+
+            var _id = $("#txt_id_tacgia").val() + 1;
+            $.ajax({
+                type: 'POST',
+                url: '/patent-a01/tac-gia/them-tac-gia/',
+                data: {
+                    p_id: _id
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divTacGiaKhac").append(data);
+                    $("#txt_id_tacgia").val(_id);
+                }
+            });
         } catch (e) {
             alert(e);
         }

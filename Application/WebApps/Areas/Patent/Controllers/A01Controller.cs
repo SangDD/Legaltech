@@ -53,5 +53,21 @@ namespace WebApps.Areas.Patent.Controllers
                 return PartialView("~/Areas/Patent/Views/A01/_Partial_A01.cshtml");
             }
         }
+
+        [HttpPost]
+        [Route("tac-gia/them-tac-gia")]
+        public ActionResult ThemTacGia(decimal p_id)
+        {
+            try
+            {
+                ViewBag.Id = p_id;
+                return PartialView("~/Areas/TradeMark/Views/Shared/_PartialThongTinTacGia_Khac.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/TradeMark/Views/Shared/_PartialThongTinTacGia_Khac.cshtml");
+            }
+        }
     }
 }
