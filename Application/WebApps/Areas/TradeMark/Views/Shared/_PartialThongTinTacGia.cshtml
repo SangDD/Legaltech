@@ -9,6 +9,7 @@
     string txtFax = Model + "_TG_Fax";
     string txtEmail = Model + "_TG_Email";
     string txtQuocTich = Model + "_TG_QuocTich";
+    string txtUse = Model + "_txtUse";
 
     var objAppHeaderInfo = new ApplicationHeaderInfo();
     if (ViewBag.objAppHeaderInfo != null)
@@ -23,79 +24,86 @@
     }
 }
 
-<div class="div-search-ad">
-    <div class="div-search-title">
-        <div> @Resource.lblTenDayDu <i class="redspan">(*)</i></div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input value="@objAppHeaderInfo.Master_Name" type="text" maxlength="200" id="@txtTenDayDu" @_disable />
+<div class="clsTacGia" data-id="@Model">
+
+    <input type="hidden" id="@txtUse" value="1" />
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div> @Resource.lblTenDayDu <i class="redspan">(*)</i></div>
         </div>
-    </div>
-</div>
-
-
-<div class="div-search-ad">
-    <div class="div-search-title">
-        <div> @Resource.lblDiaChi <i class="redspan">(*)</i> </div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input value="@objAppHeaderInfo.Master_Address" type="text" maxlength="200" id="@txtDiaChi" @_disable />
-        </div>
-    </div>
-</div>
-
-<div class="div-search-ad">
-    <div class="div-search-title">
-        <div> @Resource.lblDienThoai: </div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input type="text" value="@objAppHeaderInfo.Master_Phone" maxlength="50" id="@txtDienThoai" style="width: 250px;" @_disable />
+        <div class="div-search-content">
+            <div>
+                <input value="@objAppHeaderInfo.Master_Name" type="text" maxlength="200" id="@txtTenDayDu" @_disable />
+            </div>
         </div>
     </div>
 
-    <div class="div-search-title">
-        <div> Fax: </div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input value="@objAppHeaderInfo.Master_Fax" type="text" maxlength="50" id="@txtFax" @_disable />
-        </div>
-    </div>
-    <div class="div-search-title">
-        <div>Email:  </div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input value="@objAppHeaderInfo.Master_Email" type="text" maxlength="50" id="@txtEmail" @_disable />
-        </div>
-    </div>
-</div>
 
-<div class="div-search-ad">
-    <div class="div-search-title">
-        <div>@WebApps.Resources.Resource.QuocTich <i class="redspan">(*)</i></div>
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div> @Resource.lblDiaChi <i class="redspan">(*)</i> </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input value="@objAppHeaderInfo.Master_Address" type="text" maxlength="200" id="@txtDiaChi" @_disable />
+            </div>
+        </div>
     </div>
-    <div class="div-search-content">
-        <div>
-            <select id="@txtQuocTich">
-                @foreach (var item in MemoryData.c_lst_Country)
-                {
-                    if (item.Country_Id == Common.Common.Country_VietNam_Id)
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div> @Resource.lblDienThoai: </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" value="@objAppHeaderInfo.Master_Phone" maxlength="50" id="@txtDienThoai" style="width: 250px;" @_disable />
+            </div>
+        </div>
+
+        <div class="div-search-title">
+            <div> Fax: </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input value="@objAppHeaderInfo.Master_Fax" type="text" maxlength="50" id="@txtFax" @_disable />
+            </div>
+        </div>
+        <div class="div-search-title">
+            <div>Email:  </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input value="@objAppHeaderInfo.Master_Email" type="text" maxlength="50" id="@txtEmail" @_disable />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.QuocTich <i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <select id="@txtQuocTich">
+                    @foreach (var item in MemoryData.c_lst_Country)
                     {
-                        <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                        if (item.Country_Id == Common.Common.Country_VietNam_Id)
+                        {
+                            <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Country_Id">@item.Name</option>
+                        }
                     }
-                    else
-                    {
-                        <option value="@item.Country_Id">@item.Name</option>
-                    }
-                }
-            </select>
+                </select>
+            </div>
         </div>
     </div>
+
 </div>
+
 
 <script>
     $(document).ready(function () {

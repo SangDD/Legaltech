@@ -10,6 +10,7 @@
     string txtEmail = Model + "_TG_Email";
     string txtQuocTich = Model + "_TG_QuocTich";
     string divTacGia = Model + "_divTacGia";
+    string txtUse = Model + "_txtUse";
 
     var objAppHeaderInfo = new ApplicationHeaderInfo();
     if (ViewBag.objAppHeaderInfo != null)
@@ -24,7 +25,8 @@
     }
 }
 
-<div id="@divTacGia">
+<div id="@divTacGia" class="clsTacGia" data-id="@Model">
+    <input type="hidden" id="@txtUse" value="1" />
 
     <div class="divCover cls_form_title">
         <img src="~/Content/icons/category.png" />
@@ -108,7 +110,7 @@
     </div>
 
     <div class="div_full_100_area classChuDonKhac">
-        <a href="javascript:;" onclick="return XoaTacGia('@divTacGia');" style="text-decoration:underline; color: blue;float: right;">Xóa tác giả</a>
+        <a href="javascript:;" onclick="return XoaTacGia('@divTacGia', '@txtUse');" style="text-decoration:underline; color: blue;float: right;">Xóa tác giả</a>
     </div>
 
 </div>
