@@ -18,6 +18,7 @@
     string BanDich = Model + "_BanDich";
     string GiayChuyenNhuong = Model + "_GiayChuyenNhuong";
     string divDonUT = Model + "_divDonUT";
+    string txtUse = Model + "_UT_Use";
 
     string _disable = "";
     if (ViewBag.Isdisable == 1)
@@ -38,8 +39,9 @@
     string _model4 = _doc_id4 + "|" + GiayChuyenNhuong + "|1|" + @WebApps.Resources.Resource.lblGiayChuyenNhuongQuyenUT + "|" + "" + "|1";
 }
 
-<div id="@divDonUT">
+<div id="@divDonUT" data-id="@Model" class="clsDivDonUTien">
 
+    <input type="hidden" id="@txtUse" value="1" />
 
     <div class="div-search-ad">
         <div class="div-search-title">
@@ -136,7 +138,7 @@
     {
         <div class="div_full_100_area classChuDonKhac">
             <input type="hidden" id="txt_id_tacgia" value="1" />
-            <a href="javascript:;" onclick="return XoaDonUuTien('@divDonUT');" style="text-decoration:underline; color: blue;float: right;">Xóa đơn ưu tiên</a>
+            <a href="javascript:;" onclick="return XoaDonUuTien('@divDonUT', '@txtUse');" style="text-decoration:underline; color: blue;float: right;">Xóa đơn ưu tiên</a>
         </div>
     }
 </div>
@@ -202,9 +204,10 @@
         }
     }
 
-    function XoaDonUuTien(pId) {
+    function XoaDonUuTien(pId, pId2) {
         try {
             $("#" + pId).addClass("clssDisplaynone");
+            $("#" + pId2).val("0");
         } catch (e) {
             alert(e);
         }

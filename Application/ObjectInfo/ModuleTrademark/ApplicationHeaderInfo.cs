@@ -176,6 +176,9 @@ namespace ObjectInfos
         public DateTime Expected_Accept_Content_Date { get; set; }
         public DateTime Expected_Grant_Date { get; set; }
         public DateTime Expected_Grant_Public_Date { get; set; }
+        public string Customer_Code { get; set; }
+
+        public string Master_Type { get; set; }
     }
 
 
