@@ -11,6 +11,10 @@ namespace ObjectInfos
     /// </summary>
     public class Other_MasterInfo
     {
+        public decimal Id { get; set; }
+        public decimal App_Header_Id { set; get; }
+        public string Case_Code { set; get; }
+
         public string Master_Name { set; get; }
 
         public string Master_Address { set; get; }
@@ -25,8 +29,11 @@ namespace ObjectInfos
 
     }
 
-    public class AppAuthorsInfo
+    public class AuthorsInfo
     {
+        public decimal Author_Id { get; set; }
+        public string Case_Code { set; get; }
+
         public string Author_Name { set; get; }
 
         public string Author_Address { set; get; }

@@ -14,7 +14,7 @@ namespace ObjectInfos
         public decimal A01_Id { set; get; }
         public decimal Used_Special { set; get; }
 
-        //public string Appcode { get; set; }
+        //public string Case_Code { get; set; }
         public decimal App_Header_Id { get; set; }
         public string Language_Code { get; set; }
         public string Appno { get; set; }
