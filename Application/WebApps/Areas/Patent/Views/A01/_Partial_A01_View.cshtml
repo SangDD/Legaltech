@@ -1,40 +1,64 @@
-﻿@using Common.CommonData
-@using WebApps.CommonFunction;
-@using BussinessFacade.ModuleMemoryData
-@using WebApps.Resources;
+﻿@using WebApps.CommonFunction;
 @using BussinessFacade.ModuleMemoryData
 @using ObjectInfos
+@using ObjectInfos.ModuleTrademark
+@using WebApps.Resources;
 @{
     ViewBag.Title = "Request for patent registration";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
-    string _App_No = "";
-    if (ViewBag.App_No != null)
+    ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.objAppHeaderInfo != null)
     {
-        _App_No = (string)ViewBag.App_No;
+        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
     }
 
-    string language = AppsCommon.GetCurrentLang();
-    var clstAppClassShortSuggest = new List<SuggestInfo>();
-    foreach (var item in MemoryData.clstAppClassSuggest)
+    A01_Info _App_Detail = new A01_Info();
+    if (ViewBag.App_Detail != null)
     {
-        var pShortInfo = new SuggestInfo("", "");
+        _App_Detail = (A01_Info)ViewBag.App_Detail;
+    }
 
-        if (language == Language.LangVI)
-        {
-            if (!string.IsNullOrEmpty(item.name) && !string.IsNullOrEmpty(item.value))
-            {
-                pShortInfo = new SuggestInfo(item.name.Replace('/', ' '), item.value);
-            }
-        }
-        else
-        {
-            if (!string.IsNullOrEmpty(item.name_en) && !string.IsNullOrEmpty(item.value))
-            {
-                pShortInfo = new SuggestInfo(item.name_en.Replace('/', ' '), item.value);
-            }
-        }
-        clstAppClassShortSuggest.Add(pShortInfo);
+    List<AppDocumentInfo> Lst_AppDoc = new List<AppDocumentInfo>();
+    if (ViewBag.Lst_AppDoc != null)
+    {
+        Lst_AppDoc = (List<AppDocumentInfo>)ViewBag.Lst_AppDoc;
+    }
+
+    List<AppFeeFixInfo> Lst_AppFee = new List<AppFeeFixInfo>();
+    if (ViewBag.Lst_AppFee != null)
+    {
+        Lst_AppFee = (List<AppFeeFixInfo>)ViewBag.Lst_AppFee;
+    }
+
+    List<AuthorsInfo> Lst_AuthorsInfo = new List<AuthorsInfo>();
+    if (ViewBag.Lst_AuthorsInfo != null)
+    {
+        Lst_AuthorsInfo = (List<AuthorsInfo>)ViewBag.Lst_AuthorsInfo;
+    }
+
+    List<Other_MasterInfo> Lst_Other_Master = new List<Other_MasterInfo>();
+    if (ViewBag.Lst_Other_Master != null)
+    {
+        Lst_Other_Master = (List<Other_MasterInfo>)ViewBag.Lst_Other_Master;
+    }
+
+    List<AppDocumentOthersInfo> Lst_DocumentOthers = new List<AppDocumentOthersInfo>();
+    if (ViewBag.Lst_DocumentOthers != null)
+    {
+        Lst_DocumentOthers = (List<AppFeeFixInfo>)ViewBag.Lst_DocumentOthers;
+    }
+
+    List<AppClassDetailInfo> Lst_ClassDetailInfo = new List<AppClassDetailInfo>();
+    if (ViewBag.Lst_ClassDetailInfo != null)
+    {
+        Lst_ClassDetailInfo = (List<AppClassDetailInfo>)ViewBag.Lst_ClassDetailInfo;
+    }
+
+    Dictionary<string, AppDocumentInfo> dic_appDoc = new Dictionary<string, AppDocumentInfo>();
+    foreach (AppDocumentInfo item in Lst_AppDoc)
+    {
+        dic_appDoc[item.Document_Id] = item;
     }
 }
 
@@ -80,11 +104,8 @@
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
         <legend style="font-weight:600"> @Resource.PatentRegister.ToUpper()</legend>
 
-        @*thông tin khách hàng mà admin nhập hộ*@
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCustomer.cshtml")
-
         @* Case name *@
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName_View.cshtml", "0")
 
         @* 3 - ĐƠN YÊU CẦU SỬA ĐỔI *@
         <div class="divCover cls_form_title">
@@ -120,213 +141,268 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio">
-                    <input type="radio" name="2_rdoNguonGocDon" id="2_rdPCT" value="1" onchange="return ShowHiden_NguonGocDon()">
+                    @if (_App_Detail.Source_PCT == "Y")
+                    {
+                        <input type="radio" name="2_rdoNguonGocDon" id="2_rdPCT" checked="checked" disabled onchange="return ShowHiden_NguonGocDon()">
+                    }
+                    else
+                    {
+                        <input type="radio" name="2_rdoNguonGocDon" id="2_rdPCT" disabled onchange="return ShowHiden_NguonGocDon()">
+                    }
                     <label> Đơn này được nộp trên cơ sở đơn PCT</label>
                 </div>
             </div>
         </div>
 
-        <div class="clssDisplaynone" id="divPCT" style="margin-top: 5px; background:#fbf4f4">
-
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div>Số:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txt_PCT_SoDon" style="width:348px" />
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Ngày nộp đơn quốc tế:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txt_PCT_NgayNopQT" class="datetimepicker" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div>Công bố quốc tế số:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txt_PCT_CongBoQT" style="width:250px" />
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Ngày:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txt_PCT_Date" class="datetimepicker" />
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Ngày VN nếu có:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txt_PCT_VN_Date" class="datetimepicker" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-radio" style="margin-left: 0px">
-                        <input type="checkbox" name="2_rdo_PCT_SuaDoi" id="2_rdo_PCT_SuaDoi" onchange="return ShowHiden_PCT_SuaDoi()">
-                        <label> Có sửa đổi, bổ sung tại thời điểm vào pha quốc gia</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="clssDisplaynone" id="divPCT_SuaDoi" style="margin-top: 5px;margin-left: 15px;background:#fbf4f4">
-                <div class="divCover cls_form_title">
-                    <div class="cls_form_header">
-                        @Resource.TM3B_NoiDungYCSuaDoi.ToUpper() <i class="redspan">(*)</i>
-                    </div>
-                </div>
+        @if (_App_Detail.Source_PCT == "Y")
+        {
+            <div id="divPCT" style="margin-top: 5px; background:#fbf4f4">
 
                 <div class="div-search-ad">
-                    <div class="div-search-content">
-                        <div class="div-radio" style="width:382px">
-                            <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1">
-                            <label>@Resource.TM3B_TenChuDon</label>
-                        </div>
-                    </div>
-
-                    <div class="div-search-content">
-                        <div class="div-radio">
-                            <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2">
-                            <label>@Resource.TM3B_DiaChiChuDon</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="div-search-ad">
-                    <div class="div-search-content">
-                        <div class="div-radio" style="width:382px">
-                            <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3">
-                            <label>@Resource.TM3B_NoiDungKhac</label>
-                        </div>
-                    </div>
-
-                    <div class="div-search-title" style="margin-left: 0px !important;">
-                        <div>@Resource.TM3B_DeNghiSuaThanh:</div>
+                    <div class="div-search-title">
+                        <div>Số:</div>
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" placeholder="@Resource.TM3B_DeNghiSuaThanh" id="4_DeNghiSuaThanh" />
+                            <input type="text" id="txt_PCT_SoDon" style="width:348px" value="@_App_Detail.PCT_Number" disabled />
+                        </div>
+                    </div>
+
+                    <div class="div-search-title">
+                        <div>Ngày nộp đơn quốc tế:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="txt_PCT_NgayNopQT" value="@_App_Detail.PCT_Filling_Date_Qt.ToString("dd/MM/yyyy")" disabled />
                         </div>
                     </div>
                 </div>
 
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <div>Công bố quốc tế số:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="txt_PCT_CongBoQT" style="width:250px" value="@_App_Detail.PCT_Number_Qt" disabled />
+                        </div>
+                    </div>
+
+                    <div class="div-search-title">
+                        <div>Ngày:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="txt_PCT_Date" value="@_App_Detail.PCT_Date.ToString("dd/MM/yyyy")" disabled />
+                        </div>
+                    </div>
+
+                    <div class="div-search-title">
+                        <div>Ngày VN nếu có:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="txt_PCT_VN_Date" value="@_App_Detail.PCT_VN_Date.ToString("dd/MM/yyyy")" disabled />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio" style="margin-left: 0px">
+                            <input type="checkbox" name="2_rdo_PCT_SuaDoi" id="2_rdo_PCT_SuaDoi" onchange="return ShowHiden_PCT_SuaDoi()">
+                            <label> Có sửa đổi, bổ sung tại thời điểm vào pha quốc gia</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clssDisplaynone" id="divPCT_SuaDoi" style="margin-top: 5px;margin-left: 15px;background:#fbf4f4">
+                    <div class="divCover cls_form_title">
+                        <div class="cls_form_header">
+                            @Resource.TM3B_NoiDungYCSuaDoi.ToUpper() <i class="redspan">(*)</i>
+                        </div>
+                    </div>
+
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div class="div-radio" style="width:382px">
+                                <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1">
+                                <label>@Resource.TM3B_TenChuDon</label>
+                            </div>
+                        </div>
+
+                        <div class="div-search-content">
+                            <div class="div-radio">
+                                <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2">
+                                <label>@Resource.TM3B_DiaChiChuDon</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div class="div-radio" style="width:382px">
+                                <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3">
+                                <label>@Resource.TM3B_NoiDungKhac</label>
+                            </div>
+                        </div>
+
+                        <div class="div-search-title" style="margin-left: 0px !important;">
+                            <div>@Resource.TM3B_DeNghiSuaThanh:</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <input type="text" placeholder="@Resource.TM3B_DeNghiSuaThanh" id="4_DeNghiSuaThanh" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-        </div>
+        }
+
 
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio">
-                    <input type="radio" name="2_rdoNguonGocDon" id="2_rdDQSC" value="2" onchange="return ShowHiden_NguonGocDon()">
+                    @if (_App_Detail.Source_DQSC == "Y")
+                    {
+                        <input type="radio" name="2_rdoNguonGocDon" id="2_rdDQSC" checked="checked" disabled="disabled" onchange="return ShowHiden_NguonGocDon()">
+                    }
+                    else
+                    {
+                        <input type="radio" name="2_rdoNguonGocDon" id="2_rdDQSC" disabled onchange="return ShowHiden_NguonGocDon()">
+                    }
                     <label> Đơn được tách từ Đơn yêu cầu cấp Bằng độc quyền sáng chế</label>
                 </div>
             </div>
         </div>
 
-        <div class="clssDisplaynone" id="divDQSC" style="margin-top: 5px;background:#fbf4f4">
+        @if (_App_Detail.Source_DQSC == "Y")
+        {
+            <div id="divDQSC" style="margin-top: 5px;background:#fbf4f4">
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <div>Đơn gốc:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="txt_DQSC_SoDon" style="width:348px" value="@_App_Detail.DQSC_Origin_App_No" disabled />
+                        </div>
+                    </div>
 
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div>Đơn gốc:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txt_DQSC_SoDon" style="width:348px" />
+                    <div class="div-search-title">
+                        <div>Ngày nộp đơn:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="txt_DQSC_NgayNop" value="@_App_Detail.DQSC_Filling_Date.ToString("dd/MM/yyyy")" disabled />
+                        </div>
                     </div>
                 </div>
 
-                <div class="div-search-title">
-                    <div>Ngày nộp đơn:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txt_DQSC_NgayNop" class="datetimepicker" />
+                <div class="div-search-ad" style="margin-top: 5px;margin-left: 15px;">
+                    <div class="div-search-content">
+                        <div class="div-radio" style="width:464px">
+                            @if (_App_Detail.DQSC_Valid_After == 1)
+                            {
+                                <input type="checkbox" name="DQSC_TruocHopLe" id="DQSC_TruocHopLe" disabled checked="checked">
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="DQSC_TruocHopLe" id="DQSC_TruocHopLe" disabled>
+                            }
+                            <label>Trước hợp lệ</label>
+                        </div>
+                    </div>
+
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            @if (_App_Detail.DQSC_Valid_Before == 1)
+                            {
+                                <input type="checkbox" name="DQSC_SauHopLe" id="DQSC_SauHopLe" disabled checked="checked">
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="DQSC_SauHopLe" id="DQSC_SauHopLe" disabled>
+                            }
+                            <label>Sau hợp lệ</label>
+                        </div>
                     </div>
                 </div>
             </div>
-
-
-            <div class="div-search-ad" style="margin-top: 5px;margin-left: 15px;">
-                <div class="div-search-content">
-                    <div class="div-radio" style="width:464px">
-                        <input type="checkbox" name="DQSC_TruocHopLe" id="DQSC_TruocHopLe" value="1">
-                        <label>Trước hợp lệ</label>
-                    </div>
-                </div>
-
-                <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="checkbox" name="DQSC_SauHopLe" id="DQSC_SauHopLe" value="1">
-                        <label>Sau hợp lệ</label>
-                    </div>
-                </div>
-            </div>
-        </div>
+        }
 
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio">
-                    <input type="radio" name="2_rdoNguonGocDon" id="2_rdGPHI" value="3" onchange="return ShowHiden_NguonGocDon()">
+                    @if (_App_Detail.Source_DQSC == "Y")
+                    {
+                        <input type="radio" name="2_rdoNguonGocDon" id="2_rdGPHI" value="3" disabled="disabled" checked="checked" onchange="return ShowHiden_NguonGocDon()">
+                    }
+                    else
+                    {
+                        <input type="radio" name="2_rdoNguonGocDon" id="2_rdGPHI" value="3" disabled="disabled" onchange="return ShowHiden_NguonGocDon()">
+                    }
                     <label> Đơn được chuyển từ Đơn yêu cầu cấp Bằng độc quyền giải pháp hữu ích</label>
                 </div>
             </div>
         </div>
 
-        <div class="clssDisplaynone" id="divGPHI" style="margin-top: 5px; background:#fbf4f4">
+        @if (_App_Detail.Source_GPHI == "Y")
+        {
+            <div class="clssDisplaynone" id="divGPHI" style="margin-top: 5px; background:#fbf4f4">
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <div>Đơn gốc:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="txt_GPHI_SoDon" style="width:348px" disabled value="@_App_Detail.GPHI_Origin_App_No" />
+                        </div>
+                    </div>
 
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div>Đơn gốc:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txt_GPHI_SoDon" style="width:348px" />
+                    <div class="div-search-title">
+                        <div>Ngày nộp đơn:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="txt_GPHI_NgayNop" disabled value="@_App_Detail.GPHI_Filling_Date.ToString("dd/MM/yyyy")" />
+                        </div>
                     </div>
                 </div>
 
-                <div class="div-search-title">
-                    <div>Ngày nộp đơn:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txt_GPHI_NgayNop" class="datetimepicker" />
+                <div class="div-search-ad" style="margin-top: 5px;margin-left: 15px;">
+                    <div class="div-search-content">
+                        <div class="div-radio" style="width:464px">
+                            @if (_App_Detail.GPHI_Valid_Before == 1)
+                            {
+                                <input type="checkbox" name="GPHI_TruocHopLe" id="GPHI_TruocHopLe" disabled checked="checked" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="GPHI_TruocHopLe" id="GPHI_TruocHopLe" disabled />
+                            }
+                            <label>Trước hợp lệ</label>
+                        </div>
+                    </div>
+
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            @if (_App_Detail.GPHI_Valid_After == 1)
+                            {
+                                <input type="checkbox" name="GPHI_SauHopLe" id="GPHI_SauHopLe" disabled checked="checked" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="GPHI_SauHopLe" id="GPHI_SauHopLe" disabled />
+                            }
+                            <label>Sau hợp lệ</label>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="div-search-ad" style="margin-top: 5px;margin-left: 15px;">
-                <div class="div-search-content">
-                    <div class="div-radio" style="width:464px">
-                        <input type="checkbox" name="GPHI_TruocHopLe" id="GPHI_TruocHopLe" value="1">
-                        <label>Trước hợp lệ</label>
-                    </div>
-                </div>
-
-                <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="checkbox" name="GPHI_SauHopLe" id="GPHI_SauHopLe" value="1">
-                        <label>Sau hợp lệ</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        }
 
 
         <div class="divCover cls_form_title">
@@ -362,9 +438,9 @@
         </div>
 
         @*<div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
-        </div>*@
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
+            </div>*@
 
         <div class="div-search-ad">
             <div class="div-search-content">
@@ -574,7 +650,7 @@
 
         @* 11 Bản sao  > Bản gốc đã nộp theo đơn *@
         @{
-            string _doc_id11 = "A01_11"; 
+            string _doc_id11 = "A01_11";
             string _model11 = _doc_id11 + "|Doc_11|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model11)
         }

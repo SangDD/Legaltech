@@ -499,7 +499,7 @@
                     //Hungtd: set font size cho logo
                     CrystalDecisions.CrystalReports.Engine.TextObject _tectLogo;
                     _tectLogo = (CrystalDecisions.CrystalReports.Engine.TextObject)oRpt.ReportDefinition.Sections[0].ReportObjects["Text8"];
-                    Font _fontFa = new Font(FontFamily.GenericSansSerif, pDetail.LOGO_FONT_SIZE==0?10: pDetail.LOGO_FONT_SIZE);
+                    Font _fontFa = new Font(FontFamily.GenericSansSerif, pDetail.LOGO_FONT_SIZE == 0 ? 10 : pDetail.LOGO_FONT_SIZE);
                     //_tectLogo.Height = pDetail.LOGO_FONT_SIZE == 0 ? 10 * 70 : pDetail.LOGO_FONT_SIZE * 70;// set chiều cao nếu cần
                     _tectLogo.ApplyFont(_fontFa);
                 }
@@ -721,8 +721,9 @@
                 {
                     appInfo.Logourl = pDetail.ChuLogo;
                 }
-                else { 
-                appInfo.Logourl = Server.MapPath(appInfo.Logourl);
+                else
+                {
+                    appInfo.Logourl = Server.MapPath(appInfo.Logourl);
                 }
                 //su dung cho TH ma DNSC 
                 if (appInfo.Rep_Master_Type == "DDSH")
@@ -747,9 +748,9 @@
                 List<AppInfoExport> _lst = new List<AppInfoExport>();
                 _lst.Add(appInfo);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<AppInfoExport>(_lst, false);
-              
+
                 //if (language == Language.LangVI)
-             
+
                 if (pDetail.Logochu != 1)
                 {
                     CrystalDecisions.CrystalReports.Engine.PictureObject _pic01;
@@ -806,7 +807,7 @@
                 if (_ds_all != null)
                 {
                     _ds_all.Tables[0].TableName = "Table";
-                    oRpt.SetDataSource(_ds_all);   
+                    oRpt.SetDataSource(_ds_all);
                 }
                 oRpt.Refresh();
 
@@ -1216,6 +1217,34 @@
                     ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[2]);
                 }
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartalViewDangKyNhanHieu.cshtml");
+            }
+
+            else if (pAppCode == TradeMarkAppCode.AppCode_A01)
+            {
+                var objBL = new A01_BL();
+                string language = AppsCommon.GetCurrentLang();
+
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> _lst_appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                List<AuthorsInfo> _lst_authorsInfos = new List<AuthorsInfo>();
+                List<Other_MasterInfo> _lst_Other_MasterInfo = new List<Other_MasterInfo>();
+                List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
+                List<AppClassDetailInfo> _lst_appClassDetailInfos = new List<AppClassDetailInfo>();
+
+                A01_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos, 
+                    ref _lst_authorsInfos, ref _lst_Other_MasterInfo, ref _lst_appClassDetailInfos, ref _LstDocumentOthersInfo);
+
+                ViewBag.App_Detail = app_Detail;
+                ViewBag.Lst_AppDoc = appDocumentInfos;
+                ViewBag.Lst_AppFee = _lst_appFeeFixInfos;
+                ViewBag.objAppHeaderInfo = applicationHeaderInfo;
+                ViewBag.Lst_AuthorsInfo = _lst_authorsInfos;
+                ViewBag.Lst_Other_Master = _lst_Other_MasterInfo;
+                ViewBag.Lst_DocumentOthers = _LstDocumentOthersInfo;
+                ViewBag.Lst_ClassDetailInfo = _lst_appClassDetailInfos;
+
+                return PartialView("~/Areas/Patent/Views/A01/_Partial_A01_View.cshtml");
             }
             else
             {

@@ -40,5 +40,7 @@ namespace ObjectInfos
         public decimal GPHI_Valid_Before { get; set; }
         public decimal GPHI_Valid_After { get; set; }
 
+        public string ThamDinhNoiDung { get; set; }
+        public string ChuyenDoiDon { get; set; }
     }
 }

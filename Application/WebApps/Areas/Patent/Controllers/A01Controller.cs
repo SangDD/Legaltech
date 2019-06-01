@@ -304,10 +304,10 @@ namespace WebApps.Areas.Patent.Controllers
                     _lstFeeFix.Add(_AppFeeFixInfo22);
                     #endregion
 
-                    AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
-                    pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, p_case_code);
-                    if (pReturn < 0)
-                        goto Commit_Transaction;
+                    //AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
+                    //pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, p_case_code);
+                    //if (pReturn < 0)
+                    //    goto Commit_Transaction;
                     #endregion
 
                     #region Tai lieu dinh kem 

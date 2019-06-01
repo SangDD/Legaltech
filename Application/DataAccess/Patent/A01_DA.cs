@@ -40,6 +40,10 @@ namespace DataAccess
                     new OracleParameter("p_gphi_filling_date", OracleDbType.Varchar2, pInfo.GPHI_Filling_Date, ParameterDirection.Input),
                     new OracleParameter("p_gphi_valid_before", OracleDbType.Decimal, pInfo.GPHI_Valid_Before, ParameterDirection.Input),
                     new OracleParameter("p_gphi_valid_after", OracleDbType.Decimal, pInfo.GPHI_Valid_After, ParameterDirection.Input),
+
+                    new OracleParameter("p_ThamDinhNoiDung", OracleDbType.Decimal, pInfo.ThamDinhNoiDung, ParameterDirection.Input),
+                    new OracleParameter("p_ChuyenDoiDon", OracleDbType.Decimal, pInfo.ChuyenDoiDon, ParameterDirection.Input),
+
                     paramReturn);
                 var result = Convert.ToDecimal(paramReturn.Value.ToString());
                 return result;
@@ -84,6 +88,8 @@ namespace DataAccess
                     new OracleParameter("p_gphi_filling_date", OracleDbType.Varchar2, pInfo.GPHI_Filling_Date, ParameterDirection.Input),
                     new OracleParameter("p_gphi_valid_before", OracleDbType.Decimal, pInfo.GPHI_Valid_Before, ParameterDirection.Input),
                     new OracleParameter("p_gphi_valid_after", OracleDbType.Decimal, pInfo.GPHI_Valid_After, ParameterDirection.Input),
+                    new OracleParameter("p_ThamDinhNoiDung", OracleDbType.Decimal, pInfo.ThamDinhNoiDung, ParameterDirection.Input),
+                    new OracleParameter("p_ChuyenDoiDon", OracleDbType.Decimal, pInfo.ChuyenDoiDon, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToDecimal(paramReturn.Value.ToString());
                 return result;
@@ -127,8 +133,10 @@ namespace DataAccess
                     new OracleParameter("p_cursorHeader", OracleDbType.RefCursor, ParameterDirection.Output),
                     new OracleParameter("p_cursor_doc", OracleDbType.RefCursor, ParameterDirection.Output),
                     new OracleParameter("p_cursor_fee", OracleDbType.RefCursor, ParameterDirection.Output),
-                    new OracleParameter("p_cursor_other", OracleDbType.RefCursor, ParameterDirection.Output),
-                    new OracleParameter("p_cursor_author", OracleDbType.RefCursor, ParameterDirection.Output));
+                    new OracleParameter("p_cursor_other_master", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_author", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_class", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_other_doc", OracleDbType.RefCursor, ParameterDirection.Output));
                 return _ds;
             }
             catch (Exception ex)

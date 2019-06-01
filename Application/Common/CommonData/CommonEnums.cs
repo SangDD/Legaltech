@@ -219,6 +219,8 @@
         public static string AppCode_TM_3D_PLC_05_KN = "TM_PLC05KN";
 
         public static string AppCode_TM_4C2_PLD_01_HDCN = "TM_PLD01HDCN";
+        public static string AppCode_A01 = "A01";
+
     }
 
     public class CommonWiki
