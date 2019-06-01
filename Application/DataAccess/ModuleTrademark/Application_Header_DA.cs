@@ -205,6 +205,9 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("p_Grant_Date", OracleDbType.Date, pInfo.Grant_Date, ParameterDirection.Input),
                     new OracleParameter("p_Grant_Public_Date", OracleDbType.Date, pInfo.Grant_Public_Date, ParameterDirection.Input),
 
+                    new OracleParameter("p_Customer_Code", OracleDbType.Varchar2, pInfo.Customer_Code, ParameterDirection.Input),
+                    new OracleParameter("p_Master_Type", OracleDbType.Varchar2, pInfo.Master_Type, ParameterDirection.Input),
+                        
 
                     paramReturn, paramReturn_casecode);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
@@ -253,6 +256,10 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("p_case_name", OracleDbType.Varchar2, pInfo.Case_Name, ParameterDirection.Input),
                     new OracleParameter("P_DDSHCN", OracleDbType.Varchar2, pInfo.DDSHCN, ParameterDirection.Input),
                     new OracleParameter("P_MADDSHCN", OracleDbType.Varchar2, pInfo.MADDSHCN, ParameterDirection.Input),
+
+                    new OracleParameter("p_Customer_Code", OracleDbType.Varchar2, pInfo.Customer_Code, ParameterDirection.Input),
+                    new OracleParameter("p_Master_Type", OracleDbType.Varchar2, pInfo.Master_Type, ParameterDirection.Input),
+
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;

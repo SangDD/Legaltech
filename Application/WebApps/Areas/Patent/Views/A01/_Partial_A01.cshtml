@@ -117,7 +117,7 @@
             </div>
         </div>
 
-        <div class="div-search-ad" style="border-top: solid 1px red;">
+        <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio">
                     <input type="radio" name="2_rdoNguonGocDon" id="2_rdPCT" value="1" onchange="return ShowHiden_NguonGocDon()">
@@ -126,7 +126,7 @@
             </div>
         </div>
 
-        <div class="clssDisplaynone" id="divPCT" style="margin-top: 5px">
+        <div class="clssDisplaynone" id="divPCT" style="margin-top: 5px; background:#fbf4f4">
 
             <div class="div-search-ad">
                 <div class="div-search-title">
@@ -186,7 +186,7 @@
                 </div>
             </div>
 
-            <div class="clssDisplaynone" id="divPCT_SuaDoi" style="margin-top: 5px;margin-left: 15px;">
+            <div class="clssDisplaynone" id="divPCT_SuaDoi" style="margin-top: 5px;margin-left: 15px;background:#fbf4f4">
                 <div class="divCover cls_form_title">
                     <div class="cls_form_header">
                         @Resource.TM3B_NoiDungYCSuaDoi.ToUpper() <i class="redspan">(*)</i>
@@ -230,7 +230,7 @@
             </div>
         </div>
 
-        <div class="div-search-ad" style="border-top: solid 1px red;">
+        <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio">
                     <input type="radio" name="2_rdoNguonGocDon" id="2_rdDQSC" value="2" onchange="return ShowHiden_NguonGocDon()">
@@ -239,7 +239,7 @@
             </div>
         </div>
 
-        <div class="clssDisplaynone" id="divDQSC" style="margin-top: 5px">
+        <div class="clssDisplaynone" id="divDQSC" style="margin-top: 5px;background:#fbf4f4">
 
             <div class="div-search-ad">
                 <div class="div-search-title">
@@ -279,7 +279,7 @@
             </div>
         </div>
 
-        <div class="div-search-ad" style="border-top: solid 1px red;">
+        <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio">
                     <input type="radio" name="2_rdoNguonGocDon" id="2_rdGPHI" value="3" onchange="return ShowHiden_NguonGocDon()">
@@ -288,7 +288,7 @@
             </div>
         </div>
 
-        <div class="clssDisplaynone" id="divGPHI" style="margin-top: 5px">
+        <div class="clssDisplaynone" id="divGPHI" style="margin-top: 5px; background:#fbf4f4">
 
             <div class="div-search-ad">
                 <div class="div-search-title">
@@ -539,7 +539,7 @@
         @* 6 Giấy uỷ quyền bằng tiếng *@
         @{
             string _doc_id6 = "A01_06";
-            string _model6 = _doc_id6 + "|Doc_06|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|" + Resource.TM3B_Tieng + "|1";
+            string _model6 = _doc_id6 + "|Doc_06|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|" + Resource.TM3B_Tieng + "|0";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model6)
         }
 
@@ -856,10 +856,6 @@
                 }
             });
 
-            if (funcThongTinChuDonNguoiDaiDien(formData, "1", New) != true) {
-                return false;
-            }
-
             formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin)');
             var v_AppCode = $("#txtAppCode").val();
             if (v_AppCode === "") {
@@ -907,7 +903,7 @@
             }
 
             $.ajax({
-                url: '/patent-a01/register',
+                url: '/lg-patent/register',
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -1086,7 +1082,7 @@
             var _id = parseInt($("#txt_id_tacgia").val()) + 1;
             $.ajax({
                 type: 'POST',
-                url: '/patent-a01/tac-gia/them-tac-gia/',
+                url: '/lg-patent/tac-gia/them-tac-gia/',
                 data: {
                     p_id: _id
                 },
@@ -1111,7 +1107,7 @@
             var _id = parseInt($("#txt_id_ChuDon").val()) + 1;
             $.ajax({
                 type: 'POST',
-                url: '/patent-a01/chu-don/them-chu-don/',
+                url: '/lg-patent/chu-don/them-chu-don/',
                 data: {
                     p_id: _id
                 },
@@ -1145,7 +1141,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/patent-a01/don-uu-tien/them-don/',
+                url: '/lg-patent/don-uu-tien/them-don/',
                 data: {
                     p_id: "2"
                 },
@@ -1195,6 +1191,20 @@
             }
             formData.append("pDetail.Patent_Name", _txt_Patent_Name);
             formData.append("pDetail.Patent_Type", "DQSC");
+
+            //if ($("#ckbThamDinhNoiDung").is(':checked')) {
+            //    formData.append("pDetail.ThamDinhNoiDung", "TDND");
+            //} else {
+            //    formData.append("pDetail.ThamDinhNoiDung", "");
+            //}
+
+            //if ($("#ckbChuyenDoiDon").is(':checked')) {
+            //    formData.append("pDetail.ChuyenDoiDon", "CDD");
+            //} else {
+            //    formData.append("pDetail.ChuyenDoiDon", "");
+            //}
+
+            
 
             // nguồn gốc đơn
             if ($("#2_rdPCT").is(':checked')) {
@@ -1297,7 +1307,7 @@
             if ($("#0_ckbCoSuDungDonUuTien").prop('checked') == true) {
                 v_CoSDQuyenUT = 1;
             }
-            formdata.append("pDetail.Used_Special", v_CoSDQuyenUT);
+            formData.append("pDetail.Used_Special", v_CoSDQuyenUT);
 
             if (v_CoSDQuyenUT == 1) {
 

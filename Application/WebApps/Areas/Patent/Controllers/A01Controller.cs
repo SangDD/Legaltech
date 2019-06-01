@@ -24,7 +24,7 @@ namespace WebApps.Areas.Patent.Controllers
 {
 
     [ValidateAntiForgeryTokenOnAllPosts]
-    [RouteArea("PatentRegistration", AreaPrefix = "patent-a01")]
+    [RouteArea("PatentRegistration", AreaPrefix = "lg-patent")]
     [Route("{action}")]
     public class A01Controller : Controller
     {

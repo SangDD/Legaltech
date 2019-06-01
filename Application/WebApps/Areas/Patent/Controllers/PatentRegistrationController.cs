@@ -6,12 +6,12 @@ using System.Web.Mvc;
 
 namespace WebApps.Areas.Patent.Controllers
 {
-    public class PatentRegistrationController : Controller
-    {
-        // GET: Patent/PatentRegistration
-        public ActionResult Index()
-        {
-            return View();
-        }
-    }
+    //public class PatentRegistrationController : Controller
+    //{
+    //    // GET: Patent/PatentRegistration
+    //    public ActionResult Index()
+    //    {
+    //        return View();
+    //    }
+    //}
 }
