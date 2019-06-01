@@ -362,9 +362,9 @@
         </div>
 
         @*<div class="div_full_100_area">
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
-            </div>*@
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
+        </div>*@
 
         <div class="div-search-ad">
             <div class="div-search-content">
@@ -500,25 +500,6 @@
             </div>
         </div>
 
-        @*<div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-checkbox" style="width:450px">
-                        <input type="checkbox" name="ckb_6_Doc_ToKhai" id="ckb_6_Doc_ToKhai" value="01_SDD_01" checked="checked">
-                        <label>@Resource.TM2B_ToKhaiGom</label>
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>@Resource.TM2B_SoTrang:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="@Resource.TM2B_SoTrang" id="txt_6_Doc_ToKhai" />
-                    </div>
-                </div>
-            </div>
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialTaiLieuTrongDon_3B.cshtml", "ckb_6_Doc_ToKhai")*@
-
         @* id doc | id của check box | level | lable | lable 2 | is upload *@
         @* 1 Tờ khai *@
         @{
@@ -625,9 +606,13 @@
 
         @{
             string _doc_id16 = "A01_16";
-            string _model16 = _doc_id16 + "|Doc_16|0|" + "Có tài liệu bổ trợ khai tại trang bổ sung" + "||1";
+            string _model16 = _doc_id16 + "|Doc_16|0|" + "Có tài liệu bổ trợ khai tại trang bổ sung" + "||0";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model16)
         }
+
+        @*TÀI LIỆU KHÁC*@
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac.cshtml", "12")
+
 
         @* Cam kết của chủ đơn *@
         @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml")
@@ -827,6 +812,12 @@
                 return false;
             }
 
+            // hàng hóa
+            reponse = funcGetDataClassInfo(formData);
+            if (reponse == false) {
+                return false;
+            }
+
             if (funcThongTinChuDon(formData, "1") != true) {
                 return false;
             }
@@ -894,6 +885,12 @@
 
             //Lấy thông tin tài liệu có trong đơn
             reponse = funGetDocumentFile(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            //Tài liệu khác trong đơn
+            reponse = funcGetTenTaiLieuKhac(formData);
             if (reponse == false) {
                 return false;
             }
@@ -1166,6 +1163,14 @@
         }
     }
 
+    $("#ckb_Doc_16").change(function () {
+        if ($("#ckb_Doc_16").is(":checked") == true) {
+            $("#divContainerDocOther").css('display', 'block')
+        } else {
+            $("#divContainerDocOther").css('display', 'none');
+        }
+    });
+
     function funcGetAppDetail(formData) {
         try {
 
@@ -1435,6 +1440,20 @@
 
         } catch (e) {
             console.log(e);
+        }
+    }
+
+    function funcGetTenTaiLieuKhac(formData) {
+        try {
+            var item = 0;
+            $(".clssListUpload").each(function () {
+                formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", this.id);
+                formData.append("pAppDocOtherInfo[" + item + "].Documentname", $("#" + this.id).val());
+                item++;
+            });
+            return true;
+        } catch (e) {
+            return false;
         }
     }
 
