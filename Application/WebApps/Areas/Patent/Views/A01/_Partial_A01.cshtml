@@ -2,6 +2,8 @@
 @using WebApps.CommonFunction;
 @using BussinessFacade.ModuleMemoryData
 @using WebApps.Resources;
+@using BussinessFacade.ModuleMemoryData
+@using ObjectInfos
 @{
     ViewBag.Title = "Request for patent registration";
     Layout = "~/ViewsShared/_Layout.cshtml";
@@ -10,6 +12,29 @@
     if (ViewBag.App_No != null)
     {
         _App_No = (string)ViewBag.App_No;
+    }
+
+    string language = AppsCommon.GetCurrentLang();
+    var clstAppClassShortSuggest = new List<SuggestInfo>();
+    foreach (var item in MemoryData.clstAppClassSuggest)
+    {
+        var pShortInfo = new SuggestInfo("", "");
+
+        if (language == Language.LangVI)
+        {
+            if (!string.IsNullOrEmpty(item.name) && !string.IsNullOrEmpty(item.value))
+            {
+                pShortInfo = new SuggestInfo(item.name.Replace('/', ' '), item.value);
+            }
+        }
+        else
+        {
+            if (!string.IsNullOrEmpty(item.name_en) && !string.IsNullOrEmpty(item.value))
+            {
+                pShortInfo = new SuggestInfo(item.name_en.Replace('/', ' '), item.value);
+            }
+        }
+        clstAppClassShortSuggest.Add(pShortInfo);
     }
 }
 
@@ -312,7 +337,7 @@
         </div>
         <div class="div-search-ad">
             <div class="div-search-title" style="height: 63px;">
-                <div >Tên sáng chế <i class="redspan">(*)</i></div>
+                <div>Tên sáng chế <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -321,6 +346,9 @@
             </div>
         </div>
 
+        @* Class *@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml")
+        @* End Class *@
 
         @* 1 - CHỦ ĐƠN*@
         <div class="divCover cls_form_title">
@@ -334,9 +362,9 @@
         </div>
 
         @*<div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
-        </div>*@
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
+            </div>*@
 
         <div class="div-search-ad">
             <div class="div-search-content">
@@ -473,23 +501,23 @@
         </div>
 
         @*<div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-checkbox" style="width:450px">
-                    <input type="checkbox" name="ckb_6_Doc_ToKhai" id="ckb_6_Doc_ToKhai" value="01_SDD_01" checked="checked">
-                    <label>@Resource.TM2B_ToKhaiGom</label>
+                <div class="div-search-content">
+                    <div class="div-checkbox" style="width:450px">
+                        <input type="checkbox" name="ckb_6_Doc_ToKhai" id="ckb_6_Doc_ToKhai" value="01_SDD_01" checked="checked">
+                        <label>@Resource.TM2B_ToKhaiGom</label>
+                    </div>
                 </div>
-            </div>
 
-            <div class="div-search-title">
-                <div>@Resource.TM2B_SoTrang:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="@Resource.TM2B_SoTrang" id="txt_6_Doc_ToKhai" />
+                <div class="div-search-title">
+                    <div>@Resource.TM2B_SoTrang:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" placeholder="@Resource.TM2B_SoTrang" id="txt_6_Doc_ToKhai" />
+                    </div>
                 </div>
             </div>
-        </div>
-        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialTaiLieuTrongDon_3B.cshtml", "ckb_6_Doc_ToKhai")*@
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialTaiLieuTrongDon_3B.cshtml", "ckb_6_Doc_ToKhai")*@
 
         @* id doc | id của check box | level | lable | lable 2 | is upload *@
         @* 1 Tờ khai *@
@@ -705,6 +733,46 @@
         {
             $("#3_SoDon").val('@_App_No');
             onChangeAppNo();
+        }
+    });
+
+    $(function ()
+    {
+      try {
+        var availableTags = [];
+        var array = @Html.Raw(Json.Encode(clstAppClassShortSuggest));
+        for (var i = 0; i < array.length; i++) {
+            availableTags[i] = array[i];
+        }
+        $("#txtTenHangHoa").autocomplete({
+            minLength: 3,
+            source: function (request, response) {
+                var results = $.ui.autocomplete.filter(availableTags, request.term.toUpperCase());
+                response(results.slice(0, 100));
+            },
+            select: function (event, ui) {
+                $("#txtClass").val(ui.item.value);
+                //return false;
+                var textinput = $("#txtTenHangHoa").val();
+                event.preventDefault();
+                funcAddDataRowSuggest(ui.item.label, ui.item.value);
+                $("#txtTenHangHoa").val("");
+
+            },
+            focus: function (event, ui) {
+                var arrResult = $(".ui-menu-item");
+                for (var i = 0; i < arrResult.length; i++) {
+                    var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                    if (label == ui.item.name) {
+                        $(".clsLiActive").removeClass("clsLiActive")
+                        $(arrResult[i]).addClass("clsLiActive");
+                        break;
+                    }
+                }
+                event.preventDefault();
+            }
+        });
+        } catch (e) {
         }
     });
 

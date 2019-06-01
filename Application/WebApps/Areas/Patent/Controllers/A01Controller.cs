@@ -104,7 +104,8 @@ namespace WebApps.Areas.Patent.Controllers
         [Route("register")]
         public ActionResult Register(ApplicationHeaderInfo pInfo, A01_Info pDetail,
             List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo,
-            List<AuthorsInfo> pAppAuthorsInfo, List<Other_MasterInfo> pOther_MasterInfo)
+            List<AuthorsInfo> pAppAuthorsInfo, List<Other_MasterInfo> pOther_MasterInfo, 
+            List<AppClassDetailInfo> pAppClassInfo, List<AppDocumentOthersInfo> pAppDocOtherInfo)
         {
             try
             {
@@ -159,6 +160,13 @@ namespace WebApps.Areas.Patent.Controllers
                         decimal _re = _Author_BL.Insert(pAppAuthorsInfo);
                         if (_re <= 0)
                             goto Commit_Transaction;
+
+                        //Thêm thông tin class
+                        if (pAppClassInfo != null)
+                        {
+                            AppClassDetailBL objClassDetail = new AppClassDetailBL();
+                            pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID, language);
+                        }
                     }
 
                     if (pOther_MasterInfo != null && pOther_MasterInfo.Count > 0)
@@ -166,6 +174,32 @@ namespace WebApps.Areas.Patent.Controllers
                         decimal _re = _Other_Master_BL.Insert(pOther_MasterInfo);
                         if (_re <= 0)
                             goto Commit_Transaction;
+                    }
+
+                    //tai lieu khac 
+                    if (pReturn >= 0 && pAppDocOtherInfo != null)
+                    {
+                        if (pAppDocOtherInfo.Count > 0)
+                        {
+                            int check = 0;
+                            foreach (var info in pAppDocOtherInfo)
+                            {
+                                if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
+                                {
+                                    HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                    info.Filename = pfiles.FileName;
+                                    info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
+                                    check = 1;
+
+                                }
+                                info.App_Header_Id = pAppHeaderID;
+                                info.Language_Code = language;
+                            }
+                            if (check == 1)
+                            {
+                                pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocOtherInfo);
+                            }
+                        }
                     }
 
                     #region Phí cố định
