@@ -1,0 +1,194 @@
+﻿@using BussinessFacade.ModuleMemoryData
+@model AuthorsInfo
+@using ObjectInfos;
+@using WebApps.Resources;
+@{
+    string _id = Model.Model_Id;
+    string txtTenDayDu = _id + "_TG_TenDayDu";
+    string txtDiaChi = _id + "_TG_DiaChi";
+    string txtDienThoai = _id + "_TG_DienThoai";
+    string txtFax = _id + "_TG_Fax";
+    string txtEmail = _id + "_TG_Email";
+    string txtQuocTich = _id + "_TG_QuocTich";
+    string txtUse = _id + "_txtUse";
+
+    string _disable = "disabled";
+}
+
+<div class="clsTacGia" data-id="@_id">
+
+    <input type="hidden" id="@txtUse" value="1" />
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div> @Resource.lblTenDayDu <i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input value="@Model.Master_Name" type="text" maxlength="200" id="@txtTenDayDu" @_disable />
+            </div>
+        </div>
+    </div>
+
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div> @Resource.lblDiaChi <i class="redspan">(*)</i> </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input value="@Model.Master_Address" type="text" maxlength="200" id="@txtDiaChi" @_disable />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div> @Resource.lblDienThoai: </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" value="@Model.Master_Phone" maxlength="50" id="@txtDienThoai" style="width: 250px;" @_disable />
+            </div>
+        </div>
+
+        <div class="div-search-title">
+            <div> Fax: </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input value="@Model.Master_Fax" type="text" maxlength="50" id="@txtFax" @_disable />
+            </div>
+        </div>
+        <div class="div-search-title">
+            <div>Email:  </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input value="@Model.Master_Email" type="text" maxlength="50" id="@txtEmail" @_disable />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.QuocTich <i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <select id="@txtQuocTich">
+                    @foreach (var item in MemoryData.c_lst_Country)
+                    {
+                        if (item.Country_Id == Model.Author_Country)
+                        {
+                            <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Country_Id">@item.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        //Search suggestion
+        var Name = $("#1_txtTenDayDu").val();
+        $.ajax({
+            url: '/trade-mark/GetNameSuggest/',
+            type: 'POST',
+            data: {
+                pName: Name
+            },
+            sync: true, cache: false, traditional: true,
+            success: function (data) {
+
+                var lts = data.lst;
+                $('#1_txtTenDayDu').autocomplete({
+                    autoFocus: true,
+                    source: function (request, response) {
+                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+                        response($.grep(lts, function (item) {
+                            return matcher.test(item.value);
+                        }));
+                    },
+                    select: function (event, ui) {
+                        $("#1_txtTenDayDu").val("");
+                        event.preventDefault();
+                        var arrVal = ui.item.value.split('|');
+                        if (arrVal.length === 5) {
+                            $("#1_txtTenDayDu").val(arrVal[0]);
+                            $("#1_txtDiaChi").val(arrVal[1]);
+                            $("#1_txtDienThoai").val(arrVal[2]);
+                            $("#1_txtFax").val(arrVal[3]);
+                            $("#1_txtEmail").val(arrVal[4]);
+                        }
+
+                    },
+                    focus: function (event, ui) {
+                        var arrResult = $(".ui-menu-item");
+                        for (var i = 0; i < arrResult.length; i++) {
+                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                            if (label == ui.item.name) {
+                                $(".clsLiActive").removeClass("clsLiActive")
+                                $(arrResult[i]).addClass("clsLiActive");
+                                break;
+                            }
+                        }
+                        event.preventDefault();
+                    },
+                    open: function (event, ui) {
+                        $("ul").scrollTop(0);
+                        event.preventDefault();
+                    },
+                });
+            }
+        });
+    });
+     
+    function funcThongTinChuDon_Exp(formData, PreID) {
+        try {
+            var txtTenDayDu = $("#" + PreID + "_txtTenDayDu").val();
+            var txtDiaChi = $("#" + PreID + "_txtDiaChi").val();
+            var txtDienThoai = $("#" + PreID + "_txtDienThoai").val();
+            var txtFax = $("#" + PreID + "_txtFax").val();
+            var txtEmail = $("#" + PreID + "_txtEmail").val();
+
+            //Chủ đơn
+            if (PreID == "1") {
+                formData.append("pInfo.Master_Name", txtTenDayDu);
+                formData.append("pInfo.Master_Address", txtDiaChi);
+                formData.append("pInfo.Master_Phone", txtDienThoai);
+                formData.append("pInfo.Master_Fax", txtFax);
+                formData.append("pInfo.Master_Email", txtEmail);
+            } else if (PreID == "2") { //Người đại diện
+                formData.append("pInfo.Rep_Master_Name", txtTenDayDu);
+                formData.append("pInfo.Rep_Master_Address", txtDiaChi);
+                formData.append("pInfo.Rep_Master_Phone", txtDienThoai);
+                formData.append("pInfo.Rep_Master_Fax", txtFax);
+                formData.append("pInfo.Rep_Master_Email", txtEmail);
+                //Detail
+            } else if (PreID == "9") {
+                formData.append("pDetail.Cdk_Name_1", txtTenDayDu);
+                formData.append("pDetail.Cdk_Address_1", txtDiaChi);
+                formData.append("pDetail.Cdk_Phone_1", txtDienThoai);
+                formData.append("pDetail.Cdk_Fax_1", txtFax);
+                formData.append("pDetail.Cdk_Email_1", txtEmail);
+            }
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+</script>
+
+
+
+
+

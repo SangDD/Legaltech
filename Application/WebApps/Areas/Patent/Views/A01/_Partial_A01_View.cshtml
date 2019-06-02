@@ -417,13 +417,13 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txt_Patent_Name" style="height:65px" />
+                    <input type="text" id="txt_Patent_Name" style="height:65px" value="@_App_Detail.Patent_Name" disabled />
                 </div>
             </div>
         </div>
 
         @* Class *@
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml")
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClassView.cshtml")
         @* End Class *@
 
         @* 1 - CHỦ ĐƠN*@
@@ -434,32 +434,50 @@
             </div>
         </div>
         <div id="div_PartialThongTinChuDon">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon_View.cshtml")
         </div>
 
         @*<div class="div_full_100_area">
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
-            </div>*@
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
+        </div>*@
 
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio" style="width:385px">
-                    <input type="radio" name="1_rdoChuDon" value="TGDT" id="1_ckbTacGiaDongThoi">
+                    @if (_App_Detail.Master_Type != "")
+                    {
+                        <input type="radio" name="1_rdoChuDon" value="TGDT" id="1_ckbTacGiaDongThoi" checked="checked" disabled>
+                    }
+                    else
+                    {
+                        <input type="radio" name="1_rdoChuDon" value="TGDT" id="1_ckbTacGiaDongThoi" disabled>
+                    }
                     <label>Chủ đơn đồng thời là tác giả sáng chế</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
-                    <input type="radio" name="1_rdoChuDon" value="2" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
+                    @if (Lst_Other_Master.Count > 0)
+                    {
+                        <input type="radio" name="1_rdoChuDon" checked="checked" disabled value="2" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
+                    }
+                    else
+                    {
+                        <input type="radio" name="1_rdoChuDon" disabled value="2" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
+                    }
                     <label>Ngoài chủ đơn khai tại mục này còn có những chủ đơn khác khai tại trang bổ sung</label>
                 </div>
             </div>
         </div>
 
         <div id="divChuDonKhac">
-
+            @for (int i = 0; i < Lst_Other_Master.Count; i++)
+            {
+                Lst_Other_Master[i].Model_Id = i;
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDonKhac_View.cshtml", Lst_Other_Master[i])
+            }
         </div>
 
         <div class="div_full_100_area classChuDonKhac clssDisplaynone" id="divChungDonKhac001">
@@ -476,7 +494,7 @@
         </div>
 
         <div id="div_PartialThongTinDaiDienChuDon">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon_View.cshtml")
         </div>
 
         <div class="div-search-ad">
@@ -485,7 +503,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txt_MaDaiDien" />
+                    <input type="text" id="txt_MaDaiDien" value="@_AppHeaderInfo.Customer_Code" />
                 </div>
             </div>
         </div>
@@ -500,11 +518,21 @@
         </div>
 
         <div id="div_PartialThongTinTacGia">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinTacGia.cshtml", "1")
+            @if (Lst_AuthorsInfo.Count > 0)
+            {
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinTacGia_View.cshtml", Lst_AuthorsInfo[0])
+            }
         </div>
 
         <div id="divTacGiaKhac">
-
+            @if (Lst_AuthorsInfo.Count > 1)
+            {
+                for (int i = 1; i < Lst_AuthorsInfo.Count; i++)
+                {
+                    Lst_AuthorsInfo[i].Model_Id = i;
+                    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinTacGia_View.cshtml", Lst_AuthorsInfo[i])
+                }
+            }
         </div>
 
         <div class="div_full_100_area classChuDonKhac">
@@ -545,7 +573,14 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio">
-                    <input type="checkbox" id="ckbThamDinhNoiDung">
+                    @if (_App_Detail.ThamDinhNoiDung != "")
+                    {
+                        <input type="checkbox" id="ckbThamDinhNoiDung" disabled="disabled" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="checkbox" id="ckbThamDinhNoiDung" disabled="disabled">
+                    }
                     <label> Yêu cầu thẩm định nội dung</label>
                 </div>
             </div>
@@ -562,7 +597,14 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio">
-                    <input type="checkbox" id="ckbChuyenDoiDon">
+                    @if (_App_Detail.ChuyenDoiDon != "")
+                    {
+                        <input type="checkbox" id="ckbChuyenDoiDon" disabled="disabled" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="checkbox" id="ckbChuyenDoiDon" disabled="disabled">
+                    }
                     <label> Đề nghị chuyển thành đơn đăng ký sáng chế có yêu cầu cấp Bằng độc quyền giải pháp hữu ích nếu giải pháp không đáp ứng điều kiện về trình độ sáng tạo</label>
                 </div>
             </div>
@@ -580,139 +622,165 @@
         @* 1 Tờ khai *@
         @{
             string _doc_id1 = "A01_01";
-            string _model1 = _doc_id1 + "|Doc_01|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|0||" + Resource.lblSoBan;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model1)
+            string _id1 = _doc_id1 + "|Doc_01|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|0||" + Resource.lblSoBan;
+            string _value1 = dic_appDoc[_doc_id1].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id1].CHAR01 + "|" + dic_appDoc[_doc_id1].Url_Hardcopy;
+            string _model1 = _id1 + ";" + _value1;
+
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model1)
         }
 
         @* 2. Bản mô tả, bằng tiếng *@
         @{
             string _doc_id2 = "A01_02";
-            string _model2 = _doc_id2 + "|Doc_02|0|" + "Bản mô tả, bằng tiếng " + "|" + Resource.TM3B_Tieng + "|1||" + Resource.TM2B_SoTrang;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model2)
+            string _id2 = _doc_id2 + "|Doc_02|0|" + "Bản mô tả, bằng tiếng " + "|" + Resource.TM3B_Tieng + "|1||" + Resource.TM2B_SoTrang;
+
+            string _value2 = dic_appDoc[_doc_id2].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id2].CHAR01 + "|" + dic_appDoc[_doc_id2].Url_Hardcopy;
+            string _model2 = _id1 + ";" + _value2;
+
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model2)
         }
 
         @* 3. Bản sao *@
         @{
             string _doc_id3 = "A01_03";
-            string _model3 = _doc_id3 + "|Doc_03|0|" + "Bản sao chứng từ nộp phí, lệ phí" + "|" + Resource.TM2B_SoTrang + "|1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model3)
+            string _id3 = _doc_id3 + "|Doc_03|0|" + "Bản sao chứng từ nộp phí, lệ phí" + "|" + Resource.TM2B_SoTrang + "|1";
+            string _value3 = dic_appDoc[_doc_id3].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id3].CHAR01 + "|" + dic_appDoc[_doc_id3].Url_Hardcopy;
+            string _model3 = _id3 + ";" + _value3;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model3)
         }
 
 
         @{
             string _doc_id4 = "A01_04";
-            string _model4 = _doc_id4 + "|Doc_04|0|" + "Bản tóm tắt, bằng tiếng " + "|" + Resource.TM3B_Tieng + "|1||" + Resource.TM2B_SoTrang;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)
+            string _id4 = _doc_id4 + "|Doc_04|0|" + "Bản tóm tắt, bằng tiếng " + "|" + Resource.TM3B_Tieng + "|1||" + Resource.TM2B_SoTrang;
+            string _value4 = dic_appDoc[_doc_id4].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id4].CHAR01 + "|" + dic_appDoc[_doc_id4].Url_Hardcopy;
+            string _model4 = _id4 + ";" + _value4;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model4)
         }
 
 
         @{
             string _doc_id5 = "A01_05";
-            string _model5 = _doc_id5 + "|Doc_05|0|" + "Bản dịch tiếng Việt, gồm " + "|" + Resource.TM2B_SoTrang + "|1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model5)
+            string _id5 = _doc_id5 + "|Doc_05|0|" + "Bản dịch tiếng Việt, gồm " + "|" + Resource.TM2B_SoTrang + "|1";
+            string _value5 = dic_appDoc[_doc_id5].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id5].CHAR01 + "|" + dic_appDoc[_doc_id5].Url_Hardcopy;
+            string _model5 = _id5 + ";" + _value5;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model5)
         }
 
         @* 6 Giấy uỷ quyền bằng tiếng *@
         @{
             string _doc_id6 = "A01_06";
-            string _model6 = _doc_id6 + "|Doc_06|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|" + Resource.TM3B_Tieng + "|0";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model6)
+            string _id6 = _doc_id6 + "|Doc_06|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|" + Resource.TM3B_Tieng + "|0";
+            string _value6 = dic_appDoc[_doc_id6].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id6].CHAR01 + "|" + dic_appDoc[_doc_id6].Url_Hardcopy;
+            string _model6 = _id6 + ";" + _value6;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model6)
         }
 
         @* 7  Bản dịch tiếng Việt, gồm *@
         @{
             string _doc_id7 = "A01_07";
-            string _model7 = _doc_id7 + "|Doc_07|1|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model7)
+            string _id7 = _doc_id7 + "|Doc_07|1|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
+            string _value7 = dic_appDoc[_doc_id7].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id7].CHAR01 + "|" + dic_appDoc[_doc_id7].Url_Hardcopy;
+            string _model7 = _id7 + ";" + _value7;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model7)
         }
 
         @* 8 Bản gốc *@
         @{
             string _doc_id8 = "A01_08";
-            string _model8 = _doc_id8 + "|Doc_08|1|" + Resource.TM2B_BanGoc + "||1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model8)
+            string _id8 = _doc_id8 + "|Doc_08|1|" + Resource.TM2B_BanGoc + "||1";
+            string _value8 = dic_appDoc[_doc_id8].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id8].CHAR01 + "|" + dic_appDoc[_doc_id8].Url_Hardcopy;
+            string _model8 = _id8 + ";" + _value8;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model8)
         }
 
         @* 9 Bản sao *@
         @{
             string _doc_id9 = "A01_09";
-            string _model9 = _doc_id9 + "|Doc_09|1|" + Resource.TM2B_BanSao + "||0";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model9)
+            string _id9 = _doc_id9 + "|Doc_09|1|" + Resource.TM2B_BanSao + "||0";
+            string _value9 = dic_appDoc[_doc_id9].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id9].CHAR01 + "|" + dic_appDoc[_doc_id9].Url_Hardcopy;
+            string _model9 = _id9 + ";" + _value9;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model9)
         }
 
 
         @* 10 Bản sao  > Bản gốc sẽ nộp sau *@
         @{
             string _doc_id10 = "A01_10";
-            string _model10 = _doc_id10 + "|Doc_10|2|" + Resource.TM2B_BanGocSeNopSau + "||1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model10)
+            string _id10 = _doc_id10 + "|Doc_10|2|" + Resource.TM2B_BanGocSeNopSau + "||1";
+            string _value10 = dic_appDoc[_doc_id10].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id10].CHAR01 + "|" + dic_appDoc[_doc_id10].Url_Hardcopy;
+            string _model10 = _id10 + ";" + _value10;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model10)
         }
 
         @* 11 Bản sao  > Bản gốc đã nộp theo đơn *@
         @{
             string _doc_id11 = "A01_11";
-            string _model11 = _doc_id11 + "|Doc_11|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model11)
+            string _id11 = _doc_id11 + "|Doc_11|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|1";
+            string _value11 = dic_appDoc[_doc_id11].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id11].CHAR01 + "|" + dic_appDoc[_doc_id11].Url_Hardcopy;
+            string _model11 = _id11 + ";" + _value11;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model11)
         }
 
         @* 12 Tài liệu chứng minh quyền ưu tiên *@
         @{
             string _doc_id12 = "A01_12";
-            string _model12 = _doc_id12 + "|Doc_12|0|" + "Tài liệu chứng minh quyền ưu tiên " + "||0";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model12)
+            string _id12 = _doc_id12 + "|Doc_12|0|" + "Tài liệu chứng minh quyền ưu tiên " + "||0";
+            string _value12 = dic_appDoc[_doc_id12].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id12].CHAR01 + "|" + dic_appDoc[_doc_id12].Url_Hardcopy;
+            string _model12 = _id12 + ";" + _value12;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model12)
         }
 
         @{
             string _doc_id13 = "A01_13";
-            string _model13 = _doc_id13 + "|Doc_13|1|" + "Bản sao đơn đầu tiên, gồm " + "|" + Resource.lblBan + "|1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model13)
+            string _id13 = _doc_id13 + "|Doc_13|1|" + "Bản sao đơn đầu tiên, gồm " + "|" + Resource.lblBan + "|1";
+            string _value13 = dic_appDoc[_doc_id13].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id13].CHAR01 + "|" + dic_appDoc[_doc_id13].Url_Hardcopy;
+            string _model13 = _id13 + ";" + _value13;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model13)
         }
 
         @{
             string _doc_id14 = "A01_14";
-            string _model14 = _doc_id14 + "|Doc_14|1|" + "Giấy chuyển nhượng quyền ưu tiên (nếu thụ hưởng từ người khác)" + "||1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model14)
+            string _id14 = _doc_id14 + "|Doc_14|1|" + "Giấy chuyển nhượng quyền ưu tiên (nếu thụ hưởng từ người khác)" + "||1";
+            string _value14 = dic_appDoc[_doc_id14].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id14].CHAR01 + "|" + dic_appDoc[_doc_id14].Url_Hardcopy;
+            string _model14 = _id14 + ";" + _value14;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model14)
         }
 
         @{
             string _doc_id15 = "A01_15";
-            string _model15 = _doc_id15 + "|Doc_15|0|" + "Tài liệu xác nhận quyền đăng ký (nếu thụ hưởng từ người khác)" + "||1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model15)
+            string _id15 = _doc_id15 + "|Doc_15|0|" + "Tài liệu xác nhận quyền đăng ký (nếu thụ hưởng từ người khác)" + "||1";
+            string _value15 = dic_appDoc[_doc_id15].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id15].CHAR01 + "|" + dic_appDoc[_doc_id15].Url_Hardcopy;
+            string _model15 = _id15 + ";" + _value15;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model15)
         }
 
         @{
             string _doc_id16 = "A01_16";
-            string _model16 = _doc_id16 + "|Doc_16|0|" + "Có tài liệu bổ trợ khai tại trang bổ sung" + "||0";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model16)
+            string _id16 = _doc_id16 + "|Doc_16|0|" + "Có tài liệu bổ trợ khai tại trang bổ sung" + "||0";
+            string _value16 = dic_appDoc[_doc_id16].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id16].CHAR01 + "|" + dic_appDoc[_doc_id16].Url_Hardcopy;
+            string _model16 = _id16 + ";" + _value16;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model16)
         }
 
         @*TÀI LIỆU KHÁC*@
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac.cshtml", "12")
+        @*@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac.cshtml", "12")*@
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHTaiLieuKhac.cshtml", "12")
 
-
-        @* Cam kết của chủ đơn *@
-        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml")
-
-        @if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
-        {
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDuLieuQuaKhu.cshtml", "1")
+        @* Cam kết của hủ đơn *@
+        @{
+            string _camket = _AppHeaderInfo.Address + "|" + _AppHeaderInfo.DateNo + "|" + _AppHeaderInfo.Months + "|" + _AppHeaderInfo.Years;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon_View.cshtml", _camket)
         }
 
-        <div class="class_save">
+        @*<div class="class_save">
             <div class="classGuiDon">
                 <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
             </div>
             <div class="classLuuTam">
                 <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
             </div>
-
-            @if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
-            {
-                <div class="classLuuTam">
-                    <input type="button" value="Dữ liệu quá khứ" id="btnDuLieuCu" class="btn class_37" style="margin-left:5px" />
-                </div>
-            }
-        </div>
+        </div>*@
     </fieldset>
 </div>
 
