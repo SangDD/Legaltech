@@ -31,12 +31,12 @@ namespace ObjectInfos
         public string PCT_Suadoi_Content { get; set; }
         public string Source_DQSC { get; set; }
         public string DQSC_Origin_App_No { get; set; }
-        public string DQSC_Filling_Date { get; set; }
+        public DateTime DQSC_Filling_Date { get; set; }
         public decimal DQSC_Valid_Before { get; set; }
         public decimal DQSC_Valid_After { get; set; }
         public string Source_GPHI { get; set; }
         public string GPHI_Origin_App_No { get; set; }
-        public string GPHI_Filling_Date { get; set; }
+        public DateTime GPHI_Filling_Date { get; set; }
         public decimal GPHI_Valid_Before { get; set; }
         public decimal GPHI_Valid_After { get; set; }
 

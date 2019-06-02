@@ -46,7 +46,7 @@
     List<AppDocumentOthersInfo> Lst_DocumentOthers = new List<AppDocumentOthersInfo>();
     if (ViewBag.Lst_DocumentOthers != null)
     {
-        Lst_DocumentOthers = (List<AppFeeFixInfo>)ViewBag.Lst_DocumentOthers;
+        Lst_DocumentOthers = (List<AppDocumentOthersInfo>)ViewBag.Lst_DocumentOthers;
     }
 
     List<AppClassDetailInfo> Lst_ClassDetailInfo = new List<AppClassDetailInfo>();
@@ -143,11 +143,11 @@
                 <div class="div-radio">
                     @if (_App_Detail.Source_PCT == "Y")
                     {
-                        <input type="radio" name="2_rdoNguonGocDon" id="2_rdPCT" checked="checked" disabled onchange="return ShowHiden_NguonGocDon()">
+                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdPCT" checked="checked" disabled onchange="return ShowHiden_NguonGocDon()">
                     }
                     else
                     {
-                        <input type="radio" name="2_rdoNguonGocDon" id="2_rdPCT" disabled onchange="return ShowHiden_NguonGocDon()">
+                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdPCT" disabled onchange="return ShowHiden_NguonGocDon()">
                     }
                     <label> Đơn này được nộp trên cơ sở đơn PCT</label>
                 </div>
@@ -173,7 +173,8 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" id="txt_PCT_NgayNopQT" value="@_App_Detail.PCT_Filling_Date_Qt.ToString("dd/MM/yyyy")" disabled />
+                            
+                            <input type="text" id="txt_PCT_NgayNopQT" value="@(_App_Detail.PCT_Filling_Date_Qt == DateTime.MinValue ? "" : _App_Detail.PCT_Filling_Date_Qt.ToString("dd/MM/yyyy"))" disabled />
                         </div>
                     </div>
                 </div>
@@ -193,7 +194,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" id="txt_PCT_Date" value="@_App_Detail.PCT_Date.ToString("dd/MM/yyyy")" disabled />
+                            <input type="text" id="txt_PCT_Date" value="@(_App_Detail.PCT_Date == DateTime.MinValue ? "" : _App_Detail.PCT_Date.ToString("dd/MM/yyyy"))" disabled />
                         </div>
                     </div>
 
@@ -202,7 +203,8 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" id="txt_PCT_VN_Date" value="@_App_Detail.PCT_VN_Date.ToString("dd/MM/yyyy")" disabled />
+                            
+                            <input type="text" id="txt_PCT_VN_Date" value="@(_App_Detail.PCT_VN_Date == DateTime.MinValue ? "" : _App_Detail.PCT_VN_Date.ToString("dd/MM/yyyy"))" disabled />
                         </div>
                     </div>
                 </div>
@@ -267,11 +269,11 @@
                 <div class="div-radio">
                     @if (_App_Detail.Source_DQSC == "Y")
                     {
-                        <input type="radio" name="2_rdoNguonGocDon" id="2_rdDQSC" checked="checked" disabled="disabled" onchange="return ShowHiden_NguonGocDon()">
+                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdDQSC" checked="checked" disabled="disabled" onchange="return ShowHiden_NguonGocDon()">
                     }
                     else
                     {
-                        <input type="radio" name="2_rdoNguonGocDon" id="2_rdDQSC" disabled onchange="return ShowHiden_NguonGocDon()">
+                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdDQSC" disabled onchange="return ShowHiden_NguonGocDon()">
                     }
                     <label> Đơn được tách từ Đơn yêu cầu cấp Bằng độc quyền sáng chế</label>
                 </div>
@@ -296,7 +298,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" id="txt_DQSC_NgayNop" value="@_App_Detail.DQSC_Filling_Date.ToString("dd/MM/yyyy")" disabled />
+                            <input type="text" id="txt_DQSC_NgayNop" value="@(_App_Detail.DQSC_Filling_Date == DateTime.MinValue ? "" : _App_Detail.DQSC_Filling_Date.ToString("dd/MM/yyyy"))" disabled />
                         </div>
                     </div>
                 </div>
@@ -338,11 +340,11 @@
                 <div class="div-radio">
                     @if (_App_Detail.Source_DQSC == "Y")
                     {
-                        <input type="radio" name="2_rdoNguonGocDon" id="2_rdGPHI" value="3" disabled="disabled" checked="checked" onchange="return ShowHiden_NguonGocDon()">
+                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdGPHI" value="3" disabled="disabled" checked="checked" onchange="return ShowHiden_NguonGocDon()">
                     }
                     else
                     {
-                        <input type="radio" name="2_rdoNguonGocDon" id="2_rdGPHI" value="3" disabled="disabled" onchange="return ShowHiden_NguonGocDon()">
+                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdGPHI" value="3" disabled="disabled" onchange="return ShowHiden_NguonGocDon()">
                     }
                     <label> Đơn được chuyển từ Đơn yêu cầu cấp Bằng độc quyền giải pháp hữu ích</label>
                 </div>
@@ -367,7 +369,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" id="txt_GPHI_NgayNop" disabled value="@_App_Detail.GPHI_Filling_Date.ToString("dd/MM/yyyy")" />
+                            <input type="text" id="txt_GPHI_NgayNop" disabled value="@(_App_Detail.GPHI_Filling_Date == DateTime.MinValue ? "" : _App_Detail.GPHI_Filling_Date.ToString("dd/MM/yyyy"))" />
                         </div>
                     </div>
                 </div>
@@ -423,7 +425,7 @@
         </div>
 
         @* Class *@
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClassView.cshtml")
+        @*@Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClassView.cshtml")*@
         @* End Class *@
 
         @* 1 - CHỦ ĐƠN*@
@@ -503,7 +505,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txt_MaDaiDien" value="@_AppHeaderInfo.Customer_Code" />
+                    <input type="text" id="txt_MaDaiDien" value="@_AppHeaderInfo.Customer_Code" disabled/>
                 </div>
             </div>
         </div>
@@ -856,54 +858,8 @@
                 });
             }
         });
-
-        // nếu có appno
-        if ('@_App_No' != "")
-        {
-            $("#3_SoDon").val('@_App_No');
-            onChangeAppNo();
-        }
     });
 
-    $(function ()
-    {
-      try {
-        var availableTags = [];
-        var array = @Html.Raw(Json.Encode(clstAppClassShortSuggest));
-        for (var i = 0; i < array.length; i++) {
-            availableTags[i] = array[i];
-        }
-        $("#txtTenHangHoa").autocomplete({
-            minLength: 3,
-            source: function (request, response) {
-                var results = $.ui.autocomplete.filter(availableTags, request.term.toUpperCase());
-                response(results.slice(0, 100));
-            },
-            select: function (event, ui) {
-                $("#txtClass").val(ui.item.value);
-                //return false;
-                var textinput = $("#txtTenHangHoa").val();
-                event.preventDefault();
-                funcAddDataRowSuggest(ui.item.label, ui.item.value);
-                $("#txtTenHangHoa").val("");
-
-            },
-            focus: function (event, ui) {
-                var arrResult = $(".ui-menu-item");
-                for (var i = 0; i < arrResult.length; i++) {
-                    var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                    if (label == ui.item.name) {
-                        $(".clsLiActive").removeClass("clsLiActive")
-                        $(arrResult[i]).addClass("clsLiActive");
-                        break;
-                    }
-                }
-                event.preventDefault();
-            }
-        });
-        } catch (e) {
-        }
-    });
 
     $("#btnGuiDon").click(function () {
         try {
