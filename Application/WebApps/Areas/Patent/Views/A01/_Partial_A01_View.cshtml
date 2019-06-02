@@ -60,6 +60,12 @@
     {
         dic_appDoc[item.Document_Id] = item;
     }
+
+    List<UTienInfo> Lst_UTienInfo = new List<AppClassDetailInfo>();
+    if (ViewBag.Lst_UTienInfo != null)
+    {
+        Lst_UTienInfo = (List<UTienInfo>)ViewBag.Lst_UTienInfo;
+    }
 }
 
 <style>
@@ -173,7 +179,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            
+
                             <input type="text" id="txt_PCT_NgayNopQT" value="@(_App_Detail.PCT_Filling_Date_Qt == DateTime.MinValue ? "" : _App_Detail.PCT_Filling_Date_Qt.ToString("dd/MM/yyyy"))" disabled />
                         </div>
                     </div>
@@ -203,7 +209,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            
+
                             <input type="text" id="txt_PCT_VN_Date" value="@(_App_Detail.PCT_VN_Date == DateTime.MinValue ? "" : _App_Detail.PCT_VN_Date.ToString("dd/MM/yyyy"))" disabled />
                         </div>
                     </div>
@@ -407,20 +413,62 @@
         }
 
 
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/category.png" />
-            <div class="cls_form_header">
-                TÊN SÁNG CHẾ
-            </div>
-        </div>
-        <div class="div-search-ad">
-            <div class="div-search-title" style="height: 63px;">
-                <div>Tên sáng chế <i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txt_Patent_Name" style="height:65px" value="@_App_Detail.Patent_Name" disabled />
+        <div style="width: 100%;height: 100px;">
+            <div class="div-search-ad" style="width:50%;float:left">
+                <div class="div-search-title" style="height: 63px;">
+                    <div>Tên sáng chế <i class="redspan">(*)</i></div>
                 </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txt_Patent_Name" style="height:65px" value="@_App_Detail.Patent_Name" disabled />
+                    </div>
+                </div>
+            </div>
+
+            <div style="width:49%;float:left;margin-left: 10px;">
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            @if (_App_Detail.Class_Type == "CUC")
+                            {
+                                <input type="radio" name="TuPhanLoai" id="ckbCucPhanLoai" onchange="onChangeTuPhanLoai()" checked="checked" disabled>
+                            }
+                            else
+                            {
+                                <input type="radio" name="TuPhanLoai" id="ckbCucPhanLoai" onchange="onChangeTuPhanLoai()" disabled>
+                            }
+                            <label>Yêu cầu Cục SHTT phân loại (phí 100.000 đ / 1 phân loại)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            @if (_App_Detail.Class_Type == "MY")
+                            {
+                                <input type="radio" name="TuPhanLoai" id="ckbTuPhanLoai" onchange="onChangeTuPhanLoai()" checked="checked" disabled>
+                            }
+                            else
+                            {
+                                <input type="radio" name="TuPhanLoai" id="ckbTuPhanLoai" onchange="onChangeTuPhanLoai()" disabled>
+                            }
+                            <label>Tự phân loại</label>
+                        </div>
+                    </div>
+                </div>
+
+                @if (_App_Detail.Class_Type == "MY")
+                {
+
+                    <div class="div-search-ad clssDisplaynone" id="divTuNhapPhanLoai">
+                        <div class="div-search-content">
+                            <div class="div-radio">
+                                <input type="text" id="txtClass" value="@_App_Detail.Class_Content" disabled>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
 
@@ -440,9 +488,9 @@
         </div>
 
         @*<div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
-        </div>*@
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
+            </div>*@
 
         <div class="div-search-ad">
             <div class="div-search-content">
@@ -505,7 +553,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txt_MaDaiDien" value="@_AppHeaderInfo.Customer_Code" disabled/>
+                    <input type="text" id="txt_MaDaiDien" value="@_AppHeaderInfo.Customer_Code" disabled />
                 </div>
             </div>
         </div>
@@ -550,19 +598,59 @@
             </div>
 
             <div style="display: inline-block;  padding-top: 8px; padding-left: 5px;">
-                <input type="checkbox" name="0_ckbCoSuDungDonUuTien" value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" onchange="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')" />
+                @if (_App_Detail.Used_Special == 1)
+                {
+                    <input type="checkbox" name="0_ckbCoSuDungDonUuTien" value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" onchange="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')" disabled checked="checked" />
+                }
+                else
+                {
+                    <input type="checkbox" name="0_ckbCoSuDungDonUuTien" value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" onchange="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')" disabled />
+                }
                 <label><a style="color:blue ;font-weight:bold" id="hrefCo" onclick="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')">@WebApps.Resources.Resource.lblYes</a></label>
             </div>
             <div style="display: inline-block;">
-                <input type="checkbox" name="KO_ckbCoSuDungDonUuTien" value="KO" id="KOUT" onchange="return funcChoiseDonUT('KOUT')" />
+                @if (_App_Detail.Used_Special == 0)
+                {
+                    <input type="checkbox" name="KO_ckbCoSuDungDonUuTien" value="KO" id="KOUT" onchange="return funcChoiseDonUT('KOUT')" disabled checked="checked" />
+                }
+                else
+                {
+                    <input type="checkbox" name="KO_ckbCoSuDungDonUuTien" value="KO" id="KOUT" onchange="return funcChoiseDonUT('KOUT')" disabled />
+                }
                 <label><a style="color:blue ;font-weight:bold" id="hrefKhong" onclick="return funcChoiseDonUT('KOUT')">@WebApps.Resources.Resource.lblNo</a></label>
             </div>
         </div>
 
-        <div id="div_ThongTinDonUuTien" class="clssDisplaynone">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinQuyenUuTien.cshtml", "1")
+        @if (Lst_UTienInfo.Count > 0)
+        {
+            <div id="div_ThongTinDonUuTien">
+                @for (int i = 0; i < Lst_UTienInfo.Count; i++)
+                {
+                    Lst_UTienInfo[i].Model_Id = i;
+                    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinQuyenUuTien_View.cshtml", Lst_UTienInfo[i])
+                }
+            </div>
+        }
+
+
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                SỐ ĐIỂM YÊU CẦU BẢO HỘ ĐỘC LẬP
+            </div>
         </div>
 
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Số điểm</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txt_MaDaiDien" value="@_App_Detail.Point" disabled />
+                </div>
+            </div>
+        </div>
 
         @* Yêu cầu thẩm định nội dung *@
         <div class="divCover cls_form_title">
@@ -625,7 +713,7 @@
         @{
             string _doc_id1 = "A01_01";
             string _id1 = _doc_id1 + "|Doc_01|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|0||" + Resource.lblSoBan;
-            string _value1 = dic_appDoc[_doc_id1].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id1].CHAR01 + "|" + dic_appDoc[_doc_id1].Url_Hardcopy;
+            string _value1 = dic_appDoc[_doc_id1].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id1].CHAR01 + "|" + dic_appDoc[_doc_id1].Url_Hardcopy + "|" + dic_appDoc[_doc_id1].CHAR02;
             string _model1 = _id1 + ";" + _value1;
 
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model1)
@@ -635,8 +723,7 @@
         @{
             string _doc_id2 = "A01_02";
             string _id2 = _doc_id2 + "|Doc_02|0|" + "Bản mô tả, bằng tiếng " + "|" + Resource.TM3B_Tieng + "|1||" + Resource.TM2B_SoTrang;
-
-            string _value2 = dic_appDoc[_doc_id2].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id2].CHAR01 + "|" + dic_appDoc[_doc_id2].Url_Hardcopy;
+            string _value2 = dic_appDoc[_doc_id2].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id2].CHAR01 + "|" + dic_appDoc[_doc_id2].Url_Hardcopy + "|" + dic_appDoc[_doc_id2].CHAR02;
             string _model2 = _id1 + ";" + _value2;
 
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model2)
@@ -655,7 +742,7 @@
         @{
             string _doc_id4 = "A01_04";
             string _id4 = _doc_id4 + "|Doc_04|0|" + "Bản tóm tắt, bằng tiếng " + "|" + Resource.TM3B_Tieng + "|1||" + Resource.TM2B_SoTrang;
-            string _value4 = dic_appDoc[_doc_id4].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id4].CHAR01 + "|" + dic_appDoc[_doc_id4].Url_Hardcopy;
+            string _value4 = dic_appDoc[_doc_id4].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id4].CHAR01 + "|" + dic_appDoc[_doc_id4].Url_Hardcopy + "|" + dic_appDoc[_doc_id4].CHAR02;
             string _model4 = _id4 + ";" + _value4;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model4)
         }
@@ -776,13 +863,13 @@
         }
 
         @*<div class="class_save">
-            <div class="classGuiDon">
-                <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
-            </div>
-            <div class="classLuuTam">
-                <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
-            </div>
-        </div>*@
+                <div class="classGuiDon">
+                    <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
+                </div>
+                <div class="classLuuTam">
+                    <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
+                </div>
+            </div>*@
     </fieldset>
 </div>
 

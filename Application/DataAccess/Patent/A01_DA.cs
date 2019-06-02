@@ -32,18 +32,23 @@ namespace DataAccess
                     new OracleParameter("p_pct_suadoi_content", OracleDbType.Varchar2, pInfo.PCT_Suadoi_Content, ParameterDirection.Input),
                     new OracleParameter("p_source_dqsc", OracleDbType.Varchar2, pInfo.Source_DQSC, ParameterDirection.Input),
                     new OracleParameter("p_dqsc_origin_app_no", OracleDbType.Varchar2, pInfo.DQSC_Origin_App_No, ParameterDirection.Input),
-                    new OracleParameter("p_dqsc_filling_date", OracleDbType.Varchar2, pInfo.DQSC_Filling_Date, ParameterDirection.Input),
+                    new OracleParameter("p_dqsc_filling_date", OracleDbType.Date, pInfo.DQSC_Filling_Date, ParameterDirection.Input),
                     new OracleParameter("p_dqsc_valid_before", OracleDbType.Decimal, pInfo.DQSC_Valid_Before, ParameterDirection.Input),
                     new OracleParameter("p_dqsc_valid_after", OracleDbType.Decimal, pInfo.DQSC_Valid_After, ParameterDirection.Input),
                     new OracleParameter("p_source_gphi", OracleDbType.Varchar2, pInfo.Source_GPHI, ParameterDirection.Input),
                     new OracleParameter("p_gphi_origin_app_no", OracleDbType.Varchar2, pInfo.GPHI_Origin_App_No, ParameterDirection.Input),
-                    new OracleParameter("p_gphi_filling_date", OracleDbType.Varchar2, pInfo.GPHI_Filling_Date, ParameterDirection.Input),
+                    new OracleParameter("p_gphi_filling_date", OracleDbType.Date, pInfo.GPHI_Filling_Date, ParameterDirection.Input),
                     new OracleParameter("p_gphi_valid_before", OracleDbType.Decimal, pInfo.GPHI_Valid_Before, ParameterDirection.Input),
                     new OracleParameter("p_gphi_valid_after", OracleDbType.Decimal, pInfo.GPHI_Valid_After, ParameterDirection.Input),
 
-                    new OracleParameter("p_ThamDinhNoiDung", OracleDbType.Decimal, pInfo.ThamDinhNoiDung, ParameterDirection.Input),
-                    new OracleParameter("p_ChuyenDoiDon", OracleDbType.Decimal, pInfo.ChuyenDoiDon, ParameterDirection.Input),
+                    new OracleParameter("p_Point", OracleDbType.Decimal, pInfo.Point, ParameterDirection.Input),
+                    new OracleParameter("p_ThamDinhNoiDung", OracleDbType.Varchar2, pInfo.ThamDinhNoiDung, ParameterDirection.Input),
+                    new OracleParameter("p_ChuyenDoiDon", OracleDbType.Varchar2, pInfo.ChuyenDoiDon, ParameterDirection.Input),
 
+                    new OracleParameter("p_class_type", OracleDbType.Varchar2, pInfo.Class_Type, ParameterDirection.Input),
+                    new OracleParameter("p_class_content", OracleDbType.Varchar2, pInfo.Class_Content, ParameterDirection.Input),
+                    new OracleParameter("p_Used_Special", OracleDbType.Decimal, pInfo.Used_Special, ParameterDirection.Input),
+                    
                     paramReturn);
                 var result = Convert.ToDecimal(paramReturn.Value.ToString());
                 return result;
@@ -80,16 +85,22 @@ namespace DataAccess
                     new OracleParameter("p_pct_suadoi_content", OracleDbType.Varchar2, pInfo.PCT_Suadoi_Content, ParameterDirection.Input),
                     new OracleParameter("p_source_dqsc", OracleDbType.Varchar2, pInfo.Source_DQSC, ParameterDirection.Input),
                     new OracleParameter("p_dqsc_origin_app_no", OracleDbType.Varchar2, pInfo.DQSC_Origin_App_No, ParameterDirection.Input),
-                    new OracleParameter("p_dqsc_filling_date", OracleDbType.Varchar2, pInfo.DQSC_Filling_Date, ParameterDirection.Input),
+                    new OracleParameter("p_dqsc_filling_date", OracleDbType.Date, pInfo.DQSC_Filling_Date, ParameterDirection.Input),
                     new OracleParameter("p_dqsc_valid_before", OracleDbType.Decimal, pInfo.DQSC_Valid_Before, ParameterDirection.Input),
                     new OracleParameter("p_dqsc_valid_after", OracleDbType.Decimal, pInfo.DQSC_Valid_After, ParameterDirection.Input),
                     new OracleParameter("p_source_gphi", OracleDbType.Varchar2, pInfo.Source_GPHI, ParameterDirection.Input),
                     new OracleParameter("p_gphi_origin_app_no", OracleDbType.Varchar2, pInfo.GPHI_Origin_App_No, ParameterDirection.Input),
-                    new OracleParameter("p_gphi_filling_date", OracleDbType.Varchar2, pInfo.GPHI_Filling_Date, ParameterDirection.Input),
+                    new OracleParameter("p_gphi_filling_date", OracleDbType.Date, pInfo.GPHI_Filling_Date, ParameterDirection.Input),
                     new OracleParameter("p_gphi_valid_before", OracleDbType.Decimal, pInfo.GPHI_Valid_Before, ParameterDirection.Input),
                     new OracleParameter("p_gphi_valid_after", OracleDbType.Decimal, pInfo.GPHI_Valid_After, ParameterDirection.Input),
-                    new OracleParameter("p_ThamDinhNoiDung", OracleDbType.Decimal, pInfo.ThamDinhNoiDung, ParameterDirection.Input),
-                    new OracleParameter("p_ChuyenDoiDon", OracleDbType.Decimal, pInfo.ChuyenDoiDon, ParameterDirection.Input),
+
+                    new OracleParameter("p_Point", OracleDbType.Decimal, pInfo.Point, ParameterDirection.Input),
+                    new OracleParameter("p_ThamDinhNoiDung", OracleDbType.Varchar2, pInfo.ThamDinhNoiDung, ParameterDirection.Input),
+                    new OracleParameter("p_ChuyenDoiDon", OracleDbType.Varchar2, pInfo.ChuyenDoiDon, ParameterDirection.Input),
+
+                    new OracleParameter("p_class_type", OracleDbType.Varchar2, pInfo.Class_Type, ParameterDirection.Input),
+                    new OracleParameter("p_class_content", OracleDbType.Varchar2, pInfo.Class_Content, ParameterDirection.Input),
+                    new OracleParameter("p_Used_Special", OracleDbType.Decimal, pInfo.Used_Special, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToDecimal(paramReturn.Value.ToString());
                 return result;
@@ -136,7 +147,8 @@ namespace DataAccess
                     new OracleParameter("p_cursor_other_master", OracleDbType.RefCursor, ParameterDirection.Output),
                     new OracleParameter("p_cursor_author", OracleDbType.RefCursor, ParameterDirection.Output),
                     new OracleParameter("p_cursor_class", OracleDbType.RefCursor, ParameterDirection.Output),
-                    new OracleParameter("p_cursor_other_doc", OracleDbType.RefCursor, ParameterDirection.Output));
+                    new OracleParameter("p_cursor_other_doc", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_uu_tien", OracleDbType.RefCursor, ParameterDirection.Output));
                 return _ds;
             }
             catch (Exception ex)

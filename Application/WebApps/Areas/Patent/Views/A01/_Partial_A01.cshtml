@@ -487,6 +487,23 @@
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinQuyenUuTien.cshtml", "1")
         </div>
 
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                SỐ ĐIỂM YÊU CẦU BẢO HỘ ĐỘC LẬP
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Số điểm yêu cầu <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtPoint" />
+                </div>
+            </div>
+        </div>
 
         @* Yêu cầu thẩm định nội dung *@
         <div class="divCover cls_form_title">
@@ -660,12 +677,12 @@
                 <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
             </div>
 
-            @if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
+            @*@if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
             {
                 <div class="classLuuTam">
                     <input type="button" value="Dữ liệu quá khứ" id="btnDuLieuCu" class="btn class_37" style="margin-left:5px" />
                 </div>
-            }
+            }*@
         </div>
     </fieldset>
 </div>
@@ -1114,11 +1131,13 @@
         try {
             if ($("#ckbTuPhanLoai").is(':checked')) {
                 $("#divTuNhapPhanLoai").removeClass("clssDisplaynone");
-                $("#txtClass").val("");
+                $("#txtClass").focus();
             }
             else {
                 $("#divTuNhapPhanLoai").addClass("clssDisplaynone");
             }
+
+            $("#txtClass").val("");
         } catch (e) {
             alert(e);
         }
@@ -1239,6 +1258,25 @@
             }
             formData.append("pDetail.Patent_Name", _txt_Patent_Name);
             formData.append("pDetail.Patent_Type", "DQSC");
+
+            
+            if ($("#ckbCucPhanLoai").is(':checked')) {
+                formData.append("pDetail.Class_Type", "CUC");
+                formData.append("pDetail.Class_Content", "");
+            } else {
+                formData.append("pDetail.Class_Type", "MY");
+                formData.append("pDetail.Class_Content", $("#txtClass").val());
+            }
+
+            var _txtPoint = $("#txtPoint").val();
+            if (_txtPoint == "") {
+                jError("Số điểm yêu cầu bảo hộ độc lập không được để trống", "@Resource.TM3B_Loi", function () {
+                    $("#txtPoint").focus()
+                });
+                return false;
+            }
+            formData.append("pDetail.Point", _txtPoint);
+            
 
             if ($("#ckbThamDinhNoiDung").is(':checked')) {
                 formData.append("pDetail.ThamDinhNoiDung", "TDND");

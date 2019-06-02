@@ -52,9 +52,11 @@ namespace ObjectInfos
     public class UTienInfo
     {
         public decimal Model_Id { get; set; }
+        public decimal Id { get; set; }
+        public string Case_Code { get; set; }
         public string UT_SoDon { set; get; }
-        public string UT_NgayNopDon { set; get; }
-        public string UT_QuocGia { set; get; }
+        public DateTime UT_NgayNopDon { set; get; }
+        public decimal UT_QuocGia { set; get; }
         public string UT_Type { set; get; }
         public string UT_ThoaThuanKhac { set; get; }
     }

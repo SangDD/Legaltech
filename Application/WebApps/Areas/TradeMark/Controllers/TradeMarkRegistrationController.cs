@@ -1231,9 +1231,9 @@
                 List<Other_MasterInfo> _lst_Other_MasterInfo = new List<Other_MasterInfo>();
                 List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
                 List<AppClassDetailInfo> _lst_appClassDetailInfos = new List<AppClassDetailInfo>();
-
+                List<UTienInfo> pUTienInfo = new List<UTienInfo>();
                 A01_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos, 
-                    ref _lst_authorsInfos, ref _lst_Other_MasterInfo, ref _lst_appClassDetailInfos, ref _LstDocumentOthersInfo);
+                    ref _lst_authorsInfos, ref _lst_Other_MasterInfo, ref _lst_appClassDetailInfos, ref _LstDocumentOthersInfo, ref pUTienInfo);
 
                 ViewBag.App_Detail = app_Detail;
                 ViewBag.Lst_AppDoc = appDocumentInfos;
@@ -1243,6 +1243,7 @@
                 ViewBag.Lst_Other_Master = _lst_Other_MasterInfo;
                 ViewBag.Lst_DocumentOthers = _LstDocumentOthersInfo;
                 ViewBag.Lst_ClassDetailInfo = _lst_appClassDetailInfos;
+                ViewBag.Lst_UTienInfo = pUTienInfo;
 
                 return PartialView("~/Areas/Patent/Views/A01/_Partial_A01_View.cshtml");
             }

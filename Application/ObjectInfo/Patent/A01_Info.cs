@@ -42,5 +42,10 @@ namespace ObjectInfos
 
         public string ThamDinhNoiDung { get; set; }
         public string ChuyenDoiDon { get; set; }
+        public decimal Point { get; set; }
+
+        public string Class_Type { get; set; }
+        public string Class_Content { get; set; }
+
     }
 }

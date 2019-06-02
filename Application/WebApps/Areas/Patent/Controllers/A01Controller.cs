@@ -105,7 +105,8 @@ namespace WebApps.Areas.Patent.Controllers
         public ActionResult Register(ApplicationHeaderInfo pInfo, A01_Info pDetail,
             List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo,
             List<AuthorsInfo> pAppAuthorsInfo, List<Other_MasterInfo> pOther_MasterInfo, 
-            List<AppClassDetailInfo> pAppClassInfo, List<AppDocumentOthersInfo> pAppDocOtherInfo)
+            List<AppClassDetailInfo> pAppClassInfo, List<AppDocumentOthersInfo> pAppDocOtherInfo,
+            List<UTienInfo> pUTienInfo)
         {
             try
             {
@@ -157,21 +158,43 @@ namespace WebApps.Areas.Patent.Controllers
 
                     if (pAppAuthorsInfo != null && pAppAuthorsInfo.Count > 0)
                     {
+                        foreach (var item in pAppAuthorsInfo)
+                        {
+                            item.Case_Code = p_case_code;
+                        }
                         decimal _re = _Author_BL.Insert(pAppAuthorsInfo);
                         if (_re <= 0)
                             goto Commit_Transaction;
 
-                        //Thêm thông tin class
-                        if (pAppClassInfo != null)
-                        {
-                            AppClassDetailBL objClassDetail = new AppClassDetailBL();
-                            pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID, language);
-                        }
+                        ////Thêm thông tin class
+                        //if (pAppClassInfo != null)
+                        //{
+                        //    AppClassDetailBL objClassDetail = new AppClassDetailBL();
+                        //    pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID, language);
+                        //}
                     }
 
                     if (pOther_MasterInfo != null && pOther_MasterInfo.Count > 0)
                     {
+                        foreach (var item in pOther_MasterInfo)
+                        {
+                            item.Case_Code = p_case_code;
+                        }
+
                         decimal _re = _Other_Master_BL.Insert(pOther_MasterInfo);
+                        if (_re <= 0)
+                            goto Commit_Transaction;
+                    }
+
+                    if (pUTienInfo != null && pUTienInfo.Count > 0)
+                    {
+                        foreach (var item in pUTienInfo)
+                        {
+                            item.Case_Code = p_case_code;
+                        }
+
+                        Uu_Tien_BL _Uu_Tien_BL = new Uu_Tien_BL();
+                        decimal _re = _Uu_Tien_BL.Insert(pUTienInfo);
                         if (_re <= 0)
                             goto Commit_Transaction;
                     }
