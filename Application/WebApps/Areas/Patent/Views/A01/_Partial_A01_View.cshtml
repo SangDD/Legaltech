@@ -61,7 +61,7 @@
         dic_appDoc[item.Document_Id] = item;
     }
 
-    List<UTienInfo> Lst_UTienInfo = new List<AppClassDetailInfo>();
+    List<UTienInfo> Lst_UTienInfo = new List<UTienInfo>();
     if (ViewBag.Lst_UTienInfo != null)
     {
         Lst_UTienInfo = (List<UTienInfo>)ViewBag.Lst_UTienInfo;
@@ -579,13 +579,21 @@
             {
                 for (int i = 1; i < Lst_AuthorsInfo.Count; i++)
                 {
+
+                    <div class="divCover cls_form_title">
+                        <img src="~/Content/icons/category.png" />
+                        <div class="cls_form_header">
+                            Tác giả khác
+                        </div>
+                    </div>
+
                     Lst_AuthorsInfo[i].Model_Id = i;
                     @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinTacGia_View.cshtml", Lst_AuthorsInfo[i])
                 }
             }
         </div>
 
-        <div class="div_full_100_area classChuDonKhac">
+        <div class="div_full_100_area classChuDonKhac clssDisplaynone">
             <input type="hidden" id="txt_id_tacgia" value="1" />
             <a href="javascript:;" onclick="return ThemTacGia();" style="text-decoration:underline; color: blue;float: left;">Thêm tác giả</a>
         </div>

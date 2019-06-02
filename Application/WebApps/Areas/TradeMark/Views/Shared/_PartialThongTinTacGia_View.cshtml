@@ -3,7 +3,7 @@
 @using ObjectInfos;
 @using WebApps.Resources;
 @{
-    string _id = Model.Model_Id;
+    string _id = Model.Model_Id.ToString();
     string txtTenDayDu = _id + "_TG_TenDayDu";
     string txtDiaChi = _id + "_TG_DiaChi";
     string txtDienThoai = _id + "_TG_DienThoai";
@@ -25,7 +25,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input value="@Model.Master_Name" type="text" maxlength="200" id="@txtTenDayDu" @_disable />
+                <input value="@Model.Author_Name" type="text" maxlength="200" id="@txtTenDayDu" @_disable />
             </div>
         </div>
     </div>
@@ -37,7 +37,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input value="@Model.Master_Address" type="text" maxlength="200" id="@txtDiaChi" @_disable />
+                <input value="@Model.Author_Address" type="text" maxlength="200" id="@txtDiaChi" @_disable />
             </div>
         </div>
     </div>
@@ -48,7 +48,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" value="@Model.Master_Phone" maxlength="50" id="@txtDienThoai" style="width: 250px;" @_disable />
+                <input type="text" value="@Model.Author_Phone" maxlength="50" id="@txtDienThoai" style="width: 250px;" @_disable />
             </div>
         </div>
 
@@ -57,7 +57,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input value="@Model.Master_Fax" type="text" maxlength="50" id="@txtFax" @_disable />
+                <input value="@Model.Author_Fax" type="text" maxlength="50" id="@txtFax" @_disable />
             </div>
         </div>
         <div class="div-search-title">
@@ -65,7 +65,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input value="@Model.Master_Email" type="text" maxlength="50" id="@txtEmail" @_disable />
+                <input value="@Model.Author_Email" type="text" maxlength="50" id="@txtEmail" @_disable />
             </div>
         </div>
     </div>

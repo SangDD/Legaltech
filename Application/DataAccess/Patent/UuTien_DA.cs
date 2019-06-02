@@ -52,8 +52,8 @@ namespace DataAccess
                     new OracleParameter("p_id", OracleDbType.Decimal, pInfo.Id, ParameterDirection.Input),
                     new OracleParameter("p_case_code", OracleDbType.Decimal, pInfo.Case_Code, ParameterDirection.Input),
                     new OracleParameter("p_ut_sodon", OracleDbType.Varchar2, pInfo.UT_SoDon, ParameterDirection.Input),
-                    new OracleParameter("p_ut_ngaynopdon", OracleDbType.Date, pInfo.UT_NgayNopDon.ToArray(), ParameterDirection.Input),
-                    new OracleParameter("p_ut_quocgia", OracleDbType.Decimal, pInfo.UT_QuocGia.ToArray(), ParameterDirection.Input),
+                    new OracleParameter("p_ut_ngaynopdon", OracleDbType.Date, pInfo.UT_NgayNopDon, ParameterDirection.Input),
+                    new OracleParameter("p_ut_quocgia", OracleDbType.Decimal, pInfo.UT_QuocGia, ParameterDirection.Input),
                     new OracleParameter("p_ut_type", OracleDbType.Varchar2, pInfo.UT_Type, ParameterDirection.Input),
                     new OracleParameter("p_ut_thoathuankhac", OracleDbType.Varchar2, pInfo.UT_ThoaThuanKhac, ParameterDirection.Input),
                     paramReturn);
