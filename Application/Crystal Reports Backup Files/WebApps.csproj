@@ -35,9 +35,22 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CKFinder, Version=2.6.0.2792, Culture=neutral, PublicKeyToken=579e7adc719a1423, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Content\ckfinder\bin\Debug\CKFinder.dll</HintPath>
+    </Reference>
+    <Reference Include="CKFinder_FileEditor">
+      <HintPath>Content\ckfinder\bin\Debug\CKFinder_FileEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="CKFinder_ImageResize">
+      <HintPath>Content\ckfinder\bin\Debug\CKFinder_ImageResize.dll</HintPath>
+    </Reference>
+    <Reference Include="CKFinder_Watermark">
+      <HintPath>Content\ckfinder\bin\Debug\CKFinder_Watermark.dll</HintPath>
+    </Reference>
     <Reference Include="CrystalDecisions.CrystalReports.Engine">
       <HintPath>c:\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
     </Reference>
@@ -168,6 +181,7 @@
     <Compile Include="AppStart\Startup.Auth.cs" />
     <Compile Include="Areas\Account\AccountAreaRegistration.cs" />
     <Compile Include="Areas\Account\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Account\Controllers\ResetPasswordController.cs" />
     <Compile Include="Areas\AppClass\AppClassAreaRegistration.cs" />
     <Compile Include="Areas\AppClass\Controllers\AppClassController.cs" />
     <Compile Include="Areas\Articles\ArticlesAreaRegistration.cs" />
@@ -192,10 +206,13 @@
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\LawerController.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\UserController.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\ModuleUsersAndRolesAreaRegistration.cs" />
+    <Compile Include="Areas\Patent\Controllers\A01Controller.cs" />
     <Compile Include="Areas\Patent\Controllers\PatentRegistrationController.cs" />
     <Compile Include="Areas\Patent\PatentAreaRegistration.cs" />
     <Compile Include="Areas\QuanLyPhi\Controllers\QLPhiController.cs" />
     <Compile Include="Areas\QuanLyPhi\QuanLyPhiAreaRegistration.cs" />
+    <Compile Include="Areas\Sys_Pages\Controllers\SysPagesController.cs" />
+    <Compile Include="Areas\Sys_Pages\Sys_PagesAreaRegistration.cs" />
     <Compile Include="Areas\TradeMark\Controllers\ApplicationController.cs" />
     <Compile Include="Areas\TradeMark\Controllers\PLD01_HDCN_4C2_Controller.cs" />
     <Compile Include="Areas\TradeMark\Controllers\PLC05_KN_3D_Controller.cs" />
@@ -228,6 +245,18 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\TM_04NHLogoChu.cs">
+      <DependentUpon>TM_04NHLogoChu.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Report\TM_04NHLogoChu_EN.cs">
+      <DependentUpon>TM_04NHLogoChu_EN.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Report\TM_04NH_EN.cs">
       <DependentUpon>TM_04NH_EN.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -258,6 +287,12 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Report\TM_PLB02_CGD_EN.cs">
+      <DependentUpon>TM_PLB02_CGD_EN.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Report\TM_PLB02_CGD.cs">
       <DependentUpon>TM_PLB02_CGD.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -270,6 +305,12 @@
       <DependentUpon>TM_PLB01SDD.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Report\TM_PLC05_KN_EN.cs">
+      <DependentUpon>TM_PLC05_KN_EN.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Report\TM_PLC05_KN1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -279,16 +320,24 @@
     <Compile Include="Report\TM_PLD01_HDCN1.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Report\TM_PLD01_HDCN_EN.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TM_PLD01_HDCN_EN.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="RequestFilter\IdentityRequest.cs" />
     <Compile Include="Resources\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Resources\Resource.en.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.en.resx</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Session\SessionData.cs" />
   </ItemGroup>
@@ -1307,6 +1356,10 @@
     <Content Include="Content\fonts\fontawesome\webfonts\fa-solid-900.woff" />
     <Content Include="Content\fonts\fontawesome\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\ckfinder\App_LocalResources\config.ascx.resx" />
+    <EmbeddedResource Include="Report\TM_04NHLogoChu_EN.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TM_04NHLogoChu_EN.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\TM_04NH_EN.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TM_04NH_EN.cs</LastGenOutput>
@@ -1327,6 +1380,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TM_PLB01SDD_EN.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report\TM_PLB02_CGD_EN.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TM_PLB02_CGD_EN.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\TM_PLB02_CGD.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TM_PLB02_CGD.cs</LastGenOutput>
@@ -1335,9 +1392,17 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TM_PLB01SDD.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report\TM_PLC05_KN_EN.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TM_PLC05_KN_EN.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\TM_PLC05_KN.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TM_PLC05_KN1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\TM_PLD01_HDCN_EN.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TM_PLD01_HDCN_EN.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Report\TM_PLD01_HDCN.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1347,6 +1412,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.en.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="Areas\TradeMark\Views\web.config" />
     <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\DangKyNhanHieu.cshtml" />
@@ -1354,10 +1420,7 @@
     <Content Include="Areas\TradeMark\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\TradeMark\Views\Application\DanhSach_Don.cshtml" />
     <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\AppSuaDoiDonDangKy.cshtml" />
-    <Content Include="Areas\TradeMark\Views\Application\DanhSach_DonDaGui.cshtml" />
     <Content Include="Areas\TradeMark\Views\Application\_PartialPhanLoai.cshtml" />
-    <Content Include="Areas\TradeMark\Views\Application\DanhSach_DonChoLuatSuPhanHoi.cshtml" />
-    <Content Include="Areas\TradeMark\Views\Application\DanhSach_DonChoKHConfirm.cshtml" />
     <Content Include="Areas\TradeMark\Views\Application\_PartialTableApplication.cshtml" />
     <Content Include="Areas\TradeMark\Views\Application\_PartialKH_Confirm.cshtml" />
     <Content Include="Content\AppForms\Request_for_amendment_of_application.doc" />
@@ -1617,11 +1680,75 @@
     <Content Include="Areas\ModuleUsersAndRoles\Views\User\_TodoData.cshtml" />
     <Content Include="Areas\Articles\Views\ArticlesNews\NewsDetailByCategory.cshtml" />
     <Content Include="Areas\TradeMark\Views\Application\After_Filing\_Partial_Lawer_CongBoBang.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Shared\AppDetail\_Notice_Data.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Shared\AppDetail\_Billing_Data.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Shared\AppDetail\_Docketing_Data.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\HinhThuc\_Reject_Admin_Duyet.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\HinhThuc\_Reject_Admin_TuChoi.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\HinhThuc\_Reject_KH_Review.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\HinhThuc\_Reject_LS_Dich.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\HinhThuc\_Reject_Admin_Duyet_Dich.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\HinhThuc\_Reject_Admin_TuChoi_Dich.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\HinhThuc\_Reject_LuatSu_Update_Deadline.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\NoiDung\_Reject_Admin_Duyet.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\NoiDung\_Reject_Admin_Duyet_Dich.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\NoiDung\_Reject_Admin_TuChoi.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\NoiDung\_Reject_Admin_TuChoi_Dich.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\NoiDung\_Reject_KH_Review.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\NoiDung\_Reject_LS_Dich.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\NoiDung\_Reject_LuatSu_Update_Deadline.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\After_Filing\ViewDetail_NoticeApp.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistrationDKQT\_PartialTranslateEditDangKyNhanHieu.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistrationDKQT\_PartialTMAddAppClassDich.cshtml" />
+    <Content Include="Areas\Manager\Views\Docking\_PartialChooseDocketing.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Application\_Partial_UploadFile_Local.cshtml" />
+    <Content Include="Areas\TradeMark\Views\PLB01_SDD_3B\_Partial_TM_3B_PLB_01_SDD_Translate.cshtml" />
+    <Content Include="Areas\TradeMark\Views\PLB02_CGD_3C\_Partial_TM_3C_PLB_02_SDD_Translate.cshtml" />
+    <Content Include="Areas\TradeMark\Views\PLD01_HDCN_4C2\_Partial_TM_4C2_PLD_01_HDCN_Translate.cshtml" />
+    <Content Include="Areas\TradeMark\Views\PLC05_KN_3D\_Partial_TM_3D_PLC_05_KN_Translate.cshtml" />
+    <Content Include="Areas\Home\Views\Wiki\_PartialListChilCataByParent.cshtml" />
+    <Content Include="Areas\Account\Views\Account\_Partial_ViewSendPass.cshtml" />
+    <Content Include="Areas\Account\Views\ResetPassword\ResetPasswordDisplay.cshtml" />
+    <Content Include="Areas\Home\Views\Wiki\ViewCatalogue.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Shared\_PartialTitleChuDon.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Shared\_PartialTitleChuDonKhac.cshtml" />
+    <Content Include="Areas\Account\Views\Account\Register.cshtml" />
+    <Content Include="Areas\Home\Views\Wiki\ChildCatalogue.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\HomeWikiData.cshtml" />
+    <Content Include="Areas\Home\Views\Shared\_WikiHomeData.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Shared\_PartialDuLieuQuaKhu.cshtml" />
+    <Content Include="Areas\Sys_Pages\Views\web.config" />
+    <Content Include="Areas\Sys_Pages\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Sys_Pages\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Sys_Pages\Views\SysPages\Sys_Pages_Display.cshtml" />
+    <Content Include="Areas\Sys_Pages\Views\SysPages\_PartialViewAdd.cshtml" />
+    <Content Include="Areas\Sys_Pages\Views\SysPages\_PartialviewEdit.cshtml" />
+    <Content Include="Areas\Sys_Pages\Views\SysPages\_PartialviewView.cshtml" />
+    <Content Include="Areas\Sys_Pages\Views\SysPages\_PartialView_List.cshtml" />
+    <Content Include="Areas\Sys_Pages\Views\SysPages\NewsDetail_By_Home.cshtml" />
+    <Content Include="Areas\Manager\Views\SearchManage\SearchAdd_Inquiries.cshtml" />
+    <Content Include="Areas\Manager\Views\SearchManage\_PartialSearchDetails_Inquiries.cshtml" />
+    <Content Include="Areas\Manager\Views\SearchManage\SearchEdit_Inquiries.cshtml" />
+    <Content Include="Areas\Manager\Views\SearchManage\_PartialAdmin_Reject.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Shared\_Partial_PopUp_AddClass.cshtml" />
+    <Content Include="Areas\Patent\Views\A01\_Partial_A01.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Shared\_PartialThongTinTacGia.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Shared\_PartialThongTinTacGia_Khac.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Shared\_PartialThongTinQuyenUuTien.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Shared\_PartialThongTinChuDonKhac.cshtml" />
+    <Content Include="Areas\Patent\Views\A01\_Partial_A01_View.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Shared\_PartialThongTinTacGia_View.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Shared\_PartialThongTinChuDonKhac_View.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Shared\_PartialThongTinQuyenUuTien_View.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <None Include="Properties\PublishProfiles\HungTDLap.pubxml" />
     <None Include="Properties\PublishProfiles\HungTDPublic.pubxml" />
     <None Include="Properties\PublishProfiles\Legaltech.pubxml" />
+    <EmbeddedResource Include="Report\TM_04NHLogoChu.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TM_04NHLogoChu.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\AlertPopup\ASSAlert.js" />
     <Content Include="Scripts\AlertPopup\NVSAlertCss.css" />
@@ -1633,6 +1760,7 @@
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-ui-1.10.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\messagebox\JsFormPopup.js" />
     <Content Include="Scripts\messagebox\popup.js" />
@@ -1929,6 +2057,7 @@
     <Content Include="ViewsShared\_LayoutHomeArticles.cshtml" />
     <Content Include="ViewsShared\_PartialViewFaceYoutube.cshtml" />
     <Content Include="ViewsShared\_LayoutHomeWiki.cshtml" />
+    <Content Include="ViewsShared\_Layout_TimeOut.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Account\Models\" />
@@ -1938,6 +2067,7 @@
     <Folder Include="Areas\DaiDienSHCN\Models\" />
     <Folder Include="Areas\DaiDienSHCN\Views\Shared\" />
     <Folder Include="Areas\Home\Models\" />
+    <Folder Include="Areas\Home\Views\LegalHome\" />
     <Folder Include="Areas\Manager\Models\" />
     <Folder Include="Areas\ModuleUsersAndRoles\Models\" />
     <Folder Include="Areas\ModuleUsersAndRoles\Views\Shared\" />
@@ -1946,6 +2076,7 @@
     <Folder Include="Areas\Patent\Views\Shared\" />
     <Folder Include="Areas\QuanLyPhi\Models\" />
     <Folder Include="Areas\QuanLyPhi\Views\Shared\" />
+    <Folder Include="Areas\Sys_Pages\Models\" />
     <Folder Include="Areas\TradeMark\Models\" />
     <Folder Include="Content\Archive\Document\" />
     <Folder Include="Content\Archive\FileAttact\" />
@@ -1980,6 +2111,8 @@
     <EmbeddedResource Include="Resources\Resource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
