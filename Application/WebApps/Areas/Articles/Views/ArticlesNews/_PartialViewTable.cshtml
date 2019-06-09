@@ -1,12 +1,12 @@
 ﻿@using Common.CommonData
 @using ObjectInfos
-    @{ 
-        List<NewsInfo> listArticles = ViewBag.listArticles;
-        if (listArticles == null)
-        {
-            listArticles = new List<NewsInfo>();
-        }
+@{
+    List<NewsInfo> listArticles = ViewBag.listArticles;
+    if (listArticles == null)
+    {
+        listArticles = new List<NewsInfo>();
     }
+}
 @try
 {
     <div>
@@ -16,6 +16,7 @@
                     <th style="width: 4%">@WebApps.Resources.Resource.lblSTT</th>
                     <th style="width: 25%" data-sort id="TITLE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.lblTieuDe</th>
                     <th style="width: 25%" data-sort id="CREATED_BY" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.lblNguoiTao</th>
+                    <th style="width: 15%" data-sort id="STATUS">@WebApps.Resources.Resource.TrangThai</th>
                     <th style="width: 15%" data-sort id="MODIFIED_DATE">@WebApps.Resources.Resource.lblCapNhatLuc</th>
                     <th style="width: 100px;">@WebApps.Resources.Resource.lblChucNang</th>
                 </tr>
@@ -28,6 +29,7 @@
                             <td class="tdcenteralign">@item.STT</td>
                             <td class="tdleftalign">@item.Title</td>
                             <td class="tdleftalign">@item.Createdby</td>
+                            <td class="tdleftalign">@item.Status_Name</td>
                             <td class="tdleftalign">@item.Createddate.ToString("dd/MM/yyy HH:mm:ss")</td>
                             <td class="tdcenteralign">
                                 <a href="/quan-ly-tin/chi-tiet-bai-viet/@item.Id/@ViewBag.Status" class="icon icon-info" data-title="@WebApps.Resources.Resource.btnXemChiTiet"></a>

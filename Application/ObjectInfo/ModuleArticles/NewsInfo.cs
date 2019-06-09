@@ -27,11 +27,14 @@ namespace ObjectInfos
         public string Content_En { get; set; }
 
         public decimal Status { get; set; }
+        public string Status_Name { get; set; }
+
         public string Categories_Id { get; set; }
         public string ReCategories_Id { get; set; }
         public string Articles_Type { get; set; }
         public decimal Hottype { get; set; }
         public string Createdby { get; set; }
+
         public DateTime Createddate { get; set; }
         public string Modifiedby { get; set; }
         public DateTime Modifieddate { get; set; }

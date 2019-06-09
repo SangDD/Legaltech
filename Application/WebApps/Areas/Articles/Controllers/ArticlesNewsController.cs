@@ -47,7 +47,7 @@ namespace WebApps.Areas.Articles.Controllers
                 string htmlPaging = CommonFuc.Get_HtmlPaging<NewsInfo>((int)_total_record, 1, "Tin");
                 ViewBag.listArticles = _lst;
                 ViewBag.Paging = htmlPaging;
-                //ViewBag.Status = pStatus;
+                ViewBag.Status = pStatus;
                 ViewBag.SumRecord = _total_record;
                 ViewBag.lstCategory = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
 

@@ -2,10 +2,39 @@
 @using ObjectInfos;
 @using BussinessFacade.ModuleMemoryData
 @{
-    ViewBag.Title = WebApps.Resources.Resource.lblDanhSachTin; 
+    ViewBag.Title = WebApps.Resources.Resource.lblDanhSachTin;
     Layout = "~/ViewsShared/_Layout.cshtml";
+    decimal _status = 1;
+    if (ViewBag.Status != null)
+    {
+        _status = (decimal)ViewBag.Status;
+    }
 
-}
+    string _title = "Danh sách bài viết";
+    if (_status == 1)
+    {
+        _title = "Danh sách bài viết";
+    }
+    else if (_status == 2)
+    {
+        _title = "Danh sách bài viết Lưu tạm";
+    }
+    else if (_status == 4)
+    {
+        _title = "Danh sách bài viết chờ xử lý";
+    }
+    else if (_status == 5)
+    {
+        _title = "Danh sách bài viết từ chối";
+    }
+    else if (_status == 6)
+    {
+        _title = "Danh sách bài viết đã gỡ";
+    }
+    else if (_status == 7)
+    {
+        _title = "Danh sách bài viết đã xuất bản";
+    }
 <style>
     .div-search-title > div {
         width: 150px;
@@ -38,6 +67,7 @@
         <input type="hidden" value="DESC" id="SortType" />
         <input type="hidden" value="" id="OptionSorting" />
         <input type="hidden" value="@ViewBag.Status" id="txtStatusFilter" />
+        <div class="div-title-content"> @_title</div>
     </div>
 
     <div class="divCover" id="div-search-simple" style="margin-top:10px">
