@@ -66,11 +66,33 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.lblTieuDe (EN)<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtTitle_EN" maxlength="200" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
                 <div>@WebApps.Resources.Resource.lblTomTat</div>
             </div>
             <div class="div-search-content">
                 <div>
                     <input type="text" id="txtHeader" maxlength="250" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.lblTomTat (EN)</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtHeader_EN" maxlength="250" />
                 </div>
             </div>
         </div>
@@ -206,9 +228,20 @@ catch (Exception)
             var tieude = $("#txtTitle").val();
             if (tieude.trim() == "") {
                 showError('Tiêu đề bài viết không được để trống!!');
+                $("#txtTitle").focus();
                 return false;
             }
             var header = $("#txtHeader").val();
+
+
+            var tieude_EN = $("#txtTitle_EN").val();
+            if (tieude_EN.trim() == "") {
+                showError('Tiêu đề bài viết (EN) không được để trống!!');
+                $("#txtTitle_EN").focus();
+                return false;
+            }
+            var header_EN = $("#txtHeader_EN").val();
+
 
             var noidung = CKEDITOR.instances['txtNoiDung'].getData();
             if (noidung.trim() == "" || noidung.replace(/&nbsp;/g, '').trim() == "") {
@@ -240,11 +273,15 @@ catch (Exception)
             var recategory = $("#_txtCategoriesRe").val();
 
             formData.append("pNewsInfo.Title", tieude.trim());
+            formData.append("pNewsInfo.Header", header);
+
+            formData.append("pNewsInfo.Title_EN", tieude_EN.trim());
+            formData.append("pNewsInfo.Header_EN", header_EN);
+
             formData.append("pNewsInfo.Content", noidung.trim());
             formData.append("pNewsInfo.Content_En", _contentVal_En.trim());
             formData.append("pNewsInfo.Categories_Id", category.trim());
             formData.append("pNewsInfo.ReCategories_Id", recategory);
-            formData.append("pNewsInfo.Header", header);
             formData.append("pNewsInfo.Status", pStatus);
             var v_Nuocnopdon_Ut = $("#6_txtNuocNopDon").val();
             formData.append("pNewsInfo.Country_Id", v_Nuocnopdon_Ut);

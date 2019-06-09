@@ -98,11 +98,33 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.lblTieuDe (EN)<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtTitle_EN" readonly="readonly" value="@objInfo.Title_EN" maxlength="200" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
                 <div>@WebApps.Resources.Resource.lblTomTat</div>
             </div>
             <div class="div-search-content">
                 <div>
                     <input type="text" id="txtHeader" readonly="readonly" value="@Html.Raw(objInfo.Header)" maxlength="250" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.lblTomTat (EN)</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtHeader_EN" readonly="readonly" value="@Html.Raw(objInfo.Header_EN)" maxlength="250" />
                 </div>
             </div>
         </div>

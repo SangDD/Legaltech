@@ -13,9 +13,14 @@
 
     string _LanguageCode = AppsCommon.GetCurrentLang();
     string _content = objInfo.Content;
+    string _Title = objInfo.Title;
+    string _header = objInfo.Header;
+
     if (_LanguageCode != "VI_VN")
     {
         _content = objInfo.Content_En;
+        _Title = objInfo.Title_EN;
+        _header = objInfo.Header_EN;
     }
 }
 <style>
@@ -35,7 +40,7 @@
                 <span class="c-viewlist-btn_label">Back to the list</span>
             </button>
 
-            <h1 class="t-generic_title">@objInfo.Title</h1>
+            <h1 class="t-generic_title">@_Title</h1>
             <div class="t-generic_summary">
                 @Html.Raw(_content)
             </div>

@@ -81,7 +81,9 @@ namespace DataAccess.ModuleArticles
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_NEWS.PROC_NEWS_INSERT",
                     new OracleParameter("P_TITLE", OracleDbType.Varchar2, pInfo.Title, ParameterDirection.Input),
+                    new OracleParameter("P_TITLE_EN", OracleDbType.Varchar2, pInfo.Title_EN, ParameterDirection.Input),
                     new OracleParameter("P_HEADER", OracleDbType.Varchar2, pInfo.Header, ParameterDirection.Input),
+                    new OracleParameter("P_HEADER_EN", OracleDbType.Varchar2, pInfo.Header_EN, ParameterDirection.Input),
                     new OracleParameter("P_IMAGEHEADER", OracleDbType.Varchar2, pInfo.Imageheader, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGECODE", OracleDbType.Varchar2, pInfo.Languagecode, ParameterDirection.Input),
                     new OracleParameter("P_CONTENT", OracleDbType.Clob, pInfo.Content, ParameterDirection.Input),
@@ -109,8 +111,10 @@ namespace DataAccess.ModuleArticles
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_NEWS.PROC_NEWS_UPDATE",
                     new OracleParameter("P_ID", OracleDbType.Decimal, pInfo.Id, ParameterDirection.Input),
-                    new OracleParameter("P_TITLE", OracleDbType.Varchar2, pInfo.Title, ParameterDirection.Input),
+                    new OracleParameter("P_TITLE", OracleDbType.Varchar2, pInfo.Title_EN, ParameterDirection.Input),
+                    new OracleParameter("P_TITLE_EN", OracleDbType.Varchar2, pInfo.Title, ParameterDirection.Input),
                     new OracleParameter("P_HEADER", OracleDbType.Varchar2, pInfo.Header, ParameterDirection.Input),
+                    new OracleParameter("P_HEADER_EN", OracleDbType.Varchar2, pInfo.Header_EN, ParameterDirection.Input),
                     new OracleParameter("P_IMAGEHEADER", OracleDbType.Varchar2, pInfo.Imageheader, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGECODE", OracleDbType.Varchar2, pInfo.Languagecode, ParameterDirection.Input),
                     new OracleParameter("P_CONTENT", OracleDbType.Clob, pInfo.Content, ParameterDirection.Input),

@@ -13,6 +13,12 @@ namespace ObjectInfos
         public string Title { get; set; }
         [AllowHtml]
         public string Header { get; set; }
+
+        [AllowHtml]
+        public string Title_EN { get; set; }
+        [AllowHtml]
+        public string Header_EN { get; set; }
+
         public string Imageheader { get; set; }
         public string Languagecode { get; set; }
         [AllowHtml]
