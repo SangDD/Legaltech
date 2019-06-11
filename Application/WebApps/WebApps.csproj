@@ -207,6 +207,7 @@
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\UserController.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\ModuleUsersAndRolesAreaRegistration.cs" />
     <Compile Include="Areas\Patent\Controllers\A01Controller.cs" />
+    <Compile Include="Areas\Patent\Controllers\A02Controller.cs" />
     <Compile Include="Areas\Patent\Controllers\PatentRegistrationController.cs" />
     <Compile Include="Areas\Patent\PatentAreaRegistration.cs" />
     <Compile Include="Areas\QuanLyPhi\Controllers\QLPhiController.cs" />
@@ -1740,6 +1741,9 @@
     <Content Include="Areas\TradeMark\Views\Shared\_PartialThongTinTacGia_View.cshtml" />
     <Content Include="Areas\TradeMark\Views\Shared\_PartialThongTinChuDonKhac_View.cshtml" />
     <Content Include="Areas\TradeMark\Views\Shared\_PartialThongTinQuyenUuTien_View.cshtml" />
+    <Content Include="Areas\Patent\Views\A02\_Partial_A02.cshtml" />
+    <Content Include="Areas\Patent\Views\A02\_Partial_A02_View.cshtml" />
+    <Content Include="Areas\Patent\Views\web.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <None Include="Properties\PublishProfiles\HungTDLap.pubxml" />
