@@ -51,6 +51,7 @@
     <Compile Include="Base_Info.cs" />
     <Compile Include="HomeSearch\B_Todos_Info.cs" />
     <Compile Include="Application\App_Notice_Info.cs" />
+    <Compile Include="IndustrialDesign\A03_Info.cs" />
     <Compile Include="Manager\Search_Fix_Info.cs" />
     <Compile Include="Manager\Sys_Pages_Info.cs" />
     <Compile Include="ModuleUsersAndRoles\RegisterInfo.cs" />
@@ -90,8 +91,6 @@
     <Compile Include="ModuleUsersAndRoles\MenuInfo.cs" />
     <Compile Include="ModuleUsersAndRoles\UserInfo.cs" />
     <Compile Include="Patent\A01_Info.cs" />
-    <Compile Include="Patent\A02_Info.cs" />
-    <Compile Include="Patent\A03_Info.cs" />
     <Compile Include="Patent\Other_MasterInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Application\Customer_Review_Info.cs" />
@@ -105,6 +104,7 @@
       <Name>Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

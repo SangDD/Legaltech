@@ -20,13 +20,12 @@ using CrystalDecisions.Shared;
 using System.Linq;
 using BussinessFacade;
 
-namespace WebApps.Areas.Patent.Controllers
+namespace WebApps.Areas.IndustrialDesign.Controllers
 {
-
     [ValidateAntiForgeryTokenOnAllPosts]
-    [RouteArea("PatentRegistration", AreaPrefix = "lg-patent")]
+    [RouteArea("IndustrialDesignRegistration", AreaPrefix = "indus-design")]
     [Route("{action}")]
-    public class A02Controller : Controller
+    public class A03Controller : Controller
     {
         [HttpGet]
         [Route("register/{id}")]
@@ -45,12 +44,12 @@ namespace WebApps.Areas.Patent.Controllers
                     AppCode = RouteData.Values["id"].ToString().ToUpper();
                 }
                 ViewBag.AppCode = AppCode;
-                return PartialView("~/Areas/Patent/Views/A02/_Partial_A02.cshtml");
+                return PartialView("~/Areas/IndustrialDesign/Views/A03/_Partial_A03.cshtml");
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return PartialView("~/Areas/Patent/Views/A02/_Partial_A02.cshtml");
+                return PartialView("~/Areas/IndustrialDesign/Views/A03/_Partial_A03.cshtml");
             }
         }
 
@@ -102,7 +101,7 @@ namespace WebApps.Areas.Patent.Controllers
 
         [HttpPost]
         [Route("register")]
-        public ActionResult Register(ApplicationHeaderInfo pInfo, A02_Info pDetail,
+        public ActionResult Register(ApplicationHeaderInfo pInfo, A03_Info pDetail,
             List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo,
             List<AuthorsInfo> pAppAuthorsInfo, List<Other_MasterInfo> pOther_MasterInfo,
             List<AppClassDetailInfo> pAppClassInfo, List<AppDocumentOthersInfo> pAppDocOtherInfo,
@@ -112,7 +111,7 @@ namespace WebApps.Areas.Patent.Controllers
             {
                 Application_Header_BL objBL = new Application_Header_BL();
                 AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
-                A02_BL objDetail = new A02_BL();
+                A03_BL objDetail = new A03_BL();
                 AppDocumentBL objDoc = new AppDocumentBL();
                 Other_Master_BL _Other_Master_BL = new Other_Master_BL();
                 Author_BL _Author_BL = new Author_BL();

@@ -192,6 +192,8 @@
     <Compile Include="Areas\Home\Controllers\SearchController.cs" />
     <Compile Include="Areas\Home\Controllers\WikiController.cs" />
     <Compile Include="Areas\Home\HomeAreaRegistration.cs" />
+    <Compile Include="Areas\IndustrialDesign\Controllers\A03Controller.cs" />
+    <Compile Include="Areas\IndustrialDesign\IndustrialDesignAreaRegistration.cs" />
     <Compile Include="Areas\Manager\Controllers\BillingController.cs" />
     <Compile Include="Areas\Manager\Controllers\Billing_SearchController.cs" />
     <Compile Include="Areas\Manager\Controllers\DockingController.cs" />
@@ -207,8 +209,6 @@
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\UserController.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\ModuleUsersAndRolesAreaRegistration.cs" />
     <Compile Include="Areas\Patent\Controllers\A01Controller.cs" />
-    <Compile Include="Areas\Patent\Controllers\A02Controller.cs" />
-    <Compile Include="Areas\Patent\Controllers\A03Controller.cs" />
     <Compile Include="Areas\Patent\Controllers\PatentRegistrationController.cs" />
     <Compile Include="Areas\Patent\PatentAreaRegistration.cs" />
     <Compile Include="Areas\QuanLyPhi\Controllers\QLPhiController.cs" />
@@ -1742,11 +1742,10 @@
     <Content Include="Areas\TradeMark\Views\Shared\_PartialThongTinTacGia_View.cshtml" />
     <Content Include="Areas\TradeMark\Views\Shared\_PartialThongTinChuDonKhac_View.cshtml" />
     <Content Include="Areas\TradeMark\Views\Shared\_PartialThongTinQuyenUuTien_View.cshtml" />
-    <Content Include="Areas\Patent\Views\A02\_Partial_A02.cshtml" />
-    <Content Include="Areas\Patent\Views\A02\_Partial_A02_View.cshtml" />
     <Content Include="Areas\Patent\Views\web.config" />
-    <Content Include="Areas\Patent\Views\A03\_Partial_A03.cshtml" />
-    <Content Include="Areas\Patent\Views\A03\_Partial_A03_View.cshtml" />
+    <Content Include="Areas\IndustrialDesign\Views\web.config" />
+    <Content Include="Areas\IndustrialDesign\Views\A03\_Partial_A03.cshtml" />
+    <Content Include="Areas\IndustrialDesign\Views\A03\_Partial_A03_View.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <None Include="Properties\PublishProfiles\HungTDLap.pubxml" />
@@ -2075,6 +2074,8 @@
     <Folder Include="Areas\DaiDienSHCN\Views\Shared\" />
     <Folder Include="Areas\Home\Models\" />
     <Folder Include="Areas\Home\Views\LegalHome\" />
+    <Folder Include="Areas\IndustrialDesign\Models\" />
+    <Folder Include="Areas\IndustrialDesign\Views\Shared\" />
     <Folder Include="Areas\Manager\Models\" />
     <Folder Include="Areas\ModuleUsersAndRoles\Models\" />
     <Folder Include="Areas\ModuleUsersAndRoles\Views\Shared\" />
