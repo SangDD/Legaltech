@@ -5,7 +5,7 @@
 @using BussinessFacade.ModuleMemoryData
 @using ObjectInfos
 @{
-    ViewBag.Title = "Request for patent registration";
+    ViewBag.Title = "Request for industrial design registration";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     string _App_No = "";
@@ -60,7 +60,7 @@
             <img src="~/Content/icons/Body-icon-home.png" /> I
             <a href="/home">Home</a>
             <span class="red">></span>
-            <a href="javascript:;">@Resource.PatentRegister</a>
+            <a href="javascript:;">@Resource.IndusDesign6a_Title</a>
         </div>
     </div>
     <div class="divCover">
@@ -78,27 +78,62 @@
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
-        <legend style="font-weight:600"> @Resource.PatentRegister.ToUpper()</legend>
+        <legend style="font-weight:600"> @Resource.IndusDesign6a_Title.ToUpper()</legend>
 
         @*thông tin khách hàng mà admin nhập hộ*@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCustomer.cshtml")
 
         @* Case name *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
-
-        @* 3 - ĐƠN YÊU CẦU SỬA ĐỔI *@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
                 Chủ đơn dưới đây yêu cầu Cục Sở hữu trí tuệ xem xét đơn và cấp:
             </div>
         </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div style="width: 200px;">Tên kiểu dáng công nghiệp: </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="0_txtTenKieuDangCongNghiep" maxlength="200" placeholder="Tên kiểu dáng công nghiệp" />
+                </div>
+            </div>
+        </div>
+        <div class="div_full_100_area">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div style="width: 250px;">Kiểu dáng bảo hộ được tách ra từ đơn số: </div>
+                    <a href="javascript:;" st="" class="icon icon-info tip" data-placement="right" style="border:none"
+                       data-title="@WebApps.Resources.Resource.TooltipDonTachRaTuDonSo"></a>
+                </div>
+                <div class="div-search-content">
+                    <input type="text" id="0_txtDonSo" onblur="return funcDetailDontach();" maxlength="20" placeholder="@WebApps.Resources.Resource.lblSoDon" />
+                </div>
+                <div class="div-search-title">
+                    <div><a id="hrfDetailDonTach" href="javascript:;" target="_blank" style="color:blue;border:none">@WebApps.Resources.Resource.XemChiTiet</a></div>
+                </div>
+                <div class="div-search-content">
+                </div>
+                <div class="div-search-title">
+                    <div>@WebApps.Resources.Resource.lblNgayNopDon</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input class="datetimepicker" readonly="readonly" type="text" id="0_txtNgayNopDon" maxlength="10" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
 
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio" style="width:482px">
                     <input type="radio" name="1_rdoLoaiSangChe" id="1_rdBangDocQuyen" value="1" checked="checked">
-                    <label>Bằng độc quyền sáng chế</label>
+                    <label>Bằng độc quyền kiểu dáng công nghiệp</label>
                 </div>
             </div>
 
