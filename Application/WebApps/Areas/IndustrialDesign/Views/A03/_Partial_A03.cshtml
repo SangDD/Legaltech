@@ -85,20 +85,29 @@
 
         @* Case name *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
+
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                Chủ đơn dưới đây yêu cầu Cục Sở hữu trí tuệ xem xét đơn và cấp:
+               TÊN KIỂU DÁNG CÔNG NGHIỆP
             </div>
         </div>
+
         <div class="div-search-ad">
-            <div class="div-search-title">
-                <div style="width: 200px;">Tên kiểu dáng công nghiệp: </div>
+            <div class="div-search-title" style="">
+                <div style="width:200px">Tên kiểu dáng công nghiệp <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="0_txtTenKieuDangCongNghiep" maxlength="200" placeholder="Tên kiểu dáng công nghiệp" />
+                    <input type="text" id="txt_IndustryDesignName" style="" />
                 </div>
+            </div>
+        </div>
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+               NGUỒN GỐC ĐƠN
             </div>
         </div>
         <div class="div_full_100_area">
@@ -127,290 +136,72 @@
             </div>
         </div>
 
-    
-
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio" style="width:482px">
-                    <input type="radio" name="1_rdoLoaiSangChe" id="1_rdBangDocQuyen" value="1" checked="checked">
-                    <label>Bằng độc quyền kiểu dáng công nghiệp</label>
+                    <input type="radio" name="1_rdoKetQuaThamDinh" id="1_rdchuacokqthamdinhnoidung" value="1" checked="checked">
+                    <label>Chưa có kết quả thẩm định nội dung</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
-                    <input type="radio" name="1_rdoLoaiSangChe" id="3_rdKieuDangCongNghiep" value="2" disabled>
-                    <label>Bằng độc quyền giải pháp hữu ích</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/category.png" />
-            <div class="cls_form_header">
-                Nguồn gốc đơn
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdPCT" value="1" onchange="return ShowHiden_NguonGocDon()">
-                    <label> Đơn này được nộp trên cơ sở đơn PCT</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="clssDisplaynone" id="divPCT" style="margin-top: 5px; background:#fbf4f4">
-
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div>Số:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txt_PCT_SoDon" style="width:348px" />
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Ngày nộp đơn quốc tế:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txt_PCT_NgayNopQT" class="datetimepicker" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div>Công bố quốc tế số:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txt_PCT_CongBoQT" style="width:250px" />
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Ngày:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txt_PCT_Date" class="datetimepicker" />
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Ngày VN nếu có:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txt_PCT_VN_Date" class="datetimepicker" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-radio" style="margin-left: 0px">
-                        <input type="checkbox" name="2_rdo_PCT_SuaDoi" id="2_rdo_PCT_SuaDoi" onchange="return ShowHiden_PCT_SuaDoi()">
-                        <label> Có sửa đổi, bổ sung tại thời điểm vào pha quốc gia</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="clssDisplaynone" id="divPCT_SuaDoi" style="margin-top: 5px;margin-left: 15px;background:#fbf4f4">
-                <div class="divCover cls_form_title">
-                    <div class="cls_form_header">
-                        @Resource.TM3B_NoiDungYCSuaDoi.ToUpper() <i class="redspan">(*)</i>
-                    </div>
-                </div>
-
-                <div class="div-search-ad">
-                    <div class="div-search-content">
-                        <div class="div-radio" style="width:382px">
-                            <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1">
-                            <label>@Resource.TM3B_TenChuDon</label>
-                        </div>
-                    </div>
-
-                    <div class="div-search-content">
-                        <div class="div-radio">
-                            <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2">
-                            <label>@Resource.TM3B_DiaChiChuDon</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="div-search-ad">
-                    <div class="div-search-content">
-                        <div class="div-radio" style="width:382px">
-                            <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3">
-                            <label>@Resource.TM3B_NoiDungKhac</label>
-                        </div>
-                    </div>
-
-                    <div class="div-search-title" style="margin-left: 0px !important;">
-                        <div>@Resource.TM3B_DeNghiSuaThanh:</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input type="text" placeholder="@Resource.TM3B_DeNghiSuaThanh" id="4_DeNghiSuaThanh" />
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdDQSC" value="2" onchange="return ShowHiden_NguonGocDon()">
-                    <label> Đơn được tách từ Đơn yêu cầu cấp Bằng độc quyền sáng chế</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="clssDisplaynone" id="divDQSC" style="margin-top: 5px;background:#fbf4f4">
-
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div>Đơn gốc:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txt_DQSC_SoDon" style="width:348px" />
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Ngày nộp đơn:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txt_DQSC_NgayNop" class="datetimepicker" />
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="div-search-ad" style="margin-top: 5px;margin-left: 15px;">
-                <div class="div-search-content">
-                    <div class="div-radio" style="width:464px">
-                        <input type="checkbox" name="DQSC_TruocHopLe" id="DQSC_TruocHopLe" value="1">
-                        <label>Trước hợp lệ</label>
-                    </div>
-                </div>
-
-                <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="checkbox" name="DQSC_SauHopLe" id="DQSC_SauHopLe" value="1">
-                        <label>Sau hợp lệ</label>
-                    </div>
+                    <input type="radio" name="1_rdoKetQuaThamDinh" id="3_rdKieuDangCongNghiep" value="2" disabled>
+                    <label>Đã có kế quả thẩm định nội dung</label>
                 </div>
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdGPHI" value="3" onchange="return ShowHiden_NguonGocDon()">
-                    <label> Đơn được chuyển từ Đơn yêu cầu cấp Bằng độc quyền giải pháp hữu ích</label>
+                <div class="div-radio" style="width:482px; height:50px">
+                    <input type="radio" name="1_radDonBanDauCo2PA" id="1_radDonBanDauCo2PA" value="1">
+                    <label>Đơn ban đầu có từ 2 phương án/ đối tượng trở lên nhưng bản chất các phương án/ đối tượng khác biệt đáng kể</label>
+                </div>
+            </div>
+
+            <div class="div-search-content">
+                <div class="div-radio" style="height:50px">
+                    <input type="radio" name="1_radDonBanDauCo2PA" id="1_radDonBanDauNopCho1DoiTuong" value="2" disabled>
+                    <label>Đơn ban đầu nộp cho 1 đối tượng nhưng bản chất lại chứa đựng 2 đối tượng khác biệt đáng kể</label>
                 </div>
             </div>
         </div>
-
-        <div class="clssDisplaynone" id="divGPHI" style="margin-top: 5px; background:#fbf4f4">
-
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div>Đơn gốc:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txt_GPHI_SoDon" style="width:348px" />
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Ngày nộp đơn:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txt_GPHI_NgayNop" class="datetimepicker" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="div-search-ad" style="margin-top: 5px;margin-left: 15px;">
-                <div class="div-search-content">
-                    <div class="div-radio" style="width:464px">
-                        <input type="checkbox" name="GPHI_TruocHopLe" id="GPHI_TruocHopLe" value="1">
-                        <label>Trước hợp lệ</label>
-                    </div>
-                </div>
-
-                <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="checkbox" name="GPHI_SauHopLe" id="GPHI_SauHopLe" value="1">
-                        <label>Sau hợp lệ</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
 
 
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                TÊN SÁNG CHẾ
+              PHÂN LOẠI QUỐC TẾ KDCN
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio">
+                    <input type="radio" name="TuPhanLoai" id="ckbCucPhanLoai" onchange="onChangeTuPhanLoai()">
+                    <label>Yêu cầu Cục SHTT phân loại (phí 100.000 đ / 1 phân loại)</label>
+                </div>
             </div>
         </div>
 
-        <div style="width: 100%;height: 100px;">
-            <div class="div-search-ad" style="width:50%;float:left">
-                <div class="div-search-title" style="height: 63px;">
-                    <div>Tên sáng chế <i class="redspan">(*)</i></div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txt_Patent_Name" style="height:65px" />
-                    </div>
-                </div>
-            </div>
-
-            <div style="width:49%;float:left;margin-left: 10px;">
-                <div class="div-search-ad">
-                    <div class="div-search-content">
-                        <div class="div-radio">
-                            <input type="radio" name="TuPhanLoai" id="ckbCucPhanLoai" onchange="onChangeTuPhanLoai()">
-                            <label>Yêu cầu Cục SHTT phân loại (phí 100.000 đ / 1 phân loại)</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="div-search-ad">
-                    <div class="div-search-content">
-                        <div class="div-radio">
-                            <input type="radio" name="TuPhanLoai" id="ckbTuPhanLoai" onchange="onChangeTuPhanLoai()">
-                            <label>Tự phân loại</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="div-search-ad clssDisplaynone" id="divTuNhapPhanLoai" >
-                    <div class="div-search-content">
-                        <div class="div-radio">
-                            <input type="text" id="txtClass" placeholder="...nhập">
-                        </div>
-                    </div>
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio">
+                    <input type="radio" name="TuPhanLoai" id="ckbTuPhanLoai" onchange="onChangeTuPhanLoai()">
+                    <label>Tự phân loại</label>
                 </div>
             </div>
         </div>
+
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml")
+
+
+
+
+
+     
+
+
         @* Class *@
         @*@Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml")*@
         @* End Class *@
@@ -713,11 +504,11 @@
             </div>
 
             @*@if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
-            {
-                <div class="classLuuTam">
-                    <input type="button" value="Dữ liệu quá khứ" id="btnDuLieuCu" class="btn class_37" style="margin-left:5px" />
-                </div>
-            }*@
+                {
+                    <div class="classLuuTam">
+                        <input type="button" value="Dữ liệu quá khứ" id="btnDuLieuCu" class="btn class_37" style="margin-left:5px" />
+                    </div>
+                }*@
         </div>
     </fieldset>
 </div>
@@ -809,40 +600,40 @@
 
     $(function ()
     {
-      try {
-        var availableTags = [];
-        var array = @Html.Raw(Json.Encode(clstAppClassShortSuggest));
-        for (var i = 0; i < array.length; i++) {
-            availableTags[i] = array[i];
-        }
-        $("#txtTenHangHoa").autocomplete({
-            minLength: 3,
-            source: function (request, response) {
-                var results = $.ui.autocomplete.filter(availableTags, request.term.toUpperCase());
-                response(results.slice(0, 100));
-            },
-            select: function (event, ui) {
-                $("#txtClass").val(ui.item.value);
-                //return false;
-                var textinput = $("#txtTenHangHoa").val();
-                event.preventDefault();
-                funcAddDataRowSuggest(ui.item.label, ui.item.value);
-                $("#txtTenHangHoa").val("");
-
-            },
-            focus: function (event, ui) {
-                var arrResult = $(".ui-menu-item");
-                for (var i = 0; i < arrResult.length; i++) {
-                    var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                    if (label == ui.item.name) {
-                        $(".clsLiActive").removeClass("clsLiActive")
-                        $(arrResult[i]).addClass("clsLiActive");
-                        break;
-                    }
-                }
-                event.preventDefault();
+        try {
+            var availableTags = [];
+            var array = @Html.Raw(Json.Encode(clstAppClassShortSuggest));
+            for (var i = 0; i < array.length; i++) {
+                availableTags[i] = array[i];
             }
-        });
+            $("#txtTenHangHoa").autocomplete({
+                minLength: 3,
+                source: function (request, response) {
+                    var results = $.ui.autocomplete.filter(availableTags, request.term.toUpperCase());
+                    response(results.slice(0, 100));
+                },
+                select: function (event, ui) {
+                    $("#txtClass").val(ui.item.value);
+                    //return false;
+                    var textinput = $("#txtTenHangHoa").val();
+                    event.preventDefault();
+                    funcAddDataRowSuggest(ui.item.label, ui.item.value);
+                    $("#txtTenHangHoa").val("");
+
+                },
+                focus: function (event, ui) {
+                    var arrResult = $(".ui-menu-item");
+                    for (var i = 0; i < arrResult.length; i++) {
+                        var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                        if (label == ui.item.name) {
+                            $(".clsLiActive").removeClass("clsLiActive")
+                            $(arrResult[i]).addClass("clsLiActive");
+                            break;
+                        }
+                    }
+                    event.preventDefault();
+                }
+            });
         } catch (e) {
         }
     });
@@ -1294,7 +1085,7 @@
             formData.append("pDetail.Patent_Name", _txt_Patent_Name);
             formData.append("pDetail.Patent_Type", "DQSC");
 
-            
+
             if ($("#ckbCucPhanLoai").is(':checked')) {
                 formData.append("pDetail.Class_Type", "CUC");
                 formData.append("pDetail.Class_Content", "");
@@ -1311,7 +1102,7 @@
                 return false;
             }
             formData.append("pDetail.Point", _txtPoint);
-            
+
 
             if ($("#ckbThamDinhNoiDung").is(':checked')) {
                 formData.append("pDetail.ThamDinhNoiDung", "TDND");
