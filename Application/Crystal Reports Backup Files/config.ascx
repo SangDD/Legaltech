@@ -1,233 +1,196 @@
-﻿<%@ Control Language="C#" EnableViewState="false" AutoEventWireup="false" Inherits="CKFinder.Settings.ConfigFile" %>
+<%@ Control Language="C#" EnableViewState="false" AutoEventWireup="false" Inherits="CKFinder.Settings.ConfigFile" %>
 <%@ Import Namespace="CKFinder.Settings" %>
-<script runat="server"> 
-    public override bool CheckAuthentication()
-    {
-        if (Administrator.SessionData.CurrentUser == null)
-            return false;
-        return true;
-    }
-    /// <summary>
-    /// HungTD:
-    /// </summary>
-    private string get_folder_name(string p_full_path)
-    {
-        try
-        {
-            if (p_full_path.Contains("\\"))
-            {
-                p_full_path = p_full_path.Replace('\\', '/');
-            }
-            int _vitri = p_full_path.LastIndexOf("/");
-            int _len = p_full_path.Length;
-            string _folder_name = p_full_path.Substring(_vitri + 1, _len - _vitri - 1);
-            return _folder_name;
-        }
-        catch (Exception ex)
-        {
-            Administrator.Common.log.Error(ex.ToString());
-            return "";
-        }
-    }
-    /**
-     * All configuration settings must be defined here.
-     */
-    static ArrayList _arr_true_folder = new ArrayList();
+<script runat="server">
 
-    //Hungtd: arr luu cac folder khong duoc thuc hien quyen
-    static ArrayList _arr_false_folder = new ArrayList();
+	/**
+	 * This function must check the user session to be sure that he/she is
+	 * authorized to upload and access files using CKFinder.
+	 */
+	public override bool CheckAuthentication()
+	{
+		// WARNING : DO NOT simply return "true". By doing so, you are allowing
+		// "anyone" to upload and list the files in your server. You must implement
+		// some kind of session validation here. Even something very simple as...
+		//
+		//		return ( Session[ "IsAuthorized" ] != null && (bool)Session[ "IsAuthorized" ] == true );
+		//
+		// ... where Session[ "IsAuthorized" ] is set to "true" as soon as the
+		// user logs on your system.
 
+		return true;
+	}
 
-    /// <summary>
-    ///  Khi bàn giao trên máy 30 thì mở hàm này ra
-    /// </summary>
-    public override void SetConfig()
-    {
-        //HungTD: kiem tra quyen
-        //if (Administrator.SessionData.CurrentUser == null)
-        //    return  ;
-        var _user_info = (NaviObjectInfo.ModuleQLKHInfo.UserInfo)Administrator.SessionData.CurrentUser;
-        Session["CKFinder_UserRole"] = _user_info.UserName;
-        ArrayList _arr_sub_folder_in_ck = (ArrayList)Session[_user_info.UserName + "g_arr_subfolder_in_ckfinder"];
-        ArrayList _arr_user_folder_rule = (ArrayList)Session[_user_info.UserName + "g_arr_user_folder_rule"];
+	/**
+	 * All configuration settings must be defined here.
+	 */
+	public override void SetConfig()
+	{
+		// Paste your license name and key here. If left blank, CKFinder will
+		// be fully functional, in Demo Mode.
+	    LicenseName = "@tuannguyen";
+	    LicenseKey = "AUKPSE6XSVSJTP4MSV9RQKJBKGLL3KN7";
 
-        LicenseName = "";
-        LicenseKey = "";
+		// The base URL used to reach files in CKFinder through the browser.
+	    BaseUrl = Common.Common.BaseUrl; 
 
-        //Sửa ngày 12.03.2016
-        //Nếu chạy qua host thì upload vào thư mục này 
-        BaseUrl = Administrator.Common.Portal_Display_Ckeditor_Admin;
-        //BaseDir duong dan tuyet doi de upload anh tren server
-        BaseDir = Administrator.Common.Portal_Directory_Ftp;
-        if (Request.Url.ToString().Contains("http://localhost"))
-        {
-            //Đường dẫn hiển thị trên web khi xem sửa 
-            BaseUrl = "~/Content";
-            //Đường dẫn tuyệt đối của FTP nằm trong thư mục public của Portal để đẩy vào để Admin 
-            BaseDir = HttpContext.Current.Server.MapPath("~/Content");
-        }
+		// The phisical directory in the server where the file will end up. If
+		// blank, CKFinder attempts to resolve BaseUrl.
+		BaseDir = Common.Common.BaseDir; 
 
+		// Optional: enable extra plugins (remember to copy .dll files first).
+		Plugins = new string[] {
+			// "CKFinder.Plugins.FileEditor, CKFinder_FileEditor",
+			// "CKFinder.Plugins.ImageResize, CKFinder_ImageResize",
+			// "CKFinder.Plugins.Watermark, CKFinder_Watermark"
+		};
+		// Settings for extra plugins.
+		PluginSettings = new Hashtable();
+		PluginSettings.Add("ImageResize_smallThumb", "90x90" );
+		PluginSettings.Add("ImageResize_mediumThumb", "120x120" );
+		PluginSettings.Add("ImageResize_largeThumb", "180x180" );
+		// Name of the watermark image in plugins/watermark folder
+		PluginSettings.Add("Watermark_source", "logo.gif" );
+		PluginSettings.Add("Watermark_marginRight", "5" );
+		PluginSettings.Add("Watermark_marginBottom", "5" );
+		PluginSettings.Add("Watermark_quality", "90" );
+		PluginSettings.Add("Watermark_transparency", "80" );
 
-        Plugins = new string[] {
-        };
-        // Settings for extra plugins.
-        PluginSettings = new Hashtable();
-        PluginSettings.Add("ImageResize_smallThumb", "90x90");
-        PluginSettings.Add("ImageResize_mediumThumb", "120x120");
-        PluginSettings.Add("ImageResize_largeThumb", "180x180");
-        // Name of the watermark image in plugins/watermark folder
-        PluginSettings.Add("Watermark_source", "logo.gif");
-        PluginSettings.Add("Watermark_marginRight", "5");
-        PluginSettings.Add("Watermark_marginBottom", "5");
-        PluginSettings.Add("Watermark_quality", "90");
-        PluginSettings.Add("Watermark_transparency", "80");
-        CheckSizeAfterScaling = true;
-        DisallowUnsafeCharacters = true;
-        CheckDoubleExtension = true;
-        ForceSingleExtension = true;
-        HtmlExtensions = new string[] { "html", "htm", "xml", "js" };
-        HideFolders = new string[] { ".*", "CVS" };
-        HideFiles = new string[] { ".*" };
-        // Perform additional checks for image files.
-        SecureImageUploads = true;
-        RoleSessionVar = "CKFinder_UserRole";
-        //neu user khong co quyen nao 
-        AccessControl acl_admin = AccessControl.Add();
-        acl_admin = AccessControl.Add();
-        //acl_admin.Role = _user_info.UserName;
-        acl_admin.ResourceType = "*";
-        acl_admin.Folder = "";
-        acl_admin.FolderView = true;
-        acl_admin.FolderCreate = false;
-        acl_admin.FolderRename = false;
-        acl_admin.FolderDelete = false;
-        acl_admin.FileView = true;
-        acl_admin.FileUpload = true;
-        acl_admin.FileRename = true;
-        acl_admin.FileDelete = true;
-        //}
-        //load lan thu 2 duyet cac folder con         
-        if (Administrator.CommonData.g_count_load_setconfig > 0)
-        {
-            _arr_false_folder = new ArrayList();
-            _arr_true_folder = new ArrayList();
-            int i = 0;
-            int j;
-            foreach (string _folder_name in _arr_sub_folder_in_ck)
-            {
-                //NaviCommon.Common.log.Error(_folder_name);
-                j = 0;
-                foreach (NaviObjectInfo.ModuleUserRoles.UserFolderRuleInfo _item in _arr_user_folder_rule)
-                {
+		// Thumbnail settings.
+		// "Url" is used to reach the thumbnails with the browser, while "Dir"
+		// points to the physical location of the thumbnail files in the server.
+		Thumbnails.Url = BaseUrl + "_thumbs/";
+		if ( BaseDir != "" ) {
+			Thumbnails.Dir = BaseDir + "_thumbs/";
+		}
+		Thumbnails.Enabled = true;
+		Thumbnails.DirectAccess = false;
+		Thumbnails.MaxWidth = 100;
+		Thumbnails.MaxHeight = 100;
+		Thumbnails.Quality = 80;
 
-                    if (_item.Folder_Href == _folder_name)
-                    {
-                        //luu cac folder duoc thuc hien quyen vao mot noi
-                        _arr_true_folder.Add(i);
-                        break;
-                    }
-                    j++;
-                }
-                //neu folder khong thuoc quyen thi add vao arr_false_folder
-                if (j == _arr_user_folder_rule.Count)
-                {
-                    _arr_false_folder.Add(i);
-                }
-                i++;
-            }
-            NaviCommon.Common.log.Error("Item trong thang _arr_true_folder");
-            foreach (int _item in _arr_true_folder)
-            {
+		// Set the maximum size of uploaded images. If an uploaded image is
+		// larger, it gets scaled down proportionally. Set to 0 to disable this
+		// feature.
+		Images.MaxWidth = 1600;
+		Images.MaxHeight = 1200;
+		Images.Quality = 80;
 
-                string _str_folder_name = _arr_sub_folder_in_ck[_item].ToString();
-                acl_admin = AccessControl.Add();
-                acl_admin.Role = _user_info.UserName;
-                acl_admin.ResourceType = "*";
-                acl_admin.Folder = _str_folder_name;
-                acl_admin.FolderView = true;
-                acl_admin.FolderCreate = true;
-                acl_admin.FolderRename = true;
-                acl_admin.FolderDelete = true;
-                acl_admin.FileView = true;
-                acl_admin.FileUpload = true;
-                acl_admin.FileRename = true;
-                acl_admin.FileDelete = true;
-                NaviCommon.Common.log.Error(_str_folder_name);
-            }
-            // han che quyen cac folder trong _arr_false_folder
-            NaviCommon.Common.log.Error("Item trong thang _arr_false_folder");
-            foreach (int _item in _arr_false_folder)
-            {
-                string _str_folder_name = _arr_sub_folder_in_ck[_item].ToString();
-                acl_admin = AccessControl.Add();
-                acl_admin.Role = _user_info.UserName;
-                acl_admin.ResourceType = "*";
-                acl_admin.Folder = get_folder_name(_str_folder_name);
-                acl_admin.FolderView = false;
-                acl_admin.FolderCreate = false;
-                acl_admin.FolderRename = false;
-                acl_admin.FolderDelete = false;
-                acl_admin.FileView = false;
-                acl_admin.FileUpload = false;
-                acl_admin.FileRename = false;
-                acl_admin.FileDelete = false;
-                NaviCommon.Common.log.Error(_str_folder_name);
-            }
-            //doi voi thu muc Photo thi set mot so quyen khac
-            acl_admin = AccessControl.Add();
-            //acl_admin.Role = _user_info.UserName;
-            acl_admin.ResourceType = "*";
-            //acl_admin.Folder = _user_info.UserName;
-            acl_admin.FolderView = true;
-            acl_admin.FolderCreate = false;
-            acl_admin.FolderRename = false;
-            acl_admin.FolderDelete = false;
-            acl_admin.FileView = true;
-            acl_admin.FileUpload = true;
-            acl_admin.FileRename = true;
-            acl_admin.FileDelete = true;
+		// Indicates that the file size (MaxSize) for images must be checked only
+		// after scaling them. Otherwise, it is checked right after uploading.
+		CheckSizeAfterScaling = true;
 
-            acl_admin = AccessControl.Add();
-            //acl_admin.Role = _user_info.UserName;
-            acl_admin.ResourceType = "*";
-            //acl_admin.Folder = _user_info.UserName + "/News";
-            acl_admin.FolderView = true;
-            acl_admin.FolderCreate = true;
-            acl_admin.FolderRename = false;
-            acl_admin.FolderDelete = false;
-            acl_admin.FileView = true;
-            acl_admin.FileUpload = true;
-            acl_admin.FileRename = true;
-            acl_admin.FileDelete = true;
-        }
-        // them quyen cho cac folder da luu           
+		// Increases the security on an IIS web server.
+		// If enabled, CKFinder will disallow creating folders and uploading files whose names contain characters
+		// that are not safe under an IIS 6.0 web server.
+		DisallowUnsafeCharacters = true;
 
-        ResourceType type;
+		// If CheckDoubleExtension is enabled, each part of the file name after a dot is
+		// checked, not only the last part. In this way, uploading foo.php.rar would be
+		// denied, because "php" is on the denied extensions list.
+		// This option is used only if ForceSingleExtension is set to false.
+		CheckDoubleExtension = true;
 
+		// Due to security issues with Apache modules, it is recommended to leave the
+		// following setting enabled. It can be safely disabled on IIS.
+		ForceSingleExtension = true;
 
-        type = ResourceType.Add("Images");
-        type.Url = BaseUrl;
-        type.Dir = BaseDir;
-        type.MaxSize = 0;
-        type.AllowedExtensions = new string[] { "bmp", "gif", "jpeg", "jpg", "png" };
-        type.DeniedExtensions = new string[] { };
+		// For security, HTML is allowed in the first Kb of data for files having the
+		// following extensions only.
+		HtmlExtensions = new string[] { "html", "htm", "xml", "js" };
 
-        type = ResourceType.Add("Files");
-        type.Url = BaseUrl;
-        type.Dir = BaseDir;
-        type.MaxSize = 0;
-        type.AllowedExtensions = new string[] { "7z", "aiff", "asf", "avi", "bmp", "csv", "doc", "docx", "fla", "flv", "gif", "gz", "gzip", "jpeg", "jpg", "mid", "mov", "mp3", "mp4", "mpc", "mpeg", "mpg", "ods", "odt", "pdf", "png", "ppt", "pptx", "pxd", "qt", "ram", "rar", "rm", "rmi", "rmvb", "rtf", "sdc", "sitd", "swf", "sxc", "sxw", "tar", "tgz", "tif", "tiff", "txt", "vsd", "wav", "wma", "wmv", "xls", "xlsx", "zip" };
-        type.DeniedExtensions = new string[] { };
+		// Folders to not display in CKFinder, no matter their location. No
+		// paths are accepted, only the folder name.
+		// The * and ? wildcards are accepted.
+		// By default folders starting with a dot character are disallowed.
+		HideFolders = new string[] { ".*", "CVS" };
 
+		// Files to not display in CKFinder, no matter their location. No
+		// paths are accepted, only the file name, including extension.
+		// The * and ? wildcards are accepted.
+		HideFiles = new string[] { ".*" };
 
-        type = ResourceType.Add("Flash");
-        type.Url = BaseUrl;
-        type.Dir = BaseDir;
-        type.MaxSize = 0;
-        type.AllowedExtensions = new string[] { "swf", "flv" };
-        type.DeniedExtensions = new string[] { };
-        //bien nay de kiem tra goi ham config lan bao nhieu
-        Administrator.CommonData.g_count_load_setconfig++;
-    }
+		// Perform additional checks for image files.
+		SecureImageUploads = true;
+
+		// Enables protection in the connector.
+		// The default CSRF protection mechanism is based on double submit cookies, where
+		// connector checks if the request contains a valid token that matches the token
+		// sent in the cookie
+		//
+		// https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29_Prevention_Cheat_Sheet#Double_Submit_Cookies
+		EnableCsrfProtection = true;
+
+		// The session variable name that CKFinder must use to retrieve the
+		// "role" of the current user. The "role" is optional and can be used
+		// in the "AccessControl" settings (bellow in this file).
+		RoleSessionVar = "CKFinder_UserRole";
+
+		// ACL (Access Control) settings. Used to restrict access or features
+		// to specific folders.
+		// Several "AccessControl.Add()" calls can be made, which return a
+		// single ACL setting object to be configured. All properties settings
+		// are optional in that object.
+		// Subfolders inherit their default settings from their parents' definitions.
+		//
+		//	- The "Role" property accepts the special "*" value, which means
+		//	  "everybody".
+		//	- The "ResourceType" attribute accepts the special value "*", which
+		//	  means "all resource types".
+		AccessControl acl = AccessControl.Add();
+		acl.Role = "*";
+		acl.ResourceType = "*";
+		acl.Folder = "/";
+
+		acl.FolderView = true;
+		acl.FolderCreate = true;
+		acl.FolderRename = true;
+		acl.FolderDelete = true;
+
+		acl.FileView = true;
+		acl.FileUpload = true;
+		acl.FileRename = true;
+		acl.FileDelete = true;
+
+		// Resource Type settings.
+		// A resource type is nothing more than a way to group files under
+		// different paths, each one having different configuration settings.
+		// Each resource type name must be unique.
+		// When loading CKFinder, the "type" querystring parameter can be used
+		// to display a specific type only. If "type" is omitted in the URL,
+		// the "DefaultResourceTypes" settings is used (may contain the
+		// resource type names separated by a comma). If left empty, all types
+		// are loaded.
+
+		// ==============================================================================
+		// ATTENTION: Flash files with `swf' extension, just like HTML files, can be used
+		// to execute JavaScript code and to e.g. perform an XSS attack. Grant permission
+		// to upload `.swf` files only if you understand and can accept this risk.
+		// ==============================================================================
+
+		DefaultResourceTypes = "";
+
+		ResourceType type;
+
+		type = ResourceType.Add( "Files" );
+		type.Url = BaseUrl + "files/";
+		type.Dir = BaseDir == "" ? "" : BaseDir + "files/";
+		type.MaxSize = 0;
+		type.AllowedExtensions = new string[] { "7z", "aiff", "asf", "avi", "bmp", "csv", "doc", "docx", "fla", "flv", "gif", "gz", "gzip", "jpeg", "jpg", "mid", "mov", "mp3", "mp4", "mpc", "mpeg", "mpg", "ods", "odt", "pdf", "png", "ppt", "pptx", "pxd", "qt", "ram", "rar", "rm", "rmi", "rmvb", "rtf", "sdc", "sitd", "swf", "sxc", "sxw", "tar", "tgz", "tif", "tiff", "txt", "vsd", "wav", "wma", "wmv", "xls", "xlsx", "zip" };
+		type.DeniedExtensions = new string[] { };
+
+		type = ResourceType.Add( "Images" );
+		type.Url = BaseUrl + "images/";
+		type.Dir = BaseDir == "" ? "" : BaseDir + "images/";
+		type.MaxSize = 0;
+		type.AllowedExtensions = new string[] { "bmp", "gif", "jpeg", "jpg", "png" };
+		type.DeniedExtensions = new string[] { };
+
+		type = ResourceType.Add( "Flash" );
+		type.Url = BaseUrl + "flash/";
+		type.Dir = BaseDir == "" ? "" : BaseDir + "flash/";
+		type.MaxSize = 0;
+		type.AllowedExtensions = new string[] { "swf", "flv" };
+		type.DeniedExtensions = new string[] { };
+	}
 
 </script>

@@ -220,6 +220,7 @@
 
         public static string AppCode_TM_4C2_PLD_01_HDCN = "TM_PLD01HDCN";
         public static string AppCode_A01 = "A01";
+        public static string AppCode_A03_IndustryDesign = "A03";
 
     }
 
