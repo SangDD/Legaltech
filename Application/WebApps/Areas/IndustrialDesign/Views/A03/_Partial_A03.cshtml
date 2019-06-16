@@ -147,7 +147,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input class="datetimepicker"  type="text" id="0_txtNgayNopDon" maxlength="10" />
+                        <input class="datetimepicker"  type="text" id="0_txtNgayNopDon" maxlength="10" readonly/>
                     </div>
                 </div>
             </div>
@@ -211,7 +211,10 @@
             </div>
         </div>
         @*Class*@
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml")
+        <div id="div_content_class_coll" class="clssDisplaynone">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml")
+        </div>
+      
 
         @* 1 - CHỦ ĐƠN*@
         <div class="divCover cls_form_title">
@@ -479,16 +482,17 @@
     {
         try {
             var _txtNgayNopDon = $("#0_txtNgayNopDon");
-
+            var _txtDonSo =  $("#0_txtDonSo"); 
             if(_type == "2")
             {
                 $("#div_nguongocdon").removeClass("clssDisplaynone");
-                _txtNgayNopDon.removeAttr("readonly")
+                //_txtNgayNopDon.removeAttr("readonly")
             }
             else {
                 $("#div_nguongocdon").addClass("clssDisplaynone");
-                _txtNgayNopDon.attr("readonly")
+                //_txtNgayNopDon.attr("readonly")
                 _txtNgayNopDon.val("")
+                _txtDonSo.val("");
             }
 
         } catch (e) {
@@ -934,11 +938,11 @@
     function onChangeTuPhanLoai() {
         try {
             if ($("#ckbTuPhanLoai").is(':checked')) {
-                $("#divTuNhapPhanLoai").removeClass("clssDisplaynone");
-                $("#txtClass").focus();
+                $("#div_content_class_coll").removeClass("clssDisplaynone");
+                $("#txtTenHangHoa").focus();
             }
             else {
-                $("#divTuNhapPhanLoai").addClass("clssDisplaynone");
+                $("#div_content_class_coll").addClass("clssDisplaynone");
             }
 
             $("#txtClass").val("");
@@ -1040,18 +1044,8 @@
 
     function funcGetAppDetail(formData) {
         try {
-
-            var txt_MaDaiDien = $("#txt_MaDaiDien").val();
-            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-            if (v_RepMasterType = "DDPL") {
-                if (txt_MaDaiDien == "") {
-                    jError("@Resource.TM3C_MaDaiDienKhongDuocTrong", "@Resource.TM3B_Loi", function () {
-                        $("#txt_MaDaiDien").focus()
-                    });
-                    return false;
-                }
-            }
-            formData.append("pInfo.Customer_Code", txt_MaDaiDien);
+            var _txtNgayNopDon = $("#0_txtNgayNopDon");
+            var _txtDonSo = $("#0_txtDonSo");
 
             var _txt_IndustryDesignName = $("#txt_IndustryDesignName") ;
             if (_txt_IndustryDesignName.val() == "") {
@@ -1060,19 +1054,31 @@
                 });
                 return false;
             }
+
+            // nguồn gốc đơn
+
+            if   ($("#1_dontach").is(':checked')) {
+                if(_txtDonSo.val().trim() == "")
+                {
+                    showError('Số đơn liên quan không được để trống');
+                    _txtDonSo.focus();
+                    return false;
+                }
+
+                if ($("#1_radDonBanDauCo2PA").is(':checked') == false &&   $("#1_radDonBanDauNopCho1DoiTuong").is(':checked')== false)
+                {
+                    jError("Vui lòng chọn ít nhất 1 giá trị của thậm định nội dung","@Resource.TM3B_Loi", function () {
+                        $("#1_radDonBanDauCo2PA").focus()
+                    });
+                    return false;
+                }
+
+            }  
             formData.append("pDetail.Industry_Design_Name", _txt_IndustryDesignName.val());
-
-            var _txtDonSo = $("#0_txtDonSo");
-
-            formData.append("pDetail.Refappno", _txtDonSo.val());
-            var _txtNgayNopDon = $("#0_txtNgayNopDon");
-
             formData.append("pDetail.App_Sentdate", _txtNgayNopDon.val());
-
-            formData.append("pDetail.Patent_Type", "DQSC");
-
-
+            formData.append("pDetail.Refappno", _txtDonSo.val());
             if ($("#1_rdchuacokqthamdinhnoidung").is(':checked')) {
+               
                 formData.append("pDetail.Kqtd_Type", "1");
                 if ($("#1_radDonBanDauCo2PA").is(':checked')) {
                     formData.append("pDetail.Kqtd_Value", "1");
@@ -1087,13 +1093,40 @@
                 formData.append("pDetail.Kqtd_Value", "0");
             }
 
+         
+
+            if ($("#ckbCucPhanLoai").is(':checked') == false && $("#ckbTuPhanLoai").is(':checked') == false) {
+                jError("Vui lòng phân loại hàng hóa", "@Resource.TM3B_Loi", function () {
+                    $("#ckbCucPhanLoai").focus()
+                });
+                return false;
+            }
+                   
             if ($("#ckbCucPhanLoai").is(':checked')) {
                 formData.append("pDetail.Phanloai_Type", "1");
             }
             else
             {
                 formData.append("pDetail.Phanloai_Type", "2");
+                if (_ArrGroupAppClass.length == 0) {
+                    showError('@Resource.TM2B_ChonHangHoaDV');
+                    $("#txtTenHangHoa").focus();
+                    return false;
+                }
             }
+             
+
+            var txt_MaDaiDien = $("#txt_MaDaiDien").val();
+            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+            if (v_RepMasterType = "DDPL") {
+                if (txt_MaDaiDien == "") {
+                    jError("@Resource.TM3C_MaDaiDienKhongDuocTrong", "@Resource.TM3B_Loi", function () {
+                        $("#txt_MaDaiDien").focus()
+                    });
+                    return false;
+                }
+            }
+            formData.append("pInfo.Customer_Code", txt_MaDaiDien);
 
             var _index = 0;
             $(".clsTacGia").each(function (item) {

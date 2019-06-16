@@ -1400,85 +1400,17 @@
             }
 
             // nguồn gốc đơn
-            if ($("#2_rdPCT").is(':checked')) {
-                formData.append("pDetail.Source_PCT", "Y");
-                formData.append("pDetail.PCT_Number", $("#txt_PCT_SoDon").val());
-                formData.append("pDetail.PCT_Filling_Date_Qt", $("#txt_PCT_NgayNopQT").val());
-                formData.append("pDetail.PCT_Number_Qt", $("#txt_PCT_CongBoQT").val());
-                formData.append("pDetail.PCT_Date", $("#txt_PCT_Date").val());
-                formData.append("pDetail.PCT_VN_Date", $("#txt_PCT_VN_Date").val());
+            var _txtDonSo = $("$0_txtDonSo");
 
-                if ($("#2_rdo_PCT_SuaDoi").is(':checked')) {
-                    formData.append("pDetail.PCT_SuaDoi", 1);
-                    formData.append("pDetail.PCT_SuaDoi_Type", $("#txt_Patent_Name").val());
-                    formData.append("pDetail.PCT_SuaDoi_Content", $("#txt_Patent_Name").val());
-
-                } else {
-                    formData.append("pDetail.PCT_SuaDoi", 0);
-                    formData.append("pDetail.PCT_SuaDoi_Type", "");
-                    formData.append("pDetail.PCT_SuaDoi_Content", "");
+            if   ($("#1_donrieng").is(':checked')) {
+                if(_txtDonSo.val().trim() == "")
+                {
+                    showError('Số đơn liên quan không được để trống');
+                    _txtDonSo.focus();
+                    return false;
                 }
-            } else {
-                formData.append("pDetail.Source_PCT", "N");
-                formData.append("pDetail.PCT_Number", "");
-                formData.append("pDetail.PCT_Filling_Date_Qt", "");
-                formData.append("pDetail.PCT_Number_Qt", "");
-                formData.append("pDetail.PCT_Date", "");
-                formData.append("pDetail.PCT_VN_Date", "");
-
-                formData.append("pDetail.PCT_SuaDoi", 0);
-                formData.append("pDetail.PCT_SuaDoi_Type", "");
-                formData.append("pDetail.PCT_SuaDoi_Content", "");
-            }
-
-            if ($("#2_rdDQSC").is(':checked')) {
-                formData.append("pDetail.Source_DQSC", "Y");
-                formData.append("pDetail.DQSC_Origin_App_No", $("#txt_DQSC_SoDon").val());
-                formData.append("pDetail.DQSC_Filling_Date", $("#txt_DQSC_NgayNop").val());
-
-                if ($("#DQSC_TruocHopLe").is(':checked')) {
-                    formData.append("pDetail.DQSC_Valid_Before", 1);
-                } else {
-                    formData.append("pDetail.DQSC_Valid_Before", 0);
-                }
-
-                if ($("#DQSC_SauHopLe").is(':checked')) {
-                    formData.append("pDetail.DQSC_Valid_After", 1);
-                } else {
-                    formData.append("pDetail.DQSC_Valid_After", 0);
-                }
-            } else {
-                formData.append("pDetail.Source_DQSC", "N");
-                formData.append("pDetail.DQSC_Origin_App_No", "");
-                formData.append("pDetail.DQSC_Filling_Date", "");
-                formData.append("pDetail.DQSC_Valid_Before", 0);
-                formData.append("pDetail.DQSC_Valid_After", 0);
-            }
-
-            if ($("#2_rdGPHI").is(':checked')) {
-                formData.append("pDetail.Source_GPHI", "Y");
-                formData.append("pDetail.GPHI_Origin_App_No", $("#txt_GPHI_SoDon").val());
-                formData.append("pDetail.GPHI_Filling_Date", $("#txt_GPHI_NgayNop").val());
-
-                if ($("#GPHI_TruocHopLe").is(':checked')) {
-                    formData.append("pDetail.GPHI_Valid_Before", 1);
-                } else {
-                    formData.append("pDetail.GPHI_Valid_Before", 0);
-                }
-
-                if ($("#GPHI_SauHopLe").is(':checked')) {
-                    formData.append("pDetail.GPHI_Valid_After", 1);
-                } else {
-                    formData.append("pDetail.GPHI_Valid_After", 0);
-                }
-            } else {
-                formData.append("pDetail.Source_GPHI", "N");
-                formData.append("pDetail.GPHI_Origin_App_No", "");
-                formData.append("pDetail.GPHI_Filling_Date", "");
-                formData.append("pDetail.GPHI_Valid_Before", 0);
-                formData.append("pDetail.GPHI_Valid_After", 0);
-            }
-
+            }  
+          
             var _index = 0;
             $(".clsTacGia").each(function (item) {
                 var _id = $(this).attr('data-id');
