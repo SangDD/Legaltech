@@ -31,7 +31,7 @@ namespace WebApps.Areas.Articles.Controllers
                 if (RouteData.Values.ContainsKey("id"))
                 {
                     pStatus = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
-                }
+                } 
                 ViewBag.Status = pStatus;
                 //Nếu bài chờ xử lý thì lấy danh sách các bài đã gửi 
                 if (pStatus == Status.ChoXuly)
