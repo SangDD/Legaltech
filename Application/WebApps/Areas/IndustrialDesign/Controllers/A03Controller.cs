@@ -115,7 +115,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 AppDocumentBL objDoc = new AppDocumentBL();
                 Other_Master_BL _Other_Master_BL = new Other_Master_BL();
                 Author_BL _Author_BL = new Author_BL();
-
+                AppClassDetailBL objClassDetail = new AppClassDetailBL();
                 if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
                 string language = AppsCommon.GetCurrentLang();
 
@@ -151,6 +151,11 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                         pDetail.App_Header_Id = pAppHeaderID;
                         pDetail.Case_Code = p_case_code;
                         pReturn = objDetail.Insert(pDetail);
+                        //Thêm thông tin class
+                        if (pReturn >= 0 && pAppClassInfo != null)
+                        {
+                            pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID, language);
+                        }
                         if (pReturn <= 0)
                             goto Commit_Transaction;
                     }
