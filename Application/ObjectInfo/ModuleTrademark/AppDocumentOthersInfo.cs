@@ -25,6 +25,5 @@ namespace ObjectInfos
         public string Language_Code { get; set; }
 
         public decimal IdRef { get; set; }
-
     }
 }

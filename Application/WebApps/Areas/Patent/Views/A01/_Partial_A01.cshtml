@@ -367,7 +367,7 @@
                     </div>
                 </div>
 
-                <div class="div-search-ad clssDisplaynone" id="divTuNhapPhanLoai" >
+                <div class="div-search-ad clssDisplaynone" id="divTuNhapPhanLoai">
                     <div class="div-search-content">
                         <div class="div-radio">
                             <input type="text" id="txtClass" placeholder="...nhập">
@@ -392,9 +392,9 @@
         </div>
 
         @*<div class="div_full_100_area">
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
-            </div>*@
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
+        </div>*@
 
         <div class="div-search-ad">
             <div class="div-search-content">
@@ -659,6 +659,14 @@
 
         @*TÀI LIỆU KHÁC*@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac.cshtml", "12")
+
+        @*Hình công bố*@
+        @{
+            string _doc_id17 = "A01_17";
+            string _model17 = _doc_id17 + "|Doc_17|0|" + "Hình công bố" + "||0";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model17)
+        }
+        @Html.Partial("~/Areas/Patent/Views/A01/_PartialTaiLieuKhac.cshtml")
 
 
         @* Cam kết của chủ đơn *@
@@ -938,6 +946,11 @@
 
             //Tài liệu khác trong đơn
             reponse = funcGetTenTaiLieuKhac(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            reponse = funcGetImagePublic(formData);
             if (reponse == false) {
                 return false;
             }
@@ -1225,7 +1238,7 @@
             alert(e);
         }
     }
-
+   
     $("#ckb_Doc_16").change(function () {
         if ($("#ckb_Doc_16").is(":checked") == true) {
             $("#divContainerDocOther").css('display', 'block')
@@ -1233,6 +1246,15 @@
             $("#divContainerDocOther").css('display', 'none');
         }
     });
+
+    $("#ckb_Doc_17").change(function () {
+        if ($("#ckb_Doc_17").is(":checked") == true) {
+            $("#divContainerDocOther_Img").css('display', 'block')
+        } else {
+            $("#divContainerDocOther_Img").css('display', 'none');
+        }
+    });
+
 
     function funcGetAppDetail(formData) {
         try {
@@ -1547,6 +1569,20 @@
             $(".clssListUpload").each(function () {
                 formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", this.id);
                 formData.append("pAppDocOtherInfo[" + item + "].Documentname", $("#" + this.id).val());
+                item++;
+            });
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function funcGetImagePublic(formData) {
+        try {
+            var item = 0;
+            $(".clssListUploadImg").each(function () {
+                formData.append("pLstImagePublic[" + item + "].keyFileUpload", this.id);
+                formData.append("pLstImagePublic[" + item + "].Documentname", $("#" + this.id).val());
                 item++;
             });
             return true;
