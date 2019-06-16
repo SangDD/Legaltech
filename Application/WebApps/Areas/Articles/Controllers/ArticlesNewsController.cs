@@ -30,7 +30,7 @@ namespace WebApps.Areas.Articles.Controllers
                     return Redirect("/");
                 if (RouteData.Values.ContainsKey("id"))
                 {
-                    pStatus = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
+                    pStatus = CommonFuc.ConvertToDecimal(RouteData.Values["id"]); 
                 } 
                 ViewBag.Status = pStatus;
                 //Nếu bài chờ xử lý thì lấy danh sách các bài đã gửi 
