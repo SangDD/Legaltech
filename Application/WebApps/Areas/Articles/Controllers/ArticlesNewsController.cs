@@ -23,15 +23,15 @@ namespace WebApps.Areas.Articles.Controllers
         [Route("danh-sach-tin/{id}")]
         public ActionResult GetListArticles()
         {
-            try
+            try 
             {
                 decimal pStatus = 0;
                 if (SessionData.CurrentUser == null)
                     return Redirect("/");
                 if (RouteData.Values.ContainsKey("id"))
                 {
-                    pStatus = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
-                }
+                    pStatus = CommonFuc.ConvertToDecimal(RouteData.Values["id"]); 
+                } 
                 ViewBag.Status = pStatus;
                 //Nếu bài chờ xử lý thì lấy danh sách các bài đã gửi 
                 if (pStatus == Status.ChoXuly)

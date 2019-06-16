@@ -3,7 +3,7 @@
 @using BussinessFacade.ModuleMemoryData
 @model NewsInfo
 @{
-    ViewBag.Title =  WebApps.Resources.Resource.lblQuanLyBaiViet ;
+    ViewBag.Title = WebApps.Resources.Resource.lblQuanLyBaiViet;
     Layout = "~/ViewsShared/_Layout.cshtml";
     var objInfo = new NewsInfo();
     if (Model != null)
@@ -182,11 +182,11 @@
                     {
                         if (Model.Categories_Id == item.CdVal)
                         {
-                        <option selected="selected" value="@item.CdVal">@item.Content</option>
+                            <option selected="selected" value="@item.CdVal">@item.Content</option>
                         }
                         else
                         {
-                        <option value="@item.CdVal">@item.Content</option>
+                            <option value="@item.CdVal">@item.Content</option>
                         }
                     }
                 }
@@ -201,11 +201,11 @@
                     {
                         if (Model.ReCategories_Id == item.CdVal)
                         {
-                        <option selected="selected" value="@item.CdVal">@item.Content</option>
+                            <option selected="selected" value="@item.CdVal">@item.Content</option>
                         }
                         else
                         {
-                        <option value="@item.CdVal">@item.Content</option>
+                            <option value="@item.CdVal">@item.Content</option>
                         }
                     }
                 }
@@ -214,17 +214,18 @@
     </div>
 
     <div class="class_save" style="margin-left:163px;">
-        @if (ViewBag.Status == Common.Status.VietBai)
+        @*@if (ViewBag.Status == Common.Status.VietBai)
+            {
+                <div class="classLuuTam">
+                    <input type="button" value="@WebApps.Resources.Resource.lblLuuBai" id="btnLuuBai" class="btn" />
+                </div>
+            }*@
+        @if (ViewBag.Status == Common.Status.VietBai || ViewBag.Status == Common.Status.ChoXuly)
         {
-            @*<div class="classGuiDon">
-                <input type="button" value="Gửi bài" id="btnLuuBai" class="btn" />
-            </div>*@
             <div class="classLuuTam">
                 <input type="button" value="@WebApps.Resources.Resource.lblLuuBai" id="btnLuuBai" class="btn" />
             </div>
-        }
-        else if (ViewBag.Status == Common.Status.ChoXuly)
-        {
+
             <div class="classGuiDon">
                 <input type="button" value="@WebApps.Resources.Resource.btnXuatban" id="btnXuatBan" class="btn" />
             </div>
@@ -299,27 +300,27 @@ catch (Exception)
     });
 
     $("#btnXuatBan").click(function () {
-        SaveArticles(7,4);
+        SaveArticles(7, 4);
     });
-    
+
     $("#btnTuChoi").click(function () {
-        SaveArticles(5,5);
+        SaveArticles(5, 5);
     });
 
     $("#btnGobai").click(function () {
-        SaveArticles(6,7);
+        SaveArticles(6, 7);
     });
 
     $("#btnLuuGo").click(function () {
-        SaveArticles(6,6);
+        SaveArticles(6, 6);
     });
 
     $("#btnLuuBaiXB").click(function () {
-        SaveArticles(7,7);
+        SaveArticles(7, 7);
     });
 
 
-    function SaveArticles(pStatus,CurrentPage) {
+    function SaveArticles(pStatus, CurrentPage) {
         try {
             var formData = new FormData();
 
