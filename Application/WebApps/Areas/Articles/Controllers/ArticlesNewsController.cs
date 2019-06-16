@@ -23,7 +23,7 @@ namespace WebApps.Areas.Articles.Controllers
         [Route("danh-sach-tin/{id}")]
         public ActionResult GetListArticles()
         {
-            try
+            try 
             {
                 decimal pStatus = 0;
                 if (SessionData.CurrentUser == null)
