@@ -23,14 +23,15 @@
         display:none ;
     }*/
 </style>
-<div class="div_full_100_area" id="divContainerDocOther_Img" style="@styleTLK">
+<div class="div_full_100_area" id="divContainerDocOther_Img" style="margin-top: 5px">
     @*@Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "CÁC TÀI LIỆU KHÁC")*@
-    @*<div class="divCover cls_form_title">
-        <img src="~/Content/icons/category.png" />
-        <div class="cls_form_header">
+    <div class="divCover cls_form_title">
+        @*<img src="~/Content/icons/category.png" />*@
+        <div class="cls_form_header" style="margin: 0 !important;">
             Hình công bố
+            <button onclick="funcAddImageNew()"><i class="fa fa-plus-circle"></i></button>
         </div>
-    </div>*@
+    </div>
     @{
         if (Lst_ImagePublic.Count > 0)
         {
@@ -56,9 +57,9 @@
 
     <div id="divDocumentOtherImg">
         <div class="div-search-ad">
-            <div class="div-search-title"> <div>@WebApps.Resources.Resource.lblTenTaiLieu:</div> </div>
+            <div class="div-search-title"> <div>Tên hình:</div> </div>
             <div class="div-search-content">
-                <div> <input type="text" class="clssListUploadImg" maxlength="200" placeholder="@WebApps.Resources.Resource.lblNhapTenTaiLieuDinhKem" id="txtTaiLieuKhacImg"> </div>
+                <div> <input style="width: 318px;" type="text" class="clssListUploadImg" maxlength="200" placeholder="" id="txtTaiLieuKhacImg"> </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -66,9 +67,9 @@
                         <span class="">@WebApps.Resources.Resource.lblTaiFile</span>
                         <input type="file" onchange="return funcChoiseFileImgOther('pfileNameImg', 'txtMaxfileImg','txtTaiLieuKhacImg','divRemoveFileImg');" name="pfileNameImg" id="pfileNameImg" class="upload fileuploadurl" />
                     </div>
-                    <input type="text" class="classMaxfile" id="txtMaxfileImg" readonly>
-                    <button class="clssDisplaynone" id="divRemoveFileImg" onclick="RemoveFileImgOther()" style="width: 30px;margin-left:1px"><i class="fa fa-minus-circle"></i></button>
-                    <button onclick="funcAddImageNew()" style="width: 30px;margin-left:2px"><i class="fa fa-plus-circle"></i></button>
+                    <input type="text" class="classMaxfile" id="txtMaxfileImg" style="width: 396px !important" readonly>
+                    <button class="clssDisplaynone" id="divRemoveFileImg" onclick="RemoveFileImgOther('txtTaiLieuKhacImg','divRemoveFileImg','txtMaxfileImg')" style="width: 30px;margin-left:1px"><i class="fa fa-minus-circle"></i></button>
+                    @*<button onclick="funcAddImageNew()" style="width: 30px;margin-left:2px"><i class="fa fa-plus-circle"></i></button>*@
                 </div>
             </div>
         </div>
@@ -115,12 +116,12 @@
             var btnXoa = "btnXoa" + e;
             var btnTaiFile = "btnTaiFile" + e;
             var btnremoveFile = "btnRemove" + e;
-            var t = '<div class="div-search-ad" id="' + divDocumnetNo + '"><div class="div-search-title"> <div> @WebApps.Resources.Resource.Tenfile :</div> </div>  <div class="div-search-content"> <div> <input type="text" class="clssListUploadImg" maxlength="200"  id = "' + txtDocument + '" > </div> </div>';
+            var t = '<div class="div-search-ad" id="' + divDocumnetNo + '"><div class="div-search-title"> <div> Tên hình :</div> </div>  <div class="div-search-content"> <div> <input type="text" style="width: 318px;" class="clssListUploadImg" maxlength="200"  id = "' + txtDocument + '" > </div> </div>';
             t += '<div class="div-search-content"> <div> <div class="file-upload btn btn-primary" style="margin-left:2px"> <span>@WebApps.Resources.Resource.lblTaiFile</span>' +
                 ' <input type="file" onchange="return funcChoiseFileDocOther(\'' + pfileName + '\', \'' + txtMaxfile + '\', \'' + txtDocument + '\', \'' + btnremoveFile +'\');" name = "' + pfileName + '" id = "' + pfileName + '" class="upload fileuploadurl" /> </div>' +
-                '<input type="text" class="classMaxfile" id="' + txtMaxfile + '" readonly >' +
+                '<input type="text" style="width: 396px !important" class="classMaxfile" id="' + txtMaxfile + '" readonly >' +
                 '<button class="clssDisplaynone" id="' + btnremoveFile + '" onclick="RemoveFileDocOther(\'' + txtDocument + '\', \'' + btnremoveFile + '\', \'' + txtMaxfile +'\')" style="width: 30px;margin-left:1px"><i class="fa fa-minus-circle"></i></button>' +
-                '<i class="fa fa-check" id="i_' + pfileName + '" style="font-size:15px; color:green ;display:none;padding:5px"></i> <button onclick="return funcRemoveDocument(\'' + divDocumnetNo + '\')" id="' + btnXoa + '" style="width: 30px;margin-left:2px"><i class="fa fa-minus-circle"></i></button> </div></div></div>';
+                '<i class="fa fa-check" id="i_' + pfileName + '" style="font-size:15px; color:green ;display:none;padding:5px"></i> <button onclick="return funcRemoveDocumentImg(\'' + divDocumnetNo + '\')" id="' + btnXoa + '" style="width: 30px;margin-left:2px"><i class="fa fa-minus-circle"></i></button> </div></div></div>';
             $("#divDocumentOtherImg").append(t);
             $("#increNo_Img").val(e);
             return t;
@@ -129,7 +130,7 @@
         }
     }
 
-    function RemoveFileImgOther(pTag) {
+    function funcRemoveDocumentImg(pTag) {
         try {
             var divFileUpload = document.getElementById(pTag);
             $(divFileUpload).remove();

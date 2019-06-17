@@ -352,7 +352,7 @@
                 <div class="div-search-ad">
                     <div class="div-search-content">
                         <div class="div-radio">
-                            <input type="radio" name="TuPhanLoai" id="ckbCucPhanLoai" onchange="onChangeTuPhanLoai()">
+                            <input type="radio" checked="checked" name="TuPhanLoai" id="ckbCucPhanLoai" onchange="onChangeTuPhanLoai()">
                             <label>Yêu cầu Cục SHTT phân loại (phí 100.000 đ / 1 phân loại)</label>
                         </div>
                     </div>
@@ -547,6 +547,15 @@
             </div>
         </div>
 
+        @*Hình công bố*@
+        @*@{
+            string _doc_id17 = "A01_17";
+            string _model17 = _doc_id17 + "|Doc_17|0|" + "Hình công bố" + "||0";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model17)
+        }*@
+
+        @Html.Partial("~/Areas/Patent/Views/A01/_PartialTaiLieuKhac.cshtml")
+
         @* id doc | id của check box | level | lable | lable 2 | is upload *@
         @* 1 Tờ khai *@
         @{
@@ -659,15 +668,6 @@
 
         @*TÀI LIỆU KHÁC*@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac.cshtml", "12")
-
-        @*Hình công bố*@
-        @{
-            string _doc_id17 = "A01_17";
-            string _model17 = _doc_id17 + "|Doc_17|0|" + "Hình công bố" + "||0";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model17)
-        }
-        @Html.Partial("~/Areas/Patent/Views/A01/_PartialTaiLieuKhac.cshtml")
-
 
         @* Cam kết của chủ đơn *@
         @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml")
@@ -1247,13 +1247,13 @@
         }
     });
 
-    $("#ckb_Doc_17").change(function () {
-        if ($("#ckb_Doc_17").is(":checked") == true) {
-            $("#divContainerDocOther_Img").css('display', 'block')
-        } else {
-            $("#divContainerDocOther_Img").css('display', 'none');
-        }
-    });
+    //$("#ckb_Doc_17").change(function () {
+    //    if ($("#ckb_Doc_17").is(":checked") == true) {
+    //        $("#divContainerDocOther_Img").css('display', 'block')
+    //    } else {
+    //        $("#divContainerDocOther_Img").css('display', 'none');
+    //    }
+    //});
 
 
     function funcGetAppDetail(formData) {
@@ -1323,7 +1323,15 @@
 
                 if ($("#2_rdo_PCT_SuaDoi").is(':checked')) {
                     formData.append("pDetail.PCT_SuaDoi", 1);
-                    formData.append("pDetail.PCT_SuaDoi_Type", $("#txt_Patent_Name").val());
+
+                    var _Request_To_Type = $("input[name='4_rdoNoiDungYeuCauSuaDoi']:checked").val();
+                    if (_Request_To_Type === "" || _Request_To_Type == undefined) {
+                        jError("@Resource.TM3B_ChonNoiDungYCSuaDoi", "@Resource.TM3B_Loi", function () {
+                            $("#4_rdTenChuDon").focus()
+                        });
+                        return false;
+                    }
+                    formData.append("pDetail.PCT_SuaDoi_Type", _Request_To_Type);
                     formData.append("pDetail.PCT_SuaDoi_Content", $("#txt_Patent_Name").val());
 
                 } else {
@@ -1520,7 +1528,7 @@
 
             // 6
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_06", "5");
-            //formData.append("pAppDocumentInfo[5].CHAR01", $("#txt_Doc_06").val());
+            formData.append("pAppDocumentInfo[5].CHAR01", "");
 
             // 7
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_07", "6");
@@ -1532,11 +1540,11 @@
 
             // 9
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_09", "8");
-            //formData.append("pAppDocumentInfo[8].CHAR01", $("#txt_Doc_09").val());
+            formData.append("pAppDocumentInfo[8].CHAR01", "");
 
             // 10
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_10", "9");
-            formData.append("pAppDocumentInfo[9].CHAR01", $("#txt_Doc_10").val());
+            formData.append("pAppDocumentInfo[9].CHAR01", "");
 
             // 11
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_11", "10");
@@ -1549,14 +1557,14 @@
             formData.append("pAppDocumentInfo[12].CHAR01", $("#txt_Doc_13").val());
 
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_14", "13");
-            formData.append("pAppDocumentInfo[13].CHAR01", $("#txt_Doc_14").val());
+            formData.append("pAppDocumentInfo[13].CHAR01", "");
 
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_15", "14");
-            formData.append("pAppDocumentInfo[14].CHAR01", $("#txt_Doc_15").val());
+            formData.append("pAppDocumentInfo[14].CHAR01", "");
 
             // 16
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_16", "15");
-            formData.append("pAppDocumentInfo[15].CHAR01", $("#txt_Doc_16").val());
+            formData.append("pAppDocumentInfo[15].CHAR01", "");
 
         } catch (e) {
             console.log(e);

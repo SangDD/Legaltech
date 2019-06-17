@@ -298,7 +298,7 @@ namespace WebApps.Areas.Patent.Controllers
                         scope.Complete();
                     }
                 }
-                return Json(new { status = pAppHeaderID });
+                return Json(new { status = pReturn });
 
             }
             catch (Exception ex)
@@ -711,8 +711,6 @@ namespace WebApps.Areas.Patent.Controllers
                 }
                 else
                     _AppFeeFixInfo71.Amount = 32000 * _AppFeeFixInfo71.Number_Of_Patent;
-                _lstFeeFix.Add(_AppFeeFixInfo71);
-
                 _lstFeeFix.Add(_AppFeeFixInfo71);
 
                 #endregion
