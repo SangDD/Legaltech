@@ -13,6 +13,7 @@ namespace ObjectInfos
         public AppDocumentOthersInfo()
         {
             IdRef = 0;
+            FILETYPE = 1;
         }
         public decimal Id { get; set; }
         public decimal App_Header_Id { get; set; }
@@ -25,5 +26,6 @@ namespace ObjectInfos
         public string Language_Code { get; set; }
 
         public decimal IdRef { get; set; }
+        public decimal FILETYPE { get; set; }// hungtd them: phục vụ 1 đơn có nhiều loại như mục tài liệu khác
     }
 }

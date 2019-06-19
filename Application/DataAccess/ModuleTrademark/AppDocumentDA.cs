@@ -172,6 +172,7 @@ namespace DataAccess.ModuleTrademark
                 decimal[] IDRef = new decimal[numberRecord];
                 string[] DocumentName = new string[numberRecord];
                 string[] FileName = new string[numberRecord];
+                decimal[] Filetype = new decimal[numberRecord];
                 for (int i = 0; i < pInfo.Count; i++)
                 {
                     Language[i] = pInfo[i].Language_Code;
@@ -179,6 +180,7 @@ namespace DataAccess.ModuleTrademark
                     DocumentName[i] = pInfo[i].Documentname;
                     FileName[i] = pInfo[i].Filename;
                     IDRef[i] = pInfo[i].IdRef;
+                    Filetype[i] = pInfo[i].FILETYPE;
                 }
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
                 OracleHelper.ExcuteBatchNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_DOC_OTHERS.PROC_APP_DOC_OTHER_INSERT", numberRecord,
@@ -187,6 +189,7 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("P_FILENAME", OracleDbType.Varchar2, FileName, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, Language, ParameterDirection.Input),
                     new OracleParameter("P_IDREF", OracleDbType.Decimal, IDRef, ParameterDirection.Input),
+                    new OracleParameter("P_FILETYPE", OracleDbType.Decimal, Filetype, ParameterDirection.Input),
                     
                     paramReturn);
                 var result = ErrorCode.Error;
