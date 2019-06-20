@@ -1218,6 +1218,27 @@
                 }
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartalViewDangKyNhanHieu.cshtml");
             }
+            else if (pAppCode == TradeMarkAppCode.AppCode_A03_IndustryDesign)
+            {
+                var objBL = new A03_BL();
+                string language = AppsCommon.GetCurrentLang();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
+                List<AuthorsInfo> pAppAuthorsInfo = new List<AuthorsInfo>();
+                List<Other_MasterInfo> pOther_MasterInfo = new List<Other_MasterInfo>();
+                List<AppClassDetailInfo> appClassDetailInfos = new List<AppClassDetailInfo>();
+                List<AppDocumentOthersInfo> pAppDocOtherInfo = new List<AppDocumentOthersInfo>();
+                List<UTienInfo> pUTienInfo = new List<UTienInfo>();
+                var DetailA03_Info = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos,
+                    ref appFeeFixInfos, ref pAppAuthorsInfo, ref pOther_MasterInfo, ref appClassDetailInfos,
+                    ref pAppDocOtherInfo, ref pUTienInfo);
+                if (DetailA03_Info != null)
+                {
+                     
+                }
+                return PartialView(@"~\Areas\IndustrialDesign\Views\A03\_Partial_A03_Edit.cshtml");
+            }
 
             else if (pAppCode == TradeMarkAppCode.AppCode_A01)
             {

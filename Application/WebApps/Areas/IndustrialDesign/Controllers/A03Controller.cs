@@ -381,5 +381,25 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 return Json(new { status = ErrorCode.Error });
             }
         }
+
+        [HttpPost]
+        [Route("push-file-other-to-server")]
+        public ActionResult PushFileOtherToServer(AppDocumentInfo pInfo) //AppDocumentInfo de lay thong tin add vao hash thoi
+        {
+            try
+            {
+                if (pInfo.pfiles != null)
+                {
+                    var url = AppLoadHelpers.PushFileToServer(pInfo.pfiles, AppUpload.Document);
+                    SessionData.CurrentUser.chashFileOther[pInfo.keyFileUpload] = pInfo.pfiles;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = -1 });
+            }
+            return Json(new { success = 0 });
+        }
     }
 }
