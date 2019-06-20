@@ -247,6 +247,12 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\A01.cs">
+      <DependentUpon>A01.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Report\TM_04NHLogoChu.cs">
       <DependentUpon>TM_04NHLogoChu.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1757,6 +1763,10 @@
     <EmbeddedResource Include="Report\TM_04NHLogoChu.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TM_04NHLogoChu.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\A01.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>A01.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\AlertPopup\ASSAlert.js" />
