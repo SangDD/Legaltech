@@ -758,6 +758,14 @@
                 return false;
             }
 
+            // lấy thông tin bộ ảnh 
+            reponse = funcGetTenTaiLieuBoAnh(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            
+
 
             reponse = funcGetCamKetChuDon(formData);
             if (reponse == false) {
@@ -1304,9 +1312,10 @@
     function funcGetTenTaiLieuKhac(formData) {
         try {
             var item = 0;
-            $(".clssListUpload").each(function () {
+            $(".clssListUploadIndusDesign").each(function () {
                 formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", this.id);
                 formData.append("pAppDocOtherInfo[" + item + "].Documentname", $("#" + this.id).val());
+             
                 item++;
             });
             return true;
@@ -1314,6 +1323,22 @@
             return false;
         }
     }
+
+    function funcGetTenTaiLieuBoAnh(formData) {
+        try {
+            var item = 0;
+            $(".clssListUploadIndusDesign").each(function () {
+                formData.append("pAppDocIndusDesign[" + item + "].keyFileUpload", this.id);
+                formData.append("pAppDocIndusDesign[" + item + "].Documentname", $("#" + this.id).val());
+                formData.append("pAppDocOtherInfo[" + item + "].FILETYPE", "2");
+                item++;
+            });
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
 
     function funcGetCheckValueAndText(formData, pID, pItem) {
         try {

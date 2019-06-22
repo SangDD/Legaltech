@@ -105,7 +105,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
             List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo,
             List<AuthorsInfo> pAppAuthorsInfo, List<Other_MasterInfo> pOther_MasterInfo,
             List<AppClassDetailInfo> pAppClassInfo, List<AppDocumentOthersInfo> pAppDocOtherInfo,
-            List<UTienInfo> pUTienInfo)
+            List<UTienInfo> pUTienInfo, List<AppDocumentOthersInfo> pAppDocIndusDesign)
         {
             try
             {
@@ -156,8 +156,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                         {
                             pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID, language);
                         }
-                        if (pReturn <= 0)
-                            goto Commit_Transaction;
+                      
                     }
 
                     if (pAppAuthorsInfo != null && pAppAuthorsInfo.Count > 0)
@@ -213,11 +212,14 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                             {
                                 if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
                                 {
-                                    HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
-                                    info.Filename = pfiles.FileName;
-                                    info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
-                                    check = 1;
-
+                                    var _updateitem = SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                    if(_updateitem.GetType() == typeof(HttpPostedFileBase))
+                                    {
+                                        HttpPostedFileBase pfiles = (HttpPostedFileBase)_updateitem;
+                                        info.Filename = pfiles.FileName;
+                                        info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
+                                        check = 1;
+                                    }
                                 }
                                 info.App_Header_Id = pAppHeaderID;
                                 info.Language_Code = language;
@@ -228,6 +230,37 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                             }
                         }
                     }
+
+
+                    #region bộ tài liệu ảnh
+                    if (pReturn >= 0 && pAppDocIndusDesign != null)
+                    {
+                        if (pAppDocIndusDesign.Count > 0)
+                        {
+                            int check = 0;
+                            foreach (var info in pAppDocIndusDesign)
+                            {
+                                if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
+                                {
+                                    var _updateitem = SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                    if (_updateitem.GetType() == typeof(AppDocumentInfo))
+                                    {
+                                        HttpPostedFileBase pfiles =  (_updateitem as AppDocumentInfo).pfiles;
+                                        info.Filename = pfiles.FileName;
+                                        info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
+                                        check = 1;
+                                    }
+                                }
+                                info.App_Header_Id = pAppHeaderID;
+                                info.Language_Code = language;
+                            }
+                            if (check == 1)
+                            {
+                                pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocIndusDesign);
+                            }
+                        }
+                    }
+                    #endregion
 
                     #region Phí cố định
 
@@ -391,7 +424,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 if (pInfo.pfiles != null)
                 {
                     var url = AppLoadHelpers.PushFileToServer(pInfo.pfiles, AppUpload.Document);
-                    SessionData.CurrentUser.chashFileOther[pInfo.keyFileUpload] = pInfo.pfiles;
+                    SessionData.CurrentUser.chashFileOther[pInfo.keyFileUpload] = pInfo;
                 }
             }
             catch (Exception ex)
