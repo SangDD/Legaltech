@@ -49,22 +49,26 @@
     @* End sửa *@
 
     <div id="TreedivDocumentOther">
-        <div class="div-search-ad">
-            <div class="div-search-title"> <div>@WebApps.Resources.Resource.lblTenTaiLieu:</div> </div>
-            <div class="div-search-content">
-                <div> <input type="text" class="clssListUpload" maxlength="200" placeholder="@WebApps.Resources.Resource.lblNhapTenTaiLieuDinhKem" id="TreetxtTaiLieuKhac1"> </div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <div class="file-upload btn btn-primary" style="margin-left:2px">
-                        <span class="">@WebApps.Resources.Resource.lblTaiFile</span>
-                        <input type="file" onchange="return funcTreeChoiseFileDocOther('pTreefileName1', 'txtTreeMaxfile1','TreetxtTaiLieuKhac1','divTreeRemoveFile1');" name="pTreefileName1" id="pTreefileName1" class="upload fileuploadurl" />
+        <div>
+
+
+            <div class="div-search-ad">
+                <div class="div-search-title"> <div>@WebApps.Resources.Resource.lblTenTaiLieu:</div> </div>
+                <div class="div-search-content">
+                    <div> <input type="text" class="clssListUpload" maxlength="200" placeholder="@WebApps.Resources.Resource.lblNhapTenTaiLieuDinhKem" id="TreetxtTaiLieuKhac1"> </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <div class="file-upload btn btn-primary" style="margin-left:2px;display:none">
+                            <span class="">@WebApps.Resources.Resource.lblTaiFile</span>
+                            <input type="file" onchange="return funcTreeChoiseFileDocOther('pTreefileName1', 'txtTreeMaxfile1','TreetxtTaiLieuKhac1','divTreeRemoveFile1');" name="pTreefileName1" id="pTreefileName1" class="upload fileuploadurl" />
+                        </div>
+                        <input type="text" class="classMaxfile" id="txtTreeMaxfile1" readonly style="display:none;">
+
+                        <button class="clssDisplaynone" id="divTreeRemoveFile1" onclick="TreeRemoveFileDocOther('TreetxtTaiLieuKhac1','divTreeRemoveFile1','txtTreeMaxfile1')" style="width: 30px;margin-left:1px"><i class="fa fa-minus-circle"></i></button>
+                        <button title="Thêm tài liệu cùng cấp" onclick="funcTreeAddSubDocumentNew(this)" style="width: 30px;margin-left:2px; height:30px"><i class="fa fa-plus-square"></i></button>
+                        <button title="Thêm phương án" onclick="funcTreeAddDocumentNew(1)" style="width: 30px;margin-left:2px;height:30px"><i class="fa fa-plus-circle"></i></button>
                     </div>
-                    <input type="text" class="classMaxfile" id="txtTreeMaxfile1" readonly>
- 
-                    <button class="clssDisplaynone" id="divTreeRemoveFile1" onclick="TreeRemoveFileDocOther('TreetxtTaiLieuKhac1','divTreeRemoveFile1','txtTreeMaxfile1')" style="width: 30px;margin-left:1px"><i class="fa fa-minus-circle"></i></button>
-                    <button title="Thêm tài liệu cùng cấp" onclick="funcTreeAddDocumentNew(2)" style="width: 30px;margin-left:2px"><i class="fa fa-plus-square"></i></button>
-                    <button title="Thêm phương án" onclick="funcTreeAddDocumentNew(1)" style="width: 30px;margin-left:2px"><i class="fa fa-plus-circle"></i></button>
                 </div>
             </div>
         </div>
@@ -116,13 +120,18 @@
             {
                 _style = "padding-left:20px";
             }
-            var t = '<div class="div-search-ad" id="' + divDocumnetNo + '"><div class="div-search-title" style="' + _style + '"> <div> @WebApps.Resources.Resource.Tenfile :</div> </div>  <div class="div-search-content"> <div> <input type="text" class="clssListUpload" maxlength="200"  id = "' + txtDocument + '" > </div> </div>';
-            t += '<div class="div-search-content"> <div> <div class="file-upload btn btn-primary" style="margin-left:2px"> <span>@WebApps.Resources.Resource.lblTaiFile</span>' +
-                ' <input type="file" onchange="return funcTreeChoiseFileDocOther(\'' + pfileName + '\', \'' + txtMaxfile + '\', \'' + txtDocument + '\', \'' + btnremoveFile +'\');" name = "' + pfileName + '" id = "' + pfileName + '" class="upload fileuploadurl" /> </div>' +
+            var _display = "";
+            if (_level != 2)
+            {
+                _display = "display:none;";
+            }
+            var t = ' <div>  <div class="div-search-ad" id="' + divDocumnetNo + '"><div class="div-search-title" style="' + _style + '"> <div> @WebApps.Resources.Resource.Tenfile :</div> </div>  <div class="div-search-content"> <div> <input type="text" class="clssListUpload" maxlength="200"  id = "' + txtDocument + '" > </div> </div>';
+            t += '<div class="div-search-content"> <div> <div class="file-upload btn btn-primary" style="margin-left:2px;' + _display + '"> <span>@WebApps.Resources.Resource.lblTaiFile</span>' +
+                ' <input type="file" onchange="return funcTreeChoiseFileDocOther(\'' + pfileName + '\', \'' + txtMaxfile + '\', \'' + txtDocument + '\', \'' + btnremoveFile +'\');" name = "' + pfileName + '" id = "' + pfileName + '" class="upload fileuploadurl"  /> </div>' +
                 '<input type="text" class="classMaxfile" id="' + txtMaxfile + '" readonly >' +
                 '<button class="clssDisplaynone" id="' + btnremoveFile + '" onclick="TreeRemoveFileDocOther(\'' + txtDocument + '\', \'' + btnremoveFile + '\', \'' + txtMaxfile +'\')" style="width: 30px;margin-left:1px"><i class="fa fa-minus-circle"></i></button>' +
-               '<button title="Thêm tài liệu cùng cấp" onclick="funcTreeAddDocumentNew(2)" style="width: 30px;margin-left:2px"><i class="fa fa-plus-square"></i></button>' +
-              '<i class="fa fa-check" id="i_' + pfileName + '" style="font-size:15px; color:green ;display:none;padding:5px"></i> <button onclick="return funcTreeRemoveDocument(\'' + divDocumnetNo + '\')" id="' + btnXoa + '" style="width: 30px;margin-left:2px"><i class="fa fa-minus-circle"></i></button> </div></div></div>';
+               '<button title="Thêm tài liệu cùng cấp" onclick="funcTreeAddSubDocumentNew(this)" style="width: 30px;margin-left:2px; height:30px"><i class="fa fa-plus-square"></i></button>' +
+              '<i class="fa fa-check" id="i_' + pfileName + '" style="font-size:15px; color:green ;display:none;padding:5px; height:30px"></i> <button onclick="return funcTreeRemoveDocument(this,1)" id="' + btnXoa + '" style="width: 30px;margin-left:2px"><i class="fa fa-minus-circle"></i></button> </div></div></div></div>';
             $("#TreedivDocumentOther").append(t);
             $("#TreeincreNo").val(e);
             return t;
@@ -131,10 +140,49 @@
         }
     }
 
-    function funcTreeRemoveDocument(pTag) {
+    function funcTreeAddSubDocumentNew(element) {
         try {
-            var divFileUpload = document.getElementById(pTag);
-            $(divFileUpload).remove();
+            var e = $("#TreeincreNo").val() / 1;
+            e++;
+            var pfileName = "treepfileName" + e.toString();
+            var txtDocument = "TreetxtTaiLieuKhac" + e.toString();
+            var txtMaxfile = "treetxtMaxfile" + e.toString();
+            var divDocumnetNo = "treedivDocumnetNo" + e;
+            var btnXoa = "treebtnXoa" + e;
+            var btnTaiFile = "treebtnTaiFile" + e;
+            var btnremoveFile = "treebtnRemove" + e;
+            var _style = "padding-left:20px";
+       
+            var _display = "";
+           
+            var t = '<div class="div-search-ad" id="' + divDocumnetNo + '"><div class="div-search-title" style="' + _style + '"> <div> @WebApps.Resources.Resource.Tenfile :</div> </div>  <div class="div-search-content"> <div> <input type="text" class="clssListUpload" maxlength="200"  id = "' + txtDocument + '" > </div> </div>';
+            t += '<div class="div-search-content"> <div> <div class="file-upload btn btn-primary" style="margin-left:2px;' + _display + '"> <span>@WebApps.Resources.Resource.lblTaiFile</span>' +
+                ' <input type="file" onchange="return funcTreeChoiseFileDocOther(\'' + pfileName + '\', \'' + txtMaxfile + '\', \'' + txtDocument + '\', \'' + btnremoveFile + '\');" name = "' + pfileName + '" id = "' + pfileName + '" class="upload fileuploadurl"  /> </div>' +
+                '<input type="text" class="classMaxfile" id="' + txtMaxfile + '" readonly >' +
+                '<button class="clssDisplaynone" id="' + btnremoveFile + '" onclick="TreeRemoveFileDocOther(\'' + txtDocument + '\', \'' + btnremoveFile + '\', \'' + txtMaxfile + '\')" style="width: 30px;margin-left:1px"><i class="fa fa-minus-circle"></i></button>' +
+               '<button title="Thêm tài liệu cùng cấp" onclick="funcTreeAddSubDocumentNew(this)" style="width: 30px;margin-left:2px; height:30px"><i class="fa fa-plus-square"></i></button>' +
+              '<i class="fa fa-check" id="i_' + pfileName + '" style="font-size:15px; color:green ;display:none;padding:5px; height:30px"></i> <button onclick="return funcTreeRemoveDocument(this, 2)" id="' + btnXoa + '" style="width: 30px;margin-left:2px"><i class="fa fa-minus-circle"></i></button> </div></div></div>  ';
+            $(element).parent().parent().parent().parent().append(t);
+            $("#TreeincreNo").val(e);
+            return t;
+        } catch (e) {
+            alert(e)
+        }
+    }
+
+    function funcTreeRemoveDocument(element, level) {
+        try {
+            var _elementremove;
+            if (level == 1)
+            {
+                _elementremove = $(element).parent().parent().parent().parent();
+            }
+            else
+            {
+                _elementremove = $(element).parent().parent().parent();
+            }
+            $(_elementremove).remove();
+          
         } catch (e) {
             console.log(e);
         }
