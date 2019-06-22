@@ -124,7 +124,7 @@
                 _display = "display:none;";
             }
             var _refid = "0";
-            var t = ' <div meta-data="' + txtDocument + '">  <div class="div-search-ad" id="' + divDocumnetNo + '"><div class="div-search-title" style="' + _style + '"> <div> @WebApps.Resources.Resource.Tenfile :</div> </div>  <div class="div-search-content"> <div> <input type="text" class="clssListUploadIndusDesign" maxlength="200"  id = "' + txtDocument + '" > </div> </div>';
+            var t = ' <div meta-data="' + txtDocument + '">  <div class="div-search-ad" id="' + divDocumnetNo + '"><div class="div-search-title" style="' + _style + '"> <div> @WebApps.Resources.Resource.Tenfile :</div> </div>  <div class="div-search-content"> <div> <input type="text" class="clssListUploadIndusDesign" maxlength="200"  id = "' + txtDocument + '" meta-data="1"> </div> </div>';
             t += '<div class="div-search-content"> <div> <div class="file-upload btn btn-primary" style="margin-left:2px;' + _display + '"> <span>@WebApps.Resources.Resource.lblTaiFile</span>' +
                 ' <input type="file" onchange="return funcTreeChoiseFileDocOther(\'' + pfileName + '\', \'' + txtMaxfile + '\', \'' + txtDocument + '\', \'' + btnremoveFile +'\', \'' + _refid + '\');" name = "' + pfileName + '" id = "' + pfileName + '" class="upload fileuploadurl"  /> </div>' +
                 '<input type="text" class="classMaxfile" id="' + txtMaxfile + '" readonly >' +
@@ -155,7 +155,7 @@
             var _display = "";
             var _refelemnt = $(element).parent().parent().parent().parent();
             var _refid = $(_refelemnt).attr('meta-data');
-            var t = '<div class="div-search-ad" id="' + divDocumnetNo + '"><div class="div-search-title" style="' + _style + '"> <div> @WebApps.Resources.Resource.Tenfile :</div> </div>  <div class="div-search-content"> <div> <input type="text" class="clssListUploadIndusDesign" maxlength="200"  id = "' + txtDocument + '" > </div> </div>';
+            var t = '<div class="div-search-ad" id="' + divDocumnetNo + '"><div class="div-search-title" style="' + _style + '"> <div> @WebApps.Resources.Resource.Tenfile :</div> </div>  <div class="div-search-content"> <div> <input type="text" class="clssListUploadIndusDesign" maxlength="200"  id = "' + txtDocument + '" meta-data="2"> </div> </div>';
             t += '<div class="div-search-content"> <div> <div class="file-upload btn btn-primary" style="margin-left:2px;' + _display + '"> <span>@WebApps.Resources.Resource.lblTaiFile</span>' +
                 ' <input type="file" onchange="return funcTreeChoiseFileDocOther(\'' + pfileName + '\', \'' + txtMaxfile + '\', \'' + txtDocument + '\', \'' + btnremoveFile + '\', \'' + _refid + '\');" name = "' + pfileName + '" id = "' + pfileName + '" class="upload fileuploadurl"  /> </div>' +
                 '<input type="text" class="classMaxfile" id="' + txtMaxfile + '" readonly >' +

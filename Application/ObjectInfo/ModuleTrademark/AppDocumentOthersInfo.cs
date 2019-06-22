@@ -14,6 +14,7 @@ namespace ObjectInfos
         {
             IdRef = 0;
             FILETYPE = 1;
+            FILELEVEL = 1;
         }
         public decimal Id { get; set; }
         public decimal App_Header_Id { get; set; }
@@ -27,5 +28,7 @@ namespace ObjectInfos
 
         public decimal IdRef { get; set; }
         public decimal FILETYPE { get; set; }// hungtd them: phục vụ 1 đơn có nhiều loại như mục tài liệu khác
+        public decimal FILELEVEL { get; set; }// hungtd them: phục vụ 1 đơn có nhiều loại như mục tài liệu khác
+
     }
 }

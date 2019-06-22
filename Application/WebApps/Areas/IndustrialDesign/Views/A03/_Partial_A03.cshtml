@@ -1331,6 +1331,7 @@
                 formData.append("pAppDocIndusDesign[" + item + "].keyFileUpload", this.id);
                 formData.append("pAppDocIndusDesign[" + item + "].Documentname", $("#" + this.id).val());
                 formData.append("pAppDocOtherInfo[" + item + "].FILETYPE", "2");
+                formData.append("pAppDocOtherInfo[" + item + "].FILELEVEL", $("#" + this.id).attr("meta-data"));
                 item++;
             });
             return true;
