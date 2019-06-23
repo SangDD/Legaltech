@@ -12,7 +12,7 @@ namespace ObjectInfos
     {
         public AppDocumentOthersInfo()
         {
-            IdRef = "0";
+            IdRef = 0;
             FILETYPE = 1;
             FILELEVEL = 1;
         }
@@ -27,7 +27,7 @@ namespace ObjectInfos
         public string Language_Code { get; set; }
 
         public string ParentId { get; set; }
-        public string IdRef { get; set; }
+        public decimal IdRef { get; set; }
         public decimal FILETYPE { get; set; }// hungtd them: phục vụ 1 đơn có nhiều loại như mục tài liệu khác
         public decimal FILELEVEL { get; set; }// hungtd them: phục vụ 1 đơn có nhiều loại như mục tài liệu khác
 

@@ -169,7 +169,7 @@ namespace DataAccess.ModuleTrademark
                 int numberRecord = pInfo.Count;
                 string[] Language = new string[numberRecord];
                 decimal[] App_Header_Id = new decimal[numberRecord];
-                string[] IDRef = new string[numberRecord];
+                decimal[] IDRef = new decimal[numberRecord];
                 string[] ParentID = new string[numberRecord];
                 string[] DocumentName = new string[numberRecord];
                 string[] FileName = new string[numberRecord];
@@ -196,7 +196,7 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("P_FILENAME", OracleDbType.Varchar2, FileName, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, Language, ParameterDirection.Input),
                     new OracleParameter("P_PARENTID", OracleDbType.Varchar2, ParentID, ParameterDirection.Input),
-                    new OracleParameter("P_IDREF", OracleDbType.Varchar2, IDRef, ParameterDirection.Input),
+                    new OracleParameter("P_IDREF", OracleDbType.Decimal, IDRef, ParameterDirection.Input),
                     new OracleParameter("P_FILETYPE", OracleDbType.Decimal, Filetype, ParameterDirection.Input),
                     new OracleParameter("P_CHAR01", OracleDbType.Varchar2, Char01, ParameterDirection.Input),
                     new OracleParameter("P_CHAR02", OracleDbType.Varchar2, Char02, ParameterDirection.Input),                    

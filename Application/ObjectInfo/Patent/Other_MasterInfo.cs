@@ -47,7 +47,7 @@ namespace ObjectInfos
         public string Author_Email { set; get; }
 
         public decimal Author_Country { set; get; }
-        public decimal Author_Country_Display { set; get; }
+        public string Author_Country_Display { set; get; }
     }
 
     public class UTienInfo

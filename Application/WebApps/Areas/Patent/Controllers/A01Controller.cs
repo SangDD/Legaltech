@@ -350,6 +350,7 @@ namespace WebApps.Areas.Patent.Controllers
                 }
                 else
                 {
+                    A01_Info.CopyAuthorsInfo(ref app_Detail, null, 1);
                     app_Detail.Author_Others = "N";
                 }
 
@@ -357,22 +358,38 @@ namespace WebApps.Areas.Patent.Controllers
                 {
                     A01_Info.CopyAuthorsInfo(ref app_Detail, _lst_authorsInfos[2], 2);
                 }
+                else
+                {
+                    A01_Info.CopyAuthorsInfo(ref app_Detail, null, 2);
+                }
 
                 // copy chủ đơn khác
                 if (_lst_Other_MasterInfo.Count > 1)
                 {
                     A01_Info.CopyOther_MasterInfo(ref app_Detail, _lst_Other_MasterInfo[0], 0);
                 }
+                else
+                {
+                    A01_Info.CopyOther_MasterInfo(ref app_Detail, null, 0);
+                }
 
                 if (_lst_Other_MasterInfo.Count > 2)
                 {
                     A01_Info.CopyOther_MasterInfo(ref app_Detail, _lst_Other_MasterInfo[1], 1);
+                }
+                else
+                {
+                    A01_Info.CopyOther_MasterInfo(ref app_Detail, null, 1);
                 }
 
                 // copy đơn ưu tiên
                 if (pUTienInfo.Count > 0)
                 {
                     A01_Info.CopyUuTienInfo(ref app_Detail, pUTienInfo[0]);
+                }
+                else
+                {
+                    A01_Info.CopyUuTienInfo(ref app_Detail, null);
                 }
 
                 #region Tài liệu có trong đơn
@@ -578,7 +595,7 @@ namespace WebApps.Areas.Patent.Controllers
 
                 _lst.Add(app_Detail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<A01_Info>(_lst, false);
-                //_ds_all.WriteXml(@"E:\A01.xml");
+                //_ds_all.WriteXml(@"E:\A01.xml", XmlWriteMode.IgnoreSchema);
 
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 

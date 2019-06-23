@@ -21,6 +21,8 @@ namespace ObjectInfos
             p_appDetail.Master_Phone = pAppInfo.Master_Phone;
             p_appDetail.Master_Fax = pAppInfo.Master_Fax;
             p_appDetail.Master_Email = pAppInfo.Master_Email;
+            p_appDetail.Master_Type = pAppInfo.Master_Type;
+
             p_appDetail.Rep_Master_Type = pAppInfo.Rep_Master_Type;
             p_appDetail.Rep_Master_Name = pAppInfo.Rep_Master_Name;
             p_appDetail.Rep_Master_Address = pAppInfo.Rep_Master_Address;
@@ -42,11 +44,22 @@ namespace ObjectInfos
 
         public static void CopyUuTienInfo(ref A01_Info p_appDetail, UTienInfo pAppInfo)
         {
-            p_appDetail.UT_SoDon = pAppInfo.UT_SoDon;
-            p_appDetail.UT_NgayNopDon = pAppInfo.UT_NgayNopDon;
-            p_appDetail.UT_QuocGia_Display = pAppInfo.UT_QuocGia_Display;
-            p_appDetail.UT_Type = pAppInfo.UT_Type;
-            p_appDetail.UT_ThoaThuanKhac = pAppInfo.UT_ThoaThuanKhac;
+            if (pAppInfo != null)
+            {
+                p_appDetail.UT_SoDon = pAppInfo.UT_SoDon;
+                p_appDetail.UT_NgayNopDon = pAppInfo.UT_NgayNopDon;
+                p_appDetail.UT_QuocGia_Display = pAppInfo.UT_QuocGia_Display;
+                p_appDetail.UT_Type = pAppInfo.UT_Type;
+                p_appDetail.UT_ThoaThuanKhac = pAppInfo.UT_ThoaThuanKhac;
+            }
+            else
+            {
+                p_appDetail.UT_SoDon = "";
+                p_appDetail.UT_NgayNopDon = DateTime.MinValue;
+                p_appDetail.UT_QuocGia_Display = "";
+                p_appDetail.UT_Type = "";
+                p_appDetail.UT_ThoaThuanKhac = "";
+            }
         }
 
         public static void CopyAuthorsInfo(ref A01_Info p_appDetail, AuthorsInfo pAppInfo, int p_position)
@@ -63,21 +76,46 @@ namespace ObjectInfos
             }
             else if (p_position == 1)
             {
-                p_appDetail.Author_Name_1 = pAppInfo.Author_Name;
-                p_appDetail.Author_Address_1 = pAppInfo.Author_Address;
-                p_appDetail.Author_Phone_1 = pAppInfo.Author_Phone;
-                p_appDetail.Author_Fax_1 = pAppInfo.Author_Fax;
-                p_appDetail.Author_Email_1 = pAppInfo.Author_Email;
-                p_appDetail.Author_Country_Display_1 = pAppInfo.Author_Country_Display;
+                if (pAppInfo != null)
+                {
+                    p_appDetail.Author_Name_1 = pAppInfo.Author_Name;
+                    p_appDetail.Author_Address_1 = pAppInfo.Author_Address;
+                    p_appDetail.Author_Phone_1 = pAppInfo.Author_Phone;
+                    p_appDetail.Author_Fax_1 = pAppInfo.Author_Fax;
+                    p_appDetail.Author_Email_1 = pAppInfo.Author_Email;
+                    p_appDetail.Author_Country_Display_1 = pAppInfo.Author_Country_Display;
+                }
+                else
+                {
+                    p_appDetail.Author_Name_1 = "";
+                    p_appDetail.Author_Address_1 = "";
+                    p_appDetail.Author_Phone_1 = "";
+                    p_appDetail.Author_Fax_1 = "";
+                    p_appDetail.Author_Email_1 = "";
+                    p_appDetail.Author_Country_Display_1 = "";
+                }
             }
             else if (p_position == 2)
             {
-                p_appDetail.Author_Name_2 = pAppInfo.Author_Name;
-                p_appDetail.Author_Address_2 = pAppInfo.Author_Address;
-                p_appDetail.Author_Phone_2 = pAppInfo.Author_Phone;
-                p_appDetail.Author_Fax_2 = pAppInfo.Author_Fax;
-                p_appDetail.Author_Email_2 = pAppInfo.Author_Email;
-                p_appDetail.Author_Country_Display_2 = pAppInfo.Author_Country_Display;
+                if (pAppInfo != null)
+                {
+                    p_appDetail.Author_Name_2 = pAppInfo.Author_Name;
+                    p_appDetail.Author_Address_2 = pAppInfo.Author_Address;
+                    p_appDetail.Author_Phone_2 = pAppInfo.Author_Phone;
+                    p_appDetail.Author_Fax_2 = pAppInfo.Author_Fax;
+                    p_appDetail.Author_Email_2 = pAppInfo.Author_Email;
+                    p_appDetail.Author_Country_Display_2 = pAppInfo.Author_Country_Display;
+                }
+                else
+                {
+                    p_appDetail.Author_Name_2 = "";
+                    p_appDetail.Author_Address_2 = "";
+                    p_appDetail.Author_Phone_2 = "";
+                    p_appDetail.Author_Fax_2 = "";
+                    p_appDetail.Author_Email_2 = "";
+                    p_appDetail.Author_Country_Display_2 = "";
+                }
+
             }
         }
 
@@ -85,24 +123,51 @@ namespace ObjectInfos
         {
             if (p_position == 0)
             {
-                p_appDetail.Master_Name_1 = pAppInfo.Master_Name;
-                p_appDetail.Master_Address_1 = pAppInfo.Master_Address;
-                p_appDetail.Master_Phone_1 = pAppInfo.Master_Phone;
-                p_appDetail.Master_Fax_1 = pAppInfo.Master_Fax;
-                p_appDetail.Master_Email_1 = pAppInfo.Master_Email;
-                p_appDetail.TacGiaDongThoi_1 = pAppInfo.TacGiaDongThoi;
-                p_appDetail.PhoBan_1 = pAppInfo.PhoBan;
+                if (pAppInfo != null)
+                {
+                    p_appDetail.Master_Name_1 = pAppInfo.Master_Name;
+                    p_appDetail.Master_Address_1 = pAppInfo.Master_Address;
+                    p_appDetail.Master_Phone_1 = pAppInfo.Master_Phone;
+                    p_appDetail.Master_Fax_1 = pAppInfo.Master_Fax;
+                    p_appDetail.Master_Email_1 = pAppInfo.Master_Email;
+                    p_appDetail.TacGiaDongThoi_1 = pAppInfo.TacGiaDongThoi;
+                    p_appDetail.PhoBan_1 = pAppInfo.PhoBan;
+                }
+                else
+                {
+                    p_appDetail.Master_Name_1 = "";
+                    p_appDetail.Master_Address_1 = "";
+                    p_appDetail.Master_Phone_1 = "";
+                    p_appDetail.Master_Fax_1 = "";
+                    p_appDetail.Master_Email_1 = "";
+                    p_appDetail.TacGiaDongThoi_1 = "";
+                    p_appDetail.PhoBan_1 = "";
+                }
             }
             else if (p_position == 1)
             {
-                p_appDetail.Master_Name_2 = pAppInfo.Master_Name;
-                p_appDetail.Master_Address_2 = pAppInfo.Master_Address;
-                p_appDetail.Master_Phone_2 = pAppInfo.Master_Phone;
-                p_appDetail.Master_Fax_2 = pAppInfo.Master_Fax;
-                p_appDetail.Master_Email_2 = pAppInfo.Master_Email;
+                if (pAppInfo != null)
+                {
+                    p_appDetail.Master_Name_2 = pAppInfo.Master_Name;
+                    p_appDetail.Master_Address_2 = pAppInfo.Master_Address;
+                    p_appDetail.Master_Phone_2 = pAppInfo.Master_Phone;
+                    p_appDetail.Master_Fax_2 = pAppInfo.Master_Fax;
+                    p_appDetail.Master_Email_2 = pAppInfo.Master_Email;
 
-                p_appDetail.TacGiaDongThoi_2 = pAppInfo.TacGiaDongThoi;
-                p_appDetail.PhoBan_2 = pAppInfo.PhoBan;
+                    p_appDetail.TacGiaDongThoi_2 = pAppInfo.TacGiaDongThoi;
+                    p_appDetail.PhoBan_2 = pAppInfo.PhoBan;
+                }
+                else
+                {
+                    p_appDetail.Master_Name_2 = "";
+                    p_appDetail.Master_Address_2 = "";
+                    p_appDetail.Master_Phone_2 = "";
+                    p_appDetail.Master_Fax_2 = "";
+                    p_appDetail.Master_Email_2 = "";
+
+                    p_appDetail.TacGiaDongThoi_2 = "";
+                    p_appDetail.PhoBan_2 = "";
+                }
             }
         }
 
@@ -194,16 +259,14 @@ namespace ObjectInfos
         public string Author_Email { set; get; }
 
         public decimal Author_Country { set; get; }
-        public decimal Author_Country_Display { set; get; }
+        public string Author_Country_Display { set; get; }
 
         string _Author_Others;
         public string Author_Others
         {
             get
             {
-                if (Author_Name_1 != "")
-                    return "Y";
-                else return "N";
+                return _Author_Others;
             }
             set
             {
@@ -225,7 +288,7 @@ namespace ObjectInfos
         public string Author_Email_1 { set; get; }
 
         public decimal Author_Country_1 { set; get; }
-        public decimal Author_Country_Display_1 { set; get; }
+        public string Author_Country_Display_1 { set; get; }
 
         #endregion
 
@@ -241,7 +304,7 @@ namespace ObjectInfos
         public string Author_Email_2 { set; get; }
 
         public decimal Author_Country_2 { set; get; }
-        public decimal Author_Country_Display_2 { set; get; }
+        public string Author_Country_Display_2 { set; get; }
 
         #endregion
 

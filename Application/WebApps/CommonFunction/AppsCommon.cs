@@ -834,7 +834,7 @@ namespace WebApps.CommonFunction
                 foreach (T item in data)
                 {
                     SoThuTu++;
-                    for (int i = 0; i < values.Length - 1; i++)
+                    for (int i = 0; i <= values.Length - 1; i++)
                     {
                         values[i] = props[i].GetValue(item);
                     }
