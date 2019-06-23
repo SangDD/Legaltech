@@ -169,7 +169,8 @@ namespace DataAccess.ModuleTrademark
                 int numberRecord = pInfo.Count;
                 string[] Language = new string[numberRecord];
                 decimal[] App_Header_Id = new decimal[numberRecord];
-                decimal[] IDRef = new decimal[numberRecord];
+                string[] IDRef = new string[numberRecord];
+                string[] ParentID = new string[numberRecord];
                 string[] DocumentName = new string[numberRecord];
                 string[] FileName = new string[numberRecord];
                 decimal[] Filetype = new decimal[numberRecord];
@@ -182,6 +183,7 @@ namespace DataAccess.ModuleTrademark
                     App_Header_Id[i] = pInfo[i].App_Header_Id;
                     DocumentName[i] = pInfo[i].Documentname;
                     FileName[i] = pInfo[i].Filename;
+                    ParentID[i] = pInfo[i].ParentId;
                     IDRef[i] = pInfo[i].IdRef;
                     Filetype[i] = pInfo[i].FILETYPE;
                     Char01[i] = pInfo[i].Char01;
@@ -193,7 +195,8 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("P_DOCUMENTNAME", OracleDbType.Varchar2, DocumentName, ParameterDirection.Input),
                     new OracleParameter("P_FILENAME", OracleDbType.Varchar2, FileName, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, Language, ParameterDirection.Input),
-                    new OracleParameter("P_IDREF", OracleDbType.Decimal, IDRef, ParameterDirection.Input),
+                    new OracleParameter("P_PARENTID", OracleDbType.Varchar2, ParentID, ParameterDirection.Input),
+                    new OracleParameter("P_IDREF", OracleDbType.Varchar2, IDRef, ParameterDirection.Input),
                     new OracleParameter("P_FILETYPE", OracleDbType.Decimal, Filetype, ParameterDirection.Input),
                     new OracleParameter("P_CHAR01", OracleDbType.Varchar2, Char01, ParameterDirection.Input),
                     new OracleParameter("P_CHAR02", OracleDbType.Varchar2, Char02, ParameterDirection.Input),                    

@@ -18,7 +18,7 @@ namespace DataAccess.ModuleTrademark
                 int numberRecord = pInfo.Count;
                 string[] Language = new string[numberRecord];
                 decimal[] App_Header_Id = new decimal[numberRecord];
-                decimal[] IDRef = new decimal[numberRecord];
+                string[] IDRef = new string[numberRecord];
                 string[] DocumentName = new string[numberRecord];
                 string[] FileName = new string[numberRecord];
                 for (int i = 0; i < pInfo.Count; i++)
