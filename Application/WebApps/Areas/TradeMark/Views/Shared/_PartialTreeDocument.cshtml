@@ -108,16 +108,14 @@
                     <div>
                         <div class="file-upload btn btn-primary" style="margin-left:2px;">
                             <span>Tải file</span>
-                            <input type="file" onchange="return funcTreeChoiseFileDocOther('treepfileName2', 'treetxtMaxfile2', 'TreetxtTaiLieuKhac2', 'treebtnRemove2', 'TreetxtTaiLieuKhac1');" name="treepfileName2" id="treepfileName2" class="upload fileuploadurl">
+                            <input type="file" onchange="return funcTreeChoiseFileDocOther('pTreefileName2', 'treetxtMaxfile2', 'TreetxtTaiLieuKhac2', 'treebtnRemove2', 'TreetxtTaiLieuKhac1');" name="treepfileName2" id="pTreefileName2" class="upload fileuploadurl">
                         </div>
                         <input type="text" class="classMaxfile" id="treetxtMaxfile2" readonly="">
                         <button class="clssDisplaynone" id="treebtnRemove2" onclick="TreeRemoveFileDocOther('TreetxtTaiLieuKhac2', 'treebtnRemove2', 'treetxtMaxfile2')" style="width: 30px;margin-left:1px">
                             <i class="fa fa-minus-circle"></i>
                         </button>
                         <i class="fa fa-check" id="i_treepfileName2" style="font-size:15px; color:green ;display:none;padding:5px; height:30px">
-                        </i> <button onclick="return funcTreeRemoveDocument(this, 2)" id="treebtnXoa2" style="width: 30px;margin-left:2px">
-                            <i class="fa fa-minus-circle"></i>
-                        </button>
+                        </i>  
                     </div>
                 </div>
             </div>
@@ -160,7 +158,7 @@
 
             var e = $("#TreeincreNo").val() / 1;
             e++;
-            var pfileName = "treepfileName" + e.toString();
+            var pfileName = "pTreefileName" + e.toString();
             var txtDocument = "TreetxtTaiLieuKhac" + e.toString();
             var txtDocumentSoTrang = "Treetxttailieuanhsotrang" + e.toString();
             var txtDocumentGhiChu = "TreetxttailieuanhGhiChu" + e.toString();
@@ -200,7 +198,7 @@
         try {
             var e = $("#TreeincreNo").val() / 1;
             e++;
-            var pfileName = "treepfileName" + e.toString();
+            var pfileName = "pTreefileName" + e.toString();
             var txtDocument = "TreetxtTaiLieuKhac" + e.toString();
             var txtDocumentSoTrang = "Treetxttailieuanhsotrang" + e.toString();
             var txtDocumentGhiChu = "TreetxttailieuanhGhiChu" + e.toString();
