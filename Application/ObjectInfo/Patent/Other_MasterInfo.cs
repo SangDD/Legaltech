@@ -47,6 +47,7 @@ namespace ObjectInfos
         public string Author_Email { set; get; }
 
         public decimal Author_Country { set; get; }
+        public decimal Author_Country_Display { set; get; }
     }
 
     public class UTienInfo
@@ -57,6 +58,7 @@ namespace ObjectInfos
         public string UT_SoDon { set; get; }
         public DateTime UT_NgayNopDon { set; get; }
         public decimal UT_QuocGia { set; get; }
+        public string UT_QuocGia_Display { set; get; }
         public string UT_Type { set; get; }
         public string UT_ThoaThuanKhac { set; get; }
     }
