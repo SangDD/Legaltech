@@ -125,7 +125,11 @@ namespace ObjectInfos
         public DateTime PCT_Date { get; set; }
         public DateTime PCT_VN_Date { get; set; }
         public decimal PCT_Suadoi { get; set; }
-        public string PCT_Suadoi_Type { get; set; }
+        public string PCT_Suadoi_Name { get; set; }
+        public string PCT_Suadoi_Address { get; set; }
+
+        public string PCT_Suadoi_Others { get; set; }
+
         public string PCT_Suadoi_Content { get; set; }
         public string Source_DQSC { get; set; }
         public string DQSC_Origin_App_No { get; set; }
@@ -191,6 +195,21 @@ namespace ObjectInfos
 
         public decimal Author_Country { set; get; }
         public decimal Author_Country_Display { set; get; }
+
+        string _Author_Others;
+        public string Author_Others
+        {
+            get
+            {
+                if (Author_Name_1 != "")
+                    return "Y";
+                else return "N";
+            }
+            set
+            {
+                _Author_Others = value;
+            }
+        }
 
         #endregion
 
@@ -363,6 +382,8 @@ namespace ObjectInfos
         public string Extent_fld09 { get; set; }
 
         public string Extent_fld10 { get; set; }
+
+
         #endregion
     }
 }

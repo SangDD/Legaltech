@@ -196,14 +196,14 @@
                 <div class="div-search-ad">
                     <div class="div-search-content">
                         <div class="div-radio" style="width:382px">
-                            <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1">
+                            <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1">
                             <label>@Resource.TM3B_TenChuDon</label>
                         </div>
                     </div>
 
                     <div class="div-search-content">
                         <div class="div-radio">
-                            <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2">
+                            <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2">
                             <label>@Resource.TM3B_DiaChiChuDon</label>
                         </div>
                     </div>
@@ -212,7 +212,7 @@
                 <div class="div-search-ad">
                     <div class="div-search-content">
                         <div class="div-radio" style="width:382px">
-                            <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3">
+                            <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3">
                             <label>@Resource.TM3B_NoiDungKhac</label>
                         </div>
                     </div>
@@ -1331,7 +1331,25 @@
                         });
                         return false;
                     }
-                    formData.append("pDetail.PCT_SuaDoi_Type", _Request_To_Type);
+
+                    if ($("#4_rdTenChuDon").is(':checked')) {
+                        formData.append("pDetail.PCT_SuaDoi_Name", "Y");
+                    } else {
+                        formData.append("pDetail.PCT_SuaDoi_Name", "N");
+                    }
+
+                    if ($("#4_rdDiaChiChuDon").is(':checked')) {
+                        formData.append("pDetail.PCT_SuaDoi_Address", "Y");
+                    } else {
+                        formData.append("pDetail.PCT_SuaDoi_Address", "N");
+                    }
+
+                    if ($("#4_rdnoiDungKhac").is(':checked')) {
+                        formData.append("pDetail.PCT_SuaDoi_Others", "Y");
+                    } else {
+                        formData.append("pDetail.PCT_SuaDoi_Others", "N");
+                    }
+  
                     formData.append("pDetail.PCT_SuaDoi_Content", $("#txt_Patent_Name").val());
 
                 } else {

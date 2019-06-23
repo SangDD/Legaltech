@@ -346,6 +346,11 @@ namespace WebApps.Areas.Patent.Controllers
                 if (_lst_authorsInfos.Count > 1)
                 {
                     A01_Info.CopyAuthorsInfo(ref app_Detail, _lst_authorsInfos[1], 1);
+                    app_Detail.Author_Others = "Y";
+                }
+                else
+                {
+                    app_Detail.Author_Others = "N";
                 }
 
                 if (_lst_authorsInfos.Count > 2)
