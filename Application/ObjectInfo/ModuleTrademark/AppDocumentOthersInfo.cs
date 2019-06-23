@@ -30,5 +30,9 @@ namespace ObjectInfos
         public decimal FILETYPE { get; set; }// hungtd them: phục vụ 1 đơn có nhiều loại như mục tài liệu khác
         public decimal FILELEVEL { get; set; }// hungtd them: phục vụ 1 đơn có nhiều loại như mục tài liệu khác
 
+        public string Char01 { get; set; }// hungtd them:  tài liệu khác có thêm số trang, ghi chú
+
+        public string Char02 { get; set; }// hungtd them:  tài liệu khác có thêm số trang, ghi chú
+
     }
 }

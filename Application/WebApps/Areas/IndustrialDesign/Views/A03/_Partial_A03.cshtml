@@ -1327,11 +1327,15 @@
     function funcGetTenTaiLieuBoAnh(formData) {
         try {
             var item = 0;
+            var _documentno = "0";
             $(".clssListUploadIndusDesign").each(function () {
                 formData.append("pAppDocIndusDesign[" + item + "].keyFileUpload", this.id);
                 formData.append("pAppDocIndusDesign[" + item + "].Documentname", $("#" + this.id).val());
                 formData.append("pAppDocOtherInfo[" + item + "].FILETYPE", "2");
-                formData.append("pAppDocOtherInfo[" + item + "].FILELEVEL", $("#" + this.id).attr("meta-data"));
+                formData.append("pAppDocOtherInfo[" + item + "].FILELEVEL", $("#" + this.id).attr("meta-data2"));
+                _documentno =  $("#" + this.id).attr("meta-data");
+                formData.append("pAppDocOtherInfo[" + item + "].Char01", $("#Treetxttailieuanhsotrang" + _documentno).val()); 
+                formData.append("pAppDocOtherInfo[" + item + "].Char01", $("#TreetxttailieuanhGhiChu" + _documentno).val()); 
                 item++;
             });
             return true;
