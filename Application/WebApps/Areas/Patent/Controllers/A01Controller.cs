@@ -383,6 +383,8 @@ namespace WebApps.Areas.Patent.Controllers
                     {
                         app_Detail.strDanhSachFileDinhKem += item.Documentname + " ; ";
                     }
+
+                    app_Detail.strDanhSachFileDinhKem = app_Detail.strDanhSachFileDinhKem.Substring(0, app_Detail.strDanhSachFileDinhKem.Length - 2);
                 }
 
                 foreach (AppDocumentInfo item in appDocumentInfos)
@@ -623,7 +625,7 @@ namespace WebApps.Areas.Patent.Controllers
         {
             try
             {
-                ViewBag.FileName = "/Content/Export/" + "A01_VI_" + TradeMarkAppCode.AppCode_A01 + ".pdf";
+                ViewBag.FileName = "/Content/Export/" + "A01_VN_" + TradeMarkAppCode.AppCode_A01 + ".pdf";
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
             }
             catch (Exception ex)
