@@ -343,28 +343,28 @@
         @* id doc | id của check box | level | lable | lable 2 | is upload *@
         @* 1 Tờ khai *@
         @{
-            string _doc_id1 = "A02_01";
+            string _doc_id1 = "A03_01";
             string _model1 = _doc_id1 + "|Doc_01|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|0||" + Resource.lblSoBan;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model1)
         }
 
         @* 2. Bản mô tả, bằng tiếng *@
         @{
-            string _doc_id2 = "A02_02";
+            string _doc_id2 = "A03_02";
             string _model2 = _doc_id2 + "|Doc_02|0|" + "Bản mô tả, bằng tiếng " + "|" + Resource.TM3B_Tieng + "|1||" + Resource.TM2B_SoTrang;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model2)
         }
 
         @* 3. Bản sao *@
         @{
-            string _doc_id3 = "A02_03";
+            string _doc_id3 = "A03_03";
             string _model3 = _doc_id3 + "|Doc_03|0|" + "Bộ ảnh chụp/bản vẽ, gồm" + "|" + "ảnh x" + "|1||" + "bộ";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model3)
         }
 
 
         @{
-            string _doc_id4 = "A02_04";
+            string _doc_id4 = "A03_04";
             string _model4 = _doc_id4 + "|Doc_04|0|" + "Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ)" + "||1"; ;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)
         }
@@ -376,75 +376,75 @@
 
         @* 6 Giấy uỷ quyền bằng tiếng *@
         @{
-            string _doc_id5 = "A02_05";
-            string _model5 = _doc_id5 + "|Doc_06|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|" + Resource.TM3B_Tieng + "|0";
+            string _doc_id5 = "A03_05";
+            string _model5 = _doc_id5 + "|Doc_05|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|" + Resource.TM3B_Tieng + "|0";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model5)
         }
 
         @* 7  Bản dịch tiếng Việt, gồm *@
         @{
-            string _doc_id6 = "A02_06";
-            string _model6 = _doc_id6 + "|Doc_07|1|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
+            string _doc_id6 = "A03_06";
+            string _model6 = _doc_id6 + "|Doc_06|1|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model6)
         }
 
         @* 8 Bản gốc *@
         @{
-            string _doc_id7 = "A02_07";
-            string _model7 = _doc_id7 + "|Doc_08|1|" + Resource.TM2B_BanGoc + "||1";
+            string _doc_id7 = "A03_07";
+            string _model7 = _doc_id7 + "|Doc_07|1|" + Resource.TM2B_BanGoc + "||1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model7)
         }
 
         @* 9 Bản sao *@
         @{
-            string _doc_id8 = "A02_08";
-            string _model8 = _doc_id8 + "|Doc_09|1|" + Resource.TM2B_BanSao + "||0";
+            string _doc_id8 = "A03_08";
+            string _model8 = _doc_id8 + "|Doc_08|1|" + Resource.TM2B_BanSao + "||0";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model8)
         }
 
 
         @* 10 Bản sao  > Bản gốc sẽ nộp sau *@
         @{
-            string _doc_id09 = "A02_09";
-            string _model09 = _doc_id09 + "|Doc_10|2|" + Resource.TM2B_BanGocSeNopSau + "||1";
+            string _doc_id09 = "A03_09";
+            string _model09 = _doc_id09 + "|Doc_09|2|" + Resource.TM2B_BanGocSeNopSau + "||1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model09)
         }
 
         @* 11 Bản sao  > Bản gốc đã nộp theo đơn *@
         @{
-            string _doc_id10 = "A02_10";
-            string _model10 = _doc_id10 + "|Doc_11|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|1";
+            string _doc_id10 = "A03_10";
+            string _model10 = _doc_id10 + "|Doc_10|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model10)
         }
 
         @* 12 Tài liệu chứng minh quyền ưu tiên *@
         @{
-            string _doc_id11 = "A02_11";
-            string _model11 = _doc_id11 + "|Doc_12|0|" + "Tài liệu chứng minh quyền ưu tiên " + "||0";
+            string _doc_id11 = "A03_11";
+            string _model11 = _doc_id11 + "|Doc_11|0|" + "Tài liệu chứng minh quyền ưu tiên " + "||0";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model11)
         }
 
         @{
-            string _doc_id12 = "A02_12";
-            string _model12 = _doc_id12 + "|Doc_13|1|" + "Bản sao đơn đầu tiên, gồm " + "|" + Resource.lblBan + "|1";
+            string _doc_id12 = "A03_12";
+            string _model12 = _doc_id12 + "|Doc_12|1|" + "Bản sao đơn đầu tiên, gồm " + "|" + Resource.lblBan + "|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model12)
         }
 
         @{
-            string _doc_id13 = "A02_13";
-            string _model13 = _doc_id13 + "|Doc_14|1|" + "Giấy chuyển nhượng quyền ưu tiên (nếu thụ hưởng từ người khác)" + "||1";
+            string _doc_id13 = "A03_13";
+            string _model13 = _doc_id13 + "|Doc_13|1|" + "Giấy chuyển nhượng quyền ưu tiên (nếu thụ hưởng từ người khác)" + "||1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model13)
         }
 
         @{
-            string _doc_id14 = "A02_14";
-            string _model14 = _doc_id14 + "|Doc_15|0|" + "Tài liệu xác nhận quyền đăng ký (nếu thụ hưởng từ người khác)" + "||1";
+            string _doc_id14 = "A03_14";
+            string _model14 = _doc_id14 + "|Doc_14|0|" + "Tài liệu xác nhận quyền đăng ký (nếu thụ hưởng từ người khác)" + "||1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model14)
         }
 
         @{
-            string _doc_id15 = "A02_15";
-            string _model15 = _doc_id15 + "|Doc_16|0|" + "Có tài liệu bổ trợ khai tại trang bổ sung" + "||0";
+            string _doc_id15 = "A03_15";
+            string _model15 = _doc_id15 + "|Doc_15|0|" + "Có tài liệu bổ trợ khai tại trang bổ sung" + "||0";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model15)
         }
 
@@ -465,7 +465,6 @@
             <div class="classLuuTam">
                 <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
             </div>
-
         </div>
     </fieldset>
 </div>
@@ -479,13 +478,13 @@
 
 <script>
 
-    
-    
+
+
     function ChangeNguongocdon(_type)
     {
         try {
             var _txtNgayNopDon = $("#0_txtNgayNopDon");
-            var _txtDonSo =  $("#0_txtDonSo"); 
+            var _txtDonSo =  $("#0_txtDonSo");
             if(_type == "2")
             {
                 $("#div_nguongocdon").removeClass("clssDisplaynone");
@@ -640,7 +639,7 @@
             });
 
         } catch (e) {
-            console.log(e);
+            console.log(e.message);
         }
     });
 
@@ -653,7 +652,7 @@
             });
         } catch (e) {
             CreateRollingWaitingIcon(false);
-            console.log(e);
+            console.log(e.message);
         }
     });
 
@@ -661,6 +660,9 @@
         try {
             //Thông tin chủ đơn
             var formData = new FormData();
+
+
+
 
             var reponse = funcThongTinNhapHo(formData);
             if (reponse == false) {
@@ -738,9 +740,8 @@
             }
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                jError("@Html.Raw(Resource.TM2B_ChonDaiDienChuDon)", "@Html.Raw(Resource.TM3B_Loi)", function () {
-                    $("#_2_rdoNguoiDaiDienPL").focus()
-                });
+                showError('@Html.Raw(Resource.TM2B_ChonDaiDienChuDon)');
+                $("#_2_rdoNguoiDaiDienPL").focus()
                 return false;
             }
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
@@ -758,13 +759,12 @@
                 return false;
             }
 
-            // lấy thông tin bộ ảnh 
+            // lấy thông tin bộ ảnh
             reponse = funcGetTenTaiLieuBoAnh(formData);
             if (reponse == false) {
                 return false;
             }
 
-            
 
 
             reponse = funcGetCamKetChuDon(formData);
@@ -799,12 +799,12 @@
                 },
                 error: function (e) {
                     CreateRollingWaitingIcon(false);
-                    console.log(e);
+                    console.log(e.message);
                 }
             });
         } catch (e) {
             CreateRollingWaitingIcon(false);
-            console.log(e);
+            console.log(e.message);
         }
     }
 
@@ -1060,9 +1060,8 @@
 
             var _txt_IndustryDesignName = $("#txt_IndustryDesignName") ;
             if (_txt_IndustryDesignName.val() == "") {
-                jError("Tên kiểu dáng công nghiệp không được để trống", "@Resource.TM3B_Loi", function () {
-                    _txt_IndustryDesignName.focus()
-                });
+                showError('Tên kiểu dáng công nghiệp không được để trống');
+                _txt_IndustryDesignName.focus();
                 return false;
             }
 
@@ -1078,18 +1077,17 @@
 
                 if ($("#1_radDonBanDauCo2PA").is(':checked') == false &&   $("#1_radDonBanDauNopCho1DoiTuong").is(':checked')== false)
                 {
-                    jError("Vui lòng chọn ít nhất 1 giá trị của thậm định nội dung","@Resource.TM3B_Loi", function () {
-                        $("#1_radDonBanDauCo2PA").focus()
-                    });
+                    showError('Vui lòng chọn ít nhất 1 giá trị của thậm định nội dung');
+                    $("#1_radDonBanDauCo2PA").focus()
                     return false;
                 }
 
-            }  
+            }
             formData.append("pDetail.Industry_Design_Name", _txt_IndustryDesignName.val());
             formData.append("pDetail.App_Sentdate", _txtNgayNopDon.val());
             formData.append("pDetail.Refappno", _txtDonSo.val());
             if ($("#1_rdchuacokqthamdinhnoidung").is(':checked')) {
-               
+
                 formData.append("pDetail.Kqtd_Type", "1");
                 if ($("#1_radDonBanDauCo2PA").is(':checked')) {
                     formData.append("pDetail.Kqtd_Value", "1");
@@ -1104,15 +1102,14 @@
                 formData.append("pDetail.Kqtd_Value", "0");
             }
 
-         
+
 
             if ($("#ckbCucPhanLoai").is(':checked') == false && $("#ckbTuPhanLoai").is(':checked') == false) {
-                jError("Vui lòng phân loại hàng hóa", "@Resource.TM3B_Loi", function () {
-                    $("#ckbCucPhanLoai").focus()
-                });
+                showError("Vui lòng phân loại hàng hóa");
+                $("#ckbCucPhanLoai").focus()
                 return false;
             }
-                   
+
             if ($("#ckbCucPhanLoai").is(':checked')) {
                 formData.append("pDetail.Phanloai_Type", "1");
             }
@@ -1125,15 +1122,14 @@
                     return false;
                 }
             }
-             
+
 
             var txt_MaDaiDien = $("#txt_MaDaiDien").val();
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             if (v_RepMasterType = "DDPL") {
                 if (txt_MaDaiDien == "") {
-                    jError("@Resource.TM3C_MaDaiDienKhongDuocTrong", "@Resource.TM3B_Loi", function () {
-                        $("#txt_MaDaiDien").focus()
-                    });
+                    showError('@Resource.TM3C_MaDaiDienKhongDuocTrong');
+                    $("#txt_MaDaiDien").focus()
                     return false;
                 }
             }
@@ -1234,7 +1230,7 @@
 
             }
         } catch (e) {
-            console.log(e);
+            console.log(e.message);
             showError('@Resource.TM3B_InternetError');
             return false;
         }
@@ -1305,17 +1301,17 @@
             formData.append("pAppDocumentInfo[15].CHAR01", $("#txt_Doc_16").val());
 
         } catch (e) {
-            console.log(e);
+            console.log(e.message);
         }
     }
 
     function funcGetTenTaiLieuKhac(formData) {
         try {
             var item = 0;
-            $(".clssListUploadIndusDesign").each(function () {
+            $(".clssListUpload").each(function () {
                 formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", this.id);
                 formData.append("pAppDocOtherInfo[" + item + "].Documentname", $("#" + this.id).val());
-             
+
                 item++;
             });
             return true;
@@ -1326,16 +1322,66 @@
 
     function funcGetTenTaiLieuBoAnh(formData) {
         try {
+            // checkvalidate
             var item = 0;
+            var _documentno = "0";
+            var _check = true;
+            var _controllevel = 1;
+            var _inputfileid = "";
+            $(".clssListUploadIndusDesign").each(function () {
+                _controllevel = $("#" + this.id).attr("meta-data2")
+                _documentno =  $("#" + this.id).attr("meta-data");
+                _inputfileid = "pTreefileName" + _documentno;
+                formData.append("pAppDocIndusDesign[" + item + "].keyFileUpload", this.id);
+                if($("#" + this.id).val().trim() == "")
+                {
+                    showError('Tên tài liệu không được để trống');
+                    $("#" + this.id).focus();
+                    _check = false;
+                    return false;
+                }
+                if(_controllevel == "2")
+                {
+                    // nếu là tài liệu cấp 2 thì check file
+                    var file = document.getElementById(_inputfileid);
+                    if (file == undefined) {
+                        showError('Chưa tải file đính kèm');
+                        $("#" + this.id).focus();
+                        _check = false;
+                        return false;
+                    }
+                    if (file.files.length == 0) {
+                        showError('Chưa tải file đính kèm');
+                        $("#" + this.id).focus();
+                        _check = false;
+                        return false;
+                    }
+                }
+
+                item++;
+            });
+            if(_check == false)
+            {
+                return false;
+            }
+
+
+               item = 0;
+              _documentno = "0";
             $(".clssListUploadIndusDesign").each(function () {
                 formData.append("pAppDocIndusDesign[" + item + "].keyFileUpload", this.id);
                 formData.append("pAppDocIndusDesign[" + item + "].Documentname", $("#" + this.id).val());
                 formData.append("pAppDocOtherInfo[" + item + "].FILETYPE", "2");
-                formData.append("pAppDocOtherInfo[" + item + "].FILELEVEL", $("#" + this.id).attr("meta-data"));
+                formData.append("pAppDocOtherInfo[" + item + "].FILELEVEL", $("#" + this.id).attr("meta-data2"));
+                _documentno =  $("#" + this.id).attr("meta-data");
+                formData.append("pAppDocIndusDesign[" + item + "].Char01", $("#Treetxttailieuanhsotrang" + _documentno).val());
+                formData.append("pAppDocIndusDesign[" + item + "].Char02", $("#TreetxttailieuanhGhiChu" + _documentno).val());
+                formData.append("pAppDocIndusDesign[" + item + "].ParentId", _documentno);
                 item++;
             });
             return true;
         } catch (e) {
+            console.log(e.message);
             return false;
         }
     }
@@ -1353,6 +1399,7 @@
             formData.append("pAppDocumentInfo[" + pItem + "].Isuse", Isuse);
             return true;
         } catch (e) {
+            console.log(e.message);
             return false;
         }
 

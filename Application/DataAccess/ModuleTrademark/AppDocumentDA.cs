@@ -169,18 +169,25 @@ namespace DataAccess.ModuleTrademark
                 int numberRecord = pInfo.Count;
                 string[] Language = new string[numberRecord];
                 decimal[] App_Header_Id = new decimal[numberRecord];
-                decimal[] IDRef = new decimal[numberRecord];
+                string[] IDRef = new string[numberRecord];
+                string[] ParentID = new string[numberRecord];
                 string[] DocumentName = new string[numberRecord];
                 string[] FileName = new string[numberRecord];
                 decimal[] Filetype = new decimal[numberRecord];
+                string[] Char01 = new string[numberRecord];
+                string[] Char02 = new string[numberRecord];
+
                 for (int i = 0; i < pInfo.Count; i++)
                 {
                     Language[i] = pInfo[i].Language_Code;
                     App_Header_Id[i] = pInfo[i].App_Header_Id;
                     DocumentName[i] = pInfo[i].Documentname;
                     FileName[i] = pInfo[i].Filename;
+                    ParentID[i] = pInfo[i].ParentId;
                     IDRef[i] = pInfo[i].IdRef;
                     Filetype[i] = pInfo[i].FILETYPE;
+                    Char01[i] = pInfo[i].Char01;
+                    Char02[i] = pInfo[i].Char02;
                 }
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
                 OracleHelper.ExcuteBatchNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_DOC_OTHERS.PROC_APP_DOC_OTHER_INSERT", numberRecord,
@@ -188,9 +195,11 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("P_DOCUMENTNAME", OracleDbType.Varchar2, DocumentName, ParameterDirection.Input),
                     new OracleParameter("P_FILENAME", OracleDbType.Varchar2, FileName, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, Language, ParameterDirection.Input),
-                    new OracleParameter("P_IDREF", OracleDbType.Decimal, IDRef, ParameterDirection.Input),
+                    new OracleParameter("P_PARENTID", OracleDbType.Varchar2, ParentID, ParameterDirection.Input),
+                    new OracleParameter("P_IDREF", OracleDbType.Varchar2, IDRef, ParameterDirection.Input),
                     new OracleParameter("P_FILETYPE", OracleDbType.Decimal, Filetype, ParameterDirection.Input),
-                    
+                    new OracleParameter("P_CHAR01", OracleDbType.Varchar2, Char01, ParameterDirection.Input),
+                    new OracleParameter("P_CHAR02", OracleDbType.Varchar2, Char02, ParameterDirection.Input),                    
                     paramReturn);
                 var result = ErrorCode.Error;
                 Oracle.DataAccess.Types.OracleDecimal[] _ArrReturn = (Oracle.DataAccess.Types.OracleDecimal[])paramReturn.Value;

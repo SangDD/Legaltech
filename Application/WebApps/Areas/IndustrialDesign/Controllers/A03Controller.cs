@@ -210,7 +210,12 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                             int check = 0;
                             foreach (var info in pAppDocOtherInfo)
                             {
-                                if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
+                                string _keyfileupload = "";
+                                if(info.keyFileUpload != null)
+                                {
+                                    _keyfileupload = info.keyFileUpload;
+                                }
+                                if (SessionData.CurrentUser.chashFileOther.ContainsKey(_keyfileupload))
                                 {
                                     var _updateitem = SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
                                     if(_updateitem.GetType() == typeof(HttpPostedFileBase))
@@ -248,6 +253,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                                         HttpPostedFileBase pfiles =  (_updateitem as AppDocumentInfo).pfiles;
                                         info.Filename = pfiles.FileName;
                                         info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
+                                        info.IdRef = (_updateitem as AppDocumentInfo).refId;
                                         check = 1;
                                     }
                                 }
@@ -302,6 +308,8 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                     if (pReturn < 0)
                     {
                         Transaction.Current.Rollback();
+                        return Json(new { status = -1 });
+                        
                     }
                     else
                     {
@@ -374,7 +382,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
 
                 _AppFeeFixInfo3.Isuse = 0;
                 _AppFeeFixInfo3.Number_Of_Patent = 0;
-                if (pUTienInfo.Count > 0 )
+                if (pUTienInfo != null &&  pUTienInfo.Count > 0 )
                 {
                     _AppFeeFixInfo3.Isuse = 1;
                     _AppFeeFixInfo3.Number_Of_Patent = pUTienInfo.Count;
