@@ -314,9 +314,7 @@ namespace WebApps.Areas.Patent.Controllers
         {
             try
             {
-                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_VN_" + p_appCode + ".pdf");
-                string fileName_doc = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_VN_" + p_appCode + ".doc");
-
+                string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
                 string language = AppsCommon.GetCurrentLang();
 
                 var objBL = new A01_BL();
@@ -333,6 +331,18 @@ namespace WebApps.Areas.Patent.Controllers
                 List<AppDocumentOthersInfo> pLstImagePublic = new List<AppDocumentOthersInfo>();
                 A01_Info_Export app_Detail = objBL.GetByID_Exp(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos,
                     ref _lst_authorsInfos, ref _lst_Other_MasterInfo, ref _lst_appClassDetailInfos, ref _LstDocumentOthersInfo, ref pUTienInfo, ref pLstImagePublic);
+
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_VN_" + p_appCode + _datetimenow + ".pdf");
+                if (app_Detail.Languague_Code == Language.LangVI)
+                {
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_VN_" + p_appCode + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_VN_" + p_appCode + _datetimenow + ".pdf";
+                }
+                else
+                {
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_EN_" + p_appCode + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_EN_" + p_appCode + _datetimenow + ".pdf";
+                }
 
                 // copy Header
                 A01_Info_Export.CopyAppHeaderInfo(ref app_Detail, applicationHeaderInfo);
@@ -595,7 +605,7 @@ namespace WebApps.Areas.Patent.Controllers
 
                 _lst.Add(app_Detail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<A01_Info_Export>(_lst, false);
-                //_ds_all.WriteXml(@"E:\A01.xml", XmlWriteMode.IgnoreSchema);
+                //_ds_all.WriteXml(@"E:\A01.xml");
 
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
@@ -608,7 +618,7 @@ namespace WebApps.Areas.Patent.Controllers
 
                 if (_ds_all != null)
                 {
-                    _ds_all.Tables[0].TableName = "Table";
+                    _ds_all.Tables[0].TableName = "Table1";
                     oRpt.SetDataSource(_ds_all);
                 }
                 oRpt.Refresh();
@@ -642,7 +652,8 @@ namespace WebApps.Areas.Patent.Controllers
         {
             try
             {
-                ViewBag.FileName = "/Content/Export/" + "A01_VN_" + TradeMarkAppCode.AppCode_A01 + ".pdf";
+                ViewBag.FileName = SessionData.CurrentUser.FilePreview;
+                //ViewBag.FileName = "/Content/Export/" + "A01_VN_" + TradeMarkAppCode.AppCode_A01 + ".pdf";
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
             }
             catch (Exception ex)
