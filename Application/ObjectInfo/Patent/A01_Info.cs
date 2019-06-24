@@ -11,7 +11,52 @@ namespace ObjectInfos
     /// </summary>
     public class A01_Info : ApplicationHeaderInfo
     {
-        public static void CopyAppHeaderInfo(ref A01_Info p_appDetail, ApplicationHeaderInfo pAppInfo)
+        public A01_Info()
+        {
+
+        }
+        //public decimal ID { set; get; }
+        public decimal App_Header_Id { get; set; }
+        public string Language_Code { get; set; }
+        public string Appno { get; set; }
+        public string Patent_Type { get; set; }
+        public string Patent_Name { get; set; }
+        public string Source_PCT { get; set; }
+        public string PCT_Number { get; set; }
+        public DateTime PCT_Filling_Date_Qt { get; set; }
+        public string PCT_Number_Qt { get; set; }
+        public DateTime PCT_Date { get; set; }
+        public DateTime PCT_VN_Date { get; set; }
+        public decimal PCT_Suadoi { get; set; }
+        public string PCT_Suadoi_Name { get; set; }
+        public string PCT_Suadoi_Address { get; set; }
+
+        public string PCT_Suadoi_Others { get; set; }
+
+        public string PCT_Suadoi_Content { get; set; }
+        public string Source_DQSC { get; set; }
+        public string DQSC_Origin_App_No { get; set; }
+        public DateTime DQSC_Filling_Date { get; set; }
+        public decimal DQSC_Valid_Before { get; set; }
+        public decimal DQSC_Valid_After { get; set; }
+        public string Source_GPHI { get; set; }
+        public string GPHI_Origin_App_No { get; set; }
+        public DateTime GPHI_Filling_Date { get; set; }
+        public decimal GPHI_Valid_Before { get; set; }
+        public decimal GPHI_Valid_After { get; set; }
+
+        public string ThamDinhNoiDung { get; set; }
+        public string ChuyenDoiDon { get; set; }
+        public decimal Point { get; set; }
+
+        public string Class_Type { get; set; }
+        public string Class_Content { get; set; }
+        public decimal Used_Special { set; get; }
+    }
+
+    public class A01_Info_Export : ApplicationHeaderInfo
+    {
+        public static void CopyAppHeaderInfo(ref A01_Info_Export p_appDetail, ApplicationHeaderInfo pAppInfo)
         {
             p_appDetail.STT = pAppInfo.STT;
             //p_appDetail.ID = pAppInfo.Id;
@@ -42,7 +87,7 @@ namespace ObjectInfos
             p_appDetail.Years = pAppInfo.Years;
         }
 
-        public static void CopyUuTienInfo(ref A01_Info p_appDetail, UTienInfo pAppInfo)
+        public static void CopyUuTienInfo(ref A01_Info_Export p_appDetail, UTienInfo pAppInfo)
         {
             if (pAppInfo != null)
             {
@@ -62,7 +107,7 @@ namespace ObjectInfos
             }
         }
 
-        public static void CopyAuthorsInfo(ref A01_Info p_appDetail, AuthorsInfo pAppInfo, int p_position)
+        public static void CopyAuthorsInfo(ref A01_Info_Export p_appDetail, AuthorsInfo pAppInfo, int p_position)
         {
             if (p_position == 0)
             {
@@ -119,7 +164,7 @@ namespace ObjectInfos
             }
         }
 
-        public static void CopyOther_MasterInfo(ref A01_Info p_appDetail, Other_MasterInfo pAppInfo, int p_position)
+        public static void CopyOther_MasterInfo(ref A01_Info_Export p_appDetail, Other_MasterInfo pAppInfo, int p_position)
         {
             if (p_position == 0)
             {
@@ -171,13 +216,7 @@ namespace ObjectInfos
             }
         }
 
-        public A01_Info()
-        {
-
-        }
         public decimal ID { set; get; }
-
-        //public string Case_Code { get; set; }
         public decimal App_Header_Id { get; set; }
         public string Language_Code { get; set; }
         public string Appno { get; set; }

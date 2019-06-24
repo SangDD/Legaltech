@@ -915,7 +915,7 @@
                 }
             });
 
-            formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin)');
+            //formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin)');
             var v_AppCode = $("#txtAppCode").val();
             if (v_AppCode === "") {
                 $('#txtAppCode').focus().val('');
@@ -965,6 +965,27 @@
             if (reponse == false) {
                 return false;
             }
+
+            var key = "pInfo.Created_By";
+            for (var pair of formData.entries()) {
+
+                console.log('key: ' + pair[0] + ', value: ' + pair[1]);
+                if (key == pair[0]) {
+                    console.log('Trung key: ' + pair[0]);
+                }
+                key = pair[0];
+            }
+
+            // Display the keys
+            //for (var key of formData.keys()) {
+            //    console.log(key);
+            //}
+
+
+            //// Display the values
+            //for (var value of formData.values()) {
+            //    console.log(value);
+            //}
 
             $.ajax({
                 url: '/lg-patent/register',
@@ -1487,7 +1508,7 @@
                         var _id_checkbox = "ckb_" + _id + "_TLCMQUT";
                         var _id_textbox = "txt_" + _id + "_TLCMQUT";
                         reponse = funcGetCheckValueAndText(formData, _id_checkbox, _index_document);
-                        //formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
+                        formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
 
                         _index_document = _index_document + 1;
                         _id_checkbox = "ckb_" + _id + "_BanSaoDauTien";
@@ -1507,7 +1528,7 @@
                         _id_checkbox = "ckb_" + _id + "_GiayChuyenNhuong";
                         var _id_textbox = "txt_" + _id + "_GiayChuyenNhuong";
                         reponse = funcGetCheckValueAndText(formData, _id_checkbox, _index_document);
-                        formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
+                        //formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
                     }
                 });
 
@@ -1546,7 +1567,7 @@
 
             // 6
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_06", "5");
-            formData.append("pAppDocumentInfo[5].CHAR01", "");
+            formData.append("pAppDocumentInfo[5].CHAR01", $("#txt_Doc_06").val());
 
             // 7
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_07", "6");
@@ -1554,7 +1575,7 @@
 
             // 8
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_08", "7");
-            formData.append("pAppDocumentInfo[7].CHAR01", $("#txt_Doc_08").val());
+            formData.append("pAppDocumentInfo[7].CHAR01", "");
 
             // 9
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_09", "8");
@@ -1569,7 +1590,7 @@
             formData.append("pAppDocumentInfo[10].CHAR01", $("#txt_Doc_11").val());
 
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_12", "11");
-            formData.append("pAppDocumentInfo[11].CHAR01", $("#txt_Doc_12").val());
+            //formData.append("pAppDocumentInfo[11].CHAR01", $("#txt_Doc_12").val());
 
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_13", "12");
             formData.append("pAppDocumentInfo[12].CHAR01", $("#txt_Doc_13").val());
