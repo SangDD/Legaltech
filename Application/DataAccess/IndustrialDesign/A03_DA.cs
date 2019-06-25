@@ -100,7 +100,9 @@ namespace DataAccess
                     new OracleParameter("P_CURSOR_AUTHOR", OracleDbType.RefCursor, ParameterDirection.Output),
                     new OracleParameter("P_CURSOR_CLASS", OracleDbType.RefCursor, ParameterDirection.Output),
                     new OracleParameter("P_CURSOR_OTHER_DOC", OracleDbType.RefCursor, ParameterDirection.Output),
-                    new OracleParameter("P_CURSOR_UU_TIEN", OracleDbType.RefCursor, ParameterDirection.Output));
+                    new OracleParameter("P_CURSOR_UU_TIEN", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("P_CURSOR_DOC_DESIGN", OracleDbType.RefCursor, ParameterDirection.Output)
+                    );
                 return _ds;
             }
             catch (Exception ex)
