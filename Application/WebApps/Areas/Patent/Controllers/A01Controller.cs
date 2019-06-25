@@ -605,8 +605,7 @@ namespace WebApps.Areas.Patent.Controllers
 
                 _lst.Add(app_Detail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<A01_Info_Export>(_lst, false);
-                //_ds_all.WriteXml(@"E:\A01.xml");
-
+                _ds_all.WriteXml(@"E:\A01.xml");
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
                 string _tempfile = "A01.rpt";
@@ -627,6 +626,7 @@ namespace WebApps.Areas.Patent.Controllers
                 Response.ClearContent();
                 Response.ClearHeaders();
 
+                //oRpt.ExportToDisk(ExportFormatType.PortableDocFormat, fileName_pdf);
 
                 System.IO.Stream oStream = oRpt.ExportToStream(ExportFormatType.PortableDocFormat);
                 byte[] byteArray = new byte[oStream.Length];
