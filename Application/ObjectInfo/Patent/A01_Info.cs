@@ -349,51 +349,51 @@ namespace ObjectInfos
 
         #region Phí
 
-        public decimal Fee_Id_1 { get; set; }
+        public string Fee_Id_1 { get; set; }
         public decimal Fee_Id_1_Check { get; set; }
         public string Fee_Id_1_Val { get; set; }
 
-        public decimal Fee_Id_2 { get; set; }
+        public string Fee_Id_2 { get; set; }
         public decimal Fee_Id_2_Check { get; set; }
         public string Fee_Id_2_Val { get; set; }
 
-        public decimal Fee_Id_21 { get; set; }
+        public string Fee_Id_21 { get; set; }
         public decimal Fee_Id_21_Check { get; set; }
         public string Fee_Id_21_Val { get; set; }
 
-        public decimal Fee_Id_3 { get; set; }
+        public string Fee_Id_3 { get; set; }
         public decimal Fee_Id_3_Check { get; set; }
         public string Fee_Id_3_Val { get; set; }
 
-        public decimal Fee_Id_4 { get; set; }
+        public string Fee_Id_4 { get; set; }
         public decimal Fee_Id_4_Check { get; set; }
         public string Fee_Id_4_Val { get; set; }
 
-        public decimal Fee_Id_5 { get; set; }
+        public string Fee_Id_5 { get; set; }
         public decimal Fee_Id_5_Check { get; set; }
         public string Fee_Id_5_Val { get; set; }
 
-        public decimal Fee_Id_6 { get; set; }
+        public string Fee_Id_6 { get; set; }
         public decimal Fee_Id_6_Check { get; set; }
         public string Fee_Id_6_Val { get; set; }
 
-        public decimal Fee_Id_61 { get; set; }
+        public string Fee_Id_61 { get; set; }
         public decimal Fee_Id_61_Check { get; set; }
         public string Fee_Id_61_Val { get; set; }
 
-        public decimal Fee_Id_62 { get; set; }
+        public string Fee_Id_62 { get; set; }
         public decimal Fee_Id_62_Check { get; set; }
         public string Fee_Id_62_Val { get; set; }
 
-        public decimal Fee_Id_7 { get; set; }
+        public string Fee_Id_7 { get; set; }
         public decimal Fee_Id_7_Check { get; set; }
         public string Fee_Id_7_Val { get; set; }
 
-        public decimal Fee_Id_71 { get; set; }
+        public string Fee_Id_71 { get; set; }
         public decimal Fee_Id_71_Check { get; set; }
         public string Fee_Id_71_Val { get; set; }
 
-        public decimal Fee_Id_72 { get; set; }
+        public string Fee_Id_72 { get; set; }
         public decimal Fee_Id_72_Check { get; set; }
         public string Fee_Id_72_Val { get; set; }
 

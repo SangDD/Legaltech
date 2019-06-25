@@ -518,81 +518,82 @@ namespace WebApps.Areas.Patent.Controllers
                     {
                         if (item.Fee_Id == 1)
                         {
-                            app_Detail.Fee_Id_1 = item.Number_Of_Patent;
+                            app_Detail.Fee_Id_1 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
                             app_Detail.Fee_Id_1_Check = item.Isuse;
+
                             app_Detail.Fee_Id_1_Val = item.Amount.ToString("#,##0.##");
                         }
                         else if (item.Fee_Id == 2)
                         {
-                            app_Detail.Fee_Id_2 = item.Number_Of_Patent;
+                            app_Detail.Fee_Id_2 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
                             app_Detail.Fee_Id_2_Check = item.Isuse;
                             app_Detail.Fee_Id_2_Val = item.Amount.ToString("#,##0.##");
                         }
                         else if (item.Fee_Id == 21)
                         {
-                            app_Detail.Fee_Id_21 = item.Number_Of_Patent;
+                            app_Detail.Fee_Id_21 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
                             app_Detail.Fee_Id_21_Check = item.Isuse;
                             app_Detail.Fee_Id_21_Val = item.Amount.ToString("#,##0.##");
                         }
                         else if (item.Fee_Id == 3)
                         {
-                            app_Detail.Fee_Id_3 = item.Number_Of_Patent;
+                            app_Detail.Fee_Id_3 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
                             app_Detail.Fee_Id_3_Check = item.Isuse;
                             app_Detail.Fee_Id_3_Val = item.Amount.ToString("#,##0.##");
                         }
 
                         else if (item.Fee_Id == 4)
                         {
-                            app_Detail.Fee_Id_4 = item.Number_Of_Patent;
+                            app_Detail.Fee_Id_4 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
                             app_Detail.Fee_Id_4_Check = item.Isuse;
                             app_Detail.Fee_Id_4_Val = item.Amount.ToString("#,##0.##");
                         }
 
                         else if (item.Fee_Id == 5)
                         {
-                            app_Detail.Fee_Id_5 = item.Number_Of_Patent;
+                            app_Detail.Fee_Id_5 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
                             app_Detail.Fee_Id_5_Check = item.Isuse;
                             app_Detail.Fee_Id_5_Val = item.Amount.ToString("#,##0.##");
                         }
 
                         else if (item.Fee_Id == 6)
                         {
-                            app_Detail.Fee_Id_6 = item.Number_Of_Patent;
+                            app_Detail.Fee_Id_6 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
                             app_Detail.Fee_Id_6_Check = item.Isuse;
                             app_Detail.Fee_Id_6_Val = item.Amount.ToString("#,##0.##");
                         }
 
                         else if (item.Fee_Id == 61)
                         {
-                            app_Detail.Fee_Id_61 = item.Number_Of_Patent;
+                            app_Detail.Fee_Id_61 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
                             app_Detail.Fee_Id_61_Check = item.Isuse;
                             app_Detail.Fee_Id_61_Val = item.Amount.ToString("#,##0.##");
                         }
 
                         else if (item.Fee_Id == 62)
                         {
-                            app_Detail.Fee_Id_62 = item.Number_Of_Patent;
+                            app_Detail.Fee_Id_62 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
                             app_Detail.Fee_Id_62_Check = item.Isuse;
                             app_Detail.Fee_Id_62_Val = item.Amount.ToString("#,##0.##");
                         }
 
                         else if (item.Fee_Id == 7)
                         {
-                            app_Detail.Fee_Id_7 = item.Number_Of_Patent;
+                            app_Detail.Fee_Id_7 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
                             app_Detail.Fee_Id_7_Check = item.Isuse;
                             app_Detail.Fee_Id_7_Val = item.Amount.ToString("#,##0.##");
                         }
 
                         else if (item.Fee_Id == 71)
                         {
-                            app_Detail.Fee_Id_71 = item.Number_Of_Patent;
+                            app_Detail.Fee_Id_71 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
                             app_Detail.Fee_Id_71_Check = item.Isuse;
                             app_Detail.Fee_Id_71_Val = item.Amount.ToString("#,##0.##");
                         }
 
                         else if (item.Fee_Id == 72)
                         {
-                            app_Detail.Fee_Id_72 = item.Number_Of_Patent;
+                            app_Detail.Fee_Id_72 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
                             app_Detail.Fee_Id_72_Check = item.Isuse;
                             app_Detail.Fee_Id_72_Val = item.Amount.ToString("#,##0.##");
                         }
@@ -605,7 +606,7 @@ namespace WebApps.Areas.Patent.Controllers
 
                 _lst.Add(app_Detail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<A01_Info_Export>(_lst, false);
-                _ds_all.WriteXml(@"E:\A01.xml");
+                //_ds_all.WriteXml(@"C:\inetpub\A01.xml", XmlWriteMode.WriteSchema);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
                 string _tempfile = "A01.rpt";
@@ -663,6 +664,6 @@ namespace WebApps.Areas.Patent.Controllers
             }
         }
 
-        
+
     }
 }
