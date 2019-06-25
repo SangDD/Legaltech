@@ -163,7 +163,7 @@
                 <div class="div-search-content">
                     <div class="div-radio">
                         <input type="radio" name="1_rdoKetQuaThamDinh" id="1_rddacokqthamdinhnoidung" value="2" onchange="ChangeKQTD(2)">
-                        <label>Đã có kế quả thẩm định nội dung</label>
+                        <label>Đã có kết quả thẩm định nội dung</label>
                     </div>
                 </div>
             </div>
@@ -364,8 +364,8 @@
 
 
         @{
-            string _doc_id4 = "A03_04";
-            string _model4 = _doc_id4 + "|Doc_04|0|" + "Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ)" + "||1"; ;
+            string _doc_id4 = "A03_04";  
+            string _model4 = _doc_id4 + "|Doc_04|0|" + "Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ)" + "|" + Resource.TM2B_SoTrang + "|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)
         }
 
@@ -1121,6 +1121,14 @@
                     $("#txtTenHangHoa").focus();
                     return false;
                 }
+            }
+
+            if ($("#0_ckbCoSuDungDonUuTien").is(':checked')) {
+                formData.append("pDetail.USED_SPECIAL", "1");
+            }
+            else
+            {
+                formData.append("pDetail.USED_SPECIAL", "0");
             }
 
 
