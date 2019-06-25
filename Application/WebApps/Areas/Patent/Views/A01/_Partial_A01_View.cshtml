@@ -247,7 +247,7 @@
                     <div class="div-search-ad">
                         <div class="div-search-content">
                             <div class="div-radio" style="width:382px">
-                                @if (_App_Detail.PCT_Suadoi_Type == "1")
+                                @if (_App_Detail.PCT_Suadoi_Name == "Y")
                                 {
                                     <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1" disabled checked>
                                 }
@@ -262,7 +262,7 @@
 
                         <div class="div-search-content">
                             <div class="div-radio">
-                                @if (_App_Detail.PCT_Suadoi_Type == "2")
+                                @if (_App_Detail.PCT_Suadoi_Address == "Y")
                                 {
                                     <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2" disabled checked>
                                 }
@@ -279,7 +279,7 @@
                     <div class="div-search-ad">
                         <div class="div-search-content">
                             <div class="div-radio" style="width:382px">
-                                @if (_App_Detail.PCT_Suadoi_Type == "3")
+                                @if (_App_Detail.PCT_Suadoi_Others == "Y")
                                 {
                                     <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3" disabled checked>
                                 }

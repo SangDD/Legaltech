@@ -253,7 +253,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                                         HttpPostedFileBase pfiles =  (_updateitem as AppDocumentInfo).pfiles;
                                         info.Filename = pfiles.FileName;
                                         info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
-                                        info.IdRef = (_updateitem as AppDocumentInfo).refId;
+                                        info.IdRef = Convert.ToDecimal((_updateitem as AppDocumentInfo).refId);
                                         check = 1;
                                     }
                                 }

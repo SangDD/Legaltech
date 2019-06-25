@@ -1050,7 +1050,7 @@
                                     check = 1;
                                     info.App_Header_Id = pInfo.Id;
                                     info.Language_Code = language_New;
-                                    info.IdRef =  info.keyFileUpload;
+                                    info.IdRef = Convert.ToDecimal(info.keyFileUpload);
                                     listDocument.Add(info);
                                 }
                             }

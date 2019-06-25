@@ -11,7 +11,52 @@ namespace ObjectInfos
     /// </summary>
     public class A01_Info : ApplicationHeaderInfo
     {
-        public static void CopyAppHeaderInfo(ref A01_Info p_appDetail, ApplicationHeaderInfo pAppInfo)
+        public A01_Info()
+        {
+
+        }
+        //public decimal ID { set; get; }
+        public decimal App_Header_Id { get; set; }
+        public string Language_Code { get; set; }
+        public string Appno { get; set; }
+        public string Patent_Type { get; set; }
+        public string Patent_Name { get; set; }
+        public string Source_PCT { get; set; }
+        public string PCT_Number { get; set; }
+        public DateTime PCT_Filling_Date_Qt { get; set; }
+        public string PCT_Number_Qt { get; set; }
+        public DateTime PCT_Date { get; set; }
+        public DateTime PCT_VN_Date { get; set; }
+        public decimal PCT_Suadoi { get; set; }
+        public string PCT_Suadoi_Name { get; set; }
+        public string PCT_Suadoi_Address { get; set; }
+
+        public string PCT_Suadoi_Others { get; set; }
+
+        public string PCT_Suadoi_Content { get; set; }
+        public string Source_DQSC { get; set; }
+        public string DQSC_Origin_App_No { get; set; }
+        public DateTime DQSC_Filling_Date { get; set; }
+        public decimal DQSC_Valid_Before { get; set; }
+        public decimal DQSC_Valid_After { get; set; }
+        public string Source_GPHI { get; set; }
+        public string GPHI_Origin_App_No { get; set; }
+        public DateTime GPHI_Filling_Date { get; set; }
+        public decimal GPHI_Valid_Before { get; set; }
+        public decimal GPHI_Valid_After { get; set; }
+
+        public string ThamDinhNoiDung { get; set; }
+        public string ChuyenDoiDon { get; set; }
+        public decimal Point { get; set; }
+
+        public string Class_Type { get; set; }
+        public string Class_Content { get; set; }
+        public decimal Used_Special { set; get; }
+    }
+
+    public class A01_Info_Export : ApplicationHeaderInfo
+    {
+        public static void CopyAppHeaderInfo(ref A01_Info_Export p_appDetail, ApplicationHeaderInfo pAppInfo)
         {
             p_appDetail.STT = pAppInfo.STT;
             //p_appDetail.ID = pAppInfo.Id;
@@ -21,6 +66,8 @@ namespace ObjectInfos
             p_appDetail.Master_Phone = pAppInfo.Master_Phone;
             p_appDetail.Master_Fax = pAppInfo.Master_Fax;
             p_appDetail.Master_Email = pAppInfo.Master_Email;
+            p_appDetail.Master_Type = pAppInfo.Master_Type;
+
             p_appDetail.Rep_Master_Type = pAppInfo.Rep_Master_Type;
             p_appDetail.Rep_Master_Name = pAppInfo.Rep_Master_Name;
             p_appDetail.Rep_Master_Address = pAppInfo.Rep_Master_Address;
@@ -40,16 +87,27 @@ namespace ObjectInfos
             p_appDetail.Years = pAppInfo.Years;
         }
 
-        public static void CopyUuTienInfo(ref A01_Info p_appDetail, UTienInfo pAppInfo)
+        public static void CopyUuTienInfo(ref A01_Info_Export p_appDetail, UTienInfo pAppInfo)
         {
-            p_appDetail.UT_SoDon = pAppInfo.UT_SoDon;
-            p_appDetail.UT_NgayNopDon = pAppInfo.UT_NgayNopDon;
-            p_appDetail.UT_QuocGia_Display = pAppInfo.UT_QuocGia_Display;
-            p_appDetail.UT_Type = pAppInfo.UT_Type;
-            p_appDetail.UT_ThoaThuanKhac = pAppInfo.UT_ThoaThuanKhac;
+            if (pAppInfo != null)
+            {
+                p_appDetail.UT_SoDon = pAppInfo.UT_SoDon;
+                p_appDetail.UT_NgayNopDon = pAppInfo.UT_NgayNopDon;
+                p_appDetail.UT_QuocGia_Display = pAppInfo.UT_QuocGia_Display;
+                p_appDetail.UT_Type = pAppInfo.UT_Type;
+                p_appDetail.UT_ThoaThuanKhac = pAppInfo.UT_ThoaThuanKhac;
+            }
+            else
+            {
+                p_appDetail.UT_SoDon = "";
+                p_appDetail.UT_NgayNopDon = DateTime.MinValue;
+                p_appDetail.UT_QuocGia_Display = "";
+                p_appDetail.UT_Type = "";
+                p_appDetail.UT_ThoaThuanKhac = "";
+            }
         }
 
-        public static void CopyAuthorsInfo(ref A01_Info p_appDetail, AuthorsInfo pAppInfo, int p_position)
+        public static void CopyAuthorsInfo(ref A01_Info_Export p_appDetail, AuthorsInfo pAppInfo, int p_position)
         {
             if (p_position == 0)
             {
@@ -63,56 +121,102 @@ namespace ObjectInfos
             }
             else if (p_position == 1)
             {
-                p_appDetail.Author_Name_1 = pAppInfo.Author_Name;
-                p_appDetail.Author_Address_1 = pAppInfo.Author_Address;
-                p_appDetail.Author_Phone_1 = pAppInfo.Author_Phone;
-                p_appDetail.Author_Fax_1 = pAppInfo.Author_Fax;
-                p_appDetail.Author_Email_1 = pAppInfo.Author_Email;
-                p_appDetail.Author_Country_Display_1 = pAppInfo.Author_Country_Display;
+                if (pAppInfo != null)
+                {
+                    p_appDetail.Author_Name_1 = pAppInfo.Author_Name;
+                    p_appDetail.Author_Address_1 = pAppInfo.Author_Address;
+                    p_appDetail.Author_Phone_1 = pAppInfo.Author_Phone;
+                    p_appDetail.Author_Fax_1 = pAppInfo.Author_Fax;
+                    p_appDetail.Author_Email_1 = pAppInfo.Author_Email;
+                    p_appDetail.Author_Country_Display_1 = pAppInfo.Author_Country_Display;
+                }
+                else
+                {
+                    p_appDetail.Author_Name_1 = "";
+                    p_appDetail.Author_Address_1 = "";
+                    p_appDetail.Author_Phone_1 = "";
+                    p_appDetail.Author_Fax_1 = "";
+                    p_appDetail.Author_Email_1 = "";
+                    p_appDetail.Author_Country_Display_1 = "";
+                }
             }
             else if (p_position == 2)
             {
-                p_appDetail.Author_Name_2 = pAppInfo.Author_Name;
-                p_appDetail.Author_Address_2 = pAppInfo.Author_Address;
-                p_appDetail.Author_Phone_2 = pAppInfo.Author_Phone;
-                p_appDetail.Author_Fax_2 = pAppInfo.Author_Fax;
-                p_appDetail.Author_Email_2 = pAppInfo.Author_Email;
-                p_appDetail.Author_Country_Display_2 = pAppInfo.Author_Country_Display;
+                if (pAppInfo != null)
+                {
+                    p_appDetail.Author_Name_2 = pAppInfo.Author_Name;
+                    p_appDetail.Author_Address_2 = pAppInfo.Author_Address;
+                    p_appDetail.Author_Phone_2 = pAppInfo.Author_Phone;
+                    p_appDetail.Author_Fax_2 = pAppInfo.Author_Fax;
+                    p_appDetail.Author_Email_2 = pAppInfo.Author_Email;
+                    p_appDetail.Author_Country_Display_2 = pAppInfo.Author_Country_Display;
+                }
+                else
+                {
+                    p_appDetail.Author_Name_2 = "";
+                    p_appDetail.Author_Address_2 = "";
+                    p_appDetail.Author_Phone_2 = "";
+                    p_appDetail.Author_Fax_2 = "";
+                    p_appDetail.Author_Email_2 = "";
+                    p_appDetail.Author_Country_Display_2 = "";
+                }
+
             }
         }
 
-        public static void CopyOther_MasterInfo(ref A01_Info p_appDetail, Other_MasterInfo pAppInfo, int p_position)
+        public static void CopyOther_MasterInfo(ref A01_Info_Export p_appDetail, Other_MasterInfo pAppInfo, int p_position)
         {
             if (p_position == 0)
             {
-                p_appDetail.Master_Name_1 = pAppInfo.Master_Name;
-                p_appDetail.Master_Address_1 = pAppInfo.Master_Address;
-                p_appDetail.Master_Phone_1 = pAppInfo.Master_Phone;
-                p_appDetail.Master_Fax_1 = pAppInfo.Master_Fax;
-                p_appDetail.Master_Email_1 = pAppInfo.Master_Email;
-                p_appDetail.TacGiaDongThoi_1 = pAppInfo.TacGiaDongThoi;
-                p_appDetail.PhoBan_1 = pAppInfo.PhoBan;
+                if (pAppInfo != null)
+                {
+                    p_appDetail.Master_Name_1 = pAppInfo.Master_Name;
+                    p_appDetail.Master_Address_1 = pAppInfo.Master_Address;
+                    p_appDetail.Master_Phone_1 = pAppInfo.Master_Phone;
+                    p_appDetail.Master_Fax_1 = pAppInfo.Master_Fax;
+                    p_appDetail.Master_Email_1 = pAppInfo.Master_Email;
+                    p_appDetail.TacGiaDongThoi_1 = pAppInfo.TacGiaDongThoi;
+                    p_appDetail.PhoBan_1 = pAppInfo.PhoBan;
+                }
+                else
+                {
+                    p_appDetail.Master_Name_1 = "";
+                    p_appDetail.Master_Address_1 = "";
+                    p_appDetail.Master_Phone_1 = "";
+                    p_appDetail.Master_Fax_1 = "";
+                    p_appDetail.Master_Email_1 = "";
+                    p_appDetail.TacGiaDongThoi_1 = "";
+                    p_appDetail.PhoBan_1 = "";
+                }
             }
             else if (p_position == 1)
             {
-                p_appDetail.Master_Name_2 = pAppInfo.Master_Name;
-                p_appDetail.Master_Address_2 = pAppInfo.Master_Address;
-                p_appDetail.Master_Phone_2 = pAppInfo.Master_Phone;
-                p_appDetail.Master_Fax_2 = pAppInfo.Master_Fax;
-                p_appDetail.Master_Email_2 = pAppInfo.Master_Email;
+                if (pAppInfo != null)
+                {
+                    p_appDetail.Master_Name_2 = pAppInfo.Master_Name;
+                    p_appDetail.Master_Address_2 = pAppInfo.Master_Address;
+                    p_appDetail.Master_Phone_2 = pAppInfo.Master_Phone;
+                    p_appDetail.Master_Fax_2 = pAppInfo.Master_Fax;
+                    p_appDetail.Master_Email_2 = pAppInfo.Master_Email;
 
-                p_appDetail.TacGiaDongThoi_2 = pAppInfo.TacGiaDongThoi;
-                p_appDetail.PhoBan_2 = pAppInfo.PhoBan;
+                    p_appDetail.TacGiaDongThoi_2 = pAppInfo.TacGiaDongThoi;
+                    p_appDetail.PhoBan_2 = pAppInfo.PhoBan;
+                }
+                else
+                {
+                    p_appDetail.Master_Name_2 = "";
+                    p_appDetail.Master_Address_2 = "";
+                    p_appDetail.Master_Phone_2 = "";
+                    p_appDetail.Master_Fax_2 = "";
+                    p_appDetail.Master_Email_2 = "";
+
+                    p_appDetail.TacGiaDongThoi_2 = "";
+                    p_appDetail.PhoBan_2 = "";
+                }
             }
         }
 
-        public A01_Info()
-        {
-
-        }
         public decimal ID { set; get; }
-
-        //public string Case_Code { get; set; }
         public decimal App_Header_Id { get; set; }
         public string Language_Code { get; set; }
         public string Appno { get; set; }
@@ -125,7 +229,11 @@ namespace ObjectInfos
         public DateTime PCT_Date { get; set; }
         public DateTime PCT_VN_Date { get; set; }
         public decimal PCT_Suadoi { get; set; }
-        public string PCT_Suadoi_Type { get; set; }
+        public string PCT_Suadoi_Name { get; set; }
+        public string PCT_Suadoi_Address { get; set; }
+
+        public string PCT_Suadoi_Others { get; set; }
+
         public string PCT_Suadoi_Content { get; set; }
         public string Source_DQSC { get; set; }
         public string DQSC_Origin_App_No { get; set; }
@@ -190,7 +298,20 @@ namespace ObjectInfos
         public string Author_Email { set; get; }
 
         public decimal Author_Country { set; get; }
-        public decimal Author_Country_Display { set; get; }
+        public string Author_Country_Display { set; get; }
+
+        string _Author_Others;
+        public string Author_Others
+        {
+            get
+            {
+                return _Author_Others;
+            }
+            set
+            {
+                _Author_Others = value;
+            }
+        }
 
         #endregion
 
@@ -206,7 +327,7 @@ namespace ObjectInfos
         public string Author_Email_1 { set; get; }
 
         public decimal Author_Country_1 { set; get; }
-        public decimal Author_Country_Display_1 { set; get; }
+        public string Author_Country_Display_1 { set; get; }
 
         #endregion
 
@@ -222,7 +343,7 @@ namespace ObjectInfos
         public string Author_Email_2 { set; get; }
 
         public decimal Author_Country_2 { set; get; }
-        public decimal Author_Country_Display_2 { set; get; }
+        public string Author_Country_Display_2 { set; get; }
 
         #endregion
 
@@ -363,6 +484,8 @@ namespace ObjectInfos
         public string Extent_fld09 { get; set; }
 
         public string Extent_fld10 { get; set; }
+
+
         #endregion
     }
 }
