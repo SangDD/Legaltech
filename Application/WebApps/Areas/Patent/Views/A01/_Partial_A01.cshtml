@@ -154,7 +154,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" id="txt_PCT_CongBoQT" style="width:250px" />
+                        <input type="text" id="txt_PCT_CongBoQT" style="width:348px" />
                     </div>
                 </div>
 
@@ -392,9 +392,9 @@
         </div>
 
         @*<div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
-        </div>*@
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
+            </div>*@
 
         <div class="div-search-ad">
             <div class="div-search-content">
@@ -549,10 +549,10 @@
 
         @*Hình công bố*@
         @*@{
-            string _doc_id17 = "A01_17";
-            string _model17 = _doc_id17 + "|Doc_17|0|" + "Hình công bố" + "||0";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model17)
-        }*@
+                string _doc_id17 = "A01_17";
+                string _model17 = _doc_id17 + "|Doc_17|0|" + "Hình công bố" + "||0";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model17)
+            }*@
 
         @Html.Partial("~/Areas/Patent/Views/A01/_PartialTaiLieuKhac.cshtml")
 
@@ -672,10 +672,10 @@
         @* Cam kết của chủ đơn *@
         @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml")
 
-        @if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
-        {
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDuLieuQuaKhu.cshtml", "1")
-        }
+        @*@if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
+            {
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDuLieuQuaKhu.cshtml", "1")
+            }*@
 
         <div class="class_save">
             <div class="classGuiDon">
@@ -686,16 +686,16 @@
             </div>
 
             @*@if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
-            {
-                <div class="classLuuTam">
-                    <input type="button" value="Dữ liệu quá khứ" id="btnDuLieuCu" class="btn class_37" style="margin-left:5px" />
-                </div>
-            }*@
+                {
+                    <div class="classLuuTam">
+                        <input type="button" value="Dữ liệu quá khứ" id="btnDuLieuCu" class="btn class_37" style="margin-left:5px" />
+                    </div>
+                }*@
         </div>
     </fieldset>
 </div>
 
-@Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialPreview_IU.cshtml")
+@Html.Partial("~/Areas/Patent/Views/A01/_PartialPreview_IU.cshtml")
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
     </div>
@@ -856,6 +856,41 @@
         }
     });
 
+    function funcChuDonKhac(formData) {
+        try {
+            var _index = 0;
+            $(".clsChuDonKhac").each(function (item) {
+                var _id = $(this).attr('data-id');
+                if ($("#" + _id + "_txtUse_ChuDonKhac").val() == "1") {
+
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Name", $("#" + _id + "_txtTenDayDu_Khac").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Address", $("#" + _id + "_txtDiaChi_Khac").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Phone", $("#" + _id + "_txtDienThoai_Khac").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Fax", $("#" + _id + "_txtFax_Khac").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Email", $("#" + _id + "_txtEmail_Khac").val());
+                    //formData.append("pOther_MasterInfo[" + _index + "].Author_Country", $("#" + _id + "_TG_QuocTich").val());
+
+                    if ($("#" + _id + "_ckbTacGiaDongThoi").is(':checked')) {
+                        formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "TGDT");
+                    } else {
+                        formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "");
+                    }
+
+                    if ($("#" + _id + "_ckbPhoBan").is(':checked')) {
+                        formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "PB");
+                    } else {
+                        formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "");
+                    }
+
+                    _index = _index + 1;
+                }
+            });
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
     function funGetData(ptype, url) {
         try {
             //Thông tin chủ đơn
@@ -887,33 +922,36 @@
                 formData.append("pInfo.Master_Type", "CDK");
             }
 
-            var _index = 0;
-            $(".clsChuDonKhac").each(function (item) {
-                var _id = $(this).attr('data-id');
-                if ($("#" + _id + "_txtUse_ChuDonKhac").val() == "1") {
+            if (funcChuDonKhac(formData) != true) {
+                return false;
+            }
 
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Name", $("#" + _id + "_txtTenDayDu_Khac").val());
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Address", $("#" + _id + "_txtDiaChi_Khac").val());
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Phone", $("#" + _id + "_txtDienThoai_Khac").val());
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Fax", $("#" + _id + "_txtFax_Khac").val());
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Email", $("#" + _id + "_txtEmail_Khac").val());
-                    //formData.append("pOther_MasterInfo[" + _index + "].Author_Country", $("#" + _id + "_TG_QuocTich").val());
+            //var _index = 0;
+            //$(".clsChuDonKhac").each(function (item) {
+            //    var _id = $(this).attr('data-id');
+            //    if ($("#" + _id + "_txtUse_ChuDonKhac").val() == "1") {
 
-                    if ($("#" + _id + "_ckbTacGiaDongThoi").is(':checked')) {
-                        formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "TGDT");
-                    } else {
-                        formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "");
-                    }
+            //        formData.append("pOther_MasterInfo[" + _index + "].Master_Name", $("#" + _id + "_txtTenDayDu_Khac").val());
+            //        formData.append("pOther_MasterInfo[" + _index + "].Master_Address", $("#" + _id + "_txtDiaChi_Khac").val());
+            //        formData.append("pOther_MasterInfo[" + _index + "].Master_Phone", $("#" + _id + "_txtDienThoai_Khac").val());
+            //        formData.append("pOther_MasterInfo[" + _index + "].Master_Fax", $("#" + _id + "_txtFax_Khac").val());
+            //        formData.append("pOther_MasterInfo[" + _index + "].Master_Email", $("#" + _id + "_txtEmail_Khac").val()); 
 
-                    if ($("#" + _id + "_ckbPhoBan").is(':checked')) {
-                        formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "PB");
-                    } else {
-                        formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "");
-                    }
+            //        if ($("#" + _id + "_ckbTacGiaDongThoi").is(':checked')) {
+            //            formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "TGDT");
+            //        } else {
+            //            formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "");
+            //        }
 
-                    _index = _index + 1;
-                }
-            });
+            //        if ($("#" + _id + "_ckbPhoBan").is(':checked')) {
+            //            formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "PB");
+            //        } else {
+            //            formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "");
+            //        }
+
+            //        _index = _index + 1;
+            //    }
+            //});
 
             //formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin)');
             var v_AppCode = $("#txtAppCode").val();
@@ -965,27 +1003,6 @@
             if (reponse == false) {
                 return false;
             }
-
-            var key = "pInfo.Created_By";
-            for (var pair of formData.entries()) {
-
-                console.log('key: ' + pair[0] + ', value: ' + pair[1]);
-                if (key == pair[0]) {
-                    console.log('Trung key: ' + pair[0]);
-                }
-                key = pair[0];
-            }
-
-            // Display the keys
-            //for (var key of formData.keys()) {
-            //    console.log(key);
-            //}
-
-
-            //// Display the values
-            //for (var value of formData.values()) {
-            //    console.log(value);
-            //}
 
             $.ajax({
                 url: '/lg-patent/register',
@@ -1259,7 +1276,7 @@
             alert(e);
         }
     }
-   
+
     $("#ckb_Doc_16").change(function () {
         if ($("#ckb_Doc_16").is(":checked") == true) {
             $("#divContainerDocOther").css('display', 'block')
@@ -1302,7 +1319,7 @@
             formData.append("pDetail.Patent_Name", _txt_Patent_Name);
             formData.append("pDetail.Patent_Type", "DQSC");
 
-            
+
             if ($("#ckbCucPhanLoai").is(':checked')) {
                 formData.append("pDetail.Class_Type", "CUC");
                 formData.append("pDetail.Class_Content", "");
@@ -1319,7 +1336,7 @@
                 return false;
             }
             formData.append("pDetail.Point", _txtPoint);
-            
+
 
             if ($("#ckbThamDinhNoiDung").is(':checked')) {
                 formData.append("pDetail.ThamDinhNoiDung", "TDND");
@@ -1370,7 +1387,7 @@
                     } else {
                         formData.append("pDetail.PCT_SuaDoi_Others", "N");
                     }
-  
+
                     formData.append("pDetail.PCT_SuaDoi_Content", $("#txt_Patent_Name").val());
 
                 } else {

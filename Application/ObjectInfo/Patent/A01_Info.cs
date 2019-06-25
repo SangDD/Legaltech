@@ -56,6 +56,50 @@ namespace ObjectInfos
 
     public class A01_Info_Export : ApplicationHeaderInfo
     {
+
+        public static void CopyA01_Info(ref A01_Info_Export p_appDetail, A01_Info p_A01_Info)
+        {
+            p_appDetail.App_Header_Id = p_A01_Info.App_Header_Id;
+            p_appDetail.Language_Code = p_A01_Info.Language_Code;
+            p_appDetail.Appno = p_A01_Info.Appno;
+
+            p_appDetail.Patent_Type = p_A01_Info.Patent_Type;
+            p_appDetail.Patent_Name = p_A01_Info.Patent_Name;
+
+            p_appDetail.Source_PCT = p_A01_Info.Source_PCT;
+            p_appDetail.PCT_Number = p_A01_Info.PCT_Number;
+            p_appDetail.PCT_Filling_Date_Qt = p_A01_Info.PCT_Filling_Date_Qt;
+            p_appDetail.PCT_Number_Qt = p_A01_Info.PCT_Number_Qt;
+            p_appDetail.PCT_Date = p_A01_Info.PCT_Date;
+            p_appDetail.PCT_VN_Date = p_A01_Info.PCT_VN_Date;
+
+            p_appDetail.PCT_Suadoi = p_A01_Info.PCT_Suadoi;
+            p_appDetail.PCT_Suadoi_Name = p_A01_Info.PCT_Suadoi_Name;
+            p_appDetail.PCT_Suadoi_Address = p_A01_Info.PCT_Suadoi_Address;
+            p_appDetail.PCT_Suadoi_Others = p_A01_Info.PCT_Suadoi_Others;
+            p_appDetail.PCT_Suadoi_Content = p_A01_Info.PCT_Suadoi_Content;
+
+            p_appDetail.Source_DQSC = p_A01_Info.Source_DQSC;
+            p_appDetail.DQSC_Origin_App_No = p_A01_Info.DQSC_Origin_App_No;
+            p_appDetail.DQSC_Filling_Date = p_A01_Info.DQSC_Filling_Date;
+            p_appDetail.DQSC_Valid_Before = p_A01_Info.DQSC_Valid_Before;
+            p_appDetail.DQSC_Valid_After = p_A01_Info.DQSC_Valid_After;
+
+            p_appDetail.Source_GPHI = p_A01_Info.Source_GPHI;
+            p_appDetail.GPHI_Origin_App_No = p_A01_Info.GPHI_Origin_App_No;
+            p_appDetail.GPHI_Filling_Date   = p_A01_Info.GPHI_Filling_Date;
+            p_appDetail.GPHI_Valid_Before = p_A01_Info.GPHI_Valid_Before;
+            p_appDetail.GPHI_Valid_After = p_A01_Info.GPHI_Valid_After;
+
+            p_appDetail.ThamDinhNoiDung = p_A01_Info.ThamDinhNoiDung;
+            p_appDetail.ChuyenDoiDon = p_A01_Info.ChuyenDoiDon;
+            p_appDetail.Point = p_A01_Info.Point;
+            p_appDetail.Class_Type = p_A01_Info.Class_Type;
+            p_appDetail.Class_Content = p_A01_Info.Class_Content;
+            p_appDetail.Used_Special = p_A01_Info.Used_Special;
+
+        }
+
         public static void CopyAppHeaderInfo(ref A01_Info_Export p_appDetail, ApplicationHeaderInfo pAppInfo)
         {
             p_appDetail.STT = pAppInfo.STT;
