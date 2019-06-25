@@ -26,5 +26,8 @@ namespace ObjectInfos
 
         public decimal Phanloai_Type { get; set; }
 
+        public decimal USED_SPECIAL
+        { set; get; }
+
     }
 }
