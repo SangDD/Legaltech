@@ -424,7 +424,6 @@ namespace WebApps.Areas.Patent.Controllers
             {
                 string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
                 string language = AppsCommon.GetCurrentLang(); 
-
                 var objBL = new A01_BL();
                 List<A01_Info_Export> _lst = new List<A01_Info_Export>();
 
