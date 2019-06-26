@@ -320,10 +320,10 @@
         @* Cam kết của chủ đơn *@
         @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml")
 
-        @if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
+        @*@if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
         {
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDuLieuQuaKhu.cshtml", "1")
-        }
+        }*@
 
         <div class="class_save">
             <div class="classGuiDon">

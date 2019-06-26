@@ -6,13 +6,13 @@
     {
         lstDocOther = (List<AppDocumentOthersInfo>)ViewBag.lstDocOther;
     }
-   string listIDFileAtt = "";
+    string listIDFileAtt = "";
 }
 <style>
-    .classDocOtherE{
-        text-align:left ;
-        padding:3px; 
-        color:blue ;
+    .classDocOtherE {
+        text-align: left;
+        padding: 3px;
+        color: blue;
     }
 </style>
 <div class="div_full_100_area">
@@ -29,7 +29,9 @@
                     listIDFileAtt = listIDFileAtt + item.Id.ToString() + ",";
                     No++;
                     FileName = No.ToString() + ". " + item.Documentname;
-                    <div id="@item.Id" class="classDocOtherE"> <a style="color:blue" href="@item.Filename">@FileName</a> </div>
+                    @*<div id="@item.Id" class="classDocOtherE"> <a style="color:blue" href="@item.Filename">@FileName</a> </div>*@
+                    <a style="height: 20px !important;" href="@item.Filename" download="@item.Filename"> @FileName </a>
+                    <br />
                 }
             </div>
 
@@ -60,4 +62,3 @@
         text-align: center;
     }
 </style>
- 
