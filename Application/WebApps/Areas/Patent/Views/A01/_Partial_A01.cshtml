@@ -4,6 +4,7 @@
 @using WebApps.Resources;
 @using BussinessFacade.ModuleMemoryData
 @using ObjectInfos
+@using WebApps.Resources;
 @{
     ViewBag.Title = "Request for patent registration";
     Layout = "~/ViewsShared/_Layout.cshtml";
@@ -90,7 +91,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                Chủ đơn dưới đây yêu cầu Cục Sở hữu trí tuệ xem xét đơn và cấp:
+                @Resource.ChuDonDuoiDay:
             </div>
         </div>
 
@@ -98,14 +99,14 @@
             <div class="div-search-content">
                 <div class="div-radio" style="width:482px">
                     <input type="radio" name="1_rdoLoaiSangChe" id="1_rdBangDocQuyen" value="1" checked="checked">
-                    <label>Bằng độc quyền sáng chế</label>
+                    <label>@Resource.BangDocQuyenSangChe</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
                     <input type="radio" name="1_rdoLoaiSangChe" id="3_rdKieuDangCongNghiep" value="2" disabled>
-                    <label>Bằng độc quyền giải pháp hữu ích</label>
+                    <label>@Resource.BangDocQuyenGPHI</label>
                 </div>
             </div>
         </div>
@@ -113,7 +114,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                Nguồn gốc đơn
+                @Resource.NguonGocDon
             </div>
         </div>
 
@@ -130,7 +131,7 @@
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div>Số:</div>
+                    <div>@Resource.So</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -139,7 +140,7 @@
                 </div>
 
                 <div class="div-search-title">
-                    <div>Ngày nộp đơn quốc tế:</div>
+                    <div>@Resource.NgayNopDonQuocTe:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -150,7 +151,7 @@
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div>Công bố quốc tế số:</div>
+                    <div>@Resource.CongBoQuocTeSo:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -159,7 +160,7 @@
                 </div>
 
                 <div class="div-search-title">
-                    <div>Ngày:</div>
+                    <div>@Resource.Ngay:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -168,7 +169,7 @@
                 </div>
 
                 <div class="div-search-title">
-                    <div>Ngày VN nếu có:</div>
+                    <div>@Resource.NgayChonVietNam:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -181,7 +182,7 @@
                 <div class="div-search-content">
                     <div class="div-radio" style="margin-left: 0px">
                         <input type="checkbox" name="2_rdo_PCT_SuaDoi" id="2_rdo_PCT_SuaDoi" onchange="return ShowHiden_PCT_SuaDoi()">
-                        <label> Có sửa đổi, bổ sung tại thời điểm vào pha quốc gia</label>
+                        <label> @Resource.CoSuaDoi</label>
                     </div>
                 </div>
             </div>
@@ -234,7 +235,7 @@
             <div class="div-search-content">
                 <div class="div-radio">
                     <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdDQSC" value="2" onchange="return ShowHiden_NguonGocDon()">
-                    <label> Đơn được tách từ Đơn yêu cầu cấp Bằng độc quyền sáng chế</label>
+                    <label> @Resource.DonTachDQSC</label>
                 </div>
             </div>
         </div>
@@ -243,7 +244,7 @@
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div>Đơn gốc:</div>
+                    <div>@Resource.DonGoc:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -252,7 +253,7 @@
                 </div>
 
                 <div class="div-search-title">
-                    <div>Ngày nộp đơn:</div>
+                    <div>@Resource.NgayNopDon:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -266,14 +267,14 @@
                 <div class="div-search-content">
                     <div class="div-radio" style="width:464px">
                         <input type="checkbox" name="DQSC_TruocHopLe" id="DQSC_TruocHopLe" value="1">
-                        <label>Trước hợp lệ</label>
+                        <label>@Resource.TruocHopLe</label>
                     </div>
                 </div>
 
                 <div class="div-search-content">
                     <div class="div-radio">
                         <input type="checkbox" name="DQSC_SauHopLe" id="DQSC_SauHopLe" value="1">
-                        <label>Sau hợp lệ</label>
+                        <label>@Resource.SauHopLe</label>
                     </div>
                 </div>
             </div>
@@ -283,7 +284,7 @@
             <div class="div-search-content">
                 <div class="div-radio">
                     <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdGPHI" value="3" onchange="return ShowHiden_NguonGocDon()">
-                    <label> Đơn được chuyển từ Đơn yêu cầu cấp Bằng độc quyền giải pháp hữu ích</label>
+                    <label> @Resource.DonTachGPHI</label>
                 </div>
             </div>
         </div>
@@ -292,7 +293,7 @@
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div>Đơn gốc:</div>
+                    <div>@Resource.DonGoc:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -301,7 +302,7 @@
                 </div>
 
                 <div class="div-search-title">
-                    <div>Ngày nộp đơn:</div>
+                    <div>@Resource.NgayNopDon:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -314,14 +315,14 @@
                 <div class="div-search-content">
                     <div class="div-radio" style="width:464px">
                         <input type="checkbox" name="GPHI_TruocHopLe" id="GPHI_TruocHopLe" value="1">
-                        <label>Trước hợp lệ</label>
+                        <label>@Resource.TruocHopLe</label>
                     </div>
                 </div>
 
                 <div class="div-search-content">
                     <div class="div-radio">
                         <input type="checkbox" name="GPHI_SauHopLe" id="GPHI_SauHopLe" value="1">
-                        <label>Sau hợp lệ</label>
+                        <label>@Resource.SauHopLe</label>
                     </div>
                 </div>
             </div>
@@ -332,14 +333,14 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                TÊN SÁNG CHẾ
+                @Resource.TenSangChe.ToUpper()
             </div>
         </div>
 
         <div style="width: 100%;height: 100px;">
             <div class="div-search-ad" style="width:50%;float:left">
                 <div class="div-search-title" style="height: 63px;">
-                    <div>Tên sáng chế <i class="redspan">(*)</i></div>
+                    <div>@Resource.TenSangChe <i class="redspan">(*)</i></div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -353,7 +354,7 @@
                     <div class="div-search-content">
                         <div class="div-radio">
                             <input type="radio" checked="checked" name="TuPhanLoai" id="ckbCucPhanLoai" onchange="onChangeTuPhanLoai()">
-                            <label>Yêu cầu Cục SHTT phân loại (phí 100.000 đ / 1 phân loại)</label>
+                            <label>@Resource.YeuCauCucPhanLoai</label>
                         </div>
                     </div>
                 </div>
@@ -362,7 +363,7 @@
                     <div class="div-search-content">
                         <div class="div-radio">
                             <input type="radio" name="TuPhanLoai" id="ckbTuPhanLoai" onchange="onChangeTuPhanLoai()">
-                            <label>Tự phân loại</label>
+                            <label>@Resource.TuPhanLoai</label>
                         </div>
                     </div>
                 </div>
@@ -370,7 +371,7 @@
                 <div class="div-search-ad clssDisplaynone" id="divTuNhapPhanLoai">
                     <div class="div-search-content">
                         <div class="div-radio">
-                            <input type="text" id="txtClass" placeholder="...nhập">
+                            <input type="text" id="txtClass" placeholder="...@Resource.Nhap">
                         </div>
                     </div>
                 </div>
@@ -400,14 +401,14 @@
             <div class="div-search-content">
                 <div class="div-radio" style="width:385px">
                     <input type="radio" name="1_rdoChuDon" value="TGDT" id="1_ckbTacGiaDongThoi">
-                    <label>Chủ đơn đồng thời là tác giả sáng chế</label>
+                    <label>@Resource.ChuDonDongThoiLaTacGia</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
                     <input type="radio" name="1_rdoChuDon" value="2" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
-                    <label>Ngoài chủ đơn khai tại mục này còn có những chủ đơn khác khai tại trang bổ sung</label>
+                    <label>@Resource.NgoaiChuDon</label>
                 </div>
             </div>
         </div>
@@ -418,7 +419,7 @@
 
         <div class="div_full_100_area classChuDonKhac clssDisplaynone" id="divChungDonKhac001">
             <input type="hidden" id="txt_id_ChuDon" value="1" />
-            <a href="javascript:;" onclick="return ThemChuDon();" style="text-decoration:underline; color: blue;float: left;">Thêm chủ đơn khác</a>
+            <a href="javascript:;" onclick="return ThemChuDon();" style="text-decoration:underline; color: blue;float: left;">@Resource.ThemChuDonKhac</a>
         </div>
 
         @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
@@ -449,7 +450,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                Tác giả
+                @Resource.TacGia
             </div>
         </div>
 
@@ -463,7 +464,7 @@
 
         <div class="div_full_100_area classChuDonKhac">
             <input type="hidden" id="txt_id_tacgia" value="1" />
-            <a href="javascript:;" onclick="return ThemTacGia();" style="text-decoration:underline; color: blue;float: left;">Thêm tác giả</a>
+            <a href="javascript:;" onclick="return ThemTacGia();" style="text-decoration:underline; color: blue;float: left;">@Resource.ThemTacGia</a>
         </div>
 
         @* Tác giả *@
@@ -490,13 +491,13 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                SỐ ĐIỂM YÊU CẦU BẢO HỘ ĐỘC LẬP
+                @Resource.SoDiemYeuCauBaoHoDocLap.ToUpper()
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Số điểm yêu cầu <i class="redspan">(*)</i></div>
+                <div>@Resource.SoDiemYeuCau <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -509,7 +510,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                Yêu cầu thẩm định nội dung
+                @Resource.YeuCauThamDinhNoiDung
             </div>
         </div>
 
@@ -517,7 +518,7 @@
             <div class="div-search-content">
                 <div class="div-radio">
                     <input type="checkbox" id="ckbThamDinhNoiDung">
-                    <label> Yêu cầu thẩm định nội dung</label>
+                    <label> @Resource.YeuCauThamDinhNoiDung</label>
                 </div>
             </div>
         </div>
@@ -526,7 +527,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                Chuyển đổi đơn
+                @Resource.ChuyenDoiDon
             </div>
         </div>
 
@@ -534,7 +535,7 @@
             <div class="div-search-content">
                 <div class="div-radio">
                     <input type="checkbox" id="ckbChuyenDoiDon">
-                    <label> Đề nghị chuyển thành đơn đăng ký sáng chế có yêu cầu cấp Bằng độc quyền giải pháp hữu ích nếu giải pháp không đáp ứng điều kiện về trình độ sáng tạo</label>
+                    <label> @Resource.DeNghiChuyenDoiDon</label>
                 </div>
             </div>
         </div>
@@ -567,28 +568,28 @@
         @* 2. Bản mô tả, bằng tiếng *@
         @{
             string _doc_id2 = "A01_02";
-            string _model2 = _doc_id2 + "|Doc_02|0|" + "Bản mô tả, bằng tiếng " + "|" + Resource.TM3B_Tieng + "|1||" + Resource.TM2B_SoTrang;
+            string _model2 = _doc_id2 + "|Doc_02|0|" + Resource.BanMoTaBangTieng + "|" + Resource.TM3B_Tieng + "|1||" + Resource.TM2B_SoTrang;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model2)
         }
 
         @* 3. Bản sao *@
         @{
             string _doc_id3 = "A01_03";
-            string _model3 = _doc_id3 + "|Doc_03|0|" + "Bản sao chứng từ nộp phí, lệ phí" + "|" + Resource.TM2B_SoTrang + "|1";
+            string _model3 = _doc_id3 + "|Doc_03|0|" + Resource.BanSaoChungTu + "|" + Resource.TM2B_SoTrang + "|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model3)
         }
 
 
         @{
             string _doc_id4 = "A01_04";
-            string _model4 = _doc_id4 + "|Doc_04|0|" + "Bản tóm tắt, bằng tiếng " + "|" + Resource.TM3B_Tieng + "|1||" + Resource.TM2B_SoTrang;
+            string _model4 = _doc_id4 + "|Doc_04|0|" + Resource.BanTomTatBangTieng + "|" + Resource.TM3B_Tieng + "|1||" + Resource.TM2B_SoTrang;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)
         }
 
 
         @{
             string _doc_id5 = "A01_05";
-            string _model5 = _doc_id5 + "|Doc_05|0|" + "Bản dịch tiếng Việt, gồm " + "|" + Resource.TM2B_SoTrang + "|1";
+            string _model5 = _doc_id5 + "|Doc_05|0|" + Resource.lblBanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model5)
         }
 
@@ -638,31 +639,31 @@
         @* 12 Tài liệu chứng minh quyền ưu tiên *@
         @{
             string _doc_id12 = "A01_12";
-            string _model12 = _doc_id12 + "|Doc_12|0|" + "Tài liệu chứng minh quyền ưu tiên " + "||0";
+            string _model12 = _doc_id12 + "|Doc_12|0|" + Resource.lblTaiLieuChungMinhQuyenUT + "||0";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model12)
         }
 
         @{
             string _doc_id13 = "A01_13";
-            string _model13 = _doc_id13 + "|Doc_13|1|" + "Bản sao đơn đầu tiên, gồm " + "|" + Resource.lblBan + "|1";
+            string _model13 = _doc_id13 + "|Doc_13|1|" + Resource.BanSaoDonDauTien + "|" + Resource.lblBan + "|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model13)
         }
 
         @{
             string _doc_id14 = "A01_14";
-            string _model14 = _doc_id14 + "|Doc_14|1|" + "Giấy chuyển nhượng quyền ưu tiên (nếu thụ hưởng từ người khác)" + "||1";
+            string _model14 = _doc_id14 + "|Doc_14|1|" + Resource.GiayChuyenNhuongQuyenUT + "||1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model14)
         }
 
         @{
             string _doc_id15 = "A01_15";
-            string _model15 = _doc_id15 + "|Doc_15|0|" + "Tài liệu xác nhận quyền đăng ký (nếu thụ hưởng từ người khác)" + "||1";
+            string _model15 = _doc_id15 + "|Doc_15|0|" + Resource.TaiLieuXacNhanQuyenDangKy + "||1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model15)
         }
 
         @{
             string _doc_id16 = "A01_16";
-            string _model16 = _doc_id16 + "|Doc_16|0|" + "Có tài liệu bổ trợ khai tại trang bổ sung" + "||0";
+            string _model16 = _doc_id16 + "|Doc_16|0|" + Resource.CoTaiLieuKhac + "||0";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model16)
         }
 
@@ -698,6 +699,11 @@
 @Html.Partial("~/Areas/Patent/Views/A01/_PartialPreview_IU.cshtml")
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
+    </div>
+</div>
+
+<div id="divWrapperPopUpFee" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divPopUpFee">
     </div>
 </div>
 
@@ -1294,7 +1300,7 @@
                     }
                 }
             }
-            
+
             formData.append("pInfo.Customer_Code", txt_MaDaiDien);
 
             var _txt_Patent_Name = $("#txt_Patent_Name").val();
@@ -1306,7 +1312,7 @@
                     return false;
                 }
             }
-            
+
             formData.append("pDetail.Patent_Name", _txt_Patent_Name);
             formData.append("pDetail.Patent_Type", "DQSC");
 
@@ -1328,7 +1334,7 @@
                     return false;
                 }
             }
-            
+
             formData.append("pDetail.Point", _txtPoint);
 
 

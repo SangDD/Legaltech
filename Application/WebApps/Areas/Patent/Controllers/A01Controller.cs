@@ -170,7 +170,7 @@ namespace WebApps.Areas.Patent.Controllers
                             pDetail.PCT_Date = DateTime.MinValue;
                             pDetail.PCT_Filling_Date_Qt = DateTime.MinValue;
                             pDetail.PCT_VN_Date = DateTime.MinValue;
-                        } 
+                        }
 
                         pReturn = objDetail.Insert(pDetail);
                         if (pReturn <= 0)
@@ -423,7 +423,7 @@ namespace WebApps.Areas.Patent.Controllers
             try
             {
                 string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
-                string language = AppsCommon.GetCurrentLang(); 
+                string language = AppsCommon.GetCurrentLang();
                 var objBL = new A01_BL();
                 List<A01_Info_Export> _lst = new List<A01_Info_Export>();
 
@@ -510,6 +510,26 @@ namespace WebApps.Areas.Patent.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("getFee")]
+        public ActionResult GetFee(A01_Info pDetail, List<AppDocumentInfo> pAppDocumentInfo, List<UTienInfo> pUTienInfo, List<AppDocumentOthersInfo> pLstImagePublic)
+        {
+            try
+            {
+                List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_A01(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic);
+                ViewBag.LstFeeFix = _lstFeeFix;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            var PartialTableListFees = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Patent/Views/A01/_PartialTableListFees.cshtml");
+            var json = Json(new { success = 1, PartialTableListFees });
+            return json;
+
+            //return PartialView("~/Areas/Patent/Views/A01/_PartialTableListFees.cshtml");
+        }
 
     }
 }

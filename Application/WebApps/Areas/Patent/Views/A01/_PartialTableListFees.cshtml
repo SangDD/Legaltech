@@ -1,0 +1,64 @@
+﻿@using Common.CommonData
+@using Common.Extensions
+@using ObjectInfos.ModuleTrademark;
+@{
+    List<AppFeeFixInfo> _list_data = new List<AppFeeFixInfo>();
+    if (ViewBag.LstFeeFix != null)
+    {
+        _list_data = ViewBag.LstFeeFix;
+    }
+
+    decimal _Total_Amount = 0;
+    foreach (var item in _list_data)
+    {
+        _Total_Amount += item.Amount;
+    }
+}
+
+<div>
+    <table class="table-lst-data" id="tableListUser">
+        <thead>
+            <tr>
+                <th data-sort id="Username">Loại lệ phí</th>
+                <th style="width: 17%">Số đối tượng tính phí</th>
+                <th style="width: 17%">Số tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (_list_data != null && _list_data.Count > 0)
+            {
+                foreach (var item in _list_data)
+                {
+                    <tr>
+                        @if (item.Level == 0)
+                        {
+                            <td class="tdleftalign">@item.Fee_Name</td>
+                        }
+                        else if (true)
+                        {
+                            <td class="tdleftalign">&emsp; @item.Fee_Name</td>
+                        }
+                        else
+                        {
+                            <td class="tdleftalign">@item.Fee_Name</td>
+                        }
+                        <td class="tdleftalign">@item.Number_Of_Patent</td>
+                        <td class="tdleftalign">@item.Amount.ToString("#,##0.##")</td>
+                    </tr>
+                }
+
+                <tr>
+                    <td class="tdleftalign" style="font-weight:bold">@WebApps.Resources.Resource.TongCong</td>
+                    <td class="tdrightalign">-</td>
+                    <td class="tdrightalign" style="font-weight:bold; color: red">@_Total_Amount.ToString("#,##0.##")</td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td colspan="9">Không có dữ liệu</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
