@@ -444,7 +444,10 @@ namespace WebApps.Areas.Patent.Controllers
                 A01_Info_Export _A01_Info_Export = new A01_Info_Export();
                 A01_Info_Export.CopyA01_Info(ref _A01_Info_Export, pDetail);
 
-                AppsCommon.Prepare_Data_Export_A01(ref _A01_Info_Export, pInfo, pAppDocumentInfo, pFeeFixInfo, pAppAuthorsInfo, pOther_MasterInfo,
+
+                // Phí cố định
+                List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_A01(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic);
+                AppsCommon.Prepare_Data_Export_A01(ref _A01_Info_Export, pInfo, pAppDocumentInfo, _lstFeeFix, pAppAuthorsInfo, pOther_MasterInfo,
                        pAppClassInfo, pAppDocOtherInfo, pUTienInfo, pLstImagePublic);
 
                 _lst.Add(_A01_Info_Export);
