@@ -1,0 +1,131 @@
+﻿@using ObjectInfos.ModuleTrademark
+@using ObjectInfos
+@using System.Linq;
+     
+@{
+    List<AppDocumentOthersInfo>  ListDocDesign = new List<AppDocumentOthersInfo>();
+    List<AppDocumentOthersInfo> ListDocDesignLv2 = new List<AppDocumentOthersInfo>();
+    if (ViewBag.ListDocDesign != null)
+    {
+        ListDocDesign = (List<AppDocumentOthersInfo>)ViewBag.ListDocDesign;
+    }
+
+    string listIDFileAtt = "";
+    string styleTLK = "display:block";
+    if (ListDocDesign.Count > 0)
+    {
+        styleTLK = "display:block";
+        ListDocDesignLv2 =  ListDocDesign.Where(m => m.IdRef != 0).ToList() ;
+    }
+}
+<style>
+    .classDocOtherE {
+        text-align: left;
+        padding: 3px;
+        color: blue;
+    }
+    /*#divContainerDocOther{
+        display:none ;
+    }*/
+</style>
+<div class="div_full_100_area" id="divTreeContainerDocOther" style="@styleTLK">
+    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "Bộ hình ảnh")
+    
+    @foreach (AppDocumentOthersInfo item in ListDocDesign)
+    {
+        if (item.IdRef == 0)
+        {
+            <div id="TreedivDocumentOther">
+                <div meta-data="1">
+                    <div class="div-search-ad" id="treedivDocumnetNo1">
+                        <div class="div-search-title"> <div>@WebApps.Resources.Resource.lblTenTaiLieu:</div> </div>
+                        <div class="div-search-content">
+                            <div>
+                                @* Tên tài liệu đính kèm cấp 1 *@
+                                <input type="text" value="@item.Documentname" disabled>
+                            </div>
+                        </div>
+                        <div class="div-search-title"> <div>Số trang</div> </div>
+                        <div class="div-search-content">
+                            <div>
+                                @* số trang tài liệu cấp 1 *@
+                                <input type="text" style="width:90px" value="@item.Char01" disabled />
+                            </div>
+                        </div>
+                        <div class="div-search-title">
+                            <div>Ghi chú</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                @* Tài liệu cấp 1 ghi chú *@
+                                <input type="text" value="@item.Char02" disabled />
+                            </div>
+                        </div>
+                    </div>
+                    @foreach (AppDocumentOthersInfo itemlv2 in ListDocDesignLv2)
+                    {
+                        if (item.ParentId == itemlv2.IdRef.ToString())
+                        {
+                            <div class="div-search-ad">
+                                <div class="div-search-title" style="padding-left:20px">
+                                    <div> Tên tài liệu :</div>
+                                </div>
+                                <div class="div-search-content">
+                                    <div>
+                                        @* Tên tài liệu cấp 2 *@
+                                        <input type="text" disabled value="@itemlv2.Documentname">
+                                    </div>
+
+                                </div>
+                                <div class="div-search-title"> <div>Số trang</div> </div>
+                                <div class="div-search-content">
+                                    <div>
+                                        @*Số trang tài liệu cấp 2*@
+                                        <input type="text" style="width:90px" disabled value="@itemlv2.Char01" />
+                                    </div>
+                                </div>
+                                <div class="div-search-title"> <div>Ghi chú</div> </div>
+                                <div class="div-search-content">
+                                    <div>
+                                        @*Ghi chú tài liệu cấp 2*@
+                                        <input type="text" maxlength="1000" value="@itemlv2.Char02" />
+                                    </div>
+                                </div><div class="div-search-content">
+                                    <div>
+                                        @* File donwload tài liệu cấp 2 *@
+                                        <a style="color:blue;  padding: 5px 0px 0px 9px; height: 23px;" href="@itemlv2.Filename">@itemlv2.Documentname</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    }
+
+                </div>
+            </div>
+        }
+
+    }
+</div>
+
+ 
+ 
+
+<style>
+    .class_37 {
+        height: 30px !important;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: 120px 14% 33%;
+        padding: 1px;
+    }
+
+    .grid-item {
+        background-color: rgba(255, 255, 255, 0.8);
+        text-align: center;
+    }
+</style>
+
+ 
