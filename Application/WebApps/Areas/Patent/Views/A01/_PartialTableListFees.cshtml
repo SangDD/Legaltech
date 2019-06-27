@@ -19,9 +19,10 @@
     <table class="table-lst-data" id="tableListUser">
         <thead>
             <tr>
-                <th data-sort id="Username">Loại lệ phí</th>
-                <th style="width: 17%">Số đối tượng tính phí</th>
-                <th style="width: 17%">Số tiền</th>
+                <th>@WebApps.Resources.Resource.FeeType</th>
+                <th style="width: 17%">@WebApps.Resources.Resource.SoDoiTuongTinhPhi</th>
+                <th style="width: 17%">@WebApps.Resources.Resource.LePhiQuocGia</th>
+                <th style="width: 17%">@WebApps.Resources.Resource.LePhiDaiDien</th>
             </tr>
         </thead>
         <tbody>
@@ -44,6 +45,7 @@
                         }
                         <td class="tdleftalign">@item.Number_Of_Patent</td>
                         <td class="tdleftalign">@item.Amount.ToString("#,##0.##")</td>
+                        <td class="tdleftalign">@item.Amount_Represent.ToString("#,##0.##")</td>
                     </tr>
                 }
 

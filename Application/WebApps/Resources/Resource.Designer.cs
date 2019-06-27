@@ -1087,6 +1087,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loại phí.
+        /// </summary>
+        public static string FeeType {
+            get {
+                return ResourceManager.GetString("FeeType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tên file không được quá 200 ký tự.
         /// </summary>
         public static string File200KyTu {
@@ -4026,6 +4035,15 @@ namespace WebApps.Resources {
         public static string SoDienThoai {
             get {
                 return ResourceManager.GetString("SoDienThoai", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số đối tượng tính phí.
+        /// </summary>
+        public static string SoDoiTuongTinhPhi {
+            get {
+                return ResourceManager.GetString("SoDoiTuongTinhPhi", resourceCulture);
             }
         }
         
