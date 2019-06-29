@@ -23,8 +23,6 @@
     string divDonUT = _id + "_divDonUT";
     string txtUse = _id + "_UT_Use";
 
-    string _disable = "disabled";
-
     List<AppDocumentInfo> Lst_AppDoc = new List<AppDocumentInfo>();
     if (ViewBag.Lst_AppDoc != null)
     {
@@ -68,7 +66,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" maxlength="200" id="@txtSoDon" value="@Model.UT_SoDon" @_disable style="width:150px" />
+                <input type="text" maxlength="200" id="@txtSoDon" value="@Model.UT_SoDon" style="width:150px" />
             </div>
         </div>
 
@@ -77,7 +75,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" id="@txtNgayNopDon" @_disable value="@(Model.UT_NgayNopDon == DateTime.MinValue ? "" : Model.UT_NgayNopDon.ToString("dd/MM/yyyy"))" />
+                <input type="text" id="@txtNgayNopDon" class="datetimepicker" value="@(Model.UT_NgayNopDon == DateTime.MinValue ? "" : Model.UT_NgayNopDon.ToString("dd/MM/yyyy"))" />
             </div>
         </div>
     </div>
@@ -88,7 +86,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <select id="@txtQuocTich" @_disable>
+                <select id="@txtQuocTich" >
                     @foreach (var item in MemoryData.c_lst_Country)
                     {
                         if (item.Country_Id == Model.UT_QuocGia)
@@ -110,11 +108,11 @@
             <div class="div-radio">
                 @if (Model.UT_Type == "NTVN")
                 {
-                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbNopTaiVietNam" value="NTVN" @_disable checked="checked">
+                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbNopTaiVietNam" value="NTVN"  checked="checked">
                 }
                 else
                 {
-                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbNopTaiVietNam" value="NTVN" @_disable>
+                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbNopTaiVietNam" value="NTVN" >
                 }
 
                 <label>@WebApps.Resources.Resource.lblTheoDonNopTaiVN</label>
@@ -127,11 +125,11 @@
             <div class="div-radio">
                 @if (Model.UT_Type == "CUPR")
                 {
-                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbNopTaiParis" value="CUPR" @_disable checked="checked">
+                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbNopTaiParis" value="CUPR"  checked="checked">
                 }
                 else
                 {
-                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbNopTaiParis" value="CUPR" @_disable>
+                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbNopTaiParis" value="CUPR" >
                 }
                 <label>@WebApps.Resources.Resource.lblTheoDonNopCongUocPR</label>
             </div>
@@ -143,45 +141,56 @@
             <div class="div-radio" style="width:385px">
                 @if (Model.UT_Type == "TTTK")
                 {
-                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbThoaThuanKhac" value="TTTK" @_disable checked="checked">
+                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbThoaThuanKhac" value="TTTK"  checked="checked">
                 }
                 else
                 {
-                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbThoaThuanKhac" value="TTTK" @_disable>
+                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbThoaThuanKhac" value="TTTK" >
                 }
                 <label>@WebApps.Resources.Resource.lblTheoThoaThuanKhac</label>
             </div>
         </div>
 
         <div class="div-search-content">
-            <input type="text" id="@txtThoathuanKhac" value="@Model.UT_ThoaThuanKhac" @_disable />
+            <input type="text" id="@txtThoathuanKhac" value="@Model.UT_ThoaThuanKhac"  />
         </div>
     </div>
 
 
-    @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model1)
+    @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model1)
 
-    @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model2)
+    @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model2)
 
-    @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model3)
+    @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model3)
 
-    @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model4)
+    @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model4)
 
 
-    @*@if (Model == "1")
+    @if (_id == "1")
+    {
+        if (Model.DaAddd_DonUTKhac == 0)
         {
             <div class="div_full_100_area classChuDonKhac">
                 <input type="hidden" id="txt_id_tacgia" value="1" />
-                <a href="javascript:;" onclick="return ThemDonUuTien();" style="text-decoration:underline; color: blue;float: left;">Thêm đơn ưu tiên</a>
+                <a href="javascript:;" onclick="return ThemDonUuTien();" style="text-decoration:underline; color: blue;float: left;">@Resource.ThemDonUT</a>
             </div>
         }
-        else if (Model == "2")
+        else
         {
             <div class="div_full_100_area classChuDonKhac">
                 <input type="hidden" id="txt_id_tacgia" value="1" />
-                <a href="javascript:;" onclick="return XoaDonUuTien('@divDonUT', '@txtUse');" style="text-decoration:underline; color: blue;float: right;">Xóa đơn ưu tiên</a>
+                <a href="javascript:;" onclick="return XoaDonUuTien('@divDonUT', '@txtUse');" style="text-decoration:underline; color: blue;float: right;">@Resource.XoaDonUT</a>
             </div>
-        }*@
+        }
+    }
+
+    @if (_id == "2")
+    {
+        <div class="div_full_100_area classChuDonKhac">
+            <input type="hidden" id="txt_id_tacgia" value="1" />
+            <a href="javascript:;" onclick="return XoaDonUuTien('@divDonUT', '@txtUse');" style="text-decoration:underline; color: blue;float: right;">@Resource.XoaDonUT</a>
+        </div>
+    }
 </div>
 
 <script>

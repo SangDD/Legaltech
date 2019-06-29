@@ -131,78 +131,19 @@
     {
         <div class="div_full_100_area classChuDonKhac">
             <input type="hidden" id="txt_id_tacgia" value="1" />
-            <a href="javascript:;" onclick="return ThemDonUuTien();" style="text-decoration:underline; color: blue;float: left;">Thêm đơn ưu tiên</a>
+            <a href="javascript:;" onclick="return ThemDonUuTien();" style="text-decoration:underline; color: blue;float: left;">@Resource.ThemDonUT</a>
         </div>
     }
     else if (Model == "2")
     {
         <div class="div_full_100_area classChuDonKhac">
             <input type="hidden" id="txt_id_tacgia" value="1" />
-            <a href="javascript:;" onclick="return XoaDonUuTien('@divDonUT', '@txtUse');" style="text-decoration:underline; color: blue;float: right;">Xóa đơn ưu tiên</a>
+            <a href="javascript:;" onclick="return XoaDonUuTien('@divDonUT', '@txtUse');" style="text-decoration:underline; color: blue;float: right;">@Resource.XoaDonUT</a>
         </div>
     }
 </div>
 
 <script>
-    function funcThongTinChuDon(formData, PreID) {
-        try {
-            var txtTenDayDu = $("#" + PreID + "_txtTenDayDu").val();
-            if (txtTenDayDu === "") {
-                $("#" + PreID + "_txtTenDayDu").focus().val('');
-                showError('@Resource.TM2B_TenKhongDuocDeTrong');
-                return false;
-            }
-            var txtDiaChi = $("#" + PreID + "_txtDiaChi").val();
-            if (txtDiaChi === "") {
-                $("#" + PreID + "_txtDiaChi").focus().val('');
-                showError('@Resource.TM2B_DiaChiKhongDuocDeTrong');
-                return false;
-            }
-            var txtDienThoai = $("#" + PreID + "_txtDienThoai").val();
-            var txtFax = $("#" + PreID + "_txtFax").val();
-            var txtEmail = $("#" + PreID + "_txtEmail").val();
-            if (txtEmail != "") {
-                if (!IsvalidEmail(txtEmail)) {
-                    $("#" + PreID + "_txtEmail").focus();
-                    showError('@Resource.lblThongBaoLoiEmail');
-                    return false;
-                }
-            }
-            //Chủ đơn
-            if (PreID == "1") {
-                formData.append("pInfo.Master_Name", txtTenDayDu);
-                formData.append("pInfo.Master_Address", txtDiaChi);
-                formData.append("pInfo.Master_Phone", txtDienThoai);
-                formData.append("pInfo.Master_Fax", txtFax);
-                formData.append("pInfo.Master_Email", txtEmail);
-            } else if (PreID == "2") { //Người đại diện
-                formData.append("pInfo.Rep_Master_Name", txtTenDayDu);
-                formData.append("pInfo.Rep_Master_Address", txtDiaChi);
-                formData.append("pInfo.Rep_Master_Phone", txtDienThoai);
-                formData.append("pInfo.Rep_Master_Fax", txtFax);
-                formData.append("pInfo.Rep_Master_Email", txtEmail);
-                //Detail
-            }
-            // BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN)
-            else if (PreID == "3") {
-                formData.append("pDetail.Second_Name", txtTenDayDu);
-                formData.append("pDetail.Second_Address", txtDiaChi);
-                formData.append("pDetail.Second_Phone", txtDienThoai);
-                formData.append("pDetail.Second_Fax", txtFax);
-                formData.append("pDetail.Second_Email", txtEmail);
-            }
-            else if (PreID == "9") {
-                formData.append("pDetail.Cdk_Name_1", txtTenDayDu);
-                formData.append("pDetail.Cdk_Address_1", txtDiaChi);
-                formData.append("pDetail.Cdk_Phone_1", txtDienThoai);
-                formData.append("pDetail.Cdk_Fax_1", txtFax);
-                formData.append("pDetail.Cdk_Email_1", txtEmail);
-            }
-            return true;
-        } catch (e) {
-            return false;
-        }
-    }
 
     function XoaDonUuTien(pId, pId2) {
         try {

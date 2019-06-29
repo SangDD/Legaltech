@@ -61,5 +61,7 @@ namespace ObjectInfos
         public string UT_QuocGia_Display { set; get; }
         public string UT_Type { set; get; }
         public string UT_ThoaThuanKhac { set; get; }
+        public decimal DaAddd_DonUTKhac { get; set; }
+
     }
 }

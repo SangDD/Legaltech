@@ -72,6 +72,9 @@
     {
         clsDisplayNone_PCT_Suadoi = "";
     }
+
+    decimal _max_Model_Id = Lst_Other_Master.Count + 1;
+    decimal _max_Model_Id_author = Lst_AuthorsInfo.Count + 1;
 }
 
 <style>
@@ -117,7 +120,7 @@
         <legend style="font-weight:600"> @Resource.PatentRegister.ToUpper()</legend>
 
         @* Case name *@
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName_View.cshtml", "0")
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
 
         @* 3 - ĐƠN YÊU CẦU SỬA ĐỔI *@
         <div class="divCover cls_form_title">
@@ -155,11 +158,11 @@
                 <div class="div-radio">
                     @if (_App_Detail.Source_PCT == "Y")
                     {
-                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdPCT" checked="checked" disabled onchange="return ShowHiden_NguonGocDon()">
+                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdPCT" checked="checked" onchange="return ShowHiden_NguonGocDon()">
                     }
                     else
                     {
-                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdPCT" disabled onchange="return ShowHiden_NguonGocDon()">
+                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdPCT" onchange="return ShowHiden_NguonGocDon()">
                     }
                     <label> @Resource.DonNopTrenPCT</label>
                 </div>
@@ -176,7 +179,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" id="txt_PCT_SoDon" style="width:348px" value="@_App_Detail.PCT_Number" disabled />
+                            <input type="text" id="txt_PCT_SoDon" style="width:348px" value="@_App_Detail.PCT_Number" />
                         </div>
                     </div>
 
@@ -186,7 +189,7 @@
                     <div class="div-search-content">
                         <div>
 
-                            <input type="text" id="txt_PCT_NgayNopQT" value="@(_App_Detail.PCT_Filling_Date_Qt == DateTime.MinValue ? "" : _App_Detail.PCT_Filling_Date_Qt.ToString("dd/MM/yyyy"))" disabled />
+                            <input type="text" id="txt_PCT_NgayNopQT" value="@(_App_Detail.PCT_Filling_Date_Qt == DateTime.MinValue ? "" : _App_Detail.PCT_Filling_Date_Qt.ToString("dd/MM/yyyy"))" class="datetimepicker"/>
                         </div>
                     </div>
                 </div>
@@ -197,7 +200,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" id="txt_PCT_CongBoQT" style="width:348px" value="@_App_Detail.PCT_Number_Qt" disabled />
+                            <input type="text" id="txt_PCT_CongBoQT" style="width:348px" value="@_App_Detail.PCT_Number_Qt" />
                         </div>
                     </div>
 
@@ -206,7 +209,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" id="txt_PCT_Date" value="@(_App_Detail.PCT_Date == DateTime.MinValue ? "" : _App_Detail.PCT_Date.ToString("dd/MM/yyyy"))" disabled />
+                            <input type="text" id="txt_PCT_Date" value="@(_App_Detail.PCT_Date == DateTime.MinValue ? "" : _App_Detail.PCT_Date.ToString("dd/MM/yyyy"))" class="datetimepicker" />
                         </div>
                     </div>
 
@@ -216,7 +219,7 @@
                     <div class="div-search-content">
                         <div>
 
-                            <input type="text" id="txt_PCT_VN_Date" value="@(_App_Detail.PCT_VN_Date == DateTime.MinValue ? "" : _App_Detail.PCT_VN_Date.ToString("dd/MM/yyyy"))" disabled />
+                            <input type="text" id="txt_PCT_VN_Date" value="@(_App_Detail.PCT_VN_Date == DateTime.MinValue ? "" : _App_Detail.PCT_VN_Date.ToString("dd/MM/yyyy"))" class="datetimepicker" />
                         </div>
                     </div>
                 </div>
@@ -226,11 +229,11 @@
                         <div class="div-radio" style="margin-left: 0px">
                             @if (_App_Detail.PCT_Suadoi == 1)
                             {
-                                <input type="checkbox" name="2_rdo_PCT_SuaDoi" id="2_rdo_PCT_SuaDoi" onchange="return ShowHiden_PCT_SuaDoi()" disabled checked="checked">
+                                <input type="checkbox" name="2_rdo_PCT_SuaDoi" id="2_rdo_PCT_SuaDoi" onchange="return ShowHiden_PCT_SuaDoi()" checked="checked">
                             }
                             else
                             {
-                                <input type="checkbox" name="2_rdo_PCT_SuaDoi" id="2_rdo_PCT_SuaDoi" onchange="return ShowHiden_PCT_SuaDoi()" disabled>
+                                <input type="checkbox" name="2_rdo_PCT_SuaDoi" id="2_rdo_PCT_SuaDoi" onchange="return ShowHiden_PCT_SuaDoi()">
                             }
                             <label> @Resource.CoSuaDoi</label>
                         </div>
@@ -249,11 +252,11 @@
                             <div class="div-radio" style="width:382px">
                                 @if (_App_Detail.PCT_Suadoi_Name == "Y")
                                 {
-                                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1" disabled checked>
+                                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1" checked>
                                 }
                                 else
                                 {
-                                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1" disabled>
+                                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1">
                                 }
 
                                 <label>@Resource.TM3B_TenChuDon</label>
@@ -264,11 +267,11 @@
                             <div class="div-radio">
                                 @if (_App_Detail.PCT_Suadoi_Address == "Y")
                                 {
-                                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2" disabled checked>
+                                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2" checked>
                                 }
                                 else
                                 {
-                                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2" disabled>
+                                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2">
                                 }
 
                                 <label>@Resource.TM3B_DiaChiChuDon</label>
@@ -281,11 +284,11 @@
                             <div class="div-radio" style="width:382px">
                                 @if (_App_Detail.PCT_Suadoi_Others == "Y")
                                 {
-                                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3" disabled checked>
+                                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3" checked>
                                 }
                                 else
                                 {
-                                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3" disabled>
+                                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3">
                                 }
 
                                 <label>@Resource.TM3B_NoiDungKhac</label>
@@ -297,7 +300,7 @@
                         </div>
                         <div class="div-search-content">
                             <div>
-                                <input type="text" placeholder="@Resource.TM3B_DeNghiSuaThanh" id="4_DeNghiSuaThanh" disabled value="@_App_Detail.PCT_Suadoi_Content" />
+                                <input type="text" placeholder="@Resource.TM3B_DeNghiSuaThanh" id="4_DeNghiSuaThanh" value="@_App_Detail.PCT_Suadoi_Content" />
                             </div>
                         </div>
                     </div>
@@ -312,11 +315,11 @@
                 <div class="div-radio">
                     @if (_App_Detail.Source_DQSC == "Y")
                     {
-                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdDQSC" checked="checked" disabled="disabled" onchange="return ShowHiden_NguonGocDon()">
+                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdDQSC" checked="checked" onchange="return ShowHiden_NguonGocDon()">
                     }
                     else
                     {
-                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdDQSC" disabled onchange="return ShowHiden_NguonGocDon()">
+                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdDQSC" onchange="return ShowHiden_NguonGocDon()">
                     }
                     <label> @Resource.DonTachDQSC</label>
                 </div>
@@ -332,7 +335,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" id="txt_DQSC_SoDon" style="width:348px" value="@_App_Detail.DQSC_Origin_App_No" disabled />
+                            <input type="text" id="txt_DQSC_SoDon" style="width:348px" value="@_App_Detail.DQSC_Origin_App_No" />
                         </div>
                     </div>
 
@@ -341,7 +344,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" id="txt_DQSC_NgayNop" value="@(_App_Detail.DQSC_Filling_Date == DateTime.MinValue ? "" : _App_Detail.DQSC_Filling_Date.ToString("dd/MM/yyyy"))" disabled />
+                            <input type="text" id="txt_DQSC_NgayNop" value="@(_App_Detail.DQSC_Filling_Date == DateTime.MinValue ? "" : _App_Detail.DQSC_Filling_Date.ToString("dd/MM/yyyy"))" class="datetimepicker"/>
                         </div>
                     </div>
                 </div>
@@ -351,11 +354,11 @@
                         <div class="div-radio" style="width:464px">
                             @if (_App_Detail.DQSC_Valid_After == 1)
                             {
-                                <input type="checkbox" name="DQSC_TruocHopLe" id="DQSC_TruocHopLe" disabled checked="checked">
+                                <input type="checkbox" name="DQSC_TruocHopLe" id="DQSC_TruocHopLe" checked="checked">
                             }
                             else
                             {
-                                <input type="checkbox" name="DQSC_TruocHopLe" id="DQSC_TruocHopLe" disabled>
+                                <input type="checkbox" name="DQSC_TruocHopLe" id="DQSC_TruocHopLe">
                             }
                             <label>@Resource.TruocHopLe </label>
                         </div>
@@ -365,11 +368,11 @@
                         <div class="div-radio">
                             @if (_App_Detail.DQSC_Valid_Before == 1)
                             {
-                                <input type="checkbox" name="DQSC_SauHopLe" id="DQSC_SauHopLe" disabled checked="checked">
+                                <input type="checkbox" name="DQSC_SauHopLe" id="DQSC_SauHopLe" checked="checked">
                             }
                             else
                             {
-                                <input type="checkbox" name="DQSC_SauHopLe" id="DQSC_SauHopLe" disabled>
+                                <input type="checkbox" name="DQSC_SauHopLe" id="DQSC_SauHopLe">
                             }
                             <label>@Resource.SauHopLe </label>
                         </div>
@@ -383,11 +386,11 @@
                 <div class="div-radio">
                     @if (_App_Detail.Source_DQSC == "Y")
                     {
-                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdGPHI" value="3" disabled="disabled" checked="checked" onchange="return ShowHiden_NguonGocDon()">
+                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdGPHI" value="3" checked="checked" onchange="return ShowHiden_NguonGocDon()">
                     }
                     else
                     {
-                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdGPHI" value="3" disabled="disabled" onchange="return ShowHiden_NguonGocDon()">
+                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdGPHI" value="3" onchange="return ShowHiden_NguonGocDon()">
                     }
                     <label> @Resource.DonTachGPHI</label>
                 </div>
@@ -403,7 +406,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" id="txt_GPHI_SoDon" style="width:348px" disabled value="@_App_Detail.GPHI_Origin_App_No" />
+                            <input type="text" id="txt_GPHI_SoDon" style="width:348px" value="@_App_Detail.GPHI_Origin_App_No" />
                         </div>
                     </div>
 
@@ -412,7 +415,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" id="txt_GPHI_NgayNop" disabled value="@(_App_Detail.GPHI_Filling_Date == DateTime.MinValue ? "" : _App_Detail.GPHI_Filling_Date.ToString("dd/MM/yyyy"))" />
+                            <input type="text" id="txt_GPHI_NgayNop" class="datetimepicker" value="@(_App_Detail.GPHI_Filling_Date == DateTime.MinValue ? "" : _App_Detail.GPHI_Filling_Date.ToString("dd/MM/yyyy"))" />
                         </div>
                     </div>
                 </div>
@@ -422,11 +425,11 @@
                         <div class="div-radio" style="width:464px">
                             @if (_App_Detail.GPHI_Valid_Before == 1)
                             {
-                                <input type="checkbox" name="GPHI_TruocHopLe" id="GPHI_TruocHopLe" disabled checked="checked" />
+                                <input type="checkbox" name="GPHI_TruocHopLe" id="GPHI_TruocHopLe" checked="checked" />
                             }
                             else
                             {
-                                <input type="checkbox" name="GPHI_TruocHopLe" id="GPHI_TruocHopLe" disabled />
+                                <input type="checkbox" name="GPHI_TruocHopLe" id="GPHI_TruocHopLe" />
                             }
                             <label>@Resource.TruocHopLe</label>
                         </div>
@@ -436,11 +439,11 @@
                         <div class="div-radio">
                             @if (_App_Detail.GPHI_Valid_After == 1)
                             {
-                                <input type="checkbox" name="GPHI_SauHopLe" id="GPHI_SauHopLe" disabled checked="checked" />
+                                <input type="checkbox" name="GPHI_SauHopLe" id="GPHI_SauHopLe" checked="checked" />
                             }
                             else
                             {
-                                <input type="checkbox" name="GPHI_SauHopLe" id="GPHI_SauHopLe" disabled />
+                                <input type="checkbox" name="GPHI_SauHopLe" id="GPHI_SauHopLe" />
                             }
                             <label>@Resource.SauHopLe</label>
                         </div>
@@ -463,7 +466,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" id="txt_Patent_Name" style="height:65px" value="@_App_Detail.Patent_Name" disabled />
+                        <input type="text" id="txt_Patent_Name" style="height:65px" value="@_App_Detail.Patent_Name" />
                     </div>
                 </div>
             </div>
@@ -474,11 +477,11 @@
                         <div class="div-radio">
                             @if (_App_Detail.Class_Type == "CUC")
                             {
-                                <input type="radio" name="TuPhanLoai" id="ckbCucPhanLoai" onchange="onChangeTuPhanLoai()" checked="checked" disabled>
+                                <input type="radio" name="TuPhanLoai" id="ckbCucPhanLoai" onchange="onChangeTuPhanLoai()" checked="checked">
                             }
                             else
                             {
-                                <input type="radio" name="TuPhanLoai" id="ckbCucPhanLoai" onchange="onChangeTuPhanLoai()" disabled>
+                                <input type="radio" name="TuPhanLoai" id="ckbCucPhanLoai" onchange="onChangeTuPhanLoai()">
                             }
                             <label>@Resource.YeuCauCucPhanLoai</label>
                         </div>
@@ -490,11 +493,11 @@
                         <div class="div-radio">
                             @if (_App_Detail.Class_Type == "MY")
                             {
-                                <input type="radio" name="TuPhanLoai" id="ckbTuPhanLoai" onchange="onChangeTuPhanLoai()" checked="checked" disabled>
+                                <input type="radio" name="TuPhanLoai" id="ckbTuPhanLoai" onchange="onChangeTuPhanLoai()" checked="checked">
                             }
                             else
                             {
-                                <input type="radio" name="TuPhanLoai" id="ckbTuPhanLoai" onchange="onChangeTuPhanLoai()" disabled>
+                                <input type="radio" name="TuPhanLoai" id="ckbTuPhanLoai" onchange="onChangeTuPhanLoai()">
                             }
                             <label>@Resource.TuPhanLoai</label>
                         </div>
@@ -507,7 +510,7 @@
                     <div class="div-search-ad clssDisplaynone" id="divTuNhapPhanLoai">
                         <div class="div-search-content">
                             <div class="div-radio">
-                                <input type="text" id="txtClass" value="@_App_Detail.Class_Content" disabled>
+                                <input type="text" id="txtClass" value="@_App_Detail.Class_Content">
                             </div>
                         </div>
                     </div>
@@ -527,7 +530,7 @@
             </div>
         </div>
         <div id="div_PartialThongTinChuDon">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon_View.cshtml")
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
         </div>
 
         @*<div class="div_full_100_area">
@@ -540,11 +543,11 @@
                 <div class="div-radio" style="width:385px">
                     @if (_App_Detail.Master_Type != "")
                     {
-                        <input type="radio" name="1_rdoChuDon" value="TGDT" id="1_ckbTacGiaDongThoi" checked="checked" disabled>
+                        <input type="radio" name="1_rdoChuDon" value="TGDT" id="1_ckbTacGiaDongThoi" checked="checked">
                     }
                     else
                     {
-                        <input type="radio" name="1_rdoChuDon" value="TGDT" id="1_ckbTacGiaDongThoi" disabled>
+                        <input type="radio" name="1_rdoChuDon" value="TGDT" id="1_ckbTacGiaDongThoi">
                     }
                     <label>@Resource.ChuDonDongThoiLaTacGia</label>
                 </div>
@@ -554,11 +557,11 @@
                 <div class="div-radio">
                     @if (Lst_Other_Master.Count > 0)
                     {
-                        <input type="radio" name="1_rdoChuDon" checked="checked" disabled value="2" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
+                        <input type="radio" name="1_rdoChuDon" checked="checked" value="2" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
                     }
                     else
                     {
-                        <input type="radio" name="1_rdoChuDon" disabled value="2" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
+                        <input type="radio" name="1_rdoChuDon" value="2" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
                     }
                     <label>@Resource.NgoaiChuDon</label>
                 </div>
@@ -568,13 +571,13 @@
         <div id="divChuDonKhac">
             @for (int i = 0; i < Lst_Other_Master.Count; i++)
             {
-                Lst_Other_Master[i].Model_Id = i;
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDonKhac_View.cshtml", Lst_Other_Master[i])
+                Lst_Other_Master[i].Model_Id = (i + 1);
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDonKhac_Edit.cshtml", Lst_Other_Master[i])
             }
         </div>
 
         <div class="div_full_100_area classChuDonKhac clssDisplaynone" id="divChungDonKhac001">
-            <input type="hidden" id="txt_id_ChuDon" value="1" />
+            <input type="hidden" id="txt_id_ChuDon" value="@_max_Model_Id" />
             <a href="javascript:;" onclick="return ThemChuDon();" style="text-decoration:underline; color: blue;float: left;">@Resource.ThemChuDonKhac</a>
         </div>
 
@@ -596,7 +599,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txt_MaDaiDien" value="@_AppHeaderInfo.Customer_Code" disabled />
+                    <input type="text" id="txt_MaDaiDien" value="@_AppHeaderInfo.Customer_Code" />
                 </div>
             </div>
         </div>
@@ -613,7 +616,7 @@
         <div id="div_PartialThongTinTacGia">
             @if (Lst_AuthorsInfo.Count > 0)
             {
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinTacGia_View.cshtml", Lst_AuthorsInfo[0])
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinTacGia_Edit.cshtml", Lst_AuthorsInfo[0])
             }
         </div>
 
@@ -626,18 +629,18 @@
                     <div class="divCover cls_form_title">
                         <img src="~/Content/icons/category.png" />
                         <div class="cls_form_header">
-                            Tác giả khác
+                            @Resource.TacGiaKhac
                         </div>
                     </div>
 
-                    Lst_AuthorsInfo[i].Model_Id = i;
-                    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinTacGia_View.cshtml", Lst_AuthorsInfo[i])
+                    Lst_AuthorsInfo[i].Model_Id = (i + 1);
+                    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinTacGia_Edit.cshtml", Lst_AuthorsInfo[i])
                 }
             }
         </div>
 
         <div class="div_full_100_area classChuDonKhac clssDisplaynone">
-            <input type="hidden" id="txt_id_tacgia" value="1" />
+            <input type="hidden" id="txt_id_tacgia" value="@_max_Model_Id_author" />
             <a href="javascript:;" onclick="return ThemTacGia();" style="text-decoration:underline; color: blue;float: left;">@Resource.ThemTacGia</a>
         </div>
 
@@ -651,22 +654,22 @@
             <div style="display: inline-block;  padding-top: 8px; padding-left: 5px;">
                 @if (_App_Detail.Used_Special == 1)
                 {
-                    <input type="checkbox" name="0_ckbCoSuDungDonUuTien" value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" onchange="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')" disabled checked="checked" />
+                    <input type="checkbox" name="0_ckbCoSuDungDonUuTien" value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" onchange="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')" checked="checked" />
                 }
                 else
                 {
-                    <input type="checkbox" name="0_ckbCoSuDungDonUuTien" value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" onchange="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')" disabled />
+                    <input type="checkbox" name="0_ckbCoSuDungDonUuTien" value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" onchange="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')" />
                 }
                 <label><a style="color:blue ;font-weight:bold" id="hrefCo" onclick="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')">@WebApps.Resources.Resource.lblYes</a></label>
             </div>
             <div style="display: inline-block;">
                 @if (_App_Detail.Used_Special == 0)
                 {
-                    <input type="checkbox" name="KO_ckbCoSuDungDonUuTien" value="KO" id="KOUT" onchange="return funcChoiseDonUT('KOUT')" disabled checked="checked" />
+                    <input type="checkbox" name="KO_ckbCoSuDungDonUuTien" value="KO" id="KOUT" onchange="return funcChoiseDonUT('KOUT')" checked="checked" />
                 }
                 else
                 {
-                    <input type="checkbox" name="KO_ckbCoSuDungDonUuTien" value="KO" id="KOUT" onchange="return funcChoiseDonUT('KOUT')" disabled />
+                    <input type="checkbox" name="KO_ckbCoSuDungDonUuTien" value="KO" id="KOUT" onchange="return funcChoiseDonUT('KOUT')" />
                 }
                 <label><a style="color:blue ;font-weight:bold" id="hrefKhong" onclick="return funcChoiseDonUT('KOUT')">@WebApps.Resources.Resource.lblNo</a></label>
             </div>
@@ -677,8 +680,16 @@
             <div id="div_ThongTinDonUuTien">
                 @for (int i = 0; i < Lst_UTienInfo.Count; i++)
                 {
-                    Lst_UTienInfo[i].Model_Id = i;
-                    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinQuyenUuTien_View.cshtml", Lst_UTienInfo[i])
+                    Lst_UTienInfo[i].Model_Id = i + 1;
+                    if (Lst_UTienInfo.Count > 1 && i == 0)
+                    {
+                        Lst_UTienInfo[i].DaAddd_DonUTKhac = 1;
+                    }
+                    else
+                    {
+                        Lst_UTienInfo[i].DaAddd_DonUTKhac = 0;
+                    }
+                    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinQuyenUuTien_Edit.cshtml", Lst_UTienInfo[i])
                 }
             </div>
         }
@@ -696,7 +707,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txt_MaDaiDien" value="@_App_Detail.Point" disabled />
+                    <input type="text" id="txt_MaDaiDien" value="@_App_Detail.Point" />
                 </div>
             </div>
         </div>
@@ -714,11 +725,11 @@
                 <div class="div-radio">
                     @if (_App_Detail.ThamDinhNoiDung != "")
                     {
-                        <input type="checkbox" id="ckbThamDinhNoiDung" disabled="disabled" checked="checked">
+                        <input type="checkbox" id="ckbThamDinhNoiDung" checked="checked">
                     }
                     else
                     {
-                        <input type="checkbox" id="ckbThamDinhNoiDung" disabled="disabled">
+                        <input type="checkbox" id="ckbThamDinhNoiDung">
                     }
                     <label> @Resource.YeuCauThamDinhNoiDung</label>
                 </div>
@@ -738,11 +749,11 @@
                 <div class="div-radio">
                     @if (_App_Detail.ChuyenDoiDon != "")
                     {
-                        <input type="checkbox" id="ckbChuyenDoiDon" disabled="disabled" checked="checked">
+                        <input type="checkbox" id="ckbChuyenDoiDon" checked="checked">
                     }
                     else
                     {
-                        <input type="checkbox" id="ckbChuyenDoiDon" disabled="disabled">
+                        <input type="checkbox" id="ckbChuyenDoiDon">
                     }
                     <label> @Resource.DeNghiChuyenDoiDon</label>
                 </div>
@@ -765,7 +776,7 @@
             string _value1 = dic_appDoc[_doc_id1].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id1].CHAR01 + "|" + dic_appDoc[_doc_id1].Url_Hardcopy + "|" + dic_appDoc[_doc_id1].CHAR02;
             string _model1 = _id1 + ";" + _value1;
 
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model1)
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model1)
         }
 
         @* 2. Bản mô tả, bằng tiếng *@
@@ -775,7 +786,7 @@
             string _value2 = dic_appDoc[_doc_id2].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id2].CHAR01 + "|" + dic_appDoc[_doc_id2].Url_Hardcopy + "|" + dic_appDoc[_doc_id2].CHAR02;
             string _model2 = _id2 + ";" + _value2;
 
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model2)
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model2)
         }
 
         @* 3. Bản sao *@
@@ -784,7 +795,7 @@
             string _id3 = _doc_id3 + "|Doc_03|0|" + Resource.BanSaoChungTu + "|" + Resource.TM2B_SoTrang + "|1";
             string _value3 = dic_appDoc[_doc_id3].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id3].CHAR01 + "|" + dic_appDoc[_doc_id3].Url_Hardcopy;
             string _model3 = _id3 + ";" + _value3;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model3)
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model3)
         }
 
 
@@ -793,7 +804,7 @@
             string _id4 = _doc_id4 + "|Doc_04|0|" + Resource.BanTomTatBangTieng + "|" + Resource.TM3B_Tieng + "|1||" + Resource.TM2B_SoTrang;
             string _value4 = dic_appDoc[_doc_id4].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id4].CHAR01 + "|" + dic_appDoc[_doc_id4].Url_Hardcopy + "|" + dic_appDoc[_doc_id4].CHAR02;
             string _model4 = _id4 + ";" + _value4;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model4)
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model4)
         }
 
 
@@ -802,7 +813,7 @@
             string _id5 = _doc_id5 + "|Doc_05|0|" + Resource.lblBanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
             string _value5 = dic_appDoc[_doc_id5].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id5].CHAR01 + "|" + dic_appDoc[_doc_id5].Url_Hardcopy;
             string _model5 = _id5 + ";" + _value5;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model5)
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model5)
         }
 
         @* 6 Giấy uỷ quyền bằng tiếng *@
@@ -811,7 +822,7 @@
             string _id6 = _doc_id6 + "|Doc_06|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|" + Resource.TM3B_Tieng + "|0";
             string _value6 = dic_appDoc[_doc_id6].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id6].CHAR01 + "|" + dic_appDoc[_doc_id6].Url_Hardcopy;
             string _model6 = _id6 + ";" + _value6;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model6)
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model6)
         }
 
         @* 7  Bản dịch tiếng Việt, gồm *@
@@ -820,7 +831,7 @@
             string _id7 = _doc_id7 + "|Doc_07|1|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
             string _value7 = dic_appDoc[_doc_id7].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id7].CHAR01 + "|" + dic_appDoc[_doc_id7].Url_Hardcopy;
             string _model7 = _id7 + ";" + _value7;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model7)
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model7)
         }
 
         @* 8 Bản gốc *@
@@ -829,7 +840,7 @@
             string _id8 = _doc_id8 + "|Doc_08|1|" + Resource.TM2B_BanGoc + "||1";
             string _value8 = dic_appDoc[_doc_id8].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id8].CHAR01 + "|" + dic_appDoc[_doc_id8].Url_Hardcopy;
             string _model8 = _id8 + ";" + _value8;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model8)
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model8)
         }
 
         @* 9 Bản sao *@
@@ -838,7 +849,7 @@
             string _id9 = _doc_id9 + "|Doc_09|1|" + Resource.TM2B_BanSao + "||0";
             string _value9 = dic_appDoc[_doc_id9].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id9].CHAR01 + "|" + dic_appDoc[_doc_id9].Url_Hardcopy;
             string _model9 = _id9 + ";" + _value9;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model9)
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model9)
         }
 
 
@@ -848,7 +859,7 @@
             string _id10 = _doc_id10 + "|Doc_10|2|" + Resource.TM2B_BanGocSeNopSau + "||1";
             string _value10 = dic_appDoc[_doc_id10].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id10].CHAR01 + "|" + dic_appDoc[_doc_id10].Url_Hardcopy;
             string _model10 = _id10 + ";" + _value10;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model10)
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model10)
         }
 
         @* 11 Bản sao  > Bản gốc đã nộp theo đơn *@
@@ -857,7 +868,7 @@
             string _id11 = _doc_id11 + "|Doc_11|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|1";
             string _value11 = dic_appDoc[_doc_id11].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id11].CHAR01 + "|" + dic_appDoc[_doc_id11].Url_Hardcopy;
             string _model11 = _id11 + ";" + _value11;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model11)
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model11)
         }
 
         @* 12 Tài liệu chứng minh quyền ưu tiên *@
@@ -866,7 +877,7 @@
             string _id12 = _doc_id12 + "|Doc_12|0|" + Resource.lblTaiLieuChungMinhQuyenUT + " || 0";
             string _value12 = dic_appDoc[_doc_id12].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id12].CHAR01 + "|" + dic_appDoc[_doc_id12].Url_Hardcopy;
             string _model12 = _id12 + ";" + _value12;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model12)
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model12)
         }
 
         @{
@@ -874,7 +885,7 @@
             string _id13 = _doc_id13 + "|Doc_13|1|" + Resource.BanSaoDonDauTien + "|" + Resource.lblBan + "|1";
             string _value13 = dic_appDoc[_doc_id13].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id13].CHAR01 + "|" + dic_appDoc[_doc_id13].Url_Hardcopy;
             string _model13 = _id13 + ";" + _value13;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model13)
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model13)
         }
 
         @{
@@ -882,7 +893,7 @@
             string _id14 = _doc_id14 + "|Doc_14|1|" + Resource.GiayChuyenNhuongQuyenUT + "||1";
             string _value14 = dic_appDoc[_doc_id14].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id14].CHAR01 + "|" + dic_appDoc[_doc_id14].Url_Hardcopy;
             string _model14 = _id14 + ";" + _value14;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model14)
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model14)
         }
 
         @{
@@ -890,7 +901,7 @@
             string _id15 = _doc_id15 + "|Doc_15|0|" + Resource.TaiLieuXacNhanQuyenDangKy + "||1";
             string _value15 = dic_appDoc[_doc_id15].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id15].CHAR01 + "|" + dic_appDoc[_doc_id15].Url_Hardcopy;
             string _model15 = _id15 + ";" + _value15;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model15)
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model15)
         }
 
         @{
@@ -898,27 +909,20 @@
             string _id16 = _doc_id16 + "|Doc_16|0|" + Resource.CoTaiLieuKhac + "||0";
             string _value16 = dic_appDoc[_doc_id16].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id16].CHAR01 + "|" + dic_appDoc[_doc_id16].Url_Hardcopy;
             string _model16 = _id16 + ";" + _value16;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model16)
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model16)
         }
 
         @*TÀI LIỆU KHÁC*@
         @*@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac.cshtml", "12")*@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHTaiLieuKhac.cshtml", "12")
 
-        @*@{
-                string _doc_id17 = "A01_17";
-                string _id17 = _doc_id17 + "|Doc_17|0|" + "Hình công bố" + "||0";
-                string _value17 = dic_appDoc[_doc_id17].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id17].CHAR01 + "|" + dic_appDoc[_doc_id17].Url_Hardcopy;
-                string _model17 = _id17 + ";" + _value17;
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model17)
-            }*@
         @* Hình công bố *@
         @Html.Partial("~/Areas/Patent/Views/A01/View_PartialTaiLieuKhac.cshtml", "12")
 
         @* Cam kết của hủ đơn *@
         @{
             string _camket = _AppHeaderInfo.Address + "|" + _AppHeaderInfo.DateNo + "|" + _AppHeaderInfo.Months + "|" + _AppHeaderInfo.Years;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon_View.cshtml", _camket)
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon_Edit.cshtml", _camket)
         }
 
         @*<div class="class_save">
@@ -941,6 +945,10 @@
 
 <script>
     $(document).ready(function () {
+        $('.classNguonGoc').click(function () {
+            $('.classNguonGoc').not(this).prop('checked', false);
+        });
+
         $.datetimepicker.setLocale('vi');
         $('.datetimepicker').datetimepicker({
             timepicker: false,
@@ -1004,8 +1012,54 @@
                 });
             }
         });
+
+        // nếu có appno
+        if ('@_App_No' != "")
+        {
+            $("#3_SoDon").val('@_App_No');
+            onChangeAppNo();
+        }
     });
 
+    $(function ()
+    {
+      try {
+        var availableTags = [];
+        var array = @Html.Raw(Json.Encode(clstAppClassShortSuggest));
+        for (var i = 0; i < array.length; i++) {
+            availableTags[i] = array[i];
+        }
+        $("#txtTenHangHoa").autocomplete({
+            minLength: 3,
+            source: function (request, response) {
+                var results = $.ui.autocomplete.filter(availableTags, request.term.toUpperCase());
+                response(results.slice(0, 100));
+            },
+            select: function (event, ui) {
+                $("#txtClass").val(ui.item.value);
+                //return false;
+                var textinput = $("#txtTenHangHoa").val();
+                event.preventDefault();
+                funcAddDataRowSuggest(ui.item.label, ui.item.value);
+                $("#txtTenHangHoa").val("");
+
+            },
+            focus: function (event, ui) {
+                var arrResult = $(".ui-menu-item");
+                for (var i = 0; i < arrResult.length; i++) {
+                    var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                    if (label == ui.item.name) {
+                        $(".clsLiActive").removeClass("clsLiActive")
+                        $(arrResult[i]).addClass("clsLiActive");
+                        break;
+                    }
+                }
+                event.preventDefault();
+            }
+        });
+        } catch (e) {
+        }
+    });
 
     $("#btnGuiDon").click(function () {
         try {
@@ -1043,37 +1097,8 @@
         }
     });
 
-    function funGetData(ptype, url) {
+    function funcChuDonKhac(formData) {
         try {
-            //Thông tin chủ đơn
-            var formData = new FormData();
-
-            var reponse = funcThongTinNhapHo(formData);
-            if (reponse == false) {
-                return false;
-            }
-
-            var reponse = funcThongTinCaseName(formData, "0");
-            if (reponse == false) {
-                return false;
-            }
-
-            // hàng hóa
-            reponse = funcGetDataClassInfo(formData);
-            if (reponse == false) {
-                return false;
-            }
-
-            if (funcThongTinChuDon(formData, "1") != true) {
-                return false;
-            }
-
-            if ($("#1_ckbTacGiaDongThoi").is(':checked')) {
-                formData.append("pInfo.Master_Type", "TGDT");
-            } else {
-                formData.append("pInfo.Master_Type", "");
-            }
-
             var _index = 0;
             $(".clsChuDonKhac").each(function (item) {
                 var _id = $(this).attr('data-id');
@@ -1101,8 +1126,53 @@
                     _index = _index + 1;
                 }
             });
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
 
-            formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin)');
+    function funGetData(ptype, url) {
+        try {
+            //Thông tin chủ đơn
+            var formData = new FormData();
+
+            var reponse = funcThongTinNhapHo(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            var reponse = funcThongTinCaseName(formData, "0");
+            if (reponse == false) {
+                return false;
+            }
+
+            // hàng hóa
+            //reponse = funcGetDataClassInfo(formData);
+            //if (reponse == false) {
+            //    return false;
+            //}
+
+            if (ptype == 1) {
+                if (funcThongTinChuDon_SaveTem(formData, "1") != true) {
+                    return false;
+                }
+            } else if (ptype == 2) {
+                if (funcThongTinChuDon(formData, "1") != true) {
+                    return false;
+                }
+            }
+
+            if ($("#1_ckbTacGiaDongThoi").is(':checked')) {
+                formData.append("pInfo.Master_Type", "TGDT");
+            } else {
+                formData.append("pInfo.Master_Type", "CDK");
+            }
+
+            if (funcChuDonKhac(formData) != true) {
+                return false;
+            }
+
             var v_AppCode = $("#txtAppCode").val();
             if (v_AppCode === "") {
                 $('#txtAppCode').focus().val('');
@@ -1116,12 +1186,17 @@
                 return false;
             }
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-            if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                jError("@Html.Raw(Resource.TM2B_ChonDaiDienChuDon)", "@Html.Raw(Resource.TM3B_Loi)", function () {
-                    $("#_2_rdoNguoiDaiDienPL").focus()
-                });
-                return false;
+            if (ptype == 1) {
+
+            } else if (ptype == 2) {
+                if (v_RepMasterType === "" || v_RepMasterType == undefined) {
+                    jError("@Html.Raw(Resource.TM2B_ChonDaiDienChuDon)", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                        $("#_2_rdoNguoiDaiDienPL").focus()
+                    });
+                    return false;
+                }
             }
+
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
             formData.append("pInfo.Status", ptype);
 
@@ -1137,8 +1212,13 @@
                 return false;
             }
 
+            reponse = funcGetImagePublic(formData);
+            if (reponse == false) {
+                return false;
+            }
+
             //Lấy thông tin detail
-            reponse = funcGetAppDetail(formData);
+            reponse = funcGetAppDetail(formData, ptype);
             if (reponse == false) {
                 return false;
             }
@@ -1322,6 +1402,22 @@
         }
     }
 
+    function onChangeTuPhanLoai() {
+        try {
+            if ($("#ckbTuPhanLoai").is(':checked')) {
+                $("#divTuNhapPhanLoai").removeClass("clssDisplaynone");
+                $("#txtClass").focus();
+            }
+            else {
+                $("#divTuNhapPhanLoai").addClass("clssDisplaynone");
+            }
+
+            $("#txtClass").val("");
+        } catch (e) {
+            alert(e);
+        }
+    }
+
     function ThemTacGia() {
         try {
 
@@ -1413,30 +1509,69 @@
         }
     });
 
-    function funcGetAppDetail(formData) {
+    //$("#ckb_Doc_17").change(function () {
+    //    if ($("#ckb_Doc_17").is(":checked") == true) {
+    //        $("#divContainerDocOther_Img").css('display', 'block')
+    //    } else {
+    //        $("#divContainerDocOther_Img").css('display', 'none');
+    //    }
+    //});
+
+
+    function funcGetAppDetail(formData, pType) {
         try {
 
             var txt_MaDaiDien = $("#txt_MaDaiDien").val();
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-            if (v_RepMasterType = "DDPL") {
-                if (txt_MaDaiDien == "") {
-                    jError("@Resource.TM3C_MaDaiDienKhongDuocTrong", "@Resource.TM3B_Loi", function () {
-                        $("#txt_MaDaiDien").focus()
+
+            // nếu là gửi đơn
+            if (pType == 2) {
+                if (v_RepMasterType = "DDPL") {
+                    if (txt_MaDaiDien == "") {
+                        jError("@Resource.TM3C_MaDaiDienKhongDuocTrong", "@Resource.TM3B_Loi", function () {
+                            $("#txt_MaDaiDien").focus()
+                        });
+                        return false;
+                    }
+                }
+            }
+
+            formData.append("pInfo.Customer_Code", txt_MaDaiDien);
+
+            var _txt_Patent_Name = $("#txt_Patent_Name").val();
+            if (pType == 2) {
+                if (_txt_Patent_Name == "") {
+                    jError("Tên bằng sáng chế không được để trống", "@Resource.TM3B_Loi", function () {
+                        $("#txt_Patent_Name").focus()
                     });
                     return false;
                 }
             }
-            formData.append("pInfo.Customer_Code", txt_MaDaiDien);
 
-            var _txt_Patent_Name = $("#txt_Patent_Name").val();
-            if (_txt_Patent_Name == "") {
-                jError("Tên bằng sáng chế không được để trống", "@Resource.TM3B_Loi", function () {
-                    $("#txt_Patent_Name").focus()
-                });
-                return false;
-            }
             formData.append("pDetail.Patent_Name", _txt_Patent_Name);
             formData.append("pDetail.Patent_Type", "DQSC");
+
+
+            if ($("#ckbCucPhanLoai").is(':checked')) {
+                formData.append("pDetail.Class_Type", "CUC");
+                formData.append("pDetail.Class_Content", "");
+            } else {
+                formData.append("pDetail.Class_Type", "MY");
+                formData.append("pDetail.Class_Content", $("#txtClass").val());
+            }
+
+            var _txtPoint = $("#txtPoint").val();
+            if (pType == 2) {
+                if (_txtPoint == "") {
+                    jError("Số điểm yêu cầu bảo hộ độc lập không được để trống", "@Resource.TM3B_Loi", function () {
+                        $("#txtPoint").focus()
+                    });
+                    return false;
+                }
+            }
+
+            formData.append("pDetail.Point", _txtPoint);
+
 
             if ($("#ckbThamDinhNoiDung").is(':checked')) {
                 formData.append("pDetail.ThamDinhNoiDung", "TDND");
@@ -1461,7 +1596,35 @@
 
                 if ($("#2_rdo_PCT_SuaDoi").is(':checked')) {
                     formData.append("pDetail.PCT_SuaDoi", 1);
-                    formData.append("pDetail.PCT_SuaDoi_Type", $("#txt_Patent_Name").val());
+
+                    var _Request_To_Type = $("input[name='4_rdoNoiDungYeuCauSuaDoi']:checked").val();
+                    if (pType == 2) {
+                        if (_Request_To_Type === "" || _Request_To_Type == undefined) {
+                            jError("@Resource.TM3B_ChonNoiDungYCSuaDoi", "@Resource.TM3B_Loi", function () {
+                                $("#4_rdTenChuDon").focus()
+                            });
+                            return false;
+                        }
+                    }
+
+                    if ($("#4_rdTenChuDon").is(':checked')) {
+                        formData.append("pDetail.PCT_SuaDoi_Name", "Y");
+                    } else {
+                        formData.append("pDetail.PCT_SuaDoi_Name", "N");
+                    }
+
+                    if ($("#4_rdDiaChiChuDon").is(':checked')) {
+                        formData.append("pDetail.PCT_SuaDoi_Address", "Y");
+                    } else {
+                        formData.append("pDetail.PCT_SuaDoi_Address", "N");
+                    }
+
+                    if ($("#4_rdnoiDungKhac").is(':checked')) {
+                        formData.append("pDetail.PCT_SuaDoi_Others", "Y");
+                    } else {
+                        formData.append("pDetail.PCT_SuaDoi_Others", "N");
+                    }
+
                     formData.append("pDetail.PCT_SuaDoi_Content", $("#txt_Patent_Name").val());
 
                 } else {
@@ -1562,22 +1725,24 @@
                     var _id = $(this).attr('data-id');
                     if ($("#" + _id + "_UT_Use").val() == "1") {
 
-                        if ($("#" + _id + "_UT_txtSoDon").val() === "" || $("#" + _id + "_UT_txtSoDon").val() == undefined) {
-                            showError('Số đơn ưu tiên không được để trống');
-                            $("#" + _id + "_UT_txtSoDon").focus();
-                            return false;
-                        }
+                        if (pType == 2) {
+                            if ($("#" + _id + "_UT_txtSoDon").val() === "" || $("#" + _id + "_UT_txtSoDon").val() == undefined) {
+                                showError('Số đơn ưu tiên không được để trống');
+                                $("#" + _id + "_UT_txtSoDon").focus();
+                                return false;
+                            }
 
-                        if ($("#" + _id + "_UT_txtNgayNopDon").val() === "" || $("#" + _id + "_UT_txtNgayNopDon").val() == undefined) {
-                            showError('Ngày nộp đơn ưu tiên không được để trống');
-                            $("#" + _id + "_UT_txtNgayNopDon").focus();
-                            return false;
-                        }
+                            if ($("#" + _id + "_UT_txtNgayNopDon").val() === "" || $("#" + _id + "_UT_txtNgayNopDon").val() == undefined) {
+                                showError('Ngày nộp đơn ưu tiên không được để trống');
+                                $("#" + _id + "_UT_txtNgayNopDon").focus();
+                                return false;
+                            }
 
-                        if ($("#" + _id + "_UT_txtQuocGia").val() === "" || $("#" + _id + "_UT_txtQuocGia").val() == undefined) {
-                            showError('Nước nộp đơn ưu tiên không được để trống');
-                            $("#" + _id + "_UT_txtQuocGia").focus();
-                            return false;
+                            if ($("#" + _id + "_UT_txtQuocGia").val() === "" || $("#" + _id + "_UT_txtQuocGia").val() == undefined) {
+                                showError('Nước nộp đơn ưu tiên không được để trống');
+                                $("#" + _id + "_UT_txtQuocGia").focus();
+                                return false;
+                            }
                         }
 
                         formData.append("pUTienInfo[" + _index + "].UT_SoDon", $("#" + _id + "_UT_txtSoDon").val());
@@ -1586,9 +1751,11 @@
 
                         var _nameYC = _id + "_rdo_YCHuongQuyen";
                         var v_QuyenUuTien = $("input[name='" + _nameYC + "']:checked").val();
-                        if (v_QuyenUuTien == undefined || v_QuyenUuTien == null || v_QuyenUuTien == 0 && (pEditOrNew == 1)) {
-                            showError('Yêu cầu hưởng quyền ưu tiên phải chọn ít nhất 1 giá trị');
-                            return false;
+                        if (pType == 2) {
+                            if (v_QuyenUuTien == undefined || v_QuyenUuTien == null || v_QuyenUuTien == 0 && (pEditOrNew == 1)) {
+                                showError('Yêu cầu hưởng quyền ưu tiên phải chọn ít nhất 1 giá trị');
+                                return false;
+                            }
                         }
                         formData.append("pUTienInfo[" + _index + "].UT_Type", v_QuyenUuTien);
                         formData.append("pUTienInfo[" + _index + "].UT_ThoaThuanKhac", $("#" + _id + "_txtThoathuanKhac").val());
@@ -1599,7 +1766,7 @@
                         var _id_checkbox = "ckb_" + _id + "_TLCMQUT";
                         var _id_textbox = "txt_" + _id + "_TLCMQUT";
                         reponse = funcGetCheckValueAndText(formData, _id_checkbox, _index_document);
-                        //formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
+                        formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
 
                         _index_document = _index_document + 1;
                         _id_checkbox = "ckb_" + _id + "_BanSaoDauTien";
@@ -1619,7 +1786,7 @@
                         _id_checkbox = "ckb_" + _id + "_GiayChuyenNhuong";
                         var _id_textbox = "txt_" + _id + "_GiayChuyenNhuong";
                         reponse = funcGetCheckValueAndText(formData, _id_checkbox, _index_document);
-                        formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
+                        //formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
                     }
                 });
 
@@ -1658,7 +1825,7 @@
 
             // 6
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_06", "5");
-            //formData.append("pAppDocumentInfo[5].CHAR01", $("#txt_Doc_06").val());
+            formData.append("pAppDocumentInfo[5].CHAR01", $("#txt_Doc_06").val());
 
             // 7
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_07", "6");
@@ -1666,35 +1833,35 @@
 
             // 8
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_08", "7");
-            formData.append("pAppDocumentInfo[7].CHAR01", $("#txt_Doc_08").val());
+            formData.append("pAppDocumentInfo[7].CHAR01", "");
 
             // 9
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_09", "8");
-            //formData.append("pAppDocumentInfo[8].CHAR01", $("#txt_Doc_09").val());
+            formData.append("pAppDocumentInfo[8].CHAR01", "");
 
             // 10
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_10", "9");
-            formData.append("pAppDocumentInfo[9].CHAR01", $("#txt_Doc_10").val());
+            formData.append("pAppDocumentInfo[9].CHAR01", "");
 
             // 11
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_11", "10");
             formData.append("pAppDocumentInfo[10].CHAR01", $("#txt_Doc_11").val());
 
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_12", "11");
-            formData.append("pAppDocumentInfo[11].CHAR01", $("#txt_Doc_12").val());
+            //formData.append("pAppDocumentInfo[11].CHAR01", $("#txt_Doc_12").val());
 
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_13", "12");
             formData.append("pAppDocumentInfo[12].CHAR01", $("#txt_Doc_13").val());
 
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_14", "13");
-            formData.append("pAppDocumentInfo[13].CHAR01", $("#txt_Doc_14").val());
+            formData.append("pAppDocumentInfo[13].CHAR01", "");
 
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_15", "14");
-            formData.append("pAppDocumentInfo[14].CHAR01", $("#txt_Doc_15").val());
+            formData.append("pAppDocumentInfo[14].CHAR01", "");
 
             // 16
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_16", "15");
-            formData.append("pAppDocumentInfo[15].CHAR01", $("#txt_Doc_16").val());
+            formData.append("pAppDocumentInfo[15].CHAR01", "");
 
         } catch (e) {
             console.log(e);
@@ -1707,6 +1874,20 @@
             $(".clssListUpload").each(function () {
                 formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", this.id);
                 formData.append("pAppDocOtherInfo[" + item + "].Documentname", $("#" + this.id).val());
+                item++;
+            });
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function funcGetImagePublic(formData) {
+        try {
+            var item = 0;
+            $(".clssListUploadImg").each(function () {
+                formData.append("pLstImagePublic[" + item + "].keyFileUpload", this.id);
+                formData.append("pLstImagePublic[" + item + "].Documentname", $("#" + this.id).val());
                 item++;
             });
             return true;

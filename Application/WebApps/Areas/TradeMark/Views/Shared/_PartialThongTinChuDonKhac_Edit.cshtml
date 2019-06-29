@@ -1,18 +1,19 @@
-﻿@model string
-@using ObjectInfos;
+﻿@using ObjectInfos;
 @using WebApps.Resources;
+@model Other_MasterInfo
 @{
-    string txtTenDayDu = Model + "_txtTenDayDu_Khac";
-    string txtDiaChi = Model + "_txtDiaChi_Khac";
-    string txtDienThoai = Model + "_txtDienThoai_Khac";
-    string txtFax = Model + "_txtFax_Khac";
-    string txtEmail = Model + "_txtEmail_Khac";
+    string _id = Model.Model_Id;
+    string txtTenDayDu = _id + "_txtTenDayDu_Khac";
+    string txtDiaChi = _id + "_txtDiaChi_Khac";
+    string txtDienThoai = _id + "_txtDienThoai_Khac";
+    string txtFax = _id + "_txtFax_Khac";
+    string txtEmail = _id + "_txtEmail_Khac";
 
-    string ckbTacGiaDongThoi = Model + "_ckbTacGiaDongThoi";
-    string ckbPhoBan = Model + "_ckbPhoBan";
+    string ckbTacGiaDongThoi = _id + "_ckbTacGiaDongThoi";
+    string ckbPhoBan = _id + "_ckbPhoBan";
 
-    string divChuDonKhac = Model + "_divChuDonKhac";
-    string txtUse = Model + "_txtUse_ChuDonKhac";
+    string divChuDonKhac = _id + "_divChuDonKhac";
+    string txtUse = _id + "_txtUse_ChuDonKhac";
 
     var objAppHeaderInfo = new ApplicationHeaderInfo();
     if (ViewBag.objAppHeaderInfo != null)
@@ -20,14 +21,9 @@
         objAppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
     }
     string _disable = "";
-
-    if (ViewBag.Isdisable == 1)
-    {
-        _disable = "disabled";
-    }
 }
 
-<div id="@divChuDonKhac" class="clsChuDonKhac" data-id="@Model">
+<div id="@divChuDonKhac" class="clsChuDonKhac" data-id="@_id">
 
     <div class="divCover cls_form_title">
         <img src="~/Content/icons/category.png" />
@@ -44,7 +40,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input value="@objAppHeaderInfo.Master_Name" type="text" maxlength="200" id="@txtTenDayDu" @_disable />
+                <input value="@objAppHeaderInfo.Master_Name" type="text" maxlength="200" id="@txtTenDayDu" />
             </div>
         </div>
     </div>
@@ -56,7 +52,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input value="@objAppHeaderInfo.Master_Address" type="text" maxlength="200" id="@txtDiaChi" @_disable />
+                <input value="@objAppHeaderInfo.Master_Address" type="text" maxlength="200" id="@txtDiaChi" />
             </div>
         </div>
     </div>
@@ -67,7 +63,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" value="@objAppHeaderInfo.Master_Phone" maxlength="50" id="@txtDienThoai" style="width: 250px;" @_disable />
+                <input type="text" value="@objAppHeaderInfo.Master_Phone" maxlength="50" id="@txtDienThoai" style="width: 250px;" />
             </div>
         </div>
 
@@ -76,7 +72,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input value="@objAppHeaderInfo.Master_Fax" type="text" maxlength="50" id="@txtFax" @_disable />
+                <input value="@objAppHeaderInfo.Master_Fax" type="text" maxlength="50" id="@txtFax" />
             </div>
         </div>
         <div class="div-search-title">
@@ -84,7 +80,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input value="@objAppHeaderInfo.Master_Email" type="text" maxlength="50" id="@txtEmail" @_disable />
+                <input value="@objAppHeaderInfo.Master_Email" type="text" maxlength="50" id="@txtEmail" />
             </div>
         </div>
     </div>

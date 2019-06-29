@@ -11,8 +11,6 @@
     string txtEmail = _id + "_TG_Email";
     string txtQuocTich = _id + "_TG_QuocTich";
     string txtUse = _id + "_txtUse";
-
-    string _disable = "disabled";
 }
 
 <div class="clsTacGia" data-id="@_id">
@@ -25,7 +23,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input value="@Model.Author_Name" type="text" maxlength="200" id="@txtTenDayDu" @_disable />
+                <input value="@Model.Author_Name" type="text" maxlength="200" id="@txtTenDayDu" />
             </div>
         </div>
     </div>
@@ -37,7 +35,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input value="@Model.Author_Address" type="text" maxlength="200" id="@txtDiaChi" @_disable />
+                <input value="@Model.Author_Address" type="text" maxlength="200" id="@txtDiaChi" />
             </div>
         </div>
     </div>
@@ -48,7 +46,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" value="@Model.Author_Phone" maxlength="50" id="@txtDienThoai" style="width: 250px;" @_disable />
+                <input type="text" value="@Model.Author_Phone" maxlength="50" id="@txtDienThoai" style="width: 250px;" />
             </div>
         </div>
 
@@ -57,7 +55,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input value="@Model.Author_Fax" type="text" maxlength="50" id="@txtFax" @_disable />
+                <input value="@Model.Author_Fax" type="text" maxlength="50" id="@txtFax" />
             </div>
         </div>
         <div class="div-search-title">
@@ -65,7 +63,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input value="@Model.Author_Email" type="text" maxlength="50" id="@txtEmail" @_disable />
+                <input value="@Model.Author_Email" type="text" maxlength="50" id="@txtEmail" />
             </div>
         </div>
     </div>
@@ -76,7 +74,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <select id="@txtQuocTich" @_disable>
+                <select id="@txtQuocTich">
                     @foreach (var item in MemoryData.c_lst_Country)
                     {
                         if (item.Country_Id == Model.Author_Country)
@@ -92,6 +90,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 
