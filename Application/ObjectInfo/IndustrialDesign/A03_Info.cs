@@ -30,4 +30,14 @@ namespace ObjectInfos
         { set; get; }
 
     }
+
+    public class A03_Info_Export : ApplicationHeaderInfo
+    {
+        public static void CopyA03_Info(ref A03_Info_Export p_appDetail, A03_Info p_A03_Info)
+        {
+        }
+        public static void CopyAppHeaderInfo(ref A03_Info_Export p_appDetail, ApplicationHeaderInfo pAppInfo)
+        {
+        }
+    }
 }

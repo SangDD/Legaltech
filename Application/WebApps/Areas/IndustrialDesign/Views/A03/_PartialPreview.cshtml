@@ -30,7 +30,7 @@
 
 
 <script>
-
+    funGetData_Preview_A03
     function Accept() {
         try {
             if (CheckSessionTimeOut() == false) {
@@ -43,7 +43,7 @@
         }
     }
 
-    function funGetData_Preview_A01(url) {
+    function funGetData_Preview_A03(url) {
         try {
             $.ajax({
                 url: url,
@@ -77,9 +77,9 @@
     }
 
     function funcPreViewApplication() {
-        var preturn = funGetData_Preview_A01("/lg-patent/ket_xuat_file");
+        var preturn = funGetData_Preview_A03("/indus-design/ket_xuat_file");
         if (preturn == true || preturn == undefined) {
-            OpenPreview("/lg-patent/Pre-View");
+            OpenPreview("/indus-design/Pre-View");
         }
 
         //Accept();

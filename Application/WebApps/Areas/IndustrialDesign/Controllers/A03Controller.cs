@@ -503,5 +503,99 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
             }
             return Json(new { success = 0 });
         }
+
+        [HttpPost]
+        [Route("ket_xuat_file_IU")]
+        public ActionResult ExportData_View_IU(ApplicationHeaderInfo pInfo, A03_Info pDetail,
+           List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo,
+           List<AuthorsInfo> pAppAuthorsInfo, List<Other_MasterInfo> pOther_MasterInfo,
+           List<AppClassDetailInfo> pAppClassInfo, List<AppDocumentOthersInfo> pAppDocOtherInfo,
+           List<UTienInfo> pUTienInfo, List<AppDocumentOthersInfo> pLstImagePublic)
+        {
+            try
+            {
+                string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
+                string language = AppsCommon.GetCurrentLang();
+                var objBL = new A03_BL();
+                List<A03_Info_Export> _lst = new List<A03_Info_Export>();
+
+                string p_appCode = "A03_Preview";
+
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_VN_" + p_appCode + _datetimenow + ".pdf");
+                if (language == Language.LangVI)
+                {
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_VN_" + p_appCode + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A03_VN_" + p_appCode + _datetimenow + ".pdf";
+                }
+                else
+                {
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_EN_" + p_appCode + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A03_EN_" + p_appCode + _datetimenow + ".pdf";
+                }
+
+                A03_Info_Export _A03_Info_Export = new A03_Info_Export();
+                A03_Info_Export.CopyA03_Info(ref _A03_Info_Export, pDetail);
+
+
+                // Phí cố định
+                //List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_A03(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic);
+                //AppsCommon.Prepare_Data_Export_A03(ref _A03_Info_Export, pInfo, pAppDocumentInfo, _lstFeeFix, pAppAuthorsInfo, pOther_MasterInfo,
+                //       pAppClassInfo, pAppDocOtherInfo, pUTienInfo, pLstImagePublic);
+
+                _lst.Add(_A03_Info_Export);
+                DataSet _ds_all = ConvertData.ConvertToDataSet<A03_Info_Export>(_lst, false);
+                //_ds_all.WriteXml(@"C:\inetpub\A03.xml", XmlWriteMode.WriteSchema);
+                CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+
+                string _tempfile = "A03.rpt";
+                if (language == Language.LangEN)
+                {
+                    _tempfile = "A03_EN.rpt";
+                }
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
+
+                if (_ds_all != null)
+                {
+                    _ds_all.Tables[0].TableName = "Table1";
+                    oRpt.SetDataSource(_ds_all);
+                }
+                oRpt.Refresh();
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+
+                System.IO.Stream oStream = oRpt.ExportToStream(ExportFormatType.PortableDocFormat);
+                byte[] byteArray = new byte[oStream.Length];
+                oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
+                System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq
+
+ 
+
+                return Json(new { success = 0 });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = 0 });
+            }
+        }
+
+        [Route("Pre-View")]
+        public ActionResult PreViewApplication(string p_appCode)
+        {
+            try
+            {
+                ViewBag.FileName = SessionData.CurrentUser.FilePreview;
+                //ViewBag.FileName = "/Content/Export/" + "A03_VN_" + TradeMarkAppCode.AppCode_A03 + ".pdf";
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+            }
+        }
     }
 }
