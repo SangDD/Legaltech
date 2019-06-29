@@ -253,6 +253,12 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Report\A03.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>A03.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Report\TM_04NHLogoChu.cs">
       <DependentUpon>TM_04NHLogoChu.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1364,6 +1370,10 @@
     <Content Include="Content\fonts\fontawesome\webfonts\fa-solid-900.woff" />
     <Content Include="Content\fonts\fontawesome\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\ckfinder\App_LocalResources\config.ascx.resx" />
+    <EmbeddedResource Include="Report\A03.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>A03.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\TM_04NHLogoChu_EN.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TM_04NHLogoChu_EN.cs</LastGenOutput>
@@ -1761,6 +1771,10 @@
     <Content Include="Areas\Patent\Views\A01\_PartialPreview_IU.cshtml" />
     <Content Include="Areas\TradeMark\Views\Shared\_PartialTreeDocumentView.cshtml" />
     <Content Include="Areas\Patent\Views\A01\_PartialTableListFees.cshtml" />
+    <Content Include="Areas\IndustrialDesign\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\IndustrialDesign\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\IndustrialDesign\Views\A03\_PartialPreview.cshtml" />
+    <Content Include="Areas\IndustrialDesign\Views\A03\_PartialPreview_IU.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <None Include="Properties\PublishProfiles\HungTDLap.pubxml" />
@@ -2094,7 +2108,6 @@
     <Folder Include="Areas\Home\Models\" />
     <Folder Include="Areas\Home\Views\LegalHome\" />
     <Folder Include="Areas\IndustrialDesign\Models\" />
-    <Folder Include="Areas\IndustrialDesign\Views\Shared\" />
     <Folder Include="Areas\Manager\Models\" />
     <Folder Include="Areas\ModuleUsersAndRoles\Models\" />
     <Folder Include="Areas\ModuleUsersAndRoles\Views\Shared\" />
