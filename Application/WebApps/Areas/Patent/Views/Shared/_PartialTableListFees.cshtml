@@ -9,9 +9,12 @@
     }
 
     decimal _Total_Amount = 0;
+    decimal _Total_Amount_Represent = 0;
+
     foreach (var item in _list_data)
     {
         _Total_Amount += item.Amount;
+        _Total_Amount_Represent += item.Amount_Represent;
     }
 }
 
@@ -43,9 +46,9 @@
                         {
                             <td class="tdleftalign">@item.Fee_Name</td>
                         }
-                        <td class="tdleftalign">@item.Number_Of_Patent</td>
-                        <td class="tdleftalign">@item.Amount.ToString("#,##0.##")</td>
-                        <td class="tdleftalign">@item.Amount_Represent.ToString("#,##0.##")</td>
+                        <td class="tdrightalign">@item.Number_Of_Patent</td>
+                        <td class="tdrightalign">@item.Amount.ToString("#,##0.##")</td>
+                        <td class="tdrightalign">@item.Amount_Represent.ToString("#,##0.##")</td>
                     </tr>
                 }
 
@@ -53,6 +56,7 @@
                     <td class="tdleftalign" style="font-weight:bold">@WebApps.Resources.Resource.TongCong</td>
                     <td class="tdrightalign">-</td>
                     <td class="tdrightalign" style="font-weight:bold; color: red">@_Total_Amount.ToString("#,##0.##")</td>
+                    <td class="tdrightalign" style="font-weight:bold; color: red">@_Total_Amount_Represent.ToString("#,##0.##")</td>
                 </tr>
             }
             else

@@ -96,7 +96,7 @@ namespace WebApps.Areas.Patent.Controllers
         [Route("tai-lieu-khac/them")]
         public ActionResult ThemTaiLieuKhac(string p_id)
         {
-            return PartialView("~/Areas/Patent/Views/Shared/_Partial_Document_Others.cshtml", p_id.ToString());
+            return PartialView("~/Areas/Patent/Views/Shared/_Partial_Document_Others_Child.cshtml", p_id.ToString());
         }
 
 
@@ -407,6 +407,7 @@ namespace WebApps.Areas.Patent.Controllers
                             pDetail.PCT_VN_Date = DateTime.MinValue;
                         }
 
+                        pDetail.App_Header_Id = pInfo.Id;
                         pReturn = objDetail.UpDate(pDetail);
                         if (pReturn <= 0)
                             goto Commit_Transaction;
@@ -484,6 +485,7 @@ namespace WebApps.Areas.Patent.Controllers
                                 else if (_dic_doc_others.ContainsKey(info.Id))
                                 {
                                     info.Filename = _dic_doc_others[info.Id].Filename;
+                                    check = 1;
                                 }
 
                                 info.App_Header_Id = pInfo.Id;
@@ -525,6 +527,7 @@ namespace WebApps.Areas.Patent.Controllers
                                 else if (_dic_image.ContainsKey(info.Id))
                                 {
                                     info.Filename = _dic_image[info.Id].Filename;
+                                    check = 1;
                                 }
 
                                 info.App_Header_Id = pInfo.Id;

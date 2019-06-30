@@ -20,7 +20,7 @@
   
 </style>
 
-<div class="div_full_100_area" id="divContainerDocOther_Img" style="margin-top: 5px">
+<div class="div_full_100_area" id="divContainerDocOther" style="margin-top: 5px">
     <div class="divCover cls_form_title">
         <div class="cls_form_header" style="margin: 0 !important;">
             @Resource.lblCacTaiLieuKhac.ToUpper()
@@ -28,7 +28,7 @@
         </div>
     </div>
    
-    <div id="divDocumentOtherImg">
+    <div id="divDocumentOther">
         @for (int i = 0; i < lstDocOther.Count; i++)
         {
             lstDocOther[i].Model_Id = (i + 1);
@@ -51,7 +51,7 @@
             $("#increNo_Doc").val(_index);
             $.ajax({
                 type: 'POST',
-                url: '/lg-patent/hinh-cong-bo/them/',
+                url: '/lg-patent/tai-lieu-khac/them/',
                 data: {
                     p_id: _index
                 },
@@ -61,7 +61,7 @@
                 },
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
-                    $("#divDocumentOtherImg").append(data);
+                    $("#divDocumentOther").append(data);
                 }
             });
         } catch (e) {
