@@ -288,9 +288,16 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                             {
                                 if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                                 {
-                                    HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
-                                    info.Filename = pfiles.FileName;
-                                    info.Url_Hardcopy = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
+                                    string _url = (string)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                    string[] _arr = _url.Split('/');
+                                    string _filename = WebApps.Resources.Resource.FileDinhKem;
+                                    if (_arr.Length > 0)
+                                    {
+                                        _filename = _arr[_arr.Length - 1];
+                                    }
+
+                                    info.Filename = _filename;
+                                    info.Url_Hardcopy = _url;
                                     info.Status = 0;
                                 }
                                 info.App_Header_Id = pAppHeaderID;

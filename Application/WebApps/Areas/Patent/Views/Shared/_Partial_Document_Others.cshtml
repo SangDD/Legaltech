@@ -1,0 +1,136 @@
+﻿@using ObjectInfos.ModuleTrademark
+@using ObjectInfos
+@using WebApps.Resources;
+@{
+    var Lst_ImagePublic = new List<AppDocumentOthersInfo>();
+    if (ViewBag.Lst_ImagePublic != null)
+    {
+        Lst_ImagePublic = (List<AppDocumentOthersInfo>)ViewBag.lstDocOther;
+    }
+}
+ 
+<div class="div_full_100_area" id="divContainerDocOther" style="margin-top: 5px;display:none">
+    <div class="divCover cls_form_title">
+        <div class="cls_form_header" style="margin: 0 !important;">
+            @Resource.lblCacTaiLieuKhac.ToUpper()
+            <button onclick="funcAddNew_Others_Doc()"><i class="fa fa-plus-circle"></i></button>
+        </div>
+    </div>
+    <div id="divDocumentOther">
+
+        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others_Child.cshtml", "1")
+ 
+    </div>
+</div>
+
+@* danh dau so tt sinh id  *@
+<input type="hidden" id="increNo_Img" value="1" />
+
+<script>
+
+    function funcAddNew_Others_Doc() {
+        try {
+
+            var _index = parseInt($("#increNo_Img").val()) + 1;
+            $("#increNo_Img").val(_index);
+            $.ajax({
+                type: 'POST',
+                url: '/lg-patent/tai-lieu-khac/them/',
+                data: {
+                    p_id: _index
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divDocumentOther").append(data);
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function funcRemoveDocument_Others(pTag) {
+        try {
+            var divFileUpload = document.getElementById(pTag);
+            $(divFileUpload).remove();
+        } catch (e) {
+            console.log(e);
+        }
+    }
+    function funcChoiseFile_Others(pIDFile, ptxtId, ptagKey,pRemoveFile) {
+        try {
+            var obj = $("#" + pIDFile);
+            $("#" + ptxtId).val(obj.val());
+
+            funcPushFile_Others(pIDFile, ptagKey, pRemoveFile);
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    function RemoveFile_Others(p_AfterID,pRemoveImg,pTextMaxFile) {
+
+        var keyFileUpload = p_AfterID;
+        try {
+            var keyFileUpload = p_AfterID;
+            $.ajax({
+                type: 'POST',
+                url: '/trade-mark/delete-file-other',
+                data: {
+                    keyFileUpload: keyFileUpload
+                },
+                async: true, cache: false, traditional: true,
+                success: function (data) {
+                    if (data.success == 0)
+                    {
+                        $("#" + pRemoveImg).css('display','none');
+                        $("#" + p_AfterID).val('');
+                        $("#" + pTextMaxFile).val('');
+                    }
+                }
+            });
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    function funcPushFile_Others(pID, ptagKey,pdivRemoveFile) {
+        try {
+            var formdata = new FormData();
+            var Isuse = 0, Note = "";
+            //Các tài liệu có trong đơn
+            if ($("#" + pID).prop('checked') == true) {
+                Isuse = 1;
+            }
+            formdata.append("pInfo.keyFileUpload", ptagKey);
+            var file = document.getElementsByName(pID);
+            if (file != undefined) {
+                formdata.append("pInfo.pfiles", file[0].files[0]);
+            }
+            $.ajax({
+                type: 'POST',
+                url: '/trade-mark/push-file-other-to-server',
+                data: formdata,
+                enctype: 'multipart/form-data',
+                processData: false, contentType: false, dataType: 'Json',
+                success: function (data) {
+                    if (data.success == 0) {
+                        $("#" + pdivRemoveFile).css("display", "inline-block");
+
+                    } else {
+                        jError(pushfileError, "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                        });
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+</script>

@@ -7,6 +7,9 @@
     {
         Lst_ImagePublic = (List<AppDocumentOthersInfo>)ViewBag.lstDocOther;
     }
+
+    decimal _max_Model_Id = Lst_ImagePublic.Count + 1;
+
 }
 <style>
     .classDocOtherE {
@@ -14,8 +17,9 @@
         padding: 3px;
         color: blue;
     }
-   
+  
 </style>
+
 <div class="div_full_100_area" id="divContainerDocOther_Img" style="margin-top: 5px">
     <div class="divCover cls_form_title">
         <div class="cls_form_header" style="margin: 0 !important;">
@@ -23,19 +27,23 @@
             <button onclick="funcAddImageNew()"><i class="fa fa-plus-circle"></i></button>
         </div>
     </div>
+   
     <div id="divDocumentOtherImg">
+        @for (int i = 0; i < Lst_ImagePublic.Count; i++)
+        {
+            Lst_ImagePublic[i].Model_Id = (i + 1);
+            @Html.Partial("~/Areas/Patent/Views/A01/_PartialTaiLieuKhac_Child_Edit.cshtml", Lst_ImagePublic[i])
+        }
 
-        @Html.Partial("~/Areas/Patent/Views/A01/_PartialTaiLieuKhac_Child.cshtml" , "1")
- 
     </div>
 </div>
 
 @* danh dau so tt sinh id  *@
-<input type="hidden" id="increNo_Img" value="1" />
-
+<input type="hidden" id="increNo_Img" value="@_max_Model_Id" />
+ 
 <script>
 
-    function funcAddImageNew() {
+     function funcAddImageNew() {
         try {
 
             var _index = parseInt($("#increNo_Img").val()) + 1;
@@ -59,31 +67,6 @@
             alert(e);
         }
     }
-
-    @*function funcAddImageNew() {
-        try {
-            var e = $("#increNo_Img").val() / 1;
-            e++;
-            var pfileName = "pfileNameImg" + e.toString();
-            var txtDocument = "txtTaiLieuKhacImg" + e.toString();
-            var txtMaxfile = "txtMaxfileImg" + e.toString();
-            var divDocumnetNo = "divDocumnetNoImg" + e;
-            var btnXoa = "btnXoa" + e;
-            var btnTaiFile = "btnTaiFile" + e;
-            var btnremoveFile = "btnRemove" + e;
-            var t = '<div class="div-search-ad" id="' + divDocumnetNo + '"><div class="div-search-title"> <div> Tên hình :</div> </div>  <div class="div-search-content"> <div> <input type="text" style="width: 318px;" class="clssListUploadImg" maxlength="200"  id = "' + txtDocument + '" > </div> </div>';
-            t += '<div class="div-search-content"> <div> <div class="file-upload btn btn-primary" style="margin-left:2px"> <span>@WebApps.Resources.Resource.lblTaiFile</span>' +
-                ' <input type="file" onchange="return funcChoiseFileDocOther(\'' + pfileName + '\', \'' + txtMaxfile + '\', \'' + txtDocument + '\', \'' + btnremoveFile +'\');" name = "' + pfileName + '" id = "' + pfileName + '" class="upload fileuploadurl" /> </div>' +
-                '<input type="text" style="width: 396px !important" class="classMaxfile" id="' + txtMaxfile + '" readonly >' +
-                '<button class="clssDisplaynone" id="' + btnremoveFile + '" onclick="RemoveFileDocOther(\'' + txtDocument + '\', \'' + btnremoveFile + '\', \'' + txtMaxfile +'\')" style="width: 30px;margin-left:1px"><i class="fa fa-minus-circle"></i></button>' +
-                '<i class="fa fa-check" id="i_' + pfileName + '" style="font-size:15px; color:green ;display:none;padding:5px"></i> <button onclick="return funcRemoveDocumentImg(\'' + divDocumnetNo + '\')" id="' + btnXoa + '" style="width: 30px;margin-left:2px"><i class="fa fa-minus-circle"></i></button> </div></div></div>';
-            $("#divDocumentOtherImg").append(t);
-            $("#increNo_Img").val(e);
-            return t;
-        } catch (e) {
-            alert(e)
-        }
-    }*@
 
     function funcRemoveDocumentImg(pTag) {
         try {

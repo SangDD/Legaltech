@@ -25,7 +25,7 @@
     </div>
     <div id="divDocumentOtherImg">
 
-        @Html.Partial("~/Areas/Patent/Views/A01/_PartialTaiLieuKhac_Child.cshtml" , "1")
+        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Image_Public_Child.cshtml", "1")
  
     </div>
 </div>
@@ -42,7 +42,7 @@
             $("#increNo_Img").val(_index);
             $.ajax({
                 type: 'POST',
-                url: '/lg-patent/tai-lieu-khac/them/',
+                url: '/lg-patent/hinh-cong-bo/them/',
                 data: {
                     p_id: _index
                 },
@@ -59,31 +59,6 @@
             alert(e);
         }
     }
-
-    @*function funcAddImageNew() {
-        try {
-            var e = $("#increNo_Img").val() / 1;
-            e++;
-            var pfileName = "pfileNameImg" + e.toString();
-            var txtDocument = "txtTaiLieuKhacImg" + e.toString();
-            var txtMaxfile = "txtMaxfileImg" + e.toString();
-            var divDocumnetNo = "divDocumnetNoImg" + e;
-            var btnXoa = "btnXoa" + e;
-            var btnTaiFile = "btnTaiFile" + e;
-            var btnremoveFile = "btnRemove" + e;
-            var t = '<div class="div-search-ad" id="' + divDocumnetNo + '"><div class="div-search-title"> <div> Tên hình :</div> </div>  <div class="div-search-content"> <div> <input type="text" style="width: 318px;" class="clssListUploadImg" maxlength="200"  id = "' + txtDocument + '" > </div> </div>';
-            t += '<div class="div-search-content"> <div> <div class="file-upload btn btn-primary" style="margin-left:2px"> <span>@WebApps.Resources.Resource.lblTaiFile</span>' +
-                ' <input type="file" onchange="return funcChoiseFileDocOther(\'' + pfileName + '\', \'' + txtMaxfile + '\', \'' + txtDocument + '\', \'' + btnremoveFile +'\');" name = "' + pfileName + '" id = "' + pfileName + '" class="upload fileuploadurl" /> </div>' +
-                '<input type="text" style="width: 396px !important" class="classMaxfile" id="' + txtMaxfile + '" readonly >' +
-                '<button class="clssDisplaynone" id="' + btnremoveFile + '" onclick="RemoveFileDocOther(\'' + txtDocument + '\', \'' + btnremoveFile + '\', \'' + txtMaxfile +'\')" style="width: 30px;margin-left:1px"><i class="fa fa-minus-circle"></i></button>' +
-                '<i class="fa fa-check" id="i_' + pfileName + '" style="font-size:15px; color:green ;display:none;padding:5px"></i> <button onclick="return funcRemoveDocumentImg(\'' + divDocumnetNo + '\')" id="' + btnXoa + '" style="width: 30px;margin-left:2px"><i class="fa fa-minus-circle"></i></button> </div></div></div>';
-            $("#divDocumentOtherImg").append(t);
-            $("#increNo_Img").val(e);
-            return t;
-        } catch (e) {
-            alert(e)
-        }
-    }*@
 
     function funcRemoveDocumentImg(pTag) {
         try {
@@ -145,7 +120,6 @@
             if (file != undefined) {
                 formdata.append("pInfo.pfiles", file[0].files[0]);
             }
-            //2
             $.ajax({
                 type: 'POST',
                 url: '/trade-mark/push-file-other-to-server',
@@ -162,25 +136,6 @@
                     }
                 }
             });
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    var lstRemove = "";
-    //Sử dụng khi thực hiện sửa bản ghi
-    function funcRemoveFileAttachImgOther(pFileID) {
-        try {
-            var arrlistID = $("#ListIDAttach_EImg").val();
-            var newid = pFileID + ",";
-            if (arrlistID.indexOf(newid) != -1) {
-                arrlistID = arrlistID.replace(newid, "");
-                lstRemove = lstRemove + pFileID + ",";
-            }
-            $("#ListIDAttach_EImg").val(arrlistID);
-            $("#" + pFileID).remove();
-            $("#ListIDAttach_RImg").val(lstRemove);
-
         } catch (e) {
             console.log(e);
         }
