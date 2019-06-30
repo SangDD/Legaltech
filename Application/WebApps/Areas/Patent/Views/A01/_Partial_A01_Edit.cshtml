@@ -75,6 +75,16 @@
 
     decimal _max_Model_Id = Lst_Other_Master.Count + 1;
     decimal _max_Model_Id_author = Lst_AuthorsInfo.Count + 1;
+
+    B_Todos_Info _todo = new B_Todos_Info();
+    if (ViewBag.B_Todos_Info != null)
+    {
+        _todo = (B_Todos_Info)ViewBag.B_Todos_Info;
+    }
+    else
+    {
+        _todo = null;
+    }
 }
 
 <style>
@@ -189,7 +199,7 @@
                     <div class="div-search-content">
                         <div>
 
-                            <input type="text" id="txt_PCT_NgayNopQT" value="@(_App_Detail.PCT_Filling_Date_Qt == DateTime.MinValue ? "" : _App_Detail.PCT_Filling_Date_Qt.ToString("dd/MM/yyyy"))" class="datetimepicker"/>
+                            <input type="text" id="txt_PCT_NgayNopQT" value="@(_App_Detail.PCT_Filling_Date_Qt == DateTime.MinValue ? "" : _App_Detail.PCT_Filling_Date_Qt.ToString("dd/MM/yyyy"))" class="datetimepicker" />
                         </div>
                     </div>
                 </div>
@@ -344,7 +354,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" id="txt_DQSC_NgayNop" value="@(_App_Detail.DQSC_Filling_Date == DateTime.MinValue ? "" : _App_Detail.DQSC_Filling_Date.ToString("dd/MM/yyyy"))" class="datetimepicker"/>
+                            <input type="text" id="txt_DQSC_NgayNop" value="@(_App_Detail.DQSC_Filling_Date == DateTime.MinValue ? "" : _App_Detail.DQSC_Filling_Date.ToString("dd/MM/yyyy"))" class="datetimepicker" />
                         </div>
                     </div>
                 </div>
@@ -534,9 +544,9 @@
         </div>
 
         @*<div class="div_full_100_area">
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
-            </div>*@
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
+        </div>*@
 
         <div class="div-search-ad">
             <div class="div-search-content">
@@ -917,7 +927,7 @@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHTaiLieuKhac.cshtml", "12")
 
         @* Hình công bố *@
-        @Html.Partial("~/Areas/Patent/Views/A01/View_PartialTaiLieuKhac.cshtml", "12")
+        @Html.Partial("~/Areas/Patent/Views/A01/_PartialTaiLieuKhac_Edit.cshtml")
 
         @* Cam kết của hủ đơn *@
         @{
@@ -925,14 +935,23 @@
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon_Edit.cshtml", _camket)
         }
 
-        @*<div class="class_save">
-                <div class="classGuiDon">
+        <div class="class_save">
+            <div class="classGuiDon">
+                @if (_AppHeaderInfo.Status == (int)Common.CommonData.CommonEnums.App_Status.Luu_tam)
+                {
                     <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
-                </div>
-                <div class="classLuuTam">
                     <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
-                </div>
-            </div>*@
+                }
+                else
+                {
+                    <input type="button" value="@Resource.TM3B_BtnSuaDon" id="btnSuaDon" class="btn" />
+                    if (_todo != null)
+                    {
+                        <input type="button" value="@Resource.Send" id="btnSend" class="btn" />
+                    }
+                }
+            </div>
+        </div>
     </fieldset>
 </div>
 
@@ -958,7 +977,6 @@
             validateOnBlur: false,
             scrollInput: false
         });
-        $("#0_txtCase_Name").focus();
 
         //Search suggestion
         var Name = $("#1_txtTenDayDu").val();
@@ -1012,60 +1030,36 @@
                 });
             }
         });
+    });
 
-        // nếu có appno
-        if ('@_App_No' != "")
-        {
-            $("#3_SoDon").val('@_App_No');
-            onChangeAppNo();
+    $("#btnSend").click(function () {
+        try {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuu)", function () {
+                //Thông tin chủ đơn
+
+                var _update_todo = 1;
+                funGetData(@_AppHeaderInfo.Status, _update_todo);
+
+            });
+        } catch (e) {
+            console.log(e);
         }
     });
 
-    $(function ()
-    {
-      try {
-        var availableTags = [];
-        var array = @Html.Raw(Json.Encode(clstAppClassShortSuggest));
-        for (var i = 0; i < array.length; i++) {
-            availableTags[i] = array[i];
-        }
-        $("#txtTenHangHoa").autocomplete({
-            minLength: 3,
-            source: function (request, response) {
-                var results = $.ui.autocomplete.filter(availableTags, request.term.toUpperCase());
-                response(results.slice(0, 100));
-            },
-            select: function (event, ui) {
-                $("#txtClass").val(ui.item.value);
-                //return false;
-                var textinput = $("#txtTenHangHoa").val();
-                event.preventDefault();
-                funcAddDataRowSuggest(ui.item.label, ui.item.value);
-                $("#txtTenHangHoa").val("");
-
-            },
-            focus: function (event, ui) {
-                var arrResult = $(".ui-menu-item");
-                for (var i = 0; i < arrResult.length; i++) {
-                    var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                    if (label == ui.item.name) {
-                        $(".clsLiActive").removeClass("clsLiActive")
-                        $(arrResult[i]).addClass("clsLiActive");
-                        break;
-                    }
-                }
-                event.preventDefault();
-            }
-        });
+    $("#btnSuaDon").click(function () {
+        try {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuu)", function () {
+                funGetData(@_AppHeaderInfo.Status, 0);
+            });
         } catch (e) {
+            console.log(e);
         }
     });
 
     $("#btnGuiDon").click(function () {
         try {
             nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
-                var url = "/trade-mark/dang_ky_nhan_hieu";
-                funGetData(2, url);
+                funGetData(2, 0);
             });
 
         } catch (e) {
@@ -1076,8 +1070,7 @@
     $("#btnDuLieuCu").click(function () {
         try {
             nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
-                var url = "/trade-mark/dang_ky_nhan_hieu";
-                funGetData(-2, url);
+                funGetData(-2, 0);
             });
         } catch (e) {
             CreateRollingWaitingIcon(false);
@@ -1088,8 +1081,7 @@
     $("#btnLuuTam").click(function () {
         try {
             nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuuTam)", function () {
-                var url = "/trade-mark/dang_ky_nhan_hieu";
-                funGetData(1, url);
+                funGetData(1, 0);
             });
         } catch (e) {
             CreateRollingWaitingIcon(false);
@@ -1132,10 +1124,16 @@
         }
     }
 
-    function funGetData(ptype, url) {
+    function funGetData(ptype, _UpdateToDo) {
         try {
             //Thông tin chủ đơn
             var formData = new FormData();
+            formData.append("pInfo.Id", @_AppHeaderInfo.Id);
+            formData.append("pInfo.Case_Code", @_AppHeaderInfo.Case_Code);
+
+            if (_UpdateToDo == 1) {
+                formData.append("pInfo.UpdateToDo", 1);
+            }
 
             var reponse = funcThongTinNhapHo(formData);
             if (reponse == false) {
@@ -1146,12 +1144,6 @@
             if (reponse == false) {
                 return false;
             }
-
-            // hàng hóa
-            //reponse = funcGetDataClassInfo(formData);
-            //if (reponse == false) {
-            //    return false;
-            //}
 
             if (ptype == 1) {
                 if (funcThongTinChuDon_SaveTem(formData, "1") != true) {
@@ -1186,9 +1178,7 @@
                 return false;
             }
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-            if (ptype == 1) {
-
-            } else if (ptype == 2) {
+            if (ptype == 2) {
                 if (v_RepMasterType === "" || v_RepMasterType == undefined) {
                     jError("@Html.Raw(Resource.TM2B_ChonDaiDienChuDon)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                         $("#_2_rdoNguoiDaiDienPL").focus()
@@ -1229,7 +1219,7 @@
             }
 
             $.ajax({
-                url: '/lg-patent/register',
+                url: '/lg-patent/edit',
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -1874,6 +1864,7 @@
             $(".clssListUpload").each(function () {
                 formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", this.id);
                 formData.append("pAppDocOtherInfo[" + item + "].Documentname", $("#" + this.id).val());
+                formData.append("pAppDocOtherInfo[" + item + "].Id", $(this).attr('data-id'));
                 item++;
             });
             return true;
@@ -1888,6 +1879,7 @@
             $(".clssListUploadImg").each(function () {
                 formData.append("pLstImagePublic[" + item + "].keyFileUpload", this.id);
                 formData.append("pLstImagePublic[" + item + "].Documentname", $("#" + this.id).val());
+                formData.append("pLstImagePublic[" + item + "].Id", $(this).attr('data-id'));
                 item++;
             });
             return true;

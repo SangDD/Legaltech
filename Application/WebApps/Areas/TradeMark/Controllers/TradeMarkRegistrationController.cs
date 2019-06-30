@@ -192,11 +192,16 @@
                             {
                                 if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                                 {
-                                    HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
-                                    info.Filename = pfiles.FileName;
-                                    info.Url_Hardcopy = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
+                                    string _url = (string)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                    string[] _arr = _url.Split('/');
+                                    string _filename = WebApps.Resources.Resource.FileDinhKem;
+                                    if (_arr.Length > 0)
+                                    {
+                                        _filename = _arr[_arr.Length - 1];
+                                    }
 
-
+                                    info.Filename = _filename;
+                                    info.Url_Hardcopy = _url;
                                 }
                                 info.Status = 0;
                                 info.App_Header_Id = pAppHeaderID;
@@ -318,9 +323,16 @@
                             {
                                 if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                                 {
-                                    HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
-                                    info.Filename = pfiles.FileName;
-                                    info.Url_Hardcopy = "/Content/DataWareHouse" + pfiles.FileName;
+                                    string _url = (string)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                    string[] _arr = _url.Split('/');
+                                    string _filename = WebApps.Resources.Resource.FileDinhKem;
+                                    if (_arr.Length > 0)
+                                    {
+                                        _filename = _arr[_arr.Length - 1];
+                                    }
+
+                                    info.Filename = _filename;
+                                    info.Url_Hardcopy = _url;
                                     info.Status = 0;
                                 }
                                 info.Document_Filing_Date = CommonFuc.CurrentDate();
@@ -364,7 +376,8 @@
                 if (pInfo.pfiles != null)
                 {
                     var url = AppLoadHelpers.PushFileToServer(pInfo.pfiles, AppUpload.Document);
-                    SessionData.CurrentUser.chashFile[pInfo.keyFileUpload] = pInfo.pfiles;
+                    SessionData.CurrentUser.chashFile[pInfo.keyFileUpload] = url;
+                    //SessionData.CurrentUser.chashFile[pInfo.keyFileUpload] = pInfo.pfiles;
                 }
             }
             catch (Exception ex)
@@ -385,7 +398,8 @@
                 if (pInfo.pfiles != null)
                 {
                     var url = AppLoadHelpers.PushFileToServer(pInfo.pfiles, AppUpload.Document);
-                    SessionData.CurrentUser.chashFileOther[pInfo.keyFileUpload] = pInfo.pfiles;
+                    SessionData.CurrentUser.chashFileOther[pInfo.keyFileUpload] = url;
+                    //SessionData.CurrentUser.chashFileOther[pInfo.keyFileUpload] = pInfo.pfiles;
                 }
             }
             catch (Exception ex)
@@ -1689,9 +1703,16 @@
                             {
                                 if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                                 {
-                                    HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
-                                    info.Filename = pfiles.FileName;
-                                    info.Url_Hardcopy = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
+                                    string _url = (string)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                    string[] _arr = _url.Split('/');
+                                    string _filename = WebApps.Resources.Resource.FileDinhKem;
+                                    if (_arr.Length > 0)
+                                    {
+                                        _filename = _arr[_arr.Length - 1];
+                                    }
+
+                                    info.Filename = _filename;
+                                    info.Url_Hardcopy = _url;
                                     info.Status = 0;
                                 }
                                 else
@@ -1753,7 +1774,7 @@
                         foreach (var item in arrIdFileAttack)
                         {
                             decimal pID = CommonFuc.ConvertToDecimal(item);
-                            pReturn = objDoc.AppDocOtherByID(pID, language);
+                            pReturn = objDoc.AppDocOther_Del_ByID(pID, language);
                         }
                     }
 

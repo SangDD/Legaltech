@@ -65,6 +65,24 @@ namespace BussinessFacade.ModuleTrademark
                 return ErrorCode.Error;
             }
         }
+
+        public List<AppDocumentInfo> AppDocument_Getby_AppHeader(decimal p_app_header_id, string p_language_code)
+        {
+            try
+            {
+                AppDocumentDA objData = new AppDocumentDA();
+                DataSet ds = objData.AppDocument_Getby_AppHeader(p_app_header_id, p_language_code);
+                return CBO<AppDocumentInfo>.FillCollectionFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<AppDocumentInfo>();
+            }
+        }
+
+        // document others
+
         public int AppDocumentOtherInsertBatch(List<AppDocumentOthersInfo> pInfo)
         {
             try
@@ -93,12 +111,12 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
-        public int AppDocOtherByID(decimal pID, string pLanguage)
+        public int AppDocOther_Del_ByID(decimal pID, string pLanguage)
         {
             try
             {
                 AppDocumentDA objData = new AppDocumentDA();
-                return objData.AppDocOtherByID(pID, pLanguage);
+                return objData.AppDocOther_Del_ByID(pID, pLanguage);
             }
             catch (Exception ex)
             {
@@ -107,20 +125,19 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
-        public List<AppDocumentInfo> AppDocument_Getby_AppHeader(decimal p_app_header_id, string p_language_code)
+        public List<AppDocumentOthersInfo> DocumentOthers_GetByAppHeader(decimal p_app_header_id, string p_language_code)
         {
             try
             {
                 AppDocumentDA objData = new AppDocumentDA();
-                DataSet ds = objData.AppDocument_Getby_AppHeader(p_app_header_id, p_language_code);
-                return CBO<AppDocumentInfo>.FillCollectionFromDataSet(ds);
+                DataSet ds = objData.DocumentOthers_GetByAppHeader(p_app_header_id, p_language_code);
+                return CBO<AppDocumentOthersInfo>.FillCollectionFromDataSet(ds);
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
-                return new List<AppDocumentInfo>();
+                return new List<AppDocumentOthersInfo>();
             }
         }
-
     }
 }

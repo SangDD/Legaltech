@@ -10,7 +10,22 @@ namespace DataAccess.ModuleTrademark
 {
    public class AppImageDA
     {
-      
+        public DataSet GetByAppHeader(decimal p_app_header_id, string p_language_code)
+        {
+            try
+            {
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_image_public.Proc_GetBy_App_Header",
+                     new OracleParameter("p_app_header_id", OracleDbType.Decimal, p_app_header_id, ParameterDirection.Input),
+                     new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
+                     new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
         public int AppImageInsertBatch(List<AppDocumentOthersInfo> pInfo)
         {
             try

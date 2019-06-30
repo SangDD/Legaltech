@@ -1420,6 +1420,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hình công bố.
+        /// </summary>
+        public static string HinhCongBo {
+            get {
+                return ResourceManager.GetString("HinhCongBo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Họ tên.
         /// </summary>
         public static string HoTen {

@@ -1,0 +1,41 @@
+﻿@using ObjectInfos.ModuleTrademark
+@using ObjectInfos
+@using WebApps.Resources;
+@model string
+@{
+    string _id = Model;
+
+    string pfileNameImg = "pfileNameImg" + _id;
+    string txtTaiLieuKhacImg = "txtTaiLieuKhacImg" + _id;
+    string txtMaxfileImg = "txtMaxfileImg" + _id;
+    string divDocumnetNoImg = "divDocumnetNoImg" + _id;
+    string btnXoa = "btnXoa" + _id;
+    string btnTaiFile = "btnTaiFile" + _id;
+    string btnRemoveFile = "btnRemoveFile" + _id;
+    string divRemoveFileImg = "divRemoveFileImg" + _id;
+}
+
+<div class="div-search-ad" id="@divDocumnetNoImg">
+    <div class="div-search-title"> <div>@Resource.Tenfile:</div> </div>
+    <div class="div-search-content">
+        <div> <input style="width: 318px;" type="text" class="clssListUploadImg" maxlength="200" placeholder="" id="@txtTaiLieuKhacImg"> </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <div class="file-upload btn btn-primary" style="margin-left:2px">
+                <span class="">@WebApps.Resources.Resource.lblTaiFile</span>
+                <input type="file" onchange="return funcChoiseFileImgOther('@pfileNameImg', '@txtMaxfileImg','@txtTaiLieuKhacImg','@divRemoveFileImg');" name="@pfileNameImg" id="@pfileNameImg" class="upload fileuploadurl" />
+            </div>
+            <input type="text" class="classMaxfile" id="@txtMaxfileImg" style="width: 396px !important" readonly>
+
+            <button id="@divRemoveFileImg" onclick="funcRemoveDocumentImg('@divDocumnetNoImg')" style="width: 30px;margin-left:1px">
+                <i class="fa fa-minus-circle"></i>
+            </button>
+
+            @*<button id="@divRemoveFileImg" onclick="RemoveFileImgOther('@divDocumnetNoImg', '@txtTaiLieuKhacImg','@divRemoveFileImg','@txtMaxfileImg')" style="width: 30px;margin-left:1px">
+                <i class="fa fa-minus-circle"></i>
+            </button>*@
+
+        </div>
+    </div>
+</div>
