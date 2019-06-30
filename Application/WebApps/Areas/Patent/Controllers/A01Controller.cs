@@ -89,7 +89,7 @@ namespace WebApps.Areas.Patent.Controllers
         [Route("tai-lieu-khac/them")]
         public ActionResult ThemTaiLieuKhac(string p_id)
         {
-            return PartialView("~/Areas/Patent/Views/A01/_PartialTaiLieuKhac_Child.cshtml", p_id.ToString());
+            return PartialView("~/Areas/Patent/Views/Shared/_Partial_Image_Public_Child.cshtml", p_id.ToString());
         }
 
 
@@ -814,7 +814,7 @@ namespace WebApps.Areas.Patent.Controllers
                 Logger.LogException(ex);
             }
 
-            var PartialTableListFees = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Patent/Views/A01/_PartialTableListFees.cshtml");
+            var PartialTableListFees = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Patent/Views/Shared/_PartialTableListFees.cshtml");
             var json = Json(new { success = 1, PartialTableListFees });
             return json;
 

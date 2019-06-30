@@ -1,0 +1,71 @@
+﻿@using ObjectInfos.ModuleTrademark
+@using ObjectInfos
+@using WebApps.Resources;
+@model AppDocumentOthersInfo
+@{
+    string _id = Model.Model_Id.ToString();
+
+    string pfileNameImg = "pfileNameImg" + _id;
+    string txtTaiLieuKhacImg = "txtTaiLieuKhacImg" + _id;
+    string txtMaxfileImg = "txtMaxfileImg" + _id;
+    string divDocumnetNoImg = "divDocumnetNoImg" + _id;
+    string btnXoa = "btnXoa" + _id;
+    string btnTaiFile = "btnTaiFile" + _id;
+    string btnRemoveFile = "btnRemoveFile" + _id;
+    string divRemoveFileImg = "divRemoveFileImg" + _id;
+
+    string[] _arr1 = Model.Filename.Split('/');
+    string _filename1 = WebApps.Resources.Resource.FileDinhKem;
+    if (_arr1.Length > 0)
+    {
+        _filename1 = _arr1[_arr1.Length - 1];
+    }
+
+    decimal _is_view = Model.Is_View;
+    string _disabled = "";
+    if (_is_view == 1)
+    {
+        _disabled = "disabled";
+    }
+}
+
+<div class="div-search-ad" id="@divDocumnetNoImg">
+    <div class="div-search-title"> <div>@Resource.Tenfile:</div> </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" @_disabled style="width: 318px;" class="clssListUploadImg" data-id="@Model.Id" value="@Model.Documentname" maxlength="200" placeholder="" id="@txtTaiLieuKhacImg">
+        </div>
+    </div>
+
+    <div class="div-search-content">
+        <div>
+            @if (_is_view == 0)
+            {
+                <div class="file-upload btn btn-primary" style="margin-left:2px">
+                    <span class="">@WebApps.Resources.Resource.lblTaiFile</span>
+                    <input type="file" onchange="return funcChoiseFileImgOther('@pfileNameImg', '@txtMaxfileImg','@txtTaiLieuKhacImg','@divRemoveFileImg');" name="@pfileNameImg" id="@pfileNameImg" class="upload fileuploadurl" />
+                </div>
+
+                <input type="text" class="classMaxfile" value="@_filename1" id="@txtMaxfileImg" style="width: 396px !important" readonly />
+            }
+
+            <button style="width: 30px;margin-left:1px">
+                <a style="border: none;" href="@Model.Filename" target="_blank">
+                    <i class="fas fa-download" style="color:blue;font-size:16px;margin-top:7px; margin-right:5px;"></i>
+                </a>
+            </button>
+
+            @if (_is_view == 0)
+            {
+                <button id="@divRemoveFileImg" onclick="funcRemoveDocumentImg('@divDocumnetNoImg')" style="width: 30px;margin-left:1px">
+                    <i class="fa fa-minus-circle"></i>
+                </button>
+            }
+
+            @*<button id="@divRemoveFileImg" onclick="RemoveFileImgOther('@divDocumnetNoImg', '@txtTaiLieuKhacImg','@divRemoveFileImg','@txtMaxfileImg')" style="width: 30px;margin-left:1px">
+            <i class="fa fa-minus-circle"></i>
+        </button>*@
+
+        </div>
+    </div>
+</div>

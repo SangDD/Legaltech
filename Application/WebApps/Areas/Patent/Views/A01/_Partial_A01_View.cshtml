@@ -905,15 +905,8 @@
         @*@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac.cshtml", "12")*@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHTaiLieuKhac.cshtml", "12")
 
-        @*@{
-                string _doc_id17 = "A01_17";
-                string _id17 = _doc_id17 + "|Doc_17|0|" + "Hình công bố" + "||0";
-                string _value17 = dic_appDoc[_doc_id17].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id17].CHAR01 + "|" + dic_appDoc[_doc_id17].Url_Hardcopy;
-                string _model17 = _id17 + ";" + _value17;
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model17)
-            }*@
         @* Hình công bố *@
-        @Html.Partial("~/Areas/Patent/Views/A01/View_PartialTaiLieuKhac.cshtml", "12")
+        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Image_Public_View.cshtml")
 
         @* Cam kết của hủ đơn *@
         @{

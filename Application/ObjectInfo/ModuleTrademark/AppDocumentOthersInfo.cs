@@ -18,6 +18,8 @@ namespace ObjectInfos
         }
         public decimal Model_Id { get; set; }
         public decimal Id { get; set; }
+        public decimal Is_View { get; set; }
+
         public decimal App_Header_Id { get; set; }
         public string Documentname { get; set; }
         public string DocumentnameVi { get; set; }
