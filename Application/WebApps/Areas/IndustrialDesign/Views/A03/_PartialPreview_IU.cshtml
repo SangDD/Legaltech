@@ -5,14 +5,21 @@
     {
         _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
     }
+    int IsViewFlag = 0;
+    if(ViewBag.IsViewFlag != null)
+    {
+        IsViewFlag = ViewBag.IsViewFlag;
+    }
 }
 @using WebApps.Resources;
-
+<script>
+    var _IsViewFlag = '@IsViewFlag';
+</script>
 <div id="toolbox">
     <ul>
         <li class="toTop" style=""><a href="#top" title="Lên đầu trang"><i style=" font-size 27px; color green;" class="fa fa-home"></i></a></li>
         <li class="email"><a href="javascript:;" title="Xem trước"><i class="fa fa-eye" target="_blank" onclick="return funcPreViewApplication_IU();" style=" font-size 27px; color green;"></i></a></li>
-        <li class="email"><a href="javascript:;" title="Phí"><i class="fas fa-dollar-sign" size="9x" target="_blank" onclick="return funcPreViewFee();" style="font-size: 27px;margin-left: 8px;color: green;"></i></a></li>
+        @*<li class="email"><a href="javascript:;" title="Phí"><i class="fas fa-dollar-sign" size="9x" target="_blank" onclick="return funcPreViewFee();" style="font-size: 27px;margin-left: 8px;color: green;"></i></a></li>*@
     </ul>
 </div>
 
@@ -34,7 +41,7 @@
 
     function funGetData_Preview_UI_A03(url) {
         try {
-
+          
             var formData = new FormData();
             formData.append("pInfo.Appcode", $("#txtAppCode").val());
             formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
@@ -49,11 +56,22 @@
             } else {
                 formData.append("pInfo.Master_Type", "CDK");
             }
-
             // đại diện chủ đơn
-            if (funcThongTinDaiDienChuDon_Exp(formData, "2") != true) {
-                return false;
+  
+            if (_IsViewFlag == "1")
+            {
+                if (funcThongTinDaiDienChuDon_View(formData, "2") != true) {
+                    return false;
+                }
             }
+            else
+            {
+                if (funcThongTinDaiDienChuDon(formData, "2") != true) {
+                    return false;
+                }
+            }
+       
+          
 
             if (funcChuDonKhac(formData) != true) {
                 return false;
@@ -62,22 +80,12 @@
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
 
-            //Lấy thông tin tài liệu có trong đơn
-            reponse = funGetDocumentFile(formData);
-            if (reponse == false) {
-                return false;
-            }
-
             //Tài liệu khác trong đơn
             reponse = funcGetTenTaiLieuKhac(formData);
             if (reponse == false) {
                 return false;
             }
 
-            reponse = funcGetImagePublic(formData);
-            if (reponse == false) {
-                return false;
-            }
 
             //Lấy thông tin detail
             reponse = funcGetAppDetail(formData, 1);
@@ -89,36 +97,7 @@
             if (reponse == false) {
                 return false;
             }
-          
 
-
-            var _index = 0;
-            $(".clsChuDonKhac").each(function (item) {
-                var _id = $(this).attr('data-id');
-                if ($("#" + _id + "_txtUse_ChuDonKhac").val() == "1") {
-
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Name", $("#" + _id + "_txtTenDayDu_Khac").val());
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Address", $("#" + _id + "_txtDiaChi_Khac").val());
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Phone", $("#" + _id + "_txtDienThoai_Khac").val());
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Fax", $("#" + _id + "_txtFax_Khac").val());
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Email", $("#" + _id + "_txtEmail_Khac").val());
-                    //formData.append("pOther_MasterInfo[" + _index + "].Author_Country", $("#" + _id + "_TG_QuocTich").val());
-
-                    if ($("#" + _id + "_ckbTacGiaDongThoi").is(':checked')) {
-                        formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "TGDT");
-                    } else {
-                        formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "");
-                    }
-
-                    if ($("#" + _id + "_ckbPhoBan").is(':checked')) {
-                        formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "PB");
-                    } else {
-                        formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "");
-                    }
-
-                    _index = _index + 1;
-                }
-            });
 
             formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin)');
             var v_AppCode = $("#txtAppCode").val();
@@ -130,9 +109,7 @@
 
             // đại diện chủ đơn
             formData.append("pInfo.Appcode", v_AppCode);
-            if (funcThongTinDaiDienChuDon(formData, "2") != true) {
-                return false;
-            }
+           
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             if (v_RepMasterType === "" || v_RepMasterType == undefined) {
                 showError('@Html.Raw(Resource.TM2B_ChonDaiDienChuDon)');
@@ -140,7 +117,7 @@
                 return false;
             }
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-            formData.append("pInfo.Status", ptype);
+            //formData.append("pInfo.Status", ptype);
 
             //Tài liệu khác trong đơn
             reponse = funcGetTenTaiLieuKhac(formData);
@@ -149,15 +126,15 @@
             }
 
             // lấy thông tin bộ ảnh
-            reponse = funcGetTenTaiLieuBoAnh(formData);
+            reponse = funcGetTenTaiLieuBoAnhExport(formData, '@IsViewFlag');
             if (reponse == false) {
                 return false;
             }
 
-            reponse = funcGetCamKetChuDon(formData);
-            if (reponse == false) {
-                return false;
-            }
+            //reponse = funcGetCamKetChuDon(formData);
+            //if (reponse == false) {
+            //    return false;
+            //}
 
             $.ajax({
                 url: '/indus-design/ket_xuat_file_IU',
@@ -189,7 +166,82 @@
 
             return true;
         } catch (e) {
+
             CreateRollingWaitingIcon(false);
+            alert(e.message);
+            return false;
+
+        }
+    }
+    function funcGetTenTaiLieuBoAnhExport(formData, pisview) {
+        try {
+            var item = 0;
+            if (pisview == 1) {
+                $(".clssListUploadIndusDesign").each(function () {
+                    alert($(this).attr("meta-data2"));
+                    formData.append("pAppDocIndusDesign[" + item + "].FILELEVEL", $(this).attr("meta-data2"));
+                    item++;
+                });
+                return true;
+            }
+            // checkvalidate
+
+            var _documentno = "0";
+            var _check = true;
+            var _controllevel = 1;
+            var _inputfileid = "";
+            $(".clssListUploadIndusDesign").each(function () {
+                _controllevel = $("#" + this.id).attr("meta-data2")
+                _documentno = $("#" + this.id).attr("meta-data");
+                _inputfileid = "pTreefileName" + _documentno;
+                formData.append("pAppDocIndusDesign[" + item + "].keyFileUpload", this.id);
+                if ($("#" + this.id).val().trim() == "") {
+                    showError('Tên tài liệu không được để trống');
+                    $("#" + this.id).focus();
+                    _check = false;
+                    return false;
+                }
+                if (_controllevel == "2") {
+                    // nếu là tài liệu cấp 2 thì check file
+                    var file = document.getElementById(_inputfileid);
+                    if (file == undefined) {
+                        showError('Chưa tải file đính kèm');
+                        $("#" + this.id).focus();
+                        _check = false;
+                        return false;
+                    }
+                    if (file.files.length == 0) {
+                        showError('Chưa tải file đính kèm');
+                        $("#" + this.id).focus();
+                        _check = false;
+                        return false;
+                    }
+                }
+
+                item++;
+            });
+            if (_check == false) {
+                return false;
+            }
+
+
+            item = 0;
+            _documentno = "0";
+            $(".clssListUploadIndusDesign").each(function () {
+                formData.append("pAppDocIndusDesign[" + item + "].keyFileUpload", this.id);
+                formData.append("pAppDocIndusDesign[" + item + "].Documentname", $("#" + this.id).val());
+                formData.append("pAppDocIndusDesign[" + item + "].FILETYPE", "2");
+                formData.append("pAppDocIndusDesign[" + item + "].FILELEVEL", $("#" + this.id).attr("meta-data2"));
+                _documentno = $("#" + this.id).attr("meta-data");
+                formData.append("pAppDocIndusDesign[" + item + "].Char01", $("#Treetxttailieuanhsotrang" + _documentno).val());
+                formData.append("pAppDocIndusDesign[" + item + "].Char02", $("#TreetxttailieuanhGhiChu" + _documentno).val());
+                formData.append("pAppDocIndusDesign[" + item + "].ParentId", _documentno);
+                item++;
+            });
+            return true;
+        } catch (e) {
+            console.log(e.message);
+            return false;
         }
     }
 

@@ -51,11 +51,7 @@
         Lst_DocumentOthers = (List<AppDocumentOthersInfo>)ViewBag.Lst_DocumentOthers;
     }
 
-    List<AppClassDetailInfo> Lst_ClassDetailInfo = new List<AppClassDetailInfo>();
-    if (ViewBag.Lst_ClassDetailInfo != null)
-    {
-        Lst_ClassDetailInfo = (List<AppClassDetailInfo>)ViewBag.Lst_ClassDetailInfo;
-    }
+   
 
     Dictionary<string, AppDocumentInfo> dic_appDoc = new Dictionary<string, AppDocumentInfo>();
     foreach (AppDocumentInfo item in Lst_AppDoc)
@@ -318,7 +314,7 @@
                 @Resource.TM2B_ChuDon
             </div>
         </div>
-        <div id="div_PartialThongTinChuDon">
+        <div id="div_PartialThongTinChuDon">             
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon_View.cshtml" )
         </div>
         @{ 
@@ -454,7 +450,7 @@
             @for (int i = 0; i < Lst_UTienInfo.Count; i++)
                 {
                     Lst_UTienInfo[i].Model_Id = i;
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinQuyenUuTien_View.cshtml", Lst_UTienInfo[i])
+                @Html.Partial("~/Areas/IndustrialDesign/Views/A03/_PartialThongtinQuyenUutien_View.cshtml", Lst_UTienInfo[i])
             }
         </div>
       } 
@@ -637,7 +633,7 @@
     </fieldset>
 </div>
 
-@Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialPreview_IU.cshtml")
+@Html.Partial("~/Areas/IndustrialDesign/Views/A03/_PartialPreview_IU.cshtml")
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
     </div>
@@ -653,5 +649,580 @@
 
     });
 
-       
+
+    function onChangeAppNo() {
+        try {
+            var _AppNo = $("#3_SoDon").val();
+            if (_AppNo != "") {
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/trade-mark-3b/getMasterByAppNo/',
+                    data: {
+                        p_appNo: _AppNo,
+                    },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+
+                        $("#div_PartialThongTinChuDon").html(data.PartialThongTinChuDon);
+                        $("#div_PartialThongTinDaiDienChuDon").html(data.PartialThongTinDaiDienChuDon);
+                    }
+                });
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+
+    function funcChoiseDonUT(pID) {
+        try {
+            //if ($("#0_ckbCoSuDungDonUuTien").is(':checked')) {
+            //    $("#div_ThongTinDonUuTien").removeClass("clssDisplaynone");
+            //}
+            //else {
+            //    $("#div_ThongTinDonUuTien").addClass("clssDisplaynone");
+            //}
+
+            if (pID == "0_ckbCoSuDungDonUuTien") {
+                $('#0_ckbCoSuDungDonUuTien').prop('checked', true);
+                $('#KOUT').prop('checked', false);
+
+                $("#div_ThongTinDonUuTien").removeClass("clssDisplaynone");
+
+            } else {
+                $('#KOUT').prop('checked', true);
+                $('#0_ckbCoSuDungDonUuTien').prop('checked', false);
+
+                $("#div_ThongTinDonUuTien").addClass("clssDisplaynone");
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function ShowHiden_NguonGocDon() {
+        try {
+            ShowHiden_PCT();
+            ShowHiden_DQSC();
+            ShowHiden_GPHI();
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function ShowHiden_PCT() {
+        try {
+            if ($("#2_rdPCT").is(':checked')) {
+                $("#divPCT").removeClass("clssDisplaynone");
+                $("#txt_PCT_SoDon").focus();
+            }
+            else {
+                $("#divPCT").addClass("clssDisplaynone");
+            }
+
+
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function ShowHiden_DQSC() {
+        try {
+            if ($("#2_rdDQSC").is(':checked')) {
+                $("#divDQSC").removeClass("clssDisplaynone");
+                $("#txt_PCT_So").focus();
+            }
+            else {
+                $("#divDQSC").addClass("clssDisplaynone");
+            }
+
+
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function ShowHiden_GPHI() {
+        try {
+            if ($("#2_rdGPHI").is(':checked')) {
+                $("#divGPHI").removeClass("clssDisplaynone");
+                $("#txt_GPHI_SoDon").focus();
+            }
+            else {
+                $("#divGPHI").addClass("clssDisplaynone");
+            }
+
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function ShowHiden_PCT_SuaDoi() {
+        try {
+            if ($("#2_rdo_PCT_SuaDoi").is(':checked')) {
+                $("#divPCT_SuaDoi").removeClass("clssDisplaynone");
+            }
+            else {
+                $("#divPCT_SuaDoi").addClass("clssDisplaynone");
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function onChangeChuDonKhac() {
+        try {
+            if ($("#rdChuDonKhac").is(':checked')) {
+                $("#divChungDonKhac001").removeClass("clssDisplaynone");
+            }
+            else {
+                $("#divChungDonKhac001").addClass("clssDisplaynone");
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function onChangeTuPhanLoai() {
+        try {
+            if ($("#ckbTuPhanLoai").is(':checked')) {
+                $("#div_content_class_coll").removeClass("clssDisplaynone");
+                $("#txtTenHangHoa").focus();
+            }
+            else {
+                $("#div_content_class_coll").addClass("clssDisplaynone");
+            }
+
+            $("#txtClass").val("");
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function ThemTacGia() {
+        try {
+
+            var _id = parseInt($("#txt_id_tacgia").val()) + 1;
+            $.ajax({
+                type: 'POST',
+                url: '/indus-design/tac-gia/them-tac-gia/',
+                data: {
+                    p_id: _id
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divTacGiaKhac").append(data);
+                    $("#txt_id_tacgia").val(_id);
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function ThemChuDon() {
+        try {
+
+            var _id = parseInt($("#txt_id_ChuDon").val()) + 1;
+            $.ajax({
+                type: 'POST',
+                url: '/indus-design/chu-don/them-chu-don/',
+                data: {
+                    p_id: _id
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divChuDonKhac").append(data);
+                    $("#txt_id_ChuDon").val(_id);
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function XoaTacGia(pId, pId2) {
+        try {
+            $("#" + pId).addClass("clssDisplaynone");
+
+            $("#" + pId2).val("0");
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function ThemDonUuTien() {
+        try {
+
+            $.ajax({
+                type: 'POST',
+                url: '/indus-design/don-uu-tien/them-don/',
+                data: {
+                    p_id: "2"
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#div_ThongTinDonUuTien").append(data);
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    $("#ckb_Doc_16").change(function () {
+        if ($("#ckb_Doc_16").is(":checked") == true) {
+            $("#divContainerDocOther").css('display', 'block')
+        } else {
+            $("#divContainerDocOther").css('display', 'none');
+        }
+    });
+
+    function funcGetAppDetail(formData) {
+        try {
+            var _txtNgayNopDon = $("#0_txtNgayNopDon");
+            var _txtDonSo = $("#0_txtDonSo");
+
+            var _txt_IndustryDesignName = $("#txt_IndustryDesignName");
+            if (_txt_IndustryDesignName.val() == "") {
+                showError('Tên kiểu dáng công nghiệp không được để trống');
+                _txt_IndustryDesignName.focus();
+                return false;
+            }
+
+            // nguồn gốc đơn
+
+            if ($("#1_dontach").is(':checked')) {
+                if (_txtDonSo.val().trim() == "") {
+                    showError('Số đơn liên quan không được để trống');
+                    _txtDonSo.focus();
+                    return false;
+                }
+
+                if ($("#1_radDonBanDauCo2PA").is(':checked') == false && $("#1_radDonBanDauNopCho1DoiTuong").is(':checked') == false) {
+                    showError('Vui lòng chọn ít nhất 1 giá trị của thậm định nội dung');
+                    $("#1_radDonBanDauCo2PA").focus()
+                    return false;
+                }
+
+            }
+            formData.append("pDetail.Industry_Design_Name", _txt_IndustryDesignName.val());
+            formData.append("pDetail.App_Sentdate", _txtNgayNopDon.val());
+            formData.append("pDetail.Refappno", _txtDonSo.val());
+            if ($("#1_rdchuacokqthamdinhnoidung").is(':checked')) {
+
+                formData.append("pDetail.Kqtd_Type", "1");
+                if ($("#1_radDonBanDauCo2PA").is(':checked')) {
+                    formData.append("pDetail.Kqtd_Value", "1");
+                }
+                else {
+                    formData.append("pDetail.Kqtd_Value", "2");
+                }
+
+            } else {
+                formData.append("pDetail.Kqtd_Type", "2");
+                formData.append("pDetail.Kqtd_Value", "0");
+            }
+
+
+
+            if ($("#ckbCucPhanLoai").is(':checked') == false && $("#ckbTuPhanLoai").is(':checked') == false) {
+                showError("Vui lòng phân loại hàng hóa");
+                $("#ckbCucPhanLoai").focus()
+                return false;
+            }
+
+            if ($("#ckbCucPhanLoai").is(':checked')) {
+                formData.append("pDetail.Phanloai_Type", "1");
+            }
+            else {
+                formData.append("pDetail.Phanloai_Type", "2");
+                if (_ArrGroupAppClass.length == 0) {
+                    showError('@Resource.TM2B_ChonHangHoaDV');
+                    $("#txtTenHangHoa").focus();
+                    return false;
+                }
+            }
+
+            if ($("#0_ckbCoSuDungDonUuTien").is(':checked')) {
+                formData.append("pDetail.USED_SPECIAL", "1");
+            }
+            else {
+                formData.append("pDetail.USED_SPECIAL", "0");
+            }
+
+
+            var txt_MaDaiDien = $("#txt_MaDaiDien").val();
+            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+            if (v_RepMasterType = "DDPL") {
+                if (txt_MaDaiDien == "") {
+                    showError('@Resource.TM3C_MaDaiDienKhongDuocTrong');
+                    $("#txt_MaDaiDien").focus()
+                    return false;
+                }
+            }
+            formData.append("pInfo.Customer_Code", txt_MaDaiDien);
+
+            var _index = 0;
+            $(".clsTacGia").each(function (item) {
+                var _id = $(this).attr('data-id');
+                if ($("#" + _id + "_txtUse").val() == "1") {
+
+                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Name", $("#" + _id + "_TG_TenDayDu").val());
+                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Address", $("#" + _id + "_TG_DiaChi").val());
+                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Phone", $("#" + _id + "_TG_DienThoai").val());
+                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Fax", $("#" + _id + "_TG_Fax").val());
+                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Email", $("#" + _id + "_TG_Email").val());
+                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Country", $("#" + _id + "_TG_QuocTich").val());
+
+                    _index = _index + 1;
+                }
+            });
+
+            // đơn ưu tiên
+            var v_CoSDQuyenUT = 0;
+            if ($("#0_ckbCoSuDungDonUuTien").prop('checked') == true) {
+                v_CoSDQuyenUT = 1;
+            }
+            formData.append("pDetail.Used_Special", v_CoSDQuyenUT);
+
+            if (v_CoSDQuyenUT == 1) {
+
+                _index = 0;
+                var _index_document = 15;
+                var _checkquyenuutien = true;
+                $(".clsDivDonUTien").each(function (item) {
+                    var _id = $(this).attr('data-id');
+                    if ($("#" + _id + "_UT_Use").val() == "1") {
+
+                        if ($("#" + _id + "_UT_txtSoDon").val() === "" || $("#" + _id + "_UT_txtSoDon").val() == undefined) {
+                            showError('Số đơn ưu tiên không được để trống');
+                            $("#" + _id + "_UT_txtSoDon").focus();
+                            _checkquyenuutien = false;
+                            return false;
+                        }
+
+                        if ($("#" + _id + "_UT_txtNgayNopDon").val() === "" || $("#" + _id + "_UT_txtNgayNopDon").val() == undefined) {
+                            showError('Ngày nộp đơn ưu tiên không được để trống');
+                            $("#" + _id + "_UT_txtNgayNopDon").focus();
+                            _checkquyenuutien = false;
+                            return false;
+                        }
+
+                        if ($("#" + _id + "_UT_txtQuocGia").val() === "" || $("#" + _id + "_UT_txtQuocGia").val() == undefined) {
+                            showError('Nước nộp đơn ưu tiên không được để trống');
+                            $("#" + _id + "_UT_txtQuocGia").focus();
+                            _checkquyenuutien = false;
+                            return false;
+                        }
+
+                        formData.append("pUTienInfo[" + _index + "].UT_SoDon", $("#" + _id + "_UT_txtSoDon").val());
+                        formData.append("pUTienInfo[" + _index + "].UT_NgayNopDon", $("#" + _id + "_UT_txtNgayNopDon").val());
+                        formData.append("pUTienInfo[" + _index + "].UT_QuocGia", $("#" + _id + "_UT_txtQuocGia").val());
+
+                        var _nameYC = _id + "_rdo_YCHuongQuyen";
+                        var v_QuyenUuTien = $("input[name='" + _nameYC + "']:checked").val();
+                        if (v_QuyenUuTien == undefined || v_QuyenUuTien == null || v_QuyenUuTien == 0 && (pEditOrNew == 1)) {
+                            showError('Yêu cầu hưởng quyền ưu tiên phải chọn ít nhất 1 giá trị');
+                            _checkquyenuutien = false;
+                            return false;
+                        }
+                        formData.append("pUTienInfo[" + _index + "].UT_Type", v_QuyenUuTien);
+                        formData.append("pUTienInfo[" + _index + "].UT_ThoaThuanKhac", $("#" + _id + "_txtThoathuanKhac").val());
+                        _index = _index + 1;
+                        _index_document = _index_document + 1;
+                        // 16
+
+                        var _id_checkbox = "ckb_" + _id + "_TLCMQUT";
+                        var _id_textbox = "txt_" + _id + "_TLCMQUT";
+                        reponse = funcGetCheckValueAndText(formData, _id_checkbox, _index_document);
+                        //formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
+
+                        _index_document = _index_document + 1;
+                        _id_checkbox = "ckb_" + _id + "_BanSaoDauTien";
+                        var _id_textbox = "txt_" + _id + "_BanSaoDauTien";
+
+                        reponse = funcGetCheckValueAndText(formData, _id_checkbox, _index_document);
+                        formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
+
+                        _index_document = _index_document + 1;
+                        _id_checkbox = "ckb_" + _id + "_BanDich";
+                        var _id_textbox = "txt_" + _id + "_BanDich";
+
+                        reponse = funcGetCheckValueAndText(formData, _id_checkbox, _index_document);
+                        formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
+
+                        _index_document = _index_document + 1;
+                        _id_checkbox = "ckb_" + _id + "_GiayChuyenNhuong";
+                        var _id_textbox = "txt_" + _id + "_GiayChuyenNhuong";
+                        reponse = funcGetCheckValueAndText(formData, _id_checkbox, _index_document);
+                        formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
+                    }
+                });
+                if (_checkquyenuutien == false) {
+                    return _checkquyenuutien;
+                }
+
+            }
+        } catch (e) {
+            console.log(e.message);
+            showError('@Resource.TM3B_InternetError');
+            return false;
+        }
+    }
+
+    function funGetDocumentFile(formData) {
+        try {
+            var Isuse = 0, Note = "", reponse = false;
+            // 1
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_01", "0");
+            formData.append("pAppDocumentInfo[0].CHAR01", $("#txt_Doc_01").val());
+            formData.append("pAppDocumentInfo[0].CHAR02", $("#txt_Doc_01_2").val());
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_02", "1");
+            formData.append("pAppDocumentInfo[1].CHAR01", $("#txt_Doc_02").val());
+            formData.append("pAppDocumentInfo[1].CHAR02", $("#txt_Doc_02_2").val());
+
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_03", "2");
+            formData.append("pAppDocumentInfo[2].CHAR01", $("#txt_Doc_03").val());
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_04", "3");
+            formData.append("pAppDocumentInfo[3].CHAR01", $("#txt_Doc_04").val());
+            formData.append("pAppDocumentInfo[3].CHAR02", $("#txt_Doc_04_2").val());
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_05", "4");
+            formData.append("pAppDocumentInfo[4].CHAR01", $("#txt_Doc_05").val());
+
+
+            // 6
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_06", "5");
+            //formData.append("pAppDocumentInfo[5].CHAR01", $("#txt_Doc_06").val());
+
+            // 7
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_07", "6");
+            formData.append("pAppDocumentInfo[6].CHAR01", $("#txt_Doc_07").val());
+
+            // 8
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_08", "7");
+            formData.append("pAppDocumentInfo[7].CHAR01", $("#txt_Doc_08").val());
+
+            // 9
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_09", "8");
+            //formData.append("pAppDocumentInfo[8].CHAR01", $("#txt_Doc_09").val());
+
+            // 10
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_10", "9");
+            formData.append("pAppDocumentInfo[9].CHAR01", $("#txt_Doc_10").val());
+
+            // 11
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_11", "10");
+            formData.append("pAppDocumentInfo[10].CHAR01", $("#txt_Doc_11").val());
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_12", "11");
+            formData.append("pAppDocumentInfo[11].CHAR01", $("#txt_Doc_12").val());
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_13", "12");
+            formData.append("pAppDocumentInfo[12].CHAR01", $("#txt_Doc_13").val());
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_14", "13");
+            formData.append("pAppDocumentInfo[13].CHAR01", $("#txt_Doc_14").val());
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_15", "14");
+            formData.append("pAppDocumentInfo[14].CHAR01", $("#txt_Doc_15").val());
+
+            // 16
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_16", "15");
+            formData.append("pAppDocumentInfo[15].CHAR01", $("#txt_Doc_16").val());
+
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+
+    function funcGetTenTaiLieuKhac(formData) {
+        try {
+            var item = 0;
+            $(".clssListUpload").each(function () {
+                formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", this.id);
+                formData.append("pAppDocOtherInfo[" + item + "].Documentname", $("#" + this.id).val());
+
+                item++;
+            });
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+ 
+
+    function funcGetCheckValueAndText(formData, pID, pItem) {
+        try {
+            var Isuse = 0, Note = "";
+            //Các tài liệu có trong đơn
+            if ($("#" + pID).prop('checked') == true) {
+                Isuse = 1;
+            }
+            formData.append("pAppDocumentInfo[" + pItem + "].keyFileUpload", pID);
+            formData.append("pAppDocumentInfo[" + pItem + "].Document_Id", $("#" + pID).val());
+            formData.append("pAppDocumentInfo[" + pItem + "].Isuse", Isuse);
+            return true;
+        } catch (e) {
+            console.log(e.message);
+            return false;
+        }
+
+    }
+
+    function funcChuDonKhac(formData) {
+        try {
+            var _index = 0;
+            $(".clsChuDonKhac").each(function (item) {
+                var _id = $(this).attr('data-id');
+                if ($("#" + _id + "_txtUse_ChuDonKhac").val() == "1") {
+
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Name", $("#" + _id + "_txtTenDayDu_Khac").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Address", $("#" + _id + "_txtDiaChi_Khac").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Phone", $("#" + _id + "_txtDienThoai_Khac").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Fax", $("#" + _id + "_txtFax_Khac").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Email", $("#" + _id + "_txtEmail_Khac").val());
+                    //formData.append("pOther_MasterInfo[" + _index + "].Author_Country", $("#" + _id + "_TG_QuocTich").val());
+
+                    if ($("#" + _id + "_ckbTacGiaDongThoi").is(':checked')) {
+                        formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "TGDT");
+                    } else {
+                        formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "");
+                    }
+
+                    if ($("#" + _id + "_ckbPhoBan").is(':checked')) {
+                        formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "PB");
+                    } else {
+                        formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "");
+                    }
+
+                    _index = _index + 1;
+                }
+            });
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
 </script>

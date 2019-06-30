@@ -1274,9 +1274,11 @@
                 ViewBag.Lst_AuthorsInfo = _lst_authorsInfos;
                 ViewBag.Lst_Other_Master = _lst_Other_MasterInfo;
                 ViewBag.lstDocOther = _LstDocumentOthersInfo;
-                ViewBag.Lst_ClassDetailInfo = _lst_appClassDetailInfos;
+                ViewBag.lstClassDetailInfo = _lst_appClassDetailInfos;
                 ViewBag.Lst_UTienInfo = pUTienInfo;
                 ViewBag.ListDocDesign = pLstDocDesign;
+                ViewBag.IsViewFlag = 1;
+                ViewBag.AppCode = pAppCode;
                 return PartialView(@"~\Areas\IndustrialDesign\Views\A03\_Partial_A03_View.cshtml");
             }
             else

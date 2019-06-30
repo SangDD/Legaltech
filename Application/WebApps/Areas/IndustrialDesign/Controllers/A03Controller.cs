@@ -510,7 +510,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
            List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo,
            List<AuthorsInfo> pAppAuthorsInfo, List<Other_MasterInfo> pOther_MasterInfo,
            List<AppClassDetailInfo> pAppClassInfo, List<AppDocumentOthersInfo> pAppDocOtherInfo,
-           List<UTienInfo> pUTienInfo, List<AppDocumentOthersInfo> pLstImagePublic)
+           List<UTienInfo> pUTienInfo, List<AppDocumentOthersInfo> pAppDocIndusDesign)
         {
             try
             {

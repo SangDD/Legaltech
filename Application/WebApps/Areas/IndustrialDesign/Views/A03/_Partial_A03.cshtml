@@ -355,7 +355,7 @@
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model2)
         }
 
-        @* 3. Bản sao *@
+        @* 3. Bộ mô tả hình ảnh *@
         @{
             string _doc_id3 = "A03_03";
             string _model3 = _doc_id3 + "|Doc_03|0|" + "Bộ ảnh chụp/bản vẽ, gồm" + "|" + "ảnh x" + "|1||" + "bộ";
@@ -420,19 +420,19 @@
         @* 12 Tài liệu chứng minh quyền ưu tiên *@
         @{
             string _doc_id11 = "A03_11";
-            string _model11 = _doc_id11 + "|Doc_11|0|" + "Tài liệu chứng minh quyền ưu tiên " + "||0";
+            string _model11 = _doc_id11 + "|Doc_11|0|" + Resource.lblTaiLieuChungMinhQuyenUuTien + "||0";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model11)
         }
 
         @{
             string _doc_id12 = "A03_12";
-            string _model12 = _doc_id12 + "|Doc_12|1|" + "Bản sao đơn đầu tiên, gồm " + "|" + Resource.lblBan + "|1";
+            string _model12 = _doc_id12 + "|Doc_12|1|" + Resource.lblbanSaoDauTienGom + "|" + Resource.lblBan + "|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model12)
         }
 
         @{
             string _doc_id13 = "A03_13";
-            string _model13 = _doc_id13 + "|Doc_13|1|" + "Giấy chuyển nhượng quyền ưu tiên (nếu thụ hưởng từ người khác)" + "||1";
+            string _model13 = _doc_id13 + "|Doc_13|1|" + Resource.lblGiayChuyenNhuongQuyenUT + "||1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model13)
         }
 
@@ -697,34 +697,36 @@
             } else {
                 formData.append("pInfo.Master_Type", "");
             }
+            if (funcChuDonKhac(formData) != true) {
+                return false;
+            }
+            //var _index = 0;
+            //$(".clsChuDonKhac").each(function (item) {
+            //    var _id = $(this).attr('data-id');
+            //    if ($("#" + _id + "_txtUse_ChuDonKhac").val() == "1") {
 
-            var _index = 0;
-            $(".clsChuDonKhac").each(function (item) {
-                var _id = $(this).attr('data-id');
-                if ($("#" + _id + "_txtUse_ChuDonKhac").val() == "1") {
+            //        formData.append("pOther_MasterInfo[" + _index + "].Master_Name", $("#" + _id + "_txtTenDayDu_Khac").val());
+            //        formData.append("pOther_MasterInfo[" + _index + "].Master_Address", $("#" + _id + "_txtDiaChi_Khac").val());
+            //        formData.append("pOther_MasterInfo[" + _index + "].Master_Phone", $("#" + _id + "_txtDienThoai_Khac").val());
+            //        formData.append("pOther_MasterInfo[" + _index + "].Master_Fax", $("#" + _id + "_txtFax_Khac").val());
+            //        formData.append("pOther_MasterInfo[" + _index + "].Master_Email", $("#" + _id + "_txtEmail_Khac").val());
+            //        //formData.append("pOther_MasterInfo[" + _index + "].Author_Country", $("#" + _id + "_TG_QuocTich").val());
 
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Name", $("#" + _id + "_txtTenDayDu_Khac").val());
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Address", $("#" + _id + "_txtDiaChi_Khac").val());
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Phone", $("#" + _id + "_txtDienThoai_Khac").val());
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Fax", $("#" + _id + "_txtFax_Khac").val());
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Email", $("#" + _id + "_txtEmail_Khac").val());
-                    //formData.append("pOther_MasterInfo[" + _index + "].Author_Country", $("#" + _id + "_TG_QuocTich").val());
+            //        if ($("#" + _id + "_ckbTacGiaDongThoi").is(':checked')) {
+            //            formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "TGDT");
+            //        } else {
+            //            formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "");
+            //        }
 
-                    if ($("#" + _id + "_ckbTacGiaDongThoi").is(':checked')) {
-                        formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "TGDT");
-                    } else {
-                        formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "");
-                    }
+            //        if ($("#" + _id + "_ckbPhoBan").is(':checked')) {
+            //            formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "PB");
+            //        } else {
+            //            formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "");
+            //        }
 
-                    if ($("#" + _id + "_ckbPhoBan").is(':checked')) {
-                        formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "PB");
-                    } else {
-                        formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "");
-                    }
-
-                    _index = _index + 1;
-                }
-            });
+            //        _index = _index + 1;
+            //    }
+            //});
 
             formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin)');
             var v_AppCode = $("#txtAppCode").val();
@@ -1171,7 +1173,7 @@
 
                 _index = 0;
                 var _index_document = 15;
-
+                var _checkquyenuutien = true;
                 $(".clsDivDonUTien").each(function (item) {
                     var _id = $(this).attr('data-id');
                     if ($("#" + _id + "_UT_Use").val() == "1") {
@@ -1179,18 +1181,21 @@
                         if ($("#" + _id + "_UT_txtSoDon").val() === "" || $("#" + _id + "_UT_txtSoDon").val() == undefined) {
                             showError('Số đơn ưu tiên không được để trống');
                             $("#" + _id + "_UT_txtSoDon").focus();
+                            _checkquyenuutien = false;
                             return false;
                         }
 
                         if ($("#" + _id + "_UT_txtNgayNopDon").val() === "" || $("#" + _id + "_UT_txtNgayNopDon").val() == undefined) {
                             showError('Ngày nộp đơn ưu tiên không được để trống');
                             $("#" + _id + "_UT_txtNgayNopDon").focus();
+                            _checkquyenuutien = false;
                             return false;
                         }
 
                         if ($("#" + _id + "_UT_txtQuocGia").val() === "" || $("#" + _id + "_UT_txtQuocGia").val() == undefined) {
                             showError('Nước nộp đơn ưu tiên không được để trống');
                             $("#" + _id + "_UT_txtQuocGia").focus();
+                            _checkquyenuutien = false;
                             return false;
                         }
 
@@ -1202,6 +1207,7 @@
                         var v_QuyenUuTien = $("input[name='" + _nameYC + "']:checked").val();
                         if (v_QuyenUuTien == undefined || v_QuyenUuTien == null || v_QuyenUuTien == 0 && (pEditOrNew == 1)) {
                             showError('Yêu cầu hưởng quyền ưu tiên phải chọn ít nhất 1 giá trị');
+                            _checkquyenuutien = false; 
                             return false;
                         }
                         formData.append("pUTienInfo[" + _index + "].UT_Type", v_QuyenUuTien);
@@ -1236,6 +1242,10 @@
                         formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
                     }
                 });
+                if(_checkquyenuutien == false)
+                {
+                    return _checkquyenuutien ;
+                }
 
             }
         } catch (e) {
@@ -1380,8 +1390,8 @@
             $(".clssListUploadIndusDesign").each(function () {
                 formData.append("pAppDocIndusDesign[" + item + "].keyFileUpload", this.id);
                 formData.append("pAppDocIndusDesign[" + item + "].Documentname", $("#" + this.id).val());
-                formData.append("pAppDocOtherInfo[" + item + "].FILETYPE", "2");
-                formData.append("pAppDocOtherInfo[" + item + "].FILELEVEL", $("#" + this.id).attr("meta-data2"));
+                formData.append("pAppDocIndusDesign[" + item + "].FILETYPE", "2");
+                formData.append("pAppDocIndusDesign[" + item + "].FILELEVEL", $("#" + this.id).attr("meta-data2"));
                 _documentno =  $("#" + this.id).attr("meta-data");
                 formData.append("pAppDocIndusDesign[" + item + "].Char01", $("#Treetxttailieuanhsotrang" + _documentno).val());
                 formData.append("pAppDocIndusDesign[" + item + "].Char02", $("#TreetxttailieuanhGhiChu" + _documentno).val());
@@ -1412,5 +1422,40 @@
             return false;
         }
 
+    }
+
+    function funcChuDonKhac(formData) {
+        try {
+            var _index = 0;
+            $(".clsChuDonKhac").each(function (item) {
+                var _id = $(this).attr('data-id');
+                if ($("#" + _id + "_txtUse_ChuDonKhac").val() == "1") {
+
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Name", $("#" + _id + "_txtTenDayDu_Khac").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Address", $("#" + _id + "_txtDiaChi_Khac").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Phone", $("#" + _id + "_txtDienThoai_Khac").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Fax", $("#" + _id + "_txtFax_Khac").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Email", $("#" + _id + "_txtEmail_Khac").val());
+                    //formData.append("pOther_MasterInfo[" + _index + "].Author_Country", $("#" + _id + "_TG_QuocTich").val());
+
+                    if ($("#" + _id + "_ckbTacGiaDongThoi").is(':checked')) {
+                        formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "TGDT");
+                    } else {
+                        formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "");
+                    }
+
+                    if ($("#" + _id + "_ckbPhoBan").is(':checked')) {
+                        formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "PB");
+                    } else {
+                        formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "");
+                    }
+
+                    _index = _index + 1;
+                }
+            });
+            return true;
+        } catch (e) {
+            return false;
+        }
     }
 </script>
