@@ -86,10 +86,17 @@ namespace WebApps.Areas.Patent.Controllers
         }
 
         [HttpPost]
+        [Route("hinh-cong-bo/them")]
+        public ActionResult ThemHinhCongBo(string p_id)
+        {
+            return PartialView("~/Areas/Patent/Views/Shared/_Partial_Image_Public_Child.cshtml", p_id.ToString());
+        }
+
+        [HttpPost]
         [Route("tai-lieu-khac/them")]
         public ActionResult ThemTaiLieuKhac(string p_id)
         {
-            return PartialView("~/Areas/Patent/Views/Shared/_Partial_Image_Public_Child.cshtml", p_id.ToString());
+            return PartialView("~/Areas/Patent/Views/Shared/_Partial_Document_Others.cshtml", p_id.ToString());
         }
 
 

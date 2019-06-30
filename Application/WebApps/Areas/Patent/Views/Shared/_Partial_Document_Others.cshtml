@@ -7,51 +7,35 @@
     {
         Lst_ImagePublic = (List<AppDocumentOthersInfo>)ViewBag.lstDocOther;
     }
-
-    decimal _max_Model_Id = Lst_ImagePublic.Count + 1;
-
 }
-<style>
-    .classDocOtherE {
-        text-align: left;
-        padding: 3px;
-        color: blue;
-    }
-  
-</style>
-
-<div class="div_full_100_area" id="divContainerDocOther_Img" style="margin-top: 5px">
+ 
+<div class="div_full_100_area" id="divContainerDocOther" style="margin-top: 5px;display:none">
     <div class="divCover cls_form_title">
         <div class="cls_form_header" style="margin: 0 !important;">
-            @Resource.HinhCongBo
-            <button onclick="funcAddImageNew()"><i class="fa fa-plus-circle"></i></button>
+            @Resource.lblCacTaiLieuKhac.ToUpper()
+            <button onclick="funcAddNew_Others_Doc()"><i class="fa fa-plus-circle"></i></button>
         </div>
     </div>
-   
-    <div id="divDocumentOtherImg">
-        @for (int i = 0; i < Lst_ImagePublic.Count; i++)
-        {
-            Lst_ImagePublic[i].Model_Id = (i + 1);
-            Lst_ImagePublic[i].Is_View = 0;
-            @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Image_Public_Child_Edit.cshtml", Lst_ImagePublic[i])
-        }
+    <div id="divDocumentOther">
 
+        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others_Child.cshtml", "1")
+ 
     </div>
 </div>
 
 @* danh dau so tt sinh id  *@
-<input type="hidden" id="increNo_Img" value="@_max_Model_Id" />
- 
+<input type="hidden" id="increNo_Img" value="1" />
+
 <script>
 
-     function funcAddImageNew() {
+    function funcAddNew_Others_Doc() {
         try {
 
             var _index = parseInt($("#increNo_Img").val()) + 1;
             $("#increNo_Img").val(_index);
             $.ajax({
                 type: 'POST',
-                url: '/lg-patent/hinh-cong-bo/them/',
+                url: '/lg-patent/tai-lieu-khac/them/',
                 data: {
                     p_id: _index
                 },
@@ -61,7 +45,7 @@
                 },
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
-                    $("#divDocumentOtherImg").append(data);
+                    $("#divDocumentOther").append(data);
                 }
             });
         } catch (e) {
@@ -69,7 +53,7 @@
         }
     }
 
-    function funcRemoveDocumentImg(pTag) {
+    function funcRemoveDocument_Others(pTag) {
         try {
             var divFileUpload = document.getElementById(pTag);
             $(divFileUpload).remove();
@@ -77,19 +61,19 @@
             console.log(e);
         }
     }
-    function funcChoiseFileImgOther(pIDFile, ptxtId, ptagKey,pRemoveFile) {
+    function funcChoiseFile_Others(pIDFile, ptxtId, ptagKey,pRemoveFile) {
         try {
             var obj = $("#" + pIDFile);
             $("#" + ptxtId).val(obj.val());
 
-            funcPushFileImgOther(pIDFile, ptagKey, pRemoveFile);
+            funcPushFile_Others(pIDFile, ptagKey, pRemoveFile);
 
         } catch (e) {
             console.log(e);
         }
     }
 
-    function RemoveFileImgOther(p_AfterID,pRemoveImg,pTextMaxFile) {
+    function RemoveFile_Others(p_AfterID,pRemoveImg,pTextMaxFile) {
 
         var keyFileUpload = p_AfterID;
         try {
@@ -116,7 +100,7 @@
         }
     }
 
-    function funcPushFileImgOther(pID, ptagKey,pdivRemoveFile) {
+    function funcPushFile_Others(pID, ptagKey,pdivRemoveFile) {
         try {
             var formdata = new FormData();
             var Isuse = 0, Note = "";
@@ -129,7 +113,6 @@
             if (file != undefined) {
                 formdata.append("pInfo.pfiles", file[0].files[0]);
             }
-            //2
             $.ajax({
                 type: 'POST',
                 url: '/trade-mark/push-file-other-to-server',
@@ -150,5 +133,4 @@
             console.log(e);
         }
     }
- 
 </script>
