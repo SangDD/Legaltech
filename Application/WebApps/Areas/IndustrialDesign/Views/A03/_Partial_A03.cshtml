@@ -364,8 +364,9 @@
 
 
         @{
-            string _doc_id4 = "A03_04";  
-            string _model4 = _doc_id4 + "|Doc_04|0|" + "Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ)" + "|" + Resource.TM2B_SoTrang + "|1";
+            string _doc_id4 = "A03_04";
+            // (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ)
+            string _model4 = _doc_id4 + "|Doc_04|0|" + "Bản sao chứng từ nộp phí, lệ phí" + "|" + Resource.TM2B_SoTrang + "|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)
         }
 
