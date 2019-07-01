@@ -19,6 +19,7 @@ using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
 using System.Linq;
 using BussinessFacade;
+using System.Collections;
 
 namespace WebApps.Areas.IndustrialDesign.Controllers
 {
@@ -169,12 +170,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                         if (_re <= 0)
                             goto Commit_Transaction;
 
-                        ////Thêm thông tin class
-                        //if (pAppClassInfo != null)
-                        //{
-                        //    AppClassDetailBL objClassDetail = new AppClassDetailBL();
-                        //    pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID, language);
-                        //}
+                       
                     }
 
                     if (pOther_MasterInfo != null && pOther_MasterInfo.Count > 0)
@@ -404,8 +400,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                     _AppFeeFixInfo3.Amount = 480000 * _AppFeeFixInfo3.Number_Of_Patent;
                 _lstFeeFix.Add(_AppFeeFixInfo3);
                 #endregion
-
-
+                
                 #region 4 phí thẩm định đơn 
                 AppFeeFixInfo _AppFeeFixInfo4= new AppFeeFixInfo();
                 _AppFeeFixInfo4.Fee_Id = 4;
@@ -429,7 +424,6 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 _lstFeeFix.Add(_AppFeeFixInfo4);
                 #endregion
                  
-
                 #region 5 Phí công bố đơn
 
                 AppFeeFixInfo _AppFeeFixInfo5 = new AppFeeFixInfo();
@@ -545,9 +539,10 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
 
 
                 // Phí cố định
-                //List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_A03(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic);
-                //AppsCommon.Prepare_Data_Export_A03(ref _A03_Info_Export, pInfo, pAppDocumentInfo, _lstFeeFix, pAppAuthorsInfo, pOther_MasterInfo,
-                //       pAppClassInfo, pAppDocOtherInfo, pUTienInfo, pLstImagePublic);
+
+                List<AppFeeFixInfo> _lstFeeFix = CallFee(pDetail, pAppDocumentInfo, pUTienInfo, pAppDocIndusDesign);
+                Prepare_Data_Export_A03(ref _A03_Info_Export, pInfo, pAppDocumentInfo, _lstFeeFix, pAppAuthorsInfo, pOther_MasterInfo,
+                       pAppClassInfo, pAppDocOtherInfo, pUTienInfo, pAppDocIndusDesign);
 
                 _lst.Add(_A03_Info_Export);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<A03_Info_Export>(_lst, false);
@@ -589,13 +584,349 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
             }
         }
 
+
+        [HttpPost]
+        [Route("ket_xuat_file")]
+        public ActionResult ExportData_View(decimal pAppHeaderId, string p_appCode)
+        {
+            try
+            {
+                string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
+                string language = AppsCommon.GetCurrentLang();
+
+                var objBL = new A03_BL();
+                List<A03_Info_Export> _lst = new List<A03_Info_Export>();
+
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> _lst_appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                List<AuthorsInfo> _lst_authorsInfos = new List<AuthorsInfo>();
+                List<Other_MasterInfo> _lst_Other_MasterInfo = new List<Other_MasterInfo>();
+                List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
+                List<AppClassDetailInfo> _lst_appClassDetailInfos = new List<AppClassDetailInfo>();
+                List<UTienInfo> pUTienInfo = new List<UTienInfo>();
+                List<AppDocumentOthersInfo> pLstImageDesign = new List<AppDocumentOthersInfo>();
+                A03_Info_Export app_Detail = objBL.GetByID_Exp(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos,
+                    ref _lst_authorsInfos, ref _lst_Other_MasterInfo, ref _lst_appClassDetailInfos, ref _LstDocumentOthersInfo, ref pUTienInfo, ref pLstImageDesign);
+
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_VN_" + p_appCode + _datetimenow + ".pdf");
+                if (app_Detail.Languague_Code == Language.LangVI)
+                {
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_VN_" + p_appCode + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A03_VN_" + p_appCode + _datetimenow + ".pdf";
+                }
+                else
+                {
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_EN_" + p_appCode + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A03_EN_" + p_appCode + _datetimenow + ".pdf";
+                }
+
+                Prepare_Data_Export_A03(ref app_Detail, applicationHeaderInfo, appDocumentInfos, _lst_appFeeFixInfos, _lst_authorsInfos, _lst_Other_MasterInfo,
+                       _lst_appClassDetailInfos, _LstDocumentOthersInfo, pUTienInfo, pLstImageDesign);
+
+                _lst.Add(app_Detail);
+                DataSet _ds_all = ConvertData.ConvertToDataSet<A03_Info_Export>(_lst, false);
+                _ds_all.WriteXml(@"C:\inetpub\A03.xml", XmlWriteMode.WriteSchema);
+                CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+
+                string _tempfile = "A03.rpt";
+                if (app_Detail.Language_Code == Language.LangEN)
+                {
+                    _tempfile = "A03_EN.rpt";
+                }
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
+
+                if (_ds_all != null)
+                {
+                    _ds_all.Tables[0].TableName = "Table1";
+                    oRpt.SetDataSource(_ds_all);
+                }
+                oRpt.Refresh();
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+                //oRpt.ExportToDisk(ExportFormatType.PortableDocFormat, fileName_pdf);
+
+                System.IO.Stream oStream = oRpt.ExportToStream(ExportFormatType.PortableDocFormat);
+                byte[] byteArray = new byte[oStream.Length];
+                oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
+                System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq
+
+              
+                return Json(new { success = 0 });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = 0 });
+            }
+        }
+        public static void Prepare_Data_Export_A03(ref A03_Info_Export app_Detail, ApplicationHeaderInfo applicationHeaderInfo,
+           List<AppDocumentInfo> appDocumentInfos, List<AppFeeFixInfo> _lst_appFeeFixInfos,
+           List<AuthorsInfo> _lst_authorsInfos, List<Other_MasterInfo> _lst_Other_MasterInfo,
+           List<AppClassDetailInfo> pAppClassInfo, List<AppDocumentOthersInfo> _LstDocumentOthersInfo,
+           List<UTienInfo> pUTienInfo, List<AppDocumentOthersInfo> pAppDocIndusDesign)
+        {
+            try
+            {
+                // copy Header
+                A03_Info_Export.CopyAppHeaderInfo(ref app_Detail, applicationHeaderInfo);
+
+
+                // copy class
+                if (pAppClassInfo != null)
+                {
+                    Hashtable _hsGroupclass = new Hashtable();
+                    foreach (var item in pAppClassInfo)
+                    {
+                        AppClassDetailInfo _newinfo = new AppClassDetailInfo();
+                        _newinfo.CloneObj();
+                        if (_hsGroupclass.ContainsKey(item.Code.Substring(0, 2)))
+                        {
+                            _newinfo = (AppClassDetailInfo)_hsGroupclass[item.Code.Substring(0, 2)];
+                        }
+                        _newinfo.Code = item.Code;
+                        _newinfo.Textinput += item.Textinput + ", ";
+                        _newinfo.IntTongSanPham++;
+                        _hsGroupclass[item.Code.Substring(0, 2)] = _newinfo;
+                    }
+                    //appInfo.strListClass = "Tổng số nhóm: \n" + appInfo.strTongSonhom + "; Tổng số sản phẩm: " + appInfo.strTongSoSP + " ; Danh sách nhóm: " + appInfo.strListClass;
+                    List<AppClassDetailInfo> _listApp = new List<AppClassDetailInfo>();
+                    foreach (DictionaryEntry item in _hsGroupclass)
+                    {
+                        _listApp.Add((AppClassDetailInfo)item.Value);
+                    }
+                    foreach (AppClassDetailInfo item in _listApp.OrderBy(m => m.Code))
+                    {
+                        app_Detail.strListClass += Resources.Resource.lblNhom + item.Code.Substring(0, 2) + ": " + item.Textinput.Trim().Trim(',') + " (" + (item.IntTongSanPham < 10 ? "0" + item.IntTongSanPham.ToString() : item.IntTongSanPham.ToString()) + " " + Resources.Resource.lblSanPham + " )" + "\n";
+                    }
+                }
+
+                // copy tác giả
+                if (_lst_authorsInfos.Count > 0)
+                {
+                    A03_Info_Export.CopyAuthorsInfo(ref app_Detail, _lst_authorsInfos[0], 0);
+                }
+
+                if (_lst_authorsInfos.Count > 1)
+                {
+                    A03_Info_Export.CopyAuthorsInfo(ref app_Detail, _lst_authorsInfos[1], 1);
+                    app_Detail.Author_Others = "Y";
+                }
+                else
+                {
+                    A03_Info_Export.CopyAuthorsInfo(ref app_Detail, null, 1);
+                    app_Detail.Author_Others = "N";
+                }
+
+                if (_lst_authorsInfos.Count > 2)
+                {
+                    A03_Info_Export.CopyAuthorsInfo(ref app_Detail, _lst_authorsInfos[2], 2);
+                }
+                else
+                {
+                    A03_Info_Export.CopyAuthorsInfo(ref app_Detail, null, 2);
+                }
+
+                // copy chủ đơn khác
+                if (_lst_Other_MasterInfo.Count > 1)
+                {
+                    A03_Info_Export.CopyOther_MasterInfo(ref app_Detail, _lst_Other_MasterInfo[0], 0);
+                }
+                else
+                {
+                    A03_Info_Export.CopyOther_MasterInfo(ref app_Detail, null, 0);
+                }
+
+                if (_lst_Other_MasterInfo.Count > 2)
+                {
+                    A03_Info_Export.CopyOther_MasterInfo(ref app_Detail, _lst_Other_MasterInfo[1], 1);
+                }
+                else
+                {
+                    A03_Info_Export.CopyOther_MasterInfo(ref app_Detail, null, 1);
+                }
+
+                // copy đơn ưu tiên
+                if (pUTienInfo.Count > 0)
+                {
+                    A03_Info_Export.CopyUuTienInfo(ref app_Detail, pUTienInfo[0]);
+                }
+                else
+                {
+                    A03_Info_Export.CopyUuTienInfo(ref app_Detail, null);
+                }
+
+                #region Tài liệu có trong đơn
+
+                if (_LstDocumentOthersInfo != null)
+                {
+                    foreach (var item in _LstDocumentOthersInfo)
+                    {
+                        app_Detail.strDanhSachFileDinhKem += item.Documentname + " ; ";
+                    }
+
+                    app_Detail.strDanhSachFileDinhKem = app_Detail.strDanhSachFileDinhKem.Substring(0, app_Detail.strDanhSachFileDinhKem.Length - 2);
+                }
+
+                foreach (AppDocumentInfo item in appDocumentInfos)
+                {
+                    if (item.Document_Id == "A03_01")
+                    {
+                        app_Detail.Doc_Id_1 = item.CHAR01;
+                        app_Detail.Doc_Id_102 = item.CHAR02;
+                        app_Detail.Doc_Id_1_Check = item.Isuse;
+                    }
+                    else if (item.Document_Id == "A03_02")
+                    {
+                        app_Detail.Doc_Id_2 = item.CHAR01;
+                        app_Detail.Doc_Id_202 = item.CHAR02;
+
+                        app_Detail.Doc_Id_2_Check = item.Isuse;
+                    }
+                    else if (item.Document_Id == "A03_03")
+                    {
+                        app_Detail.Doc_Id_3_Check = item.Isuse;
+                        app_Detail.Doc_Id_3 = item.CHAR01;
+                    }
+                    else if (item.Document_Id == "A03_04")
+                    {
+                        app_Detail.Doc_Id_4 = item.CHAR01;
+                        app_Detail.Doc_Id_402 = item.CHAR02;
+                        app_Detail.Doc_Id_4_Check = item.Isuse;
+                    }
+                    else if (item.Document_Id == "A03_05")
+                    {
+                        app_Detail.Doc_Id_5_Check = item.Isuse;
+                        app_Detail.Doc_Id_5 = item.CHAR01;
+                    }
+
+                    else if (item.Document_Id == "A03_06")
+                    {
+                        app_Detail.Doc_Id_6_Check = item.Isuse;
+                        app_Detail.Doc_Id_6 = item.CHAR01;
+                    }
+                    else if (item.Document_Id == "A03_07")
+                    {
+                        app_Detail.Doc_Id_7_Check = item.Isuse;
+                        app_Detail.Doc_Id_7 = item.CHAR01;
+                    }
+                    else if (item.Document_Id == "A03_07")
+                    {
+                        app_Detail.Doc_Id_8_Check = item.Isuse;
+                        app_Detail.Doc_Id_8 = item.CHAR01;
+                    }
+
+                    else if (item.Document_Id == "A03_09")
+                    {
+                        app_Detail.Doc_Id_9 = item.CHAR01;
+                        app_Detail.Doc_Id_9_Check = item.Isuse;
+                    }
+                    else if (item.Document_Id == "A03_10")
+                    {
+                        app_Detail.Doc_Id_10_Check = item.Isuse;
+                        app_Detail.Doc_Id_10 = item.CHAR01;
+                    }
+                    else if (item.Document_Id == "A03_11")
+                    {
+                        app_Detail.Doc_Id_11 = item.CHAR01;
+                        app_Detail.Doc_Id_11_Check = item.Isuse;
+                    }
+
+                    else if (item.Document_Id == "A03_12")
+                    {
+                        app_Detail.Doc_Id_12 = item.CHAR01;
+                        app_Detail.Doc_Id_12_Check = item.Isuse;
+                    }
+
+                    else if (item.Document_Id == "A03_13")
+                    {
+                        app_Detail.Doc_Id_13 = item.CHAR01;
+                        app_Detail.Doc_Id_13_Check = item.Isuse;
+                    }
+
+                    else if (item.Document_Id == "A03_14")
+                    {
+                        app_Detail.Doc_Id_14 = item.CHAR01;
+                        app_Detail.Doc_Id_14_Check = item.Isuse;
+                    }
+
+                    else if (item.Document_Id == "A03_15")
+                    {
+                        app_Detail.Doc_Id_15 = item.CHAR01;
+                        app_Detail.Doc_Id_15_Check = item.Isuse;
+                    }
+                }
+
+                #endregion
+
+                #region Fee
+                if (_lst_appFeeFixInfos.Count > 0)
+                {
+                    foreach (var item in _lst_appFeeFixInfos)
+                    {
+                        if (item.Fee_Id == 1)
+                        {
+                            app_Detail.Fee_Id_1 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
+                            app_Detail.Fee_Id_1_Check = item.Isuse;
+
+                            app_Detail.Fee_Id_1_Val = item.Amount.ToString("#,##0.##");
+                        }
+                        else if (item.Fee_Id == 2)
+                        {
+                            app_Detail.Fee_Id_2 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
+                            app_Detail.Fee_Id_2_Check = item.Isuse;
+                            app_Detail.Fee_Id_2_Val = item.Amount.ToString("#,##0.##");
+                        }
+                        
+                        else if (item.Fee_Id == 3)
+                        {
+                            app_Detail.Fee_Id_3 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
+                            app_Detail.Fee_Id_3_Check = item.Isuse;
+                            app_Detail.Fee_Id_3_Val = item.Amount.ToString("#,##0.##");
+                        }
+
+                        else if (item.Fee_Id == 4)
+                        {
+                            app_Detail.Fee_Id_4 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
+                            app_Detail.Fee_Id_4_Check = item.Isuse;
+                            app_Detail.Fee_Id_4_Val = item.Amount.ToString("#,##0.##");
+                        }
+
+                        else if (item.Fee_Id == 5)
+                        {
+                            app_Detail.Fee_Id_5 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
+                            app_Detail.Fee_Id_5_Check = item.Isuse;
+                            app_Detail.Fee_Id_5_Val = item.Amount.ToString("#,##0.##");
+                        }
+
+                        else if (item.Fee_Id == 51)
+                        {
+                            app_Detail.Fee_Id_51 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
+                            app_Detail.Fee_Id_51_Check = item.Isuse;
+                            app_Detail.Fee_Id_51_Val = item.Amount.ToString("#,##0.##");
+                        }
+
+                        app_Detail.Total_Fee = app_Detail.Total_Fee + item.Amount;
+                        app_Detail.Total_Fee_Str = app_Detail.Total_Fee.ToString("#,##0.##");
+                    }
+                }
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+        }
+
         [Route("Pre-View")]
         public ActionResult PreViewApplication(string p_appCode)
         {
             try
             {
                 ViewBag.FileName = SessionData.CurrentUser.FilePreview;
-                //ViewBag.FileName = "/Content/Export/" + "A03_VN_" + TradeMarkAppCode.AppCode_A03 + ".pdf";
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
             }
             catch (Exception ex)
