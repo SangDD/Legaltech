@@ -595,7 +595,7 @@
         </div>
 
         <div id="div_PartialThongTinDaiDienChuDon">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon_View.cshtml")
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
         </div>
 
         <div class="div-search-ad">
@@ -950,9 +950,14 @@
     </fieldset>
 </div>
 
-@Html.Partial("~/Areas/Patent/Views/A01/_PartialPreview.cshtml")
+@Html.Partial("~/Areas/Patent/Views/A01/_PartialPreview_IU.cshtml")
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
+    </div>
+</div>
+
+<div id="divWrapperPopUpFee" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divPopUpFee">
     </div>
 </div>
 
@@ -1124,15 +1129,10 @@
             //Thông tin chủ đơn
             var formData = new FormData();
             formData.append("pInfo.Id", @_AppHeaderInfo.Id);
-            formData.append("pInfo.Case_Code", @_AppHeaderInfo.Case_Code);
+            formData.append("pInfo.Case_Code", '@_AppHeaderInfo.Case_Code');
 
             if (_UpdateToDo == 1) {
                 formData.append("pInfo.UpdateToDo", 1);
-            }
-
-            var reponse = funcThongTinNhapHo(formData);
-            if (reponse == false) {
-                return false;
             }
 
             var reponse = funcThongTinCaseName(formData, "0");
@@ -1160,15 +1160,8 @@
                 return false;
             }
 
-            var v_AppCode = $("#txtAppCode").val();
-            if (v_AppCode === "") {
-                $('#txtAppCode').focus().val('');
-                showError('@Html.Raw(Resource.TM3B_ChonLoaiDonDK)');
-                return false;
-            }
-
             // đại diện chủ đơn
-            formData.append("pInfo.Appcode", v_AppCode);
+            formData.append("pInfo.Appcode", 'A01');
             if (funcThongTinDaiDienChuDon(formData, "2") != true) {
                 return false;
             }
