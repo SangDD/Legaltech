@@ -480,7 +480,6 @@ namespace WebApps.Areas.Patent.Controllers
                                     string _url = (string)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
                                     info.Filename = _url;
                                     check = 1;
-
                                 }
                                 else if (_dic_doc_others.ContainsKey(info.Id))
                                 {

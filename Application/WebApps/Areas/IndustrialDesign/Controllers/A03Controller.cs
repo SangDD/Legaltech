@@ -157,7 +157,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                         {
                             pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID, language);
                         }
-                      
+
                     }
 
                     if (pAppAuthorsInfo != null && pAppAuthorsInfo.Count > 0)
@@ -170,7 +170,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                         if (_re <= 0)
                             goto Commit_Transaction;
 
-                       
+
                     }
 
                     if (pOther_MasterInfo != null && pOther_MasterInfo.Count > 0)
@@ -207,20 +207,27 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                             foreach (var info in pAppDocOtherInfo)
                             {
                                 string _keyfileupload = "";
-                                if(info.keyFileUpload != null)
+                                if (info.keyFileUpload != null)
                                 {
                                     _keyfileupload = info.keyFileUpload;
                                 }
                                 if (SessionData.CurrentUser.chashFileOther.ContainsKey(_keyfileupload))
                                 {
                                     var _updateitem = SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
-                                    if(_updateitem.GetType() == typeof(HttpPostedFileBase))
+                                    if (_updateitem.GetType() == typeof(string))
                                     {
-                                        HttpPostedFileBase pfiles = (HttpPostedFileBase)_updateitem;
-                                        info.Filename = pfiles.FileName;
-                                        info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
+                                        string _url = (string)_updateitem;
+                                        info.Filename = _url;
                                         check = 1;
                                     }
+                                    
+                                    //if(_updateitem.GetType() == typeof(HttpPostedFileBase))
+                                    //{
+                                    //    HttpPostedFileBase pfiles = (HttpPostedFileBase)_updateitem;
+                                    //    info.Filename = pfiles.FileName;
+                                    //    info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
+                                    //    check = 1;
+                                    //}
                                 }
                                 info.App_Header_Id = pAppHeaderID;
                                 info.Language_Code = language;
@@ -246,8 +253,12 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                                     var _updateitem = SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
                                     if (_updateitem.GetType() == typeof(AppDocumentInfo))
                                     {
-                                        HttpPostedFileBase pfiles =  (_updateitem as AppDocumentInfo).pfiles;
+                                        HttpPostedFileBase pfiles = (_updateitem as AppDocumentInfo).pfiles;
+
                                         info.Filename = pfiles.FileName;
+                                        info.Filename = AppLoadHelpers.convertToUnSign2(info.Filename);
+                                        info.Filename = System.Text.RegularExpressions.Regex.Replace(info.Filename, "[^0-9A-Za-z.]+", "_");
+
                                         info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
                                         info.IdRef = Convert.ToDecimal((_updateitem as AppDocumentInfo).refId);
                                         check = 1;
@@ -284,17 +295,21 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                             {
                                 if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                                 {
-                                    string _url = (string)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
-                                    string[] _arr = _url.Split('/');
-                                    string _filename = WebApps.Resources.Resource.FileDinhKem;
-                                    if (_arr.Length > 0)
+                                    var _updateitem = SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                    if (_updateitem.GetType() == typeof(string))
                                     {
-                                        _filename = _arr[_arr.Length - 1];
-                                    }
+                                        string _url = (string)_updateitem;
+                                        string[] _arr = _url.Split('/');
+                                        string _filename = WebApps.Resources.Resource.FileDinhKem;
+                                        if (_arr.Length > 0)
+                                        {
+                                            _filename = _arr[_arr.Length - 1];
+                                        }
 
-                                    info.Filename = _filename;
-                                    info.Url_Hardcopy = _url;
-                                    info.Status = 0;
+                                        info.Filename = _filename;
+                                        info.Url_Hardcopy = _url;
+                                        info.Status = 0;
+                                    }
                                 }
                                 info.App_Header_Id = pAppHeaderID;
                                 info.Document_Filing_Date = CommonFuc.CurrentDate();
@@ -304,15 +319,15 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
 
                         }
                     }
-                #endregion
+                    #endregion
 
-                //end
-                Commit_Transaction:
+                    //end
+                    Commit_Transaction:
                     if (pReturn < 0)
                     {
                         Transaction.Current.Rollback();
                         return Json(new { status = -1 });
-                        
+
                     }
                     else
                     {
@@ -334,6 +349,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
         {
             try
             {
+                pDetail.Appcode = "A03";
                 decimal _totalImage = pAppDocIndusDesign.Select(m => m.FILELEVEL == 1).Count();
                 #region 1 Lệ phí nộp đơn
                 List<AppFeeFixInfo> _lstFeeFix = new List<AppFeeFixInfo>();
@@ -344,7 +360,12 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 string _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo1.Fee_Id.ToString();
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                 {
+                    _AppFeeFixInfo1.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
+                    _AppFeeFixInfo1.Amount_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo1.Amount_Usd;
                     _AppFeeFixInfo1.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo1.Number_Of_Patent;
+                    _AppFeeFixInfo1.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
+                    _AppFeeFixInfo1.Amount_Represent_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent_Usd;
+
                 }
                 else
                     _AppFeeFixInfo1.Amount = 150000 * _AppFeeFixInfo1.Number_Of_Patent;
@@ -369,7 +390,11 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
 
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                 {
+                    _AppFeeFixInfo2.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
+                    _AppFeeFixInfo2.Amount_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo2.Amount_Usd;
                     _AppFeeFixInfo2.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo2.Number_Of_Patent;
+                    _AppFeeFixInfo2.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
+                    _AppFeeFixInfo2.Amount_Represent_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent_Usd;
                 }
                 else
                 {
@@ -385,26 +410,30 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
 
                 _AppFeeFixInfo3.Isuse = 0;
                 _AppFeeFixInfo3.Number_Of_Patent = 0;
-                if (pUTienInfo != null &&  pUTienInfo.Count > 0 )
+                if (pUTienInfo != null && pUTienInfo.Count > 0)
                 {
                     _AppFeeFixInfo3.Isuse = 1;
                     _AppFeeFixInfo3.Number_Of_Patent = pUTienInfo.Count;
                 }
-               
+
                 _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo3.Fee_Id.ToString();
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                 {
+                    _AppFeeFixInfo3.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
+                    _AppFeeFixInfo3.Amount_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo3.Amount_Usd;
                     _AppFeeFixInfo3.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo3.Number_Of_Patent;
+                    _AppFeeFixInfo3.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
+                    _AppFeeFixInfo3.Amount_Represent_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent_Usd;
                 }
                 else
                     _AppFeeFixInfo3.Amount = 480000 * _AppFeeFixInfo3.Number_Of_Patent;
                 _lstFeeFix.Add(_AppFeeFixInfo3);
                 #endregion
-                
+
                 #region 4 phí thẩm định đơn 
-                AppFeeFixInfo _AppFeeFixInfo4= new AppFeeFixInfo();
+                AppFeeFixInfo _AppFeeFixInfo4 = new AppFeeFixInfo();
                 _AppFeeFixInfo4.Fee_Id = 4;
-                _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo4.Fee_Id.ToString(); 
+                _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo4.Fee_Id.ToString();
                 _AppFeeFixInfo4.Isuse = 1;
                 _AppFeeFixInfo4.Number_Of_Patent = _totalImage;
                 if (pAppDocIndusDesign.Count == 0)
@@ -414,7 +443,11 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
 
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                 {
+                    _AppFeeFixInfo4.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
+                    _AppFeeFixInfo4.Amount_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo4.Amount_Usd;
                     _AppFeeFixInfo4.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo4.Number_Of_Patent;
+                    _AppFeeFixInfo4.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
+                    _AppFeeFixInfo4.Amount_Represent_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent_Usd;
                 }
                 else
                 {
@@ -423,7 +456,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
 
                 _lstFeeFix.Add(_AppFeeFixInfo4);
                 #endregion
-                 
+
                 #region 5 Phí công bố đơn
 
                 AppFeeFixInfo _AppFeeFixInfo5 = new AppFeeFixInfo();
@@ -433,7 +466,11 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo5.Fee_Id.ToString();
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                 {
+                    _AppFeeFixInfo5.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
+                    _AppFeeFixInfo5.Amount_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo5.Amount_Usd;
                     _AppFeeFixInfo5.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo5.Number_Of_Patent;
+                    _AppFeeFixInfo5.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
+                    _AppFeeFixInfo5.Amount_Represent_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent_Usd;
                 }
                 else
                 {
@@ -448,8 +485,11 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 _AppFeeFixInfo51.Fee_Id = 51;
                 _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo51.Fee_Id.ToString();
                 decimal _numberPicOver = 1;
+                _AppFeeFixInfo51.Level = 1;
+
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                 {
+                    _AppFeeFixInfo51.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
                     _numberPicOver = Convert.ToDecimal(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01);
                 }
 
@@ -461,7 +501,10 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
 
                     if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                     {
+                        _AppFeeFixInfo51.Amount_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo51.Amount_Usd;
                         _AppFeeFixInfo51.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo51.Number_Of_Patent;
+                        _AppFeeFixInfo51.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
+                        _AppFeeFixInfo51.Amount_Represent_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent_Usd;
                     }
                     else
                         _AppFeeFixInfo51.Amount = 60000 * _AppFeeFixInfo51.Number_Of_Patent;
@@ -573,7 +616,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
                 System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq
 
- 
+
 
                 return Json(new { success = 0 });
             }
@@ -654,7 +697,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
                 System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq
 
-              
+
                 return Json(new { success = 0 });
             }
             catch (Exception ex)
@@ -880,7 +923,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                             app_Detail.Fee_Id_2_Check = item.Isuse;
                             app_Detail.Fee_Id_2_Val = item.Amount.ToString("#,##0.##");
                         }
-                        
+
                         else if (item.Fee_Id == 3)
                         {
                             app_Detail.Fee_Id_3 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
@@ -935,5 +978,25 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
             }
         }
+
+        [HttpPost]
+        [Route("getFee")]
+        public ActionResult GetFee(A03_Info pDetail, List<AppDocumentInfo> pAppDocumentInfo, List<UTienInfo> pUTienInfo, List<AppDocumentOthersInfo> pAppDocIndusDesign)
+        {
+            try
+            {
+                List<AppFeeFixInfo> _lstFeeFix = CallFee(pDetail, pAppDocumentInfo, pUTienInfo, pAppDocIndusDesign);
+                ViewBag.LstFeeFix = _lstFeeFix;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            var PartialTableListFees = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Patent/Views/Shared/_PartialTableListFees.cshtml");
+            var json = Json(new { success = 1, PartialTableListFees });
+            return json;
+        }
+
     }
 }

@@ -17,9 +17,9 @@
 </script>
 <div id="toolbox">
     <ul>
-        <li class="toTop" style=""><a href="#top" title="Lên đầu trang"><i style=" font-size 27px; color green;" class="fa fa-home"></i></a></li>
-        <li class="email"><a href="javascript:;" title="Xem trước"><i class="fa fa-eye" target="_blank" onclick="return funcPreViewApplication_IU();" style=" font-size 27px; color green;"></i></a></li>
-        @*<li class="email"><a href="javascript:;" title="Phí"><i class="fas fa-dollar-sign" size="9x" target="_blank" onclick="return funcPreViewFee();" style="font-size: 27px;margin-left: 8px;color: green;"></i></a></li>*@
+        <li class="toTop" style=""><a href="#top" title="Lên đầu trang"><i style=" font-size:27px; color:green;" class="fa fa-home"></i></a></li>
+        <li class="email"><a href="javascript:;" title="Xem trước"><i class="fa fa-eye" target="_blank" onclick="return funcPreViewApplication_IU();" style=" font-size:27px; color:green;"></i></a></li>
+        <li class="email"><a href="javascript:;" title="Phí"><i class="fas fa-dollar-sign" size="9x" target="_blank" onclick="return funcPreViewFee();" style="font-size: 27px;margin-left: 8px;color: green;"></i></a></li>
     </ul>
 </div>
 
@@ -70,8 +70,6 @@
                     return false;
                 }
             }
-       
-          
 
             if (funcChuDonKhac(formData) != true) {
                 return false;
@@ -170,9 +168,9 @@
             CreateRollingWaitingIcon(false);
             alert(e.message);
             return false;
-
         }
     }
+
     function funcGetTenTaiLieuBoAnhExport(formData, pisview) {
         try {
             var item = 0;
@@ -224,7 +222,6 @@
                 return false;
             }
 
-
             item = 0;
             _documentno = "0";
             $(".clssListUploadIndusDesign").each(function () {
@@ -255,15 +252,31 @@
     function funcPreViewFee() {
 
         var formData = new FormData();
-        formData.append("pInfo.Appcode", $("#txtAppCode").val());
-        formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
+        var _showerror = 0;
+
+        //Lấy thông tin detail
+        var reponse = funcGetAppDetail(formData, _showerror);
+        if (reponse == false) {
+            return false;
+        }
+
+        // hàng hóa
+        reponse = funcGetDataClassInfo(formData);
+        if (reponse == false) {
+            return false;
+        }
 
         if ($("#1_ckbTacGiaDongThoi").is(':checked')) {
             formData.append("pInfo.Master_Type", "TGDT");
         } else {
-            formData.append("pInfo.Master_Type", "CDK");
+            formData.append("pInfo.Master_Type", "");
         }
-
+        if (funcChuDonKhac(formData) != true) {
+            return false;
+        }
+        
+        // đại diện chủ đơn
+        formData.append("pInfo.Appcode", $("#txtAppCode").val());
         var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
         formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
 
@@ -279,13 +292,8 @@
             return false;
         }
 
-        reponse = funcGetImagePublic(formData);
-        if (reponse == false) {
-            return false;
-        }
-
-        //Lấy thông tin detail
-        reponse = funcGetAppDetail(formData, 1);
+        // lấy thông tin bộ ảnh
+        reponse = funcGetTenTaiLieuBoAnh(formData, _showerror);
         if (reponse == false) {
             return false;
         }
@@ -308,9 +316,6 @@
                 if (data != null) {
 
                     $("#divPopUpFee").html(data.PartialTableListFees);
-
-
-                    //$("#divPopUpFee").html(data);
                     ShowPopupDialog_Ipace('divWrapperPopUpFee', "Thông tin fee", 800, 1200);
                 }
                 return false;

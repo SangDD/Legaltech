@@ -147,7 +147,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input class="datetimepicker"  type="text" id="0_txtNgayNopDon" maxlength="10" readonly/>
+                        <input class="datetimepicker" type="text" id="0_txtNgayNopDon" maxlength="10" readonly />
                     </div>
                 </div>
             </div>
@@ -214,7 +214,7 @@
         <div id="div_content_class_coll" class="clssDisplaynone">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml")
         </div>
-      
+
 
         @* 1 - CHỦ ĐƠN*@
         <div class="divCover cls_form_title">
@@ -338,7 +338,7 @@
         </div>
 
         @*TÀI booj hinh anh   *@
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTreeDocument.cshtml" )
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTreeDocument.cshtml")
 
         @* id doc | id của check box | level | lable | lable 2 | is upload *@
         @* 1 Tờ khai *@
@@ -453,7 +453,7 @@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac.cshtml", "16")
 
 
- 
+
 
         @* Cam kết của chủ đơn *@
         @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml")
@@ -477,10 +477,29 @@
     </div>
 </div>
 
+<div id="divWrapperPopUpFee" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divPopUpFee">
+    </div>
+</div>
 
 <script>
 
-
+    function funcDetailDontach() {
+        try {
+            var SoDonTach = document.getElementById("0_txtDonSo").value;
+            var url = "";
+            url = "/trade-mark-share-data/todo-details/" + SoDonTach + "/0";
+            $("#hrfDetailDonTach").attr("href", url);
+            if (SoDonTach != "") {
+                $("#0_txtNgayNopDon").removeAttr("readonly");
+            }
+            else {
+                $("#0_txtNgayNopDon").attr("readonly", "readonly");
+                $("#0_txtNgayNopDon").val("");
+            }
+        } catch (e) {
+        }
+    }
 
     function ChangeNguongocdon(_type)
     {
@@ -636,8 +655,7 @@
     $("#btnGuiDon").click(function () {
         try {
             nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
-                var url = "/indus-design/register";
-                funGetData(2, url);
+                funGetData(2);
             });
 
         } catch (e) {
@@ -649,8 +667,7 @@
     $("#btnLuuTam").click(function () {
         try {
             nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuuTam)", function () {
-                var url = "/indus-design/register";
-                funGetData(1, url);
+                funGetData(1);
             });
         } catch (e) {
             CreateRollingWaitingIcon(false);
@@ -658,13 +675,16 @@
         }
     });
 
-    function funGetData(ptype, purl) {
+    function funGetData(p_Status) {
         try {
+
+            var _showerror = 0;
+            if (p_Status == 2) {
+                _showerror = 1;
+            }
+
             //Thông tin chủ đơn
             var formData = new FormData();
-
-
-
 
             var reponse = funcThongTinNhapHo(formData);
             if (reponse == false) {
@@ -678,7 +698,7 @@
 
 
             //Lấy thông tin detail
-            reponse = funcGetAppDetail(formData);
+            reponse = funcGetAppDetail(formData, _showerror);
             if (reponse == false) {
                 return false;
             }
@@ -701,33 +721,6 @@
             if (funcChuDonKhac(formData) != true) {
                 return false;
             }
-            //var _index = 0;
-            //$(".clsChuDonKhac").each(function (item) {
-            //    var _id = $(this).attr('data-id');
-            //    if ($("#" + _id + "_txtUse_ChuDonKhac").val() == "1") {
-
-            //        formData.append("pOther_MasterInfo[" + _index + "].Master_Name", $("#" + _id + "_txtTenDayDu_Khac").val());
-            //        formData.append("pOther_MasterInfo[" + _index + "].Master_Address", $("#" + _id + "_txtDiaChi_Khac").val());
-            //        formData.append("pOther_MasterInfo[" + _index + "].Master_Phone", $("#" + _id + "_txtDienThoai_Khac").val());
-            //        formData.append("pOther_MasterInfo[" + _index + "].Master_Fax", $("#" + _id + "_txtFax_Khac").val());
-            //        formData.append("pOther_MasterInfo[" + _index + "].Master_Email", $("#" + _id + "_txtEmail_Khac").val());
-            //        //formData.append("pOther_MasterInfo[" + _index + "].Author_Country", $("#" + _id + "_TG_QuocTich").val());
-
-            //        if ($("#" + _id + "_ckbTacGiaDongThoi").is(':checked')) {
-            //            formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "TGDT");
-            //        } else {
-            //            formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "");
-            //        }
-
-            //        if ($("#" + _id + "_ckbPhoBan").is(':checked')) {
-            //            formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "PB");
-            //        } else {
-            //            formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "");
-            //        }
-
-            //        _index = _index + 1;
-            //    }
-            //});
 
             formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin)');
             var v_AppCode = $("#txtAppCode").val();
@@ -749,7 +742,7 @@
                 return false;
             }
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-            formData.append("pInfo.Status", ptype);
+            formData.append("pInfo.Status", p_Status);
 
             //Lấy thông tin tài liệu có trong đơn
             reponse = funGetDocumentFile(formData);
@@ -764,12 +757,10 @@
             }
 
             // lấy thông tin bộ ảnh
-            reponse = funcGetTenTaiLieuBoAnh(formData);
+            reponse = funcGetTenTaiLieuBoAnh(formData, _showerror);
             if (reponse == false) {
                 return false;
             }
-
-
 
             reponse = funcGetCamKetChuDon(formData);
             if (reponse == false) {
@@ -777,7 +768,7 @@
             }
 
             $.ajax({
-                url: purl ,
+                url: '/indus-design/register' ,
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -1057,13 +1048,14 @@
         }
     });
 
-    function funcGetAppDetail(formData) {
+    function funcGetAppDetail(formData, p_ShowError) {
         try {
             var _txtNgayNopDon = $("#0_txtNgayNopDon");
             var _txtDonSo = $("#0_txtDonSo");
 
-            var _txt_IndustryDesignName = $("#txt_IndustryDesignName") ;
-            if (_txt_IndustryDesignName.val() == "") {
+            var _txt_IndustryDesignName = $("#txt_IndustryDesignName");
+
+            if (p_ShowError == 1 && _txt_IndustryDesignName.val() == "") {
                 showError('Tên kiểu dáng công nghiệp không được để trống');
                 _txt_IndustryDesignName.focus();
                 return false;
@@ -1071,27 +1063,26 @@
 
             // nguồn gốc đơn
 
-            if   ($("#1_dontach").is(':checked')) {
-                if(_txtDonSo.val().trim() == "")
+            if($("#1_dontach").is(':checked')) {
+                if (p_ShowError == 1 &&_txtDonSo.val().trim() == "")
                 {
                     showError('Số đơn liên quan không được để trống');
                     _txtDonSo.focus();
                     return false;
                 }
 
-                if ($("#1_radDonBanDauCo2PA").is(':checked') == false &&   $("#1_radDonBanDauNopCho1DoiTuong").is(':checked')== false)
+                if (p_ShowError == 1 && $("#1_radDonBanDauCo2PA").is(':checked') == false &&   $("#1_radDonBanDauNopCho1DoiTuong").is(':checked')== false)
                 {
                     showError('Vui lòng chọn ít nhất 1 giá trị của thậm định nội dung');
                     $("#1_radDonBanDauCo2PA").focus()
                     return false;
                 }
-
             }
             formData.append("pDetail.Industry_Design_Name", _txt_IndustryDesignName.val());
             formData.append("pDetail.App_Sentdate", _txtNgayNopDon.val());
             formData.append("pDetail.Refappno", _txtDonSo.val());
-            if ($("#1_rdchuacokqthamdinhnoidung").is(':checked')) {
 
+            if ($("#1_rdchuacokqthamdinhnoidung").is(':checked')) {
                 formData.append("pDetail.Kqtd_Type", "1");
                 if ($("#1_radDonBanDauCo2PA").is(':checked')) {
                     formData.append("pDetail.Kqtd_Value", "1");
@@ -1100,15 +1091,13 @@
                 {
                     formData.append("pDetail.Kqtd_Value", "2");
                 }
-
             } else {
                 formData.append("pDetail.Kqtd_Type", "2");
                 formData.append("pDetail.Kqtd_Value", "0");
             }
 
 
-
-            if ($("#ckbCucPhanLoai").is(':checked') == false && $("#ckbTuPhanLoai").is(':checked') == false) {
+            if (p_ShowError == 1 && $("#ckbCucPhanLoai").is(':checked') == false && $("#ckbTuPhanLoai").is(':checked') == false) {
                 showError("Vui lòng phân loại hàng hóa");
                 $("#ckbCucPhanLoai").focus()
                 return false;
@@ -1120,7 +1109,7 @@
             else
             {
                 formData.append("pDetail.Phanloai_Type", "2");
-                if (_ArrGroupAppClass.length == 0) {
+                if (p_ShowError == 1 && _ArrGroupAppClass.length == 0) {
                     showError('@Resource.TM2B_ChonHangHoaDV');
                     $("#txtTenHangHoa").focus();
                     return false;
@@ -1138,12 +1127,10 @@
 
             var txt_MaDaiDien = $("#txt_MaDaiDien").val();
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-            if (v_RepMasterType = "DDPL") {
-                if (txt_MaDaiDien == "") {
-                    showError('@Resource.TM3C_MaDaiDienKhongDuocTrong');
-                    $("#txt_MaDaiDien").focus()
-                    return false;
-                }
+            if (p_ShowError == 1 && v_RepMasterType == "DDPL" && txt_MaDaiDien == "") { 
+                showError('@Resource.TM3C_MaDaiDienKhongDuocTrong');
+                $("#txt_MaDaiDien").focus()
+                return false; 
             }
             formData.append("pInfo.Customer_Code", txt_MaDaiDien);
 
@@ -1177,7 +1164,7 @@
                 var _checkquyenuutien = true;
                 $(".clsDivDonUTien").each(function (item) {
                     var _id = $(this).attr('data-id');
-                    if ($("#" + _id + "_UT_Use").val() == "1") {
+                    if (p_ShowError == 1 && $("#" + _id + "_UT_Use").val() == "1") {
 
                         if ($("#" + _id + "_UT_txtSoDon").val() === "" || $("#" + _id + "_UT_txtSoDon").val() == undefined) {
                             showError('Số đơn ưu tiên không được để trống');
@@ -1186,14 +1173,14 @@
                             return false;
                         }
 
-                        if ($("#" + _id + "_UT_txtNgayNopDon").val() === "" || $("#" + _id + "_UT_txtNgayNopDon").val() == undefined) {
+                        if (p_ShowError == 1 && $("#" + _id + "_UT_txtNgayNopDon").val() === "" || $("#" + _id + "_UT_txtNgayNopDon").val() == undefined) {
                             showError('Ngày nộp đơn ưu tiên không được để trống');
                             $("#" + _id + "_UT_txtNgayNopDon").focus();
                             _checkquyenuutien = false;
                             return false;
                         }
 
-                        if ($("#" + _id + "_UT_txtQuocGia").val() === "" || $("#" + _id + "_UT_txtQuocGia").val() == undefined) {
+                        if (p_ShowError == 1 && $("#" + _id + "_UT_txtQuocGia").val() === "" || $("#" + _id + "_UT_txtQuocGia").val() == undefined) {
                             showError('Nước nộp đơn ưu tiên không được để trống');
                             $("#" + _id + "_UT_txtQuocGia").focus();
                             _checkquyenuutien = false;
@@ -1206,9 +1193,9 @@
 
                         var _nameYC = _id + "_rdo_YCHuongQuyen";
                         var v_QuyenUuTien = $("input[name='" + _nameYC + "']:checked").val();
-                        if (v_QuyenUuTien == undefined || v_QuyenUuTien == null || v_QuyenUuTien == 0 && (pEditOrNew == 1)) {
+                        if (p_ShowError == 1 && v_QuyenUuTien == undefined || v_QuyenUuTien == null || v_QuyenUuTien == 0 && (pEditOrNew == 1)) {
                             showError('Yêu cầu hưởng quyền ưu tiên phải chọn ít nhất 1 giá trị');
-                            _checkquyenuutien = false; 
+                            _checkquyenuutien = false;
                             return false;
                         }
                         formData.append("pUTienInfo[" + _index + "].UT_Type", v_QuyenUuTien);
@@ -1340,7 +1327,7 @@
         }
     }
 
-    function funcGetTenTaiLieuBoAnh(formData) {
+    function funcGetTenTaiLieuBoAnh(formData, p_ShowError) {
         try {
             // checkvalidate
             var item = 0;
@@ -1353,7 +1340,7 @@
                 _documentno =  $("#" + this.id).attr("meta-data");
                 _inputfileid = "pTreefileName" + _documentno;
                 formData.append("pAppDocIndusDesign[" + item + "].keyFileUpload", this.id);
-                if($("#" + this.id).val().trim() == "")
+                if (p_ShowError == 1 && $("#" + this.id).val().trim() == "")
                 {
                     showError('Tên tài liệu không được để trống');
                     $("#" + this.id).focus();
@@ -1364,13 +1351,13 @@
                 {
                     // nếu là tài liệu cấp 2 thì check file
                     var file = document.getElementById(_inputfileid);
-                    if (file == undefined) {
+                    if (p_ShowError == 1 && file == undefined) {
                         showError('Chưa tải file đính kèm');
                         $("#" + this.id).focus();
                         _check = false;
                         return false;
                     }
-                    if (file.files.length == 0) {
+                    if (p_ShowError == 1 && file.files.length == 0) {
                         showError('Chưa tải file đính kèm');
                         $("#" + this.id).focus();
                         _check = false;
@@ -1385,9 +1372,8 @@
                 return false;
             }
 
-
-               item = 0;
-              _documentno = "0";
+            item = 0;
+            _documentno = "0";
             $(".clssListUploadIndusDesign").each(function () {
                 formData.append("pAppDocIndusDesign[" + item + "].keyFileUpload", this.id);
                 formData.append("pAppDocIndusDesign[" + item + "].Documentname", $("#" + this.id).val());
@@ -1422,7 +1408,6 @@
             console.log(e.message);
             return false;
         }
-
     }
 
     function funcChuDonKhac(formData) {
@@ -1437,7 +1422,6 @@
                     formData.append("pOther_MasterInfo[" + _index + "].Master_Phone", $("#" + _id + "_txtDienThoai_Khac").val());
                     formData.append("pOther_MasterInfo[" + _index + "].Master_Fax", $("#" + _id + "_txtFax_Khac").val());
                     formData.append("pOther_MasterInfo[" + _index + "].Master_Email", $("#" + _id + "_txtEmail_Khac").val());
-                    //formData.append("pOther_MasterInfo[" + _index + "].Author_Country", $("#" + _id + "_TG_QuocTich").val());
 
                     if ($("#" + _id + "_ckbTacGiaDongThoi").is(':checked')) {
                         formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "TGDT");
