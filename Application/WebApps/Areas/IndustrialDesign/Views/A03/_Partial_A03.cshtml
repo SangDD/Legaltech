@@ -652,46 +652,6 @@
         }
     });
 
-    @*$(function ()
-    {
-        try {
-            var availableTags = [];
-            var array = @Html.Raw(Json.Encode(clstAppClassShortSuggest));
-            for (var i = 0; i < array.length; i++) {
-                availableTags[i] = array[i];
-            }
-            $("#txtTenHangHoa").autocomplete({
-                minLength: 3,
-                source: function (request, response) {
-                    var results = $.ui.autocomplete.filter(availableTags, request.term.toUpperCase());
-                    response(results.slice(0, 100));
-                },
-                select: function (event, ui) {
-                    $("#txtClass").val(ui.item.value);
-                    //return false;
-                    var textinput = $("#txtTenHangHoa").val();
-                    event.preventDefault();
-                    funcAddDataRowSuggest(ui.item.label, ui.item.value);
-                    $("#txtTenHangHoa").val("");
-
-                },
-                focus: function (event, ui) {
-                    var arrResult = $(".ui-menu-item");
-                    for (var i = 0; i < arrResult.length; i++) {
-                        var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                        if (label == ui.item.name) {
-                            $(".clsLiActive").removeClass("clsLiActive")
-                            $(arrResult[i]).addClass("clsLiActive");
-                            break;
-                        }
-                    }
-                    event.preventDefault();
-                }
-            });
-        } catch (e) {
-        }
-    });*@
-
     $("#btnGuiDon").click(function () {
         try {
             nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {

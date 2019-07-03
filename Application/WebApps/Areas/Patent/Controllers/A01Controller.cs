@@ -830,5 +830,25 @@ namespace WebApps.Areas.Patent.Controllers
             //return PartialView("~/Areas/Patent/Views/A01/_PartialTableListFees.cshtml");
         }
 
+
+        [HttpPost]
+        [Route("getFeeView_View")]
+        public ActionResult GetFee_View(ApplicationHeaderInfo pInfo)
+        {
+            try
+            {
+                AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
+                List<AppFeeFixInfo> _lstFeeFix = _AppFeeFixBL.GetByCaseCode(pInfo.Case_Code);
+                ViewBag.LstFeeFix = _lstFeeFix;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            var PartialTableListFees = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Patent/Views/Shared/_PartialTableListFees.cshtml");
+            var json = Json(new { success = 1, PartialTableListFees });
+            return json;
+        }
     }
 }

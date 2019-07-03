@@ -1575,6 +1575,37 @@
 
                 return PartialView("~/Areas/Patent/Views/A01/_Partial_A01_Edit.cshtml");
             }
+            else if (pAppCode == TradeMarkAppCode.AppCode_A03_IndustryDesign)
+            {
+                var objBL = new A03_BL();
+                string language = AppsCommon.GetCurrentLang();
+
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> _lst_appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                List<AuthorsInfo> _lst_authorsInfos = new List<AuthorsInfo>();
+                List<Other_MasterInfo> _lst_Other_MasterInfo = new List<Other_MasterInfo>();
+                List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
+                List<AppClassDetailInfo> _lst_appClassDetailInfos = new List<AppClassDetailInfo>();
+                List<UTienInfo> pUTienInfo = new List<UTienInfo>();
+                List<AppDocumentOthersInfo> pLstDocDesign = new List<AppDocumentOthersInfo>();
+                A03_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos,
+                    ref _lst_authorsInfos, ref _lst_Other_MasterInfo, ref _lst_appClassDetailInfos, ref _LstDocumentOthersInfo, ref pUTienInfo, ref pLstDocDesign);
+
+                ViewBag.App_Detail = app_Detail;
+                ViewBag.Lst_AppDoc = appDocumentInfos;
+                ViewBag.Lst_AppFee = _lst_appFeeFixInfos;
+                ViewBag.objAppHeaderInfo = applicationHeaderInfo;
+                ViewBag.Lst_AuthorsInfo = _lst_authorsInfos;
+                ViewBag.Lst_Other_Master = _lst_Other_MasterInfo;
+                ViewBag.lstDocOther = _LstDocumentOthersInfo;
+                ViewBag.lstClassDetailInfo = _lst_appClassDetailInfos;
+                ViewBag.Lst_UTienInfo = pUTienInfo;
+                ViewBag.ListDocDesign = pLstDocDesign;
+                ViewBag.IsViewFlag = 1;
+                ViewBag.AppCode = pAppCode;
+                return PartialView(@"~\Areas\IndustrialDesign\Views\A03\_Partial_A03_Edit.cshtml");
+            }
             else
             {
                 //

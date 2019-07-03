@@ -79,5 +79,21 @@ namespace DataAccess.ModuleTrademark
                 return ErrorCode.Error;
             }
         }
+
+        public DataSet GetByCaseCode(string p_case_code)
+        {
+            try
+            {
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_FEE_FIX.proc_get_by_case_code",
+                    new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_2", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
     }
 }

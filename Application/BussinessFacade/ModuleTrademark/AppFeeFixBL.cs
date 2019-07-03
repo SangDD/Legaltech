@@ -36,5 +36,20 @@ namespace BussinessFacade.ModuleTrademark
                 return ErrorCode.Error;
             }
         }
+
+        public List<AppFeeFixInfo> GetByCaseCode(string p_case_code)
+        {
+            try
+            {
+                AppFeeFixDA objData = new AppFeeFixDA();
+                DataSet _ds = objData.GetByCaseCode(p_case_code);
+                return CBO<AppFeeFixInfo>.FillCollectionFromDataSet(_ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<AppFeeFixInfo>();
+            }
+        }
     }
 }
