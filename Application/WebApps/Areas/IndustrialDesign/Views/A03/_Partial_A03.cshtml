@@ -93,7 +93,48 @@
             </div>
         </div>
 
-        <div class="div-search-ad">
+        <div style="width: 100%;height: 100px;">
+            <div class="div-search-ad" style="width:50%;float:left">
+                <div class="div-search-title" style="height: 63px;">
+                    <div>Tên kiểu dáng công nghiệp <i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txt_IndustryDesignName" style="height:65px" />
+                    </div>
+                </div>
+            </div>
+
+            <div style="width:49%;float:left;margin-left: 10px;">
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="radio" checked="checked" name="TuPhanLoai" id="ckbCucPhanLoai" onchange="onChangeTuPhanLoai()">
+                            <label>@Resource.YeuCauCucPhanLoai</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="radio" name="TuPhanLoai" id="ckbTuPhanLoai" onchange="onChangeTuPhanLoai()">
+                            <label>@Resource.TuPhanLoai</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="div-search-ad clssDisplaynone" id="div_content_class_coll">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="text" id="txtTenHangHoa" placeholder="...@Resource.Nhap">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*<div class="div-search-ad">
             <div class="div-search-title" style="">
                 <div style="width:200px">Tên kiểu dáng công nghiệp <i class="redspan">(*)</i></div>
             </div>
@@ -102,7 +143,7 @@
                     <input type="text" id="txt_IndustryDesignName" style="" />
                 </div>
             </div>
-        </div>
+        </div>*@
 
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
@@ -185,9 +226,7 @@
             </div>
         </div>
 
-
-
-        <div class="divCover cls_form_title">
+        @*<div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
                 PHÂN LOẠI QUỐC TẾ KDCN
@@ -211,9 +250,9 @@
             </div>
         </div>
         @*Class*@
-        <div id="div_content_class_coll" class="clssDisplaynone">
+        @*<div id="div_content_class_coll" class="clssDisplaynone">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml")
-        </div>
+        </div>*@
 
 
         @* 1 - CHỦ ĐƠN*@
@@ -228,9 +267,9 @@
         </div>
 
         @*<div class="div_full_100_area">
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
-            </div>*@
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
+        </div>*@
 
         <div class="div-search-ad">
             <div class="div-search-content">
@@ -538,6 +577,7 @@
             alert(e.toString());
         }
     }
+
     $(document).ready(function () {
 
         $.datetimepicker.setLocale('vi');
@@ -612,7 +652,7 @@
         }
     });
 
-    $(function ()
+    @*$(function ()
     {
         try {
             var availableTags = [];
@@ -650,7 +690,7 @@
             });
         } catch (e) {
         }
-    });
+    });*@
 
     $("#btnGuiDon").click(function () {
         try {
@@ -704,10 +744,10 @@
             }
 
             // hàng hóa
-            reponse = funcGetDataClassInfo(formData);
-            if (reponse == false) {
-                return false;
-            }
+            //reponse = funcGetDataClassInfo(formData);
+            //if (reponse == false) {
+            //    return false;
+            //}
 
             if (funcThongTinChuDon(formData, "1") != true) {
                 return false;
@@ -951,7 +991,7 @@
                 $("#div_content_class_coll").addClass("clssDisplaynone");
             }
 
-            $("#txtClass").val("");
+            $("#txtTenHangHoa").val("");
         } catch (e) {
             alert(e);
         }
@@ -1105,15 +1145,19 @@
 
             if ($("#ckbCucPhanLoai").is(':checked')) {
                 formData.append("pDetail.Phanloai_Type", "1");
+                formData.append("pDetail.Class_Content", "");
+                
             }
             else
             {
                 formData.append("pDetail.Phanloai_Type", "2");
-                if (p_ShowError == 1 && _ArrGroupAppClass.length == 0) {
+                if (p_ShowError == 1 && $("#txtTenHangHoa").val() == "" ) {
                     showError('@Resource.TM2B_ChonHangHoaDV');
                     $("#txtTenHangHoa").focus();
                     return false;
                 }
+
+                formData.append("pDetail.Class_Content", $("#txtTenHangHoa").val());
             }
 
             if ($("#0_ckbCoSuDungDonUuTien").is(':checked')) {

@@ -24,8 +24,9 @@ namespace DataAccess
                     new OracleParameter("P_INDUSTRY_DESIGN_NAME", OracleDbType.Varchar2, pInfo.Industry_Design_Name, ParameterDirection.Input),
                     new OracleParameter("P_KQTD_TYPE", OracleDbType.Decimal, pInfo.Kqtd_Type, ParameterDirection.Input),
                     new OracleParameter("P_KQTD_VALUE", OracleDbType.Decimal, pInfo.Kqtd_Value, ParameterDirection.Input),
-                    new OracleParameter("P_PHANLOAI_TYPE", OracleDbType.Decimal, pInfo.Phanloai_Type, ParameterDirection.Input)  ,
-                  new OracleParameter("P_USED_SPECIAL", OracleDbType.Decimal, pInfo.USED_SPECIAL, ParameterDirection.Input)
+                    new OracleParameter("P_PHANLOAI_TYPE", OracleDbType.Decimal, pInfo.Phanloai_Type, ParameterDirection.Input),
+                    new OracleParameter("P_USED_SPECIAL", OracleDbType.Decimal, pInfo.USED_SPECIAL, ParameterDirection.Input),
+                    new OracleParameter("P_CLASS_CONTENT", OracleDbType.Decimal, pInfo.Class_Content, ParameterDirection.Input)
                     );
                 var result = Convert.ToDecimal(paramReturn.Value.ToString());
                 return result;
@@ -55,7 +56,8 @@ namespace DataAccess
                     new OracleParameter("P_KQTD_TYPE", OracleDbType.Decimal, pInfo.Kqtd_Type, ParameterDirection.Input),
                     new OracleParameter("P_KQTD_VALUE", OracleDbType.Decimal, pInfo.Kqtd_Value, ParameterDirection.Input),
                     new OracleParameter("P_PHANLOAI_TYPE", OracleDbType.Decimal, pInfo.Phanloai_Type, ParameterDirection.Input),
-                    new OracleParameter("P_USED_SPECIAL", OracleDbType.Decimal, pInfo.USED_SPECIAL, ParameterDirection.Input)
+                    new OracleParameter("P_USED_SPECIAL", OracleDbType.Decimal, pInfo.USED_SPECIAL, ParameterDirection.Input),
+                    new OracleParameter("P_CLASS_CONTENT", OracleDbType.Decimal, pInfo.Class_Content, ParameterDirection.Input)
                     );
                 var result = Convert.ToDecimal(paramReturn.Value.ToString());
                 return result;
