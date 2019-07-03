@@ -178,6 +178,10 @@ namespace ObjectInfos
         public decimal Fee_Id_51_Check { get; set; }
         public string Fee_Id_51_Val { get; set; }
 
+        public string Fee_Id_6 { get; set; }
+        public decimal Fee_Id_6_Check { get; set; }
+        public string Fee_Id_6_Val { get; set; }
+
         public decimal Total_Fee { get; set; }
         public string Total_Fee_Str { get; set; }
 

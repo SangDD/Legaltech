@@ -518,7 +518,39 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 _lstFeeFix.Add(_AppFeeFixInfo51);
 
                 #endregion
+                #region 6 phí phân loại kiểu dáng công nghiệp
 
+                AppFeeFixInfo _AppFeeFixInfo6 = new AppFeeFixInfo();
+                _AppFeeFixInfo6.Fee_Id = 6;
+                _AppFeeFixInfo6.Isuse = 1;
+                _AppFeeFixInfo6.Number_Of_Patent = 1;
+                _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo6.Fee_Id.ToString();
+                if(pDetail.Phanloai_Type == 2)
+                {
+                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                    {
+                        _AppFeeFixInfo6.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
+                        _AppFeeFixInfo6.Amount_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo6.Amount_Usd;
+                        _AppFeeFixInfo6.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo6.Number_Of_Patent;
+                        _AppFeeFixInfo6.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
+                        _AppFeeFixInfo6.Amount_Represent_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent_Usd;
+                    }
+                    else
+                    {
+                        _AppFeeFixInfo6.Amount = 100000 * _AppFeeFixInfo6.Number_Of_Patent;
+                    }
+                }
+                else
+                {
+                    // tự phân loại
+                    _AppFeeFixInfo6.Isuse = 0;
+                    _AppFeeFixInfo6.Number_Of_Patent = 0;
+                    _AppFeeFixInfo6.Amount = 0;
+                }
+               
+                _lstFeeFix.Add(_AppFeeFixInfo6);
+
+                #endregion
                 return _lstFeeFix;
             }
             catch (Exception ex)
@@ -950,6 +982,13 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                             app_Detail.Fee_Id_51 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
                             app_Detail.Fee_Id_51_Check = item.Isuse;
                             app_Detail.Fee_Id_51_Val = item.Amount.ToString("#,##0.##");
+                        }
+
+                        else if (item.Fee_Id == 6)
+                        {
+                            app_Detail.Fee_Id_6 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
+                            app_Detail.Fee_Id_6_Check = item.Isuse;
+                            app_Detail.Fee_Id_6_Val = item.Amount.ToString("#,##0.##");
                         }
 
                         app_Detail.Total_Fee = app_Detail.Total_Fee + item.Amount;
