@@ -50,7 +50,6 @@
     {
         Lst_DocumentOthers = (List<AppDocumentOthersInfo>)ViewBag.Lst_DocumentOthers;
     }
-
    
 
     Dictionary<string, AppDocumentInfo> dic_appDoc = new Dictionary<string, AppDocumentInfo>();
@@ -59,16 +58,11 @@
         dic_appDoc[item.Document_Id] = item;
     }
 
-
-
     List<UTienInfo> Lst_UTienInfo = new List<UTienInfo>();
     if (ViewBag.Lst_UTienInfo != null)
     {
         Lst_UTienInfo = (List<UTienInfo>)ViewBag.Lst_UTienInfo;
     }
-
-  
-
 }
 
 <style>
@@ -113,7 +107,7 @@
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
         <legend style="font-weight:600"> @Resource.IndusDesign6a_Title.ToUpper()</legend>
 
-  
+
 
         @* Case name *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName_View.cshtml", "0")
@@ -125,14 +119,62 @@
             </div>
         </div>
 
-        <div class="div-search-ad">
-            <div class="div-search-title" style="">
-                <div style="width:200px">Tên kiểu dáng công nghiệp </div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txt_IndustryDesignName" disabled value="@_App_Detail.Industry_Design_Name" />
+        <div style="width: 100%;height: 100px;">
+            <div class="div-search-ad" style="width:50%;float:left">
+                <div class="div-search-title" style="height: 63px;">
+                    <div>Tên kiểu dáng công nghiệp <i class="redspan">(*)</i></div>
                 </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txt_IndustryDesignName" style="height:65px" value="@_App_Detail.Industry_Design_Name" disabled />
+                    </div>
+                </div>
+            </div>
+
+            <div style="width:49%;float:left;margin-left: 10px;">
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            @if (_App_Detail.Phanloai_Type == 1)
+                            {
+                                <input type="radio" name="TuPhanLoai" id="ckbCucPhanLoai" onchange="onChangeTuPhanLoai()" checked="checked" disabled>
+                            }
+                            else
+                            {
+                                <input type="radio" name="TuPhanLoai" id="ckbCucPhanLoai" onchange="onChangeTuPhanLoai()" disabled>
+                            }
+                            <label>@Resource.YeuCauCucPhanLoai</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            @if (_App_Detail.Phanloai_Type == 2)
+                            {
+                                <input type="radio" name="TuPhanLoai" id="ckbTuPhanLoai" onchange="onChangeTuPhanLoai()" checked="checked" disabled>
+                            }
+                            else
+                            {
+                                <input type="radio" name="TuPhanLoai" id="ckbTuPhanLoai" onchange="onChangeTuPhanLoai()" disabled>
+                            }
+                            <label>@Resource.TuPhanLoai</label>
+                        </div>
+                    </div>
+                </div>
+
+                @if (_App_Detail.Phanloai_Type == 2)
+                {
+
+                    <div class="div-search-ad" id="div_content_class_coll">
+                        <div class="div-search-content">
+                            <div class="div-radio">
+                                <input type="text" id="txtClass" value="@_App_Detail.Class_Content" disabled>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
 
@@ -160,7 +202,7 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio" style="width:282px">
-                    <input type="radio"  name="1_rdonguongocdon" id="1_donrieng" value="1" @_ckk1  disabled>
+                    <input type="radio" name="1_rdonguongocdon" id="1_donrieng" value="1" @_ckk1 disabled>
                     <label>Đơn độc lập</label>
                 </div>
             </div>
@@ -181,9 +223,9 @@
                        data-title="@WebApps.Resources.Resource.TooltipDonTachRaTuDonSo"></a>
                 </div>
                 <div class="div-search-content">
-                    <input type="text" id="0_txtDonSo"   maxlength="20" placeholder="@WebApps.Resources.Resource.lblSoDon" value="@_App_Detail.Refappno"/>
+                    <input type="text" id="0_txtDonSo" maxlength="20" placeholder="@WebApps.Resources.Resource.lblSoDon" value="@_App_Detail.Refappno" />
                 </div>
-             
+
                 <div class="div-search-content">
                 </div>
                 <div class="div-search-title">
@@ -191,15 +233,15 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input class="datetimepicker" type="text" id="0_txtNgayNopDon"  disabled value="@_App_Detail.Send_Date.ToString("dd/MM/yyyy")"/>
+                        <input class="datetimepicker" type="text" id="0_txtNgayNopDon" disabled value="@_App_Detail.Send_Date.ToString("dd/MM/yyyy")" />
                     </div>
                 </div>
             </div>
             @{
-                     _ckk1 = "checked='checked'";
-                  _ckk2 = "checked='checked'";
-                  clsDisplayNone_Val = "clssDisplaynone";
-                if ( _App_Detail.Kqtd_Type == 2)
+                _ckk1 = "checked='checked'";
+                _ckk2 = "checked='checked'";
+                clsDisplayNone_Val = "clssDisplaynone";
+                if (_App_Detail.Kqtd_Type == 2)
                 {
                     // chưa có kết quar thẩm định
                     _ckk1 = "";
@@ -214,14 +256,14 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio" style="width:482px">
-                        <input type="radio" name="1_rdoKetQuaThamDinh" id="1_rdchuacokqthamdinhnoidung" value="1" @_ckk1 >
+                        <input type="radio" name="1_rdoKetQuaThamDinh" id="1_rdchuacokqthamdinhnoidung" value="1" @_ckk1>
                         <label>Chưa có kết quả thẩm định nội dung</label>
                     </div>
                 </div>
 
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="1_rdoKetQuaThamDinh" id="1_rddacokqthamdinhnoidung" value="2" @_ckk2 >
+                        <input type="radio" name="1_rdoKetQuaThamDinh" id="1_rddacokqthamdinhnoidung" value="2" @_ckk2>
                         <label>Đã có kết quả thẩm định nội dung</label>
                     </div>
                 </div>
@@ -241,7 +283,7 @@
                 }
 
             }
-            <div class="div-search-ad @clsDisplayNone_Val"  >
+            <div class="div-search-ad @clsDisplayNone_Val">
                 <div class="div-search-content">
                     <div class="div-radio" style="width:482px; height:50px">
                         <input type="radio" name="1_radDonBanDauCo2PA" id="1_radDonBanDauCo2PA" value="1" disabled @_ckk1>
@@ -258,55 +300,6 @@
             </div>
         </div>
 
-
-
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/category.png" />
-            <div class="cls_form_header">
-                PHÂN LOẠI QUỐC TẾ KDCN
-            </div>
-        </div>
-
-        @{
-            _ckk1 = "checked='checked'";
-            _ckk2 = "checked='checked'";
-            clsDisplayNone_Val = "clssDisplaynone";
-            if (_App_Detail.Phanloai_Type == 2)
-            {
-                // chưa có kết quar thẩm định
-                _ckk1 = "";
-                clsDisplayNone_Val = "";
-            }
-            else
-            {
-                _ckk2 = "";
-            }
-
-        }
-
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio" name="TuPhanLoai" id="ckbCucPhanLoai" @_ckk1 disabled>
-                    <label>Yêu cầu Cục SHTT phân loại (phí 100.000 đ / 1 phân loại)</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio" name="TuPhanLoai" id="ckbTuPhanLoai" @_ckk2 disabled>
-                    <label>Tự phân loại</label>
-                </div>
-            </div>
-        </div>
-        @*Class*@
-        <div id="div_content_class_coll" class="@clsDisplayNone_Val">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClassView.cshtml")
-        </div>
-
-
         @* 1 - CHỦ ĐƠN*@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
@@ -314,10 +307,10 @@
                 @Resource.TM2B_ChuDon
             </div>
         </div>
-        <div id="div_PartialThongTinChuDon">             
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon_View.cshtml" )
+        <div id="div_PartialThongTinChuDon">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon_View.cshtml")
         </div>
-        @{ 
+        @{
             _ckk1 = "checked='checked'";
             _ckk2 = "checked='checked'";
             if (_App_Detail.Master_Type != "")
@@ -329,7 +322,7 @@
                 _ckk1 = "";
             }
         }
-        
+
         <div class="div-search-ad">
 
             <div class="div-search-content">
@@ -355,7 +348,7 @@
             }
         </div>
 
-         
+
         @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
@@ -414,7 +407,7 @@
             }
         </div>
 
-        
+
 
         @* Tác giả *@
         <div class="divCover cls_form_title">
@@ -435,25 +428,25 @@
                 }
             }
             <div style="display: inline-block;  padding-top: 8px; padding-left: 5px;">
-                <input type="checkbox" name="0_ckbCoSuDungDonUuTien" value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien"  disabled @_ckk1 />
-                <label><a style="color:blue ;font-weight:bold" id="hrefCo"  >@WebApps.Resources.Resource.lblYes</a></label>
+                <input type="checkbox" name="0_ckbCoSuDungDonUuTien" value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" disabled @_ckk1 />
+                <label><a style="color:blue ;font-weight:bold" id="hrefCo">@WebApps.Resources.Resource.lblYes</a></label>
             </div>
             <div style="display: inline-block;">
                 <input type="checkbox" name="KO_ckbCoSuDungDonUuTien" value="KO" id="KOUT" disabled @_ckk2 />
-                <label><a style="color:blue ;font-weight:bold" id="hrefKhong" o >@WebApps.Resources.Resource.lblNo</a></label>
+                <label><a style="color:blue ;font-weight:bold" id="hrefKhong" o>@WebApps.Resources.Resource.lblNo</a></label>
             </div>
         </div>
 
-      @if (Lst_UTienInfo.Count > 0)
-      {
-        <div id="div_ThongTinDonUuTien">
-            @for (int i = 0; i < Lst_UTienInfo.Count; i++)
+        @if (Lst_UTienInfo.Count > 0)
+        {
+            <div id="div_ThongTinDonUuTien">
+                @for (int i = 0; i < Lst_UTienInfo.Count; i++)
                 {
                     Lst_UTienInfo[i].Model_Id = i;
-                @Html.Partial("~/Areas/IndustrialDesign/Views/A03/_PartialThongtinQuyenUutien_View.cshtml", Lst_UTienInfo[i])
-            }
-        </div>
-      } 
+                    @Html.Partial("~/Areas/IndustrialDesign/Views/A03/_PartialThongtinQuyenUutien_View.cshtml", Lst_UTienInfo[i])
+                }
+            </div>
+        }
 
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
         <div class="divCover cls_form_title">
@@ -517,7 +510,7 @@
 
         @* 5 Giấy uỷ quyền bằng tiếng *@
         @{
-         
+
 
             string _doc_id5 = "A03_05";
             string _id5 = _doc_id5 + "|Doc_05|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|" + Resource.TM3B_Tieng + "|0";
@@ -536,7 +529,7 @@
         }
 
         @* 8 Bản gốc *@
-        @{       
+        @{
 
             string _doc_id7 = "A03_07";
             string _id7 = _doc_id7 + "|Doc_07|1|" + Resource.TM2B_BanGoc + "||1";
@@ -566,7 +559,7 @@
 
         @* 10 Bản sao  > Bản gốc đã nộp theo đơn *@
         @{
-         
+
             string _doc_id10 = "A03_10";
             string _id10 = _doc_id10 + "|Doc_10|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|1";
             string _value10 = dic_appDoc[_doc_id10].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id10].CHAR01 + "|" + dic_appDoc[_doc_id10].Url_Hardcopy;
@@ -609,7 +602,7 @@
 
         @{
             string _doc_id15 = "A03_15";
-            string  _id15 = _doc_id15 + "|Doc_15|0|" + "Có tài liệu bổ trợ khai tại trang bổ sung" + "||0";
+            string _id15 = _doc_id15 + "|Doc_15|0|" + "Có tài liệu bổ trợ khai tại trang bổ sung" + "||0";
             string _value15 = dic_appDoc[_doc_id15].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id15].CHAR01 + "|" + dic_appDoc[_doc_id15].Url_Hardcopy;
             string _model15 = _id15 + ";" + _value15;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model15)
@@ -628,7 +621,7 @@
 
 
         <div class="class_save">
-            
+
         </div>
     </fieldset>
 </div>

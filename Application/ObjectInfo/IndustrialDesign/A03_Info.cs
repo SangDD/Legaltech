@@ -27,7 +27,7 @@ namespace ObjectInfos
         public decimal Phanloai_Type { get; set; }
 
         public decimal USED_SPECIAL { set; get; }
-        public decimal Class_Content { set; get; }
+        public string Class_Content { set; get; }
     }
 
     public class A03_Info_Export : ApplicationHeaderInfo
