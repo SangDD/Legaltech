@@ -23,6 +23,12 @@
     string divDonUT = _id + "_divDonUT";
     string txtUse = _id + "_UT_Use";
 
+    string _application_code = "A01";
+    if (Model.Case_Code.Contains("A03") == true)
+    {
+        _application_code = "A03";
+    }
+
     List<AppDocumentInfo> Lst_AppDoc = new List<AppDocumentInfo>();
     if (ViewBag.Lst_AppDoc != null)
     {
@@ -35,24 +41,43 @@
         dic_appDoc[item.Document_Id] = item;
     }
 
-    string _doc_id1 = "A01_01";
-    string _id1 = _doc_id1 + "|Doc_01|0|" + Resource.lblTaiLieuChungMinhQuyenUuTien + "|" + Resource.TM2B_SoTrang + "|0";
-    string _value1 = dic_appDoc[_doc_id1].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id1].CHAR01 + "|" + dic_appDoc[_doc_id1].Url_Hardcopy;
+    string _doc_id1 = _application_code + "_01";
+    string _id1 = _doc_id1 + "|" + TLCMQUT + "| 0|" + Resource.lblTaiLieuChungMinhQuyenUuTien + "|" + Resource.lblSoBan + "|0";
+    string _value1 = "";
+    if (dic_appDoc.ContainsKey(_doc_id1))
+    {
+        _value1 = dic_appDoc[_doc_id1].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id1].CHAR01 + "|" + dic_appDoc[_doc_id1].Url_Hardcopy;
+    }
     string _model1 = _id1 + ";" + _value1;
 
-    string _doc_id2 = "A01_02";
-    string _id2 = _doc_id2 + "|Doc_02|0|" + Resource.lblbanSaoDauTienGom + "|" + Resource.TM3B_Tieng + "|1";
-    string _value2 = dic_appDoc[_doc_id2].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id2].CHAR01 + "|" + dic_appDoc[_doc_id2].Url_Hardcopy;
-    string _model2 = _id1 + ";" + _value2;
+    //
+    string _doc_id2 = _application_code + "_02";
+    string _id2 = _doc_id2 + "|" + BanSaoDauTien + "|0|" + Resource.lblbanSaoDauTienGom + "|" + Resource.lblSoBan + "|1";
+    string _value2 = "";
+    if (dic_appDoc.ContainsKey(_doc_id2))
+    {
+        _value2 = dic_appDoc[_doc_id2].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id2].CHAR01 + "|" + dic_appDoc[_doc_id2].Url_Hardcopy;
+    }
+    string _model2 = _id2 + ";" + _value2;
 
-    string _doc_id3 = "A01_03";
-    string _id3 = _doc_id3 + "|Doc_03|0|" + WebApps.Resources.Resource.lblbanSaoDauTienGom + "|" + Resource.TM2B_SoTrang + "|1";
-    string _value3 = dic_appDoc[_doc_id3].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id3].CHAR01 + "|" + dic_appDoc[_doc_id3].Url_Hardcopy;
+    //
+    string _doc_id3 = _application_code + "_03";
+    string _id3 = _doc_id3 + "|" + BanDich + "|0|" + WebApps.Resources.Resource.TM3B_BanDichTiengVietGom + "|" + Resource.lblSoBan + "|1";
+    string _value3 = "";
+    if (dic_appDoc.ContainsKey(_doc_id3))
+    {
+        _value3 = dic_appDoc[_doc_id3].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id3].CHAR01 + "|" + dic_appDoc[_doc_id3].Url_Hardcopy;
+    }
     string _model3 = _id3 + ";" + _value3;
 
-    string _doc_id4 = "A01_04";
-    string _id4 = _doc_id4 + "|Doc_04|0|" + Resource.lblGiayChuyenNhuongQuyenUT + "||1";
-    string _value4 = dic_appDoc[_doc_id4].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id4].CHAR01 + "|" + dic_appDoc[_doc_id4].Url_Hardcopy;
+    //
+    string _doc_id4 = _application_code + "_04";
+    string _id4 = _doc_id4 + "|" + GiayChuyenNhuong + "|0|" + Resource.lblGiayChuyenNhuongQuyenUT + "||1";
+    string _value4 = "";
+    if (dic_appDoc.ContainsKey(_doc_id4))
+    {
+        _value4 = dic_appDoc[_doc_id4].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id4].CHAR01 + "|" + dic_appDoc[_doc_id4].Url_Hardcopy;
+    }
     string _model4 = _id4 + ";" + _value4;
 }
 
@@ -86,7 +111,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <select id="@txtQuocTich" >
+                <select id="@txtQuocTich">
                     @foreach (var item in MemoryData.c_lst_Country)
                     {
                         if (item.Country_Id == Model.UT_QuocGia)
@@ -108,11 +133,11 @@
             <div class="div-radio">
                 @if (Model.UT_Type == "NTVN")
                 {
-                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbNopTaiVietNam" value="NTVN"  checked="checked">
+                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbNopTaiVietNam" value="NTVN" checked="checked">
                 }
                 else
                 {
-                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbNopTaiVietNam" value="NTVN" >
+                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbNopTaiVietNam" value="NTVN">
                 }
 
                 <label>@WebApps.Resources.Resource.lblTheoDonNopTaiVN</label>
@@ -125,11 +150,11 @@
             <div class="div-radio">
                 @if (Model.UT_Type == "CUPR")
                 {
-                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbNopTaiParis" value="CUPR"  checked="checked">
+                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbNopTaiParis" value="CUPR" checked="checked">
                 }
                 else
                 {
-                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbNopTaiParis" value="CUPR" >
+                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbNopTaiParis" value="CUPR">
                 }
                 <label>@WebApps.Resources.Resource.lblTheoDonNopCongUocPR</label>
             </div>
@@ -141,18 +166,18 @@
             <div class="div-radio" style="width:385px">
                 @if (Model.UT_Type == "TTTK")
                 {
-                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbThoaThuanKhac" value="TTTK"  checked="checked">
+                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbThoaThuanKhac" value="TTTK" checked="checked">
                 }
                 else
                 {
-                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbThoaThuanKhac" value="TTTK" >
+                    <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbThoaThuanKhac" value="TTTK">
                 }
                 <label>@WebApps.Resources.Resource.lblTheoThoaThuanKhac</label>
             </div>
         </div>
 
         <div class="div-search-content">
-            <input type="text" id="@txtThoathuanKhac" value="@Model.UT_ThoaThuanKhac"  />
+            <input type="text" id="@txtThoathuanKhac" value="@Model.UT_ThoaThuanKhac" />
         </div>
     </div>
 

@@ -934,7 +934,7 @@
         @* Hình công bố *@
         @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Image_Public_Edit.cshtml")
 
-        @* Cam kết của hủ đơn *@
+        @* Cam kết của chủ đơn *@
         @{
             string _camket = _AppHeaderInfo.Address + "|" + _AppHeaderInfo.DateNo + "|" + _AppHeaderInfo.Months + "|" + _AppHeaderInfo.Years;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon_Edit.cshtml", _camket)
