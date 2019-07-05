@@ -62,13 +62,14 @@
                             </div>
                         </div>
                     </div>
+
                     @foreach (AppDocumentOthersInfo itemlv2 in ListDocDesignLv2)
                     {
                         if (item.ParentId == itemlv2.IdRef.ToString())
                         {
-                            <div class="div-search-ad">
-                                <div class="div-search-title" style="padding-left:20px">
-                                    <div> Tên tài liệu :</div>
+                            <div class="div-search-ad" style="margin-left:20px">
+                                <div class="div-search-title">
+                                    <div style="width:100px"> Tên tài liệu :</div>
                                 </div>
                                 <div class="div-search-content">
                                     <div>
@@ -88,7 +89,7 @@
                                 <div class="div-search-content">
                                     <div>
                                         @*Ghi chú tài liệu cấp 2*@
-                                        <input type="text" maxlength="1000" value="@itemlv2.Char02" />
+                                        <input type="text" maxlength="1000" disabled value="@itemlv2.Char02" />
                                     </div>
                                 </div><div class="div-search-content">
                                     <div>
@@ -98,17 +99,12 @@
                                 </div>
                             </div>
                         }
-
                     }
-
                 </div>
             </div>
         }
-
     }
 </div>
-
- 
  
 
 <style>

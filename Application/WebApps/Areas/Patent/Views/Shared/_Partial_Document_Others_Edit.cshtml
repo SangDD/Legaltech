@@ -43,6 +43,14 @@
 <input type="hidden" id="increNo_Doc" value="@_max_Model_Id" />
  
 <script>
+    $(document).ready(function () {
+
+        if (@lstDocOther.Count == 0) {
+            $("#divContainerDocOther").css('display', 'none');
+        } else {
+            $("#divContainerDocOther").css('display', 'none');
+        }
+    });
 
     function funcAddNew_Others_Doc() {
         try {
