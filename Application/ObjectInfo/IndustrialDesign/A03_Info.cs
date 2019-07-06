@@ -28,6 +28,7 @@ namespace ObjectInfos
 
         public decimal USED_SPECIAL { set; get; }
         public string Class_Content { set; get; }
+        public decimal SoHinhPhatSinh { set; get; }
     }
 
     public class A03_Info_Export : ApplicationHeaderInfo
@@ -54,6 +55,10 @@ namespace ObjectInfos
         public string strTongSonhom { get; set; }
         public string strTongSoSP { get; set; }
         public string strListClass { get; set; }
+
+        public string Class_Content { set; get; }
+        public decimal SoHinhPhatSinh { set; get; }
+
 
         #region Chủ đơn khác
 
@@ -282,6 +287,8 @@ namespace ObjectInfos
             p_appDetail.Kqtd_Value = p_A03_Info.Kqtd_Value;
             p_appDetail.Phanloai_Type = p_A03_Info.Phanloai_Type;
             p_appDetail.USED_SPECIAL = p_A03_Info.USED_SPECIAL;
+            p_appDetail.Class_Content = p_A03_Info.Class_Content;
+            p_appDetail.SoHinhPhatSinh = p_A03_Info.SoHinhPhatSinh;
         }
         public static void CopyAppHeaderInfo(ref A03_Info_Export p_appDetail, ApplicationHeaderInfo pAppInfo)
         {

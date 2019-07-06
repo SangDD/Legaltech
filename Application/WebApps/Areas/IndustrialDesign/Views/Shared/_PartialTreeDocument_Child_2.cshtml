@@ -1,0 +1,39 @@
+﻿@using ObjectInfos.ModuleTrademark
+@using ObjectInfos
+@using System.Linq
+@model AppDocumentOthersInfo
+@{
+
+}
+
+<div class="div-search-ad" style="margin-left:20px">
+    <div class="div-search-title">
+        <div style="width:100px"> Tên tài liệu :</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            @* Tên tài liệu cấp 2 *@
+            <input type="text" class="clssListUploadIndusDesign" value="@Model.Documentname" meta-data2="2">
+        </div>
+
+    </div>
+    <div class="div-search-title"> <div>Số trang</div> </div>
+    <div class="div-search-content">
+        <div>
+            @*Số trang tài liệu cấp 2*@
+            <input type="text" style="width:90px" value="@Model.Char01" />
+        </div>
+    </div>
+    <div class="div-search-title"> <div>Ghi chú</div> </div>
+    <div class="div-search-content">
+        <div>
+            @*Ghi chú tài liệu cấp 2*@
+            <input type="text" maxlength="1000" value="@Model.Char02" />
+        </div>
+    </div><div class="div-search-content">
+        <div>
+            @* File donwload tài liệu cấp 2 *@
+            <a style="color:blue;  padding: 5px 0px 0px 9px; height: 23px;" href="@Model.Filename">@Model.Documentname</a>
+        </div>
+    </div>
+</div>

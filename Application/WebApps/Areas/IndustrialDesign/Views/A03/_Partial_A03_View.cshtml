@@ -298,6 +298,24 @@
                     </div>
                 </div>
             </div>
+
+            @{
+                clsDisplayNone_Val = "clssDisplaynone";
+                if (_App_Detail.Kqtd_Type == 2)
+                {
+                    clsDisplayNone_Val = "";
+                }
+            }
+            <div class="div-search-ad @clsDisplayNone_Val" id="div_DaCoKetQua">
+                <div class="div-search-title">
+                    <div>Số hình phát sinh</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txt_SoHinhPhatSinh" disabled value="@_App_Detail.SoHinhPhatSinh" />
+                    </div>
+                </div>
+            </div>
         </div>
 
         @* 1 - CHỦ ĐƠN*@

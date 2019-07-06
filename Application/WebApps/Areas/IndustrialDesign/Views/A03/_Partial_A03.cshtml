@@ -134,17 +134,6 @@
             </div>
         </div>
 
-        @*<div class="div-search-ad">
-            <div class="div-search-title" style="">
-                <div style="width:200px">Tên kiểu dáng công nghiệp <i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txt_IndustryDesignName" style="" />
-                </div>
-            </div>
-        </div>*@
-
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
@@ -221,6 +210,17 @@
                     <div class="div-radio" style="height:50px">
                         <input type="radio" name="1_radDonBanDauCo2PA" id="1_radDonBanDauNopCho1DoiTuong" value="2">
                         <label>Đơn ban đầu nộp cho 1 đối tượng nhưng bản chất lại chứa đựng 2 đối tượng khác biệt đáng kể</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad clssDisplaynone" id="div_DaCoKetQua">
+                <div class="div-search-title">
+                    <div>Số hình phát sinh</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txt_SoHinhPhatSinh" />
                     </div>
                 </div>
             </div>
@@ -574,11 +574,13 @@
             if(_type == "1")
             {
                 $("#div_ketquathamdinh").removeClass("clssDisplaynone");
+                $("#div_DaCoKetQua").addClass("clssDisplaynone");
             }
             else {
                 $("#div_ketquathamdinh").addClass("clssDisplaynone");
-            }
 
+                $("#div_DaCoKetQua").removeClass("clssDisplaynone");
+            }
         } catch (e) {
             alert(e.toString());
         }
@@ -1100,6 +1102,8 @@
             } else {
                 formData.append("pDetail.Kqtd_Type", "2");
                 formData.append("pDetail.Kqtd_Value", "0");
+
+                formData.append("pDetail.SoHinhPhatSinh", $("#txt_SoHinhPhatSinh").val());
             }
 
 
@@ -1112,7 +1116,6 @@
             if ($("#ckbCucPhanLoai").is(':checked')) {
                 formData.append("pDetail.Phanloai_Type", "1");
                 formData.append("pDetail.Class_Content", "");
-                
             }
             else
             {

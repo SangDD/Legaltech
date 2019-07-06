@@ -206,23 +206,38 @@
             </div>
         </div>
 
+        @{
+            string _ckk1 = "checked='checked'";
+            string _ckk2 = "checked='checked'";
+            string clsDisplayNone_Val = "clssDisplaynone";
+            if (!string.IsNullOrEmpty(_App_Detail.Refappno))
+            {
+                _ckk1 = "";
+                clsDisplayNone_Val = "";
+            }
+            else
+            {
+                _ckk2 = "";
+            }
+        }
+
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio" style="width:282px">
-                    <input type="radio" name="1_rdonguongocdon" id="1_donrieng" value="1" checked="checked" onchange="ChangeNguongocdon(1)">
+                    <input type="radio" name="1_rdonguongocdon" id="1_donrieng" value="1" @_ckk1 onchange="ChangeNguongocdon(1)">
                     <label>Đơn độc lập</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
-                    <input type="radio" name="1_rdonguongocdon" id="1_dontach" value="2" onchange="ChangeNguongocdon(2)">
+                    <input type="radio" name="1_rdonguongocdon" id="1_dontach" value="2" @_ckk2 onchange="ChangeNguongocdon(2)">
                     <label>Đơn được tách ra từ đơn khác</label>
                 </div>
             </div>
         </div>
 
-        <div id="div_nguongocdon" class="clssDisplaynone" style="margin-top: 4px;">
+        <div id="div_nguongocdon" class="@clsDisplayNone_Val" style="margin-top: 4px;">
             <div class="div-search-ad">
                 <div class="div-search-title">
                     <div style="width: 250px;">Kiểu dáng bảo hộ được tách ra từ đơn số: </div>
@@ -230,7 +245,7 @@
                        data-title="@WebApps.Resources.Resource.TooltipDonTachRaTuDonSo"></a>
                 </div>
                 <div class="div-search-content">
-                    <input type="text" id="0_txtDonSo" onblur="return funcDetailDontach();" maxlength="20" placeholder="@WebApps.Resources.Resource.lblSoDon" />
+                    <input type="text" id="0_txtDonSo" value="@_App_Detail.Refappno" onblur="return funcDetailDontach();" maxlength="20" placeholder="@WebApps.Resources.Resource.lblSoDon" />
                 </div>
                 <div class="div-search-title">
                     <div><a id="hrfDetailDonTach" href="javascript:;" target="_blank" style="color:blue;border:none">@WebApps.Resources.Resource.XemChiTiet</a></div>
@@ -242,7 +257,14 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input class="datetimepicker" type="text" id="0_txtNgayNopDon" maxlength="10" readonly />
+                        @if (_App_Detail.App_Sentdate == DateTime.MinValue)
+                        {
+                            <input class="datetimepicker" type="text" id="0_txtNgayNopDon" maxlength="10" readonly />
+                        }
+                        else
+                        {
+                            <input class="datetimepicker" type="text" id="0_txtNgayNopDon" maxlength="10" value="@(_App_Detail.App_Sentdate == DateTime.MinValue ? "" : _App_Detail.App_Sentdate.ToString("dd/MM/yyyy"))" />
+                        }
                     </div>
                 </div>
             </div>
@@ -250,31 +272,85 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio" style="width:482px">
-                        <input type="radio" name="1_rdoKetQuaThamDinh" id="1_rdchuacokqthamdinhnoidung" value="1" checked="checked" onchange="ChangeKQTD(1)">
+                        @if (_App_Detail.Kqtd_Type == 1)
+                        {
+                            <input type="radio" name="1_rdoKetQuaThamDinh" id="1_rdchuacokqthamdinhnoidung" value="1" checked="checked" onchange="ChangeKQTD(1)">
+                        }
+                        else
+                        {
+                            <input type="radio" name="1_rdoKetQuaThamDinh" id="1_rdchuacokqthamdinhnoidung" value="1" onchange="ChangeKQTD(1)">
+                        }
                         <label>Chưa có kết quả thẩm định nội dung</label>
                     </div>
                 </div>
 
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="1_rdoKetQuaThamDinh" id="1_rddacokqthamdinhnoidung" value="2" onchange="ChangeKQTD(2)">
+                        @if (_App_Detail.Kqtd_Type == 2)
+                        {
+                            <input type="radio" name="1_rdoKetQuaThamDinh" id="1_rddacokqthamdinhnoidung" value="2" checked="checked" onchange="ChangeKQTD(2)">
+                        }
+                        else
+                        {
+                            <input type="radio" name="1_rdoKetQuaThamDinh" id="1_rddacokqthamdinhnoidung" value="2" onchange="ChangeKQTD(2)">
+                        }
                         <label>Đã có kế quả thẩm định nội dung</label>
                     </div>
                 </div>
             </div>
 
-            <div class="div-search-ad" id="div_ketquathamdinh">
+            @{
+                clsDisplayNone_Val = "clssDisplaynone";
+                if (_App_Detail.Kqtd_Type == 1)
+                {
+                    clsDisplayNone_Val = "";
+                }
+            }
+
+            <div class="div-search-ad" id="div_ketquathamdinh" class="@clsDisplayNone_Val">
                 <div class="div-search-content">
                     <div class="div-radio" style="width:482px; height:50px">
-                        <input type="radio" name="1_radDonBanDauCo2PA" id="1_radDonBanDauCo2PA" value="1">
+                        @if (_App_Detail.Kqtd_Value == 1)
+                        {
+                            <input type="radio" name="1_radDonBanDauCo2PA" id="1_radDonBanDauCo2PA" value="1" checked>
+                        }
+                        else
+                        {
+                            <input type="radio" name="1_radDonBanDauCo2PA" id="1_radDonBanDauCo2PA" value="1">
+                        }
                         <label>Đơn ban đầu có từ 2 phương án/ đối tượng trở lên nhưng bản chất các phương án/ đối tượng khác biệt đáng kể</label>
                     </div>
                 </div>
 
                 <div class="div-search-content">
                     <div class="div-radio" style="height:50px">
-                        <input type="radio" name="1_radDonBanDauCo2PA" id="1_radDonBanDauNopCho1DoiTuong" value="2">
+                        @if (_App_Detail.Kqtd_Value == 2)
+                        {
+                            <input type="radio" name="1_radDonBanDauCo2PA" id="1_radDonBanDauNopCho1DoiTuong" value="2" checked>
+                        }
+                        else
+                        {
+                            <input type="radio" name="1_radDonBanDauCo2PA" id="1_radDonBanDauNopCho1DoiTuong" value="2">
+                        }
                         <label>Đơn ban đầu nộp cho 1 đối tượng nhưng bản chất lại chứa đựng 2 đối tượng khác biệt đáng kể</label>
+                    </div>
+                </div>
+            </div>
+
+            @{
+                clsDisplayNone_Val = "clssDisplaynone";
+                if (_App_Detail.Kqtd_Type == 2)
+                {
+                    clsDisplayNone_Val = "";
+                }
+            }
+            <div class="div-search-ad @clsDisplayNone_Val" id="div_DaCoKetQua">
+                <div class="div-search-title">
+                    <div>Số hình phát sinh</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txt_SoHinhPhatSinh" value="@_App_Detail.SoHinhPhatSinh" />
                     </div>
                 </div>
             </div>
@@ -292,21 +368,16 @@
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
         </div>
 
-        @*<div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
-        </div>*@
-
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio" style="width:385px">
                     @if (_App_Detail.Master_Type != "")
                     {
-                        <input type="radio" name="1_rdoChuDon" value="TGDT" id="1_ckbTacGiaDongThoi" checked="checked" disabled>
+                        <input type="radio" name="1_rdoChuDon" value="TGDT" id="1_ckbTacGiaDongThoi" checked="checked">
                     }
                     else
                     {
-                        <input type="radio" name="1_rdoChuDon" value="TGDT" id="1_ckbTacGiaDongThoi" disabled>
+                        <input type="radio" name="1_rdoChuDon" value="TGDT" id="1_ckbTacGiaDongThoi">
                     }
                     <label>@Resource.ChuDonDongThoiLaTacGia</label>
                 </div>
@@ -316,11 +387,11 @@
                 <div class="div-radio">
                     @if (Lst_Other_Master.Count > 0)
                     {
-                        <input type="radio" name="1_rdoChuDon" checked="checked" disabled value="2" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
+                        <input type="radio" name="1_rdoChuDon" checked="checked" value="2" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
                     }
                     else
                     {
-                        <input type="radio" name="1_rdoChuDon" disabled value="2" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
+                        <input type="radio" name="1_rdoChuDon" value="2" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
                     }
                     <label>@Resource.NgoaiChuDon</label>
                 </div>
@@ -465,6 +536,8 @@
         <div class="divCover cls_form_title">
             <b>Tài liệu tối thiểu</b>
         </div>
+
+        @Html.Partial("~/Areas/IndustrialDesign/Views/Shared/_PartialTreeDocument_Edit.cshtml")
 
         @* id doc | id của check box | level | lable | lable 2 | is upload *@
         @* 1 Tờ khai *@
@@ -820,11 +893,13 @@
         try {
             if (_type == "1") {
                 $("#div_ketquathamdinh").removeClass("clssDisplaynone");
+                $("#div_DaCoKetQua").addClass("clssDisplaynone");
             }
             else {
                 $("#div_ketquathamdinh").addClass("clssDisplaynone");
-            }
 
+                $("#div_DaCoKetQua").removeClass("clssDisplaynone");
+            }
         } catch (e) {
             alert(e.toString());
         }
@@ -882,7 +957,7 @@
             if (funcChuDonKhac(formData) != true) {
                 return false;
             }
-            
+
             // đại diện chủ đơn
             if (funcThongTinDaiDienChuDon(formData, "2") != true) {
                 return false;
@@ -1240,6 +1315,7 @@
             } else {
                 formData.append("pDetail.Kqtd_Type", "2");
                 formData.append("pDetail.Kqtd_Value", "0");
+                formData.append("pDetail.SoHinhPhatSinh", $("#txt_SoHinhPhatSinh").val());
             }
 
 

@@ -101,6 +101,23 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
         }
 
         [HttpPost]
+        [Route("hinh-cong-bo/them-cung-cap-0")]
+        public ActionResult ThemHinhCongBo(decimal p_id)
+        {
+
+            ViewBag.Id = p_id;
+            return PartialView("~/Areas/IndustrialDesign/Views/Shared/_PartialTreeDocument_Child_0.cshtml", p_id.ToString());
+        }
+
+        [HttpPost]
+        [Route("hinh-cong-bo/them-cung-cap-2")]
+        public ActionResult ThemHinhCongBo2(string p_id)
+        {
+            ViewBag.Id = p_id;
+            return PartialView("~/Areas/IndustrialDesign/Views/Shared/_PartialTreeDocument_Child_2.cshtml", p_id.ToString());
+        }
+
+        [HttpPost]
         [Route("register")]
         public ActionResult Register(ApplicationHeaderInfo pInfo, A03_Info pDetail,
             List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo,
