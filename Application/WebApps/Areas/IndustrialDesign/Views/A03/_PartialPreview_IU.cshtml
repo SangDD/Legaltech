@@ -56,19 +56,10 @@
             } else {
                 formData.append("pInfo.Master_Type", "CDK");
             }
-            // đại diện chủ đơn
   
-            if (_IsViewFlag == "1")
-            {
-                if (funcThongTinDaiDienChuDon_View(formData, "2") != true) {
-                    return false;
-                }
-            }
-            else
-            {
-                if (funcThongTinDaiDienChuDon(formData, "2") != true) {
-                    return false;
-                }
+            // đại diện chủ đơn
+            if (funcThongTinDaiDienChuDon_Exp(formData, "2") != true) {
+                return false;
             }
 
             if (funcChuDonKhac(formData) != true) {
@@ -84,14 +75,8 @@
                 return false;
             }
 
-
             //Lấy thông tin detail
-            reponse = funcGetAppDetail(formData, 1);
-            if (reponse == false) {
-                return false;
-            }
-            // hàng hóa
-            reponse = funcGetDataClassInfo(formData);
+            reponse = funcGetAppDetail(formData, 0);
             if (reponse == false) {
                 return false;
             }
@@ -124,15 +109,10 @@
             }
 
             // lấy thông tin bộ ảnh
-            reponse = funcGetTenTaiLieuBoAnhExport(formData, '@IsViewFlag');
+            reponse = funcGetTenTaiLieuBoAnh(formData, 0);
             if (reponse == false) {
                 return false;
             }
-
-            //reponse = funcGetCamKetChuDon(formData);
-            //if (reponse == false) {
-            //    return false;
-            //}
 
             $.ajax({
                 url: '/indus-design/ket_xuat_file_IU',
@@ -252,16 +232,13 @@
     function funcPreViewFee() {
 
         var formData = new FormData();
+        formData.append("pInfo.Appcode", $("#txtAppCode").val());
+        formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
+
         var _showerror = 0;
 
         //Lấy thông tin detail
         var reponse = funcGetAppDetail(formData, _showerror);
-        if (reponse == false) {
-            return false;
-        }
-
-        // hàng hóa
-        reponse = funcGetDataClassInfo(formData);
         if (reponse == false) {
             return false;
         }

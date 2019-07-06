@@ -1603,12 +1603,12 @@
                 formData.append("pAppDocIndusDesign[" + item + "].keyFileUpload", this.id);
                 formData.append("pAppDocIndusDesign[" + item + "].Documentname", $("#" + this.id).val());
                 formData.append("pAppDocIndusDesign[" + item + "].FILETYPE", "2");
-                formData.append("pAppDocIndusDesign[" + item + "].FILELEVEL", $("#" + this.id).attr("meta-data2"));
+                formData.append("pAppDocIndusDesign[" + item + "].Id", $("#" + this.id).attr("data-id"));
                 _documentno =  $("#" + this.id).attr("meta-data");
                 formData.append("pAppDocIndusDesign[" + item + "].Char01", $("#Treetxttailieuanhsotrang" + _documentno).val());
                 formData.append("pAppDocIndusDesign[" + item + "].Char02", $("#TreetxttailieuanhGhiChu" + _documentno).val());
                 formData.append("pAppDocIndusDesign[" + item + "].ParentId", _documentno);
-                formData.append("pAppDocIndusDesign[" + item + "].Id", $("#" + this.id).attr("data-id"));
+                formData.append("pAppDocIndusDesign[" + item + "].FILELEVEL", $("#" + this.id).attr("meta-data2"));
                 item++;
             });
             return true;
