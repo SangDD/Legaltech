@@ -261,6 +261,25 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
+        public int AppDocumentOtherDeletedByApp_Type(decimal pAppHeaderID, string pLanguage, decimal p_fileType)
+        {
+            try
+            {
+                var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
+                OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_DOC_OTHERS.PROC_DEL_BY_FILE_TYPE",
+                    new OracleParameter("P_APP_HEADER_ID", OracleDbType.Decimal, pAppHeaderID, ParameterDirection.Input),
+                    new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
+                    new OracleParameter("p_fileType", OracleDbType.Decimal, p_fileType, ParameterDirection.Input),
+                    paramReturn);
+                var result = Convert.ToInt32(paramReturn.Value.ToString());
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
 
         public int AppDocOther_Del_ByID(decimal pID, string pLanguage)
         {

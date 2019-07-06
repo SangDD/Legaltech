@@ -1608,6 +1608,7 @@
                 formData.append("pAppDocIndusDesign[" + item + "].Char01", $("#Treetxttailieuanhsotrang" + _documentno).val());
                 formData.append("pAppDocIndusDesign[" + item + "].Char02", $("#TreetxttailieuanhGhiChu" + _documentno).val());
                 formData.append("pAppDocIndusDesign[" + item + "].ParentId", _documentno);
+                formData.append("pAppDocIndusDesign[" + item + "].Id", $("#" + this.id).attr("data-id"));
                 item++;
             });
             return true;

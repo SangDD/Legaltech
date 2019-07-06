@@ -104,17 +104,14 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
         [Route("hinh-cong-bo/them-cung-cap-0")]
         public ActionResult ThemHinhCongBo(decimal p_id)
         {
-
-            ViewBag.Id = p_id;
             return PartialView("~/Areas/IndustrialDesign/Views/Shared/_PartialTreeDocument_Child_0.cshtml", p_id.ToString());
         }
 
         [HttpPost]
         [Route("hinh-cong-bo/them-cung-cap-2")]
-        public ActionResult ThemHinhCongBo2(string p_id)
+        public ActionResult ThemHinhCongBo2(decimal p_id, decimal p_refId)
         {
-            ViewBag.Id = p_id;
-            return PartialView("~/Areas/IndustrialDesign/Views/Shared/_PartialTreeDocument_Child_2.cshtml", p_id.ToString());
+            return PartialView("~/Areas/IndustrialDesign/Views/Shared/_PartialTreeDocument_Child_2.cshtml", p_id.ToString() + "|" + p_refId.ToString());
         }
 
         [HttpPost]
@@ -453,6 +450,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                     #region Tài liệu khác
                     AppDocumentBL objDoc = new AppDocumentBL();
                     List<AppDocumentOthersInfo> Lst_Doc_Others_Old = objDoc.DocumentOthers_GetByAppHeader(pInfo.Id, language);
+                    Lst_Doc_Others_Old = Lst_Doc_Others_Old.FindAll(m => m.FILETYPE == 1).ToList();
                     Dictionary<decimal, AppDocumentOthersInfo> _dic_doc_others = new Dictionary<decimal, AppDocumentOthersInfo>();
                     foreach (AppDocumentOthersInfo item in Lst_Doc_Others_Old)
                     {
@@ -460,7 +458,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                     }
 
                     // xóa đi trước insert lại sau
-                    objDoc.AppDocumentOtherDeletedByApp(pInfo.Id, language);
+                    objDoc.AppDocumentOtherDeletedByApp_Type(pInfo.Id, language, 1);
 
                     if (pReturn >= 0 && pAppDocOtherInfo != null && pAppDocOtherInfo.Count > 0)
                     {
@@ -490,36 +488,52 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
 
                     #region bộ tài liệu ảnh -> chưa sửa
                     // chưa sửa
-                    if (pReturn >= 0 && pAppDocIndusDesign != null)
+
+                    List<AppDocumentOthersInfo> Lst_DocIndusDesign_Old = objDoc.DocumentOthers_GetByAppHeader(pInfo.Id, language);
+                    Lst_DocIndusDesign_Old = Lst_DocIndusDesign_Old.FindAll(m => m.FILETYPE == 2).ToList();
+                    Dictionary<decimal, AppDocumentOthersInfo> _dic_DocIndusDesign = new Dictionary<decimal, AppDocumentOthersInfo>();
+                    foreach (AppDocumentOthersInfo item in Lst_DocIndusDesign_Old)
                     {
-                        if (pAppDocIndusDesign.Count > 0)
+                        _dic_DocIndusDesign[item.Id] = item;
+                    }
+
+                    // xóa đi trước insert lại sau
+                    objDoc.AppDocumentOtherDeletedByApp_Type(pInfo.Id, language, 2);
+
+                    if (pReturn >= 0 && pAppDocIndusDesign != null && pAppDocIndusDesign.Count > 0)
+                    {
+                        int check = 0;
+                        foreach (var info in pAppDocIndusDesign)
                         {
-                            int check = 0;
-                            foreach (var info in pAppDocIndusDesign)
+                            if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
                             {
-                                if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
+                                var _updateitem = SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                if (_updateitem.GetType() == typeof(AppDocumentInfo))
                                 {
-                                    var _updateitem = SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
-                                    if (_updateitem.GetType() == typeof(AppDocumentInfo))
-                                    {
-                                        HttpPostedFileBase pfiles = (_updateitem as AppDocumentInfo).pfiles;
+                                    HttpPostedFileBase pfiles = (_updateitem as AppDocumentInfo).pfiles;
 
-                                        info.Filename = pfiles.FileName;
-                                        info.Filename = AppLoadHelpers.convertToUnSign2(info.Filename);
-                                        info.Filename = System.Text.RegularExpressions.Regex.Replace(info.Filename, "[^0-9A-Za-z.]+", "_");
+                                    info.Filename = pfiles.FileName;
+                                    info.Filename = AppLoadHelpers.convertToUnSign2(info.Filename);
+                                    info.Filename = System.Text.RegularExpressions.Regex.Replace(info.Filename, "[^0-9A-Za-z.]+", "_");
 
-                                        info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
-                                        info.IdRef = Convert.ToDecimal((_updateitem as AppDocumentInfo).refId);
-                                        check = 1;
-                                    }
+                                    info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
+                                    info.IdRef = Convert.ToDecimal((_updateitem as AppDocumentInfo).refId);
+                                    check = 1;
                                 }
-                                info.App_Header_Id = pAppHeaderID;
-                                info.Language_Code = language;
                             }
-                            if (check == 1)
+                            else if (_dic_doc_others.ContainsKey(info.Id))
                             {
-                                pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocIndusDesign);
+                                info.Filename = _dic_doc_others[info.Id].Filename;
+                                info.IdRef = _dic_doc_others[info.Id].IdRef;
+                                check = 1;
                             }
+
+                            info.App_Header_Id = pAppHeaderID;
+                            info.Language_Code = language;
+                        }
+                        if (check == 1)
+                        {
+                            pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocIndusDesign);
                         }
                     }
                     #endregion

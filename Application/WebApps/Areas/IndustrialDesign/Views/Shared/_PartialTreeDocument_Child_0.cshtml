@@ -1,9 +1,9 @@
 ﻿@using ObjectInfos.ModuleTrademark;
 @using ObjectInfos
 @using System.Linq
-@model AppDocumentOthersInfo
+@model string
 @{
-    string _id = Model.Model_Id;
+    string _id = Model.ToString();
 
     string pfileName = "pTreefileName" + _id;
     string txtDocument = "TreetxtTaiLieuKhac" + _id;
@@ -15,40 +15,16 @@
     string btnXoa = "treebtnXoa" + _id;
     string btnTaiFile = "treebtnTaiFile" + _id;
     string btnremoveFile = "treebtnRemove" + _id;
-    string _refid = Model.IdRef;
 }
 
-@*<div class="div-search-ad" id="treedivDocumnetNo1">
-    <div class="div-search-title"> <div>@WebApps.Resources.Resource.lblTenTaiLieu:</div> </div>
-    <div class="div-search-content">
-        <div>
-            <input type="text" class="clssListUploadIndusDesign" value="@Model.Documentname" meta-data2="1">
-        </div>
-    </div>
-    <div class="div-search-title"> <div>Số trang</div> </div>
-    <div class="div-search-content">
-        <div>
-            <input type="text" style="width:90px" value="@Model.Char01" />
-        </div>
-    </div>
-    <div class="div-search-title">
-        <div>Ghi chú</div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input type="text" value="@Model.Char02" />
-        </div>
-    </div>
-</div>*@
-
-<div meta-data="@_id">
-    <div class="div-search-ad" id="' + divDocumnetNo + '">
+<div id="@("divChild" + _id)" meta-data="@_id">
+    <div class="div-search-ad" id="@divDocumnetNo" meta-data="@_id">
         <div class="div-search-title">
             <div> @WebApps.Resources.Resource.lblTenTaiLieu :</div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" class="clssListUploadIndusDesign" maxlength="200" id="@txtDocument" meta-data2="1" meta-data="@_id" value="@Model.Documentname">
+                <input type="text" class="clssListUploadIndusDesign" data-id="0" maxlength="200" id="@txtDocument" meta-data2="1" meta-data="@_id">
             </div>
         </div>
         <div class="div-search-title">
@@ -56,7 +32,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" style="width:90px" maxlength="4" id="@txtDocumentSoTrang" value="@Model.Char01"/>
+                <input type="text" style="width:90px" maxlength="4" id="@txtDocumentSoTrang" />
             </div>
         </div>
         <div class="div-search-title">
@@ -64,30 +40,22 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" maxlength="1000" id="@txtDocumentGhiChu" value="@Model.Char02"/>
+                <input type="text" maxlength="1000" id="@txtDocumentGhiChu" />
             </div>
         </div>
 
         <div class="div-search-content">
             <div>
-                <div class="file-upload btn btn-primary" style="margin-left:2px;">
-                    <span>@WebApps.Resources.Resource.lblTaiFile</span>
-                    <input type="file" onchange="return funcTreeChoiseFileDocOther('@pfileName', '@txtMaxfile', '@txtDocument', '@btnremoveFile', '@_refid');" name="@pfileName" id="@pfileName" class="upload fileuploadurl" />
-                </div>
-                <input type="text" class="classMaxfile" id="@txtMaxfile" readonly>
-                <button class="clssDisplaynone" id="@btnremoveFile" onclick="TreeRemoveFileDocOther('@txtDocument', '@btnremoveFile', '@txtMaxfile')" style="width: 30px;margin-left:1px">
-                    <i class="fa fa-minus-circle"></i>
-                </button>
-
                 <button title="Thêm tài liệu cùng cấp" onclick="funcTreeAddSubDocumentNew(this)" style="width: 30px;margin-left:2px; height:30px">
                     <i class="fa fa-plus-square"></i>
                 </button>
 
-                <i class="fa fa-check" id="@(_id + pfileName)" style="font-size:15px; color:green ;display:none;padding:5px; height:30px" />
-
-                <button onclick="return funcTreeRemoveDocument(this,1)" id="' + btnXoa + '" style="width: 30px;margin-left:2px">
-                    <i class="fa fa-minus-circle"></i>
-                </button>
+                @if (_id != "1")
+                {
+                    <button onclick="return funcTreeRemoveDocument(this,1)" id="@btnXoa" style="width: 30px;margin-left:2px">
+                        <i class="fa fa-minus-circle"></i>
+                    </button>
+                }
             </div>
         </div>
     </div>

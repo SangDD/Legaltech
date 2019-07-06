@@ -111,6 +111,21 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
+        public int AppDocumentOtherDeletedByApp_Type(decimal pAppHeaderID, string pLanguage, decimal p_fileType)
+        {
+            try
+            {
+                AppDocumentDA objData = new AppDocumentDA();
+                return objData.AppDocumentOtherDeletedByApp_Type(pAppHeaderID, pLanguage, p_fileType);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
+
         public int AppDocOther_Del_ByID(decimal pID, string pLanguage)
         {
             try

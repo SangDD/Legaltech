@@ -1,28 +1,11 @@
 ﻿@using ObjectInfos.ModuleTrademark
 @using ObjectInfos
 @using System.Linq;
-
 @{
-    List<AppDocumentOthersInfo> ListDocDesign = new List<AppDocumentOthersInfo>();
-    List<AppDocumentOthersInfo> ListDocDesignLv2 = new List<AppDocumentOthersInfo>();
-    if (ViewBag.ListDocDesign != null)
-    {
-        ListDocDesign = (List<AppDocumentOthersInfo>)ViewBag.ListDocDesign;
-    }
-
-    string listIDFileAtt = "";
-    string styleTLK = "display:block";
-    if (ListDocDesign.Count > 0)
-    {
-        styleTLK = "display:block";
-        ListDocDesignLv2 = ListDocDesign.Where(m => m.IdRef != 0).ToList();
-    }
-
-    decimal _max_Model_Id = ListDocDesign.Count + 1;
-    int _index = 0;
+    
 }
 
-<div class="div_full_100_area" id="divTreeContainerDocOther" style="@styleTLK">
+<div class="div_full_100_area" id="divTreeContainerDocOther">
     @*@Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "Bộ hình ảnh")*@
     <div class="divCover cls_form_title">
         <div class="cls_form_header" style="margin: 0 !important;">
@@ -32,32 +15,13 @@
     </div>
 
     <div id="TreedivDocumentOther">
-        @foreach (AppDocumentOthersInfo item in ListDocDesign)
-        {
-            if (item.IdRef == 0)
-            {
-                _index++;
-                item.Model_Id = _index;
-
-                <div id="@("divChild" + item.Model_Id)" meta-data="@item.Model_Id">
-                    @Html.Partial("~/Areas/IndustrialDesign/Views/Shared/_PartialTreeDocument_Edit_Child_0.cshtml", item)
-
-                    @foreach (AppDocumentOthersInfo itemlv2 in ListDocDesignLv2)
-                    {
-                        if (item.ParentId == itemlv2.IdRef.ToString())
-                        {
-                            _index++;
-                            itemlv2.Model_Id = _index;
-
-                            @Html.Partial("~/Areas/IndustrialDesign/Views/Shared/_PartialTreeDocument_Edit_Child_2.cshtml", itemlv2)
-                        }
-                    }
-                </div>
-            }
-        }
+        <div id="@("divChild1")" meta-data="1">
+            @Html.Partial("~/Areas/IndustrialDesign/Views/Shared/_PartialTreeDocument_Child_0.cshtml", "1")
+            @Html.Partial("~/Areas/IndustrialDesign/Views/Shared/_PartialTreeDocument_Child_2.cshtml", "2")
+        </div>
     </div>
 
-    <input type="hidden" id="TreeincreNo" value="@_max_Model_Id" />
+    <input type="hidden" id="TreeincreNo" value="2" />
 </div>
 
 <script>
