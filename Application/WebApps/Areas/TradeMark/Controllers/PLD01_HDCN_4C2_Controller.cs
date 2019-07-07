@@ -34,7 +34,6 @@
                     return Redirect("/");
 
                 SessionData.CurrentUser.chashFile.Clear();
-                SessionData.CurrentUser.chashFileOther.Clear();
                 string AppCode = "";
                 if (RouteData.Values.ContainsKey("id"))
                 {
@@ -225,7 +224,7 @@
                             {
                                 if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                                 {
-                                    string _url = (string)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                    string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                     string[] _arr = _url.Split('/');
                                     string _filename = WebApps.Resources.Resource.FileDinhKem;
                                     if (_arr.Length > 0)
@@ -453,7 +452,7 @@
                             {
                                 if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                                 {
-                                    string _url = (string)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                    string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                     string[] _arr = _url.Split('/');
                                     string _filename = WebApps.Resources.Resource.FileDinhKem;
                                     if (_arr.Length > 0)

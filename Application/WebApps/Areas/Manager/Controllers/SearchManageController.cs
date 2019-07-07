@@ -35,7 +35,7 @@ namespace WebApps.Areas.Manager.Controllers
                 if (pInfo.pfiles != null)
                 {
                     var url = AppLoadHelpers.PushFileToServer(pInfo.pfiles, AppUpload.Search);
-                    SessionData.CurrentUser.chashFileOther[pInfo.keyFileUpload] = url;
+                    SessionData.CurrentUser.chashFile[pInfo.keyFileUpload] = url;
                     //SessionData.CurrentUser.chashFile[pInfo.keyFileUpload] = pInfo.pfiles;
                 }
             }
