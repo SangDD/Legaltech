@@ -172,6 +172,8 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                         //{
                         //    pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID, language);
                         //}
+                        if (pReturn < 0)
+                            goto Commit_Transaction;
                     }
 
                     if (pAppAuthorsInfo != null && pAppAuthorsInfo.Count > 0)
@@ -1123,8 +1125,11 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                     {
                         app_Detail.strDanhSachFileDinhKem += item.Documentname + " ; ";
                     }
+                    if (!string.IsNullOrEmpty(app_Detail.strDanhSachFileDinhKem))
+                    {
+                        app_Detail.strDanhSachFileDinhKem = app_Detail.strDanhSachFileDinhKem.Substring(0, app_Detail.strDanhSachFileDinhKem.Length - 2);
+                    }
 
-                    app_Detail.strDanhSachFileDinhKem = app_Detail.strDanhSachFileDinhKem.Substring(0, app_Detail.strDanhSachFileDinhKem.Length - 2);
                 }
 
                 foreach (AppDocumentInfo item in appDocumentInfos)
@@ -1146,6 +1151,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                     {
                         app_Detail.Doc_Id_3_Check = item.Isuse;
                         app_Detail.Doc_Id_3 = item.CHAR01;
+                        app_Detail.Doc_Id_302 = item.CHAR02;
                     }
                     else if (item.Document_Id == "A03_04")
                     {
@@ -1163,6 +1169,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                     {
                         app_Detail.Doc_Id_6_Check = item.Isuse;
                         app_Detail.Doc_Id_6 = item.CHAR01;
+                        app_Detail.Doc_Id_602 = item.CHAR02;
                     }
                     else if (item.Document_Id == "A03_07")
                     {
@@ -1184,6 +1191,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                     {
                         app_Detail.Doc_Id_10_Check = item.Isuse;
                         app_Detail.Doc_Id_10 = item.CHAR01;
+                        app_Detail.Doc_Id_1002 = item.CHAR02;
                     }
                     else if (item.Document_Id == "A03_11")
                     {

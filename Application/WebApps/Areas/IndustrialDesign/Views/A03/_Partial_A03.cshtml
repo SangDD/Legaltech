@@ -377,9 +377,7 @@
         </div>
 
         @*TÀI booj hinh anh   *@
-        @*@Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTreeDocument.cshtml")*@
-        @Html.Partial("~/Areas/IndustrialDesign/Views/Shared/_PartialTreeDocument.cshtml")
-
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTreeDocument.cshtml")
 
         @* id doc | id của check box | level | lable | lable 2 | is upload *@
         @* 1 Tờ khai *@
@@ -1348,8 +1346,8 @@
             var _controllevel = 1;
             var _inputfileid = "";
             $(".clssListUploadIndusDesign").each(function () {
-                _controllevel = $("#" + this.id).attr("data-level")
-                _documentno = $("#" + this.id).attr("data-ParentId");
+                _controllevel = $("#" + this.id).attr("meta-data2")
+                _documentno =  $("#" + this.id).attr("meta-data");
                 _inputfileid = "pTreefileName" + _documentno;
                 formData.append("pAppDocIndusDesign[" + item + "].keyFileUpload", this.id);
                 if (p_ShowError == 1 && $("#" + this.id).val().trim() == "")
@@ -1390,13 +1388,11 @@
                 formData.append("pAppDocIndusDesign[" + item + "].keyFileUpload", this.id);
                 formData.append("pAppDocIndusDesign[" + item + "].Documentname", $("#" + this.id).val());
                 formData.append("pAppDocIndusDesign[" + item + "].FILETYPE", "2");
-                formData.append("pAppDocIndusDesign[" + item + "].Id", $("#" + this.id).attr("data-id"));
-                _documentno = $("#" + this.id).attr("data-ParentId");
+                formData.append("pAppDocIndusDesign[" + item + "].FILELEVEL", $("#" + this.id).attr("meta-data2"));
+                _documentno =  $("#" + this.id).attr("meta-data");
                 formData.append("pAppDocIndusDesign[" + item + "].Char01", $("#Treetxttailieuanhsotrang" + _documentno).val());
                 formData.append("pAppDocIndusDesign[" + item + "].Char02", $("#TreetxttailieuanhGhiChu" + _documentno).val());
                 formData.append("pAppDocIndusDesign[" + item + "].ParentId", _documentno);
-                formData.append("pAppDocIndusDesign[" + item + "].IdRef", $("#" + this.id).attr("data-IdRef"));
-                formData.append("pAppDocIndusDesign[" + item + "].FILELEVEL", $("#" + this.id).attr("data-level"));
                 item++;
             });
             return true;
