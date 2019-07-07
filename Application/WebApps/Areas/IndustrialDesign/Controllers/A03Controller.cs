@@ -372,7 +372,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
                 string language = AppsCommon.GetCurrentLang();
                 decimal pReturn = ErrorCode.Success;
-                int pAppHeaderID = 0;
+                int pAppHeaderID = (int)pInfo.Id;
                 string p_case_code = pInfo.Case_Code;
 
                 using (var scope = new TransactionScope())
@@ -384,8 +384,8 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                     pInfo.Send_Date = DateTime.Now;
 
                     //TRA RA ID CUA BANG KHI INSERT
-                    pAppHeaderID = objBL.AppHeaderUpdate(pInfo);
-                    if (pAppHeaderID < 0)
+                    pReturn = objBL.AppHeaderUpdate(pInfo);
+                    if (pReturn < 0)
                         goto Commit_Transaction;
 
                     // detail
@@ -449,8 +449,8 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                     //tai lieu khac 
                     #region Tài liệu khác
                     AppDocumentBL objDoc = new AppDocumentBL();
-                    List<AppDocumentOthersInfo> Lst_Doc_Others_Old = objDoc.DocumentOthers_GetByAppHeader(pInfo.Id, language);
-                    Lst_Doc_Others_Old = Lst_Doc_Others_Old.FindAll(m => m.FILETYPE == 1).ToList();
+                    List<AppDocumentOthersInfo> Lst_Doc_Others = objDoc.DocumentOthers_GetByAppHeader(pInfo.Id, language);
+                    List<AppDocumentOthersInfo> Lst_Doc_Others_Old = Lst_Doc_Others.FindAll(m => m.FILETYPE == 1).ToList();
                     Dictionary<decimal, AppDocumentOthersInfo> _dic_doc_others = new Dictionary<decimal, AppDocumentOthersInfo>();
                     foreach (AppDocumentOthersInfo item in Lst_Doc_Others_Old)
                     {
@@ -488,9 +488,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
 
                     #region bộ tài liệu ảnh -> chưa sửa
                     // chưa sửa
-
-                    List<AppDocumentOthersInfo> Lst_DocIndusDesign_Old = objDoc.DocumentOthers_GetByAppHeader(pInfo.Id, language);
-                    Lst_DocIndusDesign_Old = Lst_DocIndusDesign_Old.FindAll(m => m.FILETYPE == 2).ToList();
+                    List<AppDocumentOthersInfo>  Lst_DocIndusDesign_Old = Lst_Doc_Others.FindAll(m => m.FILETYPE == 2).ToList();
                     Dictionary<decimal, AppDocumentOthersInfo> _dic_DocIndusDesign = new Dictionary<decimal, AppDocumentOthersInfo>();
                     foreach (AppDocumentOthersInfo item in Lst_DocIndusDesign_Old)
                     {
@@ -517,14 +515,14 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                                     info.Filename = System.Text.RegularExpressions.Regex.Replace(info.Filename, "[^0-9A-Za-z.]+", "_");
 
                                     info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
-                                    info.IdRef = Convert.ToDecimal((_updateitem as AppDocumentInfo).refId);
+                                    //info.IdRef = Convert.ToDecimal((_updateitem as AppDocumentInfo).refId);
                                     check = 1;
                                 }
                             }
-                            else if (_dic_doc_others.ContainsKey(info.Id))
+                            else if (_dic_DocIndusDesign.ContainsKey(info.Id))
                             {
-                                info.Filename = _dic_doc_others[info.Id].Filename;
-                                info.IdRef = _dic_doc_others[info.Id].IdRef;
+                                info.Filename = _dic_DocIndusDesign[info.Id].Filename;
+                                //info.IdRef = _dic_doc_others[info.Id].IdRef;
                                 check = 1;
                             }
 
@@ -569,6 +567,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
 
                         foreach (var info in pAppDocumentInfo)
                         {
+                            info.App_Header_Id = pDetail.App_Header_Id;
                             if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                             {
                                 var _updateitem = SessionData.CurrentUser.chashFileOther[info.keyFileUpload];

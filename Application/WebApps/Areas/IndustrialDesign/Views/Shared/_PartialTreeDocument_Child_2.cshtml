@@ -25,7 +25,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" class="clssListUploadIndusDesign" maxlength="200" id="@txtDocument" meta-data2="2" meta-data="@_id">
+            <input type="text" class="clssListUploadIndusDesign" maxlength="200" id="@txtDocument" data-level="2" data-ParentId="@_id" data-IdRef="@_refid" data-id="0">
         </div>
     </div>
 
@@ -54,7 +54,7 @@
                 <input type="file" onchange="return funcTreeChoiseFileDocOther('@pfileName', '@txtMaxfile', '@txtDocument', '@btnremoveFile', '@_refid');" name="@pfileName" id="@pfileName" class="upload fileuploadurl" />
             </div>
 
-            <input type="text" class="classMaxfile" id="@txtMaxfile" readonly data-id="@_id">
+            <input type="text" class="classMaxfile" id="@txtMaxfile" readonly >
 
             <button onclick="return funcTreeRemoveDocument('@divDocumnetNo', 2)" id="@btnXoa" style="width: 30px;margin-left:2px">
                 <i class="fa fa-minus-circle"></i>

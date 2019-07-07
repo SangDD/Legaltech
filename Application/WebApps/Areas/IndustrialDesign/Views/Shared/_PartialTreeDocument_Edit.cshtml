@@ -39,7 +39,7 @@
                 _index++;
                 item.Model_Id = _index;
 
-                <div id="@("divChild" + item.Model_Id)" meta-data="@item.Model_Id">
+                <div id="@("divChild" + item.Model_Id)" data-ParentId="@item.Model_Id">
                     @Html.Partial("~/Areas/IndustrialDesign/Views/Shared/_PartialTreeDocument_Edit_Child_0.cshtml", item)
 
                     @foreach (AppDocumentOthersInfo itemlv2 in ListDocDesignLv2)

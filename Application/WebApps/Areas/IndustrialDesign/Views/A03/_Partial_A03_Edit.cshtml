@@ -937,7 +937,7 @@
                 if (funcThongTinChuDon_SaveTem(formData, "1") != true) {
                     return false;
                 }
-            } else if (ptype == 2) {
+            } else if (p_Status == 2) {
                 if (funcThongTinChuDon(formData, "1") != true) {
                     return false;
                 }
@@ -963,7 +963,7 @@
                 return false;
             }
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-            if (ptype == 2) {
+            if (p_Status == 2) {
                 if (v_RepMasterType === "" || v_RepMasterType == undefined) {
                     jError("@Html.Raw(Resource.TM2B_ChonDaiDienChuDon)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                         $("#_2_rdoNguoiDaiDienPL").focus()
@@ -1299,6 +1299,7 @@
                     return false;
                 }
             }
+            formData.append("pDetail.Id", @_App_Detail.Id);
             formData.append("pDetail.Industry_Design_Name", _txt_IndustryDesignName.val());
             formData.append("pDetail.App_Sentdate", _txtNgayNopDon.val());
             formData.append("pDetail.Refappno", _txtDonSo.val());
@@ -1554,15 +1555,18 @@
 
     function funcGetTenTaiLieuBoAnh(formData, p_ShowError) {
         try {
-            // checkvalidate
             var item = 0;
             var _documentno = "0";
             var _check = true;
             var _controllevel = 1;
             var _inputfileid = "";
+            var _data_id = 0;
+
             $(".clssListUploadIndusDesign").each(function () {
-                _controllevel = $("#" + this.id).attr("meta-data2")
-                _documentno =  $("#" + this.id).attr("meta-data");
+                _controllevel = $("#" + this.id).attr("data-level")
+                _documentno = $("#" + this.id).attr("data-ParentId");
+                _data_id = $("#" + this.id).attr("data-id");
+
                 _inputfileid = "pTreefileName" + _documentno;
                 formData.append("pAppDocIndusDesign[" + item + "].keyFileUpload", this.id);
                 if (p_ShowError == 1 && $("#" + this.id).val().trim() == "")
@@ -1572,7 +1576,8 @@
                     _check = false;
                     return false;
                 }
-                if(_controllevel == "2")
+
+                if (_controllevel == "2" && _data_id == 0)
                 {
                     // nếu là tài liệu cấp 2 thì check file
                     var file = document.getElementById(_inputfileid);
@@ -1604,11 +1609,12 @@
                 formData.append("pAppDocIndusDesign[" + item + "].Documentname", $("#" + this.id).val());
                 formData.append("pAppDocIndusDesign[" + item + "].FILETYPE", "2");
                 formData.append("pAppDocIndusDesign[" + item + "].Id", $("#" + this.id).attr("data-id"));
-                _documentno =  $("#" + this.id).attr("meta-data");
+                _documentno = $("#" + this.id).attr("data-ParentId");
                 formData.append("pAppDocIndusDesign[" + item + "].Char01", $("#Treetxttailieuanhsotrang" + _documentno).val());
                 formData.append("pAppDocIndusDesign[" + item + "].Char02", $("#TreetxttailieuanhGhiChu" + _documentno).val());
                 formData.append("pAppDocIndusDesign[" + item + "].ParentId", _documentno);
-                formData.append("pAppDocIndusDesign[" + item + "].FILELEVEL", $("#" + this.id).attr("meta-data2"));
+                formData.append("pAppDocIndusDesign[" + item + "].IdRef", $("#" + this.id).attr("data-IdRef"));
+                formData.append("pAppDocIndusDesign[" + item + "].FILELEVEL", $("#" + this.id).attr("data-level"));
                 item++;
             });
             return true;

@@ -17,14 +17,14 @@
     string btnremoveFile = "treebtnRemove" + _id;
 }
 
-<div id="@("divChild" + _id)" meta-data="@_id">
-    <div class="div-search-ad" id="@divDocumnetNo" meta-data="@_id">
+<div id="@("divChild" + _id)" data-ParentId="@_id">
+    <div class="div-search-ad" id="@divDocumnetNo" data-ParentId="@_id">
         <div class="div-search-title">
             <div> @WebApps.Resources.Resource.lblTenTaiLieu :</div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" class="clssListUploadIndusDesign" data-id="0" maxlength="200" id="@txtDocument" meta-data2="1" meta-data="@_id">
+                <input type="text" class="clssListUploadIndusDesign" data-id="0" maxlength="200" id="@txtDocument" data-level="1" data-ParentId="@_id" data-IdRef="0" >
             </div>
         </div>
         <div class="div-search-title">
