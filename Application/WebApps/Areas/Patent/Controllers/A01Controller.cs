@@ -38,7 +38,6 @@ namespace WebApps.Areas.Patent.Controllers
                     return Redirect("/");
 
                 SessionData.CurrentUser.chashFile.Clear();
-                SessionData.CurrentUser.chashFileOther.Clear();
                 string AppCode = "";
                 if (RouteData.Values.ContainsKey("id"))
                 {
@@ -243,9 +242,9 @@ namespace WebApps.Areas.Patent.Controllers
                             int check = 0;
                             foreach (var info in pAppDocOtherInfo)
                             {
-                                if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
+                                if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                                 {
-                                    string _url = (string)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                    string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                     info.Filename = _url;
                                     check = 1;
 
@@ -268,10 +267,9 @@ namespace WebApps.Areas.Patent.Controllers
                             int check = 0;
                             foreach (var info in pLstImagePublic)
                             {
-                                if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
+                                if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                                 {
-                                    //HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
-                                    string _url = (string)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                    string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                     info.Filename = _url;
                                     check = 1;
 
@@ -307,7 +305,7 @@ namespace WebApps.Areas.Patent.Controllers
                             {
                                 if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                                 {
-                                    string _url = (string)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                    string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                     string[] _arr = _url.Split('/');
                                     string _filename = WebApps.Resources.Resource.FileDinhKem;
                                     if (_arr.Length > 0)
@@ -475,9 +473,9 @@ namespace WebApps.Areas.Patent.Controllers
                             int check = 0;
                             foreach (var info in pAppDocOtherInfo)
                             {
-                                if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
+                                if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                                 {
-                                    string _url = (string)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                    string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                     info.Filename = _url;
                                     check = 1;
                                 }
@@ -517,9 +515,9 @@ namespace WebApps.Areas.Patent.Controllers
                             int check = 0;
                             foreach (AppDocumentOthersInfo info in pLstImagePublic)
                             {
-                                if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
+                                if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                                 {
-                                    string _url = (string)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                    string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                     info.Filename = _url;
                                     check = 1;
                                 }
@@ -575,7 +573,7 @@ namespace WebApps.Areas.Patent.Controllers
                             {
                                 if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                                 {
-                                    string _url = (string)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                    string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                     string[] _arr = _url.Split('/');
                                     string _filename = WebApps.Resources.Resource.FileDinhKem;
                                     if (_arr.Length > 0)

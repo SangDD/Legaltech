@@ -141,7 +141,6 @@ namespace WebApps.Areas.TradeMark.Controllers
 
                 string pAppCode = _ApplicationHeaderInfo.Appcode;
                 SessionData.CurrentUser.chashFile.Clear();
-                SessionData.CurrentUser.chashFileOther.Clear();
 
                 ViewBag.Appcode = pAppCode;
                 ViewBag.Currstatus = (int)_ApplicationHeaderInfo.Status;
@@ -207,7 +206,6 @@ namespace WebApps.Areas.TradeMark.Controllers
 
                 string pAppCode = _ApplicationHeaderInfo.Appcode;
                 SessionData.CurrentUser.chashFile.Clear();
-                SessionData.CurrentUser.chashFileOther.Clear();
 
                 ViewBag.Appcode = pAppCode;
                 ViewBag.Currstatus = (int)_ApplicationHeaderInfo.Status;

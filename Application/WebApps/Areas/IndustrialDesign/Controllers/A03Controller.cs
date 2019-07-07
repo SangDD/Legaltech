@@ -38,7 +38,6 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                     return Redirect("/");
 
                 SessionData.CurrentUser.chashFile.Clear();
-                SessionData.CurrentUser.chashFileOther.Clear();
                 string AppCode = "";
                 if (RouteData.Values.ContainsKey("id"))
                 {
@@ -224,9 +223,9 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                             {
                                 _keyfileupload = info.keyFileUpload;
                             }
-                            if (SessionData.CurrentUser.chashFileOther.ContainsKey(_keyfileupload))
+                            if (SessionData.CurrentUser.chashFile.ContainsKey(_keyfileupload))
                             {
-                                var _updateitem = SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                var _updateitem = SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                 if (_updateitem.GetType() == typeof(string))
                                 {
                                     string _url = (string)_updateitem;
@@ -261,9 +260,9 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                             int check = 0;
                             foreach (var info in pAppDocIndusDesign)
                             {
-                                if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
+                                if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                                 {
-                                    var _updateitem = SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                    var _updateitem = SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                     if (_updateitem.GetType() == typeof(AppDocumentInfo))
                                     {
                                         HttpPostedFileBase pfiles = (_updateitem as AppDocumentInfo).pfiles;
@@ -467,9 +466,9 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                         int check = 0;
                         foreach (var info in pAppDocOtherInfo)
                         {
-                            if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
+                            if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                             {
-                                string _url = (string)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                 info.Filename = _url;
                                 check = 1;
                             }
@@ -505,9 +504,9 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                         int check = 0;
                         foreach (var info in pAppDocIndusDesign)
                         {
-                            if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
+                            if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                             {
-                                var _updateitem = SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                var _updateitem = SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                 if (_updateitem.GetType() == typeof(AppDocumentInfo))
                                 {
                                     HttpPostedFileBase pfiles = (_updateitem as AppDocumentInfo).pfiles;
@@ -572,7 +571,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                             info.App_Header_Id = pDetail.App_Header_Id;
                             if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                             {
-                                var _updateitem = SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                var _updateitem = SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                 if (_updateitem.GetType() == typeof(string))
                                 {
                                     string _url = (string)_updateitem;
@@ -852,7 +851,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 if (pInfo.pfiles != null)
                 {
                     var url = AppLoadHelpers.PushFileToServer(pInfo.pfiles, AppUpload.Document);
-                    SessionData.CurrentUser.chashFileOther[pInfo.keyFileUpload] = pInfo;
+                    SessionData.CurrentUser.chashFile[pInfo.keyFileUpload] = pInfo;
                 }
             }
             catch (Exception ex)
