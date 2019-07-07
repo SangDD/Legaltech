@@ -306,7 +306,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                             {
                                 if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                                 {
-                                    var _updateitem = SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                    var _updateitem = SessionData.CurrentUser.chashFile[info.keyFileUpload];
                                     if (_updateitem.GetType() == typeof(string))
                                     {
                                         string _url = (string)_updateitem;
