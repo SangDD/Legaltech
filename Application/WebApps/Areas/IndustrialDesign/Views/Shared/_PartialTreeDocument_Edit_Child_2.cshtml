@@ -17,21 +17,26 @@
 
     string _refid = Model.IdRef.ToString();
 
-    string[] _arr1 = Model.Filename.Split('/');
-    string _filename1 = WebApps.Resources.Resource.FileDinhKem;
-    if (_arr1.Length > 0)
+    string _filename1 = "";
+    if (Model.Filename != null && Model.Filename != "")
     {
-        _filename1 = _arr1[_arr1.Length - 1];
+        string[] _arr1 = Model.Filename.Split('/');
+        _filename1 = WebApps.Resources.Resource.FileDinhKem;
+        if (_arr1.Length > 0)
+        {
+            _filename1 = _arr1[_arr1.Length - 1];
+        }
     }
+
 }
- 
+
 <div class="div-search-ad" id="@divDocumnetNo" style="margin-left:20px">
     <div class="div-search-title">
         <div style="width: 100px;"> @WebApps.Resources.Resource.lblTenTaiLieu :</div>
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" class="clssListUploadIndusDesign" maxlength="200" value="@Model.Documentname" id="@txtDocument" meta-data2="2" meta-data="@_id" data-id="@Model.Id">
+            <input type="text" class="clssListUploadIndusDesign" maxlength="200" value="@Model.Documentname" id="@txtDocument" data-level="2" data-ParentId="@_id" data-IdRef="@_refid" data-id="@Model.Id">
         </div>
     </div>
 
@@ -60,7 +65,7 @@
                 <input type="file" onchange="return funcTreeChoiseFileDocOther('@pfileName', '@txtMaxfile', '@txtDocument', '@btnremoveFile', '@_refid');" name="@pfileName" id="@pfileName" class="upload fileuploadurl" />
             </div>
 
-            <input type="text" class="classMaxfile" id="@txtMaxfile" value="@_filename1" readonly >
+            <input type="text" class="classMaxfile" id="@txtMaxfile" value="@_filename1" readonly>
 
             <button onclick="return funcTreeRemoveDocument('@divDocumnetNo', 2)" id="@btnXoa" style="width: 30px;margin-left:2px">
                 <i class="fa fa-minus-circle"></i>
