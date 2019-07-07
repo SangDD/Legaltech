@@ -192,7 +192,10 @@ namespace ObjectInfos
         #endregion
 
         #region các tài liệu trong đơn
-        public string strDanhSachFileDinhKem { get; set; }
+
+        string _strDsFile = "";
+        public string strDanhSachFileDinhKem
+        { get { return _strDsFile; } set { _strDsFile = value; } }
 
         public string Doc_Id_1 { get; set; }
         public string Doc_Id_102 { get; set; }

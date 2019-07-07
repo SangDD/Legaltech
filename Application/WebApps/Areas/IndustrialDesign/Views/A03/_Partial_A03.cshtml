@@ -790,7 +790,12 @@
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
                     if (data != null && data.status >= 0) {
-                        jAlert('@Html.Raw(Resource.GuiDonThanhCong)', ThongBao, function () {
+                        var _mess = '@Html.Raw(Resource.GuiDonThanhCong)';
+                        if (p_Status == "1")
+                        {
+                            _mess = '@Html.Raw(Resource.LuuTamThanhCong)';
+                        }
+                        jAlert(_mess, ThongBao, function () {
                             window.location = "/trade-mark-mana/quan-ly-don";
                         });
                     } else {
@@ -1138,10 +1143,10 @@
 
             var txt_MaDaiDien = $("#txt_MaDaiDien").val();
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-            if (p_ShowError == 1 && v_RepMasterType == "DDPL" && txt_MaDaiDien == "") { 
+            if (p_ShowError == 1 && v_RepMasterType == "DDPL" && txt_MaDaiDien == "") {
                 showError('@Resource.TM3C_MaDaiDienKhongDuocTrong');
                 $("#txt_MaDaiDien").focus()
-                return false; 
+                return false;
             }
             formData.append("pInfo.Customer_Code", txt_MaDaiDien);
 

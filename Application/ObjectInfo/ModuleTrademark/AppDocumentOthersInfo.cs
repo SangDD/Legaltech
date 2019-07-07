@@ -21,7 +21,12 @@ namespace ObjectInfos
         public decimal Is_View { get; set; }
 
         public decimal App_Header_Id { get; set; }
-        public string Documentname { get; set; }
+
+        string _docname = "";
+        public string Documentname {
+            get { return _docname; }
+            set { _docname = value; }
+        }
         public string DocumentnameVi { get; set; }
         public string Filename { get; set; }
         public decimal Deleted { get; set; }

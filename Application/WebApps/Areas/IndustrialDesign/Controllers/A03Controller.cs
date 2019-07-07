@@ -634,8 +634,8 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
             try
             {
                 pDetail.Appcode = "A03";
-                decimal _total_PhuongAn = pAppDocIndusDesign.Select(m => m.FILELEVEL == 1).Count();
-                decimal _totalImage = pAppDocIndusDesign.Select(m => m.FILELEVEL == 2).Count();
+                decimal _total_PhuongAn = pAppDocIndusDesign.Where(m => m.FILELEVEL == 1).Count();
+                decimal _totalImage = pAppDocIndusDesign.Where(m => m.FILELEVEL == 2).Count();
 
                 #region 1 Lệ phí nộp đơn
                 List<AppFeeFixInfo> _lstFeeFix = new List<AppFeeFixInfo>();
@@ -805,29 +805,28 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 _AppFeeFixInfo6.Isuse = 1;
                 _AppFeeFixInfo6.Number_Of_Patent = 1;
                 _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo6.Fee_Id.ToString();
-                if (pDetail.Phanloai_Type == 2)
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                 {
-                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                    {
-                        _AppFeeFixInfo6.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
-                        _AppFeeFixInfo6.Amount_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo6.Amount_Usd;
-                        _AppFeeFixInfo6.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo6.Number_Of_Patent;
+                    _AppFeeFixInfo6.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
+                    _AppFeeFixInfo6.Amount_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo6.Amount_Usd;
+                    _AppFeeFixInfo6.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo6.Number_Of_Patent;
 
-                        _AppFeeFixInfo6.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
-                        _AppFeeFixInfo6.Amount_Represent_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent_Usd;
-                    }
-                    else
-                    {
-                        _AppFeeFixInfo6.Amount = 100000 * _AppFeeFixInfo6.Number_Of_Patent;
-                    }
+                    _AppFeeFixInfo6.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
+                    _AppFeeFixInfo6.Amount_Represent_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent_Usd;
                 }
                 else
+                {
+                    _AppFeeFixInfo6.Amount = 100000 * _AppFeeFixInfo6.Number_Of_Patent;
+                }
+
+                if (pDetail.Phanloai_Type == 2)
                 {
                     // tự phân loại
                     _AppFeeFixInfo6.Isuse = 0;
                     _AppFeeFixInfo6.Number_Of_Patent = 0;
                     _AppFeeFixInfo6.Amount = 0;
                 }
+              
 
                 _lstFeeFix.Add(_AppFeeFixInfo6);
 
@@ -1062,12 +1061,12 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 }
 
                 // copy tác giả
-                if (_lst_authorsInfos.Count > 0)
+                if (_lst_authorsInfos != null && _lst_authorsInfos.Count > 0)
                 {
                     A03_Info_Export.CopyAuthorsInfo(ref app_Detail, _lst_authorsInfos[0], 0);
                 }
 
-                if (_lst_authorsInfos.Count > 1)
+                if (_lst_authorsInfos != null && _lst_authorsInfos.Count > 1)
                 {
                     A03_Info_Export.CopyAuthorsInfo(ref app_Detail, _lst_authorsInfos[1], 1);
                     app_Detail.Author_Others = "Y";
@@ -1078,7 +1077,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                     app_Detail.Author_Others = "N";
                 }
 
-                if (_lst_authorsInfos.Count > 2)
+                if (_lst_authorsInfos != null &&  _lst_authorsInfos.Count > 2)
                 {
                     A03_Info_Export.CopyAuthorsInfo(ref app_Detail, _lst_authorsInfos[2], 2);
                 }
@@ -1088,7 +1087,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 }
 
                 // copy chủ đơn khác
-                if (_lst_Other_MasterInfo.Count > 1)
+                if (_lst_Other_MasterInfo != null && _lst_Other_MasterInfo.Count > 1)
                 {
                     A03_Info_Export.CopyOther_MasterInfo(ref app_Detail, _lst_Other_MasterInfo[0], 0);
                 }
@@ -1097,7 +1096,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                     A03_Info_Export.CopyOther_MasterInfo(ref app_Detail, null, 0);
                 }
 
-                if (_lst_Other_MasterInfo.Count > 2)
+                if (_lst_Other_MasterInfo != null && _lst_Other_MasterInfo.Count > 2)
                 {
                     A03_Info_Export.CopyOther_MasterInfo(ref app_Detail, _lst_Other_MasterInfo[1], 1);
                 }
@@ -1107,7 +1106,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 }
 
                 // copy đơn ưu tiên
-                if (pUTienInfo.Count > 0)
+                if (pUTienInfo  != null && pUTienInfo.Count > 0)
                 {
                     A03_Info_Export.CopyUuTienInfo(ref app_Detail, pUTienInfo[0]);
                 }
@@ -1122,7 +1121,10 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 {
                     foreach (var item in _LstDocumentOthersInfo)
                     {
-                        app_Detail.strDanhSachFileDinhKem += item.Documentname + " ; ";
+                        if(!string.IsNullOrEmpty(item.Documentname))
+                        {
+                            app_Detail.strDanhSachFileDinhKem += item.Documentname + " ; ";
+                        }
                     }
                     if (!string.IsNullOrEmpty(app_Detail.strDanhSachFileDinhKem))
                     {
@@ -1130,97 +1132,100 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                     }
 
                 }
-
-                foreach (AppDocumentInfo item in appDocumentInfos)
+                if(appDocumentInfos != null)
                 {
-                    if (item.Document_Id == "A03_01")
+                    foreach (AppDocumentInfo item in appDocumentInfos)
                     {
-                        app_Detail.Doc_Id_1 = item.CHAR01;
-                        app_Detail.Doc_Id_102 = item.CHAR02;
-                        app_Detail.Doc_Id_1_Check = item.Isuse;
-                    }
-                    else if (item.Document_Id == "A03_02")
-                    {
-                        app_Detail.Doc_Id_2 = item.CHAR01;
-                        app_Detail.Doc_Id_202 = item.CHAR02;
+                        if (item.Document_Id == "A03_01")
+                        {
+                            app_Detail.Doc_Id_1 = item.CHAR01;
+                            app_Detail.Doc_Id_102 = item.CHAR02;
+                            app_Detail.Doc_Id_1_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "A03_02")
+                        {
+                            app_Detail.Doc_Id_2 = item.CHAR01;
+                            app_Detail.Doc_Id_202 = item.CHAR02;
 
-                        app_Detail.Doc_Id_2_Check = item.Isuse;
-                    }
-                    else if (item.Document_Id == "A03_03")
-                    {
-                        app_Detail.Doc_Id_3_Check = item.Isuse;
-                        app_Detail.Doc_Id_3 = item.CHAR01;
-                        app_Detail.Doc_Id_302 = item.CHAR02;
-                    }
-                    else if (item.Document_Id == "A03_04")
-                    {
-                        app_Detail.Doc_Id_4 = item.CHAR01;
-                        app_Detail.Doc_Id_402 = item.CHAR02;
-                        app_Detail.Doc_Id_4_Check = item.Isuse;
-                    }
-                    else if (item.Document_Id == "A03_05")
-                    {
-                        app_Detail.Doc_Id_5_Check = item.Isuse;
-                        app_Detail.Doc_Id_5 = item.CHAR01;
+                            app_Detail.Doc_Id_2_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "A03_03")
+                        {
+                            app_Detail.Doc_Id_3_Check = item.Isuse;
+                            app_Detail.Doc_Id_3 = item.CHAR01;
+                            app_Detail.Doc_Id_302 = item.CHAR02;
+                        }
+                        else if (item.Document_Id == "A03_04")
+                        {
+                            app_Detail.Doc_Id_4 = item.CHAR01;
+                            app_Detail.Doc_Id_402 = item.CHAR02;
+                            app_Detail.Doc_Id_4_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "A03_05")
+                        {
+                            app_Detail.Doc_Id_5_Check = item.Isuse;
+                            app_Detail.Doc_Id_5 = item.CHAR01;
+                        }
+
+                        else if (item.Document_Id == "A03_06")
+                        {
+                            app_Detail.Doc_Id_6_Check = item.Isuse;
+                            app_Detail.Doc_Id_6 = item.CHAR01;
+                            app_Detail.Doc_Id_602 = item.CHAR02;
+                        }
+                        else if (item.Document_Id == "A03_07")
+                        {
+                            app_Detail.Doc_Id_7_Check = item.Isuse;
+                            app_Detail.Doc_Id_7 = item.CHAR01;
+                        }
+                        else if (item.Document_Id == "A03_07")
+                        {
+                            app_Detail.Doc_Id_8_Check = item.Isuse;
+                            app_Detail.Doc_Id_8 = item.CHAR01;
+                        }
+
+                        else if (item.Document_Id == "A03_09")
+                        {
+                            app_Detail.Doc_Id_9 = item.CHAR01;
+                            app_Detail.Doc_Id_9_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "A03_10")
+                        {
+                            app_Detail.Doc_Id_10_Check = item.Isuse;
+                            app_Detail.Doc_Id_10 = item.CHAR01;
+                            app_Detail.Doc_Id_1002 = item.CHAR02;
+                        }
+                        else if (item.Document_Id == "A03_11")
+                        {
+                            app_Detail.Doc_Id_11 = item.CHAR01;
+                            app_Detail.Doc_Id_11_Check = item.Isuse;
+                        }
+
+                        else if (item.Document_Id == "A03_12")
+                        {
+                            app_Detail.Doc_Id_12 = item.CHAR01;
+                            app_Detail.Doc_Id_12_Check = item.Isuse;
+                        }
+
+                        else if (item.Document_Id == "A03_13")
+                        {
+                            app_Detail.Doc_Id_13 = item.CHAR01;
+                            app_Detail.Doc_Id_13_Check = item.Isuse;
+                        }
+
+                        else if (item.Document_Id == "A03_14")
+                        {
+                            app_Detail.Doc_Id_14 = item.CHAR01;
+                            app_Detail.Doc_Id_14_Check = item.Isuse;
+                        }
+
+                        else if (item.Document_Id == "A03_15")
+                        {
+                            app_Detail.Doc_Id_15 = item.CHAR01;
+                            app_Detail.Doc_Id_15_Check = item.Isuse;
+                        }
                     }
 
-                    else if (item.Document_Id == "A03_06")
-                    {
-                        app_Detail.Doc_Id_6_Check = item.Isuse;
-                        app_Detail.Doc_Id_6 = item.CHAR01;
-                        app_Detail.Doc_Id_602 = item.CHAR02;
-                    }
-                    else if (item.Document_Id == "A03_07")
-                    {
-                        app_Detail.Doc_Id_7_Check = item.Isuse;
-                        app_Detail.Doc_Id_7 = item.CHAR01;
-                    }
-                    else if (item.Document_Id == "A03_07")
-                    {
-                        app_Detail.Doc_Id_8_Check = item.Isuse;
-                        app_Detail.Doc_Id_8 = item.CHAR01;
-                    }
-
-                    else if (item.Document_Id == "A03_09")
-                    {
-                        app_Detail.Doc_Id_9 = item.CHAR01;
-                        app_Detail.Doc_Id_9_Check = item.Isuse;
-                    }
-                    else if (item.Document_Id == "A03_10")
-                    {
-                        app_Detail.Doc_Id_10_Check = item.Isuse;
-                        app_Detail.Doc_Id_10 = item.CHAR01;
-                        app_Detail.Doc_Id_1002 = item.CHAR02;
-                    }
-                    else if (item.Document_Id == "A03_11")
-                    {
-                        app_Detail.Doc_Id_11 = item.CHAR01;
-                        app_Detail.Doc_Id_11_Check = item.Isuse;
-                    }
-
-                    else if (item.Document_Id == "A03_12")
-                    {
-                        app_Detail.Doc_Id_12 = item.CHAR01;
-                        app_Detail.Doc_Id_12_Check = item.Isuse;
-                    }
-
-                    else if (item.Document_Id == "A03_13")
-                    {
-                        app_Detail.Doc_Id_13 = item.CHAR01;
-                        app_Detail.Doc_Id_13_Check = item.Isuse;
-                    }
-
-                    else if (item.Document_Id == "A03_14")
-                    {
-                        app_Detail.Doc_Id_14 = item.CHAR01;
-                        app_Detail.Doc_Id_14_Check = item.Isuse;
-                    }
-
-                    else if (item.Document_Id == "A03_15")
-                    {
-                        app_Detail.Doc_Id_15 = item.CHAR01;
-                        app_Detail.Doc_Id_15_Check = item.Isuse;
-                    }
                 }
 
                 #endregion
