@@ -126,14 +126,14 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                TÊN KIỂU DÁNG CÔNG NGHIỆP
+                @Resource.TenKieuDangCongNghiep.ToUpper()
             </div>
         </div>
 
         <div style="width: 100%;height: 100px;">
             <div class="div-search-ad" style="width:50%;float:left">
                 <div class="div-search-title" style="height: 63px;">
-                    <div>Tên kiểu dáng công nghiệp<i class="redspan">(*)</i></div>
+                    <div> @Resource.TenKieuDangCongNghiep<i class="redspan">(*)</i></div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -202,7 +202,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                NGUỒN GỐC ĐƠN
+                @Resource.NguonGocDon.ToUpper()
             </div>
         </div>
 
@@ -225,14 +225,14 @@
             <div class="div-search-content">
                 <div class="div-radio" style="width:282px">
                     <input type="radio" name="1_rdonguongocdon" id="1_donrieng" value="1" @_ckk1 onchange="ChangeNguongocdon(1)">
-                    <label>Đơn độc lập</label>
+                    <label>@Resource.DonDocLap</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
                     <input type="radio" name="1_rdonguongocdon" id="1_dontach" value="2" @_ckk2 onchange="ChangeNguongocdon(2)">
-                    <label>Đơn được tách ra từ đơn khác</label>
+                    <label>@Resource.DonTachTuDonKhac</label>
                 </div>
             </div>
         </div>
@@ -240,7 +240,7 @@
         <div id="div_nguongocdon" class="@clsDisplayNone_Val" style="margin-top: 4px;">
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div style="width: 250px;">Kiểu dáng bảo hộ được tách ra từ đơn số: </div>
+                    <div style="width: 250px;">@Resource.DonNayDuocTachRa: </div>
                     <a href="javascript:;" st="" class="icon icon-info tip" data-placement="right" style="border:none"
                        data-title="@WebApps.Resources.Resource.TooltipDonTachRaTuDonSo"></a>
                 </div>
@@ -280,7 +280,7 @@
                         {
                             <input type="radio" name="1_rdoKetQuaThamDinh" id="1_rdchuacokqthamdinhnoidung" value="1" onchange="ChangeKQTD(1)">
                         }
-                        <label>Chưa có kết quả thẩm định nội dung</label>
+                        <label>@Resource.ChuaCoKetQuaThamDinh</label>
                     </div>
                 </div>
 
@@ -294,7 +294,7 @@
                         {
                             <input type="radio" name="1_rdoKetQuaThamDinh" id="1_rddacokqthamdinhnoidung" value="2" onchange="ChangeKQTD(2)">
                         }
-                        <label>Đã có kế quả thẩm định nội dung</label>
+                            <label>@Resource.DaCoKetQuaThamDinh</label>
                     </div>
                 </div>
             </div>
@@ -318,7 +318,7 @@
                         {
                             <input type="radio" name="1_radDonBanDauCo2PA" id="1_radDonBanDauCo2PA" value="1">
                         }
-                        <label>Đơn ban đầu có từ 2 phương án/ đối tượng trở lên nhưng bản chất các phương án/ đối tượng khác biệt đáng kể</label>
+                            <label>@Resource.DonBanDauCo2PA</label>
                     </div>
                 </div>
 
@@ -332,7 +332,7 @@
                         {
                             <input type="radio" name="1_radDonBanDauCo2PA" id="1_radDonBanDauNopCho1DoiTuong" value="2">
                         }
-                        <label>Đơn ban đầu nộp cho 1 đối tượng nhưng bản chất lại chứa đựng 2 đối tượng khác biệt đáng kể</label>
+                            <label>@Resource.DonBanDauCo1DT</label>
                     </div>
                 </div>
             </div>
@@ -346,7 +346,7 @@
             }
             <div class="div-search-ad @clsDisplayNone_Val" id="div_DaCoKetQua">
                 <div class="div-search-title">
-                    <div>Số hình phát sinh</div>
+                    <div>@Resource.SoHinhPhatSinh</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -408,7 +408,7 @@
 
         <div class="div_full_100_area classChuDonKhac clssDisplaynone" id="divChungDonKhac001">
             <input type="hidden" id="txt_id_ChuDon" value="@_max_Model_Id" />
-            <a href="javascript:;" onclick="return ThemChuDon();" style="text-decoration:underline; color: blue;float: left;">Thêm chủ đơn khác</a>
+            <a href="javascript:;" onclick="return ThemChuDon();" style="text-decoration:underline; color: blue;float: left;">@Resource.ThemChuDonKhac</a>
         </div>
 
         @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
@@ -439,7 +439,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                Tác giả
+                @Resource.TacGia
             </div>
         </div>
 
@@ -571,7 +571,7 @@
         @* 3. Bộ ảnh chụp/bản vẽ, gồm *@
         @{
             string _doc_id3 = "A03_03";
-            string _id3 = _doc_id3 + "|Doc_03|0|" + "Bộ ảnh chụp/bản vẽ, gồm" + "|" + "ảnh x" + "|1||" + "bộ";
+            string _id3 = _doc_id3 + "|Doc_03|0|" + Resource.BoAnhChupGom + "|" + Resource.Anh + " x" + "|1||" + Resource.Bo;
             string _value3 = "";
             if (dic_appDoc.ContainsKey(_doc_id3))
             {
