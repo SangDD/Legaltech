@@ -246,7 +246,7 @@
                 </div>
 
                 <div class="div-search-content">
-                    <input type="text" id="0_txtDonSo" onblur="return funcDetailDontach();" value="@objAppHeaderInfo.Appno" maxlength="20" placeholder="0_txtDonSo" />
+                    <input type="text" id="0_txtDonSo" onblur="return funcDetailDontach();" value="@objAppHeaderInfo.Appno" maxlength="20" />
                 </div>
                 <div class="div-search-title">
                     <div><a id="hrfDetailDonTach" href="javascript:;" target="_blank" style="color:blue;border:none">@WebApps.Resources.Resource.XemChiTiet</a></div>
@@ -497,7 +497,7 @@
                         </div>
                         <div class="div-search-content">
                             <div>
-                                <input type="text" placeholder="Tên Nhãn hiệu" value="@objAppHeaderInfo.CodeLogo" maxlength="20" id="0_txtTenNhanHieu" />
+                                <input type="text" value="@objAppHeaderInfo.CodeLogo" maxlength="20" id="0_txtTenNhanHieu" />
                             </div>
                         </div>
                     </div>
@@ -507,7 +507,7 @@
                             <div>@WebApps.Resources.Resource.lblMauSac:</div>
                         </div>
                         <div class="div-search-content">
-                            <div><input type="text" placeholder="0_MauSac" value="@objAppHeaderInfo.Color" maxlength="50" id="0_MauSac" /></div>
+                            <div><input type="text" value="@objAppHeaderInfo.Color" maxlength="50" id="0_MauSac" /></div>
                         </div>
                     </div>
 
@@ -517,7 +517,7 @@
                         </div>
                         <div class="div-search-content">
                             <div>
-                                <textarea id="0_MoTa" maxlength="2000" rows="5" cols="10" placeholder="Mô tả" style="height:128px">@objAppHeaderInfo.Description</textarea>
+                                <textarea id="0_MoTa" maxlength="2000" rows="5" cols="10" style="height:128px">@objAppHeaderInfo.Description</textarea>
                             </div>
                         </div>
                     </div>
@@ -527,7 +527,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="checkbox" name="0_NhanHieu" class="classNhanHieu" value="NHTT" @styleNhanHieu placeholder="0_NhanHieuTapThe" id="0_NhanHieuTapThe" />
+                        <input type="checkbox" name="0_NhanHieu" class="classNhanHieu" value="NHTT" @styleNhanHieu id="0_NhanHieuTapThe" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuTapThe</label>
                     </div>
                 </div>
@@ -536,7 +536,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="checkbox" name="0_NhanHieu" class="classNhanHieu" value="NHLK" @styleLienKet placeholder="0_NhanHieuLienKet" id="0_NhanHieuLienKet" />
+                        <input type="checkbox" name="0_NhanHieu" class="classNhanHieu" value="NHLK" @styleLienKet id="0_NhanHieuLienKet" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuLienKet</label>
                     </div>
                 </div>
@@ -545,7 +545,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="checkbox" name="0_NhanHieu" class="classNhanHieu" value="NHCN" @styleNhanHieuCN placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" />
+                        <input type="checkbox" name="0_NhanHieu" class="classNhanHieu" value="NHCN" @styleNhanHieuCN id="0_NhanHieuChungNhan" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
                     </div>
                 </div>
@@ -577,7 +577,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-checkbox">
-                        <input type="checkbox" name="0_ckbDacTinhHangHoa" @styleDacTinhHangHoa value="DTHH" placeholder="0_ckbDacTinhHangHoa" id="0_ckbDacTinhHangHoa" />
+                        <input type="checkbox" name="0_ckbDacTinhHangHoa" @styleDacTinhHangHoa value="DTHH"  id="0_ckbDacTinhHangHoa" />
                         <label>@WebApps.Resources.Resource.lblDacTinhHanghoa</label>
                     </div>
                 </div>
@@ -585,34 +585,34 @@
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" @styleNguonGocDL class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" placeholder="8_ckbNguonGocDiaLy" id="8_ckbNguonGocDiaLy" />
+                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" @styleNguonGocDL class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL"  id="8_ckbNguonGocDiaLy" />
                     <div style="width:250px">@WebApps.Resources.Resource.lblNguonGocDiaLy:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" id="8_txtNguonGocDiaLy" class="classDacTinhHangHoa" value="@objAppHeaderInfo.Nguongocdialy" disabled="disabled" maxlength="100" placeholder="@WebApps.Resources.Resource.lblNguonGocDiaLy" />
+                        <input type="text" id="8_txtNguonGocDiaLy" class="classDacTinhHangHoa" value="@objAppHeaderInfo.Nguongocdialy" disabled="disabled" maxlength="100" />
                     </div>
                 </div>
             </div>
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <input style="float: left;margin: 8px 0px 5px 5px;" type="checkbox" @styleChatluong name="8_ckbChatLuong" class="classDacTinhHangHoa" disabled="disabled" value="CLCL" placeholder="8_ckbChatLuong" id="8_ckbChatLuong" />
+                    <input style="float: left;margin: 8px 0px 5px 5px;" type="checkbox" @styleChatluong name="8_ckbChatLuong" class="classDacTinhHangHoa" disabled="disabled" value="CLCL" id="8_ckbChatLuong" />
                     <div>@WebApps.Resources.Resource.lblChatLuong:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" id="8_txtChatLuong" maxlength="100" value="@objAppHeaderInfo.Chatluong" class="classDacTinhHangHoa" disabled="disabled" placeholder="8_txtChatLuong" />
+                        <input type="text" id="8_txtChatLuong" maxlength="100" value="@objAppHeaderInfo.Chatluong" class="classDacTinhHangHoa" disabled="disabled" />
                     </div>
                 </div>
             </div>
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" @styleNguonGocDiaLy name="8_ckbDacTinhKhac" class="classDacTinhHangHoa" disabled="disabled" value="DTKK" placeholder="8_ckbDacTinhKhac" id="8_ckbDacTinhKhac" />
+                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" @styleNguonGocDiaLy name="8_ckbDacTinhKhac" class="classDacTinhHangHoa" disabled="disabled" value="DTKK" id="8_ckbDacTinhKhac" />
                     <div>@WebApps.Resources.Resource.lblDacTinhKhac:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" id="8_txtDacTinhKhac" maxlength="100" class="classDacTinhHangHoa" value="@objAppHeaderInfo.Nguongocdialy" disabled="disabled" placeholder="8_txtDacTinhKhac" />
+                        <input type="text" id="8_txtDacTinhKhac" maxlength="100" class="classDacTinhHangHoa" value="@objAppHeaderInfo.Nguongocdialy" disabled="disabled" />
                     </div>
                 </div>
             </div>
@@ -629,7 +629,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienPL" @styleDaiDienChuDon placeholder="3_txtNguoiDaiDienPL" id="3_txtNguoiDaiDienPL" />
+                        <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienPL" @styleDaiDienChuDon id="3_txtNguoiDaiDienPL" />
                         <label> @WebApps.Resources.Resource.lblLaNguoiDaiDienTheoPL</label>
                     </div>
                 </div>
@@ -639,7 +639,7 @@
 
             <div class="div-search-ad">
                 <div class="div-radio" style="width:60%">
-                    <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienSH" @styleDaiDienSH placeholder="3_txtToChucDaiDien" id="3_txtToChucDaiDien" />
+                    <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienSH" @styleDaiDienSH id="3_txtToChucDaiDien" />
                     <label>@WebApps.Resources.Resource.lblLaToChucDichVuDaiDienSoHuu</label>
                 </div>
 
@@ -647,7 +647,7 @@
                 <div class="div-search-content">
                     <div>
                         <label style="width:180px;display:inline-block ;border: 1px solid #aaa; padding-top: 5px;  padding-left: 2px;">@WebApps.Resources.Resource.lblMaDaiDien:</label>
-                        <input style="display:inline-block" type="text" placeholder="@WebApps.Resources.Resource.lblMaDaiDien" value="@objAppHeaderInfo.MADDSHCN" id="txtMADDSHCN" />
+                        <input style="display:inline-block" type="text" value="@objAppHeaderInfo.MADDSHCN" id="txtMADDSHCN" />
                     </div>
                 </div>
             </div>
@@ -657,7 +657,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienUyQuyen" @styleDaiDienUQ placeholder="3_txtToChucDaiDien" id="3_txtToChucDaiDien" />
+                        <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienUyQuyen" @styleDaiDienUQ id="3_txtToChucDaiDien" />
                         <label>@WebApps.Resources.Resource.lblLaNguoiKhacDuocUyQuyen</label>
                     </div>
                 </div>
@@ -671,7 +671,7 @@
                 <img src="/Content/icons/category.png">
                 <div class="cls_form_header">@WebApps.Resources.Resource.lblYeuCauHuongQuyenUT.ToUpper()</div>
                 <div style="display: inline-block;  padding-top: 8px; padding-left: 5px;">
-                    <input type="checkbox" name="0_ckbCoSuDungDonUuTien" @styleSuDungDonUT value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" onchange="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')" />
+                    <input type="checkbox" name="0_ckbCoSuDungDonUuTien" @styleSuDungDonUT value="SDUT" id="0_ckbCoSuDungDonUuTien" onchange="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')" />
                     <label><a style="color:blue" id="hrefCo" onclick="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')">@WebApps.Resources.Resource.lblCo</a></label>
                 </div>
                 <div style="display: inline-block;">
@@ -726,7 +726,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" placeholder="6_txtSoDon" value="@objAppHeaderInfo.Sodon_Ut" class="classDacTinhUT" maxlength="50" id="6_txtSoDon" />
+                            <input type="text" value="@objAppHeaderInfo.Sodon_Ut" class="classDacTinhUT" maxlength="50" id="6_txtSoDon" />
                         </div>
                     </div>
                 </div>
@@ -736,7 +736,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" placeholder="6_txtNgayNopDon" value="@objAppHeaderInfo.Duadate.ToString("dd/MM/yyyy")" class="classDacTinhUT datetimepicker" style="width:200px" maxlength="10" id="6_txtNgayNopDon" />
+                            <input type="text" value="@objAppHeaderInfo.Duadate.ToString("dd/MM/yyyy")" class="classDacTinhUT datetimepicker" style="width:200px" maxlength="10" id="6_txtNgayNopDon" />
                         </div>
                     </div>
                 </div>
@@ -766,7 +766,7 @@
                 <div class="div-search-ad">
                     <div class="div-search-content">
                         <div class="div-radio">
-                            <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" @styleYCHQUT value="NTVN" placeholder="4_ckbNopTaiVietNam" id="4_ckbNopTaiVietNam" />
+                            <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" @styleYCHQUT value="NTVN" id="4_ckbNopTaiVietNam" />
                             <label>@WebApps.Resources.Resource.lblTheoDonNopTaiVN</label>
                         </div>
                     </div>
@@ -774,7 +774,7 @@
                 <div class="div-search-ad">
                     <div class="div-search-content">
                         <div class="div-radio">
-                            <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" @styleCongUocPR value="CUPR" placeholder="4_ckbNopTaiParis" id="4_ckbNopTaiParis" />
+                            <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" @styleCongUocPR value="CUPR" id="4_ckbNopTaiParis" />
                             <label>@WebApps.Resources.Resource.lblTheoDonNopCongUocPR</label>
                         </div>
                     </div>
@@ -782,7 +782,7 @@
                 <div class="div-search-ad" style="display:inline-flex;">
                     <div class="div-search-content" style="width:385px">
                         <div class="div-radio" style="width:385px">
-                            <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" @styleTTK value="NTVN" placeholder="4_ckbThoaThuanKhac" id="4_ckbThoaThuanKhac" />
+                            <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" @styleTTK value="NTVN" id="4_ckbThoaThuanKhac" />
                             <label>@WebApps.Resources.Resource.lblTheoThoaThuanKhac</label>
                         </div>
                     </div>
@@ -802,7 +802,7 @@
                         </div>
                     </div>
                     <div class="div-search-content">
-                        <input type="text" id="6_txtTLCMQUT" disabled="disabled" value="@ObjInfo04NH_D_14.CHAR01" maxlength="3" placeholder="6_txtTLCMQUT" />
+                        <input type="text" id="6_txtTLCMQUT" disabled="disabled" value="@ObjInfo04NH_D_14.CHAR01" maxlength="3" />
                     </div>
                     <div class="div-search-title" style="width:412px">
                         <div>@WebApps.Resources.Resource.lblBan</div>
@@ -816,7 +816,7 @@
                         </div>
                     </div>
                     <div class="div-search-content">
-                        <input type="text" id="6_txtBSDDT" disabled="disabled" value="@ObjInfo04NH_D_15.CHAR01" maxlength="3" placeholder="6_txtBSDDT" />
+                        <input type="text" id="6_txtBSDDT" disabled="disabled" value="@ObjInfo04NH_D_15.CHAR01" maxlength="3" />
                     </div>
                     <div class="div-search-title" style="width:412px">
                         <div>@WebApps.Resources.Resource.lblBan</div>
@@ -847,7 +847,7 @@
                         </div>
                     </div>
                     <div class="div-search-content">
-                        <input type="text" id="6_txtBDTVGom" disabled="disabled" value="@ObjInfo04NH_D_16.CHAR01" maxlength="3" placeholder="6_txtBDTVGom" />
+                        <input type="text" id="6_txtBDTVGom" disabled="disabled" value="@ObjInfo04NH_D_16.CHAR01" maxlength="3" />
                     </div>
                     <div class="div-search-title" style="width:412px">
                         <div>@WebApps.Resources.Resource.lblBan</div>

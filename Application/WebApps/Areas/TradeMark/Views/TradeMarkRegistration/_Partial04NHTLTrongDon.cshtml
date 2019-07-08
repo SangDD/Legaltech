@@ -63,11 +63,13 @@
             </div>
         </div>
     </div>
+
+
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoChungTuPhiLP")
     @* An di theo yc cua khach hang *@
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
-            <div class="div-checkbox" style="width:600px">
+            <div class="div-checkbox" style="width:1000px">
                 <input type="checkbox" id="6_rdoGiayUyQuyen" name="6_rdoGiayUyQuyen" value="04NH_D_04" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>@WebApps.Resources.Resource.lblGiayUyQuyen</label> <a style="margin-top: -3px; border: none;padding-left: 20px;color: blue;" href="@href" target="_blank">@WebApps.Resources.Resource.lblMauTaiVe <i class="fas fa-download" style="color: blue; font-size: 20px;"></i> </a>
                 <label style="font-style:italic;color:red">&nbsp;(@WebApps.Resources.Resource.lblKhacHangFillThongTin)</label>
@@ -85,7 +87,7 @@
 
     <div class="div-search-ad" style="display:inline-flex;margin-left: 40px;">
         <div class="div-search-content">
-            <div class="div-checkbox" style="width:342px">
+            <div class="div-checkbox" style="width:960px">
                 <input type="checkbox" id="6_rdoBanGoc" value="04NH_D_05" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>@WebApps.Resources.Resource.lblBanGoc</label>
             </div>
@@ -97,7 +99,7 @@
     </div>
     <div class="div-search-ad" style="display:inline-flex;margin-left: 40px;">
         <div class="div-search-content">
-            <div class="div-checkbox" style="width:342px">
+            <div class="div-checkbox" style="width:960px">
                 <input type="checkbox" id="6_rdoBanSao" value="04NH_D_06" />
                 <label>@WebApps.Resources.Resource.lblBanSao</label>
             </div>
@@ -106,7 +108,7 @@
 
     <div class="div-search-ad" style="display:inline-flex;margin-left:80px">
         <div class="div-search-content">
-            <div class="div-radio" style="width:350px">
+            <div class="div-radio" style="width:920px">
                 <input type="radio" name="bansao" value="04NH_D_07" id="6_rdoBanGocSeNopSau" onchange="return ShowHidenUpLoadRadioClick(this.id, this.id);" />
                 <label>@WebApps.Resources.Resource.lblBanGocNopSau</label>
             </div>
@@ -117,7 +119,7 @@
     </div>
     <div class="div-search-ad" style="display:inline-flex;margin-left: 80px;">
         <div class="div-search-content">
-            <div class="div-radio" style="width:350px">
+            <div class="div-radio" style="width:761px">
                 <input type="radio" name="bansao" value="04NH_D_08" id="6_rdoBanGocDaNopTheoDonSo" onchange="return ShowHidenUpLoadRadioClick(this.id, this.id);" />
                 <label>@WebApps.Resources.Resource.lblBanGocNopTheoDonSo <a href="javascript:;" st class="icon icon-info" style="border:none" data-title="@WebApps.Resources.Resource.lblDatatitle04NHD08"></a></label>
             </div>
@@ -136,15 +138,15 @@
     </div>
     <div class="div-search-ad" style="display:inline-flex;margin-left: 40px;">
         <div class="div-search-content">
-            <div class="div-checkbox" style="width:342px">
+            <div class="div-checkbox" style="width:801px">
                 <input type="checkbox" id="6_rdoBanDichTiengViet" value="04NH_D_09" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>@WebApps.Resources.Resource.lblBanDichTiengVietGom</label>
             </div>
         </div>
         <div class="div-search-content">
-            <input type="text" id="6_txtBDTV_UQ" disabled="disabled" maxlength="3" />
+            <input type="text" id="6_txtBDTV_UQ" disabled="disabled" maxlength="3" style="width:160px"/>
         </div>
-        <div class="div-search-title" style="width:100px">
+        <div class="div-search-title" style="width:60px">
             <div>@WebApps.Resources.Resource.lblTrang</div>
         </div>
     </div>
@@ -153,13 +155,13 @@
     </div>
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
-            <div class="div-checkbox">
+            <div class="div-checkbox" style="width:841px">
                 <input type="checkbox" maxlength="3" value="04NH_D_10" id="6_rdoTLXNDPSD" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>@WebApps.Resources.Resource.lblTaiLieuXacNhanDuoc</label>
             </div>
         </div>
         <div class="div-search-content">
-            <input type="text" id="6_TLXNDPSD" disabled="disabled" maxlength="3" />
+            <input type="text" id="6_TLXNDPSD" disabled="disabled" maxlength="3" style="width:160px"/>
         </div>
         <div class="div-search-title" style="width:60px">
             <div>@WebApps.Resources.Resource.lblTrang</div>
@@ -168,7 +170,7 @@
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoTLXNDPSD")
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
-            <div class="div-checkbox" style="width:382px">
+            <div class="div-checkbox" style="width:1000px">
                 <input type="checkbox" maxlength="3" value="04NH_D_11" id="6_rdoTLDKNH" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>@WebApps.Resources.Resource.lblTaiLieuXacNhanQuyenDKNH</label>
             </div>
@@ -179,7 +181,7 @@
 
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
-            <div class="div-checkbox" style="width:382px">
+            <div class="div-checkbox" style="width:1000px">
                 <input type="checkbox" maxlength="3" value="04NH_D_12" id="6_rdoTLThuHuongNK" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>@WebApps.Resources.Resource.lblTaiLieuDKXacNhanThuHuong</label>
             </div>
@@ -189,7 +191,7 @@
     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoTLThuHuongNK")
     <div class="div-search-ad" style="display:inherit">
         <div class="div-search-content">
-            <div class="div-checkbox" style="width:382px">
+            <div class="div-checkbox" style="width:592px">
                 <input type="checkbox" maxlength="3" value="04NH_D_13" id="6_rdoQuyCheSDNH" name="6_rdoQuyCheSDNH" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>@WebApps.Resources.Resource.lblQuyCheSuDungNH</label>
             </div>
@@ -199,15 +201,15 @@
                 <input type="text" id="6_txtQuyCheSDNHTrang" disabled="disabled" style="width:160px" maxlength="3" placeholder="@WebApps.Resources.Resource.lblTrang" />
             </div>
         </div>
-        <div class="div-search-title" style="width:70px">
+        <div class="div-search-title" style="width:60px">
             <div>@WebApps.Resources.Resource.lblTrang </div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" id="6_txtQuyCheSDNHBan" disabled="disabled" maxlength="3" placeholder="@WebApps.Resources.Resource.lblSoBan" />
+                <input type="text" id="6_txtQuyCheSDNHBan" style="width:160px" disabled="disabled" maxlength="3" placeholder="@WebApps.Resources.Resource.lblSoBan" />
             </div>
         </div>
-        <div class="div-search-title" style="width:65px">
+        <div class="div-search-title" style="width:100px">
             <div>@WebApps.Resources.Resource.lblBan</div>
         </div>
     </div>
@@ -217,7 +219,7 @@
 
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
-            <div class="div-checkbox" style="width:382px">
+            <div class="div-checkbox" style="width:1000px">
                 <input type="checkbox" maxlength="3" value="04NH_D_18" id="6_rdoBanDoKVDL" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>@WebApps.Resources.Resource.lblBanDoKhuVucDiaLy</label>
             </div>
@@ -228,7 +230,7 @@
 
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
-            <div class="div-checkbox">
+            <div class="div-checkbox" style="width:1000px">
                 <input type="checkbox" maxlength="3" value="04NH_D_19" id="6_rdoVBuyBanTinh" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>@WebApps.Resources.Resource.lblVanBanUBNDTinh</label>
             </div>
@@ -240,7 +242,7 @@
 
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
-            <div class="div-checkbox" style="width:382px">
+            <div class="div-checkbox" style="width:1000px">
                 <input type="checkbox" maxlength="3" value="04NH_D_20" id="6_rdoTLKhaiTTBS" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                 <label>@WebApps.Resources.Resource.lblCoTaiLieuBoTro</label>
             </div>
@@ -250,7 +252,7 @@
 
     <div class="div-search-ad" style="display:inline-flex;">
         <div class="div-search-content">
-            <div class="div-checkbox" style="width:382px">
+            <div class="div-checkbox" style="width:1000px">
                 <input type="checkbox" value="04NH_D_22" name="6_rdoTLK" id="6_rdoTLK" />
                 <label>@WebApps.Resources.Resource.lblTaiLieuKhac</label>
             </div>

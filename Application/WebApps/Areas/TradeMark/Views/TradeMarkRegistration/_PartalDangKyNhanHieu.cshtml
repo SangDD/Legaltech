@@ -84,7 +84,7 @@
                 </div>
 
                 <div class="div-search-content">
-                    <input type="text" id="0_txtDonSo" onblur="return funcDetailDontach();" maxlength="20" placeholder="@WebApps.Resources.Resource.lblSoDon" />
+                    <input type="text" id="0_txtDonSo" onblur="return funcDetailDontach();" maxlength="20" />
                 </div>
 
                 <div class="div-search-title">
@@ -235,7 +235,7 @@
                         </div>
                         <div class="div-search-content">
                             <div>
-                                <input type="text" placeholder="@WebApps.Resources.Resource.lblTenNhanHieu" maxlength="18" id="0_txtTenNhanHieu" />
+                                <input type="text" maxlength="18" id="0_txtTenNhanHieu" />
                             </div>
                         </div>
                     </div>
@@ -246,7 +246,7 @@
                         </div>
                         <div class="div-search-content">
                             <div>
-                                <input type="text" placeholder="@WebApps.Resources.Resource.lblMauSac" maxlength="50" id="0_MauSac" />
+                                <input type="text" maxlength="50" id="0_MauSac" />
                             </div>
                         </div>
                     </div>
@@ -256,7 +256,7 @@
                         </div>
                         <div class="div-search-content">
                             <div>
-                                <textarea id="0_MoTa" maxlength="2000" rows="5" cols="10" placeholder="@WebApps.Resources.Resource.lblMoTa" style="height:102px"></textarea>
+                                <textarea id="0_MoTa" maxlength="2000" rows="5" cols="10" style="height:102px"></textarea>
                             </div>
                         </div>
                     </div>
@@ -301,7 +301,7 @@
                 <div class="div-search-content">
                     <div class="div-radio">
                         <input type="checkbox" name="0_NhanHieu" class="classNhanHieu" value="NHTT" 
-                               placeholder="0_NhanHieuTapThe" id="0_NhanHieuTapThe" />
+                               id="0_NhanHieuTapThe" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuTapThe</label>
                     </div>
                 </div>
@@ -311,7 +311,7 @@
                 <div class="div-search-content">
                     <div class="div-radio">
                         <input type="checkbox" name="0_NhanHieu" class="classNhanHieu" value="NHLK" 
-                               placeholder="0_NhanHieuLienKet" id="0_NhanHieuLienKet" />
+                               id="0_NhanHieuLienKet" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuLienKet</label>
                     </div>
                 </div>
@@ -320,7 +320,7 @@
                 <div class="div-search-content">
                     <div class="div-radio">
                         <input type="checkbox" name="0_NhanHieu" value="NHCN" class="classNhanHieu" 
-                               placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan"/>
+                               id="0_NhanHieuChungNhan"/>
                         <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
                     </div>
                 </div>
@@ -330,7 +330,7 @@
             @*<div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHTT" placeholder="0_NhanHieuTapThe" id="0_NhanHieuTapThe" />
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHTT"  id="0_NhanHieuTapThe" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuTapThe</label>
                     </div>
                 </div>
@@ -339,7 +339,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHLK" placeholder="0_NhanHieuLienKet" id="0_NhanHieuLienKet" />
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHLK" id="0_NhanHieuLienKet" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuLienKet</label>
                     </div>
                 </div>
@@ -347,7 +347,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" value="NHCN" class="classNhanHieu" placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" />
+                        <input type="radio" name="0_NhanHieu" value="NHCN" class="classNhanHieu" id="0_NhanHieuChungNhan" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
                     </div>
                 </div>
@@ -361,7 +361,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-checkbox">
-                        <input type="checkbox" name="0_ckbDacTinhHangHoa" value="DTHH" placeholder="0_ckbDacTinhHangHoa" id="0_ckbDacTinhHangHoa" />
+                        <input type="checkbox" name="0_ckbDacTinhHangHoa" value="DTHH" id="0_ckbDacTinhHangHoa" />
                         <label>@WebApps.Resources.Resource.lblDacTinhHanghoa</label>
                     </div>
                 </div>
@@ -369,36 +369,36 @@
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" placeholder="8_ckbNguonGocDiaLy" id="8_ckbNguonGocDiaLy" />
+                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" id="8_ckbNguonGocDiaLy" />
                     <div style="width:250px">@WebApps.Resources.Resource.lblNguonGocDiaLy:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" id="8_txtNguonGocDiaLy" class="classDacTinhHangHoa" disabled="disabled" maxlength="100" placeholder="@WebApps.Resources.Resource.lblNguonGocDiaLy" />
+                        <input type="text" id="8_txtNguonGocDiaLy" class="classDacTinhHangHoa" disabled="disabled" maxlength="100" />
                     </div>
                 </div>
             </div>
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" name="8_ckbChatLuong" class="classDacTinhHangHoa" disabled="disabled" value="CLCL" placeholder="8_ckbChatLuong" id="8_ckbChatLuong" />
+                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" name="8_ckbChatLuong" class="classDacTinhHangHoa" disabled="disabled" value="CLCL"  id="8_ckbChatLuong" />
                     <div>@WebApps.Resources.Resource.lblChatLuong:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" id="8_txtChatLuong" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" placeholder="@WebApps.Resources.Resource.lblChatLuong" />
+                        <input type="text" id="8_txtChatLuong" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" />
                     </div>
                 </div>
             </div>
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" name="8_ckbDacTinhKhac" class="classDacTinhHangHoa" disabled="disabled" value="DTKK" placeholder="8_ckbDacTinhKhac" id="8_ckbDacTinhKhac" />
+                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" name="8_ckbDacTinhKhac" class="classDacTinhHangHoa" disabled="disabled" value="DTKK" id="8_ckbDacTinhKhac" />
                     <div>@WebApps.Resources.Resource.lblDacTinhKhac:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" id="8_txtDacTinhKhac" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" placeholder="@WebApps.Resources.Resource.lblDacTinhKhac" />
+                        <input type="text" id="8_txtDacTinhKhac" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" />
                     </div>
                 </div>
             </div>
@@ -414,7 +414,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienPL" placeholder="3_txtNguoiDaiDienPL" id="3_txtNguoiDaiDienPL" />
+                        <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienPL" id="3_txtNguoiDaiDienPL" />
                         <label>@WebApps.Resources.Resource.lblLaNguoiDaiDienTheoPL</label>
                     </div>
                 </div>
@@ -426,7 +426,7 @@
             <div class="div-search-ad">
                 @*<div class="div-search-content">*@
                 <div class="div-radio" style="width:60%">
-                    <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienSH" placeholder="3_txtToChucDaiDien" id="3_txtToChucDaiDien" />
+                    <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienSH" id="3_txtToChucDaiDien" />
                     <label>@WebApps.Resources.Resource.lblLaToChucDichVuDaiDienSoHuu</label>
                 </div>
 
@@ -434,7 +434,7 @@
                 <div class="div-search-content">
                     <div>
                         <label style="width:180px;display:inline-block ;border: 1px solid #aaa; padding-top: 5px;  padding-left: 2px;">@WebApps.Resources.Resource.lblMaDaiDien:</label>
-                        <input style="display:inline-block" type="text" placeholder="@WebApps.Resources.Resource.lblMaDaiDien" value="" id="txtMADDSHCN" />
+                        <input style="display:inline-block" type="text" value="" id="txtMADDSHCN" />
                     </div>
                 </div>
                 @*</div>*@
@@ -446,7 +446,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienUyQuyen" placeholder="3_txtToChucDaiDien" id="3_txtToChucDaiDien" />
+                        <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienUyQuyen" id="3_txtToChucDaiDien" />
                         <label>@WebApps.Resources.Resource.lblLaNguoiKhacDuocUyQuyen</label>
                     </div>
                 </div>
@@ -461,7 +461,7 @@
                 <img src="/Content/icons/category.png">
                 <div class="cls_form_header">@WebApps.Resources.Resource.lblYeuCauHuongQuyenUT.ToUpper()</div>
                 <div style="display: inline-block;  padding-top: 8px; padding-left: 5px;">
-                    <input type="checkbox" name="0_ckbCoSuDungDonUuTien" value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" onchange="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')" />
+                    <input type="checkbox" name="0_ckbCoSuDungDonUuTien" value="SDUT" id="0_ckbCoSuDungDonUuTien" onchange="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')" />
                     <label><a style="color:blue ;font-weight:bold" id="hrefCo" onclick="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')">@WebApps.Resources.Resource.lblYes</a></label>
                 </div>
                 <div style="display: inline-block;">
@@ -515,7 +515,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input type="text" placeholder="@WebApps.Resources.Resource.lblSoDon" class="classDacTinhUT" maxlength="50" id="6_txtSoDon" />
+                            <input type="text" class="classDacTinhUT" maxlength="50" id="6_txtSoDon" />
                         </div>
                     </div>
                 </div>
@@ -525,7 +525,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input  type="text" placeholder="@WebApps.Resources.Resource.lblNgayNopDon" class="classDacTinhUT" style="width:200px" maxlength="10" id="6_txtNgayNopDon" />
+                            <input  type="text" class="classDacTinhUT datetimepicker" style="width:200px" maxlength="10" id="6_txtNgayNopDon" />
                         </div>
                     </div>
                 </div>
@@ -548,7 +548,7 @@
                 <div class="div-search-ad">
                     <div class="div-search-content">
                         <div class="div-radio">
-                            <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="NTVN" placeholder="4_ckbNopTaiVietNam" id="4_ckbNopTaiVietNam" />
+                            <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="NTVN" id="4_ckbNopTaiVietNam" />
                             <label>@WebApps.Resources.Resource.lblTheoDonNopTaiVN</label>
                         </div>
                     </div>
@@ -557,7 +557,7 @@
                 <div class="div-search-ad">
                     <div class="div-search-content">
                         <div class="div-radio">
-                            <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="CUPR" placeholder="4_ckbNopTaiParis" id="4_ckbNopTaiParis" />
+                            <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="CUPR" id="4_ckbNopTaiParis" />
                             <label>@WebApps.Resources.Resource.lblTheoDonNopCongUocPR</label>
                         </div>
                     </div>
@@ -566,13 +566,13 @@
                 <div class="div-search-ad" style="display:inline-flex;">
                     <div class="div-search-content" style="width:385px">
                         <div class="div-radio" style="width:385px">
-                            <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="TTTK" placeholder="4_ckbThoaThuanKhac" id="4_ckbThoaThuanKhac" />
+                            <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="TTTK" id="4_ckbThoaThuanKhac" />
                             <label>@WebApps.Resources.Resource.lblTheoThoaThuanKhac</label>
                         </div>
                     </div>
                     @* Moithem *@
                     <div class="div-search-content">
-                        <input type="text" id="txtThoathuanKhac" placeholder="@WebApps.Resources.Resource.lblTheoThoaThuanKhac" maxlength="150" />
+                        <input type="text" id="txtThoathuanKhac" maxlength="150" />
                     </div>
                 </div>
 
@@ -580,29 +580,29 @@
                 @* TÀI LIEU ƯU TIEN *@
                 <div class="div-search-ad" style="display:inline-flex;">
                     <div class="div-search-content">
-                        <div class="div-checkbox" style="width:422px">
+                        <div class="div-checkbox" style="width:426px">
                             <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_14" id="6_rdoTLCMQUT" name="NameTLUT04NH_D_14" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                             <label>@WebApps.Resources.Resource.lblTaiLieuChungMinhQuyenUuTien</label>
                         </div>
                     </div>
                     <div class="div-search-content">
-                        <input type="text" id="6_txtTLCMQUT" disabled="disabled" maxlength="3" placeholder="@WebApps.Resources.Resource.lblSoBan" />
+                        <input type="text" id="6_txtTLCMQUT" disabled="disabled" maxlength="3" />
                     </div>
-                    <div class="div-search-title" style="width:412px">
+                    <div class="div-search-title">
                         <div>bản</div>
                     </div>
                 </div>
                 <div class="div-search-ad" style="display:inline-flex;    margin-left: 40px;">
                     <div class="div-search-content">
-                        <div class="div-checkbox" style="width:280px">
+                        <div class="div-checkbox" style="width:382px">
                             <input type="checkbox" maxlength="3" class="classDacTinhUT" value="04NH_D_15" id="6_rdoBSDDT" name="NameTLUT04NH_D_15" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                             <label>@WebApps.Resources.Resource.lblbanSaoDauTienGom</label>
                         </div>
                     </div>
                     <div class="div-search-content">
-                        <input type="text" id="6_txtBSDDT" disabled="disabled" maxlength="3" placeholder="@WebApps.Resources.Resource.lblSoBan" />
+                        <input type="text" id="6_txtBSDDT" disabled="disabled" maxlength="3" />
                     </div>
-                    <div class="div-search-title" style="width:493px">
+                    <div class="div-search-title">
                         <div>@WebApps.Resources.Resource.lblBan</div>
                     </div>
                 </div>
@@ -611,15 +611,15 @@
                 </div>
                 <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
                     <div class="div-search-content">
-                        <div class="div-checkbox">
+                        <div class="div-checkbox"  style="width:382px">
                             <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_16" id="6_rdoBDTVGom" name="NameTLUT04NH_D_16" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                             <label>@WebApps.Resources.Resource.lblBanDichTiengVietGom</label>
                         </div>
                     </div>
                     <div class="div-search-content">
-                        <input type="text" id="6_txtBDTVGom" disabled="disabled" maxlength="3" placeholder="@WebApps.Resources.Resource.lblSoBan" />
+                        <input type="text" id="6_txtBDTVGom" disabled="disabled" maxlength="3" />
                     </div>
-                    <div class="div-search-title" style="width:510px">
+                    <div class="div-search-title">
                         <div>@WebApps.Resources.Resource.lblBan</div>
                     </div>
                 </div>
