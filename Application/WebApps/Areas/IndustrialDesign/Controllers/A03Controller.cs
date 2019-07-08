@@ -1019,6 +1019,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 return Json(new { success = 0 });
             }
         }
+
         public static void Prepare_Data_Export_A03(ref A03_Info_Export app_Detail, ApplicationHeaderInfo applicationHeaderInfo,
            List<AppDocumentInfo> appDocumentInfos, List<AppFeeFixInfo> _lst_appFeeFixInfos,
            List<AuthorsInfo> _lst_authorsInfos, List<Other_MasterInfo> _lst_Other_MasterInfo,
