@@ -17,6 +17,7 @@ namespace DataAccess
                 OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
                 OracleHelper.ExcuteBatchNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_don_uu_tien.Proc_App_Don_Uu_Tien_Insert", pInfo.Count,
                     new OracleParameter("p_id", OracleDbType.Decimal, pInfo.Select(o => o.Id).ToArray(), ParameterDirection.Input),
+                    new OracleParameter("p_app_header_id", OracleDbType.Decimal, pInfo.Select(o => o.App_Header_Id).ToArray(), ParameterDirection.Input),
                     new OracleParameter("p_case_code", OracleDbType.Varchar2, pInfo.Select(o => o.Case_Code).ToArray(), ParameterDirection.Input),
                     new OracleParameter("p_ut_sodon", OracleDbType.Varchar2, pInfo.Select(o => o.UT_SoDon).ToArray(), ParameterDirection.Input),
                     new OracleParameter("p_ut_ngaynopdon", OracleDbType.Date, pInfo.Select(o => o.UT_NgayNopDon).ToArray(), ParameterDirection.Input),

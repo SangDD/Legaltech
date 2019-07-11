@@ -48,6 +48,7 @@ namespace ObjectInfos
 
         public decimal Author_Country { set; get; }
         public string Author_Country_Display { set; get; }
+        public decimal App_Header_Id { set; get; }
     }
 
     public class UTienInfo
@@ -62,6 +63,6 @@ namespace ObjectInfos
         public string UT_Type { set; get; }
         public string UT_ThoaThuanKhac { set; get; }
         public decimal DaAddd_DonUTKhac { get; set; }
-
+        public decimal App_Header_Id { set; get; }
     }
 }

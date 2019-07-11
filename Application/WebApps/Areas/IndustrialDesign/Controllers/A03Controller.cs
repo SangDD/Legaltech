@@ -180,6 +180,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                         foreach (var item in pAppAuthorsInfo)
                         {
                             item.Case_Code = p_case_code;
+                            item.App_Header_Id = pAppHeaderID;
                         }
                         decimal _re = _Author_BL.Insert(pAppAuthorsInfo);
                         if (_re <= 0)
@@ -191,6 +192,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                         foreach (var item in pOther_MasterInfo)
                         {
                             item.Case_Code = p_case_code;
+                            item.App_Header_Id = pAppHeaderID;
                         }
 
                         decimal _re = _Other_Master_BL.Insert(pOther_MasterInfo);
@@ -203,6 +205,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                         foreach (var item in pUTienInfo)
                         {
                             item.Case_Code = p_case_code;
+                            item.App_Header_Id = pAppHeaderID;
                         }
 
                         Uu_Tien_BL _Uu_Tien_BL = new Uu_Tien_BL();
@@ -410,6 +413,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                         foreach (var item in pAppAuthorsInfo)
                         {
                             item.Case_Code = pInfo.Case_Code;
+                            item.App_Header_Id = pAppHeaderID;
                         }
                         decimal _re = _Author_BL.Insert(pAppAuthorsInfo);
                         if (_re <= 0)
@@ -424,6 +428,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                         foreach (var item in pOther_MasterInfo)
                         {
                             item.Case_Code = pInfo.Case_Code;
+                            item.App_Header_Id = pAppHeaderID;
                         }
 
                         decimal _re = _Other_Master_BL.Insert(pOther_MasterInfo);
@@ -440,6 +445,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                         foreach (var item in pUTienInfo)
                         {
                             item.Case_Code = pInfo.Case_Code;
+                            item.App_Header_Id = pAppHeaderID;
                         }
 
                         decimal _re = _Uu_Tien_BL.Insert(pUTienInfo);
