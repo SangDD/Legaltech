@@ -224,7 +224,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input class="datetimepicker" value="@strDuaDate" type="text" id="0_txtNgayNopDon" maxlength="10"   />
+                        <input class="datetimepicker" value="@strDuaDate" type="text" id="0_txtNgayNopDon" maxlength="10" />
                     </div>
                 </div>
             </div>
@@ -364,7 +364,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input  type="number" readonly onchange="changeFontSize()" id="txtFontSize" value="@(objAppHeaderInfo.LOGO_FONT_SIZE==0?12:objAppHeaderInfo.LOGO_FONT_SIZE)" style="height: 24px;width: 300px;padding: 3px 0px 1px 0px;display:none" />
+                            <input type="number" readonly onchange="changeFontSize()" id="txtFontSize" value="@(objAppHeaderInfo.LOGO_FONT_SIZE==0?12:objAppHeaderInfo.LOGO_FONT_SIZE)" style="height: 24px;width: 300px;padding: 3px 0px 1px 0px;display:none" />
                         </div>
                     </div>
                 </div>
@@ -373,11 +373,11 @@
                     <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
                        data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
                     <br />
-                  
 
-                <div class="class_block_title_control divLogoAnh" style="display:flex">
+
+                    <div class="class_block_title_control divLogoAnh" style="display:flex">
                         @if (objAppHeaderInfo.Logochu != 1)
-            {
+                        {
                             <div style="width:165px ;height:165px;margin-left:10px" id="divLogo">
                                 <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
                                 <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
@@ -386,7 +386,7 @@
                                 <img onclick="funcRemoveTradeMarkImg('imgMauNhanHieu')" src="~/Content/icons/delete_file.png" style="margin: 0px 21px -44px 4px;" />
                                 <div class="file-upload btn btn-primary" style="margin-top:95px">
                                     <span>@WebApps.Resources.Resource.lblTaiFile</span>
-                                    <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
+                                    <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" onchange="Change_MauNhanHieu()" />
                                 </div>
                             </div>
                         }
@@ -405,37 +405,34 @@
                 </div>
 
                 <script>
-                            $(document).ready(function () {
-                                funcChangeLogoType();
-                            });
-                            function funcChangeLogoType()
-                            {
-                                try {
-                                    if($("#cboLogoType").val() == "1")
-                                    {
-                                        $("#divLogo").css('display', 'none');
-                                        $("#divLogoHiden").css('display', 'none');
-                                        $("#divckbNhanHieuChu").css('display', 'block');
-                                        $("#spfontsize").css('display', 'block');
-                                        $("#txtFontSize").css('display', 'block');
-                                        $("#iddivLogoAnh").css('display', 'none');
+                    $(document).ready(function () {
+                        funcChangeLogoType();
+                    });
+                    function funcChangeLogoType() {
+                        try {
+                            if ($("#cboLogoType").val() == "1") {
+                                $("#divLogo").css('display', 'none');
+                                $("#divLogoHiden").css('display', 'none');
+                                $("#divckbNhanHieuChu").css('display', 'block');
+                                $("#spfontsize").css('display', 'block');
+                                $("#txtFontSize").css('display', 'block');
+                                $("#iddivLogoAnh").css('display', 'none');
 
-                                    }
-                                    else
-                                    {
-                                        $("#divckbNhanHieuChu").css('display', 'none');
-                                        $("#divLogo").css('display', 'block');
-                                        $("#divLogoHiden").css('display', 'block');
-
-                                        $("#spfontsize").css('display', 'none');
-                                        $("#txtFontSize").css('display', 'none');
-                                        $("#iddivLogoAnh").css('display', 'block');
-                                    }
-
-                                } catch (e) {
-                                    console.log(e.toString());
-                                }
                             }
+                            else {
+                                $("#divckbNhanHieuChu").css('display', 'none');
+                                $("#divLogo").css('display', 'block');
+                                $("#divLogoHiden").css('display', 'block');
+
+                                $("#spfontsize").css('display', 'none');
+                                $("#txtFontSize").css('display', 'none');
+                                $("#iddivLogoAnh").css('display', 'block');
+                            }
+
+                        } catch (e) {
+                            console.log(e.toString());
+                        }
+                    }
 
                 </script>
 
@@ -518,7 +515,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" class="classNhanHieu"  value="NHLK" @styleLienKet @styleDich placeholder="0_NhanHieuLienKet" id="0_NhanHieuLienKet" />
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHLK" @styleLienKet @styleDich placeholder="0_NhanHieuLienKet" id="0_NhanHieuLienKet" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuLienKet</label>
                     </div>
                 </div>
@@ -527,7 +524,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" class="classNhanHieu"  value="NHCN" @styleNhanHieuCN @styleDich placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" />
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHCN" @styleNhanHieuCN @styleDich placeholder="0_NhanHieuChungNhan" id="0_NhanHieuChungNhan" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
                     </div>
                 </div>
@@ -656,7 +653,7 @@
 
             <div class="div-search-ad">
                 <div class="div-radio" style="width:60%">
-                    <input type="radio" name="3_rdoDaiDienChuDon"  class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienSH" @styleDaiDienSH placeholder="3_txtToChucDaiDien" id="3_txtToChucDaiDien" />
+                    <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienSH" @styleDaiDienSH placeholder="3_txtToChucDaiDien" id="3_txtToChucDaiDien" />
                     <label>@WebApps.Resources.Resource.lblLaToChucDichVuDaiDienSoHuu</label>
                 </div>
 
@@ -674,7 +671,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="3_rdoDaiDienChuDon"  class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienUyQuyen" @styleDaiDienUQ placeholder="3_txtToChucDaiDien" id="3_txtToChucDaiDien" />
+                        <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienUyQuyen" @styleDaiDienUQ placeholder="3_txtToChucDaiDien" id="3_txtToChucDaiDien" />
                         <label>@WebApps.Resources.Resource.lblLaNguoiKhacDuocUyQuyen</label>
                     </div>
                 </div>
@@ -1229,9 +1226,11 @@
             $("#6_txtNuocNopDon").multipleSelect("disable")
         }
     });
+
     var _checkanh = 0;
-    document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {
-          _checkanh = 0;
+
+    function Change_MauNhanHieu() {
+        _checkanh = 0;
         var preturn = fileNhanHieu(this, 'imgMauNhanHieu');
 
         //kiểm tra ảnh có đúng kích cỡ hay không?
@@ -1268,7 +1267,11 @@
             nvsAlert("@Html.Raw(WebApps.Resources.Resource.ThongBao)", "@Html.Raw(WebApps.Resources.Resource.FileKhongPhaiLaAnh)", "");
             _checkanh = 2;
         }
-    };
+    }
+
+    //document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {
+
+    //};
 
     function funcUpLoadMauNhanHieu(pFile) {
         try {
@@ -1868,14 +1871,22 @@
             //}
             formdata.append("pDetail.LoaiNhanHieu", v_NhanHieu);
 
-
-            var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
-            if (fileLogo != undefined || fileLogo != null) {
-                formdata.append("pDetail.pfileLogo", fileLogo[0].files[0]);
+            if ($("#cboLogoType").val() == "1") {
+                formdata.append("pDetail.Logochu", 1);
+                formdata.append("pDetail.ChuLogo", $("#txtChuNhanHieu").val());
+                formdata.append("pDetail.LOGO_FONT_SIZE", $("#txtFontSize").val());
+                formdata.append("pDetail.FONTTYPE", "");
             } else {
-                showError('Mẫu nhãn hiệu không được để trống');
-                $("#pfile_6_rdoMauNhanHieu").focus();
+                formdata.append("pDetail.Logochu", $("#cboLogoType").val());
+                var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
+                if (fileLogo != undefined || fileLogo != null) {
+                    formdata.append("pDetail.pfileLogo", fileLogo[0].files[0]);
+                } else {
+                    showError('Mẫu nhãn hiệu không được để trống');
+                    $("#pfile_6_rdoMauNhanHieu").focus();
+                }
             }
+
 
             var v_DacTinh = 0;
             if ($("#0_ckbDacTinhHangHoa").prop('checked') == true) {
