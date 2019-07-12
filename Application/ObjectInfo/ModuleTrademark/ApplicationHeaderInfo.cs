@@ -22,6 +22,8 @@ namespace ObjectInfos
 
     public class ApplicationHeaderInfo
     {
+        public string View_Language_Report { get; set; }
+
         public decimal UpdateToDo { get; set; }
         public decimal STT { get; set; }
         public decimal Id { get; set; }

@@ -137,117 +137,15 @@
                     }
 
                     #region Phí cố định
-
-                    #region Phí thẩm định yêu cầu sửa đổi đơn
-                    List<AppFeeFixInfo> _lstFeeFix = new List<AppFeeFixInfo>();
-                    AppFeeFixInfo _AppFeeFixInfo1 = new AppFeeFixInfo();
-                    _AppFeeFixInfo1.Fee_Id = 1;
-                    _AppFeeFixInfo1.Isuse = 1;
-                    //_AppFeeFixInfo1.App_Header_Id = pAppHeaderID;
-                    _AppFeeFixInfo1.Number_Of_Patent = pDetail.App_No_Change.Split(',').Length;
-
-                    string _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo1.Fee_Id.ToString();
-                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                    List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_3B(pDetail);
+                    if (_lstFeeFix.Count > 0)
                     {
-                        _AppFeeFixInfo1.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo1.Number_Of_Patent;
-                    }
-                    else
-                        _AppFeeFixInfo1.Amount = 160000 * _AppFeeFixInfo1.Number_Of_Patent;
-                    _lstFeeFix.Add(_AppFeeFixInfo1);
-                    #endregion
-
-                    #region Phí công bố thông tin đơn sửa đổi
-                    AppFeeFixInfo _AppFeeFixInfo2 = new AppFeeFixInfo();
-                    _AppFeeFixInfo2.Fee_Id = 2;
-                    _AppFeeFixInfo2.Isuse = 1;
-                    //_AppFeeFixInfo2.App_Header_Id = pAppHeaderID;
-                    _AppFeeFixInfo2.Number_Of_Patent = pDetail.App_No_Change.Split(',').Length;
-
-                    _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo2.Fee_Id.ToString();
-                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                    {
-                        _AppFeeFixInfo2.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo2.Number_Of_Patent;
-                    }
-                    else
-                        _AppFeeFixInfo2.Amount = 160000 * _AppFeeFixInfo2.Number_Of_Patent;
-                    _lstFeeFix.Add(_AppFeeFixInfo2);
-                    #endregion
-
-                    #region Đơn có trên 1 hình (từ hình thứ hai trở đi)
-                    AppFeeFixInfo _AppFeeFixInfo21 = new AppFeeFixInfo();
-                    _AppFeeFixInfo21.Fee_Id = 21;
-                    //_AppFeeFixInfo21.App_Header_Id = pAppHeaderID;
-
-                    _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo21.Fee_Id.ToString();
-                    decimal _numberPicOver = 1;
-                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                    {
-                        _numberPicOver = Convert.ToDecimal(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01);
+                        AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
+                        pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, p_case_code);
+                        if (pReturn < 0)
+                            goto Commit_Transaction;
                     }
 
-                    // nếu số hình > số hình quy định
-                    if (pDetail.Number_Pic > _numberPicOver)
-                    {
-                        _AppFeeFixInfo21.Isuse = 1;
-                        _AppFeeFixInfo21.Number_Of_Patent = (pDetail.Number_Pic - _numberPicOver);
-
-                        if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                        {
-                            _AppFeeFixInfo21.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo21.Number_Of_Patent;
-                        }
-                        else
-                            _AppFeeFixInfo21.Amount = 60000 * _AppFeeFixInfo21.Number_Of_Patent;
-
-                    }
-                    else
-                    {
-                        _AppFeeFixInfo21.Isuse = 0;
-                        _AppFeeFixInfo21.Number_Of_Patent = 0;
-                        _AppFeeFixInfo21.Amount = 0;
-                    }
-                    _lstFeeFix.Add(_AppFeeFixInfo21);
-
-                    #endregion
-
-                    #region Bản mô tả sáng chế có trên 6 trang (từ trang thứ 7 trở đi)  
-                    AppFeeFixInfo _AppFeeFixInfo22 = new AppFeeFixInfo();
-                    _AppFeeFixInfo22.Fee_Id = 22;
-                    //_AppFeeFixInfo22.App_Header_Id = pAppHeaderID;
-
-                    _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo22.Fee_Id.ToString();
-                    decimal _numberPageOver = 6;
-                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                    {
-                        _numberPageOver = Convert.ToDecimal(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01);
-                    }
-
-                    // nếu số hình > số hình quy định
-                    if (pDetail.Number_Page > _numberPageOver)
-                    {
-                        _AppFeeFixInfo22.Isuse = 1;
-                        _AppFeeFixInfo22.Number_Of_Patent = (pDetail.Number_Page - _numberPageOver);
-
-                        if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                        {
-                            _AppFeeFixInfo22.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo22.Number_Of_Patent;
-                        }
-                        else
-                            _AppFeeFixInfo22.Amount = 10000 * _AppFeeFixInfo22.Number_Of_Patent;
-
-                    }
-                    else
-                    {
-                        _AppFeeFixInfo22.Isuse = 0;
-                        _AppFeeFixInfo22.Number_Of_Patent = 0;
-                        _AppFeeFixInfo22.Amount = 0;
-                    }
-                    _lstFeeFix.Add(_AppFeeFixInfo22);
-                    #endregion
-
-                    AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
-                    pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, p_case_code);
-                    if (pReturn < 0)
-                        goto Commit_Transaction;
                     #endregion
 
                     #region Tai lieu dinh kem 
@@ -346,120 +244,20 @@
                     }
 
                     #region Phí cố định
-
-                    #region Phí thẩm định yêu cầu sửa đổi đơn
-                    List<AppFeeFixInfo> _lstFeeFix = new List<AppFeeFixInfo>();
-                    AppFeeFixInfo _AppFeeFixInfo1 = new AppFeeFixInfo();
-                    _AppFeeFixInfo1.Fee_Id = 1;
-                    _AppFeeFixInfo1.Isuse = 1;
-                    //_AppFeeFixInfo1.App_Header_Id = pInfo.Id;
-                    _AppFeeFixInfo1.Number_Of_Patent = pDetail.App_No_Change.Split(',').Length;
-
-                    string _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo1.Fee_Id.ToString();
-                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                    {
-                        _AppFeeFixInfo1.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo1.Number_Of_Patent;
-                    }
-                    else
-                        _AppFeeFixInfo1.Amount = 160000 * _AppFeeFixInfo1.Number_Of_Patent;
-                    _lstFeeFix.Add(_AppFeeFixInfo1);
-                    #endregion
-
-                    #region Phí công bố thông tin đơn sửa đổi
-                    AppFeeFixInfo _AppFeeFixInfo2 = new AppFeeFixInfo();
-                    _AppFeeFixInfo2.Fee_Id = 2;
-                    _AppFeeFixInfo2.Isuse = 1;
-                    //_AppFeeFixInfo2.App_Header_Id = pInfo.Id;
-                    _AppFeeFixInfo2.Number_Of_Patent = pDetail.App_No_Change.Split(',').Length;
-
-                    _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo2.Fee_Id.ToString();
-                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                    {
-                        _AppFeeFixInfo2.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo2.Number_Of_Patent;
-                    }
-                    else
-                        _AppFeeFixInfo2.Amount = 160000 * _AppFeeFixInfo2.Number_Of_Patent;
-                    _lstFeeFix.Add(_AppFeeFixInfo2);
-                    #endregion
-
-                    #region Đơn có trên 1 hình (từ hình thứ hai trở đi)
-                    AppFeeFixInfo _AppFeeFixInfo21 = new AppFeeFixInfo();
-                    _AppFeeFixInfo21.Fee_Id = 21;
-                    //_AppFeeFixInfo21.App_Header_Id = pInfo.Id;
-
-                    _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo21.Fee_Id.ToString();
-                    decimal _numberPicOver = 1;
-                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                    {
-                        _numberPicOver = Convert.ToDecimal(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01);
-                    }
-
-                    // nếu số hình > số hình quy định
-                    if (pDetail.Number_Pic > _numberPicOver)
-                    {
-                        _AppFeeFixInfo21.Isuse = 1;
-                        _AppFeeFixInfo21.Number_Of_Patent = (pDetail.Number_Pic - _numberPicOver);
-
-                        if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                        {
-                            _AppFeeFixInfo21.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo21.Number_Of_Patent;
-                        }
-                        else
-                            _AppFeeFixInfo21.Amount = 60000 * _AppFeeFixInfo21.Number_Of_Patent;
-
-                    }
-                    else
-                    {
-                        _AppFeeFixInfo21.Isuse = 0;
-                        _AppFeeFixInfo21.Number_Of_Patent = 0;
-                        _AppFeeFixInfo21.Amount = 0;
-                    }
-                    _lstFeeFix.Add(_AppFeeFixInfo21);
-
-                    #endregion
-
-                    #region Bản mô tả sáng chế có trên 6 trang (từ trang thứ 7 trở đi)  
-                    AppFeeFixInfo _AppFeeFixInfo22 = new AppFeeFixInfo();
-                    _AppFeeFixInfo22.Fee_Id = 22;
-                    //_AppFeeFixInfo22.App_Header_Id = pInfo.Id;
-
-                    _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo22.Fee_Id.ToString();
-                    decimal _numberPageOver = 6;
-                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                    {
-                        _numberPageOver = Convert.ToDecimal(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01);
-                    }
-
-                    // nếu số hình > số hình quy định
-                    if (pDetail.Number_Page > _numberPageOver)
-                    {
-                        _AppFeeFixInfo22.Isuse = 1;
-                        _AppFeeFixInfo22.Number_Of_Patent = (pDetail.Number_Page - _numberPageOver);
-
-                        if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                        {
-                            _AppFeeFixInfo22.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo22.Number_Of_Patent;
-                        }
-                        else
-                            _AppFeeFixInfo22.Amount = 10000 * _AppFeeFixInfo22.Number_Of_Patent;
-                    }
-                    else
-                    {
-                        _AppFeeFixInfo22.Isuse = 0;
-                        _AppFeeFixInfo22.Number_Of_Patent = 0;
-                        _AppFeeFixInfo22.Amount = 0;
-                    }
-                    _lstFeeFix.Add(_AppFeeFixInfo22);
-                    #endregion
-
+                   
                     // xóa đi
                     AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
                     _AppFeeFixBL.AppFeeFixDelete(pDetail.Case_Code, language);
 
                     // insert lại fee
-                    pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, pInfo.Case_Code);
-                    if (pReturn < 0)
-                        goto Commit_Transaction;
+                    List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_3B(pDetail);
+                    if (_lstFeeFix.Count > 0)
+                    {
+                        pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, pInfo.Case_Code);
+                        if (pReturn < 0)
+                            goto Commit_Transaction;
+                    }
+                   
                     #endregion
 
                     #region Tai lieu dinh kem 
@@ -542,7 +340,7 @@
                         {
                             _note = "confirmation for filing";
                         }
-                        int _ck = _obj_bl.AppHeader_Update_Status(pInfo.Case_Code, _status, _note, 
+                        int _ck = _obj_bl.AppHeader_Update_Status(pInfo.Case_Code, _status, _note,
                             SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
                     }
                 }
@@ -585,11 +383,11 @@
                 decimal pReturn = ErrorCode.Success;
                 int pAppHeaderID = 0;
                 string prefCaseCode = "";
-                decimal pIDHeaderRootLang= pInfo.Id;
+                decimal pIDHeaderRootLang = pInfo.Id;
                 using (var scope = new TransactionScope())
                 {
                     //
-                  
+
                     pInfo.Languague_Code = language;
                     if (pInfo.Created_By == null || pInfo.Created_By == "0" || pInfo.Created_By == "")
                     {
@@ -633,116 +431,18 @@
 
                     #region Phí cố định
 
-                    #region Phí thẩm định yêu cầu sửa đổi đơn
-                    List<AppFeeFixInfo> _lstFeeFix = new List<AppFeeFixInfo>();
-                    AppFeeFixInfo _AppFeeFixInfo1 = new AppFeeFixInfo();
-                    _AppFeeFixInfo1.Fee_Id = 1;
-                    _AppFeeFixInfo1.Isuse = 1;
-                    //_AppFeeFixInfo1.App_Header_Id = pAppHeaderID;
-                    _AppFeeFixInfo1.Number_Of_Patent = pDetail.App_No_Change.Split(',').Length;
-
-                    string _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo1.Fee_Id.ToString();
-                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                    {
-                        _AppFeeFixInfo1.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo1.Number_Of_Patent;
-                    }
-                    else
-                        _AppFeeFixInfo1.Amount = 160000 * _AppFeeFixInfo1.Number_Of_Patent;
-                    _lstFeeFix.Add(_AppFeeFixInfo1);
-                    #endregion
-
-                    #region Phí công bố thông tin đơn sửa đổi
-                    AppFeeFixInfo _AppFeeFixInfo2 = new AppFeeFixInfo();
-                    _AppFeeFixInfo2.Fee_Id = 2;
-                    _AppFeeFixInfo2.Isuse = 1;
-                    //_AppFeeFixInfo2.App_Header_Id = pAppHeaderID;
-                    _AppFeeFixInfo2.Number_Of_Patent = pDetail.App_No_Change.Split(',').Length;
-
-                    _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo2.Fee_Id.ToString();
-                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                    {
-                        _AppFeeFixInfo2.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo2.Number_Of_Patent;
-                    }
-                    else
-                        _AppFeeFixInfo2.Amount = 160000 * _AppFeeFixInfo2.Number_Of_Patent;
-                    _lstFeeFix.Add(_AppFeeFixInfo2);
-                    #endregion
-
-                    #region Đơn có trên 1 hình (từ hình thứ hai trở đi)
-                    AppFeeFixInfo _AppFeeFixInfo21 = new AppFeeFixInfo();
-                    _AppFeeFixInfo21.Fee_Id = 21;
-                    //_AppFeeFixInfo21.App_Header_Id = pAppHeaderID;
-
-                    _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo21.Fee_Id.ToString();
-                    decimal _numberPicOver = 1;
-                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                    {
-                        _numberPicOver = Convert.ToDecimal(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01);
-                    }
-
-                    // nếu số hình > số hình quy định
-                    if (pDetail.Number_Pic > _numberPicOver)
-                    {
-                        _AppFeeFixInfo21.Isuse = 1;
-                        _AppFeeFixInfo21.Number_Of_Patent = (pDetail.Number_Pic - _numberPicOver);
-
-                        if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                        {
-                            _AppFeeFixInfo21.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo21.Number_Of_Patent;
-                        }
-                        else
-                            _AppFeeFixInfo21.Amount = 60000 * _AppFeeFixInfo21.Number_Of_Patent;
-
-                    }
-                    else
-                    {
-                        _AppFeeFixInfo21.Isuse = 0;
-                        _AppFeeFixInfo21.Number_Of_Patent = 0;
-                        _AppFeeFixInfo21.Amount = 0;
-                    }
-                    _lstFeeFix.Add(_AppFeeFixInfo21);
-
-                    #endregion
-
-                    #region Bản mô tả sáng chế có trên 6 trang (từ trang thứ 7 trở đi)  
-                    AppFeeFixInfo _AppFeeFixInfo22 = new AppFeeFixInfo();
-                    _AppFeeFixInfo22.Fee_Id = 22;
-                    //_AppFeeFixInfo22.App_Header_Id = pAppHeaderID;
-
-                    _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo22.Fee_Id.ToString();
-                    decimal _numberPageOver = 6;
-                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                    {
-                        _numberPageOver = Convert.ToDecimal(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01);
-                    }
-
-                    // nếu số hình > số hình quy định
-                    if (pDetail.Number_Page > _numberPageOver)
-                    {
-                        _AppFeeFixInfo22.Isuse = 1;
-                        _AppFeeFixInfo22.Number_Of_Patent = (pDetail.Number_Page - _numberPageOver);
-
-                        if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                        {
-                            _AppFeeFixInfo22.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo22.Number_Of_Patent;
-                        }
-                        else
-                            _AppFeeFixInfo22.Amount = 10000 * _AppFeeFixInfo22.Number_Of_Patent;
-
-                    }
-                    else
-                    {
-                        _AppFeeFixInfo22.Isuse = 0;
-                        _AppFeeFixInfo22.Number_Of_Patent = 0;
-                        _AppFeeFixInfo22.Amount = 0;
-                    }
-                    _lstFeeFix.Add(_AppFeeFixInfo22);
-                    #endregion
-
+                    // xóa đi
                     AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
-                    pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, prefCaseCode);
-                    if (pReturn < 0)
-                        goto Commit_Transaction;
+                    _AppFeeFixBL.AppFeeFixDelete(prefCaseCode, language);
+
+                    // insert lại fee
+                    List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_3B(pDetail);
+                    if (_lstFeeFix.Count > 0)
+                    {
+                        pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, prefCaseCode);
+                        if (pReturn < 0)
+                            goto Commit_Transaction;
+                    }
                     #endregion
 
                     #region Tai lieu dinh kem 
@@ -753,10 +453,10 @@
                             pReturn = objDoc.AppDocumentTranslate(language, pIDHeaderRootLang, pAppHeaderID);
                         }
                     }
-                #endregion
+                    #endregion
 
-                //end
-                Commit_Transaction:
+                    //end
+                    Commit_Transaction:
                     if (pReturn < 0)
                     {
                         Transaction.Current.Rollback();
@@ -819,7 +519,7 @@
 
         [HttpPost]
         [Route("ket_xuat_file")]
-        public ActionResult ExportData_View(decimal pAppHeaderId, string p_appCode)
+        public ActionResult ExportData_View(decimal pAppHeaderId, string p_appCode, string p_Language)
         {
             try
             {
@@ -828,121 +528,21 @@
 
                 string language = AppsCommon.GetCurrentLang();
 
-                List<App_Detail_PLB01_SDD_Info> _lst = new List<App_Detail_PLB01_SDD_Info>();
                 App_Detail_PLB01_SDD_BL objBL = new App_Detail_PLB01_SDD_BL();
                 ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
                 App_Detail_PLB01_SDD_Info app_Detail = new App_Detail_PLB01_SDD_Info();
                 List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
                 List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
-
                 app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
 
-                // copy Header
-                App_Detail_PLB01_SDD_Info.CopyAppHeaderInfo(ref app_Detail, applicationHeaderInfo);
-
-                #region Tài liệu có trong đơn
-
-                foreach (AppDocumentInfo item in appDocumentInfos)
-                {
-                    if (item.Document_Id == "01_SDD_01")
-                    {
-                        app_Detail.Doc_Id_1 = item.CHAR01;
-                        app_Detail.Doc_Id_1_Check = item.Isuse;
-                    }
-                    else if (item.Document_Id == "01_SDD_02")
-                    {
-                        app_Detail.Doc_Id_2 = item.CHAR01;
-                        app_Detail.Doc_Id_2_Check = item.Isuse;
-                    }
-                    else if (item.Document_Id == "01_SDD_03")
-                    {
-                        app_Detail.Doc_Id_3_Check = item.Isuse;
-                        app_Detail.Doc_Id_3 = item.CHAR01;
-                    }
-                    else if (item.Document_Id == "01_SDD_04")
-                    {
-                        app_Detail.Doc_Id_4 = item.CHAR01;
-                        app_Detail.Doc_Id_4_Check = item.Isuse;
-                    }
-                    else if (item.Document_Id == "01_SDD_05")
-                    {
-                        app_Detail.Doc_Id_5_Check = item.Isuse;
-                        app_Detail.Doc_Id_5 = item.CHAR01;
-                    }
-
-                    else if (item.Document_Id == "01_SDD_06")
-                    {
-                        app_Detail.Doc_Id_6_Check = item.Isuse;
-                    }
-                    else if (item.Document_Id == "01_SDD_07")
-                    {
-                        app_Detail.Doc_Id_7_Check = item.Isuse;
-                    }
-                    else if (item.Document_Id == "01_SDD_08")
-                    {
-                        app_Detail.Doc_Id_8_Check = item.Isuse;
-                    }
-
-                    else if (item.Document_Id == "01_SDD_09")
-                    {
-                        app_Detail.Doc_Id_9 = item.CHAR01;
-                        app_Detail.Doc_Id_9_Check = item.Isuse;
-                    }
-                    else if (item.Document_Id == "01_SDD_10")
-                    {
-                        app_Detail.Doc_Id_10_Check = item.Isuse;
-                    }
-                    else if (item.Document_Id == "01_SDD_11")
-                    {
-                        app_Detail.Doc_Id_11 = item.CHAR01;
-                        app_Detail.Doc_Id_11_Check = item.Isuse;
-                    }
-                }
-
-                #endregion
-
-                #region Fee
-                if (appFeeFixInfos.Count > 0)
-                {
-                    foreach (var item in appFeeFixInfos)
-                    {
-                        if (item.Fee_Id == 1)
-                        {
-                            app_Detail.Fee_Id_1 = item.Number_Of_Patent;
-                            app_Detail.Fee_Id_1_Check = item.Isuse;
-                            app_Detail.Fee_Id_1_Val = item.Amount.ToString("#,##0.##");
-                        }
-                        else if (item.Fee_Id == 2)
-                        {
-                            app_Detail.Fee_Id_2 = item.Number_Of_Patent;
-                            app_Detail.Fee_Id_2_Check = item.Isuse;
-                            app_Detail.Fee_Id_2_Val = item.Amount.ToString("#,##0.##");
-                        }
-                        else if (item.Fee_Id == 21)
-                        {
-                            app_Detail.Fee_Id_21 = item.Number_Of_Patent;
-                            app_Detail.Fee_Id_21_Check = item.Isuse;
-                            app_Detail.Fee_Id_21_Val = item.Amount.ToString("#,##0.##");
-                        }
-                        else if (item.Fee_Id == 22)
-                        {
-                            app_Detail.Fee_Id_22 = item.Number_Of_Patent;
-                            app_Detail.Fee_Id_22_Check = item.Isuse;
-                            app_Detail.Fee_Id_22_Val = item.Amount.ToString("#,##0.##");
-                        }
-
-                        app_Detail.Total_Fee = app_Detail.Total_Fee + item.Amount;
-                        app_Detail.Total_Fee_Str = app_Detail.Total_Fee.ToString("#,##0.##");
-                    }
-                }
-                #endregion
-
+                AppsCommon.Prepare_Data_Export_3B(ref app_Detail, applicationHeaderInfo, appDocumentInfos, appFeeFixInfos);
+                List<App_Detail_PLB01_SDD_Info> _lst = new List<App_Detail_PLB01_SDD_Info>();
                 _lst.Add(app_Detail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLB01_SDD_Info>(_lst, false);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
                 string _tempfile = "TM_PLB01SDD.rpt";
-                if (app_Detail.Language_Code == Language.LangEN)
+                if (p_Language == Language.LangEN)
                 {
                     _tempfile = "TM_PLB01SDD_EN.rpt";
                 }
@@ -994,185 +594,8 @@
                 string fileName_doc = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VI_" + TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD + ".docx");
                 string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VI_" + TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD + ".pdf");
 
-                // copy Header
-                App_Detail_PLB01_SDD_Info.CopyAppHeaderInfo(ref pDetail, pInfo);
-
-                #region Tài liệu có trong đơn
-
-                if (pAppDocumentInfo.Count > 0)
-                {
-                    foreach (AppDocumentInfo item in pAppDocumentInfo)
-                    {
-                        if (item.Document_Id == "01_SDD_01")
-                        {
-                            pDetail.Doc_Id_1 = item.CHAR01;
-                            pDetail.Doc_Id_1_Check = item.Isuse;
-                        }
-                        else if (item.Document_Id == "01_SDD_02")
-                        {
-                            pDetail.Doc_Id_2 = item.CHAR01;
-                            pDetail.Doc_Id_2_Check = item.Isuse;
-                        }
-                        else if (item.Document_Id == "01_SDD_03")
-                        {
-                            pDetail.Doc_Id_3_Check = item.Isuse;
-                            pDetail.Doc_Id_3 = item.CHAR01;
-                        }
-                        else if (item.Document_Id == "01_SDD_04")
-                        {
-                            pDetail.Doc_Id_4 = item.CHAR01;
-                            pDetail.Doc_Id_4_Check = item.Isuse;
-                        }
-                        else if (item.Document_Id == "01_SDD_05")
-                        {
-                            pDetail.Doc_Id_5_Check = item.Isuse;
-                            pDetail.Doc_Id_5 = item.CHAR01;
-                        }
-
-                        else if (item.Document_Id == "01_SDD_06")
-                        {
-                            pDetail.Doc_Id_6_Check = item.Isuse;
-                        }
-                        else if (item.Document_Id == "01_SDD_07")
-                        {
-                            pDetail.Doc_Id_7_Check = item.Isuse;
-                        }
-                        else if (item.Document_Id == "01_SDD_08")
-                        {
-                            pDetail.Doc_Id_8_Check = item.Isuse;
-                        }
-
-                        else if (item.Document_Id == "01_SDD_09")
-                        {
-                            pDetail.Doc_Id_9 = item.CHAR01;
-                            pDetail.Doc_Id_9_Check = item.Isuse;
-                        }
-                        else if (item.Document_Id == "01_SDD_10")
-                        {
-                            pDetail.Doc_Id_10_Check = item.Isuse;
-                        }
-                        else if (item.Document_Id == "01_SDD_11")
-                        {
-                            pDetail.Doc_Id_11 = item.CHAR01;
-                            pDetail.Doc_Id_11_Check = item.Isuse;
-                        }
-                    }
-                }
-
-                #endregion
-
-                #region Phí cố định
-
-                #region Phí thẩm định yêu cầu sửa đổi đơn
-                AppFeeFixInfo _AppFeeFixInfo1 = new AppFeeFixInfo();
-                _AppFeeFixInfo1.Isuse = 1;
-                _AppFeeFixInfo1.Number_Of_Patent = pDetail.App_No_Change.Split(',').Length;
-
-                string _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo1.Fee_Id.ToString();
-                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                    _AppFeeFixInfo1.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo1.Number_Of_Patent;
-                else
-                    _AppFeeFixInfo1.Amount = 160000 * _AppFeeFixInfo1.Number_Of_Patent;
-
-                pDetail.Fee_Id_1 = _AppFeeFixInfo1.Number_Of_Patent;
-                pDetail.Fee_Id_1_Check = _AppFeeFixInfo1.Isuse;
-                pDetail.Fee_Id_1_Val = _AppFeeFixInfo1.Amount.ToString("#,##0.##");
-                pDetail.Total_Fee = pDetail.Total_Fee + _AppFeeFixInfo1.Amount;
-
-                #endregion
-
-                #region Phí công bố thông tin đơn sửa đổi
-                AppFeeFixInfo _AppFeeFixInfo2 = new AppFeeFixInfo();
-                _AppFeeFixInfo2.Isuse = 1;
-                _AppFeeFixInfo2.Number_Of_Patent = pDetail.App_No_Change.Split(',').Length;
-
-                _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo2.Fee_Id.ToString();
-                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                    _AppFeeFixInfo2.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo2.Number_Of_Patent;
-                else
-                    _AppFeeFixInfo2.Amount = 160000 * _AppFeeFixInfo2.Number_Of_Patent;
-
-                pDetail.Fee_Id_2 = _AppFeeFixInfo2.Number_Of_Patent;
-                pDetail.Fee_Id_2_Check = _AppFeeFixInfo2.Isuse;
-                pDetail.Fee_Id_2_Val = _AppFeeFixInfo2.Amount.ToString("#,##0.##");
-                pDetail.Total_Fee = pDetail.Total_Fee + _AppFeeFixInfo2.Amount;
-
-                #endregion
-
-                #region Đơn có trên 1 hình (từ hình thứ hai trở đi)
-                AppFeeFixInfo _AppFeeFixInfo21 = new AppFeeFixInfo();
-                _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo21.Fee_Id.ToString();
-                decimal _numberPicOver = 1;
-                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                {
-                    _numberPicOver = Convert.ToDecimal(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01);
-                }
-
-                // nếu số hình > số hình quy định
-                if (pDetail.Number_Pic > _numberPicOver)
-                {
-                    _AppFeeFixInfo21.Isuse = 1;
-                    _AppFeeFixInfo21.Number_Of_Patent = (pDetail.Number_Pic - _numberPicOver);
-
-                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                        _AppFeeFixInfo21.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo21.Number_Of_Patent;
-                    else
-                        _AppFeeFixInfo21.Amount = 60000 * _AppFeeFixInfo21.Number_Of_Patent;
-
-                }
-                else
-                {
-                    _AppFeeFixInfo21.Isuse = 0;
-                    _AppFeeFixInfo21.Number_Of_Patent = 0;
-                    _AppFeeFixInfo21.Amount = 0;
-                }
-
-                pDetail.Fee_Id_21 = _AppFeeFixInfo21.Number_Of_Patent;
-                pDetail.Fee_Id_21_Check = _AppFeeFixInfo21.Isuse;
-                pDetail.Fee_Id_21_Val = _AppFeeFixInfo21.Amount.ToString("#,##0.##");
-                pDetail.Total_Fee = pDetail.Total_Fee + _AppFeeFixInfo21.Amount;
-
-                #endregion
-
-                #region Bản mô tả sáng chế có trên 6 trang (từ trang thứ 7 trở đi)  
-                AppFeeFixInfo _AppFeeFixInfo22 = new AppFeeFixInfo();
-                _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo22.Fee_Id.ToString();
-                decimal _numberPageOver = 6;
-                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                {
-                    _numberPageOver = Convert.ToDecimal(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01);
-                }
-
-                // nếu số hình > số hình quy định
-                if (pDetail.Number_Page > _numberPageOver)
-                {
-                    _AppFeeFixInfo22.Isuse = 1;
-                    _AppFeeFixInfo22.Number_Of_Patent = (pDetail.Number_Page - _numberPageOver);
-
-                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                        _AppFeeFixInfo22.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo22.Number_Of_Patent;
-                    else
-                        _AppFeeFixInfo22.Amount = 10000 * _AppFeeFixInfo22.Number_Of_Patent;
-
-                }
-                else
-                {
-                    _AppFeeFixInfo22.Isuse = 0;
-                    _AppFeeFixInfo22.Number_Of_Patent = 0;
-                    _AppFeeFixInfo22.Amount = 0;
-                }
-                pDetail.Fee_Id_22 = _AppFeeFixInfo22.Number_Of_Patent;
-                pDetail.Fee_Id_22_Check = _AppFeeFixInfo22.Isuse;
-                pDetail.Fee_Id_22_Val = _AppFeeFixInfo22.Amount.ToString("#,##0.##");
-                pDetail.Total_Fee = pDetail.Total_Fee + _AppFeeFixInfo22.Amount;
-
-                pDetail.Total_Fee_Str = pDetail.Total_Fee.ToString("#,##0.##");
-
-                #endregion
-                #endregion
-
+                AppsCommon.Prepare_Data_Export_3B(ref pDetail, pInfo, pAppDocumentInfo, pFeeFixInfo);
                 List<App_Detail_PLB01_SDD_Info> _lst = new List<App_Detail_PLB01_SDD_Info>();
-
                 _lst.Add(pDetail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLB01_SDD_Info>(_lst, false);
 
@@ -1290,6 +713,27 @@
             {
                 Logger.LogException(ex);
             }
+        }
+
+        [HttpPost]
+        [Route("getFee")]
+        public ActionResult GetFee(App_Detail_PLB01_SDD_Info pDetail, List<AppDocumentInfo> pAppDocumentInfo, List<UTienInfo> pUTienInfo, List<AppDocumentOthersInfo> pLstImagePublic)
+        {
+            try
+            {
+                List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_3B(pDetail);
+                ViewBag.LstFeeFix = _lstFeeFix;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            var PartialTableListFees = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Patent/Views/Shared/_PartialTableListFees.cshtml");
+            var json = Json(new { success = 1, PartialTableListFees });
+            return json;
+
+            //return PartialView("~/Areas/Patent/Views/A01/_PartialTableListFees.cshtml");
         }
     }
 }

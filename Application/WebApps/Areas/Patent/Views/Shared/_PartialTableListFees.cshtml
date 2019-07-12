@@ -34,13 +34,13 @@
                 foreach (var item in _list_data)
                 {
                     <tr>
-                        @if (item.Level == 0)
-                        {
-                            <td class="tdleftalign">@item.Fee_Name</td>
-                        }
-                        else if (true)
+                        @if (item.Level == 1)
                         {
                             <td class="tdleftalign">&emsp; @item.Fee_Name</td>
+                        }
+                        else if (item.Level == 2)
+                        {
+                            <td class="tdleftalign">&emsp; &emsp; @item.Fee_Name</td>
                         }
                         else
                         {

@@ -11,8 +11,22 @@
 <div id="toolbox">
     <ul>
         <li class="toTop" style=""><a href="#top" title="Lên đầu trang"><i style=" font-size: 27px; color:green;" class="fa fa-home"></i></a></li>
-        <li class="email"><a href="javascript:;" title="Xem trước"><i class="fa fa-eye" target="_blank" onclick="return funcPreViewApplication();" style=" font-size: 27px; color: green;"></i></a></li>
-        <li class="email"><a href="javascript:;" title="Phí"><i class="fas fa-dollar-sign" size="9x" target="_blank" onclick="return funcPreViewFee();" style="font-size: 27px;margin-left: 8px;color: green;"></i></a></li>
+        <li class="email"><a href="javascript:;" title="Phí"><i class="fas fa-dollar-sign" size="9x" target="_blank" onclick="return funcPreViewFee();" style="font-size: 27px;margin-left: 8px;color: green;"></i></a></li>\
+
+        @*<li class="email"><a href="javascript:;" title="Xem trước VN"><i class="fa fa-eye" target="_blank" onclick="return funcPreViewApplication('VI_VN');" style=" font-size: 27px; color: green;"></i></a></li>*@
+        @*<li class="email"><a href="javascript:;" title="Xem trước EN"><i class="fa fa-eye" target="_blank" onclick="return funcPreViewApplication('EN_US');" style=" font-size: 27px; color: green;"></i></a></li>*@
+
+        <li class="email">
+            <a href="javascript:;" onclick="return funcPreViewApplication('VI_VN');" title="Xem trước VN">
+                <img src="/Content/icons/icon_vn.png" style="margin-left: 3px;" />
+            </a>
+        </li>
+
+        <li class="email">
+            <a href="javascript:;" onclick="return funcPreViewApplication('EN_US');" title="Xem trước VN">
+                <img src="/Content/icons/england.png" />
+            </a>
+        </li>
     </ul>
 </div>
 
@@ -44,14 +58,15 @@
         }
     }
 
-    function funGetData_Preview_A03(url) {
+    function funGetData_Preview_A03(url, p_lang) {
         try {
             $.ajax({
                 url: url,
                 type: 'POST',
                 data: {
                     pAppHeaderId: '@_AppHeaderInfo.Id',
-                    p_appCode : '@_AppHeaderInfo.Appcode'
+                    p_appCode: '@_AppHeaderInfo.Appcode',
+                    p_Language: p_Lang
                 },
                 async: true, cache: false, traditional: true,
                 beforeSend: function () {
@@ -77,8 +92,8 @@
         }
     }
 
-    function funcPreViewApplication() {
-        var preturn = funGetData_Preview_A03("/indus-design/ket_xuat_file");
+    function funcPreViewApplication(p_lang) {
+        var preturn = funGetData_Preview_A03("/indus-design/ket_xuat_file", p_lang);
         if (preturn == true || preturn == undefined) {
             OpenPreview("/indus-design/Pre-View");
         }

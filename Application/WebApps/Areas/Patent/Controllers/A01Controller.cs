@@ -634,7 +634,7 @@ namespace WebApps.Areas.Patent.Controllers
 
         [HttpPost]
         [Route("ket_xuat_file")]
-        public ActionResult ExportData_View(decimal pAppHeaderId, string p_appCode)
+        public ActionResult ExportData_View(decimal pAppHeaderId, string p_appCode, string p_Language)
         {
             try
             {
@@ -677,7 +677,7 @@ namespace WebApps.Areas.Patent.Controllers
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
                 string _tempfile = "A01.rpt";
-                if (app_Detail.Language_Code == Language.LangEN)
+                if (p_Language == Language.LangEN)
                 {
                     _tempfile = "A01_EN.rpt";
                 }
@@ -759,7 +759,7 @@ namespace WebApps.Areas.Patent.Controllers
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
                 string _tempfile = "A01.rpt";
-                if (language == Language.LangEN)
+                if (pInfo.View_Language_Report == Language.LangEN)
                 {
                     _tempfile = "A01_EN.rpt";
                 }
