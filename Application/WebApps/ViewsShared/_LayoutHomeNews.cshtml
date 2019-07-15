@@ -18,8 +18,8 @@
     Sys_Pages_Info _pageInfo_2 = objBL.Sys_Pages_GetBy_Code("home_2");
     Sys_Pages_Info _pageInfo_3 = objBL.Sys_Pages_GetBy_Code("home_3");
 
-    Sys_Pages_Info _pageInfo_search = objBL.Sys_Pages_GetBy_Code("iFilling");
-    Sys_Pages_Info _pageInfo_filling = objBL.Sys_Pages_GetBy_Code("iSearching");
+    Sys_Pages_Info _pageInfo_search = objBL.Sys_Pages_GetBy_Code("iSearching");
+    Sys_Pages_Info _pageInfo_filling = objBL.Sys_Pages_GetBy_Code("iFilling");
     Sys_Pages_Info _pageInfo_watching = objBL.Sys_Pages_GetBy_Code("iWatching");
 
 
@@ -234,10 +234,11 @@
                                                         </li>
 
                                                         <li class="c-navleft_category-item">
-                                                            <a class="c-navleft_category-link is-active" href="/quan-ly-tin/features/fetu">
+                                                            @*<a class="c-navleft_category-link is-active" href="/quan-ly-tin/features/fetu">*@
+                                                            <a class="c-navleft_category-link is-active" href="javascript:;" onclick="return  funcHome();">
                                                                 <span class="c-navleft_category-title">@WebApps.Resources.Resource.lblFeatures</span>
                                                                 <figure class="c-navleft_category-link-arrow">
-                                                                    <i class="fa fa-long-arrow-right" aria-hidden="true" style=" color #666;font-size 20px;"></i>
+                                                                    <i class="fa fa-long-arrow-right" aria-hidden="true" style=" color: #666;font-size: 20px;"></i>
                                                                 </figure>
                                                             </a>
                                                         </li>
