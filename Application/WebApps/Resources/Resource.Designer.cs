@@ -3769,6 +3769,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nước nộp đơn ưu tiên.
+        /// </summary>
+        public static string NuocNopQuyenUuTien {
+            get {
+                return ResourceManager.GetString("NuocNopQuyenUuTien", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nhân viên nộp đơn phản hồi.
         /// </summary>
         public static string NVNopDonPhanHoi {
