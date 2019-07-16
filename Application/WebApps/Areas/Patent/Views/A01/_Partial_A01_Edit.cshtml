@@ -1077,17 +1077,6 @@
         }
     });
 
-    $("#btnDuLieuCu").click(function () {
-        try {
-            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
-                funGetData(-2, 0);
-            });
-        } catch (e) {
-            CreateRollingWaitingIcon(false);
-            console.log(e);
-        }
-    });
-
     $("#btnLuuTam").click(function () {
         try {
             nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuuTam)", function () {
@@ -1233,9 +1222,15 @@
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
                     if (data != null && data.status >= 0) {
-                        jAlert('@Html.Raw(Resource.GuiDonThanhCong)', ThongBao, function () {
-                            window.location = "/trade-mark-mana/quan-ly-don";
-                        });
+                        if (ptype == 1) {
+                            jAlert('@Html.Raw(Resource.LuuTamThanhCong)', ThongBao, function () {
+                                window.location = "/trade-mark-mana/quan-ly-don";
+                            });
+                        } else {
+                            jAlert('@Html.Raw(Resource.GuiDonThanhCong)', ThongBao, function () {
+                                window.location = "/trade-mark-mana/quan-ly-don";
+                            });
+                        }
                     } else {
                         jError("@Html.Raw(WebApps.Resources.Resource.LoiXuLyDuLieu)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                         });

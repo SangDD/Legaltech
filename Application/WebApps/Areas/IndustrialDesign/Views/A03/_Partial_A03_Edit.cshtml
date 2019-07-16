@@ -1032,9 +1032,18 @@
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
                     if (data != null && data.status >= 0) {
-                        jAlert('@Html.Raw(Resource.GuiDonThanhCong)', ThongBao, function () {
+                        @*jAlert('@Html.Raw(Resource.GuiDonThanhCong)', ThongBao, function () {
                             window.location = "/trade-mark-mana/quan-ly-don";
-                        });
+                        });*@
+                        if (p_Status == 1) {
+                            jAlert('@Html.Raw(Resource.LuuTamThanhCong)', ThongBao, function () {
+                                window.location = "/trade-mark-mana/quan-ly-don";
+                            });
+                        } else {
+                            jAlert('@Html.Raw(Resource.GuiDonThanhCong)', ThongBao, function () {
+                                window.location = "/trade-mark-mana/quan-ly-don";
+                            });
+                        }
                     } else {
                         jError("@Html.Raw(WebApps.Resources.Resource.LoiXuLyDuLieu)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                         });
