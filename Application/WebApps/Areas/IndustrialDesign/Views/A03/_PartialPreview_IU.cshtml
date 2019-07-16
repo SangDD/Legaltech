@@ -55,11 +55,10 @@
 
     function funGetData_Preview_UI_A03(url, p_lang) {
         try {
-          
             var formData = new FormData();
             formData.append("pInfo.Appcode", $("#txtAppCode").val());
             formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
-            formData.append("pInfo.View_Language_Report", p_Lang);
+            formData.append("pInfo.View_Language_Report", p_lang);
 
             //Thông tin chủ đơn
             if (funcThongTinChuDon_Exp(formData, "1") != true) {

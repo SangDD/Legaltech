@@ -26,7 +26,7 @@
     @*@Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "Bộ hình ảnh")*@
     <div class="divCover cls_form_title">
         <div class="cls_form_header" style="margin: 0 !important;">
-            Bộ hình ảnh
+            Số phương án/ số hình ảnh
             <button title="Thêm phương án" onclick="funcTreeAddDocumentNew(1)"><i class="fa fa-plus-circle"></i></button>
         </div>
     </div>
@@ -80,8 +80,10 @@
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
                     $("#TreedivDocumentOther").append(data);
+                    CountPhuongAnHinhAnh();
                 }
             });
+            
         } catch (e) {
             alert(e)
         }
@@ -105,8 +107,10 @@
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
                     $("#divChild" + _id).append(data);
+                    CountPhuongAnHinhAnh();
                 }
             });
+           
         } catch (e) {
             alert(e)
         }
@@ -116,7 +120,7 @@
         try {
             var divFileUpload = document.getElementById(pTag);
             $(divFileUpload).remove();
-
+            CountPhuongAnHinhAnh();
         } catch (e) {
             console.log(e.message);
         }
@@ -128,7 +132,7 @@
             $("#" + ptxtId).val(obj.val());
 
             funcTreePushFileDocumentOther(pIDFile, ptagKey, pRemoveFile, prefid);
-
+            CountPhuongAnHinhAnh();
         } catch (e) {
             console.log(e.message);
         }
@@ -161,13 +165,14 @@
                 success: function (data) {
                     if (data.success == 0) {
                         $("#" + pdivRemoveFile).css("display", "inline-block");
-
+                        CountPhuongAnHinhAnh();
                     } else {
                         jError(pushfileError, "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
                         });
                     }
                 }
             });
+           
         } catch (e) {
             console.log(e.message);
         }

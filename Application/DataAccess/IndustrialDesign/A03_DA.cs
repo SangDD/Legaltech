@@ -27,7 +27,9 @@ namespace DataAccess
                     new OracleParameter("P_PHANLOAI_TYPE", OracleDbType.Decimal, pInfo.Phanloai_Type, ParameterDirection.Input),
                     new OracleParameter("P_USED_SPECIAL", OracleDbType.Decimal, pInfo.USED_SPECIAL, ParameterDirection.Input),
                     new OracleParameter("P_CLASS_CONTENT", OracleDbType.Varchar2, pInfo.Class_Content, ParameterDirection.Input),
-                    new OracleParameter("P_SOHINHPHATSINH", OracleDbType.Decimal, pInfo.SoHinhPhatSinh, ParameterDirection.Input)
+                    new OracleParameter("P_SOHINHPHATSINH", OracleDbType.Decimal, pInfo.SoHinhPhatSinh, ParameterDirection.Input),
+                    new OracleParameter("P_SO_PA", OracleDbType.Decimal, pInfo.SO_PA, ParameterDirection.Input),
+                    new OracleParameter("P_SO_HA", OracleDbType.Decimal, pInfo.SO_HA, ParameterDirection.Input)
                     
                     );
                 var result = Convert.ToDecimal(paramReturn.Value.ToString());
@@ -60,7 +62,9 @@ namespace DataAccess
                     new OracleParameter("P_PHANLOAI_TYPE", OracleDbType.Decimal, pInfo.Phanloai_Type, ParameterDirection.Input),
                     new OracleParameter("P_USED_SPECIAL", OracleDbType.Decimal, pInfo.USED_SPECIAL, ParameterDirection.Input),
                     new OracleParameter("P_CLASS_CONTENT", OracleDbType.Varchar2, pInfo.Class_Content, ParameterDirection.Input),
-                    new OracleParameter("P_SOHINHPHATSINH", OracleDbType.Decimal, pInfo.SoHinhPhatSinh, ParameterDirection.Input)
+                    new OracleParameter("P_SOHINHPHATSINH", OracleDbType.Decimal, pInfo.SoHinhPhatSinh, ParameterDirection.Input),
+                    new OracleParameter("P_SO_PA", OracleDbType.Decimal, pInfo.SO_PA, ParameterDirection.Input),
+                    new OracleParameter("P_SO_HA", OracleDbType.Decimal, pInfo.SO_HA, ParameterDirection.Input)
                     );
                 var result = Convert.ToDecimal(paramReturn.Value.ToString());
                 return result;

@@ -539,6 +539,25 @@
 
         @Html.Partial("~/Areas/IndustrialDesign/Views/Shared/_PartialTreeDocument_Edit.cshtml")
 
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Số phương án:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtSoPhuongAn" readonly="readonly" value="@_App_Detail.SO_PA"/>
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div>Số hình ảnh:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtSoHinhAnh" readonly="readonly"  value="@_App_Detail.SO_HA"/>
+                </div>
+            </div>
+        </div>
+
         @* id doc | id của check box | level | lable | lable 2 | is upload *@
         @* 1 Tờ khai *@
         @{
@@ -569,9 +588,9 @@
         }
 
         @* 3. Bộ ảnh chụp/bản vẽ, gồm *@
-        @{
+        @*@{
             string _doc_id3 = "A03_03";
-            string _id3 = _doc_id3 + "|Doc_03|0|" + Resource.BoAnhChupGom + "|" + Resource.Anh + " x" + "|1||" + Resource.Bo;
+            string _id3 = _doc_id3 + "|Doc_03|0|" + "Số phương án/Số ảnh gồm" + "|" + "Số phương án" + "|1||" + "Số ảnh";
             string _value3 = "";
             if (dic_appDoc.ContainsKey(_doc_id3))
             {
@@ -579,7 +598,7 @@
             }
             string _model3 = _id3 + ";" + _value3;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model3)
-        }
+        }*@
 
         @{
 
@@ -1382,7 +1401,8 @@
                 v_CoSDQuyenUT = 1;
             }
             formData.append("pDetail.Used_Special", v_CoSDQuyenUT);
-
+            formData.append("pDetail.SO_PA", $("#txtSoPhuongAn").val());
+            formData.append("pDetail.SO_HA", $("#txtSoHinhAnh").val());
             if (v_CoSDQuyenUT == 1) {
 
                 _index = 0;
@@ -1672,6 +1692,32 @@
             return true;
         } catch (e) {
             return false;
+        }
+    }
+
+    ///Đếm số phương án số hình ảnh
+    function CountPhuongAnHinhAnh()
+    {
+        var _soPhuongAn = 0;
+        var _soHinhAnh = 0;
+        var _controllevel = "";
+        try {
+            $(".clssListUploadIndusDesign").each(function () {
+                _controllevel = $("#" + this.id).attr("data-level")
+                if(_controllevel == "1") 
+                {
+                    _soPhuongAn= _soPhuongAn + 1;
+                }
+                else if(_controllevel == "2") 
+                {
+                    _soHinhAnh= _soHinhAnh + 1;
+                }
+            });
+
+            $("#txtSoPhuongAn").val(_soPhuongAn);
+            $("#txtSoHinhAnh").val(_soHinhAnh);
+        } catch (e) {
+            console.log(e.message);
         }
     }
 </script>

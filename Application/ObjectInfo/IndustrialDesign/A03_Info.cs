@@ -29,6 +29,8 @@ namespace ObjectInfos
         public decimal USED_SPECIAL { set; get; }
         public string Class_Content { set; get; }
         public decimal SoHinhPhatSinh { set; get; }
+        public decimal SO_PA { set; get; }
+        public decimal SO_HA { set; get; }
     }
 
     public class A03_Info_Export : ApplicationHeaderInfo

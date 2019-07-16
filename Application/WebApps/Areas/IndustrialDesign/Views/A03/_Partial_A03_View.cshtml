@@ -482,6 +482,26 @@
         @*TÀI booj hinh anh   *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTreeDocumentView.cshtml")
 
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Số phương án:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtSoPhuongAn" readonly="readonly" value="@_App_Detail.SO_PA" />
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div>Số hình ảnh:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtSoHinhAnh" readonly="readonly" value="@_App_Detail.SO_HA" />
+                </div>
+            </div>
+        </div>
+
         @* id doc | id của check box | level | lable | lable 2 | is upload *@
         @* 1 Tờ khai *@
         @{
@@ -503,14 +523,14 @@
         }
 
         @* 3. Bản sao *@
-        @{
+        @*@{
             string _doc_id3 = "A03_03";
-            string _id3 = _doc_id3 + "|Doc_03|0|" + Resource.BoAnhChupGom + "|" + Resource.Anh +  " x" + "|1||" + Resource.Bo;
+            string _id3 = _doc_id3 + "|Doc_03|0|" + "Số phương án/Số ảnh gồm" + "|" + "Số phương án"  + "|1||" + "Số ảnh";
             string _value3 = dic_appDoc[_doc_id3].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id3].CHAR01 + "|" + dic_appDoc[_doc_id3].Url_Hardcopy + "|" + dic_appDoc[_doc_id3].CHAR02;
             string _model3 = _id3 + ";" + _value3;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model3)
 
-        }
+        }*@
 
 
         @{
