@@ -60,6 +60,8 @@ namespace ObjectInfos
 
         public string Class_Content { set; get; }
         public decimal SoHinhPhatSinh { set; get; }
+        public decimal SO_PA { set; get; }
+        public decimal SO_HA { set; get; }
 
 
         #region Chủ đơn khác
@@ -297,6 +299,9 @@ namespace ObjectInfos
             p_appDetail.USED_SPECIAL = p_A03_Info.USED_SPECIAL;
             p_appDetail.Class_Content = p_A03_Info.Class_Content;
             p_appDetail.SoHinhPhatSinh = p_A03_Info.SoHinhPhatSinh;
+            p_appDetail.SO_PA = p_A03_Info.SO_PA;
+            p_appDetail.SO_HA = p_A03_Info.SO_HA;
+             
         }
         public static void CopyAppHeaderInfo(ref A03_Info_Export p_appDetail, ApplicationHeaderInfo pAppInfo)
         {

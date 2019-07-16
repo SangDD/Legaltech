@@ -908,7 +908,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
 
                 _lst.Add(_A03_Info_Export);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<A03_Info_Export>(_lst, false);
-                //_ds_all.WriteXml(@"C:\inetpub\A03.xml", XmlWriteMode.WriteSchema);
+                _ds_all.WriteXml(@"C:\inetpub\A03.xml", XmlWriteMode.WriteSchema);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
                 string _tempfile = "A03.rpt";
