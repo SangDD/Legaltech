@@ -429,7 +429,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txt_MaDaiDien" value="@_AppHeaderInfo.Customer_Code" />
+                    <input type="text" id="txtMADDSHCN" value="@_AppHeaderInfo.Customer_Code" />
                 </div>
             </div>
         </div>
@@ -1370,14 +1370,14 @@
             }
 
 
-            var txt_MaDaiDien = $("#txt_MaDaiDien").val();
+            var txtMADDSHCN = $("#txtMADDSHCN").val();
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-            if (p_ShowError == 1 && v_RepMasterType == "DDPL" && txt_MaDaiDien == "") {
+            if (p_ShowError == 1 && v_RepMasterType == "DDPL" && txtMADDSHCN == "") {
                 showError('@Resource.TM3C_MaDaiDienKhongDuocTrong');
-                $("#txt_MaDaiDien").focus()
+                $("#txtMADDSHCN").focus()
                 return false;
             }
-            formData.append("pInfo.Customer_Code", txt_MaDaiDien);
+            formData.append("pInfo.Customer_Code", txtMADDSHCN);
 
             var _index = 0;
             $(".clsTacGia").each(function (item) {

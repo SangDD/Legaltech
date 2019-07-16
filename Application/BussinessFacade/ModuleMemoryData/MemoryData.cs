@@ -30,6 +30,9 @@
         public static List<CustomerSuggestInfo> lstCacheCustomer3 = new List<CustomerSuggestInfo>();
         public static List<CustomerSuggestInfo> lstCacheCustomer4 = new List<CustomerSuggestInfo>();
 
+        public static List<CustomerSuggestInfo> lstCache_Represent = new List<CustomerSuggestInfo>();
+
+
         public static List<CustomerSuggestInfo> lstCacheRefCustomer = new List<CustomerSuggestInfo>();
         static MyQueue c_queue_changeData = new MyQueue();
         public static Hashtable c_hs_Allcode = new Hashtable();
@@ -40,7 +43,7 @@
         public static List<CustomerSuggestInfo> clstAppClassSuggest = new List<CustomerSuggestInfo>();
 
         //public static List<SuggestInfo> clstAppClassShortSuggest = new List<SuggestInfo>();
-        
+
         /// <summary>
         /// Danh sách chủ đại diện sở hữu công nghiệp
         /// </summary>
@@ -103,7 +106,7 @@
                 foreach (var item in clstAppClass)
                 {
                     CustomerSuggestInfo pinfo = new CustomerSuggestInfo();
-                    
+
                     pinfo.label = item.Name_Vi;
                     pinfo.name = item.Name_Vi;
 
@@ -125,6 +128,8 @@
                 }
                 //lấy toàn bộ thông tin đơn lên mem, đang đọc toàn bộ cả anh cả việt.
                 GetCacheCustomerInfo();
+
+                GetCache_represent();
 
                 GetCacheDDSHCN();
             }
@@ -334,6 +339,32 @@
             }
         }
 
+        public static void GetCache_represent()
+        {
+            try
+            {
+                BussinessFacade.ModuleUsersAndRoles.UserBL _UserBL = new BussinessFacade.ModuleUsersAndRoles.UserBL();
+                List<UserInfo> _lstUsersAdmin = _UserBL.GetUserByType(3);
+                _lstUsersAdmin = _lstUsersAdmin.FindAll(x => x.Is_Agent == 1).ToList();
+                lstCache_Represent = new List<CustomerSuggestInfo>();
+
+                foreach (var item in _lstUsersAdmin)
+                {
+                    CustomerSuggestInfo pInfo = new CustomerSuggestInfo();
+
+                    pInfo.label = item.FullName + " Phone: " + item.Phone + " Fax: " + item.Fax + " Email: " + item.Email + " Mã đại diện: " + item.Customer_Code;
+                    pInfo.value = item.FullName + "|" + item.Address + "|" + item.Phone + "|" + item.Fax + "|" + item.Email + "|" + item.Customer_Code;
+                    pInfo.name = item.FullName + " Phone: " + item.Phone + " Fax: " + item.Fax + " Email: " + item.Email;
+                    pInfo.Language = item.Language;
+
+                    lstCache_Represent.Add(pInfo);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+        }
 
         public static void GetCacheDDSHCN()
         {

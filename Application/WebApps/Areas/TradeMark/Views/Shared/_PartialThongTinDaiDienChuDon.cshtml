@@ -116,7 +116,7 @@
         //Search suggestion
         var Name = $("#2_txtTenDayDu").val();
         $.ajax({
-            url: '/trade-mark/GetNameSuggest/',
+            url: '/trade-mark/get-represent/',
             type: 'POST',
             data: {
                 pName: Name
@@ -137,12 +137,13 @@
                         $("#2_txtTenDayDu").val("");
                         event.preventDefault();
                         var arrVal = ui.item.value.split('|');
-                        if (arrVal.length === 5) {
+                        if (arrVal.length === 6) {
                             $("#2_txtTenDayDu").val(arrVal[0]);
                             $("#2_txtDiaChi").val(arrVal[1]);
                             $("#2_txtDienThoai").val(arrVal[2]);
                             $("#2_txtFax").val(arrVal[3]);
                             $("#2_txtEmail").val(arrVal[4]);
+                            $("#txtMADDSHCN").val(arrVal[5]);
                         }
                     },
                     focus: function (event, ui) {

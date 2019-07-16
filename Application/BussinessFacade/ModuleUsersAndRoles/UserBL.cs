@@ -221,6 +221,7 @@
             if (result > 0)
             {
                 this.SetActionSuccess(true);
+                ModuleMemoryData.MemoryData.GetCache_represent();
             }
 
             return this.SetActionResult(result, KnMessageCode.AddUserSuccess);
@@ -233,6 +234,7 @@
             {
                 this.SetActionSuccess(true);
                 AccountManagerBL.AddToAccountForceReLoginCollection(userEdit.Id);
+                ModuleMemoryData.MemoryData.GetCache_represent();
             }
 
             return this.SetActionResult(result, KnMessageCode.EditUserSuccess);
@@ -245,6 +247,7 @@
             {
                 this.SetActionSuccess(true);
                 AccountManagerBL.AddToAccountForceReLoginCollection(userId);
+                ModuleMemoryData.MemoryData.GetCache_represent();
             }
 
             return this.SetActionResult(result, KnMessageCode.DeleteUserSuccess);
