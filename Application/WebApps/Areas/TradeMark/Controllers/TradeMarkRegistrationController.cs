@@ -2118,6 +2118,7 @@
             }
             return Json(new { success = 0 });
         }
+
         [Route("GetNameSuggest")]
         public ActionResult GetNameSuggest(string pName)
         {
@@ -2143,6 +2144,42 @@
                 else
                 {
                     return Json(new { lst = MemoryData.lstCacheCustomer });
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Logger.LogException(ex);
+                return Json(new { lst = MemoryData.lstCacheCustomer });
+            }
+        }
+
+        [Route("get-represent")]
+        public ActionResult Get_represent(string pName)
+        {
+            try
+            {
+                List<CustomerSuggestInfo> lstContain = new List<CustomerSuggestInfo>();
+
+
+                int check = 0;
+                string language = AppsCommon.GetCurrentLang();
+                foreach (var item in MemoryData.lstCache_Represent)
+                {
+                    if (string.IsNullOrEmpty(item.name)) continue;
+                    if (item.name.ToLower().Contains(pName.ToLower()))
+                    {
+                        check = 1;
+                        lstContain.Add(item);
+                    }
+                }
+                if (check == 1)
+                {
+                    return Json(new { lst = lstContain });
+                }
+                else
+                {
+                    return Json(new { lst = MemoryData.lstCache_Represent });
                 }
             }
             catch (Exception ex)

@@ -614,7 +614,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txt_MaDaiDien" value="@_AppHeaderInfo.Customer_Code" />
+                    <input type="text" id="txtMADDSHCN" value="@_AppHeaderInfo.Customer_Code" />
                 </div>
             </div>
         </div>
@@ -722,7 +722,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txt_MaDaiDien" value="@_App_Detail.Point" />
+                    <input type="text" id="txtPoint" value="@_App_Detail.Point" />
                 </div>
             </div>
         </div>
@@ -1509,22 +1509,22 @@
     function funcGetAppDetail(formData, pType) {
         try {
 
-            var txt_MaDaiDien = $("#txt_MaDaiDien").val();
+            var txtMADDSHCN = $("#txtMADDSHCN").val();
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
 
             // nếu là gửi đơn
             if (pType == 2) {
                 if (v_RepMasterType = "DDPL") {
-                    if (txt_MaDaiDien == "") {
+                    if (txtMADDSHCN == "") {
                         jError("@Resource.TM3C_MaDaiDienKhongDuocTrong", "@Resource.TM3B_Loi", function () {
-                            $("#txt_MaDaiDien").focus()
+                            $("#txtMADDSHCN").focus()
                         });
                         return false;
                     }
                 }
             }
 
-            formData.append("pInfo.Customer_Code", txt_MaDaiDien);
+            formData.append("pInfo.Customer_Code", txtMADDSHCN);
 
             var _txt_Patent_Name = $("#txt_Patent_Name").val();
             if (pType == 2) {
