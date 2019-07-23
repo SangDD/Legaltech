@@ -54,6 +54,7 @@
         /// </summary>
         public static Dictionary<string, SysAppFixChargeInfo> c_dic_FeeByApp_Fix = new Dictionary<string, SysAppFixChargeInfo>();
         public static Dictionary<string, Sys_Search_Fix_Info> c_dic_FeeBySearch = new Dictionary<string, Sys_Search_Fix_Info>();
+        //public static Dictionary<string, string> c_dic_Injection = new Dictionary<string, string>();
 
 
         public static void LoadAllMemoryData()
@@ -86,7 +87,15 @@
                 }
 
                 AllCodeBL.LoadAllCodeToMemory();
+
+
                 #endregion
+
+                List<Injection_Info> _lst_injection = AllCodeBL.Get_All_Injection();
+                foreach (var item in _lst_injection)
+                {
+                    Common.c_dic_Injection[item.Key.ToUpper()] = item.Key;
+                }
 
                 ReloadGroup();
 

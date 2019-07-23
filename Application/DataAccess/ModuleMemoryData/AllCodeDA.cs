@@ -24,6 +24,22 @@
             return ds;
         }
 
+        public static DataSet Get_All_Injection()
+        {
+            var ds = new DataSet();
+            try
+            {
+                ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_allcode.proc_injection",
+                new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            return ds;
+        }
+
         public static DataSet Country_GetAll()
         {
             try

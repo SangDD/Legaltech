@@ -18,6 +18,8 @@ namespace Common
 
         public static string BaseUrl { get; set; }
         public static string BaseDir { get; set; }
+        public static Dictionary<string, string> c_dic_Injection = new Dictionary<string, string>();
+
     }
 
     /// <summary>

@@ -17,6 +17,11 @@
         public string Name { get; set; } 
     }
 
+    public class Injection_Info
+    {
+        public string Key { get; set; }
+    }
+
     public class CallBack_Info
     {
         public CallBack_Info()
