@@ -14,6 +14,9 @@ namespace ObjectInfos
         public string Header { get; set; }
 
         [AllowHtml]
+        public string Header_En { get; set; }
+
+        [AllowHtml]
         public string Content { get; set; }
         [AllowHtml]
         public string Content_En { get; set; }

@@ -68,6 +68,17 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.lblTieuDe (EN)<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtHeader_En" maxlength="500" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
             <div>Code<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
@@ -155,6 +166,13 @@
                 return false;
             }
 
+            var header_en = $("#txtHeader_En").val();
+            if (header_en.trim() == "") {
+                showError('Tiêu đề bài viết (EN) không được để trống!!');
+                $("#txtHeader_En").focus();
+                return false;
+            }
+
             var code = $("#txtCode").val();
             if (code.trim() == "") {
                 showError('Code bài viết không được để trống!!');
@@ -187,6 +205,7 @@
             formData.append("p_Sys_Pages_Info.Content", noidung.trim());
             formData.append("p_Sys_Pages_Info.Content_En", noidung_en.trim());
             formData.append("p_Sys_Pages_Info.Header", header);
+            formData.append("p_Sys_Pages_Info.Header_En", header_en);
             formData.append("p_Sys_Pages_Info.Status", pStatus);
             $.ajax({
                 url: '/quan-ly-trang-bia/them-moi-bai-viet',
