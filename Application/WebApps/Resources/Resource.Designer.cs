@@ -3796,6 +3796,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nhãn hiệu thông thường.
+        /// </summary>
+        public static string NormalTrademark {
+            get {
+                return ResourceManager.GetString("NormalTrademark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nước nộp đơn ưu tiên.
         /// </summary>
         public static string NuocNopQuyenUuTien {

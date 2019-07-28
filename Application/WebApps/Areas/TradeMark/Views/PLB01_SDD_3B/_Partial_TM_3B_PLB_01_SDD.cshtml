@@ -62,6 +62,8 @@
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
         <legend style="font-weight:600"> @Resource.TM3B_Legend</legend>
 
+        @Html.Partial("~/ViewsShared/_PartialQuocGia.cshtml")
+
         @*thông tin khách hàng mà admin nhập hộ*@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCustomer.cshtml")
 
@@ -206,16 +208,11 @@
         </div>
 
         @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/category.png" />
-            <div class="cls_form_header">
-                @Resource.TM2B_DaiDienChuDon
-            </div>
-        </div>
-        <div id="div_PartialThongTinDaiDienChuDon">
+
+        <div id="div_PartialThongTinDaiDienChuDon" style="display:none">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
-            <input type="hidden" id="txtMADDSHCN"/>
         </div>
+
         @* end 2 *@
 
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@

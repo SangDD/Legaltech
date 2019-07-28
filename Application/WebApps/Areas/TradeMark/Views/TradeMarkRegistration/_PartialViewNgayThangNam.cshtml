@@ -1,7 +1,7 @@
 ﻿@using ObjectInfos
 @{
     var objAppHeaderInfo = new AppDetail04NHInfo();
-    string KhaiTai = "", Ngay = "", Thang = "", Nam = "";
+    string KhaiTai = "Hà Nội", Ngay = "", Thang = "", Nam = "";
     if (ViewBag.objAppHeaderInfo != null)
     {
         objAppHeaderInfo = (AppDetail04NHInfo)ViewBag.objAppHeaderInfo;
@@ -18,7 +18,7 @@
         disableView = ViewBag.disableView;
     }
 }
-<div class="div_full_100_area">
+<div class="div_full_100_area" style="display:none">
     @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblCamKetCuaChuDon.ToUpper())
     <div style="text-align: center;">
         <i style="text-align: center;">@WebApps.Resources.Resource.lblToiCamdoan.</i>
@@ -31,7 +31,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" @disableView style="margin-left: 1px;" value="@KhaiTai" placeholder="@WebApps.Resources.Resource.lblKhaiTai" maxlength="200" id="txtKhaiTai" />
+                <input type="text" @disableView style="margin-left: 1px;" value="@KhaiTai" placeholder="@WebApps.Resources.Resource.lblKhaiTai" maxlength="200" id="txtKhaiTai"/>
             </div>
         </div>
     </div>

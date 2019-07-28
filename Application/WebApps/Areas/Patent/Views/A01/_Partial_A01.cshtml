@@ -81,6 +81,8 @@
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
         <legend style="font-weight:600"> @Resource.PatentRegister.ToUpper()</legend>
 
+        @Html.Partial("~/ViewsShared/_PartialQuocGia.cshtml")
+
         @*thông tin khách hàng mà admin nhập hộ*@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCustomer.cshtml")
 
@@ -393,9 +395,9 @@
         </div>
 
         @*<div class="div_full_100_area">
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
-            </div>*@
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
+        </div>*@
 
         <div class="div-search-ad">
             <div class="div-search-content">
@@ -423,27 +425,10 @@
         </div>
 
         @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/category.png" />
-            <div class="cls_form_header">
-                @Resource.TM2B_DaiDienChuDon
-            </div>
-        </div>
-
-        <div id="div_PartialThongTinDaiDienChuDon">
+        <div id="div_PartialThongTinDaiDienChuDon" style="display:none">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
         </div>
 
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@Resource.TM3C_MaDaiDien:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txtMADDSHCN" />
-                </div>
-            </div>
-        </div>
         @* end 2 *@
 
         @* Tác giả *@
@@ -550,10 +535,10 @@
 
         @*Hình công bố*@
         @*@{
-                string _doc_id17 = "A01_17";
-                string _model17 = _doc_id17 + "|Doc_17|0|" + "Hình công bố" + "||0";
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model17)
-            }*@
+            string _doc_id17 = "A01_17";
+            string _model17 = _doc_id17 + "|Doc_17|0|" + "Hình công bố" + "||0";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model17)
+        }*@
 
         @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Image_Public.cshtml")
 
@@ -680,13 +665,6 @@
             <div class="classLuuTam">
                 <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
             </div>
-
-            @*@if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
-                {
-                    <div class="classLuuTam">
-                        <input type="button" value="Dữ liệu quá khứ" id="btnDuLieuCu" class="btn class_37" style="margin-left:5px" />
-                    </div>
-                }*@
         </div>
     </fieldset>
 </div>

@@ -1,0 +1,27 @@
+﻿@using BussinessFacade.ModuleMemoryData
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div>@WebApps.Resources.Resource.QuocGia<i class="redspan">(*)</i></div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <select id="cboCountry">
+                @foreach (var item in MemoryData.c_lst_Country)
+                {
+                    if (item.Country_Id == Common.Common.Country_VietNam_Id)
+                    {
+                        <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Country_Id">
+                            @item.Name
+                        </option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+</div>
+

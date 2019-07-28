@@ -31,6 +31,14 @@
         _disable = "disabled";
     }
 }
+
+<div class="divCover cls_form_title">
+    <img src="~/Content/icons/category.png" />
+    <div class="cls_form_header">
+        @Resource.TM2B_DaiDienChuDon
+    </div>
+</div>
+
 <div class="div-search-ad">
     <div class="div-search-content">
         <div class="div-radio">
@@ -58,8 +66,6 @@
         </div>
     </div>
 </div>
-
-
 
 <div class="div-search-ad">
     <div class="div-search-title">
@@ -107,6 +113,17 @@
     <div class="div-search-content">
         <div>
             <input type="text" value="@objAppHeaderInfo.Rep_Master_Email" maxlength="50" id="@txtEmail"  @_disable/>
+        </div>
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div>@Resource.TM3C_MaDaiDien:</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" id="txtMADDSHCN" />
         </div>
     </div>
 </div>

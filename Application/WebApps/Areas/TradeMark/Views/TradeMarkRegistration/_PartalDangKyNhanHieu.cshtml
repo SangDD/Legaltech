@@ -68,6 +68,9 @@
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
+
+        @Html.Partial("~/ViewsShared/_PartialQuocGia.cshtml")
+
         @*thông tin khách hàng mà admin nhập hộ*@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCustomer.cshtml")
 
@@ -169,12 +172,14 @@
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblNhanHieu.ToUpper())
 
             <div class="class_full_div_input_extent">
-              
+
                 <div class="class_left_40">
 
                     <div class="div-search-ad">
                         <div class="div-search-title">
                             <div>@WebApps.Resources.Resource.lblMauNhanHieu:</div>
+                            <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+                               data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
                         </div>
                         <div class="div-search-content">
                             <div>
@@ -203,8 +208,7 @@
                         </div>
                     </div>
 
-                    <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
-                       data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
+
 
                     <div class="class_block_title_control" style="display:flex;margin-top: 10px;">
                         <div style="width:165px ;height:165px;margin-left: 10px;" id="divLogo">
@@ -268,40 +272,42 @@
 
 
             <script>
-                            function funcChangeLogoType()
-                            {
-                                try {
-                                    if($("#cboLogoType").val() != "1" )
-                                    {
-                                        $("#divckbNhanHieuAnh").css('display', 'block');
-                                        $("#divLogo").css('display', 'block');
-                                        $("#divckbNhanHieuChu").css('display', 'none');
-                                        $("#tagSuggessIMG").css('display', 'block');
-                                        $("#spfontsize").css('display', 'none');
-                                        $("#txtFontSize").css('display', 'none');
-                                    }
-                                    else
-                                    {
-                                        $("#divckbNhanHieuAnh").css('display', 'none');
-                                        $("#divLogo").css('display', 'none');
-                                        $("#tagSuggessIMG").css('display', 'none');
-                                        $("#divckbNhanHieuChu").css('display', 'block');
-                                        $("#spfontsize").css('display', 'block');
-                                        $("#txtFontSize").css('display', 'block');
-                                    }
+                function funcChangeLogoType() {
+                    try {
+                        if ($("#cboLogoType").val() != "1") {
+                            $("#divckbNhanHieuAnh").css('display', 'block');
+                            $("#divLogo").css('display', 'block');
+                            $("#divckbNhanHieuChu").css('display', 'none');
+                            $("#tagSuggessIMG").css('display', 'block');
+                            $("#spfontsize").css('display', 'none');
+                            $("#txtFontSize").css('display', 'none');
+                        }
+                        else {
+                            $("#divckbNhanHieuAnh").css('display', 'none');
+                            $("#divLogo").css('display', 'none');
+                            $("#tagSuggessIMG").css('display', 'none');
+                            $("#divckbNhanHieuChu").css('display', 'block');
+                            $("#spfontsize").css('display', 'block');
+                            $("#txtFontSize").css('display', 'block');
+                        }
 
-                                } catch (e) {
-                                    console.log(e.toString());
-                                }
-                            }
-                         
+                    } catch (e) {
+                        console.log(e.toString());
+                    }
+                }
             </script>
 
             <div class="div-search-ad">
                 <div class="div-search-content">
+                    <div class="div-radio" style="width:482px">
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHNM" id="0_NhanHieuThongThuong" />
+                        <label>@WebApps.Resources.Resource.NormalTrademark</label>
+                    </div>
+                </div>
+
+                <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="checkbox" name="0_NhanHieu" class="classNhanHieu" value="NHTT" 
-                               id="0_NhanHieuTapThe" />
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHTT" id="0_NhanHieuTapThe" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuTapThe</label>
                     </div>
                 </div>
@@ -309,28 +315,24 @@
 
             <div class="div-search-ad">
                 <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="checkbox" name="0_NhanHieu" class="classNhanHieu" value="NHLK" 
-                               id="0_NhanHieuLienKet" />
+                    <div class="div-radio" style="width:482px">
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHLK" id="0_NhanHieuLienKet" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuLienKet</label>
                     </div>
                 </div>
-            </div>
-            <div class="div-search-ad">
+
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="checkbox" name="0_NhanHieu" value="NHCN" class="classNhanHieu" 
-                               id="0_NhanHieuChungNhan"/>
+                        <input type="radio" name="0_NhanHieu" value="NHCN" class="classNhanHieu" id="0_NhanHieuChungNhan" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
                     </div>
                 </div>
             </div>
 
-            @* old *@
             @*<div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHTT"  id="0_NhanHieuTapThe" />
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHTT" id="0_NhanHieuTapThe" />
                         <label>@WebApps.Resources.Resource.lblNhanHieuTapThe</label>
                     </div>
                 </div>
@@ -352,7 +354,6 @@
                     </div>
                 </div>
             </div>*@
-
         </div>
         @* End tai lieu dinh kem  *@
         <div class="div_full_100_area" style="display:none" id="divNhanHieuChungNhan">
@@ -381,7 +382,7 @@
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" name="8_ckbChatLuong" class="classDacTinhHangHoa" disabled="disabled" value="CLCL"  id="8_ckbChatLuong" />
+                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" name="8_ckbChatLuong" class="classDacTinhHangHoa" disabled="disabled" value="CLCL" id="8_ckbChatLuong" />
                     <div>@WebApps.Resources.Resource.lblChatLuong:</div>
                 </div>
                 <div class="div-search-content">
@@ -407,10 +408,11 @@
         @* Class *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml")
         @* End Class *@
+
+
         @* 2 *@
         <div class="div_full_100_area">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblDaiDienChuDon.ToUpper())
-
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio">
@@ -426,7 +428,7 @@
             <div class="div-search-ad">
                 @*<div class="div-search-content">*@
                 <div class="div-radio" style="width:60%">
-                    <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienSH" id="3_txtToChucDaiDien" />
+                    <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienSH" id="3_txtToChucDaiDien" checked />
                     <label>@WebApps.Resources.Resource.lblLaToChucDichVuDaiDienSoHuu</label>
                 </div>
 
@@ -453,8 +455,9 @@
             </div>
             <div id="divDDUQChoise" style=" margin-top: 5px;">
             </div>
-
         </div>
+
+
         @* 3  A14*@
         <div class="div_full_100_area">
             <div class="divCover cls_form_title">
@@ -525,7 +528,7 @@
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input  type="text" class="classDacTinhUT datetimepicker" style="width:200px" maxlength="10" id="6_txtNgayNopDon" />
+                            <input type="text" class="classDacTinhUT datetimepicker" style="width:200px" maxlength="10" id="6_txtNgayNopDon" />
                         </div>
                     </div>
                 </div>
@@ -611,7 +614,7 @@
                 </div>
                 <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
                     <div class="div-search-content">
-                        <div class="div-checkbox"  style="width:382px">
+                        <div class="div-checkbox" style="width:382px">
                             <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_16" id="6_rdoBDTVGom" name="NameTLUT04NH_D_16" onchange="return ShowHidenUpLoad(this.id, this.id);" />
                             <label>@WebApps.Resources.Resource.lblBanDichTiengVietGom</label>
                         </div>
@@ -654,7 +657,7 @@
         @* CAM KẾT CHỦ ĐƠN  *@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewNgayThangNam.cshtml")
 
-         @*if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
+        @*if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
         {
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDuLieuQuaKhu.cshtml", "1")
         }*@
@@ -698,9 +701,9 @@
 
     //nếu dùng checkbox
     $(document).ready(function () {
-        $('.classNhanHieu').click(function () {
-            $('.classNhanHieu').not(this).prop('checked', false);
-        });
+        //$('.classNhanHieu').click(function () {
+        //    $('.classNhanHieu').not(this).prop('checked', false);
+        //});
     });
 
     $(function ()
@@ -797,7 +800,8 @@
                             url: '/trade-mark/GetNameSuggestKhac/',
                             type: 'POST',
                             data: {
-                                pName: txtTenDayDu_02, pNumber: 5
+                                pName: txtTenDayDu_02,
+                                pNumber: 5
                             },
                             sync: true, cache: false, traditional: true,
                             success: function (data) {
@@ -1043,6 +1047,9 @@
             scrollInput: false
         });
 
+        var v_DDSHCN = $("input[name='3_rdoDaiDienChuDon']:checked").val();
+        GetThongTinDaiDien(v_DDSHCN);
+
         //Search suggestion
         var Name = $("#1_txtTenDayDu").val();
         $.ajax({
@@ -1282,64 +1289,6 @@
 
     });
 
-
-
-    //07/10/2018
-    //$("#txtTenHangHoa").keypress(function (event) {
-    //    if (event.which == 13) {
-    //        //event.preventDefault();
-    //        //Search suggestion
-    //        var Name = $("#txtTenHangHoa").val();
-    //        if (Name.length < 3) {
-    //            return;
-    //        }
-    //        $.ajax({
-    //            url: '/trade-mark/GetNameSuggestAppClass',
-    //            type: 'POST',
-    //            data: {
-    //                pName: Name
-    //            },
-    //            sync: true, cache: false, traditional: true,
-    //            success: function (data) {
-    //                var lts = data.lst;
-    //                $('#txtTenHangHoa').autocomplete({
-    //                    autoFocus: true,
-    //                    source: function (request, response) {
-    //                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
-    //                        response($.grep(lts, function (item) {
-    //                            return matcher.test(item.name);
-    //                        }));
-    //                    },
-    //                    select: function (event, ui) {
-    //                        var textinput = $("#txtTenHangHoa").val();
-    //                        event.preventDefault();
-    //                        funcAddDataRowSuggest(textinput, ui.item.value);
-    //                        $("#txtTenHangHoa").val("");
-    //                    },
-    //                    focus: function (event, ui) {
-    //                        var arrResult = $(".ui-menu-item");
-    //                        for (var i = 0; i < arrResult.length; i++) {
-    //                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
-    //                            if (label == ui.item.name) {
-    //                                $(".clsLiActive").removeClass("clsLiActive")
-    //                                $(arrResult[i]).addClass("clsLiActive");
-    //                                break;
-    //                            }
-    //                        }
-    //                        event.preventDefault();
-    //                    },
-    //                    open: function (event, ui) {
-    //                        $("ul").scrollTop(0);
-    //                        event.preventDefault();
-    //                    },
-    //                });
-    //            }
-    //        });
-    //    }
-    //});
-
-
-
     function funcChuDonKhacReuse9(displayVal) {
         try {
             var txtNguoiDaidien = "9_txtTenDayDu";
@@ -1474,7 +1423,7 @@
 
     $("#btnGuiDon").click(function () {
         var v_NhanHieu = $("input[name='0_NhanHieu']:checked").val();
- 
+
 
         nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
             var url = "/trade-mark/dang_ky_nhan_hieu";
