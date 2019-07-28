@@ -1,5 +1,6 @@
 ﻿@using ObjectInfos;
 @using BussinessFacade.ModuleMemoryData
+@using Common.CommonData
 
 @{
     SearchObject_Header_Info _HeaderInfo = new SearchObject_Header_Info();
@@ -44,23 +45,11 @@
 </style>
 
 <div style="float:left;width:100%">
-
-    @*<div class="divCover cls_form_title">
-            <img src="/Content/icons/category.png" />
-            <div class="cls_form_header">
-
-                @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update))
-                {
-                    <a style="text-decoration: underline; font-style: italic; color: blue;" href="/quan-ly-search/search-edit/@_HeaderInfo.SEARCH_ID/@_HeaderInfo.STATUS"> Sửa Search </a>
-                }
-            </div>
-        </div>*@
-
     <br />
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div> Case code:</div>
+            <div> @WebApps.Resources.Resource.CaseCode:</div>
         </div>
         <div class="div-search-content">
             <div>
@@ -69,7 +58,7 @@
         </div>
 
         <div class="div-search-title">
-            <div> Case name:</div>
+            <div> @WebApps.Resources.Resource.CaseName:</div>
         </div>
         <div class="div-search-content">
             <div>
@@ -79,7 +68,7 @@
     </div>
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div> Client Reference: </div>
+            <div> @WebApps.Resources.Resource.ClientReference: </div>
         </div>
         <div class="div-search-content">
             <div>
@@ -88,7 +77,7 @@
         </div>
 
         <div class="div-search-title">
-            <div>@WebApps.Resources.Resource.QuocTich<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.QuocGia<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
@@ -113,7 +102,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div> Đối tượng: </div>
+            <div> @WebApps.Resources.Resource.Object: </div>
         </div>
         <div class="div-search-content">
             <div>
@@ -122,186 +111,195 @@
         </div>
     </div>
 
-    @if (_HeaderInfo.Url_File != null && _HeaderInfo.Url_File != "")
+    @if (_HeaderInfo.Object_Search == Search_Object_Enum.Trademark)
     {
-        @*<div class="div-search-ad">
+        if (_HeaderInfo.Url_File != null && _HeaderInfo.Url_File != "")
+        {
+            string[] _arr1 = _HeaderInfo.Url_File.Split('/');
+            string _filename1 = "File đính kèm";
+            if (_arr1.Length > 0)
+            {
+                _filename1 = _arr1[_arr1.Length - 1];
+            }
+            <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div> File đính kèm: </div>
+                    <div>@WebApps.Resources.Resource.FileDinhKem</div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <a style="height: 20px !important;" href="@_HeaderInfo.Url_File" download="@_HeaderInfo.Url_File"> File đính kèm </a>
+                        <a style="height: 20px !important;" href="@_HeaderInfo.Url_File" download="@_HeaderInfo.Url_File"> @_filename1 </a>
                     </div>
                 </div>
-            </div>*@
-
-        string[] _arr1 = _HeaderInfo.Url_File.Split('/');
-        string _filename1 = "File đính kèm";
-        if (_arr1.Length > 0)
-        {
-            _filename1 = _arr1[_arr1.Length - 1];
+            </div>
         }
+
+        if (!string.IsNullOrEmpty(_HeaderInfo.Logourl))
+        {
+            <div class="divCover cls_form_title">
+                <img src="/Content/icons/category.png" />
+                <div class="cls_form_header">
+                    @WebApps.Resources.Resource.AnhNhanHieu
+                </div>
+            </div>
+
+            <div class="class_full_div_input_extent">
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <div>@WebApps.Resources.Resource.lblMauNhanHieu:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <select id="cboLogoType" onchange="funcChangeLogoType()" disabled>
+                                @foreach (var item in _lstLogoType)
+                                {
+                                    if (_HeaderInfo.Logochu == Convert.ToInt32(item.CdVal))
+                                    {
+                                        <option value="@item.CdVal" selected="selected">
+                                            @item.Content
+                                        </option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.CdVal">
+                                            @item.Content
+                                        </option>
+                                    }
+
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="div-search-ad" id="spfontsize" style="display:none">
+                    <div class="div-search-title">
+                        <div>
+                            Font-size
+                        </div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input disabled type="number" onchange="changeFontSize()" id="txtFontSize" value="@(_HeaderInfo.LOGO_FONT_SIZE==0?12:_HeaderInfo.LOGO_FONT_SIZE)" style="height: 27px; display:none" />
+                        </div>
+                    </div>
+                </div>
+
+                <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+                   data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
+                <div class="class_block_title_control divLogoAnh" style="display:flex;padding-top:10px">
+                    @if (_HeaderInfo.Logochu != 1)
+                    {
+                        <div style="width:165px ;height:165px" id="divLogo" class="divLogoAnh">
+                            <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
+                            <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
+                        </div>
+                        <div id="divckbNhanHieuChu" style="display:none">
+                            <div style="width:165px ;height:165px;  margin-left: 13px;">
+                                <input readonly type="text" class="classChuNhanHieu" id="txtChuNhanHieu" value="@urlLogoChu" style="height:160px;width:160px;text-align: center;" />
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div style="width:165px ;height:165px;display:none" id="divLogo">
+                            <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
+                            <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
+                        </div>
+
+                        <div id="divckbNhanHieuChu">
+                            <div style="width:165px ;height:165px;  margin-left: 13px;">
+                                <input readonly type="text" class="classChuNhanHieu" id="txtChuNhanHieu" value="@urlLogoChu" style="height:160px;width:160px;text-align: center;" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <script>
+                $(document).ready(function () {
+                    funcChangeLogoType();
+                    changeFontSize();
+                });
+                function funcChangeLogoType() {
+                    try {
+                        if ($("#cboLogoType").val() == "1") {
+                            $("#divLogo").css('display', 'none');
+                            $("#divLogoHiden").css('display', 'none');
+                            $("#divckbNhanHieuChu").css('display', 'block');
+                            $("#spfontsize").css('display', 'block');
+                            $("#txtFontSize").css('display', 'block');
+                            $("#iddivLogoAnh").css('display', 'none');
+
+                        }
+                        else {
+                            $("#divckbNhanHieuChu").css('display', 'none');
+                            $("#divLogo").css('display', 'block');
+                            $("#divLogoHiden").css('display', 'block');
+
+                            $("#spfontsize").css('display', 'none');
+                            $("#txtFontSize").css('display', 'none');
+                            $("#iddivLogoAnh").css('display', 'block');
+                        }
+
+                    } catch (e) {
+                        console.log(e.toString());
+                    }
+                }
+
+            </script>
+        }
+
+        <div class="divCover cls_form_title">
+            <img src="/Content/icons/category.png" />
+            <div class="cls_form_header">
+                @WebApps.Resources.Resource.MoTaTomTat
+            </div>
+        </div>
+
+        @* detail search *@
+        @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearchClassView.cshtml")
+
+        <div class="divCover cls_form_title">
+            <img src="/Content/icons/category.png" />
+            <div class="cls_form_header">
+                @WebApps.Resources.Resource.DieuKienSearch
+            </div>
+        </div>
+
+        <div id="div_searchcondtion_content">
+            @foreach (var item in _ListDetail)
+            {
+                @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearchCondition4View.cshtml", item)
+            }
+        </div>
+    }
+    else if (_HeaderInfo.Object_Search == Search_Object_Enum.Patent)
+    {
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>File đính kèm</div>
+                <div>@WebApps.Resources.Resource.TenSangChe</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <a style="height: 20px !important;" href="@_HeaderInfo.Url_File" download="@_HeaderInfo.Url_File"> @_filename1 </a>
+                    <input readonly type="text" maxlength="500" id="txtName" value="@_HeaderInfo.Name" />
                 </div>
             </div>
         </div>
     }
-
-
-  
-
- @if (!string.IsNullOrEmpty(_HeaderInfo.Logourl))
- {
-    <div class="divCover cls_form_title">
-        <img src="/Content/icons/category.png" />
-        <div class="cls_form_header">
-            Ảnh nhãn hiệu
-        </div>
-    </div>
-
-    <div class="class_full_div_input_extent">
+    else if (_HeaderInfo.Object_Search == Search_Object_Enum.Patent)
+    {
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>@WebApps.Resources.Resource.lblMauNhanHieu:</div>
+                <div>@WebApps.Resources.Resource.TenKieuDangCongNghiep</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <select id="cboLogoType" onchange="funcChangeLogoType()" disabled>
-                        @foreach (var item in _lstLogoType)
-                        {
-                            if (_HeaderInfo.Logochu == Convert.ToInt32(item.CdVal))
-                            {
-                                <option value="@item.CdVal" selected="selected">
-                                    @item.Content
-                                </option>
-                            }
-                            else
-                            {
-                                <option value="@item.CdVal">
-                                    @item.Content
-                                </option>
-                            }
-
-                        }
-                    </select>
+                    <input readonly type="text" maxlength="500" id="txtName" value="@_HeaderInfo.Name" />
                 </div>
             </div>
         </div>
-
-
-        <div class="div-search-ad" id="spfontsize" style="display:none">
-            <div class="div-search-title">
-                <div>
-                    Font-size
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input disabled type="number" onchange="changeFontSize()" id="txtFontSize" value="@(_HeaderInfo.LOGO_FONT_SIZE==0?12:_HeaderInfo.LOGO_FONT_SIZE)" style="height: 27px; display:none" />
-                </div>
-            </div>
-        </div>
-
-        <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
-           data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
-        <div class="class_block_title_control divLogoAnh" style="display:flex;padding-top:10px">
-            @if (_HeaderInfo.Logochu != 1)
-            {
-                <div style="width:165px ;height:165px" id="divLogo" class="divLogoAnh">
-                    <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
-                    <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
-                </div>
-                <div id="divckbNhanHieuChu" style="display:none">
-                    <div style="width:165px ;height:165px;  margin-left: 13px;">
-                        <input readonly type="text" class="classChuNhanHieu" id="txtChuNhanHieu" value="@urlLogoChu" style="height:160px;width:160px;text-align: center;" />
-                    </div>
-                </div>
-            }
-            else
-            {
-                <div style="width:165px ;height:165px;display:none" id="divLogo">
-                    <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
-                    <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
-                </div>
-
-                <div id="divckbNhanHieuChu">
-                    <div style="width:165px ;height:165px;  margin-left: 13px;">
-                        <input readonly type="text" class="classChuNhanHieu" id="txtChuNhanHieu" value="@urlLogoChu" style="height:160px;width:160px;text-align: center;" />
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
-
-    <script>
-                            $(document).ready(function () {
-                                funcChangeLogoType();
-                                changeFontSize();
-                            });
-                            function funcChangeLogoType()
-                            {
-                                try {
-                                    if($("#cboLogoType").val() == "1")
-                                    {
-                                        $("#divLogo").css('display', 'none');
-                                        $("#divLogoHiden").css('display', 'none');
-                                        $("#divckbNhanHieuChu").css('display', 'block');
-                                        $("#spfontsize").css('display', 'block');
-                                        $("#txtFontSize").css('display', 'block');
-                                        $("#iddivLogoAnh").css('display', 'none');
-
-                                    }
-                                    else
-                                    {
-                                        $("#divckbNhanHieuChu").css('display', 'none');
-                                        $("#divLogo").css('display', 'block');
-                                        $("#divLogoHiden").css('display', 'block');
-
-                                        $("#spfontsize").css('display', 'none');
-                                        $("#txtFontSize").css('display', 'none');
-                                        $("#iddivLogoAnh").css('display', 'block');
-                                    }
-
-                                } catch (e) {
-                                    console.log(e.toString());
-                                }
-                            }
-
-    </script>
- }
-
-   
-
-    <div class="divCover cls_form_title">
-        <img src="/Content/icons/category.png" />
-        <div class="cls_form_header">
-            @WebApps.Resources.Resource.MoTaTomTat
-        </div>
-    </div>
-
-    @* detail search *@
-    @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearchClassView.cshtml")
-
-    <div class="divCover cls_form_title">
-        <img src="/Content/icons/category.png" />
-        <div class="cls_form_header">
-            @WebApps.Resources.Resource.DieuKienSearch
-        </div>
-    </div>
-
-    <div id="div_searchcondtion_content">
-        @foreach (var item in _ListDetail)
-        {
-            @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearchCondition4View.cshtml", item)
-        }
-    </div>
-
+    }
     <br />
 
     <div style="margin-top:15px">
@@ -312,14 +310,14 @@
     <div class="divCover cls_form_title">
         <img src="/Content/icons/category.png" />
         <div class="cls_form_header">
-            Kết quả
+            @WebApps.Resources.Resource.KetQua
         </div>
     </div>
 
     @if (_QuestionInfo.FILE_URL != null && _QuestionInfo.FILE_URL != "")
     {
         string[] _arr = _QuestionInfo.FILE_URL.Split('/');
-        string _filename = "File attach";
+        string _filename = WebApps.Resources.Resource.FileDinhKem;
         if (_arr.Length > 0)
         {
             _filename = _arr[_arr.Length - 1];
@@ -340,7 +338,7 @@
     @if (_QuestionInfo.FILE_URL02 != null && _QuestionInfo.FILE_URL02 != "")
     {
         string[] _arr1 = _QuestionInfo.FILE_URL02.Split('/');
-        string _filename1 = "File attach";
+        string _filename1 = WebApps.Resources.Resource.FileDinhKem;
         if (_arr1.Length > 0)
         {
             _filename1 = _arr1[_arr1.Length - 1];
@@ -360,7 +358,7 @@
     @if (_HeaderInfo.Url_Billing != null && _HeaderInfo.Url_Billing != "")
     {
         string[] _arr1 = _HeaderInfo.Url_Billing.Split('/');
-        string _filename1 = "Billing";
+        string _filename1 = WebApps.Resources.Resource.Billing;
         if (_arr1.Length > 0)
         {
             _filename1 = _arr1[_arr1.Length - 1];

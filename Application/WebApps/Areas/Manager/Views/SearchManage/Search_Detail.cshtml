@@ -287,7 +287,7 @@
         </div>
     }
 
-    @if (_HeaderInfo.Object_Search == Search_Object_Enum.Trademark)
+    @if (_HeaderInfo.Object_Search == Search_Object_Enum.Trademark || _HeaderInfo.Object_Search == Search_Object_Enum.Patent  || _HeaderInfo.Object_Search == Search_Object_Enum.IndusDesign)
     {
         @Html.Partial("/Areas/Manager/Views/SearchManage/_PartialSearchDetails.cshtml")
     }

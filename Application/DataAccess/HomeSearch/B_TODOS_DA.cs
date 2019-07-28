@@ -1,5 +1,6 @@
 ﻿using Common;
 using Common.CommonData;
+using ObjectInfos;
 using Oracle.DataAccess.Client;
 using System;
 using System.Collections.Generic;
@@ -209,6 +210,36 @@ namespace DataAccess
                    new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
                    new OracleParameter("p_active_date", OracleDbType.Date, DateTime.Now, ParameterDirection.Input),
                    new OracleParameter("p_ref_id", OracleDbType.Decimal, p_ref_id, ParameterDirection.Input));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return false;
+            }
+        }
+
+        public DataSet GetSend_Email()
+        {
+            try
+            {
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_todos.proc_get_send_mail",
+                       new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
+        public bool Update_Todo_Email(List<B_Todos_Info> p_lst)
+        {
+            try
+            {
+                OracleHelper.ExcuteBatchNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_todos.pro_update_status_sendmail", p_lst.Count,
+                   new OracleParameter("p_id", OracleDbType.Decimal, p_lst.Select(o => o.TODO_ID).ToArray(), ParameterDirection.Input));
+
                 return true;
             }
             catch (Exception ex)

@@ -55,8 +55,6 @@
         </div>
     </div>
     <div class="divCover">
-
-
         <div class="div-search-ad">
             <div class="div-search-title">
                 <div>@WebApps.Resources.Resource.QuocGia<i class="redspan">(*)</i></div>
@@ -84,7 +82,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>@WebApps.Resources.Resource.YeuCau<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.YeuCauSearch<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -148,26 +146,15 @@
     </div>
 </div>
 
-
-
 <script>
      
-
     $("#btnGuiBai").click(function () {
         try {
             var formData = new FormData();
 
             var _txtcasename = $("#_txtcasename");
             var txtClient_Reference = $("#txtClient_Reference");
-
-            @*if (_txtcasename.val().trim() == "") {
-                jError("@Html.Raw(WebApps.Resources.Resource.CaseNameTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
-                    _txtcasename.val('');
-                    _txtcasename.focus();
-                });
-                return false;
-            }*@
-
+     
             var _re = checkValidate_File("1");
             if (_re == false) {
                 return false;
@@ -181,8 +168,6 @@
                 });
                 return false;
             }
-
-            //var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
 
             formData.append("p_searchHeaderInfo.CASE_NAME", _txtcasename.val().trim());
             formData.append("p_searchHeaderInfo.CLIENT_REFERENCE", txtClient_Reference.val());

@@ -844,5 +844,26 @@ namespace WebApps.Areas.Manager.Controllers
                 return Json(new { success = -1 });
             }
         }
+
+        [HttpPost]
+        [Route("change-app-type")]
+        public ActionResult Change_App_Type(string p_type)
+        {
+            if (p_type == Search_Object_Enum.Trademark.ToString())
+            {
+                return PartialView(@"~\Areas\Manager\Views\SearchManage\_PartialSearch_Trademark.cshtml");
+            }
+            else if (p_type == Search_Object_Enum.Patent.ToString())
+            {
+                return PartialView(@"~\Areas\Manager\Views\SearchManage\_PartialSearch_Patent.cshtml");
+            }
+            else if (p_type == Search_Object_Enum.IndusDesign.ToString())
+            {
+                return PartialView(@"~\Areas\Manager\Views\SearchManage\_PartialSearch_IndusDesign.cshtml");
+            }
+            else
+                return PartialView(@"~\Areas\Manager\Views\SearchManage\_PartialSearch_Trademark.cshtml");
+
+        }
     }
 }

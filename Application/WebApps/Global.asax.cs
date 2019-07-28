@@ -1,6 +1,7 @@
 ﻿namespace WebApps
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Net;
     using System.Text.RegularExpressions;
@@ -36,6 +37,7 @@
                     IsSsl = CommonFuc.GetConfig("SSL") == "Y",
                     EmailCC = CommonFuc.GetConfig("EmailCC")
                 };
+
                 Logger.Log().Info("Start Application_Start");
                 CommonVariables.AssemblyVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
                 CommonVariables.KnFileLogin = HttpContext.Current.Server.MapPath(@"~/log/LogInApp" + DateTime.Now.ToString("MMyyyy") + ".log");
@@ -49,7 +51,7 @@
                 // tự động change trạng thái của remind
                 Thread _th2 = new Thread(ThreadChangeRemind);
                 _th2.IsBackground = true;
-                _th2.Start();
+                //_th2.Start();
 
                 Thread _th3 = new Thread(ThreadSendEmail);
                 _th3.IsBackground = true;
@@ -267,28 +269,55 @@
             }
         }
 
-        /// <summary>
-        /// thread chuyên load dữ liệu tĩnh khi có sự thay đổi
-        /// </summary>
         private void ThreadChangeRemind()
         {
             while (true)
             {
                 try
                 {
-                    if (DateTime.Now.ToString("HH:mm") == "00:55" && Common.c_is_call_change_remind == false)
+                    //if (DateTime.Now.ToString("HH:mm") == "00:55" && Common.c_is_call_change_remind == false)
+                    //{
+                    //    B_Remind_BL _bl = new B_Remind_BL();
+                    //    _bl.Auto_change_remind();
+                    //    Logger.Log().Info("ChangeRemind " + DateTime.Now.ToString("dd/MM/yyyy"));
+                    //    Common.c_is_call_change_remind = true;
+                    //}
+                    //else if (DateTime.Now.ToString("HH:mm") != "00:55")
+                    //{
+                    //    Common.c_is_call_change_remind = false;
+                    //}
+
+                    // đọc thông tin cần gửi email
+                    B_Todos_BL _B_Todos_BL = new B_Todos_BL();
+                    List<B_Todos_Info> _lst = _B_Todos_BL.GetSend_Email();
+                    List<string> _LstAttachment = new List<string>();
+
+                    List<B_Todos_Info> _lst_update = _B_Todos_BL.GetSend_Email();
+
+                    foreach (B_Todos_Info item in _lst)
                     {
-                        B_Remind_BL _bl = new B_Remind_BL();
-                        _bl.Auto_change_remind();
-                        Logger.Log().Info("ChangeRemind " + DateTime.Now.ToString("dd/MM/yyyy"));
-                        Common.c_is_call_change_remind = true;
-                    }
-                    else if (DateTime.Now.ToString("HH:mm") != "00:55")
-                    {
-                        Common.c_is_call_change_remind = false;
+                        Email_Info _Email_Info = new Email_Info
+                        {
+                            EmailTo = item.Email_Send,
+                            EmailCC = "",
+                            Subject = item.CONTENT,
+                            Content = item.CONTENT,
+                            LstAttachment = _LstAttachment,
+                        };
+
+                        CommonFunction.AppsCommon.EnqueueSendEmail(_Email_Info);
+
+                        // update todo-id
+                        _lst_update.Add(item);
                     }
 
-                    Thread.Sleep(60000);
+                    // update todo-id
+                    if (_lst_update.Count > 0)
+                    {
+                        _B_Todos_BL.Update_Todo_Email(_lst_update);
+                    }
+
+                    Thread.Sleep(30000);
                 }
                 catch (Exception ex)
                 {

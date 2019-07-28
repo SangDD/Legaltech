@@ -165,5 +165,34 @@ namespace BussinessFacade
                 return false;
             }
         }
+
+        public List<B_Todos_Info> GetSend_Email()
+        {
+            try
+            {
+                B_TODOS_DA _da = new B_TODOS_DA();
+                DataSet _ds = _da.GetSend_Email();
+                return CBO<B_Todos_Info>.FillCollectionFromDataTable(_ds.Tables[0]);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<B_Todos_Info>();
+            }
+        }
+
+        public bool Update_Todo_Email(List<B_Todos_Info> p_lst)
+        {
+            try
+            {
+                B_TODOS_DA _da = new B_TODOS_DA();
+                return _da.Update_Todo_Email(p_lst);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return false;
+            }
+        }
     }
 }

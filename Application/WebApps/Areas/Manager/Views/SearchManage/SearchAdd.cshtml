@@ -55,28 +55,6 @@
     }
 </style>
 <script>
-    @*$(function () {
-
-        var availableTags = [];
-        var array = @Html.Raw(Json.Encode(@_lstSuggest));
-        for(var i = 0; i < array.length; i++) {
-            availableTags[i] = array[i];
-        }
-
-        $("#tags").autocomplete({
-            minLength: 3,
-            source: function (request, response) {
-                var results = $.ui.autocomplete.filter(availableTags, request.term);
-
-                response(results.slice(0, 100));
-            },
-            select: function (event, ui) {
-                $("#txtClass").val(ui.item.value);
-                return false;
-            }
-        });
-    });*@
-
     $(function ()
     {
       try {
@@ -157,7 +135,6 @@
     </div>
     <div class="divCover">
 
-
         <div class="div-search-ad">
             <div class="div-search-title">
                 <div>@WebApps.Resources.Resource.QuocGia<i class="redspan">(*)</i></div>
@@ -185,7 +162,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>@WebApps.Resources.Resource.YeuCau<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.YeuCauSearch<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -216,221 +193,24 @@
             </div>
         </div>
 
-
-
-        <div class="divCover cls_form_title">
-            <img src="/Content/icons/category.png" />
-            <div class="cls_form_header">
-                @WebApps.Resources.Resource.TrademarkSample
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div> @WebApps.Resources.Resource.LoaiDon </div>
             </div>
-        </div>
-
-        <div class="class_full_div_input_extent">
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div>@WebApps.Resources.Resource.lblMauNhanHieu:</div>
-                    <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
-                       data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <select id="cboLogoType" onchange="funcChangeLogoType()">
-                            @foreach (var item in _lstLogoType)
-                            {
-                                <option value="@item.CdVal">
-                                    @item.Content
-                                </option>
-                            }
-                        </select>
-                    </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboAppType" onchange="onChangeApplictionType()">
+                        <option value="1">  @WebApps.Resources.Resource.Trademark </option>
+                        <option value="2">  @WebApps.Resources.Resource.Patent </option>
+                        <option value="4">  @WebApps.Resources.Resource.IndusDesign </option>
+                    </select>
                 </div>
             </div>
-            <div class="div-search-ad" id="spfontsize" style="display:none">
-                <div class="div-search-title">
-                    <div>
-                        Font-size
-                    </div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="number" onchange="changeFontSize()" id="txtFontSize" value="12" style="height: 27px; display:none" />
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="class_block_title_control" style="display:flex;padding-top:10px">
-                <div style="width:165px ;height:165px;margin-left: 13px;" id="divLogo">
-                    <img id="imgMauNhanHieu" src="~/Content/icons/logo.jpg" style="width:160px ;height:160px">
-                    <img id="imgMauNhanHieuTeplace" src="~/Content/icons/logo.jpg" hidden="hidden">
-                </div>
-                <div class="container" id="divckbNhanHieuAnh" style="flex-grow:1;padding-top:50px">
-                    <div class="file-upload btn btn-primary" style="margin-top:95px">
-                        <span>@WebApps.Resources.Resource.lblTaiFile</span>
-                        <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
-                    </div>
-                </div>
-                <div id="divckbNhanHieuChu" style="display:none">
-                    <div style="width:165px ;height:165px;margin-left: 13px;">
-                        <input type="text" class="classChuNhanHieu" id="txtChuNhanHieu" style="height:160px;width:160px;text-align: center;" />
-                    </div>
-                </div>
-            </div>
-            <script>
-                            function funcChangeLogoType()
-                            {
-                                try {
-                                    if($("#cboLogoType").val() != "1" )
-                                    {
-                                        $("#divckbNhanHieuAnh").css('display', 'block');
-                                        $("#divLogo").css('display', 'block');
-                                        $("#divckbNhanHieuChu").css('display', 'none');
-                                        $("#tagSuggessIMG").css('display', 'block');
-                                        $("#spfontsize").css('display', 'none');
-                                        $("#txtFontSize").css('display', 'none');
-                                    }
-                                    else
-                                    {
-                                        $("#divckbNhanHieuAnh").css('display', 'none');
-                                        $("#divLogo").css('display', 'none');
-                                        $("#tagSuggessIMG").css('display', 'none');
-                                        $("#divckbNhanHieuChu").css('display', 'block');
-                                        $("#spfontsize").css('display', 'block');
-                                        $("#txtFontSize").css('display', 'block');
-                                    }
-
-                                } catch (e) {
-                                    console.log(e.toString());
-                                }
-                            }
-
-                            function changeFontSize()
-                            {
-                                try {
-                                    document.getElementById("txtChuNhanHieu").style.fontSize = document.getElementById("txtFontSize").value + "px";
-                                } catch (e) {
-
-                                }
-                            }
-
-                            var _checkanh = 0;
-                            document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {
-                                _checkanh = 0;
-                                var preturn = fileNhanHieu(this, 'imgMauNhanHieu');
-
-                                //kiểm tra ảnh có đúng kích cỡ hay không?
-                                if (this.files[0].type.indexOf("image") != -1) {
-
-                                    var reader = new FileReader();
-                                    reader.onload = function (e) {
-                                        $("#imgMauNhanHieuTeplace").attr("src", e.target.result);
-
-                                        var img = $("#imgMauNhanHieuTeplace");
-                                        var iheight = 500; var iwidth = 500;
-
-                                        iheight = img[0].height;
-                                        console.log('lan 1: ' + iheight);
-                                        iheight = img[0].height;
-                                        iwidth = img[0].width;
-                                        console.log(iheight);
-                                        //2x2 75x75 px , 8x8 302x302
-                                        if (iheight > 302 || iheight < 75 || iwidth > 302 || iwidth < 75) {
-                                            _checkanh = 1;
-                                            nvsConfirm(null,"@Html.Raw(WebApps.Resources.Resource.KichThuoc2288)", function () {
-                                                return true;
-                                            }, function () {
-                                                //Callback
-                                                $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
-                                            });
-
-                                        } else {
-                                            return true;
-                                        }
-                                    }
-                                    reader.readAsDataURL(this.files[0]);
-                                } else {
-                                    nvsAlert("@Html.Raw(WebApps.Resources.Resource.ThongBao)", "@Html.Raw(WebApps.Resources.Resource.FileKhongPhaiLaAnh)", "");
-                                    _checkanh = 2;
-                                }
-                            };
-
-                            function funcUpLoadMauNhanHieu(pFile) {
-                                try {
-                                    var file = document.getElementsByName(pFile);
-                                    if (file != undefined) {
-                                        formdata.append("pInfo.pfiles", file[0].files[0]);
-                                    }
-                                } catch (e) {
-                                }
-                            }
-
-                            function  fileNhanHieu(pfile, pIdImg) {
-                                try {
-                                    if (pfile.files && pfile.files[0]) {
-                                        var reader = new FileReader();
-                                        reader.onload = function (e) {
-                                            $("#" + pIdImg).attr("src", e.target.result);
-                                        }
-                                        reader.readAsDataURL(pfile.files[0]);
-
-
-                                    }
-                                } catch (e) {
-
-                                }
-                            }
-
-            </script>
         </div>
 
-        <div class="divCover cls_form_title">
-            <img src="/Content/icons/category.png" />
-            <div class="cls_form_header">
-                @WebApps.Resources.Resource.HangHoaDichVuMangNhanHieu
-            </div>
+        <div id="div_app_type">
+            @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearch_Trademark.cshtml")
         </div>
-
-        @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialAddSearchClass.cshtml")
-
-
-
-
-        <div class="divCover cls_form_title">
-            <img src="/Content/icons/category.png" />
-            <div class="cls_form_header">
-                @WebApps.Resources.Resource.DieuKienSearch
-            </div>
-        </div>
-
-        <div id="div_searchcondtion_content">
-            @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearchCondition.cshtml", "1|1")
-        </div>
-
-        <div class="div-search-ad" style="float:left; width:100%;">
-            <input class="btn" style="margin: 4px 0px 0px 28px;" type="button" value="@WebApps.Resources.Resource.ThemDieuKien" onclick="funcAddCondition()" />
-        </div>
-
-        <br />
-        <br />
-        <div style="margin-top:15px">
-            <div>@WebApps.Resources.Resource.NoiDungYeuCau<i class="redspan">(*)</i></div>
-            <textarea type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200"></textarea>
-        </div>
-
-        <div class="divCover cls_form_title">
-            <img src="/Content/icons/category.png" />
-            <div class="cls_form_header">
-                @WebApps.Resources.Resource.TaiFileDinhKem
-            </div>
-        </div>
-        <br />
-        @{
-            string _id1 = "1";
-            string _isValid1 = "0";
-            string _model1 = _id1 + "|" + _isValid1 + "|" + WebApps.Resources.Resource.FileDinhKem;
-            @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile_Local.cshtml", _model1)
-        }
     </div>
 
     <div class="divCover">
@@ -439,8 +219,6 @@
         </div>
     </div>
 </div>
-
-
 
 <script>
     function funcAddCondition() {
@@ -462,11 +240,34 @@
         }
     }
 
+    function onChangeApplictionType() {
+        try {
+            var _AppType = $("#cboAppType").val();
+            $.ajax({
+                type: 'POST',
+                url: '/quan-ly-search/change-app-type/',
+                data: {
+                    p_type: _AppType
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#div_app_type").html(data);
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+
     function funcdeletecondition(_idsearch) {
         try {
             $("#div_condition_" + _idsearch).remove();
         } catch (e) {
-
+            alert(e);
         }
     }
 
@@ -476,21 +277,6 @@
 
             var _txtcasename = $("#_txtcasename");
             var txtClient_Reference = $("#txtClient_Reference");
-
-            @*if (_txtcasename.val().trim() == "") {
-                jError("@Html.Raw(WebApps.Resources.Resource.CaseNameTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
-                    _txtcasename.val('');
-                    _txtcasename.focus();
-                });
-                return false;
-            }*@
-            //if (txtClient_Reference.val().trim() == "") {
-            //    jError("Client Reference không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
-            //        txtClient_Reference.val('');
-            //        txtClient_Reference.focus();
-            //    });
-            //    return false;
-            //}
 
             var _re = checkValidate_File("1");
             if (_re == false) {
@@ -506,30 +292,65 @@
                 return false;
             }
 
-            //var _contentVal = CKEDITOR.instances['txtAddContent'].getData();
+            var _object_Search = $("#cboAppType").val();
+            if (_object_Search == '@Search_Object_Enum.Patent' ) {
+                var _txtName = $("#txtName").val();
+                if (_txtName == null || _txtName == "") {
+                    jError("@Html.Raw(WebApps.Resources.Resource.TenSangChe + WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                        $("#txtName").val('');
+                        $('#txtName').focus();
+                    });
+                    return false;
+                }
+            } else if (_object_Search == '@Search_Object_Enum.IndusDesign') {
+                var _txtName = $("#txtName").val();
+                if (_txtName == null || _txtName == "") {
+                    jError("@Html.Raw(WebApps.Resources.Resource.TenKieuDangCongNghiep + WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                        $("#txtName").val('');
+                        $('#txtName').focus();
+                    });
+                    return false;
+                }
+            }
 
             formData.append("p_searchHeaderInfo.CASE_NAME", _txtcasename.val().trim());
             formData.append("p_searchHeaderInfo.CLIENT_REFERENCE", txtClient_Reference.val());
             formData.append("p_searchHeaderInfo.STATUS", '@CommonSearch.Stt_PhanChoLuatSu');
             formData.append("p_searchHeaderInfo.Country_Id", $("#cboCountry").val());
             formData.append("p_searchHeaderInfo.NOTE", $("#txtNotes").val());
-            formData.append("p_searchHeaderInfo.Object_Search", '@Search_Object_Enum.Trademark');
+            formData.append("p_searchHeaderInfo.Object_Search", _object_Search);
 
-            //hungtd thêm up ảnh
-            if ($("#cboLogoType").val() == "1") {
-                formData.append("p_searchHeaderInfo.Logochu", 1);
-                formData.append("p_searchHeaderInfo.ChuLogo", $("#txtChuNhanHieu").val());
-                formData.append("p_searchHeaderInfo.LOGO_FONT_SIZE", $("#txtFontSize").val());
-                formData.append("p_searchHeaderInfo.FONTTYPE", "");
+            if (_object_Search == '@Search_Object_Enum.Trademark') {
+                //hungtd thêm up ảnh
+                if ($("#cboLogoType").val() == "1") {
+                    formData.append("p_searchHeaderInfo.Logochu", 1);
+                    formData.append("p_searchHeaderInfo.ChuLogo", $("#txtChuNhanHieu").val());
+                    formData.append("p_searchHeaderInfo.LOGO_FONT_SIZE", $("#txtFontSize").val());
+                    formData.append("p_searchHeaderInfo.FONTTYPE", "");
+                }
+                else {
+                    formData.append("p_searchHeaderInfo.Logochu", $("#cboLogoType").val());
+                    var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
+                    if (fileLogo != undefined || fileLogo != null) {
+                        formData.append("p_searchHeaderInfo.pfileLogo", fileLogo[0].files[0]);
+                    }
+                }
+                //end hungtd
+
+                $('.search_type').each(function (i, item) {
+                    formData.append("p_SearchObject_Detail_Info[" + i + "].SEARCH_TYPE", $(item).val());
+                });
+
+                var reponse = funcGetDataClassInfo(formData);
+                if (reponse == false) {
+                    return false;
+                }
+                formData.append("p_searchHeaderInfo.Name", "");
+            } else if (_object_Search == '@Search_Object_Enum.Patent') {
+                formData.append("p_searchHeaderInfo.Name", $("#txtName").val());
+            } else if (_object_Search == '@Search_Object_Enum.IndusDesign') {
+                formData.append("p_searchHeaderInfo.Name", $("#txtName").val());
             }
-            else {
-                formData.append("p_searchHeaderInfo.Logochu", $("#cboLogoType").val());
-                var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
-                if (fileLogo != undefined || fileLogo != null) {
-                    formData.append("p_searchHeaderInfo.pfileLogo", fileLogo[0].files[0]);
-                } 
-            }
-            //end hungtd
 
             // lay du lieu file
             var pfile = $("#file_attach_1");//lay du lieu file
@@ -538,13 +359,6 @@
                 formData.append("p_searchHeaderInfo.Url_File_Up", _file);
             }
 
-            //$('.search_object').each(function (i, item) {
-            //    formData.append("p_SearchObject_Detail_Info[" + i + "].SEARCH_OBJECT", $(item).val());
-            //});
-
-            $('.search_type').each(function (i, item) {
-                formData.append("p_SearchObject_Detail_Info[" + i + "].SEARCH_TYPE", $(item).val());
-            });
             var txtAddContent = $("#txtAddContent");
             if (txtAddContent.val().trim() == "") {
                 jError("@Html.Raw(WebApps.Resources.Resource.MoTaKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
@@ -555,18 +369,13 @@
             }
             formData.append("p_questionInfo.CONTENT", txtAddContent.val());
 
-            var reponse = funcGetDataClassInfo(formData);
-            if (reponse == false) {
-                return false;
-            }
-
             $.ajax({
                 url: '/quan-ly-search/SearchInsert/',
                 type: 'POST',
                 data: formData,
                 processData: false, contentType: false, traditional: true, dataType: "json",
                 enctype: 'multipart/form-data',
-                async: false, headers: { "cache-control": "no-cache" }, 
+                async: false, headers: { "cache-control": "no-cache" },
                 beforeSend: function () {
                     CreateRollingWaitingIcon(true);
                 },

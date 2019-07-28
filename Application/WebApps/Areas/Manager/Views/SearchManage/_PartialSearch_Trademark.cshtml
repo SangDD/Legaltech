@@ -1,0 +1,283 @@
+﻿@using Common.CommonData
+@using ObjectInfos;
+@using WebApps.CommonFunction
+@using BussinessFacade.ModuleMemoryData
+@{
+    string language = AppsCommon.GetCurrentLang();
+    var clstAppClassShortSuggest = new List<SuggestInfo>();
+    foreach (var item in MemoryData.clstAppClassSuggest)
+    {
+        if (item == null || item.name == null)
+        {
+            continue;
+        }
+
+        var pShortInfo = new SuggestInfo("", "");
+        if (language == Language.LangVI)
+        {
+            pShortInfo = new SuggestInfo(item.name.Replace('/', ' '), item.value);
+        }
+        else
+        {
+            pShortInfo = new SuggestInfo(item.name_en.Replace('/', ' '), item.value);
+        }
+        clstAppClassShortSuggest.Add(pShortInfo);
+    }
+
+    List<AllCodeInfo> _lstLogoType = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("NOTICE_APP", "LOGOTYPE");
+}
+
+<style>
+    .ui-autocomplete-loading {
+        background: white url("/Content/icons/Rolling-1s-16px.svg") right center no-repeat;
+    }
+</style>
+<script>
+    $(function ()
+    {
+      try {
+        var availableTags = [];
+        var array = @Html.Raw(Json.Encode(clstAppClassShortSuggest));
+        for (var i = 0; i < array.length; i++) {
+            availableTags[i] = array[i];
+        }
+        $("#txtTenHangHoa").autocomplete({
+            minLength: 3,
+            source: function (request, response) {
+                var results = $.ui.autocomplete.filter(availableTags, request.term.toUpperCase());
+                response(results.slice(0, 100));
+            },
+            select: function (event, ui) {
+                $("#txtClass").val(ui.item.value);
+                //return false;
+                var textinput = $("#txtTenHangHoa").val();
+                event.preventDefault();
+                funcAddDataRowSuggest(ui.item.label, ui.item.value);
+                $("#txtTenHangHoa").val("");
+
+            },
+            focus: function (event, ui) {
+                var arrResult = $(".ui-menu-item");
+                for (var i = 0; i < arrResult.length; i++) {
+                    var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                    if (label == ui.item.name) {
+                        $(".clsLiActive").removeClass("clsLiActive")
+                        $(arrResult[i]).addClass("clsLiActive");
+                        break;
+                    }
+                }
+                event.preventDefault();
+            }
+        });
+        } catch (e) {
+        }
+    });
+</script>
+
+<div class="divCover cls_form_title">
+    <img src="/Content/icons/category.png" />
+    <div class="cls_form_header">
+        @WebApps.Resources.Resource.TrademarkSample
+    </div>
+</div>
+
+<div class="class_full_div_input_extent">
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.lblMauNhanHieu:</div>
+            <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+               data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <select id="cboLogoType" onchange="funcChangeLogoType()">
+                    @foreach (var item in _lstLogoType)
+                    {
+                        <option value="@item.CdVal">
+                            @item.Content
+                        </option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="div-search-ad" id="spfontsize" style="display:none">
+        <div class="div-search-title">
+            <div>
+                Font-size
+            </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="number" onchange="changeFontSize()" id="txtFontSize" value="12" style="height: 27px; display:none" />
+            </div>
+        </div>
+    </div>
+
+    <div class="class_block_title_control" style="display:flex;padding-top:10px">
+        <div style="width:165px ;height:165px;margin-left: 13px;" id="divLogo">
+            <img id="imgMauNhanHieu" src="~/Content/icons/logo.jpg" style="width:160px ;height:160px">
+            <img id="imgMauNhanHieuTeplace" src="~/Content/icons/logo.jpg" hidden="hidden">
+        </div>
+        <div class="container" id="divckbNhanHieuAnh" style="flex-grow:1;padding-top:50px">
+            <div class="file-upload btn btn-primary" style="margin-top:95px">
+                <span>@WebApps.Resources.Resource.lblTaiFile</span>
+                <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
+            </div>
+        </div>
+        <div id="divckbNhanHieuChu" style="display:none">
+            <div style="width:165px ;height:165px;margin-left: 13px;">
+                <input type="text" class="classChuNhanHieu" id="txtChuNhanHieu" style="height:160px;width:160px;text-align: center;" />
+            </div>
+        </div>
+    </div>
+    <script>
+        function funcChangeLogoType()
+        {
+            try {
+                if($("#cboLogoType").val() != "1" )
+                {
+                    $("#divckbNhanHieuAnh").css('display', 'block');
+                    $("#divLogo").css('display', 'block');
+                    $("#divckbNhanHieuChu").css('display', 'none');
+                    $("#tagSuggessIMG").css('display', 'block');
+                    $("#spfontsize").css('display', 'none');
+                    $("#txtFontSize").css('display', 'none');
+                }
+                else
+                {
+                    $("#divckbNhanHieuAnh").css('display', 'none');
+                    $("#divLogo").css('display', 'none');
+                    $("#tagSuggessIMG").css('display', 'none');
+                    $("#divckbNhanHieuChu").css('display', 'block');
+                    $("#spfontsize").css('display', 'block');
+                    $("#txtFontSize").css('display', 'block');
+                }
+
+            } catch (e) {
+                console.log(e.toString());
+            }
+        }
+
+        function changeFontSize()
+        {
+            try {
+                document.getElementById("txtChuNhanHieu").style.fontSize = document.getElementById("txtFontSize").value + "px";
+            } catch (e) {
+
+            }
+        }
+
+        var _checkanh = 0;
+        document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {
+            _checkanh = 0;
+            var preturn = fileNhanHieu(this, 'imgMauNhanHieu');
+
+            //kiểm tra ảnh có đúng kích cỡ hay không?
+            if (this.files[0].type.indexOf("image") != -1) {
+
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#imgMauNhanHieuTeplace").attr("src", e.target.result);
+
+                    var img = $("#imgMauNhanHieuTeplace");
+                    var iheight = 500; var iwidth = 500;
+
+                    iheight = img[0].height;
+                    console.log('lan 1: ' + iheight);
+                    iheight = img[0].height;
+                    iwidth = img[0].width;
+                    console.log(iheight);
+                    //2x2 75x75 px , 8x8 302x302
+                    if (iheight > 302 || iheight < 75 || iwidth > 302 || iwidth < 75) {
+                        _checkanh = 1;
+                        nvsConfirm(null,"@Html.Raw(WebApps.Resources.Resource.KichThuoc2288)", function () {
+                            return true;
+                        }, function () {
+                            //Callback
+                            $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
+                        });
+
+                    } else {
+                        return true;
+                    }
+                }
+                reader.readAsDataURL(this.files[0]);
+            } else {
+                nvsAlert("@Html.Raw(WebApps.Resources.Resource.ThongBao)", "@Html.Raw(WebApps.Resources.Resource.FileKhongPhaiLaAnh)", "");
+                _checkanh = 2;
+            }
+        };
+
+        function funcUpLoadMauNhanHieu(pFile) {
+            try {
+                var file = document.getElementsByName(pFile);
+                if (file != undefined) {
+                    formdata.append("pInfo.pfiles", file[0].files[0]);
+                }
+            } catch (e) {
+            }
+        }
+
+        function  fileNhanHieu(pfile, pIdImg) {
+            try {
+                if (pfile.files && pfile.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#" + pIdImg).attr("src", e.target.result);
+                    }
+                    reader.readAsDataURL(pfile.files[0]);
+
+
+                }
+            } catch (e) {
+
+            }
+        }
+    </script>
+</div>
+
+<div class="divCover cls_form_title">
+    <img src="/Content/icons/category.png" />
+    <div class="cls_form_header">
+        @WebApps.Resources.Resource.HangHoaDichVuMangNhanHieu
+    </div>
+</div>
+
+@Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialAddSearchClass.cshtml")
+
+<div class="divCover cls_form_title">
+    <img src="/Content/icons/category.png" />
+    <div class="cls_form_header">
+        @WebApps.Resources.Resource.DieuKienSearch
+    </div>
+</div>
+
+<div id="div_searchcondtion_content">
+    @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearchCondition.cshtml", "1|1")
+</div>
+
+<div class="div-search-ad" style="float:left; width:100%;">
+    <input class="btn" style="margin: 4px 0px 0px 28px;" type="button" value="@WebApps.Resources.Resource.ThemDieuKien" onclick="funcAddCondition()" />
+</div>
+
+<br />
+<br />
+<div style="margin-top:15px">
+    <div>@WebApps.Resources.Resource.NoiDungYeuCau<i class="redspan">(*)</i></div>
+    <textarea type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200"></textarea>
+</div>
+
+<div class="divCover cls_form_title">
+    <img src="/Content/icons/category.png" />
+    <div class="cls_form_header">
+        @WebApps.Resources.Resource.TaiFileDinhKem
+    </div>
+</div>
+<br />
+@{
+    string _id1 = "1";
+    string _isValid1 = "0";
+    string _model1 = _id1 + "|" + _isValid1 + "|" + WebApps.Resources.Resource.FileDinhKem;
+    @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile_Local.cshtml", _model1)
+}

@@ -84,6 +84,9 @@ namespace ObjectInfos
 
         public string FONTTYPE { get; set; }
         //End HungTD
+
+        public string Name { get; set; }
+
     }
 
 }

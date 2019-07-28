@@ -251,6 +251,7 @@
         public const int Trademark = 1;
         public const int Patent = 2;
         public const int Legal_Inquiries = 3;
+        public const int IndusDesign = 4;
     }
 
     public class Search_Status_Enum

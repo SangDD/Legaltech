@@ -133,6 +133,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ảnh nhãn hiệu.
+        /// </summary>
+        public static string AnhNhanHieu {
+            get {
+                return ResourceManager.GetString("AnhNhanHieu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DANH MỤC VÀ PHÂN NHÓM HÀNG HOÁ, DỊCH VỤ MANG NHÃN HIỆU.
         /// </summary>
         public static string AppClassTile {
@@ -1537,6 +1546,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kiểu dáng công nghiệp.
+        /// </summary>
+        public static string IndusDesign {
+            get {
+                return ResourceManager.GetString("IndusDesign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Đăng ký kiểu dáng công nghiệp.
         /// </summary>
         public static string IndusDesign6a_Title {
@@ -1560,6 +1578,15 @@ namespace WebApps.Resources {
         public static string KetNoiKhongThanhCong {
             get {
                 return ResourceManager.GetString("KetNoiKhongThanhCong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kết quả.
+        /// </summary>
+        public static string KetQua {
+            get {
+                return ResourceManager.GetString("KetQua", resourceCulture);
             }
         }
         
@@ -3810,6 +3837,15 @@ namespace WebApps.Resources {
         public static string Password_KhongDuocDeTrong {
             get {
                 return ResourceManager.GetString("Password_KhongDuocDeTrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cấp bằng sáng chế.
+        /// </summary>
+        public static string Patent {
+            get {
+                return ResourceManager.GetString("Patent", resourceCulture);
             }
         }
         
@@ -6915,6 +6951,15 @@ namespace WebApps.Resources {
         public static string YeuCauKhongDuocDeTrong {
             get {
                 return ResourceManager.GetString("YeuCauKhongDuocDeTrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yêu cầu.
+        /// </summary>
+        public static string YeuCauSearch {
+            get {
+                return ResourceManager.GetString("YeuCauSearch", resourceCulture);
             }
         }
         

@@ -37,6 +37,8 @@ namespace ObjectInfos
         public string REQUEST_BY_NAME { get; set; }
 
         public string PROCESSOR_BY_NAME { get; set; }
+
+        public string Email_Send { get; set; }
     }
 
     public class B_Remind_Info

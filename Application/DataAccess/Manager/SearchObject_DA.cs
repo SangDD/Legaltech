@@ -35,7 +35,9 @@ namespace DataAccess
                      new OracleParameter("P_LOGOCHU", OracleDbType.Decimal, p_SearchObject_Header_Info.Logochu, ParameterDirection.Input),
                      new OracleParameter("P_LOGO_FONT_SIZE", OracleDbType.Decimal, p_SearchObject_Header_Info.LOGO_FONT_SIZE, ParameterDirection.Input),
                      new OracleParameter("P_FONTTYPE", OracleDbType.Varchar2, p_SearchObject_Header_Info.FONTTYPE, ParameterDirection.Input),
-                    paramReturn);
+
+                     new OracleParameter("P_NAME", OracleDbType.Varchar2, p_SearchObject_Header_Info.Name, ParameterDirection.Input),
+                     paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());
             }
@@ -70,6 +72,8 @@ namespace DataAccess
                      new OracleParameter("P_LOGOCHU", OracleDbType.Decimal, p_SearchObject_Header_Info.Logochu, ParameterDirection.Input),
                      new OracleParameter("P_LOGO_FONT_SIZE", OracleDbType.Decimal, p_SearchObject_Header_Info.LOGO_FONT_SIZE, ParameterDirection.Input),
                      new OracleParameter("P_FONTTYPE", OracleDbType.Varchar2, p_SearchObject_Header_Info.FONTTYPE, ParameterDirection.Input),
+
+                    new OracleParameter("P_NAME", OracleDbType.Varchar2, p_SearchObject_Header_Info.Name, ParameterDirection.Input),
                     paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());

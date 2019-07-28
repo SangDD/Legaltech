@@ -1,0 +1,40 @@
+﻿@{
+ 
+}
+
+<div class="divCover cls_form_title">
+    <img src="/Content/icons/category.png" />
+    <div class="cls_form_header">
+        @WebApps.Resources.Resource.Patent
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div>@WebApps.Resources.Resource.TenSangChe <i class="redspan">(*)</i></div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" maxlength="500" id="txtName" />
+        </div>
+    </div>
+</div>
+
+<div style="margin-top:15px">
+    <div>@WebApps.Resources.Resource.NoiDungYeuCau<i class="redspan">(*)</i></div>
+    <textarea type="text" id="txtAddContent" style="height:100px;width:100%;" maxlength="200"></textarea>
+</div>
+
+<div class="divCover cls_form_title">
+    <img src="/Content/icons/category.png" />
+    <div class="cls_form_header">
+        @WebApps.Resources.Resource.TaiFileDinhKem
+    </div>
+</div>
+<br />
+@{
+    string _id1 = "1";
+    string _isValid1 = "0";
+    string _model1 = _id1 + "|" + _isValid1 + "|" + WebApps.Resources.Resource.FileDinhKem;
+    @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile_Local.cshtml", _model1)
+}
