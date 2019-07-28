@@ -160,7 +160,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>@WebApps.Resources.Resource.QuocTich<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.QuocGia<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -196,7 +196,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div> @WebApps.Resources.Resource.CaseName<i class="redspan">(*)</i></div>
+                <div> @WebApps.Resources.Resource.CaseName</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -477,13 +477,13 @@
             var _txtcasename = $("#_txtcasename");
             var txtClient_Reference = $("#txtClient_Reference");
 
-            if (_txtcasename.val().trim() == "") {
+            @*if (_txtcasename.val().trim() == "") {
                 jError("@Html.Raw(WebApps.Resources.Resource.CaseNameTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     _txtcasename.val('');
                     _txtcasename.focus();
                 });
                 return false;
-            }
+            }*@
             //if (txtClient_Reference.val().trim() == "") {
             //    jError("Client Reference không được bỏ trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
             //        txtClient_Reference.val('');
