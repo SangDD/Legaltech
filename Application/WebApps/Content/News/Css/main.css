@@ -11359,3 +11359,16 @@ select.divNumberRecordOnPage {
     padding-left: 52px;
     color: #6595D0;
 }
+ .clss_mobileMenu  {
+       padding-left: 20px;
+    }
+
+
+/*HungTD: set menu for media */
+@media(min-width:1024px) {
+    .clss_mobileMenu  {
+         display:none;
+
+    }
+}
+ 
