@@ -50,7 +50,7 @@
     {
         Lst_DocumentOthers = (List<AppDocumentOthersInfo>)ViewBag.Lst_DocumentOthers;
     }
-   
+
 
     Dictionary<string, AppDocumentInfo> dic_appDoc = new Dictionary<string, AppDocumentInfo>();
     foreach (AppDocumentInfo item in Lst_AppDoc)
@@ -368,27 +368,8 @@
 
 
         @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/category.png" />
-            <div class="cls_form_header">
-                @Resource.TM2B_DaiDienChuDon
-            </div>
-        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon_View.cshtml")
 
-        <div id="div_PartialThongTinDaiDienChuDon">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon_View.cshtml")
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@Resource.TM3C_MaDaiDien:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txt_MaDaiDien" value="@_AppHeaderInfo.Customer_Code" disabled />
-                </div>
-            </div>
-        </div>
         @* end 2 *@
 
         @* Tác giả *@
@@ -524,13 +505,13 @@
 
         @* 3. Bản sao *@
         @*@{
-            string _doc_id3 = "A03_03";
-            string _id3 = _doc_id3 + "|Doc_03|0|" + "Số phương án/Số ảnh gồm" + "|" + "Số phương án"  + "|1||" + "Số ảnh";
-            string _value3 = dic_appDoc[_doc_id3].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id3].CHAR01 + "|" + dic_appDoc[_doc_id3].Url_Hardcopy + "|" + dic_appDoc[_doc_id3].CHAR02;
-            string _model3 = _id3 + ";" + _value3;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model3)
+                string _doc_id3 = "A03_03";
+                string _id3 = _doc_id3 + "|Doc_03|0|" + "Số phương án/Số ảnh gồm" + "|" + "Số phương án"  + "|1||" + "Số ảnh";
+                string _value3 = dic_appDoc[_doc_id3].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id3].CHAR01 + "|" + dic_appDoc[_doc_id3].Url_Hardcopy + "|" + dic_appDoc[_doc_id3].CHAR02;
+                string _model3 = _id3 + ";" + _value3;
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model3)
 
-        }*@
+            }*@
 
 
         @{
@@ -1006,16 +987,16 @@
             }
 
 
-            var txt_MaDaiDien = $("#txt_MaDaiDien").val();
+            var txtMADDSHCN = $("#txtMADDSHCN").val();
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             if (v_RepMasterType = "DDPL") {
-                if (txt_MaDaiDien == "") {
+                if (txtMADDSHCN == "") {
                     showError('@Resource.TM3C_MaDaiDienKhongDuocTrong');
-                    $("#txt_MaDaiDien").focus()
+                    $("#txtMADDSHCN").focus()
                     return false;
                 }
             }
-            formData.append("pInfo.Customer_Code", txt_MaDaiDien);
+            formData.append("pInfo.Customer_Code", txtMADDSHCN);
 
             var _index = 0;
             $(".clsTacGia").each(function (item) {
@@ -1208,7 +1189,7 @@
             return false;
         }
     }
- 
+
 
     function funcGetCheckValueAndText(formData, pID, pItem) {
         try {

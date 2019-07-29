@@ -294,7 +294,7 @@
                         {
                             <input type="radio" name="1_rdoKetQuaThamDinh" id="1_rddacokqthamdinhnoidung" value="2" onchange="ChangeKQTD(2)">
                         }
-                            <label>@Resource.DaCoKetQuaThamDinh</label>
+                        <label>@Resource.DaCoKetQuaThamDinh</label>
                     </div>
                 </div>
             </div>
@@ -318,7 +318,7 @@
                         {
                             <input type="radio" name="1_radDonBanDauCo2PA" id="1_radDonBanDauCo2PA" value="1">
                         }
-                            <label>@Resource.DonBanDauCo2PA</label>
+                        <label>@Resource.DonBanDauCo2PA</label>
                     </div>
                 </div>
 
@@ -332,7 +332,7 @@
                         {
                             <input type="radio" name="1_radDonBanDauCo2PA" id="1_radDonBanDauNopCho1DoiTuong" value="2">
                         }
-                            <label>@Resource.DonBanDauCo1DT</label>
+                        <label>@Resource.DonBanDauCo1DT</label>
                     </div>
                 </div>
             </div>
@@ -419,9 +419,7 @@
             </div>
         </div>
 
-        <div id="div_PartialThongTinDaiDienChuDon">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
-        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
 
         <div class="div-search-ad">
             <div class="div-search-title">
@@ -545,7 +543,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txtSoPhuongAn" readonly="readonly" value="@_App_Detail.SO_PA"/>
+                    <input type="text" id="txtSoPhuongAn" readonly="readonly" value="@_App_Detail.SO_PA" />
                 </div>
             </div>
             <div class="div-search-title">
@@ -553,7 +551,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txtSoHinhAnh" readonly="readonly"  value="@_App_Detail.SO_HA"/>
+                    <input type="text" id="txtSoHinhAnh" readonly="readonly" value="@_App_Detail.SO_HA" />
                 </div>
             </div>
         </div>
@@ -589,16 +587,16 @@
 
         @* 3. Bộ ảnh chụp/bản vẽ, gồm *@
         @*@{
-            string _doc_id3 = "A03_03";
-            string _id3 = _doc_id3 + "|Doc_03|0|" + "Số phương án/Số ảnh gồm" + "|" + "Số phương án" + "|1||" + "Số ảnh";
-            string _value3 = "";
-            if (dic_appDoc.ContainsKey(_doc_id3))
-            {
-                _value3 = dic_appDoc[_doc_id3].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id3].CHAR01 + "|" + dic_appDoc[_doc_id3].Url_Hardcopy;
-            }
-            string _model3 = _id3 + ";" + _value3;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model3)
-        }*@
+                string _doc_id3 = "A03_03";
+                string _id3 = _doc_id3 + "|Doc_03|0|" + "Số phương án/Số ảnh gồm" + "|" + "Số phương án" + "|1||" + "Số ảnh";
+                string _value3 = "";
+                if (dic_appDoc.ContainsKey(_doc_id3))
+                {
+                    _value3 = dic_appDoc[_doc_id3].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id3].CHAR01 + "|" + dic_appDoc[_doc_id3].Url_Hardcopy;
+                }
+                string _model3 = _id3 + ";" + _value3;
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model3)
+            }*@
 
         @{
 
@@ -1713,11 +1711,11 @@
         try {
             $(".clssListUploadIndusDesign").each(function () {
                 _controllevel = $("#" + this.id).attr("data-level")
-                if(_controllevel == "1") 
+                if(_controllevel == "1")
                 {
                     _soPhuongAn= _soPhuongAn + 1;
                 }
-                else if(_controllevel == "2") 
+                else if(_controllevel == "2")
                 {
                     _soHinhAnh= _soHinhAnh + 1;
                 }

@@ -147,27 +147,7 @@
         </div>
 
         @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/category.png" />
-            <div class="cls_form_header">
-                @Resource.TM2B_DaiDienChuDon
-            </div>
-        </div>
-
-        <div id="div_PartialThongTinDaiDienChuDon">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@Resource.TM3C_MaDaiDien:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="@Resource.TM3C_MaDaiDien" id="txt_MaDaiDien" />
-                </div>
-            </div>
-        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
         @* end 2 *@
 
         @* 3 - BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN) *@
@@ -764,17 +744,17 @@
                 return false;
             }
 
-            var txt_MaDaiDien = $("#txt_MaDaiDien").val();
+            var txtMADDSHCN = $("#txtMADDSHCN").val();
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             if (v_RepMasterType = "DDPL") {
-                if (txt_MaDaiDien == "") {
+                if (txtMADDSHCN == "") {
                     jError("@Resource.TM3C_MaDaiDienKhongDuocTrong", "@Resource.TM3B_Loi", function () {
-                        $("#txt_MaDaiDien").focus()
+                        $("#txtMADDSHCN").focus()
                     });
                     return false;
                 }
             }
-            formData.append("pDetail.Customer_Code", txt_MaDaiDien);
+            formData.append("pDetail.Customer_Code", txtMADDSHCN);
 
             var _DonDuocChuyenNhuong = $("input[name='4_rdoDonDuocChuyenNhuong']:checked").val();
             if (_DonDuocChuyenNhuong === "" || _DonDuocChuyenNhuong == undefined) {

@@ -210,24 +210,7 @@
         </div>
 
         @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/category.png" />
-            <div class="cls_form_header">
-                @Resource.TM2B_DaiDienChuDon
-            </div>
-        </div>
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon_View.cshtml")
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@Resource.TM3C_MaDaiDien:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="@Resource.TM3C_MaDaiDien" id="txt_MaDaiDien" value="@_App_Detail.Customer_Code" disabled="disabled" />
-                </div>
-            </div>
-        </div>
         @* end 2 *@
 
         @* 3 - BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN) *@

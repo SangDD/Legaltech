@@ -14,7 +14,9 @@
     public class Country_Info
     {
         public decimal Country_Id { get; set; }
-        public string Name { get; set; } 
+        public string Name { get; set; }
+        public string Place { get; set; }
+
     }
 
     public class Injection_Info

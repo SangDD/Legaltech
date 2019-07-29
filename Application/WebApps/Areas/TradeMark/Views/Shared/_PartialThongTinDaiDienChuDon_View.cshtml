@@ -8,103 +8,122 @@
     }
 }
 
-
-<div class="div-search-ad">
-    <div class="div-search-content">
-        <div class="div-radio">
-            @if (_AppHeaderInfo.Rep_Master_Type == "DDPL")
-            {
-                <input type="radio" name="_2_DaiDienChuDon" value="DDPL" id="_2_rdoNguoiDaiDienPL" disabled="disabled" checked="checked"/>
-            }
-            else
-            {
-                <input type="radio" name="_2_DaiDienChuDon" value="DDPL" id="_2_rdoNguoiDaiDienPL" disabled="disabled" />
-            }
-            <label>@Resource.lblLaNguoiDaiDienTheoPL</label>
-        </div>
-    </div>
-
-</div>
-
-<div class="div-search-ad">
-    <div class="div-search-content">
-        <div class="div-radio">
-            @if (_AppHeaderInfo.Rep_Master_Type == "DVDL")
-            {
-            <input type="radio" name="_2_DaiDienChuDon" value="DVDL" id="_2_rdoToChucDichVuDL" disabled="disabled" checked="checked" />
-            }
-            else
-            {
-                <input type="radio" name="_2_DaiDienChuDon" value="DVDL" id="_2_rdoToChucDichVuDL" disabled="disabled" />
-            }
-            <label>@Resource.lblLaToChucDichVuDaiDienSoHuu </label>
-        </div>
+<div class="divCover cls_form_title">
+    <img src="~/Content/icons/category.png" />
+    <div class="cls_form_header">
+        @Resource.TM2B_DaiDienChuDon
     </div>
 </div>
 
-<div class="div-search-ad">
-    <div class="div-search-content">
-        <div class="div-radio">
-            @if (_AppHeaderInfo.Rep_Master_Type == "NDUQ")
-            {
-            <input type="radio" name="_2_DaiDienChuDon" value="NDUQ" id="_2_rdoNguoiDuocUyQuyen" disabled="disabled" checked="checked" />
-            }
-            else
-            {
-                <input type="radio" name="_2_DaiDienChuDon" value="NDUQ" id="_2_rdoNguoiDuocUyQuyen" disabled="disabled" />
-            }
-            
-            <label>@Resource.lblLaNguoiKhacDuocUyQuyen</label>
+<div id="div_PartialThongTinDaiDienChuDon">
+    <div class="div-search-ad">
+        <div class="div-search-content">
+            <div class="div-radio">
+                @if (_AppHeaderInfo.Rep_Master_Type == "DDPL")
+                {
+                    <input type="radio" name="_2_DaiDienChuDon" value="DDPL" id="_2_rdoNguoiDaiDienPL" disabled="disabled" checked="checked" />
+                }
+                else
+                {
+                    <input type="radio" name="_2_DaiDienChuDon" value="DDPL" id="_2_rdoNguoiDaiDienPL" disabled="disabled" />
+                }
+                <label>@Resource.lblLaNguoiDaiDienTheoPL</label>
+            </div>
         </div>
-    </div>
-</div>
 
-<div class="div-search-ad">
-    <div class="div-search-title">
-        <div> @Resource.lblTenDayDu:</div>
     </div>
-    <div class="div-search-content">
-        <div>
-            <input type="text" value="@_AppHeaderInfo.Rep_Master_Name" maxlength="200" disabled="disabled" id="2_txtTenDayDu"/>
-        </div>
-    </div>
-</div>
 
-<div class="div-search-ad">
-    <div class="div-search-title">
-        <div> @Resource.lblDiaChi: </div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input type="text"  value="@_AppHeaderInfo.Rep_Master_Address" maxlength="200" disabled="disabled" id="2_txtDiaChi"/>
-        </div>
-    </div>
-</div>
-
-<div class="div-search-ad">
-    <div class="div-search-title">
-        <div> @Resource.lblDienThoai: </div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input type="text" p value="@_AppHeaderInfo.Rep_Master_Phone" style="width: 250px;" maxlength="50" disabled="disabled" id="2_txtDienThoai"/>
+    <div class="div-search-ad">
+        <div class="div-search-content">
+            <div class="div-radio">
+                @if (_AppHeaderInfo.Rep_Master_Type == "DVDL")
+                {
+                    <input type="radio" name="_2_DaiDienChuDon" value="DVDL" id="_2_rdoToChucDichVuDL" disabled="disabled" checked="checked" />
+                }
+                else
+                {
+                    <input type="radio" name="_2_DaiDienChuDon" value="DVDL" id="_2_rdoToChucDichVuDL" disabled="disabled" />
+                }
+                <label>@Resource.lblLaToChucDichVuDaiDienSoHuu </label>
+            </div>
         </div>
     </div>
 
-    <div class="div-search-title">
-        <div> Fax: </div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input type="text"  value="@_AppHeaderInfo.Rep_Master_Fax" maxlength="50" disabled="disabled" id="2_txtFax"/>
+    <div class="div-search-ad">
+        <div class="div-search-content">
+            <div class="div-radio">
+                @if (_AppHeaderInfo.Rep_Master_Type == "NDUQ")
+                {
+                    <input type="radio" name="_2_DaiDienChuDon" value="NDUQ" id="_2_rdoNguoiDuocUyQuyen" disabled="disabled" checked="checked" />
+                }
+                else
+                {
+                    <input type="radio" name="_2_DaiDienChuDon" value="NDUQ" id="_2_rdoNguoiDuocUyQuyen" disabled="disabled" />
+                }
+
+                <label>@Resource.lblLaNguoiKhacDuocUyQuyen</label>
+            </div>
         </div>
     </div>
-    <div class="div-search-title">
-        <div>Email:  </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div> @Resource.lblTenDayDu:</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" value="@_AppHeaderInfo.Rep_Master_Name" maxlength="200" disabled="disabled" id="2_txtTenDayDu" />
+            </div>
+        </div>
     </div>
-    <div class="div-search-content">
-        <div>
-            <input type="text"  value="@_AppHeaderInfo.Rep_Master_Email" maxlength="50" disabled="disabled" id="2_txtEmail"/>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div> @Resource.lblDiaChi: </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" value="@_AppHeaderInfo.Rep_Master_Address" maxlength="200" disabled="disabled" id="2_txtDiaChi" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div> @Resource.lblDienThoai: </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" p value="@_AppHeaderInfo.Rep_Master_Phone" style="width: 250px;" maxlength="50" disabled="disabled" id="2_txtDienThoai" />
+            </div>
+        </div>
+
+        <div class="div-search-title">
+            <div> Fax: </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" value="@_AppHeaderInfo.Rep_Master_Fax" maxlength="50" disabled="disabled" id="2_txtFax" />
+            </div>
+        </div>
+        <div class="div-search-title">
+            <div>Email:  </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" value="@_AppHeaderInfo.Rep_Master_Email" maxlength="50" disabled="disabled" id="2_txtEmail" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>@Resource.TM3C_MaDaiDien:</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtMADDSHCN" value="@_AppHeaderInfo.Customer_Code" disabled />
+            </div>
         </div>
     </div>
 </div>

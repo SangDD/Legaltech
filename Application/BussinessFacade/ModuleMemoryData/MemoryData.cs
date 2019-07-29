@@ -38,6 +38,7 @@
         public static Hashtable c_hs_Allcode = new Hashtable();
         static List<GroupUserInfo> c_lst_Group = new List<GroupUserInfo>();
         public static List<Country_Info> c_lst_Country = new List<Country_Info>();
+        public static List<Country_Info> c_lst_Nation_Represent = new List<Country_Info>();
 
         public static List<AppClassInfo> clstAppClass = new List<AppClassInfo>();
         public static List<CustomerSuggestInfo> clstAppClassSuggest = new List<CustomerSuggestInfo>();
@@ -254,6 +255,7 @@
             {
                 AllCodeBL allCodeBL = new AllCodeBL();
                 c_lst_Country = allCodeBL.Country_GetAll();
+                c_lst_Nation_Represent = allCodeBL.Nation_Represent_GetAll();
             }
             catch (Exception ex)
             {
@@ -363,7 +365,7 @@
 
                     pInfo.label = item.FullName + " Phone: " + item.Phone + " Fax: " + item.Fax + " Email: " + item.Email + " Mã đại diện: " + item.Customer_Code;
                     pInfo.value = item.FullName + "|" + item.Address + "|" + item.Phone + "|" + item.Fax + "|" + item.Email + "|" + item.Customer_Code;
-                    pInfo.name = item.FullName + " Phone: " + item.Phone + " Fax: " + item.Fax + " Email: " + item.Email;
+                    pInfo.name = item.FullName + " Phone: " + item.Phone + " Fax: " + item.Fax + " Email: " + item.Email + item.Country;
                     pInfo.Language = item.Language;
 
                     lstCache_Represent.Add(pInfo);

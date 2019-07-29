@@ -54,11 +54,11 @@
 </style>
 <script src="~/Scripts/ScriptsLoadClassInfo.js"></script>
 @*<div class="d-nav-container">
-    <ul class="ul-nav">
-        <li><a href="javascript:;">TradeMark</a></li>
-        <li><a href="javascript:;"> @Resource.TM2B_Formname</a></li>
-    </ul>
-</div>*@
+        <ul class="ul-nav">
+            <li><a href="javascript:;">TradeMark</a></li>
+            <li><a href="javascript:;"> @Resource.TM2B_Formname</a></li>
+        </ul>
+    </div>*@
 
 <div class="d-nav-container" style="background-color:#fff">
     <div class="divCover">
@@ -203,15 +203,7 @@
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "_1")
         </div>
 
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/category.png" />
-            <div class="cls_form_header">
-                3.@Resource.TM2B_DaiDienChuDon
-            </div>
-        </div>
-        <div id="div_daidienchudon2a">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "_2")
-        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "_2")
 
         <div id="div_appclass_2a">
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTMAddAppClass.cshtml")
@@ -1117,7 +1109,7 @@
             var imgMauNhanHieu = $("#imgMauNhanHieu");
             var _1_txtNgayNopDon = $("#_1_txtNgayNopDon");
             var div_chudon2a = $("#div_chudon2a");
-            var div_daidienchudon2a = $("#div_daidienchudon2a");
+            //var div_daidienchudon2a = $("#div_daidienchudon2a");
             var div_appclass_2a = $("#div_appclass_2a");
             $.ajax({
                 //string p_idthongtinchudong, string p_iddaidienchudon, string p_idappclass)
@@ -1132,7 +1124,7 @@
                         imgMauNhanHieu.attr("src", data.LogoURL);
                         _1_txtNgayNopDon.val(data.NgayNopDon);
                         div_chudon2a.html(data.ViewChuDon);
-                        div_daidienchudon2a.html(data.ViewDaiDienChuDon);
+                        //div_daidienchudon2a.html(data.ViewDaiDienChuDon);
                         div_appclass_2a.html(data.ViewAppClass);
                     }
                 },

@@ -283,23 +283,7 @@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
 
         @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/category.png" />
-            <div class="cls_form_header">
-                @Resource.TM2B_DaiDienChuDon
-            </div>
-        </div>
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@Resource.lblMaDaiDien:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder=">@Resource.lblMaDaiDien" id="txt_MaDaiDien" value="@_App_Detail.Customer_Code" />
-                </div>
-            </div>
-        </div>
         @* end 2 *@
 
         @* Mục phí chỉ hiện thị khi user là admin hoặc luật sư *@
@@ -825,14 +809,14 @@
                 formData.append("pDetail.Appeal_Degree", _appeal_degree);
             }
 
-            var txt_MaDaiDien = $("#txt_MaDaiDien").val();
-            if (txt_MaDaiDien == "") {
+            var txtMADDSHCN = $("#txtMADDSHCN").val();
+            if (txtMADDSHCN == "") {
                 jError("@Resource.TM3C_MaDaiDienKhongDuocTrong", "@Resource.TM3B_Loi", function () {
-                    $("#txt_MaDaiDien").focus()
+                    $("#txtMADDSHCN").focus()
                 });
                 return false;
             }
-            formData.append("pDetail.Customer_Code", txt_MaDaiDien);
+            formData.append("pDetail.Customer_Code", txtMADDSHCN);
 
         } catch (e) {
             console.log(e);

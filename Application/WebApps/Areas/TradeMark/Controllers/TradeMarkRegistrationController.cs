@@ -740,17 +740,19 @@
                 {
                     appInfo.Logourl = Server.MapPath(appInfo.Logourl);
                 }
+
                 //su dung cho TH ma DNSC 
-                if (appInfo.Rep_Master_Type == "DDSH")
-                {
-                    appInfo.Extent_fld01 = appInfo.DDSHCN;
-                }
-                else
-                {
-                    appInfo.Extent_fld01 = appInfo.Rep_Master_Name;
-                }
+                //if (appInfo.Rep_Master_Type == "DDSH")
+                //    appInfo.Extent_fld01 = appInfo.DDSHCN;
+                //else
+                //    appInfo.Extent_fld01 = appInfo.Rep_Master_Name;
+
+                appInfo.Extent_fld01 = appInfo.Rep_Master_Name;
+
                 //Su dung cho Nguoi shcn
-                appInfo.Extent_fld02 = appInfo.MADDSHCN;
+                //appInfo.Extent_fld02 = appInfo.MADDSHCN;
+                appInfo.Extent_fld02 = appInfo.Customer_Code;
+
                 if (!string.IsNullOrEmpty(appInfo.Appno))
                 {
                     appInfo.Extent_fld03 = "DST"; //tach tu thang nao day
@@ -1233,7 +1235,7 @@
                 }
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartalViewDangKyNhanHieu.cshtml");
             }
-          
+
 
             else if (pAppCode == TradeMarkAppCode.AppCode_A01)
             {
@@ -2187,6 +2189,42 @@
 
                 Logger.LogException(ex);
                 return Json(new { lst = MemoryData.lstCacheCustomer });
+            }
+        }
+
+        [Route("get-represent-by-nation-represent")]
+        public ActionResult Get_represent_ByNation(decimal p_id)
+        {
+            try
+            {
+                CustomerSuggestInfo _CustomerSuggestInfo = new CustomerSuggestInfo();
+
+                int check = 0;
+                string language = AppsCommon.GetCurrentLang();
+                foreach (var item in MemoryData.lstCache_Represent)
+                {
+                    if (string.IsNullOrEmpty(item.name)) continue;
+                    if (item.name.ToLower().Contains(p_id.ToString().ToLower()))
+                    {
+                        check = 1;
+                        _CustomerSuggestInfo = item;
+                        break;
+                    }
+                }
+                if (check == 1)
+                {
+                    return Json(new { Avaiable_Data = "1", CustomerSuggestInfo = _CustomerSuggestInfo });
+                }
+                else
+                {
+                    return Json(new { Avaiable_Data = "0" });
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Logger.LogException(ex);
+                return Json(new { Avaiable_Data = "0" });
             }
         }
 

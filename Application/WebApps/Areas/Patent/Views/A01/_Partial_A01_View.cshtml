@@ -531,9 +531,9 @@
         </div>
 
         @*<div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
-        </div>*@
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
+            </div>*@
 
         <div class="div-search-ad">
             <div class="div-search-content">
@@ -579,27 +579,7 @@
         </div>
 
         @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/category.png" />
-            <div class="cls_form_header">
-                @Resource.TM2B_DaiDienChuDon
-            </div>
-        </div>
-
-        <div id="div_PartialThongTinDaiDienChuDon">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon_View.cshtml")
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@Resource.TM3C_MaDaiDien:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txt_MaDaiDien" value="@_AppHeaderInfo.Customer_Code" disabled />
-                </div>
-            </div>
-        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon_View.cshtml")
         @* end 2 *@
 
         @* Tác giả *@
@@ -904,7 +884,7 @@
         @*TÀI LIỆU KHÁC*@
         @*@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHTaiLieuKhac.cshtml", "12")*@
         @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others_View.cshtml")
-        
+
         @* Hình công bố *@
         @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Image_Public_View.cshtml")
 
@@ -915,13 +895,13 @@
         }
 
         @*<div class="class_save">
-            <div class="classGuiDon">
-                <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
-            </div>
-            <div class="classLuuTam">
-                <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
-            </div>
-        </div>*@
+                <div class="classGuiDon">
+                    <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
+                </div>
+                <div class="classLuuTam">
+                    <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
+                </div>
+            </div>*@
     </fieldset>
 </div>
 
@@ -1413,17 +1393,17 @@
     function funcGetAppDetail(formData) {
         try {
 
-            var txt_MaDaiDien = $("#txt_MaDaiDien").val();
+            var txtMADDSHCN = $("#txtMADDSHCN").val();
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             if (v_RepMasterType = "DDPL") {
-                if (txt_MaDaiDien == "") {
+                if (txtMADDSHCN == "") {
                     jError("@Resource.TM3C_MaDaiDienKhongDuocTrong", "@Resource.TM3B_Loi", function () {
-                        $("#txt_MaDaiDien").focus()
+                        $("#txtMADDSHCN").focus()
                     });
                     return false;
                 }
             }
-            formData.append("pInfo.Customer_Code", txt_MaDaiDien);
+            formData.append("pInfo.Customer_Code", txtMADDSHCN);
 
             var _txt_Patent_Name = $("#txt_Patent_Name").val();
             if (_txt_Patent_Name == "") {

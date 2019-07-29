@@ -1,13 +1,21 @@
 ﻿@using BussinessFacade.ModuleMemoryData
 
+<div class="divCover cls_form_title">
+    <img src="~/Content/icons/info_2.png" />
+    <div class="cls_form_header">
+        @WebApps.Resources.Resource.QuocGia
+    </div>
+</div>
+
+
 <div class="div-search-ad">
     <div class="div-search-title">
         <div>@WebApps.Resources.Resource.QuocGia<i class="redspan">(*)</i></div>
     </div>
     <div class="div-search-content">
         <div>
-            <select id="cboCountry">
-                @foreach (var item in MemoryData.c_lst_Country)
+            <select id="cboNationRepresent">
+                @foreach (var item in MemoryData.c_lst_Nation_Represent)
                 {
                     if (item.Country_Id == Common.Common.Country_VietNam_Id)
                     {
@@ -24,4 +32,13 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    function getNation_Represent(formData) {
+        formData.append("pInfo.Nation_Represent_Id", $("#cboNationRepresent ").val());
+        return true;
+    }
+
+</script>
 

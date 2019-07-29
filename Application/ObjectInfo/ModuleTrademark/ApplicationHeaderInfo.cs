@@ -181,6 +181,9 @@ namespace ObjectInfos
         public string Customer_Code { get; set; }
 
         public string Master_Type { get; set; }
+
+        public decimal Nation_Represent_Id { get; set; }
+        public string Nation_Represent_Name { get; set; }
     }
 
 

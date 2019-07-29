@@ -217,24 +217,7 @@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon_View.cshtml")
 
         @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/category.png" />
-            <div class="cls_form_header">
-                @Resource.TM2B_DaiDienChuDon
-            </div>
-        </div>
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon_View.cshtml")
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@Resource.lblMaDaiDien:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text"   id="txt_MaDaiDien" value="@_App_Detail.Customer_Code" disabled="disabled" />
-                </div>
-            </div>
-        </div>
         @* end 2 *@
 
         @* Mục phí chỉ hiện thị khi user là admin hoặc luật sư *@

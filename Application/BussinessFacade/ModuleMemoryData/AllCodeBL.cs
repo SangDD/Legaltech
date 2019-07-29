@@ -41,6 +41,20 @@
             }
         }
 
+        public List<Country_Info> Nation_Represent_GetAll()
+        {
+            try
+            {
+                DataSet _ds = AllCodeDA.Nation_Represent_GetAll();
+                return CBO<Country_Info>.FillCollectionFromDataSet(_ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<Country_Info>();
+            }
+        }
+
         private static readonly object s_lockerAllCode = new object();
 
         private static List<AllCodeInfo> s_allCodeCollectionInMemory;

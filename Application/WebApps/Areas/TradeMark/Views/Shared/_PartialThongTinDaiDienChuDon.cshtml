@@ -8,10 +8,18 @@
     string txtFax = Model + "_txtFax";
     string txtEmail = Model + "_txtEmail";
     var objAppHeaderInfo = new ApplicationHeaderInfo();
+
+    int _IsInsert = 0;
     if (ViewBag.objAppHeaderInfo != null)
     {
         objAppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
     }
+    else
+    {
+        // thêm mới
+        _IsInsert = 1;
+    }
+
     string styleDaiDienChuDon = "", styleDaiDienSH = "", styleDaiDienUQ = "";
     if (objAppHeaderInfo.Rep_Master_Type == "DDPL")
     {
@@ -32,157 +40,195 @@
     }
 }
 
-<div class="divCover cls_form_title">
-    <img src="~/Content/icons/category.png" />
-    <div class="cls_form_header">
-        @Resource.TM2B_DaiDienChuDon
+<div id="div_PartialThongTinDaiDienChuDon">
+    <div class="divCover cls_form_title">
+        <img src="~/Content/icons/category.png" />
+        <div class="cls_form_header">
+            @Resource.TM2B_DaiDienChuDon
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-content">
+            <div class="div-radio">
+                <input @styleDaiDienChuDon type="radio" name="_2_DaiDienChuDon" value="DDPL" placeholder="_2_rdoNguoiDaiDienPL" id="_2_rdoNguoiDaiDienPL" @_disable />
+                <label>@Resource.lblLaNguoiDaiDienTheoPL</label>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-content">
+            <div class="div-radio">
+                <input @styleDaiDienSH type="radio" name="_2_DaiDienChuDon" value="DVDL" placeholder="_2_rdoToChucDichVuDL" id="_2_rdoToChucDichVuDL" checked @_disable />
+                <label>@Resource.lblLaToChucDichVuDaiDienSoHuu </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-content">
+            <div class="div-radio">
+                <input @styleDaiDienUQ type="radio" name="_2_DaiDienChuDon" value="NDUQ" placeholder="_2_rdoNguoiDuocUyQuyen" id="_2_rdoNguoiDuocUyQuyen" @_disable />
+                <label>@Resource.lblLaNguoiKhacDuocUyQuyen</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div> @Resource.lblTenDayDu <i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input value="@objAppHeaderInfo.Rep_Master_Name" type="text" maxlength="50" id="@txtTenDayDu" @_disable />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div> @Resource.lblDiaChi <i class="redspan">(*)</i> </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input value="@objAppHeaderInfo.Rep_Master_Address" type="text" maxlength="200" id="@txtDiaChi" @_disable />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div> @Resource.lblDienThoai: </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" value="@objAppHeaderInfo.Rep_Master_Phone" maxlength="50" id="@txtDienThoai" style="width: 250px;" @_disable />
+            </div>
+        </div>
+
+        <div class="div-search-title">
+            <div> Fax: </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" value="@objAppHeaderInfo.Rep_Master_Fax" maxlength="50" id="@txtFax" @_disable />
+            </div>
+        </div>
+        <div class="div-search-title">
+            <div>Email:  </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" value="@objAppHeaderInfo.Rep_Master_Email" maxlength="50" id="@txtEmail" @_disable />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>@Resource.TM3C_MaDaiDien:</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtMADDSHCN" value="@objAppHeaderInfo.Customer_Code" @_disable />
+            </div>
+        </div>
     </div>
 </div>
-
-<div class="div-search-ad">
-    <div class="div-search-content">
-        <div class="div-radio">
-            <input @styleDaiDienChuDon  type="radio" name="_2_DaiDienChuDon" value="DDPL" placeholder="_2_rdoNguoiDaiDienPL" id="_2_rdoNguoiDaiDienPL" @_disable/>
-            <label>@Resource.lblLaNguoiDaiDienTheoPL</label>
-        </div>
-    </div>
-
-</div>
-
-<div class="div-search-ad">
-    <div class="div-search-content">
-        <div class="div-radio">
-            <input @styleDaiDienSH type="radio" name="_2_DaiDienChuDon" value="DVDL" placeholder="_2_rdoToChucDichVuDL" id="_2_rdoToChucDichVuDL"  @_disable/>
-            <label>@Resource.lblLaToChucDichVuDaiDienSoHuu </label>
-        </div>
-    </div>
-</div>
-
-<div class="div-search-ad">
-    <div class="div-search-content">
-        <div class="div-radio">
-            <input @styleDaiDienUQ type="radio" name="_2_DaiDienChuDon" value="NDUQ" placeholder="_2_rdoNguoiDuocUyQuyen" id="_2_rdoNguoiDuocUyQuyen" @_disable />
-            <label>@Resource.lblLaNguoiKhacDuocUyQuyen</label>
-        </div>
-    </div>
-</div>
-
-<div class="div-search-ad">
-    <div class="div-search-title">
-        <div> @Resource.lblTenDayDu <i class="redspan">(*)</i></div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input value="@objAppHeaderInfo.Rep_Master_Name" type="text" maxlength="50" id="@txtTenDayDu"  @_disable/>
-        </div>
-    </div>
-</div>
-
-<div class="div-search-ad">
-    <div class="div-search-title">
-        <div> @Resource.lblDiaChi <i class="redspan">(*)</i> </div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input value="@objAppHeaderInfo.Rep_Master_Address" type="text" maxlength="200" id="@txtDiaChi"  @_disable/>
-        </div>
-    </div>
-</div>
-
-<div class="div-search-ad">
-    <div class="div-search-title">
-        <div> @Resource.lblDienThoai: </div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input type="text"  value="@objAppHeaderInfo.Rep_Master_Phone" maxlength="50" id="@txtDienThoai" style="width: 250px;"  @_disable/>
-        </div>
-    </div>
-
-    <div class="div-search-title">
-        <div> Fax: </div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input type="text" value="@objAppHeaderInfo.Rep_Master_Fax"  maxlength="50" id="@txtFax"  @_disable/>
-        </div>
-    </div>
-    <div class="div-search-title">
-        <div>Email:  </div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input type="text" value="@objAppHeaderInfo.Rep_Master_Email" maxlength="50" id="@txtEmail"  @_disable/>
-        </div>
-    </div>
-</div>
-
-<div class="div-search-ad">
-    <div class="div-search-title">
-        <div>@Resource.TM3C_MaDaiDien:</div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input type="text" id="txtMADDSHCN" />
-        </div>
-    </div>
-</div>
-
 <script>
     $(document).ready(function () {
-        //Search suggestion
-        var Name = $("#2_txtTenDayDu").val();
+
+        if (@_IsInsert == 1) {
+            var _QuocGia = $("#cboNationRepresent").val();
+            if (_QuocGia == "" || _QuocGia == undefined)
+                _QuocGia = 234;
+
+            Get_PresentByNation(_QuocGia);
+
+            $("#div_PartialThongTinDaiDienChuDon").addClass("clssDisplaynone");
+        }
+
+        ////Search suggestion
+        //var Name = $("#2_txtTenDayDu").val();
+        //$.ajax({
+        //    url: '/trade-mark/get-represent/',
+        //    type: 'POST',
+        //    data: {
+        //        pName: Name
+        //    },
+        //    sync: true, cache: false, traditional: true,
+        //    success: function (data) {
+
+        //        var lts = data.lst;
+        //        $('#2_txtTenDayDu').autocomplete({
+        //            autoFocus: true,
+        //            source: function (request, response) {
+        //                var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+        //                response($.grep(lts, function (item) {
+        //                    return matcher.test(item.value);
+        //                }));
+        //            },
+        //            select: function (event, ui) {
+        //                $("#2_txtTenDayDu").val("");
+        //                event.preventDefault();
+        //                var arrVal = ui.item.value.split('|');
+        //                if (arrVal.length === 6) {
+        //                    $("#2_txtTenDayDu").val(arrVal[0]);
+        //                    $("#2_txtDiaChi").val(arrVal[1]);
+        //                    $("#2_txtDienThoai").val(arrVal[2]);
+        //                    $("#2_txtFax").val(arrVal[3]);
+        //                    $("#2_txtEmail").val(arrVal[4]);
+        //                    $("#txtMADDSHCN").val(arrVal[5]);
+        //                }
+        //            },
+        //            focus: function (event, ui) {
+        //                var arrResult = $(".ui-menu-item");
+        //                for (var i = 0; i < arrResult.length; i++) {
+        //                    var label = $.trim($(arrResult[i]).text().split("-")[0]);
+        //                    if (label == ui.item.name) {
+        //                        $(".clsLiActive").removeClass("clsLiActive")
+        //                        $(arrResult[i]).addClass("clsLiActive");
+        //                        break;
+        //                    }
+        //                }
+        //                event.preventDefault();
+        //            },
+        //            open: function (event, ui) {
+        //                $("ul").scrollTop(0);
+        //                event.preventDefault();
+        //            },
+        //        });
+        //    }
+        //});
+    });
+
+    function Get_PresentByNation(_id) {
         $.ajax({
-            url: '/trade-mark/get-represent/',
+            url: '/trade-mark/get-represent-by-nation-represent/',
             type: 'POST',
             data: {
-                pName: Name
+                p_id: _id
             },
             sync: true, cache: false, traditional: true,
             success: function (data) {
 
-                var lts = data.lst;
-                $('#2_txtTenDayDu').autocomplete({
-                    autoFocus: true,
-                    source: function (request, response) {
-                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
-                        response($.grep(lts, function (item) {
-                            return matcher.test(item.value);
-                        }));
-                    },
-                    select: function (event, ui) {
-                        $("#2_txtTenDayDu").val("");
-                        event.preventDefault();
-                        var arrVal = ui.item.value.split('|');
-                        if (arrVal.length === 6) {
-                            $("#2_txtTenDayDu").val(arrVal[0]);
-                            $("#2_txtDiaChi").val(arrVal[1]);
-                            $("#2_txtDienThoai").val(arrVal[2]);
-                            $("#2_txtFax").val(arrVal[3]);
-                            $("#2_txtEmail").val(arrVal[4]);
-                            $("#txtMADDSHCN").val(arrVal[5]);
-                        }
-                    },
-                    focus: function (event, ui) {
-                        var arrResult = $(".ui-menu-item");
-                        for (var i = 0; i < arrResult.length; i++) {
-                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                            if (label == ui.item.name) {
-                                $(".clsLiActive").removeClass("clsLiActive")
-                                $(arrResult[i]).addClass("clsLiActive");
-                                break;
-                            }
-                        }
-                        event.preventDefault();
-                    },
-                    open: function (event, ui) {
-                        $("ul").scrollTop(0);
-                        event.preventDefault();
-                    },
-                });
+                var _avaiable_data = data.Avaiable_Data;
+                if (_avaiable_data == "1") {
+                    var arrVal = data.CustomerSuggestInfo.value.split('|');
+                    if (arrVal.length === 6) {
+                        $("#2_txtTenDayDu").val(arrVal[0]);
+                        $("#2_txtDiaChi").val(arrVal[1]);
+                        $("#2_txtDienThoai").val(arrVal[2]);
+                        $("#2_txtFax").val(arrVal[3]);
+                        $("#2_txtEmail").val(arrVal[4]);
+                        $("#txtMADDSHCN").val(arrVal[5]);
+                    }
+                }  
             }
         });
-    });
+    }
 
     //Lấy thông tin chủ đơn add vào formData
     function funcThongTinDaiDienChuDon(formData, PreID) {
@@ -210,11 +256,19 @@
                 }
             }
 
+            var txtMADDSHCN = $("#txtMADDSHCN").val();
+            if (txtMADDSHCN == "" || txtMADDSHCN == undefined) {
+                $("#txtMADDSHCN").focus();
+                showError('@Resource.MaDaiDien' + '@Resource.KhongDuocDeTrong');
+                return false;
+            }
+
             formData.append("pInfo.Rep_Master_Name", txtTenDayDu);
             formData.append("pInfo.Rep_Master_Address", txtDiaChi);
             formData.append("pInfo.Rep_Master_Phone", txtDienThoai);
             formData.append("pInfo.Rep_Master_Fax", txtFax);
             formData.append("pInfo.Rep_Master_Email", txtEmail);
+            formData.append("pInfo.Customer_Code", txtMADDSHCN);
 
             return true;
         } catch (e) {

@@ -330,30 +330,30 @@
             </div>
 
             @*<div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHTT" id="0_NhanHieuTapThe" />
-                        <label>@WebApps.Resources.Resource.lblNhanHieuTapThe</label>
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHTT" id="0_NhanHieuTapThe" />
+                            <label>@WebApps.Resources.Resource.lblNhanHieuTapThe</label>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHLK" id="0_NhanHieuLienKet" />
-                        <label>@WebApps.Resources.Resource.lblNhanHieuLienKet</label>
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHLK" id="0_NhanHieuLienKet" />
+                            <label>@WebApps.Resources.Resource.lblNhanHieuLienKet</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" value="NHCN" class="classNhanHieu" id="0_NhanHieuChungNhan" />
-                        <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="radio" name="0_NhanHieu" value="NHCN" class="classNhanHieu" id="0_NhanHieuChungNhan" />
+                            <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
+                        </div>
                     </div>
-                </div>
-            </div>*@
+                </div>*@
         </div>
         @* End tai lieu dinh kem  *@
         <div class="div_full_100_area" style="display:none" id="divNhanHieuChungNhan">
@@ -411,51 +411,50 @@
 
 
         @* 2 *@
-        <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblDaiDienChuDon.ToUpper())
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienPL" id="3_txtNguoiDaiDienPL" />
-                        <label>@WebApps.Resources.Resource.lblLaNguoiDaiDienTheoPL</label>
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
+
+        @*<div class="div_full_100_area">
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblDaiDienChuDon.ToUpper())
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienPL" id="3_txtNguoiDaiDienPL" />
+                            <label>@WebApps.Resources.Resource.lblLaNguoiDaiDienTheoPL</label>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div id="divDDPLChoise" style="  margin-top: 5px;">
-            </div>
-
-            <div class="div-search-ad">
-                @*<div class="div-search-content">*@
-                <div class="div-radio" style="width:60%">
-                    <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienSH" id="3_txtToChucDaiDien" checked />
-                    <label>@WebApps.Resources.Resource.lblLaToChucDichVuDaiDienSoHuu</label>
+                <div id="divDDPLChoise" style="  margin-top: 5px;">
                 </div>
 
-                @*//07/09/2018*@
-                <div class="div-search-content">
-                    <div>
-                        <label style="width:180px;display:inline-block ;border: 1px solid #aaa; padding-top: 5px;  padding-left: 2px;">@WebApps.Resources.Resource.lblMaDaiDien:</label>
-                        <input style="display:inline-block" type="text" value="" id="txtMADDSHCN" />
+                <div class="div-search-ad">
+                    <div class="div-radio" style="width:60%">
+                        <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienSH" id="3_txtToChucDaiDien" checked />
+                        <label>@WebApps.Resources.Resource.lblLaToChucDichVuDaiDienSoHuu</label>
+                    </div>
+
+                    <div class="div-search-content">
+                        <div>
+                            <label style="width:180px;display:inline-block ;border: 1px solid #aaa; padding-top: 5px;  padding-left: 2px;">@WebApps.Resources.Resource.lblMaDaiDien:</label>
+                            <input style="display:inline-block" type="text" value="" id="txtMADDSHCN" />
+                        </div>
                     </div>
                 </div>
-                @*</div>*@
-            </div>
 
-            <div id="divDDSHChoise" style="  margin-top: 5px;">
-            </div>
+                <div id="divDDSHChoise" style="  margin-top: 5px;">
+                </div>
 
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienUyQuyen" id="3_txtToChucDaiDien" />
-                        <label>@WebApps.Resources.Resource.lblLaNguoiKhacDuocUyQuyen</label>
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienUyQuyen" id="3_txtToChucDaiDien" />
+                            <label>@WebApps.Resources.Resource.lblLaNguoiKhacDuocUyQuyen</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div id="divDDUQChoise" style=" margin-top: 5px;">
-            </div>
-        </div>
+                <div id="divDDUQChoise" style=" margin-top: 5px;">
+                </div>
+            </div>*@
 
 
         @* 3  A14*@
@@ -658,9 +657,9 @@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewNgayThangNam.cshtml")
 
         @*if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
-        {
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDuLieuQuaKhu.cshtml", "1")
-        }*@
+            {
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDuLieuQuaKhu.cshtml", "1")
+            }*@
 
         <div class="class_save">
             <div class="classGuiDon">
@@ -671,11 +670,11 @@
             </div>
 
             @*@if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
-            {
-                <div class="classLuuTam">
-                    <input type="button" value="Dữ liệu quá khứ" id="btnDuLieuCu" class="btn class_37" style="margin-left:5px" />
-                </div>
-            }*@
+                {
+                    <div class="classLuuTam">
+                        <input type="button" value="Dữ liệu quá khứ" id="btnDuLieuCu" class="btn class_37" style="margin-left:5px" />
+                    </div>
+                }*@
         </div>
     </fieldset>
 </div>
@@ -1047,8 +1046,8 @@
             scrollInput: false
         });
 
-        var v_DDSHCN = $("input[name='3_rdoDaiDienChuDon']:checked").val();
-        GetThongTinDaiDien(v_DDSHCN);
+        //var v_DDSHCN = $("input[name='3_rdoDaiDienChuDon']:checked").val();
+        //GetThongTinDaiDien(v_DDSHCN);
 
         //Search suggestion
         var Name = $("#1_txtTenDayDu").val();
@@ -1285,8 +1284,6 @@
 
             }
         });
-
-
     });
 
     function funcChuDonKhacReuse9(displayVal) {
@@ -1794,6 +1791,12 @@
         try {
             //Thông tin chủ đơn
             var formData = new FormData();
+
+            var reponse = getNation_Represent(formData);
+            if (reponse == false) {
+                return false;
+            }
+
             var reponse = funcThongTinNhapHo(formData);
             if (reponse == false) {
                 return false;
@@ -1823,23 +1826,35 @@
                 return false;
             }
             formData.append("pInfo.Appcode", v_AppCode);
-            if (funcThongTinChuDonNguoiDaiDien(formData, "2", New) != true) {
-                return false;
-            }
-            var v_RepMasterType = $("input[name='3_rdoDaiDienChuDon']:checked").val();
-            if ((v_RepMasterType === "" || v_RepMasterType == undefined) && ptype != 1) {
-                showError('Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!');
-                return false;
-            }
-            var daidienSH = $("#txtDaiDienSHCN").val();
 
-            formData.append("pInfo.DDSHCN", daidienSH);
+            //
+            //if (funcThongTinChuDonNguoiDaiDien(formData, "2", New) != true) {
+            //    return false;
+            //}
+            //var v_RepMasterType = $("input[name='3_rdoDaiDienChuDon']:checked").val();
+            //if ((v_RepMasterType === "" || v_RepMasterType == undefined) && ptype != 1) {
+            //    showError('Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!');
+            //    return false;
+            //}
+            //var daidienSH = $("#txtDaiDienSHCN").val();
+            //formData.append("pInfo.DDSHCN", daidienSH);
 
             //07/09/2018
             var madhsh = $("#txtMADDSHCN").val();
             formData.append("pInfo.MADDSHCN", madhsh);
 
+            if (funcThongTinDaiDienChuDon(formData, "2") != true) {
+                return false;
+            }
+            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+            if (v_RepMasterType === "" || v_RepMasterType == undefined) {
+                jError("@Html.Raw(Resource.TM2B_ChonDaiDienChuDon)", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                    $("#_2_rdoNguoiDaiDienPL").focus()
+                });
+                return false;
+            }
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+
             //trang thai
             formData.append("pInfo.Status", ptype);
             //Lấy thông tin detail
@@ -1907,29 +1922,29 @@
         }
     }
 
-    $("input[name='3_rdoDaiDienChuDon'").change(function () {
+    //$("input[name='3_rdoDaiDienChuDon'").change(function () {
 
-        var v_DDSHCN = $("input[name='3_rdoDaiDienChuDon']:checked").val();
-        GetThongTinDaiDien(v_DDSHCN);
-        if (v_DDSHCN == "DDPL") {
-            $("#2_txtTenDayDu").val($("#1_txtTenDayDu").val());
-            $("#2_txtDiaChi").val($("#1_txtDiaChi").val());
-            $("#2_txtDienThoai").val($("#1_txtDienThoai").val());
-            $("#2_txtFax").val($("#1_txtFax").val());
-            $("#2_txtEmail").val($("#1_txtEmail").val());
-            $("#divDaiDienSHCN").css("display", "none");
-        }
-        else if (v_DDSHCN == "DDUQ") {
-            $("#divDaiDienSHCN").css("display", "none");
-        }
-        else {
-            $("#2_txtTenDayDu").val("");
-            $("#2_txtDiaChi").val("");
-            $("#2_txtDienThoai").val("");
-            $("#2_txtFax").val("");
-            $("#2_txtEmail").val("");
-        }
-    });
+    //    var v_DDSHCN = $("input[name='3_rdoDaiDienChuDon']:checked").val();
+    //    GetThongTinDaiDien(v_DDSHCN);
+    //    if (v_DDSHCN == "DDPL") {
+    //        $("#2_txtTenDayDu").val($("#1_txtTenDayDu").val());
+    //        $("#2_txtDiaChi").val($("#1_txtDiaChi").val());
+    //        $("#2_txtDienThoai").val($("#1_txtDienThoai").val());
+    //        $("#2_txtFax").val($("#1_txtFax").val());
+    //        $("#2_txtEmail").val($("#1_txtEmail").val());
+    //        $("#divDaiDienSHCN").css("display", "none");
+    //    }
+    //    else if (v_DDSHCN == "DDUQ") {
+    //        $("#divDaiDienSHCN").css("display", "none");
+    //    }
+    //    else {
+    //        $("#2_txtTenDayDu").val("");
+    //        $("#2_txtDiaChi").val("");
+    //        $("#2_txtDienThoai").val("");
+    //        $("#2_txtFax").val("");
+    //        $("#2_txtEmail").val("");
+    //    }
+    //});
 
     $(document).on('dblclick', '.classDaiDienChuDon', function () {
         if (this.checked) {

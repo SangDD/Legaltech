@@ -53,5 +53,20 @@
                 return new DataSet();
             }
         }
+
+        public static DataSet Nation_Represent_GetAll()
+        {
+            try
+            {
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_allcode.proc_nation_represent_getall",
+                 new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+        
     }
 }

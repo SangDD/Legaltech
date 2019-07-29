@@ -49,29 +49,38 @@
                  formData.append("pInfo.Id", v_AppHeaderID);
 
 
-                 if (funcThongTinChuDonNguoiDaiDien(formData, "2", View) != true) {
-                     return false;
+                 //if (funcThongTinChuDonNguoiDaiDien(formData, "2", View) != true) {
+                 //    return false;
+                 //}
+                 //var v_RepMasterType = $("input[name='3_rdoDaiDienChuDon']:checked").val();
+                 //if ((v_RepMasterType === "" || v_RepMasterType == undefined)   && ptype != 3) {
+                 //    showError('Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!');
+                 //    return false;
+                 //}
+                 //formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+
+                 //var daidienSH = $("#txtDaiDienSHCN").val();
+                 //formData.append("pInfo.DDSHCN", daidienSH);
+
+                 if (funcThongTinDaiDienChuDon(formData, "2") != true) {
+                    return false;
                  }
-                 var v_RepMasterType = $("input[name='3_rdoDaiDienChuDon']:checked").val();
-                 if ((v_RepMasterType === "" || v_RepMasterType == undefined)   && ptype != 3) {
-                     showError('Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!');
-                     return false;
+
+                 var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+                 if ((v_RepMasterType === "" || v_RepMasterType == undefined) && ptype != 3) {
+                    jError("@Html.Raw(WebApps.Resources.Resource.TM2B_ChonDaiDienChuDon)", "@Html.Raw(WebApps.Resources.Resource.TM3B_Loi)", function () {
+                        $("#_2_rdoNguoiDaiDienPL").focus()
+                    });
+                    return false;
                  }
                  formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+
                  //trang thai
                  formData.append("pInfo.Status", ptype);
 
-                 var daidienSH = $("#txtDaiDienSHCN").val();
-                 //if (daidienSH === "") {
-                 //    $('#txtDaiDienSHCN').focus().val('');
-                 //    showError('Chưa chọn chủ đại đại diện sở hữu.');
-                 //    return false;
-                 //}
-                 formData.append("pInfo.DDSHCN", daidienSH);
-
                  //07/09/2018
-                 var madhsh = $("#txtMADDSHCN").val();
-                 formData.append("pInfo.MADDSHCN", madhsh);
+                 //var madhsh = $("#txtMADDSHCN").val();
+                 //formData.append("pInfo.MADDSHCN", madhsh);
 
                  //Lấy thông tin detail
                  var reponse = funcGetAppDetail(formData, ptype);
