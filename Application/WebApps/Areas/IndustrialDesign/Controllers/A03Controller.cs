@@ -1139,6 +1139,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                     }
 
                 }
+
                 if(appDocumentInfos != null)
                 {
                     foreach (AppDocumentInfo item in appDocumentInfos)
@@ -1202,23 +1203,28 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                             app_Detail.Doc_Id_10 = item.CHAR01;
                             app_Detail.Doc_Id_1002 = item.CHAR02;
                         }
-                        else if (item.Document_Id == "A03_11")
+                        // quyền ưu tiên cũ A03_11
+                        else if (item.Document_Id == "1_TLCMQUT")
                         {
                             app_Detail.Doc_Id_11 = item.CHAR01;
                             app_Detail.Doc_Id_11_Check = item.Isuse;
                         }
 
-                        else if (item.Document_Id == "A03_12")
+                        // cũ A03_12
+                        else if (item.Document_Id == "1_BanSaoDauTien")
                         {
                             app_Detail.Doc_Id_12 = item.CHAR01;
                             app_Detail.Doc_Id_12_Check = item.Isuse;
                         }
 
-                        else if (item.Document_Id == "A03_13")
+                        // cũ A03_13
+                        else if (item.Document_Id == "1_GiayChuyenNhuong")
                         {
                             app_Detail.Doc_Id_13 = item.CHAR01;
                             app_Detail.Doc_Id_13_Check = item.Isuse;
                         }
+
+                        // end quyền ưu tiên
 
                         else if (item.Document_Id == "A03_14")
                         {
@@ -1233,6 +1239,12 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                         }
                     }
 
+                    if (pUTienInfo == null)
+                    {
+                        app_Detail.Doc_Id_11 = "";
+                        app_Detail.Doc_Id_12 = "";
+                        app_Detail.Doc_Id_13 = "";
+                    }
                 }
 
                 #endregion

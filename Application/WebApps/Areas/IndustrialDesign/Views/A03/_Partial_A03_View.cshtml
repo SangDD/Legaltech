@@ -503,17 +503,6 @@
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model2)
         }
 
-        @* 3. Bản sao *@
-        @*@{
-                string _doc_id3 = "A03_03";
-                string _id3 = _doc_id3 + "|Doc_03|0|" + "Số phương án/Số ảnh gồm" + "|" + "Số phương án"  + "|1||" + "Số ảnh";
-                string _value3 = dic_appDoc[_doc_id3].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id3].CHAR01 + "|" + dic_appDoc[_doc_id3].Url_Hardcopy + "|" + dic_appDoc[_doc_id3].CHAR02;
-                string _model3 = _id3 + ";" + _value3;
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model3)
-
-            }*@
-
-
         @{
             string _doc_id4 = "A03_04";
             string _id4 = _doc_id4 + "|Doc_04|0|" + Resource.BanSaoChungTu + "||1";
@@ -525,7 +514,6 @@
         <div class="divCover cls_form_title">
             <b>Tài liệu khác</b>
         </div>
-
 
         @* 5 Giấy uỷ quyền bằng tiếng *@
         @{
@@ -584,8 +572,8 @@
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model10)
         }
 
-        @* 12 Tài liệu chứng minh quyền ưu tiên *@
-        @{
+        @* 12 Tài liệu chứng minh quyền ưu tiên --> bỏ đi vì trùng với phần quyền ưu tiên *@
+        @*@{
             string _doc_id11 = "A03_11";
             string _id11 = _doc_id11 + "|Doc_11|0|" + Resource.lblTaiLieuChungMinhQuyenUT + " || 0";
             string _value11 = dic_appDoc[_doc_id11].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id11].CHAR01 + "|" + dic_appDoc[_doc_id11].Url_Hardcopy;
@@ -607,7 +595,7 @@
             string _value13 = dic_appDoc[_doc_id13].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id13].CHAR01 + "|" + dic_appDoc[_doc_id13].Url_Hardcopy;
             string _model13 = _id13 + ";" + _value13;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model13)
-        }
+        }*@
 
         @{
             string _doc_id14 = "A03_14";
