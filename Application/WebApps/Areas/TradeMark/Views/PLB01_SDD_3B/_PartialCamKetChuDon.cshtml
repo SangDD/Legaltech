@@ -1,88 +1,117 @@
 ﻿@using WebApps.Resources;
-<div class="divCover cls_form_title">
-    <img src="~/Content/icons/category.png" />
-    <div class="cls_form_header">
-       @Resource.TM3B_CamKetChuDon
-    </div>
-</div>
 
-<div class="div-search-ad" style="display:none">
-    <div class="div-search-title">
-        <div>@Resource.TM3B_KhaiTai:</div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input type="text" style="margin-left: 1px;width:250px" maxlength="200" id="txtKhaiTai" />
+<div style="display:none">
+    <div class="divCover cls_form_title">
+        <img src="~/Content/icons/category.png" />
+        <div class="cls_form_header">
+            @Resource.TM3B_CamKetChuDon
         </div>
     </div>
 
-    <div class="div-search-title">
-        <div> @Resource.TM3B_NgayKhai: </div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <select id="cboNgayKhai" class="classNgayThangNam" style="width:50px">
-                @for (int i = 1; i < 32; i++)
-                {
-                    if (i.ToString().PadLeft(2, '0') == DateTime.Now.ToString("dd"))
-                    {
-                        <option selected="selected" value="@i.ToString().PadLeft(2, '0')">@i.ToString().PadLeft(2, '0')</option>
-                    }
-                    else
-                    {
-                        <option value="@i.ToString().PadLeft(2,'0')">@i.ToString().PadLeft(2, '0')</option>
-                    }
-
-                }
-            </select>
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>@Resource.TM3B_KhaiTai:</div>
         </div>
-    </div>
-
-    <div class="div-search-title">
-        <div> @Resource.TM3B_Thang: </div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <select id="cboThangKhai" class="classNgayThangNam" style="width:50px">
-                @for (int i = 1; i < 13; i++)
-                {
-                    if (i.ToString().PadLeft(2, '0') == DateTime.Now.ToString("MM"))
-                    {
-                        <option selected="selected" value="@i.ToString().PadLeft(2,'0')">@i.ToString().PadLeft(2, '0')</option>
-                    }
-                    else
-                    {
-                        <option value="@i.ToString().PadLeft(2,'0')">@i.ToString().PadLeft(2, '0')</option>
-                    }
-
-                }
-            </select>
+        <div class="div-search-content">
+            <div>
+                <input type="text" style="margin-left: 1px;width:250px" maxlength="200" id="txtKhaiTai" />
+            </div>
         </div>
-    </div>
 
-    <div class="div-search-title">
-        <div>@Resource.TM3B_Nam:  </div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <select id="cboNamKhai" class="classNgayThangNam">
-                @for (int i = 2005; i < 2051; i++)
-                {
-                    if (i.ToString() == DateTime.Now.ToString("yyyy"))
+        <div class="div-search-title">
+            <div> @Resource.TM3B_NgayKhai: </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <select id="cboNgayKhai" class="classNgayThangNam" style="width:50px">
+                    @for (int i = 1; i < 32; i++)
                     {
-                        <option selected="selected" value="@i.ToString()">@i.ToString()</option>
+                        if (i.ToString().PadLeft(2, '0') == DateTime.Now.ToString("dd"))
+                        {
+                            <option selected="selected" value="@i.ToString().PadLeft(2, '0')">@i.ToString().PadLeft(2, '0')</option>
+                        }
+                        else
+                        {
+                            <option value="@i.ToString().PadLeft(2,'0')">@i.ToString().PadLeft(2, '0')</option>
+                        }
+
                     }
-                    else
+                </select>
+            </div>
+        </div>
+
+        <div class="div-search-title">
+            <div> @Resource.TM3B_Thang: </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <select id="cboThangKhai" class="classNgayThangNam" style="width:50px">
+                    @for (int i = 1; i < 13; i++)
                     {
-                        <option value="@i.ToString()">@i.ToString()</option>
+                        if (i.ToString().PadLeft(2, '0') == DateTime.Now.ToString("MM"))
+                        {
+                            <option selected="selected" value="@i.ToString().PadLeft(2,'0')">@i.ToString().PadLeft(2, '0')</option>
+                        }
+                        else
+                        {
+                            <option value="@i.ToString().PadLeft(2,'0')">@i.ToString().PadLeft(2, '0')</option>
+                        }
+
                     }
-                }
-            </select>
+                </select>
+            </div>
+        </div>
+
+        <div class="div-search-title">
+            <div>@Resource.TM3B_Nam:  </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <select id="cboNamKhai" class="classNgayThangNam">
+                    @for (int i = 2005; i < 2051; i++)
+                    {
+                        if (i.ToString() == DateTime.Now.ToString("yyyy"))
+                        {
+                            <option selected="selected" value="@i.ToString()">@i.ToString()</option>
+                        }
+                        else
+                        {
+                            <option value="@i.ToString()">@i.ToString()</option>
+                        }
+                    }
+                </select>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
+
+    $(document).ready(function () {
+
+        var _QuocGia = $("#cboNationRepresent").val();
+        if (_QuocGia == "" || _QuocGia == undefined)
+            _QuocGia = 234;
+
+        Get_Place_ByNation(_QuocGia);
+    }); 
+
+    function Get_Place_ByNation(_id) {
+        $.ajax({
+            url: '/trade-mark/get-place-by-nation/',
+            type: 'POST',
+            data: {
+                p_id: _id
+            },
+            sync: true, cache: false, traditional: true,
+            success: function (data) {
+                var _avaiable_data = data.Avaiable_Data;
+                if (_avaiable_data == "1") {
+                    $("#txtKhaiTai").val(data.Country_Info.Place);
+                }  
+            }
+        });
+    }
 
     function funcGetCamKetChuDon(formData) {
         try {

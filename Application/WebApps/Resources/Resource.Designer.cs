@@ -4246,6 +4246,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Số hình ảnh.
+        /// </summary>
+        public static string SoHinhAnh {
+            get {
+                return ResourceManager.GetString("SoHinhAnh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Số hình phát sinh.
         /// </summary>
         public static string SoHinhPhatSinh {
@@ -4260,6 +4269,15 @@ namespace WebApps.Resources {
         public static string SoNgayTre {
             get {
                 return ResourceManager.GetString("SoNgayTre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số phương án.
+        /// </summary>
+        public static string SoPhuongAn {
+            get {
+                return ResourceManager.GetString("SoPhuongAn", resourceCulture);
             }
         }
         

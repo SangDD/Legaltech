@@ -541,39 +541,13 @@
         @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Image_Public.cshtml")
 
         @* id doc | id của check box | level | lable | lable 2 | is upload *@
-        @* 1 Tờ khai *@
-        @{
-            string _doc_id1 = "A01_01";
-            string _model1 = _doc_id1 + "|Doc_01|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|0||" + Resource.lblSoBan;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model1)
-        }
+
 
         @* 2. Bản mô tả, bằng tiếng *@
         @{
             string _doc_id2 = "A01_02";
             string _model2 = _doc_id2 + "|Doc_02|0|" + Resource.BanMoTaBangTieng + "|" + Resource.TM3B_Tieng + "|1||" + Resource.TM2B_SoTrang;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model2)
-        }
-
-        @* 3. Bản sao *@
-        @{
-            string _doc_id3 = "A01_03";
-            string _model3 = _doc_id3 + "|Doc_03|0|" + Resource.BanSaoChungTu + "|" + Resource.TM2B_SoTrang + "|1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model3)
-        }
-
-
-        @{
-            string _doc_id4 = "A01_04";
-            string _model4 = _doc_id4 + "|Doc_04|0|" + Resource.BanTomTatBangTieng + "|" + Resource.TM3B_Tieng + "|1||" + Resource.TM2B_SoTrang;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)
-        }
-
-
-        @{
-            string _doc_id5 = "A01_05";
-            string _model5 = _doc_id5 + "|Doc_05|0|" + Resource.lblBanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model5)
         }
 
         @* 6 Giấy uỷ quyền bằng tiếng *@
@@ -619,36 +593,85 @@
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model11)
         }
 
-        @* 12 Tài liệu chứng minh quyền ưu tiên *@
-        @{
-            string _doc_id12 = "A01_12";
-            string _model12 = _doc_id12 + "|Doc_12|0|" + Resource.lblTaiLieuChungMinhQuyenUT + "||0";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model12)
-        }
+        <div class="divCover cls_form_title">
+            @*<img src="/Content/icons/category.png">*@
+            <div class="cls_form_header">@WebApps.Resources.Resource.lblTaiLieuKhac.ToUpper()</div>
+            <div style="display: inline-block;  padding-top: 5px; padding-left: 10px;">
+                <input type="radio" name="ck_TaiLieu_Khac" id="ck_TaiLieu_Khac" onchange="onChangeTLKhac()">
+                <label>@WebApps.Resources.Resource.lblYes</label>
+            </div>
 
-        @{
-            string _doc_id13 = "A01_13";
-            string _model13 = _doc_id13 + "|Doc_13|1|" + Resource.BanSaoDonDauTien + "|" + Resource.lblBan + "|1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model13)
-        }
+            <div style="display: inline-block;padding-left: 5px;">
+                <input type="radio" name="ck_TaiLieu_Khac" id="ck_TaiLieu_Khac_No" onchange="onChangeTLKhac()" checked />
+                <label>@WebApps.Resources.Resource.lblNo</label>
+            </div>
+        </div>
 
-        @{
-            string _doc_id14 = "A01_14";
-            string _model14 = _doc_id14 + "|Doc_14|1|" + Resource.GiayChuyenNhuongQuyenUT + "||1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model14)
-        }
+        <div id="divTLKhac" class="clssDisplaynone">
 
-        @{
-            string _doc_id15 = "A01_15";
-            string _model15 = _doc_id15 + "|Doc_15|0|" + Resource.TaiLieuXacNhanQuyenDangKy + "||1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model15)
-        }
+            @* 1 Tờ khai *@
+            @{
+                string _doc_id1 = "A01_01";
+                string _model1 = _doc_id1 + "|Doc_01|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|0||" + Resource.lblSoBan;
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model1)
+            }
 
-        @{
-            string _doc_id16 = "A01_16";
-            string _model16 = _doc_id16 + "|Doc_16|0|" + Resource.CoTaiLieuKhac + "||0";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model16)
-        }
+            @* 3. Bản sao *@
+            @{
+                string _doc_id3 = "A01_03";
+                string _model3 = _doc_id3 + "|Doc_03|0|" + Resource.BanSaoChungTu + "|" + Resource.TM2B_SoTrang + "|1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model3)
+            }
+
+
+            @{
+                string _doc_id4 = "A01_04";
+                string _model4 = _doc_id4 + "|Doc_04|0|" + Resource.BanTomTatBangTieng + "|" + Resource.TM3B_Tieng + "|1||" + Resource.TM2B_SoTrang;
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)
+            }
+
+
+            @{
+                string _doc_id5 = "A01_05";
+                string _model5 = _doc_id5 + "|Doc_05|0|" + Resource.lblBanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model5)
+            }
+
+            @* 12 Tài liệu chứng minh quyền ưu tiên bỏ đi vì trùng *@
+            @*@{
+                string _doc_id12 = "A01_12";
+                string _model12 = _doc_id12 + "|Doc_12|0|" + Resource.lblTaiLieuChungMinhQuyenUT + "||0";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model12)
+            }
+
+            @{
+                string _doc_id13 = "A01_13";
+                string _model13 = _doc_id13 + "|Doc_13|1|" + Resource.BanSaoDonDauTien + "|" + Resource.lblBan + "|1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model13)
+            }
+
+            @{
+                string _doc_id14 = "A01_14";
+                string _model14 = _doc_id14 + "|Doc_14|1|" + Resource.GiayChuyenNhuongQuyenUT + "||1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model14)
+            }*@
+
+            @* end quyền ưu tiên *@
+
+            @{
+                string _doc_id15 = "A01_15";
+                string _model15 = _doc_id15 + "|Doc_15|0|" + Resource.TaiLieuXacNhanQuyenDangKy + "||1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model15)
+            }
+
+            @{
+                string _doc_id16 = "A01_16";
+                string _model16 = _doc_id16 + "|Doc_16|0|" + Resource.CoTaiLieuKhac + "||0";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model16)
+            }
+
+        </div>
+
 
         @*TÀI LIỆU KHÁC*@
         @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others.cshtml")
@@ -788,6 +811,18 @@
         } catch (e) {
         }
     });
+
+    function onChangeTLKhac() {
+        try {
+            if ($("#ck_TaiLieu_Khac").is(':checked')) {
+                $("#divTLKhac").removeClass("clssDisplaynone");
+            } else {
+                $("#divTLKhac").addClass("clssDisplaynone");
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     $("#btnGuiDon").click(function () {
         try {
@@ -931,6 +966,11 @@
             formData.append("pInfo.Status", ptype);
 
             //Lấy thông tin tài liệu có trong đơn
+            if ($("#ck_TaiLieu_Khac").is(':checked')) {
+                formData.append("pInfo.USE_DOC_OTHERS", 1);
+            } else {
+                formData.append("pInfo.USE_DOC_OTHERS", 0);
+            }
             reponse = funGetDocumentFile(formData);
             if (reponse == false) {
                 return false;
@@ -1455,7 +1495,7 @@
             if (v_CoSDQuyenUT == 1) {
 
                 _index = 0;
-                var _index_document = 15;
+                var _index_document = 12;
 
                 $(".clsDivDonUTien").each(function (item) {
                     var _id = $(this).attr('data-id');
@@ -1497,7 +1537,7 @@
                         formData.append("pUTienInfo[" + _index + "].UT_ThoaThuanKhac", $("#" + _id + "_txtThoathuanKhac").val());
                         _index = _index + 1;
                         _index_document = _index_document + 1;
-                        // 16
+                        // 13
 
                         var _id_checkbox = "ckb_" + _id + "_TLCMQUT";
                         var _id_textbox = "txt_" + _id + "_TLCMQUT";
@@ -1583,21 +1623,22 @@
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_11", "10");
             formData.append("pAppDocumentInfo[10].CHAR01", $("#txt_Doc_11").val());
 
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_12", "11");
-            //formData.append("pAppDocumentInfo[11].CHAR01", $("#txt_Doc_12").val());
+            // quyền ưu tiên
+            //reponse = funcGetCheckValueAndText(formData, "ckb_Doc_12", "11");
 
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_13", "12");
-            formData.append("pAppDocumentInfo[12].CHAR01", $("#txt_Doc_13").val());
+            //reponse = funcGetCheckValueAndText(formData, "ckb_Doc_13", "12");
+            //formData.append("pAppDocumentInfo[12].CHAR01", $("#txt_Doc_13").val());
 
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_14", "13");
-            formData.append("pAppDocumentInfo[13].CHAR01", "");
+            //reponse = funcGetCheckValueAndText(formData, "ckb_Doc_14", "13");
+            //formData.append("pAppDocumentInfo[13].CHAR01", "");
+            // end quyen uu tien
 
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_15", "14");
-            formData.append("pAppDocumentInfo[14].CHAR01", "");
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_15", "11");
+            formData.append("pAppDocumentInfo[11].CHAR01", "");
 
             // 16
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_16", "15");
-            formData.append("pAppDocumentInfo[15].CHAR01", "");
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_16", "12");
+            formData.append("pAppDocumentInfo[12].CHAR01", "");
 
         } catch (e) {
             console.log(e);

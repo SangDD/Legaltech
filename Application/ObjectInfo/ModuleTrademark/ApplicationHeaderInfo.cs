@@ -184,6 +184,8 @@ namespace ObjectInfos
 
         public decimal Nation_Represent_Id { get; set; }
         public string Nation_Represent_Name { get; set; }
+
+        public decimal USE_DOC_OTHERS { get; set; }
     }
 
 

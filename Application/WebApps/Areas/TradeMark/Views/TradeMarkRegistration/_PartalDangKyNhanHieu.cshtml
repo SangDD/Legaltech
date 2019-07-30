@@ -578,7 +578,6 @@
                     </div>
                 </div>
 
-
                 @* TÀI LIEU ƯU TIEN *@
                 <div class="div-search-ad" style="display:inline-flex;">
                     <div class="div-search-content">
@@ -647,6 +646,7 @@
         <div id="divDonUuTienSo2" hidden="hidden">
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHDonUTSo2.cshtml")
         </div>
+
         @* Tài liệu có trong đơn *@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTLTrongDon.cshtml")
 
@@ -656,11 +656,6 @@
         @* CAM KẾT CHỦ ĐƠN  *@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewNgayThangNam.cshtml")
 
-        @*if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
-            {
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDuLieuQuaKhu.cshtml", "1")
-            }*@
-
         <div class="class_save">
             <div class="classGuiDon">
                 <input type="button" value="@WebApps.Resources.Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
@@ -668,13 +663,6 @@
             <div class="classLuuTam">
                 <input type="button" value="@WebApps.Resources.Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
             </div>
-
-            @*@if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
-                {
-                    <div class="classLuuTam">
-                        <input type="button" value="Dữ liệu quá khứ" id="btnDuLieuCu" class="btn class_37" style="margin-left:5px" />
-                    </div>
-                }*@
         </div>
     </fieldset>
 </div>
@@ -1651,11 +1639,13 @@
     function funGetThongTinFile(formData) {
         try {
             var Isuse = 0, Note = "", reponse = false;
+
             //Các tài liệu có trong đơn
             reponse = funcGetCheckValueAndText(formData, "6_rdoToKhai", "0");
             formData.append("pAppDocumentInfo[0].CHAR01", $("#6_txtToKhaiTrang").val());
             formData.append("pAppDocumentInfo[0].CHAR02", $("#6_txtToKhaiBan").val());
             //
+
             //Các tài liệu có trong đơn
             reponse = funcGetCheckValueAndText(formData, "6_rdoMauNhanHieuTD", "1");
             formData.append("pAppDocumentInfo[1].CHAR01", $("#6_txtMauNhanHieuTD").val());
@@ -1840,8 +1830,8 @@
             //formData.append("pInfo.DDSHCN", daidienSH);
 
             //07/09/2018
-            var madhsh = $("#txtMADDSHCN").val();
-            formData.append("pInfo.MADDSHCN", madhsh);
+            //var madhsh = $("#txtMADDSHCN").val();
+            //formData.append("pInfo.MADDSHCN", madhsh);
 
             if (funcThongTinDaiDienChuDon(formData, "2") != true) {
                 return false;
@@ -1862,7 +1852,14 @@
             if (reponse == false) {
                 return false;
             }
+
             //Lấy thông tin file có trong đơn
+            if ($("#ck_TaiLieu_Khac").is(':checked')) {
+                formData.append("pInfo.USE_DOC_OTHERS", 1);
+            } else {
+                formData.append("pInfo.USE_DOC_OTHERS", 0);
+            }
+
             reponse = funGetThongTinFile(formData);
             if (reponse == false) {
                 return false;

@@ -92,7 +92,7 @@ namespace ObjectInfos
             p_appDetail.GPHI_Valid_After = p_A01_Info.GPHI_Valid_After;
 
             p_appDetail.ThamDinhNoiDung = p_A01_Info.ThamDinhNoiDung;
-            p_appDetail.ChuyenDoiDon = p_A01_Info.ChuyenDoiDon;
+            p_appDetail.ChuyenDoiDon = p_A01_Info.ChuyenDoiDon == null ? "" : p_A01_Info.ChuyenDoiDon;
             p_appDetail.Point = p_A01_Info.Point;
             p_appDetail.Class_Type = p_A01_Info.Class_Type;
             p_appDetail.Class_Content = p_A01_Info.Class_Content;

@@ -2228,6 +2228,41 @@
             }
         }
 
+        [Route("get-place-by-nation")]
+        public ActionResult Get_Place_ByNation(decimal p_id)
+        {
+            try
+            {
+                Country_Info _Country_Info = new Country_Info();
+
+                int check = 0;
+                string language = AppsCommon.GetCurrentLang();
+                foreach (var item in MemoryData.c_lst_Nation_Represent)
+                {
+                    if (item.Country_Id == p_id)
+                    {
+                        check = 1;
+                        _Country_Info = item;
+                        break;
+                    }
+                }
+                if (check == 1)
+                {
+                    return Json(new { Avaiable_Data = "1", Country_Info = _Country_Info });
+                }
+                else
+                {
+                    return Json(new { Avaiable_Data = "0" });
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Logger.LogException(ex);
+                return Json(new { Avaiable_Data = "0" });
+            }
+        }
+
         [Route("GetNameSuggestKhac")]
         public ActionResult GetNameSuggestKhac(string pName, int pNumber)
         {

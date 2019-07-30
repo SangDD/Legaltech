@@ -315,7 +315,6 @@
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinQuyenUuTien.cshtml", "1")
         </div>
 
-
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
@@ -323,7 +322,6 @@
                 @Resource.TM2B_TaiLieuCoTrongDon
             </div>
         </div>
-
 
         <div class="divCover cls_form_title">
             <b>@Resource.TaiLieuToiThieu</b>
@@ -335,7 +333,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Số phương án:</div>
+                <div>@Resource.SoPhuongAn:</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -343,7 +341,7 @@
                 </div>
             </div>
             <div class="div-search-title">
-                <div>Số hình ảnh:</div>
+                <div>@Resource.SoHinhAnh:</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -353,38 +351,12 @@
         </div>
 
         @* id doc | id của check box | level | lable | lable 2 | is upload *@
-        @* 1 Tờ khai *@
-        @{
-            string _doc_id1 = "A03_01";
-            string _model1 = _doc_id1 + "|Doc_01|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|0||" + Resource.lblSoBan;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model1)
-        }
-
         @* 2. Bản mô tả, bằng tiếng *@
         @{
             string _doc_id2 = "A03_02";
             string _model2 = _doc_id2 + "|Doc_02|0|" + Resource.BanMoTaBangTieng + "|" + Resource.TM3B_Tieng + "|1||" + Resource.TM2B_SoTrang;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model2)
         }
-
-        @* 3. Bộ mô tả hình ảnh *@
-        @*@{
-                string _doc_id3 = "A03_03";
-                string _model3 = _doc_id3 + "|Doc_03|0|" + "Số phương án/Số ảnh gồm" + "|" + "Số phương án" + "|1||" + "Số ảnh";
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model3)
-            }*@
-
-
-        @{
-            string _doc_id4 = "A03_04";
-            // (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ)
-            string _model4 = _doc_id4 + "|Doc_04|0|" + Resource.BanSaoChungTu + "||1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)
-        }
-
-        <div class="divCover cls_form_title">
-            <b>Tài liệu khác</b>
-        </div>
 
 
         @* 6 Giấy uỷ quyền bằng tiếng *@
@@ -430,36 +402,68 @@
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model10)
         }
 
-        @* 12 Tài liệu chứng minh quyền ưu tiên *@
-        @{
-            string _doc_id11 = "A03_11";
-            string _model11 = _doc_id11 + "|Doc_11|0|" + Resource.lblTaiLieuChungMinhQuyenUuTien + "||0";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model11)
-        }
+        <div class="divCover cls_form_title">
+            @*<img src="/Content/icons/category.png">*@
+            <div class="cls_form_header">@WebApps.Resources.Resource.lblTaiLieuKhac.ToUpper()</div>
+            <div style="display: inline-block;  padding-top: 5px; padding-left: 10px;">
+                <input type="radio" name="ck_TaiLieu_Khac" id="ck_TaiLieu_Khac" onchange="onChangeTLKhac()">
+                <label>@WebApps.Resources.Resource.lblYes</label>
+            </div>
 
-        @{
-            string _doc_id12 = "A03_12";
-            string _model12 = _doc_id12 + "|Doc_12|1|" + Resource.lblbanSaoDauTienGom + "|" + Resource.lblBan + "|1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model12)
-        }
+            <div style="display: inline-block;padding-left: 5px;">
+                <input type="radio" name="ck_TaiLieu_Khac" id="ck_TaiLieu_Khac_No" onchange="onChangeTLKhac()" checked />
+                <label>@WebApps.Resources.Resource.lblNo</label>
+            </div>
+        </div>
 
-        @{
-            string _doc_id13 = "A03_13";
-            string _model13 = _doc_id13 + "|Doc_13|1|" + Resource.lblGiayChuyenNhuongQuyenUT + "||1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model13)
-        }
+        <div id="divTLKhac" class="clssDisplaynone">
+            @* 1 Tờ khai *@
+            @{
+                string _doc_id1 = "A03_01";
+                string _model1 = _doc_id1 + "|Doc_01|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|0||" + Resource.lblSoBan;
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model1)
+            }
 
-        @{
-            string _doc_id14 = "A03_14";
-            string _model14 = _doc_id14 + "|Doc_14|0|" + Resource.TaiLieuXacNhanQuyenDangKy + "||1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model14)
-        }
+            @{
+                string _doc_id4 = "A03_04";
+                // (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ)
+                string _model4 = _doc_id4 + "|Doc_04|0|" + Resource.BanSaoChungTu + "||1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)
+            }
 
-        @{
-            string _doc_id15 = "A03_15";
-            string _model15 = _doc_id15 + "|Doc_15|0|" + Resource.CoTaiLieuKhac + "||0";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model15)
-        }
+            @* 12 Tài liệu chứng minh quyền ưu tiên *@
+            @{
+                string _doc_id11 = "A03_11";
+                string _model11 = _doc_id11 + "|Doc_11|0|" + Resource.lblTaiLieuChungMinhQuyenUuTien + "||0";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model11)
+            }
+
+            @{
+                string _doc_id12 = "A03_12";
+                string _model12 = _doc_id12 + "|Doc_12|1|" + Resource.lblbanSaoDauTienGom + "|" + Resource.lblBan + "|1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model12)
+            }
+
+            @{
+                string _doc_id13 = "A03_13";
+                string _model13 = _doc_id13 + "|Doc_13|1|" + Resource.lblGiayChuyenNhuongQuyenUT + "||1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model13)
+            }
+
+            @{
+                string _doc_id14 = "A03_14";
+                string _model14 = _doc_id14 + "|Doc_14|0|" + Resource.TaiLieuXacNhanQuyenDangKy + "||1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model14)
+            }
+
+            @{
+                string _doc_id15 = "A03_15";
+                string _model15 = _doc_id15 + "|Doc_15|0|" + Resource.CoTaiLieuKhac + "||0";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model15)
+            }
+
+        </div>
+
         @*TÀI LIỆU KHÁC*@
         @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others.cshtml")
 
@@ -491,6 +495,18 @@
 </div>
 
 <script>
+
+    function onChangeTLKhac() {
+        try {
+            if ($("#ck_TaiLieu_Khac").is(':checked')) {
+                $("#divTLKhac").removeClass("clssDisplaynone");
+            } else {
+                $("#divTLKhac").addClass("clssDisplaynone");
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     $("#ckb_Doc_15").change(function () {
         if ($("#ckb_Doc_15").is(":checked") == true) {
@@ -729,6 +745,12 @@
             formData.append("pInfo.Status", p_Status);
 
             //Lấy thông tin tài liệu có trong đơn
+            if ($("#ck_TaiLieu_Khac").is(':checked')) {
+                formData.append("pInfo.USE_DOC_OTHERS", 1);
+            } else {
+                formData.append("pInfo.USE_DOC_OTHERS", 0);
+            }
+
             reponse = funGetDocumentFile(formData);
             if (reponse == false) {
                 return false;

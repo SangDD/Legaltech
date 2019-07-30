@@ -884,8 +884,8 @@
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model11)
         }
 
-        @* 12 Tài liệu chứng minh quyền ưu tiên *@
-        @{
+        @* 12 Tài liệu chứng minh quyền ưu tiên bỏ đi vì đã có ở phần quyền ưu tiên *@
+        @*@{
             string _doc_id12 = "A01_12";
             string _id12 = _doc_id12 + "|Doc_12|0|" + Resource.lblTaiLieuChungMinhQuyenUT + " || 0";
             string _value12 = dic_appDoc[_doc_id12].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id12].CHAR01 + "|" + dic_appDoc[_doc_id12].Url_Hardcopy;
@@ -907,7 +907,8 @@
             string _value14 = dic_appDoc[_doc_id14].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id14].CHAR01 + "|" + dic_appDoc[_doc_id14].Url_Hardcopy;
             string _model14 = _id14 + ";" + _value14;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model14)
-        }
+        }*@
+        @* end quyền ưu tiên *@
 
         @{
             string _doc_id15 = "A01_15";
@@ -1700,7 +1701,7 @@
             if (v_CoSDQuyenUT == 1) {
 
                 _index = 0;
-                var _index_document = 15;
+                var _index_document = 12;
 
                 $(".clsDivDonUTien").each(function (item) {
                     var _id = $(this).attr('data-id');
@@ -1742,7 +1743,7 @@
                         formData.append("pUTienInfo[" + _index + "].UT_ThoaThuanKhac", $("#" + _id + "_txtThoathuanKhac").val());
                         _index = _index + 1;
                         _index_document = _index_document + 1;
-                        // 16
+                        // 13
 
                         var _id_checkbox = "ckb_" + _id + "_TLCMQUT";
                         var _id_textbox = "txt_" + _id + "_TLCMQUT";
@@ -1828,21 +1829,23 @@
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_11", "10");
             formData.append("pAppDocumentInfo[10].CHAR01", $("#txt_Doc_11").val());
 
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_12", "11");
-            //formData.append("pAppDocumentInfo[11].CHAR01", $("#txt_Doc_12").val());
+            // quyền ưu tiên
+            //reponse = funcGetCheckValueAndText(formData, "ckb_Doc_12", "11");
 
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_13", "12");
-            formData.append("pAppDocumentInfo[12].CHAR01", $("#txt_Doc_13").val());
+            //reponse = funcGetCheckValueAndText(formData, "ckb_Doc_13", "12");
+            //formData.append("pAppDocumentInfo[12].CHAR01", $("#txt_Doc_13").val());
 
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_14", "13");
-            formData.append("pAppDocumentInfo[13].CHAR01", "");
+            //reponse = funcGetCheckValueAndText(formData, "ckb_Doc_14", "13");
+            //formData.append("pAppDocumentInfo[13].CHAR01", "");
 
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_15", "14");
-            formData.append("pAppDocumentInfo[14].CHAR01", "");
+            // end quyền ưu tiên
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_15", "11");
+            formData.append("pAppDocumentInfo[11].CHAR01", "");
 
             // 16
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_16", "15");
-            formData.append("pAppDocumentInfo[15].CHAR01", "");
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_16", "12");
+            formData.append("pAppDocumentInfo[12].CHAR01", "");
 
         } catch (e) {
             console.log(e);

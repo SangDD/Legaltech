@@ -2,6 +2,8 @@
 @{
     var objAppHeaderInfo = new AppDetail04NHInfo();
     string KhaiTai = "Hà Nội", Ngay = "", Thang = "", Nam = "";
+    int _IsInsert = 1;
+
     if (ViewBag.objAppHeaderInfo != null)
     {
         objAppHeaderInfo = (AppDetail04NHInfo)ViewBag.objAppHeaderInfo;
@@ -9,6 +11,7 @@
         Ngay = objAppHeaderInfo.DateNo;
         Thang = objAppHeaderInfo.Months;
         Nam = objAppHeaderInfo.Years;
+        _IsInsert = 0;
     }
 
     //Dùng cho khi view chi tiết đơn  ViewBag.disableView đc truyền từ form view tổng
@@ -166,6 +169,34 @@
 </style>
 
 <script>
+
+    $(document).ready(function () {
+        if (@_IsInsert == 1 ) {
+            var _QuocGia = $("#cboNationRepresent").val();
+            if (_QuocGia == "" || _QuocGia == undefined)
+                _QuocGia = 234;
+
+            Get_Place_ByNation(_QuocGia);
+        }
+    });
+
+    function Get_Place_ByNation(_id) {
+        $.ajax({
+            url: '/trade-mark/get-place-by-nation/',
+            type: 'POST',
+            data: {
+                p_id: _id
+            },
+            sync: true, cache: false, traditional: true,
+            success: function (data) {
+                var _avaiable_data = data.Avaiable_Data;
+                if (_avaiable_data == "1") {
+                    $("#txtKhaiTai").val(data.Country_Info.Place);
+                }
+            }
+        });
+    }
+
     function funcGetCamKetChuDon(formData) {
         try {
             var address = $("#txtKhaiTai").val();

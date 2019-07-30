@@ -1091,12 +1091,12 @@ namespace WebApps.CommonFunction
                 }
 
                 // copy tác giả
-                if (_lst_authorsInfos.Count > 0)
+                if (_lst_authorsInfos != null && _lst_authorsInfos.Count > 0)
                 {
                     A01_Info_Export.CopyAuthorsInfo(ref app_Detail, _lst_authorsInfos[0], 0);
                 }
 
-                if (_lst_authorsInfos.Count > 1)
+                if (_lst_authorsInfos != null && _lst_authorsInfos.Count > 1)
                 {
                     A01_Info_Export.CopyAuthorsInfo(ref app_Detail, _lst_authorsInfos[1], 1);
                     app_Detail.Author_Others = "Y";
@@ -1107,7 +1107,7 @@ namespace WebApps.CommonFunction
                     app_Detail.Author_Others = "N";
                 }
 
-                if (_lst_authorsInfos.Count > 2)
+                if (_lst_authorsInfos != null && _lst_authorsInfos.Count > 2)
                 {
                     A01_Info_Export.CopyAuthorsInfo(ref app_Detail, _lst_authorsInfos[2], 2);
                 }
@@ -1117,7 +1117,7 @@ namespace WebApps.CommonFunction
                 }
 
                 // copy chủ đơn khác
-                if (_lst_Other_MasterInfo.Count > 1)
+                if (_lst_Other_MasterInfo != null && _lst_Other_MasterInfo.Count > 1)
                 {
                     A01_Info_Export.CopyOther_MasterInfo(ref app_Detail, _lst_Other_MasterInfo[0], 0);
                 }
@@ -1126,7 +1126,7 @@ namespace WebApps.CommonFunction
                     A01_Info_Export.CopyOther_MasterInfo(ref app_Detail, null, 0);
                 }
 
-                if (_lst_Other_MasterInfo.Count > 2)
+                if (_lst_Other_MasterInfo != null && _lst_Other_MasterInfo.Count > 2)
                 {
                     A01_Info_Export.CopyOther_MasterInfo(ref app_Detail, _lst_Other_MasterInfo[1], 1);
                 }
@@ -1136,7 +1136,7 @@ namespace WebApps.CommonFunction
                 }
 
                 // copy đơn ưu tiên
-                if (pUTienInfo.Count > 0)
+                if (pUTienInfo != null && pUTienInfo.Count > 0)
                 {
                     A01_Info_Export.CopyUuTienInfo(ref app_Detail, pUTienInfo[0]);
                 }
@@ -1221,23 +1221,28 @@ namespace WebApps.CommonFunction
                         app_Detail.Doc_Id_11_Check = item.Isuse;
                     }
 
-                    else if (item.Document_Id == "A01_12")
+                    // quyền ưu tiên A01_12
+                    else if (item.Document_Id == "1_TLCMQUT")
                     {
                         app_Detail.Doc_Id_12 = item.CHAR01;
                         app_Detail.Doc_Id_12_Check = item.Isuse;
                     }
 
-                    else if (item.Document_Id == "A01_13")
+                    //A01_13 
+                    else if (item.Document_Id == "1_BanSaoDauTien")
                     {
                         app_Detail.Doc_Id_13 = item.CHAR01;
                         app_Detail.Doc_Id_13_Check = item.Isuse;
                     }
 
-                    else if (item.Document_Id == "A01_14")
+                    //A01_14
+                    else if (item.Document_Id == "1_GiayChuyenNhuong")
                     {
                         app_Detail.Doc_Id_14 = item.CHAR01;
                         app_Detail.Doc_Id_14_Check = item.Isuse;
                     }
+
+                    // end quyền ưu tiên
 
                     else if (item.Document_Id == "A01_15")
                     {
@@ -1250,6 +1255,14 @@ namespace WebApps.CommonFunction
                         app_Detail.Doc_Id_16 = item.CHAR01;
                         app_Detail.Doc_Id_16_Check = item.Isuse;
                     }
+                }
+
+                // nếu ko dùng đơn ưu tiên thì ko có tài liệu quyền ưu tiên
+                if (pUTienInfo == null)
+                {
+                    app_Detail.Doc_Id_12 = "";
+                    app_Detail.Doc_Id_13 = "";
+                    app_Detail.Doc_Id_14 = "";
                 }
 
                 #endregion

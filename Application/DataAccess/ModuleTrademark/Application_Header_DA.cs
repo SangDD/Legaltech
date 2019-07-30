@@ -208,6 +208,7 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("p_Customer_Code", OracleDbType.Varchar2, pInfo.Customer_Code, ParameterDirection.Input),
                     new OracleParameter("p_Master_Type", OracleDbType.Varchar2, pInfo.Master_Type, ParameterDirection.Input),
                     new OracleParameter("p_NATION_REPRESENT_ID", OracleDbType.Decimal, pInfo.Nation_Represent_Id, ParameterDirection.Input),
+                    new OracleParameter("p_USE_DOC_OTHERS", OracleDbType.Decimal, pInfo.USE_DOC_OTHERS, ParameterDirection.Input),
 
                     paramReturn, paramReturn_casecode);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
@@ -259,6 +260,8 @@ namespace DataAccess.ModuleTrademark
 
                     new OracleParameter("p_Customer_Code", OracleDbType.Varchar2, pInfo.Customer_Code, ParameterDirection.Input),
                     new OracleParameter("p_Master_Type", OracleDbType.Varchar2, pInfo.Master_Type, ParameterDirection.Input),
+                    new OracleParameter("p_NATION_REPRESENT_ID", OracleDbType.Decimal, pInfo.Nation_Represent_Id, ParameterDirection.Input),
+                    new OracleParameter("p_USE_DOC_OTHERS", OracleDbType.Decimal, pInfo.USE_DOC_OTHERS, ParameterDirection.Input),
 
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());

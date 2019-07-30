@@ -840,8 +840,8 @@
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model11)
         }
 
-        @* 12 Tài liệu chứng minh quyền ưu tiên *@
-        @{
+        @* 12 Tài liệu chứng minh quyền ưu tiên bỏ đi vì trùng với quyền ưu tiên *@
+        @*@{
             string _doc_id12 = "A01_12";
             string _id12 = _doc_id12 + "|Doc_12|0|" + Resource.lblTaiLieuChungMinhQuyenUT + " || 0";
             string _value12 = dic_appDoc[_doc_id12].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id12].CHAR01 + "|" + dic_appDoc[_doc_id12].Url_Hardcopy;
@@ -863,7 +863,7 @@
             string _value14 = dic_appDoc[_doc_id14].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id14].CHAR01 + "|" + dic_appDoc[_doc_id14].Url_Hardcopy;
             string _model14 = _id14 + ";" + _value14;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model14)
-        }
+        }*@
 
         @{
             string _doc_id15 = "A01_15";
