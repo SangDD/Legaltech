@@ -395,9 +395,9 @@
         </div>
 
         @*<div class="div_full_100_area">
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
-            </div>*@
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
+        </div>*@
 
         <div class="div-search-ad">
             <div class="div-search-content">
@@ -533,15 +533,18 @@
 
         @*Hình công bố*@
         @*@{
-                string _doc_id17 = "A01_17";
-                string _model17 = _doc_id17 + "|Doc_17|0|" + "Hình công bố" + "||0";
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model17)
-            }*@
+            string _doc_id17 = "A01_17";
+            string _model17 = _doc_id17 + "|Doc_17|0|" + "Hình công bố" + "||0";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model17)
+        }*@
 
         @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Image_Public.cshtml")
 
         @* id doc | id của check box | level | lable | lable 2 | is upload *@
 
+        <div class="divCover cls_form_title">
+            <b>@Resource.TaiLieuToiThieu.ToUpper()</b>
+        </div>
 
         @* 2. Bản mô tả, bằng tiếng *@
         @{

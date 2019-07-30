@@ -240,9 +240,9 @@
         </div>
 
         @*<div class="div_full_100_area">
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
-            </div>*@
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
+        </div>*@
 
         <div class="div-search-ad">
             <div class="div-search-content">
@@ -323,10 +323,6 @@
             </div>
         </div>
 
-        <div class="divCover cls_form_title">
-            <b>@Resource.TaiLieuToiThieu</b>
-        </div>
-
         @*TÀI booj hinh anh   *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTreeDocument.cshtml")
 
@@ -348,6 +344,10 @@
                     <input type="text" id="txtSoHinhAnh" readonly="readonly" value="1" />
                 </div>
             </div>
+        </div>
+
+        <div class="divCover cls_form_title">
+            <b>@Resource.TaiLieuToiThieu.ToUpper()</b>
         </div>
 
         @* id doc | id của check box | level | lable | lable 2 | is upload *@

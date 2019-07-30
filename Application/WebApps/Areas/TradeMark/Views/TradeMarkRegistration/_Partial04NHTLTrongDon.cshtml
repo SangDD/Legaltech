@@ -11,6 +11,10 @@
         </div>
     </div>
 
+    <div class="divCover cls_form_title">
+        <b>@WebApps.Resources.Resource.TaiLieuToiThieu.ToUpper()</b>
+    </div>
+
     @* An di theo yc cua khach hang *@
     <div class="div-search-ad" style="display:none">
         <div class="div-search-content">
@@ -155,24 +159,24 @@
     </div>
 
     @*<div class="div-search-ad" style="display:inline-flex;margin-bottom:5px">
-        <div class="div-search-content">
-            <div class="div-checkbox" style="width:1000px">
-                <input type="checkbox" name="ck_TaiLieu_Khac" id="ck_TaiLieu_Khac" onchange="onChangeTLKhac()" />
-                <label>@WebApps.Resources.Resource.lblTaiLieuKhac</label>
+            <div class="div-search-content">
+                <div class="div-checkbox" style="width:1000px">
+                    <input type="checkbox" name="ck_TaiLieu_Khac" id="ck_TaiLieu_Khac" onchange="onChangeTLKhac()" />
+                    <label>@WebApps.Resources.Resource.lblTaiLieuKhac</label>
+                </div>
             </div>
-        </div>
-    </div>*@
+        </div>*@
 
     <div class="divCover cls_form_title">
         @*<img src="/Content/icons/category.png">*@
         <div class="cls_form_header">@WebApps.Resources.Resource.lblTaiLieuKhac.ToUpper()</div>
         <div style="display: inline-block;  padding-top: 5px; padding-left: 10px;">
-            <input type="radio" name="ck_TaiLieu_Khac" id="ck_TaiLieu_Khac" onchange="onChangeTLKhac()" >
+            <input type="radio" name="ck_TaiLieu_Khac" id="ck_TaiLieu_Khac" onchange="onChangeTLKhac()">
             <label>@WebApps.Resources.Resource.lblYes</label>
         </div>
 
         <div style="display: inline-block;padding-left: 5px;">
-            <input type="radio" name="ck_TaiLieu_Khac" id="ck_TaiLieu_Khac_No" onchange="onChangeTLKhac()" checked/>
+            <input type="radio" name="ck_TaiLieu_Khac" id="ck_TaiLieu_Khac_No" onchange="onChangeTLKhac()" checked />
             <label>@WebApps.Resources.Resource.lblNo</label>
         </div>
     </div>
