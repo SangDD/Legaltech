@@ -1,10 +1,9 @@
 ﻿@{
   
 }
-
     <ul class="c-navleft_category-list -big">
         <li class="c-navleft_category-item">
-            <a class="c-navleft_category-link is-active" href="/quan-ly-tin/about-us/abot">
+            <a onclick="funcRedirect('/quan-ly-tin/about-us/abot')"  meta-data="/about-us" class="c-navleft_category-link " href="javascript:;">
                 <span class="c-navleft_category-title">@WebApps.Resources.Resource.lblVeChungToi</span>
                 <figure class="c-navleft_category-link-arrow">
                     <i class="fa fa-long-arrow-right" aria-hidden="true" style=" color #666;font-size 20px;"></i>
@@ -13,8 +12,7 @@
         </li>
 
         <li class="c-navleft_category-item">
-            @*<a class="c-navleft_category-link is-active" href="/quan-ly-tin/features/fetu">*@
-            <a class="c-navleft_category-link is-active" href="javascript:;" onclick="return  funcHome();"> 
+            <a onclick="funcRedirect('/')" meta-data="/home" class="c-navleft_category-link" href="javascript:;"  > 
                 <span class="c-navleft_category-title">@WebApps.Resources.Resource.lblFeatures</span>
                 <figure class="c-navleft_category-link-arrow">
                     <i class="fa fa-long-arrow-right" aria-hidden="true" style=" color #666;font-size 20px;"></i>
@@ -22,7 +20,7 @@
             </a> 
         </li>
         <li class="c-navleft_category-item">
-            <a class="c-navleft_category-link" href="/quan-ly-tin/news-home-page">
+            <a  onclick="funcRedirect('/quan-ly-tin/news-home-page')" meta-data="/news-home-page" class="c-navleft_category-link" href="javascript:;">
                 <span class="c-navleft_category-title">@WebApps.Resources.Resource.lblNews</span>
                 <figure class="c-navleft_category-link-arrow">
                     <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #666;font-size: 20px;"></i>
@@ -31,7 +29,7 @@
         </li>
 
         <li class="c-navleft_category-item">
-            <a class="c-navleft_category-link" href="/quan-ly-tin/member-ship/mebs">
+            <a onclick="funcRedirect('/quan-ly-tin/member-ship/mebs')" meta-data="/member-ship" class="c-navleft_category-link" href="javascript:;">
                 <span class="c-navleft_category-title">@WebApps.Resources.Resource.lblMembership</span>
                 <figure class="c-navleft_category-link-arrow">
                     <i class="fa fa-long-arrow-right" aria-hidden="true" style=" color #666;font-size 20px;"></i>
@@ -40,7 +38,7 @@
         </li>
 
         <li class="c-navleft_category-item">
-            <a class="c-navleft_category-link" target="_blank" href="/wiki-view/cata-view/0">
+            <a  meta-data="/wiki-view" class="c-navleft_category-link" target="_blank" href="/wiki-view/cata-view/0">
                 <span class="c-navleft_category-title">@WebApps.Resources.Resource.lblWiki</span>
                 <figure class="c-navleft_category-link-arrow">
                     <i class="fa fa-long-arrow-right" aria-hidden="true" style="color: #666;font-size: 20px;"></i>
@@ -48,3 +46,36 @@
             </a>
         </li>
     </ul>
+<script>
+  
+    $(document).ready(function () {
+        var currentPath = window.location.pathname.toString();
+        $(".c-navleft_category-link").each(function (item) {
+            $(this).removeClass("is-active");
+            var _link = $(this).attr('meta-data');
+            if(currentPath.indexOf(_link) > -1)
+            {
+                // nếu trùng link thì set là active
+                $(this).addClass("is-active");
+            }
+            if ((currentPath == "/vi-vn/" || currentPath == "/en-gb/") && _link == "/home")
+            {
+                // nếu là trang home thì set là active
+                $(this).addClass("is-active");
+            }
+        });
+ 
+    });
+
+  
+    function funcRedirect(_url)
+    {
+        try {
+            location.href = _url;
+        } catch (e) {
+            alert(e.toString());
+            location.href = _url;
+        }
+
+    }
+</script>
