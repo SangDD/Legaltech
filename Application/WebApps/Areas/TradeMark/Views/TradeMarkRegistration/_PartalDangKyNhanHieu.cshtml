@@ -195,7 +195,7 @@
 
                     <div class="div-search-ad" id="spfontsize" style="display:none">
                         <div class="div-search-title">
-                            <div>
+                            <div style="width:135px">
                                 Font-size
                             </div>
                         </div>
@@ -541,11 +541,11 @@
                         </div>
                     </div>
                     <div class="div-search-content">
-                        <input type="text" id="6_txtTLCMQUT" disabled="disabled" maxlength="3" />
+                        <input type="text" id="6_txtTLCMQUT" disabled="disabled" maxlength="3" style="width: 100px;" placeholder="@WebApps.Resources.Resource.lblBan"/>
                     </div>
-                    <div class="div-search-title">
+                    @*<div class="div-search-title">
                         <div>bản</div>
-                    </div>
+                    </div>*@
                 </div>
                 <div class="div-search-ad" style="display:inline-flex;    margin-left: 40px;">
                     <div class="div-search-content">
@@ -555,11 +555,11 @@
                         </div>
                     </div>
                     <div class="div-search-content">
-                        <input type="text" id="6_txtBSDDT" disabled="disabled" maxlength="3" />
+                        <input type="text" id="6_txtBSDDT" disabled="disabled" style="width: 100px;" maxlength="3" placeholder="@WebApps.Resources.Resource.lblBan"/>
                     </div>
-                    <div class="div-search-title">
+                    @*<div class="div-search-title">
                         <div>@WebApps.Resources.Resource.lblBan</div>
-                    </div>
+                    </div>*@
                 </div>
                 <div style="margin-left:40px">
                     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBSDDT")
@@ -572,11 +572,11 @@
                         </div>
                     </div>
                     <div class="div-search-content">
-                        <input type="text" id="6_txtBDTVGom" disabled="disabled" maxlength="3" />
+                        <input type="text" id="6_txtBDTVGom" disabled="disabled" style="width: 100px;" maxlength="3" placeholder="@WebApps.Resources.Resource.lblBan"/>
                     </div>
-                    <div class="div-search-title">
+                    @*<div class="div-search-title">
                         <div>@WebApps.Resources.Resource.lblBan</div>
-                    </div>
+                    </div>*@
                 </div>
                 <div style="margin-left:40px">
                     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBDTVGom")
@@ -739,8 +739,8 @@
                             $("#divDDPLChoise").html("");
                             $("#divDDSHChoise").html("");
                         }
-                        $("#txtDaiDienSHCN").val("");
-                        $("#txtMADDSHCN").val("");
+                        //$("#txtDaiDienSHCN").val("");
+                        //$("#txtMADDSHCN").val("");
 
                         var txtTenDayDu_02 = $("#2_txtTenDayDu").val();
                         $.ajax({
@@ -1329,8 +1329,8 @@
                 $("#" + txtDienThoai).val(arrVal[2]);
                 $("#" + txtFax).val(arrVal[3]);
                 $("#" + txtEmail).val(arrVal[4]);
-                $("#txtDaiDienSHCN").val(arrVal[5]);
-                $("#txtMADDSHCN").val(arrVal[6]);
+                //$("#txtDaiDienSHCN").val(arrVal[5]);
+                //$("#txtMADDSHCN").val(arrVal[6]);
             }
         } catch (e) {
 
@@ -1451,13 +1451,13 @@
             var v_QuyenUuTien2 = 0;
             if (v_CoSDQuyenUT == 1) {
                 v_QuyenUuTien = $("input[name='4_YCHuongQuyen']:checked").val();
-                if (v_QuyenUuTien == undefined || v_QuyenUuTien == null || v_QuyenUuTien == 0 && (pEditOrNew == 1)) {
+                if ((v_QuyenUuTien == undefined || v_QuyenUuTien == null || v_QuyenUuTien == 0 ) && (pEditOrNew == 1) && pPreView != 3) {
                     showError('Yêu cầu hưởng quyền ưu tiên phải chọn ít nhất 1 giá trị');
                     return false;
                 }
 
                 var v_Sodon_Ut = $("#6_txtSoDon").val();
-                if (v_Sodon_Ut === "" || v_Sodon_Ut == undefined && (pEditOrNew == 1)) {
+                if ((v_Sodon_Ut === "" || v_Sodon_Ut == undefined) && (pEditOrNew == 1) && pPreView != 3) {
                     showError('Số đơn ưu tiên không được để trống');
                     $("#6_txtSoDon").focus();
                     return false;
@@ -1465,7 +1465,7 @@
                 formdata.append("pDetail.Sodon_Ut", v_Sodon_Ut);
 
                 var v_Ngaynopdon_Ut = $("#6_txtNgayNopDon").val();
-                if (v_Ngaynopdon_Ut === "" || v_Ngaynopdon_Ut == undefined && (pEditOrNew == 1)) {
+                if ((v_Ngaynopdon_Ut === "" || v_Ngaynopdon_Ut == undefined ) && (pEditOrNew == 1) && pPreView != 3) {
                     showError('Ngày nộp đơn ưu tiên không được để trống');
                     $("#6_txtNgayNopDon").focus();
                     return false;
@@ -1474,7 +1474,7 @@
 
 
                 var v_Nuocnopdon_Ut = $("#6_txtNuocNopDon").val();
-                if (v_Nuocnopdon_Ut === "" || v_Nuocnopdon_Ut == undefined && (pEditOrNew == 1)) {
+                if ((v_Nuocnopdon_Ut === "" || v_Nuocnopdon_Ut == undefined) && (pEditOrNew == 1) && pPreView != 3) {
                     showError('Nước nộp đơn ưu tiên không được để trống');
                     $("#6_txtNuocNopDon").focus();
                     return false;
@@ -1487,13 +1487,13 @@
                 //Nếu có hiển thị lên thì mới check
                 if ($("#divDonUuTienSo2").is(":hidden") == false) {
                     v_QuyenUuTien2 = $("input[name='4_YCHuongQuyen2']:checked").val();
-                    if (v_QuyenUuTien2 == undefined || v_QuyenUuTien2 == null || v_QuyenUuTien2 == 0 && (pEditOrNew == 1)) {
+                    if ((v_QuyenUuTien2 == undefined || v_QuyenUuTien2 == null || v_QuyenUuTien2 == 0) && (pEditOrNew == 1) && pPreView != 3) {
                         showError('Yêu cầu hưởng quyền ưu tiên phải chọn ít nhất 1 giá trị');
                         return false;
                     }
 
                     var v_Sodon_Ut2 = $("#6_txtSoDon2").val();
-                    if (v_Sodon_Ut2 == "" || v_Sodon_Ut2 == undefined && (pEditOrNew == 1)) {
+                    if ((v_Sodon_Ut2 == "" || v_Sodon_Ut2 == undefined) && (pEditOrNew == 1) && pPreView != 3) {
                         showError('Số đơn ưu tiên không được để trống');
                         $("#6_txtSoDon").focus();
                         return false;
@@ -1501,7 +1501,7 @@
                     formdata.append("pDetail.Sodon_Ut2", v_Sodon_Ut2);
 
                     var v_Ngaynopdon_Ut2 = $("#6_txtNgayNopDon2").val();
-                    if (v_Ngaynopdon_Ut2 === "" || v_Ngaynopdon_Ut2 == undefined && (pEditOrNew == 1)) {
+                    if ((v_Ngaynopdon_Ut2 === "" || v_Ngaynopdon_Ut2 == undefined) && (pEditOrNew == 1) && pPreView != 3) {
                         showError('Ngày nộp đơn ưu tiên không được để trống');
                         $("#6_txtNgayNopDon").focus();
                         return false;
@@ -1510,7 +1510,7 @@
 
 
                     var v_Nuocnopdon_Ut2 = $("#6_txtNuocNopDon2").val();
-                    if (v_Nuocnopdon_Ut2 === "" || v_Nuocnopdon_Ut2 == undefined && (pEditOrNew == 1)) {
+                    if ((v_Nuocnopdon_Ut2 === "" || v_Nuocnopdon_Ut2 == undefined) && (pEditOrNew == 1) && pPreView != 3) {
                         showError('Nước nộp đơn ưu tiên không được để trống');
                         $("#6_txtNuocNopDon").focus();
                         return false;
@@ -1553,7 +1553,7 @@
             if ($("#0_ckbDacTinhHangHoa").prop('checked') == true) {
                 var v_NguonGocDL = $("#8_txtNguonGocDiaLy").val();
                 if ($("#8_ckbNguonGocDiaLy").prop('checked') == true) {
-                    if (v_NguonGocDL === "" || v_NguonGocDL == undefined && (pEditOrNew == 1)) {
+                    if (v_NguonGocDL === "" || v_NguonGocDL == undefined && (pEditOrNew == 1) && pPreView != 3) {
                         showError('Nguồn gốc địa lý không được để trống');
                         $("#8_txtNguonGocDiaLy").focus();
                         return false;
@@ -1564,7 +1564,7 @@
                 var v_ChatLuong = "";
                 if ($("#8_ckbChatLuong").prop('checked') == true) {
                       v_ChatLuong = $("#8_txtChatLuong").val();
-                    if (v_ChatLuong === "" || v_ChatLuong == undefined && (pEditOrNew == 1)) {
+                    if (v_ChatLuong === "" || v_ChatLuong == undefined && (pEditOrNew == 1) && pPreView != 3) {
                         showError('Chất lượng không được để trống');
                         $("#8_txtChatLuong").focus();
                         return false;
@@ -1580,7 +1580,7 @@
                 var v_Dactinhkhac = "";
                 if ($("#8_ckbDacTinhKhac").prop('checked') == true) {
                       v_Dactinhkhac = $("#8_txtDacTinhKhac").val();
-                    if (v_Dactinhkhac === "" || v_Dactinhkhac == undefined && (pEditOrNew == 1)) {
+                    if (v_Dactinhkhac === "" || v_Dactinhkhac == undefined && (pEditOrNew == 1) && pPreView != 3) {
                         showError('Đặc tính khác không được để trống');
                         $("#8_txtDacTinhKhac").focus();
                         return false;
@@ -1807,6 +1807,7 @@
 
             //trang thai
             formData.append("pInfo.Status", ptype);
+
             //Lấy thông tin detail
             var reponse = funcGetAppDetail(formData, New);
             if (reponse == false) {

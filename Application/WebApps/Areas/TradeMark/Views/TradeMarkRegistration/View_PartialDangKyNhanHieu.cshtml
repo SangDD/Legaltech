@@ -271,13 +271,13 @@
             <div class="class_full_div_input">
 
                 @*<div class="class_left_40">
-                        <div class="class_block_title" style="padding-top:5px; "><label>@WebApps.Resources.Resource.lblMauNhanHieu:</label> </div>
-                        <div class="class_block_title_control" style="display:flex">
-                            <div style="width:165px ;height:165px" id="divLogo">
-                                <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
-                            </div>
+                    <div class="class_block_title" style="padding-top:5px; "><label>@WebApps.Resources.Resource.lblMauNhanHieu:</label> </div>
+                    <div class="class_block_title_control" style="display:flex">
+                        <div style="width:165px ;height:165px" id="divLogo">
+                            <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
                         </div>
-                    </div>*@
+                    </div>
+                </div>*@
 
                 <div class="class_left_40">
 
@@ -497,45 +497,8 @@
         @* End Class *@
 
         @* 2 *@
-        <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "ĐẠI DIỆN CỦA CHỦ ĐƠN")
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="radio" name="3_rdoDaiDienChuDon" @disableView value="@DaiDienChuDon.DaiDienPL" @styleDaiDienChuDon id="3_txtNguoiDaiDienPL" />
-                        <label>@WebApps.Resources.Resource.lblLaNguoiDaiDienTheoPL</label>
-                    </div>
-                </div>
-            </div>
-            <div class="div-search-ad">
-                @*<div class="div-search-content">*@
-                <div class="div-radio" style="width:70%">
-                    <input type="radio" name="3_rdoDaiDienChuDon" @disableView value="@DaiDienChuDon.DaiDienSH" @styleDaiDienSH id="3_txtToChucDaiDien" />
-                    <label>@WebApps.Resources.Resource.lblLaToChucDichVuDaiDienSoHuu</label>
-                </div>
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon_View.cshtml")
 
-                @*//07/09/2018*@
-                <div class="div-search-content">
-                    <div>
-                        <label style="width:180px;display:inline-block ;border: 1px solid #aaa; padding-top: 5px;  padding-left: 2px;">@WebApps.Resources.Resource.lblMaDaiDien:</label>
-                        <input style="display:inline-block" type="text" value="@objAppHeaderInfo.MADDSHCN" id="txtMADDSHCN" />
-                    </div>
-                </div>
-                @*</div>*@
-                @*</div>*@
-            </div>
-
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="radio" name="3_rdoDaiDienChuDon" @disableView value="@DaiDienChuDon.DaiDienUyQuyen" @styleDaiDienUQ id="3_txtToChucDaiDien" />
-                        <label>@WebApps.Resources.Resource.lblLaNguoiKhacDuocUyQuyen</label>
-                    </div>
-                </div>
-            </div>
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "2")
-
-        </div>
         @* 3  A14*@
         <div class="div_full_100_area">
             @* @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "YÊU CẦU HƯỞNG QUYỀN ƯU TIÊN")*@

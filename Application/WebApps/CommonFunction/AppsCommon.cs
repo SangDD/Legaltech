@@ -1654,7 +1654,8 @@ namespace WebApps.CommonFunction
                         }
                     }
                 }
-                if (TongSoTinhPhi < 1) TongSoTinhPhi = 1;
+                if (TongSoTinhPhi < 1) TongSoTinhPhi = 0;
+
                 AppFeeFixInfo _AppFeeFixInfo = new AppFeeFixInfo();
 
                 #region Phí Nộp hồ sơ
@@ -1686,12 +1687,12 @@ namespace WebApps.CommonFunction
                 _AppFeeFixInfo.Fee_Id = 201;
                 _AppFeeFixInfo.Isuse = 0;
                 _AppFeeFixInfo.Case_Code = p_case_code;
-                _AppFeeFixInfo.Number_Of_Patent = TongSoNhom;
+                _AppFeeFixInfo.Number_Of_Patent = 0;
                 _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                 {
                     _AppFeeFixInfo.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
-                    _AppFeeFixInfo.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
+                    _AppFeeFixInfo.Amount_Represent = _AppFeeFixInfo.Isuse == 0 ? 0 :   MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
                 }
 
                 //Tạm thời ram vào =0 
@@ -1708,18 +1709,11 @@ namespace WebApps.CommonFunction
                 _AppFeeFixInfo.Fee_Id = 2011;
                 _AppFeeFixInfo.Isuse = 1;
                 _AppFeeFixInfo.Case_Code = p_case_code;
-                _AppFeeFixInfo.Number_Of_Patent = TongSoTinhPhi;
                 _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
-
-                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                {
-                    _AppFeeFixInfo.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
-                    _AppFeeFixInfo.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
-                }
-
                 //So sanh vs Char01 neu >Char01 thi moi tinh phi phan tang
                 if (_AppFeeFixInfo.Number_Of_Patent > CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01))
                 {
+                    _AppFeeFixInfo.Number_Of_Patent = TongSoTinhPhi;
                     if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                         _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * (_AppFeeFixInfo.Number_Of_Patent - CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01));
                     else
@@ -1728,8 +1722,15 @@ namespace WebApps.CommonFunction
                 }
                 else
                 {
+                    _AppFeeFixInfo.Number_Of_Patent = 0;
                     _AppFeeFixInfo.Amount = 0;
                     _lstFeeFix.Add(_AppFeeFixInfo);
+                }
+
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                {
+                    _AppFeeFixInfo.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
+                    _AppFeeFixInfo.Amount_Represent = _AppFeeFixInfo.Number_Of_Patent == 0 ? 0 : MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
                 }
 
                 //4.Số đơn ưu tiên  pDetail.Used_Special
@@ -1745,7 +1746,7 @@ namespace WebApps.CommonFunction
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                 {
                     _AppFeeFixInfo.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
-                    _AppFeeFixInfo.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
+                    _AppFeeFixInfo.Amount_Represent = _AppFeeFixInfo.Isuse == 0 ? 0 : MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
                 }
 
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
@@ -1784,7 +1785,7 @@ namespace WebApps.CommonFunction
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                 {
                     _AppFeeFixInfo.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
-                    _AppFeeFixInfo.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
+                    _AppFeeFixInfo.Amount_Represent = TongSoNhom == 0 ? 0 :  MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
                 }
 
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
@@ -1799,18 +1800,12 @@ namespace WebApps.CommonFunction
                 _AppFeeFixInfo.Fee_Id = 2051;
                 _AppFeeFixInfo.Isuse = 1;
                 _AppFeeFixInfo.Case_Code = p_case_code;
-                _AppFeeFixInfo.Number_Of_Patent = TongSoTinhPhi;
+                
                 _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
-                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                {
-                    _AppFeeFixInfo.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
-                    _AppFeeFixInfo.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
-                }
-
                 //So sanh vs Char01 neu >Char01 thi moi tinh phi phan tang
                 if (_AppFeeFixInfo.Number_Of_Patent > CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01))
                 {
-
+                    _AppFeeFixInfo.Number_Of_Patent = TongSoTinhPhi;
                     if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                         _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * (_AppFeeFixInfo.Number_Of_Patent - CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01));
                     else
@@ -1820,8 +1815,15 @@ namespace WebApps.CommonFunction
                 }
                 else
                 {
+                    _AppFeeFixInfo.Number_Of_Patent = 0;
                     _AppFeeFixInfo.Amount = 0;
                     _lstFeeFix.Add(_AppFeeFixInfo);
+                }
+
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                {
+                    _AppFeeFixInfo.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
+                    _AppFeeFixInfo.Amount_Represent = _AppFeeFixInfo.Number_Of_Patent == 0 ? 0 : MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
                 }
 
 
@@ -1850,17 +1852,12 @@ namespace WebApps.CommonFunction
                 _AppFeeFixInfo.Fee_Id = 2071;
                 _AppFeeFixInfo.Isuse = 1;
                 _AppFeeFixInfo.Case_Code = p_case_code;
-                _AppFeeFixInfo.Number_Of_Patent = TongSoTinhPhi;
                 _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
-                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                {
-                    _AppFeeFixInfo.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
-                    _AppFeeFixInfo.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
-                }
+               
                 //So sanh vs Char01 neu >Char01 thi moi tinh phi phan tang
                 if (_AppFeeFixInfo.Number_Of_Patent > CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01))
                 {
-
+                    _AppFeeFixInfo.Number_Of_Patent = TongSoTinhPhi;
                     if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                         _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * (_AppFeeFixInfo.Number_Of_Patent - CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01));
                     else
@@ -1869,8 +1866,15 @@ namespace WebApps.CommonFunction
                 }
                 else
                 {
+                    _AppFeeFixInfo.Number_Of_Patent = 0;
                     _AppFeeFixInfo.Amount = 0;
                     _lstFeeFix.Add(_AppFeeFixInfo);
+                }
+
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                {
+                    _AppFeeFixInfo.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
+                    _AppFeeFixInfo.Amount_Represent = _AppFeeFixInfo.Number_Of_Patent == 0 ? 0 : MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
                 }
 
                 //Xem trước privew thì ko làm gì cả chỉ tính đẩy vào list thôi 
