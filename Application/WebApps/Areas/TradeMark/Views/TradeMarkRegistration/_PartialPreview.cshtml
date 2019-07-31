@@ -1,7 +1,32 @@
-﻿<div id="toolbox">
+﻿
+@using ObjectInfos;
+@using Common.CommonData;
+@{
+    ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    }
+}
+
+<div id="toolbox">
     <ul>
         <li class="toTop" style=""><a href="#top" title="@WebApps.Resources.Resource.lblLenTrangDau"><i style=" font-size: 27px; color: green;" class="fa fa-home"></i></a></li>
-        <li class="email"><a href="javascript:;" title="@WebApps.Resources.Resource.lblXemTruoc"><i class="fa fa-eye" target="_blank" onclick="return funcPreViewApplication();" style=" font-size: 27px; color: green;"></i></a></li>
+        <li class="email">@*<a href="javascript:;" title="@WebApps.Resources.Resource.lblXemTruoc"><i class="fa fa-eye" target="_blank" onclick="return funcPreViewApplication();" style=" font-size: 27px; color: green;"></i></a>*@</li>
+
+        <li class="email"><a href="javascript:;" title="Phí"><i class="fas fa-dollar-sign" size="9x" target="_blank" onclick="return funcPreViewFee();" style="font-size: 27px;margin-left: 8px;color: green;"></i></a></li>
+
+        <li class="email">
+            <a href="javascript:;" onclick="return funcPreViewApplication('VI_VN');" title="Xem trước VN">
+                <img src="/Content/icons/icon_vn.png" style="margin-left: 3px;" />
+            </a>
+        </li>
+
+        <li class="email">
+            <a href="javascript:;" onclick="return funcPreViewApplication('EN_US');" title="Xem trước VN">
+                <img src="/Content/icons/england.png" />
+            </a>
+        </li>
     </ul>
 </div>
 
@@ -18,118 +43,36 @@
     }
 </style>
 
- 
+
 <script>
 
-     function funGetDataTM04NHPreview(ptype, url) {
+    function funGetDataTM04NHPreview(ptype, url, p_Lang) {
          try {
              //Thông tin chủ đơn
-             var formData = new FormData();
-             var actionview = $("#ActionView").val();
-             //nếu là view thì ko làm gì 
-             if (actionview != "V") {
-                 if (funcThongTinChuDonNguoiDaiDien(formData, "1", View) != true) {
-                     return false;
-                 }
-                 var v_AppCode = $("#txtAppCode").val();
-                 if (v_AppCode === "" && ptype!=3) {
-                     $('#txtAppCode').focus().val('');
-                     showError('Chưa chọn loại đơn đăng ký!');
-                     return false;
-                 }
-                 formData.append("pInfo.Appcode", v_AppCode);
-                 formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
+            var formData = new FormData();
 
-                 var v_AppHeaderID = $("#txtAppHeaderID").val();
-                 if (v_AppHeaderID === "" && ptype != 3) {
-                     $('#txtAppHeaderID').focus().val('');
-                     showError('Không lấy được ID bản ghi!');
-                     return false;
-                 }
-                 formData.append("pInfo.Id", v_AppHeaderID);
+            var v_AppCode = $("#txtAppCode").val();
+            if (v_AppCode === "") {
+                $('#txtAppCode').focus().val('');
+                showError('Chưa chọn loại đơn đăng ký!');
+                return false;
+            }
+            formData.append("pInfo.Appcode", v_AppCode);
+            formData.append("pInfo.View_Language_Report", p_Lang);
+
+            //Cờ đánh dấu là xem
+            formData.append("pInfo.ActionView", "V");
+            var v_AppHeaderID = $("#txtAppHeaderID").val();
+            if (v_AppHeaderID === "") {
+                $('#txtAppHeaderID').focus().val('');
+                showError('Không lấy được ID bản ghi!');
+                return false;
+            }
+            formData.append("pInfo.Id", v_AppHeaderID);
+            var status = $("#txtStatusView").val();
+            formData.append("pInfo.Status", status);
 
 
-                 //if (funcThongTinChuDonNguoiDaiDien(formData, "2", View) != true) {
-                 //    return false;
-                 //}
-                 //var v_RepMasterType = $("input[name='3_rdoDaiDienChuDon']:checked").val();
-                 //if ((v_RepMasterType === "" || v_RepMasterType == undefined)   && ptype != 3) {
-                 //    showError('Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!');
-                 //    return false;
-                 //}
-                 //formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-
-                 //var daidienSH = $("#txtDaiDienSHCN").val();
-                 //formData.append("pInfo.DDSHCN", daidienSH);
-
-                 if (funcThongTinDaiDienChuDon(formData, "2") != true) {
-                    return false;
-                 }
-
-                 var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-                 if ((v_RepMasterType === "" || v_RepMasterType == undefined) && ptype != 3) {
-                    jError("@Html.Raw(WebApps.Resources.Resource.TM2B_ChonDaiDienChuDon)", "@Html.Raw(WebApps.Resources.Resource.TM3B_Loi)", function () {
-                        $("#_2_rdoNguoiDaiDienPL").focus()
-                    });
-                    return false;
-                 }
-                 formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-
-                 //trang thai
-                 formData.append("pInfo.Status", ptype);
-
-                 //07/09/2018
-                 //var madhsh = $("#txtMADDSHCN").val();
-                 //formData.append("pInfo.MADDSHCN", madhsh);
-
-                 //Lấy thông tin detail
-                 var reponse = funcGetAppDetail(formData, ptype);
-                 if (reponse == false) {
-                     return false;
-                 }
-                 //Lấy thông tin file có trong đơn
-                 reponse = funGetThongTinFile(formData);
-                 if (reponse == false) {
-                     return false;
-                 }
-                 reponse = funcGetDataClassInfo(formData);
-                 if (reponse == false) {
-                     return false;
-                 }
-                 //lay tai lieu khac
-                 reponse = funcGetTenTaiLieuKhac(formData);
-                 if (reponse == false) {
-                     return false;
-                 }
-                 //
-                 reponse = funcGetCamKetChuDon(formData);
-                 if (reponse == false) {
-                     return false;
-                 }
-             } else {
-                 var v_AppCode = $("#txtAppCode").val();
-                 if (v_AppCode === "") {
-                     $('#txtAppCode').focus().val('');
-                     showError('Chưa chọn loại đơn đăng ký!');
-                     return false;
-                 }
-                 formData.append("pInfo.Appcode", v_AppCode);
-                 //Cờ đánh dấu là xem 
-                 formData.append("pInfo.ActionView", "V");
-                 var v_AppHeaderID = $("#txtAppHeaderID").val();
-                 if (v_AppHeaderID === "") {
-                     $('#txtAppHeaderID').focus().val('');
-                     showError('Không lấy được ID bản ghi!');
-                     return false;
-                 }
-                 formData.append("pInfo.Id", v_AppHeaderID);
-                 var status = $("#txtStatusView").val();
-                 formData.append("pInfo.Status", status);
-             }
-
-             //alert($("#txtFontSize").val());  
-            
-      
              $.ajax({
                  url: url,
                  type: 'POST',
@@ -138,10 +81,10 @@
                  enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
                  success: function (data) {
                      if (data != null && data.status >= 0) {
-                          
+
                          return true;
                      } else {
-                          
+
                          return false;
                      }
                  },
@@ -157,13 +100,47 @@
 
     }
 
-    function funcPreViewApplication() {
+    function funcPreViewApplication(p_Lang) {
 
-         var preturn = funGetDataTM04NHPreview(3, "/trade-mark/ket_xuat_file");
+        var preturn = funGetDataTM04NHPreview(3, "/trade-mark/ket_xuat_file", p_Lang);
          if (preturn == true || preturn == undefined) {
              OpenPreview("/trade-mark/Pre-View");
          }
-     }
+    }
+
+    function funcPreViewFee() {
+
+        var formData = new FormData();
+        formData.append("pInfo.Appcode", '@_AppHeaderInfo.Appcode');
+        formData.append("pInfo.Case_Code", '@_AppHeaderInfo.Case_Code');
+        formData.append("pInfo.Id", @_AppHeaderInfo.Id);
+
+        $.ajax({
+            url: "/lg-patent/getFeeView_View",
+            type: 'POST',
+            data: formData,
+            dataType: "json",
+            async: true,
+            cache: false,
+            traditional: true,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                CreateRollingWaitingIcon(true);
+            },
+            success: function (data) {
+                CreateRollingWaitingIcon(false);
+                if (data != null) {
+
+                    $("#divPopUpFee").html(data.PartialTableListFees);
+
+                    //$("#divPopUpFee").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPopUpFee', "Thông tin fee", 800, 1200);
+                }
+                return false;
+            }
+        });
+    }
 
 
     function OpenPreview(url) {

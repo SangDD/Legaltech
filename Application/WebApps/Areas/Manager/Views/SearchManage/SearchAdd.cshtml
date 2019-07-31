@@ -114,7 +114,7 @@
         <span class="red">></span>
         <a href="/quan-ly-search/danh-sach-search">@WebApps.Resources.Resource.iSeaching</a>
         <span class="red">></span>
-        <a href="#">@WebApps.Resources.Resource.TrademarkSearch</a>
+        <a href="#">@WebApps.Resources.Resource.TraCuuKhaNangBaoHo</a>
     </div>
 </div>
 <div class="divCover">
@@ -128,12 +128,20 @@
 </div>
 
 <div class="d-main">
-    <div class="divCover">
+    @*<div class="divCover">
         <div class="classTitle">
-            <div class="div-title-content"> @WebApps.Resources.Resource.TrademarkSearch.ToUpper()</div>
+            <div class="div-title-content"> @WebApps.Resources.Resource.TraCuuKhaNangBaoHo.ToUpper()</div>
         </div>
-    </div>
+    </div>*@
+
     <div class="divCover">
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                @WebApps.Resources.Resource.TraCuuKhaNangBaoHo.ToUpper()
+            </div>
+        </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
@@ -193,9 +201,9 @@
             </div>
         </div>
 
-        <div class="div-search-ad">
+        @*<div class="div-search-ad">
             <div class="div-search-title">
-                <div> @WebApps.Resources.Resource.LoaiDon </div>
+                <div> @WebApps.Resources.Resource.DoiTuongTraCuu </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -206,21 +214,86 @@
                     </select>
                 </div>
             </div>
+        </div>*@
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                @WebApps.Resources.Resource.DoiTuongTraCuu
+            </div>
         </div>
 
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio" style="width:382px">
+                    <input type="checkbox" class="classSearchObject" name="ckbclassSearchObject" id="rd_Search_TM" value="1" onchange="return onChangeApplictionType()">
+                    <label> @WebApps.Resources.Resource.Trademark</label>
+                </div>
+            </div>
+
+            <div class="div-search-content">
+                <div class="div-radio" style="width:382px">
+                    <input type="checkbox" class="classSearchObject" name="ckbclassSearchObject" id="rd_Search_PT" value="2" onchange="return onChangeApplictionType()">
+                    <label> @WebApps.Resources.Resource.Patent</label>
+                </div>
+            </div>
+
+            <div class="div-search-content">
+                <div class="div-radio">
+                    <input type="checkbox" class="classSearchObject" name="ckbclassSearchObject" id="rd_Search_ID" value="4" onchange="return onChangeApplictionType()">
+                    <label> @WebApps.Resources.Resource.IndusDesign</label>
+                </div>
+            </div>
+        </div>
+
+        @*<div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio">
+                    <input type="checkbox" class="classSearchObject" name="ckbclassSearchObject" id="rd_Search_TM" value="1" onchange="return onChangeApplictionType()">
+                    <label> @WebApps.Resources.Resource.Trademark</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio">
+                    <input type="checkbox" class="classSearchObject" name="ckbclassSearchObject" id="rd_Search_PT" value="2" onchange="return onChangeApplictionType()">
+                    <label> @WebApps.Resources.Resource.Patent</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio">
+                    <input type="checkbox" class="classSearchObject" name="ckbclassSearchObject" id="rd_Search_ID" value="4" onchange="return onChangeApplictionType()">
+                    <label> @WebApps.Resources.Resource.IndusDesign</label>
+                </div>
+            </div>
+        </div>*@
+
         <div id="div_app_type">
-            @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearch_Trademark.cshtml")
+            @*@Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearch_Trademark.cshtml")*@
         </div>
     </div>
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;margin-top: 5px;">
-            <input type="submit" id="btnGuiBai" class="btn-default" value="@WebApps.Resources.Resource.GuiTimKiem" />
+            <input type="submit" id="btnGuiBai" class="btn-default clssDisplaynone" value="@WebApps.Resources.Resource.GuiTimKiem" />
         </div>
     </div>
 </div>
 
 <script>
+
+    //nếu dùng checkbox
+    $(document).ready(function () {
+        $('.classSearchObject').click(function () {
+            $('.classSearchObject').not(this).prop('checked', false);
+        });
+    });
+
     function funcAddCondition() {
         try {
             var txtDdSeachClass = $(".txtIdSeachClass").last().val();
@@ -242,7 +315,26 @@
 
     function onChangeApplictionType() {
         try {
-            var _AppType = $("#cboAppType").val();
+            //var _AppType = $("#cboAppType").val();
+
+            var _AppType = 0;
+            if ($("#rd_Search_TM").is(':checked')) {
+                _AppType = 1;
+            } else if ($("#rd_Search_PT").is(':checked')){
+                _AppType = 2;
+            } else if ($("#rd_Search_ID").is(':checked')) {
+                _AppType = 4;
+            }
+
+            if (_AppType == 0) {
+                $("#div_app_type").html("<div> </di>");
+
+                $("#btnGuiBai").addClass("clssDisplaynone");
+                return;
+            }
+
+            $("#btnGuiBai").removeClass("clssDisplaynone");
+
             $.ajax({
                 type: 'POST',
                 url: '/quan-ly-search/change-app-type/',

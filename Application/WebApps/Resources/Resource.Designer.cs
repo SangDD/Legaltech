@@ -1060,6 +1060,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Đối tượng tra cứu.
+        /// </summary>
+        public static string DoiTuongTraCuu {
+            get {
+                return ResourceManager.GetString("DoiTuongTraCuu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Đơn ban đầu nộp cho 1 đối tượng nhưng bản chất lại chứa đựng 2 đối tượng khác biệt đáng kể.
         /// </summary>
         public static string DonBanDauCo1DT {
@@ -6717,6 +6726,15 @@ namespace WebApps.Resources {
         public static string ToResetPass {
             get {
                 return ResourceManager.GetString("ToResetPass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tra cứu khả năng bảo hộ.
+        /// </summary>
+        public static string TraCuuKhaNangBaoHo {
+            get {
+                return ResourceManager.GetString("TraCuuKhaNangBaoHo", resourceCulture);
             }
         }
         

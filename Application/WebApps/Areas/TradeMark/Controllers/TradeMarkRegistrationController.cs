@@ -209,7 +209,6 @@
                                 info.Document_Filing_Date = CommonFuc.CurrentDate();
                             }
                             pReturn = objDoc.AppDocumentInsertBath(pAppDocumentInfo, pAppHeaderID);
-
                         }
                     }
 
@@ -238,12 +237,14 @@
                             }
                         }
                     }
+
                     //Tính phí 
                     if (pReturn >= 0 && pAppClassInfo != null)
                     {
                         var listfeeCaculator = new List<AppFeeFixInfo>();
-                        pReturn = CaculatorFee(pAppClassInfo, pDetail.Sodon_Ut, p_case_code, listfeeCaculator);
+                        pReturn = AppsCommon.CaculatorFee(pAppClassInfo, pDetail.Sodon_Ut, p_case_code, ref listfeeCaculator);
                     }
+
                     //end
                     if (pReturn < 0)
                     {
@@ -265,6 +266,225 @@
                 return Json(new { status = ErrorCode.Error });
             }
         }
+
+        [HttpPost]
+        [Route("edit-dang-ky-nhan-hieu")]
+        public ActionResult AppDonDangKyEdit(ApplicationHeaderInfo pInfo, AppDetail04NHInfo pDetail, List<AppDocumentInfo> pAppDocumentInfo,
+           List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo, List<AppFeeFixInfo> pFeeFixInfo, string listIDDocRemove)
+        {
+            try
+            {
+                if (pDetail.LoaiNhanHieu == "undefined") pDetail.LoaiNhanHieu = "";
+                Application_Header_BL objBL = new Application_Header_BL();
+                AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
+                AppDetail04NHBL objDetail = new AppDetail04NHBL();
+                AppClassDetailBL objClassDetail = new AppClassDetailBL();
+                AppDocumentBL objDoc = new AppDocumentBL();
+                if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
+                string language = AppsCommon.GetCurrentLang();
+                var CreatedBy = SessionData.CurrentUser.Username;
+                var CreatedDate = SessionData.CurrentUser.CurrentDate;
+                int pReturn = ErrorCode.Success;
+                int pAppHeaderID = 0;
+                bool _IsOk = false;
+                using (var scope = new TransactionScope())
+                {
+                    //
+                    pInfo.Languague_Code = language;
+                    pInfo.Modify_By = CreatedBy;
+                    pInfo.Modify_Date = CreatedDate;
+                    //TRA RA ID CUA BANG KHI INSERT
+                    pAppHeaderID = objBL.AppHeaderUpdate(pInfo);
+                    if (pAppHeaderID >= 0)
+                    {
+                        pDetail.Appcode = pInfo.Appcode;
+                        pDetail.Language_Code = language;
+                        pDetail.App_Header_Id = pInfo.Id;
+                        if (pDetail.pfileLogo != null)
+                        {
+                            pDetail.Logourl = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
+                        }
+                        else
+                        {
+                            pDetail.Logourl = pDetail.LogourlOrg;
+                        }
+                        if (pDetail.Logochu != 1)
+                        {
+                            //pDetail.Logochu = 0;
+                            if (pDetail.pfileLogo != null)
+                            {
+                                pDetail.Logourl = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
+                            }
+                        }
+                        else
+                        {
+                            pDetail.Logourl = pDetail.ChuLogo;
+                            pDetail.Logochu = 1;
+                        }
+                        pReturn = objDetail.App_Detail_04NH_Update(pDetail);
+                        //Thêm thông tin class
+                        if (pReturn >= 0 && pAppClassInfo != null)
+                        {
+
+                            //Xoa cac class cu di 
+                            pReturn = objClassDetail.AppClassDetailDeleted(pInfo.Id, language);
+
+                            pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pInfo.Id, language);
+                        }
+
+                        if (pReturn >= 0 && pAppClassInfo != null)
+                        {
+                            //pReturn = _AppFeeFixBL.AppFeeFixInsertBath(pFeeFixInfo, pInfo.Id);
+
+                            //if (pReturn >= 0 && pAppClassInfo != null)
+                            //{
+                            var listfeeCaculator = new List<AppFeeFixInfo>();
+                            pReturn = AppsCommon.CaculatorFee(pAppClassInfo, pDetail.Sodon_Ut, pInfo.Case_Code, ref listfeeCaculator);
+                            //}
+                        }
+                    }
+                    else
+                    {
+                        return Json(new { status = pAppHeaderID });
+                    }
+
+                    //tài liệu đính kèm
+                    if (pReturn >= 0 && pAppDocumentInfo != null)
+                    {
+                        if (pAppDocumentInfo.Count > 0)
+                        {
+                            // Get ra để map sau đó xóa đi để insert vào sau
+                            AppDocumentBL _AppDocumentBL = new AppDocumentBL();
+                            List<AppDocumentInfo> Lst_AppDoc = _AppDocumentBL.AppDocument_Getby_AppHeader(pInfo.Id, language);
+                            Dictionary<string, AppDocumentInfo> dic_appDoc = new Dictionary<string, AppDocumentInfo>();
+                            foreach (AppDocumentInfo item in Lst_AppDoc)
+                            {
+                                dic_appDoc[item.Document_Id] = item;
+                            }
+                            // xóa đi trước
+                            _AppDocumentBL.AppDocumentDelByApp(pInfo.Id, language);
+                            foreach (var info in pAppDocumentInfo)
+                            {
+                                if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
+                                {
+                                    string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
+                                    string[] _arr = _url.Split('/');
+                                    string _filename = WebApps.Resources.Resource.FileDinhKem;
+                                    if (_arr.Length > 0)
+                                    {
+                                        _filename = _arr[_arr.Length - 1];
+                                    }
+
+                                    info.Filename = _filename;
+                                    info.Url_Hardcopy = _url;
+                                    info.Status = 0;
+                                }
+                                else
+                                {
+                                    if (dic_appDoc.ContainsKey(info.Document_Id))
+                                    {
+                                        info.Filename = dic_appDoc[info.Document_Id].Filename;
+                                        info.Url_Hardcopy = dic_appDoc[info.Document_Id].Url_Hardcopy;
+                                        info.Status = dic_appDoc[info.Document_Id].Status;
+                                    }
+                                }
+                                info.App_Header_Id = pInfo.Id;
+                                info.Document_Filing_Date = CommonFuc.CurrentDate();
+                                info.Language_Code = language;
+                            }
+                            pReturn = objDoc.AppDocumentInsertBath(pAppDocumentInfo, pInfo.Id);
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(listIDDocRemove))
+                    {
+                        string[] arrayIDDoc = listIDDocRemove.Split('|');
+                        for (int i = 0; i < arrayIDDoc.Length; i++)
+                        {
+                            decimal idDOc = CommonFuc.ConvertToDecimal(arrayIDDoc[i]);
+                            pReturn = objDoc.AppDocumentDelByID(idDOc, language, pInfo.Id);
+                        }
+                    }
+
+                    //tai lieu khac 
+                    if (pReturn >= 0 && pAppDocOtherInfo != null)
+                    {
+                        if (pAppDocOtherInfo.Count > 0)
+                        {
+                            int check = 0;
+                            foreach (var info in pAppDocOtherInfo)
+                            {
+                                if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
+                                {
+                                    HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                    info.Filename = pfiles.FileName;
+                                    info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
+                                    check = 1;
+                                }
+                                info.App_Header_Id = pInfo.Id;
+                                info.Language_Code = language;
+
+                            }
+                            if (check == 1)
+                            {
+                                pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocOtherInfo);
+                            }
+                        }
+                    }
+
+                    //Xóa các tài liệu đi khi sửa bản ghi 
+                    if (pReturn >= 0 && !string.IsNullOrEmpty(pDetail.ListFileAttachOtherDel))
+                    {
+                        var arrIdFileAttack = pDetail.ListFileAttachOtherDel.Split(',');
+                        foreach (var item in arrIdFileAttack)
+                        {
+                            decimal pID = CommonFuc.ConvertToDecimal(item);
+                            pReturn = objDoc.AppDocOther_Del_ByID(pID, language);
+                        }
+                    }
+
+                    //end
+                    if (pReturn < 0)
+                    {
+
+                        Transaction.Current.Rollback();
+                        return Json(new { status = pReturn });
+                    }
+                    else
+                    {
+                        //Lấy lại thông tin kế thừa đưa lên memory
+                        MemoryData.Enqueue_ChangeData(Table_Change.APPHEADER);
+                        scope.Complete();
+                        _IsOk = true;
+                    }
+                }
+
+                // tự động update todo
+                if (pInfo.UpdateToDo == 1 && _IsOk == true)
+                {
+                    if (pInfo.Status == (int)CommonEnums.App_Status.ChoKHConfirm)
+                    {
+                        Application_Header_BL _obj_bl = new Application_Header_BL();
+                        decimal _status = (decimal)CommonEnums.App_Status.KhacHangDaConfirm;
+
+                        string _note = "Xác nhận nộp đơn";
+                        if (AppsCommon.GetCurrentLang() != "VI_VN")
+                        {
+                            _note = "confirmation for filing";
+                        }
+                        int _ck = _obj_bl.AppHeader_Update_Status(pInfo.Case_Code, _status, _note,
+                            SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+                    }
+                }
+                return Json(new { status = pReturn });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { status = ErrorCode.Error });
+            }
+        }
+
 
         [HttpPost]
         [Route("them_moi_don_dang_ky_sua_doi")]
@@ -428,14 +648,16 @@
             try
             {
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
-                if (pInfo.Languague_Code == Language.LangVI)
+
+                string language = pInfo.View_Language_Report;
+
+                if (language == Language.LangVI)
                 {
                     oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NH.rpt"));
                     if (pDetail.Logochu == 1)
                     {
                         oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NHLogoChu.rpt"));
                     }
-
                 }
                 else
                 {
@@ -445,7 +667,7 @@
                         oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NHLogoChu_EN.rpt"));
                     }
                 }
-                string language = AppsCommon.GetCurrentLang();
+
                 AppInfoExport appInfo = new AppInfoExport();
                 string actionView = pInfo.ActionView;
                 if (actionView == "V")
@@ -467,7 +689,7 @@
                         }
                     }
 
-                    if (pInfo.Languague_Code == Language.LangVI)
+                    if (language == Language.LangVI)
                     {
                         if (pDetail.Logochu == 1)
                         {
@@ -489,7 +711,7 @@
                 string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
                 string fileName = "";
                 //if (language == Language.LangVI)
-                if (pInfo.Languague_Code == Language.LangVI)
+                if (language == Language.LangVI)
                 {
                     fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + pInfo.Appcode + _datetimenow + ".pdf");
                     SessionData.CurrentUser.FilePreview = "/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + pInfo.Appcode + _datetimenow + ".pdf";
@@ -585,7 +807,7 @@
                     {
                         DonUT = DonUT + "," + pDetail.Sodon_Ut2;
                     }
-                    int preturn = CaculatorFee(pAppClassInfo, DonUT, "", listfeeCaculator, pPreview);
+                    int preturn = AppsCommon.CaculatorFee(pAppClassInfo, DonUT, "", ref listfeeCaculator, pPreview);
                 }
                 foreach (var item in listfeeCaculator)
                 {
@@ -839,7 +1061,6 @@
 
 
                 return Json(new { success = 0 });
-
             }
             catch (Exception ex)
             {
@@ -848,7 +1069,33 @@
             }
         }
 
+        [HttpPost]
+        [Route("getFee")]
+        public ActionResult GetFee(ApplicationHeaderInfo pInfo, AppDetail04NHInfo pDetail, List<AppDocumentInfo> pAppDocumentInfo,
+         List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo)
+        {
+            try
+            {
+                var _lstFeeFix = new List<AppFeeFixInfo>();
 
+                int pPreview = 1;
+                string DonUT = pDetail.Sodon_Ut;
+                if (!string.IsNullOrEmpty(pDetail.Sodon_Ut2))
+                {
+                    DonUT = DonUT + "," + pDetail.Sodon_Ut2;
+                }
+                int preturn = AppsCommon.CaculatorFee(pAppClassInfo, DonUT, "", ref _lstFeeFix, pPreview);
+                ViewBag.LstFeeFix = _lstFeeFix;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            var PartialTableListFees = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Patent/Views/Shared/_PartialTableListFees.cshtml");
+            var json = Json(new { success = 1, PartialTableListFees });
+            return json;
+        }
 
         //[HttpPost]
         [Route("Pre-View")]
@@ -857,8 +1104,10 @@
             try
             {
                 //string tm04Nh = "TM04NH";
-                ViewBag.FileName = SessionData.CurrentUser.FilePreview; // = "/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + tm04Nh + ".pdf";
-                                                                        //return PartialView("~/Areas/TradeMark/Views/Shared/_PartialContentPreview_docx.cshtml");
+                // = "/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + tm04Nh + ".pdf";
+                //return PartialView("~/Areas/TradeMark/Views/Shared/_PartialContentPreview_docx.cshtml");
+
+                ViewBag.FileName = SessionData.CurrentUser.FilePreview;
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
             }
             catch (Exception ex)
@@ -1639,448 +1888,6 @@
             }
         }
         #endregion
-
-        [HttpPost]
-        [Route("dang-ky-nhan-hieu-sua-doi")]
-        public ActionResult AppDonDangKyEditAppro(ApplicationHeaderInfo pInfo, AppDetail04NHInfo pDetail, List<AppDocumentInfo> pAppDocumentInfo,
-            List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo, List<AppFeeFixInfo> pFeeFixInfo, string listIDDocRemove)
-        {
-            try
-            {
-                if (pDetail.LoaiNhanHieu == "undefined") pDetail.LoaiNhanHieu = "";
-                Application_Header_BL objBL = new Application_Header_BL();
-                AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
-                AppDetail04NHBL objDetail = new AppDetail04NHBL();
-                AppClassDetailBL objClassDetail = new AppClassDetailBL();
-                AppDocumentBL objDoc = new AppDocumentBL();
-                if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
-                string language = AppsCommon.GetCurrentLang();
-                var CreatedBy = SessionData.CurrentUser.Username;
-                var CreatedDate = SessionData.CurrentUser.CurrentDate;
-                int pReturn = ErrorCode.Success;
-                int pAppHeaderID = 0;
-                bool _IsOk = false;
-                using (var scope = new TransactionScope())
-                {
-                    //
-                    pInfo.Languague_Code = language;
-                    pInfo.Modify_By = CreatedBy;
-                    pInfo.Modify_Date = CreatedDate;
-                    //TRA RA ID CUA BANG KHI INSERT
-                    pAppHeaderID = objBL.AppHeaderUpdate(pInfo);
-                    if (pAppHeaderID >= 0)
-                    {
-                        pDetail.Appcode = pInfo.Appcode;
-                        pDetail.Language_Code = language;
-                        pDetail.App_Header_Id = pInfo.Id;
-                        if (pDetail.pfileLogo != null)
-                        {
-                            pDetail.Logourl = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
-                        }
-                        else
-                        {
-                            pDetail.Logourl = pDetail.LogourlOrg;
-                        }
-                        if (pDetail.Logochu != 1)
-                        {
-                            //pDetail.Logochu = 0;
-                            if (pDetail.pfileLogo != null)
-                            {
-                                pDetail.Logourl = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
-                            }
-                        }
-                        else
-                        {
-                            pDetail.Logourl = pDetail.ChuLogo;
-                            pDetail.Logochu = 1;
-                        }
-                        pReturn = objDetail.App_Detail_04NH_Update(pDetail);
-                        //Thêm thông tin class
-                        if (pReturn >= 0 && pAppClassInfo != null)
-                        {
-
-                            //Xoa cac class cu di 
-                            pReturn = objClassDetail.AppClassDetailDeleted(pInfo.Id, language);
-
-                            pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pInfo.Id, language);
-                        }
-
-                        if (pReturn >= 0 && pAppClassInfo != null)
-                        {
-                            //pReturn = _AppFeeFixBL.AppFeeFixInsertBath(pFeeFixInfo, pInfo.Id);
-
-                            //if (pReturn >= 0 && pAppClassInfo != null)
-                            //{
-                            var listfeeCaculator = new List<AppFeeFixInfo>();
-                            pReturn = CaculatorFee(pAppClassInfo, pDetail.Sodon_Ut, pInfo.Case_Code, listfeeCaculator);
-                            //}
-                        }
-                    }
-                    else
-                    {
-                        return Json(new { status = pAppHeaderID });
-                    }
-                    //tài liệu đính kèm
-                    if (pReturn >= 0 && pAppDocumentInfo != null)
-                    {
-                        if (pAppDocumentInfo.Count > 0)
-                        {
-                            // Get ra để map sau đó xóa đi để insert vào sau
-                            AppDocumentBL _AppDocumentBL = new AppDocumentBL();
-                            List<AppDocumentInfo> Lst_AppDoc = _AppDocumentBL.AppDocument_Getby_AppHeader(pInfo.Id, language);
-                            Dictionary<string, AppDocumentInfo> dic_appDoc = new Dictionary<string, AppDocumentInfo>();
-                            foreach (AppDocumentInfo item in Lst_AppDoc)
-                            {
-                                dic_appDoc[item.Document_Id] = item;
-                            }
-                            // xóa đi trước
-                            _AppDocumentBL.AppDocumentDelByApp(pInfo.Id, language);
-                            foreach (var info in pAppDocumentInfo)
-                            {
-                                if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
-                                {
-                                    string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
-                                    string[] _arr = _url.Split('/');
-                                    string _filename = WebApps.Resources.Resource.FileDinhKem;
-                                    if (_arr.Length > 0)
-                                    {
-                                        _filename = _arr[_arr.Length - 1];
-                                    }
-
-                                    info.Filename = _filename;
-                                    info.Url_Hardcopy = _url;
-                                    info.Status = 0;
-                                }
-                                else
-                                {
-                                    if (dic_appDoc.ContainsKey(info.Document_Id))
-                                    {
-                                        info.Filename = dic_appDoc[info.Document_Id].Filename;
-                                        info.Url_Hardcopy = dic_appDoc[info.Document_Id].Url_Hardcopy;
-                                        info.Status = dic_appDoc[info.Document_Id].Status;
-                                    }
-                                }
-                                info.App_Header_Id = pInfo.Id;
-                                info.Document_Filing_Date = CommonFuc.CurrentDate();
-                                info.Language_Code = language;
-                            }
-                            pReturn = objDoc.AppDocumentInsertBath(pAppDocumentInfo, pInfo.Id);
-                        }
-                    }
-
-                    if (!string.IsNullOrEmpty(listIDDocRemove))
-                    {
-                        string[] arrayIDDoc = listIDDocRemove.Split('|');
-                        for (int i = 0; i < arrayIDDoc.Length; i++)
-                        {
-                            decimal idDOc = CommonFuc.ConvertToDecimal(arrayIDDoc[i]);
-                            pReturn = objDoc.AppDocumentDelByID(idDOc, language, pInfo.Id);
-                        }
-                    }
-
-                    //tai lieu khac 
-                    if (pReturn >= 0 && pAppDocOtherInfo != null)
-                    {
-                        if (pAppDocOtherInfo.Count > 0)
-                        {
-                            int check = 0;
-                            foreach (var info in pAppDocOtherInfo)
-                            {
-                                if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
-                                {
-                                    HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
-                                    info.Filename = pfiles.FileName;
-                                    info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
-                                    check = 1;
-                                }
-                                info.App_Header_Id = pInfo.Id;
-                                info.Language_Code = language;
-
-                            }
-                            if (check == 1)
-                            {
-                                pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocOtherInfo);
-                            }
-                        }
-                    }
-
-                    //Xóa các tài liệu đi khi sửa bản ghi 
-                    if (pReturn >= 0 && !string.IsNullOrEmpty(pDetail.ListFileAttachOtherDel))
-                    {
-                        var arrIdFileAttack = pDetail.ListFileAttachOtherDel.Split(',');
-                        foreach (var item in arrIdFileAttack)
-                        {
-                            decimal pID = CommonFuc.ConvertToDecimal(item);
-                            pReturn = objDoc.AppDocOther_Del_ByID(pID, language);
-                        }
-                    }
-
-                    //end
-                    if (pReturn < 0)
-                    {
-
-                        Transaction.Current.Rollback();
-                        return Json(new { status = pReturn });
-                    }
-                    else
-                    {
-                        //Lấy lại thông tin kế thừa đưa lên memory
-                        MemoryData.Enqueue_ChangeData(Table_Change.APPHEADER);
-                        scope.Complete();
-                        _IsOk = true;
-                    }
-                }
-
-                // tự động update todo
-                if (pInfo.UpdateToDo == 1 && _IsOk == true)
-                {
-                    if (pInfo.Status == (int)CommonEnums.App_Status.ChoKHConfirm)
-                    {
-                        Application_Header_BL _obj_bl = new Application_Header_BL();
-                        decimal _status = (decimal)CommonEnums.App_Status.KhacHangDaConfirm;
-
-                        string _note = "Xác nhận nộp đơn";
-                        if (AppsCommon.GetCurrentLang() != "VI_VN")
-                        {
-                            _note = "confirmation for filing";
-                        }
-                        int _ck = _obj_bl.AppHeader_Update_Status(pInfo.Case_Code, _status, _note,
-                            SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
-                    }
-                }
-                return Json(new { status = pReturn });
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return Json(new { status = ErrorCode.Error });
-            }
-        }
-
-        public int CaculatorFee(List<AppClassDetailInfo> pAppClassInfo, string NumberAppNo, string p_case_code, List<AppFeeFixInfo> _lstFeeFix, int pPrviewOrInsert = 0)
-        {
-            try
-            {
-                if (NumberAppNo == null)
-                {
-                    NumberAppNo = "";
-                }
-                string _keyFee = "";
-                int TongSoNhom = 1;
-                int SoDongTinhQua = 0;
-                int TongSoTinhPhi = 0;
-                _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_2011";
-                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                {
-                    SoDongTinhQua = CommonFuc.ConvertToInt(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01);
-                }
-                else
-                {
-                    SoDongTinhQua = 6;
-                }
-                if (pAppClassInfo.Count > 0)
-                {
-                    TongSoNhom = CommonFuc.ConvertToInt(pAppClassInfo[0].TongSoNhom);
-                    string[] arrSoSanPham = pAppClassInfo[0].TongSanPham.Split('|');
-                    for (int i = 0; i < arrSoSanPham.Length; i++)
-                    {
-                        if (!string.IsNullOrEmpty(arrSoSanPham[i]))
-                        {
-                            int TotalItemOnGroup = CommonFuc.ConvertToInt(arrSoSanPham[i]);
-                            if (TotalItemOnGroup > SoDongTinhQua)
-                            {
-                                TongSoTinhPhi = TongSoTinhPhi + (TotalItemOnGroup - SoDongTinhQua);
-                            }
-                        }
-                    }
-                }
-                if (TongSoTinhPhi < 1) TongSoTinhPhi = 1;
-                AppFeeFixInfo _AppFeeFixInfo = new AppFeeFixInfo();
-
-                #region Phí Nộp hồ sơ
-                //_lstFeeFix = new List<AppFeeFixInfo>();
-                //1.Phí nộp hồ sơ 
-                _AppFeeFixInfo = new AppFeeFixInfo();
-                _AppFeeFixInfo.Fee_Id = 200;
-                _AppFeeFixInfo.Isuse = 1;
-                _AppFeeFixInfo.Case_Code = p_case_code;
-                _AppFeeFixInfo.Number_Of_Patent = 1; //default là 1 
-                _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
-                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                    _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo.Number_Of_Patent;
-                else
-                    _AppFeeFixInfo.Amount = 150000 * _AppFeeFixInfo.Number_Of_Patent;
-                _lstFeeFix.Add(_AppFeeFixInfo);
-
-                //2.Phí phân loại quốc tế về Nhãn hiệu
-                //20.02.2019 SUA THEO YC CHI TUYEN, CHUA RO TINH KHI NAO 
-                _AppFeeFixInfo = new AppFeeFixInfo();
-                _AppFeeFixInfo.Fee_Id = 201;
-                _AppFeeFixInfo.Isuse = 0;
-                _AppFeeFixInfo.Case_Code = p_case_code;
-                _AppFeeFixInfo.Number_Of_Patent = TongSoNhom;
-                _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
-                //Tạm thời ram vào =0 
-                //if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                //    _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo.Number_Of_Patent;
-                //else
-                //    _AppFeeFixInfo.Amount = 200000 * _AppFeeFixInfo.Number_Of_Patent;
-
-                _AppFeeFixInfo.Amount = 0;
-                _lstFeeFix.Add(_AppFeeFixInfo);
-
-                //3.Tổng số sản phẩm tren nhom 
-                _AppFeeFixInfo = new AppFeeFixInfo();
-                _AppFeeFixInfo.Fee_Id = 2011;
-                _AppFeeFixInfo.Isuse = 1;
-                _AppFeeFixInfo.Case_Code = p_case_code;
-                _AppFeeFixInfo.Number_Of_Patent = TongSoTinhPhi;
-                _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
-
-                //So sanh vs Char01 neu >Char01 thi moi tinh phi phan tang
-                if (_AppFeeFixInfo.Number_Of_Patent > CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01))
-                {
-                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                        _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * (_AppFeeFixInfo.Number_Of_Patent - CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01));
-                    else
-                        _AppFeeFixInfo.Amount = 22000 * (_AppFeeFixInfo.Number_Of_Patent - CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01));
-                    _lstFeeFix.Add(_AppFeeFixInfo);
-                }
-                else
-                {
-                    _AppFeeFixInfo.Amount = 0;
-                    _lstFeeFix.Add(_AppFeeFixInfo);
-                }
-
-                //4.Số đơn ưu tiên  pDetail.Used_Special
-                _AppFeeFixInfo = new AppFeeFixInfo();
-                _AppFeeFixInfo.Fee_Id = 203;
-                _AppFeeFixInfo.Isuse = 0;
-                if (!string.IsNullOrEmpty(NumberAppNo))
-                    _AppFeeFixInfo.Isuse = 1;
-
-                _AppFeeFixInfo.Case_Code = p_case_code;
-                _AppFeeFixInfo.Number_Of_Patent = _AppFeeFixInfo.Isuse;
-                _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
-                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                    _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo.Isuse;
-                else
-                    _AppFeeFixInfo.Amount = 600000 * _AppFeeFixInfo.Isuse;
-                _lstFeeFix.Add(_AppFeeFixInfo);
-
-
-                //5.Lệ phí công bố đơn
-                _AppFeeFixInfo = new AppFeeFixInfo();
-                _AppFeeFixInfo.Fee_Id = 204;
-                _AppFeeFixInfo.Isuse = 1;
-                _AppFeeFixInfo.Case_Code = p_case_code;
-                _AppFeeFixInfo.Number_Of_Patent = 1; //default là 1 
-                _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
-                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                    _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo.Number_Of_Patent;
-                else
-                    _AppFeeFixInfo.Amount = 120000 * _AppFeeFixInfo.Number_Of_Patent;
-                _lstFeeFix.Add(_AppFeeFixInfo);
-
-                //6. Phí tra cứu phục vụ thẩm định 
-                _AppFeeFixInfo = new AppFeeFixInfo();
-                _AppFeeFixInfo.Fee_Id = 205;
-                _AppFeeFixInfo.Isuse = 1;
-                _AppFeeFixInfo.Case_Code = p_case_code;
-                _AppFeeFixInfo.Number_Of_Patent = TongSoNhom;
-                _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
-                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                    _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo.Number_Of_Patent;
-                else
-                    _AppFeeFixInfo.Amount = 360000 * _AppFeeFixInfo.Number_Of_Patent;
-                _lstFeeFix.Add(_AppFeeFixInfo);
-
-
-                //7.Tổng số sản phẩm tren nhom 
-                _AppFeeFixInfo = new AppFeeFixInfo();
-                _AppFeeFixInfo.Fee_Id = 2051;
-                _AppFeeFixInfo.Isuse = 1;
-                _AppFeeFixInfo.Case_Code = p_case_code;
-                _AppFeeFixInfo.Number_Of_Patent = TongSoTinhPhi;
-                _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
-
-                //So sanh vs Char01 neu >Char01 thi moi tinh phi phan tang
-                if (_AppFeeFixInfo.Number_Of_Patent > CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01))
-                {
-
-                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                        _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * (_AppFeeFixInfo.Number_Of_Patent - CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01));
-                    else
-                        _AppFeeFixInfo.Amount = 30000 * (_AppFeeFixInfo.Number_Of_Patent - CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01));
-                    _lstFeeFix.Add(_AppFeeFixInfo);
-
-                }
-                else
-                {
-                    _AppFeeFixInfo.Amount = 0;
-                    _lstFeeFix.Add(_AppFeeFixInfo);
-                }
-
-
-                //8.Phí thẩm định đơn
-                _AppFeeFixInfo = new AppFeeFixInfo();
-                _AppFeeFixInfo.Fee_Id = 207;
-                _AppFeeFixInfo.Isuse = 1;
-                _AppFeeFixInfo.Case_Code = p_case_code;
-                _AppFeeFixInfo.Number_Of_Patent = 1;
-                _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
-                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                    _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo.Number_Of_Patent;
-                else
-                    _AppFeeFixInfo.Amount = 550000 * _AppFeeFixInfo.Number_Of_Patent;
-                _lstFeeFix.Add(_AppFeeFixInfo);
-
-
-                //9.Mỗi nhóm có trên 6 sản phẩm/dịch vụ (từ sản phẩm/dịch vụ thứ 7 trở đi)
-                _AppFeeFixInfo = new AppFeeFixInfo();
-                _AppFeeFixInfo.Fee_Id = 2071;
-                _AppFeeFixInfo.Isuse = 1;
-                _AppFeeFixInfo.Case_Code = p_case_code;
-                _AppFeeFixInfo.Number_Of_Patent = TongSoTinhPhi;
-                _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
-
-                //So sanh vs Char01 neu >Char01 thi moi tinh phi phan tang
-                if (_AppFeeFixInfo.Number_Of_Patent > CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01))
-                {
-
-                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                        _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * (_AppFeeFixInfo.Number_Of_Patent - CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01));
-                    else
-                        _AppFeeFixInfo.Amount = 120000 * (_AppFeeFixInfo.Number_Of_Patent - CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01));
-                    _lstFeeFix.Add(_AppFeeFixInfo);
-                }
-                else
-                {
-                    _AppFeeFixInfo.Amount = 0;
-                    _lstFeeFix.Add(_AppFeeFixInfo);
-                }
-
-                //Xem trước privew thì ko làm gì cả chỉ tính đẩy vào list thôi 
-                if (pPrviewOrInsert != 0)
-                {
-                    return 0;
-                }
-
-                AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
-                string language = AppsCommon.GetCurrentLang();
-                _AppFeeFixBL.AppFeeFixDelete(p_case_code, language);
-                return _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, p_case_code);
-
-                #endregion
-
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return -3;
-            }
-        }
-
 
         [HttpPost]
         [Route("delete-file")]

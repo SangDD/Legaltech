@@ -115,7 +115,6 @@
 
 
         @* Thong tin chu don   *@
-
         <div class="div_full_100_area" style="display:none" id="divChungDonKhac001">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDonKhac.cshtml", @WebApps.Resources.Resource.lblChuDonKhac.ToUpper())
             <div id="divAddNewChuDon01" hidden="hidden">
@@ -172,7 +171,6 @@
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblNhanHieu.ToUpper())
 
             <div class="class_full_div_input_extent">
-
                 <div class="class_left_40">
 
                     <div class="div-search-ad">
@@ -355,6 +353,7 @@
                     </div>
                 </div>*@
         </div>
+
         @* End tai lieu dinh kem  *@
         <div class="div_full_100_area" style="display:none" id="divNhanHieuChungNhan">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblMoTaDacTinhCuaHangHoa.ToUpper())
@@ -409,53 +408,8 @@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml")
         @* End Class *@
 
-
         @* 2 *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
-
-        @*<div class="div_full_100_area">
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblDaiDienChuDon.ToUpper())
-                <div class="div-search-ad">
-                    <div class="div-search-content">
-                        <div class="div-radio">
-                            <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienPL" id="3_txtNguoiDaiDienPL" />
-                            <label>@WebApps.Resources.Resource.lblLaNguoiDaiDienTheoPL</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="divDDPLChoise" style="  margin-top: 5px;">
-                </div>
-
-                <div class="div-search-ad">
-                    <div class="div-radio" style="width:60%">
-                        <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienSH" id="3_txtToChucDaiDien" checked />
-                        <label>@WebApps.Resources.Resource.lblLaToChucDichVuDaiDienSoHuu</label>
-                    </div>
-
-                    <div class="div-search-content">
-                        <div>
-                            <label style="width:180px;display:inline-block ;border: 1px solid #aaa; padding-top: 5px;  padding-left: 2px;">@WebApps.Resources.Resource.lblMaDaiDien:</label>
-                            <input style="display:inline-block" type="text" value="" id="txtMADDSHCN" />
-                        </div>
-                    </div>
-                </div>
-
-                <div id="divDDSHChoise" style="  margin-top: 5px;">
-                </div>
-
-                <div class="div-search-ad">
-                    <div class="div-search-content">
-                        <div class="div-radio">
-                            <input type="radio" name="3_rdoDaiDienChuDon" class="classDaiDienChuDon" value="@DaiDienChuDon.DaiDienUyQuyen" id="3_txtToChucDaiDien" />
-                            <label>@WebApps.Resources.Resource.lblLaNguoiKhacDuocUyQuyen</label>
-                        </div>
-                    </div>
-                </div>
-                <div id="divDDUQChoise" style=" margin-top: 5px;">
-                </div>
-            </div>*@
-
 
         @* 3  A14*@
         <div class="div_full_100_area">
@@ -668,9 +622,15 @@
 </div>
 <input type="hidden" id="txtDateTime" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
 <input type="hidden" id="ActionView" value="N" />
-@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialPreview.cshtml")
+@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialPreview_IU.cshtml")
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
+    </div>
+</div>
+
+
+<div id="divWrapperPopUpFee" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divPopUpFee">
     </div>
 </div>
 

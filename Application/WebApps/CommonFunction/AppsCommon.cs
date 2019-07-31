@@ -1616,6 +1616,283 @@ namespace WebApps.CommonFunction
                 Logger.LogException(ex);
             }
         }
+
+        public static int CaculatorFee(List<AppClassDetailInfo> pAppClassInfo, string NumberAppNo, string p_case_code, ref List<AppFeeFixInfo> _lstFeeFix, int pPrviewOrInsert = 0)
+        {
+            try
+            {
+                if (NumberAppNo == null)
+                {
+                    NumberAppNo = "";
+                }
+                string _keyFee = "";
+                int TongSoNhom = 1;
+                int SoDongTinhQua = 0;
+                int TongSoTinhPhi = 0;
+                _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_2011";
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                {
+                    SoDongTinhQua = CommonFuc.ConvertToInt(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01);
+                }
+                else
+                {
+                    SoDongTinhQua = 6;
+                }
+                if (pAppClassInfo != null && pAppClassInfo.Count > 0)
+                {
+                    TongSoNhom = CommonFuc.ConvertToInt(pAppClassInfo[0].TongSoNhom);
+                    string[] arrSoSanPham = pAppClassInfo[0].TongSanPham.Split('|');
+                    for (int i = 0; i < arrSoSanPham.Length; i++)
+                    {
+                        if (!string.IsNullOrEmpty(arrSoSanPham[i]))
+                        {
+                            int TotalItemOnGroup = CommonFuc.ConvertToInt(arrSoSanPham[i]);
+                            if (TotalItemOnGroup > SoDongTinhQua)
+                            {
+                                TongSoTinhPhi = TongSoTinhPhi + (TotalItemOnGroup - SoDongTinhQua);
+                            }
+                        }
+                    }
+                }
+                if (TongSoTinhPhi < 1) TongSoTinhPhi = 1;
+                AppFeeFixInfo _AppFeeFixInfo = new AppFeeFixInfo();
+
+                #region Phí Nộp hồ sơ
+                //1.Phí nộp hồ sơ 
+                _AppFeeFixInfo = new AppFeeFixInfo();
+                _AppFeeFixInfo.Fee_Id = 200;
+                _AppFeeFixInfo.Isuse = 1;
+                _AppFeeFixInfo.Case_Code = p_case_code;
+                _AppFeeFixInfo.Number_Of_Patent = 1; //default là 1 
+                _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
+
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                {
+                    _AppFeeFixInfo.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
+                    _AppFeeFixInfo.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
+                }
+
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                {
+                    _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo.Number_Of_Patent;
+                }
+                else
+                    _AppFeeFixInfo.Amount = 150000 * _AppFeeFixInfo.Number_Of_Patent;
+                _lstFeeFix.Add(_AppFeeFixInfo);
+
+                //2.Phí phân loại quốc tế về Nhãn hiệu
+                //20.02.2019 SUA THEO YC CHI TUYEN, CHUA RO TINH KHI NAO 
+                _AppFeeFixInfo = new AppFeeFixInfo();
+                _AppFeeFixInfo.Fee_Id = 201;
+                _AppFeeFixInfo.Isuse = 0;
+                _AppFeeFixInfo.Case_Code = p_case_code;
+                _AppFeeFixInfo.Number_Of_Patent = TongSoNhom;
+                _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                {
+                    _AppFeeFixInfo.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
+                    _AppFeeFixInfo.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
+                }
+
+                //Tạm thời ram vào =0 
+                //if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                //    _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo.Number_Of_Patent;
+                //else
+                //    _AppFeeFixInfo.Amount = 200000 * _AppFeeFixInfo.Number_Of_Patent;
+
+                _AppFeeFixInfo.Amount = 0;
+                _lstFeeFix.Add(_AppFeeFixInfo);
+
+                //3.Tổng số sản phẩm tren nhom 
+                _AppFeeFixInfo = new AppFeeFixInfo();
+                _AppFeeFixInfo.Fee_Id = 2011;
+                _AppFeeFixInfo.Isuse = 1;
+                _AppFeeFixInfo.Case_Code = p_case_code;
+                _AppFeeFixInfo.Number_Of_Patent = TongSoTinhPhi;
+                _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
+
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                {
+                    _AppFeeFixInfo.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
+                    _AppFeeFixInfo.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
+                }
+
+                //So sanh vs Char01 neu >Char01 thi moi tinh phi phan tang
+                if (_AppFeeFixInfo.Number_Of_Patent > CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01))
+                {
+                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                        _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * (_AppFeeFixInfo.Number_Of_Patent - CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01));
+                    else
+                        _AppFeeFixInfo.Amount = 22000 * (_AppFeeFixInfo.Number_Of_Patent - CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01));
+                    _lstFeeFix.Add(_AppFeeFixInfo);
+                }
+                else
+                {
+                    _AppFeeFixInfo.Amount = 0;
+                    _lstFeeFix.Add(_AppFeeFixInfo);
+                }
+
+                //4.Số đơn ưu tiên  pDetail.Used_Special
+                _AppFeeFixInfo = new AppFeeFixInfo();
+                _AppFeeFixInfo.Fee_Id = 203;
+                _AppFeeFixInfo.Isuse = 0;
+                if (!string.IsNullOrEmpty(NumberAppNo))
+                    _AppFeeFixInfo.Isuse = 1;
+
+                _AppFeeFixInfo.Case_Code = p_case_code;
+                _AppFeeFixInfo.Number_Of_Patent = _AppFeeFixInfo.Isuse;
+                _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                {
+                    _AppFeeFixInfo.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
+                    _AppFeeFixInfo.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
+                }
+
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                    _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo.Isuse;
+                else
+                    _AppFeeFixInfo.Amount = 600000 * _AppFeeFixInfo.Isuse;
+                _lstFeeFix.Add(_AppFeeFixInfo);
+
+
+                //5.Lệ phí công bố đơn
+                _AppFeeFixInfo = new AppFeeFixInfo();
+                _AppFeeFixInfo.Fee_Id = 204;
+                _AppFeeFixInfo.Isuse = 1;
+                _AppFeeFixInfo.Case_Code = p_case_code;
+                _AppFeeFixInfo.Number_Of_Patent = 1; //default là 1 
+                _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                {
+                    _AppFeeFixInfo.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
+                    _AppFeeFixInfo.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
+                }
+
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                    _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo.Number_Of_Patent;
+                else
+                    _AppFeeFixInfo.Amount = 120000 * _AppFeeFixInfo.Number_Of_Patent;
+                _lstFeeFix.Add(_AppFeeFixInfo);
+
+                //6. Phí tra cứu phục vụ thẩm định 
+                _AppFeeFixInfo = new AppFeeFixInfo();
+                _AppFeeFixInfo.Fee_Id = 205;
+                _AppFeeFixInfo.Isuse = 1;
+                _AppFeeFixInfo.Case_Code = p_case_code;
+                _AppFeeFixInfo.Number_Of_Patent = TongSoNhom;
+                _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                {
+                    _AppFeeFixInfo.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
+                    _AppFeeFixInfo.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
+                }
+
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                    _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo.Number_Of_Patent;
+                else
+                    _AppFeeFixInfo.Amount = 360000 * _AppFeeFixInfo.Number_Of_Patent;
+                _lstFeeFix.Add(_AppFeeFixInfo);
+
+
+                //7.Tổng số sản phẩm tren nhom 
+                _AppFeeFixInfo = new AppFeeFixInfo();
+                _AppFeeFixInfo.Fee_Id = 2051;
+                _AppFeeFixInfo.Isuse = 1;
+                _AppFeeFixInfo.Case_Code = p_case_code;
+                _AppFeeFixInfo.Number_Of_Patent = TongSoTinhPhi;
+                _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                {
+                    _AppFeeFixInfo.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
+                    _AppFeeFixInfo.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
+                }
+
+                //So sanh vs Char01 neu >Char01 thi moi tinh phi phan tang
+                if (_AppFeeFixInfo.Number_Of_Patent > CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01))
+                {
+
+                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                        _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * (_AppFeeFixInfo.Number_Of_Patent - CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01));
+                    else
+                        _AppFeeFixInfo.Amount = 30000 * (_AppFeeFixInfo.Number_Of_Patent - CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01));
+                    _lstFeeFix.Add(_AppFeeFixInfo);
+
+                }
+                else
+                {
+                    _AppFeeFixInfo.Amount = 0;
+                    _lstFeeFix.Add(_AppFeeFixInfo);
+                }
+
+
+                //8.Phí thẩm định đơn
+                _AppFeeFixInfo = new AppFeeFixInfo();
+                _AppFeeFixInfo.Fee_Id = 207;
+                _AppFeeFixInfo.Isuse = 1;
+                _AppFeeFixInfo.Case_Code = p_case_code;
+                _AppFeeFixInfo.Number_Of_Patent = 1;
+                _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                {
+                    _AppFeeFixInfo.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
+                    _AppFeeFixInfo.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
+                }
+
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                    _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo.Number_Of_Patent;
+                else
+                    _AppFeeFixInfo.Amount = 550000 * _AppFeeFixInfo.Number_Of_Patent;
+                _lstFeeFix.Add(_AppFeeFixInfo);
+
+
+                //9.Mỗi nhóm có trên 6 sản phẩm/dịch vụ (từ sản phẩm/dịch vụ thứ 7 trở đi)
+                _AppFeeFixInfo = new AppFeeFixInfo();
+                _AppFeeFixInfo.Fee_Id = 2071;
+                _AppFeeFixInfo.Isuse = 1;
+                _AppFeeFixInfo.Case_Code = p_case_code;
+                _AppFeeFixInfo.Number_Of_Patent = TongSoTinhPhi;
+                _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                {
+                    _AppFeeFixInfo.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
+                    _AppFeeFixInfo.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent;
+                }
+                //So sanh vs Char01 neu >Char01 thi moi tinh phi phan tang
+                if (_AppFeeFixInfo.Number_Of_Patent > CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01))
+                {
+
+                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                        _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * (_AppFeeFixInfo.Number_Of_Patent - CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01));
+                    else
+                        _AppFeeFixInfo.Amount = 120000 * (_AppFeeFixInfo.Number_Of_Patent - CommonFuc.ConvertToDecimalReturn0(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01));
+                    _lstFeeFix.Add(_AppFeeFixInfo);
+                }
+                else
+                {
+                    _AppFeeFixInfo.Amount = 0;
+                    _lstFeeFix.Add(_AppFeeFixInfo);
+                }
+
+                //Xem trước privew thì ko làm gì cả chỉ tính đẩy vào list thôi 
+                if (pPrviewOrInsert != 0)
+                {
+                    return 0;
+                }
+
+                AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
+                string language = AppsCommon.GetCurrentLang();
+                _AppFeeFixBL.AppFeeFixDelete(p_case_code, language);
+                return _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, p_case_code);
+
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -3;
+            }
+        }
+
     }
 
 

@@ -577,7 +577,7 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-checkbox">
-                        <input type="checkbox" name="0_ckbDacTinhHangHoa" @styleDacTinhHangHoa value="DTHH"  id="0_ckbDacTinhHangHoa" />
+                        <input type="checkbox" name="0_ckbDacTinhHangHoa" @styleDacTinhHangHoa value="DTHH" id="0_ckbDacTinhHangHoa" />
                         <label>@WebApps.Resources.Resource.lblDacTinhHanghoa</label>
                     </div>
                 </div>
@@ -585,7 +585,7 @@
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" @styleNguonGocDL class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL"  id="8_ckbNguonGocDiaLy" />
+                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" @styleNguonGocDL class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" id="8_ckbNguonGocDiaLy" />
                     <div style="width:250px">@WebApps.Resources.Resource.lblNguonGocDiaLy:</div>
                 </div>
                 <div class="div-search-content">
@@ -941,11 +941,21 @@
 </div>
 <input type="hidden" id="txtDateTime" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
 <input type="hidden" id="ActionView" value="N" />
-@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialPreview.cshtml")
+
+@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialPreview_IU.cshtml")
+
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
     </div>
 </div>
+
+
+<div id="divWrapperPopUpFee" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divPopUpFee">
+    </div>
+</div>
+
+
 <style>
     .div-search-content .ms-ul > ul {
         margin-left: 0px;
@@ -1873,7 +1883,7 @@
                 return false;
             }
             $.ajax({
-                url: '/trade-mark/dang-ky-nhan-hieu-sua-doi',
+                url: '/trade-mark/edit-dang-ky-nhan-hieu',
                 type: 'POST',
                 data: formData,
                 processData: false, contentType: false, traditional: true, dataType: "json",
