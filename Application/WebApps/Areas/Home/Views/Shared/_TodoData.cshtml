@@ -41,8 +41,8 @@
                     <tr>
                         <td class="tdcenteralign">@item.STT</td>
                         @*<td class="tdcenteralign">
-                            <a href="javascript:;" onclick="onRemind(@item.TYPE,'@item.CASE_CODE', @item.TODO_ID)" class="fa fa-bell" data-title="Remind"></a>
-                        </td>*@
+                                <a href="javascript:;" onclick="onRemind(@item.TYPE,'@item.CASE_CODE', @item.TODO_ID)" class="fa fa-bell" data-title="Remind"></a>
+                            </td>*@
 
                         @if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.Billing))
                         {
@@ -78,6 +78,12 @@
                         {
                             <td class="tdleftalign">
                                 <a href="javascript:;" onclick="GetView2Action_Register('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
+                            </td>
+                        }
+                        else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.News))
+                        {
+                            <td class="tdleftalign">
+                                <a href="javascript:;" onclick="GetView2Action_News('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
                             </td>
                         }
 
@@ -248,7 +254,18 @@
         }
     }
 
-
+    function GetView2Action_News(_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        try {
+            var url = "/quan-ly-tin/todo-news/" + _case_code + "";
+            //window.open(url);
+            window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
 
 
 </script>

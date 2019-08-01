@@ -16,6 +16,16 @@
     {
         urlMauNhanHieu = objInfo.Imageheader.Replace("~", "");
     }
+
+    B_Todos_Info _B_Todos_Info = new B_Todos_Info();
+    if (ViewBag.B_Todos_Info != null)
+    {
+        _B_Todos_Info = (B_Todos_Info)ViewBag.B_Todos_Info;
+    }
+    else
+    {
+        _B_Todos_Info = null;
+    }
 }
 @try
 {
@@ -214,24 +224,22 @@
     </div>
 
     <div class="class_save" style="margin-left:163px;">
-        @*@if (ViewBag.Status == Common.Status.VietBai)
-            {
-                <div class="classLuuTam">
-                    <input type="button" value="@WebApps.Resources.Resource.lblLuuBai" id="btnLuuBai" class="btn" />
-                </div>
-            }*@
         @if (ViewBag.Status == Common.Status.VietBai || ViewBag.Status == Common.Status.ChoXuly)
         {
-            <div class="classLuuTam">
+            <div class="classGuiDon">
                 <input type="button" value="@WebApps.Resources.Resource.lblLuuBai" id="btnLuuBai" class="btn" />
             </div>
 
-            <div class="classGuiDon">
-                <input type="button" value="@WebApps.Resources.Resource.btnXuatban" id="btnXuatBan" class="btn" />
-            </div>
-            <div class="classLuuTam">
-                <input type="button" value="@WebApps.Resources.Resource.btnTuChoi" id="btnTuChoi" class="btn" />
-            </div>
+            if (_B_Todos_Info != null)
+            {
+                <div class="classGuiDon">
+                    <input type="button" value="@WebApps.Resources.Resource.btnTuChoi" style="margin-left: 5px" id="btnTuChoi" class="btn" />
+                </div>
+
+                <div class="classGuiDon">
+                    <input type="button" value="@WebApps.Resources.Resource.btnXuatban" style="margin-left: 5px" id="btnXuatBan" class="btn" />
+                </div>
+            }
         }
         else if (ViewBag.Status == Common.Status.XuatBan)
         {
@@ -258,7 +266,6 @@
             </div>
         }
     </div>
-
 }
 catch (Exception)
 {
@@ -300,27 +307,27 @@ catch (Exception)
     });
 
     $("#btnXuatBan").click(function () {
-        SaveArticles(7, 4);
+        SaveArticles(7);
     });
 
     $("#btnTuChoi").click(function () {
-        SaveArticles(5, 5);
+        SaveArticles(5);
     });
 
     $("#btnGobai").click(function () {
-        SaveArticles(6, 7);
+        SaveArticles(6);
     });
 
-    $("#btnLuuGo").click(function () {
-        SaveArticles(6, 6);
-    });
+    //$("#btnLuuGo").click(function () {
+    //    SaveArticles(6);
+    //});
 
     $("#btnLuuBaiXB").click(function () {
-        SaveArticles(7, 7);
+        SaveArticles(7);
     });
 
 
-    function SaveArticles(pStatus, CurrentPage) {
+    function SaveArticles(pStatus) {
         try {
             var formData = new FormData();
 
@@ -390,16 +397,16 @@ catch (Exception)
                     if (data != null && data.status >= 0) {
                         if (pStatus == 7) {
                             nvsAlert("Xuất bản bài viết thành công!", ThongBao, function () {
-                                location.href = "/quan-ly-tin/danh-sach-tin/" + CurrentPage;
+                                location.href = "/quan-ly-tin/danh-sach-tin/1";
                             });
                         } else if (pStatus == 6) {
                             nvsAlert("Gỡ bài viết thành công!", ThongBao, function () {
-                                location.href = "/quan-ly-tin/danh-sach-tin/" + CurrentPage;
+                                location.href = "/quan-ly-tin/danh-sach-tin/1";
                             });
                         }
                         else {
                             nvsAlert("Sửa bài viết thành công!", ThongBao, function () {
-                                location.href = "/quan-ly-tin/danh-sach-tin/" + CurrentPage;
+                                location.href = "/quan-ly-tin/danh-sach-tin/";
                             });
                         }
                     } else {

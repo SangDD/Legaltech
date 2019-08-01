@@ -195,7 +195,8 @@
             TimeSheet = 4,
             Billing = 5,
             Wiki = 6,
-            Register = 7
+            Register = 7,
+            News = 9
         }
     }
 

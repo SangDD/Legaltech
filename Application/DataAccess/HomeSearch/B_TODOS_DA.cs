@@ -104,11 +104,29 @@ namespace DataAccess
             }
         }
 
-        public DataSet Todo_GetByCaseCode(decimal p_app_id, string p_processor_by)
+        public DataSet Todo_GetByCaseCode(string p_case_code, string p_processor_by)
         {
             try
             {
                 DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_TODOS.proc_Todo_GetByCaseCode",
+                    new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
+                    new OracleParameter("p_processor_by", OracleDbType.Varchar2, p_processor_by, ParameterDirection.Input),
+                    new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output)
+                   );
+                return _ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
+        public DataSet Todo_GetByAppId(decimal p_app_id, string p_processor_by)
+        {
+            try
+            {
+                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_TODOS.proc_Todo_GetByApp_Id",
                     new OracleParameter("p_app_id", OracleDbType.Decimal, p_app_id, ParameterDirection.Input),
                     new OracleParameter("p_processor_by", OracleDbType.Varchar2, p_processor_by, ParameterDirection.Input),
                     new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output)
@@ -121,6 +139,8 @@ namespace DataAccess
                 return new DataSet();
             }
         }
+
+        
 
         public bool UpdateTodo_ByCaseCode(decimal p_app_id, string p_processor_by)
         {

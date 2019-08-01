@@ -10,6 +10,7 @@ using BussinessFacade;
 using BussinessFacade.ModuleMemoryData;
 using System.Web;
 using WebApps.CommonFunction;
+using Common.CommonData;
 
 namespace WebApps.Areas.Articles.Controllers
 {
@@ -23,26 +24,23 @@ namespace WebApps.Areas.Articles.Controllers
         [Route("danh-sach-tin/{id}")]
         public ActionResult GetListArticles()
         {
-            try 
+            try
             {
                 decimal pStatus = 0;
                 if (SessionData.CurrentUser == null)
                     return Redirect("/");
                 if (RouteData.Values.ContainsKey("id"))
                 {
-                    pStatus = CommonFuc.ConvertToDecimal(RouteData.Values["id"]); 
-                } 
-                ViewBag.Status = pStatus;
-                //Nếu bài chờ xử lý thì lấy danh sách các bài đã gửi 
-                if (pStatus == Status.ChoXuly)
-                {
-                    pStatus = Status.VietBai;
+                    pStatus = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
                 }
+                ViewBag.Status = pStatus;
+                 
+
                 decimal _total_record = 0;
                 NewsBL objBL = new NewsBL();
-                //string _status = "ALL";
+                string _status = "ALL";
                 string language = AppsCommon.GetCurrentLang();
-                string _keySearch = pStatus.ToString() + "|ALL|" + language + "|ALL";
+                string _keySearch = _status + "|ALL|" + language + "|ALL";
                 List<NewsInfo> _lst = objBL.ArticleHomeSearch(_keySearch, ref _total_record);
                 string htmlPaging = CommonFuc.Get_HtmlPaging<NewsInfo>((int)_total_record, 1, "Tin");
                 ViewBag.listArticles = _lst;
@@ -63,16 +61,18 @@ namespace WebApps.Areas.Articles.Controllers
 
         [HttpGet]
         [Route("tim-kiem-tin")]
-        public ActionResult SearchArticles(string pCategory, string pTitile, int pPage, int pStatus)
+        public ActionResult SearchArticles(string pCategory, string pTitile, int pPage, string pStatus)
         {
             try
             {
                 ViewBag.Status = pStatus;
+
                 //Nếu bài chờ xử lý thì lấy danh sách các bài đã gửi 
-                if (pStatus == Status.ChoXuly)
-                {
-                    pStatus = Status.VietBai;
-                }
+                //if (pStatus == Status.ChoXuly.ToString())
+                //{
+                //    pStatus = Status.VietBai.ToString();
+                //}
+
                 int from = (pPage - 1) * (Common.Common.RecordOnpage);
                 int to = (pPage) * (Common.Common.RecordOnpage);
                 decimal _total_record = 0;
@@ -171,6 +171,45 @@ namespace WebApps.Areas.Articles.Controllers
                 ViewBag.lstCategory = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
                 string language = AppsCommon.GetCurrentLang();
                 var objNewInfo = objNewsBL.ArticlesGetById(pIDArticles, language);
+                return View("~/Areas/Articles/Views/ArticlesNews/_PartialviewEdit.cshtml", objNewInfo);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return View();
+            }
+        }
+
+        [HttpGet]
+        [Route("todo-news/{id}")]
+        public ActionResult TodoNews()
+        {
+            try
+            {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+                string _casecode = "";
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    _casecode = RouteData.Values["id"].ToString();
+                }
+
+                if (SessionData.CurrentUser != null && SessionData.CurrentUser.Type != (decimal)CommonEnums.UserType.Customer)
+                {
+                    B_Todos_BL _B_Todos_BL = new B_Todos_BL();
+                    B_Todos_Info _B_Todos_Info = _B_Todos_BL.Todo_GetByCaseCode(_casecode, SessionData.CurrentUser.Username);
+                    if (_B_Todos_Info != null)
+                    {
+                        ViewBag.B_Todos_Info = _B_Todos_Info;
+                    }
+                }
+
+                var objNewsBL = new NewsBL();
+                ViewBag.lstCategory = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
+                string language = AppsCommon.GetCurrentLang();
+                var objNewInfo = objNewsBL.ArticlesGetByCaseCode(_casecode, language);
+                ViewBag.Status = objNewInfo.Status;
+
                 return View("~/Areas/Articles/Views/ArticlesNews/_PartialviewEdit.cshtml", objNewInfo);
             }
             catch (Exception ex)
