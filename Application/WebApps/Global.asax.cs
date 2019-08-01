@@ -271,6 +271,7 @@
 
         private void ThreadChangeRemind()
         {
+            int _timeSleep = Convert.ToInt16(CommonFuc.GetConfig("TimeSleepSendMail"));
             while (true)
             {
                 try
@@ -305,12 +306,12 @@
                             LstAttachment = _LstAttachment,
                         };
 
-                        Thread.Sleep(5000);
-
                         CommonFunction.AppsCommon.EnqueueSendEmail(_Email_Info);
 
                         // update todo-id
                         _lst_update.Add(item);
+
+                        Thread.Sleep(_timeSleep);
                     }
 
                     // update todo-id
@@ -319,7 +320,7 @@
                         _B_Todos_BL.Update_Todo_Email(_lst_update);
                     }
 
-                    Thread.Sleep(30000);
+                    Thread.Sleep(10000);
                 }
                 catch (Exception ex)
                 {
