@@ -4795,11 +4795,29 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thêm phương án.
+        /// </summary>
+        public static string ThemPhuongAn {
+            get {
+                return ResourceManager.GetString("ThemPhuongAn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thêm tác giả.
         /// </summary>
         public static string ThemTacGia {
             get {
                 return ResourceManager.GetString("ThemTacGia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thêm tài liệu cùng cấp.
+        /// </summary>
+        public static string ThemTaiLieuCungCap {
+            get {
+                return ResourceManager.GetString("ThemTaiLieuCungCap", resourceCulture);
             }
         }
         

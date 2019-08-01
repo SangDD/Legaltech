@@ -324,8 +324,8 @@
         </div>
 
         @*TÀI booj hinh anh   *@
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTreeDocument.cshtml")
-
+        @*@Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTreeDocument.cshtml")*@
+        @Html.Partial("~/Areas/IndustrialDesign/Views/Shared/_PartialTreeDocument.cshtml")
 
         <div class="div-search-ad">
             <div class="div-search-title">
@@ -1468,7 +1468,7 @@
         var _controllevel = "";
         try {
             $(".clssListUploadIndusDesign").each(function () {
-                 _controllevel = $("#" + this.id).attr("meta-data2")
+                _controllevel = $("#" + this.id).attr("data-level")
                  if (_controllevel == "1") {
                      _soPhuongAn = _soPhuongAn + 1;
                  }
