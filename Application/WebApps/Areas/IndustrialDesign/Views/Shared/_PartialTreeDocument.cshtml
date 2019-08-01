@@ -1,16 +1,16 @@
 ﻿@using ObjectInfos.ModuleTrademark
 @using ObjectInfos
 @using System.Linq;
+@using WebApps.Resources
 @{
-    
+    int a = 10;
 }
 
 <div class="div_full_100_area" id="divTreeContainerDocOther">
-    @*@Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "Bộ hình ảnh")*@
     <div class="divCover cls_form_title">
         <div class="cls_form_header" style="margin: 0 !important;">
-            Số phương án/ số hình ảnh
-            <button title="Thêm phương án" onclick="funcTreeAddDocumentNew(1)"><i class="fa fa-plus-circle"></i></button>
+            @Resource.SoPhuongAn/ @Resource.SoHinhAnh
+            <button title="@Resource.ThemPhuongAn" onclick="funcTreeAddDocumentNew(1)"><i class="fa fa-plus-circle"></i></button>
         </div>
     </div>
 

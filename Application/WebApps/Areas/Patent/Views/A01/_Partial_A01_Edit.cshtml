@@ -773,6 +773,9 @@
             </div>
         </div>
 
+        @* Hình công bố *@
+        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Image_Public_Edit.cshtml")
+
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
@@ -927,11 +930,7 @@
         }
 
         @*TÀI LIỆU KHÁC*@
-        @*@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHTaiLieuKhac.cshtml", "12")*@
         @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others_Edit.cshtml")
-
-        @* Hình công bố *@
-        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Image_Public_Edit.cshtml")
 
         @* Cam kết của chủ đơn *@
         @{

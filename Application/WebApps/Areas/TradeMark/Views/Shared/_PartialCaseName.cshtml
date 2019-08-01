@@ -35,21 +35,34 @@
 
 <div class="div-search-ad">
     <div class="div-search-title">
-        <div style="width: 200px;">
-            @WebApps.Resources.Resource.CaseName  
+        <div style="width: 120px;">
+            @WebApps.Resources.Resource.CaseName
         </div>
         <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
            data-title="@WebApps.Resources.Resource.TooltipCaseName"></a>
     </div>
     <div class="div-search-content">
         <div>
-            <input value="@objAppHeaderInfo.Case_Name" type="text" placeholder="@WebApps.Resources.Resource.CaseName" maxlength="200" id="@txtCase_Name" @_disable />
+            <input value="@objAppHeaderInfo.Case_Name" type="text" style="width: 323px;" placeholder="@WebApps.Resources.Resource.CaseName" maxlength="200" id="@txtCase_Name" @_disable />
+        </div>
+    </div>
+
+    <div class="div-search-title">
+        <div style="width: 120px;">
+            @WebApps.Resources.Resource.ClientReference
+        </div>
+        <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+           data-title="@WebApps.Resources.Resource.TooltipClientReference"></a>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input value="@objAppHeaderInfo.Client_Reference" type="text" placeholder="@WebApps.Resources.Resource.ClientReference" maxlength="200" id="@txtClient_Reference" @_disable />
         </div>
     </div>
 </div>
 
 
-<div class="div-search-ad">
+@*<div class="div-search-ad">
     <div class="div-search-title">
         <div style="width: 200px;">
             @WebApps.Resources.Resource.ClientReference  
@@ -62,7 +75,7 @@
             <input value="@objAppHeaderInfo.Client_Reference" type="text" placeholder="@WebApps.Resources.Resource.ClientReference" maxlength="200" id="@txtClient_Reference" @_disable />
         </div>
     </div>
-</div>
+</div>*@
 
 <script>
     function funcThongTinCaseName(formData, PreID) {
