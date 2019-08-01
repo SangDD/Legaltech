@@ -220,6 +220,36 @@ namespace WebApps.Areas.Articles.Controllers
         }
 
         [HttpGet]
+        [Route("view-todo-news/{id}")]
+        public ActionResult ViewTodoNews()
+        {
+            try
+            {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+                string _casecode = "";
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    _casecode = RouteData.Values["id"].ToString();
+                }
+
+                var objNewsBL = new NewsBL();
+                ViewBag.lstCategory = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
+                string language = AppsCommon.GetCurrentLang();
+                var objNewInfo = objNewsBL.ArticlesGetByCaseCode(_casecode, language);
+                ViewBag.Status = objNewInfo.Status;
+
+                return View("~/Areas/Articles/Views/ArticlesNews/_PartialviewView.cshtml", objNewInfo);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return View();
+            }
+        }
+        
+
+        [HttpGet]
         [Route("chi-tiet-bai-viet/{id}/{id2}")]
         public ActionResult DetailNewsArticles()
         {
