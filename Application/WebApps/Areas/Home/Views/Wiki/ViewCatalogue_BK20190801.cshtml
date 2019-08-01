@@ -19,7 +19,7 @@
     }
 }
 <link href=@($"/Content/WikiStyle.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
-
+ 
 
 
 <input type="hidden" value="TITLE" id="colSorted" />
@@ -29,10 +29,10 @@
 <div class="clssbox_search">
 
     <input type="text" id="_txtwikidocsearch" placeholder="@WebApps.Resources.Resource.TimKiemTheoDanhMuc" />
-
+     
     <input type="hidden" id="_txtwikicatanameabc" value="ALL" />
     <input type="hidden" id="_txtwikicataid" value="@_Catainfo.ID" />
-
+    
     <div class="clssbox_button">
         <input type="button" id="btnfindObjects" value="@WebApps.Resources.Resource.WikiSearchButton" onclick="findObjects(1, 1)" />
     </div>
@@ -41,10 +41,10 @@
 
 <ul class="letters-list clearfix hidden-xs" style="padding: 0px;">
     <li class="">
-        <a class="namaabc" onclick="searchcata('ALL')" event-category="Filter" event-action="executive" event-label="a">ALL</a>
+        <a  class="namaabc" onclick="searchcata('ALL')" event-category="Filter" event-action="executive" event-label="a">ALL</a>
     </li>
     <li class="">
-        <a class="namaabc" onclick="searchcata('a')" event-category="Filter" event-action="executive" event-label="a">A</a>
+        <a  class="namaabc" onclick="searchcata('a')" event-category="Filter" event-action="executive" event-label="a">A</a>
     </li>
     <li class=""><a class="namaabc" onclick="searchcata('b')" event-category="Filter" event-action="executive" event-label="b">B</a></li>
     <li class=""><a class="namaabc" onclick="searchcata('c')" event-category="Filter" event-action="executive" event-label="c">C</a></li>
@@ -86,7 +86,7 @@
 
     $("#_txtwikidocsearch").keyup(function (event) {
         if (event.keyCode === 13) {
-
+          
             $("#btnfindObjects").click();
         }
     });
@@ -120,7 +120,7 @@
             //reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
             if (_isSearching === 1) {
                 _NameABC = $("#_txtwikicatanameabc").val();
-
+               
                 _NameSearch = $("#_txtwikidocsearch").val().trim();
                 //if(_NameSearch != "ALL")
                 //{
@@ -144,7 +144,7 @@
                 {
                     $("#_txtwikidocsearch").val(_NameSearch);
                 }
-
+               
 
             }
             _status = "3";
