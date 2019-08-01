@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html>
+@using Common.CommonData
+@using WebApps.ExtensionObject
+@using WebApps.CommonFunction;
+@{
+    string _LanguageCode = AppsCommon.GetCurrentLang();
+    string _langlink = "/vi-vn";
+    if (_LanguageCode != "VI_VN")
+    {
+        _langlink = "/en-gb";
+    }
+    Random _ramdom = new Random();
+    string _userwikiramdom = DateTime.Now.Ticks.ToString() + _ramdom.Next(99999);
+}
+<html>
+<head>
+    <script>
+        var _currentlanguage = '@_LanguageCode';
+    </script>
+
+    @*<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">*@
+    <title>Following the Rule of Law</title>
+
+
+
+    @*<link href="~/Content/News/Css/register.css" rel="stylesheet" />*@
+    <link href=@($"/Content/News/Css/main.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
+    <link href="~/Content/News/Css/bootstrap.css" rel="stylesheet" />
+
+
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.10.2.min.js"></script>
+    <script src=@($"/Scripts/jquery.unobtrusive-ajax.min.js?v={CommonVariables.AssemblyVersion}")></script>
+    <script src=@($"/Scripts/nvs.jquery.validate.data.js?v={CommonVariables.AssemblyVersion}")></script>
+    <script>
+        var _usernamewiki = "";
+        function funclogin() {
+            window.location.href = "/account/login";
+        }
+        function funcHome() {
+            window.location.href = "/";
+        }
+
+        function functionGetNews() {
+            window.location.href = "/quan-ly-tin/news-home-page";
+        }
+
+
+        $(document).ready(function () {
+            _usernamewiki = getCookie("usernamewiki");
+            if (_usernamewiki != "" || _usernamewiki == null) {
+            } else {
+                // cho cookies 1 năm
+                setCookie("usernamewiki", '@_userwikiramdom', 365);
+                _usernamewiki = getCookie("usernamewiki");
+            }
+        });
+    </script>
+
+</head>
+<body>
+    <div class="hidden">
+        @Html.Partial("~/ViewsShared/nvs.variables.js.cshtml")
+    </div>
+    <div class="c-transitions js-transitions">
+        <div class="c-transitions_mask"></div>
+        <div class="c-transitions_mask"></div>
+        <div class="c-transitions_logo" aria-hidden="true">
+            <div class="c-transitions_logo-image js-transition-logo"></div>
+        </div>
+        <div class="c-transitions_loader" aria-hidden="true">
+            <div class="c-transitions_loader-progress"></div>
+        </div>
+    </div>
+
+    <div class="o-barba js-barba" id="js-barba-wrapper" aria-live="polite">
+        <!--[bg ngoai]-->
+        <div class="o-barba_frame" data-module="Frame">
+            <div class="o-barba_frame-paralax js-parallax" style="transform: translate3d(0px, 0px, 0px);">
+                <div class="o-background" style="background-image:url(/Content/News/images/frame-blue.png)"></div>
+            </div>
+            <div class="o-barba_frame-paralax js-parallax" style="transform: translate3d(0px, 0px, 0px);">
+                <div class="o-background" style="background-image:url(/Content/News/images/frame-red.png)"></div>
+            </div>
+        </div>
+        <!--[end bg ngoai]-->
+        <div id="bodytop" class="js-barba-container o-barba_container page-template page-template-templates page-template-Khoanbetong page-template-templatesKhoanbetong-php page page-id-36 page-child parent-pageid-60 Khoanbetong" data-template="Khoanbetong" style="visibility: visible;">
+            <div class="c-header_nav-list-overlay js-nav-overlay"></div>
+            <!--[logo + button mobi]-->
+            <nav class="c-header-mobile">
+                <div class="c-header-mobile_logo">
+                    <a class="c-header-mobile_logo-link" href="index.htm" aria-label="tên công ty">
+                        <figure class="c-header-mobile_logo_img" aria-hidden="true">
+                            <img class="c-header-mobile_logo_svg-color" src="/Content/News/images/logo_ipace-1.png">
+                            <img class="c-header-mobile_logo_svg-white" src="/Content/News/images/logo_ipace-1.png">
+                        </figure>
+                    </a>
+                </div>
+                <button class="c-header_nav-burger" data-module="BurgerMenu" type="button">
+                    <div class="c-header_nav-burger-line"></div>
+                </button>
+            </nav>
+            <!--end[logo + button mobi]-->
+
+            <header class="c-header" data-module="HeaderNav">
+                <nav class="c-header_nav js-header-nav">
+                    <div class="c-header_nav-logo">
+                        <a class="c-header_nav-logo-link" href="index.htm" aria-label="tên công ty" data-transition="full">
+                            <figure class="c-header_nav-logo_img" aria-hidden="true">
+                                <img class="c-header_nav-logo_svg-color" src="/Content/News/images/logo_ipace-1.png">
+                                <img class="c-header_nav-logo_svg-white" src="/Content/News/images/logo_ipace-1.png">
+                            </figure>
+                        </a>
+                    </div>
+                    <!--[Menutop + mobi]-->
+
+                    <ul id="menu-main-menu" class="c-header_nav-list u-list-reset">
+                        <li class="c-header_nav-item js-nav-nosublink">
+                            <a href="javascript:;" onclick="funLogin();" class="c-header_nav-item-label" data-transition="full">
+                                @if (WebApps.Session.SessionData.CurrentUser != null)
+                                {
+                                    @WebApps.Session.SessionData.CurrentUser.Username
+                                }
+                                else
+                                {
+                                    @WebApps.Resources.Resource.lblSigin
+                                }
+                            </a>
+                        </li>
+                        @if (WebApps.Session.SessionData.CurrentUser == null)
+                        {
+                            <li class="c-header_nav-item js-nav-nosublink">
+                                <a target="_blank" href="/vi-vn/account/register" class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
+                            </li>
+                        }
+
+                        <li class="c-header_nav-item js-nav-nosublink">
+                            <div class="" style="width:100% !important;">
+                                @if (_LanguageCode == LangCode.EN_US.ToString())
+                                {
+                                    <a href="javascript:;" onclick="return funcVi();" class="lang-vn"></a>
+                                }
+                                else
+                                {
+                                    <a href="javascript:;" onclick="return funcEn();" class="lang-en"></a>
+                                }
+                            </div>
+                        </li>
+
+                    </ul>
+
+                    <ul class="c-header_nav-social">
+                        <li class="c-header_nav-social-item">
+                            <a class="c-header_nav-social-link" href="#" target="_blank">
+                                <figure class="c-header_nav-social-icon">
+                                    <svg role="img" title="Twitter">
+                                        <i class="fa fa-twitter" aria-hidden="true" style="color:#06cafc;"></i>
+                                    </svg>
+                                </figure>
+                            </a>
+                        </li>
+                        <li class="c-header_nav-social-item">
+                            <a class="c-header_nav-social-link" href="#" target="_blank">
+                                <figure class="c-header_nav-social-icon">
+                                    <svg role="img" title="Facebook">
+                                        <i class="fa fa-facebook" aria-hidden="true" style="color: #13559d;"></i>
+                                    </svg>
+                                </figure>
+                            </a>
+                        </li>
+                        <li class="c-header_nav-social-item">
+                            <a class="c-header_nav-social-link" href="javascript:;" target="_blank">
+                                <figure class="c-header_nav-social-icon">
+                                    <svg role="img" title="YouTube">
+                                        <i class="fa fa-youtube-play" aria-hidden="true" style="color:#FF0000;"></i>
+                                    </svg>
+                                </figure>
+                            </a>
+                        </li>
+                    </ul>
+
+                </nav>
+            </header>
+
+            <main class="js-scroll tpl- o-main" data-scrollbar="" tabindex="1" style="overflow: hidden; outline: none;">
+                <article class="scroll-content">
+                    <section class="t-Khoanbetong">
+                        <div class="t-Khoanbetong_wrap o-layout">
+                            <!--[MenuLeft]-->
+
+                            @Html.Partial("~/Areas/Home/Views/Wiki/_PartialWikiMenu.cshtml")
+
+                            <!--end[MenuLeft]-->
+
+                            <div class="t-Khoanbetong_col-right o-layout_item">
+                                <div class="t-Khoanbetong_inner">
+                                    <div class="main-content">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 div_wikicontent">
+
+                                            @RenderBody()
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+                </article>
+
+            </main>
+        </div>
+
+    </div>
+    <style>
+        .c-header_nav-item:last-child
+        {
+            margin-right:5px !important;
+        }
+        .c-header_nav-list
+        {
+            height:100px!important;
+            top: 54px!important;
+        }
+        .c-header, .c-header_nav-item {
+            opacity: unset !important;
+        }
+
+        .lang-en, lang-vn {
+            margin-left: 5px!important;
+            padding: 1px 20px 10px 24px!important;
+        }
+    </style>
+    <script>
+        function funLogin() {
+            window.location.href = "/account/login";
+        }
+
+        function funcVi() {
+            window.location.href = "/Language?culture=vi-VN&returnUrl=Home";
+        }
+        function funcEn() {
+            window.location.href = "/Language?culture=en-GB&returnUrl=Home";
+        }
+    </script>
+
+</body>
+</html>

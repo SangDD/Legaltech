@@ -4,67 +4,41 @@
 @using WebApps.CommonFunction;
 @{
     string _LanguageCode = AppsCommon.GetCurrentLang();
-    string _langlink = "/vi-vn";
-    if (_LanguageCode != "VI_VN")
-    {
-        _langlink = "/en-gb";
-    }
     Random _ramdom = new Random();
     string _userwikiramdom = DateTime.Now.Ticks.ToString() + _ramdom.Next(99999);
 }
 <html>
 <head>
     <script>
-        var _currentlanguage = '@_LanguageCode';
+       var _currentlanguage = '@_LanguageCode';
     </script>
-
-    @*<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">*@
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Following the Rule of Law</title>
-
-
-
-    @*<link href="~/Content/News/Css/register.css" rel="stylesheet" />*@
+    <link href="~/Content/News/Css/register.css" rel="stylesheet" />
     <link href=@($"/Content/News/Css/main.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
+
     <link href="~/Content/News/Css/bootstrap.css" rel="stylesheet" />
-
-
-
+    <link href="~/Content/News/Css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/News/Css/jquery.dropdown.min.css" rel="stylesheet" />
+    <link href="~/Content/News/Css/learndash_template_style.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery-ui-1.10.2.min.js"></script>
-    <script src=@($"/Scripts/jquery.unobtrusive-ajax.min.js?v={CommonVariables.AssemblyVersion}")></script>
-    <script src=@($"/Scripts/nvs.jquery.validate.data.js?v={CommonVariables.AssemblyVersion}")></script>
-    <script>
-        var _usernamewiki = "";
-        function funclogin() {
-            window.location.href = "/account/login";
-        }
-        function funcHome() {
-            window.location.href = "/";
-        }
+    <script src="~/Scripts/messagebox/JsFormPopup.js"></script>
+    <script src="~/Scripts/messagebox/popup.js"></script>
+    <link href="~/Content/News/Css/css.css" rel="stylesheet" />
+    <script src="~/Scripts/AlertPopup/NVSAlerts.js"></script>
+    <link href="~/Scripts/AlertPopup/NVSAlertCss.css" rel="stylesheet" />
+    <script src="~/Scripts/AlertPopup/ASSAlert.js"></script>
+    <script src="~/Scripts/nvs.jquery.alert.js"></script>
 
-        function functionGetNews() {
-            window.location.href = "/quan-ly-tin/news-home-page";
-        }
-
-
-        $(document).ready(function () {
-            _usernamewiki = getCookie("usernamewiki");
-            if (_usernamewiki != "" || _usernamewiki == null) {
-            } else {
-                // cho cookies 1 năm
-                setCookie("usernamewiki", '@_userwikiramdom', 365);
-                _usernamewiki = getCookie("usernamewiki");
-            }
-        });
-    </script>
-
+    <link rel="icon" href="~/Content/News/images/favicon.ico">
+    <style>
+    </style>
 </head>
+
 <body>
-    <div class="hidden">
-        @Html.Partial("~/ViewsShared/nvs.variables.js.cshtml")
-    </div>
     <div class="c-transitions js-transitions">
         <div class="c-transitions_mask"></div>
         <div class="c-transitions_mask"></div>
@@ -92,7 +66,7 @@
             <!--[logo + button mobi]-->
             <nav class="c-header-mobile">
                 <div class="c-header-mobile_logo">
-                    <a class="c-header-mobile_logo-link" href="index.htm" aria-label="tên công ty">
+                    <a class="c-header-mobile_logo-link" href="javascript:;" aria-label="tên công ty">
                         <figure class="c-header-mobile_logo_img" aria-hidden="true">
                             <img class="c-header-mobile_logo_svg-color" src="/Content/News/images/logo_ipace-1.png">
                             <img class="c-header-mobile_logo_svg-white" src="/Content/News/images/logo_ipace-1.png">
@@ -108,7 +82,7 @@
             <header class="c-header" data-module="HeaderNav">
                 <nav class="c-header_nav js-header-nav">
                     <div class="c-header_nav-logo">
-                        <a class="c-header_nav-logo-link" href="index.htm" aria-label="tên công ty" data-transition="full">
+                        <a class="c-header_nav-logo-link" href="javascript:;" aria-label="tên công ty" data-transition="full">
                             <figure class="c-header_nav-logo_img" aria-hidden="true">
                                 <img class="c-header_nav-logo_svg-color" src="/Content/News/images/logo_ipace-1.png">
                                 <img class="c-header_nav-logo_svg-white" src="/Content/News/images/logo_ipace-1.png">
@@ -116,7 +90,6 @@
                         </a>
                     </div>
                     <!--[Menutop + mobi]-->
-
                     <ul id="menu-main-menu" class="c-header_nav-list u-list-reset">
                         <li class="c-header_nav-item js-nav-nosublink">
                             <a href="javascript:;" onclick="funLogin();" class="c-header_nav-item-label" data-transition="full">
@@ -133,12 +106,16 @@
                         @if (WebApps.Session.SessionData.CurrentUser == null)
                         {
                             <li class="c-header_nav-item js-nav-nosublink">
+                                @*<a href="javascript:;"  onclick="return funcBottom();" class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>*@
                                 <a target="_blank" href="/vi-vn/account/register" class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
                             </li>
                         }
-
+                        <!--[Menu]-->
+                        <div class="clss_mobileMenu">
+                            @Html.Partial("~/ViewsShared/_PartialHomeMenu.cshtml")
+                        </div>
                         <li class="c-header_nav-item js-nav-nosublink">
-                            <div class="" style="width:100% !important;">
+                            <div class="" style="width:100% !important;padding-top:10px;">
                                 @if (_LanguageCode == LangCode.EN_US.ToString())
                                 {
                                     <a href="javascript:;" onclick="return funcVi();" class="lang-vn"></a>
@@ -149,39 +126,50 @@
                                 }
                             </div>
                         </li>
-
                     </ul>
 
                     <ul class="c-header_nav-social">
                         <li class="c-header_nav-social-item">
-                            <a class="c-header_nav-social-link" href="#" target="_blank">
+                            <a class="c-header_nav-social-link" href="https://www.linkedin.com/in/le-tuyen-63851914/" target="_blank">
                                 <figure class="c-header_nav-social-icon">
-                                    <svg role="img" title="Twitter">
-                                        <i class="fa fa-twitter" aria-hidden="true" style="color:#06cafc;"></i>
+                                    <svg role="img" title="LinkedIn">
+                                        <i class="fa fa-linkedin" aria-hidden="true" style=" color:#06cafc;"></i>
                                     </svg>
                                 </figure>
                             </a>
                         </li>
+
                         <li class="c-header_nav-social-item">
-                            <a class="c-header_nav-social-link" href="#" target="_blank">
+                            <a class="c-header_nav-social-link" href="https://www.facebook.com/accessip.asia/?modal=admin_todo_tour" target="_blank">
                                 <figure class="c-header_nav-social-icon">
                                     <svg role="img" title="Facebook">
-                                        <i class="fa fa-facebook" aria-hidden="true" style="color: #13559d;"></i>
+                                        <i class="fa fa-facebook" aria-hidden="true" style=" color #13559d;"></i>
                                     </svg>
                                 </figure>
                             </a>
                         </li>
                         <li class="c-header_nav-social-item">
-                            <a class="c-header_nav-social-link" href="javascript:;" target="_blank">
+                            <a class="c-header_nav-social-link" href="https://twitter.com/lhtuyen" target="_blank">
                                 <figure class="c-header_nav-social-icon">
-                                    <svg role="img" title="YouTube">
-                                        <i class="fa fa-youtube-play" aria-hidden="true" style="color:#FF0000;"></i>
+                                    <svg role="img" title="Twitter">
+                                        <i class="fa fa-twitter" aria-hidden="true" style=" color:#FF0000;"></i>
+                                    </svg>
+                                </figure>
+                            </a>
+                        </li>
+
+                        <li class="c-header_nav-social-item">
+                            <a class="c-header_nav-social-link" href="/quan-ly-search/them-moi-inquiries" target="_blank">
+                                <figure class="c-header_nav-social-icon">
+                                    <svg role="img" title="Email">
+                                        <i class="fa fa-envelope" aria-hidden="true" style=" color:#FF0000;"></i>
                                     </svg>
                                 </figure>
                             </a>
                         </li>
                     </ul>
 
+                    <!--end[Menutop + mobi]-->
                 </nav>
             </header>
 
@@ -190,61 +178,236 @@
                     <section class="t-Khoanbetong">
                         <div class="t-Khoanbetong_wrap o-layout">
                             <!--[MenuLeft]-->
+                            <div class="t-Khoanbetong_col-left o-layout_item js-animate" data-sticky="">
+                                <aside class="c-navleft" data-module="NavLeft">
+                                    <div class="c-navleft_scroll js-scroll sticky" data-scrollbar="" tabindex="1" style="overflow: hidden; outline: none;">
+                                        <article class="scroll-content">
+                                            <div class="c-navleft_inner">
+                                                <div class="c-navleft_logo">
+                                                    <a class="c-navleft_logo-link" href="javascript:;" onclick="return  funcHome();" data-transition="full">
+                                                        <figure class="c-navleft_logo-figure">
+                                                            <img src="/Content/News/images/logo_ipace.png" alt="" aria-hidden="true">
+                                                        </figure>
+                                                    </a>
+                                                </div>
+                                                <div class="c-navleft_head js-head">
+                                                    <figure class="c-navleft_head-viewmore">
+                                                        <svg class="c-navleft_head-viewmore-less" role="img">
+                                                            <use xlink:href="/Content/News/images/icon-arrow-right.png"></use>
+                                                        </svg>
+                                                        <svg class="c-navleft_head-viewmore-more" role="img">
+                                                            <use xlink:href="/Content/News/images/icon-arrow-right.png"></use>
+                                                        </svg>
+                                                    </figure>
+                                                    <h3 class="c-navleft_head-title">Following the Rule of Law</h3>
+                                                </div>
+                                                <!--[MenuLeft]-->
 
-                            @Html.Partial("~/Areas/Home/Views/Wiki/_PartialWikiMenu.cshtml")
+                                                <div class="c-navleft_category">
+                                                    @Html.Partial("~/Areas/Home/Views/Wiki/_PartialWikiMenu.cshtml")
+                                                </div>
 
+                                                <!--end[MenuLeft]-->
+                                            </div>
+                                        </article>
+                                        <aside class="scrollbar-track scrollbar-track-x show" style="display: none;">
+                                            <div class="scrollbar-thumb scrollbar-thumb-x" style="width: 365px; transform: translate3d(0px, 0px, 0px);"></div>
+                                        </aside>
+                                        <aside class="scrollbar-track scrollbar-track-y show" style="display: none;">
+                                            <div class="scrollbar-thumb scrollbar-thumb-y" style="height: 686.877px; transform: translate3d(0px, 0px, 0px);"></div>
+                                        </aside>
+                                        <canvas class="overscroll-glow" style="display: none; pointer-events: none;"></canvas>
+                                    </div>
+                                </aside>
+                            </div>
                             <!--end[MenuLeft]-->
+
+
+                            <div class="t-Khoanbetong_scroll js-btn-arrow" style="display:none">
+                            </div>
 
                             <div class="t-Khoanbetong_col-right o-layout_item">
                                 <div class="t-Khoanbetong_inner">
-                                    <div class="main-content">
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 div_wikicontent">
+                                    <div>
+                                        @RenderBody()
+                                    </div>
+                                    <div class="join-us" style="margin-top:50px;display:none">
+                                        <div class="container">
+                                            <div class="container-fluid">
+                                                <div class="title" style="padding-top: 15px;float: left;">
+                                                    <span style="text-transform: unset;">
+                                                        <p>
+                                                            @WebApps.Resources.Resource.lblDangKy
+                                                        </p>
+                                                    </span>
+                                                </div>
+                                                @*<form method="POST"  >*@
+                                                <div class="row join-us-form form-row">
+                                                    <div class="col-md-10">
+                                                        <div class="row">
+                                                            <div class="col-md-2">
+                                                                <span class="firt-name">
+                                                                    <input type="text" name="FNAME" id="txtFNAME" value="" size="40" class="required join-us-input" aria-required="true" aria-invalid="false" placeholder="@WebApps.Resources.Resource.First_Name" required="required" maxlength="30">
+                                                                </span>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <span class="last-name">
+                                                                    <input type="text" name="LNAME" id="txtLNAME" value="" size="40" class="required join-us-input" aria-required="true" aria-invalid="false" placeholder="@WebApps.Resources.Resource.Last_Name" required="required" maxlength="30">
+                                                                </span>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <span class="your-company">
+                                                                    <input type="text" name="PHONE" id="txtPHONE" value="" size="40" class="required join-us-input" aria-required="true" aria-invalid="false" placeholder="@WebApps.Resources.Resource.Phone" required="required" maxlength="50">
+                                                                </span>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <span class="your-email">
+                                                                    <input type="email" name="EMAIL" id="txtEmail" value="" size="40" class="required join-us-input" aria-invalid="false" placeholder="Email" required="required" maxlength="50">
+                                                                </span>
+                                                            </div>
 
-                                            @RenderBody()
+                                                            <div class="col-md-2">
+                                                                <span class="your-company">
+                                                                    <input type="text" name="COMPANY" id="txtCOMPANY" value="" size="40" class="required join-us-input" aria-required="true" aria-invalid="false" placeholder="@WebApps.Resources.Resource.Company" maxlength="50">
+                                                                </span>
+                                                            </div>
+
+                                                            <p></p>
+                                                        </div>
+                                                        <p></p>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <input type="submit" id="btnSignUp" onclick="return funcRegister();" value="@WebApps.Resources.Resource.lblSignup" class="join-us-button join-us-button-text button">
+                                                                <span class="ajax-loader"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="msg-success sent-ok"></div>
+                                                @*</form>*@
+                                            </div>
                                         </div>
                                     </div>
+                                    <footer id="main-footer" class="c-footer js-animate">
+                                        <div class="c-footer_wrap-head o-layout -middle">
+                                            <div class="c-footer-quote o-layout_item">
+                                                <div class="c-footer-quote_wrap">
+                                                    <h3 class="c-footer-quote_title" style="font-size: 18px;">IPATH CONSULT CO., LTD.</h3>
+                                                    <h1 class="c-footer-quote_title" style="font-size: 14px;margin-top: 14px;">Level 16, Daeha Business Center, 360 Kim Ma, Hanoi, Vietnam</h1>
+                                                </div>
+                                            </div>
+                                            <div class="c-footer-actions o-layout_item">
+                                                <div class="c-footer-actions_wrap">
+                                                    <h3 class="c-footer-actions_title">FOLLOW US</h3>
+                                                    <ul class="c-footer-actions_social">
+                                                        <li class="c-footer-actions_social-item">
+                                                            <a class="c-footer-actions_social-link" href="https://www.linkedin.com/in/le-tuyen-63851914/" target="_blank">
+                                                                <figure class="c-footer-actions_social-icon">
+                                                                    <i class="fa fa-linkedin" aria-hidden="true" style=" color:#FFF;font-size: 30px;"></i>
+                                                                </figure>
+                                                            </a>
+                                                        </li>
+                                                        <li class="c-footer-actions_social-item">
+                                                            <a class="c-footer-actions_social-link" href="https://www.facebook.com/accessip.asia/?modal=admin_todo_tour" target="_blank">
+                                                                <figure class="c-footer-actions_social-icon">
+                                                                    <i class="fa fa-facebook" aria-hidden="true" style=" color:#FFF;font-size: 30px;"></i>
+                                                                </figure>
+                                                            </a>
+                                                        </li>
+                                                        <li class="c-footer-actions_social-item">
+                                                            <a class="c-footer-actions_social-link" href="https://twitter.com/lhtuyen" target="_blank">
+                                                                <figure class="c-footer-actions_social-icon">
+                                                                    <i class="fa fa-twitter" aria-hidden="true" style=" color:#FFF;font-size: 30px;"></i>
+                                                                </figure>
+                                                            </a>
+                                                        </li>
+                                                        <li class="c-footer-actions_social-item">
+                                                            <a class="c-footer-actions_social-link" href="/quan-ly-search/them-moi-inquiries" target="_blank">
+                                                                <figure class="c-footer-actions_social-icon">
+                                                                    <i class="fa fa-envelope" aria-hidden="true" style=" color:#FFF;font-size: 30px;"></i>
+                                                                </figure>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="c-footer_wrap-foot">
+                                            <ul class="c-footer_cta-list">
+                                                <li class="c-footer_cta-item -copyright">Ⓒ iPath - Allrights reserved</li>
+                                                <li class="c-footer_cta-item -contact">
+                                                    <a href="/quan-ly-tin/features/term">@WebApps.Resources.Resource.Term</a>
+                                                </li>
+                                                <li class="c-footer_cta-item -locomotive">
+                                                    <a href="/quan-ly-tin/features/policy">@WebApps.Resources.Resource.Private</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+
+                                    </footer>
                                 </div>
 
                             </div>
                         </div>
                     </section>
                 </article>
-
+                <aside class="scrollbar-track scrollbar-track-x" style="display: none;">
+                    <div class="scrollbar-thumb scrollbar-thumb-x" style="width: 1259px; transform: translate3d(0px, 0px, 0px);"></div>
+                </aside>
+                <aside class="scrollbar-track scrollbar-track-y" style="display: block;">
+                    <div class="scrollbar-thumb scrollbar-thumb-y" style="height: 209.778px; transform: translate3d(0px, 0px, 0px);"></div>
+                </aside>
+                <canvas class="overscroll-glow" style="display: none; pointer-events: none;"></canvas>
             </main>
         </div>
 
     </div>
-    <style>
-        .c-header_nav-item:last-child
-        {
-            margin-right:5px !important;
-        }
-        .c-header_nav-list
-        {
-            height:100px!important;
-            top: 54px!important;
-        }
-        .c-header, .c-header_nav-item {
-            opacity: unset !important;
-        }
-
-        .lang-en, lang-vn {
-            margin-left: 5px!important;
-            padding: 1px 20px 10px 24px!important;
-        }
-    </style>
     <script>
-        function funLogin() {
-            window.location.href = "/account/login";
-        }
+        window.templateData = window.templateData || {
+        };
+        window.isMobile = false;
+        window.isIe = false;
+        window.isTrident = false;
+        window.isFirefox = false;
 
-        function funcVi() {
-            window.location.href = "/Language?culture=vi-VN&returnUrl=Home";
-        }
-        function funcEn() {
-            window.location.href = "/Language?culture=en-GB&returnUrl=Home";
-        }
+           $(document).ready(function () {
+            _usernamewiki = getCookie("usernamewiki");
+            if (_usernamewiki != "" || _usernamewiki == null) {
+            } else {
+                // cho cookies 1 năm
+                setCookie("usernamewiki", '@_userwikiramdom', 365);
+                _usernamewiki = getCookie("usernamewiki");
+            }
+        });
     </script>
-
+    <script src="~/Content/News/scripts/vendors.js"></script>
+    <script src="~/Content/News/scripts/app.js"></script>
 </body>
 </html>
+
+<script>
+    function functionGetNews() {
+        window.location.href = "/quan-ly-tin/news-home-page";
+    }
+    function funcBottom() {
+        $('.t-Khoanbetong_scroll').click();
+        $("#txtFNAME").focus();
+
+    }
+    function funcHome() {
+        window.location.href = "/";
+    }
+    function funLogin() {
+        window.location.href = "/account/login";
+    }
+    function funcVi() {
+        window.location.href = "/Language?culture=vi-VN&returnUrl=Home";
+    }
+    function funcEn() {
+        window.location.href = "/Language?culture=en-GB&returnUrl=Home";
+    }
+     
+</script>
