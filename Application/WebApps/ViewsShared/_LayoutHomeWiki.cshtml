@@ -34,6 +34,7 @@
     <script src="~/Scripts/nvs.jquery.alert.js"></script>
 
     <link rel="icon" href="~/Content/News/images/favicon.ico">
+    <script src=@($"/Scripts/nvs.jquery.validate.data.js?v={CommonVariables.AssemblyVersion}")></script>
     <style>
     </style>
 </head>
@@ -112,7 +113,7 @@
                         }
                         <!--[Menu]-->
                         <div class="clss_mobileMenu">
-                            @Html.Partial("~/ViewsShared/_PartialHomeMenu.cshtml")
+                            @Html.Partial("~/Areas/Home/Views/Wiki/_PartialWikiMenu.cshtml")
                         </div>
                         <li class="c-header_nav-item js-nav-nosublink">
                             <div class="" style="width:100% !important;padding-top:10px;">
