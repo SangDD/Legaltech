@@ -305,6 +305,8 @@
                             LstAttachment = _LstAttachment,
                         };
 
+                        Thread.Sleep(5000);
+
                         CommonFunction.AppsCommon.EnqueueSendEmail(_Email_Info);
 
                         // update todo-id
