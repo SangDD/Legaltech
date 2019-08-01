@@ -1746,11 +1746,13 @@ input[type=text], select, select option {
 
 
 .clssbox_search {
-    width: 100%;
+    width: calc(100% - 20px);
     height: 35px;
     border: 1px solid #CBCCCE;
     border-right: none;
     float: left;
+    margin:0px 10px 0px 10px; 
+    margin-top:55px;
 }
 
     .clssbox_search > select {
