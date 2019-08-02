@@ -14,10 +14,10 @@
             <thead>
                 <tr>
                     <th style="width: 4%">@WebApps.Resources.Resource.lblSTT</th>
-                    <th style="width: 25%" data-sort id="TITLE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.lblTieuDe</th>
-                    <th style="width: 25%" data-sort id="CREATED_BY" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.lblNguoiTao</th>
-                    <th style="width: 15%" data-sort id="STATUS">@WebApps.Resources.Resource.TrangThai</th>
-                    <th style="width: 15%" data-sort id="MODIFIED_DATE">@WebApps.Resources.Resource.lblCapNhatLuc</th>
+                    <th style="width: 35%" data-sort id="TITLE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.lblTieuDe</th>
+                    <th style="width: 10%" data-sort id="CREATED_BY" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.lblNguoiTao</th>
+                    <th style="width: 10%" data-sort id="STATUS">@WebApps.Resources.Resource.TrangThai</th>
+                    @*<th style="width: 10%" data-sort id="MODIFIED_DATE">@WebApps.Resources.Resource.lblCapNhatLuc</th>*@
                     <th style="width: 100px;">@WebApps.Resources.Resource.lblChucNang</th>
                 </tr>
             </thead>
@@ -29,23 +29,39 @@
                             <td class="tdcenteralign">@item.STT</td>
                             <td class="tdleftalign">@item.Title</td>
                             <td class="tdleftalign">@item.Createdby</td>
-                            <td class="tdleftalign">@item.Status_Name</td>
-                            <td class="tdleftalign">@item.Createddate.ToString("dd/MM/yyy HH:mm:ss")</td>
+
+                            @if (item.Status == Common.Status.XuatBan)
+                            {
+                                <td class="tdleftalign" style="color:green">@item.Status_Name</td>
+
+                            }
+                            else if (item.Status == Common.Status.DaGo)
+                            {
+                                <td class="tdleftalign" style="color:red">@item.Status_Name</td>
+                            }
+                            else
+                            {
+                                <td class="tdleftalign">@item.Status_Name</td>
+                            }
+
+
+                            @*<td class="tdleftalign">@item.Createddate.ToString("dd/MM/yyy HH:mm:ss")</td>*@
                             <td class="tdcenteralign">
-                                <a href="/quan-ly-tin/chi-tiet-bai-viet/@item.Id/@ViewBag.Status" class="icon icon-info" data-title="@WebApps.Resources.Resource.btnXemChiTiet"></a>
-                                <a href="/quan-ly-tin/sua-bai-viet/@item.Id/@ViewBag.Status" class="icon icon-edit" data-title="@WebApps.Resources.Resource.btnSua"></a>
-                                @if (ViewBag.Status != Common.Status.XuatBan)
+                                <a href="/quan-ly-tin/chi-tiet-bai-viet/@item.Id/@item.Status" class="icon icon-info" data-title="@WebApps.Resources.Resource.btnXemChiTiet"></a>
+                                <a href="/quan-ly-tin/sua-bai-viet/@item.Id/@item.Status" class="icon icon-edit" data-title="@WebApps.Resources.Resource.btnSua"></a>
+
+                                @if (item.Status != Common.Status.XuatBan)
                                 {
                                     <a href="javascript:;" onclick="return funcDelArticles(@item.Id)" class="icon icon-delete" data-title="@WebApps.Resources.Resource.btnXoa"></a>
                                 }
-                                @if (ViewBag.Status == Common.Status.ChoXuly)
+                                @if (item.Status == Common.Status.ChoXuly)
                                 {
-                                    <a href="/quan-ly-tin/sua-bai-viet/@item.Id/@ViewBag.Status" class="icon icon-confirm-circle" data-title="@WebApps.Resources.Resource.btnXuatban"></a>
+                                    <a href="/quan-ly-tin/sua-bai-viet/@item.Id/@item.Status" class="icon icon-confirm-circle" data-title="@WebApps.Resources.Resource.btnXuatban"></a>
                                 }
 
-                                @if (ViewBag.Status == Common.Status.XuatBan)
+                                @if (item.Status == Common.Status.XuatBan)
                                 {
-                                    <a href="/quan-ly-tin/sua-bai-viet/@item.Id/@ViewBag.Status" class="icon icon-cancel-circle" data-title="@WebApps.Resources.Resource.btnGoBo"></a>
+                                    <a href="/quan-ly-tin/sua-bai-viet/@item.Id/@item.Status" class="icon icon-cancel-circle" data-title="@WebApps.Resources.Resource.btnGoBo"></a>
                                 }
 
                             </td>

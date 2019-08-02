@@ -26,6 +26,25 @@ namespace DataAccess.ModuleArticles
                 return new DataSet();
             }
         }
+        public DataSet ArticlesGetByCaseCode(string p_Case_Code, string pLanguage)
+        {
+            try
+            {
+                DataSet ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_NEWS.PROC_NEW_GET_BY_Case_Code",
+                 new OracleParameter("p_Case_Code", OracleDbType.Varchar2, p_Case_Code, ParameterDirection.Input),
+                 new OracleParameter("P_LANGUAGE", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
+                 new OracleParameter("P_CUSOR", OracleDbType.RefCursor, ParameterDirection.Output));
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
+        
 
         public DataSet ArticlesGetByPage(string pLanguage, string pTitle, DateTime pNgayCongBo, int pStart, int pEnd, ref decimal pTotalRecord)
         {

@@ -1561,7 +1561,7 @@
                 if (pStatus == (int)CommonEnums.App_Status.ChoKHConfirm)
                 {
                     B_Todos_BL _B_Todos_BL = new B_Todos_BL();
-                    B_Todos_Info _B_Todos_Info = _B_Todos_BL.Todo_GetByCaseCode(pAppHeaderId, SessionData.CurrentUser.Username);
+                    B_Todos_Info _B_Todos_Info = _B_Todos_BL.Todo_GetByAppId(pAppHeaderId, SessionData.CurrentUser.Username);
                     if (_B_Todos_Info != null)
                     {
                         ViewBag.B_Todos_Info = _B_Todos_Info;

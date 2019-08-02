@@ -58,6 +58,12 @@
                                 <a href="javascript:;" onclick="GetView2View_Search('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
                             </td>
                         }
+                        else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.News))
+                        {
+                            <td class="tdleftalign">
+                                <a href="javascript:;" onclick="GetView2Action_News('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
+                            </td>
+                        }
                         else
                         {
                             <td class="tdleftalign">@item.CONTENT</td>
@@ -189,6 +195,19 @@
         }
         try {
             var url = "/quan-ly-search/search-todo-detail/" + _case_code + "/4";
+            //window.open(url);
+            window.location.href = url;
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
+
+    function GetView2Action_News(_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        try {
+            var url = "/quan-ly-tin/view-todo-news/" + _case_code + "";
             //window.open(url);
             window.location.href = url;
         } catch (e) {

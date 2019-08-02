@@ -57,7 +57,7 @@ namespace BussinessFacade
                 return new List<NewsInfo>();
             }
         }
-        
+
 
         public NewsInfo ArticlesGetById(decimal pID, string pLanguage)
         {
@@ -65,6 +65,21 @@ namespace BussinessFacade
             {
                 NewsDA objDA = new NewsDA();
                 DataSet ResultData = objDA.ArticlesGetById(pID, pLanguage);
+                return CBO<NewsInfo>.FillObjectFromDataSet(ResultData);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new NewsInfo();
+            }
+        }
+
+        public NewsInfo ArticlesGetByCaseCode(string p_Case_Code, string pLanguage)
+        {
+            try
+            {
+                NewsDA objDA = new NewsDA();
+                DataSet ResultData = objDA.ArticlesGetByCaseCode(p_Case_Code, pLanguage);
                 return CBO<NewsInfo>.FillObjectFromDataSet(ResultData);
             }
             catch (Exception ex)

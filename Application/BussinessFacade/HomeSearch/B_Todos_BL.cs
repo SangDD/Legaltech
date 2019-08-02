@@ -92,12 +92,13 @@ namespace BussinessFacade
                 return new List<B_Todos_Info>();
             }
         }
-        public B_Todos_Info Todo_GetByCaseCode(decimal p_app_id, string p_processor_by)
+
+        public B_Todos_Info Todo_GetByCaseCode(string p_case_code, string p_processor_by)
         {
             try
             {
                 B_TODOS_DA _da = new B_TODOS_DA();
-                DataSet _ds = _da.Todo_GetByCaseCode(p_app_id, p_processor_by);
+                DataSet _ds = _da.Todo_GetByCaseCode(p_case_code, p_processor_by);
                 return CBO<B_Todos_Info>.FillObjectFromDataSet(_ds);
             }
             catch (Exception ex)
@@ -106,6 +107,23 @@ namespace BussinessFacade
                 return null;
             }
         }
+
+        public B_Todos_Info Todo_GetByAppId(decimal p_app_id, string p_processor_by)
+        {
+            try
+            {
+                B_TODOS_DA _da = new B_TODOS_DA();
+                DataSet _ds = _da.Todo_GetByAppId(p_app_id, p_processor_by);
+                return CBO<B_Todos_Info>.FillObjectFromDataSet(_ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return null;
+            }
+        }
+
+        
 
         public bool UpdateTodo_ByCaseCode(decimal p_app_id, string p_processor_by)
         {
