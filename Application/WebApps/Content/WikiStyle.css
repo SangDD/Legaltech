@@ -1751,8 +1751,8 @@ input[type=text], select, select option {
     border: 1px solid #CBCCCE;
     border-right: none;
     float: left;
-    margin:0px 10px 0px 10px; 
-    margin-top:55px;
+    margin: 0px 10px 12px 10px;
+    margin-top: 55px;
 }
 
     .clssbox_search > select {
@@ -1884,11 +1884,22 @@ input[type=text], select, select option {
     font-style: italic;
     color: #999;
     font-size: 15px;
-    text-transform:capitalize;
+    text-transform: capitalize;
 }
-  .wiki_header {
-        max-height: 60px;
-        /*white-space: nowrap;*/
-        text-overflow: ellipsis;
-        overflow: hidden;
+
+.wiki_header {
+    max-height: 60px;
+    /*white-space: nowrap;*/
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+@media(max-width:420px) {
+    .wiki-left-menu {
+        display: none;
     }
+    .wiki-right-content
+    {
+        width:100%;
+    }
+}
