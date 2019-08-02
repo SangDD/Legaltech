@@ -49,6 +49,9 @@
 			catch(e) {}
 		}
 
+		if ( tmp = get( 'basePath' ) )
+			CKFINDER.basePath = tmp;
+
 		if ( tmp = get( 'startupPath' ) || get( 'start' ) )
 			config.startupPath = decodeURIComponent( tmp );
 
@@ -68,6 +71,9 @@
 
 		if ( tmp = get( 'type' ) )
 			config.resourceType = tmp;
+
+		if ( tmp = get( 'skin' ) )
+			config.skin = tmp;
 
 		if ( tmp = get( 'langCode' ) )
 			config.language = tmp;

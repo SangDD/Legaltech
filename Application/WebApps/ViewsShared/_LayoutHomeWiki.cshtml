@@ -83,7 +83,7 @@
             <header class="c-header" data-module="HeaderNav">
                 <nav class="c-header_nav js-header-nav">
                     <div class="c-header_nav-logo">
-                        <a class="c-header_nav-logo-link" href="javascript:;" aria-label="tên công ty" data-transition="full">
+                        <a class="c-header_nav-logo-link" href="javascript:;" aria-label="tên công ty" data-transition="full" onclick="funcHome()">
                             <figure class="c-header_nav-logo_img" aria-hidden="true">
                                 <img class="c-header_nav-logo_svg-color" src="/Content/News/images/logo_ipace-1.png">
                                 <img class="c-header_nav-logo_svg-white" src="/Content/News/images/logo_ipace-1.png">
@@ -93,7 +93,7 @@
                     <!--[Menutop + mobi]-->
                     <ul id="menu-main-menu" class="c-header_nav-list u-list-reset">
                         <li class="c-header_nav-item js-nav-nosublink">
-                            <a href="javascript:;" onclick="funLogin();" class="c-header_nav-item-label" data-transition="full">
+                            <a href="javascript:;" onclick="funLogin();" class="a-login-regis c-header_nav-item-label" data-transition="full">
                                 @if (WebApps.Session.SessionData.CurrentUser != null)
                                 {
                                     @WebApps.Session.SessionData.CurrentUser.Username
@@ -108,7 +108,7 @@
                         {
                             <li class="c-header_nav-item js-nav-nosublink">
                                 @*<a href="javascript:;"  onclick="return funcBottom();" class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>*@
-                                <a target="_blank" href="/vi-vn/account/register" class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
+                                <a target="_blank" href="/vi-vn/account/register" class="a-login-regis c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
                             </li>
                         }
                         <!--[Menu]-->
