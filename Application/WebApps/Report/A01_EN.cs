@@ -23,7 +23,7 @@ namespace WebApps.Report {
         
         public override string ResourceName {
             get {
-                return "A01.rpt";
+                return "A01_EN.rpt";
             }
             set {
                 // Do nothing

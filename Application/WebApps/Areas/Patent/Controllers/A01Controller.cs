@@ -676,10 +676,10 @@ namespace WebApps.Areas.Patent.Controllers
                 //_ds_all.WriteXml(@"C:\inetpub\A01.xml", XmlWriteMode.WriteSchema);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
-                string _tempfile = "A01.rpt";
+                string _tempfile = "A01_EN.rpt";
                 if (p_Language == Language.LangEN)
                 {
-                    _tempfile = "A01_EN.rpt";
+                    _tempfile = "A01.rpt";
                 }
                 oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
 
@@ -758,10 +758,10 @@ namespace WebApps.Areas.Patent.Controllers
                 //_ds_all.WriteXml(@"C:\inetpub\A01.xml", XmlWriteMode.WriteSchema);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
-                string _tempfile = "A01.rpt";
+                string _tempfile = "A01_EN.rpt";
                 if (pInfo.View_Language_Report == Language.LangEN)
                 {
-                    _tempfile = "A01_EN.rpt";
+                    _tempfile = "A01.rpt";
                 }
                 oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
 
