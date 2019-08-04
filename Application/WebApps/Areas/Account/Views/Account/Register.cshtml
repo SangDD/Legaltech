@@ -153,18 +153,18 @@
                 <form id="frmLogin" method="post" action=""
                       enctype="multipart/form-data">
                     <div>
-                        <p class="font-size-20 text-font-medium text-color-2 formname">Create Your Account</p>
+                        <p class="font-size-20 text-font-medium text-color-2 formname">@Resource.lblSignup.ToUpper()</p>
                     </div>
                     <div>
-                        <p>First Name</p>
+                        <p>@Resource.First_Name</p>
                         <input type="text" name="txtFNAME" id="txtFNAME" autofocus />
                     </div>
                     <div>
-                        <p>Last Name</p>
+                        <p>@Resource.Last_Name</p>
                         <input type="text" name="txtLNAME" id="txtLNAME" />
                     </div>
                     <div>
-                        <p>Phone</p>
+                        <p>@Resource.Phone</p>
                         <input type="text" name="txtPHONE" id="txtPHONE" />
                     </div>
                     <div>
@@ -178,22 +178,19 @@
                         <div style="width:80%;float:left;line-height:18px;">
                             To register with us please tick to agree our <br />
                             <span style="color:#478CCC">
-                                @*@if (language == LangCode.EN_US.ToString())
-                                    {
-                                        <a href="/quan-ly-tin/news-detail/102/7" target="_blank"> Terms and Conditions</a>
-                                    }
-                                    else
-                                    {
-                                        <a href="/quan-ly-tin/news-detail/101/7" target="_blank"> Terms and Conditions</a>
-                                    }*@
                                 <a href="/quan-ly-trang-bia/trang/term" target="_blank"> Terms and Conditions</a>
                             </span>
                         </div>
-
-
                     </div>
                     <div>
                         <input type="button" class="btn" disabled id="btnRegister" value="Register" onclick="return funcRegister()" />
+                    </div>
+
+                    <div style="width:80%;float:left;line-height:18px;">
+                        Already have an accunt ? 
+                        <span style="color:#478CCC">
+                            <a href="/account/login" target="_blank"> Sign in</a>
+                        </span>
                     </div>
                 </form>
             </div>

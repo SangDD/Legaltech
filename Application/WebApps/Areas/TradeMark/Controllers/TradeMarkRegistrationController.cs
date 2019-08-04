@@ -1103,7 +1103,7 @@
         {
             try
             {
-                //string tm04Nh = "TM04NH";
+                //string tm04Nh = "A02";
                 // = "/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + tm04Nh + ".pdf";
                 //return PartialView("~/Areas/TradeMark/Views/Shared/_PartialContentPreview_docx.cshtml");
 
