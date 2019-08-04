@@ -35,6 +35,18 @@
 
 <script>
 
+   $(document).ready(function () {
+
+        $('#cboNationRepresent').multipleSelect({
+            filter: true,
+            noMatchesFound: '@WebApps.Resources.Resource.KhongCoDuLieu',
+            single: true,
+            isdatastring: false,
+            placeholder: 'Search country'
+        });
+    });
+
+
     function getNation_Represent(formData) {
         formData.append("pInfo.Nation_Represent_Id", $("#cboNationRepresent ").val());
         return true;

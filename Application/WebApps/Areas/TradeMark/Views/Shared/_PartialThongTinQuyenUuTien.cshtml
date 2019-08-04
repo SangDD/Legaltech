@@ -145,6 +145,17 @@
 
 <script>
 
+    $(document).ready(function () {
+
+        $('#' + '@txtQuocTich').multipleSelect({
+            filter: true,
+            noMatchesFound: '@WebApps.Resources.Resource.KhongCoDuLieu',
+            single: true,
+            isdatastring: false,
+            placeholder: 'Search country'
+        });
+    });
+
     function XoaDonUuTien(pId, pId2) {
         try {
             $("#" + pId).addClass("clssDisplaynone");

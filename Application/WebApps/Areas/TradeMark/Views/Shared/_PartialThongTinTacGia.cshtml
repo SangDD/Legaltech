@@ -107,6 +107,15 @@
 
 <script>
     $(document).ready(function () {
+
+        $('#' + '@txtQuocTich').multipleSelect({
+            filter: true,
+            noMatchesFound: '@WebApps.Resources.Resource.KhongCoDuLieu',
+            single: true,
+            isdatastring: false,
+            placeholder: 'Search country'
+        });
+
         //Search suggestion
         var Name = $("#1_txtTenDayDu").val();
         $.ajax({
