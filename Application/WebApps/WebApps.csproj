@@ -259,12 +259,6 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Report\A03_EN.cs">
-      <DependentUpon>A03_EN.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Report\A03.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1827,10 +1821,6 @@
     <EmbeddedResource Include="Report\A01_EN.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>A01_EN.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Report\A03_EN.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>A03_EN.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\AlertPopup\ASSAlert.js" />
