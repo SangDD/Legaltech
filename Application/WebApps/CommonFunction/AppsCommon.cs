@@ -1756,7 +1756,7 @@ namespace WebApps.CommonFunction
                 _AppFeeFixInfo.Case_Code = p_case_code;
                 _AppFeeFixInfo.Number_Of_Patent = _AppFeeFixInfo.Isuse;
                 _keyFee = TradeMarkAppCode.AppCodeDangKynhanHieu + "_" + _AppFeeFixInfo.Fee_Id.ToString();
-                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee)) 
                 {
                     _AppFeeFixInfo.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
                     _AppFeeFixInfo.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent * _AppFeeFixInfo.Number_Of_Patent;
