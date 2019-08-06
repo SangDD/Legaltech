@@ -119,6 +119,7 @@
 
         var formData = new FormData();
         formData.append("pInfo.Appcode", $("#txtAppCode").val());
+        formData.append("pDetail.Appcode", $("#txtAppCode").val());
         formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
 
         var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
@@ -164,7 +165,7 @@
         });
     }
 
-    function funcPreViewApplication(p_Lang) {
+    function funcPreViewApplication_IU(p_Lang) {
         var preturn = funGetData_Preview_3BPL01("/trade-mark-3b/ket_xuat_fileIU", p_Lang);
         if (preturn == true || preturn == undefined) {
             OpenPreview("/trade-mark-3b/Pre-View");

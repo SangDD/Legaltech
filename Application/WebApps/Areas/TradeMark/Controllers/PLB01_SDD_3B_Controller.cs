@@ -535,7 +535,7 @@
                 List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
                 app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
 
-                AppsCommon.Prepare_Data_Export_3B(ref app_Detail, applicationHeaderInfo, appDocumentInfos, appFeeFixInfos);
+                AppsCommon.Prepare_Data_Export_3B(ref app_Detail, applicationHeaderInfo, appDocumentInfos);
                 List<App_Detail_PLB01_SDD_Info> _lst = new List<App_Detail_PLB01_SDD_Info>();
                 _lst.Add(app_Detail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLB01_SDD_Info>(_lst, false);
@@ -594,7 +594,7 @@
                 string fileName_doc = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VI_" + TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD + ".docx");
                 string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VI_" + TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD + ".pdf");
 
-                AppsCommon.Prepare_Data_Export_3B(ref pDetail, pInfo, pAppDocumentInfo, pFeeFixInfo);
+                AppsCommon.Prepare_Data_Export_3B(ref pDetail, pInfo, pAppDocumentInfo);
                 List<App_Detail_PLB01_SDD_Info> _lst = new List<App_Detail_PLB01_SDD_Info>();
                 _lst.Add(pDetail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLB01_SDD_Info>(_lst, false);
@@ -717,10 +717,11 @@
 
         [HttpPost]
         [Route("getFee")]
-        public ActionResult GetFee(App_Detail_PLB01_SDD_Info pDetail, List<AppDocumentInfo> pAppDocumentInfo, List<UTienInfo> pUTienInfo, List<AppDocumentOthersInfo> pLstImagePublic)
+        public ActionResult GetFee(ApplicationHeaderInfo pInfo, App_Detail_PLB01_SDD_Info pDetail, List<AppDocumentInfo> pAppDocumentInfo, List<UTienInfo> pUTienInfo, List<AppDocumentOthersInfo> pLstImagePublic)
         {
             try
             {
+                //AppsCommon.Prepare_Data_Export_3B(ref pDetail, pInfo, pAppDocumentInfo);
                 List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_3B(pDetail);
                 ViewBag.LstFeeFix = _lstFeeFix;
             }

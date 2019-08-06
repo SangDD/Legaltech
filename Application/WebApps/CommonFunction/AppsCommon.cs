@@ -1501,7 +1501,7 @@ namespace WebApps.CommonFunction
         }
 
         public static void Prepare_Data_Export_3B(ref App_Detail_PLB01_SDD_Info pDetail, ApplicationHeaderInfo pInfo,
-            List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo)
+            List<AppDocumentInfo> pAppDocumentInfo)
         {
             try
             {
