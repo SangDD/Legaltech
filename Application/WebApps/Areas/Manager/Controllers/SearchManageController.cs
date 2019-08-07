@@ -547,6 +547,12 @@ namespace WebApps.Areas.Manager.Controllers
                     ViewBag.Currstatus = _HeaderInfo.STATUS;
                     ViewBag.lstClassDetailInfo = search_Class_Infos;
 
+                    B_Todos_Info _B_Todos_Info = _B_Todos_BL.Todo_GetByCaseCode(_casecode, SessionData.CurrentUser.Username);
+                    if (_B_Todos_Info != null)
+                    {
+                        ViewBag.B_Todos_Info = _B_Todos_Info;
+                    }
+
                     //action là view hay sửa
                     decimal _operator_type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update);
                     if (RouteData.Values.ContainsKey("id1"))
@@ -689,10 +695,13 @@ namespace WebApps.Areas.Manager.Controllers
 
                     Email_Info _Email_Info = new Email_Info
                     {
+                        EmailFrom = EmailHelper.EmailOriginal.EMailFrom_Business,
+                        Pass = EmailHelper.EmailOriginal.PassWord_Business,
+                        Display_Name = EmailHelper.EmailOriginal.DisplayName_Business,
                         EmailTo = _emailTo,
                         EmailCC = _emailCC,
                         Subject = "Search Report",
-                        Content = "Search Report",
+                        Content = _QuestionInfo.RESULT,
                         LstAttachment = _LstAttachment,
                     };
 
@@ -864,6 +873,40 @@ namespace WebApps.Areas.Manager.Controllers
             else
                 return PartialView(@"~\Areas\Manager\Views\SearchManage\_PartialSearch_Trademark.cshtml");
 
+        }
+
+        [HttpPost]
+        [Route("do-close")]
+        public ActionResult DoClose(string p_case_code, string p_note)
+        {
+            try
+            {
+                SearchObject_BL _con = new SearchObject_BL();
+                decimal _ck = _con.Customer_Review(p_case_code, CommonSearch.Close, p_note, AppsCommon.GetCurrentLang(), SessionData.CurrentUser.Username);
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
+        [HttpPost]
+        [Route("do-filling")]
+        public ActionResult Do_Filling(string p_case_code, string p_note)
+        {
+            try
+            {
+                SearchObject_BL _con = new SearchObject_BL();
+                decimal _ck = _con.Customer_Review(p_case_code, CommonSearch.Filling, p_note, AppsCommon.GetCurrentLang(), SessionData.CurrentUser.Username);
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
         }
     }
 }

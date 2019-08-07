@@ -384,7 +384,15 @@
                 return false;
             }
 
-            var _object_Search = $("#cboAppType").val();
+            var _object_Search = 0;
+            if ($("#rd_Search_TM").is(':checked')) {
+                _object_Search = '@Search_Object_Enum.Trademark';
+            } else if ($("#rd_Search_PT").is(':checked')) {
+                _object_Search = '@Search_Object_Enum.Patent';
+            } else if ($("#rd_Search_ID").is(':checked')) {
+                _object_Search = '@Search_Object_Enum.IndusDesign';
+            }
+
             if (_object_Search == '@Search_Object_Enum.Patent' ) {
                 var _txtName = $("#txtName").val();
                 if (_txtName == null || _txtName == "") {

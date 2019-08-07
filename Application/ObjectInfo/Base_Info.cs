@@ -23,6 +23,10 @@ namespace ObjectInfos
 
     public class Email_Info
     {
+        public string EmailFrom { get; set; }
+        public string Pass { get; set; }
+        public string Display_Name { get; set; }
+
         public string EmailTo { get; set; }
         public string EmailCC { get; set; }
         public string Subject { get; set; }

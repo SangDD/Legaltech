@@ -1,0 +1,158 @@
+﻿@using ObjectInfos;
+@using BussinessFacade;
+@using Common.CommonData;
+@{
+    //decimal _application_header_id = -1;
+    //if (ViewBag.Application_Header_Id != null)
+    //{
+    //    _application_header_id = ViewBag.Application_Header_Id;
+    //}
+
+    var _SearchObject_Header_Info = new SearchObject_Header_Info();
+    if (ViewBag.SearchHeader != null)
+    {
+        _SearchObject_Header_Info =  ViewBag.SearchHeader;
+    }
+
+    Lawer_Info_BL _Lawer_Info_BL = new Lawer_Info_BL();
+    List<UserInfo> _lstLawer = _Lawer_Info_BL.Lawer_Info_GetAll();
+}
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 200px;
+    }
+</style>
+@*style="padding:5px 38px"*@
+
+<div>
+    @*<div class="divCover cls_form_title">
+        <img src="~/Content/icons/category.png" />
+        <div class="cls_form_header">
+            Phân loại cho luật sư
+        </div>
+    </div>*@
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.GhiChu <i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtNotes" maxlength="2000" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="form-group-bottom">
+            <input type="submit" class="btn-default" value="Close" onclick="return doClose()" />
+            <input type="submit" class="btn-default" value="Filling" onclick="return doFilling()" />
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+
+        $('#cboLawer').multipleSelect({
+            filter: true,
+            single: true,
+            isdatastring: false,
+            maxHeight: 150,
+            placeholder: "-- @WebApps.Resources.Resource.ChonLuatSu --"
+        });
+
+    });
+
+    function doClose() {
+        if (validateAction()) {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmCloseSearch)", function () {
+                $.ajax({
+                    url: '/quan-ly-search/do-close',
+                    type: 'POST',
+                    data: {
+                        p_case_code: '@_SearchObject_Header_Info.CASE_CODE',
+                        p_note: $('#txtNotes').val()
+                    },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            //jError("Lỗi check lại kết nối tới server", "Lỗi");
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
+                            return false;
+                        }
+                        else {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)","@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                                window.location.href = "/home";
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            });
+        }
+    }
+
+    function doFilling() {
+        if (validateAction()) {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmFillingSearch)", function () {
+                $.ajax({
+                    url: '/quan-ly-search/do-filling',
+                    type: 'POST',
+                    data: {
+                        p_case_code: '@_SearchObject_Header_Info.CASE_CODE',
+                        p_note: $('#txtNotes').val()
+                    },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
+                            return false;
+                        }
+                        else {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)","@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                                if (@_SearchObject_Header_Info.Object_Search == '@Search_Object_Enum.Trademark') {
+                                    window.location.href = "/trade-mark/request-for-trade-mark/A02";
+                                } else if (@_SearchObject_Header_Info.Object_Search == '@Search_Object_Enum.Patent') {
+                                    window.location.href = "/lg-patent/register/A01";
+                                } else if (@_SearchObject_Header_Info.Object_Search == '@Search_Object_Enum.IndusDesign') {
+                                    window.location.href = "/indus-design/register/A03";
+                                } else {
+                                    window.location.href = "/home";
+                                }
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            });
+        }
+    }
+
+    function validateAction() {
+        var _Note = $('#txtNotes').val();
+        if (_Note == null || _Note == "") {
+            jError("@Html.Raw(WebApps.Resources.Resource.GhiChuKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                $('#txtNotes').focus();
+            });
+            return false;
+        }
+
+        return true;
+    }
+    
+</script>

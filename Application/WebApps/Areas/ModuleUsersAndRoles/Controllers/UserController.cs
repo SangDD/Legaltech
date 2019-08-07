@@ -312,6 +312,10 @@
                 {
                     Email_Info _Email_Info = new Email_Info
                     {
+                        EmailFrom = EmailHelper.EmailOriginal.EMailFrom,
+                        Pass = EmailHelper.EmailOriginal.PassWord,
+                        Display_Name = EmailHelper.EmailOriginal.DisplayName,
+
                         EmailTo = pEmail,
                         EmailCC = "",
                         Subject = "Email thông báo đăng ký mở tài khoản thành công",

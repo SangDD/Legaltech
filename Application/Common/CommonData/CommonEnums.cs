@@ -275,6 +275,8 @@
         public const int Stt_ChoAdminDuyet = 3;                 // chờ admin duyệt
         public const int Stt_DaPhanHoi = 4;                     // duyệt xong thì phản hồi cho khách hàng
         public const int Admin_Reject = 5;                      // admin reject
+        public const int Close = 6;                             // khách hàng đóng
+        public const int Filling = 7;                           // khách hàng nộp đơn
 
     }
 }

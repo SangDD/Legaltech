@@ -673,6 +673,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bạn có chắc chắn muốn kết thúc nội dung tìm kiếm này hay không?.
+        /// </summary>
+        public static string ConfirmCloseSearch {
+            get {
+                return ResourceManager.GetString("ConfirmCloseSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bạn có chắc chắn muốn xóa dữ liệu này hay không?.
         /// </summary>
         public static string ConfirmDelete {
@@ -696,6 +705,15 @@ namespace WebApps.Resources {
         public static string ConfirmEdit {
             get {
                 return ResourceManager.GetString("ConfirmEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bạn có chắc chắn muốn nộp đơn cho nội dung tìm kiếm này hay không?.
+        /// </summary>
+        public static string ConfirmFillingSearch {
+            get {
+                return ResourceManager.GetString("ConfirmFillingSearch", resourceCulture);
             }
         }
         
@@ -6055,7 +6073,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tiếng.
+        ///   Looks up a localized string similar to tiếng.
         /// </summary>
         public static string TM3B_Tieng {
             get {

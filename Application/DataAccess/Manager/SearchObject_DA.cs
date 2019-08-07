@@ -350,6 +350,29 @@ namespace DataAccess
             }
         }
 
+        public decimal Customer_Review(string p_case_code, decimal p_status, string p_notes, string p_language_code, string p_modified_by)
+        {
+            try
+            {
+                OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
+                paramReturn.Size = 10;
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_SEARCH_OBJECTS.proc_customer_review",
+                    new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
+                    new OracleParameter("p_status", OracleDbType.Decimal, p_status, ParameterDirection.Input),
+                    new OracleParameter("p_notes", OracleDbType.Varchar2, p_notes, ParameterDirection.Input),
+                    new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
+                    new OracleParameter("p_modified_by", OracleDbType.Varchar2, p_modified_by, ParameterDirection.Input),
+                    paramReturn);
+
+                return Convert.ToDecimal(paramReturn.Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
         public decimal SEARCH_RESULT_SEARCH(string p_case_code, decimal p_lawer_id, string p_notes, string p_result, string p_language_code,
             string p_modified_by, string P_FILE_URL_01, string P_FILE_URL_02)
         {

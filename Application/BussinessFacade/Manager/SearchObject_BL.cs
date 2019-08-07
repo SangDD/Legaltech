@@ -211,8 +211,23 @@ namespace BussinessFacade
                 Logger.LogException(ex);
                 return -1;
             }
-
         }
+
+        public decimal Customer_Review(string p_case_code, decimal p_status, string p_notes, string p_language_code, string p_modified_by)
+        {
+            try
+            {
+                SearchObject_DA _objDA = new SearchObject_DA();
+                return _objDA.Customer_Review(p_case_code, p_status, p_notes, p_language_code, p_modified_by);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
+        
 
         public decimal SEARCH_RESULT_SEARCH(SearchObject_Question_Info p_obj)
         {

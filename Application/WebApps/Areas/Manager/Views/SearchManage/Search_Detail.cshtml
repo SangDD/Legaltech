@@ -1,6 +1,7 @@
 ﻿@using Common.CommonData
 @using ObjectInfos;
 @using BussinessFacade.ModuleMemoryData
+@using System.Linq;
 @{
     ViewBag.Title = "Chi tiết Search";
     Layout = "~/ViewsShared/_Layout.cshtml";
@@ -19,6 +20,8 @@
     }
     string _Checked = "";
     List<AllCodeInfo> _lstStatus = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("SEARCH_OBJECT", "STATUS");
+    _lstStatus.RemoveAll(x => x.CdVal == "5" || x.CdVal == "6" || x.CdVal == "7");
+
     int _count = 0;
     List<B_Todos_Info> _Listtodo = new List<B_Todos_Info>();
     if (ViewBag.ListTodo != null)
@@ -36,6 +39,12 @@
     if (ViewBag.SearchHeader != null)
     {
         _HeaderInfo = ViewBag.SearchHeader;
+    }
+
+    int _is_update = 0;
+    if (ViewBag.B_Todos_Info != null)
+    {
+        _is_update = 1;
     }
 }
 
@@ -265,7 +274,7 @@
         </div>
     }
 
-    @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update))
+    @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update) && _is_update == 1)
     {
         <div style="margin-top:20px;float:left;width:100%">
             @if (_currstatus == CommonSearch.Stt_PhanChoLuatSu)
@@ -283,6 +292,10 @@
             else if (_currstatus == CommonSearch.Admin_Reject)
             {
                 @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialAdmin_Reject.cshtml")
+            }
+            else if (_currstatus == CommonSearch.Stt_DaPhanHoi)
+            {
+                @Html.Partial("~/Areas/Manager/Views/SearchManage/_Partial_KhachHang_Review.cshtml")
             }
         </div>
     }

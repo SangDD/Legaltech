@@ -35,7 +35,11 @@
                     PassWord = CommonFuc.GetConfig("EMailPass"),
                     DisplayName = CommonFuc.GetConfig("DisplayName"),
                     IsSsl = CommonFuc.GetConfig("SSL") == "Y",
-                    EmailCC = CommonFuc.GetConfig("EmailCC")
+                    EmailCC = CommonFuc.GetConfig("EmailCC"),
+
+                    EMailFrom_Business = CommonFuc.GetConfig("EMailFrom_Business"),
+                    PassWord_Business = CommonFuc.GetConfig("EMailPass_Business"),
+                    DisplayName_Business = CommonFuc.GetConfig("DisplayName_Business")
                 };
 
                 Logger.Log().Info("Start Application_Start");
@@ -49,7 +53,7 @@
                 _th1.Start();
 
                 // tự động change trạng thái của remind
-                Thread _th2 = new Thread(ThreadChangeRemind);
+                Thread _th2 = new Thread(ThreadReadTodo4SendEmail);
                 _th2.IsBackground = true;
                 _th2.Start();
 
@@ -269,7 +273,7 @@
             }
         }
 
-        private void ThreadChangeRemind()
+        private void ThreadReadTodo4SendEmail()
         {
             int _timeSleep = Convert.ToInt16(CommonFuc.GetConfig("TimeSleepSendMail"));
             while (true)
@@ -299,6 +303,10 @@
                     {
                         Email_Info _Email_Info = new Email_Info
                         {
+                            EmailFrom = EmailHelper.EmailOriginal.EMailFrom,
+                            Pass = EmailHelper.EmailOriginal.PassWord,
+                            Display_Name = EmailHelper.EmailOriginal.DisplayName,
+
                             EmailTo = item.Email_Send,
                             EmailCC = "",
                             Subject = item.CONTENT,
@@ -339,7 +347,7 @@
                     Email_Info _Email_Info = WebApps.CommonFunction.AppsCommon.Dequeue_SendEmail();
                     if (_Email_Info != null)
                     {
-                        bool _ck = EmailHelper.SendMail(_Email_Info.EmailTo, _Email_Info.EmailCC, _Email_Info.Subject, _Email_Info.Content, _Email_Info.LstAttachment);
+                        bool _ck = EmailHelper.SendMail(_Email_Info.EmailFrom, _Email_Info.Pass, _Email_Info.Display_Name, _Email_Info.EmailTo, _Email_Info.EmailCC, _Email_Info.Subject, _Email_Info.Content, _Email_Info.LstAttachment);
                         if (_ck == false)
                         {
                             WebApps.CommonFunction.AppsCommon.EnqueueSendEmail(_Email_Info);

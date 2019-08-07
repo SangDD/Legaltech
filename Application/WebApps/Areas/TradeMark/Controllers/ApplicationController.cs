@@ -371,6 +371,10 @@ namespace WebApps.Areas.TradeMark.Controllers
 
                     Email_Info _Email_Info = new Email_Info
                     {
+                        EmailFrom = EmailHelper.EmailOriginal.EMailFrom_Business,
+                        Pass = EmailHelper.EmailOriginal.PassWord_Business,
+                        Display_Name = EmailHelper.EmailOriginal.DisplayName_Business,
+
                         EmailTo = _emailTo,
                         EmailCC = _emailCC,
                         Subject = "Filing advice",

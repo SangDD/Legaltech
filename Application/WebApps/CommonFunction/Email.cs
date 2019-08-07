@@ -11,10 +11,17 @@ namespace WebApps
     {
         public string Host { get; set; }
         public int Port { get; set; }
-        public string EMailFrom { get; set; }
         public string EmailCC { get; set; }
+
+        public string EMailFrom { get; set; }
         public string PassWord { get; set; }
         public string DisplayName { get; set; }
+
+        public string EMailFrom_Business { get; set; }
+        public string PassWord_Business { get; set; }
+        public string DisplayName_Business { get; set; }
+
+        
         public bool IsSsl { get; set; }
         //public string MailTo { get; set; }
         public string Subject { get; set; }
@@ -35,14 +42,14 @@ namespace WebApps
         /// <param name="p_EmailCC">người cc, cách nhau = dấu ;</param>
         /// <param name="oMsg"></param>
         /// <returns></returns>
-        public static bool SendMail(string p_emailTo, string p_EmailCC, string p_Subject, string p_content, List<string> p_LstAttachment)
+        public static bool SendMail(string p_emailFrom, string p_pass, string p_display_name, string p_emailTo, string p_EmailCC, string p_Subject, string p_content, List<string> p_LstAttachment)
         {
             //EmailInfo pEmail = EmailHelper.EmailOriginal;
             try
             {
                 using (var mail = new MailMessage())
                 {
-                    mail.From = new MailAddress(EmailHelper.EmailOriginal.EMailFrom, EmailHelper.EmailOriginal.DisplayName);
+                    mail.From = new MailAddress(p_emailFrom, p_display_name);
                     foreach (var emailTo in p_emailTo.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries))
                         mail.To.Add(emailTo);
                     mail.Subject = p_Subject;
@@ -69,9 +76,9 @@ namespace WebApps
 
                     using (var smtp = new SmtpClient(EmailHelper.EmailOriginal.Host, EmailHelper.EmailOriginal.Port))
                     {
-                        smtp.Credentials = new NetworkCredential(EmailHelper.EmailOriginal.EMailFrom, EmailHelper.EmailOriginal.PassWord);
+                        smtp.UseDefaultCredentials = true;
+                        smtp.Credentials = new NetworkCredential(p_emailFrom, p_pass);
                         smtp.EnableSsl = EmailHelper.EmailOriginal.IsSsl;
-
                         try
                         {
                             smtp.Send(mail);
