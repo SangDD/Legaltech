@@ -33,8 +33,8 @@ CKEDITOR.editorConfig = function (config) {
 //['JustifyLeft', 'JustifyCenter', 'JustifyRight', ],
 //['Image', '-', 'Link', 'Unlink', '-', 'Source']
 //];
-CKEDITOR.config.toolbar = [['Source', '-', 'NewPage', 'Preview', '-', 'Templates'], ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo', 'Find', 'Replace', '-', 'Outdent', 'Indent', '-', 'Print'],
-    '/',
-    ['Bold', 'Italic'], ['Styles', 'Format', 'Font', 'FontSize'], ['Image', 'Table', '-', 'Link', 'Flash', 'Smiley', 'TextColor', 'BGColor'],
-    ['NumberedList', 'BulletedList', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']
-    ];
+//CKEDITOR.config.toolbar = [['Source', '-', 'NewPage', 'Preview', '-', 'Templates'], ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo', 'Find', 'Replace', '-', 'Outdent', 'Indent', '-', 'Print'],
+//    '/',
+//    ['Bold', 'Italic'], ['Styles', 'Format', 'Font', 'FontSize'], ['Image', 'Table', '-', 'Link', 'Flash', 'Smiley', 'TextColor', 'BGColor'],
+//    ['NumberedList', 'BulletedList', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']
+//    ];

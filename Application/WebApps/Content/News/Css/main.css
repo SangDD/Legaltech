@@ -9154,7 +9154,7 @@ a {
 @media(max-width:999px) {
     .c-viewlist-btn {
         position: relative;
-        margin-top: 60px;
+        /*margin-top: 60px;*/
         width: 100%;
         height: 60px;
         background-color: #fcfbfa;
@@ -9877,7 +9877,7 @@ a {
 
 @media(max-width:699px) {
     .t-generic_title {
-        font-size: 30px;
+        font-size: 24px;
     }
 }
 
@@ -9889,7 +9889,7 @@ a {
 
 @media(min-width:1000px) {
     .t-generic_title {
-        font-size: 30px;
+        font-size: 24px;
     }
 }
 
@@ -11377,3 +11377,14 @@ select.divNumberRecordOnPage {
  {
      width:120px;
  }
+ @media(max-width:900px) {
+    .c_555  {
+        font-size:15px !important;
+    }
+    .t-generic_summary > div, .c-carousel_content-description,
+    .o-layout_item
+    {
+          font-size:15px !important;
+    }
+}
+ 
