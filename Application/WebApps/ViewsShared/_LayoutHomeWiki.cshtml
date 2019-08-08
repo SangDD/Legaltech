@@ -6,8 +6,21 @@
     string _LanguageCode = AppsCommon.GetCurrentLang();
     Random _ramdom = new Random();
     string _userwikiramdom = DateTime.Now.Ticks.ToString() + _ramdom.Next(99999);
+    decimal _defaultPage = 0;
+    if (ViewBag.DefaultPage != null)
+    {
+        _defaultPage = ViewBag.DefaultPage;
+    }
+    string _htmlclass = "";
+    if (_defaultPage == 1)
+    {
+        _htmlclass = "has-js dom-is-loaded dom-is-animated has-header-navigation-opened";
+    }
+    @*class show menu default*@
+    @* nếu có cái html có các class này thì khi load sẽ hiển thị menu mobile *@
+    @*has-js dom-is-loaded dom-is-animated has-header-navigation-opened*@
 }
-<html>
+<html class="@_htmlclass"  >
 <head>
     <script>
        var _currentlanguage = '@_LanguageCode';
