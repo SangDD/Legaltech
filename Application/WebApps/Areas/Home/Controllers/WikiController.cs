@@ -122,7 +122,11 @@ namespace WebApps.Areas.Home.Controllers
                     _parentinfo = _CatalogueBL.WikiCatalogue_GetByID(Convert.ToDecimal(_Cataid));
                 }
                else
-                     _Cataid = _parentinfo.ID.ToString();
+                {
+                    ViewBag.DefaultPage = 1;
+                   _Cataid = _parentinfo.ID.ToString();
+                }
+                   
 
                 _ListCata = _CatalogueBL.Portal_Catalogue_Search("ALL|ALL|" + _Cataid.ToString() +  "|" + AppsCommon.GetCurrentLang());
                 ViewBag.Paging = _CatalogueBL.GetPagingHtml();
