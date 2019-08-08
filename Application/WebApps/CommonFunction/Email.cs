@@ -78,6 +78,7 @@ namespace WebApps
                     {
                         smtp.UseDefaultCredentials = true;
                         smtp.Credentials = new NetworkCredential(p_emailFrom, p_pass);
+                        smtp.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
                         smtp.EnableSsl = EmailHelper.EmailOriginal.IsSsl;
                         try
                         {
