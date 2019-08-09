@@ -24,7 +24,7 @@
 
         <li class="email">
             <a href="javascript:;" onclick="return funcPreViewApplication('EN_US');" title="Xem trước VN">
-                <img src="/Content/icons/england.png" style="width: 25px;height: 30px;"/>
+                <img src="/Content/icons/england.png" style="width: 25px;height: 30px;" />
             </a>
         </li>
     </ul>
@@ -45,7 +45,7 @@
 
 
 <script>
- 
+
     function Accept() {
         try {
             if (CheckSessionTimeOut() == false) {
@@ -128,7 +128,7 @@
                     $("#divPopUpFee").html(data.PartialTableListFees);
 
                     //$("#divPopUpFee").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpFee', "Thông tin fee", 800, 1200);
+                    ShowPopupDialog_Ipace('divWrapperPopUpFee', '@Html.Raw(WebApps.Resources.Resource.ThongTinFee)', 800, 1200);
                 }
                 return false;
             }

@@ -20,6 +20,7 @@ namespace ObjectInfos
         public string Char02 { get; set; }
         public string Char03 { get; set; }
         public string Description { get; set; }
+        public string Description_En { get; set; }
 
     }
 }

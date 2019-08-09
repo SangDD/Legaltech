@@ -82,7 +82,7 @@ namespace BussinessFacade.ModuleTrademark
             try
             {
                 var _da = new SysApplicationDA();
-                var preturn = _da.SysAppFeeFixUpdate(pInfo.Id, pInfo.Appcode, pInfo.Amount, pInfo.Amount_Usd, pInfo.Amount_Represent, pInfo.Amount_Represent_Usd, pInfo.Char01, pInfo.Description);
+                var preturn = _da.SysAppFeeFixUpdate(pInfo.Id, pInfo.Appcode, pInfo.Amount, pInfo.Amount_Usd, pInfo.Amount_Represent, pInfo.Amount_Represent_Usd, pInfo.Char01, pInfo.Description, pInfo.Description_En);
                 return preturn;
             }
             catch (Exception ex)

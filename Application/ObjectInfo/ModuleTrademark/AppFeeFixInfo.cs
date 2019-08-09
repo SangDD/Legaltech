@@ -30,6 +30,7 @@ namespace ObjectInfos.ModuleTrademark
         public decimal Isuse { get; set; }
         public decimal Number_Of_Patent { get; set; }
         public string Fee_Name { get; set; }
+        public string Fee_Name_En { get; set; }
 
         public decimal Level { get; set; }
     }

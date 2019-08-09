@@ -4957,6 +4957,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thông tin fee.
+        /// </summary>
+        public static string ThongTinFee {
+            get {
+                return ResourceManager.GetString("ThongTinFee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thông tin khác.
         /// </summary>
         public static string ThongTinKhac {

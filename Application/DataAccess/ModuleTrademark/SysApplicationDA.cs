@@ -53,7 +53,8 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
-        public decimal SysAppFeeFixUpdate(decimal p_id, string p_appcode, decimal p_amount, decimal p_amount_usd, decimal p_amount_represent, decimal p_amount_represent_usd, string p_char01, string p_description)
+        public decimal SysAppFeeFixUpdate(decimal p_id, string p_appcode, decimal p_amount, decimal p_amount_usd, decimal p_amount_represent, decimal p_amount_represent_usd, 
+            string p_char01, string p_description, string p_description_en)
         {
             try
             {
@@ -68,6 +69,7 @@ namespace DataAccess.ModuleTrademark
 
                    new OracleParameter("p_char01", OracleDbType.Varchar2, p_char01, ParameterDirection.Input),
                    new OracleParameter("p_description", OracleDbType.Varchar2, p_description, ParameterDirection.Input),
+                   new OracleParameter("p_description_en", OracleDbType.Varchar2, p_description_en, ParameterDirection.Input),
                     paramReturn);
 
                 return Convert.ToDecimal(paramReturn.Value.ToString());
