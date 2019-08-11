@@ -176,20 +176,22 @@
                             <input type="checkbox" name="checkterm" id="cbocheckterm" onchange="funccheckterm()" />
                         </div>
                         <div style="width:80%;float:left;line-height:18px;">
-                            To register with us please tick to agree our <br />
+                            @Resource.lblDieuKhoan <br />
                             <span style="color:#478CCC">
-                                <a href="/quan-ly-trang-bia/trang/term" target="_blank"> Terms and Conditions</a>
+                                <a href="/quan-ly-tin/features/term" target="_blank"> @Resource.Term</a>
+                                @Resource.And
+                                <a href="/quan-ly-tin/features/policy" target="_blank"> @Resource.Private</a>
                             </span>
                         </div>
                     </div>
                     <div>
-                        <input type="button" class="btn" disabled id="btnRegister" value="Register" onclick="return funcRegister()" />
+                        <input type="button" class="btn" disabled id="btnRegister" value="@Resource.lblSignup" onclick="return funcRegister()" />
                     </div>
 
                     <div style="width:80%;float:left;line-height:18px;">
-                        Already have an account ? 
+                        @Resource.DaCoTaiKhoan
                         <span style="color:#478CCC">
-                            <a href="/account/login" target="_blank"> Sign in</a>
+                            <a href="/account/login" target="_blank"> @Resource.lblSigin</a>
                         </span>
                     </div>
                 </form>

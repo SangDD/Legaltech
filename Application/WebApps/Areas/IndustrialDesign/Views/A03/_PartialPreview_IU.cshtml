@@ -128,6 +128,11 @@
                 return false;
             }
 
+            reponse = funcGetCamKetChuDon(formData);
+            if (reponse == false) {
+                return false;
+            }
+
             $.ajax({
                 url: '/indus-design/ket_xuat_file_IU',
                 type: 'POST',
@@ -188,9 +193,10 @@
 
         if ($("#1_ckbTacGiaDongThoi").is(':checked')) {
             formData.append("pInfo.Master_Type", "TGDT");
-        } else {
-            formData.append("pInfo.Master_Type", "");
+        } else if ($("#rdChuDonKhac").is(':checked')) {
+            formData.append("pInfo.Master_Type", "CDK");
         }
+
         if (funcChuDonKhac(formData) != true) {
             return false;
         }

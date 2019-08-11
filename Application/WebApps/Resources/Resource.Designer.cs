@@ -124,6 +124,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to và.
+        /// </summary>
+        public static string And {
+            get {
+                return ResourceManager.GetString("And", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ảnh.
         /// </summary>
         public static string Anh {
@@ -426,6 +435,15 @@ namespace WebApps.Resources {
         public static string CaseNameTrong {
             get {
                 return ResourceManager.GetString("CaseNameTrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chiết khấu.
+        /// </summary>
+        public static string ChietKhau {
+            get {
+                return ResourceManager.GetString("ChietKhau", resourceCulture);
             }
         }
         
@@ -921,6 +939,15 @@ namespace WebApps.Resources {
         public static string DaCoKetQuaThamDinh {
             get {
                 return ResourceManager.GetString("DaCoKetQuaThamDinh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nếu đã là thành viên ?, vui lòng.
+        /// </summary>
+        public static string DaCoTaiKhoan {
+            get {
+                return ResourceManager.GetString("DaCoTaiKhoan", resourceCulture);
             }
         }
         
@@ -2140,6 +2167,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Để đăng ký là thành viên, vui lòng chấp thuận.
+        /// </summary>
+        public static string lblDieuKhoan {
+            get {
+                return ResourceManager.GetString("lblDieuKhoan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Đơn này được tách ra từ đơn số .
         /// </summary>
         public static string lblDonTachRaTuDonSo {
@@ -2748,6 +2784,15 @@ namespace WebApps.Resources {
         public static string lblSuaBaiViet {
             get {
                 return ResourceManager.GetString("lblSuaBaiViet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phí, lệ phí tạm tính chưa bao gồm thuế, phí ngân hàng, chiết khấu đặc biệt khác.....
+        /// </summary>
+        public static string lblSubtile {
+            get {
+                return ResourceManager.GetString("lblSubtile", resourceCulture);
             }
         }
         
@@ -4444,6 +4489,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tạm tính.
+        /// </summary>
+        public static string Subtitle {
+            get {
+                return ResourceManager.GetString("Subtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SWift Code.
         /// </summary>
         public static string SWiftCode {
@@ -4957,7 +5011,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thông tin fee.
+        ///   Looks up a localized string similar to Phí, lệ phí.
         /// </summary>
         public static string ThongTinFee {
             get {

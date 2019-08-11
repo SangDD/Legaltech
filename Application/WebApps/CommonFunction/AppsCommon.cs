@@ -787,29 +787,37 @@ namespace WebApps.CommonFunction
                     _AppFeeFixInfo61.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
                     _AppFeeFixInfo61.Fee_Name_En = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description_En;
                 }
+                
+                //20190811 chị Tuyến bảo bỏ đi vì cục chưa áp dụng
+                _AppFeeFixInfo61.Isuse = 0;
+                _AppFeeFixInfo61.Number_Of_Patent = 0;
+                _AppFeeFixInfo61.Amount = 0;
+                _AppFeeFixInfo61.Amount_Usd = 0;
+                _AppFeeFixInfo61.Amount_Represent_Usd = 0;
+                _AppFeeFixInfo61.Amount_Represent = 0;
 
                 // nếu số hình > số hình quy định tính từ trang thứ 7 trở đi
-                if (pLstImagePublic != null && pLstImagePublic.Count > _numberPicOver)
-                {
-                    _AppFeeFixInfo61.Isuse = 1;
-                    _AppFeeFixInfo61.Number_Of_Patent = (pLstImagePublic.Count - _numberPicOver);
+                //if (pLstImagePublic != null && pLstImagePublic.Count > _numberPicOver)
+                //{
+                //    _AppFeeFixInfo61.Isuse = 1;
+                //    _AppFeeFixInfo61.Number_Of_Patent = (pLstImagePublic.Count - _numberPicOver);
 
-                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
-                    {
-                        _AppFeeFixInfo61.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo61.Number_Of_Patent;
-                        _AppFeeFixInfo61.Amount_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Usd * _AppFeeFixInfo61.Number_Of_Patent;
-                        _AppFeeFixInfo61.Amount_Represent = _AppFeeFixInfo61.Number_Of_Patent == 0 ? 0 : MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent * _AppFeeFixInfo61.Number_Of_Patent;
-                        _AppFeeFixInfo61.Amount_Represent_Usd = _AppFeeFixInfo61.Number_Of_Patent == 0 ? 0 : MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent_Usd * _AppFeeFixInfo61.Number_Of_Patent;
-                    }
-                    else
-                        _AppFeeFixInfo61.Amount = 60000 * _AppFeeFixInfo61.Number_Of_Patent;
-                }
-                else
-                {
-                    _AppFeeFixInfo61.Isuse = 0;
-                    _AppFeeFixInfo61.Number_Of_Patent = 0;
-                    _AppFeeFixInfo61.Amount = 0;
-                }
+                //    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                //    {
+                //        _AppFeeFixInfo61.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo61.Number_Of_Patent;
+                //        _AppFeeFixInfo61.Amount_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Usd * _AppFeeFixInfo61.Number_Of_Patent;
+                //        _AppFeeFixInfo61.Amount_Represent = _AppFeeFixInfo61.Number_Of_Patent == 0 ? 0 : MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent * _AppFeeFixInfo61.Number_Of_Patent;
+                //        _AppFeeFixInfo61.Amount_Represent_Usd = _AppFeeFixInfo61.Number_Of_Patent == 0 ? 0 : MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent_Usd * _AppFeeFixInfo61.Number_Of_Patent;
+                //    }
+                //    else
+                //        _AppFeeFixInfo61.Amount = 60000 * _AppFeeFixInfo61.Number_Of_Patent;
+                //}
+                //else
+                //{
+                //    _AppFeeFixInfo61.Isuse = 0;
+                //    _AppFeeFixInfo61.Number_Of_Patent = 0;
+                //    _AppFeeFixInfo61.Amount = 0;
+                //}
                 _lstFeeFix.Add(_AppFeeFixInfo61);
 
                 #endregion

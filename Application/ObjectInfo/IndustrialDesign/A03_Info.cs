@@ -313,7 +313,9 @@ namespace ObjectInfos
             p_appDetail.Master_Phone = pAppInfo.Master_Phone;
             p_appDetail.Master_Fax = pAppInfo.Master_Fax;
             p_appDetail.Master_Email = pAppInfo.Master_Email;
-            p_appDetail.Master_Type = pAppInfo.Master_Type;
+
+            p_appDetail.Master_Type = pAppInfo.Master_Type == null ? "" : pAppInfo.Master_Type;
+            p_appDetail.Customer_Code = pAppInfo.Customer_Code == null ? "239" : pAppInfo.Customer_Code;
 
             p_appDetail.Rep_Master_Type = pAppInfo.Rep_Master_Type;
             p_appDetail.Rep_Master_Name = pAppInfo.Rep_Master_Name;

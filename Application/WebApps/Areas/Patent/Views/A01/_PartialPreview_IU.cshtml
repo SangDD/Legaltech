@@ -60,7 +60,7 @@
 
             if ($("#1_ckbTacGiaDongThoi").is(':checked')) {
                 formData.append("pInfo.Master_Type", "TGDT");
-            } else {
+            } else if ($("#rdChuDonKhac").is(':checked')) {
                 formData.append("pInfo.Master_Type", "CDK");
             }
 
@@ -153,7 +153,7 @@
 
         if ($("#1_ckbTacGiaDongThoi").is(':checked')) {
             formData.append("pInfo.Master_Type", "TGDT");
-        } else {
+        } else if ($("#rdChuDonKhac").is(':checked')) {
             formData.append("pInfo.Master_Type", "CDK");
         }
 

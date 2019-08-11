@@ -64,7 +64,7 @@
             <!--[logo + button mobi]-->
             <nav class="c-header-mobile">
                 <div class="c-header-mobile_logo">
-                    <a class="c-header-mobile_logo-link" href="javascript:;" aria-label="tên công ty"  onclick="return  funcHome();">
+                    <a class="c-header-mobile_logo-link" href="javascript:;" aria-label="tên công ty" onclick="return  funcHome();">
                         <figure class="c-header-mobile_logo_img" aria-hidden="true">
                             <img class="c-header-mobile_logo_svg-color" src="/Content/News/images/logo_ipace-1.png">
                             <img class="c-header-mobile_logo_svg-white" src="/Content/News/images/logo_ipace-1.png">
@@ -90,7 +90,7 @@
                     <!--[Menutop + mobi]-->
                     <ul id="menu-main-menu" class="c-header_nav-list u-list-reset">
                         <li class="c-header_nav-item js-nav-nosublink">
-                            <a  href="javascript:;" onclick="funLogin();" class="a-login-regis c-header_nav-item-label" data-transition="full">
+                            <a href="javascript:;" onclick="funLogin();" class="a-login-regis c-header_nav-item-label" data-transition="full">
                                 @if (WebApps.Session.SessionData.CurrentUser != null)
                                 {
                                     @WebApps.Session.SessionData.CurrentUser.Username
@@ -104,8 +104,14 @@
                         @if (WebApps.Session.SessionData.CurrentUser == null)
                         {
                             <li class="c-header_nav-item js-nav-nosublink">
-                                @*<a href="javascript:;"  onclick="return funcBottom();" class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>*@
-                                <a target="_blank" href="/vi-vn/account/register" class="a-login-regis c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
+                                @if (_LanguageCode == LangCode.EN_US.ToString())
+                                {
+                                    <a target="_blank" href="/en-gb/account/register" class="a-login-regis c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
+                                }
+                                else
+                                {
+                                    <a target="_blank" href="/vi-vn/account/register" class="a-login-regis c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
+                                }
                             </li>
                         }
                         <!--[Menu]-->
@@ -240,7 +246,7 @@
                                                     </span>
                                                 </div>
                                                 @*<form method="POST"  >*@
-                                                <div class="row join-us-form form-row" >
+                                                <div class="row join-us-form form-row">
                                                     <div class="col-md-10">
                                                         <div class="row">
                                                             <div class="col-md-2">
@@ -349,7 +355,7 @@
                                 </div>
 
                             </div>
-                            </div>
+                        </div>
                     </section>
                 </article>
                 <aside class="scrollbar-track scrollbar-track-x" style="display: none;">

@@ -18,6 +18,7 @@
     using GemBox.Document;
     using GemBox.Spreadsheet;
     using ObjectInfos;
+    using WebApps.CommonFunction;
 
     public class MvcApplication : HttpApplication
     {
@@ -297,7 +298,7 @@
                     List<B_Todos_Info> _lst = _B_Todos_BL.GetSend_Email();
                     List<string> _LstAttachment = new List<string>();
 
-                    List<B_Todos_Info> _lst_update = _B_Todos_BL.GetSend_Email();
+                    List<B_Todos_Info> _lst_update = new List<B_Todos_Info>();
 
                     foreach (B_Todos_Info item in _lst)
                     {
@@ -309,8 +310,12 @@
 
                             EmailTo = item.Email_Send,
                             EmailCC = "",
-                            Subject = item.CONTENT,
-                            Content = item.CONTENT,
+                            Subject = AppsCommon.GetCurrentLang() != "VI_VN" ? "You have a new to-do job in ACCESS.IP from IPath Consult Co." :
+                            "Bạn có một thông báo công việc mới tại ACCESS.IP từ IPath Consult Co.",
+
+                            Content = AppsCommon.GetCurrentLang() != "VI_VN" ? "You have a new to-do job in ACCESS.IP from IPath Consult Co." :
+                            "Bạn có một thông báo công việc mới tại ACCESS.IP từ IPath Consult Co."
+                            + item.CONTENT,
                             LstAttachment = _LstAttachment,
                         };
 

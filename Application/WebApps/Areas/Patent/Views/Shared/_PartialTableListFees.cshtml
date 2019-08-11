@@ -11,12 +11,17 @@
 
     decimal _Total_Amount = 0;
     decimal _Total_Amount_Represent = 0;
+    decimal _discount = 0;
+
 
     foreach (var item in _list_data)
     {
         _Total_Amount += item.Amount;
         _Total_Amount_Represent += item.Amount_Represent;
     }
+
+    _discount = Math.Round(_Total_Amount_Represent / 2);
+    decimal _MustPay = _Total_Amount_Represent - _discount;
 
     string language = AppsCommon.GetCurrentLang();
 }
@@ -34,6 +39,10 @@
         <tbody>
             @if (_list_data != null && _list_data.Count > 0)
             {
+                <tr>
+                    <td class="tdleftalign" colspan="4" style="font-weight:bold">@WebApps.Resources.Resource.lblSubtile</td>
+                </tr>
+
                 foreach (var item in _list_data)
                 {
                     <tr>
@@ -77,10 +86,24 @@
                 }
 
                 <tr>
-                    <td class="tdleftalign" style="font-weight:bold">@WebApps.Resources.Resource.TongCong</td>
+                    <td class="tdleftalign" style="font-weight:bold">@WebApps.Resources.Resource.Subtitle</td>
                     <td class="tdrightalign">-</td>
                     <td class="tdrightalign" style="font-weight:bold; color: red">@_Total_Amount.ToString("#,##0.##")</td>
                     <td class="tdrightalign" style="font-weight:bold; color: red">@_Total_Amount_Represent.ToString("#,##0.##")</td>
+                </tr>
+
+                <tr>
+                    <td class="tdleftalign" style="font-weight:bold">@WebApps.Resources.Resource.ChietKhau</td>
+                    <td class="tdrightalign">-</td>
+                    <td class="tdrightalign" style="font-weight:bold; color: black">0</td>
+                    <td class="tdrightalign" style="font-weight:bold; color: red">@_discount.ToString("#,##0.##")</td>
+                </tr>
+
+                <tr>
+                    <td class="tdleftalign" style="font-weight:bold">@WebApps.Resources.Resource.TongCong</td>
+                    <td class="tdrightalign">-</td>
+                    <td class="tdrightalign" style="font-weight:bold; color: red">@_Total_Amount.ToString("#,##0.##")</td>
+                    <td class="tdrightalign" style="font-weight:bold; color: red">@_MustPay.ToString("#,##0.##")</td>
                 </tr>
             }
             else

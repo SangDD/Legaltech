@@ -139,7 +139,14 @@
                         {
                             <li class="c-header_nav-item js-nav-nosublink">
                                 @*<a href="javascript:;"  onclick="return funcBottom();" class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>*@
-                                <a target="_blank" href="/vi-vn/account/register" class="a-login-regis c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
+                                @if (_LanguageCode == LangCode.EN_US.ToString())
+                                {
+                                    <a target="_blank" href="/en-gb/account/register" class="a-login-regis c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
+                                }
+                                else
+                                {
+                                    <a target="_blank" href="/vi-vn/account/register" class="a-login-regis c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
+                                }
                             </li>
                         }
 

@@ -387,11 +387,11 @@
                 <div class="div-radio">
                     @if (Lst_Other_Master.Count > 0)
                     {
-                        <input type="radio" name="1_rdoChuDon" checked="checked" value="2" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
+                        <input type="radio" name="1_rdoChuDon" checked="checked" value="CDK" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
                     }
                     else
                     {
-                        <input type="radio" name="1_rdoChuDon" value="2" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
+                        <input type="radio" name="1_rdoChuDon" value="CDK" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
                     }
                     <label>@Resource.NgoaiChuDon</label>
                 </div>
@@ -967,9 +967,10 @@
 
             if ($("#1_ckbTacGiaDongThoi").is(':checked')) {
                 formData.append("pInfo.Master_Type", "TGDT");
-            } else {
-                formData.append("pInfo.Master_Type", "");
+            } else if ($("#rdChuDonKhac").is(':checked')) {
+                formData.append("pInfo.Master_Type", "CDK");
             }
+
             if (funcChuDonKhac(formData) != true) {
                 return false;
             }
@@ -1398,6 +1399,9 @@
                     formData.append("pAppAuthorsInfo[" + _index + "].Author_Email", $("#" + _id + "_TG_Email").val());
                     formData.append("pAppAuthorsInfo[" + _index + "].Author_Country", $("#" + _id + "_TG_QuocTich").val());
 
+                    var cbo_country_tg = document.getElementById(_id + "_TG_QuocTich");
+                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Country_Display", cbo_country_tg.options[cbo_country_tg.selectedIndex].text);
+
                     _index = _index + 1;
                 }
             });
@@ -1443,6 +1447,8 @@
                         formData.append("pUTienInfo[" + _index + "].UT_SoDon", $("#" + _id + "_UT_txtSoDon").val());
                         formData.append("pUTienInfo[" + _index + "].UT_NgayNopDon", $("#" + _id + "_UT_txtNgayNopDon").val());
                         formData.append("pUTienInfo[" + _index + "].UT_QuocGia", $("#" + _id + "_UT_txtQuocGia").val());
+                        var cbo_country = document.getElementById(_id + "_UT_txtQuocGia");
+                        formData.append("pUTienInfo[" + _index + "].UT_QuocGia_Display", cbo_country.options[cbo_country.selectedIndex].text);
 
                         var _nameYC = _id + "_rdo_YCHuongQuyen";
                         var v_QuyenUuTien = $("input[name='" + _nameYC + "']:checked").val();

@@ -254,7 +254,7 @@
 
             <div class="div-search-content">
                 <div class="div-radio">
-                    <input type="radio" name="1_rdoChuDon" value="2" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
+                    <input type="radio" name="1_rdoChuDon" value="CDK" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
                     <label>@Resource.NgoaiChuDon</label>
                 </div>
             </div>
@@ -717,9 +717,13 @@
 
             if ($("#1_ckbTacGiaDongThoi").is(':checked')) {
                 formData.append("pInfo.Master_Type", "TGDT");
-            } else {
-                formData.append("pInfo.Master_Type", "");
+            } else if ($("#rdChuDonKhac").is(':checked')) {
+                formData.append("pInfo.Master_Type", "CDK");
             }
+
+            
+
+
             if (funcChuDonKhac(formData) != true) {
                 return false;
             }
@@ -1164,6 +1168,9 @@
                     formData.append("pAppAuthorsInfo[" + _index + "].Author_Email", $("#" + _id + "_TG_Email").val());
                     formData.append("pAppAuthorsInfo[" + _index + "].Author_Country", $("#" + _id + "_TG_QuocTich").val());
 
+                    var cbo_country_tg = document.getElementById(_id + "_TG_QuocTich");
+                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Country_Display", cbo_country_tg.options[cbo_country_tg.selectedIndex].text);
+
                     _index = _index + 1;
                 }
             });
@@ -1183,23 +1190,23 @@
                 var _checkquyenuutien = true;
                 $(".clsDivDonUTien").each(function (item) {
                     var _id = $(this).attr('data-id');
-                    if (p_ShowError == 1 && $("#" + _id + "_UT_Use").val() == "1") {
+                    if ($("#" + _id + "_UT_Use").val() == "1") {
 
-                        if ($("#" + _id + "_UT_txtSoDon").val() === "" || $("#" + _id + "_UT_txtSoDon").val() == undefined) {
+                        if (p_ShowError == 1 &&  ($("#" + _id + "_UT_txtSoDon").val() === "" || $("#" + _id + "_UT_txtSoDon").val() == undefined)) {
                             showError('Số đơn ưu tiên không được để trống');
                             $("#" + _id + "_UT_txtSoDon").focus();
                             _checkquyenuutien = false;
                             return false;
                         }
 
-                        if (p_ShowError == 1 && $("#" + _id + "_UT_txtNgayNopDon").val() === "" || $("#" + _id + "_UT_txtNgayNopDon").val() == undefined) {
+                        if (p_ShowError == 1 && ($("#" + _id + "_UT_txtNgayNopDon").val() === "" || $("#" + _id + "_UT_txtNgayNopDon").val() == undefined)) {
                             showError('Ngày nộp đơn ưu tiên không được để trống');
                             $("#" + _id + "_UT_txtNgayNopDon").focus();
                             _checkquyenuutien = false;
                             return false;
                         }
 
-                        if (p_ShowError == 1 && $("#" + _id + "_UT_txtQuocGia").val() === "" || $("#" + _id + "_UT_txtQuocGia").val() == undefined) {
+                        if (p_ShowError == 1 && ($("#" + _id + "_UT_txtQuocGia").val() === "" || $("#" + _id + "_UT_txtQuocGia").val() == undefined)) {
                             showError('Nước nộp đơn ưu tiên không được để trống');
                             $("#" + _id + "_UT_txtQuocGia").focus();
                             _checkquyenuutien = false;
@@ -1209,10 +1216,12 @@
                         formData.append("pUTienInfo[" + _index + "].UT_SoDon", $("#" + _id + "_UT_txtSoDon").val());
                         formData.append("pUTienInfo[" + _index + "].UT_NgayNopDon", $("#" + _id + "_UT_txtNgayNopDon").val());
                         formData.append("pUTienInfo[" + _index + "].UT_QuocGia", $("#" + _id + "_UT_txtQuocGia").val());
+                        var cbo_country = document.getElementById(_id + "_UT_txtQuocGia");
+                        formData.append("pUTienInfo[" + _index + "].UT_QuocGia_Display", cbo_country.options[cbo_country.selectedIndex].text);
 
                         var _nameYC = _id + "_rdo_YCHuongQuyen";
                         var v_QuyenUuTien = $("input[name='" + _nameYC + "']:checked").val();
-                        if (p_ShowError == 1 && v_QuyenUuTien == undefined || v_QuyenUuTien == null || v_QuyenUuTien == 0 && (pEditOrNew == 1)) {
+                        if (p_ShowError == 1 && (v_QuyenUuTien == undefined || v_QuyenUuTien == null || v_QuyenUuTien == 0) && pEditOrNew == 1) {
                             showError('Yêu cầu hưởng quyền ưu tiên phải chọn ít nhất 1 giá trị');
                             _checkquyenuutien = false;
                             return false;
@@ -1395,8 +1404,8 @@
                 formData.append("pAppDocIndusDesign[" + item + "].keyFileUpload", this.id);
                 formData.append("pAppDocIndusDesign[" + item + "].Documentname", $("#" + this.id).val());
                 formData.append("pAppDocIndusDesign[" + item + "].FILETYPE", "2");
-                formData.append("pAppDocIndusDesign[" + item + "].FILELEVEL", $("#" + this.id).attr("meta-data2"));
-                _documentno =  $("#" + this.id).attr("meta-data");
+                formData.append("pAppDocIndusDesign[" + item + "].FILELEVEL", $("#" + this.id).attr("data-level"));
+                _documentno = $("#" + this.id).attr("data-ParentId");
                 formData.append("pAppDocIndusDesign[" + item + "].Char01", $("#Treetxttailieuanhsotrang" + _documentno).val());
                 formData.append("pAppDocIndusDesign[" + item + "].Char02", $("#TreetxttailieuanhGhiChu" + _documentno).val());
                 formData.append("pAppDocIndusDesign[" + item + "].ParentId", _documentno);

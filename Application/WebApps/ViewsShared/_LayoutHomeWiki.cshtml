@@ -20,7 +20,7 @@
     @* nếu có cái html có các class này thì khi load sẽ hiển thị menu mobile *@
     @*has-js dom-is-loaded dom-is-animated has-header-navigation-opened*@
 }
-<html class="@_htmlclass"  >
+<html class="@_htmlclass">
 <head>
     <script>
        var _currentlanguage = '@_LanguageCode';
@@ -121,7 +121,14 @@
                         {
                             <li class="c-header_nav-item js-nav-nosublink">
                                 @*<a href="javascript:;"  onclick="return funcBottom();" class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>*@
-                                <a target="_blank" href="/vi-vn/account/register" class="a-login-regis c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
+                                @if (_LanguageCode == LangCode.EN_US.ToString())
+                                {
+                                    <a target="_blank" href="/en-gb/account/register" class="a-login-regis c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
+                                }
+                                else
+                                {
+                                    <a target="_blank" href="/vi-vn/account/register" class="a-login-regis c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
+                                }
                             </li>
                         }
                         <!--[Menu]-->
@@ -423,5 +430,5 @@
     function funcEn() {
         window.location.href = "/Language?culture=en-GB&returnUrl=Home";
     }
-     
+
 </script>

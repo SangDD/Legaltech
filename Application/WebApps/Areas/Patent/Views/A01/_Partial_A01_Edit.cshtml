@@ -576,7 +576,7 @@
                     }
                     else
                     {
-                        <input type="radio" name="1_rdoChuDon" value="2" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
+                        <input type="radio" name="1_rdoChuDon" value="CDK" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
                     }
                     <label>@Resource.NgoaiChuDon</label>
                 </div>
@@ -1149,7 +1149,7 @@
 
             if ($("#1_ckbTacGiaDongThoi").is(':checked')) {
                 formData.append("pInfo.Master_Type", "TGDT");
-            } else {
+            } else if ($("#rdChuDonKhac").is(':checked')) {
                 formData.append("pInfo.Master_Type", "CDK");
             }
 
@@ -1606,7 +1606,7 @@
                         formData.append("pDetail.PCT_SuaDoi_Others", "N");
                     }
 
-                    formData.append("pDetail.PCT_SuaDoi_Content", $("#txt_Patent_Name").val());
+                    formData.append("pDetail.PCT_SuaDoi_Content", $("#4_DeNghiSuaThanh").val());
 
                 } else {
                     formData.append("pDetail.PCT_SuaDoi", 0);
