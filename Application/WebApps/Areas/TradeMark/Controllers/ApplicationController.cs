@@ -15,6 +15,7 @@ using GemBox.Document;
 using BussinessFacade.ModuleUsersAndRoles;
 using System.IO;
 using System.Transactions;
+using System.Linq;
 
 namespace WebApps.Areas.TradeMark.Controllers
 {
@@ -303,58 +304,62 @@ namespace WebApps.Areas.TradeMark.Controllers
                         _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/Report/Filing_advice_EN.doc");
                     DocumentModel document = DocumentModel.Load(_fileTemp);
 
-                    // Fill export_header
-                    string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Filing_advice_" + p_app_id.ToString() + ".pdf");
-                    document.MailMerge.FieldMerging += (sender, e) =>
-                    {
-                        if (e.IsValueFound)
-                        {
-                            if (e.FieldName == "Text")
-                                ((Run)e.Inline).Text = e.Value.ToString();
-                        }
-                    };
-
-                    document.MailMerge.Execute(new { DateNo = DateTime.Now.ToString("dd-MM-yyyy") });
-                    document.MailMerge.Execute(new { Case_Name = _ApplicationHeaderInfo.Case_Name });
-                    document.MailMerge.Execute(new { Client_Reference = _ApplicationHeaderInfo.Client_Reference });
-                    document.MailMerge.Execute(new { Case_Code = _ApplicationHeaderInfo.Case_Code });
-                    document.MailMerge.Execute(new { Master_Name = _ApplicationHeaderInfo.Master_Name });
-                    document.MailMerge.Execute(new { App_No = _ApplicationHeaderInfo.App_No });
-                    document.MailMerge.Execute(new { Str_Filing_Date = _ApplicationHeaderInfo.Str_Filing_Date });
-                    document.MailMerge.Execute(new { Comment_filling = _ApplicationHeaderInfo.Comment_Filling });
-                    document.MailMerge.Execute(new { Customer_Country_Name = _ApplicationHeaderInfo.Customer_Country_Name });
-
-                    // lấy thông tin người dùng
+                    //// lấy thông tin người dùng
                     UserBL _UserBL = new UserBL();
                     UserInfo userInfo = _UserBL.GetUserByUsername(_ApplicationHeaderInfo.Created_By);
-                    if (userInfo != null)
-                    {
-                        document.MailMerge.Execute(new { Contact_Person = userInfo.Contact_Person });
-                        document.MailMerge.Execute(new { Address = userInfo.Address });
-                        document.MailMerge.Execute(new { FullName = userInfo.FullName });
-                    }
-                    else
-                    {
-                        document.MailMerge.Execute(new { Contact_Person = "" });
-                        document.MailMerge.Execute(new { Address = "" });
-                        document.MailMerge.Execute(new { FullName = "" });
-                    }
 
-                    document.Save(fileName, SaveOptions.PdfDefault);
-                    byte[] fileContents;
-                    var options = SaveOptions.PdfDefault;
-                    // Save document to DOCX format in byte array.
-                    using (var stream = new MemoryStream())
-                    {
-                        document.Save(stream, options);
-                        fileContents = stream.ToArray();
-                    }
-                    Convert.ToBase64String(fileContents);
+                    // Fill export_header
+                    #region Bỏ đi vì đã có trong file email
+                    //string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Filing_advice_" + p_app_id.ToString() + ".pdf");
+                    //document.MailMerge.FieldMerging += (sender, e) =>
+                    //{
+                    //    if (e.IsValueFound)
+                    //    {
+                    //        if (e.FieldName == "Text")
+                    //            ((Run)e.Inline).Text = e.Value.ToString();
+                    //    }
+                    //};
+
+                    //document.MailMerge.Execute(new { DateNo = DateTime.Now.ToString("dd-MM-yyyy") });
+                    //document.MailMerge.Execute(new { Case_Name = _ApplicationHeaderInfo.Case_Name });
+                    //document.MailMerge.Execute(new { Client_Reference = _ApplicationHeaderInfo.Client_Reference });
+                    //document.MailMerge.Execute(new { Case_Code = _ApplicationHeaderInfo.Case_Code });
+                    //document.MailMerge.Execute(new { Master_Name = _ApplicationHeaderInfo.Master_Name });
+                    //document.MailMerge.Execute(new { App_No = _ApplicationHeaderInfo.App_No });
+                    //document.MailMerge.Execute(new { Str_Filing_Date = _ApplicationHeaderInfo.Str_Filing_Date });
+                    //document.MailMerge.Execute(new { Comment_filling = _ApplicationHeaderInfo.Comment_Filling });
+                    //document.MailMerge.Execute(new { Customer_Country_Name = _ApplicationHeaderInfo.Customer_Country_Name });
+
+
+                    //if (userInfo != null)
+                    //{
+                    //    document.MailMerge.Execute(new { Contact_Person = userInfo.Contact_Person });
+                    //    document.MailMerge.Execute(new { Address = userInfo.Address });
+                    //    document.MailMerge.Execute(new { FullName = userInfo.FullName });
+                    //}
+                    //else
+                    //{
+                    //    document.MailMerge.Execute(new { Contact_Person = "" });
+                    //    document.MailMerge.Execute(new { Address = "" });
+                    //    document.MailMerge.Execute(new { FullName = "" });
+                    //}
+
+                    //document.Save(fileName, SaveOptions.PdfDefault);
+                    //byte[] fileContents;
+                    //var options = SaveOptions.PdfDefault;
+                    //// Save document to DOCX format in byte array.
+                    //using (var stream = new MemoryStream())
+                    //{
+                    //    document.Save(stream, options);
+                    //    fileContents = stream.ToArray();
+                    //}
+                    //Convert.ToBase64String(fileContents); 
+                    #endregion
 
                     string _emailTo = userInfo.Email;
                     string _emailCC = userInfo.Copyto;
                     List<string> _LstAttachment = new List<string>();
-                    _LstAttachment.Add(fileName);
+                    //_LstAttachment.Add(fileName);
                     _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_ApplicationHeaderInfo.Url_copy_filing));
                     _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_ApplicationHeaderInfo.URL_TRANSLATE_FILING));
 
@@ -369,6 +374,14 @@ namespace WebApps.Areas.TradeMark.Controllers
                         }
                     }
 
+                    string _content = "";
+                    List<AllCodeInfo> _lstStatus = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("EMAIL", "CONTENT");
+                    _lstStatus = _lstStatus.OrderBy(x => x.CdVal).ToList();
+                    if (_lstStatus.Count > 1)
+                    {
+                        _content = _lstStatus[0].Content + _ApplicationHeaderInfo.Comment_Filling.Replace("\n", "<br>") + _lstStatus[1].Content;
+                    }
+
                     Email_Info _Email_Info = new Email_Info
                     {
                         EmailFrom = EmailHelper.EmailOriginal.EMailFrom_Business,
@@ -378,7 +391,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                         EmailTo = _emailTo,
                         EmailCC = _emailCC,
                         Subject = "Filing advice",
-                        Content = "Filing advice",
+                        Content = _content,
                         LstAttachment = _LstAttachment,
                     };
 
@@ -549,7 +562,7 @@ namespace WebApps.Areas.TradeMark.Controllers
             }
         }
 
-         
+
         void AddBilling2Notice(decimal p_insert_billing_type, ref App_Notice_Info pInfo)
         {
             try
@@ -945,13 +958,13 @@ namespace WebApps.Areas.TradeMark.Controllers
                 else
                 {
                     pInfo.Result = (decimal)CommonEnums.Notice_Result.ChapNhan;
-                } 
+                }
 
                 AddBilling2Notice((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Public_Form, ref pInfo);
 
                 App_Notice_Info_BL _App_Notice_Info_BL = new App_Notice_Info_BL();
                 decimal _ck = _App_Notice_Info_BL.App_Notice_Insert(pInfo, AppsCommon.GetCurrentLang());
-                 
+
                 // update trạng thái đơn trước
                 Application_Header_BL _obj_bl = new Application_Header_BL();
                 _ck = _obj_bl.AppHeader_Update_Status(pInfo.Case_Code, _status_app, pInfo.Note,
@@ -1028,13 +1041,13 @@ namespace WebApps.Areas.TradeMark.Controllers
                 else
                 {
                     pInfo.Result = (decimal)CommonEnums.Notice_Result.ChapNhan;
-                } 
+                }
 
                 // url billing
                 AddBilling2Notice((decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Grant_Accept, ref pInfo);
 
                 App_Notice_Info_BL _App_Notice_Info_BL = new App_Notice_Info_BL();
-                decimal _ck = _App_Notice_Info_BL.App_Notice_Insert(pInfo, AppsCommon.GetCurrentLang()); 
+                decimal _ck = _App_Notice_Info_BL.App_Notice_Insert(pInfo, AppsCommon.GetCurrentLang());
 
                 // update trạng thái đơn trước
                 Application_Header_BL _obj_bl = new Application_Header_BL();

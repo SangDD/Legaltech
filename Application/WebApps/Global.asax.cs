@@ -56,7 +56,7 @@
                 // tự động change trạng thái của remind
                 Thread _th2 = new Thread(ThreadReadTodo4SendEmail);
                 _th2.IsBackground = true;
-                _th2.Start();
+                //_th2.Start();
 
                 Thread _th3 = new Thread(ThreadSendEmail);
                 _th3.IsBackground = true;

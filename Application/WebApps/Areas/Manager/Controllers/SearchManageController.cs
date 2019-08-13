@@ -611,6 +611,8 @@ namespace WebApps.Areas.Manager.Controllers
                     UserBL _UserBL = new UserBL();
                     UserInfo userInfo = _UserBL.GetUserByUsername(_HeaderInfo.CREATED_BY.Trim());
 
+                    #region Bỏ đi vì đã có trong email
+
                     //string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/Report/Search Report.doc");
                     //if (_HeaderInfo.Customer_Country != Common.Common.Country_VietNam_Id)
                     //    _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/Report/Search Report_En.doc");
@@ -665,7 +667,8 @@ namespace WebApps.Areas.Manager.Controllers
                     //    document.Save(stream, options);
                     //    fileContents = stream.ToArray();
                     //}
-                    //Convert.ToBase64String(fileContents);
+                    //Convert.ToBase64String(fileContents); 
+                    #endregion
 
                     string _emailTo = userInfo.Email;
                     string _emailCC = userInfo.Copyto;
@@ -695,6 +698,14 @@ namespace WebApps.Areas.Manager.Controllers
                         }
                     }
 
+                    string _content = "";
+                    List<AllCodeInfo> _lstStatus = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("EMAIL", "CONTENT");
+                    _lstStatus = _lstStatus.OrderBy(x => x.CdVal).ToList();
+                    if (_lstStatus.Count > 1)
+                    {
+                        _content = _lstStatus[0].Content + _QuestionInfo.RESULT.Replace("\n", "<br>") + _lstStatus[1].Content;
+                    }
+
                     Email_Info _Email_Info = new Email_Info
                     {
                         EmailFrom = EmailHelper.EmailOriginal.EMailFrom_Business,
@@ -703,7 +714,7 @@ namespace WebApps.Areas.Manager.Controllers
                         EmailTo = _emailTo,
                         EmailCC = _emailCC,
                         Subject = "Search Report",
-                        Content = _QuestionInfo.RESULT,
+                        Content = _content,
                         LstAttachment = _LstAttachment,
                     };
 
