@@ -607,70 +607,72 @@ namespace WebApps.Areas.Manager.Controllers
                     List<Search_Class_Info> search_Class_Infos = new List<Search_Class_Info>();
                     SearchObject_Header_Info _HeaderInfo = _searchBL.SEARCH_HEADER_GETBY_CASECODE(p_case_code, ref _ListDetail, ref _QuestionInfo, ref search_Class_Infos);
 
-
-                    string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/Report/Search Report.doc");
-                    if (_HeaderInfo.Customer_Country != Common.Common.Country_VietNam_Id)
-                        _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/Report/Search Report_En.doc");
-                    DocumentModel document = DocumentModel.Load(_fileTemp);
-
-                    // Fill export_header
-                    string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Search_report" + p_case_code.ToString() + ".pdf");
-                    document.MailMerge.FieldMerging += (sender, e) =>
-                    {
-                        if (e.IsValueFound)
-                        {
-                            if (e.FieldName == "Text")
-                                ((Run)e.Inline).Text = e.Value.ToString();
-                        }
-                    };
-
-                    string _search_type = "";
-                    if (_ListDetail.Count > 0)
-                    {
-                        _search_type = _ListDetail[0].SEARCH_TYPE_NAME;
-                    }
-
-                    document.MailMerge.Execute(new { DateNo = DateTime.Now.ToString("dd-MM-yyyy") });
-                    document.MailMerge.Execute(new { Case_Name = _HeaderInfo.CASE_NAME });
-                    document.MailMerge.Execute(new { Client_Reference = _HeaderInfo.CLIENT_REFERENCE });
-                    document.MailMerge.Execute(new { Case_Code = _HeaderInfo.CASE_CODE });
-                    document.MailMerge.Execute(new { Applicant_Name = _HeaderInfo.Customer_Name });
-                    document.MailMerge.Execute(new { Customer_Country_Name = _HeaderInfo.Customer_Country_Name });
-                    document.MailMerge.Execute(new { Object = _HeaderInfo.Object_Search_Name });
-                    document.MailMerge.Execute(new { Result = _QuestionInfo.RESULT });
-                    document.MailMerge.Execute(new { Search_Type = _search_type });
-
                     // lấy thông tin người dùng
                     UserBL _UserBL = new UserBL();
                     UserInfo userInfo = _UserBL.GetUserByUsername(_HeaderInfo.CREATED_BY.Trim());
-                    if (userInfo != null)
-                    {
-                        document.MailMerge.Execute(new { Contact_Person = userInfo.Contact_Person });
-                        document.MailMerge.Execute(new { Address = userInfo.Address });
-                        document.MailMerge.Execute(new { FullName = userInfo.FullName });
-                    }
-                    else
-                    {
-                        document.MailMerge.Execute(new { Contact_Person = "" });
-                        document.MailMerge.Execute(new { Address = "" });
-                        document.MailMerge.Execute(new { FullName = "" });
-                    }
 
-                    document.Save(fileName, SaveOptions.PdfDefault);
-                    byte[] fileContents;
-                    var options = SaveOptions.PdfDefault;
-                    // Save document to DOCX format in byte array.
-                    using (var stream = new MemoryStream())
-                    {
-                        document.Save(stream, options);
-                        fileContents = stream.ToArray();
-                    }
-                    Convert.ToBase64String(fileContents);
+                    //string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/Report/Search Report.doc");
+                    //if (_HeaderInfo.Customer_Country != Common.Common.Country_VietNam_Id)
+                    //    _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/Report/Search Report_En.doc");
+                    //DocumentModel document = DocumentModel.Load(_fileTemp);
+
+                    //// Fill export_header
+                    //string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Search_report" + p_case_code.ToString() + ".pdf");
+                    //document.MailMerge.FieldMerging += (sender, e) =>
+                    //{
+                    //    if (e.IsValueFound)
+                    //    {
+                    //        if (e.FieldName == "Text")
+                    //            ((Run)e.Inline).Text = e.Value.ToString();
+                    //    }
+                    //};
+
+                    //string _search_type = "";
+                    //if (_ListDetail.Count > 0)
+                    //{
+                    //    _search_type = _ListDetail[0].SEARCH_TYPE_NAME;
+                    //}
+
+                    //document.MailMerge.Execute(new { DateNo = DateTime.Now.ToString("dd-MM-yyyy") });
+                    //document.MailMerge.Execute(new { Case_Name = _HeaderInfo.CASE_NAME });
+                    //document.MailMerge.Execute(new { Client_Reference = _HeaderInfo.CLIENT_REFERENCE });
+                    //document.MailMerge.Execute(new { Case_Code = _HeaderInfo.CASE_CODE });
+                    //document.MailMerge.Execute(new { Applicant_Name = _HeaderInfo.Customer_Name });
+                    //document.MailMerge.Execute(new { Customer_Country_Name = _HeaderInfo.Customer_Country_Name });
+                    //document.MailMerge.Execute(new { Object = _HeaderInfo.Object_Search_Name });
+                    //document.MailMerge.Execute(new { Result = _QuestionInfo.RESULT });
+                    //document.MailMerge.Execute(new { Search_Type = _search_type });
+
+                    //if (userInfo != null)
+                    //{
+                    //    document.MailMerge.Execute(new { Contact_Person = userInfo.Contact_Person });
+                    //    document.MailMerge.Execute(new { Address = userInfo.Address });
+                    //    document.MailMerge.Execute(new { FullName = userInfo.FullName });
+                    //}
+                    //else
+                    //{
+                    //    document.MailMerge.Execute(new { Contact_Person = "" });
+                    //    document.MailMerge.Execute(new { Address = "" });
+                    //    document.MailMerge.Execute(new { FullName = "" });
+                    //}
+
+                    //document.Save(fileName, SaveOptions.PdfDefault);
+                    //byte[] fileContents;
+                    //var options = SaveOptions.PdfDefault;
+                    //// Save document to DOCX format in byte array.
+                    //using (var stream = new MemoryStream())
+                    //{
+                    //    document.Save(stream, options);
+                    //    fileContents = stream.ToArray();
+                    //}
+                    //Convert.ToBase64String(fileContents);
 
                     string _emailTo = userInfo.Email;
                     string _emailCC = userInfo.Copyto;
                     List<string> _LstAttachment = new List<string>();
-                    _LstAttachment.Add(fileName);
+
+                    //20190812 bỏ đi vì đã gửi trong email rồi
+                    //_LstAttachment.Add(fileName);
 
                     if (_QuestionInfo.FILE_URL != null && _QuestionInfo.FILE_URL != "")
                     {
@@ -706,7 +708,6 @@ namespace WebApps.Areas.Manager.Controllers
                     };
 
                     CommonFunction.AppsCommon.EnqueueSendEmail(_Email_Info);
-                    //EmailHelper.SendMail(_emailTo, _emailCC, "Search Report", "Search Report", _LstAttachment);
                 }
 
                 return Json(new { success = _ck });

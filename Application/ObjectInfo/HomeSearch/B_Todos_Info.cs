@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ObjectInfos
 {
-   public class B_Todos_Info
+    public class B_Todos_Info
     {
         public decimal STT { get; set; }
 
@@ -39,6 +39,7 @@ namespace ObjectInfos
         public string PROCESSOR_BY_NAME { get; set; }
 
         public string Email_Send { get; set; }
+        public string Subject { get; set; }
     }
 
     public class B_Remind_Info

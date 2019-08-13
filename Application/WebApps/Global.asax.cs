@@ -307,15 +307,10 @@
                             EmailFrom = EmailHelper.EmailOriginal.EMailFrom,
                             Pass = EmailHelper.EmailOriginal.PassWord,
                             Display_Name = EmailHelper.EmailOriginal.DisplayName,
-
                             EmailTo = item.Email_Send,
                             EmailCC = "",
-                            Subject = AppsCommon.GetCurrentLang() != "VI_VN" ? "You have a new to-do job in ACCESS.IP from IPath Consult Co." :
-                            "Bạn có một thông báo công việc mới tại ACCESS.IP từ IPath Consult Co.",
-
-                            Content = AppsCommon.GetCurrentLang() != "VI_VN" ? "You have a new to-do job in ACCESS.IP from IPath Consult Co." :
-                            "Bạn có một thông báo công việc mới tại ACCESS.IP từ IPath Consult Co."
-                            + item.CONTENT,
+                            Subject = item.Subject,
+                            Content = item.CONTENT,
                             LstAttachment = _LstAttachment,
                         };
 
