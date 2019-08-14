@@ -15,24 +15,31 @@
         _Operator_Type = (decimal)ViewBag.Operator_Type;
     }
 
-    //ApplicationHeaderInfo _ApplicationHeaderInfo = new ApplicationHeaderInfo();
-    //if (ViewBag.objAppHeaderInfo != null)
-    //{
-    //    _ApplicationHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
-    //}
-
     decimal _tax = Common.Common.Tax;
     decimal _Tex_Fee = 0;
     decimal _Total_Pre_Tex = 0;
     decimal _Total_Amount = 0;
 
-
+    decimal _Total_Amount_Represent = 0;
     foreach (Billing_Detail_Info item in _list_data)
     {
         _Total_Pre_Tex = _Total_Pre_Tex + item.Total_Fee;
         _Tex_Fee = Math.Round(_Total_Pre_Tex / 100 * _tax);
         _Total_Amount = _Total_Pre_Tex + _Tex_Fee;
+
+        _Total_Amount_Represent = _Total_Amount_Represent + item.Represent_Fee;
     }
+
+    // khuyến mãi
+    decimal _discount_percent = 0;
+    List<AllCodeInfo> _lstDiscount = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("DISCOUNT", "SERVICE");
+    if (_lstDiscount.Count > 0)
+    {
+        _discount_percent = Convert.ToDecimal(_lstDiscount[0].CdVal);
+    }
+
+    decimal _discount = Math.Round(_Total_Amount_Represent * _discount_percent / 100);
+    decimal _MustPay = _Total_Amount_Represent - _discount;
 
     decimal _ShowPopUp = 0;
     if (ViewBag.ShowPopUp != null)

@@ -1,7 +1,8 @@
 ﻿@using Common.CommonData
 @using Common.Extensions
 @using ObjectInfos.ModuleTrademark;
-@using WebApps.CommonFunction
+@using WebApps.CommonFunction;
+@using ObjectInfos;
 @{
     List<AppFeeFixInfo> _list_data = new List<AppFeeFixInfo>();
     if (ViewBag.LstFeeFix != null)
@@ -20,7 +21,14 @@
         _Total_Amount_Represent += item.Amount_Represent;
     }
 
-    _discount = Math.Round(_Total_Amount_Represent / 2);
+    decimal _discount_percent = 0;
+    List<AllCodeInfo> _lstDiscount = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("DISCOUNT", "SERVICE");
+    if (_lstDiscount.Count > 0)
+    {
+        _discount_percent = Convert.ToDecimal(_lstDiscount[0].CdVal);
+    }
+
+    _discount = Math.Round(_Total_Amount_Represent * _discount_percent / 100);
     decimal _MustPay = _Total_Amount_Represent - _discount;
 
     string language = AppsCommon.GetCurrentLang();

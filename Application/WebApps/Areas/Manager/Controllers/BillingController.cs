@@ -1131,8 +1131,6 @@ namespace WebApps.Areas.Manager.Controllers
                     }
 
                     SessionData.SetDataSession(p_case_code, _lst_billing_detail);
-
-
                 }
 
                 ViewBag.List_Billing = _lst_billing_detail;

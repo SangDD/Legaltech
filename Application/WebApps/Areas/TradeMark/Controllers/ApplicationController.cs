@@ -497,6 +497,14 @@ namespace WebApps.Areas.TradeMark.Controllers
                     if (p_Billing_Header_Info.App_Case_Code.Contains("SEARCH"))
                         p_Billing_Header_Info.Billing_Type = (decimal)CommonEnums.Billing_Type.Search;
 
+                    decimal _discount = 0;
+                    List<AllCodeInfo> _lstDiscount = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("DISCOUNT", "SERVICE");
+                    if (_lstDiscount.Count > 0)
+                    {
+                        _discount = Convert.ToDecimal(_lstDiscount[0].CdVal);
+                    }
+                    p_Billing_Header_Info.Discount_Fee_Service = _discount;
+
                     decimal _idBilling = _Billing_BL.Billing_Insert(p_Billing_Header_Info);
 
                     if (_idBilling > 0 && _lst_billing_detail.Count > 0)

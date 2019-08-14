@@ -806,6 +806,15 @@ namespace WebApps.Areas.Manager.Controllers
 
                     p_Billing_Header_Info.Insert_Type = (decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Search;
 
+                    decimal _discount = 0;
+                    List<AllCodeInfo> _lstDiscount = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("DISCOUNT", "SERVICE");
+                    if (_lstDiscount.Count > 0)
+                    {
+                        _discount = Convert.ToDecimal(_lstDiscount[0].CdVal);
+                    }
+                    p_Billing_Header_Info.Discount_Fee_Service = _discount;
+
+
                     _billing_id = _obj_bl.Billing_Insert(p_Billing_Header_Info);
 
                     if (_billing_id > 0 && _lst_billing_detail.Count > 0)

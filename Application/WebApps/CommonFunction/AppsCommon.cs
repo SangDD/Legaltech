@@ -424,8 +424,16 @@ namespace WebApps.CommonFunction
                 p_Billing_Header_Info.Request_By = SessionData.CurrentUser.Username;
                 p_Billing_Header_Info.Approve_By = "";
 
+                decimal _discount = 0;
+                List<AllCodeInfo> _lstDiscount = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("DISCOUNT", "SERVICE");
+                if (_lstDiscount.Count > 0)
+                {
+                    _discount = Convert.ToDecimal(_lstDiscount[0].CdVal);
+                }
+                p_Billing_Header_Info.Discount_Fee_Service = _discount;
 
                 decimal _idBilling = _Billing_BL.Billing_Insert(p_Billing_Header_Info);
+
                 if (_idBilling > 0 && _lst_billing_detail.Count > 0)
                 {
                     _ck = _Billing_BL.Billing_Detail_InsertBatch(_lst_billing_detail, _idBilling);

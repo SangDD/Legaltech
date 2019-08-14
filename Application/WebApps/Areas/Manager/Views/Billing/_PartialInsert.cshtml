@@ -8,6 +8,12 @@
     ViewBag.Title = WebApps.Resources.Resource.ThemMoiBilling;
     Layout = "~/ViewsShared/_Layout.cshtml";
 
+    decimal _discount = 0;
+    List<AllCodeInfo> _lstDiscount = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("DISCOUNT", "SERVICE");
+    if (_lstDiscount.Count > 0)
+    {
+        _discount = Convert.ToDecimal(_lstDiscount[0].CdVal);
+    }
 
     List<AllCodeInfo> _lstBank = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("BILLING", "BANK");
     string _BankName = "";
@@ -427,6 +433,7 @@
             formData.append('p_Billing_Header_Info.Notes', $("#txtNotes").val());
 
             formData.append('p_Billing_Header_Info.Insert_Type', @_insertType);
+            formData.append('p_Billing_Header_Info.Discount_Fee_Service', @_discount);
 
             @*if ('@_case_code' != "") {
                 formData.append('p_Billing_Header_Info.Is_AdviceFilling', 1);
