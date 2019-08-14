@@ -48,6 +48,13 @@
                 CommonVariables.KnFileLogin = HttpContext.Current.Server.MapPath(@"~/log/LogInApp" + DateTime.Now.ToString("MMyyyy") + ".log");
                 MemoryData.LoadAllMemoryData();
 
+                // lấy thông tin fee
+                List<AllCodeInfo> _lstTax= WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("BILLING", "TAX");
+                if (_lstTax.Count > 0)
+                {
+                    Common.Tax = Convert.ToDecimal(_lstTax[0].CdVal);
+                }
+
                 // thread chuyên load dữ liệu tĩnh khi có sự thay đổi
                 Thread _th1 = new Thread(ThreadReloadWhenChangeData);
                 _th1.IsBackground = true;

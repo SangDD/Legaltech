@@ -162,9 +162,10 @@
         {
             App = 1,
             TimeSheet = 2,
-            Service = 3,
-            Others = 4
-            //Foeign = 5
+            Search = 4,
+            Others = 5
+
+            //Service = 3,
         }
 
         public enum Billing_Insert_Type

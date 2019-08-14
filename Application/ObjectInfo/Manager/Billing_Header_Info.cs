@@ -64,5 +64,6 @@ namespace ObjectInfos
         public string Reject_Reason { get; set; }
 
         public decimal Discount_Fee_Service { get; set; }
+        public decimal Percent_Discount { get; set; }
     }
 }

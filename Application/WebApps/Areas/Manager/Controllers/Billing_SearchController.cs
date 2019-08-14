@@ -98,7 +98,7 @@ namespace WebApps.Areas.Manager.Controllers
                 _ChiPhiKhac.Represent_Fee = 0;
                 _ChiPhiKhac.Service_Fee = 0;
                 _ChiPhiKhac.Biling_Detail_Name = "Chi phí khác";
-                _ChiPhiKhac.Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Detail_Type.Service);
+                _ChiPhiKhac.Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Detail_Type.Others);
                 _lst_billing_detail.Add(_ChiPhiKhac);
 
                 foreach (Billing_Detail_Info item in _lst_billing_detail)
@@ -232,7 +232,7 @@ namespace WebApps.Areas.Manager.Controllers
                     _ChiPhiKhac.Represent_Fee = 0;
                     _ChiPhiKhac.Service_Fee = 0;
                     _ChiPhiKhac.Biling_Detail_Name = "Chi phí khác";
-                    _ChiPhiKhac.Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Detail_Type.Service);
+                    _ChiPhiKhac.Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Detail_Type.Others);
                     _lst_billing_detail.Add(_ChiPhiKhac);
                 }
 
@@ -272,7 +272,7 @@ namespace WebApps.Areas.Manager.Controllers
 
                 foreach (Billing_Detail_Info item in _lst_billing_detail)
                 {
-                    if (item.Type != Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Detail_Type.Service)) continue;
+                    if (item.Type != Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Detail_Type.Others)) continue;
 
                     item.Service_Fee = p_amount;
                     item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;

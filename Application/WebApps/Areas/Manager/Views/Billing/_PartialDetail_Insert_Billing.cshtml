@@ -19,14 +19,12 @@
     decimal _Tex_Fee = 0;
     decimal _Total_Pre_Tex = 0;
     decimal _Total_Amount = 0;
-
+    decimal _Total_Amount_Temp = 0;
     decimal _Total_Amount_Represent = 0;
+
     foreach (Billing_Detail_Info item in _list_data)
     {
-        _Total_Pre_Tex = _Total_Pre_Tex + item.Total_Fee;
-        _Tex_Fee = Math.Round(_Total_Pre_Tex / 100 * _tax);
-        _Total_Amount = _Total_Pre_Tex + _Tex_Fee;
-
+        _Total_Amount_Temp = _Total_Amount_Temp + item.Total_Fee;
         _Total_Amount_Represent = _Total_Amount_Represent + item.Represent_Fee;
     }
 
@@ -39,7 +37,11 @@
     }
 
     decimal _discount = Math.Round(_Total_Amount_Represent * _discount_percent / 100);
-    decimal _MustPay = _Total_Amount_Represent - _discount;
+    _Total_Pre_Tex = _Total_Amount_Temp - _discount;
+
+    _Tex_Fee = Math.Round(_Total_Pre_Tex / 100 * _tax);
+
+    _Total_Amount = _Total_Pre_Tex + _Tex_Fee;
 
     decimal _ShowPopUp = 0;
     if (ViewBag.ShowPopUp != null)
@@ -73,8 +75,8 @@
             <tr>
                 <th class="class300">@WebApps.Resources.Resource.MoTaCongViec</th>
                 <th class="class150">@WebApps.Resources.Resource.LePhiQuocGia</th>
-                <th class="class150">@WebApps.Resources.Resource.LePhiDaiDien</th>
-                <th class="class100">@WebApps.Resources.Resource.PhiDichVu</th>
+                <th class="class150">@WebApps.Resources.Resource.PhiDichVu</th>
+                <th class="class100">@WebApps.Resources.Resource.PhiDichVuTheoGio</th>
                 <th class="class150" style="font-weight:bold">@WebApps.Resources.Resource.Tong</th>
                 @if (_Operator_Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert))
                 {
@@ -92,7 +94,7 @@
                         <td class="tdrightalign">@item.Nation_Fee.ToString("#,##0.##")</td>
                         <td class="tdrightalign">@item.Represent_Fee.ToString("#,##0.##")</td>
 
-                        @if (item.Type != Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Detail_Type.Service))
+                        @if (item.Type != Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Detail_Type.Others))
                         {
                             <td class="tdrightalign">@item.Service_Fee.ToString("#,##0.##")</td>
                         }
@@ -121,7 +123,7 @@
                 }
 
                 <tr>
-                    <td class="tdleftalign" style="font-weight:bold">@WebApps.Resources.Resource.TongTruocThue</td>
+                    <td class="tdleftalign" style="font-weight:bold">@WebApps.Resources.Resource.Subtitle</td>
                     <td class="tdrightalign">-</td>
                     <td class="tdrightalign">-</td>
                     <td class="tdrightalign">-</td>
@@ -133,7 +135,19 @@
                 </tr>
 
                 <tr>
-                    <td class="tdleftalign" style="font-weight:bold">@WebApps.Resources.Resource.ThuePhiNH (5%)</td>
+                    <td class="tdleftalign" style="font-weight:bold">@WebApps.Resources.Resource.ChietKhau</td>
+                    <td class="tdrightalign">-</td>
+                    <td class="tdrightalign">-</td>
+                    <td class="tdrightalign">-</td>
+                    <td class="tdrightalign" style="font-weight:bold">@_discount.ToString("#,##0.##")</td>
+                    @if (_Operator_Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert))
+                    {
+                        <td class="tdrightalign"></td>
+                    }
+                </tr>
+
+                <tr>
+                    <td class="tdleftalign" style="font-weight:bold">@WebApps.Resources.Resource.ThuePhiNH (10%)</td>
                     <td class="tdrightalign">-</td>
                     <td class="tdrightalign">-</td>
                     <td class="tdrightalign">-</td>

@@ -424,13 +424,27 @@ namespace WebApps.CommonFunction
                 p_Billing_Header_Info.Request_By = SessionData.CurrentUser.Username;
                 p_Billing_Header_Info.Approve_By = "";
 
-                decimal _discount = 0;
+                decimal _Total_Amount_Represent = 0;
+                decimal _Total_Amount_Temp = 0;
+                decimal _Percent_discount = 0;
                 List<AllCodeInfo> _lstDiscount = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("DISCOUNT", "SERVICE");
                 if (_lstDiscount.Count > 0)
                 {
-                    _discount = Convert.ToDecimal(_lstDiscount[0].CdVal);
+                    _Percent_discount = Convert.ToDecimal(_lstDiscount[0].CdVal);
                 }
+
+                foreach (Billing_Detail_Info item in _lst_billing_detail)
+                {
+                    _Total_Amount_Represent = _Total_Amount_Represent + item.Represent_Fee;
+                    _Total_Amount_Temp = _Total_Amount_Temp + item.Total_Fee;
+                }
+
+                decimal _discount = Math.Round(_Total_Amount_Represent * _Percent_discount / 100);
+                p_Billing_Header_Info.Total_Pre_Tex = _Total_Amount_Temp - _discount;
+                p_Billing_Header_Info.Tex_Fee = Math.Round(p_Billing_Header_Info.Total_Pre_Tex / 100 * Common.Common.Tax);
+                p_Billing_Header_Info.Total_Amount = p_Billing_Header_Info.Total_Pre_Tex + p_Billing_Header_Info.Tex_Fee;
                 p_Billing_Header_Info.Discount_Fee_Service = _discount;
+                p_Billing_Header_Info.Percent_Discount = _Percent_discount;
 
                 decimal _idBilling = _Billing_BL.Billing_Insert(p_Billing_Header_Info);
 

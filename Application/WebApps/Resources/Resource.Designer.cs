@@ -3967,11 +3967,20 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Phí dịch vụ.
+        ///   Looks up a localized string similar to Phí dịch vụ cố định.
         /// </summary>
         public static string PhiDichVu {
             get {
                 return ResourceManager.GetString("PhiDichVu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phí dịch vụ theo giờ.
+        /// </summary>
+        public static string PhiDichVuTheoGio {
+            get {
+                return ResourceManager.GetString("PhiDichVuTheoGio", resourceCulture);
             }
         }
         
