@@ -7,6 +7,12 @@
 @{
     ViewBag.Title = WebApps.Resources.Resource.SuaBiliing;
     Layout = "~/ViewsShared/_Layout.cshtml";
+    decimal _discount = 0;
+    List<AllCodeInfo> _lstDiscount = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("DISCOUNT", "SERVICE");
+    if (_lstDiscount.Count > 0)
+    {
+        _discount = Convert.ToDecimal(_lstDiscount[0].CdVal);
+    }
 
     List<AllCodeInfo> _lstBank = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("BILLING", "BANK");
     string _BankName = "";
@@ -420,13 +426,16 @@
             formData.append('p_Billing_Header_Info.Request_By', $("#txtRequest_By").val());
             formData.append('p_Billing_Header_Info.Approve_By', $("#txtApprove_By").val());
 
-            formData.append('p_Billing_Header_Info.Total_Pre_Tex', parseInt($("#txt_Total_Pre_Tex").val().replace(/,/g, "")));
-            formData.append('p_Billing_Header_Info.Tex_Fee', parseInt($("#txt_Tex_Fee").val().replace(/,/g, "")));
-            formData.append('p_Billing_Header_Info.Total_Amount', parseInt($("#txt_Total_Amount").val().replace(/,/g, "")));
+            formData.append('p_Billing_Header_Info.Total_Pre_Tex', parseFloat($("#txt_Total_Pre_Tex").val().replace(/,/g, "")));
+            formData.append('p_Billing_Header_Info.Tex_Fee', parseFloat($("#txt_Tex_Fee").val().replace(/,/g, "")));
+            formData.append('p_Billing_Header_Info.Total_Amount', parseFloat($("#txt_Total_Amount").val().replace(/,/g, "")));
+            formData.append('p_Billing_Header_Info.Discount_Fee_Service', parseFloat($("#txt_Discount").val().replace(/,/g, "")));
 
             formData.append('p_Billing_Header_Info.Currency', $("#txtCurrency").val());
             formData.append('p_Billing_Header_Info.Currency_Rate', parseInt($("#txtCurrency_Rate").val().replace(/,/g, "")));
             formData.append('p_Billing_Header_Info.Notes', $("#txtNotes").val());
+            formData.append('p_Billing_Header_Info.Percent_Discount', @_discount);
+
         } catch (e) {
             alert(e.toString());
         }

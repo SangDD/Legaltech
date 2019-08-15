@@ -238,7 +238,7 @@ namespace WebApps.Areas.Manager.Controllers
                 p_Billing_Header_Info.Language_Code = AppsCommon.GetCurrentLang();
                 p_Billing_Header_Info.Status = (decimal)CommonEnums.Billing_Status.New_Wait_Approve;
                 p_Billing_Header_Info.Billing_Type = (decimal)CommonEnums.Billing_Type.App;
-
+                p_Billing_Header_Info.Currency_Rate = AppsCommon.Get_Currentcy_VCB();
                 if (p_Billing_Header_Info.App_Case_Code.Contains("SEARCH"))
                 {
                     p_Billing_Header_Info.Billing_Type = (decimal)CommonEnums.Billing_Type.Search;
@@ -489,6 +489,53 @@ namespace WebApps.Areas.Manager.Controllers
             }
         }
 
+        // Change
+        [HttpPost]
+        [Route("danh-sach-billing/change-represent-fee")]
+        public ActionResult Change_Represent_Fee(string p_case_code, decimal p_billing_detail_id, decimal p_amount, decimal p_ShowPopUp)
+        {
+            try
+            {
+                List<Billing_Detail_Info> _lst_billing_detail = Get_LstFee_Detail(p_case_code);
+
+                foreach (Billing_Detail_Info item in _lst_billing_detail)
+                {
+                    if (item.Billing_Detail_Id != p_billing_detail_id) continue;
+
+                    //if (item.Type != Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Detail_Type.Search)) continue;
+
+                    item.Represent_Fee = p_amount;
+                    item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
+                }
+
+                SessionData.SetDataSession(p_case_code, _lst_billing_detail);
+                ViewBag.List_Billing = _lst_billing_detail;
+
+                ViewBag.App_Case_Code = p_case_code;
+                ViewBag.ShowPopUp = p_ShowPopUp;
+                string _Currency_Type = (string)SessionData.GetDataSession(p_case_code + "_CURRENCY_TYPE");
+                if (_Currency_Type != null)
+                {
+                    ViewBag.Currency_Type = _Currency_Type;
+                }
+
+                if (p_case_code.Contains("SEARCH"))
+                {
+                    return PartialView("~/Areas/Manager/Views/Billing_Search/_PartialDetail_Insert_Billing.cshtml");
+                }
+                else
+                {
+                    return PartialView("~/Areas/Manager/Views/Billing/_PartialDetail_Insert_Billing.cshtml");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/Manager/Views/Billing/_PartialDetail_Insert_Billing.cshtml");
+            }
+        }
+
         // edit
         [Route("danh-sach-billing/show-edit")]
         public ActionResult GetView2Edit(int p_id, string p_app_case_code)
@@ -504,10 +551,17 @@ namespace WebApps.Areas.Manager.Controllers
                 if (p_app_case_code.Contains("SEARCH"))
                 {
                     _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Id(p_id, p_app_case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
+
+                    SessionData.SetDataSession(p_app_case_code + "_CURRENCY_TYPE", SearchObject_Header_Info.Currency_Type);
+                    ViewBag.Currency_Type = SearchObject_Header_Info.Currency_Type;
                 }
                 else
                 {
+                    //_Billing_Header_Info = _obj_bl.Billing_GetBy_Code(case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
                     _Billing_Header_Info = _obj_bl.Billing_GetBy_Id(p_id, p_app_case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
+
+                    SessionData.SetDataSession(p_app_case_code + "_CURRENCY_TYPE", objAppHeaderInfo.Currency_Type);
+                    ViewBag.Currency_Type = objAppHeaderInfo.Currency_Type;
                 }
 
                 foreach (Billing_Detail_Info item in _lst_billing_detail)
@@ -520,9 +574,9 @@ namespace WebApps.Areas.Manager.Controllers
                 ViewBag.Operator_Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert);
                 ViewBag.Billing_Header_Info = _Billing_Header_Info;
 
-                SessionData.SetDataSession(p_app_case_code + "_CURRENCY_TYPE", SearchObject_Header_Info.Currency_Type);
                 ViewBag.App_Case_Code = p_app_case_code;
-                ViewBag.Currency_Type = SearchObject_Header_Info.Currency_Type;
+
+
                 ViewBag.ShowPopUp = 0;
 
                 if (p_app_case_code.Contains("SEARCH"))
@@ -560,6 +614,7 @@ namespace WebApps.Areas.Manager.Controllers
                 Billing_BL _obj_bl = new Billing_BL();
                 p_Billing_Header_Info.Modify_By = SessionData.CurrentUser.Username;
                 p_Billing_Header_Info.Modify_Date = DateTime.Now;
+                p_Billing_Header_Info.Currency_Rate = AppsCommon.Get_Currentcy_VCB();
 
                 decimal _ck = 0;
                 using (var scope = new TransactionScope())
@@ -810,6 +865,8 @@ namespace WebApps.Areas.Manager.Controllers
                     }
                 }
 
+                ViewBag.Currency_Type = objAppHeaderInfo.Currency_Type;
+                SessionData.SetDataSession(case_code + "_CURRENCY_TYPE", objAppHeaderInfo.Currency_Type);
 
                 foreach (Billing_Detail_Info item in _lst_billing_detail)
                 {
@@ -826,7 +883,6 @@ namespace WebApps.Areas.Manager.Controllers
                     ViewBag.objSearch_HeaderInfo = SearchObject_Header_Info;
                     ViewBag.objAppHeaderInfo = objAppHeaderInfo;
 
-                    ViewBag.Currency_Type = SearchObject_Header_Info.Currency_Type;
                     ViewBag.App_Case_Code = _Billing_Header_Info.App_Case_Code;
 
                     return PartialView("~/Areas/Manager/Views/Billing/_PartialApprove.cshtml", _Billing_Header_Info);

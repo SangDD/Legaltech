@@ -445,7 +445,7 @@ namespace WebApps.CommonFunction
                 p_Billing_Header_Info.Total_Amount = p_Billing_Header_Info.Total_Pre_Tex + p_Billing_Header_Info.Tex_Fee;
                 p_Billing_Header_Info.Discount_Fee_Service = _discount;
                 p_Billing_Header_Info.Percent_Discount = _Percent_discount;
-
+                p_Billing_Header_Info.Currency_Rate = AppsCommon.Get_Currentcy_VCB();
                 decimal _idBilling = _Billing_BL.Billing_Insert(p_Billing_Header_Info);
 
                 if (_idBilling > 0 && _lst_billing_detail.Count > 0)

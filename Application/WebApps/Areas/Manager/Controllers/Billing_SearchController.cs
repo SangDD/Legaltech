@@ -170,6 +170,7 @@ namespace WebApps.Areas.Manager.Controllers
                 p_Billing_Header_Info.Language_Code = AppsCommon.GetCurrentLang();
                 p_Billing_Header_Info.Status = (decimal)CommonEnums.Billing_Status.New_Wait_Approve;
                 p_Billing_Header_Info.Billing_Type = (decimal)CommonEnums.Billing_Type.Search;
+                p_Billing_Header_Info.Currency_Rate = AppsCommon.Get_Currentcy_VCB();
                 decimal _ck = 0;
                 decimal _billing_id = 0;
                 using (var scope = new TransactionScope())

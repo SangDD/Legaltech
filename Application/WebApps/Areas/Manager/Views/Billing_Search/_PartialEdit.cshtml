@@ -24,6 +24,13 @@
     {
         _in_out = "Out Date";
     }
+
+    decimal _discount = 0;
+    List<AllCodeInfo> _lstDiscount = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("DISCOUNT", "SERVICE");
+    if (_lstDiscount.Count > 0)
+    {
+        _discount = Convert.ToDecimal(_lstDiscount[0].CdVal);
+    }
 }
 <script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
 <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />

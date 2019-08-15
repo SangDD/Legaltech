@@ -468,10 +468,10 @@
             formData.append('p_Billing_Header_Info.Request_By', $("#txtRequest_By").val());
             formData.append('p_Billing_Header_Info.Approve_By', $("#txtApprove_By").val());
 
-            formData.append('p_Billing_Header_Info.Total_Pre_Tex', parseInt($("#txt_Total_Pre_Tex").val().replace(/,/g, "")));
-            formData.append('p_Billing_Header_Info.Tex_Fee', parseInt($("#txt_Tex_Fee").val().replace(/,/g, "")));
-            formData.append('p_Billing_Header_Info.Total_Amount', parseInt($("#txt_Total_Amount").val().replace(/,/g, "")));
-            formData.append('p_Billing_Header_Info.Discount_Fee_Service', parseInt($("#txt_Discount").val().replace(/,/g, "")));
+            formData.append('p_Billing_Header_Info.Total_Pre_Tex', parseFloat($("#txt_Total_Pre_Tex").val().replace(/,/g, "")));
+            formData.append('p_Billing_Header_Info.Tex_Fee', parseFloat($("#txt_Tex_Fee").val().replace(/,/g, "")));
+            formData.append('p_Billing_Header_Info.Total_Amount', parseFloat($("#txt_Total_Amount").val().replace(/,/g, "")));
+            formData.append('p_Billing_Header_Info.Discount_Fee_Service', parseFloat($("#txt_Discount").val().replace(/,/g, "")));
 
             formData.append('p_Billing_Header_Info.Currency', $("#txtCurrency").val());
             formData.append('p_Billing_Header_Info.Currency_Rate', parseInt($("#txtCurrency_Rate").val().replace(/,/g, "")));

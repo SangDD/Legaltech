@@ -816,7 +816,7 @@ namespace WebApps.Areas.Manager.Controllers
 
                     p_Billing_Header_Info.Discount_Fee_Service = _discount;
                     p_Billing_Header_Info.Percent_Discount = _Percent_discount;
-
+                    p_Billing_Header_Info.Currency_Rate = AppsCommon.Get_Currentcy_VCB();
 
                     _billing_id = _obj_bl.Billing_Insert(p_Billing_Header_Info);
 

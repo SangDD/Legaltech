@@ -1,0 +1,58 @@
+1. Vẫn chưa làm lại cửa sổ Contact từ hộp thư: giống phần inquiries nhưng không cần phải là account (# với cửa sổ đăng ký)
+
+4. Tên Công ty bỏ bắt buộc - khách hàng là cá nhân thì k có công ty. Hoặc k bỏ bắt buộc nhưng admin có quyền cho phép một số ngoại lệ???
+// check ở các form con
+
+5. Loại tra cứu: bỏ khả năng bảo hộ (phần nhãn hiệu) bỏ
+
+6. Phải có một bước close case. -> ok
+
+7. Form report attached /letter to client là email cover luôn (thay template letter + invoice). Các form attached khác tự tạo và attach như Hợp đồng....
+Đơn 
+
+
+1. A01: 1) ô tick chọn patent or utiltity solution patent vẫn không tick chọn đươc(vẫn mặc định patent;  _> bỏ trên giao diện, mặc định 1 cái
+
+2) về bảng tính phí: disable mục công bố: "phí cho bản mô tả có trên 6 trang" -> cho bằng 0, khi nào cục tính thì mở lên
+
+2. A01 kết xuất ra tờ khai: 
+	3.1) Chủ đơn: Mục ngoài chủ dơn khai tại mục này có chủ đơn khác khai tại trang bổ sung dù khi khai mình không tick thông tin này nhưng khi view tờ khai lại thấy bị tự động tick; 
+	3.2) Mục đại diện chủ đơn: chưa tick chọn vào các ô (là người đại diện của chủ đơn, là tôổchức dịch vụ đại diện SHCN, hay là người khác được ủy quyền); 
+	3.3) Mục tác giả: a) KHông hiển thị quốc tịch tác giả mặc dù đã nhập thông tin; b) Mục "ngoài chủ đơn khai tại mục này conòcó những chủ đơn khác khai tại trang bổ sung cần sửa thành "ngoài tác giả này còn có những tác giả khác khai tại trang bổ sung"; 
+	3.4) Mục yêu cầu hưởng quyền ưu tiên: không hiển thị nước nộp đơn ưu tiên mặc dù có nhập thông tin; 
+	3.5) Lỗi font chữ chỗ chữ ký, đóng dấu "Hà Nội, ngày..."; 
+	3.6 Mục nội dung sửa đổi bị hiển thị thông tin "tên sáng chế"
+
+3. A01: khi hoàn tất bấm lưu hay send đều báo lỗi -> ok 
+
+4. A03: 1) Priority claim: Nước nộp đơn ưu tiên bổ sung WIPO và EP lên đầu.  (như thêm 2 nước và cho lên đầu)
+2) Phí: 2.1) Phí thẩm định yêu cầu hưởng quyền ưu tiên sai (hiển thị 0 trong khi có nhập thông tin về đơn ưu tiên); 
+2.2) Phí tra cứu thông tin nhằm phục vụ việc thẩm định bị sai: khi nhập số phương án là 2 nhưng phí bị tính là 4 phương án; 
+2.3) Phí thẩm định đơn cũng bị sai (số phương án nhập vào là 2 nhưng bị tính cho 4 phương án); 
+2.4) phí công bố đơn từ hình thứ hai trở đi sai: không tính (0) trong khi nhập vào 2 hình (nên cần tính cho 1 hình)
+
+5. A03: preview Tờ khai: 3.1) Chủ đơn cũng bị lỗi tương tự như sáng chế: chỉ khai một chủ đơn nhưng hiển thị lại tự tick vào ô "ngoài chủ đơn này còn có những chủ đơn khác khai tại trang bổ sung; 
+3.2) Mục đại diện: cũng lỗi giống như sáng chế chưa tick chọn; 
+3.3) Tác giả: như sáng chế, chưa hiển thị quốc tịch tác giả; 
+3.4) Yêu cầu huởng quyền ưu tiên: không hiển thị thông tin nào dù có nhập; 3.5) Mục tài liệu khác: có có giấy ủy quyền bản sao nhưng không hiển thị; 3.6) Phần ký không có thông tin nơi ký, ngày ký...
+
+
+Phần quản lý:
+3. Quản lý đơn: chỉ tìm kiếm được Đơn, không tìm kiếm được tra cứu? Bây giờ link với nhau rồi thì phần tìm kiếm này nên để chung chứ nhỉ? Chỉ phân quyền theo nhóm. Thanh tìm kiếm nên hiển thị ở tất cả các trang dạng shortcut.
+4. sửa ngôn ngữ 
+	Thông tin fee = Phí, lệ phí / Fees Calculation; 
+	subtitle - Phí, lệ phí tạm tính chưa bao gồm thuế, phí ngân hàng, chiết khấu đặc biệt khác..../ Estimated Fees, exclusive of tax and bank fees, other special discount, etc.. Thêm một dòng tính discount (50%) ở cột phí dịch vụ. Chưa có version t.Anh???
+
+
+WikiPath: 
+1. Pin 3 bài cố định lên đầu (chân trang khóm) - Thủ tục đăng ký Nhãn hiệu, KDCN và SC
+
+Những email gửi đi từ support: 1. Đăng ký thành viên.  
+còn lại là từ tuyến.Lê
+
+
+email search: bỏ file 
+nhóm quyền bỏ search
+
+phần thông tin phí phần phí dịch vụ phần tổng cộng có thêm dòng chiết khấu 50% hiển thị số tiền đc trừ -> số tiền còn phải nộp
+total -> sub total 

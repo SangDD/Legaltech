@@ -67,6 +67,7 @@
     <input type="hidden" id="txt_Tex_Fee" value="@_Tex_Fee" />
     <input type="hidden" id="txt_Total_Amount" value="@_Total_Amount" />
     <input type="hidden" id="txtApp_Case_CodeP" value="@_App_Case_Code" />
+    <input type="hidden" id="txt_Discount" value="@_discount" />
 </div>
 
 <div>
@@ -74,10 +75,10 @@
         <thead>
             <tr>
                 <th class="class300">@WebApps.Resources.Resource.MoTaCongViec</th>
-                <th class="class150">@WebApps.Resources.Resource.LePhiQuocGia</th>
-                <th class="class150">@WebApps.Resources.Resource.PhiDichVu</th>
+                <th class="class100">@WebApps.Resources.Resource.LePhiQuocGia</th>
+                <th class="class100">@WebApps.Resources.Resource.PhiDichVu</th>
                 <th class="class100">@WebApps.Resources.Resource.PhiDichVuTheoGio</th>
-                <th class="class150" style="font-weight:bold">@WebApps.Resources.Resource.Tong</th>
+                <th class="class100" style="font-weight:bold">@WebApps.Resources.Resource.Tong</th>
                 @if (_Operator_Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert))
                 {
                     <th class="class80"></th>
@@ -91,8 +92,22 @@
                 {
                     <tr>
                         <td class="tdleftalign">@item.Biling_Detail_Name</td>
+
                         <td class="tdrightalign">@item.Nation_Fee.ToString("#,##0.##")</td>
-                        <td class="tdrightalign">@item.Represent_Fee.ToString("#,##0.##")</td>
+
+                        @if (_Operator_Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Insert)
+                            && WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin
+                            && item.Type == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Detail_Type.App))
+                        {
+                            <td class="tdrightalign">
+                                <input type="text" style="width:100px" id="@(item.Billing_Detail_Id + "txtRepresent_Fee")" value="@item.Represent_Fee.ToString("#,##0.##")"
+                                       onkeyup="jsFormatNumber(this.value, this.id)" onblur="onChangeRepresent_Fee('@item.Billing_Detail_Id', this.value)" />
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="tdrightalign">@item.Represent_Fee.ToString("#,##0.##")</td>
+                        }
 
                         @if (item.Type != Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Detail_Type.Others))
                         {
@@ -107,7 +122,8 @@
                             else
                             {
                                 <td class="tdrightalign">
-                                    <input type="text" style="width:100px" id="txtService_Fee" value="@item.Service_Fee.ToString("#,##0.##")" onkeyup="jsFormatNumber(this.value, this.id)" onblur="onChangeOthersFee(this.value)" />
+                                    <input type="text" style="width:100px" id="txtService_Fee" value="@item.Service_Fee.ToString("#,##0.##")"
+                                           onkeyup="jsFormatNumber(this.value, this.id)" onblur="onChangeOthersFee(this.value)" />
                                 </td>
                             }
                         }
@@ -147,7 +163,7 @@
                 </tr>
 
                 <tr>
-                    <td class="tdleftalign" style="font-weight:bold">@WebApps.Resources.Resource.ThuePhiNH (10%)</td>
+                    <td class="tdleftalign" style="font-weight:bold">@WebApps.Resources.Resource.ThuePhiNH (@_tax%)</td>
                     <td class="tdrightalign">-</td>
                     <td class="tdrightalign">-</td>
                     <td class="tdrightalign">-</td>
@@ -191,13 +207,17 @@
 {
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;margin-top: 5px;">
-            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Luu" onclick="return doInsertBilling()" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Luu" onclick="return ClosePopUpBilling()" />
         </div>
     </div>
 }
 <script>
 
-      function doDeleteBillingDetail(_Ref_Id, _type) {
+    function ClosePopUpBilling() {
+        CloseDivPopUp('divWrapperPopUpBilling');
+    }
+
+    function doDeleteBillingDetail(_Ref_Id, _type) {
         try {
             nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmDelete)", function () {
                 $.ajax({
@@ -222,6 +242,40 @@
                         console.log(e);
                     }
                 });
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    function onChangeRepresent_Fee(_id, _value) {
+        var _amount = 0;
+        if (_value != "") {
+            _amount = parseInt(_value.replace(/,/g, ""));
+        }
+
+        try {
+            $.ajax({
+                url: '/quan-ly-billing/danh-sach-billing/change-represent-fee',
+                type: 'POST',
+                data: {
+                    p_case_code: $("#txtApp_Case_CodeP").val(),
+                    p_billing_detail_id: _id,
+                    p_amount: _amount,
+                    p_ShowPopUp: '@_ShowPopUp'
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divDataBillingDetail").html(data);
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
             });
         } catch (e) {
             console.log(e);

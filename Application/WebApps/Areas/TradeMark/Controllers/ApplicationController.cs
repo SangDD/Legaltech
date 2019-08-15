@@ -493,7 +493,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                     p_Billing_Header_Info.Approve_By = "";
 
                     p_Billing_Header_Info.Insert_Type = (decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Advise_Filling;
-
+                    p_Billing_Header_Info.Currency_Rate = AppsCommon.Get_Currentcy_VCB();
                     if (p_Billing_Header_Info.App_Case_Code.Contains("SEARCH"))
                         p_Billing_Header_Info.Billing_Type = (decimal)CommonEnums.Billing_Type.Search;
 
