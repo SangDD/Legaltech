@@ -11,6 +11,8 @@ namespace ObjectInfos
         public decimal STT { get; set; }
         public decimal Billing_Id { get; set; }
         public string Case_Code { get; set; }
+        public string App_Case_Name { get; set; }
+
         public decimal Billing_Type { get; set; }
         public string Billing_Type_Name { get; set; }
 
@@ -65,5 +67,12 @@ namespace ObjectInfos
 
         public decimal Discount_Fee_Service { get; set; }
         public decimal Percent_Discount { get; set; }
+
+        // thông tin khách hàng
+        public string CustomerName { get; set; }
+        public string Address { get; set; }
+        public string Contract { get; set; }
+
+        //public List<Billing_Detail_Info> Lst_Detail { get; set; }
     }
 }

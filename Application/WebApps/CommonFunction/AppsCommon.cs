@@ -25,6 +25,7 @@ using System.Net;
 using BussinessFacade.ModuleMemoryData;
 using System.Linq;
 using ObjectInfos.ModuleTrademark;
+using CrystalDecisions.Shared;
 
 namespace WebApps.CommonFunction
 {
@@ -252,13 +253,20 @@ namespace WebApps.CommonFunction
                 }
 
                 string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/Report/Biling_Search_Report.doc");
-                //if (_ApplicationHeaderInfo.Customer_Country != Common.Common.Country_VietNam_Id)
-                //    _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/Report/Biling_Report_EN.doc");
                 DocumentModel document = DocumentModel.Load(_fileTemp);
+                string fileName_exp = "Biling_Search_Report" + p_case_code + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf";
+                string fileName_exp_doc = "/Content/Export/" + "Biling_Search_Report" + p_case_code + DateTime.Now.ToString("yyyyMMddHHmmss") + ".doc";
+
+                UserBL _UserBL = new UserBL();
+                UserInfo userInfo = _UserBL.GetUserByUsername(SearchObject_Header_Info.CREATED_BY);
+
+                _Billing_Header_Info.CustomerName = userInfo.FullName;
+                _Billing_Header_Info.Address = userInfo.Address;
+                _Billing_Header_Info.Contract = userInfo.Contact_Person + " " + userInfo.FullName;
+
+                #region MyRegion
 
                 // Fill export_header
-                string fileName_exp = "/Content/Export/" + "Biling_Search_Report" + p_case_code + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf";
-                string fileName_exp_doc = "/Content/Export/" + "Biling_Search_Report" + p_case_code + DateTime.Now.ToString("yyyyMMddHHmmss") + ".doc";
 
                 string fileName = System.Web.HttpContext.Current.Server.MapPath(fileName_exp);
                 string fileName_doc = System.Web.HttpContext.Current.Server.MapPath(fileName_exp_doc);
@@ -284,14 +292,12 @@ namespace WebApps.CommonFunction
                 document.MailMerge.Execute(new { Total_Amount = _Billing_Header_Info.Total_Amount.ToString("#,##0.##") });
                 document.MailMerge.Execute(new { Total_Pre_Tex = _Billing_Header_Info.Total_Pre_Tex.ToString("#,##0.##") });
                 document.MailMerge.Execute(new { Tex_Fee = _Billing_Header_Info.Tex_Fee.ToString("#,##0.##") });
+                document.MailMerge.Execute(new { Discount_Fee_Service = _Billing_Header_Info.Discount_Fee_Service.ToString("#,##0.##") });
                 document.MailMerge.Execute(new { Currency = _Billing_Header_Info.Currency });
 
                 document.MailMerge.Execute(new { Deadline = _Billing_Header_Info.Deadline.ToString("dd/MM/yyyy") });
                 document.MailMerge.Execute(new { Billing_Date = _Billing_Header_Info.Billing_Date.ToString("dd/MM/yyyy") });
 
-                // lấy thông tin người dùng
-                UserBL _UserBL = new UserBL();
-                UserInfo userInfo = _UserBL.GetUserByUsername(SearchObject_Header_Info.CREATED_BY);
                 if (userInfo != null)
                 {
                     document.MailMerge.Execute(new { Contact_Person = userInfo.Contact_Person + " " + userInfo.FullName });
@@ -321,6 +327,72 @@ namespace WebApps.CommonFunction
                     fileContents = stream.ToArray();
                 }
                 Convert.ToBase64String(fileContents);
+                #endregion
+
+                return fileName_exp;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return "";
+            }
+        }
+
+        public static string Export_Billing_Crytal(string p_case_code, string p_MapPath_Report, string p_mapPath)
+        {
+            try
+            {
+                Billing_BL _obj_bl = new Billing_BL();
+                SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
+                List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
+                Billing_Header_Info _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Code(p_case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
+                foreach (Billing_Detail_Info item in _lst_billing_detail)
+                {
+                    item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
+                }
+
+                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/Report/Biling_Search_Report.doc");
+                DocumentModel document = DocumentModel.Load(_fileTemp);
+                string fileName_exp = "/Content/Export/Biling_Search_Report" + p_case_code + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf";
+                string fileName_exp_doc = "/Content/Export/" + "Biling_Search_Report" + p_case_code + DateTime.Now.ToString("yyyyMMddHHmmss") + ".doc";
+
+                UserBL _UserBL = new UserBL();
+                UserInfo userInfo = _UserBL.GetUserByUsername(SearchObject_Header_Info.CREATED_BY);
+
+                _Billing_Header_Info.CustomerName = userInfo.FullName;
+                _Billing_Header_Info.Address = userInfo.Address;
+                _Billing_Header_Info.Contract = userInfo.Contact_Person + " " + userInfo.FullName;
+                _Billing_Header_Info.Notes = userInfo.Contact_Person + " " + userInfo.FullName;
+
+                List<Billing_Header_Info> _lst = new List<Billing_Header_Info>();
+                _lst.Add(_Billing_Header_Info);
+
+                DataTable _dt_header = ConvertData.ConvertToDatatable<Billing_Header_Info>(_lst, false);
+                DataTable _dtDetail = ConvertData.ConvertToDatatable<Billing_Detail_Info>(_lst_billing_detail, false);
+
+                DataSet _ds = new DataSet();
+                _ds.Tables.Add(_dt_header);
+                _ds.Tables[0].TableName = "Table1";
+
+                _ds.Tables.Add(_dtDetail);
+                _ds.Tables[1].TableName = "Table";
+
+                CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+                string _tempfile = "Billing.rpt";
+                oRpt.Load(Path.Combine(p_MapPath_Report, _tempfile));
+
+                if (_ds != null)
+                {
+                    oRpt.SetDataSource(_ds);
+                }
+                oRpt.Refresh();
+
+                string file = System.IO.Path.Combine(p_mapPath + fileName_exp);
+
+                System.IO.Stream oStream = oRpt.ExportToStream(ExportFormatType.PortableDocFormat);
+                byte[] byteArray = new byte[oStream.Length];
+                oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
+                System.IO.File.WriteAllBytes(file, byteArray.ToArray()); // Requires System.Linq
 
                 return fileName_exp;
             }
@@ -809,7 +881,7 @@ namespace WebApps.CommonFunction
                     _AppFeeFixInfo61.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
                     _AppFeeFixInfo61.Fee_Name_En = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description_En;
                 }
-                
+
                 //20190811 chị Tuyến bảo bỏ đi vì cục chưa áp dụng
                 _AppFeeFixInfo61.Isuse = 0;
                 _AppFeeFixInfo61.Number_Of_Patent = 0;

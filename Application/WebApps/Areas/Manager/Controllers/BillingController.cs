@@ -923,7 +923,10 @@ namespace WebApps.Areas.Manager.Controllers
         {
             try
             {
-                string _fileName = AppsCommon.Export_Billing(p_case_code);
+                string _mapPath_Report = Server.MapPath("~/Report/");
+                string _mapPath = Server.MapPath("~/");
+
+                string _fileName = AppsCommon.Export_Billing_Crytal(p_case_code,  _mapPath_Report, _mapPath);
                 return Json(new { success = _fileName });
             }
             catch (Exception ex)
