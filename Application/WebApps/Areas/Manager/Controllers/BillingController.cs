@@ -106,10 +106,16 @@ namespace WebApps.Areas.Manager.Controllers
                 if (case_code.Contains("SEARCH"))
                 {
                     _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Id(id, case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
+
+                    ViewBag.Currency_Type = SearchObject_Header_Info.Currency_Type;
+                    SessionData.SetDataSession(case_code + "_CURRENCY_TYPE", SearchObject_Header_Info.Currency_Type);
                 }
                 else
                 {
                     _Billing_Header_Info = _obj_bl.Billing_GetBy_Id(id, case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
+
+                    ViewBag.Currency_Type = objAppHeaderInfo.Currency_Type;
+                    SessionData.SetDataSession(case_code + "_CURRENCY_TYPE", objAppHeaderInfo.Currency_Type);
                 }
 
                 foreach (Billing_Detail_Info item in _lst_billing_detail)
@@ -146,10 +152,16 @@ namespace WebApps.Areas.Manager.Controllers
                 if (case_code.Contains("SEARCH"))
                 {
                     _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Code(case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
+
+                    ViewBag.Currency_Type = SearchObject_Header_Info.Currency_Type;
+                    SessionData.SetDataSession(case_code + "_CURRENCY_TYPE", SearchObject_Header_Info.Currency_Type);
                 }
                 else
                 {
                     _Billing_Header_Info = _obj_bl.Billing_GetBy_Code(case_code, AppsCommon.GetCurrentLang(), ref objAppHeaderInfo, ref _lst_billing_detail);
+
+                    ViewBag.Currency_Type = objAppHeaderInfo.Currency_Type;
+                    SessionData.SetDataSession(case_code + "_CURRENCY_TYPE", objAppHeaderInfo.Currency_Type);
                 }
 
                 foreach (Billing_Detail_Info item in _lst_billing_detail)
@@ -855,6 +867,9 @@ namespace WebApps.Areas.Manager.Controllers
                 if (case_code.Contains("SEARCH"))
                 {
                     _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Code(case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
+
+                    ViewBag.Currency_Type = SearchObject_Header_Info.Currency_Type;
+                    SessionData.SetDataSession(case_code + "_CURRENCY_TYPE", SearchObject_Header_Info.Currency_Type);
                 }
                 else
                 {
@@ -863,10 +878,10 @@ namespace WebApps.Areas.Manager.Controllers
                     {
                         _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Code(case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
                     }
-                }
 
-                ViewBag.Currency_Type = objAppHeaderInfo.Currency_Type;
-                SessionData.SetDataSession(case_code + "_CURRENCY_TYPE", objAppHeaderInfo.Currency_Type);
+                    ViewBag.Currency_Type = objAppHeaderInfo.Currency_Type;
+                    SessionData.SetDataSession(case_code + "_CURRENCY_TYPE", objAppHeaderInfo.Currency_Type);
+                }
 
                 foreach (Billing_Detail_Info item in _lst_billing_detail)
                 {
@@ -926,7 +941,7 @@ namespace WebApps.Areas.Manager.Controllers
                 string _mapPath_Report = Server.MapPath("~/Report/");
                 string _mapPath = Server.MapPath("~/");
 
-                string _fileName = AppsCommon.Export_Billing_Crytal(p_case_code,  _mapPath_Report, _mapPath);
+                string _fileName = AppsCommon.Export_Billing_Crytal_View(p_case_code,  _mapPath_Report, _mapPath);
                 return Json(new { success = _fileName });
             }
             catch (Exception ex)
@@ -1118,7 +1133,8 @@ namespace WebApps.Areas.Manager.Controllers
         {
             try
             {
-                List<Billing_Detail_Info> _lst_billing_detail = AppsCommon.Get_LstFee_Detail(p_case_code);
+                //List<Billing_Detail_Info> _lst_billing_detail = AppsCommon.Get_LstFee_Detail(p_case_code);
+                List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
                 if (_lst_billing_detail.Count > 0)
                 {
                     foreach (Billing_Detail_Info item in _lst_billing_detail)

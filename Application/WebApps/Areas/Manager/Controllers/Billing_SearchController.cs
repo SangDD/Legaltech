@@ -184,7 +184,12 @@ namespace WebApps.Areas.Manager.Controllers
 
                     if (_ck > 0 && p_Billing_Header_Info.Insert_Type == (decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Search)
                     {
-                        string _fileExport = Export_Billing(p_Billing_Header_Info.Case_Code);
+                        //string _fileExport = Export_Billing(p_Billing_Header_Info.Case_Code);
+
+                        string _mapPath_Report = Server.MapPath("~/Report/");
+                        string _mapPath = Server.MapPath("~/");
+
+                        string _fileExport = AppsCommon.Export_Billing_Crytal_View(p_Billing_Header_Info.Case_Code, _mapPath_Report, _mapPath);
                         if (_fileExport == "") goto Commit_Transaction;
 
                         SearchObject_BL _bl = new SearchObject_BL();
@@ -304,7 +309,10 @@ namespace WebApps.Areas.Manager.Controllers
         {
             try
             {
-                string _fileName = Export_Billing(p_case_code);
+                string _mapPath_Report = Server.MapPath("~/Report/");
+                string _mapPath = Server.MapPath("~/");
+
+                string _fileName = AppsCommon.Export_Billing_Crytal_View(p_case_code, _mapPath_Report, _mapPath);
                 return Json(new { success = _fileName });
             }
             catch (Exception ex)

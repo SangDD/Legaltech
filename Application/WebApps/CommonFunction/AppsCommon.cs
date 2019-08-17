@@ -338,26 +338,25 @@ namespace WebApps.CommonFunction
             }
         }
 
-        public static string Export_Billing_Crytal(string p_case_code, string p_MapPath_Report, string p_mapPath)
+        public static string Export_Billing_Crytal(string p_case_code, string p_MapPath_Report, string p_mapPath,
+            string p_customer,
+            Billing_Header_Info _Billing_Header_Info, List<Billing_Detail_Info> _lst_billing_detail)
         {
             try
             {
                 Billing_BL _obj_bl = new Billing_BL();
-                SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
-                List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
-                Billing_Header_Info _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Code(p_case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
-                foreach (Billing_Detail_Info item in _lst_billing_detail)
-                {
-                    item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
-                }
 
-                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/Report/Biling_Search_Report.doc");
-                DocumentModel document = DocumentModel.Load(_fileTemp);
-                string fileName_exp = "/Content/Export/Biling_Search_Report" + p_case_code + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf";
-                string fileName_exp_doc = "/Content/Export/" + "Biling_Search_Report" + p_case_code + DateTime.Now.ToString("yyyyMMddHHmmss") + ".doc";
+                //SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
+                //List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
+                //Billing_Header_Info _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Code(p_case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
+                //foreach (Billing_Detail_Info item in _lst_billing_detail)
+                //{
+                //    item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
+                //}
 
+                string fileName_exp = "/Content/Export/Biling_Report_" + p_case_code + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf";
                 UserBL _UserBL = new UserBL();
-                UserInfo userInfo = _UserBL.GetUserByUsername(SearchObject_Header_Info.CREATED_BY);
+                UserInfo userInfo = _UserBL.GetUserByUsername(p_customer);
 
                 _Billing_Header_Info.CustomerName = userInfo.FullName;
                 _Billing_Header_Info.Address = userInfo.Address;
@@ -379,11 +378,20 @@ namespace WebApps.CommonFunction
 
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
                 string _tempfile = "Billing.rpt";
+                if (userInfo.Country != 234)
+                {
+                    _tempfile = "Billing_EN.rpt";
+                }
                 oRpt.Load(Path.Combine(p_MapPath_Report, _tempfile));
 
                 if (_ds != null)
                 {
-                    oRpt.SetDataSource(_ds);
+                    //oRpt.SetDataSource(_ds);
+
+                    // sửa kiểu này để tránh trường hợp Database logon failed.
+                    // "File"->"Options"->"Reporting"->Uncheck "Save Data With Report"
+                    oRpt.Database.Tables["Table1"].SetDataSource(_dt_header);
+                    oRpt.Database.Tables["Table"].SetDataSource(_dtDetail); // Don't 
                 }
                 oRpt.Refresh();
 
@@ -395,6 +403,29 @@ namespace WebApps.CommonFunction
                 System.IO.File.WriteAllBytes(file, byteArray.ToArray()); // Requires System.Linq
 
                 return fileName_exp;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return "";
+            }
+        }
+
+        // dùng cho form xem
+        public static string Export_Billing_Crytal_View(string p_case_code, string p_MapPath_Report, string p_mapPath)
+        {
+            try
+            {
+                Billing_BL _obj_bl = new Billing_BL();
+                SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
+                List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
+                Billing_Header_Info _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Code(p_case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
+                foreach (Billing_Detail_Info item in _lst_billing_detail)
+                {
+                    item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
+                }
+
+                return Export_Billing_Crytal(p_case_code, p_MapPath_Report, p_mapPath, SearchObject_Header_Info.CREATED_BY, _Billing_Header_Info, _lst_billing_detail);
             }
             catch (Exception ex)
             {
@@ -462,11 +493,11 @@ namespace WebApps.CommonFunction
             return 0;
         }
 
-        public static decimal Insert_Billing(string p_Case_Code, string p_note, decimal p_insert_type, ref string p_fileExport)
+        public static decimal Insert_Billing_4Application(string p_app_Case_Code, string p_note, decimal p_insert_type, string p_mapPath_Report, string p_mapPath, ref string p_fileExport)
         {
             try
             {
-                List<Billing_Detail_Info> _lst_billing_detail = AppsCommon.Get_LstFee_Detail(p_Case_Code);
+                List<Billing_Detail_Info> _lst_billing_detail = AppsCommon.Get_LstFee_Detail(p_app_Case_Code);
                 if (_lst_billing_detail.Count == 0)
                 {
                     return -2;
@@ -481,14 +512,12 @@ namespace WebApps.CommonFunction
                 p_Billing_Header_Info.Language_Code = AppsCommon.GetCurrentLang();
                 p_Billing_Header_Info.Status = (decimal)CommonEnums.Billing_Status.New_Wait_Approve;
                 p_Billing_Header_Info.Billing_Type = (decimal)CommonEnums.Billing_Type.App;
-                if (p_Billing_Header_Info.App_Case_Code.Contains("SEARCH"))
-                    p_Billing_Header_Info.Billing_Type = (decimal)CommonEnums.Billing_Type.Search;
                 p_Billing_Header_Info.Insert_Type = p_insert_type;
 
-                p_Billing_Header_Info.Notes = "Billing for case code " + p_Case_Code + " - " + p_note;
+                p_Billing_Header_Info.Notes = "Billing for case code " + p_app_Case_Code + " - " + p_note;
 
                 p_Billing_Header_Info.Case_Code = _Billing_BL.Billing_GenCaseCode();
-                p_Billing_Header_Info.App_Case_Code = p_Case_Code;
+                p_Billing_Header_Info.App_Case_Code = p_app_Case_Code;
 
                 p_Billing_Header_Info.Billing_Date = DateTime.Now;
                 p_Billing_Header_Info.Deadline = DateTime.Now.AddDays(30);
@@ -525,7 +554,12 @@ namespace WebApps.CommonFunction
                     _ck = _Billing_BL.Billing_Detail_InsertBatch(_lst_billing_detail, _idBilling);
                 }
 
-                p_fileExport = Export_Billing(p_Billing_Header_Info.Case_Code);
+                //p_fileExport = Export_Billing(p_Billing_Header_Info.Case_Code);
+                // lấy thông tin khách hàng
+                Application_Header_BL _app_bl = new Application_Header_BL();
+                ApplicationHeaderInfo _appHeader = _app_bl.GetApp_By_Case_Code(p_app_Case_Code);
+
+                string _fileExport = AppsCommon.Export_Billing_Crytal(p_Billing_Header_Info.Case_Code, p_mapPath_Report, p_mapPath, _appHeader.Created_By, p_Billing_Header_Info, _lst_billing_detail);
 
                 // nếu kết xuất file thành công thì insert vào docking
                 Insert_Docketing(p_Billing_Header_Info.App_Case_Code, "Report Billing", p_fileExport, true);

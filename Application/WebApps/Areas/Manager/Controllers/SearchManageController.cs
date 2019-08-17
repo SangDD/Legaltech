@@ -827,7 +827,12 @@ namespace WebApps.Areas.Manager.Controllers
 
                     if (_ck > 0 && p_Billing_Header_Info.Insert_Type == (decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Search)
                     {
-                        string _fileExport = AppsCommon.Export_Billing(p_Billing_Header_Info.Case_Code);
+                        //string _fileExport = AppsCommon.Export_Billing(p_Billing_Header_Info.Case_Code);
+
+                        string _mapPath_Report = Server.MapPath("~/Report/");
+                        string _mapPath = Server.MapPath("~/");
+
+                        string _fileExport = AppsCommon.Export_Billing_Crytal(p_Billing_Header_Info.Case_Code, _mapPath_Report, _mapPath, objSearch_HeaderInfo.CREATED_BY, p_Billing_Header_Info, _lst_billing_detail);
                         if (_fileExport == "") goto Commit_Transaction;
 
                         SearchObject_BL _bl = new SearchObject_BL();

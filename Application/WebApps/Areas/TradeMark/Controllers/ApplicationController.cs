@@ -442,10 +442,6 @@ namespace WebApps.Areas.TradeMark.Controllers
             try
             {
                 List<Billing_Detail_Info> _lst_billing_detail = AppsCommon.Get_LstFee_Detail(pInfo.Case_Code);
-                //if (_lst_billing_detail.Count == 0)
-                //{
-                //    return Json(new { success = "-2" });
-                //}
 
                 decimal _ck = 0;
                 using (var scope = new TransactionScope())
@@ -526,7 +522,11 @@ namespace WebApps.Areas.TradeMark.Controllers
                         _ck = _Billing_BL.Billing_Detail_InsertBatch(_lst_billing_detail, _idBilling);
                     }
 
-                    string _fileExport = AppsCommon.Export_Billing(p_Billing_Header_Info.Case_Code);
+                    //string _fileExport = AppsCommon.Export_Billing(p_Billing_Header_Info.Case_Code);
+                    string _mapPath_Report = Server.MapPath("~/Report/");
+                    string _mapPath = Server.MapPath("~/");
+
+                    string _fileExport = AppsCommon.Export_Billing_Crytal(p_Billing_Header_Info.Case_Code, _mapPath_Report, _mapPath, pInfo.Created_By, p_Billing_Header_Info, _lst_billing_detail);
                     if (_fileExport == "") goto Commit_Transaction;
 
                     Application_Header_BL _BL = new Application_Header_BL();
@@ -590,25 +590,15 @@ namespace WebApps.Areas.TradeMark.Controllers
             try
             {
                 string _url_billing = "";
-                decimal _id_billing = AppsCommon.Insert_Billing(pInfo.Case_Code, pInfo.Note, p_insert_billing_type, ref _url_billing);
+                string _mapPath_Report = Server.MapPath("~/Report/");
+                string _mapPath = Server.MapPath("~/");
+                decimal _id_billing = AppsCommon.Insert_Billing_4Application(pInfo.Case_Code, pInfo.Note, p_insert_billing_type, _mapPath_Report, _mapPath, ref _url_billing);
 
                 if (_id_billing > 0)
                 {
                     pInfo.Billing_Url = _url_billing;
                     pInfo.Billing_Id = _id_billing;
                 }
-
-                //// url billing
-                //string _keyUrlBilling = "BILLING_APP_URL_" + pInfo.Case_Code + "_" + p_insert_billing_type.ToString();
-                //string _url_billing = (string)SessionData.GetDataSession(_keyUrlBilling);
-                //if (_url_billing != null && _url_billing != "")
-                //    pInfo.Billing_Url = _url_billing;
-
-                //// id billing
-                //string _keyIdBilling = "BILLING_APP_ID_" + pInfo.Case_Code + "_" + p_insert_billing_type.ToString();
-                //decimal _id_billing = (decimal)SessionData.GetDataSession(_keyIdBilling);
-                //if (_id_billing > 0)
-                //    pInfo.Billing_Id = _id_billing;
             }
             catch (Exception ex)
             {

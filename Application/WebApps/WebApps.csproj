@@ -271,6 +271,9 @@
       <DependentUpon>A03.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Report\Billing.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Report\TM_04NHLogoChu.cs">
       <DependentUpon>TM_04NHLogoChu.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1832,6 +1835,8 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>A03_EN.cs</LastGenOutput>
     </EmbeddedResource>
+    <Content Include="Report\Billing.rpt" />
+    <Content Include="Report\Billing_EN.rpt" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\AlertPopup\ASSAlert.js" />
     <Content Include="Scripts\AlertPopup\NVSAlertCss.css" />

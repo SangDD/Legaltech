@@ -236,6 +236,7 @@
                 formdata.append("pInfo.Comment_Filling", $('#txtComment_Filling').val());
                 formdata.append("pInfo.App_No", $('#txt_App_No').val());
                 formdata.append("pInfo.Expected_Accept_Date", $('#txt_expected_accept_date').val());
+                formdata.append("pInfo.Created_By", '@_AppHeaderInfo.Created_By');
 
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/do-filing',

@@ -86,7 +86,7 @@
             _filename1 = _arr1[_arr1.Length - 1]; 
 
             // Hiển thị cả trạng thái reject nữa
-            if (_Billing_Header_Info.Status == (decimal)Common.CommonData.CommonEnums.Billing_Status.Reject)
+            if (_Billing_Header_Info != null && _Billing_Header_Info.Status == (decimal)Common.CommonData.CommonEnums.Billing_Status.Reject)
             {
                 _filename1 = _filename1 + "(" + _Billing_Header_Info.Status_Name + ")";
             }
