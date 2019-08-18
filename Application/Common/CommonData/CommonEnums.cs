@@ -216,7 +216,7 @@
         public static string AppCodeTraCuuNhanHieu = "TM03YCTCNH";
 
         public static string AppCode_A01 = "A01";
-        public static string AppCodeDangKynhanHieu = "A02";
+        public static string AppCodeDangKynhanHieu = "A04";
         public static string AppCode_A03_IndustryDesign = "A03";
         public static string AppCode_TM_3B_PLB_01_SDD = "B01";
         public static string AppCode_TM_3C_PLB_02_CGD = "B02"; //TM_PLB02CGD

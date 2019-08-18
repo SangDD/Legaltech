@@ -2044,7 +2044,7 @@
 
                 int check = 0;
                 string language = AppsCommon.GetCurrentLang();
-                foreach (var item in MemoryData.c_lst_Nation_Represent)
+                foreach (var item in MemoryData.c_lst_Country)
                 {
                     if (item.Country_Id == p_id)
                     {
