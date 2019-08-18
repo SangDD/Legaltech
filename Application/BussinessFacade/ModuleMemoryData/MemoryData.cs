@@ -62,6 +62,12 @@
         {
             try
             {
+                // dangtq thêm thông tin fee tĩnh theo đơn
+                LoadSys_App_Fee_Fix();
+
+                // DANGTQ load fee cho seach
+                LoadSys_Search_Fee_Fix();
+
                 #region Allcode
                 c_hs_Allcode.Clear();
                 AllCodeBL _AllCodeBL = new AllCodeBL();
@@ -107,12 +113,6 @@
                 //Load lên mem
                 clstAppClass = AppClassInfoBL.AppClassGetOnMem();
 
-                // dangtq thêm thông tin fee tĩnh theo đơn
-                LoadSys_App_Fee_Fix();
-
-                // DANGTQ load fee cho seach
-                LoadSys_Search_Fee_Fix();
-
                 foreach (var item in clstAppClass)
                 {
                     CustomerSuggestInfo pinfo = new CustomerSuggestInfo();
@@ -142,6 +142,8 @@
                 GetCache_represent();
 
                 GetCacheDDSHCN();
+
+                Logger.LogInfo("Load memory sucess MemoryData.c_dic_FeeByApp_Fix count " + MemoryData.c_dic_FeeByApp_Fix.Count);
             }
             catch (Exception ex)
             {

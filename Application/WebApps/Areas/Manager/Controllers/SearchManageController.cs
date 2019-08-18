@@ -687,14 +687,21 @@ namespace WebApps.Areas.Manager.Controllers
                         _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_QuestionInfo.FILE_URL02));
                     }
 
-                    if (_HeaderInfo.Url_Billing != null && _HeaderInfo.Url_Billing != "")
+                    if (_HeaderInfo.Billing_Id > 0)
                     {
                         // lấy thông tin billing
                         Billing_BL _Billing_BL = new Billing_BL();
                         Billing_Header_Info _Billing_Header_Info = _Billing_BL.Billing_GetBy_Id(_HeaderInfo.Billing_Id, AppsCommon.GetCurrentLang());
                         if (_Billing_Header_Info.Billing_Id > 0 && _Billing_Header_Info.Status == (decimal)CommonEnums.Billing_Status.Approved)
                         {
-                            _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_HeaderInfo.Url_Billing));
+                            //_LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_HeaderInfo.Url_Billing));
+
+                            // kết xuất thông tin
+                            string _mapPath_Report = Server.MapPath("~/Report/");
+                            string _mapPath = Server.MapPath("~/");
+
+                            string _fileName = AppsCommon.Export_Billing_Crytal_View(_Billing_Header_Info.Case_Code, _mapPath_Report, _mapPath);
+                            _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_fileName));
                         }
                     }
 

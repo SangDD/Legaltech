@@ -363,14 +363,30 @@ namespace WebApps.Areas.TradeMark.Controllers
                     _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_ApplicationHeaderInfo.Url_copy_filing));
                     _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_ApplicationHeaderInfo.URL_TRANSLATE_FILING));
 
-                    if (_ApplicationHeaderInfo.Url_Billing != null && _ApplicationHeaderInfo.Url_Billing != "")
+                    //if (_ApplicationHeaderInfo.Url_Billing != null && _ApplicationHeaderInfo.Url_Billing != "")
+                    //{
+                    //    // lấy thông tin billing
+                    //    Billing_BL _Billing_BL = new Billing_BL();
+                    //    Billing_Header_Info _Billing_Header_Info = _Billing_BL.Billing_GetBy_Id(_ApplicationHeaderInfo.Billing_Id_Advise, AppsCommon.GetCurrentLang());
+                    //    if (_Billing_Header_Info.Billing_Id > 0 && _Billing_Header_Info.Status == (decimal)CommonEnums.Billing_Status.Approved)
+                    //    {
+                    //        _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_ApplicationHeaderInfo.Url_Billing));
+                    //    }
+                    //}
+
+                    if (_ApplicationHeaderInfo.Billing_Id_Advise > 0)
                     {
                         // lấy thông tin billing
                         Billing_BL _Billing_BL = new Billing_BL();
                         Billing_Header_Info _Billing_Header_Info = _Billing_BL.Billing_GetBy_Id(_ApplicationHeaderInfo.Billing_Id_Advise, AppsCommon.GetCurrentLang());
                         if (_Billing_Header_Info.Billing_Id > 0 && _Billing_Header_Info.Status == (decimal)CommonEnums.Billing_Status.Approved)
                         {
-                            _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_ApplicationHeaderInfo.Url_Billing));
+                            // kết xuất thông tin
+                            string _mapPath_Report = Server.MapPath("~/Report/");
+                            string _mapPath = Server.MapPath("~/");
+
+                            string _fileName = AppsCommon.Export_Billing_Crytal_View(_Billing_Header_Info.Case_Code, _mapPath_Report, _mapPath);
+                            _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_fileName));
                         }
                     }
 

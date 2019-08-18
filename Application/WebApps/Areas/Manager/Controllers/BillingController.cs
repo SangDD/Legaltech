@@ -266,28 +266,29 @@ namespace WebApps.Areas.Manager.Controllers
                         _ck = _obj_bl.Billing_Detail_InsertBatch(_lst_billing_detail, _idBilling);
                     }
 
-                    //if (_ck > 0 && p_Billing_Header_Info.Insert_Type != (decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.App)
-                    //{
-                    //    string _fileExport = Export_Billing(p_Billing_Header_Info.Case_Code);
-                    //    if (_fileExport == "") goto Commit_Transaction;
+                    if (_ck > 0 && p_Billing_Header_Info.Insert_Type != (decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.App)
+                    {
+                        //string _fileExport = Export_Billing(p_Billing_Header_Info.Case_Code);
+                        //if (_fileExport == "") goto Commit_Transaction;
+                        string _fileExport = "";
 
-                    //    if (p_Billing_Header_Info.Insert_Type == (decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Advise_Filling)
-                    //    {
-                    //        Application_Header_BL _BL = new Application_Header_BL();
-                    //        _ck = _BL.AppHeader_Update_Advise_Url_Billing(p_Billing_Header_Info.App_Case_Code, _idBilling, _fileExport);
-                    //    }
-                    //    else
-                    //    {
-                    //        string _key = "BILLING_APP_URL_" + p_Billing_Header_Info.App_Case_Code + "_" + p_Billing_Header_Info.Insert_Type.ToString();
-                    //        SessionData.SetDataSession(_key, _fileExport);
+                        if (p_Billing_Header_Info.Insert_Type == (decimal)Common.CommonData.CommonEnums.Billing_Insert_Type.Advise_Filling)
+                        {
+                            Application_Header_BL _BL = new Application_Header_BL();
+                            _ck = _BL.AppHeader_Update_Advise_Url_Billing(p_Billing_Header_Info.App_Case_Code, _idBilling, _fileExport);
+                        }
+                        else
+                        {
+                            string _key = "BILLING_APP_URL_" + p_Billing_Header_Info.App_Case_Code + "_" + p_Billing_Header_Info.Insert_Type.ToString();
+                            SessionData.SetDataSession(_key, _fileExport);
 
-                    //        _key = "BILLING_APP_ID_" + p_Billing_Header_Info.App_Case_Code + "_" + p_Billing_Header_Info.Insert_Type.ToString();
-                    //        SessionData.SetDataSession(_key, _idBilling);
-                    //    }
+                            _key = "BILLING_APP_ID_" + p_Billing_Header_Info.App_Case_Code + "_" + p_Billing_Header_Info.Insert_Type.ToString();
+                            SessionData.SetDataSession(_key, _idBilling);
+                        }
 
-                    //    // nếu kết xuất file thành công thì insert vào docking
-                    //    AppsCommon.Insert_Docketing(p_Billing_Header_Info.App_Case_Code, "Report Billing", _fileExport, true);
-                    //}
+                        // nếu kết xuất file thành công thì insert vào docking
+                        AppsCommon.Insert_Docketing(p_Billing_Header_Info.App_Case_Code, "Report Billing", _fileExport, true);
+                    }
 
                     //end
                     Commit_Transaction:

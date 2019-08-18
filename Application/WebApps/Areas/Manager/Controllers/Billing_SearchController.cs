@@ -189,9 +189,10 @@ namespace WebApps.Areas.Manager.Controllers
                         string _mapPath_Report = Server.MapPath("~/Report/");
                         string _mapPath = Server.MapPath("~/");
 
-                        string _fileExport = AppsCommon.Export_Billing_Crytal_View(p_Billing_Header_Info.Case_Code, _mapPath_Report, _mapPath);
-                        if (_fileExport == "") goto Commit_Transaction;
+                        // bỏ đi để lúc nào gửi email thì lấy ra
+                        //string _fileExport = AppsCommon.Export_Billing_Crytal_View(p_Billing_Header_Info.Case_Code, _mapPath_Report, _mapPath);
 
+                        string _fileExport = "";
                         SearchObject_BL _bl = new SearchObject_BL();
                         _ck = _bl.Update_Url_Billing(p_Billing_Header_Info.App_Case_Code, _billing_id, _fileExport);
 
@@ -200,7 +201,6 @@ namespace WebApps.Areas.Manager.Controllers
                     }
 
                     //end
-                    Commit_Transaction:
                     if (_ck < 0)
                     {
                         Transaction.Current.Rollback();
