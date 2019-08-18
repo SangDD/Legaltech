@@ -13,6 +13,7 @@ namespace ObjectInfos
         //public string Case_Code { get; set; }
         public decimal App_Header_Id { get; set; }
         public string Language_Code { get; set; }
+        public string TenThietKe { get; set; }
         public DateTime NgayTaoThietKe { get; set; }
 
         public string KhaiThactm { get; set; }
@@ -78,6 +79,7 @@ namespace ObjectInfos
         public decimal App_Header_Id { get; set; }
         public string Language_Code { get; set; }
 
+        public string TenThietKe { get; set; }
         public DateTime NgayTaoThietKe { get; set; }
 
         public string KhaiThactm { get; set; }
@@ -267,7 +269,7 @@ namespace ObjectInfos
         /// Tờ khai, gồm.......trang   x .......bản
         /// </summary>
         public string Doc_Id_1 { get; set; }
-        public string Doc_Id_101 { get; set; }
+        public string Doc_Id_102 { get; set; }
 
         public decimal Doc_Id_1_Check { get; set; }
 
@@ -275,7 +277,7 @@ namespace ObjectInfos
         /// Bộ ảnh chụp hoặc bản vẽ TKBT gồm.......trang x .......bộ
         /// </summary>
         public string Doc_Id_2 { get; set; }
-        public string Doc_Id_201 { get; set; }
+        public string Doc_Id_202 { get; set; }
    
         public decimal Doc_Id_2_Check { get; set; }
 
@@ -283,7 +285,7 @@ namespace ObjectInfos
         /// Bản mô tả, gồm.......trang   x .......bản
         /// </summary>
         public string Doc_Id_3 { get; set; }
-        public string Doc_Id_301 { get; set; }
+        public string Doc_Id_302 { get; set; }
         public decimal Doc_Id_3_Check { get; set; }
 
         /// <summary>
@@ -369,6 +371,7 @@ namespace ObjectInfos
         {
             p_appDetail.A02_Id = p_A02_Info.A02_Id;
             p_appDetail.Language_Code = p_A02_Info.Language_Code;
+            p_appDetail.TenThietKe = p_A02_Info.TenThietKe;
             p_appDetail.NgayTaoThietKe = p_A02_Info.NgayTaoThietKe;
             p_appDetail.KhaiThactm = p_A02_Info.KhaiThactm;
             p_appDetail.KhaiThactm_TaiNuoc = p_A02_Info.KhaiThactm_TaiNuoc;
