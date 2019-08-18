@@ -218,6 +218,7 @@
         public static string AppCode_A01 = "A01";
         public static string AppCodeDangKynhanHieu = "A04";
         public static string AppCode_A03_IndustryDesign = "A03";
+        public static string AppCode_A02_DangKyThietKeMachTichHop = "A02";
         public static string AppCode_TM_3B_PLB_01_SDD = "B01";
         public static string AppCode_TM_3C_PLB_02_CGD = "B02"; //TM_PLB02CGD
         public static string AppCode_TM_3D_PLC_05_KN = "C05";  //TM_PLC05KN

@@ -514,3 +514,11 @@ function GetValRadioCheckBoxByName(_name)
     }).get();
     return list;
 }
+function SetValRadioCheckBoxByName(_name, _value) {
+    var list = $("input[name=" + _name + "]:checked").map(function () {
+        if (this.value == _value) {
+            this.prop("checked", true);;
+        }
+    }).get();
+     
+}
