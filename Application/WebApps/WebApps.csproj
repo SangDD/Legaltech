@@ -215,6 +215,8 @@
     <Compile Include="Areas\QuanLyPhi\QuanLyPhiAreaRegistration.cs" />
     <Compile Include="Areas\Sys_Pages\Controllers\SysPagesController.cs" />
     <Compile Include="Areas\Sys_Pages\Sys_PagesAreaRegistration.cs" />
+    <Compile Include="Areas\ThietKeBanDan\Controllers\A02Controller.cs" />
+    <Compile Include="Areas\ThietKeBanDan\ThietKeBanDanAreaRegistration.cs" />
     <Compile Include="Areas\TradeMark\Controllers\ApplicationController.cs" />
     <Compile Include="Areas\TradeMark\Controllers\PLD01_HDCN_4C2_Controller.cs" />
     <Compile Include="Areas\TradeMark\Controllers\PLC05_KN_3D_Controller.cs" />
@@ -1814,6 +1816,13 @@
     <Content Include="Areas\Manager\Views\SearchManage\_PartialSearch_IndusDesign.cshtml" />
     <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\_PartialPreview_IU.cshtml" />
     <Content Include="Areas\Manager\Views\SearchManage\_Partial_KhachHang_Review.cshtml" />
+    <Content Include="Areas\ThietKeBanDan\Views\web.config" />
+    <Content Include="Areas\ThietKeBanDan\Views\A02\_PartialPreview.cshtml" />
+    <Content Include="Areas\ThietKeBanDan\Views\A02\_PartialPreview_IU.cshtml" />
+    <Content Include="Areas\ThietKeBanDan\Views\A02\_PartialThongtinQuyenUutien_View.cshtml" />
+    <Content Include="Areas\ThietKeBanDan\Views\A02\_Partial_A02.cshtml" />
+    <Content Include="Areas\ThietKeBanDan\Views\A02\_Partial_A02_Edit.cshtml" />
+    <Content Include="Areas\ThietKeBanDan\Views\A02\_Partial_A02_View.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <None Include="Properties\PublishProfiles\HungTDLap.pubxml" />
@@ -2167,6 +2176,8 @@
     <Folder Include="Areas\QuanLyPhi\Models\" />
     <Folder Include="Areas\QuanLyPhi\Views\Shared\" />
     <Folder Include="Areas\Sys_Pages\Models\" />
+    <Folder Include="Areas\ThietKeBanDan\Models\" />
+    <Folder Include="Areas\ThietKeBanDan\Views\Shared\" />
     <Folder Include="Areas\TradeMark\Models\" />
     <Folder Include="Content\Archive\Document\" />
     <Folder Include="Content\Archive\FileAttact\" />
