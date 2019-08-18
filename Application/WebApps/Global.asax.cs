@@ -43,7 +43,6 @@
                     DisplayName_Business = CommonFuc.GetConfig("DisplayName_Business")
                 };
 
-                Logger.Log().Info("Start Application_Start");
                 CommonVariables.AssemblyVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
                 CommonVariables.KnFileLogin = HttpContext.Current.Server.MapPath(@"~/log/LogInApp" + DateTime.Now.ToString("MMyyyy") + ".log");
                 MemoryData.LoadAllMemoryData();
@@ -69,6 +68,7 @@
                 _th3.IsBackground = true;
                 _th3.Start();
 
+                Logger.Log().Info("Start Application_Start");
             }
             catch (Exception ex)
             {

@@ -20,7 +20,7 @@
 
         public static void LogInfo(string _mess)
         {
-            s_log.Error(_mess);
+            s_log.Info(_mess);
         }
 
     }
