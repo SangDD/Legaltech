@@ -507,3 +507,10 @@ function StringToDate_ddMMyyyy(strDate, strDelemiter) {
 
 	return new Date(year, month - 1, day);
 }
+function GetValRadioCheckBoxByName(_name)
+{
+    var list = $("input[name=" + _name + "]:checked").map(function () {
+        return this.value;
+    }).get();
+    return list;
+}

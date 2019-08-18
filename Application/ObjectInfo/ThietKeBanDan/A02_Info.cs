@@ -282,61 +282,60 @@ namespace ObjectInfos
         public decimal Doc_Id_2_Check { get; set; }
 
         /// <summary>
-        /// Bản mô tả, gồm.......trang   x .......bản
+        ///  Bản sao chứng từ nộp phí, lệ phí
         /// </summary>
         public string Doc_Id_3 { get; set; }
-        public string Doc_Id_302 { get; set; }
         public decimal Doc_Id_3_Check { get; set; }
 
         /// <summary>
-        /// Bản sao chứng từ nộp phí, lệ phí 
+        /// Giấy uỷ quyền bằng tiếng
         /// </summary>
         public string Doc_Id_4 { get; set; }
 
         public decimal Doc_Id_4_Check { get; set; }
-
         /// <summary>
-        /// Giấy uỷ quyền bằng tiếng
+        /// bản gốc
         /// </summary>
         public string Doc_Id_5 { get; set; }
         public decimal Doc_Id_5_Check { get; set; }
 
         /// <summary>
-        /// bản gốc
+        ///bản sao 
         /// </summary>
         public string Doc_Id_6 { get; set; }
         public decimal Doc_Id_6_Check { get; set; }
 
+
         /// <summary>
-        ///bản sao 
+        /// Bản gốc sẽ nộp sau
         /// </summary>
         public string Doc_Id_7 { get; set; }
 
         public decimal Doc_Id_7_Check { get; set; }
-
         /// <summary>
-        /// Bản gốc sẽ nộp sau
+        ///Bản gốc đã nộp theo đơn số
         /// </summary>
         public string Doc_Id_8 { get; set; }
 
         public decimal Doc_Id_8_Check { get; set; }
 
+
         /// <summary>
-        ///Bản gốc đã nộp theo đơn số
+        /// Bản dịch tiếng việt gồm x trang
         /// </summary>
         public string Doc_Id_9 { get; set; }
 
         public decimal Doc_Id_9_Check { get; set; }
-
         /// <summary>
-        /// Bản dịch tiếng việt gồm x trang
+        /// Tài liệu xác nhận quyền đăng ký (nếu thụ hưởng từ người khác)
         /// </summary>
         public string Doc_Id_10 { get; set; }
 
         public decimal Doc_Id_10_Check { get; set; }
 
+       
         /// <summary>
-        /// Tài liệu xác nhận quyền đăng ký (nếu thụ hưởng từ người khác)
+        /// có tài liệu khác
         /// </summary>
         public string Doc_Id_11 { get; set; }
 

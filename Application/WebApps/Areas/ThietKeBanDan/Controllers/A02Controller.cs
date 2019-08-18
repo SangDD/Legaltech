@@ -44,6 +44,8 @@ namespace WebApps.Areas.ThietKeBanDan.Controllers
                     AppCode = RouteData.Values["id"].ToString().ToUpper();
                 }
                 ViewBag.AppCode = AppCode;
+                ViewBag.TreeTitle = "Số hình ảnh công bố";
+                ViewBag.TreeLevel = 1;// upload ảnh chỉ có  cấp 
                 return PartialView("~/Areas/ThietKeBanDan/Views/A02/_Partial_A02.cshtml");
             }
             catch (Exception ex)
@@ -99,19 +101,8 @@ namespace WebApps.Areas.ThietKeBanDan.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("hinh-cong-bo/them-cung-cap-0")]
-        public ActionResult ThemHinhCongBo(decimal p_id)
-        {
-            return PartialView("~/Areas/ThietKeBanDan/Views/Shared/_PartialTreeDocument_Child_0.cshtml", p_id.ToString());
-        }
-
-        [HttpPost]
-        [Route("hinh-cong-bo/them-cung-cap-2")]
-        public ActionResult ThemHinhCongBo2(decimal p_id, decimal p_refId)
-        {
-            return PartialView("~/Areas/ThietKeBanDan/Views/Shared/_PartialTreeDocument_Child_2.cshtml", p_id.ToString() + "|" + p_refId.ToString());
-        }
+       
+    
 
         [HttpPost]
         [Route("register")]
@@ -600,26 +591,7 @@ namespace WebApps.Areas.ThietKeBanDan.Controllers
             }
         }
 
-
-        [HttpPost]
-        [Route("push-file-other-to-server")]
-        public ActionResult PushFileOtherToServer(AppDocumentInfo pInfo) //AppDocumentInfo de lay thong tin add vao hash thoi
-        {
-            try
-            {
-                if (pInfo.pfiles != null)
-                {
-                    var url = AppLoadHelpers.PushFileToServer(pInfo.pfiles, AppUpload.Document);
-                    SessionData.CurrentUser.chashFile[pInfo.keyFileUpload] = pInfo;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return Json(new { success = -1 });
-            }
-            return Json(new { success = 0 });
-        }
+         
 
         [HttpPost]
         [Route("ket_xuat_file_IU")]
@@ -877,7 +849,6 @@ namespace WebApps.Areas.ThietKeBanDan.Controllers
                         {
                             app_Detail.Doc_Id_3_Check = item.Isuse;
                             app_Detail.Doc_Id_3 = item.CHAR01;
-                            app_Detail.Doc_Id_302 = item.CHAR02;
                         }
                         else if (item.Document_Id == "A02_04")
                         {
