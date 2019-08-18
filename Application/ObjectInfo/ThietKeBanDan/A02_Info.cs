@@ -15,9 +15,9 @@ namespace ObjectInfos.ThietKeBanDan
         public string Language_Code { get; set; }
         public DateTime NgayTaoThietKe { get; set; }
 
-        public string KhaiThacThuongMaiDauTien { get; set; }
-        public string KhaiThacThuongMaiDauTien_TaiNuoc { get; set; }
-        public DateTime KhaiThacThuongMaiDauTien_Ngay { get; set; }
+        public string KhaiThactm { get; set; }
+        public string KhaiThactm_TaiNuoc { get; set; }
+        public DateTime KhaiThactm_Ngay { get; set; }
 
         public decimal SoAnh { get; set; }
 
@@ -80,9 +80,9 @@ namespace ObjectInfos.ThietKeBanDan
 
         public DateTime NgayTaoThietKe { get; set; }
 
-        public string KhaiThacThuongMaiDauTien { get; set; }
-        public string KhaiThacThuongMaiDauTien_TaiNuoc { get; set; }
-        public DateTime KhaiThacThuongMaiDauTien_Ngay { get; set; }
+        public string KhaiThactm { get; set; }
+        public string KhaiThactm_TaiNuoc { get; set; }
+        public DateTime KhaiThactm_Ngay { get; set; }
 
         /// <summary>
         /// NHO
@@ -370,9 +370,9 @@ namespace ObjectInfos.ThietKeBanDan
             p_appDetail.A02_Id = p_A02_Info.A02_Id;
             p_appDetail.Language_Code = p_A02_Info.Language_Code;
             p_appDetail.NgayTaoThietKe = p_A02_Info.NgayTaoThietKe;
-            p_appDetail.KhaiThacThuongMaiDauTien = p_A02_Info.KhaiThacThuongMaiDauTien;
-            p_appDetail.KhaiThacThuongMaiDauTien_TaiNuoc = p_A02_Info.KhaiThacThuongMaiDauTien_TaiNuoc;
-            p_appDetail.KhaiThacThuongMaiDauTien_Ngay = p_A02_Info.KhaiThacThuongMaiDauTien_Ngay;
+            p_appDetail.KhaiThactm = p_A02_Info.KhaiThactm;
+            p_appDetail.KhaiThactm_TaiNuoc = p_A02_Info.KhaiThactm_TaiNuoc;
+            p_appDetail.KhaiThactm_Ngay = p_A02_Info.KhaiThactm_Ngay;
             p_appDetail.ChucNang = p_A02_Info.ChucNang;
             p_appDetail.ChucNang_Other = p_A02_Info.ChucNang_Other;
             p_appDetail.CauTruc = p_A02_Info.CauTruc;
