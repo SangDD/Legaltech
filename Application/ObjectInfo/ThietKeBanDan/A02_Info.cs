@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ObjectInfos.ThietKeBanDan
+namespace ObjectInfos
 {
   public  class A02_Info : ApplicationHeaderInfo
     {
