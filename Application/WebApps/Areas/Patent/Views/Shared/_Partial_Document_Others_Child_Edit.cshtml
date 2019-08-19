@@ -14,7 +14,7 @@
     string btnRemoveFile = "btnRemoveFile_Others" + _id;
     string divRemoveFileImg = "divRemoveFile_Others" + _id;
 
-    string[] _arr1 = Model.Filename.Split('/');
+    string[] _arr1 = Model.Filename != null ? Model.Filename.Split('/'):new string[0];
     string _filename1 = WebApps.Resources.Resource.FileDinhKem;
     if (_arr1.Length > 0)
     {

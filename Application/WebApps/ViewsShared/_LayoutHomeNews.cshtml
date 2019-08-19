@@ -23,23 +23,24 @@
     Sys_Pages_Info _pageInfo_watching = objBL.Sys_Pages_GetBy_Code("iWatching");
 
 
-    string _content_home_1 = _pageInfo.Content;
-    string _content_home_2 = _pageInfo_2.Content;
-    string _content_home_3 = _pageInfo_3.Content;
+    string _content_home_1 =  _pageInfo!= null ?_pageInfo.Content:"";
+    string _content_home_2 = _pageInfo_2 != null ? _pageInfo_2.Content : "";
+    string _content_home_3 = _pageInfo_3 != null ? _pageInfo_3.Content : "";
 
-    string iSearching = _pageInfo_search.Content;
-    string iFilling = _pageInfo_filling.Content;
-    string iWatching = _pageInfo_watching.Content;
+    string iSearching = _pageInfo_search != null ? _pageInfo_search.Content : ""; 
+    string iFilling = _pageInfo_filling != null ? _pageInfo_filling.Content : ""; 
+    string iWatching = _pageInfo_watching != null ? _pageInfo_watching.Content : "";  
+    
 
     if (_LanguageCode != "VI_VN")
     {
-        _content_home_1 = _pageInfo.Content_En;
-        _content_home_2 = _pageInfo_2.Content_En;
-        _content_home_3 = _pageInfo_3.Content_En;
+        _content_home_1 = _pageInfo != null ? _pageInfo.Content_En : "";
+        _content_home_2 = _pageInfo_2 != null ? _pageInfo_2.Content_En : "";
+        _content_home_3 = _pageInfo_3 != null ? _pageInfo_3.Content_En : "";
 
-        iSearching = _pageInfo_search.Content_En;
-        iFilling = _pageInfo_filling.Content_En;
-        iWatching = _pageInfo_watching.Content_En;
+        iSearching = _pageInfo_search != null ? _pageInfo_search.Content_En : "";
+        iFilling = _pageInfo_filling != null ? _pageInfo_filling.Content_En : "";
+        iWatching = _pageInfo_watching != null ? _pageInfo_watching.Content_En : "";
     }
 }
 <html>
