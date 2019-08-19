@@ -291,7 +291,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                     #endregion
 
                     #region tính phí
-                    List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_A03(pDetail, pAppDocumentInfo, pUTienInfo, pAppDocIndusDesign);
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A03(pDetail, pAppDocumentInfo, pUTienInfo, pAppDocIndusDesign);
                     if (_lstFeeFix.Count > 0)
                     {
                         AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
@@ -548,7 +548,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                     AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
                     _AppFeeFixBL.AppFeeFixDelete(pInfo.Case_Code, language);
 
-                    List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_A03(pDetail, pAppDocumentInfo, pUTienInfo, pAppDocIndusDesign);
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A03(pDetail, pAppDocumentInfo, pUTienInfo, pAppDocIndusDesign);
                     if (_lstFeeFix.Count > 0)
                     {
                         pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, p_case_code);
@@ -690,7 +690,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
 
                 // Phí cố định
 
-                List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_A03(pDetail, pAppDocumentInfo, pUTienInfo, pAppDocIndusDesign);
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A03(pDetail, pAppDocumentInfo, pUTienInfo, pAppDocIndusDesign);
                 Prepare_Data_Export_A03(ref _A03_Info_Export, pInfo, pAppDocumentInfo, _lstFeeFix, pAppAuthorsInfo, pOther_MasterInfo,
                        pAppClassInfo, pAppDocOtherInfo, pUTienInfo, pAppDocIndusDesign);
 
@@ -1124,7 +1124,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
         {
             try
             {
-                List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_A03(pDetail, pAppDocumentInfo, pUTienInfo, pAppDocIndusDesign);
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A03(pDetail, pAppDocumentInfo, pUTienInfo, pAppDocIndusDesign);
                 ViewBag.LstFeeFix = _lstFeeFix;
             }
             catch (Exception ex)

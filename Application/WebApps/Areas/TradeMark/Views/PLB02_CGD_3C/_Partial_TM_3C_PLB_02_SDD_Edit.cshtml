@@ -55,11 +55,11 @@
 </style>
 
 @*<div class="d-nav-container">
-    <ul class="ul-nav">
-        <li><a href="javascript:;">TradeMark</a></li>
-        <li><a href="javascript:;">  Request for amendment of application</a></li>
-    </ul>
-</div>*@
+        <ul class="ul-nav">
+            <li><a href="javascript:;">TradeMark</a></li>
+            <li><a href="javascript:;">  Request for amendment of application</a></li>
+        </ul>
+    </div>*@
 
 <div class="d-nav-container" style="background-color:#fff">
     <div class="divCover">
@@ -372,6 +372,11 @@
     </div>
 </div>
 
+<div id="divWrapperPopUpFee" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divPopUpFee">
+    </div>
+</div>
+
 
 <script>
 
@@ -571,7 +576,7 @@
             formData.append("pInfo.Status", p_status );
 
             var Master_Type = $("input[name='1_rdoChuDon']:checked").val();
-            if (Master_Type === "" || Master_Type == undefined) {
+            if ((Master_Type === "" || Master_Type == undefined) && p_status != 1) {
                 jError("@Resource.TM3C_ChonChuDon", "@Resource.TM3B_Loi", function () {
                     $("#rb_1_ChuDonChuyenNhuong").focus()
                 });
@@ -585,7 +590,7 @@
                 return false;
             }
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-            if (v_RepMasterType === "" || v_RepMasterType == undefined) {
+            if ((v_RepMasterType === "" || v_RepMasterType == undefined) && p_status != 1) {
                 jError("@Resource.TM2B_ChonDaiDienChuDon", "@Resource.TM3B_Loi", function () {
                     $("#_2_rdoNguoiDaiDienPL").focus()
                 });
@@ -593,7 +598,7 @@
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
 
             //Lấy thông tin detail
-            reponse = funcGetAppDetail(formData);
+            reponse = funcGetAppDetail(formData, p_status);
             if (reponse == false) {
                 return false;
             }
@@ -613,17 +618,17 @@
         }
     }
 
-    function funcGetAppDetail(formData) {
+    function funcGetAppDetail(formData, p_Status) {
         try {
 
             // BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN)
-            if (funcGetSecondMaster(formData, "3") != true) {
+            if (funcGetSecondMaster(formData, "3", p_Status) != true) {
                 return false;
             }
 
             var txtMADDSHCN = $("#txtMADDSHCN").val();
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-            if (v_RepMasterType = "DDPL") {
+            if (v_RepMasterType = "DDPL" && p_Status != 1) {
                 if (txtMADDSHCN == "") {
                     jError("@Resource.TM3C_MaDaiDienKhongDuocTrong", "@Resource.TM3B_Loi", function () {
                         $("#txtMADDSHCN").focus()
@@ -634,7 +639,7 @@
             formData.append("pDetail.Customer_Code", txtMADDSHCN);
 
             var _DonDuocChuyenNhuong = $("input[name='4_rdoDonDuocChuyenNhuong']:checked").val();
-            if (_DonDuocChuyenNhuong === "" || _DonDuocChuyenNhuong == undefined) {
+            if ((_DonDuocChuyenNhuong === "" || _DonDuocChuyenNhuong == undefined) && p_Status != 1 ){
                 jError("@Resource.TM3C_ChonGiaTriYeuCauChuyenNhuong", "@Resource.TM3B_Loi", function () {
                     $("#4_rdDK_SC").focus()
                 });
@@ -644,7 +649,7 @@
 
             // số đơn
             var _4_txt_SoDon = $("#4_txt_SoDon").val();
-            if (_4_txt_SoDon === "" || _4_txt_SoDon == undefined) {
+            if ((_4_txt_SoDon === "" || _4_txt_SoDon == undefined) && p_Status != 1){
                 jError("@Resource.TM3B_SoDonKhongDuocDeTrong", "@Resource.TM3B_Loi", function () {
                     $("#4_txt_SoDon").focus()
                 });

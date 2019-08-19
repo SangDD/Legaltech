@@ -242,7 +242,7 @@
                     if (pReturn >= 0 && pAppClassInfo != null)
                     {
                         var listfeeCaculator = new List<AppFeeFixInfo>();
-                        pReturn = AppsCommon.CaculatorFee_A02(pAppClassInfo, pDetail.Sodon_Ut, p_case_code, ref listfeeCaculator);
+                        pReturn = Call_Fee.CaculatorFee_A04(pAppClassInfo, pDetail.Sodon_Ut, p_case_code, ref listfeeCaculator);
                     }
 
                     //end
@@ -339,7 +339,7 @@
                             //if (pReturn >= 0 && pAppClassInfo != null)
                             //{
                             var listfeeCaculator = new List<AppFeeFixInfo>();
-                            pReturn = AppsCommon.CaculatorFee_A02(pAppClassInfo, pDetail.Sodon_Ut, pInfo.Case_Code, ref listfeeCaculator);
+                            pReturn = Call_Fee.CaculatorFee_A04(pAppClassInfo, pDetail.Sodon_Ut, pInfo.Case_Code, ref listfeeCaculator);
                             //}
                         }
                     }
@@ -807,7 +807,7 @@
                     {
                         DonUT = DonUT + "," + pDetail.Sodon_Ut2;
                     }
-                    int preturn = AppsCommon.CaculatorFee_A02(pAppClassInfo, DonUT, "", ref listfeeCaculator, pPreview);
+                    int preturn = Call_Fee.CaculatorFee_A04(pAppClassInfo, DonUT, "", ref listfeeCaculator, pPreview);
                 }
                 foreach (var item in listfeeCaculator)
                 {
@@ -1084,7 +1084,7 @@
                 {
                     DonUT = DonUT + "," + pDetail.Sodon_Ut2;
                 }
-                int preturn = AppsCommon.CaculatorFee_A02(pAppClassInfo, DonUT, "", ref _lstFeeFix, pPreview);
+                int preturn = Call_Fee.CaculatorFee_A04(pAppClassInfo, DonUT, "", ref _lstFeeFix, pPreview);
                 ViewBag.LstFeeFix = _lstFeeFix;
             }
             catch (Exception ex)

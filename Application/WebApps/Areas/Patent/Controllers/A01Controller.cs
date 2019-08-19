@@ -289,7 +289,7 @@ namespace WebApps.Areas.Patent.Controllers
                     }
 
                     #region Phí cố định
-                    List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_A01(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic);
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A01(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic);
                     if (_lstFeeFix.Count > 0)
                     {
                         AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
@@ -549,7 +549,7 @@ namespace WebApps.Areas.Patent.Controllers
                     AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
                     _AppFeeFixBL.AppFeeFixDelete(pInfo.Case_Code, language);
 
-                    List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_A01(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic);
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A01(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic);
                     if (_lstFeeFix.Count > 0)
                     {
                         pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, pInfo.Case_Code);
@@ -726,12 +726,12 @@ namespace WebApps.Areas.Patent.Controllers
             try
             {
                 string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
-                string language = AppsCommon.GetCurrentLang();
+                //string language = AppsCommon.GetCurrentLang();
+                string language = pInfo.View_Language_Report;
                 var objBL = new A01_BL();
                 List<A01_Info_Export> _lst = new List<A01_Info_Export>();
 
                 string p_appCode = "A01_Preview";
-
                 string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_VN_" + p_appCode + _datetimenow + ".pdf");
                 if (language == Language.LangVI)
                 {
@@ -749,7 +749,7 @@ namespace WebApps.Areas.Patent.Controllers
 
 
                 // Phí cố định
-                List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_A01(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic);
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A01(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic);
                 AppsCommon.Prepare_Data_Export_A01(ref _A01_Info_Export, pInfo, pAppDocumentInfo, _lstFeeFix, pAppAuthorsInfo, pOther_MasterInfo,
                        pAppClassInfo, pAppDocOtherInfo, pUTienInfo, pLstImagePublic);
 
@@ -819,7 +819,7 @@ namespace WebApps.Areas.Patent.Controllers
         {
             try
             {
-                List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_A01(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic);
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A01(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic);
                 ViewBag.LstFeeFix = _lstFeeFix;
             }
             catch (Exception ex)

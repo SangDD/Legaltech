@@ -48,7 +48,7 @@
                 MemoryData.LoadAllMemoryData();
 
                 // lấy thông tin fee
-                List<AllCodeInfo> _lstTax= WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("BILLING", "TAX");
+                List<AllCodeInfo> _lstTax = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("BILLING", "TAX");
                 if (_lstTax.Count > 0)
                 {
                     Common.Tax = Convert.ToDecimal(_lstTax[0].CdVal);
