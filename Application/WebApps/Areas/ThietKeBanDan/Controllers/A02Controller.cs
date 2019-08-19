@@ -354,7 +354,8 @@ namespace WebApps.Areas.ThietKeBanDan.Controllers
                     pInfo.Modify_By = SessionData.CurrentUser.Username;
                     pInfo.Modify_Date = SessionData.CurrentUser.CurrentDate;
                     pInfo.Send_Date = DateTime.Now;
-
+                    pInfo.DDSHCN = "";
+                    pInfo.MADDSHCN = "";
                     //TRA RA ID CUA BANG KHI INSERT
                     pReturn = objBL.AppHeaderUpdate(pInfo);
                     if (pReturn < 0)

@@ -21,14 +21,24 @@
 
     decimal _max_Model_Id = ListDocDesign.Count + 1;
     int _index = 0;
+    string _title = Resource.SoPhuongAn + "/" + Resource.SoHinhAnh;
+    if (ViewBag.TreeTitle != null)
+    {
+        _title = ViewBag.TreeTitle;
+    }
+    string _StyleLevel = "";
+    if (ViewBag.TreeLevel == 1)
+    {
+        _StyleLevel = "display:none;";
+    }
 }
 
 <div class="div_full_100_area" id="divTreeContainerDocOther" style="@styleTLK">
     @*@Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "Bộ hình ảnh")*@
     <div class="divCover cls_form_title">
         <div class="cls_form_header" style="margin: 0 !important;">
-            @Resource.SoPhuongAn/ @Resource.SoHinhAnh
-            <button title="Thêm phương án" onclick="funcTreeAddDocumentNew(1)"><i class="fa fa-plus-circle"></i></button>
+            @_title
+            <button style="@_StyleLevel" title="Thêm phương án" onclick="funcTreeAddDocumentNew(1)"><i class="fa fa-plus-circle"></i></button>
         </div>
     </div>
 
