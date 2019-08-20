@@ -678,6 +678,7 @@
         SetValRadioCheckBoxByName('ChucNang', _chucnang);
         SetValRadioCheckBoxByName('CauTruc', _cautruc);
         SetValRadioCheckBoxByName('CongNghe', _congnghe);
+        funcShowOtherdocument();
         $.datetimepicker.setLocale('vi');
         $('.datetimepicker').datetimepicker({
             timepicker: false,
@@ -744,13 +745,20 @@
     });
 
     $("#ckb_Doc_11").change(function () {
-        if ($("#ckb_Doc_11").is(":checked") == true) {
-            $("#divContainerDocOther").css('display', 'block')
-        } else {
-            $("#divContainerDocOther").css('display', 'none');
-        }
+        funcShowOtherdocument();
     });
-
+    function funcShowOtherdocument()
+    {
+        try {
+            if ($("#ckb_Doc_11").is(":checked") == true) {
+                $("#divContainerDocOther").css('display', 'block')
+            } else {
+                $("#divContainerDocOther").css('display', 'none');
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     $("#btnGuiDon").click(function () {
         try {
@@ -1364,6 +1372,7 @@
                 $(".clssListUpload").each(function () {
                     formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", this.id);
                     formData.append("pAppDocOtherInfo[" + item + "].Documentname", $("#" + this.id).val());
+                    formData.append("pAppDocOtherInfo[" + item + "].Id", $(this).attr('data-id'));
                     item++;
                 });
             }  
