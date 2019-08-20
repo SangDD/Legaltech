@@ -63,13 +63,13 @@
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
 
             //Lấy thông tin detail
-            var reponse = funcGetAppDetail(formData);
+            var reponse = funcGetAppDetail(formData, 1);
             if (reponse == false) {
                 return false;
             }
 
             // get thông tin fee
-            var reponse = funcGet_Fee(formData);
+            var reponse = funcGet_Fee(formData, 1);
             if (reponse == false) {
                 return false;
             }
@@ -123,11 +123,14 @@
         formData.append("pDetail.Appcode", $("#txtAppCode").val());
         formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
 
-        var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-        formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-
         //Lấy thông tin detail
-        var reponse = funcGetAppDetail(formData);
+        //var reponse = funcGetAppDetail(formData, 1);
+        //if (reponse == false) {
+        //    return false;
+        //}
+
+        // get thông tin fee
+        var reponse = funcGet_Fee(formData, 1);
         if (reponse == false) {
             return false;
         }

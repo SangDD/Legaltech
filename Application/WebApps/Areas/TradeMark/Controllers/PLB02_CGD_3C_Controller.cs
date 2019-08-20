@@ -566,7 +566,8 @@
                 if (_ds_all != null)
                 {
                     _ds_all.Tables[0].TableName = "Table_3c";
-                    oRpt.SetDataSource(_ds_all);
+                    oRpt.Database.Tables["Table_3c"].SetDataSource(_ds_all.Tables[0]);
+                    //oRpt.SetDataSource(_ds_all);
                 }
                 oRpt.Refresh();
 
