@@ -925,6 +925,51 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nội dung không được để trống.
+        /// </summary>
+        public static string ContactNotNullContent {
+            get {
+                return ResourceManager.GetString("ContactNotNullContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email không được để trống.
+        /// </summary>
+        public static string ContactNotNullEmail {
+            get {
+                return ResourceManager.GetString("ContactNotNullEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Họ tên không được để trống.
+        /// </summary>
+        public static string ContactNotNullName {
+            get {
+                return ResourceManager.GetString("ContactNotNullName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tiêu đề không được để trống.
+        /// </summary>
+        public static string ContactNotNullSub {
+            get {
+                return ResourceManager.GetString("ContactNotNullSub", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email không đúng định dạng.
+        /// </summary>
+        public static string ContactNotTypeEmail {
+            get {
+                return ResourceManager.GetString("ContactNotTypeEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Người liên hệ.
         /// </summary>
         public static string ContactPerson {
@@ -939,6 +984,24 @@ namespace WebApps.Resources {
         public static string ContactScript {
             get {
                 return ResourceManager.GetString("ContactScript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gửi email thất bại.
+        /// </summary>
+        public static string ContactSenerorr {
+            get {
+                return ResourceManager.GetString("ContactSenerorr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gửi email thành công.
+        /// </summary>
+        public static string ContactSensuccess {
+            get {
+                return ResourceManager.GetString("ContactSensuccess", resourceCulture);
             }
         }
         

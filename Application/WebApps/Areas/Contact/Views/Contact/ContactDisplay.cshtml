@@ -1,5 +1,9 @@
 ﻿@using ObjectInfos
 @using WebApps.CommonFunction;
+
+@using Common.CommonData
+@using WebApps.ExtensionObject
+@using WebApps.Resources;
 @{
     ViewBag.Title = "Danh sách tin";
     Layout = "~/ViewsShared/_LayoutHomeArticles.cshtml";
@@ -10,7 +14,8 @@
 
 }
 <link href="~/Content/contact.css" rel="stylesheet" />
-
+<link href=@($"/Scripts/outSourcesLib/notify/animate.min.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
+<link href=@($"/Scripts/outSourcesLib/notify/notify.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
 <div class="t-generic_col-right o-layout_item" style="padding-top:100px;margin-left:20px">
     <div class="t-generic_col-right-wrap o-layout">
         <div class="c-content o-layout_item js-entry-container is-enabled is-entry-loaded" style="padding:0px 5px; padding-bottom: 40px;">
@@ -29,14 +34,14 @@
                                 <div class='width_input_contact div_name_contact div_contact'>
                                     <div class='title_input_contact'>@WebApps.Resources.Resource.ContactHoTen<span>*</span></div>
                                     <div>
-                                        <input class='input_contact ' />
+                                        <input class='input_contact' id="ContactName" maxlength="50" />
                                     </div>
                                 </div>
 
                                 <div class='width_input_contact div_mail_contact div_contact'>
                                     <div class='title_input_contact'>@WebApps.Resources.Resource.ContactEmail <span>*</span></div>
                                     <div>
-                                        <input class='input_contact' />
+                                        <input class='input_contact' id="ContactMail" maxlength="200" />
                                     </div>
                                 </div>
                             </div>
@@ -44,19 +49,19 @@
                                 <div class='div_contact'>
                                     <div class='title_input_contact'>@WebApps.Resources.Resource.ContactTieuDe<span>*</span></div>
                                     <div>
-                                        <input class='input_contact' />
+                                        <input class='input_contact' id="ContactSub" maxlength="500" />
                                     </div>
                                 </div>
                             </div>
                             <div class='div_contact'>
                                 <div class='title_input_contact'>@WebApps.Resources.Resource.ContactNoidung<span>*</span></div>
                                 <div>
-                                    <textarea class='area_contact'></textarea>
+                                    <textarea class='area_contact' id="ContactContent" maxlength="2000"></textarea>
                                 </div>
                             </div>
                             <div class='div_contact' style='overflow:hidden'>
 
-                                <input class='btn_contact' value="@WebApps.Resources.Resource.ContactBTNSend" readonly />
+                                <input class='btn_contact' value="@WebApps.Resources.Resource.ContactBTNSend" readonly onclick="SendMailContact();" />
 
                             </div>
                         </div>
@@ -67,10 +72,80 @@
         </div>
     </div>
 </div>
+<script src=@($"/Scripts/nvs.jquery.validate.data.js?v={CommonVariables.AssemblyVersion}")></script>
+<script src=@($"/Scripts/outSourcesLib/notify/bootstrap-notify.min.js?v={CommonVariables.AssemblyVersion}")></script>
+<script>
+    function SendMailContact() {
+        try {
 
+            var _name = $("#ContactName").val().trim();
+            var _mail = $("#ContactMail").val().trim();
+            var _sub = $("#ContactSub").val().trim();
+            var _content = $("#ContactContent").val().trim();
 
+            @*if (_name == "" || _name == null) {
+                showError("@WebApps.Resources.Resource.Password_KhongDuocDeTrong");
+                $("#ContactName").focus()
+                return false;
 
+            }*@
 
+            if (_name == "" || _name == null) {
+                showError("@Resource.ContactNotNullName");
+                $("#ContactName").focus();
+                return false;
+            }
+            if (_mail == "" || _mail == null) {
+                showError("@WebApps.Resources.Resource.ContactNotNullEmail");
+                $("#ContactMail").focus();
+                return false;
+            } else if (!IsvalidEmail(_mail)) {
+                showError("@WebApps.Resources.Resource.ContactNotTypeEmail");
+                $("#ContactMail").focus();
+                return false;
+            }
+            if (_sub == "" || _sub == null) {
+                showError("@WebApps.Resources.Resource.ContactNotNullSub");
+                $("#ContactSub").focus();
+                return false;
+            }
+            if (_content == "" || _content == null) {
+                showError("@WebApps.Resources.Resource.ContactNotNullContent");
+                $("#ContactContent").focus();
+                return false;
+            }
+            $.ajax({
+                url: '/contact-send/send-mail',
+                type: 'POST',
+                data:
+                    {
+                        name: _name,
+                        mail: _mail,
+                        sub: _sub,
+                        content: _content
+                    },
+
+                async: true, cache: false, traditional: true,
+                success: function (data) {
+                    if (data != null) {
+                        if (data.status == 1) {
+                            showSuccess("@WebApps.Resources.Resource.ContactSensuccess");
+                        } else {
+                            showError("@WebApps.Resources.Resource.ContactSenerorr");
+                        }
+
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+
+        } catch (ex) {
+            console.log(ex);
+        }
+    }
+</script>
 
 
 
