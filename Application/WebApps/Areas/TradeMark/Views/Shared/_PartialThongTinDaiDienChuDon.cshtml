@@ -71,7 +71,7 @@
     <div class="div-search-ad">
         <div class="div-search-content">
             <div class="div-radio">
-                <input @styleDaiDienUQ type="radio" name="_2_DaiDienChuDon" value="DDSH" placeholder="_2_rdoNguoiDuocUyQuyen" id="_2_rdoNguoiDuocUyQuyen" @_disable />
+                <input @styleDaiDienUQ type="radio" name="_2_DaiDienChuDon" value="DDUQ" placeholder="_2_rdoNguoiDuocUyQuyen" id="_2_rdoNguoiDuocUyQuyen" @_disable />
                 <label>@Resource.lblLaNguoiKhacDuocUyQuyen</label>
             </div>
         </div>
@@ -150,59 +150,6 @@
 
             $("#div_PartialThongTinDaiDienChuDon").addClass("clssDisplaynone");
         }
-
-        ////Search suggestion
-        //var Name = $("#2_txtTenDayDu").val();
-        //$.ajax({
-        //    url: '/trade-mark/get-represent/',
-        //    type: 'POST',
-        //    data: {
-        //        pName: Name
-        //    },
-        //    sync: true, cache: false, traditional: true,
-        //    success: function (data) {
-
-        //        var lts = data.lst;
-        //        $('#2_txtTenDayDu').autocomplete({
-        //            autoFocus: true,
-        //            source: function (request, response) {
-        //                var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
-        //                response($.grep(lts, function (item) {
-        //                    return matcher.test(item.value);
-        //                }));
-        //            },
-        //            select: function (event, ui) {
-        //                $("#2_txtTenDayDu").val("");
-        //                event.preventDefault();
-        //                var arrVal = ui.item.value.split('|');
-        //                if (arrVal.length === 6) {
-        //                    $("#2_txtTenDayDu").val(arrVal[0]);
-        //                    $("#2_txtDiaChi").val(arrVal[1]);
-        //                    $("#2_txtDienThoai").val(arrVal[2]);
-        //                    $("#2_txtFax").val(arrVal[3]);
-        //                    $("#2_txtEmail").val(arrVal[4]);
-        //                    $("#txtMADDSHCN").val(arrVal[5]);
-        //                }
-        //            },
-        //            focus: function (event, ui) {
-        //                var arrResult = $(".ui-menu-item");
-        //                for (var i = 0; i < arrResult.length; i++) {
-        //                    var label = $.trim($(arrResult[i]).text().split("-")[0]);
-        //                    if (label == ui.item.name) {
-        //                        $(".clsLiActive").removeClass("clsLiActive")
-        //                        $(arrResult[i]).addClass("clsLiActive");
-        //                        break;
-        //                    }
-        //                }
-        //                event.preventDefault();
-        //            },
-        //            open: function (event, ui) {
-        //                $("ul").scrollTop(0);
-        //                event.preventDefault();
-        //            },
-        //        });
-        //    }
-        //});
     });
 
     function Get_PresentByNation(_id) {

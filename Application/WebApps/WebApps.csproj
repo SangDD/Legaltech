@@ -186,6 +186,8 @@
     <Compile Include="Areas\AppClass\Controllers\AppClassController.cs" />
     <Compile Include="Areas\Articles\ArticlesAreaRegistration.cs" />
     <Compile Include="Areas\Articles\Controllers\ArticlesNewsController.cs" />
+    <Compile Include="Areas\Contact\ContactAreaRegistration.cs" />
+    <Compile Include="Areas\Contact\Controllers\ContactController.cs" />
     <Compile Include="Areas\DaiDienSHCN\Controllers\DDSHCNController.cs" />
     <Compile Include="Areas\DaiDienSHCN\DaiDienSHCNAreaRegistration.cs" />
     <Compile Include="Areas\Home\Controllers\HomeController.cs" />
@@ -230,6 +232,7 @@
     <Compile Include="Areas\Wiki\Controllers\WikiDocController.cs" />
     <Compile Include="Areas\Wiki\WikiAreaRegistration.cs" />
     <Compile Include="CommonFunction\AppLoadHelpers.cs" />
+    <Compile Include="CommonFunction\Call_Fee.cs" />
     <Compile Include="CommonFunction\AppsCommon.cs" />
     <Compile Include="CommonFunction\Email.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -1823,6 +1826,11 @@
     <Content Include="Areas\ThietKeBanDan\Views\A02\_Partial_A02.cshtml" />
     <Content Include="Areas\ThietKeBanDan\Views\A02\_Partial_A02_Edit.cshtml" />
     <Content Include="Areas\ThietKeBanDan\Views\A02\_Partial_A02_View.cshtml" />
+    <Content Include="Areas\Contact\Views\web.config" />
+    <Content Include="Areas\Contact\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Contact\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Contact\Views\Contact\ContactDisplay.cshtml" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <None Include="Properties\PublishProfiles\HungTDLap.pubxml" />
@@ -2163,6 +2171,7 @@
     <Folder Include="Areas\Account\Views\Shared\" />
     <Folder Include="Areas\Articles\Models\" />
     <Folder Include="Areas\Articles\Views\Shared\" />
+    <Folder Include="Areas\Contact\Models\" />
     <Folder Include="Areas\DaiDienSHCN\Models\" />
     <Folder Include="Areas\DaiDienSHCN\Views\Shared\" />
     <Folder Include="Areas\Home\Models\" />

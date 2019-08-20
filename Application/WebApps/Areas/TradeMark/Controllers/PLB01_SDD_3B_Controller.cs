@@ -137,7 +137,7 @@
                     }
 
                     #region Phí cố định
-                    List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_3B(pDetail);
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_3B(pDetail);
                     if (_lstFeeFix.Count > 0)
                     {
                         AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
@@ -250,7 +250,7 @@
                     _AppFeeFixBL.AppFeeFixDelete(pDetail.Case_Code, language);
 
                     // insert lại fee
-                    List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_3B(pDetail);
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_3B(pDetail);
                     if (_lstFeeFix.Count > 0)
                     {
                         pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, pInfo.Case_Code);
@@ -436,7 +436,7 @@
                     _AppFeeFixBL.AppFeeFixDelete(prefCaseCode, language);
 
                     // insert lại fee
-                    List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_3B(pDetail);
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_3B(pDetail);
                     if (_lstFeeFix.Count > 0)
                     {
                         pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, prefCaseCode);
@@ -586,7 +586,9 @@
         {
             try
             {
-                string language = AppsCommon.GetCurrentLang();
+                //string language = AppsCommon.GetCurrentLang();
+                string language = pInfo.View_Language_Report;
+
                 string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/B01_VI.docx");
                 DocumentModel document = DocumentModel.Load(_fileTemp);
 
@@ -600,10 +602,8 @@
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLB01_SDD_Info>(_lst, false);
 
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
-                //oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_PLB01SDD.rpt"));
-
                 string _tempfile = "TM_PLB01SDD.rpt";
-                if (AppsCommon.GetCurrentLang() == Language.LangEN)
+                if (language == Language.LangEN)
                 {
                     _tempfile = "TM_PLB01SDD_EN.rpt";
                 }
@@ -722,7 +722,7 @@
             try
             {
                 //AppsCommon.Prepare_Data_Export_3B(ref pDetail, pInfo, pAppDocumentInfo);
-                List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_3B(pDetail);
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_3B(pDetail);
                 ViewBag.LstFeeFix = _lstFeeFix;
             }
             catch (Exception ex)

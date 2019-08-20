@@ -56,11 +56,11 @@
 </style>
 
 @*<div class="d-nav-container">
-    <ul class="ul-nav">
-        <li><a href="javascript:;">TradeMark</a></li>
-        <li><a href="javascript:;">  @Resource.TM4C_Title</a></li>
-    </ul>
-</div>*@
+        <ul class="ul-nav">
+            <li><a href="javascript:;">TradeMark</a></li>
+            <li><a href="javascript:;">  @Resource.TM4C_Title</a></li>
+        </ul>
+    </div>*@
 <div class="d-nav-container" style="background-color:#fff">
     <div class="divCover">
         <div class="d-nav">
@@ -181,7 +181,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text"   id="4_txt_VanBangBaoHo" value="@_App_Detail.Object_Contract_No" disabled="disabled" />
+                    <input type="text" id="4_txt_VanBangBaoHo" value="@_App_Detail.Object_Contract_No" disabled="disabled" />
                 </div>
             </div>
         </div>
@@ -248,13 +248,13 @@
             </div>
 
             @* 2. Phí tra cứu thông tin phục vụ việc giải quyết khiếu nại *@
-        string _fee_id1 = "PhiThamDinh|" + Resource.TM4C_PhiThamDinhDon + "|0";
-        string _fee_value1 = Lst_AppFee[2].Isuse.ToString() + "|" + Lst_AppFee[2].Number_Of_Patent.ToString() + "|" + Lst_AppFee[2].Amount.ToString("#,##0.##");
+            string _fee_id1 = "PhiThamDinh|" + Resource.TM4C_PhiThamDinhDon + "|0";
+            string _fee_value1 = Lst_AppFee[2].Isuse.ToString() + "|" + Lst_AppFee[2].Number_Of_Patent.ToString() + "|" + Lst_AppFee[2].Amount.ToString("#,##0.##");
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Fee_View.cshtml", _fee_id1 + ";" + _fee_value1)
 
             @* 2. Phí thẩm định để giải quyết khiếu nại *@
-        string _fee_id2 = "PhiCapGiayChungNhan|" + Resource.TM4C_LePhiDangKyNhanHieu + "|0";
-        string _fee_value2 = Lst_AppFee[3].Isuse.ToString() + "|" + Lst_AppFee[3].Number_Of_Patent.ToString() + "|" + Lst_AppFee[3].Amount.ToString("#,##0.##");
+            string _fee_id2 = "PhiCapGiayChungNhan|" + Resource.TM4C_LePhiDangKyNhanHieu + "|0";
+            string _fee_value2 = Lst_AppFee[3].Isuse.ToString() + "|" + Lst_AppFee[3].Number_Of_Patent.ToString() + "|" + Lst_AppFee[3].Amount.ToString("#,##0.##");
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Fee_View.cshtml", _fee_id2 + ";" + _fee_value2)
         }
 
@@ -408,6 +408,12 @@
     <div class="dpop-preview" id="dpop-preview">
     </div>
 </div>
+
+<div id="divWrapperPopUpFee" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divPopUpFee">
+    </div>
+</div>
+
 
 <script>
     $(document).ready(function () {
