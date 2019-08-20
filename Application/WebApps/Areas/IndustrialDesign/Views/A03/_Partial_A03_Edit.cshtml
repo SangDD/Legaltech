@@ -1572,11 +1572,17 @@
             $(".clssListUpload").each(function () {
                 formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", this.id);
                 formData.append("pAppDocOtherInfo[" + item + "].Documentname", $("#" + this.id).val());
+                try {
+                    formData.append("pAppDocOtherInfo[" + item + "].Id", $(this).attr('data-id'));
+                } catch (e) {
+                    console.log(e.message);
+                }
 
                 item++;
             });
             return true;
         } catch (e) {
+            console.log(e.message);
             return false;
         }
     }

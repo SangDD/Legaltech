@@ -90,8 +90,8 @@
             var obj = $("#" + pIDFile);
             $("#" + ptxtId).val(obj.val());
 
-            funcPushFileImgOther(pIDFile, ptagKey, pRemoveFile);
-
+            //hungtd: 20190820: không thấy có hàm này nên dùng hàm dưới funcPushFileImgOther(pIDFile, ptagKey, pRemoveFile);
+            funcPushFile_Others(pIDFile, ptagKey, pRemoveFile);
         } catch (e) {
             console.log(e);
         }

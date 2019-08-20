@@ -1,7 +1,210 @@
-﻿
-@{
-    ViewBag.Title = "ContactDisplay";
+﻿@{
+    ViewBag.Title = "Danh sách tin";
+    Layout = "~/ViewsShared/_LayoutHomeArticles.cshtml";
 }
+<style>
+	.container_contact {
 
-<h2>ContactDisplay</h2>
+	  width: 100%;
+	}
+	.col_left {
 
+		padding: 30px 30px;
+	}
+	.col_right {
+	 	background: #a3e9ff;
+		padding: 30px 30px;
+		overflow: hidden;
+	}
+	.tt_contact{
+		padding-top:15px;
+		padding-bottom: 15px;
+		font-family: Calibri
+	}
+	.tt_header{
+		text-transform: uppercase;
+		color: #03823d;
+		font-weight: bold;
+		padding: 5px 0;
+
+	}
+	.title_contact{
+		font-weight: bold;
+		font-size: 35px;
+		color: #00b584;
+		font-family: auto;
+	}
+
+	.script_contact{
+		font-family: Calibri
+	}
+	.input_contact{
+			width: 100%;
+	}
+	.content_contact{
+		margin-top: 10px;
+	}
+	.area_contact{
+		height: 150px;
+		width: 100%;
+		border:1px solid #03823d;
+		padding-left: 10px;
+	}
+	.div_contact{
+		margin-top: 20px;
+	}
+	.title_input_contact{
+		padding: 5px 0;
+	}
+	.input_contact {
+		height: 35px;
+		padding-left:10px;
+		border: 1px solid #03823d;
+	}
+
+	.btn_contact{
+
+	}
+	.btn_contact{
+		background-color: #03823d;
+		color: #fff;
+		border: none;
+		height: 35px !important;
+		min-width: 100px;
+		cursor: pointer;
+		text-align: center;
+		float: right;
+	}
+	ul{
+		padding: 0;
+		list-style: none;
+		position: relative;
+		font-size: 0;
+	}
+	li{
+		height: 50px;
+		width: 50px;
+		float: left;
+		margin: 10px;
+		text-align: center;
+		border-radius: 50px;
+		background: #03823d;
+
+	}
+	i{
+		line-height: 50px;
+	}
+	
+	li:hover {
+
+		background: #00ab4e;
+
+	}
+	.div_contact span{
+		font-weight: bold;
+		color: red;
+	}
+</style>
+<div class='container_contact'>
+    <div class='col_left'>
+        <div class='title_contact'>Contact Us</div>
+        <div class='script_contact'>
+            Level 16, Daeha Business Center, 360 Kim Ma, Hanoi, Vietnam
+            Level 16, Daeha Business Center, 360 Kim Ma, Hanoi, Vietnam
+            Level 16, Daeha Business Center, 360 Kim Ma, Hanoi, Vietnam
+            Level 16, Daeha Business Center, 360 Kim Ma, Hanoi, Vietnam
+        </div>
+        <div class='content_contact'>
+            <div style='overflow:hidden'>
+                <div class='width_input_contact div_name_contact div_contact'>
+                    <div class='title_input_contact'>Họ tên <span>*</span></div>
+                    <div>
+                        <input class='input_contact ' />
+                    </div>
+                </div>
+
+                <div class='width_input_contact div_mail_contact div_contact'>
+                    <div class='title_input_contact'>Mail <span>*</span></div>
+                    <div>
+                        <input class='input_contact' />
+                    </div>
+                </div>
+            </div>
+            <div style='overflow:hidden'>
+                <div class='div_contact'>
+                    <div class='title_input_contact'>Tiêu đề <span>*</span></div>
+                    <div>
+                        <input class='input_contact' />
+                    </div>
+                </div>
+            </div>
+            <div class='div_contact'>
+                <div class='title_input_contact'>Nội dung <span>*</span></div>
+                <div>
+                    <textarea class='area_contact'></textarea>
+                </div>
+            </div>
+            <div class='div_contact' style='overflow:hidden'>
+
+                <input class='btn_contact' value="Gửi" readonly />
+
+            </div>
+        </div>
+    </div>
+    <div class='col_right'>
+        <div class='tt_contact'>
+            <div class='tt_header'>Email</div>
+            <div class='tt_content'>abc@gmail.com</div>
+        </div>
+        <div class='tt_contact'>
+            <div class='tt_header'>Telephone</div>
+            <div class='tt_content'>abc@gmail.com</div>
+        </div>
+        <div class='tt_contact'>
+            <div class='tt_header'>Skyoe</div>
+            <div class='tt_content'>abc@gmail.com</div>
+        </div>
+        <div class='tt_contact'>
+            <div class='tt_header'>Adress</div>
+            <div class='tt_content'>Level 16, Daeha Business Center, 360 Kim Ma, Hanoi, Vietnam</div>
+        </div>
+        <div class='tt_contact'>
+            <ul class="c-footer-actions_social">
+                <li class="c-footer-actions_social-item">
+                    <a class="c-footer-actions_social-link" href="https://www.linkedin.com/in/le-tuyen-63851914/" target="_blank">
+                        <figure class="c-footer-actions_social-icon">
+                            <i class="fa fa-linkedin" aria-hidden="true" style=" color:#FFF;font-size: 30px; line-height 50px;"></i>
+                        </figure>
+                    </a>
+                </li>
+                <li class="c-footer-actions_social-item">
+                    <a class="c-footer-actions_social-link" href="https://www.facebook.com/accessip.asia/?modal=admin_todo_tour" target="_blank">
+                        <figure class="c-footer-actions_social-icon">
+                            <i class="fa fa-facebook" aria-hidden="true" style=" color:#FFF;font-size: 30px; line-height 50px;"></i>
+                        </figure>
+                    </a>
+                </li>
+                <li class="c-footer-actions_social-item">
+                    <a class="c-footer-actions_social-link" href="https://twitter.com/IPathConsult" target="_blank">
+                        <figure class="c-footer-actions_social-icon">
+                            <i class="fa fa-twitter" aria-hidden="true" style=" color:#FFF;font-size: 30px; line-height 50px;"></i>
+                        </figure>
+                    </a>
+                </li>
+
+                <li class="c-footer-actions_social-item">
+                    <a class="c-footer-actions_social-link" href="/quan-ly-search/them-moi-inquiries" target="_blank">
+                        <figure class="c-footer-actions_social-icon">
+                            <i class="fa fa-envelope" aria-hidden="true" style=" color:#FFF;font-size: 30px; line-height 50px;"></i>
+                        </figure>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="divHomeNews" style="padding-top:10px;">
+
+    @Html.Partial("~/Areas/Articles/Views/ArticlesNews/_HomePartialViewNews.cshtml")
+</div>
