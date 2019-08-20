@@ -14,11 +14,20 @@
     decimal _Total_Amount_Represent = 0;
     decimal _discount = 0;
 
+    string language = AppsCommon.GetCurrentLang();
 
     foreach (var item in _list_data)
     {
-        _Total_Amount += item.Amount;
-        _Total_Amount_Represent += item.Amount_Represent;
+        if (language == "VI_VN")
+        {
+            _Total_Amount += item.Amount;
+            _Total_Amount_Represent += item.Amount_Represent;
+        }
+        else
+        {
+            _Total_Amount += item.Amount_Usd;
+            _Total_Amount_Represent += item.Amount_Represent_Usd;
+        }
     }
 
     decimal _discount_percent = 0;
@@ -30,8 +39,6 @@
 
     _discount = Math.Round(_Total_Amount_Represent * _discount_percent / 100);
     decimal _MustPay = _Total_Amount_Represent - _discount;
-
-    string language = AppsCommon.GetCurrentLang();
 }
 
 <div>
@@ -88,8 +95,17 @@
                             }
                         }
                         <td class="tdrightalign">@item.Number_Of_Patent</td>
-                        <td class="tdrightalign">@item.Amount.ToString("#,##0.##")</td>
-                        <td class="tdrightalign">@item.Amount_Represent.ToString("#,##0.##")</td>
+
+                        @if (language == "VI_VN")
+                        {
+                            <td class="tdrightalign">@item.Amount.ToString("#,##0.##")</td>
+                            <td class="tdrightalign">@item.Amount_Represent.ToString("#,##0.##")</td>
+                        }
+                        else
+                        {
+                            <td class="tdrightalign">@item.Amount_Usd.ToString("#,##0.##")</td>
+                            <td class="tdrightalign">@item.Amount_Represent_Usd.ToString("#,##0.##")</td>
+                        }
                     </tr>
                 }
 

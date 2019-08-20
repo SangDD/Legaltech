@@ -627,7 +627,7 @@
 
     $("#btnGuiDon").click(function () {
         try {
-            nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmGui", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
                 //Thông tin chủ đơn
                 var formData = new FormData();
                 var reponse = GetDatatoUpdate(formData, @Convert.ToInt16(Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin));
@@ -669,7 +669,7 @@
 
     $("#btnLuuTam").click(function () {
         try {
-            nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmLuuTam", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuuTam)", function () {
                 //Thông tin chủ đơn
                 var formData = new FormData();
                 var reponse = GetDatatoUpdate(formData, @_AppHeaderInfo.Status);
@@ -711,7 +711,7 @@
 
     $("#btnSuaDon").click(function () {
         try {
-            nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmLuu", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuu)", function () {
                 //Thông tin chủ đơn
                 var formData = new FormData();
                 var reponse = GetDatatoUpdate(formData, @_AppHeaderInfo.Status);
@@ -770,21 +770,21 @@
                 return false;
             }
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-            if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                jError("@Resource.TM3C_ChonChuDon", "@Resource.TM3B_Loi", function () {
+            if ((v_RepMasterType === "" || v_RepMasterType == undefined) && p_status != 1) {
+                jError("@Html.Raw(Resource.TM3C_ChonChuDon)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                     $("#_2_rdoNguoiDaiDienPL").focus()
                 });
             }
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
 
             //Lấy thông tin detail
-            var reponse = funcGetAppDetail(formData);
+            var reponse = funcGetAppDetail(formData, p_status);
             if (reponse == false) {
                 return false;
             }
 
             // get thông tin fee
-            var reponse = funcGet_Fee(formData);
+            var reponse = funcGet_Fee(formData, p_status);
             if (reponse == false) {
                 return false;
             }
@@ -804,11 +804,11 @@
         }
     }
 
-    function funcGetAppDetail(formData) {
+    function funcGetAppDetail(formData, p_status) {
         try {
             var _Appeal_Object = $("input[name='3_rdoAppeal_Object']:checked").val();
-            if (_Appeal_Object == "" || _Appeal_Object == undefined) {
-                jError("@Resource.TM3D_ChonGiaTriDoiTuongKhieuNai", "@Resource.TM3B_Loi", function () {
+            if ((_Appeal_Object == "" || _Appeal_Object == undefined) && p_status == 2) {
+                jError("@Html.Raw(Resource.TM3D_ChonGiaTriDoiTuongKhieuNai)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                     $("#3_rdAppeal_Object_1").focus()
                 });
                 return false;
@@ -822,8 +822,8 @@
                 $("#3_txt_appeal_date").prop('disabled', true);
 
                 var _appeal_number = $("#3_txt_appeal_number").val();
-                if (_appeal_number == "") {
-                    jError("@Resource.TM3D_SoQuyetDinhKhongDuocBoTrong", "@Resource.TM3B_Loi", function () {
+                if (_appeal_number == "" && p_status == 2) {
+                    jError("@Html.Raw(Resource.TM3D_SoQuyetDinhKhongDuocBoTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                         $("#3_txt_appeal_number").focus()
                     });
                     return false;
@@ -832,7 +832,7 @@
 
                 // check validate ngày
                 var _appeal_date = $("#3_txt_appeal_date").val();
-                if (checkDate("@Resource.TM3D_NgayQuyetDinh", "#3_txt_appeal_date", _appeal_date) == false) {
+                if (checkDate("@Resource.TM3D_NgayQuyetDinh", "#3_txt_appeal_date", _appeal_date) == false && p_status == 2) {
                     return false;
                 }
                 formData.append("pDetail.Appeal_Date", _appeal_date);
@@ -840,8 +840,8 @@
             else if (parseInt(_Appeal_Object) == 2) {
 
                 var _appeal_appno = $("#3_txt_appeal_appno").val();
-                if (_appeal_appno == "") {
-                    jError("@Resource.TM3B_SoDonKhongDuocDeTrong", "@Resource.TM3B_Loi", function () {
+                if (_appeal_appno == "" && p_status == 2) {
+                    jError("@Html.Raw(Resource.TM3B_SoDonKhongDuocDeTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                         $("#3_txt_appeal_appno").focus()
                     });
                     return false;
@@ -852,8 +852,8 @@
             else if (parseInt(_Appeal_Object) == 3) {
 
                 var _appeal_degree = $("#3_txt_appeal_degree").val();
-                if (_appeal_degree == "") {
-                    jError("@Resource.TM3D_SoBangKhongDuocDeTrong", "@Resource.TM3B_Loi", function () {
+                if (_appeal_degree == "" && p_status == 2) {
+                    jError("@Html.Raw(Resource.TM3D_SoBangKhongDuocDeTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                         $("#3_txt_appeal_degree").focus()
                     });
                     return false;
@@ -861,11 +861,12 @@
                 formData.append("pDetail.Appeal_Degree", _appeal_degree);
             }
 
+
             var txtMADDSHCN = $("#txtMADDSHCN").val();
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             if (v_RepMasterType = "DDPL") {
-                if (txtMADDSHCN == "") {
-                    jError("@Resource.TM3C_MaDaiDienKhongDuocTrong", "@Resource.TM3B_Loi", function () {
+                if (txtMADDSHCN == "" && p_status == 2) {
+                    jError("@Html.Raw(Resource.TM3C_MaDaiDienKhongDuocTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                         $("#txtMADDSHCN").focus()
                     });
                     return false;
@@ -880,14 +881,14 @@
         }
     }
 
-    function funcGet_Fee(formData) {
+    function funcGet_Fee(formData, p_status) {
         try {
 
             if (@WebApps.Session.SessionData.CurrentUser.Type == '@((int)CommonEnums.UserType.Admin)' ||
                 @WebApps.Session.SessionData.CurrentUser.Type == '@((int)CommonEnums.UserType.Lawer)') {
 
-                if ($('#ckb_PhiTraCuu').is(":checked") == false && $('#ckb_PhiThamDinh').is(":checked") == false) {
-                    jError("@Resource.TM3D_FeeKhongDuocDeTrong", "@Resource.TM3B_Loi", function () {
+                if ($('#ckb_PhiTraCuu').is(":checked") == false && $('#ckb_PhiThamDinh').is(":checked") == false && p_status == 2) {
+                    jError("@Html.Raw(Resource.TM3D_FeeKhongDuocDeTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                         $("#ckb_PhiTraCuu").focus()
                     });
                     return false;
@@ -900,14 +901,14 @@
                     var _PhiTraCuu = $("#txt_PhiTraCuu").val();
                     var _PhiTraCuu_SoTien = $("#txt_PhiTraCuu_SoTien").val();
 
-                    if (_PhiTraCuu == "") {
-                        jError("@Resource.TM3D_SoDoiTuongTinhPhiKhongDeTrong", "@Resource.TM3B_Loi", function () {
+                    if (_PhiTraCuu == "" && p_status == 2) {
+                        jError("@Html.Raw(Resource.TM3D_SoDoiTuongTinhPhiKhongDeTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                             $("#txt_PhiTraCuu").focus()
                         });
                         return false;
                     }
-                    if (_PhiTraCuu_SoTien == "") {
-                        jError("@Resource.TM3D_SoTienKhongDuocDeTrong", "@Resource.TM3B_Loi", function () {
+                    if (_PhiTraCuu_SoTien == "" && p_status == 2) {
+                        jError("@Html.Raw(Resource.TM3D_SoTienKhongDuocDeTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                             $("#txt_PhiTraCuu_SoTien").focus()
                         });
                         return false;
@@ -929,14 +930,14 @@
                     var _PhiThamDinh = $("#txt_PhiThamDinh").val();
                     var _PhiThamDinh_SoTien = $("#txt_PhiThamDinh_SoTien").val();
 
-                    if (_PhiThamDinh == "") {
-                        jError("@Resource.TM3D_SoDoiTuongTinhPhiKhongDeTrong", "@Resource.TM3B_Loi", function () {
+                    if (_PhiThamDinh == "" && p_status == 2) {
+                        jError("@Html.Raw(Resource.TM3D_SoDoiTuongTinhPhiKhongDeTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                             $("#txt_PhiThamDinh").focus()
                         });
                         return false;
                     }
-                    if (_PhiThamDinh_SoTien == "") {
-                        jError("@Resource.TM3D_SoTienKhongDuocDeTrong", "@Resource.TM3B_Loi", function () {
+                    if (_PhiThamDinh_SoTien == "" && p_status == 2) {
+                        jError("@Html.Raw(Resource.TM3D_SoTienKhongDuocDeTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                             $("#txt_PhiThamDinh_SoTien").focus()
                         });
                         return false;

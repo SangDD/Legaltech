@@ -350,8 +350,6 @@
 
         <div class="class_save">
             <div class="classGuiDon">
-                @*<input type="button" value="@Resource.TM3B_BtnSuaDon" id="btnSuaDon" class="btn" />*@
-
                 @if (_AppHeaderInfo.Status == (int)Common.CommonData.CommonEnums.App_Status.Luu_tam)
                 {
                     <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
@@ -577,7 +575,7 @@
 
             var Master_Type = $("input[name='1_rdoChuDon']:checked").val();
             if ((Master_Type === "" || Master_Type == undefined) && p_status != 1) {
-                jError("@Resource.TM3C_ChonChuDon", "@Resource.TM3B_Loi", function () {
+                jError("@Html.Raw(Resource.TM3C_ChonChuDon)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                     $("#rb_1_ChuDonChuyenNhuong").focus()
                 });
                 return false;
@@ -591,7 +589,7 @@
             }
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             if ((v_RepMasterType === "" || v_RepMasterType == undefined) && p_status != 1) {
-                jError("@Resource.TM2B_ChonDaiDienChuDon", "@Resource.TM3B_Loi", function () {
+                jError("@Html.Raw(Resource.TM2B_ChonDaiDienChuDon)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                     $("#_2_rdoNguoiDaiDienPL").focus()
                 });
             }
@@ -630,7 +628,7 @@
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             if (v_RepMasterType = "DDPL" && p_Status != 1) {
                 if (txtMADDSHCN == "") {
-                    jError("@Resource.TM3C_MaDaiDienKhongDuocTrong", "@Resource.TM3B_Loi", function () {
+                    jError("@Html.Raw(Resource.TM3C_MaDaiDienKhongDuocTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                         $("#txtMADDSHCN").focus()
                     });
                     return false;
@@ -640,7 +638,7 @@
 
             var _DonDuocChuyenNhuong = $("input[name='4_rdoDonDuocChuyenNhuong']:checked").val();
             if ((_DonDuocChuyenNhuong === "" || _DonDuocChuyenNhuong == undefined) && p_Status != 1 ){
-                jError("@Resource.TM3C_ChonGiaTriYeuCauChuyenNhuong", "@Resource.TM3B_Loi", function () {
+                jError("@Html.Raw(Resource.TM3C_ChonGiaTriYeuCauChuyenNhuong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                     $("#4_rdDK_SC").focus()
                 });
                 return false;
@@ -650,7 +648,7 @@
             // số đơn
             var _4_txt_SoDon = $("#4_txt_SoDon").val();
             if ((_4_txt_SoDon === "" || _4_txt_SoDon == undefined) && p_Status != 1){
-                jError("@Resource.TM3B_SoDonKhongDuocDeTrong", "@Resource.TM3B_Loi", function () {
+                jError("@Html.Raw(Resource.TM3B_SoDonKhongDuocDeTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                     $("#4_txt_SoDon").focus()
                 });
                 return false;
