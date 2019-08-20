@@ -1,8 +1,8 @@
-﻿*{
+﻿* {
     margin: 0;
     padding: 0;
-    /*font-family: arial !important;*/ 
-    font-size :12px ;
+    /*font-family: arial !important;*/
+    font-size: 12px;
 }
 
 html {
@@ -40,7 +40,7 @@ body {
     -webkit-flex-direction: column;
     flex-direction: column;
     flex: 1;
-    overflow:auto ;
+    overflow: auto;
 }
 
 .section-top {
@@ -81,12 +81,13 @@ body {
     min-width: 980px;
     min-height: 120px;
 }
+
 .classLogo {
     max-width: 110px;
     height: 110px;
     margin-left: 70px;
     padding-top: 10px;
-    padding-bottom: 10px ;
+    padding-bottom: 10px;
 }
 
 .main-menu {
@@ -188,7 +189,7 @@ body {
         /*color: #ffffff;
         background-color: #0055A8;*/
         color: #7ed3f7;
-        background-color: #844424; 
+        background-color: #844424;
         border-color: #000000;
         border-left: 2px solid #7ed3f7;
     }
@@ -377,7 +378,6 @@ th[data-sort] {
 
 .tdleftalign {
     text-align: left !important;
-    
 }
 
 .tdrightalign {
@@ -1103,6 +1103,7 @@ select.divNumberRecordOnPage {
         line-height: 23px;
     }
 }
+
 .logo_contain {
     width: 20%;
     display: inline-block;
@@ -1110,7 +1111,8 @@ select.divNumberRecordOnPage {
     padding-bottom: 5px;
     height: 30px;
 }
-    .logo_contain .lang-vn  {
+
+    .logo_contain .lang-vn {
         padding: 3px 12px;
         margin-left: 5px;
     }
@@ -1486,7 +1488,7 @@ select.divNumberRecordOnPage {
 }
 
 .class_full_div_input_extent {
-    float:left;
+    float: left;
     display: inline-block;
     width: 100%;
     margin-bottom: 3px;
@@ -1816,6 +1818,7 @@ input[type="checkbox"] {
     background-color: #e9ece9 !important;
     color: #ffffff;
 }
+
 .Title-news-iPace {
     width: 98%;
     margin: 23px 5px 5px 5px;
@@ -1838,7 +1841,7 @@ input[type="checkbox"] {
 
 .class-dangxuat {
     font-size: 14px;
-    font-weight:bold ;
+    font-weight: bold;
     float: right;
     text-decoration: underline;
     color: blue;
@@ -1847,14 +1850,57 @@ input[type="checkbox"] {
 }
 
 
-.d-nav >img {
-    padding-left :10px ;
-    padding-right:10px ;
+.d-nav > img {
+    padding-left: 10px;
+    padding-right: 10px;
 }
- @media(max-width:900px) {
-    .site, body  {
-        min-width:300px !important;
+
+@media(max-width:900px) {
+    .site, body {
+        min-width: 300px !important;
     }
-    
 }
- 
+
+@media(min-width: 991px) {
+    .container_contact {
+        display: table;
+    }
+
+    .col_left {
+        display: table-cell;
+        width: 60%;
+    }
+
+    .col_right {
+        display: table-cell;
+        width: 40%;
+    }
+
+    .width_input_contact {
+        width: 50%;
+        float: left;
+    }
+
+    .div_name_contact {
+        padding-right: 15px;
+    }
+
+    .div_mail_contact {
+        padding-left: 15px;
+    }
+}
+
+@media(min-width: 768px) and (max-width: 991px) {
+
+    .col_left {
+        width: 100%;
+    }
+
+    .col_right {
+        width: 100%;
+    }
+
+    .width_input_contact {
+        width: 100%;
+    }
+}

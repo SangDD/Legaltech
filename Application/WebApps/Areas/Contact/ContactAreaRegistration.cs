@@ -2,17 +2,12 @@
 
 namespace WebApps.Areas.Contact
 {
-    public class ContactAreaRegistration : AreaRegistration 
+    public class ContactAreaRegistration : AreaRegistration
     {
-        public override string AreaName 
-        {
-            get 
-            {
-                return "Contact";
-            }
-        }
+        public override string AreaName => "Contact";
 
-        public override void RegisterArea(AreaRegistrationContext context) 
+
+        public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
                 "Contact_default",
