@@ -20,6 +20,7 @@ namespace ObjectInfos
         public string Name_En { get; set; }
 
         public string Name_Cn { get; set; }
- 
+        public string TextInput { get; set; }
+
     }
 }

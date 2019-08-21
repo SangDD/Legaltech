@@ -59,6 +59,25 @@ namespace DataAccess
         }
 
 
+        public DataSet AppDetail_GetBy_Id(string p_appcode, decimal p_app_header_id)
+        {
+            try
+            {
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_translate.proc_app_getby_app_id",
+                    new OracleParameter("p_appcode", OracleDbType.Varchar2, p_appcode, ParameterDirection.Input),
+                    new OracleParameter("p_app_header_id", OracleDbType.Decimal, p_app_header_id, ParameterDirection.Input),
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_detail", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_class", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
+
         public decimal App_Translate_Insert(List<App_Translate_Info> pInfo)
         {
             try

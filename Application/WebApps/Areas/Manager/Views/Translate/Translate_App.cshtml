@@ -1,7 +1,252 @@
-﻿
+﻿@using ObjectInfos;
+@using BussinessFacade;
+@using BussinessFacade.ModuleMemoryData
+@using System.Xml
+@using System.Data;
+@using WebApps.CommonFunction;
+@using WebApps.Resources;
 @{
-    ViewBag.Title = "Translate_App";
+    ViewBag.Title = "Translate";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+    List<Sys_App_Translate_Info> Sys_LstTranslate = new List<Sys_App_Translate_Info>();
+    if (ViewBag.LstTranslate != null)
+    {
+        Sys_LstTranslate = (List<Sys_App_Translate_Info>)ViewBag.LstTranslate;
+    }
+
+    List<App_Translate_Info> Lst_Translate_App = new List<App_Translate_Info>();
+    if (ViewBag.Lst_Translate_App != null)
+    {
+        Lst_Translate_App = (List<App_Translate_Info>)ViewBag.Lst_Translate_App;
+    }
+
+    List<App_Class_Info> app_Class_Infos = new List<App_Class_Info>();
+    if (ViewBag.Lst_Class != null)
+    {
+        app_Class_Infos = (List<App_Class_Info>)ViewBag.Lst_Class;
+    }
+
+
+    DataSet Ds_detail = new DataSet();
+    if (ViewBag.Ds_detail != null)
+    {
+        Ds_detail = (DataSet)ViewBag.Ds_detail;
+    }
+
+    string language = AppsCommon.GetCurrentLang();
+    var objAppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        objAppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    }
+
+    int _index = 0;
 }
 
-<h2>Translate_App</h2>
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 150px;
+    }
+</style>
 
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        <a href="/home">Home</a>
+        <span class="red">></span>
+        <a href="/quan-ly-billing/danh-sach-billing">@WebApps.Resources.Resource.Dich</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+@*Notify*@
+<div class="divCover">
+    @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+</div>
+
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <div class="div-title-content"> Thông tin đơn</div>
+        </div>
+    </div>
+
+    <div class="divCover">
+
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName_View.cshtml", "0")
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                @Resource.TM2B_ChuDon
+            </div>
+        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon_View.cshtml")
+
+        @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
+        @*@Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon_View.cshtml")*@
+
+
+        <div class="divCover">
+            <div class="classTitle">
+                <div class="div-title-content"> Chi tiết bản dịch</div>
+            </div>
+        </div>
+
+        @foreach (Sys_App_Translate_Info item in Sys_LstTranslate)
+        {
+            if (item.Type != "CLASS")
+            {
+                string _value = AppsCommon.Get_Databy_ColumName(item, Ds_detail);
+                string _value_translate = AppsCommon.Get_Databy_Translate_ColumName(item, Lst_Translate_App);
+
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <div>@item.Object_Lable</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="@item.TxtId" maxlength="500" value="@_value" style="width: 250px;" readonly />
+                        </div>
+                    </div>
+
+                    <div class="div-search-title">
+                        <div style="background-color:yellow; width:250px">Bản dịch @item.Object_Lable</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            @if (_value == "")
+                            {
+                                <input class="clsTranslateValue" id="@(item.TxtId + "translate")" type="text" value="" readonly data-valid="0" data-TxtId="@item.TxtId" data-object-name="@item.Object_Name" data-type="@item.Type" data-language="@objAppHeaderInfo.Languague_Code" />
+                            }
+                            else
+                            {
+                                <input class="clsTranslateValue" id="@(item.TxtId + "translate")" type="text" value="@_value_translate" data-valid="1" data-TxtId="@item.TxtId" data-object-name="@item.Object_Name" data-type="@item.Type" data-language="@objAppHeaderInfo.Languague_Code" />
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="divCover">
+                    <div class="classTitle">
+                        <div class="div-title-content"> @Resource.Dich @Resource.Class</div>
+                    </div>
+                </div>
+
+                foreach (App_Class_Info _App_Class_Info in app_Class_Infos)
+                {
+
+                    string _value_class = AppsCommon.Get_Databy_Class_Translate(_App_Class_Info.Id.ToString(), Lst_Translate_App);
+                    <div class="div-search-ad">
+                        <div class="div-search-title">
+                            <div>@Resource.Class</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <input type="text" id="@_App_Class_Info.Id" maxlength="500" value="@_App_Class_Info.TextInput" style="width: 250px;" readonly />
+                            </div>
+                        </div>
+
+                        <div class="div-search-title">
+                            <div style="background-color:yellow; width:250px">Bản dịch @Resource.Class</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <input class="clsTranslateValue" id="@(_App_Class_Info.Id + "translate")" type="text" value="@_value_class"
+                                       data-valid="1" data-TxtId="@_App_Class_Info.Id" data-object-name="@_App_Class_Info.Id" data-type="@item.Type" data-language="@objAppHeaderInfo.Languague_Code" />
+                            </div>
+                        </div>
+                    </div>
+
+                    _index++;
+                }
+            }
+
+        }
+    </div>
+
+    <div class="divCover">
+        <div class="div-search-btn" style="width:600px;margin-top: 5px;">
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Dich" onclick="return doTranslate()" />
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+    });
+
+    function doTranslate() {
+        try {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmDich)", function () {
+
+                //Thông tin chủ đơn
+                var formData = new FormData();
+
+                var _index = 0;
+                $(".clsTranslateValue").each(function (item) {
+                    var _id = $(this).attr('data-TxtId');
+                    if ($(this).attr('data-valid') == "1") {
+                        formData.append("pApp_Translate_Info[" + _index + "].App_Header_Id", @objAppHeaderInfo.Id);
+                        formData.append("pApp_Translate_Info[" + _index + "].Case_Code", '@objAppHeaderInfo.Case_Code');
+                        formData.append("pApp_Translate_Info[" + _index + "].Object_Name", $(this).attr('data-object-name'));
+
+                        formData.append("pApp_Translate_Info[" + _index + "].Value_Old", $("#" + _id).val());
+                        formData.append("pApp_Translate_Info[" + _index + "].Value_Translate", $("#" + _id + "translate").val());
+
+                        formData.append("pApp_Translate_Info[" + _index + "].Type", $(this).attr('data-type'));
+                        formData.append("pApp_Translate_Info[" + _index + "].Language", $(this).attr('data-language'));
+
+                        _index = _index + 1;
+                    }
+                });
+
+                $.ajax({
+                    url: '/app-translate/do-translate',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    traditional: true,
+                    dataType: "json",
+                    enctype: 'multipart/form-data',
+                    async: true,
+                    headers: { "cache-control": "no-cache" },
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data != null && data.status >= 0) {
+                            jAlert('@Html.Raw(Resource.DichDonThanhCong)', ThongBao, function () {
+                                window.location = "/trade-mark-mana/quan-ly-don";
+                            });
+                        } else if (data.status == -2) {
+                            jError("@Html.Raw(WebApps.Resources.Resource.KhongCoDuLieu)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                            });
+                        } else {
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiXuLyDuLieu)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(false);
+                        console.log(e);
+                    }
+                });
+            });
+        } catch (e) {
+            CreateRollingWaitingIcon(true);
+            alert(e);
+        }
+    }
+</script>
