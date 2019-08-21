@@ -26,7 +26,15 @@
                         <div class='title_contact'>@WebApps.Resources.Resource.ContactUs</div>
                         <div class='script_contact'>
                            @*@WebApps.Resources.Resource.ContactScript*@
-                            @Html.Raw(objInfo.Content)
+                            @if (_LanguageCode == "VI_VN")
+                            {
+                                @Html.Raw(objInfo.Content)
+                            }
+                            else
+                            {
+                                @Html.Raw(objInfo.Content_En)
+                            }
+
                         </div>
                         <div class='content_contact'>
                             <div style='overflow:hidden'>
