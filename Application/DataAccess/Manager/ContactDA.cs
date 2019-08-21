@@ -11,7 +11,7 @@ namespace DataAccess.Manager
 {
     public class ContactDA
     {
-        public DataSet Contact_Search(string p_key_search, string p_language, string p_from, string p_to, ref decimal p_total_record)
+        public DataSet Contact_Search(string p_key_search, string p_language, string p_status,string p_from, string p_to, ref decimal p_total_record)
         {
             try
             {
@@ -19,6 +19,7 @@ namespace DataAccess.Manager
                 DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_contact.proc_search_contact",
                     new OracleParameter("p_key_search", OracleDbType.Varchar2, p_key_search, ParameterDirection.Input),
                     new OracleParameter("p_language", OracleDbType.Varchar2, p_language, ParameterDirection.Input),
+                    new OracleParameter("p_status", OracleDbType.Varchar2, p_status, ParameterDirection.Input),
                     new OracleParameter("p_from", OracleDbType.Varchar2, p_from, ParameterDirection.Input),
                     new OracleParameter("p_to", OracleDbType.Varchar2, p_to, ParameterDirection.Input),
                     paramReturn,
@@ -47,14 +48,17 @@ namespace DataAccess.Manager
                 return new DataSet();
             }
         }
-        public decimal Contact_UpdateStatus(decimal p_id, decimal p_status)
+        public decimal Contact_UpdateStatus(decimal p_id, decimal p_status, string p_replycontent, string p_replysubject, string p_replyby)
         {
             try
             {
                 var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_contact.proc_update_status",
-                    new OracleParameter("p_contactname", OracleDbType.Varchar2, p_id, ParameterDirection.Input),
-                    new OracleParameter("p_subject", OracleDbType.Decimal, p_status, ParameterDirection.Input),
+                    new OracleParameter("p_id", OracleDbType.Varchar2, p_id, ParameterDirection.Input),
+                    new OracleParameter("p_status", OracleDbType.Decimal, p_status, ParameterDirection.Input),
+                    new OracleParameter("p_replycontent", OracleDbType.Varchar2, p_replycontent, ParameterDirection.Input),
+                    new OracleParameter("p_replysubject", OracleDbType.Varchar2, p_replysubject, ParameterDirection.Input),
+                    new OracleParameter("p_replyby", OracleDbType.Varchar2, p_replyby, ParameterDirection.Input),
                     paramReturn);
                 return Convert.ToDecimal(paramReturn.Value.ToString());
             }

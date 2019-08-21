@@ -1,7 +1,71 @@
-﻿
+﻿@using Common.CommonData
+@using Common.Extensions
+@using ObjectInfos
+@using ObjectInfos.Manager;
 @{
-    ViewBag.Title = "_Partial_List_Contact";
+    List<ContactInfo> _list_data = new List<ContactInfo>();
+    if (ViewBag.Obj != null)
+    {
+        _list_data = ViewBag.Obj;
+    }
 }
 
-<h2>_Partial_List_Contact</h2>
+<div>
+    <table class="table-lst-data" id="tableListUser">
+        <thead>
+            <tr>
+                <th style="width: 4%">STT</th>
+                @*<th id="Username">Họ tên</th>*@
+                <th style="">Email</th>
+                <th style="">Tiêu đề</th>
+                @*<th style="width: 15%">Nội dung gửi</th>*@
+                <th style="width: 10%">Ngày gửi</th>
+                <th style="width: 10%">Ngôn ngữ</th>
+                <th style="width: 15%">Trạng thái</th>
+                <th style="width: 100px;">Chức năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (_list_data != null && _list_data.Count > 0)
+            {
+                foreach (var item in _list_data)
+                {
+                    <tr>
+                        <td class="tdcenteralign">@item.STT</td>
+                        @*<td class="tdleftalign">@item.ContactName</td>*@
+                        <td class="tdleftalign">@item.Email</td>
+                        <td class="tdleftalign">@item.Subject</td>
+                        @*<td class="tdleftalign">@item.Content</td>*@
+                        <td class="tdleftalign">@item.DateSent.ToString("dd/MM/yyyy")</td>
+                        <td class="tdleftalign">@item.Language</td>
+                        @if (item.Status == 0)
+                        {
+                            <td class="tdleftalign">Chưa trả lời</td>
+                        }
+                        else
+                        {
+                            <td class="tdleftalign">Đã trả lời</td>
+                        }
+                        <td class="tdcenteralign">
+                            <a class="icon icon-info" data-title="Xem chi tiết" href="/contact-send/xem-chi-tiet/@item.ID"></a>
+                            <a class="icon icon-reset" data-title="Trả lời"></a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="9">Không có dữ liệu</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="_ClassPage">
+    <ul>
+        @Html.Raw(ViewBag.Paging)
+    </ul>
+</div>
 

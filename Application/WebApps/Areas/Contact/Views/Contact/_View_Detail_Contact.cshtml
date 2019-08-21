@@ -1,0 +1,124 @@
+﻿@using BussinessFacade.ModuleUsersAndRoles;
+@using Common.Extensions;
+@using ObjectInfos;
+@using BussinessFacade.ModuleMemoryData
+@using ObjectInfos.Manager;
+
+
+@{
+
+    ViewBag.Title = "Thông tin luật sư";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+    ContactInfo _contract = new ContactInfo();
+    if (ViewBag.Contract != null)
+    {
+        _contract = ViewBag.Contract;
+    }
+}
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 145px;
+    }
+
+    input {
+        border-left: none !important;
+    }
+</style>
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        <a href="/home">Home</a>
+        <span class="red">></span>
+        <a href="/contact-send/danh-sach-contact">Danh sách contact</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+<div class="divCover">
+    @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+</div>
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <div class="div-title-content">Thông tin contact</div>
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Họ tên người gửi</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input value="@_contract.ContactName" type="text" readonly />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Email</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input value="@_contract.Email" type="text" readonly />
+                </div>
+            </div>
+           
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Trạng thái</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input value="@_contract.Status" type="text" readonly />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Ngày gửi</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input value="@_contract.DateSent.ToString("dd/MM/yyyy")" type="text" readonly />
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div>Ngôn ngữ</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input value="@_contract.Language" type="text" readonly />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tiêu đề</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input value="@_contract.Subject" type="text" readonly />
+                </div>
+            </div>
+        </div>
+
+      
+        <div style="margin-top:15px">
+            <div>Nội dung</div>
+            <textarea type="text" style="height:100px;width:100%;" maxlength="200" readonly>@_contract.Content</textarea>
+        </div>
+
+
+    </div>
+
+    <div class="divCover">
+        <div class="div-search-btn" style="width:600px;margin-top: 5px;">
+            <input type="button" class="btn-default" value="Thoát" onclick="back()" style="width: auto;" />
+        </div>
+    </div>
+</div>

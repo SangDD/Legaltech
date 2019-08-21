@@ -17,5 +17,12 @@ namespace ObjectInfos.Manager
         public string Language { get; set; }
         public decimal Status { get; set; }
         public decimal StatusText { get; set; }
+        public DateTime DateSent { get; set; }
+
+        public string ReplyContent { get; set; }
+        public string ReplySubject { get; set; }
+        public string ReplyBy { get; set; }
+        public DateTime ReplyDate { get; set; }
+ 
     }
 }

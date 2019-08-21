@@ -1,7 +1,155 @@
-﻿
+﻿@using BussinessFacade.ModuleMemoryData
+@using BussinessFacade.ModuleUsersAndRoles
+@using Common.CommonData
+@using ObjectInfos;
 @{
-    ViewBag.Title = "ListMailContact";
+    ViewBag.Title = "Quản lý contact";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
 }
 
-<h2>ListMailContact</h2>
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
 
+    .cbb {
+        min-width: 170px;
+    }
+</style>
+
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        <a href="/home">Home</a>
+        <span class="red">></span>
+        <a href="/contact-send/danh-sach-contact">Contact</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+@*Notify*@
+<div class="divCover">
+    @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+</div>
+
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+
+            <div class="div-title-content"> Danh sách contact </div>
+        </div>
+    </div>
+
+    <div class="divCover" id="div-search-simple">
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div style="width: 120px">Từ khóa tìm kiếm</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtkeySearch" data-controlcondition="TRUE" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div style="width: 120px">Trạng thái</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select data-controlcondition="TRUE" id="cboStatusSearch" class="cbb">
+                        <option selected="selected" value="ALL">None</option>
+                        <option value="0">Chưa trả lời</option>
+                        <option value="1">Đã trả lời</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div style="width: 120px">Ngôn ngữ</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select data-controlcondition="TRUE" id="cboLanguageSearch" class="cbb">
+                        <option selected="selected" value="">None</option>
+                        <option value="EN_US">Tiếng Anh</option>
+                        <option value="VI_VN">Tiếng Việt</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div class="div-search-btn" style="width:450px;">
+            <input type="button" value="Tìm kiếm" class="btn-default" onclick="SearchContact(1)" />
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div id="divTableContact">
+
+           @Html.Partial("~/Areas/Contact/Views/Contact/_Partial_List_Contact.cshtml")
+        </div>
+    </div>
+</div>
+<script>
+    var keyname = '', language = '', status = '';
+
+    $(document).ready(function () {
+        $('txtkeySearch').focus();
+        $('[data-controlcondition="TRUE"]').on('keypress',
+            function (e) {
+                enterKeyPress(e, 'btnFindUsers');
+            });
+
+        SearchContact(1)
+    });
+
+    function SearchContact(_pageNumber) {
+        try {
+            keyname = $("#txtkeySearch").val().trim();
+            language = $("#cboLanguageSearch").val();
+            status = $("#cboStatusSearch").val();
+            $.ajax({
+                type: "POST",
+                url: "/contact-send/searchcontact",
+                data: {
+                    p_keysearch: keyname,
+                    p_language: language,
+                    p_status: status,
+                    p_CurrentPage: _pageNumber
+                },
+                async: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data != null) {
+                        onResponseWhenSearching(data, "divTableContact", SearchContact);
+                    }
+                }
+            });
+
+            return true;
+
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+
+    function pageListOfUsers(_pagenum) {
+        try {
+            SearchContact(_pagenum);
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+
+</script>

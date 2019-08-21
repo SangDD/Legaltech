@@ -12,13 +12,13 @@ namespace BussinessFacade.Manager
 {
     public class Contact_BL
     {
-        public List<ContactInfo> Contact_Search(string p_key_search, string p_language,ref decimal p_total_record,
+        public List<ContactInfo> Contact_Search(string p_key_search, string p_language, string p_status,ref decimal p_total_record,
             string p_from = "1", string p_to = "10")
         {
             try
             {
                 ContactDA _da = new ContactDA();
-                DataSet _ds = _da.Contact_Search(p_key_search, p_language, p_from, p_to, ref p_total_record);
+                DataSet _ds = _da.Contact_Search(p_key_search, p_language, p_status, p_from, p_to, ref p_total_record);
                 return CBO<ContactInfo>.FillCollectionFromDataSet(_ds);
             }
             catch (Exception ex)
@@ -55,12 +55,13 @@ namespace BussinessFacade.Manager
                 return -1;
             }
         }
-        public decimal Contact_UpdateStatus(decimal p_id, decimal p_status)
+
+        public decimal Contact_UpdateStatus(decimal p_id, decimal p_status, string p_replycontent, string p_replysubject, string p_replyby)
         {
             try
             {
                 ContactDA _da = new ContactDA();
-                decimal _ck = _da.Contact_UpdateStatus(p_id, p_status);
+                decimal _ck = _da.Contact_UpdateStatus(p_id, p_status, p_replycontent, p_replysubject, p_replyby);
                 return _ck;
             }
             catch (Exception ex)
