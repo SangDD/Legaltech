@@ -1,11 +1,15 @@
-﻿using Common;
+﻿using BussinessFacade;
+using BussinessFacade.Manager;
+using Common;
 using ObjectInfos;
+using ObjectInfos.Manager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebApps.AppStart;
+using WebApps.CommonFunction;
 
 namespace WebApps.Areas.Contact.Controllers
 {
@@ -18,6 +22,10 @@ namespace WebApps.Areas.Contact.Controllers
         [Route("contact")]
         public ActionResult ContactDisplay()
         {
+            var objBL = new Sys_Pages_BL();
+            string language = AppsCommon.GetCurrentLang();
+            Sys_Pages_Info _pageInfo = objBL.Sys_Pages_GetBy_Code("abot");
+            ViewBag.objNewInfo = _pageInfo;
             return View("~/Areas/Contact/Views/Contact/ContactDisplay.cshtml");
         }
 
@@ -27,18 +35,17 @@ namespace WebApps.Areas.Contact.Controllers
         {
             try
             {
-                Email_Info _Email_Info = new Email_Info
-                {
-                    EmailFrom = EmailHelper.EmailOriginal.EMailFrom,
-                    Pass = EmailHelper.EmailOriginal.PassWord,
-                    Display_Name = EmailHelper.EmailOriginal.DisplayName,
-                    EmailTo = mail,
-                    EmailCC = "",
-                    Subject = sub,
-                    Content = content,
-                };
-                CommonFunction.AppsCommon.EnqueueSendEmail(_Email_Info);
-                return Json(new { status = 1 });
+                // insert
+                Contact_BL _bl = new Contact_BL();
+                string _LanguageCode = AppsCommon.GetCurrentLang();
+                ContactInfo _contact = new ContactInfo();
+                _contact.ContactName = name;
+                _contact.Email = mail;
+                _contact.Subject = sub;
+                _contact.Content = content;
+                _contact.Language = _LanguageCode;
+                decimal _ck = _bl.Contact_Insert(_contact);
+                return Json(new { status = _ck });
             }catch(Exception ex)
             {
                 Logger.LogException(ex);

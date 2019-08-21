@@ -7,11 +7,12 @@
 @{
     ViewBag.Title = "Danh sách tin";
     Layout = "~/ViewsShared/_LayoutHomeArticles.cshtml";
-
     string _LanguageCode = AppsCommon.GetCurrentLang();
-
-
-
+    Sys_Pages_Info objInfo = new Sys_Pages_Info();
+    if (ViewBag.objNewInfo != null)
+    {
+        objInfo = ViewBag.objNewInfo;
+    }
 }
 <link href="~/Content/contact.css" rel="stylesheet" />
 <link href=@($"/Scripts/outSourcesLib/notify/animate.min.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
@@ -24,10 +25,8 @@
                     <div class='col_left'>
                         <div class='title_contact'>@WebApps.Resources.Resource.ContactUs</div>
                         <div class='script_contact'>
-                            Level 16, Daeha Business Center, 360 Kim Ma, Hanoi, Vietnam
-                            Level 16, Daeha Business Center, 360 Kim Ma, Hanoi, Vietnam
-                            Level 16, Daeha Business Center, 360 Kim Ma, Hanoi, Vietnam
-                            Level 16, Daeha Business Center, 360 Kim Ma, Hanoi, Vietnam
+                           @*@WebApps.Resources.Resource.ContactScript*@
+                            @Html.Raw(objInfo.Content)
                         </div>
                         <div class='content_contact'>
                             <div style='overflow:hidden'>
@@ -128,7 +127,11 @@
                 async: true, cache: false, traditional: true,
                 success: function (data) {
                     if (data != null) {
-                        if (data.status == 1) {
+                        if (data.status > 1) {
+                            $("#ContactName").val('').focus();
+                            $("#ContactMail").val('');
+                            $("#ContactSub").val('');
+                            $("#ContactContent").val('');
                             showSuccess("@WebApps.Resources.Resource.ContactSensuccess");
                         } else {
                             showError("@WebApps.Resources.Resource.ContactSenerorr");
