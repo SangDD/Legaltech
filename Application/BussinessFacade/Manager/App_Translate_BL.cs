@@ -55,6 +55,20 @@ namespace BussinessFacade
             }
         }
 
+        public DataSet AppDetail_GetBy_Id(string p_appcode, decimal p_app_header_id)
+        {
+            try
+            {
+                App_Translate_DA _da = new App_Translate_DA();
+                return _da.AppDetail_GetBy_Id(p_appcode, p_app_header_id);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
         public decimal App_Translate_Insert(List<App_Translate_Info> pInfo)
         {
             try

@@ -656,7 +656,84 @@ namespace WebApps.CommonFunction
                 return new List<AllCodeInfo>();
             }
         }
- 
+
+        public static string Get_Databy_ColumName(Sys_App_Translate_Info p_Info, DataSet p_ds)
+        {
+            try
+            {
+                string _re = "";
+                DataTable p_dt = new DataTable();
+                if (p_Info.Type != "CLASS")
+                {
+                    if (p_Info.Type == "HEADER")
+                    {
+                        p_dt = p_ds.Tables[0];
+                    }
+                    else if (p_Info.Type == "DETAIL")
+                    {
+                        p_dt = p_ds.Tables[1];
+                    }
+
+                    foreach (DataColumn item in p_dt.Columns)
+                    {
+                        if (item.ColumnName.ToUpper() == p_Info.Object_Name.ToUpper())
+                        {
+                            return p_dt.Rows[0][p_Info.Object_Name.ToUpper()].ToString();
+                        }
+                    }
+                }
+
+                return _re;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return "";
+            }
+        }
+
+        public static string Get_Databy_Translate_ColumName(Sys_App_Translate_Info p_Info, List<App_Translate_Info> Lst_Translate_App)
+        {
+            try
+            {
+                string _re = "";
+                foreach (App_Translate_Info item in Lst_Translate_App)
+                {
+                    if (p_Info.Object_Name.ToUpper() == item.Object_Name.ToUpper())
+                    {
+                        return item.Value_Translate;
+                    }
+                }
+                return _re;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return "";
+            }
+        }
+
+        public static string Get_Databy_Class_Translate(string p_app_class_id,List<App_Translate_Info> Lst_Translate_App)
+        {
+            try
+            {
+                string _re = "";
+                foreach (var item in Lst_Translate_App)
+                {
+                    if (p_app_class_id == item.Object_Name)
+                    {
+                        return item.Value_Translate;
+                    }
+                }
+                return _re;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return "";
+            }
+        }
+
         public static void Prepare_Data_Export_A01(ref A01_Info_Export app_Detail, ApplicationHeaderInfo applicationHeaderInfo,
             List<AppDocumentInfo> appDocumentInfos, List<AppFeeFixInfo> _lst_appFeeFixInfos,
             List<AuthorsInfo> _lst_authorsInfos, List<Other_MasterInfo> _lst_Other_MasterInfo,

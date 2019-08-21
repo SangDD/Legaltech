@@ -23,5 +23,10 @@ namespace ObjectInfos
         public string AppCode { get; set; }
         public string Object_Name { get; set; }
         public string Type { get; set; }
+
+        public string Object_Lable { get; set; }
+        public string Object_Lable_En { get; set; }
+        public string TxtId { get; set; }
+
     }
 }
