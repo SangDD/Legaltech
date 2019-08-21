@@ -53,5 +53,13 @@ namespace WebApps.Areas.Contact.Controllers
             }
            
         }
+
+        [HttpGet]
+        [Route("danh-sach-contact")]
+        public ActionResult ListMailContact()
+        {
+            return PartialView("~/Areas/Contact/Views/Contact/ListMailContact.cshtml");
+        }
+
     }
 }
