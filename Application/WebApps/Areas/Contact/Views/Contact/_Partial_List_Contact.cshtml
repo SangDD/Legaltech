@@ -15,6 +15,7 @@
         <thead>
             <tr>
                 <th style="width: 4%">STT</th>
+                <th >Case Code</th>
                 @*<th id="Username">Họ tên</th>*@
                 <th style="">Email</th>
                 <th style="">Tiêu đề</th>
@@ -32,6 +33,7 @@
                 {
                     <tr>
                         <td class="tdcenteralign">@item.STT</td>
+                        <td class="tdleftalign">@item.Case_Code</td>
                         @*<td class="tdleftalign">@item.ContactName</td>*@
                         <td class="tdleftalign">@item.Email</td>
                         <td class="tdleftalign">@item.Subject</td>
@@ -47,8 +49,12 @@
                             <td class="tdleftalign">Đã trả lời</td>
                         }
                         <td class="tdcenteralign">
-                            <a class="icon icon-info" data-title="Xem chi tiết" href="/contact-send/xem-chi-tiet/@item.ID"></a>
-                            <a class="icon icon-reset" data-title="Trả lời"></a>
+                            <a class="icon icon-info" data-title="Xem chi tiết" href="/contact-send/xem-chi-tiet/@item.Case_Code"></a>
+                           @if (item.Status == 0)
+                           {
+                            <a class="icon icon-edit" data-title="Trả lời" href="/contact-send/gui-tra-loi/@item.Case_Code"></a>
+                           }
+                            
                         </td>
                     </tr>
                 }

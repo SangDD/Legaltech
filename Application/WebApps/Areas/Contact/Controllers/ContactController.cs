@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApps.AppStart;
 using WebApps.CommonFunction;
+using WebApps.Session;
 
 namespace WebApps.Areas.Contact.Controllers
 {
@@ -92,15 +93,15 @@ namespace WebApps.Areas.Contact.Controllers
 
        
         [HttpGet]
-        [Route("xem-chi-tiet/{id}")]
-        public ActionResult ViewDetaillawer()
+        [Route("xem-chi-tiet/{case_code}")]
+        public ActionResult ViewDetail()
         {
           
             try
             {
-                if (RouteData.Values["id"] != null && RouteData.Values["id"].ToString() != "")
+                if (RouteData.Values["case_code"] != null && RouteData.Values["case_code"].ToString() != "")
                 {
-                    int _Id = Convert.ToInt32(RouteData.Values["id"].ToString());
+                    string _Id = RouteData.Values["case_code"].ToString();
                     var contact_bl = new Contact_BL();
                     ContactInfo _contract = contact_bl.Contact_GetByID(_Id);
                     ViewBag.Contract = _contract;
@@ -113,5 +114,86 @@ namespace WebApps.Areas.Contact.Controllers
             return View("~/Areas/Contact/Views/Contact/_View_Detail_Contact.cshtml");
         }
 
+        [HttpGet]
+        [Route("gui-tra-loi/{case_code}")]
+        public ActionResult ViewSend()
+        {
+
+            try
+            {
+                if (RouteData.Values["case_code"] != null && RouteData.Values["case_code"].ToString() != "")
+                {
+                    string _Id =RouteData.Values["case_code"].ToString();
+                    var contact_bl = new Contact_BL();
+                    ContactInfo _contract = contact_bl.Contact_GetByID(_Id);
+                    ViewBag.Contract = _contract;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return View("~/Areas/Contact/Views/Contact/ContactSendMail.cshtml");
+        }
+
+        [HttpPost]
+        [Route("phan-hoi")]
+        public ActionResult UpdateRepEmail(ContactInfo _contact)
+        {
+            decimal _ck = -1;
+            try
+            {
+                decimal _status = 1;
+                if (_contact.FileBase_File_Url != null)
+                {
+                    _contact.URL = AppLoadHelpers.PushFileToServer(_contact.FileBase_File_Url, AppUpload.Search);
+                }
+                if (_contact.FileBase_File_Url02 != null)
+                {
+                    _contact.URL01 = AppLoadHelpers.PushFileToServer(_contact.FileBase_File_Url02, AppUpload.Search);
+                }
+               
+                Contact_BL _bl = new Contact_BL();
+                _ck = _bl.Contact_UpdateStatus(_contact.ID,_status,_contact.ReplyContent, _contact.ReplySubject, SessionData.CurrentUser.Username, _contact.URL, _contact.URL01);
+                string _content = "";
+                List<AllCodeInfo> _lstStatus = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("EMAIL", "CONTENT");
+                _lstStatus = _lstStatus.OrderBy(x => x.CdVal).ToList();
+                if (_lstStatus.Count > 1)
+                {
+                    _content = _lstStatus[0].Content + _contact.ReplyContent.Replace("\n", "<br>") + _lstStatus[1].Content;
+                }
+
+
+
+                List<string> _LstAttachment = new List<string>();
+                if (_contact.URL != null)
+                {
+                    _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_contact.URL));
+                }
+                if (_contact.URL01 != null)
+                {
+                    _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_contact.URL01));
+                }
+                
+                Email_Info _Email_Info = new Email_Info
+                {
+                    EmailFrom = EmailHelper.EmailOriginal.EMailFrom_Business,
+                    Pass = EmailHelper.EmailOriginal.PassWord_Business,
+                    Display_Name = EmailHelper.EmailOriginal.DisplayName_Business,
+                    EmailTo = _contact.Email,
+                    EmailCC = "",
+                    Subject = _contact.ReplySubject,
+                    Content = _content,
+                    LstAttachment = _LstAttachment,
+                };
+
+                CommonFunction.AppsCommon.EnqueueSendEmail(_Email_Info);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return Json(new { status = _ck });
+        }
     }
 }

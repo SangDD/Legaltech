@@ -27,7 +27,7 @@ namespace BussinessFacade.Manager
                 return new List<ContactInfo>();
             }
         }
-        public ContactInfo Contact_GetByID(decimal p_id)
+        public ContactInfo Contact_GetByID(string p_id)
         {
             try
             {
@@ -56,12 +56,12 @@ namespace BussinessFacade.Manager
             }
         }
 
-        public decimal Contact_UpdateStatus(decimal p_id, decimal p_status, string p_replycontent, string p_replysubject, string p_replyby)
+        public decimal Contact_UpdateStatus(decimal p_id, decimal p_status, string p_replycontent, string p_replysubject, string p_replyby, string url, string url02)
         {
             try
             {
                 ContactDA _da = new ContactDA();
-                decimal _ck = _da.Contact_UpdateStatus(p_id, p_status, p_replycontent, p_replysubject, p_replyby);
+                decimal _ck = _da.Contact_UpdateStatus(p_id, p_status, p_replycontent, p_replysubject, p_replyby, url, url02);
                 return _ck;
             }
             catch (Exception ex)

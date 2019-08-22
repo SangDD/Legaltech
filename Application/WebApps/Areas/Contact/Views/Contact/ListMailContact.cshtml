@@ -110,7 +110,9 @@
 
         SearchContact(1)
     });
-
+    function jsPaging(page) {
+        SearchContact(page, 0);
+    }
     function SearchContact(_pageNumber) {
         try {
             keyname = $("#txtkeySearch").val().trim();

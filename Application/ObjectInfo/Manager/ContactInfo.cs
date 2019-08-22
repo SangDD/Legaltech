@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace ObjectInfos.Manager
 {
@@ -22,7 +23,14 @@ namespace ObjectInfos.Manager
         public string ReplyContent { get; set; }
         public string ReplySubject { get; set; }
         public string ReplyBy { get; set; }
+        public string Case_Code { get; set; }
+        
         public DateTime ReplyDate { get; set; }
- 
+
+        public string URL { get; set; }
+        public HttpPostedFileBase FileBase_File_Url { get; set; }
+
+        public string URL01 { get; set; }
+        public HttpPostedFileBase FileBase_File_Url02 { get; set; }
     }
 }

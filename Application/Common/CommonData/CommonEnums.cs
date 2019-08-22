@@ -197,7 +197,8 @@
             Billing = 5,
             Wiki = 6,
             Register = 7,
-            News = 9
+            News = 9,
+            Contact = 10
         }
     }
 

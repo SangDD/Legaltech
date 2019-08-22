@@ -134,7 +134,7 @@
 
     </div>
 
-    @if (_contract.Status == 1)
+    @if (_contract.Status == 0 || _contract.Status == 1)
     {
         <div class="divCover">
             <div class="classTitle">
@@ -142,71 +142,26 @@
             </div>
         </div>
         <div class="divCover">
+           
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div>User trả lời</div>
+                    <div>Tiêu đề<i class="redspan">(*)</i></div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input value="@_contract.ReplyBy" type="text" readonly />
-
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>Ngày trả lời</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input value="@_contract.ReplyDate.ToString("dd/MM/yyyy")" type="text" readonly />
-                    </div>
-                </div>
-
-            </div>
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div>Tiêu đề</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input value="@_contract.ReplySubject" type="text" id="subject" readonly/>
+                        <input value="@_contract.ReplySubject" type="text" id="subject" />
                     </div>
                 </div>
             </div>
 
             <div style="margin-top:15px">
-                <div>Nội dung trả lời</div>
-                <textarea type="text" style="height:100px;width:100%;" maxlength="200" id="content" readonly>@_contract.ReplyContent</textarea>
+                <div>Nội dung trả lờ<i class="redspan">(*)</i>i</div>
+                <textarea type="text" style="height:100px;width:100%;" maxlength="200" id="content">@_contract.ReplyContent</textarea>
             </div>
-            @if (_contract.URL != "" && _contract.URL != null)
-            {
-                <div class="div-search-ad">
 
-                    <div class="div-search-title">
-                        <div>File đính kèm</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <a style="height:20px;padding:4px;" href="@_contract.URL" download>@_contract.URL</a>
-                        </div>
-                    </div>
-                </div>
-            }
+            @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile_Local.cshtml", _model1)
 
-            @if (_contract.URL01 != "" && _contract.URL01 != null)
-            {
-                <div class="div-search-ad">
-
-                    <div class="div-search-title">
-                        <div>File đính kèm</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <a style="height:20px;padding:4px;"  href="@_contract.URL01" download>@_contract.URL01</a>
-                        </div>
-                    </div>
-                </div>
-            }
+            @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile_Local.cshtml", _model2)
 
 
         </div>
@@ -214,19 +169,107 @@
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;margin-top: 5px;">
-            @if (_contract.Status == 0)
-            {
-                <input type="button" class="btn-default" value="Gửi trả lời" onclick="SendContact('@_contract.Case_Code')" style="width: auto;" />
-            }
-            <input type="button" class="btn-default" value="Trở về" onclick="back()" style="width: auto;" />
+            <input type="button" class="btn-default" value="Chấp nhận" onclick="SendContact()" style="width: auto;" />
+            <input type="button" class="btn-default" value="Thoát" onclick="back()" style="width: auto;" />
         </div>
     </div>
 </div>
 <script>
+    var _subject = "";
+    var _content = "";
+    var _emailTo = "";
+    var _id = "";
+
     function back() {
         window.location = "/contact-send/danh-sach-contact";
     }
-    function SendContact(id) {
-        window.location = '/contact-send/gui-tra-loi/' + id;
+
+    function validateAction() {
+        var _subject = $("#subject");
+        if (_subject.val() == null || _subject.val().trim() == "") {
+            jError("Tiêu đề không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                _subject.focus();
+            });
+            return false;
+        }
+        var _subject = $("#subject");
+        if (_subject.val() == null || _subject.val().trim() == "") {
+            jError("Tiêu đề không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                _subject.focus();
+            });
+            return false;
+        }
+        var _re = checkValidate_File("1");
+        if (_re == false) {
+            return false;
+        }
+
+        var _re = checkValidate_File("2");
+        if (_re == false) {
+            return false;
+        }
+        return true;
+    }
+
+    function collectObjectData(formData) {
+        _subject = $("#subject").val();
+        _content = $("#content").val();
+        _id = $("#ID").val();
+        formData.append('_contact.ReplySubject', _subject);
+        formData.append('_contact.ReplyContent', _content);
+        formData.append('_contact.Email', '@_contract.Email');
+        formData.append('_contact.ID', _id);
+
+        var pfile = $("#file_attach_1");//lay du lieu file
+        if (pfile.val() != "") {
+            var _file = pfile[0].files[0];
+            formData.append('_contact.FileBase_File_Url', _file);
+        }
+
+        var pfile_t = $("#file_attach_2");//lay du lieu file
+        if (pfile_t.val() != "") {
+            var _file_t = pfile_t[0].files[0];
+            formData.append('_contact.FileBase_File_Url02', _file_t);
+        }
+    }
+
+    function SendContact() {
+        try{
+            if (validateAction()) {
+                var formData = new FormData();
+                collectObjectData(formData);
+                nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmPhanHoi)", function () {
+                    $.ajax({
+                        url: '/contact-send/phan-hoi',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        traditional: true,
+                        async: false,
+                        beforeSend: function () {
+                            CreateRollingWaitingIcon(true);
+                        },
+                        success: function (data) {
+                            CreateRollingWaitingIcon(false);
+                            if (data.success < 0) {
+                                jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
+                                return false;
+                            }
+                            else {
+                                jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                                    window.location.href = "/contact-send/xem-chi-tiet/" + '@_contract.Case_Code';
+                                });
+                            }
+                        },
+                        error: function (e) {
+                            console.log(e);
+                        }
+                    });
+                });
+            }
+        } catch (ex) {
+            console.log(ex);
+        }
     }
 </script>

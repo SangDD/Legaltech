@@ -33,12 +33,12 @@ namespace DataAccess.Manager
                 return new DataSet();
             }
         }
-        public DataSet Contact_GetByID(decimal p_id)
+        public DataSet Contact_GetByID(string p_id)
         {
             try
             {
                 DataSet ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_contact.proc_getbyid_contact",
-                 new OracleParameter("p_id", OracleDbType.Decimal, p_id, ParameterDirection.Input),
+                 new OracleParameter("p_id", OracleDbType.Varchar2, p_id, ParameterDirection.Input),
                  new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
                 return ds;
             }
@@ -48,7 +48,7 @@ namespace DataAccess.Manager
                 return new DataSet();
             }
         }
-        public decimal Contact_UpdateStatus(decimal p_id, decimal p_status, string p_replycontent, string p_replysubject, string p_replyby)
+        public decimal Contact_UpdateStatus(decimal p_id, decimal p_status, string p_replycontent, string p_replysubject, string p_replyby, string p_url, string p_url01)
         {
             try
             {
@@ -59,6 +59,8 @@ namespace DataAccess.Manager
                     new OracleParameter("p_replycontent", OracleDbType.Varchar2, p_replycontent, ParameterDirection.Input),
                     new OracleParameter("p_replysubject", OracleDbType.Varchar2, p_replysubject, ParameterDirection.Input),
                     new OracleParameter("p_replyby", OracleDbType.Varchar2, p_replyby, ParameterDirection.Input),
+                    new OracleParameter("p_url", OracleDbType.Varchar2, p_url, ParameterDirection.Input),
+                    new OracleParameter("p_url01", OracleDbType.Varchar2, p_url01, ParameterDirection.Input),
                     paramReturn);
                 return Convert.ToDecimal(paramReturn.Value.ToString());
             }
