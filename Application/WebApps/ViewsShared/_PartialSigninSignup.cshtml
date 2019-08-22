@@ -1,0 +1,23 @@
+﻿@using WebApps.CommonFunction;
+@{ 
+    string _LanguageCode = AppsCommon.GetCurrentLang();
+}
+<a class="clssSinginMobile"  href="javascript:;" onclick="funLogin();">
+    @if (WebApps.Session.SessionData.CurrentUser != null)
+    {
+        @WebApps.Session.SessionData.CurrentUser.Username
+    }
+    else
+    {
+        @WebApps.Resources.Resource.lblSigin
+    }
+</a>
+@if (WebApps.Session.SessionData.CurrentUser == null)
+{
+    <a   href="javascript:;" onclick="funcRedirectRegister();" class="clssSinginMobile">@WebApps.Resources.Resource.lblSignup</a>
+}
+<script>
+    function funcRedirectRegister() {
+        window.location.href = "/account/register";
+    }
+</script>

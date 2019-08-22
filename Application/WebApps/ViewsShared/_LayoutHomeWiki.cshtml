@@ -105,7 +105,7 @@
                     </div>
                     <!--[Menutop + mobi]-->
                     <ul id="menu-main-menu" class="c-header_nav-list u-list-reset">
-                        <li class="c-header_nav-item js-nav-nosublink">
+                        <li class="clssSinginDestop c-header_nav-item js-nav-nosublink">
                             <a href="javascript:;" onclick="funLogin();" class="a-login-regis c-header_nav-item-label" data-transition="full">
                                 @if (WebApps.Session.SessionData.CurrentUser != null)
                                 {
@@ -119,7 +119,7 @@
                         </li>
                         @if (WebApps.Session.SessionData.CurrentUser == null)
                         {
-                            <li class="c-header_nav-item js-nav-nosublink">
+                            <li class="clssSinginDestop c-header_nav-item js-nav-nosublink">
                                 @*<a href="javascript:;"  onclick="return funcBottom();" class="c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>*@
                                 @if (_LanguageCode == LangCode.EN_US.ToString())
                                 {
@@ -145,6 +145,7 @@
                                 {
                                     <a href="javascript:;" onclick="return funcEn();" class="lang-en"></a>
                                 }
+                                @Html.Partial("~/ViewsShared/_PartialSigninSignup.cshtml")
                             </div>
                         </li>
                     </ul>
