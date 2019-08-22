@@ -186,6 +186,9 @@ namespace ObjectInfos
         public string Nation_Represent_Name { get; set; }
 
         public decimal USE_DOC_OTHERS { get; set; }
+
+        public int View_Translate { get; set; }
+
     }
 
 
