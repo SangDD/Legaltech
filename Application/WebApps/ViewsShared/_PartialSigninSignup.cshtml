@@ -16,8 +16,15 @@
 {
     <a   href="javascript:;" onclick="funcRedirectRegister();" class="clssSinginMobile">@WebApps.Resources.Resource.lblSignup</a>
 }
+else
+{
+    <a href="javascript:;" onclick="funcRedirectLogOut();" class="clssSinginMobile">@WebApps.Resources.Resource.LogOut</a>
+}
 <script>
     function funcRedirectRegister() {
         window.location.href = "/account/register";
+    }
+    function funcRedirectLogOut() {
+        window.location.href = "/account/dang-xuat";
     }
 </script>

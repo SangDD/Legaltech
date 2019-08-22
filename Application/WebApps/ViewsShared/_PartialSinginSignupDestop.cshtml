@@ -1,0 +1,26 @@
+﻿@using WebApps.CommonFunction;
+@{
+    string _LanguageCode = AppsCommon.GetCurrentLang();
+} 
+<li class="clssSinginDestop c-header_nav-item js-nav-nosublink ">
+    <a href="javascript:;" onclick="funLogin();" class="a-login-regis c-header_nav-item-label" data-transition="full">
+        @if (WebApps.Session.SessionData.CurrentUser != null)
+        {
+            @WebApps.Session.SessionData.CurrentUser.Username
+        }
+        else
+        {
+            @WebApps.Resources.Resource.lblSigin
+        }
+    </a>
+</li>
+<li class="clssSinginDestop c-header_nav-item js-nav-nosublink">
+    @if (WebApps.Session.SessionData.CurrentUser == null)
+    {
+         <a target="_blank" href="account/register" class="a-login-regis c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.lblSignup</a>
+    }
+    else
+    {
+        <a href="javascript:;" onclick="funcRedirectLogOut();" class="a-login-regis c-header_nav-item-label js-btn-arrow" data-transition="full">@WebApps.Resources.Resource.LogOut</a>
+    }
+</li>
