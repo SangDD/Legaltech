@@ -631,15 +631,6 @@
             return Json(new { success = 0 });
         }
 
-        /// <summary>
-        /// hungtd sửa kết xuất pdf
-        /// </summary>
-        /// <param name="pInfo"></param>
-        /// <param name="pDetail"></param>
-        /// <param name="pAppDocumentInfo"></param>
-        /// <param name="pAppDocOtherInfo"></param>
-        /// <param name="pAppClassInfo"></param>
-        /// <returns></returns>
         [HttpPost]
         [Route("ket_xuat_file")]
         public ActionResult ExportData(ApplicationHeaderInfo pInfo, AppDetail04NHInfo pDetail, List<AppDocumentInfo> pAppDocumentInfo,
@@ -647,25 +638,22 @@
         {
             try
             {
-                CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
-                string language = pInfo.View_Language_Report;
-
-                if (language == Language.LangVI)
+                //string language = pInfo.View_Language_Report;
+                string language = AppsCommon.GetCurrentLang();
+                if (pInfo.Languague_Code != null)
                 {
-                    oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NH.rpt"));
-                    if (pDetail.Logochu == 1)
-                    {
-                        oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NHLogoChu.rpt"));
-                    }
+                    language = pInfo.Languague_Code;
                 }
-                else
+
+                bool _View_version_english = false;
+
+                // nếu là bản xem của thằng dịch
+                List<App_Translate_Info> _lst_translate = new List<App_Translate_Info>();
+                bool _View_Translate = false;
+                if (pInfo.View_Translate == 1)
                 {
-                    oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NH_EN.rpt"));
-                    if (pDetail.Logochu == 1)
-                    {
-                        oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NHLogoChu_EN.rpt"));
-                    }
+                    _View_Translate = true;
                 }
 
                 AppInfoExport appInfo = new AppInfoExport();
@@ -687,31 +675,65 @@
 
                             ViewBag.lstFeeInfo = CBO<AppFeeFixInfo>.FillCollectionFromDataTable(ds04NH.Tables[4]);
                         }
-                    }
 
+                        language = pInfo.Languague_Code;
+                    }
+                }
+
+                if (_View_Translate == true)
+                {
+                    App_Translate_BL _App_Translate_BL = new App_Translate_BL();
+                    _lst_translate = _App_Translate_BL.App_Translate_GetBy_AppId(pInfo.Id);
+                }
+
+                CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+                if (_View_Translate == true)
+                {
+                    // nếu là bản tiếng việt thì xem tiếng anh
                     if (language == Language.LangVI)
                     {
-                        if (pDetail.Logochu == 1)
-                        {
-                            oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NHLogoChu.rpt"));
-                        }
-
-                    }
-                    else
-                    {
+                        _View_version_english = true;
+                        oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NH_EN.rpt"));
                         if (pDetail.Logochu == 1)
                         {
                             oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NHLogoChu_EN.rpt"));
                         }
                     }
-
+                    else
+                    {
+                        // nếu là bản tiếng anh thì xem tiếng việt
+                        oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NH.rpt"));
+                        if (pDetail.Logochu == 1)
+                        {
+                            oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NHLogoChu.rpt"));
+                        }
+                    }
                 }
-                //   string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/TM04Nh_vi.doc");
+                else
+                {
+                    if (language == Language.LangVI)
+                    {
+                        oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NH.rpt"));
+                        if (pDetail.Logochu == 1)
+                        {
+                            oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NHLogoChu.rpt"));
+                        }
+                    }
+                    else
+                    {
+                        _View_version_english = true;
+                        oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NH_EN.rpt"));
+                        if (pDetail.Logochu == 1)
+                        {
+                            oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), "TM_04NHLogoChu_EN.rpt"));
+                        }
+                    }
+                }
+
                 // Fill export_header
                 string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
                 string fileName = "";
-                //if (language == Language.LangVI)
-                if (language == Language.LangVI)
+                if (_View_version_english == false)
                 {
                     fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + pInfo.Appcode + _datetimenow + ".pdf");
                     SessionData.CurrentUser.FilePreview = "/Content/Export/" + "Request_for_trademark_registration_vi_exp_" + pInfo.Appcode + _datetimenow + ".pdf";
@@ -721,6 +743,7 @@
                     fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Request_for_trademark_registration_en_exp_" + pInfo.Appcode + _datetimenow + ".pdf");
                     SessionData.CurrentUser.FilePreview = "/Content/Export/" + "Request_for_trademark_registration_en_exp_" + pInfo.Appcode + _datetimenow + ".pdf";
                 }
+
                 // Fill export_detail  
                 appInfo.Status = 254;
                 appInfo.Status_Form = 252;
@@ -759,6 +782,8 @@
                         break;
                     }
                 }
+
+                #region Nhóm
                 if (pAppClassInfo != null)
                 {
                     Hashtable _hsGroupclass = new Hashtable();
@@ -770,17 +795,27 @@
                         {
                             _newinfo = (AppClassDetailInfo)_hsGroupclass[item.Code.Substring(0, 2)];
                         }
+
+                        _newinfo.Id = item.Id;
+                        _newinfo.IDREF = item.IDREF;
                         _newinfo.Code = item.Code;
                         _newinfo.Textinput += item.Textinput + ", ";
                         _newinfo.IntTongSanPham++;
                         _hsGroupclass[item.Code.Substring(0, 2)] = _newinfo;
                     }
-                    //appInfo.strListClass = "Tổng số nhóm: \n" + appInfo.strTongSonhom + "; Tổng số sản phẩm: " + appInfo.strTongSoSP + " ; Danh sách nhóm: " + appInfo.strListClass;
+
                     List<AppClassDetailInfo> _listApp = new List<AppClassDetailInfo>();
                     foreach (DictionaryEntry item in _hsGroupclass)
                     {
                         _listApp.Add((AppClassDetailInfo)item.Value);
                     }
+
+                    // đè các bản dịch lên
+                    if (_View_Translate == true)
+                    {
+                        AppsCommon.Overwrite_Class(ref _listApp, _lst_translate);
+                    }
+
                     foreach (AppClassDetailInfo item in _listApp.OrderBy(m => m.Code))
                     {
                         appInfo.strListClass += Resources.Resource.lblNhom + item.Code.Substring(0, 2) + ": " + item.Textinput.Trim().Trim(',') + " (" + (item.IntTongSanPham < 10 ? "0" + item.IntTongSanPham.ToString() : item.IntTongSanPham.ToString()) + " " + Resources.Resource.lblSanPham + " )" + "\n";
@@ -793,6 +828,8 @@
                         appInfo.strDanhSachFileDinhKem += item.Documentname + " ; ";
                     }
                 }
+                #endregion
+
                 #region  Hiển thị phí trong don
                 var listfeeCaculator = new List<AppFeeFixInfo>();
                 if (actionView == "V")
@@ -954,6 +991,7 @@
                     }
                 }
                 #endregion
+
                 if (pDetail.Logochu == 1)
                 {
                     appInfo.Logourl = pDetail.ChuLogo;
@@ -968,7 +1006,6 @@
                 //    appInfo.Extent_fld01 = appInfo.DDSHCN;
                 //else
                 //    appInfo.Extent_fld01 = appInfo.Rep_Master_Name;
-
                 appInfo.Extent_fld01 = appInfo.Rep_Master_Name;
 
                 //Su dung cho Nguoi shcn
@@ -989,7 +1026,6 @@
                 DataSet _ds_all = ConvertData.ConvertToDataSet<AppInfoExport>(_lst, false);
 
                 //if (language == Language.LangVI)
-
                 if (pDetail.Logochu != 1)
                 {
                     CrystalDecisions.CrystalReports.Engine.PictureObject _pic01;
@@ -1046,6 +1082,13 @@
                 if (_ds_all != null)
                 {
                     _ds_all.Tables[0].TableName = "Table";
+
+                    // đè các bản dịch lên
+                    if (_View_Translate == true)
+                    { 
+                        AppsCommon.Overwrite_DataSouce_Export(ref _ds_all, _lst_translate);
+                    }
+
                     oRpt.SetDataSource(_ds_all);
                 }
                 oRpt.Refresh();
@@ -1562,7 +1605,7 @@
                 List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
                 List<AppDocumentOthersInfo> pLstDocDesign = new List<AppDocumentOthersInfo>();
                 A02_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos,
-                    ref _lst_authorsInfos, ref _lst_Other_MasterInfo, ref  _LstDocumentOthersInfo,  ref pLstDocDesign);
+                    ref _lst_authorsInfos, ref _lst_Other_MasterInfo, ref _LstDocumentOthersInfo, ref pLstDocDesign);
 
                 ViewBag.App_Detail = app_Detail;
                 ViewBag.Lst_AppDoc = appDocumentInfos;
@@ -1900,7 +1943,7 @@
                 List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
                 List<AppDocumentOthersInfo> pLstDocDesign = new List<AppDocumentOthersInfo>();
                 A02_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos,
-                    ref _lst_authorsInfos, ref _lst_Other_MasterInfo,  ref _LstDocumentOthersInfo, ref pLstDocDesign);
+                    ref _lst_authorsInfos, ref _lst_Other_MasterInfo, ref _LstDocumentOthersInfo, ref pLstDocDesign);
 
                 ViewBag.App_Detail = app_Detail;
                 ViewBag.Lst_AppDoc = appDocumentInfos;
