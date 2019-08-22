@@ -3271,7 +3271,7 @@ a {
 @media(max-width:999px) {
     .c-header_nav-list {
         position: relative;
-        margin-top: 35px;
+        margin-top: 90px;
         left: 0;
         width: 100%;
     }
@@ -11367,10 +11367,21 @@ select.divNumberRecordOnPage {
 
 
 /*HungTD: set menu for media */
+.clssSinginMobile
+    {
+        margin: 0px 0px 0px 0px; 
+        color:#13559d;
+        font-size:16px;
+        margin:0px 0px 0px 5px;
+    }
 @media(min-width:1024px) {
     .clss_mobileMenu  {
          display:none;
 
+    }
+    .clssSinginMobile
+    {
+        display:none;
     }
 }
  .a-login-regis
@@ -11385,6 +11396,14 @@ select.divNumberRecordOnPage {
     .o-layout_item
     {
           font-size:15px !important;
+    }
+    .lang-vn, .lang-en
+    {
+        padding-top:4px;
+    }
+    .clssSinginDestop
+    {
+        display:none;
     }
 }
  

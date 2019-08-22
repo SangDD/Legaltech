@@ -1,21 +1,32 @@
-﻿<div id="toolbox">
+﻿@using ObjectInfos;
+@{
+    ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    }
+}
+
+<div id="toolbox">
     <ul>
         <li class="toTop" style=""><a href="#top" title="@WebApps.Resources.Resource.lblLenTrangDau"><i style=" font-size: 27px; color: green;" class="fa fa-home"></i></a></li>
-        @*<li class="email"><a href="javascript:;" title="@WebApps.Resources.Resource.lblXemTruoc"><i class="fa fa-eye" target="_blank" onclick="return funcPreViewApplication();" style=" font-size: 27px; color: green;"></i></a></li>*@
-
         <li class="email"><a href="javascript:;" title="Phí"><i class="fas fa-dollar-sign" size="9x" target="_blank" onclick="return funcPreViewFee();" style="font-size: 27px;margin-left: 8px;color: green;"></i></a></li>
 
         <li class="email">
-            <a href="javascript:;" onclick="return funcPreViewApplication('VI_VN');" title="Xem trước VN">
+            <a href="javascript:;" onclick="return funcPreViewApplication();" title="Xem trước">
                 <img src="/Content/icons/icon_vn.png" style="margin-left: 3px;width: 25px;height: 30px;" />
             </a>
         </li>
 
-        <li class="email">
-            <a href="javascript:;" onclick="return funcPreViewApplication('EN_US');" title="Xem trước VN">
-                <img src="/Content/icons/england.png" style="width: 25px;height: 30px;"/>
-            </a>
-        </li>
+        @if (_AppHeaderInfo.Id != 0)
+        {
+            <li class="email">
+                <a href="javascript:;" onclick="return funcPreViewTranslate();" title="Xem bản dịch">
+                    <img src="/Content/icons/translate.png" style="width: 25px;height: 30px;" />
+                </a>
+            </li>
+        }
+
     </ul>
 </div>
 
@@ -35,24 +46,26 @@
 
 <script>
 
-    function funGetDataTM04NHPreview(ptype, url, p_Lang) {
+    function funGetDataTM04NHPreview(ptype, url, pView_Translate) {
          try {
              //Thông tin chủ đơn
              var formData = new FormData();
 
-            if (funcThongTinChuDonNguoiDaiDien(formData, "1", View) != true) {
+             if (funcThongTinChuDonNguoiDaiDien(formData, "1", View) != true) {
                 return false;
-            }
-            var v_AppCode = $("#txtAppCode").val();
-            formData.append("pInfo.Appcode", v_AppCode);
-            formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
-            formData.append("pInfo.View_Language_Report", p_Lang);
+             }
+             var v_AppCode = $("#txtAppCode").val();
+             formData.append("pInfo.Appcode", v_AppCode);
+             formData.append("pInfo.View_Translate", pView_Translate);
 
-            var v_AppHeaderID = $("#txtAppHeaderID").val();
-            formData.append("pInfo.Id", v_AppHeaderID);
+             //var v_AppHeaderID = $("#txtAppHeaderID").val();
+             formData.append("pInfo.Id", @_AppHeaderInfo.Id);
+             if (@_AppHeaderInfo.Id != 0) {
+                 formData.append("pInfo.Languague_Code", '@_AppHeaderInfo.Languague_Code');
+             }
 
-            //var daidienSH = $("#txtDaiDienSHCN").val();
-            //formData.append("pInfo.DDSHCN", daidienSH);
+             //var daidienSH = $("#txtDaiDienSHCN").val();
+             //formData.append("pInfo.DDSHCN", daidienSH);
 
              if (funcThongTinDaiDienChuDon(formData, "2") != true) {
                 return false;
@@ -207,12 +220,20 @@
         });
     }
 
-    function funcPreViewApplication(p_Lang) {
+    function funcPreViewApplication() {
 
-        var preturn = funGetDataTM04NHPreview(3, "/trade-mark/ket_xuat_file", p_Lang);
+        var preturn = funGetDataTM04NHPreview(3, "/trade-mark/ket_xuat_file", 0);
          if (preturn == true || preturn == undefined) {
              OpenPreview("/trade-mark/Pre-View");
          }
+    }
+
+    function funcPreViewTranslate() {
+
+        var preturn = funGetDataTM04NHPreview(3, "/trade-mark/ket_xuat_file", 1);
+        if (preturn == true || preturn == undefined) {
+            OpenPreview("/trade-mark/Pre-View");
+        }
     }
 
 

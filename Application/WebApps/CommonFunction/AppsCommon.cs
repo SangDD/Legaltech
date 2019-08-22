@@ -713,7 +713,7 @@ namespace WebApps.CommonFunction
             }
         }
 
-        public static string Get_Databy_Class_Translate(string p_app_class_id,List<App_Translate_Info> Lst_Translate_App)
+        public static string Get_Databy_Class_Translate(string p_app_class_id, List<App_Translate_Info> Lst_Translate_App)
         {
             try
             {
@@ -733,6 +733,55 @@ namespace WebApps.CommonFunction
                 return "";
             }
         }
+
+        public static void Overwrite_DataSouce_Export(ref DataSet p_ds_source, List<App_Translate_Info> Lst_Translate_App)
+        {
+            try
+            {
+                Dictionary<string, App_Translate_Info> _dic_tran = new Dictionary<string, App_Translate_Info>();
+                foreach (App_Translate_Info item in Lst_Translate_App)
+                {
+                    _dic_tran[item.Object_Name.ToUpper()] = item;
+                }
+
+                foreach (DataColumn item in p_ds_source.Tables[0].Columns)
+                {
+                    if (_dic_tran.ContainsKey(item.ColumnName.ToUpper()))
+                    {
+                        p_ds_source.Tables[0].Rows[0][item.ColumnName.ToUpper()] = _dic_tran[item.ColumnName.ToUpper()].Value_Translate;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+        }
+
+        public static void Overwrite_Class(ref List<AppClassDetailInfo> p_list_class, List<App_Translate_Info> Lst_Translate_App)
+        {
+            try
+            {
+                Dictionary<string, App_Translate_Info> _dic_tran = new Dictionary<string, App_Translate_Info>();
+                foreach (App_Translate_Info item in Lst_Translate_App)
+                {
+                    _dic_tran[item.Object_Name.ToUpper()] = item;
+                }
+
+                foreach (AppClassDetailInfo item in p_list_class)
+                {
+                    if (_dic_tran.ContainsKey(item.Id.ToString()))
+                    {
+                        item.Textinput = _dic_tran[item.Id.ToString()].Value_Translate;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+        }
+
 
         public static void Prepare_Data_Export_A01(ref A01_Info_Export app_Detail, ApplicationHeaderInfo applicationHeaderInfo,
             List<AppDocumentInfo> appDocumentInfos, List<AppFeeFixInfo> _lst_appFeeFixInfos,
@@ -1257,7 +1306,7 @@ namespace WebApps.CommonFunction
                 _lstFeeFix.Add(_AppFeeFixInfo3);
                 #endregion
 
-                 
+
                 #region 31 Phí công bố đơn từ hình thứ 2 trở đi
                 AppFeeFixInfo _AppFeeFixInfo31 = new AppFeeFixInfo();
                 _AppFeeFixInfo31.Fee_Id = 31;
@@ -1297,7 +1346,7 @@ namespace WebApps.CommonFunction
                 _lstFeeFix.Add(_AppFeeFixInfo31);
 
                 #endregion
- 
+
 
 
                 return _lstFeeFix;
