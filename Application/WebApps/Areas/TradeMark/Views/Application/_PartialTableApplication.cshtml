@@ -44,60 +44,50 @@
             {
                 foreach (var item in _list_data)
                 {
-            <tr>
-                <td class="tdcenteralign">@item.STT</td>
-                <td class="tdleftalign">@item.Case_Code</td>
-                <td class="tdleftalign">@item.Case_Name</td>
-                <td class="tdleftalign">@item.App_No</td>
-                @*<td class="tdleftalign">@item.Languague_Code</td>*@
-                <td class="tdleftalign">@item.Rep_Master_Name</td>
-                <td class="tdleftalign">@item.Master_Name</td>
+                    <tr>
+                        <td class="tdcenteralign">@item.STT</td>
+                        <td class="tdleftalign">@item.Case_Code</td>
+                        <td class="tdleftalign">@item.Case_Name</td>
+                        <td class="tdleftalign">@item.App_No</td>
+                        @*<td class="tdleftalign">@item.Languague_Code</td>*@
+                        <td class="tdleftalign">@item.Rep_Master_Name</td>
+                        <td class="tdleftalign">@item.Master_Name</td>
 
-                @*<td class="tdcenteralign">@item.Date_Wait</td>*@
+                        @*<td class="tdcenteralign">@item.Date_Wait</td>*@
 
 
-                <td class="tdleftalign">@item.Object_Name</td>
-                <td class="tdleftalign">@item.Status_Name</td>
-                <td></td>
-                @if (WebApps.Session.SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.Admin ||
-                    WebApps.Session.SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.SupperAdmin)
-                {
-                    if (item.Modify_Date.Date != DateTime.MinValue.Date)
-                    {
-                        <td class="tdcenteralign">@item.Modify_Date</td>
-                    }
-                    else
-                    {
-                        <td class="tdcenteralign">@item.Created_Date</td>
-                    }
-                }
-                <td class="tdcenteralign">
-                    <a href="/trade-mark-share-data/todo-details/@item.Case_Code/0" class="icon icon-info" data-title="@WebApps.Resources.Resource.XemChiTiet"></a>
-                    @*@if ((language == "VI_VN" && item.Languague_Code == "VI_VN") || (language == "EN_US" && item.Languague_Code == "EN_US"))*@
-                    <a href="/trade-mark/request-for-trade-mark-edit/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-edit" data-title="@WebApps.Resources.Resource.Sua"></a>
-
-                    @* Phần dịch thì dịch hết từ việt sang anh và từ anh sang việt*@
-                    @* Chi Hien thi phan dich neu la ban ghi tiếng anh, và đang xem trên ngôn ngữ tiếng việt *@
-                    @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin
-                    || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.SupperAdmin
-                    || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
-                    {
-                        //if (item.Id_Vi >= 0 && language == "VI_VN" && item.Languague_Code == "EN_US")
-                        if (item.Status != (decimal)CommonEnums.App_Status.Luu_tam)
+                        <td class="tdleftalign">@item.Object_Name</td>
+                        <td class="tdleftalign">@item.Status_Name</td>
+                        <td></td>
+                        @if (WebApps.Session.SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.Admin ||
+                            WebApps.Session.SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.SupperAdmin)
                         {
-
-                            <a href="/trade-mark/request-for-trade-mark-translate/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()/@item.Id_Vi" data-title="Dịch">
-                                <img src="/Content/icons/translate.png">
-                            </a>
-
+                            if (item.Modify_Date.Date != DateTime.MinValue.Date)
+                            {
+                                <td class="tdcenteralign">@item.Modify_Date</td>
+                            }
+                            else
+                            {
+                                <td class="tdcenteralign">@item.Created_Date</td>
+                            }
                         }
-                    }
-                    @if (item.Status == (decimal)CommonEnums.App_Status.Luu_tam)
-                    {
-                        <a href="javascript:;" onclick="return funcDelAppDoc('@item.Id','@item.Appcode')" class="icon icon-delete" data-title="@WebApps.Resources.Resource.Xoa"></a>
-                    }
-                </td>
-            </tr>
+                        <td class="tdcenteralign">
+                            <a href="/trade-mark-share-data/todo-details/@item.Case_Code/0" class="icon icon-info" data-title="@WebApps.Resources.Resource.XemChiTiet"></a>
+                            <a href="/trade-mark/request-for-trade-mark-edit/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-edit" data-title="@WebApps.Resources.Resource.Sua"></a>
+
+                            @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin
+                            || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
+                            {
+                                <a href="/app-translate/translate-app/@item.Appcode/@item.Id.ToString()" data-title="Dịch">
+                                    <img src="/Content/icons/translate.png">
+                                </a>
+                            }
+                            @if (item.Status == (decimal)CommonEnums.App_Status.Luu_tam)
+                            {
+                                <a href="javascript:;" onclick="return funcDelAppDoc('@item.Id','@item.Appcode')" class="icon icon-delete" data-title="@WebApps.Resources.Resource.Xoa"></a>
+                            }
+                        </td>
+                    </tr>
                 }
             }
             else
