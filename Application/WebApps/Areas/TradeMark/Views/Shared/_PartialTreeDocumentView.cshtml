@@ -1,7 +1,7 @@
 ﻿@using ObjectInfos.ModuleTrademark
 @using ObjectInfos
 @using System.Linq;
-     
+@using WebApps.Resources
 @{
     List<AppDocumentOthersInfo>  ListDocDesign = new List<AppDocumentOthersInfo>();
     List<AppDocumentOthersInfo> ListDocDesignLv2 = new List<AppDocumentOthersInfo>();
@@ -17,6 +17,16 @@
         styleTLK = "display:block";
         ListDocDesignLv2 =  ListDocDesign.Where(m => m.IdRef != 0).ToList() ;
     }
+    string _title = Resource.SoPhuongAn + "/" + Resource.SoHinhAnh;
+    if (ViewBag.TreeTitle != null)
+    {
+        _title = ViewBag.TreeTitle;
+    }
+    string _StyleLevel = "";
+    if (ViewBag.TreeLevel == 1)
+    {
+        _StyleLevel = "display:none;";
+    }
 }
 <style>
     .classDocOtherE {
@@ -29,7 +39,7 @@
     }*/
 </style>
 <div class="div_full_100_area" id="divTreeContainerDocOther" style="@styleTLK">
-    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "Số phương án/số hình ảnh")
+    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml",  _title)
     
     @foreach (AppDocumentOthersInfo item in ListDocDesign)
     {

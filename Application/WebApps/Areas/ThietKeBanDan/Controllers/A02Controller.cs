@@ -713,7 +713,7 @@ namespace WebApps.Areas.ThietKeBanDan.Controllers
 
                 _lst.Add(app_Detail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<A02_Info_Export>(_lst, false);
-                //_ds_all.WriteXml(@"C:\inetpub\A02.xml", XmlWriteMode.WriteSchema);
+                _ds_all.WriteXml(@"C:\inetpub\A02.xml", XmlWriteMode.WriteSchema);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
                 string _tempfile = "A02.rpt";

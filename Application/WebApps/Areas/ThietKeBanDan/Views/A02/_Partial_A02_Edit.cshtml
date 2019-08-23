@@ -633,6 +633,7 @@
     var _chucnang = '@_App_Detail.ChucNang';
     var _cautruc = '@_App_Detail.CauTruc';
     var _congnghe = '@_App_Detail.CongNghe';
+
     function onChangeChucNang(_value) {
         try {
             if(_value == "OTHER")
@@ -678,6 +679,9 @@
         SetValRadioCheckBoxByName('ChucNang', _chucnang);
         SetValRadioCheckBoxByName('CauTruc', _cautruc);
         SetValRadioCheckBoxByName('CongNghe', _congnghe);
+        onChangeChucNang(_chucnang);
+        onChangeCauTruc(_cautruc);
+        onChangeCongNghe(_congnghe);
         funcShowOtherdocument();
         $.datetimepicker.setLocale('vi');
         $('.datetimepicker').datetimepicker({
@@ -809,39 +813,6 @@
     });
 
 
-    function ChangeNguongocdon(_type) {
-        try {
-            var _txtNgayNopDon = $("#0_txtNgayNopDon");
-            var _txtDonSo = $("#0_txtDonSo");
-            if (_type == "2") {
-                $("#div_nguongocdon").removeClass("clssDisplaynone");
-            }
-            else {
-                $("#div_nguongocdon").addClass("clssDisplaynone");
-                _txtNgayNopDon.val("")
-                _txtDonSo.val("");
-            }
-
-        } catch (e) {
-            alert(e.toString());
-        }
-    }
-
-    function ChangeKQTD(_type) {
-        try {
-            if (_type == "1") {
-                $("#div_ketquathamdinh").removeClass("clssDisplaynone");
-                $("#div_DaCoKetQua").addClass("clssDisplaynone");
-            }
-            else {
-                $("#div_ketquathamdinh").addClass("clssDisplaynone");
-
-                $("#div_DaCoKetQua").removeClass("clssDisplaynone");
-            }
-        } catch (e) {
-            alert(e.toString());
-        }
-    }
 
     function funGetData(p_Status, _UpdateToDo) {
         try {
@@ -979,122 +950,10 @@
         }
     }
 
-    function onChangeAppNo() {
-        try {
-            var _AppNo = $("#3_SoDon").val();
-            if (_AppNo != "") {
+    
 
-                $.ajax({
-                    type: 'POST',
-                    url: '/trade-mark-3b/getMasterByAppNo/',
-                    data: {
-                        p_appNo: _AppNo,
-                    },
-                    async: true, cache: false, traditional: true,
-                    beforeSend: function () {
-                        CreateRollingWaitingIcon(true);
-                    },
-                    success: function (data) {
-                        CreateRollingWaitingIcon(false);
-
-                        $("#div_PartialThongTinChuDon").html(data.PartialThongTinChuDon);
-                        $("#div_PartialThongTinDaiDienChuDon").html(data.PartialThongTinDaiDienChuDon);
-                    }
-                });
-            }
-        } catch (e) {
-            alert(e);
-        }
-    }
-
-
-    function funcChoiseDonUT(pID) {
-        try {
-            if (pID == "0_ckbCoSuDungDonUuTien") {
-                $('#0_ckbCoSuDungDonUuTien').prop('checked', true);
-                $('#KOUT').prop('checked', false);
-
-                $("#div_ThongTinDonUuTien").removeClass("clssDisplaynone");
-
-            } else {
-                $('#KOUT').prop('checked', true);
-                $('#0_ckbCoSuDungDonUuTien').prop('checked', false);
-
-                $("#div_ThongTinDonUuTien").addClass("clssDisplaynone");
-            }
-        } catch (e) {
-            alert(e);
-        }
-    }
-
-    function ShowHiden_NguonGocDon() {
-        try {
-            ShowHiden_PCT();
-            ShowHiden_DQSC();
-            ShowHiden_GPHI();
-        } catch (e) {
-            alert(e);
-        }
-    }
-
-    function ShowHiden_PCT() {
-        try {
-            if ($("#2_rdPCT").is(':checked')) {
-                $("#divPCT").removeClass("clssDisplaynone");
-                $("#txt_PCT_SoDon").focus();
-            }
-            else {
-                $("#divPCT").addClass("clssDisplaynone");
-            }
-
-
-        } catch (e) {
-            alert(e);
-        }
-    }
-
-    function ShowHiden_DQSC() {
-        try {
-            if ($("#2_rdDQSC").is(':checked')) {
-                $("#divDQSC").removeClass("clssDisplaynone");
-                $("#txt_PCT_So").focus();
-            }
-            else {
-                $("#divDQSC").addClass("clssDisplaynone");
-            }
-        } catch (e) {
-            alert(e);
-        }
-    }
-
-    function ShowHiden_GPHI() {
-        try {
-            if ($("#2_rdGPHI").is(':checked')) {
-                $("#divGPHI").removeClass("clssDisplaynone");
-                $("#txt_GPHI_SoDon").focus();
-            }
-            else {
-                $("#divGPHI").addClass("clssDisplaynone");
-            }
-
-        } catch (e) {
-            alert(e);
-        }
-    }
-
-    function ShowHiden_PCT_SuaDoi() {
-        try {
-            if ($("#2_rdo_PCT_SuaDoi").is(':checked') ) {
-                $("#divPCT_SuaDoi").removeClass("clssDisplaynone");
-            }
-            else {
-                $("#divPCT_SuaDoi").addClass("clssDisplaynone");
-            }
-        } catch (e) {
-            alert(e);
-        }
-    }
-
+   
+   
     function onChangeChuDonKhac() {
         try {
             if ($("#rdChuDonKhac").is(':checked')) {
@@ -1108,22 +967,7 @@
         }
     }
 
-    function onChangeTuPhanLoai() {
-        try {
-            if ($("#ckbTuPhanLoai").is(':checked')) {
-                $("#div_content_class_coll").removeClass("clssDisplaynone");
-                $("#txtTenHangHoa").focus();
-            }
-            else {
-                $("#div_content_class_coll").addClass("clssDisplaynone");
-            }
-
-            $("#txtTenHangHoa").val("");
-        } catch (e) {
-            alert(e);
-        }
-    }
-
+    
     function ThemTacGia() {
         try {
 
@@ -1183,30 +1027,7 @@
             alert(e);
         }
     }
-
-    function ThemDonUuTien() {
-        try {
-
-            $.ajax({
-                type: 'POST',
-                url: '/semiconductor-integrated/don-uu-tien/them-don/',
-                data: {
-                    p_id: "2"
-                },
-                async: true, cache: false, traditional: true,
-                beforeSend: function () {
-                    CreateRollingWaitingIcon(true);
-                },
-                success: function (data) {
-                    CreateRollingWaitingIcon(false);
-                    $("#div_ThongTinDonUuTien").append(data);
-                }
-            });
-        } catch (e) {
-            alert(e);
-        }
-    }
-
+ 
  
 
     function funcGetAppDetail(formData, p_ShowError) {

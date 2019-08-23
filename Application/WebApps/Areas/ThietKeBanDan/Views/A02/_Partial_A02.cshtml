@@ -928,34 +928,7 @@
             return false;
         }
     }
-
-    function onChangeAppNo() {
-        try {
-            var _AppNo = $("#3_SoDon").val();
-            if (_AppNo != "") {
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/trade-mark-3b/getMasterByAppNo/',
-                    data: {
-                        p_appNo: _AppNo,
-                    },
-                    async: true, cache: false, traditional: true,
-                    beforeSend: function () {
-                        CreateRollingWaitingIcon(true);
-                    },
-                    success: function (data) {
-                        CreateRollingWaitingIcon(false);
-
-                        $("#div_PartialThongTinChuDon").html(data.PartialThongTinChuDon);
-                        $("#div_PartialThongTinDaiDienChuDon").html(data.PartialThongTinDaiDienChuDon);
-                    }
-                });
-            }
-        } catch (e) {
-            alert(e);
-        }
-    }
+     
 
      
       
@@ -972,22 +945,7 @@
             alert(e);
         }
     }
-
-    function onChangeTuPhanLoai() {
-        try {
-            if ($("#ckbTuPhanLoai").is(':checked')) {
-                $("#div_content_class_coll").removeClass("clssDisplaynone");
-                $("#txtTenHangHoa").focus();
-            }
-            else {
-                $("#div_content_class_coll").addClass("clssDisplaynone");
-            }
-
-            $("#txtTenHangHoa").val("");
-        } catch (e) {
-            alert(e);
-        }
-    }
+     
 
     function ThemTacGia() {
         try {
