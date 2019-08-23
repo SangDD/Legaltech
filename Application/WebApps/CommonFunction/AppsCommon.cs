@@ -130,6 +130,70 @@ namespace WebApps.CommonFunction
             }
         }
 
+        public static string SetContentMailTemplate(string content, string yourref = "", string outref = "", string dearname = "")
+        {
+            string _content = "";
+            string _ref = "";
+            string _dear = "";
+            string _cellphone_business = Common.Configuration.cellphone_business;
+            string _urlweb_business = Common.Configuration.urlweb_business;
+            string emailfrom_business = Common.Configuration.emailfrom_business;
+            string _namereply = Common.Configuration.namereply;
+            string _address1 = Common.Configuration.address1;
+            string _address2 = Common.Configuration.address2;
+            try
+            {
+                if (yourref != "" && yourref != null)
+                {
+                    _ref += "<div style = 'color: #f91b1b; padding-top: 10px;' > Your Ref: ["+ yourref + "] </div>";
+                }
+                if (outref != "" && outref != null)
+                {
+                    _ref += "<div  style = 'color: #f91b1b; padding-top: 10px;'> Out Ref: [" + outref + "] </div>";
+                }
+                if (dearname != "" && dearname != null)
+                {
+                    _dear = "<div style = 'font-weight: bold;padding-top: 40px; color:#5a5a5a' ><span> Dear </span>" + dearname + "<span>,</span></div>";
+
+                }
+                _content = "<div style='padding:1px;font-family:Roboto, sans-serif; font-size:14px;color:#5a5a5a'>" +
+                               "<div style = 'overflow: hidden;'>" +
+                                   "<div style = 'width:100%;height: 150px; text-align: right'>" +
+                                                      "<img class='responsive' style='width:auto;height: 100%;'src='https://pathlaw.net/Content/News/images/logo_ipace.png'/>" +
+                                   "</div>" +
+                                   "<div style = 'width:100%;>" +
+                                                       "<div style = 'text-align: left'>" +
+                                                            _ref +
+                                                       "</div>" +
+                                   "</div>" +
+
+                               "<div>" +
+                                   _dear +
+                                  "<div style = 'line-height:28px; color: #5a5a5a; padding-top: 40px;' > " +
+                                       content +
+                                   "</div>" +
+                                   "<div style = 'padding: 40px 0; color:#5a5a5a'> Sincerely yours </div>" +
+                               "</div>" +
+                               "<div style = ''>" +
+                                  "<div style = 'color: #333; font-weight: 600'>" + _namereply + "</div>" +
+                                      "<div style = 'color: #333; padding: 15px 0;'> Managing Partner </div>" +
+                                      "<div style = 'color: #8a8a8a; font-weight:bold;' > IPath Consult Co.,</div>" +
+                                      "<div style = 'color: #9e9e9e; padding: 2px 0;'>" + _address1 + "</div>" +
+                                      "<div style = 'color: #9e9e9e; padding: 2px 0;'>" + _address2 + "</div>" +
+                                      "<div style = 'color: #9e9e9e; padding: 2px 0;'> Cell phone: &nbsp;" + _cellphone_business + "</div>" +
+                                      "<div style = 'color: #9e9e9e; padding: 2px 0;'> Email: &nbsp;" + emailfrom_business + "</div>" +
+                                      "<div style = 'color: #8a8a8a;padding: 2px 0;font-style: italic;font-weight: 600;font-size:13px;'>" + _urlweb_business + "</div>" +
+                               "</div>" +
+                       "</div> ";
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return _content;
+        }
+
+
         public static string EncryptString(string strDataToEncrypt, string strKey = "")
         {
             if (string.IsNullOrEmpty(strKey))

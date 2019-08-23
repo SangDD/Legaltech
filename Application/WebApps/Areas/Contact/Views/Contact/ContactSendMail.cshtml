@@ -120,7 +120,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input value="@_contract.Subject" type="text" readonly />
+                    <input value="@_contract.Subject" type="text" readonly maxlength="200"/>
                 </div>
             </div>
         </div>
@@ -128,7 +128,7 @@
 
         <div style="margin-top:15px">
             <div>Nội dung</div>
-            <textarea type="text" style="height:100px;width:100%;" maxlength="200" readonly>@_contract.Content</textarea>
+            <textarea type="text" style="height:100px;width:100%;" maxlength="4000" readonly>@_contract.Content</textarea>
         </div>
 
 
@@ -156,7 +156,7 @@
 
             <div style="margin-top:15px">
                 <div>Nội dung trả lờ<i class="redspan">(*)</i>i</div>
-                <textarea type="text" style="height:100px;width:100%;" maxlength="200" id="content">@_contract.ReplyContent</textarea>
+                <textarea type="text" style="height:100px;width:100%;" maxlength="4000" id="content">@_contract.ReplyContent</textarea>
             </div>
 
             @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile_Local.cshtml", _model1)
@@ -215,6 +215,8 @@
         _subject = $("#subject").val();
         _content = $("#content").val();
         _id = $("#ID").val();
+        formData.append('_contact.ContactName', '@_contract.ContactName');
+        formData.append('_contact.Case_Code', '@_contract.Case_Code');
         formData.append('_contact.ReplySubject', _subject);
         formData.append('_contact.ReplyContent', _content);
         formData.append('_contact.Email', '@_contract.Email');

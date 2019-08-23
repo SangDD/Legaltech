@@ -65,7 +65,7 @@ namespace WebApps.Areas.Contact.Controllers
 
         [HttpPost]
         [Route("searchcontact")]
-        public ActionResult FindUser(string p_keysearch,  string p_language, string p_status,  int p_CurrentPage)
+        public ActionResult FindUser(string p_keysearch, string p_language, string p_status, int p_CurrentPage)
         {
             try
             {
@@ -91,12 +91,12 @@ namespace WebApps.Areas.Contact.Controllers
             }
         }
 
-       
+
         [HttpGet]
         [Route("xem-chi-tiet/{case_code}")]
         public ActionResult ViewDetail()
         {
-          
+
             try
             {
                 if (RouteData.Values["case_code"] != null && RouteData.Values["case_code"].ToString() != "")
@@ -123,7 +123,7 @@ namespace WebApps.Areas.Contact.Controllers
             {
                 if (RouteData.Values["case_code"] != null && RouteData.Values["case_code"].ToString() != "")
                 {
-                    string _Id =RouteData.Values["case_code"].ToString();
+                    string _Id = RouteData.Values["case_code"].ToString();
                     var contact_bl = new Contact_BL();
                     ContactInfo _contract = contact_bl.Contact_GetByID(_Id);
                     ViewBag.Contract = _contract;
@@ -152,42 +152,36 @@ namespace WebApps.Areas.Contact.Controllers
                 {
                     _contact.URL01 = AppLoadHelpers.PushFileToServer(_contact.FileBase_File_Url02, AppUpload.Search);
                 }
-               
                 Contact_BL _bl = new Contact_BL();
-                _ck = _bl.Contact_UpdateStatus(_contact.ID,_status,_contact.ReplyContent, _contact.ReplySubject, SessionData.CurrentUser.Username, _contact.URL, _contact.URL01);
-                string _content = "";
-                List<AllCodeInfo> _lstStatus = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("EMAIL", "CONTENT");
-                _lstStatus = _lstStatus.OrderBy(x => x.CdVal).ToList();
-                if (_lstStatus.Count > 1)
+                // update trạng thái phản hồi status = 1 và nội jdung phản hồi
+                _ck = _bl.Contact_UpdateStatus(_contact.ID, _status, _contact.ReplyContent, _contact.ReplySubject, SessionData.CurrentUser.Username, _contact.URL, _contact.URL01);
+                if (_ck > 0)
                 {
-                    _content = _lstStatus[0].Content + _contact.ReplyContent.Replace("\n", "<br>") + _lstStatus[1].Content;
+                    string _content = _contact.ReplyContent.Replace("\n", "<br>");
+                    List<string> _LstAttachment = new List<string>();
+                    if (_contact.URL != null)
+                    {
+                        _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_contact.URL));
+                    }
+                    if (_contact.URL01 != null)
+                    {
+                        _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_contact.URL01));
+                    }
+                    string content = AppsCommon.SetContentMailTemplate(_content, yourref: "", outref: _contact.Case_Code, dearname: _contact.ContactName);
+                    Email_Info _Email_Info = new Email_Info
+                    {
+                        EmailFrom = EmailHelper.EmailOriginal.EMailFrom_Business,
+                        Pass = EmailHelper.EmailOriginal.PassWord_Business,
+                        Display_Name = EmailHelper.EmailOriginal.DisplayName_Business,
+                        EmailTo = _contact.Email,
+                        EmailCC = "",
+                        Subject = _contact.ReplySubject,
+                        Content = content,
+                        LstAttachment = _LstAttachment,
+                    };
+                    CommonFunction.AppsCommon.EnqueueSendEmail(_Email_Info);
                 }
 
-
-
-                List<string> _LstAttachment = new List<string>();
-                if (_contact.URL != null)
-                {
-                    _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_contact.URL));
-                }
-                if (_contact.URL01 != null)
-                {
-                    _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_contact.URL01));
-                }
-                
-                Email_Info _Email_Info = new Email_Info
-                {
-                    EmailFrom = EmailHelper.EmailOriginal.EMailFrom_Business,
-                    Pass = EmailHelper.EmailOriginal.PassWord_Business,
-                    Display_Name = EmailHelper.EmailOriginal.DisplayName_Business,
-                    EmailTo = _contact.Email,
-                    EmailCC = "",
-                    Subject = _contact.ReplySubject,
-                    Content = _content,
-                    LstAttachment = _LstAttachment,
-                };
-
-                CommonFunction.AppsCommon.EnqueueSendEmail(_Email_Info);
             }
             catch (Exception ex)
             {
@@ -195,5 +189,8 @@ namespace WebApps.Areas.Contact.Controllers
             }
             return Json(new { status = _ck });
         }
+
+
+
     }
 }
