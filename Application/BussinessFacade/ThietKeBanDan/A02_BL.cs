@@ -106,8 +106,8 @@ namespace BussinessFacade
                     appFeeFixInfos = CBO<AppFeeFixInfo>.FillCollectionFromDataTable(dataSet.Tables[3]);
                     pOther_MasterInfo = CBO<Other_MasterInfo>.FillCollectionFromDataTable(dataSet.Tables[4]);
                     pAppAuthorsInfo = CBO<AuthorsInfo>.FillCollectionFromDataTable(dataSet.Tables[5]);
-                    pAppDocOtherInfo = CBO<AppDocumentOthersInfo>.FillCollectionFromDataTable(dataSet.Tables[7]);
-                    pLstIndustyDesign = CBO<AppDocumentOthersInfo>.FillCollectionFromDataTable(dataSet.Tables[9]);
+                    pAppDocOtherInfo = CBO<AppDocumentOthersInfo>.FillCollectionFromDataTable(dataSet.Tables[6]);
+                    pLstIndustyDesign = CBO<AppDocumentOthersInfo>.FillCollectionFromDataTable(dataSet.Tables[7]);
                 }
 
                 return _A02_Info;
