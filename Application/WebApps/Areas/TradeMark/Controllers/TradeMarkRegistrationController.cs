@@ -818,7 +818,23 @@
 
                     foreach (AppClassDetailInfo item in _listApp.OrderBy(m => m.Code))
                     {
-                        appInfo.strListClass += Resources.Resource.lblNhom + item.Code.Substring(0, 2) + ": " + item.Textinput.Trim().Trim(',') + " (" + (item.IntTongSanPham < 10 ? "0" + item.IntTongSanPham.ToString() : item.IntTongSanPham.ToString()) + " " + Resources.Resource.lblSanPham + " )" + "\n";
+                        if (_View_Translate == true)
+                        {
+                            // nếu là tiếng việt thì hiện tiếng anh
+                            if (language == "VI_VN")
+                            {
+                                appInfo.strListClass += "Class " + item.Code.Substring(0, 2) + ": " + item.Textinput.Trim().Trim(',') + " (" + (item.IntTongSanPham < 10 ? "0" + item.IntTongSanPham.ToString() : item.IntTongSanPham.ToString()) + " " + "gooods" + " )" + "\n";
+                            }
+                            else
+                            {
+                                appInfo.strListClass += "Nhóm" + item.Code.Substring(0, 2) + ": " + item.Textinput.Trim().Trim(',') + " (" + (item.IntTongSanPham < 10 ? "0" + item.IntTongSanPham.ToString() : item.IntTongSanPham.ToString()) + " " + "sản phẩm" + " )" + "\n";
+                            }
+
+                        }
+                        else
+                        {
+                            appInfo.strListClass += Resources.Resource.lblNhom + item.Code.Substring(0, 2) + ": " + item.Textinput.Trim().Trim(',') + " (" + (item.IntTongSanPham < 10 ? "0" + item.IntTongSanPham.ToString() : item.IntTongSanPham.ToString()) + " " + Resources.Resource.lblSanPham + " )" + "\n";
+                        }
                     }
                 }
                 if (lstDocOther != null)
