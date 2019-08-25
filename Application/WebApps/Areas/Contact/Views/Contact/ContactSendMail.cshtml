@@ -64,7 +64,9 @@
             <div class="div-search-content">
                 <div>
                     <input value="@_contract.ID" type="text" style="display:none;" id="ID" />
-                    <input value="@_contract.ContactName" type="text" readonly />
+                    <input value="@_contract.Case_Code" type="text" style="display:none;" id="case_code" />
+                    <input value="@_contract.Email" type="text" style="display:none;" id="email" />
+                    <input value="@_contract.ContactName" type="text" readonly  id="contactName"/>
                 </div>
             </div>
 
@@ -155,7 +157,7 @@
             </div>
 
             <div style="margin-top:15px">
-                <div>Nội dung trả lờ<i class="redspan">(*)</i>i</div>
+                <div>Nội dung trả lờ<i class="redspan">(*)</i></div>
                 <textarea type="text" style="height:100px;width:100%;" maxlength="4000" id="content">@_contract.ReplyContent</textarea>
             </div>
 
@@ -179,7 +181,9 @@
     var _content = "";
     var _emailTo = "";
     var _id = "";
-
+    var _contactName = '';
+    var _case_code = "";
+    var _email = "";
     function back() {
         window.location = "/contact-send/danh-sach-contact";
     }
@@ -215,11 +219,15 @@
         _subject = $("#subject").val();
         _content = $("#content").val();
         _id = $("#ID").val();
-        formData.append('_contact.ContactName', '@_contract.ContactName');
-        formData.append('_contact.Case_Code', '@_contract.Case_Code');
+        _contactName = $("#contactName").val();
+        _case_code = $("#case_code").val();
+        _email = $("#email").val();
+
+        formData.append('_contact.ContactName', _contactName);
+        formData.append('_contact.Case_Code', _case_code);
         formData.append('_contact.ReplySubject', _subject);
         formData.append('_contact.ReplyContent', _content);
-        formData.append('_contact.Email', '@_contract.Email');
+        formData.append('_contact.Email', _email);
         formData.append('_contact.ID', _id);
 
         var pfile = $("#file_attach_1");//lay du lieu file

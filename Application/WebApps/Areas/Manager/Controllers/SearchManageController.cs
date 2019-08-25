@@ -705,13 +705,14 @@ namespace WebApps.Areas.Manager.Controllers
                         }
                     }
 
-                    string _content = "";
-                    List<AllCodeInfo> _lstStatus = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("EMAIL", "CONTENT");
-                    _lstStatus = _lstStatus.OrderBy(x => x.CdVal).ToList();
-                    if (_lstStatus.Count > 1)
-                    {
-                        _content = _lstStatus[0].Content + _QuestionInfo.RESULT.Replace("\n", "<br>") + _lstStatus[1].Content;
-                    }
+                    string _content = _QuestionInfo.RESULT.Replace("\n", "<br>");
+                    _content = AppsCommon.SetContentMailTemplate(_content, yourref: "", outref: p_case_code, dearname:userInfo.Username);
+                    //List<AllCodeInfo> _lstStatus = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("EMAIL", "CONTENT");
+                    //_lstStatus = _lstStatus.OrderBy(x => x.CdVal).ToList();
+                    //if (_lstStatus.Count > 1)
+                    //{
+                    //    _content = _lstStatus[0].Content + _QuestionInfo.RESULT.Replace("\n", "<br>") + _lstStatus[1].Content;
+                    //}
 
                     Email_Info _Email_Info = new Email_Info
                     {
