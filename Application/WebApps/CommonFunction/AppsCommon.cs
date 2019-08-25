@@ -1327,6 +1327,7 @@ namespace WebApps.CommonFunction
                 AppFeeFixInfo _AppFeeFixInfo2 = new AppFeeFixInfo();
                 _AppFeeFixInfo2.Fee_Id = 2;
                 _AppFeeFixInfo2.Number_Of_Patent = 1;
+                _AppFeeFixInfo2.Isuse = 1;
                 _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo2.Fee_Id.ToString();
 
 
@@ -1350,8 +1351,6 @@ namespace WebApps.CommonFunction
                 #region 3 phí công bố đơn
                 AppFeeFixInfo _AppFeeFixInfo3 = new AppFeeFixInfo();
                 _AppFeeFixInfo3.Fee_Id = 3;
-
-                _AppFeeFixInfo3.Isuse = 0;
                 _AppFeeFixInfo3.Isuse = 1;
                 _AppFeeFixInfo3.Number_Of_Patent = 1;
 
@@ -1397,6 +1396,7 @@ namespace WebApps.CommonFunction
                         _AppFeeFixInfo31.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo31.Number_Of_Patent;
                         _AppFeeFixInfo31.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent * _AppFeeFixInfo31.Number_Of_Patent;
                         _AppFeeFixInfo31.Amount_Represent_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent_Usd * _AppFeeFixInfo31.Number_Of_Patent;
+
                     }
                     else
                         _AppFeeFixInfo31.Amount = 60000 * _AppFeeFixInfo31.Number_Of_Patent;
