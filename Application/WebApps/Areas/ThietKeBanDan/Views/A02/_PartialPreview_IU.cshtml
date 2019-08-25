@@ -53,7 +53,7 @@
 
 <script>
 
-    function funGetData_Preview_UI_A03(url, p_lang) {
+    function funGetData_Preview_UI_A02(url, p_lang) {
         try {
             var formData = new FormData();
             formData.append("pInfo.Appcode", $("#txtAppCode").val());
@@ -134,7 +134,7 @@
             }
 
             $.ajax({
-                url: '/indus-design/ket_xuat_file_IU',
+                url: '/semiconductor-integrated/ket_xuat_file_IU',
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -171,9 +171,9 @@
     }
 
     function funcPreViewApplication_IU(p_lang) {
-        var preturn = funGetData_Preview_UI_A03("/indus-design/ket_xuat_file_IU", p_lang);
+        var preturn = funGetData_Preview_UI_A02("/semiconductor-integrated/ket_xuat_file_IU", p_lang);
         if (preturn == true || preturn == undefined) {
-            OpenPreview("/indus-design/Pre-View");
+            OpenPreview("/semiconductor-integrated/Pre-View");
         }
     }
 
@@ -225,7 +225,7 @@
         }
 
         $.ajax({
-            url: "/indus-design/getFee",
+            url: "/semiconductor-integrated/getFee",
             type: 'POST',
             data: formData,
             dataType: "json",
