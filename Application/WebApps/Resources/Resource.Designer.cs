@@ -61,6 +61,186 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cấu trúc.
+        /// </summary>
+        public static string A02_CAUTRUC {
+            get {
+                return ResourceManager.GetString("A02_CAUTRUC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cấu trúc khác:.
+        /// </summary>
+        public static string A02_CAUTRUC_KHAC {
+            get {
+                return ResourceManager.GetString("A02_CAUTRUC_KHAC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lưỡng cực.
+        /// </summary>
+        public static string A02_CAUTRUC_LUONGCUC {
+            get {
+                return ResourceManager.GetString("A02_CAUTRUC_LUONGCUC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quang-Điện tử.
+        /// </summary>
+        public static string A02_CAUTRUC_QUANGDIENTU {
+            get {
+                return ResourceManager.GetString("A02_CAUTRUC_QUANGDIENTU", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chức năng.
+        /// </summary>
+        public static string A02_CHUCNANG {
+            get {
+                return ResourceManager.GetString("A02_CHUCNANG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chức năng khác:.
+        /// </summary>
+        public static string A02_CHUCNANG_KHAC {
+            get {
+                return ResourceManager.GetString("A02_CHUCNANG_KHAC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nhớ.
+        /// </summary>
+        public static string A02_CHUCNANG_NHO {
+            get {
+                return ResourceManager.GetString("A02_CHUCNANG_NHO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chủ đơn đồng thời là tác giả thiết kế bố trí.
+        /// </summary>
+        public static string A02_CHUDONGDONGTHOI {
+            get {
+                return ResourceManager.GetString("A02_CHUDONGDONGTHOI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Công nghệ:.
+        /// </summary>
+        public static string A02_CONGNGHE {
+            get {
+                return ResourceManager.GetString("A02_CONGNGHE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Công nghệ khác:.
+        /// </summary>
+        public static string A02_CONGNGHE_KHAC {
+            get {
+                return ResourceManager.GetString("A02_CONGNGHE_KHAC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mô tả vắn tắt:.
+        /// </summary>
+        public static string A02_Description {
+            get {
+                return ResourceManager.GetString("A02_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Khai thác thương mại lần đầu tiên:.
+        /// </summary>
+        public static string A02_KHAITHACTHUONGMAI {
+            get {
+                return ResourceManager.GetString("A02_KHAITHACTHUONGMAI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngày:.
+        /// </summary>
+        public static string A02_KHAITHACTHUONGMAI_NGAY {
+            get {
+                return ResourceManager.GetString("A02_KHAITHACTHUONGMAI_NGAY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tại nước:.
+        /// </summary>
+        public static string A02_KHAITHACTHUONGMAI_TAINUOC {
+            get {
+                return ResourceManager.GetString("A02_KHAITHACTHUONGMAI_TAINUOC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MÔ TẢ MẠCH TÍCH HỢP BÁN DẪN SẢN XUẤT THEO THIẾT KẾ BỐ TRÍ.
+        /// </summary>
+        public static string A02_MOTAMACH {
+            get {
+                return ResourceManager.GetString("A02_MOTAMACH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Các đặc điểm phân biệt với các mạch tích hợp bán dẫn khác trên thị trường.
+        /// </summary>
+        public static string A02_MOTAVANTAT {
+            get {
+                return ResourceManager.GetString("A02_MOTAVANTAT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngày tạo thiết kế.
+        /// </summary>
+        public static string A02_NGAYTAOTHIETKET {
+            get {
+                return ResourceManager.GetString("A02_NGAYTAOTHIETKET", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phân loại.
+        /// </summary>
+        public static string A02_PHANLOAI {
+            get {
+                return ResourceManager.GetString("A02_PHANLOAI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên gọi/Ký hiệu.
+        /// </summary>
+        public static string A02_TENGOI {
+            get {
+                return ResourceManager.GetString("A02_TENGOI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đăng ký thiết kế bố trí mạch tích hợp bán dẫn.
+        /// </summary>
+        public static string A02_TITLE {
+            get {
+                return ResourceManager.GetString("A02_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Đồng ý.
         /// </summary>
         public static string Accept {
