@@ -454,7 +454,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Số hình ảnh:</div>
+                <div>@Resource.SoHinhAnh:</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -494,9 +494,9 @@
 
         @*12 bản mô tả*@
         @{
-           
+
             string _doc_id12 = "A02_12";
-            string _id12 = _doc_id12 + "|Doc_12|0|" + "Bản mô tả gồm" + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.lblSoBan;
+            string _id12 = _doc_id12 + "|Doc_12|0|" + Resource.A02_BANMOTA + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.lblSoBan;
             string _value12 = "";
             if (dic_appDoc.ContainsKey(_doc_id12))
             {

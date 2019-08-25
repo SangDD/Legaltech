@@ -61,6 +61,24 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bản mô tả.
+        /// </summary>
+        public static string A02_BANMOTA {
+            get {
+                return ResourceManager.GetString("A02_BANMOTA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bộ ảnh chụp hoặc bản vẽ TKBT gồm.
+        /// </summary>
+        public static string A02_BOANHCHUPBANVE {
+            get {
+                return ResourceManager.GetString("A02_BOANHCHUPBANVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cấu trúc.
         /// </summary>
         public static string A02_CAUTRUC {
@@ -219,6 +237,15 @@ namespace WebApps.Resources {
         public static string A02_PHANLOAI {
             get {
                 return ResourceManager.GetString("A02_PHANLOAI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số hình ảnh công bố.
+        /// </summary>
+        public static string A02_SOHINHANHCONGBO {
+            get {
+                return ResourceManager.GetString("A02_SOHINHANHCONGBO", resourceCulture);
             }
         }
         

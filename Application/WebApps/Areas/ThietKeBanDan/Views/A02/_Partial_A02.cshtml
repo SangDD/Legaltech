@@ -90,7 +90,7 @@
                 </div>
             </div>
             <div class="div-search-title">
-                <div>@Html.Raw(Resource.A02_NGAYTAOTHIETKET) <i class="redspan">(*)</i></div>
+                <div style="width:200px">@Html.Raw(Resource.A02_NGAYTAOTHIETKET) <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -101,7 +101,7 @@
         <div class="div-search-ad">
 
             <div class="div-search-title">
-                <div style="width:200px">@Html.Raw(Resource.A02_KHAITHACTHUONGMAI)<i class="redspan">(*)</i></div>
+                <div style="width:270px">@Html.Raw(Resource.A02_KHAITHACTHUONGMAI)<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div style="width:300px">
@@ -187,7 +187,7 @@
                 </div>
             </div>
             <div class="div-search-content">
-                <div class="div-radio" style="width:120px">
+                <div class="div-radio" style="width:130px">
                     <input type="radio" name="CauTruc" id="ckbCauTrucQUANG-DIENTU"  value="QUANG-DIENTU" onchange="onChangeCauTruc('QUANG-DIENTU')">
                     <label>@Html.Raw(Resource.A02_CAUTRUC_QUANGDIENTU) </label>
                 </div>
@@ -383,13 +383,13 @@
         @* 2  Bộ ảnh chụp hoặc bản vẽ TKBT gồm.......trang x .......bộ *@
         @{
             string _doc_id2 = "A02_02";
-            string _model2 = _doc_id2 + "|Doc_02|0|" + "Bộ ảnh chụp hoặc bản vẽ TKBT gồm" + "|" + Resource.TM2B_SoTrang + "|1||" + "bộ";
+            string _model2 = _doc_id2 + "|Doc_02|0|" + Resource.A02_BOANHCHUPBANVE + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.Bo;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model2)
         }
         @*12 bản mô tả*@ 
         @{
             string _doc_id12 = "A02_12";
-            string _model12 = _doc_id12 + "|Doc_12|0|" + "Bản mô tả gồm" + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.TM2B_SoBan;
+            string _model12 = _doc_id12 + "|Doc_12|0|" + Resource.A02_BANMOTA + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.TM2B_SoBan;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model12)
         }
 

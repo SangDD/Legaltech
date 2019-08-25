@@ -1633,7 +1633,7 @@
                 ViewBag.ListDocDesign = pLstDocDesign;
                 ViewBag.IsViewFlag = 1;
                 ViewBag.AppCode = pAppCode;
-                ViewBag.TreeTitle = "Số hình ảnh công bố";
+                ViewBag.TreeTitle = WebApps.Resources.Resource.A02_SOHINHANHCONGBO;
                 ViewBag.TreeLevel = 1;// upload ảnh chỉ có  cấp 
                 return PartialView(@"~\Areas\ThietKeBanDan\Views\A02\_Partial_A02_View.cshtml");
             }
@@ -1973,7 +1973,7 @@
                 ViewBag.ListDocDesign = pLstDocDesign;
                 ViewBag.IsViewFlag = 1;
                 ViewBag.AppCode = pAppCode;
-                ViewBag.TreeTitle = "Số hình ảnh công bố";
+                ViewBag.TreeTitle = WebApps.Resources.Resource.A02_SOHINHANHCONGBO;
                 ViewBag.TreeLevel = 1;// upload ảnh chỉ có  cấp 
                 return PartialView(@"~\Areas\ThietKeBanDan\Views\A02\_Partial_A02_Edit.cshtml");
             }

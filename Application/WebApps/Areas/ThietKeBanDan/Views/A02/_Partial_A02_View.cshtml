@@ -6,7 +6,7 @@
 @using ObjectInfos
 @using ObjectInfos.ModuleTrademark
 @{
-    ViewBag.Title = "Đăng ký thiết kế bố trí mạch tích hợp bán dẫn";
+    ViewBag.Title = Resource.A02_TITLE;
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
@@ -100,7 +100,7 @@
             <img src="~/Content/icons/Body-icon-home.png" /> I
             <a href="/home">Home</a>
             <span class="red">></span>
-            <a href="javascript:;">Đăng ký thiết kế bố trí mạch tích hợp bán dẫn</a>
+            <a href="javascript:;"> @Resource.A02_TITLE </a>
         </div>
     </div>
     <div class="divCover">
@@ -117,7 +117,7 @@
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
-        <legend style="font-weight:600"> ĐĂNG KÝ THIẾT KẾ BỐ TRÍ MẠCH TÍCH HỢP BÁN DẪN</legend>
+        <legend style="font-weight:600">@Resource.A02_TITLE.ToUpper()</legend>
 
         @* Case name *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
@@ -125,13 +125,13 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                MÔ TẢ MẠCH TÍCH HỢP BÁN DẪN SẢN XUẤT THEO THIẾT KẾ BỐ TRÍ
+                @Html.Raw(Resource.A02_MOTAMACH)
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Tên gọi/Ký hiệu </div>
+                <div>@Html.Raw(Resource.A02_TENGOI)</div>
             </div>
             <div class="div-search-content">
                 <div style="width:500px">
@@ -139,7 +139,7 @@
                 </div>
             </div>
             <div class="div-search-title">
-                <div>Ngày tạo thiết kế </div>
+                <div>@Html.Raw(Resource.A02_NGAYTAOTHIETKET) </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -150,7 +150,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div style="width:200px">Khai thác thương mại lần đầu tiên:</div>
+                <div style="width:200px">@Html.Raw(Resource.A02_KHAITHACTHUONGMAI)</div>
             </div>
             <div class="div-search-content">
                 <div style="width:300px">
@@ -158,7 +158,7 @@
                 </div>
             </div>
             <div class="div-search-title">
-                <div>Tại nước:</div>
+                <div>@Html.Raw(Resource.A02_KHAITHACTHUONGMAI_TAINUOC)</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -166,7 +166,7 @@
                 </div>
             </div>
             <div class="div-search-title">
-                <div>Ngày:</div>
+                <div>@Html.Raw(Resource.A02_KHAITHACTHUONGMAI_NGAY)</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -178,18 +178,19 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                Phân loại
+                @Html.Raw(Resource.A02_PHANLOAI)
+                
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Chức năng</div>
+                <div>@Html.Raw(Resource.A02_CHUCNANG)</div>
             </div>
             <div class="div-search-content">
                 <div class="div-radio">
                     <input disabled type="radio" value="NHO" name="ChucNang" id="ckbChucNangNHO" onchange="onChangeChucNang('NHO')">
-                    <label> Nhớ</label>
+                    <label> @Html.Raw(Resource.A02_CHUCNANG_NHO)</label>
                 </div>
             </div>
             <div class="div-search-content">
@@ -201,7 +202,7 @@
             <div class="div-search-content">
                 <div class="div-radio" style="width:120px">
                     <input disabled type="radio" name="ChucNang" id="ckbChucNangOTHER" value="OTHER" onchange="onChangeChucNang('OTHER')">
-                    <label>Chức năng khác</label>
+                    <label>@Html.Raw(Resource.A02_CHUCNANG_KHAC)</label>
                 </div>
             </div>
             <div class="div-search-content">
@@ -214,12 +215,12 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Cấu trúc</div>
+                <div>@Html.Raw(Resource.A02_CAUTRUC)</div>
             </div>
             <div class="div-search-content">
                 <div class="div-radio">
                     <input disabled type="radio" name="CauTruc" value="LUONGCUC" id="ckbCauTrucLUONGCUC" onchange="onChangeCauTruc('LUONGCUC')">
-                    <label> Lưỡng cực</label>
+                    <label>@Html.Raw(Resource.A02_CAUTRUC_LUONGCUC)</label>
                 </div>
             </div>
 
@@ -238,13 +239,13 @@
             <div class="div-search-content">
                 <div class="div-radio" style="width:120px">
                     <input disabled type="radio" name="CauTruc" id="ckbCauTrucQUANG-DIENTU" value="QUANG-DIENTU" onchange="onChangeCauTruc('QUANG-DIENTU')">
-                    <label> Quang-điện tử</label>
+                    <label>@Html.Raw(Resource.A02_CAUTRUC_QUANGDIENTU) </label>
                 </div>
             </div>
             <div class="div-search-content">
                 <div class="div-radio" style="width:120px">
                     <input disabled type="radio" name="CauTruc" id="ckbCauTrucOTHER" value="QUANG-DIENTU" onchange="onChangeCauTruc('OTHER')">
-                    <label> Cấu trúc khác</label>
+                    <label>@Html.Raw(Resource.A02_CAUTRUC_KHAC) </label>
                 </div>
             </div>
             <div class="div-search-content">
@@ -255,7 +256,7 @@
         </div>
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Công nghệ</div>
+                <div>@Html.Raw(Resource.A02_CONGNGHE)</div>
             </div>
             <div class="div-search-content">
                 <div class="div-radio">
@@ -302,7 +303,7 @@
             <div class="div-search-content">
                 <div class="div-radio" style="width:120px">
                     <input disabled type="radio" name="CongNghe" id="ckbCongNgheOTHER" value="OTHER" onchange="onChangeCongNghe('OTHER')">
-                    <label>OTHER</label>
+                    <label>@Html.Raw(Resource.A02_CONGNGHE_KHAC)</label>
                 </div>
             </div>
             <div class="div-search-content">
@@ -314,12 +315,12 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Mô tả vắn tắt</div>
+                <div>@Html.Raw(Resource.A02_Description) </div>
             </div>
             <div class="div-search-content">
                 <div>
                     <input disabled type="text" id="txt_MoTaTomTat" maxlength="200" value="@_App_Detail.MoTaTomTat"
-                           placeholder="Các đặc điểm phân biệt với các mạch tích hợp bán dẫn khác trên thị trường">
+                           placeholder="@Html.Raw(Resource.A02_MOTAVANTAT)">
                 </div>
             </div>
 
@@ -435,14 +436,14 @@
         </div>
 
         <div class="divCover cls_form_title">
-            <b>Tài liệu tối thiểu</b>
+            <b>@Resource.TaiLieuToiThieu</b>
         </div>
 
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTreeDocumentView.cshtml")
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Số hình ảnh:</div>
+                <div>@Resource.SoHinhAnh:</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -471,7 +472,7 @@
         @* 2. Bộ ảnh chụp hoặc bản vẽ TKBT gồm.......trang x .......bộ *@
         @{
             string _doc_id2 = "A02_02";
-            string _id2 = _doc_id2 + "|Doc_02|0|" + "Bộ ảnh chụp hoặc bản vẽ TKBT gồm" + "|" + Resource.TM2B_SoTrang + "|1||" + "bộ";
+            string _id2 = _doc_id2 + "|Doc_02|0|" + Resource.A02_BOANHCHUPBANVE + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.Bo;
             string _value2 = "";
             if (dic_appDoc.ContainsKey(_doc_id2))
             {
@@ -486,7 +487,7 @@
         
         @{
             string _doc_id12 = "A02_12";
-            string _id12 = _doc_id12 + "|Doc_12|0|" + "Bản mô tả gồm" + "|" + Resource.TM2B_SoTrang + "|0||" + Resource.lblSoBan;
+            string _id12 = _doc_id12 + "|Doc_12|0|" + Resource.A02_BANMOTA + "|" + Resource.TM2B_SoTrang + "|0||" + Resource.lblSoBan;
             string _value12 = "";
             if (dic_appDoc.ContainsKey(_doc_id12))
             {
