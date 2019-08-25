@@ -158,11 +158,12 @@ namespace WebApps.CommonFunction
                 }
                 _content = "<div style='padding:1px;font-family:Roboto, sans-serif; font-size:14px;color:#5a5a5a'>" +
                                "<div style = 'overflow: hidden;'>" +
-                                   "<div style = 'width:100%;height: 150px; text-align: right'>" +
-                                                      "<img class='responsive' style='width:auto;height: 100%;'src='https://pathlaw.net/Content/News/images/logo_ipace.png'/>" +
+                                   "<div style = 'width:100%; text-align: right; overflow: hidden;'>" +
+                                                      "<img class='responsive' style='width:auto;height: 110px;'src='https://pathlaw.net/Content/News/images/logo_ipace.png'/>" +
+                                                        "<div style='padding: 7px 15px 7px 0 ;'>ACCESS.IP SOLUTION</div>" +
                                    "</div>" +
-                                   "<div style = 'width:100%;>" +
-                                                       "<div style = 'text-align: left'>" +
+                                   "<div style = 'width:100%;'>" +
+                                                       "<div style='text-align: left'>" +
                                                             _ref +
                                                        "</div>" +
                                    "</div>" +
