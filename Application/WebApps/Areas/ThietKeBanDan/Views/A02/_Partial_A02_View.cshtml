@@ -466,6 +466,8 @@
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model1)
         }
 
+
+
         @* 2. Bộ ảnh chụp hoặc bản vẽ TKBT gồm.......trang x .......bộ *@
         @{
             string _doc_id2 = "A02_02";
@@ -479,6 +481,22 @@
 
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model2)
         }
+
+        @*12 bản mô tả*@
+        
+        @{
+            string _doc_id12 = "A02_12";
+            string _id12 = _doc_id12 + "|Doc_12|0|" + "Bản mô tả gồm" + "|" + Resource.TM2B_SoTrang + "|0||" + Resource.lblSoBan;
+            string _value12 = "";
+            if (dic_appDoc.ContainsKey(_doc_id12))
+            {
+                _value12 = dic_appDoc[_doc_id12].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id12].CHAR01 + "|" + dic_appDoc[_doc_id12].Url_Hardcopy + "|" + dic_appDoc[_doc_id12].CHAR02;
+            }
+            string _model12 = _id12 + ";" + _value12;
+
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model12)
+        }
+
 
         @*3  Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ  *@
 
