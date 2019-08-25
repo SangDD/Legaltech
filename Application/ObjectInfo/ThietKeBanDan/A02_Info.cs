@@ -341,6 +341,12 @@ namespace ObjectInfos
 
         public decimal Doc_Id_11_Check { get; set; }
 
+        public string Doc_Id_12 { get; set; }
+
+        public string Doc_Id_1202 { get; set; }
+
+        public decimal Doc_Id_12_Check { get; set; }
+
         #endregion
 
         #region add thêm 1 số cột tùy biến để sau này cần thì thêm vào đây

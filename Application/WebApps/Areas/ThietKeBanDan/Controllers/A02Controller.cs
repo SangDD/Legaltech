@@ -895,9 +895,12 @@ namespace WebApps.Areas.ThietKeBanDan.Controllers
                             app_Detail.Doc_Id_11_Check = item.Isuse;
                             app_Detail.Doc_Id_11 = item.CHAR01;
                         }
-
-                         
-                         
+                        else if (item.Document_Id == "A02_12")
+                        {
+                            app_Detail.Doc_Id_12_Check = item.Isuse;
+                            app_Detail.Doc_Id_12 = item.CHAR01;
+                            app_Detail.Doc_Id_1202 = item.CHAR02;
+                        }
                     }
                 
                 }

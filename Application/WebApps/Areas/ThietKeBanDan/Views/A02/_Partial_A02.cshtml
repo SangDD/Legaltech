@@ -385,6 +385,12 @@
             string _model2 = _doc_id2 + "|Doc_02|0|" + "Bộ ảnh chụp hoặc bản vẽ TKBT gồm" + "|" + Resource.TM2B_SoTrang + "|1||" + "bộ";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model2)
         }
+        @*12 bản mô tả*@ 
+        @{
+            string _doc_id12 = "A02_12";
+            string _model12 = _doc_id12 + "|Doc_12|0|" + "Bản mô tả gồm" + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.TM2B_SoBan;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model12)
+        }
 
         @* 3  Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ *@
         @{
@@ -1052,7 +1058,8 @@
             //11
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_11", "10");
 
-           
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_12", "11");
+            formData.append("pAppDocumentInfo[11].CHAR01", $("#txt_Doc_12").val());
   
 
         } catch (e) {
