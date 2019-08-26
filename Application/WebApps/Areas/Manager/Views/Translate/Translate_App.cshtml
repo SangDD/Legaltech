@@ -27,6 +27,12 @@
         app_Class_Infos = (List<App_Class_Info>)ViewBag.Lst_Class;
     }
 
+    List<AppDocumentOthersInfo> app_Document_Others = new List<AppDocumentOthersInfo>();
+    if (ViewBag.Document_Others != null)
+    {
+        app_Document_Others = (List<AppDocumentOthersInfo>)ViewBag.Document_Others;
+    }
+
 
     DataSet Ds_detail = new DataSet();
     if (ViewBag.Ds_detail != null)
@@ -41,7 +47,6 @@
         objAppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
     }
 
-    int _index = 0;
 }
 
 <style>
@@ -100,7 +105,7 @@
 
         @foreach (Sys_App_Translate_Info item in Sys_LstTranslate)
         {
-            if (item.Type != "CLASS")
+            if (item.Type == "DETAIL")
             {
                 string _value = AppsCommon.Get_Databy_ColumName(item, Ds_detail);
                 string _value_translate = AppsCommon.Get_Databy_Translate_ColumName(item, Lst_Translate_App);
@@ -132,7 +137,7 @@
                     </div>
                 </div>
             }
-            else
+            else if (item.Type == "CLASS")
             {
                 <div class="divCover">
                     <div class="classTitle">
@@ -165,7 +170,40 @@
                         </div>
                     </div>
 
-                    _index++;
+                }
+            }
+            else if (item.Type == "OTHER_DOC")
+            {
+                <div class="divCover">
+                    <div class="classTitle">
+                        <div class="div-title-content"> @Resource.Dich @Resource.TaiLieuKhac</div>
+                    </div>
+                </div>
+
+                foreach (AppDocumentOthersInfo _AppDocumentOthers in app_Document_Others)
+                {
+
+                    string _value_class = AppsCommon.Get_Databy_Document_Translate(_AppDocumentOthers.Id.ToString(), Lst_Translate_App);
+                    <div class="div-search-ad">
+                        <div class="div-search-title">
+                            <div>Tên tài liệu</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <input type="text" id="@_AppDocumentOthers.Id" maxlength="500" value="@_AppDocumentOthers.Documentname" style="width: 250px;" readonly />
+                            </div>
+                        </div>
+
+                        <div class="div-search-title">
+                            <div style="background-color:yellow; width:250px"> Bản dịch Tên tài liệu</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <input class="clsTranslateValue" id="@(_AppDocumentOthers.Id + "translate")" type="text" value="@_value_class"
+                                       data-valid="1" data-TxtId="@_AppDocumentOthers.Id" data-object-name="@_AppDocumentOthers.Id" data-type="@item.Type" data-language="@objAppHeaderInfo.Languague_Code" />
+                            </div>
+                        </div>
+                    </div>
                 }
             }
 

@@ -57,25 +57,32 @@ namespace WebApps.Areas.Manager.Controllers
                     pAppHeaderId = Convert.ToDecimal(RouteData.Values["id1"].ToString());
                 }
 
+                // lấy thông tin đã dịch
                 ViewBag.App_Header_Id = pAppHeaderId;
-
                 List<App_Translate_Info> _lst_translate = _App_Translate_BL.App_Translate_GetBy_AppId(pAppHeaderId);
                 ViewBag.Lst_Translate_App = _lst_translate;
 
-
+                // thông tin đơn
                 DataSet _ds_detail = _App_Translate_BL.AppDetail_GetBy_Id(pAppCode, pAppHeaderId);
                 ViewBag.Ds_detail = _ds_detail;
-
                 if (_ds_detail != null && _ds_detail.Tables.Count > 0)
                 {
                     ApplicationHeaderInfo applicationHeaderInfo = CBO<ApplicationHeaderInfo>.FillObjectFromDataTable(_ds_detail.Tables[0]);
                     ViewBag.objAppHeaderInfo = applicationHeaderInfo;
                 }
 
+                // thông tin class
                 if (_ds_detail != null && _ds_detail.Tables.Count > 2)
                 {
                     List<App_Class_Info>app_Class_Infos = CBO<App_Class_Info>.FillCollectionFromDataTable(_ds_detail.Tables[2]);
                     ViewBag.Lst_Class = app_Class_Infos;
+                }
+
+                // thông tin tài liệu khác
+                if (_ds_detail != null && _ds_detail.Tables.Count > 3)
+                {
+                    List<AppDocumentOthersInfo> app_Document_Others = CBO<AppDocumentOthersInfo>.FillCollectionFromDataTable(_ds_detail.Tables[3]);
+                    ViewBag.Document_Others = app_Document_Others;
                 }
 
                 return PartialView("~/Areas/Manager/Views/Translate/Translate_App.cshtml");

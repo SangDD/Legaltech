@@ -785,7 +785,7 @@ namespace WebApps.CommonFunction
                 string _re = "";
                 foreach (var item in Lst_Translate_App)
                 {
-                    if (p_app_class_id == item.Object_Name)
+                    if (p_app_class_id == item.Object_Name && item.Type == "CLASS")
                     {
                         return item.Value_Translate;
                     }
@@ -798,6 +798,28 @@ namespace WebApps.CommonFunction
                 return "";
             }
         }
+
+        public static string Get_Databy_Document_Translate(string p_document_id, List<App_Translate_Info> Lst_Translate_App)
+        {
+            try
+            {
+                string _re = "";
+                foreach (var item in Lst_Translate_App)
+                {
+                    if (p_document_id == item.Object_Name && item.Type == "OTHER_DOC")
+                    {
+                        return item.Value_Translate;
+                    }
+                }
+                return _re;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return "";
+            }
+        }
+
 
         public static void Overwrite_DataSouce_Export(ref DataSet p_ds_source, List<App_Translate_Info> Lst_Translate_App)
         {
