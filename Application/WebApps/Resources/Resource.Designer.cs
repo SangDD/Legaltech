@@ -376,11 +376,128 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Đơn đăng ký sáng chế được yêu cầu thẩm định nội dung.
+        ///   Looks up a localized string similar to Đại diện của người yêu cầu.
+        /// </summary>
+        public static string B03_DDNguoiYC {
+            get {
+                return ResourceManager.GetString("B03_DDNguoiYC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to là tổ chức dịch vụ đại diện sở hữu công nghiệp được uỷ quyền của người yêu cầu thẩm định nội dung.
+        /// </summary>
+        public static string B03_DDSoHuuCN {
+            get {
+                return ResourceManager.GetString("B03_DDSoHuuCN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to là người đại diện theo pháp luật của người yêu cầu thẩm định nội dung.
+        /// </summary>
+        public static string B03_DDTheoPL {
+            get {
+                return ResourceManager.GetString("B03_DDTheoPL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to là người khác được uỷ quyền của người yêu cầu thẩm định nội dung.
+        /// </summary>
+        public static string B03_DDUyQuyen {
+            get {
+                return ResourceManager.GetString("B03_DDUyQuyen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Địa chỉ.
+        /// </summary>
+        public static string B03_DiaChi {
+            get {
+                return ResourceManager.GetString("B03_DiaChi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Điện thoại.
+        /// </summary>
+        public static string B03_DienThoai {
+            get {
+                return ResourceManager.GetString("B03_DienThoai", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string B03_Email {
+            get {
+                return ResourceManager.GetString("B03_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fax.
+        /// </summary>
+        public static string B03_Fax {
+            get {
+                return ResourceManager.GetString("B03_Fax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Là chủ đơn.
+        /// </summary>
+        public static string B03_LaChuDon {
+            get {
+                return ResourceManager.GetString("B03_LaChuDon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Là người thứ ba.
+        /// </summary>
+        public static string B03_LaNguoiThuBa {
+            get {
+                return ResourceManager.GetString("B03_LaNguoiThuBa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Người yêu cầu thẩm định nội dung.
+        /// </summary>
+        public static string B03_NguoiYeuCau {
+            get {
+                return ResourceManager.GetString("B03_NguoiYeuCau", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số đơn.
         /// </summary>
         public static string B03_SoDon {
             get {
                 return ResourceManager.GetString("B03_SoDon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đơn đăng ký sáng chế được yêu cầu thẩm định nội dung.
+        /// </summary>
+        public static string B03_SoDon_Title {
+            get {
+                return ResourceManager.GetString("B03_SoDon_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên đầy đủ.
+        /// </summary>
+        public static string B03_TenDayDu {
+            get {
+                return ResourceManager.GetString("B03_TenDayDu", resourceCulture);
             }
         }
         
