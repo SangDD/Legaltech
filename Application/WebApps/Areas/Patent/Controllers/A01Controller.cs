@@ -634,7 +634,7 @@ namespace WebApps.Areas.Patent.Controllers
 
         [HttpPost]
         [Route("ket_xuat_file")]
-        public ActionResult ExportData_View(decimal pAppHeaderId, string p_appCode, string p_Language)
+        public ActionResult ExportData_View(decimal pAppHeaderId, string p_appCode, decimal p_View_Translate)
         {
             try
             {
@@ -657,15 +657,37 @@ namespace WebApps.Areas.Patent.Controllers
                     ref _lst_authorsInfos, ref _lst_Other_MasterInfo, ref _lst_appClassDetailInfos, ref _LstDocumentOthersInfo, ref pUTienInfo, ref pLstImagePublic);
 
                 string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_VN_" + p_appCode + _datetimenow + ".pdf");
-                if (app_Detail.Languague_Code == Language.LangVI)
+
+                // tiếng việt, bị lộn nên ko muốn đổi
+                string _tempfile = "A01_EN.rpt";
+                if (p_View_Translate == 1)
                 {
-                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_VN_" + p_appCode + _datetimenow + ".pdf");
-                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_VN_" + p_appCode + _datetimenow + ".pdf";
+                    // nếu là tiếng việt thì xem bản tiếng anh và ngược lại
+                    if (applicationHeaderInfo.Languague_Code == Language.LangVI)
+                    {
+                        _tempfile = "A01.rpt"; // tiếng anh
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_EN_" + p_appCode + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_EN_" + p_appCode + _datetimenow + ".pdf";
+                    }
+                    else
+                    {
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_VN_" + p_appCode + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_VN_" + p_appCode + _datetimenow + ".pdf";
+                    }
                 }
                 else
                 {
-                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_EN_" + p_appCode + _datetimenow + ".pdf");
-                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_EN_" + p_appCode + _datetimenow + ".pdf";
+                    if (applicationHeaderInfo.Languague_Code == Language.LangVI)
+                    {
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_VN_" + p_appCode + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_VN_" + p_appCode + _datetimenow + ".pdf";
+                    }
+                    else
+                    {
+                        _tempfile = "A01.rpt"; // tiếng anh
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_EN_" + p_appCode + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_EN_" + p_appCode + _datetimenow + ".pdf";
+                    }
                 }
 
                 AppsCommon.Prepare_Data_Export_A01(ref app_Detail, applicationHeaderInfo, appDocumentInfos, _lst_appFeeFixInfos, _lst_authorsInfos, _lst_Other_MasterInfo,
@@ -673,19 +695,24 @@ namespace WebApps.Areas.Patent.Controllers
 
                 _lst.Add(app_Detail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<A01_Info_Export>(_lst, false);
-                //_ds_all.WriteXml(@"C:\inetpub\A01.xml", XmlWriteMode.WriteSchema);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
-                string _tempfile = "A01_EN.rpt";
-                if (p_Language == Language.LangEN)
-                {
-                    _tempfile = "A01.rpt";
-                }
+             
                 oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
 
                 if (_ds_all != null)
                 {
                     _ds_all.Tables[0].TableName = "Table1";
+                    // đè các bản dịch lên
+                    if (p_View_Translate == 1)
+                    {
+                        // nếu là bản xem của thằng dịch
+                        App_Translate_BL _App_Translate_BL = new App_Translate_BL();
+                        List<App_Translate_Info> _lst_translate = _App_Translate_BL.App_Translate_GetBy_AppId(pAppHeaderId);
+
+                        AppsCommon.Overwrite_DataSouce_Export(ref _ds_all, _lst_translate);
+                    }
+
                     oRpt.SetDataSource(_ds_all);
                 }
                 oRpt.Refresh();
@@ -694,17 +721,10 @@ namespace WebApps.Areas.Patent.Controllers
                 Response.ClearContent();
                 Response.ClearHeaders();
 
-                //oRpt.ExportToDisk(ExportFormatType.PortableDocFormat, fileName_pdf);
-
                 System.IO.Stream oStream = oRpt.ExportToStream(ExportFormatType.PortableDocFormat);
                 byte[] byteArray = new byte[oStream.Length];
                 oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
                 System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq
-
-                //System.IO.Stream oStream_doc = oRpt.ExportToStream(ExportFormatType.WordForWindows);
-                //byte[] byteArray_doc= new byte[oStream_doc.Length];
-                //oStream_doc.Read(byteArray_doc, 0, Convert.ToInt32(oStream_doc.Length - 1));
-                //System.IO.File.WriteAllBytes(fileName_doc, byteArray_doc.ToArray()); // Requires System.Linq
 
                 return Json(new { success = 0 });
             }
@@ -726,8 +746,7 @@ namespace WebApps.Areas.Patent.Controllers
             try
             {
                 string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
-                //string language = AppsCommon.GetCurrentLang();
-                string language = pInfo.View_Language_Report;
+                string language = AppsCommon.GetCurrentLang();
                 var objBL = new A01_BL();
                 List<A01_Info_Export> _lst = new List<A01_Info_Export>();
 
@@ -759,7 +778,7 @@ namespace WebApps.Areas.Patent.Controllers
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
                 string _tempfile = "A01_EN.rpt";
-                if (pInfo.View_Language_Report == Language.LangEN)
+                if (language == Language.LangEN)
                 {
                     _tempfile = "A01.rpt";
                 }
@@ -781,12 +800,7 @@ namespace WebApps.Areas.Patent.Controllers
                 System.IO.Stream oStream = oRpt.ExportToStream(ExportFormatType.PortableDocFormat);
                 byte[] byteArray = new byte[oStream.Length];
                 oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
-                System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq
-
-                //System.IO.Stream oStream_doc = oRpt.ExportToStream(ExportFormatType.WordForWindows);
-                //byte[] byteArray_doc= new byte[oStream_doc.Length];
-                //oStream_doc.Read(byteArray_doc, 0, Convert.ToInt32(oStream_doc.Length - 1));
-                //System.IO.File.WriteAllBytes(fileName_doc, byteArray_doc.ToArray()); // Requires System.Linq
+                System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq 
 
                 return Json(new { success = 0 });
             }

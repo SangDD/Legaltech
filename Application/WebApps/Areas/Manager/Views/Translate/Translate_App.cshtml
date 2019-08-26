@@ -139,11 +139,14 @@
             }
             else if (item.Type == "CLASS")
             {
-                <div class="divCover">
-                    <div class="classTitle">
-                        <div class="div-title-content"> @Resource.Dich @Resource.Class</div>
+                if (app_Class_Infos.Count > 0)
+                {
+                    <div class="divCover">
+                        <div class="classTitle">
+                            <div class="div-title-content"> @Resource.Dich @Resource.Class</div>
+                        </div>
                     </div>
-                </div>
+                }
 
                 foreach (App_Class_Info _App_Class_Info in app_Class_Infos)
                 {
@@ -174,11 +177,14 @@
             }
             else if (item.Type == "OTHER_DOC")
             {
-                <div class="divCover">
-                    <div class="classTitle">
-                        <div class="div-title-content"> @Resource.Dich @Resource.TaiLieuKhac</div>
+                if (app_Document_Others.Count > 0)
+                {
+                    <div class="divCover">
+                        <div class="classTitle">
+                            <div class="div-title-content"> @Resource.Dich @Resource.TaiLieuKhac</div>
+                        </div>
                     </div>
-                </div>
+                }
 
                 foreach (AppDocumentOthersInfo _AppDocumentOthers in app_Document_Others)
                 {

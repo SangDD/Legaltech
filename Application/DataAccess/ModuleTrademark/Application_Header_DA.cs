@@ -192,8 +192,8 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("P_YEARS", OracleDbType.Varchar2, pInfo.Years, ParameterDirection.Input),
                     new OracleParameter("p_client_reference", OracleDbType.Varchar2, pInfo.Client_Reference, ParameterDirection.Input),
                     new OracleParameter("p_case_name", OracleDbType.Varchar2, pInfo.Case_Name, ParameterDirection.Input),
-                    new OracleParameter("P_DDSHCN", OracleDbType.Varchar2, pInfo.DDSHCN, ParameterDirection.Input),
-                    new OracleParameter("P_MADDSHCN", OracleDbType.Varchar2, pInfo.MADDSHCN, ParameterDirection.Input),
+                    new OracleParameter("P_DDSHCN", OracleDbType.Varchar2, pInfo.DDSHCN != null ? pInfo.DDSHCN : "", ParameterDirection.Input),
+                    new OracleParameter("P_MADDSHCN", OracleDbType.Varchar2, pInfo.MADDSHCN != null ? pInfo.MADDSHCN : "", ParameterDirection.Input),
 
                     new OracleParameter("p_App_No", OracleDbType.Varchar2, pInfo.App_No, ParameterDirection.Input),
                     new OracleParameter("p_App_Degree", OracleDbType.Varchar2, pInfo.App_Degree, ParameterDirection.Input),
@@ -255,11 +255,11 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("P_YEARS", OracleDbType.Varchar2, pInfo.Years, ParameterDirection.Input),
                     new OracleParameter("p_client_reference", OracleDbType.Varchar2, pInfo.Client_Reference != null ? pInfo.Client_Reference : ""  , ParameterDirection.Input),
                     new OracleParameter("p_case_name", OracleDbType.Varchar2, pInfo.Case_Name, ParameterDirection.Input),
-                    new OracleParameter("P_DDSHCN", OracleDbType.Varchar2, pInfo.DDSHCN, ParameterDirection.Input),
-                    new OracleParameter("P_MADDSHCN", OracleDbType.Varchar2, pInfo.MADDSHCN, ParameterDirection.Input),
+                    new OracleParameter("P_DDSHCN", OracleDbType.Varchar2, pInfo.DDSHCN != null ? pInfo.DDSHCN : "", ParameterDirection.Input),
+                    new OracleParameter("P_MADDSHCN", OracleDbType.Varchar2, pInfo.MADDSHCN != null ? pInfo.MADDSHCN : "", ParameterDirection.Input),
 
                     new OracleParameter("p_Customer_Code", OracleDbType.Varchar2, pInfo.Customer_Code, ParameterDirection.Input),
-                    new OracleParameter("p_Master_Type", OracleDbType.Varchar2, pInfo.Master_Type, ParameterDirection.Input),
+                    new OracleParameter("p_Master_Type", OracleDbType.Varchar2, pInfo.Master_Type != null ? pInfo.Master_Type : "", ParameterDirection.Input),
                     new OracleParameter("p_NATION_REPRESENT_ID", OracleDbType.Decimal, pInfo.Nation_Represent_Id, ParameterDirection.Input),
                     new OracleParameter("p_USE_DOC_OTHERS", OracleDbType.Decimal, pInfo.USE_DOC_OTHERS, ParameterDirection.Input),
 
