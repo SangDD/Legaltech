@@ -60,7 +60,7 @@
             <img src="~/Content/icons/Body-icon-home.png" /> I
             <a href="/home">Home</a>
             <span class="red">></span>
-            <a href="javascript:;">@Resource.PatentRegister</a>
+            <a href="javascript:;">@Resource.B03_TITLE</a>
         </div>
     </div>
     <div class="divCover">
@@ -76,6 +76,31 @@
 <input type="hidden" id="txtAppCode" value='@ViewBag.AppCode' />
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
-        <legend style="font-weight:600"> @Resource.PatentRegister.ToUpper()</legend>
+        <legend style="font-weight:600"> @Resource.B03_TITLE.ToUpper()</legend>
+
+        @Html.Partial("~/ViewsShared/_PartialQuocGia.cshtml")
+
+        @*thông tin khách hàng mà admin nhập hộ*@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCustomer.cshtml")
+
+        @* Case name *@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                @Resource.NguonGocDon
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio">
+                    <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdPCT" value="1" onchange="return ShowHiden_NguonGocDon()">
+                    <label> @Resource.DonNopTrenPCT</label>
+                </div>
+            </div>
+        </div>
+
+
     </fieldset>
 </div>

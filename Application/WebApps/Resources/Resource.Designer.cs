@@ -376,6 +376,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Đơn đăng ký sáng chế được yêu cầu thẩm định nội dung.
+        /// </summary>
+        public static string B03_SoDon {
+            get {
+                return ResourceManager.GetString("B03_SoDon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yêu cầu thẩm định nội dung đơn đăng ký sáng chế .
         /// </summary>
         public static string B03_TITLE {
