@@ -68,7 +68,8 @@ namespace DataAccess
                     new OracleParameter("p_app_header_id", OracleDbType.Decimal, p_app_header_id, ParameterDirection.Input),
                     new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output),
                     new OracleParameter("p_cursor_detail", OracleDbType.RefCursor, ParameterDirection.Output),
-                    new OracleParameter("p_cursor_class", OracleDbType.RefCursor, ParameterDirection.Output));
+                    new OracleParameter("p_cursor_class", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_other_doc", OracleDbType.RefCursor, ParameterDirection.Output));
             }
             catch (Exception ex)
             {

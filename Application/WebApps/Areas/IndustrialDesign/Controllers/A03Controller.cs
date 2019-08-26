@@ -700,7 +700,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
                 string _tempfile = "A03.rpt";
-                if (pInfo.View_Language_Report == Language.LangEN)
+                if (language == Language.LangEN)
                 {
                     _tempfile = "A03_EN.rpt";
                 }
@@ -737,7 +737,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
 
         [HttpPost]
         [Route("ket_xuat_file")]
-        public ActionResult ExportData_View(decimal pAppHeaderId, string p_appCode, string p_Language)
+        public ActionResult ExportData_View(decimal pAppHeaderId, string p_appCode, decimal p_View_Translate)
         {
             try
             {
@@ -759,16 +759,36 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 A03_Info_Export app_Detail = objBL.GetByID_Exp(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos,
                     ref _lst_authorsInfos, ref _lst_Other_MasterInfo, ref _lst_appClassDetailInfos, ref _LstDocumentOthersInfo, ref pUTienInfo, ref pLstImageDesign);
 
+                string _tempfile = "A03.rpt";
                 string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_VN_" + p_appCode + _datetimenow + ".pdf");
-                if (app_Detail.Languague_Code == Language.LangVI)
+                if (p_View_Translate == 1)
                 {
-                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_VN_" + p_appCode + _datetimenow + ".pdf");
-                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A03_VN_" + p_appCode + _datetimenow + ".pdf";
+                    // nếu là tiếng việt thì xem bản tiếng anh và ngược lại
+                    if (applicationHeaderInfo.Languague_Code == Language.LangVI)
+                    {
+                        _tempfile = "A03_EN.rpt"; // tiếng anh
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_EN_" + p_appCode + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A03_EN_" + p_appCode + _datetimenow + ".pdf";
+                    }
+                    else
+                    {
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_VN_" + p_appCode + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A03_VN_" + p_appCode + _datetimenow + ".pdf";
+                    }
                 }
                 else
                 {
-                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_EN_" + p_appCode + _datetimenow + ".pdf");
-                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A03_EN_" + p_appCode + _datetimenow + ".pdf";
+                    if (applicationHeaderInfo.Languague_Code == Language.LangVI)
+                    {
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_VN_" + p_appCode + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A03_VN_" + p_appCode + _datetimenow + ".pdf";
+                    }
+                    else
+                    {
+                        _tempfile = "A03_EN.rpt"; // tiếng anh
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_EN_" + p_appCode + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A03_EN_" + p_appCode + _datetimenow + ".pdf";
+                    }
                 }
 
                 Prepare_Data_Export_A03(ref app_Detail, applicationHeaderInfo, appDocumentInfos, _lst_appFeeFixInfos, _lst_authorsInfos, _lst_Other_MasterInfo,
@@ -779,16 +799,22 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 //_ds_all.WriteXml(@"C:\inetpub\A03.xml", XmlWriteMode.WriteSchema);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
-                string _tempfile = "A03.rpt";
-                if (p_Language == Language.LangEN)
-                {
-                    _tempfile = "A03_EN.rpt";
-                }
                 oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
 
                 if (_ds_all != null)
                 {
                     _ds_all.Tables[0].TableName = "Table1";
+
+                    // đè các bản dịch lên
+                    if (p_View_Translate == 1)
+                    {
+                        // nếu là bản xem của thằng dịch
+                        App_Translate_BL _App_Translate_BL = new App_Translate_BL();
+                        List<App_Translate_Info> _lst_translate = _App_Translate_BL.App_Translate_GetBy_AppId(pAppHeaderId);
+
+                        AppsCommon.Overwrite_DataSouce_Export(ref _ds_all, _lst_translate);
+                    }
+
                     oRpt.SetDataSource(_ds_all);
                 }
                 oRpt.Refresh();
@@ -796,8 +822,6 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 Response.Buffer = false;
                 Response.ClearContent();
                 Response.ClearHeaders();
-
-                //oRpt.ExportToDisk(ExportFormatType.PortableDocFormat, fileName_pdf);
 
                 System.IO.Stream oStream = oRpt.ExportToStream(ExportFormatType.PortableDocFormat);
                 byte[] byteArray = new byte[oStream.Length];

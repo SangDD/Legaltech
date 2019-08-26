@@ -14,16 +14,17 @@
         <li class="email"><a href="javascript:;" title="Phí"><i class="fas fa-dollar-sign" size="9x" target="_blank" onclick="return funcPreViewFee();" style="font-size: 27px;margin-left: 8px;color: green;"></i></a></li>
 
         <li class="email">
-            <a href="javascript:;" onclick="return funcPreViewApplication('VI_VN');" title="Xem trước VN">
+            <a href="javascript:;" onclick="return funcPreViewApplication();" title="Xem trước">
                 <img src="/Content/icons/icon_vn.png" style="margin-left: 3px;width: 25px;height: 30px;" />
             </a>
         </li>
 
         <li class="email">
-            <a href="javascript:;" onclick="return funcPreViewApplication('EN_US');" title="Xem trước VN">
-                <img src="/Content/icons/england.png" style="width: 25px;height: 30px;"/>
+            <a href="javascript:;" onclick="return funcPreViewTranslate();" title="Xem bản dịch">
+                <img src="/Content/icons/translate.png" style="width: 25px;height: 30px;" />
             </a>
         </li>
+
     </ul>
 </div>
 
@@ -55,7 +56,7 @@
         }
     }
 
-    function funGetData_Preview_3BPL01(url, p_lang) {
+    function funGetData_Preview_3BPL01(url, pView_Translate) {
         try {
             $.ajax({
                 url: url,
@@ -63,7 +64,7 @@
                 data: {
                     pAppHeaderId: '@_AppHeaderInfo.Id',
                     p_appCode: '@_AppHeaderInfo.Appcode',
-                    p_Language: p_lang
+                    p_View_Translate: pView_Translate
                 },
                 async: true, cache: false, traditional: true,
                 beforeSend: function () {
@@ -89,13 +90,21 @@
         }
     }
 
-    function funcPreViewApplication(p_lang) {
-        var preturn = funGetData_Preview_3BPL01("/trade-mark-3b/ket_xuat_file", p_lang);
+    function funcPreViewApplication() {
+        var preturn = funGetData_Preview_3BPL01("/trade-mark-3b/ket_xuat_file", 0);
         if (preturn == true || preturn == undefined) {
             OpenPreview("/trade-mark-3b/Pre-View");
         }
 
         //Accept();
+    }
+
+    function funcPreViewTranslate() {
+
+        var preturn = funGetData_Preview_3BPL01("/trade-mark-3b/ket_xuat_file", 1);
+        if (preturn == true || preturn == undefined) {
+            OpenPreview("/trade-mark-3b/Pre-View");
+        }
     }
 
     function funcPreViewFee() {
