@@ -376,6 +376,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Yêu cầu thẩm định nội dung đơn đăng ký sáng chế .
+        /// </summary>
+        public static string B03_TITLE {
+            get {
+                return ResourceManager.GetString("B03_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quay lại.
         /// </summary>
         public static string Back {

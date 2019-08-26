@@ -1,7 +1,81 @@
-﻿
+﻿@using Common.CommonData
+@using WebApps.CommonFunction;
+@using BussinessFacade.ModuleMemoryData
+@using WebApps.Resources;
+@using BussinessFacade.ModuleMemoryData
+@using ObjectInfos
+@using WebApps.Resources;
 @{
-    ViewBag.Title = "B03Display";
+    ViewBag.Title = "Request for patent registration";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+    string _App_No = "";
+    if (ViewBag.App_No != null)
+    {
+        _App_No = (string)ViewBag.App_No;
+    }
+
+    string language = AppsCommon.GetCurrentLang();
+    var clstAppClassShortSuggest = new List<SuggestInfo>();
+    foreach (var item in MemoryData.clstAppClassSuggest)
+    {
+        var pShortInfo = new SuggestInfo("", "");
+
+        if (language == Language.LangVI)
+        {
+            if (!string.IsNullOrEmpty(item.name) && !string.IsNullOrEmpty(item.value))
+            {
+                pShortInfo = new SuggestInfo(item.name.Replace('/', ' '), item.value);
+            }
+        }
+        else
+        {
+            if (!string.IsNullOrEmpty(item.name_en) && !string.IsNullOrEmpty(item.value))
+            {
+                pShortInfo = new SuggestInfo(item.name_en.Replace('/', ' '), item.value);
+            }
+        }
+        clstAppClassShortSuggest.Add(pShortInfo);
+    }
 }
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
 
-<h2>B03Display</h2>
+    .div-title-col-2 {
+        height: 35px;
+        border: 1px solid #aaa;
+    }
 
+        .div-title-col-2 > div {
+            margin: 9px 5px 0px 7px;
+        }
+</style>
+
+<div class="d-nav-container" style="background-color:#fff">
+    <div class="divCover">
+        <div class="d-nav">
+            <img src="~/Content/icons/Body-icon-home.png" /> I
+            <a href="/home">Home</a>
+            <span class="red">></span>
+            <a href="javascript:;">@Resource.PatentRegister</a>
+        </div>
+    </div>
+    <div class="divCover">
+        <div class="classLine">
+        </div>
+    </div>
+
+    <div class="divCover">
+        @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+    </div>
+
+</div>
+<input type="hidden" id="txtAppCode" value='@ViewBag.AppCode' />
+<div class="div-search ">
+    <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
+        <legend style="font-weight:600"> @Resource.PatentRegister.ToUpper()</legend>
+    </fieldset>
+</div>

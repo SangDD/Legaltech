@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebApps.AppStart;
+using WebApps.Session;
 
 namespace WebApps.Areas.Patent.Controllers
 {
@@ -16,7 +18,25 @@ namespace WebApps.Areas.Patent.Controllers
         [Route("register/{id}")]
         public ActionResult B03Display()
         {
-            return View();
+            try
+            {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+
+                SessionData.CurrentUser.chashFile.Clear();
+                string AppCode = "";
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    AppCode = RouteData.Values["id"].ToString().ToUpper();
+                }
+                ViewBag.AppCode = AppCode;
+                return PartialView("~/Areas/Patent/Views/B03/B03Display.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/Patent/Views/B03/B03Display.cshtml");
+            }
         }
     }
 }
