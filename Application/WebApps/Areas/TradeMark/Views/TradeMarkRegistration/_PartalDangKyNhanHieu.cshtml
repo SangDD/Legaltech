@@ -328,30 +328,30 @@
             </div>
 
             @*<div class="div-search-ad">
-                    <div class="div-search-content">
-                        <div class="div-radio">
-                            <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHTT" id="0_NhanHieuTapThe" />
-                            <label>@WebApps.Resources.Resource.lblNhanHieuTapThe</label>
-                        </div>
+                <div class="div-search-content">
+                    <div class="div-radio">
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHTT" id="0_NhanHieuTapThe" />
+                        <label>@WebApps.Resources.Resource.lblNhanHieuTapThe</label>
                     </div>
                 </div>
+            </div>
 
-                <div class="div-search-ad">
-                    <div class="div-search-content">
-                        <div class="div-radio">
-                            <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHLK" id="0_NhanHieuLienKet" />
-                            <label>@WebApps.Resources.Resource.lblNhanHieuLienKet</label>
-                        </div>
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-radio">
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHLK" id="0_NhanHieuLienKet" />
+                        <label>@WebApps.Resources.Resource.lblNhanHieuLienKet</label>
                     </div>
                 </div>
-                <div class="div-search-ad">
-                    <div class="div-search-content">
-                        <div class="div-radio">
-                            <input type="radio" name="0_NhanHieu" value="NHCN" class="classNhanHieu" id="0_NhanHieuChungNhan" />
-                            <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
-                        </div>
+            </div>
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-radio">
+                        <input type="radio" name="0_NhanHieu" value="NHCN" class="classNhanHieu" id="0_NhanHieuChungNhan" />
+                        <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
                     </div>
-                </div>*@
+                </div>
+            </div>*@
         </div>
 
         @* End tai lieu dinh kem  *@
@@ -541,7 +541,7 @@
                         </div>
                     </div>
                     <div class="div-search-content">
-                        <input type="text" id="6_txtTLCMQUT" disabled="disabled" maxlength="3" style="width: 100px;" placeholder="@WebApps.Resources.Resource.lblBan"/>
+                        <input type="text" id="6_txtTLCMQUT" disabled="disabled" maxlength="3" style="width: 100px;" placeholder="@WebApps.Resources.Resource.lblBan" />
                     </div>
                     @*<div class="div-search-title">
                         <div>bản</div>
@@ -555,7 +555,7 @@
                         </div>
                     </div>
                     <div class="div-search-content">
-                        <input type="text" id="6_txtBSDDT" disabled="disabled" style="width: 100px;" maxlength="3" placeholder="@WebApps.Resources.Resource.lblBan"/>
+                        <input type="text" id="6_txtBSDDT" disabled="disabled" style="width: 100px;" maxlength="3" placeholder="@WebApps.Resources.Resource.lblBan" />
                     </div>
                     @*<div class="div-search-title">
                         <div>@WebApps.Resources.Resource.lblBan</div>
@@ -572,7 +572,7 @@
                         </div>
                     </div>
                     <div class="div-search-content">
-                        <input type="text" id="6_txtBDTVGom" disabled="disabled" style="width: 100px;" maxlength="3" placeholder="@WebApps.Resources.Resource.lblBan"/>
+                        <input type="text" id="6_txtBDTVGom" disabled="disabled" style="width: 100px;" maxlength="3" placeholder="@WebApps.Resources.Resource.lblBan" />
                     </div>
                     @*<div class="div-search-title">
                         <div>@WebApps.Resources.Resource.lblBan</div>
@@ -605,7 +605,8 @@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTLTrongDon.cshtml")
 
         @*TÀI LIỆU KHÁC*@
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac.cshtml", "12")
+        @*@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac.cshtml", "12")*@
+        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others.cshtml")
 
         @* CAM KẾT CHỦ ĐƠN  *@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewNgayThangNam.cshtml")
@@ -1369,17 +1370,9 @@
     $("#btnGuiDon").click(function () {
         var v_NhanHieu = $("input[name='0_NhanHieu']:checked").val();
 
-
         nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
             var url = "/trade-mark/dang_ky_nhan_hieu";
-            funGetDataTM04NHGuiLuuTam(2, url);
-        });
-    });
-
-    $("#btnDuLieuCu").click(function () {
-        nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
-            var url = "/trade-mark/dang_ky_nhan_hieu";
-            funGetDataTM04NHGuiLuuTam(-2, url);
+            funGetData_A04(2, url);
         });
     });
 
@@ -1717,7 +1710,7 @@
         try {
             nvsConfirm(null, "@Html.Raw(@WebApps.Resources.Resource.ConfirmLuuTam)", function () {
                 var url = "/trade-mark/dang_ky_nhan_hieu";
-                funGetDataTM04NHGuiLuuTam(1, url);
+                funGetData_A04(1, url);
             });
         } catch (e) {
         }
@@ -1737,7 +1730,7 @@
         }
     }
 
-    function funGetDataTM04NHGuiLuuTam(ptype, url) {
+    function funGetData_A04(ptype, url) {
         try {
             //Thông tin chủ đơn
             var formData = new FormData();

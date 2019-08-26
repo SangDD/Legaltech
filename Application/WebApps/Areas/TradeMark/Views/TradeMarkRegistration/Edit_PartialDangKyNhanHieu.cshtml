@@ -863,7 +863,8 @@
         @* End tai lieu dinh kem  *@
 
         @*TÀI LIỆU KHÁC*@
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac.cshtml", "12")
+        @*@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac.cshtml", "12")*@
+        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others_Edit.cshtml")
 
         @* CAM KẾT CHỦ ĐƠN  *@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewNgayThangNam.cshtml")
@@ -887,14 +888,6 @@
                 {
                     <input type="button" value="@Resource.Send" id="btnSend" class="btn" style="margin-left:5px;height:30px" />
                 }
-            }
-
-            @* Nếu bản ghi tiếng việt thì hiển thị bản ghi tiêng sanh để chuyển đổi *@
-            @if (objAppHeaderInfo.VI_TRANSLATE > 0)
-            {
-                <div class="" style="order:3;margin-left:20px ;">
-                    <input type="button" value="@WebApps.Resources.Resource.btnDonTiengAnh" style="width:90px" id="btnTiengAnh" class="btn class_37" />
-                </div>
             }
 
         </div>
@@ -1725,10 +1718,6 @@
         }
     }
 
-    $("#btnTiengAnh").click(function () {
-        window.location.href = "/trade-mark/request-for-trade-mark-translate/" +@objAppHeaderInfo.ID_EN.ToString()+"/"+@objAppHeaderInfo.STATUS_EN.ToString()+"/tm04nh/" + @objAppHeaderInfo.Id.ToString() ;
-    });
-
     $("#btnGuiDon").click(function () {
         nvsConfirm(null, "@Html.Raw(@WebApps.Resources.Resource.ConfirmGui)", function () {
             funcSaveType(2, 0);
@@ -2293,28 +2282,7 @@
         } catch (e) {
         }
     }
-
-    //$("input[name='3_rdoDaiDienChuDon'").change(function ()
-    //{
-    //    var v_DDSHCN = $("input[name='3_rdoDaiDienChuDon']:checked").val();
-    //    GetThongTinDaiDien(v_DDSHCN);
-    //    //Neu chu don la DDPL thi lay thong tin chu don xuong
-    //    if (v_DDSHCN == "DDPL") {
-    //        $("#2_txtTenDayDu").val($("#1_txtTenDayDu").val());
-    //        $("#2_txtDiaChi").val($("#1_txtDiaChi").val());
-    //        $("#2_txtDienThoai").val($("#1_txtDienThoai").val());
-    //        $("#2_txtFax").val($("#1_txtFax").val());
-    //        $("#2_txtEmail").val($("#1_txtEmail").val());
-    //        $("#txtMADDSHCN").val("");
-    //        $("#divDaiDienSHCN").css("display", "none");
-    //    } else if (v_DDSHCN == "DDUQ") {
-    //        $("#divDaiDienSHCN").css("display", "none");
-    //    } else {
-    //    }
-    //});
-
-
-
+ 
     function funcDetailDontach() {
         try {
             var SoDonTach = document.getElementById("0_txtDonSo").value;
@@ -2340,15 +2308,6 @@
             $(this).prop('checked', false);
         }
     });
-
-    //$(document).on('dblclick', '.classDaiDienChuDon', function () {
-    //    if (this.checked) {
-    //        $(this).prop('checked', false);
-    //        $("#divDDPLChoise").empty();
-    //        $("#divDDSHChoise").empty();
-    //        $("#divDDUQChoise").empty();
-    //    }
-    //});
 
     $(document).ready(function () {
         funcDetailDontach();

@@ -30,6 +30,7 @@
     {
         // GET: TradeMark/TradeMarkRegistration
         public static List<AppDocumentOthersInfo> lstDocOther = new List<AppDocumentOthersInfo>();
+
         [HttpGet]
         [Route("dang-ky-nhan-hieu")]
         public ActionResult DangKyNhanHieu()
@@ -107,14 +108,6 @@
 
         public ActionResult AppDangKyNhanHieu()
         {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-            }
             return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartalDangKyNhanHieu.cshtml");
         }
 
@@ -409,21 +402,45 @@
                     //tai lieu khac 
                     if (pReturn >= 0 && pAppDocOtherInfo != null)
                     {
+                        List<AppDocumentOthersInfo> Lst_Doc_Others_Old = objDoc.DocumentOthers_GetByAppHeader(pInfo.Id, language);
+                        Dictionary<decimal, AppDocumentOthersInfo> _dic_doc_others = new Dictionary<decimal, AppDocumentOthersInfo>();
+                        foreach (AppDocumentOthersInfo item in Lst_Doc_Others_Old)
+                        {
+                            _dic_doc_others[item.Id] = item;
+                        }
+
+                        // xóa đi trước insert lại sau
+                        objDoc.AppDocumentOtherDeletedByApp(pInfo.Id, language);
+
                         if (pAppDocOtherInfo.Count > 0)
                         {
                             int check = 0;
                             foreach (var info in pAppDocOtherInfo)
                             {
-                                if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
+                                //if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
+                                //{
+                                //    HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                //    info.Filename = pfiles.FileName;
+                                //    info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
+                                //    check = 1;
+                                //}
+                                //info.App_Header_Id = pInfo.Id;
+                                //info.Language_Code = language;
+
+                                if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                                 {
-                                    HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
-                                    info.Filename = pfiles.FileName;
-                                    info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
+                                    string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
+                                    info.Filename = _url;
                                     check = 1;
                                 }
+                                else if (_dic_doc_others.ContainsKey(info.Id))
+                                {
+                                    info.Filename = _dic_doc_others[info.Id].Filename;
+                                    check = 1;
+                                }
+
                                 info.App_Header_Id = pInfo.Id;
                                 info.Language_Code = language;
-
                             }
                             if (check == 1)
                             {
@@ -837,13 +854,21 @@
                         }
                     }
                 }
-                if (lstDocOther != null)
+
+                // old lstDocOther
+                if (pAppDocOtherInfo != null)
                 {
-                    foreach (var item in lstDocOther)
+                    if (_View_Translate == true)
+                    {
+                        AppsCommon.Overwrite_Other_Document(ref pAppDocOtherInfo, _lst_translate);
+                    }
+
+                    foreach (var item in pAppDocOtherInfo)
                     {
                         appInfo.strDanhSachFileDinhKem += item.Documentname + " ; ";
                     }
                 }
+
                 #endregion
 
                 #region  Hiển thị phí trong don
@@ -1101,7 +1126,7 @@
 
                     // đè các bản dịch lên
                     if (_View_Translate == true)
-                    { 
+                    {
                         AppsCommon.Overwrite_DataSouce_Export(ref _ds_all, _lst_translate);
                     }
 
@@ -1219,197 +1244,6 @@
                 Logger.LogException(ex);
             }
             return TradeMarkSuaDon(App_Header_Id, AppCode, Status);
-        }
-
-        [HttpGet]
-        [Route("request-for-trade-mark-translate/{id}/{id1}/{id2}/{id3}")]
-        public ActionResult TradeMarkForTranslate()
-        {
-            decimal App_Header_Id = 0;
-            decimal ID_VI = 0;
-            string AppCode = "";
-            int Status = 0;
-            try
-            {
-                if (SessionData.CurrentUser == null)
-                    return Redirect("/");
-                SessionData.CurrentUser.chashFile.Clear();
-                SessionData.CurrentUser.chashFileOther.Clear();
-
-                if (RouteData.Values.ContainsKey("id"))
-                {
-                    App_Header_Id = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
-                }
-                if (RouteData.Values.ContainsKey("id1"))
-                {
-                    Status = CommonFuc.ConvertToInt(RouteData.Values["id1"]);
-                }
-                if (RouteData.Values.ContainsKey("id2"))
-                {
-                    AppCode = RouteData.Values["id2"].ToString().ToUpper();
-                }
-                if (RouteData.Values.ContainsKey("id3"))
-                {
-                    ID_VI = CommonFuc.ConvertToDecimal(RouteData.Values["id3"]);
-                }
-                if (AppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
-                {
-                    return TradeMarkSuaDon(App_Header_Id, AppCode, Status, 1, ID_VI);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-            }
-            return TradeMarkSuaDon(App_Header_Id, AppCode, Status, 1);
-        }
-
-        [HttpPost]
-        [Route("dich-dang-ky-nhan-hieu")]
-        public ActionResult AppDonDangKyTranslate(ApplicationHeaderInfo pInfo, AppDetail04NHInfo pDetail, List<AppDocumentInfo> pAppDocumentInfo,
-           List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo, List<AppFeeFixInfo> pFeeFixInfo, string listIDDocRemove)
-        {
-            try
-            {
-                if (pDetail.LoaiNhanHieu == "undefined")
-                    pDetail.LoaiNhanHieu = "";
-
-                Application_Header_BL objBL = new Application_Header_BL();
-                AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
-                AppDetail04NHBL objDetail = new AppDetail04NHBL();
-                AppClassDetailBL objClassDetail = new AppClassDetailBL();
-                AppDocumentBL objDoc = new AppDocumentBL();
-                if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
-                //string language = Language.LangVI;
-                var CreatedBy = SessionData.CurrentUser.Username;
-                var CreatedDate = SessionData.CurrentUser.CurrentDate;
-                int pReturn = ErrorCode.Success;
-                int pAppHeaderID = 0;
-                decimal pIDHeaderRoot = 0;
-                pIDHeaderRoot = pInfo.Id;
-
-                // lấy appheader gốc
-                ApplicationHeaderInfo _AppHeader_Goc = objBL.GetApplicationHeader_ById(pIDHeaderRoot, "");
-                string language_New = "";
-                if (_AppHeader_Goc.Languague_Code == Language.LangVI)
-                {
-                    language_New = Language.LangEN;
-                }
-                else
-                {
-                    language_New = Language.LangVI;
-                }
-
-                using (var scope = new TransactionScope())
-                {
-                    //string 
-                    //Có rồi thì update ko thì insert 
-                    if (pInfo.Id_Vi > 0)
-                    {
-                        pInfo.Modify_By = CreatedBy;
-                        pInfo.Modify_Date = CreatedDate;
-                        pAppHeaderID = objBL.AppHeaderUpdate(pInfo);
-                    }
-                    else
-                    {
-                        //TRA RA ID CUA BANG KHI INSERT
-                        pInfo.Created_By = _AppHeader_Goc.Created_By;
-                        pInfo.Status = _AppHeader_Goc.Status;
-                        pInfo.Created_Date = CreatedDate;
-                        pInfo.Languague_Code = language_New;
-
-                        string prefCaseCode = "";
-                        pAppHeaderID = objBL.AppHeaderInsert(pInfo, ref prefCaseCode);
-                    }
-
-                    if (pAppHeaderID >= 0)
-                    {
-                        if (pAppHeaderID > 0)
-                        {
-                            pInfo.Id = pAppHeaderID;
-                        }
-                        else
-                        {
-                            pInfo.Id = pInfo.Id_Vi;
-                        }
-                        pDetail.Appcode = pInfo.Appcode;
-                        pDetail.Language_Code = language_New;
-                        pDetail.App_Header_Id = pInfo.Id;
-                        pDetail.Logourl = pDetail.LogourlOrg;
-                        pReturn = objDetail.App_Detail_04NH_Insert(pDetail);
-
-                        //Thêm thông tin class
-                        if (pReturn >= 0 && pAppClassInfo != null)
-                        {
-                            //Xoa cac class cu di 
-                            pReturn = objClassDetail.AppClassDetailDeleted(pInfo.Id, language_New);
-
-                            pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pInfo.Id, language_New);
-                        }
-                    }
-                    else
-                    {
-                        return Json(new { status = pAppHeaderID });
-                    }
-
-                    //tài liệu đính kèm
-                    if (pReturn >= 0 && pAppDocumentInfo != null)
-                    {
-                        if (pAppDocumentInfo.Count > 0)
-                        {
-                            pReturn = objDoc.AppDocumentTranslate(language_New, pIDHeaderRoot, pInfo.Id);
-                        }
-                    }
-
-                    //tai lieu khac 
-                    if (pReturn >= 0 && pAppDocOtherInfo != null)
-                    {
-                        if (pAppDocOtherInfo.Count > 0)
-                        {
-                            var listDocument = new List<AppDocumentOthersInfo>();
-                            int check = 0;
-                            foreach (var info in pAppDocOtherInfo)
-                            {
-                                if (!string.IsNullOrEmpty(info.Documentname))
-                                {
-                                    check = 1;
-                                    info.App_Header_Id = pInfo.Id;
-                                    info.Language_Code = language_New;
-                                    info.IdRef = Convert.ToDecimal(info.keyFileUpload);
-                                    listDocument.Add(info);
-                                }
-                            }
-                            if (check == 1)
-                            {
-                                if (pInfo.Id_Vi > 0)
-                                {
-                                    pReturn = objDoc.AppDocumentOtherDeletedByApp(pInfo.Id_Vi, Language.LangVI);
-                                }
-                                pReturn = objDoc.AppDocumentOtherInsertBatch(listDocument);
-                            }
-                        }
-                    }
-
-                    //end
-                    if (pReturn < 0)
-                    {
-                        Transaction.Current.Rollback();
-                        return Json(new { status = pReturn });
-                    }
-                    else
-                    {
-                        //Lấy lại thông tin kế thừa đưa lên memory
-                        MemoryData.Enqueue_ChangeData(Table_Change.APPHEADER);
-                        scope.Complete();
-                    }
-                }
-                return Json(new { status = pReturn });
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return Json(new { status = ErrorCode.Error });
-            }
         }
 
         [HttpGet]
@@ -1663,32 +1497,6 @@
             {
                 var objBL = new AppDetail04NHBL();
                 string language = AppsCommon.GetCurrentLang();
-                if (pEditOrTranslate == 1)
-                {
-
-                    if (language == Language.LangEN)
-                    {
-                        language = Language.LangVI;
-                    }
-                    else
-                    {
-                        language = Language.LangEN;
-                    }
-
-                    //Nếu là dịch lấy cả bản ghi tiếng việt lên
-                    var ds04NHVI = objBL.AppTM04NHGetByID(pIDVi, Language.LangVI, pStatus);
-
-                    string keyDataVI = "objAppHeaderInfo" + SessionData.CurrentUser.Id.ToString() + DateTime.Now.ToString("DDMMHHmmss");
-                    if (ds04NHVI != null && ds04NHVI.Tables.Count == 5)
-                    {
-                        ViewBag.objAppHeaderInfo_VI = CBO<AppDetail04NHInfo>.FillObjectFromDataTable(ds04NHVI.Tables[0]);
-                        ViewBag.lstDocumentInfo_VI = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds04NHVI.Tables[1]);
-                        ViewBag.lstDocOther_VI = CBO<AppDocumentOthersInfo>.FillCollectionFromDataTable(ds04NHVI.Tables[2]);
-                        ViewBag.lstClassDetailInfo_VI = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds04NHVI.Tables[3]);
-                        ViewBag.lstFeeInfo_VI = CBO<AppFeeFixInfo>.FillCollectionFromDataTable(ds04NHVI.Tables[4]);
-                    }
-                }
-
                 var ds04NH = objBL.AppTM04NHGetByID(pAppHeaderId, language, pStatus);
 
                 //Luu key duy nhat cua he thong
@@ -1707,30 +1515,11 @@
                     ViewBag.lstFeeInfo = CBO<AppFeeFixInfo>.FillCollectionFromDataTable(ds04NH.Tables[4]);
                 }
 
-                if (pEditOrTranslate == 1)
-                {
-                    return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/Translate_PartialDangKyNhanHieu.cshtml");
-                }
-                else
-                {
-                    return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialDangKyNhanHieu.cshtml");
-                }
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialDangKyNhanHieu.cshtml");
             }
             else if (pAppCode == TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD)
             {
                 string language = AppsCommon.GetCurrentLang();
-                if (pEditOrTranslate == 1)
-                {
-                    if (language == Language.LangEN)
-                    {
-                        language = Language.LangVI;
-                    }
-                    else
-                    {
-                        language = Language.LangEN;
-                    }
-
-                }
                 App_Detail_PLB01_SDD_BL objBL = new App_Detail_PLB01_SDD_BL();
 
                 List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
@@ -1741,33 +1530,13 @@
                 ViewBag.Lst_AppDoc = appDocumentInfos;
                 ViewBag.Lst_AppFee = appFeeFixInfos;
                 ViewBag.objAppHeaderInfo = applicationHeaderInfo;
-                if (pEditOrTranslate == 1)
-                {
-                    return PartialView("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_TM_3B_PLB_01_SDD_Translate.cshtml");
-                }
-                else
-                {
-                    return PartialView("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_TM_3B_PLB_01_SDD_Edit.cshtml");
-                }
-
+                return PartialView("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_TM_3B_PLB_01_SDD_Edit.cshtml");
             }
             else if (pAppCode == TradeMarkAppCode.AppCode_TM_3C_PLB_02_CGD)
             {
                 App_Detail_Plb02_CGD_BL objBL = new App_Detail_Plb02_CGD_BL();
                 string language = AppsCommon.GetCurrentLang();
 
-                if (pEditOrTranslate == 1)
-                {
-                    if (language == Language.LangEN)
-                    {
-                        language = Language.LangVI;
-                    }
-                    else
-                    {
-                        language = Language.LangEN;
-                    }
-
-                }
                 List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
                 List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
                 ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
@@ -1776,27 +1545,11 @@
                 ViewBag.Lst_AppDoc = appDocumentInfos;
                 ViewBag.Lst_AppFee = appFeeFixInfos;
                 ViewBag.objAppHeaderInfo = applicationHeaderInfo;
-                if (pEditOrTranslate == 1)
-                    return PartialView("~/Areas/TradeMark/Views/PLB02_CGD_3C/_Partial_TM_3C_PLB_02_SDD_Translate.cshtml");
-                else
-                    return PartialView("~/Areas/TradeMark/Views/PLB02_CGD_3C/_Partial_TM_3C_PLB_02_SDD_Edit.cshtml");
-
+                return PartialView("~/Areas/TradeMark/Views/PLB02_CGD_3C/_Partial_TM_3C_PLB_02_SDD_Edit.cshtml");
             }
             else if (pAppCode == TradeMarkAppCode.AppCode_TM_3D_PLC_05_KN)
             {
                 string language = AppsCommon.GetCurrentLang();
-                if (pEditOrTranslate == 1)
-                {
-                    if (language == Language.LangEN)
-                    {
-                        language = Language.LangVI;
-                    }
-                    else
-                    {
-                        language = Language.LangEN;
-                    }
-
-                }
                 App_Detail_PLC05_KN_BL objBL = new App_Detail_PLC05_KN_BL();
 
                 List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
@@ -1807,26 +1560,12 @@
                 ViewBag.Lst_AppDoc = appDocumentInfos;
                 ViewBag.Lst_AppFee = appFeeFixInfos;
                 ViewBag.objAppHeaderInfo = applicationHeaderInfo;
-                if (pEditOrTranslate == 1)
-                    return PartialView("~/Areas/TradeMark/Views/PLC05_KN_3D/_Partial_TM_3D_PLC_05_KN_Translate.cshtml");
-                else
-                    return PartialView("~/Areas/TradeMark/Views/PLC05_KN_3D/_Partial_TM_3D_PLC_05_KN_Edit.cshtml");
+                return PartialView("~/Areas/TradeMark/Views/PLC05_KN_3D/_Partial_TM_3D_PLC_05_KN_Edit.cshtml");
             }
 
             else if (pAppCode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
             {
                 string language = AppsCommon.GetCurrentLang();
-                if (pEditOrTranslate == 1)
-                {
-                    if (language == Language.LangEN)
-                    {
-                        language = Language.LangVI;
-                    }
-                    else
-                    {
-                        language = Language.LangEN;
-                    }
-                }
                 var objBL = new AppDetail06DKQT_BL();
 
                 var ds06Dkqt = objBL.AppTM06DKQTGetByID(pAppHeaderId, language, pStatus);
@@ -1845,31 +1584,11 @@
                 // truyền vào trạng thái nào? để tạm thời = 7 là đã gửi lên cục
                 _list04nh = _AppDetail04NHBL.AppTM04NHSearchByStatus(7, language);
                 ViewBag.ListAppDetail04NHInfo = _list04nh;
-                if (pEditOrTranslate == 1)
-                {
-                    return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTranslateEditDangKyNhanHieu.cshtml");
-                }
-                else
-                {
-                    return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialEditDangKyNhanHieu.cshtml");
-                }
-
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialEditDangKyNhanHieu.cshtml");
             }
             else if (pAppCode == TradeMarkAppCode.AppCode_TM_4C2_PLD_01_HDCN)
             {
                 string language = AppsCommon.GetCurrentLang();
-                if (pEditOrTranslate == 1)
-                {
-                    if (language == Language.LangEN)
-                    {
-                        language = Language.LangVI;
-                    }
-                    else
-                    {
-                        language = Language.LangEN;
-                    }
-
-                }
                 App_Detail_PLD01_HDCN_BL objBL = new App_Detail_PLD01_HDCN_BL();
 
                 List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
@@ -1880,10 +1599,7 @@
                 ViewBag.Lst_AppDoc = appDocumentInfos;
                 ViewBag.Lst_AppFee = appFeeFixInfos;
                 ViewBag.objAppHeaderInfo = applicationHeaderInfo;
-                if (pEditOrTranslate == 1)
-                    return PartialView("~/Areas/TradeMark/Views/PLD01_HDCN_4C2/_Partial_TM_4C2_PLD_01_HDCN_Translate.cshtml");
-                else
-                    return PartialView("~/Areas/TradeMark/Views/PLD01_HDCN_4C2/_Partial_TM_4C2_PLD_01_HDCN_Edit.cshtml");
+                return PartialView("~/Areas/TradeMark/Views/PLD01_HDCN_4C2/_Partial_TM_4C2_PLD_01_HDCN_Edit.cshtml");
 
             }
 
@@ -2026,7 +1742,6 @@
             }
             return Json(new { success = 0 });
         }
-
 
         [HttpPost]
         [Route("delete-file-other")]

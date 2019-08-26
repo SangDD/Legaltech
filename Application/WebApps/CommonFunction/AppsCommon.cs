@@ -830,7 +830,10 @@ namespace WebApps.CommonFunction
                 Dictionary<string, App_Translate_Info> _dic_tran = new Dictionary<string, App_Translate_Info>();
                 foreach (App_Translate_Info item in Lst_Translate_App)
                 {
-                    _dic_tran[item.Object_Name.ToUpper()] = item;
+                    if (item.Type == "CLASS")
+                    {
+                        _dic_tran[item.Object_Name.ToUpper()] = item;
+                    }
                 }
 
                 foreach (AppClassDetailInfo item in p_list_class)
@@ -838,6 +841,33 @@ namespace WebApps.CommonFunction
                     if (_dic_tran.ContainsKey(item.Id.ToString()))
                     {
                         item.Textinput = _dic_tran[item.Id.ToString()].Value_Translate;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+        }
+
+        public static void Overwrite_Other_Document(ref List<AppDocumentOthersInfo> p_list_doc_other, List<App_Translate_Info> Lst_Translate_App)
+        {
+            try
+            {
+                Dictionary<string, App_Translate_Info> _dic_tran = new Dictionary<string, App_Translate_Info>();
+                foreach (App_Translate_Info item in Lst_Translate_App)
+                {
+                    if (item.Type == "OTHER_DOC")
+                    {
+                        _dic_tran[item.Object_Name.ToUpper()] = item;
+                    }
+                }
+
+                foreach (AppDocumentOthersInfo item in p_list_doc_other)
+                {
+                    if (_dic_tran.ContainsKey(item.Id.ToString()))
+                    {
+                        item.Documentname = _dic_tran[item.Id.ToString()].Value_Translate;
                     }
                 }
             }
