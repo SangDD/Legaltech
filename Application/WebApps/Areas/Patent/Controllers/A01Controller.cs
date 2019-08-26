@@ -659,13 +659,13 @@ namespace WebApps.Areas.Patent.Controllers
                 string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_VN_" + p_appCode + _datetimenow + ".pdf");
 
                 // tiếng việt, bị lộn nên ko muốn đổi
-                string _tempfile = "A01_EN.rpt";
+                string _tempfile = "A01.rpt";
                 if (p_View_Translate == 1)
                 {
                     // nếu là tiếng việt thì xem bản tiếng anh và ngược lại
                     if (applicationHeaderInfo.Languague_Code == Language.LangVI)
                     {
-                        _tempfile = "A01.rpt"; // tiếng anh
+                        _tempfile = "A01_EN.rpt"; // tiếng anh
                         fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_EN_" + p_appCode + _datetimenow + ".pdf");
                         SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_EN_" + p_appCode + _datetimenow + ".pdf";
                     }
@@ -684,7 +684,7 @@ namespace WebApps.Areas.Patent.Controllers
                     }
                     else
                     {
-                        _tempfile = "A01.rpt"; // tiếng anh
+                        _tempfile = "A01_EN.rpt"; // tiếng anh
                         fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_EN_" + p_appCode + _datetimenow + ".pdf");
                         SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_EN_" + p_appCode + _datetimenow + ".pdf";
                     }
@@ -777,10 +777,10 @@ namespace WebApps.Areas.Patent.Controllers
                 //_ds_all.WriteXml(@"C:\inetpub\A01.xml", XmlWriteMode.WriteSchema);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
-                string _tempfile = "A01_EN.rpt";
+                string _tempfile = "A01.rpt";
                 if (language == Language.LangEN)
                 {
-                    _tempfile = "A01.rpt";
+                    _tempfile = "A01_EN.rpt";
                 }
                 oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
 

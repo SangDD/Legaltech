@@ -23,7 +23,7 @@ namespace WebApps.Report {
         
         public override string ResourceName {
             get {
-                return "A01.rpt";
+                return "A01_EN.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace WebApps.Report {
         
         public override string FullResourceName {
             get {
-                return "WebApps.Report.A01.rpt";
+                return "WebApps.Report.A01_EN.rpt";
             }
             set {
                 // Do nothing
@@ -90,9 +90,9 @@ namespace WebApps.Report {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedA01 : Component, ICachedReport {
+    public class CachedA01_EN : Component, ICachedReport {
         
-        public CachedA01() {
+        public CachedA01_EN() {
         }
         
         [Browsable(false)]
