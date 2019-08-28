@@ -4,8 +4,9 @@
 	using System.Net;
 	using System.Web.Helpers;
 	using System.Web.Mvc;
+    using WebApps.Session;
 
-	public class FilterConfig
+    public class FilterConfig
 	{
 		public static void RegisterGlobalFilters(GlobalFilterCollection filters)
 		{
@@ -33,6 +34,14 @@
 			try
 			{
 				var request = filterContext.HttpContext.Request;
+
+                if (SessionData.CurrentUser != null && SessionData.CurrentUser.Type == (decimal)Common.CommonData.CommonEnums.UserType.Customer )
+                {
+                    if (SessionData.CurrentUser.loginfirst == 0 && request.AppRelativeCurrentExecutionFilePath.Contains("CUSTOMER/QUAN-LY-CUSTOMER/GET-VIEW-TO-EDIT-CUSTOMER") == false)
+                    {
+                        filterContext.Result = new RedirectResult("~/customer/quan-ly-customer/get-view-to-edit-customer/" + SessionData.CurrentUser.Id.ToString());
+                    }
+                }
 
 				// Only validate POSTs  
 				if (request.HttpMethod != WebRequestMethods.Http.Post) return;
