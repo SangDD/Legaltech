@@ -186,6 +186,8 @@
     <Compile Include="Areas\AppClass\Controllers\AppClassController.cs" />
     <Compile Include="Areas\Articles\ArticlesAreaRegistration.cs" />
     <Compile Include="Areas\Articles\Controllers\ArticlesNewsController.cs" />
+    <Compile Include="Areas\ChiDanDiaLy\ChiDanDiaLyAreaRegistration.cs" />
+    <Compile Include="Areas\ChiDanDiaLy\Controllers\A05Controller.cs" />
     <Compile Include="Areas\Contact\ContactAreaRegistration.cs" />
     <Compile Include="Areas\Contact\Controllers\ContactController.cs" />
     <Compile Include="Areas\DaiDienSHCN\Controllers\DDSHCNController.cs" />
@@ -1862,6 +1864,12 @@
     <Content Include="Areas\Patent\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Patent\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Patent\Views\B03\B03Display.cshtml" />
+    <Content Include="Areas\ChiDanDiaLy\Views\web.config" />
+    <Content Include="Areas\ChiDanDiaLy\Views\A05\_PartialPreview.cshtml" />
+    <Content Include="Areas\ChiDanDiaLy\Views\A05\_PartialPreview_IU.cshtml" />
+    <Content Include="Areas\ChiDanDiaLy\Views\A05\_Partial_A05.cshtml" />
+    <Content Include="Areas\ChiDanDiaLy\Views\A05\_Partial_A05_Edit.cshtml" />
+    <Content Include="Areas\ChiDanDiaLy\Views\A05\_Partial_A05_View.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <None Include="Properties\PublishProfiles\HungTDLap.pubxml" />
@@ -2204,6 +2212,8 @@
     <Folder Include="Areas\Account\Views\Shared\" />
     <Folder Include="Areas\Articles\Models\" />
     <Folder Include="Areas\Articles\Views\Shared\" />
+    <Folder Include="Areas\ChiDanDiaLy\Models\" />
+    <Folder Include="Areas\ChiDanDiaLy\Views\Shared\" />
     <Folder Include="Areas\Contact\Models\" />
     <Folder Include="Areas\DaiDienSHCN\Models\" />
     <Folder Include="Areas\DaiDienSHCN\Views\Shared\" />
