@@ -80,18 +80,18 @@ namespace WebApps.Areas.Patent.Controllers
                     goto Commit_Transaction;
 
                 // detail
-                if (pAppHeaderID >= 0)
-                {
-                    pDetail.Appcode = pInfo.Appcode;
-                    pDetail.Language_Code = language;
-                    pDetail.App_Header_Id = pAppHeaderID;
-                    pDetail.Case_Code = p_case_code;
+                //if (pAppHeaderID >= 0)
+                //{
+                //    pDetail.Appcode = pInfo.Appcode;
+                //    pDetail.Language_Code = language;
+                //    pDetail.App_Header_Id = pAppHeaderID;
+                //    pDetail.Case_Code = p_case_code;
 
                    
-                    pReturn = objDetail.Insert(pDetail);
-                    if (pReturn <= 0)
-                        goto Commit_Transaction;
-                }
+                //    pReturn = objDetail.Insert(pDetail);
+                //    if (pReturn <= 0)
+                //        goto Commit_Transaction;
+                //}
                 // hình công bố
                 if (pReturn >= 0 && pLstImagePublic != null)
                 {
