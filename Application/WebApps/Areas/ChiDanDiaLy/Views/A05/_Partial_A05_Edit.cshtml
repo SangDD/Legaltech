@@ -6,7 +6,7 @@
 @using ObjectInfos
 @using ObjectInfos.ModuleTrademark
 @{
-    ViewBag.Title =  Resource.A02_TITLE;
+    ViewBag.Title = "Registration of the Geographical Indication";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
     ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
@@ -15,10 +15,10 @@
         _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
     }
 
-    A02_Info _App_Detail = new A02_Info();
+    A05_Info _App_Detail = new A05_Info();
     if (ViewBag.App_Detail != null)
     {
-        _App_Detail = (A02_Info)ViewBag.App_Detail;
+        _App_Detail = (A05_Info)ViewBag.App_Detail;
     }
 
     List<AppDocumentInfo> Lst_AppDoc = new List<AppDocumentInfo>();
@@ -58,7 +58,7 @@
         dic_appDoc[item.Document_Id] = item;
     }
 
-  
+
     B_Todos_Info _todo = new B_Todos_Info();
     if (ViewBag.B_Todos_Info != null)
     {
@@ -100,7 +100,7 @@
             <img src="~/Content/icons/Body-icon-home.png" /> I
             <a href="/home">Home</a>
             <span class="red">></span>
-            <a href="javascript:;">@Resource.A02_TITLE</a>
+            <a href="javascript:;">Registration of the Geographical Indication</a>
         </div>
     </div>
     <div class="divCover">
@@ -113,11 +113,11 @@
     </div>
 
 </div>
-<input type="hidden" id="txtAppCode" value='A02' />
+<input type="hidden" id="txtAppCode" value='A05' />
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
-        <legend style="font-weight:600"> @Resource.A02_TITLE.ToUpper()</legend>
+        <legend style="font-weight:600"> Registration of the Geographical Indication.ToUpper()</legend>
 
         @* Case name *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
@@ -125,13 +125,13 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                @Html.Raw(Resource.A02_MOTAMACH)
+                @Html.Raw(Resource.A05_MOTAMACH)
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>@Html.Raw(Resource.A02_TENGOI) <i class="redspan">(*)</i></div>
+                <div>@Html.Raw(Resource.A05_TENGOI) <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div style="width:500px">
@@ -139,7 +139,7 @@
                 </div>
             </div>
             <div class="div-search-title">
-                <div>@Html.Raw(Resource.A02_NGAYTAOTHIETKET) <i class="redspan">(*)</i></div>
+                <div>@Html.Raw(Resource.A05_NGAYTAOTHIETKET) <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -150,7 +150,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div style="width:200px">@Html.Raw(Resource.A02_KHAITHACTHUONGMAI)<i class="redspan">(*)</i></div>
+                <div style="width:200px">@Html.Raw(Resource.A05_KHAITHACTHUONGMAI)<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div style="width:300px">
@@ -158,7 +158,7 @@
                 </div>
             </div>
             <div class="div-search-title">
-                <div>@Html.Raw(Resource.A02_KHAITHACTHUONGMAI_TAINUOC)<i class="redspan">(*)</i></div>
+                <div>@Html.Raw(Resource.A05_KHAITHACTHUONGMAI_TAINUOC)<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -166,7 +166,7 @@
                 </div>
             </div>
             <div class="div-search-title">
-                <div>@Html.Raw(Resource.A02_KHAITHACTHUONGMAI_NGAY)</div>
+                <div>@Html.Raw(Resource.A05_KHAITHACTHUONGMAI_NGAY)</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -178,19 +178,19 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                @Html.Raw(Resource.A02_PHANLOAI)
+                @Html.Raw(Resource.A05_PHANLOAI)
                 
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>@Html.Raw(Resource.A02_CHUCNANG)</div>
+                <div>@Html.Raw(Resource.A05_CHUCNANG)</div>
             </div>
             <div class="div-search-content">
                 <div class="div-radio">
                     <input type="radio"   value="NHO" name="ChucNang" id="ckbChucNangNHO" onchange="onChangeChucNang('NHO')">
-                    <label> @Html.Raw(Resource.A02_CHUCNANG_NHO)</label>
+                    <label> @Html.Raw(Resource.A05_CHUCNANG_NHO)</label>
                 </div>
             </div>
             <div class="div-search-content">
@@ -202,7 +202,7 @@
             <div class="div-search-content">
                 <div class="div-radio" style="width:120px">
                     <input type="radio" name="ChucNang" id="ckbChucNangOTHER" value="OTHER" onchange="onChangeChucNang('OTHER')">
-                    <label>@Html.Raw(Resource.A02_CHUCNANG_KHAC)</label>
+                    <label>@Html.Raw(Resource.A05_CHUCNANG_KHAC)</label>
                 </div>
             </div>
             <div class="div-search-content">
@@ -215,12 +215,12 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>@Html.Raw(Resource.A02_CAUTRUC)</div>
+                <div>@Html.Raw(Resource.A05_CAUTRUC)</div>
             </div>
             <div class="div-search-content">
                 <div class="div-radio">
                     <input type="radio"   name="CauTruc" value="LUONGCUC" id="ckbCauTrucLUONGCUC" onchange="onChangeCauTruc('LUONGCUC')">
-                    <label>@Html.Raw(Resource.A02_CAUTRUC_LUONGCUC)</label>
+                    <label>@Html.Raw(Resource.A05_CAUTRUC_LUONGCUC)</label>
                 </div>
             </div>
 
@@ -239,13 +239,13 @@
             <div class="div-search-content">
                 <div class="div-radio" style="width:120px">
                     <input type="radio" name="CauTruc" id="ckbCauTrucQUANG-DIENTU" value="QUANG-DIENTU" onchange="onChangeCauTruc('QUANG-DIENTU')">
-                    <label>@Html.Raw(Resource.A02_CAUTRUC_QUANGDIENTU) </label>
+                    <label>@Html.Raw(Resource.A05_CAUTRUC_QUANGDIENTU) </label>
                 </div>
             </div>
             <div class="div-search-content">
                 <div class="div-radio" style="width:120px">
                     <input type="radio" name="CauTruc" id="ckbCauTrucOTHER" value="QUANG-DIENTU" onchange="onChangeCauTruc('OTHER')">
-                    <label>@Html.Raw(Resource.A02_CAUTRUC_KHAC) </label>
+                    <label>@Html.Raw(Resource.A05_CAUTRUC_KHAC) </label>
                 </div>
             </div>
             <div class="div-search-content">
@@ -256,7 +256,7 @@
         </div>
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>@Html.Raw(Resource.A02_CONGNGHE)</div>
+                <div>@Html.Raw(Resource.A05_CONGNGHE)</div>
             </div>
             <div class="div-search-content">
                 <div class="div-radio">
@@ -303,7 +303,7 @@
             <div class="div-search-content">
                 <div class="div-radio" style="width:120px">
                     <input type="radio" name="CongNghe" id="ckbCongNgheOTHER" value="OTHER" onchange="onChangeCongNghe('OTHER')">
-                    <label>@Html.Raw(Resource.A02_CONGNGHE_KHAC)</label>
+                    <label>@Html.Raw(Resource.A05_CONGNGHE_KHAC)</label>
                 </div>
             </div>
             <div class="div-search-content">
@@ -315,12 +315,12 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>@Html.Raw(Resource.A02_Description) </div>
+                <div>@Html.Raw(Resource.A05_Description) </div>
             </div>
             <div class="div-search-content">
                 <div>
                     <input type="text" id="txt_MoTaTomTat" maxlength="200"  value="@_App_Detail.MoTaTomTat"
-                       placeholder="@Html.Raw(Resource.A02_MOTAVANTAT)">
+                       placeholder="@Html.Raw(Resource.A05_MOTAVANTAT)">
                 </div>
             </div>
 
@@ -350,7 +350,7 @@
                     {
                         <input type="radio" name="1_rdoChuDon" value="TGDT" id="1_ckbTacGiaDongThoi">
                     }
-                    <label>@Html.Raw(Resource.A02_CHUDONGDONGTHOI)</label>
+                    <label>@Html.Raw(Resource.A05_CHUDONGDONGTHOI)</label>
                 </div>
             </div>
 
@@ -466,7 +466,7 @@
         @* id doc | id của check box | level | lable | lable 2 | is upload *@
         @* 1 Tờ khai *@
         @{
-            string _doc_id1 = "A02_01";
+            string _doc_id1 = "A05_01";
             string _id1 = _doc_id1 + "|Doc_01|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.lblSoBan;
             string _value1 = "";
             if (dic_appDoc.ContainsKey(_doc_id1))
@@ -480,7 +480,7 @@
 
         @* 2. Bộ ảnh chụp hoặc bản vẽ TKBT gồm.......trang x .......bộ *@
         @{
-            string _doc_id2 = "A02_02";
+            string _doc_id2 = "A05_02";
             string _id2 = _doc_id2 + "|Doc_02|0|" + "Bộ ảnh chụp hoặc bản vẽ TKBT gồm" + "|" + Resource.TM2B_SoTrang + "|1||" + "bộ";
             string _value2 = "";
             if (dic_appDoc.ContainsKey(_doc_id2))
@@ -495,8 +495,8 @@
         @*12 bản mô tả*@
         @{
 
-            string _doc_id12 = "A02_12";
-            string _id12 = _doc_id12 + "|Doc_12|0|" + Resource.A02_BANMOTA + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.lblSoBan;
+            string _doc_id12 = "A05_12";
+            string _id12 = _doc_id12 + "|Doc_12|0|" + Resource.A05_BANMOTA + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.lblSoBan;
             string _value12 = "";
             if (dic_appDoc.ContainsKey(_doc_id12))
             {
@@ -510,7 +510,7 @@
 
         @{
 
-            string _doc_id3 = "A02_03";
+            string _doc_id3 = "A05_03";
             string _id3 = _doc_id3 + "|Doc_03|0|" + Resource.BanSaoChungTu + "||1";
             string _value3 = "";
             if (dic_appDoc.ContainsKey(_doc_id3))
@@ -529,7 +529,7 @@
         @* 4 Giấy uỷ quyền bằng tiếng *@
         @{
 
-            string _doc_id4 = "A02_04";
+            string _doc_id4 = "A05_04";
             string _id4 = _doc_id4 + "|Doc_04|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|" + Resource.TM3B_Tieng + "|0";
             string _value4 = dic_appDoc[_doc_id4].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id4].CHAR01 + "|" + dic_appDoc[_doc_id4].Url_Hardcopy;
             string _model4 = _id4 + ";" + _value4;
@@ -538,7 +538,7 @@
 
         @* 5 Bản gốc *@
         @{
-            string _doc_id5 = "A02_05";
+            string _doc_id5 = "A05_05";
             string _id5 = _doc_id5 + "|Doc_05|1|" + Resource.TM2B_BanGoc + "||1";
             string _value5 = dic_appDoc[_doc_id5].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id5].CHAR01 + "|" + dic_appDoc[_doc_id5].Url_Hardcopy;
             string _model5 = _id5 + ";" + _value5;
@@ -547,7 +547,7 @@
 
         @* 6 Bản sao *@
         @{
-            string _doc_id6 = "A02_06";
+            string _doc_id6 = "A05_06";
             string _id6 = _doc_id6 + "|Doc_06|1|" + Resource.TM2B_BanSao + "||0";
             string _value6 = dic_appDoc[_doc_id6].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id6].CHAR01 + "|" + dic_appDoc[_doc_id6].Url_Hardcopy;
             string _model6 = _id6 + ";" + _value6;
@@ -558,7 +558,7 @@
 
         @* 7 Bản sao  > Bản gốc sẽ nộp sau *@
         @{
-            string _doc_id7 = "A02_07";
+            string _doc_id7 = "A05_07";
             string _id7 = _doc_id7 + "|Doc_07|2|" + Resource.TM2B_BanGocSeNopSau + "||1";
             string _value7 = dic_appDoc[_doc_id7].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id7].CHAR01 + "|" + dic_appDoc[_doc_id7].Url_Hardcopy;
             string _model7 = _id7 + ";" + _value7;
@@ -568,7 +568,7 @@
 
         @* 8Bản sao  > Bản gốc đã nộp theo đơn *@
         @{
-            string _doc_id8 = "A02_08";
+            string _doc_id8 = "A05_08";
             string _id8 = _doc_id8 + "|Doc_08|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|1";
             string _value8 = dic_appDoc[_doc_id8].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id8].CHAR01 + "|" + dic_appDoc[_doc_id8].Url_Hardcopy;
             string _model8 = _id8 + ";" + _value8;
@@ -577,7 +577,7 @@
 
         @* 9  Bản dịch tiếng Việt, gồm *@
         @{
-            string _doc_id9 = "A02_09";
+            string _doc_id9 = "A05_09";
             string _id9 = _doc_id9 + "|Doc_09|1|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
             string _value9 = dic_appDoc[_doc_id9].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id9].CHAR01 + "|" + dic_appDoc[_doc_id9].Url_Hardcopy;
             string _model9 = _id9 + ";" + _value9;
@@ -586,7 +586,7 @@
         }
         @* 10  tài liệu xác nhận quyền đăng ký (nếu thụ hưởng từ ng khác) *@
         @{
-            string _doc_id10 = "A02_10";
+            string _doc_id10 = "A05_10";
             string _id10 = _doc_id10 + "|Doc_10|0|" + Resource.TaiLieuXacNhanQuyenDangKy + "||1";
             string _value10 = dic_appDoc[_doc_id10].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id10].CHAR01 + "|" + dic_appDoc[_doc_id10].Url_Hardcopy;
             string _model10 = _id10 + ";" + _value10;
@@ -595,7 +595,7 @@
         }
 
         @{
-            string _doc_id11 = "A02_11";
+            string _doc_id11 = "A05_11";
             string _id11 = _doc_id11 + "|Doc_11|0|" + Resource.CoTaiLieuKhac + "||0";
             string _value11 = dic_appDoc[_doc_id11].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id11].CHAR01 + "|" + dic_appDoc[_doc_id11].Url_Hardcopy;
             string _model11 = _id11 + ";" + _value11;
@@ -632,7 +632,7 @@
     </fieldset>
 </div>
 
-@Html.Partial("~/Areas/ThietKeBanDan/Views/A02/_PartialPreview_IU.cshtml")
+@Html.Partial("~/Areas/ChiDanDiaLy/Views/A05/_PartialPreview_IU.cshtml")
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
     </div>
@@ -782,7 +782,7 @@
     $("#btnGuiDon").click(function () {
         try {
             nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
-                var url = "/semiconductor-integrated/edit";
+                var url = "/geographical-indication/edit";
                 funGetData(2, 0);
             });
 
@@ -845,7 +845,7 @@
             var formData = new FormData();
             formData.append("pInfo.Id", @_AppHeaderInfo.Id);
             formData.append("pInfo.Case_Code", '@_AppHeaderInfo.Case_Code');
-            formData.append("pInfo.Appcode", 'A02');
+            formData.append("pInfo.Appcode", 'A05');
             formData.append("pInfo.Status", p_Status);
 
             var reponse = funcThongTinCaseName(formData, "0");
@@ -921,7 +921,7 @@
             }
 
             $.ajax({
-                url: '/semiconductor-integrated/edit' ,
+                url: '/geographical-indication/edit' ,
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -989,7 +989,7 @@
             var _id = parseInt($("#txt_id_tacgia").val()) + 1;
             $.ajax({
                 type: 'POST',
-                url: '/semiconductor-integrated/tac-gia/them-tac-gia/',
+                url: '/geographical-indication/tac-gia/them-tac-gia/',
                 data: {
                     p_id: _id
                 },
@@ -1014,7 +1014,7 @@
             var _id = parseInt($("#txt_id_ChuDon").val()) + 1;
             $.ajax({
                 type: 'POST',
-                url: '/semiconductor-integrated/chu-don/them-chu-don/',
+                url: '/geographical-indication/chu-don/them-chu-don/',
                 data: {
                     p_id: _id
                 },

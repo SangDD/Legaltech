@@ -24,7 +24,7 @@ using System.Collections;
 namespace WebApps.Areas.ChiDanDiaLy.Controllers
 {
     [ValidateAntiForgeryTokenOnAllPosts]
-    [RouteArea("ChiDanDiaLyRegistration", AreaPrefix = "semiconductor-integrated")]
+    [RouteArea("ChiDanDiaLyRegistration", AreaPrefix = "geographical-indication")]
     [Route("{action}")]
     public class A05Controller : Controller
     {

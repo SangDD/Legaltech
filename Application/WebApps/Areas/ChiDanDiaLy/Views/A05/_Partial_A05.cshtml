@@ -5,7 +5,7 @@
 @using BussinessFacade.ModuleMemoryData
 @using ObjectInfos
 @{
-    ViewBag.Title = Resource.A02_TITLE;
+    ViewBag.Title =  "Registration of the Geographical Indication";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
 
@@ -46,7 +46,7 @@
             <img src="~/Content/icons/Body-icon-home.png" /> I
             <a href="/home">Home</a>
             <span class="red">></span>
-            <a href="javascript:;">@Resource.A02_TITLE</a>
+            <a href="javascript:;">Registration of the Geographical Indication</a>
         </div>
     </div>
     <div class="divCover">
@@ -64,7 +64,7 @@
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
-        <legend style="font-weight:600">  @Resource.A02_TITLE.ToUpper()</legend>
+        <legend style="font-weight:600">  Registration of the Geographical Indication.ToUpper()</legend>
 
         @Html.Partial("~/ViewsShared/_PartialQuocGia.cshtml")
 
@@ -77,205 +77,10 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-               @Html.Raw(Resource.A02_MOTAMACH)
+            TÊN CHỈ DẪN ĐỊA LÝ
             </div>
         </div>
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@Html.Raw(Resource.A02_TENGOI)<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div style="width:500px">
-                    <input type="text" id="txt_TenThietKe" maxlength="200" />
-                </div>
-            </div>
-            <div class="div-search-title">
-                <div style="width:200px">@Html.Raw(Resource.A02_NGAYTAOTHIETKET) <i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txt_NgayTaoThietKe" class="datetimepicker" />
-                </div>
-            </div>
-        </div>
-        <div class="div-search-ad">
-
-            <div class="div-search-title">
-                <div style="width:270px">@Html.Raw(Resource.A02_KHAITHACTHUONGMAI)<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div style="width:300px">
-                    <input type="text" id="txt_KhaiThactm"  maxlength="200"/>
-                </div>
-            </div>
-            <div class="div-search-title">
-                <div>@Html.Raw(Resource.A02_KHAITHACTHUONGMAI_TAINUOC)<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txt_KhaiThactm_TaiNuoc"   maxlength="200" />
-                </div>
-            </div>
-            <div class="div-search-title">
-                <div> @Html.Raw(Resource.A02_KHAITHACTHUONGMAI_NGAY)</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txt_KhaiThactm_Ngay" maxlength="200" class="datetimepicker" />
-                </div>
-            </div>
-        </div>
-
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/category.png" />
-            <div class="cls_form_header">
-               @Html.Raw(Resource.A02_PHANLOAI) 
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@Html.Raw(Resource.A02_CHUCNANG) </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio" checked="checked" value="NHO" name="ChucNang" id="ckbChucNangNHO" onchange="onChangeChucNang('NHO')">
-                    <label> @Html.Raw(Resource.A02_CHUCNANG_NHO)</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio"  name="ChucNang" value="LOGIC" id="ckbChucNangLOGIC" onchange="onChangeChucNang('LOGIC')">
-                    <label>Logic</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio" style="width:120px">
-                    <input type="radio"   name="ChucNang" id="ckbChucNangOTHER"  value="OTHER" onchange="onChangeChucNang('OTHER')">
-                    <label>@Html.Raw(Resource.A02_CHUCNANG_KHAC)</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="text" readonly id="txtChucNang_OTHER" maxlength="200">
-                </div>
-            </div>
-        </div>
-
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@Html.Raw(Resource.A02_CAUTRUC)</div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio" checked="checked" name="CauTruc"  value="LUONGCUC" id="ckbCauTrucLUONGCUC" onchange="onChangeCauTruc('LUONGCUC')">
-                    <label>@Html.Raw(Resource.A02_CAUTRUC_LUONGCUC)</label>
-                </div>
-            </div>
-             
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio"   name="CauTruc" id="ckbCauTrucMOS"  value="MOS" onchange="onChangeCauTruc('MOS')">
-                    <label> MOS</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio"    name="CauTruc" id="ckbCauTrucBI-MOS"  value="BI-MOS" onchange="onChangeCauTruc('BI-MOS')">
-                    <label> BI-MOS</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio" style="width:130px">
-                    <input type="radio" name="CauTruc" id="ckbCauTrucQUANG-DIENTU"  value="QUANG-DIENTU" onchange="onChangeCauTruc('QUANG-DIENTU')">
-                    <label>@Html.Raw(Resource.A02_CAUTRUC_QUANGDIENTU) </label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio" style="width:120px">
-                    <input type="radio" name="CauTruc" id="ckbCauTrucOTHER" value="QUANG-DIENTU" onchange="onChangeCauTruc('OTHER')">
-                    <label>@Html.Raw(Resource.A02_CAUTRUC_KHAC) </label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="text" readonly id="txtCAUTRUC_OTHER"   maxlength="200">
-                </div>
-            </div>
-        </div>
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@Html.Raw(Resource.A02_CONGNGHE)</div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio" checked="checked" name="CongNghe" value="TTL" id="ckbCongNgheTTL" onchange="onChangeCongNghe('TTL')">
-                    <label> TTL</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio"  name="CongNghe" id="ckbCongNgheDTL" value="DTL" onchange="onChangeCongNghe('DTL')">
-                    <label> DTL</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio"  name="CongNghe" id="ckbCongNgheECL" value="ECL" onchange="onChangeCongNghe('ECL')">
-                    <label> ECL</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio"  name="CongNghe" id="ckbCongNgheITL" value="ITL" onchange="onChangeCongNghe('ITL')">
-                    <label>ITL</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio"   name="CongNghe" id="ckbCongNgheCMOS" value="CMOS" onchange="onChangeCongNghe('CMOS')">
-                    <label>CMOS</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio"   name="CongNghe" id="ckbCongNgheNMOS" value="NMOS" onchange="onChangeCongNghe('NMOS')">
-                    <label>NMOS</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio"   name="CongNghe" id="ckbCongNghePMOS" value="PMOS" onchange="onChangeCongNghe('PMOS')">
-                    <label>PMOS</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio" style="width:120px">
-                    <input type="radio"   name="CongNghe" id="ckbCongNgheOTHER" value="OTHER" onchange="onChangeCongNghe('OTHER')">
-                    <label>@Html.Raw(Resource.A02_CONGNGHE_KHAC)</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio" >
-                    <input type="text" readonly id="txtCongNghe_OTHER" maxlength="200">
-                </div>
-            </div>
-        </div>
-
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@Html.Raw(Resource.A02_Description) </div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text"   id="txt_MoTaTomTat"  maxlength="200" placeholder="@Html.Raw(Resource.A02_MOTAVANTAT)">
-                </div>
-            </div>
-       
-        </div>
-
+         
 
         @* 1 - CHỦ ĐƠN*@
         <div class="divCover cls_form_title">
@@ -287,32 +92,7 @@
         <div id="div_PartialThongTinChuDon">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
         </div>
-
-
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-radio" style="width:385px">
-                    <input type="radio" name="1_rdoChuDon" value="TGDT" id="1_ckbTacGiaDongThoi">
-                    <label>@Html.Raw(Resource.A02_CHUDONGDONGTHOI)</label>
-                </div>
-            </div>
-
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio" name="1_rdoChuDon" value="CDK" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
-                    <label>@Resource.NgoaiChuDon</label>
-                </div>
-            </div>
-        </div>
-
-        <div id="divChuDonKhac">
-
-        </div>
-
-        <div class="div_full_100_area classChuDonKhac clssDisplaynone" id="divChungDonKhac001">
-            <input type="hidden" id="txt_id_ChuDon" value="1" />
-            <a href="javascript:;" onclick="return ThemChuDon();" style="text-decoration:underline; color: blue;float: left;">@Resource.ThemChuDonKhac</a>
-        </div>
+      
 
         @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
@@ -374,30 +154,29 @@
         @* id doc | id của check box | level | lable | lable 2 | is upload *@
         @* 1.  Tờ khai, gồm.......trang   x .......bản *@
         @{
-            string _doc_id1 = "A02_01";
+            string _doc_id1 = "A05_01";
             string _model1 = _doc_id1 + "|Doc_01|0|" + Resource.ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.TM2B_SoBan;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model1)
         }
 
 
-        @* 2  Bộ ảnh chụp hoặc bản vẽ TKBT gồm.......trang x .......bộ *@
+        @* 2  Bản mô tả tính chất/chất lượng/danh tiếng*@
         @{
-            string _doc_id2 = "A02_02";
-            string _model2 = _doc_id2 + "|Doc_02|0|" + Resource.A02_BOANHCHUPBANVE + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.Bo;
+            string _doc_id2 = "A05_02";
+            string _model2 = _doc_id2 + "|Doc_02|0|" +"Bản mô tả tính chất/chất lượng/danh tiếng của sản phẩm gồm" + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.TM2B_SoBan;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model2)
         }
-        @*12 bản mô tả*@ 
+       @* 3 Bản đồ khu vực địa lý gồm.......trang x .......bản*@
         @{
-            string _doc_id12 = "A02_12";
-            string _model12 = _doc_id12 + "|Doc_12|0|" + Resource.A02_BANMOTA + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.TM2B_SoBan;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model12)
-        }
-
-        @* 3  Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ *@
-        @{
-            string _doc_id3 = "A02_03";
-            string _model3 = _doc_id3 + "|Doc_03|0|" + Resource.BanSaoChungTu + "||1";
+            string _doc_id3 = "A05_03";
+            string _model3 = _doc_id3 + "|Doc_03|0|" + "Bản đồ khu vực địa lý gồm" + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.TM2B_SoBan;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model3)
+        }
+        @* 4  Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ *@
+        @{
+            string _doc_id4 = "A05_04";
+            string _model4 = _doc_id4 + "|Doc_04|0|" + Resource.BanSaoChungTu + "||1";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)
         }
      
   
@@ -417,62 +196,65 @@
         <div id="divTLKhac" class="clssDisplaynone">
   
 
-            @* 4 Giấy uỷ quyền bằng tiếng *@
+           
+            @* 5 Tài liệu chứng minh CDĐL đang được bảo hộ ở nước xuất xứ, *@
             @{
-                string _doc_id4 = "A02_04";
-                string _model4 = _doc_id4 + "|Doc_04|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|" + Resource.TM3B_Tieng + "|0";
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)
-            }
-            @* 5 bản gốc *@
-            @{
-                string _doc_id5 = "A02_05";
-                string _model5 = _doc_id5 + "|Doc_05|1|" + Resource.TM2B_BanGoc + "||1";
+                string _doc_id5 = "A05_05";
+                string _model5 = _doc_id5 + "|Doc_05|0|" + "Tài liệu chứng minh CDĐL đang được bảo hộ ở nước xuất xứ, gồm" + " |" + Resource.TM2B_SoTrang + "|1";
                 @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model5)
             }
 
-            @* 6 Bản sao *@
+            @* 6 bản dịch tiếng việt  *@
             @{
-                string _doc_id6 = "A02_06";
-                string _model6 = _doc_id6 + "|Doc_06|1|" + Resource.TM2B_BanSao + "||0";
+                string _doc_id6 = "A05_06";
+                string _model6 = _doc_id6 + "|Doc_06|0|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
                 @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model6)
             }
-
-
-            @* 7 Bản sao  > Bản gốc sẽ nộp sau *@
+            @* 7 Giấy ủy quyền bằng tiếng *@
             @{
-                string _doc_id07 = "A02_07";
-                string _model07 = _doc_id07 + "|Doc_07|2|" + Resource.TM2B_BanGocSeNopSau + "||1";
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model07)
+                string _doc_id7 = "A05_07";
+                string _model7 = _doc_id7 + "|Doc_07|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|"   + "|1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model7)
             }
 
-            @* 8 Bản sao  > Bản gốc đã nộp theo đơn *@
+            @* 8  Bản dịch tiếng Việt, gồm *@
             @{
-                string _doc_id08 = "A02_08";
-                string _model08 = _doc_id08 + "|Doc_08|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|1";
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model08)
+                string _doc_id8 = "A05_08";
+                string _model8 = _doc_id8 + "|Doc_08|1|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model8)
             }
 
-
-            @* 9  Bản dịch tiếng Việt, gồm *@
+            @* 9 Bản gốc  *@
             @{
-                string _doc_id9 = "A02_09";
-                string _model9 = _doc_id9 + "|Doc_09|1|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model9)
+                string _doc_id09 = "A05_09";
+                string _model09 = _doc_id09 + "|Doc_09|1|" + Resource.TM2B_BanGoc + "||1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model09)
             }
-
-            @* 1  tài liệu xác nhận quyền đăng ký (nếu thụ hưởng từ ng khác) *@
+            @* 10 Bản sao  *@
             @{
-                string _doc_id10 = "A02_10";
-                string _model10 = _doc_id10 + "|Doc_10|0|" + Resource.TaiLieuXacNhanQuyenDangKy + "||1";
+                string _doc_id10 = "A05_10";
+                string _model10 = _doc_id10 + "|Doc_10|1|" + Resource.TM2B_BanSao + "||1";
                 @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model10)
             }
-
-          
-
+            @* 11 Bản sao  > Bản gốc sẽ nộp sau *@
             @{
-                string _doc_id11 = "A02_11";
-                string _model11 = _doc_id11 + "|Doc_11|0|" + Resource.CoTaiLieuKhac + "||0";
+                string _doc_id11 = "A05_11";
+                string _model11 = _doc_id11 + "|Doc_11|2|" + Resource.TM2B_BanGocSeNopSau + "||1";
                 @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model11)
+            }
+
+            @* 12 Bản sao  > Bản gốc đã nộp theo đơn *@
+            @{
+                string _doc_id12 = "A05_12";
+                string _model12 = _doc_id12 + "|Doc_12|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model12)
+            }
+              
+            @* 13  có tài liệu khác *@
+            @{
+                string _doc_id13 = "A05_13";
+                string _model13 = _doc_id13 + "|Doc_13|0|" + Resource.CoTaiLieuKhac + "||0";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model13)
             }
 
         </div>
@@ -494,7 +276,7 @@
         </div>
     </fieldset>
 </div>
-@Html.Partial("~/Areas/ThietKeBanDan/Views/A02/_PartialPreview_IU.cshtml")
+@Html.Partial("~/Areas/ChiDanDiaLy/Views/A05/_PartialPreview_IU.cshtml")
 
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
@@ -786,7 +568,7 @@
             }
 
             $.ajax({
-                url: '/semiconductor-integrated/register',
+                url: '/geographical-indication/register',
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -960,7 +742,7 @@
             var _id = parseInt($("#txt_id_tacgia").val()) + 1;
             $.ajax({
                 type: 'POST',
-                url: '/semiconductor-integrated/tac-gia/them-tac-gia/',
+                url: '/geographical-indication/tac-gia/them-tac-gia/',
                 data: {
                     p_id: _id
                 },
@@ -985,7 +767,7 @@
             var _id = parseInt($("#txt_id_ChuDon").val()) + 1;
             $.ajax({
                 type: 'POST',
-                url: '/semiconductor-integrated/chu-don/them-chu-don/',
+                url: '/geographical-indication/chu-don/them-chu-don/',
                 data: {
                     p_id: _id
                 },
