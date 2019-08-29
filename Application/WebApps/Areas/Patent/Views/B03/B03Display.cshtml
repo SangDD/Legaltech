@@ -37,6 +37,13 @@
         }
         clstAppClassShortSuggest.Add(pShortInfo);
     }
+
+    var b03_info = new B03_Info();
+    if (ViewBag.B03_Info != null)
+    {
+        b03_info = ViewBag.B03_Info;
+    }
+
 }
 <style>
     /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
@@ -89,12 +96,85 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
+                @Resource.B03_SoDon_Title.ToUpper()
+            </div>
+        </div>
+
+        <div id="div_PartialThongTinChuDon">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div> @Resource.B03_SoDon <i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input value="@b03_info.App_Detail_Number" type="text" maxlength="200" id="txtApp_Detail_Number" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
                 @Resource.B03_NguoiYeuCau.ToUpper()
             </div>
         </div>
+        @*<div id="div_PartialThongTinChuDon">
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+            </div>*@
         <div id="div_PartialThongTinChuDon">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div> @Resource.lblTenDayDu <i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input value="@b03_info.Name_Evaluator" type="text" maxlength="200" id="txtTenDayDu" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div> @Resource.lblDiaChi <i class="redspan">(*)</i> </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input value="@b03_info.Address_Evaluator" type="text" maxlength="200" id="txtDiaChi" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div> @Resource.lblDienThoai: </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" value="@b03_info.Phone_Evaluator" maxlength="50" id="txtDienThoai" style="width: 250px;" />
+                    </div>
+                </div>
+
+                <div class="div-search-title">
+                    <div> Fax: </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input value="@b03_info.Fax_Evaluator" type="text" maxlength="50" id="txtFax" />
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div>Email:  </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input value="@b03_info.Email_Evaluator" type="text" maxlength="50" id="txtEmail" />
+                    </div>
+                </div>
+            </div>
         </div>
+
 
         <div class="div-search-ad">
             <div class="div-search-content">
@@ -116,6 +196,42 @@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
 
         @* end 2 *@
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                @Resource.SoDiemYeuCauBaoHoDocLap.ToUpper()
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@Resource.SoDiemYeuCau <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtPoint" />
+                </div>
+            </div>
+        </div>
+
+        @* Yêu cầu thẩm định nội dung *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                @Resource.YeuCauThamDinhNoiDung
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio">
+                    <input type="checkbox" id="ckbThamDinhNoiDung">
+                    <label> @Resource.YeuCauThamDinhNoiDung</label>
+                </div>
+            </div>
+        </div>
+
 
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
         <div class="divCover cls_form_title">
@@ -206,6 +322,60 @@
     </fieldset>
 </div>
 <script>
+    $(document).ready(function () {
+        //Search suggestion
+        var Name = $("#txtTenDayDu").val();
+        $.ajax({
+            url: '/trade-mark/GetNameSuggest/',
+            type: 'POST',
+            data: {
+                pName: Name
+            },
+            sync: true, cache: false, traditional: true,
+            success: function (data) {
+
+                var lts = data.lst;
+                $('#txtTenDayDu').autocomplete({
+                    autoFocus: true,
+                    source: function (request, response) {
+                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+                        response($.grep(lts, function (item) {
+                            return matcher.test(item.value);
+                        }));
+                    },
+                    select: function (event, ui) {
+                        $("#txtTenDayDu").val("");
+                        event.preventDefault();
+                        var arrVal = ui.item.value.split('|');
+                        if (arrVal.length === 5) {
+                            $("#txtTenDayDu").val(arrVal[0]);
+                            $("#txtDiaChi").val(arrVal[1]);
+                            $("#txtDienThoai").val(arrVal[2]);
+                            $("#txtFax").val(arrVal[3]);
+                            $("#txtEmail").val(arrVal[4]);
+                        }
+
+                    },
+                    focus: function (event, ui) {
+                        var arrResult = $(".ui-menu-item");
+                        for (var i = 0; i < arrResult.length; i++) {
+                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                            if (label == ui.item.name) {
+                                $(".clsLiActive").removeClass("clsLiActive")
+                                $(arrResult[i]).addClass("clsLiActive");
+                                break;
+                            }
+                        }
+                        event.preventDefault();
+                    },
+                    open: function (event, ui) {
+                        $("ul").scrollTop(0);
+                        event.preventDefault();
+                    },
+                });
+            }
+        });
+    });
     // gửi đơn : 2
     // lưu tạm : 1
 
@@ -238,22 +408,6 @@
                 return false;
             }
 
-            if (ptype == 1) {
-                if (funcThongTinChuDon_SaveTem(formData, "1") != true) {
-                    return false;
-                }
-            } else if (ptype == 2) {
-                if (funcThongTinChuDon(formData, "1") != true) {
-                    return false;
-                }
-            }
-
-            if ($("#rdChuDon").is(':checked')) {
-                formData.append("pInfo.Master_Type", "CD");
-            } else if ($("#rdNguoithuba").is(':checked')) {
-                formData.append("pInfo.Master_Type", "NTB");
-            }
-
             var v_AppCode = $("#txtAppCode").val();
             if (v_AppCode === "") {
                 $('#txtAppCode').focus().val('');
@@ -282,11 +436,7 @@
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
             formData.append("pInfo.Status", ptype);
 
-            if ($("#rdChuDon").is(':checked')) {
-                formData.append("pInfo.Master_Type", "TGDT");
-            } else if ($("#rdNguoithuba").is(':checked')) {
-                formData.append("pInfo.Master_Type", "CDK");
-            }
+           
 
             reponse = funGetDocumentFile(formData);
             if (reponse == false) {
@@ -422,9 +572,9 @@
         } catch (e) {
             console.log(e);
         }
-      
 
-     
+
+
     }
     function funcGetCheckValueAndText(formData, pID, pItem) {
         try {
@@ -444,7 +594,7 @@
     }
     function funcGetImagePublic(formData) {
         try {
-            alert('a');
+
             var item = 0;
             $(".clssListUploadImg").each(function () {
                 formData.append("pLstImagePublic[" + item + "].keyFileUpload", this.id);
@@ -474,10 +624,86 @@
                 }
             }
             formData.append("pInfo.Customer_Code", _txtMADDSHCN);
+            //số đơn
+            var v_app_detail_number = $("#txtApp_Detail_Number").val();
+            if (v_app_detail_number === "") {
+                $('#txtApp_Detail_Number').focus().val('');
+                showError('Số đơn không được để trống');
+                return false;
+            }
+            var v_tendaydu = $("#txtTenDayDu").val();
+            if (v_tendaydu === "") {
+                $('#txtTenDayDu').focus().val('');
+                showError('@Resource.TM2B_TenKhongDuocDeTrong');
+                return false;
+            }
+            var v_diachi = $("#txtDiaChi").val();
+            if (v_diachi === "") {
+                $('#txtDiaChi').focus().val('');
+                showError('@Resource.TM2B_DiaChiKhongDuocDeTrong');
+                return false;
+            }
+            var v_dienthoai = $("#txtDienThoai").val();
+            //if (v_dienthoai === "") {
+            //    $('#txtDienThoai').focus().val('');
+            //    showError('Điện thoại không được để trống');
+            //    return false;
+            //}
+            var v_fax = $("#txtFax").val();
+            //if (v_fax === "") {
+            //    $('#txtFax').focus().val('');
+            //    showError('Số fax không được để trống');
+            //    return false;
+            //}
+            var v_email = $("#txtEmail").val();
+            //if (v_email === "") {
+            //    $('#txtEmail').focus().val('');
+            //    showError('Email không được để trống');
+            //    return false;
+            //}
+            if (v_email != "") {
+                if (!IsvalidEmail(v_email)) {
+                    $("#txtEmail").focus();
+                    showError('@Resource.lblThongBaoLoiEmail');
+                    return false;
+                }
+            }
+            if ($("#rdChuDon").is(':checked')) {
+                formData.append("pDetail.Type_Evaluator", "CD");
+            } else if ($("#rdNguoithuba").is(':checked')) {
+                formData.append("pDetail.Type_Evaluator", "NTB");
+            }
 
+
+            var _txtPoint = $("#txtPoint").val();
+            if (pType == 2) {
+                if (_txtPoint == "") {
+                    jError("Số điểm yêu cầu bảo hộ độc lập không được để trống", "@Resource.TM3B_Loi", function () {
+                        $("#txtPoint").focus()
+                    });
+                    return false;
+                }
+            }
+
+            formData.append("pDetail.Point", _txtPoint);
+
+
+            if ($("#ckbThamDinhNoiDung").is(':checked')) {
+                formData.append("pDetail.Thamdinhnoidung", "TDND");
+            } else {
+                formData.append("pDetail.Thamdinhnoidung", "");
+            }
+
+            formData.append("pDetail.App_Detail_Number", v_app_detail_number);
+            formData.append("pDetail.Name_Evaluator", v_tendaydu);
+            formData.append("pDetail.Address_Evaluator", v_diachi);
+            formData.append("pDetail.Phone_Evaluator", v_dienthoai);
+            formData.append("pDetail.Fax_Evaluator", v_fax);
+            formData.append("pDetail.Email_Evaluator", v_email);
 
         } catch (ex) {
             console.log(ex);
         }
     }
+
 </script>

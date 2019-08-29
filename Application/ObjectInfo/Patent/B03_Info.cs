@@ -9,17 +9,18 @@ namespace ObjectInfos
     public class B03_Info
     {
         public decimal ID { set; get; }
-        public string case_code { get; set; }
+        public string AppCode { set; get; }
+        public string Case_Code { get; set; }
         public decimal App_Header_Id { get; set; }
         public string Language_Code { get; set; }
-        public string app_detail_number { get; set; }
-        public string name_evaluator { get; set; }
-        public string address_evaluator { get; set; }
-        public string phone_evaluator { get; set; }
-        public string fax_evaluator { get; set; }
-        public string email_evaluator { get; set; }
-        public string type_evaluator { get; set; }
-        public string point { get; set; }
-        public string thamdinhnoidung { get; set; }
+        public string App_Detail_Number { get; set; }
+        public string Name_Evaluator { get; set; }
+        public string Address_Evaluator { get; set; }
+        public string Phone_Evaluator { get; set; }
+        public string Fax_Evaluator { get; set; }
+        public string Email_Evaluator { get; set; }
+        public string Type_Evaluator { get; set; }
+        public decimal Point { get; set; }
+        public string Thamdinhnoidung { get; set; }
     }
 }

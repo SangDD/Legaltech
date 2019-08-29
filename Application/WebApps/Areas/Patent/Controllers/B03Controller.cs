@@ -1,5 +1,6 @@
 ﻿using BussinessFacade;
 using BussinessFacade.ModuleTrademark;
+using BussinessFacade.Patent;
 using Common;
 using ObjectInfos;
 using ObjectInfos.ModuleTrademark;
@@ -46,14 +47,14 @@ namespace WebApps.Areas.Patent.Controllers
         }
         [HttpPost]
         [Route("register")]
-        public ActionResult Register(ApplicationHeaderInfo pInfo, A01_Info pDetail,
+        public ActionResult Register(ApplicationHeaderInfo pInfo, B03_Info pDetail,
            List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo,
            List<AppDocumentOthersInfo> pLstImagePublic)
         {
 
             Application_Header_BL objBL = new Application_Header_BL();
             AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
-            A01_BL objDetail = new A01_BL();
+            B03_BL objDetail = new B03_BL();
             AppDocumentBL objDoc = new AppDocumentBL();
             if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
             string language = AppsCommon.GetCurrentLang();
@@ -80,18 +81,19 @@ namespace WebApps.Areas.Patent.Controllers
                     goto Commit_Transaction;
 
                 // detail
-                //if (pAppHeaderID >= 0)
-                //{
-                //    pDetail.Appcode = pInfo.Appcode;
-                //    pDetail.Language_Code = language;
-                //    pDetail.App_Header_Id = pAppHeaderID;
-                //    pDetail.Case_Code = p_case_code;
+                if (pAppHeaderID >= 0)
+                {
+                    pDetail.AppCode = pInfo.Appcode;
+                    pDetail.Language_Code = language;
+                    pDetail.App_Header_Id = pAppHeaderID;
+                    pDetail.Case_Code = p_case_code;
+                    // thiếu thông tin chủ đơn
+                    // thiếu mã đơn
 
-                   
-                //    pReturn = objDetail.Insert(pDetail);
-                //    if (pReturn <= 0)
-                //        goto Commit_Transaction;
-                //}
+                    pReturn = objDetail.Insert(pDetail);
+                    if (pReturn <= 0)
+                        goto Commit_Transaction;
+                }
                 // hình công bố
                 if (pReturn >= 0 && pLstImagePublic != null)
                 {
@@ -117,6 +119,17 @@ namespace WebApps.Areas.Patent.Controllers
                         }
                     }
                 }
+
+                #region Phí cố định
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_B03(pDetail, pAppDocumentInfo, pLstImagePublic);
+                if (_lstFeeFix.Count > 0)
+                {
+                    AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
+                    pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, p_case_code);
+                    if (pReturn < 0)
+                        goto Commit_Transaction;
+                }
+                #endregion
 
                 #region Tai lieu dinh kem 
                 if (pReturn >= 0 && pAppDocumentInfo != null)
