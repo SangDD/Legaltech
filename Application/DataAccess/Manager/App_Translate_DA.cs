@@ -78,6 +78,21 @@ namespace DataAccess
             }
         }
 
+        public DataSet Sys_Document_GetBy_Casecode(string p_appcode)
+        {
+            try
+            {
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_sys_document.proc_sys_get_Appcode",
+                    new OracleParameter("p_appcode", OracleDbType.Varchar2, p_appcode, ParameterDirection.Input),
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
 
         public decimal App_Translate_Insert(List<App_Translate_Info> pInfo)
         {

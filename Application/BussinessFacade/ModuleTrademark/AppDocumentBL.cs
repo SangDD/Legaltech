@@ -5,11 +5,27 @@ using System.Collections.Generic;
 using ObjectInfos.ModuleTrademark;
 using ObjectInfos;
 using System.Data;
+using DataAccess;
 
 namespace BussinessFacade.ModuleTrademark
 {
     public class AppDocumentBL
     {
+        public List<Sys_Document_Info> Sys_Document_GetBy_Casecode(string p_appcode)
+        {
+            try
+            {
+                App_Translate_DA _da = new App_Translate_DA();
+                DataSet _ds = _da.Sys_Document_GetBy_Casecode(p_appcode);
+                return CBO<Sys_Document_Info>.FillCollectionFromDataSet(_ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<Sys_Document_Info>();
+            }
+        }
+
         public int AppDocumentInsertBath(List<AppDocumentInfo> pInfo, decimal pAppHeaderid)
         {
             try
