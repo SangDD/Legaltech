@@ -680,6 +680,19 @@ namespace WebApps.CommonFunction
             }
         }
 
+        public static List<Sys_Document_Info> Sys_Document_GetBy_Casecode(string p_appcode)
+        {
+            try
+            {
+                return MemoryData.c_lstSys_Document.FindAll(x => x.AppCode == p_appcode).ToList();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<Sys_Document_Info>();
+            }
+        }
+
         public static List<AllCodeInfo> AllCode_GetBy_CdTypeCdName(string p_cdname, string p_cdtype, string p_lang = "VI_VN")
         {
             try

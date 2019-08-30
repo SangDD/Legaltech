@@ -42,6 +42,7 @@
 
         public static List<AppClassInfo> clstAppClass = new List<AppClassInfo>();
         public static List<CustomerSuggestInfo> clstAppClassSuggest = new List<CustomerSuggestInfo>();
+        public static List<Sys_Document_Info> c_lstSys_Document = new List<Sys_Document_Info>();
 
         //public static List<SuggestInfo> clstAppClassShortSuggest = new List<SuggestInfo>();
 
@@ -67,6 +68,9 @@
 
                 // DANGTQ load fee cho seach
                 LoadSys_Search_Fee_Fix();
+
+                AppDocumentBL _AppDocumentBL = new AppDocumentBL();
+                c_lstSys_Document = _AppDocumentBL.Sys_Document_GetAll();
 
                 #region Allcode
                 c_hs_Allcode.Clear();

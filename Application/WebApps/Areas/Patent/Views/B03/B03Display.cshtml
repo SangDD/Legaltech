@@ -44,6 +44,7 @@
         b03_info = ViewBag.B03_Info;
     }
 
+    List<Sys_Document_Info> _lst_doc = WebApps.CommonFunction.AppsCommon.Sys_Document_GetBy_Casecode("B03");
 }
 <style>
     /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
@@ -120,8 +121,8 @@
             </div>
         </div>
         @*<div id="div_PartialThongTinChuDon">
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
-            </div>*@
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+        </div>*@
         <div id="div_PartialThongTinChuDon">
             <div class="div-search-ad">
                 <div class="div-search-title">
@@ -241,71 +242,11 @@
             </div>
         </div>
 
-        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Image_Public.cshtml")
-        @* 1 Tờ khai *@
-        @{
-            string _doc_id1 = "B03_01";
-            string _model1 = _doc_id1 + "|Doc_01|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|0||" + Resource.lblSoBan;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model1)
+        @foreach (Sys_Document_Info item in _lst_doc)
+        {
+            string _model = item.Doc_Id + "|" + item.Check_Box_Id + "|" + item.Doc_Level + "|" + item.Content_1 + "|" + item.Content_2 + "|" + item.Is_Upload + "|" + item.Width + "|" + item.Content_3;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
         }
-
-        @* 2. Bản mô tả, bằng tiếng *@
-        @{
-            string _doc_id2 = "B03_02";
-            string _model2 = _doc_id2 + "|Doc_02|0|" + Resource.BanMoTaBangTieng + "|" + Resource.TM3B_Tieng + "|1||" + Resource.TM2B_SoTrang;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model2)
-        }
-
-        @* 6 Giấy uỷ quyền bằng tiếng *@
-        @{
-            string _doc_id6 = "B03_06";
-            string _model6 = _doc_id6 + "|Doc_06|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|" + Resource.TM3B_Tieng + "|0";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model6)
-        }
-
-        @* 7  Bản dịch tiếng Việt, gồm *@
-        @{
-            string _doc_id7 = "B03_07";
-            string _model7 = _doc_id7 + "|Doc_07|1|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model7)
-        }
-
-        @* 8 Bản gốc *@
-        @{
-            string _doc_id8 = "B03_08";
-            string _model8 = _doc_id8 + "|Doc_08|1|" + Resource.TM2B_BanGoc + "||1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model8)
-        }
-
-        @* 9 Bản sao *@
-        @{
-            string _doc_id9 = "B03_09";
-            string _model9 = _doc_id9 + "|Doc_09|1|" + Resource.TM2B_BanSao + "||0";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model9)
-        }
-
-        @* 10 Bản sao  > Bản gốc sẽ nộp sau *@
-        @{
-            string _doc_id10 = "B03_10";
-            string _model10 = _doc_id10 + "|Doc_10|2|" + Resource.TM2B_BanGocSeNopSau + "||1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model10)
-        }
-
-        @* 11 Bản sao  > Bản gốc đã nộp theo đơn *@
-        @{
-            string _doc_id11 = "A01_11";
-            string _model11 = _doc_id11 + "|Doc_11|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model11)
-        }
-
-        @* bản sao chứng từ và nộp lệ phí *@
-        @* 3. Bản sao *@
-        @{
-            string _doc_id3 = "B03_03";
-            string _model3 = _doc_id3 + "|Doc_03|0|" + Resource.BanSaoChungTu + "|" + Resource.TM2B_SoTrang + "|1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model3)
-        }
-
 
         @* Cam kết của chủ đơn *@
         @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml")
@@ -432,22 +373,13 @@
                 }
             }
 
-
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
             formData.append("pInfo.Status", ptype);
-
-           
 
             reponse = funGetDocumentFile(formData);
             if (reponse == false) {
                 return false;
             }
-
-            reponse = funcGetImagePublic(formData);
-            if (reponse == false) {
-                return false;
-            }
-
 
             //Lấy thông tin detail
             reponse = funcGetAppDetail(formData, ptype);

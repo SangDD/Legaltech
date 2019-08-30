@@ -26,6 +26,21 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
+        public List<Sys_Document_Info> Sys_Document_GetAll()
+        {
+            try
+            {
+                App_Translate_DA _da = new App_Translate_DA();
+                DataSet _ds = _da.Sys_Document_GetAll();
+                return CBO<Sys_Document_Info>.FillCollectionFromDataSet(_ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<Sys_Document_Info>();
+            }
+        }
+
         public int AppDocumentInsertBath(List<AppDocumentInfo> pInfo, decimal pAppHeaderid)
         {
             try
