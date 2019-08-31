@@ -75,7 +75,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Char01, new { id = "txtChar01Edit", @maxlength = "20", onkeypress = "return isNumberKey(event);", onkeyup = "jsFormatNumber(this.value, this.id)" })
+                    @Html.TextBoxFor(m => m.Char01, new { id = "txtChar01Edit", @readonly = "readonly", @maxlength = "20", onkeypress = "return isNumberKey(event);", onkeyup = "jsFormatNumber(this.value, this.id)" })
                 </div>
             </div>
         </div>
