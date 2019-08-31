@@ -10,7 +10,13 @@
 <div id="toolbox">
     <ul>
         <li class="toTop" style=""><a href="#top" title="Lên đầu trang"><i style=" font-size: 27px; color: green;" class="fa fa-home"></i></a></li>
-        <li class="email"><a href="javascript:;" title="Xem trước"><i class="fa fa-eye" target="_blank" onclick="return funcPreViewApplication();" style=" font-size: 27px; color: green;"></i></a></li>
+        <li class="email"><a href="javascript:;" title="Phí"><i class="fas fa-dollar-sign" size="9x" target="_blank" onclick="return funcPreViewFee();" style="font-size: 27px;margin-left: 8px;color: green;"></i></a></li>
+
+        <li class="email">
+            <a href="javascript:;" onclick="return funcPreViewApplication();" title="Xem trước">
+                <img src="/Content/icons/icon_vn.png" style="margin-left: 3px;width: 25px;height: 30px;" />
+            </a>
+        </li>
     </ul>
 </div>
 
@@ -51,7 +57,7 @@
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
 
             //Lấy thông tin detail
-            var reponse = funcGetAppDetail(formData);
+            var reponse = funcGetAppDetail(formData, 1);
             if (reponse == false) {
                 return false;
             }
@@ -109,6 +115,49 @@
         if (preturn == true || preturn == undefined) {
             OpenPreview("/trade-mark-4c2/Pre-View");
         }
+    }
+
+    function funcPreViewFee() {
+
+        var formData = new FormData();
+        formData.append("pInfo.Appcode", $("#txtAppCode").val());
+        formData.append("pDetail.Appcode", $("#txtAppCode").val());
+        formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
+
+        //Lấy thông tin detail
+        var reponse = funcGetAppDetail(formData, 1);
+        if (reponse == false) {
+            return false;
+        }
+
+        var reponse = funcGet_Fee(formData);
+        if (reponse == false) {
+            return false;
+        }
+
+        $.ajax({
+            url: "/trade-mark-4c2/getFee",
+            type: 'POST',
+            data: formData,
+            dataType: "json",
+            async: true,
+            cache: false,
+            traditional: true,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                CreateRollingWaitingIcon(true);
+            },
+            success: function (data) {
+                CreateRollingWaitingIcon(false);
+                if (data != null) {
+
+                    $("#divPopUpFee").html(data.PartialTableListFees);
+                    ShowPopupDialog_Ipace('divWrapperPopUpFee', '@Html.Raw(WebApps.Resources.Resource.ThongTinFee)', 800, 1200);
+                }
+                return false;
+            }
+        });
     }
 
 

@@ -13,14 +13,8 @@
         <li class="email"><a href="javascript:;" title="Phí"><i class="fas fa-dollar-sign" size="9x" target="_blank" onclick="return funcPreViewFee();" style="font-size: 27px;margin-left: 8px;color: green;"></i></a></li>
 
         <li class="email">
-            <a href="javascript:;" onclick="return funcPreViewApplication('VI_VN');" title="Xem trước VN">
+            <a href="javascript:;" onclick="return funcPreViewApplication();" title="Xem trước">
                 <img src="/Content/icons/icon_vn.png" style="margin-left: 3px;width: 25px;height: 30px;" />
-            </a>
-        </li>
-
-        <li class="email">
-            <a href="javascript:;" onclick="return funcPreViewApplication('EN_US');" title="Xem trước VN">
-                <img src="/Content/icons/england.png" style="width: 25px;height: 30px;" />
             </a>
         </li>
     </ul>
@@ -41,13 +35,12 @@
 
 
 <script>
-    function funGetData_Preview(url, p_Lang) {
+    function funGetData_Preview(url) {
         try {
 
             var formData = new FormData();
             formData.append("pInfo.Appcode", $("#txtAppCode").val());
             formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
-            formData.append("pInfo.View_Language_Report", p_Lang);
 
             //Thông tin chủ đơn
             if (funcThongTinChuDon_Exp(formData, "1") != true) {
@@ -123,12 +116,6 @@
         formData.append("pDetail.Appcode", $("#txtAppCode").val());
         formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
 
-        //Lấy thông tin detail
-        //var reponse = funcGetAppDetail(formData, 1);
-        //if (reponse == false) {
-        //    return false;
-        //}
-
         // get thông tin fee
         var reponse = funcGet_Fee(formData, 1);
         if (reponse == false) {
@@ -160,8 +147,8 @@
         });
     }
 
-    function funcPreViewApplication(p_Lang) {
-        var preturn = funGetData_Preview("/trade-mark-3d/ket_xuat_fileIU", p_Lang);
+    function funcPreViewApplication() {
+        var preturn = funGetData_Preview("/trade-mark-3d/ket_xuat_fileIU");
         if (preturn == true || preturn == undefined) {
             OpenPreview("/trade-mark-3d/Pre-View");
         }

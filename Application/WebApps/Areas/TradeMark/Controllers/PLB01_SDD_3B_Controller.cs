@@ -244,7 +244,7 @@
                     }
 
                     #region Phí cố định
-                   
+
                     // xóa đi
                     AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
                     _AppFeeFixBL.AppFeeFixDelete(pDetail.Case_Code, language);
@@ -257,7 +257,7 @@
                         if (pReturn < 0)
                             goto Commit_Transaction;
                     }
-                   
+
                     #endregion
 
                     #region Tai lieu dinh kem 
@@ -538,37 +538,36 @@
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLB01_SDD_Info>(_lst, false);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
-
                 string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
                 string _tempfile = "TM_PLB01SDD.rpt";
-                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VN_" + p_appCode + _datetimenow + ".pdf");
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VN_" + _datetimenow + ".pdf");
                 if (p_View_Translate == 1)
                 {
                     // nếu là tiếng việt thì xem bản tiếng anh và ngược lại
                     if (applicationHeaderInfo.Languague_Code == Language.LangVI)
                     {
                         _tempfile = "TM_PLB01SDD_EN.rpt"; // tiếng anh
-                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_EN_" + p_appCode + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "B01_EN_" + p_appCode + _datetimenow + ".pdf";
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_EN_" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "B01_EN_" + _datetimenow + ".pdf";
                     }
                     else
                     {
-                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VN_" + p_appCode + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "B01_VN_" + p_appCode + _datetimenow + ".pdf";
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VN_" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "B01_VN_" + _datetimenow + ".pdf";
                     }
                 }
                 else
                 {
                     if (applicationHeaderInfo.Languague_Code == Language.LangVI)
                     {
-                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VN_" + p_appCode + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "B01_VN_" + p_appCode + _datetimenow + ".pdf";
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VN_" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "B01_VN_" + _datetimenow + ".pdf";
                     }
                     else
                     {
                         _tempfile = "TM_PLB01SDD_EN.rpt"; // tiếng anh
-                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_EN_" + p_appCode + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "B01_EN_" + p_appCode + _datetimenow + ".pdf";
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_EN_" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "B01_EN_" + _datetimenow + ".pdf";
                     }
                 }
 
@@ -624,9 +623,6 @@
                 DocumentModel document = DocumentModel.Load(_fileTemp);
 
                 // Fill export_header
-                string fileName_doc = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VI_" + TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD + ".docx");
-                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VI_" + TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD + ".pdf");
-
                 AppsCommon.Prepare_Data_Export_3B(ref pDetail, pInfo, pAppDocumentInfo);
                 List<App_Detail_PLB01_SDD_Info> _lst = new List<App_Detail_PLB01_SDD_Info>();
                 _lst.Add(pDetail);
@@ -634,10 +630,20 @@
 
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
                 string _tempfile = "TM_PLB01SDD.rpt";
-                if (language == Language.LangEN)
+                string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VN_" + _datetimenow + ".pdf");
+                if (language == Language.LangVI)
                 {
-                    _tempfile = "TM_PLB01SDD_EN.rpt";
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_VN_" + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "B01_VN_" + _datetimenow + ".pdf";
                 }
+                else
+                {
+                    _tempfile = "TM_PLB01SDD_EN.rpt"; // tiếng anh
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B01_EN_" + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "B01_EN_" + _datetimenow + ".pdf";
+                }
+
                 oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
 
                 if (_ds_all != null)
