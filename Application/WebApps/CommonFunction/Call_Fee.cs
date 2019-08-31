@@ -49,7 +49,7 @@ namespace WebApps.CommonFunction
                     _AppFeeFixInfo1.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
                     _AppFeeFixInfo1.Fee_Name_En = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description_En;
                     _AppFeeFixInfo1.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo1.Number_Of_Patent;
-                    _AppFeeFixInfo1.Amount_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo1.Amount_Usd;
+                    _AppFeeFixInfo1.Amount_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Usd * _AppFeeFixInfo1.Number_Of_Patent;
 
                     _AppFeeFixInfo1.Amount_Represent = _AppFeeFixInfo1.Number_Of_Patent == 0 ? 0 : MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent * _AppFeeFixInfo1.Number_Of_Patent;
                     _AppFeeFixInfo1.Amount_Represent_Usd = _AppFeeFixInfo1.Number_Of_Patent == 0 ? 0 : MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent_Usd * _AppFeeFixInfo1.Number_Of_Patent;
@@ -69,7 +69,7 @@ namespace WebApps.CommonFunction
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                 {
                     _AppFeeFixInfo2.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo2.Number_Of_Patent;
-                    _AppFeeFixInfo2.Amount_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo2.Amount_Usd;
+                    _AppFeeFixInfo2.Amount_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Usd * _AppFeeFixInfo2.Number_Of_Patent;
                     _AppFeeFixInfo2.Amount_Represent = _AppFeeFixInfo2.Number_Of_Patent == 0 ? 0 : MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent * _AppFeeFixInfo2.Number_Of_Patent;
                     _AppFeeFixInfo2.Amount_Represent_Usd = _AppFeeFixInfo2.Number_Of_Patent == 0 ? 0 : MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent_Usd * _AppFeeFixInfo2.Number_Of_Patent;
 
