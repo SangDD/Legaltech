@@ -1,0 +1,1004 @@
+﻿@using Common.CommonData
+@using WebApps.CommonFunction;
+@using BussinessFacade.ModuleMemoryData
+@using WebApps.Resources;
+@using BussinessFacade.ModuleMemoryData
+@using ObjectInfos
+@{
+    ViewBag.Title =  "Registration of the Geographical Indication";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+
+    string _App_No = "";
+    if (ViewBag.App_No != null)
+    {
+        _App_No = (string)ViewBag.App_No;
+    }
+
+    string language = AppsCommon.GetCurrentLang();
+
+}
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+
+    .div-title-col-2 {
+        height: 35px;
+        border: 1px solid #aaa;
+    }
+
+        .div-title-col-2 > div {
+            margin: 9px 5px 0px 7px;
+        }
+    .div-radio
+    {
+    min-width:100px;
+    }
+
+</style>
+
+<div class="d-nav-container" style="background-color:#fff">
+    <div class="divCover">
+        <div class="d-nav">
+            <img src="~/Content/icons/Body-icon-home.png" /> I
+            <a href="/home">Home</a>
+            <span class="red">></span>
+            <a href="javascript:;">Registration of the Geographical Indication</a>
+        </div>
+    </div>
+    <div class="divCover">
+        <div class="classLine">
+        </div>
+    </div>
+
+    <div class="divCover">
+        @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+    </div>
+
+</div>
+<input type="hidden" id="txtAppCode" value='@ViewBag.AppCode' />
+
+
+<div class="div-search ">
+    <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
+        <legend style="font-weight:600">  Registration of the Geographical Indication.ToUpper()</legend>
+
+        @Html.Partial("~/ViewsShared/_PartialQuocGia.cshtml")
+
+        @*thông tin khách hàng mà admin nhập hộ*@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCustomer.cshtml")
+
+        @* Case name *@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+            TÊN CHỈ DẪN ĐỊA LÝ
+            </div>
+        </div>
+         
+
+        @* 1 - CHỦ ĐƠN*@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                @Resource.TM2B_ChuDon
+            </div>
+        </div>
+        <div id="div_PartialThongTinChuDon">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+        </div>
+      
+
+        @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
+        @* end 2 *@
+
+        @* Tác giả *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                @Resource.TacGia
+            </div>
+        </div>
+
+        <div id="div_PartialThongTinTacGia">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinTacGia.cshtml", "1")
+        </div>
+
+        <div id="divTacGiaKhac">
+
+        </div>
+
+        <div class="div_full_100_area classChuDonKhac">
+            <input type="hidden" id="txt_id_tacgia" value="1" />
+            <a href="javascript:;" onclick="return ThemTacGia();" style="text-decoration:underline; color: blue;float: left;">@Resource.ThemTacGia</a>
+        </div>
+
+      
+
+      
+
+        @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                @Resource.TM2B_TaiLieuCoTrongDon
+            </div>
+        </div>
+
+        @*TÀI booj hinh anh   *@
+        @Html.Partial("~/Areas/IndustrialDesign/Views/Shared/_PartialTreeDocument.cshtml")
+
+        <div class="div-search-ad">
+ 
+            <div class="div-search-title">
+                <div>@Resource.SoHinhAnh:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtSoHinhAnh" readonly="readonly" value="1" />
+                </div>
+            </div>
+        </div>
+
+        <div class="divCover cls_form_title">
+            <b>@Resource.TaiLieuToiThieu.ToUpper()</b>
+        </div>
+        
+
+        @* id doc | id của check box | level | lable | lable 2 | is upload *@
+        @* 1.  Tờ khai, gồm.......trang   x .......bản *@
+        @{
+            string _doc_id1 = "A05_01";
+            string _model1 = _doc_id1 + "|Doc_01|0|" + Resource.ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.TM2B_SoBan;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model1)
+        }
+
+
+        @* 2  Bản mô tả tính chất/chất lượng/danh tiếng*@
+        @{
+            string _doc_id2 = "A05_02";
+            string _model2 = _doc_id2 + "|Doc_02|0|" +"Bản mô tả tính chất/chất lượng/danh tiếng của sản phẩm gồm" + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.TM2B_SoBan;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model2)
+        }
+       @* 3 Bản đồ khu vực địa lý gồm.......trang x .......bản*@
+        @{
+            string _doc_id3 = "A05_03";
+            string _model3 = _doc_id3 + "|Doc_03|0|" + "Bản đồ khu vực địa lý gồm" + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.TM2B_SoBan;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model3)
+        }
+        @* 4  Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ *@
+        @{
+            string _doc_id4 = "A05_04";
+            string _model4 = _doc_id4 + "|Doc_04|0|" + Resource.BanSaoChungTu + "||1";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)
+        }
+     
+  
+        <div class="divCover cls_form_title">
+            @*<img src="/Content/icons/category.png">*@
+            <div class="cls_form_header">@WebApps.Resources.Resource.lblTaiLieuKhac.ToUpper()</div>
+            <div style="display: inline-block;  padding-top: 5px; padding-left: 10px;">
+                <input type="radio" name="ck_TaiLieu_Khac" id="ck_TaiLieu_Khac" onchange="onChangeTLKhac()">
+                <label>@WebApps.Resources.Resource.lblYes</label>
+            </div>
+
+            <div style="display: inline-block;padding-left: 5px;">
+                <input type="radio" name="ck_TaiLieu_Khac" id="ck_TaiLieu_Khac_No" onchange="onChangeTLKhac()" checked />
+                <label>@WebApps.Resources.Resource.lblNo</label>
+            </div>
+        </div>
+        <div id="divTLKhac" class="clssDisplaynone">
+  
+
+           
+            @* 5 Tài liệu chứng minh CDĐL đang được bảo hộ ở nước xuất xứ, *@
+            @{
+                string _doc_id5 = "A05_05";
+                string _model5 = _doc_id5 + "|Doc_05|0|" + "Tài liệu chứng minh CDĐL đang được bảo hộ ở nước xuất xứ, gồm" + " |" + Resource.TM2B_SoTrang + "|1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model5)
+            }
+
+            @* 6 bản dịch tiếng việt  *@
+            @{
+                string _doc_id6 = "A05_06";
+                string _model6 = _doc_id6 + "|Doc_06|0|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model6)
+            }
+            @* 7 Giấy ủy quyền bằng tiếng *@
+            @{
+                string _doc_id7 = "A05_07";
+                string _model7 = _doc_id7 + "|Doc_07|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|"   + "|1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model7)
+            }
+
+            @* 8  Bản dịch tiếng Việt, gồm *@
+            @{
+                string _doc_id8 = "A05_08";
+                string _model8 = _doc_id8 + "|Doc_08|1|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model8)
+            }
+
+            @* 9 Bản gốc  *@
+            @{
+                string _doc_id09 = "A05_09";
+                string _model09 = _doc_id09 + "|Doc_09|1|" + Resource.TM2B_BanGoc + "||1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model09)
+            }
+            @* 10 Bản sao  *@
+            @{
+                string _doc_id10 = "A05_10";
+                string _model10 = _doc_id10 + "|Doc_10|1|" + Resource.TM2B_BanSao + "||1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model10)
+            }
+            @* 11 Bản sao  > Bản gốc sẽ nộp sau *@
+            @{
+                string _doc_id11 = "A05_11";
+                string _model11 = _doc_id11 + "|Doc_11|2|" + Resource.TM2B_BanGocSeNopSau + "||1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model11)
+            }
+
+            @* 12 Bản sao  > Bản gốc đã nộp theo đơn *@
+            @{
+                string _doc_id12 = "A05_12";
+                string _model12 = _doc_id12 + "|Doc_12|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model12)
+            }
+              
+            @* 13  có tài liệu khác *@
+            @{
+                string _doc_id13 = "A05_13";
+                string _model13 = _doc_id13 + "|Doc_13|0|" + Resource.CoTaiLieuKhac + "||0";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model13)
+            }
+
+        </div>
+
+        @*TÀI LIỆU KHÁC*@
+        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others.cshtml")
+
+        @* Cam kết của chủ đơn *@
+        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml")
+
+
+        <div class="class_save">
+            <div class="classGuiDon">
+                <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
+            </div>
+            <div class="classLuuTam">
+                <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
+            </div>
+        </div>
+    </fieldset>
+</div>
+@Html.Partial("~/Areas/ChiDanDiaLy/Views/A05/_PartialPreview_IU.cshtml")
+
+<div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
+    <div class="dpop-preview" id="dpop-preview">
+    </div>
+</div>
+
+<div id="divWrapperPopUpFee" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divPopUpFee">
+    </div>
+</div>
+
+<script>
+    function onChangeTLKhac() {
+        try {
+            if ($("#ck_TaiLieu_Khac").is(':checked')) {
+                $("#divTLKhac").removeClass("clssDisplaynone");
+            } else {
+                $("#divTLKhac").addClass("clssDisplaynone");
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    $("#ckb_Doc_11").change(function () {
+        if ($("#ckb_Doc_11").is(":checked") == true) {
+            $("#divContainerDocOther").css('display', 'block')
+        } else {
+            $("#divContainerDocOther").css('display', 'none');
+        }
+    });
+
+    function onChangeChucNang(_value) {
+        try {
+            if(_value == "OTHER")
+            {
+                $("#txtChucNang_OTHER").removeAttr("readonly");
+            }
+            else
+            {
+                $("#txtChucNang_OTHER").attr("readonly", "readonly");
+                $("#txtChucNang_OTHER").val("");
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+    function onChangeCauTruc(_value) {
+        try {
+            if (_value == "OTHER") {
+                $("#txtCAUTRUC_OTHER").removeAttr("readonly");
+            }
+            else {
+                $("#txtCAUTRUC_OTHER").attr("readonly", "readonly");
+                $("#txtCAUTRUC_OTHER").val("");
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+    function onChangeCongNghe(_value) {
+        try {
+            if (_value == "OTHER") {
+                $("#txtCongNghe_OTHER").removeAttr("readonly");
+            }
+            else {
+                $("#txtCongNghe_OTHER").attr("readonly", "readonly");
+                $("#txtCongNghe_OTHER").val("");
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+ 
+
+    function funcDetailDontach() {
+        try {
+            var SoDonTach = document.getElementById("0_txtDonSo").value;
+            var url = "";
+            url = "/trade-mark-share-data/todo-details/" + SoDonTach + "/0";
+            $("#hrfDetailDonTach").attr("href", url);
+            if (SoDonTach != "") {
+                $("#0_txtNgayNopDon").removeAttr("readonly");
+            }
+            else {
+                $("#0_txtNgayNopDon").attr("readonly", "readonly");
+                $("#0_txtNgayNopDon").val("");
+            }
+        } catch (e) {
+        }
+    }
+  
+
+    $(document).ready(function () {
+
+        $.datetimepicker.setLocale('vi');
+        $('.datetimepicker').datetimepicker({
+            timepicker: false,
+            format: 'd/m/Y',
+            formatDate: 'd/m/Y',
+            mask: '39/19/9999',
+            validateOnBlur: false,
+            scrollInput: false
+        });
+        $("#0_txtCase_Name").focus();
+
+        //Search suggestion
+        var Name = $("#1_txtTenDayDu").val();
+        $.ajax({
+            url: '/trade-mark/GetNameSuggest/',
+            type: 'POST',
+            data: {
+                pName: Name
+            },
+            sync: true, cache: false, traditional: true,
+            success: function (data) {
+
+                var lts = data.lst;
+                $('#1_txtTenDayDu').autocomplete({
+                    autoFocus: true,
+                    source: function (request, response) {
+                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+                        response($.grep(lts, function (item) {
+                            return matcher.test(item.value);
+                        }));
+                    },
+                    select: function (event, ui) {
+                        $("#1_txtTenDayDu").val("");
+                        event.preventDefault();
+                        var arrVal = ui.item.value.split('|');
+                        if (arrVal.length === 5) {
+                            $("#1_txtTenDayDu").val(arrVal[0]);
+                            $("#1_txtDiaChi").val(arrVal[1]);
+                            $("#1_txtDienThoai").val(arrVal[2]);
+                            $("#1_txtFax").val(arrVal[3]);
+                            $("#1_txtEmail").val(arrVal[4]);
+                        }
+
+                    },
+                    focus: function (event, ui) {
+                        var arrResult = $(".ui-menu-item");
+                        for (var i = 0; i < arrResult.length; i++) {
+                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                            if (label == ui.item.name) {
+                                $(".clsLiActive").removeClass("clsLiActive")
+                                $(arrResult[i]).addClass("clsLiActive");
+                                break;
+                            }
+                        }
+                        event.preventDefault();
+                    },
+                    open: function (event, ui) {
+                        $("ul").scrollTop(0);
+                        event.preventDefault();
+                    },
+                });
+            }
+        });
+
+        // nếu có appno
+        if ('@_App_No' != "") {
+            $("#0_txtDonSo").val('@_App_No');
+            onChangeAppNo();
+        }
+    });
+
+    $("#btnGuiDon").click(function () {
+        try {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
+                funGetData(2);
+            });
+
+        } catch (e) {
+            console.log(e.message);
+        }
+    });
+
+
+    $("#btnLuuTam").click(function () {
+        try {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuuTam)", function () {
+                funGetData(1);
+            });
+        } catch (e) {
+            CreateRollingWaitingIcon(false);
+            console.log(e.message);
+        }
+    });
+
+    function funGetData(p_Status) {
+        try {
+
+            var _showerror = 0;
+            if (p_Status == 2) {
+                _showerror = 1;
+            }
+
+            //Thông tin chủ đơn
+            var formData = new FormData();
+
+            var reponse = getNation_Represent(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            var reponse = funcThongTinNhapHo(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            var reponse = funcThongTinCaseName(formData, "0");
+            if (reponse == false) {
+                return false;
+            }
+
+            //Lấy thông tin detail
+            reponse = funcGetAppDetail(formData, _showerror);
+            if (reponse == false) {
+                return false;
+            }
+
+            if (funcThongTinChuDon(formData, "1") != true) {
+                return false;
+            }
+
+            if ($("#1_ckbTacGiaDongThoi").is(':checked')) {
+                formData.append("pInfo.Master_Type", "TGDT");
+            } else if ($("#rdChuDonKhac").is(':checked')) {
+                formData.append("pInfo.Master_Type", "CDK");
+            }
+
+
+
+
+            if (funcChuDonKhac(formData) != true) {
+                return false;
+            }
+
+            formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin)');
+            var v_AppCode = $("#txtAppCode").val();
+            if (v_AppCode === "") {
+                $('#txtAppCode').focus().val('');
+                showError('@Html.Raw(Resource.TM3B_ChonLoaiDonDK)');
+                return false;
+            }
+
+            // đại diện chủ đơn
+            formData.append("pInfo.Appcode", v_AppCode);
+            if (funcThongTinDaiDienChuDon(formData, "2") != true) {
+                return false;
+            }
+            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+            if (v_RepMasterType === "" || v_RepMasterType == undefined) {
+                showError('@Html.Raw(Resource.TM2B_ChonDaiDienChuDon)');
+                $("#_2_rdoNguoiDaiDienPL").focus()
+                return false;
+            }
+            formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+            formData.append("pInfo.Status", p_Status);
+
+            //Lấy thông tin tài liệu có trong đơn
+            if ($("#ck_TaiLieu_Khac").is(':checked')) {
+                formData.append("pInfo.USE_DOC_OTHERS", 1);
+            } else {
+                formData.append("pInfo.USE_DOC_OTHERS", 0);
+            }
+
+            reponse = funGetDocumentFile(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            //Tài liệu khác trong đơn
+            reponse = funcGetTenTaiLieuKhac(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            // lấy thông tin bộ ảnh
+            reponse = funcGetTenTaiLieuBoAnh(formData, _showerror);
+            if (reponse == false) {
+                return false;
+            }
+
+            reponse = funcGetCamKetChuDon(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            $.ajax({
+                url: '/geographical-indication/register',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                traditional: true,
+                dataType: "json",
+                enctype: 'multipart/form-data',
+                async: true,
+                headers: { "cache-control": "no-cache" },
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data != null && data.status >= 0) {
+                        var _mess = '@Html.Raw(Resource.GuiDonThanhCong)';
+                        if (p_Status == "1") {
+                            _mess = '@Html.Raw(Resource.LuuTamThanhCong)';
+                        }
+                        jAlert(_mess, ThongBao, function () {
+                            window.location = "/trade-mark-mana/quan-ly-don";
+                        });
+                    } else {
+                        jError("@Html.Raw(WebApps.Resources.Resource.LoiXuLyDuLieu)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                        });
+                    }
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e.message);
+                }
+            });
+        } catch (e) {
+            CreateRollingWaitingIcon(false);
+            console.log(e.message);
+        }
+    }
+
+
+    function funcGetAppDetail(formData, p_ShowError) {
+        try {
+
+            var txt_TenThietKe = $("#txt_TenThietKe");
+            var txt_NgayTaoThietKe = $("#txt_NgayTaoThietKe");
+            var txt_KhaiThactm = $("#txt_KhaiThactm");
+            var txt_KhaiThactm_TaiNuoc = $("#txt_KhaiThactm_TaiNuoc");
+            var txt_KhaiThactm_Ngay = $("#txt_KhaiThactm_Ngay");
+            var txtChucNang_OTHER = $("#txtChucNang_OTHER");
+            var txtCAUTRUC_OTHER = $("#txtCAUTRUC_OTHER");
+            var txtCongNghe_OTHER = $("#txtCongNghe_OTHER");
+            var txt_MoTaTomTat = $("#txt_MoTaTomTat");
+
+            if (p_ShowError == 1 && txt_TenThietKe.val() == "") {
+                showError('Tên gọi/Ký hiệu không được để trống');
+                txt_TenThietKe.focus();
+                return false;
+            }
+            if (p_ShowError == 1 && txt_NgayTaoThietKe.val() == "") {
+                showError('Ngày tạo thiết kế không được để trống');
+                txt_NgayTaoThietKe.focus();
+                return false;
+            }
+            if (p_ShowError == 1 && txt_KhaiThactm.val() == "") {
+                showError('Khai thác thương mại không được để trống');
+                txt_KhaiThactm.focus();
+                return false;
+            }
+            if (p_ShowError == 1 && txt_KhaiThactm_TaiNuoc.val() == "") {
+                showError('Khai thác thương mại tại nước không được để trống');
+                txt_KhaiThactm_TaiNuoc.focus();
+                return false;
+            }
+            if (p_ShowError == 1 && txt_KhaiThactm_Ngay.val() == "") {
+                showError('Khai thác thương mại tại ngày không được để trống');
+                txt_KhaiThactm_Ngay.focus();
+                return false;
+            }
+
+            formData.append("pDetail.TenThietKe", txt_TenThietKe.val());
+            formData.append("pDetail.NgayTaoThietKe", txt_NgayTaoThietKe.val());
+            formData.append("pDetail.KhaiThactm", txt_KhaiThactm.val());
+            formData.append("pDetail.KhaiThactm_TaiNuoc", txt_KhaiThactm_TaiNuoc.val());
+            formData.append("pDetail.KhaiThactm_Ngay", txt_KhaiThactm_Ngay.val());
+            formData.append("pDetail.ChucNang", GetValRadioCheckBoxByName("ChucNang"));
+            formData.append("pDetail.CauTruc", GetValRadioCheckBoxByName("CauTruc"));
+            formData.append("pDetail.CongNghe", GetValRadioCheckBoxByName("CongNghe"));
+            formData.append("pDetail.ChucNang_Other", txtChucNang_OTHER.val());
+            formData.append("pDetail.CauTruc_OTHER", txtCAUTRUC_OTHER.val());
+            formData.append("pDetail.CongNghe_OTHER", txtCongNghe_OTHER.val());
+            formData.append("pDetail.MoTaTomTat", txt_MoTaTomTat.val());
+            if (GetValRadioCheckBoxByName("ChucNang") == "OTHER" && $("#txtChucNang_OTHER").val().trim() == "")
+            {
+                showError('Chức năng khác không được để trống!');
+                $("#txtChucNang_OTHER").focus()
+                return false;
+            }
+            if (GetValRadioCheckBoxByName("CauTruc") == "OTHER" && $("#txtCAUTRUC_OTHER").val().trim() == "")
+            {
+                showError('Cấu trúc khác không được để trống!');
+                $("#txtCAUTRUC_OTHER").focus()
+                return false;
+            }
+            if (GetValRadioCheckBoxByName("CongNghe") == "OTHER" && $("#txtCongNghe_OTHER").val().trim() == "")
+            {
+                showError('Công nghệ khác không được để trống!');
+                $("#txtCongNghe_OTHER").focus()
+                return false;
+            }
+            
+            formData.append("pDetail.SOANH", $("#txtSoHinhAnh").val());
+
+            var txtMADDSHCN = $("#txtMADDSHCN").val();
+            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+            if (p_ShowError == 1 && v_RepMasterType == "DDPL" && txtMADDSHCN == "") {
+                showError('@Resource.TM3C_MaDaiDienKhongDuocTrong');
+                $("#txtMADDSHCN").focus()
+                return false;
+            }
+            formData.append("pInfo.Customer_Code", txtMADDSHCN);
+
+            var _index = 0;
+            $(".clsTacGia").each(function (item) {
+                var _id = $(this).attr('data-id');
+                if ($("#" + _id + "_txtUse").val() == "1") {
+
+                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Name", $("#" + _id + "_TG_TenDayDu").val());
+                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Address", $("#" + _id + "_TG_DiaChi").val());
+                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Phone", $("#" + _id + "_TG_DienThoai").val());
+                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Fax", $("#" + _id + "_TG_Fax").val());
+                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Email", $("#" + _id + "_TG_Email").val());
+                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Country", $("#" + _id + "_TG_QuocTich").val());
+
+                    var cbo_country_tg = document.getElementById(_id + "_TG_QuocTich");
+                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Country_Display", cbo_country_tg.options[cbo_country_tg.selectedIndex].text);
+
+                    _index = _index + 1;
+                }
+            });
+
+          
+          
+              
+        } catch (e) {
+            console.log(e.message);
+            showError('@Resource.TM3B_InternetError');
+            return false;
+        }
+    }
+     
+
+     
+      
+     
+    function onChangeChuDonKhac() {
+        try {
+            if ($("#rdChuDonKhac").is(':checked')) {
+                $("#divChungDonKhac001").removeClass("clssDisplaynone");
+            }
+            else {
+                $("#divChungDonKhac001").addClass("clssDisplaynone");
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+     
+
+    function ThemTacGia() {
+        try {
+
+            var _id = parseInt($("#txt_id_tacgia").val()) + 1;
+            $.ajax({
+                type: 'POST',
+                url: '/geographical-indication/tac-gia/them-tac-gia/',
+                data: {
+                    p_id: _id
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divTacGiaKhac").append(data);
+                    $("#txt_id_tacgia").val(_id);
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function ThemChuDon() {
+        try {
+
+            var _id = parseInt($("#txt_id_ChuDon").val()) + 1;
+            $.ajax({
+                type: 'POST',
+                url: '/geographical-indication/chu-don/them-chu-don/',
+                data: {
+                    p_id: _id
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divChuDonKhac").append(data);
+                    $("#txt_id_ChuDon").val(_id);
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function XoaTacGia(pId, pId2) {
+        try {
+            $("#" + pId).addClass("clssDisplaynone");
+
+            $("#" + pId2).val("0");
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+  
+
+  
+
+    function funGetDocumentFile(formData) {
+        try {
+            var Isuse = 0, Note = "", reponse = false;
+            // 1
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_01", "0");
+            formData.append("pAppDocumentInfo[0].CHAR01", $("#txt_Doc_01").val());
+            formData.append("pAppDocumentInfo[0].CHAR02", $("#txt_Doc_01_2").val());
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_02", "1");
+            formData.append("pAppDocumentInfo[1].CHAR01", $("#txt_Doc_02").val());
+            formData.append("pAppDocumentInfo[1].CHAR02", $("#txt_Doc_02_2").val());
+
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_03", "2");
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_04", "3");
+            formData.append("pAppDocumentInfo[3].CHAR01", $("#txt_Doc_04").val());
+
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_05", "4");
+
+            // 6
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_06", "5");
+
+            // 7
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_07", "6");
+
+            // 8
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_08", "7");
+            formData.append("pAppDocumentInfo[7].CHAR01", $("#txt_Doc_08").val());
+
+            // 9
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_09", "8");
+            formData.append("pAppDocumentInfo[8].CHAR01", $("#txt_Doc_09").val());
+
+            // 10
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_10", "9");
+             
+            //11
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_11", "10");
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_12", "11");
+            formData.append("pAppDocumentInfo[11].CHAR01", $("#txt_Doc_12").val());
+  
+
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+
+    function funcGetTenTaiLieuKhac(formData) {
+        try {
+            var item = 0;
+            if ($("#ckb_Doc_11").is(":checked") == true) {
+                $(".clssListUpload").each(function () {
+                    formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", this.id);
+                    formData.append("pAppDocOtherInfo[" + item + "].Documentname", $("#" + this.id).val());
+                    item++;
+                });
+            }  
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function funcGetTenTaiLieuBoAnh(formData, p_ShowError) {
+        try {
+            // checkvalidate
+            var item = 0;
+            var _documentno = "0";
+            var _check = true;
+            var _controllevel = 1;
+            var _inputfileid = "";
+            $(".clssListUploadIndusDesign").each(function () {
+                _controllevel = $("#" + this.id).attr("meta-data2")
+                _documentno = $("#" + this.id).attr("meta-data");
+                _inputfileid = "pTreefileName" + _documentno;
+                formData.append("pAppDocDesign[" + item + "].keyFileUpload", this.id);
+                if (p_ShowError == 1 && $("#" + this.id).val().trim() == "") {
+                    showError('Tên tài liệu không được để trống');
+                    $("#" + this.id).focus();
+                    _check = false;
+                    return false;
+                }
+                if (_controllevel == "2") {
+                    // nếu là tài liệu cấp 2 thì check file
+                    var file = document.getElementById(_inputfileid);
+                    if (p_ShowError == 1 && file == undefined) {
+                        showError('Chưa tải file đính kèm');
+                        $("#" + this.id).focus();
+                        _check = false;
+                        return false;
+                    }
+                    if (p_ShowError == 1 && file.files.length == 0) {
+                        showError('Chưa tải file đính kèm');
+                        $("#" + this.id).focus();
+                        _check = false;
+                        return false;
+                    }
+                }
+
+                item++;
+            });
+            if (_check == false) {
+                return false;
+            }
+
+            item = 0;
+            _documentno = "0";
+            $(".clssListUploadIndusDesign").each(function () {
+                formData.append("pAppDocDesign[" + item + "].keyFileUpload", this.id);
+                formData.append("pAppDocDesign[" + item + "].Documentname", $("#" + this.id).val());
+                formData.append("pAppDocDesign[" + item + "].FILETYPE", "2");
+                formData.append("pAppDocDesign[" + item + "].FILELEVEL", $("#" + this.id).attr("data-level"));
+                _documentno = $("#" + this.id).attr("data-ParentId");
+                formData.append("pAppDocDesign[" + item + "].Char01", $("#Treetxttailieuanhsotrang" + _documentno).val());
+                formData.append("pAppDocDesign[" + item + "].Char02", $("#TreetxttailieuanhGhiChu" + _documentno).val());
+                formData.append("pAppDocDesign[" + item + "].ParentId", _documentno);
+                item++;
+            });
+            return true;
+        } catch (e) {
+            console.log(e.message);
+            return false;
+        }
+    }
+
+
+    function funcGetCheckValueAndText(formData, pID, pItem) {
+        try {
+            var Isuse = 0, Note = "";
+            //Các tài liệu có trong đơn
+            if ($("#" + pID).prop('checked') == true) {
+                Isuse = 1;
+            }
+            formData.append("pAppDocumentInfo[" + pItem + "].keyFileUpload", pID);
+            formData.append("pAppDocumentInfo[" + pItem + "].Document_Id", $("#" + pID).val());
+            formData.append("pAppDocumentInfo[" + pItem + "].Isuse", Isuse);
+            return true;
+        } catch (e) {
+            console.log(e.message);
+            return false;
+        }
+    }
+
+    function funcChuDonKhac(formData) {
+        try {
+            var _index = 0;
+            $(".clsChuDonKhac").each(function (item) {
+                var _id = $(this).attr('data-id');
+                if ($("#" + _id + "_txtUse_ChuDonKhac").val() == "1") {
+
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Name", $("#" + _id + "_txtTenDayDu_Khac").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Address", $("#" + _id + "_txtDiaChi_Khac").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Phone", $("#" + _id + "_txtDienThoai_Khac").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Fax", $("#" + _id + "_txtFax_Khac").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Email", $("#" + _id + "_txtEmail_Khac").val());
+
+                    if ($("#" + _id + "_ckbTacGiaDongThoi").is(':checked')) {
+                        formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "TGDT");
+                    } else {
+                        formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "");
+                    }
+
+                    if ($("#" + _id + "_ckbPhoBan").is(':checked')) {
+                        formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "PB");
+                    } else {
+                        formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "");
+                    }
+
+                    _index = _index + 1;
+                }
+            });
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+    ///Đếm số phương án số hình ảnh
+    function CountPhuongAnHinhAnh() {
+        var _soPhuongAn = 0;
+        var _soHinhAnh = 0;
+        var _controllevel = "";
+        try {
+            $(".clssListUploadIndusDesign").each(function () {
+                _controllevel = $("#" + this.id).attr("data-level")
+                if (_controllevel == "1") {
+                    _soPhuongAn = _soPhuongAn + 1;
+                }
+                else if (_controllevel == "2") {
+                    _soHinhAnh = _soHinhAnh + 1;
+                }
+            });
+            $("#txtSoHinhAnh").val(_soHinhAnh);
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+
+
+</script>

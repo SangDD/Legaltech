@@ -27,6 +27,25 @@ namespace ObjectInfos
         public string Object_Lable { get; set; }
         public string Object_Lable_En { get; set; }
         public string TxtId { get; set; }
+    }
 
+    public class Sys_Document_Info
+    {
+        public string AppCode { get; set; }
+        public string Doc_Id { get; set; }
+        public string Check_Box_Id { get; set; }
+
+        public string Doc_Level { get; set; }
+        public string Content_1 { get; set; }
+        public string Content_2 { get; set; }
+        public string Content_3 { get; set; }
+
+        public string Content_1_En { get; set; }
+        public string Content_2_En { get; set; }
+        public string Content_3_En { get; set; }
+
+        public decimal Is_Upload { get; set; }
+        public decimal Doc_Group { get; set; }
+        public string Width { get; set; }
     }
 }

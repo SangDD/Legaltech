@@ -25,7 +25,10 @@
     string _width = "";
     if (arr_id.Length >= 7)
     {
-        _width = arr_id[6] + "px";
+        if (arr_id[6] != "")
+        {
+            _width = arr_id[6] + "px";
+        }
     }
 
     string Lable3 = "";

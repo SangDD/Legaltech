@@ -78,12 +78,43 @@ namespace DataAccess
             }
         }
 
+        public DataSet Sys_Document_GetBy_Casecode(string p_appcode)
+        {
+            try
+            {
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_sys_document.proc_sys_get_Appcode",
+                    new OracleParameter("p_appcode", OracleDbType.Varchar2, p_appcode, ParameterDirection.Input),
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
+        public DataSet Sys_Document_GetAll()
+        {
+            try
+            {
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_sys_document.proc_sys_get_all",
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
+
+
 
         public decimal App_Translate_Insert(List<App_Translate_Info> pInfo)
         {
             try
             {
-                OracleHelper.ExcuteBatchNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_translate.Proc_App_Translate_Insert",pInfo.Count,
+                OracleHelper.ExcuteBatchNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_translate.Proc_App_Translate_Insert", pInfo.Count,
                     new OracleParameter("p_app_header_id", OracleDbType.Decimal, pInfo.Select(o => o.App_Header_Id).ToArray(), ParameterDirection.Input),
                     new OracleParameter("p_case_code", OracleDbType.Varchar2, pInfo.Select(o => o.Case_Code).ToArray(), ParameterDirection.Input),
                     new OracleParameter("p_object_name", OracleDbType.Varchar2, pInfo.Select(o => o.Object_Name).ToArray(), ParameterDirection.Input),
