@@ -48,8 +48,7 @@ namespace WebApps.Areas.Patent.Controllers
         [HttpPost]
         [Route("register")]
         public ActionResult Register(ApplicationHeaderInfo pInfo, B03_Info pDetail,
-           List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo,
-           List<AppDocumentOthersInfo> pLstImagePublic)
+           List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo)
         {
 
             try
@@ -85,7 +84,7 @@ namespace WebApps.Areas.Patent.Controllers
                     // detail
                     if (pAppHeaderID >= 0)
                     {
-                        pDetail.AppCode = pInfo.Appcode;
+                        pDetail.Appcode = pInfo.Appcode;
                         pDetail.Language_Code = language;
                         pDetail.App_Header_Id = pAppHeaderID;
                         pDetail.Case_Code = p_case_code;
@@ -98,7 +97,7 @@ namespace WebApps.Areas.Patent.Controllers
                     }
 
                     #region Phí cố định
-                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_B03(pDetail, pAppDocumentInfo, pLstImagePublic);
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_B03(pDetail, pAppDocumentInfo);
                     if (_lstFeeFix.Count > 0)
                     {
                         AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();

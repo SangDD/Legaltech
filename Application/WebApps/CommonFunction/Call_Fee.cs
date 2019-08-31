@@ -1822,8 +1822,7 @@ namespace WebApps.CommonFunction
         }
 
 
-        public static List<AppFeeFixInfo> CallFee_B03(B03_Info pDetail, List<AppDocumentInfo> pAppDocumentInfo,
-            List<AppDocumentOthersInfo> pLstImagePublic)
+        public static List<AppFeeFixInfo> CallFee_B03(B03_Info pDetail, List<AppDocumentInfo> pAppDocumentInfo)
         {
             try
             {
@@ -1833,7 +1832,7 @@ namespace WebApps.CommonFunction
                 AppFeeFixInfo _AppFeeFixInfo = new AppFeeFixInfo();
                 _AppFeeFixInfo.Fee_Id = 1;
                 _AppFeeFixInfo.Level = 1;
-                string _keyFee = pDetail.AppCode + "_" + _AppFeeFixInfo.Fee_Id.ToString();
+                string _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo.Fee_Id.ToString();
                 if (pDetail.Thamdinhnoidung == "TDND")
                 {
                     _AppFeeFixInfo.Isuse = pDetail.Point == -1 ? 0 : 1;
@@ -1859,7 +1858,7 @@ namespace WebApps.CommonFunction
                 _lstFeeFix.Add(_AppFeeFixInfo);
                 #endregion
 
-                #region 7 Phí thẩm định nội dung
+                #region Phí thẩm định nội dung
                 _AppFeeFixInfo = new AppFeeFixInfo();
                 _AppFeeFixInfo.Fee_Id = 2;
 
@@ -1874,7 +1873,7 @@ namespace WebApps.CommonFunction
                     _AppFeeFixInfo.Number_Of_Patent = 0;
                 }
 
-                _keyFee = pDetail.AppCode + "_" + _AppFeeFixInfo.Fee_Id.ToString();
+                _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo.Fee_Id.ToString();
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                 {
                     _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo.Number_Of_Patent;
@@ -1897,7 +1896,7 @@ namespace WebApps.CommonFunction
                 _AppFeeFixInfo.Fee_Id = 21;
                 decimal _numberPicOver = 5;
                 _AppFeeFixInfo.Level = 1;
-                _keyFee = pDetail.AppCode + "_" + _AppFeeFixInfo.Fee_Id.ToString();
+                _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo.Fee_Id.ToString();
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                 {
                     _numberPicOver = Convert.ToDecimal(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01);
