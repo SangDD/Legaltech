@@ -212,7 +212,7 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
                     #endregion
 
                     #region tính phí
-                    List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_A05(pDetail, pAppDocumentInfo);
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A05(pDetail, pAppDocumentInfo);
                     if (_lstFeeFix.Count > 0)
                     {
                         AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
@@ -459,7 +459,7 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
                     AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
                     _AppFeeFixBL.AppFeeFixDelete(pInfo.Case_Code, language);
 
-                    List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_A05(pDetail, pAppDocumentInfo);
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A05(pDetail, pAppDocumentInfo);
                     if (_lstFeeFix.Count > 0)
                     {
                         pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, p_case_code);
@@ -584,7 +584,7 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
 
                 // Phí cố định
 
-                List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_A05(pDetail, pAppDocumentInfo);
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A05(pDetail, pAppDocumentInfo);
                 Prepare_Data_Export_A05(ref _A05_Info_Export, pInfo, pAppDocumentInfo, _lstFeeFix, pOther_MasterInfo,
                        pAppDocOtherInfo );
 
@@ -893,7 +893,7 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
         {
             try
             {
-                List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_A05(pDetail, pAppDocumentInfo);
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A05(pDetail, pAppDocumentInfo);
                 ViewBag.LstFeeFix = _lstFeeFix;
             }
             catch (Exception ex)
