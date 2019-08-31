@@ -225,7 +225,7 @@
         public static string AppCode_TM_3D_PLC_05_KN = "C05";  //TM_PLC05KN
         public static string AppCodeDangKyQuocTeNH = "C06"; //TM06DKQT
         public static string AppCode_TM_4C2_PLD_01_HDCN = "D01"; //TM_PLD01HDCN
-
+        public static string AppCode_B03 = "B03"; //TM_PLD01HDCN
     }
 
     public class CommonWiki
