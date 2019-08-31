@@ -259,7 +259,7 @@ namespace WebApps.Areas.ThietKeBanDan.Controllers
                     #endregion
 
                     #region tính phí
-                    List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_A02(pDetail, pAppDocumentInfo,   pAppDocDesign);
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A02(pDetail, pAppDocumentInfo,   pAppDocDesign);
                     if (_lstFeeFix.Count > 0)
                     {
                         AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
@@ -506,7 +506,7 @@ namespace WebApps.Areas.ThietKeBanDan.Controllers
                     AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
                     _AppFeeFixBL.AppFeeFixDelete(pInfo.Case_Code, language);
 
-                    List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_A02(pDetail, pAppDocumentInfo, pAppDocDesign);
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A02(pDetail, pAppDocumentInfo, pAppDocDesign);
                     if (_lstFeeFix.Count > 0)
                     {
                         pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, p_case_code);
@@ -629,7 +629,7 @@ namespace WebApps.Areas.ThietKeBanDan.Controllers
 
                 // Phí cố định
 
-                List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_A02(pDetail, pAppDocumentInfo,  pAppDocDesign);
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A02(pDetail, pAppDocumentInfo,  pAppDocDesign);
                 Prepare_Data_Export_A02(ref _A02_Info_Export, pInfo, pAppDocumentInfo, _lstFeeFix, pAppAuthorsInfo, pOther_MasterInfo,
                        pAppDocOtherInfo,   pAppDocDesign);
 
@@ -973,7 +973,7 @@ namespace WebApps.Areas.ThietKeBanDan.Controllers
         {
             try
             {
-                List<AppFeeFixInfo> _lstFeeFix = AppsCommon.CallFee_A02(pDetail, pAppDocumentInfo , pAppDocDesign);
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A02(pDetail, pAppDocumentInfo , pAppDocDesign);
                 ViewBag.LstFeeFix = _lstFeeFix;
             }
             catch (Exception ex)
