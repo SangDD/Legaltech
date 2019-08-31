@@ -470,7 +470,7 @@
 
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             if ((v_RepMasterType === "" || v_RepMasterType == undefined)  && p_status == 2) {
-                jError("@Html.Raw(Resource.TM2B_ChonDaiDienChuDon", "@Html.Raw()Resource.TM3B_Loi)", function () {
+                jError("@Html.Raw(Resource.TM2B_ChonDaiDienChuDon)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                     $("#_2_rdoNguoiDaiDienPL").focus()
                 });
                 return false;

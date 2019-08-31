@@ -10,7 +10,21 @@
 <div id="toolbox">
     <ul>
         <li class="toTop" style=""><a href="#top" title="Lên đầu trang"><i style=" font-size: 27px; color: green;" class="fa fa-home"></i></a></li>
-        <li class="email"><a href="javascript:;" title="Xem trước"><i class="fa fa-eye" target="_blank" onclick="return funcPreViewApplication();" style=" font-size: 27px; color: green;"></i></a></li>
+
+        <li class="email"><a href="javascript:;" title="Phí"><i class="fas fa-dollar-sign" size="9x" target="_blank" onclick="return funcPreViewFee();" style="font-size: 27px;margin-left: 8px;color: green;"></i></a></li>
+
+        <li class="email">
+            <a href="javascript:;" onclick="return funcPreViewApplication();" title="Xem trước">
+                <img src="/Content/icons/icon_vn.png" style="margin-left: 3px;width: 25px;height: 30px;" />
+            </a>
+        </li>
+
+        <li class="email">
+            <a href="javascript:;" onclick="return funcPreViewTranslate();" title="Xem bản dịch">
+                <img src="/Content/icons/translate.png" style="width: 25px;height: 30px;" />
+            </a>
+        </li>
+
     </ul>
 </div>
 
@@ -30,14 +44,15 @@
 
 <script>
 
-    function funGetData_Preview(url) {
+    function funGetData_Preview(url, pView_Translate) {
         try {
             $.ajax({
                 url: url,
                 type: 'POST',
                 data: {
                     pAppHeaderId: '@_AppHeaderInfo.Id',
-                    p_appCode : '@_AppHeaderInfo.Appcode'
+                    p_appCode: '@_AppHeaderInfo.Appcode',
+                    p_View_Translate: pView_Translate
                 },
                 async: true, cache: false, traditional: true,
                 beforeSend: function () {
@@ -64,10 +79,48 @@
     }
 
     function funcPreViewApplication() {
-        var preturn = funGetData_Preview("/trade-mark-4c2/ket_xuat_file");
+        var preturn = funGetData_Preview("/trade-mark-4c2/ket_xuat_file", 0);
         if (preturn == true || preturn == undefined) {
             OpenPreview("/trade-mark-4c2/Pre-View");
         }
+    }
+
+    function funcPreViewTranslate() {
+        var preturn = funGetData_Preview("/trade-mark-4c2/ket_xuat_file", 1);
+        if (preturn == true || preturn == undefined) {
+            OpenPreview("/trade-mark-4c2/Pre-View");
+        }
+    }
+
+    function funcPreViewFee() {
+
+        var formData = new FormData();
+        formData.append("pInfo.Appcode", '@_AppHeaderInfo.Appcode');
+        formData.append("pInfo.Case_Code", '@_AppHeaderInfo.Case_Code');
+        formData.append("pInfo.Id", @_AppHeaderInfo.Id);
+
+        $.ajax({
+            url: "/lg-patent/getFeeView_View",
+            type: 'POST',
+            data: formData,
+            dataType: "json",
+            async: true,
+            cache: false,
+            traditional: true,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                CreateRollingWaitingIcon(true);
+            },
+            success: function (data) {
+                CreateRollingWaitingIcon(false);
+                if (data != null) {
+                    $("#divPopUpFee").html(data.PartialTableListFees);
+                    ShowPopupDialog_Ipace('divWrapperPopUpFee', '@Html.Raw(WebApps.Resources.Resource.ThongTinFee)', 800, 1200);
+                }
+                return false;
+            }
+        });
     }
 
 

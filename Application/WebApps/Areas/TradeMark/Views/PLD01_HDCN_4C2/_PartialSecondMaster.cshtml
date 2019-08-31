@@ -75,16 +75,16 @@
 <script>
 
     //Lấy thông tin chủ đơn add vào formData
-    function funcGetSecondMaster(formData, PreID) {
+    function funcGetSecondMaster(formData, PreID, p_Status) {
         try {
             var txtTenDayDu = $("#" + PreID + "_txtTenDayDu").val();
-            if (txtTenDayDu === "") {
+            if (txtTenDayDu === "" && p_Status == 2) {
                 $("#" + PreID + "_txtTenDayDu").focus().val('');
                 showError('Tên không được để trống!');
                 return false;
             }
             var txtDiaChi = $("#" + PreID + "_txtDiaChi").val();
-            if (txtDiaChi === "") {
+            if (txtDiaChi === "" && p_Status == 2) {
                 $("#" + PreID + "_txtDiaChi").focus().val('');
                 showError('Địa chỉ không được để trống!');
                 return false;
@@ -92,7 +92,7 @@
             var txtDienThoai = $("#" + PreID + "_txtDienThoai").val();
             var txtFax = $("#" + PreID + "_txtFax").val();
             var txtEmail = $("#" + PreID + "_txtEmail").val();
-            if (txtEmail != "") {
+            if (txtEmail != "" && p_Status == 2) {
                 if (!IsvalidEmail(txtEmail)) {
                     $("#" + PreID + "_txtEmail").focus();
                     showError('Email không đúng định dạng!');

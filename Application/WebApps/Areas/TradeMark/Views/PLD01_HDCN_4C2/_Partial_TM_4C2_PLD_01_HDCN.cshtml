@@ -341,12 +341,7 @@
             </div> <div class="classLuuTam">
                 <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
             </div>
-            @if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
-            {
-                <div class="classLuuTam">
-                    <input type="button" value="Dữ liệu quá khứ" id="btnDuLieuCu" class="btn class_37" style="margin-left:5px" />
-                </div>
-            }
+
         </div>
     </fieldset>
 </div>
@@ -454,238 +449,7 @@
     $("#btnGuiDon").click(function () {
         try {
             nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmGui", function () {
-                var formData = new FormData();
-                var reponse = funcThongTinNhapHo(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-                formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin)');
-                var reponse = funcThongTinCaseName(formData, "0");
-                if (reponse == false) {
-                    return false;
-                }
-
-                var v_AppCode = $("#txtAppCode").val();
-                if (v_AppCode === "") {
-                    $('#txtAppCode').focus().val('');
-                    showError('@Resource.TM3B_ChonLoaiDonDK');
-                    return false;
-                }
-                formData.append("pInfo.Appcode", v_AppCode);
-
-                //Thông tin chủ đơn
-                if (funcThongTinChuDon(formData, "1") != true) {
-                    return false;
-                }
-                var Master_Type = $("input[name='1_rdoChuDon']:checked").val();
-                if (Master_Type === "" || Master_Type == undefined) {
-                    jError("@Resource.TM3C_ChonChuDon", "@Resource.TM3B_Loi", function () {
-                        $("#rb_1_ChuDonChuyenNhuong").focus()
-                    });
-                    return false;
-                }
-                formData.append("pDetail.Master_Type", Master_Type);
-
-
-                // đại diện chủ đơn
-                if (funcThongTinDaiDienChuDon(formData, "2") != true) {
-                    return false;
-                }
-
-                var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-                if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                    jError("@Resource.TM2B_ChonDaiDienChuDon", "@Resource.TM3B_Loi", function () {
-                        $("#_2_rdoNguoiDaiDienPL").focus()
-                    });
-                    return false;
-                }
-                formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-
-
-                //Lấy thông tin detail
-                reponse = funcGetAppDetail(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-                // get thông tin fee
-                var reponse = funcGet_Fee(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-                //Lấy thông tin tài liệu có trong đơn
-                reponse = funGetDocumentFile(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-                reponse = funcGetCamKetChuDon(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-                // Display the values
-                for (var value of formData.values()) {
-                    console.log(value);
-                }
-
-                // Display the values
-                for (var key of formData.keys()) {
-                    console.log(key);
-                }
-
-                $.ajax({
-                    url: '/trade-mark-4c2/register_PLD01_HDCN_4C2',
-                    type: 'POST',
-                    data: formData,
-                    processData: false, contentType: false, traditional: true, async: false,
-                    dataType: "json",
-                    enctype: 'multipart/form-data',
-                    headers: { "cache-control": "no-cache" },
-                    //beforeSend: function () {
-                    //    CreateRollingWaitingIcon(true);
-                    //},
-                    success: function (data) {
-                        //CreateRollingWaitingIcon(false);
-                        if (data != null && data.status >= 0) {
-                            jAlert('@Html.Raw(Resource.GuiDonThanhCong)', '@Html.Raw(Resource.ThongBao)', function () {
-                                window.location = "/trade-mark-mana/quan-ly-don";
-                            });
-                        } else {
-                            jError("@Html.Raw(WebApps.Resources.Resource.LoiXuLyDuLieu)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
-                            });
-                        }
-                    },
-                    error: function (e) {
-                        //CreateRollingWaitingIcon(false);
-                        console.log(e);
-                    }
-                });
-            });
-        } catch (e) {
-            //CreateRollingWaitingIcon(false);
-            console.log(e);
-        }
-    });
-
-    $("#btnDuLieuCu").click(function () {
-        try {
-            nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmGui", function () {
-                var formData = new FormData();
-                var reponse = funcThongTinNhapHo(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-                formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.DuLieuCu)');
-                var reponse = funcThongTinCaseName(formData, "0");
-                if (reponse == false) {
-                    return false;
-                }
-
-                var v_AppCode = $("#txtAppCode").val();
-                if (v_AppCode === "") {
-                    $('#txtAppCode').focus().val('');
-                    showError('@Resource.TM3B_ChonLoaiDonDK');
-                    return false;
-                }
-                formData.append("pInfo.Appcode", v_AppCode);
-
-                //Thông tin chủ đơn
-                if (funcThongTinChuDon(formData, "1") != true) {
-                    return false;
-                }
-                var Master_Type = $("input[name='1_rdoChuDon']:checked").val();
-                if (Master_Type === "" || Master_Type == undefined) {
-                    jError("@Resource.TM3C_ChonChuDon", "@Resource.TM3B_Loi", function () {
-                        $("#rb_1_ChuDonChuyenNhuong").focus()
-                    });
-                    return false;
-                }
-                formData.append("pDetail.Master_Type", Master_Type);
-
-
-                // đại diện chủ đơn
-                if (funcThongTinDaiDienChuDon(formData, "2") != true) {
-                    return false;
-                }
-
-                var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-                if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                    jError("@Resource.TM2B_ChonDaiDienChuDon", "@Resource.TM3B_Loi", function () {
-                        $("#_2_rdoNguoiDaiDienPL").focus()
-                    });
-                    return false;
-                }
-                formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-
-
-                //Lấy thông tin detail
-                reponse = funcGetAppDetail(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-                // get thông tin fee
-                var reponse = funcGet_Fee(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-                //Lấy thông tin tài liệu có trong đơn
-                reponse = funGetDocumentFile(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-                reponse = funcGetCamKetChuDon(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-                // Display the values
-                for (var value of formData.values()) {
-                    console.log(value);
-                }
-
-                // Display the values
-                for (var key of formData.keys()) {
-                    console.log(key);
-                }
-
-                if (funcThongTinQuaKhu(formData, "1") != true) {
-                    return false;
-                }
-
-                $.ajax({
-                    url: '/trade-mark-4c2/register_PLD01_HDCN_4C2',
-                    type: 'POST',
-                    data: formData,
-                    processData: false, contentType: false, traditional: true, async: false,
-                    dataType: "json",
-                    enctype: 'multipart/form-data',
-                    headers: { "cache-control": "no-cache" },
-                    //beforeSend: function () {
-                    //    CreateRollingWaitingIcon(true);
-                    //},
-                    success: function (data) {
-                        //CreateRollingWaitingIcon(false);
-                        if (data != null && data.status >= 0) {
-                            jAlert('@Html.Raw(Resource.GuiDonThanhCong)', '@Html.Raw(Resource.ThongBao)', function () {
-                                window.location = "/trade-mark-mana/quan-ly-don";
-                            });
-                        } else {
-                            jError("@Html.Raw(WebApps.Resources.Resource.LoiXuLyDuLieu)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
-                            });
-                        }
-                    },
-                    error: function (e) {
-                        //CreateRollingWaitingIcon(false);
-                        console.log(e);
-                    }
-                });
+                funGetData('@((int)Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin)');
             });
         } catch (e) {
             //CreateRollingWaitingIcon(false);
@@ -696,100 +460,7 @@
     $("#btnLuuTam").click(function () {
         try {
             nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmLuuTam", function () {
-                var formData = new FormData();
-                var reponse = funcThongTinNhapHo(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-                formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.Luu_tam)');
-                var reponse = funcThongTinCaseName(formData, "0");
-                if (reponse == false) {
-                    return false;
-                }
-
-                var v_AppCode = $("#txtAppCode").val();
-                if (v_AppCode === "") {
-                    $('#txtAppCode').focus().val('');
-                    showError('@Resource.TM3B_ChonLoaiDonDK');
-                    return false;
-                }
-                formData.append("pInfo.AppCode", v_AppCode);
-
-                //Thông tin chủ đơn
-                if (funcThongTinChuDon(formData, "1") != true) {
-                    return false;
-                }
-                var Master_Type = $("input[name='1_rdoChuDon']:checked").val();
-                if (Master_Type === "" || Master_Type == undefined) {
-                    jError("@Resource.TM3C_ChonChuDon", "@Resource.TM3B_Loi", function () {
-                        $("#rb_1_ChuDonChuyenNhuong").focus()
-                    });
-                    return false;
-                }
-                formData.append("pDetail.Master_Type", v_RepMasterType);
-
-
-                // đại diện chủ đơn
-                if (funcThongTinDaiDienChuDon(formData, "2") != true) {
-                    return false;
-                }
-
-                var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-                if (v_RepMasterType === "" || v_RepMasterType == undefined) {
-                    jError("@Resource.TM2B_ChonDaiDienChuDon", "@Resource.TM3B_Loi", function () {
-                        $("#_2_rdoNguoiDaiDienPL").focus()
-                    });
-                    return false;
-                }
-                formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-
-                //Lấy thông tin detail
-                reponse = funcGetAppDetail(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-                //Lấy thông tin tài liệu có trong đơn
-                reponse = funGetDocumentFile(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-                reponse = funcGetCamKetChuDon(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-                $.ajax({
-                    url: '/trade-mark-4c2/register_PLD01_HDCN_4C2',
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    traditional: true,
-                    dataType: "json",
-                    enctype: 'multipart/form-data',
-                    async: true,
-                    headers: { "cache-control": "no-cache" },
-                    beforeSend: function () {
-                        CreateRollingWaitingIcon(true);
-                    },
-                    success: function (data) {
-                        CreateRollingWaitingIcon(false);
-                        if (data != null && data.status >= 0) {
-                            jAlert('@Resource.TM3B_LuuTamThanhCong', "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
-                                window.location = "/trade-mark-mana/quan-ly-don";
-                            });
-                        } else {
-                            jError("@Resource.TM3B_LuuTamLoi");
-                        }
-                    },
-                    error: function (e) {
-                        CreateRollingWaitingIcon(false);
-                        console.log(e);
-                    }
-                });
+                funGetData('@((int)Common.CommonData.CommonEnums.App_Status.Luu_tam)');
             });
         } catch (e) {
             CreateRollingWaitingIcon(false);
@@ -797,18 +468,133 @@
         }
     });
 
-    function funcGetAppDetail(formData) {
+    function funGetData(p_status) {
+        try {
+            var formData = new FormData();
+            var reponse = funcThongTinNhapHo(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            formData.append("pInfo.Status", p_status);
+            var reponse = funcThongTinCaseName(formData, "0");
+            if (reponse == false) {
+                return false;
+            }
+
+            var v_AppCode = $("#txtAppCode").val();
+            if (v_AppCode === "") {
+                $('#txtAppCode').focus().val('');
+                showError('@Resource.TM3B_ChonLoaiDonDK');
+                return false;
+            }
+            formData.append("pInfo.AppCode", v_AppCode);
+
+            //Thông tin chủ đơn
+            if (p_status == 1) {
+                if (funcThongTinChuDon_SaveTem(formData, "1") != true) {
+                    return false;
+                }
+            } else if (p_status == 2) {
+                if (funcThongTinChuDon(formData, "1") != true) {
+                    return false;
+                }
+            }
+
+            var Master_Type = $("input[name='1_rdoChuDon']:checked").val();
+            if ((Master_Type === "" || Master_Type == undefined) && p_status == 2) {
+                jError("@Resource.TM3C_ChonChuDon", "@Resource.TM3B_Loi", function () {
+                    $("#rb_1_ChuDonChuyenNhuong").focus()
+                });
+                return false;
+            }
+            formData.append("pDetail.Master_Type", v_RepMasterType);
+
+
+            // đại diện chủ đơn
+            if (funcThongTinDaiDienChuDon(formData, "2") != true) {
+                return false;
+            }
+
+            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+            if ((v_RepMasterType === "" || v_RepMasterType == undefined) && p_status == 2) {
+                jError("@Resource.TM2B_ChonDaiDienChuDon", "@Resource.TM3B_Loi", function () {
+                    $("#_2_rdoNguoiDaiDienPL").focus()
+                });
+                return false;
+            }
+            formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+
+            //Lấy thông tin detail
+            reponse = funcGetAppDetail(formData, p_status);
+            if (reponse == false) {
+                return false;
+            }
+
+            //Lấy thông tin tài liệu có trong đơn
+            reponse = funGetDocumentFile(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            reponse = funcGetCamKetChuDon(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            $.ajax({
+                url: '/trade-mark-4c2/register_PLD01_HDCN_4C2',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                traditional: true,
+                dataType: "json",
+                enctype: 'multipart/form-data',
+                async: true,
+                headers: { "cache-control": "no-cache" },
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data != null && data.status >= 0) {
+                        if (p_status == 1) {
+                            jAlert('@Html.Raw(Resource.LuuTamThanhCong)', ThongBao, function () {
+                                window.location = "/trade-mark-mana/quan-ly-don";
+                            });
+                        } else {
+                            jAlert('@Html.Raw(Resource.GuiDonThanhCong)', ThongBao, function () {
+                                window.location = "/trade-mark-mana/quan-ly-don";
+                            });
+                        }
+                    } else {
+                        jError("@Resource.TM3B_LuuTamLoi");
+                    }
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
+            });
+        } catch (e) {
+            CreateRollingWaitingIcon(false);
+            console.log(e);
+        }
+    }
+
+    function funcGetAppDetail(formData, p_status) {
         try {
 
             // BÊN THỨ HAI TRONG HỢP ĐỒNG (KHÔNG ĐỨNG TÊN CHỦ ĐƠN)
-            if (funcGetSecondMaster(formData, "3") != true) {
+            if (funcGetSecondMaster(formData, "3", p_status) != true) {
                 return false;
             }
 
             var txtMADDSHCN = $("#txtMADDSHCN").val();
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             if (v_RepMasterType = "DDPL") {
-                if (txtMADDSHCN == "") {
+                if (txtMADDSHCN == "" && p_status == 2) {
                     jError("@Resource.TM3C_MaDaiDienKhongDuocTrong", "@Resource.TM3B_Loi", function () {
                         $("#txtMADDSHCN").focus()
                     });
@@ -818,7 +604,7 @@
             formData.append("pDetail.Customer_Code", txtMADDSHCN);
 
             var _Object_Contract_Type = $("input[name='4_rdoDoiTuongHopDong']:checked").val();
-            if (_Object_Contract_Type === "" || _Object_Contract_Type == undefined) {
+            if ((_Object_Contract_Type === "" || _Object_Contract_Type == undefined) && p_status == 2) {
                 jError("@Resource.TM3C_ChonGiaTriYeuCauChuyenNhuong", "@Resource.TM3B_Loi", function () {
                     $("#4_rdDT_1").focus()
                 });
@@ -828,7 +614,7 @@
 
             // số đơn
             var _VanBangBaoHo = $("#4_txt_VanBangBaoHo").val();
-            if (_VanBangBaoHo === "" || _VanBangBaoHo == undefined) {
+            if ((_VanBangBaoHo === "" || _VanBangBaoHo == undefined) && p_status == 2) {
                 jError("@Resource.TM4C_VanBangBaoHoKhongDuocDeTrong", "@Resource.TM3B_Loi", function () {
                     $("#4_txt_VanBangBaoHo").focus()
                 });

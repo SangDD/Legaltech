@@ -18,6 +18,7 @@
     using BussinessFacade.ModuleMemoryData;
     using System.Data;
     using System.Linq;
+    using BussinessFacade;
 
     [ValidateAntiForgeryTokenOnAllPosts]
     [RouteArea("TradeMarkRegistration", AreaPrefix = "trade-mark-3d")]
@@ -446,7 +447,7 @@
 
         [HttpPost]
         [Route("ket_xuat_file")]
-        public ActionResult ExportData_View(decimal pAppHeaderId, string p_appCode, string p_Language)
+        public ActionResult ExportData_View(decimal pAppHeaderId, string p_appCode, decimal p_View_Translate)
         {
             try
             {
@@ -463,24 +464,61 @@
                 DocumentModel document = DocumentModel.Load(_fileTemp);
 
                 // Fill export_header
-                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C05_VI_" + p_appCode + ".pdf");
-
                 AppsCommon.Prepare_Data_Export_C05(ref app_Detail, applicationHeaderInfo, appDocumentInfos, appFeeFixInfos);
                 List<App_Detail_PLC05_KN_Info> _lst = new List<App_Detail_PLC05_KN_Info>();
                 _lst.Add(app_Detail);
 
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLC05_KN_Info>(_lst, false);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+
                 string _tempfile = "TM_PLC05_KN.rpt";
-                if (p_Language == Language.LangEN)
+                string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C05_VN_" + _datetimenow + ".pdf");
+                if (p_View_Translate == 1)
                 {
-                    _tempfile = "TM_PLC05_KN_EN.rpt";
+                    // nếu là tiếng việt thì xem bản tiếng anh và ngược lại
+                    if (applicationHeaderInfo.Languague_Code == Language.LangVI)
+                    {
+                        _tempfile = "TM_PLC05_KN_EN.rpt"; // tiếng anh
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C05_EN_" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "C05_EN_" + _datetimenow + ".pdf";
+                    }
+                    else
+                    {
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C05_VN_" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "C05_VN_" + _datetimenow + ".pdf";
+                    }
                 }
-                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile)); 
+                else
+                {
+                    if (applicationHeaderInfo.Languague_Code == Language.LangVI)
+                    {
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C05_VN_" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "C05_VN_" + _datetimenow + ".pdf";
+                    }
+                    else
+                    {
+                        _tempfile = "TM_PLC05_KN_EN.rpt"; // tiếng anh
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C05_EN_" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "C05_EN_" + _datetimenow + ".pdf";
+                    }
+                }
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
 
                 if (_ds_all != null)
                 {
                     _ds_all.Tables[0].TableName = "Table";
+
+                    // đè các bản dịch lên
+                    if (p_View_Translate == 1)
+                    {
+                        // nếu là bản xem của thằng dịch
+                        App_Translate_BL _App_Translate_BL = new App_Translate_BL();
+                        List<App_Translate_Info> _lst_translate = _App_Translate_BL.App_Translate_GetBy_AppId(pAppHeaderId);
+
+                        AppsCommon.Overwrite_DataSouce_Export(ref _ds_all, _lst_translate);
+                    }
+
                     oRpt.Database.Tables["Table"].SetDataSource(_ds_all.Tables[0]);
                     //oRpt.SetDataSource(_ds_all);
                 }
@@ -511,24 +549,32 @@
         {
             try
             {
-                string language = pInfo.View_Language_Report;
+                string language = AppsCommon.GetCurrentLang();
                 string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/C05_VI.docx");
                 DocumentModel document = DocumentModel.Load(_fileTemp);
 
                 // Fill export_header
-                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C05_VI_" + TradeMarkAppCode.AppCode_TM_3D_PLC_05_KN + ".pdf");
                 AppsCommon.Prepare_Data_Export_C05(ref pDetail, pInfo, pAppDocumentInfo, pFeeFixInfo);
                 List<App_Detail_PLC05_KN_Info> _lst = new List<App_Detail_PLC05_KN_Info>();
                 _lst.Add(pDetail);
 
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLC05_KN_Info>(_lst, false);
-                 
+
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
                 string _tempfile = "TM_PLC05_KN.rpt";
-                if (language == Language.LangEN)
+                string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C05_VN_" + _datetimenow + ".pdf");
+                if (language == Language.LangVI)
                 {
-                    _tempfile = "TM_PLC05_KN_EN.rpt";
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C05_VN_" + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "C05_VN_" + _datetimenow + ".pdf";
+                }
+                else
+                {
+                    _tempfile = "TM_PLC05_KN_EN.rpt"; // tiếng anh
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C05_EN_" + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "C05_EN_" + _datetimenow + ".pdf";
                 }
                 oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
 
@@ -563,11 +609,8 @@
         {
             try
             {
-                ViewBag.FileName = "/Content/Export/" + "C05_VI_" + TradeMarkAppCode.AppCode_TM_3D_PLC_05_KN + ".pdf";
+                ViewBag.FileName = SessionData.CurrentUser.FilePreview;
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
-
-                //ViewBag.FileName = "/Content/Export/" + "C05_VI_" + TradeMarkAppCode.AppCode_TM_3D_PLC_05_KN + ".docx";
-                //return PartialView("~/Areas/TradeMark/Views/Shared/_PartialContentPreview_docx.cshtml");
             }
             catch (Exception ex)
             {
@@ -578,7 +621,7 @@
 
         [HttpPost]
         [Route("getFee")]
-        public ActionResult GetFee(List<AppFeeFixInfo>  pFeeFixInfo)
+        public ActionResult GetFee(List<AppFeeFixInfo> pFeeFixInfo)
         {
             try
             {
@@ -593,6 +636,6 @@
             var PartialTableListFees = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Patent/Views/Shared/_PartialTableListFees.cshtml");
             var json = Json(new { success = 1, PartialTableListFees });
             return json;
-        }
+        }       
     }
 }
