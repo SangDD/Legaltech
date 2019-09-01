@@ -114,6 +114,11 @@ namespace WebApps.Areas.ModuleUsersAndRoles.Controllers
                 var userBL = new UserBL();
                 userInfo.ModifiedBy = SessionData.CurrentUser.Username;
                 result = userBL.EditUser(userInfo, GroupId);
+
+                if (SessionData.CurrentUser != null && result.IsActionSuccess == true && userInfo.Id == SessionData.CurrentUser.Id)
+                {
+                    SessionData.CurrentUser.loginfirst = 1;
+                }
             }
             catch (Exception ex)
             {

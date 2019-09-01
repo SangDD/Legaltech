@@ -176,14 +176,14 @@
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
                     if (data.success > 0) {
-                        jAlert('@Resource.ThongBaoDatLaiMK', '@Resource.ThongBao', function () {
+                        jAlert("@Html.Raw(@Resource.ThongBaoDatLaiMK)", "@Html.Raw(@Resource.ThongBao)", function () {
                             window.location = "/";
                         });
                     } else if (data.success == '-2') {
-                        jAlert('@Resource.TKHoacMKSai', '@Resource.ThongBao');
+                        jAlert('@Html.Raw(@Resource.TKHoacMKSai)', '@Html.Raw(@Resource.ThongBao)');
                     }
                     else {
-                        jError('@Resource.KetNoiKhongThanhCong', '@Resource.Loi');
+                        jError('@Html.Raw(@Resource.KetNoiKhongThanhCong)', '@Html.Raw(@Resource.Loi)');
                     }
                 }
             });

@@ -145,7 +145,7 @@
                 _user = _userBL.GetBy_Email(gmail);
                 List<string> _LstAttachment = new List<string>();
 
-                if (_user.Id == 0)
+                if (_user == null || _user.Id == 0)
                 {
                     return Json(new { success = -2 });
                 }

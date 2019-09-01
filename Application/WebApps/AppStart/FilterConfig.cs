@@ -38,7 +38,8 @@
                 if (SessionData.CurrentUser != null && SessionData.CurrentUser.Type == (decimal)Common.CommonData.CommonEnums.UserType.Customer )
                 {
                     if (SessionData.CurrentUser.loginfirst == 0 && request.AppRelativeCurrentExecutionFilePath.Contains("CUSTOMER/QUAN-LY-CUSTOMER/GET-VIEW-TO-EDIT-CUSTOMER") == false &&
-                        request.AppRelativeCurrentExecutionFilePath.Contains("ACCOUNT/DANG-XUAT") == false)
+                        request.AppRelativeCurrentExecutionFilePath.Contains("ACCOUNT/DANG-XUAT") == false
+                        && request.AppRelativeCurrentExecutionFilePath.ToUpper().Contains("CUSTOMER/QUAN-LY-CUSTOMER") == false)
                     {
                         filterContext.Result = new RedirectResult("~/customer/quan-ly-customer/get-view-to-edit-customer/" + SessionData.CurrentUser.Id.ToString());
                     }

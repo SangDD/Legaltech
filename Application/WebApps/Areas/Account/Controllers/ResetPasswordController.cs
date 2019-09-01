@@ -57,7 +57,8 @@ namespace AnThanh.Controllers
             {
                 Logger.LogException(ex);
             }
-            return View();
+
+            return PartialView("~/Areas/Account/Views/ResetPassword/ResetPasswordDisplay.cshtml");
         }
 
         public DateTime ConvertString2Date(string str)

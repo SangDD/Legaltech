@@ -525,9 +525,14 @@
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
 					if (data != null) {
-						if (onResponse(data)) {
+                        if (onResponse(data)) {
+
                             var url = "/customer/quan-ly-customer/";
-                            window.location.href = url;
+                            if (@WebApps.Session.SessionData.CurrentUser.Type == '@((int)CommonEnums.UserType.Customer)')
+                            {
+                                url = "/home";
+                            }
+                           window.location.href = url;
 						}
 					}
 				},
