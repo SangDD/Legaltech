@@ -75,11 +75,12 @@
 </div>
 
 <div class="d-main">
-    <div class="divCover">
-        <div class="classTitle">
+    @*<div class="divCover cls_form_title">
+        <img src="~/Content/icons/category.png" />
+        <div class="cls_form_header">
             <div class="div-title-content"> Thông tin đơn</div>
         </div>
-    </div>
+    </div>*@
 
     <div class="divCover">
 
@@ -96,12 +97,18 @@
         @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
         @*@Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon_View.cshtml")*@
 
-
-        <div class="divCover">
-            <div class="classTitle">
-                <div class="div-title-content"> Chi tiết bản dịch</div>
+        @if (Sys_LstTranslate.Count == 0)
+        {
+            <h2 style="color:red;margin-top:10px">Không có thông tin cấu hình dịch, vui lòng liên hệ quản trị hệ thống</h2>
+        }
+        else
+        {
+            <div class="divCover">
+                <div class="classTitle">
+                    <div class="div-title-content"> Chi tiết bản dịch</div>
+                </div>
             </div>
-        </div>
+        }
 
         @foreach (Sys_App_Translate_Info item in Sys_LstTranslate)
         {
@@ -216,12 +223,14 @@
         }
     </div>
 
-    <div class="divCover">
-        <div class="div-search-btn" style="width:600px;margin-top: 5px;">
-            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Dich" onclick="return doTranslate()" />
+    @if (Sys_LstTranslate.Count > 0)
+    {
+        <div class="divCover">
+            <div class="div-search-btn" style="width:600px;margin-top: 5px;">
+                <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Dich" onclick="return doTranslate()" />
+            </div>
         </div>
-    </div>
-
+    }
 </div>
 
 <script>
