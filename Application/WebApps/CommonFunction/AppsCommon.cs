@@ -53,8 +53,14 @@ namespace WebApps.CommonFunction
             try
             {
                 var culture = "";
-                var httpCookie = HttpContext.Current.Request.Cookies["language"];
                 var queryLanguage = "";
+
+                if (HttpContext.Current.Request == null)
+                {
+                    culture = "en-GB";
+                    return culture.ToUpper();
+                }
+
                 if (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["lang"]))
                 {
                     queryLanguage = HttpContext.Current.Request.QueryString["lang"].ToString().ToUpper();
@@ -65,6 +71,7 @@ namespace WebApps.CommonFunction
                 }
                 else
                 {
+                    var httpCookie = HttpContext.Current.Request.Cookies["language"];
                     if (httpCookie != null)
                     {
                         culture = httpCookie.Value;
@@ -83,7 +90,10 @@ namespace WebApps.CommonFunction
             }
             catch (Exception ex)
             {
-                Logger.LogException(ex);
+                if (ex.Message != "Request is not available in this context")
+                {
+                    Logger.LogException(ex);
+                }
                 return Language.LangVI;
             }
         }

@@ -36,7 +36,7 @@
     <div class="div-search-ad">
         <div class="div-search-content">
             <div class="div-radio">
-                @if (_AppHeaderInfo.Rep_Master_Type == "DVDL")
+                @if (_AppHeaderInfo.Rep_Master_Type == "DDSH")
                 {
                     <input type="radio" name="_2_DaiDienChuDon" value="DDSH" id="_2_rdoToChucDichVuDL" disabled="disabled" checked="checked" />
                 }
@@ -52,13 +52,13 @@
     <div class="div-search-ad">
         <div class="div-search-content">
             <div class="div-radio">
-                @if (_AppHeaderInfo.Rep_Master_Type == "NDUQ")
+                @if (_AppHeaderInfo.Rep_Master_Type == "DDUQ")
                 {
-                    <input type="radio" name="_2_DaiDienChuDon" value="NDUQ" id="_2_rdoNguoiDuocUyQuyen" disabled="disabled" checked="checked" />
+                    <input type="radio" name="_2_DaiDienChuDon" value="DDUQ" id="_2_rdoNguoiDuocUyQuyen" disabled="disabled" checked="checked" />
                 }
                 else
                 {
-                    <input type="radio" name="_2_DaiDienChuDon" value="NDUQ" id="_2_rdoNguoiDuocUyQuyen" disabled="disabled" />
+                    <input type="radio" name="_2_DaiDienChuDon" value="DDUQ" id="_2_rdoNguoiDuocUyQuyen" disabled="disabled" />
                 }
 
                 <label>@Resource.lblLaNguoiKhacDuocUyQuyen</label>
