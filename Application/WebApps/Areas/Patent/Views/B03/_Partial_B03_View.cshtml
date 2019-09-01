@@ -1,7 +1,298 @@
-﻿
+﻿@using WebApps.CommonFunction;
+@using BussinessFacade.ModuleMemoryData
+@using ObjectInfos
+@using ObjectInfos.ModuleTrademark
+@using WebApps.Resources;
 @{
-    ViewBag.Title = "_Partial_B03_View";
+    ViewBag.Title = "Request for patent registration";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+    ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    }
+
+    B03_Info _App_Detail = new B03_Info();
+    if (ViewBag.App_Detail != null)
+    {
+        _App_Detail = (B03_Info)ViewBag.App_Detail;
+    }
+
+    List<AppDocumentInfo> Lst_AppDoc = new List<AppDocumentInfo>();
+    if (ViewBag.Lst_AppDoc != null)
+    {
+        Lst_AppDoc = (List<AppDocumentInfo>)ViewBag.Lst_AppDoc;
+    }
+
+    List<AppFeeFixInfo> Lst_AppFee = new List<AppFeeFixInfo>();
+    if (ViewBag.Lst_AppFee != null)
+    {
+        Lst_AppFee = (List<AppFeeFixInfo>)ViewBag.Lst_AppFee;
+    }
+
+    Dictionary<string, AppDocumentInfo> dic_appDoc = new Dictionary<string, AppDocumentInfo>();
+    foreach (AppDocumentInfo item in Lst_AppDoc)
+    {
+        dic_appDoc[item.Document_Id] = item;
+    }
+
+    //
+    string check_Type_Evaluator_DDCD = "";
+    string check_Type_Evaluator_NTB = "";
+    if (_App_Detail.Type_Evaluator == "DDCD")
+    {
+        check_Type_Evaluator_DDCD = "checked";
+    }
+    else
+    {
+        check_Type_Evaluator_NTB = "checked";
+    }
+
+    List<Sys_Document_Info> _lst_doc = WebApps.CommonFunction.AppsCommon.Sys_Document_GetBy_Casecode("B03");
+
 }
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
 
-<h2>_Partial_B03_View</h2>
+    .div-title-col-2 {
+        height: 35px;
+        border: 1px solid #aaa;
+    }
 
+        .div-title-col-2 > div {
+            margin: 9px 5px 0px 7px;
+        }
+</style>
+<div class="d-nav-container" style="background-color:#fff">
+    <div class="divCover">
+        <div class="d-nav">
+            <img src="~/Content/icons/Body-icon-home.png" /> I
+            <a href="/home">Home</a>
+            <span class="red">></span>
+            <a href="javascript:;">@Resource.PatentRegister</a>
+        </div>
+    </div>
+    <div class="divCover">
+        <div class="classLine">
+        </div>
+    </div>
+
+    <div class="divCover">
+        @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+    </div>
+
+</div>
+<input type="hidden" id="txtAppCode" value='@ViewBag.AppCode' />
+
+<div class="div-search ">
+    <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
+        <legend style="font-weight:600"> @Resource.PatentRegister.ToUpper()</legend>
+
+        @* Case name *@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName_View.cshtml", "0")
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                @Resource.B03_SoDon_Title.ToUpper()
+            </div>
+        </div>
+
+        <div id="div_PartialThongTinChuDon">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div> @Resource.B03_SoDon <i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input value="@_App_Detail.App_Detail_Number" type="text" maxlength="200" id="txtApp_Detail_Number" disabled />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                @Resource.B03_NguoiYeuCau.ToUpper()
+            </div>
+        </div>
+        @*<div id="div_PartialThongTinChuDon">
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+            </div>*@
+        <div id="div_PartialThongTinChuDon">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div> @Resource.lblTenDayDu <i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input disabled value="@_App_Detail.Name_Evaluator" type="text" maxlength="200" id="txtTenDayDu" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div> @Resource.lblDiaChi <i class="redspan">(*)</i> </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input disabled value="@_App_Detail.Address_Evaluator" type="text" maxlength="200" id="txtDiaChi" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div> @Resource.lblDienThoai: </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input disabled type="text" value="@_App_Detail.Phone_Evaluator" maxlength="50" id="txtDienThoai" style="width: 250px;" />
+                    </div>
+                </div>
+
+                <div class="div-search-title">
+                    <div> Fax: </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input disabled value="@_App_Detail.Fax_Evaluator" type="text" maxlength="50" id="txtFax" />
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div>Email:  </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input disabled value="@_App_Detail.Email_Evaluator" type="text" maxlength="50" id="txtEmail" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio" style="width:385px">
+                    <input type="radio" name="1_rdoChuDon" value="DDCD" id="rdChuDon" @check_Type_Evaluator_DDCD>
+                    <label>@Resource.B03_LaChuDon</label>
+                </div>
+            </div>
+
+            <div class="div-search-content">
+                <div class="div-radio">
+                    <input type="radio" name="1_rdoChuDon" value="NTB" id="rdNguoithuba" @check_Type_Evaluator_NTB>
+                    <label>@Resource.B03_LaNguoiThuBa</label>
+                </div>
+            </div>
+        </div>
+
+        @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon_View.cshtml")
+        @* end 2 *@
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                @Resource.SoDiemYeuCauBaoHoDocLap.ToUpper()
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@Resource.SoDiemYeuCau</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txt_MaDaiDien" value="@_App_Detail.Point" disabled />
+                </div>
+            </div>
+        </div>
+
+        @* Yêu cầu thẩm định nội dung *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                @Resource.YeuCauThamDinhNoiDung.ToUpper()
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio">
+                    @if (_App_Detail.Thamdinhnoidung != "")
+                    {
+                        <input type="checkbox" id="ckbThamDinhNoiDung" disabled="disabled" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="checkbox" id="ckbThamDinhNoiDung" disabled="disabled">
+                    }
+                    <label> @Resource.YeuCauThamDinhNoiDung</label>
+                </div>
+            </div>
+        </div>
+
+        @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                @Resource.TM2B_TaiLieuCoTrongDon
+            </div>
+        </div>
+
+
+      
+        @foreach (var item in dic_appDoc)
+        {
+            foreach (var itemdoc in _lst_doc)
+            {
+                if (item.Key == itemdoc.Doc_Id)
+                {
+                    string _doc_id = itemdoc.Doc_Id;
+                    string _ckb_doc = itemdoc.Check_Box_Id;
+                    string _level = itemdoc.Doc_Level;
+
+                    string _lebel = itemdoc.Content_1;
+                    string _sotrang = itemdoc.Content_2;
+
+                    string _is_upload = itemdoc.Is_Upload.ToString();
+                    string _width = "";
+
+                    string _lebel3 = itemdoc.Content_3;
+
+                    string _vl_isuse = item.Value.Isuse.ToString();
+                    string _vl_char01 = item.Value.CHAR01;
+                    string _vl_url = item.Value.Url_Hardcopy;
+                    string _vl_char02 = item.Value.CHAR02;
+
+                    string _model = _doc_id + "|" + _ckb_doc + "|" + _level + "|" + _lebel + "|" + _sotrang + "|" + _is_upload + "|" + _width + "|" + _lebel3;
+                    _model += ";" + _vl_isuse + "|" + _vl_char01 + "|" + _vl_url + "|" + _vl_char02;
+
+                    @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model)
+
+                }
+            }
+
+        }
+
+
+    </fieldset>
+</div>
+@Html.Partial("~/Areas/Patent/Views/B03/_PartialPreview.cshtml")
+<div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
+    <div class="dpop-preview" id="dpop-preview">
+    </div>
+</div>
+
+<div id="divWrapperPopUpFee" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divPopUpFee">
+    </div>
+</div>

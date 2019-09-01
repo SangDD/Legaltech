@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 
 namespace ObjectInfos
 {
-    public class B03_Info
+    public class B03_Info : ApplicationHeaderInfo
     {
-        public decimal ID { set; get; }
-        public string AppCode { set; get; }
-        public string Case_Code { get; set; }
+        public B03_Info()
+        {
+
+        }
+        //public decimal Id { set; get; }
+        //public string AppCode { set; get; }
+        //public string Case_Code { get; set; }
         public decimal App_Header_Id { get; set; }
         public string Language_Code { get; set; }
         public string App_Detail_Number { get; set; }

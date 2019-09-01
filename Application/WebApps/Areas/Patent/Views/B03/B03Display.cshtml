@@ -220,7 +220,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                @Resource.YeuCauThamDinhNoiDung
+                @Resource.YeuCauThamDinhNoiDung.ToUpper()
             </div>
         </div>
 
@@ -381,17 +381,21 @@
                 return false;
             }
 
+           
+
             //Lấy thông tin detail
             reponse = funcGetAppDetail(formData, ptype);
             if (reponse == false) {
                 return false;
             }
 
+           
 
             reponse = funcGetCamKetChuDon(formData);
             if (reponse == false) {
                 return false;
             }
+          
 
             $.ajax({
                 url: '/lg-patentB03/register',
@@ -440,66 +444,53 @@
             var Isuse = 0, Note = "", reponse = false;
             // 1
             // 1
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_01", "0");
-            formData.append("pAppDocumentInfo[0].CHAR01", $("#txt_Doc_01").val());
-            formData.append("pAppDocumentInfo[0].CHAR02", $("#txt_Doc_01_2").val());
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_00", "0");
+            formData.append("pAppDocumentInfo[0].CHAR01", $("#txt_DOC_00").val());
+            formData.append("pAppDocumentInfo[0].CHAR02", $("#txt_DOC_00_2").val());
 
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_02", "1");
-            formData.append("pAppDocumentInfo[1].CHAR01", $("#txt_Doc_02").val());
-            formData.append("pAppDocumentInfo[1].CHAR02", $("#txt_Doc_02_2").val());
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_01", "1");
+            formData.append("pAppDocumentInfo[1].CHAR01", $("#txt_DOC_01").val());
+            formData.append("pAppDocumentInfo[1].CHAR02", $("#txt_DOC_01_2").val());
 
 
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_03", "2");
-            formData.append("pAppDocumentInfo[2].CHAR01", $("#txt_Doc_03").val());
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_02", "2");
+            formData.append("pAppDocumentInfo[2].CHAR01", $("#txt_DOC_02").val());
 
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_04", "3");
-            formData.append("pAppDocumentInfo[3].CHAR01", $("#txt_Doc_04").val());
-            formData.append("pAppDocumentInfo[3].CHAR02", $("#txt_Doc_04_2").val());
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_03", "3");
+            formData.append("pAppDocumentInfo[3].CHAR01", "");
+            //formData.append("pAppDocumentInfo[3].CHAR02", $("#txt_DOC_03_2").val());
 
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_05", "4");
-            formData.append("pAppDocumentInfo[4].CHAR01", $("#txt_Doc_05").val());
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_04", "4");
+            formData.append("pAppDocumentInfo[4].CHAR01", "");
 
 
             // 6
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_06", "5");
-            formData.append("pAppDocumentInfo[5].CHAR01", $("#txt_Doc_06").val());
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_05", "5");
+            formData.append("pAppDocumentInfo[5].CHAR01", "");
 
             // 7
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_07", "6");
-            formData.append("pAppDocumentInfo[6].CHAR01", $("#txt_Doc_07").val());
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_06", "6");
+            formData.append("pAppDocumentInfo[6].CHAR01", $("#txt_DOC_06").val());
 
             // 8
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_08", "7");
-            formData.append("pAppDocumentInfo[7].CHAR01", "");
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_07", "7");
+            formData.append("pAppDocumentInfo[7].CHAR01", $("#txt_DOC_07").val());
 
             // 9
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_09", "8");
-            formData.append("pAppDocumentInfo[8].CHAR01", "");
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_08", "8");
+            formData.append("pAppDocumentInfo[7].CHAR01", "");
 
-            // 10
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_10", "9");
-            formData.append("pAppDocumentInfo[9].CHAR01", "");
+            //// 9
+            //reponse = funcGetCheckValueAndText(formData, "ckb_Doc_09", "8");
+            //formData.append("pAppDocumentInfo[8].CHAR01", "");
 
-            // 11
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_11", "10");
-            formData.append("pAppDocumentInfo[10].CHAR01", $("#txt_Doc_11").val());
+            //// 10
+            //reponse = funcGetCheckValueAndText(formData, "ckb_Doc_10", "9");
+            //formData.append("pAppDocumentInfo[9].CHAR01", "");
 
-            // quyền ưu tiên
-            //reponse = funcGetCheckValueAndText(formData, "ckb_Doc_12", "11");
-
-            //reponse = funcGetCheckValueAndText(formData, "ckb_Doc_13", "12");
-            //formData.append("pAppDocumentInfo[12].CHAR01", $("#txt_Doc_13").val());
-
-            //reponse = funcGetCheckValueAndText(formData, "ckb_Doc_14", "13");
-            //formData.append("pAppDocumentInfo[13].CHAR01", "");
-            // end quyen uu tien
-
-            //reponse = funcGetCheckValueAndText(formData, "ckb_Doc_15", "11");
-            //formData.append("pAppDocumentInfo[11].CHAR01", "");
-
-            // 16
-            //reponse = funcGetCheckValueAndText(formData, "ckb_Doc_16", "12");
-            //formData.append("pAppDocumentInfo[12].CHAR01", "");
+            //// 11
+            //reponse = funcGetCheckValueAndText(formData, "ckb_Doc_11", "10");
+            //formData.append("pAppDocumentInfo[10].CHAR01", $("#txt_Doc_11").val());
 
         } catch (e) {
             console.log(e);
@@ -524,20 +515,7 @@
         }
 
     }
-    function funcGetImagePublic(formData) {
-        try {
 
-            var item = 0;
-            $(".clssListUploadImg").each(function () {
-                formData.append("pLstImagePublic[" + item + "].keyFileUpload", this.id);
-                formData.append("pLstImagePublic[" + item + "].Documentname", $("#" + this.id).val());
-                item++;
-            });
-            return true;
-        } catch (e) {
-            return false;
-        }
-    }
 
     function funcGetAppDetail(formData, pType) {
         try {
@@ -632,7 +610,7 @@
             formData.append("pDetail.Phone_Evaluator", v_dienthoai);
             formData.append("pDetail.Fax_Evaluator", v_fax);
             formData.append("pDetail.Email_Evaluator", v_email);
-
+           
         } catch (ex) {
             console.log(ex);
         }

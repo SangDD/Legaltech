@@ -1471,6 +1471,21 @@
                 ViewBag.TreeLevel = 1;// upload ảnh chỉ có  cấp 
                 return PartialView(@"~\Areas\ThietKeBanDan\Views\A02\_Partial_A02_View.cshtml");
             }
+            else if (pAppCode == TradeMarkAppCode.AppCode_B03)
+            {
+                var objBL = new BussinessFacade.Patent.B03_BL();
+                string language = AppsCommon.GetCurrentLang();
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> _lst_appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                B03_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos);
+                ViewBag.App_Detail = app_Detail;
+                ViewBag.Lst_AppDoc = appDocumentInfos;
+                ViewBag.Lst_AppFee = _lst_appFeeFixInfos;
+                ViewBag.objAppHeaderInfo = applicationHeaderInfo;
+               
+                return PartialView("~/Areas/Patent/Views/B03/_Partial_B03_View.cshtml");
+            }
             else
             {
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialDangKyNhanHieu.cshtml");
