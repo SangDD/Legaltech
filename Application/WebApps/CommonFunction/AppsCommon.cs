@@ -94,7 +94,7 @@ namespace WebApps.CommonFunction
                 {
                     Logger.LogException(ex);
                 }
-                return Language.LangVI;
+                return Language.LangEN;
             }
         }
 
