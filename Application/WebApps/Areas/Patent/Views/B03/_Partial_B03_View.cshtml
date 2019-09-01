@@ -73,7 +73,7 @@
             <img src="~/Content/icons/Body-icon-home.png" /> I
             <a href="/home">Home</a>
             <span class="red">></span>
-            <a href="javascript:;">@Resource.PatentRegister</a>
+            <a href="javascript:;">@Resource.B03_TITLE</a>
         </div>
     </div>
     <div class="divCover">
@@ -90,7 +90,7 @@
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
-        <legend style="font-weight:600"> @Resource.PatentRegister.ToUpper()</legend>
+        <legend style="font-weight:600"> @Resource.B03_TITLE.ToUpper()</legend>
 
         @* Case name *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName_View.cshtml", "0")
@@ -249,38 +249,34 @@
         </div>
 
 
-      
-        @foreach (var item in dic_appDoc)
+
+        @foreach (var itemdoc in _lst_doc)
         {
-            foreach (var itemdoc in _lst_doc)
+            if (dic_appDoc.ContainsKey(itemdoc.Doc_Id))
             {
-                if (item.Key == itemdoc.Doc_Id)
-                {
-                    string _doc_id = itemdoc.Doc_Id;
-                    string _ckb_doc = itemdoc.Check_Box_Id;
-                    string _level = itemdoc.Doc_Level;
+                string _doc_id = itemdoc.Doc_Id;
+                string _ckb_doc = itemdoc.Check_Box_Id;
+                string _level = itemdoc.Doc_Level;
 
-                    string _lebel = itemdoc.Content_1;
-                    string _sotrang = itemdoc.Content_2;
+                string _lebel = itemdoc.Content_1;
+                string _sotrang = itemdoc.Content_2;
 
-                    string _is_upload = itemdoc.Is_Upload.ToString();
-                    string _width = "";
+                string _is_upload = itemdoc.Is_Upload.ToString();
+                string _width = "";
 
-                    string _lebel3 = itemdoc.Content_3;
+                string _lebel3 = itemdoc.Content_3;
 
-                    string _vl_isuse = item.Value.Isuse.ToString();
-                    string _vl_char01 = item.Value.CHAR01;
-                    string _vl_url = item.Value.Url_Hardcopy;
-                    string _vl_char02 = item.Value.CHAR02;
+                string _vl_isuse = dic_appDoc[itemdoc.Doc_Id].Isuse.ToString();
+                string _vl_char01 = dic_appDoc[itemdoc.Doc_Id].CHAR01;
+                string _vl_url = dic_appDoc[itemdoc.Doc_Id].Url_Hardcopy;
+                string _vl_char02 = dic_appDoc[itemdoc.Doc_Id].CHAR02;
 
-                    string _model = _doc_id + "|" + _ckb_doc + "|" + _level + "|" + _lebel + "|" + _sotrang + "|" + _is_upload + "|" + _width + "|" + _lebel3;
-                    _model += ";" + _vl_isuse + "|" + _vl_char01 + "|" + _vl_url + "|" + _vl_char02;
+                string _model = _doc_id + "|" + _ckb_doc + "|" + _level + "|" + _lebel + "|" + _sotrang + "|" + _is_upload + "|" + _width + "|" + _lebel3;
+                _model += ";" + _vl_isuse + "|" + _vl_char01 + "|" + _vl_url + "|" + _vl_char02;
 
-                    @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model)
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model)
 
-                }
             }
-
         }
 
 
