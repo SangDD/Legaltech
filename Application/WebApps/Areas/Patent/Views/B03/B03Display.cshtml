@@ -331,6 +331,17 @@
         }
     });
 
+    $("#btnLuuTam").click(function () {
+        try {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuuTam)", function () {
+                funGetData(1);
+            });
+
+        } catch (e) {
+            console.log(e);
+        }
+    });
+
     function funGetData(ptype) {
         try {
             var formData = new FormData();
