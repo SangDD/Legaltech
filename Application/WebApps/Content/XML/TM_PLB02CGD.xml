@@ -9,7 +9,7 @@
               <xs:sequence>
                 <xs:element name="Detail_Id" type="xs:decimal" minOccurs="0" />
                 <xs:element name="App_Header_Id" type="xs:decimal" minOccurs="0" />
-                <xs:element name="Master_Type" type="xs:decimal" minOccurs="0" />
+                <xs:element name="Master_Type" type="xs:string" minOccurs="0" />
                 <xs:element name="Second_Name" type="xs:string" minOccurs="0" />
                 <xs:element name="Second_Address" type="xs:string" minOccurs="0" />
                 <xs:element name="Second_Phone" type="xs:string" minOccurs="0" />
@@ -51,6 +51,8 @@
                 <xs:element name="Doc_Id_11_Check" type="xs:decimal" minOccurs="0" />
                 <xs:element name="Doc_Id_12" type="xs:string" minOccurs="0" />
                 <xs:element name="Doc_Id_12_Check" type="xs:decimal" minOccurs="0" />
+                <xs:element name="View_Language_Report" type="xs:string" minOccurs="0" />
+                <xs:element name="UpdateToDo" type="xs:decimal" minOccurs="0" />
                 <xs:element name="STT" type="xs:decimal" minOccurs="0" />
                 <xs:element name="Id" type="xs:decimal" minOccurs="0" />
                 <xs:element name="Appcode" type="xs:string" minOccurs="0" />
@@ -100,17 +102,42 @@
                 <xs:element name="Years" type="xs:string" minOccurs="0" />
                 <xs:element name="Client_Reference" type="xs:string" minOccurs="0" />
                 <xs:element name="Case_Name" type="xs:string" minOccurs="0" />
-                <xs:element name="Gencode" type="xs:string" minOccurs="0" />
+                <xs:element name="Case_Code" type="xs:string" minOccurs="0" />
                 <xs:element name="Status_Date" type="xs:dateTime" minOccurs="0" />
                 <xs:element name="Date_Wait" type="xs:int" minOccurs="0" />
+                <xs:element name="Object_Name" type="xs:string" minOccurs="0" />
                 <xs:element name="Customer_Name" type="xs:string" minOccurs="0" />
+                <xs:element name="Customer_Country" type="xs:decimal" minOccurs="0" />
+                <xs:element name="Customer_Country_Name" type="xs:string" minOccurs="0" />
                 <xs:element name="ActionView" type="xs:string" minOccurs="0" />
                 <xs:element name="File_Copy_Filing" msdata:DataType="System.Web.HttpPostedFileBase, System.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" type="xs:anyType" minOccurs="0" />
+                <xs:element name="Url_copy_filing" type="xs:string" minOccurs="0" />
+                <xs:element name="File_Translate_Filing" msdata:DataType="System.Web.HttpPostedFileBase, System.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" type="xs:anyType" minOccurs="0" />
+                <xs:element name="URL_TRANSLATE_FILING" type="xs:string" minOccurs="0" />
                 <xs:element name="Note" type="xs:string" minOccurs="0" />
                 <xs:element name="App_No" type="xs:string" minOccurs="0" />
                 <xs:element name="App_Degree" type="xs:string" minOccurs="0" />
                 <xs:element name="DDSHCN" type="xs:string" minOccurs="0" />
+                <xs:element name="MADDSHCN" type="xs:string" minOccurs="0" />
                 <xs:element name="User_Processing" type="xs:string" minOccurs="0" />
+                <xs:element name="Lawer_Name" type="xs:string" minOccurs="0" />
+                <xs:element name="Lawer_User_Name" type="xs:string" minOccurs="0" />
+                <xs:element name="User_Admin_Grant" type="xs:string" minOccurs="0" />
+                <xs:element name="Admin_Id" type="xs:decimal" minOccurs="0" />
+                <xs:element name="Currency_Type" type="xs:string" minOccurs="0" />
+                <xs:element name="Comment_Filling" type="xs:string" minOccurs="0" />
+                <xs:element name="Id_Vi" type="xs:decimal" minOccurs="0" />
+                <xs:element name="Url_Billing" type="xs:string" minOccurs="0" />
+                <xs:element name="Billing_Id_Advise" type="xs:decimal" minOccurs="0" />
+                <xs:element name="Expected_Accept_Date" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Expected_Public_Date" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Expected_Accept_Content_Date" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Expected_Grant_Date" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Expected_Grant_Public_Date" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Nation_Represent_Id" type="xs:decimal" minOccurs="0" />
+                <xs:element name="Nation_Represent_Name" type="xs:string" minOccurs="0" />
+                <xs:element name="USE_DOC_OTHERS" type="xs:decimal" minOccurs="0" />
+                <xs:element name="View_Translate" type="xs:int" minOccurs="0" />
               </xs:sequence>
             </xs:complexType>
           </xs:element>
@@ -119,18 +146,12 @@
     </xs:element>
   </xs:schema>
   <Table_3c>
-    <Detail_Id>364</Detail_Id>
-    <App_Header_Id>364</App_Header_Id>
+    <Detail_Id>0</Detail_Id>
+    <App_Header_Id>0</App_Header_Id>
     <Master_Type>1</Master_Type>
-    <Second_Name>Nguyễn Thị Hường</Second_Name>
-    <Second_Address>282 kim giang</Second_Address>
-    <Second_Phone>0984529633</Second_Phone>
-    <Second_Fax>0984529633</Second_Fax>
-    <Second_Email>dangtq72@gmail.com</Second_Email>
-    <Transfer_Type>1</Transfer_Type>
-    <Transfer_Appno>A1B2C3</Transfer_Appno>
-    <Customer_Code>dangwru</Customer_Code>
-    <Language_Code>VI_VN</Language_Code>
+    <Transfer_Type>0</Transfer_Type>
+    <Transfer_Appno>dangtq</Transfer_Appno>
+    <Customer_Code>239</Customer_Code>
     <Fee_Id_1>1</Fee_Id_1>
     <Fee_Id_1_Check>1</Fee_Id_1_Check>
     <Fee_Id_1_Val>160,000</Fee_Id_1_Val>
@@ -141,47 +162,41 @@
     <Total_Fee_Str>280,000</Total_Fee_Str>
     <Doc_Id_1 />
     <Doc_Id_1_Check>1</Doc_Id_1_Check>
-    <Doc_Id_2 />
     <Doc_Id_2_Check>0</Doc_Id_2_Check>
     <Doc_Id_3 />
     <Doc_Id_3_Check>0</Doc_Id_3_Check>
-    <Doc_Id_4 />
+    <Doc_Id_4 xml:space="preserve">   </Doc_Id_4>
     <Doc_Id_4_Check>0</Doc_Id_4_Check>
-    <Doc_Id_5 />
     <Doc_Id_5_Check>0</Doc_Id_5_Check>
-    <Doc_Id_6 />
     <Doc_Id_6_Check>0</Doc_Id_6_Check>
-    <Doc_Id_7 />
     <Doc_Id_7_Check>0</Doc_Id_7_Check>
-    <Doc_Id_8 />
     <Doc_Id_8_Check>0</Doc_Id_8_Check>
     <Doc_Id_9 />
     <Doc_Id_9_Check>0</Doc_Id_9_Check>
     <Doc_Id_10_Check>0</Doc_Id_10_Check>
     <Doc_Id_11 />
     <Doc_Id_11_Check>0</Doc_Id_11_Check>
-    <Doc_Id_12 />
     <Doc_Id_12_Check>0</Doc_Id_12_Check>
+    <UpdateToDo>0</UpdateToDo>
     <STT>0</STT>
-    <Id>364</Id>
-    <Appcode>TM_PLB02CGD</Appcode>
-    <Master_Name>Tống quang đáng</Master_Name>
-    <Master_Address>282 kim giang</Master_Address>
-    <Master_Phone>0982772961</Master_Phone>
-    <Master_Fax>0982772961</Master_Fax>
-    <Master_Email>dangtq72@gmail.com</Master_Email>
-    <Rep_Master_Type>DDPL</Rep_Master_Type>
-    <Rep_Master_Name>Tống minh hà</Rep_Master_Name>
-    <Rep_Master_Address>282 kim giang</Rep_Master_Address>
-    <Rep_Master_Phone>0982772961</Rep_Master_Phone>
-    <Rep_Master_Fax>0982772961</Rep_Master_Fax>
-    <Rep_Master_Email>dangtq72@gmail.com</Rep_Master_Email>
-    <Send_Date>2018-07-23T22:27:55+07:00</Send_Date>
-    <Status>2</Status>
+    <Id>0</Id>
+    <Appcode>B02</Appcode>
+    <Master_Name>NGUYEN VAN A</Master_Name>
+    <Master_Address>HA NOI</Master_Address>
+    <Master_Phone>098765432</Master_Phone>
+    <Master_Fax>98765432</Master_Fax>
+    <Master_Email>ipath@gmail.com</Master_Email>
+    <Rep_Master_Type>DDSH</Rep_Master_Type>
+    <Rep_Master_Name>Lê Hồng Tuyến</Rep_Master_Name>
+    <Rep_Master_Address>Số 2 Phan Chu Trinh</Rep_Master_Address>
+    <Rep_Master_Phone>09877676765</Rep_Master_Phone>
+    <Rep_Master_Email>lht.tuyen@gmail.com</Rep_Master_Email>
+    <Send_Date>0001-01-01T00:00:00+07:00</Send_Date>
+    <Status>0</Status>
     <Status_Form>0</Status_Form>
     <Status_Content>0</Status_Content>
     <Filing_Date>0001-01-01T00:00:00+07:00</Filing_Date>
-    <Str_Send_Date>23-07-2018</Str_Send_Date>
+    <Str_Send_Date>01-01-0001</Str_Send_Date>
     <Str_Filing_Date>01-01-0001</Str_Filing_Date>
     <Accept_Date>0001-01-01T00:00:00+07:00</Accept_Date>
     <Str_Accept_Date>01-01-0001</Str_Accept_Date>
@@ -194,19 +209,25 @@
     <Grant_Public_Date>0001-01-01T00:00:00+07:00</Grant_Public_Date>
     <Str_Grant_Public_Date>01-01-0001</Str_Grant_Public_Date>
     <Deleted>0</Deleted>
-    <Created_By>lawer01</Created_By>
-    <Created_Date>2018-07-23T00:00:00+07:00</Created_Date>
+    <Created_Date>0001-01-01T00:00:00+07:00</Created_Date>
     <Modify_Date>0001-01-01T00:00:00+07:00</Modify_Date>
-    <Languague_Code>VI_VN</Languague_Code>
-    <AppName>3c - B02. Chuyển giao đơn (Vietnamese)</AppName>
     <Address>Hà Nội</Address>
-    <DateNo>23</DateNo>
-    <Months>07</Months>
-    <Years>2018</Years>
-    <Client_Reference>CLR-3C-20180723</Client_Reference>
-    <Case_Name>CSN-3C-20180723</Case_Name>
-    <Gencode>TM_PLB02CGD2018072389</Gencode>
-    <Status_Date>2018-07-23T00:00:00+07:00</Status_Date>
+    <DateNo>03</DateNo>
+    <Months>09</Months>
+    <Years>2019</Years>
+    <Status_Date>0001-01-01T00:00:00+07:00</Status_Date>
     <Date_Wait>0</Date_Wait>
+    <Customer_Country>0</Customer_Country>
+    <Admin_Id>0</Admin_Id>
+    <Id_Vi>0</Id_Vi>
+    <Billing_Id_Advise>0</Billing_Id_Advise>
+    <Expected_Accept_Date>0001-01-01T00:00:00+07:00</Expected_Accept_Date>
+    <Expected_Public_Date>0001-01-01T00:00:00+07:00</Expected_Public_Date>
+    <Expected_Accept_Content_Date>0001-01-01T00:00:00+07:00</Expected_Accept_Content_Date>
+    <Expected_Grant_Date>0001-01-01T00:00:00+07:00</Expected_Grant_Date>
+    <Expected_Grant_Public_Date>0001-01-01T00:00:00+07:00</Expected_Grant_Public_Date>
+    <Nation_Represent_Id>0</Nation_Represent_Id>
+    <USE_DOC_OTHERS>0</USE_DOC_OTHERS>
+    <View_Translate>0</View_Translate>
   </Table_3c>
 </NewDataSet>

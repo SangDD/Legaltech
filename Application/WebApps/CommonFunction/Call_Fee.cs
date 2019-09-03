@@ -896,7 +896,7 @@ namespace WebApps.CommonFunction
                 AppFeeFixInfo _AppFeeFixInfo1 = new AppFeeFixInfo();
                 _AppFeeFixInfo1.Isuse = 1;
                 _AppFeeFixInfo1.Fee_Id = 1;
-                _AppFeeFixInfo1.Number_Of_Patent = pDetail.App_No_Change.Split(',').Length;
+                _AppFeeFixInfo1.Number_Of_Patent = pDetail.App_No_Change == null ? 0 : pDetail.App_No_Change.Split(',').Length;
 
                 string _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo1.Fee_Id.ToString();
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
@@ -918,7 +918,7 @@ namespace WebApps.CommonFunction
                 AppFeeFixInfo _AppFeeFixInfo2 = new AppFeeFixInfo();
                 _AppFeeFixInfo2.Isuse = 1;
                 _AppFeeFixInfo2.Fee_Id = 2;
-                _AppFeeFixInfo2.Number_Of_Patent = pDetail.App_No_Change.Split(',').Length;
+                _AppFeeFixInfo2.Number_Of_Patent = pDetail.App_No_Change == null ? 0 : pDetail.App_No_Change.Split(',').Length;
 
                 _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo2.Fee_Id.ToString();
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))

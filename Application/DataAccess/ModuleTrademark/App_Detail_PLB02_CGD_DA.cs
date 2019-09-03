@@ -19,7 +19,7 @@ namespace DataAccess
                     new OracleParameter("p_appcode", OracleDbType.Varchar2, pInfo.Appcode, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, pInfo.Language_Code, ParameterDirection.Input),
 
-                    new OracleParameter("p_master_type", OracleDbType.Decimal, pInfo.Master_Type, ParameterDirection.Input),
+                    new OracleParameter("p_master_type", OracleDbType.Varchar2, pInfo.Master_Type, ParameterDirection.Input),
                     new OracleParameter("p_second_name", OracleDbType.Varchar2, pInfo.Second_Name, ParameterDirection.Input),
                     new OracleParameter("p_second_address", OracleDbType.Varchar2, pInfo.Second_Address, ParameterDirection.Input),
                     new OracleParameter("p_second_phone", OracleDbType.Varchar2, pInfo.Second_Phone, ParameterDirection.Input),
@@ -52,7 +52,7 @@ namespace DataAccess
                     new OracleParameter("p_appcode", OracleDbType.Varchar2, pInfo.Appcode, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, pInfo.Language_Code, ParameterDirection.Input),
 
-                    new OracleParameter("p_master_type", OracleDbType.Decimal, pInfo.Master_Type, ParameterDirection.Input),
+                    new OracleParameter("p_master_type", OracleDbType.Varchar2, pInfo.Master_Type, ParameterDirection.Input),
                     new OracleParameter("p_second_name", OracleDbType.Varchar2, pInfo.Second_Name, ParameterDirection.Input),
                     new OracleParameter("p_second_address", OracleDbType.Varchar2, pInfo.Second_Address, ParameterDirection.Input),
                     new OracleParameter("p_second_phone", OracleDbType.Varchar2, pInfo.Second_Phone, ParameterDirection.Input),

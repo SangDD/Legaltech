@@ -86,7 +86,7 @@ namespace ObjectInfos
         //public string AppCode { get; set; }
         //public string Appcode { get; set; }
 
-        public decimal Master_Type { get; set; }
+        public string Master_Type { get; set; }
         public string Second_Name { get; set; }
         public string Second_Address { get; set; }
         public string Second_Phone { get; set; }

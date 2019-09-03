@@ -162,6 +162,8 @@
         <div class="div-search-ad">
             <div class="div-search-title">
                 <div>@Resource.TM3B_SoDon:</div>
+                <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+                   data-title="@WebApps.Resources.Resource.DonCachNhauDauPhay"></a>
             </div>
             <div class="div-search-content">
                 <div>
@@ -182,7 +184,7 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio" style="width:382px">
-                    @if (_App_Detail.Master_Type == 1)
+                    @if (_App_Detail.Master_Type == "1")
                     {
                         <input type="radio" name="1_rdoChuDon" value="1" id="rb_1_ChuDonChuyenNhuong" checked="checked">
                     }
@@ -196,7 +198,7 @@
 
             <div class="div-search-content">
                 <div class="div-radio">
-                    @if (_App_Detail.Master_Type == 2)
+                    @if (_App_Detail.Master_Type == "2")
                     {
                         <input type="radio" name="1_rdoChuDon" value="2" checked="checked">
                     }
@@ -478,7 +480,7 @@
 
     $("#btnLuuTam").click(function () {
         try {
-            nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmLuuTam", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuuTam)", function () {
                 //Thông tin chủ đơn
                 var formData = new FormData();
                 var reponse = GetDatatoUpdate(formData, @_AppHeaderInfo.Status);
@@ -520,7 +522,7 @@
 
     $("#btnSuaDon").click(function () {
         try {
-            nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmLuu", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuu)", function () {
                 //Thông tin chủ đơn
                 var formData = new FormData();
                 var reponse = GetDatatoUpdate(formData, @_AppHeaderInfo.Status);

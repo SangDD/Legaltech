@@ -639,7 +639,7 @@
 
                 // Fill export_header
                 string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_VI_" + TradeMarkAppCode.AppCode_TM_3C_PLB_02_CGD + ".docx");
-                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_VI_" + TradeMarkAppCode.AppCode_TM_3C_PLB_02_CGD + ".pdf");
+                string fileName_pdf = "";
 
                 AppsCommon.Prepare_Data_Export_B02(ref pDetail, pInfo, pAppDocumentInfo);
 
@@ -667,6 +667,9 @@
                 if (_ds_all != null)
                 {
                     _ds_all.Tables[0].TableName = "Table_3c";
+
+                    //_ds_all.WriteXml(@"E:\Working\Legaltech\Application\WebApps\Content\XML\TM_PLB02CGD.xml", XmlWriteMode.WriteSchema);
+
                     oRpt.Database.Tables["Table_3c"].SetDataSource(_ds_all.Tables[0]);
 
                     //oRpt.SetDataSource(_ds_all);

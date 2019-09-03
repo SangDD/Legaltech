@@ -81,6 +81,8 @@
         <div class="div-search-ad">
             <div class="div-search-title">
                 <div>@Resource.TM3B_SoDon <i class="redspan">(*)</i></div>
+                <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+                   data-title="@WebApps.Resources.Resource.DonCachNhauDauPhay"></a>
             </div>
             <div class="div-search-content">
                 <div>
@@ -535,7 +537,7 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
                         if (data != null && data.status >= 0) {
-                            jAlert('@Html.Raw(Resource.GuiDonThanhCong)', ThongBao, function () {
+                            jAlert('@Html.Raw(Resource.GuiDonThanhCong)', "@Html.Raw(Resource.TM3C_ThongBao)", function () {
                                 window.location = "/trade-mark-mana/quan-ly-don";
                             });
                         } else {
@@ -572,9 +574,10 @@
                     return false;
                 }
 
-                if (funcThongTinChuDon(formData, "1") != true) {
+                if (funcThongTinChuDon_SaveTem(formData, "1") != true) {
                     return false;
                 }
+
                 formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.Luu_tam)');
 
                 var v_AppCode = $("#txtAppCode").val();
@@ -598,7 +601,7 @@
                 formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
 
                 //Lấy thông tin detail
-                reponse = funcGetAppDetail(formData, 2);
+                reponse = funcGetAppDetail(formData, 1);
                 if (reponse == false) {
                     return false;
                 }
@@ -631,7 +634,7 @@
                     success: function (data) {
                         CreateRollingWaitingIcon(false);
                         if (data != null && data.status >= 0) {
-                            jAlert('@Html.Raw(Resource.TM3B_LuuTamThanhCong)', "@Resource.TM3C_ThongBao", function () {
+                            jAlert('@Html.Raw(Resource.TM3B_LuuTamThanhCong)', "@Html.Raw(Resource.TM3C_ThongBao)", function () {
                                 window.location = "/trade-mark-mana/quan-ly-don";
                             });
                         } else {

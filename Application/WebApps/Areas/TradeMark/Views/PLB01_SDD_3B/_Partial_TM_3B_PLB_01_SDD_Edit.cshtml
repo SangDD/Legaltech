@@ -110,6 +110,8 @@
         <div class="div-search-ad">
             <div class="div-search-title">
                 <div>@Resource.TM3B_SoDon:</div>
+                <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+                   data-title="@WebApps.Resources.Resource.DonCachNhauDauPhay"></a>
             </div>
             <div class="div-search-content">
                 <div>
@@ -629,9 +631,16 @@
             return false;
         }
 
-        if (funcThongTinChuDon(formData, "1") != true) {
-            return false;
+        if (p_status == 1) {
+            if (funcThongTinChuDon_SaveTem(formData, "1") != true) {
+                return false;
+            }
+        } else if (p_status == 2) {
+            if (funcThongTinChuDon(formData, "1") != true) {
+                return false;
+            }
         }
+
         formData.append("pInfo.Id", @_AppHeaderInfo.Id);
         formData.append("pInfo.Case_Code", '@_AppHeaderInfo.Case_Code');
         formData.append("pInfo.Status", p_status );
@@ -836,7 +845,7 @@
     function funcGetAppDetail(formData, p_status) {
         try {
             var _YeuCauSuaDoi = $("input[name='3_rdoYeuCauSuaDoi']:checked").val();
-            if (_YeuCauSuaDoi === "" || _YeuCauSuaDoi == undefined) {
+            if ((_YeuCauSuaDoi === "" || _YeuCauSuaDoi == undefined) && p_status == 2) {
                 jError("@Resource.TM3B_GiaTriDonYCSuaDoi", "@Resource.TM3B_Loi", function () {
                     $("#3_rdDonSangChe").focus()
                 });
@@ -852,14 +861,14 @@
 
                 if (_soHinh == "" || _soTrang == "") {
 
-                    if (_soHinh == "") {
+                    if (_soHinh == "" && p_status == 2) {
                         jError("@Resource.TM3B_SoHinhKhongDuocDeTrong", "@Resource.TM3B_Loi", function () {
                             $("#txt_SoHinh").focus()
                         });
                         return false;
                     }
 
-                    if (_soTrang == "") {
+                    if (_soTrang == "" && p_status == 2) {
                         jError("@Resource.TM3B_SoTrangKhongDuocDeTrong", "@Resource.TM3B_Loi", function () {
                             $("#txt_SoTrang").focus()
                         });
@@ -872,7 +881,7 @@
 
             // số đơn
             var _3_SoDon = $("#3_SoDon").val();
-            if (_3_SoDon === "" || _3_SoDon == undefined) {
+            if ((_3_SoDon === "" || _3_SoDon == undefined) && p_status == 2) {
                 jError("@Resource.TM3B_SoDonKhongDuocDeTrong", "@Resource.TM3B_Loi", function () {
                     $("#3_SoDon").focus()
                 });
@@ -882,7 +891,7 @@
 
             // Nội dung yêu cầu sửa đổi
             var _Request_To_Type = $("input[name='4_rdoNoiDungYeuCauSuaDoi']:checked").val();
-            if (_Request_To_Type === "" || _Request_To_Type == undefined) {
+            if ((_Request_To_Type === "" || _Request_To_Type == undefined)  && p_status == 2) {
                jError("@Resource.TM3B_ChonNoiDungYCSuaDoi", "@Resource.TM3B_Loi", function () {
                     $("#4_rdTenChuDon").focus()
                 });
@@ -892,7 +901,7 @@
 
             // đề nghị sửa thành
             var _4_DeNghiSuaThanh = $("#4_DeNghiSuaThanh").val();
-            if (_4_DeNghiSuaThanh === "" || _4_DeNghiSuaThanh == undefined) {
+            if ((_4_DeNghiSuaThanh === "" || _4_DeNghiSuaThanh == undefined) && p_status == 2) {
                 jError("@Resource.TM3B_DeNghiSuaThanhTrong", "@Resource.TM3B_Loi", function () {
                     $("#4_DeNghiSuaThanh").focus()
                 });
