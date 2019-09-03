@@ -650,7 +650,7 @@
         formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
 
         //Lấy thông tin detail
-        reponse = funcGetAppDetail(formData);
+        reponse = funcGetAppDetail(formData, p_status);
         if (reponse == false) {
             return false;
         }
@@ -833,7 +833,7 @@
         }
     });
 
-    function funcGetAppDetail(formData) {
+    function funcGetAppDetail(formData, p_status) {
         try {
             var _YeuCauSuaDoi = $("input[name='3_rdoYeuCauSuaDoi']:checked").val();
             if (_YeuCauSuaDoi === "" || _YeuCauSuaDoi == undefined) {

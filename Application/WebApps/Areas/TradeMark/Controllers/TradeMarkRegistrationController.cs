@@ -1051,7 +1051,7 @@
 
                 //Su dung cho Nguoi shcn
                 //appInfo.Extent_fld02 = appInfo.MADDSHCN;
-                appInfo.Extent_fld02 = appInfo.Customer_Code;
+                appInfo.Extent_fld02 = pInfo.Customer_Code;
 
                 if (!string.IsNullOrEmpty(appInfo.Appno))
                 {

@@ -564,12 +564,12 @@
                     if (applicationHeaderInfo.Languague_Code == Language.LangVI)
                     {
                         _tempfile = "TM_PLB02_CGD_EN.rpt"; // tiếng anh
-                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_EN_" + p_appCode + _datetimenow + ".pdf");
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_EN_" + _datetimenow + ".pdf");
                         SessionData.CurrentUser.FilePreview = "/Content/Export/" + "B02_EN_" + _datetimenow + ".pdf";
                     }
                     else
                     {
-                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_VN_" + p_appCode + _datetimenow + ".pdf");
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_VN_" + _datetimenow + ".pdf");
                         SessionData.CurrentUser.FilePreview = "/Content/Export/" + "B02_VN_" + _datetimenow + ".pdf";
                     }
                 }
@@ -577,13 +577,13 @@
                 {
                     if (applicationHeaderInfo.Languague_Code == Language.LangVI)
                     {
-                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_VN_" + p_appCode + _datetimenow + ".pdf");
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_VN_" + _datetimenow + ".pdf");
                         SessionData.CurrentUser.FilePreview = "/Content/Export/" + "B02_VN_" + _datetimenow + ".pdf";
                     }
                     else
                     {
                         _tempfile = "TM_PLB02_CGD_EN.rpt"; // tiếng anh
-                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_EN_" + p_appCode + _datetimenow + ".pdf");
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B02_EN_" + _datetimenow + ".pdf");
                         SessionData.CurrentUser.FilePreview = "/Content/Export/" + "B02_EN_" + _datetimenow + ".pdf";
                     }
                 }

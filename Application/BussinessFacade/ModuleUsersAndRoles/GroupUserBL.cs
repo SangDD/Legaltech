@@ -71,7 +71,7 @@
 			if (result > 0)
 			{
 				this.SetActionSuccess(true);
-				AccountManagerBL.AddAccountInGroupToAccountForceReLoginCollection(groupEdit.Id);
+				//AccountManagerBL.AddAccountInGroupToAccountForceReLoginCollection(groupEdit.Id);
 			}
 
 			return this.SetActionResult(result, KnMessageCode.EditGroupSuccess);
@@ -83,7 +83,7 @@
 			if (result > 0)
 			{
 				this.SetActionSuccess(true);
-				AccountManagerBL.AddAccountInGroupToAccountForceReLoginCollection(groupId);
+				//AccountManagerBL.AddAccountInGroupToAccountForceReLoginCollection(groupId);
 			}
 
 			return this.SetActionResult(result, KnMessageCode.DeleteGroupSuccess);
@@ -117,7 +117,7 @@
 					{
 						scope.Complete();
 						this.SetActionSuccess(true);
-						AccountManagerBL.AddAccountInGroupToAccountForceReLoginCollection(groupId);
+						//AccountManagerBL.AddAccountInGroupToAccountForceReLoginCollection(groupId);
 					}
 					else
 					{

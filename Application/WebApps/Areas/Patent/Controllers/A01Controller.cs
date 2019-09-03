@@ -667,12 +667,12 @@ namespace WebApps.Areas.Patent.Controllers
                     {
                         _tempfile = "A01_EN.rpt"; // tiếng anh
                         fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_EN_" + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_EN_" + p_appCode + _datetimenow + ".pdf";
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_EN_" + _datetimenow + ".pdf";
                     }
                     else
                     {
                         fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_VN_" + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_VN_" + p_appCode + _datetimenow + ".pdf";
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_VN_" + _datetimenow + ".pdf";
                     }
                 }
                 else
@@ -680,13 +680,13 @@ namespace WebApps.Areas.Patent.Controllers
                     if (applicationHeaderInfo.Languague_Code == Language.LangVI)
                     {
                         fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_VN_" + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_VN_" + p_appCode + _datetimenow + ".pdf";
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_VN_" + _datetimenow + ".pdf";
                     }
                     else
                     {
                         _tempfile = "A01_EN.rpt"; // tiếng anh
                         fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_EN_" + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_EN_" + p_appCode + _datetimenow + ".pdf";
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_EN_" + _datetimenow + ".pdf";
                     }
                 }
 
@@ -755,12 +755,12 @@ namespace WebApps.Areas.Patent.Controllers
                 if (language == Language.LangVI)
                 {
                     fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_VN_" + _datetimenow + ".pdf");
-                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_VN_" + p_appCode + _datetimenow + ".pdf";
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_VN_" + _datetimenow + ".pdf";
                 }
                 else
                 {
                     fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_EN_" + _datetimenow + ".pdf");
-                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_EN_" + p_appCode + _datetimenow + ".pdf";
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_EN_" + _datetimenow + ".pdf";
                 }
 
                 A01_Info_Export _A01_Info_Export = new A01_Info_Export();

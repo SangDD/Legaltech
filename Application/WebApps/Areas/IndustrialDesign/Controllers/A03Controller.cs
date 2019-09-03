@@ -672,16 +672,16 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
 
                 string p_appCode = "A03_Preview";
 
-                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_VN_" + p_appCode + _datetimenow + ".pdf");
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_VN_" + _datetimenow + ".pdf");
                 if (language == Language.LangVI)
                 {
-                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_VN_" + p_appCode + _datetimenow + ".pdf");
-                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A03_VN_" + p_appCode + _datetimenow + ".pdf";
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_VN_" + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A03_VN_" + _datetimenow + ".pdf";
                 }
                 else
                 {
-                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_EN_" + p_appCode + _datetimenow + ".pdf");
-                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A03_EN_" + p_appCode + _datetimenow + ".pdf";
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_EN_" + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A03_EN_" + _datetimenow + ".pdf";
                 }
 
                 A03_Info_Export _A03_Info_Export = new A03_Info_Export();
@@ -760,34 +760,34 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                     ref _lst_authorsInfos, ref _lst_Other_MasterInfo, ref _lst_appClassDetailInfos, ref _LstDocumentOthersInfo, ref pUTienInfo, ref pLstImageDesign);
 
                 string _tempfile = "A03.rpt";
-                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_VN_" + p_appCode + _datetimenow + ".pdf");
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_VN_" + _datetimenow + ".pdf");
                 if (p_View_Translate == 1)
                 {
                     // nếu là tiếng việt thì xem bản tiếng anh và ngược lại
                     if (applicationHeaderInfo.Languague_Code == Language.LangVI)
                     {
                         _tempfile = "A03_EN.rpt"; // tiếng anh
-                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_EN_" + p_appCode + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A03_EN_" + p_appCode + _datetimenow + ".pdf";
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_EN_" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A03_EN_" + _datetimenow + ".pdf";
                     }
                     else
                     {
-                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_VN_" + p_appCode + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A03_VN_" + p_appCode + _datetimenow + ".pdf";
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_VN_" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A03_VN_" + _datetimenow + ".pdf";
                     }
                 }
                 else
                 {
                     if (applicationHeaderInfo.Languague_Code == Language.LangVI)
                     {
-                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_VN_" + p_appCode + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A03_VN_" + p_appCode + _datetimenow + ".pdf";
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_VN_" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A03_VN_" + _datetimenow + ".pdf";
                     }
                     else
                     {
                         _tempfile = "A03_EN.rpt"; // tiếng anh
-                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_EN_" + p_appCode + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A03_EN_" + p_appCode + _datetimenow + ".pdf";
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A03_EN_" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A03_EN_" + _datetimenow + ".pdf";
                     }
                 }
 

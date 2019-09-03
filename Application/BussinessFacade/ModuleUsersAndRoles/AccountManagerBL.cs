@@ -32,12 +32,12 @@
 
         public static void AddAccountInGroupToAccountForceReLoginCollection(int groupId)
         {
-            var lstAccountIdInGroup = UserBL.GetAllUserIdByGroupId(groupId);
-	        if (!(lstAccountIdInGroup?.Count > 0)) return;
-	        foreach (var accountId in lstAccountIdInGroup)
-	        {
-		        AddToAccountForceReLoginCollection(accountId);
-	        }
+        //   var lstAccountIdInGroup = UserBL.GetAllUserIdByGroupId(groupId);
+        //if (!(lstAccountIdInGroup?.Count > 0)) return;
+        //foreach (var accountId in lstAccountIdInGroup)
+        //{
+        // AddToAccountForceReLoginCollection(accountId);
+        //}
         }
 
         public static void RemoveFromAccountForceReLoginCollection(int accountId)

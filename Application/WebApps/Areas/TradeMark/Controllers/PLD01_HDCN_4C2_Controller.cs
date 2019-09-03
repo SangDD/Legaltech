@@ -665,12 +665,12 @@
                     {
                         _tempfile = "TM_PLD01_HDCN_EN.rpt"; // tiếng anh
                         fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "D01_EN_" + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "D01_EN_" + p_appCode + _datetimenow + ".pdf";
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "D01_EN_" + _datetimenow + ".pdf";
                     }
                     else
                     {
                         fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "D01_VN_" + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "D01_VN_" + p_appCode + _datetimenow + ".pdf";
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "D01_VN_" + _datetimenow + ".pdf";
                     }
                 }
                 else
@@ -678,13 +678,13 @@
                     if (applicationHeaderInfo.Languague_Code == Language.LangVI)
                     {
                         fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "D01_VN_" + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "D01_VN_" + p_appCode + _datetimenow + ".pdf";
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "D01_VN_" + _datetimenow + ".pdf";
                     }
                     else
                     {
                         _tempfile = "TM_PLD01_HDCN_EN.rpt"; // tiếng anh
                         fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "D01_EN_" + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "D01_EN_" + p_appCode + _datetimenow + ".pdf";
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "D01_EN_" + _datetimenow + ".pdf";
                     }
                 }
                 oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
