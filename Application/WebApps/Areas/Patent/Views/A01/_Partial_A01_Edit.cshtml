@@ -168,11 +168,11 @@
                 <div class="div-radio">
                     @if (_App_Detail.Source_PCT == "Y")
                     {
-                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdPCT" checked="checked" onchange="return ShowHiden_NguonGocDon()">
+                        <input type="radio" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdPCT" checked="checked" onchange="return ShowHiden_NguonGocDon()">
                     }
                     else
                     {
-                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdPCT" onchange="return ShowHiden_NguonGocDon()">
+                        <input type="radio" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdPCT" onchange="return ShowHiden_NguonGocDon()">
                     }
                     <label> @Resource.DonNopTrenPCT</label>
                 </div>
@@ -318,6 +318,112 @@
                 </div>
             </div>
         }
+        else
+        {
+            <div class="clssDisplaynone" id="divPCT" style="margin-top: 5px; background:#fbf4f4">
+
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <div>@Resource.So</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="txt_PCT_SoDon" style="width:348px" />
+                        </div>
+                    </div>
+
+                    <div class="div-search-title">
+                        <div>@Resource.NgayNopDonQuocTe:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="txt_PCT_NgayNopQT" class="datetimepicker" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <div>@Resource.CongBoQuocTeSo:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="txt_PCT_CongBoQT" style="width:348px" />
+                        </div>
+                    </div>
+
+                    <div class="div-search-title">
+                        <div>@Resource.Ngay:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="txt_PCT_Date" class="datetimepicker" />
+                        </div>
+                    </div>
+
+                    <div class="div-search-title">
+                        <div>@Resource.NgayChonVietNam:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="txt_PCT_VN_Date" class="datetimepicker" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio" style="margin-left: 0px">
+                            <input type="checkbox" name="2_rdo_PCT_SuaDoi" id="2_rdo_PCT_SuaDoi" onchange="return ShowHiden_PCT_SuaDoi()">
+                            <label> @Resource.CoSuaDoi</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clssDisplaynone" id="divPCT_SuaDoi" style="margin-top: 5px;margin-left: 15px;background:#fbf4f4">
+                    <div class="divCover cls_form_title">
+                        <div class="cls_form_header">
+                            @Resource.TM3B_NoiDungYCSuaDoi.ToUpper() <i class="redspan">(*)</i>
+                        </div>
+                    </div>
+
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div class="div-radio" style="width:382px">
+                                <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1">
+                                <label>@Resource.TM3B_TenChuDon</label>
+                            </div>
+                        </div>
+
+                        <div class="div-search-content">
+                            <div class="div-radio">
+                                <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2">
+                                <label>@Resource.TM3B_DiaChiChuDon</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div class="div-radio" style="width:382px">
+                                <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3">
+                                <label>@Resource.TM3B_NoiDungKhac</label>
+                            </div>
+                        </div>
+
+                        <div class="div-search-title" style="margin-left: 0px !important;">
+                            <div>@Resource.TM3B_DeNghiSuaThanh:</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <input type="text" placeholder="@Resource.TM3B_DeNghiSuaThanh" id="4_DeNghiSuaThanh" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
 
 
         <div class="div-search-ad">
@@ -325,11 +431,11 @@
                 <div class="div-radio">
                     @if (_App_Detail.Source_DQSC == "Y")
                     {
-                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdDQSC" checked="checked" onchange="return ShowHiden_NguonGocDon()">
+                        <input type="radio" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdDQSC" checked="checked" onchange="return ShowHiden_NguonGocDon()">
                     }
                     else
                     {
-                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdDQSC" onchange="return ShowHiden_NguonGocDon()">
+                        <input type="radio" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdDQSC" onchange="return ShowHiden_NguonGocDon()">
                     }
                     <label> @Resource.DonTachDQSC</label>
                 </div>
@@ -390,17 +496,59 @@
                 </div>
             </div>
         }
+        else
+        {
+            <div class="clssDisplaynone" id="divDQSC" style="margin-top: 5px;background:#fbf4f4">
+
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <div>@Resource.DonGoc:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="txt_DQSC_SoDon" style="width:348px" />
+                        </div>
+                    </div>
+
+                    <div class="div-search-title">
+                        <div>@Resource.NgayNopDon:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="txt_DQSC_NgayNop" class="datetimepicker" />
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="div-search-ad" style="margin-top: 5px;margin-left: 15px;">
+                    <div class="div-search-content">
+                        <div class="div-radio" style="width:464px">
+                            <input type="checkbox" name="DQSC_TruocHopLe" id="DQSC_TruocHopLe" value="1">
+                            <label>@Resource.TruocHopLe</label>
+                        </div>
+                    </div>
+
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="checkbox" name="DQSC_SauHopLe" id="DQSC_SauHopLe" value="1">
+                            <label>@Resource.SauHopLe</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
 
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio">
                     @if (_App_Detail.Source_DQSC == "Y")
                     {
-                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdGPHI" value="3" checked="checked" onchange="return ShowHiden_NguonGocDon()">
+                        <input type="radio" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdGPHI" value="3" checked="checked" onchange="return ShowHiden_NguonGocDon()">
                     }
                     else
                     {
-                        <input type="checkbox" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdGPHI" value="3" onchange="return ShowHiden_NguonGocDon()">
+                        <input type="radio" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdGPHI" value="3" onchange="return ShowHiden_NguonGocDon()">
                     }
                     <label> @Resource.DonTachGPHI</label>
                 </div>
@@ -455,6 +603,47 @@
                             {
                                 <input type="checkbox" name="GPHI_SauHopLe" id="GPHI_SauHopLe" />
                             }
+                            <label>@Resource.SauHopLe</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="clssDisplaynone" id="divGPHI" style="margin-top: 5px; background:#fbf4f4">
+
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <div>@Resource.DonGoc:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="txt_GPHI_SoDon" style="width:348px" />
+                        </div>
+                    </div>
+
+                    <div class="div-search-title">
+                        <div>@Resource.NgayNopDon:</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="txt_GPHI_NgayNop" class="datetimepicker" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="div-search-ad" style="margin-top: 5px;margin-left: 15px;">
+                    <div class="div-search-content">
+                        <div class="div-radio" style="width:464px">
+                            <input type="checkbox" name="GPHI_TruocHopLe" id="GPHI_TruocHopLe" value="1">
+                            <label>@Resource.TruocHopLe</label>
+                        </div>
+                    </div>
+
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="checkbox" name="GPHI_SauHopLe" id="GPHI_SauHopLe" value="1">
                             <label>@Resource.SauHopLe</label>
                         </div>
                     </div>
@@ -597,25 +786,7 @@
         </div>
 
         @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/category.png" />
-            <div class="cls_form_header">
-                @Resource.TM2B_DaiDienChuDon
-            </div>
-        </div>
-
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@Resource.TM3C_MaDaiDien:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txtMADDSHCN" value="@_AppHeaderInfo.Customer_Code" />
-                </div>
-            </div>
-        </div>
         @* end 2 *@
 
         @* Tác giả *@

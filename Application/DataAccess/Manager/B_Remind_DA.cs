@@ -15,11 +15,8 @@ namespace DataAccess
         {
             try
             {
-                var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
-                OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_remind.proc_auto_change_remind",
-                    paramReturn);
-                var result = Convert.ToInt32(paramReturn.Value.ToString());
-                return result;
+                OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_remind.proc_auto_change_remind");
+                return 0;
             }
             catch (Exception ex)
             {
@@ -28,6 +25,6 @@ namespace DataAccess
             }
         }
 
-        
+
     }
 }

@@ -532,10 +532,20 @@ namespace WebApps.Areas.TradeMark.Controllers
                     p_Billing_Header_Info.Percent_Discount = _Percent_discount;
 
                     decimal _idBilling = _Billing_BL.Billing_Insert(p_Billing_Header_Info);
+                    if (_idBilling < 0)
+                    {
+                        _ck = -1;
+                        goto Commit_Transaction;
+                    }
 
                     if (_idBilling > 0 && _lst_billing_detail.Count > 0)
                     {
                         _ck = _Billing_BL.Billing_Detail_InsertBatch(_lst_billing_detail, _idBilling);
+
+                        if (_ck < 0)
+                        {
+                            goto Commit_Transaction;
+                        }
                     }
 
                     //string _fileExport = AppsCommon.Export_Billing(p_Billing_Header_Info.Case_Code);
