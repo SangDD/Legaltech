@@ -258,7 +258,8 @@
         </div>
 
         @* detail search *@
-        @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearchClassView.cshtml")
+        @*@Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialSearchClassView.cshtml")*@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClassView.cshtml")
 
         <div class="divCover cls_form_title">
             <img src="/Content/icons/category.png" />
@@ -380,3 +381,14 @@
         <textarea disabled type="text" style="height:100px;width:100%;" maxlength="200">@_QuestionInfo.RESULT</textarea>
     </div>
 </div>
+
+<script>
+    function changeFontSize() {
+        try {
+            //document.getElementById("txtChuNhanHieu").style.fontSize = document.getElementById("txtFontSize").value + "px";
+        } catch (e) {
+
+        }
+    }
+
+</script>

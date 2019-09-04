@@ -269,7 +269,8 @@
             textInput = textInput.trim();
             classCode =   _groupcode;
             classCode = classCode.trim();
-            var _html = "<tr><td></td><td class=\"TdLeft\">" + textInput + "</td><td  class=\"TdLeft\">" + classCode + "<input class=\"DataAdd\" type=\"hidden\" value=\"" + textInput + "|" + classCode + "\" /></td><td><a href=\"javascript:;\" onclick=\"funcRemoveMessDataRow(this, '" + classCode + "');\">Xóa</a></td><td class=\"HasSort clssDisplaynone\">" + classCode.substr(0, 5) + "</td></tr>";
+            var _html = "<tr><td></td><td class=\"TdLeft\">" + "<input type=\"text\" onblur='return funSaveClassEdit(\"" + txt + "\",\"" + txtdata + "\")' style='width: calc(100% - 26px); border:none' id=\"" +
+                txt + "\"  value=\"" + textInput + "\"/> <span class=\"icon icon-edit\" onclick='return functEdit(\"" + txt + "\",\"" + txtdata + "\")'>" + " </td><td  class=\"TdLeft\" >" + classCode + "<input class=\"DataAdd\" type=\"hidden\" id=\"" + txtdata + "\" value=\"" + textInput + "|" + classCode + "\" /></td><td><a href=\"javascript:;\" onclick=\"funcRemoveMessDataRow(this, '" + classCode + "');\">Xóa</a></td><td class=\"HasSort clssDisplaynone\">" + classCode.substr(0, 5) + "</td></tr>";
             $("#tblClassInfo").find("tbody").append(_html);
             AddTotalRows();
             funcReSortTable("#tblClassInfo", 'asc');
@@ -280,12 +281,35 @@
         }
     }
 
+    function functEdit(pID, pIdData) {
+        try {
+            $("#" + pID).css('border', '1px solid #ccc');
+
+        } catch (e) {
+
+        }
+
+    }
+
+    function funSaveClassEdit(pID, pIdData) {
+        try {
+            var txtnew = $("#" + pID).val();
+            var strData = $("#" + pIdData).val();
+            var arr = strData.split("|");
+            var datanew = txtnew + "|" + arr[1];
+            $("#" + pIdData).val(datanew);
+            $("#" + pID).css('border', 'none');
+        } catch (e) {
+
+        }
+    }
+
     function AddTotalRows() {
         try {
             // đẩy các dòng tổng xuống cuối table
             var _html = "";
             _ArrGroupAppClass.forEach(function (element) {
-                _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='2' class=\"tdRightAlign textbold\">"+"@WebApps.Resources.Resource.lblTongSP"+"("+element.name+")</td><td colspan='2' class=\"TdLeft textbold\"> " + element.value + "</td>   <input  type=\"hidden\" class=\"txtTongSanPham\" value=\"" + element.value + "\"/> <td class=\"HasSort clssDisplaynone\"> " + element.name + "</td> </tr>";
+                _html = "<tr id='_rowappclassinfo" + element.name + "'><td colspan='2' class=\"tdRightAlign textbold\">"+"@WebApps.Resources.Resource.lblTongSP"+"("+element.name+")</td><td colspan='2' class=\"TdLeft textbold\">" + element.value + "</td>   <input  type=\"hidden\" class=\"txtTongSanPham\" value=\"" + element.value + "\"/> <td class=\"HasSort clssDisplaynone\"> " + element.name + "</td> </tr>";
                 $("#tblClassInfo").find("tbody").append(_html);
             });
             // tổng số nhóm

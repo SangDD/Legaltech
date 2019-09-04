@@ -349,7 +349,8 @@
                 </div>
             </div>
 
-            @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialAddSearchClass.cshtml")
+            @*@Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialAddSearchClass.cshtml")*@
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml")
 
             <div class="divCover cls_form_title">
                 <img src="/Content/icons/category.png" />
@@ -581,7 +582,7 @@
                 return false;
             }
 
-            var _object_Search = $("#cboAppType").val();
+            var _object_Search = @_HeaderInfo.Object_Search;
             if (_object_Search == '@Search_Object_Enum.Patent' ) {
                 var _txtName = $("#txtName").val();
                 if (_txtName == null || _txtName == "") {
@@ -666,6 +667,7 @@
             }
             formData.append("p_questionInfo.CONTENT", txtAddContent.val());
 
+            
             $.ajax({
                 url: '/quan-ly-search/SearchEdit/',
                 type: 'POST',

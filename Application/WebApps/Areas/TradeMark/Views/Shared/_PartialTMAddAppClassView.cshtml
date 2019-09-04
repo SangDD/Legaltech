@@ -21,7 +21,7 @@
     string pAppCode = item.Code;
     if (!string.IsNullOrEmpty(item.Code))
     {
-        if (item.Code.Length > 2)
+        if (item.Code.Length >= 2)
         {
             pAppCode = item.Code.Substring(0, 2);
         }

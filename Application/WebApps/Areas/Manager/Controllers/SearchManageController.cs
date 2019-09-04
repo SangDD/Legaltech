@@ -260,7 +260,12 @@ namespace WebApps.Areas.Manager.Controllers
 
                         if (pAppClassInfo != null)
                         {
-                            _Search_Fix_Info.Number_Of_Class = pAppClassInfo.Distinct().Count();
+                            List<Search_Class_Info> list = pAppClassInfo
+                                .GroupBy(a => a.Code)
+                                .Select(g => g.First())
+                                .ToList();
+
+                            _Search_Fix_Info.Number_Of_Class = list.Count();
                         }
                         else
                             _Search_Fix_Info.Number_Of_Class = 0;
@@ -325,7 +330,8 @@ namespace WebApps.Areas.Manager.Controllers
                 SearchObject_Header_Info _HeaderInfo = new SearchObject_Header_Info();
                 List<SearchObject_Detail_Info> _ListDetail = new List<SearchObject_Detail_Info>();
                 SearchObject_Question_Info _QuestionInfo = new SearchObject_Question_Info();
-                List<Search_Class_Info> search_Class_Infos = new List<Search_Class_Info>();
+                //List<Search_Class_Info> search_Class_Infos = new List<Search_Class_Info>();
+                List<AppClassDetailInfo> search_Class_Infos = new List<AppClassDetailInfo>();
                 decimal _Searchid = 0;
                 if (RouteData.Values.ContainsKey("id"))
                 {
@@ -335,6 +341,7 @@ namespace WebApps.Areas.Manager.Controllers
                     ViewBag.SearchListDetail = _ListDetail;
                     ViewBag.QuestionInfo = _QuestionInfo;
                     ViewBag.lstClassDetailInfo = search_Class_Infos;
+
                 }
                 int _Status = 0;
                 if (RouteData.Values.ContainsKey("id2"))
@@ -465,7 +472,12 @@ namespace WebApps.Areas.Manager.Controllers
                         _Search_Fix_Info.Country_Id = p_searchHeaderInfo.Country_Id;
                         if (pAppClassInfo != null)
                         {
-                            _Search_Fix_Info.Number_Of_Class = pAppClassInfo.Distinct().Count();
+                            List<Search_Class_Info> list = pAppClassInfo
+                                .GroupBy(a => a.Code)
+                                .Select(g => g.First())
+                                .ToList();
+
+                            _Search_Fix_Info.Number_Of_Class = list.Count();
                         }
                         else
                             _Search_Fix_Info.Number_Of_Class = 0;
@@ -532,7 +544,7 @@ namespace WebApps.Areas.Manager.Controllers
                 SearchObject_Header_Info _HeaderInfo = new SearchObject_Header_Info();
                 List<SearchObject_Detail_Info> _ListDetail = new List<SearchObject_Detail_Info>();
                 SearchObject_Question_Info _QuestionInfo = new SearchObject_Question_Info();
-                List<Search_Class_Info> search_Class_Infos = new List<Search_Class_Info>();
+                List<AppClassDetailInfo> search_Class_Infos = new List<AppClassDetailInfo>();
                 string _casecode = "";
                 if (RouteData.Values.ContainsKey("id"))
                 {
@@ -608,7 +620,7 @@ namespace WebApps.Areas.Manager.Controllers
                     SearchObject_BL _searchBL = new SearchObject_BL();
                     List<SearchObject_Detail_Info> _ListDetail = new List<SearchObject_Detail_Info>();
                     SearchObject_Question_Info _QuestionInfo = new SearchObject_Question_Info();
-                    List<Search_Class_Info> search_Class_Infos = new List<Search_Class_Info>();
+                    List<AppClassDetailInfo> search_Class_Infos = new List<AppClassDetailInfo>();
                     SearchObject_Header_Info _HeaderInfo = _searchBL.SEARCH_HEADER_GETBY_CASECODE(p_case_code, ref _ListDetail, ref _QuestionInfo, ref search_Class_Infos);
 
                     // lấy thông tin người dùng
