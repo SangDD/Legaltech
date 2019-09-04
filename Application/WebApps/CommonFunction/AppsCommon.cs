@@ -155,11 +155,11 @@ namespace WebApps.CommonFunction
             {
                 if (yourref != "" && yourref != null)
                 {
-                    _ref += "<div style = 'color: #f91b1b; padding-top: 10px;' > Your Ref: ["+ yourref + "] </div>";
+                    _ref += "<div style = 'color: #5a5a5a; padding-top: 10px;' > Your Ref: " + yourref + " </div>";
                 }
                 if (outref != "" && outref != null)
                 {
-                    _ref += "<div  style = 'color: #f91b1b; padding-top: 10px;'> Out Ref: [" + outref + "] </div>";
+                    _ref += "<div  style = 'color: #5a5a5a; padding-top: 10px;'> Out Ref: " + outref + " </div>";
                 }
                 if (dearname != "" && dearname != null)
                 {

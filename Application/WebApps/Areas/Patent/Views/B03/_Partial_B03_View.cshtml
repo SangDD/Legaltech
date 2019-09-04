@@ -278,7 +278,11 @@
 
             }
         }
-
+        @* Cam kết của hủ đơn *@
+        @{
+            string _camket = _AppHeaderInfo.Address + "|" + _AppHeaderInfo.DateNo + "|" + _AppHeaderInfo.Months + "|" + _AppHeaderInfo.Years;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon_View.cshtml", _camket)
+        }
 
     </fieldset>
 </div>
