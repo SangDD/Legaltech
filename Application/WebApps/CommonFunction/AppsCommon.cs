@@ -433,7 +433,7 @@ namespace WebApps.CommonFunction
                 UserBL _UserBL = new UserBL();
                 UserInfo userInfo = _UserBL.GetUserByUsername(p_customer);
 
-                _Billing_Header_Info.CustomerName = userInfo.FullName;
+                _Billing_Header_Info.CustomerName = userInfo.Company_Name;
                 _Billing_Header_Info.Address = userInfo.Address;
                 _Billing_Header_Info.Contract = userInfo.Contact_Person + " " + userInfo.FullName;
                 _Billing_Header_Info.Notes = userInfo.Contact_Person + " " + userInfo.FullName;
