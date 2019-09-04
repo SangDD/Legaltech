@@ -36,6 +36,18 @@
         }
         clstAppClassShortSuggest.Add(pShortInfo);
     }
+
+    string _Search_Code = "";
+    if (ViewBag.SearchCode != null)
+    {
+        _Search_Code = (string)ViewBag.SearchCode;
+    }
+
+    string _Name = "";
+    if (ViewBag.Name != null)
+    {
+        _Name = (string)ViewBag.Name;
+    }
 }
 
 <style>
@@ -102,7 +114,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" id="txt_IndustryDesignName" style="height:65px" />
+                        <input type="text" id="txt_IndustryDesignName" style="height:65px" value="@_Name"/>
                     </div>
                 </div>
             </div>
@@ -735,6 +747,8 @@
                 showError('@Html.Raw(Resource.TM3B_ChonLoaiDonDK)');
                 return false;
             }
+
+            formData.append("pInfo.Search_Code", '@_Search_Code');
 
             // đại diện chủ đơn
             formData.append("pInfo.Appcode", v_AppCode);

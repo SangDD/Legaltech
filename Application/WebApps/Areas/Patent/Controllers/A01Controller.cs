@@ -44,6 +44,45 @@ namespace WebApps.Areas.Patent.Controllers
                     AppCode = RouteData.Values["id"].ToString().ToUpper();
                 }
                 ViewBag.AppCode = AppCode;
+
+                return PartialView("~/Areas/Patent/Views/A01/_Partial_A01.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/Patent/Views/A01/_Partial_A01.cshtml");
+            }
+        }
+
+        [HttpGet]
+        [Route("register/{id}/{id1}")]
+        public ActionResult Index_Search()
+        {
+            try
+            {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+
+                SessionData.CurrentUser.chashFile.Clear();
+                string AppCode = "";
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    AppCode = RouteData.Values["id"].ToString().ToUpper();
+                }
+                ViewBag.AppCode = AppCode;
+
+                if (RouteData.Values.ContainsKey("id1"))
+                {
+                    string _SearchCode = RouteData.Values["id1"].ToString().ToUpper();
+                    ViewBag.SearchCode = _SearchCode;
+
+                    SearchObject_BL _searchBL = new SearchObject_BL();
+                    List<SearchObject_Detail_Info> _ListDetail = new List<SearchObject_Detail_Info>();
+                    SearchObject_Question_Info _QuestionInfo = new SearchObject_Question_Info();
+                    List<AppClassDetailInfo> search_Class_Infos = new List<AppClassDetailInfo>();
+                    SearchObject_Header_Info _HeaderInfo = _searchBL.SEARCH_HEADER_GETBY_CASECODE(_SearchCode, ref _ListDetail, ref _QuestionInfo, ref search_Class_Infos);
+                    ViewBag.Name = _HeaderInfo.Name;
+                }
                 return PartialView("~/Areas/Patent/Views/A01/_Partial_A01.cshtml");
             }
             catch (Exception ex)

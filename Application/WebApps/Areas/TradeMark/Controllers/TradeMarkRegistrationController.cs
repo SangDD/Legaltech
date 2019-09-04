@@ -69,45 +69,56 @@
                     AppCode = RouteData.Values["id"].ToString().ToUpper();
                 }
                 ViewBag.AppCode = AppCode;
-                if (AppCode == TradeMarkAppCode.AppCodeSuaDoiDangKy)
-                {
-                    return AppSuaDoiDonDangKy();
-                }
-                else if (AppCode == TradeMarkAppCode.AppCodeDangKyChuyenDoi)
-                {
-
-                }
-                else if (AppCode == TradeMarkAppCode.AppCodeDangKynhanHieu)
-                {
-                    return AppDangKyNhanHieu();
-                }
-                else if (AppCode == TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD)
-                {
-                    return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial_TM_3B_PLB_01_SDD.cshtml");
-                }
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
             }
-            return AppSuaDoiDonDangKy();
+            return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartalDangKyNhanHieu.cshtml");
         }
 
-        public ActionResult AppSuaDoiDonDangKy()
+        [HttpGet]
+        [Route("request-for-trade-mark/{id}/{id1}")]
+        public ActionResult TradeMarkChoiseApplication_Search()
         {
             try
             {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+
+                SessionData.CurrentUser.chashFile.Clear();
+                SessionData.CurrentUser.chashFileOther.Clear();
+                string AppCode = "";
+                if (RouteData.Values.ContainsKey("id"))
+                {
+                    AppCode = RouteData.Values["id"].ToString().ToUpper();
+                }
+                ViewBag.AppCode = AppCode;
+
+                if (RouteData.Values.ContainsKey("id1"))
+                {
+                    string _SearchCode = RouteData.Values["id1"].ToString().ToUpper();
+                    ViewBag.SearchCode = _SearchCode;
+
+                    SearchObject_BL _searchBL = new SearchObject_BL();
+                    List<SearchObject_Detail_Info> _ListDetail = new List<SearchObject_Detail_Info>();
+                    SearchObject_Question_Info _QuestionInfo = new SearchObject_Question_Info();
+                    List<AppClassDetailInfo> search_Class_Infos = new List<AppClassDetailInfo>();
+                    SearchObject_Header_Info _HeaderInfo = _searchBL.SEARCH_HEADER_GETBY_CASECODE(_SearchCode, ref _ListDetail, ref _QuestionInfo, ref search_Class_Infos);
+                    ViewBag.SearchListDetail = _ListDetail;
+                    ViewBag.lstClassDetailInfo = search_Class_Infos;
+
+
+                    ViewBag.Logourl = _HeaderInfo.Logourl;
+                    ViewBag.Logochu = _HeaderInfo.Logochu;
+                }
 
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
             }
-            return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/AppSuaDoiDonDangKy.cshtml");
-        }
 
-        public ActionResult AppDangKyNhanHieu()
-        {
             return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartalDangKyNhanHieu.cshtml");
         }
 
@@ -1483,7 +1494,7 @@
                 ViewBag.Lst_AppDoc = appDocumentInfos;
                 ViewBag.Lst_AppFee = _lst_appFeeFixInfos;
                 ViewBag.objAppHeaderInfo = applicationHeaderInfo;
-               
+
                 return PartialView("~/Areas/Patent/Views/B03/_Partial_B03_View.cshtml");
             }
             else

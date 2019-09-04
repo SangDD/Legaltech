@@ -188,7 +188,7 @@ namespace ObjectInfos
         public decimal USE_DOC_OTHERS { get; set; }
 
         public int View_Translate { get; set; }
-
+        public string Search_Code { get; set; }
     }
 
 

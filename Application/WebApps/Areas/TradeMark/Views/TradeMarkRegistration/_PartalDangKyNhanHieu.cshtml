@@ -29,6 +29,35 @@
         clstAppClassShortSuggest.Add(pShortInfo);
     }
     List<AllCodeInfo> _lstLogoType = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("NOTICE_APP", "LOGOTYPE");
+
+    string _Search_Code = "";
+    if (ViewBag.SearchCode != null)
+    {
+        _Search_Code = (string)ViewBag.SearchCode;
+    }
+
+    string _Logourl = "";
+    if (ViewBag.Logourl != null)
+    {
+        _Logourl = (string)ViewBag.Logourl;
+    }
+
+    int _Logochu = 0;
+    if (ViewBag.Logochu != null)
+    {
+        _Logochu = (int)ViewBag.Logochu;
+    }
+
+    string urlMauNhanHieu = "/Content/icons/logo.jpg";
+    string urlLogoChu = "";
+    if (!string.IsNullOrEmpty(_Logourl) && _Logochu != 1)
+    {
+        urlMauNhanHieu = _Logourl.Replace("~", "");
+    }
+    if (!string.IsNullOrEmpty(_Logourl) && _Logochu == 1)
+    {
+        urlLogoChu = _Logourl;
+    }
 }
 
 <style>
@@ -210,8 +239,8 @@
 
                     <div class="class_block_title_control" style="display:flex;margin-top: 10px;">
                         <div style="width:165px ;height:165px;margin-left: 10px;" id="divLogo">
-                            <img id="imgMauNhanHieu" src="~/Content/icons/logo.jpg" style="width:160px ;height:160px">
-                            <img id="imgMauNhanHieuTeplace" src="~/Content/icons/logo.jpg" hidden="hidden">
+                            <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
+                            <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
                         </div>
                         <div class="container" id="divckbNhanHieuAnh" style="flex-grow:1;padding-top:50px">
                             <div class="file-upload btn btn-primary" style="margin-top:95px">
@@ -221,7 +250,7 @@
                         </div>
                         <div id="divckbNhanHieuChu" style="display:none">
                             <div style="width:165px ;height:165px;margin-left: 10px;">
-                                <input type="text" class="classChuNhanHieu" id="txtChuNhanHieu" style="height:160px;width:160px;text-align: center;" />
+                                <input type="text" class="classChuNhanHieu" id="txtChuNhanHieu" value="@urlLogoChu" style="height:160px;width:160px;text-align: center;" />
                             </div>
                         </div>
                     </div>
@@ -1769,6 +1798,7 @@
                 return false;
             }
             formData.append("pInfo.Appcode", v_AppCode);
+            formData.append("pInfo.Search_Code", '@_Search_Code');
 
             //
             //if (funcThongTinChuDonNguoiDaiDien(formData, "2", New) != true) {

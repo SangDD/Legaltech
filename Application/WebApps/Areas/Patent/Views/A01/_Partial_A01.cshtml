@@ -37,6 +37,18 @@
         }
         clstAppClassShortSuggest.Add(pShortInfo);
     }
+
+    string _Search_Code = "";
+    if (ViewBag.SearchCode != null)
+    {
+        _Search_Code = (string)ViewBag.SearchCode;
+    }
+
+    string _Name = "";
+    if (ViewBag.Name != null)
+    {
+        _Name = (string)ViewBag.Name;
+    }
 }
 
 <style>
@@ -346,7 +358,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" id="txt_Patent_Name" style="height:65px" />
+                        <input type="text" id="txt_Patent_Name" style="height:65px" value="@_Name"/>
                     </div>
                 </div>
             </div>
@@ -940,6 +952,8 @@
             if (funcChuDonKhac(formData) != true) {
                 return false;
             }
+
+            formData.append("pInfo.Search_Code", '@_Search_Code');
 
             var v_AppCode = $("#txtAppCode").val();
             if (v_AppCode === "") {
