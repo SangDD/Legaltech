@@ -259,7 +259,9 @@ namespace WebApps.Areas.Manager.Controllers
                         _Search_Fix_Info.Country_Id = p_searchHeaderInfo.Country_Id;
 
                         if (pAppClassInfo != null)
-                            _Search_Fix_Info.Number_Of_Class = pAppClassInfo.Count;
+                        {
+                            _Search_Fix_Info.Number_Of_Class = pAppClassInfo.Distinct().Count();
+                        }
                         else
                             _Search_Fix_Info.Number_Of_Class = 0;
 
@@ -462,7 +464,9 @@ namespace WebApps.Areas.Manager.Controllers
                         _Search_Fix_Info.Search_Type = item.SEARCH_TYPE;
                         _Search_Fix_Info.Country_Id = p_searchHeaderInfo.Country_Id;
                         if (pAppClassInfo != null)
-                            _Search_Fix_Info.Number_Of_Class = pAppClassInfo.Count;
+                        {
+                            _Search_Fix_Info.Number_Of_Class = pAppClassInfo.Distinct().Count();
+                        }
                         else
                             _Search_Fix_Info.Number_Of_Class = 0;
 
