@@ -1,0 +1,68 @@
+﻿@using Common.CommonData
+@using Common.Extensions
+@using ObjectInfos
+@model List<SearchObject_Header_Info>
+    @try
+    {
+        <div>
+            <table class="table-lst-data" id="tableListObject">
+                <thead>
+                    <tr>
+                        <th style="width: 4%">STT</th>
+                        <th class="class200 tdleftalign">Case code</th>
+                        <th class="class200 tdleftalign">Mô tả</th>
+                        <th class="class150 tdleftalign">Trạng thái</th>
+                        <th class="class150 tdleftalign">Người yêu cầu</th>
+                        <th class="class150 tdleftalign">Thời gian chờ</th>
+                        <th class="class150 tdleftalign">Người xử lý</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="tdcenteralign">@item.STT</td>
+                                <td class="tdleftalign">
+                                    <a href="/quan-ly-search/search-todo-detail/@item.CASE_CODE/4" data-title="Xem chi tiết">@item.CASE_CODE</a>
+                                </td>
+                                <td class="tdleftalign">@item.NOTE</td>
+                                <td class="tdleftalign">@item.STATUS_NAME</td>
+                                <td class="tdleftalign">@item.CREATED_BY</td>
+
+                                <td class="tdleftalign">
+                                    @{
+                                        TimeSpan TS = DateTime.Now - item.REQUEST_DATE;
+                                        int hour = TS.Days * 24 + TS.Hours;
+                                        int mins = TS.Minutes;
+                                        int secs = TS.Seconds;
+                                        string timeDiff = hour.ToString() + "h";
+                                    }
+                                    @timeDiff
+                                </td>
+                                <td class="tdleftalign">@item.CREATED_BY</td>
+                                @*<td class="tdcenteralign">
+                                        <a href="/quan-ly-search/search-todo-detail/@item.CASE_CODE/4" class="icon icon-info" data-title="Xem chi tiết"></a>
+                                    </td>*@
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="9">Không có dữ liệu</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-paging">
+            @Html.Raw(ViewBag.Paging)
+        </div>
+    }
+    catch (Exception)
+    {
+        // ignored
+    }

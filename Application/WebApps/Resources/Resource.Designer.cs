@@ -7315,6 +7315,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tra cứu.
+        /// </summary>
+        public static string TraCuu {
+            get {
+                return ResourceManager.GetString("TraCuu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tra cứu khả năng bảo hộ.
         /// </summary>
         public static string TraCuuKhaNangBaoHo {

@@ -91,6 +91,9 @@
             <option value="4">
                 Wiki
             </option>
+            <option value="5">
+                @WebApps.Resources.Resource.TraCuu
+            </option>
         </select>
 
         <input type="text" id="legalsearch_txtsearchcontent" placeholder="@WebApps.Resources.Resource.lblTenNhanHieu, @WebApps.Resources.Resource.CaseCode, @WebApps.Resources.Resource.CaseName,  @WebApps.Resources.Resource.TinhTrangDon, @WebApps.Resources.Resource.Processor, @WebApps.Resources.Resource.LoaiDon" value="@_searchContent" />
@@ -108,10 +111,12 @@
         <input type="hidden" id="colSorted_2" />
         <input type="hidden" id="colSorted_3" />
         <input type="hidden" id="colSorted_4" />
+        <input type="hidden" id="colSorted_5" />
         <input type="hidden" id="SortType_1" />
         <input type="hidden" id="SortType_2" />
         <input type="hidden" id="SortType_3" />
         <input type="hidden" id="SortType_4" />
+        <input type="hidden" id="SortType_5" />
     </div>
 
     <div class="Homebox">
@@ -159,9 +164,16 @@
                 }
                 if (_searchtype == 3) {
                     $("#legalsearch_txtsearchcontent").attr("placeholder", '@Html.Raw(Resource.TenKhachHang), @Html.Raw(Resource.QuocTich), @Html.Raw(Resource.MaDaiDien), @Html.Raw(Resource.NghanhNgheChinh)')
-                } if (_searchtype == 4) {
+                }
+                if (_searchtype == 4) {
                     $("#legalsearch_txtsearchcontent").attr("placeholder", '@Html.Raw(Resource.TieuDe) , hashtag')
                 }
+
+                if (_searchtype == 5) {
+                    $("#legalsearch_txtsearchcontent").attr("placeholder", '@Html.Raw(Resource.lblTenNhanHieu), @Html.Raw(Resource.CaseCode), @Html.Raw(Resource.CaseName) ')
+                }
+
+                $("#legalsearch_txtsearchtype").val(_searchtype);
             } catch (e) {
 
             }
