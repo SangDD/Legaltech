@@ -80,7 +80,30 @@ namespace BussinessFacade.Patent
                 return new B03_Info();
             }
         }
+        public B03_Info_Export GetByID_Exp(decimal p_app_header_id, string p_language_code,
+           ref ApplicationHeaderInfo applicationHeaderInfo,
+           ref List<AppDocumentInfo> appDocumentInfos, ref List<AppFeeFixInfo> appFeeFixInfos)
+        {
+            try
+            {
+                B03_DA _obj_da = new B03_DA();
+                DataSet dataSet = _obj_da.GetByID(p_app_header_id, p_language_code);
+                B03_Info_Export _b03_Info = CBO<B03_Info_Export>.FillObjectFromDataSet(dataSet);
+                if (dataSet != null && dataSet.Tables.Count == 4)
+                {
+                    applicationHeaderInfo = CBO<ApplicationHeaderInfo>.FillObjectFromDataTable(dataSet.Tables[1]);
+                    appDocumentInfos = CBO<AppDocumentInfo>.FillCollectionFromDataTable(dataSet.Tables[2]);
+                    appFeeFixInfos = CBO<AppFeeFixInfo>.FillCollectionFromDataTable(dataSet.Tables[3]);
+                }
 
+                return _b03_Info;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new B03_Info_Export();
+            }
+        }
 
     }
 }

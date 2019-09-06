@@ -55,7 +55,7 @@
         }
     }
 
-    function funGetData_Preview_A01(url, pView_Translate) {
+    function funGetData_Preview_B03(url, pView_Translate) {
         try {
             $.ajax({
                 url: url,
@@ -90,9 +90,9 @@
     }
 
     function funcPreViewApplication() {
-        var preturn = funGetData_Preview_A01("/lg-patent/ket_xuat_file", 0);
+        var preturn = funGetData_Preview_B03("/lg-patentB03/ket_xuat_file", 0);
         if (preturn == true || preturn == undefined) {
-            OpenPreview("/lg-patent/Pre-View");
+            OpenPreview("/lg-patentB03/Pre-View");
         }
 
         //Accept();
@@ -114,7 +114,7 @@
         formData.append("pInfo.Id", @_AppHeaderInfo.Id);
 
         $.ajax({
-            url: "/lg-patent/getFeeView_View",
+            url: "/lg-patentB03/getFeeView_View",
             type: 'POST',
             data: formData,
             dataType: "json",

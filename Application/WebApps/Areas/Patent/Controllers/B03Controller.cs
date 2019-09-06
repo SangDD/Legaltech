@@ -2,10 +2,14 @@
 using BussinessFacade.ModuleTrademark;
 using BussinessFacade.Patent;
 using Common;
+using Common.CommonData;
+using CrystalDecisions.Shared;
 using ObjectInfos;
 using ObjectInfos.ModuleTrademark;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Transactions;
 using System.Web;
@@ -136,10 +140,10 @@ namespace WebApps.Areas.Patent.Controllers
 
                         }
                     }
-                    #endregion
+                #endregion
 
 
-                    Commit_Transaction:
+                Commit_Transaction:
                     if (pReturn < 0)
                     {
                         Transaction.Current.Rollback();
@@ -301,6 +305,101 @@ namespace WebApps.Areas.Patent.Controllers
             {
                 Logger.LogException(ex);
                 return Json(new { status = ErrorCode.Error });
+            }
+        }
+        [HttpPost]
+        [Route("ket_xuat_file")]
+        public ActionResult ExportData_View(decimal pAppHeaderId, string p_appCode, decimal p_View_Translate)
+        {
+            try
+            {
+                string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
+                string language = AppsCommon.GetCurrentLang();
+
+                var objBL = new B03_BL();
+                List<B03_Info_Export> _lst = new List<B03_Info_Export>();
+
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> _lst_appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+
+                B03_Info_Export app_Detail = objBL.GetByID_Exp(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos);
+
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_VN_" + _datetimenow + ".pdf");
+
+                // tiếng việt, bị lộn nên ko muốn đổi
+                string _tempfile = "A01.rpt";
+                if (p_View_Translate == 1)
+                {
+                    // nếu là tiếng việt thì xem bản tiếng anh và ngược lại
+                    if (applicationHeaderInfo.Languague_Code == Language.LangVI)
+                    {
+                        _tempfile = "A01_EN.rpt"; // tiếng anh
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_EN_" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_EN_" + _datetimenow + ".pdf";
+                    }
+                    else
+                    {
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_VN_" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_VN_" + _datetimenow + ".pdf";
+                    }
+                }
+                else
+                {
+                    if (applicationHeaderInfo.Languague_Code == Language.LangVI)
+                    {
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_VN_" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_VN_" + _datetimenow + ".pdf";
+                    }
+                    else
+                    {
+                        _tempfile = "A01_EN.rpt"; // tiếng anh
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_EN_" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_EN_" + _datetimenow + ".pdf";
+                    }
+                }
+
+                AppsCommon.Prepare_Data_Export_B03(ref app_Detail, applicationHeaderInfo, appDocumentInfos, _lst_appFeeFixInfos);
+
+                _lst.Add(app_Detail);
+                DataSet _ds_all = ConvertData.ConvertToDataSet<B03_Info_Export>(_lst, false);
+                CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+
+
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
+
+                if (_ds_all != null)
+                {
+                    _ds_all.Tables[0].TableName = "Table1";
+                    // đè các bản dịch lên
+                    if (p_View_Translate == 1)
+                    {
+                        // nếu là bản xem của thằng dịch
+                        App_Translate_BL _App_Translate_BL = new App_Translate_BL();
+                        List<App_Translate_Info> _lst_translate = _App_Translate_BL.App_Translate_GetBy_AppId(pAppHeaderId);
+
+                        AppsCommon.Overwrite_DataSouce_Export(ref _ds_all, _lst_translate);
+                    }
+
+                    oRpt.SetDataSource(_ds_all);
+                }
+                oRpt.Refresh();
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+                System.IO.Stream oStream = oRpt.ExportToStream(ExportFormatType.PortableDocFormat);
+                byte[] byteArray = new byte[oStream.Length];
+                oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
+                System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq
+
+                return Json(new { success = 0 });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = 0 });
             }
         }
 
