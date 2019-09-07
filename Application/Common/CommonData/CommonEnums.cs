@@ -226,6 +226,8 @@
         public static string AppCodeDangKyQuocTeNH = "C06"; //TM06DKQT
         public static string AppCode_TM_4C2_PLD_01_HDCN = "D01"; //TM_PLD01HDCN
         public static string AppCode_B03 = "B03"; //TM_PLD01HDCN
+        public static string AppCode_A05_DK_CHIDANDIALY = "A05";
+
     }
 
     public class CommonWiki

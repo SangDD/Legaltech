@@ -1497,6 +1497,32 @@
 
                 return PartialView("~/Areas/Patent/Views/B03/_Partial_B03_View.cshtml");
             }
+            else if (pAppCode == TradeMarkAppCode.AppCode_A05_DK_CHIDANDIALY)
+            {
+                var objBL = new A05_BL();
+                string language = AppsCommon.GetCurrentLang();
+
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> _lst_appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                List<Other_MasterInfo> _lst_Other_MasterInfo = new List<Other_MasterInfo>();
+                List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
+                List<AppDocumentOthersInfo> pLstDocDesign = new List<AppDocumentOthersInfo>();
+                A05_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos,
+                    ref _lst_Other_MasterInfo, ref _LstDocumentOthersInfo);
+
+                ViewBag.App_Detail = app_Detail;
+                ViewBag.Lst_AppDoc = appDocumentInfos;
+                ViewBag.Lst_AppFee = _lst_appFeeFixInfos;
+                ViewBag.objAppHeaderInfo = applicationHeaderInfo;
+                ViewBag.Lst_Other_Master = _lst_Other_MasterInfo;
+                ViewBag.lstDocOther = _LstDocumentOthersInfo;
+                ViewBag.ListDocDesign = pLstDocDesign;
+                ViewBag.IsViewFlag = 1;
+                ViewBag.AppCode = pAppCode;
+                return PartialView(@"~\Areas\ChiDanDiaLy\Views\A05\_Partial_A05_View.cshtml");
+            }
+            
             else
             {
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialDangKyNhanHieu.cshtml");
@@ -1732,6 +1758,29 @@
                 ViewBag.Lst_AppFee = _lst_appFeeFixInfos;
                 ViewBag.objAppHeaderInfo = applicationHeaderInfo;
                 return PartialView("~/Areas/Patent/Views/B03/_Partial_B03_Edit.cshtml");
+            }
+            else if (pAppCode == TradeMarkAppCode.AppCode_A05_DK_CHIDANDIALY)
+            {
+                var objBL = new A05_BL();
+                string language = AppsCommon.GetCurrentLang();
+
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> _lst_appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                List<Other_MasterInfo> _lst_Other_MasterInfo = new List<Other_MasterInfo>();
+                List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
+                A05_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos,
+                    ref _lst_Other_MasterInfo, ref _LstDocumentOthersInfo );
+
+                ViewBag.App_Detail = app_Detail;
+                ViewBag.Lst_AppDoc = appDocumentInfos;
+                ViewBag.Lst_AppFee = _lst_appFeeFixInfos;
+                ViewBag.objAppHeaderInfo = applicationHeaderInfo;
+                ViewBag.Lst_Other_Master = _lst_Other_MasterInfo;
+                ViewBag.lstDocOther = _LstDocumentOthersInfo;
+                ViewBag.IsViewFlag = 1;
+                ViewBag.AppCode = pAppCode;
+                return PartialView(@"~\Areas\ChiDanDiaLy\Views\A05\_Partial_A05_Edit.cshtml");
             }
             else
             {

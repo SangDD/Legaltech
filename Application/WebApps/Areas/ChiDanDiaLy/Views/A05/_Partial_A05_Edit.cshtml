@@ -33,12 +33,6 @@
         Lst_AppFee = (List<AppFeeFixInfo>)ViewBag.Lst_AppFee;
     }
 
-    List<AuthorsInfo> Lst_AuthorsInfo = new List<AuthorsInfo>();
-    if (ViewBag.Lst_AuthorsInfo != null)
-    {
-        Lst_AuthorsInfo = (List<AuthorsInfo>)ViewBag.Lst_AuthorsInfo;
-    }
-
     List<Other_MasterInfo> Lst_Other_Master = new List<Other_MasterInfo>();
     if (ViewBag.Lst_Other_Master != null)
     {
@@ -70,7 +64,6 @@
     }
 
     decimal _max_Model_Id = Lst_Other_Master.Count + 1;
-    decimal _max_Model_Id_author = Lst_AuthorsInfo.Count + 1;
 
 }
 
@@ -117,214 +110,94 @@
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
-        <legend style="font-weight:600"> Registration of the Geographical Indication.ToUpper()</legend>
+        <legend style="font-weight:600"> Registration of the Geographical Indication</legend>
 
         @* Case name *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
 
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/category.png" />
-            <div class="cls_form_header">
-                @Html.Raw(Resource.A05_MOTAMACH)
-            </div>
-        </div>
+        <div class="div_full_100_area">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "TÊN CHỈ DẪN ĐỊA LÝ")
 
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@Html.Raw(Resource.A05_TENGOI) <i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div style="width:500px">
-                    <input type="text" id="txt_TenThietKe" maxlength="200" value="@_App_Detail.TenThietKe"/>
-                </div>
-            </div>
-            <div class="div-search-title">
-                <div>@Html.Raw(Resource.A05_NGAYTAOTHIETKET) <i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                        <input class="datetimepicker" type="text" id="txt_NgayTaoThietKe" maxlength="10" value="@(_App_Detail.NgayTaoThietKe == DateTime.MinValue ? "" : _App_Detail.NgayTaoThietKe.ToString("dd/MM/yyyy"))" />
-                </div>
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div style="width:200px">@Html.Raw(Resource.A05_KHAITHACTHUONGMAI)<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div style="width:300px">
-                    <input type="text" id="txt_KhaiThactm" maxlength="200" value="@_App_Detail.KhaiThactm"/>
-                </div>
-            </div>
-            <div class="div-search-title">
-                <div>@Html.Raw(Resource.A05_KHAITHACTHUONGMAI_TAINUOC)<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txt_KhaiThactm_TaiNuoc" maxlength="200" value="@_App_Detail.KhaiThactm_TaiNuoc" />
-                </div>
-            </div>
-            <div class="div-search-title">
-                <div>@Html.Raw(Resource.A05_KHAITHACTHUONGMAI_NGAY)</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txt_KhaiThactm_Ngay"    maxlength="200" class="datetimepicker"
-                         value="@(_App_Detail.KhaiThactm_Ngay == DateTime.MinValue ? "" : _App_Detail.KhaiThactm_Ngay.ToString("dd/MM/yyyy"))"/>
-                </div>
-            </div>
-        </div>
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/category.png" />
-            <div class="cls_form_header">
-                @Html.Raw(Resource.A05_PHANLOAI)
-                
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@Html.Raw(Resource.A05_CHUCNANG)</div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio"   value="NHO" name="ChucNang" id="ckbChucNangNHO" onchange="onChangeChucNang('NHO')">
-                    <label> @Html.Raw(Resource.A05_CHUCNANG_NHO)</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio" name="ChucNang" value="LOGIC" id="ckbChucNangLOGIC" onchange="onChangeChucNang('LOGIC')">
-                    <label>Logic</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio" style="width:120px">
-                    <input type="radio" name="ChucNang" id="ckbChucNangOTHER" value="OTHER" onchange="onChangeChucNang('OTHER')">
-                    <label>@Html.Raw(Resource.A05_CHUCNANG_KHAC)</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="text" readonly id="txtChucNang_OTHER" maxlength="200" value="@_App_Detail.ChucNang_Other">
-                </div>
-            </div>
-        </div>
+            <div class="class_full_div_input_extent">
+                <div class="class_left_40">
 
 
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@Html.Raw(Resource.A05_CAUTRUC)</div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio"   name="CauTruc" value="LUONGCUC" id="ckbCauTrucLUONGCUC" onchange="onChangeCauTruc('LUONGCUC')">
-                    <label>@Html.Raw(Resource.A05_CAUTRUC_LUONGCUC)</label>
+                    <div class="class_block_title_control" style="display:flex;margin-top: 10px;">
+                        <div style="width:165px ;height:165px;margin-left: 10px;" id="divLogo">
+                            <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
+                            <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
+                        </div>
+                        <div class="container" id="divckbNhanHieuAnh" style="flex-grow:1;padding-top:50px">
+                            <div class="file-upload btn btn-primary" style="margin-top:95px">
+                                <span>@WebApps.Resources.Resource.lblTaiFile</span>
+                                <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
+                            </div>
+                        </div>
+                        <div id="divckbNhanHieuChu" style="display:none">
+                            <div style="width:165px ;height:165px;margin-left: 10px;">
+                                <input type="text" class="classChuNhanHieu" id="txtChuNhanHieu" value="@urlLogoChu" style="height:160px;width:160px;text-align: center;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="class_right_60" style="display:block">
+                    @* Thêm mục đích sau này Admin đặt tên theo qui tắc phục vụ tìm kiếm *@
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div class="div-radio">
+                                <input checked="checked" type="radio" name="0_TRANGTHAIDANGKY" class="classNhanHieu" value="DADK" id="cbo_dadk" onclick="ChangeTrangThaiDK()" />
+                                <label>Chỉ dẫn địa lý đã được bảo hộ ở nước xuất xứ, cụ thể là:</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-title">
+                            <div>Đăng ký số:</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <input type="text" maxlength="50" id="_txtDangKySo" />
+                            </div>
+                        </div>
+                        <div class="div-search-title">
+                            <div>Nước:</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <select id="cbo_nuocdangky">
+                                    @foreach (var item in MemoryData.c_lst_Country)
+                                    {
+                                        if (_App_Detail.NUOCDANGKY == item.Country_Id.ToString())
+                                        {
+                                            <option selected value="@item.Country_Id">@item.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Country_Id">@item.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div class="div-radio">
+                                <input type="radio" name="0_TRANGTHAIDANGKY" class="classNhanHieu" value="CHUADK" id="cbo_chuadk" onclick="ChangeTrangThaiDK()" />
+                                <label>Chỉ dẫn địa lý chưa được đăng ký</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio" name="CauTruc" id="ckbCauTrucMOS" value="MOS" onchange="onChangeCauTruc('MOS')">
-                    <label> MOS</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio" name="CauTruc" id="ckbCauTrucBI-MOS" value="BI-MOS" onchange="onChangeCauTruc('BI-MOS')">
-                    <label> BI-MOS</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio" style="width:120px">
-                    <input type="radio" name="CauTruc" id="ckbCauTrucQUANG-DIENTU" value="QUANG-DIENTU" onchange="onChangeCauTruc('QUANG-DIENTU')">
-                    <label>@Html.Raw(Resource.A05_CAUTRUC_QUANGDIENTU) </label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio" style="width:120px">
-                    <input type="radio" name="CauTruc" id="ckbCauTrucOTHER" value="QUANG-DIENTU" onchange="onChangeCauTruc('OTHER')">
-                    <label>@Html.Raw(Resource.A05_CAUTRUC_KHAC) </label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="text" readonly id="txtCAUTRUC_OTHER" value="@_App_Detail.CauTruc_OTHER" maxlength="200" >
-                </div>
-            </div>
+            <i id="tagSuggessIMG" style="color:red;font-weight:bold;margin-left:120px">(@WebApps.Resources.Resource.lblSizeOfPicture)</i>
+            <a href="javascript:;" st="" class="icon icon-info tip" data-placement="right" style="border:none"
+               data-title="@Resource.TooltipSizeofImage"></a>
         </div>
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@Html.Raw(Resource.A05_CONGNGHE)</div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio"  name="CongNghe" value="TTL" id="ckbCongNgheTTL" onchange="onChangeCongNghe('TTL')">
-                    <label> TTL</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio" name="CongNghe" id="ckbCongNgheDTL" value="DTL" onchange="onChangeCongNghe('DTL')">
-                    <label> DTL</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio" name="CongNghe" id="ckbCongNgheECL" value="ECL" onchange="onChangeCongNghe('ECL')">
-                    <label> ECL</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio" name="CongNghe" id="ckbCongNgheITL" value="ITL" onchange="onChangeCongNghe('ITL')">
-                    <label>ITL</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio" name="CongNghe" id="ckbCongNgheCMOS" value="CMOS" onchange="onChangeCongNghe('CMOS')">
-                    <label>CMOS</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio" name="CongNghe" id="ckbCongNgheNMOS" value="NMOS" onchange="onChangeCongNghe('NMOS')">
-                    <label>NMOS</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="radio" name="CongNghe" id="ckbCongNghePMOS" value="PMOS" onchange="onChangeCongNghe('PMOS')">
-                    <label>PMOS</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio" style="width:120px">
-                    <input type="radio" name="CongNghe" id="ckbCongNgheOTHER" value="OTHER" onchange="onChangeCongNghe('OTHER')">
-                    <label>@Html.Raw(Resource.A05_CONGNGHE_KHAC)</label>
-                </div>
-            </div>
-            <div class="div-search-content">
-                <div class="div-radio">
-                    <input type="text" readonly id="txtCongNghe_OTHER" value="@_App_Detail.CongNghe_OTHER"  maxlength="200">
-                </div>
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@Html.Raw(Resource.A05_Description) </div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txt_MoTaTomTat" maxlength="200"  value="@_App_Detail.MoTaTomTat"
-                       placeholder="@Html.Raw(Resource.A05_MOTAVANTAT)">
-                </div>
-            </div>
-
-        </div>
+ 
 
 
 
@@ -339,50 +212,6 @@
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
         </div>
 
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-radio" style="width:385px">
-                    @if (_App_Detail.Master_Type != "")
-                    {
-                        <input type="radio" name="1_rdoChuDon" value="TGDT" id="1_ckbTacGiaDongThoi" checked="checked">
-                    }
-                    else
-                    {
-                        <input type="radio" name="1_rdoChuDon" value="TGDT" id="1_ckbTacGiaDongThoi">
-                    }
-                    <label>@Html.Raw(Resource.A05_CHUDONGDONGTHOI)</label>
-                </div>
-            </div>
-
-            <div class="div-search-content">
-                <div class="div-radio">
-                    @if (Lst_Other_Master.Count > 0)
-                    {
-                        <input type="radio" name="1_rdoChuDon" checked="checked" value="CDK" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
-                    }
-                    else
-                    {
-                        <input type="radio" name="1_rdoChuDon" value="CDK" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
-                    }
-                    <label>@Resource.NgoaiChuDon</label>
-                </div>
-            </div>
-        </div>
-
-        <div id="divChuDonKhac">
-            @for (int i = 0; i < Lst_Other_Master.Count; i++)
-            {
-                Lst_Other_Master[i].Model_Id = (i + 1);
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDonKhac_Edit.cshtml", Lst_Other_Master[i])
-            }
-        </div>
-
-        <div class="div_full_100_area classChuDonKhac clssDisplaynone" id="divChungDonKhac001">
-            <input type="hidden" id="txt_id_ChuDon" value="@_max_Model_Id" />
-            <a href="javascript:;" onclick="return ThemChuDon();" style="text-decoration:underline; color: blue;float: left;">@Resource.ThemChuDonKhac</a>
-        </div>
-
-      
 
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
 
@@ -396,45 +225,92 @@
                 </div>
             </div>
         </div>
-        @* end 2 *@
+ 
 
-        @* Tác giả *@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                @Resource.TacGia
+                TỔ CHỨC QUẢN LÝ CHỈ DẪN ĐỊA LÝ
             </div>
         </div>
 
-        <div id="div_PartialThongTinTacGia">
-            @if (Lst_AuthorsInfo.Count > 0)
-            {
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinTacGia_Edit.cshtml", Lst_AuthorsInfo[0])
-            }
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.lblTenDayDu:<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="_txtTCQL_Ten" value="@_App_Detail.TCQLDL_TEN" maxlength="200" />
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.lblDiaChi:<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="_txTCQL_DiaChi" value="@_App_Detail.TCQLDL_DIACHI" maxlength="500" />
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.lblDienThoai:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="_txtTCQL_Tel" value="@_App_Detail.TCQLDL_DIENTHOAI" style="width:120px" maxlength="200" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Fax:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="_txtTCQL_Fax" value="@_App_Detail.TCQLDL_FAX" style="width:120px" />
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div>Email:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" maxlength="200" id="_txtTCQL_Email" value="@_App_Detail.TCQLDL_EMAIL"/>
+                </div>
+            </div>
         </div>
 
-        <div id="divTacGiaKhac">
-            @if (Lst_AuthorsInfo.Count > 1)
-            {
-                for (int i = 1; i < Lst_AuthorsInfo.Count; i++)
-                {
 
-                    <div class="divCover cls_form_title">
-                        <img src="~/Content/icons/category.png" />
-                        <div class="cls_form_header">
-                            @Resource.TacGiaKhac
-                        </div>
-                    </div>
-
-                    Lst_AuthorsInfo[i].Model_Id = (i + 1);
-                    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinTacGia_Edit.cshtml", Lst_AuthorsInfo[i])
-                }
-            }
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                SẢN PHẨM MANG CHỈ DẪN ĐỊA LÝ
+            </div>
         </div>
 
-        <div class="div_full_100_area classChuDonKhac clssDisplaynone">
-            <input type="hidden" id="txt_id_tacgia" value="@_max_Model_Id_author" />
-            <a href="javascript:;" onclick="return ThemTacGia();" style="text-decoration:underline; color: blue;float: left;">@Resource.ThemTacGia</a>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tên sản phẩm: <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="_txtTenSanPham" maxlength="200" value="@_App_Detail.SANPHAM_TEN" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div style="width:160px" title="Tóm tắt tính chất/chất lượng đặc thù và/hoặc danh tiếng của sản phẩm">Tóm tắt tính chất sản phẩm:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="_txtSP_TomTat" value="@_App_Detail.SANPHAM_TOMTAT" maxlength="200" />
+                </div>
+            </div>
         </div>
 
 
@@ -447,27 +323,16 @@
         </div>
 
         <div class="divCover cls_form_title">
-            <b>Tài liệu tối thiểu</b>
+            <b>@Resource.TaiLieuToiThieu.ToUpper()</b>
         </div>
 
-        @Html.Partial("~/Areas/IndustrialDesign/Views/Shared/_PartialTreeDocument_Edit.cshtml")
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@Resource.SoHinhAnh:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txtSoHinhAnh" readonly="readonly" value="@_App_Detail.SoAnh" />
-                </div>
-            </div>
-        </div>
+ 
 
         @* id doc | id của check box | level | lable | lable 2 | is upload *@
-        @* 1 Tờ khai *@
+        @* 1.  Tờ khai, gồm.......trang   x .......bản *@
         @{
             string _doc_id1 = "A05_01";
-            string _id1 = _doc_id1 + "|Doc_01|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.lblSoBan;
+            string _id1 = _doc_id1 + "|Doc_01|0|" + Resource.ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.TM2B_SoBan;
             string _value1 = "";
             if (dic_appDoc.ContainsKey(_doc_id1))
             {
@@ -478,10 +343,10 @@
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model1)
         }
 
-        @* 2. Bộ ảnh chụp hoặc bản vẽ TKBT gồm.......trang x .......bộ *@
+        @* 2  Bản mô tả tính chất/chất lượng/danh tiếng*@
         @{
             string _doc_id2 = "A05_02";
-            string _id2 = _doc_id2 + "|Doc_02|0|" + "Bộ ảnh chụp hoặc bản vẽ TKBT gồm" + "|" + Resource.TM2B_SoTrang + "|1||" + "bộ";
+            string _id2 = _doc_id2 + "|Doc_02|0|" + "Bản mô tả tính chất/chất lượng/danh tiếng của sản phẩm gồm" + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.TM2B_SoBan;
             string _value2 = "";
             if (dic_appDoc.ContainsKey(_doc_id2))
             {
@@ -492,26 +357,13 @@
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model2)
         }
 
-        @*12 bản mô tả*@
-        @{
-
-            string _doc_id12 = "A05_12";
-            string _id12 = _doc_id12 + "|Doc_12|0|" + Resource.A05_BANMOTA + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.lblSoBan;
-            string _value12 = "";
-            if (dic_appDoc.ContainsKey(_doc_id12))
-            {
-                _value12 = dic_appDoc[_doc_id12].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id12].CHAR01 + "|" + dic_appDoc[_doc_id12].Url_Hardcopy + "|" + dic_appDoc[_doc_id12].CHAR02;
-            }
-            string _model12 = _id12 + ";" + _value12;
-
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model12)
-        }
-        @*3  Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ  *@
+      
+        @* 3 Bản đồ khu vực địa lý gồm.......trang x .......bản*@
 
         @{
 
             string _doc_id3 = "A05_03";
-            string _id3 = _doc_id3 + "|Doc_03|0|" + Resource.BanSaoChungTu + "||1";
+            string _id3 = _doc_id3 + "|Doc_03|0|" + "Bản đồ khu vực địa lý gồm" + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.TM2B_SoBan;
             string _value3 = "";
             if (dic_appDoc.ContainsKey(_doc_id3))
             {
@@ -521,34 +373,35 @@
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model3)
         }
 
-        <div class="divCover cls_form_title">
-            <b>@WebApps.Resources.Resource.lblTaiLieuKhac.ToUpper()</b>
-        </div>
-
-
-        @* 4 Giấy uỷ quyền bằng tiếng *@
+        @* 4  Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ *@
         @{
 
             string _doc_id4 = "A05_04";
-            string _id4 = _doc_id4 + "|Doc_04|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|" + Resource.TM3B_Tieng + "|0";
+            string _id4 = _doc_id4 + "|Doc_04|0|" + Resource.BanSaoChungTu + "||1";
             string _value4 = dic_appDoc[_doc_id4].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id4].CHAR01 + "|" + dic_appDoc[_doc_id4].Url_Hardcopy;
             string _model4 = _id4 + ";" + _value4;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model4)
         }
 
-        @* 5 Bản gốc *@
+
+        <div class="divCover cls_form_title">
+            <b>@WebApps.Resources.Resource.lblTaiLieuKhac.ToUpper()</b>
+        </div>
+
+
+        @* 5 Tài liệu chứng minh CDĐL đang được bảo hộ ở nước xuất xứ, *@
         @{
             string _doc_id5 = "A05_05";
-            string _id5 = _doc_id5 + "|Doc_05|1|" + Resource.TM2B_BanGoc + "||1";
+            string _id5 = _doc_id5 + "|Doc_05|0|" + "Tài liệu chứng minh CDĐL đang được bảo hộ ở nước xuất xứ, gồm" + " |" + Resource.TM2B_SoTrang + "|1";
             string _value5 = dic_appDoc[_doc_id5].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id5].CHAR01 + "|" + dic_appDoc[_doc_id5].Url_Hardcopy;
             string _model5 = _id5 + ";" + _value5;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model5)
         }
 
-        @* 6 Bản sao *@
+        @* 6 bản dịch tiếng việt  *@
         @{
             string _doc_id6 = "A05_06";
-            string _id6 = _doc_id6 + "|Doc_06|1|" + Resource.TM2B_BanSao + "||0";
+            string _id6 = _doc_id6 + "|Doc_06|0|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
             string _value6 = dic_appDoc[_doc_id6].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id6].CHAR01 + "|" + dic_appDoc[_doc_id6].Url_Hardcopy;
             string _model6 = _id6 + ";" + _value6;
 
@@ -556,53 +409,68 @@
         }
 
 
-        @* 7 Bản sao  > Bản gốc sẽ nộp sau *@
+        @* 7 Giấy ủy quyền bằng tiếng *@
         @{
             string _doc_id7 = "A05_07";
-            string _id7 = _doc_id7 + "|Doc_07|2|" + Resource.TM2B_BanGocSeNopSau + "||1";
+            string _id7 = _doc_id7 + "|Doc_07|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|" + "Tiếng" + "|1";
             string _value7 = dic_appDoc[_doc_id7].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id7].CHAR01 + "|" + dic_appDoc[_doc_id7].Url_Hardcopy;
             string _model7 = _id7 + ";" + _value7;
 
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model7)
         }
 
-        @* 8Bản sao  > Bản gốc đã nộp theo đơn *@
+        @* 8  Bản dịch tiếng Việt, gồm *@
         @{
             string _doc_id8 = "A05_08";
-            string _id8 = _doc_id8 + "|Doc_08|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|1";
+            string _id8 = _doc_id8 + "|Doc_08|1|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
             string _value8 = dic_appDoc[_doc_id8].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id8].CHAR01 + "|" + dic_appDoc[_doc_id8].Url_Hardcopy;
             string _model8 = _id8 + ";" + _value8;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model8)
         }
 
-        @* 9  Bản dịch tiếng Việt, gồm *@
+        @* 9 Bản gốc  *@
         @{
             string _doc_id9 = "A05_09";
-            string _id9 = _doc_id9 + "|Doc_09|1|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
+            string _id9 = _doc_id09 + "|Doc_09|1|" + Resource.TM2B_BanGoc + "||1";
             string _value9 = dic_appDoc[_doc_id9].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id9].CHAR01 + "|" + dic_appDoc[_doc_id9].Url_Hardcopy;
             string _model9 = _id9 + ";" + _value9;
 
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model9)
         }
-        @* 10  tài liệu xác nhận quyền đăng ký (nếu thụ hưởng từ ng khác) *@
+        @* 10 Bản sao  *@
         @{
             string _doc_id10 = "A05_10";
-            string _id10 = _doc_id10 + "|Doc_10|0|" + Resource.TaiLieuXacNhanQuyenDangKy + "||1";
+            string _id10 = _doc_id10 + "|Doc_10|1|" + Resource.TM2B_BanSao + "||1";
             string _value10 = dic_appDoc[_doc_id10].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id10].CHAR01 + "|" + dic_appDoc[_doc_id10].Url_Hardcopy;
             string _model10 = _id10 + ";" + _value10;
 
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model10)
         }
-
+        @* 11 Bản sao  > Bản gốc sẽ nộp sau *@
         @{
             string _doc_id11 = "A05_11";
-            string _id11 = _doc_id11 + "|Doc_11|0|" + Resource.CoTaiLieuKhac + "||0";
+            string _id11 = _doc_id11 + "|Doc_11|2|" + Resource.TM2B_BanGocSeNopSau + "||1";
             string _value11 = dic_appDoc[_doc_id11].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id11].CHAR01 + "|" + dic_appDoc[_doc_id11].Url_Hardcopy;
             string _model11 = _id11 + ";" + _value11;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model11)
         }
 
-
+        @* 12 Bản sao  > Bản gốc đã nộp theo đơn *@
+        @{
+            string _doc_id12 = "A05_12";
+            string _id12 = _doc_id12 + "|Doc_12|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|1";
+            string _value12 = dic_appDoc[_doc_id12].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id12].CHAR01 + "|" + dic_appDoc[_doc_id12].Url_Hardcopy;
+            string _model12 = _id12 + ";" + _value12;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model12)
+        }
+        @* 13  có tài liệu khác *@
+        @{
+            string _doc_id13 = "A02_13";
+            string _id13 = _doc_id13 + "|Doc_13|0|" + Resource.CoTaiLieuKhac + "||0";
+            string _value13 = dic_appDoc[_doc_id13].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id13].CHAR01 + "|" + dic_appDoc[_doc_id13].Url_Hardcopy;
+            string _model13 = _id13 + ";" + _value13;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model13)
+        }
         @*TÀI LIỆU KHÁC*@
         @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others_Edit.cshtml")
 
@@ -645,58 +513,22 @@
 
 
 <script>
-    var _chucnang = '@_App_Detail.ChucNang';
-    var _cautruc = '@_App_Detail.CauTruc';
-    var _congnghe = '@_App_Detail.CongNghe';
-
-    function onChangeChucNang(_value) {
+    function ChangeTrangThaiDK() {
         try {
-            if(_value == "OTHER")
-            {
-                $("#txtChucNang_OTHER").removeAttr("readonly");
-            }
-            else
-            {
-                $("#txtChucNang_OTHER").attr("readonly", "readonly");
-                $("#txtChucNang_OTHER").val("");
+            if ($("#cbo_dadk").is(':checked')) {
+                $("#_txtDangKySo").removeAttr("Readonly");
+                $("#cbo_nuocdangky").removeAttr("disabled");
+            } else {
+                $("#_txtDangKySo").val("");
+                $("#_txtDangKySo").attr("Readonly", "true");
+                $("#cbo_nuocdangky").attr("disabled", "true");
             }
         } catch (e) {
-            console.log(e);
-        }
-    }
-    function onChangeCauTruc(_value) {
-        try {
-            if (_value == "OTHER") {
-                $("#txtCAUTRUC_OTHER").removeAttr("readonly");
-            }
-            else {
-                $("#txtCAUTRUC_OTHER").attr("readonly", "readonly");
-                $("#txtCAUTRUC_OTHER").val("");
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    }
-    function onChangeCongNghe(_value) {
-        try {
-            if (_value == "OTHER") {
-                $("#txtCongNghe_OTHER").removeAttr("readonly");
-            }
-            else {
-                $("#txtCongNghe_OTHER").attr("readonly", "readonly");
-                $("#txtCongNghe_OTHER").val("");
-            }
-        } catch (e) {
-            console.log(e);
+            alert(e.message);
         }
     }
     $(document).ready(function () {
-        SetValRadioCheckBoxByName('ChucNang', _chucnang);
-        SetValRadioCheckBoxByName('CauTruc', _cautruc);
-        SetValRadioCheckBoxByName('CongNghe', _congnghe);
-        onChangeChucNang(_chucnang);
-        onChangeCauTruc(_cautruc);
-        onChangeCongNghe(_congnghe);
+        ChangeTrangThaiDK();
         funcShowOtherdocument();
         $.datetimepicker.setLocale('vi');
         $('.datetimepicker').datetimepicker({
@@ -763,7 +595,7 @@
         });
     });
 
-    $("#ckb_Doc_11").change(function () {
+    $("#ckb_Doc_13").change(function () {
         funcShowOtherdocument();
     });
     function funcShowOtherdocument()
@@ -853,8 +685,6 @@
                 return false;
             }
 
-
-
             if (p_Status == 1) {
                 if (funcThongTinChuDon_SaveTem(formData, "1") != true) {
                     return false;
@@ -909,11 +739,6 @@
                 return false;
             }
 
-            // lấy thông tin bộ ảnh
-            reponse = funcGetTenTaiLieuBoAnh(formData, _showerror);
-            if (reponse == false) {
-                return false;
-            }
 
             reponse = funcGetCamKetChuDon(formData);
             if (reponse == false) {
@@ -968,7 +793,6 @@
     
 
    
-   
     function onChangeChuDonKhac() {
         try {
             if ($("#rdChuDonKhac").is(':checked')) {
@@ -983,31 +807,7 @@
     }
 
     
-    function ThemTacGia() {
-        try {
-
-            var _id = parseInt($("#txt_id_tacgia").val()) + 1;
-            $.ajax({
-                type: 'POST',
-                url: '/geographical-indication/tac-gia/them-tac-gia/',
-                data: {
-                    p_id: _id
-                },
-                async: true, cache: false, traditional: true,
-                beforeSend: function () {
-                    CreateRollingWaitingIcon(true);
-                },
-                success: function (data) {
-                    CreateRollingWaitingIcon(false);
-                    $("#divTacGiaKhac").append(data);
-                    $("#txt_id_tacgia").val(_id);
-                }
-            });
-        } catch (e) {
-            alert(e);
-        }
-    }
-
+    
     function ThemChuDon() {
         try {
 
@@ -1032,89 +832,76 @@
             alert(e);
         }
     }
-
-    function XoaTacGia(pId, pId2) {
-        try {
-            $("#" + pId).addClass("clssDisplaynone");
-
-            $("#" + pId2).val("0");
-        } catch (e) {
-            alert(e);
-        }
-    }
- 
+     
  
 
     function funcGetAppDetail(formData, p_ShowError) {
         try {
-            formData.append("pDetail.Id", @_App_Detail.Id);
-          var txt_TenThietKe = $("#txt_TenThietKe");
-            var txt_NgayTaoThietKe = $("#txt_NgayTaoThietKe");
-            var txt_KhaiThactm = $("#txt_KhaiThactm");
-            var txt_KhaiThactm_TaiNuoc = $("#txt_KhaiThactm_TaiNuoc");
-            var txt_KhaiThactm_Ngay = $("#txt_KhaiThactm_Ngay");
-            var txtChucNang_OTHER = $("#txtChucNang_OTHER");
-            var txtCAUTRUC_OTHER = $("#txtCAUTRUC_OTHER");
-            var txtCongNghe_OTHER = $("#txtCongNghe_OTHER");
-            var txt_MoTaTomTat = $("#txt_MoTaTomTat");
+            var _txtDangKySo = $("#_txtDangKySo");
+            var cbo_nuocdangky = $("#cbo_nuocdangky");
+            var _txtTCQL_Ten = $("#_txtTCQL_Ten");
+            var _txTCQL_DiaChi = $("#_txTCQL_DiaChi");
+            var _txtTCQL_Tel = $("#_txtTCQL_Tel");
+            var _txtTCQL_Fax = $("#_txtTCQL_Fax");
+            var _txtTCQL_Email = $("#_txtTCQL_Email");
+            var _txtTenSanPham = $("#_txtTenSanPham");
+            var _txtSP_TomTat = $("#_txtSP_TomTat");
+            var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
+            if (fileLogo != undefined && fileLogo != null && fileLogo[0].files.length > 0) {
+                formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
+            } else {
+                showError('Chưa upload ảnh chỉ dẫn địa lý');
+                $("#pfile_6_rdoMauNhanHieu").focus();
+                return false;
+            }
+         
+            if (p_ShowError == 1) {
+                if ($("#cbo_dadk").is(':checked')) {
+                    if (_txtDangKySo.val() == "")
+                    {
+                        showError('Đăng ký số không được để trống');
+                        _txtDangKySo.focus();
+                        return false;
+                    }
+                }
+                if (_txtTCQL_Ten.val().trim() == "") {
+                    showError('Tên tổ chức quản lý chỉ dẫn địa lý không được để trống');
+                    _txtTCQL_Ten.focus();
+                    return false;
+                }
+                if (_txTCQL_DiaChi.val().trim() == "") {
+                    showError('Địa chỉ tổ chức quản lý chỉ dẫn địa lý không được để trống');
+                    _txTCQL_DiaChi.focus();
+                    return false;
+                }
+                if(_txtTenSanPham.val().trim() == "")
+                {
+                    showError('Tên sản phẩm không được để trống');
+                    _txtTenSanPham.focus();
+                    return false;
+                }
+               
+               
+            }
+            
+            if ($("#cbo_dadk").is(':checked')) {
+                formData.append("pDetail.TRANGTHAIDANGKY", $("#cbo_dadk").val());
+                formData.append("pDetail.SODANGKY", _txtDangKySo.val());
+                formData.append("pDetail.NUOCDANGKY", cbo_nuocdangky.val());
 
-            if (p_ShowError == 1 && txt_TenThietKe.val() == "") {
-                showError('Tên gọi/Ký hiệu không được để trống');
-                txt_TenThietKe.focus();
-                return false;
-            }
-            if (p_ShowError == 1 && txt_NgayTaoThietKe.val() == "") {
-                showError('Ngày tạo thiết kế không được để trống');
-                txt_NgayTaoThietKe.focus();
-                return false;
-            }
-            if (p_ShowError == 1 && txt_KhaiThactm.val() == "") {
-                showError('Khai thác thương mại không được để trống');
-                txt_KhaiThactm.focus();
-                return false;
-            }
-            if (p_ShowError == 1 && txt_KhaiThactm_TaiNuoc.val() == "") {
-                showError('Khai thác thương mại tại nước không được để trống');
-                txt_KhaiThactm_TaiNuoc.focus();
-                return false;
-            }
-            if (p_ShowError == 1 && txt_KhaiThactm_Ngay.val() == "") {
-                showError('Khai thác thương mại tại ngày không được để trống');
-                txt_KhaiThactm_Ngay.focus();
-                return false;
-            }
-
-            formData.append("pDetail.TenThietKe", txt_TenThietKe.val());
-            formData.append("pDetail.NgayTaoThietKe", txt_NgayTaoThietKe.val());
-            formData.append("pDetail.KhaiThactm", txt_KhaiThactm.val());
-            formData.append("pDetail.KhaiThactm_TaiNuoc", txt_KhaiThactm_TaiNuoc.val());
-            formData.append("pDetail.KhaiThactm_Ngay", txt_KhaiThactm_Ngay.val());
-            formData.append("pDetail.ChucNang", GetValRadioCheckBoxByName("ChucNang"));
-            formData.append("pDetail.CauTruc", GetValRadioCheckBoxByName("CauTruc"));
-            formData.append("pDetail.CongNghe", GetValRadioCheckBoxByName("CongNghe"));
-            formData.append("pDetail.ChucNang_Other", txtChucNang_OTHER.val());
-            formData.append("pDetail.CauTruc_OTHER", txtCAUTRUC_OTHER.val());
-            formData.append("pDetail.CongNghe_OTHER", txtCongNghe_OTHER.val());
-            formData.append("pDetail.MoTaTomTat", txt_MoTaTomTat.val());
-            if (GetValRadioCheckBoxByName("ChucNang") == "OTHER" && $("#txtChucNang_OTHER").val().trim() == "")
+            } else
             {
-                showError('Chức năng khác không được để trống!');
-                $("#txtChucNang_OTHER").focus()
-                return false;
+                formData.append("pDetail.TRANGTHAIDANGKY", $("#cbo_chuadk").val());
+                formData.append("pDetail.SODANGKY", "");
+                formData.append("pDetail.NUOCDANGKY", "");
             }
-            if (GetValRadioCheckBoxByName("CauTruc") == "OTHER" && $("#txtCAUTRUC_OTHER").val().trim() == "")
-            {
-                showError('Cấu trúc khác không được để trống!');
-                $("#txtCAUTRUC_OTHER").focus()
-                return false;
-            }
-            if (GetValRadioCheckBoxByName("CongNghe") == "OTHER" && $("#txtCongNghe_OTHER").val().trim() == "")
-            {
-                showError('Công nghệ khác không được để trống!');
-                $("#txtCongNghe_OTHER").focus()
-                return false;
-            }
-
+            formData.append("pDetail.TCQLDL_TEN", _txtTCQL_Ten.val());
+            formData.append("pDetail.TCQLDL_DIACHI", _txTCQL_DiaChi.val());
+            formData.append("pDetail.TCQLDL_DIENTHOAI", _txtTCQL_Tel.val());
+            formData.append("pDetail.TCQLDL_FAX", _txtTCQL_Fax.val());
+            formData.append("pDetail.TCQLDL_EMAIL", _txtTCQL_Email.val());
+            formData.append("pDetail.SANPHAM_TEN", _txtTenSanPham.val());
+            formData.append("pDetail.SANPHAM_TOMTAT", _txtSP_TomTat.val());
             var txtMADDSHCN = $("#txtMADDSHCN").val();
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             if (p_ShowError == 1 && v_RepMasterType == "DDPL" && txtMADDSHCN == "") {
@@ -1124,28 +911,6 @@
             }
             formData.append("pInfo.Customer_Code", txtMADDSHCN);
 
-            var _index = 0;
-            $(".clsTacGia").each(function (item) {
-                var _id = $(this).attr('data-id');
-                if ($("#" + _id + "_txtUse").val() == "1") {
-
-                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Name", $("#" + _id +  "_TG_TenDayDu").val());
-                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Address", $("#" + _id + "_TG_DiaChi").val());
-                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Phone", $("#" + _id +  "_TG_DienThoai").val());
-                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Fax", $("#" + _id + "_TG_Fax").val());
-                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Email", $("#" + _id + "_TG_Email").val());
-                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Country", $("#" + _id + "_TG_QuocTich").val());
-
-                    var cbo_country_tg = document.getElementById(_id + "_TG_QuocTich");
-                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Country_Display", cbo_country_tg.options[cbo_country_tg.selectedIndex].text);
-
-                    _index = _index + 1;
-                }
-            });
-
-            // đơn ưu tiên
-             
-            formData.append("pDetail.SOANH", $("#txtSoHinhAnh").val());
 
         } catch (e) {
             console.log(e.message);
@@ -1153,10 +918,8 @@
             return false;
         }
     }
-
     function funGetDocumentFile(formData) {
         try {
-            var Isuse = 0, Note = "", reponse = false;
             var Isuse = 0, Note = "", reponse = false;
             // 1
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_01", "0");
@@ -1169,34 +932,40 @@
 
 
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_03", "2");
+            formData.append("pAppDocumentInfo[2].CHAR01", $("#txt_Doc_03").val());
+            formData.append("pAppDocumentInfo[2].CHAR02", $("#txt_Doc_03_2").val());
 
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_04", "3");
             formData.append("pAppDocumentInfo[3].CHAR01", $("#txt_Doc_04").val());
-
+            formData.append("pAppDocumentInfo[3].CHAR01", $("#txt_Doc_04").val());
 
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_05", "4");
+            formData.append("pAppDocumentInfo[4].CHAR01", $("#txt_Doc_05").val());
 
-            // 6
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_06", "5");
+            formData.append("pAppDocumentInfo[5].CHAR01", $("#txt_Doc_06").val());
 
-            // 7
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_07", "6");
+            formData.append("pAppDocumentInfo[6].CHAR01", $("#txt_Doc_07").val());
 
-            // 8
+
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_08", "7");
             formData.append("pAppDocumentInfo[7].CHAR01", $("#txt_Doc_08").val());
 
-            // 9
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_09", "8");
-            formData.append("pAppDocumentInfo[8].CHAR01", $("#txt_Doc_09").val());
 
-            // 10
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_09", "8");
+
+
+
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_10", "9");
-             
-            //11
+
+
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_11", "10");
+
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_12", "11");
-            formData.append("pAppDocumentInfo[11].CHAR01", $("#txt_Doc_11").val());
+            formData.append("pAppDocumentInfo[11].CHAR01", $("#txt_Doc_12").val());
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_13", "12");
 
         } catch (e) {
             console.log(e.message);
@@ -1205,7 +974,7 @@
     function funcGetTenTaiLieuKhac(formData) {
         try {
             var item = 0;
-            if ($("#ckb_Doc_11").is(":checked") == true) {
+            if ($("#ckb_Doc_13").is(":checked") == true) {
                 $(".clssListUpload").each(function () {
                     formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", this.id);
                     formData.append("pAppDocOtherInfo[" + item + "].Documentname", $("#" + this.id).val());
@@ -1219,77 +988,7 @@
         }
     }
 
-
-    function funcGetTenTaiLieuBoAnh(formData, p_ShowError) {
-        try {
-            var item = 0;
-            var _documentno = "0";
-            var _check = true;
-            var _controllevel = 1;
-            var _inputfileid = "";
-            var _data_id = 0;
-
-            $(".clssListUploadIndusDesign").each(function () {
-                _controllevel = $("#" + this.id).attr("data-level")
-                _documentno = $("#" + this.id).attr("data-ParentId");
-                _data_id = $("#" + this.id).attr("data-id");
-
-                _inputfileid = "pTreefileName" + _documentno;
-                formData.append("pAppDocDesign[" + item + "].keyFileUpload", this.id);
-                if (p_ShowError == 1 && $("#" + this.id).val().trim() == "")
-                {
-                    showError('Tên tài liệu không được để trống');
-                    $("#" + this.id).focus();
-                    _check = false;
-                    return false;
-                }
-
-                if (_controllevel == "2" && _data_id == 0)
-                {
-                    // nếu là tài liệu cấp 2 thì check file
-                    var file = document.getElementById(_inputfileid);
-                    if (p_ShowError == 1 && file == undefined) {
-                        showError('Chưa tải file đính kèm');
-                        $("#" + this.id).focus();
-                        _check = false;
-                        return false;
-                    }
-                    if (p_ShowError == 1 && file.files.length == 0) {
-                        showError('Chưa tải file đính kèm');
-                        $("#" + this.id).focus();
-                        _check = false;
-                        return false;
-                    }
-                }
-
-                item++;
-            });
-            if(_check == false)
-            {
-                return false;
-            }
-
-            item = 0;
-            _documentno = "0";
-            $(".clssListUploadIndusDesign").each(function () {
-                formData.append("pAppDocDesign[" + item + "].keyFileUpload", this.id);
-                formData.append("pAppDocDesign[" + item + "].Documentname", $("#" + this.id).val());
-                formData.append("pAppDocDesign[" + item + "].FILETYPE", "2");
-                formData.append("pAppDocDesign[" + item + "].Id", $("#" + this.id).attr("data-id"));
-                _documentno = $("#" + this.id).attr("data-ParentId");
-                formData.append("pAppDocDesign[" + item + "].Char01", $("#Treetxttailieuanhsotrang" + _documentno).val());
-                formData.append("pAppDocDesign[" + item + "].Char02", $("#TreetxttailieuanhGhiChu" + _documentno).val());
-                formData.append("pAppDocDesign[" + item + "].ParentId", _documentno);
-                formData.append("pAppDocDesign[" + item + "].IdRef", $("#" + this.id).attr("data-IdRef"));
-                formData.append("pAppDocDesign[" + item + "].FILELEVEL", $("#" + this.id).attr("data-level"));
-                item++;
-            });
-            return true;
-        } catch (e) {
-            console.log(e.message);
-            return false;
-        }
-    }
+     
 
 
     function funcGetCheckValueAndText(formData, pID, pItem) {
@@ -1342,28 +1041,5 @@
             return false;
         }
     }
-
-    ///Đếm số phương án số hình ảnh
-    function CountPhuongAnHinhAnh()
-    {
-        var _soPhuongAn = 0;
-        var _soHinhAnh = 0;
-        var _controllevel = "";
-        try {
-            $(".clssListUploadIndusDesign").each(function () {
-                _controllevel = $("#" + this.id).attr("data-level")
-                if(_controllevel == "1")
-                {
-                    _soPhuongAn= _soPhuongAn + 1;
-                }
-                else if(_controllevel == "2")
-                {
-                    _soHinhAnh= _soHinhAnh + 1;
-                }
-            });
-            $("#txtSoHinhAnh").val(_soHinhAnh);
-        } catch (e) {
-            console.log(e.message);
-        }
-    }
+     
 </script>

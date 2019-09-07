@@ -83,7 +83,7 @@
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
-        <legend style="font-weight:600">  Registration of the Geographical Indication.ToUpper()</legend>
+        <legend style="font-weight:600">  Registration of the Geographical Indication </legend>
 
         @Html.Partial("~/ViewsShared/_PartialQuocGia.cshtml")
 
@@ -186,12 +186,96 @@
         <div id="div_PartialThongTinChuDon">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
         </div>
-      
-
         @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
         @* end 2 *@
+
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                TỔ CHỨC QUẢN LÝ CHỈ DẪN ĐỊA LÝ
+            </div>
+        </div>
+
  
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.lblTenDayDu:<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text"    id="_txtTCQL_Ten" maxlength="200"/>
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.lblDiaChi:<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text"    id="_txTCQL_DiaChi" maxlength="500" />
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.lblDienThoai:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text"   id="_txtTCQL_Tel" style="width:120px" maxlength="200" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Fax:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="_txtTCQL_Fax" style="width:120px" />
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div>Email:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text"  maxlength="200" id="_txtTCQL_Email" />
+                </div>
+            </div>
+        </div>
+      
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                SẢN PHẨM MANG CHỈ DẪN ĐỊA LÝ
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tên sản phẩm: <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="_txtTenSanPham" maxlength="200" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div style="width:160px" title="Tóm tắt tính chất/chất lượng đặc thù và/hoặc danh tiếng của sản phẩm">Tóm tắt tính chất sản phẩm:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="_txtSP_TomTat" maxlength="200" />
+                </div>
+            </div>
+        </div>
 
 
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
@@ -602,11 +686,6 @@
                 return false;
             }
 
-            // lấy thông tin bộ ảnh
-            reponse = funcGetTenTaiLieuBoAnh(formData, _showerror);
-            if (reponse == false) {
-                return false;
-            }
 
             reponse = funcGetCamKetChuDon(formData);
             if (reponse == false) {
@@ -658,12 +737,20 @@
         try {
             var _txtDangKySo = $("#_txtDangKySo");
             var cbo_nuocdangky = $("#cbo_nuocdangky");
+            var _txtTCQL_Ten = $("#_txtTCQL_Ten");
+            var _txTCQL_DiaChi = $("#_txTCQL_DiaChi");
+            var _txtTCQL_Tel = $("#_txtTCQL_Tel");
+            var _txtTCQL_Fax = $("#_txtTCQL_Fax");
+            var _txtTCQL_Email = $("#_txtTCQL_Email");
+            var _txtTenSanPham = $("#_txtTenSanPham");
+            var _txtSP_TomTat = $("#_txtSP_TomTat");
             var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
-            if (fileLogo != undefined || fileLogo != null || fileLogo[0].files.length > 0) {
+            if (fileLogo != undefined && fileLogo != null && fileLogo[0].files.length > 0) {
                 formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
             } else {
                 showError('Chưa upload ảnh chỉ dẫn địa lý');
                 $("#pfile_6_rdoMauNhanHieu").focus();
+                return false;
             }
          
             if (p_ShowError == 1) {
@@ -675,8 +762,26 @@
                         return false;
                     }
                 }
+                if (_txtTCQL_Ten.val().trim() == "") {
+                    showError('Tên tổ chức quản lý chỉ dẫn địa lý không được để trống');
+                    _txtTCQL_Ten.focus();
+                    return false;
+                }
+                if (_txTCQL_DiaChi.val().trim() == "") {
+                    showError('Địa chỉ tổ chức quản lý chỉ dẫn địa lý không được để trống');
+                    _txTCQL_DiaChi.focus();
+                    return false;
+                }
+                if(_txtTenSanPham.val().trim() == "")
+                {
+                    showError('Tên sản phẩm không được để trống');
+                    _txtTenSanPham.focus();
+                    return false;
+                }
+               
                
             }
+            
             if ($("#cbo_dadk").is(':checked')) {
                 formData.append("pDetail.TRANGTHAIDANGKY", $("#cbo_dadk").val());
                 formData.append("pDetail.SODANGKY", _txtDangKySo.val());
@@ -688,7 +793,14 @@
                 formData.append("pDetail.SODANGKY", "");
                 formData.append("pDetail.NUOCDANGKY", "");
             }
-          
+            formData.append("pDetail.TCQLDL_TEN", _txtTCQL_Ten.val());
+            formData.append("pDetail.TCQLDL_DIACHI", _txTCQL_DiaChi.val());
+            formData.append("pDetail.TCQLDL_DIENTHOAI", _txtTCQL_Tel.val());
+            formData.append("pDetail.TCQLDL_FAX", _txtTCQL_Fax.val());
+            formData.append("pDetail.TCQLDL_EMAIL", _txtTCQL_Email.val());
+            formData.append("pDetail.SANPHAM_TEN", _txtTenSanPham.val());
+            formData.append("pDetail.SANPHAM_TOMTAT", _txtSP_TomTat.val());
+
             var txtMADDSHCN = $("#txtMADDSHCN").val();
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             if (p_ShowError == 1 && v_RepMasterType == "DDPL" && txtMADDSHCN == "") {
@@ -799,6 +911,7 @@
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_12", "11");
             formData.append("pAppDocumentInfo[11].CHAR01", $("#txt_Doc_12").val());
 
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_13", "12");
 
         } catch (e) {
             console.log(e.message);
