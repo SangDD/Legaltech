@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace ObjectInfos
 {
@@ -16,6 +17,7 @@ namespace ObjectInfos
         //public string Case_Code { get; set; }
         public decimal App_Header_Id { get; set; }
         public string Language_Code { get; set; }
+        public string IMG_URLOrg { get; set; }
         public string IMG_URL { get; set; }
         public string TRANGTHAIDANGKY { get; set; }
         public string SODANGKY { get; set; }
@@ -27,7 +29,7 @@ namespace ObjectInfos
         public string TCQLDL_EMAIL { get; set; }
         public string SANPHAM_TEN { get; set; }
         public string SANPHAM_TOMTAT { get; set; }
-
+        public HttpPostedFileBase pfileLogo { get; set; }
     }
 
     public class A05_Info_Export : ApplicationHeaderInfo

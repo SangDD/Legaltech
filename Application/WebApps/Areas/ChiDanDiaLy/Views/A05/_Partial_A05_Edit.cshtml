@@ -64,6 +64,11 @@
     }
 
     decimal _max_Model_Id = Lst_Other_Master.Count + 1;
+    string urlMauNhanHieu = "/Content/icons/logo.jpg";
+    if (!string.IsNullOrEmpty(_App_Detail.IMG_URL))
+    {
+        urlMauNhanHieu = _App_Detail.IMG_URL.Replace("~", "");
+    }
 
 }
 
@@ -81,9 +86,9 @@
         .div-title-col-2 > div {
             margin: 9px 5px 0px 7px;
         }
-    .div-radio
-    {
-    min-width:100px;
+
+    .div-radio {
+        min-width: 100px;
     }
 </style>
 
@@ -107,7 +112,7 @@
 
 </div>
 <input type="hidden" id="txtAppCode" value='A05' />
-
+<input type="hidden" id="txtLogoOld" value="@urlMauNhanHieu" />
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
         <legend style="font-weight:600"> Registration of the Geographical Indication</legend>
@@ -120,30 +125,22 @@
 
             <div class="class_full_div_input_extent">
                 <div class="class_left_40">
-
-
                     <div class="class_block_title_control" style="display:flex;margin-top: 10px;">
-                        <div style="width:165px ;height:165px;margin-left: 10px;" id="divLogo">
+                        <div style="width:165px ;height:165px;margin-left: 10px;" id="divLogo" class="divLogoAnh">
                             <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
                             <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
                         </div>
-                        <div class="container" id="divckbNhanHieuAnh" style="flex-grow:1;padding-top:50px">
+                        <div class="container divLogoAnh" id="iddivLogoAnh" style="flex-grow:1;padding-top:50px">
+                            <img onclick="funcRemoveTradeMarkImg('imgMauNhanHieu')" src="~/Content/icons/delete_file.png" style="margin: 0px 21px -44px 4px;" />
                             <div class="file-upload btn btn-primary" style="margin-top:95px">
                                 <span>@WebApps.Resources.Resource.lblTaiFile</span>
                                 <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
                             </div>
                         </div>
-                        <div id="divckbNhanHieuChu" style="display:none">
-                            <div style="width:165px ;height:165px;margin-left: 10px;">
-                                <input type="text" class="classChuNhanHieu" id="txtChuNhanHieu" value="@urlLogoChu" style="height:160px;width:160px;text-align: center;" />
-                            </div>
-                        </div>
                     </div>
+                     
                 </div>
-
-
                 <div class="class_right_60" style="display:block">
-                    @* Thêm mục đích sau này Admin đặt tên theo qui tắc phục vụ tìm kiếm *@
                     <div class="div-search-ad">
                         <div class="div-search-content">
                             <div class="div-radio">
@@ -158,7 +155,7 @@
                         </div>
                         <div class="div-search-content">
                             <div>
-                                <input type="text" maxlength="50" id="_txtDangKySo" />
+                                <input type="text" maxlength="50" id="_txtDangKySo" value="@_App_Detail.SODANGKY" />
                             </div>
                         </div>
                         <div class="div-search-title">
@@ -191,13 +188,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <i id="tagSuggessIMG" style="color:red;font-weight:bold;margin-left:120px">(@WebApps.Resources.Resource.lblSizeOfPicture)</i>
-            <a href="javascript:;" st="" class="icon icon-info tip" data-placement="right" style="border:none"
-               data-title="@Resource.TooltipSizeofImage"></a>
+                <i id="tagSuggessIMG" style="color:red;font-weight:bold;margin-left:120px">(@WebApps.Resources.Resource.lblSizeOfPicture)</i>
+                <a href="javascript:;" st="" class="icon icon-info tip" data-placement="right" style="border:none"
+                   data-title="@Resource.TooltipSizeofImage"></a>
+            </div>
         </div>
- 
 
 
 
@@ -225,7 +221,7 @@
                 </div>
             </div>
         </div>
- 
+
 
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
@@ -278,7 +274,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" maxlength="200" id="_txtTCQL_Email" value="@_App_Detail.TCQLDL_EMAIL"/>
+                    <input type="text" maxlength="200" id="_txtTCQL_Email" value="@_App_Detail.TCQLDL_EMAIL" />
                 </div>
             </div>
         </div>
@@ -326,7 +322,7 @@
             <b>@Resource.TaiLieuToiThieu.ToUpper()</b>
         </div>
 
- 
+
 
         @* id doc | id của check box | level | lable | lable 2 | is upload *@
         @* 1.  Tờ khai, gồm.......trang   x .......bản *@
@@ -357,7 +353,7 @@
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model2)
         }
 
-      
+
         @* 3 Bản đồ khu vực địa lý gồm.......trang x .......bản*@
 
         @{
@@ -431,7 +427,7 @@
         @* 9 Bản gốc  *@
         @{
             string _doc_id9 = "A05_09";
-            string _id9 = _doc_id09 + "|Doc_09|1|" + Resource.TM2B_BanGoc + "||1";
+            string _id9 = _doc_id9 + "|Doc_09|1|" + Resource.TM2B_BanGoc + "||1";
             string _value9 = dic_appDoc[_doc_id9].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id9].CHAR01 + "|" + dic_appDoc[_doc_id9].Url_Hardcopy;
             string _model9 = _id9 + ";" + _value9;
 
@@ -464,13 +460,13 @@
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model12)
         }
         @* 13  có tài liệu khác *@
-        @{
+        @*@{
             string _doc_id13 = "A02_13";
             string _id13 = _doc_id13 + "|Doc_13|0|" + Resource.CoTaiLieuKhac + "||0";
             string _value13 = dic_appDoc[_doc_id13].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id13].CHAR01 + "|" + dic_appDoc[_doc_id13].Url_Hardcopy;
             string _model13 = _id13 + ";" + _value13;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model13)
-        }
+        }*@
         @*TÀI LIỆU KHÁC*@
         @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others_Edit.cshtml")
 
@@ -513,6 +509,13 @@
 
 
 <script>
+
+    var _trangThaiDK = '@_App_Detail.TRANGTHAIDANGKY';
+    function funcRemoveTradeMarkImg(ptag) {
+        $("#" + ptag).attr('src', '');
+        $("#txtLogoOld").val("");
+
+    }
     function ChangeTrangThaiDK() {
         try {
             if ($("#cbo_dadk").is(':checked')) {
@@ -528,7 +531,7 @@
         }
     }
     $(document).ready(function () {
-        ChangeTrangThaiDK();
+        SetValRadioCheckBoxByName('0_TRANGTHAIDANGKY', _trangThaiDK);
         funcShowOtherdocument();
         $.datetimepicker.setLocale('vi');
         $('.datetimepicker').datetimepicker({
@@ -790,9 +793,9 @@
         }
     }
 
-    
 
-   
+
+
     function onChangeChuDonKhac() {
         try {
             if ($("#rdChuDonKhac").is(':checked')) {
@@ -806,8 +809,8 @@
         }
     }
 
-    
-    
+
+
     function ThemChuDon() {
         try {
 
@@ -832,8 +835,8 @@
             alert(e);
         }
     }
-     
- 
+
+
 
     function funcGetAppDetail(formData, p_ShowError) {
         try {
@@ -847,14 +850,17 @@
             var _txtTenSanPham = $("#_txtTenSanPham");
             var _txtSP_TomTat = $("#_txtSP_TomTat");
             var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
+            var logORG = $("#txtLogoOld").val();
+            formdata.append("pDetail.IMG_URLOrg", logORG);
             if (fileLogo != undefined && fileLogo != null && fileLogo[0].files.length > 0) {
                 formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
-            } else {
+            } 
+            else if(logORG == "") {
                 showError('Chưa upload ảnh chỉ dẫn địa lý');
                 $("#pfile_6_rdoMauNhanHieu").focus();
                 return false;
             }
-         
+          
             if (p_ShowError == 1) {
                 if ($("#cbo_dadk").is(':checked')) {
                     if (_txtDangKySo.val() == "")
@@ -880,10 +886,10 @@
                     _txtTenSanPham.focus();
                     return false;
                 }
-               
-               
+
+
             }
-            
+
             if ($("#cbo_dadk").is(':checked')) {
                 formData.append("pDetail.TRANGTHAIDANGKY", $("#cbo_dadk").val());
                 formData.append("pDetail.SODANGKY", _txtDangKySo.val());
@@ -981,14 +987,14 @@
                     formData.append("pAppDocOtherInfo[" + item + "].Id", $(this).attr('data-id'));
                     item++;
                 });
-            }  
+            }
             return true;
         } catch (e) {
             return false;
         }
     }
 
-     
+
 
 
     function funcGetCheckValueAndText(formData, pID, pItem) {
@@ -1041,5 +1047,5 @@
             return false;
         }
     }
-     
+
 </script>
