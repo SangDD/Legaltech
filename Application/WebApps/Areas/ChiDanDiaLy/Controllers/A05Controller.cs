@@ -61,9 +61,8 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
         [Route("register")]
         public ActionResult Register(ApplicationHeaderInfo pInfo, A05_Info pDetail,
             List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo,
-            List<AuthorsInfo> pAppAuthorsInfo, List<Other_MasterInfo> pOther_MasterInfo,
-             List<AppDocumentOthersInfo> pAppDocOtherInfo,
-              List<AppDocumentOthersInfo> pAppDocDesign)
+             List<Other_MasterInfo> pOther_MasterInfo,
+             List<AppDocumentOthersInfo> pAppDocOtherInfo )
         {
             try
             {
@@ -115,17 +114,7 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
                             goto Commit_Transaction;
                     }
 
-                    if (pAppAuthorsInfo != null && pAppAuthorsInfo.Count > 0)
-                    {
-                        foreach (var item in pAppAuthorsInfo)
-                        {
-                            item.Case_Code = p_case_code;
-                            item.App_Header_Id = pAppHeaderID;
-                        }
-                        decimal _re = _Author_BL.Insert(pAppAuthorsInfo);
-                        if (_re <= 0)
-                            goto Commit_Transaction;
-                    }
+                   
 
                     if (pOther_MasterInfo != null && pOther_MasterInfo.Count > 0)
                     {
@@ -176,41 +165,7 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
                     }
 
 
-                    #region bộ tài liệu ảnh
-                    if (pReturn >= 0 && pAppDocDesign != null)
-                    {
-                        if (pAppDocDesign.Count > 0)
-                        {
-                            int check = 0;
-                            foreach (var info in pAppDocDesign)
-                            {
-                                if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
-                                {
-                                    var _updateitem = SessionData.CurrentUser.chashFile[info.keyFileUpload];
-                                    if (_updateitem.GetType() == typeof(AppDocumentInfo))
-                                    {
-                                        HttpPostedFileBase pfiles = (_updateitem as AppDocumentInfo).pfiles;
-
-                                        info.Filename = pfiles.FileName;
-                                        info.Filename = AppLoadHelpers.convertToUnSign2(info.Filename);
-                                        info.Filename = System.Text.RegularExpressions.Regex.Replace(info.Filename, "[^0-9A-Za-z.]+", "_");
-
-                                        info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
-                                        info.IdRef = Convert.ToDecimal((_updateitem as AppDocumentInfo).refId);
-                                        check = 1;
-                                    }
-                                }
-                                info.App_Header_Id = pAppHeaderID;
-                                info.Language_Code = language;
-                            }
-                            if (check == 1)
-                            {
-                                pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocDesign);
-                            }
-                        }
-                    }
-                    #endregion
-
+                    
                     #region tính phí
                     List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A05(pDetail, pAppDocumentInfo);
                     if (_lstFeeFix.Count > 0)
@@ -283,10 +238,8 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
         [HttpPost]
         [Route("edit")]
         public ActionResult Edit(ApplicationHeaderInfo pInfo, A05_Info pDetail,
-            List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo,
-            List<AuthorsInfo> pAppAuthorsInfo, List<Other_MasterInfo> pOther_MasterInfo,
-             List<AppDocumentOthersInfo> pAppDocOtherInfo,
-             List<AppDocumentOthersInfo> pAppDocDesign)
+            List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo, List<Other_MasterInfo> pOther_MasterInfo,
+             List<AppDocumentOthersInfo> pAppDocOtherInfo )
         {
             try
             {
@@ -327,20 +280,7 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
                             goto Commit_Transaction;
                     }
 
-                    // ok 
-                    Author_BL _Author_BL = new Author_BL();
-                    _Author_BL.Deleted(pInfo.Case_Code, language);
-                    if (pAppAuthorsInfo != null && pAppAuthorsInfo.Count > 0)
-                    {
-                        foreach (var item in pAppAuthorsInfo)
-                        {
-                            item.Case_Code = pInfo.Case_Code;
-                            item.App_Header_Id = pAppHeaderID;
-                        }
-                        decimal _re = _Author_BL.Insert(pAppAuthorsInfo);
-                        if (_re <= 0)
-                            goto Commit_Transaction;
-                    }
+                   
 
                     // ok 
                     Other_Master_BL _Other_Master_BL = new Other_Master_BL();
@@ -358,10 +298,7 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
                             goto Commit_Transaction;
                     }
 
-                    // xóa đi trước insert lại sau -> ok 
-                    Uu_Tien_BL _Uu_Tien_BL = new Uu_Tien_BL();
-                    _Uu_Tien_BL.Deleted(pInfo.Case_Code, language);
-
+               
                    
 
                     //tai lieu khac 
@@ -403,56 +340,7 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
                         }
                     }
                     #endregion
-
-                    #region bộ tài liệu ảnh -> chưa sửa
-                    // chưa sửa
-                    List<AppDocumentOthersInfo> Lst_DocIndusDesign_Old = Lst_Doc_Others.FindAll(m => m.FILETYPE == 2).ToList();
-                    Dictionary<decimal, AppDocumentOthersInfo> _dic_DocIndusDesign = new Dictionary<decimal, AppDocumentOthersInfo>();
-                    foreach (AppDocumentOthersInfo item in Lst_DocIndusDesign_Old)
-                    {
-                        _dic_DocIndusDesign[item.Id] = item;
-                    }
-
-                    // xóa đi trước insert lại sau
-                    objDoc.AppDocumentOtherDeletedByApp_Type(pInfo.Id, language, 2);
-
-                    if (pReturn >= 0 && pAppDocDesign != null && pAppDocDesign.Count > 0)
-                    {
-                        int check = 0;
-                        foreach (var info in pAppDocDesign)
-                        {
-                            if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
-                            {
-                                var _updateitem = SessionData.CurrentUser.chashFile[info.keyFileUpload];
-                                if (_updateitem.GetType() == typeof(AppDocumentInfo))
-                                {
-                                    HttpPostedFileBase pfiles = (_updateitem as AppDocumentInfo).pfiles;
-
-                                    info.Filename = pfiles.FileName;
-                                    info.Filename = AppLoadHelpers.convertToUnSign2(info.Filename);
-                                    info.Filename = System.Text.RegularExpressions.Regex.Replace(info.Filename, "[^0-9A-Za-z.]+", "_");
-
-                                    info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
-                                    //info.IdRef = Convert.ToDecimal((_updateitem as AppDocumentInfo).refId);
-                                    check = 1;
-                                }
-                            }
-                            else if (_dic_DocIndusDesign.ContainsKey(info.Id))
-                            {
-                                info.Filename = _dic_DocIndusDesign[info.Id].Filename;
-                                //info.IdRef = _dic_doc_others[info.Id].IdRef;
-                                check = 1;
-                            }
-
-                            info.App_Header_Id = pAppHeaderID;
-                            info.Language_Code = language;
-                        }
-                        if (check == 1)
-                        {
-                            pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocDesign);
-                        }
-                    }
-                    #endregion
+                     
 
                     #region tính phí
                     // xóa đi
