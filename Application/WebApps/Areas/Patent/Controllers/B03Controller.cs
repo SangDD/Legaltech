@@ -353,7 +353,7 @@ namespace WebApps.Areas.Patent.Controllers
                     }
                     else
                     {
-                        _tempfile = "A01_EN.rpt"; // tiếng anh
+                        _tempfile = "B03_EN.rpt"; // tiếng anh
                         fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_EN_" + _datetimenow + ".pdf");
                         SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_EN_" + _datetimenow + ".pdf";
                     }
