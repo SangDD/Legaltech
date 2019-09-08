@@ -328,13 +328,13 @@ namespace WebApps.Areas.Patent.Controllers
                 string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_VN_" + _datetimenow + ".pdf");
 
                 // tiếng việt, bị lộn nên ko muốn đổi
-                string _tempfile = "A01.rpt";
+                string _tempfile = "B03.rpt";
                 if (p_View_Translate == 1)
                 {
                     // nếu là tiếng việt thì xem bản tiếng anh và ngược lại
                     if (applicationHeaderInfo.Languague_Code == Language.LangVI)
                     {
-                        _tempfile = "A01_EN.rpt"; // tiếng anh
+                        _tempfile = "B03.rpt"; // tiếng anh
                         fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_EN_" + _datetimenow + ".pdf");
                         SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A01_EN_" + _datetimenow + ".pdf";
                     }
@@ -364,7 +364,7 @@ namespace WebApps.Areas.Patent.Controllers
                 _lst.Add(app_Detail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<B03_Info_Export>(_lst, false);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
-
+               
 
                 oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
 
@@ -384,7 +384,7 @@ namespace WebApps.Areas.Patent.Controllers
                     oRpt.SetDataSource(_ds_all);
                 }
                 oRpt.Refresh();
-
+                //_ds_all.WriteXml(@"D:\MyData.xml");
                 Response.Buffer = false;
                 Response.ClearContent();
                 Response.ClearHeaders();
@@ -402,6 +402,20 @@ namespace WebApps.Areas.Patent.Controllers
                 return Json(new { success = 0 });
             }
         }
-
+        [Route("Pre-View")]
+        public ActionResult PreViewApplication(string p_appCode)
+        {
+            try
+            {
+                ViewBag.FileName = SessionData.CurrentUser.FilePreview;
+                //ViewBag.FileName = "/Content/Export/" + "A01_VN_" + TradeMarkAppCode.AppCode_A01 + ".pdf";
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+            }
+        }
     }
 }
