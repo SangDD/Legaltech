@@ -31,7 +31,7 @@ namespace ObjectInfos
     public class B03_Info_Export : ApplicationHeaderInfo
     {
 
-        public static void CopyA01_Info(ref B03_Info_Export p_appDetail, B03_Info p_B03_Info)
+        public static void CopyB03_Info(ref B03_Info_Export p_appDetail, B03_Info p_B03_Info)
         {
             p_appDetail.App_Header_Id = p_B03_Info.App_Header_Id;
             p_appDetail.Language_Code = p_B03_Info.Language_Code;

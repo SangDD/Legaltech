@@ -403,6 +403,100 @@ namespace WebApps.Areas.Patent.Controllers
                 return Json(new { success = 0 });
             }
         }
+
+        [HttpPost]
+        [Route("ket_xuat_file_IU")]
+        public ActionResult ExportData_View_IU(ApplicationHeaderInfo pInfo, B03_Info pDetail,
+           List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo)
+        {
+            try
+            {
+                string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
+                string language = AppsCommon.GetCurrentLang();
+                var objBL = new B03_BL();
+                List<B03_Info_Export> _lst = new List<B03_Info_Export>();
+
+                string p_appCode = "B03_Preview";
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B03_VN_" + _datetimenow + ".pdf");
+                if (language == Language.LangVI)
+                {
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B03_VN_" + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "B03_VN_" + _datetimenow + ".pdf";
+                }
+                else
+                {
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B03_EN_" + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "B03_EN_" + _datetimenow + ".pdf";
+                }
+
+                B03_Info_Export _A01_Info_Export = new B03_Info_Export();
+                B03_Info_Export.CopyB03_Info(ref _A01_Info_Export, pDetail);
+
+
+                // Phí cố định
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_B03(pDetail, pAppDocumentInfo);
+                AppsCommon.Prepare_Data_Export_B03(ref _A01_Info_Export, pInfo, pAppDocumentInfo, _lstFeeFix);
+
+                _lst.Add(_A01_Info_Export);
+                DataSet _ds_all = ConvertData.ConvertToDataSet<B03_Info_Export>(_lst, false);
+                //_ds_all.WriteXml(@"C:\inetpub\A01.xml", XmlWriteMode.WriteSchema);
+                CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+
+                string _tempfile = "B03.rpt";
+                if (language == Language.LangEN)
+                {
+                    _tempfile = "B03_EN.rpt";
+                }
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
+
+                if (_ds_all != null)
+                {
+                    _ds_all.Tables[0].TableName = "Table1";
+                    oRpt.SetDataSource(_ds_all);
+                }
+                oRpt.Refresh();
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+                //oRpt.ExportToDisk(ExportFormatType.PortableDocFormat, fileName_pdf);
+
+                System.IO.Stream oStream = oRpt.ExportToStream(ExportFormatType.PortableDocFormat);
+                byte[] byteArray = new byte[oStream.Length];
+                oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
+                System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq 
+
+                return Json(new { success = 0 });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = 0 });
+            }
+        }
+
+        [HttpPost]
+        [Route("getFee")]
+        public ActionResult GetFee(B03_Info pDetail, List<AppDocumentInfo> pAppDocumentInfo)
+        {
+            try
+            {
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_B03(pDetail, pAppDocumentInfo);
+                ViewBag.LstFeeFix = _lstFeeFix;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            var PartialTableListFees = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Patent/Views/Shared/_PartialTableListFees.cshtml");
+            var json = Json(new { success = 1, PartialTableListFees });
+            return json;
+
+            //return PartialView("~/Areas/Patent/Views/A01/_PartialTableListFees.cshtml");
+        }
+
         [Route("Pre-View")]
         public ActionResult PreViewApplication(string p_appCode)
         {

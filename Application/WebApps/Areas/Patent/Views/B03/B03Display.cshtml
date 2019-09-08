@@ -262,6 +262,18 @@
 
     </fieldset>
 </div>
+@Html.Partial("~/Areas/Patent/Views/B03/_PartialPreview_IU.cshtml")
+<div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
+    <div class="dpop-preview" id="dpop-preview">
+    </div>
+</div>
+
+<div id="divWrapperPopUpFee" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divPopUpFee">
+    </div>
+</div>
+
+
 <script>
     $(document).ready(function () {
         //Search suggestion
@@ -547,22 +559,28 @@
             formData.append("pInfo.Customer_Code", _txtMADDSHCN);
             //số đơn
             var v_app_detail_number = $("#txtApp_Detail_Number").val();
-            if (v_app_detail_number === "") {
-                $('#txtApp_Detail_Number').focus().val('');
-                showError('Số đơn không được để trống');
-                return false;
+            if (pType == 2) {
+                if (v_app_detail_number === "") {
+                    $('#txtApp_Detail_Number').focus().val('');
+                    showError('Số đơn không được để trống');
+                    return false;
+                }
             }
             var v_tendaydu = $("#txtTenDayDu").val();
-            if (v_tendaydu === "") {
-                $('#txtTenDayDu').focus().val('');
-                showError('@Resource.TM2B_TenKhongDuocDeTrong');
-                return false;
+            if (pType == 2) {
+                if (v_tendaydu === "") {
+                    $('#txtTenDayDu').focus().val('');
+                    showError('@Resource.TM2B_TenKhongDuocDeTrong');
+                    return false;
+                }
             }
             var v_diachi = $("#txtDiaChi").val();
-            if (v_diachi === "") {
-                $('#txtDiaChi').focus().val('');
-                showError('@Resource.TM2B_DiaChiKhongDuocDeTrong');
-                return false;
+            if (pType == 2) {
+                if (v_diachi === "") {
+                    $('#txtDiaChi').focus().val('');
+                    showError('@Resource.TM2B_DiaChiKhongDuocDeTrong');
+                    return false;
+                }
             }
             var v_dienthoai = $("#txtDienThoai").val();
             //if (v_dienthoai === "") {
@@ -582,17 +600,21 @@
             //    showError('Email không được để trống');
             //    return false;
             //}
-            if (v_email != "") {
-                if (!IsvalidEmail(v_email)) {
-                    $("#txtEmail").focus();
-                    showError('@Resource.lblThongBaoLoiEmail');
-                    return false;
+            if (pType == 2) {
+                if (v_email != "") {
+                    if (!IsvalidEmail(v_email)) {
+                        $("#txtEmail").focus();
+                        showError('@Resource.lblThongBaoLoiEmail');
+                        return false;
+                    }
                 }
             }
             if ($("#rdChuDon").is(':checked')) {
                 formData.append("pDetail.Type_Evaluator", "CD");
             } else if ($("#rdNguoithuba").is(':checked')) {
                 formData.append("pDetail.Type_Evaluator", "NTB");
+            } else {
+                formData.append("pDetail.Type_Evaluator", " ");
             }
 
 
