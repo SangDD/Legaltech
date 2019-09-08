@@ -21,6 +21,7 @@ namespace ObjectInfos
         public string IMG_URL { get; set; }
         public string TRANGTHAIDANGKY { get; set; }
         public string SODANGKY { get; set; }
+        public DateTime NGAYDANGKY { get; set; }
         public string NUOCDANGKY { get; set; }
         public string TCQLDL_TEN { get; set; }
         public string TCQLDL_DIACHI { get; set; }
@@ -44,6 +45,8 @@ namespace ObjectInfos
         public string TRANGTHAIDANGKY { get; set; }
         public string SODANGKY { get; set; }
         public string NUOCDANGKY { get; set; }
+        public DateTime NGAYDANGKY { get; set; }
+        
         public string TCQLDL_TEN { get; set; }
         public string TCQLDL_DIACHI { get; set; }
         public string TCQLDL_DIENTHOAI { get; set; }
@@ -150,18 +153,7 @@ namespace ObjectInfos
 
         public string Doc_Id_13 { get; set; }
         public decimal Doc_Id_13_Check { get; set; }
-
-        public string Doc_Id_14 { get; set; }
-        public decimal Doc_Id_14_Check { get; set; }
-
-        public string Doc_Id_15 { get; set; }
-        public decimal Doc_Id_15_Check { get; set; }
-
-        public string Doc_Id_16 { get; set; }
-        public decimal Doc_Id_16_Check { get; set; }
-
-        public string Doc_Id_17 { get; set; }
-        public decimal Doc_Id_17_Check { get; set; }
+        
         #endregion
 
         #region add thêm 1 số cột tùy biến để sau này cần thì thêm vào đây
@@ -195,6 +187,7 @@ namespace ObjectInfos
             p_appDetail.TRANGTHAIDANGKY = p_A05_Info.TRANGTHAIDANGKY;
             p_appDetail.SODANGKY = p_A05_Info.SODANGKY;
             p_appDetail.NUOCDANGKY = p_A05_Info.NUOCDANGKY;
+            p_appDetail.NGAYDANGKY = p_A05_Info.NGAYDANGKY;
             p_appDetail.TCQLDL_TEN = p_A05_Info.TCQLDL_TEN;
             p_appDetail.TCQLDL_DIACHI = p_A05_Info.TCQLDL_DIACHI;
             p_appDetail.TCQLDL_DIENTHOAI = p_A05_Info.TCQLDL_DIENTHOAI;

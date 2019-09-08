@@ -157,7 +157,17 @@
                         </div>
                         <div class="div-search-content">
                             <div>
-                                <input type="text" maxlength="50" id="_txtDangKySo" value="@_App_Detail.SODANGKY" />
+                                <input type="text" maxlength="50" id="_txtDangKySo" value="@_App_Detail.SODANGKY"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-title">
+                            <div>Ngày:</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <input class="datetimepicker" type="text" id="_txtNgayDangKy" maxlength="10" value="@(_App_Detail.NGAYDANGKY == DateTime.MinValue ? "" : _App_Detail.NGAYDANGKY.ToString("dd/MM/yyyy"))" />
                             </div>
                         </div>
                         <div class="div-search-title">
@@ -524,11 +534,16 @@
             if ($("#cbo_dadk").is(':checked')) {
                 $("#_txtDangKySo").removeAttr("Readonly");
                 $("#cbo_nuocdangky").removeAttr("disabled");
+                $("#_txtNgayDangKy").removeAttr("Readonly");
+                
             } else {
                 $("#_txtDangKySo").val("");
                 $("#_txtDangKySo").attr("Readonly", "true");
                 $("#cbo_nuocdangky").val("");
                 $("#cbo_nuocdangky").attr("disabled", "true");
+                $("#_txtNgayDangKy").val("");
+                $("#_txtNgayDangKy").attr("Readonly", "true");
+
             }
         } catch (e) {
             alert(e.message);
@@ -897,6 +912,7 @@
     function funcGetAppDetail(formData, p_ShowError) {
         try {
             var _txtDangKySo = $("#_txtDangKySo");
+            var _txtNgayDangKy = $("#_txtNgayDangKy");
             var cbo_nuocdangky = $("#cbo_nuocdangky");
             var _txtTCQL_Ten = $("#_txtTCQL_Ten");
             var _txTCQL_DiaChi = $("#_txTCQL_DiaChi");
@@ -925,6 +941,17 @@
                         _txtDangKySo.focus();
                         return false;
                     }
+                    if (_txtNgayDangKy.val() == "" || _txtNgayDangKy.val() == "__/__/____") {
+                        showError('Ngày đăng ký không được để trống');
+                        _txtNgayDangKy.focus();
+                        return false;
+                    }
+                    if(cbo_nuocdangky.val() == "")
+                    {
+                        showError('Nước đăng ký không được để trống');
+                        cbo_nuocdangky.focus();
+                        return false;
+                    }
                 }
                 if (_txtTCQL_Ten.val().trim() == "") {
                     showError('Tên tổ chức quản lý chỉ dẫn địa lý không được để trống');
@@ -950,6 +977,7 @@
                 formData.append("pDetail.TRANGTHAIDANGKY", $("#cbo_dadk").val());
                 formData.append("pDetail.SODANGKY", _txtDangKySo.val());
                 formData.append("pDetail.NUOCDANGKY", cbo_nuocdangky.val());
+                formData.append("pDetail.NGAYDANGKY", _txtNgayDangKy.val());
 
             } else
             {

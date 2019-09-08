@@ -681,11 +681,13 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
                         {
                             app_Detail.Doc_Id_3_Check = item.Isuse;
                             app_Detail.Doc_Id_3 = item.CHAR01;
+                            app_Detail.Doc_Id_302 = item.CHAR02;
                         }
                         else if (item.Document_Id == "A05_04")
                         {
                             app_Detail.Doc_Id_4 = item.CHAR01;
                             app_Detail.Doc_Id_4_Check = item.Isuse;
+                            app_Detail.Doc_Id_402 = item.CHAR02;
                         }
                         else if (item.Document_Id == "A05_05")
                         {
@@ -726,7 +728,17 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
                             app_Detail.Doc_Id_11_Check = item.Isuse;
                             app_Detail.Doc_Id_11 = item.CHAR01;
                         }
-                        
+                        else if (item.Document_Id == "A05_12")
+                        {
+                            app_Detail.Doc_Id_12_Check = item.Isuse;
+                            app_Detail.Doc_Id_12 = item.CHAR01;
+                        }
+                        else if (item.Document_Id == "A05_13")
+                        {
+                            app_Detail.Doc_Id_13_Check = item.Isuse;
+                            app_Detail.Doc_Id_13 = item.CHAR01;
+                        }
+
                     }
                 
                 }
