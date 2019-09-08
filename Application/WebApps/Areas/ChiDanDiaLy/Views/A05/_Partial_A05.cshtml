@@ -139,6 +139,9 @@
                         <div class="div-search-content">
                             <div>
                                 <select id="cbo_nuocdangky">
+                                    <option value="">
+                                        None
+                                    </option>
                                     @foreach (var item in MemoryData.c_lst_Country)
                                     {
                                         if (_App_Detail.NUOCDANGKY == item.Country_Id.ToString())
@@ -476,7 +479,9 @@
             } else {
                 $("#_txtDangKySo").val("");
                 $("#_txtDangKySo").attr("Readonly", "true");
+                $("#cbo_nuocdangky").val("");
                 $("#cbo_nuocdangky").attr("disabled", "true");
+
             }
         } catch (e) {
             alert(e.message);
@@ -495,7 +500,7 @@
         }
     }
      
-    $("#ckb_Doc_13").change(function () {
+    $("#ckb_Doc_13").change(function () {      
         if ($("#ckb_Doc_13").is(":checked") == true) {
             $("#divContainerDocOther").css('display', 'block')
         } else {
@@ -753,6 +758,12 @@
                     {
                         showError('Đăng ký số không được để trống');
                         _txtDangKySo.focus();
+                        return false;
+                    }
+                    if(cbo_nuocdangky.val() == "")
+                    {
+                        showError('Nước đăng ký không được để trống');
+                        cbo_nuocdangky.focus();
                         return false;
                     }
                 }

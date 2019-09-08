@@ -138,13 +138,15 @@
                             </div>
                         </div>
                     </div>
-                     
+                    <i id="tagSuggessIMG" style="color:red;font-weight:bold;margin-left:120px">(@WebApps.Resources.Resource.lblSizeOfPicture)</i>
+                    <a href="javascript:;" st="" class="icon icon-info tip" data-placement="right" style="border:none"
+                       data-title="@Resource.TooltipSizeofImage"></a>
                 </div>
                 <div class="class_right_60" style="display:block">
                     <div class="div-search-ad">
                         <div class="div-search-content">
                             <div class="div-radio">
-                                <input checked="checked" type="radio" name="0_TRANGTHAIDANGKY" class="classNhanHieu" value="DADK" id="cbo_dadk" onclick="ChangeTrangThaiDK()" />
+                                <input   type="radio" name="0_TRANGTHAIDANGKY" class="classNhanHieu" value="DADK" id="cbo_dadk" onclick="ChangeTrangThaiDK()" />
                                 <label>Chỉ dẫn địa lý đã được bảo hộ ở nước xuất xứ, cụ thể là:</label>
                             </div>
                         </div>
@@ -164,6 +166,9 @@
                         <div class="div-search-content">
                             <div>
                                 <select id="cbo_nuocdangky">
+                                    <option value="">
+                                        None
+                                    </option>
                                     @foreach (var item in MemoryData.c_lst_Country)
                                     {
                                         if (_App_Detail.NUOCDANGKY == item.Country_Id.ToString())
@@ -189,9 +194,7 @@
                     </div>
                 </div>
 
-                <i id="tagSuggessIMG" style="color:red;font-weight:bold;margin-left:120px">(@WebApps.Resources.Resource.lblSizeOfPicture)</i>
-                <a href="javascript:;" st="" class="icon icon-info tip" data-placement="right" style="border:none"
-                   data-title="@Resource.TooltipSizeofImage"></a>
+            
             </div>
         </div>
 
@@ -460,13 +463,13 @@
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model12)
         }
         @* 13  có tài liệu khác *@
-        @*@{
-            string _doc_id13 = "A02_13";
+     @{
+            string _doc_id13 = "A05_13";
             string _id13 = _doc_id13 + "|Doc_13|0|" + Resource.CoTaiLieuKhac + "||0";
             string _value13 = dic_appDoc[_doc_id13].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id13].CHAR01 + "|" + dic_appDoc[_doc_id13].Url_Hardcopy;
             string _model13 = _id13 + ";" + _value13;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model13)
-        }*@
+        } 
         @*TÀI LIỆU KHÁC*@
         @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others_Edit.cshtml")
 
@@ -524,6 +527,7 @@
             } else {
                 $("#_txtDangKySo").val("");
                 $("#_txtDangKySo").attr("Readonly", "true");
+                $("#cbo_nuocdangky").val("");
                 $("#cbo_nuocdangky").attr("disabled", "true");
             }
         } catch (e) {
@@ -532,6 +536,7 @@
     }
     $(document).ready(function () {
         SetValRadioCheckBoxByName('0_TRANGTHAIDANGKY', _trangThaiDK);
+        ChangeTrangThaiDK();
         funcShowOtherdocument();
         $.datetimepicker.setLocale('vi');
         $('.datetimepicker').datetimepicker({
@@ -598,13 +603,64 @@
         });
     });
 
+
+    var _checkanh = 0;
+    document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {
+        _checkanh = 0;
+        var preturn = fileNhanHieu(this, 'imgMauNhanHieu');
+
+        //kiểm tra ảnh có đúng kích cỡ hay không?
+        if (this.files[0].type.indexOf("image") != -1) {
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#imgMauNhanHieuTeplace").attr("src", e.target.result);
+
+                var img = $("#imgMauNhanHieuTeplace");
+                var iheight = 500; var iwidth = 500;
+
+                iheight = img[0].height;
+                console.log('lan 1: ' + iheight);
+                iheight = img[0].height;
+                iwidth = img[0].width;
+                console.log(iheight);
+                //2x2 75x75 px
+                if (iheight > 302 || iheight < 75 || iwidth > 302 || iwidth < 75) {
+                    _checkanh = 1;
+                    nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.KichThuoc2288)", function () {
+                        return true;
+                    }, function () {
+                        //Callback
+                        $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
+                    });
+
+                } else {
+                    return true;
+                }
+            }
+            reader.readAsDataURL(this.files[0]);
+        } else {
+            nvsAlert("@Html.Raw(WebApps.Resources.Resource.ThongBao)", "@Html.Raw(WebApps.Resources.Resource.FileKhongPhaiLaAnh)", "");
+            _checkanh = 2;
+        }
+    };
+    function funcUpLoadMauNhanHieu(pFile) {
+        try {
+            var file = document.getElementsByName(pFile);
+            if (file != undefined) {
+                formdata.append("pInfo.pfiles", file[0].files[0]);
+            }
+        } catch (e) {
+        }
+    }
+
     $("#ckb_Doc_13").change(function () {
         funcShowOtherdocument();
     });
     function funcShowOtherdocument()
     {
         try {
-            if ($("#ckb_Doc_11").is(":checked") == true) {
+            if ($("#ckb_Doc_13").is(":checked") == true) {
                 $("#divContainerDocOther").css('display', 'block')
             } else {
                 $("#divContainerDocOther").css('display', 'none');
@@ -851,16 +907,16 @@
             var _txtSP_TomTat = $("#_txtSP_TomTat");
             var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
             var logORG = $("#txtLogoOld").val();
-            formdata.append("pDetail.IMG_URLOrg", logORG);
+            formData.append("pDetail.IMG_URLOrg", logORG);
             if (fileLogo != undefined && fileLogo != null && fileLogo[0].files.length > 0) {
                 formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
-            } 
+            }
             else if(logORG == "") {
                 showError('Chưa upload ảnh chỉ dẫn địa lý');
                 $("#pfile_6_rdoMauNhanHieu").focus();
                 return false;
             }
-          
+
             if (p_ShowError == 1) {
                 if ($("#cbo_dadk").is(':checked')) {
                     if (_txtDangKySo.val() == "")
@@ -908,6 +964,8 @@
             formData.append("pDetail.TCQLDL_EMAIL", _txtTCQL_Email.val());
             formData.append("pDetail.SANPHAM_TEN", _txtTenSanPham.val());
             formData.append("pDetail.SANPHAM_TOMTAT", _txtSP_TomTat.val());
+            formData.append("pDetail.A05_Id", '@_App_Detail.A05_Id');
+
             var txtMADDSHCN = $("#txtMADDSHCN").val();
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             if (p_ShowError == 1 && v_RepMasterType == "DDPL" && txtMADDSHCN == "") {

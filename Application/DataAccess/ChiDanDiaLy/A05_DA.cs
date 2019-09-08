@@ -48,7 +48,7 @@ namespace DataAccess
                 OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_A05.PROC_APP_DETAIL_A05_UPDATE",
                     paramReturn,
-                    new OracleParameter("P_ID", OracleDbType.Varchar2, pInfo.Id, ParameterDirection.Input),
+                    new OracleParameter("P_ID", OracleDbType.Varchar2, pInfo.A05_Id, ParameterDirection.Input),
                     new OracleParameter("P_CASE_CODE", OracleDbType.Varchar2, pInfo.Case_Code, ParameterDirection.Input),
                     new OracleParameter("P_APP_HEADER_ID", OracleDbType.Decimal, pInfo.App_Header_Id, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, pInfo.Language_Code, ParameterDirection.Input),
