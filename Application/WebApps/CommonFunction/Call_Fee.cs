@@ -2304,7 +2304,7 @@ namespace WebApps.CommonFunction
                 _lstFeeFix.Add(_AppFeeFixInfo1);
                 #endregion
 
-                #region 2 phí thẩm định đơn
+                #region 2 phí công bố đơn
                 AppFeeFixInfo _AppFeeFixInfo2 = new AppFeeFixInfo();
                 _AppFeeFixInfo2.Fee_Id = 2;
                 _AppFeeFixInfo2.Number_Of_Patent = 1;
@@ -2323,13 +2323,13 @@ namespace WebApps.CommonFunction
                 }
                 else
                 {
-                    _AppFeeFixInfo2.Amount = 180000 * _AppFeeFixInfo2.Number_Of_Patent;
+                    _AppFeeFixInfo2.Amount = 120000 * _AppFeeFixInfo2.Number_Of_Patent;
                 }
 
                 _lstFeeFix.Add(_AppFeeFixInfo2);
                 #endregion
 
-                #region 3 phí công bố đơn
+                #region 3 phí tra cứu tông tin thẩm định đơn
                 AppFeeFixInfo _AppFeeFixInfo3 = new AppFeeFixInfo();
                 _AppFeeFixInfo3.Fee_Id = 3;
                 _AppFeeFixInfo3.Isuse = 1;
@@ -2346,10 +2346,30 @@ namespace WebApps.CommonFunction
                     _AppFeeFixInfo3.Amount_Represent_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent_Usd * _AppFeeFixInfo3.Number_Of_Patent;
                 }
                 else
-                    _AppFeeFixInfo3.Amount = 120000 * _AppFeeFixInfo3.Number_Of_Patent;
+                    _AppFeeFixInfo3.Amount = 180000 * _AppFeeFixInfo3.Number_Of_Patent;
                 _lstFeeFix.Add(_AppFeeFixInfo3);
                 #endregion
 
+                #region 4 phí thẩm định đơn
+                AppFeeFixInfo _AppFeeFixInfo4 = new AppFeeFixInfo();
+                _AppFeeFixInfo4.Fee_Id = 4;
+                _AppFeeFixInfo4.Isuse = 1;
+                _AppFeeFixInfo4.Number_Of_Patent = 1;
+
+                _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo4.Fee_Id.ToString();
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                {
+                    _AppFeeFixInfo4.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
+                    _AppFeeFixInfo4.Fee_Name_En = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description_En;
+                    _AppFeeFixInfo4.Amount_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Usd * _AppFeeFixInfo4.Number_Of_Patent;
+                    _AppFeeFixInfo4.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo4.Number_Of_Patent;
+                    _AppFeeFixInfo4.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent * _AppFeeFixInfo4.Number_Of_Patent;
+                    _AppFeeFixInfo4.Amount_Represent_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent_Usd * _AppFeeFixInfo4.Number_Of_Patent;
+                }
+                else
+                    _AppFeeFixInfo4.Amount = 1200000 * _AppFeeFixInfo4.Number_Of_Patent;
+                _lstFeeFix.Add(_AppFeeFixInfo4);
+                #endregion
 
                 return _lstFeeFix;
             }

@@ -23,6 +23,7 @@ namespace ObjectInfos
         public string SODANGKY { get; set; }
         public DateTime NGAYDANGKY { get; set; }
         public string NUOCDANGKY { get; set; }
+        public string TENNUOCDANGKY { get; set; }
         public string TCQLDL_TEN { get; set; }
         public string TCQLDL_DIACHI { get; set; }
         public string TCQLDL_DIENTHOAI { get; set; }
@@ -45,6 +46,7 @@ namespace ObjectInfos
         public string TRANGTHAIDANGKY { get; set; }
         public string SODANGKY { get; set; }
         public string NUOCDANGKY { get; set; }
+        public string TENNUOCDANGKY { get; set; }
         public DateTime NGAYDANGKY { get; set; }
         
         public string TCQLDL_TEN { get; set; }
@@ -187,6 +189,7 @@ namespace ObjectInfos
             p_appDetail.TRANGTHAIDANGKY = p_A05_Info.TRANGTHAIDANGKY;
             p_appDetail.SODANGKY = p_A05_Info.SODANGKY;
             p_appDetail.NUOCDANGKY = p_A05_Info.NUOCDANGKY;
+            p_appDetail.TENNUOCDANGKY = p_A05_Info.TENNUOCDANGKY;
             p_appDetail.NGAYDANGKY = p_A05_Info.NGAYDANGKY;
             p_appDetail.TCQLDL_TEN = p_A05_Info.TCQLDL_TEN;
             p_appDetail.TCQLDL_DIACHI = p_A05_Info.TCQLDL_DIACHI;

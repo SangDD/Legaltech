@@ -480,7 +480,16 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
                 }
 
                 A05_Info_Export _A05_Info_Export = new A05_Info_Export();
+                if (string.IsNullOrEmpty(pDetail.IMG_URL))
+                {
+                    pDetail.IMG_URL = pDetail.IMG_URLOrg;
+                }
+                if (pDetail.pfileLogo != null)
+                {
+                    pDetail.IMG_URL = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
+                }
                 A05_Info_Export.CopyA05_Info(ref _A05_Info_Export, pDetail);
+                
                 _A05_Info_Export.IMG_URL = Server.MapPath(_A05_Info_Export.IMG_URL);
 
                 // Phí cố định
@@ -514,7 +523,7 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
                     {
 
                         double _Const = 6.666666666666;
-                        int _left = 0, _top = 0, _marginleft = 225, _margintop = 4215;
+                        int _left = 0, _top = 0, _marginleft = 225, _margintop = 3540;
                         int _h = 600;
                         double _d1 = (_h - img.Width) / 2;
                         _d1 = _Const * _d1;
@@ -720,15 +729,22 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
                 // copy Header
                 A05_Info_Export.CopyAppHeaderInfo(ref app_Detail, applicationHeaderInfo);
 
-
+                foreach (var item in MemoryData.c_lst_Country)
+                {
+                    if(app_Detail.NUOCDANGKY == item.Country_Id.ToString())
+                    {
+                        app_Detail.TENNUOCDANGKY = item.Name;
+                        break;
+                    }
+                }  
                 // copy class
-                 
+
                 // copy tác giả
-                 
 
-                 
 
-              
+
+
+
                 // copy chủ đơn khác
                 if (_lst_Other_MasterInfo != null && _lst_Other_MasterInfo.Count > 1)
                 {
@@ -877,7 +893,12 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
                             app_Detail.Fee_Id_3_Check = item.Isuse;
                             app_Detail.Fee_Id_3_Val = item.Amount.ToString("#,##0.##");
                         }
-
+                        else if (item.Fee_Id == 4)
+                        {
+                            app_Detail.Fee_Id_4 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
+                            app_Detail.Fee_Id_4_Check = item.Isuse;
+                            app_Detail.Fee_Id_4_Val = item.Amount.ToString("#,##0.##");
+                        }
 
                         app_Detail.Total_Fee = app_Detail.Total_Fee + item.Amount;
                         app_Detail.Total_Fee_Str = app_Detail.Total_Fee.ToString("#,##0.##");
