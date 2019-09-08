@@ -20,6 +20,7 @@ using CrystalDecisions.Shared;
 using System.Linq;
 using BussinessFacade;
 using System.Collections;
+using System.Drawing;
 
 namespace WebApps.Areas.ChiDanDiaLy.Controllers
 {
@@ -480,14 +481,14 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
 
                 A05_Info_Export _A05_Info_Export = new A05_Info_Export();
                 A05_Info_Export.CopyA05_Info(ref _A05_Info_Export, pDetail);
-
+                _A05_Info_Export.IMG_URL = Server.MapPath(_A05_Info_Export.IMG_URL);
 
                 // Phí cố định
 
                 List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A05(pDetail, pAppDocumentInfo);
                 Prepare_Data_Export_A05(ref _A05_Info_Export, pInfo, pAppDocumentInfo, _lstFeeFix, pOther_MasterInfo,
                        pAppDocOtherInfo );
-
+               
                 _lst.Add(_A05_Info_Export);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<A05_Info_Export>(_lst, false);
                 //_ds_all.WriteXml(@"C:\inetpub\A05.xml", XmlWriteMode.WriteSchema);
@@ -499,7 +500,60 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
                     _tempfile = "A05_EN.rpt";
                 }
                 oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
+                #region Set vị trí ảnh
 
+                CrystalDecisions.CrystalReports.Engine.PictureObject _pic01;
+                _pic01 = (CrystalDecisions.CrystalReports.Engine.PictureObject)oRpt.ReportDefinition.Sections[0].ReportObjects["Picture1"];
+                _pic01.Width = 100;
+                _pic01.Height = 100;
+                try
+                {
+                    pDetail.IMG_URL = Server.MapPath(pDetail.IMG_URL);
+                    Bitmap img = new Bitmap(pDetail.IMG_URL);
+                    try
+                    {
+
+                        double _Const = 6.666666666666;
+                        int _left = 0, _top = 0, _marginleft = 225, _margintop = 4215;
+                        int _h = 600;
+                        double _d1 = (_h - img.Width) / 2;
+                        _d1 = _Const * _d1;
+                        _left = _marginleft + Convert.ToInt32(_d1);
+                        if (_left < 0)
+                        {
+                            _left = _marginleft;
+                        }
+                        _pic01.Left = _left;
+                        // top
+
+                        _d1 = (_h - img.Height) / 2;
+                        _d1 = _Const * _d1;
+                        _top = _margintop + Convert.ToInt32(_d1);
+                        if (_top < 0)
+                        {
+                            _top = _margintop;
+                        }
+                        _pic01.Top = _top;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.LogException(ex);
+                    }
+                    finally
+                    {
+                        img.Dispose();
+                    }
+                }
+                catch (Exception)
+                {
+
+
+                }
+
+                System.IO.FileInfo file = new System.IO.FileInfo(pDetail.IMG_URL);
+
+                #endregion
                 if (_ds_all != null)
                 {
                     _ds_all.Tables[0].TableName = "Table1";
@@ -546,11 +600,11 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
                 ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
                 List<Other_MasterInfo> _lst_Other_MasterInfo = new List<Other_MasterInfo>();
                 List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
-                A05_Info_Export app_Detail = objBL.GetByID_Exp(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos,
+                A05_Info_Export pDetail = objBL.GetByID_Exp(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos,
                     ref _lst_Other_MasterInfo,  ref _LstDocumentOthersInfo );
-
+                pDetail.IMG_URL = Server.MapPath(pDetail.IMG_URL);
                 string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A05_VN_" + _datetimenow + ".pdf");
-                if (app_Detail.Languague_Code == Language.LangVI)
+                if (pDetail.Languague_Code == Language.LangVI)
                 {
                     fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A05_VN_" + _datetimenow + ".pdf");
                     SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A05_VN_" + _datetimenow + ".pdf";
@@ -561,10 +615,10 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
                     SessionData.CurrentUser.FilePreview = "/Content/Export/" + "A05_EN_" + _datetimenow + ".pdf";
                 }
 
-                Prepare_Data_Export_A05(ref app_Detail, applicationHeaderInfo, appDocumentInfos, _lst_appFeeFixInfos,   _lst_Other_MasterInfo,
+                Prepare_Data_Export_A05(ref pDetail, applicationHeaderInfo, appDocumentInfos, _lst_appFeeFixInfos,   _lst_Other_MasterInfo,
                       _LstDocumentOthersInfo );
 
-                _lst.Add(app_Detail);
+                _lst.Add(pDetail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<A05_Info_Export>(_lst, false);
                 _ds_all.WriteXml(@"C:\inetpub\A05.xml", XmlWriteMode.WriteSchema);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
@@ -575,7 +629,60 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
                     _tempfile = "A05_EN.rpt";
                 }
                 oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
+                #region Set vị trí ảnh
 
+                CrystalDecisions.CrystalReports.Engine.PictureObject _pic01;
+                _pic01 = (CrystalDecisions.CrystalReports.Engine.PictureObject)oRpt.ReportDefinition.Sections[0].ReportObjects["Picture1"];
+                _pic01.Width = 100;
+                _pic01.Height = 100;
+                try
+                {
+                   
+                    Bitmap img = new Bitmap(pDetail.IMG_URL);
+                    try
+                    {
+
+                        double _Const = 6.666666666666;
+                        int _left = 0, _top = 0, _marginleft = 225, _margintop = 3540;
+                        int _h = 600;
+                        double _d1 = (_h - img.Width) / 2;
+                        _d1 = _Const * _d1;
+                        _left = _marginleft + Convert.ToInt32(_d1);
+                        if (_left < 0)
+                        {
+                            _left = _marginleft;
+                        }
+                        _pic01.Left = _left;
+                        // top
+
+                        _d1 = (_h - img.Height) / 2;
+                        _d1 = _Const * _d1;
+                        _top = _margintop + Convert.ToInt32(_d1);
+                        if (_top < 0)
+                        {
+                            _top = _margintop;
+                        }
+                        _pic01.Top = _top;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.LogException(ex);
+                    }
+                    finally
+                    {
+                        img.Dispose();
+                    }
+                }
+                catch (Exception ex)
+                {
+
+
+                }
+
+                System.IO.FileInfo file = new System.IO.FileInfo(pDetail.IMG_URL);
+
+                #endregion
                 if (_ds_all != null)
                 {
                     _ds_all.Tables[0].TableName = "Table1";
@@ -681,11 +788,13 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
                         {
                             app_Detail.Doc_Id_3_Check = item.Isuse;
                             app_Detail.Doc_Id_3 = item.CHAR01;
+                            app_Detail.Doc_Id_302 = item.CHAR02;
                         }
                         else if (item.Document_Id == "A05_04")
                         {
                             app_Detail.Doc_Id_4 = item.CHAR01;
                             app_Detail.Doc_Id_4_Check = item.Isuse;
+                            app_Detail.Doc_Id_402 = item.CHAR02;
                         }
                         else if (item.Document_Id == "A05_05")
                         {
@@ -726,7 +835,17 @@ namespace WebApps.Areas.ChiDanDiaLy.Controllers
                             app_Detail.Doc_Id_11_Check = item.Isuse;
                             app_Detail.Doc_Id_11 = item.CHAR01;
                         }
-                        
+                        else if (item.Document_Id == "A05_12")
+                        {
+                            app_Detail.Doc_Id_12_Check = item.Isuse;
+                            app_Detail.Doc_Id_12 = item.CHAR01;
+                        }
+                        else if (item.Document_Id == "A05_13")
+                        {
+                            app_Detail.Doc_Id_13_Check = item.Isuse;
+                            app_Detail.Doc_Id_13 = item.CHAR01;
+                        }
+
                     }
                 
                 }

@@ -150,7 +150,17 @@
                         </div>
                         <div class="div-search-content">
                             <div>
-                                <input disabled type="text" maxlength="50" id="_txtDangKySo" value="@_App_Detail.SODANGKY" />
+                                <input type="text" maxlength="50" id="_txtDangKySo" value="@_App_Detail.SODANGKY"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-title">
+                            <div>Ngày:</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <input readonly type="text" id="_txtNgayDangKy" maxlength="10" value="@(_App_Detail.NGAYDANGKY == DateTime.MinValue ? "" : _App_Detail.NGAYDANGKY.ToString("dd/MM/yyyy"))" />
                             </div>
                         </div>
                         <div class="div-search-title">
@@ -158,7 +168,7 @@
                         </div>
                         <div class="div-search-content">
                             <div>
-                                <select disabled id="cbo_nuocdangky">
+                                <select id="cbo_nuocdangky" disabled>
                                     <option value="">
                                         None
                                     </option>
@@ -477,7 +487,7 @@
     </fieldset>
 </div>
 
-@Html.Partial("~/Areas/ChiDanDiaLy/Views/A05/_PartialPreview_IU.cshtml")
+@Html.Partial("~/Areas/ChiDanDiaLy/Views/A05/_PartialPreview.cshtml")
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
     </div>

@@ -133,6 +133,16 @@
                                 <input type="text" maxlength="50" id="_txtDangKySo" />
                             </div>
                         </div>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-title">
+                            <div>Ngày:</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <input class="datetimepicker" type="text" id="_txtNgayDangKy" maxlength="10" />
+                            </div>
+                        </div>
                         <div class="div-search-title">
                             <div>Nước:</div>
                         </div>
@@ -476,11 +486,15 @@
             if ($("#cbo_dadk").is(':checked')) {
                 $("#_txtDangKySo").removeAttr("Readonly");
                 $("#cbo_nuocdangky").removeAttr("disabled");
+                $("#_txtNgayDangKy").removeAttr("Readonly");
+                
             } else {
                 $("#_txtDangKySo").val("");
                 $("#_txtDangKySo").attr("Readonly", "true");
                 $("#cbo_nuocdangky").val("");
                 $("#cbo_nuocdangky").attr("disabled", "true");
+                $("#_txtNgayDangKy").val("");
+                $("#_txtNgayDangKy").attr("Readonly", "true");
 
             }
         } catch (e) {
@@ -735,6 +749,7 @@
     function funcGetAppDetail(formData, p_ShowError) {
         try {
             var _txtDangKySo = $("#_txtDangKySo");
+            var _txtNgayDangKy = $("#_txtNgayDangKy");
             var cbo_nuocdangky = $("#cbo_nuocdangky");
             var _txtTCQL_Ten = $("#_txtTCQL_Ten");
             var _txTCQL_DiaChi = $("#_txTCQL_DiaChi");
@@ -758,6 +773,11 @@
                     {
                         showError('Đăng ký số không được để trống');
                         _txtDangKySo.focus();
+                        return false;
+                    }
+                    if (_txtNgayDangKy.val() == "" || _txtNgayDangKy.val() == "__/__/____") {
+                        showError('Ngày đăng ký không được để trống');
+                        _txtNgayDangKy.focus();
                         return false;
                     }
                     if(cbo_nuocdangky.val() == "")
@@ -791,6 +811,7 @@
                 formData.append("pDetail.TRANGTHAIDANGKY", $("#cbo_dadk").val());
                 formData.append("pDetail.SODANGKY", _txtDangKySo.val());
                 formData.append("pDetail.NUOCDANGKY", cbo_nuocdangky.val());
+                formData.append("pDetail.NGAYDANGKY", _txtNgayDangKy.val());
 
             } else
             {
