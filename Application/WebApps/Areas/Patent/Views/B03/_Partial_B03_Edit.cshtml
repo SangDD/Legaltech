@@ -40,7 +40,7 @@
     //
     string check_Type_Evaluator_DDCD = "";
     string check_Type_Evaluator_NTB = "";
-    if (_App_Detail.Type_Evaluator == "CD")
+    if (_App_Detail.Type_Evaluator == "DDCD")
     {
         check_Type_Evaluator_DDCD = "checked";
     }
@@ -97,7 +97,7 @@
     </div>
 
 </div>
-<input type="hidden" id="txtAppCode" value='@ViewBag.AppCode' />
+<input type="hidden" id="txtAppCode" value='@_AppHeaderInfo.Appcode' />
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
@@ -315,6 +315,16 @@
             </div>
         </div>
     </fieldset>
+</div>
+@Html.Partial("~/Areas/Patent/Views/B03/_PartialPreview_IU.cshtml")
+<div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
+    <div class="dpop-preview" id="dpop-preview">
+    </div>
+</div>
+
+<div id="divWrapperPopUpFee" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divPopUpFee">
+    </div>
 </div>
 <script>
     $(document).ready(function () {
@@ -603,7 +613,7 @@
                 }
             }
             if ($("#rdChuDon").is(':checked')) {
-                formData.append("pDetail.Type_Evaluator", "CD");
+                formData.append("pDetail.Type_Evaluator", "DDCD");
             } else if ($("#rdNguoithuba").is(':checked')) {
                 formData.append("pDetail.Type_Evaluator", "NTB");
             }
