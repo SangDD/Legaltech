@@ -207,12 +207,6 @@
             return false;
         }
 
-        // lấy thông tin bộ ảnh
-        reponse = funcGetTenTaiLieuBoAnh(formData, _showerror);
-        if (reponse == false) {
-            return false;
-        }
-
         $.ajax({
             url: "/geographical-indication/getFee",
             type: 'POST',

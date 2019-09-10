@@ -19,7 +19,7 @@ namespace WebApps.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resource {
@@ -264,6 +264,132 @@ namespace WebApps.Resources {
         public static string A02_TITLE {
             get {
                 return ResourceManager.GetString("A02_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bản đồ khu vực địa lý gồm.
+        /// </summary>
+        public static string A05_BanDo {
+            get {
+                return ResourceManager.GetString("A05_BanDo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bản mô tả tính chất/chất lượng/danh tiếng của sản phẩm gồm.
+        /// </summary>
+        public static string A05_BanMota {
+            get {
+                return ResourceManager.GetString("A05_BanMota", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chỉ dẫn địa lý chưa được đăng ký.
+        /// </summary>
+        public static string A05_ChuaDK {
+            get {
+                return ResourceManager.GetString("A05_ChuaDK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chỉ dẫn địa lý đã được bảo hộ ở nước xuất xứ, cụ thể là.
+        /// </summary>
+        public static string A05_DaDK {
+            get {
+                return ResourceManager.GetString("A05_DaDK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đăng ký số.
+        /// </summary>
+        public static string A05_DKSo {
+            get {
+                return ResourceManager.GetString("A05_DKSo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngày.
+        /// </summary>
+        public static string A05_Ngay {
+            get {
+                return ResourceManager.GetString("A05_Ngay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nước.
+        /// </summary>
+        public static string A05_Nuoc {
+            get {
+                return ResourceManager.GetString("A05_Nuoc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tài liệu chứng minh CDĐL đang được bảo hộ ở nước xuất xứ, gồm.
+        /// </summary>
+        public static string A05_TaiLieuChungMinh {
+            get {
+                return ResourceManager.GetString("A05_TaiLieuChungMinh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên sản phẩm.
+        /// </summary>
+        public static string A05_TenSP {
+            get {
+                return ResourceManager.GetString("A05_TenSP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SẢN PHẨM MANG CHỈ DẪN ĐỊA LÝ.
+        /// </summary>
+        public static string A05_TinhChat {
+            get {
+                return ResourceManager.GetString("A05_TinhChat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TÊN CHỈ DẪN ĐỊA LÝ.
+        /// </summary>
+        public static string A05_TITILE {
+            get {
+                return ResourceManager.GetString("A05_TITILE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TỔ CHỨC QUẢN LÝ CHỈ DẪN ĐỊA LÝ.
+        /// </summary>
+        public static string A05_ToChucQuanLy {
+            get {
+                return ResourceManager.GetString("A05_ToChucQuanLy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tóm tắt tính chất sản phẩm.
+        /// </summary>
+        public static string A05_TomTat {
+            get {
+                return ResourceManager.GetString("A05_TomTat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tóm tắt tính chất/chất lượng đặc thù và/hoặc danh tiếng của sản phẩm.
+        /// </summary>
+        public static string A05_TomTatTitle {
+            get {
+                return ResourceManager.GetString("A05_TomTatTitle", resourceCulture);
             }
         }
         

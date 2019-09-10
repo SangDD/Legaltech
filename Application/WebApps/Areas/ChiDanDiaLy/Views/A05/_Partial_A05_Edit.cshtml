@@ -64,7 +64,7 @@
     }
 
     decimal _max_Model_Id = Lst_Other_Master.Count + 1;
-    string urlMauNhanHieu = "/Content/icons/logo.jpg";
+    string urlMauNhanHieu = "/Content/images/Noimg.jpg";
     if (!string.IsNullOrEmpty(_App_Detail.IMG_URL))
     {
         urlMauNhanHieu = _App_Detail.IMG_URL.Replace("~", "");
@@ -121,7 +121,7 @@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
 
         <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "TÊN CHỈ DẪN ĐỊA LÝ")
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", Resource.A05_TITILE)
 
             <div class="class_full_div_input_extent">
                 <div class="class_left_40">
@@ -147,13 +147,13 @@
                         <div class="div-search-content">
                             <div class="div-radio">
                                 <input   type="radio" name="0_TRANGTHAIDANGKY" class="classNhanHieu" value="DADK" id="cbo_dadk" onclick="ChangeTrangThaiDK()" />
-                                <label>Chỉ dẫn địa lý đã được bảo hộ ở nước xuất xứ, cụ thể là:</label>
+                                <label>@Resource.A05_DaDK:</label>
                             </div>
                         </div>
                     </div>
                     <div class="div-search-ad">
                         <div class="div-search-title">
-                            <div>Đăng ký số:</div>
+                            <div>@Resource.A05_DKSo:</div>
                         </div>
                         <div class="div-search-content">
                             <div>
@@ -163,7 +163,7 @@
                     </div>
                     <div class="div-search-ad">
                         <div class="div-search-title">
-                            <div>Ngày:</div>
+                            <div>@Resource.A05_Ngay:</div>
                         </div>
                         <div class="div-search-content">
                             <div>
@@ -171,7 +171,7 @@
                             </div>
                         </div>
                         <div class="div-search-title">
-                            <div>Nước:</div>
+                            <div>@Resource.A05_Nuoc:</div>
                         </div>
                         <div class="div-search-content">
                             <div>
@@ -198,7 +198,7 @@
                         <div class="div-search-content">
                             <div class="div-radio">
                                 <input type="radio" name="0_TRANGTHAIDANGKY" class="classNhanHieu" value="CHUADK" id="cbo_chuadk" onclick="ChangeTrangThaiDK()" />
-                                <label>Chỉ dẫn địa lý chưa được đăng ký</label>
+                                <label>@Resource.A05_ChuaDK</label>
                             </div>
                         </div>
                     </div>
@@ -239,7 +239,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                TỔ CHỨC QUẢN LÝ CHỈ DẪN ĐỊA LÝ
+                <label>@Resource.A05_ChuaDK</label>
             </div>
         </div>
 
@@ -296,13 +296,13 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                SẢN PHẨM MANG CHỈ DẪN ĐỊA LÝ
+                @Resource.A05_TinhChat
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Tên sản phẩm: <i class="redspan">(*)</i></div>
+                <div>@Resource.A05_TenSP: <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -313,7 +313,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div style="width:160px" title="Tóm tắt tính chất/chất lượng đặc thù và/hoặc danh tiếng của sản phẩm">Tóm tắt tính chất sản phẩm:</div>
+                <div style="width:160px" title="@Resource.A05_TomTatTitle">@Resource.A05_TomTat:</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -355,7 +355,7 @@
         @* 2  Bản mô tả tính chất/chất lượng/danh tiếng*@
         @{
             string _doc_id2 = "A05_02";
-            string _id2 = _doc_id2 + "|Doc_02|0|" + "Bản mô tả tính chất/chất lượng/danh tiếng của sản phẩm gồm" + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.TM2B_SoBan;
+            string _id2 = _doc_id2 + "|Doc_02|0|" + Resource.A05_BanMota + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.TM2B_SoBan;
             string _value2 = "";
             if (dic_appDoc.ContainsKey(_doc_id2))
             {
@@ -372,7 +372,7 @@
         @{
 
             string _doc_id3 = "A05_03";
-            string _id3 = _doc_id3 + "|Doc_03|0|" + "Bản đồ khu vực địa lý gồm" + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.TM2B_SoBan;
+            string _id3 = _doc_id3 + "|Doc_03|0|" + Resource.A05_BanDo + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.TM2B_SoBan;
             string _value3 = "";
             if (dic_appDoc.ContainsKey(_doc_id3))
             {
@@ -401,7 +401,7 @@
         @* 5 Tài liệu chứng minh CDĐL đang được bảo hộ ở nước xuất xứ, *@
         @{
             string _doc_id5 = "A05_05";
-            string _id5 = _doc_id5 + "|Doc_05|0|" + "Tài liệu chứng minh CDĐL đang được bảo hộ ở nước xuất xứ, gồm" + " |" + Resource.TM2B_SoTrang + "|1";
+            string _id5 = _doc_id5 + "|Doc_05|0|" +  Resource.A05_TaiLieuChungMinh + " | " + Resource.TM2B_SoTrang + "|1";
             string _value5 = dic_appDoc[_doc_id5].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id5].CHAR01 + "|" + dic_appDoc[_doc_id5].Url_Hardcopy;
             string _model5 = _id5 + ";" + _value5;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model5)
