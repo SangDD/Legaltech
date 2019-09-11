@@ -321,6 +321,12 @@
     <Compile Include="Report\Billing.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Report\C07.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>C07.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Report\TM_04NHLogoChu.cs">
       <DependentUpon>TM_04NHLogoChu.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1479,6 +1485,10 @@
     <EmbeddedResource Include="Report\A05.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>A05.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\C07.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>C07.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Report\TM_04NHLogoChu_EN.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
