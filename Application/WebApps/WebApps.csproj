@@ -192,6 +192,8 @@
     <Compile Include="Areas\Contact\Controllers\ContactController.cs" />
     <Compile Include="Areas\DaiDienSHCN\Controllers\DDSHCNController.cs" />
     <Compile Include="Areas\DaiDienSHCN\DaiDienSHCNAreaRegistration.cs" />
+    <Compile Include="Areas\DKQT\Controllers\C07Controller.cs" />
+    <Compile Include="Areas\DKQT\DKQTAreaRegistration.cs" />
     <Compile Include="Areas\Home\Controllers\HomeController.cs" />
     <Compile Include="Areas\Home\Controllers\SearchController.cs" />
     <Compile Include="Areas\Home\Controllers\WikiController.cs" />
@@ -317,6 +319,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Report\Billing.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Report\C07.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>C07.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Report\TM_04NHLogoChu.cs">
@@ -1478,6 +1486,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>A05.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report\C07.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>C07.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\TM_04NHLogoChu_EN.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TM_04NHLogoChu_EN.cs</LastGenOutput>
@@ -1916,6 +1928,7 @@
     <Content Include="Areas\Patent\Views\B03\_Partial_B03_Edit.cshtml" />
     <Content Include="Areas\Home\Views\Shared\_SearchDataSearch.cshtml" />
     <Content Include="Areas\Patent\Views\B03\_PartialPreview_IU.cshtml" />
+    <Content Include="Areas\DKQT\Views\web.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <None Include="Properties\PublishProfiles\HungTDLap.pubxml" />
@@ -2263,6 +2276,9 @@
     <Folder Include="Areas\Contact\Models\" />
     <Folder Include="Areas\DaiDienSHCN\Models\" />
     <Folder Include="Areas\DaiDienSHCN\Views\Shared\" />
+    <Folder Include="Areas\DKQT\Models\" />
+    <Folder Include="Areas\DKQT\Views\C07\" />
+    <Folder Include="Areas\DKQT\Views\Shared\" />
     <Folder Include="Areas\Home\Models\" />
     <Folder Include="Areas\Home\Views\LegalHome\" />
     <Folder Include="Areas\IndustrialDesign\Models\" />
