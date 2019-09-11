@@ -108,7 +108,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input value="@b03_info.App_Detail_Number" type="text" maxlength="200" id="txtApp_Detail_Number" />
+                        <input value="@b03_info.App_Detail_Number" type="text" maxlength="200" id="txtApp_Detail_Number" onblur="viewfillTT();"/>
                     </div>
                 </div>
             </div>
@@ -121,8 +121,8 @@
             </div>
         </div>
         @*<div id="div_PartialThongTinChuDon">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
-        </div>*@
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+            </div>*@
         <div id="div_PartialThongTinChuDon">
             <div class="div-search-ad">
                 <div class="div-search-title">
@@ -194,8 +194,9 @@
         </div>
 
         @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
-
+        <div id="form_DDCD">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
+        </div>
         @* end 2 *@
 
         <div class="divCover cls_form_title">
@@ -404,7 +405,7 @@
                 return false;
             }
 
-           
+
 
             //Lấy thông tin detail
             reponse = funcGetAppDetail(formData, ptype);
@@ -412,13 +413,13 @@
                 return false;
             }
 
-           
+
 
             reponse = funcGetCamKetChuDon(formData);
             if (reponse == false) {
                 return false;
             }
-          
+
 
             $.ajax({
                 url: '/lg-patentB03/register',
@@ -643,10 +644,31 @@
             formData.append("pDetail.Phone_Evaluator", v_dienthoai);
             formData.append("pDetail.Fax_Evaluator", v_fax);
             formData.append("pDetail.Email_Evaluator", v_email);
-           
+
         } catch (ex) {
             console.log(ex);
         }
     }
-
+    function viewfillTT() {
+        try {
+            
+            $.ajax({
+                url: '/lg-patentB03/fillTT_Header',
+                type: 'POST',
+                data: {
+                    appno: $("#txtApp_Detail_Number").val()
+                },
+                async: true, cache: false, traditional: true,
+                success: function (data) {
+                    $("#form_DDCD").html(data);
+                },
+                error: function (e) {
+                   
+                    console.log(e);
+                }
+            });
+        } catch (ex) {
+            console.log(ex);
+        }
+    }
 </script>

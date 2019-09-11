@@ -81,6 +81,14 @@ namespace WebApps.Areas.Patent.Controllers
 
                     pInfo.Created_Date = CreatedDate;
                     pInfo.Send_Date = DateTime.Now;
+
+                    // lấy dữ liệu được fill lên từ A01
+                    // get dữ liệu A01 qua code
+                    string casecode = pDetail.App_Detail_Number;
+                    ApplicationHeaderInfo _applicationheaderinfo = objBL.GetApp_By_Case_Code(casecode);
+                   
+
+
                     pAppHeaderID = objBL.AppHeaderInsert(pInfo, ref p_case_code);
                     if (pReturn < 0)
                         goto Commit_Transaction;
@@ -510,6 +518,25 @@ namespace WebApps.Areas.Patent.Controllers
             {
                 Logger.LogException(ex);
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+            }
+        }
+
+
+        [Route("fillTT_Header")]
+        [HttpPost]
+        public ActionResult FillTT_Header(string appno)
+        {
+            try
+            {
+                Application_Header_BL objBL = new Application_Header_BL();
+                ApplicationHeaderInfo _applicationheaderinfo = objBL.GetMasterByAppNo(appno,"","");
+                ViewBag.objAppHeaderInfo = _applicationheaderinfo;
+                return PartialView("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml","2");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2");
             }
         }
     }
