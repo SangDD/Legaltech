@@ -927,7 +927,7 @@
             if (fileLogo != undefined && fileLogo != null && fileLogo[0].files.length > 0) {
                 formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
             }
-            else if(logORG == "") {
+            else if(logORG == "" && p_ShowError == 1) {
                 showError('Chưa upload ảnh chỉ dẫn địa lý');
                 $("#pfile_6_rdoMauNhanHieu").focus();
                 return false;

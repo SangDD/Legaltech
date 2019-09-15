@@ -760,12 +760,11 @@
             var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
             if (fileLogo != undefined && fileLogo != null && fileLogo[0].files.length > 0) {
                 formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
-            } else {
+            } else if (p_ShowError == 1) {
                 showError('Chưa upload ảnh chỉ dẫn địa lý');
                 $("#pfile_6_rdoMauNhanHieu").focus();
                 return false;
-            }
-         
+           }
             if (p_ShowError == 1) {
                 if ($("#cbo_dadk").is(':checked')) {
                     if (_txtDangKySo.val() == "")
