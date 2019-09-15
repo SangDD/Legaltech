@@ -10,7 +10,7 @@
 
 <div id="toolbox">
     <ul>
-        <li class="toTop" style=""><a href="#top" title="Lên đầu trang"><i style=" font-size: 27px; color: green;" class="fa fa-home"></i></a></li>
+        <li class="toTop" style=""><a href="#top" title="Lên đầu trang"><i style="font-size: 27px; color: green;" class="fa fa-home"></i></a></li>
         <li class="email"><a href="javascript:;" title="Phí"><i class="fas fa-dollar-sign" size="9x" target="_blank" onclick="return funcPreViewFee();" style="font-size: 27px;margin-left: 8px;color: green;"></i></a></li>
 
         <li class="email">
@@ -38,7 +38,7 @@
 
 <script>
 
-    function funGetData_Preview_UI_B03(url) {
+    function funGetData_Preview_UI_E01(url) {
         try {
             
             var formData = new FormData();
@@ -46,32 +46,18 @@
             formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
             formData.append("pInfo.View_Translate", 0);
 
-           
-            var v_AppCode = $("#txtAppCode").val();
-            if (v_AppCode === "") {
-                $('#txtAppCode').focus().val('');
-                showError('@Html.Raw(Resource.TM3B_ChonLoaiDonDK)');
+            //Thông tin chủ đơn
+            if (funcThongTinChuDon_Exp(formData, "1") != true) {
                 return false;
             }
+
+            var v_AppCode = $("#txtAppCode").val();
+            
             // đại diện chủ đơn
             formData.append("pInfo.Appcode", v_AppCode);
-            if (funcThongTinDaiDienChuDon_Exp(formData, "2") != true) {
-                return false;
-            }
-            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-           
-
-            formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
             
-
             //Lấy thông tin tài liệu có trong đơn
             reponse = funGetDocumentFile(formData);
-            if (reponse == false) {
-                return false;
-            }
-
-            //Lấy thông tin detail
-            reponse = funcGetAppDetail(formData, 1);
             if (reponse == false) {
                 return false;
             }
@@ -82,7 +68,7 @@
             }
             
             $.ajax({
-                url: '/lg-patentB03/ket_xuat_file_IU',
+                url: '/lg-patentE01/ket_xuat_file_IU',
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -116,38 +102,20 @@
     }
 
     function funcPreViewApplication() {
-        var preturn = funGetData_Preview_UI_B03("/lg-patentB03/ket_xuat_file_IU");
+        var preturn = funGetData_Preview_UI_E01("/lg-patentE01/ket_xuat_file_IU");
         if (preturn == true || preturn == undefined) {
-            OpenPreview("/lg-patentB03/Pre-View");
+            OpenPreview("/lg-patentE01/Pre-View");
         }
     }
 
     function funcPreViewFee() {
        
         var formData = new FormData();
-        formData.append("pDetail.Appcode", $("#txtAppCode").val());
-        formData.append("pDetail.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
-
-
-
-        var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-        formData.append("pDetail.Rep_Master_Type", v_RepMasterType);
-
-        //Lấy thông tin tài liệu có trong đơn
-        reponse = funGetDocumentFile(formData);
-        if (reponse == false) {
-            return false;
-        }
-
-
-        //Lấy thông tin detail
-        reponse = funcGetAppDetail(formData, 1);
-        if (reponse == false) {
-            return false;
-        }
-
+        formData.append("pInfo.Appcode", $("#txtAppCode").val());
+        formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
+     
         $.ajax({
-            url: "/lg-patentB03/getFee",
+            url: "/lg-patentE01/getFee",
             type: 'POST',
             data: formData,
             dataType: "json",

@@ -1864,7 +1864,101 @@ namespace WebApps.CommonFunction
                 Logger.LogException(ex);
             }
         }
+
+        public static void Prepare_Data_Export_E01(ref E01_Info_Export app_Detail, ApplicationHeaderInfo applicationHeaderInfo,
+      List<AppDocumentInfo> appDocumentInfos, List<AppFeeFixInfo> _lst_appFeeFixInfos)
+        {
+            try
+            {
+                // copy Header
+                E01_Info_Export.CopyAppHeaderInfo(ref app_Detail, applicationHeaderInfo);
+                #region Tài liệu có trong đơn
+                foreach (AppDocumentInfo item in appDocumentInfos)
+                {
+                    if (item.Document_Id == "E01_00")
+                    {
+                        app_Detail.Doc_Id_001 = item.CHAR01;
+                        app_Detail.Doc_Id_002 = item.CHAR02;
+                        app_Detail.Doc_Id_00_Check = item.Isuse;
+                    }
+                    else if (item.Document_Id == "E01_01")
+                    {
+                        app_Detail.Doc_Id_011 = item.CHAR01;
+                        app_Detail.Doc_Id_012 = item.CHAR02;
+
+                        app_Detail.Doc_Id_01_Check = item.Isuse;
+                    }
+                    else if (item.Document_Id == "E01_02")
+                    {
+                        app_Detail.Doc_Id_021 = item.CHAR01;
+                        app_Detail.Doc_Id_022 = item.CHAR02;
+                        app_Detail.Doc_Id_02_Check = item.Isuse;
+                    }
+                    else if (item.Document_Id == "E01_03")
+                    {
+                        app_Detail.Doc_Id_031 = item.CHAR01;
+                        app_Detail.Doc_Id_032 = item.CHAR02;
+                        app_Detail.Doc_Id_03_Check = item.Isuse;
+                    }
+                    else if (item.Document_Id == "E01_04")
+                    {
+                        app_Detail.Doc_Id_041 = item.CHAR01;
+                        app_Detail.Doc_Id_042 = item.CHAR02;
+                        app_Detail.Doc_Id_04_Check = item.Isuse;
+                    }
+                }
+
+
+
+                #endregion
+
+                #region Fee
+                if (_lst_appFeeFixInfos.Count > 0)
+                {
+                    foreach (var item in _lst_appFeeFixInfos)
+                    {
+                        if (item.Fee_Id == 1)
+                        {
+                            app_Detail.Fee_Id_1 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
+                            app_Detail.Fee_Id_1_Check = item.Isuse;
+
+                            app_Detail.Fee_Id_1_Val = item.Amount.ToString("#,##0.##");
+                        }
+                        else if (item.Fee_Id == 2)
+                        {
+                            app_Detail.Fee_Id_2 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
+                            app_Detail.Fee_Id_2_Check = item.Isuse;
+                            app_Detail.Fee_Id_2_Val = item.Amount.ToString("#,##0.##");
+                        }
+                        else if (item.Fee_Id == 3)
+                        {
+                            app_Detail.Fee_Id_3 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
+                            app_Detail.Fee_Id_3_Check = item.Isuse;
+                            app_Detail.Fee_Id_3_Val = item.Amount.ToString("#,##0.##");
+                        }
+                        else if (item.Fee_Id == 4)
+                        {
+                            app_Detail.Fee_Id_4 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
+                            app_Detail.Fee_Id_4_Check = item.Isuse;
+                            app_Detail.Fee_Id_4_Val = item.Amount.ToString("#,##0.##");
+                        }
+
+                        app_Detail.Total_Fee = app_Detail.Total_Fee + item.Amount;
+                        app_Detail.Total_Fee_Str = app_Detail.Total_Fee.ToString("#,##0.##");
+                    }
+                }
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+        }
+
     }
+
+
+
 
 
     public enum LangCode
