@@ -16,7 +16,7 @@ namespace WebApps.Areas.Patent.Controllers
         [Route("register/{id}")]
         public ActionResult Index()
         {
-            return View();
+          return PartialView("~/Areas/Patent/Views/E01/_Partial_E01.cshtml");
         }
     }
 }

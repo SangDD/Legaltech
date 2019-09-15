@@ -1,7 +1,48 @@
-﻿
+﻿@using Common.CommonData
+@using WebApps.CommonFunction;
+@using BussinessFacade.ModuleMemoryData
+@using WebApps.Resources;
+@using BussinessFacade.ModuleMemoryData
+@using ObjectInfos
+@using WebApps.Resources;
 @{
-    ViewBag.Title = "_Partial_E01";
+    ViewBag.Title = "yêu cầu cấp chứng chỉ hành nghề dịch vụ đại diện sở hữu công nghiệp";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+    string _App_No = "";
+    if (ViewBag.App_No != null)
+    {
+        _App_No = (string)ViewBag.App_No;
+    }
+
+    string language = AppsCommon.GetCurrentLang();
+    var clstAppClassShortSuggest = new List<SuggestInfo>();
+    foreach (var item in MemoryData.clstAppClassSuggest)
+    {
+        var pShortInfo = new SuggestInfo("", "");
+
+        if (language == Language.LangVI)
+        {
+            if (!string.IsNullOrEmpty(item.name) && !string.IsNullOrEmpty(item.value))
+            {
+                pShortInfo = new SuggestInfo(item.name.Replace('/', ' '), item.value);
+            }
+        }
+        else
+        {
+            if (!string.IsNullOrEmpty(item.name_en) && !string.IsNullOrEmpty(item.value))
+            {
+                pShortInfo = new SuggestInfo(item.name_en.Replace('/', ' '), item.value);
+            }
+        }
+        clstAppClassShortSuggest.Add(pShortInfo);
+    }
+
+    var b03_info = new B03_Info();
+    if (ViewBag.B03_Info != null)
+    {
+        b03_info = ViewBag.B03_Info;
+    }
+
+    List<Sys_Document_Info> _lst_doc = WebApps.CommonFunction.AppsCommon.Sys_Document_GetBy_Casecode("E01");
 }
-
-<h2>_Partial_E01</h2>
-
