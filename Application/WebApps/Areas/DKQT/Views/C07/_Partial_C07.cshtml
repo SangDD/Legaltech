@@ -33,7 +33,7 @@
     {
         urlMauNhanHieu = _Logourl.Replace("~", "");
     }
-
+    List<Sys_Document_Info> _lst_doc = WebApps.CommonFunction.AppsCommon.Sys_Document_GetBy_Casecode(ViewBag.AppCode);
 
 }
 
@@ -93,7 +93,7 @@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
 
         <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", Resource.C07_TITILE)
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "Đăng ký nhãn hiệu chuyển đổi")
 
             <div class="class_full_div_input_extent">
                 <div class="class_left_40">
@@ -292,120 +292,15 @@
             </div>
         </div>
 
-        
-
-        <div class="divCover cls_form_title">
-            <b>@Resource.TaiLieuToiThieu.ToUpper()</b>
-        </div>
-        
-
-        @* id doc | id của check box | level | lable | lable 2 | is upload *@
-        @* 1.  Tờ khai, gồm.......trang   x .......bản *@
-        @{
-            string _doc_id1 = "C07_01";
-            string _model1 = _doc_id1 + "|Doc_01|0|" + Resource.ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.TM2B_SoBan;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model1)
+         
+        @foreach (Sys_Document_Info item in _lst_doc)
+        {
+            string _model = item.Doc_Id + "|" + item.Check_Box_Id + "|" + item.Doc_Level + "|" + item.Content_1 + "|" + item.Content_2 + "|" + item.Is_Upload + "|" + item.Width + "|" + item.Content_3;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
         }
 
-
-        @* 2  Bản mô tả tính chất/chất lượng/danh tiếng*@
-        @{
-            string _doc_id2 = "C07_02";
-            string _model2 = _doc_id2 + "|Doc_02|0|" + Resource.C07_BanMota + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.TM2B_SoBan;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model2)
-        }
-       @* 3 Bản đồ khu vực địa lý gồm.......trang x .......bản*@
-        @{
-            string _doc_id3 = "C07_03";
-            string _model3 = _doc_id3 + "|Doc_03|0|" + Resource.C07_BanDo + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.TM2B_SoBan;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model3)
-        }
-        @* 4  Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ *@
-        @{
-            string _doc_id4 = "C07_04";
-            string _model4 = _doc_id4 + "|Doc_04|0|" + Resource.BanSaoChungTu + "||1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)
-        }
-     
-  
-        <div class="divCover cls_form_title">
-            @*<img src="/Content/icons/category.png">*@
-            <div class="cls_form_header">@WebApps.Resources.Resource.lblTaiLieuKhac.ToUpper()</div>
-            <div style="display: inline-block;  padding-top: 5px; padding-left: 10px;">
-                <input type="radio" name="ck_TaiLieu_Khac" id="ck_TaiLieu_Khac" onchange="onChangeTLKhac()">
-                <label>@WebApps.Resources.Resource.lblYes</label>
-            </div>
-
-            <div style="display: inline-block;padding-left: 5px;">
-                <input type="radio" name="ck_TaiLieu_Khac" id="ck_TaiLieu_Khac_No" onchange="onChangeTLKhac()" checked />
-                <label>@WebApps.Resources.Resource.lblNo</label>
-            </div>
-        </div>
-        <div id="divTLKhac" class="clssDisplaynone">
-  
-
-           
-            @* 5 Tài liệu chứng minh CDĐL đang được bảo hộ ở nước xuất xứ, *@
-            @{
-                string _doc_id5 = "C07_05";
-                string _model5 = _doc_id5 + "|Doc_05|0|" + Resource.C07_TaiLieuChungMinh + " |" + Resource.TM2B_SoTrang + "|1";
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model5)
-            }
-
-            @* 6 bản dịch tiếng việt  *@
-            @{
-                string _doc_id6 = "C07_06";
-                string _model6 = _doc_id6 + "|Doc_06|0|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model6)
-            }
-            @* 7 Giấy ủy quyền bằng tiếng *@
-            @{
-                string _doc_id7 = "C07_07";
-                string _model7 = _doc_id7 + "|Doc_07|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|" + "Tiếng" + "|1";
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model7)
-            }
-
-            @* 8  Bản dịch tiếng Việt, gồm *@
-            @{
-                string _doc_id8 = "C07_08";
-                string _model8 = _doc_id8 + "|Doc_08|1|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model8)
-            }
-
-            @* 9 Bản gốc  *@
-            @{
-                string _doc_id09 = "C07_09";
-                string _model09 = _doc_id09 + "|Doc_09|1|" + Resource.TM2B_BanGoc + "||1";
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model09)
-            }
-            @* 10 Bản sao  *@
-            @{
-                string _doc_id10 = "C07_10";
-                string _model10 = _doc_id10 + "|Doc_10|1|" + Resource.TM2B_BanSao + "||1";
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model10)
-            }
-            @* 11 Bản sao  > Bản gốc sẽ nộp sau *@
-            @{
-                string _doc_id11 = "C07_11";
-                string _model11 = _doc_id11 + "|Doc_11|2|" + Resource.TM2B_BanGocSeNopSau + "||1";
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model11)
-            }
-
-            @* 12 Bản sao  > Bản gốc đã nộp theo đơn *@
-            @{
-                string _doc_id12 = "C07_12";
-                string _model12 = _doc_id12 + "|Doc_12|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|1";
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model12)
-            }
-              
-            @* 13  có tài liệu khác *@
-            @{
-                string _doc_id13 = "C07_13";
-                string _model13 = _doc_id13 + "|Doc_13|0|" + Resource.CoTaiLieuKhac + "||0";
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model13)
-            }
-
-        </div>
+          
+ 
 
         @*TÀI LIỆU KHÁC*@
         @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others.cshtml")
@@ -427,7 +322,7 @@
 @Html.Partial("~/Areas/DKQT/Views/C07/_PartialPreview_IU.cshtml")
 
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
-    <div class="dpop-preview" id="dpop-preview">
+    <div class="dpop-preview" id="dpop-preview"> 
     </div>
 </div>
 

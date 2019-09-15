@@ -44,7 +44,7 @@ namespace WebApps.Areas.DKQT.Controllers
                 {
                     AppCode = RouteData.Values["id"].ToString().ToUpper();
                 }
-                ViewBag.AppCode = AppCode;
+                ViewBag.AppCode = AppCode.ToUpper();
                 ViewBag.TreeTitle = "Số hình ảnh công bố";
                 ViewBag.TreeLevel = 1;// upload ảnh chỉ có  cấp 
                 return PartialView("~/Areas/DKQT/Views/C07/_Partial_C07.cshtml");
