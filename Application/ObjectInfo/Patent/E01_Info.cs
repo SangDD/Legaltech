@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ObjectInfos.Patent
+namespace ObjectInfos
 {
-    class E01_Info : ApplicationHeaderInfo
+    public class E01_Info : ApplicationHeaderInfo
     {
         public E01_Info()
         {
