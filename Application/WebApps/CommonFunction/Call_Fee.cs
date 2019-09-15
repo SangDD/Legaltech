@@ -2493,6 +2493,7 @@ namespace WebApps.CommonFunction
                 AppFeeFixInfo _AppFeeFixInfo = new AppFeeFixInfo();
                 _AppFeeFixInfo.Fee_Id = 1;
                 _AppFeeFixInfo.Level = 1;
+                _AppFeeFixInfo.Number_Of_Patent = 1;
                 string _keyFee = pheader.Appcode + "_" + _AppFeeFixInfo.Fee_Id.ToString();
                
 
@@ -2515,6 +2516,7 @@ namespace WebApps.CommonFunction
                 _AppFeeFixInfo = new AppFeeFixInfo();
                 _AppFeeFixInfo.Fee_Id = 2;
                 _AppFeeFixInfo.Level = 1;
+                _AppFeeFixInfo.Number_Of_Patent = 1;
                 _keyFee = pheader.Appcode + "_" + _AppFeeFixInfo.Fee_Id.ToString();
 
 
@@ -2537,6 +2539,7 @@ namespace WebApps.CommonFunction
                 _AppFeeFixInfo = new AppFeeFixInfo();
                 _AppFeeFixInfo.Fee_Id = 3;
                 _AppFeeFixInfo.Level = 1;
+                _AppFeeFixInfo.Number_Of_Patent = 1;
                 _keyFee = pheader.Appcode + "_" + _AppFeeFixInfo.Fee_Id.ToString();
 
 
@@ -2558,6 +2561,7 @@ namespace WebApps.CommonFunction
                 _AppFeeFixInfo = new AppFeeFixInfo();
                 _AppFeeFixInfo.Fee_Id = 4;
                 _AppFeeFixInfo.Level = 1;
+                _AppFeeFixInfo.Number_Of_Patent = 1;
                 _keyFee = pheader.Appcode + "_" + _AppFeeFixInfo.Fee_Id.ToString();
 
 
