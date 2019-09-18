@@ -191,16 +191,16 @@ namespace WebApps.Areas.Patent.Controllers
                 List<E01_Info_Export> _lst = new List<E01_Info_Export>();
 
                 string p_appCode = "E01_Preview";
-                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B03_VN_" + _datetimenow + ".pdf");
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "E01_VN_" + _datetimenow + ".pdf");
                 if (language == Language.LangVI)
                 {
-                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B03_VN_" + _datetimenow + ".pdf");
-                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "B03_VN_" + _datetimenow + ".pdf";
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "E01_VN_" + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "E01_VN_" + _datetimenow + ".pdf";
                 }
                 else
                 {
-                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "B03_EN_" + _datetimenow + ".pdf");
-                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "B03_EN_" + _datetimenow + ".pdf";
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "E01_EN_" + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "E01_EN_" + _datetimenow + ".pdf";
                 }
 
                 E01_Info_Export _E01_Info_Export = new E01_Info_Export();
@@ -213,13 +213,13 @@ namespace WebApps.Areas.Patent.Controllers
 
                 _lst.Add(_E01_Info_Export);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<E01_Info_Export>(_lst, false);
-                //_ds_all.WriteXml(@"C:\inetpub\A01.xml", XmlWriteMode.WriteSchema);
+                //_ds_all.WriteXml(@"D:\E01.xml", XmlWriteMode.WriteSchema);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
-                string _tempfile = "B03.rpt";
+                string _tempfile = "E01.rpt";
                 if (language == Language.LangEN)
                 {
-                    _tempfile = "B03_EN.rpt";
+                    _tempfile = "E01_EN.rpt";
                 }
                 oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
 
