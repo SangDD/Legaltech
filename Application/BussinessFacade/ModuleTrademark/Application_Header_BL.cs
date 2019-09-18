@@ -1,6 +1,7 @@
 ﻿using Common;
 using DataAccess.ModuleTrademark;
 using ObjectInfos;
+using ObjectInfos.ModuleTrademark;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -282,6 +283,32 @@ namespace BussinessFacade.ModuleTrademark
                 return null;
             }
         }
+
+        public ApplicationHeaderInfo GetAllByID(decimal p_app_header_id, string p_language_code,
+           ref ApplicationHeaderInfo applicationHeaderInfo,
+           ref List<AppDocumentInfo> appDocumentInfos, ref List<AppFeeFixInfo> appFeeFixInfos)
+        {
+            try
+            {
+                Application_Header_DA _da = new Application_Header_DA();
+                DataSet dataSet = _da.GetAllByID(p_app_header_id, p_language_code);
+                ApplicationHeaderInfo _Info = CBO<ApplicationHeaderInfo>.FillObjectFromDataSet(dataSet);
+                if (dataSet != null && dataSet.Tables.Count == 4)
+                {
+                    applicationHeaderInfo = CBO<ApplicationHeaderInfo>.FillObjectFromDataTable(dataSet.Tables[1]);
+                    appDocumentInfos = CBO<AppDocumentInfo>.FillCollectionFromDataTable(dataSet.Tables[2]);
+                    appFeeFixInfos = CBO<AppFeeFixInfo>.FillCollectionFromDataTable(dataSet.Tables[3]);
+                }
+
+                return _Info;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new ApplicationHeaderInfo();
+            }
+        }
+
     }
 
     public class AppClassInfoBL
