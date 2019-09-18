@@ -164,6 +164,27 @@ namespace WebApps.Areas.Patent.Controllers
 
             //return PartialView("~/Areas/Patent/Views/A01/_PartialTableListFees.cshtml");
         }
+
+        [HttpPost]
+        [Route("getFeeView_View")]
+        public ActionResult GetFee_View(ApplicationHeaderInfo pInfo)
+        {
+            try
+            {
+                AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
+                List<AppFeeFixInfo> _lstFeeFix = _AppFeeFixBL.GetByCaseCode(pInfo.Case_Code);
+                ViewBag.LstFeeFix = _lstFeeFix;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            var PartialTableListFees = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Patent/Views/Shared/_PartialTableListFees.cshtml");
+            var json = Json(new { success = 1, PartialTableListFees });
+            return json;
+        }
+
         [Route("Pre-View")]
         public ActionResult PreViewApplication(string p_appCode)
         {
@@ -250,5 +271,93 @@ namespace WebApps.Areas.Patent.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("ket_xuat_file")]
+        public ActionResult ExportData_View(decimal pAppHeaderId, string p_appCode, decimal p_View_Translate)
+        {
+            try
+            {
+                string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
+                string language = AppsCommon.GetCurrentLang();
+                
+                List<E01_Info_Export> _lst = new List<E01_Info_Export>();
+
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> _lst_appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+
+                E01_Info_Export _E01_Info_Export = new E01_Info_Export();
+                var objBL = new BussinessFacade.ModuleTrademark.Application_Header_BL();
+
+                ApplicationHeaderInfo _app = objBL.GetAllByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos);
+                AppsCommon.Prepare_Data_Export_E01(ref _E01_Info_Export, applicationHeaderInfo, appDocumentInfos, _lst_appFeeFixInfos);
+
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "E01" + _datetimenow + ".pdf");
+                string _tempfile = "E01.rpt";
+                if (p_View_Translate == 1)
+                {
+                    // nếu là tiếng việt thì xem bản tiếng anh và ngược lại
+                    if (applicationHeaderInfo.Languague_Code == Language.LangEN)
+                    {
+                        _tempfile = "E01.rpt"; // tiếng anh
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "E01" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "E01" + _datetimenow + ".pdf";
+                    }
+                    else
+                    {
+                        _tempfile = "E01_EN.rpt"; // tiếng anh
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "E01_EN_" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "E01_EN_" + _datetimenow + ".pdf";
+                    }
+                }
+                else
+                {
+                    if (applicationHeaderInfo.Languague_Code == Language.LangVI)
+                    {
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "E01" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "E01" + _datetimenow + ".pdf";
+                    }
+                    else
+                    {
+                        _tempfile = "E01_EN.rpt"; // tiếng anh
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "E01_EN_" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "E01_EN_" + _datetimenow + ".pdf";
+                    }
+                }
+                _lst.Add(_E01_Info_Export);
+                DataSet _ds_all = ConvertData.ConvertToDataSet<E01_Info_Export>(_lst, false);
+                //_ds_all.WriteXml(@"D:\E01.xml", XmlWriteMode.WriteSchema);
+
+                CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+
+               
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
+
+                if (_ds_all != null)
+                {
+                    _ds_all.Tables[0].TableName = "Table1";
+                    oRpt.SetDataSource(_ds_all);
+                }
+                oRpt.Refresh();
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+                //oRpt.ExportToDisk(ExportFormatType.PortableDocFormat, fileName_pdf);
+
+                System.IO.Stream oStream = oRpt.ExportToStream(ExportFormatType.PortableDocFormat);
+                byte[] byteArray = new byte[oStream.Length];
+                oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
+                System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq 
+
+                return Json(new { success = 0 });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = 0 });
+            }
+        }
     }
 }
