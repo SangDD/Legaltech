@@ -34,7 +34,11 @@
         urlMauNhanHieu = _Logourl.Replace("~", "");
     }
     List<Sys_Document_Info> _lst_doc = WebApps.CommonFunction.AppsCommon.Sys_Document_GetBy_Casecode(ViewBag.AppCode);
-
+    List<App_Detail_TM06DKQT_Info> _ListTM06nhdetail = new List<App_Detail_TM06DKQT_Info>();
+    if (ViewBag.ListTM06nhdetail != null)
+    {
+        _ListTM06nhdetail = ViewBag.ListTM06nhdetail;
+    }
 }
 
 <style>
@@ -97,89 +101,110 @@
 
             <div class="class_full_div_input_extent">
                 <div class="class_left_40">
-
-
                     <div class="class_block_title_control" style="display:flex;margin-top: 10px;">
                         <div style="width:165px ;height:165px;margin-left: 10px;" id="divLogo">
                             <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
                             <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
                         </div>
                         <div class="container" id="divckbNhanHieuAnh" style="flex-grow:1;padding-top:50px">
-                            <div class="file-upload btn btn-primary" style="margin-top:95px">
-                                <span>@WebApps.Resources.Resource.lblTaiFile</span>
-                                <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
-                            </div>
                         </div>
                     </div>
                 </div>
-                 
-
+                
                 <div class="class_right_60" style="display:block">
                     <div class="div-search-ad">
                         <div class="div-search-content">
                             <div class="div-radio">
-                                <input checked="checked" type="radio" name="0_TRANGTHAIDANGKY" class="classNhanHieu" value="DADK" id="cbo_dadk" onclick="ChangeTrangThaiDK()"/>
-                                <label>@Resource.C07_DaDK:</label>
+                                <label>
+                                    Đăng ký quốc tế nhãn hiệu đã bị mất hiệu lực tại nước xuất xứ theo quy định tại Điều 9 của Nghị định thư Madrid
+
+                                </label>
+                            </div>
+                            <div>
                             </div>
                         </div>
                     </div>
                     <div class="div-search-ad">
                         <div class="div-search-title">
-                            <div>@Resource.C07_DKSo:</div>
+                            <div>Số đăng ký quốc tế:</div>
                         </div>
                         <div class="div-search-content">
                             <div>
-                                <input type="text" maxlength="50" id="_txtDangKySo" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="div-search-ad">
-                        <div class="div-search-title">
-                            <div>@Resource.C07_Ngay:</div>
-                        </div>
-                        <div class="div-search-content">
-                            <div>
-                                <input class="datetimepicker" type="text" id="_txtNgayDangKy" maxlength="10" />
-                            </div>
-                        </div>
-                        <div class="div-search-title">
-                            <div>@Resource.C07_Nuoc:</div>
-                        </div>
-                        <div class="div-search-content">
-                            <div>
-                                <select id="cbo_nuocdangky">
-                                    <option value="">
-                                        None
+                                <select id="cbo_SODK_QUOCTE" onchange="chooseAppTm06($(this).val())">
+                                    <option>
+                                        Nhập số ĐK
                                     </option>
-                                    @foreach (var item in MemoryData.c_lst_Country)
+                                    @foreach (var item in _ListTM06nhdetail)
                                     {
-                                        if (_App_Detail.NUOCDANGKY == item.Country_Id.ToString())
-                                        {
-                                            <option selected value="@item.Country_Id">@item.Name</option>
-                                        }
-                                        else
-                                        {
-                                            <option value="@item.Country_Id">@item.Name</option>
-                                        }
+                                        <option value="@item.APP_HEADER_ID">
+                                            @item.APPNO
+                                        </option>
                                     }
                                 </select>
                             </div>
                         </div>
                     </div>
+                     
+                    <div class="div-search-ad">
+                        <div class="div-search-title">
+                            <div>Ngày đăng ký quốc tế:</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <input class="datetimepicker" type="text" id="_txtNGAY_DK_QUOCTE" maxlength="10" />
+                            </div>
+                        </div>
+                        <div class="div-search-title">
+                            <div style="width:230px">
+                              Ngày ưu tiên của đơn đăng ký quốc tế:
+                            </div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <input class="datetimepicker" type="text" id="_txtNGAY_UT_DKQT" maxlength="10" />
+                            </div>
+                        </div>
+                      </div>
+                       
+                    <div class="div-search-ad">
+                        <div class="div-search-title">
+                            <div style="width:230px">
+                            Chủ nhãn hiệu(Tên, địa chỉ)
+                            </div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <input type="text" id="_txtCHUNH_TEN" maxlength="500" />
+                            </div>
+                        </div>
+                    </div>
                     <div class="div-search-ad">
                         <div class="div-search-content">
                             <div class="div-radio">
-                                <input type="radio"   name="0_TRANGTHAIDANGKY" class="classNhanHieu" value="CHUADK" id="cbo_chuadk" onclick="ChangeTrangThaiDK()"/>
-                                <label>@Resource.C07_ChuaDK</label>
+                                <label>Danh mục và nhóm hàng hoá, dịch vụ yêu cầu 
+                                đăng ký nhãn hiệu chuyển đổi</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div class="div-radio">
+                                 <input  type="radio" name="0_TRANGTHAIDANGKY" class="classNhanHieu" value="GIUNGUYEN" id="cbo_giunguyen" onclick="ChangeTrangThaiDK()" />
+                                  <label>Giữ nguyên trong đăng ký quốc tế</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div class="div-radio">
+                                <input checked="checked" type="radio" name="0_TRANGTHAIDANGKY" class="classNhanHieu" value="RUTGON" id="cbo_rutgon" onclick="ChangeTrangThaiDK()" />
+                                <label>Thu hẹp hàng hóa, dịch vụ</label>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
           
-            <i id="tagSuggessIMG" style="color:red;font-weight:bold;margin-left:120px">(@WebApps.Resources.Resource.lblSizeOfPicture)</i>
-            <a href="javascript:;" st="" class="icon icon-info tip" data-placement="right" style="border:none"
-               data-title="@Resource.TooltipSizeofImage"></a>             
         </div>
 
         @* 1 - CHỦ ĐƠN*@
@@ -196,93 +221,9 @@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
         @* end 2 *@
 
-
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/category.png" />
-            <div class="cls_form_header">
-                @Resource.C07_ToChucQuanLy
-            </div>
+        <div id="div_appclass_Tm06">
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTMAddAppClass.cshtml")
         </div>
-
- 
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@WebApps.Resources.Resource.lblTenDayDu:<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text"    id="_txtTCQL_Ten" maxlength="200"/>
-                </div>
-            </div>
-        </div>
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@WebApps.Resources.Resource.lblDiaChi:<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text"    id="_txTCQL_DiaChi" maxlength="500" />
-                </div>
-            </div>
-        </div>
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@WebApps.Resources.Resource.lblDienThoai:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text"   id="_txtTCQL_Tel" style="width:120px" maxlength="200" />
-                </div>
-            </div>
-
-            <div class="div-search-title">
-                <div>Fax:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="_txtTCQL_Fax" style="width:120px" />
-                </div>
-            </div>
-            <div class="div-search-title">
-                <div>Email:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text"  maxlength="200" id="_txtTCQL_Email" />
-                </div>
-            </div>
-        </div>
-      
-
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/category.png" />
-            <div class="cls_form_header">
-                @Resource.C07_TinhChat
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@Resource.C07_TenSP: <i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="_txtTenSanPham" maxlength="200" />
-                </div>
-            </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div style="width:160px" title="@Resource.C07_TomTatTitle">@Resource.C07_TomTat:</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="_txtSP_TomTat" maxlength="200" />
-                </div>
-            </div>
-        </div>
-
 
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
         <div class="divCover cls_form_title">
@@ -333,64 +274,38 @@
 
 <script>
 
-       
-
-    var _checkanh = 0;
-    document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {
-        _checkanh = 0;
-        var preturn = fileNhanHieu(this, 'imgMauNhanHieu');
-
-        //kiểm tra ảnh có đúng kích cỡ hay không?
-        if (this.files[0].type.indexOf("image") != -1) {
-
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $("#imgMauNhanHieuTeplace").attr("src", e.target.result);
-
-                var img = $("#imgMauNhanHieuTeplace");
-                var iheight = 500; var iwidth = 500;
-
-                iheight = img[0].height;
-                console.log('lan 1: ' + iheight);
-                iheight = img[0].height;
-                iwidth = img[0].width;
-                console.log(iheight);
-                //2x2 75x75 px , 8x8 302x302
-                if (iheight > 302 || iheight < 75 || iwidth > 302 || iwidth < 75) {
-                    _checkanh = 1;
-                    nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.KichThuoc2288)", function () {
-                        return true;
-                    }, function () {
-                        //Callback
-                        $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
-                    });
-
-                } else {
-                    return true;
+    function chooseAppTm06(_id) {
+        try {
+            var imgMauNhanHieu = $("#imgMauNhanHieu");
+           // var _1_txtNgayNopDon = $("#_1_txtNgayNopDon");
+            var div_PartialThongTinChuDon = $("#div_PartialThongTinChuDon");
+            var div_appclass_Tm06 = $("#div_appclass_Tm06");
+            $.ajax({
+                url: '/trade-mark-share-data/get-tm06DKQT-info',
+                type: 'POST',
+                data: { pAppHeaderId: _id, p_idchudon: "1", p_iddaidienchudon: "2", p_idappclass: "" },
+                success: function (data) {
+                    if (data != null && data.success >= 0) {
+                        imgMauNhanHieu.attr("src", data.LogoURL);
+                        //_1_txtNgayNopDon.val(data.NgayNopDon);
+                        div_PartialThongTinChuDon.html(data.ViewChuDon);
+                        div_appclass_Tm06.html(data.ViewAppClass);
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
                 }
-            }
-            reader.readAsDataURL(this.files[0]);
-        } else {
-            nvsAlert("@Html.Raw(WebApps.Resources.Resource.ThongBao)", "@Html.Raw(WebApps.Resources.Resource.FileKhongPhaiLaAnh)", "");
-            _checkanh = 2;
+            });
+
+        } catch (e) {
+            alert(e.toString());
         }
-    };
+    }
+
+     
     function ChangeTrangThaiDK() {
         try {
-            if ($("#cbo_dadk").is(':checked')) {
-                $("#_txtDangKySo").removeAttr("Readonly");
-                $("#cbo_nuocdangky").removeAttr("disabled");
-                $("#_txtNgayDangKy").removeAttr("Readonly");
-                
-            } else {
-                $("#_txtDangKySo").val("");
-                $("#_txtDangKySo").attr("Readonly", "true");
-                $("#cbo_nuocdangky").val("");
-                $("#cbo_nuocdangky").attr("disabled", "true");
-                $("#_txtNgayDangKy").val("");
-                $("#_txtNgayDangKy").attr("Readonly", "true");
-
-            }
+            
         } catch (e) {
             alert(e.message);
         }

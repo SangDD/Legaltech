@@ -111,13 +111,13 @@ namespace DataAccess
                 return new DataSet();
             }
         }
-        public DataSet AppTM06DKQTGetByID(string pAppNo, string pLanguage, int pStatus)
+        public DataSet AppTM06DKQTGetByID(string pAppHeaderID, string pLanguage, int pStatus)
         {
             try
             {
                 OracleParameter paramReturn = new OracleParameter("p_total_record", OracleDbType.Decimal, ParameterDirection.Output);
                 DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_GET_DATA.PROC_APP_TM06DKQT_GET_BY_ID",
-                    new OracleParameter("P_APPNO", OracleDbType.Varchar2, pAppNo, ParameterDirection.Input),
+                    new OracleParameter("P_APP_HEADER_ID", OracleDbType.Varchar2, pAppHeaderID, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGE", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
                     new OracleParameter("P_STATUS", OracleDbType.Decimal, pStatus, ParameterDirection.Input),
                     new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output),

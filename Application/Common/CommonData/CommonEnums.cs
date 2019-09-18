@@ -228,7 +228,7 @@
         public static string AppCode_B03 = "B03"; //TM_PLD01HDCN
         public static string AppCode_A05_DK_CHIDANDIALY = "A05";
 
-        public static string AppCode_E01 = "E01"; 
+        public static string AppCode_C01= "C01";
 
     }
 
