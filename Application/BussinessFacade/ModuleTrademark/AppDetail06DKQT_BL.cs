@@ -54,5 +54,20 @@ namespace BussinessFacade
 
             }
         }
+
+        public List<App_Detail_TM06DKQT_Info> AppTM06SearchByStatus(int p_status, string p_languagecode)
+        {
+            try
+            {
+                App_Detail_TM06DKQT_DA objData = new App_Detail_TM06DKQT_DA();
+                DataSet ds = objData.AppTM06SearchByStatus(p_status, p_languagecode);
+                return CBO<App_Detail_TM06DKQT_Info>.FillCollectionFromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<App_Detail_TM06DKQT_Info>();
+            }
+        }
     }
 }

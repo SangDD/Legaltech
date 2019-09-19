@@ -29,6 +29,9 @@ namespace WebApps.Areas.DKQT.Controllers
     [Route("{action}")]
     public class C07Controller : Controller
     {
+
+       
+
         [HttpGet]
         [Route("register/{id}")]
         public ActionResult Index()
@@ -45,8 +48,13 @@ namespace WebApps.Areas.DKQT.Controllers
                     AppCode = RouteData.Values["id"].ToString().ToUpper();
                 }
                 ViewBag.AppCode = AppCode.ToUpper();
-                ViewBag.TreeTitle = "Số hình ảnh công bố";
-                ViewBag.TreeLevel = 1;// upload ảnh chỉ có  cấp 
+
+                AppDetail06DKQT_BL _AppDetail06DKQT_BL = new AppDetail06DKQT_BL();
+                List<App_Detail_TM06DKQT_Info> _listTM06 = new List<App_Detail_TM06DKQT_Info>();
+                // truyền vào trạng thái nào? để tạm thời = 7 là đã gửi lên cục
+                _listTM06 = _AppDetail06DKQT_BL.AppTM06SearchByStatus(7, AppsCommon.GetCurrentLang());
+                ViewBag.ListTM06nhdetail = _listTM06;
+                ViewBag.Isdisable = 0;
                 return PartialView("~/Areas/DKQT/Views/C07/_Partial_C07.cshtml");
             }
             catch (Exception ex)

@@ -115,7 +115,7 @@ namespace BussinessFacade
             }
         }
 
-        public App_Detail_TM06DKQT_Info AppTM06DKQTGetByID(string p_Appno, 
+        public App_Detail_TM06DKQT_Info AppTM06DKQTGetByID(string pAppHeaderID, 
             string pLanguage, int pStatus, ref List<AppClassDetailInfo> pListAppClass)
         {
             List<AppClassDetailInfo> _listAppClass = new List<AppClassDetailInfo>();
@@ -124,11 +124,11 @@ namespace BussinessFacade
             try
             {
                 var objData = new C07_DA();
-                _DS = objData.AppTM06DKQTGetByID(p_Appno, pLanguage, pStatus);
-                if (_DS != null && _DS.Tables.Count == 2)
+                _DS = objData.AppTM06DKQTGetByID(pAppHeaderID, pLanguage, pStatus);
+                if (_DS != null && _DS.Tables.Count == 3)
                 {
                     _Tm06DKQT = CBO<App_Detail_TM06DKQT_Info>.FillObjectFromDataSet(_DS);
-                    _listAppClass = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(_DS.Tables[1]);
+                    _listAppClass = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(_DS.Tables[2]);
                 }
             }
             catch (Exception ex)
@@ -136,8 +136,8 @@ namespace BussinessFacade
                 Logger.LogException(ex);
                 return _Tm06DKQT;
             }
-            return _Tm06DKQT;
             pListAppClass = _listAppClass;
+            return _Tm06DKQT;
         }
     }
 }

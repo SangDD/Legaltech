@@ -102,7 +102,23 @@ namespace DataAccess
                 return new DataSet();
             }
         }
-
+        public DataSet AppTM06SearchByStatus(int p_status, string p_languagecode)
+        {
+            try
+            {
+                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_detail_tm06dkqt.PROC_APP_TM06_SEARCH",
+                    new OracleParameter("P_STATUS", OracleDbType.Decimal, p_status, ParameterDirection.Input),
+                     new OracleParameter("P_LANGUAGECODE", OracleDbType.Varchar2, p_languagecode, ParameterDirection.Input),
+                    new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output)
+                    );
+                return _ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
 
     }
 }
