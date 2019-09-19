@@ -136,8 +136,14 @@ namespace ObjectInfos
 
         public string Doc_Id_5 { get; set; }
         public decimal Doc_Id_5_Check { get; set; }
+
+        public string Doc_Id_6 { get; set; }
         public decimal Doc_Id_6_Check { get; set; }
+
+        public string Doc_Id_7 { get; set; }
         public decimal Doc_Id_7_Check { get; set; }
+
+        public string Doc_Id_8 { get; set; }
         public decimal Doc_Id_8_Check { get; set; }
 
         public string Doc_Id_9 { get; set; }
@@ -162,5 +168,8 @@ namespace ObjectInfos
 
         public string Doc_Id_16 { get; set; }
         public decimal Doc_Id_16_Check { get; set; }
+
+        public string Doc_Id_17 { get; set; }
+        public decimal Doc_Id_17_Check { get; set; }
     }
 }
