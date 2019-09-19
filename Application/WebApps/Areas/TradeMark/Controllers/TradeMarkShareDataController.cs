@@ -320,7 +320,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 string language = AppsCommon.GetCurrentLang();
                 List<AppClassDetailInfo> _listClass = new List<AppClassDetailInfo>();
                 App_Detail_TM06DKQT_Info _TM06Info = objBL.AppTM06DKQTGetByID(pAppHeaderId, language, 0, ref _listClass);// tạm thời truyền vào trạng thái = 0 và k wherre trong db
-                ViewBag.lstClassDetailInfo = ViewBag._listClass;
+                ViewBag.lstClassDetailInfo =  _listClass;
                 ViewBag.objAppHeaderInfo = _TM06Info;
                 string _viewChuDon = "";
                 string _viewDaiDienChuDon = "";
