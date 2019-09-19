@@ -308,5 +308,45 @@ namespace WebApps.Areas.TradeMark.Controllers
         { 
             return PartialView("/Areas/TradeMark/Views/Shared/_Partial_PopUp_AddClass.cshtml");
         }
+
+        [HttpPost]
+        [Route("get-tm06DKQT-info")]
+        public ActionResult TM06NHGetInfo(string pAppHeaderId, string p_idchudon, 
+            string p_iddaidienchudon, string p_idappclass)
+        {
+            try
+            {
+                var objBL = new C07_BL();
+                string language = AppsCommon.GetCurrentLang();
+                List<AppClassDetailInfo> _listClass = new List<AppClassDetailInfo>();
+                App_Detail_TM06DKQT_Info _TM06Info = objBL.AppTM06DKQTGetByID(pAppHeaderId, language, 0, ref _listClass);// tạm thời truyền vào trạng thái = 0 và k wherre trong db
+                ViewBag.lstClassDetailInfo =  _listClass;
+                ViewBag.objAppHeaderInfo = _TM06Info;
+                string _viewChuDon = "";
+                string _viewDaiDienChuDon = "";
+                string _viewAppClass = "";
+                ViewBag.ShowFromOtherApp = 1;
+                ViewBag.Isdisable = 1;
+                _viewChuDon = RenderPartialToString("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", p_idchudon);
+                _viewDaiDienChuDon = RenderPartialToString("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", p_iddaidienchudon);
+                _viewAppClass = RenderPartialToString("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTMAddAppClass.cshtml", null);
+                return Json(new
+                {
+                    success = 0,
+                    NgayNopDon = _TM06Info.NGAYNOPDON.ToDateStringN0(),
+                    LogoURL = _TM06Info.LOGOURL,
+                    ViewChuDon = _viewChuDon,
+                    ViewDaiDienChuDon = _viewDaiDienChuDon,
+                    ViewAppClass = _viewAppClass
+                });
+
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = -1 });
+            }
+        }
+
     }
 }
