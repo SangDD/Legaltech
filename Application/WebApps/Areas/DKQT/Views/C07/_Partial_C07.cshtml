@@ -39,6 +39,27 @@
     {
         _ListTM06nhdetail = ViewBag.ListTM06nhdetail;
     }
+    var clstAppClassShortSuggest = new List<SuggestInfo>();
+    foreach (var item in MemoryData.clstAppClassSuggest)
+    {
+        var pShortInfo = new SuggestInfo("", "");
+
+        if (language == Language.LangVI)
+        {
+            if (!string.IsNullOrEmpty(item.name) && !string.IsNullOrEmpty(item.value))
+            {
+                pShortInfo = new SuggestInfo(item.name.Replace('/', ' '), item.value);
+            }
+        }
+        else
+        {
+            if (!string.IsNullOrEmpty(item.name_en) && !string.IsNullOrEmpty(item.value))
+            {
+                pShortInfo = new SuggestInfo(item.name_en.Replace('/', ' '), item.value);
+            }
+        }
+        clstAppClassShortSuggest.Add(pShortInfo);
+    }
 }
 
 <style>
@@ -222,7 +243,7 @@
         @* end 2 *@
 
         <div id="div_appclass_Tm06">
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTMAddAppClass.cshtml")
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml")
         </div>
 
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
@@ -273,6 +294,53 @@
 </div>
 
 <script>
+    function FuncLoadAppClass()
+    {
+        try {
+            var availableTags = [];
+            var array = @Html.Raw(Json.Encode(clstAppClassShortSuggest));
+            for (var i = 0; i < array.length; i++) {
+                availableTags[i] = array[i];
+            }
+            $("#txtTenHangHoa").autocomplete({
+                minLength: 3,
+                source: function (request, response) {
+                    var results = $.ui.autocomplete.filter(availableTags, request.term.toUpperCase());
+                    response(results.slice(0, 100));
+                },
+                select: function (event, ui) {
+                    $("#txtClass").val(ui.item.value);
+                    //return false;
+                    var textinput = $("#txtTenHangHoa").val();
+                    event.preventDefault();
+                    funcAddDataRowSuggest(ui.item.label, ui.item.value);
+                    $("#txtTenHangHoa").val("");
+
+                },
+                focus: function (event, ui) {
+                    var arrResult = $(".ui-menu-item");
+                    for (var i = 0; i < arrResult.length; i++) {
+                        var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                        if (label == ui.item.name) {
+                            $(".clsLiActive").removeClass("clsLiActive")
+                            $(arrResult[i]).addClass("clsLiActive");
+                            break;
+                        }
+                    }
+                    event.preventDefault();
+                }
+            });
+        } catch (e) {
+            alert(e.toString());
+        }
+    }
+    $(function ()
+    {
+        try {
+            FuncLoadAppClass();
+        } catch (e) {
+        }
+    });
 
     function chooseAppTm06(_id) {
         try {
@@ -290,6 +358,7 @@
                         //_1_txtNgayNopDon.val(data.NgayNopDon);
                         div_PartialThongTinChuDon.html(data.ViewChuDon);
                         div_appclass_Tm06.html(data.ViewAppClass);
+                        FuncLoadAppClass();
                     }
                 },
                 error: function (e) {
