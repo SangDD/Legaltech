@@ -1536,6 +1536,31 @@
 
                 return PartialView("~/Areas/Patent/Views/E01/_Partial_E01_View.cshtml");
             }
+            else if (pAppCode == TradeMarkAppCode.AppCode_C07)
+            {
+                string language = AppsCommon.GetCurrentLang();
+                var objBL = new C07_BL();
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> _lst_appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                List<Other_MasterInfo> _lst_Other_MasterInfo = new List<Other_MasterInfo>();
+                List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
+                List<AppClassDetailInfo> appClassDetailInfos = new List<AppClassDetailInfo>();
+                C07_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos,
+                    ref _lst_Other_MasterInfo, ref _LstDocumentOthersInfo, ref appClassDetailInfos);
+
+                ViewBag.App_Detail = app_Detail;
+                ViewBag.Lst_AppDoc = appDocumentInfos;
+                ViewBag.Lst_AppFee = _lst_appFeeFixInfos;
+                ViewBag.objAppHeaderInfo = applicationHeaderInfo;
+                ViewBag.Lst_Other_Master = _lst_Other_MasterInfo;
+                ViewBag.lstDocOther = _LstDocumentOthersInfo;
+                ViewBag.lstClassDetailInfo = appClassDetailInfos;
+                ViewBag.AppCode = pAppCode;
+                ViewBag.ShowFromOtherApp = 1;
+                ViewBag.Isdisable = 1;
+                return PartialView(@"~\Areas\DKQT\Views\C07\_Partial_C07_View.cshtml");
+            }
 
             else
             {
@@ -1795,6 +1820,37 @@
                 ViewBag.IsViewFlag = 1;
                 ViewBag.AppCode = pAppCode;
                 return PartialView(@"~\Areas\ChiDanDiaLy\Views\A05\_Partial_A05_Edit.cshtml");
+            }
+            else if (pAppCode == TradeMarkAppCode.AppCode_C07)
+            {
+                string language = AppsCommon.GetCurrentLang();
+                var objBL = new C07_BL();
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> _lst_appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                List<Other_MasterInfo> _lst_Other_MasterInfo = new List<Other_MasterInfo>();
+                List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
+                List<AppClassDetailInfo> appClassDetailInfos = new List<AppClassDetailInfo>();
+                C07_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos,
+                    ref _lst_Other_MasterInfo, ref _LstDocumentOthersInfo, ref appClassDetailInfos);
+
+                ViewBag.App_Detail = app_Detail;
+                ViewBag.Lst_AppDoc = appDocumentInfos;
+                ViewBag.Lst_AppFee = _lst_appFeeFixInfos;
+                ViewBag.objAppHeaderInfo = applicationHeaderInfo;
+                ViewBag.Lst_Other_Master = _lst_Other_MasterInfo;
+                ViewBag.lstDocOther = _LstDocumentOthersInfo;
+                ViewBag.lstClassDetailInfo = appClassDetailInfos;
+                ViewBag.AppCode = pAppCode;
+
+                // dl cho phần chọn đơn Tm06
+                AppDetail06DKQT_BL _AppDetail06DKQT_BL = new AppDetail06DKQT_BL();
+                List<App_Detail_TM06DKQT_Info> _listTM06 = new List<App_Detail_TM06DKQT_Info>();
+                // truyền vào trạng thái nào? để tạm thời = 7 là đã gửi lên cục
+                _listTM06 = _AppDetail06DKQT_BL.AppTM06SearchByStatus(7, AppsCommon.GetCurrentLang());
+                ViewBag.ListTM06nhdetail = _listTM06;
+                ViewBag.Isdisable = 0;
+                return PartialView(@"~\Areas\DKQT\Views\C07\_Partial_C07_Edit.cshtml");
             }
             else
             {

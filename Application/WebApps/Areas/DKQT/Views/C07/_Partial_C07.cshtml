@@ -209,7 +209,7 @@
                     <div class="div-search-ad">
                         <div class="div-search-content">
                             <div class="div-radio">
-                                 <input  type="radio" name="0_TRANGTHAIDANGKY" class="classNhanHieu" value="GIUNGUYEN" id="cbo_giunguyen" onclick="ChangeTrangThaiDK()" />
+                                 <input  checked="checked"  type="radio" name="0_TRANGTHAIDANGKY" class="classNhanHieu" value="GIUNGUYEN" id="cbo_giunguyen" onclick="ChangeTrangThaiDK()" />
                                   <label>Giữ nguyên trong đăng ký quốc tế</label>
                             </div>
                         </div>
@@ -217,7 +217,7 @@
                     <div class="div-search-ad">
                         <div class="div-search-content">
                             <div class="div-radio">
-                                <input checked="checked" type="radio" name="0_TRANGTHAIDANGKY" class="classNhanHieu" value="RUTGON" id="cbo_rutgon" onclick="ChangeTrangThaiDK()" />
+                                <input type="radio" name="0_TRANGTHAIDANGKY" class="classNhanHieu" value="RUTGON" id="cbo_rutgon" onclick="ChangeTrangThaiDK()" />
                                 <label>Thu hẹp hàng hóa, dịch vụ</label>
                             </div>
                         </div>
@@ -742,80 +742,37 @@
         }
     }
 
-    ////HungTD: lấy value của control, nếu k tồn tại control thì trả ra rỗng
-    function FuncGetValDocById(pControlId)
-    {
-        var _value = "";
-        try {
-            var _object = $("#" + pControlId);
-            if(_object == undefined)
-            {
-                _value = "";
-            }
-            else
-            {
-                _value =  $("#" + pControlId).val();
-            }
-        } catch (e) {
-            _value = "";
-        }
-        return _value;
-         
-    }
-        
-
     function funGetDocumentFile(formData) {
         try {
+            var item = 0;
             var Isuse = 0, Note = "", reponse = false;
-            // 1
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_01", "0");
-            formData.append("pAppDocumentInfo[0].CHAR01", FuncGetValDocById("txt_Doc_01"));
-            formData.append("pAppDocumentInfo[0].CHAR02",FuncGetValDocById("txt_Doc_01_2"));
-
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_02", "1");
-            formData.append("pAppDocumentInfo[1].CHAR01",FuncGetValDocById("txt_Doc_02")); 
-            formData.append("pAppDocumentInfo[1].CHAR02", FuncGetValDocById("txt_Doc_02_2")); 
-
-
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_03", "2");
-            formData.append("pAppDocumentInfo[2].CHAR01",FuncGetValDocById("txt_Doc_03"));  
-            formData.append("pAppDocumentInfo[2].CHAR02",FuncGetValDocById("txt_Doc_03_2"));   
-
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_04", "3");
-            formData.append("pAppDocumentInfo[3].CHAR01",FuncGetValDocById("txt_Doc_04"));   
-            formData.append("pAppDocumentInfo[3].CHAR02",FuncGetValDocById("txt_Doc_04_2"));  
-
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_05", "4");
-            formData.append("pAppDocumentInfo[4].CHAR01",FuncGetValDocById("txt_Doc_05"));  
-            formData.append("pAppDocumentInfo[4].CHAR02",FuncGetValDocById("txt_Doc_05_2"));  
-
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_06", "5");
-            formData.append("pAppDocumentInfo[5].CHAR01", FuncGetValDocById("txt_Doc_06"));  
-            formData.append("pAppDocumentInfo[5].CHAR02", FuncGetValDocById("txt_Doc_06_2"));  
-
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_07", "6");
-            formData.append("pAppDocumentInfo[6].CHAR01", FuncGetValDocById("txt_Doc_07")); 
-            formData.append("pAppDocumentInfo[6].CHAR02", FuncGetValDocById("txt_Doc_07_2"));  
-
-
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_08", "7");
-            formData.append("pAppDocumentInfo[7].CHAR01",FuncGetValDocById("txt_Doc_08"));  
-            formData.append("pAppDocumentInfo[7].CHAR01",FuncGetValDocById("txt_Doc_08_2"));  
-
-
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_09", "8");
-            formData.append("pAppDocumentInfo[8].CHAR01",FuncGetValDocById("txt_Doc_09"));  
-            formData.append("pAppDocumentInfo[8].CHAR01",FuncGetValDocById("txt_Doc_09_2"));  
-
-
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_10", "9");
-            formData.append("pAppDocumentInfo[9].CHAR01",FuncGetValDocById("txt_Doc_10"));  
-            formData.append("pAppDocumentInfo[9].CHAR01",FuncGetValDocById("txt_Doc_10_2"));  
-
-        } catch (e) {
-            console.log(e.message);
+            var _txtid01 = "";
+            var _txtid02 = "";
+            $(".checkbox_appdocument").each(function () {
+                Isuse = 0;
+                Note = "";
+                reponse = false;
+                var _checkboxname = $(this).attr("id");
+                var _txtIndexID  = item.toString();
+                if(item <= 9)
+                {
+                    _txtIndexID = "0" + _txtIndexID;
+                }
+                var _txtid01 = "txt_DOC_" + _txtIndexID;
+                var _txtid02 = "txt_DOC_" + _txtIndexID + "_2";
+                reponse = funcGetCheckValueAndText(formData, _checkboxname, item);  
+                formData.append("pAppDocumentInfo["+item+"].CHAR01", FuncGetValDocById(_txtid01));
+                formData.append("pAppDocumentInfo["+item+"].CHAR02",FuncGetValDocById(_txtid02));
+                item++;
+            });
+            return true;
+        }
+        catch (e) {
+            console.log(e);
+            return false;
         }
     }
+     
 
 
     function funcGetTenTaiLieuKhac(formData) {

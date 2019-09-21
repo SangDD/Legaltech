@@ -250,7 +250,7 @@ namespace WebApps.Areas.DKQT.Controllers
         [Route("edit")]
         public ActionResult Edit(ApplicationHeaderInfo pInfo, C07_Info pDetail,
             List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo, List<Other_MasterInfo> pOther_MasterInfo,
-             List<AppDocumentOthersInfo> pAppDocOtherInfo)
+             List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo)
         {
             try
             {
@@ -290,6 +290,23 @@ namespace WebApps.Areas.DKQT.Controllers
 
                         if (pReturn <= 0)
                             goto Commit_Transaction;
+
+                        #region  Thêm thông tin class
+                        if (pReturn >= 0 && pAppClassInfo != null)
+                        {
+
+                            //Xoa cac class cu di 
+                            pReturn = objClassDetail.AppClassDetailDeleted(pInfo.Id, language);
+                            if (pReturn <= 0)
+                                goto Commit_Transaction;
+
+                            pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pInfo.Id, language);
+
+                            if (pReturn <= 0)
+                                goto Commit_Transaction;
+                        }
+                        #region
+
                     }
 
 
