@@ -1887,6 +1887,22 @@
 
                 return PartialView("~/Areas/TradeMark/Views/C01/_Partial_C01_Edit.cshtml");
             }
+            else if (pAppCode == TradeMarkAppCode.AppCode_E01)
+            {
+
+                var objBL = new BussinessFacade.ModuleTrademark.Application_Header_BL();
+                string language = AppsCommon.GetCurrentLang();
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> _lst_appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                ApplicationHeaderInfo _app = objBL.GetAllByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos);
+                ViewBag.Lst_AppDoc = appDocumentInfos;
+                ViewBag.Lst_AppFee = _lst_appFeeFixInfos;
+                ViewBag.objAppHeaderInfo = applicationHeaderInfo;
+
+                return PartialView("~/Areas/Patent/Views/E01/_Partial_E01_Edit.cshtml");
+
+            }
             else
             {
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialDangKyNhanHieu.cshtml");
