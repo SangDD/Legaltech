@@ -49,7 +49,7 @@
         }
     }
 
-    function funGetData_Preview_A05(url) {
+    function funGetData_Preview_C07(url) {
         try {
             $.ajax({
                 url: url,
@@ -85,7 +85,7 @@
     }
 
     function funcPreViewApplication() {
-        var preturn = funGetData_Preview_A05("/conversion-international-trademark/ket_xuat_file");
+        var preturn = funGetData_Preview_C07("/conversion-international-trademark/ket_xuat_file");
         if (preturn == true || preturn == undefined) {
             OpenPreview("/conversion-international-trademark/Pre-View");
         }

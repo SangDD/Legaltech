@@ -81,7 +81,11 @@
             if (reponse == false) {
                 return false;
             }
-
+            // lấy thông tin class
+            reponse = funcGetDataClassInfo(formData);
+            if (reponse == false) {
+                return false;
+            }
 
             formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin)');
             var v_AppCode = $("#txtAppCode").val();

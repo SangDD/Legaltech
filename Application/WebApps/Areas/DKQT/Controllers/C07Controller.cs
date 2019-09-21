@@ -288,7 +288,7 @@ namespace WebApps.Areas.DKQT.Controllers
                          
                         pReturn = objDetail.UpDate(pDetail);
 
-                        if (pReturn <= 0)
+                        if (pReturn <  0)
                             goto Commit_Transaction;
 
                         #region  Thêm thông tin class
@@ -297,15 +297,15 @@ namespace WebApps.Areas.DKQT.Controllers
 
                             //Xoa cac class cu di 
                             pReturn = objClassDetail.AppClassDetailDeleted(pInfo.Id, language);
-                            if (pReturn <= 0)
+                            if (pReturn <  0)
                                 goto Commit_Transaction;
 
                             pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pInfo.Id, language);
 
-                            if (pReturn <= 0)
+                            if (pReturn <  0)
                                 goto Commit_Transaction;
                         }
-                        #region
+                        #endregion
 
                     }
 
