@@ -410,7 +410,7 @@ namespace WebApps.Areas.TradeMark.Controllers
         }
 
         [HttpPost]
-        [Route("getFeeView_View")]
+        [Route("getFeeView")]
         public ActionResult GetFee_View(ApplicationHeaderInfo pInfo)
         {
             try
@@ -430,6 +430,26 @@ namespace WebApps.Areas.TradeMark.Controllers
         }
 
         [HttpPost]
+        [Route("getFee")]
+        public ActionResult GetFee(App_Detail_C01_Info pDetail, List<AppDocumentInfo> pAppDocumentInfo, List<UTienInfo> pUTienInfo, List<AppDocumentOthersInfo> pLstImagePublic)
+        {
+            try
+            {
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C01(pDetail);
+                ViewBag.LstFeeFix = _lstFeeFix;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            var PartialTableListFees = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Patent/Views/Shared/_PartialTableListFees.cshtml");
+            var json = Json(new { success = 1, PartialTableListFees });
+            return json;
+        }
+
+
+        [HttpPost]
         [Route("ket_xuat_file")]
         public ActionResult ExportData_View(decimal pAppHeaderId, string p_appCode, decimal p_View_Translate)
         {
@@ -442,7 +462,8 @@ namespace WebApps.Areas.TradeMark.Controllers
                 App_Detail_C01_Info app_Detail = new App_Detail_C01_Info();
                 List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
                 List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
-                app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos);
+                List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
+                app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos, ref _LstDocumentOthersInfo);
 
                 AppsCommon.Prepare_Data_Export_C01(ref app_Detail, applicationHeaderInfo, appDocumentInfos);
                 List<App_Detail_C01_Info> _lst = new List<App_Detail_C01_Info>();

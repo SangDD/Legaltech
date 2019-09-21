@@ -24,7 +24,7 @@
     App_Detail_C01_Info _App_Detail = new App_Detail_C01_Info();
     if (ViewBag.App_Detail != null)
     {
-        _App_Detail = (App_Detail_PLB01_SDD_Info)ViewBag.App_Detail;
+        _App_Detail = (App_Detail_C01_Info)ViewBag.App_Detail;
     }
 
     List<AppDocumentInfo> Lst_AppDoc = new List<AppDocumentInfo>();
@@ -43,6 +43,12 @@
     foreach (AppDocumentInfo item in Lst_AppDoc)
     {
         dic_appDoc[item.Document_Id] = item;
+    }
+
+    List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
+    if (ViewBag.lstDocOther != null)
+    {
+        _LstDocumentOthersInfo = (List<AppDocumentOthersInfo>)ViewBag.lstDocOther;
     }
 }
 
@@ -276,7 +282,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="@Resource.TM3B_DeNghiSuaThanh" id="4_DeNghiSuaThanh" disabled />
+                    <input type="text" placeholder="@Resource.TM3B_DeNghiSuaThanh" id="4_DeNghiSuaThanh" disabled value="@_App_Detail.Request_To_Content" />
                 </div>
             </div>
         </div>
@@ -310,7 +316,10 @@
         }
 
         @*TÀI LIỆU KHÁC*@
-        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others_View.cshtml")
+        @if (_LstDocumentOthersInfo.Count > 0)
+        {
+            @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others_View.cshtml")
+        }
 
         @* Cam kết của hủ đơn *@
         @{

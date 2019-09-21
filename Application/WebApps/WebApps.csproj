@@ -371,6 +371,18 @@
       <DependentUpon>TM_06DKQT.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Report\C01.cs">
+      <DependentUpon>C01.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Report\C01_EN.cs">
+      <DependentUpon>C01_EN.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Report\TM_PLB01SDD_EN.cs">
       <DependentUpon>TM_PLB01SDD_EN.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1978,6 +1990,14 @@
     </EmbeddedResource>
     <Content Include="Report\Billing.rpt" />
     <Content Include="Report\Billing_EN.rpt" />
+    <EmbeddedResource Include="Report\C01.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>C01.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\C01_EN.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>C01_EN.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\AlertPopup\ASSAlert.js" />
     <Content Include="Scripts\AlertPopup\NVSAlertCss.css" />

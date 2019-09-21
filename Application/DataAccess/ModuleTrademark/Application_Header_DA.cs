@@ -242,7 +242,7 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("P_REP_MASTER_NAME", OracleDbType.Varchar2, pInfo.Rep_Master_Name != null ? pInfo.Rep_Master_Name : "", ParameterDirection.Input),
                     new OracleParameter("P_REP_MASTER_ADDRESS", OracleDbType.Varchar2, pInfo.Rep_Master_Address != null ? pInfo.Rep_Master_Address : "", ParameterDirection.Input),
                     new OracleParameter("P_REP_MASTER_PHONE", OracleDbType.Varchar2, pInfo.Rep_Master_Phone != null ? pInfo.Rep_Master_Phone : "", ParameterDirection.Input),
-                    new OracleParameter("P_REP_MASTER_FAX", OracleDbType.Varchar2, pInfo.Rep_Master_Fax!=null ? pInfo.Rep_Master_Fax:"", ParameterDirection.Input),
+                    new OracleParameter("P_REP_MASTER_FAX", OracleDbType.Varchar2, pInfo.Rep_Master_Fax !=null ? pInfo.Rep_Master_Fax : "", ParameterDirection.Input),
                     new OracleParameter("P_REP_MASTER_EMAIL", OracleDbType.Varchar2, pInfo.Rep_Master_Email != null ? pInfo.Rep_Master_Email : "", ParameterDirection.Input),
 
                     new OracleParameter("P_SEND_DATE", OracleDbType.Date, pInfo.Send_Date, ParameterDirection.Input),

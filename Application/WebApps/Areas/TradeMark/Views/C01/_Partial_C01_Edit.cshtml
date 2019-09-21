@@ -24,7 +24,7 @@
     App_Detail_C01_Info _App_Detail = new App_Detail_C01_Info();
     if (ViewBag.App_Detail != null)
     {
-        _App_Detail = (App_Detail_PLB01_SDD_Info)ViewBag.App_Detail;
+        _App_Detail = (App_Detail_C01_Info)ViewBag.App_Detail;
     }
 
     List<AppDocumentInfo> Lst_AppDoc = new List<AppDocumentInfo>();
@@ -43,6 +43,22 @@
     foreach (AppDocumentInfo item in Lst_AppDoc)
     {
         dic_appDoc[item.Document_Id] = item;
+    }
+
+    B_Todos_Info _todo = new B_Todos_Info();
+    if (ViewBag.B_Todos_Info != null)
+    {
+        _todo = (B_Todos_Info)ViewBag.B_Todos_Info;
+    }
+    else
+    {
+        _todo = null;
+    }
+
+    List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
+    if (ViewBag.lstDocOther != null)
+    {
+        _LstDocumentOthersInfo = (List<AppDocumentOthersInfo>)ViewBag.lstDocOther;
     }
 }
 
@@ -209,6 +225,8 @@
         <div class="div-search-ad">
             <div class="div-search-title" style="margin-left: 0px !important;">
                 <div>Số văn bằng bảo hộ  <i class="redspan">(*)</i></div>
+                <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+                   data-title="@WebApps.Resources.Resource.DonCachNhauDauPhay"></a>
             </div>
             <div class="div-search-content">
                 <div>
@@ -277,7 +295,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="@Resource.TM3B_DeNghiSuaThanh" id="4_DeNghiSuaThanh" />
+                    <input type="text" placeholder="@Resource.TM3B_DeNghiSuaThanh" id="4_DeNghiSuaThanh" value="@_App_Detail.Request_To_Content" />
                 </div>
             </div>
         </div>
@@ -311,12 +329,12 @@
         }
 
         @*TÀI LIỆU KHÁC*@
-        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others_View.cshtml")
+        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others_Edit.cshtml")
 
         @* Cam kết của hủ đơn *@
         @{
             string _camket = _AppHeaderInfo.Address + "|" + _AppHeaderInfo.DateNo + "|" + _AppHeaderInfo.Months + "|" + _AppHeaderInfo.Years;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon_View.cshtml", _camket)
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon_Edit.cshtml", _camket)
         }
 
         <div class="class_save">
@@ -340,7 +358,7 @@
     </fieldset>
 </div>
 
-@Html.Partial("~/Areas/TradeMark/Views/C01/_PartialPreview.cshtml")
+@Html.Partial("~/Areas/TradeMark/Views/C01/_PartialPreview_IU.cshtml")
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
     </div>
@@ -355,6 +373,16 @@
 
     $(document).ready(function () {
         $("#0_txtCase_Name").focus();
+
+        @*if (@_LstDocumentOthersInfo.Count > 0) {
+            $("#divContainerDocOther").css('display', 'block')
+        }*@
+
+        if ($("#ckb_DOC_17").is(":checked") == true) {
+            $("#divContainerDocOther").css('display', 'block')
+        } else {
+            $("#divContainerDocOther").css('display', 'none');
+        }
 
         //Search suggestion
         var Name = $("#1_txtTenDayDu").val();
@@ -460,6 +488,13 @@
         try {
             //Thông tin chủ đơn
             var formData = new FormData();
+            formData.append("pInfo.Id", @_AppHeaderInfo.Id);
+            formData.append("pInfo.Case_Code", '@_AppHeaderInfo.Case_Code');
+
+            var reponse = funcThongTinCaseName(formData, "0");
+            if (reponse == false) {
+                return false;
+            }
 
             if (_UpdateToDo == 1) {
                 formData.append("pInfo.UpdateToDo", 1);

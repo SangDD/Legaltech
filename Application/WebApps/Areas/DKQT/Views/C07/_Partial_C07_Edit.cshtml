@@ -483,6 +483,12 @@
         });
         $("#0_txtCase_Name").focus();
 
+        if ($("#ckb_DOC_10").is(":checked") == true) {
+            $("#divContainerDocOther").css('display', 'block')
+        } else {
+            $("#divContainerDocOther").css('display', 'none');
+        }
+
         //Search suggestion
         var Name = $("#1_txtTenDayDu").val();
         $.ajax({

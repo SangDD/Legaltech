@@ -645,6 +645,14 @@
 
 
 <script>
+    $(document).ready(function () {
+        if ($("#ckb_Doc_11").is(":checked") == true) {
+            $("#divContainerDocOther").css('display', 'block')
+        } else {
+            $("#divContainerDocOther").css('display', 'none');
+        }
+    });
+
     var _chucnang = '@_App_Detail.ChucNang';
     var _cautruc = '@_App_Detail.CauTruc';
     var _congnghe = '@_App_Detail.CongNghe';
