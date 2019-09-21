@@ -775,6 +775,12 @@
         });
         $("#0_txtCase_Name").focus();
 
+        if ($("#ckb_Doc_16").is(":checked") == true) {
+            $("#divContainerDocOther").css('display', 'block')
+        } else {
+            $("#divContainerDocOther").css('display', 'none');
+        }
+
         //Search suggestion
         var Name = $("#1_txtTenDayDu").val();
         $.ajax({
