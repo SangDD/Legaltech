@@ -14,17 +14,17 @@ namespace DataAccess
             {
                 OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_C07.PROC_APP_DETAIL_C07_INSERT",
-                    paramReturn,
                     new OracleParameter("P_CASE_CODE", OracleDbType.Varchar2, pInfo.Case_Code, ParameterDirection.Input),
                     new OracleParameter("P_APP_HEADER_ID", OracleDbType.Decimal, pInfo.App_Header_Id, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, pInfo.Language_Code, ParameterDirection.Input),
                     new OracleParameter("P_LOGOURL", OracleDbType.Varchar2, pInfo.LOGOURL, ParameterDirection.Input),
-                    new OracleParameter("P_SODK_QUOCTE", OracleDbType.Varchar2, pInfo.SODK_QUOCTE, ParameterDirection.Input),
+                    new OracleParameter("P_SODK_QUOCTE", OracleDbType.Varchar2, pInfo.SODK_QUOCTE.Trim(), ParameterDirection.Input),
                     new OracleParameter("P_NGAY_DK_QUOCTE", OracleDbType.Date, pInfo.NGAY_DK_QUOCTE, ParameterDirection.Input),
                     new OracleParameter("P_NGAY_UT_DKQT", OracleDbType.Date, pInfo.NGAY_UT_DKQT, ParameterDirection.Input),
-                    new OracleParameter("P_CHUNH_TEN", OracleDbType.Date, pInfo.CHUNH_TEN, ParameterDirection.Input),
-                    new OracleParameter("P_CHUNH_DIACHI", OracleDbType.Varchar2, pInfo.CHUNH_DIACHI, ParameterDirection.Input),
-                    new OracleParameter("P_YC_DK_NH_CHUYENDOI", OracleDbType.Varchar2, pInfo.YC_DK_NH_CHUYENDOI, ParameterDirection.Input)
+                    new OracleParameter("P_CHUNH_TEN", OracleDbType.Varchar2, pInfo.CHUNH_TEN, ParameterDirection.Input),
+                    new OracleParameter("P_CHUNH_DIACHI", OracleDbType.Varchar2, "", ParameterDirection.Input),
+                    new OracleParameter("P_YC_DK_NH_CHUYENDOI", OracleDbType.Varchar2, pInfo.YC_DK_NH_CHUYENDOI, ParameterDirection.Input),
+                     paramReturn 
                      );
                 var result = Convert.ToDecimal(paramReturn.Value.ToString());
                 return result;
@@ -43,19 +43,18 @@ namespace DataAccess
             {
                 OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
                 OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "PKG_C07.PROC_APP_DETAIL_C07_UPDATE",
-                    paramReturn,
                     new OracleParameter("P_ID", OracleDbType.Varchar2, pInfo.C07_Id, ParameterDirection.Input),
                     new OracleParameter("P_CASE_CODE", OracleDbType.Varchar2, pInfo.Case_Code, ParameterDirection.Input),
                     new OracleParameter("P_APP_HEADER_ID", OracleDbType.Decimal, pInfo.App_Header_Id, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, pInfo.Language_Code, ParameterDirection.Input),
                     new OracleParameter("P_LOGOURL", OracleDbType.Varchar2, pInfo.LOGOURL, ParameterDirection.Input),
-                    new OracleParameter("P_SODK_QUOCTE", OracleDbType.Varchar2, pInfo.SODK_QUOCTE, ParameterDirection.Input),
+                    new OracleParameter("P_SODK_QUOCTE", OracleDbType.Varchar2, pInfo.SODK_QUOCTE.Trim(), ParameterDirection.Input),
                     new OracleParameter("P_NGAY_DK_QUOCTE", OracleDbType.Date, pInfo.NGAY_DK_QUOCTE, ParameterDirection.Input),
                     new OracleParameter("P_NGAY_UT_DKQT", OracleDbType.Date, pInfo.NGAY_UT_DKQT, ParameterDirection.Input),
-                    new OracleParameter("P_CHUNH_TEN", OracleDbType.Date, pInfo.CHUNH_TEN, ParameterDirection.Input),
-                    new OracleParameter("P_CHUNH_DIACHI", OracleDbType.Varchar2, pInfo.CHUNH_DIACHI, ParameterDirection.Input),
-                    new OracleParameter("P_YC_DK_NH_CHUYENDOI", OracleDbType.Varchar2, pInfo.YC_DK_NH_CHUYENDOI, ParameterDirection.Input)
-
+                    new OracleParameter("P_CHUNH_TEN", OracleDbType.Varchar2, pInfo.CHUNH_TEN, ParameterDirection.Input),
+                    new OracleParameter("P_CHUNH_DIACHI", OracleDbType.Varchar2, "", ParameterDirection.Input),
+                    new OracleParameter("P_YC_DK_NH_CHUYENDOI", OracleDbType.Varchar2, pInfo.YC_DK_NH_CHUYENDOI, ParameterDirection.Input),
+                    paramReturn
                     );
                 var result = Convert.ToDecimal(paramReturn.Value.ToString());
                 return result;

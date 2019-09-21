@@ -71,7 +71,7 @@ namespace WebApps.Areas.DKQT.Controllers
         public ActionResult Register(ApplicationHeaderInfo pInfo, C07_Info pDetail,
             List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo,
              List<Other_MasterInfo> pOther_MasterInfo,
-             List<AppDocumentOthersInfo> pAppDocOtherInfo)
+             List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo)
         {
             try
             {
@@ -121,9 +121,11 @@ namespace WebApps.Areas.DKQT.Controllers
 
                         if (pReturn < 0)
                             goto Commit_Transaction;
+                        // thêm thông tin class
+                      pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID, language);
+                        if (pReturn < 0)
+                            goto Commit_Transaction;
                     }
-
-
 
                     if (pOther_MasterInfo != null && pOther_MasterInfo.Count > 0)
                     {
