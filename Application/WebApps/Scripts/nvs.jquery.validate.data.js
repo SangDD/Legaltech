@@ -544,32 +544,3 @@ function FuncGetValDocById(pControlId) {
     return _value;
 
 }
-function funGetDocumentFile(formData) {
-    try {
-        var item = 0;
-        var Isuse = 0, Note = "", reponse = false;
-        var _txtid01 = "";
-        var _txtid02 = "";
-        $(".checkbox_appdocument").each(function () {
-            Isuse = 0;
-            Note = "";
-            reponse = false;
-            var _checkboxname = $(this).attr("id");
-            var _txtIndexID = item.toString();
-            if (item <= 9) {
-                _txtIndexID = "0" + _txtIndexID;
-            }
-            var _txtid01 = "txt_DOC_" + _txtIndexID;
-            var _txtid02 = "txt_DOC_" + _txtIndexID + "_2";
-            reponse = funcGetCheckValueAndText(formData, _checkboxname, item);
-            formData.append("pAppDocumentInfo[" + item + "].CHAR01", FuncGetValDocById(_txtid01));
-            formData.append("pAppDocumentInfo[" + item + "].CHAR02", FuncGetValDocById(_txtid02));
-            item++;
-        });
-        return true;
-    }
-    catch (e) {
-        console.log(e);
-        return false;
-    }
-}
