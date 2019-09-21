@@ -1,8 +1,8 @@
-﻿@using Common.CommonData
-@using WebApps.CommonFunction;
+﻿@using WebApps.CommonFunction;
 @using BussinessFacade.ModuleMemoryData
+@using ObjectInfos
+@using ObjectInfos.ModuleTrademark
 @using WebApps.Resources;
-@using ObjectInfos;
 @{
     ViewBag.Title = "C01";
     Layout = "~/ViewsShared/_Layout.cshtml";
@@ -14,6 +14,36 @@
     }
 
     List<Sys_Document_Info> _lst_doc = WebApps.CommonFunction.AppsCommon.Sys_Document_GetBy_Casecode("C01");
+
+    ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    }
+
+    App_Detail_C01_Info _App_Detail = new App_Detail_C01_Info();
+    if (ViewBag.App_Detail != null)
+    {
+        _App_Detail = (App_Detail_PLB01_SDD_Info)ViewBag.App_Detail;
+    }
+
+    List<AppDocumentInfo> Lst_AppDoc = new List<AppDocumentInfo>();
+    if (ViewBag.Lst_AppDoc != null)
+    {
+        Lst_AppDoc = (List<AppDocumentInfo>)ViewBag.Lst_AppDoc;
+    }
+
+    List<AppFeeFixInfo> Lst_AppFee = new List<AppFeeFixInfo>();
+    if (ViewBag.Lst_AppFee != null)
+    {
+        Lst_AppFee = (List<AppFeeFixInfo>)ViewBag.Lst_AppFee;
+    }
+
+    Dictionary<string, AppDocumentInfo> dic_appDoc = new Dictionary<string, AppDocumentInfo>();
+    foreach (AppDocumentInfo item in Lst_AppDoc)
+    {
+        dic_appDoc[item.Document_Id] = item;
+    }
 }
 
 <style>
@@ -51,17 +81,12 @@
     </div>
 
 </div>
-<input type="hidden" id="txtAppCode" value='@ViewBag.AppCode' />
+<input type="hidden" id="txtAppCode" value='@_AppHeaderInfo.Appcode' />
 
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
         <legend style="font-weight:600"> @Resource.TM3B_Legend</legend>
-
-        @Html.Partial("~/ViewsShared/_PartialQuocGia.cshtml")
-
-        @*thông tin khách hàng mà admin nhập hộ*@
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCustomer.cshtml")
 
         @* Case name *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
@@ -73,13 +98,11 @@
                 @Resource.TM2B_ChuDon
             </div>
         </div>
-
-        <div id="div_PartialThongTinChuDon">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
-        </div>
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
 
         @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
+        @* end 2 *@
 
         @* end 2 *@
 
@@ -94,14 +117,28 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio" style="width:482px">
-                    <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdDonSangChe" value="1">
+                    @if (_App_Detail.Request_Change_Type == 1)
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdDonSangChe" value="1" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdDonSangChe" value="1">
+                    }
                     <label>Bằng độc quyền sáng chế</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
-                    <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdGPHI" value="2">
+                    @if (_App_Detail.Request_Change_Type == 2)
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdGPHI" value="2" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdGPHI" value="2">
+                    }
                     <label>Bằng độc quyền giải pháp hữu ích</label>
                 </div>
             </div>
@@ -112,14 +149,28 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio" style="width:482px">
-                    <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rd_KDCN" value="3">
+                    @if (_App_Detail.Request_Change_Type == 2)
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rd_KDCN" value="3" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rd_KDCN" value="3">
+                    }
                     <label>Bằng độc quyền kiểu dáng công nghiệp</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
-                    <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdBanDan" value="4">
+                    @if (_App_Detail.Request_Change_Type == 2)
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdBanDan" value="4" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdBanDan" value="4">
+                    }
                     <label>Giấy chứng nhận đăng ký thiết kế bố trí mạch tích hợp bán dẫn</label>
                 </div>
             </div>
@@ -128,14 +179,28 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio" style="width:482px">
-                    <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdNhanHieu" value="5">
+                    @if (_App_Detail.Request_Change_Type == 2)
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdNhanHieu" value="5" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdNhanHieu" value="5">
+                    }
                     <label>Giấy chứng nhận đăng ký nhãn hiệu</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
-                    <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdChiDanDiaLy" value="6">
+                    @if (_App_Detail.Request_Change_Type == 2)
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdChiDanDiaLy" value="6" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdChiDanDiaLy" value="6">
+                    }
                     <label>Giấy chứng nhận đăng ký chỉ dẫn địa lý</label>
                 </div>
             </div>
@@ -147,7 +212,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txt_app_no_change" />
+                    <input type="text" id="txt_app_no_change" value="@_App_Detail.App_No_Change" />
                 </div>
             </div>
         </div>
@@ -165,14 +230,28 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-checkbox" style="width:382px">
-                    <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1">
+                    @if (_App_Detail.Request_Master_To == "1")
+                    {
+                        <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon">
+                    }
                     <label>@Resource.TM3B_TenChuDon</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-checkbox">
-                    <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2">
+                    @if (_App_Detail.Request_Address_To == "1")
+                    {
+                        <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon">
+                    }
                     <label>@Resource.TM3B_DiaChiChuDon</label>
                 </div>
             </div>
@@ -181,7 +260,14 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-checkbox" style="width:382px">
-                    <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3">
+                    @if (_App_Detail.Request_Others_To == "1")
+                    {
+                        <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" checked="checked">
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac">
+                    }
                     <label>@Resource.TM3B_NoiDungKhac</label>
                 </div>
             </div>
@@ -206,30 +292,55 @@
             </div>
         </div>
 
-        @foreach (Sys_Document_Info item in _lst_doc)
+        @foreach (var itemdoc in _lst_doc)
         {
-            string _model = item.Doc_Id + "|" + item.Check_Box_Id + "|" + item.Doc_Level + "|" + item.Content_1 + "|" + item.Content_2 + "|" + item.Is_Upload + "|" + item.Width + "|" + item.Content_3;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
+            if (dic_appDoc.ContainsKey(itemdoc.Doc_Id))
+            {
+                string _width = "";
+                string _vl_isuse = dic_appDoc[itemdoc.Doc_Id].Isuse.ToString();
+                string _vl_char01 = dic_appDoc[itemdoc.Doc_Id].CHAR01;
+                string _vl_url = dic_appDoc[itemdoc.Doc_Id].Url_Hardcopy;
+                string _vl_char02 = dic_appDoc[itemdoc.Doc_Id].CHAR02;
+
+                string _model = itemdoc.Doc_Id + "|" + itemdoc.Check_Box_Id + "|" + itemdoc.Doc_Level + "|" + itemdoc.Content_1 + "|" + itemdoc.Content_2 + "|" + itemdoc.Is_Upload.ToString() + "|" + _width + "|" + itemdoc.Content_3;
+                _model += ";" + _vl_isuse + "|" + _vl_char01 + "|" + _vl_url + "|" + _vl_char02;
+
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model)
+
+            }
         }
 
         @*TÀI LIỆU KHÁC*@
-        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others.cshtml")
+        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others_View.cshtml")
 
-        @* Cam kết của chủ đơn *@
-        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml")
+        @* Cam kết của hủ đơn *@
+        @{
+            string _camket = _AppHeaderInfo.Address + "|" + _AppHeaderInfo.DateNo + "|" + _AppHeaderInfo.Months + "|" + _AppHeaderInfo.Years;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon_View.cshtml", _camket)
+        }
 
         <div class="class_save">
             <div class="classGuiDon">
-                <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
-            </div>
-            <div class="classLuuTam">
-                <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
+                @if (_AppHeaderInfo.Status == (int)Common.CommonData.CommonEnums.App_Status.Luu_tam)
+                {
+                    <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
+                    <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
+                }
+                else
+                {
+                    <input type="button" value="@Resource.TM3B_BtnSuaDon" id="btnSuaDon" class="btn" />
+                    if (_todo != null)
+                    {
+                        <input type="button" value="@Resource.Send" id="btnSend" class="btn" />
+                    }
+                }
+
             </div>
         </div>
     </fieldset>
 </div>
 
-@Html.Partial("~/Areas/TradeMark/Views/C01/_PartialPreview_IU.cshtml")
+@Html.Partial("~/Areas/TradeMark/Views/C01/_PartialPreview.cshtml")
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
     </div>
@@ -299,11 +410,10 @@
         });
     });
 
-   
-   $("#btnGuiDon").click(function () {
+    $("#btnGuiDon").click(function () {
         try {
             nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
-                funGetData(2);
+                funGetData(2, 0);
             });
         } catch (e) {
             console.log(e);
@@ -313,7 +423,7 @@
     $("#btnLuuTam").click(function () {
         try {
             nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuuTam)", function () {
-                funGetData(1);
+                funGetData(1, 0);
             });
         } catch (e) {
             CreateRollingWaitingIcon(false);
@@ -321,26 +431,39 @@
         }
     });
 
-    function funGetData(ptype) {
+    $("#btnSuaDon").click(function () {
+        try {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuu)", function () {
+                funGetData(@_AppHeaderInfo.Status, 0);
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    });
+
+    $("#btnSend").click(function () {
+        try {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuu)", function () {
+                //Thông tin chủ đơn
+
+                var _update_todo = 1;
+                funGetData(@_AppHeaderInfo.Status, _update_todo);
+
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    });
+
+
+    function funGetData(ptype, _UpdateToDo) {
         try {
             //Thông tin chủ đơn
             var formData = new FormData();
 
-            var reponse = getNation_Represent(formData);
-            if (reponse == false) {
-                return false;
+            if (_UpdateToDo == 1) {
+                formData.append("pInfo.UpdateToDo", 1);
             }
-
-            var reponse = funcThongTinNhapHo(formData);
-            if (reponse == false) {
-                return false;
-            }
-
-            var reponse = funcThongTinCaseName(formData, "0");
-            if (reponse == false) {
-                return false;
-            }
-
 
             if (ptype == 1) {
                 if (funcThongTinChuDon_SaveTem(formData, "1") != true) {
@@ -351,7 +474,7 @@
                     return false;
                 }
             }
- 
+
             var v_AppCode = $("#txtAppCode").val();
             if (v_AppCode === "") {
                 $('#txtAppCode').focus().val('');
@@ -404,7 +527,7 @@
             }
 
             $.ajax({
-                url: '/trade-mark-c01/do-register',
+                url: '/trade-mark-c01/do-edit',
                 type: 'POST',
                 data: formData,
                 processData: false,
