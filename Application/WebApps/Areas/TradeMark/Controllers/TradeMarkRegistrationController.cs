@@ -1561,7 +1561,24 @@
                 ViewBag.Isdisable = 1;
                 return PartialView(@"~\Areas\DKQT\Views\C07\_Partial_C07_View.cshtml");
             }
+            else if (pAppCode == TradeMarkAppCode.AppCode_C01)
+            {
+                App_Detail_C01_BL objBL = new App_Detail_C01_BL();
+                string language = AppsCommon.GetCurrentLang();
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
 
+                App_Detail_C01_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos, ref _LstDocumentOthersInfo);
+                ViewBag.App_Detail = app_Detail;
+                ViewBag.Lst_AppDoc = appDocumentInfos;
+                ViewBag.Lst_AppFee = appFeeFixInfos;
+                ViewBag.objAppHeaderInfo = applicationHeaderInfo;
+                ViewBag.lstDocOther = _LstDocumentOthersInfo;
+
+                return PartialView("~/Areas/TradeMark/Views/C01/_Partial_C01_View.cshtml");
+            }
             else
             {
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialDangKyNhanHieu.cshtml");
@@ -1852,25 +1869,26 @@
                 ViewBag.Isdisable = 0;
                 return PartialView(@"~\Areas\DKQT\Views\C07\_Partial_C07_Edit.cshtml");
             }
-            else if(pAppCode == TradeMarkAppCode.AppCode_E01)
+            else if (pAppCode == TradeMarkAppCode.AppCode_C01)
             {
-               
-                    var objBL = new BussinessFacade.ModuleTrademark.Application_Header_BL();
-                    string language = AppsCommon.GetCurrentLang();
-                    List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
-                    List<AppFeeFixInfo> _lst_appFeeFixInfos = new List<AppFeeFixInfo>();
-                    ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
-                    ApplicationHeaderInfo _app = objBL.GetAllByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos);
-                    ViewBag.Lst_AppDoc = appDocumentInfos;
-                    ViewBag.Lst_AppFee = _lst_appFeeFixInfos;
-                    ViewBag.objAppHeaderInfo = applicationHeaderInfo;
+                App_Detail_C01_BL objBL = new App_Detail_C01_BL();
+                string language = AppsCommon.GetCurrentLang();
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
 
-                    return PartialView("~/Areas/Patent/Views/E01/_Partial_E01_Edit.cshtml");
-               
+                App_Detail_C01_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos, ref _LstDocumentOthersInfo);
+                ViewBag.App_Detail = app_Detail;
+                ViewBag.Lst_AppDoc = appDocumentInfos;
+                ViewBag.Lst_AppFee = appFeeFixInfos;
+                ViewBag.objAppHeaderInfo = applicationHeaderInfo;
+                ViewBag.lstDocOther = _LstDocumentOthersInfo;
+
+                return PartialView("~/Areas/TradeMark/Views/C01/_Partial_C01_Edit.cshtml");
             }
             else
             {
-                //
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialDangKyNhanHieu.cshtml");
             }
         }

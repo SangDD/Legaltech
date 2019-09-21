@@ -51,6 +51,8 @@ namespace ObjectInfos
             this.Request_Address_To = p_app_detail.Request_Address_To;
             this.Request_Others_To = p_app_detail.Request_Others_To;
             this.Request_To_Content = p_app_detail.Request_To_Content;
+            this.Number_Pic = p_app_detail.Number_Pic;
+            this.Number_Page = p_app_detail.Number_Page;
 
             this.STT = p_app_header.STT;
             this.Appcode = p_app_header.Appcode;
@@ -89,6 +91,9 @@ namespace ObjectInfos
         public string Request_Address_To { get; set; }
         public string Request_Others_To { get; set; }
         public string Request_To_Content { get; set; }
+
+        public int Number_Pic { get; set; }
+        public int Number_Page { get; set; }
 
         public decimal Fee_Id_1 { get; set; }
         public decimal Fee_Id_1_Check { get; set; }

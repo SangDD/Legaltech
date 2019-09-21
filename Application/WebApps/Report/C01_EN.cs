@@ -16,14 +16,14 @@ namespace WebApps.Report {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class C07 : ReportClass {
+    public class C01_EN : ReportClass {
         
-        public C07() {
+        public C01_EN() {
         }
         
         public override string ResourceName {
             get {
-                return "C07.rpt";
+                return "C01_EN.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace WebApps.Report {
         
         public override string FullResourceName {
             get {
-                return "WebApps.Report.C07.rpt";
+                return "WebApps.Report.C01_EN.rpt";
             }
             set {
                 // Do nothing
@@ -74,7 +74,7 @@ namespace WebApps.Report {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section DetailSection2 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
             get {
                 return this.ReportDefinition.Sections[3];
             }
@@ -82,25 +82,17 @@ namespace WebApps.Report {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
-            get {
-                return this.ReportDefinition.Sections[4];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public CrystalDecisions.CrystalReports.Engine.Section Section5 {
             get {
-                return this.ReportDefinition.Sections[5];
+                return this.ReportDefinition.Sections[4];
             }
         }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedC07 : Component, ICachedReport {
+    public class CachedC01_EN : Component, ICachedReport {
         
-        public CachedC07() {
+        public CachedC01_EN() {
         }
         
         [Browsable(false)]
@@ -137,7 +129,7 @@ namespace WebApps.Report {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            C07 rpt = new C07();
+            C01_EN rpt = new C01_EN();
             rpt.Site = this.Site;
             return rpt;
         }
