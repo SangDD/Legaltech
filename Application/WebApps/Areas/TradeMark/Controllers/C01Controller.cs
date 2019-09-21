@@ -562,7 +562,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 else
                 {
                     fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C01_EN_" + _datetimenow + ".pdf");
-                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "C01_EN_" + _datetimenow + ".pdf";
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "C01_EN_" + _datetimenow + ".pdf"; 
                 }
 
                 AppsCommon.Prepare_Data_Export_C01(ref pDetail, pInfo, pAppDocumentInfo);
