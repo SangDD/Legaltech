@@ -102,6 +102,8 @@ namespace ObjectInfos
         public decimal Total_Fee { get; set; }
         public string Total_Fee_Str { get; set; }
 
+        public string strListClass { get; set; }
+        
         #endregion
 
         #region các tài liệu trong đơn
@@ -110,52 +112,62 @@ namespace ObjectInfos
         public string strDanhSachFileDinhKem
         { get { return _strDsFile; } set { _strDsFile = value; } }
         //Tờ khai, gồm.......trang x .......bản
+        public string Doc_Id_0 { get; set; }
+        public string Doc_Id_002 { get; set; }
+
+        public decimal Doc_Id_0_Check { get; set; }
+
+        //Mẫu nhãn hiệu, gồm .... mẫu
         public string Doc_Id_1 { get; set; }
         public string Doc_Id_102 { get; set; }
 
         public decimal Doc_Id_1_Check { get; set; }
-        //Mẫu nhãn hiệu, gồm .... mẫu
+        //Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ)
+
         public string Doc_Id_2 { get; set; }
         public string Doc_Id_202 { get; set; }
+        // Bản sao ĐKQTNH đã bị mất hiệu lực tại nước xuất xứ 
 
         public decimal Doc_Id_2_Check { get; set; }
-        //Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ)
+        //Giấy uỷ quyền bằng tiếng.......
+
         public string Doc_Id_3 { get; set; }
         public string Doc_Id_302 { get; set; }
         public decimal Doc_Id_3_Check { get; set; }
-        // Bản sao ĐKQTNH đã bị mất hiệu lực tại nước xuất xứ 
         public string Doc_Id_4 { get; set; }
         public string Doc_Id_402 { get; set; }
+        // bản dịch tiếng Việt, gồm..........trang  
 
         public decimal Doc_Id_4_Check { get; set; }
-        //Giấy uỷ quyền bằng tiếng.......
         public string Doc_Id_5 { get; set; }
         public string Doc_Id_502 { get; set; }
 
         public decimal Doc_Id_5_Check { get; set; }
-        // bản dịch tiếng Việt, gồm..........trang  
         public decimal Doc_Id_6_Check { get; set; }
+        //bản gốc                 
+
         public string Doc_Id_6 { get; set; }
         public string Doc_Id_602 { get; set; }
-        //bản gốc                 
         public decimal Doc_Id_7_Check { get; set; }
         public string Doc_Id_702 { get; set; }
-        public string Doc_Id_7 { get; set; }
         //bản sao
+
+        public string Doc_Id_7 { get; set; }
         public decimal Doc_Id_8_Check { get; set; }
         public string Doc_Id_802 { get; set; }
+        //bản gốc sẽ nộp sau9
 
         public string Doc_Id_8 { get; set; }
+        //bản gốc đã nộp theo đơn số
 
-        //bản gốc sẽ nộp sau9
         public string Doc_Id_9 { get; set; }
         public string Doc_Id_902 { get; set; }
         public decimal Doc_Id_9_Check { get; set; }
-        //bản gốc đã nộp theo đơn số
+        //Các tài liệu khác, cụ thể là
+
         public string Doc_Id_10 { get; set; }
         public string Doc_Id_1002 { get; set; }
         public decimal Doc_Id_10_Check { get; set; }
-        //Các tài liệu khác, cụ thể là
         public string Doc_Id_11 { get; set; }
         public decimal Doc_Id_11_Check { get; set; }
 

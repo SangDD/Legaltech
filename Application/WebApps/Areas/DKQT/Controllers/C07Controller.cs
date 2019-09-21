@@ -30,7 +30,7 @@ namespace WebApps.Areas.DKQT.Controllers
     public class C07Controller : Controller
     {
 
-       
+
 
         [HttpGet]
         [Route("register/{id}")]
@@ -122,7 +122,7 @@ namespace WebApps.Areas.DKQT.Controllers
                         if (pReturn < 0)
                             goto Commit_Transaction;
                         // thêm thông tin class
-                      pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID, language);
+                        pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID, language);
                         if (pReturn < 0)
                             goto Commit_Transaction;
                     }
@@ -285,10 +285,10 @@ namespace WebApps.Areas.DKQT.Controllers
                         pDetail.Language_Code = language;
                         pDetail.App_Header_Id = pAppHeaderID;
                         pDetail.Case_Code = p_case_code;
-                         
+
                         pReturn = objDetail.UpDate(pDetail);
 
-                        if (pReturn <  0)
+                        if (pReturn < 0)
                             goto Commit_Transaction;
 
                         #region  Thêm thông tin class
@@ -297,12 +297,12 @@ namespace WebApps.Areas.DKQT.Controllers
 
                             //Xoa cac class cu di 
                             pReturn = objClassDetail.AppClassDetailDeleted(pInfo.Id, language);
-                            if (pReturn <  0)
+                            if (pReturn < 0)
                                 goto Commit_Transaction;
 
                             pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pInfo.Id, language);
 
-                            if (pReturn <  0)
+                            if (pReturn < 0)
                                 goto Commit_Transaction;
                         }
                         #endregion
@@ -471,7 +471,7 @@ namespace WebApps.Areas.DKQT.Controllers
            List<AppFeeFixInfo> pFeeFixInfo,
            List<Other_MasterInfo> pOther_MasterInfo,
            List<AppClassDetailInfo> pAppClassInfo,
-           List<AppDocumentOthersInfo> pAppDocOtherInfo
+           List<AppDocumentOthersInfo> pAppDocOtherInfo 
            )
         {
             try
@@ -496,7 +496,7 @@ namespace WebApps.Areas.DKQT.Controllers
                 }
 
                 C07_Info_Export _C07_Info_Export = new C07_Info_Export();
-                
+
                 C07_Info_Export.CopyC07_Info(ref _C07_Info_Export, pDetail);
 
                 _C07_Info_Export.LOGOURL = Server.MapPath(_C07_Info_Export.LOGOURL);
@@ -505,7 +505,7 @@ namespace WebApps.Areas.DKQT.Controllers
 
                 List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C07(pDetail, pAppDocumentInfo);
                 Prepare_Data_Export_C07(ref _C07_Info_Export, pInfo, pAppDocumentInfo, _lstFeeFix, pOther_MasterInfo,
-                       pAppDocOtherInfo);
+                       pAppDocOtherInfo, pAppClassInfo);
 
                 _lst.Add(_C07_Info_Export);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<C07_Info_Export>(_lst, false);
@@ -532,7 +532,7 @@ namespace WebApps.Areas.DKQT.Controllers
                     {
 
                         double _Const = 6.666666666666;
-                        int _left = 0, _top = 0, _marginleft = 225, _margintop = 3540;
+                        int _left = 0, _top = 0, _marginleft = 225, _margintop = 5580;
                         int _h = 600;
                         double _d1 = (_h - img.Width) / 2;
                         _d1 = _Const * _d1;
@@ -574,7 +574,7 @@ namespace WebApps.Areas.DKQT.Controllers
                 #endregion
                 if (_ds_all != null)
                 {
-                    _ds_all.Tables[0].TableName = "Table1";
+                    _ds_all.Tables[0].TableName = "Table";
                     oRpt.SetDataSource(_ds_all);
                 }
                 oRpt.Refresh();
@@ -618,8 +618,9 @@ namespace WebApps.Areas.DKQT.Controllers
                 ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
                 List<Other_MasterInfo> _lst_Other_MasterInfo = new List<Other_MasterInfo>();
                 List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
+                List<AppClassDetailInfo> appClassDetailInfos = new List<AppClassDetailInfo>();
                 C07_Info_Export pDetail = objBL.GetByID_Exp(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos,
-                    ref _lst_Other_MasterInfo, ref _LstDocumentOthersInfo);
+                    ref _lst_Other_MasterInfo, ref _LstDocumentOthersInfo, ref appClassDetailInfos);
                 pDetail.LOGOURL = Server.MapPath(pDetail.LOGOURL);
                 string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C07_VN_" + _datetimenow + ".pdf");
                 if (pDetail.Languague_Code == Language.LangVI)
@@ -634,7 +635,7 @@ namespace WebApps.Areas.DKQT.Controllers
                 }
 
                 Prepare_Data_Export_C07(ref pDetail, applicationHeaderInfo, appDocumentInfos, _lst_appFeeFixInfos, _lst_Other_MasterInfo,
-                      _LstDocumentOthersInfo);
+                      _LstDocumentOthersInfo, appClassDetailInfos);
 
                 _lst.Add(pDetail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<C07_Info_Export>(_lst, false);
@@ -661,7 +662,7 @@ namespace WebApps.Areas.DKQT.Controllers
                     {
 
                         double _Const = 6.666666666666;
-                        int _left = 0, _top = 0, _marginleft = 225, _margintop = 3540;
+                        int _left = 0, _top = 0, _marginleft = 225, _margintop = 5580;
                         int _h = 600;
                         double _d1 = (_h - img.Width) / 2;
                         _d1 = _Const * _d1;
@@ -703,7 +704,7 @@ namespace WebApps.Areas.DKQT.Controllers
                 #endregion
                 if (_ds_all != null)
                 {
-                    _ds_all.Tables[0].TableName = "Table1";
+                    _ds_all.Tables[0].TableName = "Table";
                     oRpt.SetDataSource(_ds_all);
                 }
                 oRpt.Refresh();
@@ -731,14 +732,14 @@ namespace WebApps.Areas.DKQT.Controllers
 
         public static void Prepare_Data_Export_C07(ref C07_Info_Export app_Detail, ApplicationHeaderInfo applicationHeaderInfo,
            List<AppDocumentInfo> appDocumentInfos, List<AppFeeFixInfo> _lst_appFeeFixInfos, List<Other_MasterInfo> _lst_Other_MasterInfo,
-             List<AppDocumentOthersInfo> _LstDocumentOthersInfo)
+             List<AppDocumentOthersInfo> _LstDocumentOthersInfo, List<AppClassDetailInfo> appClassDetailInfos)
         {
             try
             {
                 // copy Header
                 C07_Info_Export.CopyAppHeaderInfo(ref app_Detail, applicationHeaderInfo);
 
-               
+
                 // copy class
 
                 // copy tác giả
@@ -789,6 +790,12 @@ namespace WebApps.Areas.DKQT.Controllers
                 {
                     foreach (AppDocumentInfo item in appDocumentInfos)
                     {
+                        if (item.Document_Id == "C07_00")
+                        {
+                            app_Detail.Doc_Id_0 = item.CHAR01;
+                            app_Detail.Doc_Id_002 = item.CHAR02;
+                            app_Detail.Doc_Id_0_Check = item.Isuse;
+                        }
                         if (item.Document_Id == "C07_01")
                         {
                             app_Detail.Doc_Id_1 = item.CHAR01;
@@ -853,7 +860,7 @@ namespace WebApps.Areas.DKQT.Controllers
                             app_Detail.Doc_Id_11_Check = item.Isuse;
                             app_Detail.Doc_Id_11 = item.CHAR01;
                         }
-                       
+
 
                     }
 
@@ -897,6 +904,24 @@ namespace WebApps.Areas.DKQT.Controllers
                         app_Detail.Total_Fee_Str = app_Detail.Total_Fee.ToString("#,##0.##");
                     }
                 }
+                #endregion
+
+                #region class
+
+
+                foreach (AppClassDetailInfo item in appClassDetailInfos.OrderBy(m => m.Code))
+                {
+                    // nếu là tiếng việt thì hiện tiếng anh
+                    if (AppsCommon.GetCurrentLang() == "VI_VN")
+                    {
+                        app_Detail.strListClass += "Class " + item.Code.Substring(0, 2) + ": " + item.Textinput.Trim().Trim(',') + " (" + (item.IntTongSanPham < 10 ? "0" + item.IntTongSanPham.ToString() : item.IntTongSanPham.ToString()) + " " + "gooods" + " )" + "\n";
+                    }
+                    else
+                    {
+                        app_Detail.strListClass += "Nhóm" + item.Code.Substring(0, 2) + ": " + item.Textinput.Trim().Trim(',') + " (" + (item.IntTongSanPham < 10 ? "0" + item.IntTongSanPham.ToString() : item.IntTongSanPham.ToString()) + " " + "sản phẩm" + " )" + "\n";
+                    }
+                }
+
                 #endregion
             }
             catch (Exception ex)

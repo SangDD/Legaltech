@@ -91,20 +91,22 @@ namespace BussinessFacade
           ref List<AppDocumentInfo> appDocumentInfos, 
           ref List<AppFeeFixInfo> appFeeFixInfos,
           ref List<Other_MasterInfo> pOther_MasterInfo,
-          ref List<AppDocumentOthersInfo> pAppDocOtherInfo )
+          ref List<AppDocumentOthersInfo> pAppDocOtherInfo,
+          ref List<AppClassDetailInfo> appClassDetailInfos)
         {
             try
             {
                 C07_DA _obj_da = new C07_DA();
                 DataSet dataSet = _obj_da.GetByID(p_app_header_id, p_language_code);
                 C07_Info_Export _C07_Info = CBO<C07_Info_Export>.FillObjectFromDataSet(dataSet);
-                if (dataSet != null && dataSet.Tables.Count == 6)
+                if (dataSet != null && dataSet.Tables.Count == 7)
                 {
                     applicationHeaderInfo = CBO<ApplicationHeaderInfo>.FillObjectFromDataTable(dataSet.Tables[1]);
                     appDocumentInfos = CBO<AppDocumentInfo>.FillCollectionFromDataTable(dataSet.Tables[2]);
                     appFeeFixInfos = CBO<AppFeeFixInfo>.FillCollectionFromDataTable(dataSet.Tables[3]);
                     pOther_MasterInfo = CBO<Other_MasterInfo>.FillCollectionFromDataTable(dataSet.Tables[4]);
-                    pAppDocOtherInfo = CBO<AppDocumentOthersInfo>.FillCollectionFromDataTable(dataSet.Tables[5]);
+                    appClassDetailInfos = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(dataSet.Tables[5]);
+                    pAppDocOtherInfo = CBO<AppDocumentOthersInfo>.FillCollectionFromDataTable(dataSet.Tables[6]);
                 }
                 return _C07_Info;
             }
