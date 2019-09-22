@@ -316,7 +316,7 @@
         </div>
     </fieldset>
 </div>
-@Html.Partial("~/Areas/Patent/Views/B03/_PartialPreview_IU.cshtml")
+@Html.Partial("~/Areas/Patent/Views/E01/_PartialPreview_IU.cshtml")
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
     </div>
@@ -381,6 +381,22 @@
             }
         });
     });
+
+
+    $("#btnSend").click(function () {
+        try {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuu)", function () {
+                //Thông tin chủ đơn
+
+                var _update_todo = 1;
+                funGetData(@_AppHeaderInfo.Status, _update_todo);
+
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    });
+
     $("#btnSuaDon").click(function () {
         try {
             nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuu)", function () {
@@ -390,6 +406,29 @@
             console.log(e);
         }
     });
+
+    $("#btnGuiDon").click(function () {
+        try {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
+                funGetData(2, 0);
+            });
+
+        } catch (e) {
+            console.log(e);
+        }
+    });
+
+    $("#btnLuuTam").click(function () {
+        try {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuuTam)", function () {
+                funGetData(1, 0);
+            });
+        } catch (e) {
+            CreateRollingWaitingIcon(false);
+            console.log(e);
+        }
+    });
+
     function funGetData(ptype, _UpdateToDo) {
         try {
             var formData = new FormData();
