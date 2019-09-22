@@ -182,7 +182,7 @@ namespace WebApps.Areas.DKQT.Controllers
 
 
                     #region tính phí
-                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C07(pDetail, pAppDocumentInfo);
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C07(pDetail, pAppClassInfo);
                     if (_lstFeeFix.Count > 0)
                     {
                         AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
@@ -387,7 +387,7 @@ namespace WebApps.Areas.DKQT.Controllers
                     AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
                     _AppFeeFixBL.AppFeeFixDelete(pInfo.Case_Code, language);
 
-                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C07(pDetail, pAppDocumentInfo);
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C07(pDetail, pAppClassInfo);
                     if (_lstFeeFix.Count > 0)
                     {
                         pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, p_case_code);
@@ -514,13 +514,21 @@ namespace WebApps.Areas.DKQT.Controllers
 
                 // Phí cố định
 
-                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C07(pDetail, pAppDocumentInfo);
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C07(pDetail, pAppClassInfo);
                 Prepare_Data_Export_C07(ref _C07_Info_Export, pInfo, pAppDocumentInfo, _lstFeeFix, pOther_MasterInfo,
                        pAppDocOtherInfo, pAppClassInfo);
 
                 _lst.Add(_C07_Info_Export);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<C07_Info_Export>(_lst, false);
-                //_ds_all.WriteXml(@"C:\inetpub\C07.xml", XmlWriteMode.WriteSchema);
+                try
+                {
+                    _ds_all.WriteXml(@"C:\inetpub\C07.xml", XmlWriteMode.WriteSchema);
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogException(ex);
+                }
+
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
                 string _tempfile = "C07.rpt";
@@ -650,7 +658,14 @@ namespace WebApps.Areas.DKQT.Controllers
 
                 _lst.Add(pDetail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<C07_Info_Export>(_lst, false);
-                _ds_all.WriteXml(@"C:\inetpub\C07.xml", XmlWriteMode.WriteSchema);
+                try
+                {
+                    _ds_all.WriteXml(@"C:\inetpub\C07.xml", XmlWriteMode.WriteSchema);
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogException(ex);
+                }
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
                 string _tempfile = "C07.rpt";
@@ -880,6 +895,9 @@ namespace WebApps.Areas.DKQT.Controllers
                 #endregion
 
                 #region Fee
+      
+              
+                 
                 if (_lst_appFeeFixInfos.Count > 0)
                 {
                     foreach (var item in _lst_appFeeFixInfos)
@@ -897,6 +915,13 @@ namespace WebApps.Areas.DKQT.Controllers
                             app_Detail.Fee_Id_2_Check = item.Isuse;
                             app_Detail.Fee_Id_2_Val = item.Amount.ToString("#,##0.##");
                         }
+                        else if (item.Fee_Id == 21)
+                        {
+                            app_Detail.Fee_Id_21 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
+                            app_Detail.Fee_Id_21_Check = item.Isuse;
+                            app_Detail.Fee_Id_21_Val = item.Amount.ToString("#,##0.##");
+                        }
+
 
                         else if (item.Fee_Id == 3)
                         {
@@ -911,6 +936,24 @@ namespace WebApps.Areas.DKQT.Controllers
                             app_Detail.Fee_Id_4_Val = item.Amount.ToString("#,##0.##");
                         }
 
+                        else if (item.Fee_Id == 41)
+                        {
+                            app_Detail.Fee_Id_41 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
+                            app_Detail.Fee_Id_41_Check = item.Isuse;
+                            app_Detail.Fee_Id_41_Val = item.Amount.ToString("#,##0.##");
+                        }
+                        else if (item.Fee_Id == 5)
+                        {
+                            app_Detail.Fee_Id_5 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
+                            app_Detail.Fee_Id_5_Check = item.Isuse;
+                            app_Detail.Fee_Id_5_Val = item.Amount.ToString("#,##0.##");
+                        }
+                        else if (item.Fee_Id == 51)
+                        {
+                            app_Detail.Fee_Id_51 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
+                            app_Detail.Fee_Id_51_Check = item.Isuse;
+                            app_Detail.Fee_Id_51_Val = item.Amount.ToString("#,##0.##");
+                        }
                         app_Detail.Total_Fee = app_Detail.Total_Fee + item.Amount;
                         app_Detail.Total_Fee_Str = app_Detail.Total_Fee.ToString("#,##0.##");
                     }
@@ -925,11 +968,12 @@ namespace WebApps.Areas.DKQT.Controllers
                     // nếu là tiếng việt thì hiện tiếng anh
                     if (AppsCommon.GetCurrentLang() == "VI_VN")
                     {
-                        app_Detail.strListClass += "Class " + item.Code.Substring(0, 2) + ": " + item.Textinput.Trim().Trim(',') + " (" + (item.IntTongSanPham < 10 ? "0" + item.IntTongSanPham.ToString() : item.IntTongSanPham.ToString()) + " " + "gooods" + " )" + "\n";
+                        app_Detail.strListClass += "Nhóm" + item.Code.Substring(0, 2) + ": " + item.Textinput.Trim().Trim(',') + " (" + (item.IntTongSanPham < 10 ? "0" + item.IntTongSanPham.ToString() : item.IntTongSanPham.ToString()) + " " + "sản phẩm" + " )" + "\n";
                     }
                     else
                     {
-                        app_Detail.strListClass += "Nhóm" + item.Code.Substring(0, 2) + ": " + item.Textinput.Trim().Trim(',') + " (" + (item.IntTongSanPham < 10 ? "0" + item.IntTongSanPham.ToString() : item.IntTongSanPham.ToString()) + " " + "sản phẩm" + " )" + "\n";
+                        app_Detail.strListClass += "Class " + item.Code.Substring(0, 2) + ": " + item.Textinput.Trim().Trim(',') + " (" + (item.IntTongSanPham < 10 ? "0" + item.IntTongSanPham.ToString() : item.IntTongSanPham.ToString()) + " " + "gooods" + " )" + "\n";
+
                     }
                 }
 
@@ -940,6 +984,8 @@ namespace WebApps.Areas.DKQT.Controllers
                 Logger.LogException(ex);
             }
         }
+
+        
 
         [Route("Pre-View")]
         public ActionResult PreViewApplication(string p_appCode)
@@ -958,11 +1004,11 @@ namespace WebApps.Areas.DKQT.Controllers
 
         [HttpPost]
         [Route("getFee")]
-        public ActionResult GetFee(C07_Info pDetail, List<AppDocumentInfo> pAppDocumentInfo)
+        public ActionResult GetFee(C07_Info pDetail, List<AppClassDetailInfo> pAppClassInfo)
         {
             try
             {
-                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C07(pDetail, pAppDocumentInfo);
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C07(pDetail, pAppClassInfo);
                 ViewBag.LstFeeFix = _lstFeeFix;
             }
             catch (Exception ex)

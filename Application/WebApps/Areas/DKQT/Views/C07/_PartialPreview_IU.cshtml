@@ -176,7 +176,15 @@
         if (reponse == false) {
             return false;
         }
-
+        reponse = funcCheckDataClassInfo(_showerror);
+        if (reponse == false) {
+            return false;
+        }
+        // lấy thông tin class
+        reponse = funcGetDataClassInfo(formData, _showerror);
+        if (reponse == false) {
+            return false;
+        }
         if ($("#1_ckbTacGiaDongThoi").is(':checked')) {
             formData.append("pInfo.Master_Type", "TGDT");
         } else if ($("#rdChuDonKhac").is(':checked')) {
