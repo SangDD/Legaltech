@@ -853,6 +853,96 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chủ nhãn hiệu(Tên, địa chỉ).
+        /// </summary>
+        public static string C07_ChuNHTenDiaChi {
+            get {
+                return ResourceManager.GetString("C07_ChuNHTenDiaChi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Danh mục và nhóm hàng hoá, dịch vụ yêu cầu đăng ký nhãn hiệu chuyển đổi.
+        /// </summary>
+        public static string C07_DanhMucHH {
+            get {
+                return ResourceManager.GetString("C07_DanhMucHH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Giữ nguyên trong đăng ký quốc tế.
+        /// </summary>
+        public static string C07_DanhMucHHGiuNguyen {
+            get {
+                return ResourceManager.GetString("C07_DanhMucHHGiuNguyen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thu hẹp hàng hóa, dịch vụ.
+        /// </summary>
+        public static string C07_DanhMucHHThuHep {
+            get {
+                return ResourceManager.GetString("C07_DanhMucHHThuHep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đăng ký quốc tế nhãn hiệu đã bị mất hiệu lực tại nước xuất xứ theo quy định tại Điều 9 của Nghị định thư Madrid.
+        /// </summary>
+        public static string C07_DKQTMATHIEULUC {
+            get {
+                return ResourceManager.GetString("C07_DKQTMATHIEULUC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngày đăng ký quốc tế.
+        /// </summary>
+        public static string C07_NgayDKQT {
+            get {
+                return ResourceManager.GetString("C07_NgayDKQT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngày ưu tiên của đơn đăng ký quốc tế.
+        /// </summary>
+        public static string C07_NgayUTDKQT {
+            get {
+                return ResourceManager.GetString("C07_NgayUTDKQT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số đăng ký quốc tế.
+        /// </summary>
+        public static string C07_SoDKQT {
+            get {
+                return ResourceManager.GetString("C07_SoDKQT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tìm kiếm số đơn.
+        /// </summary>
+        public static string C07_TimSoDon {
+            get {
+                return ResourceManager.GetString("C07_TimSoDon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đăng ký nhãn hiệu chuyển đổi.
+        /// </summary>
+        public static string C07_Title {
+            get {
+                return ResourceManager.GetString("C07_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cập nhật dữ liệu thành công.
         /// </summary>
         public static string CapNhatDuLieuThanhCong {

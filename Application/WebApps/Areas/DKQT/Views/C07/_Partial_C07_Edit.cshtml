@@ -147,7 +147,7 @@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
 
         <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "Đăng ký nhãn hiệu chuyển đổi")
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", Resource.C07_Title)
 
             <div class="class_full_div_input_extent">
                 <div class="class_left_40">
@@ -174,7 +174,7 @@
                         <div class="div-search-content">
                             <div class="div-radio">
                                 <label>
-                                    Đăng ký quốc tế nhãn hiệu đã bị mất hiệu lực tại nước xuất xứ theo quy định tại Điều 9 của Nghị định thư Madrid
+                                    @Resource.C07_DKQTMATHIEULUC
                                 </label>
                             </div>
                             <div>
@@ -183,13 +183,13 @@
                     </div>
                     <div class="div-search-ad">
                         <div class="div-search-title">
-                            <div>Số đăng ký quốc tế:<i class="redspan">(*)</i></div>
+                            <div>@Resource.C07_SoDKQT:<i class="redspan">(*)</i></div>
                         </div>
                         <div class="div-search-content">
                             <div style="width:200px">
                                 <select id="cbo_SODK_QUOCTE" onchange="chooseAppTm06($(this).val())">
                                     <option value="">
-                                        Tìm kiếm số đơn
+                                        @Resource.C07_TimSoDon
                                     </option>
                                     @foreach (var item in _ListTM06nhdetail)
                                     {
@@ -212,7 +212,7 @@
                         </div>
                         <div class="div-search-content">
                             <div>
-                                <input type="text" placeholder="Số đơn ĐKQT" id="txtSoDonDKTQ" maxlength="100"
+                                <input type="text" placeholder="@Resource.C07_SoDKQT" id="txtSoDonDKTQ" maxlength="100"
                                        value="@_App_Detail.SODK_QUOCTE" />
                             </div>
                         </div>
@@ -220,7 +220,7 @@
 
                     <div class="div-search-ad">
                         <div class="div-search-title">
-                            <div style="width:160px">Ngày đăng ký quốc tế:<i class="redspan">(*)</i></div>
+                            <div style="width:160px">@Resource.C07_NgayDKQT:<i class="redspan">(*)</i></div>
                         </div>
                         <div class="div-search-content">
                             <div>
@@ -230,7 +230,7 @@
                         </div>
                         <div class="div-search-title">
                             <div style="width:230px">
-                                Ngày ưu tiên của đơn đăng ký quốc tế:<i class="redspan">(*)</i>
+                                @Resource.C07_NgayUTDKQT:<i class="redspan">(*)</i>
                             </div>
                         </div>
                         <div class="div-search-content">
@@ -244,7 +244,7 @@
                     <div class="div-search-ad">
                         <div class="div-search-title">
                             <div style="width:230px">
-                                Chủ nhãn hiệu(Tên, địa chỉ):<i class="redspan">(*)</i>
+                               @Resource.C07_ChuNHTenDiaChi:<i class="redspan">(*)</i>
                             </div>
                         </div>
                         <div class="div-search-content">
@@ -257,10 +257,7 @@
                     <div class="div-search-ad">
                         <div class="div-search-content">
                             <div class="div-radio">
-                                <label>
-                                    Danh mục và nhóm hàng hoá, dịch vụ yêu cầu
-                                    đăng ký nhãn hiệu chuyển đổi
-                                </label>
+                                <label>@Resource.C07_DanhMucHH</label>
                             </div>
                         </div>
                     </div>
@@ -268,7 +265,7 @@
                         <div class="div-search-content">
                             <div class="div-radio">
                                 <input type="radio" name="0_TRANGTHAIDANGKY" class="classNhanHieu" value="GIUNGUYEN" id="cbo_giunguyen" onclick="ChangeTrangThaiDK()" />
-                                <label>Giữ nguyên trong đăng ký quốc tế</label>
+                                <label>@Resource.C07_DanhMucHHGiuNguyen</label>
                             </div>
                         </div>
                     </div>
@@ -276,7 +273,7 @@
                         <div class="div-search-content">
                             <div class="div-radio">
                                 <input  type="radio" name="0_TRANGTHAIDANGKY" class="classNhanHieu" value="RUTGON" id="cbo_rutgon" onclick="ChangeTrangThaiDK()" />
-                                <label>Thu hẹp hàng hóa, dịch vụ</label>
+                                <label>@Resource.C07_DanhMucHHThuHep</label>
                             </div>
                         </div>
                     </div>
