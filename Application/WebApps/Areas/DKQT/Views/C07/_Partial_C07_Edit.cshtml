@@ -329,6 +329,9 @@
             <b>@Resource.TaiLieuToiThieu.ToUpper()</b>
         </div>
 
+      
+
+
         @foreach (var itemdoc in _lst_doc)
         {
             if (dic_appDoc.ContainsKey(itemdoc.Doc_Id))
@@ -344,7 +347,12 @@
                 string _width = "";
 
                 string _lebel3 = itemdoc.Content_3;
-
+                if (AppsCommon.GetCurrentLang() == Language.LangEN)
+                {
+                    _lebel = itemdoc.Content_1_En;
+                    _sotrang = itemdoc.Content_2_En;
+                    _lebel3 = itemdoc.Content_3_En;
+                }
                 string _vl_isuse = dic_appDoc[itemdoc.Doc_Id].Isuse.ToString();
                 string _vl_char01 = dic_appDoc[itemdoc.Doc_Id].CHAR01;
                 string _vl_url = dic_appDoc[itemdoc.Doc_Id].Url_Hardcopy;

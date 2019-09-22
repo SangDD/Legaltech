@@ -266,12 +266,23 @@
             </div>
         </div>
 
-         
-        @foreach (Sys_Document_Info item in _lst_doc)
-        {
-            string _model = item.Doc_Id + "|" + item.Check_Box_Id + "|" + item.Doc_Level + "|" + item.Content_1 + "|" + item.Content_2 + "|" + item.Is_Upload + "|" + item.Width + "|" + item.Content_3;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
-        }
+         @if (AppsCommon.GetCurrentLang() == Language.LangVI)
+         {
+             foreach (Sys_Document_Info item in _lst_doc)
+             {
+                 string _model = item.Doc_Id + "|" + item.Check_Box_Id + "|" + item.Doc_Level + "|" + item.Content_1 + "|" + item.Content_2 + "|" + item.Is_Upload + "|" + item.Width + "|" + item.Content_3;
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
+             }
+         }
+         else
+         {
+             foreach (Sys_Document_Info item in _lst_doc)
+             {
+                 string _model = item.Doc_Id + "|" + item.Check_Box_Id + "|" + item.Doc_Level + "|" + item.Content_1_En + "|" + item.Content_2_En + "|" + item.Is_Upload + "|" + item.Width + "|" + item.Content_3_En;
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
+             }
+         }
+        
 
           
  
