@@ -116,6 +116,10 @@ namespace WebApps.Areas.DKQT.Controllers
                         pDetail.Language_Code = language;
                         pDetail.App_Header_Id = pAppHeaderID;
                         pDetail.Case_Code = p_case_code;
+                        if (pDetail.pfileLogo != null)
+                        {
+                            pDetail.LOGOURL = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
+                        }
                         pReturn = objDetail.Insert(pDetail);
 
 
@@ -285,7 +289,14 @@ namespace WebApps.Areas.DKQT.Controllers
                         pDetail.Language_Code = language;
                         pDetail.App_Header_Id = pAppHeaderID;
                         pDetail.Case_Code = p_case_code;
-
+                        if (pDetail.pfileLogo != null)
+                        {
+                            pDetail.LOGOURL = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
+                        }
+                        else
+                        {
+                            pDetail.LOGOURL = pDetail.IMG_URLOrg;
+                        }
                         pReturn = objDetail.UpDate(pDetail);
 
                         if (pReturn < 0)

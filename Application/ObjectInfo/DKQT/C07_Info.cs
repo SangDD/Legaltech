@@ -18,13 +18,15 @@ namespace ObjectInfos
         public decimal App_Header_Id { get; set; }
         public string Language_Code { get; set; }
         public string LOGOURL { get; set; }
+        public string IMG_URLOrg { get; set; }
+        
         public string SODK_QUOCTE { get; set; }
         public DateTime NGAY_DK_QUOCTE { get; set; }
         public DateTime NGAY_UT_DKQT { get; set; }
         public string CHUNH_TEN { get; set; }
         public string CHUNH_DIACHI { get; set; }
         public string YC_DK_NH_CHUYENDOI { get; set; }
-        
+        public HttpPostedFileBase pfileLogo { get; set; }
     }
 
     public class C07_Info_Export : ApplicationHeaderInfo

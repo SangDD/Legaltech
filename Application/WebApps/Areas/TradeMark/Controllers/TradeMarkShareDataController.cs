@@ -325,7 +325,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 string _viewChuDon = "";
                 string _viewDaiDienChuDon = "";
                 string _viewAppClass = "";
-                ViewBag.Isdisable = 1;
+                //ViewBag.Isdisable = 1;
                 _viewChuDon = RenderPartialToString("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", p_idchudon);
                 _viewDaiDienChuDon = RenderPartialToString("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", p_iddaidienchudon);
                 _viewAppClass = RenderPartialToString("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml", null);
