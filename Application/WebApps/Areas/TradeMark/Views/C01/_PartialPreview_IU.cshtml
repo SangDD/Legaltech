@@ -69,6 +69,11 @@
                 return false;
             }
 
+            reponse = funcGetImagePublic(formData);
+            if (reponse == false) {
+                return false;
+            }
+
             //
             reponse = funcGetCamKetChuDon(formData);
             if (reponse == false) {
@@ -156,7 +161,7 @@
     }
 
     function funcPreViewApplication() {
-        var preturn = funGetData_Preview_C01("/trade-mark-c01/ket_xuat_fileIU");
+        var preturn = funGetData_Preview_C01("/trade-mark-c01/ket_xuat_file_IU");
         if (preturn == true || preturn == undefined) {
             OpenPreview("/trade-mark-c01/Pre-View");
         }

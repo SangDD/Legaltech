@@ -1956,10 +1956,11 @@ namespace WebApps.CommonFunction
         }
 
         public static void Prepare_Data_Export_C01(ref App_Detail_C01_Info pDetail, ApplicationHeaderInfo pInfo,
-            List<AppDocumentInfo> pAppDocumentInfo)
+            List<AppDocumentInfo> pAppDocumentInfo, List<AppDocumentOthersInfo> pLstImagePublic)
         {
             try
             {
+                
                 // copy Header
                 App_Detail_C01_Info.CopyAppHeaderInfo(ref pDetail, pInfo);
 
@@ -2067,7 +2068,7 @@ namespace WebApps.CommonFunction
                 #endregion
 
                 #region phí
-                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C01(pDetail);
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C01(pDetail, pAppDocumentInfo, pLstImagePublic);
 
                 if (_lstFeeFix.Count > 0)
                 {

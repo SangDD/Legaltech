@@ -302,6 +302,8 @@
 
         @* end 4 *@
 
+        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Image_Public_Edit.cshtml")
+
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
@@ -550,6 +552,11 @@
                 return false;
             }
 
+            reponse = funcGetImagePublic(formData);
+            if (reponse == false) {
+                return false;
+            }
+
             //Lấy thông tin detail
             reponse = funcGetAppDetail(formData, ptype);
             if (reponse == false) {
@@ -764,6 +771,20 @@
             $(".clssListUpload").each(function () {
                 formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", this.id);
                 formData.append("pAppDocOtherInfo[" + item + "].Documentname", $("#" + this.id).val());
+                item++;
+            });
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function funcGetImagePublic(formData) {
+        try {
+            var item = 0;
+            $(".clssListUploadImg").each(function () {
+                formData.append("pLstImagePublic[" + item + "].keyFileUpload", this.id);
+                formData.append("pLstImagePublic[" + item + "].Documentname", $("#" + this.id).val());
                 item++;
             });
             return true;

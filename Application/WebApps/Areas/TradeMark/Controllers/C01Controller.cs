@@ -52,7 +52,8 @@ namespace WebApps.Areas.TradeMark.Controllers
         [HttpPost]
         [Route("do-register")]
         public ActionResult Register_C01(ApplicationHeaderInfo pInfo, App_Detail_C01_Info pDetail,
-            List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo, List<AppDocumentOthersInfo> pAppDocOtherInfo)
+            List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo, 
+            List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppDocumentOthersInfo> pLstImagePublic)
         {
             try
             {
@@ -126,8 +127,35 @@ namespace WebApps.Areas.TradeMark.Controllers
                         }
                     }
 
+                    #region hình công bố
+                    if (pReturn >= 0 && pLstImagePublic != null)
+                    {
+                        if (pLstImagePublic.Count > 0)
+                        {
+                            int check = 0;
+                            foreach (var info in pLstImagePublic)
+                            {
+                                if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
+                                {
+                                    string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
+                                    info.Filename = _url;
+                                    check = 1;
+
+                                }
+                                info.App_Header_Id = pAppHeaderID;
+                                info.Language_Code = language;
+                            }
+                            if (check == 1)
+                            {
+                                AppImageBL _AppImageBL = new AppImageBL();
+                                pReturn = _AppImageBL.AppImageInsertBatch(pLstImagePublic);
+                            }
+                        }
+                    } 
+                    #endregion
+
                     #region Phí cố định
-                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C01(pDetail);
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C01(pDetail, pAppDocumentInfo, pLstImagePublic);
                     if (_lstFeeFix.Count > 0)
                     {
                         AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
@@ -217,7 +245,8 @@ namespace WebApps.Areas.TradeMark.Controllers
         [HttpPost]
         [Route("do-edit")]
         public ActionResult Edit_C01(ApplicationHeaderInfo pInfo, App_Detail_C01_Info pDetail,
-            List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo, List<AppDocumentOthersInfo> pAppDocOtherInfo)
+            List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo, 
+            List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppDocumentOthersInfo> pLstImagePublic)
         {
             try
             {
@@ -257,6 +286,50 @@ namespace WebApps.Areas.TradeMark.Controllers
                             goto Commit_Transaction;
                     }
 
+                    #region hình công bố
+                    if (pReturn >= 0 && pLstImagePublic != null)
+                    {
+                        if (pLstImagePublic.Count > 0)
+                        {
+                            AppImageBL _AppImageBL = new AppImageBL();
+
+                            List<AppDocumentOthersInfo> Lst_ImagePublic_Old = _AppImageBL.GetByAppHeader(pInfo.Id, language);
+                            Dictionary<decimal, AppDocumentOthersInfo> _dic_image = new Dictionary<decimal, AppDocumentOthersInfo>();
+                            foreach (AppDocumentOthersInfo item in Lst_ImagePublic_Old)
+                            {
+                                _dic_image[item.Id] = item;
+                            }
+
+                            // xóa đi trước insert lại sau
+                            _AppImageBL.AppImageDeletedByApp(pInfo.Id, language);
+
+                            int check = 0;
+                            foreach (AppDocumentOthersInfo info in pLstImagePublic)
+                            {
+                                if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
+                                {
+                                    string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
+                                    info.Filename = _url;
+                                    check = 1;
+                                }
+                                else if (_dic_image.ContainsKey(info.Id))
+                                {
+                                    info.Filename = _dic_image[info.Id].Filename;
+                                    check = 1;
+                                }
+
+                                info.App_Header_Id = pInfo.Id;
+                                info.Language_Code = language;
+                            }
+
+                            if (check == 1)
+                            {
+                                pReturn = _AppImageBL.AppImageInsertBatch(pLstImagePublic);
+                            }
+                        }
+                    } 
+                    #endregion
+
                     #region Phí cố định
 
                     // xóa đi
@@ -264,7 +337,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                     _AppFeeFixBL.AppFeeFixDelete(pDetail.Case_Code, language);
 
                     // insert lại fee
-                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C01(pDetail);
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C01(pDetail, pAppDocumentInfo, pLstImagePublic);
                     if (_lstFeeFix.Count > 0)
                     {
                         pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, pInfo.Case_Code);
@@ -431,11 +504,11 @@ namespace WebApps.Areas.TradeMark.Controllers
 
         [HttpPost]
         [Route("getFee")]
-        public ActionResult GetFee(App_Detail_C01_Info pDetail, List<AppDocumentInfo> pAppDocumentInfo, List<UTienInfo> pUTienInfo, List<AppDocumentOthersInfo> pLstImagePublic)
+        public ActionResult GetFee(App_Detail_C01_Info pDetail, List<AppDocumentInfo> pAppDocumentInfo, List<AppDocumentOthersInfo> pLstImagePublic)
         {
             try
             {
-                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C01(pDetail);
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C01(pDetail, pAppDocumentInfo, pLstImagePublic);
                 ViewBag.LstFeeFix = _lstFeeFix;
             }
             catch (Exception ex)
@@ -463,9 +536,11 @@ namespace WebApps.Areas.TradeMark.Controllers
                 List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
                 List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
                 List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
-                app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos, ref _LstDocumentOthersInfo);
+                List<AppDocumentOthersInfo> pLstImagePublic = new List<AppDocumentOthersInfo>();
 
-                AppsCommon.Prepare_Data_Export_C01(ref app_Detail, applicationHeaderInfo, appDocumentInfos);
+                app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos, ref _LstDocumentOthersInfo, ref pLstImagePublic);
+
+                AppsCommon.Prepare_Data_Export_C01(ref app_Detail, applicationHeaderInfo, appDocumentInfos, pLstImagePublic);
                 List<App_Detail_C01_Info> _lst = new List<App_Detail_C01_Info>();
                 _lst.Add(app_Detail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_C01_Info>(_lst, false);
@@ -545,7 +620,7 @@ namespace WebApps.Areas.TradeMark.Controllers
         [HttpPost]
         [Route("ket_xuat_file_IU")]
         public ActionResult ExportData_View_IU(ApplicationHeaderInfo pInfo, App_Detail_C01_Info pDetail,
-            List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo, List<AppDocumentOthersInfo> pAppDocOtherInfo)
+            List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo, List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppDocumentOthersInfo> pLstImagePublic)
         {
             try
             {
@@ -565,7 +640,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                     SessionData.CurrentUser.FilePreview = "/Content/Export/" + "C01_EN_" + _datetimenow + ".pdf"; 
                 }
 
-                AppsCommon.Prepare_Data_Export_C01(ref pDetail, pInfo, pAppDocumentInfo);
+                AppsCommon.Prepare_Data_Export_C01(ref pDetail, pInfo, pAppDocumentInfo, pLstImagePublic);
                 _lst.Add(pDetail);
 
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_C01_Info>(_lst, false);

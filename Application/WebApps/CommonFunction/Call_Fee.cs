@@ -2524,7 +2524,7 @@ namespace WebApps.CommonFunction
                 AppFeeFixInfo _AppFeeFixInfo41 = new AppFeeFixInfo();
                 _AppFeeFixInfo41.Fee_Id = 41;
                 _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo41.Fee_Id.ToString();
-                  _MaxClassInGroup = 1;
+                _MaxClassInGroup = 1;
                 _AppFeeFixInfo41.Level = 2;
 
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
@@ -2533,7 +2533,7 @@ namespace WebApps.CommonFunction
                     _AppFeeFixInfo41.Fee_Name_En = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description_En;
                     _MaxClassInGroup = Convert.ToInt32(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01);
                 }
-                  _SoDoiTuongTinhPhi = CountSoSpTinhPhi(_hsGroupClass, _MaxClassInGroup);
+                _SoDoiTuongTinhPhi = CountSoSpTinhPhi(_hsGroupClass, _MaxClassInGroup);
                 //  
                 if (_SoDoiTuongTinhPhi > _MaxClassInGroup)
                 {
@@ -2739,20 +2739,10 @@ namespace WebApps.CommonFunction
             }
         }
 
-        public static List<AppFeeFixInfo> CallFee_C01(App_Detail_C01_Info pDetail)
+        public static List<AppFeeFixInfo> CallFee_C01(App_Detail_C01_Info pDetail, List<AppDocumentInfo> pAppDocumentInfo, List<AppDocumentOthersInfo> pLstImagePublic)
         {
             try
             {
-                if (pDetail.Number_Pic == -1)
-                {
-                    pDetail.Number_Pic = 0;
-                }
-
-                if (pDetail.Number_Page == -1)
-                {
-                    pDetail.Number_Page = 0;
-                }
-
                 List<AppFeeFixInfo> _lstFeeFix = new List<AppFeeFixInfo>();
 
                 #region 1. Phí thẩm định
@@ -2778,8 +2768,8 @@ namespace WebApps.CommonFunction
                 _lstFeeFix.Add(_AppFeeFixInfo);
                 #endregion
 
-                // chưa biết tính ntn -> đề = 0
                 #region 1.1 Phí thẩm định yêu cầu sửa đổi văn bằng bảo hộ
+                // Phí thẩm định sửa đổi văn bằng tính theo số văn bằng
                 _AppFeeFixInfo = new AppFeeFixInfo();
                 _AppFeeFixInfo.Isuse = 0;
                 _AppFeeFixInfo.Fee_Id = 11;
@@ -2801,13 +2791,13 @@ namespace WebApps.CommonFunction
                 _lstFeeFix.Add(_AppFeeFixInfo);
                 #endregion
 
-                // chưa biết tính ntn -> đề = 0
                 #region 1.2 Phí thẩm định yêu cầu thu hẹp phạm vi bảo hộ
+                // Phí yêu cầu thu hẹp tính = 1
                 _AppFeeFixInfo = new AppFeeFixInfo();
-                _AppFeeFixInfo.Isuse = 0;
+                _AppFeeFixInfo.Isuse = 1;
                 _AppFeeFixInfo.Fee_Id = 12;
                 _AppFeeFixInfo.Level = 1;
-                _AppFeeFixInfo.Number_Of_Patent = pDetail.App_No_Change == null ? 0 : pDetail.App_No_Change.Split(',').Length;
+                _AppFeeFixInfo.Number_Of_Patent = 1;
 
                 _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo.Fee_Id.ToString();
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
@@ -2871,11 +2861,10 @@ namespace WebApps.CommonFunction
                 _lstFeeFix.Add(_AppFeeFixInfo);
                 #endregion
 
-                // chưa biết tính ntn -> đề = 0
                 #region 3.1 nếu có trên 1 hình (từ hình thứ 2 trở đi)
                 _AppFeeFixInfo = new AppFeeFixInfo();
-                _AppFeeFixInfo.Fee_Id = 31;
                 _AppFeeFixInfo.Level = 1;
+                _AppFeeFixInfo.Fee_Id = 31;
                 _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo.Fee_Id.ToString();
                 decimal _numberPicOver = 1;
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
@@ -2885,62 +2874,74 @@ namespace WebApps.CommonFunction
                     _AppFeeFixInfo.Fee_Name_En = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description_En;
                 }
 
-                if (pDetail.Number_Pic > _numberPicOver)
-                {
-                    _AppFeeFixInfo.Number_Of_Patent = pDetail.Number_Pic - _numberPicOver;
-                }
-                else
-                {
-                    _AppFeeFixInfo.Number_Of_Patent = 0;
-                }
+                _AppFeeFixInfo.Isuse = 0;
+                _AppFeeFixInfo.Number_Of_Patent = 0;
+                _AppFeeFixInfo.Amount = 0;
+                _AppFeeFixInfo.Amount_Usd = 0;
+                _AppFeeFixInfo.Amount_Represent = 0;
+                _AppFeeFixInfo.Amount_Represent_Usd = 0;
 
-                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                // nếu số hình > số hình quy định tính từ trang thứ 7 trở đi
+                if (pLstImagePublic != null && pLstImagePublic.Count > _numberPicOver)
                 {
-                    _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo.Number_Of_Patent;
-                    _AppFeeFixInfo.Amount_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Usd * _AppFeeFixInfo.Number_Of_Patent;
-                    _AppFeeFixInfo.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent * _AppFeeFixInfo.Number_Of_Patent;
-                    _AppFeeFixInfo.Amount_Represent_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent_Usd * _AppFeeFixInfo.Number_Of_Patent;
+                    _AppFeeFixInfo.Isuse = 1;
+                    _AppFeeFixInfo.Number_Of_Patent = (pLstImagePublic.Count - _numberPicOver);
+                    if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                    {
+                        _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo.Number_Of_Patent;
+                        _AppFeeFixInfo.Amount_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Usd * _AppFeeFixInfo.Number_Of_Patent;
+                        _AppFeeFixInfo.Amount_Represent = _AppFeeFixInfo.Number_Of_Patent == 0 ? 0 : MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent * _AppFeeFixInfo.Number_Of_Patent;
+                        _AppFeeFixInfo.Amount_Represent_Usd = _AppFeeFixInfo.Number_Of_Patent == 0 ? 0 : MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent_Usd * _AppFeeFixInfo.Number_Of_Patent;
+                    }
                 }
-                else
-                    _AppFeeFixInfo.Amount = 60000 * _AppFeeFixInfo.Number_Of_Patent;
-
                 _lstFeeFix.Add(_AppFeeFixInfo);
+
                 #endregion
 
-                // chưa biết tính ntn -> đề = 0
                 #region 3.2 bản mô tả có trên 6 trang (từ trang thứ 7 trở đi)
                 _AppFeeFixInfo = new AppFeeFixInfo();
-                _AppFeeFixInfo.Fee_Id = 32;
                 _AppFeeFixInfo.Level = 1;
+                _AppFeeFixInfo.Fee_Id = 32;
                 _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo.Fee_Id.ToString();
-                decimal _numberPageOver = 6;
+                decimal _number_OverPage = 5;
                 if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
                 {
+                    _number_OverPage = Convert.ToDecimal(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01);
                     _AppFeeFixInfo.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
                     _AppFeeFixInfo.Fee_Name_En = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description_En;
-                    _numberPageOver = Convert.ToDecimal(MemoryData.c_dic_FeeByApp_Fix[_keyFee].Char01);
                 }
 
-                if (pDetail.Number_Page > _numberPageOver)
-                {
-                    _AppFeeFixInfo.Number_Of_Patent = pDetail.Number_Page - _numberPageOver;
-                }
-                else
-                {
-                    _AppFeeFixInfo.Number_Of_Patent = 0;
-                }
+                _AppFeeFixInfo.Isuse = 0;
+                _AppFeeFixInfo.Number_Of_Patent = 0;
+                _AppFeeFixInfo.Amount = 0;
+                _AppFeeFixInfo.Amount_Usd = 0;
+                _AppFeeFixInfo.Amount_Represent = 0;
+                _AppFeeFixInfo.Amount_Represent_Usd = 0;
 
-                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+
+                // nếu số hình > số hình quy định tính từ trang thứ 7 trở đi
+                if (pAppDocumentInfo != null && pAppDocumentInfo.Count > 0)
                 {
-                    _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo.Number_Of_Patent;
-                    _AppFeeFixInfo.Amount_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Usd * _AppFeeFixInfo.Number_Of_Patent;
-                    _AppFeeFixInfo.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent * _AppFeeFixInfo.Number_Of_Patent;
-                    _AppFeeFixInfo.Amount_Represent_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent_Usd * _AppFeeFixInfo.Number_Of_Patent;
+                    foreach (var item in pAppDocumentInfo)
+                    {
+                        if (item.Document_Id == "C01_02" && item.CHAR02 != "" && Convert.ToDecimal(item.CHAR02) > _number_OverPage)
+                        {
+                            _AppFeeFixInfo.Isuse = 1;
+                            _AppFeeFixInfo.Number_Of_Patent = Convert.ToDecimal(item.CHAR02) - _number_OverPage;
+                            if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                            {
+                                _AppFeeFixInfo.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo.Number_Of_Patent;
+                                _AppFeeFixInfo.Amount_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Usd * _AppFeeFixInfo.Number_Of_Patent;
+
+                                _AppFeeFixInfo.Amount_Represent = _AppFeeFixInfo.Number_Of_Patent == 0 ? 0 : MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent * _AppFeeFixInfo.Number_Of_Patent;
+                                _AppFeeFixInfo.Amount_Represent_Usd = _AppFeeFixInfo.Number_Of_Patent == 0 ? 0 : MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent_Usd * _AppFeeFixInfo.Number_Of_Patent;
+                            }
+                        }
+                    }
                 }
-                else
-                    _AppFeeFixInfo.Amount = 10000 * _AppFeeFixInfo.Number_Of_Patent;
 
                 _lstFeeFix.Add(_AppFeeFixInfo);
+
                 #endregion
 
                 return _lstFeeFix;
@@ -2958,7 +2959,7 @@ namespace WebApps.CommonFunction
         /// <param name="pClassInGroup"></param>
         /// <param name="pMaxItemIngroup"></param>
         /// <returns></returns>
-      static  int CountSoSpTinhPhi(Hashtable pClassInGroup, int pMaxItemIngroup)
+        static int CountSoSpTinhPhi(Hashtable pClassInGroup, int pMaxItemIngroup)
         {
             int _SoSpTinhPhi = 0;
             try
