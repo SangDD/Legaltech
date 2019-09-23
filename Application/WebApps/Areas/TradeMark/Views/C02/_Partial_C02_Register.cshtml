@@ -1,7 +1,247 @@
-﻿
+﻿@using Common.CommonData
+@using WebApps.CommonFunction;
+@using BussinessFacade.ModuleMemoryData
+@using WebApps.Resources;
+@using ObjectInfos;
 @{
-    ViewBag.Title = "_Partial_C01_Register";
+    ViewBag.Title = "C01";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+    string _App_No = "";
+    if (ViewBag.App_No != null)
+    {
+        _App_No = (string)ViewBag.App_No;
+    }
+
+    List<Sys_Document_Info> _lst_doc = WebApps.CommonFunction.AppsCommon.Sys_Document_GetBy_Casecode("C02");
 }
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
 
-<h2>_Partial_C01_Register</h2>
+    .div-title-col-2 {
+        height: 35px;
+        border: 1px solid #aaa;
+    }
 
+        .div-title-col-2 > div {
+            margin: 9px 5px 0px 7px;
+        }
+</style>
+<div class="d-nav-container" style="background-color:#fff">
+    <div class="divCover">
+        <div class="d-nav">
+            <img src="~/Content/icons/Body-icon-home.png" /> I
+            <a href="/home">Home</a>
+            <span class="red">></span>
+            <a href="javascript:;">C.02 gia hạn, duy trì VBBH</a>
+        </div>
+    </div>
+    <div class="divCover">
+        <div class="classLine">
+        </div>
+    </div>
+
+    <div class="divCover">
+        @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+    </div>
+
+</div>
+<input type="hidden" id="txtAppCode" value='@ViewBag.AppCode' />
+
+<div class="div-search ">
+    <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
+        <legend style="font-weight:600"> @Resource.TM3B_Legend</legend>
+
+        @Html.Partial("~/ViewsShared/_PartialQuocGia.cshtml")
+
+        @*thông tin khách hàng mà admin nhập hộ*@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCustomer.cshtml")
+
+        @* Case name *@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
+
+        @* 1 - CHỦ ĐƠN*@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                @Resource.TM2B_ChuDon
+            </div>
+        </div>
+        <div id="div_PartialThongTinChuDon">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+        </div>
+        @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
+
+        @* end 2 *@
+
+        @* 3 - Đối tượng  yêu cầu gia hạn, duy trì*@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                ĐỐI TƯỢNG YÊU CẦU GIA HẠN/DUY TRÌ
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio">
+                    <input type="radio" class="" name="type_detail" id="type_detail_1" value="1" onchange="return ShowHiden_Type('1')">
+                    <label> Bằng độc quyền kiểu dáng công nghiệp </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="clssDisplaynone _detail" id="Type_1" style="margin-top: 5px; background:#fbf4f4">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Số văn bằng bảo hộ:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txt_PCT_SoDon"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title" style="height: 126px;">
+                    <div>Các phương án cần gia hạn:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <textarea type="text" id="txt_PCT_SoDon" maxlength="2000" rows="5"  placeholder="Mô tả" style="height:128px"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio">
+                    <input type="radio" class="" name="type_detail" id="type_detail_2" value="2" onchange="return ShowHiden_Type('2')">
+                    <label> Giấy chứng nhận đăng ký nhãn hiệu </label>
+                </div>
+            </div>
+        </div>
+        <div class="clssDisplaynone _detail" id="Type_2" style="margin-top: 5px; background:#fbf4f4">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Số văn bằng bảo hộ:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txt_PCT_SoDon" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title" style="height: 126px;">
+                    <div>Các nhóm hoặc sản phẩm, dịch vụ cần gia hạn:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <textarea type="text" id="txt_PCT_SoDon" maxlength="2000" rows="5" placeholder="Mô tả" style="height:128px"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio">
+                    <input type="radio" class="classNguonGoc" name="type_detail" id="type_detail_3" value="3" onchange="return ShowHiden_Type('3')">
+                    <label> Bằng độc quyền sáng chế</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="clssDisplaynone _detail" id="Type_3" style="margin-top: 5px; background:#fbf4f4">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Số bằng độc quyền:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txt_PCT_SoDon" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio">
+                    <input type="radio" class="classNguonGoc" name="type_detail" id="type_detail_4" value="4" onchange="return ShowHiden_Type('4')">
+                    <label> Bằng độc quyền giải pháp hữu ích</label>
+                </div>
+            </div>
+        </div>
+        <div class="clssDisplaynone _detail" id="Type_4" style="margin-top: 5px; background:#fbf4f4">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>Số điểm yêu cầu bảo hộ độc lập:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txt_PCT_SoDon" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </fieldset>
+</div>
+
+<script>
+    function ShowHiden_Type(type) {
+        try{
+            if(type == '1'){
+                if ($("#type_detail_1").is(':checked')) {
+                    $("._detail").addClass("clssDisplaynone");
+                    $("#Type_1").removeClass("clssDisplaynone");
+                    $("#txt_PCT_SoDon").focus();
+                }
+                else {
+                    $("#Type_1").addClass("clssDisplaynone");
+                }
+            } else if (type == '2') {
+                if ($("#type_detail_2").is(':checked')) {
+                    $("._detail").addClass("clssDisplaynone");
+                    $("#Type_2").removeClass("clssDisplaynone");
+                    $("#txt_PCT_SoDon").focus();
+                }
+                else {
+                    $("#Type_2").addClass("clssDisplaynone");
+                }
+            } else if (type == '3') {
+                if ($("#type_detail_3").is(':checked')) {
+                    $("._detail").addClass("clssDisplaynone");
+                    $("#Type_3").removeClass("clssDisplaynone");
+                    $("#txt_PCT_SoDon").focus();
+                }
+                else {
+                    $("#Type_3").addClass("clssDisplaynone");
+                }
+            } else if (type == '4') {
+                if ($("#type_detail_4").is(':checked')) {
+                    $("._detail").addClass("clssDisplaynone");
+                    $("#Type_4").removeClass("clssDisplaynone");
+                    $("#txt_PCT_SoDon").focus();
+                }
+                else {
+                    $("#Type_4").addClass("clssDisplaynone");
+                }
+            }
+        } catch (ex) {
+            console.log(ex)
+        }
+    }
+</script>
