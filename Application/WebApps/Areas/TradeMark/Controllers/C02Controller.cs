@@ -16,6 +16,7 @@ namespace WebApps.Areas.TradeMark.Controllers
         [Route("register/{id}")]
         public ActionResult Register()
         {
+
             return View();
         }
     }
