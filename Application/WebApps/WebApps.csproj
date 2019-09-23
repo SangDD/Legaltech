@@ -193,6 +193,7 @@
     <Compile Include="Areas\DaiDienSHCN\Controllers\DDSHCNController.cs" />
     <Compile Include="Areas\DaiDienSHCN\DaiDienSHCNAreaRegistration.cs" />
     <Compile Include="Areas\DKQT\Controllers\C07Controller.cs" />
+    <Compile Include="Areas\DKQT\Controllers\C08Controller.cs" />
     <Compile Include="Areas\DKQT\DKQTAreaRegistration.cs" />
     <Compile Include="Areas\Home\Controllers\HomeController.cs" />
     <Compile Include="Areas\Home\Controllers\SearchController.cs" />
@@ -217,6 +218,7 @@
     <Compile Include="Areas\ModuleUsersAndRoles\ModuleUsersAndRolesAreaRegistration.cs" />
     <Compile Include="Areas\Patent\Controllers\A01Controller.cs" />
     <Compile Include="Areas\Patent\Controllers\B03Controller.cs" />
+    <Compile Include="Areas\Patent\Controllers\C03Controller.cs" />
     <Compile Include="Areas\Patent\Controllers\E01Controller.cs" />
     <Compile Include="Areas\Patent\Controllers\PatentRegistrationController.cs" />
     <Compile Include="Areas\Patent\PatentAreaRegistration.cs" />
@@ -277,6 +279,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>C07_EN.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Report\C08.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>C08.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Report\E01.cs">
@@ -1493,6 +1501,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>C07_EN.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report\C08.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>C08.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\E01.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>E01.cs</LastGenOutput>
@@ -1980,7 +1992,17 @@
     <Content Include="Areas\TradeMark\Views\C01\_Partial_C01_View.cshtml" />
     <Content Include="Areas\Patent\Views\E01\_Partial_E01_Edit.cshtml" />
     <Content Include="ClassDiagram2.cd" />
+    <Content Include="Areas\DKQT\Views\C08\_PartialPreview.cshtml" />
+    <Content Include="Areas\DKQT\Views\C08\_PartialPreview_IU.cshtml" />
+    <Content Include="Areas\DKQT\Views\C08\_Partial_C08.cshtml" />
+    <Content Include="Areas\DKQT\Views\C08\_Partial_C08_Edit.cshtml" />
+    <Content Include="Areas\DKQT\Views\C08\_Partial_C08_View.cshtml" />
     <Content Include="Areas\TradeMark\Views\C02\_Partial_C02_Register.cshtml" />
+    <Content Include="Areas\Patent\Views\C03\_Partial_C03_Edit.cshtml" />
+    <Content Include="Areas\Patent\Views\C03\_Partial_C03_Register.cshtml" />
+    <Content Include="Areas\Patent\Views\C03\_Partial_C03_View.cshtml" />
+    <Content Include="Areas\Patent\Views\C03\_PartialPreview.cshtml" />
+    <Content Include="Areas\Patent\Views\C03\_PartialPreview_IU.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <None Include="Properties\PublishProfiles\HungTDLap.pubxml" />
