@@ -541,6 +541,17 @@ namespace WebApps.Areas.TradeMark.Controllers
                 app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos, ref _LstDocumentOthersInfo, ref pLstImagePublic);
 
                 AppsCommon.Prepare_Data_Export_C01(ref app_Detail, applicationHeaderInfo, appDocumentInfos, pLstImagePublic);
+
+                if (_LstDocumentOthersInfo != null)
+                {
+                    foreach (var item in _LstDocumentOthersInfo)
+                    {
+                        app_Detail.Note += item.Documentname + " ; ";
+                    }
+
+                    app_Detail.Note = app_Detail.Note.Substring(0, app_Detail.Note.Length - 2);
+                }
+
                 List<App_Detail_C01_Info> _lst = new List<App_Detail_C01_Info>();
                 _lst.Add(app_Detail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_C01_Info>(_lst, false);
@@ -584,6 +595,8 @@ namespace WebApps.Areas.TradeMark.Controllers
                 if (_ds_all != null)
                 {
                     _ds_all.Tables[0].TableName = "Table";
+                    //_ds_all.WriteXml(@"C:\inetpub\C01.xml", XmlWriteMode.WriteSchema);
+
                     // đè các bản dịch lên
                     if (p_View_Translate == 1)
                     {
