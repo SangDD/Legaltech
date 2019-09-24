@@ -2632,7 +2632,44 @@ namespace WebApps.CommonFunction
                 return new List<AppFeeFixInfo>();
             }
         }
+        public static List<AppFeeFixInfo> CallFee_C08(C08_Info pDetail)
+        {
+            try
+            { 
+                pDetail.Appcode = "C08";
 
+                #region Phí thẩm định sửa đổi, chuyển nhượng, gia hạn, mở rộng lãnh thổ, hạn chế danh mục hàng hóa/dịch vụ, chấm dứt, hủy bỏ hiệu lực nhãn hiệu đăng ký quốc tế có nguồn gốc Việt Nam
+                List<AppFeeFixInfo> _lstFeeFix = new List<AppFeeFixInfo>();
+                AppFeeFixInfo _AppFeeFixInfo1 = new AppFeeFixInfo();
+                _AppFeeFixInfo1.Fee_Id = 1;
+                _AppFeeFixInfo1.Isuse = 1;
+                _AppFeeFixInfo1.Number_Of_Patent = 1;
+                string _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo1.Fee_Id.ToString();
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                {
+                    _AppFeeFixInfo1.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
+                    _AppFeeFixInfo1.Fee_Name_En = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description_En;
+                    _AppFeeFixInfo1.Amount_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Usd * _AppFeeFixInfo1.Number_Of_Patent;
+                    _AppFeeFixInfo1.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo1.Number_Of_Patent;
+                    _AppFeeFixInfo1.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent * _AppFeeFixInfo1.Number_Of_Patent;
+                    _AppFeeFixInfo1.Amount_Represent_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent_Usd * _AppFeeFixInfo1.Number_Of_Patent;
+
+                }
+                else
+                    _AppFeeFixInfo1.Amount = 150000 * _AppFeeFixInfo1.Number_Of_Patent;
+                _lstFeeFix.Add(_AppFeeFixInfo1);
+                #endregion
+
+
+
+                return _lstFeeFix;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<AppFeeFixInfo>();
+            }
+        }
         public static List<AppFeeFixInfo> CallFee_E01(ApplicationHeaderInfo pheader)
         {
             try
