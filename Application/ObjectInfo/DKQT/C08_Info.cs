@@ -17,16 +17,12 @@ namespace ObjectInfos
         //public string Case_Code { get; set; }
         public decimal App_Header_Id { get; set; }
         public string Language_Code { get; set; }
-        public string LOGOURL { get; set; }
-        public string IMG_URLOrg { get; set; }
-        
-        public string SODK_QUOCTE { get; set; }
-        public DateTime NGAY_DK_QUOCTE { get; set; }
-        public DateTime NGAY_UT_DKQT { get; set; }
-        public string CHUNH_TEN { get; set; }
-        public string CHUNH_DIACHI { get; set; }
-        public string YC_DK_NH_CHUYENDOI { get; set; }
-        public HttpPostedFileBase pfileLogo { get; set; }
+        public string SO_DON_DK_QTNH { get; set; }
+        public string SO_DK_QTNH { get; set; }
+        public DateTime NGAYNOPDON_DKQTNH { get; set; }
+        public string LOAI_DK { get; set; }
+ 
+ 
     }
 
     public class C08_Info_Export : ApplicationHeaderInfo
@@ -37,13 +33,10 @@ namespace ObjectInfos
         //public string Case_Code { get; set; }
         public decimal App_Header_Id { get; set; }
         public string Language_Code { get; set; }
-        public string LOGOURL { get; set; }
-        public string SODK_QUOCTE { get; set; }
-        public DateTime NGAY_DK_QUOCTE { get; set; }
-        public DateTime NGAY_UT_DKQT { get; set; }
-        public string CHUNH_TEN { get; set; }
-        public string CHUNH_DIACHI { get; set; }
-        public string YC_DK_NH_CHUYENDOI { get; set; }
+        public string SO_DON_DK_QTNH { get; set; }
+        public string SO_DK_QTNH { get; set; }
+        public DateTime NGAYNOPDON_DKQTNH { get; set; }
+        public string LOAI_DK { get; set; }
         #region Chủ đơn khác
 
         public string Master_Name_1 { set; get; }
@@ -63,43 +56,48 @@ namespace ObjectInfos
 
 
         #region Phí
-        //Lệ phí nộp đơn 
         public string Fee_Id_1 { get; set; }
         public decimal Fee_Id_1_Check { get; set; }
         public string Fee_Id_1_Val { get; set; }
-        //Phí phân loại quốc tế về nhãn hiệu
+        public string Fee_Id_11 { get; set; }
+        public decimal Fee_Id_11_Check { get; set; }
+        public string Fee_Id_11_Val { get; set; }
         public string Fee_Id_2 { get; set; }
         public decimal Fee_Id_2_Check { get; set; }
         public string Fee_Id_2_Val { get; set; }
 
-        //Mỗi nhóm có trên 6 sản phẩm/dịch vụ (từ sản phẩm/dịch vụ thứ 7 trở đi )
         public string Fee_Id_21 { get; set; }
         public decimal Fee_Id_21_Check { get; set; }
         public string Fee_Id_21_Val { get; set; }
 
-        // Phí công bố đơn (trường hợp đăng ký quốc tế nhãn hiệu chưa được chấp nhận bảo hộ tại Việt Nam)
         public string Fee_Id_3 { get; set; }
         public decimal Fee_Id_3_Check { get; set; }
         public string Fee_Id_3_Val { get; set; }
-
-        //Phí tra cứu phục vụ việc thẩm định      
+        public string Fee_Id_31 { get; set; }
+        public decimal Fee_Id_31_Check { get; set; }
+        public string Fee_Id_31_Val { get; set; }
         public string Fee_Id_4 { get; set; }
         public decimal Fee_Id_4_Check { get; set; }
         public string Fee_Id_4_Val { get; set; }
 
-        //Mỗi nhóm có trên 6 sản phẩm/dịch vụ (từ sản phẩm/dịch vụ thứ 7 trở đi )
         public string Fee_Id_41 { get; set; }
         public decimal Fee_Id_41_Check { get; set; }
         public string Fee_Id_41_Val { get; set; }
 
-        //Phí thẩm định đơn
         public string Fee_Id_5 { get; set; }
         public decimal Fee_Id_5_Check { get; set; }
         public string Fee_Id_5_Val { get; set; }
-        //Mỗi nhóm có trên 6 sản phẩm/dịch vụ (từ sản phẩm/dịch vụ thứ 7 trở đi )
         public string Fee_Id_51 { get; set; }
         public decimal Fee_Id_51_Check { get; set; }
         public string Fee_Id_51_Val { get; set; }
+
+        public string Fee_Id_6 { get; set; }
+        public decimal Fee_Id_6_Check { get; set; }
+        public string Fee_Id_6_Val { get; set; }
+
+        public string Fee_Id_61 { get; set; }
+        public decimal Fee_Id_61_Check { get; set; }
+        public string Fee_Id_61_Val { get; set; }
 
         public decimal Total_Fee { get; set; }
         public string Total_Fee_Str { get; set; }
@@ -113,32 +111,26 @@ namespace ObjectInfos
         string _strDsFile = "";
         public string strDanhSachFileDinhKem
         { get { return _strDsFile; } set { _strDsFile = value; } }
-        //Tờ khai, gồm.......trang x .......bản
         public string Doc_Id_0 { get; set; }
         public string Doc_Id_002 { get; set; }
 
         public decimal Doc_Id_0_Check { get; set; }
 
-        //Mẫu nhãn hiệu, gồm .... mẫu
         public string Doc_Id_1 { get; set; }
         public string Doc_Id_102 { get; set; }
 
         public decimal Doc_Id_1_Check { get; set; }
-        //Bản sao chứng từ nộp phí, lệ phí (trường hợp nộp phí, lệ phí qua dịch vụ bưu chính hoặc nộp trực tiếp vào tài khoản của Cục Sở hữu trí tuệ)
 
         public string Doc_Id_2 { get; set; }
         public string Doc_Id_202 { get; set; }
-        // Bản sao ĐKQTNH đã bị mất hiệu lực tại nước xuất xứ 
 
         public decimal Doc_Id_2_Check { get; set; }
-        //Giấy uỷ quyền bằng tiếng.......
 
         public string Doc_Id_3 { get; set; }
         public string Doc_Id_302 { get; set; }
         public decimal Doc_Id_3_Check { get; set; }
         public string Doc_Id_4 { get; set; }
         public string Doc_Id_402 { get; set; }
-        // bản dịch tiếng Việt, gồm..........trang  
 
         public decimal Doc_Id_4_Check { get; set; }
         public string Doc_Id_5 { get; set; }
@@ -146,47 +138,78 @@ namespace ObjectInfos
 
         public decimal Doc_Id_5_Check { get; set; }
         public decimal Doc_Id_6_Check { get; set; }
-        //bản gốc                 
 
         public string Doc_Id_6 { get; set; }
         public string Doc_Id_602 { get; set; }
         public decimal Doc_Id_7_Check { get; set; }
         public string Doc_Id_702 { get; set; }
-        //bản sao
 
         public string Doc_Id_7 { get; set; }
         public decimal Doc_Id_8_Check { get; set; }
         public string Doc_Id_802 { get; set; }
-        //bản gốc sẽ nộp sau9
 
         public string Doc_Id_8 { get; set; }
-        //bản gốc đã nộp theo đơn số
 
         public string Doc_Id_9 { get; set; }
         public string Doc_Id_902 { get; set; }
         public decimal Doc_Id_9_Check { get; set; }
-        //Các tài liệu khác, cụ thể là
 
         public string Doc_Id_10 { get; set; }
         public string Doc_Id_1002 { get; set; }
         public decimal Doc_Id_10_Check { get; set; }
         public string Doc_Id_11 { get; set; }
+        public string Doc_Id_1102 { get; set; }
         public decimal Doc_Id_11_Check { get; set; }
 
-        
+        public string Doc_Id_12 { get; set; }
+        public string Doc_Id_1202 { get; set; }
+        public decimal Doc_Id_12_Check { get; set; }
+
+        public string Doc_Id_13 { get; set; }
+        public string Doc_Id_1302 { get; set; }
+        public decimal Doc_Id_13_Check { get; set; }
+
+        public string Doc_Id_14 { get; set; }
+        public string Doc_Id_1402 { get; set; }
+        public decimal Doc_Id_14_Check { get; set; }
+
+        public string Doc_Id_15 { get; set; }
+        public string Doc_Id_1502 { get; set; }
+        public decimal Doc_Id_15_Check { get; set; }
+
+        public string Doc_Id_16 { get; set; }
+        public string Doc_Id_1602 { get; set; }
+        public decimal Doc_Id_16_Check { get; set; }
+
+        public string Doc_Id_17 { get; set; }
+        public string Doc_Id_1702 { get; set; }
+        public decimal Doc_Id_17_Check { get; set; }
+
+        public string Doc_Id_18 { get; set; }
+        public string Doc_Id_1802 { get; set; }
+        public decimal Doc_Id_18_Check { get; set; }
+
+        public string Doc_Id_19 { get; set; }
+        public string Doc_Id_1902 { get; set; }
+        public decimal Doc_Id_19_Check { get; set; }
+
+        public string Doc_Id_20 { get; set; }
+        public string Doc_Id_2002 { get; set; }
+        public decimal Doc_Id_20_Check { get; set; }
+ 
+
+
         #endregion
 
         public static void CopyC08_Info(ref C08_Info_Export p_appDetail, C08_Info p_C08_Info)
         {
             p_appDetail.C08_Id = p_C08_Info.C08_Id;
             p_appDetail.Language_Code = p_C08_Info.Language_Code;
-            p_appDetail.LOGOURL = p_C08_Info.LOGOURL;
-            p_appDetail.SODK_QUOCTE = p_C08_Info.SODK_QUOCTE;
-            p_appDetail.NGAY_DK_QUOCTE = p_C08_Info.NGAY_DK_QUOCTE;
-            p_appDetail.NGAY_UT_DKQT = p_C08_Info.NGAY_UT_DKQT;
-            p_appDetail.CHUNH_TEN = p_C08_Info.CHUNH_TEN;
-            p_appDetail.CHUNH_DIACHI = p_C08_Info.CHUNH_DIACHI;
-            p_appDetail.YC_DK_NH_CHUYENDOI = p_C08_Info.YC_DK_NH_CHUYENDOI;
+            p_appDetail.SO_DON_DK_QTNH = p_C08_Info.SO_DON_DK_QTNH;
+            p_appDetail.SO_DK_QTNH = p_C08_Info.SO_DK_QTNH;
+            p_appDetail.NGAYNOPDON_DKQTNH = p_C08_Info.NGAYNOPDON_DKQTNH;
+            p_appDetail.LOAI_DK = p_C08_Info.LOAI_DK;
+          
 
     }
         public static void CopyAppHeaderInfo(ref C08_Info_Export p_appDetail, ApplicationHeaderInfo pAppInfo)
