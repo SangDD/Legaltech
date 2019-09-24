@@ -17,13 +17,10 @@ namespace DataAccess
                     new OracleParameter("P_CASE_CODE", OracleDbType.Varchar2, pInfo.Case_Code, ParameterDirection.Input),
                     new OracleParameter("P_APP_HEADER_ID", OracleDbType.Decimal, pInfo.App_Header_Id, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, pInfo.Language_Code, ParameterDirection.Input),
-                    new OracleParameter("P_LOGOURL", OracleDbType.Varchar2, pInfo.LOGOURL, ParameterDirection.Input),
-                    new OracleParameter("P_SODK_QUOCTE", OracleDbType.Varchar2, pInfo.SODK_QUOCTE.Trim(), ParameterDirection.Input),
-                    new OracleParameter("P_NGAY_DK_QUOCTE", OracleDbType.Date, pInfo.NGAY_DK_QUOCTE, ParameterDirection.Input),
-                    new OracleParameter("P_NGAY_UT_DKQT", OracleDbType.Date, pInfo.NGAY_UT_DKQT, ParameterDirection.Input),
-                    new OracleParameter("P_CHUNH_TEN", OracleDbType.Varchar2, pInfo.CHUNH_TEN, ParameterDirection.Input),
-                    new OracleParameter("P_CHUNH_DIACHI", OracleDbType.Varchar2, "", ParameterDirection.Input),
-                    new OracleParameter("P_YC_DK_NH_CHUYENDOI", OracleDbType.Varchar2, pInfo.YC_DK_NH_CHUYENDOI, ParameterDirection.Input),
+                    new OracleParameter("P_SO_DON_DK_QTNH", OracleDbType.Varchar2, pInfo.SO_DON_DK_QTNH, ParameterDirection.Input),
+                    new OracleParameter("P_SO_DK_QTNH", OracleDbType.Varchar2, pInfo.SO_DK_QTNH.Trim(), ParameterDirection.Input),
+                    new OracleParameter("P_NGAYNOPDON_DKQTNH", OracleDbType.Date, pInfo.NGAYNOPDON_DKQTNH, ParameterDirection.Input),
+                    new OracleParameter("P_LOAI_DK", OracleDbType.Varchar2, pInfo.LOAI_DK, ParameterDirection.Input),
                      paramReturn 
                      );
                 var result = Convert.ToDecimal(paramReturn.Value.ToString());
@@ -47,13 +44,10 @@ namespace DataAccess
                     new OracleParameter("P_CASE_CODE", OracleDbType.Varchar2, pInfo.Case_Code, ParameterDirection.Input),
                     new OracleParameter("P_APP_HEADER_ID", OracleDbType.Decimal, pInfo.App_Header_Id, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGE_CODE", OracleDbType.Varchar2, pInfo.Language_Code, ParameterDirection.Input),
-                    new OracleParameter("P_LOGOURL", OracleDbType.Varchar2, pInfo.LOGOURL, ParameterDirection.Input),
-                    new OracleParameter("P_SODK_QUOCTE", OracleDbType.Varchar2, pInfo.SODK_QUOCTE.Trim(), ParameterDirection.Input),
-                    new OracleParameter("P_NGAY_DK_QUOCTE", OracleDbType.Date, pInfo.NGAY_DK_QUOCTE, ParameterDirection.Input),
-                    new OracleParameter("P_NGAY_UT_DKQT", OracleDbType.Date, pInfo.NGAY_UT_DKQT, ParameterDirection.Input),
-                    new OracleParameter("P_CHUNH_TEN", OracleDbType.Varchar2, pInfo.CHUNH_TEN, ParameterDirection.Input),
-                    new OracleParameter("P_CHUNH_DIACHI", OracleDbType.Varchar2, "", ParameterDirection.Input),
-                    new OracleParameter("P_YC_DK_NH_CHUYENDOI", OracleDbType.Varchar2, pInfo.YC_DK_NH_CHUYENDOI, ParameterDirection.Input),
+                    new OracleParameter("P_SO_DON_DK_QTNH", OracleDbType.Varchar2, pInfo.SO_DON_DK_QTNH, ParameterDirection.Input),
+                    new OracleParameter("P_SO_DK_QTNH", OracleDbType.Varchar2, pInfo.SO_DK_QTNH.Trim(), ParameterDirection.Input),
+                    new OracleParameter("P_NGAYNOPDON_DKQTNH", OracleDbType.Date, pInfo.NGAYNOPDON_DKQTNH, ParameterDirection.Input),
+                    new OracleParameter("P_LOAI_DK", OracleDbType.Varchar2, pInfo.LOAI_DK, ParameterDirection.Input),
                     paramReturn
                     );
                 var result = Convert.ToDecimal(paramReturn.Value.ToString());
@@ -99,7 +93,6 @@ namespace DataAccess
                     new OracleParameter("P_CURSOR_DOC", OracleDbType.RefCursor, ParameterDirection.Output),
                     new OracleParameter("P_CURSOR_FEE", OracleDbType.RefCursor, ParameterDirection.Output),
                     new OracleParameter("P_CURSOR_OTHER_MASTER", OracleDbType.RefCursor, ParameterDirection.Output),
-                    new OracleParameter("p_cursor_class", OracleDbType.RefCursor, ParameterDirection.Output),
                     new OracleParameter("P_CURSOR_OTHER_DOC", OracleDbType.RefCursor, ParameterDirection.Output) 
                     );
                 return _ds;
@@ -110,26 +103,6 @@ namespace DataAccess
                 return new DataSet();
             }
         }
-        public DataSet AppTM06DKQTGetByID(string pAppHeaderID, string pLanguage, int pStatus)
-        {
-            try
-            {
-                OracleParameter paramReturn = new OracleParameter("p_total_record", OracleDbType.Decimal, ParameterDirection.Output);
-                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_GET_DATA.PROC_APP_TM06DKQT_GET_BY_ID",
-                    new OracleParameter("P_APP_HEADER_ID", OracleDbType.Varchar2, pAppHeaderID, ParameterDirection.Input),
-                    new OracleParameter("P_LANGUAGE", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
-                    new OracleParameter("P_STATUS", OracleDbType.Decimal, pStatus, ParameterDirection.Input),
-                    new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output),
-                    new OracleParameter("P_C_DOC", OracleDbType.RefCursor, ParameterDirection.Output),
-                    new OracleParameter("P_C_CLASS_DETAIL", OracleDbType.RefCursor, ParameterDirection.Output)
-                    );
-                return _ds;
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return new DataSet();
-            }
-        }
+        
     }
 }
