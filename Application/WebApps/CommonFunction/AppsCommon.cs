@@ -2134,10 +2134,139 @@ namespace WebApps.CommonFunction
                 Logger.LogException(ex);
             }
         }
+
+        public static void Prepare_Data_Export_C03(ref App_Detail_C03_Info pDetail, ApplicationHeaderInfo pInfo,
+            List<AppDocumentInfo> pAppDocumentInfo, List<AppDocumentOthersInfo> pLstImagePublic)
+        {
+            try
+            {
+
+                // copy Header
+                App_Detail_C03_Info.CopyAppHeaderInfo(ref pDetail, pInfo);
+
+                #region Tài liệu có trong đơn
+
+                if (pAppDocumentInfo.Count > 0)
+                {
+                    foreach (AppDocumentInfo item in pAppDocumentInfo)
+                    {
+                        if (item.Document_Id == "C01_01")
+                        {
+                            pDetail.Doc_Id_1 = item.CHAR01;
+                            pDetail.Doc_Id_1_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "C01_02")
+                        {
+                            pDetail.Doc_Id_2 = item.CHAR01;
+                            pDetail.Doc_Id_2_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "C01_03")
+                        {
+                            pDetail.Doc_Id_3_Check = item.Isuse;
+                            pDetail.Doc_Id_3 = item.CHAR01;
+                        }
+                        else if (item.Document_Id == "C01_04")
+                        {
+                            pDetail.Doc_Id_4 = item.CHAR01;
+                            pDetail.Doc_Id_4_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "C01_05")
+                        {
+                            pDetail.Doc_Id_5_Check = item.Isuse;
+                            pDetail.Doc_Id_5 = item.CHAR01;
+                        }
+
+                        else if (item.Document_Id == "C01_06")
+                        {
+                            pDetail.Doc_Id_6 = item.CHAR01;
+                            pDetail.Doc_Id_6_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "C01_07")
+                        {
+                            pDetail.Doc_Id_7 = item.CHAR01;
+                            pDetail.Doc_Id_7_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "C01_08")
+                        {
+                            pDetail.Doc_Id_8 = item.CHAR01;
+                            pDetail.Doc_Id_8_Check = item.Isuse;
+                        }
+
+                        else if (item.Document_Id == "C01_09")
+                        {
+                            pDetail.Doc_Id_9 = item.CHAR01;
+                            pDetail.Doc_Id_9_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "C01_10")
+                        {
+                            pDetail.Doc_Id_10_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "C01_11")
+                        {
+                            pDetail.Doc_Id_11 = item.CHAR01;
+                            pDetail.Doc_Id_11_Check = item.Isuse;
+                        }
+
+                        else if (item.Document_Id == "C01_12")
+                        {
+                            pDetail.Doc_Id_12 = item.CHAR01;
+                            pDetail.Doc_Id_12_Check = item.Isuse;
+                        }
+
+                        else if (item.Document_Id == "C01_13")
+                        {
+                            pDetail.Doc_Id_13 = item.CHAR01;
+                            pDetail.Doc_Id_13_Check = item.Isuse;
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region phí
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C03(pDetail, pAppDocumentInfo, pLstImagePublic);
+
+                if (_lstFeeFix.Count > 0)
+                {
+                    pDetail.Fee_Id_1 = _lstFeeFix[0].Number_Of_Patent;
+                    pDetail.Fee_Id_1_Check = _lstFeeFix[0].Isuse;
+                    pDetail.Fee_Id_1_Val = _lstFeeFix[0].Amount.ToString("#,##0.##");
+                    pDetail.Total_Fee = pDetail.Total_Fee + _lstFeeFix[0].Amount;
+                }
+                if (_lstFeeFix.Count > 1)
+                {
+                    pDetail.Fee_Id_11 = _lstFeeFix[1].Number_Of_Patent;
+                    pDetail.Fee_Id_11_Check = _lstFeeFix[1].Isuse;
+                    pDetail.Fee_Id_11_Val = _lstFeeFix[1].Amount.ToString("#,##0.##");
+                    pDetail.Total_Fee = pDetail.Total_Fee + _lstFeeFix[1].Amount;
+                }
+
+                if (_lstFeeFix.Count > 2)
+                {
+                    pDetail.Fee_Id_2 = _lstFeeFix[2].Number_Of_Patent;
+                    pDetail.Fee_Id_2_Check = _lstFeeFix[2].Isuse;
+                    pDetail.Fee_Id_2_Val = _lstFeeFix[2].Amount.ToString("#,##0.##");
+                    pDetail.Total_Fee = pDetail.Total_Fee + _lstFeeFix[2].Amount;
+                }
+
+                if (_lstFeeFix.Count > 3)
+                {
+                    pDetail.Fee_Id_3 = _lstFeeFix[3].Number_Of_Patent;
+                    pDetail.Fee_Id_3_Check = _lstFeeFix[3].Isuse;
+                    pDetail.Fee_Id_3_Val = _lstFeeFix[3].Amount.ToString("#,##0.##");
+                    pDetail.Total_Fee = pDetail.Total_Fee + _lstFeeFix[3].Amount;
+                }
+
+                pDetail.Total_Fee_Str = pDetail.Total_Fee.ToString("#,##0.##");
+
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+        }
     }
-
-
-
 
 
     public enum LangCode
