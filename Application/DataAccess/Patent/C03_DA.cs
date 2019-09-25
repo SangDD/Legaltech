@@ -14,16 +14,22 @@ namespace DataAccess
             try
             {
                 OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
-                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_detail_c03.Proc_App_Detail_C01_Insert",
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_detail_c03.Proc_App_Detail_C03_Insert",
                     new OracleParameter("p_app_header_id", OracleDbType.Decimal, pInfo.App_Header_Id, ParameterDirection.Input),
                     new OracleParameter("p_appcode", OracleDbType.Varchar2, pInfo.Appcode, ParameterDirection.Input),
+                    new OracleParameter("p_case_code", OracleDbType.Varchar2, pInfo.Case_Code, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, pInfo.Language_Code, ParameterDirection.Input),
                     new OracleParameter("p_request_change_type", OracleDbType.Decimal, pInfo.Request_Change_Type, ParameterDirection.Input),
                     new OracleParameter("p_app_no_change", OracleDbType.Varchar2, pInfo.App_No_Change, ParameterDirection.Input),
-                    new OracleParameter("p_request_master_to", OracleDbType.Varchar2, pInfo.Request_Master_To, ParameterDirection.Input),
-                    new OracleParameter("p_request_address_to", OracleDbType.Varchar2, pInfo.Request_Address_To, ParameterDirection.Input),
-                    new OracleParameter("p_request_others_to", OracleDbType.Varchar2, pInfo.Request_Others_To, ParameterDirection.Input),
-                    new OracleParameter("p_request_to_content", OracleDbType.Varchar2, pInfo.Request_To_Content, ParameterDirection.Input),
+                    new OracleParameter("p_grant_vbbh", OracleDbType.Varchar2, pInfo.Grant_Vbbh, ParameterDirection.Input),
+                    new OracleParameter("p_renew_vbbh_cn", OracleDbType.Varchar2, pInfo.Renew_Vbbh_Cn, ParameterDirection.Input),
+                    new OracleParameter("p_renew_vbbh_cn_solan", OracleDbType.Decimal, pInfo.Renew_Vbbh_Cn_Solan, ParameterDirection.Input),
+                    new OracleParameter("p_renew_phoban_vbbh_cn", OracleDbType.Varchar2, pInfo.Renew_Phoban_Vbbh_Cn, ParameterDirection.Input),
+                    new OracleParameter("p_renew_phoban_vbbh_cn_sopb", OracleDbType.Varchar2, pInfo.Renew_Phoban_Vbbh_Cn_Sopb, ParameterDirection.Input),
+                    new OracleParameter("p_renew_phoban_vbbh_cn_solan", OracleDbType.Decimal, pInfo.Renew_Phoban_Vbbh_Cn_Solan, ParameterDirection.Input),
+                    new OracleParameter("p_reason_lost", OracleDbType.Varchar2, pInfo.Reason_Lost, ParameterDirection.Input),
+                    new OracleParameter("p_reason_broken", OracleDbType.Varchar2, pInfo.Reason_Broken, ParameterDirection.Input),
+                    new OracleParameter("p_reason_others", OracleDbType.Varchar2, pInfo.Reason_Others, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToDecimal(paramReturn.Value.ToString());
                 return result;
@@ -43,17 +49,23 @@ namespace DataAccess
             try
             {
                 var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
-                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_detail_c03.proc_app_detail_c01_update",
-                    new OracleParameter("p_id", OracleDbType.Decimal, pInfo.Detail_Id, ParameterDirection.Input),
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_detail_c03.proc_app_detail_c03_update",
+                    new OracleParameter("p_id", OracleDbType.Decimal, pInfo.Id, ParameterDirection.Input),
                     new OracleParameter("p_app_header_id", OracleDbType.Decimal, pInfo.App_Header_Id, ParameterDirection.Input),
                     new OracleParameter("p_appcode", OracleDbType.Varchar2, pInfo.Appcode, ParameterDirection.Input),
+                    new OracleParameter("p_case_code", OracleDbType.Varchar2, pInfo.Case_Code, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, pInfo.Language_Code, ParameterDirection.Input),
                     new OracleParameter("p_request_change_type", OracleDbType.Decimal, pInfo.Request_Change_Type, ParameterDirection.Input),
                     new OracleParameter("p_app_no_change", OracleDbType.Varchar2, pInfo.App_No_Change, ParameterDirection.Input),
-                    new OracleParameter("p_request_master_to", OracleDbType.Varchar2, pInfo.Request_Master_To, ParameterDirection.Input),
-                    new OracleParameter("p_request_address_to", OracleDbType.Varchar2, pInfo.Request_Address_To, ParameterDirection.Input),
-                    new OracleParameter("p_request_others_to", OracleDbType.Varchar2, pInfo.Request_Others_To, ParameterDirection.Input),
-                    new OracleParameter("p_request_to_content", OracleDbType.Varchar2, pInfo.Request_To_Content, ParameterDirection.Input),
+                    new OracleParameter("p_grant_vbbh", OracleDbType.Varchar2, pInfo.Grant_Vbbh, ParameterDirection.Input),
+                    new OracleParameter("p_renew_vbbh_cn", OracleDbType.Varchar2, pInfo.Renew_Vbbh_Cn, ParameterDirection.Input),
+                    new OracleParameter("p_renew_vbbh_cn_solan", OracleDbType.Decimal, pInfo.Renew_Vbbh_Cn_Solan, ParameterDirection.Input),
+                    new OracleParameter("p_renew_phoban_vbbh_cn", OracleDbType.Varchar2, pInfo.Renew_Phoban_Vbbh_Cn, ParameterDirection.Input),
+                    new OracleParameter("p_renew_phoban_vbbh_cn_sopb", OracleDbType.Varchar2, pInfo.Renew_Phoban_Vbbh_Cn_Sopb, ParameterDirection.Input),
+                    new OracleParameter("p_renew_phoban_vbbh_cn_solan", OracleDbType.Decimal, pInfo.Renew_Phoban_Vbbh_Cn_Solan, ParameterDirection.Input),
+                    new OracleParameter("p_reason_lost", OracleDbType.Varchar2, pInfo.Reason_Lost, ParameterDirection.Input),
+                    new OracleParameter("p_reason_broken", OracleDbType.Varchar2, pInfo.Reason_Broken, ParameterDirection.Input),
+                    new OracleParameter("p_reason_others", OracleDbType.Varchar2, pInfo.Reason_Others, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;
@@ -70,7 +82,7 @@ namespace DataAccess
             try
             {
                 var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
-                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_detail_c03.Proc_C01_Delete",
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_detail_c03.Proc_C03_Delete",
                     new OracleParameter("p_app_header_id", OracleDbType.Decimal, p_app_header_id, ParameterDirection.Input),
                     new OracleParameter("p_appcode", OracleDbType.Varchar2, pAppCode, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
@@ -97,8 +109,7 @@ namespace DataAccess
                     new OracleParameter("p_cursorHeader", OracleDbType.RefCursor, ParameterDirection.Output),
                     new OracleParameter("p_cursor_doc", OracleDbType.RefCursor, ParameterDirection.Output),
                     new OracleParameter("p_cursor_fee", OracleDbType.RefCursor, ParameterDirection.Output),
-                    new OracleParameter("p_cursor_other_doc", OracleDbType.RefCursor, ParameterDirection.Output),
-                    new OracleParameter("p_cursor_image_public", OracleDbType.RefCursor, ParameterDirection.Output));
+                    new OracleParameter("p_cursor_other_doc", OracleDbType.RefCursor, ParameterDirection.Output));
                 return _ds;
             }
             catch (Exception ex)

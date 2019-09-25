@@ -47,13 +47,16 @@ namespace ObjectInfos
             this.Appcode = p_app_detail.Appcode;
             this.Request_Change_Type = p_app_detail.Request_Change_Type;
             this.App_No_Change = p_app_detail.App_No_Change;
-            this.Request_Master_To = p_app_detail.Request_Master_To;
-            this.Request_Address_To = p_app_detail.Request_Address_To;
-            this.Request_Others_To = p_app_detail.Request_Others_To;
-            this.Request_To_Content = p_app_detail.Request_To_Content;
-            this.Number_Pic = p_app_detail.Number_Pic;
-            this.Number_Page = p_app_detail.Number_Page;
-
+            this.Grant_Vbbh = p_app_detail.Grant_Vbbh;
+            this.Renew_Vbbh_Cn = p_app_detail.Renew_Vbbh_Cn;
+            this.Renew_Vbbh_Cn_Solan = p_app_detail.Renew_Vbbh_Cn_Solan;
+            this.Renew_Phoban_Vbbh_Cn = p_app_detail.Renew_Phoban_Vbbh_Cn;
+            this.Renew_Phoban_Vbbh_Cn_Sopb = p_app_detail.Renew_Phoban_Vbbh_Cn_Sopb;
+            this.Renew_Phoban_Vbbh_Cn_Solan = p_app_detail.Renew_Phoban_Vbbh_Cn_Solan;
+            this.Reason_Lost = p_app_detail.Reason_Lost;
+            this.Reason_Broken = p_app_detail.Reason_Broken;
+            this.Reason_Others = p_app_detail.Reason_Others;
+                
             this.STT = p_app_header.STT;
             this.Appcode = p_app_header.Appcode;
             this.Master_Name = p_app_header.Master_Name;
@@ -87,10 +90,15 @@ namespace ObjectInfos
         public string Language_Code { get; set; }
         public decimal Request_Change_Type { get; set; }
         public string App_No_Change { get; set; }
-        public string Request_Master_To { get; set; }
-        public string Request_Address_To { get; set; }
-        public string Request_Others_To { get; set; }
-        public string Request_To_Content { get; set; }
+        public string Grant_Vbbh { get; set; }
+        public string Renew_Vbbh_Cn { get; set; }
+        public decimal Renew_Vbbh_Cn_Solan { get; set; }
+        public string Renew_Phoban_Vbbh_Cn { get; set; }
+        public string Renew_Phoban_Vbbh_Cn_Sopb { get; set; }
+        public decimal Renew_Phoban_Vbbh_Cn_Solan { get; set; }
+        public string Reason_Lost { get; set; }
+        public string Reason_Broken { get; set; }
+        public string Reason_Others { get; set; }
 
         public int Number_Pic { get; set; }
         public int Number_Page { get; set; }

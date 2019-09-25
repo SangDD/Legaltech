@@ -56,7 +56,7 @@
         }
     }
 
-    function funGetData_Preview_C01(url, pView_Translate) {
+    function funGetData_Preview_C03(url, pView_Translate) {
         try {
             $.ajax({
                 url: url,
@@ -91,7 +91,7 @@
     }
 
     function funcPreViewApplication() {
-        var preturn = funGetData_Preview_C01("/patent-c03/ket_xuat_file", 0);
+        var preturn = funGetData_Preview_C03("/patent-c03/ket_xuat_file", 0);
         if (preturn == true || preturn == undefined) {
             OpenPreview("/trade-mark-c01/Pre-View");
         }
@@ -115,7 +115,7 @@
         formData.append("pInfo.Id", @_AppHeaderInfo.Id);
 
         $.ajax({
-            url: "/lg-patent/getFeeView",
+            url: "/lg-patent/getFeeView_View",
             type: 'POST',
             data: formData,
             dataType: "json",

@@ -1589,15 +1589,13 @@
                 List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
                 ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
                 List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
-                List<AppDocumentOthersInfo> pLstImagePublic = new List<AppDocumentOthersInfo>();
 
-                App_Detail_C03_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos, ref _LstDocumentOthersInfo, ref pLstImagePublic);
+                App_Detail_C03_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos, ref _LstDocumentOthersInfo);
                 ViewBag.App_Detail = app_Detail;
                 ViewBag.Lst_AppDoc = appDocumentInfos;
                 ViewBag.Lst_AppFee = appFeeFixInfos;
                 ViewBag.objAppHeaderInfo = applicationHeaderInfo;
                 ViewBag.lstDocOther = _LstDocumentOthersInfo;
-                ViewBag.Lst_ImagePublic = pLstImagePublic;
 
                 return PartialView("~/Areas/Patent/Views/C03/_Partial_C03_View.cshtml");
             }
@@ -1919,15 +1917,13 @@
                 List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
                 ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
                 List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
-                List<AppDocumentOthersInfo> pLstImagePublic = new List<AppDocumentOthersInfo>();
 
-                App_Detail_C03_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos, ref _LstDocumentOthersInfo, ref pLstImagePublic);
+                App_Detail_C03_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos, ref _LstDocumentOthersInfo);
                 ViewBag.App_Detail = app_Detail;
                 ViewBag.Lst_AppDoc = appDocumentInfos;
                 ViewBag.Lst_AppFee = appFeeFixInfos;
                 ViewBag.objAppHeaderInfo = applicationHeaderInfo;
                 ViewBag.lstDocOther = _LstDocumentOthersInfo;
-                ViewBag.Lst_ImagePublic = pLstImagePublic;
 
                 return PartialView("~/Areas/Patent/Views/C03/_Partial_C03_Edit.cshtml");
             }

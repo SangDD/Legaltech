@@ -56,7 +56,7 @@
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
-        <legend style="font-weight:600"> @Resource.TM3B_Legend</legend>
+        <legend style="font-weight:600"> C.03 cấp phó bản, cấp lại VBBH</legend>
 
         @Html.Partial("~/ViewsShared/_PartialQuocGia.cshtml")
 
@@ -142,8 +142,17 @@
         </div>
 
         <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio">
+                    <input type="radio" name="3_rdoYeuCauSuaDoi" id="3_rdHD_SHCN" value="7">
+                    <label>Giấy chứng nhận đăng ký Hợp đồng chuyển quyền sử dụng đối tượng sở hữu công nghiệp</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
             <div class="div-search-title" style="margin-left: 0px !important;">
-                <div>Số văn bằng bảo hộ  <i class="redspan">(*)</i></div>
+                <div id="lblAppChangeNo">Số văn bằng bảo hộ  <i class="redspan">(*)</i></div>
                 <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
                    data-title="@WebApps.Resources.Resource.DonCachNhauDauPhay"></a>
             </div>
@@ -166,39 +175,91 @@
 
         <div class="div-search-ad">
             <div class="div-search-content">
-                <div class="div-checkbox" style="width:382px">
-                    <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1">
-                    <label>@Resource.TM3B_TenChuDon</label>
-                </div>
-            </div>
-
-            <div class="div-search-content">
                 <div class="div-checkbox">
-                    <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2">
-                    <label>@Resource.TM3B_DiaChiChuDon</label>
+                    <input type="checkbox" name="4_rdoYeuCauSuaDoi" id="4_rdGrant_VBBH" value="1" onchange="onChange_NoidungSuaDoi()">
+                    <label>Cấp phó bản văn bằng bảo hộ (cho đồng chủ sở hữu chung)/giấy chứng nhận (cho bên ký kết hợp đồng)</label>
                 </div>
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-content">
-                <div class="div-checkbox" style="width:382px">
-                    <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3">
-                    <label>@Resource.TM3B_NoiDungKhac</label>
+                <div class="div-checkbox" style="width:482px">
+                    <input type="checkbox" name="4_rdoYeuCauSuaDoi" id="4_rd_Renew_VBBH_CN" value="2" onchange="onChange_NoidungSuaDoi()">
+                    <label>Cấp lại văn bằng bảo hộ/giấy chứng nhận </label>
                 </div>
             </div>
 
-            <div class="div-search-title" style="margin-left: 0px !important;">
-                <div>@Resource.TM3B_DeNghiSuaThanh:</div>
+            <div class="div-search-title">
+                <div>Số lần đã được cấp </div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="@Resource.TM3B_DeNghiSuaThanh" id="4_DeNghiSuaThanh" />
+                    <input type="text" id="txt_Renew_Vbbh_Cn_Solan" disabled="disabled" />
                 </div>
             </div>
         </div>
 
-        @* end 4 *@ 
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-checkbox">
+                    <input type="checkbox" name="4_rdoYeuCauSuaDoi" id="4_rd_Renew_PhoBan_VBBH_CN" value="3" onchange="onChange_NoidungSuaDoi()">
+                    <label>Cấp lại phó bản văn bằng bảo hộ/giấy chứng nhận </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Phó bản số</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" style="width: 350px;" id="txt_Renew_Phoban_Vbbh_Cn_Sopb" disabled="disabled" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Số lần đã được cấp</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txt_Renew_Phoban_Vbbh_Cn_Solan" disabled="disabled" />
+                </div>
+            </div>
+        </div>
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                Lý do xin cấp lại
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-checkbox">
+                    <input type="checkbox" name="5_rdoReason" id="5_rd_lost" value="1" >
+                    <label>Văn bằng bảo hộ/giấy chứng nhận bị mất</label>
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-checkbox">
+                    <input type="checkbox" name="5_rdoReason" id="5_rd_broken" value="2">
+                    <label>Văn bằng bảo hộ/giấy chứng nhận bị hỏng (rách, bẩn, phai mờ…)</label>
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-checkbox">
+                    <input type="checkbox" name="5_rdoReason" id="5_rd_others" value="3">
+                    <label>Lý do khác</label>
+                </div>
+            </div>
+        </div>
+        @* end 4 *@
 
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
         <div class="divCover cls_form_title">
@@ -300,6 +361,37 @@
             }
         });
     });
+
+    function onChange_NoidungSuaDoi() {
+        try {
+            if ($("#4_rdGrant_VBBH").prop('checked') == true) {
+                // disable txt_Renew_Vbbh_Cn_Solan  
+                // disable txt_Renew_Phoban_Vbbh_Cn_Sopb 
+                // disable txt_Renew_Phoban_Vbbh_Cn_Solan
+            }  
+
+            if ($("#4_rd_Renew_VBBH_CN").prop('checked') == true) {
+                $("#txt_Renew_Vbbh_Cn_Solan").removeAttr("disabled");
+
+            } else {
+                $("#txt_Renew_Vbbh_Cn_Solan").prop('disabled', true);
+                $("#txt_Renew_Vbbh_Cn_Solan").val('');
+            }
+
+            if ($("#4_rd_Renew_PhoBan_VBBH_CN").prop('checked') == true) {
+                $("#txt_Renew_Phoban_Vbbh_Cn_Sopb").removeAttr("disabled");
+                $("#txt_Renew_Phoban_Vbbh_Cn_Solan").removeAttr("disabled");
+            } else {
+                $("#txt_Renew_Phoban_Vbbh_Cn_Sopb").val('');
+                $("#txt_Renew_Phoban_Vbbh_Cn_Solan").val('');
+
+                $("#txt_Renew_Phoban_Vbbh_Cn_Sopb").prop('disabled', true);
+                $("#txt_Renew_Phoban_Vbbh_Cn_Solan").prop('disabled', true);
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
    
    $("#btnGuiDon").click(function () {
@@ -406,7 +498,7 @@
             }
 
             $.ajax({
-                url: '/trade-mark-c01/do-register',
+                url: '/patent-c03/do-register',
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -469,34 +561,46 @@
             formData.append("pDetail.App_No_Change", _3_SoDon);
 
             // Nội dung yêu cầu sửa đổi
-
-            if ($("#4_rdTenChuDon").prop('checked') == true) {
-                formData.append("pDetail.Request_Master_To", "1");
+            if ($("#4_rdGrant_VBBH").prop('checked') == true) {
+                formData.append("pDetail.Grant_Vbbh", "1");
             } else {
-                formData.append("pDetail.Request_Master_To", "0");
+                formData.append("pDetail.Grant_Vbbh", "0");
             }
 
-            if ($("#4_rdDiaChiChuDon").prop('checked') == true) {
-                formData.append("pDetail.Request_Address_To", "1");
+            if ($("#4_rd_Renew_VBBH_CN").prop('checked') == true) {
+                formData.append("pDetail.Renew_VBBH_CN", "1"); 
+                formData.append("pDetail.Renew_Vbbh_Cn_Solan", $("#txt_Renew_Vbbh_Cn_Solan").val()); 
             } else {
-                formData.append("pDetail.Request_Address_To", "0");
+                formData.append("pDetail.Renew_VBBH_CN", "0");
+                formData.append("pDetail.Renew_Vbbh_Cn_Solan", 0); 
             }
 
-            if ($("#4_rdnoiDungKhac").prop('checked') == true) {
-                formData.append("pDetail.Request_Others_To", "1");
+            if ($("#4_rd_Renew_PhoBan_VBBH_CN").prop('checked') == true) {
+                formData.append("pDetail.Renew_PhoBan_VBBH_CN", "1");
+                formData.append("pDetail.Renew_Phoban_Vbbh_Cn_Sopb", $("#txt_Renew_Phoban_Vbbh_Cn_Sopb").val()); 
+                formData.append("pDetail.Renew_Phoban_Vbbh_Cn_Solan", $("#txt_Renew_Phoban_Vbbh_Cn_Solan").val()); 
             } else {
-                formData.append("pDetail.Request_Others_To", "0");
+                formData.append("pDetail.Renew_PhoBan_VBBH_CN", "0");
+                formData.append("pDetail.Renew_Phoban_Vbbh_Cn_Sopb", ""); 
+                formData.append("pDetail.Renew_Phoban_Vbbh_Cn_Solan", 0); 
             }
 
-            // đề nghị sửa thành
-            var _4_DeNghiSuaThanh = $("#4_DeNghiSuaThanh").val();
-            if ((_4_DeNghiSuaThanh === "" || _4_DeNghiSuaThanh == undefined) && pType == 2) {
-                jError("@Resource.TM3B_DeNghiSuaThanhTrong", "@Resource.TM3B_Loi", function () {
-                    $("#4_DeNghiSuaThanh").focus()
-                });
-                return false;
+            if ($("#5_rd_lost").prop('checked') == true) {
+                formData.append("pDetail.Reason_Lost", "1");
+            } else {
+                formData.append("pDetail.Reason_Lost", "0");
             }
-            formData.append("pDetail.Request_To_Content", _4_DeNghiSuaThanh);
+            if ($("#5_rd_broken").prop('checked') == true) {
+                formData.append("pDetail.Reason_Broken", "1");
+            } else {
+                formData.append("pDetail.Reason_Broken", "0");
+            }
+            if ($("#5_rd_others").prop('checked') == true) {
+                formData.append("pDetail.Reason_Others", "1");
+            } else {
+                formData.append("pDetail.Reason_Others", "0");
+            }
+             
         } catch (e) {
             console.log(e);
             showError('@Resource.TM3B_InternetError');
@@ -511,7 +615,7 @@
             // 1
             reponse = funcGetCheckValueAndText(formData, "ckb_DOC_01", "0");
             formData.append("pAppDocumentInfo[0].CHAR01", $("#txt_DOC_01").val());
-            formData.append("pAppDocumentInfo[0].CHAR02", $("#txt_DOC_02").val());
+            formData.append("pAppDocumentInfo[0].CHAR02", $("#txt_DOC_01_2").val());
 
             // 2
             reponse = funcGetCheckValueAndText(formData, "ckb_DOC_02", "1");

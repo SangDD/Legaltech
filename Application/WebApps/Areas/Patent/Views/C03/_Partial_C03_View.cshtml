@@ -91,7 +91,7 @@
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
-        <legend style="font-weight:600"> @Resource.TM3B_Legend</legend>
+        <legend style="font-weight:600"> C.03 cấp phó bản, cấp lại VBBH</legend>
 
         @* Case name *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName_View.cshtml", "0")
@@ -234,60 +234,155 @@
 
         <div class="div-search-ad">
             <div class="div-search-content">
-                <div class="div-checkbox" style="width:382px">
-                    @if (_App_Detail.Request_Master_To == "1")
-                    {
-                        <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" disabled="disabled" checked="checked">
-                    }
-                    else
-                    {
-                        <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" disabled>
-                    }
-                    <label>@Resource.TM3B_TenChuDon</label>
-                </div>
-            </div>
-
-            <div class="div-search-content">
                 <div class="div-checkbox">
-                    @if (_App_Detail.Request_Address_To == "1")
+                    @if (_App_Detail.Grant_Vbbh == "1")
                     {
-                        <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" disabled="disabled" checked="checked">
+                        <input type="checkbox" name="4_rdoYeuCauSuaDoi" id="4_rdGrant_VBBH" value="1" checked disabled>
                     }
                     else
                     {
-                        <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" disabled>
+                        <input type="checkbox" name="4_rdoYeuCauSuaDoi" id="4_rdGrant_VBBH" value="1" disabled>
                     }
-                    <label>@Resource.TM3B_DiaChiChuDon</label>
+                    <label>Cấp phó bản văn bằng bảo hộ (cho đồng chủ sở hữu chung)/giấy chứng nhận (cho bên ký kết hợp đồng)</label>
                 </div>
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-content">
-                <div class="div-checkbox" style="width:382px">
-                    @if (_App_Detail.Request_Others_To == "1")
+                <div class="div-checkbox" style="width:482px">
+                    @if (_App_Detail.Renew_Vbbh_Cn == "1")
                     {
-                        <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" disabled="disabled" checked="checked">
+                        <input type="checkbox" name="4_rdoYeuCauSuaDoi" id="4_rd_Renew_VBBH_CN" value="2" checked disabled>
                     }
                     else
                     {
-                        <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" disabled>
+                        <input type="checkbox" name="4_rdoYeuCauSuaDoi" id="4_rd_Renew_VBBH_CN" value="2" disabled>
                     }
-                    <label>@Resource.TM3B_NoiDungKhac</label>
+
+                    <label>Cấp lại văn bằng bảo hộ/giấy chứng nhận </label>
                 </div>
             </div>
 
-            <div class="div-search-title" style="margin-left: 0px !important;">
-                <div>@Resource.TM3B_DeNghiSuaThanh:</div>
+            <div class="div-search-title">
+                <div>Số lần đã được cấp </div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="@Resource.TM3B_DeNghiSuaThanh" id="4_DeNghiSuaThanh" disabled value="@_App_Detail.Request_To_Content" />
+                    @if (_App_Detail.Renew_Vbbh_Cn == "1")
+                    {
+                        <input type="text" id="txt_Renew_Vbbh_Cn_Solan" value="@_App_Detail.Renew_Vbbh_Cn_Solan"  disabled/>
+                    }
+                    else
+                    {
+                        <input type="text" id="txt_Renew_Vbbh_Cn_Solan" disabled="disabled" />
+                    }
                 </div>
             </div>
         </div>
 
-        @* end 4 *@ 
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-checkbox">
+                    @if (_App_Detail.Renew_Vbbh_Cn == "1")
+                    {
+                        <input type="checkbox" name="4_rdoYeuCauSuaDoi" id="4_rd_Renew_PhoBan_VBBH_CN" value="3" checked disabled>
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="4_rdoYeuCauSuaDoi" id="4_rd_Renew_PhoBan_VBBH_CN" value="3" disabled>
+                    }
+                    <label>Cấp lại phó bản văn bằng bảo hộ/giấy chứng nhận </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Phó bản số</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @if (_App_Detail.Renew_Vbbh_Cn == "1")
+                    {
+                        <input type="text" style="width: 350px;" id="txt_Renew_Phoban_Vbbh_Cn_Sopb" value="@_App_Detail.Renew_Phoban_Vbbh_Cn_Sopb"  disabled/>
+                    }
+                    else
+                    {
+                        <input type="text" style="width: 350px;" id="txt_Renew_Phoban_Vbbh_Cn_Sopb" disabled="disabled" />
+                    }
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Số lần đã được cấp</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @if (_App_Detail.Renew_Vbbh_Cn == "1")
+                    {
+                        <input type="text" id="txt_Renew_Phoban_Vbbh_Cn_Solan" value="@_App_Detail.Renew_Phoban_Vbbh_Cn_Solan"  disabled/>
+                    }
+                    else
+                    {
+                        <input type="text" id="txt_Renew_Phoban_Vbbh_Cn_Solan" disabled="disabled" />
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                Lý do xin cấp lại
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-checkbox">
+                    @if (_App_Detail.Renew_Vbbh_Cn == "1")
+                    {
+                        <input type="checkbox" name="5_rdoReason" id="5_rd_lost" value="1" checked disabled>
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="5_rdoReason" id="5_rd_lost" value="1" disabled>
+                    }
+                    <label>Văn bằng bảo hộ/giấy chứng nhận bị mất</label>
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-checkbox">
+                    @if (_App_Detail.Renew_Vbbh_Cn == "1")
+                    {
+                        <input type="checkbox" name="5_rdoReason" id="5_rd_broken" value="2" checked disabled>
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="5_rdoReason" id="5_rd_broken" value="2" disabled>
+                    }
+                    <label>Văn bằng bảo hộ/giấy chứng nhận bị hỏng (rách, bẩn, phai mờ…)</label>
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-checkbox">
+                    @if (_App_Detail.Renew_Vbbh_Cn == "1")
+                    {
+                        <input type="checkbox" name="5_rdoReason" id="5_rd_others" value="3" checked disabled>
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="5_rdoReason" id="5_rd_others" value="3" disabled>
+                    }
+                    <label>Lý do khác</label>
+                </div>
+            </div>
+        </div>
+        @* end 4 *@
 
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
         <div class="divCover cls_form_title">

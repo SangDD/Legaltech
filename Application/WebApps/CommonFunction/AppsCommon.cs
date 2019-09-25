@@ -2136,7 +2136,7 @@ namespace WebApps.CommonFunction
         }
 
         public static void Prepare_Data_Export_C03(ref App_Detail_C03_Info pDetail, ApplicationHeaderInfo pInfo,
-            List<AppDocumentInfo> pAppDocumentInfo, List<AppDocumentOthersInfo> pLstImagePublic)
+            List<AppDocumentInfo> pAppDocumentInfo)
         {
             try
             {
@@ -2224,7 +2224,7 @@ namespace WebApps.CommonFunction
                 #endregion
 
                 #region phí
-                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C03(pDetail, pAppDocumentInfo, pLstImagePublic);
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C03(pDetail, pAppDocumentInfo);
 
                 if (_lstFeeFix.Count > 0)
                 {
