@@ -269,6 +269,18 @@
       <DependentUpon>A05_EN.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Report\C03_EN.cs">
+      <DependentUpon>C03_EN.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Report\C03.cs">
+      <DependentUpon>C03.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Report\C01_EN.cs">
       <DependentUpon>C01_EN.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -2033,6 +2045,14 @@
     <EmbeddedResource Include="Report\C01_EN.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>C01_EN.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\C03.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>C03.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\C03_EN.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>C03_EN.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\AlertPopup\ASSAlert.js" />

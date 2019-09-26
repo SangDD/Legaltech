@@ -549,7 +549,10 @@ namespace WebApps.Areas.TradeMark.Controllers
                         app_Detail.Note += item.Documentname + " ; ";
                     }
 
-                    app_Detail.Note = app_Detail.Note.Substring(0, app_Detail.Note.Length - 2);
+                    if (_LstDocumentOthersInfo.Count > 0)
+                    {
+                        app_Detail.Note = app_Detail.Note.Substring(0, app_Detail.Note.Length - 2);
+                    }
                 }
 
                 List<App_Detail_C01_Info> _lst = new List<App_Detail_C01_Info>();
@@ -654,6 +657,18 @@ namespace WebApps.Areas.TradeMark.Controllers
                 }
 
                 AppsCommon.Prepare_Data_Export_C01(ref pDetail, pInfo, pAppDocumentInfo, pLstImagePublic);
+                if (pAppDocOtherInfo != null)
+                {
+                    foreach (var item in pAppDocOtherInfo)
+                    {
+                        pDetail.Note += item.Documentname + " ; ";
+                    }
+
+                    if (pAppDocOtherInfo.Count > 0)
+                    {
+                        pDetail.Note = pDetail.Note.Substring(0, pDetail.Note.Length - 2);
+                    }
+                }
                 _lst.Add(pDetail);
 
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_C01_Info>(_lst, false);
