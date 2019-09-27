@@ -20,13 +20,12 @@
     {
         functionInfos = (List<FunctionInfo>)ViewBag.Lst_Function;
     }
+    var groupsFunc = functionInfos.GroupBy(item => item.App_Type);
 
     string _url = "/application/register/" + _Country;
 }
 <style>
-    /* LIST #2 */
     #list2 {
-        width: 320px;
     }
 
         #list2 ol {
@@ -51,6 +50,68 @@
                     #list2 ol li p em {
                         display: block;
                     }
+
+    .div_form {
+        /*width: 50%;*/
+        float: left;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        /*background-color: #2196F3;*/
+        padding: 1px;
+        padding: 1px;
+        margin-right: 10px;
+    }
+
+    .grid-item {
+        background-color: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgb(187, 231, 255);
+        border-radius: 4px;
+        /* padding: 20px; */
+        font-size: 30px;
+        text-align: center;
+        margin-bottom: 10px;
+        margin-left: 10px;
+    }
+
+    .hederlist {
+        /*border: 1px solid;
+        border-radius: 4px;*/
+        text-align: left;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .header-type {
+        width: 100%;
+        padding: 5px 10px;
+        font-weight: bold;
+        margin-top: -1px;
+    }
+
+    .item_list {
+        padding: 5px 0;
+        border-bottom: 1px dashed #e4e0d8;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .header-type {
+        background: #D9EDF8;
+        color: cornflowerblue;
+    }
+
+    .item_list:last-child {
+        border-bottom: none;
+    }
+    .item_list a{
+        color: #484848;
+    }
+     .item_list a:hover{
+        color: #094cc4;
+    }
 </style>
 <div class="d-nav-container" style="background-color:#fff">
     <div class="divCover">
@@ -72,13 +133,32 @@
 
 </div>
 
-<div id="list2">
-    <ul>
-        @foreach (var item in functionInfos)
-        {
-            <li><a href="@item.HrefGet">@item.DisplayName</a></li>
-        }
-    </ul>
+<div id="list2" class="grid-container">
+    @*<ul>
+            @foreach (var item in functionInfos)
+            {
+                <li><a href="@item.HrefGet">@item.DisplayName</a></li>
+            }
+        </ul>*@
+
+
+    @foreach (var item in groupsFunc)
+    {
+        <div class="div_form grid-item">
+            <div class="hederlist">
+                <div class="header-type">Mẫu đơn loại @item.Key</div>
+                @foreach (var func in functionInfos)
+                {
+                    if (func.App_Type == item.Key)
+                    {
+                        <div class="item_list"><a href="@func.HrefGet"><span style="padding-right:5px;">&#8226;</span>@func.DisplayName</a></div>
+                    }
+                }
+            </div>
+        </div>
+    }
+
+
 </div>
 
 <script>

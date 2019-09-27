@@ -23,5 +23,6 @@
         {
             return this.FunctionAddedToGroup == 1;
         }
+        public string App_Type { get; set; }
     }
 }
