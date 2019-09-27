@@ -21,6 +21,10 @@
         width: 120px;
     }
 
+      .div-search-title > .width_max {
+        width: 200px;
+    }
+
     .div-title-col-2 {
         height: 35px;
         border: 1px solid #aaa;
@@ -98,7 +102,7 @@
         <div class="clssDisplaynone _detail" id="Type_1" style="margin-top: 5px; background:#fbf4f4">
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div>Số văn bằng bảo hộ:</div>
+                    <div class="width_max">Số văn bằng bảo hộ:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -108,12 +112,12 @@
             </div>
 
             <div class="div-search-ad">
-                <div class="div-search-title" style="height: 126px;">
-                    <div>Các phương án cần gia hạn:</div>
+                <div class="div-search-title">
+                    <div class="width_max">Các phương án cần gia hạn:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <textarea type="text" id="txt_PCT_SoDon" maxlength="2000" rows="5"  placeholder="Mô tả" style="height:128px"></textarea>
+                        <input type="text" id="txt_PCT_SoDon"  placeholder="Mô tả" maxlength="200"/>
                     </div>
                 </div>
             </div>
@@ -130,7 +134,7 @@
         <div class="clssDisplaynone _detail" id="Type_2" style="margin-top: 5px; background:#fbf4f4">
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div>Số văn bằng bảo hộ:</div>
+                    <div class="width_max">Số văn bằng bảo hộ:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -140,12 +144,12 @@
             </div>
 
             <div class="div-search-ad">
-                <div class="div-search-title" style="height: 126px;">
-                    <div>Các nhóm hoặc sản phẩm, dịch vụ cần gia hạn:</div>
+                <div class="div-search-title">
+                    <div class="width_max">Các nhóm hoặc sản phẩm, dịch vụ cần gia hạn:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <textarea type="text" id="txt_PCT_SoDon" maxlength="2000" rows="5" placeholder="Mô tả" style="height:128px"></textarea>
+                        <input type="text" id="txt_PCT_SoDon" placeholder="Mô tả" maxlength="200" />
                     </div>
                 </div>
             </div>
@@ -165,7 +169,7 @@
         <div class="clssDisplaynone _detail" id="Type_3" style="margin-top: 5px; background:#fbf4f4">
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div>Số bằng độc quyền:</div>
+                    <div class="width_max">Số bằng độc quyền:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -186,17 +190,54 @@
         <div class="clssDisplaynone _detail" id="Type_4" style="margin-top: 5px; background:#fbf4f4">
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div>Số điểm yêu cầu bảo hộ độc lập:</div>
+                    <div class="width_max">Số điểm yêu cầu bảo hộ độc lập:</div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" id="txt_PCT_SoDon" />
+                        <input type="text" id="txtPoint" onkeyup="jsFormatNumber(this.value, this.id)"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div class="width_max">Năm duy trì hiệu lực:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtYear" onkeyup="jsFormatNumber(this.value, this.id)"/>
                     </div>
                 </div>
             </div>
 
         </div>
 
+        @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                @Resource.TM2B_TaiLieuCoTrongDon
+            </div>
+        </div>
+        @foreach (Sys_Document_Info item in _lst_doc)
+        {
+            string _model = item.Doc_Id + "|" + item.Check_Box_Id + "|" + item.Doc_Level + "|" + item.Content_1 + "|" + item.Content_2 + "|" + item.Is_Upload + "|" + item.Width + "|" + item.Content_3;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
+        }
+        @*TÀI LIỆU KHÁC*@
+        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others.cshtml")
+
+        @* Cam kết của chủ đơn *@
+        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml")
+
+        <div class="class_save">
+            <div class="classGuiDon">
+                <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
+            </div>
+            <div class="classLuuTam">
+                <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
+            </div>
+        </div>
     </fieldset>
 </div>
 
@@ -244,4 +285,123 @@
             console.log(ex)
         }
     }
+
+    $(document).ready(function () {
+        $("#0_txtCase_Name").focus();
+
+        //Search suggestion
+        var Name = $("#1_txtTenDayDu").val();
+        $.ajax({
+            url: '/trade-mark/GetNameSuggest/',
+            type: 'POST',
+            data: {
+                pName: Name
+            },
+            sync: true, cache: false, traditional: true,
+            success: function (data) {
+
+                var lts = data.lst;
+                $('#1_txtTenDayDu').autocomplete({
+                    autoFocus: true,
+                    source: function (request, response) {
+                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+                        response($.grep(lts, function (item) {
+                            return matcher.test(item.value);
+                        }));
+                    },
+                    select: function (event, ui) {
+                        $("#1_txtTenDayDu").val("");
+                        event.preventDefault();
+                        var arrVal = ui.item.value.split('|');
+                        if (arrVal.length === 5) {
+                            $("#1_txtTenDayDu").val(arrVal[0]);
+                            $("#1_txtDiaChi").val(arrVal[1]);
+                            $("#1_txtDienThoai").val(arrVal[2]);
+                            $("#1_txtFax").val(arrVal[3]);
+                            $("#1_txtEmail").val(arrVal[4]);
+                        }
+
+                    },
+                    focus: function (event, ui) {
+                        var arrResult = $(".ui-menu-item");
+                        for (var i = 0; i < arrResult.length; i++) {
+                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                            if (label == ui.item.name) {
+                                $(".clsLiActive").removeClass("clsLiActive")
+                                $(arrResult[i]).addClass("clsLiActive");
+                                break;
+                            }
+                        }
+                        event.preventDefault();
+                    },
+                    open: function (event, ui) {
+                        $("ul").scrollTop(0);
+                        event.preventDefault();
+                    },
+                });
+            }
+        });
+    });
+
+    $("#btnGuiDon").click(function () {
+        try {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
+                funGetData(2);
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    });
+
+    $("#btnLuuTam").click(function () {
+        try {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuuTam)", function () {
+                funGetData(1);
+            });
+        } catch (e) {
+            CreateRollingWaitingIcon(false);
+            console.log(e);
+        }
+    });
+
+
+
+    function funcGetCheckValueAndText(formData, pID, pItem) {
+        try {
+            var Isuse = 0, Note = "";
+            //Các tài liệu có trong đơn
+            if ($("#" + pID).prop('checked') == true) {
+                Isuse = 1;
+            }
+            formData.append("pAppDocumentInfo[" + pItem + "].keyFileUpload", pID);
+            formData.append("pAppDocumentInfo[" + pItem + "].Document_Id", $("#" + pID).val());
+            formData.append("pAppDocumentInfo[" + pItem + "].Isuse", Isuse);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function funcGetTenTaiLieuKhac(formData) {
+        try {
+            var item = 0;
+            $(".clssListUpload").each(function () {
+                formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", this.id);
+                formData.append("pAppDocOtherInfo[" + item + "].Documentname", $("#" + this.id).val());
+                item++;
+            });
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    $("#ckb_DOC_11").change(function () {
+        if ($("#ckb_DOC_11").is(":checked") == true) {
+            $("#divContainerDocOther").css('display', 'block')
+        } else {
+            $("#divContainerDocOther").css('display', 'none');
+        }
+    });
+
 </script>
