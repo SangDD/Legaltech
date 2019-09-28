@@ -64,7 +64,7 @@ namespace BussinessFacade.ModuleTrademark
                 var objData = new App_Detail_C02_DA();
                 DataSet dataSet = objData.GetByID(p_app_header_id, p_language_code);
                 App_Detail_C02_Info app_Detail_C02 = CBO<App_Detail_C02_Info>.FillObjectFromDataSet(dataSet);
-                if (dataSet != null && dataSet.Tables.Count == 6)
+                if (dataSet != null && dataSet.Tables.Count == 5)
                 {
                     applicationHeaderInfo = CBO<ApplicationHeaderInfo>.FillObjectFromDataTable(dataSet.Tables[1]);
                     appDocumentInfos = CBO<AppDocumentInfo>.FillCollectionFromDataTable(dataSet.Tables[2]);

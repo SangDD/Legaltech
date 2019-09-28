@@ -229,6 +229,7 @@
         public static string AppCode_A05_DK_CHIDANDIALY = "A05";
 
         public static string AppCode_C01 = "C01";
+        public static string AppCode_C02 = "C02";
         public static string AppCode_C03 = "C03";
 
         public static string AppCode_E01 = "E01";

@@ -55,7 +55,7 @@ namespace WebApps.Areas.TradeMark.Controllers
             {
                 Application_Header_BL objBL = new Application_Header_BL();
                 AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
-                //App_Detail_C01_BL objDetail = new App_Detail_C01_BL();
+                App_Detail_C02_BL objDetail = new App_Detail_C02_BL();
                 AppDocumentBL objDoc = new AppDocumentBL();
 
                 if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
@@ -93,7 +93,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                         pDetail.App_Header_Id = pAppHeaderID;
                         pDetail.Case_Code = p_case_code;
 
-                        //pReturn = objDetail.Insert(pDetail);
+                        pReturn = objDetail.Insert(pDetail);
                         if (pReturn <= 0)
                             goto Commit_Transaction;
                     }
@@ -136,30 +136,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                     //}
                     //#endregion
 
-                    //tai lieu khac 
-                    if (pReturn >= 0 && pAppDocOtherInfo != null)
-                    {
-                        if (pAppDocOtherInfo.Count > 0)
-                        {
-                            int check = 0;
-                            foreach (var info in pAppDocOtherInfo)
-                            {
-                                if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
-                                {
-                                    string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
-                                    info.Filename = _url;
-                                    check = 1;
-
-                                }
-                                info.App_Header_Id = pAppHeaderID;
-                                info.Language_Code = language;
-                            }
-                            if (check == 1)
-                            {
-                                pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocOtherInfo);
-                            }
-                        }
-                    }
+                   
 
                     #region Tai lieu dinh kem 
                     if (pReturn >= 0 && pAppDocumentInfo != null)
