@@ -46,7 +46,7 @@
 
 <script>
 
-    function funGetData_Preview_UI_A05(url) {
+    function funGetData_Preview_UI_C08(url) {
         try {
             var formData = new FormData();
             formData.append("pInfo.Appcode", $("#txtAppCode").val());
@@ -81,11 +81,7 @@
             if (reponse == false) {
                 return false;
             }
-            // lấy thông tin class
-            reponse = funcGetDataClassInfo(formData);
-            if (reponse == false) {
-                return false;
-            }
+  
 
             formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin)');
             var v_AppCode = $("#txtAppCode").val();
@@ -157,7 +153,7 @@
     }
 
     function funcPreViewApplication_IU() {
-        var preturn = funGetData_Preview_UI_A05("/request-amendment-of-international-trademark/ket_xuat_file_IU");
+        var preturn = funGetData_Preview_UI_C08("/request-amendment-of-international-trademark/ket_xuat_file_IU");
         if (preturn == true || preturn == undefined) {
             OpenPreview("/request-amendment-of-international-trademark/Pre-View");
         }
@@ -176,15 +172,7 @@
         if (reponse == false) {
             return false;
         }
-        reponse = funcCheckDataClassInfo(_showerror);
-        if (reponse == false) {
-            return false;
-        }
-        // lấy thông tin class
-        reponse = funcGetDataClassInfo(formData, _showerror);
-        if (reponse == false) {
-            return false;
-        }
+        
         if ($("#1_ckbTacGiaDongThoi").is(':checked')) {
             formData.append("pInfo.Master_Type", "TGDT");
         } else if ($("#rdChuDonKhac").is(':checked')) {
