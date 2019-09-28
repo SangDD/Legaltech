@@ -365,43 +365,21 @@
             }
         }
 
-        //private string BuildUserHtmlMenu(List<FunctionInfo> lstFunctionDisplayInMenu, int parentFunctionId, string language)
-        //{
-        //    var userHtmlMenu = string.Empty;
-        //    try
-        //    {
-        //        var lstFunctionOnMenu = lstFunctionDisplayInMenu.Where(o => o.MenuId != 0).ToList();
-        //        if (lstFunctionOnMenu.Any())
-        //        {
-        //            foreach (var menu in MenuBL.GetAllMenu())
-        //            {
-        //                var lstFunctionsInGroupMenu = lstFunctionOnMenu.Where(o => o.MenuId == menu.Id).ToList();
-        //                if (lstFunctionsInGroupMenu.Any())
-        //                {
-        //                    string displayName = menu.DisplayName;
-        //                    if (language == Language.LangEN)
-        //                    {
-        //                        displayName = menu.DisplayName_Eng;
-        //                    }
-        //                    userHtmlMenu += "<li class='group-menu' onclick='javascript:;'>" + displayName
-        //                                        + "<ul class='ul-group-menu collapsed' style='display:none;'>"
-        //                                        + this.BuildFunctionOnMenu(lstFunctionsInGroupMenu, parentFunctionId, language)
-        //                                        + "</ul></li>";
+        public List<FunctionInfo> Get_lst_app_right(decimal p_userId, string p_country)
+        {
+            try
+            {
+                var ds = UserDA.Get_lst_app_right(p_userId, p_country);
+                return CBO<FunctionInfo>.FillCollectionFromDataSet(ds); ;
 
-        //                }
-        //            }
-        //        }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<FunctionInfo>();
+            }
+        }
 
-        //        var lstFunctionHaveNoGroup = lstFunctionDisplayInMenu.Where(o => o.MenuId == 0).ToList();
-        //        userHtmlMenu += this.BuildFunctionOnMenu(lstFunctionHaveNoGroup, parentFunctionId, language);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        // Ignore: since handle exception here make no sense
-        //    }
-
-        //    return userHtmlMenu;
-        //}
 
         /// <summary>
         /// BuildUserHtmlMenu, 2018.08.30 HungTD: load danh muc wiki
@@ -540,10 +518,10 @@
             foreach (var function in lstFunctionDisplayInMenu.Where(t => t.ParentId.Equals(parentFunctionId)))
             {
                 // không xử thằng function đơn
-                //if (function.Country != "")
-                //{
-                //    continue;
-                //}
+                if (function.Country != null && function.Country != "")
+                {
+                    continue;
+                }
 
                 this._userHtmlMenuId++;
                 var lstSubMenu = this._lstFunctionDisplayInMenu.Where(t => t.ParentId.Equals(function.Id)).ToList();

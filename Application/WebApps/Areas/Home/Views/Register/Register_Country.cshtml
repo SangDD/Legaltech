@@ -1,0 +1,89 @@
+﻿@using Common.CommonData
+@using WebApps.CommonFunction;
+@using BussinessFacade.ModuleMemoryData
+@using WebApps.Resources;
+@using BussinessFacade.ModuleMemoryData
+@using ObjectInfos
+@using WebApps.Resources;
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+    string _Country = "";
+    if (ViewBag.Country != null)
+    {
+        _Country = (string)ViewBag.App_No;
+    }
+
+    List<FunctionInfo> functionInfos = new List<FunctionInfo>();
+    if (ViewBag.Lst_Function != null)
+    {
+        functionInfos = (List<FunctionInfo>)ViewBag.Lst_Function;
+    }
+
+    string _url = "/application/register/" + _Country;
+}
+<style>
+    /* LIST #2 */
+    #list2 {
+        width: 320px;
+    }
+
+        #list2 ol {
+            font-style: italic;
+            font-family: Georgia, Times, serif;
+            font-size: 24px;
+            color: #bfe1f1;
+        }
+
+            #list2 ol li {
+            }
+
+                #list2 ol li p {
+                    padding: 8px;
+                    font-style: normal;
+                    font-family: Arial;
+                    font-size: 13px;
+                    color: #eee;
+                    border-left: 1px solid #999;
+                }
+
+                    #list2 ol li p em {
+                        display: block;
+                    }
+</style>
+<div class="d-nav-container" style="background-color:#fff">
+    <div class="divCover">
+        <div class="d-nav">
+            <img src="~/Content/icons/Body-icon-home.png" /> I
+            <a href="/home">Home</a>
+            <span class="red">></span>
+            <a href="@_url">@Resource.lblNopdon</a>
+        </div>
+    </div>
+    <div class="divCover">
+        <div class="classLine">
+        </div>
+    </div>
+
+    <div class="divCover">
+        @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+    </div>
+
+</div>
+
+<div id="list2">
+    <ul>
+        @foreach (var item in functionInfos)
+        {
+            <li><a href="@item.HrefGet">@item.DisplayName</a></li>
+        }
+    </ul>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+    });
+
+</script>

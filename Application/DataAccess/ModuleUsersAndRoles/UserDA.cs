@@ -645,6 +645,24 @@
             }
         }
 
+        public static DataSet Get_lst_app_right(decimal p_userId, string p_country)
+        {
+            try
+            {
+                DataSet ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_s_users.proc_get_list_app_right",
+                    new OracleParameter("p_userId", OracleDbType.Decimal, p_userId, ParameterDirection.Input),
+                    new OracleParameter("p_country", OracleDbType.Varchar2, p_country, ParameterDirection.Input),
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
+
         #endregion
     }
 }
