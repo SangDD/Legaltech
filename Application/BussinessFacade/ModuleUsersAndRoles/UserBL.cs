@@ -540,10 +540,10 @@
             foreach (var function in lstFunctionDisplayInMenu.Where(t => t.ParentId.Equals(parentFunctionId)))
             {
                 // không xử thằng function đơn
-                if (function.Country != "")
-                {
-                    continue;
-                }
+                //if (function.Country != "")
+                //{
+                //    continue;
+                //}
 
                 this._userHtmlMenuId++;
                 var lstSubMenu = this._lstFunctionDisplayInMenu.Where(t => t.ParentId.Equals(function.Id)).ToList();
