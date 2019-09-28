@@ -6,6 +6,8 @@
         public int Id { get; set; }
         public string FunctionName { get; set; }
         public string DisplayName { get; set; }
+        public string Country { get; set; }
+
         public int FunctionType { get; set; }
         public string FunctionTypeDisplayName { get; set; }
         public string HrefGet { get; set; }
