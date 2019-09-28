@@ -300,6 +300,12 @@
       <DependentUpon>C08.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Report\C08_EN.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>C08_EN.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Report\E01.cs">
       <DependentUpon>E01.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1517,6 +1523,10 @@
     <EmbeddedResource Include="Report\C08.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>C08.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\C08_EN.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>C08_EN.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Report\E01.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

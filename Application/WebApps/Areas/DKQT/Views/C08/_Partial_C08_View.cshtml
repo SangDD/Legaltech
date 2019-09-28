@@ -230,7 +230,7 @@
                         </div>
                         <div class="div-search-content">
                             <div>
-                                <input v type="text" id="txtThuTucKhac" disabled maxlength="200" />
+                                <input value="@_App_Detail.LOAIDK_VALUE" type="text" id="txtThuTucKhac" disabled maxlength="200" />
                             </div>
                         </div>
                     </div>
@@ -272,7 +272,7 @@
                         </div>
                         <div class="div-search-content">
                             <div>
-                                <input type="text" class="datetimepicker" id="txtNgayNopDonDKQTNH"
+                                <input type="text" class="datetimepicker" id="txtNgayNopDonDKQTNH" disabled
                                        value="@(_App_Detail.NGAYNOPDON_DKQTNH == DateTime.MinValue ? "" : _App_Detail.NGAYNOPDON_DKQTNH.ToString("dd/MM/yyyy"))" maxlength="100" />
                             </div>
                         </div>
@@ -395,31 +395,7 @@
 
     function ChangeTrangThaiDK() {
         try {
-            if ($("#cbo_HANCHEDANHMUC").is(':checked') || $("#cbo_THUTUCKHAC").is(':checked')) {
-                if ($("#cbo_HANCHEDANHMUC").is(':checked')) {
-                    $("#cbo_GHITRONGDKQTNH").removeAttr("disabled");
-                    $("#cbo_GHITRONGDONDKQTNH").removeAttr("disabled");
-                    $("#txtThuTucKhac").val("");
-                    $("#txtThuTucKhac").attr("disabled", "true");
-                }
-                else if ($("#cbo_THUTUCKHAC").is(':checked')) {
-                    $("#txtThuTucKhac").val("");
-                    $("#txtThuTucKhac").removeAttr("disabled");
-                    $("#cbo_GHITRONGDKQTNH").attr("disabled", "true");
-                    $("#cbo_GHITRONGDONDKQTNH").attr("disabled", "true");
-                    $("#cbo_GHITRONGDKQTNH").removeAttr("checked");
-                    $("#cbo_GHITRONGDONDKQTNH").removeAttr("checked");
-                }
-
-            } else {
-
-                $("#txtThuTucKhac").val("");
-                $("#txtThuTucKhac").attr("disabled", "true");
-                $("#cbo_GHITRONGDKQTNH").attr("disabled", "true");
-                $("#cbo_GHITRONGDONDKQTNH").attr("disabled", "true");
-                $("#cbo_GHITRONGDKQTNH").removeAttr("checked");
-                $("#cbo_GHITRONGDONDKQTNH").removeAttr("checked");
-            }
+            
         } catch (e) {
             alert(e.message);
         }
@@ -427,7 +403,7 @@
     $(document).ready(function () {
         SetValRadioCheckBoxByName('0_TRANGTHAIDANGKY', '@_App_Detail.LOAI_DK');
         SetValRadioCheckBoxByName('0_TRANGTHAIDANGKY_LOAIDK', '@_App_Detail.LOAIDK_VALUE');
-        ChangeTrangThaiDK();
+        
         funcShowOtherdocument();
         $.datetimepicker.setLocale('vi');
         $("#0_txtCase_Name").focus();

@@ -96,7 +96,7 @@ namespace BussinessFacade
                 C08_DA _obj_da = new C08_DA();
                 DataSet dataSet = _obj_da.GetByID(p_app_header_id, p_language_code);
                 C08_Info_Export _C08_Info = CBO<C08_Info_Export>.FillObjectFromDataSet(dataSet);
-                if (dataSet != null && dataSet.Tables.Count == 5)
+                if (dataSet != null && dataSet.Tables.Count ==6)
                 {
                     applicationHeaderInfo = CBO<ApplicationHeaderInfo>.FillObjectFromDataTable(dataSet.Tables[1]);
                     appDocumentInfos = CBO<AppDocumentInfo>.FillCollectionFromDataTable(dataSet.Tables[2]);
