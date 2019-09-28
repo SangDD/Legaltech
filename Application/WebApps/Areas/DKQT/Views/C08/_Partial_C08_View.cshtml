@@ -6,7 +6,7 @@
 @using ObjectInfos
 @using ObjectInfos.ModuleTrademark
 @{
-    ViewBag.Title = "Conversion of international trademark";
+    ViewBag.Title = "Request amendment of international trademark";
     Layout = "~/ViewsShared/_Layout.cshtml";
     string language = AppsCommon.GetCurrentLang();
     ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
@@ -15,10 +15,10 @@
         _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
     }
 
-    C07_Info _App_Detail = new C07_Info();
+    C08_Info _App_Detail = new C08_Info();
     if (ViewBag.App_Detail != null)
     {
-        _App_Detail = (C07_Info)ViewBag.App_Detail;
+        _App_Detail = (C08_Info)ViewBag.App_Detail;
     }
 
     List<AppDocumentInfo> Lst_AppDoc = new List<AppDocumentInfo>();
@@ -64,13 +64,9 @@
     }
 
     decimal _max_Model_Id = Lst_Other_Master.Count + 1;
-    List<App_Detail_TM06DKQT_Info> _ListTM06nhdetail = new List<App_Detail_TM06DKQT_Info>();
-    if (ViewBag.ListTM06nhdetail != null)
-    {
-        _ListTM06nhdetail = ViewBag.ListTM06nhdetail;
-    }
     
-    List<Sys_Document_Info> _lst_doc = WebApps.CommonFunction.AppsCommon.Sys_Document_GetBy_Casecode("C07");
+    
+    List<Sys_Document_Info> _lst_doc = WebApps.CommonFunction.AppsCommon.Sys_Document_GetBy_Casecode("C08");
 
 }
 
@@ -100,7 +96,7 @@
             <img src="~/Content/icons/Body-icon-home.png" /> I
             <a href="/home">Home</a>
             <span class="red">></span>
-            <a href="javascript:;">Conversion of international trademark</a>
+            <a href="javascript:;">Request amendment of international trademark</a>
         </div>
     </div>
     <div class="divCover">
@@ -113,112 +109,176 @@
     </div>
 
 </div>
-<input type="hidden" id="txtAppCode" value='C07' />
+<input type="hidden" id="txtAppCode" value='C08' />
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
-        <legend style="font-weight:600"> Conversion of international trademark</legend>
+        <legend style="font-weight:600"> Request amendment of international trademark</legend>
 
         @* Case name *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
 
         <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", Resource.C07_Title)
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "Request amendment of international trademark")
 
             <div class="class_full_div_input_extent">
-                <div class="class_left_40">
-                    <div class="class_block_title_control" style="display:flex;margin-top: 10px;">
-                        <div style="width:165px ;height:165px;margin-left: 10px;" id="divLogo">
-                            <img id="imgMauNhanHieu" src="@_App_Detail.LOGOURL" style="width:160px ;height:160px">
+                <div class="class_left_60">
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div class="div-radio">
+                                <input disabled  type="radio" name="0_TRANGTHAIDANGKY"
+                                       class="classNhanHieu" value="GIAHAN" id="cbo_GIAHAN" onclick="ChangeTrangThaiDK()" />
+                                <label>Gia hạn đăng ký quốc tế nhãn hiệu</label>
+                            </div>
                         </div>
-                        <div class="container" id="divckbNhanHieuAnh" style="flex-grow:1;padding-top:50px">
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div class="div-radio">
+                                <input disabled type="radio" name="0_TRANGTHAIDANGKY"
+                                       class="classNhanHieu" value="SUADOIDK" id="cbo_SUADOIDK" onclick="ChangeTrangThaiDK()" />
+                                <label>Sửa đổi đăng ký quốc tế nhãn hiệu</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div class="div-radio">
+                                <input disabled type="radio" name="0_TRANGTHAIDANGKY"
+                                       class="classNhanHieu" value="SUADOIDONDK" id="cbo_SUADOIDONDK" onclick="ChangeTrangThaiDK()" />
+                                <label>Sửa đổi đơn đăng ký quốc tế nhãn hiệu</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div class="div-radio">
+                                <input disabled type="radio" name="0_TRANGTHAIDANGKY"
+                                       class="classNhanHieu" value="CHUYENNHUONGDK" id="cbo_CHUYENNHUONGDK" onclick="ChangeTrangThaiDK()" />
+                                <label>Chuyển nhượng đăng ký quốc tế nhãn hiệu</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div class="div-radio">
+                                <input disabled type="radio" name="0_TRANGTHAIDANGKY"
+                                       class="classNhanHieu" value="CHUYENNHUONGDONDK" id="cbo_CHUYENNHUONGDONDK" onclick="ChangeTrangThaiDK()" />
+                                <label>Chuyển nhượng đơn đăng ký quốc tế nhãn hiệu</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div class="div-radio">
+                                <input disabled type="radio" name="0_TRANGTHAIDANGKY"
+                                       class="classNhanHieu" value="MORONGLANHTHO" id="cbo_MORONGLANHTHO" onclick="ChangeTrangThaiDK()" />
+                                <label>Mở rộng lãnh thổ đăng ký quốc tế nhãn hiệu</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div class="div-radio">
+                                <input disabled type="radio" name="0_TRANGTHAIDANGKY"
+                                       class="classNhanHieu" value="HANCHEDANHMUC" id="cbo_HANCHEDANHMUC" onclick="ChangeTrangThaiDK()" />
+                                <label>Hạn chế danh mục hàng hoá,dịch vụ ghi trong</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div class="div-radio" style="width:220px;padding-left:50px">
+                                <input disabled type="radio" name="0_TRANGTHAIDANGKY_LOAIDK"
+                                       class="classNhanHieu" value="GHITRONGDKQTNH" id="cbo_GHITRONGDKQTNH" onclick="ChangeTrangThaiDK_LOAIDK()" />
+                                <label>Đăng ký quốc tế nhãn hiệu</label>
+                            </div>
+                        </div>
+                        <div class="div-search-content">
+                            <div class="div-radio">
+                                <input disabled type="radio" name="0_TRANGTHAIDANGKY_LOAIDK"
+                                       class="classNhanHieu" value="GHITRONGDONDKQTNH" id="cbo_GHITRONGDONDKQTNH" onclick="ChangeTrangThaiDK_LOAIDK()" />
+                                <label>Đơn đăng ký quốc tế nhãn hiệu</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div class="div-radio">
+                                <input disabled type="radio" name="0_TRANGTHAIDANGKY"
+                                       class="classNhanHieu" value="CHAMDUTHIEULUC" id="cbo_CHAMDUTHIEULUC" onclick="ChangeTrangThaiDK()" />
+                                <label>Chấm dứt hiệu lực đăng ký quốc tế nhãn hiệu</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div class="div-radio">
+                                <input disabled type="radio" name="0_TRANGTHAIDANGKY"
+                                       class="classNhanHieu" value="HUYBOHIEULUC" id="cbo_HUYBOHIEULUC" onclick="ChangeTrangThaiDK()" />
+                                <label>Huỷ bỏ hiệu lực đăng ký quốc tế nhãn hiệu </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div  class="div-radio" style="width:180px;">
+                                <input disabled type="radio" name="0_TRANGTHAIDANGKY"
+                                       class="classNhanHieu" value="THUTUCKHAC" id="cbo_THUTUCKHAC" onclick="ChangeTrangThaiDK()" />
+                                <label>Các thủ tục khác, cụ thể </label>
+                            </div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <input v type="text" id="txtThuTucKhac" disabled maxlength="200" />
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="class_right_60" style="display:block">
+                <div class="class_right_40" style="display:block">
                     <div class="div-search-ad">
-                        <div class="div-search-content">
-                            <div class="div-radio">
-                                <label>
-                                    @Resource.C07_DKQTMATHIEULUC
-                                </label>
+                        <div class="div-search-title">
+                            <div style="width:220px">
+                                Số đơn đăng ký quốc tế nhãn hiệu 
                             </div>
+                        </div>
+                        <div class="div-search-content">
                             <div>
+                                <input disabled type="text" id="txtSoDonDKQTNH" value="@_App_Detail.SO_DON_DK_QTNH" maxlength="100" />
                             </div>
                         </div>
                     </div>
                     <div class="div-search-ad">
                         <div class="div-search-title">
-                            <div>@Resource.C07_SoDKQT:</div>
+                            <div style="width:220px">
+                                Số đăng ký quốc tế nhãn hiệu 
+                            </div>
                         </div>
                         <div class="div-search-content">
                             <div>
-                                <input type="text" readonly="readonly" value="@_App_Detail.SODK_QUOCTE" />
+                                <input disabled type="text" id="txtSoDKQTNH" value="@_App_Detail.SO_DK_QTNH" maxlength="100" />
                             </div>
                         </div>
                     </div>
 
                     <div class="div-search-ad">
                         <div class="div-search-title">
-                            <div style="width:160px">@Resource.C07_NgayDKQT:</div>
-                        </div>
-                        <div class="div-search-content">
-                            <div>
-                                <input  type="text"  readonly="readonly"
-                                       value="@(_App_Detail.NGAY_DK_QUOCTE == DateTime.MinValue ? "" : _App_Detail.NGAY_DK_QUOCTE.ToString("dd/MM/yyyy"))" />
-                            </div>
-                        </div>
-                        <div class="div-search-title">
-                            <div style="width:230px">
-                               @Resource.C07_NgayUTDKQT:
+                            <div style="width:250px">
+                                <div>
+                                    Ngày nộp đơn đăng ký quốc tế nhãn hiệu 
+                                </div>
                             </div>
                         </div>
                         <div class="div-search-content">
                             <div>
-                                <input type="text" readonly="readonly" value="@(_App_Detail.NGAY_UT_DKQT == DateTime.MinValue ? "" : _App_Detail.NGAY_UT_DKQT.ToString("dd/MM/yyyy"))" />
+                                <input type="text" class="datetimepicker" id="txtNgayNopDonDKQTNH"
+                                       value="@(_App_Detail.NGAYNOPDON_DKQTNH == DateTime.MinValue ? "" : _App_Detail.NGAYNOPDON_DKQTNH.ToString("dd/MM/yyyy"))" maxlength="100" />
                             </div>
                         </div>
                     </div>
 
-                    <div class="div-search-ad">
-                        <div class="div-search-title">
-                            <div style="width:230px">
-                                @Resource.C07_ChuNHTenDiaChi:
-                            </div>
-                        </div>
-                        <div class="div-search-content">
-                            <div>
-                                <input type="text" readonly="readonly"
-                                       value="@_App_Detail.CHUNH_TEN" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="div-search-ad">
-                        <div class="div-search-content">
-                            <div class="div-radio">
-                                <label>@Resource.C07_DanhMucHH</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="div-search-ad">
-                        <div class="div-search-content">
-                            <div class="div-radio">
-                                <input type="radio" name="0_TRANGTHAIDANGKY" class="classNhanHieu" 
-                                       value="GIUNGUYEN" id="cbo_giunguyen" disabled />
-                                <label>@Resource.C07_DanhMucHHGiuNguyen</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="div-search-ad">
-                        <div class="div-search-content">
-                            <div class="div-radio">
-                                <input type="radio" name="0_TRANGTHAIDANGKY" class="classNhanHieu" value="RUTGON"
-                                        id="cbo_rutgon"disabled />
-                                <label>@Resource.C07_DanhMucHHThuHep</label>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -239,9 +299,6 @@
 
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon_View.cshtml", "2")
 
-        <div id="div_appclass_Tm06">
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTMAddAppClass.cshtml")
-        </div>
 
 
         <div class="div-search-ad">
@@ -318,7 +375,7 @@
     </fieldset>
 </div>
 
-@Html.Partial("~/Areas/DKQT/Views/C07/_PartialPreview.cshtml")
+@Html.Partial("~/Areas/DKQT/Views/C08/_PartialPreview.cshtml")
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
     </div>
@@ -331,39 +388,58 @@
 
 
 <script>
-      
 
-    var _trangThaiDK = '@_App_Detail.YC_DK_NH_CHUYENDOI';
+
+
+
 
     function ChangeTrangThaiDK() {
         try {
+            if ($("#cbo_HANCHEDANHMUC").is(':checked') || $("#cbo_THUTUCKHAC").is(':checked')) {
+                if ($("#cbo_HANCHEDANHMUC").is(':checked')) {
+                    $("#cbo_GHITRONGDKQTNH").removeAttr("disabled");
+                    $("#cbo_GHITRONGDONDKQTNH").removeAttr("disabled");
+                    $("#txtThuTucKhac").val("");
+                    $("#txtThuTucKhac").attr("disabled", "true");
+                }
+                else if ($("#cbo_THUTUCKHAC").is(':checked')) {
+                    $("#txtThuTucKhac").val("");
+                    $("#txtThuTucKhac").removeAttr("disabled");
+                    $("#cbo_GHITRONGDKQTNH").attr("disabled", "true");
+                    $("#cbo_GHITRONGDONDKQTNH").attr("disabled", "true");
+                    $("#cbo_GHITRONGDKQTNH").removeAttr("checked");
+                    $("#cbo_GHITRONGDONDKQTNH").removeAttr("checked");
+                }
+
+            } else {
+
+                $("#txtThuTucKhac").val("");
+                $("#txtThuTucKhac").attr("disabled", "true");
+                $("#cbo_GHITRONGDKQTNH").attr("disabled", "true");
+                $("#cbo_GHITRONGDONDKQTNH").attr("disabled", "true");
+                $("#cbo_GHITRONGDKQTNH").removeAttr("checked");
+                $("#cbo_GHITRONGDONDKQTNH").removeAttr("checked");
+            }
         } catch (e) {
             alert(e.message);
         }
     }
     $(document).ready(function () {
-        SetValRadioCheckBoxByName('0_TRANGTHAIDANGKY', _trangThaiDK);
+        SetValRadioCheckBoxByName('0_TRANGTHAIDANGKY', '@_App_Detail.LOAI_DK');
+        SetValRadioCheckBoxByName('0_TRANGTHAIDANGKY_LOAIDK', '@_App_Detail.LOAIDK_VALUE');
         ChangeTrangThaiDK();
         funcShowOtherdocument();
         $.datetimepicker.setLocale('vi');
-        $('.datetimepicker').datetimepicker({
-            timepicker: false,
-            format: 'd/m/Y',
-            formatDate: 'd/m/Y',
-            mask: '39/19/9999',
-            validateOnBlur: false,
-            scrollInput: false
-        });
         $("#0_txtCase_Name").focus();
     });
 
-    $("#ckb_DOC_10").change(function () {
+    $("#ckb_DOC_19").change(function () {
         funcShowOtherdocument();
     });
     function funcShowOtherdocument()
     {
         try {
-            if ($("#ckb_DOC_10").is(":checked") == true) {
+            if ($("#ckb_DOC_19").is(":checked") == true) {
                 $("#divContainerDocOther").css('display', 'block')
             } else {
                 $("#divContainerDocOther").css('display', 'none');
@@ -372,5 +448,5 @@
             console.log(e);
         }
     }
-    
+
 </script>

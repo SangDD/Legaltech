@@ -21,6 +21,7 @@ namespace DataAccess
                     new OracleParameter("P_SO_DK_QTNH", OracleDbType.Varchar2, pInfo.SO_DK_QTNH.Trim(), ParameterDirection.Input),
                     new OracleParameter("P_NGAYNOPDON_DKQTNH", OracleDbType.Date, pInfo.NGAYNOPDON_DKQTNH, ParameterDirection.Input),
                     new OracleParameter("P_LOAI_DK", OracleDbType.Varchar2, pInfo.LOAI_DK, ParameterDirection.Input),
+                    new OracleParameter("P_LOAIDK_VALUE", OracleDbType.Varchar2, pInfo.LOAIDK_VALUE, ParameterDirection.Input),
                      paramReturn 
                      );
                 var result = Convert.ToDecimal(paramReturn.Value.ToString());
@@ -48,6 +49,7 @@ namespace DataAccess
                     new OracleParameter("P_SO_DK_QTNH", OracleDbType.Varchar2, pInfo.SO_DK_QTNH.Trim(), ParameterDirection.Input),
                     new OracleParameter("P_NGAYNOPDON_DKQTNH", OracleDbType.Date, pInfo.NGAYNOPDON_DKQTNH, ParameterDirection.Input),
                     new OracleParameter("P_LOAI_DK", OracleDbType.Varchar2, pInfo.LOAI_DK, ParameterDirection.Input),
+                    new OracleParameter("P_LOAIDK_VALUE", OracleDbType.Varchar2, pInfo.LOAIDK_VALUE, ParameterDirection.Input),
                     paramReturn
                     );
                 var result = Convert.ToDecimal(paramReturn.Value.ToString());

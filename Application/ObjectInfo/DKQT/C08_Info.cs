@@ -21,8 +21,9 @@ namespace ObjectInfos
         public string SO_DK_QTNH { get; set; }
         public DateTime NGAYNOPDON_DKQTNH { get; set; }
         public string LOAI_DK { get; set; }
- 
- 
+        public string LOAIDK_VALUE { get; set; }
+        
+
     }
 
     public class C08_Info_Export : ApplicationHeaderInfo
@@ -37,6 +38,8 @@ namespace ObjectInfos
         public string SO_DK_QTNH { get; set; }
         public DateTime NGAYNOPDON_DKQTNH { get; set; }
         public string LOAI_DK { get; set; }
+        public string LOAIDK_VALUE { get; set; }
+        
         #region Chủ đơn khác
 
         public string Master_Name_1 { set; get; }
@@ -209,9 +212,10 @@ namespace ObjectInfos
             p_appDetail.SO_DK_QTNH = p_C08_Info.SO_DK_QTNH;
             p_appDetail.NGAYNOPDON_DKQTNH = p_C08_Info.NGAYNOPDON_DKQTNH;
             p_appDetail.LOAI_DK = p_C08_Info.LOAI_DK;
-          
+            p_appDetail.LOAIDK_VALUE = p_C08_Info.LOAIDK_VALUE;
 
-    }
+
+        }
         public static void CopyAppHeaderInfo(ref C08_Info_Export p_appDetail, ApplicationHeaderInfo pAppInfo)
         {
             p_appDetail.STT = pAppInfo.STT;
