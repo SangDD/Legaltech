@@ -421,7 +421,6 @@
                     $("#txtThuTucKhac").attr("disabled", "true");
                 }
                 else if ($("#cbo_THUTUCKHAC").is(':checked')) {
-                    $("#txtThuTucKhac").val("");
                     $("#txtThuTucKhac").removeAttr("disabled");
                     $("#cbo_GHITRONGDKQTNH").attr("disabled", "true");
                     $("#cbo_GHITRONGDONDKQTNH").attr("disabled", "true");
@@ -444,8 +443,8 @@
     }
 
     $(document).ready(function () {
-        SetValRadioCheckBoxByName('0_TRANGTHAIDANGKY', '@_App_Detail.LOAI_DK');
         SetValRadioCheckBoxByName('0_TRANGTHAIDANGKY_LOAIDK', '@_App_Detail.LOAIDK_VALUE');
+        SetValRadioCheckBoxByName('0_TRANGTHAIDANGKY', '@_App_Detail.LOAI_DK');
         ChangeTrangThaiDK();
         funcShowOtherdocument();
         $.datetimepicker.setLocale('vi');

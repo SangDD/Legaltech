@@ -1599,6 +1599,28 @@
 
                 return PartialView("~/Areas/Patent/Views/C03/_Partial_C03_View.cshtml");
             }
+            else if (pAppCode == TradeMarkAppCode.AppCode_C08)
+            {
+                string language = AppsCommon.GetCurrentLang();
+                var objBL = new C08_BL();
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> _lst_appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                List<Other_MasterInfo> _lst_Other_MasterInfo = new List<Other_MasterInfo>();
+                List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
+                C08_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos,
+                    ref _lst_Other_MasterInfo, ref _LstDocumentOthersInfo);
+                ViewBag.App_Detail = app_Detail;
+                ViewBag.Lst_AppDoc = appDocumentInfos;
+                ViewBag.Lst_AppFee = _lst_appFeeFixInfos;
+                ViewBag.objAppHeaderInfo = applicationHeaderInfo;
+                ViewBag.Lst_Other_Master = _lst_Other_MasterInfo;
+                ViewBag.lstDocOther = _LstDocumentOthersInfo;
+                ViewBag.AppCode = pAppCode;
+                ViewBag.ShowFromOtherApp = 1;
+                ViewBag.Isdisable = 1;
+                return PartialView(@"~\Areas\DKQT\Views\C08\_Partial_C08_View.cshtml");
+            }
             else
             {
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialDangKyNhanHieu.cshtml");
@@ -1942,6 +1964,28 @@
 
                 return PartialView("~/Areas/Patent/Views/E01/_Partial_E01_Edit.cshtml");
 
+            }
+            else if (pAppCode == TradeMarkAppCode.AppCode_C08)
+            {
+                string language = AppsCommon.GetCurrentLang();
+                var objBL = new C08_BL();
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> _lst_appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                List<Other_MasterInfo> _lst_Other_MasterInfo = new List<Other_MasterInfo>();
+                List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
+                C08_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos,
+                    ref _lst_Other_MasterInfo, ref _LstDocumentOthersInfo);
+
+                ViewBag.App_Detail = app_Detail;
+                ViewBag.Lst_AppDoc = appDocumentInfos;
+                ViewBag.Lst_AppFee = _lst_appFeeFixInfos;
+                ViewBag.objAppHeaderInfo = applicationHeaderInfo;
+                ViewBag.Lst_Other_Master = _lst_Other_MasterInfo;
+                ViewBag.lstDocOther = _LstDocumentOthersInfo;
+                ViewBag.AppCode = pAppCode;
+                ViewBag.Isdisable = 0;
+                return PartialView(@"~\Areas\DKQT\Views\C08\_Partial_C08_Edit.cshtml");
             }
             else
             {

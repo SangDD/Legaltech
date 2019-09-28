@@ -233,6 +233,7 @@
 
         public static string AppCode_E01 = "E01";
         public static string AppCode_C07 = "C07";
+        public static string AppCode_C08 = "C08";
 
     }
 
