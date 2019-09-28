@@ -25,7 +25,7 @@ namespace WebApps.Areas.Home.Controllers
                 if (SessionData.CurrentUser == null)
                 {
                     return this.Redirect("/");
-                }
+                } 
 
                 string _Country = "";
                 if (RouteData.Values.ContainsKey("id"))
