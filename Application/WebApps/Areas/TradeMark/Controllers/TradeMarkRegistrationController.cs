@@ -2007,6 +2007,24 @@
                 ViewBag.Isdisable = 0;
                 return PartialView(@"~\Areas\DKQT\Views\C08\_Partial_C08_Edit.cshtml");
             }
+            else if (pAppCode == TradeMarkAppCode.AppCode_C02)
+            {
+                App_Detail_C02_BL objBL = new App_Detail_C02_BL();
+                string language = AppsCommon.GetCurrentLang();
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
+               
+                App_Detail_C02_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos, ref _LstDocumentOthersInfo);
+                ViewBag.App_Detail = app_Detail;
+                ViewBag.Lst_AppDoc = appDocumentInfos;
+                ViewBag.Lst_AppFee = appFeeFixInfos;
+                ViewBag.objAppHeaderInfo = applicationHeaderInfo;
+                ViewBag.lstDocOther = _LstDocumentOthersInfo;
+
+                return PartialView("~/Areas/TradeMark/Views/C02/_Partial_C02_Edit.cshtml");
+            }
             else
             {
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialDangKyNhanHieu.cshtml");
