@@ -30,6 +30,14 @@
 <div class="divCover cls_form_title">
     <img src="/Content/icons/view.png" />
     <div class="cls_form_header">
+        <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowViewApp_Translate()">Dịch</a>
+    </div>
+</div>
+
+@* xem *@
+<div class="divCover cls_form_title">
+    <img src="/Content/icons/view.png" />
+    <div class="cls_form_header">
         <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowViewApp()">Xem chi tiết đơn</a>
     </div>
 </div>
@@ -300,10 +308,9 @@
             return false;
         }
         try {
-            var url = "/trade-mark/request-for-trade-mark-view/@_AppHeaderInfo.Id_Vi/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode";
-            href = "/trade-mark/request-for-trade-mark-edit/@_AppHeaderInfo.Id_Vi/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode"
-            //window.open(url);
-            location.href = url;
+            href = "/app-translate/translate-app/@_AppHeaderInfo.Appcode/@_AppHeaderInfo.Id"
+            window.open(url);
+            //location.href = url;
         } catch (e) {
             console.log(e.toString())
         }

@@ -54,7 +54,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="Ngày cấp bằng" id="txt_notice_date" maxlength="100" class="datepicker" onblur = "onChangeNotice_Date()"/>
+                <input type="text" placeholder="Ngày cấp bằng" id="txt_notice_date" maxlength="100" class="datepicker" onblur="onChangeNotice_Date()" />
             </div>
         </div>
     </div>
@@ -65,7 +65,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text"  id="txt_replies_deadline" maxlength="100" readonly="readonly" />
+                <input type="text" id="txt_replies_deadline" maxlength="100" readonly="readonly" />
             </div>
         </div>
     </div>
@@ -131,6 +131,11 @@
     <div class="form-group">
         <div class="form-group-bottom">
             <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Submit" onclick="return do_Submit('@_AppHeaderInfo.Case_Code')" />
+        </div>
+    </div>
+
+    <div id="divWrapperPopUpBilling" class="divWrapperPopup" style="display: none;">
+        <div class="divPopup" id="divDataBillingDetail">
         </div>
     </div>
 </div>

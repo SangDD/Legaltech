@@ -486,7 +486,7 @@
 
         var _cboCountry = $("#cboCountry").val();
         if (_cboCountry == null) {
-            jError("@Html.Raw(WebApps.Resources.Resource.QuocTichKhongDuocDeTrong)" "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.QuocTichKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#cboCountry').multipleSelect('focus');
             });
             return false;
