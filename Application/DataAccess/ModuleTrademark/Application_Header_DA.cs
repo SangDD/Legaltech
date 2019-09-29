@@ -102,9 +102,38 @@ namespace DataAccess.ModuleTrademark
             }
         }
 
+        public decimal Employee_Update_Status(string p_case_code, decimal p_status, string p_app_no, string p_url_copy, string p_url_translate, string p_notes,
+            DateTime p_filing_date, DateTime p_expected_accept_date,
+            string p_Modify_By, DateTime p_Modify_Date, string p_language_code)
+        {
+            try
+            {
+                var paramReturn = new OracleParameter("p_return", OracleDbType.Int32, ParameterDirection.Output);
+                OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_header.proc_employee_update",
+                    new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
+                    new OracleParameter("p_status", OracleDbType.Decimal, p_status, ParameterDirection.Input),
+                    new OracleParameter("p_app_no", OracleDbType.Varchar2, p_app_no, ParameterDirection.Input),
+                    new OracleParameter("p_url_copy", OracleDbType.Varchar2, p_url_copy, ParameterDirection.Input),
+                    new OracleParameter("p_url_translate", OracleDbType.Varchar2, p_url_translate, ParameterDirection.Input),
+                    new OracleParameter("p_filing_date", OracleDbType.Date, p_filing_date, ParameterDirection.Input),
+                    new OracleParameter("p_expected_accept_date", OracleDbType.Date, p_expected_accept_date, ParameterDirection.Input),
+                    new OracleParameter("p_notes", OracleDbType.Varchar2, p_notes, ParameterDirection.Input),
+                    new OracleParameter("p_Modify_By", OracleDbType.Varchar2, p_Modify_By, ParameterDirection.Input),
+                    new OracleParameter("p_Modify_Date", OracleDbType.Date, p_Modify_Date, ParameterDirection.Input),
+                    new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
+                    paramReturn);
+                var result = Convert.ToDecimal(paramReturn.Value.ToString());
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
 
-        public decimal AppHeader_Filing_Status(string p_case_code, decimal p_status, string p_app_no, DateTime p_filing_date, DateTime p_expected_accept_date, string p_url_copy,
-            string p_url_translate, string p_notes, string p_comment_filling,
+
+        public decimal AppHeader_Filing_Status(string p_case_code, decimal p_status, string p_app_no, DateTime p_filing_date, DateTime p_expected_accept_date,   string p_notes, string p_comment_filling,
             string p_Modify_By, DateTime p_Modify_Date, string p_language_code)
         {
             try
@@ -116,8 +145,6 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("p_app_no", OracleDbType.Varchar2, p_app_no, ParameterDirection.Input),
                     new OracleParameter("p_filing_date", OracleDbType.Date, p_filing_date, ParameterDirection.Input),
                     new OracleParameter("p_expected_accept_date", OracleDbType.Date, p_expected_accept_date, ParameterDirection.Input),
-                    new OracleParameter("p_url_copy", OracleDbType.Varchar2, p_url_copy, ParameterDirection.Input),
-                    new OracleParameter("p_url_translate", OracleDbType.Varchar2, p_url_translate, ParameterDirection.Input),
                     new OracleParameter("p_notes", OracleDbType.Varchar2, p_notes, ParameterDirection.Input),
                     new OracleParameter("p_comment_filling", OracleDbType.Varchar2, p_comment_filling, ParameterDirection.Input),
                     new OracleParameter("p_Modify_By", OracleDbType.Varchar2, p_Modify_By, ParameterDirection.Input),

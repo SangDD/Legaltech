@@ -68,16 +68,33 @@ namespace BussinessFacade.ModuleTrademark
             }
         }
 
-
-        public decimal AppHeader_Filing_Status(string p_case_code, decimal p_status, string p_app_no,
-            DateTime p_filing_date, DateTime p_expected_accept_date, string p_url_copy, string p_url_translate, string p_notes, string p_comment_filling,
+        public decimal Employee_Update_Status(string p_case_code, decimal p_status, string p_app_no, string p_url_copy, string p_url_translate, string p_notes,
+            DateTime p_filing_date, DateTime p_expected_accept_date,
             string p_Modify_By, DateTime p_Modify_Date, string p_language_code)
         {
             try
             {
                 Application_Header_DA objData = new Application_Header_DA();
 
-                return objData.AppHeader_Filing_Status(p_case_code, p_status, p_app_no, p_filing_date, p_expected_accept_date, p_url_copy, p_url_translate, p_notes, p_comment_filling, p_Modify_By, p_Modify_Date, p_language_code);
+                return objData.Employee_Update_Status(p_case_code, p_status, p_app_no, 
+                    p_url_copy, p_url_translate, p_notes, p_filing_date, p_expected_accept_date, p_Modify_By, p_Modify_Date, p_language_code);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
+        public decimal AppHeader_Filing_Status(string p_case_code, decimal p_status, string p_app_no,
+            DateTime p_filing_date, DateTime p_expected_accept_date, string p_notes, string p_comment_filling,
+            string p_Modify_By, DateTime p_Modify_Date, string p_language_code)
+        {
+            try
+            {
+                Application_Header_DA objData = new Application_Header_DA();
+
+                return objData.AppHeader_Filing_Status(p_case_code, p_status, p_app_no, p_filing_date, p_expected_accept_date, p_notes, p_comment_filling, p_Modify_By, p_Modify_Date, p_language_code);
             }
             catch (Exception ex)
             {

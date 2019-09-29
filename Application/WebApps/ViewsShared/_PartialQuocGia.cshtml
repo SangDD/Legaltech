@@ -1,6 +1,6 @@
 ﻿@using BussinessFacade.ModuleMemoryData
 
-<div class="divCover cls_form_title">
+@*<div class="divCover cls_form_title">
     <img src="~/Content/icons/info_2.png" />
     <div class="cls_form_header">
         @WebApps.Resources.Resource.QuocGia
@@ -31,24 +31,28 @@
             </select>
         </div>
     </div>
-</div>
+</div>*@
+
+<input type="hidden" id="cboNationRepresent" value="234" />
 
 <script>
 
    $(document).ready(function () {
 
-        $('#cboNationRepresent').multipleSelect({
+        @*$('#cboNationRepresent').multipleSelect({
             filter: true,
             noMatchesFound: '@WebApps.Resources.Resource.KhongCoDuLieu',
             single: true,
             isdatastring: false,
             placeholder: 'Search country'
-        });
+        });*@
     });
 
 
     function getNation_Represent(formData) {
-        formData.append("pInfo.Nation_Represent_Id", $("#cboNationRepresent ").val());
+        //formData.append("pInfo.Nation_Represent_Id", $("#cboNationRepresent ").val());
+
+        formData.append("pInfo.Nation_Represent_Id", 234);
         return true;
     }
 

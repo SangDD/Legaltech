@@ -264,15 +264,46 @@ namespace WebApps.Areas.TradeMark.Controllers
 
         [HttpPost]
         [Route("quan-ly-don/do-employee-confirm")]
-        public ActionResult DoEmployee_Confirm(string p_case_code, decimal p_status, string p_note)
+        public ActionResult DoEmployee_Confirm(ApplicationHeaderInfo pInfo)
         {
             try
             {
-                Application_Header_BL _obj_bl = new Application_Header_BL();
-                decimal _status = (decimal)CommonEnums.App_Status.DaNopDon;
+                using (var scope = new TransactionScope())
+                {
+                    Application_Header_BL _obj_bl = new Application_Header_BL();
+                    decimal _status = (decimal)CommonEnums.App_Status.DaNopDon;
+                    var url_File_Copy_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Copy_Filing, AppUpload.App);
 
-                int _ck = _obj_bl.AppHeader_Update_Status(p_case_code, _status, p_note, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
-                return Json(new { success = _ck });
+                    string url_File_Translate_Filing = "";
+                    if (pInfo.File_Translate_Filing != null)
+                    {
+                        url_File_Translate_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Translate_Filing, AppUpload.App);
+                    }
+
+                    decimal _ck = _obj_bl.Employee_Update_Status(pInfo.Case_Code, _status, pInfo.App_No, url_File_Copy_Filing, url_File_Translate_Filing, pInfo.Note,
+                        pInfo.Filing_Date, pInfo.Expected_Accept_Date,
+                        SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+                    if (_ck >= 0)
+                    {
+                        AppsCommon.Insert_Docketing(pInfo.Case_Code, "File Copy Filing", url_File_Copy_Filing);
+                        AppsCommon.Insert_Docketing(pInfo.Case_Code, "File Translate Filing", url_File_Translate_Filing);
+                    }
+                    else
+                    {
+                        goto Commit_Transaction;
+                    }
+
+                    Commit_Transaction:
+                    if (_ck < 0)
+                    {
+                        Transaction.Current.Rollback();
+                    }
+                    else
+                    {
+                        scope.Complete();
+                    }
+                    return Json(new { success = _ck });
+                }
             }
             catch (Exception ex)
             {
@@ -403,21 +434,21 @@ namespace WebApps.Areas.TradeMark.Controllers
                 {
                     Application_Header_BL _obj_bl = new Application_Header_BL();
                     decimal _status = (decimal)CommonEnums.App_Status.DaGuiLenCuc;
-                    var url_File_Copy_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Copy_Filing, AppUpload.App);
-                    var url_File_Translate_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Translate_Filing, AppUpload.App);
+                    //var url_File_Copy_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Copy_Filing, AppUpload.App);
+                    //var url_File_Translate_Filing = AppLoadHelpers.PushFileToServer(pInfo.File_Translate_Filing, AppUpload.App);
 
-                    _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Case_Code, _status, pInfo.App_No, pInfo.Filing_Date, pInfo.Expected_Accept_Date, url_File_Copy_Filing, url_File_Translate_Filing,
+                    _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Case_Code, _status, pInfo.App_No, DateTime.Now, DateTime.Now,
                       pInfo.Note, pInfo.Comment_Filling, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
 
-                    if (_ck >= 0)
-                    {
-                        AppsCommon.Insert_Docketing(pInfo.Case_Code, "File Copy Filing", url_File_Copy_Filing);
-                        AppsCommon.Insert_Docketing(pInfo.Case_Code, "File Translate Filing", url_File_Translate_Filing);
-                    }
-                    else
-                    {
-                        goto Commit_Transaction;
-                    }
+                    //if (_ck >= 0)
+                    //{
+                    //    AppsCommon.Insert_Docketing(pInfo.Case_Code, "File Copy Filing", url_File_Copy_Filing);
+                    //    AppsCommon.Insert_Docketing(pInfo.Case_Code, "File Translate Filing", url_File_Translate_Filing);
+                    //}
+                    //else
+                    //{
+                    //    goto Commit_Transaction;
+                    //}
 
                     // insert billing
                     if (_lst_billing_detail.Count == 0)

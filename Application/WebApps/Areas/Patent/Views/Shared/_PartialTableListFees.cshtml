@@ -117,7 +117,7 @@
                 </tr>
 
                 <tr>
-                    <td class="tdleftalign" style="font-weight:bold">@WebApps.Resources.Resource.ChietKhau</td>
+                    <td class="tdleftalign" style="font-weight:bold">@(WebApps.Resources.Resource.ChietKhau + " " + WebApps.Resources.Resource.PhiDichVu) (@_discount_percent.ToString() %)</td>
                     <td class="tdrightalign">-</td>
                     <td class="tdrightalign" style="font-weight:bold; color: black">0</td>
                     <td class="tdrightalign" style="font-weight:bold; color: red">@_discount.ToString("#,##0.##")</td>

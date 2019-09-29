@@ -35,16 +35,12 @@
 {
     if (_AppHeaderInfo.Status != (decimal)Common.CommonData.CommonEnums.App_Status.Luu_tam)
     {
-        if (_AppHeaderInfo.Appcode == TradeMarkAppCode.AppCodeDangKynhanHieu || _AppHeaderInfo.Appcode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
-        {
-            <div class="divCover cls_form_title">
-                <img src="/Content/icons/edit.png" />
-                <img src="/Content/icons/translate.png" />
-                <div class="cls_form_header">
-                    <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowViewApp_Translate()">@WebApps.Resources.Resource.Dich</a>
-                </div>
+        <div class="divCover cls_form_title">
+            <img src="/Content/icons/translate.png" />
+            <div class="cls_form_header">
+                <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowViewApp_Translate()">@WebApps.Resources.Resource.Dich</a>
             </div>
-        }
+        </div>
     }
 }
 
@@ -201,7 +197,7 @@
 <div class="div-search-ad">
     <div class="div-search-content">
         <div class="div-radio">
-            @if (_AppHeaderInfo.Rep_Master_Type == "DVDL")
+            @if (_AppHeaderInfo.Rep_Master_Type == "DDSH")
             {
                 <input type="radio" name="_2_DaiDienChuDon" value="DVDL" id="_2_rdoToChucDichVuDL" disabled="disabled" checked="checked" />
             }

@@ -14,7 +14,7 @@
         width: 250px;
     }
 </style>
-<script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
+@*<script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
 <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
 <script>
     $.datetimepicker.setLocale('vi');
@@ -27,7 +27,7 @@
             validateOnBlur: true,
         });
     });
-</script>
+</script>*@
 
 <div>
     <div class="divCover cls_form_title">
@@ -43,29 +43,27 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" maxlength="100" placeholder="@WebApps.Resources.Resource.SoDon" id="txt_App_No" />
+                <input type="text" maxlength="100" placeholder="@WebApps.Resources.Resource.SoDon" id="txt_App_No" disabled />
             </div>
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>@WebApps.Resources.Resource.lblNgayNopDon<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.NgayNopDon</div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="@WebApps.Resources.Resource.lblNgayNopDon" id="txt_filing_date" maxlength="100" class="datepicker" />
+                <input type="text" disabled="disabled" value="@_AppHeaderInfo.Filing_Date.ToString("dd/MM/yyyy")" style="width: 200px" />
             </div>
         </div>
-    </div>
 
-    <div class="div-search-ad">
         <div class="div-search-title">
-            <div>@WebApps.Resources.Resource.NgayTraKetQua<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.NgayCucTraLoi</div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="@WebApps.Resources.Resource.NgayTraKetQua" id="txt_expected_accept_date" maxlength="100" class="datepicker" />
+                <input type="text" disabled="disabled" value="@_AppHeaderInfo.Expected_Accept_Date.ToString("dd/MM/yyyy")" />
             </div>
         </div>
     </div>
@@ -82,13 +80,12 @@
     </div>
 
     <div class="div-search-ad">
-        <div class="div-search-title"  style="height:200px">
+        <div class="div-search-title" style="height:200px">
             <div>@WebApps.Resources.Resource.NoiDungChinh </div>
         </div>
         <div class="div-search-content">
             <div>
                 <textarea maxlength="4000" rows="10" style="height:202px; width:100%" id="txtComment_Filling"></textarea>
-                @*<input type="text" id="txtComment_Filling" maxlength="2000" />*@
             </div>
         </div>
     </div>
@@ -105,42 +102,64 @@
     </div>
 
     <div class="div-search-ad">
-        <div class="div-search-content">
-            <input type="button" id="btnChooseFile" value="@WebApps.Resources.Resource.lblTaiFile" class="btn" onclick="return Click_Upload_File()" style="margin-left:4px;height:29px;" />
-            <input type="file" id="file_attach" style="display:none" onchange="FuncChooseResultFile()" />
-
-            <div class="div-checkbox clssDisplaynone" id="div_RemoveImg">
-                <img onclick="RemoveFile()" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" />
-            </div>
-        </div>
         <div class="div-search-title">
-            <div id="div_filename" style="width: 168px;">@WebApps.Resources.Resource.FileCopy<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.FileCopy<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" id="txtMaxFile" readonly="readonly" />
+                <a style="height: 20px !important;" href="@_AppHeaderInfo.Url_copy_filing"> @WebApps.Resources.Resource.FileCopy advice filing </a>
             </div>
         </div>
     </div>
 
     <div class="div-search-ad">
-        <div class="div-search-content">
-            <input type="button" id="btnChooseFile_Dich" value="@WebApps.Resources.Resource.lblTaiFile" class="btn" onclick="return Click_Upload_File_Dich()" style="margin-left:4px;height:29px;" />
-            <input type="file" id="file_attach_Dich" style="display:none" onchange="FuncChooseResultFile_Dich()" />
-
-            <div class="div-checkbox clssDisplaynone" id="div_RemoveImg_Dich">
-                <img onclick="RemoveFile_Dich()" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" />
-            </div>
-        </div>
         <div class="div-search-title">
-            <div id="div_filename_Dich" style="width: 168px;">@WebApps.Resources.Resource.FileDich<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.FileDich<i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" id="txtMaxFile_Dich" readonly="readonly" />
+                <a style="height: 20px !important;" href="@_AppHeaderInfo.URL_TRANSLATE_FILING"> @WebApps.Resources.Resource.FileDich </a>
             </div>
         </div>
     </div>
+
+    @*<div class="div-search-ad">
+            <div class="div-search-content">
+                <input type="button" id="btnChooseFile" value="@WebApps.Resources.Resource.lblTaiFile" class="btn" onclick="return Click_Upload_File()" style="margin-left:4px;height:29px;" />
+                <input type="file" id="file_attach" style="display:none" onchange="FuncChooseResultFile()" />
+
+                <div class="div-checkbox clssDisplaynone" id="div_RemoveImg">
+                    <img onclick="RemoveFile()" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" />
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div id="div_filename" style="width: 168px;">@WebApps.Resources.Resource.FileCopy<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtMaxFile" readonly="readonly" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <input type="button" id="btnChooseFile_Dich" value="@WebApps.Resources.Resource.lblTaiFile" class="btn" onclick="return Click_Upload_File_Dich()" style="margin-left:4px;height:29px;" />
+                <input type="file" id="file_attach_Dich" style="display:none" onchange="FuncChooseResultFile_Dich()" />
+
+                <div class="div-checkbox clssDisplaynone" id="div_RemoveImg_Dich">
+                    <img onclick="RemoveFile_Dich()" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" />
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div id="div_filename_Dich" style="width: 168px;">@WebApps.Resources.Resource.FileDich<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtMaxFile_Dich" readonly="readonly" />
+                </div>
+            </div>
+        </div>*@
 
     <div class="form-group">
         <div class="form-group-bottom">
@@ -189,54 +208,30 @@
                 }
             }
         });
-
-        @*$.ajax({
-            type: 'POST',
-            url: '/quan-ly-billing/danh-sach-billing/check-exits-billing/',
-            data: {
-                p_app_case_code: _case_code,
-                p_type : 0
-            },
-            headers: { "cache-control": "no-cache" },
-            async: true, cache: false, traditional: true,
-            beforeSend: function () {
-                CreateRollingWaitingIcon(true);
-            },
-            success: function (data) {
-                CreateRollingWaitingIcon(false);
-                if (data.success > 0) {
-                    var url = "/quan-ly-billing/danh-sach-billing/show-view-billing?id=" + data.success + "&case_code=" + _case_code;
-                    window.open(url);
-                }
-                else {
-                    var url = "/quan-ly-billing/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code + "&p_type=" + @(Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Insert_Type.Advise_Filling));
-                    window.open(url);
-                }
-            }
-        });*@
     }
 
     function do_Filing(_case_code) {
         if (validateAction()) {
             nvsConfirm(null,"@Html.Raw(WebApps.Resources.Resource.ConfirmSubmit)", function () {
 
-                var pfile = $("#file_attach");//lay du lieu file
-                var _file = pfile[0].files[0];
+                //var pfile = $("#file_attach");//lay du lieu file
+                //var _file = pfile[0].files[0];
 
-                var pfile_t = $("#file_attach_Dich");//lay du lieu file
-                var _file_t = pfile_t[0].files[0];
+                //var pfile_t = $("#file_attach_Dich");//lay du lieu file
+                //var _file_t = pfile_t[0].files[0];
 
                 var formdata = new FormData();
-                formdata.append("pInfo.File_Copy_Filing", _file);
-                formdata.append("pInfo.File_Translate_Filing", _file_t);
                 formdata.append("pInfo.Case_Code", _case_code);
                 formdata.append("pInfo.Id", @_AppHeaderInfo.Id);
-                formdata.append("pInfo.Filing_Date", $('#txt_filing_date').val());
                 formdata.append("pInfo.Note", $('#txtNotes').val());
                 formdata.append("pInfo.Comment_Filling", $('#txtComment_Filling').val());
                 formdata.append("pInfo.App_No", $('#txt_App_No').val());
-                formdata.append("pInfo.Expected_Accept_Date", $('#txt_expected_accept_date').val());
                 formdata.append("pInfo.Created_By", '@_AppHeaderInfo.Created_By');
+
+                //formdata.append("pInfo.File_Copy_Filing", _file);
+                //formdata.append("pInfo.File_Translate_Filing", _file_t);
+                //formdata.append("pInfo.Filing_Date", $('#txt_filing_date').val());
+                //formdata.append("pInfo.Expected_Accept_Date", $('#txt_expected_accept_date').val());
 
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/do-filing',
@@ -369,7 +364,7 @@
     }
 
     function validateAction() {
-        // check validate ngày
+        @*// check validate ngày
         var _filing_date = $("#txt_filing_date").val();
         if (checkDate("Ngày nộp đơn", "#txt_filing_date", _filing_date) == false) {
             return false;
@@ -379,7 +374,7 @@
         var _txt_expected_accept_date = $("#txt_expected_accept_date").val();
         if (checkDate("@Html.Raw(WebApps.Resources.Resource.NgayTraKetQua)", "#txt_expected_accept_date", _txt_expected_accept_date) == false) {
             return false;
-        }
+        }*@
 
         var _App_No = $("#txt_App_No").val();
         if (_App_No == null || _App_No == "") {
@@ -397,7 +392,7 @@
             return false;
         }
 
-        var pfile = $("#file_attach");//lay du lieu file
+        @*var pfile = $("#file_attach");//lay du lieu file
         if (pfile.val() != "") {
             var _CheckFile = true;
             var _Len = pfile[0].files[0].name.toString()
@@ -412,23 +407,7 @@
 
             var _file = pfile[0].files[0];
             var _size = _file.size / 1024 / 1024;
-
-            //var _check_kyTu = CheckKyTuDacBietShoKyTu(pfile.name);
-            //if (_check_kyTu != "") {
-            //    _CheckFile = false;
-            //    jAlert("Cảnh báo", "Không tải file có tên file chứa các ký tự | , } { @@ + & = ! ? ; / # \ \" $ % ^ * ( ) < > ` ~ [ ] \\ ", function () {
-            //        $(pfile).focus();
-            //    });
-            //    return false;
-            //}
-
-            @*if (validateFileName(_file.name) == false) {
-                _CheckFile = false;
-                jError("@Html.Raw(WebApps.Resources.Resource.TaiFileUnicode)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
-                    $(pfile).focus();
-                });
-                return false;
-            }*@
+             
             if (_CheckFile == false) {
                 return false;
             }
@@ -454,23 +433,7 @@
 
             var _file = pfile_Dich[0].files[0];
             var _size = _file.size / 1024 / 1024;
-
-            //var _check_kyTu = CheckKyTuDacBietShoKyTu(pfile_Dich.name);
-            //if (_check_kyTu != "") {
-            //    _CheckFile = false;
-            //    jAlert("Cảnh báo", "Không tải file có tên file chứa các ký tự | , } { @@ + & = ! ? ; / # \ \" $ % ^ * ( ) < > ` ~ [ ] \\ ", function () {
-            //        $(pfile_Dich).focus();
-            //    });
-            //    return false;
-            //}
-
-            @*if (validateFileName(_file.name) == false) {
-                _CheckFile = false;
-                jError("@Html.Raw(WebApps.Resources.Resource.TaiFileUnicode)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
-                    $(pfile_Dich).focus();
-                });
-                return false;
-            }*@
+             
             if (_CheckFile == false) {
                 return false;
             }
@@ -480,7 +443,7 @@
                 $("#btnChooseFile").focus();
             });
             return false;
-        }
+        }*@
 
         return true;
     }
