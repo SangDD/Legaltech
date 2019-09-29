@@ -80,7 +80,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div style="width:150px">@WebApps.Resources.Resource.GhiChu <i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.GhiChu <i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>
@@ -118,7 +118,7 @@
             </div>
         </div>
         <div class="div-search-title">
-            <div id="div_filename_Dich" style="width: 168px;">@WebApps.Resources.Resource.FileDich<i class="redspan">(*)</i></div>
+            <div id="div_filename_Dich" style="width: 168px;">@WebApps.Resources.Resource.FileDich </div>
         </div>
         <div class="div-search-content">
             <div>
@@ -146,11 +146,13 @@
                 var _file = pfile[0].files[0];
 
                 var pfile_t = $("#file_attach_Dich");//lay du lieu file
-                var _file_t = pfile_t[0].files[0];
+                if (pfile_t.val() != "") {
+                    var _file_t = pfile_t[0].files[0];
+                    formdata.append("pInfo.File_Translate_Filing", _file_t);
+                }
 
                 var formdata = new FormData();
                 formdata.append("pInfo.File_Copy_Filing", _file);
-                formdata.append("pInfo.File_Translate_Filing", _file_t);
                 formdata.append("pInfo.Case_Code", _case_code);
                 formdata.append("pInfo.Id", @_AppHeaderInfo.Id);
                 formdata.append("pInfo.Note", $('#txtNotes').val());
@@ -163,12 +165,9 @@
                     url: '/trade-mark-mana/quan-ly-don/do-employee-confirm',
                     type: 'POST',
                     data: formdata,
-                    //data: {
-                    //    p_case_code: _case_code,
-                    //    p_status: 1,
-                    //    p_note: $('#txtNotes').val()
-                    //},
-                    async: true, cache: false, traditional: true,
+                    enctype: 'multipart/form-data',
+                    async: true, cache: false, traditional: true, contentType: false,
+                    processData: false,
                     beforeSend: function () {
                         CreateRollingWaitingIcon(true);
                     },

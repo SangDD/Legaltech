@@ -440,15 +440,10 @@ namespace WebApps.Areas.TradeMark.Controllers
                     _ck = _obj_bl.AppHeader_Filing_Status(pInfo.Case_Code, _status, pInfo.App_No, DateTime.Now, DateTime.Now,
                       pInfo.Note, pInfo.Comment_Filling, SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
 
-                    //if (_ck >= 0)
-                    //{
-                    //    AppsCommon.Insert_Docketing(pInfo.Case_Code, "File Copy Filing", url_File_Copy_Filing);
-                    //    AppsCommon.Insert_Docketing(pInfo.Case_Code, "File Translate Filing", url_File_Translate_Filing);
-                    //}
-                    //else
-                    //{
-                    //    goto Commit_Transaction;
-                    //}
+                    if (_ck < 0)
+                    {
+                        goto Commit_Transaction;
+                    }
 
                     // insert billing
                     if (_lst_billing_detail.Count == 0)
