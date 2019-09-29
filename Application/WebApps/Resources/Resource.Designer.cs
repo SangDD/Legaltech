@@ -943,6 +943,150 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chấm dứt hiệu lực đăng ký quốc tế nhãn hiệu.
+        /// </summary>
+        public static string C08_ChamDutHieuLuc {
+            get {
+                return ResourceManager.GetString("C08_ChamDutHieuLuc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chuyển nhượng đăng ký quốc tế nhãn hiệu.
+        /// </summary>
+        public static string C08_ChuyenNhuong {
+            get {
+                return ResourceManager.GetString("C08_ChuyenNhuong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chuyển nhượng đơn đăng ký quốc tế nhãn hiệu.
+        /// </summary>
+        public static string C08_ChuyenNhuongDon {
+            get {
+                return ResourceManager.GetString("C08_ChuyenNhuongDon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gia hạn đăng ký quốc tế nhãn hiệu.
+        /// </summary>
+        public static string C08_GiaHan {
+            get {
+                return ResourceManager.GetString("C08_GiaHan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hạn chế danh mục hàng hoá,dịch vụ ghi trong.
+        /// </summary>
+        public static string C08_HanChe {
+            get {
+                return ResourceManager.GetString("C08_HanChe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Huỷ bỏ hiệu lực đăng ký quốc tế nhãn hiệu.
+        /// </summary>
+        public static string C08_HuyBoHieuLuc {
+            get {
+                return ResourceManager.GetString("C08_HuyBoHieuLuc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mở rộng lãnh thổ đăng ký quốc tế nhãn hiệu.
+        /// </summary>
+        public static string C08_MoRong {
+            get {
+                return ResourceManager.GetString("C08_MoRong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngày nộp đơn đăng ký quốc tế nhãn hiệu.
+        /// </summary>
+        public static string C08_NgayNopDonDK {
+            get {
+                return ResourceManager.GetString("C08_NgayNopDonDK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số đăng ký quốc tế nhãn hiệu.
+        /// </summary>
+        public static string C08_SoDKQTNH {
+            get {
+                return ResourceManager.GetString("C08_SoDKQTNH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số đơn đăng ký quốc tế nhãn hiệu.
+        /// </summary>
+        public static string C08_SoDonDK {
+            get {
+                return ResourceManager.GetString("C08_SoDonDK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sửa đổi đăng ký quốc tế nhãn hiệu.
+        /// </summary>
+        public static string C08_SuaDoi {
+            get {
+                return ResourceManager.GetString("C08_SuaDoi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sửa đổi đơn đăng ký quốc tế nhãn hiệu.
+        /// </summary>
+        public static string C08_SuaDoiDon {
+            get {
+                return ResourceManager.GetString("C08_SuaDoiDon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thủ tục khác, cụ thể.
+        /// </summary>
+        public static string C08_ThuTucKhac {
+            get {
+                return ResourceManager.GetString("C08_ThuTucKhac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yêu cầu sửa đổi đăng ký nhãn hiệu.
+        /// </summary>
+        public static string C08_TITLE {
+            get {
+                return ResourceManager.GetString("C08_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đăng ký quốc tế nhãn hiệu.
+        /// </summary>
+        public static string C08_TrongDKQT {
+            get {
+                return ResourceManager.GetString("C08_TrongDKQT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đơn đăng ký quốc tế nhãn hiệu.
+        /// </summary>
+        public static string C08_TrongDonDK {
+            get {
+                return ResourceManager.GetString("C08_TrongDonDK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cập nhật dữ liệu thành công.
         /// </summary>
         public static string CapNhatDuLieuThanhCong {

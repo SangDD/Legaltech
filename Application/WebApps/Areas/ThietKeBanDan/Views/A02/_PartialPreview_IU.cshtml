@@ -122,7 +122,11 @@
             if (reponse == false) {
                 return false;
             }
-
+            //Lấy thông tin tài liệu có trong đơn
+            reponse = funGetDocumentFile(formData);
+            if (reponse == false) {
+                return false;
+            }
             $.ajax({
                 url: '/semiconductor-integrated/ket_xuat_file_IU',
                 type: 'POST',

@@ -114,6 +114,10 @@
             if (reponse == false) {
                 return false;
             }
+            reponse = funGetDocumentFile(formData);
+            if (reponse == false) {
+                return false;
+            }
 
             $.ajax({
                 url: '/request-amendment-of-international-trademark/ket_xuat_file_IU',
