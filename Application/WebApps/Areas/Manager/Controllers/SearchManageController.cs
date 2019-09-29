@@ -687,7 +687,8 @@ namespace WebApps.Areas.Manager.Controllers
                     #endregion
 
                     string _emailTo = userInfo.Email;
-                    string _emailCC = userInfo.Copyto;
+                    string _emailCC = "";
+                    //string _emailCC = userInfo.Copyto;
                     List<string> _LstAttachment = new List<string>();
 
                     //20190812 bỏ đi vì đã gửi trong email rồi

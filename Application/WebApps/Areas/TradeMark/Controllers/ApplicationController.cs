@@ -308,71 +308,11 @@ namespace WebApps.Areas.TradeMark.Controllers
                     UserBL _UserBL = new UserBL();
                     UserInfo userInfo = _UserBL.GetUserByUsername(_ApplicationHeaderInfo.Created_By);
 
-                    // Fill export_header
-                    #region Bỏ đi vì đã có trong file email
-                    //string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "Filing_advice_" + p_app_id.ToString() + ".pdf");
-                    //document.MailMerge.FieldMerging += (sender, e) =>
-                    //{
-                    //    if (e.IsValueFound)
-                    //    {
-                    //        if (e.FieldName == "Text")
-                    //            ((Run)e.Inline).Text = e.Value.ToString();
-                    //    }
-                    //};
-
-                    //document.MailMerge.Execute(new { DateNo = DateTime.Now.ToString("dd-MM-yyyy") });
-                    //document.MailMerge.Execute(new { Case_Name = _ApplicationHeaderInfo.Case_Name });
-                    //document.MailMerge.Execute(new { Client_Reference = _ApplicationHeaderInfo.Client_Reference });
-                    //document.MailMerge.Execute(new { Case_Code = _ApplicationHeaderInfo.Case_Code });
-                    //document.MailMerge.Execute(new { Master_Name = _ApplicationHeaderInfo.Master_Name });
-                    //document.MailMerge.Execute(new { App_No = _ApplicationHeaderInfo.App_No });
-                    //document.MailMerge.Execute(new { Str_Filing_Date = _ApplicationHeaderInfo.Str_Filing_Date });
-                    //document.MailMerge.Execute(new { Comment_filling = _ApplicationHeaderInfo.Comment_Filling });
-                    //document.MailMerge.Execute(new { Customer_Country_Name = _ApplicationHeaderInfo.Customer_Country_Name });
-
-
-                    //if (userInfo != null)
-                    //{
-                    //    document.MailMerge.Execute(new { Contact_Person = userInfo.Contact_Person });
-                    //    document.MailMerge.Execute(new { Address = userInfo.Address });
-                    //    document.MailMerge.Execute(new { FullName = userInfo.FullName });
-                    //}
-                    //else
-                    //{
-                    //    document.MailMerge.Execute(new { Contact_Person = "" });
-                    //    document.MailMerge.Execute(new { Address = "" });
-                    //    document.MailMerge.Execute(new { FullName = "" });
-                    //}
-
-                    //document.Save(fileName, SaveOptions.PdfDefault);
-                    //byte[] fileContents;
-                    //var options = SaveOptions.PdfDefault;
-                    //// Save document to DOCX format in byte array.
-                    //using (var stream = new MemoryStream())
-                    //{
-                    //    document.Save(stream, options);
-                    //    fileContents = stream.ToArray();
-                    //}
-                    //Convert.ToBase64String(fileContents); 
-                    #endregion
-
                     string _emailTo = userInfo.Email;
-                    string _emailCC = userInfo.Copyto;
+                    string _emailCC = "";
                     List<string> _LstAttachment = new List<string>();
-                    //_LstAttachment.Add(fileName);
                     _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_ApplicationHeaderInfo.Url_copy_filing));
                     _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_ApplicationHeaderInfo.URL_TRANSLATE_FILING));
-
-                    //if (_ApplicationHeaderInfo.Url_Billing != null && _ApplicationHeaderInfo.Url_Billing != "")
-                    //{
-                    //    // lấy thông tin billing
-                    //    Billing_BL _Billing_BL = new Billing_BL();
-                    //    Billing_Header_Info _Billing_Header_Info = _Billing_BL.Billing_GetBy_Id(_ApplicationHeaderInfo.Billing_Id_Advise, AppsCommon.GetCurrentLang());
-                    //    if (_Billing_Header_Info.Billing_Id > 0 && _Billing_Header_Info.Status == (decimal)CommonEnums.Billing_Status.Approved)
-                    //    {
-                    //        _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_ApplicationHeaderInfo.Url_Billing));
-                    //    }
-                    //}
 
                     if (_ApplicationHeaderInfo.Billing_Id_Advise > 0)
                     {
@@ -412,7 +352,6 @@ namespace WebApps.Areas.TradeMark.Controllers
                     };
 
                     CommonFunction.AppsCommon.EnqueueSendEmail(_Email_Info);
-                    //EmailHelper.SendMail(_emailTo, _emailCC, "Filing advice", "Filing advice", _LstAttachment);
                 }
 
                 return Json(new { success = _ck });

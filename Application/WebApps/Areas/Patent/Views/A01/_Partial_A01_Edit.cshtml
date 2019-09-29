@@ -166,6 +166,22 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio">
+                    @if (_App_Detail.Source_PCT == "N" && _App_Detail.Source_DQSC == "N" && _App_Detail.Source_GPHI == "N")
+                    {
+                        <input type="radio" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdNew" value="0" onchange="return ShowHiden_NguonGocDon()" checked>
+                    }
+                    else
+                    {
+                        <input type="radio" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdNew" value="0" onchange="return ShowHiden_NguonGocDon()">
+                    }
+                        <label> @Resource.DonMoi</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio">
                     @if (_App_Detail.Source_PCT == "Y")
                     {
                         <input type="radio" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdPCT" checked="checked" onchange="return ShowHiden_NguonGocDon()">

@@ -26,19 +26,33 @@
     }
 </style>
 
-@* xem *@
-<div class="divCover cls_form_title">
-    <img src="/Content/icons/view.png" />
-    <div class="cls_form_header">
-        <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowViewApp_Translate()">Dịch</a>
-    </div>
-</div>
+
+@* dịch *@
+@*@if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update))*@
+@if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin
+            || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.SupperAdmin
+            || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
+{
+    if (_AppHeaderInfo.Status != (decimal)Common.CommonData.CommonEnums.App_Status.Luu_tam)
+    {
+        if (_AppHeaderInfo.Appcode == TradeMarkAppCode.AppCodeDangKynhanHieu || _AppHeaderInfo.Appcode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
+        {
+            <div class="divCover cls_form_title">
+                <img src="/Content/icons/edit.png" />
+                <img src="/Content/icons/translate.png" />
+                <div class="cls_form_header">
+                    <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowViewApp_Translate()">@WebApps.Resources.Resource.Dich</a>
+                </div>
+            </div>
+        }
+    }
+}
 
 @* xem *@
 <div class="divCover cls_form_title">
     <img src="/Content/icons/view.png" />
     <div class="cls_form_header">
-        <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowViewApp()">Xem chi tiết đơn</a>
+        <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowViewApp()">@WebApps.Resources.Resource.XemChiTiet</a>
     </div>
 </div>
 
@@ -54,34 +68,12 @@
         <div class="divCover cls_form_title">
             <img src="/Content/icons/edit.png" />
             <div class="cls_form_header">
-                <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowEditApp()"> Sửa đơn </a>
+                <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="ShowEditApp()"> @WebApps.Resources.Resource.Sua</a>
             </div>
         </div>
     }
 }
 
-@* dịch *@
-@if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update))
-{
-    if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin
-                || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.SupperAdmin
-                || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
-    {
-        if (_AppHeaderInfo.Status != (decimal)Common.CommonData.CommonEnums.App_Status.Luu_tam)
-        {
-            if (_AppHeaderInfo.Appcode == TradeMarkAppCode.AppCodeDangKynhanHieu || _AppHeaderInfo.Appcode == TradeMarkAppCode.AppCodeDangKyQuocTeNH)
-            {
-                <div class="divCover cls_form_title">
-                    <img src="/Content/icons/edit.png" />
-                    <img src="/Content/icons/translate.png" />
-                    <div class="cls_form_header">
-                        <a style="text-decoration: underline; font-style: italic; color: blue;" href="/trade-mark/request-for-trade-mark-translate/@_AppHeaderInfo.Id/@_AppHeaderInfo.Status.ToString()/@_AppHeaderInfo.Appcode.ToLower()/@_AppHeaderInfo.Id_Vi"> Dịch </a>
-                    </div>
-                </div>
-            }
-        }
-    }
-}
 
 <div class="divCover cls_form_title">
     <img src="/Content/icons/category.png" />

@@ -420,15 +420,6 @@ namespace WebApps.CommonFunction
             try
             {
                 Billing_BL _obj_bl = new Billing_BL();
-
-                //SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
-                //List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
-                //Billing_Header_Info _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Code(p_case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
-                //foreach (Billing_Detail_Info item in _lst_billing_detail)
-                //{
-                //    item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
-                //}
-
                 string fileName_exp = "/Content/Export/Biling_Report_" + p_case_code + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf";
                 UserBL _UserBL = new UserBL();
                 UserInfo userInfo = _UserBL.GetUserByUsername(p_customer);
@@ -441,6 +432,12 @@ namespace WebApps.CommonFunction
                 List<Billing_Header_Info> _lst = new List<Billing_Header_Info>();
                 _lst.Add(_Billing_Header_Info);
 
+                string _tempfile = "Billing.rpt";
+                if (userInfo.Country != 234)
+                {
+                    _tempfile = "Billing_EN.rpt";
+                }
+
                 DataTable _dt_header = ConvertData.ConvertToDatatable<Billing_Header_Info>(_lst, false);
                 DataTable _dtDetail = ConvertData.ConvertToDatatable<Billing_Detail_Info>(_lst_billing_detail, false);
 
@@ -452,11 +449,6 @@ namespace WebApps.CommonFunction
                 _ds.Tables[1].TableName = "Table";
 
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
-                string _tempfile = "Billing.rpt";
-                if (userInfo.Country != 234)
-                {
-                    _tempfile = "Billing_EN.rpt";
-                }
                 oRpt.Load(Path.Combine(p_MapPath_Report, _tempfile));
 
                 if (_ds != null)
@@ -492,15 +484,30 @@ namespace WebApps.CommonFunction
             try
             {
                 Billing_BL _obj_bl = new Billing_BL();
-                SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
+                Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
+                string _created_by = "";
                 List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
-                Billing_Header_Info _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Code(p_case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
+
+                if (p_case_code.Contains("SEARCH"))
+                {
+                    SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
+                    
+                    _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Code(p_case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
+                    _created_by = SearchObject_Header_Info.CREATED_BY;
+                }
+                else
+                {
+                    ApplicationHeaderInfo _ApplicationHeaderInfo = new ApplicationHeaderInfo();
+                    _Billing_Header_Info = _obj_bl.Billing_GetBy_Code(p_case_code, AppsCommon.GetCurrentLang(), ref _ApplicationHeaderInfo, ref _lst_billing_detail);
+                    _created_by = _ApplicationHeaderInfo.Created_By;
+                }
+
                 foreach (Billing_Detail_Info item in _lst_billing_detail)
                 {
                     item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
                 }
 
-                return Export_Billing_Crytal(p_case_code, p_MapPath_Report, p_mapPath, SearchObject_Header_Info.CREATED_BY, _Billing_Header_Info, _lst_billing_detail);
+                return Export_Billing_Crytal(p_case_code, p_MapPath_Report, p_mapPath, _created_by, _Billing_Header_Info, _lst_billing_detail);
             }
             catch (Exception ex)
             {
@@ -1960,7 +1967,7 @@ namespace WebApps.CommonFunction
         {
             try
             {
-                
+
                 // copy Header
                 App_Detail_C01_Info.CopyAppHeaderInfo(ref pDetail, pInfo);
 
