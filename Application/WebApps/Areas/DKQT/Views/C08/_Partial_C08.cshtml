@@ -50,7 +50,7 @@
             <img src="~/Content/icons/Body-icon-home.png" /> I
             <a href="/home">Home</a>
             <span class="red">></span>
-            <a href="javascript:;">Request amendment of international trademark</a>
+            <a href="javascript:;">@Resource.C08_TITLE</a>
         </div>
     </div>
     <div class="divCover">
@@ -68,7 +68,7 @@
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
-        <legend style="font-weight:600">  Request amendment of international trademark </legend>
+        <legend style="font-weight:600">  @Resource.C08_TITLE </legend>
 
         @Html.Partial("~/ViewsShared/_PartialQuocGia.cshtml")
 
@@ -79,7 +79,7 @@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
 
         <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml",  "Yêu cầu sửa đổi đăng ký nhãn hiệu")
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml",  Resource.C08_TITLE)
 
             <div class="class_full_div_input_extent">
                 <div class="class_left_60">
@@ -88,7 +88,7 @@
                             <div class="div-radio">
                                 <input checked="checked" type="radio" name="0_TRANGTHAIDANGKY" 
                                        class="classNhanHieu" value="GIAHAN" id="cbo_GIAHAN" onclick="ChangeTrangThaiDK()" />
-                                <label>Gia hạn đăng ký quốc tế nhãn hiệu</label>
+                                <label>@Resource.C08_GiaHan</label>
                             </div>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
                             <div class="div-radio">
                                 <input type="radio" name="0_TRANGTHAIDANGKY"
                                        class="classNhanHieu" value="SUADOIDK" id="cbo_SUADOIDK" onclick="ChangeTrangThaiDK()" />
-                                <label>Sửa đổi đăng ký quốc tế nhãn hiệu</label>
+                                <label>@Resource.C08_SuaDoi</label>
                             </div>
                         </div>
                     </div>
@@ -106,7 +106,7 @@
                             <div class="div-radio">
                                 <input type="radio" name="0_TRANGTHAIDANGKY"
                                        class="classNhanHieu" value="SUADOIDONDK" id="cbo_SUADOIDONDK" onclick="ChangeTrangThaiDK()" />
-                                <label>Sửa đổi đơn đăng ký quốc tế nhãn hiệu</label>
+                                <label>@Resource.C08_SuaDoiDon</label>
                             </div>
                         </div>
                     </div>
@@ -115,7 +115,7 @@
                             <div class="div-radio">
                                 <input type="radio" name="0_TRANGTHAIDANGKY"
                                        class="classNhanHieu" value="CHUYENNHUONGDK" id="cbo_CHUYENNHUONGDK" onclick="ChangeTrangThaiDK()" />
-                                <label>Chuyển nhượng đăng ký quốc tế nhãn hiệu</label>
+                                <label>@Resource.C08_ChuyenNhuong</label>
                             </div>
                         </div>
                     </div>
@@ -124,7 +124,7 @@
                             <div class="div-radio">
                                 <input type="radio" name="0_TRANGTHAIDANGKY"
                                        class="classNhanHieu" value="CHUYENNHUONGDONDK" id="cbo_CHUYENNHUONGDONDK" onclick="ChangeTrangThaiDK()" />
-                                <label>Chuyển nhượng đơn đăng ký quốc tế nhãn hiệu</label>
+                                <label>@Resource.C08_ChuyenNhuongDon</label>
                             </div>
                         </div>
                     </div>
@@ -133,7 +133,7 @@
                             <div class="div-radio">
                                 <input type="radio" name="0_TRANGTHAIDANGKY"
                                        class="classNhanHieu" value="MORONGLANHTHO" id="cbo_MORONGLANHTHO" onclick="ChangeTrangThaiDK()" />
-                                <label>Mở rộng lãnh thổ đăng ký quốc tế nhãn hiệu</label>
+                                <label>@Resource.C08_MoRong</label>
                             </div>
                         </div>
                     </div>
@@ -142,7 +142,7 @@
                             <div class="div-radio">
                                 <input type="radio" name="0_TRANGTHAIDANGKY"
                                        class="classNhanHieu" value="HANCHEDANHMUC" id="cbo_HANCHEDANHMUC" onclick="ChangeTrangThaiDK()" />
-                                <label>Hạn chế danh mục hàng hoá,dịch vụ ghi trong</label>
+                                <label>@Resource.C08_HanChe</label>
                             </div>
                         </div>
                     </div>
@@ -151,14 +151,14 @@
                             <div class="div-radio"  style="width:220px;padding-left:50px">
                                 <input disabled  type="radio" name="0_TRANGTHAIDANGKY_LOAIDK"
                                        class="classNhanHieu" value="GHITRONGDKQTNH" id="cbo_GHITRONGDKQTNH" onclick="ChangeTrangThaiDK_LOAIDK()" />
-                                <label>Đăng ký quốc tế nhãn hiệu</label>
+                                <label>@Resource.C08_TrongDKQT</label>
                             </div>
                         </div>
                         <div class="div-search-content">
                             <div class="div-radio">
                                 <input disabled type="radio" name="0_TRANGTHAIDANGKY_LOAIDK"
                                        class="classNhanHieu" value="GHITRONGDONDKQTNH" id="cbo_GHITRONGDONDKQTNH" onclick="ChangeTrangThaiDK_LOAIDK()" />
-                                <label>Đơn đăng ký quốc tế nhãn hiệu</label>
+                                <label>@Resource.C08_TrongDonDK</label>
                             </div>
                         </div>
                     </div>
@@ -167,7 +167,7 @@
                             <div class="div-radio">
                                 <input type="radio" name="0_TRANGTHAIDANGKY"
                                        class="classNhanHieu" value="CHAMDUTHIEULUC" id="cbo_CHAMDUTHIEULUC" onclick="ChangeTrangThaiDK()" />
-                                <label>Chấm dứt hiệu lực đăng ký quốc tế nhãn hiệu</label>
+                                <label>@Resource.C08_ChamDutHieuLuc</label>
                             </div>
                         </div>
                     </div>
@@ -176,7 +176,7 @@
                             <div class="div-radio">
                                 <input type="radio" name="0_TRANGTHAIDANGKY"
                                        class="classNhanHieu" value="HUYBOHIEULUC" id="cbo_HUYBOHIEULUC" onclick="ChangeTrangThaiDK()" />
-                                <label>Huỷ bỏ hiệu lực đăng ký quốc tế nhãn hiệu </label>
+                                <label>@Resource.C08_HuyBoHieuLuc</label>
                             </div>
                         </div>
                     </div>
@@ -185,7 +185,7 @@
                             <div class="div-radio" style="width:180px;">
                                 <input type="radio" name="0_TRANGTHAIDANGKY"
                                        class="classNhanHieu" value="THUTUCKHAC" id="cbo_THUTUCKHAC" onclick="ChangeTrangThaiDK()" />
-                                <label>Các thủ tục khác, cụ thể </label>
+                                <label>@Resource.C08_ThuTucKhac</label>
                             </div>
                         </div>
                         <div class="div-search-content">
@@ -199,8 +199,8 @@
                 <div class="class_right_40" style="display:block">
                     <div class="div-search-ad">
                         <div class="div-search-title">
-                            <div style="width:220px">
-                            Số đơn đăng ký quốc tế nhãn hiệu<i class="redspan">(*)</i>
+                            <div style="width:280px">
+                           @Resource.C08_SoDonDK<i class="redspan">(*)</i>
                             </div>
                         </div>
                         <div class="div-search-content">
@@ -212,7 +212,7 @@
                     <div class="div-search-ad">
                         <div class="div-search-title">
                             <div style="width:220px">
-                                Số đăng ký quốc tế nhãn hiệu<i class="redspan">(*)</i>
+                                @Resource.C08_SoDKQTNH<i class="redspan">(*)</i>
                             </div>
                         </div>
                         <div class="div-search-content">
@@ -224,9 +224,9 @@
 
                     <div class="div-search-ad">
                         <div class="div-search-title">
-                            <div style="width:250px">
+                            <div style="width:330px">
                                 <div>
-                                    Ngày nộp đơn đăng ký quốc tế nhãn hiệu<i class="redspan">(*)</i>
+                                   @Resource.C08_NgayNopDonDK<i class="redspan">(*)</i>
                                 </div>
                             </div>
                         </div>

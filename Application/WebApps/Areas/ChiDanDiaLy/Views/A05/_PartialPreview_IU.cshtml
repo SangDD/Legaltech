@@ -114,7 +114,10 @@
             if (reponse == false) {
                 return false;
             }
-
+            reponse = funGetDocumentFile(formData);
+            if (reponse == false) {
+                return false;
+            }
             $.ajax({
                 url: '/geographical-indication/ket_xuat_file_IU',
                 type: 'POST',
