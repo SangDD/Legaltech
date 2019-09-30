@@ -124,20 +124,20 @@ namespace WebApps.Areas.TradeMark.Controllers
                         }
                     }
 
-                   
+
 
                     //#region Phí cố định
-                    //List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C01(pDetail, pAppDocumentInfo);
-                    //if (_lstFeeFix.Count > 0)
-                    //{
-                    //    AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
-                    //    pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, p_case_code);
-                    //    if (pReturn < 0)
-                    //        goto Commit_Transaction;
-                    //}
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C02(pDetail, pAppDocumentInfo);
+                    if (_lstFeeFix.Count > 0)
+                    {
+                        AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
+                        pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, p_case_code);
+                        if (pReturn < 0)
+                            goto Commit_Transaction;
+                    }
                     //#endregion
 
-                   
+
 
                     #region Tai lieu dinh kem 
                     if (pReturn >= 0 && pAppDocumentInfo != null)
@@ -235,21 +235,21 @@ namespace WebApps.Areas.TradeMark.Controllers
                             goto Commit_Transaction;
                     }
 
-                  
+
                     //#region Phí cố định
 
                     //// xóa đi
-                    //AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
-                    //_AppFeeFixBL.AppFeeFixDelete(pDetail.Case_Code, language);
+                    AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
+                    _AppFeeFixBL.AppFeeFixDelete(pDetail.Case_Code, language);
 
-                    //// insert lại fee
-                    //List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C01(pDetail, pAppDocumentInfo, pLstImagePublic);
-                    //if (_lstFeeFix.Count > 0)
-                    //{
-                    //    pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, pInfo.Case_Code);
-                    //    if (pReturn < 0)
-                    //        goto Commit_Transaction;
-                    //}
+                    // insert lại fee
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C02(pDetail, pAppDocumentInfo);
+                    if (_lstFeeFix.Count > 0)
+                    {
+                        pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, pInfo.Case_Code);
+                        if (pReturn < 0)
+                            goto Commit_Transaction;
+                    }
 
                     //#endregion
 
@@ -405,6 +405,24 @@ namespace WebApps.Areas.TradeMark.Controllers
             var json = Json(new { success = 1, PartialTableListFees });
             return json;
         }
+        [HttpPost]
+        [Route("getFeeView")]
+        public ActionResult GetFee_View(ApplicationHeaderInfo pInfo)
+        {
+            try
+            {
+                AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
+                List<AppFeeFixInfo> _lstFeeFix = _AppFeeFixBL.GetByCaseCode(pInfo.Case_Code);
+                ViewBag.LstFeeFix = _lstFeeFix;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
 
+            var PartialTableListFees = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Patent/Views/Shared/_PartialTableListFees.cshtml");
+            var json = Json(new { success = 1, PartialTableListFees });
+            return json;
+        }
     }
 }
