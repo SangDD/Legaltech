@@ -18,7 +18,14 @@
     string _str_number = "";
     if (_App_Notice_Info.Times > 0)
     {
-        _str_number = "lần" + _App_Notice_Info.Times.ToString();
+        if (WebApps.CommonFunction.AppsCommon.GetCurrentLang() == "VI_VN")
+        {
+            _str_number = "lần " + _App_Notice_Info.Times.ToString();
+        }
+        else
+        {
+            _str_number = _App_Notice_Info.Times.ToString();
+        }
     }
 }
 

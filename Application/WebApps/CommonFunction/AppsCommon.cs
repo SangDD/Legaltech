@@ -585,6 +585,11 @@ namespace WebApps.CommonFunction
                     return -2;
                 }
 
+                if (_lst_billing_detail.Count == 1 && _lst_billing_detail[0].Total_Fee == 0)
+                {
+                    return -2;
+                }
+
                 decimal _ck = 0;
 
                 Billing_BL _Billing_BL = new Billing_BL();
@@ -644,9 +649,10 @@ namespace WebApps.CommonFunction
                 string _fileExport = AppsCommon.Export_Billing_Crytal(p_Billing_Header_Info.Case_Code, p_mapPath_Report, p_mapPath, _appHeader.Created_By, p_Billing_Header_Info, _lst_billing_detail);
 
                 // nếu kết xuất file thành công thì insert vào docking
-                Insert_Docketing(p_Billing_Header_Info.App_Case_Code, "Report Billing", p_fileExport, true);
+                Insert_Docketing(p_Billing_Header_Info.App_Case_Code, "Report Billing", _fileExport, true);
 
-                return _ck;
+                p_fileExport = _fileExport;
+                return _idBilling;
             }
             catch (Exception ex)
             {

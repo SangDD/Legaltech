@@ -14,7 +14,14 @@
     string _str_number = "";
     if (_Number_Notice > 0)
     {
-        _str_number = "lần " + _Number_Notice.ToString();
+        if (WebApps.CommonFunction.AppsCommon.GetCurrentLang() == "VI_VN")
+        {
+            _str_number = "lần " + _Number_Notice.ToString();
+        }
+        else
+        {
+            _str_number = "no " + _Number_Notice.ToString();
+        }
     }
 }
 
@@ -43,7 +50,7 @@
     <div class="divCover cls_form_title">
         <img src="~/Content/icons/category.png" />
         <div class="cls_form_header">
-            @WebApps.Resources.Resource.ThongBaoNoiDUng
+            @WebApps.Resources.Resource.ThongBaoNoiDung
         </div>
     </div>
 

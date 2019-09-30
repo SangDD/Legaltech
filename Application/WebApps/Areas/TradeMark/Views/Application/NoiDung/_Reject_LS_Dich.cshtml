@@ -17,7 +17,15 @@
     string _str_number = "";
     if (_App_Notice_Info.Times > 0)
     {
-        _str_number = "lần" + _App_Notice_Info.Times.ToString();
+        //_str_number = "lần" + _App_Notice_Info.Times.ToString();
+        if (WebApps.CommonFunction.AppsCommon.GetCurrentLang() == "VI_VN")
+        {
+            _str_number = "lần " + _App_Notice_Info.Times.ToString();
+        }
+        else
+        {
+            _str_number = _App_Notice_Info.Times.ToString();
+        }
     }
 }
 
@@ -130,7 +138,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <a style="height: 20px !important;" href="@_App_Notice_Info.Notice_Url" download="@_App_Notice_Info.Notice_Url"> @WebApps.Resources.Resource.FileScanTB </a>
+                <a style="height: 20px !important;" href="@_App_Notice_Info.Notice_Url" download="@_App_Notice_Info.Notice_Url"> @(_App_Notice_Info.Notice_Url == null ? "" : WebApps.Resources.Resource.FileScanTB) </a>
             </div>
         </div>
     </div>
@@ -141,7 +149,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <a style="height: 20px !important;" href="@_App_Notice_Info.Notice_Trans_Url" download="@_App_Notice_Info.Notice_Trans_Url"> @WebApps.Resources.Resource.FileDich </a>
+                <a style="height: 20px !important;" href="@_App_Notice_Info.Notice_Trans_Url" download="@_App_Notice_Info.Notice_Trans_Url"> @(_App_Notice_Info.Notice_Trans_Url == null ? "" : WebApps.Resources.Resource.FileDich) </a>
             </div>
         </div>
     </div>

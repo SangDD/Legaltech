@@ -18,7 +18,14 @@
     string _str_number = "";
     if (_App_Notice_Info.Times > 0)
     {
-        _str_number = "lần" + _App_Notice_Info.Times.ToString();
+        if (WebApps.CommonFunction.AppsCommon.GetCurrentLang() == "VI_VN")
+        {
+            _str_number = "lần " + _App_Notice_Info.Times.ToString();
+        }
+        else
+        {
+            _str_number = _App_Notice_Info.Times.ToString();
+        }
     }
 }
 
@@ -53,7 +60,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div id="divNumberNotice">@WebApps.Resources.Resource.SoThongBao @_str_number<i class="redspan">(*)</i></div>
+            <div id="divNumberNotice">@WebApps.Resources.Resource.SoThongBao @_str_number</div>
         </div>
         <div class="div-search-content">
             <div>
@@ -62,7 +69,7 @@
         </div>
 
         <div class="div-search-title">
-            <div>@WebApps.Resources.Resource.NgayThongBao <i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.NgayThongBao </div>
         </div>
         <div class="div-search-content">
             <div>
@@ -171,10 +178,7 @@
     function getView2Insert(_case_code) {
         if (CheckSessionTimeOut() == false) {
             return false;
-        }
-
-        @*var url = "/quan-ly-billing/danh-sach-billing/show-insert-by-casecode?p_case_code=" + _case_code + "&p_type=" + @(Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Insert_Type.Accept_Form));
-        window.open(url);*@
+        } 
 
         $.ajax({
             type: "POST",

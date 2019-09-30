@@ -278,7 +278,7 @@
 
         var txt_advise_replies = $('#txt_advise_replies').val();
         if (txt_advise_replies == null || txt_advise_replies == "") {
-            jError(@Html.Raw(WebApps.Resources.Resource.NoiDungChinh)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.NoiDungChinh)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txt_advise_replies').focus();
             });
             return false;

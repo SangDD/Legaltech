@@ -30,6 +30,10 @@
             {
                 foreach (var item in _list_data)
                 {
+                    if (item.Url == null || item.Url == "")
+                    {
+                        continue;
+                    }
                     <tr>
                         <td class="tdcenteralign">
 
