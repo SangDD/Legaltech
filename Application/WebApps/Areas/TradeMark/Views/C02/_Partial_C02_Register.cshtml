@@ -240,7 +240,16 @@
         </div>
     </fieldset>
 </div>
+@Html.Partial("~/Areas/TradeMark/Views/C02/_PartialPreview_IU.cshtml")
+<div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
+    <div class="dpop-preview" id="dpop-preview">
+    </div>
+</div>
 
+<div id="divWrapperPopUpFee" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divPopUpFee">
+    </div>
+</div>
 <script>
     function ShowHiden_Type(type) {
         try{

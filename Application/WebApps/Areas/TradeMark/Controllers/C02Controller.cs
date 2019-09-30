@@ -387,6 +387,24 @@ namespace WebApps.Areas.TradeMark.Controllers
                 return Json(new { status = ErrorCode.Error });
             }
         }
+        [HttpPost]
+        [Route("getFee")]
+        public ActionResult GetFee(App_Detail_C02_Info pDetail, List<AppDocumentInfo> pAppDocumentInfo)
+        {
+            try
+            {
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C02(pDetail, pAppDocumentInfo);
+                ViewBag.LstFeeFix = _lstFeeFix;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            var PartialTableListFees = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Patent/Views/Shared/_PartialTableListFees.cshtml");
+            var json = Json(new { success = 1, PartialTableListFees });
+            return json;
+        }
 
     }
 }
