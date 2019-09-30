@@ -59,20 +59,20 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div id="divNumberNotice">@WebApps.Resources.Resource.SoThongBao @_str_number<i class="redspan">(*)</i></div>
+            <div id="divNumberNotice">@WebApps.Resources.Resource.SoThongBao @_str_number</div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" maxlength="100"  value="@_App_Notice_Info.Notice_Number" id="txt_Notice_Number" style="width:200px" disabled="disabled" />
+                <input type="text" maxlength="100" value="@_App_Notice_Info.Notice_Number" id="txt_Notice_Number" style="width:200px" disabled="disabled" />
             </div>
         </div>
 
         <div class="div-search-title">
-            <div> @WebApps.Resources.Resource.NgayThongBao <i class="redspan">(*)</i></div>
+            <div> @WebApps.Resources.Resource.NgayThongBao </div>
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text"  id="txt_notice_date" maxlength="100" disabled="disabled" value="@_App_Notice_Info.Notice_Date.ToString("dd/MM/yyyy")" />
+                <input type="text" id="txt_notice_date" maxlength="100" disabled="disabled" value="@_App_Notice_Info.Notice_Date.ToString("dd/MM/yyyy")" />
             </div>
         </div>
     </div>
@@ -83,7 +83,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text"  id="txt_accept_date" maxlength="100" disabled="disabled" value="@(_App_Notice_Info.Accept_Date == DateTime.MinValue ? "" : _App_Notice_Info.Accept_Date.ToString("dd/MM/yyyy") )"/>
+                <input type="text" id="txt_accept_date" maxlength="100" disabled="disabled" value="@(_App_Notice_Info.Accept_Date == DateTime.MinValue ? "" : _App_Notice_Info.Accept_Date.ToString("dd/MM/yyyy") )" />
             </div>
         </div>
     </div>
@@ -101,17 +101,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>@WebApps.Resources.Resource.GhiChu <i class="redspan">(*)</i></div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <input type="text" id="txtNotes" maxlength="2000" />
-            </div>
-        </div>
-    </div>
-    <div class="div-search-ad">
-        <div class="div-search-title">
-            <div>@WebApps.Resources.Resource.FileScanTB<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.FileScanTB</div>
         </div>
         <div class="div-search-content">
             <div>
@@ -122,7 +112,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>@WebApps.Resources.Resource.FileDich<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.FileDich</div>
         </div>
         <div class="div-search-content">
             <div>
@@ -133,7 +123,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>@WebApps.Resources.Resource.Billing<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.Billing</div>
         </div>
         <div class="div-search-content">
             <div>
@@ -146,6 +136,18 @@
                 {
                     <input type="text" value="@WebApps.Resources.Resource.NoBilling" disabled="disabled" />
                 }
+            </div>
+        </div>
+    </div>
+
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.GhiChu <i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtNotes" maxlength="2000" />
             </div>
         </div>
     </div>
