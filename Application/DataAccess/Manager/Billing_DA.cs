@@ -268,6 +268,7 @@ namespace DataAccess
                 int numberRecord = pInfo.Count;
                 decimal[] p_billing_id = new decimal[numberRecord];
                 string[] p_biling_detail_name = new string[numberRecord];
+                string[] p_biling_detail_name_en = new string[numberRecord];
                 decimal[] p_ref_id = new decimal[numberRecord];
                 decimal[] p_type = new decimal[numberRecord];
                 decimal[] p_nation_fee = new decimal[numberRecord];
@@ -278,6 +279,7 @@ namespace DataAccess
                 {
                     p_billing_id[i] = _billing_id;
                     p_biling_detail_name[i] = pInfo[i].Biling_Detail_Name;
+                    p_biling_detail_name_en[i] = pInfo[i].Biling_Detail_Name_EN;
                     p_ref_id[i] = pInfo[i].Ref_Id;
                     p_type[i] = pInfo[i].Type;
                     p_nation_fee[i] = pInfo[i].Nation_Fee;
@@ -289,6 +291,7 @@ namespace DataAccess
                 OracleHelper.ExcuteBatchNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_billing.Proc_Billing_Detail_Insert", numberRecord,
                     new OracleParameter("p_billing_id", OracleDbType.Decimal, p_billing_id, ParameterDirection.Input),
                     new OracleParameter("p_biling_detail_name", OracleDbType.Varchar2, p_biling_detail_name, ParameterDirection.Input),
+                    new OracleParameter("p_biling_detail_name_en", OracleDbType.Varchar2, p_biling_detail_name_en, ParameterDirection.Input),
                     new OracleParameter("p_ref_id", OracleDbType.Decimal, p_ref_id, ParameterDirection.Input),
                     new OracleParameter("p_type", OracleDbType.Decimal, p_type, ParameterDirection.Input),
                     new OracleParameter("p_nation_fee", OracleDbType.Decimal, p_nation_fee, ParameterDirection.Input),

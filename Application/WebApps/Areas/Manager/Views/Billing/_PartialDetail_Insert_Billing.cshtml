@@ -61,6 +61,8 @@
     {
         _Currency_Type = (string)ViewBag.Currency_Type;
     }
+
+    string _language = WebApps.CommonFunction.AppsCommon.GetCurrentLang();
 }
 
 <div>
@@ -92,7 +94,7 @@
                 foreach (var item in _list_data)
                 {
                     <tr>
-                        <td class="tdleftalign">@item.Biling_Detail_Name</td>
+                        <td class="tdleftalign">@(_language != "VI_VN" ? item.Biling_Detail_Name_EN : item.Biling_Detail_Name)</td>
 
                         <td class="tdrightalign">@item.Nation_Fee.ToString("#,##0.##")</td>
 

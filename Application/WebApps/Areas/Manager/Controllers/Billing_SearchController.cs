@@ -98,6 +98,7 @@ namespace WebApps.Areas.Manager.Controllers
                 _ChiPhiKhac.Represent_Fee = 0;
                 _ChiPhiKhac.Service_Fee = 0;
                 _ChiPhiKhac.Biling_Detail_Name = "Chi phí khác";
+                _ChiPhiKhac.Biling_Detail_Name_EN = "Others";
                 _ChiPhiKhac.Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Detail_Type.Others);
                 _lst_billing_detail.Add(_ChiPhiKhac);
 
@@ -238,6 +239,7 @@ namespace WebApps.Areas.Manager.Controllers
                     _ChiPhiKhac.Represent_Fee = 0;
                     _ChiPhiKhac.Service_Fee = 0;
                     _ChiPhiKhac.Biling_Detail_Name = "Chi phí khác";
+                    _ChiPhiKhac.Biling_Detail_Name_EN = "Others";
                     _ChiPhiKhac.Type = Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Detail_Type.Others);
                     _lst_billing_detail.Add(_ChiPhiKhac);
                 }

@@ -142,6 +142,7 @@
         if (validateAction()) {
             nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmSubmit)", function () {
 
+                var formdata = new FormData();
                 var pfile = $("#file_attach");//lay du lieu file
                 var _file = pfile[0].files[0];
 
@@ -151,7 +152,6 @@
                     formdata.append("pInfo.File_Translate_Filing", _file_t);
                 }
 
-                var formdata = new FormData();
                 formdata.append("pInfo.File_Copy_Filing", _file);
                 formdata.append("pInfo.Case_Code", _case_code);
                 formdata.append("pInfo.Id", @_AppHeaderInfo.Id);

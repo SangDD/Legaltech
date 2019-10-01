@@ -436,6 +436,10 @@ namespace WebApps.CommonFunction
                 if (userInfo.Country != 234)
                 {
                     _tempfile = "Billing_EN.rpt";
+                    foreach (Billing_Detail_Info item in _lst_billing_detail)
+                    {
+                        item.Biling_Detail_Name = item.Biling_Detail_Name_EN;
+                    }
                 }
 
                 DataTable _dt_header = ConvertData.ConvertToDatatable<Billing_Header_Info>(_lst, false);
