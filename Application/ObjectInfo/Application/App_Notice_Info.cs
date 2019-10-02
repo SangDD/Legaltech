@@ -65,5 +65,8 @@ namespace ObjectInfos
         public string Note { get; set; }
         public string  Modify_By { get; set; }
         public DateTime Modify_Date { get; set; }
+        public string Customer { get; set; }
+        public string Email_Customer { get; set; }
+        public string Country_Customer { get; set; }
     }
 }

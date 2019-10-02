@@ -421,6 +421,7 @@ namespace WebApps.CommonFunction
             {
                 Billing_BL _obj_bl = new Billing_BL();
                 string fileName_exp = "/Content/Export/Biling_Report_" + p_case_code + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf";
+
                 UserBL _UserBL = new UserBL();
                 UserInfo userInfo = _UserBL.GetUserByUsername(p_customer);
 
@@ -649,6 +650,11 @@ namespace WebApps.CommonFunction
                 // lấy thông tin khách hàng
                 Application_Header_BL _app_bl = new Application_Header_BL();
                 ApplicationHeaderInfo _appHeader = _app_bl.GetApp_By_Case_Code(p_app_Case_Code);
+
+                p_Billing_Header_Info.Customer = _appHeader.Created_By;
+                p_Billing_Header_Info.Email_Customer = _appHeader.Email_Customer;
+                p_Billing_Header_Info.Country_Customer = _appHeader.Customer_Country;
+
 
                 string _fileExport = AppsCommon.Export_Billing_Crytal(p_Billing_Header_Info.Case_Code, p_mapPath_Report, p_mapPath, _appHeader.Created_By, p_Billing_Header_Info, _lst_billing_detail);
 
