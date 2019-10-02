@@ -2157,7 +2157,143 @@ namespace WebApps.CommonFunction
                 Logger.LogException(ex);
             }
         }
+        public static void Prepare_Data_Export_C02(ref App_Detail_C02_Info pDetail, ApplicationHeaderInfo pInfo,
+           List<AppDocumentInfo> pAppDocumentInfo)
+        {
+            try
+            {
 
+                // copy Header
+                App_Detail_C02_Info.CopyAppHeaderInfo(ref pDetail, pInfo);
+
+                #region Tài liệu có trong đơn
+
+                if (pAppDocumentInfo.Count > 0)
+                {
+                    foreach (AppDocumentInfo item in pAppDocumentInfo)
+                    {
+                        if (item.Document_Id == "C02_01")
+                        {
+                            pDetail.Doc_Id_1 = item.CHAR01;
+                            pDetail.Doc_Id_1_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "C02_02")
+                        {
+                            pDetail.Doc_Id_2 = item.CHAR01;
+                            pDetail.Doc_Id_2_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "C02_03")
+                        {
+                            pDetail.Doc_Id_3_Check = item.Isuse;
+                            pDetail.Doc_Id_3 = item.CHAR01;
+                        }
+                        else if (item.Document_Id == "C02_04")
+                        {
+                            pDetail.Doc_Id_4 = item.CHAR01;
+                            pDetail.Doc_Id_4_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "C02_05")
+                        {
+                            pDetail.Doc_Id_5_Check = item.Isuse;
+                            pDetail.Doc_Id_5 = item.CHAR01;
+                        }
+
+                        else if (item.Document_Id == "C02_06")
+                        {
+                            pDetail.Doc_Id_6 = item.CHAR01;
+                            pDetail.Doc_Id_6_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "C02_07")
+                        {
+                            pDetail.Doc_Id_7 = item.CHAR01;
+                            pDetail.Doc_Id_7_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "C02_08")
+                        {
+                            pDetail.Doc_Id_8 = item.CHAR01;
+                            pDetail.Doc_Id_8_Check = item.Isuse;
+                        }
+
+                        else if (item.Document_Id == "C02_09")
+                        {
+                            pDetail.Doc_Id_9 = item.CHAR01;
+                            pDetail.Doc_Id_9_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "C02_10")
+                        {
+                            pDetail.Doc_Id_10_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "C02_11")
+                        {
+                            pDetail.Doc_Id_11 = item.CHAR01;
+                            pDetail.Doc_Id_11_Check = item.Isuse;
+                        }
+                    }
+                }
+
+                #endregion
+
+                #region phí
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C02(pDetail, pAppDocumentInfo);
+
+                if (_lstFeeFix.Count > 0)
+                {
+                    pDetail.Fee_Id_1 = _lstFeeFix[0].Number_Of_Patent;
+                    pDetail.Fee_Id_1_Check = _lstFeeFix[0].Isuse;
+                    pDetail.Fee_Id_1_Val = _lstFeeFix[0].Amount.ToString("#,##0.##");
+                    pDetail.Total_Fee = pDetail.Total_Fee + _lstFeeFix[0].Amount;
+                }
+                if (_lstFeeFix.Count > 1)
+                {
+                    pDetail.Fee_Id_2 = _lstFeeFix[1].Number_Of_Patent;
+                    pDetail.Fee_Id_2_Check = _lstFeeFix[1].Isuse;
+                    pDetail.Fee_Id_2_Val = _lstFeeFix[1].Amount.ToString("#,##0.##");
+                    pDetail.Total_Fee = pDetail.Total_Fee + _lstFeeFix[1].Amount;
+                }
+
+                if (_lstFeeFix.Count > 2)
+                {
+                    pDetail.Fee_Id_21 = _lstFeeFix[2].Number_Of_Patent;
+                    pDetail.Fee_Id_21_Check = _lstFeeFix[2].Isuse;
+                    pDetail.Fee_Id_21_Val = _lstFeeFix[2].Amount.ToString("#,##0.##");
+                    pDetail.Total_Fee = pDetail.Total_Fee + _lstFeeFix[2].Amount;
+                }
+
+                if (_lstFeeFix.Count > 3)
+                {
+                    pDetail.Fee_Id_3 = _lstFeeFix[3].Number_Of_Patent;
+                    pDetail.Fee_Id_3_Check = _lstFeeFix[3].Isuse;
+                    pDetail.Fee_Id_3_Val = _lstFeeFix[3].Amount.ToString("#,##0.##");
+                    pDetail.Total_Fee = pDetail.Total_Fee + _lstFeeFix[3].Amount;
+                }
+
+                if (_lstFeeFix.Count > 4)
+                {
+                    pDetail.Fee_Id_4 = _lstFeeFix[4].Number_Of_Patent;
+                    pDetail.Fee_Id_4_Check = _lstFeeFix[4].Isuse;
+                    pDetail.Fee_Id_4_Val = _lstFeeFix[4].Amount.ToString("#,##0.##");
+                    pDetail.Total_Fee = pDetail.Total_Fee + _lstFeeFix[4].Amount;
+                }
+
+                if (_lstFeeFix.Count > 5)
+                {
+                    pDetail.Fee_Id_5 = _lstFeeFix[5].Number_Of_Patent;
+                    pDetail.Fee_Id_5_Check = _lstFeeFix[5].Isuse;
+                    pDetail.Fee_Id_5_Val = _lstFeeFix[5].Amount.ToString("#,##0.##");
+                    pDetail.Total_Fee = pDetail.Total_Fee + _lstFeeFix[5].Amount;
+                }
+
+          
+
+                pDetail.Total_Fee_Str = pDetail.Total_Fee.ToString("#,##0.##");
+
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+        }
         public static void Prepare_Data_Export_C03(ref App_Detail_C03_Info pDetail, ApplicationHeaderInfo pInfo,
             List<AppDocumentInfo> pAppDocumentInfo)
         {

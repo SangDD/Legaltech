@@ -1,10 +1,13 @@
 ﻿using BussinessFacade.ModuleTrademark;
 using Common;
 using Common.CommonData;
+using CrystalDecisions.Shared;
 using ObjectInfos;
 using ObjectInfos.ModuleTrademark;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Transactions;
 using System.Web;
@@ -124,20 +127,20 @@ namespace WebApps.Areas.TradeMark.Controllers
                         }
                     }
 
-                   
+
 
                     //#region Phí cố định
-                    //List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C01(pDetail, pAppDocumentInfo);
-                    //if (_lstFeeFix.Count > 0)
-                    //{
-                    //    AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
-                    //    pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, p_case_code);
-                    //    if (pReturn < 0)
-                    //        goto Commit_Transaction;
-                    //}
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C02(pDetail, pAppDocumentInfo);
+                    if (_lstFeeFix.Count > 0)
+                    {
+                        AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
+                        pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, p_case_code);
+                        if (pReturn < 0)
+                            goto Commit_Transaction;
+                    }
                     //#endregion
 
-                   
+
 
                     #region Tai lieu dinh kem 
                     if (pReturn >= 0 && pAppDocumentInfo != null)
@@ -235,21 +238,21 @@ namespace WebApps.Areas.TradeMark.Controllers
                             goto Commit_Transaction;
                     }
 
-                  
+
                     //#region Phí cố định
 
                     //// xóa đi
-                    //AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
-                    //_AppFeeFixBL.AppFeeFixDelete(pDetail.Case_Code, language);
+                    AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
+                    _AppFeeFixBL.AppFeeFixDelete(pDetail.Case_Code, language);
 
-                    //// insert lại fee
-                    //List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C01(pDetail, pAppDocumentInfo, pLstImagePublic);
-                    //if (_lstFeeFix.Count > 0)
-                    //{
-                    //    pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, pInfo.Case_Code);
-                    //    if (pReturn < 0)
-                    //        goto Commit_Transaction;
-                    //}
+                    // insert lại fee
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C02(pDetail, pAppDocumentInfo);
+                    if (_lstFeeFix.Count > 0)
+                    {
+                        pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, pInfo.Case_Code);
+                        if (pReturn < 0)
+                            goto Commit_Transaction;
+                    }
 
                     //#endregion
 
@@ -405,6 +408,102 @@ namespace WebApps.Areas.TradeMark.Controllers
             var json = Json(new { success = 1, PartialTableListFees });
             return json;
         }
+        [HttpPost]
+        [Route("getFeeView")]
+        public ActionResult GetFee_View(ApplicationHeaderInfo pInfo)
+        {
+            try
+            {
+                AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
+                List<AppFeeFixInfo> _lstFeeFix = _AppFeeFixBL.GetByCaseCode(pInfo.Case_Code);
+                ViewBag.LstFeeFix = _lstFeeFix;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            var PartialTableListFees = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Patent/Views/Shared/_PartialTableListFees.cshtml");
+            var json = Json(new { success = 1, PartialTableListFees });
+            return json;
+        }
+
+        [HttpPost]
+        [Route("ket_xuat_file_IU")]
+        public ActionResult ExportData_View_IU(ApplicationHeaderInfo pInfo, App_Detail_C02_Info pDetail,
+            List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo, List<AppDocumentOthersInfo> pAppDocOtherInfo)
+        {
+            try
+            {
+                string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
+                string language = AppsCommon.GetCurrentLang();
+                List<App_Detail_C02_Info> _lst = new List<App_Detail_C02_Info>();
+
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C01_VN_" + _datetimenow + ".pdf");
+                if (language == Language.LangVI)
+                {
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C01_VN_" + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "C01_VN_" + _datetimenow + ".pdf";
+                }
+                else
+                {
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C01_EN_" + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "C01_EN_" + _datetimenow + ".pdf";
+                }
+
+                AppsCommon.Prepare_Data_Export_C02(ref pDetail, pInfo, pAppDocumentInfo);
+                if (pAppDocOtherInfo != null)
+                {
+                    foreach (var item in pAppDocOtherInfo)
+                    {
+                        pDetail.Note += item.Documentname + " ; ";
+                    }
+
+                    if (pAppDocOtherInfo.Count > 0)
+                    {
+                        pDetail.Note = pDetail.Note.Substring(0, pDetail.Note.Length - 2);
+                    }
+                }
+                _lst.Add(pDetail);
+
+                DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_C02_Info>(_lst, false);
+                _ds_all.WriteXml(@"D:\C02.xml", XmlWriteMode.WriteSchema);
+                CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+
+                string _tempfile = "C01.rpt";
+                if (language == Language.LangEN)
+                {
+                    _tempfile = "C01_EN.rpt";
+                }
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
+
+                if (_ds_all != null)
+                {
+                    _ds_all.Tables[0].TableName = "Table";
+                    oRpt.SetDataSource(_ds_all);
+                }
+                oRpt.Refresh();
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+                //oRpt.ExportToDisk(ExportFormatType.PortableDocFormat, fileName_pdf);
+
+                System.IO.Stream oStream = oRpt.ExportToStream(ExportFormatType.PortableDocFormat);
+                byte[] byteArray = new byte[oStream.Length];
+                oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
+                System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq 
+
+                return Json(new { success = 0 });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = 0 });
+            }
+        }
+
 
     }
 }

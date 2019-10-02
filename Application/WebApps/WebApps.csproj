@@ -270,6 +270,12 @@
       <DependentUpon>A05_EN.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Report\C02.cs">
+      <DependentUpon>C02.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Report\C03_EN.cs">
       <DependentUpon>C03_EN.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1516,6 +1522,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>A05_EN.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report\C02.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>C02.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\C07_EN.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>C07_EN.cs</LastGenOutput>
@@ -2030,7 +2040,7 @@
     <Content Include="Areas\TradeMark\Views\C02\_Partial_C02_View.cshtml" />
     <Content Include="Areas\TradeMark\Views\C02\_Partial_C02_Edit.cshtml" />
     <Content Include="Areas\TradeMark\Views\C02\_PartialPreview_IU.cshtml" />
-    <Content Include="Areas\TradeMark\Views\C02\_PartialPreview.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistrationDKQT\_PartialPreview_IU.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <None Include="Properties\PublishProfiles\HungTDLap.pubxml" />

@@ -5,19 +5,28 @@
     {
         _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
     }
+    int IsViewFlag = 0;
+    if(ViewBag.IsViewFlag != null)
+    {
+        IsViewFlag = ViewBag.IsViewFlag;
+    }
 }
 @using WebApps.Resources;
-
+<script>
+    var _IsViewFlag = '@IsViewFlag';
+</script>
 <div id="toolbox">
     <ul>
-        <li class="toTop" style=""><a href="#top" title="Lên đầu trang"><i style=" font-size: 27px; color: green;" class="fa fa-home"></i></a></li>
+        <li class="toTop" style=""><a href="#top" title="Lên đầu trang"><i style="font-size:27px; color:green;" class="fa fa-home"></i></a></li>
         <li class="email"><a href="javascript:;" title="Phí"><i class="fas fa-dollar-sign" size="9x" target="_blank" onclick="return funcPreViewFee();" style="font-size: 27px;margin-left: 8px;color: green;"></i></a></li>
 
+
         <li class="email">
-            <a href="javascript:;" onclick="return funcPreViewApplication();" title="Xem trước">
+            <a href="javascript:;" onclick="return funcPreViewApplication_IU();" title="Xem trước VN">
                 <img src="/Content/icons/icon_vn.png" style="margin-left: 3px;width: 25px;height: 30px;" />
             </a>
         </li>
+       
     </ul>
 </div>
 
@@ -37,12 +46,12 @@
 
 <script>
 
-    function funGetData_Preview_C02(url) {
+    function funGetData_Preview_UI_C06(url) {
         try {
-
             var formData = new FormData();
             formData.append("pInfo.Appcode", $("#txtAppCode").val());
             formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
+            formData.append("pInfo.View_Language_Report", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
 
             //Thông tin chủ đơn
             if (funcThongTinChuDon_Exp(formData, "1") != true) {
@@ -54,35 +63,76 @@
                 return false;
             }
 
+            if (funcChuDonKhac(formData) != true) {
+                return false;
+            }
+
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
 
+            //Tài liệu khác trong đơn
+            reponse = funcGetTenTaiLieuKhac(formData);
+            if (reponse == false) {
+                return false;
+            }
+
             //Lấy thông tin detail
-            var reponse = funcGetAppDetail(formData, 1);
+            reponse = funcGetAppDetail(formData, 0);
+            if (reponse == false) {
+                return false;
+            }
+            // lấy thông tin class
+            reponse = funcGetDataClassInfo(formData);
             if (reponse == false) {
                 return false;
             }
 
-            //Lấy thông tin file có trong đơn
-            reponse = funGetDocumentFile(formData);
+            formData.append("pInfo.Status", '@((int)Common.CommonData.CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin)');
+            var v_AppCode = $("#txtAppCode").val();
+            if (v_AppCode === "") {
+                $('#txtAppCode').focus().val('');
+                showError('@Html.Raw(Resource.TM3B_ChonLoaiDonDK)');
+                return false;
+            }
+
+            // đại diện chủ đơn
+            formData.append("pInfo.Appcode", v_AppCode);
+
+            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+            if (v_RepMasterType === "" || v_RepMasterType == undefined) {
+                showError('@Html.Raw(Resource.TM2B_ChonDaiDienChuDon)');
+                $("#_2_rdoNguoiDaiDienPL").focus()
+                return false;
+            }
+            formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+            //formData.append("pInfo.Status", ptype);
+
+            //Tài liệu khác trong đơn
+            reponse = funcGetTenTaiLieuKhac(formData);
             if (reponse == false) {
                 return false;
             }
 
-           
-            //
+
             reponse = funcGetCamKetChuDon(formData);
             if (reponse == false) {
                 return false;
             }
-
+            reponse = funGetDocumentFile(formData);
+            if (reponse == false) {
+                return false;
+            }
             $.ajax({
-                url: url,
+                url: '/conversion-international-trademark/ket_xuat_file_IU',
                 type: 'POST',
                 data: formData,
+                processData: false,
+                contentType: false,
+                traditional: true,
+                dataType: "json",
+                enctype: 'multipart/form-data',
                 async: true,
-                processData: false, contentType: false, traditional: true, dataType: "json",
-                enctype: 'multipart/form-data', headers: { "cache-control": "no-cache" },
+                headers: { "cache-control": "no-cache" },
                 beforeSend: function () {
                     CreateRollingWaitingIcon(true);
                 },
@@ -102,7 +152,17 @@
 
             return true;
         } catch (e) {
+
             CreateRollingWaitingIcon(false);
+            alert(e.message);
+            return false;
+        }
+    }
+
+    function funcPreViewApplication_IU() {
+        var preturn = funGetData_Preview_UI_C06("/conversion-international-trademark/ket_xuat_file_IU");
+        if (preturn == true || preturn == undefined) {
+            OpenPreview("/conversion-international-trademark/Pre-View");
         }
     }
 
@@ -110,26 +170,53 @@
 
         var formData = new FormData();
         formData.append("pInfo.Appcode", $("#txtAppCode").val());
-        formData.append("pDetail.Appcode", $("#txtAppCode").val());
         formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
 
-        var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-        formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+        var _showerror = 0;
 
         //Lấy thông tin detail
-        var reponse = funcGetAppDetail(formData, 1);
+        var reponse = funcGetAppDetail(formData, _showerror);
         if (reponse == false) {
             return false;
         }
+        reponse = funcCheckDataClassInfo(_showerror);
+        if (reponse == false) {
+            return false;
+        }
+        // lấy thông tin class
+        reponse = funcGetDataClassInfo(formData, _showerror);
+        if (reponse == false) {
+            return false;
+        }
+        if ($("#1_ckbTacGiaDongThoi").is(':checked')) {
+            formData.append("pInfo.Master_Type", "TGDT");
+        } else if ($("#rdChuDonKhac").is(':checked')) {
+            formData.append("pInfo.Master_Type", "CDK");
+        }
 
-        //Lấy thông tin file có trong đơn
+        if (funcChuDonKhac(formData) != true) {
+            return false;
+        }
+
+        // đại diện chủ đơn
+        formData.append("pInfo.Appcode", $("#txtAppCode").val());
+        var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+        formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+
+        //Lấy thông tin tài liệu có trong đơn
         reponse = funGetDocumentFile(formData);
         if (reponse == false) {
             return false;
         }
 
+        //Tài liệu khác trong đơn
+        reponse = funcGetTenTaiLieuKhac(formData);
+        if (reponse == false) {
+            return false;
+        }
+
         $.ajax({
-            url: "/trade-mark-c02/getFee",
+            url: "/conversion-international-trademark/getFee",
             type: 'POST',
             data: formData,
             dataType: "json",
@@ -146,23 +233,12 @@
                 if (data != null) {
 
                     $("#divPopUpFee").html(data.PartialTableListFees);
-
-
-                    //$("#divPopUpFee").html(data);
                     ShowPopupDialog_Ipace('divWrapperPopUpFee', '@Html.Raw(WebApps.Resources.Resource.ThongTinFee)', 800, 1200);
                 }
                 return false;
             }
         });
     }
-
-    function funcPreViewApplication() {
-        var preturn = funGetData_Preview_C02("/trade-mark-c02/ket_xuat_file_IU");
-        if (preturn == true || preturn == undefined) {
-            OpenPreview("/trade-mark-c01/Pre-View");
-        }
-    }
-
 
     function OpenPreview(url) {
         try {
