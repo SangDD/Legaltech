@@ -67,6 +67,6 @@ namespace ObjectInfos
         public DateTime Modify_Date { get; set; }
         public string Customer { get; set; }
         public string Email_Customer { get; set; }
-        public string Country_Customer { get; set; }
+        public decimal Country_Customer { get; set; }
     }
 }
