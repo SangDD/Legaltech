@@ -435,19 +435,19 @@ namespace WebApps.Areas.TradeMark.Controllers
         {
             try
             {
-                string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
+                 string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
                 string language = AppsCommon.GetCurrentLang();
                 List<App_Detail_C02_Info> _lst = new List<App_Detail_C02_Info>();
 
-                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C01_VN_" + _datetimenow + ".pdf");
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C02_VN_" + _datetimenow + ".pdf");
                 if (language == Language.LangVI)
                 {
-                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C01_VN_" + _datetimenow + ".pdf");
-                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "C01_VN_" + _datetimenow + ".pdf";
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C02_VN_" + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "C02_VN_" + _datetimenow + ".pdf";
                 }
                 else
                 {
-                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C01_EN_" + _datetimenow + ".pdf");
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C02_EN_" + _datetimenow + ".pdf");
                     SessionData.CurrentUser.FilePreview = "/Content/Export/" + "C01_EN_" + _datetimenow + ".pdf";
                 }
 
@@ -470,10 +470,10 @@ namespace WebApps.Areas.TradeMark.Controllers
                 _ds_all.WriteXml(@"D:\C02.xml", XmlWriteMode.WriteSchema);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
-                string _tempfile = "C01.rpt";
+                string _tempfile = "C02.rpt";
                 if (language == Language.LangEN)
                 {
-                    _tempfile = "C01_EN.rpt";
+                    _tempfile = "C02_EN.rpt";
                 }
                 oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
 
@@ -503,7 +503,20 @@ namespace WebApps.Areas.TradeMark.Controllers
                 return Json(new { success = 0 });
             }
         }
-
+        [Route("Pre-View")]
+        public ActionResult PreViewApplication(string p_appCode)
+        {
+            try
+            {
+                ViewBag.FileName = SessionData.CurrentUser.FilePreview;
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialContentPreview.cshtml");
+            }
+        }
 
     }
 }
