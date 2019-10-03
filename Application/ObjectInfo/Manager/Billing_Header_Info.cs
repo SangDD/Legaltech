@@ -74,5 +74,9 @@ namespace ObjectInfos
         public string Contract { get; set; }
 
         //public List<Billing_Detail_Info> Lst_Detail { get; set; }
+
+        public string Customer { get; set; }
+        public string Email_Customer { get; set; }
+        public decimal Country_Customer { get; set; }
     }
 }

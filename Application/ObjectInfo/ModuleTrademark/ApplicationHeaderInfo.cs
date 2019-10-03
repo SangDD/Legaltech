@@ -189,6 +189,8 @@ namespace ObjectInfos
 
         public int View_Translate { get; set; }
         public string Search_Code { get; set; }
+
+        public string Email_Customer { get; set; }
     }
 
 

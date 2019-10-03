@@ -328,18 +328,13 @@ namespace WebApps.Areas.TradeMark.Controllers
                 {
                     // lấy thông tin đơn
                     Application_Header_BL _Application_Header_BL = new Application_Header_BL();
-                    ApplicationHeaderInfo _ApplicationHeaderInfo = _Application_Header_BL.GetApplicationHeader_ById(p_app_id, AppsCommon.GetCurrentLang());
-
-                    string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/Report/Filing_advice.doc");
-                    if (_ApplicationHeaderInfo.Customer_Country != Common.Common.Country_VietNam_Id)
-                        _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/Report/Filing_advice_EN.doc");
-                    DocumentModel document = DocumentModel.Load(_fileTemp);
+                    ApplicationHeaderInfo _ApplicationHeaderInfo = _Application_Header_BL.GetApplicationHeader_ById(p_app_id, AppsCommon.GetCurrentLang()); 
 
                     //// lấy thông tin người dùng
-                    UserBL _UserBL = new UserBL();
-                    UserInfo userInfo = _UserBL.GetUserByUsername(_ApplicationHeaderInfo.Created_By);
+                    //UserBL _UserBL = new UserBL();
+                    //UserInfo userInfo = _UserBL.GetUserByUsername(_ApplicationHeaderInfo.Created_By);
 
-                    string _emailTo = userInfo.Email;
+                    string _emailTo = _ApplicationHeaderInfo.Email_Customer;
                     string _emailCC = "";
                     List<string> _LstAttachment = new List<string>();
                     _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_ApplicationHeaderInfo.Url_copy_filing));
@@ -743,11 +738,78 @@ namespace WebApps.Areas.TradeMark.Controllers
                 decimal _status = (decimal)CommonEnums.Notice_Accept_Status.Admin_DuyetGuiChoKhachHang;
                 if (p_status != 1)
                 {
-                    _status = (decimal)CommonEnums.Notice_Accept_Status.Admin_DuyetGuiChoKhachHang;
+                    _status = (decimal)CommonEnums.Notice_Accept_Status.Admin_TuchoiDuyet;
                 }
 
                 decimal _ck = _obj_bl.App_Notice_Review_Accept(p_case_code, p_Notice_Type, _status,
                     p_note, SessionData.CurrentUser.Username, AppsCommon.GetCurrentLang());
+
+                // nếu thành công thì gửi email cho khách hàng
+                if (_ck != -1)
+                {
+                    App_Notice_Info_BL _notice_BL = new App_Notice_Info_BL();
+                    App_Notice_Info _App_Notice_Info = _notice_BL.App_Notice_GetBy_CaseCode(p_case_code);
+                    if (_App_Notice_Info.Id > 0)
+                    {
+                        //// lấy thông tin người dùng
+                        //UserBL _UserBL = new UserBL();
+                        //UserInfo userInfo = _UserBL.GetUserByUsername(_App_Notice_Info.Customer);
+
+                        string _emailTo = _App_Notice_Info.Email_Customer;
+                        string _emailCC = "";
+                        List<string> _LstAttachment = new List<string>();
+
+                        if (_App_Notice_Info.Notice_Url != null && _App_Notice_Info.Notice_Url != "")
+                        {
+                            _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_App_Notice_Info.Notice_Url));
+                        }
+
+                        if (_App_Notice_Info.Notice_Trans_Url != null && _App_Notice_Info.Notice_Trans_Url != "")
+                        {
+                            _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_App_Notice_Info.Notice_Trans_Url));
+                        }
+
+                        if (_App_Notice_Info.Billing_Id > 0)
+                        {
+                            // lấy thông tin billing
+                            Billing_BL _Billing_BL = new Billing_BL();
+                            Billing_Header_Info _Billing_Header_Info = _Billing_BL.Billing_GetBy_Id(_App_Notice_Info.Billing_Id, AppsCommon.GetCurrentLang());
+                            if (_Billing_Header_Info.Billing_Id > 0 && _Billing_Header_Info.Status == (decimal)CommonEnums.Billing_Status.Approved)
+                            {
+                                // kết xuất thông tin
+                                string _mapPath_Report = Server.MapPath("~/Report/");
+                                string _mapPath = Server.MapPath("~/");
+
+                                string _fileName = AppsCommon.Export_Billing_Crytal_View(_Billing_Header_Info.Case_Code, _mapPath_Report, _mapPath);
+                                _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_fileName));
+                            }
+                        }
+
+                        string _content = "";
+                        List<AllCodeInfo> _lstStatus = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("EMAIL", "CONTENT");
+                        _lstStatus = _lstStatus.OrderBy(x => x.CdVal).ToList();
+                        if (_lstStatus.Count > 1)
+                        {
+                            _content = _lstStatus[0].Content + _App_Notice_Info.Advise_Replies.Replace("\n", "<br>") + _lstStatus[1].Content;
+                        }
+
+                        Email_Info _Email_Info = new Email_Info
+                        {
+                            EmailFrom = EmailHelper.EmailOriginal.EMailFrom_Business,
+                            Pass = EmailHelper.EmailOriginal.PassWord_Business,
+                            Display_Name = EmailHelper.EmailOriginal.DisplayName_Business,
+
+                            EmailTo = _emailTo,
+                            EmailCC = _emailCC,
+                            Subject = "V.v " + p_case_code,
+                            Content = _content,
+                            LstAttachment = _LstAttachment,
+                        };
+
+                        CommonFunction.AppsCommon.EnqueueSendEmail(_Email_Info);
+                    }
+                }
+
 
                 return Json(new { success = _ck });
             }
