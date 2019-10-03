@@ -288,6 +288,18 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Report\C06.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>C06.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Report\C06_EN.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>C06_EN.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Report\C07_EN.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -397,18 +409,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TM_04NH.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Report\TM_06DKQT_EN.cs">
-      <DependentUpon>TM_06DKQT_EN.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Report\TM_06DKQT1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TM_06DKQT.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Report\C01.cs">
@@ -1516,6 +1516,14 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>A05_EN.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report\C06.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>C06.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\C06_EN.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>C06_EN.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\C07_EN.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>C07_EN.cs</LastGenOutput>
@@ -1571,14 +1579,6 @@
     <EmbeddedResource Include="Report\TM_04NH.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TM_04NH.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Report\TM_06DKQT_EN.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>TM_06DKQT_EN.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Report\TM_06DKQT.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>TM_06DKQT1.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Report\TM_PLB01SDD_EN.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

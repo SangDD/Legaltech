@@ -2377,6 +2377,44 @@ namespace WebApps.CommonFunction
                 return new List<AppFeeFixInfo>();
             }
         }
+        public static List<AppFeeFixInfo> CallFee_C06(App_Detail_TM06DKQT_Info pDetail )
+        {
+            try
+            {
+                
+                pDetail.Appcode = "C06";
+
+                #region 1  Phí dịch vụ làm thủ tục đăng ký quốc tế nhãn hiệu đã nộp kèm theo
+                List<AppFeeFixInfo> _lstFeeFix = new List<AppFeeFixInfo>();
+                AppFeeFixInfo _AppFeeFixInfo1 = new AppFeeFixInfo();
+                _AppFeeFixInfo1.Fee_Id = 1;
+                _AppFeeFixInfo1.Isuse = 1;
+                _AppFeeFixInfo1.Number_Of_Patent = 1;
+                string _keyFee = pDetail.Appcode + "_" + _AppFeeFixInfo1.Fee_Id.ToString();
+                if (MemoryData.c_dic_FeeByApp_Fix.ContainsKey(_keyFee))
+                {
+                    _AppFeeFixInfo1.Fee_Name = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description;
+                    _AppFeeFixInfo1.Fee_Name_En = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Description_En;
+                    _AppFeeFixInfo1.Amount_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Usd * _AppFeeFixInfo1.Number_Of_Patent;
+                    _AppFeeFixInfo1.Amount = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount * _AppFeeFixInfo1.Number_Of_Patent;
+                    _AppFeeFixInfo1.Amount_Represent = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent * _AppFeeFixInfo1.Number_Of_Patent;
+                    _AppFeeFixInfo1.Amount_Represent_Usd = MemoryData.c_dic_FeeByApp_Fix[_keyFee].Amount_Represent_Usd * _AppFeeFixInfo1.Number_Of_Patent;
+
+                }
+                else
+                    _AppFeeFixInfo1.Amount = 2000000 * _AppFeeFixInfo1.Number_Of_Patent;
+                _lstFeeFix.Add(_AppFeeFixInfo1);
+                #endregion
+
+                
+                return _lstFeeFix;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<AppFeeFixInfo>();
+            }
+        }
 
         public static List<AppFeeFixInfo> CallFee_C07(C07_Info pDetail, List<AppClassDetailInfo> appClassDetailInfos)
         {

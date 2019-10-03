@@ -228,7 +228,7 @@
                         </div>
                         <div class="div-search-content">
                             <div>
-                                <input type="text" class="" id="_1_txtNgayNopDon" placeholder="@Resource.TM2B_Ngaynopdon" maxlength="10" readonly />
+                                <input type="text"class="datetimepicker"  id="_1_txtNgayNopDon" placeholder="@Resource.TM2B_Ngaynopdon" maxlength="10"   />
                             </div>
                         </div>
                     </div>
@@ -502,7 +502,17 @@
 </div>
 
 <script>
-
+    $(document).ready(function () {
+        $.datetimepicker.setLocale('vi');
+        $('.datetimepicker').datetimepicker({
+            timepicker: false,
+            format: 'd/m/Y',
+            formatDate: 'd/m/Y',
+            mask: '39/19/9999',
+            validateOnBlur: false,
+            scrollInput: false
+        });
+    });
     var _checkanh = 0;
     document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {
         _checkanh = 0;
@@ -650,7 +660,7 @@
                 return false;
             }
 
-            var v_AppCode = $("#txtAppCode").val();
+         
             var cbo_04nh_data = $("#cbo_04nh_data");
 
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
@@ -659,7 +669,6 @@
                 $("#_2_rdoNguoiDaiDienPL").focus();
                 return false;
             }
-           
 
             //Lấy thông tin detail
             var reponse = funcGetAppDetail(formData, _showerror);
@@ -672,15 +681,7 @@
             //trang thai
             formData.append("pInfo.Status", p_Status);
             // thông tin chủ đơn
-            reponse = funcThongTinChuDonNguoiDaiDien(formData, "_1")
-            if (reponse == false) {
-                return false;
-            }
-            // thông tin người đại diện
-            reponse = funcThongTinChuDonNguoiDaiDien(formData, "_2")
-            if (reponse == false) {
-                return false;
-            }
+         
             //Lấy thông tin file có trong đơn
             reponse = funGetThongTinFile(formData);
             if (reponse == false) {
@@ -696,10 +697,7 @@
                 return false;
             }
 
-            reponse = funcGetCamKetChuDon(formData);
-            if (reponse == false) {
-                return false;
-            }
+         
 
             $.ajax({
                 url: '/trade-mark-01/dang_ky_nhan_hieu',
@@ -754,6 +752,8 @@
     // lấy thông tin chi tiết đơn
     function funcGetAppDetail(formData, p_ShowError) {
         try {
+            var _1_txtNgayNopDon = $("#_1_txtNgayNopDon");
+            var cbo_04nh_data = $("#cbo_04nh_data");
             var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
             formData.append("pDetail.THANHVIEN_ND_TC", $("input[name='rad_thanhviennghidinhthu']:checked").val());
 
@@ -792,34 +792,22 @@
                 $("#cbo_04nh_data").multipleSelect("focus");
                 return false;
             }
-            
+
             if (_1_txtSoDonGCN.val() == "" && p_ShowError == 1) {
-                showError('@Resource.TM2B_ChonNgayNopDon');
-                _1_txtNgayNopDon.focus();
+                showError('@Resource.TM2B_ChonSoDon');
+                _1_txtSoDonGCN.focus();
                 return false;
             }
 
-            var _1_txtNgayNopDon = $("#_1_txtNgayNopDon");
+          
             if ((_1_txtNgayNopDon.val() == "" || _1_txtNgayNopDon.val() == "__/__/____") && p_ShowError == 1) {
                 showError('@Resource.TM2B_ChonNgayNopDon');
                 _1_txtNgayNopDon.focus();
                 return false;
             }
 
-
-            if (funcThongTinChuDonNguoiDaiDien(formData, "_1") != true) {
-                return false;
-            }
-
-            if (funcThongTinChuDonNguoiDaiDien(formData, "_2") != true) {
-                return false;
-            }
-
-            formData.append("pInfo.Appcode", v_AppCode);
-            if (funcThongTinChuDonNguoiDaiDien(formData, "_2") != true) {
-                return false;
-            }
-
+            formData.append("pInfo.Appcode", '@_appcode');
+          
             // danh sach quoc gia
             var _listNational = $("#_4_cboNational01").val() + "," + $("#_4_cboNational02").val() + "," + $("#_4_cboNational03").val() + "," + $("#_4_cboNational04").val()
                 + "," + $("#_4_cboNational05").val() + "," + $("#_4_cboNational06").val() + "," + $("#_4_cboNational07").val() + "," + $("#_4_cboNational08").val();
@@ -862,10 +850,6 @@
             formData.append("pDetail.COUNTRY_ID06_TEXT", $('#_4_cboNational06 option:selected').text());
             formData.append("pDetail.COUNTRY_ID07_TEXT", $('#_4_cboNational07 option:selected').text());
             formData.append("pDetail.COUNTRY_ID08_TEXT", $('#_4_cboNational08 option:selected').text());
-
-
-
-
 
 
             //formData.append("pDetail.PAGE_REMAIN", $("#_8_txtPageRemain").val());
@@ -1024,7 +1008,7 @@
             var _txtSoDonGCN =  $("#_1_txtSoDonGCN");
             if(_id.trim() != "")
             {
-               
+
                 _txtSoDonGCN.val($("#cbo_04nh_data option:selected" ).text().trim());
             }
             $.ajax({
@@ -1043,7 +1027,7 @@
                         //div_daidienchudon2a.html(data.ViewDaiDienChuDon);
                         div_appclass_2a.html(data.ViewAppClass);
                         FuncLoadAppClass();
-                     
+
                     }
                 },
                 error: function (e) {

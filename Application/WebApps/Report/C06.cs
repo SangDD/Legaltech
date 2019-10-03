@@ -16,14 +16,14 @@ namespace WebApps.Report {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class TM_06DKQT_EN : ReportClass {
+    public class C06 : ReportClass {
         
-        public TM_06DKQT_EN() {
+        public C06() {
         }
         
         public override string ResourceName {
             get {
-                return "TM_06DKQT_EN.rpt";
+                return "C06.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace WebApps.Report {
         
         public override string FullResourceName {
             get {
-                return "WebApps.Report.TM_06DKQT_EN.rpt";
+                return "WebApps.Report.C06.rpt";
             }
             set {
                 // Do nothing
@@ -90,9 +90,9 @@ namespace WebApps.Report {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedTM_06DKQT_EN : Component, ICachedReport {
+    public class CachedC06 : Component, ICachedReport {
         
-        public CachedTM_06DKQT_EN() {
+        public CachedC06() {
         }
         
         [Browsable(false)]
@@ -129,7 +129,7 @@ namespace WebApps.Report {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            TM_06DKQT_EN rpt = new TM_06DKQT_EN();
+            C06 rpt = new C06();
             rpt.Site = this.Site;
             return rpt;
         }

@@ -104,10 +104,11 @@
         [HttpPost]
         [Route("dang_ky_nhan_hieu")]
         public ActionResult AppDonDangKyInsert(ApplicationHeaderInfo pInfo, App_Detail_TM06DKQT_Info pDetail, List<AppDocumentInfo> pAppDocumentInfo,
-         List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo, List<AppFeeFixInfo> pFeeFixInfo)
+         List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo)
         {
             try
             {
+                 //List<AppFeeFixInfo> pFeeFixInfo
                 Application_Header_BL objBL = new Application_Header_BL();
                 AppDetail06DKQT_BL objDetailBL = new AppDetail06DKQT_BL();
                 AppClassDetailBL objClassDetail = new AppClassDetailBL();
@@ -121,14 +122,9 @@
                 int pAppHeaderID = 0;
                 string p_case_code = "";
 
-                foreach (AppFeeFixInfo item in pFeeFixInfo)
-                {
-                    if (item.Amount == 0)
-                    {
-                        // fix là 2 củ
-                        item.Amount = 2000000;
-                    }
-                }
+
+                List<AppFeeFixInfo> pFeeFixInfo = CommonFunction.Call_Fee.CallFee_C06(pDetail);
+                pDetail.LEPHI = (pFeeFixInfo[0] as AppFeeFixInfo).Amount;
                 using (var scope = new TransactionScope())
                 {
                     //
@@ -237,7 +233,7 @@
         [HttpPost]
         [Route("sua-don-dang-ky")]
         public ActionResult Edit_TM06DKQT(ApplicationHeaderInfo pInfo, App_Detail_TM06DKQT_Info pDetail,
-            List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo, List<AppClassDetailInfo> pAppClassInfo)
+            List<AppDocumentInfo> pAppDocumentInfo,   List<AppClassDetailInfo> pAppClassInfo)
         {
             try
             {
@@ -255,14 +251,8 @@
                 var CreatedBy = SessionData.CurrentUser.Username;
                 var CreatedDate = SessionData.CurrentUser.CurrentDate;
                 decimal pReturn = ErrorCode.Success;
-                foreach (AppFeeFixInfo item in pFeeFixInfo)
-                {
-                    if (item.Amount == 0)
-                    {
-                        // fix là 2 củ
-                        item.Amount = 2000000;
-                    }
-                }
+                List<AppFeeFixInfo> pFeeFixInfo = CommonFunction.Call_Fee.CallFee_C06(pDetail);
+                pDetail.LEPHI = (pFeeFixInfo[0] as AppFeeFixInfo).Amount;
                 using (var scope = new TransactionScope())
                 {
                     //
@@ -406,19 +396,17 @@
         }
 
         //[HttpPost]
-        [Route("ket_xuat_file")]
+        [Route("ket_xuat_file_IU")]
         public ActionResult ExportDataNew(ApplicationHeaderInfo pInfo, AppTM06DKQTInfoExport pDetail, List<AppDocumentInfo> pAppDocumentInfo,
             List<AppClassDetailInfo> pAppClassInfo)
         {
             try
             {
-
                 //  AppTM06DKQTInfoExport pDetail= new AppTM06DKQTInfoExport();
-
-                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/TM06DKQT_Request for_international_trademark_registration_vi_exp.doc");
+                string _fileTemp = System.Web.HttpContext.Current.Server.MapPath("/Content/AppForms/C06_Request for_international_trademark_registration_vi_exp.doc");
 
                 // Fill export_header
-                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "TM06DKQT_Request_for_international_trademark_registration_vi_exp_" + pInfo.Appcode + ".pdf");
+                string fileName = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C06_Request_for_international_trademark_registration_vi_exp_" + pInfo.Appcode + ".pdf");
                 // Fill export_detail  
                 pDetail.Status = 254;
                 pDetail.Status_Form = 252;
@@ -553,18 +541,23 @@
                 }
 
                 #endregion
-                pDetail.LEPHI = 2000000;
+                List<AppFeeFixInfo> pFeeFixInfo = CommonFunction.Call_Fee.CallFee_C06(pDetail);
+                pDetail.LEPHI = (pFeeFixInfo[0] as AppFeeFixInfo).Amount;
+                if (pInfo.Languague_Code == Language.LangEN)
+                {
+                    pDetail.LEPHI = (pFeeFixInfo[0] as AppFeeFixInfo).Amount_Usd;
+                }
                 List<AppTM06DKQTInfoExport> _lst = new List<AppTM06DKQTInfoExport>();
                 pDetail.LOGOURL = Server.MapPath(pDetail.LOGOURL);
                 _lst.Add(pDetail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<AppTM06DKQTInfoExport>(_lst, false);
 
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
-                string _tempfile = "TM_06DKQT.rpt";
+                string _tempfile = "C06.rpt";
                 //if(AppsCommon.GetCurrentLang() == Language.LangEN)
                 if (pInfo.Languague_Code != Language.LangVI)
                 {
-                    _tempfile = "TM_06DKQT_EN.rpt";
+                    _tempfile = "C06.rpt";
                 }
 
                 oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile), OpenReportMethod.OpenReportByTempCopy);
@@ -645,7 +638,7 @@
         {
             try
             {
-                ViewBag.FileName = "/Content/Export/" + "TM06DKQT_Request_for_international_trademark_registration_vi_exp_TM06DKQT.pdf";
+                ViewBag.FileName = "/Content/Export/" + "C06_Request_for_international_trademark_registration_vi_exp_C06.pdf";
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialContentPreview.cshtml");
             }
             catch (Exception ex)
@@ -799,7 +792,25 @@
             }
         }
 
+        [HttpPost]
+        [Route("getFeeView_View")]
+        public ActionResult GetFee_View(ApplicationHeaderInfo pInfo)
+        {
+            try
+            {
+                AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
+                List<AppFeeFixInfo> _lstFeeFix = _AppFeeFixBL.GetByCaseCode(pInfo.Case_Code);
+                ViewBag.LstFeeFix = _lstFeeFix;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
 
+            var PartialTableListFees = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Patent/Views/Shared/_PartialTableListFees.cshtml");
+            var json = Json(new { success = 1, PartialTableListFees });
+            return json;
+        }
 
 
     }

@@ -85,9 +85,9 @@
     }
 
     function funcPreViewApplication() {
-        var preturn = funGetData_Preview_C06("/conversion-international-trademark/ket_xuat_file");
+        var preturn = funGetData_Preview_C06("/trade-mark-01/ket_xuat_file");
         if (preturn == true || preturn == undefined) {
-            OpenPreview("/conversion-international-trademark/Pre-View");
+            OpenPreview("/trade-mark-01/Pre-View");
         }
 
         //Accept();
@@ -101,7 +101,7 @@
         formData.append("pInfo.Id", @_AppHeaderInfo.Id);
 
         $.ajax({
-            url: "/conversion-international-trademark/getFeeView_View",
+            url: "/trade-mark-01/getFeeView_View",
             type: 'POST',
             data: formData,
             dataType: "json",
