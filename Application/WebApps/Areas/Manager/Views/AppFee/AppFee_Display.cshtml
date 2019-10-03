@@ -1,0 +1,174 @@
+﻿@using Common.CommonData
+@using ObjectInfos;
+@using BussinessFacade;
+@using BussinessFacade.ModuleMemoryData
+@using WebApps.Resources;
+@{
+    ViewBag.Title = "Quản lý fee trong đơn";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+    string language = WebApps.Session.SessionData.CurrentUser.Language;
+}
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+</style>
+
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        <a href="/home">Home</a>
+        <span class="red">></span>
+        <a href="/quan-ly-billing/danh-sach-billing">@WebApps.Resources.Resource.QuanLyBilling</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+
+@*Notify*@
+<div class="divCover">
+    @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+</div>
+
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <input type="hidden" value="ALL|ALL|ALL|ALL|ALL" name="txtKeyValue" id="txtKeyValue" />
+            <input type="hidden" value="Billing_Id" name="txtSortColum" id="txtSortColumn" />
+            <input type="hidden" value="DESC" name="txtSortType" id="txtSortType" />
+            <div class="div-title-content"> @WebApps.Resources.Resource.ThongTinFee</div>
+        </div>
+    </div>
+
+    <div class="divCover" id="div-search-simple">
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.CaseCode</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtAppCaseCode" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div class="div-search-btn" style="width:600px;">
+            <input type="button" value="Tìm kiếm" class="btn-default" onclick="Search(1, 1)" />
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div id="divDataFee" class="divDataTables" style="overflow-x: auto;">
+            @Html.Partial("~/Areas/Manager/Views/AppFee/_PartialTableAppFee.cshtml")
+        </div>
+    </div>
+
+    <div id="divWrapperPopUpEdit" class="divWrapperPopup" style="display: none;">
+        <div class="divPopup" id="divPopUpEdit">
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#txtAppCaseCode').focus();
+        $("#txtAppCaseCode").keypress(function (evt) {
+            var key = evt.which || evt.charCode || evt.keyCode || 0;
+            if (key == 13) {
+                Search(1, 1);
+            }
+        });
+
+        Search(1, 1);
+    });
+
+    function jsPaging(page) {
+        Search(page, 0);
+    }
+
+    function Search(p_NumPage, p_type) {
+        try {
+            if (CheckSessionTimeOut() == false) {
+                return false;
+            }
+
+            var p_keysearch;
+            if (p_type == 1) {
+
+                var _txtAppCaseCode = $("#txtAppCaseCode").val();
+                if (_txtAppCaseCode == "") {
+                    _txtAppCaseCode = "ALL";
+                }
+                p_keysearch = _txtAppCaseCode;
+
+                //Lưu lại keysearch
+                $("#txtKeyValue").val(p_keysearch);
+
+            } else {
+                p_keysearch = $("#txtKeyValue").val();
+            }
+            var p_column = $("#txtSortColumn").val();
+            var p_type_sort = $("#txtSortType").val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/quan-ly-fee-app/danh-sach-app-fee/search/',
+                data: {
+                    p_keysearch: p_keysearch,
+                    p_CurrentPage: p_NumPage,
+                    p_column: p_column,
+                    p_type_sort: p_type_sort
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divDataFee").html(data);
+                }
+            });
+        }
+        catch (e) {
+            alert(e);
+        }
+    }
+
+    
+ 
+    function getView2Edit(_id, _app_case_code) {
+
+        $.ajax({
+            type: "POST",
+            url: "/quan-ly-fee-app/danh-sach-app-fee/show-edit",
+            data: {
+                id: _id,
+                case_code: _app_case_code
+            },
+            headers: { "cache-control": "no-cache" },
+            async: false,
+            success: function (data) {
+                if (data != null) {
+                    if (validateResponse(data)) {
+                        $("#divPopUpEdit").html(data);
+                        ShowPopupDialog_Ipace('divWrapperPopUpEdit', "Sửa thông tin fee", 800, 1200);
+                    }
+                }
+                return false;
+            }
+        });
+    }
+
+    function ClosePopUpEdit() {
+        CloseDivPopUp('divWrapperPopUpEdit');
+    }
+
+</script>

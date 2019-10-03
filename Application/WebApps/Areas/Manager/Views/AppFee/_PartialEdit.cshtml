@@ -1,0 +1,188 @@
+﻿@using BussinessFacade.ModuleMemoryData
+@using BussinessFacade.ModuleUsersAndRoles
+@using Common.CommonData
+@using ObjectInfos.ModuleTrademark;
+@{
+    AppFeeFixInfo _AppFeeFixInfo = new AppFeeFixInfo();
+    if (ViewBag.AppFeeFixInfo != null)
+    {
+        _AppFeeFixInfo = (AppFeeFixInfo)ViewBag.AppFeeFixInfo;
+    }
+}
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 145px;
+    }
+</style>
+
+<div class="" style="padding:5px 38px">
+    <div class="divCover divCover_popup">
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Tên phí<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtFee_Name" style="width: 500px;height: 30px; border: 1px solid #aaa; border-left: none;padding-left: 5px;" value="@_AppFeeFixInfo.Fee_Name" readonly />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Số đối tượng tính phí <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtNumber_Of_Patent" style="width: 174px;height: 30px; border: 1px solid #aaa; border-left: none;padding-left: 5px;" 
+                           value="@_AppFeeFixInfo.Number_Of_Patent" onkeyup="jsFormatNumber(this.value, this.id)" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Phí quốc gia VND <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtAmount" style="height: 30px; border: 1px solid #aaa; border-left: none;padding-left: 5px;"
+                           value="@_AppFeeFixInfo.Amount.ToString("#,##0")" onkeyup="jsFormatNumber(this.value, this.id)" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Phí quốc gia USD <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtAmount_Usd" style="width: 150px;height: 30px; border: 1px solid #aaa; border-left: none;padding-left: 5px;"
+                           value="@_AppFeeFixInfo.Amount_Usd.ToString("#,##0.##")" />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Phí đại diện VND <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtAmount_Represent" style="height: 30px; border: 1px solid #aaa; border-left: none;padding-left: 5px;"
+                           value="@_AppFeeFixInfo.Amount_Represent.ToString("#,##0")" onkeyup="jsFormatNumber(this.value, this.id)" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>Phí đại diện  USD <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtAmount_Represent_Usd" style="width: 150px;height: 30px; border: 1px solid #aaa; border-left: none;padding-left: 5px;"
+                           value="@_AppFeeFixInfo.Amount_Represent_Usd.ToString("#,##0.##")" />
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="form-group">
+        <div class="form-group-bottom">
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Luu" onclick="return doUpdate()" />
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+    });
+
+
+    function doUpdate() {
+        if (validateForm()) {
+
+            var formData = new FormData();
+            formData.append('appFeeFixInfo.Id', @_AppFeeFixInfo.Id);
+            formData.append('appFeeFixInfo.Number_Of_Patent', $("#txtNumber_Of_Patent").val().replace(/,/g, ''));
+            formData.append('appFeeFixInfo.Amount', $("#txtAmount").val().replace(/,/g, ''));
+            formData.append('appFeeFixInfo.Amount_Usd', $("#txtAmount_Usd").val().replace(/,/g, ''));
+            formData.append('appFeeFixInfo.Amount_Represent', $("#txtAmount_Represent").val().replace(/,/g, ''));
+            formData.append('appFeeFixInfo.Amount_Represent_Usd', $("#txtAmount_Represent_Usd").val().replace(/,/g, ''));
+
+            nvsConfirm(null, "Bạn có muốn cập nhật thông tin này hay không", function () {
+                $.ajax({
+                    url: '/quan-ly-fee-app/danh-sach-app-fee/do-edit',
+                    type: 'POST',
+                    data: formData,
+                    async: true, traditional: true, contentType: false, processData: false,
+                    headers: { "cache-control": "no-cache" },
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success > 0 ) {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                                ClosePopUpEdit();
+                                Search(1, 1);
+                            });
+                        }
+                        else {
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
+                            return false;
+                        }
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(true);
+                        console.log(e);
+                    }
+                });
+            });
+        }
+    }
+
+    function validateForm() {
+
+        if ($("#txtNumber_Of_Patent").val() === "") {
+            jError("Đối tượng tính phí không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                $('#txtNumber_Of_Patent').focus();
+            });
+            return false;
+        }
+
+        else if ($("#txtAmount").val() === "") {
+            jError("Phí quốc gia VNĐ không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                $('#txtAmount').focus();
+            });
+            return false;
+        }
+
+        else if ($("#txtAmount_Usd").val() === "") {
+            jError("Phí quốc gia USD không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                $('#txtAmount_Usd').focus();
+            });
+            return false;
+        }
+
+        else if ($("#txtAmount_Represent").val() === "") {
+            jError("Phí đại diện VNĐ không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                $('#txtAmount_Represent').focus();
+            });
+            return false;
+        }
+
+        else if ($("#txtAmount_Represent_Usd").val() === "") {
+            jError("Phí đại diện USD không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                $('#txtAmount_Represent_Usd').focus();
+            });
+            return false;
+        }
+
+        return true;
+    }
+
+
+</script>

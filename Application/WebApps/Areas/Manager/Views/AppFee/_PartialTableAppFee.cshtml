@@ -1,0 +1,63 @@
+﻿@using Common.CommonData
+@using Common.Extensions
+@using ObjectInfos.ModuleTrademark;
+@{
+    List<AppFeeFixInfo> _list_data = new List<AppFeeFixInfo>();
+    if (ViewBag.Obj != null)
+    {
+        _list_data = ViewBag.Obj;
+    }
+}
+
+<div>
+    <table class="table-lst-data" id="tableListGroupUser">
+        <thead>
+            <tr>
+                <th class="class30">STT</th>
+                <th class="class250">Fee name</th>
+                <th class="class100">Áp dụng phí ?</th>
+                <th class="class100">Đối tượng tính phí</th>
+                <th class="class100">Phí quốc gia VND</th>
+                <th class="class100">Phí quốc gia USD</th>
+
+                <th class="class100">Phí đại diện VND</th>
+                <th class="class100">Phí đại diện USD</th>
+                <th class="class100">@WebApps.Resources.Resource.ChucNang</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (_list_data.Count > 0)
+            {
+                foreach (var item in _list_data)
+                {
+                    <tr>
+                        <td class="tdcenteralign">@item.STT</td>
+                        <td class="tdleftalign">@item.Fee_Name</td>
+                        <td class="tdleftalign">@item.Isuse</td>
+                        <td class="tdcenteralign">@item.Number_Of_Patent</td>
+                        <td class="tdcenteralign">@item.Amount.ToString("#,##0.##")</td>
+                        <td class="tdcenteralign">@item.Amount_Usd.ToString("#,##0.##")</td>
+                        <td class="tdcenteralign">@item.Amount_Represent.ToString("#,##0.##")</td>
+                        <td class="tdcenteralign">@item.Amount_Represent_Usd.ToString("#,##0.##")</td>
+
+                        <td class="tdcenteralign">
+                            <a href="javascript:;" onclick="getView2Edit(@item.Id, '@item.Case_Code')" class="icon icon-edit" data-title="Sửa"></a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="9">@WebApps.Resources.Resource.KhongCoDuLieu</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="_ClassPage">
+    <ul>
+        @Html.Raw(ViewBag.Paging)
+    </ul>
+</div>

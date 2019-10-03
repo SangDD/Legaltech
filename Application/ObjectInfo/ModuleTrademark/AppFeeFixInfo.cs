@@ -17,7 +17,10 @@ namespace ObjectInfos.ModuleTrademark
             Level = 0;
         }
 
+        public decimal STT { get; set; }
         public decimal Id { get; set; }
+        public string AppCode { get; set; }
+
         public string Case_Code { get; set; }
         //public decimal App_Header_Id { get; set; }
         public decimal Amount { get; set; }
