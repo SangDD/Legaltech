@@ -23,6 +23,8 @@
     {
         _FirstTodo = _Listtodo[0];
     }
+
+    string language = WebApps.CommonFunction.AppsCommon.GetCurrentLang();
 }
 
 <style>
@@ -173,7 +175,15 @@
         }
 
         _count++;
-        <div class="@("progress_div_text" +  _count)"> @item.Content_Eng</div>
+
+        if (language.Contains("VN"))
+        {
+            <div class="@("progress_div_text" +  _count)"> @item.Content</div>
+        }
+        else
+        {
+            <div class="@("progress_div_text" +  _count)"> @item.Content_Eng</div>
+        }
     }
 </div>
 <div style="width:100%;float:left;margin-top:0px">
@@ -195,11 +205,12 @@
             _Checked = "checked='checked'";
         }
 
-        <div class="progress_div_radio"><input type="radio" name="name" disabled @_Checked /></div>
+        <div class="progress_div_radio"><input type="checkbox" name="name" disabled @_Checked /></div>
         <hr class="progress_hr" />
     }
 </div>
-@if (_Listtodo.Count > 0)
+
+@*@if (_Listtodo.Count > 0)
 {
     <div style="width:100%;float:left; margin-top:0px">
         @{
@@ -223,5 +234,5 @@
             }
         }
     </div>
-}
+}*@
 

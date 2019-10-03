@@ -29,6 +29,8 @@
     {
         _App_Notice_Info = (App_Notice_Info)ViewBag.App_Notice_Info;
     }
+
+    string language = WebApps.CommonFunction.AppsCommon.GetCurrentLang();
 }
 
 <style>
@@ -131,7 +133,7 @@
         margin-left: calc(12% - 29px + 22px - 90px + 18px);
     }
 
-     
+
     .user_hidden {
         visibility: hidden
     }
@@ -153,7 +155,16 @@
         }
 
         _count++;
-        <div class="@("progress_div_sub_text" +  _count)"> @item.Content_Eng</div>
+
+        if (language.Contains("VN"))
+        {
+            <div class="@("progress_div_sub_text" +  _count)"> @item.Content</div>
+        }
+        else
+        {
+            <div class="@("progress_div_sub_text" +  _count)"> @item.Content_Eng</div>
+        }
+
     }
 </div>
 <div style="width:100%;float:left;margin-top:0px">
@@ -174,7 +185,7 @@
         {
             _Checked = "checked='checked'";
         }
-        <div class="progress_div_radio_sub"><input type="radio" name="name" disabled @_Checked /></div>
+        <div class="progress_div_radio_sub"><input type="checkbox" name="name" disabled @_Checked /></div>
         <hr class="progress_hr_sub" />
     }
 </div>

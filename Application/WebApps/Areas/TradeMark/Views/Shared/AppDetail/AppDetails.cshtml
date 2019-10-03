@@ -49,6 +49,8 @@
     {
         _hardStatus = (decimal)ViewBag.Hard_Status;
     }
+
+    string language = WebApps.CommonFunction.AppsCommon.GetCurrentLang();
 }
 
 <style>
@@ -334,7 +336,17 @@
             {
                 break;
             }
-            <div class="@("progress_div_text" +  _count)"> @item.Content_Eng</div>
+
+            @*<div class="@("progress_div_text" +  _count)"> @item.Content_Eng</div>*@
+
+            if (language.Contains("VN"))
+            {
+                <div class="@("progress_div_text" +  _count)"> @item.Content</div>
+            }
+            else
+            {
+                <div class="@("progress_div_text" +  _count)"> @item.Content_Eng</div>
+            }
         }
     </div>
     <div style="width:100%;float:left;margin-top:7px">
