@@ -2245,42 +2245,73 @@ namespace WebApps.CommonFunction
                 }
                 if (_lstFeeFix.Count > 1)
                 {
-                    pDetail.Fee_Id_2 = _lstFeeFix[1].Number_Of_Patent;
-                    pDetail.Fee_Id_2_Check = _lstFeeFix[1].Isuse;
-                    pDetail.Fee_Id_2_Val = _lstFeeFix[1].Amount.ToString("#,##0.##");
+                    pDetail.Fee_Id_2A = _lstFeeFix[1].Number_Of_Patent;
+                    pDetail.Fee_Id_2A_Check = _lstFeeFix[1].Isuse;
+                    pDetail.Fee_Id_2A_Val = _lstFeeFix[1].Amount.ToString("#,##0.##");
                     pDetail.Total_Fee = pDetail.Total_Fee + _lstFeeFix[1].Amount;
                 }
 
                 if (_lstFeeFix.Count > 2)
                 {
-                    pDetail.Fee_Id_21 = _lstFeeFix[2].Number_Of_Patent;
-                    pDetail.Fee_Id_21_Check = _lstFeeFix[2].Isuse;
-                    pDetail.Fee_Id_21_Val = _lstFeeFix[2].Amount.ToString("#,##0.##");
+                    pDetail.Fee_Id_2B = _lstFeeFix[2].Number_Of_Patent;
+                    pDetail.Fee_Id_2B_Check = _lstFeeFix[2].Isuse;
+                    pDetail.Fee_Id_2B_Val = _lstFeeFix[2].Amount.ToString("#,##0.##");
                     pDetail.Total_Fee = pDetail.Total_Fee + _lstFeeFix[2].Amount;
                 }
 
                 if (_lstFeeFix.Count > 3)
                 {
-                    pDetail.Fee_Id_3 = _lstFeeFix[3].Number_Of_Patent;
-                    pDetail.Fee_Id_3_Check = _lstFeeFix[3].Isuse;
-                    pDetail.Fee_Id_3_Val = _lstFeeFix[3].Amount.ToString("#,##0.##");
+                    pDetail.Fee_Id_2C = _lstFeeFix[3].Number_Of_Patent;
+                    pDetail.Fee_Id_2C_Check = _lstFeeFix[3].Isuse;
+                    pDetail.Fee_Id_2C_Val = _lstFeeFix[3].Amount.ToString("#,##0.##");
                     pDetail.Total_Fee = pDetail.Total_Fee + _lstFeeFix[3].Amount;
                 }
 
+
                 if (_lstFeeFix.Count > 4)
                 {
-                    pDetail.Fee_Id_4 = _lstFeeFix[4].Number_Of_Patent;
-                    pDetail.Fee_Id_4_Check = _lstFeeFix[4].Isuse;
-                    pDetail.Fee_Id_4_Val = _lstFeeFix[4].Amount.ToString("#,##0.##");
+                    pDetail.Fee_Id_21 = _lstFeeFix[4].Number_Of_Patent;
+                    pDetail.Fee_Id_21_Check = _lstFeeFix[4].Isuse;
+                    pDetail.Fee_Id_21_Val = _lstFeeFix[4].Amount.ToString("#,##0.##");
                     pDetail.Total_Fee = pDetail.Total_Fee + _lstFeeFix[4].Amount;
                 }
 
                 if (_lstFeeFix.Count > 5)
                 {
-                    pDetail.Fee_Id_5 = _lstFeeFix[5].Number_Of_Patent;
-                    pDetail.Fee_Id_5_Check = _lstFeeFix[5].Isuse;
-                    pDetail.Fee_Id_5_Val = _lstFeeFix[5].Amount.ToString("#,##0.##");
+                    pDetail.Fee_Id_3A = _lstFeeFix[5].Number_Of_Patent;
+                    pDetail.Fee_Id_3A_Check = _lstFeeFix[5].Isuse;
+                    pDetail.Fee_Id_3A_Val = _lstFeeFix[5].Amount.ToString("#,##0.##");
                     pDetail.Total_Fee = pDetail.Total_Fee + _lstFeeFix[5].Amount;
+                }
+                if (_lstFeeFix.Count > 6)
+                {
+                    pDetail.Fee_Id_3B = _lstFeeFix[6].Number_Of_Patent;
+                    pDetail.Fee_Id_3B_Check = _lstFeeFix[6].Isuse;
+                    pDetail.Fee_Id_3B_Val = _lstFeeFix[6].Amount.ToString("#,##0.##");
+                    pDetail.Total_Fee = pDetail.Total_Fee + _lstFeeFix[6].Amount;
+                }
+                if (_lstFeeFix.Count > 7)
+                {
+                    pDetail.Fee_Id_3C = _lstFeeFix[7].Number_Of_Patent;
+                    pDetail.Fee_Id_3C_Check = _lstFeeFix[7].Isuse;
+                    pDetail.Fee_Id_3C_Val = _lstFeeFix[7].Amount.ToString("#,##0.##");
+                    pDetail.Total_Fee = pDetail.Total_Fee + _lstFeeFix[7].Amount;
+                }
+
+                if (_lstFeeFix.Count >8)
+                {
+                    pDetail.Fee_Id_4 = _lstFeeFix[8].Number_Of_Patent;
+                    pDetail.Fee_Id_4_Check = _lstFeeFix[8].Isuse;
+                    pDetail.Fee_Id_4_Val = _lstFeeFix[8].Amount.ToString("#,##0.##");
+                    pDetail.Total_Fee = pDetail.Total_Fee + _lstFeeFix[8].Amount;
+                }
+
+                if (_lstFeeFix.Count > 9)
+                {
+                    pDetail.Fee_Id_5 = _lstFeeFix[9].Number_Of_Patent;
+                    pDetail.Fee_Id_5_Check = _lstFeeFix[9].Isuse;
+                    pDetail.Fee_Id_5_Val = _lstFeeFix[9].Amount.ToString("#,##0.##");
+                    pDetail.Total_Fee = pDetail.Total_Fee + _lstFeeFix[9].Amount;
                 }
 
           

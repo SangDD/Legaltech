@@ -464,13 +464,18 @@ namespace WebApps.Areas.TradeMark.Controllers
                         pDetail.Note = pDetail.Note.Substring(0, pDetail.Note.Length - 2);
                     }
                 }
+                if (pDetail.App_Change_Detail != null)
+                {
+                    pDetail.Number_Count_Detail = pDetail.App_Change_Detail.Split(',').Length;
+                }
+                
                 _lst.Add(pDetail);
 
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_C02_Info>(_lst, false);
                 _ds_all.WriteXml(@"D:\C02.xml", XmlWriteMode.WriteSchema);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
-                string _tempfile = "C02.rpt";
+                string _tempfile = "C02_EN.rpt";
                 if (language == Language.LangEN)
                 {
                     _tempfile = "C02_EN.rpt";

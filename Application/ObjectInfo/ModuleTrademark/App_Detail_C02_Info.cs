@@ -89,21 +89,40 @@ namespace ObjectInfos
         public int Number_Point { get; set; }
         public int Number_Year { get; set; }
 
+        public int Number_Count_Detail { get; set; }
+
         public decimal Fee_Id_1 { get; set; }
         public decimal Fee_Id_1_Check { get; set; }
         public string Fee_Id_1_Val { get; set; }
 
-        public decimal Fee_Id_2 { get; set; }
-        public decimal Fee_Id_2_Check { get; set; }
-        public string Fee_Id_2_Val { get; set; }
+        public decimal Fee_Id_2A { get; set; }
+        public decimal Fee_Id_2A_Check { get; set; }
+        public string Fee_Id_2A_Val { get; set; }
+
+        public decimal Fee_Id_2B { get; set; }
+        public decimal Fee_Id_2B_Check { get; set; }
+        public string Fee_Id_2B_Val { get; set; }
+
+        public decimal Fee_Id_2C { get; set; }
+        public decimal Fee_Id_2C_Check { get; set; }
+        public string Fee_Id_2C_Val { get; set; }
+
 
         public decimal Fee_Id_21 { get; set; }
         public decimal Fee_Id_21_Check { get; set; }
         public string Fee_Id_21_Val { get; set; }
 
-        public decimal Fee_Id_3 { get; set; }
-        public decimal Fee_Id_3_Check { get; set; }
-        public string Fee_Id_3_Val { get; set; }
+        public decimal Fee_Id_3A { get; set; }
+        public decimal Fee_Id_3A_Check { get; set; }
+        public string Fee_Id_3A_Val { get; set; }
+
+        public decimal Fee_Id_3B { get; set; }
+        public decimal Fee_Id_3B_Check { get; set; }
+        public string Fee_Id_3B_Val { get; set; }
+
+        public decimal Fee_Id_3C { get; set; }
+        public decimal Fee_Id_3C_Check { get; set; }
+        public string Fee_Id_3C_Val { get; set; }
 
 
         public decimal Fee_Id_4 { get; set; }
