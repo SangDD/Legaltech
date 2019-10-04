@@ -185,6 +185,12 @@
         window.location.href = url;
     }
 
+    $(document).ajaxError(function (e, xhr, opts) {
+        if (xhr.status == 403 && xhr.responseText.indexOf("Session_TimeOut") != -1) {
+            window.location.href = "/account/login";
+        }
+    });
+
     function gotoTaskWiki(el) {
         var url = $(el).attr("data-url");
         window.open('url', '_blank');

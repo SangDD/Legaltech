@@ -19,10 +19,7 @@ namespace WebApps.Areas.Home.Controllers
     [Route("{action}")]
     public class WikiController : Controller
     {
-
-
         [HttpGet]
-
         [Route("doc-view/{id}/{id1}")]
         public ActionResult ViewWiki()
         {
@@ -177,9 +174,6 @@ namespace WebApps.Areas.Home.Controllers
             ViewBag.ListObject = lstOjects;
             return PartialView("/Areas/Home/Views/Wiki/_PartialListChilCataByParent.cshtml");
         }
-
-
-        // GET: Home/Wiki
 
         /// <summary>
         /// Sangdd 
@@ -397,34 +391,5 @@ namespace WebApps.Areas.Home.Controllers
             }
             return View("~/Areas/Home/Views/Wiki/ChildCatalogue.cshtml");
         }
-
-
-        //[HttpPost]
-        //[Route("SearchWikiInChilCata")]
-        //public ActionResult SearchWikiInChilCata(string keysSearch, string options)
-        //{
-        //    WikiDoc_BL _WikiBL = new WikiDoc_BL();
-        //    var lstOjects = new List<WikiDoc_Info>();
-        //    try
-        //    {
-        //        List<WikiDoc_Info> _ListDocSearch = new List<WikiDoc_Info>();
-        //        _ListDocSearch = _WikiBL.PortalWikiDoc_Search("3|" + _Cataid.ToString() + "|ALL|" + AppsCommon.GetCurrentLang());
-        //        ViewBag.Paging = _WikiBL.GetPagingHtml();
-        //        ViewBag.ListDocSearch = _ListDocSearch;
-        //        WikiCatalogue_BL _Catabl = new WikiCatalogue_BL();
-        //        WikiCatalogues_Info _Catainfo = new WikiCatalogues_Info();
-        //        _Catainfo = _Catabl.WikiCatalogue_GetByID(_Cataid);
-        //        ViewBag.CatalogueInfo = _Catainfo;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Logger.LogException(ex);
-        //    }
-        //    ViewBag.ListDocSearch = lstOjects;
-        //    return PartialView("/Areas/Home/Views/Wiki/_PartialListDocByCata.cshtml");
-        //}
-
-
-
     }
 }
