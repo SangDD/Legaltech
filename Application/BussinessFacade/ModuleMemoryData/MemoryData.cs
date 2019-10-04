@@ -58,6 +58,7 @@
         public static Dictionary<string, Sys_Search_Fix_Info> c_dic_FeeBySearch = new Dictionary<string, Sys_Search_Fix_Info>();
         //public static Dictionary<string, string> c_dic_Injection = new Dictionary<string, string>();
 
+        public static Dictionary<string, Sys_Pages_Info> c_dic_Sys_Pages = new Dictionary<string, Sys_Pages_Info>();
 
         public static void LoadAllMemoryData()
         {
@@ -147,7 +148,27 @@
 
                 GetCacheDDSHCN();
 
+                // load thông tin page
+                Load_Sys_page();
+
                 Logger.LogInfo("Load memory sucess MemoryData.c_dic_FeeByApp_Fix count " + MemoryData.c_dic_FeeByApp_Fix.Count);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+        }
+
+        public static void Load_Sys_page()
+        {
+            try
+            {
+                Sys_Pages_BL _bl = new Sys_Pages_BL();
+                List<Sys_Pages_Info> _lst = _bl.Sys_Pages_GetAll();
+                foreach (Sys_Pages_Info item in _lst)
+                {
+                    c_dic_Sys_Pages[item.Code] = item;
+                }
             }
             catch (Exception ex)
             {

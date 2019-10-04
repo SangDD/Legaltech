@@ -131,5 +131,21 @@ namespace DataAccess
             }
         }
 
+        public DataSet Sys_Pages_GetAll()
+        {
+            try
+            {
+                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_sys_pages.proc_getall",
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+                return _ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+        
+
     }
 }

@@ -29,13 +29,36 @@ namespace BussinessFacade
             }
         }
 
+        public List<Sys_Pages_Info> Sys_Pages_GetAll()
+        {
+            try
+            {
+                Sys_Pages_DA _da = new Sys_Pages_DA();
+                DataSet _ds = _da.Sys_Pages_GetAll();
+                return CBO<Sys_Pages_Info>.FillCollectionFromDataSet(_ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<Sys_Pages_Info>();
+            }
+        }
+
         public Sys_Pages_Info Sys_Pages_GetBy_Code(string p_code)
         {
             try
             {
-                Sys_Pages_DA objDA = new Sys_Pages_DA();
-                DataSet ResultData = objDA.Sys_Pages_GetBy_Code(p_code);
-                return CBO<Sys_Pages_Info>.FillObjectFromDataSet(ResultData);
+                //Sys_Pages_DA objDA = new Sys_Pages_DA();
+                //DataSet ResultData = objDA.Sys_Pages_GetBy_Code(p_code);
+                //return CBO<Sys_Pages_Info>.FillObjectFromDataSet(ResultData);
+                if (ModuleMemoryData.MemoryData.c_dic_Sys_Pages.ContainsKey(p_code))
+                {
+                    return ModuleMemoryData.MemoryData.c_dic_Sys_Pages[p_code];
+                }
+                else
+                {
+                    return new Sys_Pages_Info();
+                }
             }
             catch (Exception ex)
             {

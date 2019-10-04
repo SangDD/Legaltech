@@ -135,6 +135,10 @@ namespace WebApps.Areas.Sys_Pages.Controllers
                 p_Sys_Pages_Info.Created_By = CreatedBy;
                 var objBL = new Sys_Pages_BL();
                 preturn = objBL.Sys_Pages_Insert(p_Sys_Pages_Info);
+                if (preturn >= 0)
+                {
+                    MemoryData.Load_Sys_page();
+                }
 
                 return Json(new { status = preturn });
             }
@@ -161,6 +165,10 @@ namespace WebApps.Areas.Sys_Pages.Controllers
                 _Info.Modified_By = ModifiedBy;
 
                 preturn = objBL.Sys_Pages_Deleted(_Info);
+                if (preturn >= 0)
+                {
+                    MemoryData.Load_Sys_page();
+                }
                 return Json(new { status = preturn });
             }
             catch (Exception ex)
@@ -217,7 +225,10 @@ namespace WebApps.Areas.Sys_Pages.Controllers
                 p_Sys_Pages_Info.Modified_By = SessionData.CurrentUser.Username;
                 var objBL = new Sys_Pages_BL();
                 decimal preturn = objBL.Sys_Pages_Update(p_Sys_Pages_Info);
-
+                if (preturn >= 0)
+                {
+                    MemoryData.Load_Sys_page();
+                }
                 return Json(new { status = preturn });
             }
             catch (Exception ex)
