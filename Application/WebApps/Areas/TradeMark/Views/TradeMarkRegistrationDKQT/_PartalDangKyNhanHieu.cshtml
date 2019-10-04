@@ -379,13 +379,7 @@
 
         @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml")
 
-            <div style="display:none">
-                <div class="divCover cls_form_title">
-                    <img src="~/Content/icons/category.png" />
-                    <div class="cls_form_header">
-                        @Resource.DanhChoLuatSu
-                    </div>
-                </div>
+             
                 @*phải ẩn đi ở form thêm mới do luật sư tự nhập*@
 
                 @* 1. Tài tờ khai *@
@@ -477,7 +471,6 @@
                     </div>
                 </div>*@
 
-            </div>
 
             <div class="class_save">
                 <div class="classGuiDon">
@@ -827,7 +820,7 @@
 
             var v_don_giaydknhcs = $("input[name='_01_rad_DonDkOrGiayDK']:checked").val();
             formData.append("pDetail.DON_GIAY_DKNHCS", v_don_giaydknhcs);
-            formData.append("pDetail.REF_APPNO", $("#cbo_04nh_data").val());
+            formData.append("pDetail.REF_APPNO", _1_txtSoDonGCN.val());
             var REF_APPNO_TEXT = "";
             if($('#cbo_04nh_data').val() != "" && $('#cbo_04nh_data').val() !=null)
             {
