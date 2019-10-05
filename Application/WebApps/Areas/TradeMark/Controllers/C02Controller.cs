@@ -468,7 +468,11 @@ namespace WebApps.Areas.TradeMark.Controllers
                 {
                     pDetail.Number_Count_Detail = pDetail.App_Change_Detail.Split(',').Length;
                 }
-                
+                if (pDetail.App_No_Change != null)
+                {
+                    pDetail.Number_Count_App_No_Change = pDetail.App_No_Change.Split(',').Length;
+                }
+
                 _lst.Add(pDetail);
 
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_C02_Info>(_lst, false);

@@ -90,6 +90,7 @@ namespace ObjectInfos
         public int Number_Year { get; set; }
 
         public int Number_Count_Detail { get; set; }
+        public int Number_Count_App_No_Change { get; set; }
 
         public decimal Fee_Id_1 { get; set; }
         public decimal Fee_Id_1_Check { get; set; }
