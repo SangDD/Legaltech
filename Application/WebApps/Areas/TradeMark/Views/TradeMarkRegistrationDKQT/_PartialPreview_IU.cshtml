@@ -123,7 +123,7 @@
                 return false;
             }
             $.ajax({
-                url: '/conversion-international-trademark/ket_xuat_file_IU',
+                url: '/trade-mark-01/ket_xuat_file_IU',
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -160,9 +160,9 @@
     }
 
     function funcPreViewApplication_IU() {
-        var preturn = funGetData_Preview_UI_C06("/conversion-international-trademark/ket_xuat_file_IU");
+        var preturn = funGetData_Preview_UI_C06("/trade-mark-01/ket_xuat_file_IU");
         if (preturn == true || preturn == undefined) {
-            OpenPreview("/conversion-international-trademark/Pre-View");
+            OpenPreview("/trade-mark-01/Pre-View");
         }
     }
 
@@ -216,7 +216,7 @@
         }
 
         $.ajax({
-            url: "/conversion-international-trademark/getFee",
+            url: "/trade-mark-01/getFee",
             type: 'POST',
             data: formData,
             dataType: "json",

@@ -412,7 +412,10 @@
                 pDetail.Status_Form = 252;
                 pDetail.Relationship = "11";
                 pDetail.strNgayNopDon = pDetail.NGAYNOPDON.ToDateStringN0();
-                pDetail.REF_APPNO_TEXT = pDetail.REF_APPNO_TEXT.Trim();
+                if(pDetail.REF_APPNO_TEXT != null)
+                {
+                    pDetail.REF_APPNO_TEXT = pDetail.REF_APPNO_TEXT.Trim();
+                }
                 pDetail = CreateInstanceTM06DKQT.CopyAppHeaderInfo(pDetail, pInfo);
 
                 if (pAppClassInfo != null)
@@ -454,7 +457,10 @@
                 }
 
                 #region hiển thị tài liệu đính kèm
-
+                if(pAppDocumentInfo == null)
+                {
+                    pAppDocumentInfo = new List<AppDocumentInfo>();
+                }
                 foreach (AppDocumentInfo item in pAppDocumentInfo)
                 {
                     if (item.Document_Id == "C06DKQT_D_01")
@@ -790,6 +796,24 @@
                 Logger.LogException(ex);
                 return Json(new { status = ErrorCode.Error });
             }
+        }
+        [HttpPost]
+        [Route("getFee")]
+        public ActionResult GetFee(App_Detail_TM06DKQT_Info pDetail)
+        {
+            try
+            {
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C06(pDetail);
+                ViewBag.LstFeeFix = _lstFeeFix;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            var PartialTableListFees = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Patent/Views/Shared/_PartialTableListFees.cshtml");
+            var json = Json(new { success = 1, PartialTableListFees });
+            return json;
         }
 
         [HttpPost]

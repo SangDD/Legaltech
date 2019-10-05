@@ -377,7 +377,7 @@
 
             @* Cam kết của chủ đơn *@
 
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialCamketChuDon.cshtml")
+        @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml")
 
             <div style="display:none">
                 <div class="divCover cls_form_title">
@@ -664,7 +664,7 @@
             var cbo_04nh_data = $("#cbo_04nh_data");
 
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-            if (v_RepMasterType == "" || v_RepMasterType == undefined) {
+            if ((v_RepMasterType == "" || v_RepMasterType == undefined) && _showerror == 1 ) {
                 showError('@Resource.TM2B_ChonDaiDienChuDon');
                 $("#_2_rdoNguoiDaiDienPL").focus();
                 return false;
@@ -812,7 +812,7 @@
             var _listNational = $("#_4_cboNational01").val() + "," + $("#_4_cboNational02").val() + "," + $("#_4_cboNational03").val() + "," + $("#_4_cboNational04").val()
                 + "," + $("#_4_cboNational05").val() + "," + $("#_4_cboNational06").val() + "," + $("#_4_cboNational07").val() + "," + $("#_4_cboNational08").val();
             _listNational = _listNational.replace(/null/g, '');
-            if (_listNational.replace(/,/g, '') == "") {
+            if (_listNational.replace(/,/g, '') == "" && p_ShowError == 1) {
                 showError('@Resource.TM2B_ChonNuocDKNH');
                 $("#_4_cboNational01").multipleSelect("focus");
                 return false;
@@ -828,9 +828,13 @@
             var v_don_giaydknhcs = $("input[name='_01_rad_DonDkOrGiayDK']:checked").val();
             formData.append("pDetail.DON_GIAY_DKNHCS", v_don_giaydknhcs);
             formData.append("pDetail.REF_APPNO", $("#cbo_04nh_data").val());
+            var REF_APPNO_TEXT = "";
+            if($('#cbo_04nh_data').val() != "" && $('#cbo_04nh_data').val() !=null)
+            {
+                REF_APPNO_TEXT = $('#cbo_04nh_data option:selected').text();
+            }
 
-            formData.append("pDetail.REF_APPNO_TEXT", $('#cbo_04nh_data option:selected').text());
-
+            formData.append("pDetail.REF_APPNO_TEXT", REF_APPNO_TEXT);
             formData.append("pDetail.NGAYNOPDON", $("#_1_txtNgayNopDon").val());
 
             formData.append("pDetail.COUNTRY_ID01", $("#_4_cboNational01").val() == null || $("#_4_cboNational01").val() == "-1" ? "" : $("#_4_cboNational01").val());
@@ -1041,6 +1045,89 @@
     }
 
 
+    
+    function funcChuDonKhac(formData) {
+        try {
+            var _index = 0;
+            $(".clsChuDonKhac").each(function (item) {
+                var _id = $(this).attr('data-id');
+                if ($("#" + _id + "_txtUse_ChuDonKhac").val() == "1") {
+
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Name", $("#" + _id + "_txtTenDayDu_Khac").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Address", $("#" + _id + "_txtDiaChi_Khac").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Phone", $("#" + _id + "_txtDienThoai_Khac").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Fax", $("#" + _id + "_txtFax_Khac").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Email", $("#" + _id + "_txtEmail_Khac").val());
+
+                    if ($("#" + _id + "_ckbTacGiaDongThoi").is(':checked')) {
+                        formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "TGDT");
+                    } else {
+                        formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "");
+                    }
+
+                    if ($("#" + _id + "_ckbPhoBan").is(':checked')) {
+                        formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "PB");
+                    } else {
+                        formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "");
+                    }
+
+                    _index = _index + 1;
+                }
+            });
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    
+    function funGetDocumentFile(formData) {
+        try {
+            var item = 0;
+            var Isuse = 0, Note = "", reponse = false;
+            var _txtid01 = "";
+            var _txtid02 = "";
+            $(".checkbox_appdocument").each(function () {
+                Isuse = 0;
+                Note = "";
+                reponse = false;
+                var _checkboxname = $(this).attr("id");
+                var _txtIndexID  = item.toString();
+                if(item <= 9)
+                {
+                    _txtIndexID = "0" + _txtIndexID;
+                }
+                var _txtid01 = "txt_DOC_" + _txtIndexID;
+                var _txtid02 = "txt_DOC_" + _txtIndexID + "_2";
+                reponse = funcGetCheckValueAndText(formData, _checkboxname, item);
+                formData.append("pAppDocumentInfo["+item+"].CHAR01", FuncGetValDocById(_txtid01));
+                formData.append("pAppDocumentInfo["+item+"].CHAR02",FuncGetValDocById(_txtid02));
+                item++;
+            });
+            return true;
+        }
+        catch (e) {
+            console.log(e);
+            return false;
+        }
+    }
+    
+
+    function funcGetTenTaiLieuKhac(formData) {
+        try {
+            var item = 0;
+            if ($("#ckb_DOC_10").is(":checked") == true) {
+                $(".clssListUpload").each(function () {
+                    formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", this.id);
+                    formData.append("pAppDocOtherInfo[" + item + "].Documentname", $("#" + this.id).val());
+                    item++;
+                });
+            }
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
 
 
 
